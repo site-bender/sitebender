@@ -17,7 +17,7 @@ Primary risks: heuristic false positives, silent omissions (other functions igno
 | Single-line description | Extracted automatically | YES (only first function, plain `//`) | Low | Expand taxonomy
 | Signature extraction | Full TypeScript signature | Partial (regex + crude AST path) | Med | Delegate to parser lib
 | Multi-function files | All functions documented | Only first function | High | Iterate exports
-| Comment taxonomy (`//++ //?? //--`) | Drives docs, examples, tech debt | NOT IMPLEMENTED | High | Add scanner
+| Comment taxonomy (`// //++ //?? //-- //!!`) | Drives docs, examples, tech debt, critical issues | PARTIAL (missing //!!) | High | Add scanner
 | Example extraction (comments) | Automatic & validated | NOT IMPLEMENTED | High | Phase 1
 | Example extraction (tests) | Harvest from tests | NOT IMPLEMENTED | High | Phase 2
 | Mathematical properties | Proven by Prover | Heuristic name/token guesses | High (false claims) | Gate & annotate
@@ -28,6 +28,7 @@ Primary risks: heuristic false positives, silent omissions (other functions igno
 | Related functions | Automatic discovery | Empty array | Med | Basic co-occurrence
 | HTML / JSON parity | Fully supported | Markdown only (HTML fallback) | Low | Implement templates
 | Tech debt extraction | `//--` aggregated | NOT IMPLEMENTED | Med | Add extractor
+| Critical issue extraction | `//!!` with categories | NOT IMPLEMENTED | High | Add extractor
 | Proof integration | Formal verification | None | High | Defer until Prover ready
 | Confidence / rationale | Transparent | None | High | New detector contract
 | Integration tests | Behavior-level | Missing (unitish only) | Med | Add golden tests
@@ -37,7 +38,8 @@ Primary risks: heuristic false positives, silent omissions (other functions igno
 ## 3. Phase Plan
 ### Phase 1 (Hardening & Honesty)
 - Multi-function support (emit doc per export).
-- Comment taxonomy scanner (`//++` description, `//??` examples, `//--` tech debt).
+- Comment taxonomy scanner (`//` regular, `//++` description, `//??` examples, `//--` tech debt, `//!!` critical issues).
+- Critical issue extraction with categories (SECURITY, PERFORMANCE, CORRECTNESS, INCOMPLETE, BREAKING).
 - Example extraction (comment examples) + execution validation.
 - Detector contract: value, confidence (0–1), rationale[], evidence[].
 - Markdown includes confidence & heuristic labels (e.g., `Commutative (heuristic, 0.35)`).
@@ -90,20 +92,28 @@ Documentation output should transform:
 ```
 
 ---
-## 5. Comment Taxonomy Specification
-| Marker | Placement | Purpose | Extraction Rule |
-|--------|-----------|---------|------------------|
-| `//++` | Above function | 1-line intent | First contiguous block above declaration (stop on blank/non-comment) |
-| `/*++ ... */` | Above | Multi-line intent (rare) | Strip decoration, collapse whitespace |
-| `//??` | Below function | Executable example | Format: `//?? add(2)(3) // 5` (split code/result) |
-| `/*?? ... */` | Below | Multi-example block | Each line parsed individually |
-| `//--` | Inside function | Tech debt justification | Collected with line & reason text |
+## 5. Comment Taxonomy Specification (Five-Tier System)
+| Marker | Placement | Purpose | Priority | Extraction Rule |
+|--------|-----------|---------|----------|------------------|
+| `//` | Anywhere | Regular comment | None | Not extracted |
+| `//++` | Above function | 1-line intent | Neutral/positive | First contiguous block above declaration (stop on blank/non-comment) |
+| `/*++ ... */` | Above | Multi-line intent (rare) | Neutral/positive | Strip decoration, collapse whitespace |
+| `//??` | Below function | Help information | Neutral/informative | Format: `//?? [CATEGORY] content` |
+| | | Categories: `[EXAMPLES]` (default), `[SETUP]`, `[ADVANCED]`, `[GOTCHAS]`, `[MIGRATION]` | | (case-insensitive) |
+| `/*?? ... */` | Below | Multi-line help | Neutral/informative | Each line parsed with category |
+| `//--` | Inside function | Tech debt justification | Negative but acceptable | Format: `//-- [CATEGORY] reason` |
+| | | Categories: `[WORKAROUND]`, `[LIMITATION]`, `[OPTIMIZATION]`, `[REFACTOR]`, `[COMPATIBILITY]` | | (case-insensitive) |
+| `//!!` | Inside function | Critical issue | Critical/urgent - blocks release | Format: `//!! [CATEGORY] Description` |
+| `/*!! ... */` | Inside | Multi-line critical | Critical/urgent - blocks release | Extract category and full description |
 
 Validation rules:
-- Examples must evaluate without throwing (sandboxed) if deterministic.
+- Help examples (`[EXAMPLES]`) must evaluate without throwing (sandboxed) if deterministic.
 - Duplicate examples (same code) are de-duplicated.
+- Help categories are case-insensitive and optional (defaults to `[EXAMPLES]`).
 - Tech debt requires >= 10 chars explanation.
+- Critical issues require description (empty = diagnostic error).
 - Missing `//++` → doc flagged `MISSING_INTENT`.
+- Multiple `//!!` in same function → warning diagnostic.
 
 ---
 ## 6. Anti-Fabrication Safeguards

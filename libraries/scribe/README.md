@@ -47,18 +47,46 @@ export default function add(x: number) {
 
 **The Complete Comment Syntax:**
 
-**Documentation Comments (`//++`):**
+Scribe uses a **five-tier comment taxonomy** (by severity/priority):
 
+**1. Regular Comments (`//`):**
+- Standard comments that don't fit other categories
+- Not extracted for documentation
+- Used for implementation notes
+
+**2. Documentation Comments (`//++`):**
 - `//++` above the function: One-line intent description
-- `//++` below the function: Working examples
+- `//++` below the function: Working examples (deprecated - use `//??` instead)
 - `/*++ ... */` for multi-line if needed (but keep it minimal!)
 
-**Tech Debt Comments (`//--`):**
+**3. Help Comments (`//??`):**
+- `//??` below functions: Help information (examples, setup, gotchas, etc.)
+- Format: `//?? [CATEGORY] content` or just `//?? content` for examples
+- Categories (case-insensitive):
+  - `[EXAMPLES]` - Basic usage (default)
+  - `[SETUP]` - Configuration required
+  - `[ADVANCED]` - Complex patterns
+  - `[GOTCHAS]` - Common mistakes
+  - `[MIGRATION]` - Version migration
+- `/*?? ... */` for multi-line help blocks
 
+**4. Tech Debt Comments (`//--`):**
 - `//--` inside functions: Justified violations, hacks, workarounds
+- Format: `//-- [CATEGORY] reason` or just `//-- reason`
+- Categories (case-insensitive):
+  - `[WORKAROUND]` - Temporary fix
+  - `[LIMITATION]` - Known limitation
+  - `[OPTIMIZATION]` - Performance trade-off
+  - `[REFACTOR]` - Needs restructuring
+  - `[COMPATIBILITY]` - Backward compatibility
 - Documents WHY something is suboptimal
 - Creates an auditable trail of technical compromises
-- Can be extracted for tech debt reports
+
+**5. Critical Issue Comments (`//!!`):** 🆕
+- `//!!` inside functions: Critical issues that block production
+- Format: `//!! [CATEGORY] Description - Action required`
+- Categories: SECURITY, PERFORMANCE, CORRECTNESS, INCOMPLETE, BREAKING
+- These MUST be fixed before release
 
 **Example:**
 
@@ -68,20 +96,29 @@ export default function add(x: number) {
 export default function compose<T>(fns: ReadonlyArray<(value: any) => any>) {
   // deno-lint-ignore no-explicit-any
   return function (x: T): any {
-    //-- TypeScript can't type heterogeneous function chains, any is authorized
+    //!! [CORRECTNESS] Type safety lost - needs proper generic constraints
+    //-- [LIMITATION] TypeScript can't type heterogeneous function chains, any is authorized
     return fns.reduceRight((acc, fn) => fn(acc), x);
   };
 }
 
-//++ compose([double, increment])(5) // 11
-//++ compose([toString, double])(5) // "10"
+//?? compose([double, increment])(5) // 11
+//?? [ADVANCED] compose([toString, double])(5) // "10"
+//?? [GOTCHAS] Functions compose right-to-left, not left-to-right
+//?? [MIGRATION] Replace pipe() calls with compose() but reverse the array
 ```
 
 **Validation & Reporting:**
 
-- Scribe/Prover validates that `//++` examples actually work
+- Scribe/Prover validates that `//??` examples actually work
 - `//--` comments can be extracted for weekly tech debt reports
+- `//!!` comments generate critical alerts and block releases
 - If an example doesn't work, you get an error with suggestions
+
+**Report Dashboard:**
+- 🔴 Critical issues (`//!!`) - Blocks releases
+- 🟡 Tech debt (`//--`) - Plan to address
+- 🟢 Documented (`//++`) - Good
 
 ### What Gets Generated
 

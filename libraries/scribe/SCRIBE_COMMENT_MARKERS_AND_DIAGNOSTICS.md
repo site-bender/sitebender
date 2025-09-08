@@ -9,17 +9,39 @@
 ### Current `parseCommentMarkers` (Phase 1 Stopgap)
 Implements a **line-oriented scan** over the raw source string (now a pure recursive reducer) to extract:
 
+- Regular comments: `//` (not extracted, for implementation notes only)
 - First description marker: `//++` or block `/*++ ... */` (subsequent contiguous `//++` are flagged as stray)
-- Example markers: `//??` (single) and `/*?? ... */` (multi-line, each non-empty line treated as an example)
+- Help markers: `//??` (single) and `/*?? ... */` (multi-line)
+  - Optional categories: `[EXAMPLES]` (default), `[SETUP]`, `[ADVANCED]`, `[GOTCHAS]`, `[MIGRATION]`
+  - Format: `//?? [CATEGORY] content` or `//?? content` for examples
 - Tech debt markers: `//--` (empty reason diagnostic)
-- Diagnostics for: extra `//++`, unterminated `/*++`, empty tech debt reason, empty example block
+- Critical issue markers: `//!!` or `/*!! ... */` (empty description diagnostic) 🆕
+- Diagnostics for: extra `//++`, unterminated blocks, empty reasons/descriptions
 
 Returns:
 ```ts
 type ParsedComments = {
   description?: string
-  examples: Array<{ code: string; expected?: string; line: number; raw: string }>
-  techDebt: Array<{ reason: string; line: number; raw: string }>
+  help: Array<{ 
+    category?: 'examples' | 'setup' | 'advanced' | 'gotchas' | 'migration'
+    content: string
+    code?: string      // For EXAMPLES category
+    expected?: string  // For EXAMPLES category
+    line: number
+    raw: string
+  }>
+  techDebt: Array<{ 
+    category?: 'workaround' | 'limitation' | 'optimization' | 'refactor' | 'compatibility'
+    reason: string
+    line: number
+    raw: string
+  }>
+  criticalIssues: Array<{
+    category?: 'security' | 'performance' | 'correctness' | 'incomplete' | 'breaking'
+    description: string    // Required: what's wrong and action required
+    line: number
+    raw: string
+  }>
   raw: Array<{ line: number; marker: string; text: string }>
   diagnostics: Array<{ line: number; issue: string }>
 }
@@ -66,13 +88,43 @@ type Diagnostic = {
 
 type ParsedMarkerResult = {
   description?: string
-  examples: ParsedExample[]
+  help: ParsedHelp[]
   techDebt: ParsedTechDebt[]
+  criticalIssues: ParsedCriticalIssue[]
   diagnostics: Diagnostic[]
 }
 
 function parseMarkers(comments: RawComment[]): ParsedMarkerResult
 ```
+
+### Category Parsing Implementation
+
+Categories are **case-insensitive** when written but stored as lowercase in the type system:
+
+```typescript
+// Parse any case from source
+const rawCategory = extractedText // "[GOTCHAS]", "[Gotchas]", "[gotchas]"
+
+// Normalize using toLocaleLowerCase() for consistency
+const normalized = rawCategory.toLocaleLowerCase()
+
+// Validate against union type
+type HelpCategory = 'examples' | 'setup' | 'advanced' | 'gotchas' | 'migration'
+type TechDebtCategory = 'workaround' | 'limitation' | 'optimization' | 'refactor' | 'compatibility'
+type CriticalCategory = 'security' | 'performance' | 'correctness' | 'incomplete' | 'breaking'
+
+function normalizeHelpCategory(raw: string): HelpCategory | undefined {
+  const normalized = raw.toLocaleLowerCase()
+  const valid: HelpCategory[] = ['examples', 'setup', 'advanced', 'gotchas', 'migration']
+  return valid.includes(normalized as HelpCategory) ? normalized as HelpCategory : undefined
+}
+```
+
+This approach:
+- Accepts any case from users
+- Validates against known categories
+- Returns `undefined` for invalid/unknown categories (no "other" category needed)
+- Maintains type safety with union types
 
 ### Migration Phases
 1. (Now) Maintain working line-based version (test-backed).
@@ -83,11 +135,13 @@ function parseMarkers(comments: RawComment[]): ParsedMarkerResult
 6. Extend markers to support `[functionName]` qualifiers for multi-function files.
 
 ### Marker Semantics (Current & Planned)
-| Marker | Meaning | Multi-function Disambiguation |
-|--------|---------|--------------------------------|
-| `//++` / `/*++` | Description (only first retained) | Optional `[fnName]` tag later |
-| `//??` / `/*??` | Example code snippet (+ optional expected) | `[fnName]` tag associates |
-| `//--` / `/*--` | Tech debt note (reason required) | `[fnName]` tag associates |
+| Marker | Meaning | Priority | Multi-function Disambiguation |
+|--------|---------|----------|--------------------------------|
+| `//` | Regular comment (not extracted) | None | N/A |
+| `//++` / `/*++` | Description (only first retained) | Neutral/positive | Optional `[fnName]` tag later |
+| `//??` / `/*??` | Help info (examples, setup, etc.) | Neutral/informative | `[fnName]` tag associates |
+| `//--` / `/*--` | Tech debt note (reason required) | Negative but acceptable | `[fnName]` tag associates |
+| `//!!` / `/*!!` | Critical issue (description required) 🆕 | Critical/urgent - blocks release | `[fnName]` tag associates |
 
 ---
 
@@ -132,6 +186,8 @@ type Diagnostic = {
 | Unterminated /*++ block | COMMENT_UNTERMINATED_BLOCK | structure | error | Close with `*/` |
 | Empty tech debt reason | TECHDEBT_EMPTY_REASON | quality | warn | Provide justification (≥ N chars) |
 | Empty /*?? block | EXAMPLE_EMPTY_BLOCK | quality | info | Add example lines |
+| Empty critical issue description | CRITICAL_EMPTY_DESCRIPTION | quality | error | Provide issue details and action required |
+| Multiple //!! in same function | CRITICAL_MULTIPLE_ISSUES | quality | warn | Consider severity - may indicate unstable code |
 
 ### Integration into Parser Result
 ```ts
