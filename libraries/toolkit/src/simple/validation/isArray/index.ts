@@ -24,6 +24,6 @@ export default function isArray(value: unknown): value is Array<unknown> {
  * const isMatrix = (value: unknown): boolean =>
  *   isArray(value) && value.length > 0 && value.every(isArray)
  *
- * [GOTCHA] Works correctly across different JavaScript realms (iframes, web workers)
- * [GOTCHA] Not fooled by array-like objects, arguments, or NodeLists
+ * [PRO] Works correctly across different JavaScript realms (iframes, web workers)
+ * [PRO] Not fooled by array-like objects, arguments, or NodeLists
  */

@@ -25,6 +25,7 @@ export default function isBoolean(value: unknown): value is boolean {
  * const mixed = [true, 1, false, 0, "true", null]
  * mixed.filter(isBoolean)  // [true, false]
  *
- * [GOTCHA] Does not include Boolean objects created with new Boolean()
- * [GOTCHA] Does not convert truthy/falsy values (1, 0, "", null, etc.)
+ * [CON] Does not include Boolean objects created with new Boolean()
+ * [CON] Does not detect truthy/falsy values (1, 0, "", null, etc.)
+ * [GOTCHA] new Boolean(true) returns false (it's an object, not a primitive)
  */

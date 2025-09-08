@@ -32,6 +32,7 @@ export default function isFunction(value: unknown): value is AnyFunction {
  * const mixed = [() => {}, "string", 42, Math.sqrt, null]
  * const functions = mixed.filter(isFunction)  // [() => {}, Math.sqrt]
  *
- * [GOTCHA] Includes all callable types: arrow, async, generator, class constructors
- * [GOTCHA] Methods are also functions when detached from their objects
+ * [PRO] Detects all callable types: arrow, async, generator, class constructors
+ * [GOTCHA] Methods become regular functions when detached from their objects
+ * [GOTCHA] Classes return true (they're constructor functions)
  */
