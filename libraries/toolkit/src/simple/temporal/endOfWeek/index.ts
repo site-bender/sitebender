@@ -79,9 +79,7 @@ const endOfWeek = (weekStartDay: number = 1) =>
 		}
 
 		// Validate weekStartDay (1-7)
-		const startDay = weekStartDay >= 1 && weekStartDay <= 7
-			? weekStartDay
-			: 1
+		const startDay = weekStartDay >= 1 && weekStartDay <= 7 ? weekStartDay : 1
 
 		// Calculate days until end of week
 		// dayOfWeek: 1=Monday, 7=Sunday

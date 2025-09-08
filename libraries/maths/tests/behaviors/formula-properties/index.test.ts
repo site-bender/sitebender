@@ -119,10 +119,8 @@ describe("Formula parsing properties", () => {
 								result2.value.tag === "Multiply"
 							) {
 								// First multiplier should be (x * y)
-								const firstMultiplier1 =
-									result1.value.multipliers[0]
-								const firstMultiplier2 =
-									result2.value.multipliers[0]
+								const firstMultiplier1 = result1.value.multipliers[0]
+								const firstMultiplier2 = result2.value.multipliers[0]
 								assertEquals(firstMultiplier1.tag, "Multiply")
 								assertEquals(firstMultiplier2.tag, "Multiply")
 

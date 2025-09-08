@@ -14,9 +14,9 @@ You've just completed a major refactoring of the math property detectors in Scri
    ```typescript
    // Good - explicit braces
    if (!condition) {
-     return false
+   	return false
    }
-   
+
    // Bad - single line
    if (!condition) return false
    ```
@@ -28,11 +28,13 @@ You've just completed a major refactoring of the math property detectors in Scri
 The codebase has two parallel detection systems:
 
 **AST-Based (Correct Approach):**
+
 - `detectPurityFromAST(node)` - Analyzes TypeScript AST nodes
 - `detectCurryingFromAST(node)` - Properly traverses AST structure
 - `detectComplexityFromAST(node, sourceFile)` - Counts actual loops/branches in AST
 
 **String-Based (Current Math Properties - WRONG):**
+
 - `isAssociative(source: string)` - Uses regex patterns
 - `isCommutative(source: string)` - Counts string occurrences
 - `isDistributive(source: string)` - Pattern matching on strings
@@ -60,8 +62,8 @@ The worst offender is `hasSymmetricParameters` which literally counts how many t
 3. **The toolkit is sacred** - Don't touch it, only import from it
 4. **Inner functions need names too**:
    ```typescript
-   return some(function matchesPattern(pattern: RegExp) {  // Named!
-     return test(pattern)(source)
+   return some(function matchesPattern(pattern: RegExp) { // Named!
+   	return test(pattern)(source)
    })(patterns)
    ```
 
@@ -104,24 +106,29 @@ detectMathPropertiesFromAST/
 ### Phase 2: Implement Proper AST Analysis
 
 Instead of:
+
 ```typescript
 // WRONG - String counting
-const param1Count = (source.match(new RegExp(`\\b${param1}\\b`, "g")) || []).length
+const param1Count =
+	(source.match(new RegExp(`\\b${param1}\\b`, "g")) || []).length
 ```
 
 Do:
+
 ```typescript
 // RIGHT - AST traversal
-function analyzeParameterUsage(node: ts.FunctionLikeDeclaration): ParameterUsage {
-  const usage = new Map<string, UsageContext[]>()
-  
-  ts.forEachChild(node.body, function visitNode(child) {
-    if (ts.isIdentifier(child)) {
-      // Track actual usage in AST
-    }
-  })
-  
-  return usage
+function analyzeParameterUsage(
+	node: ts.FunctionLikeDeclaration,
+): ParameterUsage {
+	const usage = new Map<string, UsageContext[]>()
+
+	ts.forEachChild(node.body, function visitNode(child) {
+		if (ts.isIdentifier(child)) {
+			// Track actual usage in AST
+		}
+	})
+
+	return usage
 }
 ```
 
@@ -132,31 +139,34 @@ Since the Parser isn't ready yet, create a temporary bridge:
 ```typescript
 //++ Temporary AST generator until Parser is ready
 export default function createFakeAST(source: string): ts.Node {
-  const sourceFile = ts.createSourceFile(
-    "temp.ts",
-    source,
-    ts.ScriptTarget.Latest,
-    true
-  )
-  
-  // Find the first function declaration
-  let functionNode: ts.Node | undefined
-  
-  ts.forEachChild(sourceFile, function findFunction(node) {
-    if (ts.isFunctionDeclaration(node) || 
-        ts.isFunctionExpression(node) || 
-        ts.isArrowFunction(node)) {
-      functionNode = node
-    }
-  })
-  
-  return functionNode || sourceFile
+	const sourceFile = ts.createSourceFile(
+		"temp.ts",
+		source,
+		ts.ScriptTarget.Latest,
+		true,
+	)
+
+	// Find the first function declaration
+	let functionNode: ts.Node | undefined
+
+	ts.forEachChild(sourceFile, function findFunction(node) {
+		if (
+			ts.isFunctionDeclaration(node) ||
+			ts.isFunctionExpression(node) ||
+			ts.isArrowFunction(node)
+		) {
+			functionNode = node
+		}
+	})
+
+	return functionNode || sourceFile
 }
 ```
 
 ### Phase 4: Update Integration Points
 
 Replace in `generateDocsWithCompiler`:
+
 ```typescript
 // OLD
 isIdempotent: isIdempotent(functionSource),
@@ -174,21 +184,25 @@ Once AST versions are working, completely remove the string-based detectors.
 ## Key AST Patterns to Detect
 
 ### Associative
+
 - Binary operators: `ts.SyntaxKind.PlusToken`, `ts.SyntaxKind.AsteriskToken`
 - Method calls: `ts.isCallExpression` with `Math.max`, `Math.min`
 - Check if `(a op b) op c` === `a op (b op c)` structurally
 
 ### Commutative
+
 - Symmetric parameter usage in binary expressions
 - Check if parameters appear in same contexts
 - `a + b` and `b + a` should have identical AST structure (just swapped)
 
 ### Distributive
+
 - Ternary functions with specific patterns
 - Look for `a * (b + c)` type structures in AST
 - Check for map/reduce patterns
 
 ### Idempotent
+
 - Specific method calls: `Math.abs`, `Math.floor`
 - Type coercions: `Boolean()`, `String()`
 - Check if applying twice has no effect

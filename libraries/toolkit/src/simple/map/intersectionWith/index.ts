@@ -60,9 +60,7 @@ const intersectionWith = <K, V, K2, V2>(
 (first: Map<K, V>): Map<K, V> =>
 	new Map(
 		Array.from(first).filter(([key]) =>
-			Array.from(second.keys()).some((secondKey) =>
-				equalsFn(key, secondKey)
-			)
+			Array.from(second.keys()).some((secondKey) => equalsFn(key, secondKey))
 		),
 	)
 

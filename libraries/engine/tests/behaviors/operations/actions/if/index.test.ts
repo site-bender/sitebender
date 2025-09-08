@@ -319,18 +319,14 @@ describe("Act.If behavior", () => {
 					// then branch
 					if (!(seen.length === 1 && seen[0] === `then:${topic}`)) {
 						throw new Error(
-							`Expected then:${topic}, got ${
-								JSON.stringify(seen)
-							}`,
+							`Expected then:${topic}, got ${JSON.stringify(seen)}`,
 						)
 					}
 				} else {
 					// else branch
 					if (!(seen.length === 1 && seen[0] === `else:${topic}`)) {
 						throw new Error(
-							`Expected else:${topic}, got ${
-								JSON.stringify(seen)
-							}`,
+							`Expected else:${topic}, got ${JSON.stringify(seen)}`,
 						)
 					}
 				}

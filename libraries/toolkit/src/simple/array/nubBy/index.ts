@@ -72,9 +72,7 @@ const nubBy = <T>(
 		}
 
 		const [head, ...tail] = remaining
-		const isDuplicate = result.some((existing) =>
-			equalityFn(existing, head)
-		)
+		const isDuplicate = result.some((existing) => equalityFn(existing, head))
 
 		return findDuplicates(
 			tail,

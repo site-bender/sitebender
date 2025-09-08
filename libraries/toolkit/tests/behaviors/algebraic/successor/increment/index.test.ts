@@ -156,8 +156,7 @@ Deno.test("increment", async (t) => {
 								}
 
 								// For normal numbers, allow for floating point epsilon
-								const epsilon =
-									Math.abs(expected) * Number.EPSILON * 2 +
+								const epsilon = Math.abs(expected) * Number.EPSILON * 2 +
 									Number.EPSILON
 								return Math.abs(result - expected) <= epsilon
 							}

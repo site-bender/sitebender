@@ -7,6 +7,7 @@ The previous AI assistant created fantasy documentation for features that didn't
 ## Current State (AS OF NOW)
 
 ### What Actually Exists and Works
+
 ```
 src/
 ├── parseSourceFile/          # ✅ CLEAN - Parses TypeScript files
@@ -23,6 +24,7 @@ src/
 ```
 
 ### What Doesn't Exist Yet
+
 - ❌ `extractSignature` - Deleted, needs rebuild
 - ❌ `extractComments` - Deleted, needs rebuild
 - ❌ `analyzeBranches` - Never existed
@@ -34,6 +36,7 @@ src/
 ## Where We're Going
 
 Building a REAL parser library that:
+
 1. Actually works
 2. Follows ALL @sitebender rules
 3. Has 100% test coverage
@@ -44,6 +47,7 @@ Building a REAL parser library that:
 ### IMMEDIATE TASK: Build `extractSignature`
 
 This is the next critical function. It must:
+
 1. Extract function parameters with types
 2. Extract return types
 3. Extract generics
@@ -52,16 +56,18 @@ This is the next critical function. It must:
 ### RULES YOU MUST FOLLOW (NO EXCEPTIONS)
 
 #### 1. One Function Per File
+
 ```typescript
 // ✅ CORRECT: src/someFunction/index.ts
-export default function someFunction() { }
+export default function someFunction() {}
 
 // ❌ WRONG: Multiple functions in one file
-export function func1() { }
-export function func2() { }  // NO!
+export function func1() {}
+export function func2() {} // NO!
 ```
 
 #### 2. NO JavaScript Array Methods
+
 ```typescript
 // ❌ WRONG - These are BANNED:
 array.map()
@@ -79,45 +85,48 @@ import filter from "@sitebender/toolkit/simple/array/filter/index.ts"
 // Or use while loops:
 let index = 0
 while (index < array.length) {
-    // process array[index]
-    index = index + 1
+	// process array[index]
+	index = index + 1
 }
 ```
 
 #### 3. NO Nested Function Declarations
+
 ```typescript
 // ❌ WRONG:
 function outer() {
-    function inner() { }  // NO! Should be separate file
+	function inner() {} // NO! Should be separate file
 }
 
 // ✅ CORRECT:
 import inner from "./inner/index.ts"
 function outer() {
-    inner()
+	inner()
 }
 ```
 
 #### 4. NO Mutations
+
 ```typescript
 // ❌ WRONG:
 let x = 1
-x = 2  // NO!
-array.push(item)  // NO!
+x = 2 // NO!
+array.push(item) // NO!
 
 // ✅ CORRECT:
 const x = 1
-const newArray = [...array, item]  // Create new array
+const newArray = [...array, item] // Create new array
 ```
 
 #### 5. Use TypeScript AST, Not Regex
+
 ```typescript
 // ❌ WRONG:
 const match = code.match(/function\s+(\w+)/)
 
 // ✅ CORRECT:
 if (typescript.isFunctionDeclaration(node)) {
-    const name = node.name?.getText()
+	const name = node.name?.getText()
 }
 ```
 
@@ -140,7 +149,7 @@ if (typescript.isFunctionDeclaration(node)) {
    ```bash
    # Check for banned methods
    grep -r "\.map\|\.filter\|\.some\|\.includes\|\.push" src/
-   
+
    # Check for nested functions
    grep -r "function.*{.*function" src/
    ```
@@ -154,6 +163,7 @@ if (typescript.isFunctionDeclaration(node)) {
 ## Specific Instructions for `extractSignature`
 
 Build it with this structure:
+
 ```
 extractSignature/
 ├── index.ts                 # Main function
@@ -172,6 +182,7 @@ extractSignature/
 ```
 
 Each function must:
+
 - Be in its own file
 - Use NO JavaScript array methods
 - Have `//++` comment description
@@ -185,22 +196,22 @@ Each function must:
 import * as typescript from "npm:typescript@5.7.2"
 
 export default function extractParameters(
-    node: typescript.FunctionDeclaration,
+	node: typescript.FunctionDeclaration,
 ): ReadonlyArray<Parameter> {
-    const parameters: Array<Parameter> = []
-    
-    if (!node.parameters) return parameters
-    
-    let index = 0
-    const length = node.parameters.length
-    
-    while (index < length) {
-        const param = node.parameters[index]
-        // Process param...
-        index = index + 1
-    }
-    
-    return parameters
+	const parameters: Array<Parameter> = []
+
+	if (!node.parameters) return parameters
+
+	let index = 0
+	const length = node.parameters.length
+
+	while (index < length) {
+		const param = node.parameters[index]
+		// Process param...
+		index = index + 1
+	}
+
+	return parameters
 }
 
 //?? extractParameters(functionNode) // Returns array of parameters
@@ -216,6 +227,7 @@ export default function extractParameters(
 ## Progress Tracking
 
 Use TodoWrite to track your progress:
+
 1. Build extractSignature
 2. Build analyzeBranches
 3. Write comprehensive tests

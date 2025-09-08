@@ -64,10 +64,15 @@ function analyzeNode(
 			currentLoopDepth: state.currentLoopDepth + 1,
 			maxLoopDepth: Math.max(state.maxLoopDepth, state.currentLoopDepth + 1),
 		}
-		
+
 		// Analyze children with increased depth
-		const childrenState = analyzeChildren(currentNode, sourceFile, functionName, newState)
-		
+		const childrenState = analyzeChildren(
+			currentNode,
+			sourceFile,
+			functionName,
+			newState,
+		)
+
 		// Return with restored depth
 		return {
 			...childrenState,
@@ -91,16 +96,21 @@ function analyzeNode(
 			"find",
 			"findIndex",
 		]
-		
+
 		if (loopMethods.includes(methodName)) {
 			const newState = {
 				...state,
 				currentLoopDepth: state.currentLoopDepth + 1,
 				maxLoopDepth: Math.max(state.maxLoopDepth, state.currentLoopDepth + 1),
 			}
-			
-			const childrenState = analyzeChildren(currentNode, sourceFile, functionName, newState)
-			
+
+			const childrenState = analyzeChildren(
+				currentNode,
+				sourceFile,
+				functionName,
+				newState,
+			)
+
 			return {
 				...childrenState,
 				currentLoopDepth: state.currentLoopDepth,
@@ -147,7 +157,7 @@ function analyzeNode(
 		const left = currentNode.left.getText(sourceFile)
 		const right = currentNode.right.getText(sourceFile)
 		const op = currentNode.operatorToken.getText(sourceFile)
-		
+
 		if (
 			(op === "/" && right === "2") ||
 			(op === "*" && right === "0.5") ||
@@ -178,7 +188,7 @@ function analyzeChildren(
 	return children.reduce(
 		(currentState, child) =>
 			analyzeNode(child, sourceFile, functionName, currentState),
-		state
+		state,
 	)
 }
 
@@ -194,7 +204,9 @@ function isLoopStatement(node: ts.Node): boolean {
 
 function determineComplexity(state: ComplexityState): ComplexityClass {
 	// Exponential complexity (recursion without clear reduction)
-	if (state.hasRecursion && state.maxLoopDepth === 0 && !state.hasBinaryOperation) {
+	if (
+		state.hasRecursion && state.maxLoopDepth === 0 && !state.hasBinaryOperation
+	) {
 		// Could be O(2^n) for naive recursive algorithms
 		// This is a heuristic - actual complexity depends on recursion pattern
 		return "O(2^n)"

@@ -5,9 +5,13 @@ import createError from "../createError/index.ts"
 
 //++ Creates a type mismatch error with full context
 export default function createTypeError<TOp extends string>(operation: TOp) {
-	return function withArguments<TArgs extends ReadonlyArray<Value>>(args: TArgs) {
+	return function withArguments<TArgs extends ReadonlyArray<Value>>(
+		args: TArgs,
+	) {
 		return function atArgumentIndex(argIndex: number) {
-			return function expectingType<TDataType extends Datatype>(expected: TDataType) {
+			return function expectingType<TDataType extends Datatype>(
+				expected: TDataType,
+			) {
 				return function butGotType(
 					actual: TDataType | "null" | "undefined" | "unknown",
 				): EngineError<TOp, TArgs> {

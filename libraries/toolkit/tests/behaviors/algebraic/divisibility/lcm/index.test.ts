@@ -47,9 +47,7 @@ Deno.test("lcm", async (t) => {
 			() => {
 				fc.assert(
 					fc.property(
-						fc.integer({ min: -1000, max: 1000 }).filter((n) =>
-							n !== 0
-						),
+						fc.integer({ min: -1000, max: 1000 }).filter((n) => n !== 0),
 						(a) => {
 							const result = lcm(a)(1)
 							return result === Math.abs(a)

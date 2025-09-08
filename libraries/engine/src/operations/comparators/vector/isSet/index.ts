@@ -41,9 +41,7 @@ async (
 		return {
 			left: [
 				Error(op.tag)("IsSet")(
-					`Error creating set from ${
-						JSON.stringify(operand.right)
-					}: ${e}.`,
+					`Error creating set from ${JSON.stringify(operand.right)}: ${e}.`,
 				),
 			],
 		}

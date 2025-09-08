@@ -53,9 +53,7 @@ const path =
 			if (isNullish(acc)) return undefined
 
 			if (Array.isArray(acc)) {
-				const index = typeof key === "number"
-					? key
-					: parseInt(String(key), 10)
+				const index = typeof key === "number" ? key : parseInt(String(key), 10)
 				return !isNaN(index) ? acc[index] : undefined
 			}
 

@@ -279,10 +279,10 @@ These define the _architecture_ of the content and are perfect for JSX. This is 
 // This is good JSX. It wraps a block of content.
 <Chapter number={1} title="The Prison-Door">
 	<Paragraph>
-		A throng of bearded men, in sad-coloured garments and grey
-		steeple-crowned hats, intermixed with women, some wearing hoods, and
-		others bareheaded, was assembled in front of a wooden edifice, the door
-		of which was heavily timbered with oak, and studded with iron spikes.
+		A throng of bearded men, in sad-coloured garments and grey steeple-crowned
+		hats, intermixed with women, some wearing hoods, and others bareheaded, was
+		assembled in front of a wooden edifice, the door of which was heavily
+		timbered with oak, and studded with iron spikes.
 	</Paragraph>
 </Chapter>
 ```
@@ -441,8 +441,7 @@ function DystopianTheme({ children }) {
 		themes={[THEMES.TOTALITARIANISM, THEMES.SURVEILLANCE]}
 	>
 		<Chapter number={1}>
-			It was a bright cold day in April, and the clocks were striking
-			thirteen.
+			It was a bright cold day in April, and the clocks were striking thirteen.
 		</Chapter>
 	</Work>
 </DystopianTheme>

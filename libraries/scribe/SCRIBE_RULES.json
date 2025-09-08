@@ -1,22 +1,22 @@
 {
-  "description": "Style and structural enforcement rules for Scribe comment parser helpers.",
-  "requireMarkerAboveExport": true,
-  "requireBlankLineAfterGuardReturn": true,
-  "enforceCurriedNesting": true,
-  "curriedNestingDepth": 4,
-  "forbidNativeArrayMethods": [
-    "map",
-    "forEach",
-    "filter",
-    "reduce",
-    "slice"
-  ],
-  "guardReturnPattern": "return undefined",
-  "targetGlobs": [
-    "libraries/**/*.ts",
-    "libraries/**/*.tsx",
-    "applications/**/*.ts",
-    "applications/**/*.tsx",
-    "scripts/**/*.ts"
-  ]
+	"description": "Style and structural enforcement rules for Scribe comment parser helpers.",
+	"requireMarkerAboveExport": true,
+	"requireBlankLineAfterGuardReturn": true,
+	"enforceCurriedNesting": true,
+	"curriedNestingDepth": 4,
+	"forbidNativeArrayMethods": [
+		"map",
+		"forEach",
+		"filter",
+		"reduce",
+		"slice"
+	],
+	"guardReturnPattern": "return undefined",
+	"targetGlobs": [
+		"libraries/**/*.ts",
+		"libraries/**/*.tsx",
+		"applications/**/*.ts",
+		"applications/**/*.tsx",
+		"scripts/**/*.ts"
+	]
 }

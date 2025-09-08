@@ -9,9 +9,7 @@ import replaceFirstMatch from "../../../../src/simple/array/replaceFirstMatch/in
 
 Deno.test("replaceFirstMatch: type checking", async (t) => {
 	await t.step("should have correct type signature", () => {
-		const replacer = replaceFirstMatch(/test/)((s: string) =>
-			s.toUpperCase()
-		)
+		const replacer = replaceFirstMatch(/test/)((s: string) => s.toUpperCase())
 		assertType<
 			IsExact<
 				typeof replacer,
@@ -193,9 +191,7 @@ Deno.test("replaceFirstMatch: edge cases", async (t) => {
 	})
 
 	await t.step("should handle special regex characters", () => {
-		const replacer = replaceFirstMatch(/\$\d+/)((s) =>
-			s.replace("$", "USD ")
-		)
+		const replacer = replaceFirstMatch(/\$\d+/)((s) => s.replace("$", "USD "))
 		assertEquals(
 			replacer(["Free", "Price: $100", "$50"]),
 			["Free", "Price: USD 100", "$50"],
@@ -279,9 +275,7 @@ Deno.test("replaceFirstMatch: property-based tests", async (t) => {
 				)),
 				(arr) => {
 					// Simple pattern that matches strings starting with 'a'
-					const replacer = replaceFirstMatch(/^a/)((s) =>
-						`A${s.slice(1)}`
-					)
+					const replacer = replaceFirstMatch(/^a/)((s) => `A${s.slice(1)}`)
 					const result = replacer(arr)
 
 					// Length preserved
@@ -341,9 +335,7 @@ Deno.test("replaceFirstMatch: property-based tests", async (t) => {
 					assertEquals(result.length, arr.length)
 
 					// Find first string
-					const firstStringIndex = arr.findIndex((x) =>
-						typeof x === "string"
-					)
+					const firstStringIndex = arr.findIndex((x) => typeof x === "string")
 
 					if (firstStringIndex !== -1) {
 						// First string replaced
@@ -372,9 +364,7 @@ Deno.test("replaceFirstMatch: property-based tests", async (t) => {
 			fc.property(
 				fc.oneof(fc.constant(null), fc.constant(undefined)),
 				(input) => {
-					const replacer = replaceFirstMatch(/test/)((s) =>
-						s.toUpperCase()
-					)
+					const replacer = replaceFirstMatch(/test/)((s) => s.toUpperCase())
 					const result = replacer(input)
 					assertEquals(result, [])
 					return true

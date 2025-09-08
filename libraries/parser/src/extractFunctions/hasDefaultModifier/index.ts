@@ -5,10 +5,10 @@ export default function hasDefaultModifier(
 	node: typescript.FunctionDeclaration,
 ): boolean {
 	if (!node.modifiers) return false
-	
+
 	let index = 0
 	const length = node.modifiers.length
-	
+
 	while (index < length) {
 		const modifier = node.modifiers[index]
 		if (modifier.kind === typescript.SyntaxKind.DefaultKeyword) {
@@ -16,6 +16,6 @@ export default function hasDefaultModifier(
 		}
 		index = index + 1
 	}
-	
+
 	return false
 }

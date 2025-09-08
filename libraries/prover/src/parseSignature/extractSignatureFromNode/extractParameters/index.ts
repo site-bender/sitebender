@@ -1,5 +1,7 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import type { Parameter } from "../../../types/index.ts"
+
 import extractTypeInfo from "./extractTypeInfo/index.ts"
 
 /**

@@ -309,8 +309,7 @@ Deno.test("mapAccumRight: property test - handles nullish values properly", () =
 			fc.integer(),
 			fc.func(fc.tuple(fc.integer(), fc.integer())),
 			(nullish, initial, fnGen) => {
-				const fn = (_acc: number, _x: unknown): [number, number] =>
-					fnGen()
+				const fn = (_acc: number, _x: unknown): [number, number] => fnGen()
 				const result = mapAccumRight(fn)(initial)(nullish as any)
 				assertEquals(result, [initial, []])
 			},

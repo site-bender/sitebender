@@ -54,9 +54,7 @@ describe("partitionBy", () => {
 				{ id: 4, completed: false },
 			]
 			assertEquals(
-				partitionBy((t: { id: number; completed: boolean }) =>
-					t.completed
-				)(
+				partitionBy((t: { id: number; completed: boolean }) => t.completed)(
 					tasks,
 				),
 				[
@@ -279,9 +277,7 @@ describe("partitionBy", () => {
 						for (const group of groups) {
 							if (group.length > 0) {
 								const firstResult = isEven(group[0])
-								const allSame = group.every((el) =>
-									isEven(el) === firstResult
-								)
+								const allSame = group.every((el) => isEven(el) === firstResult)
 								if (!allSame) return false
 							}
 						}
@@ -343,9 +339,7 @@ describe("partitionBy", () => {
 						for (const group of groups) {
 							if (group.length > 1) {
 								const first = group[0]
-								const allSame = group.every((el) =>
-									el === first
-								)
+								const allSame = group.every((el) => el === first)
 								if (!allSame) return false
 							}
 						}

@@ -60,8 +60,7 @@ for (const root of roots) {
 			const lines = text.split(/\r?\n/)
 			lines.forEach((line, idx) => {
 				// crude import matcher (import ... from "..."), also handles export ... from
-				const importRe =
-					/(import|export)\s+[^;]*?from\s+["\']([^"\']+)["\']/g
+				const importRe = /(import|export)\s+[^;]*?from\s+["\']([^"\']+)["\']/g
 				let m: RegExpExecArray | null
 				while ((m = importRe.exec(line))) {
 					const spec = m[2]

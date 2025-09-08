@@ -89,9 +89,7 @@ export default function WithRhythm({
 		bpm && `${bpm} bpm`,
 	].filter(Boolean)
 
-	const ariaLabel = rhythmParts.length > 0
-		? rhythmParts.join(", ")
-		: undefined
+	const ariaLabel = rhythmParts.length > 0 ? rhythmParts.join(", ") : undefined
 
 	return (
 		<Element

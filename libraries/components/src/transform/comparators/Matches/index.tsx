@@ -42,9 +42,7 @@ export default function Matches({
 	}
 
 	const flagsCandidate = childArray.length >= 3 ? childArray[2] : undefined
-	const flags = typeof flagsCandidate === "string"
-		? flagsCandidate
-		: undefined
+	const flags = typeof flagsCandidate === "string" ? flagsCandidate : undefined
 
 	return MatchesConstructor(value as Operand)(pattern as Operand)(flags)
 }

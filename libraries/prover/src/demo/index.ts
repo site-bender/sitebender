@@ -51,8 +51,7 @@ export default async function runDemo() {
 			description: "Simple string function",
 		},
 		{
-			path:
-				`${projectRoot}/libraries/toolkit/src/simple/array/head/index.ts`,
+			path: `${projectRoot}/libraries/toolkit/src/simple/array/head/index.ts`,
 			description: "Array function with edge cases",
 		},
 		{
@@ -137,9 +136,7 @@ export default async function runDemo() {
 					)
 					if (relevantLines.length > 0) {
 						console.log(`${CYAN}Test output:${RESET}`)
-						relevantLines.forEach((line) =>
-							console.log(`  ${line}`)
-						)
+						relevantLines.forEach((line) => console.log(`  ${line}`))
 					}
 				} else {
 					console.log(
@@ -147,9 +144,7 @@ export default async function runDemo() {
 					)
 					if (errorOutput) {
 						console.log(
-							`${RED}Error: ${
-								errorOutput.slice(0, 200)
-							}...${RESET}`,
+							`${RED}Error: ${errorOutput.slice(0, 200)}...${RESET}`,
 						)
 					}
 				}

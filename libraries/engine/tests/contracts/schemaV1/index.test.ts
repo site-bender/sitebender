@@ -2,22 +2,22 @@ import { assert, assertEquals, assertStringIncludes } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 import fc from "npm:fast-check"
 
+import type { Node } from "../../../types/ir/index.ts"
+
+// Import renderer to test actual behavior
+import render from "../../../src/rendering/index.ts"
 // Import the schema and sample IR documents
 import schema from "../../../types/ir/schema/v1.json" with { type: "json" }
-import simpleElement from "./samples/simple-element.json" with { type: "json" }
-import simpleInjector from "./samples/simple-injector.json" with {
+import conditionalExample from "./samples/conditional-example.json" with {
 	type: "json",
 }
 import formWithValidation from "./samples/form-with-validation.json" with {
 	type: "json",
 }
-import conditionalExample from "./samples/conditional-example.json" with {
+import simpleElement from "./samples/simple-element.json" with { type: "json" }
+import simpleInjector from "./samples/simple-injector.json" with {
 	type: "json",
 }
-
-// Import renderer to test actual behavior
-import render from "../../../src/rendering/index.ts"
-import type { Node } from "../../../types/ir/index.ts"
 
 describe("IR v1 behavior validation", () => {
 	describe("progressive enhancement compliance", () => {
@@ -31,9 +31,7 @@ describe("IR v1 behavior validation", () => {
 				children: element.kind === "element"
 					? element.children?.map((child) => ({
 						tag: "TextNode",
-						content: typeof child === "string"
-							? child
-							: String(child),
+						content: typeof child === "string" ? child : String(child),
 					}))
 					: [],
 			}
@@ -76,9 +74,7 @@ describe("IR v1 behavior validation", () => {
 						}
 						return {
 							tag: "TextNode",
-							content: typeof child === "string"
-								? child
-								: String(child),
+							content: typeof child === "string" ? child : String(child),
 						}
 					}) || [],
 				}
@@ -124,9 +120,7 @@ describe("IR v1 behavior validation", () => {
 						}
 						return {
 							tag: "TextNode",
-							content: typeof child === "string"
-								? child
-								: String(child),
+							content: typeof child === "string" ? child : String(child),
 						}
 					}) || [],
 				}
