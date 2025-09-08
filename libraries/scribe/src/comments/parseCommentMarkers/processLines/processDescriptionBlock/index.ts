@@ -17,23 +17,23 @@ export default function processDescriptionBlock(lines: Array<string>) {
 
         return {
           ...acc,
-            idx: consumed.nextIdx,
-            haveDescription: acc.haveDescription || have,
-            descriptionParts: acc.haveDescription
-              ? acc.descriptionParts
-              : (have ? consumed.collected : acc.descriptionParts),
-            raw: consumed.terminated
-              ? [
-                ...acc.raw,
-                { line: lineNumber, marker: '/*++', text: consumed.collected.join(' ') },
-              ]
-              : acc.raw,
-            diagnostics: consumed.terminated
-              ? acc.diagnostics
-              : [
-                ...acc.diagnostics,
-                { line: lineNumber, issue: 'Unterminated /*++ block' },
-              ],
+          idx: consumed.nextIdx,
+          haveDescription: acc.haveDescription || have,
+          descriptionParts: acc.haveDescription
+            ? acc.descriptionParts
+            : (have ? consumed.collected : acc.descriptionParts),
+          raw: consumed.terminated
+            ? [
+              ...acc.raw,
+              { line: lineNumber, marker: '/*++', text: consumed.collected.join(' ') },
+            ]
+            : acc.raw,
+          diagnostics: consumed.terminated
+            ? acc.diagnostics
+            : [
+              ...acc.diagnostics,
+              { line: lineNumber, issue: 'Unterminated /*++ block' },
+            ],
         }
       }
     }

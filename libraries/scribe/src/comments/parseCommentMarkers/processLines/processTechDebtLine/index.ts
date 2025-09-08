@@ -8,7 +8,9 @@ export default function processTechDebtLine(_lines: Array<string>) {
         if (!current.startsWith('//--')) {
           return undefined
         }
+
         const reason = current.slice(4).trim()
+
         return {
           ...acc,
           idx: acc.idx + 1,

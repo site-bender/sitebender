@@ -11,6 +11,7 @@ export default function processExampleLine(_lines: Array<string>) {
         }
         const payload = current.slice(4).trim()
         const parsed = parseExamplePayload(payload)
+
         return {
           ...acc,
           idx: acc.idx + 1,

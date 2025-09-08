@@ -11,12 +11,15 @@ export default function processExampleBlock(lines: Array<string>) {
         if (!current.startsWith('/*??')) {
           return undefined
         }
-        const consumed = consumeBlock(lines, acc.idx, '/*??')
-        const examples = map((rawLine: string) => ({
+
+  const consumed = consumeBlock(lines, acc.idx, '/*??')
+
+  const examples = map((rawLine: string) => ({
           ...parseExamplePayload(rawLine),
           line: lineNumber,
           raw: rawLine,
         }))(consumed.collected)
+
         return {
           ...acc,
           idx: consumed.nextIdx,
