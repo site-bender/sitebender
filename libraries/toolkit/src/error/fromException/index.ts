@@ -4,27 +4,36 @@ import type { Value } from "../../types/index.ts"
 import pipeError from "../pipeError/index.ts"
 import withCause from "../withCause/index.ts"
 
-/**
- * Converts a caught exception into an EngineError
- *
- * Safely converts any thrown value into a properly typed EngineError,
- * preserving the original error as the cause and extracting its message.
- *
- * @curried (operation) => (args) => (exception) => error
- * @param operation - The operation that threw
- * @param args - Arguments passed to the operation
- * @param exception - The caught exception (any thrown value)
- * @returns EngineError with exception details
- * @example
- * ```typescript
- * // In a catch block
+//++ Converts a caught exception into an EngineError, preserving the original error as the cause
+export default function fromException<TOp extends string>(operation: TOp) {
+	return function withArguments<TArgs extends ReadonlyArray<Value>>(args: TArgs) {
+		return function withException(exception: unknown): EngineError<TOp, TArgs> {
+			const err = exception instanceof Error
+				? exception
+				: new Error(String(exception))
+
+			return pipeError(operation)(args)(
+				`${operation} threw an exception: ${err.message}`,
+			)(
+				function setExceptionCode(error) {
+					return { ...error, code: "EXCEPTION_THROWN" } as typeof error
+				},
+				withCause(err),
+			)
+		}
+	}
+}
+
+/*??
+ * [EXAMPLE] In a catch block:
  * try {
  *   return mapUnsafe(fn)(array)
  * } catch (err) {
  *   return left(fromException("map")([fn, array])(err))
  * }
- *
- * // With additional context
+ */
+/*??
+ * [EXAMPLE] With additional context:
  * try {
  *   JSON.parse(text)
  * } catch (err) {
@@ -35,28 +44,6 @@ import withCause from "../withCause/index.ts"
  *   )
  *   return left(error)
  * }
- *
- * // Partial application
- * const mapException = fromException("map")
- * catch (err) {
- *   return left(mapException([fn, data])(err))
- * }
- * ```
  */
-const fromException =
-	<TOp extends string>(operation: TOp) =>
-	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
-	(exception: unknown): EngineError<TOp, TArgs> => {
-		const err = exception instanceof Error
-			? exception
-			: new Error(String(exception))
-
-		return pipeError(operation)(args)(
-			`${operation} threw an exception: ${err.message}`,
-		)(
-			(error) => ({ ...error, code: "EXCEPTION_THROWN" } as typeof error),
-			withCause(err),
-		)
-	}
-
-export default fromException
+//?? [EXAMPLE] const mapException = fromException("map")
+//?? [GOTCHA] Safely converts any thrown value, even non-Error objects
