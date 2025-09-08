@@ -1,4 +1,3 @@
-const vscode = require("vscode")
 const registerPrereqsCheck = require(
 	"../../commands/registerPrereqsCheck/index.js",
 )

@@ -15,7 +15,7 @@ test("submit updates query string and prevents navigation", async ({ page }) => 
 		// @ts-ignore
 		const v = Math.random().toString(36).slice(2)
 		// @ts-ignore
-		window.__sb_marker = v
+		globalThis.__sb_marker = v
 		return v
 	})
 
@@ -46,7 +46,7 @@ test("submit updates query string and prevents navigation", async ({ page }) => 
 	// No full reload occurred (marker persists)
 	const still = await page.evaluate(() => {
 		// @ts-ignore
-		return window.__sb_marker
+		return globalThis.__sb_marker
 	})
 	expect(still).toBe(marker)
 })

@@ -1,7 +1,8 @@
 {
 	"name": "@sitebender/scribe",
 	"version": "0.1.0",
-	"exports": "./src/index.ts",
+	// Barrel export removed to enforce one-function-per-file & no-aggregate rule.
+	// Intentionally no single top-level export. Consumers should import the specific tool they need.
 	"tasks": {
 		"test": "deno test --unstable-temporal tests/",
 		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
@@ -9,6 +10,7 @@
 		"lint": "deno lint src/",
 		"fmt": "deno fmt src/ tests/",
 		"type-check": "deno check src/**/*.ts",
-		"dev": "deno run --allow-read --allow-write src/index.ts"
+		// Dev now points to the demo script (was barrel entry before removal)
+		"dev": "deno run --allow-read --allow-write demo.ts"
 	}
 }

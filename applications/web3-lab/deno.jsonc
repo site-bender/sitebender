@@ -19,7 +19,7 @@
 		"@sitebender/components": "../../libraries/components/mod.ts",
 		"@sitebender/toolkit": "../../libraries/toolkit/mod.ts",
 		"@sitebender/engine": "../../libraries/engine/mod.ts",
-		"@sitebender/distributed": "../../libraries/distributed/mod.ts",
+		"@sitebender/mesh": "../../libraries/mesh/mod.ts",
 
 		// Web3-specific dependencies - using Helia instead of deprecated IPFS
 		"@helia/http": "npm:@helia/http@^1.0.0",

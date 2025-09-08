@@ -9,21 +9,15 @@ import parseFileWithCompiler from "../parser/parseFileWithCompiler/index.ts"
 import detectPurityFromAST from "../detectors/detectPurityFromAST/index.ts"
 import detectCurryingFromAST from "../detectors/detectCurryingFromAST/index.ts"
 import detectComplexityFromAST from "../detectors/detectComplexityFromAST/index.ts"
-import {
-	isAssociative,
-	isCommutative,
-	isDistributive,
-	isIdempotent,
-} from "../detectors/index.ts"
+// Direct heuristic math property detectors (no barrel)
+import isAssociative from "../detectors/detectMathProperties/isAssociative/index.ts"
+import isCommutative from "../detectors/detectMathProperties/isCommutative/index.ts"
+import isDistributive from "../detectors/detectMathProperties/isDistributive/index.ts"
+import isIdempotent from "../detectors/detectMathProperties/isIdempotent/index.ts"
 import { extractDescription } from "../extractors/index.ts"
 import { generateMarkdown } from "../generators/index.ts"
 
-/**
- * Generates documentation for a TypeScript file using the TypeScript compiler API
- * @param filePath - Path to the TypeScript file to document
- * @param options - Documentation generation options
- * @returns Result containing the generated documentation or an error
- */
+//++ Generate documentation using the TypeScript compiler API (richer AST metadata).
 export default async function generateDocsWithCompiler(
 	filePath: string,
 	options: GenerateOptions = {},
@@ -96,22 +90,20 @@ export default async function generateDocsWithCompiler(
 			relatedFunctions: [], // TODO(@scribe): Find in Phase 2
 		}
 
-		// Generate documentation based on format
-		let output: string
-		switch (opts.format) {
-			case "markdown":
-				output = generateMarkdown(metadata)
-				break
-			case "html":
-				// TODO(@scribe): Implement HTML generation in Phase 2
-				output = generateMarkdown(metadata) // Fallback to markdown for now
-				break
-			case "json":
-				output = JSON.stringify(metadata, null, 2)
-				break
-			default:
-				output = generateMarkdown(metadata)
-		}
+		// Generate documentation based on format (expression form)
+		const output = ((format) => {
+			switch (format) {
+				case "markdown":
+					return generateMarkdown(metadata)
+				case "html":
+					// TODO(@scribe): Implement HTML generation in Phase 2
+					return generateMarkdown(metadata)
+				case "json":
+					return JSON.stringify(metadata, null, 2)
+				default:
+					return generateMarkdown(metadata)
+			}
+		})(opts.format)
 
 		return {
 			ok: true,

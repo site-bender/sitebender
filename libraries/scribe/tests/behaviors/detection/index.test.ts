@@ -1,10 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import {
-	detectComplexity,
-	detectCurrying,
-	detectProperties,
-	detectPurity,
-} from "../../../src/detectors/index.ts"
+import detectPurity from "../../../src/detectors/detectPurity/index.ts"
+import detectCurrying from "../../../src/detectors/detectCurrying/index.ts"
+import detectComplexity from "../../../src/detectors/detectComplexity/index.ts"
+import detectProperties from "../../../src/detectors/detectProperties/index.ts"
 
 Deno.test("detectPurity - identifies pure functions", () => {
 	const pureFunction = `
@@ -180,7 +178,7 @@ Deno.test("detectComplexity - identifies O(log n) for binary search", () => {
 function binarySearch(arr: number[], target: number): number {
 	let low = 0
 	let high = arr.length - 1
-	
+
 	while (low <= high) {
 		const mid = Math.floor((low + high) / 2)
 		if (arr[mid] === target) return mid
