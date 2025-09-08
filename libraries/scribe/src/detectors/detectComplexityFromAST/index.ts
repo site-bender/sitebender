@@ -7,8 +7,9 @@ export type ComplexityClass =
 	| "O(n log n)"
 	| "O(n²)"
 	| "O(n³)"
-	| "O(2ⁿ)"
-	| "unknown"
+	| "O(2^n)"
+	| "O(n!)"
+	| "Unknown"
 
 interface ComplexityState {
 	maxLoopDepth: number
@@ -196,7 +197,7 @@ function determineComplexity(state: ComplexityState): ComplexityClass {
 	if (state.hasRecursion && state.maxLoopDepth === 0 && !state.hasBinaryOperation) {
 		// Could be O(2^n) for naive recursive algorithms
 		// This is a heuristic - actual complexity depends on recursion pattern
-		return "O(2ⁿ)"
+		return "O(2^n)"
 	}
 
 	// Sorting detected
@@ -229,5 +230,5 @@ function determineComplexity(state: ComplexityState): ComplexityClass {
 		return "O(1)"
 	}
 
-	return "unknown"
+	return "Unknown"
 }
