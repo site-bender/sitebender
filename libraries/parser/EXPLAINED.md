@@ -7,6 +7,7 @@ The parser library is the single source of truth for understanding TypeScript co
 ## Core Parser Functions
 
 ### 1. File Parsing (Already Implemented)
+
 ```
 parseSourceFile/
 ├── index.ts           # Takes a file path, returns TypeScript AST
@@ -15,6 +16,7 @@ parseSourceFile/
 ```
 
 ### 2. Function Extraction (To Be Implemented)
+
 ```
 extractFunctions/
 ├── index.ts           # Finds all functions in a file
@@ -26,6 +28,7 @@ extractFunctions/
 Returns an array of function AST nodes because files might have multiple functions (even though @sitebender prefers one per file, other projects won't).
 
 ### 3. Signature Extraction (To Be Implemented)
+
 ```
 extractSignature/
 ├── index.ts           # Takes a function node, returns signature
@@ -44,6 +47,7 @@ extractSignature/
 ```
 
 ### 4. Branch Analysis (To Be Implemented)
+
 ```
 analyzeBranches/
 ├── index.ts           # Finds all decision points in code
@@ -56,6 +60,7 @@ analyzeBranches/
 ```
 
 ### 5. Import Detection (To Be Implemented)
+
 ```
 extractImports/
 ├── index.ts           # Gets all imports from a file
@@ -65,6 +70,7 @@ extractImports/
 ```
 
 ### 6. Type Analysis (To Be Implemented)
+
 ```
 analyzeType/
 ├── index.ts           # Takes a TypeScript type, returns our TypeInfo
@@ -103,6 +109,7 @@ analyzeType/
 ## "Drawbacks" That Are Actually Benefits
 
 People might complain about:
+
 - **"Too many files"** → Each file is comprehensible. The compiler doesn't care.
 - **"Deep nesting"** → The path IS the documentation. Every level adds meaning.
 - **"Import overhead"** → One line per function. Big deal. It's explicit and clear.
@@ -116,6 +123,7 @@ People might complain about:
 ## Design Decisions
 
 ### Multiple Functions Per File
+
 - We cannot assume one function per file (other projects won't follow this)
 - Parser must handle multiple functions gracefully
 - Return arrays of functions, not single functions
@@ -130,35 +138,37 @@ type BasicResult = Result<SourceFile, ParseError>
 
 // We return AST + metadata:
 type ParseResult<T> = Result<{
-  data: T,
-  metadata: ParseMetadata
+	data: T
+	metadata: ParseMetadata
 }, ParseError>
 
 type ParseMetadata = {
-  functionCount: number
-  violations: Array<RuleViolation>
-  warnings: Array<string>
-  stats: {
-    lines: number
-    complexity: number
-    branches: number
-  }
+	functionCount: number
+	violations: Array<RuleViolation>
+	warnings: Array<string>
+	stats: {
+		lines: number
+		complexity: number
+		branches: number
+	}
 }
 
 type RuleViolation = {
-  rule: string  // "multiple-functions-per-file"
-  line: number
-  message: string
+	rule: string // "multiple-functions-per-file"
+	line: number
+	message: string
 }
 ```
 
 This way:
+
 - Success case carries both data AND metadata
 - Functions remain pure (no side effects)
 - Information flows through the chain
 - Each function can add to metadata
 
 Example usage with toolkit's pipe:
+
 ```typescript
 import pipe from "@sitebender/toolkit/pipe"
 import map from "@sitebender/toolkit/map"
@@ -166,34 +176,35 @@ import map from "@sitebender/toolkit/map"
 // Each parser function is curried
 const parseFile = parseSourceFile("file.ts")
 const extractFuncs = extractFunctions
-const addMetadata = enrichMetadata  
+const addMetadata = enrichMetadata
 
 // Clean pipeline
 const result = pipe(
-  parseFile,
-  map(extractFuncs),
-  map(addMetadata),
-  map(validateRules)
+	parseFile,
+	map(extractFuncs),
+	map(addMetadata),
+	map(validateRules),
 )({ logger: consoleLogger })
 
 // Or with partial application
 const analyzeFile = pipe(
-  parseSourceFile,
-  map(extractFunctions),
-  map(result => ({
-    ...result,
-    metadata: {
-      ...result.metadata,
-      functionCount: result.data.functions.length,
-      violations: result.data.functions.length > 1 
-        ? [...result.metadata.violations, {
-            rule: "multiple-functions-per-file",
-            line: 1,
-            message: `File has ${result.data.functions.length} functions, should have 1`
-          }]
-        : result.metadata.violations
-    }
-  }))
+	parseSourceFile,
+	map(extractFunctions),
+	map((result) => ({
+		...result,
+		metadata: {
+			...result.metadata,
+			functionCount: result.data.functions.length,
+			violations: result.data.functions.length > 1
+				? [...result.metadata.violations, {
+					rule: "multiple-functions-per-file",
+					line: 1,
+					message:
+						`File has ${result.data.functions.length} functions, should have 1`,
+				}]
+				: result.metadata.violations,
+		},
+	})),
 )
 
 const result = analyzeFile("file.ts")()
@@ -205,45 +216,47 @@ Keep it simple and practical:
 
 ```typescript
 type Logger = {
-  debug: (message: string) => void
-  info: (message: string) => void
-  warn: (message: string) => void
-  error: (message: string) => void
+	debug: (message: string) => void
+	info: (message: string) => void
+	warn: (message: string) => void
+	error: (message: string) => void
 }
 
 // Silent logger for production
 const silentLogger: Logger = {
-  debug: () => {},
-  info: () => {},
-  warn: () => {},
-  error: () => {}
+	debug: () => {},
+	info: () => {},
+	warn: () => {},
+	error: () => {},
 }
 
 // Console logger for development
 const consoleLogger: Logger = {
-  debug: (msg) => console.log(`[DEBUG] ${msg}`),
-  info: (msg) => console.info(`[INFO] ${msg}`),
-  warn: (msg) => console.warn(`[WARN] ${msg}`),
-  error: (msg) => console.error(`[ERROR] ${msg}`)
+	debug: (msg) => console.log(`[DEBUG] ${msg}`),
+	info: (msg) => console.info(`[INFO] ${msg}`),
+	warn: (msg) => console.warn(`[WARN] ${msg}`),
+	error: (msg) => console.error(`[ERROR] ${msg}`),
 }
 
 // Functions accept optional logger
 function parseSourceFile(filePath: string) {
-  return function(options?: ParseOptions & { logger?: Logger }) {
-    const log = options?.logger || silentLogger
-    log.debug(`Parsing ${filePath}`)
-    // ... rest of function
-  }
+	return function (options?: ParseOptions & { logger?: Logger }) {
+		const log = options?.logger || silentLogger
+		log.debug(`Parsing ${filePath}`)
+		// ... rest of function
+	}
 }
 ```
 
 Why this approach:
+
 - **Practical**: Easy to understand and use
 - **Pure**: Logger is injected, not global
 - **Flexible**: Can swap loggers for testing
 - **Optional**: Defaults to silent (no surprise output)
 
 Why NOT Writer monad:
+
 - Too academic for this use case
 - Adds complexity without clear benefit
 - Harder for other devs to understand
@@ -252,11 +265,13 @@ Why NOT Writer monad:
 ### The Hidden Monad Pattern
 
 The {data, metadata} object is actually a monad itself - a "box" that:
+
 - **Wraps** the parsed value (data)
 - **Accumulates** information (metadata)
 - **Flows through** the pipeline
 
 We've essentially created a nested monad structure:
+
 - **Outer monad**: Result (handles success/failure)
 - **Inner monad**: {data, metadata} (accumulates context)
 
@@ -267,7 +282,7 @@ This gives us Writer monad benefits without the complexity:
 Writer<ParsedAST, Metadata>
 
 // Our practical approach:
-Result<{data: ParsedAST, metadata: Metadata}, Error>
+Result<{ data: ParsedAST; metadata: Metadata }, Error>
 ```
 
 Same power, clearer intent, easier for developers to understand.
@@ -279,6 +294,7 @@ Same power, clearer intent, easier for developers to understand.
 The TypeScript compiler API gives us EVERYTHING we need:
 
 **For Signature Extraction:**
+
 - Function names: `node.name.getText()`
 - Parameters: `node.parameters` array with types
 - Return types: `checker.getReturnTypeOfSignature()`
@@ -286,11 +302,13 @@ The TypeScript compiler API gives us EVERYTHING we need:
 - Modifiers: `node.modifiers` (async, export, etc.)
 
 **For Type Analysis:**
+
 - Type nodes: `ts.isUnionTypeNode()`, `ts.isArrayTypeNode()`, etc.
 - Literal values: `ts.isStringLiteral()`, `ts.isNumericLiteral()`
 - Complex types: `ts.TypeChecker` resolves everything
 
 **For Branch Analysis:**
+
 - If statements: `ts.isIfStatement()`
 - Ternary: `ts.isConditionalExpression()`
 - Switch: `ts.isSwitchStatement()`
@@ -300,17 +318,19 @@ The TypeScript compiler API gives us EVERYTHING we need:
 ### No Regex Needed
 
 The current prover has a mistake - it uses regex for branch analysis:
+
 ```typescript
 // BAD: Current prover code
 const match = line.match(/if\s*\((.*?)\)/)
 
 // GOOD: Should use AST
 if (ts.isIfStatement(node)) {
-  const condition = node.expression
+	const condition = node.expression
 }
 ```
 
 The TypeScript AST handles:
+
 - Nested structures
 - Multi-line statements
 - Comments and whitespace
@@ -320,10 +340,11 @@ The TypeScript AST handles:
 ### The Only Exception
 
 String checking as a last resort fallback:
+
 ```typescript
 // Only when AST doesn't categorize it
 if (raw.includes("=>")) {
-  return { kind: TypeKind.Function }
+	return { kind: TypeKind.Function }
 }
 ```
 
@@ -342,14 +363,14 @@ Comments aren't nodes in the TypeScript AST - they're stored as "trivia" attache
 ```typescript
 // Get leading comments before a node
 const leadingComments = ts.getLeadingCommentRanges(
-  sourceFile.getFullText(), 
-  node.getFullStart()
+	sourceFile.getFullText(),
+	node.getFullStart(),
 )
 
 // Get trailing comments after a node
 const trailingComments = ts.getTrailingCommentRanges(
-  sourceFile.getText(), 
-  node.getEnd()
+	sourceFile.getText(),
+	node.getEnd(),
 )
 ```
 
@@ -358,8 +379,11 @@ const trailingComments = ts.getTrailingCommentRanges(
 Once we have comment ranges, we extract the actual text:
 
 ```typescript
-function extractCommentText(sourceFile: ts.SourceFile, range: ts.CommentRange): string {
-  return sourceFile.getFullText().slice(range.pos, range.end)
+function extractCommentText(
+	sourceFile: ts.SourceFile,
+	range: ts.CommentRange,
+): string {
+	return sourceFile.getFullText().slice(range.pos, range.end)
 }
 ```
 
@@ -385,8 +409,9 @@ extractComments/
 ### For Scribe's Needs
 
 Scribe will need:
+
 1. **Function descriptions** from `//++` comments
-2. **Examples** from `//??` comments  
+2. **Examples** from `//??` comments
 3. **Tech debt warnings** from `//--` comments
 4. **Unspecified comments** for context (optional)
 
@@ -410,21 +435,23 @@ For files with multiple functions (against @sitebender rules but common elsewher
 ```
 
 **Rules:**
+
 1. **Single function file**: Markers optional (all comments belong to the one function)
-2. **Multiple function file**: 
+2. **Multiple function file**:
    - With markers: Comments explicitly associated
    - Without markers: Best-effort proximity matching (unreliable)
 3. **Placement flexibility**: Marked comments can appear anywhere in the file
 4. **Examples below**: Your preference for examples below the function works fine with markers
 
 Example:
+
 ```typescript
 // Single function file - no markers needed
 //++ Adds two numbers together
 export default function add(a: number) {
-  return function(b: number) {
-    return a + b
-  }
+	return function (b: number) {
+		return a + b
+	}
 }
 
 //?? add(2)(3) // Returns: 5
@@ -432,12 +459,12 @@ export default function add(a: number) {
 // Multi-function file - markers recommended
 //++ [multiply] Multiplies two numbers
 export function multiply(a: number, b: number) {
-  return a * b
+	return a * b
 }
 
 //++ [divide] Divides two numbers
 export function divide(a: number, b: number) {
-  return a / b
+	return a / b
 }
 
 //?? [multiply] multiply(3, 4) // Returns: 12
@@ -445,12 +472,13 @@ export function divide(a: number, b: number) {
 ```
 
 The parser will:
+
 1. Extract ALL comments (special and unspecified)
 2. Parse function names from markers
 3. Associate comments with matching functions
 4. Categorize comments by type:
    - `description` (//++)
-   - `techDebt` (//--) 
+   - `techDebt` (//--)
    - `example` (//??}
    - `unspecified` (// or /* */)
 5. Return everything, let consumers decide what to use
@@ -463,11 +491,11 @@ The parser extracts EVERYTHING and categorizes it:
 
 ```typescript
 type ExtractedComment = {
-  type: "description" | "techDebt" | "example" | "unspecified"
-  text: string
-  functionName?: string  // From [functionName] marker if present
-  line: number
-  column: number
+	type: "description" | "techDebt" | "example" | "unspecified"
+	text: string
+	functionName?: string // From [functionName] marker if present
+	line: number
+	column: number
 }
 ```
 
@@ -476,6 +504,7 @@ Scribe's job: Decide what to include in docs.
 Prover's job: Probably ignore them all.
 
 This separation of concerns means:
+
 - Parser doesn't make documentation decisions
 - Scribe might include unspecified comments for context
 - Prover focuses on examples for test generation
@@ -487,13 +516,13 @@ This separation of concerns means:
 
 The Parser will be **purely structural** - it extracts and associates but doesn't interpret:
 
-| Concern | Parser | Scribe |
-|---------|--------|--------|
-| Raw comment extraction from AST | ✅ | ❌ |
-| Node association (which function owns which comment) | ✅ | ❌ |
-| Marker classification (//++, //??, //--) | ❌ | ✅ |
-| Policy enforcement (min length, etc.) | ❌ | ✅ |
-| Diagnostics about comment quality | ❌ | ✅ |
+| Concern                                              | Parser | Scribe |
+| ---------------------------------------------------- | ------ | ------ |
+| Raw comment extraction from AST                      | ✅     | ❌     |
+| Node association (which function owns which comment) | ✅     | ❌     |
+| Marker classification (//++, //??, //--)             | ❌     | ✅     |
+| Policy enforcement (min length, etc.)                | ❌     | ✅     |
+| Diagnostics about comment quality                    | ❌     | ✅     |
 
 ### Parser's Contract to Scribe
 
@@ -554,18 +583,18 @@ const functions = extractFunctions(sourceFile.data)
 const associated = associateComments(comments, functions)
 
 // Scribe interprets markers
-const markers = parseMarkers(associated)  // Scribe's domain
+const markers = parseMarkers(associated) // Scribe's domain
 // markers.description, markers.examples, markers.techDebt
 // markers.diagnostics for any issues
 
 // Final result includes both
 return {
-  data: { functions, comments: markers },
-  metadata: {
-    functionCount: functions.length,
-    commentCount: comments.length,
-    diagnostics: markers.diagnostics  // From Scribe
-  }
+	data: { functions, comments: markers },
+	metadata: {
+		functionCount: functions.length,
+		commentCount: comments.length,
+		diagnostics: markers.diagnostics, // From Scribe
+	},
 }
 ```
 
