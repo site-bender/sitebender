@@ -15,9 +15,7 @@ export default function bigIntToBase58(value: bigint): Array<string> {
 	return reverse(generateDigits(value))
 }
 
-//?? [EXAMPLE] bigIntToBase58(0n) // []
 //?? [EXAMPLE] bigIntToBase58(58n) // ["2", "1"]
 //?? [EXAMPLE] bigIntToBase58(3364n) // ["2", "1", "1"]
-/*??
- * [GOTCHA] Returns empty array for 0n
- */
+//?? [EXAMPLE] bigIntToBase58(0n) // []
+//?? [GOTCHA] Returns empty array for 0n
