@@ -1,17 +1,17 @@
 //++ Constants for detecting commutative mathematical properties
 
 export const COMMUTATIVE_OPERATIONS = [
-	/\+/,    // Addition
-	/\*/,    // Multiplication
-	/&&/,    // Logical AND
-	/\|\|/,  // Logical OR
-	/&/,     // Bitwise AND
-	/\|/,    // Bitwise OR
-	/\^/,    // Bitwise XOR
-	/===/,   // Strict equality
-	/==/,    // Equality
-	/!=/,    // Not equal
-	/!==/,   // Strict not equal
+	/\+/, // Addition
+	/\*/, // Multiplication
+	/&&/, // Logical AND
+	/\|\|/, // Logical OR
+	/&/, // Bitwise AND
+	/\|/, // Bitwise OR
+	/\^/, // Bitwise XOR
+	/===/, // Strict equality
+	/==/, // Equality
+	/!=/, // Not equal
+	/!==/, // Strict not equal
 ] as const
 
 export const COMMUTATIVE_FUNCTION_NAMES = [

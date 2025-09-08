@@ -17,9 +17,7 @@ export type Props = {
 export default function NotEquals(
 	{ left, right, children }: Props,
 ): ComparatorMarker {
-	const kids = Array.isArray(children)
-		? children
-		: (children ? [children] : [])
+	const kids = Array.isArray(children) ? children : (children ? [children] : [])
 	const l = left ?? kids[0]
 	const r = right ?? kids[1]
 	return {

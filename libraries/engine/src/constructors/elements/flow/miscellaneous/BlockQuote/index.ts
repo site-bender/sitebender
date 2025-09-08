@@ -53,9 +53,7 @@ const BlockQuote =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {
 		const kids = Array.isArray(children)
-			? children.filter((c) =>
-				!c?.tag || isFlowContent()(c as ElementConfig)
-			)
+			? children.filter((c) => !c?.tag || isFlowContent()(c as ElementConfig))
 			: (!children || typeof children !== "object" ||
 					!("tag" in children) ||
 					isFlowContent()(children as ElementConfig))

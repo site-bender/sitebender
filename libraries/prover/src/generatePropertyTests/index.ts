@@ -1,4 +1,5 @@
 import type { FunctionSignature, TestCase, TypeInfo } from "../types/index.ts"
+
 import { TypeKind } from "../types/index.ts"
 
 /**

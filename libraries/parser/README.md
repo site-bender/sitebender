@@ -7,13 +7,15 @@
 **WARNING: This library is NOT production-ready. It's a proof of concept with aspirational documentation.**
 
 ### What Actually Works
+
 - ✅ `parseSourceFile` - Parses TypeScript files into AST
-- ✅ `extractFunctions` - Finds functions in AST  
+- ✅ `extractFunctions` - Finds functions in AST
 - ✅ `extractSignature` - Extracts basic signatures
 - ✅ `extractComments` - Gets raw comments from source
 - ⚠️ `detectProperties` - Partial (async/generator/curried work, purity detection is weak)
 
 ### What Doesn't Exist Yet
+
 - ❌ `analyzeBranches` - Not implemented
 - ❌ `extractTypes` - Not implemented
 - ❌ `extractImports` - Not implemented
@@ -176,7 +178,7 @@ import detectProperties from "@sitebender/parser/extractSignature/detectProperti
 // Extract type information
 import extractTypes from "@sitebender/parser/extractTypes/index.ts" // ❌ DOESN'T EXIST
 
-// Analyze branches for coverage  
+// Analyze branches for coverage
 import analyzeBranches from "@sitebender/parser/analyzeBranches/index.ts" // ❌ DOESN'T EXIST
 
 // Extract imports
@@ -230,6 +232,7 @@ associateComments(
 ## Implementation Status
 
 ### Actually Completed
+
 - ✅ Basic TypeScript parsing with `parseSourceFile`
 - ✅ Function extraction from AST
 - ✅ Signature extraction (parameters, return type, generics)
@@ -237,6 +240,7 @@ associateComments(
 - ⚠️ Property detection (async, generator, curried - purity needs work)
 
 ### Phase 1: Core Functions (CRITICAL - NOT STARTED)
+
 - ❌ Extract TypeScript parsing from scribe (no integration)
 - ❌ Extract TypeScript parsing from prover (no integration)
 - ❌ Implement `analyzeBranches` for coverage
@@ -244,6 +248,7 @@ associateComments(
 - ❌ Implement `extractImports` for dependency tracking
 
 ### Phase 2: Testing & Integration (BLOCKED)
+
 - ❌ Write tests for ALL functions (currently ~10% coverage)
 - ❌ Integrate with prover
 - ❌ Integrate with scribe
@@ -251,6 +256,7 @@ associateComments(
 - ❌ Fix nested function violations
 
 ### Phase 3: Enhancement (FUTURE)
+
 - ❌ Add complexity analysis
 - ❌ Add literal type detection
 - ❌ Add constraint extraction
@@ -258,6 +264,7 @@ associateComments(
 - ❌ Improve purity detection beyond trivial cases
 
 ### Phase 4: Optimization (DISTANT FUTURE)
+
 - ❌ Cache parsed ASTs
 - ❌ Incremental parsing
 - ❌ Performance profiling

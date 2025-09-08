@@ -1,43 +1,43 @@
-import { walk } from "https://deno.land/std@0.220.1/fs/walk.ts"
+import { walk } from 'https://deno.land/std@0.220.1/fs/walk.ts';
 
-import sortFileImports from "./sortFileImports/index.ts"
+import sortFileImports from './sortFileImports/index.ts';
 
 export type ImportInfo = {
-	type: "type" | "value"
-	source: string
-	text: string
-	line: number
+	type: 'type' | 'value';
+	source: string;
+	text: string;
+	line: number;
 	category:
-		| "types"
-		| "components"
-		| "utilities"
-		| "constants"
-		| "external"
-		| "local"
-}
+		| 'types'
+		| 'components'
+		| 'utilities'
+		| 'constants'
+		| 'external'
+		| 'local';
+};
 
 async function main() {
-	const files: string[] = []
+	const files: string[] = [];
 
-	const roots = ["docs", "playground", "libraries", "scripts"]
+	const roots = ['docs', 'playground', 'libraries', 'scripts'];
 
 	for (const root of roots) {
 		for await (
 			const entry of walk(root, {
-				exts: [".ts", ".tsx"],
+				exts: ['.ts', '.tsx'],
 				includeDirs: false,
 			})
 		) {
-			files.push(entry.path)
+			files.push(entry.path);
 		}
 	}
 
-	const sortPromises = files.map((file) => sortFileImports(file))
-	await Promise.all(sortPromises)
+	const sortPromises = files.map((file) => sortFileImports(file));
+	await Promise.all(sortPromises);
 
-	console.log(`🎉 Processed ${files.length} files`)
+	console.log(`🎉 Processed ${files.length} files`);
 }
 
 if (import.meta.main) {
-	main()
+	main();
 }

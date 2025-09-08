@@ -1,4 +1,5 @@
 import type { TestCase } from "../../../types/index.ts"
+
 import isEdgeCase from "./isEdgeCase/index.ts"
 
 /**

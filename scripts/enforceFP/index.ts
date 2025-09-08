@@ -21,9 +21,7 @@ type Violation = {
 
 export default async function enforceFP(globsArg: string[] = Deno.args) {
 	const pedantic = globsArg.includes("--pedantic")
-	const globs = pedantic
-		? globsArg.filter((a) => a !== "--pedantic")
-		: globsArg
+	const globs = pedantic ? globsArg.filter((a) => a !== "--pedantic") : globsArg
 	const patterns = globs.length ? globs : DEFAULT_FP_GLOBS
 
 	const violations: Violation[] = []

@@ -123,8 +123,7 @@ Deno.test("decrement", async (t) => {
 
 						if (isFinite(n)) {
 							// Accept that -0 becomes 0 through arithmetic
-							const isZero = (x: number) =>
-								x === 0 || Object.is(x, -0)
+							const isZero = (x: number) => x === 0 || Object.is(x, -0)
 							if (isZero(n)) {
 								return isZero(result1) && isZero(result2)
 							}

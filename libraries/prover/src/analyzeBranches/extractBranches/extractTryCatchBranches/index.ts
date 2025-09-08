@@ -1,5 +1,6 @@
 import type { BranchPath, BranchType } from "../../../types/index.ts"
 import type { SourceNode } from "../../parseSourceCode/types/index.ts"
+
 import computeBranchId from "../../computeBranchId/index.ts"
 
 /**

@@ -1,4 +1,5 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import type { ParseError, Result } from "../../types/index.ts"
 
 /**
@@ -29,8 +30,7 @@ export default function parseWithCompiler(
 			return {
 				ok: false,
 				error: {
-					message:
-						"Failed to create source file from TypeScript source",
+					message: "Failed to create source file from TypeScript source",
 					line: 0,
 					column: 0,
 				},

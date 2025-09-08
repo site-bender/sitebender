@@ -7,8 +7,7 @@ import sortWith from "../../../../src/simple/array/sortWith/index.ts"
 describe("sortWith", () => {
 	describe("behavioral tests", () => {
 		it("should sort with multiple comparators", () => {
-			const byAge = (a: { age: number }, b: { age: number }) =>
-				a.age - b.age
+			const byAge = (a: { age: number }, b: { age: number }) => a.age - b.age
 			const byName = (a: { name: string }, b: { name: string }) =>
 				a.name.localeCompare(b.name)
 
@@ -151,10 +150,8 @@ describe("sortWith", () => {
 		})
 
 		it("should handle numeric arrays", () => {
-			const compareAbs = (a: number, b: number) =>
-				Math.abs(a) - Math.abs(b)
-			const compareSign = (a: number, b: number) =>
-				Math.sign(a) - Math.sign(b)
+			const compareAbs = (a: number, b: number) => Math.abs(a) - Math.abs(b)
+			const compareSign = (a: number, b: number) => Math.sign(a) - Math.sign(b)
 
 			assertEquals(
 				sortWith([compareAbs, compareSign])([3, -3, 2, -2, 1, -1, 0]),
@@ -313,12 +310,9 @@ describe("sortWith", () => {
 						}),
 					),
 					(arr) => {
-						const byX = (a: { x: number }, b: { x: number }) =>
-							a.x - b.x
-						const byY = (a: { y: number }, b: { y: number }) =>
-							a.y - b.y
-						const byZ = (a: { z: number }, b: { z: number }) =>
-							a.z - b.z
+						const byX = (a: { x: number }, b: { x: number }) => a.x - b.x
+						const byY = (a: { y: number }, b: { y: number }) => a.y - b.y
+						const byZ = (a: { z: number }, b: { z: number }) => a.z - b.z
 
 						const sorted = sortWith([byX, byY, byZ])(arr)
 

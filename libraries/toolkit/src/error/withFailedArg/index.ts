@@ -4,7 +4,10 @@ import type { Value } from "../../types/index.ts"
 //++ Adds failed argument information to an error with index and optional name
 export default function withFailedArg(index: number) {
 	return function withArgumentName(name?: string) {
-		return function enrichError<TOp extends string, TArgs extends ReadonlyArray<Value>>(
+		return function enrichError<
+			TOp extends string,
+			TArgs extends ReadonlyArray<Value>,
+		>(
 			error: EngineError<TOp, TArgs>,
 		): EngineError<TOp, TArgs> {
 			return {

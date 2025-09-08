@@ -65,9 +65,7 @@ Deno.test("median", async (t) => {
 						maxLength: 50,
 					}),
 					(numbers) => {
-						const shuffled = [...numbers].sort(() =>
-							Math.random() - 0.5
-						)
+						const shuffled = [...numbers].sort(() => Math.random() - 0.5)
 						const result1 = median(numbers)
 						const result2 = median(shuffled)
 

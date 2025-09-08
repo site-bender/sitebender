@@ -1,4 +1,5 @@
 import type { DemoResult } from "../types/index.ts"
+
 import formatDemoResult from "../formatDemoResult/index.ts"
 
 // Formats all demo results into a complete output string

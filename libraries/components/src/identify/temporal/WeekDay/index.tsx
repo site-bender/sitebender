@@ -183,16 +183,10 @@ export default function WeekDay({
 				dateTime={datetime}
 				className={className}
 				data-weekday={date.getDay()}
-				data-week={showWeek
-					? getWeekNumber(date, weekSystem)
-					: undefined}
+				data-week={showWeek ? getWeekNumber(date, weekSystem) : undefined}
 				data-quarter={showQuarter ? getQuarter(date) : undefined}
-				data-day-of-year={showDayOfYear
-					? getDayOfYear(date)
-					: undefined}
-				data-julian-day={showJulianDay
-					? getJulianDayNumber(date)
-					: undefined}
+				data-day-of-year={showDayOfYear ? getDayOfYear(date) : undefined}
+				data-julian-day={showJulianDay ? getJulianDayNumber(date) : undefined}
 				{...props}
 			>
 				{children({ display, datetime, ...additionalInfo })}
@@ -208,9 +202,7 @@ export default function WeekDay({
 			data-week={showWeek ? getWeekNumber(date, weekSystem) : undefined}
 			data-quarter={showQuarter ? getQuarter(date) : undefined}
 			data-day-of-year={showDayOfYear ? getDayOfYear(date) : undefined}
-			data-julian-day={showJulianDay
-				? getJulianDayNumber(date)
-				: undefined}
+			data-julian-day={showJulianDay ? getJulianDayNumber(date) : undefined}
 			{...props}
 		>
 			{children || display}

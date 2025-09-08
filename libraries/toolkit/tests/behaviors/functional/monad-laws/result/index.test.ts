@@ -59,9 +59,7 @@ Deno.test("Result monad - associativity law", () => {
 
 	fc.assert(
 		fc.property(
-			fc.integer({ min: -50, max: 150 }).map((v) =>
-				ok<number, string>(v)
-			),
+			fc.integer({ min: -50, max: 150 }).map((v) => ok<number, string>(v)),
 			(m) => {
 				const left = chain<number, number, string>(g)(
 					chain<number, number, string>(f)(m),

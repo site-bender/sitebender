@@ -193,9 +193,7 @@ describe("omit", () => {
 						const result = omit(negativeIndices)(array)
 
 						// Convert negative to positive indices
-						const positiveIndices = negativeIndices.map((i) =>
-							array.length + i
-						)
+						const positiveIndices = negativeIndices.map((i) => array.length + i)
 							.filter((i) => i >= 0 && i < array.length)
 
 						const expected = omit(positiveIndices)(array)

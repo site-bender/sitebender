@@ -3,7 +3,10 @@ import type { Value } from "../../types/index.ts"
 
 //++ Adds a helpful suggestion for fixing the error
 export default function withSuggestion(suggestion: string) {
-	return function enrichError<TOp extends string, TArgs extends ReadonlyArray<Value>>(
+	return function enrichError<
+		TOp extends string,
+		TArgs extends ReadonlyArray<Value>,
+	>(
 		error: EngineError<TOp, TArgs>,
 	): EngineError<TOp, TArgs> {
 		return {

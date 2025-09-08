@@ -1,8 +1,10 @@
 import * as ts from "npm:typescript@5.7.2"
+
 import type { FunctionSignature } from "../types/index.ts"
+
 import extractFunctionFromSource from "./extractFunctionFromSource/index.ts"
-import extractSignatureFromNode from "./extractSignatureFromNode/index.ts"
 import extractImports from "./extractImports/index.ts"
+import extractSignatureFromNode from "./extractSignatureFromNode/index.ts"
 
 /**
  * Parses a TypeScript file and extracts the function signature

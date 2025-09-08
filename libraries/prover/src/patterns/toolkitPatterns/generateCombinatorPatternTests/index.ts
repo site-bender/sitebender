@@ -19,8 +19,7 @@ export default function generateCombinatorPatternTests(
 	if (name.includes("curry")) {
 		tests.push({
 			name: "converts multi-arg to curried",
-			description:
-				"Transforms function to accept arguments one at a time",
+			description: "Transforms function to accept arguments one at a time",
 			input: [(a: number, b: number) => a + b],
 			expectedOutput: undefined, // Returns a function
 			properties: [{
