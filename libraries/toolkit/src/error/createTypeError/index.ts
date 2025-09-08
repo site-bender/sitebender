@@ -3,57 +3,37 @@ import type { Datatype, Value } from "../../types/index.ts"
 
 import createError from "../createError/index.ts"
 
-/**
- * Creates a type mismatch error with full context
- *
- * Specialized error creator for type-related failures. Automatically
- * adds failed argument info, type details, and a helpful suggestion.
- *
- * @curried (operation) => (args) => (argIndex) => (expected) => (actual) => error
- * @param operation - The operation that failed
- * @param args - Arguments passed to the operation
- * @param argIndex - Index of the argument with wrong type
- * @param expected - Expected Datatype
- * @param actual - Actual type received
- * @returns Complete type error with all context
- * @example
- * ```typescript
- * // Simple type error
- * const error = createTypeError("map")([fn, array])(0)("Function")("String")
- * // Message: "map: Expected Function at argument 0, got String"
- * // Includes suggestion: "Ensure argument 0 is of type Function"
- *
- * // For null/undefined
- * const nullError = createTypeError("filter")([pred, null])(1)("Array")("null")
- *
- * // With custom types
- * const customError = createTypeError("divide")([10, 0])(1)("NonZeroNumber")("Integer")
- *
- * // Partial application
- * const createMapTypeError = createTypeError("map")
- * const error = createMapTypeError([fn, data])(0)("Function")(typeof fn)
- * ```
- */
-const createTypeError =
-	<TOp extends string>(operation: TOp) =>
-	<TArgs extends ReadonlyArray<Value>>(args: TArgs) =>
-	(argIndex: number) =>
-	<TDataType extends Datatype>(expected: TDataType) =>
-	(
-		actual: TDataType | "null" | "undefined" | "unknown",
-	): EngineError<TOp, TArgs> => {
-		// Build the error step by step to maintain type compatibility
-		const baseError = createError(operation)(args)(
-			`${operation}: Expected ${expected} at argument ${argIndex}, got ${actual}`,
-		)("TYPE_MISMATCH") as EngineError<TOp, TArgs>
+//++ Creates a type mismatch error with full context
+export default function createTypeError<TOp extends string>(operation: TOp) {
+	return function <TArgs extends ReadonlyArray<Value>>(args: TArgs) {
+		return function (argIndex: number) {
+			return function <TDataType extends Datatype>(expected: TDataType) {
+				return function (
+					actual: TDataType | "null" | "undefined" | "unknown",
+				): EngineError<TOp, TArgs> {
+					const baseError = createError(operation)(args)(
+						`${operation}: Expected ${expected} at argument ${argIndex}, got ${actual}`,
+					)("TYPE_MISMATCH") as EngineError<TOp, TArgs>
 
-		// Apply transformations directly
-		return {
-			...baseError,
-			failedIndex: argIndex,
-			suggestion: `Ensure argument ${argIndex} is of type ${expected}`,
-			types: { expected, actual: (actual as unknown as Datatype) },
+					return {
+						...baseError,
+						failedIndex: argIndex,
+						suggestion: `Ensure argument ${argIndex} is of type ${expected}`,
+						types: { expected, actual: (actual as unknown as Datatype) },
+					}
+				}
+			}
 		}
 	}
+}
 
-export default createTypeError
+//?? [EXAMPLE] createTypeError("map")([fn, array])(0)("Function")("String")
+//?? [EXAMPLE] createTypeError("filter")([pred, null])(1)("Array")("null")
+//?? [EXAMPLE] createTypeError("divide")([10, 0])(1)("NonZeroNumber")("Integer")
+/*??
+ * [EXAMPLE]
+ * const createMapTypeError = createTypeError("map")
+ * const error = createMapTypeError([fn, data])(0)("Function")(typeof fn)
+ *
+ * [GOTCHA] Automatically generates message and suggestion based on types
+ */
