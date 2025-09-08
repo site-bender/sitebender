@@ -1,65 +1,13 @@
-import replaceAll from "../../../simple/string/replaceAll/index.ts"
-import reduce from "../../../simple/array/reduce/index.ts"
-import unfold from "../../../simple/array/unfold/index.ts"
-import takeWhile from "../../../simple/array/takeWhile/index.ts"
 import pipe from "../../../simple/combinator/pipe/index.ts"
-import reverse from "../../../simple/array/reverse/index.ts"
 import join from "../../../simple/array/join/index.ts"
-import map from "../../../simple/array/map/index.ts"
+import stripHyphens from "./stripHyphens/index.ts"
+import hexToBytes from "./hexToBytes/index.ts"
+import bytesToBigInt from "./bytesToBigInt/index.ts"
+import bigIntToBase58 from "./bigIntToBase58/index.ts"
+import prependLeadingOnes from "./prependLeadingOnes/index.ts"
 
 //++ Generates a Base58-encoded UUID v4
 export default function generateBase58Uuid(): string {
-	const BASE58_ALPHABET =
-		"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
-
-	function stripHyphens(uuid: string): string {
-		return replaceAll("-")("")(uuid)
-	}
-
-	function hexToBytes(hexString: string): Uint8Array {
-		function extractPairs(hex: string): Array<string> {
-			return unfold((remaining: string) => 
-				remaining.length >= 2
-					? [remaining.slice(0, 2), remaining.slice(2)]
-					: null
-			)(hex)
-		}
-
-		function parsePair(pair: string): number {
-			return parseInt(pair, 16)
-		}
-
-		const pairs = extractPairs(hexString)
-		const bytes = map(parsePair)(pairs)
-		return new Uint8Array(bytes)
-	}
-
-	function bytesToBigInt(bytes: Uint8Array): bigint {
-		return reduce((accumulated: bigint, byte: number): bigint => 
-			accumulated * 256n + BigInt(byte)
-		)(0n)(Array.from(bytes))
-	}
-
-	function bigIntToBase58(value: bigint): Array<string> {
-		function generateDigits(current: bigint): Array<string> {
-			return unfold((remaining: bigint) =>
-				remaining > 0n
-					? [BASE58_ALPHABET[Number(remaining % 58n)], remaining / 58n]
-					: null
-			)(current)
-		}
-
-		return reverse(generateDigits(value))
-	}
-
-	function prependLeadingOnes(bytes: Uint8Array): (chars: Array<string>) => Array<string> {
-		return function withLeadingOnes(chars: Array<string>): Array<string> {
-			const leadingZeros = takeWhile((byte: number) => byte === 0)(Array.from(bytes))
-			const leadingOnes = map(() => BASE58_ALPHABET[0])(leadingZeros)
-			return [...leadingOnes, ...chars]
-		}
-	}
-
 	return pipe([
 		stripHyphens,
 		hexToBytes,
