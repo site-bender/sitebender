@@ -10,7 +10,9 @@ import {
 export default function hasTernaryDistributivePattern(source: string): boolean {
 	const hasTernaryFunction = test(TERNARY_FUNCTION_PATTERN)(source)
 	
-	if (!hasTernaryFunction) return false
+	if (!hasTernaryFunction) {
+		return false
+	}
 	
 	const hasApplyOp = hasAnyPattern(APPLY_OPERATION_PATTERNS)(source)
 	const hasCombineOp = hasAnyPattern(COMBINE_OPERATION_PATTERNS)(source)
