@@ -2,9 +2,29 @@
 
 > Shared TypeScript AST parsing and code analysis for the @sitebender ecosystem. Zero dependencies (except TypeScript compiler). Zero duplication. Maximum coordination.
 
-## Purpose
+## Current State: 20% Complete
 
-Parser is the **single source of truth** for TypeScript code analysis across all @sitebender libraries. It eliminates the 95% code duplication between scribe and prover, while providing consistent type understanding for foundry.
+**WARNING: This library is NOT production-ready. It's a proof of concept with aspirational documentation.**
+
+### What Actually Works
+- ✅ `parseSourceFile` - Parses TypeScript files into AST
+- ✅ `extractFunctions` - Finds functions in AST  
+- ✅ `extractSignature` - Extracts basic signatures
+- ✅ `extractComments` - Gets raw comments from source
+- ⚠️ `detectProperties` - Partial (async/generator/curried work, purity detection is weak)
+
+### What Doesn't Exist Yet
+- ❌ `analyzeBranches` - Not implemented
+- ❌ `extractTypes` - Not implemented
+- ❌ `extractImports` - Not implemented
+- ❌ Integration with other libraries - Zero imports/exports
+- ❌ Test coverage - Only 1 test file, ~10% coverage
+
+## Purpose (ASPIRATIONAL)
+
+Parser WILL BE the **single source of truth** for TypeScript code analysis across all @sitebender libraries. It WILL eliminate the 95% code duplication between scribe and prover, while providing consistent type understanding for foundry.
+
+**CURRENT REALITY:** Parser is orphaned code that no other library uses yet.
 
 ## Core Responsibilities
 
@@ -129,24 +149,38 @@ Parser is the **single source of truth** for TypeScript code analysis across all
 
 ## API Structure
 
-### Core Functions
+### Currently Implemented
 
 ```typescript
 // Parse TypeScript source file
 import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
 
+// Extract functions from AST
+import extractFunctions from "@sitebender/parser/extractFunctions/index.ts"
+
 // Extract function signature
 import extractSignature from "@sitebender/parser/extractSignature/index.ts"
 
+// Extract comments
+import extractComments from "@sitebender/parser/extractComments/index.ts"
+
+// Detect properties (bundled, not separate)
+import detectProperties from "@sitebender/parser/extractSignature/detectProperties/index.ts"
+```
+
+### NOT YET IMPLEMENTED
+
+```typescript
+// These imports will fail - functions don't exist yet:
+
 // Extract type information
-import extractTypes from "@sitebender/parser/extractTypes/index.ts"
+import extractTypes from "@sitebender/parser/extractTypes/index.ts" // ❌ DOESN'T EXIST
 
-// Detect function properties
-import detectPurity from "@sitebender/parser/detectProperties/detectPurity/index.ts"
-import detectCurrying from "@sitebender/parser/detectProperties/detectCurrying/index.ts"
+// Analyze branches for coverage  
+import analyzeBranches from "@sitebender/parser/analyzeBranches/index.ts" // ❌ DOESN'T EXIST
 
-// Analyze branches for coverage
-import analyzeBranches from "@sitebender/parser/analyzeBranches/index.ts"
+// Extract imports
+import extractImports from "@sitebender/parser/extractImports/index.ts" // ❌ DOESN'T EXIST
 ```
 
 ### Shared Types
@@ -195,26 +229,39 @@ associateComments(
 
 ## Implementation Status
 
-### Phase 1: Extraction (Immediate)
+### Actually Completed
+- ✅ Basic TypeScript parsing with `parseSourceFile`
+- ✅ Function extraction from AST
+- ✅ Signature extraction (parameters, return type, generics)
+- ✅ Comment extraction from source
+- ⚠️ Property detection (async, generator, curried - purity needs work)
 
-- [ ] Extract TypeScript parsing from scribe
-- [ ] Extract TypeScript parsing from prover
-- [ ] Unify FunctionSignature type
-- [ ] Standardize property detection
+### Phase 1: Core Functions (CRITICAL - NOT STARTED)
+- ❌ Extract TypeScript parsing from scribe (no integration)
+- ❌ Extract TypeScript parsing from prover (no integration)
+- ❌ Implement `analyzeBranches` for coverage
+- ❌ Implement `extractTypes` for deep type analysis
+- ❌ Implement `extractImports` for dependency tracking
 
-### Phase 2: Enhancement (Next)
+### Phase 2: Testing & Integration (BLOCKED)
+- ❌ Write tests for ALL functions (currently ~10% coverage)
+- ❌ Integrate with prover
+- ❌ Integrate with scribe
+- ❌ Fix violations of toolkit usage rules
+- ❌ Fix nested function violations
 
-- [ ] Add complexity analysis
-- [ ] Add literal type detection
-- [ ] Add constraint extraction
-- [ ] Add union/intersection decomposition
+### Phase 3: Enhancement (FUTURE)
+- ❌ Add complexity analysis
+- ❌ Add literal type detection
+- ❌ Add constraint extraction
+- ❌ Add union/intersection decomposition
+- ❌ Improve purity detection beyond trivial cases
 
-### Phase 3: Optimization (Future)
-
-- [ ] Cache parsed ASTs
-- [ ] Incremental parsing
-- [ ] Performance profiling
-- [ ] Multi-file analysis
+### Phase 4: Optimization (DISTANT FUTURE)
+- ❌ Cache parsed ASTs
+- ❌ Incremental parsing
+- ❌ Performance profiling
+- ❌ Multi-file analysis
 
 ## Migration Guide
 
