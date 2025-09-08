@@ -1,162 +1,233 @@
 import * as ts from "npm:typescript@5.7.2"
-import type { ComplexityClass } from "../../types/index.ts"
 
-/**
- * Analyzes function complexity by examining its AST and returns Big-O notation
- * @param node - The function AST node to analyze
- * @param sourceFile - The source file containing the node
- * @returns The complexity class in Big-O notation
- */
+export type ComplexityClass =
+	| "O(1)"
+	| "O(log n)"
+	| "O(n)"
+	| "O(n log n)"
+	| "O(n²)"
+	| "O(n³)"
+	| "O(2ⁿ)"
+	| "unknown"
+
+interface ComplexityState {
+	maxLoopDepth: number
+	currentLoopDepth: number
+	hasRecursion: boolean
+	hasSorting: boolean
+	hasBinaryOperation: boolean
+}
+
 export default function detectComplexityFromAST(
 	node: ts.Node,
 	sourceFile: ts.SourceFile,
 ): ComplexityClass {
-	let maxLoopDepth = 0
-	let currentLoopDepth = 0
-	let hasRecursion = false
-	let hasSorting = false
-	let hasBinaryOperation = false
-	let functionName = ""
-
 	// Extract function name for recursion detection
+	const functionName = extractFunctionName(node, sourceFile)
+
+	// Analyze the AST
+	const state = analyzeNode(node, sourceFile, functionName, {
+		maxLoopDepth: 0,
+		currentLoopDepth: 0,
+		hasRecursion: false,
+		hasSorting: false,
+		hasBinaryOperation: false,
+	})
+
+	// Determine complexity class based on analysis
+	return determineComplexity(state)
+}
+
+function extractFunctionName(node: ts.Node, sourceFile: ts.SourceFile): string {
 	if (ts.isFunctionDeclaration(node) && node.name) {
-		functionName = node.name.getText(sourceFile)
+		return node.name.getText(sourceFile)
 	} else if (
 		ts.isVariableDeclaration(node.parent) &&
 		ts.isIdentifier(node.parent.name)
 	) {
-		functionName = node.parent.name.getText(sourceFile)
+		return node.parent.name.getText(sourceFile)
+	}
+	return ""
+}
+
+function analyzeNode(
+	currentNode: ts.Node,
+	sourceFile: ts.SourceFile,
+	functionName: string,
+	state: ComplexityState,
+): ComplexityState {
+	// Track loop nesting depth
+	if (isLoopStatement(currentNode)) {
+		const newState = {
+			...state,
+			currentLoopDepth: state.currentLoopDepth + 1,
+			maxLoopDepth: Math.max(state.maxLoopDepth, state.currentLoopDepth + 1),
+		}
+		
+		// Analyze children with increased depth
+		const childrenState = analyzeChildren(currentNode, sourceFile, functionName, newState)
+		
+		// Return with restored depth
+		return {
+			...childrenState,
+			currentLoopDepth: state.currentLoopDepth,
+		}
 	}
 
-	function visit(currentNode: ts.Node): void {
-		// Track loop nesting depth
-		if (
-			ts.isForStatement(currentNode) ||
-			ts.isForInStatement(currentNode) ||
-			ts.isForOfStatement(currentNode) ||
-			ts.isWhileStatement(currentNode) ||
-			ts.isDoStatement(currentNode)
-		) {
-			currentLoopDepth++
-			maxLoopDepth = Math.max(maxLoopDepth, currentLoopDepth)
-			ts.forEachChild(currentNode, visit)
-			currentLoopDepth--
-			return
-		}
-
-		// Check for array iteration methods (count as loops)
-		if (
-			ts.isCallExpression(currentNode) &&
-			ts.isPropertyAccessExpression(currentNode.expression)
-		) {
-			const methodName = currentNode.expression.name.getText(sourceFile)
-			if (
-				[
-					"map",
-					"filter",
-					"reduce",
-					"forEach",
-					"some",
-					"every",
-					"find",
-					"findIndex",
-				].includes(methodName)
-			) {
-				currentLoopDepth++
-				maxLoopDepth = Math.max(maxLoopDepth, currentLoopDepth)
-				ts.forEachChild(currentNode, visit)
-				currentLoopDepth--
-				return
-			}
-
-			// Check for sort (O(n log n))
-			if (methodName === "sort") {
-				hasSorting = true
-			}
-		}
-
-		// Check for recursion
-		if (functionName && ts.isCallExpression(currentNode)) {
-			if (
-				ts.isIdentifier(currentNode.expression) &&
-				currentNode.expression.getText(sourceFile) === functionName
-			) {
-				hasRecursion = true
-			}
-		}
-
-		// Check for binary operations (division by 2, bit shifts)
-		if (ts.isBinaryExpression(currentNode)) {
-			const operator = currentNode.operatorToken.kind
-			const right = currentNode.right.getText(sourceFile)
-
-			// Division by 2 or bit shift (typical in O(log n) algorithms)
-			if (
-				(operator === ts.SyntaxKind.SlashToken && right === "2") ||
-				operator === ts.SyntaxKind.GreaterThanGreaterThanToken ||
-				operator ===
-					ts.SyntaxKind.GreaterThanGreaterThanGreaterThanToken
-			) {
-				hasBinaryOperation = true
-			}
-		}
-
-		// Check for common binary search patterns
-		const nodeText = currentNode.getText(sourceFile)
-		if (
-			nodeText.includes("mid") || nodeText.includes("middle") ||
-			(nodeText.includes("low") && nodeText.includes("high")) ||
-			(nodeText.includes("left") && nodeText.includes("right"))
-		) {
-			// Additional check for binary search pattern
-			if (hasBinaryOperation || nodeText.includes("/ 2")) {
-				hasBinaryOperation = true
-			}
-		}
-
-		// Continue traversing
-		ts.forEachChild(currentNode, visit)
-	}
-
-	// Start analysis
-	visit(node)
-
-	// Determine complexity based on findings
-
-	// Binary search pattern detected
+	// Check for array iteration methods (count as loops)
 	if (
-		hasBinaryOperation && (hasRecursion || maxLoopDepth === 1) &&
-		(node.getText(sourceFile).includes("mid") ||
-			node.getText(sourceFile).includes("low") &&
-				node.getText(sourceFile).includes("high"))
+		ts.isCallExpression(currentNode) &&
+		ts.isPropertyAccessExpression(currentNode.expression)
 	) {
+		const methodName = currentNode.expression.name.getText(sourceFile)
+		const loopMethods = [
+			"map",
+			"filter",
+			"reduce",
+			"forEach",
+			"some",
+			"every",
+			"find",
+			"findIndex",
+		]
+		
+		if (loopMethods.includes(methodName)) {
+			const newState = {
+				...state,
+				currentLoopDepth: state.currentLoopDepth + 1,
+				maxLoopDepth: Math.max(state.maxLoopDepth, state.currentLoopDepth + 1),
+			}
+			
+			const childrenState = analyzeChildren(currentNode, sourceFile, functionName, newState)
+			
+			return {
+				...childrenState,
+				currentLoopDepth: state.currentLoopDepth,
+			}
+		}
+
+		// Check for sorting (O(n log n))
+		if (methodName === "sort") {
+			return analyzeChildren(currentNode, sourceFile, functionName, {
+				...state,
+				hasSorting: true,
+			})
+		}
+	}
+
+	// Check for recursion
+	if (
+		functionName &&
+		ts.isCallExpression(currentNode) &&
+		ts.isIdentifier(currentNode.expression) &&
+		currentNode.expression.getText(sourceFile) === functionName
+	) {
+		return analyzeChildren(currentNode, sourceFile, functionName, {
+			...state,
+			hasRecursion: true,
+		})
+	}
+
+	// Check for binary operations (possible O(log n))
+	if (ts.isBinaryExpression(currentNode)) {
+		const operator = currentNode.operatorToken.kind
+		if (
+			operator === ts.SyntaxKind.GreaterThanGreaterThanToken || // >>
+			operator === ts.SyntaxKind.LessThanLessThanToken || // <<
+			operator === ts.SyntaxKind.GreaterThanGreaterThanGreaterThanToken // >>>
+		) {
+			return analyzeChildren(currentNode, sourceFile, functionName, {
+				...state,
+				hasBinaryOperation: true,
+			})
+		}
+
+		// Check for division/multiplication by 2 (binary search pattern)
+		const left = currentNode.left.getText(sourceFile)
+		const right = currentNode.right.getText(sourceFile)
+		const op = currentNode.operatorToken.getText(sourceFile)
+		
+		if (
+			(op === "/" && right === "2") ||
+			(op === "*" && right === "0.5") ||
+			(op === ">>" && right === "1")
+		) {
+			return analyzeChildren(currentNode, sourceFile, functionName, {
+				...state,
+				hasBinaryOperation: true,
+			})
+		}
+	}
+
+	// Continue analyzing children
+	return analyzeChildren(currentNode, sourceFile, functionName, state)
+}
+
+function analyzeChildren(
+	node: ts.Node,
+	sourceFile: ts.SourceFile,
+	functionName: string,
+	state: ComplexityState,
+): ComplexityState {
+	const children: Array<ts.Node> = []
+	ts.forEachChild(node, (child) => {
+		children.push(child)
+	})
+
+	return children.reduce(
+		(currentState, child) =>
+			analyzeNode(child, sourceFile, functionName, currentState),
+		state
+	)
+}
+
+function isLoopStatement(node: ts.Node): boolean {
+	return (
+		ts.isForStatement(node) ||
+		ts.isForInStatement(node) ||
+		ts.isForOfStatement(node) ||
+		ts.isWhileStatement(node) ||
+		ts.isDoStatement(node)
+	)
+}
+
+function determineComplexity(state: ComplexityState): ComplexityClass {
+	// Exponential complexity (recursion without clear reduction)
+	if (state.hasRecursion && state.maxLoopDepth === 0 && !state.hasBinaryOperation) {
+		// Could be O(2^n) for naive recursive algorithms
+		// This is a heuristic - actual complexity depends on recursion pattern
+		return "O(2ⁿ)"
+	}
+
+	// Sorting detected
+	if (state.hasSorting) {
+		return "O(n log n)"
+	}
+
+	// Binary operations suggest possible O(log n)
+	if (state.hasBinaryOperation && state.maxLoopDepth === 0) {
 		return "O(log n)"
 	}
 
 	// Nested loops
-	if (maxLoopDepth >= 3) {
+	if (state.maxLoopDepth === 3) {
 		return "O(n³)"
 	}
-
-	if (maxLoopDepth === 2) {
+	if (state.maxLoopDepth === 2) {
 		return "O(n²)"
 	}
-
-	// Sorting operation
-	if (hasSorting) {
-		return "O(n log n)"
-	}
-
-	// Recursion with binary operations (like divide and conquer)
-	if (hasRecursion && hasBinaryOperation) {
-		return "O(log n)"
-	}
-
-	// Single loop or simple recursion
-	if (maxLoopDepth === 1 || hasRecursion) {
+	if (state.maxLoopDepth === 1) {
+		// Single loop with binary operations might be O(n log n)
+		if (state.hasBinaryOperation) {
+			return "O(n log n)"
+		}
 		return "O(n)"
 	}
 
-	// No loops or recursion - constant time
-	return "O(1)"
+	// No loops
+	if (state.maxLoopDepth === 0) {
+		return "O(1)"
+	}
+
+	return "unknown"
 }

@@ -59,32 +59,31 @@ function extractStatements(content: string): Array<ASTNode> {
 
 	// Find function declarations
 	const functionPattern = /(?:export\s+)?(?:default\s+)?function\s+(\w+)/g
-	let match
-
-	while ((match = functionPattern.exec(content)) !== null) {
+	const functionMatches = Array.from(content.matchAll(functionPattern))
+	functionMatches.forEach((match) => {
 		statements.push({
 			kind: "FunctionDeclaration",
-			pos: match.index,
-			end: match.index + match[0].length,
+			pos: match.index!,
+			end: match.index! + match[0].length,
 			name: match[1],
 			isExported: match[0].includes("export"),
 			isDefault: match[0].includes("default"),
 		})
-	}
+	})
 
 	// Find arrow functions
 	const arrowPattern =
 		/(?:export\s+)?(?:const|let|var)\s+(\w+)\s*=\s*(?:\([^)]*\)|[^=])\s*=>/g
-
-	while ((match = arrowPattern.exec(content)) !== null) {
+	const arrowMatches = Array.from(content.matchAll(arrowPattern))
+	arrowMatches.forEach((match) => {
 		statements.push({
 			kind: "ArrowFunction",
-			pos: match.index,
-			end: match.index + match[0].length,
+			pos: match.index!,
+			end: match.index! + match[0].length,
 			name: match[1],
 			isExported: match[0].includes("export"),
 		})
-	}
+	})
 
 	return statements
 }
