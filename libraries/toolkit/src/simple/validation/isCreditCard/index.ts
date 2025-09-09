@@ -1,78 +1,14 @@
-/**
- * Validates credit card numbers using the Luhn algorithm
- *
- * Checks whether a string is a valid credit card number using the Luhn algorithm
- * (also known as the modulus 10 or mod 10 algorithm). This is a checksum formula
- * used to validate identification numbers such as credit card numbers. Optionally
- * validates specific card types based on their known patterns. Returns false for
- * non-string values, empty strings, or strings that don't pass validation.
- *
- * Validation process:
- * - Removes spaces and hyphens from the input
- * - Checks if the result contains only digits
- * - Validates length (typically 13-19 digits)
- * - Applies the Luhn algorithm for checksum validation
- * - Optionally validates against specific card type patterns
- * - Returns false for invalid inputs or non-matching patterns
- *
- * Supported card types:
- * - visa: Starts with 4, 13 or 16 digits
- * - mastercard: Starts with 51-55 or 2221-2720, 16 digits
- * - amex: Starts with 34 or 37, 15 digits
- * - discover: Starts with 6011, 644-649, or 65, 16 digits
- * - diners: Starts with 300-305, 36, or 38, 14 digits
- * - jcb: Starts with 3528-3589, 16 digits
- *
- * @param options - Optional configuration for card type validation
- * @returns A predicate function that validates credit card numbers
- * @example
- * ```typescript
- * // Basic credit card validation (any card type)
- * const isValidCard = isCreditCard()
- * isValidCard("4532015112830366")      // true (valid Visa)
- * isValidCard("5425233430109903")      // true (valid Mastercard)
- * isValidCard("4532015112830367")      // false (invalid checksum)
- *
- * // With spaces and hyphens (commonly formatted)
- * const validator = isCreditCard()
- * validator("4532 0151 1283 0366")     // true (spaces removed)
- * validator("4532-0151-1283-0366")     // true (hyphens removed)
- *
- * // Specific card type validation
- * const isVisa = isCreditCard({ cardType: "visa" })
- * isVisa("4532015112830366")           // true (16 digit Visa)
- * isVisa("5425233430109903")           // false (Mastercard, not Visa)
- *
- * // Invalid inputs
- * const checker = isCreditCard()
- * checker(null)                        // false
- * checker("")                          // false (empty)
- * checker("abc")                       // false (not numeric)
- *
- * // Card type detection
- * const detectCardType = (cardNumber: string): string | null => {
- *   const cardTypes = ["visa", "mastercard", "amex", "discover", "diners", "jcb"] as const
- *   const found = cardTypes.find(type => isCreditCard({ cardType: type })(cardNumber))
- *   return found || (isCreditCard()(cardNumber) ? "unknown" : null)
- * }
- * detectCardType("4532015112830366")   // "visa"
- * detectCardType("5425233430109903")   // "mastercard"
- * ```
- *
- * @curried
- * @pure
- * @predicate
- */
 type CardType = "visa" | "mastercard" | "amex" | "discover" | "diners" | "jcb"
 
 type CreditCardOptions = {
 	cardType?: CardType
 }
 
-const isCreditCard = (
+//++ Validates credit card numbers using the Luhn algorithm, optionally checking specific card types
+export default function isCreditCard(
 	options: CreditCardOptions = {},
-): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+) {
+	return function validateCreditCard(value: unknown): boolean {
 		if (typeof value !== "string" || value.length === 0) {
 			return false
 		}
@@ -123,4 +59,18 @@ const isCreditCard = (
 	}
 }
 
-export default isCreditCard
+//?? [EXAMPLE] isCreditCard()("4532015112830366") // true (valid Visa)
+//?? [EXAMPLE] isCreditCard()("5425233430109903") // true (valid Mastercard)
+//?? [EXAMPLE] isCreditCard()("4532015112830367") // false (invalid checksum)
+//?? [EXAMPLE] isCreditCard({ cardType: "visa" })("4532015112830366") // true
+//?? [EXAMPLE] isCreditCard({ cardType: "visa" })("5425233430109903") // false (Mastercard)
+/*??
+ * [EXAMPLE]
+ * const isVisa = isCreditCard({ cardType: "visa" })
+ * isVisa("4532015112830366")  // true
+ * isVisa("5425233430109903")  // false
+ *
+ * [GOTCHA] Spaces and hyphens are automatically removed from input
+ * [PRO] Validates using industry-standard Luhn algorithm
+ * [PRO] Supports all major card types with specific pattern validation
+ */
