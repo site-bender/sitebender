@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../types/index.ts"
 
 import selectParser from "./selectParser/index.ts"
@@ -8,7 +8,7 @@ export type { ParserContext } from "../types/index.ts"
 //+ Entry point for expression parsing with lowest precedence
 export default function parseExpression(
 	ctx: ParserContext,
-): (minPrecedence: number) => Result<ASTNode, ParseError> {
+): (minPrecedence: number) => Result<AstNode, ParseError> {
 	return (minPrecedence: number) => selectParser(ctx, minPrecedence)
 }
 

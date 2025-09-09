@@ -1,4 +1,4 @@
-import type { ASTNode, UnaryOpNode } from "../../../types/index.ts"
+import type { AstNode, UnaryOpNode } from "../../../types/index.ts"
 
 /**
  * Creates a unary operation AST node
@@ -8,7 +8,7 @@ import type { ASTNode, UnaryOpNode } from "../../../types/index.ts"
  */
 export default function createUnaryNode(
 	operator: "+" | "-",
-	operand: ASTNode,
+	operand: AstNode,
 ): UnaryOpNode {
 	return {
 		type: "UnaryOp",

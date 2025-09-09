@@ -1,11 +1,11 @@
-import type { ASTNode, Result, Token } from "../../../types/index.ts"
+import type { AstNode, Result, Token } from "../../../types/index.ts"
 import type { ParserContext } from "../../types/index.ts"
 
 //+ Parses a number token into a Number AST node
 export default function parseNumber(
 	token: Token,
 	ctx: ParserContext,
-): Result<ASTNode, never> {
+): Result<AstNode, never> {
 	ctx.advance()
 	return {
 		ok: true,
