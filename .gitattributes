@@ -1,0 +1,2 @@
+# Keep our integrator script during merges from feature branches
+scripts/integrateLibraries/index.sh merge=ours

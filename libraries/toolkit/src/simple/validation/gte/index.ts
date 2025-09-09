@@ -1,52 +1,33 @@
-/**
- * Creates a predicate that checks if a value is greater than or equal to a threshold
- *
- * Performs a greater-than-or-equal comparison using JavaScript's >= operator. This is a
- * curried function that creates reusable comparison predicates. Works with any values
- * that can be compared with >=, including numbers, strings (alphabetical), and dates
- * (chronological). Uses type coercion rules when comparing different types.
- *
- * Comparison behavior:
- * - Numbers: numerical comparison
- * - Strings: lexicographical comparison
- * - Dates: chronological comparison (via valueOf)
- * - Mixed types: follows JavaScript coercion rules
- * - NaN: always returns false (NaN >= anything is false)
- *
- * @pure
- * @curried
- * @predicate
- * @param threshold - The minimum value (inclusive)
- * @param value - The value to check if greater than or equal to threshold
- * @returns True if value >= threshold, false otherwise
- * @example
- * ```typescript
- * // Basic comparisons
+//++ Creates a predicate that checks if a value is greater than or equal to a threshold
+export default function gte<T>(threshold: T) {
+	return function isGreaterThanOrEqual<U extends T>(value: U): boolean {
+		return value >= threshold
+	}
+}
+
+//?? [EXAMPLE] gte(0)(5) // true
+//?? [EXAMPLE] gte(0)(0) // true (equal counts)
+//?? [EXAMPLE] gte(0)(-1) // false
+//?? [EXAMPLE] gte("M")("M") // true (equal)
+//?? [EXAMPLE] gte("M")("N") // true
+//?? [EXAMPLE] gte("M")("L") // false
+//?? [EXAMPLE] gte(5)(NaN) // false (NaN comparisons always false)
+//?? [EXAMPLE] gte(Infinity)(Infinity) // true
+/*??
+ * [EXAMPLE]
  * const isNonNegative = gte(0)
- * isNonNegative(5)      // true
- * isNonNegative(0)      // true (equal counts)
- * isNonNegative(-1)     // false
+ * isNonNegative(5)   // true
+ * isNonNegative(0)   // true (equal counts)
+ * isNonNegative(-1)  // false
  *
- * // String comparisons
- * const fromM = gte("M")
- * fromM("M")            // true (equal)
- * fromM("N")            // true
- * fromM("L")            // false
- *
- * // Date comparisons
- * const from2024 = gte(new Date("2024-01-01"))
- * from2024(new Date("2024-06-01"))  // true
- *
- * // Filtering arrays
  * const scores = [65, 70, 89, 94, 58, 77]
  * scores.filter(gte(70))  // [70, 89, 94, 77]
  *
- * // Edge cases
- * gte(5)(NaN)           // false
- * gte(Infinity)(Infinity) // true
- * ```
+ * const from2024 = gte(new Date("2024-01-01"))
+ * from2024(new Date("2024-01-01"))  // true (equal)
+ * from2024(new Date("2024-06-01"))  // true
+ * from2024(new Date("2023-12-31"))  // false
+ *
+ * [GOTCHA] NaN comparisons always return false
+ * [GOTCHA] Uses JavaScript's >= operator coercion rules
  */
-const gte = <T>(threshold: T) => <U extends T>(value: U): boolean =>
-	value >= threshold
-
-export default gte
