@@ -70,8 +70,8 @@ arbitrary/
 From README.md Phase 1-6:
 
 #### Phase 1: Core (Week 1)
-- [ ] Seed-based PRNG
-- [ ] Basic arbitraries (integer, string, boolean)  
+- [x] Seed-based PRNG
+- [x] Basic arbitraries (integer, string, boolean)  
 - [ ] Combinators (map, filter, chain)
 - [ ] Property runner
 - [ ] Basic shrinking

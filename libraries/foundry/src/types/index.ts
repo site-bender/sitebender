@@ -18,7 +18,7 @@ export type Property<Arguments extends ReadonlyArray<unknown>> = {
 	readonly arbitraries: {
 		readonly [K in keyof Arguments]: Arbitrary<Arguments[K]>
 	}
-	readonly predicate: (arguments: Arguments) => boolean
+	readonly predicate: (args: Arguments) => boolean
 }
 
 // Configuration for property testing
@@ -48,7 +48,9 @@ export type PropertyFailure = {
 
 // Errors that can occur during generation
 export type GeneratorError =
-	| { readonly type: "InvalidSeed"; readonly seed: unknown }
+	| { readonly type: "InvalidSeed"; readonly seed: unknown; readonly reason?: string }
+	| { readonly type: "InvalidBounds"; readonly min: number; readonly max: number; readonly reason: string }
+	| { readonly type: "InvalidLength"; readonly length: number; readonly reason: string }
 	| { readonly type: "GenerationFailed"; readonly reason: string }
 	| { readonly type: "FilterExhausted"; readonly attempts: number }
 	| { readonly type: "RecursionLimit"; readonly depth: number }
