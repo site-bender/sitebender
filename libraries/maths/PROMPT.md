@@ -34,50 +34,60 @@ We're transforming the parser from OOP-ish mutable context to pure functional pr
 
 ## What Has Been Done (Check PLAN.md for Details)
 
-### ✅ Phase 1.1 Complete:
+### ✅ Phase 1 COMPLETE - Foundation Built:
+
+**Step 1.1 - Types & State:**
 - Created `libraries/maths/src/parser/types/state/index.ts` with:
   - `ParserState` type (immutable tokens + position)
   - `Parser<A>` type alias for `State<ParserState, A>`
 - Created `libraries/maths/src/parser/state/createInitialState/index.ts`
-- Fixed ALL `ASTNode` → `AstNode` (no acronyms in names!)
-- Converted tokenizer helpers to Scribe comments
-- Converted some parser helpers to Scribe comments
 
-### ✅ Documentation Updates:
-- JSDoc → Scribe comments (`//++` for description, `//??` for examples)
-- Added GOTCHAs, PROs, CONs where valuable
-- One failing test fixed
+**Step 1.2 - Token Navigation Functions:**
+- ✅ `currentToken/index.ts` - Get current token without advancing
+- ✅ `advance/index.ts` - Consume token and move to next
+- ✅ `peek/index.ts` - Look ahead without consuming (with offset)
+- ✅ `expect/index.ts` - Expect specific token type or error
 
-## What's Next: Step 1.2
+**Step 1.3 - Parallel Parser Functions:**
+- ✅ `parsePrimaryExpressionState/index.ts` - Numbers, variables, parentheses
+- ✅ `parseUnaryExpressionState/index.ts` - Recursive unary operators (+/-)
+- ✅ `parseBinaryExpressionState/index.ts` - Full precedence climbing algorithm
 
-Create state-based token navigation functions in `libraries/maths/src/parser/state/`:
+### ✅ All Functions Include:
+- Pure FP with State monad and do-notation
+- Comprehensive unit tests (50 tests total, all passing)
+- Scribe documentation with examples
+- One function per file structure
+- Run alongside existing parser (no breaking changes)
 
-1. **`currentToken/index.ts`** - Get current token without advancing
-2. **`advance/index.ts`** - Consume token and move to next
-3. **`peek/index.ts`** - Look ahead without consuming
-4. **`expect/index.ts`** - Expect specific token type or error
-
-These must:
-- Use State monad with do-notation
-- Be pure functions (no mutations)
-- Return `Parser<Token>` or `Parser<Result<Token, ParseError>>`
-- Have Scribe documentation
-- One function per file
-
-### Example Structure:
-```typescript
-import { doState, get, modify } from "@sitebender/toolkit/monads/doState"
-import type { Parser, ParserState } from "../../types/state/index.ts"
-
-//++ Gets the current token without advancing position
-export default function currentToken(): Parser<Token> {
-  return doState<ParserState, Token>(function* () {
-    const state = yield get()
-    const token = state.tokens[state.position] || state.tokens[state.tokens.length - 1]
-    return token
-  })
-}
+### ✅ Test Command for All State Functions:
+```bash
+deno test --allow-all --no-config --no-check \
+  libraries/maths/src/parser/state/*/index.test.ts
 ```
+
+## What's Next: Phase 2 - Implementation
+
+According to PLAN.md, we're ready for **Phase 2: Implementation** (Still No Breaking):
+
+### Step 2.1: Implement Primary Expression Parser
+- Use `doState` for number, variable, and parenthesized parsing
+- Test against existing parser for parity
+- Add tap debugging points
+
+### Step 2.2: Implement Unary Expression Parser
+- Handle unary + and - with State monad
+- Recursive calls use State composition
+- Verify against existing tests
+
+### Step 2.3: Implement Binary Expression Parser
+- Precedence climbing with State threading
+- No more trampoline needed (State handles it)
+- Test operator precedence thoroughly
+
+### Step 2.4: Implement Conditional Expression Parser
+- Ternary operator with State monad
+- Ensure proper precedence handling
 
 ## Key Rules to Remember
 
@@ -95,54 +105,58 @@ export default function currentToken(): Parser<Token> {
 - Functions: camelCase (`parseExpression`, `currentToken`)
 - NO ACRONYMS: `Api` not `API`, `Url` not `URL`, `Json` not `JSON`
 
-### File Structure:
+### Current File Structure:
 ```
 libraries/maths/src/parser/
-├── types/state/index.ts          # Types ONLY
-├── state/                         # State monad functions
+├── types/state/index.ts          # Types for State monad
+├── state/                        # ✅ State monad functions (COMPLETE)
 │   ├── createInitialState/index.ts
-│   ├── currentToken/index.ts     # TO CREATE
-│   ├── advance/index.ts          # TO CREATE
-│   ├── peek/index.ts             # TO CREATE
-│   └── expect/index.ts           # TO CREATE
+│   ├── currentToken/            # ✅ + tests
+│   ├── advance/                 # ✅ + tests  
+│   ├── peek/                    # ✅ + tests
+│   ├── expect/                  # ✅ + tests
+│   ├── parsePrimaryExpressionState/   # ✅ + tests
+│   ├── parseUnaryExpressionState/     # ✅ + tests
+│   └── parseBinaryExpressionState/    # ✅ + tests
 ```
 
 ## Testing Strategy
 
-- Run tests frequently: `deno test libraries/maths/tests/ --allow-all`
+- Run existing tests: `deno test libraries/maths/tests/ --allow-all` (79 tests must pass)
+- Run new state tests: `deno test --allow-all --no-config --no-check libraries/maths/src/parser/state/*/index.test.ts`
 - Keep old parser working while building new one
 - Test parity between old and new implementations
-- All 79 tests must keep passing
-
-## Commit Message Format
-
-```
-feat(maths): add state-based token navigation functions
-
-- Create currentToken using State monad
-- Create advance with proper EOF handling
-- Create peek for lookahead
-- Create expect for token validation
-- All pure functional with do-notation
-
-🤖 Generated with Claude Code
-
-Co-Authored-By: Claude <noreply@anthropic.com>
-```
 
 ## Current Branch
 
-Working on: `ai/maths`
+Working on: `ai/maths` (recently pushed)
 
-## Next Actions
+## Next Actions for Phase 2
 
-1. Read CLAUDE.md if you haven't (IT'S THE LAW)
-2. Check PLAN.md for current progress
-3. Implement Step 1.2 functions (currentToken, advance, peek, expect)
-4. Update PLAN.md checkboxes as you complete items
-5. Test frequently to ensure no regressions
-6. Commit with proper messages
-7. Continue with Step 1.3 after 1.2 is complete
+1. **Read CLAUDE.md** if you haven't (IT'S THE LAW)
+2. **Check PLAN.md** for current progress (Phase 1 complete, Phase 2 ready)
+3. **Start Step 2.1** - Implement complete primary expression parser
+4. **Test parity** against existing parser behavior
+5. **Add debugging** with tap functions as needed
+6. **Update PLAN.md** checkboxes as you complete items
+7. **Commit frequently** with proper conventional messages
+
+## Available Functions (Already Built)
+
+You have these pure functional State-based building blocks ready:
+
+### Token Navigation:
+- `currentToken()` - Get token at position
+- `advance()` - Consume and advance
+- `peek(offset?)` - Look ahead
+- `expect(tokenType)` - Validate and consume
+
+### Expression Parsers:
+- `parsePrimaryExpressionState(parseExpr?)` - Base expressions
+- `parseUnaryExpressionState(parseExpr?)` - Unary operators
+- `parseBinaryExpressionState(parseExpr?)` - Binary with precedence
+
+All use: `doState<ParserState, Result<AstNode, ParseError>>(function* () { ... })`
 
 ## Remember
 
@@ -153,8 +167,16 @@ Working on: `ai/maths`
 - **DO USE DO-NOTATION** - It's why we built it
 - **DO FOLLOW THE MANIFESTO** - CLAUDE.md is law
 
+## Success Metrics
+
+- ✅ Phase 1: Foundation built (7 functions, 50 tests)
+- 🎯 Phase 2: Complete parser implementation with parity testing
+- 🎯 Phase 3: Integration and feature flag setup
+- 🎯 Phase 4: Migration and cleanup
+- 🎯 Final: 100% pure functional parser with State monad
+
 The goal: Transform the parser to pure functional programming while maintaining 100% backward compatibility until we flip the switch.
 
 ---
 
-**You are ready. Read the files, understand the context, and continue the mission.**
+**Phase 1 COMPLETE. Ready for Phase 2 implementation. All building blocks are in place. Time to build the complete state-based parser!**
