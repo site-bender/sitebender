@@ -6,8 +6,22 @@ export type Seed = {
 	readonly path: ReadonlyArray<number>
 }
 
-// An arbitrary generates values of type T from a seed
+// FUNCTIONAL APPROACH - Separated concerns
+
+// A generator is just a function from seed to result
+export type Generator<T> = (seed: Seed) => Result<T, GeneratorError>
+
+// A shrinker is just a function that produces smaller values
+export type Shrinker<T> = (value: T) => ReadonlyArray<T>
+
+// An arbitrary combines both (but shrinker is optional)
 export type Arbitrary<T> = {
+	readonly generator: Generator<T>
+	readonly shrinker?: Shrinker<T>
+}
+
+// Legacy type for compatibility (will be removed)
+export type LegacyArbitrary<T> = {
 	readonly generate: (seed: Seed) => Result<T, GeneratorError>
 	readonly shrink: (value: T) => ReadonlyArray<T>
 }
@@ -18,7 +32,7 @@ export type Property<Arguments extends ReadonlyArray<unknown>> = {
 	readonly arbitraries: {
 		readonly [K in keyof Arguments]: Arbitrary<Arguments[K]>
 	}
-	readonly predicate: (arguments: Arguments) => boolean
+	readonly predicate: (args: Arguments) => boolean
 }
 
 // Configuration for property testing
@@ -48,7 +62,9 @@ export type PropertyFailure = {
 
 // Errors that can occur during generation
 export type GeneratorError =
-	| { readonly type: "InvalidSeed"; readonly seed: unknown }
+	| { readonly type: "InvalidSeed"; readonly seed: unknown; readonly reason?: string }
+	| { readonly type: "InvalidBounds"; readonly min: number; readonly max: number; readonly reason: string }
+	| { readonly type: "InvalidLength"; readonly length: number; readonly reason: string }
 	| { readonly type: "GenerationFailed"; readonly reason: string }
 	| { readonly type: "FilterExhausted"; readonly attempts: number }
 	| { readonly type: "RecursionLimit"; readonly depth: number }
