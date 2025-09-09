@@ -227,7 +227,8 @@ arbitrary/
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
 import generateInteger from "./index.ts"
 import type { Seed } from "../../types/index.ts"
-import { isOk, isErr } from "@sitebender/toolkit/monads/result/isOk/index.ts"
+import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
+import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
 
 Deno.test("generateInteger - generates integers within bounds", () => {
   const seed: Seed = { value: 12345, path: [] }
@@ -251,6 +252,38 @@ Deno.test("generateInteger - handles invalid bounds", () => {
 - One function per file
 - Test in same folder as function
 - Test behaviors, not implementation
+
+### ARBITRARY IMPLEMENTATION PATTERNS - LEARNED
+
+Based on our implementation of basic arbitraries:
+
+#### Key Patterns
+1. **Always use existing PRNG functions** - Don't reinvent advanceSeed, splitSeed, etc.
+2. **Toolkit for array operations** - Use range, map, etc. from toolkit (they wrap native methods efficiently)
+3. **Validation first** - Check NaN, Infinity, negative values before processing
+4. **Truncate floats** - Use Math.trunc for integer conversion (not round)
+5. **Document mutations** - If you must mutate (e.g., seed accumulator), use `//--` comment
+
+#### Generator Signatures
+```typescript
+// Parameterized generators (curried)
+generateInteger(min: number)(max: number)(seed: Seed): Result<number, GeneratorError>
+generateString(length: number)(seed: Seed): Result<string, GeneratorError>
+
+// Simple generators (no parameters)
+generateBoolean(seed: Seed): Result<boolean, GeneratorError>
+```
+
+#### Error Types Added
+- `InvalidBounds` - For min/max validation in generateInteger
+- `InvalidLength` - For length validation in generateString
+- Extended `InvalidSeed` with optional reason field
+
+#### Testing Patterns
+- Test determinism (same seed → same output)
+- Test distribution (different seeds → different values)
+- Test edge cases (0, negative, NaN, Infinity, MAX_SAFE_INTEGER)
+- Test error conditions (invalid parameters)
 
 ### SESSION CONTINUITY
 
