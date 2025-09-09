@@ -1,64 +1,5 @@
-/**
- * Checks if a value is empty based on its type
- *
- * Determines emptiness for various data types using type-appropriate checks.
- * Different types have different definitions of "empty": arrays/strings by length,
- * objects by key count, Maps/Sets by size, and nullish values are considered empty.
- * This is useful for validation, conditional rendering, and filtering operations.
- *
- * Emptiness rules:
- * - null/undefined: always empty
- * - Strings: empty if length === 0
- * - Arrays: empty if length === 0
- * - Objects: empty if no own enumerable properties
- * - Maps/Sets: empty if size === 0
- * - Numbers: never empty (including 0)
- * - Booleans: never empty (including false)
- * - Functions: never empty
- *
- * @param value - The value to check for emptiness
- * @returns True if the value is empty, false otherwise
- * @example
- * ```typescript
- * // Nullish values are empty
- * isEmpty(null)                      // true
- * isEmpty(undefined)                 // true
- *
- * // Strings and arrays check length
- * isEmpty("")                        // true
- * isEmpty("   ")                     // false (whitespace is not empty)
- * isEmpty([])                        // true
- * isEmpty([1, 2, 3])                 // false
- *
- * // Objects check for own enumerable properties
- * isEmpty({})                        // true
- * isEmpty({ a: 1 })                  // false
- * isEmpty(Object.create({ a: 1 }))   // true (inherited props don't count)
- *
- * // Maps/Sets check size, numbers/booleans never empty
- * isEmpty(new Map())                 // true
- * isEmpty(new Set([1, 2]))           // false
- * isEmpty(0)                         // false
- * isEmpty(false)                     // false
- *
- * // Form validation example
- * function validateForm(data: { name: string; email: string }) {
- *   const errors: string[] = []
- *   if (isEmpty(data.name)) errors.push("Name is required")
- *   if (isEmpty(data.email)) errors.push("Email is required")
- *   return errors
- * }
- *
- * // Filter out empty values
- * const data = ["hello", "", null, [], "world", {}]
- * const nonEmpty = data.filter(item => !isEmpty(item))
- * // ["hello", "world"]
- * ```
- * @pure
- * @predicate
- * @safe
- */
-const isEmpty = (value: unknown): boolean => {
+//++ Checks if a value is empty based on its type (null, undefined, empty string/array/object/Map/Set)
+export default function isEmpty(value: unknown): boolean {
 	// Nullish values are empty
 	if (value === null || value === undefined) {
 		return true
@@ -96,4 +37,19 @@ const isEmpty = (value: unknown): boolean => {
 	return false
 }
 
-export default isEmpty
+//?? [EXAMPLE] isEmpty(null) // true
+//?? [EXAMPLE] isEmpty(undefined) // true
+//?? [EXAMPLE] isEmpty("") // true
+//?? [EXAMPLE] isEmpty([]) // true
+//?? [EXAMPLE] isEmpty({}) // true
+//?? [EXAMPLE] isEmpty("   ") // false (whitespace is not empty)
+//?? [EXAMPLE] isEmpty(0) // false (numbers never empty)
+//?? [EXAMPLE] isEmpty(false) // false (booleans never empty)
+/*??
+ * [EXAMPLE]
+ * const data = ["hello", "", null, [], "world", {}]
+ * data.filter(item => !isEmpty(item))  // ["hello", "world"]
+ *
+ * [GOTCHA] Whitespace strings are NOT considered empty
+ * [PRO] Handles all common JavaScript types appropriately
+ */

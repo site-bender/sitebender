@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { ParserContext } from "../../types/index.ts"
 
 import parseBinaryExpression from "../../parseBinaryExpression/index.ts"
@@ -8,7 +8,7 @@ import parseConditionalExpression from "../../parseConditionalExpression/index.t
 export default function selectParser(
 	ctx: ParserContext,
 	minPrecedence: number,
-): Result<ASTNode, ParseError> {
+): Result<AstNode, ParseError> {
 	// For the top-level expression (minPrecedence = 0), parse conditional expressions
 	// Otherwise, we're in a sub-expression and should not parse conditionals
 	if (minPrecedence === 0) {

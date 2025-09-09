@@ -32,7 +32,7 @@ export type Token = {
 }
 
 // AST node types for parser
-export type ASTNodeType =
+export type AstNodeType =
 	| "BinaryOp"
 	| "UnaryOp"
 	| "Number"
@@ -43,28 +43,28 @@ export type ASTNodeType =
 export type BinaryOpNode = {
 	type: "BinaryOp"
 	operator: "+" | "-" | "*" | "/" | "^"
-	left: ASTNode
-	right: ASTNode
+	left: AstNode
+	right: AstNode
 }
 
 export type ComparisonNode = {
 	type: "Comparison"
 	operator: "<" | ">" | "==" | "!=" | "<=" | ">="
-	left: ASTNode
-	right: ASTNode
+	left: AstNode
+	right: AstNode
 }
 
 export type ConditionalNode = {
 	type: "Conditional"
-	condition: ASTNode
-	ifTrue: ASTNode
-	ifFalse: ASTNode
+	condition: AstNode
+	ifTrue: AstNode
+	ifFalse: AstNode
 }
 
 export type UnaryOpNode = {
 	type: "UnaryOp"
 	operator: "+" | "-"
-	operand: ASTNode
+	operand: AstNode
 }
 
 export type NumberNode = {
@@ -77,7 +77,7 @@ export type VariableNode = {
 	name: string
 }
 
-export type ASTNode =
+export type AstNode =
 	| BinaryOpNode
 	| UnaryOpNode
 	| NumberNode
