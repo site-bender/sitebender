@@ -111,6 +111,13 @@ if [ "$UNCOMMITTED_FOUND" = true ]; then
     exit 1
 fi
 
+# Optional visibility: warn if any files are marked skip-worktree/assume-unchanged (can hide conflicts)
+FLAGGED_COUNT=$(git ls-files -v | grep -E '^[a-zS]' | wc -l | tr -d ' ')
+if [ "$FLAGGED_COUNT" != "0" ]; then
+    echo -e "${YELLOW}Warning:${NC} Detected $FLAGGED_COUNT files with skip-worktree/assume-unchanged flags. These can hide changes/conflicts."
+    echo -e "${YELLOW}  To clear (safe):${NC} git ls-files -z | xargs -0 git update-index --no-assume-unchanged --; git ls-files -z | xargs -0 git update-index --no-skip-worktree --"
+fi
+
 echo ""
 
 # Step 2: Fetch all updates from origin
@@ -208,9 +215,15 @@ for branch in "${BRANCHES[@]}"; do
                 ((SUCCESS_COUNT++))
             else
                 echo -e "${RED}    ❌ Merge conflict in $branch${NC}"
-                echo -e "${YELLOW}       Resolve conflicts in your editor, then run:${NC}"
-                echo -e "${YELLOW}         git add -A && git commit${NC}"
-                echo -e "${YELLOW}       After committing the merge, re-run: deno task integrate${NC}"
+                echo -e "${BLUE}       Worktree: ${YELLOW}${MAIN_WORKTREE}${NC}"
+                echo -e "${BLUE}       Conflicted files:${NC}"
+                git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
+                echo -e "${YELLOW}       Next steps:${NC}"
+                echo -e "${YELLOW}         1) Open the worktree above in your IDE${NC}"
+                echo -e "${YELLOW}         2) Resolve conflict markers (<<<<<<< ======= >>>>>>>)${NC}"
+                echo -e "${YELLOW}         3) Commit the merge:${NC}"
+                echo -e "${YELLOW}              git add -A && git commit${NC}"
+                echo -e "${YELLOW}         4) Re-run: deno task integrate${NC}"
                 ((FAIL_COUNT++))
                 exit 1  # Stop on conflict
             fi
@@ -246,9 +259,15 @@ for branch in "${BRANCHES[@]}"; do
                 echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
             else
                 echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
-                echo -e "${YELLOW}       Please resolve conflicts in ${WORKTREE_DIR} then run:${NC}"
-                echo -e "${YELLOW}         git -C '${WORKTREE_DIR}' add -A && git -C '${WORKTREE_DIR}' commit${NC}"
-                echo -e "${YELLOW}       After committing the merge, re-run: deno task integrate${NC}"
+                echo -e "${BLUE}       Worktree: ${YELLOW}${WORKTREE_DIR}${NC}"
+                echo -e "${BLUE}       Conflicted files:${NC}"
+                (git -C "$WORKTREE_DIR" diff --name-only --diff-filter=U | sed -e 's/^/         - /') || true
+                echo -e "${YELLOW}       Next steps:${NC}"
+                echo -e "${YELLOW}         1) Open the worktree above in your IDE${NC}"
+                echo -e "${YELLOW}         2) Resolve conflict markers (<<<<<<< ======= >>>>>>>)${NC}"
+                echo -e "${YELLOW}         3) Commit the merge:${NC}"
+                echo -e "${YELLOW}              git -C '${WORKTREE_DIR}' add -A && git -C '${WORKTREE_DIR}' commit${NC}"
+                echo -e "${YELLOW}         4) Re-run: deno task integrate${NC}"
                 exit 1
             fi
         )
@@ -259,8 +278,15 @@ for branch in "${BRANCHES[@]}"; do
             echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
         else
             echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
-            echo -e "${YELLOW}       Resolve conflicts, then run: git add -A && git commit${NC}"
-            git checkout main
+            echo -e "${BLUE}       Worktree: ${YELLOW}${MAIN_WORKTREE}${NC}"
+            echo -e "${BLUE}       Conflicted files:${NC}"
+            git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
+            echo -e "${YELLOW}       Next steps:${NC}"
+            echo -e "${YELLOW}         1) Resolve conflicts in current branch (${branch})${NC}"
+            echo -e "${YELLOW}         2) Commit the merge:${NC}"
+            echo -e "${YELLOW}              git add -A && git commit${NC}"
+            echo -e "${YELLOW}         3) Switch back to main and re-run:${NC}"
+            echo -e "${YELLOW}              git checkout main && deno task integrate${NC}"
             exit 1
         fi
         git checkout main
