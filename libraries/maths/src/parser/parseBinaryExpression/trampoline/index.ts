@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 
 // Types for eliminating recursion stack frames via thunks
 export type TrampolineResult<T> =

@@ -1,219 +1,160 @@
-# PROMPT.md - Math Parser Library Instructions
+# Context for AI Assistant: Maths Library Parser Refactor
 
-## CRITICAL: Read These Files First
+## CRITICAL: Read These Files First (IN THIS ORDER)
 
-1. **`/CLAUDE.md`** - READ THIS COMPLETELY. Contains the prime directive and architectural rules.
-2. **`/libraries/maths/README.md`** - Overview of the math parser functionality
-3. **`/notes/ideas/parsing-math.md`** - Detailed requirements and examples
-4. **`/notes/plans/parsing-math.md`** - More information
+1. **`/CLAUDE.md`** - The manifesto. This is THE LAW. Every rule must be followed. NO EXCEPTIONS.
+2. **`libraries/toolkit/DO_NOTATION_TUTORIAL.md`** - Understand the new do-notation system we're using
+3. **`libraries/maths/PLAN.md`** - The detailed plan with checkboxes showing progress
+4. **This file** - Current context and next steps
 
-## Architecture Rules - ABSOLUTELY CRITICAL
+## What is the Maths Library?
 
-### The Prime Directive
+The `@sitebender/maths` library is a pure TypeScript formula parser that:
+- Takes mathematical expressions as strings (e.g., `"(a + b) * c"`)
+- Tokenizes them into tokens
+- Parses tokens into an Abstract Syntax Tree (AST)
+- Compiles the AST into configuration objects for `@sitebender/engine`
 
-> DO NOT ASSUME ANYTHING. DO NOT TAKE SHORTCUTS. DO NOT GUESS.
+Three-stage pipeline:
+1. **Tokenizer** - String → Tokens
+2. **Parser** - Tokens → AstNode (AST)
+3. **Compiler** - AstNode → Engine configuration
 
-### One Function Per File Rule (MOST COMMON MISTAKE)
+## Current Mission: Parser Refactor to Pure FP
 
-**CRITICAL**: Every function MUST be in its own file following this EXACT pattern:
+We're transforming the parser from OOP-ish mutable context to pure functional programming using:
+- **State monad** from `@sitebender/toolkit`
+- **Do-notation** for readable monadic code
+- **Immutable data structures** throughout
 
-- ONE function per file, exported as `default`
-- File is ALWAYS named `index.ts` (or `index.tsx` for components)
-- Function name goes on the FOLDER, not the file
-- Example: `libraries/maths/src/tokenizer/index.ts` exports the `tokenize` function
+### Why?
+- Current parser uses mutable `createParserContext` with stateful methods
+- Violates functional programming principles
+- We want 100% pure, immutable, functional code
 
-### NEVER DO THIS (Common Violations):
+## What Has Been Done (Check PLAN.md for Details)
 
+### ✅ Phase 1.1 Complete:
+- Created `libraries/maths/src/parser/types/state/index.ts` with:
+  - `ParserState` type (immutable tokens + position)
+  - `Parser<A>` type alias for `State<ParserState, A>`
+- Created `libraries/maths/src/parser/state/createInitialState/index.ts`
+- Fixed ALL `ASTNode` → `AstNode` (no acronyms in names!)
+- Converted tokenizer helpers to Scribe comments
+- Converted some parser helpers to Scribe comments
+
+### ✅ Documentation Updates:
+- JSDoc → Scribe comments (`//++` for description, `//??` for examples)
+- Added GOTCHAs, PROs, CONs where valuable
+- One failing test fixed
+
+## What's Next: Step 1.2
+
+Create state-based token navigation functions in `libraries/maths/src/parser/state/`:
+
+1. **`currentToken/index.ts`** - Get current token without advancing
+2. **`advance/index.ts`** - Consume token and move to next
+3. **`peek/index.ts`** - Look ahead without consuming
+4. **`expect/index.ts`** - Expect specific token type or error
+
+These must:
+- Use State monad with do-notation
+- Be pure functions (no mutations)
+- Return `Parser<Token>` or `Parser<Result<Token, ParseError>>`
+- Have Scribe documentation
+- One function per file
+
+### Example Structure:
 ```typescript
-// ❌ WRONG - Multiple functions in one file
-export function helper1() {}
-export function helper2() {}
-export default function main() {}
+import { doState, get, modify } from "@sitebender/toolkit/monads/doState"
+import type { Parser, ParserState } from "../../types/state/index.ts"
 
-// ❌ WRONG - Class with methods
-export default class Parser {
-	parse() {}
-	parseExpression() {}
-}
-
-// ❌ WRONG - Inline helper functions
-export default function parse() {
-	const helper = () => {} // NO! Extract to subfolder
-	// ...
+//++ Gets the current token without advancing position
+export default function currentToken(): Parser<Token> {
+  return doState<ParserState, Token>(function* () {
+    const state = yield get()
+    const token = state.tokens[state.position] || state.tokens[state.tokens.length - 1]
+    return token
+  })
 }
 ```
 
-### ALWAYS DO THIS:
+## Key Rules to Remember
 
-```typescript
-// ✅ CORRECT - One function per file
-// File: parse/index.ts
-export default function parse() {/* ... */}
+### From CLAUDE.md (THE LAW):
+- **One function per file** in folders named after the function
+- **No classes** - functional only
+- **No mutations** - use `const` only, immutable data
+- **No acronyms** - `AstNode` not `ASTNode`, `htmlParser` not `HTMLParser`
+- **Scribe comments** - `//++` for description, `//??` for examples
+- **Test everything** - 100% coverage or documented why not
+- **Small commits** - atomic changes with conventional commits
 
-// ✅ CORRECT - Helper in nested folder
-// File: parse/createParserContext/index.ts
-export default function createParserContext() {/* ... */}
+### Naming Conventions:
+- Types: PascalCase (`ParserState`, `AstNode`)
+- Functions: camelCase (`parseExpression`, `currentToken`)
+- NO ACRONYMS: `Api` not `API`, `Url` not `URL`, `Json` not `JSON`
+
+### File Structure:
+```
+libraries/maths/src/parser/
+├── types/state/index.ts          # Types ONLY
+├── state/                         # State monad functions
+│   ├── createInitialState/index.ts
+│   ├── currentToken/index.ts     # TO CREATE
+│   ├── advance/index.ts          # TO CREATE
+│   ├── peek/index.ts             # TO CREATE
+│   └── expect/index.ts           # TO CREATE
 ```
 
-### Folder Hierarchy Rules
+## Testing Strategy
 
-- Helper functions go in NESTED folders inside their parent
-- Nesting at the LOWEST branching node where ALL uses occur
-- If `f1` is only used by `f2`, structure is: `f2/f1/index.ts`
-- Shared functions stay at appropriate shared level
+- Run tests frequently: `deno test libraries/maths/tests/ --allow-all`
+- Keep old parser working while building new one
+- Test parity between old and new implementations
+- All 79 tests must keep passing
 
-## Math Parser Overview
-
-### Purpose
-
-Parse mathematical formula strings like `"(a / b) + (c / d)"` into @sitebender/engine configuration objects.
-
-### Key Components
-
-1. **Tokenizer** (`src/tokenizer/index.ts`) - Lexical analysis
-2. **Parser** (`src/parser/index.ts`) - Builds AST using Pratt parser
-3. **Compiler** (`src/compiler/index.ts`) - Transforms AST to engine configs
-4. **Main Entry** (`src/parseFormula/index.ts`) - Orchestrates pipeline
-
-### Parser Structure (After Refactoring)
+## Commit Message Format
 
 ```
-parser/
-├── index.ts                    # Main parser entry
-├── parse/
-│   ├── index.ts                # Parse function
-│   └── createParserContext/    # Helper function (properly nested)
-│       └── index.ts
-├── parseExpression/
-│   └── index.ts
-├── parseBinaryExpression/
-│   ├── index.ts
-│   └── getOperatorFromToken/   # Helper (properly nested)
-│       └── index.ts
-├── parseUnaryExpression/
-│   └── index.ts
-└── parsePrimaryExpression/
-    ├── index.ts
-    └── expect/                  # Helper (properly nested)
-        └── index.ts
+feat(maths): add state-based token navigation functions
+
+- Create currentToken using State monad
+- Create advance with proper EOF handling
+- Create peek for lookahead
+- Create expect for token validation
+- All pure functional with do-notation
+
+🤖 Generated with Claude Code
+
+Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
-## Common Mistakes to Avoid
+## Current Branch
 
-### 1. Class-Based Approach
+Working on: `ai/maths`
 
-**NEVER** use classes with methods. The parser was initially written as a class - this violates the rules. Always use pure functions.
+## Next Actions
 
-### 2. Multiple Functions Per File
+1. Read CLAUDE.md if you haven't (IT'S THE LAW)
+2. Check PLAN.md for current progress
+3. Implement Step 1.2 functions (currentToken, advance, peek, expect)
+4. Update PLAN.md checkboxes as you complete items
+5. Test frequently to ensure no regressions
+6. Commit with proper messages
+7. Continue with Step 1.3 after 1.2 is complete
 
-**NEVER** put multiple functions in one file. Each function gets its own folder with `index.ts`.
+## Remember
 
-### 3. Inline Helper Functions
+- **DO NOT ASSUME** - Verify everything
+- **DO NOT GUESS** - Check the code
+- **DO NOT BREAK EXISTING TESTS** - We need backward compatibility
+- **DO NOT USE ACRONYMS** - AstNode, not ASTNode
+- **DO USE DO-NOTATION** - It's why we built it
+- **DO FOLLOW THE MANIFESTO** - CLAUDE.md is law
 
-**NEVER** define helper functions inside other functions. Extract them to nested folders.
+The goal: Transform the parser to pure functional programming while maintaining 100% backward compatibility until we flip the switch.
 
-### 4. Import Paths
+---
 
-- Libraries use RELATIVE imports only (no aliases)
-- Example: `import Add from "../../../engine/src/constructors/operators/Add/index.ts"`
-
-### 5. Type Exports
-
-- Component Props: Named export as `Props` from component file
-- Other types: In `types/` folders with `index.ts`
-- Import types separately from values
-
-## JSDoc Requirements
-
-Every function needs JSDoc with 5 examples following FP patterns:
-
-````typescript
-/**
- * Brief description of what the function does.
- *
- * @param paramName - Parameter description
- * @returns What the function returns
- *
- * @example
- * ```typescript
- * // Example 1: Basic usage
- * const result = functionName(args)
- * // Expected output
- * ```
- *
- * @example
- * ```typescript
- * // Example 2: Edge case
- * ```
- *
- * // ... 3 more examples
- */
-````
-
-## Testing
-
-### Running Tests
-
-```bash
-cd libraries/maths
-deno test tests/behaviors/formula-parsing/index.ts
-deno test tests/behaviors/tokenization/index.ts
-deno test tests/behaviors/formula-properties/index.ts
-```
-
-### Test Structure
-
-- Behavioral tests in `tests/behaviors/`
-- Property-based tests using fast-check
-- Coverage target: >90%
-
-## Error Handling
-
-- Use Result/Either types - NEVER throw exceptions
-- All errors return `{ ok: false, error: ParseError }`
-- Graceful degradation always
-
-## Type System
-
-- Prefer `type` over `interface` (FP style)
-- Use `Array<T>` not `T[]`
-- All data immutable
-- No classes or OOP patterns
-
-## Current State
-
-The math parser has been fully refactored to comply with all architectural rules:
-
-- ✅ No classes - pure functional approach
-- ✅ One function per file
-- ✅ Proper folder hierarchy with nested helpers
-- ✅ Comprehensive JSDoc
-- ✅ All tests passing (32 tests, 91.8% coverage)
-
-## Key Files to Review
-
-1. `src/parser/parse/index.ts` - Shows proper helper extraction
-2. `src/parser/parse/createParserContext/index.ts` - Extracted helper example
-3. `src/compiler/inferNumericType/index.ts` - Another properly extracted helper
-4. `tests/behaviors/formula-parsing/index.ts` - Main test suite
-
-## Development Workflow
-
-1. Read CLAUDE.md thoroughly
-2. Check existing patterns in similar files
-3. Write function in its own folder/index.ts
-4. Extract ALL helpers to nested folders
-5. Add JSDoc with 5 FP examples
-6. Run tests to verify
-7. Never assume, always verify
-
-## Red Flags to Watch For
-
-- Any file with more than one function
-- Any class definition
-- Any inline helper functions
-- Missing JSDoc examples
-- Import aliases in library code
-- Throwing exceptions instead of Result types
-
-Remember: The user values correctness and following rules over speed. Take time to do it right the first time.
+**You are ready. Read the files, understand the context, and continue the mission.**

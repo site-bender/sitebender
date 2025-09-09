@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result, Token } from "../../types/index.ts"
+import type { AstNode, ParseError, Result, Token } from "../../types/index.ts"
 
 import parseExpression from "../parseExpression/index.ts"
 import createParserContext from "./createParserContext/index.ts"
@@ -56,7 +56,7 @@ import createParserContext from "./createParserContext/index.ts"
  */
 export default function parse(
 	tokens: Array<Token>,
-): Result<ASTNode, ParseError> {
+): Result<AstNode, ParseError> {
 	const ctx = createParserContext(tokens)
 	const result = parseExpression(ctx)(0)
 
