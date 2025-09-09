@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../types/index.ts"
 
 import parseUnaryExpression from "../parseUnaryExpression/index.ts"
@@ -54,8 +54,8 @@ import trampoline from "./trampoline/index.ts"
  */
 export default function parseBinaryExpression(
 	ctx: ParserContext,
-): (minPrecedence: number) => Result<ASTNode, ParseError> {
-	return (minPrecedence: number): Result<ASTNode, ParseError> => {
+): (minPrecedence: number) => Result<AstNode, ParseError> {
+	return (minPrecedence: number): Result<AstNode, ParseError> => {
 		// Parse left side (could be unary expression)
 		const leftResult = parseUnaryExpression(ctx)
 		if (!leftResult.ok) return leftResult

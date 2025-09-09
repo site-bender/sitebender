@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { ParserContext } from "../../types/index.ts"
 
 import createUnaryNode from "../createUnaryNode/index.ts"
@@ -13,8 +13,8 @@ import createUnaryNode from "../createUnaryNode/index.ts"
 export default function parseUnaryOperator(
 	ctx: ParserContext,
 	operator: "+" | "-",
-	parseUnaryExpression: (ctx: ParserContext) => Result<ASTNode, ParseError>,
-): Result<ASTNode, ParseError> {
+	parseUnaryExpression: (ctx: ParserContext) => Result<AstNode, ParseError>,
+): Result<AstNode, ParseError> {
 	ctx.advance()
 	const operandResult = parseUnaryExpression(ctx) // Recursive for multiple unary ops
 	if (!operandResult.ok) return operandResult

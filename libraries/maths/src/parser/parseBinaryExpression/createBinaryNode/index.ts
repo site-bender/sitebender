@@ -1,5 +1,5 @@
 import type {
-	ASTNode,
+	AstNode,
 	BinaryOpNode,
 	ComparisonNode,
 } from "../../../types/index.ts"
@@ -13,8 +13,8 @@ import type {
  */
 export default function createBinaryNode(
 	operator: string,
-	left: ASTNode,
-	right: ASTNode,
+	left: AstNode,
+	right: AstNode,
 ): BinaryOpNode | ComparisonNode {
 	if (
 		operator === "<" || operator === ">" || operator === "==" ||
