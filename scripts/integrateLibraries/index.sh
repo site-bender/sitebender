@@ -30,8 +30,21 @@ BRANCHES=(
     "ai/toolkit"
 )
 
-# Get the main worktree directory
-MAIN_WORKTREE=$(git worktree list | grep '\[main\]' | awk '{print $1}')
+# Resolve a worktree directory for a given branch using porcelain output (robust against formatting)
+get_worktree_dir() {
+    local branch="$1"
+    # Expect branch in refs/heads/<branch>
+    git worktree list --porcelain | awk -v b="refs/heads/${branch}" '
+        $1=="worktree" { path=$2 }
+        $1=="branch" && $2==b { print path }
+    '
+}
+
+# Get the main worktree directory (prefer porcelain parse; fallback to repo toplevel)
+MAIN_WORKTREE=$(get_worktree_dir "main")
+if [ -z "$MAIN_WORKTREE" ]; then
+    MAIN_WORKTREE=$(git rev-parse --show-toplevel 2>/dev/null || echo "")
+fi
 
 # Function to check if branch exists locally
 branch_exists_local() {
@@ -43,16 +56,23 @@ branch_exists_remote() {
     git ls-remote --exit-code --heads origin "$1" >/dev/null 2>&1
 }
 
-# Function to get worktree directory for a branch
-get_worktree_dir() {
-    git worktree list | grep "\[$1\]" | awk '{print $1}' || echo ""
-}
-
 # Function to check for uncommitted changes in a directory
 has_uncommitted_changes() {
     local dir=$1
     if [ -d "$dir" ]; then
-        (cd "$dir" && [ -n "$(git status --porcelain)" ])
+        (
+            cd "$dir" &&
+            # Detect unstaged and staged changes; porcelain covers both but be explicit
+            if ! git diff --quiet || ! git diff --cached --quiet; then
+                exit 0
+            else
+                # Also detect untracked files that would be overwritten
+                if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+                    exit 0
+                fi
+                exit 1
+            fi
+        )
     else
         return 1
     fi
@@ -76,7 +96,10 @@ for branch in "${BRANCHES[@]}"; do
 done
 
 # Check main worktree
-if has_uncommitted_changes "$MAIN_WORKTREE"; then
+if [ -z "$MAIN_WORKTREE" ]; then
+    echo -e "${RED}  ❌ Could not determine main worktree path${NC}"
+    UNCOMMITTED_FOUND=true
+elif has_uncommitted_changes "$MAIN_WORKTREE"; then
     echo -e "${RED}  ❌ Uncommitted changes in main worktree${NC}"
     UNCOMMITTED_FOUND=true
 else
@@ -140,7 +163,17 @@ echo ""
 echo -e "${CYAN}Step 5: Updating main branch${NC}"
 cd "$MAIN_WORKTREE"
 git checkout main
-git pull --ff-only origin main || echo -e "${YELLOW}  ⚠ Main not fast-forwardable${NC}"
+# Re-check cleanliness before pulling
+if has_uncommitted_changes "$MAIN_WORKTREE"; then
+    echo -e "${RED}  ❌ Main worktree has uncommitted changes. Please commit or stash before integrating.${NC}"
+    exit 1
+fi
+
+# Require a clean fast-forward; abort on failure
+if ! git pull --ff-only origin main; then
+    echo -e "${RED}  ❌ Unable to fast-forward main. Resolve issues (likely local changes) and retry.${NC}"
+    exit 1
+fi
 echo -e "${GREEN}  ✓ Main branch ready${NC}"
 echo ""
 
@@ -152,34 +185,34 @@ FAIL_COUNT=0
 
 for branch in "${BRANCHES[@]}"; do
     echo -e "${BLUE}  Processing $branch...${NC}"
-    
+
     if branch_exists_local "$branch"; then
         # Check if branch has any changes not in main
         COMMITS_AHEAD=$(git rev-list --count main.."$branch" 2>/dev/null || echo "0")
-        
+
         if [ "$COMMITS_AHEAD" -eq "0" ]; then
             echo -e "${YELLOW}    No new commits to merge${NC}"
             ((SKIP_COUNT++))
         else
             echo -e "${BLUE}    Found $COMMITS_AHEAD new commits${NC}"
-            
-            # Debug: Show git status and diff before merge
-            echo -e "${YELLOW}    [DEBUG] git status before merge:${NC}"
-            git status
-            echo -e "${YELLOW}    [DEBUG] git diff --name-only before merge:${NC}"
-            git diff --name-only
+
             # Attempt merge
+            # Ensure main worktree is still clean just before merging
+            if has_uncommitted_changes "$MAIN_WORKTREE"; then
+                echo -e "${RED}    ❌ Main worktree became dirty before merge. Resolve and retry.${NC}"
+                exit 1
+            fi
+
             if git merge "$branch" --no-ff -m "feat: integrate $branch changes" --no-edit; then
                 echo -e "${GREEN}    ✓ Successfully merged $branch${NC}"
                 ((SUCCESS_COUNT++))
             else
                 echo -e "${RED}    ❌ Merge conflict in $branch${NC}"
                 echo -e "${RED}       Please resolve conflicts manually${NC}"
-                echo -e "${YELLOW}    [DEBUG] git status after failed merge:${NC}"
-                git status
-                echo -e "${YELLOW}    [DEBUG] git diff --name-only after failed merge:${NC}"
-                git diff --name-only
-                git merge --abort
+                # Abort only if a merge is actually in progress
+                if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
+                    git merge --abort || true
+                fi
                 ((FAIL_COUNT++))
                 exit 1  # Stop on conflict
             fi
@@ -216,7 +249,9 @@ for branch in "${BRANCHES[@]}"; do
             else
                 echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
                 echo -e "${RED}       Please resolve conflicts in $WORKTREE_DIR${NC}"
-                git merge --abort
+                if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
+                    git merge --abort || true
+                fi
                 exit 1
             fi
         )
@@ -227,7 +262,9 @@ for branch in "${BRANCHES[@]}"; do
             echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
         else
             echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
-            git merge --abort
+            if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
+                git merge --abort || true
+            fi
             git checkout main
             exit 1
         fi

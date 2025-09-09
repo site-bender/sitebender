@@ -16,7 +16,7 @@ export default function allPass<T>(predicates: Array<(value: T) => unknown>) {
 /*??
  * [EXAMPLE]
  * const isPositive = (n: number) => n > 0
- * const isEven = (n: number) => n % 2 === 0  
+ * const isEven = (n: number) => n % 2 === 0
  * const isSmall = (n: number) => n < 100
  * const isPositiveEvenSmall = allPass([isPositive, isEven, isSmall])
  * isPositiveEvenSmall(4)    // true
