@@ -1,13 +1,17 @@
-import isTemporalDate from "../isTemporalDate/index.ts"
-
-//++ Alias for isTemporalDate - checks if a value is a Temporal.PlainDate instance
+//++ Type guard that checks if a value is a Temporal.PlainDate instance
 export default function isPlainDate(value: unknown): value is Temporal.PlainDate {
-	return isTemporalDate(value)
+	try {
+		return value instanceof Temporal.PlainDate
+	} catch {
+		// In case Temporal is not available
+		return false
+	}
 }
 
 //?? [EXAMPLE] isPlainDate(Temporal.PlainDate.from("2024-01-15")) // true
 //?? [EXAMPLE] isPlainDate("2024-01-15") // false (string)
 //?? [EXAMPLE] isPlainDate(new Date()) // false (legacy Date)
+//?? [EXAMPLE] isPlainDate(null) // false
 /*??
  * [EXAMPLE]
  * const date = Temporal.PlainDate.from("2024-01-15")
@@ -15,5 +19,6 @@ export default function isPlainDate(value: unknown): value is Temporal.PlainDate
  *   date.add({ days: 1 })  // TypeScript knows it's PlainDate
  * }
  *
- * [PRO] More intuitive name matching Temporal API naming
+ * [GOTCHA] Returns false if Temporal API is not available
+ * [PRO] TypeScript type guard for safe PlainDate operations
  */
