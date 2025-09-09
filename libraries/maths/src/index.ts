@@ -10,8 +10,8 @@ export { default as parseFormula } from "./parseFormula/index.ts"
 
 // Type exports
 export type {
-	ASTNode,
-	ASTNodeType,
+	AstNode,
+	AstNodeType,
 	BinaryOpNode,
 	NumberNode,
 	ParseError,

@@ -11,10 +11,10 @@
 
 	"tasks": {
 		// Run tests
-		"test": "deno test --unstable-temporal tests/",
-		"test:watch": "deno test --unstable-temporal tests/ --watch",
-		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
-		"test:unit": "deno test --unstable-temporal tests/ --filter='/^(?!.*integration).*/'",
+		"test": "deno test --unstable-temporal tests/ src/",
+		"test:watch": "deno test --unstable-temporal tests/ src/ --watch",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ src/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
+		"test:unit": "deno test --unstable-temporal tests/ src/ --filter='/^(?!.*integration).*/'",
 		"test:integration": "deno test --unstable-temporal tests/integration/",
 
 		// Code quality (inherits config from root workspace)
@@ -25,8 +25,7 @@
 
 	// Test configuration
 	"test": {
-		"include": ["tests/"],
-		"exclude": ["src/"]
+		"include": ["tests/", "src/**/*.test.ts"]
 	},
 	"compilerOptions": {
 		"lib": ["deno.window", "esnext"],

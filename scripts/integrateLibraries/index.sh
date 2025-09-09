@@ -17,6 +17,16 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
+# Detect VS Code CLI for helpful hints
+CODE_BIN=$(command -v code || echo "")
+
+print_code_hint() {
+    local path="$1"
+    if [ -n "$CODE_BIN" ]; then
+        echo -e "${YELLOW}         VS Code: code '${path}'${NC}"
+    fi
+}
+
 # All library branches
 BRANCHES=(
     "ai/components"
@@ -109,6 +119,13 @@ fi
 if [ "$UNCOMMITTED_FOUND" = true ]; then
     echo -e "${RED}Cannot proceed with uncommitted changes. Please commit or stash them first.${NC}"
     exit 1
+fi
+
+# Optional visibility: warn if any files are marked skip-worktree/assume-unchanged (can hide conflicts)
+FLAGGED_COUNT=$(git ls-files -v | grep -E '^[a-zS]' | wc -l | tr -d ' ')
+if [ "$FLAGGED_COUNT" != "0" ]; then
+    echo -e "${YELLOW}Warning:${NC} Detected $FLAGGED_COUNT files with skip-worktree/assume-unchanged flags. These can hide changes/conflicts."
+    echo -e "${YELLOW}  To clear (safe):${NC} git ls-files -z | xargs -0 git update-index --no-assume-unchanged --; git ls-files -z | xargs -0 git update-index --no-skip-worktree --"
 fi
 
 echo ""
@@ -208,11 +225,16 @@ for branch in "${BRANCHES[@]}"; do
                 ((SUCCESS_COUNT++))
             else
                 echo -e "${RED}    ❌ Merge conflict in $branch${NC}"
-                echo -e "${RED}       Please resolve conflicts manually${NC}"
-                # Abort only if a merge is actually in progress
-                if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
-                    git merge --abort || true
-                fi
+                echo -e "${BLUE}       Worktree: ${YELLOW}${MAIN_WORKTREE}${NC}"
+                echo -e "${BLUE}       Conflicted files:${NC}"
+                git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
+                echo -e "${YELLOW}       Next steps:${NC}"
+                echo -e "${YELLOW}         1) Open the worktree above in your IDE${NC}"
+                print_code_hint "${MAIN_WORKTREE}"
+                echo -e "${YELLOW}         2) Resolve conflict markers (<<<<<<< ======= >>>>>>>)${NC}"
+                echo -e "${YELLOW}         3) Commit the merge:${NC}"
+                echo -e "${YELLOW}              git add -A && git commit${NC}"
+                echo -e "${YELLOW}         4) Re-run: deno task integrate${NC}"
                 ((FAIL_COUNT++))
                 exit 1  # Stop on conflict
             fi
@@ -248,10 +270,16 @@ for branch in "${BRANCHES[@]}"; do
                 echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
             else
                 echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
-                echo -e "${RED}       Please resolve conflicts in $WORKTREE_DIR${NC}"
-                if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
-                    git merge --abort || true
-                fi
+                echo -e "${BLUE}       Worktree: ${YELLOW}${WORKTREE_DIR}${NC}"
+                echo -e "${BLUE}       Conflicted files:${NC}"
+                (git -C "$WORKTREE_DIR" diff --name-only --diff-filter=U | sed -e 's/^/         - /') || true
+                echo -e "${YELLOW}       Next steps:${NC}"
+                echo -e "${YELLOW}         1) Open the worktree above in your IDE${NC}"
+                print_code_hint "${WORKTREE_DIR}"
+                echo -e "${YELLOW}         2) Resolve conflict markers (<<<<<<< ======= >>>>>>>)${NC}"
+                echo -e "${YELLOW}         3) Commit the merge:${NC}"
+                echo -e "${YELLOW}              git -C '${WORKTREE_DIR}' add -A && git -C '${WORKTREE_DIR}' commit${NC}"
+                echo -e "${YELLOW}         4) Re-run: deno task integrate${NC}"
                 exit 1
             fi
         )
@@ -262,10 +290,16 @@ for branch in "${BRANCHES[@]}"; do
             echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
         else
             echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
-            if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
-                git merge --abort || true
-            fi
-            git checkout main
+            echo -e "${BLUE}       Worktree: ${YELLOW}${MAIN_WORKTREE}${NC}"
+            echo -e "${BLUE}       Conflicted files:${NC}"
+            git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
+            echo -e "${YELLOW}       Next steps:${NC}"
+            echo -e "${YELLOW}         1) Resolve conflicts in current branch (${branch})${NC}"
+            print_code_hint "${MAIN_WORKTREE}"
+            echo -e "${YELLOW}         2) Commit the merge:${NC}"
+            echo -e "${YELLOW}              git add -A && git commit${NC}"
+            echo -e "${YELLOW}         3) Switch back to main and re-run:${NC}"
+            echo -e "${YELLOW}              git checkout main && deno task integrate${NC}"
             exit 1
         fi
         git checkout main
