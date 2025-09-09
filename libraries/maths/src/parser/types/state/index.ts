@@ -1,4 +1,4 @@
-import type { State } from "@sitebender/toolkit/monads/state/state"
+import type { State } from "../../../../../toolkit/src/monads/state/state/index.ts"
 import type { AstNode, ParseError, Token } from "../../../types/index.ts"
 
 //++ Parser state for pure functional parsing with immutable token navigation

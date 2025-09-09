@@ -11,17 +11,17 @@
 - [x] Keep existing types intact for now
 
 ### Step 1.2: Create State-Based Token Navigation
-- [ ] Create `libraries/maths/src/parser/state/currentToken/index.ts`
-- [ ] Create `libraries/maths/src/parser/state/advance/index.ts`
-- [ ] Create `libraries/maths/src/parser/state/peek/index.ts`
-- [ ] Create `libraries/maths/src/parser/state/expect/index.ts`
-- [ ] These are NEW files, not replacing existing ones yet
+- [x] Create `libraries/maths/src/parser/state/currentToken/index.ts`
+- [x] Create `libraries/maths/src/parser/state/advance/index.ts`
+- [x] Create `libraries/maths/src/parser/state/peek/index.ts`
+- [x] Create `libraries/maths/src/parser/state/expect/index.ts`
+- [x] These are NEW files, not replacing existing ones yet
 
 ### Step 1.3: Create Parallel Parser Functions
-- [ ] Create `libraries/maths/src/parser/state/parsePrimaryExpressionState/index.ts`
-- [ ] Create `libraries/maths/src/parser/state/parseUnaryExpressionState/index.ts`
-- [ ] Create `libraries/maths/src/parser/state/parseBinaryExpressionState/index.ts`
-- [ ] These run ALONGSIDE existing parsers for testing
+- [x] Create `libraries/maths/src/parser/state/parsePrimaryExpressionState/index.ts`
+- [x] Create `libraries/maths/src/parser/state/parseUnaryExpressionState/index.ts`
+- [x] Create `libraries/maths/src/parser/state/parseBinaryExpressionState/index.ts`
+- [x] These run ALONGSIDE existing parsers for testing
 
 ## Phase 2: Implementation (Still No Breaking)
 
