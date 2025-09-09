@@ -1,55 +1,35 @@
-/**
- * Creates a predicate that checks if a value is an instance of a constructor
- *
- * Uses the instanceof operator to check if an object's prototype chain contains
- * the prototype property of a constructor. This is a curried function for creating
- * reusable type checks. Works with built-in types, classes, and constructor functions.
- * Note that instanceof checks fail across different JavaScript realms (e.g., iframes).
- *
- * Type checking behavior:
- * - Classes: checks if object is instance of class
- * - Built-ins: works with Date, RegExp, Error, etc.
- * - Arrays: Array.isArray is more reliable than instanceof Array
- * - Primitives: always false (primitives are not instances)
- * - null/undefined: always false
- * - Cross-realm: fails for objects from different contexts
- *
- * @pure
- * @curried
- * @predicate
- * @param constructor - The constructor function to check against
- * @param value - The value to check
- * @returns True if value instanceof constructor, false otherwise
- * @example
- * ```typescript
- * // Built-in type checks
+//++ Creates a predicate that checks if a value is an instance of a constructor
+export default function is<T>(constructor: new (...args: Array<unknown>) => T) {
+	return function isInstanceOf(value: unknown): value is T {
+		return value instanceof constructor
+	}
+}
+
+//?? [EXAMPLE] is(Date)(new Date()) // true
+//?? [EXAMPLE] is(Date)(Date.now()) // false (returns number)
+//?? [EXAMPLE] is(Error)(new Error("oops")) // true
+//?? [EXAMPLE] is(Error)(new TypeError()) // true (TypeError extends Error)
+//?? [EXAMPLE] is(String)("hello") // false (primitive)
+//?? [EXAMPLE] is(String)(new String("hi")) // true (object)
+/*??
+ * [EXAMPLE]
  * const isDate = is(Date)
- * isDate(new Date())           // true
- * isDate(Date.now())           // false (returns number)
+ * isDate(new Date())  // true
+ * isDate(Date.now())  // false (returns number)
+ * isDate("2024-01-01") // false (string)
  *
- * const isError = is(Error)
- * isError(new Error("oops"))   // true
- * isError(new TypeError())     // true (TypeError extends Error)
- *
- * // Custom class checking
  * class User {
  *   constructor(public name: string) {}
  * }
  * const isUser = is(User)
- * isUser(new User("Alice"))    // true
- * isUser({ name: "Charlie" })  // false (plain object)
+ * isUser(new User("Alice"))   // true
+ * isUser({ name: "Charlie" }) // false (plain object)
  *
- * // Filtering by type
  * const mixed = [new Date(), "string", 42, new Error("oops")]
- * mixed.filter(is(Error))      // [Error: oops]
+ * mixed.filter(is(Error))  // [Error: oops]
+ * mixed.filter(is(Date))   // [Date]
  *
- * // Primitives vs objects
- * is(String)("hello")          // false (primitive)
- * is(String)(new String("hi")) // true (object)
- * ```
+ * [GOTCHA] Primitives always return false (they're not instances)
+ * [GOTCHA] Fails across different JavaScript realms (e.g., iframes)
+ * [GOTCHA] Array.isArray is more reliable than is(Array)
  */
-const is =
-	<T>(constructor: new (...args: Array<unknown>) => T) =>
-	(value: unknown): value is T => value instanceof constructor
-
-export default is
