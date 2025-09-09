@@ -1,68 +1,14 @@
-/**
- * Validates email addresses according to common standards
- *
- * Checks whether a string is a valid email address using a comprehensive
- * regex pattern that follows RFC 5322 standards with practical limitations.
- * Validates the local part, domain, and optional TLD requirements. Returns
- * false for non-string values, empty strings, or malformed addresses.
- *
- * Validation rules:
- * - Local part: letters, numbers, and special characters (._%-+)
- * - Domain: valid hostname with optional subdomains
- * - TLD: optional validation for 2+ character top-level domains
- * - Length limits: local part ≤ 64 chars, domain ≤ 253 chars
- * - Case-insensitive validation
- * - No leading/trailing whitespace allowed
- * - Single @ symbol required
- *
- * @param options - Optional configuration for validation strictness
- * @returns A predicate function that validates email addresses
- * @example
- * ```typescript
- * // Basic validation
- * const isValidEmail = isEmail()
- * isValidEmail("user@example.com")         // true
- * isValidEmail("john.doe@company.org")     // true
- * isValidEmail("invalid.email")            // false (no @)
- * isValidEmail("@example.com")             // false (no local part)
- *
- * // With TLD requirement
- * const requireTLD = isEmail({ requireTLD: true })
- * requireTLD("user@example.com")           // true
- * requireTLD("user@localhost")             // false (no TLD)
- *
- * // Special characters
- * const validator = isEmail()
- * validator("user+tag@example.com")        // true (plus addressing)
- * validator("user_name@example.com")       // true (underscore)
- * validator("user.name@example.com")       // true (dot)
- *
- * // Form validation
- * const emails = ["valid@email.com", "invalid", "test@domain.org"]
- * const validEmails = emails.filter(isEmail())
- * // ["valid@email.com", "test@domain.org"]
- *
- * // Display name support
- * const withDisplay = isEmail({ allowDisplayName: true })
- * withDisplay('"John Doe" <john@example.com>')  // true
- * withDisplay('<john@example.com>')             // true
- * ```
- *
- * @curried
- * @predicate
- * @pure
- * @safe
- */
 type EmailOptions = {
 	requireTLD?: boolean
 	allowDisplayName?: boolean
 	strict?: boolean
 }
 
-const isEmail = (
+//++ Validates email addresses according to RFC 5322 standards with practical limitations
+export default function isEmail(
 	options: EmailOptions = {},
-): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+) {
+	return function validateEmail(value: unknown): boolean {
 		if (typeof value !== "string" || value.length === 0) {
 			return false
 		}
@@ -167,4 +113,17 @@ const isEmail = (
 	}
 }
 
-export default isEmail
+//?? [EXAMPLE] isEmail()("user@example.com") // true
+//?? [EXAMPLE] isEmail()("john.doe@company.org") // true  
+//?? [EXAMPLE] isEmail()("invalid.email") // false (no @)
+//?? [EXAMPLE] isEmail({ requireTLD: true })("user@localhost") // false (no TLD)
+//?? [EXAMPLE] isEmail({ allowDisplayName: true })('"John Doe" <john@example.com>') // true
+/*??
+ * [EXAMPLE]
+ * const emails = ["valid@email.com", "invalid", "test@domain.org"]
+ * emails.filter(isEmail())  // ["valid@email.com", "test@domain.org"]
+ *
+ * [GOTCHA] Display names must be extracted before validation
+ * [PRO] Comprehensive validation with RFC 5322 compliance
+ * [PRO] Configurable strictness levels for different use cases
+ */
