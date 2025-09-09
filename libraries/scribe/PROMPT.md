@@ -13,7 +13,7 @@
 
 1. **Deleted bad AST detectors** that imported TypeScript:
    - `detectPurityFromAST` ❌ DELETED
-   - `detectCurryingFromAST` ❌ DELETED  
+   - `detectCurryingFromAST` ❌ DELETED
    - `detectComplexityFromAST` ❌ DELETED
 
 2. **Fixed comment categories**:
@@ -55,16 +55,18 @@
 ## The Sacred Rules (NEVER VIOLATE)
 
 ### 1. One Function Per File
+
 ```typescript
 // ✅ RIGHT: functionName/index.ts
-export default function functionName() { }
+export default function functionName() {}
 
 // ❌ WRONG: Multiple functions
-function helper() { }
-export default function main() { }
+function helper() {}
+export default function main() {}
 ```
 
 ### 2. Folder Structure
+
 ```
 functionName/
 ├── index.ts              # Main function
@@ -75,6 +77,7 @@ functionName/
 ```
 
 ### 3. No Native Array Methods
+
 ```typescript
 // ❌ WRONG
 array.includes(x)
@@ -88,6 +91,7 @@ import contains from "../../toolkit/src/simple/string/contains/index.ts"
 ```
 
 ### 4. Const Only
+
 ```typescript
 // ❌ WRONG
 let x = 5
@@ -98,15 +102,19 @@ const x = 5
 ```
 
 ### 5. Types Not Interfaces
+
 ```typescript
 // ❌ WRONG
-interface Person { name: string }
+interface Person {
+	name: string
+}
 
-// ✅ RIGHT  
+// ✅ RIGHT
 type Person = { name: string }
 ```
 
 ### 6. Proper Naming
+
 ```typescript
 // ❌ WRONG
 ASTNode, HTMLElement, XMLParser
@@ -116,10 +124,11 @@ AstNode, HtmlElement, XmlParser
 ```
 
 ### 7. Named Functions (Even Inner Ones)
+
 ```typescript
 // ✅ RIGHT
 some(function checkCondition(x: number) {
-  return x > 5
+	return x > 5
 })(array)
 
 // ❌ WRONG
@@ -129,27 +138,30 @@ some((x: number) => x > 5)(array)
 ## The Boundary Rules
 
 ### What Parser Does
+
 - Parses TypeScript source into AST
 - Provides AST nodes to Scribe
 - Owns all TypeScript compiler imports
 
-### What Scribe Does  
+### What Scribe Does
+
 - Receives AST nodes from Parser
 - Analyzes node structure
 - NEVER imports TypeScript compiler
 - NEVER parses source code
 
 ### The AST Node Shape
+
 ```typescript
 type AstNode = {
-  kind: number
-  pos: number
-  end: number
-  parent?: AstNode
-  getText(): string
-  getChildCount(): number
-  getChildAt(index: number): AstNode | undefined
-  forEachChild<T>(cbNode: (node: AstNode) => T | undefined): T | undefined
+	kind: number
+	pos: number
+	end: number
+	parent?: AstNode
+	getText(): string
+	getChildCount(): number
+	getChildAt(index: number): AstNode | undefined
+	forEachChild<T>(cbNode: (node: AstNode) => T | undefined): T | undefined
 }
 ```
 
