@@ -1,5 +1,5 @@
 import type {
-	ASTNode,
+	AstNode,
 	ParseError,
 	Result,
 	Token,
@@ -14,8 +14,8 @@ export default function parseParenthesized(
 	ctx: ParserContext,
 	parseExpression: (
 		ctx: ParserContext,
-	) => (minPrecedence: number) => Result<ASTNode, ParseError>,
-): Result<ASTNode, ParseError> {
+	) => (minPrecedence: number) => Result<AstNode, ParseError>,
+): Result<AstNode, ParseError> {
 	ctx.advance()
 	const exprResult = parseExpression(ctx)(0)
 	// deno-coverage-ignore
