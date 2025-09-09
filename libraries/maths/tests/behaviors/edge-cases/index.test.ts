@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import type { ASTNode, Token } from "../../../src/types/index.ts"
+import type { AstNode, Token } from "../../../src/types/index.ts"
 
 import compile from "../../../src/compiler/index.ts"
 import parseFormula from "../../../src/parseFormula/index.ts"
@@ -78,7 +78,7 @@ Deno.test("getOperatorFromToken - returns null for non-operator tokens", () => {
 Deno.test("compile - handles unknown AST node type (unreachable in practice)", () => {
 	// This tests the default case in the compiler which should never be reached
 	// due to TypeScript's exhaustiveness checking. We force it by casting.
-	const unknownNode = { type: "UnknownType" } as unknown as ASTNode
+	const unknownNode = { type: "UnknownType" } as unknown as AstNode
 
 	const result = compile(unknownNode, {})
 
@@ -91,7 +91,7 @@ Deno.test("compile - handles unknown AST node type (unreachable in practice)", (
 Deno.test("compile - handles unsupported operator in BinaryOp", () => {
 	// Test the default case in BinaryOp operator switch
 	// This is also unreachable in practice but we test it for completeness
-	const invalidOp: ASTNode = {
+	const invalidOp: AstNode = {
 		type: "BinaryOp",
 		// @ts-expect-error - Testing invalid operator
 		operator: "%", // Force an invalid operator
@@ -109,7 +109,7 @@ Deno.test("compile - handles unsupported operator in BinaryOp", () => {
 
 Deno.test("compile - handles non-numeric datatype fallback in UnaryOp", () => {
 	// Test the datatype fallback for non-numeric types
-	const ast: ASTNode = {
+	const ast: AstNode = {
 		type: "UnaryOp",
 		operator: "-",
 		operand: { type: "Variable", name: "x" },

@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result, Token } from "../types/index.ts"
+import type { AstNode, ParseError, Result, Token } from "../types/index.ts"
 
 import parse from "./parse/index.ts"
 
@@ -57,6 +57,6 @@ import parse from "./parse/index.ts"
  */
 export default function parser(
 	tokens: Array<Token>,
-): Result<ASTNode, ParseError> {
+): Result<AstNode, ParseError> {
 	return parse(tokens)
 }

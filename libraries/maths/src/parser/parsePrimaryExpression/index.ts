@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../types/index.ts"
 
 import parseExpression from "../parseExpression/index.ts"
@@ -10,7 +10,7 @@ import parseVariable from "./parseVariable/index.ts"
 //+ Parses primary expressions: numbers, variables, and parenthesized expressions
 export default function parsePrimaryExpression(
 	ctx: ParserContext,
-): Result<ASTNode, ParseError> {
+): Result<AstNode, ParseError> {
 	const token = ctx.current()
 
 	switch (token.type) {
