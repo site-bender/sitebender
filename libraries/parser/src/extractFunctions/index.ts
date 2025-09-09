@@ -17,9 +17,22 @@ export type FunctionNode = {
 	readonly hasBody: boolean
 }
 
+export type TraversalMetadata = {
+	readonly hasThrowStatements: boolean
+	readonly hasAwaitExpressions: boolean
+	readonly hasGlobalAccess: boolean
+	readonly cyclomaticComplexity: number
+	readonly hasReturnStatements: boolean
+}
+
+export type ExtractFunctionsResult = {
+	readonly functions: ReadonlyArray<FunctionNode>
+	readonly metadata: TraversalMetadata
+}
+
 export default function extractFunctions(
 	sourceFile: typescript.SourceFile,
-): ReadonlyArray<FunctionNode> {
+): ExtractFunctionsResult {
 	return visitNodes(sourceFile)
 }
 

@@ -5,7 +5,7 @@ import type {
 	OperatorConfig,
 } from "../../../engine/types/index.ts"
 import type {
-	ASTNode,
+	AstNode,
 	ParseError,
 	Result,
 	VariableMap,
@@ -89,7 +89,7 @@ import inferNumericType from "./inferNumericType/index.ts"
  * ```
  */
 export default function compile(
-	ast: ASTNode,
+	ast: AstNode,
 	variables: VariableMap,
 ): Result<OperatorConfig | InjectorConfig | ComparatorConfig, ParseError> {
 	switch (ast.type) {
