@@ -1,42 +1,19 @@
-/**
- * Extracts single-line description from source code
- */
-export default function extractDescription(
-	source: string,
-	lineNumber: number = 0,
-): string | undefined {
-	// Split source into lines
-	const lines = source.split("\n")
+import find from "../../../../toolkit/src/simple/array/find/index.ts"
 
-	// Look for comment on the line before the function
-	if (lineNumber > 0 && lineNumber <= lines.length) {
-		const previousLine = lines[lineNumber - 1]
+type Comment = {
+	kind: "line" | "block"
+	text: string
+	fullText: string
+	type: "description" | "example" | "gotcha" | "pro" | "law"
+	position: "before" | "after"
+}
 
-		// Check for single-line comment
-		const singleLineMatch = previousLine.match(/^\s*\/\/\s*(.+)/)
-		if (singleLineMatch) {
-			return singleLineMatch[1].trim()
-		}
-	}
+//++ Extracts description from parsed comments using Parser API output
+export default function extractDescription(comments: Array<Comment>): string | undefined {
+	// Find the first comment that is a description positioned before the function
+	const descriptionComment = find(function isDescriptionComment(comment: Comment) {
+		return comment.type === "description" && comment.position === "before"
+	})(comments)
 
-	// Look for comment at the start of the file
-	for (let i = 0; i < Math.min(lines.length, 10); i++) {
-		const line = lines[i]
-
-		// Skip empty lines
-		if (!line.trim()) continue
-
-		// Check for single-line comment
-		const match = line.match(/^\s*\/\/\s*(.+)/)
-		if (match) {
-			return match[1].trim()
-		}
-
-		// Stop at first non-comment line
-		if (!line.trim().startsWith("//") && !line.trim().startsWith("/*")) {
-			break
-		}
-	}
-
-	return undefined
+	return descriptionComment?.text
 }
