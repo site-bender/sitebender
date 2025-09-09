@@ -17,6 +17,16 @@ BLUE='\033[0;34m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
+# Detect VS Code CLI for helpful hints
+CODE_BIN=$(command -v code || echo "")
+
+print_code_hint() {
+    local path="$1"
+    if [ -n "$CODE_BIN" ]; then
+        echo -e "${YELLOW}         VS Code: code '${path}'${NC}"
+    fi
+}
+
 # All library branches
 BRANCHES=(
     "ai/components"
@@ -220,6 +230,7 @@ for branch in "${BRANCHES[@]}"; do
                 git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
                 echo -e "${YELLOW}       Next steps:${NC}"
                 echo -e "${YELLOW}         1) Open the worktree above in your IDE${NC}"
+                print_code_hint "${MAIN_WORKTREE}"
                 echo -e "${YELLOW}         2) Resolve conflict markers (<<<<<<< ======= >>>>>>>)${NC}"
                 echo -e "${YELLOW}         3) Commit the merge:${NC}"
                 echo -e "${YELLOW}              git add -A && git commit${NC}"
@@ -264,6 +275,7 @@ for branch in "${BRANCHES[@]}"; do
                 (git -C "$WORKTREE_DIR" diff --name-only --diff-filter=U | sed -e 's/^/         - /') || true
                 echo -e "${YELLOW}       Next steps:${NC}"
                 echo -e "${YELLOW}         1) Open the worktree above in your IDE${NC}"
+                print_code_hint "${WORKTREE_DIR}"
                 echo -e "${YELLOW}         2) Resolve conflict markers (<<<<<<< ======= >>>>>>>)${NC}"
                 echo -e "${YELLOW}         3) Commit the merge:${NC}"
                 echo -e "${YELLOW}              git -C '${WORKTREE_DIR}' add -A && git -C '${WORKTREE_DIR}' commit${NC}"
@@ -283,6 +295,7 @@ for branch in "${BRANCHES[@]}"; do
             git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
             echo -e "${YELLOW}       Next steps:${NC}"
             echo -e "${YELLOW}         1) Resolve conflicts in current branch (${branch})${NC}"
+            print_code_hint "${MAIN_WORKTREE}"
             echo -e "${YELLOW}         2) Commit the merge:${NC}"
             echo -e "${YELLOW}              git add -A && git commit${NC}"
             echo -e "${YELLOW}         3) Switch back to main and re-run:${NC}"
