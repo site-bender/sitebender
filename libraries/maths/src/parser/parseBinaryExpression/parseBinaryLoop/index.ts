@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { ParserContext } from "../../types/index.ts"
 import type { TrampolineResult } from "../trampoline/index.ts"
 
@@ -18,12 +18,12 @@ import isValidBinaryOperator from "../isValidBinaryOperator/index.ts"
  */
 export default function parseBinaryLoop(
 	ctx: ParserContext,
-	currentLeft: ASTNode,
+	currentLeft: AstNode,
 	minPrecedence: number,
 	parseBinaryExpression: (
 		ctx: ParserContext,
-	) => (minPrecedence: number) => Result<ASTNode, ParseError>,
-): TrampolineResult<Result<ASTNode, ParseError>> {
+	) => (minPrecedence: number) => Result<AstNode, ParseError>,
+): TrampolineResult<Result<AstNode, ParseError>> {
 	const token = ctx.current()
 
 	// Check if this is a binary operator
