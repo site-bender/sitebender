@@ -1,52 +1,5 @@
-/**
- * Checks if a value is array-like (has length property and numeric indices)
- *
- * Determines whether a value can be treated like an array for iteration purposes.
- * Array-like objects have a numeric length property and can be indexed with numbers,
- * but may not have array methods. Common examples include strings, arguments objects,
- * NodeLists, and HTMLCollections. This check is useful when working with values that
- * can be converted to arrays using Array.from() or spread syntax.
- *
- * Array-like criteria:
- * - Has a length property that is a non-negative integer
- * - Length is less than Number.MAX_SAFE_INTEGER
- * - Can be indexed (but doesn't verify all indices exist)
- * - Not null or undefined
- * - Includes actual arrays, strings, and array-like objects
- *
- * @param value - The value to check for array-like properties
- * @returns True if the value is array-like, false otherwise
- * @example
- * ```typescript
- * // Arrays and strings
- * isArrayLike([1, 2, 3])  // true
- * isArrayLike("hello")    // true
- * isArrayLike([])         // true
- *
- * // Array-like objects
- * isArrayLike({ length: 0 })  // true
- * isArrayLike({ length: 3, 0: "a", 1: "b", 2: "c" })  // true
- *
- * // Typed arrays
- * isArrayLike(new Uint8Array(10))  // true
- *
- * // Not array-like
- * isArrayLike(null)  // false
- * isArrayLike(42)    // false
- * isArrayLike({})    // false (no length)
- * isArrayLike({ length: -1 })   // false (negative)
- * isArrayLike({ length: NaN })  // false
- *
- * // Converting to array
- * const toArray = <T>(value: unknown): Array<T> =>
- *   isArrayLike(value) ? Array.from(value as ArrayLike<T>) : []
- * toArray("hello")  // ["h", "e", "l", "l", "o"]
- * ```
- * @pure
- * @predicate
- * @safe
- */
-const isArrayLike = (value: unknown): value is ArrayLike<unknown> => {
+//++ Checks if a value is array-like (has length property and numeric indices)
+export default function isArrayLike(value: unknown): value is ArrayLike<unknown> {
 	// Check for null/undefined first
 	if (value === null || value === undefined) {
 		return false
@@ -71,4 +24,30 @@ const isArrayLike = (value: unknown): value is ArrayLike<unknown> => {
 		!Number.isNaN(len)
 }
 
-export default isArrayLike
+//?? [EXAMPLE] isArrayLike([1, 2, 3]) // true
+//?? [EXAMPLE] isArrayLike("hello") // true
+//?? [EXAMPLE] isArrayLike({ length: 0 }) // true
+//?? [EXAMPLE] isArrayLike({ length: 3, 0: "a", 1: "b", 2: "c" }) // true
+//?? [EXAMPLE] isArrayLike(null) // false
+//?? [EXAMPLE] isArrayLike(42) // false
+//?? [EXAMPLE] isArrayLike({}) // false (no length)
+//?? [EXAMPLE] isArrayLike({ length: -1 }) // false (negative)
+/*??
+ * [EXAMPLE]
+ * isArrayLike([1, 2, 3])  // true (actual array)
+ * isArrayLike("hello")    // true (string)
+ * isArrayLike([])         // true (empty array)
+ *
+ * isArrayLike({ length: 0 })  // true (array-like object)
+ * isArrayLike({ length: 3, 0: "a", 1: "b", 2: "c" })  // true
+ *
+ * isArrayLike(new Uint8Array(10))  // true (typed array)
+ * isArrayLike(document.querySelectorAll("div"))  // true (NodeList)
+ *
+ * const toArray = <T>(value: unknown): Array<T> =>
+ *   isArrayLike(value) ? Array.from(value as ArrayLike<T>) : []
+ * toArray("hello")  // ["h", "e", "l", "l", "o"]
+ *
+ * [GOTCHA] Doesn't verify all indices exist, just that length is valid
+ * [GOTCHA] Functions with length property return true (they're array-like)
+ */
