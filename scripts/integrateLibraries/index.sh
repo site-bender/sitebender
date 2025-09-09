@@ -163,6 +163,11 @@ for branch in "${BRANCHES[@]}"; do
         else
             echo -e "${BLUE}    Found $COMMITS_AHEAD new commits${NC}"
             
+            # Debug: Show git status and diff before merge
+            echo -e "${YELLOW}    [DEBUG] git status before merge:${NC}"
+            git status
+            echo -e "${YELLOW}    [DEBUG] git diff --name-only before merge:${NC}"
+            git diff --name-only
             # Attempt merge
             if git merge "$branch" --no-ff -m "feat: integrate $branch changes" --no-edit; then
                 echo -e "${GREEN}    ✓ Successfully merged $branch${NC}"
@@ -170,6 +175,10 @@ for branch in "${BRANCHES[@]}"; do
             else
                 echo -e "${RED}    ❌ Merge conflict in $branch${NC}"
                 echo -e "${RED}       Please resolve conflicts manually${NC}"
+                echo -e "${YELLOW}    [DEBUG] git status after failed merge:${NC}"
+                git status
+                echo -e "${YELLOW}    [DEBUG] git diff --name-only after failed merge:${NC}"
+                git diff --name-only
                 git merge --abort
                 ((FAIL_COUNT++))
                 exit 1  # Stop on conflict
