@@ -6,8 +6,22 @@ export type Seed = {
 	readonly path: ReadonlyArray<number>
 }
 
-// An arbitrary generates values of type T from a seed
+// FUNCTIONAL APPROACH - Separated concerns
+
+// A generator is just a function from seed to result
+export type Generator<T> = (seed: Seed) => Result<T, GeneratorError>
+
+// A shrinker is just a function that produces smaller values
+export type Shrinker<T> = (value: T) => ReadonlyArray<T>
+
+// An arbitrary combines both (but shrinker is optional)
 export type Arbitrary<T> = {
+	readonly generator: Generator<T>
+	readonly shrinker?: Shrinker<T>
+}
+
+// Legacy type for compatibility (will be removed)
+export type LegacyArbitrary<T> = {
 	readonly generate: (seed: Seed) => Result<T, GeneratorError>
 	readonly shrink: (value: T) => ReadonlyArray<T>
 }

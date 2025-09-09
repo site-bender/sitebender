@@ -72,7 +72,7 @@ From README.md Phase 1-6:
 #### Phase 1: Core (Week 1)
 - [x] Seed-based PRNG
 - [x] Basic arbitraries (integer, string, boolean)  
-- [ ] Combinators (map, filter, chain)
+- [x] Combinators (map, filter, chain)
 - [ ] Property runner
 - [ ] Basic shrinking
 
@@ -252,6 +252,48 @@ Deno.test("generateInteger - handles invalid bounds", () => {
 - One function per file
 - Test in same folder as function
 - Test behaviors, not implementation
+
+### FUNCTIONAL REFACTORING - COMPLETED
+
+We've refactored the entire architecture to be properly functional:
+
+#### Type Separation (Beautiful FP Design)
+```typescript
+// Before: OOP-style bundled object
+type Arbitrary<T> = {
+  generate: (seed: Seed) => Result<T, GeneratorError>
+  shrink: (value: T) => ReadonlyArray<T>
+}
+
+// After: Pure functional separation
+type Generator<T> = (seed: Seed) => Result<T, GeneratorError>
+type Shrinker<T> = (value: T) => ReadonlyArray<T>
+type Arbitrary<T> = {
+  generator: Generator<T>
+  shrinker?: Shrinker<T>  // Optional!
+}
+```
+
+#### Combinator Beauty
+Our `map` combinator is a masterpiece of functional programming:
+```typescript
+export default function map<A, B>(fn: (value: A) => B) {
+  return function mapGenerator(generator: Generator<A>): Generator<B> {
+    return function mappedGenerator(seed: Seed): Result<B, GeneratorError> {
+      const result = generator(seed)
+      return resultMap(fn)(result)
+    }
+  }
+}
+```
+Just 16 lines! Pure composition, no hacks, no workarounds.
+
+#### Why This Matters
+- **Generators are just functions** - Compose them like any other function
+- **No forced coupling** - Use generators without shrinkers when not needed
+- **True functional composition** - Works perfectly with pipe, map, chain
+- **Clean separation** - Generation and shrinking are independent concerns
+- **Type-safe** - Full inference, no type gymnastics
 
 ### ARBITRARY IMPLEMENTATION PATTERNS - LEARNED
 
