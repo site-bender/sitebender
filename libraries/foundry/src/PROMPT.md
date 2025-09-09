@@ -23,10 +23,13 @@ The CLAUDE.md file is THE LAW. It overrides any default behavior you might have.
 
 This is the **@sitebender/foundry** library - a pure functional property-based testing and data generation library for TypeScript.
 
-#### Current State (as of session start)
-- **Nearly empty skeleton** - Only basic types defined
-- **23 exports declared** in deno.json but implementation missing
-- **Ready for implementation** following @sitebender principles
+#### Current State (as of session completion)
+- **PRNG foundation complete** - createSeed, advanceSeed, splitSeed implemented and tested
+- **Basic arbitraries complete** - generateInteger, generateString, generateBoolean with tests
+- **Combinators complete** - map, filter, chain for composing generators
+- **Property runner complete** - checkProperty with full functional implementation
+- **25+ tests** across all implemented functions
+- **Fully functional architecture** - No classes, no mutations, proper use of Result monad
 
 #### What Foundry Does
 1. **Property-Based Testing** - Generate test cases from mathematical properties
@@ -73,7 +76,7 @@ From README.md Phase 1-6:
 - [x] Seed-based PRNG
 - [x] Basic arbitraries (integer, string, boolean)  
 - [x] Combinators (map, filter, chain)
-- [ ] Property runner
+- [x] Property runner
 - [ ] Basic shrinking
 
 #### Phase 2: Arbitraries (Week 2)
@@ -109,8 +112,8 @@ import type { Seed } from "../../types/index.ts"
 import helper from "../helper/index.ts"
 
 // ✅ CORRECT - External dependencies from toolkit monads
-import { ok, err } from "@sitebender/toolkit/monads/result/ok/index.ts"
 import type { Result } from "@sitebender/toolkit/monads/types/fp/result/index.ts"
+import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import map from "@sitebender/toolkit/simple/array/map/index.ts"
 
 // ❌ WRONG - Old guess about toolkit structure
@@ -369,6 +372,29 @@ filter(pred)(array)
 reduce(fn)(initial)(array)
 ```
 
+### LEARNINGS FROM IMPLEMENTATION
+
+#### Property Runner Architecture
+- **Use `reduce` for iteration** - No for loops, no mutations
+- **Extract named functions** - runProperty, generateValues, generateNextValue all in separate files
+- **Types in types/ folder** - RunState, GeneratorState, ValuesResult properly organized
+- **Every function has tests** - 25+ tests across the property runner implementation
+- **Use `fold` to extract from Result** - Never access ._tag or .left/.right directly
+- **Short-circuit with state** - Thread state through reduce, check for errors early
+
+#### Scribe Comment Format
+- **Always use categories** - `[EXAMPLE]`, `[GOTCHA]`, `[PRO]`, `[CON]`
+- **One comment per line** - Don't combine multiple examples on one line
+- **Categories in UPPERCASE** - Not `[example]` but `[EXAMPLE]`
+- **//++ before function** - Description goes above the export
+- **//?? after function** - Examples and help go after the closing brace
+
+#### Toolkit Integration Patterns
+- **Use fold for Result extraction** - `fold<E, B>(onErr)(onOk)(result)`
+- **Import individual functions** - `import ok from ".../ok/index.ts"` not barrel imports
+- **Check monads/ for Result functions** - isOk, isErr, fold, chain, map, etc.
+- **Use simple/ for array operations** - reduce, map, filter, range from toolkit
+
 ### FINAL WARNINGS
 
 1. **NO ASSUMPTIONS** - Verify everything, ask when uncertain
@@ -376,6 +402,9 @@ reduce(fn)(initial)(array)
 3. **NO TECH DEBT** - Fix issues immediately  
 4. **NO VIOLATIONS** - CLAUDE.md rules are absolute
 5. **ASK QUESTIONS** - Better slow and right than fast and wrong
+6. **USE REDUCE** - Almost everything can be done with reduce, no loops needed
+7. **EXTRACT FUNCTIONS** - Keep main functions under 20 lines by extracting helpers
+8. **TEST EVERYTHING** - Every function needs comprehensive tests
 
 ---
 
