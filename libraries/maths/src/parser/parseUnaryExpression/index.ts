@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../types/index.ts"
 
 import parsePrimaryExpression from "../parsePrimaryExpression/index.ts"
@@ -54,7 +54,7 @@ import parseUnaryOperator from "./parseUnaryOperator/index.ts"
  */
 export default function parseUnaryExpression(
 	ctx: ParserContext,
-): Result<ASTNode, ParseError> {
+): Result<AstNode, ParseError> {
 	const token = ctx.current()
 	const operator = getUnaryOperator(token)
 

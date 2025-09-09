@@ -1,4 +1,4 @@
-import type { ASTNode, ParseError, Result } from "../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../types/index.ts"
 import type { ParserContext } from "../parseExpression/index.ts"
 
 import parseBinaryExpression from "../parseBinaryExpression/index.ts"
@@ -52,7 +52,7 @@ import parseBinaryExpression from "../parseBinaryExpression/index.ts"
  */
 export default function parseConditionalExpression(
 	ctx: ParserContext,
-): Result<ASTNode, ParseError> {
+): Result<AstNode, ParseError> {
 	// Parse the condition (which could be any expression)
 	const conditionResult = parseBinaryExpression(ctx)(0)
 	if (!conditionResult.ok) {

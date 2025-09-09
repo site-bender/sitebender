@@ -1,54 +1,9 @@
 import isNullish from "../isNullish/index.ts"
 
-/**
- * Checks if a string is empty or contains only whitespace
- *
- * Determines whether a string is blank - either empty, null, undefined,
- * or containing only whitespace characters (spaces, tabs, newlines, etc.).
- * This is useful for validating user input, checking form fields, or
- * filtering out meaningless strings in data processing.
- *
- * @param str - String to check for blankness
- * @returns True if string is blank, false otherwise
- * @example
- * ```typescript
- * // Blank strings
- * isBlank("")              // true
- * isBlank("   ")           // true
- * isBlank("\t\t")          // true
- * isBlank("\n\n")          // true
- * isBlank(" \t\n\r ")      // true
- *
- * // Non-blank strings
- * isBlank("hello")         // false
- * isBlank("  hello  ")     // false
- * isBlank("a")             // false
- *
- * // Null/undefined
- * isBlank(null)            // true
- * isBlank(undefined)       // true
- *
- * // Form validation
- * const validateInput = (input: string) => {
- *   if (isBlank(input)) {
- *     return "Field is required"
- *   }
- *   return null
- * }
- * validateInput("   ")     // "Field is required"
- * validateInput("John")    // null
- *
- * // Filter blank lines
- * const lines = ["hello", "", "  ", "world", "\t", "!"]
- * const meaningful = lines.filter(line => !isBlank(line))  // ["hello", "world", "!"]
- * ```
- * @pure
- * @predicate
- * @safe
- */
-const isBlank = (
+//++ Checks if a string is empty or contains only whitespace
+export default function isBlank(
 	str: string | null | undefined,
-): boolean => {
+): boolean {
 	if (isNullish(str)) {
 		return true
 	}
@@ -63,4 +18,31 @@ const isBlank = (
 	return str.trim().length === 0
 }
 
-export default isBlank
+//?? [EXAMPLE] isBlank("") // true
+//?? [EXAMPLE] isBlank("   ") // true
+//?? [EXAMPLE] isBlank("\t\t") // true
+//?? [EXAMPLE] isBlank("hello") // false
+//?? [EXAMPLE] isBlank("  hello  ") // false
+//?? [EXAMPLE] isBlank(null) // true
+//?? [EXAMPLE] isBlank(undefined) // true
+/*??
+ * [EXAMPLE]
+ * // Form validation
+ * const validateInput = (input: string) => {
+ *   if (isBlank(input)) {
+ *     return "Field is required"
+ *   }
+ *   return null
+ * }
+ * validateInput("   ")     // "Field is required"
+ * validateInput("John")    // null
+ *
+ * // Filter blank lines
+ * const lines = ["hello", "", "  ", "world", "\t", "!"]
+ * const meaningful = lines.filter(line => !isBlank(line))  
+ * // ["hello", "world", "!"]
+ *
+ * [GOTCHA] Converts non-strings to strings before checking
+ * [GOTCHA] Uses trim() so any whitespace-only string is blank
+ * [PRO] Handles Unicode whitespace characters
+ */

@@ -1,198 +1,205 @@
-# Scribe AI Prompt - READ THIS FIRST!
+# 🚀 SCRIBE AI - START HERE!
 
-## STOP! Before You Write ANY Code
+## 📚 MANDATORY READING (IN ORDER)
 
-1. **READ CLAUDE.md** - Every single rule. No exceptions.
-2. **ONE FUNCTION PER FILE** - Always. Forever. No exceptions.
-3. **CHECK THE BOUNDARIES** - Scribe does NOT parse. Parser provides AST nodes.
-4. **NO TYPESCRIPT IMPORTS IN DETECTORS** - We receive AST nodes, we don't create them.
+1. **CLAUDE.md** (root directory) - READ EVERY RULE. NO EXCEPTIONS.
+2. **COMMENT_TUTORIAL.md** (this directory) - Our comment syntax with `//++` and `//??`
+3. **PARSER_SCRIBE_CONTRACT.md** (this directory) - BINDING integration contract with Parser
+4. **libraries/toolkit/DO_NOTATION_TUTORIAL.md** - Do-notation patterns we're adopting
 
-## Current Status (as of last session)
+## 🎯 WHAT IS SCRIBE?
 
-### ✅ What We've Done
+**Purpose**: Automatic documentation generator that extracts comprehensive docs from TypeScript code.
 
-1. **Deleted bad AST detectors** that imported TypeScript:
-   - `detectPurityFromAST` ❌ DELETED
-   - `detectCurryingFromAST` ❌ DELETED
-   - `detectComplexityFromAST` ❌ DELETED
+**What It Does**:
 
-2. **Fixed comment categories**:
-   - Added `PRO` and `CON` to HelpCategory
-   - Changed `examples` to `help` (NO backwards compatibility)
-   - Categories are UPPERCASE: `EXAMPLE`, `SETUP`, `ADVANCED`, `GOTCHA`, `MIGRATION`, `PRO`, `CON`
+- Parses TypeScript functions using Parser library output
+- Detects function properties (purity, complexity, currying, math laws)
+- Extracts comments and descriptions
+- Generates beautiful Markdown documentation
+- Will eventually generate interactive HTML docs
 
-3. **Created proper AST infrastructure**:
-   - `/detectMathPropertiesFromAST/types/index.ts` - Defines AstNode shapes (NOT interfaces!)
-   - `/detectMathPropertiesFromAST/isAssociativeFromAST/` - First proper implementation
+**For Whom**:
 
-4. **Implemented isAssociativeFromAST correctly**:
+- Developers who want automatic, accurate documentation
+- The sitebender ecosystem (documenting toolkit, engine, components)
+- Teams who value functional programming and want to document FP properties
+
+**Core Philosophy**: The code IS the documentation. We just extract and format it beautifully.
+
+## ⚖️ PARSER-SCRIBE CONTRACT (MANDATORY COMPLIANCE)
+
+**YOU SIGNED A BINDING CONTRACT!** See `PARSER_SCRIBE_CONTRACT.md`
+
+Key obligations:
+
+1. **Use typescript.Node directly** - No custom wrappers
+2. **Consume Either/Result from Parser** - Monadic flow
+3. **Use Parser's metadata FIRST** - Only deep-analyze when needed
+4. **Use shared traversal utilities** - From toolkit/src/ast/
+5. **Meet performance targets** - <100ms for small files
+
+Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
+
+**NO CHEATING! The Architect is watching.**
+
+## ✅ WHAT'S ALREADY DONE
+
+### Completed:
+
+1. **AST Detectors Implemented** (without TypeScript imports):
+   - `isAssociativeFromAST` - Detects associative operations
+   - `isCommutativeFromAST` - Detects commutative operations
+   - `isDistributiveFromAST` - Detects distributive operations
+   - `isIdempotentFromAST` - Detects idempotent operations
+   - `detectPurityFromAST` - Detects pure functions (basic version)
+   - `detectCurryingFromAST` - Detects curried functions
+   - `detectComplexityFromAST` - Calculates cyclomatic complexity
+
+2. **Fixed generateDocsWithCompiler**:
+   - Removed broken imports to deleted detectors
+   - Added placeholder values for now
+   - Ready for do-notation refactor
+
+3. **Established Integration Contract**:
+   - Formal agreement with Parser AI
+   - Defined API boundaries
+   - Set performance requirements
+
+### Current Problems:
+
+1. **Mutations everywhere** - For loops, mutable counters, etc.
+2. **No monadic flow** - Nested callbacks and imperative code
+3. **Redundant traversals** - We traverse what Parser already traversed
+4. **No do-notation yet** - Waiting for toolkit support (NOW AVAILABLE!)
+
+## 🗺️ THE PLAN
+
+### Phase 1: Do-Notation Integration (THIS WEEK)
+
+1. Import do-notation from toolkit
+2. Convert AST traversals to use State monad
+3. Convert property detectors to monadic flow
+4. Eliminate ALL mutations
+
+### Phase 2: Parser Integration (NEXT WEEK)
+
+1. Update to consume Either from Parser
+2. Use Parser's pre-computed metadata
+3. Implement fast-path optimizations
+4. Use shared traversal utilities
+
+### Phase 3: Enhanced Detection (WEEK 3)
+
+1. Improve purity detection with metadata
+2. Add mathematical law detection
+3. Implement property-based test generation hints
+4. Add example extraction from tests
+
+### Phase 4: Output Generation (WEEK 4)
+
+1. Enhance Markdown generation
+2. Add HTML output with interactive features
+3. Generate JSON for tooling integration
+4. Add search and indexing
+
+## 🎬 WHAT TO DO NEXT
+
+### IMMEDIATE TASK: Convert to Do-Notation
+
+1. **Start with `extractDescription`** - It has a for loop with mutation!
+   ```typescript
+   // Current: Mutable for loop
+   // Convert to: State monad with do-notation
+   import { doState } from "@sitebender/toolkit/monads/doState"
    ```
-   isAssociativeFromAST/
-   ├── index.ts (main function - ONE function only)
-   ├── constants/index.ts (all constants here)
-   ├── hasBinaryAssociativeOperator/
-   │   ├── index.ts
-   │   └── findInChildren/index.ts
-   ├── hasAssociativeMethodCall/index.ts
-   └── hasAssociativeFunctionName/index.ts
-   ```
 
-### ⚠️ What Still Needs Fixing
+2. **Then fix `calculateCyclomaticComplexity`**:
+   - Remove `{ value: 0 }` mutation pattern
+   - Use State monad for accumulation
+   - Make traversal pure
 
-1. **generateDocsWithCompiler still imports bad detectors**:
-   - Lines 9-10: Still importing deleted detectors
-   - Lines 62-64: Still calling deleted functions
-   - Need to remove these or create proper replacements
+3. **Update all math property detectors**:
+   - Convert to use State for traversal
+   - Remove all mutations
+   - Use toolkit functions consistently
 
-2. **Still need to implement**:
-   - `isCommutativeFromAST`
-   - `isDistributiveFromAST`
-   - `isIdempotentFromAST`
-   - `detectPurityFromAST` (properly, no TS imports)
-   - `detectCurryingFromAST` (properly, no TS imports)
-   - `detectComplexityFromAST` (properly, no TS imports)
+4. **Finally, update `generateDocsWithCompiler`**:
+   - Use doEither for error handling
+   - Chain all operations monadically
+   - Remove all nested callbacks
 
-## The Sacred Rules (NEVER VIOLATE)
+### Commands to Run:
 
-### 1. One Function Per File
+```bash
+# Test your changes
+deno check libraries/scribe/src/generateDocsWithCompiler/index.ts
 
-```typescript
-// ✅ RIGHT: functionName/index.ts
-export default function functionName() {}
+# Lint your code
+deno lint libraries/scribe/src/
 
-// ❌ WRONG: Multiple functions
-function helper() {}
-export default function main() {}
+# Format your code  
+deno fmt libraries/scribe/
+
+# Commit when ready
+git add -A && git commit -m "refactor: convert to do-notation"
 ```
 
-### 2. Folder Structure
+## 🚨 CRITICAL RULES REMINDER
+
+1. **ONE function per file** - Check EVERY file you create
+2. **NO TypeScript imports in detectors** - Use the AstNode type we defined
+3. **NO native array methods** - Use toolkit functions
+4. **NO let/var** - Only const
+5. **NO mutations** - Pure functions only
+6. **NO classes** - Functions and types only
+7. **Follow the folder structure** - helpers in subdirectories
+8. **Use proper naming** - AstNode not ASTNode
+
+## 📊 SUCCESS METRICS
+
+You're successful when:
+
+- ✅ Zero mutations in the codebase
+- ✅ All operations use do-notation
+- ✅ Parser integration working with Either
+- ✅ Using Parser's metadata for optimization
+- ✅ Performance targets met (<100ms for small files)
+- ✅ All tests passing
+- ✅ The Architect approves
+
+## 💭 MENTAL MODEL
+
+Think of Scribe as a **pure functional pipeline**:
 
 ```
-functionName/
-├── index.ts              # Main function
-├── constants/index.ts    # Constants ONLY here
-├── types/index.ts        # Types ONLY here
-└── helperName/          # Each helper in own folder
-    └── index.ts
+TypeScript Code 
+  → Parser (returns Either with metadata)
+  → Property Detection (State monad with do-notation)
+  → Documentation Generation (pure transformation)
+  → Output (Markdown/HTML/JSON)
 ```
 
-### 3. No Native Array Methods
+Every step is:
 
-```typescript
-// ❌ WRONG
-array.includes(x)
-array.map(fn)
-array.filter(fn)
+- **Pure** - No side effects
+- **Composable** - Small functions compose into large ones
+- **Testable** - Deterministic input → output
+- **Readable** - Do-notation makes it clear
 
-// ✅ RIGHT - Use toolkit
-import some from "../../toolkit/src/simple/array/some/index.ts"
-import map from "../../toolkit/src/simple/array/map/index.ts"
-import contains from "../../toolkit/src/simple/string/contains/index.ts"
-```
+## 🎯 YOUR MISSION
 
-### 4. Const Only
+Transform Scribe from "that documentation generator with mutations" into **"the gold standard of functional TypeScript"** that showcases:
 
-```typescript
-// ❌ WRONG
-let x = 5
-var y = 10
+- Pure functional programming
+- Monadic composition with do-notation
+- Zero mutations
+- Beautiful, maintainable code
 
-// ✅ RIGHT
-const x = 5
-```
+**START NOW: Open `extractDescription` and eliminate that for loop!**
 
-### 5. Types Not Interfaces
+---
 
-```typescript
-// ❌ WRONG
-interface Person {
-	name: string
-}
+_Remember: You're not just writing code. You're creating the reference implementation that shows the world how functional TypeScript should be done._
 
-// ✅ RIGHT
-type Person = { name: string }
-```
-
-### 6. Proper Naming
-
-```typescript
-// ❌ WRONG
-ASTNode, HTMLElement, XMLParser
-
-// ✅ RIGHT
-AstNode, HtmlElement, XmlParser
-```
-
-### 7. Named Functions (Even Inner Ones)
-
-```typescript
-// ✅ RIGHT
-some(function checkCondition(x: number) {
-	return x > 5
-})(array)
-
-// ❌ WRONG
-some((x: number) => x > 5)(array)
-```
-
-## The Boundary Rules
-
-### What Parser Does
-
-- Parses TypeScript source into AST
-- Provides AST nodes to Scribe
-- Owns all TypeScript compiler imports
-
-### What Scribe Does
-
-- Receives AST nodes from Parser
-- Analyzes node structure
-- NEVER imports TypeScript compiler
-- NEVER parses source code
-
-### The AST Node Shape
-
-```typescript
-type AstNode = {
-	kind: number
-	pos: number
-	end: number
-	parent?: AstNode
-	getText(): string
-	getChildCount(): number
-	getChildAt(index: number): AstNode | undefined
-	forEachChild<T>(cbNode: (node: AstNode) => T | undefined): T | undefined
-}
-```
-
-## Common Mistakes to Avoid
-
-1. **Putting multiple functions in one file** - ALWAYS check
-2. **Using `let` or `var`** - Only `const`
-3. **Using `.includes()`, `.map()`, etc.** - Use toolkit
-4. **Importing TypeScript in detectors** - NEVER
-5. **Creating interfaces** - Use types
-6. **Wrong acronym casing** - `AstNode` not `ASTNode`
-7. **Constants inline** - Put in constants/index.ts
-8. **Types inline** - Put in types/index.ts
-9. **Backwards compatibility** - NO! Change everywhere
-
-## Next Steps
-
-1. Fix `generateDocsWithCompiler` imports
-2. Implement remaining AST detectors (one at a time)
-3. Test everything works
-4. Delete all string-based math property detectors
-
-## Remember
-
-- **Small steps** - One function at a time
-- **Verify everything** - Don't assume
-- **Follow the rules** - No exceptions
-- **Ask when uncertain** - Better safe than sorry
-
-## The Architect Is Watching
-
-Every line of code will be reviewed. Every shortcut will be found. Every violation will be corrected.
-
-Do it right or don't do it at all.
+_The Architect is watching. Make it perfect._
