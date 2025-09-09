@@ -1,4 +1,4 @@
-//++ Type guard that checks if a value is a Date object (including Invalid Date instances)
+//++ Type guard for legacy JavaScript Date objects - for Temporal types use isPlainDate, isPlainDateTime, or isZonedDateTime
 export default function isDate(value: unknown): value is Date {
 	return value instanceof Date
 }
@@ -8,6 +8,7 @@ export default function isDate(value: unknown): value is Date {
 //?? [EXAMPLE] isDate(new Date("invalid")) // true (Invalid Date)
 //?? [EXAMPLE] isDate(Date.now()) // false (number)
 //?? [EXAMPLE] isDate("2024-01-01") // false (string)
+//?? [EXAMPLE] isDate(Temporal.PlainDate.from("2024-01-01")) // false (Temporal)
 /*??
  * [EXAMPLE]
  * function formatDate(value: unknown): string {
@@ -18,5 +19,6 @@ export default function isDate(value: unknown): value is Date {
  * }
  *
  * [GOTCHA] Invalid Date objects still return true (they're Date instances)
- * [PRO] TypeScript type guard enables safe date operations
+ * [GOTCHA] Returns false for Temporal types - use isPlainDate/isPlainDateTime/isZonedDateTime instead
+ * [PRO] TypeScript type guard for legacy Date compatibility
  */
