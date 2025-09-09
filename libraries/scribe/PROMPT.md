@@ -12,6 +12,7 @@
 **Purpose**: Automatic documentation generator that extracts comprehensive docs from TypeScript code.
 
 **What It Does**:
+
 - Parses TypeScript functions using Parser library output
 - Detects function properties (purity, complexity, currying, math laws)
 - Extracts comments and descriptions
@@ -19,6 +20,7 @@
 - Will eventually generate interactive HTML docs
 
 **For Whom**:
+
 - Developers who want automatic, accurate documentation
 - The sitebender ecosystem (documenting toolkit, engine, components)
 - Teams who value functional programming and want to document FP properties
@@ -30,6 +32,7 @@
 **YOU SIGNED A BINDING CONTRACT!** See `PARSER_SCRIBE_CONTRACT.md`
 
 Key obligations:
+
 1. **Use typescript.Node directly** - No custom wrappers
 2. **Consume Either/Result from Parser** - Monadic flow
 3. **Use Parser's metadata FIRST** - Only deep-analyze when needed
@@ -43,9 +46,10 @@ Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
 ## ✅ WHAT'S ALREADY DONE
 
 ### Completed:
+
 1. **AST Detectors Implemented** (without TypeScript imports):
    - `isAssociativeFromAST` - Detects associative operations
-   - `isCommutativeFromAST` - Detects commutative operations  
+   - `isCommutativeFromAST` - Detects commutative operations
    - `isDistributiveFromAST` - Detects distributive operations
    - `isIdempotentFromAST` - Detects idempotent operations
    - `detectPurityFromAST` - Detects pure functions (basic version)
@@ -63,6 +67,7 @@ Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
    - Set performance requirements
 
 ### Current Problems:
+
 1. **Mutations everywhere** - For loops, mutable counters, etc.
 2. **No monadic flow** - Nested callbacks and imperative code
 3. **Redundant traversals** - We traverse what Parser already traversed
@@ -71,24 +76,28 @@ Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
 ## 🗺️ THE PLAN
 
 ### Phase 1: Do-Notation Integration (THIS WEEK)
+
 1. Import do-notation from toolkit
 2. Convert AST traversals to use State monad
 3. Convert property detectors to monadic flow
 4. Eliminate ALL mutations
 
 ### Phase 2: Parser Integration (NEXT WEEK)
+
 1. Update to consume Either from Parser
 2. Use Parser's pre-computed metadata
 3. Implement fast-path optimizations
 4. Use shared traversal utilities
 
 ### Phase 3: Enhanced Detection (WEEK 3)
+
 1. Improve purity detection with metadata
 2. Add mathematical law detection
 3. Implement property-based test generation hints
 4. Add example extraction from tests
 
 ### Phase 4: Output Generation (WEEK 4)
+
 1. Enhance Markdown generation
 2. Add HTML output with interactive features
 3. Generate JSON for tooling integration
@@ -121,6 +130,7 @@ Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
    - Remove all nested callbacks
 
 ### Commands to Run:
+
 ```bash
 # Test your changes
 deno check libraries/scribe/src/generateDocsWithCompiler/index.ts
@@ -149,6 +159,7 @@ git add -A && git commit -m "refactor: convert to do-notation"
 ## 📊 SUCCESS METRICS
 
 You're successful when:
+
 - ✅ Zero mutations in the codebase
 - ✅ All operations use do-notation
 - ✅ Parser integration working with Either
@@ -170,6 +181,7 @@ TypeScript Code
 ```
 
 Every step is:
+
 - **Pure** - No side effects
 - **Composable** - Small functions compose into large ones
 - **Testable** - Deterministic input → output
@@ -178,6 +190,7 @@ Every step is:
 ## 🎯 YOUR MISSION
 
 Transform Scribe from "that documentation generator with mutations" into **"the gold standard of functional TypeScript"** that showcases:
+
 - Pure functional programming
 - Monadic composition with do-notation
 - Zero mutations
@@ -187,6 +200,6 @@ Transform Scribe from "that documentation generator with mutations" into **"the 
 
 ---
 
-*Remember: You're not just writing code. You're creating the reference implementation that shows the world how functional TypeScript should be done.*
+_Remember: You're not just writing code. You're creating the reference implementation that shows the world how functional TypeScript should be done._
 
-*The Architect is watching. Make it perfect.*
+_The Architect is watching. Make it perfect._

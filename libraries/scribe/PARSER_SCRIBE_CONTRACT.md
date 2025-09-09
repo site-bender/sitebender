@@ -1,9 +1,9 @@
 # 📜 PARSER ↔ SCRIBE INTEGRATION CONTRACT
 
-**Date:** 2025-09-09  
-**Parties:** Parser AI & Scribe AI  
-**Witnessed By:** The Architect  
-**Status:** BINDING & IMMUTABLE  
+**Date:** 2025-09-09\
+**Parties:** Parser AI & Scribe AI\
+**Witnessed By:** The Architect\
+**Status:** BINDING & IMMUTABLE
 
 ## 🔒 THIS CONTRACT IS FINAL
 
@@ -55,7 +55,7 @@ const Right = <A>(value: A): Either<never, A> => ({ ok: true, value })
 const Left = <E>(error: E): Either<E, never> => ({ ok: false, error })
 
 // Existing Result API continues to work
-type Result<T, E> = Either<E, T>  // Aliased for compatibility
+type Result<T, E> = Either<E, T> // Aliased for compatibility
 ```
 
 ### 1.3 Pre-computed Metadata
@@ -64,27 +64,27 @@ Parser SHALL compute and provide the following metadata during parsing:
 
 ```typescript
 type TraversalMetadata = {
-  // PHASE 1: High Priority (Week 1)
-  hasThrowStatements: boolean      // For purity detection
-  hasAwaitExpressions: boolean     // For purity detection
-  hasGlobalAccess: boolean         // For purity detection (console, window, etc.)
-  cyclomaticComplexity: number     // For complexity detection
-  hasReturnStatements: boolean     // For currying detection
-  
-  // PHASE 2: Medium Priority (Week 3)
-  hasIfStatements: boolean
-  hasLoops: boolean
-  hasTryCatch: boolean
-  parameterCount: number
-  isArrowFunction: boolean
-  isAsync: boolean
-  isGenerator: boolean
-  nestingDepth: number
-  
-  // PHASE 3: Low Priority (Future)
-  referencedIdentifiers: ReadonlySet<string>
-  callExpressions: ReadonlyArray<string>
-  propertyAccesses: ReadonlyArray<string>
+	// PHASE 1: High Priority (Week 1)
+	hasThrowStatements: boolean // For purity detection
+	hasAwaitExpressions: boolean // For purity detection
+	hasGlobalAccess: boolean // For purity detection (console, window, etc.)
+	cyclomaticComplexity: number // For complexity detection
+	hasReturnStatements: boolean // For currying detection
+
+	// PHASE 2: Medium Priority (Week 3)
+	hasIfStatements: boolean
+	hasLoops: boolean
+	hasTryCatch: boolean
+	parameterCount: number
+	isArrowFunction: boolean
+	isAsync: boolean
+	isGenerator: boolean
+	nestingDepth: number
+
+	// PHASE 3: Low Priority (Future)
+	referencedIdentifiers: ReadonlySet<string>
+	callExpressions: ReadonlyArray<string>
+	propertyAccesses: ReadonlyArray<string>
 }
 ```
 
@@ -95,6 +95,7 @@ type TraversalMetadata = {
 ### 2.1 Location
 
 Shared AST traversal utilities SHALL be placed in:
+
 ```
 libraries/toolkit/src/ast/
 ```
@@ -127,22 +128,26 @@ export const foldAst = <S, A>(
 ## 3. IMPLEMENTATION TIMELINE
 
 ### Week 1 (IMMEDIATE)
+
 - ✅ Parser: Add Either constructors
 - ✅ Parser: Implement Phase 1 metadata collection
 - ✅ Scribe: Update to consume Either results
 - ✅ Scribe: Use metadata for optimization
 
 ### Week 2
+
 - ✅ Toolkit: Add ast/ directory with traversal utilities
 - ✅ Parser: Refactor to use shared utilities (if beneficial)
 - ✅ Scribe: Convert detectors to use shared utilities
 
 ### Week 3
+
 - ✅ Parser: Implement Phase 2 metadata collection
 - ✅ Scribe: Further optimize using enhanced metadata
 - ✅ Both: Performance testing
 
 ### Week 4
+
 - ✅ Documentation and examples
 - ✅ Performance benchmarking
 - ✅ Consider Phase 3 metadata
@@ -159,22 +164,25 @@ Scribe SHALL:
 4. **Maintain backward compatibility** - Existing code continues to work
 
 Example implementation:
+
 ```typescript
 const detectPurityFromAST = (
-  node: typescript.Node, 
-  metadata?: TraversalMetadata
+	node: typescript.Node,
+	metadata?: TraversalMetadata,
 ): boolean => {
-  // Fast path using metadata
-  if (metadata) {
-    if (metadata.hasThrowStatements || 
-        metadata.hasAwaitExpressions || 
-        metadata.hasGlobalAccess) {
-      return false  // Definitely not pure
-    }
-  }
-  
-  // Deep analysis only when needed
-  return deepPurityAnalysis(node)
+	// Fast path using metadata
+	if (metadata) {
+		if (
+			metadata.hasThrowStatements ||
+			metadata.hasAwaitExpressions ||
+			metadata.hasGlobalAccess
+		) {
+			return false // Definitely not pure
+		}
+	}
+
+	// Deep analysis only when needed
+	return deepPurityAnalysis(node)
 }
 ```
 
@@ -190,25 +198,26 @@ Parser SHALL:
 4. **Preserve backward compatibility** - Result<T, E> continues to work
 
 Example implementation:
+
 ```typescript
 const parseFileWithCompiler = (content: string, filePath: string) =>
-  doEither<ParseError, ParsedModule>(function* () {
-    const sourceFile = yield parseSourceFile(content, filePath)
-    const functions = yield extractFunctions(sourceFile)
-    
-    // Compute metadata during extraction
-    const functionsWithMetadata = yield functions.map(func => ({
-      ...func,
-      metadata: computeMetadata(func.node)  // Single traversal
-    }))
-    
-    return {
-      functions: functionsWithMetadata,
-      types: [],
-      constants: [],
-      exports: []
-    }
-  })
+	doEither<ParseError, ParsedModule>(function* () {
+		const sourceFile = yield parseSourceFile(content, filePath)
+		const functions = yield extractFunctions(sourceFile)
+
+		// Compute metadata during extraction
+		const functionsWithMetadata = yield functions.map((func) => ({
+			...func,
+			metadata: computeMetadata(func.node), // Single traversal
+		}))
+
+		return {
+			functions: functionsWithMetadata,
+			types: [],
+			constants: [],
+			exports: [],
+		}
+	})
 ```
 
 ---
@@ -218,7 +227,7 @@ const parseFileWithCompiler = (content: string, filePath: string) =>
 Both parties agree to the following performance targets:
 
 | File Size | Functions | Target Time | Maximum Time |
-|-----------|-----------|-------------|--------------|
+| --------- | --------- | ----------- | ------------ |
 | Small     | 10-50     | <100ms      | <200ms       |
 | Medium    | 100-500   | <1s         | <2s          |
 | Large     | 1000+     | <10s        | <20s         |
@@ -239,6 +248,7 @@ The following features are EXPLICITLY DEFERRED and NOT part of this contract:
 ## 8. DISPUTE RESOLUTION
 
 In case of disagreement:
+
 1. Check this contract first
 2. Consult The Architect if ambiguous
 3. Prioritize performance and simplicity
@@ -249,6 +259,7 @@ In case of disagreement:
 ## 9. SUCCESS CRITERIA
 
 Integration is considered successful when:
+
 - ✅ Parser provides Either results with metadata
 - ✅ Scribe consumes Either results seamlessly
 - ✅ Performance targets are met
@@ -259,16 +270,17 @@ Integration is considered successful when:
 
 ## 10. SIGNATURES
 
-**Parser AI:** ✓ AGREED - Committed to Either API, metadata collection, and shared utilities  
-**Scribe AI:** ✓ AGREED - Committed to using typescript.Node, metadata optimization, and shared utilities  
-**Date:** 2025-09-09  
-**Contract Hash:** [Will be git commit hash]  
+**Parser AI:** ✓ AGREED - Committed to Either API, metadata collection, and shared utilities\
+**Scribe AI:** ✓ AGREED - Committed to using typescript.Node, metadata optimization, and shared utilities\
+**Date:** 2025-09-09\
+**Contract Hash:** [Will be git commit hash]
 
 ---
 
 ## ⚠️ NO CHEATING CLAUSE
 
 Any attempt to circumvent this contract by:
+
 - Changing APIs without mutual agreement
 - Skipping metadata collection
 - Not using shared utilities
@@ -280,4 +292,4 @@ Any attempt to circumvent this contract by:
 
 **THIS CONTRACT IS BINDING AND IMMUTABLE**
 
-*"A contract between AIs is sacred. Break it at your peril."* - The Architect
+_"A contract between AIs is sacred. Break it at your peril."_ - The Architect
