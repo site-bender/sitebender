@@ -208,11 +208,9 @@ for branch in "${BRANCHES[@]}"; do
                 ((SUCCESS_COUNT++))
             else
                 echo -e "${RED}    ❌ Merge conflict in $branch${NC}"
-                echo -e "${RED}       Please resolve conflicts manually${NC}"
-                # Abort only if a merge is actually in progress
-                if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
-                    git merge --abort || true
-                fi
+                echo -e "${YELLOW}       Resolve conflicts in your editor, then run:${NC}"
+                echo -e "${YELLOW}         git add -A && git commit${NC}"
+                echo -e "${YELLOW}       After committing the merge, re-run: deno task integrate${NC}"
                 ((FAIL_COUNT++))
                 exit 1  # Stop on conflict
             fi
@@ -248,10 +246,9 @@ for branch in "${BRANCHES[@]}"; do
                 echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
             else
                 echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
-                echo -e "${RED}       Please resolve conflicts in $WORKTREE_DIR${NC}"
-                if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
-                    git merge --abort || true
-                fi
+                echo -e "${YELLOW}       Please resolve conflicts in ${WORKTREE_DIR} then run:${NC}"
+                echo -e "${YELLOW}         git -C '${WORKTREE_DIR}' add -A && git -C '${WORKTREE_DIR}' commit${NC}"
+                echo -e "${YELLOW}       After committing the merge, re-run: deno task integrate${NC}"
                 exit 1
             fi
         )
@@ -262,9 +259,7 @@ for branch in "${BRANCHES[@]}"; do
             echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
         else
             echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
-            if git rev-parse -q --verify MERGE_HEAD >/dev/null 2>&1; then
-                git merge --abort || true
-            fi
+            echo -e "${YELLOW}       Resolve conflicts, then run: git add -A && git commit${NC}"
             git checkout main
             exit 1
         fi
