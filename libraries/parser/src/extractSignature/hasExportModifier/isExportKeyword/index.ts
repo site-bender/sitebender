@@ -2,7 +2,7 @@
 import * as typescript from "npm:typescript@5.7.2"
 
 export default function isExportKeyword(
-	modifier: typescript.Modifier,
+	modifier: typescript.ModifierLike,
 ): boolean {
 	return modifier.kind === typescript.SyntaxKind.ExportKeyword
 }

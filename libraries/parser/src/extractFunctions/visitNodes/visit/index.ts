@@ -1,15 +1,22 @@
+//++ Recursively visits a node and its children to find functions
 import * as typescript from "npm:typescript@5.7.2"
 
-import type { FunctionNode } from "../../index.ts"
+import type { FunctionNode, TraversalMetadata } from "../../index.ts"
 
+import collectMetadata from "./collectMetadata/index.ts"
 import processArrowFunction from "../../processArrowFunction/index.ts"
 import processFunctionDeclaration from "../../processFunctionDeclaration/index.ts"
 import processFunctionExpression from "../../processFunctionExpression/index.ts"
 import processMethodDeclaration from "../../processMethodDeclaration/index.ts"
 
-//++ Recursively visits a node and its children to find functions
-export default function visit(accumulator: Array<FunctionNode>) {
+export default function visit(
+	accumulator: Array<FunctionNode>,
+	metadata: TraversalMetadata,
+) {
 	return function (node: typescript.Node): void {
+		// Collect metadata during traversal
+		collectMetadata(node, metadata)
+
 		// Process different function types
 		if (typescript.isFunctionDeclaration(node)) {
 			const functionNode = processFunctionDeclaration(node)
@@ -40,7 +47,7 @@ export default function visit(accumulator: Array<FunctionNode>) {
 		}
 
 		// Continue traversal
-		typescript.forEachChild(node, visit(accumulator))
+		typescript.forEachChild(node, visit(accumulator, metadata))
 	}
 }
 
