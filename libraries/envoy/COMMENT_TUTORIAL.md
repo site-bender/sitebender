@@ -1,6 +1,6 @@
-# Scribe Comment Tutorial for Parser
+# Envoy Comment Tutorial for Parser
 
-A friendly guide to understanding and using Scribe's comment syntax. Think of these as structured documentation that lives right in your code!
+A friendly guide to understanding and using Envoy's comment syntax. Think of these as structured documentation that lives right in your code!
 
 ## The Basic Markers
 
