@@ -1,5 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
+import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type ValidationError from "../../../types/ValidationError/index.ts"
 
 import map from "./index.ts"
@@ -30,7 +31,7 @@ Deno.test("map - transforms valid values", async (t) => {
 	})
 
 	await t.step("should preserve invalid state", () => {
-		const errors = [{ field: "test", messages: ["error"] }]
+		const errors: NonEmptyArray<ValidationError> = [{ field: "test", messages: ["error"] }]
 		const double = (x: number) => x * 2
 		const result = map(double)(invalid<ValidationError>(errors))
 
