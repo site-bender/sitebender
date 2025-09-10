@@ -1,5 +1,8 @@
 //++ Structured validation error with field and messages for semigroup combining
-export default type ValidationError = {
+type ValidationError = {
 	field: string
 	messages: Array<string>
 }
+
+export type { ValidationError }
+export default ValidationError

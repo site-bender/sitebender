@@ -11,6 +11,7 @@ export default function parseCommentMarkers(source: string): ParsedComments {
 		haveDescription: false,
 		help: [],
 		techDebt: [],
+		examples: [],
 		raw: [],
 		diagnostics: [],
 	})(lines)
@@ -21,6 +22,7 @@ export default function parseCommentMarkers(source: string): ParsedComments {
 		description,
 		help: [...final.help],
 		techDebt: [...final.techDebt],
+		examples: [...final.examples],
 		raw: [...final.raw],
 		diagnostics: [...final.diagnostics],
 	}

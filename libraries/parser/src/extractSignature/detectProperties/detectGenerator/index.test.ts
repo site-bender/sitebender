@@ -14,7 +14,7 @@ describe("detectGenerator", () => {
 			true,
 		)
 		
-		let result: any
+		let result: typescript.FunctionDeclaration | typescript.ArrowFunction | typescript.MethodDeclaration | typescript.FunctionExpression | undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
 				result = node
@@ -37,36 +37,36 @@ describe("detectGenerator", () => {
 			}
 		}
 		visit(sourceFile)
-		return result
+		return result!
 	}
 
 	it("detects generator function declaration", () => {
 		const func = createFunction(`function* test() { yield 1 }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, true)
 	})
 
 	it("detects non-generator function declaration", () => {
 		const func = createFunction(`function test() { }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, false)
 	})
 
 	it("detects generator function expression", () => {
 		const func = createFunction(`const test = function* () { yield 1 }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, true)
 	})
 
 	it("detects non-generator function expression", () => {
 		const func = createFunction(`const test = function () { }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, false)
 	})
 
 	it("returns false for arrow functions (cannot be generators)", () => {
 		const func = createFunction(`const test = () => { }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, false)
 	})
 
@@ -76,7 +76,7 @@ describe("detectGenerator", () => {
 				*method() { yield 1 }
 			}
 		`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, true)
 	})
 
@@ -86,19 +86,19 @@ describe("detectGenerator", () => {
 				method() { }
 			}
 		`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, false)
 	})
 
 	it("detects async generator function", () => {
 		const func = createFunction(`async function* test() { yield 1 }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, true)
 	})
 
 	it("detects generator with export", () => {
 		const func = createFunction(`export function* test() { yield 1 }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, true)
 	})
 
@@ -108,20 +108,20 @@ describe("detectGenerator", () => {
 				static *method() { yield 1 }
 			}
 		`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, true)
 	})
 
 	it("arrow functions always return false", () => {
 		// Even though this is invalid syntax, test the function behavior
 		const func = createFunction(`const test = async () => { }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, false)
 	})
 
 	it("handles undefined asterisk token", () => {
 		const func = createFunction(`function test() { }`)
-		const result = detectGenerator(func)
+		const result = detectGenerator(func!)
 		assertEquals(result, false)
 	})
 })

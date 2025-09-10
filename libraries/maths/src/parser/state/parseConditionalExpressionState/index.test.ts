@@ -19,11 +19,13 @@ Deno.test("parseConditionalExpressionState - parses simple conditional", () => {
 		],
 		position: 0,
 	}
-	
-	const result = evalState(parseConditionalExpressionState(parseExpressionState))(state)
+
+	const result = evalState(
+		parseConditionalExpressionState(parseExpressionState),
+	)(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "Conditional",
 			condition: {
 				type: "BinaryOp",
@@ -57,11 +59,13 @@ Deno.test("parseConditionalExpressionState - handles nested conditionals (right-
 		],
 		position: 0,
 	}
-	
-	const result = evalState(parseConditionalExpressionState(parseExpressionState))(state)
+
+	const result = evalState(
+		parseConditionalExpressionState(parseExpressionState),
+	)(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "Conditional",
 			condition: {
 				type: "BinaryOp",
@@ -111,11 +115,13 @@ Deno.test("parseConditionalExpressionState - complex expressions in branches", (
 		],
 		position: 0,
 	}
-	
-	const result = evalState(parseConditionalExpressionState(parseExpressionState))(state)
+
+	const result = evalState(
+		parseConditionalExpressionState(parseExpressionState),
+	)(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "Conditional",
 			condition: {
 				type: "BinaryOp",
@@ -159,11 +165,13 @@ Deno.test("parseConditionalExpressionState - falls through when no ternary opera
 		],
 		position: 0,
 	}
-	
-	const result = evalState(parseConditionalExpressionState(parseExpressionState))(state)
+
+	const result = evalState(
+		parseConditionalExpressionState(parseExpressionState),
+	)(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "BinaryOp",
 			operator: "+",
 			left: { type: "Variable", name: "a" },
@@ -184,12 +192,17 @@ Deno.test("parseConditionalExpressionState - returns error for missing colon", (
 		],
 		position: 0,
 	}
-	
-	const result = evalState(parseConditionalExpressionState(parseExpressionState))(state)
-	assertEquals(result.ok, false)
-	if (!result.ok) {
-		assertEquals(result.error.message, "Expected ':' in conditional expression, found ''")
-		assertEquals(result.error.expected, ":")
+
+	const result = evalState(
+		parseConditionalExpressionState(parseExpressionState),
+	)(state)
+	assertEquals(result._tag, "Left")
+	if (result._tag === "Left") {
+		assertEquals(
+			result.left.message,
+			"Expected ':' in conditional expression, found ''",
+		)
+		assertEquals(result.left.expected, ":")
 	}
 })
 
@@ -205,10 +218,12 @@ Deno.test("parseConditionalExpressionState - returns error for invalid condition
 		],
 		position: 0,
 	}
-	
-	const result = evalState(parseConditionalExpressionState(parseExpressionState))(state)
-	assertEquals(result.ok, false)
-	if (!result.ok) {
-		assertEquals(result.error.expected, "number, variable, or '('")
+
+	const result = evalState(
+		parseConditionalExpressionState(parseExpressionState),
+	)(state)
+	assertEquals(result._tag, "Left")
+	if (result._tag === "Left") {
+		assertEquals(result.left.expected, "number, variable, or '('")
 	}
 })
