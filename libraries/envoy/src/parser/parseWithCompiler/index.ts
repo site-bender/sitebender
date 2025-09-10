@@ -39,7 +39,7 @@ export default function parseWithCompiler(
 
 		// For now, skip syntax error checking to avoid the host issues
 		// In a real implementation, we'd properly configure the TypeScript host
-		// TODO(@scribe): Add proper syntax error checking with configured host
+		// TODO(@envoy): Add proper syntax error checking with configured host
 
 		return {
 			ok: true,

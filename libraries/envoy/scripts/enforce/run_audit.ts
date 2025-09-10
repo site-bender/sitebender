@@ -1,6 +1,6 @@
 /// <reference lib="deno.ns" />
 /**
- * Structural & style rule auditor for scribe (Phase 1).
+ * Structural & style rule auditor for envoy (Phase 1).
  * Exits non-zero if violations found.
  */
 import { walk } from "https://deno.land/std@0.218.0/fs/walk.ts"
@@ -57,7 +57,7 @@ const candidates: Array<string> = []
 for await (const entry of walk(new URL("../../src", import.meta.url))) {
 	if (!entry.isFile) continue
 	if (!entry.path.endsWith(".ts")) continue
-	const rel = entry.path.split("/libraries/scribe/")[1]
+	const rel = entry.path.split("/libraries/envoy/")[1]
 	if (!matchesPositive(rel) || matchesNegative(rel)) continue
 	candidates.push(entry.path)
 }
@@ -65,7 +65,7 @@ for await (const entry of walk(new URL("../../src", import.meta.url))) {
 // Helper: read file once
 async function analyzeFile(path: string) {
 	const text = await Deno.readTextFile(path)
-	const rel = path.split("/libraries/scribe/")[1]
+	const rel = path.split("/libraries/envoy/")[1]
 	const lines = text.split(/\r?\n/)
 
 	if (manifest.rules.oneFunctionPerFile && !isTestFile(rel)) {
@@ -113,7 +113,7 @@ async function analyzeFile(path: string) {
 		})
 	}
 
-	if (manifest.rules.requireScribeMarker && !isTestFile(rel)) {
+	if (manifest.rules.requireEnvoyMarker && !isTestFile(rel)) {
 		const exportIdx = lines.findIndex((l) =>
 			/^export default function /.test(l.trim())
 		)
@@ -125,8 +125,8 @@ async function analyzeFile(path: string) {
 			if (!hasMarker) {
 				violations.push({
 					file: rel,
-					rule: "requireScribeMarker",
-					detail: "Missing Scribe //++ or /*++ marker near exported function",
+					rule: "requireEnvoyMarker",
+					detail: "Missing Envoy //++ or /*++ marker near exported function",
 				})
 			}
 		}

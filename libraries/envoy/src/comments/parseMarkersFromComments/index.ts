@@ -1,4 +1,4 @@
-// Adapter: classify RawComment[] (from Parser) into marker semantics for Scribe.
+// Adapter: classify RawComment[] (from Parser) into marker semantics for Envoy.
 // Non-destructive; produces structured diagnostics + grouped content.
 
 export type RawComment = {
