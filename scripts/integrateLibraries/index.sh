@@ -31,12 +31,12 @@ print_code_hint() {
 BRANCHES=(
     "ai/components"
     "ai/engine"
+    "ai/envoy"
     "ai/foundry"
     "ai/maths"
     "ai/mesh"
     "ai/parser"
     "ai/prover"
-    "ai/scribe"
     "ai/toolkit"
 )
 

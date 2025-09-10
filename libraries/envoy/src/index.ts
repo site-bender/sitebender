@@ -1,5 +1,5 @@
 /**
- * @module @sitebender/scribe
+ * @module @sitebender/envoy
  *
  * Automatic documentation generator for TypeScript code.
  * Extracts comprehensive documentation from type signatures and code analysis,

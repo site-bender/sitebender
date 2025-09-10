@@ -7,11 +7,11 @@
 		"constantsInConstantsFolder": true,
 		"arrayGenericNotation": true,
 		"noMutableArrayMethods": true,
-		"requireScribeMarker": true
+		"requireEnvoyMarker": true
 	},
 	"forbiddenMutableMethods": ["push", "pop", "shift", "unshift", "splice"],
 	"sourceGlobs": [
-		"libraries/scribe/src/**/*.ts",
+		"libraries/envoy/src/**/*.ts",
 		"!**/types/**",
 		"!**/constants/**",
 		"!**/*.test.ts"

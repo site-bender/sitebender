@@ -1,4 +1,4 @@
-# Scribe Development Rules
+# Envoy Development Rules
 
 ## The Sacred Structure
 
@@ -25,7 +25,7 @@ export { default as formatMarkdown } from "./formatMarkdown/index.ts"
 
 ✅ CORRECT:
 // Import directly from where it lives
-import generateDocumentation from "@sitebender/scribe/generateDocumentation/index.ts"
+import generateDocumentation from "@sitebender/envoy/generateDocumentation/index.ts"
 ```
 
 ### Types: Grouped by Scope
@@ -189,22 +189,22 @@ function generateDocumentation(signature: FunctionSignature): Result<Documentati
 
 ```
 ✅ CORRECT:
-import generateDocumentation from "@sitebender/scribe/generateDocumentation/index.ts"
-import { Documentation, FormatOptions } from "@sitebender/scribe/types/index.ts"
+import generateDocumentation from "@sitebender/envoy/generateDocumentation/index.ts"
+import { Documentation, FormatOptions } from "@sitebender/envoy/types/index.ts"
 
 ❌ WRONG:
-import { generateDocumentation, formatMarkdown } from "@sitebender/scribe"
+import { generateDocumentation, formatMarkdown } from "@sitebender/envoy"
 ```
 
 ### Relative Imports Within Library
 
 ```
-✅ CORRECT (within scribe):
+✅ CORRECT (within envoy):
 import type { Documentation } from "../../types/index.ts"
 import formatSection from "../formatSection/index.ts"
 
-❌ WRONG (within scribe):
-import type { Documentation } from "@sitebender/scribe/types/index.ts"
+❌ WRONG (within envoy):
+import type { Documentation } from "@sitebender/envoy/types/index.ts"
 ```
 
 ## File Structure
@@ -237,9 +237,9 @@ Place types at the lowest common ancestor:
 
 ### The Three-Tier Comment System
 
-We use a categorized comment system that Scribe processes for documentation generation.
+We use a categorized comment system that Envoy processes for documentation generation.
 
-**Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Scribe and analytics scripts.
+**Note:** Regular comments (`//` and `/* */`) are still allowed for implementation details and will be ignored by Envoy and analytics scripts.
 
 #### 1. Descriptive Comments (`//++` or `/*++`)
 
@@ -282,7 +282,7 @@ export default function extractSignature(node: AstNode) {
 
 ### Why This System?
 
-**WE ARE SCRIBE!** We process these comments to:
+**WE ARE ENVOY!** We process these comments to:
 
 1. Extract descriptions from `//++` comments
 2. Document tech debt from `//--` comments
@@ -304,7 +304,7 @@ export default function extractSignature(node: AstNode) {
 
 We extract parameter info from type signatures!
 
-## Scribe-Specific Rules
+## Envoy-Specific Rules
 
 ### Use Parser for ALL TypeScript Analysis
 
@@ -314,7 +314,7 @@ import parseSourceFile from "@sitebender/parser/parseSourceFile/index.ts"
 import extractSignature from "@sitebender/parser/extractSignature/index.ts"
 
 ❌ WRONG:
-// Never parse TypeScript directly in scribe
+// Never parse TypeScript directly in envoy
 import * as ts from "npm:typescript"  // NO! Use parser!
 ```
 
