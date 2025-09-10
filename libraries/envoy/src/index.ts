@@ -6,9 +6,8 @@
  * requiring only single-line descriptions from developers.
  */
 
-// Main function exports
+// Main function export - Envoy takes Parser output and generates docs
 export { default as generateDocs } from "./generateDocs/index.ts"
-export { default as generateDocsWithCompiler } from "./generateDocsWithCompiler/index.ts"
 
 // Type exports
 export type {
@@ -30,11 +29,8 @@ export type {
 	Result,
 } from "./types/index.ts"
 
-// Parser exports
-export { parseFile, parseFunction } from "./parser/index.ts"
-export { default as parseWithCompiler } from "./parser/parseWithCompiler/index.ts"
-export { default as parseFileWithCompiler } from "./parser/parseFileWithCompiler/index.ts"
-export { default as parseFunctionFromAST } from "./parser/parseFunctionFromAST/index.ts"
+// Parser functionality now comes from @sitebender/parser
+// Envoy should NOT have its own parser implementation
 
 // Extractor exports
 export { extractDescription, extractSignature } from "./extractors/index.ts"

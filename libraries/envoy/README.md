@@ -1,5 +1,7 @@
 # @sitebender/envoy
 
+We are Envoy. And we take what is given.
+
 Automatic documentation generator for TypeScript code. Extracts comprehensive documentation from type signatures and code analysis, requiring only single-line descriptions from developers.
 
 ## Philosophy

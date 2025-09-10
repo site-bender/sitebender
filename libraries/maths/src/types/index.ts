@@ -42,7 +42,7 @@ export type AstNodeType =
 
 export type BinaryOpNode = {
 	type: "BinaryOp"
-	operator: "+" | "-" | "*" | "/" | "^"
+	operator: "+" | "-" | "*" | "/" | "^" | "<" | ">" | "==" | "!=" | "<=" | ">="
 	left: AstNode
 	right: AstNode
 }
@@ -98,8 +98,9 @@ export type ParseError = {
 	found?: string
 }
 
-// Result type for error handling
-export type Result<T, E> = { ok: true; value: T } | { ok: false; error: E }
+// Result type for error handling - using toolkit Result
+import type { Result } from "../../../toolkit/src/types/fp/result/index.ts"
+export type { Result }
 
 // Main function signature
 export type ParseFormulaResult = Result<
