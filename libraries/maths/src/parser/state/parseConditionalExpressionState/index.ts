@@ -1,6 +1,7 @@
 import doState from "../../../../../toolkit/src/monads/doState/index.ts"
 import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
 import err from "../../../../../toolkit/src/monads/result/err/index.ts"
+import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
 import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
 import currentToken from "../currentToken/index.ts"
@@ -18,7 +19,7 @@ export default function parseConditionalExpressionState(
 		const parseWithRecursion = parseBinaryExpressionState(parseExpression)
 		const conditionResult = yield parseWithRecursion(0)
 
-		if (!conditionResult.ok) {
+		if (isErr(conditionResult)) {
 			return conditionResult
 		}
 
@@ -34,7 +35,7 @@ export default function parseConditionalExpressionState(
 
 		// Parse the 'if true' expression (recursively allows nested conditionals)
 		const ifTrueResult = yield parseConditionalExpressionState(parseExpression)
-		if (!ifTrueResult.ok) {
+		if (isErr(ifTrueResult)) {
 			return ifTrueResult
 		}
 
@@ -55,16 +56,16 @@ export default function parseConditionalExpressionState(
 
 		// Parse the 'if false' expression (right-associative)
 		const ifFalseResult = yield parseConditionalExpressionState(parseExpression)
-		if (!ifFalseResult.ok) {
+		if (isErr(ifFalseResult)) {
 			return ifFalseResult
 		}
 
 		// Return the conditional AST node
 		return ok({
 			type: "Conditional",
-			condition: conditionResult.value,
-			ifTrue: ifTrueResult.value,
-			ifFalse: ifFalseResult.value,
+			condition: conditionResult.right,
+			ifTrue: ifTrueResult.right,
+			ifFalse: ifFalseResult.right,
 		})
 	})
 }

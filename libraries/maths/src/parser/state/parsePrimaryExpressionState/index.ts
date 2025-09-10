@@ -1,6 +1,7 @@
 import doState from "../../../../../toolkit/src/monads/doState/index.ts"
 import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
 import err from "../../../../../toolkit/src/monads/result/err/index.ts"
+import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
 import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
 import currentToken from "../currentToken/index.ts"
@@ -45,18 +46,18 @@ export default function parsePrimaryExpressionState(
 				yield advance() // Consume LEFT_PAREN
 				const exprResult = yield parseExpression(0)
 
-				if (!exprResult.ok) {
+				if (isErr(exprResult)) {
 					return exprResult
 				}
 
 				const rightParenResult = yield expect("RIGHT_PAREN")
-				if (!rightParenResult.ok) {
+				if (isErr(rightParenResult)) {
 					return err({
 						message:
 							`Missing closing parenthesis for opening at position ${token.position}`,
-						position: rightParenResult.error.position || token.position,
+						position: rightParenResult.left.position || token.position,
 						expected: ")",
-						found: rightParenResult.error.found || "EOF",
+						found: rightParenResult.left.found || "EOF",
 					})
 				}
 

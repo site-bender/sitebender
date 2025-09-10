@@ -1,6 +1,8 @@
 import doState from "../../../../../toolkit/src/monads/doState/index.ts"
 import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
 import err from "../../../../../toolkit/src/monads/result/err/index.ts"
+import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
+import isOk from "../../../../../toolkit/src/monads/result/isOk/index.ts"
 import { OPERATOR_INFO } from "../../../constants/index.ts"
 import type {
 	AstNode,
@@ -91,12 +93,12 @@ export default function parseBinaryExpressionState(
 		return doState<ParserState, Result<AstNode, ParseError>>(function* () {
 			// Parse left operand (could be unary expression)
 			const leftResult = yield parseUnaryExpressionState(parseExpression)
-			if (!leftResult.ok) {
+			if (isErr(leftResult)) {
 				return leftResult
 			}
 
 			// Parse binary operators with precedence climbing
-			let left = leftResult.value
+			let left = leftResult.right
 
 			while (true) {
 				const token = yield currentToken()
@@ -119,7 +121,7 @@ export default function parseBinaryExpressionState(
 				// Check for ambiguous operator sequences
 				const nextToken = yield currentToken()
 				const ambiguityResult = checkOperatorAmbiguity(token, nextToken)
-				if (ambiguityResult._tag === "Left") {
+				if (isErr(ambiguityResult)) {
 					return ambiguityResult
 				}
 
@@ -130,7 +132,7 @@ export default function parseBinaryExpressionState(
 
 				// Parse right side recursively
 				const rightResult = yield parseBinaryWithPrecedence(nextMinPrecedence)
-				if (rightResult._tag === "Left") {
+				if (isErr(rightResult)) {
 					return rightResult
 				}
 

@@ -54,10 +54,11 @@
 
 ## Phase 3: Integration (Careful Migration)
 
-### Step 3.1: Create State Runner
-- [ ] Create `libraries/maths/src/parser/runParser/index.ts`
-- [ ] Takes tokens, returns AST using `evalState`
-- [ ] Handles initial state creation
+### Step 3.1: Fix Test Failures and Complete Integration
+- [x] Fixed all 37 failing tests by using toolkit Result helper functions
+- [x] Replaced `.ok`, `.value` checks with `isOk()`, `isErr()`, `.right`, `.left`
+- [x] All 86 state parser tests now passing
+- [x] Note: `runStateParser` already created in Phase 2.3
 
 ### Step 3.2: Create Feature Flag
 - [ ] Add `USE_STATE_PARSER` environment variable
