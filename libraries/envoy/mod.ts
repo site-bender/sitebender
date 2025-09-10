@@ -1,5 +1,5 @@
 /**
- * @module @sitebender/scribe
+ * @module @sitebender/envoy
  *
  * Automatic documentation generator for TypeScript code.
  *
@@ -9,11 +9,11 @@
  * @example
  * ```typescript
  * // Preferred: Import specific functions directly
- * import generateDocs from "@sitebender/scribe/generateDocs"
- * import parseFile from "@sitebender/scribe/parser/parseFile"
+ * import generateDocs from "@sitebender/envoy/generateDocs"
+ * import parseFile from "@sitebender/envoy/parser/parseFile"
  *
  * // Also available: Main entry point for convenience
- * import { generateDocs } from "@sitebender/scribe"
+ * import { generateDocs } from "@sitebender/envoy"
  * ```
  *
  * Main exports:

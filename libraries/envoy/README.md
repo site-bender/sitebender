@@ -1,4 +1,4 @@
-# @sitebender/scribe
+# @sitebender/envoy
 
 Automatic documentation generator for TypeScript code. Extracts comprehensive documentation from type signatures and code analysis, requiring only single-line descriptions from developers.
 
@@ -21,7 +21,7 @@ Replace verbose JSDoc comments with automatic extraction. The code IS the docume
 
 ### The Benefits vs JSDoc
 
-| JSDoc (Old Way)              | Scribe ++ (New Way)             |
+| JSDoc (Old Way)              | Envoy ++ (New Way)              |
 | ---------------------------- | ------------------------------- |
 | 50+ lines per function       | 3-5 lines per function          |
 | Repeats type information     | Extracts from TypeScript        |
@@ -47,7 +47,7 @@ export default function add(x: number) {
 
 **The Complete Comment Syntax:**
 
-Scribe uses a **five-tier comment taxonomy** (by severity/priority):
+Envoy uses a **five-tier comment taxonomy** (by severity/priority):
 
 **1. Regular Comments (`//`):**
 

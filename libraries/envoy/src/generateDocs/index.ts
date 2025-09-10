@@ -63,9 +63,9 @@ export default async function generateDocs(
 			signature: signature.value,
 			description,
 			properties,
-			examples: [], // TODO(@scribe): Extract from tests in Phase 2
-			laws: [], // TODO(@scribe): Detect in Phase 2
-			relatedFunctions: [], // TODO(@scribe): Find in Phase 2
+			examples: [], // TODO(@envoy): Extract from tests in Phase 2
+			laws: [], // TODO(@envoy): Detect in Phase 2
+			relatedFunctions: [], // TODO(@envoy): Find in Phase 2
 		}
 
 		// Generate documentation based on format
@@ -74,7 +74,7 @@ export default async function generateDocs(
 				case "markdown":
 					return generateMarkdown(metadata)
 				case "html":
-					// TODO(@scribe): Implement HTML generation in Phase 2
+					// TODO(@envoy): Implement HTML generation in Phase 2
 					return generateMarkdown(metadata) // Fallback to markdown for now
 				case "json":
 					return JSON.stringify(metadata, null, 2)
