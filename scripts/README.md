@@ -30,32 +30,34 @@ Flags:
 
 JSON schema (shape):
 
+```md
 {
-"root": string,
-"scannedFiles": number,
-"threshold": number,
-"fileStats": {
-"longestFile": { "path": string, "lines": number },
-"mean": number,
-"median": number,
-"stdDev": number
-},
-"functionStats": {
-"total": number,
-"mean": number,
-"median": number,
-"stdDev": number
-},
-"longFunctions": [
-{
-"name": string,
-"startLine": number,
-"endLine": number,
-"loc": number,
-"file": string
+  "root": string,
+  "scannedFiles": number,
+  "threshold": number,
+  "fileStats": {
+    "longestFile": { "path": string, "lines": number },
+    "mean": number,
+    "median": number,
+    "stdDev": number
+  },
+  "functionStats": {
+    "total": number,
+    "mean": number,
+    "median": number,
+    "stdDev": number
+  },
+  "longFunctions": [
+    {
+      "name": string,
+      "startLine": number,
+      "endLine": number,
+      "loc": number,
+      "file": string
+    }
+  ]
 }
-]
-}
+```
 
 Notes:
 
