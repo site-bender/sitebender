@@ -23,13 +23,24 @@ The CLAUDE.md file is THE LAW. It overrides any default behavior you might have.
 
 This is the **@sitebender/foundry** library - a pure functional property-based testing and data generation library for TypeScript.
 
-#### Current State (as of session completion)
-- **PRNG foundation complete** - createSeed, advanceSeed, splitSeed implemented and tested
-- **Basic arbitraries complete** - generateInteger, generateString, generateBoolean with tests
-- **Combinators complete** - map, filter, chain for composing generators
-- **Property runner complete** - checkProperty with full functional implementation
-- **25+ tests** across all implemented functions
+#### Current State (Phase 1 nearly complete - just needs shrinking)
+- **PRNG foundation complete** - createSeed, advanceSeed, splitSeed in `random/` folder
+- **Basic arbitraries complete** - generateInteger, generateString, generateBoolean in `arbitrary/` folder
+- **Combinators complete** - map, filter, chain in `combinator/` folder
+- **Property runner complete** - checkProperty in `property/checkProperty/` with helpers:
+  - `runProperty/` - Runs a single property test
+  - `generateValues/` - Generates values from arbitraries
+  - `generateNextValue/` - Generates next value in sequence
+  - All have their own test files with full coverage
+- **45+ tests total** - Every function has comprehensive tests
 - **Fully functional architecture** - No classes, no mutations, proper use of Result monad
+
+#### Next Steps
+- **Implement shrinking** - Last item in Phase 1
+  - Create `shrink/` folder structure
+  - Implement shrinkInteger, shrinkString, shrinkBoolean
+  - Integrate with checkProperty for automatic shrinking on failure
+- **Then Phase 2: Complex Arbitraries** - array, record, union types
 
 #### What Foundry Does
 1. **Property-Based Testing** - Generate test cases from mathematical properties
@@ -102,6 +113,38 @@ From README.md Phase 1-6:
 - [ ] Ecosystem integration
 - [ ] Performance optimization
 - [ ] Documentation
+
+### FILE STRUCTURE REFERENCE
+
+```
+foundry/src/
+├── random/                    # PRNG functions (COMPLETE)
+│   ├── createSeed/
+│   ├── advanceSeed/
+│   └── splitSeed/
+├── arbitrary/                 # Basic generators (COMPLETE)
+│   ├── generateInteger/
+│   ├── generateString/
+│   └── generateBoolean/
+├── combinator/               # Function composition (COMPLETE)
+│   ├── map/
+│   ├── filter/
+│   └── chain/
+├── property/                 # Property testing (COMPLETE)
+│   └── checkProperty/
+│       ├── index.ts         # Main function (19 lines!)
+│       ├── index.test.ts
+│       ├── types/
+│       ├── runProperty/
+│       └── generateValues/
+│           └── generateNextValue/
+├── shrink/                   # TODO: Next task
+│   ├── shrinkInteger/
+│   ├── shrinkString/
+│   └── shrinkBoolean/
+└── types/                    # Shared types
+    └── index.ts
+```
 
 ### CRITICAL REMINDERS - UPDATED WITH TOOLKIT KNOWLEDGE
 
