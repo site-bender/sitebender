@@ -2,9 +2,9 @@ import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type { Invalid, Validation } from "../../../types/Validation/index.ts"
 
 //++ Creates an Invalid validation containing errors
-export default function invalid<E>(
+export default function invalid<E, A = never>(
 	errors: NonEmptyArray<E>,
-): Validation<E, never> {
+): Validation<E, A> {
 	return {
 		_tag: "Invalid" as const,
 		errors,
