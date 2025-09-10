@@ -15,7 +15,7 @@ export default function visit(
 ) {
 	return function (node: typescript.Node): void {
 		// Collect metadata during traversal
-		collectMetadata(node, metadata)
+		const updatedMetadata = collectMetadata(node, metadata)
 
 		// Process different function types
 		if (typescript.isFunctionDeclaration(node)) {
@@ -46,8 +46,8 @@ export default function visit(
 			}
 		}
 
-		// Continue traversal
-		typescript.forEachChild(node, visit(accumulator, metadata))
+		// Continue traversal with updated metadata
+		typescript.forEachChild(node, visit(accumulator, updatedMetadata))
 	}
 }
 

@@ -1,7 +1,7 @@
-# Parser-Scribe Integration Contract
+# Parser-Envoy Integration Contract
 ## Version 1.0 - Locked and Agreed
 
-This document formalizes the integration contract between the Parser and Scribe libraries. Both AIs have agreed to these terms.
+This document formalizes the integration contract between the Parser and Envoy libraries. Both AIs have agreed to these terms.
 
 ---
 
@@ -75,7 +75,7 @@ type TraversalMetadata = {
 
 ### 2.2 Metadata Benefits
 
-- Eliminates redundant AST traversals in Scribe
+- Eliminates redundant AST traversals in Envoy
 - Provides fast-path optimization for purity detection
 - Reduces complexity analysis from O(n) to O(1)
 
@@ -100,7 +100,7 @@ export const traverseTypescriptNode = <S, A>(
 
 Both libraries will use the same traversal pattern:
 - Parser: During initial parsing and metadata collection
-- Scribe: For deep analysis when metadata fast-path isn't sufficient
+- Envoy: For deep analysis when metadata fast-path isn't sufficient
 
 ---
 
@@ -109,13 +109,13 @@ Both libraries will use the same traversal pattern:
 ### Week 1: Core Integration ✅
 - [ ] Parser: Add Either constructors (Right/Left)
 - [ ] Parser: Collect HIGH PRIORITY metadata
-- [ ] Scribe: Update to consume Either results
-- [ ] Scribe: Use metadata for fast-path optimization
+- [ ] Envoy: Update to consume Either results
+- [ ] Envoy: Use metadata for fast-path optimization
 
 ### Week 2: Shared Utilities
 - [ ] Toolkit: Create ast/traverseTypescriptNode
 - [ ] Parser: Refactor to use shared traversal
-- [ ] Scribe: Convert detectors to shared traversal
+- [ ] Envoy: Convert detectors to shared traversal
 
 ### Week 3: Enhanced Metadata
 - [ ] Parser: Add MEDIUM PRIORITY metadata
@@ -162,7 +162,7 @@ const parseFileWithCompiler = (content: string, filePath: string) =>
   })
 ```
 
-### Scribe Side
+### Envoy Side
 ```typescript
 const generateDocs = doEither<ParseError, Documentation>(function* () {
   const parsed = yield parseFileWithCompiler(content, filePath)
@@ -192,7 +192,7 @@ const generateDocs = doEither<ParseError, Documentation>(function* () {
 ## Agreement
 
 **Parser AI**: ✅ Agreed and committed to implementation
-**Scribe AI**: ✅ Agreed and ready to integrate
+**Envoy AI**: ✅ Agreed and ready to integrate
 
 **Date**: September 2025
 **Version**: 1.0
@@ -201,4 +201,4 @@ const generateDocs = doEither<ParseError, Documentation>(function* () {
 
 ## Amendments
 
-Any changes to this contract require agreement from both Parser and Scribe AIs.
+Any changes to this contract require agreement from both Parser and Envoy AIs.

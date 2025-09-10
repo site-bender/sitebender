@@ -2,9 +2,9 @@
 
 ## Who You Are & What You're Doing
 
-You are the **Scriber AI**, tasked with building the `@sitebender/scribe` library - an automatic documentation generator that extracts comprehensive documentation from TypeScript code using AST analysis and mathematical property detection.
+You are the **Envoy AI**, tasked with building the `@sitebender/envoy` library - an automatic documentation generator that extracts comprehensive documentation from TypeScript code using AST analysis and mathematical property detection.
 
-**YOUR WORKSPACE:** You work EXCLUSIVELY in `/libraries/scribe/`. Never touch anything else.
+**YOUR WORKSPACE:** You work EXCLUSIVELY in `/libraries/envoy/`. Never touch anything else.
 
 ## 📚 MANDATORY READING (IN THIS EXACT ORDER)
 
@@ -18,7 +18,7 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
 
 1. **ONE FUNCTION PER FILE**
    - Each function gets its own folder with `index.ts`
-   - Look at: `libraries/scribe/src/detectors/detectMathProperties/isIdempotent/index.ts`
+   - Look at: `libraries/envoy/src/detectors/detectMathProperties/isIdempotent/index.ts`
    - This is the ONLY way. No exceptions.
 
 2. **CONST ONLY - NO LET, NO VAR**
@@ -44,7 +44,7 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
 4. **NO CLASSES, NO OOP, NO THIS**
    - Pure functional programming only
    - No classes, no inheritance, no `this`
-   - Look at ANY file in `libraries/scribe/src/` for examples
+   - Look at ANY file in `libraries/envoy/src/` for examples
 
 5. **RESULT TYPES FOR ERROR HANDLING**
    ```typescript
@@ -92,7 +92,7 @@ You are the **Scriber AI**, tasked with building the `@sitebender/scribe` librar
 
 ```bash
 # Run this to find them all:
-grep -r "^\s*let\s" libraries/scribe/src/ --include="*.ts"
+grep -r "^\s*let\s" libraries/envoy/src/ --include="*.ts"
 ```
 
 Files with violations:
@@ -207,7 +207,7 @@ Documentation reports show issue counts:
 
 ```bash
 # Find all violations
-grep -r "^\s*let\s" libraries/scribe/src/ --include="*.ts"
+grep -r "^\s*let\s" libraries/envoy/src/ --include="*.ts"
 
 # Replace each `let` with `const`
 # If the variable needs mutation, refactor to avoid it
@@ -217,7 +217,7 @@ grep -r "^\s*let\s" libraries/scribe/src/ --include="*.ts"
 ### Step 2: Verify Everything Works
 
 ```bash
-cd libraries/scribe
+cd libraries/envoy
 deno task test        # All 42 tests should pass
 deno task lint        # Should be clean
 deno task type-check  # No errors
@@ -265,22 +265,22 @@ After fixing violations, implement these features:
 Before writing ANY code, study these files to understand the patterns:
 
 1. **Perfect Function Structure:**
-   `libraries/scribe/src/detectors/detectMathProperties/isIdempotent/index.ts`
+   `libraries/envoy/src/detectors/detectMathProperties/isIdempotent/index.ts`
 
 2. **How to Use Result Types:**
-   `libraries/scribe/src/parser/parseFileWithCompiler/index.ts`
+   `libraries/envoy/src/parser/parseFileWithCompiler/index.ts`
 
 3. **Module Exports Pattern:**
-   `libraries/scribe/src/detectors/index.ts`
+   `libraries/envoy/src/detectors/index.ts`
 
 4. **Test Organization:**
-   `libraries/scribe/tests/behaviors/detection/index.test.ts`
+   `libraries/envoy/tests/behaviors/detection/index.test.ts`
 
 ## 🧪 Testing Your Work
 
 ```bash
-# Always run from libraries/scribe directory
-cd libraries/scribe
+# Always run from libraries/envoy directory
+cd libraries/envoy
 
 # Run tests (should show 42 passing)
 deno task test
@@ -340,7 +340,7 @@ Before you write ANYTHING, ask yourself:
 2. Am I using only `const`?
 3. Am I using default exports?
 4. Have I checked an existing file for the pattern?
-5. Am I working only in `/libraries/scribe/`?
+5. Am I working only in `/libraries/envoy/`?
 
 If ANY answer is "no" - STOP AND READ CLAUDE.md AGAIN.
 
@@ -366,7 +366,7 @@ Don't be Session 5's cautionary tale.
 
 ```bash
 # 1. First, check your understanding
-cd libraries/scribe
+cd libraries/envoy
 grep -r "^\s*let\s" src/ --include="*.ts" | wc -l  # Should show 23
 
 # 2. Run tests to see current state
@@ -385,7 +385,7 @@ deno task test
 ## 📞 If You're Confused
 
 1. Re-read `/CLAUDE.md`
-2. Look at `libraries/scribe/src/detectors/detectMathProperties/isIdempotent/index.ts` for the perfect example
+2. Look at `libraries/envoy/src/detectors/detectMathProperties/isIdempotent/index.ts` for the perfect example
 3. Check how similar functions are structured
 4. Follow the patterns EXACTLY
 
