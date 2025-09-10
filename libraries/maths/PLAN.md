@@ -23,26 +23,34 @@
 - [x] Create `libraries/maths/src/parser/state/parseBinaryExpressionState/index.ts`
 - [x] These run ALONGSIDE existing parsers for testing
 
-## Phase 2: Implementation (Still No Breaking)
+## Phase 2: Complete Parser Assembly (Still No Breaking)
 
-### Step 2.1: Implement Primary Expression Parser
-- [ ] Use `doState` for number, variable, and parenthesized parsing
-- [ ] Test against existing parser for parity
-- [ ] Add tap debugging points
+> Note: Individual parser components (primary, unary, binary) were already implemented in Phase 1.
+> Phase 2 focuses on assembling them into a complete, working parser pipeline.
 
-### Step 2.2: Implement Unary Expression Parser
-- [ ] Handle unary + and - with State monad
-- [ ] Recursive calls use State composition
-- [ ] Verify against existing tests
+### Step 2.1: Create Main Expression Parser Entry Point
+- [x] Create `libraries/maths/src/parser/state/parseExpressionState/index.ts`
+- [x] Wire together all parser components (primary, unary, binary)
+- [x] Handle precedence levels correctly
+- [x] Pass recursive reference for parenthesized expressions
 
-### Step 2.3: Implement Binary Expression Parser
-- [ ] Precedence climbing with State threading
-- [ ] No more trampoline needed (State handles it)
-- [ ] Test operator precedence thoroughly
+### Step 2.2: Implement Conditional Expression Parser
+- [x] Create `libraries/maths/src/parser/state/parseConditionalExpressionState/index.ts`
+- [x] Handle ternary operator (? :) with State monad
+- [x] Ensure right-associativity for nested conditionals
+- [x] Integrate with main expression parser
 
-### Step 2.4: Implement Conditional Expression Parser
-- [ ] Ternary operator with State monad
-- [ ] Ensure proper precedence handling
+### Step 2.3: Create Parser Runner
+- [ ] Create `libraries/maths/src/parser/state/runStateParser/index.ts`
+- [ ] Takes tokens array, returns AST using `evalState`
+- [ ] Handles initial state creation via `createInitialState`
+- [ ] Returns proper Result type with errors
+
+### Step 2.4: Test Complete Parser Pipeline
+- [ ] Test full expressions with all operators
+- [ ] Verify precedence and associativity
+- [ ] Test against existing parser for exact parity
+- [ ] Ensure 100% compatibility with existing test suite
 
 ## Phase 3: Integration (Careful Migration)
 

@@ -78,6 +78,7 @@ export default function myFunction(x: Type) {
   - isCreditCard (+ extracted 6 helper functions to separate folders)
   - isDate, isDefined, isEmail, isEmpty (migrated batch)
   - isError, isEven, isFalsy, isFinite, isFutureDate (migrated batch)
+  - isFutureDateTime, isFutureInstant, isHexColor, isIban, isIpv4 (migrated batch)
 
 **TEMPORAL STANDARDIZATION:**
 - Renamed all Temporal validation functions (removed redundant "Temporal" prefix):
@@ -97,11 +98,14 @@ export default function myFunction(x: Type) {
 - Test configuration updated to allow tests in src/ alongside source code
 
 **FIXED CRITICAL VIOLATIONS:**
-- Bang operators (!) replaced with `not` function in isEven and isFutureDate
-- Helper functions extracted from isFutureDate (todayIsoLocal, toIsoDateString)
-- Date API replaced with Temporal.Now.plainDateISO()
-- OOP methods (.test) replaced with toolkit functions (test)
+- Bang operators (!) replaced with `not` function in all migrated functions
+- Helper functions extracted to separate folders following one-function-per-file rule
+- Date API replaced with Temporal.Now.plainDateISO() where applicable
+- OOP methods (.test, .split, .map, .join, .reduce) replaced with toolkit functions
 - One function per file rule enforced strictly
+- Types moved to types folders (e.g., HexColorOptions, HexColorFormat)
+- Regular expressions extracted to named constants for clarity
+- Import paths corrected to use relative paths from simple/ folder
 
 ### What To Do Next
 
