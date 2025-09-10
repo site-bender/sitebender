@@ -43,6 +43,3 @@ export type {
 	ParsedExport,
 	TraversalMetadata,
 } from "./src/parseFileWithCompiler/index.ts"
-
-// Re-export TypeScript for envoy to use (ONLY through Parser!)
-export { ts } from "./src/parseFileWithCompiler/index.ts"

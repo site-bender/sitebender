@@ -14,8 +14,8 @@ describe("detectPure", () => {
 		)
 	}
 
-	function getFunction(sourceFile: typescript.SourceFile): any {
-		let result: any
+	function getFunction(sourceFile: typescript.SourceFile): typescript.FunctionDeclaration | typescript.FunctionExpression | typescript.ArrowFunction | typescript.MethodDeclaration | undefined {
+		let result: typescript.FunctionDeclaration | typescript.FunctionExpression | typescript.ArrowFunction | typescript.MethodDeclaration | undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
 				result = node
@@ -42,21 +42,21 @@ describe("detectPure", () => {
 	it("detects pure function with only computations", () => {
 		const sourceFile = createSourceFile(`function add(a: number, b: number): number { return a + b }`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
 	it("detects impure async function", () => {
 		const sourceFile = createSourceFile(`async function test() { return 42 }`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
 	it("detects impure generator function", () => {
 		const sourceFile = createSourceFile(`function* test() { yield 42 }`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -68,7 +68,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -80,7 +80,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -92,7 +92,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -103,7 +103,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -114,7 +114,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -126,7 +126,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -138,7 +138,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -151,14 +151,14 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
 	it("detects pure arrow function", () => {
 		const sourceFile = createSourceFile(`const test = (a: number, b: number) => a + b`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
@@ -170,7 +170,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -182,7 +182,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -194,14 +194,14 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
 	it("returns false for function without body", () => {
 		const sourceFile = createSourceFile(`declare function test(): number`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -214,7 +214,7 @@ describe("detectPure", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectPure(func, sourceFile)
+		const result = detectPure(func!, sourceFile)
 		assertEquals(result, true)
 	})
 })
