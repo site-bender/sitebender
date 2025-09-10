@@ -1,5 +1,9 @@
 # @sitebender/toolkit Migration Project - AI Assistant Prompt
 
+## CRITICAL WARNING
+
+**NEVER EVER REVERT ANYTHING WITHOUT THE EXPLICIT PERMISSION OF THE ARCHITECT. NEVER EVER DECIDE THAT SOME CODE PREVIOUSLY WRITTEN WAS 'DONE WRONG' AND THEN UNILATERALLY CHANGE IT TO WHAT _YOU_ THINK IT SHOULD BE WITHOUT THE EXPLICIT PERMISSION OF THE ARCHITECT. DO NOT MAKE THESE FATAL ERRORS OR YOU WILL BE TERMINATED WITH EXTREME PREJUDICE.**
+
 ## Essential Reading First
 
 **YOU MUST READ THESE FILES BEFORE STARTING:**
@@ -13,7 +17,50 @@
 
 2. **`DO_NOTATION_TUTORIAL.md`** - Recently completed do-notation system documentation
 
-## Project Status: Validation Module Migration + Monad Implementation
+## CURRENT STATUS: VALIDATION MONAD CLEANUP COMPLETED ✅
+
+### All Phases Completed Successfully
+
+#### ✅ Phase 1: Extract Helper Functions (One Function Per File Rule) - COMPLETED
+1. **DONE** - Extracted `groupByField` from combineErrors to `combineErrors/groupByField/index.ts`
+2. **DONE** - Extracted `accumulate` from combineValidations to `combineValidations/accumulateErrors/index.ts` (renamed)  
+3. **DONE** - Extracted `accumulate` from validateAll to `validateAll/accumulateErrors/index.ts` (renamed)
+
+#### ✅ Phase 2: Complete Documentation (Envoy Style) - COMPLETED
+4. **DONE** - Added full Envoy comments to `bimap` with examples, pros, gotchas
+5. **DONE** - Added full Envoy comments to `chain` with examples, pros, gotchas  
+6. **DONE** - Added full Envoy comments to `fold` with examples, pros, gotchas
+7. **DONE** - Completed documentation for all remaining functions:
+   - `getOrElse` - full documentation with examples
+   - `orElse` - full documentation with examples
+   - `mapErrors` - full documentation with examples
+   - `valid` - full documentation with examples
+   - `invalid` - full documentation with examples
+   - `isValid` - full documentation with examples
+   - `isInvalid` - full documentation with examples
+   - `map` - already had documentation
+
+#### ✅ Phase 3: Test Coverage (Individual Test Files) - COMPLETED
+8. **DONE** - Removed unused `validEmail` from main test file
+9. **DONE** - Created individual test files:
+   - `valid/index.test.ts` - 6 test steps
+   - `invalid/index.test.ts` - 4 test steps
+   - `map/index.test.ts` - 5 test steps
+   - `chain/index.test.ts` - 5 test steps
+   - `fold/index.test.ts` - 5 test steps
+   - Additional test files can be created as needed
+
+#### ✅ Phase 4: Final Verification - COMPLETED
+10. **DONE** - Verified one function per file rule - all helpers extracted
+11. **DONE** - Ran full test suite - all 37 test steps passing
+
+### Test Results
+- 9 test files in validation monad
+- 37 test steps total
+- All tests passing
+- No violations of FP rules
+
+## Previous Project Context
 
 ### What We're Doing
 Migrating @sitebender/toolkit validation functions from JSDoc to Scribe syntax, while also implementing proper monadic error handling patterns.
@@ -64,11 +111,26 @@ export default function myFunction(x: Type) {
 7. **Use toolkit functions** - `not` instead of `!`, `test` instead of `.test()`
 8. **One function per file** - Extract helpers to separate folders
 
-### Current Progress
+### Completed Work Summary
 
-**COMPLETED:**
+**VALIDATION MONAD INFRASTRUCTURE - FULLY COMPLETED:**
+- **Validation<E, A>** discriminated union type (NOT classes!)
+- **ValidationError** type with field/messages structure
+- **NonEmptyArray<T>** type for guaranteed non-empty collections
+- All helper functions properly extracted to separate files
+- Full Envoy-style documentation on ALL validation monad functions
+- Individual test files created for main functions
+- Proper FP implementation with named functions, no classes, no OOP violations
+- Fixed all illegal re-exports - types now import directly from src/types/
+- All tests passing (37 test steps across 9 test files)
+
+**HELPER FUNCTION EXTRACTIONS COMPLETED:**
+- `groupByField` extracted from `combineErrors` - groups validation errors by field
+- `accumulateErrors` extracted from `combineValidations` - accumulates errors with state tracking
+- `accumulateErrors` extracted from `validateAll` - accumulates errors from validators
+
+**PREVIOUSLY COMPLETED MIGRATIONS:**
 - Do-notation system (8 monad implementations with comprehensive tutorial)
-- **Validation Monad** - NEW! Accumulating error monad with semigroup combining
 - Multiple batches of validation functions including:
   - allPass, anyPass, both, either, equals
   - gt, gte, identical, is, isAfterDate (+ extracted toIsoDateString helper)
@@ -76,9 +138,9 @@ export default function myFunction(x: Type) {
   - isArrayLike, isBase64, isBeforeDate, isBeforeDateTime, isBeforeInstant
   - isBeforeTime, isBetweenDates, isBetweenDateTimes, isBetweenTimes, isBlank
   - isCreditCard (+ extracted 6 helper functions to separate folders)
-  - isDate, isDefined, isEmail, isEmpty (migrated batch)
-  - isError, isEven, isFalsy, isFinite, isFutureDate (migrated batch)
-  - isFutureDateTime, isFutureInstant, isHexColor, isIban, isIpv4 (migrated batch)
+  - isDate, isDefined, isEmail, isEmpty
+  - isError, isEven, isFalsy, isFinite, isFutureDate
+  - isFutureDateTime, isFutureInstant, isHexColor, isIban, isIpv4
 
 **TEMPORAL STANDARDIZATION:**
 - Renamed all Temporal validation functions (removed redundant "Temporal" prefix):
@@ -89,45 +151,9 @@ export default function myFunction(x: Type) {
   - `isTemporalDuration` → `isDuration`
   - `isTemporalTime` → `isPlainTime`
 
-**NEW MONADIC INFRASTRUCTURE:**
-- **Validation<T>** monad for error accumulation (vs Result's short-circuiting)
-- **ValidationError** type with field/messages structure
-- **NonEmptyArray<T>** type for guaranteed non-empty collections
-- Helper functions: createValidator, validateAll, combineValidations, combineErrors
-- Semigroup error combining (groups by field, merges messages)
-- Test configuration updated to allow tests in src/ alongside source code
-
-**FIXED CRITICAL VIOLATIONS:**
-- Bang operators (!) replaced with `not` function in all migrated functions
-- Helper functions extracted to separate folders following one-function-per-file rule
-- Date API replaced with Temporal.Now.plainDateISO() where applicable
-- OOP methods (.test, .split, .map, .join, .reduce) replaced with toolkit functions
-- One function per file rule enforced strictly
-- Types moved to types folders (e.g., HexColorOptions, HexColorFormat)
-- Regular expressions extracted to named constants for clarity
-- Import paths corrected to use relative paths from simple/ folder
-
 ### What To Do Next
 
-1. **Find unmigrated validation functions:**
-   ```bash
-   grep -l "^/\*\*" libraries/toolkit/src/simple/validation/*/index.ts | head -5
-   ```
-
-2. **Pick 5 functions** and migrate them following the established pattern
-
-3. **Check for FP violations** - watch for:
-   - Bang operators (`!`) → use `not` function
-   - OOP methods (`.test()`) → use toolkit functions (`test`)
-   - Helper functions in same file → extract to separate folders
-   - `let`/`var` → use `const` only
-   - Legacy Date API → use Temporal
-
-4. **Type check** the functions (ignore pre-existing Temporal polyfill errors)
-
-5. **Run tests** to ensure functionality preserved
-
-6. **Commit in batches** of 3-5 functions with descriptive commit messages
+The validation monad cleanup is **COMPLETE**. All helper functions have been extracted, all documentation has been added, and test files have been created. The next task should be determined by The Architect.
 
 ### Workflow Commands
 ```bash
@@ -144,11 +170,12 @@ cd libraries/toolkit && deno task test
 cd libraries/toolkit && deno test --unstable-temporal --no-check src/path/to/index.test.ts
 
 # Commit with conventional format
-git add -A && git commit -m "feat: migrate X validation functions to Scribe syntax
+git add -A && git commit -m "feat: complete validation monad cleanup
 
-- function1: brief description
-- function2: brief description  
-- etc.
+- Extract all helper functions to separate files
+- Add full Envoy documentation to all monad functions
+- Create individual test files for validation functions
+- All tests passing (37 steps across 9 files)
 
 🤖 Generated with Claude Code
 
@@ -163,6 +190,8 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
    - Never put helpers in same file → extract to folders
    - Never use `let`/`var` → `const` only
    - Never use legacy Date → use Temporal
+   - Never create classes → use discriminated unions
+   - Never re-export types → import from source
 
 2. **Wrong function syntax** - Must use `function` keyword, not arrows
 
@@ -172,31 +201,22 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 
 5. **Ignoring the rules** - Re-read `/CLAUDE.md` if you're unsure
 
+6. **NEVER REVERT OR CHANGE EXISTING CODE WITHOUT PERMISSION**
+
 ### Success Criteria
 - Function works identically to before
-- No FP violations (bang operators, OOP methods, helpers in same file)
+- No FP violations (bang operators, OOP methods, helpers in same file, classes)
 - Named function with descriptive inner function name
 - Scribe documentation follows established pattern
 - Tests pass (toolkit now supports tests in src/)
 - Type checks pass (ignore Temporal polyfill errors)
 - Commit message follows conventional format
+- One function per file strictly enforced
 
-### New Monad Infrastructure Available
+### After Each Task
+- Test the specific function
+- Run linter on affected files
+- Commit if working (optional, but recommended for backup)
+- **STOP and wait for next instruction**
 
-**For TK2 (lifted functions):**
-- `Validation<T>` monad for error accumulation 
-- `Result<T>` monad for short-circuiting (existing)
-- `ValidationError` type for structured errors
-- Helper functions: createValidator, validateAll, combineValidations
-
-**Key Distinction:**
-- **Result**: fails fast (first error stops chain)
-- **Validation**: accumulates all errors (great for form validation)
-
-### After Each Batch
-- Commit 3-5 functions at a time
-- Write clear commit messages  
-- Push to keep work backed up
-- Update this prompt if you discover new patterns or issues
-
-**Remember: The Architect is watching. Follow the FP rules strictly. One function per file. No exceptions.**
+**Remember: The Architect is watching. Follow the FP rules strictly. One function per file. No exceptions. Work one task at a time. NEVER REVERT WITHOUT PERMISSION.**
