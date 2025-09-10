@@ -14,8 +14,8 @@ describe("detectCurried", () => {
 		)
 	}
 
-	function getFunction(sourceFile: typescript.SourceFile): any {
-		let result: any
+	function getFunction(sourceFile: typescript.SourceFile): typescript.FunctionDeclaration | typescript.FunctionExpression | typescript.ArrowFunction | typescript.MethodDeclaration | undefined {
+		let result: typescript.FunctionDeclaration | typescript.FunctionExpression | typescript.ArrowFunction | typescript.MethodDeclaration | undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
 				result = node
@@ -42,42 +42,42 @@ describe("detectCurried", () => {
 	it("detects curried function with explicit return type", () => {
 		const sourceFile = createSourceFile(`function add(a: number): (b: number) => number { return (b) => a + b }`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
 	it("detects non-curried function", () => {
 		const sourceFile = createSourceFile(`function add(a: number, b: number): number { return a + b }`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
 	it("detects arrow function returning arrow function", () => {
 		const sourceFile = createSourceFile(`const add = (a: number) => (b: number) => a + b`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
 	it("detects non-curried arrow function", () => {
 		const sourceFile = createSourceFile(`const add = (a: number, b: number) => a + b`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
 	it("detects function type in return annotation", () => {
 		const sourceFile = createSourceFile(`function test(): Function { return () => {} }`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
 	it("detects function signature in return type", () => {
 		const sourceFile = createSourceFile(`function test(): () => void { return () => {} }`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
@@ -90,7 +90,7 @@ describe("detectCurried", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
@@ -101,28 +101,28 @@ describe("detectCurried", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, true)
 	})
 
 	it("returns false for void return type", () => {
 		const sourceFile = createSourceFile(`function test(): void { }`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
 	it("returns false for primitive return type", () => {
 		const sourceFile = createSourceFile(`function test(): string { return "hello" }`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
 	it("returns false for function without return statements", () => {
 		const sourceFile = createSourceFile(`function test() { console.log("test") }`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -133,7 +133,7 @@ describe("detectCurried", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, false)
 	})
 
@@ -146,7 +146,7 @@ describe("detectCurried", () => {
 			}
 		`)
 		const func = getFunction(sourceFile)
-		const result = detectCurried(func, sourceFile)
+		const result = detectCurried(func!, sourceFile)
 		assertEquals(result, true)
 	})
 })

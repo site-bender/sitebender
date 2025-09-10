@@ -14,7 +14,7 @@ describe("detectAsync", () => {
 			true,
 		)
 		
-		let result: any
+		let result: typescript.FunctionDeclaration | typescript.ArrowFunction | typescript.MethodDeclaration | undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
 				result = node
@@ -31,30 +31,30 @@ describe("detectAsync", () => {
 			}
 		}
 		visit(sourceFile)
-		return result
+		return result!
 	}
 
 	it("detects async function declaration", () => {
 		const func = createFunction(`async function test() { }`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, true)
 	})
 
 	it("detects non-async function declaration", () => {
 		const func = createFunction(`function test() { }`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, false)
 	})
 
 	it("detects async arrow function", () => {
 		const func = createFunction(`const test = async () => { }`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, true)
 	})
 
 	it("detects non-async arrow function", () => {
 		const func = createFunction(`const test = () => { }`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, false)
 	})
 
@@ -64,7 +64,7 @@ describe("detectAsync", () => {
 				async method() { }
 			}
 		`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, true)
 	})
 
@@ -74,19 +74,19 @@ describe("detectAsync", () => {
 				method() { }
 			}
 		`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, false)
 	})
 
 	it("handles function with no modifiers", () => {
 		const func = createFunction(`function test() { }`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, false)
 	})
 
 	it("detects async with other modifiers", () => {
 		const func = createFunction(`export async function test() { }`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, true)
 	})
 
@@ -96,7 +96,7 @@ describe("detectAsync", () => {
 				private async method() { }
 			}
 		`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, true)
 	})
 
@@ -106,7 +106,7 @@ describe("detectAsync", () => {
 				static async method() { }
 			}
 		`)
-		const result = detectAsync(func)
+		const result = detectAsync(func!)
 		assertEquals(result, true)
 	})
 })

@@ -1,40 +1,22 @@
 import type { IO } from "../../types/fp/io/index.ts"
 
-/**
- * Creates an IO from a thunk (deferred computation)
- *
- * The IO constructor wraps a computation in a thunk, deferring its execution
- * until runIO is called. This allows for composable, referentially transparent
- * handling of side effects in functional programs. The thunk can contain any
- * computation including impure operations like random number generation,
- * current time, file I/O, or network requests.
- *
- * @param thunk - Function to defer that will be executed when runIO is called
- * @returns IO wrapping the deferred computation
- * @example
- * ```typescript
- * // Pure value
- * const pureIO = io(() => 42)
- * runIO(pureIO)                            // 42
- *
- * // Random value generation
- * const randomIO = io(() => Math.random())
- * runIO(randomIO)                          // 0.123456...
- *
- * // Current timestamp
- * const nowIO = io(() => Date.now())
- * runIO(nowIO)                             // 1692547200000
- *
- * // Multiple operations
+//++ Creates an IO from a thunk (deferred computation)
+export default function io<A>(thunk: () => A): IO<A> {
+	return thunk
+}
+
+//?? [EXAMPLE] io(() => 42) // IO(() => 42)
+//?? [EXAMPLE] runIO(io(() => Math.random())) // 0.123456... (deferred until runIO)
+/*??
+ * [EXAMPLE]
  * const complexIO = io(() => {
  *   const id = crypto.randomUUID()
  *   const timestamp = Date.now()
  *   return `${id}-${timestamp}`
  * })
- * runIO(complexIO)                         // "abc-123-1692547200000"
- * ```
- * @impure
+ * runIO(complexIO) // "abc-123-1692547200000"
+ *
+ * [PRO] Enables composable, referentially transparent handling of side effects
+ * [PRO] Defers execution until runIO is called
+ * [GOTCHA] Contains impure operations - only execute when ready for side effects
  */
-const io = <A>(thunk: () => A): IO<A> => thunk
-
-export default io
