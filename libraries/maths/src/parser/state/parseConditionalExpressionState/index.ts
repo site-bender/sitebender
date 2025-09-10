@@ -2,6 +2,7 @@ import doState from "../../../../../toolkit/src/monads/doState/index.ts"
 import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
 import err from "../../../../../toolkit/src/monads/result/err/index.ts"
 import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
+import fold from "../../../../../toolkit/src/monads/result/fold/index.ts"
 import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
 import currentToken from "../currentToken/index.ts"
@@ -60,13 +61,29 @@ export default function parseConditionalExpressionState(
 			return ifFalseResult
 		}
 
-		// Return the conditional AST node
-		return ok({
-			type: "Conditional",
-			condition: conditionResult.right,
-			ifTrue: ifTrueResult.right,
-			ifFalse: ifFalseResult.right,
-		})
+		// Return the conditional AST node using fold to extract values
+		const createConditional = fold<ParseError, AstNode>(
+			() => conditionResult as unknown as AstNode, // Should never happen since we checked isErr
+		)<AstNode>(
+			(condition) =>
+				fold<ParseError, AstNode>(
+					() => ifTrueResult as unknown as AstNode, // Should never happen since we checked isErr
+				)<AstNode>(
+					(ifTrue) =>
+						fold<ParseError, AstNode>(
+							() => ifFalseResult as unknown as AstNode, // Should never happen since we checked isErr
+						)<AstNode>(
+							(ifFalse) => ({
+								type: "Conditional",
+								condition,
+								ifTrue,
+								ifFalse,
+							}),
+						)(ifFalseResult),
+				)(ifTrueResult),
+		)(conditionResult)
+
+		return ok(createConditional)
 	})
 }
 

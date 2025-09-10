@@ -62,29 +62,29 @@ Deno.test("expect - can expect multiple tokens in sequence", () => {
 		{ type: "NUMBER", value: "1", position: 4 },
 	]
 
-	let state: ParserState = {
+	const initialState: ParserState = {
 		tokens,
 		position: 0,
 	}
 
 	// Expect VARIABLE
-	const result1 = evalState(expect("IDENTIFIER"))(state)
+	const result1 = evalState(expect("IDENTIFIER"))(initialState)
 	assertEquals(result1._tag, "Right")
 	if (result1._tag === "Right") {
 		assertEquals(result1.right.type, "IDENTIFIER")
 	}
-	state = execState(expect("IDENTIFIER"))(state)
+	const state1 = execState(expect("IDENTIFIER"))(initialState)
 
 	// Expect PLUS
-	const result2 = evalState(expect("PLUS"))(state)
+	const result2 = evalState(expect("PLUS"))(state1)
 	assertEquals(result2._tag, "Right")
 	if (result2._tag === "Right") {
 		assertEquals(result2.right.type, "PLUS")
 	}
-	state = execState(expect("PLUS"))(state)
+	const state2 = execState(expect("PLUS"))(state1)
 
 	// Expect NUMBER
-	const result3 = evalState(expect("NUMBER"))(state)
+	const result3 = evalState(expect("NUMBER"))(state2)
 	assertEquals(result3._tag, "Right")
 	if (result3._tag === "Right") {
 		assertEquals(result3.right.type, "NUMBER")

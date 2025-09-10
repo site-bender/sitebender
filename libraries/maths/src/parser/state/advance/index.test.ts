@@ -32,28 +32,28 @@ Deno.test("advance - advances through multiple tokens", () => {
 		{ type: "RIGHT_PAREN", value: ")", position: 2 },
 	]
 
-	let state: ParserState = {
+	const initialState: ParserState = {
 		tokens,
 		position: 0,
 	}
 
 	// First advance
-	const token1 = evalState(advance())(state)
+	const token1 = evalState(advance())(initialState)
 	assertEquals(token1, { type: "LEFT_PAREN", value: "(", position: 0 })
-	state = execState(advance())(state)
-	assertEquals(state.position, 1)
+	const state1 = execState(advance())(initialState)
+	assertEquals(state1.position, 1)
 
 	// Second advance
-	const token2 = evalState(advance())(state)
+	const token2 = evalState(advance())(state1)
 	assertEquals(token2, { type: "IDENTIFIER", value: "x", position: 1 })
-	state = execState(advance())(state)
-	assertEquals(state.position, 2)
+	const state2 = execState(advance())(state1)
+	assertEquals(state2.position, 2)
 
 	// Third advance
-	const token3 = evalState(advance())(state)
+	const token3 = evalState(advance())(state2)
 	assertEquals(token3, { type: "RIGHT_PAREN", value: ")", position: 2 })
-	state = execState(advance())(state)
-	assertEquals(state.position, 3)
+	const state3 = execState(advance())(state2)
+	assertEquals(state3.position, 3)
 })
 
 Deno.test("advance - returns EOF when advancing past last token", () => {
