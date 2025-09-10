@@ -7,7 +7,7 @@ import { TypeKind } from "../../../types/index.ts"
 
 export default function inferReturnType(
 	expression: typescript.Expression,
-	sourceFile: typescript.SourceFile,
+	_sourceFile: typescript.SourceFile,
 ): TypeInfo {
 	// Handle common expression types
 	switch (expression.kind) {

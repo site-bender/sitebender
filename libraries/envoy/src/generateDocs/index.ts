@@ -1,95 +1,89 @@
 import type {
-	ASTNode,
 	Documentation,
+	FunctionMetadata,
+	FunctionSignature,
 	GenerateOptions,
-	ParseError,
+	Parameter,
+	ParserOutput,
+	Properties,
 	Result,
 } from "../types/index.ts"
 
 import { DEFAULT_OPTIONS } from "../constants/index.ts"
-// Direct import (no barrel) respecting one-function-per-file discipline
-import detectProperties from "../detectors/detectProperties/index.ts"
-import { extractDescription } from "../extractors/index.ts"
-import { generateMarkdown } from "../generators/index.ts"
-import { parseFile, parseFunction } from "../parser/index.ts"
+import parseCommentMarkers from "../comments/parseCommentMarkers/index.ts"
+import buildProperties from "./buildProperties/index.ts"
+import extractExamples from "./extractExamples/index.ts"
+import extractLaws from "./extractLaws/index.ts"
+import findDescription from "./findDescription/index.ts"
+import generateOutput from "./generateOutput/index.ts"
 
-//++ Generate documentation for the first exported function in a TypeScript file.
-export default async function generateDocs(
-	filePath: string,
+//++ Generate documentation from Parser's output
+export default function generateDocs(
+	parserOutput: ParserOutput,
+	sourceCode: string, // Raw source for Envoy's comment parsing
 	options: GenerateOptions = {},
-): Promise<Result<Documentation, ParseError>> {
+): Result<Documentation, { message: string }> {
 	try {
-		// Merge options with defaults
 		const opts = { ...DEFAULT_OPTIONS, ...options }
+		const { functions, comments } = parserOutput
 
-		// Read file content
-		const content = await readFile(filePath)
-		if (!content.ok) {
-			return content
-		}
-
-		// Parse file to AST
-		const ast = parseFile(content.value, filePath)
-		if (!ast.ok) {
-			return ast
-		}
-
-		// Find first function in the file
-		const functionNode = findFirstFunction(ast.value)
-		if (!functionNode) {
+		if (functions.length === 0) {
 			return {
 				ok: false,
-				error: {
-					message: "No function found in file",
-					file: filePath,
-				},
+				error: { message: "No functions found in Parser output" },
 			}
 		}
 
-		// Parse function signature
-		const signature = parseFunction(functionNode, content.value)
-		if (!signature.ok) {
-			return signature
+		const firstFunction = functions[0]
+		const { signature: parserSignature, metadata } = firstFunction
+
+		// Convert Parser signature to legacy format
+		const signature: FunctionSignature = {
+			name: parserSignature.name,
+			parameters: parserSignature.parameters.map((p): Parameter => ({
+				name: p.name,
+				type: p.type.raw,
+				optional: p.isOptional,
+				defaultValue: p.defaultValue,
+			})),
+			returnType: parserSignature.returnType.raw,
+			generics: parserSignature.generics?.map(g => ({
+				name: g.name,
+				constraint: g.constraint,
+				default: g.default,
+			})),
+			isAsync: parserSignature.isAsync,
+			isGenerator: parserSignature.isGenerator,
+			isExported: parserSignature.isExported,
+			isDefault: parserSignature.isDefault,
 		}
 
-		// Extract description
-		const description = extractDescription(content.value, functionNode.pos)
+		// Parse Envoy's comment markers - the ONLY parsing Envoy does
+		const commentMarkers = parseCommentMarkers(sourceCode)
+		
+		const description = findDescription(commentMarkers, comments)
+		const properties: Properties = buildProperties(parserSignature, metadata)
+		const examples = extractExamples(commentMarkers, comments)
+		const laws = extractLaws(comments)
 
-		// Detect properties
-		const properties = detectProperties(content.value)
-
-		// Create metadata
-		const metadata = {
-			signature: signature.value,
+		const docMetadata: FunctionMetadata = {
+			signature,
 			description,
 			properties,
-			examples: [], // TODO(@envoy): Extract from tests in Phase 2
-			laws: [], // TODO(@envoy): Detect in Phase 2
-			relatedFunctions: [], // TODO(@envoy): Find in Phase 2
+			examples,
+			laws,
+			relatedFunctions: [], // TODO(@parser): Parser could provide related functions
 		}
 
-		// Generate documentation based on format
-		const output: string = (() => {
-			switch (opts.format) {
-				case "markdown":
-					return generateMarkdown(metadata)
-				case "html":
-					// TODO(@envoy): Implement HTML generation in Phase 2
-					return generateMarkdown(metadata) // Fallback to markdown for now
-				case "json":
-					return JSON.stringify(metadata, null, 2)
-				default:
-					return generateMarkdown(metadata)
-			}
-		})()
+		const output = generateOutput(docMetadata, opts)
 
 		return {
 			ok: true,
 			value: {
-				name: signature.value.name,
+				name: signature.name,
 				content: output,
 				format: opts.format || "markdown",
-				metadata,
+				metadata: docMetadata,
 			},
 		}
 	} catch (error) {
@@ -99,47 +93,7 @@ export default async function generateDocs(
 				message: error instanceof Error
 					? error.message
 					: "Failed to generate documentation",
-				file: filePath,
 			},
 		}
 	}
-}
-
-/**
- * Reads a file from the filesystem
- */
-async function readFile(filePath: string): Promise<Result<string, ParseError>> {
-	try {
-		const content = await Deno.readTextFile(filePath)
-		return { ok: true, value: content }
-	} catch (error) {
-		return {
-			ok: false,
-			error: {
-				message: `Failed to read file: ${
-					error instanceof Error ? error.message : "Unknown error"
-				}`,
-				file: filePath,
-			},
-		}
-	}
-}
-
-/**
- * Finds the first function in an AST
- */
-function findFirstFunction(ast: ASTNode): ASTNode | null {
-	if (ast.statements && Array.isArray(ast.statements)) {
-		const found = (ast.statements as Array<ASTNode>).find((s) =>
-			s.kind === "FunctionDeclaration" || s.kind === "ArrowFunction"
-		)
-		if (found) return found
-	}
-
-	// If no statements, check if the AST itself is a function
-	if (ast.kind === "FunctionDeclaration" || ast.kind === "ArrowFunction") {
-		return ast
-	}
-
-	return null
 }

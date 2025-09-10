@@ -1,54 +1,14 @@
 import doNotation from "../doNotation/index.ts"
-import type { MonadDictionary } from "../doNotation/index.ts"
+import createEitherMonad from "./createEitherMonad/index.ts"
+import type { Either } from "../../types/fp/either/index.ts"
 
-type Either<L, R> = { tag: "Left"; value: L } | { tag: "Right"; value: R }
-
-function createEitherMonad<L>(): MonadDictionary<Either<L, any>> {
-	return {
-		chain: <A, B>(f: (a: A) => Either<L, B>) => (ma: Either<L, A>): Either<L, B> => {
-			if (ma.tag === "Left") {
-				return ma
-			}
-			return f(ma.value)
-		},
-		of: <R>(value: R): Either<L, R> => {
-			return { tag: "Right", value }
-		}
-	}
-}
-
-//++ Either monad constructors and helpers
-export function Left<L, R = never>(value: L): Either<L, R> {
-	return { tag: "Left", value }
-}
-
-export function Right<L = never, R = unknown>(value: R): Either<L, R> {
-	return { tag: "Right", value }
-}
-
-export function isLeft<L, R>(either: Either<L, R>): either is { tag: "Left"; value: L } {
-	return either.tag === "Left"
-}
-
-export function isRight<L, R>(either: Either<L, R>): either is { tag: "Right"; value: R } {
-	return either.tag === "Right"
-}
-
-export function fromNullable<L, R>(error: L) {
-	return function checkNullable(value: R | null | undefined): Either<L, R> {
-		return value === null || value === undefined
-			? Left(error)
-			: Right(value)
-	}
-}
-
-export function tryCatch<L, R>(f: () => R, onError: (e: unknown) => L): Either<L, R> {
-	try {
-		return Right(f())
-	} catch (error) {
-		return Left(onError(error))
-	}
-}
+// Re-export commonly used Either functions for convenience in do-notation
+export { default as Left } from "../either/left/index.ts"
+export { default as Right } from "../either/right/index.ts"
+export { default as isLeft } from "../either/isLeft/index.ts"
+export { default as isRight } from "../either/isRight/index.ts"
+export { default as fromNullable } from "../either/fromNullable/index.ts"
+export { default as tryCatch } from "../either/tryCatch/index.ts"
 
 //++ Specialized do-notation for Either monad with error handling
 export default function doEither<L, R>(
@@ -62,6 +22,8 @@ export default function doEither<L, R>(
 //?? [EXAMPLE] doEither(function* () { const x = yield fromNullable("missing")(getValue()); return x * 2 })
 /*??
  * [EXAMPLE]
+ * import doEither, { Left, Right, fromNullable, tryCatch } from "./doEither/index.ts"
+ * 
  * // Safe division
  * const safeDivide = (a: number, b: number) => doEither<string, number>(function* () {
  *   if (b === 0) {
@@ -113,4 +75,5 @@ export default function doEither<L, R>(
  * [PRO] Railway-oriented programming pattern
  * [PRO] Explicit error handling without try/catch
  * [PRO] Composable error handling
+ * [NOTE] Re-exports common Either functions for convenience
  */

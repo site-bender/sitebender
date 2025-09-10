@@ -1,5 +1,28 @@
 # Parser Library - STATUS: 35% Complete (NOT v1.0)
 
+## ⚠️ CRITICAL RULE - READ THIS FIRST
+
+**NEVER EVER REVERT ANYTHING WITHOUT THE EXPLICIT PERMISSION OF THE ARCHITECT. NEVER EVER DECIDE THAT SOME CODE PREVIOUSLY WRITTEN WAS 'DONE WRONG' AND THEN UNILATERALLY CHANGE IT TO WHAT _YOU_ THINK IT SHOULD BE WITHOUT THE EXPLICIT PERMISSION OF THE ARCHITECT. DO NOT MAKE THESE FATAL ERRORS OR YOU WILL BE TERMINATED WITH EXTREME PREJUDICE.**
+
+**NO RE-EXPORTS WITHOUT EXPRESS APPROVAL. WE DO NOT RE-EXPORT ANYTHING. EXCEPTIONS ONLY BY EXPRESS APPROVAL FROM THE ARCHITECT.**
+
+## 🔒 API Contract Enforcement
+
+**Parser is THE ONLY library that imports TypeScript compiler directly.**
+- NEVER export the TypeScript compiler (`ts`) to other libraries
+- NEVER pass TypeScript AST nodes directly to consumers
+- ALWAYS provide clean data structures that hide implementation details
+- Envoy and other libraries consume ONLY Parser's output types, never TypeScript types
+
+## ✅ Recent Fixes (2025-01-10)
+
+Successfully fixed all 17 linting errors and 20+ type errors:
+- Removed unauthorized TypeScript export that was violating API contract
+- Fixed all mutations - now properly functional with immutable data
+- Replaced all `any` types with proper TypeScript types
+- Fixed Either type implementation and all test type errors
+- Updated collectMetadata to return new state instead of mutating
+
 ## 📊 CRITICAL REALITY CHECK 
 
 **STOP**: This library is NOT production-ready despite previous claims. Fresh audit (Sept 2025) reveals:

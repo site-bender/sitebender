@@ -41,7 +41,7 @@ Deno.test("parseCommentMarkers - multi-line example block", () => {
 		`//++ Desc\n/*??\nadd(1,2) // 3\nadd(2,2) // 4\n*/\nexport const x = 1`
 	const r = parseCommentMarkers(src)
 	assertEquals(r.examples.length, 2)
-	assertEquals(r.examples.map((e) => e.expected), ["3", "4"])
+	assertEquals(r.examples.map((e: { code: string; expected?: string }) => e.expected), ["3", "4"])
 })
 
 Deno.test("parseCommentMarkers - tech debt with and without reason", () => {
