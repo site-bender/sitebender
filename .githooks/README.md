@@ -23,22 +23,6 @@ Requirements:
 
 - Deno must be available in PATH
 
-Skip flags (use sparingly and only when necessary):
-
-- `SKIP_FP_CHECKS=1` — Skips all FP checks and exits the hook early
-- `SKIP_ALIAS_GUARD=1` — Skips alias import guard only
-
-Examples:
-
-```
-# Skip all FP checks for an emergency commit
-SKIP_FP_CHECKS=1 git commit -m "chore: emergency commit"
-
-# Skip only alias guard
-SKIP_ALIAS_GUARD=1 git commit -m "chore: commit while offline"
-```
-
 Notes:
 
-- The toolkit commit restriction (ALLOW_TOOLKIT) has been removed.
 - The tracked `pre-commit` file is executable and will run across environments.
