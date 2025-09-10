@@ -18,7 +18,7 @@ export default function processExampleLine(_lines: Array<string>) {
 					idx: acc.idx + 1,
 					examples: [
 						...acc.examples,
-						{ ...parsed, line: lineNumber, raw: payload },
+						parsed,
 					],
 					raw: [
 						...acc.raw,
