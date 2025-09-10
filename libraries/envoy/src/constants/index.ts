@@ -1,5 +1,5 @@
 /**
- * Constants for @sitebender/scribe
+ * Constants for @sitebender/envoy
  */
 
 // Property badge labels

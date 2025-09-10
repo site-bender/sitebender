@@ -124,7 +124,7 @@ export default function generateDocsWithCompiler(
 			isAssociative: isAssociative(functionSource),
 			isDistributive: isDistributive(functionSource),
 			complexity: `O(${calculateCyclomaticComplexity(metadata)})` as "O(1)" | "O(log n)" | "O(n)" | "O(n log n)" | "O(n²)" | "O(2^n)" | "O(n!)",
-			nullHandling: "unknown" as const, // TODO(@scribe): Implement in Phase 2
+			nullHandling: "unknown" as const, // TODO(@envoy): Implement in Phase 2
 			deterministic: false, // TODO: Derive from purity when implemented
 		}
 
@@ -150,7 +150,7 @@ export default function generateDocsWithCompiler(
 			properties,
 			examples,
 			laws,
-			relatedFunctions: [], // TODO(@scribe): Find in Phase 2
+			relatedFunctions: [], // TODO(@envoy): Find in Phase 2
 		}
 
 		// Generate documentation based on format (expression form)

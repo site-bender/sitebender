@@ -27,7 +27,7 @@ export default function detectProperties(source: string): Properties {
 		isAssociative: isAssociative(source),
 		isDistributive: isDistributive(source),
 		complexity,
-		nullHandling: "unknown", // TODO(@scribe): Implement in Phase 2
+		nullHandling: "unknown", // TODO(@envoy): Implement in Phase 2
 		deterministic: isPure, // Pure functions are deterministic
 	}
 }

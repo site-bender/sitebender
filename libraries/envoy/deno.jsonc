@@ -1,5 +1,5 @@
 {
-	"name": "@sitebender/scribe",
+	"name": "@sitebender/envoy",
 	"version": "0.1.0",
 	"exports": "./mod.ts",
 	// Note: mod.ts provides exports but documentation encourages direct imports
