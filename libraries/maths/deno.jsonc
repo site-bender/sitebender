@@ -23,8 +23,7 @@
 
 	// Test configuration
 	"test": {
-		"include": ["tests/"],
-		"exclude": ["src/"]
+		"include": ["tests/", "src/"]
 	},
 
 	"compilerOptions": {
