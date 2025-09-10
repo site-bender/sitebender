@@ -215,11 +215,11 @@ function findReturnTypeInBlock(block: ts.Block): string {
 					(stmt) => ts.isReturnStatement(stmt) && stmt.expression,
 				)
 				return hasReturn
-					? "(y: number) => number" // TODO(@scribe): Better type inference
+					? "(y: number) => number" // TODO(@envoy): Better type inference
 					: "void"
 			} else {
 				// Expression body
-				return "(y: number) => number" // TODO(@scribe): Better type inference
+				return "(y: number) => number" // TODO(@envoy): Better type inference
 			}
 		}
 		return "Function"
@@ -262,7 +262,7 @@ function extractReturnType(
 					returnedFunc.parameters.map((p) => p.getText()).join(", ")
 				}) => ${returnedFunc.type.getText()}`
 			}
-			return "(y: number) => number" // TODO(@scribe): Better type inference
+			return "(y: number) => number" // TODO(@envoy): Better type inference
 		}
 		return "inferred"
 	}
