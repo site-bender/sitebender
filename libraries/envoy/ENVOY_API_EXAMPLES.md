@@ -1,6 +1,6 @@
-# EXACT Parser API Output for Scribe
+# EXACT Parser API Output for Envoy
 
-These are the **EXACT** data structures Scribe receives from Parser. No strings, no regex - real TypeScript AST nodes and structured data.
+These are the **EXACT** data structures Envoy receives from Parser. No strings, no regex - real TypeScript AST nodes and structured data.
 
 ## Example 1: Simple Pure Function
 
@@ -405,7 +405,7 @@ const isDefined = <T>(value: T | undefined | null): value is T => {
 }
 ```
 
-## Key Points for Scribe:
+## Key Points for Envoy:
 
 1. **REAL TypeScript Nodes**: `node` property contains actual `typescript.Node` objects
 2. **Structured Data**: No string parsing needed - everything is pre-parsed
@@ -414,14 +414,14 @@ const isDefined = <T>(value: T | undefined | null): value is T => {
 5. **Comment Structure**: Parsed comments with types (description, example, gotcha, pro)
 6. **Complete Signatures**: All function properties extracted and categorized
 
-**Scribe should NEVER:**
+**Envoy should NEVER:**
 - Parse strings with regex
 - Re-analyze TypeScript AST
 - Ignore the metadata fast-paths
 - Reconstruct what Parser already provides
 
-**Scribe should ALWAYS:**
+**Envoy should ALWAYS:**
 - Use the `node` property for TypeScript AST operations
 - Use `signature` for documentation generation  
 - Use `metadata` for fast-path optimizations
-- Use `comments` for Scribe-specific documentation features
+- Use `comments` for Envoy-specific documentation features
