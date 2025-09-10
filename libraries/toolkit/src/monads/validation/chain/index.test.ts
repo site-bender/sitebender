@@ -11,13 +11,13 @@ import isInvalid from "../isInvalid/index.ts"
 Deno.test("chain - sequences validation computations", async (t) => {
 	const validateAge = (age: number) => 
 		age >= 18 
-			? valid<ValidationError, number>(age) 
-			: invalid<ValidationError, number>([{field: "age", messages: ["must be 18+"]}])
+			? valid(age) 
+			: invalid<ValidationError>([{field: "age", messages: ["must be 18+"]}])
 	
 	const validateNotTooOld = (age: number) =>
 		age <= 65 
-			? valid<ValidationError, number>(age) 
-			: invalid<ValidationError, number>([{field: "age", messages: ["must be 65 or under"]}])
+			? valid(age) 
+			: invalid<ValidationError>([{field: "age", messages: ["must be 65 or under"]}])
 
 	await t.step("should chain successful validations", () => {
 		const result = chain(validateNotTooOld)(validateAge(25))
@@ -47,11 +47,11 @@ Deno.test("chain - sequences validation computations", async (t) => {
 		let executed = false
 		const fn = (n: number) => {
 			executed = true
-			return valid<ValidationError, number>(n * 2)
+			return valid(n * 2)
 		}
 		
 		const errors: [ValidationError, ...ValidationError[]] = [{field: "test", messages: ["error"]}]
-		const result = chain(fn)(invalid<ValidationError, number>(errors))
+		const result = chain(fn)(invalid<ValidationError>(errors))
 		
 		assertEquals(executed, false)
 		assertEquals(isInvalid(result), true)
@@ -61,16 +61,16 @@ Deno.test("chain - sequences validation computations", async (t) => {
 		const parseNumber = (s: string) => {
 			const n = Number(s)
 			return isNaN(n) 
-				? invalid<string, number>(["not a number"])
-				: valid<string, number>(n)
+				? invalid<string>(["not a number"])
+				: valid(n)
 		}
 		
 		const checkPositive = (n: number) =>
 			n > 0 
-				? valid<string, number>(n) 
-				: invalid<string, number>(["must be positive"])
+				? valid(n) 
+				: invalid<string>(["must be positive"])
 		
-		const doubleIt = (n: number) => valid<string, number>(n * 2)
+		const doubleIt = (n: number) => valid(n * 2)
 		
 		const step1 = parseNumber("21")
 		const step2 = chain(checkPositive)(step1)

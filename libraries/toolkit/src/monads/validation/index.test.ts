@@ -64,7 +64,7 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	]
 
 	await t.step("should create invalid instance", () => {
-		const result = invalid<ValidationError, number>(errors)
+		const result = invalid<ValidationError>(errors)
 		assertEquals(isValid(result), false)
 		assertEquals(isInvalid(result), true)
 		assertEquals(result._tag, "Invalid")
@@ -72,7 +72,7 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 
 	await t.step("should not map over invalid value", () => {
 		const double = function double(x: number) { return x * 2 }
-		const result = map(double)(invalid<ValidationError, number>(errors))
+		const result = map(double)(invalid<ValidationError>(errors))
 
 		assertEquals(isInvalid(result), true)
 		if (isInvalid(result)) {
@@ -81,7 +81,7 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	})
 
 	await t.step("should not chain invalid value", () => {
-		const result = chain(validAge)(invalid<ValidationError, number>(errors))
+		const result = chain(validAge)(invalid<ValidationError>(errors))
 
 		assertEquals(isInvalid(result), true)
 		if (isInvalid(result)) {
@@ -90,11 +90,11 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	})
 
 	await t.step("should fold to invalid branch", () => {
-		const validation = invalid<ValidationError, number>(errors)
-		const result = fold<ValidationError, number, string>(
+		const validation = invalid<ValidationError>(errors)
+		const result = fold<number, string>(
 			function onValid(_value: number) { return "Valid" }
-		)(
-			function onInvalid(errs: NonEmptyArray<ValidationError>) { 
+		)<ValidationError>(
+			function onInvalid(errs) { 
 				return `Invalid: ${errs.length} errors` 
 			}
 		)(validation)
