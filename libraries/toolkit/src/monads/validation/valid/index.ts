@@ -1,7 +1,7 @@
 import type { Valid, Validation } from "../../../types/Validation/index.ts"
 
 //++ Creates a Valid validation representing a successful value
-export default function valid<E, A>(value: A): Validation<E, A> {
+export default function valid<A>(value: A): Validation<never, A> {
 	return {
 		_tag: "Valid" as const,
 		value,
