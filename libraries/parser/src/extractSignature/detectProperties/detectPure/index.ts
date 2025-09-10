@@ -53,7 +53,11 @@ function isGenerator(
 	if (typescript.isArrowFunction(node)) {
 		return false
 	}
-	return (node as any).asteriskToken !== undefined
+	// Type assertion to access asteriskToken property
+	const funcNode = node as typescript.FunctionDeclaration | 
+		typescript.FunctionExpression | 
+		typescript.MethodDeclaration
+	return funcNode.asteriskToken !== undefined
 }
 
 function hasImpurePatterns(

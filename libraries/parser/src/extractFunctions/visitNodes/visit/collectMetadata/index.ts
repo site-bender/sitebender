@@ -8,32 +8,8 @@ import isGlobalIdentifier from "../isGlobalIdentifier/index.ts"
 export default function collectMetadata(
 	node: typescript.Node,
 	metadata: TraversalMetadata,
-): void {
-	// Check for throw statements
-	if (typescript.isThrowStatement(node)) {
-		(metadata as any).hasThrowStatements = true
-	}
-
-	// Check for await expressions
-	if (typescript.isAwaitExpression(node)) {
-		(metadata as any).hasAwaitExpressions = true
-	}
-
-	// Check for return statements
-	if (typescript.isReturnStatement(node)) {
-		(metadata as any).hasReturnStatements = true
-	}
-
-	// Check for global access
-	if (typescript.isIdentifier(node)) {
-		const text = node.getText()
-		if (isGlobalIdentifier(text)) {
-			(metadata as any).hasGlobalAccess = true
-		}
-	}
-
-	// Increment complexity for decision points
-	if (
+): TraversalMetadata {
+	const hasDecisionPoint = 
 		typescript.isIfStatement(node) ||
 		typescript.isConditionalExpression(node) ||
 		typescript.isSwitchStatement(node) ||
@@ -43,20 +19,24 @@ export default function collectMetadata(
 		typescript.isWhileStatement(node) ||
 		typescript.isDoStatement(node) ||
 		typescript.isCatchClause(node)
-	) {
-		(metadata as any).cyclomaticComplexity++
-	}
-
-	// Increment for logical operators
-	if (typescript.isBinaryExpression(node)) {
-		const operator = node.operatorToken.kind
-		if (
-			operator === typescript.SyntaxKind.AmpersandAmpersandToken ||
-			operator === typescript.SyntaxKind.BarBarToken ||
-			operator === typescript.SyntaxKind.QuestionQuestionToken
-		) {
-			(metadata as any).cyclomaticComplexity++
-		}
+	
+	const hasLogicalOperator = typescript.isBinaryExpression(node) && (
+		node.operatorToken.kind === typescript.SyntaxKind.AmpersandAmpersandToken ||
+		node.operatorToken.kind === typescript.SyntaxKind.BarBarToken ||
+		node.operatorToken.kind === typescript.SyntaxKind.QuestionQuestionToken
+	)
+	
+	const identifierText = typescript.isIdentifier(node) ? node.getText() : null
+	
+	return {
+		...metadata,
+		hasThrowStatements: metadata.hasThrowStatements || typescript.isThrowStatement(node),
+		hasAwaitExpressions: metadata.hasAwaitExpressions || typescript.isAwaitExpression(node),
+		hasReturnStatements: metadata.hasReturnStatements || typescript.isReturnStatement(node),
+		hasGlobalAccess: metadata.hasGlobalAccess || (identifierText !== null && isGlobalIdentifier(identifierText)),
+		cyclomaticComplexity: metadata.cyclomaticComplexity + 
+			(hasDecisionPoint ? 1 : 0) + 
+			(hasLogicalOperator ? 1 : 0),
 	}
 }
 
