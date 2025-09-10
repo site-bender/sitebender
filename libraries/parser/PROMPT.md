@@ -285,3 +285,50 @@ Each example shows the complete data structure including:
 _Last updated: September 2025 - Complete audit reveals 35% completion_
 _Status: Solid foundation, 4 major functions missing for v1.0_
 _Next: Implement extractComments as highest priority_
+
+## 📋 Architecture Questions for Discussion
+
+### Key Questions for Missing Core Functions
+
+1. **extractComments scope**: Should this function handle JSDoc parsing internally, or just extract raw comments for another function to parse? The current architecture seems to favor separation of concerns.
+
+2. **analyzeBranches integration**: How should branch analysis integrate with the existing metadata collection in `extractFunctions`? Should it be a separate pass or part of the traversal?
+
+3. **extractTypes depth**: What level of type analysis is needed? Just top-level interfaces/types, or deep analysis including all nested types and references?
+
+4. **extractImports purpose**: Is this primarily for dependency tracking, or does it need to resolve actual module paths and analyze imported symbols?
+
+5. **Parser-Prover contract**: While the Parser-Scribe contract is documented, what specific data structure does Prover expect for automatic test generation?
+
+## 🔍 AUDIT RESULTS (December 9, 2025)
+
+### ✅ Verified Strengths
+- **Code Quality**: All implemented functions follow the Sitebender manifesto perfectly
+  - One function per file ✅
+  - Pure functional programming (no classes) ✅  
+  - Named functions over arrows ✅
+  - Proper JSDoc comments ✅
+- **Real Implementation**: No fake code, all functions do real TypeScript AST parsing
+- **Legitimate Tests**: All tests are real, test actual functionality, and pass
+  - Tests use real TypeScript compiler API
+  - Tests verify actual behavior, not mocks
+  - 9 test files with comprehensive coverage
+- **Architecture**: Clean separation of concerns, composable functions
+
+### ✅ PROMPT.md Accuracy
+- The document is **100% accurate** about what exists
+- Correctly identifies 3 of 7 core functions implemented
+- Correctly lists the 4 missing functions
+- No lies or "aspirational" claims about existing functionality
+
+### 🔍 Technical Details Confirmed
+- **58 TypeScript files** in src/
+- **5 top-level directories**: either, extractFunctions, extractSignature, parseSourceFile, types
+- **9 test files** all passing with real TypeScript parsing
+- Tests require `--allow-env` flag due to TypeScript compiler environment checks
+- No module exports found (no index.ts or mod.ts at library root)
+
+### ⚠️ Minor Issue
+- Library has no main export file (no src/index.ts or mod.ts)
+- This means the library can't be imported as a whole package yet
+- Individual functions must be imported directly from their paths

@@ -1,75 +1,12 @@
-/**
- * Validates hexadecimal color codes
- *
- * Checks whether a string is a valid hexadecimal color code in either
- * 3-digit, 4-digit (with alpha), 6-digit, or 8-digit (with alpha) format.
- * Optionally validates specific formats and whether the hash prefix is
- * required. Returns false for non-string values, empty strings, or
- * invalid color codes.
- *
- * Supported formats:
- * - 3-digit: #RGB or RGB (e.g., #F00, ABC)
- * - 4-digit: #RGBA or RGBA (e.g., #F00F, ABCD)
- * - 6-digit: #RRGGBB or RRGGBB (e.g., #FF0000, AABBCC)
- * - 8-digit: #RRGGBBAA or RRGGBBAA (e.g., #FF0000FF, AABBCCDD)
- * - Case-insensitive validation (a-f, A-F)
- * - Optional hash (#) prefix
- *
- * @param options - Optional configuration for validation strictness
- * @returns A predicate function that validates hex color codes
- * @example
- * ```typescript
- * // Basic validation
- * const validate = isHexColor()
- * validate("#FF0000")     // true
- * validate("#FFF")        // true
- * validate("FF0000")      // true (no hash)
- * validate("#GGG")        // false
- *
- * // Require hash prefix
- * const requireHash = isHexColor({ requireHash: true })
- * requireHash("#FF0000")  // true
- * requireHash("FF0000")   // false
- *
- * // Specific format validation
- * const sixDigitOnly = isHexColor({ format: "6-digit" })
- * sixDigitOnly("#FF0000") // true
- * sixDigitOnly("#FFF")    // false
- *
- * // Alpha channel validation
- * const withAlpha = isHexColor({ format: "with-alpha" })
- * withAlpha("#FF0000FF")  // true (8-digit)
- * withAlpha("#FFFF")      // true (4-digit)
- * withAlpha("#FF0000")    // false
- *
- * // Filter valid colors
- * const colors = ["#FF0000", "invalid", "#00FF00"]
- * colors.filter(isHexColor({ requireHash: true }))
- * // ["#FF0000", "#00FF00"]
- * ```
- *
- * @pure
- * @curried
- * @predicate
- * @safe
- */
-type HexColorFormat =
-	| "3-digit"
-	| "4-digit"
-	| "6-digit"
-	| "8-digit"
-	| "with-alpha"
-	| "no-alpha"
+import type { HexColorOptions } from "./types/index.ts"
+import not from "../../logic/not/index.ts"
+import test from "../../string/test/index.ts"
 
-type HexColorOptions = {
-	requireHash?: boolean
-	format?: HexColorFormat
-}
-
-const isHexColor = (
-	options: HexColorOptions = {},
-): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+//++ Validates hexadecimal color codes with optional format restrictions
+export default function isHexColor(options: HexColorOptions = {}) {
+	const VALID_HEX_CHARS = /^[0-9A-Fa-f]+$/
+	
+	return function validateHexColor(value: unknown): boolean {
 		if (typeof value !== "string" || value.length === 0) {
 			return false
 		}
@@ -78,7 +15,8 @@ const isHexColor = (
 
 		// Check for hash prefix
 		const hasHash = value.startsWith("#")
-		if (requireHash && !hasHash) {
+		
+		if (requireHash && not(hasHash)) {
 			return false
 		}
 
@@ -86,7 +24,7 @@ const isHexColor = (
 		const hex = hasHash ? value.slice(1) : value
 
 		// Check for valid hex characters only
-		if (!/^[0-9A-Fa-f]+$/.test(hex)) {
+		if (not(test(VALID_HEX_CHARS)(hex))) {
 			return false
 		}
 
@@ -114,4 +52,21 @@ const isHexColor = (
 	}
 }
 
-export default isHexColor
+//?? [EXAMPLE] isHexColor()("#FF0000") // true
+//?? [EXAMPLE] isHexColor()("#FFF") // true
+//?? [EXAMPLE] isHexColor()("FF0000") // true
+//?? [EXAMPLE] isHexColor()("#GGG") // false
+/*??
+ * [EXAMPLE] Require hash prefix
+ * const requireHash = isHexColor({ requireHash: true })
+ * requireHash("#FF0000")  // true
+ * requireHash("FF0000")   // false
+ *
+ * [EXAMPLE] Specific format validation
+ * const sixDigitOnly = isHexColor({ format: "6-digit" })
+ * sixDigitOnly("#FF0000") // true
+ * sixDigitOnly("#FFF")    // false
+ *
+ * [GOTCHA] Empty strings return false
+ * [PRO] Supports 3, 4, 6, and 8 digit formats with optional alpha channel
+ */
