@@ -1,5 +1,5 @@
 /**
- * Type definitions for @sitebender/scribe
+ * Type definitions for @sitebender/envoy
  */
 
 // Result type for error handling

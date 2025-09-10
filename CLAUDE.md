@@ -177,7 +177,7 @@ Distributed and hybrid data adapters (future).
 - P2P data exchange
 - Offline-first by default
 
-#### @sitebender/scribe
+#### @sitebender/envoy
 
 Automatic documentation generator from TypeScript code.
 
