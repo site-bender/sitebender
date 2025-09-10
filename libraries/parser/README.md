@@ -24,7 +24,7 @@
 
 ## Purpose (ASPIRATIONAL)
 
-Parser WILL BE the **single source of truth** for TypeScript code analysis across all @sitebender libraries. It WILL eliminate the 95% code duplication between scribe and prover, while providing consistent type understanding for foundry.
+Parser WILL BE the **single source of truth** for TypeScript code analysis across all @sitebender libraries. It WILL eliminate the 95% code duplication between envoy and prover, while providing consistent type understanding for foundry.
 
 **CURRENT REALITY:** Parser is orphaned code that no other library uses yet.
 
@@ -48,7 +48,7 @@ Parser WILL BE the **single source of truth** for TypeScript code analysis acros
                            ↓
         ┌──────────────────┼──────────────────┐
         ↓                  ↓                  ↓
-@sitebender/prover  @sitebender/scribe  @sitebender/foundry
+@sitebender/prover  @sitebender/envoy   @sitebender/foundry
   (test generation)   (documentation)    (data generation)
         ↓                  ↓                  ↓
         └──────────────────┼──────────────────┘
@@ -67,7 +67,7 @@ Parser WILL BE the **single source of truth** for TypeScript code analysis acros
 - Purity/currying detection for property tests
 - Parameter types for appropriate test data
 
-#### Scribe Gets:
+#### Envoy Gets:
 
 - Function signatures for documentation
 - Type information for API docs
@@ -117,7 +117,7 @@ Parser WILL BE the **single source of truth** for TypeScript code analysis acros
 - Property detection (purity, currying)
 - Branch analysis
 
-### When Working on Scribe
+### When Working on Envoy
 
 **TELL parser team:**
 
@@ -282,7 +282,7 @@ import { parseSignature } from "./parseSignature/index.ts"
 import extractSignature from "@sitebender/parser/extractSignature/index.ts"
 ```
 
-### For Scribe
+### For Envoy
 
 ```typescript
 // OLD (in scribe)

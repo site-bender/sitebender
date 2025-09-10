@@ -1,4 +1,4 @@
-import type { AstNode } from "../detectMathPropertiesFromAST/types/index.ts"
+import type { TraversalMetadata } from "../../types/index.ts"
 import type { Complexity } from "./types/index.ts"
 
 import calculateCyclomaticComplexity from "./calculateCyclomaticComplexity/index.ts"
@@ -6,8 +6,8 @@ import calculateCyclomaticComplexity from "./calculateCyclomaticComplexity/index
 //++ Detects the complexity of a function by analyzing its AST
 //++ [PRO] Provides a simple complexity metric based on control flow
 //++ [CON] Doesn't account for algorithmic complexity (Big O)
-export default function detectComplexityFromAST(node: AstNode): Complexity {
-	const cyclomaticComplexity = calculateCyclomaticComplexity(node)
+export default function detectComplexityFromAST(metadata: TraversalMetadata): Complexity {
+	const cyclomaticComplexity = calculateCyclomaticComplexity(metadata)
 
 	// Map cyclomatic complexity to Big O notation (heuristic mapping)
 	// Note: This is a rough approximation based on cyclomatic complexity
@@ -30,6 +30,6 @@ export default function detectComplexityFromAST(node: AstNode): Complexity {
 	}
 }
 
-//?? [EXAMPLE] detectComplexityFromAST(simpleFunctionNode) // "O(1)"
-//?? [EXAMPLE] detectComplexityFromAST(complexFunctionNode) // "O(n²)"
+//?? [EXAMPLE] detectComplexityFromAST({ cyclomaticComplexity: 1, hasThrowStatements: false, hasAwaitExpressions: false, hasGlobalAccess: false, hasReturnStatements: true }) // "O(1)"
+//?? [EXAMPLE] detectComplexityFromAST({ cyclomaticComplexity: 10, hasThrowStatements: false, hasAwaitExpressions: false, hasGlobalAccess: false, hasReturnStatements: true }) // "O(n²)"
 //?? [GOTCHA] This measures cyclomatic complexity, not time complexity

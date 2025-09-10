@@ -15,7 +15,87 @@ export type ParseError = {
 	file?: string
 }
 
-// AST node types from TypeScript compiler
+// Output format options
+export type OutputFormat = "markdown" | "html" | "json"
+
+// Generation options
+export type GenerateOptions = {
+	format?: OutputFormat
+	includeExamples?: boolean
+	includeLaws?: boolean
+	includeComplexity?: boolean
+}
+
+// Parser Output Types - What Parser provides to Envoy
+export type ParserOutput = {
+	readonly functions: ReadonlyArray<ParsedFunction>
+	readonly comments: ReadonlyArray<ParsedComment>
+}
+
+export type ParsedFunction = {
+	readonly node: unknown // TypeScript AST node - Envoy doesn't need to know the type
+	readonly signature: ParserFunctionSignature
+	readonly metadata: TraversalMetadata
+}
+
+export type ParserFunctionSignature = {
+	readonly name: string
+	readonly filePath: string
+	readonly parameters: ReadonlyArray<ParserParameter>
+	readonly returnType: ParserTypeInfo
+	readonly generics?: ReadonlyArray<ParserGeneric>
+	readonly isAsync: boolean
+	readonly isGenerator: boolean
+	readonly isCurried: boolean
+	readonly isPure: boolean
+	readonly isExported: boolean
+	readonly isDefault: boolean
+}
+
+export type ParserParameter = {
+	readonly name: string
+	readonly type: ParserTypeInfo
+	readonly isOptional: boolean
+	readonly isRest: boolean
+	readonly defaultValue?: string
+}
+
+export type ParserTypeInfo = {
+	readonly raw: string
+	readonly kind: "primitive" | "array" | "object" | "function" | "union" | "intersection" | "generic" | "literal" | "unknown" | "any" | "void" | "never" | "null" | "undefined"
+}
+
+export type ParserGeneric = {
+	readonly name: string
+	readonly constraint?: string
+	readonly default?: string
+}
+
+export type TraversalMetadata = {
+	readonly hasThrowStatements: boolean
+	readonly hasAwaitExpressions: boolean
+	readonly hasGlobalAccess: boolean
+	readonly cyclomaticComplexity: number
+	readonly hasReturnStatements: boolean
+	readonly hasIfStatements?: boolean
+	readonly hasLoops?: boolean
+	readonly hasTryCatch?: boolean
+	readonly parameterCount?: number
+	readonly isArrowFunction?: boolean
+	readonly isAsync?: boolean
+	readonly isGenerator?: boolean
+	readonly nestingDepth?: number
+}
+
+export type ParsedComment = {
+	readonly kind: "line" | "block"
+	readonly text: string // Trimmed content
+	readonly fullText: string // Original with markers
+	readonly type: "description" | "example" | "gotcha" | "pro" | "law"
+	readonly position: "before" | "after"
+}
+
+// Legacy types for existing code compatibility
 export type ASTNode = {
 	kind: string
 	pos: number
@@ -23,7 +103,6 @@ export type ASTNode = {
 	[key: string]: unknown
 }
 
-// Function signature information
 export type FunctionSignature = {
 	name: string
 	parameters: Array<Parameter>
@@ -35,7 +114,6 @@ export type FunctionSignature = {
 	isDefault: boolean
 }
 
-// Parameter information
 export type Parameter = {
 	name: string
 	type: string
@@ -43,14 +121,12 @@ export type Parameter = {
 	defaultValue?: string
 }
 
-// Generic constraint information
 export type Generic = {
 	name: string
 	constraint?: string
 	default?: string
 }
 
-// Function properties detected from analysis
 export type Properties = {
 	isPure: boolean
 	isCurried: boolean
@@ -64,7 +140,6 @@ export type Properties = {
 	deterministic: boolean
 }
 
-// Complexity classes
 export type ComplexityClass =
 	| "O(1)"
 	| "O(log n)"
@@ -76,7 +151,6 @@ export type ComplexityClass =
 	| "O(n!)"
 	| "Unknown"
 
-// Null handling strategies
 export type NullStrategy =
 	| "throws"
 	| "returns-null"
@@ -84,7 +158,6 @@ export type NullStrategy =
 	| "handles-gracefully"
 	| "unknown"
 
-// Example extracted from tests
 export type Example = {
 	code: string
 	result?: string
@@ -92,26 +165,21 @@ export type Example = {
 	source?: string
 }
 
-// Mathematical law
 export type Law = {
 	name: string
-	formula: string
-	description?: string
+	formula?: string
+	description: string
 }
 
-// Complete function metadata
 export type FunctionMetadata = {
 	signature: FunctionSignature
-	description?: string
+	description: string
 	properties: Properties
 	examples: Array<Example>
 	laws: Array<Law>
 	relatedFunctions: Array<string>
-	since?: string
-	deprecated?: string
 }
 
-// Documentation output
 export type Documentation = {
 	name: string
 	content: string
@@ -119,23 +187,7 @@ export type Documentation = {
 	metadata: FunctionMetadata
 }
 
-// Output formats
-export type OutputFormat = "markdown" | "html" | "json"
-
-// Generation options
-export type GenerateOptions = {
-	format?: OutputFormat
-	includeExamples?: boolean
-	includeProperties?: boolean
-	includeBenchmarks?: boolean
-	includeRelated?: boolean
-	examplesPath?: string
-}
-
-// Parser context for tracking state
 export type ParserContext = {
-	sourceFile: string
-	content: string
-	ast?: ASTNode
-	errors: Array<ParseError>
+	filePath: string
+	sourceCode: string
 }

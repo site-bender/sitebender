@@ -12,11 +12,11 @@ Deno.test("parseExpressionState - parses simple number", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "Number",
 			value: 42,
 		},
@@ -31,11 +31,11 @@ Deno.test("parseExpressionState - parses simple variable", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "Variable",
 			name: "x",
 		},
@@ -52,11 +52,11 @@ Deno.test("parseExpressionState - parses binary addition", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "BinaryOp",
 			operator: "+",
 			left: { type: "Variable", name: "a" },
@@ -74,11 +74,11 @@ Deno.test("parseExpressionState - parses unary negation", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "UnaryOp",
 			operator: "-",
 			operand: {
@@ -101,11 +101,11 @@ Deno.test("parseExpressionState - handles operator precedence", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "BinaryOp",
 			operator: "+",
 			left: { type: "Number", value: 2 },
@@ -133,11 +133,11 @@ Deno.test("parseExpressionState - parses parenthesized expressions", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "BinaryOp",
 			operator: "*",
 			left: {
@@ -163,13 +163,13 @@ Deno.test("parseExpressionState - respects minimum precedence parameter", () => 
 		],
 		position: 0,
 	}
-	
+
 	// With minPrecedence = 20 (higher than multiplication's 15)
 	// Should only parse the first number
 	const result = evalState(parseExpressionState(20))(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "Number",
 			value: 1,
 		},
@@ -191,11 +191,11 @@ Deno.test("parseExpressionState - handles complex nested expressions", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "BinaryOp",
 			operator: "*",
 			left: {
@@ -221,11 +221,11 @@ Deno.test("parseExpressionState - returns error for invalid tokens", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
-	assertEquals(result.ok, false)
-	if (!result.ok) {
-		assertEquals(result.error.expected, "number, variable, or '('")
+	assertEquals(result._tag, "Left")
+	if (result._tag === "Left") {
+		assertEquals(result.left.expected, "number, variable, or '('")
 	}
 })
 
@@ -238,11 +238,11 @@ Deno.test("parseExpressionState - returns error for missing closing parenthesis"
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
-	assertEquals(result.ok, false)
-	if (!result.ok) {
-		assertEquals(result.error.expected, ")")
+	assertEquals(result._tag, "Left")
+	if (result._tag === "Left") {
+		assertEquals(result.left.expected, ")")
 	}
 })
 
@@ -261,11 +261,11 @@ Deno.test("parseExpressionState - parses conditional expressions", () => {
 		],
 		position: 0,
 	}
-	
+
 	const result = evalState(parseExpressionState())(state)
 	assertEquals(result, {
-		ok: true,
-		value: {
+		_tag: "Right",
+		right: {
 			type: "Conditional",
 			condition: {
 				type: "BinaryOp",
