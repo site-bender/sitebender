@@ -50,7 +50,7 @@ Deno.test("chain - sequences validation computations", async (t) => {
 			return valid<ValidationError, number>(n * 2)
 		}
 		
-		const errors = [{field: "test", messages: ["error"]}]
+		const errors: [ValidationError, ...ValidationError[]] = [{field: "test", messages: ["error"]}]
 		const result = chain(fn)(invalid<ValidationError, number>(errors))
 		
 		assertEquals(executed, false)

@@ -17,7 +17,159 @@
 
 2. **`DO_NOTATION_TUTORIAL.md`** - Recently completed do-notation system documentation
 
-## CURRENT STATUS: VALIDATION MONAD CLEANUP COMPLETED ✅
+## 🚨🚨🚨 FIRST PRIORITY: MONADS FOLDER CLEANUP 🚨🚨🚨
+
+**THIS IS THE ABSOLUTE FIRST PRIORITY. DO NOT WORK ON ANYTHING ELSE UNTIL THIS IS COMPLETE.**
+
+The monads folder has been audited and contains 70+ files with violations that MUST be fixed before ANY other work. After completion, this folder will be marked as PERFECT, THE EPITOME, A SUBLIME EXAMPLE, AND COMPLETELY OFF LIMITS.
+
+### ⛔ DO NOT TOUCH THESE FILES - ALREADY CORRECTED ⛔
+**WARNING: TOUCHING THESE FILES WILL RESULT IN IMMEDIATE TERMINATION**
+
+#### Files Already Fixed (DO NOT MODIFY UNDER ANY CIRCUMSTANCES):
+1. ✅ `/src/monads/doEither/index.ts` - Fixed, imports from proper locations
+2. ✅ `/src/monads/doEither/createEitherMonad/index.ts` - Created correctly
+3. ✅ `/src/monads/either/left/index.ts` - Converted to named function with Scribe
+4. ✅ `/src/monads/either/right/index.ts` - Converted to named function with Scribe
+5. ✅ `/src/monads/either/fromNullable/index.ts` - Created correctly
+6. ✅ `/src/monads/validation/*` - ALL validation monad files are correct
+7. ✅ `/src/monads/doNotation/index.ts` - Correct as is
+8. ✅ `/src/monads/doNotationWithInspect/index.ts` - Correct as is
+9. ✅ `/src/monads/doNotationWithTap/index.ts` - Correct as is
+10. ✅ `/src/monads/validation/chain/index.test.ts` - Test fixed
+11. ✅ `/src/monads/validation/fold/index.test.ts` - Test fixed
+
+### 🔴 FILES REQUIRING URGENT FIXES
+
+#### Either Monad (14 files remaining):
+**Arrow functions to convert:**
+- `either/leftWithInspect/index.ts`
+- `either/rightWithInspect/index.ts`
+- `either/isLeft/index.ts`
+- `either/isRight/index.ts`
+- `either/show/index.ts`
+- `either/swap/index.ts`
+- `either/map/index.ts`
+- `either/mapLeft/index.ts`
+
+**JSDoc to Scribe (includes some above):**
+- `either/bimap/index.ts`
+- `either/chain/index.ts`
+- `either/chainLeft/index.ts`
+- `either/either/index.ts`
+- `either/fold/index.ts`
+- `either/getOrElse/index.ts`
+- `either/orElse/index.ts`
+- `either/tryCatch/index.ts`
+
+#### Maybe Monad (18 files):
+**ALL need arrow → named function AND JSDoc → Scribe:**
+- `maybe/chain/index.ts`
+- `maybe/filter/index.ts`
+- `maybe/fold/index.ts`
+- `maybe/fromNullable/index.ts`
+- `maybe/getOrElse/index.ts`
+- `maybe/isJust/index.ts`
+- `maybe/isNothing/index.ts`
+- `maybe/just/index.ts`
+- `maybe/justWithInspect/index.ts`
+- `maybe/map/index.ts`
+- `maybe/maybe/index.ts`
+- `maybe/nothing/index.ts`
+- `maybe/nothingWithInspect/index.ts`
+- `maybe/orElse/index.ts`
+- `maybe/show/index.ts`
+- `maybe/toEither/index.ts`
+- `maybe/toNullable/index.ts`
+
+#### IO Monad (20 files):
+**Need arrow → named function AND/OR JSDoc → Scribe:**
+- `io/ap/index.ts` (arrow function)
+- `io/chain/index.ts` (arrow function)
+- `io/chainIOEither/index.ts`
+- `io/chainIOMaybe/index.ts`
+- `io/fromEither/index.ts`
+- `io/fromIO/index.ts`
+- `io/fromMaybe/index.ts`
+- `io/io/index.ts`
+- `io/ioEither/index.ts`
+- `io/ioMaybe/index.ts`
+- `io/ioToIOEither/index.ts`
+- `io/ioToIOMaybe/index.ts`
+- `io/liftEither/index.ts`
+- `io/liftMaybe/index.ts`
+- `io/map/index.ts`
+- `io/mapIOEither/index.ts`
+- `io/mapIOMaybe/index.ts`
+- `io/of/index.ts`
+- `io/runIO/index.ts`
+
+#### Result Monad (18 files):
+**ALL need JSDoc → Scribe:**
+- `result/bimap/index.ts`
+- `result/chain/index.ts`
+- `result/chainErr/index.ts`
+- `result/err/index.ts`
+- `result/errWithInspect/index.ts`
+- `result/fold/index.ts`
+- `result/getOrElse/index.ts`
+- `result/isErr/index.ts`
+- `result/isOk/index.ts`
+- `result/map/index.ts`
+- `result/mapErr/index.ts`
+- `result/ok/index.ts`
+- `result/okWithInspect/index.ts`
+- `result/orElse/index.ts`
+- `result/result/index.ts`
+- `result/show/index.ts`
+- `result/swap/index.ts`
+- `result/tryCatch/index.ts`
+
+#### Other Monads (4 files):
+- `state/modify/index.ts` (arrow function)
+- `writer/WriterM/index.ts` (arrow function)
+- `task/delay/index.ts` (arrow function)
+- `task/map/index.ts` (arrow function)
+
+### TOTAL: 74 FILES MUST BE FIXED
+
+### Conversion Rules (MUST FOLLOW EXACTLY):
+1. **Arrow → Named Function:**
+   ```typescript
+   // ❌ WRONG
+   const foo = <T>(x: T) => result
+   
+   // ✅ CORRECT
+   export default function foo<T>(x: T): ResultType {
+     return result
+   }
+   ```
+
+2. **JSDoc → Scribe:**
+   ```typescript
+   // ❌ WRONG
+   /**
+    * Long JSDoc comment
+    */
+   
+   // ✅ CORRECT
+   //++ Brief one-line description
+   //?? [EXAMPLE] foo(42) // result
+   /*??
+    * [EXAMPLE] Complex example
+    * [PRO] Benefits
+    * [GOTCHA] Warnings
+    */
+   ```
+
+3. **One function per file** - NO EXCEPTIONS
+4. **Types import from src/types/** - Never re-export types
+
+### Test Status Before Starting:
+- Runtime: ✅ All 37 tests passing
+- Type checking: ⚠️ Minor issues (not blocking)
+
+## PREVIOUS STATUS: VALIDATION MONAD CLEANUP COMPLETED ✅
 
 ### All Phases Completed Successfully
 

@@ -35,7 +35,7 @@ Deno.test("fold - extracts values from validation", async (t) => {
 
 	await t.step("should transform to different types", () => {
 		const validation = valid<ValidationError, number>(100)
-		const result = fold<ValidationError, number, { success: boolean; data?: number; errors?: ValidationError[] }>(
+		const result = fold<ValidationError, number, { success: boolean; data?: number; errors?: readonly ValidationError[] }>(
 			(value: number) => ({ success: true, data: value })
 		)(
 			(errors: NonEmptyArray<ValidationError>) => ({ success: false, errors })
