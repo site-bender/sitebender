@@ -6,7 +6,7 @@ import parseConditionalExpressionState from "../parseConditionalExpressionState/
 
 //++ Main entry point for State-based expression parsing with precedence support
 export default function parseExpressionState(
-	minPrecedence: number = 0
+	minPrecedence: number = 0,
 ): Parser<Result<AstNode, ParseError>> {
 	return doState<ParserState, Result<AstNode, ParseError>>(function* () {
 		// For top-level expressions (minPrecedence = 0), parse conditional expressions
@@ -15,12 +15,12 @@ export default function parseExpressionState(
 		if (minPrecedence === 0) {
 			return yield parseConditionalExpressionState(parseExpressionState)
 		}
-		
+
 		// For sub-expressions (minPrecedence > 0), skip conditionals
 		const parseWithRecursion = parseBinaryExpressionState(
-			parseExpressionState
+			parseExpressionState,
 		)
-		
+
 		return yield parseWithRecursion(minPrecedence)
 	})
 }
