@@ -21,10 +21,16 @@ export type ParsedHelp = {
 
 export type ParsedTechDebt = { line: number; reason: string; raw: string }
 
+export type ParsedExample = {
+	code: string
+	expected?: string
+}
+
 export type ParsedComments = {
 	description?: string
 	help: Array<ParsedHelp>
 	techDebt: Array<ParsedTechDebt>
+	examples: Array<ParsedExample>
 	raw: Array<{ line: number; marker: string; text: string }>
 	diagnostics: Array<{ line: number; issue: string }>
 }
@@ -36,6 +42,7 @@ export type Acc = {
 	haveDescription: boolean
 	help: Array<ParsedHelp>
 	techDebt: Array<ParsedTechDebt>
+	examples: Array<ParsedExample>
 	raw: Array<{ line: number; marker: string; text: string }>
 	diagnostics: Array<{ line: number; issue: string }>
 }
