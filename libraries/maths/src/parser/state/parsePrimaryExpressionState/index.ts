@@ -1,4 +1,6 @@
 import doState from "../../../../../toolkit/src/monads/doState/index.ts"
+import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
+import err from "../../../../../toolkit/src/monads/result/err/index.ts"
 import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
 import currentToken from "../currentToken/index.ts"
@@ -7,78 +9,68 @@ import expect from "../expect/index.ts"
 
 //++ Parses primary expressions (numbers, variables, parenthesized) using State monad
 export default function parsePrimaryExpressionState(
-	parseExpression?: (minPrecedence: number) => Parser<Result<AstNode, ParseError>>
+	parseExpression?: (
+		minPrecedence: number,
+	) => Parser<Result<AstNode, ParseError>>,
 ): Parser<Result<AstNode, ParseError>> {
 	return doState<ParserState, Result<AstNode, ParseError>>(function* () {
 		const token = yield currentToken()
-		
+
 		switch (token.type) {
 			case "NUMBER": {
 				yield advance()
-				return {
-					ok: true,
-					value: {
-						type: "Number",
-						value: parseFloat(token.value),
-					},
-				}
+				return ok({
+					type: "Number",
+					value: parseFloat(token.value),
+				})
 			}
-			
+
 			case "IDENTIFIER": {
 				yield advance()
-				return {
-					ok: true,
-					value: {
-						type: "Variable",
-						name: token.value,
-					},
-				}
+				return ok({
+					type: "Variable",
+					name: token.value,
+				})
 			}
-			
+
 			case "LEFT_PAREN": {
 				if (!parseExpression) {
-					return {
-						ok: false,
-						error: {
-							message: "Cannot parse parenthesized expression without parseExpression function",
-							position: token.position,
-						},
-					}
+					return err({
+						message:
+							"Cannot parse parenthesized expression without parseExpression function",
+						position: token.position,
+					})
 				}
-				
+
 				yield advance() // Consume LEFT_PAREN
 				const exprResult = yield parseExpression(0)
-				
+
 				if (!exprResult.ok) {
 					return exprResult
 				}
-				
+
 				const rightParenResult = yield expect("RIGHT_PAREN")
 				if (!rightParenResult.ok) {
-					return {
-						ok: false,
-						error: {
-							message: `Missing closing parenthesis for opening at position ${token.position}`,
-							position: rightParenResult.error.position || token.position,
-							expected: ")",
-							found: rightParenResult.error.found || "EOF",
-						},
-					}
+					return err({
+						message:
+							`Missing closing parenthesis for opening at position ${token.position}`,
+						position: rightParenResult.error.position || token.position,
+						expected: ")",
+						found: rightParenResult.error.found || "EOF",
+					})
 				}
-				
+
 				return exprResult
 			}
-			
+
 			default:
-				return {
-					ok: false,
-					error: {
-						message: `Unexpected token '${token.value}' at position ${token.position}`,
-						position: token.position,
-						expected: "number, variable, or '('",
-						found: token.type,
-					},
-				}
+				return err({
+					message:
+						`Unexpected token '${token.value}' at position ${token.position}`,
+					position: token.position,
+					expected: "number, variable, or '('",
+					found: token.type,
+				})
 		}
 	})
 }
