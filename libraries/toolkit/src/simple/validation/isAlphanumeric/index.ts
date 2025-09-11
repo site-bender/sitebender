@@ -27,8 +27,9 @@ export default function isAlphanumeric(
 		const spacePattern = allowSpaces ? "\\s" : ""
 		const hyphenPattern = allowHyphens ? "\\-" : ""
 		const underscorePattern = allowUnderscores ? "_" : ""
-		
-		const pattern = basePattern + spacePattern + hyphenPattern + underscorePattern
+
+		const pattern = basePattern + spacePattern + hyphenPattern +
+			underscorePattern
 
 		const regex = unicode
 			? new RegExp(`^[${pattern}]+$`, "u")
@@ -45,29 +46,30 @@ export default function isAlphanumeric(
 //?? [EXAMPLE] isAlphanumeric()("") // false (empty)
 //?? [EXAMPLE] isAlphanumeric()(123) // false (not string)
 /*??
- * [EXAMPLE]
- * const validator = isAlphanumeric()
- * validator("Hello123")    // true
- * validator("abc456")      // true
- * validator("Hello World") // false (space)
- * validator("test_123")    // false (underscore)
- *
- * const withSpaces = isAlphanumeric({ allowSpaces: true })
- * withSpaces("Hello World 123")  // true
- * withSpaces("Product ID 456")   // true
- *
- * const withHyphens = isAlphanumeric({ 
- *   allowHyphens: true,
- *   allowUnderscores: true
- * })
- * withHyphens("UUID-1234-ABCD")  // true
- * withHyphens("user_name_123")   // true
- *
- * const unicode = isAlphanumeric({ unicode: true })
- * unicode("José123")  // true
- * unicode("北京2024")  // true (Chinese + numbers)
- * unicode("Москва99") // true (Cyrillic + numbers)
- *
- * [GOTCHA] Empty strings always return false
- * [GOTCHA] Non-string values always return false
- */
+ | [EXAMPLE]
+ | const validator = isAlphanumeric()
+ | validator("Hello123")    // true
+ | validator("abc456")      // true
+ | validator("Hello World") // false (space)
+ | validator("test_123")    // false (underscore)
+ |
+ | const withSpaces = isAlphanumeric({ allowSpaces: true })
+ | withSpaces("Hello World 123")  // true
+ | withSpaces("Product ID 456")   // true
+ |
+ | const withHyphens = isAlphanumeric({
+ |   allowHyphens: true,
+ |   allowUnderscores: true
+ | })
+ | withHyphens("UUID-1234-ABCD")  // true
+ | withHyphens("user_name_123")   // true
+ |
+ | const unicode = isAlphanumeric({ unicode: true })
+ | unicode("José123")  // true
+ | unicode("北京2024")  // true (Chinese + numbers)
+ | unicode("Москва99") // true (Cyrillic + numbers)
+ |
+ | [GOTCHA] Empty strings always return false
+ | [GOTCHA] Non-string values always return false
+ |
+*/

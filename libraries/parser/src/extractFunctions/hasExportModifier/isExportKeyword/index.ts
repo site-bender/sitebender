@@ -1,7 +1,9 @@
 import * as typescript from "npm:typescript@5.7.2"
 
 //++ Checks if a modifier is an export keyword
-export default function isExportKeyword(modifier: typescript.ModifierLike): boolean {
+export default function isExportKeyword(
+	modifier: typescript.ModifierLike,
+): boolean {
 	return modifier.kind === typescript.SyntaxKind.ExportKeyword
 }
 

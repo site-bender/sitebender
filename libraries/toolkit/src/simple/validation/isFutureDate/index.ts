@@ -29,11 +29,12 @@ export default function isFutureDate(
 //?? [EXAMPLE] isFutureDate(null) // false
 //?? [EXAMPLE] isFutureDate("invalid") // false
 /*??
- * [EXAMPLE]
- * const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 })
- * isFutureDate(tomorrow)  // true
- * isFutureDate(Temporal.Now.plainDateISO())  // false (today)
- *
- * [GOTCHA] Today's date returns false (not considered future)
- * [PRO] Accepts various date formats via DateInput type
- */
+ | [EXAMPLE]
+ | const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 })
+ | isFutureDate(tomorrow)  // true
+ | isFutureDate(Temporal.Now.plainDateISO())  // false (today)
+ |
+ | [GOTCHA] Today's date returns false (not considered future)
+ | [PRO] Accepts various date formats via DateInput type
+ |
+*/

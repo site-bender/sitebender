@@ -20,7 +20,8 @@ export default function randomBoolean(
 //?? [EXAMPLE] randomBoolean(1) // always true
 //?? [EXAMPLE] randomBoolean(0) // always false
 /*??
- * [EXAMPLE]
- * const successes = Array.from({ length: 1000 }, () => randomBoolean(0.6))
- *   .filter(Boolean).length // ~600
- */
+ | [EXAMPLE]
+ | const successes = Array.from({ length: 1000 }, () => randomBoolean(0.6))
+ |   .filter(Boolean).length // ~600
+ |
+*/

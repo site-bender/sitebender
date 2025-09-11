@@ -1,5 +1,4 @@
 import type { AstNode } from "../detectMathPropertiesFromAST/types/index.ts"
-
 import type { CurryInfo } from "./types/index.ts"
 
 import countCurryLevels from "./countCurryLevels/index.ts"

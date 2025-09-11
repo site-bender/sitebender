@@ -1,8 +1,3 @@
-import doState, {
-	get,
-} from "../../../../../toolkit/src/monads/doState/index.ts"
-import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
-import err from "../../../../../toolkit/src/monads/result/err/index.ts"
 import type {
 	ParseError,
 	Result,
@@ -10,6 +5,12 @@ import type {
 	TokenType,
 } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
+
+import doState, {
+	get,
+} from "../../../../../toolkit/src/monads/doState/index.ts"
+import err from "../../../../../toolkit/src/monads/result/err/index.ts"
+import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
 import advance from "../advance/index.ts"
 
 //++ Expects a specific token type and advances if matched, returns error if not

@@ -1,7 +1,8 @@
-import doState from "../../../../../../../toolkit/src/monads/doState/index.ts"
-import err from "../../../../../../../toolkit/src/monads/result/err/index.ts"
 import type { AstNode, ParseError, Result } from "../../../../../types/index.ts"
 import type { Parser } from "../../../../types/state/index.ts"
+
+import doState from "../../../../../../../toolkit/src/monads/doState/index.ts"
+import err from "../../../../../../../toolkit/src/monads/result/err/index.ts"
 import parseBinaryLoop from "../../parseBinaryLoop/index.ts"
 
 //++ Processes the left node by starting binary operation parsing loop

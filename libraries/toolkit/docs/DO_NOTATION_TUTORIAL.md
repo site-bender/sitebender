@@ -12,13 +12,11 @@ If you've ever written deeply nested monadic code and felt your brain melting, t
 
 ```typescript
 // A simple State computation: increment three times and sum
-const computation = chain(x =>
-  chain(y =>
-    chain(z =>
-      of(x + y + z)
-    )(modify(s => s + 1))
-  )(modify(s => s + 1))
-)(modify(s => s + 1))
+const computation = chain((x) =>
+	chain((y) => chain((z) => of(x + y + z))(modify((s) => s + 1)))(
+		modify((s) => s + 1),
+	)
+)(modify((s) => s + 1))
 
 // Can you understand what this does? Neither can I.
 ```
@@ -27,10 +25,10 @@ const computation = chain(x =>
 
 ```typescript
 const computation = doState(function* () {
-  const x = yield modify(s => s + 1)
-  const y = yield modify(s => s + 1)
-  const z = yield modify(s => s + 1)
-  return x + y + z
+	const x = yield modify((s) => s + 1)
+	const y = yield modify((s) => s + 1)
+	const z = yield modify((s) => s + 1)
+	return x + y + z
 })
 
 // Ah! It increments state three times and returns the sum!
@@ -51,27 +49,27 @@ You **MUST** use `function*` syntax, not arrow functions! Generators require the
 ### Setting Up State
 
 ```typescript
-import { doState, get, put, modify } from "@sitebender/toolkit/monads/doState"
+import { doState, get, modify, put } from "@sitebender/toolkit/monads/doState"
 
 // State type: what we're threading through
 type Counter = { count: number; history: number[] }
 
 // A simple stateful computation
 const incrementAndLog = doState<Counter, number>(function* () {
-  // Get current state
-  const state = yield get()
-  
-  // Modify the state
-  yield put({
-    count: state.count + 1,
-    history: [...state.history, state.count]
-  })
-  
-  // Get updated state
-  const newState = yield get()
-  
-  // Return a value
-  return newState.count
+	// Get current state
+	const state = yield get()
+
+	// Modify the state
+	yield put({
+		count: state.count + 1,
+		history: [...state.history, state.count],
+	})
+
+	// Get updated state
+	const newState = yield get()
+
+	// Return a value
+	return newState.count
 })
 
 // Run it
@@ -89,44 +87,44 @@ type Command = "INC" | "DEC" | "DOUBLE" | "RESET"
 type MachineState = { value: number; commands: Command[] }
 
 const processCommands = (commands: Command[]) =>
-  doState<MachineState, number>(function* () {
-    for (const cmd of commands) {
-      const current = yield get()
-      
-      switch (cmd) {
-        case "INC":
-          yield modify(s => ({
-            ...s,
-            value: s.value + 1,
-            commands: [...s.commands, cmd]
-          }))
-          break
-          
-        case "DEC":
-          yield modify(s => ({
-            ...s,
-            value: s.value - 1,
-            commands: [...s.commands, cmd]
-          }))
-          break
-          
-        case "DOUBLE":
-          yield modify(s => ({
-            ...s,
-            value: s.value * 2,
-            commands: [...s.commands, cmd]
-          }))
-          break
-          
-        case "RESET":
-          yield put({ value: 0, commands: [...current.commands, cmd] })
-          break
-      }
-    }
-    
-    const final = yield get()
-    return final.value
-  })
+	doState<MachineState, number>(function* () {
+		for (const cmd of commands) {
+			const current = yield get()
+
+			switch (cmd) {
+				case "INC":
+					yield modify((s) => ({
+						...s,
+						value: s.value + 1,
+						commands: [...s.commands, cmd],
+					}))
+					break
+
+				case "DEC":
+					yield modify((s) => ({
+						...s,
+						value: s.value - 1,
+						commands: [...s.commands, cmd],
+					}))
+					break
+
+				case "DOUBLE":
+					yield modify((s) => ({
+						...s,
+						value: s.value * 2,
+						commands: [...s.commands, cmd],
+					}))
+					break
+
+				case "RESET":
+					yield put({ value: 0, commands: [...current.commands, cmd] })
+					break
+			}
+		}
+
+		const final = yield get()
+		return final.value
+	})
 
 // Use it
 const program = processCommands(["INC", "INC", "DOUBLE", "DEC"])
@@ -138,37 +136,42 @@ const [result, state] = program({ value: 0, commands: [] })
 ## Part 3: Error Handling with Either Monad
 
 ```typescript
-import { doEither, Left, Right, fromNullable } from "@sitebender/toolkit/monads/doEither"
+import {
+	doEither,
+	fromNullable,
+	Left,
+	Right,
+} from "@sitebender/toolkit/monads/doEither"
 
 type Error = string
 type User = { id: string; name: string; age: number }
 
 // Validate and transform user data
 const validateUser = (data: any) =>
-  doEither<Error, User>(function* () {
-    // Validate id exists
-    if (!data.id) {
-      yield Left("Missing user ID")
-    }
-    
-    // Validate name
-    if (!data.name || data.name.length < 2) {
-      yield Left("Invalid name: must be at least 2 characters")
-    }
-    
-    // Validate and parse age
-    const age = parseInt(data.age)
-    if (isNaN(age) || age < 0 || age > 150) {
-      yield Left("Invalid age: must be between 0 and 150")
-    }
-    
-    // All validations passed!
-    return {
-      id: data.id,
-      name: data.name.trim(),
-      age: age
-    }
-  })
+	doEither<Error, User>(function* () {
+		// Validate id exists
+		if (!data.id) {
+			yield Left("Missing user ID")
+		}
+
+		// Validate name
+		if (!data.name || data.name.length < 2) {
+			yield Left("Invalid name: must be at least 2 characters")
+		}
+
+		// Validate and parse age
+		const age = parseInt(data.age)
+		if (isNaN(age) || age < 0 || age > 150) {
+			yield Left("Invalid age: must be between 0 and 150")
+		}
+
+		// All validations passed!
+		return {
+			id: data.id,
+			name: data.name.trim(),
+			age: age,
+		}
+	})
 
 // Use it
 const goodUser = validateUser({ id: "123", name: "Alice", age: "30" })
@@ -181,21 +184,28 @@ const badUser = validateUser({ id: "456", name: "B", age: "30" })
 ## Part 4: Null-Safe Operations with Maybe Monad
 
 ```typescript
-import { doMaybe, None, Some, fromNullable } from "@sitebender/toolkit/monads/doMaybe"
+import {
+	doMaybe,
+	fromNullable,
+	None,
+	Some,
+} from "@sitebender/toolkit/monads/doMaybe"
 
 // Safe property access
-const getUserEmail = (data: any) => 
-  doMaybe<string>(function* () {
-    const user = yield fromNullable(data.user)
-    const profile = yield fromNullable(user.profile)
-    const email = yield fromNullable(profile.email)
-    
-    // Only reaches here if all values exist
-    return email.toLowerCase()
-  })
+const getUserEmail = (data: any) =>
+	doMaybe<string>(function* () {
+		const user = yield fromNullable(data.user)
+		const profile = yield fromNullable(user.profile)
+		const email = yield fromNullable(profile.email)
+
+		// Only reaches here if all values exist
+		return email.toLowerCase()
+	})
 
 // Returns None() for any missing value in the chain
-const result1 = getUserEmail({ user: { profile: { email: "ALICE@EXAMPLE.COM" } } })
+const result1 = getUserEmail({
+	user: { profile: { email: "ALICE@EXAMPLE.COM" } },
+})
 // Some("alice@example.com")
 
 const result2 = getUserEmail({ user: null })
@@ -208,30 +218,35 @@ const result3 = getUserEmail({})
 ## Part 5: Async Operations with Task Monad
 
 ```typescript
-import { doTask, fromPromise, delay, parallel } from "@sitebender/toolkit/monads/doTask"
+import {
+	delay,
+	doTask,
+	fromPromise,
+	parallel,
+} from "@sitebender/toolkit/monads/doTask"
 
 // Fetch user data with proper sequencing
 const fetchUserProfile = (userId: string) =>
-  doTask<UserProfile>(function* () {
-    // Fetch user
-    const userResponse = yield fromPromise(fetch(`/api/users/${userId}`))
-    const user = yield fromPromise(userResponse.json())
-    
-    // Fetch user's posts in parallel with friends
-    const tasks = [
-      fromPromise(fetch(`/api/users/${userId}/posts`).then(r => r.json())),
-      fromPromise(fetch(`/api/users/${userId}/friends`).then(r => r.json()))
-    ]
-    const [posts, friends] = yield parallel(tasks)
-    
-    // Combine all data
-    return {
-      ...user,
-      posts: posts.data,
-      friendCount: friends.length,
-      popular: posts.data.length > 10
-    }
-  })
+	doTask<UserProfile>(function* () {
+		// Fetch user
+		const userResponse = yield fromPromise(fetch(`/api/users/${userId}`))
+		const user = yield fromPromise(userResponse.json())
+
+		// Fetch user's posts in parallel with friends
+		const tasks = [
+			fromPromise(fetch(`/api/users/${userId}/posts`).then((r) => r.json())),
+			fromPromise(fetch(`/api/users/${userId}/friends`).then((r) => r.json())),
+		]
+		const [posts, friends] = yield parallel(tasks)
+
+		// Combine all data
+		return {
+			...user,
+			posts: posts.data,
+			friendCount: friends.length,
+			popular: posts.data.length > 10,
+		}
+	})
 
 // Use it - Task is lazy, doesn't run until called
 const profileTask = fetchUserProfile("user123")
@@ -246,39 +261,39 @@ const profile = await profileTask() // Execute the task
 import tap from "@sitebender/toolkit/monads/tap"
 
 const computation = doState(function* () {
-  const initial = yield get()
-  
-  // Tap to log without affecting flow
-  tap(value => console.log("Initial state:", value))(initial)
-  
-  yield modify(s => s * 2)
-  
-  const doubled = yield get()
-  tap(value => console.log("After doubling:", value))(doubled)
-  
-  return doubled
+	const initial = yield get()
+
+	// Tap to log without affecting flow
+	tap((value) => console.log("Initial state:", value))(initial)
+
+	yield modify((s) => s * 2)
+
+	const doubled = yield get()
+	tap((value) => console.log("After doubling:", value))(doubled)
+
+	return doubled
 })
 ```
 
 ### Conditional Debugging
 
 ```typescript
-const DEBUG = process.env.NODE_ENV === 'development'
+const DEBUG = process.env.NODE_ENV === "development"
 
 const parseExpression = doState(function* () {
-  const token = yield getCurrentToken()
-  
-  if (DEBUG) {
-    tap(t => console.log(`Parsing token: ${t.type}`))(token)
-  }
-  
-  const result = yield parseToken(token)
-  
-  if (DEBUG) {
-    tap(r => console.log(`Parse result:`, r))(result)
-  }
-  
-  return result
+	const token = yield getCurrentToken()
+
+	if (DEBUG) {
+		tap((t) => console.log(`Parsing token: ${t.type}`))(token)
+	}
+
+	const result = yield parseToken(token)
+
+	if (DEBUG) {
+		tap((r) => console.log(`Parse result:`, r))(result)
+	}
+
+	return result
 })
 ```
 
@@ -288,10 +303,10 @@ const parseExpression = doState(function* () {
 
 ```typescript
 const production = doState(function* () {
-  // Clean, fast, no overhead
-  const x = yield get()
-  yield put(x + 1)
-  return x
+	// Clean, fast, no overhead
+	const x = yield get()
+	yield put(x + 1)
+	return x
 })
 ```
 
@@ -299,12 +314,12 @@ const production = doState(function* () {
 
 ```typescript
 const development = doNotationWithTap(
-  StateMonad,
-  (value) => console.log("[Dev]", value)
+	StateMonad,
+	(value) => console.log("[Dev]", value),
 )(function* () {
-  const x = yield get()
-  yield put(x + 1)
-  return x
+	const x = yield get()
+	yield put(x + 1)
+	return x
 })
 ```
 
@@ -312,14 +327,14 @@ const development = doNotationWithTap(
 
 ```typescript
 const debugging = doNotationWithInspect(StateMonad, {
-  label: "Debug",
-  showTypes: true,
-  maxDepth: 3,
-  filter: (value) => value !== undefined
+	label: "Debug",
+	showTypes: true,
+	maxDepth: 3,
+	filter: (value) => value !== undefined,
 })(function* () {
-  const x = yield get()
-  yield put(x + 1)
-  return x
+	const x = yield get()
+	yield put(x + 1)
+	return x
 })
 ```
 
@@ -333,19 +348,19 @@ import type { MonadDictionary } from "@sitebender/toolkit/monads/doNotation"
 
 // Define your monad operations
 const MyMonad: MonadDictionary<MyType> = {
-  chain: <A, B>(f: (a: A) => MyType<B>) => (ma: MyType<A>): MyType<B> => {
-    // Your chain implementation
-  },
-  of: <A>(value: A): MyType<A> => {
-    // Your of implementation
-  }
+	chain: <A, B>(f: (a: A) => MyType<B>) => (ma: MyType<A>): MyType<B> => {
+		// Your chain implementation
+	},
+	of: <A>(value: A): MyType<A> => {
+		// Your of implementation
+	},
 }
 
 // Now it works with do-notation!
 const computation = doNotation(MyMonad)(function* () {
-  const x = yield MyMonad.of(5)
-  const y = yield MyMonad.of(3)
-  return x + y
+	const x = yield MyMonad.of(5)
+	const y = yield MyMonad.of(3)
+	return x + y
 })
 ```
 
@@ -355,33 +370,37 @@ const computation = doNotation(MyMonad)(function* () {
 
 ```typescript
 // Parse nested structures with do-notation
-type Tree<A> = { tag: "Leaf"; value: A } | { tag: "Branch"; left: Tree<A>; right: Tree<A> }
+type Tree<A> = { tag: "Leaf"; value: A } | {
+	tag: "Branch"
+	left: Tree<A>
+	right: Tree<A>
+}
 
 const sumTree = <A>(tree: Tree<number>): State<number, number> =>
-  doState(function* () {
-    switch (tree.tag) {
-      case "Leaf":
-        // Add to running total
-        yield modify(sum => sum + tree.value)
-        return tree.value
-        
-      case "Branch":
-        // Recursively process branches
-        const leftSum = yield sumTree(tree.left)
-        const rightSum = yield sumTree(tree.right)
-        return leftSum + rightSum
-    }
-  })
+	doState(function* () {
+		switch (tree.tag) {
+			case "Leaf":
+				// Add to running total
+				yield modify((sum) => sum + tree.value)
+				return tree.value
+
+			case "Branch":
+				// Recursively process branches
+				const leftSum = yield sumTree(tree.left)
+				const rightSum = yield sumTree(tree.right)
+				return leftSum + rightSum
+		}
+	})
 
 // Use it
 const tree: Tree<number> = {
-  tag: "Branch",
-  left: { tag: "Leaf", value: 3 },
-  right: {
-    tag: "Branch",
-    left: { tag: "Leaf", value: 4 },
-    right: { tag: "Leaf", value: 5 }
-  }
+	tag: "Branch",
+	left: { tag: "Leaf", value: 3 },
+	right: {
+		tag: "Branch",
+		left: { tag: "Leaf", value: 4 },
+		right: { tag: "Leaf", value: 5 },
+	},
 }
 
 const [result, total] = sumTree(tree)(0)
@@ -398,32 +417,32 @@ const [result, total] = sumTree(tree)(0)
 type StateEither<S, E, A> = (s: S) => Either<E, [A, S]>
 
 const doStateEither = <S, E, A>(
-  genFn: () => Generator<StateEither<S, E, any>, A, any>
+	genFn: () => Generator<StateEither<S, E, any>, A, any>,
 ): StateEither<S, E, A> => {
-  // Implementation would combine both monads
-  return (initialState: S) => {
-    // Complex monad transformer logic here
-    // This is aspirational - not yet implemented!
-  }
+	// Implementation would combine both monads
+	return (initialState: S) => {
+		// Complex monad transformer logic here
+		// This is aspirational - not yet implemented!
+	}
 }
 
 // THEORETICAL USE CASE:
 // Computations that track state AND can fail
 const riskyComputation = doStateEither<number, string, number>(function* () {
-  const x = yield getState()
-  
-  if (x < 0) {
-    yield throwError("Cannot process negative numbers")
-  }
-  
-  yield setState(x * 2)
-  const y = yield getState()
-  
-  if (y > 100) {
-    yield throwError("Result too large")
-  }
-  
-  return y
+	const x = yield getState()
+
+	if (x < 0) {
+		yield throwError("Cannot process negative numbers")
+	}
+
+	yield setState(x * 2)
+	const y = yield getState()
+
+	if (y > 100) {
+		yield throwError("Result too large")
+	}
+
+	return y
 })
 ```
 
@@ -442,14 +461,14 @@ const riskyComputation = doStateEither<number, string, number>(function* () {
 ```typescript
 // WRONG - forgot to yield
 const bad = doState(function* () {
-  get() // This does nothing!
-  return 42
+	get() // This does nothing!
+	return 42
 })
 
 // RIGHT - yield the computation
 const good = doState(function* () {
-  const state = yield get()
-  return state + 42
+	const state = yield get()
+	return state + 42
 })
 ```
 
@@ -458,14 +477,14 @@ const good = doState(function* () {
 ```typescript
 // WRONG - can't yield plain values
 const bad = doState(function* () {
-  const x = yield 42 // Error! 42 is not a State computation
-  return x
+	const x = yield 42 // Error! 42 is not a State computation
+	return x
 })
 
 // RIGHT - wrap in the monad's `of`
 const good = doState(function* () {
-  const x = yield of(42)
-  return x
+	const x = yield of(42)
+	return x
 })
 ```
 
@@ -474,16 +493,16 @@ const good = doState(function* () {
 ```typescript
 // WRONG - mixing State and Either
 const bad = doState(function* () {
-  const x = yield get()
-  const y = yield Left("error") // Wrong monad type!
-  return x + y
+	const x = yield get()
+	const y = yield Left("error") // Wrong monad type!
+	return x + y
 })
 
 // RIGHT - use the same monad throughout
 const good = doEither(function* () {
-  const x = yield Right(5)
-  const y = yield Left("error") // Correct for Either
-  return x + y // Never reached due to Left
+	const x = yield Right(5)
+	const y = yield Left("error") // Correct for Either
+	return x + y // Never reached due to Left
 })
 ```
 

@@ -92,24 +92,25 @@ export default function equals<T>(a: T) {
 //?? [EXAMPLE] equals([1, 2, 3])([1, 2, 3]) // true
 //?? [EXAMPLE] equals({ a: 1, b: 2 })({ a: 1, b: 2 }) // true
 /*??
- * [EXAMPLE]
- * const isZero = equals(0)
- * isZero(0)   // true
- * isZero(-0)  // false (+0 and -0 are different)
- *
- * const hasSameShape = equals({ x: 1, y: 2 })
- * hasSameShape({ x: 1, y: 2 })  // true
- * hasSameShape({ y: 2, x: 1 })  // true (order doesn't matter)
- * hasSameShape({ x: 1 })        // false (missing y)
- *
- * // Handles circular references
- * const obj1 = { a: 1 }
- * obj1.self = obj1
- * const obj2 = { a: 1 }
- * obj2.self = obj2
- * equals(obj1)(obj2)  // true
- *
- * [GOTCHA] Functions are compared by reference only
- * [GOTCHA] +0 and -0 are considered different
- * [GOTCHA] NaN equals NaN (unlike === operator)
- */
+ | [EXAMPLE]
+ | const isZero = equals(0)
+ | isZero(0)   // true
+ | isZero(-0)  // false (+0 and -0 are different)
+ |
+ | const hasSameShape = equals({ x: 1, y: 2 })
+ | hasSameShape({ x: 1, y: 2 })  // true
+ | hasSameShape({ y: 2, x: 1 })  // true (order doesn't matter)
+ | hasSameShape({ x: 1 })        // false (missing y)
+ |
+ | // Handles circular references
+ | const obj1 = { a: 1 }
+ | obj1.self = obj1
+ | const obj2 = { a: 1 }
+ | obj2.self = obj2
+ | equals(obj1)(obj2)  // true
+ |
+ | [GOTCHA] Functions are compared by reference only
+ | [GOTCHA] +0 and -0 are considered different
+ | [GOTCHA] NaN equals NaN (unlike === operator)
+ |
+*/

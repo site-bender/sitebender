@@ -1,7 +1,11 @@
 //++ Recursively visits all nodes in AST to find functions
 import * as typescript from "npm:typescript@5.7.2"
 
-import type { ExtractFunctionsResult, FunctionNode, TraversalMetadata } from "../index.ts"
+import type {
+	ExtractFunctionsResult,
+	FunctionNode,
+	TraversalMetadata,
+} from "../index.ts"
 
 import visit from "./visit/index.ts"
 
@@ -18,7 +22,7 @@ export default function visitNodes(
 	}
 
 	typescript.forEachChild(sourceFile, visit(accumulator, metadata))
-	
+
 	return {
 		functions: accumulator,
 		metadata,

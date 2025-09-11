@@ -54,9 +54,10 @@ function isGenerator(
 		return false
 	}
 	// Type assertion to access asteriskToken property
-	const funcNode = node as typescript.FunctionDeclaration | 
-		typescript.FunctionExpression | 
-		typescript.MethodDeclaration
+	const funcNode = node as
+		| typescript.FunctionDeclaration
+		| typescript.FunctionExpression
+		| typescript.MethodDeclaration
 	return funcNode.asteriskToken !== undefined
 }
 

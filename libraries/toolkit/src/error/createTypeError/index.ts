@@ -35,9 +35,9 @@ export default function createTypeError<TOp extends string>(operation: TOp) {
 //?? [EXAMPLE] createTypeError("filter")([pred, null])(1)("Array")("null")
 //?? [EXAMPLE] createTypeError("divide")([10, 0])(1)("NonZeroNumber")("Integer")
 /*??
- * [EXAMPLE]
- * const createMapTypeError = createTypeError("map")
- * const error = createMapTypeError([fn, data])(0)("Function")(typeof fn)
- *
- * [GOTCHA] Automatically generates message and suggestion based on types
+ | [EXAMPLE]
+ | const createMapTypeError = createTypeError("map")
+ | const error = createMapTypeError([fn, data])(0)("Function")(typeof fn)
+ |
+ | [GOTCHA] Automatically generates message and suggestion based on types
  */

@@ -1,4 +1,5 @@
 # Parser-Envoy Integration Contract
+
 ## Version 1.0 - Locked and Agreed
 
 This document formalizes the integration contract between the Parser and Envoy libraries. Both AIs have agreed to these terms.
@@ -21,8 +22,8 @@ const Left = <E>(error: E): Result<never, E> => ({ ok: false, error })
 
 // Main API returns Either-compatible Result
 export function parseFileWithCompiler(
-  content: string,
-  filePath: string
+	content: string,
+	filePath: string,
 ): Result<ParsedModule, ParseError>
 ```
 
@@ -30,16 +31,16 @@ export function parseFileWithCompiler(
 
 ```typescript
 type ParsedModule = {
-  functions: ReadonlyArray<ParsedFunction>
-  types: ReadonlyArray<ParsedType>        // Future
-  constants: ReadonlyArray<ParsedConstant> // Future
-  exports: ReadonlyArray<ParsedExport>     // Future
+	functions: ReadonlyArray<ParsedFunction>
+	types: ReadonlyArray<ParsedType> // Future
+	constants: ReadonlyArray<ParsedConstant> // Future
+	exports: ReadonlyArray<ParsedExport> // Future
 }
 
 type ParsedFunction = {
-  node: typescript.Node           // Real TS node, not wrapped
-  signature: FunctionSignature    // Existing signature type
-  metadata: TraversalMetadata     // NEW: Pre-computed analysis
+	node: typescript.Node // Real TS node, not wrapped
+	signature: FunctionSignature // Existing signature type
+	metadata: TraversalMetadata // NEW: Pre-computed analysis
 }
 ```
 
@@ -53,23 +54,23 @@ Parser will collect the following metadata during initial traversal:
 
 ```typescript
 type TraversalMetadata = {
-  // HIGH PRIORITY - Week 1
-  hasThrowStatements: boolean     // For purity detection
-  hasAwaitExpressions: boolean    // For purity detection
-  hasGlobalAccess: boolean        // For purity detection
-  cyclomaticComplexity: number    // For complexity analysis
-  hasReturnStatements: boolean    // For currying detection
-  
-  // MEDIUM PRIORITY - Week 3
-  hasIfStatements: boolean
-  hasLoops: boolean
-  parameterCount: number
-  nestingDepth: number
-  
-  // LOW PRIORITY - Future
-  callExpressions?: ReadonlyArray<string>
-  propertyAccesses?: ReadonlyArray<string>
-  referencedIdentifiers?: ReadonlySet<string>
+	// HIGH PRIORITY - Week 1
+	hasThrowStatements: boolean // For purity detection
+	hasAwaitExpressions: boolean // For purity detection
+	hasGlobalAccess: boolean // For purity detection
+	cyclomaticComplexity: number // For complexity analysis
+	hasReturnStatements: boolean // For currying detection
+
+	// MEDIUM PRIORITY - Week 3
+	hasIfStatements: boolean
+	hasLoops: boolean
+	parameterCount: number
+	nestingDepth: number
+
+	// LOW PRIORITY - Future
+	callExpressions?: ReadonlyArray<string>
+	propertyAccesses?: ReadonlyArray<string>
+	referencedIdentifiers?: ReadonlySet<string>
 }
 ```
 
@@ -99,6 +100,7 @@ export const traverseTypescriptNode = <S, A>(
 ### 3.3 Usage Pattern
 
 Both libraries will use the same traversal pattern:
+
 - Parser: During initial parsing and metadata collection
 - Envoy: For deep analysis when metadata fast-path isn't sufficient
 
@@ -107,21 +109,25 @@ Both libraries will use the same traversal pattern:
 ## 4. Implementation Timeline
 
 ### Week 1: Core Integration ✅
+
 - [ ] Parser: Add Either constructors (Right/Left)
 - [ ] Parser: Collect HIGH PRIORITY metadata
 - [ ] Envoy: Update to consume Either results
 - [ ] Envoy: Use metadata for fast-path optimization
 
 ### Week 2: Shared Utilities
+
 - [ ] Toolkit: Create ast/traverseTypescriptNode
 - [ ] Parser: Refactor to use shared traversal
 - [ ] Envoy: Convert detectors to shared traversal
 
 ### Week 3: Enhanced Metadata
+
 - [ ] Parser: Add MEDIUM PRIORITY metadata
 - [ ] Both: Performance testing and optimization
 
 ### Week 4: Polish
+
 - [ ] Documentation and examples
 - [ ] Performance benchmarking
 - [ ] Consider adapter pattern if needed
@@ -148,32 +154,34 @@ Both libraries will use the same traversal pattern:
 ## 6. Integration Example
 
 ### Parser Side
+
 ```typescript
 const parseFileWithCompiler = (content: string, filePath: string) =>
-  doEither<ParseError, ParsedModule>(function* () {
-    const sourceFile = yield parseSourceFile(filePath)
-    const functions = yield extractFunctionsWithMetadata(sourceFile)
-    return {
-      functions,
-      types: [],
-      constants: [],
-      exports: []
-    }
-  })
+	doEither<ParseError, ParsedModule>(function* () {
+		const sourceFile = yield parseSourceFile(filePath)
+		const functions = yield extractFunctionsWithMetadata(sourceFile)
+		return {
+			functions,
+			types: [],
+			constants: [],
+			exports: [],
+		}
+	})
 ```
 
 ### Envoy Side
+
 ```typescript
 const generateDocs = doEither<ParseError, Documentation>(function* () {
-  const parsed = yield parseFileWithCompiler(content, filePath)
-  const func = parsed.functions[0]
-  
-  // Use metadata for fast-path
-  if (func.metadata.hasThrowStatements) {
-    // Skip expensive purity analysis
-  }
-  
-  return generateDocumentation(func)
+	const parsed = yield parseFileWithCompiler(content, filePath)
+	const func = parsed.functions[0]
+
+	// Use metadata for fast-path
+	if (func.metadata.hasThrowStatements) {
+		// Skip expensive purity analysis
+	}
+
+	return generateDocumentation(func)
 })
 ```
 
