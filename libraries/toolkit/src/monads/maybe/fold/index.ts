@@ -6,11 +6,11 @@ import isNothing from "../isNothing/index.ts"
 export default function fold<A, B>(onNothing: () => B) {
 	return function foldJust(onJust: (value: A) => B) {
 		return function foldMaybe(maybe: Maybe<A>): B {
-		if (isNothing(maybe)) {
-			return onNothing()
-		}
+			if (isNothing(maybe)) {
+				return onNothing()
+			}
 
-		return onJust(maybe.value)
+			return onJust(maybe.value)
 		}
 	}
 }

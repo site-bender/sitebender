@@ -17,7 +17,9 @@ export default function combineErrors(
 		const allErrors = [first1, ...rest1, first2, ...rest2]
 
 		// Group messages by field using reduce
-		const fieldMap = reduce(groupByField)({} as Record<string, Array<string>>)(allErrors)
+		const fieldMap = reduce(groupByField)({} as Record<string, Array<string>>)(
+			allErrors,
+		)
 
 		// Convert back to structured format
 		const fields = Object.keys(fieldMap)
@@ -29,12 +31,14 @@ export default function combineErrors(
 			messages: fieldMap[firstField],
 		}
 
-		const restErrors = restFields.map(function buildError(field: string): ValidationError {
-			return {
-				field,
-				messages: fieldMap[field],
-			}
-		})
+		const restErrors = restFields.map(
+			function buildError(field: string): ValidationError {
+				return {
+					field,
+					messages: fieldMap[field],
+				}
+			},
+		)
 
 		return [firstError, ...restErrors]
 	}

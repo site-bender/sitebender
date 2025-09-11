@@ -8,11 +8,11 @@ import right from "../right/index.ts"
 export default function bimap<E, F, A, B>(leftFn: (e: E) => F) {
 	return function bimapRight(rightFn: (a: A) => B) {
 		return function bimapEither(either: Either<E, A>): Either<F, B> {
-	if (isLeft(either)) {
-		return left(leftFn(either.left))
-	}
+			if (isLeft(either)) {
+				return left(leftFn(either.left))
+			}
 
-	return right(rightFn(either.right))
+			return right(rightFn(either.right))
 		}
 	}
 }

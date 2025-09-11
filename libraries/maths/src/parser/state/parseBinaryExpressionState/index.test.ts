@@ -1,7 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
-import evalState from "../../../../../toolkit/src/monads/state/evalState/index.ts"
+
 import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { ParserState } from "../../types/state/index.ts"
+
+import evalState from "../../../../../toolkit/src/monads/state/evalState/index.ts"
 import parseBinaryExpressionState from "./index.ts"
 
 Deno.test("parseBinaryExpressionState - parses simple addition", () => {

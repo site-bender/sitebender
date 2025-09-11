@@ -2,10 +2,10 @@ import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type ValidationError from "../../../types/ValidationError/index.ts"
 import type { ValidationResult } from "../../../types/ValidationResult/index.ts"
 
-import valid from "../valid/index.ts"
+import reduce from "../../../simple/array/reduce/index.ts"
 import invalid from "../invalid/index.ts"
 import isValid from "../isValid/index.ts"
-import reduce from "../../../simple/array/reduce/index.ts"
+import valid from "../valid/index.ts"
 import accumulateErrors from "./accumulateErrors/index.ts"
 
 //++ Combines multiple validation results, accumulating all errors
@@ -21,7 +21,9 @@ export default function combineValidations<T>(
 		// We know errors is non-empty if length > 0
 		const [firstError, ...restErrors] = result.errors
 
-		return invalid([firstError, ...restErrors] as NonEmptyArray<ValidationError>)
+		return invalid(
+			[firstError, ...restErrors] as NonEmptyArray<ValidationError>,
+		)
 	}
 
 	// Since we have NonEmptyArray, we must have at least one validation
@@ -40,7 +42,7 @@ export default function combineValidations<T>(
 	// but TypeScript needs exhaustive handling
 	return invalid([{
 		field: "validation",
-		messages: ["No valid value found"]
+		messages: ["No valid value found"],
 	}] as NonEmptyArray<ValidationError>)
 }
 

@@ -5,12 +5,14 @@ import right from "../right/index.ts"
 
 //++ Converts a throwing function into an Either-returning function
 export default function tryCatch<A>(fn: () => A) {
-	return function tryCatchWithError<E>(onError: (error: unknown) => E): Either<E, A> {
-	try {
-		return right(fn())
-	} catch (error) {
-		return left(onError(error))
-	}
+	return function tryCatchWithError<E>(
+		onError: (error: unknown) => E,
+	): Either<E, A> {
+		try {
+			return right(fn())
+		} catch (error) {
+			return left(onError(error))
+		}
 	}
 }
 

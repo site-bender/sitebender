@@ -22,4 +22,3 @@ export default function map<A, B>(f: (a: A) => B) {
  * [PRO] Maintains referential transparency until execution
  * [PRO] Composable with other IO operations
  */
-

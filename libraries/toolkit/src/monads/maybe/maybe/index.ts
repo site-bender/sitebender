@@ -6,11 +6,11 @@ import isNothing from "../isNothing/index.ts"
 export default function maybe<B>(onNothing: () => B) {
 	return function maybeJust<A>(onJust: (value: A) => B) {
 		return function maybeValue(maybe: Maybe<A>): B {
-		if (isNothing(maybe)) {
-			return onNothing()
-		}
+			if (isNothing(maybe)) {
+				return onNothing()
+			}
 
-		return onJust(maybe.value)
+			return onJust(maybe.value)
 		}
 	}
 }

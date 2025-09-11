@@ -5,11 +5,11 @@ import isRight from "../isRight/index.ts"
 //++ Chains Either-returning functions on the Left value for error recovery
 export default function chainLeft<E, F, A>(fn: (e: E) => Either<F, A>) {
 	return function chainLeftEither(either: Either<E, A>): Either<F, A> {
-	if (isRight(either)) {
-		return either
-	}
+		if (isRight(either)) {
+			return either
+		}
 
-	return fn(either.left)
+		return fn(either.left)
 	}
 }
 

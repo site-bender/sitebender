@@ -5,11 +5,11 @@ import isNothing from "../isNothing/index.ts"
 //++ Flat maps a function over the value inside a Just (monadic bind/flatMap)
 export default function chain<A, B>(fn: (a: A) => Maybe<B>) {
 	return function chainMaybe(maybe: Maybe<A>): Maybe<B> {
-	if (isNothing(maybe)) {
-		return maybe
-	}
+		if (isNothing(maybe)) {
+			return maybe
+		}
 
-	return fn(maybe.value)
+		return fn(maybe.value)
 	}
 }
 
@@ -22,7 +22,7 @@ export default function chain<A, B>(fn: (a: A) => Maybe<B>) {
  * pipe(
  *   just(20),
  *   chain(n => just(n - 10)),     // Just(10)
- *   chain(safeDivide(100))         // Just(10) 
+ *   chain(safeDivide(100))         // Just(10)
  * )
  *
  * [PRO] Essential for sequential composition of operations that might fail

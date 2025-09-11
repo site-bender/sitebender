@@ -17,7 +17,9 @@ export default function bimap<E, F>(onInvalid: (error: E) => F) {
 				const transformedFirst = onInvalid(firstError)
 				const transformedRest = map(onInvalid)(restErrors)
 
-				return invalid([transformedFirst, ...transformedRest] as NonEmptyArray<F>)
+				return invalid(
+					[transformedFirst, ...transformedRest] as NonEmptyArray<F>,
+				)
 			}
 
 			return valid(onValid(validation.value))

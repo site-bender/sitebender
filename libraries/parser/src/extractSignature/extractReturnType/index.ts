@@ -4,7 +4,6 @@ import * as typescript from "npm:typescript@5.7.2"
 import type { TypeInfo } from "../../types/index.ts"
 
 import { TypeKind } from "../../types/index.ts"
-
 import inferReturnType from "./inferReturnType/index.ts"
 
 export default function extractReturnType(

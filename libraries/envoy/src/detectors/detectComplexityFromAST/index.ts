@@ -6,7 +6,9 @@ import calculateCyclomaticComplexity from "./calculateCyclomaticComplexity/index
 //++ Detects the complexity of a function by analyzing its AST
 //++ [PRO] Provides a simple complexity metric based on control flow
 //++ [CON] Doesn't account for algorithmic complexity (Big O)
-export default function detectComplexityFromAST(metadata: TraversalMetadata): Complexity {
+export default function detectComplexityFromAST(
+	metadata: TraversalMetadata,
+): Complexity {
 	const cyclomaticComplexity = calculateCyclomaticComplexity(metadata)
 
 	// Map cyclomatic complexity to Big O notation (heuristic mapping)

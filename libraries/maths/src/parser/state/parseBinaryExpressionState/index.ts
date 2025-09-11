@@ -1,9 +1,6 @@
-import type {
-	AstNode,
-	ParseError,
-	Result,
-} from "../../../types/index.ts"
+import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser } from "../../types/state/index.ts"
+
 import parseBinaryWithPrecedenceGenerator from "./parseBinaryWithPrecedenceGenerator/index.ts"
 
 //++ Parses binary expressions with precedence climbing using State monad

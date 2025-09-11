@@ -1,6 +1,5 @@
 import type { FunctionSignature } from "../types/index.ts"
 
-#!/usr/bin/env -S deno run --allow-all
 /**
  * Self-Proving Prover
  *
@@ -42,8 +41,7 @@ const PROVER_SIGNATURES: Record<string, FunctionSignature> = {
 	// Coverage calculation
 	"validateCoverage/calculatePercentages": {
 		name: "calculatePercentages",
-		path:
-			"libraries/prover/src/validateCoverage/calculatePercentages/index.ts",
+		path: "libraries/prover/src/validateCoverage/calculatePercentages/index.ts",
 		parameters: [
 			{
 				name: "report",
@@ -133,8 +131,7 @@ export default async function proveProver(): Promise<void> {
 		// Calculate meta-statistics using functional approach
 		const totalTests = Array.from(testFiles.values())
 			.reduce(
-				(sum, content) =>
-					sum + (content.match(/Deno\.test\(/g) || []).length,
+				(sum, content) => sum + (content.match(/Deno\.test\(/g) || []).length,
 				0,
 			)
 		const totalLines = Array.from(testFiles.values())

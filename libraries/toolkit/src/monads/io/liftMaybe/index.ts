@@ -25,4 +25,3 @@ export default function liftMaybe<A>(f: () => Maybe<A>): IOMaybe<A> {
  * [PRO] Allows composition with other IO operations
  * [PRO] Maintains optional value semantics in IO context
  */
-

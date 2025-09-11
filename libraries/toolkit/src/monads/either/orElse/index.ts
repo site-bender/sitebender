@@ -3,13 +3,15 @@ import type { Either } from "../../types/fp/either/index.ts"
 import isRight from "../isRight/index.ts"
 
 //++ Provides an alternative Either if the original is Left
-export default function orElse<E, F, A>(alternative: Either<F, A> | (() => Either<F, A>)) {
+export default function orElse<E, F, A>(
+	alternative: Either<F, A> | (() => Either<F, A>),
+) {
 	return function orElseEither(either: Either<E, A>): Either<F, A> {
-	if (isRight(either)) {
-		return either
-	}
+		if (isRight(either)) {
+			return either
+		}
 
-	return typeof alternative === "function" ? alternative() : alternative
+		return typeof alternative === "function" ? alternative() : alternative
 	}
 }
 

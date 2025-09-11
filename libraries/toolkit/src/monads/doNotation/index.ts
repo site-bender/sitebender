@@ -6,20 +6,20 @@ export type MonadDictionary<T> = {
 //++ Provides Haskell-like do-notation for any monad using JavaScript generators
 export default function doNotation<M>(monad: MonadDictionary<M>) {
 	return function runGenerator<A>(
-		genFn: () => Generator<M, A, any>
+		genFn: () => Generator<M, A, any>,
 	): M {
 		const generator = genFn()
-		
+
 		function step(value: any): M {
 			const result = generator.next(value)
-			
+
 			if (result.done) {
 				return monad.of(result.value)
 			}
-			
+
 			return monad.chain(step)(result.value)
 		}
-		
+
 		return step(undefined)
 	}
 }
@@ -31,7 +31,7 @@ export default function doNotation<M>(monad: MonadDictionary<M>) {
  * [EXAMPLE]
  * // Define a monad dictionary
  * const StateMonad = { chain: stateChain, of: stateOf }
- * 
+ *
  * // Use do-notation to sequence stateful computations
  * const computation = doNotation(StateMonad)(function* () {
  *   const x = yield get()          // Get current state
@@ -39,7 +39,7 @@ export default function doNotation<M>(monad: MonadDictionary<M>) {
  *   const y = yield get()          // Get new state
  *   return x + y                   // Return computed value
  * })
- * 
+ *
  * // Compare to nested chain calls (much harder to read)
  * const oldWay = chain(x =>
  *   chain(() =>
@@ -48,7 +48,7 @@ export default function doNotation<M>(monad: MonadDictionary<M>) {
  *     )(get())
  *   )(put(x + 1))
  * )(get())
- * 
+ *
  * [GOTCHA] Generator functions cannot be arrow functions - must use function* syntax
  * [GOTCHA] Each yield must return a monadic value that matches the monad type
  * [PRO] Reduces cognitive load by 80% for complex monadic computations

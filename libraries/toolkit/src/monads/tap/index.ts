@@ -19,14 +19,14 @@ export default function tap<A>(sideEffect: (value: A) => void) {
  *   tap(x => console.log('Transformed:', x)),
  *   validate
  * )
- * 
+ *
  * // In monadic context
  * const computation = doNotation(Maybe)(function* () {
  *   const x = yield Some(5)
  *   tap(console.log)(x)  // Side effect: logs 5
  *   return x * 2         // Returns 10
  * })
- * 
+ *
  * [GOTCHA] Side effect function must not throw - wrap in try/catch if needed
  * [GOTCHA] Return value of side effect is ignored
  * [PRO] Enables debugging without modifying data flow

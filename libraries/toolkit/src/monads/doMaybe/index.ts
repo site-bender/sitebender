@@ -1,5 +1,6 @@
-import doNotation from "../doNotation/index.ts"
 import type { MonadDictionary } from "../doNotation/index.ts"
+
+import doNotation from "../doNotation/index.ts"
 
 type Maybe<A> = { tag: "None" } | { tag: "Some"; value: A }
 
@@ -12,7 +13,7 @@ const MaybeMonad: MonadDictionary<Maybe<any>> = {
 	},
 	of: <A>(value: A): Maybe<A> => {
 		return { tag: "Some", value }
-	}
+	},
 }
 
 //++ Maybe monad constructors and helpers
@@ -33,9 +34,7 @@ export function isSome<A>(maybe: Maybe<A>): maybe is { tag: "Some"; value: A } {
 }
 
 export function fromNullable<A>(value: A | null | undefined): Maybe<A> {
-	return value === null || value === undefined
-		? None()
-		: Some(value)
+	return value === null || value === undefined ? None() : Some(value)
 }
 
 export function fromPredicate<A>(predicate: (value: A) => boolean) {
@@ -52,7 +51,7 @@ export function getOrElse<A>(defaultValue: A) {
 
 //++ Specialized do-notation for Maybe monad with null-safe operations
 export default function doMaybe<A>(
-	genFn: () => Generator<Maybe<any>, A, any>
+	genFn: () => Generator<Maybe<any>, A, any>,
 ): Maybe<A> {
 	return doNotation(MaybeMonad)(genFn)
 }
@@ -69,29 +68,29 @@ export default function doMaybe<A>(
  *   const name = yield fromNullable(profile.name)
  *   return name.toUpperCase()
  * })
- * 
+ *
  * const result1 = getNestedProp({ user: { profile: { name: "Alice" } } })  // Some("ALICE")
  * const result2 = getNestedProp({ user: null })  // None()
  * const result3 = getNestedProp({})  // None()
- * 
+ *
  * // Filtering and transforming
  * const processNumber = (n: number) => doMaybe<string>(function* () {
  *   const positive = yield fromPredicate<number>(x => x > 0)(n)
  *   const even = yield fromPredicate<number>(x => x % 2 === 0)(positive)
  *   return `Even positive: ${even}`
  * })
- * 
+ *
  * processNumber(4)   // Some("Even positive: 4")
  * processNumber(3)   // None() - not even
  * processNumber(-2)  // None() - not positive
- * 
+ *
  * // Safe array operations
  * const getFirstPositive = (numbers: number[]) => doMaybe<number>(function* () {
  *   const first = yield fromNullable(numbers[0])
  *   const positive = yield fromPredicate<number>(x => x > 0)(first)
  *   return positive * 2
  * })
- * 
+ *
  * // Combining with default values
  * const withDefaults = (config: any) => doMaybe<Config>(function* () {
  *   const port = yield Some(getOrElse(3000)(fromNullable(config.port)))
@@ -99,7 +98,7 @@ export default function doMaybe<A>(
  *   const ssl = yield Some(getOrElse(false)(fromNullable(config.ssl)))
  *   return { port, host, ssl }
  * })
- * 
+ *
  * [GOTCHA] First None short-circuits entire computation
  * [GOTCHA] No error information preserved (use Either for errors)
  * [PRO] Null-safe chaining without ?. operator

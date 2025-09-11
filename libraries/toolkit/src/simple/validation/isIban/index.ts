@@ -6,7 +6,7 @@ import validateMod97 from "./validateMod97/index.ts"
 //++ Validates International Bank Account Numbers (IBAN) per ISO 13616
 export default function isIban(value: unknown) {
 	const IBAN_FORMAT = /^[A-Z]{2}\d{2}[A-Z0-9]+$/
-	
+
 	return function checkIban(): boolean {
 		if (typeof value !== "string" || value.length === 0) {
 			return false
@@ -38,14 +38,15 @@ export default function isIban(value: unknown) {
 //?? [EXAMPLE] isIban("INVALID")() // false
 //?? [EXAMPLE] isIban(null)() // false
 /*??
- * [EXAMPLE] Case insensitive validation
- * isIban("gb82 west 1234 5698 7654 32")() // true
- *
- * [EXAMPLE] Different country formats
- * isIban("CH93 0076 2011 6238 5295 7")() // true (Switzerland)
- * isIban("NO93 8601 1117 947")() // true (Norway - 15 chars)
- *
- * [GOTCHA] Spaces are ignored for validation
- * [GOTCHA] Country code must be valid ISO code with correct length
- * [PRO] Performs full mod-97 checksum validation
- */
+ | [EXAMPLE] Case insensitive validation
+ | isIban("gb82 west 1234 5698 7654 32")() // true
+ |
+ | [EXAMPLE] Different country formats
+ | isIban("CH93 0076 2011 6238 5295 7")() // true (Switzerland)
+ | isIban("NO93 8601 1117 947")() // true (Norway - 15 chars)
+ |
+ | [GOTCHA] Spaces are ignored for validation
+ | [GOTCHA] Country code must be valid ISO code with correct length
+ | [PRO] Performs full mod-97 checksum validation
+ |
+*/

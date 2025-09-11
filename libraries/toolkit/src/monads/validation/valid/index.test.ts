@@ -1,9 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
+import isValid from "../isValid/index.ts"
 // removed unused ValidationError type import
 
 import valid from "./index.ts"
-import isValid from "../isValid/index.ts"
 
 Deno.test("valid - creates Valid instances", async (t) => {
 	await t.step("should create valid instance with number", () => {

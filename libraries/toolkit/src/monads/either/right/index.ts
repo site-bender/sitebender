@@ -15,7 +15,7 @@ export default function right<A, E = never>(value: A): Either<E, A> {
  * [EXAMPLE]
  * // Type-safe JSON parsing
  * import left from "../left/index.ts"
- * 
+ *
  * const safeParse = (json: string): Either<string, unknown> => {
  *   try {
  *     return right(JSON.parse(json))
@@ -23,24 +23,24 @@ export default function right<A, E = never>(value: A): Either<E, A> {
  *     return left(`Parse error: ${e}`)
  *   }
  * }
- * 
+ *
  * safeParse('{"valid": "json"}')  // Right({ valid: "json" })
  * safeParse('invalid json')       // Left("Parse error: ...")
- * 
+ *
  * // Building computation pipelines
  * const divide = (a: number) => (b: number): Either<string, number> =>
  *   b === 0 ? left("Division by zero") : right(a / b)
- * 
+ *
  * const sqrt = (n: number): Either<string, number> =>
  *   n < 0 ? left("Cannot take sqrt of negative") : right(Math.sqrt(n))
- * 
+ *
  * // Usage in pipe
  * pipe(
  *   right(16),
  *   chain(sqrt),        // Right(4)
  *   chain(divide(100))  // Right(25)
  * )
- * 
+ *
  * [PRO] Represents successful computation path
  * [PRO] Enables map/chain operations
  * [PRO] Type-safe value wrapping

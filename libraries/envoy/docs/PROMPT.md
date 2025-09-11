@@ -74,7 +74,7 @@ Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
 
 1. **AST Detectors** (these still exist but may be replaced):
    - `isAssociativeFromAST` - Detects associative operations
-   - `isCommutativeFromAST` - Detects commutative operations  
+   - `isCommutativeFromAST` - Detects commutative operations
    - `isDistributiveFromAST` - Detects distributive operations
    - `isIdempotentFromAST` - Detects idempotent operations
    - `detectPurityFromAST` - Detects pure functions (basic version)
@@ -89,7 +89,7 @@ Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
 ### ✅ Phase 1: Do-Notation Integration (COMPLETED!)
 
 1. ✅ Import do-notation from toolkit
-2. ✅ Convert AST traversals to use State monad  
+2. ✅ Convert AST traversals to use State monad
 3. ✅ Convert property detectors to monadic flow
 4. ✅ Eliminate ALL mutations
 
@@ -103,6 +103,7 @@ Contract Hash: `c2fbb76eee61455083539e9bcc22c38da65e019c`
 ### 🚧 Phase 3: Enhanced Detection (NEXT STEPS)
 
 Potential improvements (if needed):
+
 1. Enhance mathematical property detection beyond heuristics
 2. Add more sophisticated purity analysis
 3. Implement property-based test generation hints
@@ -111,7 +112,7 @@ Potential improvements (if needed):
 ### 🚧 Phase 4: Output Generation Enhancement (FUTURE)
 
 1. Enhance Markdown generation with more sections
-2. Add HTML output with interactive features  
+2. Add HTML output with interactive features
 3. Improve JSON for tooling integration
 4. Add search and indexing capabilities
 
@@ -120,8 +121,9 @@ Potential improvements (if needed):
 ### 🎉 CURRENT STATUS: CORE WORK COMPLETED!
 
 The main Parser API integration is **DONE**! All core functions now:
+
 - ✅ Use Parser API structured data (no string parsing)
-- ✅ Use do-notation where appropriate  
+- ✅ Use do-notation where appropriate
 - ✅ Have comprehensive tests (39 passing)
 - ✅ Follow functional programming principles
 - ✅ Have zero mutations
@@ -136,17 +138,20 @@ The main Parser API integration is **DONE**! All core functions now:
 ### 📁 KEY FILES TO UNDERSTAND:
 
 **Core Functions (COMPLETED)**:
+
 - `src/extractors/extractDescription/index.ts` - Comment extraction from Parser API
 - `src/detectors/detectComplexityFromAST/calculateCyclomaticComplexity/index.ts` - Uses pre-calculated complexity
 - `src/generateDocsWithCompiler/index.ts` - Main documentation generator
 
 **Test Files (your examples)**:
+
 - `src/extractors/extractDescription/index.test.ts` - 10 test cases with Parser API mocks
 - `src/detectors/detectComplexityFromAST/calculateCyclomaticComplexity/index.test.ts` - 10 test cases
 - `src/generateDocsWithCompiler/index.test.ts` - 17 test cases covering all scenarios
 
 **Utilities**:
-- `test-scribe-conversions.sh` - Test runner script  
+
+- `test-scribe-conversions.sh` - Test runner script
 - `debug_test.ts` - Debug file (can be deleted)
 
 ### 🔧 Useful Commands:
@@ -202,12 +207,12 @@ Parser API Output (structured data)
 Every step is now:
 
 - ✅ **Pure** - No side effects, no mutations
-- ✅ **Composable** - Small functions compose beautifully  
+- ✅ **Composable** - Small functions compose beautifully
 - ✅ **Testable** - 39 tests prove deterministic input → output
 - ✅ **Readable** - Do-notation makes complex flows clear
 - ✅ **Fast** - Uses Parser's pre-calculated metadata (no redundant work)
 
-## 🎯 MISSION ACCOMPLISHED! 
+## 🎯 MISSION ACCOMPLISHED!
 
 ✅ **SUCCESS!** Scribe has been transformed from "that documentation generator with mutations" into **"the gold standard of functional TypeScript"** that showcases:
 

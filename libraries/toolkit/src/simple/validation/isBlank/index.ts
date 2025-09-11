@@ -26,23 +26,24 @@ export default function isBlank(
 //?? [EXAMPLE] isBlank(null) // true
 //?? [EXAMPLE] isBlank(undefined) // true
 /*??
- * [EXAMPLE]
- * // Form validation
- * const validateInput = (input: string) => {
- *   if (isBlank(input)) {
- *     return "Field is required"
- *   }
- *   return null
- * }
- * validateInput("   ")     // "Field is required"
- * validateInput("John")    // null
- *
- * // Filter blank lines
- * const lines = ["hello", "", "  ", "world", "\t", "!"]
- * const meaningful = lines.filter(line => !isBlank(line))  
- * // ["hello", "world", "!"]
- *
- * [GOTCHA] Converts non-strings to strings before checking
- * [GOTCHA] Uses trim() so any whitespace-only string is blank
- * [PRO] Handles Unicode whitespace characters
- */
+ | [EXAMPLE]
+ | // Form validation
+ | const validateInput = (input: string) => {
+ |   if (isBlank(input)) {
+ |     return "Field is required"
+ |   }
+ |   return null
+ | }
+ | validateInput("   ")     // "Field is required"
+ | validateInput("John")    // null
+ |
+ | // Filter blank lines
+ | const lines = ["hello", "", "  ", "world", "\t", "!"]
+ | const meaningful = lines.filter(line => !isBlank(line))
+ | // ["hello", "world", "!"]
+ |
+ | [GOTCHA] Converts non-strings to strings before checking
+ | [GOTCHA] Uses trim() so any whitespace-only string is blank
+ | [PRO] Handles Unicode whitespace characters
+ |
+*/
