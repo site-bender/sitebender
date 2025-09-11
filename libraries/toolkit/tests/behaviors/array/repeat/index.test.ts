@@ -1,9 +1,8 @@
-import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
-import {
-	assertType,
-	IsExact,
-} from "https://deno.land/std@0.218.0/testing/types.ts"
+import { assertEquals, assert } from "../../../../deps/asserts.ts"
 import * as fc from "npm:fast-check@3"
+
+// deno-lint-ignore no-explicit-any
+declare const Deno: any
 
 import repeat from "../../../../src/simple/array/repeat/index.ts"
 
@@ -192,12 +191,13 @@ Deno.test("repeat: currying", async (t) => {
 })
 
 Deno.test("repeat: property-based tests", async (t) => {
+	const same = (a: unknown, b: unknown) => Object.is(a, b)
 	await t.step("should create array of correct length", () => {
 		fc.assert(
 			fc.property(
 				fc.integer({ min: 0, max: 1000 }),
 				fc.anything(),
-				(count, item) => {
+				(count: number, item: unknown) => {
 					const result = repeat(count)(item)
 					return result.length === count
 				},
@@ -210,9 +210,9 @@ Deno.test("repeat: property-based tests", async (t) => {
 			fc.property(
 				fc.integer({ min: 1, max: 100 }),
 				fc.anything(),
-				(count, item) => {
+				(count: number, item: unknown) => {
 					const result = repeat(count)(item)
-					return result.every((v) => v === item)
+					return result.every((v) => same(v, item))
 				},
 			),
 		)
@@ -223,7 +223,7 @@ Deno.test("repeat: property-based tests", async (t) => {
 			fc.property(
 				fc.integer({ max: 0 }),
 				fc.anything(),
-				(count, item) => {
+				(count: number, item: unknown) => {
 					const result = repeat(count)(item)
 					return result.length === 0
 				},
@@ -236,7 +236,7 @@ Deno.test("repeat: property-based tests", async (t) => {
 			fc.property(
 				fc.float({ min: 0, max: 100, noNaN: true }),
 				fc.anything(),
-				(count, item) => {
+				(count: number, item: unknown) => {
 					const result = repeat(count)(item)
 					const expectedLength = Math.floor(count)
 					return result.length === expectedLength
@@ -250,7 +250,7 @@ Deno.test("repeat: property-based tests", async (t) => {
 			fc.property(
 				fc.integer({ min: 2, max: 10 }),
 				fc.object(),
-				(count, obj) => {
+				(count: number, obj: Record<string, unknown>) => {
 					const result = repeat(count)(obj)
 					// All elements should be the same reference
 					return result.every((v) => v === result[0])
@@ -264,7 +264,7 @@ Deno.test("repeat: property-based tests", async (t) => {
 			fc.property(
 				fc.integer({ min: 0, max: 100 }),
 				fc.anything(),
-				(count, item) => {
+				(count: number, item: unknown) => {
 					const result = repeat(count)(item)
 					const manual = []
 					for (let i = 0; i < count; i++) {
@@ -272,7 +272,7 @@ Deno.test("repeat: property-based tests", async (t) => {
 					}
 
 					return result.length === manual.length &&
-						result.every((v, i) => v === manual[i])
+						result.every((v, i) => same(v, manual[i]))
 				},
 			),
 		)
