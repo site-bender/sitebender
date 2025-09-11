@@ -1,0 +1,280 @@
+{
+	"$schema": "./schemas/boundaries.schema.json",
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-11",
+	"description": "Inter-library dependency boundaries and communication rules for @sitebender ecosystem",
+	"principles": {
+		"noCircularDependencies": "Dependencies must form a directed acyclic graph (DAG)",
+		"singleResponsibility": "Each library has one clear purpose and cannot duplicate another's responsibilities",
+		"contractCompliance": "All inter-library communication must go through contract-defined APIs",
+		"immutableOutputs": "All data passed between libraries must be immutable",
+		"noBackdoors": "No library can access another's internals or bypass its public API"
+	},
+	"layers": {
+		"0": {
+			"name": "Foundation",
+			"description": "Core utilities with zero dependencies on other @sitebender libraries",
+			"libraries": ["toolkit", "foundry"],
+			"rules": {
+				"cannotDepend": ["ANY @sitebender library"],
+				"canBeUsedBy": ["ALL @sitebender libraries"]
+			}
+		},
+		"1": {
+			"name": "Infrastructure",
+			"description": "Low-level services that parse and analyze code",
+			"libraries": ["parser"],
+			"rules": {
+				"canDepend": ["toolkit", "foundry"],
+				"cannotDepend": ["envoy", "prover", "components", "engine", "maths", "mesh"],
+				"canBeUsedBy": ["envoy", "prover", "engine", "maths"]
+			}
+		},
+		"2": {
+			"name": "Services",
+			"description": "Mid-level services that process Parser output",
+			"libraries": ["envoy", "prover"],
+			"rules": {
+				"canDepend": ["parser", "toolkit", "foundry"],
+				"cannotDepend": ["components", "engine", "maths", "mesh", "EACH OTHER"],
+				"canBeUsedBy": ["applications", "tools", "plugins"],
+				"specialRules": {
+					"envoy": {
+						"FORBIDDEN": [
+							"Importing TypeScript compiler directly",
+							"Using regex to parse TypeScript/JSX",
+							"Accessing source files directly",
+							"Rewriting Parser types",
+							"Modifying Parser output"
+						],
+						"REQUIRED": [
+							"Must consume Parser output AS-IS",
+							"Must only interpret comment syntax",
+							"Must preserve all Parser data unchanged"
+						]
+					},
+					"prover": {
+						"FORBIDDEN": [
+							"Parsing TypeScript/JSX directly",
+							"Duplicating Parser functionality",
+							"Modifying test subjects"
+						],
+						"REQUIRED": [
+							"Must use Parser for all AST needs",
+							"Must use Foundry for all arbitrary data generation"
+						]
+					}
+				}
+			}
+		},
+		"3": {
+			"name": "Runtime",
+			"description": "Component system and runtime engine",
+			"libraries": ["components", "engine", "maths"],
+			"rules": {
+				"canDepend": ["parser", "toolkit", "foundry"],
+				"cannotDepend": ["envoy", "prover", "mesh"],
+				"canBeUsedBy": ["applications", "mesh"],
+				"specialRules": {
+					"components": {
+						"REQUIRED": ["Must compile to Engine IR format"]
+					},
+					"engine": {
+						"REQUIRED": ["Must evaluate IR from Components and Maths"]
+					},
+					"maths": {
+						"REQUIRED": ["Must compile expressions to Engine IR"]
+					}
+				}
+			}
+		},
+		"4": {
+			"name": "Distribution",
+			"description": "Distributed data and mesh networking",
+			"libraries": ["mesh"],
+			"rules": {
+				"canDepend": ["components", "engine", "toolkit", "foundry"],
+				"cannotDepend": ["parser", "envoy", "prover", "maths"],
+				"canBeUsedBy": ["applications"]
+			}
+		},
+		"5": {
+			"name": "Applications",
+			"description": "End-user applications",
+			"libraries": ["applications/docs", "applications/playground", "applications/web3-lab"],
+			"rules": {
+				"canDepend": ["ALL @sitebender libraries"],
+				"cannotDepend": ["OTHER applications"],
+				"canBeUsedBy": ["NO @sitebender libraries"]
+			}
+		}
+	},
+	"dependencies": {
+		"toolkit": {
+			"canImport": [],
+			"canBeImportedBy": ["ALL"],
+			"forbiddenImports": ["*"],
+			"publicAPI": "libraries/toolkit/exports/",
+			"internalPath": "libraries/toolkit/internal/"
+		},
+		"foundry": {
+			"canImport": [],
+			"canBeImportedBy": ["parser", "envoy", "prover", "engine", "mesh", "applications"],
+			"forbiddenImports": ["*"],
+			"publicAPI": "libraries/foundry/exports/",
+			"internalPath": "libraries/foundry/internal/"
+		},
+		"parser": {
+			"canImport": ["toolkit", "foundry"],
+			"canBeImportedBy": ["envoy", "prover", "components", "engine", "maths", "applications"],
+			"forbiddenImports": ["envoy", "prover", "components", "engine", "maths", "mesh"],
+			"publicAPI": "libraries/parser/exports/",
+			"internalPath": "libraries/parser/internal/",
+			"exports": {
+				"ALLOWED": [
+					"ParsedFile",
+					"ParsedFunction",
+					"ParsedComponent",
+					"ParsedType",
+					"Comment",
+					"parseFile",
+					"parseDirectory"
+				],
+				"FORBIDDEN": [
+					"TypeScript compiler internals",
+					"Raw AST nodes",
+					"Internal parsing functions"
+				]
+			}
+		},
+		"envoy": {
+			"canImport": ["parser", "toolkit", "foundry"],
+			"canBeImportedBy": ["applications", "tools", "plugins"],
+			"forbiddenImports": [
+				"typescript",
+				"@typescript/compiler",
+				"prover",
+				"components",
+				"engine",
+				"maths",
+				"mesh",
+				"ANY TypeScript parsing library",
+				"ANY regex-based TypeScript parser"
+			],
+			"publicAPI": "libraries/envoy/exports/",
+			"internalPath": "libraries/envoy/internal/",
+			"inputRequirements": {
+				"source": "Parser output ONLY",
+				"format": "ParsedFile[] from Parser",
+				"modifications": "NONE - must use AS-IS"
+			},
+			"outputRequirements": {
+				"format": "Documentation graph",
+				"immutable": true,
+				"includesParserData": "Must preserve all Parser data unchanged"
+			}
+		},
+		"prover": {
+			"canImport": ["parser", "toolkit", "foundry"],
+			"canBeImportedBy": ["applications", "tools", "plugins"],
+			"forbiddenImports": [
+				"typescript",
+				"@typescript/compiler",
+				"envoy",
+				"components",
+				"engine",
+				"maths",
+				"mesh"
+			],
+			"publicAPI": "libraries/prover/exports/",
+			"internalPath": "libraries/prover/internal/",
+			"inputRequirements": {
+				"astSource": "Parser output ONLY",
+				"arbitraryData": "Foundry generators ONLY"
+			}
+		},
+		"components": {
+			"canImport": ["parser", "toolkit", "foundry"],
+			"canBeImportedBy": ["engine", "mesh", "applications"],
+			"forbiddenImports": ["envoy", "prover", "maths"],
+			"publicAPI": "libraries/components/exports/",
+			"internalPath": "libraries/components/internal/"
+		},
+		"engine": {
+			"canImport": ["parser", "toolkit", "foundry"],
+			"canBeImportedBy": ["mesh", "applications"],
+			"forbiddenImports": ["envoy", "prover", "components", "maths"],
+			"publicAPI": "libraries/engine/exports/",
+			"internalPath": "libraries/engine/internal/"
+		},
+		"maths": {
+			"canImport": ["parser", "toolkit", "foundry"],
+			"canBeImportedBy": ["applications"],
+			"forbiddenImports": ["envoy", "prover", "components", "engine", "mesh"],
+			"publicAPI": "libraries/maths/exports/",
+			"internalPath": "libraries/maths/internal/"
+		},
+		"mesh": {
+			"canImport": ["components", "engine", "toolkit", "foundry"],
+			"canBeImportedBy": ["applications"],
+			"forbiddenImports": ["parser", "envoy", "prover", "maths"],
+			"publicAPI": "libraries/mesh/exports/",
+			"internalPath": "libraries/mesh/internal/"
+		}
+	},
+	"enforcement": {
+		"mechanisms": [
+			"compile-time: TypeScript project references",
+			"runtime: ContractOutput<T> wrapper with validation",
+			"test-time: Automated contract violation tests",
+			"commit-time: Git hooks checking import patterns",
+			"build-time: Custom bundler rules"
+		],
+		"violations": {
+			"detection": [
+				"Grep for forbidden import patterns",
+				"AST analysis of import statements",
+				"Runtime checksums on outputs",
+				"Frozen object validation"
+			],
+			"consequences": [
+				"Build failure",
+				"Test failure",
+				"Commit rejection",
+				"Runtime exception"
+			]
+		},
+		"validation": {
+			"importPatterns": {
+				"forbidden": [
+					"envoy.*typescript",
+					"envoy.*@typescript",
+					"prover.*typescript",
+					"prover.*@typescript",
+					"envoy.*\\.ts['|\"]",
+					"envoy.*\\.tsx['|\"]",
+					"envoy.*\\.jsx['|\"]"
+				],
+				"required": [
+					"envoy.*@sitebender/parser",
+					"prover.*@sitebender/parser",
+					"prover.*@sitebender/foundry"
+				]
+			},
+			"outputValidation": {
+				"immutability": "Object.freeze() on all outputs",
+				"checksums": "SHA-256 hash of stringified output",
+				"versioning": "Semantic version in output metadata"
+			}
+		}
+	},
+	"migration": {
+		"phase1": "Create boundaries.json and enforcement infrastructure",
+		"phase2": "Add ContractOutput<T> wrapper to all library exports",
+		"phase3": "Create exports/ and internal/ folders in each library",
+		"phase4": "Update all imports to use public APIs only",
+		"phase5": "Add automated testing for contract violations",
+		"phase6": "Enable git hooks and build-time enforcement",
+		"timeline": "Implement incrementally, test thoroughly at each phase"
+	}
+}
