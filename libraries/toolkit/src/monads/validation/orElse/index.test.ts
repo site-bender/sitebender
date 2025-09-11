@@ -1,13 +1,4 @@
-// @ts-nocheck: use local assert helpers and avoid importing std aliases in src tests
-// Minimal local assert helpers
-function assertEquals(actual: unknown, expected: unknown) {
-  const a = JSON.stringify(actual)
-  const b = JSON.stringify(expected)
-  if (a !== b) throw new Error(`Assertion failed:\nActual: ${a}\nExpected: ${b}`)
-}
-function assert(cond: boolean, msg = "Assertion failed") {
-  if (!cond) throw new Error(msg)
-}
+import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
 import type ValidationError from "../../../types/ValidationError/index.ts"
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
@@ -24,8 +15,8 @@ Deno.test("orElse - returns original when Valid and calls alternative only when 
 
     const result = orElse<number, number>(alternative)(original)
 
-    assertEquals(result, original)
-    assert(called === 0, "alternative should not be called for Valid")
+  assertEquals(result, original)
+  assertEquals(called, 0)
   })
 
   await t.step("returns alternative for Invalid", () => {
@@ -38,7 +29,7 @@ Deno.test("orElse - returns original when Valid and calls alternative only when 
 
     const result = orElse<ValidationError, number>(alternative)(original)
 
-    assertEquals(result, valid(99))
-    assert(called === 1, "alternative should be called once for Invalid")
+  assertEquals(result, valid(99))
+  assertEquals(called, 1)
   })
 })

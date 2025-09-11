@@ -6,28 +6,24 @@ import invalid from "../invalid/index.ts"
 import valid from "../valid/index.ts"
 
 //++ Maps functions over both Invalid and Valid values
-const bimap = <E, F>(
-	onInvalid: (error: E) => F,
-) =>
-<A, B>(
-	onValid: (value: A) => B,
-) =>
-(
-	validation: Validation<E, A>,
-): Validation<F, B> => {
-	if (validation._tag === "Invalid") {
-		// NonEmptyArray is guaranteed since Invalid always has at least one error
-		const [firstError, ...restErrors] = validation.errors
-		const transformedFirst = onInvalid(firstError)
-		const transformedRest = map(onInvalid)(restErrors)
+export default function bimap<E, F>(onInvalid: (error: E) => F) {
+	return function withValid<A, B>(onValid: (value: A) => B) {
+		return function applyBimap(
+			validation: Validation<E, A>,
+		): Validation<F, B> {
+			if (validation._tag === "Invalid") {
+				// NonEmptyArray is guaranteed since Invalid always has at least one error
+				const [firstError, ...restErrors] = validation.errors
+				const transformedFirst = onInvalid(firstError)
+				const transformedRest = map(onInvalid)(restErrors)
 
-		return invalid([transformedFirst, ...transformedRest] as NonEmptyArray<F>)
+				return invalid([transformedFirst, ...transformedRest] as NonEmptyArray<F>)
+			}
+
+			return valid(onValid(validation.value))
+		}
 	}
-
-	return valid(onValid(validation.value))
 }
-
-export default bimap
 
 //?? [EXAMPLE] bimap(e => e.toUpperCase())(n => n * 2)(valid(21)) // valid(42)
 //?? [EXAMPLE] bimap(e => e.toUpperCase())(n => n * 2)(invalid(["error"])) // invalid(["ERROR"])

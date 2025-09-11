@@ -1,5 +1,4 @@
-// @ts-nocheck: use Deno.test global; avoid type noise in workspace checks
-import { expect } from "@std/expect"
+import { assert } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
 import bimap from "./index.ts"
 import valid from "../valid/index.ts"
@@ -12,28 +11,28 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 		const validation = valid(21)
 		const result = bimap((e: string) => e.toUpperCase())((n: number) => n * 2)(validation)
 
-		expect(isValid(result)).toBe(true)
+		assert(isValid(result))
 	})
 
 	await t.step("should transform invalid single error with the invalid function", () => {
 		const validation = invalid(["error"])
 		const result = bimap((e: string) => e.toUpperCase())((n: number) => n * 2)(validation)
 
-		expect(isInvalid(result)).toBe(true)
+		assert(isInvalid(result))
 	})
 
 	await t.step("should transform invalid multiple errors with the invalid function", () => {
 		const validation = invalid(["first", "second", "third"])
 		const result = bimap((e: string) => e.toUpperCase())((n: number) => n * 2)(validation)
 
-		expect(isInvalid(result)).toBe(true)
+		assert(isInvalid(result))
 	})
 
 	await t.step("should transform complex types", () => {
 		const validation = valid(100)
 		const result = bimap((e: string) => ({ code: e }))((n: number) => n.toString())(validation)
 
-		expect(isValid(result)).toBe(true)
+		assert(isValid(result))
 	})
 
 	await t.step("should transform error objects", () => {
@@ -47,7 +46,7 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 			{ field: string; message: string; timestamp: number }
 		>(addTimestamp)(doubled)(validation)
 
-		expect(isInvalid(result)).toBe(true)
+		assert(isInvalid(result))
 	})
 
 		await t.step("should maintain validation structure", () => {
@@ -57,7 +56,7 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 
 			const result = bimap<unknown, string>(errorToString)(numberToHex)(validation)
 
-		expect(isValid(result)).toBe(true)
+		assert(isValid(result))
 	})
 
 	await t.step("should handle identity transformations", () => {
@@ -65,6 +64,6 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 		const validation = valid("unchanged")
 		const result = bimap(identity)(identity)(validation)
 
-		expect(isValid(result)).toBe(true)
+		assert(isValid(result))
 	})
 })

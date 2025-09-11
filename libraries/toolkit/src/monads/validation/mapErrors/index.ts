@@ -4,28 +4,25 @@ import type { Validation } from "../../../types/Validation/index.ts"
 import map from "../../../simple/array/map/index.ts"
 
 //++ Maps a function over the errors in an Invalid, preserving Valid state
-const mapErrors = <E, F>(
-	fn: (error: E) => F,
-) =>
-<A>(
-	validation: Validation<E, A>,
-): Validation<F, A> => {
-	if (validation._tag === "Invalid") {
-		// NonEmptyArray is guaranteed since Invalid always has at least one error
-		const [firstError, ...restErrors] = validation.errors
-		const transformedFirst = fn(firstError)
-		const transformedRest = map(fn)(restErrors)
+export default function mapErrors<E, F>(fn: (error: E) => F) {
+	return function applyMapErrors<A>(
+		validation: Validation<E, A>,
+	): Validation<F, A> {
+		if (validation._tag === "Invalid") {
+			// NonEmptyArray is guaranteed since Invalid always has at least one error
+			const [firstError, ...restErrors] = validation.errors
+			const transformedFirst = fn(firstError)
+			const transformedRest = map(fn)(restErrors)
 
-		return {
-			_tag: "Invalid",
-			errors: [transformedFirst, ...transformedRest] as NonEmptyArray<F>,
+			return {
+				_tag: "Invalid",
+				errors: [transformedFirst, ...transformedRest] as NonEmptyArray<F>,
+			}
 		}
+
+		return validation
 	}
-
-	return validation
 }
-
-export default mapErrors
 
 //?? [EXAMPLE] mapErrors(e => e.toUpperCase())(invalid(["error"])) // invalid(["ERROR"])
 //?? [EXAMPLE] mapErrors(e => e.toUpperCase())(valid(42)) // valid(42)

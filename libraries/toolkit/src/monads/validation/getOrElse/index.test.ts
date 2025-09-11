@@ -1,12 +1,4 @@
-// @ts-nocheck: use local assert helpers and avoid importing std aliases in src tests
-// Minimal local assert helpers to avoid external imports during workspace checks
-function assertEquals(actual: unknown, expected: unknown) {
-  const a = JSON.stringify(actual)
-  const b = JSON.stringify(expected)
-  if (a !== b) {
-    throw new Error(`Assertion failed:\nActual:   ${a}\nExpected: ${b}`)
-  }
-}
+import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
 import type ValidationError from "../../../types/ValidationError/index.ts"
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"

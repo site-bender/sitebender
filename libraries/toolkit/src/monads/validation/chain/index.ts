@@ -1,20 +1,17 @@
 import type { Validation } from "../../../types/Validation/index.ts"
 
 //++ Chains validation computations, short-circuiting on invalid
-const chain = <A, E, B>(
-	fn: (value: A) => Validation<E, B>,
-) =>
-(
-	validation: Validation<E, A>,
-): Validation<E, B> => {
-	if (validation._tag === "Invalid") {
-		return validation
+export default function chain<A, E, B>(fn: (value: A) => Validation<E, B>) {
+	return function applyChain(
+		validation: Validation<E, A>,
+	): Validation<E, B> {
+		if (validation._tag === "Invalid") {
+			return validation
+		}
+
+		return fn(validation.value)
 	}
-
-	return fn(validation.value)
 }
-
-export default chain
 
 //?? [EXAMPLE] chain(n => n > 10 ? valid(n) : invalid(["too small"]))(valid(15)) // valid(15)
 //?? [EXAMPLE] chain(n => n > 10 ? valid(n) : invalid(["too small"]))(valid(5)) // invalid(["too small"])

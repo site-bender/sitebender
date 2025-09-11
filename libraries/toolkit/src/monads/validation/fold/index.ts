@@ -2,23 +2,21 @@ import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type { Validation } from "../../../types/Validation/index.ts"
 
 //++ Folds a validation to a single value by handling both cases
-const fold = <A, B>(
-	onValid: (value: A) => B,
-) =>
-<E>(
-	onInvalid: (errors: NonEmptyArray<E>) => B,
-) =>
-(
-	validation: Validation<E, A>,
-): B => {
-	if (validation._tag === "Invalid") {
-		return onInvalid(validation.errors)
+export default function fold<A, B>(onValid: (value: A) => B) {
+	return function withInvalid<E>(
+		onInvalid: (errors: NonEmptyArray<E>) => B,
+	) {
+		return function applyFold(
+			validation: Validation<E, A>,
+		): B {
+			if (validation._tag === "Invalid") {
+				return onInvalid(validation.errors)
+			}
+
+			return onValid(validation.value)
+		}
 	}
-
-	return onValid(validation.value)
 }
-
-export default fold
 
 //?? [EXAMPLE] fold(n => `Valid: ${n}`)(errs => `Errors: ${errs.length}`)(valid(42)) // "Valid: 42"
 //?? [EXAMPLE] fold(n => `Valid: ${n}`)(errs => `Errors: ${errs.length}`)(invalid(["e1", "e2"])) // "Errors: 2"
