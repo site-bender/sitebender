@@ -10,7 +10,9 @@ import invalid from "../invalid/index.ts"
 Deno.test("mapErrors - transforms only Invalid branch and preserves NonEmptyArray", async (t) => {
   await t.step("preserves Valid unchanged", () => {
     const v = valid(10)
+
   const result = mapErrors<ValidationError, { msg: string }>((e) => ({ msg: e.messages.join(",") }))(v)
+
   assertEquals(result, v)
   })
 
@@ -22,6 +24,7 @@ Deno.test("mapErrors - transforms only Invalid branch and preserves NonEmptyArra
     const result = mapErrors<ValidationError, string>((e) => `${e.field}:${e.messages.join("|")}`)(v)
 
     assertEquals(result._tag, "Invalid")
+
     if (result._tag === "Invalid") {
       assert(Array.isArray(result.errors))
       assert(result.errors.length > 0)

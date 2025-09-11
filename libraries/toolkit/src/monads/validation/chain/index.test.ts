@@ -23,6 +23,7 @@ Deno.test("chain - sequences validation computations", async (t) => {
 	await t.step("should chain successful validations", () => {
 		const result = chain(validateNotTooOld)(validateAge(25))
 		assertEquals(isValid(result), true)
+
 		if (isValid(result)) {
 			assertEquals(result.value, 25)
 		}
@@ -30,6 +31,7 @@ Deno.test("chain - sequences validation computations", async (t) => {
 
 	await t.step("should short-circuit on first failure", () => {
 		const result = chain(validateNotTooOld)(validateAge(15))
+
 		assertEquals(isInvalid(result), true)
 		if (isInvalid(result)) {
 			assertEquals(result.errors[0].messages[0], "must be 18+")
@@ -38,6 +40,7 @@ Deno.test("chain - sequences validation computations", async (t) => {
 
 	await t.step("should fail on second validation", () => {
 		const result = chain(validateNotTooOld)(validateAge(70))
+
 		assertEquals(isInvalid(result), true)
 		if (isInvalid(result)) {
 			assertEquals(result.errors[0].messages[0], "must be 65 or under")

@@ -23,8 +23,11 @@ Deno.test("validateAll - returns Valid when all validators pass; otherwise accum
 
   await t.step("Valid when all pass", () => {
     const validators: NonEmptyArray<typeof posValidator> = [posValidator, ltValidator]
+
     const result = validateAll(validators)(50)
+
     assertEquals(result._tag, "Valid")
+
     if (result._tag === "Valid") {
       assertEquals(result.value, 50)
     }
@@ -32,8 +35,11 @@ Deno.test("validateAll - returns Valid when all validators pass; otherwise accum
 
   await t.step("Invalid with accumulated errors", () => {
     const validators: NonEmptyArray<typeof posValidator> = [posValidator, ltValidator]
+
     const result = validateAll(validators)(-10)
+
     assertEquals(result._tag, "Invalid")
+
     if (result._tag === "Invalid") {
       // Only positive fails in this case; ensure single error present
       assertEquals(result.errors.length, 1)
@@ -50,5 +56,6 @@ Deno.test("accumulateErrors - reducer collects errors from validators for a fixe
   ]
 
   const collected = reduce(accumulateErrors(value))([])(validators)
+
   assertEquals(collected, [{ field: "x", messages: ["bad"] }])
 })

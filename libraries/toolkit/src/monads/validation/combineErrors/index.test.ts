@@ -48,5 +48,6 @@ Deno.test("groupByField - reducer accumulates messages per field", () => {
   ]
 
   const grouped = reduce(groupByField)({})(errors)
+
   assertEquals(grouped, { age: ["must be 18+", "too young"], name: ["required"] })
 })

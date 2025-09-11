@@ -11,6 +11,7 @@ import invalid from "../invalid/index.ts"
 Deno.test("getOrElse - returns contained value for Valid and default for Invalid", async (t) => {
   await t.step("should return inner value when Valid", () => {
     const v = valid(123)
+
   const result = getOrElse(0)(v)
 
     assertEquals(result, 123)
@@ -20,6 +21,7 @@ Deno.test("getOrElse - returns contained value for Valid and default for Invalid
     const errs: NonEmptyArray<ValidationError> = [
       { field: "n", messages: ["must be positive"] },
     ]
+
   const v = invalid<ValidationError, number>(errs)
   const result = getOrElse(0)(v)
 

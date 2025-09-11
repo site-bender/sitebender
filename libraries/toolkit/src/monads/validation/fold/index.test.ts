@@ -21,6 +21,7 @@ Deno.test("fold - extracts values from validation", async (t) => {
 		const errors: NonEmptyArray<ValidationError> = [
 			{ field: "test", messages: ["error1", "error2"] }
 		]
+
 		const validation = invalid<ValidationError>(errors)
 		const result = fold<number, string>((value) => `Valid: ${value}`)<ValidationError>(
 			(errs) => `Errors: ${errs.length}`
@@ -46,6 +47,7 @@ Deno.test("fold - extracts values from validation", async (t) => {
 			{ field: "age", messages: ["too young"] },
 			{ field: "name", messages: ["required"] }
 		]
+
 		const validation = invalid<ValidationError>(errors)
 		const result = fold<string, string>((value) => value)<ValidationError>(
 			(errs) => errs.map(e => `${e.field}: ${e.messages.join(", ")}`).join("; ")

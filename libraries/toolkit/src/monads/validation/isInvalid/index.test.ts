@@ -10,7 +10,9 @@ import invalid from "../invalid/index.ts"
 Deno.test("isInvalid - type guard narrows to Invalid", () => {
   const errs: NonEmptyArray<ValidationError> = [{ field: "x", messages: ["e"] }]
   const v = invalid<ValidationError, number>(errs)
+
   assert(isInvalid(v))
+
   if (isInvalid(v)) {
     assertEquals(v.errors, errs)
   }
@@ -18,7 +20,9 @@ Deno.test("isInvalid - type guard narrows to Invalid", () => {
 
 Deno.test("isInvalid - false for Valid and narrows to Valid branch", () => {
   const v = valid(123)
+
   assert(!isInvalid(v))
+
   if (!isInvalid(v)) {
     assertEquals(v.value, 123)
   }

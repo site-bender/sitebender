@@ -11,7 +11,9 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 		const errors: NonEmptyArray<ValidationError> = [
 			{ field: "test", messages: ["error"] }
 		]
+
 		const result = invalid<ValidationError, number>(errors)
+
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {
 			assertEquals(result.errors, errors)
@@ -24,7 +26,9 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 			{ field: "age", messages: ["too young"] },
 			{ field: "name", messages: ["required"] }
 		]
+
 		const result = invalid<ValidationError, string>(errors)
+
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {
 			assertEquals(result.errors, errors)
@@ -34,7 +38,9 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 
 	await t.step("should create invalid instance with string errors", () => {
 		const errors: NonEmptyArray<string> = ["error1", "error2", "error3"]
+
 		const result = invalid<string, number>(errors)
+
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {
 			assertEquals(result.errors, errors)
@@ -46,7 +52,9 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 		const errors: NonEmptyArray<ValidationError> = [
 			{ field: "email", messages: ["invalid format", "domain not allowed"] }
 		]
+
 		const result = invalid<ValidationError, unknown>(errors)
+
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {
 			assertEquals(result.errors[0].field, "email")

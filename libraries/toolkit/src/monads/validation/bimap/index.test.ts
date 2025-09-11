@@ -9,6 +9,7 @@ import isInvalid from "../isInvalid/index.ts"
 Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 	await t.step("should transform valid values with the valid function", () => {
 		const validation = valid(21)
+
 		const result = bimap((e: string) => e.toUpperCase())((n: number) => n * 2)(validation)
 
 		assert(isValid(result))
@@ -16,6 +17,7 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 
 	await t.step("should transform invalid single error with the invalid function", () => {
 		const validation = invalid(["error"])
+
 		const result = bimap((e: string) => e.toUpperCase())((n: number) => n * 2)(validation)
 
 		assert(isInvalid(result))
@@ -23,6 +25,7 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 
 	await t.step("should transform invalid multiple errors with the invalid function", () => {
 		const validation = invalid(["first", "second", "third"])
+
 		const result = bimap((e: string) => e.toUpperCase())((n: number) => n * 2)(validation)
 
 		assert(isInvalid(result))
@@ -30,6 +33,7 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 
 	await t.step("should transform complex types", () => {
 		const validation = valid(100)
+
 		const result = bimap((e: string) => ({ code: e }))((n: number) => n.toString())(validation)
 
 		assert(isValid(result))
@@ -51,10 +55,10 @@ Deno.test("bimap - transforms both Invalid and Valid values", async (t) => {
 
 		await t.step("should maintain validation structure", () => {
 		const validation = valid(255)
-			const errorToString = (err: unknown) => JSON.stringify(err)
+		const errorToString = (err: unknown) => JSON.stringify(err)
 		const numberToHex = (n: number) => n.toString(16)
 
-			const result = bimap<unknown, string>(errorToString)(numberToHex)(validation)
+		const result = bimap<unknown, string>(errorToString)(numberToHex)(validation)
 
 		assert(isValid(result))
 	})
