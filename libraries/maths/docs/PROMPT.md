@@ -10,12 +10,14 @@
 ## What is the Maths Library?
 
 The `@sitebender/maths` library is a pure TypeScript formula parser that:
+
 - Takes mathematical expressions as strings (e.g., `"(a + b) * c"`)
 - Tokenizes them into tokens
 - Parses tokens into an Abstract Syntax Tree (AST)
 - Compiles the AST into configuration objects for `@sitebender/engine`
 
 Three-stage pipeline:
+
 1. **Tokenizer** - String → Tokens
 2. **Parser** - Tokens → AstNode (AST)
 3. **Compiler** - AstNode → Engine configuration
@@ -23,12 +25,14 @@ Three-stage pipeline:
 ## Current Mission: Parser Refactor to Pure FP
 
 We're transforming the parser from OOP-ish mutable context to pure functional programming using:
+
 - **State monad** from `@sitebender/toolkit`
 - **Do-notation** for readable monadic code
 - **Immutable data structures** throughout
 - **Toolkit Result monad** - NOT homemade Result types
 
 ### Why?
+
 - Current parser uses mutable `createParserContext` with stateful methods
 - Violates functional programming principles
 - We want 100% pure, immutable, functional code
@@ -36,9 +40,11 @@ We're transforming the parser from OOP-ish mutable context to pure functional pr
 ## What Has Been Done
 
 ### ✅ Phase 1 COMPLETE - Foundation Built
+
 All token navigation and parser component functions created with State monad.
 
 ### ✅ Phase 2 COMPLETE - Parser Assembly
+
 - ✅ Step 2.1: Created main `parseExpressionState` entry point
 - ✅ Step 2.2: Created `parseConditionalExpressionState` for ternary operators
 - ✅ Step 2.3: Created `runStateParser` to execute the complete parser
@@ -47,11 +53,13 @@ All token navigation and parser component functions created with State monad.
 ### ✅ Major Refactoring Completed
 
 **Test Framework Migration:**
+
 - ✅ Converted ALL state parser tests from `describe`/`it` to `Deno.test`
 - ✅ Created missing test for `createInitialState` (100% coverage requirement)
 - ✅ 86 tests total in state parser (all using Deno.test)
 
 **Result Type Migration:**
+
 - ✅ Replaced maths library's homemade Result with toolkit Result
 - ✅ All parser functions now use `ok()` and `err()` from toolkit
 - ✅ Updated Result type to use toolkit's Either-based Result
@@ -60,6 +68,7 @@ All token navigation and parser component functions created with State monad.
   - Error: `{ _tag: "Left", left: error }`
 
 **Current Test Status:**
+
 - ✅ ALL 86 tests passing with toolkit Result structure
 - ✅ All Result checks using toolkit helper functions (isOk, isErr)
 - ✅ 100% test pass rate achieved
@@ -67,17 +76,20 @@ All token navigation and parser component functions created with State monad.
 ## What's Next: Phase 3 - Integration
 
 ### ✅ Step 3.1: Fix Remaining Test Failures - COMPLETE
+
 - ✅ Fixed all 37 failing tests
 - ✅ Issue was incorrect Result checks (using `.ok`, `.value` instead of toolkit helpers)
 - ✅ Now using `isOk()`, `isErr()`, and `.right`/`.left` fields properly
 - ✅ 100% test pass rate achieved
 
 ### Step 3.2: Create Feature Flag
+
 - Add `USE_STATE_PARSER` environment variable
 - Main `parse` function checks flag
 - Routes to old or new implementation
 
 ### Step 3.3: Run Tests with Both Parsers
+
 - Run full test suite with old parser
 - Run full test suite with new parser
 - Compare results for exact parity
@@ -85,6 +97,7 @@ All token navigation and parser component functions created with State monad.
 ## Key Rules to Remember
 
 ### From CLAUDE.md (THE LAW):
+
 - **NEVER REVERT ANYTHING** - Move forward only, no backwards compatibility hacks
 - **One function per file** in folders named after the function
 - **No classes** - functional only
@@ -95,6 +108,7 @@ All token navigation and parser component functions created with State monad.
 - **100% test coverage** - No exceptions
 
 ### Toolkit Result Structure:
+
 ```typescript
 // Success
 { _tag: "Right", right: value }
@@ -106,6 +120,7 @@ All token navigation and parser component functions created with State monad.
 ```
 
 ### Current File Structure:
+
 ```
 libraries/maths/src/parser/
 ├── types/state/index.ts          # Types for State monad

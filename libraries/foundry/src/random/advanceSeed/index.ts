@@ -8,18 +8,18 @@ export default function advanceSeed(seed: Seed): Seed {
 	// a = 48271, c = 0, m = 2^31 - 1 (2147483647)
 	const a = 48271
 	const m = 2147483647 // 2^31 - 1 (Mersenne prime)
-	
+
 	// Calculate next value using LCG formula
 	// We use c = 0 for Park & Miller variant
 	const nextValue = (a * seed.value) % m
-	
+
 	// Ensure result is positive and non-zero
 	const positiveValue = nextValue || 1
-	
+
 	// Create new seed with same path (immutable)
 	return {
 		value: positiveValue >>> 0, // Ensure 32-bit unsigned
-		path: seed.path
+		path: seed.path,
 	}
 }
 

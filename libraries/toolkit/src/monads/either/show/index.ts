@@ -42,10 +42,11 @@ export default function show<E, A>(either: Either<E, A>): string {
 //?? [EXAMPLE] show(right(42)) // "Right(42)"
 //?? [EXAMPLE] show(left("error")) // 'Left("error")'
 /*??
- * [EXAMPLE]
- * const results = [right(1), left("error"), right(2)]
- * results.map(show).join(", ") // 'Right(1), Left("error"), Right(2)'
- *
- * [PRO] Pure function for string conversion without object mutation
- * [PRO] Handles all JavaScript types including Error, Date, Function, Symbol
- */
+ | [EXAMPLE]
+ | const results = [right(1), left("error"), right(2)]
+ | results.map(show).join(", ") // 'Right(1), Left("error"), Right(2)'
+ |
+ | [PRO] Pure function for string conversion without object mutation
+ | [PRO] Handles all JavaScript types including Error, Date, Function, Symbol
+ |
+*/

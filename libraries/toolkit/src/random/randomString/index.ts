@@ -36,10 +36,11 @@ export default function randomString(
 //?? [EXAMPLE] randomString(8)('01') // "10110101" (binary)
 //?? [EXAMPLE] randomString(20)('ACGT') // "ATCGGATCGATCGTAGCTAG" (DNA)
 /*??
- * [EXAMPLE]
- * const generateToken = randomString(32)
- * const token1 = generateToken()
- * const token2 = generateToken('0123456789ABCDEF')
- *
- * [GOTCHA] Returns empty string for invalid inputs (null, negative, empty charset)
- */
+ | [EXAMPLE]
+ | const generateToken = randomString(32)
+ | const token1 = generateToken()
+ | const token2 = generateToken('0123456789ABCDEF')
+ |
+ | [GOTCHA] Returns empty string for invalid inputs (null, negative, empty charset)
+ |
+*/

@@ -1,6 +1,6 @@
-export type BinaryOperatorTokenType = 
+export type BinaryOperatorTokenType =
 	| "PLUS"
-	| "MINUS" 
+	| "MINUS"
 	| "MULTIPLY"
 	| "DIVIDE"
 	| "POWER"
@@ -11,6 +11,17 @@ export type BinaryOperatorTokenType =
 	| "LESS_EQUAL"
 	| "GREATER_EQUAL"
 
-export type Operator = "+" | "-" | "*" | "/" | "^" | "<" | ">" | "==" | "!=" | "<=" | ">="
+export type Operator =
+	| "+"
+	| "-"
+	| "*"
+	| "/"
+	| "^"
+	| "<"
+	| ">"
+	| "=="
+	| "!="
+	| "<="
+	| ">="
 
 export type Associativity = "LEFT" | "RIGHT"

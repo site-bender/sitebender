@@ -12,24 +12,25 @@ export default function is<T>(constructor: new (...args: Array<unknown>) => T) {
 //?? [EXAMPLE] is(String)("hello") // false (primitive)
 //?? [EXAMPLE] is(String)(new String("hi")) // true (object)
 /*??
- * [EXAMPLE]
- * const isDate = is(Date)
- * isDate(new Date())  // true
- * isDate(Date.now())  // false (returns number)
- * isDate("2024-01-01") // false (string)
- *
- * class User {
- *   constructor(public name: string) {}
- * }
- * const isUser = is(User)
- * isUser(new User("Alice"))   // true
- * isUser({ name: "Charlie" }) // false (plain object)
- *
- * const mixed = [new Date(), "string", 42, new Error("oops")]
- * mixed.filter(is(Error))  // [Error: oops]
- * mixed.filter(is(Date))   // [Date]
- *
- * [GOTCHA] Primitives always return false (they're not instances)
- * [GOTCHA] Fails across different JavaScript realms (e.g., iframes)
- * [GOTCHA] Array.isArray is more reliable than is(Array)
- */
+ | [EXAMPLE]
+ | const isDate = is(Date)
+ | isDate(new Date())  // true
+ | isDate(Date.now())  // false (returns number)
+ | isDate("2024-01-01") // false (string)
+ |
+ | class User {
+ |   constructor(public name: string) {}
+ | }
+ | const isUser = is(User)
+ | isUser(new User("Alice"))   // true
+ | isUser({ name: "Charlie" }) // false (plain object)
+ |
+ | const mixed = [new Date(), "string", 42, new Error("oops")]
+ | mixed.filter(is(Error))  // [Error: oops]
+ | mixed.filter(is(Date))   // [Date]
+ |
+ | [GOTCHA] Primitives always return false (they're not instances)
+ | [GOTCHA] Fails across different JavaScript realms (e.g., iframes)
+ | [GOTCHA] Array.isArray is more reliable than is(Array)
+ |
+*/

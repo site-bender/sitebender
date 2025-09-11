@@ -1,11 +1,12 @@
 import type { HexColorOptions } from "./types/index.ts"
+
 import not from "../../logic/not/index.ts"
 import test from "../../string/test/index.ts"
 
 //++ Validates hexadecimal color codes with optional format restrictions
 export default function isHexColor(options: HexColorOptions = {}) {
 	const VALID_HEX_CHARS = /^[0-9A-Fa-f]+$/
-	
+
 	return function validateHexColor(value: unknown): boolean {
 		if (typeof value !== "string" || value.length === 0) {
 			return false
@@ -15,7 +16,7 @@ export default function isHexColor(options: HexColorOptions = {}) {
 
 		// Check for hash prefix
 		const hasHash = value.startsWith("#")
-		
+
 		if (requireHash && not(hasHash)) {
 			return false
 		}
@@ -57,16 +58,17 @@ export default function isHexColor(options: HexColorOptions = {}) {
 //?? [EXAMPLE] isHexColor()("FF0000") // true
 //?? [EXAMPLE] isHexColor()("#GGG") // false
 /*??
- * [EXAMPLE] Require hash prefix
- * const requireHash = isHexColor({ requireHash: true })
- * requireHash("#FF0000")  // true
- * requireHash("FF0000")   // false
- *
- * [EXAMPLE] Specific format validation
- * const sixDigitOnly = isHexColor({ format: "6-digit" })
- * sixDigitOnly("#FF0000") // true
- * sixDigitOnly("#FFF")    // false
- *
- * [GOTCHA] Empty strings return false
- * [PRO] Supports 3, 4, 6, and 8 digit formats with optional alpha channel
- */
+ | [EXAMPLE] Require hash prefix
+ | const requireHash = isHexColor({ requireHash: true })
+ | requireHash("#FF0000")  // true
+ | requireHash("FF0000")   // false
+ |
+ | [EXAMPLE] Specific format validation
+ | const sixDigitOnly = isHexColor({ format: "6-digit" })
+ | sixDigitOnly("#FF0000") // true
+ | sixDigitOnly("#FFF")    // false
+ |
+ | [GOTCHA] Empty strings return false
+ | [PRO] Supports 3, 4, 6, and 8 digit formats with optional alpha channel
+ |
+*/

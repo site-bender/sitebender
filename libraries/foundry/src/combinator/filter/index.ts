@@ -1,8 +1,11 @@
-import type { Generator, Seed, GeneratorError } from "../../types/index.ts"
 import type { Result } from "@sitebender/toolkit/monads/types/fp/result/index.ts"
-import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
+import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
+
+import type { Generator, GeneratorError, Seed } from "../../types/index.ts"
+
 import advanceSeed from "../../random/advanceSeed/index.ts"
 
 // Default maximum attempts before giving up
@@ -15,29 +18,29 @@ export default function filter<T>(predicate: (value: T) => boolean) {
 			//-- Using mutable state for retry loop - needed for exhaustion tracking
 			let currentSeed = seed
 			let attempts = 0
-			
+
 			while (attempts < DEFAULT_MAX_ATTEMPTS) {
 				const result = generator(currentSeed)
-				
+
 				// If generation failed, propagate the error
 				if (isErr(result)) {
 					return result
 				}
-				
+
 				// Check if the value passes the predicate
 				if (isOk(result) && predicate(result.right)) {
 					return result
 				}
-				
+
 				// Advance seed for next attempt
 				currentSeed = advanceSeed(currentSeed)
 				attempts++
 			}
-			
+
 			// Exhausted all attempts
 			return err({
 				type: "FilterExhausted" as const,
-				attempts: DEFAULT_MAX_ATTEMPTS
+				attempts: DEFAULT_MAX_ATTEMPTS,
 			})
 		}
 	}

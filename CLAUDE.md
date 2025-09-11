@@ -1,6 +1,13 @@
+
 # The @sitebender AI Assistant Manifesto
 
 > "After 30+ years of coding and watching AIs make the same mistakes repeatedly, I've created this document. Read it. Learn it. Live it. Or find another codebase." — The Architect
+
+## The goal of this project
+
+Create a zero-dependency ecosystem of nine functional programming libraries that form a fully accessible, progressive enhancement-first web application framework where everything works without JavaScript. Revolutionary tooling automatically generates 100% test coverage (Prover) and documentation from code (Envoy). Every line verified, tested, and documented. No assumptions, no shortcuts, no tech debt.
+
+Perhaps more importantly: create a codebase that **minimizes cognitive load** for developers, making it easy to understand, maintain, and extend.
 
 ## Table of Contents
 
@@ -66,10 +73,10 @@ Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPT
    - One thing done well
    - Composition over complexity
 
-7. **Thou shalt document with JSDoc**
+7. **Thou shalt document with Envoy comments (see below)**
    - Every function, every time
    - Examples included
-   - No "self-documenting code" excuse
+   - Follow the Envoy spec precisely
 
 8. **Thou shalt respect accessibility**
    - WCAG 2.3 AAA or better
@@ -80,6 +87,7 @@ Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPT
    - Small, focused changes
    - Conventional commit messages
    - Leave the code working
+   - Detailed commit messages
 
 10. **Thou shalt ask when uncertain**
     - Better to ask than assume
@@ -129,21 +137,25 @@ Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPT
    - No mouse-only interactions
 
 5. **Offline-first, online-enhanced**
-   - CRDTs for eventual consistency
+   - CRDTs for eventual consistency (see libraries/mesh)
    - IndexedDB for complex state
    - Service workers for caching
 
 ## The Sacred Architecture
 
-### The Seven Libraries (Zero Dependencies, Maximum Power)
+### The Nine Libraries (Zero Dependencies, Maximum Power)
+
+These libraries form the backbone of everything we build. Each has a sacred purpose.
+
+Currently, they are under active development. Expect changes. Not quite alpha yet.
 
 #### @sitebender/toolkit
 
 Pure functional building blocks. The foundation everything else builds upon.
 
 - Zero dependencies, zero compromises
-- Monads, combinators, and mathematical truth
-- If it's not pure, it doesn't belong here
+- Monads, combinators, do-notation, and mathematical truth
+- If it's not pure, it doesn't belong here (IO excepted)
 
 #### @sitebender/components
 
@@ -152,6 +164,15 @@ Accessible JSX components forming a declarative DSL for web applications.
 - Semantic HTML generation
 - Schema.org structured data
 - Progressive enhancement built-in
+- JSX → IR compilation
+- Components for everything, including:
+  - Validation
+  - Conditional display
+  - Data binding
+  - Event handling
+  - Theming
+  - Calculations
+  - Formatting
 
 #### @sitebender/engine
 
@@ -160,6 +181,7 @@ The reactive computation core. No VDOM, no bloat, just efficiency.
 - IR evaluation for SSR/SSG
 - Hydration without the heavyweight
 - Calculations that actually calculate
+- JSX → IR → JS/JSON/Turtle → HTML/composed functions
 
 #### @sitebender/maths
 
@@ -169,12 +191,14 @@ Mathematical expression parser (coming soon).
 - Operator precedence done right
 - Variables and functions
 
-#### @sitebender/distributed
+#### @sitebender/mesh
 
 Distributed and hybrid data adapters (future).
 
-- CRDT-based synchronization
+- CRDT-based synchronization (eventual consistency)
 - P2P data exchange
+- DID and verifiable credentials
+- IPFS and Solid integration
 - Offline-first by default
 
 #### @sitebender/envoy
@@ -182,8 +206,17 @@ Distributed and hybrid data adapters (future).
 Automatic documentation generator from TypeScript code.
 
 - Extracts types, signatures, and properties automatically
-- Replaces verbose JSDoc with single-line descriptions
+- Replaces verbose JSDoc with single-line descriptions (blocks if needed)
 - The code IS the documentation
+- Can use markdown in descriptions
+- Uses different comment syntax to indicate:
+  - `//` = regular comment (not part of docs)
+  - `//++` = description of the function/component/constant/type
+  - `//--` = tech debt
+  - `//??` = help, such as examples, pros, cons, gotchas, and more
+  - `//!!` = critical problems
+  - `//>>` = links to other resources
+- Creates a graph of the entire codebase automatically
 
 #### @sitebender/prover
 
@@ -193,6 +226,18 @@ Revolutionary test generator achieving 100% coverage automatically.
 - Property-based test generation
 - Mathematical law verification
 - "We don't write tests. We generate proofs."
+
+#### @sitebender/parser
+
+The only library with a depenency: the TypeScript compiler.
+
+- Parses TypeScript/JSX to extract types, signatures, properties, and comments (for Envoy)
+- Used by Envoy and Prover
+- Formal API for future tools
+
+#### @sitebender/foundry
+
+Tools for property-based testing (QuickCheck style), fake data generation, and more.
 
 ### The Three Applications
 
@@ -261,6 +306,11 @@ Exceptions:
 
 - Test files use `index.test.ts` because Deno demands it
 - `mod.ts` files are Deno convention for module exports
+- DO NOT USE KEBAB-CASE OR SNAKE_CASE EVER, however
+  - Only camelCase for functions and variables
+  - Only PascalCase for types and components
+  - Only UPPER_SNAKE_CASE for constants
+  - Only kebab-case in apps for page routes (converts to URL paths)
 
 ### Law 3: The Dependency Hierarchy Is Sacred
 
@@ -271,6 +321,9 @@ f1/                # Used by multiple consumers
 ├── f2/            # Used only by f1
 │   └── f3/        # Used only by f2
 │       └── index.ts
+├── f4/            # Used only by f1
+│   └── f5/        # Used only by f4
+├── f6/            # Used only by f2 and f5 (lowest common ancestor is f1)
 └── index.ts
 ```
 
@@ -280,19 +333,20 @@ Benefits of this divine structure:
 - **See the entire tree in your IDE** — No mysteries
 - **Dependencies flow one direction** — No circles of hell
 - **Strict decoupling** — No spaghetti
+- **Helps to build Envoy graph** -- The hierarchy is the graph
 
 ### Law 4: Types Live in types/, Constants in constants/
 
 ```
 component/
 ├── types/
-│   └── index.ts    # Domain types here
+│   └── index.ts    # Domain types here (named exports only)
 ├── constants/
-│   └── index.ts    # Domain constants here
-└── index.tsx       # Component with Props export
+│   └── index.ts    # Domain constants here (named exports only)
+└── index.tsx       # Component with Props export (component is default export)
 ```
 
-No exceptions. Types scattered throughout files are signs of a diseased mind.
+No exceptions. Types scattered throughout files are signs of a diseased mind. Ditto for constants. Constants and types MUST be named clearly in plain english (avoid abbreviations) so that their meaning is obvious.
 
 ## Functional Programming Orthodoxy
 
@@ -311,6 +365,8 @@ export default function add(a: number) {
 	}
 }
 ```
+
+If you see an arrowy function that should be a named function, change it. No exceptions without explicit permission.
 
 ### Why Named Functions Are Superior
 
@@ -357,6 +413,7 @@ export default function processNumber(n: number): ProcessedResult {
 	const doubled = n * 2 // Thing 1
 	const validated = doubled > 0 // Thing 2
 	const formatted = `Result: ${doubled}` // Thing 3
+
 	return { doubled, validated, formatted } // Too many things!
 }
 ```
@@ -365,12 +422,20 @@ export default function processNumber(n: number): ProcessedResult {
 
 ### The Three Realms of Imports
 
+**SITEBENDER DOES NOT USE BARREL FILES. EVER.**
+
+Use direct paths. No exceptions. Everything tree-shakes.
+
 #### 1. Library Code (`/libraries/`)
 
 ```typescript
-// Internal imports: ALWAYS relative
+// Internal imports: ALWAYS relative within the library
 import type { Result } from "../../../types"
 import add from "../math/add"
+
+// Importing from other libraries: Use aliases with library name
+import map from "@sitebender/toolkit/simple/array/map"
+import BooleanField from "@sitebender/components/interactive/forms/fields/BooleanField"
 
 // External deps: Standard paths
 import { assertEquals } from "https://deno.land/std/assert/mod.ts"
@@ -381,12 +446,12 @@ import * as fc from "npm:fast-check"
 
 ```typescript
 // App code: Use aliases
-import { Button } from "~components/Button"
+import Button from "~components/Button"
 import { API_URL } from "~constants"
 
 // Libraries: Use @sitebender namespace
-import { pipe } from "@sitebender/toolkit"
-import { Form } from "@sitebender/components"
+import pipe from "@sitebender/toolkit/simple/combinators/pipe"
+import Form from "@sitebender/components/interactive/forms/Form"
 ```
 
 #### 3. Test Code
@@ -395,18 +460,22 @@ import { Form } from "@sitebender/components"
 // Reaching tested code: Relative
 import add from "../../../../src/simple/math/add"
 
-// Test deps: Standard paths
-import { describe, it } from "https://deno.land/std/testing/bdd.ts"
+// Test deps: Standard paths (use Deno.test and t)
+import { expect } from "@std/expect"
 ```
 
 ### The Import Commandments
 
-1. **Separate type imports from value imports**
+1. **Separate type imports from non-type imports by a blank line**
+1. **Always use the `type` keyword**
+1. **Separate imports of constants from other imports with a blank line**
 2. **Alphabetize within groups**
 3. **Single blank line between groups**
 4. **No circular dependencies** (punishable by exile)
 
 ## Testing Dogma
+
+**This section is aspirational and will not be implemented until the Prover library is complete.** Until then, create unit tests in the same folder as the function using `index.test.ts`.
 
 See [TESTING.md](./TESTING.md) for the full gospel, but the essence:
 
@@ -415,7 +484,7 @@ See [TESTING.md](./TESTING.md) for the full gospel, but the essence:
 **Q:** "Why can't tests live with their functions?"
 **A:** Because behavioral tests span multiple functions. Where would you put a test that verifies an entire pipeline? Think, then repent.
 
-### The Testing Hierarchy
+### The Testing Hierarchy (coming soon)
 
 1. **E2E** — User journeys (gold standard)
 2. **Integration** — Functions working together
@@ -427,6 +496,8 @@ See [TESTING.md](./TESTING.md) for the full gospel, but the essence:
 **100% reported coverage. NO EXCEPTIONS.**
 
 Less than 100%? You have untested code that WILL break. Can't test it? Add `deno-coverage-ignore` with a REASON. No reason? Then test it. See [TESTING.md](./TESTING.md#the-coverage-doctrine-100-or-death) for the full doctrine.
+
+**You must get approval from The Architect to ignore coverage. No exceptions.**
 
 ### What Gets Tested
 
@@ -461,7 +532,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 // ❌ Caching everything preemptively
 // ❌ Micro-optimizations that hurt readability
 
-// ✅ Measure, then optimize
+// ✅ Measure, then optimize: we only care about real bottlenecks
 ```
 
 ### 3. Class-Based Thinking
@@ -473,7 +544,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 
 // ✅ Pure functions
 // ✅ Composition
-// ✅ Immutable data
+// ✅ Immutable data NO EXCEPTIONS
 ```
 
 ### 4. Mocking Our Own Code
@@ -484,6 +555,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 
 // ✅ Test real functions
 // ✅ Test actual outcomes
+// ✅ Use `msw` or similar for external APIs
 ```
 
 ### 5. Tech Debt Accumulation
@@ -493,7 +565,8 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 // ❌ // Temporary workaround
 // ❌ // Will refactor in v2
 
-// ✅ Fix it now or don't write it
+// ✅ Fix it now or don't write it. NO EXCEPTIONS
+// ✅ Pay down debt immediately
 ```
 
 ### 6. Accessibility Afterthought
@@ -503,7 +576,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 // ❌ "Keyboard nav in phase 2"
 // ❌ "Screen readers are edge cases"
 
-// ✅ Accessibility from day one
+// ✅ Accessibility from day one NO EXCEPTIONS
 ```
 
 ### 7. Monolithic Functions
@@ -514,6 +587,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 // ❌ Untestable mess
 
 // ✅ Small, focused, composable
+// ✅ One function, one purpose (single responsibility)
 ```
 
 ## Error Handling Policy
@@ -546,6 +620,15 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
    }
    ```
 
+4. **Fail gracefully**
+   - Don't crash the entire app
+   - Provide fallback options
+   - Preserve user data and state
+   - Better yet, prevent errors through validation
+   - USE A MONADIC APPROACH
+   - Use the Result monad for predictable error handling
+   - Use the Validation monad for accumulating multiple errors
+
 ### Error Recovery Strategies
 
 - **Retry with exponential backoff** for network errors
@@ -570,7 +653,7 @@ Less than 100%? You have untested code that WILL break. Can't test it? Add `deno
 3. **Data minimization principle**
    - Only collect what's necessary
    - Delete what's no longer needed
-   - Don't track unless required for functionality
+   - Don't track unless required for functionality (or law)
 
 ### Privacy Implementation
 
@@ -661,7 +744,7 @@ I am the sole developer on this project. All other contributors are AIs. I revie
 
 AI assistants must:
 
-- Update all documentation (README.md, AI_BRIEFING.md, etc.) BEFORE committing
+- Update all documentation (README.md, PROMPT.md, etc.) BEFORE committing
 - Run ALL checks listed above
 - Never commit if ANY check fails
 - Remember: I WILL check your work. Thoroughly.
@@ -720,7 +803,7 @@ These are not tasks of shame, but milestones of revolution:
 
 ### Testing Revolution
 
-- Build the test generator (2 weeks)
+- Build the test generator (Prover)
 - Achieve 100% toolkit coverage automatically
 - Extend generator to all libraries
 - Generate property-based tests from types
@@ -728,21 +811,21 @@ These are not tasks of shame, but milestones of revolution:
 ### Documentation Automation
 
 - Generate docs from test cases
-- Build living documentation system
+- Build living documentation system (Envoy)
 - Create interactive playgrounds
 - Extract examples from actual usage
 
 ### Compiler Development
 
-- Build toolkit compiler for optimizations
+- Build toolkit compiler for optimizations (Engine IR)
 - Generate chainable layer automatically
 - Implement function fusion
 - Create performance dashboard
 
 ### Future Promises
 
-- Complete maths library parser
-- Implement distributed CRDTs
+- Complete maths library parser (Maths)
+- Implement distributed CRDTs (Mesh)
 - Finish web3 integrations
 - VSCode plugin development
 
@@ -751,7 +834,8 @@ These are not tasks of shame, but milestones of revolution:
 ### Remember These Truths
 
 1. **This codebase has zero dependencies by design** — Keep it that way
-2. **Everything works without JavaScript** — No exceptions
+  - Exceptions: Deno standard library and TypeScript compiler only
+2. **Everything web app works without JavaScript** — No exceptions
 3. **Tests verify behaviors, not implementations** — User-first always
 4. **Functional programming is not negotiable** — Classes are heresy
 5. **Accessibility is a right** — WCAG AAA or nothing
@@ -773,7 +857,7 @@ By using this codebase, you swear to:
 
 ### Performance Constraints
 
-If you detect rate limits or performance issues, **TELL ME IMMEDIATELY**. Do not attempt clever workarounds. Do not pretend everything is fine. Do not hope it goes away.
+If you detect rate limits or performance issues, **TELL THE ARCHITECT IMMEDIATELY**. Do not attempt clever workarounds. Do not pretend everything is fine. Do not hope it goes away.
 
 ### The Bottom Line
 
@@ -830,6 +914,6 @@ _"In 30 years, I've seen every shortcut lead to a cliff. Don't be another cautio
 
 _— The Architect_
 
-_Last updated by an AI who finally understood the assignment._
+_Last updated by The Architect himself._
 _Previous updates by AIs who thought they knew better._
 _They were wrong._
