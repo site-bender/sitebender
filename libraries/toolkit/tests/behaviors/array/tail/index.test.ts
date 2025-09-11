@@ -1,7 +1,13 @@
-import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { assertEquals } from "../../../../deps/asserts.ts"
 import * as fc from "npm:fast-check@3"
 
 import tail from "../../../../src/simple/array/tail/index.ts"
+
+// NaN-safe equality preserving === semantics for all other values
+const same = (a: unknown, b: unknown) => a === b || (a !== a && b !== b)
+
+// deno-lint-ignore no-explicit-any
+declare const Deno: any
 
 // ===== Basic Functionality Tests =====
 
@@ -161,7 +167,7 @@ Deno.test("tail property: length is original length - 1 (or 0)", () => {
 	fc.assert(
 		fc.property(
 			fc.array(fc.anything()),
-			(arr) => {
+			(arr: Array<unknown>) => {
 				const result = tail(arr)
 				const expectedLength = Math.max(0, arr.length - 1)
 				return result.length === expectedLength
@@ -174,9 +180,10 @@ Deno.test("tail property: elements match original from index 1", () => {
 	fc.assert(
 		fc.property(
 			fc.array(fc.anything(), { minLength: 1 }),
-			(arr) => {
+			(arr: Array<unknown>) => {
 				const result = tail(arr)
-				return result.every((elem, i) => elem === arr[i + 1])
+				// Use NaN-safe equality so arrays containing NaN don't fail this property
+				return result.every((elem, i) => same(elem, arr[i + 1]))
 			},
 		),
 	)
@@ -186,7 +193,7 @@ Deno.test("tail property: tail of tail removes first two elements", () => {
 	fc.assert(
 		fc.property(
 			fc.array(fc.integer(), { minLength: 2 }),
-			(arr) => {
+			(arr: Array<number>) => {
 				const onceTail = tail(arr)
 				const twiceTail = tail(onceTail)
 				const expected = arr.slice(2)
@@ -201,7 +208,7 @@ Deno.test("tail property: idempotent for empty and single element arrays", () =>
 	fc.assert(
 		fc.property(
 			fc.array(fc.anything(), { maxLength: 1 }),
-			(arr) => {
+			(arr: Array<unknown>) => {
 				const once = tail(arr)
 				const twice = tail(once)
 				return once.length === 0 && twice.length === 0
@@ -214,7 +221,7 @@ Deno.test("tail property: preserves element order", () => {
 	fc.assert(
 		fc.property(
 			fc.array(fc.integer(), { minLength: 2 }),
-			(arr) => {
+			(arr: Array<number>) => {
 				const result = tail(arr)
 				// Check that each element in result matches the corresponding element in original
 				// starting from index 1
