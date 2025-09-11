@@ -1,5 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.208.0/testing/bdd.ts"
+
 import extractDescription from "./index.ts"
 
 type Comment = {
@@ -17,38 +18,43 @@ describe("extractDescription", () => {
 				{
 					kind: "line",
 					text: "Validates an email address using regex pattern matching",
-					fullText: "//++ Validates an email address using regex pattern matching",
+					fullText:
+						"//++ Validates an email address using regex pattern matching",
 					type: "description",
-					position: "before"
+					position: "before",
 				},
 				{
 					kind: "line",
-					text: "[EXAMPLE] validateEmail(\"test@example.com\") // true",
-					fullText: "//?? [EXAMPLE] validateEmail(\"test@example.com\") // true",
+					text: '[EXAMPLE] validateEmail("test@example.com") // true',
+					fullText: '//?? [EXAMPLE] validateEmail("test@example.com") // true',
 					type: "example",
-					position: "after"
-				}
+					position: "after",
+				},
 			]
 			const result = extractDescription(comments)
-			assertEquals(result, "Validates an email address using regex pattern matching")
+			assertEquals(
+				result,
+				"Validates an email address using regex pattern matching",
+			)
 		})
 
 		it("should return undefined when no description comment exists", () => {
 			const comments: Array<Comment> = [
 				{
 					kind: "line",
-					text: "[EXAMPLE] validateEmail(\"test@example.com\") // true",
-					fullText: "//?? [EXAMPLE] validateEmail(\"test@example.com\") // true",
+					text: '[EXAMPLE] validateEmail("test@example.com") // true',
+					fullText: '//?? [EXAMPLE] validateEmail("test@example.com") // true',
 					type: "example",
-					position: "after"
+					position: "after",
 				},
 				{
 					kind: "line",
 					text: "[GOTCHA] Does not validate against disposable email providers",
-					fullText: "//?? [GOTCHA] Does not validate against disposable email providers",
+					fullText:
+						"//?? [GOTCHA] Does not validate against disposable email providers",
 					type: "gotcha",
-					position: "after"
-				}
+					position: "after",
+				},
 			]
 			const result = extractDescription(comments)
 			assertEquals(result, undefined)
@@ -61,8 +67,8 @@ describe("extractDescription", () => {
 					text: "This is a description but positioned after",
 					fullText: "//++ This is a description but positioned after",
 					type: "description",
-					position: "after"
-				}
+					position: "after",
+				},
 			]
 			const result = extractDescription(comments)
 			assertEquals(result, undefined)
@@ -75,15 +81,15 @@ describe("extractDescription", () => {
 					text: "First description comment",
 					fullText: "//++ First description comment",
 					type: "description",
-					position: "before"
+					position: "before",
 				},
 				{
 					kind: "line",
 					text: "Second description comment",
 					fullText: "//++ Second description comment",
 					type: "description",
-					position: "before"
-				}
+					position: "before",
+				},
 			]
 			const result = extractDescription(comments)
 			assertEquals(result, "First description comment")
@@ -96,8 +102,8 @@ describe("extractDescription", () => {
 					text: "Multi-line description\nspanning multiple lines",
 					fullText: "/*++ Multi-line description\nspanning multiple lines */",
 					type: "description",
-					position: "before"
-				}
+					position: "before",
+				},
 			]
 			const result = extractDescription(comments)
 			assertEquals(result, "Multi-line description\nspanning multiple lines")
@@ -114,13 +120,17 @@ describe("extractDescription", () => {
 				{
 					kind: "line",
 					text: "Function with @symbols #hashtags & special characters!",
-					fullText: "//++ Function with @symbols #hashtags & special characters!",
+					fullText:
+						"//++ Function with @symbols #hashtags & special characters!",
 					type: "description",
-					position: "before"
-				}
+					position: "before",
+				},
 			]
 			const result = extractDescription(comments)
-			assertEquals(result, "Function with @symbols #hashtags & special characters!")
+			assertEquals(
+				result,
+				"Function with @symbols #hashtags & special characters!",
+			)
 		})
 
 		it("should ignore non-description comment types", () => {
@@ -130,22 +140,22 @@ describe("extractDescription", () => {
 					text: "This is a gotcha comment",
 					fullText: "//?? [GOTCHA] This is a gotcha comment",
 					type: "gotcha",
-					position: "before"
+					position: "before",
 				},
 				{
 					kind: "line",
 					text: "This is a pro comment",
 					fullText: "//?? [PRO] This is a pro comment",
 					type: "pro",
-					position: "before"
+					position: "before",
 				},
 				{
 					kind: "line",
 					text: "This is the actual description",
 					fullText: "//++ This is the actual description",
 					type: "description",
-					position: "before"
-				}
+					position: "before",
+				},
 			]
 			const result = extractDescription(comments)
 			assertEquals(result, "This is the actual description")
@@ -158,8 +168,8 @@ describe("extractDescription", () => {
 					text: "Commutative law: f(a, b) = f(b, a)",
 					fullText: "//?? [LAW] Commutative law: f(a, b) = f(b, a)",
 					type: "law",
-					position: "before"
-				}
+					position: "before",
+				},
 			]
 			const result = extractDescription(comments)
 			assertEquals(result, undefined)
@@ -172,22 +182,22 @@ describe("extractDescription", () => {
 					text: "Example after function",
 					fullText: "//?? [EXAMPLE] Example after function",
 					type: "example",
-					position: "after"
+					position: "after",
 				},
 				{
 					kind: "line",
 					text: "Description before function",
 					fullText: "//++ Description before function",
 					type: "description",
-					position: "before"
+					position: "before",
 				},
 				{
 					kind: "line",
 					text: "Another example after",
 					fullText: "//?? [EXAMPLE] Another example after",
 					type: "example",
-					position: "after"
-				}
+					position: "after",
+				},
 			]
 			const result = extractDescription(comments)
 			assertEquals(result, "Description before function")

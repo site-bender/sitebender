@@ -3,22 +3,24 @@ import { expect } from "@std/expect"
 import type NonEmptyArray from "../../types/NonEmptyArray/index.ts"
 import type ValidationError from "../../types/ValidationError/index.ts"
 
-import valid from "./valid/index.ts"
-import invalid from "./invalid/index.ts"
-import isValid from "./isValid/index.ts"
-import isInvalid from "./isInvalid/index.ts"
-import map from "./map/index.ts"
-import fold from "./fold/index.ts"
 import chain from "./chain/index.ts"
 import createValidator from "./createValidator/index.ts"
+import fold from "./fold/index.ts"
+import invalid from "./invalid/index.ts"
+import isInvalid from "./isInvalid/index.ts"
+import isValid from "./isValid/index.ts"
+import map from "./map/index.ts"
+import valid from "./valid/index.ts"
 import validateAll from "./validateAll/index.ts"
 
 const validAge = createValidator(
-	function checkAge(age: number) { return age >= 18 }
+	function checkAge(age: number) {
+		return age >= 18
+	},
 )(
 	function ageError(age: number) {
 		return { field: "age", messages: [`Age ${age} is too young`] }
-	}
+	},
 )
 
 Deno.test("Validation monad - Valid instances", async (t) => {
@@ -30,7 +32,9 @@ Deno.test("Validation monad - Valid instances", async (t) => {
 	})
 
 	await t.step("should map over valid value", () => {
-		const double = function double(x: number) { return x * 2 }
+		const double = function double(x: number) {
+			return x * 2
+		}
 		const result = map(double)(valid(21))
 
 		expect(isValid(result)).toBe(true)
@@ -47,9 +51,13 @@ Deno.test("Validation monad - Valid instances", async (t) => {
 	await t.step("should fold to valid branch", () => {
 		const validation = valid(42)
 		const result = fold<number, string>(
-			function onValid(value: number) { return `Valid: ${value}` }
+			function onValid(value: number) {
+				return `Valid: ${value}`
+			},
 		)<ValidationError>(
-			function onInvalid(_errors: NonEmptyArray<ValidationError>) { return "Invalid" }
+			function onInvalid(_errors: NonEmptyArray<ValidationError>) {
+				return "Invalid"
+			},
 		)(validation)
 
 		expect(result).toBe("Valid: 42")
@@ -69,7 +77,9 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	})
 
 	await t.step("should not map over invalid value", () => {
-		const double = function double(x: number) { return x * 2 }
+		const double = function double(x: number) {
+			return x * 2
+		}
 		const result = map(double)(invalid(errors))
 
 		expect(isInvalid(result)).toBe(true)
@@ -90,9 +100,13 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	await t.step("should fold to invalid branch", () => {
 		const validation = invalid(errors)
 		const result = fold<number, string>(
-			function onValid(_value: number) { return "Valid" }
+			function onValid(_value: number) {
+				return "Valid"
+			},
 		)<ValidationError>(
-			function onInvalid(errs: NonEmptyArray<ValidationError>) { return `Invalid: ${errs.length} errors` }
+			function onInvalid(errs: NonEmptyArray<ValidationError>) {
+				return `Invalid: ${errs.length} errors`
+			},
 		)(validation)
 
 		expect(result).toBe("Invalid: 1 errors")
@@ -117,12 +131,20 @@ Deno.test("Validation monad - createValidator", async (t) => {
 
 Deno.test("Validation monad - validateAll", async (t) => {
 	await t.step("should pass all validations", () => {
-		const validators: NonEmptyArray<(value: number) => ReturnType<typeof validAge>> = [
+		const validators: NonEmptyArray<
+			(value: number) => ReturnType<typeof validAge>
+		> = [
 			function checkPositive(n: number) {
-				return n > 0 ? valid(n) : invalid<ValidationError>([{ field: "number", messages: ["Must be positive"] }])
+				return n > 0 ? valid(n) : invalid<ValidationError>([{
+					field: "number",
+					messages: ["Must be positive"],
+				}])
 			},
 			function checkLessThan100(n: number) {
-				return n < 100 ? valid(n) : invalid<ValidationError>([{ field: "number", messages: ["Must be less than 100"] }])
+				return n < 100 ? valid(n) : invalid<ValidationError>([{
+					field: "number",
+					messages: ["Must be less than 100"],
+				}])
 			},
 		]
 
@@ -131,12 +153,20 @@ Deno.test("Validation monad - validateAll", async (t) => {
 	})
 
 	await t.step("should accumulate errors", () => {
-		const validators: NonEmptyArray<(value: number) => ReturnType<typeof validAge>> = [
+		const validators: NonEmptyArray<
+			(value: number) => ReturnType<typeof validAge>
+		> = [
 			function checkPositive(n: number) {
-				return n > 0 ? valid(n) : invalid<ValidationError>([{ field: "number", messages: ["Must be positive"] }])
+				return n > 0 ? valid(n) : invalid<ValidationError>([{
+					field: "number",
+					messages: ["Must be positive"],
+				}])
 			},
 			function checkLessThan100(n: number) {
-				return n < 100 ? valid(n) : invalid<ValidationError>([{ field: "number", messages: ["Must be less than 100"] }])
+				return n < 100 ? valid(n) : invalid<ValidationError>([{
+					field: "number",
+					messages: ["Must be less than 100"],
+				}])
 			},
 		]
 

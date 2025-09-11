@@ -1,5 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.208.0/testing/bdd.ts"
+
 import calculateCyclomaticComplexity from "./index.ts"
 
 type FunctionMetadata = {
@@ -18,7 +19,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: false,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 1,
-				hasReturnStatements: true
+				hasReturnStatements: true,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 1)
@@ -30,7 +31,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: false,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 3, // if statement + two branches
-				hasReturnStatements: true
+				hasReturnStatements: true,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 3)
@@ -42,7 +43,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: true,
 				hasGlobalAccess: true,
 				cyclomaticComplexity: 3, // if + try/catch
-				hasReturnStatements: true
+				hasReturnStatements: true,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 3)
@@ -54,7 +55,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: false,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 4, // for loop + while loop + if condition
-				hasReturnStatements: true
+				hasReturnStatements: true,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 4)
@@ -66,7 +67,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: false,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 2, // while loop
-				hasReturnStatements: false // generators use yield
+				hasReturnStatements: false, // generators use yield
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 2)
@@ -78,7 +79,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: true,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 6, // multiple if/else, loops, try/catch
-				hasReturnStatements: true
+				hasReturnStatements: true,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 6)
@@ -90,7 +91,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: false,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 0, // Edge case - empty or malformed function
-				hasReturnStatements: false
+				hasReturnStatements: false,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 0)
@@ -102,7 +103,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: true,
 				hasGlobalAccess: true,
 				cyclomaticComplexity: 15, // Very complex function
-				hasReturnStatements: true
+				hasReturnStatements: true,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 15)
@@ -114,7 +115,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: false,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 1,
-				hasReturnStatements: false
+				hasReturnStatements: false,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 1)
@@ -126,7 +127,7 @@ describe("calculateCyclomaticComplexity", () => {
 				hasAwaitExpressions: false,
 				hasGlobalAccess: false,
 				cyclomaticComplexity: 1, // Just throw, no branching
-				hasReturnStatements: false
+				hasReturnStatements: false,
 			}
 			const result = calculateCyclomaticComplexity(metadata)
 			assertEquals(result, 1)

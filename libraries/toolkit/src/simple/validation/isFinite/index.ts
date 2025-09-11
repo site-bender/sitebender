@@ -10,10 +10,11 @@ export default function isFinite(value: unknown): value is number {
 //?? [EXAMPLE] isFinite(NaN) // false
 //?? [EXAMPLE] isFinite("123") // false (no coercion)
 /*??
- * [EXAMPLE]
- * const values = [1, Infinity, NaN, 2.5, -Infinity, 0]
- * values.filter(isFinite)  // [1, 2.5, 0]
- *
- * [GOTCHA] Does not coerce strings like global isFinite()
- * [PRO] Type guard ensures value is a usable number
- */
+ | [EXAMPLE]
+ | const values = [1, Infinity, NaN, 2.5, -Infinity, 0]
+ | values.filter(isFinite)  // [1, 2.5, 0]
+ |
+ | [GOTCHA] Does not coerce strings like global isFinite()
+ | [PRO] Type guard ensures value is a usable number
+ |
+*/

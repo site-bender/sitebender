@@ -9,6 +9,7 @@ A comprehensive guide to Envoy's comment syntax that transforms documentation in
 ## 🎯 Universal Application
 
 Comments work on ANY code element:
+
 - Functions, constants, types, interfaces, classes, modules
 - Comments must appear DIRECTLY ABOVE what they describe
 - Multiple `//++` comments can be used throughout the file
@@ -22,6 +23,7 @@ Comments work on ANY code element:
 Describes what ANY code element does.
 
 #### Categories for `//++`:
+
 - `[DESCRIPTION]` - Standard description (default if no category specified)
 - `[GROUP]` - Start a group of related elements
 - `[END]` - End a group
@@ -30,6 +32,7 @@ Describes what ANY code element does.
 - `[INCLUDES]` - List internal/private components (used with MODULE)
 
 **Functions:**
+
 ```typescript
 //++ Converts a string to uppercase
 export default function toUpperCase(str: string): string {
@@ -38,6 +41,7 @@ export default function toUpperCase(str: string): string {
 ```
 
 **Constants:**
+
 ```typescript
 //++ Primary brand color for all UI components
 export const PRIMARY_COLOR = "#007ACC"
@@ -47,6 +51,7 @@ export const DARK_BACKGROUND = "#20232A"
 ```
 
 **Types/Interfaces:**
+
 ```typescript
 //++ User authentication token with expiry
 export interface AuthToken {
@@ -57,16 +62,17 @@ export interface AuthToken {
 ```
 
 **Multi-line with Markdown:**
+
 ```typescript
 /*++
  | # CSV Parser
- | 
+ |
  | Parses CSV files with the following features:
- | 
+ |
  | * Automatic header detection
  | * Unicode support
  | * Configurable delimiters
- | 
+ |
  | Returns an array of objects with column headers as keys.
  */
 export default function parseCsv(
@@ -94,23 +100,24 @@ export const REFRESH_EXPIRY = 604800
 ```
 
 **Nested Groups:**
+
 ```typescript
 //++ [GROUP] Color System
-	//++ [GROUP] Brand Colors
-	//++ Primary interactive color
-	export const PRIMARY = "#007ACC"
-	
-	//++ Secondary brand color
-	export const SECONDARY = "#20232A"
-	//++ [END]
-	
-	//++ [GROUP] Semantic Colors
-	//++ Success state color
-	export const SUCCESS = "#10B981"
-	
-	//++ Error state color
-	export const ERROR = "#EF4444"
-	//++ [END]
+//++ [GROUP] Brand Colors
+//++ Primary interactive color
+export const PRIMARY = "#007ACC"
+
+//++ Secondary brand color
+export const SECONDARY = "#20232A"
+//++ [END]
+
+//++ [GROUP] Semantic Colors
+//++ Success state color
+export const SUCCESS = "#10B981"
+
+//++ Error state color
+export const ERROR = "#EF4444"
+//++ [END]
 //++ [END]
 ```
 
@@ -121,34 +128,35 @@ Documents entire modules (collections of files and folders), not individual file
 ```typescript
 /*++ [MODULE]
  | # Authentication System
- | 
+ |
  | Comprehensive authentication handling including:
- | 
+ |
  | ## Features
- | 
+ |
  | 1. **JWT Token Management**
  |    - Token generation and validation
  |    - Automatic refresh handling
  |    - Secure storage
- | 
+ |
  | 2. **Session Management**
  |    - Stateless sessions
  |    - Redis-backed persistence
  |    - Automatic cleanup
- | 
+ |
  | 3. **Permission System**
  |    - Role-based access control (RBAC)
  |    - Fine-grained permissions
  |    - Dynamic policy evaluation
- | 
+ |
  | ## Security
- | 
+ |
  | All tokens use **HS256** signing with rotating secrets.
  | Passwords are hashed using **bcrypt** with cost factor 12.
  */
 ```
 
 **Module References (for superdevs without barrel files):**
+
 ```typescript
 /*++ [MODULE]
  | # Parser Library
@@ -173,6 +181,7 @@ Documents entire modules (collections of files and folders), not individual file
 Creates semantic links using HTML `rel` values. Content is markdown link format.
 
 **Navigation Links:**
+
 ```typescript
 //>> [NEXT] [Session Management](./session/README.md)
 //>> [PREV] [Getting Started](../docs/getting-started.md)
@@ -181,6 +190,7 @@ Creates semantic links using HTML `rel` values. Content is markdown link format.
 ```
 
 **Documentation Links:**
+
 ```typescript
 //>> [GLOSSARY] [JWT](https://jwt.io/introduction)
 //>> [HELP] [Troubleshooting Auth](./docs/troubleshooting.md)
@@ -188,6 +198,7 @@ Creates semantic links using HTML `rel` values. Content is markdown link format.
 ```
 
 **Attribution:**
+
 ```typescript
 //>> [AUTHOR] [Guy Beford](https://github.com/guybeford)
 //>> [LICENSE] [MIT License](./LICENSE)
@@ -195,6 +206,7 @@ Creates semantic links using HTML `rel` values. Content is markdown link format.
 ```
 
 **Related Resources:**
+
 ```typescript
 //>> [RELATED] [OAuth 2.0 Guide](https://oauth.net/2/)
 //>> [ALTERNATE] [Legacy Auth Docs (v1)](./legacy/auth-v1.md)
@@ -206,6 +218,7 @@ Creates semantic links using HTML `rel` values. Content is markdown link format.
 Provides examples, gotchas, pros/cons, and other helpful info with full markdown support.
 
 #### Available Categories:
+
 - `[EXAMPLE]` - Code examples showing usage (default if no category)
 - `[GOTCHA]` - Unexpected behavior or common mistakes
 - `[PRO]` - Benefits or strengths of the function
@@ -214,18 +227,18 @@ Provides examples, gotchas, pros/cons, and other helpful info with full markdown
 - `[ADVANCED]` - Advanced usage patterns
 - `[MIGRATION]` - How to migrate from old versions
 
-```typescript
+````typescript
 /*??
  | [EXAMPLE]
  | ## Basic Usage
- | 
+ |
  | ```typescript
  | const token = await generateToken(user)
  | const valid = await validateToken(token)
  | ```
- | 
+ |
  | ## With Error Handling
- | 
+ |
  | ```typescript
  | try {
  |   const token = await generateToken(user)
@@ -234,23 +247,22 @@ Provides examples, gotchas, pros/cons, and other helpful info with full markdown
  |   logger.error('Token generation failed', error)
  | }
  | ```
- | 
+ |
  | [GOTCHA]
  | **Warning**: Tokens expire after 1 hour by default.
  | Set `TOKEN_EXPIRY` environment variable to customize.
- | 
+ |
  | [PRO]
  | * Stateless authentication
  | * Works across microservices
  | * No server-side session storage
- | 
+ |
  | [CON]
  | * Token size larger than session cookies
  | * Cannot revoke tokens before expiry
  | * Requires careful secret management
  */
-```
-
+````
 
 ### 6. Tech Debt Marker: `//--`
 
@@ -260,22 +272,23 @@ Documents known issues, workarounds, or areas needing improvement.
 /*--
  | [REFACTOR]
  | ## Current Issues
- | 
+ |
  | 1. Using regex instead of proper AST parsing
  | 2. O(n²) complexity in the main loop
  | 3. No caching of computed results
- | 
+ |
  | ## Migration Plan
- | 
+ |
  | - [ ] Replace regex with Parser library
  | - [ ] Implement memoization
  | - [ ] Add Redis caching layer
- | 
+ |
  | **Target**: Q1 2025
  */
 ```
 
 #### Tech Debt Categories:
+
 - `[WORKAROUND]` - Temporary fix for a problem
 - `[LIMITATION]` - Known limitation of current approach
 - `[OPTIMIZATION]` - Performance improvement needed
@@ -286,35 +299,36 @@ Documents known issues, workarounds, or areas needing improvement.
 
 Marks critical problems that MUST be fixed. These block releases!
 
-```typescript
+````typescript
 /*!!
  | [SECURITY]
  | # SQL Injection Vulnerability
- | 
+ |
  | **Severity**: CRITICAL
  | **CVE**: Pending
- | 
+ |
  | User input is directly interpolated into SQL query.
- | 
+ |
  | ## Impact
  | - Database compromise possible
  | - User data exposure
  | - Privilege escalation
- | 
+ |
  | ## Fix Required
  | Replace string interpolation with parameterized queries:
- | 
+ |
  | ```typescript
  | // WRONG
  | db.query(`SELECT * FROM users WHERE id = ${userId}`)
- | 
+ |
  | // CORRECT
  | db.query('SELECT * FROM users WHERE id = ?', [userId])
  | ```
  */
-```
+````
 
 #### Critical Issue Categories:
+
 - `[SECURITY]` - Security vulnerabilities
 - `[PERFORMANCE]` - Severe performance issues
 - `[CORRECTNESS]` - Produces wrong results
@@ -323,10 +337,10 @@ Marks critical problems that MUST be fixed. These block releases!
 
 ## 📋 Complete Example
 
-```typescript
+````typescript
 /*++ [MODULE]
  | # Mathematical Property Detection
- | 
+ |
  | Analyzes functions to detect mathematical properties like:
  | * Associativity: `f(f(a,b),c) = f(a,f(b,c))`
  | * Commutativity: `f(a,b) = f(b,a)`
@@ -354,11 +368,11 @@ export function isAssociative(node: AstNode): boolean {
  | ```typescript
  | const addNode = parse('(a, b) => a + b')
  | isAssociative(addNode) // true
- | 
+ |
  | const subNode = parse('(a, b) => a - b')
  | isAssociative(subNode) // false
  | ```
- | 
+ |
  | [GOTCHA]
  | Only detects **structural** patterns, not semantic equivalence.
  */
@@ -382,7 +396,7 @@ export function isCommutative(node: AstNode): boolean {
 //!! [INCOMPLETE] Generator function support not implemented
 
 //++ [END]
-```
+````
 
 ## 🎨 Markdown Support Everywhere
 
@@ -392,7 +406,7 @@ All comment content supports:
 - **Lists**: `* bullet`, `- dash`, `1. numbered`
 - **Links**: `[text](url)`
 - **Images**: `![alt text](path/to/image.png)` or `![diagram](https://example.com/diagram.svg)`
-- **Code**: `` `inline` `` and ` ```blocks``` `
+- **Code**: `` `inline` `` and `` ```blocks``` ``
 - **Emphasis**: `**bold**`, `*italic*`, `~~strikethrough~~`
 - **Tables**, blockquotes, and more!
 
@@ -409,6 +423,7 @@ All comment content supports:
 ## ✅ Best Practices
 
 ### DO:
+
 - ✅ Use `//++` on any code element that needs documentation
 - ✅ Group related constants/types with `[GROUP]...[END]`
 - ✅ Add `[MODULE]` documentation to describe file purpose
@@ -417,6 +432,7 @@ All comment content supports:
 - ✅ Use pipe `|` for block comment margins (avoids markdown conflicts)
 
 ### DON'T:
+
 - ❌ Try to group multiple `//` lines together - use `/* */` blocks instead
 - ❌ Use type markers like `[FUNCTION]` - Parser determines this automatically
 - ❌ Mix categories in one line (`//?? [EXAMPLE] [GOTCHA]`)
@@ -428,61 +444,68 @@ All comment content supports:
 ## 🔗 Quick Reference (For AIs That Don't Read So Good)
 
 ### The Golden Rules
+
 1. **`//` comments are ONE LINE ONLY** - cannot be grouped
-2. **`/* */` blocks for multi-line** - must use pipe `|` 
+2. **`/* */` blocks for multi-line** - must use pipe `|`
 3. **Description `//++` goes ABOVE the code** it describes
 4. **Other markers can go anywhere**
 5. **Bad syntax = ignored + reported**
 
 ### All Markers at a Glance
-| Marker | Single Line | Block | Purpose | Associates With Code? |
-|--------|-------------|-------|---------|----------------------|
-| `//++` | ✅ | `/*++ */` | Describe elements | ✅ (NEXT element) |
-| `//??` | ✅ | `/*?? */` | Help/examples | ❌ (metadata only) |
-| `//--` | ✅ | `/*-- */` | Tech debt | ❌ (metadata only) |
-| `//!!` | ✅ | `/*!! */` | Critical issues | ❌ (metadata only) |
-| `//>>` | ✅ | `/*>> */` | Links/references | ❌ (metadata only) |
+
+| Marker | Single Line | Block     | Purpose           | Associates With Code? |
+| ------ | ----------- | --------- | ----------------- | --------------------- |
+| `//++` | ✅          | `/*++ */` | Describe elements | ✅ (NEXT element)     |
+| `//??` | ✅          | `/*?? */` | Help/examples     | ❌ (metadata only)    |
+| `//--` | ✅          | `/*-- */` | Tech debt         | ❌ (metadata only)    |
+| `//!!` | ✅          | `/*!! */` | Critical issues   | ❌ (metadata only)    |
+| `//>>` | ✅          | `/*>> */` | Links/references  | ❌ (metadata only)    |
 
 ### Description Categories (`//++`)
-| Category | Usage | Example |
-|----------|-------|---------|
-| `[DESCRIPTION]` | Default, optional | `//++ Adds two numbers` |
-| `[GROUP]` | Start group | `//++ [GROUP] Math utilities` |
-| `[END]` | End group | `//++ [END]` |
-| `[MODULE]` | Entire module | `/*++ [MODULE] \| # Parser Library */` |
-| `[EXPORTS]` | Public API | `/*>> [EXPORTS] \| ./parse/index */` |
-| `[INCLUDES]` | Internal files | `/*>> [INCLUDES] \| ./internal/utils */` |
+
+| Category        | Usage             | Example                                  |
+| --------------- | ----------------- | ---------------------------------------- |
+| `[DESCRIPTION]` | Default, optional | `//++ Adds two numbers`                  |
+| `[GROUP]`       | Start group       | `//++ [GROUP] Math utilities`            |
+| `[END]`         | End group         | `//++ [END]`                             |
+| `[MODULE]`      | Entire module     | `/*++ [MODULE] \| # Parser Library */`   |
+| `[EXPORTS]`     | Public API        | `/*>> [EXPORTS] \| ./parse/index */`     |
+| `[INCLUDES]`    | Internal files    | `/*>> [INCLUDES] \| ./internal/utils */` |
 
 ### Help Categories (`//??`)
-| Category | Purpose | Example |
-|----------|---------|---------|
-| `[EXAMPLE]` | Code examples (default) | `//?? [EXAMPLE] add(2, 3) // 5` |
-| `[GOTCHA]` | Warnings | `//?? [GOTCHA] Returns NaN for invalid input` |
-| `[PRO]` | Benefits | `//?? [PRO] Very fast implementation` |
-| `[CON]` | Limitations | `//?? [CON] Only works with integers` |
-| `[SETUP]` | Requirements | `//?? [SETUP] Requires Node.js 18+` |
-| `[ADVANCED]` | Complex usage | `//?? [ADVANCED] Can be curried: add(2)(3)` |
-| `[MIGRATION]` | Version changes | `//?? [MIGRATION] v2.0 removed the third parameter` |
+
+| Category      | Purpose                 | Example                                             |
+| ------------- | ----------------------- | --------------------------------------------------- |
+| `[EXAMPLE]`   | Code examples (default) | `//?? [EXAMPLE] add(2, 3) // 5`                     |
+| `[GOTCHA]`    | Warnings                | `//?? [GOTCHA] Returns NaN for invalid input`       |
+| `[PRO]`       | Benefits                | `//?? [PRO] Very fast implementation`               |
+| `[CON]`       | Limitations             | `//?? [CON] Only works with integers`               |
+| `[SETUP]`     | Requirements            | `//?? [SETUP] Requires Node.js 18+`                 |
+| `[ADVANCED]`  | Complex usage           | `//?? [ADVANCED] Can be curried: add(2)(3)`         |
+| `[MIGRATION]` | Version changes         | `//?? [MIGRATION] v2.0 removed the third parameter` |
 
 ### Tech Debt Categories (`//--`)
-| Category | Usage |
-|----------|--------|
-| `[WORKAROUND]` | Temporary fix |
-| `[LIMITATION]` | Known limitation |
-| `[OPTIMIZATION]` | Performance issue |
-| `[REFACTOR]` | Structure problem |
+
+| Category          | Usage               |
+| ----------------- | ------------------- |
+| `[WORKAROUND]`    | Temporary fix       |
+| `[LIMITATION]`    | Known limitation    |
+| `[OPTIMIZATION]`  | Performance issue   |
+| `[REFACTOR]`      | Structure problem   |
 | `[COMPATIBILITY]` | Compatibility issue |
 
 ### Critical Issue Categories (`//!!`)
-| Category | Usage |
-|----------|--------|
-| `[SECURITY]` | Security vulnerability |
+
+| Category        | Usage                      |
+| --------------- | -------------------------- |
+| `[SECURITY]`    | Security vulnerability     |
 | `[PERFORMANCE]` | Severe performance problem |
-| `[CORRECTNESS]` | Wrong results |
-| `[INCOMPLETE]` | Missing functionality |
-| `[BREAKING]` | Will break in production |
+| `[CORRECTNESS]` | Wrong results              |
+| `[INCOMPLETE]`  | Missing functionality      |
+| `[BREAKING]`    | Will break in production   |
 
 ### Link Categories (`//>>`)
+
 **Navigation**: `[NEXT]`, `[PREV]`, `[UP]`, `[INDEX]`, `[CONTENTS]`, `[FIRST]`, `[LAST]`
 **Documentation**: `[GLOSSARY]`, `[HELP]`, `[APPENDIX]`, `[BOOKMARK]`
 **Attribution**: `[AUTHOR]`, `[LICENSE]`, `[COPYRIGHT]`
@@ -491,6 +514,7 @@ All comment content supports:
 ### Common Mistakes (DON'T DO THESE!)
 
 ❌ **WRONG - Trying to group single-line comments:**
+
 ```typescript
 //++ This is a function
 //++ that does something important  // ← WRONG! Will be ignored!
@@ -498,6 +522,7 @@ function doSomething() {}
 ```
 
 ✅ **CORRECT - Use block comments for multi-line:**
+
 ```typescript
 /*++
  | This is a function
@@ -507,6 +532,7 @@ function doSomething() {}
 ```
 
 ❌ **WRONG - Using asterisks in block comments:**
+
 ```typescript
 /*++
  * This conflicts with markdown
@@ -515,6 +541,7 @@ function doSomething() {}
 ```
 
 ✅ **CORRECT - Use pipes in block comments:**
+
 ```typescript
 /*++
  | This works perfectly
@@ -523,21 +550,25 @@ function doSomething() {}
 ```
 
 ❌ **WRONG - Missing category brackets:**
+
 ```typescript
 //?? EXAMPLE add(2, 3) // ← WRONG! No brackets
 ```
 
 ✅ **CORRECT - Always use brackets for categories:**
+
 ```typescript
 //?? [EXAMPLE] add(2, 3) // 5
 ```
 
 ❌ **WRONG - Multiple categories in one line:**
+
 ```typescript
 //?? [EXAMPLE] [PRO] add(2, 3) // ← WRONG!
 ```
 
 ✅ **CORRECT - One category per line:**
+
 ```typescript
 //?? [EXAMPLE] add(2, 3) // 5
 //?? [PRO] Very fast performance
@@ -546,12 +577,14 @@ function doSomething() {}
 ### Syntax Patterns for Copy-Paste
 
 **Simple description:**
+
 ```typescript
 //++ Converts string to uppercase
 export function toUpper(str: string): string {
 ```
 
 **Group of related items:**
+
 ```typescript
 //++ [GROUP] Color constants
 //++ Primary brand color
@@ -562,6 +595,7 @@ export const SECONDARY = "#666"
 ```
 
 **Function with help:**
+
 ```typescript
 //++ Adds two numbers together
 export function add(a: number, b: number): number {
@@ -572,6 +606,7 @@ export function add(a: number, b: number): number {
 ```
 
 **Module documentation:**
+
 ```typescript
 /*++ [MODULE]
  | # Authentication System
@@ -596,22 +631,27 @@ These comments don't just create documentation - they power a **revolutionary tr
 
 ### 📊 Five Data Sources Creating the Knowledge Graph
 
-#### 1. **Filesystem Semantics** 
+#### 1. **Filesystem Semantics**
+
 Path structure reveals dependencies: `a/b/c` means `c` is used by `b`, `b` is used by `a`. Folder names encode categories. Parser infers semantic meaning from architectural patterns.
 
 #### 2. **TypeScript Compiler Data**
+
 Full symbol analysis, type relationships, import/export mappings, call graphs, implementation chains.
 
 #### 3. **Configuration Files (First-Class Citizens)**
+
 - `deno.jsonc` with inline comment documentation
-- `deno.lock` for security tracking  
+- `deno.lock` for security tracking
 - `.editorconfig` for style guide generation
 - Lint/format configs for convention documentation
 
 #### 4. **Git History Integration**
+
 When functions were added/modified, author attribution, tech debt age tracking.
 
 #### 5. **CSS Analysis (v2)**
+
 Parse styles, match to components, document theming systems and progressive enhancement layers.
 
 ### 🕸️ The Knowledge Graph Structure
@@ -646,18 +686,18 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 ```json
 {
-  "_links": {
-    "self": "/functions/parseSourceFile",
-    "module": "/modules/parser", 
-    "calls": ["/functions/createCompiler", "/functions/readFile"],
-    "calledBy": ["/functions/analyze", "/functions/lint"],
-    "implements": "/types/Parser",
-    "next": "/functions/extractFunctions",
-    "tests": ["/tests/parseSourceFile.test.ts"],
-    "source": "/src/parseSourceFile/index.ts",
-    "author": "/authors/guybeford",
-    "lastModified": "2025-09-10T14:30:00Z"
-  }
+	"_links": {
+		"self": "/functions/parseSourceFile",
+		"module": "/modules/parser",
+		"calls": ["/functions/createCompiler", "/functions/readFile"],
+		"calledBy": ["/functions/analyze", "/functions/lint"],
+		"implements": "/types/Parser",
+		"next": "/functions/extractFunctions",
+		"tests": ["/tests/parseSourceFile.test.ts"],
+		"source": "/src/parseSourceFile/index.ts",
+		"author": "/authors/guybeford",
+		"lastModified": "2025-09-10T14:30:00Z"
+	}
 }
 ```
 
@@ -682,7 +722,7 @@ Each documentation page represents a **navigable state** with hypermedia control
 1. **Core Graph Construction**
    - Filesystem semantic parser, TypeScript symbol analysis, dependency extraction, HATEOAS state/transitions
 
-2. **Triple Store Integration** 
+2. **Triple Store Integration**
    - Apache Jena Fuseki backend, RDF triple generation, SPARQL query interface
 
 3. **Comprehensive Dashboard**
@@ -698,7 +738,7 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 1. **Live Playgrounds**
    - **Functions**: Editable parameters with real-time results
-   - **Components**: Rendered output with props editor  
+   - **Components**: Rendered output with props editor
    - **Types**: Example data validation
    - **CSS**: Theme switcher and live editing
 
@@ -718,15 +758,16 @@ Each documentation page represents a **navigable state** with hypermedia control
 ### 🏗️ Implementation Roadmap
 
 **Phase 1**: Parser Extensions (Current)
-**Phase 2**: Graph Foundation (Next) 
+**Phase 2**: Graph Foundation (Next)
 **Phase 3**: Envoy MVP (v1) - HATEOAS navigation, dashboards, diplomatic conflict resolution
 **Phase 4**: Interactive Envoy (v2) - Live playgrounds, visual exploration
 
 ### 🎭 The Envoy Philosophy
 
 "An Envoy takes what is given" - The system is built on truth:
+
 - Takes the filesystem structure AS IT IS
-- Takes the configuration AS WRITTEN  
+- Takes the configuration AS WRITTEN
 - Takes the code AS IMPLEMENTED
 - Reports conflicts HONESTLY
 - Maintains architectural CONSISTENCY through diplomatic truth-telling

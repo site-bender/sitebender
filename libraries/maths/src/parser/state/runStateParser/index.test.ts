@@ -2,6 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.224.0/assert/assert_equals
 import { assertObjectMatch } from "https://deno.land/std@0.224.0/assert/assert_object_match.ts"
 
 import type { Token } from "../../../types/index.ts"
+
 import runStateParser from "./index.ts"
 
 Deno.test("runStateParser - parses a simple number", () => {

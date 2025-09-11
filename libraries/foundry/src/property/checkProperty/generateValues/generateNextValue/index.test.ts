@@ -1,23 +1,25 @@
-import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
-import generateNextValue from "./index.ts"
-import type { GeneratorState } from "../../types/index.ts"
-import type { Arbitrary } from "../../../../types/index.ts"
-import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
+import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
+import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+
+import type { Arbitrary } from "../../../../types/index.ts"
+import type { GeneratorState } from "../../types/index.ts"
+
+import generateNextValue from "./index.ts"
 
 Deno.test("generateNextValue - generates value and advances seed", () => {
 	const state: GeneratorState = {
 		seed: { value: 12345, path: [] },
 		values: [1, 2],
-		error: null
+		error: null,
 	}
-	
+
 	const arbitrary: Arbitrary<number> = {
-		generator: (seed) => ok(seed.value % 100)
+		generator: (seed) => ok(seed.value % 100),
 	}
-	
+
 	const result = generateNextValue(42)(state, arbitrary as Arbitrary<unknown>)
-	
+
 	assertExists(result)
 	assertEquals(result.error, null)
 	assertEquals(result.values.length, 3)
@@ -27,19 +29,24 @@ Deno.test("generateNextValue - generates value and advances seed", () => {
 })
 
 Deno.test("generateNextValue - propagates existing error without generating", () => {
-	const existingError = err({ type: "failure" as const, counterexample: [], seed: 123, shrinks: 0 })
+	const existingError = err({
+		type: "failure" as const,
+		counterexample: [],
+		seed: 123,
+		shrinks: 0,
+	})
 	const state: GeneratorState = {
 		seed: { value: 12345, path: [] },
 		values: [1, 2],
-		error: existingError
+		error: existingError,
 	}
-	
+
 	const arbitrary: Arbitrary<number> = {
-		generator: (_seed) => ok(999) // Should not be called
+		generator: (_seed) => ok(999), // Should not be called
 	}
-	
+
 	const result = generateNextValue(42)(state, arbitrary as Arbitrary<unknown>)
-	
+
 	// Should return state unchanged
 	assertEquals(result, state)
 	assertEquals(result.error, existingError)
@@ -50,15 +57,16 @@ Deno.test("generateNextValue - handles generator failure", () => {
 	const state: GeneratorState = {
 		seed: { value: 12345, path: [] },
 		values: [1, 2],
-		error: null
+		error: null,
 	}
-	
+
 	const arbitrary: Arbitrary<number> = {
-		generator: (_seed) => err({ type: "GenerationFailed", reason: "Test failure" })
+		generator: (_seed) =>
+			err({ type: "GenerationFailed", reason: "Test failure" }),
 	}
-	
+
 	const result = generateNextValue(42)(state, arbitrary as Arbitrary<unknown>)
-	
+
 	assertExists(result.error)
 	// Should preserve existing values
 	assertEquals(result.values, [1, 2])
@@ -70,21 +78,21 @@ Deno.test("generateNextValue - preserves immutability", () => {
 	const state: GeneratorState = {
 		seed: { value: 12345, path: [] },
 		values: [1, 2],
-		error: null
+		error: null,
 	}
 	const originalValues = [...state.values]
-	
+
 	const arbitrary: Arbitrary<number> = {
-		generator: (seed) => ok(seed.value % 100)
+		generator: (seed) => ok(seed.value % 100),
 	}
-	
+
 	const result = generateNextValue(42)(state, arbitrary as Arbitrary<unknown>)
-	
+
 	// Original state should be unchanged
 	assertEquals(state.values, originalValues)
 	assertEquals(state.values.length, 2)
 	assertEquals(state.seed.value, 12345)
-	
+
 	// New state should have new values
 	assertEquals(result.values.length, 3)
 	assertEquals(result.seed.value !== 12345, true)

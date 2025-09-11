@@ -5,7 +5,7 @@ export interface Valid<A> {
 }
 
 export interface Invalid<E> {
-	readonly _tag: "Invalid" 
+	readonly _tag: "Invalid"
 	readonly errors: readonly [E, ...Array<E>]
 }
 

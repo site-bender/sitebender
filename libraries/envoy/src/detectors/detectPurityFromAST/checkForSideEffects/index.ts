@@ -1,7 +1,7 @@
 import type { AstNode } from "../../detectMathPropertiesFromAST/types/index.ts"
 
-import contains from "../../../../../toolkit/src/simple/string/contains/index.ts"
 import some from "../../../../../toolkit/src/simple/array/some/index.ts"
+import contains from "../../../../../toolkit/src/simple/string/contains/index.ts"
 import {
 	AWAIT_EXPRESSION_KIND,
 	SIDE_EFFECT_METHODS,

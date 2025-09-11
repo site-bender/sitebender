@@ -1,9 +1,8 @@
+import map from "@sitebender/toolkit/simple/array/map/index.ts"
 //++ Extracts generic type parameters from a function node
 import * as typescript from "npm:typescript@5.7.2"
 
 import type { Generic } from "../../types/index.ts"
-
-import map from "@sitebender/toolkit/simple/array/map/index.ts"
 
 import transformGeneric from "./transformGeneric/index.ts"
 

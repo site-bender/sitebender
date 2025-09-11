@@ -39,17 +39,18 @@ export default function rightWithInspect<A, E = never>(value: A): Either<E, A> {
 //?? [EXAMPLE] rightWithInspect(42) // Right(42)
 //?? [EXAMPLE] rightWithInspect({ id: 1, name: "Alice" }) // Right({"id":1,"name":"Alice"})
 /*??
- * [EXAMPLE]
- * pipe(
- *   rightWithInspect(10),
- *   map(x => x * 2),
- *   map(x => x + 5),
- *   fold(
- *     err => `Failed: ${err}`,
- *     val => `Success: ${val}`
- *   )
- * ) // "Success: 25"
- *
- * [PRO] Better debugging with nice console output for Either values
- * [GOTCHA] Adds inspection method which is impure - use regular right() for pure FP
- */
+ | [EXAMPLE]
+ | pipe(
+ |   rightWithInspect(10),
+ |   map(x => x * 2),
+ |   map(x => x + 5),
+ |   fold(
+ |     err => `Failed: ${err}`,
+ |     val => `Success: ${val}`
+ |   )
+ | ) // "Success: 25"
+ |
+ | [PRO] Better debugging with nice console output for Either values
+ | [GOTCHA] Adds inspection method which is impure - use regular right() for pure FP
+ |
+*/
