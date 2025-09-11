@@ -17,14 +17,15 @@ export default function map<A, B>(fn: (a: A) => B) {
 //?? [EXAMPLE] map((x: number) => x * 2)(right(5)) // Right(10)
 //?? [EXAMPLE] map((x: number) => x * 2)(left("error")) // Left("error")
 /*??
- * [EXAMPLE]
- * pipe(
- *   right(5),
- *   map(x => x * 2),    // Right(10)
- *   map(x => x + 1),    // Right(11)
- *   map(x => x.toString())   // Right("11")
- * )
- *
- * [PRO] Short-circuits on Left values, making error propagation automatic
- * [PRO] Fundamental operation for transforming successful computations
- */
+ | [EXAMPLE]
+ | pipe(
+ |   right(5),
+ |   map(x => x * 2),    // Right(10)
+ |   map(x => x + 1),    // Right(11)
+ |   map(x => x.toString())   // Right("11")
+ | )
+ |
+ | [PRO] Short-circuits on Left values, making error propagation automatic
+ | [PRO] Fundamental operation for transforming successful computations
+ |
+*/

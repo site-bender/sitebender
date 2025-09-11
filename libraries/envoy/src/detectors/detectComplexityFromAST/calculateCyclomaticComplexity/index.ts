@@ -1,7 +1,9 @@
 import type { TraversalMetadata } from "../../../types/index.ts"
 
 //++ Returns the pre-calculated cyclomatic complexity from Parser metadata
-export default function calculateCyclomaticComplexity(metadata: TraversalMetadata): number {
+export default function calculateCyclomaticComplexity(
+	metadata: TraversalMetadata,
+): number {
 	return metadata.cyclomaticComplexity
 }
 

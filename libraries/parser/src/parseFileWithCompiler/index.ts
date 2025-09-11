@@ -1,10 +1,7 @@
 import * as ts from "npm:typescript@5.7.2"
 
 import type { ParseError } from "../types/index.ts"
-import type { 
-	ParsedModule, 
-	TraversalMetadata 
-} from "./types/index.ts"
+import type { ParsedModule, TraversalMetadata } from "./types/index.ts"
 
 import extractFunctions from "../extractFunctions/index.ts"
 import extractSignature from "../extractSignature/index.ts"
@@ -102,10 +99,10 @@ function computeMetadata(node: ts.Node): TraversalMetadata {
 
 	// Get function-level metadata
 	const functionMetadata = getFunctionMetadata(node)
-	
+
 	// Traverse and collect all metadata
 	const traversalMetadata = traverseNode(node)
-	
+
 	// Combine all metadata
 	return {
 		...initialMetadata,
@@ -119,20 +116,23 @@ function computeMetadata(node: ts.Node): TraversalMetadata {
  */
 function getFunctionMetadata(node: ts.Node): Partial<TraversalMetadata> {
 	const isArrow = ts.isArrowFunction(node)
-	const isFunction = ts.isFunctionDeclaration(node) || ts.isFunctionExpression(node) || 
+	const isFunction = ts.isFunctionDeclaration(node) ||
+		ts.isFunctionExpression(node) ||
 		ts.isArrowFunction(node) || ts.isMethodDeclaration(node)
-	
+
 	if (!isFunction) {
 		return {}
 	}
-	
+
 	const funcNode = node as ts.FunctionLikeDeclaration
-	
+
 	return {
 		isArrowFunction: isArrow,
 		parameterCount: funcNode.parameters.length,
-		isAsync: Boolean(funcNode.modifiers?.some(m => m.kind === ts.SyntaxKind.AsyncKeyword)),
-		isGenerator: 'asteriskToken' in funcNode && Boolean(funcNode.asteriskToken),
+		isAsync: Boolean(
+			funcNode.modifiers?.some((m) => m.kind === ts.SyntaxKind.AsyncKeyword),
+		),
+		isGenerator: "asteriskToken" in funcNode && Boolean(funcNode.asteriskToken),
 	}
 }
 
@@ -154,7 +154,7 @@ function traverseNode(node: ts.Node): Partial<TraversalMetadata> {
 		readonly callExpressions: ReadonlyArray<string>
 		readonly propertyAccesses: ReadonlyArray<string>
 	}
-	
+
 	const initialState: TraversalState = {
 		hasThrowStatements: false,
 		hasAwaitExpressions: false,
@@ -169,15 +169,19 @@ function traverseNode(node: ts.Node): Partial<TraversalMetadata> {
 		callExpressions: [],
 		propertyAccesses: [],
 	}
-	
-	function visitNode(n: ts.Node, state: TraversalState, depth: number): TraversalState {
+
+	function visitNode(
+		n: ts.Node,
+		state: TraversalState,
+		depth: number,
+	): TraversalState {
 		// Calculate all the updates based on the node type
 		const isThrow = ts.isThrowStatement(n)
 		const isAwait = ts.isAwaitExpression(n)
 		const isReturn = ts.isReturnStatement(n)
 		const isIf = ts.isIfStatement(n)
-		const isLoop = ts.isForStatement(n) || ts.isForInStatement(n) || 
-			ts.isForOfStatement(n) || ts.isWhileStatement(n) || 
+		const isLoop = ts.isForStatement(n) || ts.isForInStatement(n) ||
+			ts.isForOfStatement(n) || ts.isWhileStatement(n) ||
 			ts.isDoStatement(n)
 		const isTry = ts.isTryStatement(n)
 		const isIdent = ts.isIdentifier(n)
@@ -185,10 +189,10 @@ function traverseNode(node: ts.Node): Partial<TraversalMetadata> {
 		const hasGlobal = identText !== null && isGlobalIdentifier(identText)
 		const isCall = ts.isCallExpression(n) && ts.isIdentifier(n.expression)
 		const isPropAccess = ts.isPropertyAccessExpression(n)
-		
+
 		// Calculate complexity increment
 		const complexityIncrement = (isIf ? 1 : 0) + (isLoop ? 1 : 0)
-		
+
 		// Build new state
 		const newState: TraversalState = {
 			hasThrowStatements: state.hasThrowStatements || isThrow,
@@ -200,27 +204,30 @@ function traverseNode(node: ts.Node): Partial<TraversalMetadata> {
 			hasLoops: state.hasLoops || isLoop,
 			hasTryCatch: state.hasTryCatch || isTry,
 			nestingDepth: Math.max(state.nestingDepth, depth),
-			referencedIdentifiers: identText 
+			referencedIdentifiers: identText
 				? new Set([...state.referencedIdentifiers, identText])
 				: state.referencedIdentifiers,
-			callExpressions: isCall 
-				? [...state.callExpressions, (n as ts.CallExpression).expression.getText()]
+			callExpressions: isCall
+				? [
+					...state.callExpressions,
+					(n as ts.CallExpression).expression.getText(),
+				]
 				: state.callExpressions,
 			propertyAccesses: isPropAccess
 				? [...state.propertyAccesses, n.getText()]
 				: state.propertyAccesses,
 		}
-		
+
 		// Recursively visit children and accumulate state using reduce
 		const childStates: Array<ts.Node> = []
 		ts.forEachChild(n, (child) => childStates.push(child))
-		
+
 		return childStates.reduce(
 			(accState, child) => visitNode(child, accState, depth + 1),
-			newState
+			newState,
 		)
 	}
-	
+
 	return visitNode(node, initialState, 0)
 }
 
@@ -229,11 +236,28 @@ function traverseNode(node: ts.Node): Partial<TraversalMetadata> {
  */
 function isGlobalIdentifier(name: string): boolean {
 	const globals = new Set([
-		"console", "window", "document", "global", "process",
-		"Buffer", "setTimeout", "setInterval", "clearTimeout",
-		"clearInterval", "setImmediate", "clearImmediate",
-		"require", "module", "exports", "__dirname", "__filename",
-		"alert", "confirm", "prompt", "fetch", "XMLHttpRequest",
+		"console",
+		"window",
+		"document",
+		"global",
+		"process",
+		"Buffer",
+		"setTimeout",
+		"setInterval",
+		"clearTimeout",
+		"clearInterval",
+		"setImmediate",
+		"clearImmediate",
+		"require",
+		"module",
+		"exports",
+		"__dirname",
+		"__filename",
+		"alert",
+		"confirm",
+		"prompt",
+		"fetch",
+		"XMLHttpRequest",
 	])
 	return globals.has(name)
 }

@@ -1,19 +1,28 @@
-import type { Arbitrary, GeneratorError, PropertyFailure } from "../../../../types/index.ts"
-import type { GeneratorState } from "../../types/index.ts"
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
 import fold from "@sitebender/toolkit/monads/result/fold/index.ts"
+
+import type {
+	Arbitrary,
+	GeneratorError,
+	PropertyFailure,
+} from "../../../../types/index.ts"
+import type { GeneratorState } from "../../types/index.ts"
+
 import advanceSeed from "../../../../random/advanceSeed/index.ts"
 
 //++ Generates the next value in a sequence, handling errors and advancing seed
 export default function generateNextValue<T>(
-	initialSeed: number
+	initialSeed: number,
 ) {
-	return function generate(state: GeneratorState, arbitrary: Arbitrary<T>): GeneratorState {
+	return function generate(
+		state: GeneratorState,
+		arbitrary: Arbitrary<T>,
+	): GeneratorState {
 		// Short-circuit on existing error
 		if (state.error !== null) return state
-		
+
 		const generated = arbitrary.generator(state.seed)
-		
+
 		return fold<GeneratorError, GeneratorState>(
 			function handleError(error: GeneratorError): GeneratorState {
 				return {
@@ -26,17 +35,17 @@ export default function generateNextValue<T>(
 						error: `Generation failed: ${error.type} - ${
 							"reason" in error ? error.reason : "Unknown reason"
 						}`,
-					})
+					}),
 				}
-			}
+			},
 		)(
 			function handleValue(value: unknown): GeneratorState {
 				return {
 					seed: advanceSeed(state.seed),
 					values: [...state.values, value],
-					error: null
+					error: null,
 				}
-			}
+			},
 		)(generated)
 	}
 }

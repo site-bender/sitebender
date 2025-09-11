@@ -1,15 +1,25 @@
-import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
-import checkProperty from "./index.ts"
-import type { Property, Arbitrary, Generator, Configuration, PropertySuccess, PropertyFailure } from "../../types/index.ts"
-import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
-import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
 import fold from "@sitebender/toolkit/monads/result/fold/index.ts"
+import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
+import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
+import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+
+import type {
+	Arbitrary,
+	Configuration,
+	Generator,
+	Property,
+	PropertyFailure,
+	PropertySuccess,
+} from "../../types/index.ts"
+
+import checkProperty from "./index.ts"
 
 // Helper generators for testing
 const generateInt: Generator<number> = (seed) => ok(seed.value % 100)
-const generateNegativeInt: Generator<number> = (seed) => ok(-(Math.abs(seed.value % 100) + 1))
+const generateNegativeInt: Generator<number> = (seed) =>
+	ok(-(Math.abs(seed.value % 100) + 1))
 
 // Helper arbitraries
 const intArb: Arbitrary<number> = { generator: generateInt }
@@ -21,18 +31,18 @@ Deno.test("checkProperty - passes for always true property", () => {
 		arbitraries: [intArb] as const,
 		predicate: () => true,
 	}
-	
+
 	const result = checkProperty(property)()
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
-	
+
 	const success = fold<PropertyFailure, PropertySuccess | null>(
-		() => null
+		() => null,
 	)(
-		(value: PropertySuccess) => value
+		(value: PropertySuccess) => value,
 	)(result)
-	
+
 	assertExists(success)
 	assertEquals(success.type, "success")
 	assertEquals(success.runs, 100) // default runs
@@ -44,18 +54,18 @@ Deno.test("checkProperty - fails for always false property", () => {
 		arbitraries: [intArb] as const,
 		predicate: () => false,
 	}
-	
+
 	const result = checkProperty(property)()
-	
+
 	assertExists(result)
 	assertEquals(isErr(result), true)
-	
+
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
-		(error: PropertyFailure) => error
+		(error: PropertyFailure) => error,
 	)(
-		() => null
+		() => null,
 	)(result)
-	
+
 	assertExists(failure)
 	assertEquals(failure.type, "failure")
 	assertExists(failure.counterexample)
@@ -68,9 +78,9 @@ Deno.test("checkProperty - verifies mathematical property", () => {
 		arbitraries: [intArb, intArb] as const,
 		predicate: ([a, b]) => a + b === b + a,
 	}
-	
+
 	const result = checkProperty(property)()
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
 })
@@ -81,18 +91,18 @@ Deno.test("checkProperty - finds counterexample for incorrect property", () => {
 		arbitraries: [negativeIntArb] as const,
 		predicate: ([n]) => n > 0,
 	}
-	
+
 	const result = checkProperty(property)()
-	
+
 	assertExists(result)
 	assertEquals(isErr(result), true)
-	
+
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
-		(error: PropertyFailure) => error
+		(error: PropertyFailure) => error,
 	)(
-		() => null
+		() => null,
 	)(result)
-	
+
 	assertExists(failure)
 	assertEquals(failure.type, "failure")
 	// Should fail on first run since all generated are negative
@@ -110,19 +120,19 @@ Deno.test("checkProperty - respects configuration runs", () => {
 			return true
 		},
 	}
-	
+
 	const config: Configuration = { runs: 50 }
 	const result = checkProperty(property)(config)
-	
+
 	assertEquals(runCount, 50)
 	assertEquals(isOk(result), true)
-	
+
 	const success = fold<PropertyFailure, PropertySuccess | null>(
-		() => null
+		() => null,
 	)(
-		(value: PropertySuccess) => value
+		(value: PropertySuccess) => value,
 	)(result)
-	
+
 	assertExists(success)
 	assertEquals(success.runs, 50)
 })
@@ -133,42 +143,42 @@ Deno.test("checkProperty - uses provided seed", () => {
 		arbitraries: [intArb] as const,
 		predicate: ([n]) => n !== 42, // Will fail if we generate 42
 	}
-	
+
 	const config: Configuration = { seed: 42, runs: 1 }
 	const result1 = checkProperty(property)(config)
 	const result2 = checkProperty(property)(config)
-	
+
 	// Should produce same result with same seed
 	if (isErr(result1) && isErr(result2)) {
 		const failure1 = fold<PropertyFailure, PropertyFailure | null>(
-			(error: PropertyFailure) => error
+			(error: PropertyFailure) => error,
 		)(
-			() => null
+			() => null,
 		)(result1)
-		
+
 		const failure2 = fold<PropertyFailure, PropertyFailure | null>(
-			(error: PropertyFailure) => error
+			(error: PropertyFailure) => error,
 		)(
-			() => null
+			() => null,
 		)(result2)
-		
+
 		assertExists(failure1)
 		assertExists(failure2)
 		assertEquals(failure1.counterexample, failure2.counterexample)
 		assertEquals(failure1.seed, failure2.seed)
 	} else if (isOk(result1) && isOk(result2)) {
 		const success1 = fold<PropertyFailure, PropertySuccess | null>(
-			() => null
+			() => null,
 		)(
-			(value: PropertySuccess) => value
+			(value: PropertySuccess) => value,
 		)(result1)
-		
+
 		const success2 = fold<PropertyFailure, PropertySuccess | null>(
-			() => null
+			() => null,
 		)(
-			(value: PropertySuccess) => value
+			(value: PropertySuccess) => value,
 		)(result2)
-		
+
 		assertExists(success1)
 		assertExists(success2)
 		assertEquals(success1.seed, success2.seed)
@@ -181,9 +191,9 @@ Deno.test("checkProperty - handles multiple arbitraries", () => {
 		arbitraries: [intArb, intArb, intArb] as const,
 		predicate: ([a, b, c]) => (a + b) + c === a + (b + c),
 	}
-	
+
 	const result = checkProperty(property)()
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
 })
@@ -196,18 +206,18 @@ Deno.test("checkProperty - captures predicate errors", () => {
 			throw new Error("Test error")
 		},
 	}
-	
+
 	const result = checkProperty(property)()
-	
+
 	assertExists(result)
 	assertEquals(isErr(result), true)
-	
+
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
-		(error: PropertyFailure) => error
+		(error: PropertyFailure) => error,
 	)(
-		() => null
+		() => null,
 	)(result)
-	
+
 	assertExists(failure)
 	assertEquals(failure.type, "failure")
 	assertExists(failure.error)
@@ -215,26 +225,26 @@ Deno.test("checkProperty - captures predicate errors", () => {
 })
 
 Deno.test("checkProperty - handles generator failures", () => {
-	const failingGenerator: Generator<number> = () => 
+	const failingGenerator: Generator<number> = () =>
 		err({ type: "GenerationFailed", reason: "Intentional failure" })
-	
+
 	const property: Property<[number]> = {
 		name: "with failing generator",
 		arbitraries: [{ generator: failingGenerator }] as const,
 		predicate: () => true,
 	}
-	
+
 	const result = checkProperty(property)()
-	
+
 	assertExists(result)
 	assertEquals(isErr(result), true)
-	
+
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
-		(error: PropertyFailure) => error
+		(error: PropertyFailure) => error,
 	)(
-		() => null
+		() => null,
 	)(result)
-	
+
 	assertExists(failure)
 	assertEquals(failure.type, "failure")
 	assertExists(failure.error)
@@ -247,29 +257,29 @@ Deno.test("checkProperty - deterministic results with same configuration", () =>
 		arbitraries: [intArb, intArb] as const,
 		predicate: ([a, b]) => a * b === b * a,
 	}
-	
+
 	const config: Configuration = { seed: 12345, runs: 20 }
-	
+
 	const result1 = checkProperty(property)(config)
 	const result2 = checkProperty(property)(config)
-	
+
 	// Both should succeed
 	assertEquals(isOk(result1), true)
 	assertEquals(isOk(result2), true)
-	
+
 	if (isOk(result1) && isOk(result2)) {
 		const success1 = fold<PropertyFailure, PropertySuccess | null>(
-			() => null
+			() => null,
 		)(
-			(value: PropertySuccess) => value
+			(value: PropertySuccess) => value,
 		)(result1)
-		
+
 		const success2 = fold<PropertyFailure, PropertySuccess | null>(
-			() => null
+			() => null,
 		)(
-			(value: PropertySuccess) => value
+			(value: PropertySuccess) => value,
 		)(result2)
-		
+
 		assertExists(success1)
 		assertExists(success2)
 		assertEquals(success1.seed, success2.seed)

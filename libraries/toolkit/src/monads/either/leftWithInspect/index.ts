@@ -32,16 +32,17 @@ export default function leftWithInspect<E, A = never>(value: E): Either<E, A> {
 //?? [EXAMPLE] leftWithInspect("User not found") // Left("User not found")
 //?? [EXAMPLE] leftWithInspect({ field: "email", message: "Invalid" }) // Left({"field":"email","message":"Invalid"})
 /*??
- * [EXAMPLE]
- * pipe(
- *   leftWithInspect("error"),
- *   map((x: number) => x * 2),  // Not executed
- *   fold(
- *     err => `Failed: ${err}`,
- *     val => `Success: ${val}`
- *   )
- * ) // "Failed: error"
- *
- * [PRO] Better debugging with nice console output for Either values
- * [GOTCHA] Adds inspection method which is impure - use regular left() for pure FP
- */
+ | [EXAMPLE]
+ | pipe(
+ |   leftWithInspect("error"),
+ |   map((x: number) => x * 2),  // Not executed
+ |   fold(
+ |     err => `Failed: ${err}`,
+ |     val => `Success: ${val}`
+ |   )
+ | ) // "Failed: error"
+ |
+ | [PRO] Better debugging with nice console output for Either values
+ | [GOTCHA] Adds inspection method which is impure - use regular left() for pure FP
+ |
+*/

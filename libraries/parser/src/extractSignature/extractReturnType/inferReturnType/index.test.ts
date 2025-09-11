@@ -13,7 +13,7 @@ describe("inferReturnType", () => {
 			typescript.ScriptTarget.Latest,
 			true,
 		)
-		
+
 		const statement = sourceFile.statements[0] as typescript.VariableStatement
 		const declaration = statement.declarationList.declarations[0]
 		return declaration.initializer!
@@ -22,7 +22,7 @@ describe("inferReturnType", () => {
 	it("infers string literal type", () => {
 		const expr = createExpression(`"hello"`)
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "string")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -30,7 +30,7 @@ describe("inferReturnType", () => {
 	it("infers template literal type", () => {
 		const expr = createExpression("`hello`")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "string")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -38,7 +38,7 @@ describe("inferReturnType", () => {
 	it("infers template expression type", () => {
 		const expr = createExpression("`hello \${name}`")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "string")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -46,7 +46,7 @@ describe("inferReturnType", () => {
 	it("infers numeric literal type", () => {
 		const expr = createExpression("42")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "number")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -54,7 +54,7 @@ describe("inferReturnType", () => {
 	it("infers true keyword type", () => {
 		const expr = createExpression("true")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "boolean")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -62,7 +62,7 @@ describe("inferReturnType", () => {
 	it("infers false keyword type", () => {
 		const expr = createExpression("false")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "boolean")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -70,7 +70,7 @@ describe("inferReturnType", () => {
 	it("infers null keyword type", () => {
 		const expr = createExpression("null")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "null")
 		assertEquals(result.kind, TypeKind.Null)
 	})
@@ -78,7 +78,7 @@ describe("inferReturnType", () => {
 	it("infers undefined keyword type", () => {
 		const expr = createExpression("undefined")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "undefined")
 		assertEquals(result.kind, TypeKind.Undefined)
 	})
@@ -86,7 +86,7 @@ describe("inferReturnType", () => {
 	it("infers array literal type", () => {
 		const expr = createExpression("[1, 2, 3]")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "Array<unknown>")
 		assertEquals(result.kind, TypeKind.Array)
 	})
@@ -94,7 +94,7 @@ describe("inferReturnType", () => {
 	it("infers object literal type", () => {
 		const expr = createExpression("{ a: 1, b: 2 }")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "object")
 		assertEquals(result.kind, TypeKind.Object)
 	})
@@ -102,7 +102,7 @@ describe("inferReturnType", () => {
 	it("infers arrow function type", () => {
 		const expr = createExpression("() => 42")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "Function")
 		assertEquals(result.kind, TypeKind.Function)
 	})
@@ -110,7 +110,7 @@ describe("inferReturnType", () => {
 	it("infers function expression type", () => {
 		const expr = createExpression("function() { return 42 }")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "Function")
 		assertEquals(result.kind, TypeKind.Function)
 	})
@@ -122,7 +122,7 @@ describe("inferReturnType", () => {
 			typescript.ScriptTarget.Latest,
 			true,
 		)
-		
+
 		let awaitExpr: typescript.Expression | undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isAwaitExpression(node)) {
@@ -132,9 +132,9 @@ describe("inferReturnType", () => {
 			typescript.forEachChild(node, visit)
 		}
 		visit(sourceFile)
-		
+
 		const result = inferReturnType(awaitExpr!, sourceFile)
-		
+
 		assertEquals(result.raw, "Promise<unknown>")
 		assertEquals(result.kind, TypeKind.Object)
 	})
@@ -142,7 +142,7 @@ describe("inferReturnType", () => {
 	it("returns unknown for complex expressions", () => {
 		const expr = createExpression("someVariable")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "unknown")
 		assertEquals(result.kind, TypeKind.Unknown)
 	})
@@ -150,7 +150,7 @@ describe("inferReturnType", () => {
 	it("returns unknown for binary expressions", () => {
 		const expr = createExpression("1 + 2")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "unknown")
 		assertEquals(result.kind, TypeKind.Unknown)
 	})
@@ -158,7 +158,7 @@ describe("inferReturnType", () => {
 	it("returns unknown for conditional expressions", () => {
 		const expr = createExpression("true ? 1 : 2")
 		const result = inferReturnType(expr, {} as typescript.SourceFile)
-		
+
 		assertEquals(result.raw, "unknown")
 		assertEquals(result.kind, TypeKind.Unknown)
 	})

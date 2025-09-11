@@ -1,8 +1,9 @@
+import type { Token } from "../../../types/index.ts"
+import type { Parser, ParserState } from "../../types/state/index.ts"
+
 import doState, {
 	get,
 } from "../../../../../toolkit/src/monads/doState/index.ts"
-import type { Token } from "../../../types/index.ts"
-import type { Parser, ParserState } from "../../types/state/index.ts"
 
 //++ Looks ahead at next token without consuming current token
 export default function peek(offset: number = 1): Parser<Token> {

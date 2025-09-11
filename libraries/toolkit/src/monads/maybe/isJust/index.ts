@@ -8,12 +8,13 @@ export default function isJust<A>(maybe: Maybe<A>): maybe is Just<A> {
 //?? [EXAMPLE] isJust(just(42)) // true
 //?? [EXAMPLE] isJust(nothing()) // false
 /*??
- * [EXAMPLE]
- * const maybe = just("hello") as Maybe<string>
- * if (isJust(maybe)) {
- *   console.log(maybe.value.toUpperCase())  // "HELLO" - safe access
- * }
- *
- * [PRO] Type narrows in TypeScript for safe value property access
- * [PRO] Essential for pattern matching and conditional logic
- */
+ | [EXAMPLE]
+ | const maybe = just("hello") as Maybe<string>
+ | if (isJust(maybe)) {
+ |   console.log(maybe.value.toUpperCase())  // "HELLO" - safe access
+ | }
+ |
+ | [PRO] Type narrows in TypeScript for safe value property access
+ | [PRO] Essential for pattern matching and conditional logic
+ |
+*/

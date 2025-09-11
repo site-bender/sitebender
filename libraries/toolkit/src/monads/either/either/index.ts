@@ -14,15 +14,16 @@ export default function either<E, A, B>(leftHandler: (e: E) => B) {
 //?? [EXAMPLE] either((err: string) => `Failed: ${err}`)((val: number) => `Success: ${val}`)(right(42)) // "Success: 42"
 //?? [EXAMPLE] either((err: string) => `Failed: ${err}`)((val: number) => `Success: ${val}`)(left("oops")) // "Failed: oops"
 /*??
- * [EXAMPLE]
- * const toNullable = <E, A>(e: Either<E, A>): A | null =>
- *   either(
- *     () => null,
- *     (a: A) => a
- *   )(e)
- * toNullable(right(42))     // 42
- * toNullable(left("error")) // null
- *
- * [PRO] Clearer parameter names than fold for pattern matching
- * [PRO] Useful for converting Either to other types (Promise, nullable, etc.)
- */
+ | [EXAMPLE]
+ | const toNullable = <E, A>(e: Either<E, A>): A | null =>
+ |   either(
+ |     () => null,
+ |     (a: A) => a
+ |   )(e)
+ | toNullable(right(42))     // 42
+ | toNullable(left("error")) // null
+ |
+ | [PRO] Clearer parameter names than fold for pattern matching
+ | [PRO] Useful for converting Either to other types (Promise, nullable, etc.)
+ |
+*/

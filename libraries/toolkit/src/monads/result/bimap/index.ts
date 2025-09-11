@@ -21,16 +21,17 @@ export default function bimap<E, F, A, B>(
 //?? [EXAMPLE] bimap((e: string) => e.toUpperCase(), (x: number) => x * 2)(ok(5)) // ok(10)
 //?? [EXAMPLE] bimap((e: string) => e.toUpperCase(), (x: number) => x * 2)(err("fail")) // err("FAIL")
 /*??
- * [EXAMPLE]
- * const transform = bimap(
- *   (e: string) => e.toUpperCase(),
- *   (x: number) => x * 2
- * )
- *
- * transform(ok(5))      // ok(10)
- * transform(err("fail")) // err("FAIL")
- *
- * [PRO] Wrapper around Either's bimap with Result-specific naming
- * [PRO] Applies transformation to both error and success cases
- * [GOTCHA] Takes both transform functions as parameters, then returns result transformer
- */
+ | [EXAMPLE]
+ | const transform = bimap(
+ |   (e: string) => e.toUpperCase(),
+ |   (x: number) => x * 2
+ | )
+ |
+ | transform(ok(5))      // ok(10)
+ | transform(err("fail")) // err("FAIL")
+ |
+ | [PRO] Wrapper around Either's bimap with Result-specific naming
+ | [PRO] Applies transformation to both error and success cases
+ | [GOTCHA] Takes both transform functions as parameters, then returns result transformer
+ |
+*/

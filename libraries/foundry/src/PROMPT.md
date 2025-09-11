@@ -24,6 +24,7 @@ The CLAUDE.md file is THE LAW. It overrides any default behavior you might have.
 This is the **@sitebender/foundry** library - a pure functional property-based testing and data generation library for TypeScript.
 
 #### Current State (Phase 1 nearly complete - just needs shrinking)
+
 - **PRNG foundation complete** - createSeed, advanceSeed, splitSeed in `random/` folder
 - **Basic arbitraries complete** - generateInteger, generateString, generateBoolean in `arbitrary/` folder
 - **Combinators complete** - map, filter, chain in `combinator/` folder
@@ -36,6 +37,7 @@ This is the **@sitebender/foundry** library - a pure functional property-based t
 - **Fully functional architecture** - No classes, no mutations, proper use of Result monad
 
 #### Next Steps
+
 - **Implement shrinking** - Last item in Phase 1
   - Create `shrink/` folder structure
   - Implement shrinkInteger, shrinkString, shrinkBoolean
@@ -43,11 +45,13 @@ This is the **@sitebender/foundry** library - a pure functional property-based t
 - **Then Phase 2: Complex Arbitraries** - array, record, union types
 
 #### What Foundry Does
+
 1. **Property-Based Testing** - Generate test cases from mathematical properties
-2. **Deterministic Data Generation** - Realistic fake data from seeds  
+2. **Deterministic Data Generation** - Realistic fake data from seeds
 3. **Semantic Web Data** - RDF triples, ontologies, knowledge graphs
 
 #### Key Files Already Present
+
 - `deno.json` - Package configuration with all planned exports
 - `README.md` - Comprehensive documentation and architecture
 - `RULES.md` - Development rules and coding standards
@@ -56,17 +60,20 @@ This is the **@sitebender/foundry** library - a pure functional property-based t
 ### SACRED ARCHITECTURE PRINCIPLES
 
 #### The Holy Trinity of Organization
+
 1. **One function per file** - Each function gets its own `index.ts` in a folder
 2. **Types grouped by scope** - At lowest common ancestor
 3. **No barrel files** - Direct imports only
 
 #### The Functional Commandments
+
 - **Named functions only** - No arrow functions for exports
 - **Pure functions** - No mutations, no side effects
 - **Result monad** - No null/undefined, no throws
 - **Zero dependencies** - Use @sitebender/toolkit for utilities
 
 #### Example Structure
+
 ```
 arbitrary/
 ├── generateInteger/
@@ -84,32 +91,38 @@ arbitrary/
 From README.md Phase 1-6:
 
 #### Phase 1: Core (Week 1)
+
 - [x] Seed-based PRNG
-- [x] Basic arbitraries (integer, string, boolean)  
+- [x] Basic arbitraries (integer, string, boolean)
 - [x] Combinators (map, filter, chain)
 - [x] Property runner
 - [ ] Basic shrinking
 
 #### Phase 2: Arbitraries (Week 2)
+
 - [ ] Complex types (array, record, union)
 - [ ] Recursive arbitraries
 - [ ] Weighted unions
 
 #### Phase 3: Properties (Week 3)
+
 - [ ] Mathematical laws (functor, monad, monoid)
 - [ ] Custom property builders
 
 #### Phase 4: Fake Data (Week 4)
+
 - [ ] Person generators
 - [ ] Address generators
 - [ ] Company generators
 
 #### Phase 5: Semantic Web (Week 5)
+
 - [ ] RDF triple generation
 - [ ] Ontology generation
 - [ ] Knowledge graphs
 
 #### Phase 6: Integration (Week 6)
+
 - [ ] Ecosystem integration
 - [ ] Performance optimization
 - [ ] Documentation
@@ -149,6 +162,7 @@ foundry/src/
 ### CRITICAL REMINDERS - UPDATED WITH TOOLKIT KNOWLEDGE
 
 #### Import Rules - CORRECTED
+
 ```typescript
 // ✅ CORRECT - Within foundry library
 import type { Seed } from "../../types/index.ts"
@@ -160,66 +174,72 @@ import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import map from "@sitebender/toolkit/simple/array/map/index.ts"
 
 // ❌ WRONG - Old guess about toolkit structure
-import { Result, ok, err } from "@sitebender/toolkit/types/fp/result/index.ts"
+import { err, ok, Result } from "@sitebender/toolkit/types/fp/result/index.ts"
 
-// ❌ WRONG - Never use barrel imports  
+// ❌ WRONG - Never use barrel imports
 import { generateInteger } from "@sitebender/foundry"
 ```
 
 #### TOOLKIT REALITY - What I Learned
 
 **The Toolkit Structure:**
+
 - **monads/** - Full monad implementations (Result, Either, Maybe, State, Task, etc.)
-- **simple/** - Pure functional utilities organized by category (array/, math/, string/, etc.)  
+- **simple/** - Pure functional utilities organized by category (array/, math/, string/, etc.)
 - **lifted/** - TK2's work - monadic wrappers for simple functions
 - **types/** - Type definitions including monad types
 
 **Result vs Either in Toolkit:**
+
 - **Result** is just a wrapper around **Either** with different naming (ok/err vs right/left)
 - Result monad is at `monads/result/` with operations like `ok`, `err`, `chain`, `map`
 - Types are at `monads/types/fp/result/index.ts`
 
 **Do-Notation System:**
+
 - Comprehensive do-notation for 8+ monads (Result, Either, Maybe, State, Task, etc.)
 - Uses generators with `function*` syntax (never arrow functions)
 - `yield` unwraps values, `return` autowraps in monad
 - TK has built full tutorial and working examples
 
 **Validation vs Result:**
-- **Validation monad** accumulates errors (doesn't short-circuit)  
+
+- **Validation monad** accumulates errors (doesn't short-circuit)
 - **Result monad** short-circuits on first error
 - ValidationError type with field/messages structure
 - NonEmptyArray type for guaranteed non-empty collections
 
 #### Function Structure
+
 ```typescript
 // ✅ CORRECT - Named function with currying
 export default function generateInteger(min: number) {
-    return function (max: number) {
-        return function (seed: Seed): Result<number, GeneratorError> {
-            // Implementation here
-        }
-    }
+	return function (max: number) {
+		return function (seed: Seed): Result<number, GeneratorError> {
+			// Implementation here
+		}
+	}
 }
 
 // ❌ WRONG - Arrow functions for exports
 export default (min: number) => (max: number) => (seed: Seed) => {
-    // Never do this for exports
+	// Never do this for exports
 }
 ```
 
 #### Error Handling
+
 ```typescript
 // ✅ CORRECT - Result monad everywhere
 function generate(seed: Seed): Result<T, GeneratorError> {
-    if (invalid) return err({ type: "InvalidSeed", seed })
-    return ok(value)
+	if (invalid) return err({ type: "InvalidSeed", seed })
+	return ok(value)
 }
 
 // ❌ WRONG - Null, undefined, or throws
 function generate(seed: Seed): T | null {
-    if (invalid) return null  // NO!
-    if (invalid) throw new Error()  // NO!
+	if (invalid) return null // NO!
+	if (invalid) throw new Error() // NO!
 }
 ```
 
@@ -230,14 +250,16 @@ Based on toolkit patterns, use the Scribe comment system:
 ```typescript
 //++ Generates integers within specified bounds
 export default function generateInteger(min: number) {
-    return function generateIntegerWithMax(max: number) {
-        return function generateFromSeed(seed: Seed): Result<number, GeneratorError> {
-            //-- Using mutable state for PRNG performance - needed for seedable random
-            let state = seed.value
-            
-            return ok(result)
-        }
-    }
+	return function generateIntegerWithMax(max: number) {
+		return function generateFromSeed(
+			seed: Seed,
+		): Result<number, GeneratorError> {
+			//-- Using mutable state for PRNG performance - needed for seedable random
+			let state = seed.value
+
+			return ok(result)
+		}
+	}
 }
 
 //?? generateInteger(1)(10)(seed) // Returns: Result<5, GeneratorError>
@@ -245,8 +267,9 @@ export default function generateInteger(min: number) {
 ```
 
 **Scribe Comment System:**
+
 - `//++` - Brief description (above function)
-- `//--` - Tech debt with explicit reason (inside function)  
+- `//--` - Tech debt with explicit reason (inside function)
 - `//??` - Examples with inline results (below function)
 - **Named inner functions** - Each curried level has descriptive name
 
@@ -255,11 +278,13 @@ export default function generateInteger(min: number) {
 **NEW DIRECTIVE:** Since we're waiting on Prover for auto-generated tests, we're doing TDD manually.
 
 #### TDD Process for EVERY Function
+
 1. **Write test FIRST** - In same folder as function, named `index.test.ts`
 2. **Write minimal implementation** - Just enough to pass
 3. **Refactor if needed** - Keep tests green
 
 #### Test File Structure
+
 ```
 arbitrary/
 ├── generateInteger/
@@ -268,6 +293,7 @@ arbitrary/
 ```
 
 #### Test File Pattern - CORRECTED TO USE Deno.test
+
 ```typescript
 // index.test.ts
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
@@ -277,23 +303,24 @@ import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
 
 Deno.test("generateInteger - generates integers within bounds", () => {
-  const seed: Seed = { value: 12345, path: [] }
-  const result = generateInteger(1)(10)(seed)
-  assertExists(result)
-  assertEquals(isOk(result), true)
-  // Assert value is between 1 and 10
+	const seed: Seed = { value: 12345, path: [] }
+	const result = generateInteger(1)(10)(seed)
+	assertExists(result)
+	assertEquals(isOk(result), true)
+	// Assert value is between 1 and 10
 })
 
 Deno.test("generateInteger - handles invalid bounds", () => {
-  const seed: Seed = { value: 12345, path: [] }
-  const result = generateInteger(10)(1)(seed)
-  assertExists(result)
-  assertEquals(isErr(result), true)
-  // Assert has appropriate error
+	const seed: Seed = { value: 12345, path: [] }
+	const result = generateInteger(10)(1)(seed)
+	assertExists(result)
+	assertEquals(isErr(result), true)
+	// Assert has appropriate error
 })
 ```
 
-**REMEMBER:** 
+**REMEMBER:**
+
 - Write test FIRST
 - One function per file
 - Test in same folder as function
@@ -304,37 +331,42 @@ Deno.test("generateInteger - handles invalid bounds", () => {
 We've refactored the entire architecture to be properly functional:
 
 #### Type Separation (Beautiful FP Design)
+
 ```typescript
 // Before: OOP-style bundled object
 type Arbitrary<T> = {
-  generate: (seed: Seed) => Result<T, GeneratorError>
-  shrink: (value: T) => ReadonlyArray<T>
+	generate: (seed: Seed) => Result<T, GeneratorError>
+	shrink: (value: T) => ReadonlyArray<T>
 }
 
 // After: Pure functional separation
 type Generator<T> = (seed: Seed) => Result<T, GeneratorError>
 type Shrinker<T> = (value: T) => ReadonlyArray<T>
 type Arbitrary<T> = {
-  generator: Generator<T>
-  shrinker?: Shrinker<T>  // Optional!
+	generator: Generator<T>
+	shrinker?: Shrinker<T> // Optional!
 }
 ```
 
 #### Combinator Beauty
+
 Our `map` combinator is a masterpiece of functional programming:
+
 ```typescript
 export default function map<A, B>(fn: (value: A) => B) {
-  return function mapGenerator(generator: Generator<A>): Generator<B> {
-    return function mappedGenerator(seed: Seed): Result<B, GeneratorError> {
-      const result = generator(seed)
-      return resultMap(fn)(result)
-    }
-  }
+	return function mapGenerator(generator: Generator<A>): Generator<B> {
+		return function mappedGenerator(seed: Seed): Result<B, GeneratorError> {
+			const result = generator(seed)
+			return resultMap(fn)(result)
+		}
+	}
 }
 ```
+
 Just 16 lines! Pure composition, no hacks, no workarounds.
 
 #### Why This Matters
+
 - **Generators are just functions** - Compose them like any other function
 - **No forced coupling** - Use generators without shrinkers when not needed
 - **True functional composition** - Works perfectly with pipe, map, chain
@@ -346,6 +378,7 @@ Just 16 lines! Pure composition, no hacks, no workarounds.
 Based on our implementation of basic arbitraries:
 
 #### Key Patterns
+
 1. **Always use existing PRNG functions** - Don't reinvent advanceSeed, splitSeed, etc.
 2. **Toolkit for array operations** - Use range, map, etc. from toolkit (they wrap native methods efficiently)
 3. **Validation first** - Check NaN, Infinity, negative values before processing
@@ -353,6 +386,7 @@ Based on our implementation of basic arbitraries:
 5. **Document mutations** - If you must mutate (e.g., seed accumulator), use `//--` comment
 
 #### Generator Signatures
+
 ```typescript
 // Parameterized generators (curried)
 generateInteger(min: number)(max: number)(seed: Seed): Result<number, GeneratorError>
@@ -363,11 +397,13 @@ generateBoolean(seed: Seed): Result<boolean, GeneratorError>
 ```
 
 #### Error Types Added
+
 - `InvalidBounds` - For min/max validation in generateInteger
 - `InvalidLength` - For length validation in generateString
 - Extended `InvalidSeed` with optional reason field
 
 #### Testing Patterns
+
 - Test determinism (same seed → same output)
 - Test distribution (different seeds → different values)
 - Test edge cases (0, negative, NaN, Infinity, MAX_SAFE_INTEGER)
@@ -386,23 +422,27 @@ When resuming work:
 ### COORDINATION NOTES
 
 #### Integration Points
+
 - **Parser** - Will extract TypeScript types for generator creation
-- **Prover** - Will use generators for automatic test creation  
+- **Prover** - Will use generators for automatic test creation
 - **Scribe** - Will use generators for documentation examples
 - **Toolkit** - We MUST use toolkit functions, never native JS methods
 
 #### Communication Protocol
+
 - **Tell other teams** when adding new generator types
-- **Check parser** for type extraction capabilities  
+- **Check parser** for type extraction capabilities
 - **Coordinate with prover** on generator interfaces
 - **Use toolkit monads** - Result for short-circuit, Validation for accumulation
 
 #### TOOLKIT INTEGRATION - CRITICAL
+
 **NEVER use native JavaScript methods:**
+
 ```typescript
 // ❌ WRONG - Native methods
 array.map(fn)
-array.filter(pred)  
+array.filter(pred)
 array.reduce(fn)
 
 // ✅ CORRECT - Toolkit functions
@@ -418,6 +458,7 @@ reduce(fn)(initial)(array)
 ### LEARNINGS FROM IMPLEMENTATION
 
 #### Property Runner Architecture
+
 - **Use `reduce` for iteration** - No for loops, no mutations
 - **Extract named functions** - runProperty, generateValues, generateNextValue all in separate files
 - **Types in types/ folder** - RunState, GeneratorState, ValuesResult properly organized
@@ -426,6 +467,7 @@ reduce(fn)(initial)(array)
 - **Short-circuit with state** - Thread state through reduce, check for errors early
 
 #### Scribe Comment Format
+
 - **Always use categories** - `[EXAMPLE]`, `[GOTCHA]`, `[PRO]`, `[CON]`
 - **One comment per line** - Don't combine multiple examples on one line
 - **Categories in UPPERCASE** - Not `[example]` but `[EXAMPLE]`
@@ -433,6 +475,7 @@ reduce(fn)(initial)(array)
 - **//?? after function** - Examples and help go after the closing brace
 
 #### Toolkit Integration Patterns
+
 - **Use fold for Result extraction** - `fold<E, B>(onErr)(onOk)(result)`
 - **Import individual functions** - `import ok from ".../ok/index.ts"` not barrel imports
 - **Check monads/ for Result functions** - isOk, isErr, fold, chain, map, etc.
@@ -442,7 +485,7 @@ reduce(fn)(initial)(array)
 
 1. **NO ASSUMPTIONS** - Verify everything, ask when uncertain
 2. **NO SHORTCUTS** - Do it right or don't do it
-3. **NO TECH DEBT** - Fix issues immediately  
+3. **NO TECH DEBT** - Fix issues immediately
 4. **NO VIOLATIONS** - CLAUDE.md rules are absolute
 5. **ASK QUESTIONS** - Better slow and right than fast and wrong
 6. **USE REDUCE** - Almost everything can be done with reduce, no loops needed

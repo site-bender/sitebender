@@ -24,9 +24,11 @@
 The monads folder has been audited and contains 70+ files with violations that MUST be fixed before ANY other work. After completion, this folder will be marked as PERFECT, THE EPITOME, A SUBLIME EXAMPLE, AND COMPLETELY OFF LIMITS.
 
 ### ⛔ DO NOT TOUCH THESE FILES - ALREADY CORRECTED ⛔
+
 **WARNING: TOUCHING THESE FILES WILL RESULT IN IMMEDIATE TERMINATION**
 
 #### Files Already Fixed (DO NOT MODIFY UNDER ANY CIRCUMSTANCES):
+
 1. ✅ `/src/monads/doEither/index.ts` - Fixed, imports from proper locations
 2. ✅ `/src/monads/doEither/createEitherMonad/index.ts` - Created correctly
 3. ✅ `/src/monads/either/left/index.ts` - Converted to named function with Scribe
@@ -42,7 +44,9 @@ The monads folder has been audited and contains 70+ files with violations that M
 ### ✅ COMPLETED FILES - DO NOT TOUCH
 
 #### Either Monad (16 files completed):
+
 **Arrow functions converted to named functions:**
+
 - ✅ `either/leftWithInspect/index.ts`
 - ✅ `either/rightWithInspect/index.ts`
 - ✅ `either/isLeft/index.ts`
@@ -53,6 +57,7 @@ The monads folder has been audited and contains 70+ files with violations that M
 - ✅ `either/mapLeft/index.ts`
 
 **JSDoc converted to Scribe:**
+
 - ✅ `either/bimap/index.ts`
 - ✅ `either/chain/index.ts`
 - ✅ `either/chainLeft/index.ts`
@@ -63,7 +68,9 @@ The monads folder has been audited and contains 70+ files with violations that M
 - ✅ `either/tryCatch/index.ts`
 
 #### Maybe Monad (18 files completed):
+
 **ALL converted - arrow → named function AND JSDoc → Scribe:**
+
 - ✅ `maybe/chain/index.ts`
 - ✅ `maybe/filter/index.ts`
 - ✅ `maybe/fold/index.ts`
@@ -83,7 +90,9 @@ The monads folder has been audited and contains 70+ files with violations that M
 - ✅ `maybe/toNullable/index.ts`
 
 #### IO Monad (20 files completed):
+
 **ALL converted - arrow → named function AND/OR JSDoc → Scribe:**
+
 - ✅ `io/ap/index.ts`
 - ✅ `io/chain/index.ts`
 - ✅ `io/chainIOEither/index.ts`
@@ -107,7 +116,9 @@ The monads folder has been audited and contains 70+ files with violations that M
 ### 🔴 FILES REMAINING TO FIX (22 FILES)
 
 #### Result Monad (18 files):
+
 **ALL need JSDoc → Scribe:**
+
 - `result/bimap/index.ts`
 - `result/chain/index.ts`
 - `result/chainErr/index.ts`
@@ -128,23 +139,26 @@ The monads folder has been audited and contains 70+ files with violations that M
 - `result/tryCatch/index.ts`
 
 #### Other Monads (4 files):
+
 - `state/modify/index.ts` (arrow function)
 - `writer/WriterM/index.ts` (arrow function)
 - `task/delay/index.ts` (arrow function)
 - `task/map/index.ts` (arrow function)
 
 ### TOTAL PROGRESS: 54/74 FILES COMPLETED ✅
+
 ### REMAINING: 22 FILES TO FIX 🔴
 
 ### Conversion Rules (MUST FOLLOW EXACTLY):
+
 1. **Arrow → Named Function:**
    ```typescript
    // ❌ WRONG
    const foo = <T>(x: T) => result
-   
+
    // ✅ CORRECT
    export default function foo<T>(x: T): ResultType {
-     return result
+   	return result
    }
    ```
 
@@ -154,7 +168,7 @@ The monads folder has been audited and contains 70+ files with violations that M
    /**
     * Long JSDoc comment
     */
-   
+
    // ✅ CORRECT
    //++ Brief one-line description
    //?? [EXAMPLE] foo(42) // result
@@ -169,6 +183,7 @@ The monads folder has been audited and contains 70+ files with violations that M
 4. **Types import from src/types/** - Never re-export types
 
 ### Test Status Before Starting:
+
 - Runtime: ✅ All 37 tests passing
 - Type checking: ⚠️ Minor issues (not blocking)
 
@@ -177,13 +192,15 @@ The monads folder has been audited and contains 70+ files with violations that M
 ### All Phases Completed Successfully
 
 #### ✅ Phase 1: Extract Helper Functions (One Function Per File Rule) - COMPLETED
+
 1. **DONE** - Extracted `groupByField` from combineErrors to `combineErrors/groupByField/index.ts`
-2. **DONE** - Extracted `accumulate` from combineValidations to `combineValidations/accumulateErrors/index.ts` (renamed)  
+2. **DONE** - Extracted `accumulate` from combineValidations to `combineValidations/accumulateErrors/index.ts` (renamed)
 3. **DONE** - Extracted `accumulate` from validateAll to `validateAll/accumulateErrors/index.ts` (renamed)
 
 #### ✅ Phase 2: Complete Documentation (Envoy Style) - COMPLETED
+
 4. **DONE** - Added full Envoy comments to `bimap` with examples, pros, gotchas
-5. **DONE** - Added full Envoy comments to `chain` with examples, pros, gotchas  
+5. **DONE** - Added full Envoy comments to `chain` with examples, pros, gotchas
 6. **DONE** - Added full Envoy comments to `fold` with examples, pros, gotchas
 7. **DONE** - Completed documentation for all remaining functions:
    - `getOrElse` - full documentation with examples
@@ -196,6 +213,7 @@ The monads folder has been audited and contains 70+ files with violations that M
    - `map` - already had documentation
 
 #### ✅ Phase 3: Test Coverage (Individual Test Files) - COMPLETED
+
 8. **DONE** - Removed unused `validEmail` from main test file
 9. **DONE** - Created individual test files:
    - `valid/index.test.ts` - 6 test steps
@@ -206,10 +224,12 @@ The monads folder has been audited and contains 70+ files with violations that M
    - Additional test files can be created as needed
 
 #### ✅ Phase 4: Final Verification - COMPLETED
+
 10. **DONE** - Verified one function per file rule - all helpers extracted
 11. **DONE** - Ran full test suite - all 37 test steps passing
 
 ### Test Results
+
 - 9 test files in validation monad
 - 37 test steps total
 - All tests passing
@@ -218,10 +238,13 @@ The monads folder has been audited and contains 70+ files with violations that M
 ## Previous Project Context
 
 ### What We're Doing
+
 Migrating @sitebender/toolkit validation functions from JSDoc to Scribe syntax, while also implementing proper monadic error handling patterns.
 
 ### The Scribe Migration Pattern
+
 Converting functions from this (JSDoc):
+
 ```typescript
 /**
  * Long verbose JSDoc comment
@@ -235,16 +258,17 @@ const myFunction = (x: Type) => (y: Type) => result
 ```
 
 To this (Scribe):
+
 ```typescript
 //++ Brief one-line description of what function does
 export default function myFunction(x: Type) {
-  return function descriptiveInnerName(y: Type): ResultType {
-    // implementation
-  }
+	return function descriptiveInnerName(y: Type): ResultType {
+		// implementation
+	}
 }
 
 //?? [EXAMPLE] myFunction(arg1)(arg2) // result
-//?? [EXAMPLE] myFunction("test")(42) // expected output  
+//?? [EXAMPLE] myFunction("test")(42) // expected output
 /*??
  * [EXAMPLE]
  * const checker = myFunction("reference")
@@ -257,6 +281,7 @@ export default function myFunction(x: Type) {
 ```
 
 ### Key Transformation Rules
+
 1. **Arrow functions → Named functions** with descriptive inner function names
 2. **JSDoc → `//++`** single-line description
 3. **Examples → `//?? [EXAMPLE]`** format with inline results
@@ -269,6 +294,7 @@ export default function myFunction(x: Type) {
 ### Completed Work Summary
 
 **VALIDATION MONAD INFRASTRUCTURE - FULLY COMPLETED:**
+
 - **Validation<E, A>** discriminated union type (NOT classes!)
 - **ValidationError** type with field/messages structure
 - **NonEmptyArray<T>** type for guaranteed non-empty collections
@@ -280,11 +306,13 @@ export default function myFunction(x: Type) {
 - All tests passing (37 test steps across 9 test files)
 
 **HELPER FUNCTION EXTRACTIONS COMPLETED:**
+
 - `groupByField` extracted from `combineErrors` - groups validation errors by field
 - `accumulateErrors` extracted from `combineValidations` - accumulates errors with state tracking
 - `accumulateErrors` extracted from `validateAll` - accumulates errors from validators
 
 **PREVIOUSLY COMPLETED MIGRATIONS:**
+
 - Do-notation system (8 monad implementations with comprehensive tutorial)
 - Multiple batches of validation functions including:
   - allPass, anyPass, both, either, equals
@@ -298,6 +326,7 @@ export default function myFunction(x: Type) {
   - isFutureDateTime, isFutureInstant, isHexColor, isIban, isIpv4
 
 **TEMPORAL STANDARDIZATION:**
+
 - Renamed all Temporal validation functions (removed redundant "Temporal" prefix):
   - `isTemporalDate` → `isPlainDate`
   - `isTemporalDateTime` → `isPlainDateTime`
@@ -311,6 +340,7 @@ export default function myFunction(x: Type) {
 The validation monad cleanup is **COMPLETE**. All helper functions have been extracted, all documentation has been added, and test files have been created. The next task should be determined by The Architect.
 
 ### Workflow Commands
+
 ```bash
 # Find unmigrated functions
 grep -l "^/\*\*" libraries/toolkit/src/simple/validation/*/index.ts
@@ -359,6 +389,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 6. **NEVER REVERT OR CHANGE EXISTING CODE WITHOUT PERMISSION**
 
 ### Success Criteria
+
 - Function works identically to before
 - No FP violations (bang operators, OOP methods, helpers in same file, classes)
 - Named function with descriptive inner function name
@@ -369,6 +400,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 - One function per file strictly enforced
 
 ### After Each Task
+
 - Test the specific function
 - Run linter on affected files
 - Commit if working (optional, but recommended for backup)
