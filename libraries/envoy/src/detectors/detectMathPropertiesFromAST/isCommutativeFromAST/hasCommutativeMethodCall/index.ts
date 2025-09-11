@@ -1,7 +1,7 @@
 import type { AstNode } from "../../types/index.ts"
 
-import contains from "../../../../../../toolkit/src/simple/string/contains/index.ts"
 import some from "../../../../../../toolkit/src/simple/array/some/index.ts"
+import contains from "../../../../../../toolkit/src/simple/string/contains/index.ts"
 import {
 	COMMUTATIVE_MATH_METHODS,
 	COMMUTATIVE_METHOD_NAMES,

@@ -17,39 +17,39 @@ export default function invalid<E, A = never>(
 //?? // {_tag: "Invalid", errors: [{field: "age", messages: ["required"]}]}
 
 /*??
- * [EXAMPLE]
- * const validationError = invalid([{
- *   field: "email",
- *   messages: ["invalid format", "domain not allowed"]
- * }])
- * // {_tag: "Invalid", errors: [{field: "email", messages: [...]}]}
- *
- * // Multiple errors
- * const multipleErrors = invalid([
- *   {field: "age", messages: ["must be 18+"]},
- *   {field: "name", messages: ["required"]}
- * ])
- * // {_tag: "Invalid", errors: [{...}, {...}]}
- *
- * // Simple string errors
- * const simpleError = invalid(["Something went wrong"])
- * // {_tag: "Invalid", errors: ["Something went wrong"]}
- *
- * // Type must be NonEmptyArray - at least one error required
- * // invalid([]) // TypeScript error - empty array not allowed
- *
- * // Use with validation functions
- * const validateAge = (age: number) =>
- *   age >= 18
- *     ? valid(age)
- *     : invalid([{field: "age", messages: ["too young"]}])
- *
- * [PRO] Guarantees at least one error (NonEmptyArray)
- * [PRO] Can hold multiple errors for accumulation
- * [PRO] Type-safe error structure
- * [PRO] Integrates with all validation monad functions
- *
- * [GOTCHA] Requires NonEmptyArray - cannot create with empty array
- * [GOTCHA] Value type A must be specified or inferred from context
- * [GOTCHA] Errors are not automatically deduplicated
+ | [EXAMPLE]
+ | const validationError = invalid([{
+ |   field: "email",
+ |   messages: ["invalid format", "domain not allowed"]
+ | }])
+ | // {_tag: "Invalid", errors: [{field: "email", messages: [...]}]}
+ |
+ | // Multiple errors
+ | const multipleErrors = invalid([
+ |   {field: "age", messages: ["must be 18+"]},
+ |   {field: "name", messages: ["required"]}
+ | ])
+ | // {_tag: "Invalid", errors: [{...}, {...}]}
+ |
+ | // Simple string errors
+ | const simpleError = invalid(["Something went wrong"])
+ | // {_tag: "Invalid", errors: ["Something went wrong"]}
+ |
+ | // Type must be NonEmptyArray - at least one error required
+ | // invalid([]) // TypeScript error - empty array not allowed
+ |
+ | // Use with validation functions
+ | const validateAge = (age: number) =>
+ |   age >= 18
+ |     ? valid(age)
+ |     : invalid([{field: "age", messages: ["too young"]}])
+ |
+ | [PRO] Guarantees at least one error (NonEmptyArray)
+ | [PRO] Can hold multiple errors for accumulation
+ | [PRO] Type-safe error structure
+ | [PRO] Integrates with all validation monad functions
+ |
+ | [GOTCHA] Requires NonEmptyArray - cannot create with empty array
+ | [GOTCHA] Value type A must be specified or inferred from context
+ | [GOTCHA] Errors are not automatically deduplicated
  */

@@ -62,7 +62,21 @@ export type ParserParameter = {
 
 export type ParserTypeInfo = {
 	readonly raw: string
-	readonly kind: "primitive" | "array" | "object" | "function" | "union" | "intersection" | "generic" | "literal" | "unknown" | "any" | "void" | "never" | "null" | "undefined"
+	readonly kind:
+		| "primitive"
+		| "array"
+		| "object"
+		| "function"
+		| "union"
+		| "intersection"
+		| "generic"
+		| "literal"
+		| "unknown"
+		| "any"
+		| "void"
+		| "never"
+		| "null"
+		| "undefined"
 }
 
 export type ParserGeneric = {

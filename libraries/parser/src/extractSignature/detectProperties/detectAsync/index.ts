@@ -1,7 +1,6 @@
+import some from "@sitebender/toolkit/simple/array/some/index.ts"
 //++ Detects if a function is async
 import * as typescript from "npm:typescript@5.7.2"
-
-import some from "@sitebender/toolkit/simple/array/some/index.ts"
 
 export default function detectAsync(
 	node:

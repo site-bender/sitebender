@@ -12,18 +12,19 @@ export default function isString(value: unknown): value is string {
 //?? [EXAMPLE] isString(null) // false
 //?? [EXAMPLE] isString(undefined) // false
 /*??
- * [EXAMPLE]
- * const processText = (value: unknown): string =>
- *   isString(value) ? value.toUpperCase() : ""
- *
- * const safeTrim = (value: unknown): string =>
- *   isString(value) ? value.trim() : ""
- *
- * const mixed = ["text", 123, null, "another"]
- * const strings = mixed.filter(isString)  // ["text", "another"]
- *
- * [PRO] Includes all string literal types (single, double, template)
- * [PRO] Works with String() conversions (without new)
- * [CON] Does not include String objects created with new String()
- * [GOTCHA] new String("text") returns false (it's an object, not a primitive)
- */
+ | [EXAMPLE]
+ | const processText = (value: unknown): string =>
+ |   isString(value) ? value.toUpperCase() : ""
+ |
+ | const safeTrim = (value: unknown): string =>
+ |   isString(value) ? value.trim() : ""
+ |
+ | const mixed = ["text", 123, null, "another"]
+ | const strings = mixed.filter(isString)  // ["text", "another"]
+ |
+ | [PRO] Includes all string literal types (single, double, template)
+ | [PRO] Works with String() conversions (without new)
+ | [CON] Does not include String objects created with new String()
+ | [GOTCHA] new String("text") returns false (it's an object, not a primitive)
+ |
+*/

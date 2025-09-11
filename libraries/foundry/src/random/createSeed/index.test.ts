@@ -1,15 +1,17 @@
-import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
-import createSeed from "./index.ts"
-import type { Seed } from "../../types/index.ts"
-import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
+import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+
+import type { Seed } from "../../types/index.ts"
+
+import createSeed from "./index.ts"
 
 Deno.test("createSeed - creates seed from positive integer", () => {
 	const result = createSeed(12345)
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
-	
+
 	if (isOk(result)) {
 		const seed = result.right
 		assertEquals(seed.value, 12345)
@@ -19,10 +21,10 @@ Deno.test("createSeed - creates seed from positive integer", () => {
 
 Deno.test("createSeed - creates seed from zero", () => {
 	const result = createSeed(0)
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
-	
+
 	if (isOk(result)) {
 		const seed = result.right
 		assertEquals(seed.value, 1) // Zero should become 1 for PRNG
@@ -32,10 +34,10 @@ Deno.test("createSeed - creates seed from zero", () => {
 
 Deno.test("createSeed - creates deterministic seed from negative integer", () => {
 	const result = createSeed(-42)
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
-	
+
 	if (isOk(result)) {
 		const seed = result.right
 		// Negative numbers should be made positive deterministically
@@ -47,11 +49,11 @@ Deno.test("createSeed - creates deterministic seed from negative integer", () =>
 Deno.test("createSeed - creates different seeds for different inputs", () => {
 	const result1 = createSeed(123)
 	const result2 = createSeed(456)
-	
+
 	if (isOk(result1) && isOk(result2)) {
 		const seed1 = result1.right
 		const seed2 = result2.right
-		
+
 		// Different inputs should produce different seeds
 		assertEquals(seed1.value !== seed2.value, true)
 	}
@@ -60,11 +62,11 @@ Deno.test("createSeed - creates different seeds for different inputs", () => {
 Deno.test("createSeed - creates same seed for same input (deterministic)", () => {
 	const result1 = createSeed(999)
 	const result2 = createSeed(999)
-	
+
 	if (isOk(result1) && isOk(result2)) {
 		const seed1 = result1.right
 		const seed2 = result2.right
-		
+
 		// Same input should always produce same seed
 		assertEquals(seed1.value, seed2.value)
 		assertEquals(seed1.path, seed2.path)
@@ -73,10 +75,10 @@ Deno.test("createSeed - creates same seed for same input (deterministic)", () =>
 
 Deno.test("createSeed - handles maximum safe integer", () => {
 	const result = createSeed(Number.MAX_SAFE_INTEGER)
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
-	
+
 	if (isOk(result)) {
 		const seed = result.right
 		// Should handle large numbers gracefully
@@ -87,10 +89,10 @@ Deno.test("createSeed - handles maximum safe integer", () => {
 
 Deno.test("createSeed - rejects NaN", () => {
 	const result = createSeed(NaN)
-	
+
 	assertExists(result)
 	assertEquals(isErr(result), true)
-	
+
 	if (isErr(result)) {
 		assertEquals(result.left.type, "InvalidSeed")
 	}
@@ -98,10 +100,10 @@ Deno.test("createSeed - rejects NaN", () => {
 
 Deno.test("createSeed - rejects Infinity", () => {
 	const result = createSeed(Infinity)
-	
+
 	assertExists(result)
 	assertEquals(isErr(result), true)
-	
+
 	if (isErr(result)) {
 		assertEquals(result.left.type, "InvalidSeed")
 	}
@@ -109,10 +111,10 @@ Deno.test("createSeed - rejects Infinity", () => {
 
 Deno.test("createSeed - rejects negative Infinity", () => {
 	const result = createSeed(-Infinity)
-	
+
 	assertExists(result)
 	assertEquals(isErr(result), true)
-	
+
 	if (isErr(result)) {
 		assertEquals(result.left.type, "InvalidSeed")
 	}
@@ -120,10 +122,10 @@ Deno.test("createSeed - rejects negative Infinity", () => {
 
 Deno.test("createSeed - handles floating point numbers by truncating", () => {
 	const result = createSeed(123.456)
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
-	
+
 	if (isOk(result)) {
 		const seed = result.right
 		// Should truncate to integer
