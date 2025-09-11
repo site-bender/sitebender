@@ -60,48 +60,49 @@ export default function doMaybe<A>(
 //?? [EXAMPLE] doMaybe(function* () { const x = yield None(); return x }) // Short-circuits on None
 //?? [EXAMPLE] doMaybe(function* () { const x = yield fromNullable(getValue()); return x * 2 })
 /*??
- * [EXAMPLE]
- * // Safe property access
- * const getNestedProp = (obj: any) => doMaybe<string>(function* () {
- *   const user = yield fromNullable(obj.user)
- *   const profile = yield fromNullable(user.profile)
- *   const name = yield fromNullable(profile.name)
- *   return name.toUpperCase()
- * })
- *
- * const result1 = getNestedProp({ user: { profile: { name: "Alice" } } })  // Some("ALICE")
- * const result2 = getNestedProp({ user: null })  // None()
- * const result3 = getNestedProp({})  // None()
- *
- * // Filtering and transforming
- * const processNumber = (n: number) => doMaybe<string>(function* () {
- *   const positive = yield fromPredicate<number>(x => x > 0)(n)
- *   const even = yield fromPredicate<number>(x => x % 2 === 0)(positive)
- *   return `Even positive: ${even}`
- * })
- *
- * processNumber(4)   // Some("Even positive: 4")
- * processNumber(3)   // None() - not even
- * processNumber(-2)  // None() - not positive
- *
- * // Safe array operations
- * const getFirstPositive = (numbers: number[]) => doMaybe<number>(function* () {
- *   const first = yield fromNullable(numbers[0])
- *   const positive = yield fromPredicate<number>(x => x > 0)(first)
- *   return positive * 2
- * })
- *
- * // Combining with default values
- * const withDefaults = (config: any) => doMaybe<Config>(function* () {
- *   const port = yield Some(getOrElse(3000)(fromNullable(config.port)))
- *   const host = yield Some(getOrElse("localhost")(fromNullable(config.host)))
- *   const ssl = yield Some(getOrElse(false)(fromNullable(config.ssl)))
- *   return { port, host, ssl }
- * })
- *
- * [GOTCHA] First None short-circuits entire computation
- * [GOTCHA] No error information preserved (use Either for errors)
- * [PRO] Null-safe chaining without ?. operator
- * [PRO] Composable optional value handling
- * [PRO] Clear semantics for missing values
- */
+ | [EXAMPLE]
+ | // Safe property access
+ | const getNestedProp = (obj: any) => doMaybe<string>(function* () {
+ |   const user = yield fromNullable(obj.user)
+ |   const profile = yield fromNullable(user.profile)
+ |   const name = yield fromNullable(profile.name)
+ |   return name.toUpperCase()
+ | })
+ |
+ | const result1 = getNestedProp({ user: { profile: { name: "Alice" } } })  // Some("ALICE")
+ | const result2 = getNestedProp({ user: null })  // None()
+ | const result3 = getNestedProp({})  // None()
+ |
+ | // Filtering and transforming
+ | const processNumber = (n: number) => doMaybe<string>(function* () {
+ |   const positive = yield fromPredicate<number>(x => x > 0)(n)
+ |   const even = yield fromPredicate<number>(x => x % 2 === 0)(positive)
+ |   return `Even positive: ${even}`
+ | })
+ |
+ | processNumber(4)   // Some("Even positive: 4")
+ | processNumber(3)   // None() - not even
+ | processNumber(-2)  // None() - not positive
+ |
+ | // Safe array operations
+ | const getFirstPositive = (numbers: number[]) => doMaybe<number>(function* () {
+ |   const first = yield fromNullable(numbers[0])
+ |   const positive = yield fromPredicate<number>(x => x > 0)(first)
+ |   return positive * 2
+ | })
+ |
+ | // Combining with default values
+ | const withDefaults = (config: any) => doMaybe<Config>(function* () {
+ |   const port = yield Some(getOrElse(3000)(fromNullable(config.port)))
+ |   const host = yield Some(getOrElse("localhost")(fromNullable(config.host)))
+ |   const ssl = yield Some(getOrElse(false)(fromNullable(config.ssl)))
+ |   return { port, host, ssl }
+ | })
+ |
+ | [GOTCHA] First None short-circuits entire computation
+ | [GOTCHA] No error information preserved (use Either for errors)
+ | [PRO] Null-safe chaining without ?. operator
+ | [PRO] Composable optional value handling
+ | [PRO] Clear semantics for missing values
+ |
+*/

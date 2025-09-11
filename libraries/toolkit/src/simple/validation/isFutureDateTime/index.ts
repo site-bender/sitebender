@@ -15,14 +15,14 @@ export default function isFutureDateTime(
 		return false
 	}
 
-			const iso = toIsoDateTimeString(dateTime)
+	const iso = toIsoDateTimeString(dateTime)
 
-			if (not(iso)) {
-				return false
-			}
+	if (not(iso)) {
+		return false
+	}
 
-			// Narrow iso to string after the guard
-			return (iso as string) > nowIsoLocal()
+	// Narrow iso to string after the guard
+	return (iso as string) > nowIsoLocal()
 }
 
 //?? [EXAMPLE] isFutureDateTime("2099-01-01T00:00:00") // true

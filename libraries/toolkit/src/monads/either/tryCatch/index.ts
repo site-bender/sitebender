@@ -19,18 +19,19 @@ export default function tryCatch<A>(fn: () => A) {
 //?? [EXAMPLE] tryCatch(() => JSON.parse('{"valid": "json"}'))((err) => String(err)) // Right({ valid: "json" })
 //?? [EXAMPLE] tryCatch(() => JSON.parse("invalid"))((err) => String(err)) // Left("SyntaxError: ...")
 /*??
- * [EXAMPLE]
- * const safeGet = <T>(arr: Array<T>, index: number) => tryCatch(
- *   () => {
- *     if (index < 0 || index >= arr.length) {
- *       throw new Error(`Index ${index} out of bounds`)
- *     }
- *     return arr[index]
- *   }
- * )((err: unknown) => String(err))
- * safeGet([1, 2, 3], 1)   // Right(2)
- * safeGet([1, 2, 3], 10)  // Left("Error: Index 10 out of bounds")
- *
- * [PRO] Bridges exception-based and functional error handling
- * [PRO] Safely executes potentially throwing code
- */
+ | [EXAMPLE]
+ | const safeGet = <T>(arr: Array<T>, index: number) => tryCatch(
+ |   () => {
+ |     if (index < 0 || index >= arr.length) {
+ |       throw new Error(`Index ${index} out of bounds`)
+ |     }
+ |     return arr[index]
+ |   }
+ | )((err: unknown) => String(err))
+ | safeGet([1, 2, 3], 1)   // Right(2)
+ | safeGet([1, 2, 3], 10)  // Left("Error: Index 10 out of bounds")
+ |
+ | [PRO] Bridges exception-based and functional error handling
+ | [PRO] Safely executes potentially throwing code
+ |
+*/

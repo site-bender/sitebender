@@ -20,16 +20,17 @@ export default function bimap<E, F, A, B>(leftFn: (e: E) => F) {
 //?? [EXAMPLE] bimap((e: string) => e.toUpperCase())((v: number) => v * 2)(right(5)) // Right(10)
 //?? [EXAMPLE] bimap((e: string) => e.toUpperCase())((v: number) => v * 2)(left("error")) // Left("ERROR")
 /*??
- * [EXAMPLE]
- * const convertCurrency = (rate: number) => bimap(
- *   (err: string) => `Currency error: ${err}`
- * )(
- *   (amount: number) => amount * rate
- * )
- * const toEuros = convertCurrency(0.85)
- * toEuros(right(100))               // Right(85)
- * toEuros(left("Invalid amount"))   // Left("Currency error: Invalid amount")
- *
- * [PRO] Transforms both error and success types in a single operation
- * [PRO] Combines functionality of map and mapLeft
- */
+ | [EXAMPLE]
+ | const convertCurrency = (rate: number) => bimap(
+ |   (err: string) => `Currency error: ${err}`
+ | )(
+ |   (amount: number) => amount * rate
+ | )
+ | const toEuros = convertCurrency(0.85)
+ | toEuros(right(100))               // Right(85)
+ | toEuros(left("Invalid amount"))   // Left("Currency error: Invalid amount")
+ |
+ | [PRO] Transforms both error and success types in a single operation
+ | [PRO] Combines functionality of map and mapLeft
+ |
+*/

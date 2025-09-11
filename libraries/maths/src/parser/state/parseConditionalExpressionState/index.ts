@@ -89,10 +89,11 @@ export default function parseConditionalExpressionState(
 }
 
 /*??
- * [EXAMPLE] Parse "a > 5 ? x : y":
- * parseConditionalExpressionState() returns Parser that yields:
- * { ok: true, value: { type: "Conditional", condition: BinaryOp(">", ...), ifTrue: Variable("x"), ifFalse: Variable("y") } }
- */
+ | [EXAMPLE] Parse "a > 5 ? x : y":
+ | parseConditionalExpressionState() returns Parser that yields:
+ | { ok: true, value: { type: "Conditional", condition: BinaryOp(">", ...), ifTrue: Variable("x"), ifFalse: Variable("y") } }
+ |
+*/
 //?? [PRO] Right-associative for nested conditionals (a ? b : c ? d : e)
 //?? [PRO] Falls through to binary expression when no ternary operator
 //?? [GOTCHA] Requires both ':' and false branch - no optional else
