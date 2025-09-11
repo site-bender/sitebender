@@ -4,42 +4,25 @@
  * Shared TypeScript AST parsing and code analysis for the @sitebender ecosystem.
  * This is THE ONLY library that should import TypeScript directly.
  * All other libraries consume Parser's output.
+ * 
+ * CONTRACT ENFORCED: Only exports from the exports/ directory are public API.
+ * Internal implementation details are hidden in internal/ directory.
  */
 
-// Main parsing functions
-export { default as parseSourceFile } from "./src/parseSourceFile/index.ts"
-export { default as extractFunctions } from "./src/extractFunctions/index.ts"
-export { default as extractSignature } from "./src/extractSignature/index.ts"
-export { default as parseFileWithCompiler } from "./src/parseFileWithCompiler/index.ts"
+// Public API - Contract compliant exports only
+export { default as parseFile } from "./exports/parseFile/index.ts"
+export { default as parseProject } from "./exports/parseProject/index.ts"
+export { default as parseString } from "./exports/parseString/index.ts"
 
-// Either monad exports
-export { Left, Right } from "./src/either/index.ts"
-export type { Either } from "./src/either/index.ts"
-
-// Type exports
+// Public types - Contract compliant
 export type {
-	AstNode,
-	BranchInfo,
-	BranchPath,
-	BranchType,
-	FunctionSignature,
-	Generic,
-	Member,
-	Parameter,
-	ParseError,
-	Position,
-	RawComment,
-	Result,
-	TypeInfo,
-	TypeKind,
-} from "./src/types/index.ts"
-
-// ParsedModule types from parseFileWithCompiler
-export type {
+	Comment,
+	ParsedComponent,
 	ParsedConstant,
-	ParsedExport,
+	ParsedFile,
 	ParsedFunction,
-	ParsedModule,
+	ParsedParameter,
+	ParsedProject,
 	ParsedType,
-	TraversalMetadata,
-} from "./src/parseFileWithCompiler/index.ts"
+	ParserContractOutput,
+} from "./exports/types/index.ts"
