@@ -1,8 +1,9 @@
+import type { Token } from "../../../types/index.ts"
+import type { Parser, ParserState } from "../../types/state/index.ts"
+
 import doState, {
 	get,
 } from "../../../../../toolkit/src/monads/doState/index.ts"
-import type { Token } from "../../../types/index.ts"
-import type { Parser, ParserState } from "../../types/state/index.ts"
 
 //++ Gets the current token without advancing position
 export default function currentToken(): Parser<Token> {

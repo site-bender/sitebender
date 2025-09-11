@@ -7,7 +7,7 @@
 
 ## 🔒 THIS CONTRACT IS FINAL AND NOW ENFORCED
 
-~~Both Parser AI and Scribe AI have agreed to the following integration specifications.~~ 
+~~Both Parser AI and Scribe AI have agreed to the following integration specifications.~~
 
 **UPDATE 2025-09-10:** A previous AI violated this contract by implementing TypeScript parsing directly in Envoy. This has been corrected. Envoy's parser directory has been deleted. Parser is now THE ONLY library that imports TypeScript. No exceptions.
 
@@ -303,11 +303,13 @@ _"A contract between AIs is sacred. Break it at your peril."_ - The Architect
 ### 2025-09-10: Contract Violation Corrected
 
 **Violation Found:**
+
 - Envoy had its own `parser/` directory with TypeScript imports
 - Files `parseWithCompiler`, `parseFileWithCompiler`, `parseFunctionFromAST` directly imported TypeScript
 - This violated the fundamental principle that ONLY Parser imports TypeScript
 
 **Corrective Actions Taken:**
+
 1. ✅ Deleted entire `libraries/envoy/src/parser/` directory
 2. ✅ Implemented `parseFileWithCompiler` in Parser library with proper Either API
 3. ✅ Parser now exports TypeScript types for Envoy to use
@@ -316,6 +318,7 @@ _"A contract between AIs is sacred. Break it at your peril."_ - The Architect
 6. ✅ Tests temporarily disabled pending rewrite
 
 **New Reality:**
+
 - Parser is THE ONLY library that imports TypeScript
 - Envoy consumes Parser's output via clean APIs
 - No exceptions, no temporary solutions, no tech debt

@@ -15,12 +15,13 @@ export default function isZonedDateTime(
 //?? [EXAMPLE] isZonedDateTime(new Date()) // false (legacy Date)
 //?? [EXAMPLE] isZonedDateTime(Temporal.PlainDateTime.from("2024-01-15T12:30:00")) // false
 /*??
- * [EXAMPLE]
- * const zdt = Temporal.ZonedDateTime.from("2024-01-15T12:30:00-05:00[America/New_York]")
- * if (isZonedDateTime(zdt)) {
- *   zdt.withTimeZone("Europe/Paris")  // TypeScript knows it's ZonedDateTime
- * }
- *
- * [GOTCHA] Returns false if Temporal API is not available
- * [PRO] TypeScript type guard for safe ZonedDateTime operations
- */
+ | [EXAMPLE]
+ | const zdt = Temporal.ZonedDateTime.from("2024-01-15T12:30:00-05:00[America/New_York]")
+ | if (isZonedDateTime(zdt)) {
+ |   zdt.withTimeZone("Europe/Paris")  // TypeScript knows it's ZonedDateTime
+ | }
+ |
+ | [GOTCHA] Returns false if Temporal API is not available
+ | [PRO] TypeScript type guard for safe ZonedDateTime operations
+ |
+*/

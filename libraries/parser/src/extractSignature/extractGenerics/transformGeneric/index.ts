@@ -13,7 +13,8 @@ export default function transformGeneric(
 		// Build the Generic object with all properties
 		return {
 			name,
-			...(param.constraint && { constraint: param.constraint.getText(sourceFile) }),
+			...(param.constraint &&
+				{ constraint: param.constraint.getText(sourceFile) }),
 			...(param.default && { default: param.default.getText(sourceFile) }),
 		}
 	}

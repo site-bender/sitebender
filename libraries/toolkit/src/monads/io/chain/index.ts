@@ -10,13 +10,14 @@ export default function chain<A, B>(f: (a: A) => IO<B>) {
 //?? [EXAMPLE] chain((id: string) => io(() => `User: ${id}`))(io(() => "123")) // IO(() => "User: 123")
 //?? [EXAMPLE] runIO(chain(fetchUserIO)(getUserIdIO)) // Executed sequential computation
 /*??
- * [EXAMPLE]
- * const randomIO = io(() => Math.random())
- * const branchIO = (x: number) =>
- *   x > 0.5 ? io(() => "High") : io(() => "Low")
- * const resultIO = chain(branchIO)(randomIO)
- * runIO(resultIO) // "High" or "Low" based on random value
- *
- * [PRO] Enables composing dependent effectful computations
- * [PRO] Prevents nested IO<IO<A>> structures by flattening
- */
+ | [EXAMPLE]
+ | const randomIO = io(() => Math.random())
+ | const branchIO = (x: number) =>
+ |   x > 0.5 ? io(() => "High") : io(() => "Low")
+ | const resultIO = chain(branchIO)(randomIO)
+ | runIO(resultIO) // "High" or "Low" based on random value
+ |
+ | [PRO] Enables composing dependent effectful computations
+ | [PRO] Prevents nested IO<IO<A>> structures by flattening
+ |
+*/

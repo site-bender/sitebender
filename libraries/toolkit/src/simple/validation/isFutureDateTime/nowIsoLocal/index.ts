@@ -8,7 +8,7 @@ export default function nowIsoLocal(): string {
 	const mm = String(d.getMinutes()).padStart(2, "0")
 	const ss = String(d.getSeconds()).padStart(2, "0")
 	const ms = String(d.getMilliseconds()).padStart(3, "0")
-	
+
 	return `${y}-${m}-${day}T${hh}:${mm}:${ss}.${ms}`
 }
 

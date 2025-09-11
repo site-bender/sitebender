@@ -5,16 +5,26 @@ import * as typescript from "npm:typescript@5.7.2"
 import detectGenerator from "./index.ts"
 
 describe("detectGenerator", () => {
-	function createFunction(code: string): 
-		typescript.FunctionDeclaration | typescript.ArrowFunction | typescript.MethodDeclaration | typescript.FunctionExpression {
+	function createFunction(
+		code: string,
+	):
+		| typescript.FunctionDeclaration
+		| typescript.ArrowFunction
+		| typescript.MethodDeclaration
+		| typescript.FunctionExpression {
 		const sourceFile = typescript.createSourceFile(
 			"test.ts",
 			code,
 			typescript.ScriptTarget.Latest,
 			true,
 		)
-		
-		let result: typescript.FunctionDeclaration | typescript.ArrowFunction | typescript.MethodDeclaration | typescript.FunctionExpression | undefined
+
+		let result:
+			| typescript.FunctionDeclaration
+			| typescript.ArrowFunction
+			| typescript.MethodDeclaration
+			| typescript.FunctionExpression
+			| undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
 				result = node

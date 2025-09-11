@@ -1,6 +1,6 @@
 /**
  * @module @sitebender/parser
- * 
+ *
  * Shared TypeScript AST parsing and code analysis for the @sitebender ecosystem.
  * This is THE ONLY library that should import TypeScript directly.
  * All other libraries consume Parser's output.
@@ -18,28 +18,28 @@ export type { Either } from "./src/either/index.ts"
 
 // Type exports
 export type {
+	AstNode,
+	BranchInfo,
+	BranchPath,
+	BranchType,
 	FunctionSignature,
-	Parameter,
-	TypeInfo,
-	TypeKind,
 	Generic,
 	Member,
-	BranchInfo,
-	BranchType,
-	BranchPath,
-	Result,
+	Parameter,
 	ParseError,
-	AstNode,
 	Position,
 	RawComment,
+	Result,
+	TypeInfo,
+	TypeKind,
 } from "./src/types/index.ts"
 
 // ParsedModule types from parseFileWithCompiler
 export type {
-	ParsedModule,
-	ParsedFunction,
-	ParsedType,
 	ParsedConstant,
 	ParsedExport,
+	ParsedFunction,
+	ParsedModule,
+	ParsedType,
 	TraversalMetadata,
 } from "./src/parseFileWithCompiler/index.ts"

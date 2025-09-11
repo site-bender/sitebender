@@ -30,11 +30,12 @@ export default function randomInteger(
 //?? [EXAMPLE] randomInteger(-10)(10) // Random from -10 to 10
 //?? [EXAMPLE] randomInteger(100)(1) // Works with swapped bounds
 /*??
- * [EXAMPLE]
- * const d6 = randomInteger(1)
- * d6(6) // 1-6
- * const d20 = randomInteger(1)
- * d20(20) // 1-20
- *
- * [GOTCHA] Returns NaN for invalid inputs like randomInteger(null)(10)
- */
+ | [EXAMPLE]
+ | const d6 = randomInteger(1)
+ | d6(6) // 1-6
+ | const d20 = randomInteger(1)
+ | d20(20) // 1-20
+ |
+ | [GOTCHA] Returns NaN for invalid inputs like randomInteger(null)(10)
+ |
+*/

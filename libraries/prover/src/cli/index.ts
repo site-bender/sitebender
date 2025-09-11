@@ -1,6 +1,5 @@
 import type { FunctionSignature } from "../types/index.ts"
 
-#!/usr/bin/env -S deno run --allow-all
 /**
  * Prover CLI
  *

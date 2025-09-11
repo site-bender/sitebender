@@ -1,12 +1,13 @@
-import doState from "../../../../../toolkit/src/monads/doState/index.ts"
-import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
-import err from "../../../../../toolkit/src/monads/result/err/index.ts"
-import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
-import fold from "../../../../../toolkit/src/monads/result/fold/index.ts"
 import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
-import currentToken from "../currentToken/index.ts"
+
+import doState from "../../../../../toolkit/src/monads/doState/index.ts"
+import err from "../../../../../toolkit/src/monads/result/err/index.ts"
+import fold from "../../../../../toolkit/src/monads/result/fold/index.ts"
+import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
+import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
 import advance from "../advance/index.ts"
+import currentToken from "../currentToken/index.ts"
 import parseBinaryExpressionState from "../parseBinaryExpressionState/index.ts"
 
 //++ Parses conditional (ternary) expressions: condition ? ifTrue : ifFalse
@@ -88,10 +89,11 @@ export default function parseConditionalExpressionState(
 }
 
 /*??
- * [EXAMPLE] Parse "a > 5 ? x : y":
- * parseConditionalExpressionState() returns Parser that yields:
- * { ok: true, value: { type: "Conditional", condition: BinaryOp(">", ...), ifTrue: Variable("x"), ifFalse: Variable("y") } }
- */
+ | [EXAMPLE] Parse "a > 5 ? x : y":
+ | parseConditionalExpressionState() returns Parser that yields:
+ | { ok: true, value: { type: "Conditional", condition: BinaryOp(">", ...), ifTrue: Variable("x"), ifFalse: Variable("y") } }
+ |
+*/
 //?? [PRO] Right-associative for nested conditionals (a ? b : c ? d : e)
 //?? [PRO] Falls through to binary expression when no ternary operator
 //?? [GOTCHA] Requires both ':' and false branch - no optional else

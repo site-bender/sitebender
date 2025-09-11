@@ -74,7 +74,7 @@ export default function ibanLengths(): Record<string, number> {
 		VG: 24,
 		XK: 20,
 	}
-	
+
 	return IBAN_LENGTHS
 }
 

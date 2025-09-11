@@ -9,8 +9,8 @@ import type {
 	Result,
 } from "../types/index.ts"
 
-import { DEFAULT_OPTIONS } from "../constants/index.ts"
 import parseCommentMarkers from "../comments/parseCommentMarkers/index.ts"
+import { DEFAULT_OPTIONS } from "../constants/index.ts"
 import buildProperties from "./buildProperties/index.ts"
 import extractExamples from "./extractExamples/index.ts"
 import extractLaws from "./extractLaws/index.ts"
@@ -47,7 +47,7 @@ export default function generateDocs(
 				defaultValue: p.defaultValue,
 			})),
 			returnType: parserSignature.returnType.raw,
-			generics: parserSignature.generics?.map(g => ({
+			generics: parserSignature.generics?.map((g) => ({
 				name: g.name,
 				constraint: g.constraint,
 				default: g.default,
@@ -60,7 +60,7 @@ export default function generateDocs(
 
 		// Parse Envoy's comment markers - the ONLY parsing Envoy does
 		const commentMarkers = parseCommentMarkers(sourceCode)
-		
+
 		const description = findDescription(commentMarkers, comments)
 		const properties: Properties = buildProperties(parserSignature, metadata)
 		const examples = extractExamples(commentMarkers, comments)
