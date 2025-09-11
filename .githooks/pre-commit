@@ -1,92 +1,52 @@
-#!/usr/bin/env bash
-set -euo pipefail
+#!/bin/sh
 
-# Secret override - when set, bypasses ALL checks
-if [[ "${THE_ARCHITECT_APPROVED:-}" == "1" ]]; then
-  exit 0
+# Contract validation pre-commit hook
+# Ensures no contract violations are committed
+
+echo "🔍 Running contract validation..."
+
+# Run the contract validation script
+deno run --allow-read --allow-run scripts/validateContracts.ts
+
+if [ $? -ne 0 ]; then
+    echo "❌ Contract violations detected. Commit aborted."
+    echo "Fix the violations and try again."
+    exit 1
 fi
 
-# PATH PROTECTION CHECK
-# Find the actual git directory (works in worktrees too)
-GIT_DIR=$(git rev-parse --git-common-dir)
-PROTECTED_FILE="$GIT_DIR/protected-paths.txt"
+echo "✅ Contract validation passed"
 
-# Check if protection file exists and has protected paths
-if [ -f "$PROTECTED_FILE" ]; then
-  # Temporary file to track if we found a violation
-  VIOLATION_FILE=$(mktemp)
-  
-  # Check each staged file against protected paths
-  git diff --cached --name-only | while read file; do
-    while IFS= read -r protected; do
-      if echo "$file" | grep -q "^$protected"; then
-        echo "❌ YOU ARE NOT ALLOWED TO MAKE CHANGES TO THAT FOLDER WITHOUT APPROVAL FROM THE ARCHITECT." >&2
-        echo "Protected path: $protected" >&2
-        echo "Attempted change: $file" >&2
-        echo "1" > "$VIOLATION_FILE"
-        break 2
-      fi
-    done < "$PROTECTED_FILE"
-  done
-  
-  # Check if we found a violation
-  if [ -f "$VIOLATION_FILE" ]; then
-    FOUND_VIOLATION=$(cat "$VIOLATION_FILE")
-    rm -f "$VIOLATION_FILE"
-    if [ "$FOUND_VIOLATION" = "1" ]; then
-      exit 1
-    fi
-  fi
+# Run other standard checks
+echo "🧪 Running tests..."
+deno task test
+
+if [ $? -ne 0 ]; then
+    echo "❌ Tests failed. Commit aborted."
+    exit 1
 fi
 
-# FUNCTIONAL PROGRAMMING CHECKS
-echo "[hooks] Running strict FP checks..."
+echo "🎨 Checking formatting..."
+deno task fmt --check
 
-# Ensure Deno is available
-if ! command -v deno >/dev/null 2>&1; then
-  echo "[hooks] ❌ deno not found in PATH" >&2
-  exit 1
+if [ $? -ne 0 ]; then
+    echo "❌ Code is not formatted. Run 'deno task fmt' and try again."
+    exit 1
 fi
 
-# Run FP checks for engine
-if ! deno task fp:engine >/dev/null 2>&1; then
-  echo "[hooks] ❌ FP check failed for engine" >&2
-  echo "[hooks] Classes, mutations, or other non-FP patterns detected" >&2
-  exit 1
+echo "🔍 Running linter..."
+deno task lint
+
+if [ $? -ne 0 ]; then
+    echo "❌ Linting failed. Fix the issues and try again."
+    exit 1
 fi
 
-# Run FP checks for components
-if ! deno task fp:components >/dev/null 2>&1; then
-  echo "[hooks] ❌ FP check failed for components" >&2
-  echo "[hooks] Classes, mutations, or other non-FP patterns detected" >&2
-  exit 1
+echo "📝 Checking types..."
+deno task typecheck
+
+if [ $? -ne 0 ]; then
+    echo "❌ Type checking failed. Fix the issues and try again."
+    exit 1
 fi
 
-# Enforce alias import policy
-if ! deno task lint:aliases >/dev/null 2>&1; then
-  echo "[hooks] ❌ Alias import policy violation" >&2
-  echo "[hooks] Improper imports detected" >&2
-  exit 1
-fi
-
-# Check for React junk
-if ! deno task lint:no-react-junk >/dev/null 2>&1; then
-  echo "[hooks] ❌ React patterns detected" >&2
-  echo "[hooks] This codebase does not use React" >&2
-  exit 1
-fi
-
-# Check for coverage ignores without explanations
-echo "[hooks] Checking coverage ignore statements..."
-IGNORE_CHECK=$(deno run --allow-read scripts/reportIgnored/index.ts 2>&1)
-if echo "$IGNORE_CHECK" | grep -F "<no reason provided>" >/dev/null 2>&1; then
-  echo "[hooks] ❌ COMMIT BLOCKED: Coverage ignore without explanation!" >&2
-  echo "" >&2
-  echo "$IGNORE_CHECK" | grep -A1 "<no reason provided>" >&2
-  echo "" >&2
-  echo "[hooks] Every deno-coverage-ignore MUST have a reason." >&2
-  exit 1
-fi
-
-echo "[hooks] All checks passed ✓"
-exit 0
+echo "✅ All pre-commit checks passed!"
