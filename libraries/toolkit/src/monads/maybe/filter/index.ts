@@ -1,4 +1,4 @@
-import type { Maybe } from "../../types/fp/maybe/index.ts"
+import type { Maybe } from "../../../types/fp/maybe/index.ts"
 
 import isNothing from "../isNothing/index.ts"
 import nothing from "../nothing/index.ts"
@@ -10,7 +10,7 @@ export default function filter<A>(predicate: (a: A) => boolean) {
 			return maybe
 		}
 
-		return predicate(maybe.value) ? maybe : nothing()
+		return predicate((maybe as any).value as A) ? maybe : nothing()
 	}
 }
 
