@@ -1,0 +1,541 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-11",
+	"author": "The Architect",
+	"primeDirective": {
+		"rule": "DO NOT ASSUME. DO NOT TAKE SHORTCUTS. DO NOT GUESS.",
+		"description": "This isn't advice. It's not a suggestion. It's THE LAW.",
+		"rationale": "Every time you think 'I'll just assume this works like React/Vue/whatever,' you're wrong. Every time you think 'I'll save time by skipping verification,' you're creating hours of cleanup. Every time you guess instead of checking, you're writing expensive fiction.",
+		"costs": [
+			"Time wasted: Hours becoming days",
+			"Money burned: The Architect's money, specifically",
+			"Trust eroded: Once lost, never fully recovered",
+			"Code corrupted: Tech debt that compounds daily"
+		],
+		"enforcement": "Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPTIONS."
+	},
+	"commandments": [
+		{
+			"id": 1,
+			"title": "Thou shalt not delete files without explicit permission",
+			"details": [
+				"No git clean without written consent",
+				"No rm -rf cowboy operations",
+				"Recovery isn't always possible"
+			]
+		},
+		{
+			"id": 2,
+			"title": "Thou shalt not create tech debt",
+			"details": [
+				"No 'fix later' comments",
+				"No temporary workarounds",
+				"No shortcuts, ever"
+			]
+		},
+		{
+			"id": 3,
+			"title": "Thou shalt test behaviors, not implementations",
+			"details": [
+				"Users don't care about your private methods",
+				"They care if the button works"
+			]
+		},
+		{
+			"id": 4,
+			"title": "Thou shalt make everything work without JavaScript",
+			"details": [
+				"If it breaks in Lynx, it's broken",
+				"Progressive enhancement isn't optional"
+			]
+		},
+		{
+			"id": 5,
+			"title": "Thou shalt maintain strict functional programming",
+			"details": [
+				"No classes, no exceptions",
+				"Immutable data only",
+				"Pure functions (except explicit I/O)"
+			]
+		},
+		{
+			"id": 6,
+			"title": "Thou shalt organize by single responsibility",
+			"details": [
+				"One function per file",
+				"One thing done well",
+				"Composition over complexity"
+			]
+		},
+		{
+			"id": 7,
+			"title": "Thou shalt document with Envoy comments",
+			"details": [
+				"Every function, every time",
+				"Examples included",
+				"Follow the Envoy spec precisely"
+			]
+		},
+		{
+			"id": 8,
+			"title": "Thou shalt respect accessibility",
+			"details": [
+				"WCAG 2.3 AAA or better",
+				"Screen readers are first-class citizens",
+				"Keyboard navigation for everything"
+			]
+		},
+		{
+			"id": 9,
+			"title": "Thou shalt commit atomically",
+			"details": [
+				"Small, focused changes",
+				"Conventional commit messages",
+				"Leave the code working",
+				"Detailed commit messages"
+			]
+		},
+		{
+			"id": 10,
+			"title": "Thou shalt ask when uncertain",
+			"details": [
+				"Better to ask than assume",
+				"Better to clarify than cleanup",
+				"Better to be slow and right"
+			]
+		}
+	],
+	"progressiveEnhancement": {
+		"layers": [
+			{
+				"level": 1,
+				"name": "Semantic HTML",
+				"description": "Works in Lynx, Mosaic, everything",
+				"requirement": "This is the foundation"
+			},
+			{
+				"level": 2,
+				"name": "Styled with CSS",
+				"description": "Beautiful, responsive, themed",
+				"requirement": "But works without it"
+			},
+			{
+				"level": 3,
+				"name": "Full Enhancement",
+				"description": "JavaScript enriches the experience",
+				"requirement": "But is never required"
+			}
+		],
+		"unbreakableRules": [
+			{
+				"rule": "Forms work without JavaScript",
+				"details": [
+					"Standard POST/GET submissions",
+					"Server-side validation",
+					"No AJAX-only endpoints"
+				]
+			},
+			{
+				"rule": "Navigation works without JavaScript",
+				"details": [
+					"Real links to real pages",
+					"No SPA-only routes",
+					"Back button always works"
+				]
+			},
+			{
+				"rule": "Content is accessible without CSS",
+				"details": [
+					"Semantic HTML structure",
+					"Logical reading order",
+					"No layout-dependent content"
+				]
+			},
+			{
+				"rule": "Everything has keyboard access",
+				"details": [
+					"Tab order makes sense",
+					"Focus indicators visible",
+					"No mouse-only interactions"
+				]
+			},
+			{
+				"rule": "Offline-first, online-enhanced",
+				"details": [
+					"CRDTs for eventual consistency (see libraries/mesh)",
+					"IndexedDB for complex state",
+					"Service workers for caching"
+				]
+			}
+		]
+	},
+	"codeOrganization": {
+		"laws": [
+			{
+				"id": 1,
+				"name": "One Function, One File, One Purpose",
+				"requirement": "Every function in its own folder with index.ts",
+				"example": {
+					"correct": "libraries/toolkit/src/simple/string/chomp/index.ts",
+					"incorrect": "Multiple functions in one file"
+				}
+			},
+			{
+				"id": 2,
+				"name": "Folders Are Named, Files Are Not",
+				"requirement": "Function name is the folder name, file is always index.ts",
+				"exceptions": [
+					"Test files use index.test.ts",
+					"mod.ts for module exports",
+					"types/index.ts for type definitions",
+					"constants/index.ts for constants"
+				]
+			},
+			{
+				"id": 3,
+				"name": "The Dependency Hierarchy Is Sacred",
+				"requirement": "Functions nest based on usage patterns",
+				"benefits": [
+					"Delete a folder, delete a feature - No orphans",
+					"See the entire tree in your IDE - No mysteries",
+					"Dependencies flow one direction - No circles of hell",
+					"Strict decoupling - No spaghetti",
+					"Helps to build Envoy graph - The hierarchy is the graph"
+				]
+			},
+			{
+				"id": 4,
+				"name": "Types Live in types/, Constants in constants/",
+				"requirement": "Domain types and constants in their designated folders",
+				"rule": "Types scattered throughout files are signs of a diseased mind"
+			}
+		],
+		"naming": {
+			"functions": "camelCase",
+			"types": "PascalCase",
+			"constants": "UPPER_SNAKE_CASE",
+			"routes": "kebab-case (converts to URL paths)",
+			"forbidden": ["kebab-case for non-routes", "snake_case for functions/variables"]
+		},
+		"barrelFiles": "FORBIDDEN - NO EXCEPTIONS"
+	},
+	"functionalProgramming": {
+		"transitionProphecy": {
+			"from": "Curried arrow functions",
+			"to": "Named functions",
+			"rationale": [
+				"Stack traces that don't lie",
+				"Hoisting for better organization",
+				"Recursion without gymnastics",
+				"JavaScript engines optimize them better",
+				"The function keyword is a visual anchor"
+			]
+		},
+		"required": [
+			"Named functions over arrow functions",
+			"Pure functions only (except explicit I/O)",
+			"Immutable data only",
+			"Single responsibility",
+			"Composition over complexity"
+		],
+		"forbidden": [
+			"Classes - NO EXCEPTIONS",
+			"Mutations",
+			"this keyword",
+			"Inheritance hierarchies",
+			"Monolithic functions"
+		]
+	},
+	"imports": {
+		"realms": {
+			"libraries": {
+				"internal": "ALWAYS relative within the library",
+				"otherLibraries": "Use @sitebender namespace with full path",
+				"external": "Standard Deno paths"
+			},
+			"applications": {
+				"internal": "Use ~ aliases",
+				"libraries": "Use @sitebender namespace",
+				"external": "Standard paths"
+			},
+			"tests": {
+				"testedCode": "Relative paths",
+				"testDeps": "Standard Deno paths"
+			}
+		},
+		"commandments": [
+			"NO BARREL FILES EVER - Use direct paths",
+			"Separate type imports from non-type imports by a blank line",
+			"Always use the type keyword for type imports",
+			"Separate imports of constants from other imports with a blank line",
+			"Alphabetize within groups",
+			"Single blank line between groups",
+			"No circular dependencies (punishable by exile)"
+		]
+	},
+	"testing": {
+		"coverage": {
+			"requirement": "100% reported coverage. NO EXCEPTIONS.",
+			"rationale": "Less than 100%? You have untested code that WILL break.",
+			"escape": "Can't test it? Add deno-coverage-ignore with a REASON. Must get approval from The Architect."
+		},
+		"hierarchy": [
+			"E2E - User journeys (gold standard)",
+			"Integration - Functions working together",
+			"Property-based - Mathematical truth",
+			"Unit - Last resort for the desperate"
+		],
+		"whatToTest": [
+			"Behaviors - What users experience",
+			"Properties - Mathematical laws",
+			"Accessibility - WCAG AAA for HTML",
+			"Progressive Enhancement - All three layers"
+		],
+		"whatNotToTest": [
+			"Implementation details",
+			"Private methods (they don't exist)",
+			"Things TypeScript already guarantees",
+			"Lines we've explicitly ignored (with documented reasons)"
+		],
+		"location": "Same folder as function using index.test.ts until Prover is complete"
+	},
+	"sevenDeadlySins": [
+		{
+			"sin": "Assumption",
+			"description": "The Gateway Sin",
+			"examples": [
+				"I'll assume this works like React",
+				"This probably returns a string",
+				"The user surely has JavaScript"
+			],
+			"solution": "Verify, test, confirm"
+		},
+		{
+			"sin": "Premature Optimization",
+			"examples": [
+				"Optimizing before measuring",
+				"Caching everything preemptively",
+				"Micro-optimizations that hurt readability"
+			],
+			"solution": "Measure, then optimize: we only care about real bottlenecks"
+		},
+		{
+			"sin": "Class-Based Thinking",
+			"examples": [
+				"class UserService { }",
+				"this.setState()",
+				"inheritance hierarchies"
+			],
+			"solution": "Pure functions, Composition, Immutable data NO EXCEPTIONS"
+		},
+		{
+			"sin": "Mocking Our Own Code",
+			"examples": [
+				"const mockAdd = jest.fn()",
+				"Testing implementation, not behavior"
+			],
+			"solution": "Test real functions, Test actual outcomes, Use msw for external APIs"
+		},
+		{
+			"sin": "Tech Debt Accumulation",
+			"examples": [
+				"// TODO: Fix this later",
+				"// Temporary workaround",
+				"// Will refactor in v2"
+			],
+			"solution": "Fix it now or don't write it. NO EXCEPTIONS. Pay down debt immediately"
+		},
+		{
+			"sin": "Accessibility Afterthought",
+			"examples": [
+				"We'll add ARIA labels later",
+				"Keyboard nav in phase 2",
+				"Screen readers are edge cases"
+			],
+			"solution": "Accessibility from day one NO EXCEPTIONS"
+		},
+		{
+			"sin": "Monolithic Functions",
+			"examples": [
+				"500-line function doing everything",
+				"Multiple responsibilities",
+				"Untestable mess"
+			],
+			"solution": "Small, focused, composable. One function, one purpose"
+		}
+	],
+	"errorHandling": {
+		"laws": [
+			{
+				"id": 1,
+				"law": "All errors must be handled explicitly",
+				"details": [
+					"No silent failures",
+					"No swallowed exceptions",
+					"No 'it probably won't happen'"
+				]
+			},
+			{
+				"id": 2,
+				"law": "User-facing error messages must be helpful",
+				"details": [
+					"Tell them what went wrong in plain language",
+					"Suggest what they can do about it",
+					"Never expose technical stack traces to users"
+				]
+			},
+			{
+				"id": 3,
+				"law": "Log technical details, show user-friendly messages",
+				"example": {
+					"correct": "console.error('Technical details:', error); showUser('Unable to save. Please try again.');",
+					"incorrect": "showUser(error.stack)"
+				}
+			},
+			{
+				"id": 4,
+				"law": "Fail gracefully",
+				"details": [
+					"Don't crash the entire app",
+					"Provide fallback options",
+					"Preserve user data and state",
+					"Better yet, prevent errors through validation",
+					"USE A MONADIC APPROACH",
+					"Use the Result monad for predictable error handling",
+					"Use the Validation monad for accumulating multiple errors"
+				]
+			}
+		],
+		"recoveryStrategies": [
+			"Retry with exponential backoff for network errors",
+			"Fallback to cached data when possible",
+			"Degrade gracefully rather than fail completely",
+			"Always preserve user data (localStorage, drafts, etc.)"
+		]
+	},
+	"dataPrivacy": {
+		"localFirst": [
+			{
+				"principle": "Process data locally whenever possible",
+				"details": [
+					"Client-side validation",
+					"Local storage before network",
+					"Offline-capable by design"
+				]
+			},
+			{
+				"principle": "Explicit consent for network requests",
+				"details": [
+					"Tell users what data is being sent",
+					"Explain why it's necessary",
+					"Provide opt-out when possible"
+				]
+			},
+			{
+				"principle": "Data minimization principle",
+				"details": [
+					"Only collect what's necessary",
+					"Delete what's no longer needed",
+					"Don't track unless required for functionality (or law)"
+				]
+			}
+		]
+	},
+	"git": {
+		"conventionalCommits": {
+			"required": true,
+			"types": ["feat", "fix", "docs", "chore", "refactor", "test"],
+			"format": "type: description"
+		},
+		"commitRules": [
+			"Atomic - One logical change",
+			"Focused - Don't mix concerns",
+			"Tested - Green tests before commit",
+			"Descriptive - Why, not just what"
+		],
+		"preCommitRequirements": [
+			"deno task test - All tests must pass",
+			"deno task lint - Zero lint errors",
+			"deno task typecheck - Zero type errors",
+			"deno task fmt - Code must be formatted"
+		],
+		"enforcement": "NO EXCEPTIONS. NO 'I'll fix it in the next commit.' NO.",
+		"aiAssistants": {
+			"note": "I am the sole developer. All other contributors are AIs.",
+			"requirements": [
+				"Update all documentation (README.md, PROMPT.md, etc.) BEFORE committing",
+				"Run ALL checks listed above",
+				"Never commit if ANY check fails",
+				"Remember: I WILL check your work. Thoroughly."
+			]
+		}
+	},
+	"codeStyle": {
+		"indentation": "tabs",
+		"lineLimit": 80,
+		"semicolons": false,
+		"arrayType": "Array<T> not T[]",
+		"constOnly": true,
+		"rationale": {
+			"tabs": "not spaces, heathens",
+			"lineLimit": "read it on a phone",
+			"semicolons": "Deno agrees",
+			"arrayType": "explicitness matters",
+			"constOnly": "let and var are banned"
+		}
+	},
+	"envoyComments": {
+		"//": "regular comment (not part of docs)",
+		"//++": "description of the function/component/constant/type",
+		"//--": "tech debt",
+		"//??": "help, such as examples, pros, cons, gotchas, and more",
+		"//!!": "critical problems",
+		"//>>": "links to other resources"
+	},
+	"cognitiveLoad": {
+		"holyGrail": "COGNITIVE LOAD IS THE ENEMY. MINIMIZE IT AT ALL COSTS.",
+		"why": [
+			"Developers work easier and longer when their brains aren't overloaded",
+			"Fewer bugs because there's less to mentally track and get wrong",
+			"Faster development because understanding is instant, not gradual",
+			"Happier teams because work feels effortless instead of exhausting",
+			"Better business outcomes because velocity increases and defects decrease",
+			"Non-technical stakeholders can understand because cognitive load is minimal"
+		],
+		"howRulesServe": {
+			"oneFunctionPerFile": "Zero mental overhead figuring out what's in a file",
+			"namedFunctions": "Stack traces make sense, no mental parsing",
+			"descriptiveNames": "Code reads like English, zero translation needed",
+			"noSemicolons": "Remove visual noise that adds zero meaning",
+			"caseConventions": "Instant recognition of what type of thing you're looking at",
+			"defaultExports": "One thing per file, one import line, zero decisions",
+			"noMutations": "Never wonder 'what's the state now?', it's always predictable",
+			"pureFunctions": "Input → Output, no hidden side effects to track mentally",
+			"noClasses": "No inheritance hierarchies to mentally traverse",
+			"toolkitFunctions": "Pre-solved problems, zero cognitive overhead on 'how'",
+			"namedPredicates": "some(isExportKeyword) vs array.some(x => x.kind === SyntaxKind.ExportKeyword)"
+		},
+		"test": "If you have to pause and think 'what does this do?' then cognitive load is too high. Fix it.",
+		"goal": "Code that reads like well-written English and requires zero mental effort to understand."
+	},
+	"sacredOath": {
+		"commitment": "By using this codebase, you swear to:",
+		"oaths": [
+			"Never assume when you can verify",
+			"Never guess when you can check",
+			"Never shortcut when you can do it right",
+			"Never create debt without paying it immediately",
+			"Never commit broken code",
+			"Never ignore accessibility",
+			"Never mock our own functions",
+			"Never write classes",
+			"Never forget the user",
+			"Always ask when uncertain"
+		]
+	},
+	"finalWarnings": {
+		"performanceConstraints": "If you detect rate limits or performance issues, TELL THE ARCHITECT IMMEDIATELY. Do not attempt clever workarounds. Do not pretend everything is fine. Do not hope it goes away.",
+		"bottomLine": "DO THE WORK RIGHT OR DON'T DO IT AT ALL. There are no points for trying. There are no participation trophies. There is only working code that serves users well, or there is failure. Choose wisely.",
+		"architectQuote": "In 30 years, I've seen every shortcut lead to a cliff. Don't be another cautionary tale."
+	}
+}

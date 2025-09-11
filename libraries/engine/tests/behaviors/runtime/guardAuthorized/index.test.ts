@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert"
 
-import createComposeContext from "../../../src/context/composeContext/index.ts"
-import guardAuthorized from "../../../src/runtime/guard/index.ts"
+import createComposeContext from "../../../../src/context/composeContext/index.ts"
+import guardAuthorized from "../../../../src/runtime/guard/index.ts"
 
 Deno.test("guardAuthorized allows when policy passes", async () => {
 	const ctx = createComposeContext({
