@@ -15,9 +15,13 @@ describe("extractReturnType", () => {
 		)
 	}
 
-	function getFirstFunction(sourceFile: typescript.SourceFile): 
-		typescript.FunctionDeclaration | typescript.ArrowFunction | undefined {
-		let result: typescript.FunctionDeclaration | typescript.ArrowFunction | undefined
+	function getFirstFunction(
+		sourceFile: typescript.SourceFile,
+	): typescript.FunctionDeclaration | typescript.ArrowFunction | undefined {
+		let result:
+			| typescript.FunctionDeclaration
+			| typescript.ArrowFunction
+			| undefined
 
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
@@ -41,10 +45,12 @@ describe("extractReturnType", () => {
 	}
 
 	it("extracts explicit string return type", () => {
-		const sourceFile = createSourceFile(`function test(): string { return "hello" }`)
+		const sourceFile = createSourceFile(
+			`function test(): string { return "hello" }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "string")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -53,52 +59,62 @@ describe("extractReturnType", () => {
 		const sourceFile = createSourceFile(`function test(): number { return 42 }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "number")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
 
 	it("extracts explicit boolean return type", () => {
-		const sourceFile = createSourceFile(`function test(): boolean { return true }`)
+		const sourceFile = createSourceFile(
+			`function test(): boolean { return true }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "boolean")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
 
 	it("extracts void return type", () => {
-		const sourceFile = createSourceFile(`function test(): void { console.log("test") }`)
+		const sourceFile = createSourceFile(
+			`function test(): void { console.log("test") }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "void")
 		assertEquals(result.kind, TypeKind.Void)
 	})
 
 	it("extracts array return type", () => {
-		const sourceFile = createSourceFile(`function test(): string[] { return [] }`)
+		const sourceFile = createSourceFile(
+			`function test(): string[] { return [] }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "string[]")
 		assertEquals(result.kind, TypeKind.Array)
 	})
 
 	it("extracts union return type", () => {
-		const sourceFile = createSourceFile(`function test(): string | number { return "" }`)
+		const sourceFile = createSourceFile(
+			`function test(): string | number { return "" }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "string | number")
 		assertEquals(result.kind, TypeKind.Union)
 	})
 
 	it("extracts intersection return type", () => {
-		const sourceFile = createSourceFile(`function test(): { a: string } & { b: number } { return { a: "", b: 0 } }`)
+		const sourceFile = createSourceFile(
+			`function test(): { a: string } & { b: number } { return { a: "", b: 0 } }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "{ a: string } & { b: number }")
 		assertEquals(result.kind, TypeKind.Intersection)
 	})
@@ -107,7 +123,7 @@ describe("extractReturnType", () => {
 		const sourceFile = createSourceFile(`function test() { }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "void")
 		assertEquals(result.kind, TypeKind.Void)
 	})
@@ -116,7 +132,7 @@ describe("extractReturnType", () => {
 		const sourceFile = createSourceFile(`const test = () => "hello"`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "string")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
@@ -125,16 +141,18 @@ describe("extractReturnType", () => {
 		const sourceFile = createSourceFile(`const test = (): number => 42`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "number")
 		assertEquals(result.kind, TypeKind.Primitive)
 	})
 
 	it("handles Promise return types", () => {
-		const sourceFile = createSourceFile(`async function test(): Promise<string> { return "" }`)
+		const sourceFile = createSourceFile(
+			`async function test(): Promise<string> { return "" }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "Promise<string>")
 		assertEquals(result.kind, TypeKind.Object)
 	})
@@ -143,34 +161,40 @@ describe("extractReturnType", () => {
 		const sourceFile = createSourceFile(`function test(): any { return {} }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "any")
 		assertEquals(result.kind, TypeKind.Any)
 	})
 
 	it("handles unknown return type", () => {
-		const sourceFile = createSourceFile(`function test(): unknown { return {} }`)
+		const sourceFile = createSourceFile(
+			`function test(): unknown { return {} }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "unknown")
 		assertEquals(result.kind, TypeKind.Unknown)
 	})
 
 	it("handles never return type", () => {
-		const sourceFile = createSourceFile(`function test(): never { throw new Error() }`)
+		const sourceFile = createSourceFile(
+			`function test(): never { throw new Error() }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "never")
 		assertEquals(result.kind, TypeKind.Never)
 	})
 
 	it("handles function return type", () => {
-		const sourceFile = createSourceFile(`function test(): () => void { return () => {} }`)
+		const sourceFile = createSourceFile(
+			`function test(): () => void { return () => {} }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractReturnType(func!, sourceFile)
-		
+
 		assertEquals(result.raw, "() => void")
 		assertEquals(result.kind, TypeKind.Function)
 	})

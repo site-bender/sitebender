@@ -5,6 +5,7 @@ These are the **EXACT** data structures Envoy receives from Parser. No strings, 
 ## Example 1: Simple Pure Function
 
 **Source Code:**
+
 ```typescript
 //++ Validates an email address using regex pattern matching
 export default function validateEmail(email: string): boolean {
@@ -17,6 +18,7 @@ export default function validateEmail(email: string): boolean {
 ```
 
 **Parser Output:**
+
 ```typescript
 // What extractFunctions returns
 {
@@ -95,6 +97,7 @@ export default function validateEmail(email: string): boolean {
 ## Example 2: Async Function with Error Handling
 
 **Source Code:**
+
 ```typescript
 //++ Fetches user data from API with error handling
 export async function fetchUser(id: number): Promise<User | null> {
@@ -114,6 +117,7 @@ export async function fetchUser(id: number): Promise<User | null> {
 ```
 
 **Parser Output:**
+
 ```typescript
 {
   node: typescript.FunctionDeclaration, // REAL TypeScript AST node
@@ -157,6 +161,7 @@ export async function fetchUser(id: number): Promise<User | null> {
 ## Example 3: Generic Curried Function
 
 **Source Code:**
+
 ```typescript
 //++ Creates a curried function for adding numbers
 function createAdder<T extends number>(base: T): (value: T) => T {
@@ -169,6 +174,7 @@ function createAdder<T extends number>(base: T): (value: T) => T {
 ```
 
 **Parser Output:**
+
 ```typescript
 {
   node: typescript.FunctionDeclaration, // REAL TypeScript AST node
@@ -218,6 +224,7 @@ function createAdder<T extends number>(base: T): (value: T) => T {
 ## Example 4: Generator Function
 
 **Source Code:**
+
 ```typescript
 //++ Generates sequential IDs starting from 1
 export function* generateIds(): Generator<number, void, unknown> {
@@ -231,6 +238,7 @@ export function* generateIds(): Generator<number, void, unknown> {
 ```
 
 **Parser Output:**
+
 ```typescript
 {
   node: typescript.FunctionDeclaration, // REAL TypeScript AST node
@@ -263,11 +271,12 @@ export function* generateIds(): Generator<number, void, unknown> {
 ## Example 5: Complex Arrow Function with Generics
 
 **Source Code:**
+
 ```typescript
 //++ Processes array of items with transformation
 const processItems = async <T, U>(
 	items: readonly T[],
-	transform: (item: T) => Promise<U>
+	transform: (item: T) => Promise<U>,
 ): Promise<U[]> => {
 	const results: U[] = []
 	for (const item of items) {
@@ -285,6 +294,7 @@ const processItems = async <T, U>(
 ```
 
 **Parser Output:**
+
 ```typescript
 {
   node: typescript.ArrowFunction, // REAL TypeScript AST node (arrow function)
@@ -349,6 +359,7 @@ const processItems = async <T, U>(
 ## Example 6: Type Guard Function
 
 **Source Code:**
+
 ```typescript
 //++ Simple utility for checking if value exists
 const isDefined = <T>(value: T | undefined | null): value is T => {
@@ -359,6 +370,7 @@ const isDefined = <T>(value: T | undefined | null): value is T => {
 ```
 
 **Parser Output:**
+
 ```typescript
 {
   node: typescript.ArrowFunction, // REAL TypeScript AST node
@@ -415,13 +427,15 @@ const isDefined = <T>(value: T | undefined | null): value is T => {
 6. **Complete Signatures**: All function properties extracted and categorized
 
 **Envoy should NEVER:**
+
 - Parse strings with regex
 - Re-analyze TypeScript AST
 - Ignore the metadata fast-paths
 - Reconstruct what Parser already provides
 
 **Envoy should ALWAYS:**
+
 - Use the `node` property for TypeScript AST operations
-- Use `signature` for documentation generation  
+- Use `signature` for documentation generation
 - Use `metadata` for fast-path optimizations
 - Use `comments` for Envoy-specific documentation features

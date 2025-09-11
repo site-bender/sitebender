@@ -1,7 +1,7 @@
 import type { AstNode } from "../../types/index.ts"
 
-import contains from "../../../../../../toolkit/src/simple/string/contains/index.ts"
 import some from "../../../../../../toolkit/src/simple/array/some/index.ts"
+import contains from "../../../../../../toolkit/src/simple/string/contains/index.ts"
 import toLower from "../../../../../../toolkit/src/simple/string/toCase/toLower/index.ts"
 import { IDEMPOTENT_FUNCTION_NAMES } from "../constants/index.ts"
 

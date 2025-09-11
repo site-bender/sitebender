@@ -5,22 +5,33 @@ import * as typescript from "npm:typescript@5.7.2"
 import detectAsync from "./index.ts"
 
 describe("detectAsync", () => {
-	function createFunction(code: string): 
-		typescript.FunctionDeclaration | typescript.ArrowFunction | typescript.MethodDeclaration {
+	function createFunction(
+		code: string,
+	):
+		| typescript.FunctionDeclaration
+		| typescript.ArrowFunction
+		| typescript.MethodDeclaration {
 		const sourceFile = typescript.createSourceFile(
 			"test.ts",
 			code,
 			typescript.ScriptTarget.Latest,
 			true,
 		)
-		
-		let result: typescript.FunctionDeclaration | typescript.ArrowFunction | typescript.MethodDeclaration | undefined
+
+		let result:
+			| typescript.FunctionDeclaration
+			| typescript.ArrowFunction
+			| typescript.MethodDeclaration
+			| undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
 				result = node
 			} else if (typescript.isVariableStatement(node)) {
 				const declaration = node.declarationList.declarations[0]
-				if (declaration?.initializer && typescript.isArrowFunction(declaration.initializer)) {
+				if (
+					declaration?.initializer &&
+					typescript.isArrowFunction(declaration.initializer)
+				) {
 					result = declaration.initializer
 				}
 			} else if (typescript.isMethodDeclaration(node)) {

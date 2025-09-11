@@ -3,11 +3,11 @@ import * as typescript from "npm:typescript@5.7.2"
 
 import type { FunctionNode, TraversalMetadata } from "../../index.ts"
 
-import collectMetadata from "./collectMetadata/index.ts"
 import processArrowFunction from "../../processArrowFunction/index.ts"
 import processFunctionDeclaration from "../../processFunctionDeclaration/index.ts"
 import processFunctionExpression from "../../processFunctionExpression/index.ts"
 import processMethodDeclaration from "../../processMethodDeclaration/index.ts"
+import collectMetadata from "./collectMetadata/index.ts"
 
 export default function visit(
 	accumulator: Array<FunctionNode>,

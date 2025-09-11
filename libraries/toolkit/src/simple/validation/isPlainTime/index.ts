@@ -1,5 +1,7 @@
 //++ Type guard that checks if a value is a Temporal.PlainTime instance
-export default function isPlainTime(value: unknown): value is Temporal.PlainTime {
+export default function isPlainTime(
+	value: unknown,
+): value is Temporal.PlainTime {
 	try {
 		return value instanceof Temporal.PlainTime
 	} catch {
@@ -13,12 +15,13 @@ export default function isPlainTime(value: unknown): value is Temporal.PlainTime
 //?? [EXAMPLE] isPlainTime({ hour: 12, minute: 30 }) // false (plain object)
 //?? [EXAMPLE] isPlainTime(null) // false
 /*??
- * [EXAMPLE]
- * const time = Temporal.PlainTime.from("12:30:00")
- * if (isPlainTime(time)) {
- *   time.add({ hours: 1 })  // TypeScript knows it's PlainTime
- * }
- *
- * [GOTCHA] Returns false if Temporal API is not available
- * [PRO] TypeScript type guard for safe PlainTime operations
- */
+ | [EXAMPLE]
+ | const time = Temporal.PlainTime.from("12:30:00")
+ | if (isPlainTime(time)) {
+ |   time.add({ hours: 1 })  // TypeScript knows it's PlainTime
+ | }
+ |
+ | [GOTCHA] Returns false if Temporal API is not available
+ | [PRO] TypeScript type guard for safe PlainTime operations
+ |
+*/

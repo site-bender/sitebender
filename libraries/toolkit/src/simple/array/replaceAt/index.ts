@@ -33,7 +33,11 @@ const replaceAt =
 		if (isNullish(array) || not(Array.isArray(array))) {
 			return []
 		}
-		return index < 0 || index >= array.length ? [...array] as Array<T> : [
+		// Out of bounds: return the original array reference unchanged
+		if (index < 0 || index >= array.length) {
+			return array as Array<T>
+		}
+		return [
 			...array.slice(0, index),
 			replacer(array[index]),
 			...array.slice(index + 1),

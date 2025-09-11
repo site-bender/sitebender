@@ -1,7 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
 
-import evalState from "../../../../../toolkit/src/monads/state/evalState/index.ts"
 import type { ParserState } from "../../types/state/index.ts"
+
+import evalState from "../../../../../toolkit/src/monads/state/evalState/index.ts"
 import parseExpressionState from "./index.ts"
 
 Deno.test("parseExpressionState - parses simple number", () => {

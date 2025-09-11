@@ -1,7 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
-import evalState from "../../../../../toolkit/src/monads/state/evalState/index.ts"
+
 import type { Token } from "../../../types/index.ts"
 import type { ParserState } from "../../types/state/index.ts"
+
+import evalState from "../../../../../toolkit/src/monads/state/evalState/index.ts"
 import currentToken from "./index.ts"
 
 Deno.test("currentToken - returns the token at current position", () => {
