@@ -1,12 +1,13 @@
 import type { Either } from "../../../types/fp/either/index.ts"
 
+import isNullish from "../../../simple/validation/isNullish/index.ts"
 import left from "../left/index.ts"
 import right from "../right/index.ts"
 
 //++ Creates an Either from a nullable value, using Left for null/undefined
 export default function fromNullable<L, R>(error: L) {
 	return function checkNullable(value: R | null | undefined): Either<L, R> {
-		return value === null || value === undefined ? left(error) : right(value)
+		return isNullish(value) ? left(error) : right(value as R)
 	}
 }
 
