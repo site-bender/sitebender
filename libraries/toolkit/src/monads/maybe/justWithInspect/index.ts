@@ -39,14 +39,15 @@ export default function justWithInspect<A>(value: A): Maybe<A> {
 //?? [EXAMPLE] justWithInspect(42) // Just(42) (enhanced display)
 //?? [EXAMPLE] justWithInspect({ id: 1, name: "Alice" }) // Just({"id":1,"name":"Alice"})
 /*??
- * [EXAMPLE]
- * const results = [
- *   justWithInspect(1),
- *   nothingWithInspect(),
- *   justWithInspect(2)
- * ]
- * console.log(results)  // [ Just(1), Nothing, Just(2) ]
- *
- * [PRO] Superior developer experience when debugging Maybe values
- * [GOTCHA] Adds inspection method which is impure - use regular just() for pure FP
- */
+ | [EXAMPLE]
+ | const results = [
+ |   justWithInspect(1),
+ |   nothingWithInspect(),
+ |   justWithInspect(2)
+ | ]
+ | console.log(results)  // [ Just(1), Nothing, Just(2) ]
+ |
+ | [PRO] Superior developer experience when debugging Maybe values
+ | [GOTCHA] Adds inspection method which is impure - use regular just() for pure FP
+ |
+*/

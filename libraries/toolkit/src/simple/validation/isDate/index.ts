@@ -10,15 +10,16 @@ export default function isDate(value: unknown): value is Date {
 //?? [EXAMPLE] isDate("2024-01-01") // false (string)
 //?? [EXAMPLE] isDate(Temporal.PlainDate.from("2024-01-01")) // false (Temporal)
 /*??
- * [EXAMPLE]
- * function formatDate(value: unknown): string {
- *   if (isDate(value)) {
- *     return value.toISOString()  // TypeScript knows it's Date
- *   }
- *   return "Not a date"
- * }
- *
- * [GOTCHA] Invalid Date objects still return true (they're Date instances)
- * [GOTCHA] Returns false for Temporal types - use isPlainDate/isPlainDateTime/isZonedDateTime instead
- * [PRO] TypeScript type guard for legacy Date compatibility
- */
+ | [EXAMPLE]
+ | function formatDate(value: unknown): string {
+ |   if (isDate(value)) {
+ |     return value.toISOString()  // TypeScript knows it's Date
+ |   }
+ |   return "Not a date"
+ | }
+ |
+ | [GOTCHA] Invalid Date objects still return true (they're Date instances)
+ | [GOTCHA] Returns false for Temporal types - use isPlainDate/isPlainDateTime/isZonedDateTime instead
+ | [PRO] TypeScript type guard for legacy Date compatibility
+ |
+*/

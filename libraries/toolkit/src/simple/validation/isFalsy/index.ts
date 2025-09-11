@@ -12,10 +12,11 @@ export default function isFalsy(value: unknown): boolean {
 //?? [EXAMPLE] isFalsy([]) // false (empty array is truthy!)
 //?? [EXAMPLE] isFalsy({}) // false (empty object is truthy!)
 /*??
- * [EXAMPLE]
- * const mixed = [0, 1, "", "hello", null, false, true]
- * mixed.filter(isFalsy)  // [0, "", null, false]
- *
- * [GOTCHA] Empty arrays and objects are truthy, not falsy
- * [PRO] Simple boolean coercion check using !value
- */
+ | [EXAMPLE]
+ | const mixed = [0, 1, "", "hello", null, false, true]
+ | mixed.filter(isFalsy)  // [0, "", null, false]
+ |
+ | [GOTCHA] Empty arrays and objects are truthy, not falsy
+ | [PRO] Simple boolean coercion check using !value
+ |
+*/

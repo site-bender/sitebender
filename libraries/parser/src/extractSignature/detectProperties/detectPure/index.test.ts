@@ -14,8 +14,20 @@ describe("detectPure", () => {
 		)
 	}
 
-	function getFunction(sourceFile: typescript.SourceFile): typescript.FunctionDeclaration | typescript.FunctionExpression | typescript.ArrowFunction | typescript.MethodDeclaration | undefined {
-		let result: typescript.FunctionDeclaration | typescript.FunctionExpression | typescript.ArrowFunction | typescript.MethodDeclaration | undefined
+	function getFunction(
+		sourceFile: typescript.SourceFile,
+	):
+		| typescript.FunctionDeclaration
+		| typescript.FunctionExpression
+		| typescript.ArrowFunction
+		| typescript.MethodDeclaration
+		| undefined {
+		let result:
+			| typescript.FunctionDeclaration
+			| typescript.FunctionExpression
+			| typescript.ArrowFunction
+			| typescript.MethodDeclaration
+			| undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isFunctionDeclaration(node)) {
 				result = node
@@ -40,7 +52,9 @@ describe("detectPure", () => {
 	}
 
 	it("detects pure function with only computations", () => {
-		const sourceFile = createSourceFile(`function add(a: number, b: number): number { return a + b }`)
+		const sourceFile = createSourceFile(
+			`function add(a: number, b: number): number { return a + b }`,
+		)
 		const func = getFunction(sourceFile)
 		const result = detectPure(func!, sourceFile)
 		assertEquals(result, true)
@@ -156,7 +170,9 @@ describe("detectPure", () => {
 	})
 
 	it("detects pure arrow function", () => {
-		const sourceFile = createSourceFile(`const test = (a: number, b: number) => a + b`)
+		const sourceFile = createSourceFile(
+			`const test = (a: number, b: number) => a + b`,
+		)
 		const func = getFunction(sourceFile)
 		const result = detectPure(func!, sourceFile)
 		assertEquals(result, true)

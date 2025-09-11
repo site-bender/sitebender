@@ -1,9 +1,10 @@
+import type { Token } from "../../../types/index.ts"
+import type { Parser, ParserState } from "../../types/state/index.ts"
+
 import doState, {
 	get,
 	modify,
 } from "../../../../../toolkit/src/monads/doState/index.ts"
-import type { Token } from "../../../types/index.ts"
-import type { Parser, ParserState } from "../../types/state/index.ts"
 
 //++ Consumes current token and advances position to next token
 export default function advance(): Parser<Token> {

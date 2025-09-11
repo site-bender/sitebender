@@ -12,13 +12,14 @@ export default function fromNullable<A>(value: A | null | undefined): Maybe<A> {
 //?? [EXAMPLE] fromNullable(42) // Just(42)
 //?? [EXAMPLE] fromNullable(null) // Nothing
 /*??
- * [EXAMPLE]
- * const arr = [1, 2, 3]
- * fromNullable(arr[0])   // Just(1)
- * fromNullable(arr[10])  // Nothing (undefined)
- * fromNullable("")       // Just("") - empty string is not null
- * fromNullable(0)        // Just(0) - zero is not null
- *
- * [PRO] Primary entry point for bringing nullable values into safe Maybe monad
- * [GOTCHA] Empty strings, 0, and false are NOT null - they become Just
- */
+ | [EXAMPLE]
+ | const arr = [1, 2, 3]
+ | fromNullable(arr[0])   // Just(1)
+ | fromNullable(arr[10])  // Nothing (undefined)
+ | fromNullable("")       // Just("") - empty string is not null
+ | fromNullable(0)        // Just(0) - zero is not null
+ |
+ | [PRO] Primary entry point for bringing nullable values into safe Maybe monad
+ | [GOTCHA] Empty strings, 0, and false are NOT null - they become Just
+ |
+*/

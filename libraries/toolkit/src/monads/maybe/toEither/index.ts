@@ -19,12 +19,13 @@ export default function toEither<E>(getError: () => E) {
 //?? [EXAMPLE] toEither(() => "No value")(just(42)) // Right(42)
 //?? [EXAMPLE] toEither(() => "No value")(nothing()) // Left("No value")
 /*??
- * [EXAMPLE]
- * const requireValue = (field: string) =>
- *   toEither(() => `${field} is required`)
- * requireValue("email")(just("user@example.com"))  // Right("user@example.com")
- * requireValue("email")(nothing())                 // Left("email is required")
- *
- * [PRO] Enables transitioning from optional to explicit error handling
- * [PRO] Lazy error evaluation - error only computed if Nothing
- */
+ | [EXAMPLE]
+ | const requireValue = (field: string) =>
+ |   toEither(() => `${field} is required`)
+ | requireValue("email")(just("user@example.com"))  // Right("user@example.com")
+ | requireValue("email")(nothing())                 // Left("email is required")
+ |
+ | [PRO] Enables transitioning from optional to explicit error handling
+ | [PRO] Lazy error evaluation - error only computed if Nothing
+ |
+*/

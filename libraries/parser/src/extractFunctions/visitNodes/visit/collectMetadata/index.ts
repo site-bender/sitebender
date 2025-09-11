@@ -9,8 +9,7 @@ export default function collectMetadata(
 	node: typescript.Node,
 	metadata: TraversalMetadata,
 ): TraversalMetadata {
-	const hasDecisionPoint = 
-		typescript.isIfStatement(node) ||
+	const hasDecisionPoint = typescript.isIfStatement(node) ||
 		typescript.isConditionalExpression(node) ||
 		typescript.isSwitchStatement(node) ||
 		typescript.isForStatement(node) ||
@@ -19,23 +18,27 @@ export default function collectMetadata(
 		typescript.isWhileStatement(node) ||
 		typescript.isDoStatement(node) ||
 		typescript.isCatchClause(node)
-	
+
 	const hasLogicalOperator = typescript.isBinaryExpression(node) && (
 		node.operatorToken.kind === typescript.SyntaxKind.AmpersandAmpersandToken ||
 		node.operatorToken.kind === typescript.SyntaxKind.BarBarToken ||
 		node.operatorToken.kind === typescript.SyntaxKind.QuestionQuestionToken
 	)
-	
+
 	const identifierText = typescript.isIdentifier(node) ? node.getText() : null
-	
+
 	return {
 		...metadata,
-		hasThrowStatements: metadata.hasThrowStatements || typescript.isThrowStatement(node),
-		hasAwaitExpressions: metadata.hasAwaitExpressions || typescript.isAwaitExpression(node),
-		hasReturnStatements: metadata.hasReturnStatements || typescript.isReturnStatement(node),
-		hasGlobalAccess: metadata.hasGlobalAccess || (identifierText !== null && isGlobalIdentifier(identifierText)),
-		cyclomaticComplexity: metadata.cyclomaticComplexity + 
-			(hasDecisionPoint ? 1 : 0) + 
+		hasThrowStatements: metadata.hasThrowStatements ||
+			typescript.isThrowStatement(node),
+		hasAwaitExpressions: metadata.hasAwaitExpressions ||
+			typescript.isAwaitExpression(node),
+		hasReturnStatements: metadata.hasReturnStatements ||
+			typescript.isReturnStatement(node),
+		hasGlobalAccess: metadata.hasGlobalAccess ||
+			(identifierText !== null && isGlobalIdentifier(identifierText)),
+		cyclomaticComplexity: metadata.cyclomaticComplexity +
+			(hasDecisionPoint ? 1 : 0) +
 			(hasLogicalOperator ? 1 : 0),
 	}
 }

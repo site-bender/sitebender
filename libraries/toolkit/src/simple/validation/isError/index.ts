@@ -9,15 +9,16 @@ export default function isError(value: unknown): value is Error {
 //?? [EXAMPLE] isError({ message: "error" }) // false (plain object)
 //?? [EXAMPLE] isError(null) // false
 /*??
- * [EXAMPLE]
- * try {
- *   JSON.parse("invalid json")
- * } catch (e) {
- *   if (isError(e)) {
- *     console.log("Error:", e.message)
- *   }
- * }
- *
- * [GOTCHA] May fail for errors from different realms (iframes)
- * [PRO] TypeScript type guard for safe error handling
- */
+ | [EXAMPLE]
+ | try {
+ |   JSON.parse("invalid json")
+ | } catch (e) {
+ |   if (isError(e)) {
+ |     console.log("Error:", e.message)
+ |   }
+ | }
+ |
+ | [GOTCHA] May fail for errors from different realms (iframes)
+ | [PRO] TypeScript type guard for safe error handling
+ |
+*/

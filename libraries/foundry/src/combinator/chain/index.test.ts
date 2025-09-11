@@ -1,29 +1,31 @@
+import err from "@sitebender/toolkit/monads/result/err/index.ts"
+import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
+import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
-import chain from "./index.ts"
-import type { Seed, Generator } from "../../types/index.ts"
+
+import type { Generator, Seed } from "../../types/index.ts"
+
+import generateBoolean from "../../arbitrary/generateBoolean/index.ts"
 import generateInteger from "../../arbitrary/generateInteger/index.ts"
 import generateString from "../../arbitrary/generateString/index.ts"
-import generateBoolean from "../../arbitrary/generateBoolean/index.ts"
-import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
-import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
-import err from "@sitebender/toolkit/monads/result/err/index.ts"
 import splitSeed from "../../random/splitSeed/index.ts"
+import chain from "./index.ts"
 
 Deno.test("chain - chains dependent generators", () => {
 	// Generate a length, then a string of that length
 	const lengthGenerator: Generator<number> = generateInteger(1)(10)
-	
-	const variableStringGenerator = chain((length: number) => 
+
+	const variableStringGenerator = chain((length: number) =>
 		generateString(length)
 	)(lengthGenerator)
-	
+
 	const seed: Seed = { value: 12345, path: [] }
 	const result = variableStringGenerator(seed)
-	
+
 	assertExists(result)
 	assertEquals(isOk(result), true)
-	
+
 	if (isOk(result)) {
 		const str = result.right
 		assertEquals(typeof str, "string")
@@ -35,16 +37,16 @@ Deno.test("chain - chains dependent generators", () => {
 
 Deno.test("chain - preserves determinism", () => {
 	const boolGenerator: Generator<boolean> = generateBoolean
-	
+
 	// Chain to generate different ranges based on boolean
 	const conditionalIntGenerator = chain((b: boolean) =>
 		b ? generateInteger(1)(10) : generateInteger(100)(200)
 	)(boolGenerator)
-	
+
 	const seed: Seed = { value: 99999, path: [] }
 	const result1 = conditionalIntGenerator(seed)
 	const result2 = conditionalIntGenerator(seed)
-	
+
 	// Should produce same result for same seed
 	if (isOk(result1) && isOk(result2)) {
 		assertEquals(result1.right, result2.right)
@@ -55,14 +57,14 @@ Deno.test("chain - propagates errors from first generator", () => {
 	// Generator that always fails
 	const failingGenerator: Generator<number> = (_seed: Seed) =>
 		err({ type: "GenerationFailed" as const, reason: "First generator failed" })
-	
-	const chainedGenerator = chain((n: number) =>
-		generateString(n)
-	)(failingGenerator)
-	
+
+	const chainedGenerator = chain((n: number) => generateString(n))(
+		failingGenerator,
+	)
+
 	const seed: Seed = { value: 12345, path: [] }
 	const result = chainedGenerator(seed)
-	
+
 	assertEquals(isErr(result), true)
 	if (isErr(result)) {
 		assertEquals(result.left.type, "GenerationFailed")
@@ -72,17 +74,20 @@ Deno.test("chain - propagates errors from first generator", () => {
 
 Deno.test("chain - propagates errors from second generator", () => {
 	const intGenerator: Generator<number> = generateInteger(1)(10)
-	
+
 	// Second generator that fails
 	const chainedGenerator = chain((_n: number) => {
 		const failingGen: Generator<string> = (_seed: Seed) =>
-			err({ type: "GenerationFailed" as const, reason: "Second generator failed" })
+			err({
+				type: "GenerationFailed" as const,
+				reason: "Second generator failed",
+			})
 		return failingGen
 	})(intGenerator)
-	
+
 	const seed: Seed = { value: 12345, path: [] }
 	const result = chainedGenerator(seed)
-	
+
 	assertEquals(isErr(result), true)
 	if (isErr(result)) {
 		assertEquals(result.left.type, "GenerationFailed")
@@ -93,17 +98,15 @@ Deno.test("chain - propagates errors from second generator", () => {
 Deno.test("chain - handles complex dependencies", () => {
 	// Generate min, then generate max >= min, then generate value in range
 	const minGenerator: Generator<number> = generateInteger(1)(50)
-	
+
 	const rangeGenerator = chain((min: number) => {
 		const maxGenerator = generateInteger(min)(100)
-		return chain((max: number) =>
-			generateInteger(min)(max)
-		)(maxGenerator)
+		return chain((max: number) => generateInteger(min)(max))(maxGenerator)
 	})(minGenerator)
-	
+
 	const seed: Seed = { value: 7777, path: [] }
 	const result = rangeGenerator(seed)
-	
+
 	assertEquals(isOk(result), true)
 	if (isOk(result)) {
 		const value = result.right
@@ -115,23 +118,23 @@ Deno.test("chain - handles complex dependencies", () => {
 
 Deno.test("chain - works with different types", () => {
 	const intGenerator: Generator<number> = generateInteger(0)(2)
-	
+
 	// Chain to generate different types based on integer
 	const mixedGenerator = chain((n: number) => {
 		if (n === 0) return generateBoolean
 		if (n === 1) return generateString(5) as Generator<any>
 		return generateInteger(1)(100) as Generator<any>
 	})(intGenerator)
-	
+
 	const seed: Seed = { value: 42, path: [] }
 	const result = mixedGenerator(seed)
-	
+
 	assertEquals(isOk(result), true)
 })
 
 Deno.test("chain - uses split seeds for independence", () => {
 	const boolGenerator: Generator<boolean> = generateBoolean
-	
+
 	// Two chains that should use different seeds
 	const chain1 = chain((b: boolean) => {
 		const gen: Generator<number> = (seed: Seed) => {
@@ -141,7 +144,7 @@ Deno.test("chain - uses split seeds for independence", () => {
 		}
 		return gen
 	})(boolGenerator)
-	
+
 	const chain2 = chain((b: boolean) => {
 		const gen: Generator<number> = (seed: Seed) => {
 			const split = splitSeed(seed)
@@ -149,11 +152,11 @@ Deno.test("chain - uses split seeds for independence", () => {
 		}
 		return gen
 	})(boolGenerator)
-	
+
 	const seed: Seed = { value: 12345, path: [] }
 	const result1 = chain1(seed)
 	const result2 = chain2(seed)
-	
+
 	// Results should typically be different due to seed splitting
 	if (isOk(result1) && isOk(result2)) {
 		// This might occasionally be equal by chance, but usually different
@@ -168,15 +171,15 @@ Deno.test("chain - monadic law: left identity", () => {
 	const a = 5
 	const returnGen: Generator<number> = (_seed: Seed) => ok(a)
 	const f = (n: number) => generateInteger(n)(n + 10)
-	
+
 	const seed: Seed = { value: 88888, path: [] }
-	
+
 	// Left side: return a >>= f
 	const leftSide = chain(f)(returnGen)(seed)
-	
+
 	// Right side: f a
 	const rightSide = f(a)(seed)
-	
+
 	// Should be equivalent
 	if (isOk(leftSide) && isOk(rightSide)) {
 		// They might not be exactly equal due to seed handling,

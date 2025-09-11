@@ -1,8 +1,9 @@
-import doState from "../../../../../../toolkit/src/monads/doState/index.ts"
-import isErr from "../../../../../../toolkit/src/monads/result/isErr/index.ts"
-import fold from "../../../../../../toolkit/src/monads/result/fold/index.ts"
 import type { AstNode, ParseError, Result } from "../../../../types/index.ts"
 import type { Parser, ParserState } from "../../../types/state/index.ts"
+
+import doState from "../../../../../../toolkit/src/monads/doState/index.ts"
+import fold from "../../../../../../toolkit/src/monads/result/fold/index.ts"
+import isErr from "../../../../../../toolkit/src/monads/result/isErr/index.ts"
 import parseUnaryExpressionState from "../../parseUnaryExpressionState/index.ts"
 import handleError from "./handleError/index.ts"
 import wrapProcessLeftNode from "./wrapProcessLeftNode/index.ts"
@@ -17,20 +18,24 @@ export default function parseBinaryWithPrecedenceGenerator(
 		minPrecedence: number,
 	) => Parser<Result<AstNode, ParseError>>,
 ): Parser<Result<AstNode, ParseError>> {
-	return doState<ParserState, Result<AstNode, ParseError>>(function* mainParseGenerator() {
-		// Parse left operand (could be unary expression)
-		const leftResult = yield parseUnaryExpressionState(parseExpression)
-		if (isErr(leftResult)) {
-			return leftResult
-		}
+	return doState<ParserState, Result<AstNode, ParseError>>(
+		function* mainParseGenerator() {
+			// Parse left operand (could be unary expression)
+			const leftResult = yield parseUnaryExpressionState(parseExpression)
+			if (isErr(leftResult)) {
+				return leftResult
+			}
 
-		// Extract the left node using fold and start the loop
-		const processLeft = fold<ParseError, Parser<Result<AstNode, ParseError>>>(handleError)<AstNode>(
-			wrapProcessLeftNode(minPrecedence, parseBinaryWithPrecedence)
-		)
+			// Extract the left node using fold and start the loop
+			const processLeft = fold<ParseError, Parser<Result<AstNode, ParseError>>>(
+				handleError,
+			)<AstNode>(
+				wrapProcessLeftNode(minPrecedence, parseBinaryWithPrecedence),
+			)
 
-		return yield processLeft(leftResult)
-	})
+			return yield processLeft(leftResult)
+		},
+	)
 }
 
 //?? [EXAMPLE] parseBinaryWithPrecedenceGenerator(0, parseExpr, parseBinary) creates parsing flow

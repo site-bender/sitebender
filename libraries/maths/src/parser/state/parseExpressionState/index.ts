@@ -1,6 +1,7 @@
-import doState from "../../../../../toolkit/src/monads/doState/index.ts"
 import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
+
+import doState from "../../../../../toolkit/src/monads/doState/index.ts"
 import parseBinaryExpressionState from "../parseBinaryExpressionState/index.ts"
 import parseConditionalExpressionState from "../parseConditionalExpressionState/index.ts"
 

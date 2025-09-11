@@ -14,18 +14,19 @@ export default function isBoolean(value: unknown): value is boolean {
 //?? [EXAMPLE] isBoolean(null) // false
 //?? [EXAMPLE] isBoolean(new Boolean(true)) // false (object, not primitive)
 /*??
- * [EXAMPLE]
- * function toggle(value: unknown): boolean {
- *   if (isBoolean(value)) {
- *     return !value  // TypeScript knows it's boolean
- *   }
- *   return false
- * }
- *
- * const mixed = [true, 1, false, 0, "true", null]
- * mixed.filter(isBoolean)  // [true, false]
- *
- * [CON] Does not include Boolean objects created with new Boolean()
- * [CON] Does not detect truthy/falsy values (1, 0, "", null, etc.)
- * [GOTCHA] new Boolean(true) returns false (it's an object, not a primitive)
- */
+ | [EXAMPLE]
+ | function toggle(value: unknown): boolean {
+ |   if (isBoolean(value)) {
+ |     return !value  // TypeScript knows it's boolean
+ |   }
+ |   return false
+ | }
+ |
+ | const mixed = [true, 1, false, 0, "true", null]
+ | mixed.filter(isBoolean)  // [true, false]
+ |
+ | [CON] Does not include Boolean objects created with new Boolean()
+ | [CON] Does not detect truthy/falsy values (1, 0, "", null, etc.)
+ | [GOTCHA] new Boolean(true) returns false (it's an object, not a primitive)
+ |
+*/

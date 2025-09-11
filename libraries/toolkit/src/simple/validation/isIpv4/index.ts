@@ -31,16 +31,17 @@ export default function isIpv4(value: unknown) {
 //?? [EXAMPLE] isIpv4("256.1.1.1")() // false (octet > 255)
 //?? [EXAMPLE] isIpv4("1.1.1")() // false (only 3 octets)
 /*??
- * [EXAMPLE] Localhost validation
- * isIpv4("127.0.0.1")() // true
- * isIpv4("0.0.0.0")() // true
- *
- * [EXAMPLE] Invalid formats
- * isIpv4("192.168.1.1/24")() // false (CIDR notation)
- * isIpv4("::1")() // false (IPv6)
- * isIpv4(" 192.168.1.1 ")() // false (whitespace)
- *
- * [GOTCHA] Leading zeros allowed (e.g., 192.168.001.001)
- * [GOTCHA] No CIDR notation support (use separate validation)
- * [PRO] Strict validation of exactly 4 octets in 0-255 range
- */
+ | [EXAMPLE] Localhost validation
+ | isIpv4("127.0.0.1")() // true
+ | isIpv4("0.0.0.0")() // true
+ |
+ | [EXAMPLE] Invalid formats
+ | isIpv4("192.168.1.1/24")() // false (CIDR notation)
+ | isIpv4("::1")() // false (IPv6)
+ | isIpv4(" 192.168.1.1 ")() // false (whitespace)
+ |
+ | [GOTCHA] Leading zeros allowed (e.g., 192.168.001.001)
+ | [GOTCHA] No CIDR notation support (use separate validation)
+ | [PRO] Strict validation of exactly 4 octets in 0-255 range
+ |
+*/

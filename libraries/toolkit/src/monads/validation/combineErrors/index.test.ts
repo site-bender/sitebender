@@ -1,57 +1,56 @@
-// @ts-nocheck: use local assert helpers and avoid importing std aliases in src tests
-function assertEquals(actual: unknown, expected: unknown) {
-  const a = JSON.stringify(actual)
-  const b = JSON.stringify(expected)
-  if (a !== b) throw new Error(`Assertion failed:\nActual: ${a}\nExpected: ${b}`)
-}
+import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import type ValidationError from "../../../types/ValidationError/index.ts"
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
+import type ValidationError from "../../../types/ValidationError/index.ts"
 
-import combineErrors from "./index.ts"
-import groupByField from "./groupByField/index.ts"
 import reduce from "../../../simple/array/reduce/index.ts"
+import groupByField from "./groupByField/index.ts"
+import combineErrors from "./index.ts"
 
 Deno.test("combineErrors - concatenates error messages per field and preserves structure", async (t) => {
-  await t.step("merges same-field messages", () => {
-    const a: NonEmptyArray<ValidationError> = [
-      { field: "age", messages: ["must be 18+"] },
-    ]
-    const b: NonEmptyArray<ValidationError> = [
-      { field: "age", messages: ["too young"] },
-    ]
+	await t.step("merges same-field messages", () => {
+		const a: NonEmptyArray<ValidationError> = [
+			{ field: "age", messages: ["must be 18+"] },
+		]
+		const b: NonEmptyArray<ValidationError> = [
+			{ field: "age", messages: ["too young"] },
+		]
 
-    const result = combineErrors(a)(b)
+		const result = combineErrors(a)(b)
 
-    assertEquals(result.length, 1)
-    assertEquals(result[0].field, "age")
-    assertEquals(result[0].messages, ["must be 18+", "too young"])
-  })
+		assertEquals(result.length, 1)
+		assertEquals(result[0].field, "age")
+		assertEquals(result[0].messages, ["must be 18+", "too young"])
+	})
 
-  await t.step("keeps separate fields", () => {
-    const a: NonEmptyArray<ValidationError> = [
-      { field: "age", messages: ["must be 18+"] },
-    ]
-    const b: NonEmptyArray<ValidationError> = [
-      { field: "name", messages: ["required"] },
-    ]
+	await t.step("keeps separate fields", () => {
+		const a: NonEmptyArray<ValidationError> = [
+			{ field: "age", messages: ["must be 18+"] },
+		]
+		const b: NonEmptyArray<ValidationError> = [
+			{ field: "name", messages: ["required"] },
+		]
 
-    const result = combineErrors(a)(b)
+		const result = combineErrors(a)(b)
 
-    // Order isn't strictly guaranteed by Object.keys, but with these inputs expect age first
-    assertEquals(result.length, 2)
-    assertEquals(result[0].field, "age")
-    assertEquals(result[1].field, "name")
-  })
+		// Order isn't strictly guaranteed by Object.keys, but with these inputs expect age first
+		assertEquals(result.length, 2)
+		assertEquals(result[0].field, "age")
+		assertEquals(result[1].field, "name")
+	})
 })
 
 Deno.test("groupByField - reducer accumulates messages per field", () => {
-  const errors = [
-    { field: "age", messages: ["must be 18+"] },
-    { field: "age", messages: ["too young"] },
-    { field: "name", messages: ["required"] },
-  ]
+	const errors = [
+		{ field: "age", messages: ["must be 18+"] },
+		{ field: "age", messages: ["too young"] },
+		{ field: "name", messages: ["required"] },
+	]
 
-  const grouped = reduce(groupByField)({})(errors)
-  assertEquals(grouped, { age: ["must be 18+", "too young"], name: ["required"] })
+	const grouped = reduce(groupByField)({})(errors)
+
+	assertEquals(grouped, {
+		age: ["must be 18+", "too young"],
+		name: ["required"],
+	})
 })

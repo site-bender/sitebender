@@ -14,8 +14,9 @@ describe("extractGenerics", () => {
 		)
 	}
 
-	function getFirstFunction(sourceFile: typescript.SourceFile): 
-		typescript.FunctionDeclaration | undefined {
+	function getFirstFunction(
+		sourceFile: typescript.SourceFile,
+	): typescript.FunctionDeclaration | undefined {
 		let result: typescript.FunctionDeclaration | undefined
 
 		function visit(node: typescript.Node) {
@@ -34,7 +35,7 @@ describe("extractGenerics", () => {
 		const sourceFile = createSourceFile(`function test() { }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result, [])
 	})
 
@@ -42,7 +43,7 @@ describe("extractGenerics", () => {
 		const sourceFile = createSourceFile(`function test<T>() { }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result.length, 1)
 		assertEquals(result[0].name, "T")
 		assertEquals(result[0].constraint, undefined)
@@ -53,7 +54,7 @@ describe("extractGenerics", () => {
 		const sourceFile = createSourceFile(`function test<T, U, V>() { }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result.length, 3)
 		assertEquals(result[0].name, "T")
 		assertEquals(result[1].name, "U")
@@ -64,7 +65,7 @@ describe("extractGenerics", () => {
 		const sourceFile = createSourceFile(`function test<T extends string>() { }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result.length, 1)
 		assertEquals(result[0].name, "T")
 		assertEquals(result[0].constraint, "string")
@@ -72,10 +73,12 @@ describe("extractGenerics", () => {
 	})
 
 	it("extracts generic with complex constraint", () => {
-		const sourceFile = createSourceFile(`function test<K extends keyof T>() { }`)
+		const sourceFile = createSourceFile(
+			`function test<K extends keyof T>() { }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result.length, 1)
 		assertEquals(result[0].name, "K")
 		assertEquals(result[0].constraint, "keyof T")
@@ -86,7 +89,7 @@ describe("extractGenerics", () => {
 		const sourceFile = createSourceFile(`function test<T = string>() { }`)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result.length, 1)
 		assertEquals(result[0].name, "T")
 		assertEquals(result[0].constraint, undefined)
@@ -94,10 +97,12 @@ describe("extractGenerics", () => {
 	})
 
 	it("extracts generic with both constraint and default", () => {
-		const sourceFile = createSourceFile(`function test<T extends object = {}>() { }`)
+		const sourceFile = createSourceFile(
+			`function test<T extends object = {}>() { }`,
+		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result.length, 1)
 		assertEquals(result[0].name, "T")
 		assertEquals(result[0].constraint, "object")
@@ -106,21 +111,21 @@ describe("extractGenerics", () => {
 
 	it("extracts complex generic signature", () => {
 		const sourceFile = createSourceFile(
-			`function test<T extends string, U = number, V extends T = T>() { }`
+			`function test<T extends string, U = number, V extends T = T>() { }`,
 		)
 		const func = getFirstFunction(sourceFile)
 		const result = extractGenerics(func!, sourceFile)
-		
+
 		assertEquals(result.length, 3)
-		
+
 		assertEquals(result[0].name, "T")
 		assertEquals(result[0].constraint, "string")
 		assertEquals(result[0].default, undefined)
-		
+
 		assertEquals(result[1].name, "U")
 		assertEquals(result[1].constraint, undefined)
 		assertEquals(result[1].default, "number")
-		
+
 		assertEquals(result[2].name, "V")
 		assertEquals(result[2].constraint, "T")
 		assertEquals(result[2].default, "T")
@@ -129,18 +134,20 @@ describe("extractGenerics", () => {
 	it("works with arrow functions", () => {
 		const sourceFile = createSourceFile(`const test = <T>() => {}`)
 		let arrowFunc: typescript.ArrowFunction | undefined
-		
+
 		function visit(node: typescript.Node) {
 			if (typescript.isVariableStatement(node)) {
 				const declaration = node.declarationList.declarations[0]
-				if (declaration && typescript.isArrowFunction(declaration.initializer!)) {
+				if (
+					declaration && typescript.isArrowFunction(declaration.initializer!)
+				) {
 					arrowFunc = declaration.initializer
 				}
 			}
 			typescript.forEachChild(node, visit)
 		}
 		visit(sourceFile)
-		
+
 		const result = extractGenerics(arrowFunc!, sourceFile)
 		assertEquals(result.length, 1)
 		assertEquals(result[0].name, "T")
@@ -152,7 +159,7 @@ describe("extractGenerics", () => {
 				method<T, U>() { }
 			}
 		`)
-		
+
 		let methodDecl: typescript.MethodDeclaration | undefined
 		function visit(node: typescript.Node) {
 			if (typescript.isMethodDeclaration(node)) {
@@ -161,7 +168,7 @@ describe("extractGenerics", () => {
 			typescript.forEachChild(node, visit)
 		}
 		visit(sourceFile)
-		
+
 		const result = extractGenerics(methodDecl!, sourceFile)
 		assertEquals(result.length, 2)
 		assertEquals(result[0].name, "T")
