@@ -43,7 +43,7 @@ const message = fold<number, string>((n) => `ok:${n}`)<
 expect(message).toBe("ok:21")
 ```
 
-## When to use what
+## When to use what where
 
 - map(fn): transform the Valid value only.
 - chain(fn): run another validation that depends on the previous Valid value (fail-fast).
