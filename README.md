@@ -1,81 +1,80 @@
-# @sitebender/mesh
+# @sitebender
 
 [![CI](https://github.com/site-bender/sitebender/actions/workflows/ci.yml/badge.svg?branch=phase-2)](https://github.com/site-bender/sitebender/actions/workflows/ci.yml)
 
 ![Header](./github-sitebender-banner.png)
 
-A functional, offline-first mesh networking library for the Sitebender ecosystem. Implements CRDTs, decentralized identity (DIDs), IPFS integration, and peer-to-peer synchronization with progressive enhancement principles.
+A zero-dependency ecosystem of nine functional programming libraries that form a fully accessible, progressive enhancement-first web application framework where everything **on the client** works without JavaScript. Revolutionary tooling automatically generates 100% test coverage (Prover) and documentation from code (Envoy). Every line verified, tested, and documented. No assumptions, no shortcuts, no tech debt.
 
 ## Philosophy
 
 Web 3.0 isn't about blockchains and tokens. It's about **user sovereignty**, **data ownership**, and **resilient systems** that work offline-first and sync globally. Every feature works without Web3 technology, then gets better with it.
 
-## Core Values
+## Core Principles
 
-- Accessibility
-- Inclusivity
-- Transparency
-- Collaboration
-- Community
-- Empowerment
-- Security
-- Usability
-- Universal design
-- Performance
-- Privacy
-- Data protection
-- Offline access
+1. **Zero dependencies** - The ecosystem has NO external dependencies (except Deno std and TypeScript compiler)
+2. **Progressive enhancement** - Everything works without JavaScript
+3. **Functional programming** - No classes, immutable data, pure functions
+4. **One function per file** - In its own folder, as index.ts
+5. **100% test coverage** - No exceptions without documented reason
+6. **Accessibility first** - WCAG 2.3 AAA or better
+7. **Minimize cognitive load** - Code should read like English
 
-## Features
+## The Nine Libraries
 
-### ✅ Implemented
+### Foundation Layer (Zero Dependencies)
+- **🧰 Toolkit** - Pure functional utilities, the atoms everything is built from
+- **🎲 Foundry** - Property-based testing and arbitrary data generation _including triples_
 
-- **CRDTs**: LWW-Register, OR-Set, G-Set, Counter, RGA
-- **Storage**: IndexedDB adapter with versioning
-- **Identity**: DID:Key with Ed25519 signatures
-- **IPFS**: Gateway adapter with automatic fallbacks
-- **Sync**: State-based, operation-based, and delta-based protocols
+### Infrastructure Layer
+- **📜 Parser** - THE ONLY library that touches TypeScript compiler
+
+### Services Layer
+- **📚 Envoy** - Documentation generator _and much, much more_
+- **🧪 Prover** - Test generator achieving 100% coverage automatically
+
+### Runtime Layer
+- **🎨 Components** - JSX component library that compiles to IR
+- **⚙️ Engine** - Evaluates IR from Components and Maths
+- **🔢 Maths** - Mathematical expression parser
+
+### Distribution Layer
+- **🌐 Mesh** - Distributed data with CRDTs, P2P, IPFS, Solid
+
+## Documentation
+
+- **[Project Overview](docs/project-overview.md)** - Architecture and library descriptions
+- **[Library Data Flow](docs/library-data-flow.md)** - How data flows between libraries
+- **[Rules & Standards](docs/rules.md)** - Coding standards and requirements
+- **[Future Plans](docs/future-plans.md)** - Roadmap and upcoming features
+- **[AI Assistant Guide](docs/ai-assistant-guide.md)** - For AI contributors
 
 ## Quick Start
 
 ```bash
-# Clone and install
-git clone https://github.com/site-bender/mesh.git
-cd mesh
+# Clone the repository
+git clone https://github.com/site-bender/sitebender.git
+cd sitebender
 
-# Run tests
-deno task test
+# Development commands
+deno task dev         # Start dev server
+deno task test        # Run tests
+deno task fmt         # Format code
+deno task lint        # Lint code
+deno task typecheck   # Type check
 
-# Type check
-deno task typecheck
+# Validate contracts
+deno run --allow-read --allow-run scripts/validateContracts.ts
 ```
 
-## Usage Examples
+## Contract System
 
-### CRDTs
-
-```typescript
-import { createLWWRegister, createORSet } from "@sitebender/mesh"
-
-// Last-write-wins register
-const register = createLWWRegister("initial", "node1")
-const updated = register.set("new value")
-
-// OR-Set for collections
-const set = createORSet([], "node1")
-	.add("item1")
-	.add("item2")
-```
-
-### Decentralized Identity
-
-```typescript
-import { createDIDKey } from "@sitebender/mesh"
-
-const didKey = await createDIDKey()
-const signature = await didKey.sign(data)
-const isValid = await didKey.verify(signature, data)
-```
+The project uses an enforceable contract system to maintain architectural boundaries:
+- **Parser** is THE ONLY library that can import TypeScript
+- **Envoy** CANNOT parse code, only interpret Parser output  
+- All inter-library data is immutable via `ContractOutput<T>`
+- Git hooks prevent commits that violate contracts
+- See [Contract Enforcement](libraries/docs/contract-enforcement-implementation.md) for details
 
 ## Contributing
 
@@ -93,7 +92,7 @@ CI runs strict tasks and will block on lint, type-check, alias guard, and strict
 
 - Fix small issues immediately while you’re in the file.
 - Keep changes small; re-run fmt/lint/type-check and relevant strict tests after each meaningful edit.
-- If a fix is too big for now, leave a visible note and make it the next task—don’t let it drift.
+- If a fix is too big for now, leave an Envoy tech-debt comment and make it the next task—don’t let it drift.
 - Hold the line: no net-new errors, keep tests green.
 
 ## Authoring canon: Events and Actions
