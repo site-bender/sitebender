@@ -46,10 +46,11 @@ export default function isEmpty(value: unknown): boolean {
 //?? [EXAMPLE] isEmpty(0) // false (numbers never empty)
 //?? [EXAMPLE] isEmpty(false) // false (booleans never empty)
 /*??
- * [EXAMPLE]
- * const data = ["hello", "", null, [], "world", {}]
- * data.filter(item => !isEmpty(item))  // ["hello", "world"]
- *
- * [GOTCHA] Whitespace strings are NOT considered empty
- * [PRO] Handles all common JavaScript types appropriately
- */
+ | [EXAMPLE]
+ | const data = ["hello", "", null, [], "world", {}]
+ | data.filter(item => !isEmpty(item))  // ["hello", "world"]
+ |
+ | [GOTCHA] Whitespace strings are NOT considered empty
+ | [PRO] Handles all common JavaScript types appropriately
+ |
+*/

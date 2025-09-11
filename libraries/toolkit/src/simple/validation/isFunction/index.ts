@@ -19,20 +19,21 @@ export default function isFunction(value: unknown): value is AnyFunction {
 //?? [EXAMPLE] isFunction({}) // false
 //?? [EXAMPLE] isFunction([]) // false
 /*??
- * [EXAMPLE]
- * function invokeIfFunction(value: unknown, ...args: Array<unknown>): unknown {
- *   if (isFunction(value)) {
- *     return value(...args)  // TypeScript knows value is Function
- *   }
- *   return undefined
- * }
- * invokeIfFunction(() => "hello")      // "hello"
- * invokeIfFunction("not a function")   // undefined
- *
- * const mixed = [() => {}, "string", 42, Math.sqrt, null]
- * const functions = mixed.filter(isFunction)  // [() => {}, Math.sqrt]
- *
- * [PRO] Detects all callable types: arrow, async, generator, class constructors
- * [GOTCHA] Methods become regular functions when detached from their objects
- * [GOTCHA] Classes return true (they're constructor functions)
- */
+ | [EXAMPLE]
+ | function invokeIfFunction(value: unknown, ...args: Array<unknown>): unknown {
+ |   if (isFunction(value)) {
+ |     return value(...args)  // TypeScript knows value is Function
+ |   }
+ |   return undefined
+ | }
+ | invokeIfFunction(() => "hello")      // "hello"
+ | invokeIfFunction("not a function")   // undefined
+ |
+ | const mixed = [() => {}, "string", 42, Math.sqrt, null]
+ | const functions = mixed.filter(isFunction)  // [() => {}, Math.sqrt]
+ |
+ | [PRO] Detects all callable types: arrow, async, generator, class constructors
+ | [GOTCHA] Methods become regular functions when detached from their objects
+ | [GOTCHA] Classes return true (they're constructor functions)
+ |
+*/

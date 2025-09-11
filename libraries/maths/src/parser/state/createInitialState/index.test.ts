@@ -1,5 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
+
 import type { Token } from "../../../types/index.ts"
+
 import createInitialState from "./index.ts"
 
 Deno.test("createInitialState - creates state with empty token array", () => {

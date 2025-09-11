@@ -26,7 +26,7 @@ export default function isFutureInstant(value: unknown) {
 			}
 
 			const now = Temporal.Now.instant()
-			
+
 			return Temporal.Instant.compare(instant, now) > 0
 		} catch {
 			return false
@@ -38,16 +38,17 @@ export default function isFutureInstant(value: unknown) {
 //?? [EXAMPLE] isFutureInstant("2000-01-15T14:00:00Z")() // false
 //?? [EXAMPLE] isFutureInstant(null)() // false
 /*??
- * [EXAMPLE]
- * const future = Temporal.Now.instant().add({ hours: 1 })
- * isFutureInstant(future)() // true
- *
- * [EXAMPLE] Token expiry validation
- * const tokenExpiry = Temporal.Now.instant().add({ hours: 24 })
- * const isValid = isFutureInstant(tokenExpiry)
- * isValid() // true if token not expired
- *
- * [GOTCHA] Current instant returns false (not considered future)
- * [GOTCHA] String must include Z timezone (e.g., "2024-01-15T14:30:00Z")
- * [PRO] Accepts Temporal.Instant, ISO strings, epoch nanoseconds/milliseconds
- */
+ | [EXAMPLE]
+ | const future = Temporal.Now.instant().add({ hours: 1 })
+ | isFutureInstant(future)() // true
+ |
+ | [EXAMPLE] Token expiry validation
+ | const tokenExpiry = Temporal.Now.instant().add({ hours: 24 })
+ | const isValid = isFutureInstant(tokenExpiry)
+ | isValid() // true if token not expired
+ |
+ | [GOTCHA] Current instant returns false (not considered future)
+ | [GOTCHA] String must include Z timezone (e.g., "2024-01-15T14:30:00Z")
+ | [PRO] Accepts Temporal.Instant, ISO strings, epoch nanoseconds/milliseconds
+ |
+*/

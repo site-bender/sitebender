@@ -1,4 +1,8 @@
-import type { ParserFunctionSignature, Properties, TraversalMetadata } from "../../types/index.ts"
+import type {
+	ParserFunctionSignature,
+	Properties,
+	TraversalMetadata,
+} from "../../types/index.ts"
 
 import deriveComplexity from "../deriveComplexity/index.ts"
 

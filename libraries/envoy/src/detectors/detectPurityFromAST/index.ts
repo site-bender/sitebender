@@ -1,8 +1,8 @@
 import type { AstNode } from "../detectMathPropertiesFromAST/types/index.ts"
 
-import checkForSideEffects from "./checkForSideEffects/index.ts"
-import checkForMutations from "./checkForMutations/index.ts"
 import checkForExternalDependencies from "./checkForExternalDependencies/index.ts"
+import checkForMutations from "./checkForMutations/index.ts"
+import checkForSideEffects from "./checkForSideEffects/index.ts"
 
 //++ Detects if a function is pure by analyzing its AST
 //++ [PRO] Analyzes AST structure for side effects and mutations
