@@ -184,6 +184,60 @@ if (result.ok) {
 }
 ```
 
+## The Real Power: Codebase Intelligence Graph
+
+Envoy is not just documentation - it's a complete codebase intelligence system. Using the filesystem structure as semantic information, Envoy builds an entire graph of your codebase.
+
+### Semantic File Organization
+
+With one function per file in its own folder as `index.ts`:
+
+- **Folder hierarchy = Code hierarchy** (minimizes cognitive load)
+- **Delete folder = Delete function** (perfect modularity)
+- **Move folder = Dependencies move with it** (true encapsulation)
+- **NO BARREL FILES** = Perfect tree-shaking
+- **Semantic folders** (e.g., `monads/`, `define/`) provide type information
+
+### What Envoy Reads
+
+Beyond just TypeScript files, Envoy extracts data from:
+
+- **Git history** - Who wrote what, when, and why
+- **deno.jsonc** - Configuration with Envoy comments
+- **.editorconfig** - Code style preferences
+- **Package files** - Dependencies and versions
+- **Test results** - Coverage and pass/fail rates
+
+### The Codebase Dashboard
+
+Envoy generates a complete dashboard showing:
+
+- **File metrics** - Which files are too long?
+- **Tech debt tracking** - Where is it? Who created it? How long has it been there?
+- **Critical bugs** - Flashing red alerts for `//!!` comments
+- **Dependency graph** - What depends on what
+- **Temporal analysis** - How the codebase evolved over time
+- **Complexity hotspots** - Where refactoring is needed
+
+### HATEOAS Principles
+
+Everything is linked and machine-navigable:
+
+- An AI can traverse the entire codebase graph
+- Generate PDF reports automatically
+- Email summaries to stakeholders
+- Navigate from function to tests to documentation
+- Follow the trail of tech debt to its source
+
+### Data Storage Options
+
+The graph can be stored in:
+
+- **Triple store** - For RDF/semantic web integration
+- **Temporal database** - For time-travel debugging
+- **Vector database** - For AI-powered code search
+- **JSON files** - For simple persistence
+
 ## Architecture
 
 Pure functional pipeline:
@@ -191,7 +245,8 @@ Pure functional pipeline:
 1. **Parse** - TypeScript AST parsing (via @sitebender/parser)
 2. **Extract** - Metadata extraction (via @sitebender/parser)
 3. **Detect** - Property detection (via @sitebender/parser)
-4. **Generate** - Documentation generation (scribe-specific)
+4. **Analyze** - Build codebase graph and relationships
+5. **Generate** - Documentation and dashboard generation
 
 Zero dependencies (except @sitebender/parser), 100% test coverage, pure functions only.
 
