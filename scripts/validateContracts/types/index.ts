@@ -3,7 +3,7 @@ export type ViolationCheck = {
 	readonly name: string
 	readonly command: string
 	readonly errorMessage: string
-	readonly severity: 'error' | 'warning'
+	readonly severity: "error" | "warning"
 }
 
 //++ Aggregated formatted violation output buckets
