@@ -1,5 +1,5 @@
 //++ Format violation outputs into printable strings
-import type { ViolationCheck, FormattedViolations } from '../types/index.ts'
+import type { FormattedViolations, ViolationCheck } from "../types/index.ts"
 
 export function formatViolations(
 	results: Array<{ check: ViolationCheck; stdout: string }>,
@@ -9,11 +9,11 @@ export function formatViolations(
 	return results.reduce<FormattedViolations>((acc, { check, stdout }) => {
 		const trimmed = stdout.trim()
 
-		if (trimmed === '') {
+		if (trimmed === "") {
 			return acc
 		}
 
-		return check.severity === 'error'
+		return check.severity === "error"
 			? {
 				errors: [
 					...acc.errors,
