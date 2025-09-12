@@ -4,7 +4,7 @@
  * Shared TypeScript AST parsing and code analysis for the @sitebender ecosystem.
  * This is THE ONLY library that should import TypeScript directly.
  * All other libraries consume Parser's output.
- * 
+ *
  * CONTRACT ENFORCED: Only exports from the exports/ directory are public API.
  * Internal implementation details are hidden in internal/ directory.
  */

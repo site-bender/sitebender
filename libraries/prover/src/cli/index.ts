@@ -19,7 +19,7 @@ import { TypeKind } from "../types/index.ts"
 const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
 	"array/map": {
 		name: "map",
-		path: "libraries/toolkit/src/simple/array/map/index.ts",
+		path: "libraries/toolkit/src/vanilla/array/map/index.ts",
 		parameters: [
 			{
 				name: "fn",
@@ -61,7 +61,7 @@ const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
 
 	"array/filter": {
 		name: "filter",
-		path: "libraries/toolkit/src/simple/array/filter/index.ts",
+		path: "libraries/toolkit/src/vanilla/array/filter/index.ts",
 		parameters: [
 			{
 				name: "predicate",
@@ -102,7 +102,7 @@ const TOOLKIT_SIGNATURES: Record<string, FunctionSignature> = {
 
 	"math/add": {
 		name: "add",
-		path: "libraries/toolkit/src/simple/math/add/index.ts",
+		path: "libraries/toolkit/src/vanilla/math/add/index.ts",
 		parameters: [
 			{
 				name: "a",

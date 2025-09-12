@@ -1,5 +1,5 @@
 //++ Checks if a function declaration has a default modifier
-import some from "@sitebender/toolkit/simple/array/some/index.ts"
+import some from "@sitebender/toolkit/vanilla/array/some/index.ts"
 import * as typescript from "npm:typescript@5.7.2"
 
 import isDefaultKeyword from "./isDefaultKeyword/index.ts"

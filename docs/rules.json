@@ -176,7 +176,7 @@
 				"name": "One Function, One File, One Purpose",
 				"requirement": "Every function in its own folder with index.ts",
 				"example": {
-					"correct": "libraries/toolkit/src/simple/string/chomp/index.ts",
+					"correct": "libraries/toolkit/src/vanilla/string/chomp/index.ts",
 					"incorrect": "Multiple functions in one file"
 				}
 			},

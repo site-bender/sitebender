@@ -1,8 +1,8 @@
 import type { AstNode } from "../../types/index.ts"
 
-import some from "../../../../../../toolkit/src/simple/array/some/index.ts"
-import contains from "../../../../../../toolkit/src/simple/string/contains/index.ts"
-import toLower from "../../../../../../toolkit/src/simple/string/toCase/toLower/index.ts"
+import some from "../../../../../../toolkit/src/vanilla/array/some/index.ts"
+import contains from "../../../../../../toolkit/src/vanilla/string/contains/index.ts"
+import toLower from "../../../../../../toolkit/src/vanilla/string/toCase/toLower/index.ts"
 import { DISTRIBUTIVE_FUNCTION_NAMES } from "../constants/index.ts"
 
 //++ Checks if function name suggests distributive operation

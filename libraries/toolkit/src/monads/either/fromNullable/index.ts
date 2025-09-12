@@ -1,10 +1,10 @@
 import type { Either } from "../../../types/fp/either/index.ts"
 
-import isNullish from "../../../simple/validation/isNullish/index.ts"
+import isNullish from "../../../vanilla/validation/isNullish/index.ts"
 import left from "../left/index.ts"
 import right from "../right/index.ts"
 
-//++ Creates an Either from a nullable value, using Left for null/undefined
+//++ Lifts a nullable value into Either (null/undefined -> Left, otherwise Right)
 export default function fromNullable<L, R>(error: L) {
 	return function checkNullable(value: R | null | undefined): Either<L, R> {
 		return isNullish(value) ? left(error) : right(value as R)
@@ -34,9 +34,10 @@ export default function fromNullable<L, R>(error: L) {
  | // Left({ field: "email", message: "Required" }) if null
  | // Right(email) if present
  |
- | [PRO] Converts nullable values to Either for safe handling
- | [PRO] Eliminates null/undefined checks in business logic
- | [PRO] Composable with other Either operations
- | [GOTCHA] Only checks for null and undefined, not empty strings
+ | [PRO] Converts nullable values to Either for explicit handling
+ | [PRO] Eliminates scattered null checks
+ | [PRO] Interoperates with downstream map/chain flows
+ | [GOTCHA] Only treats null/undefined as empty (not empty string / NaN / 0)
+ | [GOTCHA] Provide rich error objects early to reduce later mapping
  |
 */
