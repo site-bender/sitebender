@@ -1,0 +1,96 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-12",
+	"author": "The Architect",
+	"scope": "applications",
+	"description": "Rules specific to application development",
+	"inherits": "/rules/index.json",
+	"libraryRulesApplication": {
+		"note": "When using library code, apply the rules from that library's rules/index.json",
+		"requiredLibraryRules": [
+			"/libraries/components/rules/index.json",
+			"/libraries/engine/rules/index.json",
+			"/libraries/mesh/rules/index.json"
+		],
+		"clarification": "Library rules apply to code imported from those libraries"
+	},
+	"browserRequirements": {
+		"description": "Requirements for the final rendered pages in the browser",
+		"layers": [
+			{
+				"level": 1,
+				"name": "Semantic HTML",
+				"description": "Works in Lynx, Mosaic, everything",
+				"requirement": "This is the foundation"
+			},
+			{
+				"level": 2,
+				"name": "Styled with CSS",
+				"description": "Beautiful, responsive, themed",
+				"requirement": "But works without it"
+			},
+			{
+				"level": 3,
+				"name": "Full Enhancement",
+				"description": "JavaScript enriches the experience",
+				"requirement": "But is never required"
+			}
+		],
+		"unbreakableRules": [
+			{
+				"rule": "Forms work without JavaScript in the browser",
+				"details": [
+					"Standard POST/GET submissions",
+					"Server-side validation",
+					"No AJAX-only endpoints"
+				]
+			},
+			{
+				"rule": "Navigation works without JavaScript in the browser",
+				"details": [
+					"Real links to real pages",
+					"No SPA-only routes",
+					"Back button always works"
+				]
+			},
+			{
+				"rule": "Content is accessible without CSS",
+				"details": [
+					"Semantic HTML structure",
+					"Logical reading order",
+					"No layout-dependent content"
+				]
+			},
+			{
+				"rule": "Everything has keyboard access",
+				"details": [
+					"Tab order makes sense",
+					"Focus indicators visible",
+					"No mouse-only interactions"
+				]
+			},
+			{
+				"rule": "Offline-first, online-enhanced",
+				"details": [
+					"All applications MUST work offline to the extent practicable",
+					"CRDTs for eventual consistency",
+					"IndexedDB for complex state",
+					"Service workers for caching",
+					"Sync when online, work when offline",
+					"No functionality should break just because network is unavailable"
+				]
+			},
+			{
+				"rule": "Everything must be responsive in the browser",
+				"details": [
+					"Pages adapt from mobile (320px) to 4K displays",
+					"Touch targets minimum 48x48px on touch devices",
+					"Text remains readable without horizontal scrolling",
+					"Images and media scale appropriately",
+					"No fixed-width layouts that break on any device",
+					"Mobile-first approach with progressive enhancement"
+				]
+			}
+		]
+	}
+}
