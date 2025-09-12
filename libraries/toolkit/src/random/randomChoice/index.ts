@@ -1,5 +1,5 @@
-import isEmpty from "../../simple/array/isEmpty/index.ts"
-import isNullish from "../../simple/validation/isNullish/index.ts"
+import isEmpty from "../../vanilla/array/isEmpty/index.ts"
+import isNullish from "../../vanilla/validation/isNullish/index.ts"
 
 //++ Selects a random element from an Array or Set
 export default function randomChoice<T>(

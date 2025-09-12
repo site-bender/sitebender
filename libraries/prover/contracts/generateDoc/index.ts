@@ -1,7 +1,7 @@
+import generateContractDoc from "../../../contracts/generateContractDoc/index.ts"
 //++ Generates Prover contract documentation using shared generator
 
 import contract from "../contract.json" with { type: "json" }
-import generateContractDoc from "../../../contracts/generateContractDoc/index.ts"
 
 export default function generateProverDoc(): string {
 	return generateContractDoc(contract)
@@ -12,7 +12,7 @@ if (import.meta.main) {
 	const markdown = generateProverDoc()
 	await Deno.writeTextFile(
 		"libraries/prover/contracts/contract.md",
-		markdown
+		markdown,
 	)
 	console.log("✅ Generated Prover contract documentation")
 }

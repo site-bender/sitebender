@@ -36,7 +36,6 @@
 		},
 		"target": "esnext",
 		"types": [
-			"./lib/types/globals.d.ts",
 			"./libraries/components/types/globals.d.ts"
 		]
 	},

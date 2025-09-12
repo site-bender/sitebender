@@ -1,6 +1,6 @@
 //++ Creates an immutable contract output with validation and metadata
 
-import type { ContractOutput, ContractMetadata } from "../types"
+import type { ContractMetadata, ContractOutput } from "../types"
 
 export default function createContractOutput<T>(
 	data: T,
@@ -8,13 +8,13 @@ export default function createContractOutput<T>(
 	version: string,
 ): ContractOutput<T> {
 	const timestamp = Date.now()
-	
+
 	// Deep freeze the data to ensure immutability
 	const frozenData = deepFreeze(structuredClone(data))
-	
+
 	// Generate checksum of the data
 	const checksum = generateChecksum(frozenData)
-	
+
 	const metadata: ContractMetadata = Object.freeze({
 		library,
 		version,
@@ -22,7 +22,7 @@ export default function createContractOutput<T>(
 		checksum,
 		frozen: true,
 	})
-	
+
 	return Object.freeze({
 		data: frozenData,
 		metadata,
@@ -30,16 +30,18 @@ export default function createContractOutput<T>(
 			// Verify data hasn't been tampered with
 			const currentChecksum = generateChecksum(frozenData)
 			if (currentChecksum !== checksum) {
-				console.error(`Contract violation: Data checksum mismatch in ${library}`)
+				console.error(
+					`Contract violation: Data checksum mismatch in ${library}`,
+				)
 				return false
 			}
-			
+
 			// Verify object is still frozen
 			if (!Object.isFrozen(this.data)) {
 				console.error(`Contract violation: Data is not frozen in ${library}`)
 				return false
 			}
-			
+
 			return true
 		},
 	})
@@ -47,7 +49,7 @@ export default function createContractOutput<T>(
 
 function deepFreeze<T>(obj: T): T {
 	Object.freeze(obj)
-	
+
 	if (obj !== null && typeof obj === "object") {
 		Object.getOwnPropertyNames(obj).forEach(function (prop) {
 			const value = (obj as Record<string, unknown>)[prop]
@@ -60,7 +62,7 @@ function deepFreeze<T>(obj: T): T {
 			}
 		})
 	}
-	
+
 	return obj
 }
 

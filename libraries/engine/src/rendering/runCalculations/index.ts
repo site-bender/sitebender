@@ -1,5 +1,5 @@
-import concat from "@sitebender/toolkit/simple/array/concat/index.ts"
-import unique from "@sitebender/toolkit/simple/array/unique/index.ts"
+import concat from "@sitebender/toolkit/vanilla/array/concat/index.ts"
+import unique from "@sitebender/toolkit/vanilla/array/unique/index.ts"
 
 const runCalculations = () => {
 	const calculations = Object.entries(

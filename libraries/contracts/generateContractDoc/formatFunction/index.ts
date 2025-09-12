@@ -10,6 +10,6 @@ export default function formatFunction(func: FunctionDefinition): Section {
 		`**Signature:** \`${func.signature}\``,
 		"",
 		func.description,
-		""
+		"",
 	]
 }

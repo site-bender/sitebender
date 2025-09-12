@@ -282,7 +282,7 @@ test.describe("Code playground behaviors", () => {
 		// Type code
 		await page.click(".monaco-editor")
 		await page.keyboard.type(`
-      import map from "@sitebender/toolkit/simple/array/map"
+      import map from "@sitebender/toolkit/vanilla/array/map"
       
       const double = map((x: number) => x * 2)
       console.log(double([1, 2, 3, 4]))
@@ -318,8 +318,8 @@ test.describe("Code playground behaviors", () => {
 			{
 				lib: "toolkit",
 				code: `
-          import pipe from "@sitebender/toolkit/simple/combinator/pipe"
-          import map from "@sitebender/toolkit/simple/array/map"
+          import pipe from "@sitebender/toolkit/vanilla/combinator/pipe"
+          import map from "@sitebender/toolkit/vanilla/array/map"
           
           const result = pipe([map(x => x * 2)])([1, 2, 3])
           console.log(result)
