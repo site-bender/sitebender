@@ -1,4 +1,4 @@
-import some from "@sitebender/toolkit/simple/array/some/index.ts"
+import some from "@sitebender/toolkit/vanilla/array/some/index.ts"
 //++ Detects if a function is async
 import * as typescript from "npm:typescript@5.7.2"
 

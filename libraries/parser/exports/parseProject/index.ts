@@ -1,10 +1,12 @@
+import { readdirSync, statSync } from "node:fs"
+import { extname, join } from "node:path"
+
 //++ Parses all TypeScript/JavaScript files in a project directory
 
 import type { ParsedFile, ParsedProject, ParserContractOutput } from "../types"
+
 import { createContractOutput } from "../../../contracts/enforcement"
 import parseFile from "../parseFile"
-import { readdirSync, statSync } from "node:fs"
-import { join, extname } from "node:path"
 
 export default function parseProject(
 	rootPath: string,
@@ -14,16 +16,16 @@ export default function parseProject(
 	let totalTypes = 0
 	let totalConstants = 0
 	let totalComponents = 0
-	
+
 	// Recursively find all TypeScript/JavaScript files
 	function findFiles(dir: string): void {
 		try {
 			const entries = readdirSync(dir)
-			
+
 			for (const entry of entries) {
 				const fullPath = join(dir, entry)
 				const stat = statSync(fullPath)
-				
+
 				if (stat.isDirectory()) {
 					// Skip node_modules and hidden directories
 					if (!entry.startsWith(".") && entry !== "node_modules") {
@@ -34,12 +36,12 @@ export default function parseProject(
 					if ([".ts", ".tsx", ".js", ".jsx"].includes(ext)) {
 						// Parse the file
 						const result = parseFile(fullPath)
-						
+
 						// Validate the contract output
 						if (result.validate()) {
 							const parsedFile = result.data
 							files.push(parsedFile)
-							
+
 							// Update totals
 							totalFunctions += parsedFile.functions.length
 							totalTypes += parsedFile.types.length
@@ -53,10 +55,10 @@ export default function parseProject(
 			console.error(`Error reading directory ${dir}:`, error)
 		}
 	}
-	
+
 	// Start the recursive search
 	findFiles(rootPath)
-	
+
 	// Create the project result
 	const project: ParsedProject = {
 		rootPath,
@@ -66,11 +68,11 @@ export default function parseProject(
 		totalConstants,
 		totalComponents,
 	}
-	
+
 	// Wrap in contract output
 	return createContractOutput(
 		project,
 		"parser",
-		"1.0.0"
+		"1.0.0",
 	)
 }

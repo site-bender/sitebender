@@ -47,16 +47,16 @@ export default async function runDemo() {
 	const testTargets = [
 		{
 			path:
-				`${projectRoot}/libraries/toolkit/src/simple/string/trimStart/index.ts`,
+				`${projectRoot}/libraries/toolkit/src/vanilla/string/trimStart/index.ts`,
 			description: "Simple string function",
 		},
 		{
-			path: `${projectRoot}/libraries/toolkit/src/simple/array/head/index.ts`,
+			path: `${projectRoot}/libraries/toolkit/src/vanilla/array/head/index.ts`,
 			description: "Array function with edge cases",
 		},
 		{
 			path:
-				`${projectRoot}/libraries/toolkit/src/simple/combinator/compose/index.ts`,
+				`${projectRoot}/libraries/toolkit/src/vanilla/combinator/compose/index.ts`,
 			description: "Higher-order function (compose)",
 		},
 	]

@@ -153,7 +153,7 @@ Legend: [x] done · [ ] pending
 ## Progress log
 
 - 2025-09-11: READMEs added/updated for either, maybe, result, option; stubs for io/task/future/reader/state/writer. Envoy doc style page added in docs app.
- - 2025-09-11 (later): Added behavior test suites for either/result/maybe; fixed import paths; verified guards; updated orElse signature; integrated isNullish in fromNullable helpers; tracker updated.
+- 2025-09-11 (later): Added behavior test suites for either/result/maybe; fixed import paths; verified guards; updated orElse signature; integrated isNullish in fromNullable helpers; tracker updated.
 
 ---
 

@@ -1,5 +1,5 @@
-import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
-import isUndefined from "@sitebender/toolkit/simple/validation/isUndefined/index.ts"
+import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts"
+import isUndefined from "@sitebender/toolkit/vanilla/validation/isUndefined/index.ts"
 
 import Error from "../../../constructors/Error/index.ts"
 import castValue from "../../../utilities/castValue/index.ts"

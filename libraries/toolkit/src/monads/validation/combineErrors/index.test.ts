@@ -3,7 +3,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type ValidationError from "../../../types/ValidationError/index.ts"
 
-import reduce from "../../../simple/array/reduce/index.ts"
+import reduce from "../../../vanilla/array/reduce/index.ts"
 import groupByField from "./groupByField/index.ts"
 import combineErrors from "./index.ts"
 

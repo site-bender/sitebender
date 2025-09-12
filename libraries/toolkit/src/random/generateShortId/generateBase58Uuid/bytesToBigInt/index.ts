@@ -1,4 +1,4 @@
-import reduce from "../../../../simple/array/reduce/index.ts"
+import reduce from "../../../../vanilla/array/reduce/index.ts"
 
 //++ Converts a byte array to a single BigInt value
 export default function bytesToBigInt(bytes: Uint8Array): bigint {
