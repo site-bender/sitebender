@@ -11,7 +11,7 @@ A comprehensive guide to Envoy's comment syntax that transforms documentation in
 Comments work on ANY code element:
 
 - Functions, constants, types, interfaces, classes, modules
-- Comments must appear DIRECTLY ABOVE what they describe
+- Comments must appear DIRECTLY ABOVE what they describe (no blank line for `//++`)
 - Multiple `//++` comments can be used throughout the file
 
 ## The Marker System
@@ -21,6 +21,8 @@ Comments work on ANY code element:
 ### 1. Description Marker: `//++`
 
 Describes what ANY code element does.
+
+**PLACEMENT:** IMMEDIATELY ABOVE the code element (no blank line between comment and code).
 
 #### Categories for `//++`:
 
@@ -180,6 +182,8 @@ Documents entire modules (collections of files and folders), not individual file
 
 Creates semantic links using HTML `rel` values. Content is markdown link format.
 
+**PLACEMENT:** In the code if it's a direct reference to something specific, or at the bottom of the file as 'see also' references.
+
 **Navigation Links:**
 
 ```typescript
@@ -216,6 +220,8 @@ Creates semantic links using HTML `rel` values. Content is markdown link format.
 ### 5. Help Marker: `//??`
 
 Provides examples, gotchas, pros/cons, and other helpful info with full markdown support.
+
+**PLACEMENT:** Below the code element with AT LEAST ONE BLANK LINE above for visual breathing room.
 
 #### Available Categories:
 
@@ -268,6 +274,8 @@ Provides examples, gotchas, pros/cons, and other helpful info with full markdown
 
 Documents known issues, workarounds, or areas needing improvement.
 
+**PLACEMENT:** WHERE the tech debt occurs (typically inside functions, right at the problematic code).
+
 ```typescript
 /*--
  | [REFACTOR]
@@ -298,6 +306,8 @@ Documents known issues, workarounds, or areas needing improvement.
 ### 7. Critical Issue Marker: `//!!`
 
 Marks critical problems that MUST be fixed. These block releases!
+
+**PLACEMENT:** Next to the specific issue OR if file-wide: below imports, above the description comment and function/component (with blank lines above and below the critical comment for proper visual hierarchy).
 
 ````typescript
 /*!!
@@ -335,28 +345,17 @@ Marks critical problems that MUST be fixed. These block releases!
 - `[INCOMPLETE]` - Missing critical functionality
 - `[BREAKING]` - Will break in production
 
-## 📋 Complete Example
+## 📋 Complete Example (With Proper Spacing)
 
 ````typescript
-/*++ [MODULE]
- | # Mathematical Property Detection
- |
- | Analyzes functions to detect mathematical properties like:
- | * Associativity: `f(f(a,b),c) = f(a,f(b,c))`
- | * Commutativity: `f(a,b) = f(b,a)`
- | * Idempotence: `f(f(x)) = f(x)`
- */
+import { AstNode } from "../types/index.ts"
 
-/*>>
- | [CANONICAL] [Category Theory](https://en.wikipedia.org/wiki/Category_theory)
- | [AUTHOR] [Guy Beford](https://github.com/guybeford)
- | [NEXT] [Type Analysis](./types/README.md)
- */
+//!! [INCOMPLETE] Generator function support not implemented
 
 //++ [GROUP] Associativity Detection
-
 //++ Detects if a function exhibits associative behavior
 export function isAssociative(node: AstNode): boolean {
+	//-- [OPTIMIZATION] This recursion should probably be a loop
 	return (
 		hasBinaryAssociativeOperator(node) ||
 		hasAssociativeMethodCall(node)
@@ -377,8 +376,6 @@ export function isAssociative(node: AstNode): boolean {
  | Only detects **structural** patterns, not semantic equivalence.
  */
 
-//-- [LIMITATION] Cannot detect associativity in async functions
-
 //++ Helper to check for associative operators
 function hasBinaryAssociativeOperator(node: AstNode): boolean {
 	// implementation
@@ -387,16 +384,24 @@ function hasBinaryAssociativeOperator(node: AstNode): boolean {
 //++ [END] // End of Associativity Detection group
 
 //++ [GROUP] Commutativity Detection
-
 //++ Detects if a function exhibits commutative behavior
 export function isCommutative(node: AstNode): boolean {
 	// implementation
 }
 
-//!! [INCOMPLETE] Generator function support not implemented
-
 //++ [END]
+
+//>> [RELATED] [Category Theory](https://en.wikipedia.org/wiki/Category_theory)
+//>> [AUTHOR] [Guy Beford](https://github.com/guybeford)
 ````
+
+Note the spacing:
+
+- `//!!` file-wide issue has blank lines above and below
+- `//++` descriptions are immediately above code (no gap)
+- `//??` help has at least one blank line above
+- `//--` tech debt is right where the issue occurs
+- `//>>` references are at the bottom
 
 ## 🎨 Markdown Support Everywhere
 
@@ -412,13 +417,16 @@ All comment content supports:
 
 ## 📐 Smart Association Rules
 
-1. **Description markers (`//++`)** associate with the NEXT code element
+1. **Description markers (`//++`)** associate with the NEXT code element (no blank line between)
    - Exception: `[MODULE]` can stand alone to describe the entire module (multiple files/folders)
    - `[EXPORTS]` and `[INCLUDES]` are typically used with `[MODULE]` for superdevs without barrel files
-2. **Other markers** (`//??`, `//--`, `//!!`, `//>>`) can appear anywhere and are collected as metadata
-3. Blank lines and regular comments (`//` without markers) are ignored
-4. Parser automatically determines element type
-5. Orphaned `[END]` markers are ignored but reported in diagnostics
+2. **Help markers (`//??`)** appear below code with at least one blank line for spacing
+3. **Tech debt (`//--`)** goes exactly where the issue is in the code
+4. **Critical issues (`//!!`)** next to issue or file-wide with proper spacing
+5. **Links (`//>>`)** in code for direct refs or at file bottom as references
+6. Blank lines and regular comments (`//` without markers) are ignored
+7. Parser automatically determines element type
+8. Orphaned `[END]` markers are ignored but reported in diagnostics
 
 ## ✅ Best Practices
 
@@ -447,9 +455,12 @@ All comment content supports:
 
 1. **`//` comments are ONE LINE ONLY** - cannot be grouped
 2. **`/* */` blocks for multi-line** - must use pipe `|`
-3. **Description `//++` goes ABOVE the code** it describes
-4. **Other markers can go anywhere**
-5. **Bad syntax = ignored + reported**
+3. **Description `//++` goes IMMEDIATELY ABOVE the code** (no blank line)
+4. **Help `//??` needs breathing room** (at least one blank line above)
+5. **Tech debt `//--` goes WHERE the problem is**
+6. **Critical `//!!` file-wide issues need spacing** (blank lines above/below)
+7. **Links `//>>` go in code or at bottom** as references
+8. **Bad syntax = ignored + reported**
 
 ### All Markers at a Glance
 
