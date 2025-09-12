@@ -3,7 +3,7 @@
  *
  * Safely parses JSON strings with error handling. Returns null for
  * invalid JSON instead of throwing, making it easy to wrap in Either
- * monad later. This is the simple version for basic JSON parsing.
+ * monad later. This is the vanilla version for basic JSON parsing.
  *
  * @pure
  * @safe

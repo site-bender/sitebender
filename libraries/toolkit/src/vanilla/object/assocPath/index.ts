@@ -62,7 +62,7 @@ const assocPath = <V extends Value>(
 	// Handle null/undefined input
 	const source = (!obj || typeof obj !== "object") ? {} : obj
 
-	// Single element path - simple property set
+	// Single element path - vanilla property set
 	if (path.length === 1) {
 		return {
 			...source,

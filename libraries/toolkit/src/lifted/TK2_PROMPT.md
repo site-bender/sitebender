@@ -11,7 +11,7 @@
 
 ## Your Mission
 
-You are implementing **lifted** versions of the simple toolkit functions that work with **do-notation** and **monadic composition**. These enable Haskell-style functional programming with proper error handling in TypeScript.
+You are implementing **lifted** versions of the vanilla toolkit functions that work with **do-notation** and **monadic composition**. These enable Haskell-style functional programming with proper error handling in TypeScript.
 
 ## Essential Reading (in order)
 
@@ -137,7 +137,7 @@ lifted/
 
 1. **NO classes** - Only functions
 2. **NO mutations** - All data immutable
-3. **NO JavaScript array methods** - Use toolkit simple functions
+3. **NO JavaScript array methods** - Use toolkit vanilla functions
 4. **One function per file** - Function name = folder name
 5. **Pure functions only** - No side effects
 6. **TDD** - Write tests first
