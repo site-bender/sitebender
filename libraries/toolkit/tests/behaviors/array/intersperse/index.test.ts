@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import intersperse from "../../../../src/simple/array/intersperse/index.ts"
+import intersperse from "../../../../src/vanilla/array/intersperse/index.ts"
 
 Deno.test("intersperse: inserts separator between array elements", () => {
 	assertEquals(intersperse(0)([1, 2, 3, 4]), [1, 0, 2, 0, 3, 0, 4])

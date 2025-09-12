@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import aperture from "../../../../src/simple/array/aperture/index.ts"
+import aperture from "../../../../src/vanilla/array/aperture/index.ts"
 
 // JSDoc examples - basic functionality
 Deno.test("aperture - sliding window of size 2 (pairs)", () => {

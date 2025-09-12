@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import isEven from "../../../../src/simple/validation/isEven/index.ts"
+import isEven from "../../../../src/vanilla/validation/isEven/index.ts"
 
 Deno.test("isEven: true for even integers including negatives and zero", () => {
 	assertEquals(isEven(0), true)

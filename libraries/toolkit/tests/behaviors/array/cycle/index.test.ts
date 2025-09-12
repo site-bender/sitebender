@@ -1,8 +1,8 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import cycle from "../../../../src/simple/array/cycle/index.ts"
-import not from "../../../../src/simple/logic/not/index.ts"
+import cycle from "../../../../src/vanilla/array/cycle/index.ts"
+import not from "../../../../src/vanilla/logic/not/index.ts"
 
 Deno.test("cycle", async (t) => {
 	await t.step("should cycle through array elements infinitely", () => {

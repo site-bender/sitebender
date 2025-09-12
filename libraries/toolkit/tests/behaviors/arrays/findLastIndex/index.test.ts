@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import findLastIndex from "../../../../../toolkit/src/simple/array/findLastIndex/index.ts"
+import findLastIndex from "../../../../../toolkit/src/vanilla/array/findLastIndex/index.ts"
 
 // Test JSDoc examples
 Deno.test("findLastIndex - JSDoc example 1: findLastIndex((n: number) => n > 2)([1, 3, 2, 4])", () => {

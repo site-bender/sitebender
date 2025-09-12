@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { expect } from "jsr:@std/expect"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import span from "../../../../src/simple/array/span/index.ts"
+import span from "../../../../src/vanilla/array/span/index.ts"
 
 describe("span", () => {
 	describe("behavioral tests", () => {

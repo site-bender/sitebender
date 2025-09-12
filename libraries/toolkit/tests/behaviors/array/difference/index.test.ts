@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import difference from "../../../../src/simple/array/difference/index.ts"
+import difference from "../../../../src/vanilla/array/difference/index.ts"
 
 Deno.test("difference", async (t) => {
 	await t.step("basic functionality", async (t) => {

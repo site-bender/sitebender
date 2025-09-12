@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import isFutureDate from "../../../../src/simple/validation/isFutureDate/index.ts"
+import isFutureDate from "../../../../src/vanilla/validation/isFutureDate/index.ts"
 
 Deno.test("isFutureDate: detects obviously future and past calendar dates", () => {
 	// Use stable anchors to avoid timezone/today variance

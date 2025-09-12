@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import isInteger from "../../../../src/simple/validation/isInteger/index.ts"
+import isInteger from "../../../../src/vanilla/validation/isInteger/index.ts"
 
 Deno.test("isInteger: detects integers", () => {
 	assertEquals(isInteger(42), true)

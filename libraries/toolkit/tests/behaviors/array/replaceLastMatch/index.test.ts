@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert@1"
 import { assertType, type IsExact } from "jsr:@std/testing@1/types"
 import * as fc from "npm:fast-check@3"
 
-import replaceLastMatch from "../../../../src/simple/array/replaceLastMatch/index.ts"
+import replaceLastMatch from "../../../../src/vanilla/array/replaceLastMatch/index.ts"
 
 Deno.test("replaceLastMatch: replaces last string matching regex pattern", () => {
 	const array = ["hello", "hi", "world", "hey"]

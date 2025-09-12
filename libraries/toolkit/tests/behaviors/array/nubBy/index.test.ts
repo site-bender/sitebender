@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import nubBy from "../../../../src/simple/array/nubBy/index.ts"
+import nubBy from "../../../../src/vanilla/array/nubBy/index.ts"
 
 Deno.test("nubBy: removes duplicates with case-insensitive comparison", () => {
 	const caseInsensitive = (a: string, b: string) =>

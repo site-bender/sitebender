@@ -1,5 +1,5 @@
-import some from "../../../../../../../libraries/toolkit/src/simple/array/some/index.ts"
-import test from "../../../../../../../libraries/toolkit/src/simple/string/test/index.ts"
+import some from "../../../../../../../libraries/toolkit/src/vanilla/array/some/index.ts"
+import test from "../../../../../../../libraries/toolkit/src/vanilla/string/test/index.ts"
 import { COMMUTATIVE_CODE_PATTERNS } from "../constants/index.ts"
 
 //++ Checks if source contains commutative code patterns

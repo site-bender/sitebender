@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import find from "../../../../../src/simple/array/find/index.ts"
+import find from "../../../../../src/vanilla/array/find/index.ts"
 
 // Test JSDoc examples
 Deno.test("find - JSDoc example 1: find first number greater than 2", () => {

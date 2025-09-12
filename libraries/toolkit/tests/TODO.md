@@ -26,8 +26,8 @@ Goals
 
 Proposed canonical test taxonomy (behavior-first)
 
-- arrays → array (singular, mirrors src/simple/array)
-- statistics/stats → statistics (mirrors src/simple/statistics)
+- arrays → array (singular, mirrors src/vanilla/array)
+- statistics/stats → statistics (mirrors src/vanilla/statistics)
 - math/algebraic: keep `algebraic` as umbrella with sub-domains (identity/associative/commutative/…)
 - Prefer these top-level roots (create as needed):
   - array, object, string, map, set

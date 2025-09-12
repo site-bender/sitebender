@@ -1,8 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import decrement from "../../../../../src/simple/math/decrement/index.ts"
-import increment from "../../../../../src/simple/math/increment/index.ts"
+import decrement from "../../../../../src/vanilla/math/decrement/index.ts"
+import increment from "../../../../../src/vanilla/math/increment/index.ts"
 
 Deno.test("decrement", async (t) => {
 	await t.step("predecessor properties", async (t) => {

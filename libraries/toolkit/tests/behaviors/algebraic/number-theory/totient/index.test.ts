@@ -2,10 +2,10 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import divisors from "../../../../../src/simple/math/divisors/index.ts"
-import gcd from "../../../../../src/simple/math/gcd/index.ts"
-import primeFactorization from "../../../../../src/simple/math/primeFactorization/index.ts"
-import totient from "../../../../../src/simple/math/totient/index.ts"
+import divisors from "../../../../../src/vanilla/math/divisors/index.ts"
+import gcd from "../../../../../src/vanilla/math/gcd/index.ts"
+import primeFactorization from "../../../../../src/vanilla/math/primeFactorization/index.ts"
+import totient from "../../../../../src/vanilla/math/totient/index.ts"
 
 describe("totient", () => {
 	describe("JSDoc examples", () => {

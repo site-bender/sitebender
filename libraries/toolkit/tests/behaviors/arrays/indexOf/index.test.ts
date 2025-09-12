@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import indexOf from "../../../../../toolkit/src/simple/array/indexOf/index.ts"
+import indexOf from "../../../../../toolkit/src/vanilla/array/indexOf/index.ts"
 
 // Test JSDoc examples
 Deno.test("indexOf - JSDoc example 1: indexOf(3)([1, 2, 3, 2, 3])", () => {

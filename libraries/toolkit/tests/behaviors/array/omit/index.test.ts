@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import omit from "../../../../src/simple/array/omit/index.ts"
+import omit from "../../../../src/vanilla/array/omit/index.ts"
 
 describe("omit", () => {
 	describe("basic functionality", () => {

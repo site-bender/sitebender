@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import filter from "../../../../../src/simple/array/filter/index.ts"
+import filter from "../../../../../src/vanilla/array/filter/index.ts"
 
 Deno.test("filter - JSDoc examples", async (t) => {
 	await t.step("filter numbers greater than 2", () => {

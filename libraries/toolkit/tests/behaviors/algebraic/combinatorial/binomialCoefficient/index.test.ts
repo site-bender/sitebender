@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import binomialCoefficient from "../../../../../src/simple/math/binomialCoefficient/index.ts"
+import binomialCoefficient from "../../../../../src/vanilla/math/binomialCoefficient/index.ts"
 
 Deno.test("binomialCoefficient: basic functionality", async (t) => {
 	await t.step("small values", () => {

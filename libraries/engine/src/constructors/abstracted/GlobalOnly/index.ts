@@ -9,8 +9,8 @@ import { isValue } from "@sitebender/engine-types/index.ts"
 import getAriaAttributes from "@sitebender/engine/constructors/helpers/getAriaAttributes/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import pickGlobalAttributes from "@sitebender/engine/guards/pickGlobalAttributes/index.ts"
-import filter from "@sitebender/toolkit/simple/array/filter/index.ts"
-import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts"
 
 /**
  * Creates an element constructor that only accepts global attributes

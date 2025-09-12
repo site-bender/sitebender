@@ -4,7 +4,7 @@ import * as fc from "npm:fast-check@3"
 // deno-lint-ignore no-explicit-any
 declare const Deno: any
 
-import repeat from "../../../../src/simple/array/repeat/index.ts"
+import repeat from "../../../../src/vanilla/array/repeat/index.ts"
 
 Deno.test("repeat: basic functionality", async (t) => {
 	await t.step("should repeat string value", () => {

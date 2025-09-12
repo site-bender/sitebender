@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import repeatItem from "../../../../src/simple/array/repeatItem/index.ts"
+import repeatItem from "../../../../src/vanilla/array/repeatItem/index.ts"
 
 Deno.test("repeatItem: basic functionality", async (t) => {
 	await t.step("should repeat string value", () => {

@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import isArrayLike from "../../../../src/simple/validation/isArrayLike/index.ts"
+import isArrayLike from "../../../../src/vanilla/validation/isArrayLike/index.ts"
 
 Deno.test("isArrayLike: arrays, strings, typed arrays are array-like", () => {
 	assertEquals(isArrayLike([1, 2, 3]), true)

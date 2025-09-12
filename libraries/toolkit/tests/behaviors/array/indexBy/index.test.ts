@@ -1,7 +1,7 @@
 import { assert, assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import indexBy from "../../../../src/simple/array/indexBy/index.ts"
+import indexBy from "../../../../src/vanilla/array/indexBy/index.ts"
 
 Deno.test("indexBy", async (t) => {
 	await t.step("indexes by id property", () => {

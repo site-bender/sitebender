@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert@1"
 import { assertType, type IsExact } from "jsr:@std/testing@1/types"
 import * as fc from "npm:fast-check@3"
 
-import replaceLast from "../../../../src/simple/array/replaceLast/index.ts"
+import replaceLast from "../../../../src/vanilla/array/replaceLast/index.ts"
 
 Deno.test("replaceLast: replaces the last occurrence of a target value", () => {
 	const array = [1, 2, 3, 2, 4]

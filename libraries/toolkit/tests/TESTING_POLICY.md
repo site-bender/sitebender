@@ -178,7 +178,7 @@ Deno.test("division handles null inputs safely", () => {
 Every example in a function's JSDoc must have a corresponding test that verifies the exact output:
 
 ```typescript
-// src/simple/array/chunk/index.ts JSDoc example:
+// src/vanilla/array/chunk/index.ts JSDoc example:
 // chunk(2)([1, 2, 3, 4, 5])
 // // [[1, 2], [3, 4], [5]]
 

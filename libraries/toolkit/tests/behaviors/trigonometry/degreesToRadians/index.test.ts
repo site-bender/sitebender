@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import degreesToRadians from "../../../../src/simple/trigonometry/degreesToRadians/index.ts"
+import degreesToRadians from "../../../../src/vanilla/trigonometry/degreesToRadians/index.ts"
 import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 // Conversion constant

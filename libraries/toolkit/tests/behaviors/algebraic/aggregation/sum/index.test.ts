@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import sum from "../../../../../src/simple/math/sum/index.ts"
+import sum from "../../../../../src/vanilla/math/sum/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("sum", async (t) => {

@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import mapAccumRight from "../../../../src/simple/array/mapAccumRight/index.ts"
+import mapAccumRight from "../../../../src/vanilla/array/mapAccumRight/index.ts"
 
 Deno.test("mapAccumRight: processes array from right to left", () => {
 	const suffixSum = (acc: number, x: number): [number, number] => [

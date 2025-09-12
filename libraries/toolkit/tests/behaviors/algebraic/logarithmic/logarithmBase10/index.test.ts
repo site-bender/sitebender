@@ -5,7 +5,7 @@ import {
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import logarithmBase10 from "../../../../../src/simple/math/logarithmBase10/index.ts"
+import logarithmBase10 from "../../../../../src/vanilla/math/logarithmBase10/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 describe("logarithmBase10", () => {

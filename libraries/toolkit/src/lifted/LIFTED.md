@@ -7,7 +7,7 @@ Other AIs are working on other parts of the toolkit. Any modifications outside t
 
 ## Purpose
 
-The `lifted` folder contains monadic versions of the `simple` functions, designed to work seamlessly with do-notation. These functions "lift" pure operations into the Result monad context, enabling:
+The `lifted` folder contains monadic versions of the `vanilla` functions, designed to work seamlessly with do-notation. These functions "lift" pure operations into the Result monad context, enabling:
 
 1. **Error accumulation** rather than short-circuiting on first error
 2. **Composability** through do-notation with `yield`
@@ -37,8 +37,8 @@ type Result<T, E> =
 ### 2. Use Toolkit Functions
 
 - **NEVER use JavaScript array methods directly**
-- Always use `simple` functions from the toolkit
-- Example: Use `map` from `simple/array/map`, not `Array.prototype.map`
+- Always use `vanilla` functions from the toolkit
+- Example: Use `map` from `vanilla/array/map`, not `Array.prototype.map`
 
 ### 3. File Structure
 
@@ -67,7 +67,7 @@ lifted/
 Each lifted function follows this pattern:
 
 ```typescript
-// Original simple function
+// Original vanilla function
 const map = <T, U>(fn: (T) => U) => (array: Array<T>): Array<U>
 
 // Lifted version

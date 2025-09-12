@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { assertType, Has } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import unzip from "../../../../src/simple/array/unzip/index.ts"
+import unzip from "../../../../src/vanilla/array/unzip/index.ts"
 
 Deno.test("unzip: basic functionality", () => {
 	// Numbers and strings

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import concat from "../../../../src/simple/array/concat/index.ts"
+import concat from "../../../../src/vanilla/array/concat/index.ts"
 
 // Test all JSDoc examples
 Deno.test("concat - basic concatenation", () => {

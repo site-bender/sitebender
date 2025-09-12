@@ -1,9 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import combinations from "../../../../../src/simple/math/combinations/index.ts"
-import factorial from "../../../../../src/simple/math/factorial/index.ts"
-import permutations from "../../../../../src/simple/math/permutations/index.ts"
+import combinations from "../../../../../src/vanilla/math/combinations/index.ts"
+import factorial from "../../../../../src/vanilla/math/factorial/index.ts"
+import permutations from "../../../../../src/vanilla/math/permutations/index.ts"
 
 Deno.test("permutations: JSDoc examples", async (t) => {
 	await t.step("basic permutations", () => {

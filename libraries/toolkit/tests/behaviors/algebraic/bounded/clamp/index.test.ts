@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import clamp from "../../../../../src/simple/math/clamp/index.ts"
+import clamp from "../../../../../src/vanilla/math/clamp/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 // ===========================

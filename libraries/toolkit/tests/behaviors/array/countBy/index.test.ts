@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import countBy from "../../../../src/simple/array/countBy/index.ts"
+import countBy from "../../../../src/vanilla/array/countBy/index.ts"
 
 Deno.test("countBy", async (t) => {
 	await t.step("should count elements by function result", () => {

@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import lastIndexOfMatch from "../../../../src/simple/array/lastIndexOfMatch/index.ts"
+import lastIndexOfMatch from "../../../../src/vanilla/array/lastIndexOfMatch/index.ts"
 
 Deno.test("lastIndexOfMatch: finds last index of string matching pattern", () => {
 	assertEquals(lastIndexOfMatch(/^h/)(["hi", "hello", "world", "hey"]), 3)

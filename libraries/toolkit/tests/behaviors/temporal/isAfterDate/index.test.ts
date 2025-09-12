@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import isAfterDate from "../../../../src/simple/validation/isAfterDate/index.ts"
+import isAfterDate from "../../../../src/vanilla/validation/isAfterDate/index.ts"
 
 Deno.test("isAfterDate: returns true only when strictly after the reference", () => {
 	const after2000 = isAfterDate("2000-01-01")

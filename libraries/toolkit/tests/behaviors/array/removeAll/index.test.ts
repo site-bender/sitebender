@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import removeAll from "../../../../src/simple/array/removeAll/index.ts"
+import removeAll from "../../../../src/vanilla/array/removeAll/index.ts"
 
 Deno.test("removeAll: basic functionality", async (t) => {
 	await t.step("should remove all occurrences of element", () => {

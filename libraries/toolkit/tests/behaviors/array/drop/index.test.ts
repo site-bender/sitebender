@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import drop from "../../../../src/simple/array/drop/index.ts"
+import drop from "../../../../src/vanilla/array/drop/index.ts"
 
 // Test JSDoc examples
 Deno.test("drop: JSDoc examples", async (t) => {

@@ -1,6 +1,6 @@
 import type { Acc } from "../../types/index.ts"
 
-import map from "../../../../../../toolkit/src/simple/array/map/index.ts"
+import map from "../../../../../../toolkit/src/vanilla/array/map/index.ts"
 import consumeBlock from "../../consumeBlock/index.ts"
 import parseExamplePayload from "../../parseExamplePayload/index.ts"
 

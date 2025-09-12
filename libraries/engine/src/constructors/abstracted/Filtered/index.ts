@@ -7,7 +7,7 @@ import type {
 import { isValue } from "@sitebender/engine-types/index.ts"
 import getAriaAttributes from "@sitebender/engine/constructors/helpers/getAriaAttributes/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
-import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts"
 
 const Filtered =
 	<T extends Record<string, unknown>>(tag = "A") =>

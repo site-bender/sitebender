@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import sine from "../../../../src/simple/trigonometry/sine/index.ts"
+import sine from "../../../../src/vanilla/trigonometry/sine/index.ts"
 import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 // Common angles for testing

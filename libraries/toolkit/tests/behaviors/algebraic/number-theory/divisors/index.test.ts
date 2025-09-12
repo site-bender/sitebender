@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import divisors from "../../../../../src/simple/math/divisors/index.ts"
+import divisors from "../../../../../src/vanilla/math/divisors/index.ts"
 
 describe("divisors", () => {
 	describe("JSDoc examples", () => {

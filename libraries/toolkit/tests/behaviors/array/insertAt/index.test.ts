@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import insertAt from "../../../../src/simple/array/insertAt/index.ts"
+import insertAt from "../../../../src/vanilla/array/insertAt/index.ts"
 
 // Test JSDoc examples
 Deno.test("insertAt - JSDoc example 1: insert in middle", () => {

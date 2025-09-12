@@ -1,7 +1,7 @@
 import { assert, assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import intersection from "../../../../src/simple/array/intersection/index.ts"
+import intersection from "../../../../src/vanilla/array/intersection/index.ts"
 
 Deno.test("intersection", async (t) => {
 	await t.step("returns common elements", () => {

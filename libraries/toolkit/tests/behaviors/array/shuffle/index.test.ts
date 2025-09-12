@@ -2,7 +2,7 @@ import { assert, assertEquals } from "jsr:@std/assert@1"
 import { describe, it } from "jsr:@std/testing@1/bdd"
 import * as fc from "npm:fast-check@3"
 
-import shuffle from "../../../../src/simple/array/shuffle/index.ts"
+import shuffle from "../../../../src/vanilla/array/shuffle/index.ts"
 
 describe("shuffle", () => {
 	describe("behavioral tests", () => {

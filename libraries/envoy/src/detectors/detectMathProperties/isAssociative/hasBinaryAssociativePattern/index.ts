@@ -1,4 +1,4 @@
-import test from "../../../../../../../libraries/toolkit/src/simple/string/test/index.ts"
+import test from "../../../../../../../libraries/toolkit/src/vanilla/string/test/index.ts"
 import {
 	ASSOCIATIVE_OPERATIONS,
 	BINARY_FUNCTION_PATTERN,

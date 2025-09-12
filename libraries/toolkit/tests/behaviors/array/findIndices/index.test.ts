@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import findIndices from "../../../../src/simple/array/findIndices/index.ts"
+import findIndices from "../../../../src/vanilla/array/findIndices/index.ts"
 
 Deno.test("findIndices", async (t) => {
 	await t.step("returns empty array for null or undefined", () => {

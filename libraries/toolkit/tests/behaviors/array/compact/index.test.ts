@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import compact from "../../../../src/simple/array/compact/index.ts"
+import compact from "../../../../src/vanilla/array/compact/index.ts"
 
 // JSDoc examples
 Deno.test("compact - removes undefined values but keeps null", () => {

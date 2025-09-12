@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert@1.0.9"
 import { describe, it } from "jsr:@std/testing@1.0.7/bdd"
 import * as fc from "npm:fast-check@3.23.1"
 
-import sortBy from "../../../../src/simple/array/sortBy/index.ts"
+import sortBy from "../../../../src/vanilla/array/sortBy/index.ts"
 
 describe("sortBy", () => {
 	describe("behavioral tests", () => {

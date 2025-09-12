@@ -1,8 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import first from "../../../../src/simple/array/first/index.ts"
-import head from "../../../../src/simple/array/head/index.ts"
+import first from "../../../../src/vanilla/array/first/index.ts"
+import head from "../../../../src/vanilla/array/head/index.ts"
 
 // Test JSDoc examples
 Deno.test("head: JSDoc examples", async (t) => {

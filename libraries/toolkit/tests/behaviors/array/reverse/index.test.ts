@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import reverse from "../../../../src/simple/array/reverse/index.ts"
+import reverse from "../../../../src/vanilla/array/reverse/index.ts"
 
 // Test JSDoc examples
 Deno.test("reverse: JSDoc examples", async (t) => {

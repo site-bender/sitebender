@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 import fc from "npm:fast-check"
 
-import range from "../../../../src/simple/array/range/index.ts"
+import range from "../../../../src/vanilla/array/range/index.ts"
 
 describe("range", () => {
 	describe("basic functionality", () => {

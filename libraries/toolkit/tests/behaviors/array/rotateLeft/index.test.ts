@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert@1"
 import { assertType, type IsExact } from "jsr:@std/testing@1/types"
 import * as fc from "npm:fast-check@3"
 
-import rotateLeft from "../../../../src/simple/array/rotateLeft/index.ts"
+import rotateLeft from "../../../../src/vanilla/array/rotateLeft/index.ts"
 
 Deno.test("rotateLeft: rotates elements left by 1", () => {
 	const array = [1, 2, 3, 4, 5]

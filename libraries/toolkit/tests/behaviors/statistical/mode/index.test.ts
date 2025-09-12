@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import mode from "../../../../src/simple/math/mode/index.ts"
+import mode from "../../../../src/vanilla/math/mode/index.ts"
 
 Deno.test("mode", async (t) => {
 	await t.step("statistical properties", async (t) => {

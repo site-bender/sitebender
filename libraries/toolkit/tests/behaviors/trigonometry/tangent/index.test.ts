@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import tangent from "../../../../src/simple/trigonometry/tangent/index.ts"
+import tangent from "../../../../src/vanilla/trigonometry/tangent/index.ts"
 import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 // Common angles for testing

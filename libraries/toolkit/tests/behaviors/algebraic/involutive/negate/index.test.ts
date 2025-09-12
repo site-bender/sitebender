@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.10"
 import * as fc from "npm:fast-check@3.x.x"
 
-import negate from "../../../../../src/simple/math/negate/index.ts"
+import negate from "../../../../../src/vanilla/math/negate/index.ts"
 
 Deno.test("negate: involutive property", async (t) => {
 	await t.step("double negation returns original value", () => {

@@ -1,7 +1,7 @@
 import { assert, assertEquals, assertFalse } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import groupWith from "../../../../src/simple/array/groupWith/index.ts"
+import groupWith from "../../../../src/vanilla/array/groupWith/index.ts"
 
 Deno.test("groupWith", async (t) => {
 	await t.step("groups consecutive equal elements", () => {

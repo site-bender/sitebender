@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import map from "../../../../src/simple/array/map/index.ts"
+import map from "../../../../src/vanilla/array/map/index.ts"
 
 // Test all JSDoc examples
 Deno.test("map - basic transformations", () => {

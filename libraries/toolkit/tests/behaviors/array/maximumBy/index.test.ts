@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import maximumBy from "../../../../src/simple/array/maximumBy/index.ts"
+import maximumBy from "../../../../src/vanilla/array/maximumBy/index.ts"
 
 Deno.test("maximumBy: finds maximum with numeric comparison", () => {
 	const numCompare = (a: number, b: number) => a - b

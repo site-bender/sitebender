@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import findMostCommon from "../../../../src/simple/array/findMostCommon/index.ts"
+import findMostCommon from "../../../../src/vanilla/array/findMostCommon/index.ts"
 
 Deno.test("findMostCommon", async (t) => {
 	await t.step("returns empty array for null or undefined", () => {

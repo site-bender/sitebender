@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import replaceAt from "../../../../src/simple/array/replaceAt/index.ts"
+import replaceAt from "../../../../src/vanilla/array/replaceAt/index.ts"
 
 // Test JSDoc examples
 Deno.test("replaceAt - JSDoc example 1: double number at index", () => {

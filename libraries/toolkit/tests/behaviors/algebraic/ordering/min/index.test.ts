@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.10"
 import * as fc from "npm:fast-check@3.x.x"
 
-import min from "../../../../../src/simple/math/min/index.ts"
+import min from "../../../../../src/vanilla/math/min/index.ts"
 
 Deno.test("min: ordering properties", async (t) => {
 	await t.step("commutative: min(a)(b) = min(b)(a)", () => {

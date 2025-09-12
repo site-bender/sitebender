@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import hypotenuse from "../../../../src/simple/trigonometry/hypotenuse/index.ts"
+import hypotenuse from "../../../../src/vanilla/trigonometry/hypotenuse/index.ts"
 import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("hypotenuse - classic Pythagorean theorem", () => {

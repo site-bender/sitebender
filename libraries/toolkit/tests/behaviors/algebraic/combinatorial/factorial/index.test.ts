@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import factorial from "../../../../../src/simple/math/factorial/index.ts"
+import factorial from "../../../../../src/vanilla/math/factorial/index.ts"
 
 Deno.test("factorial", async (t) => {
 	await t.step("mathematical properties", async (t) => {

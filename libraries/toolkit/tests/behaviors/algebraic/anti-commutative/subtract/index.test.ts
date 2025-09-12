@@ -4,8 +4,8 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import add from "../../../../../src/simple/math/add/index.ts"
-import subtract from "../../../../../src/simple/math/subtract/index.ts"
+import add from "../../../../../src/vanilla/math/add/index.ts"
+import subtract from "../../../../../src/vanilla/math/subtract/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 /**

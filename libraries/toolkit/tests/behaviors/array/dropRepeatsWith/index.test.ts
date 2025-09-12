@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import dropRepeatsWith from "../../../../src/simple/array/dropRepeatsWith/index.ts"
+import dropRepeatsWith from "../../../../src/vanilla/array/dropRepeatsWith/index.ts"
 
 Deno.test("dropRepeatsWith", async (t) => {
 	await t.step("should return empty array for null/undefined", () => {

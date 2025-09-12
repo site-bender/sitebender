@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import cubeRoot from "../../../../../src/simple/math/cubeRoot/index.ts"
+import cubeRoot from "../../../../../src/vanilla/math/cubeRoot/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("cubeRoot: perfect cubes", async (t) => {

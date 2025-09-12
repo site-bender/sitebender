@@ -181,7 +181,7 @@ From test files in `tests/behaviors/[category]/[subcategory]/[function]/`:
 
 - To source: Use appropriate relative path (typically 4-5 levels up)
 - To helpers: Use appropriate relative path (typically 3-4 levels up)
-- Example: `import clamp from "../../../../src/simple/math/clamp/index.ts"`
+- Example: `import clamp from "../../../../src/vanilla/math/clamp/index.ts"`
 
 ### 5. Common Edge Cases That Are Often Incorrect
 

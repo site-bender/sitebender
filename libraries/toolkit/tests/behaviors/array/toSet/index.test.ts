@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { assertType, Has } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import toSet from "../../../../src/simple/array/toSet/index.ts"
+import toSet from "../../../../src/vanilla/array/toSet/index.ts"
 
 Deno.test("toSet: basic conversion", () => {
 	// Numbers

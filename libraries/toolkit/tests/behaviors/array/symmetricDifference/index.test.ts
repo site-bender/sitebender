@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import symmetricDifference from "../../../../src/simple/array/symmetricDifference/index.ts"
+import symmetricDifference from "../../../../src/vanilla/array/symmetricDifference/index.ts"
 
 Deno.test("symmetricDifference: basic functionality", async (t) => {
 	await t.step("should return elements in either array but not both", () => {

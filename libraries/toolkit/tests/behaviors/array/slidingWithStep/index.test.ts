@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { assertType, Has } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import slidingWithStep from "../../../../src/simple/array/slidingWithStep/index.ts"
+import slidingWithStep from "../../../../src/vanilla/array/slidingWithStep/index.ts"
 
 Deno.test("slidingWithStep: basic overlapping windows", () => {
 	// Step of 1 (maximally overlapping)

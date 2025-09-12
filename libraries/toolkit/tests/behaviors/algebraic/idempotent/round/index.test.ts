@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import round from "../../../../../src/simple/math/round/index.ts"
+import round from "../../../../../src/vanilla/math/round/index.ts"
 
 Deno.test("round: idempotent property", async (t) => {
 	await t.step("double application equals single application", () => {

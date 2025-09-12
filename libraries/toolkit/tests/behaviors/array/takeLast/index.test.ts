@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import takeLast from "../../../../src/simple/array/takeLast/index.ts"
+import takeLast from "../../../../src/vanilla/array/takeLast/index.ts"
 
 Deno.test("takeLast - takes last n elements from array", () => {
 	const takeLast3 = takeLast(3)

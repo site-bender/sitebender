@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import pairwise from "../../../../src/simple/array/pairwise/index.ts"
+import pairwise from "../../../../src/vanilla/array/pairwise/index.ts"
 
 describe("pairwise", () => {
 	describe("basic functionality", () => {

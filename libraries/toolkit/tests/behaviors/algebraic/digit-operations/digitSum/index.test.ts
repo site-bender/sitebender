@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import digitSum from "../../../../../src/simple/math/digitSum/index.ts"
+import digitSum from "../../../../../src/vanilla/math/digitSum/index.ts"
 
 Deno.test("digitSum: basic functionality", async (t) => {
 	await t.step("single digit numbers", () => {

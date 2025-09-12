@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.10"
 import * as fc from "npm:fast-check@3.x.x"
 
-import max from "../../../../../src/simple/math/max/index.ts"
+import max from "../../../../../src/vanilla/math/max/index.ts"
 
 Deno.test("max: ordering properties", async (t) => {
 	await t.step("commutative: max(a)(b) = max(b)(a)", () => {

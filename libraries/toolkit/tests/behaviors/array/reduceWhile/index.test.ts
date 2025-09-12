@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import reduceWhile from "../../../../src/simple/array/reduceWhile/index.ts"
+import reduceWhile from "../../../../src/vanilla/array/reduceWhile/index.ts"
 
 Deno.test("reduceWhile: basic functionality", async (t) => {
 	await t.step("should sum numbers while under limit", async (t) => {

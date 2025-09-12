@@ -5,7 +5,7 @@ import {
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import quadratic from "../../../../src/simple/math/quadratic/index.ts"
+import quadratic from "../../../../src/vanilla/math/quadratic/index.ts"
 import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 describe("quadratic", () => {

@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { assertType, Has } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import takeLastWhile from "../../../../src/simple/array/takeLastWhile/index.ts"
+import takeLastWhile from "../../../../src/vanilla/array/takeLastWhile/index.ts"
 
 Deno.test("takeLastWhile: basic functionality", () => {
 	// Simple numeric predicates

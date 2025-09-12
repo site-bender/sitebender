@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import partition from "../../../../src/simple/array/partition/index.ts"
+import partition from "../../../../src/vanilla/array/partition/index.ts"
 
 describe("partition", () => {
 	describe("basic functionality", () => {

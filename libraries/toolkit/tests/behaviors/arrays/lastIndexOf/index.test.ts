@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import lastIndexOf from "../../../../../toolkit/src/simple/array/lastIndexOf/index.ts"
+import lastIndexOf from "../../../../../toolkit/src/vanilla/array/lastIndexOf/index.ts"
 
 // Test JSDoc examples
 Deno.test("lastIndexOf - JSDoc example 1: lastIndexOf(3)([1, 2, 3, 2, 3])", () => {

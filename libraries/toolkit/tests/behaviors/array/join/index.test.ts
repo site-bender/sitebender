@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import join from "../../../../src/simple/array/join/index.ts"
+import join from "../../../../src/vanilla/array/join/index.ts"
 
 Deno.test("join: joins array elements with separator", () => {
 	assertEquals(join(", ")(["a", "b", "c"]), "a, b, c")

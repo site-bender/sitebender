@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { expect } from "jsr:@std/expect"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import unflatten from "../../../../src/simple/array/unflatten/index.ts"
+import unflatten from "../../../../src/vanilla/array/unflatten/index.ts"
 
 describe("unflatten", () => {
 	describe("behavioral tests", () => {

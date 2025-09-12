@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import exponential from "../../../../../src/simple/math/exponential/index.ts"
+import exponential from "../../../../../src/vanilla/math/exponential/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("exponential: basic values", async (t) => {

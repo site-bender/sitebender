@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { assertType, Has } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import unfold from "../../../../src/simple/array/unfold/index.ts"
+import unfold from "../../../../src/vanilla/array/unfold/index.ts"
 
 Deno.test("unfold: basic generation", () => {
 	// Generate range of numbers

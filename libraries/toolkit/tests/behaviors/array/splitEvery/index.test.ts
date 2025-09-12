@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import splitEvery from "../../../../src/simple/array/splitEvery/index.ts"
+import splitEvery from "../../../../src/vanilla/array/splitEvery/index.ts"
 
 Deno.test("splitEvery: basic functionality", async (t) => {
 	await t.step("should split array into chunks of specified size", () => {

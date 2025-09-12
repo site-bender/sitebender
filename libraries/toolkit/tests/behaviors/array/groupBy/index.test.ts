@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assert, assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import groupBy from "../../../../src/simple/array/groupBy/index.ts"
+import groupBy from "../../../../src/vanilla/array/groupBy/index.ts"
 
 describe("groupBy", () => {
 	it("groups objects by property", () => {

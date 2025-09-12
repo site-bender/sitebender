@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import isSet from "../../../../src/simple/validation/isSet/index.ts"
+import isSet from "../../../../src/vanilla/validation/isSet/index.ts"
 
 Deno.test("isSet: detects Set instances", () => {
 	assertEquals(isSet(new Set()), true)

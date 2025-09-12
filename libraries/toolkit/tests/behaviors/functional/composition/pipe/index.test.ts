@@ -1,9 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import pipe from "../../../../../src/simple/combinator/pipe/index.ts"
-import add from "../../../../../src/simple/math/add/index.ts"
-import divide from "../../../../../src/simple/math/divide/index.ts"
+import pipe from "../../../../../src/vanilla/combinator/pipe/index.ts"
+import add from "../../../../../src/vanilla/math/add/index.ts"
+import divide from "../../../../../src/vanilla/math/divide/index.ts"
 
 Deno.test("pipe - empty pipeline returns input unchanged", () => {
 	const emptyPipe = pipe([])

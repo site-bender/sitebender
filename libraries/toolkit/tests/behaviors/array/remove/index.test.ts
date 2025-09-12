@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import remove from "../../../../src/simple/array/remove/index.ts"
+import remove from "../../../../src/vanilla/array/remove/index.ts"
 
 Deno.test("remove: basic functionality", async (t) => {
 	await t.step("should remove first occurrence of element", () => {

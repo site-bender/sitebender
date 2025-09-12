@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import replaceAll from "../../../../src/simple/array/replaceAll/index.ts"
+import replaceAll from "../../../../src/vanilla/array/replaceAll/index.ts"
 
 Deno.test("replaceAll: type checking", async (t) => {
 	await t.step("should have correct type signature", () => {

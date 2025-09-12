@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import nth from "../../../../src/simple/array/nth/index.ts"
+import nth from "../../../../src/vanilla/array/nth/index.ts"
 
 // ===== Basic Functionality Tests =====
 

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import average from "../../../../src/simple/math/average/index.ts"
+import average from "../../../../src/vanilla/math/average/index.ts"
 import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("average", async (t) => {

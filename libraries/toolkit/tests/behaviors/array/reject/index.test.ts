@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import reject from "../../../../src/simple/array/reject/index.ts"
+import reject from "../../../../src/vanilla/array/reject/index.ts"
 
 Deno.test("reject: basic functionality", async (t) => {
 	await t.step("should reject elements that match predicate", () => {

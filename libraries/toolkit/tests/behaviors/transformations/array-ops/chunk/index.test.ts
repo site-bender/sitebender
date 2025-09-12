@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import chunk from "../../../../../src/simple/array/chunk/index.ts"
+import chunk from "../../../../../src/vanilla/array/chunk/index.ts"
 
 Deno.test("chunk - JSDoc examples", async (t) => {
 	await t.step("split into pairs with remainder", () => {

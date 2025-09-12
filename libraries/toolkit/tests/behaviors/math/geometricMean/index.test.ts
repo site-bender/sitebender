@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import geometricMean from "../../../../src/simple/math/geometricMean/index.ts"
+import geometricMean from "../../../../src/vanilla/math/geometricMean/index.ts"
 import approximately from "../../../helpers/assertions/approximately/index.ts"
 
 // Test JSDoc examples

@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import interleave from "../../../../src/simple/array/interleave/index.ts"
+import interleave from "../../../../src/vanilla/array/interleave/index.ts"
 
 Deno.test("interleave: alternates elements from two arrays", () => {
 	assertEquals(

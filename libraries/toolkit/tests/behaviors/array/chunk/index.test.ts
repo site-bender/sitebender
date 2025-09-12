@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import chunk from "../../../../src/simple/array/chunk/index.ts"
+import chunk from "../../../../src/vanilla/array/chunk/index.ts"
 
 describe("chunk", () => {
 	it("splits array into chunks of specified size", () => {

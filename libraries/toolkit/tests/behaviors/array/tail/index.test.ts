@@ -1,7 +1,7 @@
 import { assertEquals } from "../../../../deps/asserts.ts"
 import * as fc from "npm:fast-check@3"
 
-import tail from "../../../../src/simple/array/tail/index.ts"
+import tail from "../../../../src/vanilla/array/tail/index.ts"
 
 // NaN-safe equality preserving === semantics for all other values
 const same = (a: unknown, b: unknown) => a === b || (a !== a && b !== b)

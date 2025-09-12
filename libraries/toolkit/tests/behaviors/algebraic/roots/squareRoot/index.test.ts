@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import squareRoot from "../../../../../src/simple/math/squareRoot/index.ts"
+import squareRoot from "../../../../../src/vanilla/math/squareRoot/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("squareRoot - algebraic properties", async (t) => {

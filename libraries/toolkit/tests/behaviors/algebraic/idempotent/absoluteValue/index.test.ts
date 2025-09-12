@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.10"
 import * as fc from "npm:fast-check@3.x.x"
 
-import absoluteValue from "../../../../../src/simple/math/absoluteValue/index.ts"
+import absoluteValue from "../../../../../src/vanilla/math/absoluteValue/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("absoluteValue: idempotent property", async (t) => {

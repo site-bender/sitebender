@@ -2,7 +2,7 @@ import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import { describe, it } from "https://deno.land/std@0.218.0/testing/bdd.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import primeFactorization from "../../../../../src/simple/math/primeFactorization/index.ts"
+import primeFactorization from "../../../../../src/vanilla/math/primeFactorization/index.ts"
 
 describe("primeFactorization", () => {
 	describe("JSDoc examples", () => {

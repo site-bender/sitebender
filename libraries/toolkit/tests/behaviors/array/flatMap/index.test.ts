@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assert, assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import flatMap from "../../../../src/simple/array/flatMap/index.ts"
+import flatMap from "../../../../src/vanilla/array/flatMap/index.ts"
 
 describe("flatMap", () => {
 	it("maps and flattens one level", () => {

@@ -2,7 +2,7 @@ import { assert, assertEquals, assertThrows } from "jsr:@std/assert@1"
 import { describe, it } from "jsr:@std/testing@1/bdd"
 import * as fc from "npm:fast-check@3"
 
-import slice from "../../../../src/simple/array/slice/index.ts"
+import slice from "../../../../src/vanilla/array/slice/index.ts"
 
 describe("slice", () => {
 	describe("behavioral tests", () => {

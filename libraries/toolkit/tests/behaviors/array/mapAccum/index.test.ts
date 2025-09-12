@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import mapAccum from "../../../../src/simple/array/mapAccum/index.ts"
+import mapAccum from "../../../../src/vanilla/array/mapAccum/index.ts"
 
 Deno.test("mapAccum: combines accumulation and mapping", () => {
 	const sumWithDouble = (acc: number, x: number): [number, number] => [

@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 import fc from "npm:fast-check"
 
-import pluck from "../../../../src/simple/array/pluck/index.ts"
+import pluck from "../../../../src/vanilla/array/pluck/index.ts"
 
 describe("pluck", () => {
 	describe("basic functionality", () => {

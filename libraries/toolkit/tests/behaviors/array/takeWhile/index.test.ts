@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import takeWhile from "../../../../src/simple/array/takeWhile/index.ts"
+import takeWhile from "../../../../src/vanilla/array/takeWhile/index.ts"
 
 Deno.test("takeWhile - takes elements from beginning while predicate is true", () => {
 	const lessThan5 = takeWhile((x: number) => x < 5)

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import inRange from "../../../../../src/simple/math/inRange/index.ts"
+import inRange from "../../../../../src/vanilla/math/inRange/index.ts"
 
 Deno.test("inRange: basic functionality", async (t) => {
 	await t.step("basic range checks", () => {

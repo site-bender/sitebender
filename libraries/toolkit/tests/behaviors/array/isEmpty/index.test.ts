@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import isEmpty from "../../../../src/simple/array/isEmpty/index.ts"
+import isEmpty from "../../../../src/vanilla/array/isEmpty/index.ts"
 
 // JSDoc examples
 Deno.test("isEmpty - returns true for empty array", () => {

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import none from "../../../../../src/simple/array/none/index.ts"
+import none from "../../../../../src/vanilla/array/none/index.ts"
 
 // Test JSDoc examples
 Deno.test("none - JSDoc example 1: no negative numbers", () => {

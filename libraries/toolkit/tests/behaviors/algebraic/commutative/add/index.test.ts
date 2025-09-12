@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import add from "../../../../../src/simple/math/add/index.ts"
+import add from "../../../../../src/vanilla/math/add/index.ts"
 import {
 	edgeCaseNumber,
 	finiteNumber,

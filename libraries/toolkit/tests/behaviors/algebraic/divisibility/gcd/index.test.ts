@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import gcd from "../../../../../src/simple/math/gcd/index.ts"
+import gcd from "../../../../../src/vanilla/math/gcd/index.ts"
 
 Deno.test("gcd", async (t) => {
 	await t.step("mathematical properties", async (t) => {

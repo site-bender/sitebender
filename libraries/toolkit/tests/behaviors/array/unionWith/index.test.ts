@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import unionWith from "../../../../src/simple/array/unionWith/index.ts"
+import unionWith from "../../../../src/vanilla/array/unionWith/index.ts"
 
 Deno.test("unionWith - combines arrays with custom comparator", () => {
 	type Item = { id: number; value: string }

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import cartesianProduct from "../../../../src/simple/array/cartesianProduct/index.ts"
-import xprod from "../../../../src/simple/array/xprod/index.ts"
+import cartesianProduct from "../../../../src/vanilla/array/cartesianProduct/index.ts"
+import xprod from "../../../../src/vanilla/array/xprod/index.ts"
 
 // Verify that xprod is an alias for cartesianProduct
 Deno.test("xprod - is an alias for cartesianProduct", () => {

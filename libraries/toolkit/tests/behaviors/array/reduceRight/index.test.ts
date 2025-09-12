@@ -8,7 +8,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import reduceRight from "../../../../src/simple/array/reduceRight/index.ts"
+import reduceRight from "../../../../src/vanilla/array/reduceRight/index.ts"
 
 Deno.test("reduceRight: basic functionality", async (t) => {
 	await t.step("should reduce array from right to left", () => {

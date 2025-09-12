@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import replaceFirstMatch from "../../../../src/simple/array/replaceFirstMatch/index.ts"
+import replaceFirstMatch from "../../../../src/vanilla/array/replaceFirstMatch/index.ts"
 
 Deno.test("replaceFirstMatch: type checking", async (t) => {
 	await t.step("should have correct type signature", () => {

@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import move from "../../../../src/simple/array/move/index.ts"
+import move from "../../../../src/vanilla/array/move/index.ts"
 
 // Test JSDoc examples
 Deno.test("move - JSDoc example 1: move first to third position", () => {

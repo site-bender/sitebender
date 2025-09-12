@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import intersectionWith from "../../../../src/simple/array/intersectionWith/index.ts"
+import intersectionWith from "../../../../src/vanilla/array/intersectionWith/index.ts"
 
 Deno.test("intersectionWith: returns elements from first array that have equivalents in second according to comparator", () => {
 	// Basic intersection with equality comparator

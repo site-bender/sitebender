@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert@1.0.9"
 import { describe, it } from "jsr:@std/testing@1.0.7/bdd"
 import * as fc from "npm:fast-check@3.23.1"
 
-import zipAll from "../../../../src/simple/array/zipAll/index.ts"
+import zipAll from "../../../../src/vanilla/array/zipAll/index.ts"
 
 describe("zipAll", () => {
 	describe("behavioral tests", () => {

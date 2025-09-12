@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 import * as fc from "npm:fast-check@3"
 
-import minimumBy from "../../../../src/simple/array/minimumBy/index.ts"
+import minimumBy from "../../../../src/vanilla/array/minimumBy/index.ts"
 
 Deno.test("minimumBy: finds minimum with numeric comparison", () => {
 	const numCompare = (a: number, b: number) => a - b

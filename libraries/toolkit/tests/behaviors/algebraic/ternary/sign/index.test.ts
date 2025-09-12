@@ -1,7 +1,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.10"
 import * as fc from "npm:fast-check@3.x.x"
 
-import sign from "../../../../../src/simple/math/sign/index.ts"
+import sign from "../../../../../src/vanilla/math/sign/index.ts"
 
 Deno.test("sign: ternary property", async (t) => {
 	await t.step("returns only -1, 0, or 1 for valid numbers", () => {

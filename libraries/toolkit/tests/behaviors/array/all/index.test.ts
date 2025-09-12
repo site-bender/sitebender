@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assert, assertEquals, assertFalse } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import all from "../../../../src/simple/array/all/index.ts"
+import all from "../../../../src/vanilla/array/all/index.ts"
 
 describe("all", () => {
 	it("returns true when all elements satisfy predicate", () => {

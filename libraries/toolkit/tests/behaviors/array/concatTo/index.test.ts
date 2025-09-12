@@ -2,7 +2,7 @@ import { assertEquals } from "jsr:@std/assert@1.0.10"
 import { describe, it } from "jsr:@std/testing@1.0.9/bdd"
 import * as fc from "npm:fast-check@3"
 
-import concatTo from "../../../../src/simple/array/concatTo/index.ts"
+import concatTo from "../../../../src/vanilla/array/concatTo/index.ts"
 
 describe("concatTo", () => {
 	describe("basic functionality", () => {

@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import logarithm from "../../../../../src/simple/math/logarithm/index.ts"
+import logarithm from "../../../../../src/vanilla/math/logarithm/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("logarithm: JSDoc examples", async (t) => {

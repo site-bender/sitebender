@@ -9,7 +9,7 @@
  * @param epsilon - Maximum allowed difference (default 1e-10)
  * @returns true if numbers are approximately equal
  */
-import isNullish from "@sitebender/toolkit/simple/validation/isNullish/index.ts"
+import isNullish from "@sitebender/toolkit/vanilla/validation/isNullish/index.ts"
 
 const approximately = (
 	a: number | null | undefined,

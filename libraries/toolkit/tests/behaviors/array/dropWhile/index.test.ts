@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import dropWhile from "../../../../src/simple/array/dropWhile/index.ts"
+import dropWhile from "../../../../src/vanilla/array/dropWhile/index.ts"
 
 Deno.test("dropWhile", async (t) => {
 	await t.step("should return empty array for null/undefined", () => {

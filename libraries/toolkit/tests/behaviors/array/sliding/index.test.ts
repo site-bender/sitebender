@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { expect } from "jsr:@std/expect"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import sliding from "../../../../src/simple/array/sliding/index.ts"
+import sliding from "../../../../src/vanilla/array/sliding/index.ts"
 
 describe("sliding", () => {
 	describe("behavioral tests", () => {

@@ -9,8 +9,8 @@ import type {
 import { OPERAND_TYPES } from "@sitebender/engine/constructors/constants/index.ts"
 import Error from "@sitebender/engine/constructors/Error/index.ts"
 import getOperandKeys from "@sitebender/engine/operations/helpers/getOperandKeys/index.ts"
-import not from "@sitebender/toolkit/simple/logic/not/index.ts"
-import toCamel from "@sitebender/toolkit/simple/string/toCase/toCamel/index.ts"
+import not from "@sitebender/toolkit/vanilla/logic/not/index.ts"
+import toCamel from "@sitebender/toolkit/vanilla/string/toCase/toCamel/index.ts"
 
 type ComparatorOperand = ComparatorConfig | LogicalConfig | Operand
 

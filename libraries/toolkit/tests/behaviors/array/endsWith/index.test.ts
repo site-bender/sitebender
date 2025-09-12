@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import endsWith from "../../../../src/simple/array/endsWith/index.ts"
+import endsWith from "../../../../src/vanilla/array/endsWith/index.ts"
 
 Deno.test("endsWith", async (t) => {
 	await t.step("should return false for null/undefined array", () => {

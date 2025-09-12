@@ -1,7 +1,7 @@
 import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert@1.0.8"
 
-import findDuplicates from "../../../../src/simple/array/findDuplicates/index.ts"
+import findDuplicates from "../../../../src/vanilla/array/findDuplicates/index.ts"
 
 Deno.test("findDuplicates", async (t) => {
 	await t.step("returns empty array for null or undefined", () => {

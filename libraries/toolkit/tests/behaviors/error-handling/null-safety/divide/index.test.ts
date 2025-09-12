@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import divide from "../../../../../src/simple/math/divide/index.ts"
+import divide from "../../../../../src/vanilla/math/divide/index.ts"
 
 Deno.test("divide - division by zero returns NaN", () => {
 	assertEquals(Number.isNaN(divide(10)(0)), true)

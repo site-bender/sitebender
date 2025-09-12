@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import closest from "../../../../src/simple/array/closest/index.ts"
+import closest from "../../../../src/vanilla/array/closest/index.ts"
 
 // JSDoc examples - basic functionality
 Deno.test("closest - find closest to 5", () => {

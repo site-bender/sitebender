@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import combinations from "../../../../src/simple/array/combinations/index.ts"
+import combinations from "../../../../src/vanilla/array/combinations/index.ts"
 
 // Helper function to calculate binomial coefficient
 const binomialCoefficient = (n: number, k: number): number => {

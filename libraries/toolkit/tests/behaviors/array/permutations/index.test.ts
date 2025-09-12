@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import permutations from "../../../../src/simple/array/permutations/index.ts"
+import permutations from "../../../../src/vanilla/array/permutations/index.ts"
 
 describe("permutations", () => {
 	describe("basic functionality", () => {

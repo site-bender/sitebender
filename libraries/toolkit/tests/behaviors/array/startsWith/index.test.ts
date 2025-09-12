@@ -5,7 +5,7 @@ import {
 } from "https://deno.land/std@0.218.0/testing/types.ts"
 import * as fc from "npm:fast-check@3"
 
-import startsWith from "../../../../src/simple/array/startsWith/index.ts"
+import startsWith from "../../../../src/vanilla/array/startsWith/index.ts"
 
 Deno.test("startsWith: basic functionality", async (t) => {
 	await t.step("should return true when array starts with prefix", () => {

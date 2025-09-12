@@ -4,7 +4,7 @@ import {
 } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3.x.x"
 
-import power from "../../../../../src/simple/math/power/index.ts"
+import power from "../../../../../src/vanilla/math/power/index.ts"
 import approximately from "../../../../helpers/assertions/approximately/index.ts"
 
 Deno.test("power - algebraic properties", async (t) => {

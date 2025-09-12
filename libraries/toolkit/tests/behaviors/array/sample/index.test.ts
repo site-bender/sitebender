@@ -2,7 +2,7 @@ import { assertEquals, assertExists } from "jsr:@std/assert@1"
 import { assertType, type IsExact } from "jsr:@std/testing@1/types"
 import * as fc from "npm:fast-check@3"
 
-import sample from "../../../../src/simple/array/sample/index.ts"
+import sample from "../../../../src/vanilla/array/sample/index.ts"
 
 Deno.test("sample: returns element from array", () => {
 	const array = [1, 2, 3, 4, 5]

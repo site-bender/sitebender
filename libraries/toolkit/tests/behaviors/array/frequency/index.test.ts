@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { assert, assertEquals } from "jsr:@std/assert"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import frequency from "../../../../src/simple/array/frequency/index.ts"
+import frequency from "../../../../src/vanilla/array/frequency/index.ts"
 
 describe("frequency", () => {
 	it("counts occurrences of numbers", () => {

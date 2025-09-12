@@ -2,7 +2,7 @@ import * as fc from "fast-check"
 import { expect } from "jsr:@std/expect"
 import { describe, it } from "jsr:@std/testing/bdd"
 
-import times from "../../../../src/simple/array/times/index.ts"
+import times from "../../../../src/vanilla/array/times/index.ts"
 
 describe("times", () => {
 	describe("behavioral tests", () => {

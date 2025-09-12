@@ -126,8 +126,8 @@ export default (nodeId: string) => (initialCount: number) => {
 const result = isValid ? () => ok(value) : () => err(error)
 
 // 2. Lambdas passed to toolkit functions
-import map from "@sitebender/toolkit/simple/array/map/index.ts"
-import filter from "@sitebender/toolkit/simple/array/filter/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
 
 const incremented = map((count: number) => count + 1)(counts)
 const activeNodes = filter((node: NodeInfo) => node.isActive)(nodes)
@@ -146,7 +146,7 @@ for (const delta of deltas) {
 const merged = states.reduce(mergeState, initial)  // JS method - not FP!
 
 ✅ CORRECT (using toolkit wrappers):
-import reduce from "@sitebender/toolkit/simple/array/reduce/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
 
 const merged = reduce(mergeState)(initial)(states)
 ```

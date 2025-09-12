@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "npm:fast-check@3"
 
-import union from "../../../../src/simple/array/union/index.ts"
+import union from "../../../../src/vanilla/array/union/index.ts"
 
 Deno.test("union - combines two arrays with unique elements", () => {
 	const unionWith123 = union([1, 2, 3])
