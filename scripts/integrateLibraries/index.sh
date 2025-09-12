@@ -251,13 +251,13 @@ echo ""
 
 # Step 7: Push main to origin
 echo -e "${CYAN}Step 7: Pushing main to origin${NC}"
-git push origin main
+\git push origin main
 echo -e "${GREEN}  ✓ Main pushed to origin${NC}"
 echo ""
 
 # Step 8: Update all AI branches with main's changes
 echo -e "${CYAN}Step 8: Updating all AI branches with main's changes${NC}"
-MAIN_COMMIT=$(git rev-parse HEAD)
+MAIN_COMMIT=$(\git rev-parse HEAD)
 
 for branch in "${BRANCHES[@]}"; do
     WORKTREE_DIR=$(get_worktree_dir "$branch")
@@ -266,43 +266,43 @@ for branch in "${BRANCHES[@]}"; do
         (
             cd "$WORKTREE_DIR"
             # Merge main into the AI branch
-            if git merge main --no-ff -m "chore: sync with main" --no-edit; then
+            if \git merge main --no-ff -m "chore: sync with main" --no-edit; then
                 echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
             else
                 echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
                 echo -e "${BLUE}       Worktree: ${YELLOW}${WORKTREE_DIR}${NC}"
                 echo -e "${BLUE}       Conflicted files:${NC}"
-                (git -C "$WORKTREE_DIR" diff --name-only --diff-filter=U | sed -e 's/^/         - /') || true
+                (\git -C "$WORKTREE_DIR" diff --name-only --diff-filter=U | sed -e 's/^/         - /') || true
                 echo -e "${YELLOW}       Next steps:${NC}"
                 echo -e "${YELLOW}         1) Open the worktree above in your IDE${NC}"
                 print_code_hint "${WORKTREE_DIR}"
                 echo -e "${YELLOW}         2) Resolve conflict markers (<<<<<<< ======= >>>>>>>)${NC}"
                 echo -e "${YELLOW}         3) Commit the merge:${NC}"
-                echo -e "${YELLOW}              git -C '${WORKTREE_DIR}' add -A && git -C '${WORKTREE_DIR}' commit${NC}"
+                echo -e "${YELLOW}              \git -C '${WORKTREE_DIR}' add -A && \git -C '${WORKTREE_DIR}' commit${NC}"
                 echo -e "${YELLOW}         4) Re-run: deno task integrate${NC}"
                 exit 1
             fi
         )
     else
         echo -e "${YELLOW}  ⚠ No worktree for $branch, updating branch directly${NC}"
-        git checkout "$branch"
-        if git merge main --no-ff -m "chore: sync with main" --no-edit; then
+        \git checkout "$branch"
+        if \git merge main --no-ff -m "chore: sync with main" --no-edit; then
             echo -e "${GREEN}    ✓ $branch synchronized with main${NC}"
         else
             echo -e "${RED}    ❌ Conflict merging main into $branch${NC}"
             echo -e "${BLUE}       Worktree: ${YELLOW}${MAIN_WORKTREE}${NC}"
             echo -e "${BLUE}       Conflicted files:${NC}"
-            git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
+            \git diff --name-only --diff-filter=U | sed -e 's/^/         - /'
             echo -e "${YELLOW}       Next steps:${NC}"
             echo -e "${YELLOW}         1) Resolve conflicts in current branch (${branch})${NC}"
             print_code_hint "${MAIN_WORKTREE}"
             echo -e "${YELLOW}         2) Commit the merge:${NC}"
-            echo -e "${YELLOW}              git add -A && git commit${NC}"
+            echo -e "${YELLOW}              \git add -A && \git commit${NC}"
             echo -e "${YELLOW}         3) Switch back to main and re-run:${NC}"
-            echo -e "${YELLOW}              git checkout main && deno task integrate${NC}"
+            echo -e "${YELLOW}              \git checkout main && deno task integrate${NC}"
             exit 1
         fi
-        git checkout main
+        \git checkout main
     fi
 done
 echo ""
@@ -315,12 +315,12 @@ for branch in "${BRANCHES[@]}"; do
         echo -e "${BLUE}  Pushing $branch...${NC}"
         (
             cd "$WORKTREE_DIR"
-            git push origin "$branch"
+            \git push origin "$branch"
             echo -e "${GREEN}    ✓ $branch pushed to origin${NC}"
         )
     else
         # Push from main worktree
-        git push origin "$branch"
+        \git push origin "$branch"
         echo -e "${GREEN}    ✓ $branch pushed to origin${NC}"
     fi
 done
@@ -331,15 +331,15 @@ echo -e "${CYAN}Step 10: Verification${NC}"
 echo -e "${BLUE}Checking all worktrees are synchronized...${NC}"
 
 cd "$MAIN_WORKTREE"
-MAIN_COMMIT=$(git rev-parse HEAD)
+MAIN_COMMIT=$(\git rev-parse HEAD)
 echo -e "  Main commit: ${YELLOW}$MAIN_COMMIT${NC}"
 
 ALL_SYNCED=true
 for branch in "${BRANCHES[@]}"; do
     WORKTREE_DIR=$(get_worktree_dir "$branch")
     if [ -n "$WORKTREE_DIR" ]; then
-        BRANCH_COMMIT=$(cd "$WORKTREE_DIR" && git rev-parse HEAD)
-        if [ "$BRANCH_COMMIT" = "$MAIN_COMMIT" ] || git merge-base --is-ancestor "$MAIN_COMMIT" "$BRANCH_COMMIT"; then
+        BRANCH_COMMIT=$(cd "$WORKTREE_DIR" && \git rev-parse HEAD)
+        if [ "$BRANCH_COMMIT" = "$MAIN_COMMIT" ] || \git merge-base --is-ancestor "$MAIN_COMMIT" "$BRANCH_COMMIT"; then
             echo -e "${GREEN}  ✓ $branch is synchronized${NC}"
         else
             echo -e "${RED}  ❌ $branch is NOT synchronized${NC}"
@@ -363,7 +363,7 @@ echo -e "${BLUE}═════════════════════�
 
 echo ""
 echo -e "${CYAN}Recent commits on main:${NC}"
-git log --oneline -5
+\git log --oneline -5
 
 echo ""
 echo -e "${GREEN}Integration and synchronization complete!${NC}"
