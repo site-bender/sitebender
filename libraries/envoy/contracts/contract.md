@@ -8,9 +8,7 @@ Generate comprehensive documentation from Parser output. Creates graphs, diagram
 
 ## Public API
 
-
 ### Exported Functions
-
 
 #### `generateDocumentation`
 
@@ -31,7 +29,6 @@ Generate documentation for a single file from Parser output
 Generate a dependency graph of the entire codebase
 
 ### Exported Types
-
 
 #### `Documentation`
 
@@ -86,7 +83,6 @@ Dependency and relationship graph of the codebase
 
 ## Responsibilities
 
-
 ### Envoy Owns
 
 - Envoy comment syntax interpretation
@@ -116,7 +112,6 @@ Dependency and relationship graph of the codebase
 
 ## Implementation Rules
 
-
 ### Allowed Operations
 
 - ✅ Import from @sitebender/parser/exports/types
@@ -138,15 +133,12 @@ Dependency and relationship graph of the codebase
 
 Every input to Envoy must:
 
-
-
 - Must validate contract version
 - Must check input.validate() before processing
 - Must handle frozen/immutable data
 - Must not attempt to modify input
 
 ## Validation Layers
-
 
 ### Compile-Time Validation
 
@@ -166,7 +158,6 @@ Every input to Envoy must:
 - Contract compliance
 
 ## Dependencies
-
 
 ### Allowed dependencies:
 

@@ -2,7 +2,7 @@ import type { Either } from "../../../types/fp/either/index.ts"
 
 import isLeft from "../isLeft/index.ts"
 
-//++ Chains Either-returning functions, flattening the result (flatMap/bind)
+//++ Chains Right-branch computations (flatMap/bind) and flattens nested Either
 export default function chain<E, A, B>(fn: (a: A) => Either<E, B>) {
 	return function chainEither(either: Either<E, A>): Either<E, B> {
 		if (isLeft(either)) {
@@ -27,7 +27,11 @@ export default function chain<E, A, B>(fn: (a: A) => Either<E, B>) {
  |   chain(divide(12))  // Right(3)
  | )
  |
- | [PRO] Essential for composing fallible operations sequentially
- | [PRO] Short-circuits on first error, avoiding nested Either values
+ | [PRO] Sequences dependent Right-branch computations
+ | [PRO] Eliminates nested Either (flattens automatically)
+ | [PRO] Stops further chaining when a Left appears
  |
-*/
+ | [GOTCHA] fn never runs for Left inputs (ensure recovery earlier via chainLeft/orElse)
+ | [GOTCHA] Deep chains can be harder to debug—introduce named functions
+ | [GOTCHA] For parallel work prefer accumulating structures (e.g. Validation) instead of early stop
+ */

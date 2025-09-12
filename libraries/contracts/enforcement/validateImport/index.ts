@@ -9,31 +9,31 @@ export default function validateImport(
 ): ValidationResult {
 	const errors: Array<string> = []
 	const warnings: Array<string> = []
-	
+
 	// Load boundaries (in real implementation, this would be cached)
 	const boundaries = loadBoundaries()
-	
+
 	const fromConfig = boundaries.dependencies[fromLibrary]
 	if (!fromConfig) {
 		warnings.push(`Library ${fromLibrary} not found in boundaries contract`)
 		return { valid: true, errors, warnings }
 	}
-	
+
 	// Check if this is a forbidden import
 	if (fromConfig.forbiddenImports) {
 		for (const forbidden of fromConfig.forbiddenImports) {
 			if (forbidden === "*" && toLibrary.startsWith("@sitebender/")) {
 				errors.push(
-					`${fromLibrary} cannot import any @sitebender libraries (tried to import ${toLibrary})`
+					`${fromLibrary} cannot import any @sitebender libraries (tried to import ${toLibrary})`,
 				)
 			} else if (importPath.includes(forbidden)) {
 				errors.push(
-					`${fromLibrary} cannot import ${forbidden} (found in ${importPath})`
+					`${fromLibrary} cannot import ${forbidden} (found in ${importPath})`,
 				)
 			}
 		}
 	}
-	
+
 	// Special check for Envoy's forbidden TypeScript imports
 	if (fromLibrary === "envoy") {
 		const typescriptPatterns = [
@@ -42,31 +42,33 @@ export default function validateImport(
 			/\.tsx?['"`]/,
 			/\.jsx['"`]/,
 		]
-		
+
 		for (const pattern of typescriptPatterns) {
 			if (typeof pattern === "string" && importPath.includes(pattern)) {
 				errors.push(
-					`Envoy CANNOT import TypeScript compiler directly! Use Parser instead. Violation: ${importPath}`
+					`Envoy CANNOT import TypeScript compiler directly! Use Parser instead. Violation: ${importPath}`,
 				)
 			} else if (pattern instanceof RegExp && pattern.test(importPath)) {
 				errors.push(
-					`Envoy CANNOT access source files directly! Use Parser instead. Violation: ${importPath}`
+					`Envoy CANNOT access source files directly! Use Parser instead. Violation: ${importPath}`,
 				)
 			}
 		}
 	}
-	
+
 	// Check if this import is explicitly allowed
 	if (fromConfig.canImport && !fromConfig.canImport.includes(toLibrary)) {
 		// Check if it's a general category like "toolkit" that's always allowed
 		const alwaysAllowed = ["toolkit", "foundry"]
 		if (!alwaysAllowed.includes(toLibrary)) {
 			errors.push(
-				`${fromLibrary} cannot import ${toLibrary}. Allowed: ${fromConfig.canImport.join(", ")}`
+				`${fromLibrary} cannot import ${toLibrary}. Allowed: ${
+					fromConfig.canImport.join(", ")
+				}`,
 			)
 		}
 	}
-	
+
 	return {
 		valid: errors.length === 0,
 		errors,
@@ -93,7 +95,14 @@ function loadBoundaries(): any {
 			},
 			parser: {
 				canImport: ["toolkit", "foundry"],
-				forbiddenImports: ["envoy", "prover", "components", "engine", "maths", "mesh"],
+				forbiddenImports: [
+					"envoy",
+					"prover",
+					"components",
+					"engine",
+					"maths",
+					"mesh",
+				],
 			},
 			prover: {
 				canImport: ["parser", "toolkit", "foundry"],

@@ -1,4 +1,4 @@
-import find from "../../../../toolkit/src/simple/array/find/index.ts"
+import find from "../../../../toolkit/src/vanilla/array/find/index.ts"
 
 type Comment = {
 	kind: "line" | "block"

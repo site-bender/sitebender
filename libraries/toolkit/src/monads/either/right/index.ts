@@ -1,6 +1,6 @@
 import type { Either, Right } from "../../../types/fp/either/index.ts"
 
-//++ Creates a Right value representing the success case in an Either
+//++ Creates a Right value (the Right branch of an Either)
 export default function right<A, E = never>(value: A): Either<E, A> {
 	return {
 		_tag: "Right" as const,
@@ -41,9 +41,10 @@ export default function right<A, E = never>(value: A): Either<E, A> {
  |   chain(divide(100))  // Right(25)
  | )
  |
- | [PRO] Represents successful computation path
- | [PRO] Enables map/chain operations
- | [PRO] Type-safe value wrapping
- | [GOTCHA] Type parameter E (error type) defaults to never
+ | [PRO] Represents the Right branch (often used for "primary" value)
+ | [PRO] Enables map/chain operations over the Right branch
+ | [PRO] Type-safe value wrapping; no runtime cost beyond object
+ | [GOTCHA] Naming "Right" does not inherently mean success — semantics are domain-specific
+ | [GOTCHA] Type parameter E (Left branch type) defaults to never; specify when needed
  |
 */

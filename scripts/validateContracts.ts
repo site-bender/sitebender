@@ -18,110 +18,134 @@ const VIOLATION_CHECKS: Array<ViolationCheck> = [
 	// Internal directory access violations
 	{
 		name: "Libraries accessing Parser internals",
-		command: `grep -r "from ['\\"].*parser/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/parser/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Cannot access Parser's internal directory! Use exports only.",
+		command:
+			`grep -r "from ['\\"].*parser/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/parser/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Cannot access Parser's internal directory! Use exports only.",
 		severity: "error",
 	},
 	{
 		name: "Libraries accessing Envoy internals",
-		command: `grep -r "from ['\\"].*envoy/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/envoy/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Cannot access Envoy's internal directory! Use exports only.",
+		command:
+			`grep -r "from ['\\"].*envoy/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/envoy/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Cannot access Envoy's internal directory! Use exports only.",
 		severity: "error",
 	},
 	{
 		name: "Libraries accessing Prover internals",
-		command: `grep -r "from ['\\"].*prover/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/prover/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Cannot access Prover's internal directory! Use exports only.",
+		command:
+			`grep -r "from ['\\"].*prover/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/prover/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Cannot access Prover's internal directory! Use exports only.",
 		severity: "error",
 	},
 	{
 		name: "Libraries accessing Foundry internals",
-		command: `grep -r "from ['\\"].*foundry/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/foundry/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Cannot access Foundry's internal directory! Use exports only.",
+		command:
+			`grep -r "from ['\\"].*foundry/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || grep -r "from ['\\"]@sitebender/foundry/internal" libraries/*/src/ libraries/*/exports/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Cannot access Foundry's internal directory! Use exports only.",
 		severity: "error",
 	},
-	
+
 	// Envoy violations
 	{
 		name: "Envoy importing TypeScript",
-		command: `grep -r "from ['\\"]typescript\\|from ['\\"]@typescript" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Envoy is importing TypeScript compiler directly! Must use Parser.",
+		command:
+			`grep -r "from ['\\"]typescript\\|from ['\\"]@typescript" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Envoy is importing TypeScript compiler directly! Must use Parser.",
 		severity: "error",
 	},
 	{
 		name: "Envoy accessing source files",
-		command: `grep -r "\\.tsx\\?['\\"]\\|readFileSync.*\\.ts\\|readFile.*\\.tsx\\?" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Envoy is accessing source files directly! Must use Parser output.",
+		command:
+			`grep -r "\\.tsx\\?['\\"]\\|readFileSync.*\\.ts\\|readFile.*\\.tsx\\?" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Envoy is accessing source files directly! Must use Parser output.",
 		severity: "error",
 	},
 	{
 		name: "Envoy using regex to parse",
-		command: `grep -r "new RegExp.*\\(function\\|class\\|interface\\|export\\|import\\)" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Envoy is using regex to parse TypeScript! Must use Parser AST.",
+		command:
+			`grep -r "new RegExp.*\\(function\\|class\\|interface\\|export\\|import\\)" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Envoy is using regex to parse TypeScript! Must use Parser AST.",
 		severity: "error",
 	},
 	{
 		name: "Envoy importing from Prover",
-		command: `grep -r "from ['\\"].*prover" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
+		command:
+			`grep -r "from ['\\"].*prover" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
 		errorMessage: "❌ CONTRACT VIOLATION: Envoy cannot import from Prover!",
 		severity: "error",
 	},
-	
+
 	// Parser violations
 	{
 		name: "Parser importing from Envoy",
-		command: `grep -r "from ['\\"].*envoy" libraries/parser/exports/ libraries/parser/internal/ 2>/dev/null || true`,
+		command:
+			`grep -r "from ['\\"].*envoy" libraries/parser/exports/ libraries/parser/internal/ 2>/dev/null || true`,
 		errorMessage: "❌ CONTRACT VIOLATION: Parser cannot import from Envoy!",
 		severity: "error",
 	},
 	{
 		name: "Parser importing from Prover",
-		command: `grep -r "from ['\\"].*prover" libraries/parser/exports/ libraries/parser/internal/ 2>/dev/null || true`,
+		command:
+			`grep -r "from ['\\"].*prover" libraries/parser/exports/ libraries/parser/internal/ 2>/dev/null || true`,
 		errorMessage: "❌ CONTRACT VIOLATION: Parser cannot import from Prover!",
 		severity: "error",
 	},
-	
+
 	// Prover violations
 	{
 		name: "Prover importing TypeScript",
-		command: `grep -r "from ['\\"]typescript\\|from ['\\"]@typescript" libraries/prover/src/ libraries/prover/exports/ libraries/prover/internal/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Prover cannot import TypeScript! Must use Parser.",
+		command:
+			`grep -r "from ['\\"]typescript\\|from ['\\"]@typescript" libraries/prover/src/ libraries/prover/exports/ libraries/prover/internal/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Prover cannot import TypeScript! Must use Parser.",
 		severity: "error",
 	},
 	{
 		name: "Prover importing from Envoy",
-		command: `grep -r "from ['\\"].*envoy" libraries/prover/src/ libraries/prover/exports/ libraries/prover/internal/ 2>/dev/null || true`,
+		command:
+			`grep -r "from ['\\"].*envoy" libraries/prover/src/ libraries/prover/exports/ libraries/prover/internal/ 2>/dev/null || true`,
 		errorMessage: "❌ CONTRACT VIOLATION: Prover cannot import from Envoy!",
 		severity: "error",
 	},
-	
+
 	// Toolkit violations
 	{
 		name: "Toolkit importing @sitebender",
-		command: `grep -r "from ['\\"]@sitebender" libraries/toolkit/src/ libraries/toolkit/exports/ libraries/toolkit/internal/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Toolkit cannot import any @sitebender libraries!",
+		command:
+			`grep -r "from ['\\"]@sitebender" libraries/toolkit/src/ libraries/toolkit/exports/ libraries/toolkit/internal/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Toolkit cannot import any @sitebender libraries!",
 		severity: "error",
 	},
-	
+
 	// Foundry violations
 	{
 		name: "Foundry importing @sitebender",
-		command: `grep -r "from ['\\"]@sitebender" libraries/foundry/src/ libraries/foundry/exports/ libraries/foundry/internal/ 2>/dev/null || true`,
-		errorMessage: "❌ CONTRACT VIOLATION: Foundry cannot import any @sitebender libraries!",
+		command:
+			`grep -r "from ['\\"]@sitebender" libraries/foundry/src/ libraries/foundry/exports/ libraries/foundry/internal/ 2>/dev/null || true`,
+		errorMessage:
+			"❌ CONTRACT VIOLATION: Foundry cannot import any @sitebender libraries!",
 		severity: "error",
 	},
 ]
 
 async function checkViolations(): Promise<boolean> {
 	console.log("🔍 Checking contract compliance...")
-	
+
 	let hasErrors = false
 	const violations: Array<string> = []
-	
+
 	for (const check of VIOLATION_CHECKS) {
 		try {
 			const { stdout } = await execAsync(check.command)
-			
+
 			if (stdout.trim()) {
 				if (check.severity === "error") {
 					hasErrors = true
@@ -135,19 +159,19 @@ async function checkViolations(): Promise<boolean> {
 			continue
 		}
 	}
-	
+
 	if (violations.length > 0) {
 		console.error("\n🚨 CONTRACT VIOLATIONS DETECTED 🚨")
-		console.error("=" .repeat(60))
+		console.error("=".repeat(60))
 		for (const violation of violations) {
 			console.error(violation)
 		}
-		console.error("=" .repeat(60))
+		console.error("=".repeat(60))
 		console.error("\n❌ Commit blocked due to contract violations.")
 		console.error("Fix the violations above before committing.\n")
 		return false
 	}
-	
+
 	console.log("✅ All contract checks passed!")
 	return true
 }

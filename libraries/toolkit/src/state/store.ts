@@ -1,4 +1,4 @@
-import isNotNull from "../simple/validation/isNotNull/index.ts"
+import isNotNull from "../vanilla/validation/isNotNull/index.ts"
 
 // Minimal reactive store with SSR-safe fallback
 // - Works without client JS: render state on server; hydrate if JS available

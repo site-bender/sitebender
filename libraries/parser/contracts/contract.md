@@ -8,9 +8,7 @@ Single source of truth for TypeScript/JSX parsing. Provides normalized AST data 
 
 ## Public API
 
-
 ### Exported Functions
-
 
 #### `parseFile`
 
@@ -31,7 +29,6 @@ Parse an entire project and return normalized AST data for all files
 Parse TypeScript/JSX source code from a string
 
 ### Exported Types
-
 
 #### `ContractOutput`
 
@@ -109,7 +106,6 @@ Normalized type/interface data
 
 ## Responsibilities
 
-
 ### Parser Owns
 
 - TypeScript compiler interaction
@@ -137,7 +133,6 @@ Normalized type/interface data
 
 ## Implementation Rules
 
-
 ### Allowed Internal Operations
 
 - ✅ Import TypeScript compiler
@@ -157,8 +152,6 @@ Normalized type/interface data
 
 Every output from Parser must:
 
-
-
 - All output objects must be frozen (Object.freeze)
 - All output objects must be sealed (Object.seal)
 - Include contract version in every response
@@ -167,7 +160,6 @@ Every output from Parser must:
 - Timestamp every output
 
 ## Validation Layers
-
 
 ### Compile-Time Validation
 
@@ -187,7 +179,6 @@ Every output from Parser must:
 - Contract compliance
 
 ## Authorized Consumers
-
 
 ### Allowed to consume Parser output:
 

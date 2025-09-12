@@ -1,4 +1,4 @@
-import includes from "@sitebender/toolkit/simple/array/includes/index.ts"
+import includes from "@sitebender/toolkit/vanilla/array/includes/index.ts"
 
 import hasDescendant from "./hasDescendant/index.ts"
 

@@ -2,7 +2,7 @@ import type { Either } from "../../../types/fp/either/index.ts"
 
 import isRight from "../isRight/index.ts"
 
-//++ Chains Either-returning functions on the Left value for error recovery
+//++ Chains Left-branch recovery computations (like flatMap over Left)
 export default function chainLeft<E, F, A>(fn: (e: E) => Either<F, A>) {
 	return function chainLeftEither(either: Either<E, A>): Either<F, A> {
 		if (isRight(either)) {
@@ -24,10 +24,13 @@ export default function chainLeft<E, F, A>(fn: (e: E) => Either<F, A>) {
  | pipe(
  |   left("DB_ERROR"),
  |   chainLeft(tryCache),    // Attempts recovery
- |   chainLeft(tryDefault)   // Falls back if still error
+ |   chainLeft(tryDefault)   // Falls back if still Left
  | )
  |
- | [PRO] Enables error recovery chains and fallback strategies
- | [PRO] Passes Right values through unchanged, only acts on Left
+ | [PRO] Enables Left-branch recovery without leaving Either context
+ | [PRO] Right values pass through untouched (no extra allocation)
  |
-*/
+ | [GOTCHA] fn never runs for Right inputs
+ | [GOTCHA] Overuse can obscure original Left source—log or annotate early
+ | [GOTCHA] Use orElse for static fallback without branching logic
+ */

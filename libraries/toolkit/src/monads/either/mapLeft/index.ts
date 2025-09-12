@@ -20,12 +20,15 @@ export default function mapLeft<E, F>(fn: (e: E) => F) {
  | [EXAMPLE]
  | pipe(
  |   left("timeout"),
- |   mapLeft(err => err.toUpperCase()),
- |   mapLeft(err => `NETWORK_${err}`),
- |   mapLeft(err => ({ code: err, retry: true }))
- | ) // Left({ code: "NETWORK_TIMEOUT", retry: true })
+ |   mapLeft(err => err.toUpperCase()), // Left("TIMEOUT")
+ |   mapLeft(err => ({ code: err })),   // Left({ code: "TIMEOUT" })
+ | )
  |
- | [PRO] Useful for enriching error messages or converting error types
- | [PRO] Keeps success path unaffected while transforming failures
+ | [PRO] Transforms only the Left branch without allocating when already Right
+ | [PRO] Enables enrichment / normalization of Left values
+ | [PRO] Composes with bimap for dual-branch transformations
  |
-*/
+ | [GOTCHA] Function never runs for Right values
+ | [GOTCHA] Use bimap to transform both Left and Right in one pass
+ | [GOTCHA] Avoid heavy logic inside fn if most inputs are Right (wasted code size)
+ */

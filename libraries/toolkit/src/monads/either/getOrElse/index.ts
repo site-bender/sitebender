@@ -2,7 +2,7 @@ import type { Either } from "../../../types/fp/either/index.ts"
 
 import isRight from "../isRight/index.ts"
 
-//++ Extracts the Right value or returns a default value
+//++ Extracts the Right branch value or returns a default for Left
 export default function getOrElse<A>(defaultValue: A | ((e: unknown) => A)) {
 	return function getOrElseEither<E>(either: Either<E, A>): A {
 		if (isRight(either)) {
@@ -25,7 +25,11 @@ export default function getOrElse<A>(defaultValue: A | ((e: unknown) => A)) {
  | withComputedDefault(right(100))     // 100
  | withComputedDefault(left("error"))  // 5 (length of "error")
  |
- | [PRO] Common way to escape Either context with reasonable defaults
- | [PRO] Default can be constant or computed from the error
+ | [PRO] Bridges Either to raw value with fallback
+ | [PRO] Lazy default avoids unnecessary computation when Right
+ | [PRO] Default can depend on Left branch value
  |
-*/
+ | [GOTCHA] Function default only runs for Left
+ | [GOTCHA] For alternative Either use orElse (not getOrElse)
+ | [GOTCHA] Prefer small default lambdas to keep stack traces clear
+ */

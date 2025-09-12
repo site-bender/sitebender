@@ -1,4 +1,4 @@
-import some from "@sitebender/toolkit/simple/array/some/index.ts"
+import some from "@sitebender/toolkit/vanilla/array/some/index.ts"
 //++ Checks if a function declaration has an export modifier
 import * as typescript from "npm:typescript@5.7.2"
 

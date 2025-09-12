@@ -1,4 +1,4 @@
-import reduce from "@sitebender/toolkit/simple/array/reduce/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
 
 import type { Arbitrary, Seed } from "../../../types/index.ts"
 import type { GeneratorState, ValuesResult } from "../types/index.ts"
