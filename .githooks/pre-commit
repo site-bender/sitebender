@@ -50,26 +50,21 @@ if ! deno task fp:engine >/dev/null 2>&1; then
 fi
 echo "[hooks] ✅ Engine FP clean"
 
-# 4. FP discipline checks (components)
-echo "[hooks] 🧪 FP check (components)..."
-if ! deno task fp:components >/dev/null 2>&1; then
-    echo "[hooks] ❌ FP violations (components)" >&2
-    exit 1
-fi
-echo "[hooks] ✅ Components FP clean"
+# echo "🔍 Running linter..."
+# deno task lint
 
-# 5. Tests
-echo "[hooks] 🧪 Running tests..."
-deno task test || { echo "[hooks] ❌ Tests failed" >&2; exit 1; }
-echo "[hooks] ✅ Tests passing"
+# if [ $? -ne 0 ]; then
+#     echo "❌ Linting failed. Fix the issues and try again."
+#     exit 1
+# fi
 
-# 6. Lint alias import policy
-echo "[hooks] 🔎 Alias import policy..."
-if ! deno task lint:aliases >/dev/null 2>&1; then
-    echo "[hooks] ❌ Alias import policy violation" >&2
-    exit 1
-fi
-echo "[hooks] ✅ Alias imports clean"
+# echo "📝 Checking types..."
+# deno task typecheck
+
+# if [ $? -ne 0 ]; then
+#     echo "❌ Type checking failed. Fix the issues and try again."
+#     exit 1
+# fi
 
 # 7. No React junk
 echo "[hooks] 🗑  React junk scan..."

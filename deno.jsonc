@@ -41,6 +41,7 @@
 		"fp:pedantic": "deno run --allow-read --allow-run scripts/enforceFP/index.ts --pedantic 'libraries/*/src/**/*.ts' 'libraries/*/src/**/*.tsx'",
 
 		// === Testing ===
+		"test": "deno task test:engine && deno task test:components && deno task test:maths && deno task test:toolkit && deno task test:prover",
 		"test:engine": "deno test --unstable-temporal --no-check 'libraries/engine/**/*.test.ts'",
 		"test:engine:strict": "deno test --unstable-temporal 'libraries/engine/**/*.test.ts'",
 		"test:components": "deno test --unstable-temporal --no-check 'libraries/components/tests/**/*.test.ts'",
