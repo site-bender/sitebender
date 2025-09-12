@@ -15,6 +15,64 @@ deno add @sitebender/maths
 deno run demo/index.ts
 ```
 
+## The Problem
+
+Deep nested calculations in JSX are unreadable and hard to maintain:
+
+```tsx
+// This is hard to understand - what's the formula?
+<Divide>
+	<Subtract>
+		<Multiply>
+			<From.Constant>5</From.Constant>
+			<From.Constant>10</From.Constant>
+		</Multiply>
+		<From.Constant>2</From.Constant>
+	</Subtract>
+	<From.Constant>3</From.Constant>
+</Divide>
+```
+
+## The Solution
+
+Use mathematical formula syntax that compiles to the same configuration:
+
+```tsx
+// Much clearer - you can see the formula!
+<Calculation formula="((w * x) - y) / z">
+	<Variable name="w">
+		<From.Constant>5</From.Constant>
+	</Variable>
+	<Variable name="x">
+		<From.Constant>10</From.Constant>
+	</Variable>
+	<Variable name="y">
+		<From.Constant>2</From.Constant>
+	</Variable>
+	<Variable name="z">
+		<From.Constant>3</From.Constant>
+	</Variable>
+</Calculation>
+```
+
+Both compile to **exactly the same** engine configuration. The formula is readable, and variables can be injected at compile time, runtime, or lazily when the function runs.
+
+## Data Sources
+
+Variables can pull data from anywhere using the `From.*` components:
+
+- `From.Constant` - Static values
+- `From.Element` - DOM elements
+- `From.UrlSegment` - URL path segments
+- `From.QueryString` - URL query parameters
+- `From.Api` - API endpoints
+- `From.LocalStorage` - Browser local storage
+- `From.SessionStorage` - Browser session storage
+- `From.Lookup` - Lookup tables
+- `From.LookupTable` - Multi-dimensional lookups
+
+These are used in `<Validation>`, `<Display>` (conditional rendering), and calculations throughout your application.
+
 ## Usage
 
 ```typescript
@@ -58,6 +116,7 @@ if (result.ok) {
 
 - Comparison operators: `<`, `<=`, `>`, `>=`, `==`, `!=`
 - Logical operators: `&&`, `||`
+- Boolean algebra for validations and conditional display
 
 ### Phase 3 (Future)
 
