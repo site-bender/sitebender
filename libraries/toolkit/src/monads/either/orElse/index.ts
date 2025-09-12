@@ -2,16 +2,16 @@ import type { Either } from "../../../types/fp/either/index.ts"
 
 import isRight from "../isRight/index.ts"
 
-//++ Provides an alternative Either if the original is Left
-export default function orElse<E, A>(
-): <F>(alternative: Either<F, A> | (() => Either<F, A>)) => (either: Either<E, A>) => Either<F, A> {
-	return function initOrElse<F>(alternative: Either<F, A> | (() => Either<F, A>)) {
-		return function orElseEither(either: Either<E, A>): Either<F, A> {
-			if (isRight(either)) {
-				return either as unknown as Either<F, A>
-			}
-			return typeof alternative === "function" ? alternative() : alternative
+//++ Supplies an alternative Either when the input is Left (Right passes through)
+export default function orElse<E, A, F>(
+	alternative: Either<F, A> | (() => Either<F, A>),
+) {
+	return function orElseEither(either: Either<E, A>): Either<F, A> {
+		if (isRight(either)) {
+			return either as unknown as Either<F, A>
 		}
+
+		return typeof alternative === "function" ? alternative() : alternative
 	}
 }
 
@@ -28,7 +28,11 @@ export default function orElse<E, A>(
  |   orElse(tertiary)
  | ) // Right(100)
  |
- | [PRO] Useful for fallback computations or default values
- | [PRO] Supports lazy alternatives to avoid unnecessary computation
+ | [PRO] Fallback chaining without leaving Either context
+ | [PRO] Lazy alternative avoids allocating when already Right
+ | [PRO] Type parameter F allows changing Left branch type after recovery
  |
-*/
+ | [GOTCHA] Alternative (function) only evaluated for Left inputs
+ | [GOTCHA] Each fallback can erase original Left context—log earlier if needed
+ | [GOTCHA] Consider chainLeft when recovery logic itself can produce new Left
+ */

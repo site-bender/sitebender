@@ -8,9 +8,7 @@ Property-based testing tools, arbitrary data generation, and test utilities. Pro
 
 ## Public API
 
-
 ### Exported Functions
-
 
 #### `arbitrary`
 
@@ -43,7 +41,6 @@ Define a property-based test
 Generate fake data matching a schema
 
 ### Exported Types
-
 
 #### `Arbitrary`
 
@@ -95,7 +92,6 @@ Property-based test specification
 
 ## Responsibilities
 
-
 ### Foundry Owns
 
 - Arbitrary value generation
@@ -123,7 +119,6 @@ Property-based test specification
 
 ## Implementation Rules
 
-
 ### Allowed Operations
 
 - ✅ Import from @sitebender/parser/exports/types
@@ -144,15 +139,12 @@ Property-based test specification
 
 Every output from Foundry must:
 
-
-
 - All generators must be pure functions
 - All generators must be seedable for reproducibility
 - Shrinking must preserve the failing property
 - Generated values must match type constraints
 
 ## Validation Layers
-
 
 ### Compile-Time Validation
 
@@ -171,7 +163,6 @@ Every output from Foundry must:
 - Type constraint compliance
 
 ## Authorized Consumers
-
 
 ### Allowed to consume Foundry output:
 
