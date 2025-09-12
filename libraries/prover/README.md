@@ -169,7 +169,7 @@ import { generateTests } from "@sitebender/prover"
 
 // Generate tests for a toolkit function
 const testSuite = await generateTests(
-	"libraries/toolkit/src/simple/array/map/index.ts",
+	"libraries/toolkit/src/vanilla/array/map/index.ts",
 	{
 		includePropertyTests: true,
 		includeBenchmarks: true,

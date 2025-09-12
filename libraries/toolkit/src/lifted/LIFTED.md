@@ -38,7 +38,7 @@ type Result<T, E> =
 
 - **NEVER use JavaScript array methods directly**
 - Always use `simple` functions from the toolkit
-- Example: Use `map` from `simple/array/map`, not `Array.prototype.map`
+- Example: Use `map` from `vanilla/array/map`, not `Array.prototype.map`
 
 ### 3. File Structure
 

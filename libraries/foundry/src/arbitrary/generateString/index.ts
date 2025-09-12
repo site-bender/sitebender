@@ -2,9 +2,9 @@ import type { Result } from "@sitebender/toolkit/monads/types/fp/result/index.ts
 
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
-import map from "@sitebender/toolkit/simple/array/map/index.ts"
-import range from "@sitebender/toolkit/simple/array/range/index.ts"
-import not from "@sitebender/toolkit/simple/logic/not/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import range from "@sitebender/toolkit/vanilla/array/range/index.ts"
+import not from "@sitebender/toolkit/vanilla/logic/not/index.ts"
 
 import type { GeneratorError, Seed } from "../../types/index.ts"
 

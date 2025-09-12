@@ -54,7 +54,7 @@ Create **two versions** of each lifted function:
 
 ```typescript
 // libraries/toolkit/src/lifted/array/mapResult/index.ts
-import map from "../../../simple/array/map/index.ts"
+import map from "../../../vanilla/array/map/index.ts"
 import { Result } from "../../../monads/result/index.ts"
 
 const mapResult = <T, U, E>(
@@ -71,7 +71,7 @@ const mapResult = <T, U, E>(
 
 ```typescript
 // libraries/toolkit/src/lifted/array/mapValidation/index.ts
-import map from "../../../simple/array/map/index.ts"
+import map from "../../../vanilla/array/map/index.ts"
 import Validation from "../../../monads/validation/index.ts"
 
 const mapValidation = <T, U>(
@@ -183,9 +183,9 @@ import validateAll from "../../../monads/validation/validateAll/index.ts"
 import combineValidations from "../../../monads/validation/combineValidations/index.ts"
 
 // Simple functions (always use these, never native JS methods!)
-import map from "../../../simple/array/map/index.ts"
-import filter from "../../../simple/array/filter/index.ts"
-import reduce from "../../../simple/array/reduce/index.ts"
+import map from "../../../vanilla/array/map/index.ts"
+import filter from "../../../vanilla/array/filter/index.ts"
+import reduce from "../../../vanilla/array/reduce/index.ts"
 ```
 
 ## Testing Commands

@@ -1,4 +1,4 @@
-import reduce from "../../../../../../../libraries/toolkit/src/simple/array/reduce/index.ts"
+import reduce from "../../../../../../toolkit/src/vanilla/array/reduce/index.ts"
 import { FUNCTION_NAME_PATTERNS } from "../constants/index.ts"
 
 //++ Extracts the function name from source code

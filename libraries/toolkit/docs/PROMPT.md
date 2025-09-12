@@ -343,7 +343,7 @@ The validation monad cleanup is **COMPLETE**. All helper functions have been ext
 
 ```bash
 # Find unmigrated functions
-grep -l "^/\*\*" libraries/toolkit/src/simple/validation/*/index.ts
+grep -l "^/\*\*" libraries/toolkit/src/vanilla/validation/*/index.ts
 
 # Type check specific files  
 deno check --unstable-temporal path/to/file1.ts path/to/file2.ts

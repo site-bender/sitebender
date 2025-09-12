@@ -16,7 +16,7 @@ import type { Lens } from "../../object/lens/index.ts"
  * @returns True if focused value satisfies the predicate
  * @example
  * ```typescript
- * import lensProp from "../../simple/object/lensProp/index.ts"
+ * import lensProp from "../../vanilla/object/lensProp/index.ts"
  *
  * // Basic predicate check
  * const ageLens = lensProp("age")

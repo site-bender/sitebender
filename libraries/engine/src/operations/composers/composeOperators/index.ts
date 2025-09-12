@@ -7,8 +7,8 @@ import type {
 import { OPERAND_TYPES } from "@sitebender/engine/constructors/constants/index.ts"
 import Error from "@sitebender/engine/constructors/Error/index.ts"
 import getOperandKeys from "@sitebender/engine/operations/helpers/getOperandKeys/index.ts"
-import _not from "@sitebender/toolkit/simple/logic/not/index.ts"
-import toCamel from "@sitebender/toolkit/simple/string/toCase/toCamel/index.ts"
+import _not from "@sitebender/toolkit/vanilla/logic/not/index.ts"
+import toCamel from "@sitebender/toolkit/vanilla/string/toCase/toCamel/index.ts"
 
 // Type guard: does the candidate have a string tag?
 const hasStringTag = (op: unknown): op is { tag: string } =>
