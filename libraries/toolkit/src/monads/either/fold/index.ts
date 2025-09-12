@@ -2,7 +2,7 @@ import type { Either } from "../../../types/fp/either/index.ts"
 
 import isLeft from "../isLeft/index.ts"
 
-//++ Extracts a value from an Either by providing handlers for both cases
+//++ Eliminates Either by applying a handler to the active branch (Left or Right)
 export default function fold<E, A, B>(onLeft: (e: E) => B) {
 	return function foldRight(onRight: (a: A) => B) {
 		return function foldEither(either: Either<E, A>): B {
@@ -28,7 +28,11 @@ export default function fold<E, A, B>(onLeft: (e: E) => B) {
  | toHttpResponse(right({ id: 1 }))  // { status: 200, body: { id: 1 } }
  | toHttpResponse(left("Invalid"))   // { status: 400, body: { error: "Invalid" } }
  |
- | [PRO] Fundamental pattern matching operation for Either values
- | [PRO] Primary way to extract values and handle both success/failure
+ | [PRO] Canonical branch elimination / pattern match
+ | [PRO] Converts Either into any target type (number, object, etc.)
+ | [PRO] Encourages explicit handling of both branches
  |
-*/
+ | [GOTCHA] Both handlers must be pure (avoid side-effects)
+ | [GOTCHA] Keep handlers small—perform heavier logic earlier in the pipeline
+ | [GOTCHA] For symmetrical transformations prefer bimap instead
+ */

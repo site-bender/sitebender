@@ -8,7 +8,7 @@ import TextNode from "@sitebender/engine/constructors/elements/TextNode/index.ts
 import getAriaAttributes from "@sitebender/engine/constructors/helpers/getAriaAttributes/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
 import isString from "@sitebender/engine/guards/isString/index.ts"
-import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts"
 
 const FilteredAllowText =
 	<T extends Record<string, unknown>>(tag = "Img") =>

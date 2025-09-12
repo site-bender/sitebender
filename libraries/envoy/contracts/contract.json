@@ -139,7 +139,15 @@
 	},
 	"dependencies": {
 		"allowed": ["parser"],
-		"forbidden": ["prover", "foundry", "toolkit", "components", "engine", "maths", "mesh"]
+		"forbidden": [
+			"prover",
+			"foundry",
+			"toolkit",
+			"components",
+			"engine",
+			"maths",
+			"mesh"
+		]
 	},
 	"commentSyntax": {
 		"//++": "Description of function/component/type/constant",

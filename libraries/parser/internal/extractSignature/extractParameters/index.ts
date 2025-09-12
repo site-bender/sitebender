@@ -1,4 +1,4 @@
-import map from "@sitebender/toolkit/simple/array/map/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
 import * as typescript from "npm:typescript@5.7.2"
 
 import type { Parameter } from "../../types/index.ts"

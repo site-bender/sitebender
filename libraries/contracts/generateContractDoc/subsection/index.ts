@@ -5,12 +5,12 @@ import type { Section } from "../section/index.ts"
 export default function subsection(
 	title: string,
 	items: Array<string>,
-	prefix = "- "
+	prefix = "- ",
 ): Section {
 	return [
 		title,
 		"",
-		...items.map(item => `${prefix}${item}`),
-		""
+		...items.map((item) => `${prefix}${item}`),
+		"",
 	]
 }

@@ -15,7 +15,7 @@
  * isEngineSourceFile('engine/src/reactive/signal/index.ts') // true
  *
  * // External dependencies - exempt from coverage requirements
- * isEngineSourceFile('toolkit/src/simple/string/escape/index.ts') // false
+ * isEngineSourceFile('toolkit/src/vanilla/string/escape/index.ts') // false
  *
  * // Test files - exempt from coverage requirements
  * isEngineSourceFile('engine/tests/behaviors/rendering/index.test.ts') // false
