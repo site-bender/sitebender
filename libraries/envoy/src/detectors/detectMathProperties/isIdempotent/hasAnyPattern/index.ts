@@ -1,5 +1,5 @@
-import some from "../../../../../../../libraries/toolkit/src/vanilla/array/some/index.ts"
-import test from "../../../../../../../libraries/toolkit/src/vanilla/string/test/index.ts"
+import some from "../../../../../../toolkit/src/vanilla/array/some/index.ts"
+import test from "../../../../../../toolkit/src/vanilla/string/test/index.ts"
 
 //++ Checks if source matches any of the provided patterns
 export default function hasAnyPattern(patterns: ReadonlyArray<RegExp>) {

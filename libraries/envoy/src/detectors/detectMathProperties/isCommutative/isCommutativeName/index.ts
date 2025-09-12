@@ -1,5 +1,5 @@
-import some from "../../../../../../../libraries/toolkit/src/vanilla/array/some/index.ts"
-import contains from "../../../../../../../libraries/toolkit/src/vanilla/string/contains/index.ts"
+import some from "../../../../../../toolkit/src/vanilla/array/some/index.ts"
+import contains from "../../../../../../toolkit/src/vanilla/string/contains/index.ts"
 import { COMMUTATIVE_FUNCTION_NAMES } from "../constants/index.ts"
 
 //++ Checks if a function name indicates commutative behavior

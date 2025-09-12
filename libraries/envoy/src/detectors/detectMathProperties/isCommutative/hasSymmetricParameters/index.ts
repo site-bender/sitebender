@@ -1,5 +1,5 @@
-import some from "../../../../../../../libraries/toolkit/src/vanilla/array/some/index.ts"
-import test from "../../../../../../../libraries/toolkit/src/vanilla/string/test/index.ts"
+import some from "../../../../../../toolkit/src/vanilla/array/some/index.ts"
+import test from "../../../../../../toolkit/src/vanilla/string/test/index.ts"
 import {
 	BINARY_FUNCTION_PATTERN,
 	COMMUTATIVE_OPERATIONS,

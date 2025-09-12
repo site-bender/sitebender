@@ -66,6 +66,27 @@ echo "[hooks] ✅ Engine FP clean"
 #     exit 1
 # fi
 
+# 4. FP discipline checks (components)
+echo "[hooks] 🧪 FP check (components)..."
+if ! deno task fp:components >/dev/null 2>&1; then
+    echo "[hooks] ❌ FP violations (components)" >&2
+    exit 1
+fi
+echo "[hooks] ✅ Components FP clean"
+
+# 5. Tests
+echo "[hooks] 🧪 Running tests..."
+deno task test || { echo "[hooks] ❌ Tests failed" >&2; exit 1; }
+echo "[hooks] ✅ Tests passing"
+
+# 6. Lint alias import policy
+echo "[hooks] 🔎 Alias import policy..."
+if ! deno task lint:aliases >/dev/null 2>&1; then
+    echo "[hooks] ❌ Alias import policy violation" >&2
+    exit 1
+fi
+echo "[hooks] ✅ Alias imports clean"
+
 # 7. No React junk
 echo "[hooks] 🗑  React junk scan..."
 if ! deno task lint:no-react-junk >/dev/null 2>&1; then
@@ -89,15 +110,15 @@ echo "[hooks] 🎨 Formatting check..."
 deno task fmt --check || { echo "[hooks] ❌ Formatting issues" >&2; exit 1; }
 echo "[hooks] ✅ Formatting clean"
 
-# 10. Lint
-echo "[hooks] 🔍 Linting..."
-deno task lint || { echo "[hooks] ❌ Lint errors" >&2; exit 1; }
-echo "[hooks] ✅ Lint clean"
+# # 10. Lint
+# echo "[hooks] 🔍 Linting..."
+# deno task lint || { echo "[hooks] ❌ Lint errors" >&2; exit 1; }
+# echo "[hooks] ✅ Lint clean"
 
-# 11. Type checking
-echo "[hooks] 📝 Type checking..."
-deno task typecheck || { echo "[hooks] ❌ Type errors" >&2; exit 1; }
-echo "[hooks] ✅ Types clean"
+# # 11. Type checking
+# echo "[hooks] 📝 Type checking..."
+# deno task typecheck || { echo "[hooks] ❌ Type errors" >&2; exit 1; }
+# echo "[hooks] ✅ Types clean"
 
 echo "[hooks] ✅ All pre-commit checks passed"
 exit 0

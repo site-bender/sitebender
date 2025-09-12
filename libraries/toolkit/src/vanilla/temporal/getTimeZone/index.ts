@@ -1,4 +1,4 @@
-import isNullish from "../../../vanilla/validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Gets the time zone identifier from a Temporal ZonedDateTime

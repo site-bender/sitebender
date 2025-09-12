@@ -1,4 +1,4 @@
-import isNullish from "../../../vanilla/validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 /**
  * Calculates the duration until a target date/time
