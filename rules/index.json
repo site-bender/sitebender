@@ -2,6 +2,14 @@
 	"version": "1.0.0",
 	"lastUpdated": "2025-01-11",
 	"author": "The Architect",
+	"rulesPhilosophy": {
+		"note": "EVERY SINGLE RULE EXISTS FOR MEASURED REASONS",
+		"truth": "Not one choice is arbitrary - not even spacing",
+		"proof": "30+ years of experience, measured cognitive load",
+		"example": "Tabs for indentation? Efficiency + user choice. 80 char limit? Phone reading + side-by-side files. Every decision tested.",
+		"reminder": "These aren't preferences - they're engineering decisions based on how human brains process information",
+		"history": "Written after seeing thousands of hours wasted on preventable confusion and tech debt"
+	},
 	"primeDirective": {
 		"rule": "DO NOT ASSUME. DO NOT TAKE SHORTCUTS. DO NOT GUESS.",
 		"description": "This isn't advice. It's not a suggestion. It's THE LAW.",
@@ -98,6 +106,66 @@
 			]
 		}
 	],
+	"designPrinciples": {
+		"fundamental": "Code is TEXT meant to be READ. Apply centuries of tested design principles.",
+		"corePrinciples": {
+			"contrast": {
+				"what": "Different visual treatment for different elements",
+				"how": "Case conventions (SCREAMING_SNAKE vs camelCase vs PascalCase)",
+				"why": "Brain instantly knows what it's looking at - zero parsing required",
+				"example": "Syntax highlighting uses color contrast for the same reason"
+			},
+			"repetition": {
+				"what": "Consistency everywhere",
+				"how": "Same indentation, same spacing, same patterns",
+				"why": "No mental energy wasted adjusting to different styles",
+				"example": "ALL functions red, ALL strings blue - not random"
+			},
+			"alignment": {
+				"what": "Vertical structure reflects logical structure",
+				"how": "Monospace fonts, aligned braces, consistent indentation",
+				"why": "Visual structure = logical structure = instant comprehension",
+				"example": "Opening and closing braces align vertically"
+			},
+			"proximity": {
+				"what": "Related things together, unrelated things apart",
+				"how": "Blank lines separate groups, no spaces within groups",
+				"why": "Visual proximity = logical relationship",
+				"example": "All const declarations grouped, separated from functions"
+			}
+		},
+		"murderYourDarlings": {
+			"rule": "Stop trying to be clever - do it the boring, expected way",
+			"why": "Code is a conversation with the NEXT programmer, not the machine",
+			"examples": [
+				"That unreadable one-liner? Split it into readable steps",
+				"That clever bit-shifting trick? Use the obvious math",
+				"That 'optimized' code without measurements? Use the toolkit function"
+			],
+			"remember": "The 'cool' code you write today is the WTF you debug tomorrow",
+			"note": "Nested ternaries OK if properly indented and max 2 levels"
+		},
+		"noGratuitousNothing": {
+			"rule": "Nothing on the page that doesn't serve the purpose",
+			"forbidden": [
+				"Clever tricks when boring works",
+				"Showing off your knowledge",
+				"'Optimizations' without measurement",
+				"Comments that state the obvious"
+			]
+		},
+		"whitespace": {
+			"purpose": "Separator and organizer, not decoration",
+			"rules": [
+				"Spaces around operators: x + y not x+y",
+				"Spaces in objects: { x: 7 } not {x:7}",
+				"Blank lines group related code",
+				"Never more than one blank line in a row"
+			],
+			"why": "Each space reduces parsing effort - measurable cognitive load reduction"
+		},
+		"notPersonalTaste": "This is NOT 'personal preference' - cognitive load is MEASURABLE. These are engineering decisions based on how human brains process visual information."
+	},
 	"codeOrganization": {
 		"laws": [
 			{
@@ -209,30 +277,20 @@
 		]
 	},
 	"testing": {
-		"coverage": {
-			"requirement": "100% reported coverage. NO EXCEPTIONS.",
-			"rationale": "Less than 100%? You have untested code that WILL break.",
-			"escape": "Can't test it? Add deno-coverage-ignore with a REASON. Must get approval from The Architect."
+		"temporaryRules": {
+			"note": "These are THROWAWAY tests until Prover is ready to generate all tests",
+			"location": "One test file per function/component in same folder named index.test.ts",
+			"framework": "Use Deno.test and t.step (if necessary)",
+			"imports": "Import assert functions from https://deno.land/std/assert/mod.ts",
+			"coverage": "Test for 100% coverage FOR JUST THAT TEST",
+			"requirement": "Tests must pass before you can commit",
+			"implementation": "OK to test implementation in these tests as they are THROWAWAY"
 		},
-		"hierarchy": [
-			"E2E - User journeys (gold standard)",
-			"Integration - Functions working together",
-			"Property-based - Mathematical truth",
-			"Unit - Last resort for the desperate"
-		],
-		"whatToTest": [
-			"Behaviors - What users experience",
-			"Properties - Mathematical laws",
-			"Accessibility - WCAG AAA for HTML",
-			"Progressive Enhancement - All three layers"
-		],
-		"whatNotToTest": [
-			"Implementation details",
-			"Private methods (they don't exist)",
-			"Things TypeScript already guarantees",
-			"Lines we've explicitly ignored (with documented reasons)"
-		],
-		"location": "Same folder as function using index.test.ts until Prover is complete"
+		"whenToWriteTests": {
+			"newCode": "For NEW functions/components, write test TDD style: test FIRST, then function to pass",
+			"existingCode": "For functions/components we EDIT or fix, write test BEFORE doing the fix",
+			"legacy": "NOT going back to write tests for everything - only new or edited code"
+		}
 	},
 	"sevenDeadlySins": [
 		{
@@ -390,17 +448,17 @@
 		],
 		"preCommitRequirements": [
 			"deno task test - All tests must pass",
-			"deno task lint - Zero lint errors",
-			"deno task typecheck - Zero type errors",
-			"deno task fmt - Code must be formatted"
+			"deno task lint - Zero lint errors in your code changes",
+			"deno task typecheck - Zero type errors in your code changes",
+			"deno task fmt - Code must be formatted — do not forget this"
 		],
 		"enforcement": "NO EXCEPTIONS. NO 'I'll fix it in the next commit.' NO.",
 		"aiAssistants": {
 			"note": "I am the sole developer. All other contributors are AIs.",
 			"requirements": [
-				"Update all documentation (README.md, PROMPT.md, etc.) BEFORE committing",
-				"Run ALL checks listed above",
-				"Never commit if ANY check fails",
+				"Update all relevant documentation BEFORE committing",
+				"Lint and type check ALL code YOU touched in that commit",
+				"Ensure NO lint or type errors in YOUR changes before committing",
 				"Remember: I WILL check your work. Thoroughly."
 			]
 		}
@@ -411,22 +469,116 @@
 		"semicolons": false,
 		"arrayType": "Array<T> not T[]",
 		"constOnly": true,
+		"noLoops": "No for/while loops - use toolkit functions",
+		"spacing": {
+			"operators": "Spaces around ALL operators: x + y not x+y",
+			"objects": "Spaces inside braces and after colons: { x: 7 } not {x:7}",
+			"arrays": "Spaces after commas: [1, 2, 3] not [1,2,3]",
+			"functions": "Space after comma in params: (a, b) not (a,b)"
+		},
+		"trailingCommas": {
+			"rule": "ALWAYS use trailing commas in multi-line structures",
+			"multilineArrays": "Yes: easier to add/sort items",
+			"multilineObjects": "Yes: cleaner diffs",
+			"multilineParams": "Yes: but rare since we curry",
+			"singleLine": "NO: only for multi-line structures"
+		},
+		"blankLines": {
+			"constGroups": "Group const declarations at top with blank line below (not above)",
+			"beforeReturn": "Blank line before return statements",
+			"aroundMultiline": "Blank lines before AND after multi-line blocks/statements",
+			"maximum": "NEVER more than one blank line in a row",
+			"purpose": "Visual grouping using proximity principle"
+		},
 		"rationale": {
-			"tabs": "not spaces, heathens",
-			"lineLimit": "read it on a phone",
-			"semicolons": "Deno agrees",
-			"arrayType": "explicitness matters",
-			"constOnly": "let and var are banned"
+			"tabs": "More efficient + lets devs choose indentation width",
+			"lineLimit": "Read on phone + multiple files side-by-side on wide screens",
+			"semicolons": "Visual noise - JS/TS don't require them, why add them?",
+			"arrayType": "[] is hard to see and requires cognitive load - Array<> is obvious",
+			"constOnly": "Strict FP = immutable. No mutations in objects either",
+			"noLoops": "Loops are imperative - use map, filter, reduce, etc. from toolkit (unless explicitly approved by THE ARCHITECT for performance)",
+			"spacing": "Each space is a visual separator - reduces parsing effort",
+			"trailingCommas": "No worry about missing commas when adding/reordering",
+			"blankLines": "Proximity principle - group related, separate unrelated"
 		}
 	},
-	"envoyComments": {
-		"note": "See libraries/envoy/docs/comment-syntax-guide.md for complete guide",
-		"//": "regular comment (not part of docs)",
-		"//++": "description of the function/component/constant/type",
-		"//--": "tech debt",
-		"//??": "help, such as examples, pros, cons, gotchas, and more",
-		"//!!": "critical problems",
-		"//>>": "links to other resources"
+	"requiredComments": {
+		"note": "We use the Envoy library for documentation generation. These rules MUST be followed.",
+		"criticalRules": {
+			"placement": "Description comments (//++) MUST go IMMEDIATELY ABOVE what they describe, NOT at file top above imports",
+			"singleLine": "Single-line comments (//) are ONE LINE ONLY - cannot group them. Use block comments (/* */) for multi-line",
+			"blockFormat": "Block comments MUST use pipe | for margins, NOT asterisks (conflicts with markdown)",
+			"mandatory": "EVERY exported function, type, constant, interface MUST have a //++ description",
+			"relevance": "Only add PRO/CON/GOTCHA if GENUINELY helpful - not just to fill space"
+		},
+		"markers": {
+			"//++": {
+				"purpose": "Describes what code element does",
+				"placement": "IMMEDIATELY ABOVE the code element (no blank line)",
+				"categories": {
+					"default": "Plain description (no category needed)",
+					"[GROUP]": "Start group of related elements, for example constants",
+					"[END]": "End group",
+					"[MODULE]": "Document entire module (use block comment)"
+				}
+			},
+			"//??": {
+				"purpose": "Help information - examples, gotchas, etc.",
+				"placement": "Below code element with AT LEAST ONE BLANK LINE above",
+				"categories": {
+					"[EXAMPLE]": "Code example (default if no category)",
+					"[GOTCHA]": "Common mistakes or unexpected behavior",
+					"[PRO]": "Benefits (only if meaningful)",
+					"[CON]": "Limitations (only if meaningful)",
+					"[SETUP]": "Required configuration",
+					"[ADVANCED]": "Complex patterns",
+					"[MIGRATION]": "Version migration info"
+				}
+			},
+			"//--": {
+				"purpose": "Tech debt that needs fixing",
+				"placement": "WHERE the tech debt occurs (typically inside functions)",
+				"categories": {
+					"[WORKAROUND]": "Temporary fix",
+					"[LIMITATION]": "Known limitation",
+					"[OPTIMIZATION]": "Performance issue (e.g., recursion that should be loop)",
+					"[REFACTOR]": "Needs restructuring",
+					"[COMPATIBILITY]": "Compatibility issue"
+				},
+				"requirement": "MUST include reason WHY it's tech debt"
+			},
+			"//!!": {
+				"purpose": "Critical issues that BLOCK releases",
+				"placement": "Next to issue OR if file-wide: below imports, above description comment and function/component (blank lines above and below critical comment",
+				"categories": {
+					"[SECURITY]": "Security vulnerability",
+					"[PERFORMANCE]": "Severe performance problem",
+					"[CORRECTNESS]": "Produces wrong results",
+					"[INCOMPLETE]": "Missing critical functionality",
+					"[BREAKING]": "Will break in production"
+				}
+			},
+			"//>>": {
+				"purpose": "Links and references",
+				"placement": "In code if direct reference, or at bottom of file as 'see also' references",
+				"format": "//>> [CATEGORY] [Link text](url)",
+				"commonCategories": ["[NEXT]", "[PREV]", "[RELATED]", "[CANONICAL]", "[AUTHOR]"]
+			}
+		},
+		"commonMistakes": {
+			"wrongPlacement": "Putting //++ at file top instead of above the code element",
+			"groupingLines": "Trying to group multiple // lines (use /* */ instead)",
+			"missingDescription": "Not documenting exported elements",
+			"forcedComments": "Adding PRO/CON just because - only add if actually useful",
+			"wrongMargins": "Using * instead of | in block comments",
+			"noBrackets": "Missing brackets on categories like EXAMPLE instead of [EXAMPLE]"
+		},
+		"examples": {
+			"function": "//++ Converts string to uppercase\nexport function toUpper(str: string): string {",
+			"multiline": "/*++\n | Parses CSV files with:\n | * Header detection\n | * Unicode support\n */",
+			"withHelp": "//++ Adds two numbers\nfunction add(a: number, b: number): number {\n  return a + b\n}\n//?? [EXAMPLE] add(2, 3) // 5",
+			"group": "//++ [GROUP] Color constants\n//++ Primary color\nexport const PRIMARY = \"#007ACC\"\n//++ [END]"
+		}
 	},
 	"cognitiveLoad": {
 		"holyGrail": "COGNITIVE LOAD IS THE ENEMY. MINIMIZE IT AT ALL COSTS.",
