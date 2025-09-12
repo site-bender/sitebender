@@ -58,7 +58,7 @@ Scripts remain at the **root level** rather than inside individual packages beca
 ### 🧪 Test Utilities
 
 - `e2e.sh` - End-to-end test runner
-- `test-utilities.sh` - Test helper scripts
+- `testUtilities/index.sh` - Test helper scripts
 
 ### 🔧 Other Utilities
 
