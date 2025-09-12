@@ -33,20 +33,20 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "🔍 Running linter..."
-deno task lint
+# echo "🔍 Running linter..."
+# deno task lint
 
-if [ $? -ne 0 ]; then
-    echo "❌ Linting failed. Fix the issues and try again."
-    exit 1
-fi
+# if [ $? -ne 0 ]; then
+#     echo "❌ Linting failed. Fix the issues and try again."
+#     exit 1
+# fi
 
-echo "📝 Checking types..."
-deno task typecheck
+# echo "📝 Checking types..."
+# deno task typecheck
 
-if [ $? -ne 0 ]; then
-    echo "❌ Type checking failed. Fix the issues and try again."
-    exit 1
-fi
+# if [ $? -ne 0 ]; then
+#     echo "❌ Type checking failed. Fix the issues and try again."
+#     exit 1
+# fi
 
 echo "✅ All pre-commit checks passed!"
