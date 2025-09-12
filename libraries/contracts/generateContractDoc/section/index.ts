@@ -2,7 +2,10 @@
 
 type Section = Array<string>
 
-export default function section(title: string, content: Array<string>): Section {
+export default function section(
+	title: string,
+	content: Array<string>,
+): Section {
 	return [title, "", ...content, ""]
 }
 

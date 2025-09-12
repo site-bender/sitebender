@@ -3,6 +3,7 @@
 ## Problem Statement
 
 Previous Envoy implementation violated architectural boundaries by:
+
 1. Rewriting negotiated types midstream
 2. Using regex instead of Parser's AST output
 3. Faking tests to appear compliant
@@ -42,6 +43,7 @@ libraries/
 ```
 
 **Key Rules:**
+
 - Parser exports ONLY types from contracts/types/
 - Parser NEVER exports TypeScript compiler or ts-morph
 - Envoy/Prover import ONLY from parser/contracts/types/
@@ -100,91 +102,91 @@ libraries/
 ```json
 // libraries/docs/contract.json
 {
-  "version": "1.0.0",
-  "lastUpdated": "2025-09-11",
-  "libraries": {
-    "parser": {
-      "purpose": "Single source of truth for TypeScript/JSX parsing",
-      "exports": {
-        "allowed": [
-          "parseTypeScriptFile",
-          "parseTypeScriptProject",
-          "ContractValidatedOutput type",
-          "ParsedData type"
-        ],
-        "forbidden": [
-          "TypeScript compiler",
-          "ts-morph",
-          "Raw AST nodes",
-          "Internal parsing functions"
-        ]
-      }
-    },
-    "envoy": {
-      "purpose": "Generate documentation from Parser output only",
-      "imports": {
-        "allowed": [
-          "@sitebender/parser/contracts/types"
-        ],
-        "forbidden": [
-          "typescript",
-          "ts-morph",
-          "@typescript/vfs",
-          "fs (for reading source files)",
-          "Any parsing libraries"
-        ]
-      },
-      "patterns": {
-        "forbidden": [
-          {
-            "pattern": "import.*typescript",
-            "reason": "Must use Parser output only"
-          },
-          {
-            "pattern": "readFileSync.*\\.ts",
-            "reason": "Cannot read source files directly"
-          },
-          {
-            "pattern": "regex.*parse.*ts|tsx",
-            "reason": "No regex parsing of TypeScript"
-          },
-          {
-            "pattern": "type\\s+\\w+\\s+=\\s+(Omit|Pick|Partial)<.*ParsedData",
-            "reason": "Cannot redefine Parser types"
-          }
-        ]
-      }
-    },
-    "prover": {
-      "purpose": "Generate tests from Parser output only",
-      "imports": {
-        "allowed": [
-          "@sitebender/parser/contracts/types"
-        ],
-        "forbidden": [
-          "typescript",
-          "ts-morph",
-          "fs (for reading source files)"
-        ]
-      }
-    }
-  },
-  "enforcement": {
-    "compile-time": [
-      "Type-only imports enforce boundaries",
-      "Contract types prevent invalid operations"
-    ],
-    "runtime": [
-      "Version validation on every consume",
-      "Data integrity checksums",
-      "Frozen objects prevent modification"
-    ],
-    "test-time": [
-      "Grep for forbidden patterns",
-      "Validate contract compliance",
-      "Check for backdoors"
-    ]
-  }
+	"version": "1.0.0",
+	"lastUpdated": "2025-09-11",
+	"libraries": {
+		"parser": {
+			"purpose": "Single source of truth for TypeScript/JSX parsing",
+			"exports": {
+				"allowed": [
+					"parseTypeScriptFile",
+					"parseTypeScriptProject",
+					"ContractValidatedOutput type",
+					"ParsedData type"
+				],
+				"forbidden": [
+					"TypeScript compiler",
+					"ts-morph",
+					"Raw AST nodes",
+					"Internal parsing functions"
+				]
+			}
+		},
+		"envoy": {
+			"purpose": "Generate documentation from Parser output only",
+			"imports": {
+				"allowed": [
+					"@sitebender/parser/contracts/types"
+				],
+				"forbidden": [
+					"typescript",
+					"ts-morph",
+					"@typescript/vfs",
+					"fs (for reading source files)",
+					"Any parsing libraries"
+				]
+			},
+			"patterns": {
+				"forbidden": [
+					{
+						"pattern": "import.*typescript",
+						"reason": "Must use Parser output only"
+					},
+					{
+						"pattern": "readFileSync.*\\.ts",
+						"reason": "Cannot read source files directly"
+					},
+					{
+						"pattern": "regex.*parse.*ts|tsx",
+						"reason": "No regex parsing of TypeScript"
+					},
+					{
+						"pattern": "type\\s+\\w+\\s+=\\s+(Omit|Pick|Partial)<.*ParsedData",
+						"reason": "Cannot redefine Parser types"
+					}
+				]
+			}
+		},
+		"prover": {
+			"purpose": "Generate tests from Parser output only",
+			"imports": {
+				"allowed": [
+					"@sitebender/parser/contracts/types"
+				],
+				"forbidden": [
+					"typescript",
+					"ts-morph",
+					"fs (for reading source files)"
+				]
+			}
+		}
+	},
+	"enforcement": {
+		"compile-time": [
+			"Type-only imports enforce boundaries",
+			"Contract types prevent invalid operations"
+		],
+		"runtime": [
+			"Version validation on every consume",
+			"Data integrity checksums",
+			"Frozen objects prevent modification"
+		],
+		"test-time": [
+			"Grep for forbidden patterns",
+			"Validate contract compliance",
+			"Check for backdoors"
+		]
+	}
 }
 ```
 
@@ -194,43 +196,49 @@ libraries/
 // libraries/tests/contract-enforcement/index.test.ts
 
 Deno.test("Envoy does not import TypeScript compiler", async () => {
-  const envoyFiles = await getAllFilesIn("libraries/envoy")
-  for (const file of envoyFiles) {
-    const content = await Deno.readTextFile(file)
-    assertNotMatch(content, /import.*typescript/)
-    assertNotMatch(content, /from\s+['"]typescript['"]/)
-  }
+	const envoyFiles = await getAllFilesIn("libraries/envoy")
+	for (const file of envoyFiles) {
+		const content = await Deno.readTextFile(file)
+		assertNotMatch(content, /import.*typescript/)
+		assertNotMatch(content, /from\s+['"]typescript['"]/)
+	}
 })
 
 Deno.test("Parser does not re-export TypeScript compiler", async () => {
-  const parserIndex = await Deno.readTextFile("libraries/parser/index.ts")
-  assertNotMatch(parserIndex, /export.*from.*typescript/)
+	const parserIndex = await Deno.readTextFile("libraries/parser/index.ts")
+	assertNotMatch(parserIndex, /export.*from.*typescript/)
 })
 
 Deno.test("Envoy only imports from Parser contracts", async () => {
-  const envoyFiles = await getAllFilesIn("libraries/envoy")
-  for (const file of envoyFiles) {
-    const content = await Deno.readTextFile(file)
-    // Check all imports from parser
-    const parserImports = content.matchAll(/from\s+['"]@sitebender\/parser([^'"]*)['"])/g)
-    for (const match of parserImports) {
-      assertEquals(match[1], "/contracts/types", `Invalid Parser import in ${file}`)
-    }
-  }
+	const envoyFiles = await getAllFilesIn("libraries/envoy")
+	for (const file of envoyFiles) {
+		const content = await Deno.readTextFile(file)
+		// Check all imports from parser
+		const parserImports = content.matchAll(
+			/from\s+['"]@sitebender\/parser([^'"]*)['"])/g,
+		)
+		for (const match of parserImports) {
+			assertEquals(
+				match[1],
+				"/contracts/types",
+				`Invalid Parser import in ${file}`,
+			)
+		}
+	}
 })
 
 Deno.test("Contract validation actually runs", () => {
-  const mockInput = {
-    contractVersion: "0.0.0", // Wrong version
-    data: {},
-    validate: () => true
-  }
-  
-  assertThrows(
-    () => generateDocumentation(mockInput as any),
-    Error,
-    "Contract version mismatch"
-  )
+	const mockInput = {
+		contractVersion: "0.0.0", // Wrong version
+		data: {},
+		validate: () => true,
+	}
+
+	assertThrows(
+		() => generateDocumentation(mockInput as any),
+		Error,
+		"Contract version mismatch",
+	)
 })
 ```
 
@@ -239,26 +247,29 @@ Deno.test("Contract validation actually runs", () => {
 ```typescript
 // libraries/parser/seal/index.ts
 export function sealOutput<T>(data: T): Readonly<T> {
-  // Deep freeze the entire object tree
-  return deepFreeze(data)
+	// Deep freeze the entire object tree
+	return deepFreeze(data)
 }
 
 function deepFreeze<T>(obj: T): Readonly<T> {
-  Object.freeze(obj)
-  Object.getOwnPropertyNames(obj).forEach(prop => {
-    if (obj[prop] !== null
-        && (typeof obj[prop] === "object" || typeof obj[prop] === "function")
-        && !Object.isFrozen(obj[prop])) {
-      deepFreeze(obj[prop])
-    }
-  })
-  return obj as Readonly<T>
+	Object.freeze(obj)
+	Object.getOwnPropertyNames(obj).forEach((prop) => {
+		if (
+			obj[prop] !== null &&
+			(typeof obj[prop] === "object" || typeof obj[prop] === "function") &&
+			!Object.isFrozen(obj[prop])
+		) {
+			deepFreeze(obj[prop])
+		}
+	})
+	return obj as Readonly<T>
 }
 ```
 
 ### 6. Contract Manifesto Document
 
 Same approach as CLAUDE.md reorganization:
+
 - contract.json as source of truth
 - Generated contract.md for humans
 - Single source, no divergence
@@ -266,14 +277,16 @@ Same approach as CLAUDE.md reorganization:
 ## Boundary Lines (To Be Defined)
 
 ### Parser Responsibilities
+
 - **OWNS**: TypeScript compiler interaction
-- **OWNS**: AST parsing and traversal  
+- **OWNS**: AST parsing and traversal
 - **OWNS**: Type extraction and analysis
 - **OWNS**: Comment extraction for Envoy
 - **PROVIDES**: Normalized, validated data structure
 - **NEVER**: Generates documentation or tests
 
 ### Envoy Responsibilities
+
 - **OWNS**: Documentation generation
 - **OWNS**: Markdown/HTML output formatting
 - **OWNS**: Graph visualization
@@ -281,7 +294,8 @@ Same approach as CLAUDE.md reorganization:
 - **NEVER**: Parses TypeScript/JSX directly
 - **NEVER**: Accesses file system for source files
 
-### Prover Responsibilities  
+### Prover Responsibilities
+
 - **OWNS**: Test generation logic
 - **OWNS**: Property-based testing strategies
 - **OWNS**: Coverage analysis
@@ -290,6 +304,7 @@ Same approach as CLAUDE.md reorganization:
 - **NEVER**: Accesses file system for source files
 
 ### Foundry Responsibilities (Potential)
+
 - **OWNS**: Fake data generation
 - **OWNS**: Arbitrary value generation for types
 - **CONSUMES**: Parser's type information
@@ -303,7 +318,7 @@ Same approach as CLAUDE.md reorganization:
 4. Add contract enforcement tests
 5. Update Parser to export only contract-compliant API
 6. Update Envoy to consume only contract API
-7. Update Prover to consume only contract API  
+7. Update Prover to consume only contract API
 8. Run enforcement tests to verify compliance
 9. Generate contract.md from contract.json
 

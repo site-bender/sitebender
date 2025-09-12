@@ -1,6 +1,6 @@
 import type { Either, Left } from "../../../types/fp/either/index.ts"
 
-//++ Creates a Left value representing the error/failure case in an Either
+//++ Creates a Left value (the Left branch of an Either)
 export default function left<E, A = never>(value: E): Either<E, A> {
 	return {
 		_tag: "Left" as const,
@@ -37,9 +37,10 @@ export default function left<E, A = never>(value: E): Either<E, A> {
  | const emailError = validationFail("email")("Invalid format")
  | // Left({ field: "email", message: "Invalid format" })
  |
- | [PRO] Short-circuits subsequent map/chain operations
- | [PRO] Type-safe error representation
- | [PRO] Enables railway-oriented programming
- | [GOTCHA] Type parameter A (success type) defaults to never
+ | [PRO] Short-circuits Right-branch transformations (map/chain) by design
+ | [PRO] Type-safe Left branch representation (often used for alternate path / problem info)
+ | [PRO] Works in "railway" style pipelines without throwing
+ | [GOTCHA] Left does not intrinsically mean error; it is just a branch
+ | [GOTCHA] Type parameter A (Right branch type) defaults to never; specify when constructing generic pipelines
  |
 */

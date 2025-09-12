@@ -1,7 +1,7 @@
 import type { Acc } from "../../types/index.ts"
 
-import map from "../../../../../../toolkit/src/simple/array/map/index.ts"
-import slice from "../../../../../../toolkit/src/simple/array/slice/index.ts"
+import map from "../../../../../../toolkit/src/vanilla/array/map/index.ts"
+import slice from "../../../../../../toolkit/src/vanilla/array/slice/index.ts"
 import consumeContiguous from "../../consumeContiguous/index.ts"
 
 //++ Handle leading group of //++ lines capturing first as description

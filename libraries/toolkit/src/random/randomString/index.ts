@@ -1,5 +1,5 @@
-import isEmpty from "../../simple/validation/isEmpty/index.ts"
-import isNullish from "../../simple/validation/isNullish/index.ts"
+import isEmpty from "../../vanilla/validation/isEmpty/index.ts"
+import isNullish from "../../vanilla/validation/isNullish/index.ts"
 
 //++ Generates a random string of specified length from a character set
 export default function randomString(

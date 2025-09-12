@@ -158,7 +158,7 @@ Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPT
 **Requirement**: Every function in its own folder with index.ts
 
 **Example**:
-- ✅ Correct: `libraries/toolkit/src/simple/string/chomp/index.ts`
+- ✅ Correct: `libraries/toolkit/src/vanilla/string/chomp/index.ts`
 - ❌ Incorrect: Multiple functions in one file
 
 

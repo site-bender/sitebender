@@ -24,7 +24,7 @@ For the toolkit (and eventually all libraries), we're implementing automatic tes
 
 ```typescript
 // Input: Any function
-import map from "libraries/toolkit/src/simple/array/map"
+import map from "libraries/toolkit/src/vanilla/array/map"
 
 // Generator automatically creates:
 - Property tests (functor laws, length preservation)
