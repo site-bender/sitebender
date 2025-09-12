@@ -171,7 +171,7 @@ import helper from "../helper/index.ts"
 // ✅ CORRECT - External dependencies from toolkit monads
 import type { Result } from "@sitebender/toolkit/monads/types/fp/result/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
-import map from "@sitebender/toolkit/simple/array/map/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
 
 // ❌ WRONG - Old guess about toolkit structure
 import { err, ok, Result } from "@sitebender/toolkit/types/fp/result/index.ts"
@@ -185,7 +185,7 @@ import { generateInteger } from "@sitebender/foundry"
 **The Toolkit Structure:**
 
 - **monads/** - Full monad implementations (Result, Either, Maybe, State, Task, etc.)
-- **simple/** - Pure functional utilities organized by category (array/, math/, string/, etc.)
+- **vanilla/** - Pure functional utilities organized by category (array/, math/, string/, etc.)
 - **lifted/** - TK2's work - monadic wrappers for simple functions
 - **types/** - Type definitions including monad types
 
@@ -446,9 +446,9 @@ array.filter(pred)
 array.reduce(fn)
 
 // ✅ CORRECT - Toolkit functions
-import map from "@sitebender/toolkit/simple/array/map/index.ts"
-import filter from "@sitebender/toolkit/simple/array/filter/index.ts"
-import reduce from "@sitebender/toolkit/simple/array/reduce/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
 
 map(fn)(array)
 filter(pred)(array)
@@ -479,7 +479,7 @@ reduce(fn)(initial)(array)
 - **Use fold for Result extraction** - `fold<E, B>(onErr)(onOk)(result)`
 - **Import individual functions** - `import ok from ".../ok/index.ts"` not barrel imports
 - **Check monads/ for Result functions** - isOk, isErr, fold, chain, map, etc.
-- **Use simple/ for array operations** - reduce, map, filter, range from toolkit
+- **Use vanilla/ for array operations** - reduce, map, filter, range from toolkit
 
 ### FINAL WARNINGS
 

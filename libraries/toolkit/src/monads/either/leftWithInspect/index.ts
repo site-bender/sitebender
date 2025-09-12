@@ -1,21 +1,24 @@
 import type { Either } from "../../../types/fp/either/index.ts"
 
 import withInspect from "../../../debug/withInspect/index.ts"
-import isNullish from "../../../simple/validation/isNullish/index.ts"
+import isNullish from "../../../vanilla/validation/isNullish/index.ts"
 import left from "../left/index.ts"
 
-//++ Creates a Left value with enhanced debugging output for better console logging
+//++ Creates a Left value with enhanced debugging output (console-friendly)
 export default function leftWithInspect<E, A = never>(value: E): Either<E, A> {
 	const formatValue = (v: unknown): string => {
 		if (v instanceof Error) {
 			return `${v.name}: ${v.message}`
 		}
+
 		if (typeof v === "string") {
 			return JSON.stringify(v)
 		}
+
 		if (isNullish(v)) {
 			return String(v)
 		}
+
 		try {
 			return JSON.stringify(v)
 		} catch {
@@ -42,7 +45,7 @@ export default function leftWithInspect<E, A = never>(value: E): Either<E, A> {
  |   )
  | ) // "Failed: error"
  |
- | [PRO] Better debugging with nice console output for Either values
- | [GOTCHA] Adds inspection method which is impure - use regular left() for pure FP
+ | [PRO] Improved inspect/console output for Left values
+ | [GOTCHA] Adds inspection side-channel (impure); prefer plain left() for strict purity
  |
 */

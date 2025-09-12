@@ -8,9 +8,7 @@ Revolutionary test generator achieving 100% coverage automatically. Generates co
 
 ## Public API
 
-
 ### Exported Functions
-
 
 #### `generateTests`
 
@@ -37,7 +35,6 @@ Generate property-based tests for a function
 Analyze code paths and branch coverage requirements
 
 ### Exported Types
-
 
 #### `TestSuite`
 
@@ -91,7 +88,6 @@ Coverage analysis for code
 
 ## Responsibilities
 
-
 ### Prover Owns
 
 - Test generation logic
@@ -121,7 +117,6 @@ Coverage analysis for code
 
 ## Implementation Rules
 
-
 ### Allowed Operations
 
 - ✅ Import from @sitebender/parser/exports/types
@@ -142,15 +137,12 @@ Coverage analysis for code
 
 Every input to Prover must:
 
-
-
 - Must validate contract version
 - Must check input.validate() before processing
 - Must handle frozen/immutable data
 - Must not attempt to modify input
 
 ## Validation Layers
-
 
 ### Compile-Time Validation
 
@@ -171,7 +163,6 @@ Every input to Prover must:
 - 100% coverage achieved
 
 ## Dependencies
-
 
 ### Allowed dependencies:
 

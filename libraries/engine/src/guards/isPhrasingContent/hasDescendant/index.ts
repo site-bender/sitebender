@@ -1,7 +1,7 @@
 import type { ElementConfig } from "@sitebender/engine/constructors/elements/types/index.ts"
 
-import find from "@sitebender/toolkit/simple/array/find/index.ts"
-import includes from "@sitebender/toolkit/simple/array/includes/index.ts"
+import find from "@sitebender/toolkit/vanilla/array/find/index.ts"
+import includes from "@sitebender/toolkit/vanilla/array/includes/index.ts"
 
 import flatMapDescendants from "./flatMapDescendants/index.ts"
 

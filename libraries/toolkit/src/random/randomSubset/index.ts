@@ -1,4 +1,4 @@
-import isNullish from "../../simple/validation/isNullish/index.ts"
+import isNullish from "../../vanilla/validation/isNullish/index.ts"
 import randomInteger from "../randomInteger/index.ts"
 
 //++ Selects a random subset from an Array or Set

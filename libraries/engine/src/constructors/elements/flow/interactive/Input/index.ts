@@ -2,7 +2,7 @@ import type { Value } from "@sitebender/engine-types/index.ts"
 
 import { isValue } from "@sitebender/engine-types/index.ts"
 import getId from "@sitebender/engine/constructors/helpers/getId/index.ts"
-import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
+import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts"
 
 import type { ElementAttributes } from "../../../types/index.ts"
 import type { ElementConfig } from "../../../types/index.ts"
