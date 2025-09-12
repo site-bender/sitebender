@@ -16,7 +16,7 @@
 	},
 	"commandments": [
 		{
-			"id": 1,
+			"key": "no-delete-without-permission",
 			"title": "Thou shalt not delete files without explicit permission",
 			"details": [
 				"No git clean without written consent",
@@ -25,7 +25,7 @@
 			]
 		},
 		{
-			"id": 2,
+			"key": "no-tech-debt",
 			"title": "Thou shalt not create tech debt",
 			"details": [
 				"No 'fix later' comments",
@@ -34,7 +34,7 @@
 			]
 		},
 		{
-			"id": 3,
+			"key": "test-behaviors",
 			"title": "Thou shalt test behaviors, not implementations",
 			"details": [
 				"Users don't care about your private methods",
@@ -42,15 +42,7 @@
 			]
 		},
 		{
-			"id": 4,
-			"title": "Thou shalt make everything work without JavaScript",
-			"details": [
-				"If it breaks in Lynx, it's broken",
-				"Progressive enhancement isn't optional"
-			]
-		},
-		{
-			"id": 5,
+			"key": "functional-programming",
 			"title": "Thou shalt maintain strict functional programming",
 			"details": [
 				"No classes, no exceptions",
@@ -59,7 +51,7 @@
 			]
 		},
 		{
-			"id": 6,
+			"key": "single-responsibility",
 			"title": "Thou shalt organize by single responsibility",
 			"details": [
 				"One function per file",
@@ -68,7 +60,7 @@
 			]
 		},
 		{
-			"id": 7,
+			"key": "envoy-documentation",
 			"title": "Thou shalt document with Envoy comments",
 			"details": [
 				"Every function, every time",
@@ -77,16 +69,7 @@
 			]
 		},
 		{
-			"id": 8,
-			"title": "Thou shalt respect accessibility",
-			"details": [
-				"WCAG 2.3 AAA or better",
-				"Screen readers are first-class citizens",
-				"Keyboard navigation for everything"
-			]
-		},
-		{
-			"id": 9,
+			"key": "atomic-commits",
 			"title": "Thou shalt commit atomically",
 			"details": [
 				"Small, focused changes",
@@ -96,79 +79,25 @@
 			]
 		},
 		{
-			"id": 10,
+			"key": "ask-when-uncertain",
 			"title": "Thou shalt ask when uncertain",
 			"details": [
 				"Better to ask than assume",
 				"Better to clarify than cleanup",
 				"Better to be slow and right"
 			]
+		},
+		{
+			"key": "no-web-components",
+			"title": "Thou shalt NEVER use Web Components",
+			"details": [
+				"Web Components do not work without JavaScript - FATAL FLAW",
+				"Shadow DOM is a catastrophe",
+				"They violate our progressive enhancement philosophy",
+				"No exceptions, no matter how tempting"
+			]
 		}
 	],
-	"progressiveEnhancement": {
-		"layers": [
-			{
-				"level": 1,
-				"name": "Semantic HTML",
-				"description": "Works in Lynx, Mosaic, everything",
-				"requirement": "This is the foundation"
-			},
-			{
-				"level": 2,
-				"name": "Styled with CSS",
-				"description": "Beautiful, responsive, themed",
-				"requirement": "But works without it"
-			},
-			{
-				"level": 3,
-				"name": "Full Enhancement",
-				"description": "JavaScript enriches the experience",
-				"requirement": "But is never required"
-			}
-		],
-		"unbreakableRules": [
-			{
-				"rule": "Forms work without JavaScript",
-				"details": [
-					"Standard POST/GET submissions",
-					"Server-side validation",
-					"No AJAX-only endpoints"
-				]
-			},
-			{
-				"rule": "Navigation works without JavaScript",
-				"details": [
-					"Real links to real pages",
-					"No SPA-only routes",
-					"Back button always works"
-				]
-			},
-			{
-				"rule": "Content is accessible without CSS",
-				"details": [
-					"Semantic HTML structure",
-					"Logical reading order",
-					"No layout-dependent content"
-				]
-			},
-			{
-				"rule": "Everything has keyboard access",
-				"details": [
-					"Tab order makes sense",
-					"Focus indicators visible",
-					"No mouse-only interactions"
-				]
-			},
-			{
-				"rule": "Offline-first, online-enhanced",
-				"details": [
-					"CRDTs for eventual consistency (see libraries/mesh)",
-					"IndexedDB for complex state",
-					"Service workers for caching"
-				]
-			}
-		]
-	},
 	"codeOrganization": {
 		"laws": [
 			{
@@ -247,6 +176,12 @@
 		]
 	},
 	"imports": {
+		"externalDependencies": {
+			"rule": "ONLY Parser and Mesh can reach outside the project",
+			"parser": "Can import TypeScript compiler ONLY",
+			"mesh": "Can connect to distributed services (IPFS, Solid, etc.)",
+			"allOthers": "ZERO external dependencies. NO EXCEPTIONS."
+		},
 		"realms": {
 			"libraries": {
 				"internal": "ALWAYS relative within the library",
@@ -485,6 +420,7 @@
 		}
 	},
 	"envoyComments": {
+		"note": "See libraries/envoy/docs/comment-syntax-guide.md for complete guide",
 		"//": "regular comment (not part of docs)",
 		"//++": "description of the function/component/constant/type",
 		"//--": "tech debt",

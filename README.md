@@ -4,6 +4,24 @@
 
 ![Header](./github-sitebender-banner.png)
 
+## 🤖 Critical Instructions for AI Assistants
+
+**MANDATORY**: Before working in ANY directory, you MUST:
+1. Check for a `rules/index.json` file in the current working directory
+2. Recursively check ALL parent directories up to the project root for `rules/index.json` files
+3. Load and merge all discovered rules files (deeper rules override shallower ones)
+4. Apply ALL collected rules to your work in that directory
+
+Example: When working in `/libraries/toolkit/src/functions/`, you must load and obey:
+- `/rules/index.json` (project-wide rules)
+- `/libraries/rules/index.json` (if it exists - library-specific rules)
+- `/libraries/toolkit/rules/index.json` (if it exists - toolkit-specific rules)
+- And any other `rules/index.json` files in the path hierarchy
+
+These rules are NOT suggestions. They are requirements. Violating them creates technical debt and breaks the project's architecture.
+
+## Overview
+
 A zero-dependency ecosystem of nine functional programming libraries that form a fully accessible, progressive enhancement-first web application framework where everything **on the client** works without JavaScript. Revolutionary tooling automatically generates 100% test coverage (Prover) and documentation from code (Envoy). Every line verified, tested, and documented. No assumptions, no shortcuts, no tech debt.
 
 ## Philosophy
