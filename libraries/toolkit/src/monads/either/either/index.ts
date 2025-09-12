@@ -2,7 +2,7 @@ import type { Either } from "../../../types/fp/either/index.ts"
 
 import fold from "../fold/index.ts"
 
-//++ Pattern matches on an Either value with named handlers (alias for fold)
+//++ Alias of fold with more intention-revealing parameter names
 export default function either<E, A, B>(leftHandler: (e: E) => B) {
 	return function eitherRight(rightHandler: (a: A) => B) {
 		return function eitherValue(either: Either<E, A>): B {
@@ -23,7 +23,10 @@ export default function either<E, A, B>(leftHandler: (e: E) => B) {
  | toNullable(right(42))     // 42
  | toNullable(left("error")) // null
  |
- | [PRO] Clearer parameter names than fold for pattern matching
- | [PRO] Useful for converting Either to other types (Promise, nullable, etc.)
+ | [PRO] Semantically expressive alias (leftHandler/rightHandler naming)
+ | [PRO] Bridges Either into nullable, boolean, Promise, etc.
+ | [PRO] Defers to fold implementation (no extra runtime cost)
  |
-*/
+ | [GOTCHA] Order of handlers mirrors fold(leftFn)(rightFn)
+ | [GOTCHA] Keep handlers side-effect free; fold/either may be called multiple times in debugging
+ */

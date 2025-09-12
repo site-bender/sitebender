@@ -1,6 +1,6 @@
 import type { Either, Right } from "../../../types/fp/either/index.ts"
 
-//++ Type guard that checks if an Either is a Right (success) value
+//++ Type guard that checks if an Either is a Right branch value
 export default function isRight<E, A>(
 	either: Either<E, A>,
 ): either is Right<A> {
@@ -19,6 +19,7 @@ export default function isRight<E, A>(
  | }
  |
  | [PRO] Type narrows in conditionals for safe property access
- | [PRO] Useful with filter/some/every for checking multiple Eithers
+ | [PRO] Useful with filter/some/every to collect Right values
+ | [GOTCHA] Right does not inherently mean success; naming is conventional only
  |
 */

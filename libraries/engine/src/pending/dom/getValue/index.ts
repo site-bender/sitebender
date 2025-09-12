@@ -1,6 +1,6 @@
-import not from "@sitebender/toolkit/simple/logic/not/index.ts"
-import isDefined from "@sitebender/toolkit/simple/validation/isDefined/index.ts"
-import isUndefined from "@sitebender/toolkit/simple/validation/isUndefined/index.ts"
+import not from "@sitebender/toolkit/vanilla/logic/not/index.ts"
+import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts"
+import isUndefined from "@sitebender/toolkit/vanilla/validation/isUndefined/index.ts"
 
 import type { ElementConfig } from "../../../constructors/elements/types/index.ts"
 

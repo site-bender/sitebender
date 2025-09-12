@@ -26,7 +26,14 @@
 			"libraries": ["parser"],
 			"rules": {
 				"canDepend": ["toolkit", "foundry"],
-				"cannotDepend": ["envoy", "prover", "components", "engine", "maths", "mesh"],
+				"cannotDepend": [
+					"envoy",
+					"prover",
+					"components",
+					"engine",
+					"maths",
+					"mesh"
+				],
 				"canBeUsedBy": ["envoy", "prover", "engine", "maths"]
 			}
 		},
@@ -101,7 +108,11 @@
 		"5": {
 			"name": "Applications",
 			"description": "End-user applications",
-			"libraries": ["applications/docs", "applications/playground", "applications/web3-lab"],
+			"libraries": [
+				"applications/docs",
+				"applications/playground",
+				"applications/web3-lab"
+			],
 			"rules": {
 				"canDepend": ["ALL @sitebender libraries"],
 				"cannotDepend": ["OTHER applications"],
@@ -119,15 +130,36 @@
 		},
 		"foundry": {
 			"canImport": [],
-			"canBeImportedBy": ["parser", "envoy", "prover", "engine", "mesh", "applications"],
+			"canBeImportedBy": [
+				"parser",
+				"envoy",
+				"prover",
+				"engine",
+				"mesh",
+				"applications"
+			],
 			"forbiddenImports": ["*"],
 			"publicAPI": "libraries/foundry/exports/",
 			"internalPath": "libraries/foundry/internal/"
 		},
 		"parser": {
 			"canImport": ["toolkit", "foundry"],
-			"canBeImportedBy": ["envoy", "prover", "components", "engine", "maths", "applications"],
-			"forbiddenImports": ["envoy", "prover", "components", "engine", "maths", "mesh"],
+			"canBeImportedBy": [
+				"envoy",
+				"prover",
+				"components",
+				"engine",
+				"maths",
+				"applications"
+			],
+			"forbiddenImports": [
+				"envoy",
+				"prover",
+				"components",
+				"engine",
+				"maths",
+				"mesh"
+			],
 			"publicAPI": "libraries/parser/exports/",
 			"internalPath": "libraries/parser/internal/",
 			"exports": {
