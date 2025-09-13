@@ -1,4 +1,4 @@
-# libraries/components Rules
+# Components rules
 
 > **GENERATED FILE - DO NOT EDIT**
 >
@@ -6,53 +6,55 @@
 > To make changes, edit the JSON file and run `deno task generate-rules`.
 
 **Version**: 1.0.0\
-**Last Updated**: 2025-01-12\
-**Author**: The Architect
-
-**Description**: Rules specific to the Components library
-
-**Inherits from**: `/rules/index.json`
-
-## Table of Contents
-
-1. [Commandments](#commandments)
-2. [Progressive Enhancement](#progressive-enhancement)
-3. [Responsive Design](#responsive-design)
+**Last updated**: 2025-01-12\
+**Author**: The Architect\
+**Scope**: libraries/components\
+**Description**: Rules specific to the Components library\
+**Inherits**: /rules/index.json
 
 ## Commandments
 
-### [progressive-enhancement] Thou shalt generate HTML that works without client-side JavaScript
+1. **Key**: progressive-enhancement
 
-- Components must output semantic HTML
+**Title**: Thou shalt generate HTML that works without client-side JavaScript
+
+**Details**: - Components must output semantic HTML
+
 - Generated forms must use standard HTML form elements
 - Output must include server-side functionality patterns
 - No client-side-JavaScript-only components
 
-### [respect-accessibility] Thou shalt respect accessibility
+2. **Key**: respect-accessibility
 
-- WCAG 2.3 AAA or better
+**Title**: Thou shalt respect accessibility
+
+**Details**: - WCAG 2.3 AAA or better
+
 - ARIA attributes properly applied
 - Screen readers are first-class citizens
 - Keyboard navigation for everything
 
-## Progressive Enhancement
+## Progressive enhancement
 
-### Component Requirements
+**Component requirements**: - Components must compile to HTML that works without client-side JS
 
-- Components must compile to HTML that works without client-side JS
 - Generated HTML must support standard form submissions
 - Output validation patterns that work server-side
 - Compile to semantic HTML with proper ARIA attributes
 - Interactive components must generate keyboard-navigable HTML
 - Client-side JavaScript enhances the generated HTML, never replaces it
 
-## Responsive Design
+## Responsive design
 
-### Requirements
+**Requirements**: - Components must be responsive by default
 
-- Components must be responsive by default
 - Use relative units (rem, em, %, vw/vh) not fixed pixels for layout
 - Provide responsive prop options for different breakpoints
 - Support fluid typography that scales with viewport
 - Grid and flex layouts that reflow naturally
 - Never assume a fixed screen size
+
+---
+
+**Generated from**: `libraries/components/rules/index.json`\
+**Generated on**: 2025-09-13T00:08:35.371Z

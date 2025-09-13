@@ -7,10 +7,10 @@ import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { CoverArtType } from "./CoverArt/index.ts"
 
-import { Distance as DistanceComponent } from "../../../../../components/index.tsx"
-import { Mass as MassComponent } from "../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
+import DistanceComponent from "../../../../../../components/src/define/Thing/Intangible/Quantity/Distance/index.tsx"
+import MassComponent from "../../../../../../components/src/define/Thing/Intangible/Quantity/Mass/index.tsx"
+import QuantitativeValueComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import PersonComponent from "../../../../../../components/src/define/Thing/Person/index.tsx"
 
 export type VisualArtworkType = "VisualArtwork" | CoverArtType
 

@@ -6,9 +6,9 @@ import type Person from "../../../Person/index.ts"
 import type { EventProps } from "../../index.ts"
 import type { UserInteractionProps } from "../index.ts"
 
-import { CreativeWork as CreativeWorkComponent } from "../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import CreativeWorkComponent from "../../../../../../src/define/Thing/CreativeWork/index.tsx"
+import OrganizationComponent from "../../../../../../src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../src/define/Thing/Person/index.tsx"
 
 export type UserCommentsType = "UserComments"
 

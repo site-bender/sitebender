@@ -6,8 +6,8 @@ import type PostalAddress from "../ContactPoint/PostalAddress/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type { GeoCircleType } from "./GeoCircle/index.ts"
 
-import { Country as CountryComponent } from "../../../../../../components/index.tsx"
-import { PostalAddress as PostalAddressComponent } from "../../../../../../components/index.tsx"
+import PostalAddressComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
+import CountryComponent from "../../../../../../../components/src/define/Thing/Place/AdministrativeArea/Country/index.tsx"
 
 export type GeoShapeType = "GeoShape" | GeoCircleType
 

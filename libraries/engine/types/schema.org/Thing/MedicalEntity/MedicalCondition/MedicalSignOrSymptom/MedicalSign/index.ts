@@ -6,7 +6,7 @@ import type { MedicalConditionProps } from "../../index.ts"
 import type { MedicalSignOrSymptomProps } from "../index.ts"
 import type { VitalSignType } from "./VitalSign/index.ts"
 
-import { MedicalTest as MedicalTestComponent } from "../../../../../../../components/index.tsx"
+import MedicalTestComponent from "../../../../../../../../components/src/define/Thing/MedicalEntity/MedicalTest/index.tsx"
 import { PhysicalExam as PhysicalExamComponent } from "../../../../../../../components/index.tsx"
 
 export type MedicalSignType = "MedicalSign" | VitalSignType

@@ -1,12 +1,12 @@
 import type {
 	IsSameTimeComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * IsSameTime JSX Component
  */
-import IsSameTimeConstructor from "@sitebender/engine/constructors/comparators/time/IsSameTime/index.ts"
+import IsSameTimeConstructor from "../../../../../engine/src/constructors/comparators/time/IsSameTime/index.ts"
 
 export type Props = {
 	type?: "Time"

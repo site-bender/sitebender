@@ -1,12 +1,11 @@
-import { COUNTRY_AND_DIALING_CODES } from "@sitebender/toolkit/constants/dialing-codes/index.ts"
-
 import type {
 	Country,
 	CountryDialingOption,
 } from "../../../../../../types/components/forms/index.ts"
 
+import { COUNTRY_AND_DIALING_CODES } from "../../../../../../../toolkit/src/constants/dialing-codes/index.ts"
+import pipe from "../../../../../../../toolkit/src/vanilla/combinator/pipe/index.ts"
 import map from "../../../../../helpers/map/index.ts"
-import pipe from "../../../../../helpers/pipe/index.ts"
 import sort from "../../../../../helpers/sort/index.ts"
 import byCountryName from "./byCountryName/index.ts"
 import toCountryDialingOption from "./toCountryDialingOption/index.ts"

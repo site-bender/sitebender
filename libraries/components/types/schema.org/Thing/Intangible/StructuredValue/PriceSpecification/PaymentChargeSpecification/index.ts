@@ -5,8 +5,8 @@ import type PaymentMethod from "../../../PaymentMethod/index.ts"
 import type { StructuredValueProps } from "../../index.ts"
 import type { PriceSpecificationProps } from "../index.ts"
 
-import { DeliveryMethod as DeliveryMethodComponent } from "../../../../../../../components/index.tsx"
-import { PaymentMethod as PaymentMethodComponent } from "../../../../../../../components/index.tsx"
+import DeliveryMethodComponent from "../../../../../../../src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
+import PaymentMethodComponent from "../../../../../../../src/define/Thing/Intangible/PaymentMethod/index.tsx"
 
 export type PaymentChargeSpecificationType = "PaymentChargeSpecification"
 

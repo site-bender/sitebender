@@ -49,7 +49,7 @@ const set =
 
 		// Empty path means replace entire object
 		if (keys.length === 0) {
-			return value as T
+			return value as unknown as T
 		}
 
 		// Helper to determine if a key should create an array or object
@@ -80,22 +80,22 @@ const set =
 				const index = typeof key === "number" ? key : parseInt(String(key), 10)
 				if (isNaN(index)) {
 					// Key is not numeric for array, convert to object
-					const obj: Record<string, Value> = initializedCurrent
-						.reduce(
-							(acc, val, i) => {
-								;(acc as Record<string, Value>)[String(i)] = val as Value
-								return acc
-							},
-							{} as Record<string, Value>,
-						)
+					const obj: Record<string, Value> = initializedCurrent.reduce(
+						(acc: Record<string, Value>, val, i) => {
+							acc[String(i)] = val as Value
+							return acc
+						},
+						{} as Record<string, Value>,
+					)
+					const next = isLastKey ? value : setRecursive(obj[String(key)], rest)
 					return {
 						...obj,
-						[key]: isLastKey ? value : setRecursive(obj[key], rest),
+						[String(key)]: next as Value,
 					}
 				}
 
 				// Create new array with proper length
-				const extendedArray = Array(
+				const extendedArray: Array<Value> = Array(
 					Math.max(initializedCurrent.length, index + 1),
 				)
 					.fill(undefined)
@@ -111,25 +111,30 @@ const set =
 			// Handle objects
 			if (typeof initializedCurrent === "object") {
 				const strKey = String(key)
-				return {
-					...initializedCurrent,
-					[strKey]: isLastKey ? value : setRecursive(
-						(initializedCurrent as Record<string, Value>)[strKey],
-						rest,
-					),
-				}
+				const base: Record<string, Value> = initializedCurrent as Record<
+					string,
+					Value
+				>
+				const nextVal = isLastKey ? value : setRecursive(base[strKey], rest)
+				return { ...base, [strKey]: nextVal as Value }
 			}
 
 			// Current is a primitive, need to replace with object/array
-			const nextContainer = rest.length > 0 && shouldBeArray(rest[0]) ? [] : {}
-			return {
-				[key]: isLastKey ? value : setRecursive(nextContainer, rest),
+			const nextContainer: Record<string, Value> | Array<Value> =
+				rest.length > 0 && shouldBeArray(rest[0]) ? [] : {}
+			const filled = isLastKey ? value : setRecursive(nextContainer, rest)
+			if (Array.isArray(nextContainer)) {
+				const result: Record<string, Value> = {}
+				result[String(key)] = filled as Value
+				return result
 			}
+			return { [String(key)]: filled as Value }
 		}
 
 		// Start the recursive update
-		const startObj = obj && typeof obj === "object" ? obj : {}
-		return setRecursive(startObj, keys)
+		const startObj: Record<string, Value> =
+			(obj && typeof obj === "object" ? obj : {}) as Record<string, Value>
+		return setRecursive(startObj, keys) as unknown as T
 	}
 
 export default set

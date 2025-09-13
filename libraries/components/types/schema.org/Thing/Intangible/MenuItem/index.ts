@@ -6,12 +6,12 @@ import type { IntangibleProps } from "../index.ts"
 import type Offer from "../Offer/index.ts"
 import type NutritionInformation from "../StructuredValue/NutritionInformation/index.ts"
 
-import { Demand as DemandComponent } from "../../../../../components/index.tsx"
-import { MenuItem as MenuItemComponent } from "../../../../../components/index.tsx"
-import { MenuSection as MenuSectionComponent } from "../../../../../components/index.tsx"
-import { NutritionInformation as NutritionInformationComponent } from "../../../../../components/index.tsx"
-import { Offer as OfferComponent } from "../../../../../components/index.tsx"
-import { RestrictedDiet as RestrictedDietComponent } from "../../../../../components/index.tsx"
+import MenuSectionComponent from "../../../../../src/define/Thing/CreativeWork/MenuSection/index.tsx"
+import DemandComponent from "../../../../../src/define/Thing/Intangible/Demand/index.tsx"
+import RestrictedDietComponent from "../../../../../src/define/Thing/Intangible/Enumeration/RestrictedDiet/index.tsx"
+import MenuItemComponent from "../../../../../src/define/Thing/Intangible/MenuItem/index.tsx"
+import OfferComponent from "../../../../../src/define/Thing/Intangible/Offer/index.tsx"
+import NutritionInformationComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/NutritionInformation/index.tsx"
 
 export type MenuItemType = "MenuItem"
 

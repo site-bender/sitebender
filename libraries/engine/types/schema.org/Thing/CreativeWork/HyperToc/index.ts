@@ -3,7 +3,7 @@ import type MediaObject from "../../MediaObject/index.ts"
 import type HyperTocEntry from "../HyperTocEntry/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import { HyperTocEntry as HyperTocEntryComponent } from "../../../../../components/index.tsx"
+import HyperTocEntryComponent from "../../../../../../components/src/define/Thing/CreativeWork/HyperTocEntry/index.tsx"
 import { MediaObject as MediaObjectComponent } from "../../../../../components/index.tsx"
 
 export type HyperTocType = "HyperToc"

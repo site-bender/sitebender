@@ -4,8 +4,8 @@ import type ComputerLanguage from "../../Intangible/ComputerLanguage/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type SoftwareApplication from "../SoftwareApplication/index.ts"
 
-import { ComputerLanguage as ComputerLanguageComponent } from "../../../../../components/index.tsx"
-import { SoftwareApplication as SoftwareApplicationComponent } from "../../../../../components/index.tsx"
+import SoftwareApplicationComponent from "../../../../../../components/src/define/Thing/CreativeWork/SoftwareApplication/index.tsx"
+import ComputerLanguageComponent from "../../../../../../components/src/define/Thing/Intangible/ComputerLanguage/index.tsx"
 
 export type SoftwareSourceCodeType = "SoftwareSourceCode"
 

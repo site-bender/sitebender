@@ -1,6 +1,7 @@
 import type BaseProps from "../../../../types/index.ts"
 
-import { Event, Place } from "../../../define/index.ts"
+import Event from "../../../define/Thing/Event/index.tsx"
+import Place from "../../../define/Thing/Place/index.tsx"
 import getDataAttributes from "../../../helpers/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {

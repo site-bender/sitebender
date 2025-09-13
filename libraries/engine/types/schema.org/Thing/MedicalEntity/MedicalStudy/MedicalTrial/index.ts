@@ -3,7 +3,7 @@ import type MedicalTrialDesign from "../../../Intangible/Enumeration/MedicalEnum
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalStudyProps } from "../index.ts"
 
-import { MedicalTrialDesign as MedicalTrialDesignComponent } from "../../../../../../components/index.tsx"
+import MedicalTrialDesignComponent from "../../../../../../../components/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalTrialDesign/index.tsx"
 
 export type MedicalTrialType = "MedicalTrial"
 

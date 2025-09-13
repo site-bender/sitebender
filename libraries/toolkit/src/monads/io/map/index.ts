@@ -1,4 +1,4 @@
-import type { IO } from "../../types/fp/io/index.ts"
+import type { IO } from "../../../types/fp/io/index.ts"
 
 //++ Maps a function over the value inside an IO (Functor)
 export default function map<A, B>(f: (a: A) => B) {

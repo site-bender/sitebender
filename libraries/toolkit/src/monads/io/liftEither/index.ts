@@ -1,5 +1,5 @@
-import type { Either } from "../../types/fp/either/index.ts"
-import type { IOEither } from "../../types/fp/io/index.ts"
+import type { Either } from "../../../types/fp/either/index.ts"
+import type { IOEither } from "../../../types/fp/io/index.ts"
 
 /**
  * Lifts a pure function returning Either into IOEither

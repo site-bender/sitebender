@@ -1,4 +1,4 @@
-import type { IO } from "../../types/fp/io/index.ts"
+import type { IO } from "../../../types/fp/io/index.ts"
 
 /**
  * Executes an IO computation and returns the result

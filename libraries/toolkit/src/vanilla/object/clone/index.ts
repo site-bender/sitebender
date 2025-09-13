@@ -89,17 +89,18 @@ const clone = <T extends Value>(obj: T): T => {
 
 		// Handle Map
 		if (source instanceof Map) {
-			const cloned = new Map()
+			const cloned = new Map<string, Value>()
 			visited.set(source, cloned)
-			Array.from(source.entries()).forEach(([key, value]) =>
-				cloned.set(cloneRecursive(key), cloneRecursive(value))
-			)
+			Array.from(source.entries()).forEach(([key, value]) => {
+				const k = String(key)
+				cloned.set(k, cloneRecursive(value))
+			})
 			return cloned
 		}
 
 		// Handle Set
 		if (source instanceof Set) {
-			const cloned = new Set()
+			const cloned = new Set<Value>()
 			visited.set(source, cloned)
 			Array.from(source.values()).forEach((value) =>
 				cloned.add(cloneRecursive(value))

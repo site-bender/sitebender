@@ -1,7 +1,7 @@
 import type {
 	IsLengthComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * IsLength JSX Component
@@ -17,7 +17,7 @@ import type {
  * </IsLength>
  */
 
-import IsLengthConstructor from "@sitebender/engine/constructors/comparators/length/IsLength/index.ts"
+import IsLengthConstructor from "../../../../../engine/src/constructors/comparators/length/IsLength/index.ts"
 
 export type Props = {
 	// authoring accepts String|Array, but length comparator uses a numeric length under the hood

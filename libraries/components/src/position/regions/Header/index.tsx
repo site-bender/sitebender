@@ -1,5 +1,4 @@
-import { SKIP_LINKS } from "@sitebender/toolkit/constants/skip-links/index.ts"
-
+import { SKIP_LINKS } from "../../../../../toolkit/src/constants/skip-links/index.ts"
 import SkipLinksBar from "../../../navigate/SkipLinksBar/index.tsx"
 import Logo from "../../Logo/index.tsx"
 
