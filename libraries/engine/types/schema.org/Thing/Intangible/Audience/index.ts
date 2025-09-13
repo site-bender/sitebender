@@ -8,7 +8,7 @@ import type { MedicalAudienceType } from "./MedicalAudience/index.ts"
 import type { PeopleAudienceType } from "./PeopleAudience/index.ts"
 import type { ResearcherType } from "./Researcher/index.ts"
 
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../components/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type AudienceType =
 	| "Audience"

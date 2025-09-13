@@ -5,9 +5,9 @@ import type PhysicalActivityCategory from "../../../Intangible/Enumeration/Physi
 import type { CreativeWorkProps } from "../../index.ts"
 import type { ReviewProps } from "../index.ts"
 
-import { CategoryCode as CategoryCodeComponent } from "../../../../../../components/index.tsx"
-import { PhysicalActivityCategory as PhysicalActivityCategoryComponent } from "../../../../../../components/index.tsx"
-import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
+import ThingComponent from "../../../../../../../components/src/define/Thing/index.tsx"
+import CategoryCodeComponent from "../../../../../../../components/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import PhysicalActivityCategoryComponent from "../../../../../../../components/src/define/Thing/Intangible/Enumeration/PhysicalActivityCategory/index.tsx"
 
 export type RecommendationType = "Recommendation"
 

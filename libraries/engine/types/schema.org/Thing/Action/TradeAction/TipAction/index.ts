@@ -6,10 +6,10 @@ import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { TradeActionProps } from "../index.ts"
 
-import { Audience as AudienceComponent } from "../../../../../../components/index.tsx"
-import { ContactPoint as ContactPointComponent } from "../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import AudienceComponent from "../../../../../../../components/src/define/Thing/Intangible/Audience/index.tsx"
+import ContactPointComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import OrganizationComponent from "../../../../../../../components/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../components/src/define/Thing/Person/index.tsx"
 
 export type TipActionType = "TipAction"
 

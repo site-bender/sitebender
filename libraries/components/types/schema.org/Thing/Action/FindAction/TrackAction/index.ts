@@ -3,7 +3,7 @@ import type DeliveryMethod from "../../../Intangible/Enumeration/DeliveryMethod/
 import type { ActionProps } from "../../index.ts"
 import type { FindActionProps } from "../index.ts"
 
-import { DeliveryMethod as DeliveryMethodComponent } from "../../../../../../components/index.tsx"
+import DeliveryMethodComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
 
 export type TrackActionType = "TrackAction"
 

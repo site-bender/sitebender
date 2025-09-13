@@ -1,1 +1,3 @@
-export { default } from "../recipes/ContactForm/index.tsx"
+import ContactForm from "../recipes/ContactForm/index.tsx"
+
+export default ContactForm

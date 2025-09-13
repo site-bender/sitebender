@@ -11,13 +11,13 @@ import type { StructuredValueProps } from "../index.ts"
 import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
 import type { PostalAddressType } from "./PostalAddress/index.ts"
 
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../../components/index.tsx"
-import { ContactPointOption as ContactPointOptionComponent } from "../../../../../../components/index.tsx"
-import { GeoShape as GeoShapeComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
-import { OpeningHoursSpecification as OpeningHoursSpecificationComponent } from "../../../../../../components/index.tsx"
-import { Place as PlaceComponent } from "../../../../../../components/index.tsx"
-import { Product as ProductComponent } from "../../../../../../components/index.tsx"
+import ContactPointOptionComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/ContactPointOption/index.tsx"
+import LanguageComponent from "../../../../../../src/define/Thing/Intangible/Language/index.tsx"
+import GeoShapeComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/GeoShape/index.tsx"
+import OpeningHoursSpecificationComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../src/define/Thing/Place/AdministrativeArea/index.tsx"
+import PlaceComponent from "../../../../../../src/define/Thing/Place/index.tsx"
+import ProductComponent from "../../../../../../src/define/Thing/Product/index.tsx"
 
 export type ContactPointType = "ContactPoint" | PostalAddressType
 

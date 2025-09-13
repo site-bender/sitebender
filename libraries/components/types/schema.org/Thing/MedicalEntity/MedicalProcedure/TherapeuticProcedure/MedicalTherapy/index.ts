@@ -10,9 +10,9 @@ import type { PalliativeProcedureType } from "./PalliativeProcedure/index.ts"
 import type { PhysicalTherapyType } from "./PhysicalTherapy/index.ts"
 import type { RadiationTherapyType } from "./RadiationTherapy/index.ts"
 
-import { MedicalContraindication as MedicalContraindicationComponent } from "../../../../../../../components/index.tsx"
-import { MedicalEntity as MedicalEntityComponent } from "../../../../../../../components/index.tsx"
-import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../../../components/index.tsx"
+import MedicalEntityComponent from "../../../../../../../src/define/Thing/MedicalEntity/index.tsx"
+import MedicalContraindicationComponent from "../../../../../../../src/define/Thing/MedicalEntity/MedicalContraindication/index.tsx"
+import MedicalTherapyComponent from "../../../../../../../src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
 
 export type MedicalTherapyType =
 	| "MedicalTherapy"

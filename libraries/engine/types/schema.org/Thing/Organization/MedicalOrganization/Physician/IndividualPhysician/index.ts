@@ -7,7 +7,7 @@ import type MedicalOrganization from "../../index.ts"
 import type { MedicalOrganizationProps } from "../../index.ts"
 import type { PhysicianProps } from "../index.ts"
 
-import { MedicalOrganization as MedicalOrganizationComponent } from "../../../../../../../components/index.tsx"
+import MedicalOrganizationComponent from "../../../../../../../../components/src/define/Thing/Organization/MedicalOrganization/index.tsx"
 
 export type IndividualPhysicianType = "IndividualPhysician"
 

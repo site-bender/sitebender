@@ -4,7 +4,7 @@ import type MedicalEntity from "../../index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { AnatomicalStructureProps } from "../index.ts"
 
-import { MedicalEntity as MedicalEntityComponent } from "../../../../../../components/index.tsx"
+import MedicalEntityComponent from "../../../../../../src/define/Thing/MedicalEntity/index.tsx"
 
 export type JointType = "Joint"
 

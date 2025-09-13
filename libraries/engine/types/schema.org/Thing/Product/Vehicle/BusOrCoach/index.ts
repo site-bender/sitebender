@@ -4,7 +4,7 @@ import type QuantitativeValue from "../../../Intangible/StructuredValue/Quantita
 import type { ProductProps } from "../../index.ts"
 import type { VehicleProps } from "../index.ts"
 
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type BusOrCoachType = "BusOrCoach"
 

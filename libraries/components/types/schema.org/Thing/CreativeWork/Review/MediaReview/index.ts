@@ -6,9 +6,9 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type WebPage from "../../WebPage/index.ts"
 import type { ReviewProps } from "../index.ts"
 
-import { MediaManipulationRatingEnumeration as MediaManipulationRatingEnumerationComponent } from "../../../../../../components/index.tsx"
-import { MediaObject as MediaObjectComponent } from "../../../../../../components/index.tsx"
-import { WebPage as WebPageComponent } from "../../../../../../components/index.tsx"
+import MediaObjectComponent from "../../../../../../src/define/Thing/CreativeWork/MediaObject/index.tsx"
+import WebPageComponent from "../../../../../../src/define/Thing/CreativeWork/WebPage/index.tsx"
+import MediaManipulationRatingEnumerationComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/MediaManipulationRatingEnumeration/index.tsx"
 
 export type MediaReviewType = "MediaReview"
 

@@ -8,10 +8,10 @@ import type SizeGroupEnumeration from "../../SizeGroupEnumeration/index.ts"
 import type SizeSystemEnumeration from "../../SizeSystemEnumeration/index.ts"
 import type { QualitativeValueProps } from "../index.ts"
 
-import { GenderType as GenderTypeComponent } from "../../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../../components/index.tsx"
-import { SizeGroupEnumeration as SizeGroupEnumerationComponent } from "../../../../../../../components/index.tsx"
-import { SizeSystemEnumeration as SizeSystemEnumerationComponent } from "../../../../../../../components/index.tsx"
+import GenderTypeComponent from "../../../../../../../src/define/Thing/Intangible/Enumeration/GenderType/index.tsx"
+import SizeGroupEnumerationComponent from "../../../../../../../src/define/Thing/Intangible/Enumeration/SizeGroupEnumeration/index.tsx"
+import SizeSystemEnumerationComponent from "../../../../../../../src/define/Thing/Intangible/Enumeration/SizeSystemEnumeration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type SizeSpecificationType = "SizeSpecification"
 

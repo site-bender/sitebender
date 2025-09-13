@@ -12,15 +12,15 @@ import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { RecipeType } from "./Recipe/index.ts"
 
-import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
-import { Duration as DurationComponent } from "../../../../../components/index.tsx"
+import CreativeWorkComponent from "../../../../../../components/src/define/Thing/CreativeWork/index.tsx"
+import ItemListComponent from "../../../../../../components/src/define/Thing/Intangible/ItemList/index.tsx"
+import HowToSupplyComponent from "../../../../../../components/src/define/Thing/Intangible/ListItem/HowToItem/HowToSupply/index.tsx"
+import HowToToolComponent from "../../../../../../components/src/define/Thing/Intangible/ListItem/HowToItem/HowToTool/index.tsx"
+import DurationComponent from "../../../../../../components/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import MonetaryAmountComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import QuantitativeValueComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 import { HowToSection as HowToSectionComponent } from "../../../../../components/index.tsx"
 import { HowToStep as HowToStepComponent } from "../../../../../components/index.tsx"
-import { HowToSupply as HowToSupplyComponent } from "../../../../../components/index.tsx"
-import { HowToTool as HowToToolComponent } from "../../../../../components/index.tsx"
-import { ItemList as ItemListComponent } from "../../../../../components/index.tsx"
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
 
 export type HowToType = "HowTo" | RecipeType
 

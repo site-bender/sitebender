@@ -5,9 +5,9 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type AggregateRating from "../Rating/AggregateRating/index.ts"
 
-import { AggregateRating as AggregateRatingComponent } from "../../../../../components/index.tsx"
-import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
-import { Review as ReviewComponent } from "../../../../../components/index.tsx"
+import ImageObjectComponent from "../../../../../../components/src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+import ReviewComponent from "../../../../../../components/src/define/Thing/CreativeWork/Review/index.tsx"
+import AggregateRatingComponent from "../../../../../../components/src/define/Thing/Intangible/Rating/AggregateRating/index.tsx"
 
 export type BrandType = "Brand"
 

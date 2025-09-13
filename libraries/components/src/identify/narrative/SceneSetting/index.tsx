@@ -1,4 +1,4 @@
-import { Place } from "../../../define/index.ts"
+import Place from "../../../define/Thing/Place/index.tsx"
 
 type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
