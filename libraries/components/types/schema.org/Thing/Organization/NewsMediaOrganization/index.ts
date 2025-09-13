@@ -5,9 +5,9 @@ import type AboutPage from "../../CreativeWork/WebPage/AboutPage/index.ts"
 import type Thing from "../../index.ts"
 import type { OrganizationProps } from "../index.ts"
 
-import { AboutPage as AboutPageComponent } from "../../../../../components/index.tsx"
-import { Article as ArticleComponent } from "../../../../../components/index.tsx"
-import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
+import ArticleComponent from "../../../../../src/define/Thing/CreativeWork/Article/index.tsx"
+import CreativeWorkComponent from "../../../../../src/define/Thing/CreativeWork/index.tsx"
+import AboutPageComponent from "../../../../../src/define/Thing/CreativeWork/WebPage/AboutPage/index.tsx"
 
 export type NewsMediaOrganizationType = "NewsMediaOrganization"
 

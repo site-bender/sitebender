@@ -8,12 +8,12 @@ import type { IntangibleProps } from "../../index.ts"
 import type Property from "../../Property/index.ts"
 import type { ConstraintNodeProps } from "../index.ts"
 
-import { Class as ClassComponent } from "../../../../../../components/index.tsx"
-import { DefinedTerm as DefinedTermComponent } from "../../../../../../components/index.tsx"
-import { Enumeration as EnumerationComponent } from "../../../../../../components/index.tsx"
-import { MeasurementMethodEnum as MeasurementMethodEnumComponent } from "../../../../../../components/index.tsx"
-import { Property as PropertyComponent } from "../../../../../../components/index.tsx"
-import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../../components/index.tsx"
+import ClassComponent from "../../../../../../src/define/Thing/Intangible/Class/index.tsx"
+import StatisticalVariableComponent from "../../../../../../src/define/Thing/Intangible/ConstraintNode/StatisticalVariable/index.tsx"
+import DefinedTermComponent from "../../../../../../src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import EnumerationComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/index.tsx"
+import MeasurementMethodEnumComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.tsx"
+import PropertyComponent from "../../../../../../src/define/Thing/Intangible/Property/index.tsx"
 
 export type StatisticalVariableType = "StatisticalVariable"
 

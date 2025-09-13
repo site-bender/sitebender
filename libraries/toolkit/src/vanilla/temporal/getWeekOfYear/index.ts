@@ -78,7 +78,8 @@ const getWeekOfYear = (
 	}
 
 	try {
-		return date.weekOfYear
+		const w = date.weekOfYear
+		return typeof w === "number" ? w : null
 	} catch {
 		return null
 	}

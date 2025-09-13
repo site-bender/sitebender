@@ -4,7 +4,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type Language from "../../Language/index.ts"
 import type { RoleProps } from "../index.ts"
 
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
+import LanguageComponent from "../../../../../../src/define/Thing/Intangible/Language/index.tsx"
 
 export type LinkRoleType = "LinkRole"
 

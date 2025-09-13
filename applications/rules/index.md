@@ -1,4 +1,4 @@
-# applications Rules
+# Application rules
 
 > **GENERATED FILE - DO NOT EDIT**
 > 
@@ -6,81 +6,92 @@
 > To make changes, edit the JSON file and run `deno task generate-rules`.
 
 **Version**: 1.0.0  
-**Last Updated**: 2025-01-12  
-**Author**: The Architect
+**Last updated**: 2025-01-12  
+**Author**: The Architect  
+**Scope**: applications  
+**Description**: Rules specific to application development  
+**Inherits**: /rules/index.json
+## Library rules application
 
-**Description**: Rules specific to application development
+**Note**: When using library code, apply the rules from that library's rules/index.json
 
-**Inherits from**: `/rules/index.json`
+**Required library rules**:   - /libraries/components/rules/index.json
+  - /libraries/engine/rules/index.json
+  - /libraries/mesh/rules/index.json
 
-## Table of Contents
+**Clarification**: Library rules apply to code imported from those libraries
 
-1. [Library Rules Application](#library-rules-application)
-2. [Browser Requirements](#browser-requirements)
+## Browser requirements
 
-## Library Rules Application
+**Description**: Requirements for the final rendered pages in the browser
 
-When using library code, apply the rules from that library's rules/index.json
+**Layers**:   1. **Level**: 1
 
-Library rules apply to code imported from those libraries
+**Name**: Semantic HTML
 
-### Required Library Rules
-- `/libraries/components/rules/index.json`
-- `/libraries/engine/rules/index.json`
-- `/libraries/mesh/rules/index.json`
+**Description**: Works in Lynx, Mosaic, everything
 
-## Browser Requirements
+**Requirement**: This is the foundation
 
-Requirements for the final rendered pages in the browser
+  2. **Level**: 2
 
-### The Three Layers
+**Name**: Styled with CSS
 
-#### Layer 1: Semantic HTML
-- **Description**: Works in Lynx, Mosaic, everything
-- **Requirement**: This is the foundation
+**Description**: Beautiful, responsive, themed
 
-#### Layer 2: Styled with CSS
-- **Description**: Beautiful, responsive, themed
-- **Requirement**: But works without it
+**Requirement**: But works without it
 
-#### Layer 3: Full Enhancement
-- **Description**: JavaScript enriches the experience
-- **Requirement**: But is never required
+  3. **Level**: 3
 
-### Unbreakable Rules
+**Name**: Full Enhancement
 
-#### Forms work without JavaScript in the browser
-- Standard POST/GET submissions
-- Server-side validation
-- No AJAX-only endpoints
+**Description**: JavaScript enriches the experience
 
-#### Navigation works without JavaScript in the browser
-- Real links to real pages
-- No SPA-only routes
-- Back button always works
+**Requirement**: But is never required
 
-#### Content is accessible without CSS
-- Semantic HTML structure
-- Logical reading order
-- No layout-dependent content
+**Unbreakable rules**:   1. **Rule**: Forms work without JavaScript in the browser
 
-#### Everything has keyboard access
-- Tab order makes sense
-- Focus indicators visible
-- No mouse-only interactions
+**Details**:       - Standard POST/GET submissions
+      - Server-side validation
+      - No AJAX-only endpoints
 
-#### Offline-first, online-enhanced
-- All applications MUST work offline to the extent practicable
-- CRDTs for eventual consistency
-- IndexedDB for complex state
-- Service workers for caching
-- Sync when online, work when offline
-- No functionality should break just because network is unavailable
+  2. **Rule**: Navigation works without JavaScript in the browser
 
-#### Everything must be responsive in the browser
-- Pages adapt from mobile (320px) to 4K displays
-- Touch targets minimum 48x48px on touch devices
-- Text remains readable without horizontal scrolling
-- Images and media scale appropriately
-- No fixed-width layouts that break on any device
-- Mobile-first approach with progressive enhancement
+**Details**:       - Real links to real pages
+      - No SPA-only routes
+      - Back button always works
+
+  3. **Rule**: Content is accessible without CSS
+
+**Details**:       - Semantic HTML structure
+      - Logical reading order
+      - No layout-dependent content
+
+  4. **Rule**: Everything has keyboard access
+
+**Details**:       - Tab order makes sense
+      - Focus indicators visible
+      - No mouse-only interactions
+
+  5. **Rule**: Offline-first, online-enhanced
+
+**Details**:       - All applications MUST work offline to the extent practicable
+      - CRDTs for eventual consistency
+      - IndexedDB for complex state
+      - Service workers for caching
+      - Sync when online, work when offline
+      - No functionality should break just because network is unavailable
+
+  6. **Rule**: Everything must be responsive in the browser
+
+**Details**:       - Pages adapt from mobile (320px) to 4K displays
+      - Touch targets minimum 48x48px on touch devices
+      - Text remains readable without horizontal scrolling
+      - Images and media scale appropriately
+      - No fixed-width layouts that break on any device
+      - Mobile-first approach with progressive enhancement
+
+---
+
+**Generated from**: `applications/rules/index.json`  
+**Generated on**: 2025-09-13T00:08:35.370Z

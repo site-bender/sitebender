@@ -9,13 +9,13 @@ import type OccupationalExperienceRequirements from "../OccupationalExperienceRe
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
-import { CategoryCode as CategoryCodeComponent } from "../../../../../components/index.tsx"
-import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
-import { EducationalOccupationalCredential as EducationalOccupationalCredentialComponent } from "../../../../../components/index.tsx"
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../components/index.tsx"
-import { MonetaryAmountDistribution as MonetaryAmountDistributionComponent } from "../../../../../components/index.tsx"
-import { OccupationalExperienceRequirements as OccupationalExperienceRequirementsComponent } from "../../../../../components/index.tsx"
+import EducationalOccupationalCredentialComponent from "../../../../../../components/src/define/Thing/CreativeWork/EducationalOccupationalCredential/index.tsx"
+import CategoryCodeComponent from "../../../../../../components/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import DefinedTermComponent from "../../../../../../components/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import OccupationalExperienceRequirementsComponent from "../../../../../../components/src/define/Thing/Intangible/OccupationalExperienceRequirements/index.tsx"
+import MonetaryAmountComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import MonetaryAmountDistributionComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../components/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type OccupationType = "Occupation"
 

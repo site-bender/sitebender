@@ -6,11 +6,11 @@ import type DigitalDocumentPermissionTypeEnum from "../Enumeration/DigitalDocume
 import type { IntangibleProps } from "../index.ts"
 import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 
-import { Audience as AudienceComponent } from "../../../../../components/index.tsx"
-import { ContactPoint as ContactPointComponent } from "../../../../../components/index.tsx"
-import { DigitalDocumentPermissionType as DigitalDocumentPermissionTypeComponent } from "../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import AudienceComponent from "../../../../../../components/src/define/Thing/Intangible/Audience/index.tsx"
+import DigitalDocumentPermissionTypeComponent from "../../../../../../components/src/define/Thing/Intangible/Enumeration/DigitalDocumentPermissionType/index.tsx"
+import ContactPointComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import OrganizationComponent from "../../../../../../components/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../components/src/define/Thing/Person/index.tsx"
 
 export type DigitalDocumentPermissionType = "DigitalDocumentPermission"
 

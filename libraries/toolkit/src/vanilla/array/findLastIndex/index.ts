@@ -21,9 +21,9 @@
  * ```
  */
 const findLastIndex = <T>(
-	predicate: (item: T, index: number, array: Array<T>) => boolean,
+	predicate: (item: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>
-(array: Array<T>): number | undefined => {
+(array: ReadonlyArray<T>): number | undefined => {
 	const index = array.findLastIndex(predicate)
 	return index === -1 ? undefined : index
 }

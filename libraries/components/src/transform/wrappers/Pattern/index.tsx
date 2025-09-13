@@ -3,7 +3,8 @@
  */
 
 export type PatternProps = {
-	children?: JSX.Element | Array<JSX.Element> | string
+	// Transparent wrapper: accept common JSX children shapes
+	children?: JSX.Element | string | Array<JSX.Element | string> | null
 }
 
 export default function Pattern({ children }: PatternProps) {

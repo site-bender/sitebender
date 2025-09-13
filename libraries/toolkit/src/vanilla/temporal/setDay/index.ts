@@ -87,7 +87,7 @@
  * @immutable
  * @curried
  */
-import isNullish from "../../../validation/isNullish"
+import isNullish from "../../validation/isNullish/index.ts"
 
 const setDay = (day: number) =>
 (

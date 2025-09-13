@@ -6,9 +6,9 @@ import type { IntangibleProps } from "../../index.ts"
 import type MonetaryAmount from "../../StructuredValue/MonetaryAmount/index.ts"
 import type { GrantProps } from "../index.ts"
 
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import MonetaryAmountComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import OrganizationComponent from "../../../../../../src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../src/define/Thing/Person/index.tsx"
 
 export type MonetaryGrantType = "MonetaryGrant"
 
