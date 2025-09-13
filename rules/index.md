@@ -45,7 +45,8 @@
 
 **Rationale**: Every time you think 'I'll just assume this works like React/Vue/whatever,' you're wrong. Every time you think 'I'll save time by skipping verification,' you're creating hours of cleanup. Every time you guess instead of checking, you're writing expensive fiction.
 
-**Costs**: - Time wasted: Hours becoming days
+**Costs**:
+- Time wasted: Hours becoming days
 - Money burned: The Architect's money, specifically
 - Trust eroded: Once lost, never fully recovered
 - Code corrupted: Tech debt that compounds daily
@@ -58,7 +59,8 @@
 
 **Title**: Thou shalt not delete files without explicit permission
 
-**Details**: - No git clean without written consent
+**Details**:
+- No git clean without written consent
 - No rm -rf cowboy operations
 - Recovery isn't always possible
 
@@ -66,7 +68,8 @@
 
 **Title**: Thou shalt not create tech debt
 
-**Details**: - No 'fix later' comments
+**Details**:
+- No 'fix later' comments
 - No temporary workarounds
 - No shortcuts, ever
 
@@ -74,14 +77,16 @@
 
 **Title**: Thou shalt test behaviors, not implementations
 
-**Details**: - Users don't care about your private methods
+**Details**:
+- Users don't care about your private methods
 - They care if the button works
 
 4. **Key**: functional-programming
 
 **Title**: Thou shalt maintain strict functional programming
 
-**Details**: - No classes, no exceptions
+**Details**:
+- No classes, no exceptions
 - Immutable data only
 - Pure functions (except explicit I/O)
 
@@ -89,7 +94,8 @@
 
 **Title**: Thou shalt organize by single responsibility
 
-**Details**: - One function per file
+**Details**:
+- One function per file
 - One thing done well
 - Composition over complexity
 
@@ -97,7 +103,8 @@
 
 **Title**: Thou shalt document with Envoy comments
 
-**Details**: - Every function, every time
+**Details**:
+- Every function, every time
 - Examples included
 - Follow the Envoy spec precisely
 
@@ -105,7 +112,8 @@
 
 **Title**: Thou shalt commit atomically
 
-**Details**: - Small, focused changes
+**Details**:
+- Small, focused changes
 - Conventional commit messages
 - Leave the code working
 - Detailed commit messages
@@ -114,7 +122,8 @@
 
 **Title**: Thou shalt ask when uncertain
 
-**Details**: - Better to ask than assume
+**Details**:
+- Better to ask than assume
 - Better to clarify than cleanup
 - Better to be slow and right
 
@@ -122,7 +131,8 @@
 
 **Title**: Thou shalt NEVER use Web Components
 
-**Details**: - Web Components do not work without JavaScript - FATAL FLAW
+**Details**:
+- Web Components do not work without JavaScript - FATAL FLAW
 - Shadow DOM is a catastrophe
 - They violate our progressive enhancement philosophy
 - No exceptions, no matter how tempting
@@ -211,7 +221,8 @@
 
 **Why**: Code is a conversation with the NEXT programmer, not the machine
 
-**Examples**: - That unreadable one-liner? Split it into readable steps
+**Examples**:
+- That unreadable one-liner? Split it into readable steps
 - That clever bit-shifting trick? Use the obvious math
 - That 'optimized' code without measurements? Use the toolkit function
 
@@ -221,14 +232,16 @@
 
 **No gratuitous nothing**: **Rule**: Nothing on the page that doesn't serve the purpose
 
-**Forbidden**: - Clever tricks when boring works
+**Forbidden**:
+- Clever tricks when boring works
 - Showing off your knowledge
 - 'Optimizations' without measurement
 - Comments that state the obvious
 
 **Whitespace**: **Purpose**: Separator and organizer, not decoration
 
-**Rules**: - Spaces around operators: x + y not x+y
+**Rules**:
+- Spaces around operators: x + y not x+y
 - Spaces in objects: { x: 7 } not {x:7}
 - Blank lines group related code
 - Never more than one blank line in a row
@@ -239,7 +252,8 @@
 
 ## Code organization
 
-**Laws**: 1. **Id**: 1
+**Laws**:
+1. **Id**: 1
 
 **Name**: One Function, One File, One Purpose
 
@@ -262,7 +276,8 @@
 
 **Requirement**: Function name is the folder name, file is always index.ts
 
-**Exceptions**: - Test files use index.test.ts
+**Exceptions**:
+- Test files use index.test.ts
 - mod.ts for module exports
 - types/index.ts for type definitions
 - constants/index.ts for constants
@@ -273,7 +288,8 @@
 
 **Requirement**: Functions nest based on usage patterns
 
-**Benefits**: - Delete a folder, delete a feature - No orphans
+**Benefits**:
+- Delete a folder, delete a feature - No orphans
 - See the entire tree in your IDE - No mysteries
 - Dependencies flow one direction - No circles of hell
 - Strict decoupling - No spaghetti
@@ -295,19 +311,22 @@
 
 **Routes**: kebab-case (converts to URL paths)
 
-**Forbidden**: - kebab-case for non-routes
+**Forbidden**:
+- kebab-case for non-routes
 - snake_case for functions/variables
 
 **Initialisms**: **Rule**: Only capitalize FIRST letter of initialisms in camelCase/PascalCase
 
-**Correct**: - innerHtml (NOT innerHTML)
+**Correct**:
+- innerHtml (NOT innerHTML)
 - apiKey (NOT APIKey)
 - xmlParser (NOT XMLParser)
 - AstNode (NOT ASTNode)
 - JsonValue (NOT JSONValue)
 - getCssClass (NOT getCSSClass)
 
-**Incorrect**: - innerHTML → converts to inner-h-t-m-l (unreadable!)
+**Incorrect**:
+- innerHTML → converts to inner-h-t-m-l (unreadable!)
 - APIKey → converts to a-p-i-key (garbage!)
 - ASTNode → converts to a_s_t_node (broken!)
 
@@ -317,7 +336,8 @@
 
 **Abbreviations**: **Rule**: NO abbreviations unless instantly recognizable or Architect-approved
 
-**Forbidden**: - doc → document
+**Forbidden**:
+- doc → document
 - config → configuration
 - admin → administrator
 - calc → calculate
@@ -326,7 +346,8 @@
 - util → utility
 - impl → implementation
 
-**Allowed**: - id, db (universally understood)
+**Allowed**:
+- id, db (universally understood)
 - max, min (mathematical convention)
 - src, dist (build tool convention)
 - req, res (HTTP convention)
@@ -342,19 +363,22 @@
 
 **To**: Named functions
 
-**Rationale**: - Stack traces that don't lie
+**Rationale**:
+- Stack traces that don't lie
 - Hoisting for better organization
 - Recursion without gymnastics
 - JavaScript engines optimize them better
 - The function keyword is a visual anchor
 
-**Required**: - Named functions over arrow functions
+**Required**:
+- Named functions over arrow functions
 - Pure functions only (except explicit I/O)
 - Immutable data only
 - Single responsibility
 - Composition over complexity
 
-**Forbidden**: - Classes - NO EXCEPTIONS
+**Forbidden**:
+- Classes - NO EXCEPTIONS
 - Mutations
 - this keyword
 - Inheritance hierarchies
@@ -422,7 +446,8 @@
 </div>
 </dl>
 
-**Commandments**: - NO BARREL FILES EVER - Use direct paths
+**Commandments**:
+- NO BARREL FILES EVER - Use direct paths
 - Separate type imports from non-type imports by a blank line
 - Always use the type keyword for type imports
 - Separate imports of constants from other imports with a blank line
@@ -482,7 +507,8 @@
 
 **Coverage ignore**: **Standard**: 100% REPORTED coverage ALWAYS - ignores must be justified
 
-**Process**: - 1. Make EVERY effort to cover the line/branch with tests
+**Process**:
+- 1. Make EVERY effort to cover the line/branch with tests
 - 2. If truly impossible/impractical (e.g., testing fs internals), document why
 - 3. Present case to The Architect with detailed reasoning
 - 4. If approved, add ignore comment WITH REASON
@@ -503,16 +529,19 @@
 </div>
 </dl>
 
-**Requirements**: - MUST include specific reason in brackets
+**Requirements**:
+- MUST include specific reason in brackets
 - MUST have made genuine effort to test first
 - MUST get Architect approval
 - Will appear in coverage ignore report
 
-**Valid reasons**: - Testing well-tested internals (fs, crypto, etc.)
+**Valid reasons**:
+- Testing well-tested internals (fs, crypto, etc.)
 - Platform-specific code on other platforms
 - Defensive code for impossible states (but try to test these too)
 
-**Invalid reasons**: - Too hard to test
+**Invalid reasons**:
+- Too hard to test
 - Not enough time
 - Will test later
 - Seems unnecessary
@@ -523,7 +552,8 @@
 
 **Description**: The Gateway Sin
 
-**Examples**: - I'll assume this works like React
+**Examples**:
+- I'll assume this works like React
 - This probably returns a string
 - The user surely has JavaScript
 
@@ -531,7 +561,8 @@
 
 2. **Sin**: Premature Optimization
 
-**Examples**: - Optimizing before measuring
+**Examples**:
+- Optimizing before measuring
 - Caching everything preemptively
 - Micro-optimizations that hurt readability
 
@@ -539,7 +570,8 @@
 
 3. **Sin**: Class-Based Thinking
 
-**Examples**: - class UserService { }
+**Examples**:
+- class UserService { }
 - this.setState()
 - inheritance hierarchies
 
@@ -547,14 +579,16 @@
 
 4. **Sin**: Mocking Our Own Code
 
-**Examples**: - const mockAdd = jest.fn()
+**Examples**:
+- const mockAdd = jest.fn()
 - Testing implementation, not behavior
 
 **Solution**: Test real functions, Test actual outcomes, Use msw for external APIs
 
 5. **Sin**: Tech Debt Accumulation
 
-**Examples**: - // TODO: Fix this later
+**Examples**:
+- // TODO: Fix this later
 - // Temporary workaround
 - // Will refactor in v2
 
@@ -562,7 +596,8 @@
 
 6. **Sin**: Accessibility Afterthought
 
-**Examples**: - We'll add ARIA labels later
+**Examples**:
+- We'll add ARIA labels later
 - Keyboard nav in phase 2
 - Screen readers are edge cases
 
@@ -570,7 +605,8 @@
 
 7. **Sin**: Monolithic Functions
 
-**Examples**: - 500-line function doing everything
+**Examples**:
+- 500-line function doing everything
 - Multiple responsibilities
 - Untestable mess
 
@@ -578,11 +614,13 @@
 
 ## Error handling
 
-**Laws**: 1. **Id**: 1
+**Laws**:
+1. **Id**: 1
 
 **Law**: All errors must be handled explicitly
 
-**Details**: - No silent failures
+**Details**:
+- No silent failures
 - No swallowed exceptions
 - No 'it probably won't happen'
 
@@ -590,7 +628,8 @@
 
 **Law**: User-facing error messages must be helpful
 
-**Details**: - Tell them what went wrong in plain language
+**Details**:
+- Tell them what went wrong in plain language
 - Suggest what they can do about it
 - Never expose technical stack traces to users
 
@@ -613,7 +652,8 @@
 
 **Law**: Fail gracefully
 
-**Details**: - Don't crash the entire app
+**Details**:
+- Don't crash the entire app
 - Provide fallback options
 - Preserve user data and state
 - Better yet, prevent errors through validation
@@ -621,28 +661,33 @@
 - Use the Result monad for predictable error handling
 - Use the Validation monad for accumulating multiple errors
 
-**Recovery strategies**: - Retry with exponential backoff for network errors
+**Recovery strategies**:
+- Retry with exponential backoff for network errors
 - Fallback to cached data when possible
 - Degrade gracefully rather than fail completely
 - Always preserve user data (localStorage, drafts, etc.)
 
 ## Data privacy
 
-**Local first**: 1. **Principle**: Process data locally whenever possible
+**Local first**:
+1. **Principle**: Process data locally whenever possible
 
-**Details**: - Client-side validation
+**Details**:
+- Client-side validation
 - Local storage before network
 - Offline-capable by design
 
 2. **Principle**: Explicit consent for network requests
 
-**Details**: - Tell users what data is being sent
+**Details**:
+- Tell users what data is being sent
 - Explain why it's necessary
 - Provide opt-out when possible
 
 3. **Principle**: Data minimization principle
 
-**Details**: - Only collect what's necessary
+**Details**:
+- Only collect what's necessary
 - Delete what's no longer needed
 - Don't track unless required for functionality (or law)
 
@@ -650,7 +695,8 @@
 
 **Conventional commits**: **Required**: true
 
-**Types**: - feat
+**Types**:
+- feat
 - fix
 - docs
 - chore
@@ -659,12 +705,14 @@
 
 **Format**: type: description
 
-**Commit rules**: - Atomic - One logical change
+**Commit rules**:
+- Atomic - One logical change
 - Focused - Don't mix concerns
 - Tested - Green tests before commit
 - Descriptive - Why, not just what
 
-**Pre commit requirements**: - deno task test - All tests must pass
+**Pre commit requirements**:
+- deno task test - All tests must pass
 - deno task lint - Zero lint errors in your code changes
 - deno task typecheck - Zero type errors in your code changes
 - deno task fmt - Code must be formatted — do not forget this
@@ -673,7 +721,8 @@
 
 **Ai assistants**: **Note**: I am the sole developer. All other contributors are AIs.
 
-**Requirements**: - Update all relevant documentation BEFORE committing
+**Requirements**:
+- Update all relevant documentation BEFORE committing
 - Lint and type check ALL code YOU touched in that commit
 - Ensure NO lint or type errors in YOUR changes before committing
 - Remember: I WILL check your work. Thoroughly.
@@ -802,7 +851,8 @@
 
 **What envoy does**: **Purpose**: Envoy is our documentation intelligence system that transforms these comments into actionable insights
 
-**Capabilities**: - Generates comprehensive documentation from your codebase automatically
+**Capabilities**:
+- Generates comprehensive documentation from your codebase automatically
 - Creates interactive dependency graphs showing how functions connect
 - Builds searchable indices for instant code discovery
 - Tracks and reports all technical debt marked with //--
@@ -981,7 +1031,8 @@
 
 **Format**: //>> [CATEGORY] [Link text](url)
 
-**Common categories**: - [NEXT]
+**Common categories**:
+- [NEXT]
 - [PREV]
 - [RELATED]
 - [CANONICAL]
@@ -1049,7 +1100,8 @@ export const PRIMARY = "#007ACC"
 
 **Holy grail**: COGNITIVE LOAD IS THE ENEMY. MINIMIZE IT AT ALL COSTS.
 
-**Why**: - Developers work easier and longer when their brains aren't overloaded
+**Why**:
+- Developers work easier and longer when their brains aren't overloaded
 - Fewer bugs because there's less to mentally track and get wrong
 - Faster development because understanding is instant, not gradual
 - Happier teams because work feels effortless instead of exhausting
@@ -1111,7 +1163,8 @@ export const PRIMARY = "#007ACC"
 
 **Commitment**: By using this codebase, you swear to:
 
-**Oaths**: - Never assume when you can verify
+**Oaths**:
+- Never assume when you can verify
 - Never guess when you can check
 - Never shortcut when you can do it right
 - Never create debt without paying it immediately
@@ -1142,4 +1195,4 @@ export const PRIMARY = "#007ACC"
 ---
 
 **Generated from**: `rules/index.json`  
-**Generated on**: 2025-09-13T08:43:27.855Z
+**Generated on**: 2025-09-13T09:00:09.346Z

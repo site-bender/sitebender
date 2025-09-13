@@ -3,6 +3,7 @@ import type { JsonValue } from "../../types/index.ts"
 import pipe from "../../../../libraries/toolkit/src/vanilla/combinator/pipe/index.ts"
 import concat from "../../../../libraries/toolkit/src/vanilla/string/concat/index.ts"
 import concatTo from "../../../../libraries/toolkit/src/vanilla/string/concatTo/index.ts"
+import isArray from "../../../../libraries/toolkit/src/vanilla/validation/isArray/index.ts"
 import formatKey from "../../formatKey/index.ts"
 
 //++ Formats an object entry as markdown with bold key
@@ -12,10 +13,13 @@ export default function formatObjectEntry(
 	return function formatEntry([key, value]: [string, JsonValue]): string {
 		const formattedKey = formatKey(key)
 		const formattedValue = formatValue(value)
+		
+		// Arrays should start on a new line
+		const separator = isArray(value) ? "**:\n" : "**: "
 
 		return pipe([
 			concat("**"),
-			concatTo("**: "),
+			concatTo(separator),
 			concatTo(formattedValue),
 		])(formattedKey)
 	}
