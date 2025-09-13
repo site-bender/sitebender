@@ -4,7 +4,7 @@ import type {
 	Operand,
 	StringDatatype,
 	TemporalDatatype,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Max JSX Component
@@ -20,7 +20,7 @@ import type {
  * </Max>
  */
 
-import MaxConstructor from "@sitebender/engine/constructors/operators/Max/index.ts"
+import MaxConstructor from "../../../../../engine/src/constructors/operators/Max/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype

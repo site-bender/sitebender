@@ -1,13 +1,13 @@
 import type {
 	IsLessThanComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * IsLessThan - Less than comparison for engine conditionals
  */
 
-import IsLessThanConstructor from "@sitebender/engine/constructors/comparators/amount/IsLessThan/index.ts"
+import IsLessThanConstructor from "../../../../../engine/src/constructors/comparators/amount/IsLessThan/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

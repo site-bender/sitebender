@@ -6,7 +6,7 @@ import type { AddActionProps } from "../index.ts"
 import type { AppendActionType } from "./AppendAction/index.ts"
 import type { PrependActionType } from "./PrependAction/index.ts"
 
-import { Place as PlaceComponent } from "../../../../../../../components/index.tsx"
+import PlaceComponent from "../../../../../../../../components/src/define/Thing/Place/index.tsx"
 
 export type InsertActionType =
 	| "InsertAction"

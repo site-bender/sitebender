@@ -115,10 +115,10 @@ echo "[hooks] ✅ Formatting clean"
 # deno task lint || { echo "[hooks] ❌ Lint errors" >&2; exit 1; }
 # echo "[hooks] ✅ Lint clean"
 
-# # 11. Type checking
-# echo "[hooks] 📝 Type checking..."
-# deno task typecheck || { echo "[hooks] ❌ Type errors" >&2; exit 1; }
-# echo "[hooks] ✅ Types clean"
+# 11. Type checking
+echo "[hooks] 📝 Type checking..."
+deno task typecheck || { echo "[hooks] ❌ Type errors" >&2; exit 1; }
+echo "[hooks] ✅ Types clean"
 
 echo "[hooks] ✅ All pre-commit checks passed"
 exit 0

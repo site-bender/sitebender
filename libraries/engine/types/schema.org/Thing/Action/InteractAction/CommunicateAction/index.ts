@@ -16,12 +16,12 @@ import type { InviteActionType } from "./InviteAction/index.ts"
 import type { ReplyActionType } from "./ReplyAction/index.ts"
 import type { ShareActionType } from "./ShareAction/index.ts"
 
-import { Audience as AudienceComponent } from "../../../../../../components/index.tsx"
-import { ContactPoint as ContactPointComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../components/index.tsx"
-import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
+import ThingComponent from "../../../../../../../components/src/define/Thing/index.tsx"
+import AudienceComponent from "../../../../../../../components/src/define/Thing/Intangible/Audience/index.tsx"
+import LanguageComponent from "../../../../../../../components/src/define/Thing/Intangible/Language/index.tsx"
+import ContactPointComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import OrganizationComponent from "../../../../../../../components/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../components/src/define/Thing/Person/index.tsx"
 
 export type CommunicateActionType =
 	| "CommunicateAction"

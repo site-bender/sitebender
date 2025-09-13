@@ -17,7 +17,8 @@ export default function isFutureDate(
 
 	const iso = toIsoDateString(date)
 
-	if (not(iso)) {
+	// Ensure iso is a string before comparing
+	if (iso === null) {
 		return false
 	}
 

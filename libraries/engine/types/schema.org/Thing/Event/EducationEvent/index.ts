@@ -3,7 +3,7 @@ import type Thing from "../../index.ts"
 import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 import type { EventProps } from "../index.ts"
 
-import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
+import DefinedTermComponent from "../../../../../../components/src/define/Thing/Intangible/DefinedTerm/index.tsx"
 
 export type EducationEventType = "EducationEvent"
 

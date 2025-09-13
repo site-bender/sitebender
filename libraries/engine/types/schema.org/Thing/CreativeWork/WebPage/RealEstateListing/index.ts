@@ -5,8 +5,8 @@ import type QuantitativeValue from "../../../Intangible/StructuredValue/Quantita
 import type { CreativeWorkProps } from "../../index.ts"
 import type { WebPageProps } from "../index.ts"
 
-import { Duration as DurationComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
+import DurationComponent from "../../../../../../../components/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type RealEstateListingType = "RealEstateListing"
 

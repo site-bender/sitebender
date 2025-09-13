@@ -1,5 +1,5 @@
 export default function Fragment(
-	{ children }: { children?: unknown[] },
+	{ children }: { children?: unknown | unknown[] },
 ): unknown {
 	// If children is an array, flatten it completely
 	if (Array.isArray(children)) {

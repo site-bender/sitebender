@@ -1,4 +1,7 @@
-import type { ModuloOperator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	ModuloOperator,
+	Operand,
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Modulo JSX Component
@@ -14,7 +17,7 @@ import type { ModuloOperator, Operand } from "@sitebender/engine-types/index.ts"
  * </Modulo>
  */
 
-import ModuloConstructor from "@sitebender/engine/constructors/operators/Modulo/index.ts"
+import ModuloConstructor from "../../../../../engine/src/constructors/operators/Modulo/index.ts"
 
 export type Props = {
 	type?: "Number"

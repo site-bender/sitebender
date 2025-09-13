@@ -6,8 +6,8 @@ import type { AnswerType } from "./Answer/index.ts"
 import type { CorrectionCommentType } from "./CorrectionComment/index.ts"
 import type { QuestionType } from "./Question/index.ts"
 
-import { Comment as CommentComponent } from "../../../../../components/index.tsx"
-import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
+import CommentComponent from "../../../../../../components/src/define/Thing/CreativeWork/Comment/index.tsx"
+import CreativeWorkComponent from "../../../../../../components/src/define/Thing/CreativeWork/index.tsx"
 
 export type CommentType =
 	| "Comment"

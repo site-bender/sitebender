@@ -2,8 +2,8 @@ import type Thing from "../../index.ts"
 import type { ProductProps } from "../index.ts"
 import type ProductGroup from "../ProductGroup/index.ts"
 
-import { ProductGroup as ProductGroupComponent } from "../../../../../components/index.tsx"
-import { ProductModel as ProductModelComponent } from "../../../../../components/index.tsx"
+import ProductGroupComponent from "../../../../../../components/src/define/Thing/Product/ProductGroup/index.tsx"
+import ProductModelComponent from "../../../../../../components/src/define/Thing/Product/ProductModel/index.tsx"
 
 export type ProductModelType = "ProductModel"
 

@@ -18,12 +18,12 @@ import type { PlaceType } from "./Place/index.ts"
 import type { ProductType } from "./Product/index.ts"
 import type { TaxonType } from "./Taxon/index.ts"
 
-import { Action as ActionComponent } from "../../../components/index.tsx"
-import { CreativeWork as CreativeWorkComponent } from "../../../components/index.tsx"
-import { Event as EventComponent } from "../../../components/index.tsx"
-import { ImageObject as ImageObjectComponent } from "../../../components/index.tsx"
-import { PropertyValue as PropertyValueComponent } from "../../../components/index.tsx"
-import { TextObject as TextObjectComponent } from "../../../components/index.tsx"
+import ActionComponent from "../../../src/define/Thing/Action/index.tsx"
+import CreativeWorkComponent from "../../../src/define/Thing/CreativeWork/index.tsx"
+import ImageObjectComponent from "../../../src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+import TextObjectComponent from "../../../src/define/Thing/CreativeWork/MediaObject/TextObject/index.tsx"
+import EventComponent from "../../../src/define/Thing/Event/index.tsx"
+import PropertyValueComponent from "../../../src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
 
 export type ThingType =
 	| "Thing"

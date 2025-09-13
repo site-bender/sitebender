@@ -5,8 +5,8 @@ import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ServiceProps } from "../index.ts"
 
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
+import OrganizationComponent from "../../../../../../../components/src/define/Thing/Organization/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../../components/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type GovernmentServiceType = "GovernmentService"
 

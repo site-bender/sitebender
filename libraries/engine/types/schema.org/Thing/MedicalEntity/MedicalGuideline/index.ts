@@ -6,8 +6,8 @@ import type { MedicalEntityProps } from "../index.ts"
 import type { MedicalGuidelineContraindicationType } from "./MedicalGuidelineContraindication/index.ts"
 import type { MedicalGuidelineRecommendationType } from "./MedicalGuidelineRecommendation/index.ts"
 
-import { MedicalEntity as MedicalEntityComponent } from "../../../../../components/index.tsx"
-import { MedicalEvidenceLevel as MedicalEvidenceLevelComponent } from "../../../../../components/index.tsx"
+import MedicalEvidenceLevelComponent from "../../../../../../components/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalEvidenceLevel/index.tsx"
+import MedicalEntityComponent from "../../../../../../components/src/define/Thing/MedicalEntity/index.tsx"
 
 export type MedicalGuidelineType =
 	| "MedicalGuideline"

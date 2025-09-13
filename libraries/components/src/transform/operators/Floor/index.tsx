@@ -1,4 +1,7 @@
-import type { FloorOperator, Operand } from "@sitebender/engine-types/index.ts"
+import type {
+	FloorOperator,
+	Operand,
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Floor JSX Component
@@ -12,7 +15,7 @@ import type { FloorOperator, Operand } from "@sitebender/engine-types/index.ts"
  * </Floor>
  */
 
-import FloorConstructor from "@sitebender/engine/constructors/operators/Floor/index.ts"
+import FloorConstructor from "../../../../../engine/src/constructors/operators/Floor/index.ts"
 
 export type Props = {
 	type?: "Number"

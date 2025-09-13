@@ -1,4 +1,4 @@
-import Person from "@sitebender/components/define/Thing/Person/index.tsx"
+import Person from "../../../../../libraries/components/src/define/Thing/Person/index.tsx"
 
 export default function PersonPage() {
 	return (
