@@ -9,12 +9,17 @@ Deno.test("generateMarkdownFromRulesJson", async (t) => {
 		// Mock environment where no rules files exist
 		// Function should handle gracefully
 		const originalLog = console.log
-		let logOutput = ""
-		console.log = (msg: string) => {
-			logOutput = msg
+		const logMessages: Array<string> = []
+
+		function captureLog(msg: string): void {
+			logMessages.push(msg)
 		}
 
+		console.log = captureLog
+
 		generateMarkdownFromRulesJson()
+
+		const logOutput = logMessages.join(" ")
 
 		assertEquals(
 			logOutput.includes("No rules files found") ||
@@ -29,6 +34,7 @@ Deno.test("generateMarkdownFromRulesJson", async (t) => {
 		// Just ensure it doesn't throw
 		try {
 			generateMarkdownFromRulesJson()
+
 			assertEquals(true, true) // If we get here, it worked
 		} catch (error) {
 			// Only fail if it's not a "no files found" error

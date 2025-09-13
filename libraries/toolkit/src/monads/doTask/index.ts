@@ -4,12 +4,15 @@ import doNotation from "../doNotation/index.ts"
 
 type Task<A> = () => Promise<A>
 
-const TaskMonad: MonadDictionary<Task<any>> = {
-	chain: <A, B>(f: (a: A) => Task<B>) => (ma: Task<A>): Task<B> => {
+const TaskMonad: MonadDictionary<Task<unknown>> = {
+	chain: <A, B>(f: (a: A) => Task<unknown>) =>
+	(
+		ma: Task<unknown>,
+	): Task<unknown> => {
 		return async function chainedTask(): Promise<B> {
 			const a = await ma()
-			const mb = f(a)
-			return mb()
+			const mb = f(a as A)
+			return mb() as Promise<B>
 		}
 	},
 	of: <A>(value: A): Task<A> => {
@@ -36,14 +39,14 @@ export function delay<A>(ms: number) {
 }
 
 export function parallel<A>(tasks: Array<Task<A>>): Task<Array<A>> {
-	return async function runParallel(): Promise<Array<A>> {
+	return function runParallel(): Promise<Array<A>> {
 		const promises = tasks.map((task) => task())
 		return Promise.all(promises)
 	}
 }
 
 export function race<A>(tasks: Array<Task<A>>): Task<A> {
-	return async function runRace(): Promise<A> {
+	return function runRace(): Promise<A> {
 		const promises = tasks.map((task) => task())
 		return Promise.race(promises)
 	}
@@ -51,9 +54,9 @@ export function race<A>(tasks: Array<Task<A>>): Task<A> {
 
 //++ Specialized do-notation for Task monad with async operations
 export default function doTask<A>(
-	genFn: () => Generator<Task<any>, A, any>,
+	genFn: () => Generator<Task<unknown>, A, unknown>,
 ): Task<A> {
-	return doNotation(TaskMonad)(genFn)
+	return doNotation(TaskMonad)(genFn) as Task<A>
 }
 
 //?? [EXAMPLE] doTask(function* () { const x = yield fromPromise(fetch('/api')); return x.json() })

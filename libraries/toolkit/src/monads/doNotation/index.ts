@@ -6,11 +6,11 @@ export type MonadDictionary<T> = {
 //++ Provides Haskell-like do-notation for any monad using JavaScript generators
 export default function doNotation<M>(monad: MonadDictionary<M>) {
 	return function runGenerator<A>(
-		genFn: () => Generator<M, A, any>,
+		genFn: () => Generator<M, A, unknown>,
 	): M {
 		const generator = genFn()
 
-		function step(value: any): M {
+		function step(value: unknown): M {
 			const result = generator.next(value)
 
 			if (result.done) {

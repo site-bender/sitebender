@@ -3,7 +3,6 @@ import {
 	assertEquals,
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
-import fold from "./fold/index.ts"
 import getOrElse from "./getOrElse/index.ts"
 import isLeft from "./isLeft/index.ts"
 import isRight from "./isRight/index.ts"

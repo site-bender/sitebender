@@ -2,7 +2,10 @@ import err from "@sitebender/toolkit/monads/result/err/index.ts"
 import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
-import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+import {
+	assertEquals,
+	assertExists,
+} from "https://deno.land/std@0.224.0/assert/mod.ts"
 
 import type { Generator, Seed } from "../../types/index.ts"
 
@@ -27,11 +30,12 @@ Deno.test("chain - chains dependent generators", () => {
 	assertEquals(isOk(result), true)
 
 	if (isOk(result)) {
-		const str = result.right
-		assertEquals(typeof str, "string")
-		// Length should be between 1 and 10
-		assertEquals(str.length >= 1, true)
-		assertEquals(str.length <= 10, true)
+		assertEquals(typeof result.right, "string")
+		if (typeof result.right === "string") {
+			// Length should be between 1 and 10
+			assertEquals(result.right.length >= 1, true)
+			assertEquals(result.right.length <= 10, true)
+		}
 	}
 })
 
@@ -68,7 +72,9 @@ Deno.test("chain - propagates errors from first generator", () => {
 	assertEquals(isErr(result), true)
 	if (isErr(result)) {
 		assertEquals(result.left.type, "GenerationFailed")
-		assertEquals(result.left.reason, "First generator failed")
+		if (result.left.type === "GenerationFailed") {
+			assertEquals(result.left.reason, "First generator failed")
+		}
 	}
 })
 
@@ -91,7 +97,9 @@ Deno.test("chain - propagates errors from second generator", () => {
 	assertEquals(isErr(result), true)
 	if (isErr(result)) {
 		assertEquals(result.left.type, "GenerationFailed")
-		assertEquals(result.left.reason, "Second generator failed")
+		if (result.left.type === "GenerationFailed") {
+			assertEquals(result.left.reason, "Second generator failed")
+		}
 	}
 })
 
@@ -109,10 +117,11 @@ Deno.test("chain - handles complex dependencies", () => {
 
 	assertEquals(isOk(result), true)
 	if (isOk(result)) {
-		const value = result.right
-		assertEquals(typeof value, "number")
-		assertEquals(value >= 1, true)
-		assertEquals(value <= 100, true)
+		assertEquals(typeof result.right, "number")
+		if (typeof result.right === "number") {
+			assertEquals(result.right >= 1, true)
+			assertEquals(result.right <= 100, true)
+		}
 	}
 })
 
@@ -120,11 +129,19 @@ Deno.test("chain - works with different types", () => {
 	const intGenerator: Generator<number> = generateInteger(0)(2)
 
 	// Chain to generate different types based on integer
-	const mixedGenerator = chain((n: number) => {
-		if (n === 0) return generateBoolean
-		if (n === 1) return generateString(5) as Generator<any>
-		return generateInteger(1)(100) as Generator<any>
-	})(intGenerator)
+	const mixedGenerator = chain<number, boolean | string | number>(
+		(n: number) => {
+			if (n === 0) {
+				return generateBoolean as Generator<boolean | string | number>
+			}
+			if (n === 1) {
+				return generateString(5) as Generator<
+					boolean | string | number
+				>
+			}
+			return generateInteger(1)(100) as Generator<boolean | string | number>
+		},
+	)(intGenerator)
 
 	const seed: Seed = { value: 42, path: [] }
 	const result = mixedGenerator(seed)
@@ -136,7 +153,7 @@ Deno.test("chain - uses split seeds for independence", () => {
 	const boolGenerator: Generator<boolean> = generateBoolean
 
 	// Two chains that should use different seeds
-	const chain1 = chain((b: boolean) => {
+	const chain1 = chain((_b: boolean) => {
 		const gen: Generator<number> = (seed: Seed) => {
 			// Should use a split seed, not the same seed
 			const split = splitSeed(seed)
@@ -145,7 +162,7 @@ Deno.test("chain - uses split seeds for independence", () => {
 		return gen
 	})(boolGenerator)
 
-	const chain2 = chain((b: boolean) => {
+	const chain2 = chain((_b: boolean) => {
 		const gen: Generator<number> = (seed: Seed) => {
 			const split = splitSeed(seed)
 			return ok(split[1].value % 100)
@@ -184,9 +201,13 @@ Deno.test("chain - monadic law: left identity", () => {
 	if (isOk(leftSide) && isOk(rightSide)) {
 		// They might not be exactly equal due to seed handling,
 		// but both should be in the range [5, 15]
-		assertEquals(leftSide.right >= 5, true)
-		assertEquals(leftSide.right <= 15, true)
-		assertEquals(rightSide.right >= 5, true)
-		assertEquals(rightSide.right <= 15, true)
+		if (
+			typeof leftSide.right === "number" && typeof rightSide.right === "number"
+		) {
+			assertEquals(leftSide.right >= 5, true)
+			assertEquals(leftSide.right <= 15, true)
+			assertEquals(rightSide.right >= 5, true)
+			assertEquals(rightSide.right <= 15, true)
+		}
 	}
 })

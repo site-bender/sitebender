@@ -76,17 +76,17 @@ function Validation({ children }: { children: ValidatorConfig }) {
 function Equals({ left, right }: { left: unknown; right: unknown }) {
 	return { kind: 'equals', left, right };
 }
-function Condition({ children }: { children: any }) {
+function Condition({ children }: { children: unknown }) {
 	return Array.isArray(children) ? children[0] : children;
 }
-function IfTrue({ children }: { children: any }) {
+function IfTrue({ children }: { children: unknown }) {
 	return {
 		type: 'div',
 		props: { 'data-slot': 'iftrue' },
 		children: Array.isArray(children) ? children : [children],
 	};
 }
-function IfFalse({ children }: { children: any }) {
+function IfFalse({ children }: { children: unknown }) {
 	return {
 		type: 'div',
 		props: { 'data-slot': 'iffalse' },
@@ -100,10 +100,12 @@ function EmailField(
 		label?: string;
 		help?: string;
 		required?: boolean;
-		children?: any;
+		children?: unknown;
 	},
 ) {
-	const arr = Array.isArray(children) ? children : (children != null ? [children] : []);
+	const arr = Array.isArray(children)
+		? children
+		: (children !== null && children !== undefined ? [children] : []);
 	const validator = arr.find((c) => c && typeof c === 'object' && 'kind' in c) as
 		| ValidatorConfig
 		| undefined;
@@ -138,9 +140,12 @@ function EmailField(
 	};
 }
 
-function ConditionalDisplay({ children }: { children: any }) {
-	const arr = Array.isArray(children) ? children : (children != null ? [children] : []);
-	const condition = arr.find((c) => c && typeof c === 'object' && 'kind' in c) as any | undefined;
+type Kinded = { kind: string };
+function ConditionalDisplay({ children }: { children: unknown }) {
+	const arr = Array.isArray(children)
+		? children
+		: (children !== null && children !== undefined ? [children] : []);
+	const condition = arr.find((c) => c && typeof c === 'object' && 'kind' in c) as Kinded | undefined;
 	const rest = arr.filter((c) => !(c && typeof c === 'object' && 'kind' in c));
 	return {
 		type: 'div',
@@ -149,7 +154,7 @@ function ConditionalDisplay({ children }: { children: any }) {
 	};
 }
 
-const element = {
+const _element = {
 	type: 'form',
 	props: { class: 'form' },
 	children: [

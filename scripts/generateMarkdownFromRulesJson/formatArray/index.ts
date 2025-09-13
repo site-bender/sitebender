@@ -8,6 +8,8 @@ import repeat from "../../../libraries/toolkit/src/vanilla/string/repeat/index.t
 import isEmpty from "../../../libraries/toolkit/src/vanilla/validation/isEmpty/index.ts"
 import isString from "../../../libraries/toolkit/src/vanilla/validation/isString/index.ts"
 
+import formatComplexItem from "./formatComplexItem/index.ts"
+
 //++ Formats a JSON array into markdown
 export default function formatArray(depth: number) {
 	return function withFormatter(formatValue: (value: JsonValue) => string) {
@@ -33,17 +35,8 @@ export default function formatArray(depth: number) {
 			}
 
 			// Complex items - numbered list
-			const formatComplexItem = (item: JsonValue, index: number) => {
-				const formatted = formatValue(item)
-				const number = String(index + 1)
-				const dot = ". "
-				const numberDot = concat(number)(dot)
-				const prefix = concat(indent)(numberDot)
-
-				return concat(prefix)(formatted)
-			}
-
-			const formattedItems = map(formatComplexItem)(items)
+			const formatter = formatComplexItem(indent, formatValue)
+			const formattedItems = map(formatter)(items)
 
 			return join("\n\n")(formattedItems)
 		}

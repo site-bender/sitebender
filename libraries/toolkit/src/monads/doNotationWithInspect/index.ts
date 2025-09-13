@@ -4,7 +4,7 @@ type InspectConfig = {
 	label?: string
 	showTypes?: boolean
 	maxDepth?: number
-	filter?: (value: any) => boolean
+	filter?: (value: unknown) => boolean
 }
 
 //++ Provides do-notation with rich inspection capabilities for debugging monadic computations
@@ -13,12 +13,12 @@ export default function doNotationWithInspect<M>(
 	config: InspectConfig = {},
 ) {
 	return function runGeneratorWithInspect<A>(
-		genFn: () => Generator<M, A, any>,
+		genFn: () => Generator<M, A, unknown>,
 	): M {
 		const generator = genFn()
 		const { label = "inspect", showTypes = true, maxDepth = 3, filter } = config
 
-		const formatValue = (value: any, depth = 0): string => {
+		const formatValue = (value: unknown, depth = 0): string => {
 			if (depth > maxDepth) return "..."
 
 			if (value === null) return "null"
@@ -40,7 +40,7 @@ export default function doNotationWithInspect<M>(
 			return String(value)
 		}
 
-		const inspect = (value: any, step: number): void => {
+		const inspect = (value: unknown, step: number): void => {
 			if (filter && !filter(value)) return
 
 			const formatted = formatValue(value)
@@ -50,7 +50,7 @@ export default function doNotationWithInspect<M>(
 
 		let stepCount = 0
 
-		function stepWithInspect(value: any): M {
+		function stepWithInspect(value: unknown): M {
 			if (value !== undefined) {
 				inspect(value, stepCount)
 			}

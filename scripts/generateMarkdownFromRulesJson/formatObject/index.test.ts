@@ -7,7 +7,9 @@ import formatObject from "./index.ts"
 
 //++ Tests for formatObject
 Deno.test("formatObject", async (t) => {
-	const mockFormatValue = (value: JsonValue) => String(value)
+	function mockFormatValue(value: JsonValue): string {
+		return String(value)
+	}
 
 	await t.step("returns '_empty object_' for empty object", () => {
 		const obj: JsonObject = {}

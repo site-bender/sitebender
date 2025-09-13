@@ -168,7 +168,7 @@ Deno.test("parsePrimaryExpressionState - handles nested parentheses", () => {
 	}
 
 	// Recursive parseExpression that handles nested parens
-	const parseExpression = (minPrecedence: number) =>
+	const parseExpression = (_minPrecedence: number) =>
 		parsePrimaryExpressionState(parseExpression)
 
 	const result = evalState(parsePrimaryExpressionState(parseExpression))(state)

@@ -3,18 +3,19 @@ import type { MonadDictionary } from "../../doNotation/index.ts"
 
 //++ Creates a monad dictionary for Either with chain and of operations
 export default function createEitherMonad<L>(): MonadDictionary<
-	Either<L, any>
+	Either<L, unknown>
 > {
 	return {
 		chain: function chainEither<A, B>(f: (a: A) => Either<L, B>) {
-			return function applyChain(ma: Either<L, A>): Either<L, B> {
+			return function applyChain(ma: Either<L, unknown>): Either<L, unknown> {
 				if (ma._tag === "Left") {
 					return ma
 				}
-				return f(ma.right)
+				const res = f((ma.right as unknown) as A)
+				return res as Either<L, unknown>
 			}
 		},
-		of: function ofEither<R>(value: R): Either<L, R> {
+		of: function ofEither<R>(value: R): Either<L, unknown> {
 			return { _tag: "Right", right: value }
 		},
 	}
