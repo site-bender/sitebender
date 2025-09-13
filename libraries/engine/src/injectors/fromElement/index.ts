@@ -6,7 +6,9 @@ import type {
 	Value,
 } from "@sitebender/engine-types/index.ts"
 
-import castValue from "@sitebender/engine/utilities/castValue/index.ts"
+import castValue, {
+	Either as CastEither,
+} from "@sitebender/engine/utilities/castValue/index.ts"
 import getValue from "@sitebender/engine/utilities/getValue/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
@@ -26,15 +28,21 @@ const fromElement = (op: HydratedFromElement): OperationFunction =>
 ): Promise<Either<Array<EngineError>, Value>> => {
 	const { datatype = "Number" } = op
 
-	const result = castValue(datatype)(getValue(op)(localValues))
+	const result = castValue<unknown, Value>(datatype)(
+		getValue(op)(localValues) as CastEither<unknown, Value>,
+	)
 
-	if (isDefined(result.left)) {
+	if ("left" in result && isDefined(result.left)) {
 		return Promise.resolve({
-			left: [Error("FromElement")("FromElement")(String(result.left))],
+			left: [
+				Error("FromElement")("FromElement")(String(result.left)),
+			],
 		})
 	}
 
-	return Promise.resolve(result)
+	// Map to the engine Either shape explicitly
+	const rightVal = (result as { right: Value }).right
+	return Promise.resolve({ right: rightVal } as Either<EngineError[], Value>)
 }
 
 export default fromElement

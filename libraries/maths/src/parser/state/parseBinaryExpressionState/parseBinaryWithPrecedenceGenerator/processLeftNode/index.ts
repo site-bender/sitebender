@@ -1,7 +1,9 @@
 import type { AstNode, ParseError, Result } from "../../../../../types/index.ts"
 import type { Parser } from "../../../../types/state/index.ts"
 
-import doState from "../../../../../../../toolkit/src/monads/doState/index.ts"
+import doState, {
+	get,
+} from "../../../../../../../toolkit/src/monads/doState/index.ts"
 import err from "../../../../../../../toolkit/src/monads/result/err/index.ts"
 import parseBinaryLoop from "../../parseBinaryLoop/index.ts"
 
@@ -18,7 +20,9 @@ export default function processLeftNode(
 	}
 
 	// Fallback if no parser provided (shouldn't happen)
-	return doState(function fallbackHandler() {
+	return doState(function* fallbackHandler() {
+		// touch state to satisfy generator signature
+		yield get()
 		return err({
 			message: "No binary parser provided",
 			position: 0,

@@ -39,7 +39,7 @@ Deno.test("formatMetadataEntry", async (t) => {
 		const entry: [string, JsonValue] = ["scope", ["lib", "app"]]
 		const result = formatMetadataEntry(entry)
 
-		assertEquals(includes("**Scope**: ")(result), true)
+		assertEquals(includes("**Scope**:\n")(result), true)
 		assertEquals(includes("- lib")(result), true)
 		assertEquals(includes("- app")(result), true)
 	})

@@ -23,10 +23,7 @@
  *   deno run -A scripts/codemods/migrateEnvoyPipeBlocks/index.ts --dry       # preview only
  */
 
-// Minimal ambient to satisfy TypeScript when not using the Deno language server
-// (The script still expects to be executed with Deno.)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-declare const Deno: any
+// Uses Deno namespace; script is intended to run with Deno permissions
 
 const ROOT: string = Deno.cwd()
 const TARGET_DIRS = [
@@ -235,18 +232,22 @@ async function* iteratePaths(roots: string[]): AsyncGenerator<string> {
 		}
 	}
 
-	for (const root of roots) {
-		const abs = root.startsWith("/")
-			? root
-			: (ROOT.endsWith("/") ? ROOT : ROOT + "/") + root
-		try {
-			const stat = await Deno.stat(abs)
-			if (stat.isFile) {
-				if (isTsFile(abs)) yield abs
-				continue
-			}
-		} catch {
-			// not a file; try as directory
+	// Precompute absolute roots
+	const absRoots = roots.map((root) =>
+		root.startsWith("/") ? root : (ROOT.endsWith("/") ? ROOT : ROOT + "/") + root,
+	)
+
+	// Batch stat calls to avoid await-in-loop
+	const stats = await Promise.all(
+		absRoots.map((abs) =>
+			Deno.stat(abs).then((s) => ({ abs, s })).catch(() => ({ abs, s: null })),
+		),
+	)
+
+	for (const { abs, s } of stats) {
+		if (s?.isFile) {
+			if (isTsFile(abs)) yield abs
+			continue
 		}
 		for await (const p of walkDir(abs)) {
 			if (isTsFile(p)) yield p

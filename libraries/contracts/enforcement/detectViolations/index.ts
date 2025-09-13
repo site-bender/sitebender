@@ -1,33 +1,42 @@
 //++ Detects contract violations in source code using pattern matching
 
-import type { ContractViolation } from "../types"
+import type { ContractViolation } from "../types/index.ts"
+import map from "../../../../toolkit/src/vanilla/array/map/index.ts"
+import flatMap from "../../../../toolkit/src/vanilla/array/flatMap/index.ts"
+import getForbiddenPatterns from "./getForbiddenPatterns/index.ts"
+import findPattern from "./findPattern/index.ts"
 
 export default async function detectViolations(
 	libraryPath: string,
 	library: string,
 ): Promise<ReadonlyArray<ContractViolation>> {
-	const violations: Array<ContractViolation> = []
-
 	// Define forbidden patterns for each library
 	const forbiddenPatterns = getForbiddenPatterns(library)
 
 	// Check for forbidden imports using grep-like patterns
-	for (const pattern of forbiddenPatterns) {
-		const matches = await findPattern(libraryPath, pattern.regex)
-
-		for (const match of matches) {
-			violations.push({
-				type: "import",
+	// Batch pattern searches to avoid await in loop
+	const forbiddenResults = await Promise.all(
+		map((p: { regex: RegExp; description: string }) =>
+			findPattern(libraryPath, p.regex).then((m) => ({ p, m }))
+		)(forbiddenPatterns),
+	)
+	const forbiddenViolations = flatMap(
+		({ p, m }: {
+			p: { regex: RegExp; description: string }
+			m: Array<{ file: string; line: number }>
+		}) =>
+			map((match: { file: string; line: number }) => ({
+				type: "import" as const,
 				library,
-				description: pattern.description,
+				description: p.description,
 				file: match.file,
 				line: match.line,
-				severity: "error",
-			})
-		}
-	}
+				severity: "error" as const,
+			}))(m),
+	)(forbiddenResults)
 
 	// Check for specific violations
+	let tsViolations: ReadonlyArray<ContractViolation> = []
 	if (library === "envoy") {
 		// Check if Envoy is trying to parse TypeScript directly
 		const tsParsingPatterns = [
@@ -53,22 +62,29 @@ export default async function detectViolations(
 			},
 		]
 
-		for (const pattern of tsParsingPatterns) {
-			const matches = await findPattern(libraryPath, pattern.regex)
-			for (const match of matches) {
-				violations.push({
-					type: "boundary",
+		const tsResults = await Promise.all(
+			map((p: { regex: RegExp; description: string }) =>
+				findPattern(libraryPath, p.regex).then((m) => ({ p, m }))
+			)(tsParsingPatterns),
+		)
+		tsViolations = flatMap(
+			({ p, m }: {
+				p: { regex: RegExp; description: string }
+				m: Array<{ file: string; line: number }>
+			}) =>
+				map((match: { file: string; line: number }) => ({
+					type: "boundary" as const,
 					library,
 					description:
-						`CRITICAL: ${pattern.description}. Envoy MUST use Parser output only!`,
+						`CRITICAL: ${p.description}. Envoy MUST use Parser output only!`,
 					file: match.file,
 					line: match.line,
-					severity: "error",
-				})
-			}
-		}
+					severity: "error" as const,
+				}))(m),
+		)(tsResults)
 	}
 
+	let internalViolations: ReadonlyArray<ContractViolation> = []
 	if (library === "parser") {
 		// Check if Parser is exporting TypeScript internals
 		const internalExports = [
@@ -83,75 +99,27 @@ export default async function detectViolations(
 			{ regex: /export.*Node/, description: "Parser exporting raw AST nodes" },
 		]
 
-		for (const pattern of internalExports) {
-			const matches = await findPattern(libraryPath, pattern.regex)
-			for (const match of matches) {
-				violations.push({
-					type: "api",
+		const internalResults = await Promise.all(
+			map((p: { regex: RegExp; description: string }) =>
+				findPattern(libraryPath, p.regex).then((m) => ({ p, m }))
+			)(internalExports),
+		)
+		internalViolations = flatMap(
+			({ p, m }: {
+				p: { regex: RegExp; description: string }
+				m: Array<{ file: string; line: number }>
+			}) =>
+				map((match: { file: string; line: number }) => ({
+					type: "api" as const,
 					library,
-					description: pattern.description,
+					description: p.description,
 					file: match.file,
 					line: match.line,
-					severity: "error",
-				})
-			}
-		}
+					severity: "error" as const,
+				}))(m),
+		)(internalResults)
+		return [...forbiddenViolations, ...tsViolations, ...internalViolations]
 	}
 
-	return violations
-}
-
-function getForbiddenPatterns(
-	library: string,
-): Array<{ regex: RegExp; description: string }> {
-	const patterns: Record<
-		string,
-		Array<{ regex: RegExp; description: string }>
-	> = {
-		envoy: [
-			{
-				regex: /from ['"]typescript['"]/,
-				description: "Direct TypeScript import",
-			},
-			{
-				regex: /from ['"]@typescript/,
-				description: "Direct @typescript import",
-			},
-			{
-				regex: /from ['"].*\.tsx?['"]/,
-				description: "Direct source file import",
-			},
-			{ regex: /from ['"].*prover/, description: "Importing from prover" },
-		],
-		prover: [
-			{
-				regex: /from ['"]typescript['"]/,
-				description: "Direct TypeScript import",
-			},
-			{ regex: /from ['"].*envoy/, description: "Importing from envoy" },
-		],
-		toolkit: [
-			{
-				regex: /from ['"]@sitebender\//,
-				description: "Toolkit importing other libraries",
-			},
-		],
-		foundry: [
-			{
-				regex: /from ['"]@sitebender\//,
-				description: "Foundry importing other libraries",
-			},
-		],
-	}
-
-	return patterns[library] || []
-}
-
-async function findPattern(
-	path: string,
-	pattern: RegExp,
-): Promise<Array<{ file: string; line: number }>> {
-	// In production, this would use actual file system operations
-	// For now, returning empty array to indicate no violations found
-	return []
+	return [...forbiddenViolations, ...tsViolations, ...internalViolations]
 }

@@ -61,7 +61,7 @@ export default function parsePrimaryExpressionState(
 						position: error.position || token.position,
 						expected: ")",
 						found: error.found || "EOF",
-					}))(rightParenResult)
+					}))(rightParenResult as Result<AstNode, ParseError>)
 				}
 
 				return exprResult

@@ -10,7 +10,9 @@ export default function filter<A>(predicate: (a: A) => boolean) {
 			return maybe
 		}
 
-		return predicate((maybe as any).value as A) ? maybe : nothing()
+		return predicate((maybe as { _tag: "Just"; value: A }).value)
+			? maybe
+			: nothing()
 	}
 }
 

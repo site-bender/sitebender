@@ -2,13 +2,12 @@ import err from "@sitebender/toolkit/monads/result/err/index.ts"
 import fold from "@sitebender/toolkit/monads/result/fold/index.ts"
 import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
-import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+import {
+	assertEquals,
+	assertExists,
+} from "https://deno.land/std@0.224.0/assert/mod.ts"
 
-import type {
-	Property,
-	PropertyFailure,
-	PropertySuccess,
-} from "../../../types/index.ts"
+import type { Property, PropertyFailure } from "../../../types/index.ts"
 import type { RunState } from "../types/index.ts"
 
 import runProperty from "./index.ts"
