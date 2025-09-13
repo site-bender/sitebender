@@ -20,6 +20,7 @@ Deno.test("formatMetadata", async (t) => {
 			["author", "The Architect"],
 			["lastUpdated", "2025-01-11"],
 		]
+
 		const result = formatMetadata(input)
 
 		assertEquals(
@@ -33,6 +34,7 @@ Deno.test("formatMetadata", async (t) => {
 			["scope", ["components", "engine", "toolkit"]],
 			["inherits", { from: "base", version: "2.0" }],
 		]
+
 		const result = formatMetadata(input)
 
 		// Complex values get formatted by formatJsonValue
@@ -45,6 +47,7 @@ Deno.test("formatMetadata", async (t) => {
 			["rulesPhilosophy", "Test"],
 			["primeDirective", "Test"],
 		]
+
 		const result = formatMetadata(input)
 
 		assertEquals(includes("**Rules philosophy**:")(result), true)

@@ -17,7 +17,6 @@
  * Exit non-zero when violations are found; prints file:line with a fix hint.
  */
 
-// deno-lint-ignore no-explicit-any
 const globWalk = async function* (
 	root: string,
 ): AsyncGenerator<string, void, unknown> {

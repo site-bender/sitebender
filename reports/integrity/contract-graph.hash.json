@@ -1,0 +1,10 @@
+{
+  "artifact": "contract-graph",
+  "version": 1,
+  "hashes": {
+    "sha256": "28c16fa3f08f0f3ee9c356280a2fb1ffd682b93cfb1774c8fd43d20479db9efb"
+  },
+  "preferred": "sha256",
+  "generatedAt": "2025-09-13T10:48:06.722Z",
+  "schemaVersion": 1
+}

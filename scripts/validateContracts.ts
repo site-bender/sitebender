@@ -139,24 +139,24 @@ const VIOLATION_CHECKS: Array<ViolationCheck> = [
 async function checkViolations(): Promise<boolean> {
 	console.log("🔍 Checking contract compliance...")
 
-	let hasErrors = false
 	const violations: Array<string> = []
 
-	for (const check of VIOLATION_CHECKS) {
-		try {
-			const { stdout } = await execAsync(check.command)
+	// Execute all checks concurrently to avoid await-in-loop
+	const results = await Promise.all(
+		VIOLATION_CHECKS.map((check) =>
+			execAsync(check.command)
+				.then(({ stdout }) => ({ check, stdout }))
+				.catch((_error) => ({ check, stdout: "" })),
+		),
+	)
 
-			if (stdout.trim()) {
-				if (check.severity === "error") {
-					hasErrors = true
-					violations.push(`\n${check.errorMessage}\nFound in:\n${stdout}`)
-				} else {
-					console.warn(`⚠️  Warning: ${check.name}\n${stdout}`)
-				}
+	for (const { check, stdout } of results) {
+		if (stdout.trim()) {
+			if (check.severity === "error") {
+				violations.push(`\n${check.errorMessage}\nFound in:\n${stdout}`)
+			} else {
+				console.warn(`⚠️  Warning: ${check.name}\n${stdout}`)
 			}
-		} catch (error) {
-			// Command failed, which usually means grep found nothing (good!)
-			continue
 		}
 	}
 

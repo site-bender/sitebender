@@ -8,7 +8,7 @@ import type {
 	IrDocument,
 } from "../../../../types/ir/index.ts"
 
-import createTestDomWithBody from "../../../../tests/helpers/createTestDom/createTestDomWithBody/index.ts"
+import createTestDomWithBody from "@sitebender/toolkit/testing/dom/createTestDomWithBody.ts"
 import createComposeContext from "../../../context/composeContext/index.ts"
 import registerDefaultExecutors from "../../../operations/defaults/registerDefaults/index.ts"
 import hydrate from "../index.ts"

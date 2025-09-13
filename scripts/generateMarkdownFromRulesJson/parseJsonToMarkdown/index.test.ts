@@ -15,6 +15,7 @@ Deno.test("parseJsonToMarkdown", async (t) => {
 		}
 
 		const result = parseJsonToMarkdown(json)
+
 		assertEquals(includes("**Version**: 1.0.0")(result), true)
 		assertEquals(includes("**Last updated**: 2025-01-13")(result), true)
 		assertEquals(includes("**Author**: The Architect")(result), true)
@@ -27,6 +28,7 @@ Deno.test("parseJsonToMarkdown", async (t) => {
 		}
 
 		const result = parseJsonToMarkdown(json)
+
 		assertEquals(includes("## Prime directive")(result), true)
 		assertEquals(includes("## Seven deadly sins")(result), true)
 	})
@@ -41,6 +43,7 @@ Deno.test("parseJsonToMarkdown", async (t) => {
 		}
 
 		const result = parseJsonToMarkdown(json)
+
 		assertEquals(includes("## Code organization")(result), true)
 		assertEquals(includes("Laws")(result), true)
 		assertEquals(includes("One function per file")(result), true)
