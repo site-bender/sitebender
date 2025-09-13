@@ -9,27 +9,27 @@ import isNumber from "../../../libraries/toolkit/src/vanilla/validation/isNumber
 import isString from "../../../libraries/toolkit/src/vanilla/validation/isString/index.ts"
 
 //++ Formats any JSON value into appropriate markdown
-const formatJsonValue = (depth: number = 0) => (value: JsonValue): string => {
-	if (isNull(value)) {
-		return "_null_"
+export default function formatJsonValue(depth: number = 0) {
+	return function formatValue(value: JsonValue): string {
+		if (isNull(value)) {
+			return "_null_"
+		}
+		
+		if (isString(value)) {
+			return value
+		}
+		
+		if (isNumber(value) || isBoolean(value)) {
+			return String(value)
+		}
+		
+		if (isArray(value)) {
+			return formatArray(depth)(formatJsonValue(depth))(value)
+		}
+		
+		return formatObject(formatJsonValue(depth))(value as JsonObject)
 	}
-	
-	if (isString(value)) {
-		return value
-	}
-	
-	if (isNumber(value) || isBoolean(value)) {
-		return String(value)
-	}
-	
-	if (isArray(value)) {
-		return formatArray(depth)(formatJsonValue(depth))(value)
-	}
-	
-	return formatObject(depth)(formatJsonValue(depth))(value as JsonObject)
 }
-
-export default formatJsonValue
 
 //?? [EXAMPLE]
 // formatJsonValue(0)("string") // "string"

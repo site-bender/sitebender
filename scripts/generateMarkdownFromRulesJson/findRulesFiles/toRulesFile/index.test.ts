@@ -5,7 +5,7 @@ import toRulesFile from "./index.ts"
 Deno.test("toRulesFile", async (t) => {
 	await t.step("returns RulesFile object for existing file", () => {
 		// Use the actual project root and a file we know exists
-		const projectRoot = new URL("../../../..", import.meta.url).pathname
+		const projectRoot = new URL("../../../../..", import.meta.url).pathname
 		const result = toRulesFile("rules/index.json", projectRoot)
 		
 		if (result) {
@@ -22,14 +22,17 @@ Deno.test("toRulesFile", async (t) => {
 		assertEquals(result, null)
 	})
 	
-	await t.step("correctly transforms paths", () => {
-		// Test with a fake but valid-looking path
-		const location = "libraries/test/rules/index.json"
-		const projectRoot = "/test/project"
+	await t.step("correctly transforms paths for real library rules files", () => {
+		const projectRoot = new URL("../../../../..", import.meta.url).pathname
+		const result = toRulesFile("libraries/engine/rules/index.json", projectRoot)
 		
-		// We can't test if file exists, but we can test the transformation
-		// by mocking the file check - but since we can't, skip this
-		// Instead just verify the function exists and is callable
-		assertEquals(typeof toRulesFile, "function")
+		if (result) {
+			assertEquals(result.jsonPath, `${projectRoot}/libraries/engine/rules/index.json`)
+			assertEquals(result.path, `${projectRoot}/libraries/engine/rules`)
+			assertEquals(result.markdownPath, `${projectRoot}/libraries/engine/rules/index.md`)
+		} else {
+			// If the file doesn't exist, that's a problem we want to know about
+			throw new Error("Expected libraries/engine/rules/index.json to exist")
+		}
 	})
 })

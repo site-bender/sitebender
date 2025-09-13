@@ -1,6 +1,9 @@
 //++ Tests for parseJsonToMarkdown
 
 import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+
+import includes from "../../../libraries/toolkit/src/vanilla/string/contains/index.ts"
+
 import parseJsonToMarkdown from "./index.ts"
 
 Deno.test("parseJsonToMarkdown", async (t) => {
@@ -13,9 +16,9 @@ Deno.test("parseJsonToMarkdown", async (t) => {
 		}
 		
 		const result = parseJsonToMarkdown(json)
-		assertEquals(result.includes("**Version**: 1.0.0"), true)
-		assertEquals(result.includes("**Last updated**: 2025-01-13"), true)
-		assertEquals(result.includes("**Author**: The Architect"), true)
+		assertEquals(includes("**Version**: 1.0.0")(result), true)
+		assertEquals(includes("**Last updated**: 2025-01-13")(result), true)
+		assertEquals(includes("**Author**: The Architect")(result), true)
 	})
 	
 	await t.step("converts object keys to sentence case headings", () => {
@@ -25,8 +28,8 @@ Deno.test("parseJsonToMarkdown", async (t) => {
 		}
 		
 		const result = parseJsonToMarkdown(json)
-		assertEquals(result.includes("## Prime directive"), true)
-		assertEquals(result.includes("## Seven deadly sins"), true)
+		assertEquals(includes("## Prime directive")(result), true)
+		assertEquals(includes("## Seven deadly sins")(result), true)
 	})
 	
 	await t.step("handles nested structures recursively", () => {
@@ -39,8 +42,8 @@ Deno.test("parseJsonToMarkdown", async (t) => {
 		}
 		
 		const result = parseJsonToMarkdown(json)
-		assertEquals(result.includes("## Code organization"), true)
-		assertEquals(result.includes("Laws"), true)
-		assertEquals(result.includes("One function per file"), true)
+		assertEquals(includes("## Code organization")(result), true)
+		assertEquals(includes("Laws")(result), true)
+		assertEquals(includes("One function per file")(result), true)
 	})
 })

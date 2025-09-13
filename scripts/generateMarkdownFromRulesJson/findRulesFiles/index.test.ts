@@ -1,4 +1,5 @@
 import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+import map from "../../../libraries/toolkit/src/vanilla/array/map/index.ts"
 import findRulesFiles from "./index.ts"
 
 //++ Tests for findRulesFiles
@@ -11,7 +12,7 @@ Deno.test("findRulesFiles", async (t) => {
 		
 		// If we find any files, check their structure
 		if (result.length > 0) {
-			for (const file of result) {
+			const checkFileStructure = (file: any) => {
 				assertEquals(typeof file.path, "string")
 				assertEquals(typeof file.jsonPath, "string")
 				assertEquals(typeof file.markdownPath, "string")
@@ -25,6 +26,8 @@ Deno.test("findRulesFiles", async (t) => {
 				// path should not end with index.json
 				assertEquals(file.path.endsWith("/index.json"), false)
 			}
+			
+			map(checkFileStructure)(result)
 		}
 	})
 	
@@ -32,7 +35,7 @@ Deno.test("findRulesFiles", async (t) => {
 		const result = findRulesFiles()
 		
 		// All returned files should actually exist
-		for (const file of result) {
+		const checkFileExists = (file: any) => {
 			try {
 				Deno.statSync(file.jsonPath)
 				assertEquals(true, true) // File exists
@@ -40,18 +43,22 @@ Deno.test("findRulesFiles", async (t) => {
 				assertEquals(true, false, `File should exist: ${file.jsonPath}`)
 			}
 		}
+		
+		map(checkFileExists)(result)
 	})
 	
 	await t.step("produces consistent paths", () => {
 		const result = findRulesFiles()
 		
 		// Check that paths are consistent
-		for (const file of result) {
+		const checkPathConsistency = (file: any) => {
 			// jsonPath should be path + "/index.json"
 			assertEquals(file.jsonPath, `${file.path}/index.json`)
 			
 			// markdownPath should be path + "/index.md"  
 			assertEquals(file.markdownPath, `${file.path}/index.md`)
 		}
+		
+		map(checkPathConsistency)(result)
 	})
 })

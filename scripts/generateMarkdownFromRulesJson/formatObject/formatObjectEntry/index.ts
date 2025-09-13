@@ -1,0 +1,24 @@
+import type { JsonValue } from "../../types/index.ts"
+
+import pipe from "../../../../libraries/toolkit/src/vanilla/combinator/pipe/index.ts"
+import concat from "../../../../libraries/toolkit/src/vanilla/string/concat/index.ts"
+import concatTo from "../../../../libraries/toolkit/src/vanilla/string/concatTo/index.ts"
+import formatKey from "../../formatKey/index.ts"
+
+//++ Formats an object entry as markdown with bold key
+export default function formatObjectEntry(formatValue: (value: JsonValue) => string) {
+	return function formatEntry([key, value]: [string, JsonValue]): string {
+		const formattedKey = formatKey(key)
+		const formattedValue = formatValue(value)
+		
+		return pipe([
+			concat("**"),
+			concatTo("**: "),
+			concatTo(formattedValue),
+		])(formattedKey)
+	}
+}
+
+//?? [EXAMPLE]
+// const formatter = formatObjectEntry((v) => String(v))
+// formatter(["testKey", "testValue"]) // "**Test key**: testValue"
