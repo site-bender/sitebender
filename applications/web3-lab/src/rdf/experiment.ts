@@ -90,8 +90,7 @@ class FederatedQueryEngine {
 
 	async checkAvailability() {
 		console.log("\n🔍 Checking source availability...")
-
-		for (const source of this.sources) {
+		const checks = this.sources.map(async (source) => {
 			if (source.type === "local") {
 				source.available = true
 			} else if (source.type === "fuseki") {
@@ -101,7 +100,6 @@ class FederatedQueryEngine {
 						headers: { "Content-Type": "application/sparql-query" },
 						body: "SELECT * WHERE { ?s ?p ?o } LIMIT 1",
 					}).catch(() => null)
-
 					source.available = response?.ok ?? false
 				} catch {
 					source.available = false
@@ -116,24 +114,28 @@ class FederatedQueryEngine {
 					source.available ? "Available" : "Offline"
 				}`,
 			)
-		}
+		})
+
+		await Promise.all(checks)
 	}
 
-	async executeQuery(sparql: string): Promise<Map<string, any[]>> {
-		const results = new Map<string, any[]>()
+	async executeQuery<
+		T extends Record<string, unknown> = Record<string, unknown>,
+	>(sparql: string): Promise<Map<string, T[]>> {
+		const results = new Map<string, T[]>()
 
 		console.log("\n🚀 Executing federated query...")
 		console.log(`Query: ${sparql.substring(0, 50)}...`)
 
-		for (const source of this.sources) {
-			if (!source.available) continue
+		const queries = this.sources.map(async (source) => {
+			if (!source.available) return
 
 			console.log(`   Querying ${source.name}...`)
 
 			if (source.type === "local") {
 				// Use our simple store
 				const store = new SimpleTripleStore()
-				const localResults = store.sparqlSelect(sparql)
+				const localResults = store.sparqlSelect(sparql) as unknown as T[]
 				results.set(source.name, localResults)
 			} else if (source.type === "fuseki") {
 				// Real Fuseki query
@@ -146,19 +148,26 @@ class FederatedQueryEngine {
 
 					if (response.ok) {
 						const data = await response.json()
-						results.set(source.name, data.results?.bindings || [])
+						results.set(
+							source.name,
+							(data.results?.bindings as T[] | undefined) ?? [],
+						)
 					}
-				} catch (error) {
+				} catch {
 					console.log(`   ⚠️ Error querying ${source.name}`)
 				}
 			}
-		}
+		})
+
+		await Promise.all(queries)
 
 		return results
 	}
 
-	mergeResults(results: Map<string, any[]>): any[] {
-		const merged: any[] = []
+	mergeResults<T extends Record<string, unknown>>(
+		results: Map<string, T[]>,
+	): Array<T & { _source: string }> {
+		const merged: Array<T & { _source: string }> = []
 		const seen = new Set<string>()
 
 		for (const [source, data] of results) {
@@ -166,7 +175,7 @@ class FederatedQueryEngine {
 				const key = JSON.stringify(item)
 				if (!seen.has(key)) {
 					seen.add(key)
-					merged.push({ ...item, _source: source })
+					merged.push({ ...(item as T), _source: source })
 				}
 			}
 		}
@@ -246,7 +255,7 @@ async function main() {
 
 	// Execute a federated query
 	const sparql = "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 10"
-	const results = await engine.executeQuery(sparql)
+	const results = await engine.executeQuery<Record<string, unknown>>(sparql)
 
 	console.log("\n📈 Query Results:")
 	for (const [source, data] of results) {

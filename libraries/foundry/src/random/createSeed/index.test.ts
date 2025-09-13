@@ -1,8 +1,11 @@
 import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
-import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+import {
+	assertEquals,
+	assertExists,
+} from "https://deno.land/std@0.224.0/assert/mod.ts"
 
-import type { Seed } from "../../types/index.ts"
+// import type { Seed } from "../../types/index.ts"
 
 import createSeed from "./index.ts"
 

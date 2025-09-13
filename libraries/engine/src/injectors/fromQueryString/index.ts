@@ -3,7 +3,9 @@ import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts
 import isUndefined from "@sitebender/toolkit/vanilla/validation/isUndefined/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
-import castValue from "../../utilities/castValue/index.ts"
+import castValue, {
+	Either as CastEither,
+} from "../../utilities/castValue/index.ts"
 
 const fromQueryString = (op: unknown = {}) =>
 (
@@ -35,12 +37,18 @@ const fromQueryString = (op: unknown = {}) =>
 		}
 	}
 
-	const casted = castValue(datatype)({ right: value })
+	const casted = castValue<unknown, string>(datatype)(
+		{ right: value } as CastEither<unknown, string>,
+	)
 
-	return isDefined(casted.right) ? casted : {
+	if (isDefined((casted as { right?: unknown }).right)) {
+		return casted
+	}
+	const leftVal = (casted as { left?: unknown }).left
+	return {
 		left: [
 			Error("FromQueryString")("FromQueryString")(
-				String(casted.left),
+				String(leftVal),
 			),
 		],
 	}

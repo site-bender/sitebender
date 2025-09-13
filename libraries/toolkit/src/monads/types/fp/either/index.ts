@@ -6,5 +6,5 @@ export type Right<A> = { readonly _tag: "Right"; readonly right: A }
 
 export type Either<E, A> = Left<E> | Right<A>
 
-export type InferLeft<T> = T extends Either<infer E, any> ? E : never
-export type InferRight<T> = T extends Either<any, infer A> ? A : never
+export type InferLeft<T> = T extends Either<infer E, unknown> ? E : never
+export type InferRight<T> = T extends Either<unknown, infer A> ? A : never
