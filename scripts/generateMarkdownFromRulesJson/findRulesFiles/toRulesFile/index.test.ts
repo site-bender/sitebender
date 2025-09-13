@@ -6,7 +6,7 @@ import toRulesFile from "./index.ts"
 Deno.test("toRulesFile", async (t) => {
 	await t.step("returns RulesFile object for existing file", () => {
 		// Use the actual project root and a file we know exists
-		const projectRoot = new URL("../../../../..", import.meta.url).pathname
+		const projectRoot = new URL("../../../..", import.meta.url).pathname
 		const result = toRulesFile("rules/index.json", projectRoot)
 
 		if (result) {
@@ -26,7 +26,7 @@ Deno.test("toRulesFile", async (t) => {
 	await t.step(
 		"correctly transforms paths for real library rules files",
 		() => {
-			const projectRoot = new URL("../../../../..", import.meta.url).pathname
+			const projectRoot = new URL("../../../..", import.meta.url).pathname
 			const result = toRulesFile(
 				"libraries/engine/rules/index.json",
 				projectRoot,
