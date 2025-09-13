@@ -4,8 +4,8 @@ import type DefinedTerm from "../../Intangible/DefinedTerm/index.ts"
 import type Product from "../index.ts"
 import type { ProductProps } from "../index.ts"
 
-import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
-import { Product as ProductComponent } from "../../../../../components/index.tsx"
+import DefinedTermComponent from "../../../../../../components/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import ProductComponent from "../../../../../../components/src/define/Thing/Product/index.tsx"
 
 export type ProductGroupType = "ProductGroup"
 

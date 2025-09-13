@@ -1,4 +1,4 @@
-import { Person } from "../../../define/index.ts"
+import Person from "../../../define/Thing/Person/index.tsx"
 
 type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {

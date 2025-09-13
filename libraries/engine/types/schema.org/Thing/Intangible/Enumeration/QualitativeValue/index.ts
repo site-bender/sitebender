@@ -13,13 +13,13 @@ import type { DriveWheelConfigurationValueType } from "./DriveWheelConfiguration
 import type { SizeSpecificationType } from "./SizeSpecification/index.ts"
 import type { SteeringPositionValueType } from "./SteeringPositionValue/index.ts"
 
-import { DefinedTerm as DefinedTermComponent } from "../../../../../../components/index.tsx"
-import { Enumeration as EnumerationComponent } from "../../../../../../components/index.tsx"
-import { MeasurementTypeEnumeration as MeasurementTypeEnumerationComponent } from "../../../../../../components/index.tsx"
-import { PropertyValue as PropertyValueComponent } from "../../../../../../components/index.tsx"
-import { QualitativeValue as QualitativeValueComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
-import { StructuredValue as StructuredValueComponent } from "../../../../../../components/index.tsx"
+import DefinedTermComponent from "../../../../../../../components/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import EnumerationComponent from "../../../../../../../components/src/define/Thing/Intangible/Enumeration/index.tsx"
+import MeasurementTypeEnumerationComponent from "../../../../../../../components/src/define/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/index.tsx"
+import QualitativeValueComponent from "../../../../../../../components/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import StructuredValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/index.tsx"
+import PropertyValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type QualitativeValueType =
 	| "QualitativeValue"

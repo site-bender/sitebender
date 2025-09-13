@@ -5,8 +5,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type MonetaryAmountDistribution from "../../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 import type { EducationalOccupationalProgramProps } from "../index.ts"
 
-import { CategoryCode as CategoryCodeComponent } from "../../../../../../components/index.tsx"
-import { MonetaryAmountDistribution as MonetaryAmountDistributionComponent } from "../../../../../../components/index.tsx"
+import CategoryCodeComponent from "../../../../../../../components/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import MonetaryAmountDistributionComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.tsx"
 
 export type WorkBasedProgramType = "WorkBasedProgram"
 

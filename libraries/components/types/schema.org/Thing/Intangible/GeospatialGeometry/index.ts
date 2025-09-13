@@ -2,8 +2,8 @@ import type Thing from "../../index.ts"
 import type Place from "../../Place/index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import { GeospatialGeometry as GeospatialGeometryComponent } from "../../../../../components/index.tsx"
-import { Place as PlaceComponent } from "../../../../../components/index.tsx"
+import GeospatialGeometryComponent from "../../../../../src/define/Thing/Intangible/GeospatialGeometry/index.tsx"
+import PlaceComponent from "../../../../../src/define/Thing/Place/index.tsx"
 
 export type GeospatialGeometryType = "GeospatialGeometry"
 

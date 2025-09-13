@@ -4,7 +4,7 @@ import type {
 	Operand,
 	StringDatatype,
 	TemporalDatatype,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Min JSX Component
@@ -20,7 +20,7 @@ import type {
  * </Min>
  */
 
-import MinConstructor from "@sitebender/engine/constructors/operators/Min/index.ts"
+import MinConstructor from "../../../../../engine/src/constructors/operators/Min/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype

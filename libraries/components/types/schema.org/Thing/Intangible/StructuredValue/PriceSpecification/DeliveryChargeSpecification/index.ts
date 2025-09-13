@@ -8,10 +8,10 @@ import type GeoShape from "../../GeoShape/index.ts"
 import type { StructuredValueProps } from "../../index.ts"
 import type { PriceSpecificationProps } from "../index.ts"
 
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../../../components/index.tsx"
-import { DeliveryMethod as DeliveryMethodComponent } from "../../../../../../../components/index.tsx"
-import { GeoShape as GeoShapeComponent } from "../../../../../../../components/index.tsx"
-import { Place as PlaceComponent } from "../../../../../../../components/index.tsx"
+import DeliveryMethodComponent from "../../../../../../../src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
+import GeoShapeComponent from "../../../../../../../src/define/Thing/Intangible/StructuredValue/GeoShape/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../../src/define/Thing/Place/AdministrativeArea/index.tsx"
+import PlaceComponent from "../../../../../../../src/define/Thing/Place/index.tsx"
 
 export type DeliveryChargeSpecificationType = "DeliveryChargeSpecification"
 

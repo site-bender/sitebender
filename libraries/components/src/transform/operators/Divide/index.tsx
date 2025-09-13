@@ -2,7 +2,7 @@ import type {
 	DivideOperator,
 	NumericDatatype,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Divide JSX Component
@@ -23,7 +23,7 @@ import type {
  * </Divide>
  */
 
-import DivideConstructor from "@sitebender/engine/constructors/operators/Divide/index.ts"
+import DivideConstructor from "../../../../../engine/src/constructors/operators/Divide/index.ts"
 
 export type Props = {
 	type?: NumericDatatype

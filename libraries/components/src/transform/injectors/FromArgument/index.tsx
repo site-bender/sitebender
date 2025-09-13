@@ -1,4 +1,4 @@
-import type { FromArgumentInjector } from "@sitebender/engine-types/index.ts"
+import type { FromArgumentInjector } from "../../../../../engine/types/index.ts"
 
 /**
  * FromArgument JSX Component
@@ -13,7 +13,7 @@ import type { FromArgumentInjector } from "@sitebender/engine-types/index.ts"
  * />
  */
 
-import FromArgumentConstructor from "@sitebender/engine/constructors/injectors/FromArgument/index.ts"
+import FromArgumentConstructor from "../../../../../engine/src/constructors/injectors/FromArgument/index.ts"
 
 export type FromArgumentProps = {
 	name: string

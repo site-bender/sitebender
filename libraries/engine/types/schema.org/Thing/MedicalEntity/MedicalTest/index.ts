@@ -11,11 +11,11 @@ import type { ImagingTestType } from "./ImagingTest/index.ts"
 import type { MedicalTestPanelType } from "./MedicalTestPanel/index.ts"
 import type { PathologyTestType } from "./PathologyTest/index.ts"
 
+import MedicalEnumerationComponent from "../../../../../../components/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/index.tsx"
+import MedicalConditionComponent from "../../../../../../components/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
+import MedicalSignComponent from "../../../../../../components/src/define/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/MedicalSign/index.tsx"
+import MedicalDeviceComponent from "../../../../../../components/src/define/Thing/MedicalEntity/MedicalDevice/index.tsx"
 import { Drug as DrugComponent } from "../../../../../components/index.tsx"
-import { MedicalCondition as MedicalConditionComponent } from "../../../../../components/index.tsx"
-import { MedicalDevice as MedicalDeviceComponent } from "../../../../../components/index.tsx"
-import { MedicalEnumeration as MedicalEnumerationComponent } from "../../../../../components/index.tsx"
-import { MedicalSign as MedicalSignComponent } from "../../../../../components/index.tsx"
 
 export type MedicalTestType =
 	| "MedicalTest"

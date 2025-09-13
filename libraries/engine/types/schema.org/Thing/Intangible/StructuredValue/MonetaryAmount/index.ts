@@ -10,7 +10,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type StructuredValue from "../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import { StructuredValue as StructuredValueComponent } from "../../../../../../components/index.tsx"
+import StructuredValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/index.tsx"
 
 export type MonetaryAmountType = "MonetaryAmount"
 

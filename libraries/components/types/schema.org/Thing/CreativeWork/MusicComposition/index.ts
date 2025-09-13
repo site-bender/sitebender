@@ -7,12 +7,12 @@ import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type MusicRecording from "../MusicRecording/index.ts"
 
-import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
-import { Event as EventComponent } from "../../../../../components/index.tsx"
-import { MusicComposition as MusicCompositionComponent } from "../../../../../components/index.tsx"
-import { MusicRecording as MusicRecordingComponent } from "../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import CreativeWorkComponent from "../../../../../src/define/Thing/CreativeWork/index.tsx"
+import MusicCompositionComponent from "../../../../../src/define/Thing/CreativeWork/MusicComposition/index.tsx"
+import MusicRecordingComponent from "../../../../../src/define/Thing/CreativeWork/MusicRecording/index.tsx"
+import EventComponent from "../../../../../src/define/Thing/Event/index.tsx"
+import OrganizationComponent from "../../../../../src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../src/define/Thing/Person/index.tsx"
 
 export type MusicCompositionType = "MusicComposition"
 

@@ -5,9 +5,9 @@ import type WebContent from "../../WebContent/index.ts"
 import type Comment from "../index.ts"
 import type { CommentProps } from "../index.ts"
 
-import { Comment as CommentComponent } from "../../../../../../components/index.tsx"
-import { CreativeWork as CreativeWorkComponent } from "../../../../../../components/index.tsx"
-import { WebContent as WebContentComponent } from "../../../../../../components/index.tsx"
+import CommentComponent from "../../../../../../src/define/Thing/CreativeWork/Comment/index.tsx"
+import CreativeWorkComponent from "../../../../../../src/define/Thing/CreativeWork/index.tsx"
+import WebContentComponent from "../../../../../../src/define/Thing/CreativeWork/WebContent/index.tsx"
 
 export type AnswerType = "Answer"
 

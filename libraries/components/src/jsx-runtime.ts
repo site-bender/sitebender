@@ -1,6 +1,7 @@
 import createElement from "./helpers/createElement/index.ts"
+import FragmentImpl from "./helpers/Fragment/index.ts"
 
-export { default as Fragment } from "./helpers/Fragment/index.ts"
+export const Fragment = FragmentImpl
 
 // Minimal JSX runtime compatible with TS react-jsx transform
 // Maps JSX calls to our createElement helper.

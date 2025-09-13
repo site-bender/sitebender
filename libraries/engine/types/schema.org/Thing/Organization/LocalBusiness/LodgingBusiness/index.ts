@@ -22,11 +22,11 @@ import type { MotelType } from "./Motel/index.ts"
 import type { ResortType } from "./Resort/index.ts"
 import type { VacationRentalType } from "./VacationRental/index.ts"
 
-import { Audience as AudienceComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
-import { LocationFeatureSpecification as LocationFeatureSpecificationComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
-import { Rating as RatingComponent } from "../../../../../../components/index.tsx"
+import AudienceComponent from "../../../../../../../components/src/define/Thing/Intangible/Audience/index.tsx"
+import LanguageComponent from "../../../../../../../components/src/define/Thing/Intangible/Language/index.tsx"
+import RatingComponent from "../../../../../../../components/src/define/Thing/Intangible/Rating/index.tsx"
+import LocationFeatureSpecificationComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type LodgingBusinessType =
 	| "LodgingBusiness"

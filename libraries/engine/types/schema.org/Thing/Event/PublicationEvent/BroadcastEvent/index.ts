@@ -5,8 +5,8 @@ import type Event from "../../index.ts"
 import type { EventProps } from "../../index.ts"
 import type { PublicationEventProps } from "../index.ts"
 
-import { Event as EventComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
+import EventComponent from "../../../../../../../components/src/define/Thing/Event/index.tsx"
+import LanguageComponent from "../../../../../../../components/src/define/Thing/Intangible/Language/index.tsx"
 
 export type BroadcastEventType = "BroadcastEvent"
 

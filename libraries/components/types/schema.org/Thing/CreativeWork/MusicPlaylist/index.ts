@@ -6,8 +6,8 @@ import type MusicRecording from "../MusicRecording/index.ts"
 import type { MusicAlbumType } from "./MusicAlbum/index.ts"
 import type { MusicReleaseType } from "./MusicRelease/index.ts"
 
-import { ItemList as ItemListComponent } from "../../../../../components/index.tsx"
-import { MusicRecording as MusicRecordingComponent } from "../../../../../components/index.tsx"
+import MusicRecordingComponent from "../../../../../src/define/Thing/CreativeWork/MusicRecording/index.tsx"
+import ItemListComponent from "../../../../../src/define/Thing/Intangible/ItemList/index.tsx"
 
 export type MusicPlaylistType =
 	| "MusicPlaylist"

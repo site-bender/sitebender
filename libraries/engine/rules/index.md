@@ -1,4 +1,4 @@
-# libraries/engine Rules
+# Engine rules
 
 > **GENERATED FILE - DO NOT EDIT**
 >
@@ -6,46 +6,49 @@
 > To make changes, edit the JSON file and run `deno task generate-rules`.
 
 **Version**: 1.0.0\
-**Last Updated**: 2025-01-12\
-**Author**: The Architect
-
-**Description**: Rules specific to the Engine library
-
-**Inherits from**: `/rules/index.json`
-
-## Table of Contents
-
-1. [Commandments](#commandments)
-2. [Engine Specific](#engine-specific)
+**Last updated**: 2025-01-12\
+**Author**: The Architect\
+**Scope**: libraries/engine\
+**Description**: Rules specific to the Engine library\
+**Inherits**: /rules/index.json
 
 ## Commandments
 
-### [progressive-enhancement] Thou shalt output HTML that works without client-side JavaScript
+1. **Key**: progressive-enhancement
 
-- Engine must evaluate IR to semantic HTML
+**Title**: Thou shalt output HTML that works without client-side JavaScript
+
+**Details**: - Engine must evaluate IR to semantic HTML
+
 - SSR/SSG output must be fully functional without client JS
 - Hydration adds interactivity to already-working HTML
 - Form actions must compile to standard HTTP methods
 
-### [respect-accessibility] Thou shalt respect accessibility
+2. **Key**: respect-accessibility
 
-- Generated HTML must be WCAG 2.3 AAA compliant
+**Title**: Thou shalt respect accessibility
+
+**Details**: - Generated HTML must be WCAG 2.3 AAA compliant
+
 - Preserve ARIA attributes through compilation
 - Maintain semantic structure in output
 
-## Engine Specific
+## Engine specific
 
-### IR Evaluation
+**Ir evaluation**: - IR must evaluate to HTML that functions without client-side JS
 
-- IR must evaluate to HTML that functions without client-side JS
 - Output HTML with proper form actions and methods
 - Generate links with real href attributes
 - Server evaluation produces complete, working HTML
 - Hydration enhances but doesn't break existing functionality
 
-### Responsive Output
+**Responsive output**: - Generated HTML must include responsive meta viewport tag
 
-- Generated HTML must include responsive meta viewport tag
 - Preserve responsive classes and attributes through compilation
 - Support picture elements and srcset for responsive images
 - Maintain CSS Grid and Flexbox properties in output
+
+---
+
+**Generated from**: `libraries/engine/rules/index.json`\
+**Generated on**: 2025-09-13T00:08:35.371Z
