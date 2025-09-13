@@ -7,7 +7,9 @@ import concatTo from "../../../libraries/toolkit/src/vanilla/string/concatTo/ind
 import formatMetadataEntry from "./formatMetadataEntry/index.ts"
 
 //++ Formats metadata entries into a markdown block
-export default function formatMetadata(metadata: Array<[string, JsonValue]>): string {
+export default function formatMetadata(
+	metadata: Array<[string, JsonValue]>,
+): string {
 	return pipe([
 		map(formatMetadataEntry),
 		join("  \n"),

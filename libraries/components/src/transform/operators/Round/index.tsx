@@ -1,4 +1,7 @@
-import type { Operand, RoundOperator } from "@sitebender/engine-types/index.ts"
+import type {
+	Operand,
+	RoundOperator,
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Round JSX Component
@@ -12,7 +15,7 @@ import type { Operand, RoundOperator } from "@sitebender/engine-types/index.ts"
  * </Round>
  */
 
-import RoundConstructor from "@sitebender/engine/constructors/operators/Round/index.ts"
+import RoundConstructor from "../../../../../engine/src/constructors/operators/Round/index.ts"
 
 export type Props = {
 	type?: "Number"

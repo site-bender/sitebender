@@ -9,12 +9,12 @@ import type Language from "../../Language/index.ts"
 import type { ServiceProps } from "../index.ts"
 import type { RadioBroadcastServiceType } from "./RadioBroadcastService/index.ts"
 
-import { BroadcastChannel as BroadcastChannelComponent } from "../../../../../../components/index.tsx"
-import { BroadcastFrequencySpecification as BroadcastFrequencySpecificationComponent } from "../../../../../../components/index.tsx"
-import { BroadcastService as BroadcastServiceComponent } from "../../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
-import { Place as PlaceComponent } from "../../../../../../components/index.tsx"
+import BroadcastChannelComponent from "../../../../../../src/define/Thing/Intangible/BroadcastChannel/index.tsx"
+import BroadcastFrequencySpecificationComponent from "../../../../../../src/define/Thing/Intangible/BroadcastFrequencySpecification/index.tsx"
+import LanguageComponent from "../../../../../../src/define/Thing/Intangible/Language/index.tsx"
+import BroadcastServiceComponent from "../../../../../../src/define/Thing/Intangible/Service/BroadcastService/index.tsx"
+import OrganizationComponent from "../../../../../../src/define/Thing/Organization/index.tsx"
+import PlaceComponent from "../../../../../../src/define/Thing/Place/index.tsx"
 
 export type BroadcastServiceType =
 	| "BroadcastService"

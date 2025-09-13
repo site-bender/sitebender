@@ -7,10 +7,10 @@ import type { ActionProps } from "../../../index.ts"
 import type { OrganizeActionProps } from "../../index.ts"
 import type { AllocateActionProps } from "../index.ts"
 
-import { Audience as AudienceComponent } from "../../../../../../../components/index.tsx"
-import { ContactPoint as ContactPointComponent } from "../../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../../components/index.tsx"
+import AudienceComponent from "../../../../../../../src/define/Thing/Intangible/Audience/index.tsx"
+import ContactPointComponent from "../../../../../../../src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import OrganizationComponent from "../../../../../../../src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../src/define/Thing/Person/index.tsx"
 
 export type AuthorizeActionType = "AuthorizeAction"
 

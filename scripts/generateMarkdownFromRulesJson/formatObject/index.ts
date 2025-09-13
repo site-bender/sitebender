@@ -1,4 +1,4 @@
-import type { JsonValue, JsonObject } from "../types/index.ts"
+import type { JsonObject, JsonValue } from "../types/index.ts"
 
 import all from "../../../libraries/toolkit/src/vanilla/array/all/index.ts"
 import join from "../../../libraries/toolkit/src/vanilla/array/join/index.ts"
@@ -13,24 +13,26 @@ import formatHtmlDescriptionListEntry from "./formatHtmlDescriptionListEntry/ind
 import formatObjectEntry from "./formatObjectEntry/index.ts"
 
 //++ Formats a JSON object into markdown
-export default function formatObject(formatValue: (value: JsonValue) => string) {
+export default function formatObject(
+	formatValue: (value: JsonValue) => string,
+) {
 	return function formatObjectContent(obj: JsonObject): string {
 		const objectEntries = entries(obj)
-		
+
 		if (isEmpty(objectEntries)) {
 			return "_empty object_"
 		}
-		
+
 		function isStringEntry([, value]: [string, JsonValue]): boolean {
 			return isString(value)
 		}
-		
+
 		const allStrings = all(isStringEntry)(objectEntries)
-		
+
 		if (allStrings) {
 			// Use HTML description list for all-string objects
 			const stringEntries = objectEntries as Array<[string, string]>
-			
+
 			return pipe([
 				map(formatHtmlDescriptionListEntry),
 				join("\n"),
@@ -38,10 +40,10 @@ export default function formatObject(formatValue: (value: JsonValue) => string) 
 				concatTo("\n</dl>"),
 			])(stringEntries)
 		}
-		
+
 		// Complex object with mixed types
 		const formatter = formatObjectEntry(formatValue)
-		
+
 		return pipe([
 			map(formatter),
 			join("\n\n"),

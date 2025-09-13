@@ -5,8 +5,8 @@ import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import type UnitPriceSpecification from "../PriceSpecification/UnitPriceSpecification/index.ts"
 
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../components/index.tsx"
-import { UnitPriceSpecification as UnitPriceSpecificationComponent } from "../../../../../../components/index.tsx"
+import MonetaryAmountComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import UnitPriceSpecificationComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.tsx"
 
 export type ExchangeRateSpecificationType = "ExchangeRateSpecification"
 

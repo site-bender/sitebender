@@ -27,26 +27,31 @@ When generating new applications, the CLI creates:
 ### AI Rules in Scaffolds
 
 Generated projects include `rules/index.json` files that:
+
 - Encourage functional programming patterns (map/filter/reduce over loops)
 - Suggest immutable data structures
 - Promote single responsibility principles
 - Guide toward cognitive load reduction
-- Are *recommendations* for better code quality, not rigid requirements
+- Are _recommendations_ for better code quality, not rigid requirements
 
 These rules help AI assistants (and human developers) maintain consistency with Sitebender's philosophy while allowing flexibility for different coding styles and requirements in user projects.
 
 ## Commands
 
 ### `new <name>`
+
 Create a new Sitebender application with recommended structure and AI guidance rules.
 
 ### `dev`
+
 Start the development server with hot module replacement.
 
 ### `build`
+
 Build the application for production.
 
 ### `test`
+
 Run the test suite.
 
 ## License

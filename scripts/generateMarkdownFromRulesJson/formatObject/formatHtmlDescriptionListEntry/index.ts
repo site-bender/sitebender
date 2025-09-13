@@ -4,10 +4,12 @@ import concatTo from "../../../../libraries/toolkit/src/vanilla/string/concatTo/
 import formatKey from "../../formatKey/index.ts"
 
 //++ Formats a key-value pair as an HTML description list entry
-export default function formatHtmlDescriptionListEntry([key, value]: [string, string]): string {
+export default function formatHtmlDescriptionListEntry(
+	[key, value]: [string, string],
+): string {
 	const formattedKey = formatKey(key)
 	const ddContent = concat("<dd>")(concat(value)("</dd>\n</div>"))
-	
+
 	return pipe([
 		concat("<dt><strong>"),
 		concatTo("</strong></dt>\n"),
@@ -17,5 +19,5 @@ export default function formatHtmlDescriptionListEntry([key, value]: [string, st
 }
 
 //?? [EXAMPLE]
-// formatHtmlDescriptionListEntry(["name", "Test"]) 
+// formatHtmlDescriptionListEntry(["name", "Test"])
 // Returns: "<div>\n<dt><strong>Name</strong></dt>\n<dd>Test</dd>\n</div>"

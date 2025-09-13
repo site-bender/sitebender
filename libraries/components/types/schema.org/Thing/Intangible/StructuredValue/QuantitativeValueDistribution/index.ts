@@ -6,8 +6,8 @@ import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type { MonetaryAmountDistributionType } from "./MonetaryAmountDistribution/index.ts"
 
-import { Duration as DurationComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
+import DurationComponent from "../../../../../../src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type QuantitativeValueDistributionType =
 	| "QuantitativeValueDistribution"

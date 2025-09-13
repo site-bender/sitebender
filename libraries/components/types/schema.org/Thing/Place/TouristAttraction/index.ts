@@ -4,8 +4,8 @@ import type Audience from "../../Intangible/Audience/index.ts"
 import type Language from "../../Intangible/Language/index.ts"
 import type { PlaceProps } from "../index.ts"
 
-import { Audience as AudienceComponent } from "../../../../../components/index.tsx"
-import { Language as LanguageComponent } from "../../../../../components/index.tsx"
+import AudienceComponent from "../../../../../src/define/Thing/Intangible/Audience/index.tsx"
+import LanguageComponent from "../../../../../src/define/Thing/Intangible/Language/index.tsx"
 
 export type TouristAttractionType = "TouristAttraction"
 

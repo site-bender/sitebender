@@ -1,1 +1,3 @@
-export { default } from "../FormattedTextField/index.tsx"
+import FormattedField from "../FormattedTextField/index.tsx"
+
+export default FormattedField

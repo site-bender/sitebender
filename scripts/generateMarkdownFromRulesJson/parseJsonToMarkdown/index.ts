@@ -14,25 +14,28 @@ import formatMetadata from "../formatMetadata/index.ts"
 import isMetadataKey from "../isMetadataKey/index.ts"
 
 //++ Parses JSON data into markdown sections
-export default function parseJsonToMarkdown(data: JsonObject, level: number = 2): string {
+export default function parseJsonToMarkdown(
+	data: JsonObject,
+	level: number = 2,
+): string {
 	const metadata = extractMetadata(data)
 	const metadataSection = isEmpty(metadata) ? "" : formatMetadata(metadata)
-	
+
 	const dataEntries = entries(data)
 	const isNotMetadata = ([key]: [string, JsonValue]) => !isMetadataKey(key)
 	const regularEntries = filter(isNotMetadata)(dataEntries)
-	
+
 	const formatSection = ([key, value]: [string, JsonValue]) => {
 		const title = formatKey(key)
 		const heading = concat(repeat("#")(level))(concat(" ")(title))
 		const content = formatJsonValue(0)(value)
-		
+
 		return concat(heading)(concat("\n\n")(concat(content)("\n")))
 	}
-	
+
 	const sections = map(formatSection)(regularEntries)
 	const joinedSections = join("\n")(sections)
-	
+
 	return concat(metadataSection)(joinedSections)
 }
 

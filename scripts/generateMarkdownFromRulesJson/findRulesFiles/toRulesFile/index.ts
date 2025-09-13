@@ -3,12 +3,15 @@ import type { RulesFile } from "../../types/index.ts"
 import replace from "../../../../libraries/toolkit/src/vanilla/string/replace/index.ts"
 
 //++ Converts a location string to a RulesFile object if the file exists
-export default function toRulesFile(location: string, projectRoot: string): RulesFile | null {
+export default function toRulesFile(
+	location: string,
+	projectRoot: string,
+): RulesFile | null {
 	const fullPath = `${projectRoot}/${location}`
-	
+
 	try {
 		Deno.statSync(fullPath)
-		
+
 		return {
 			path: replace("/index.json")("")(fullPath),
 			jsonPath: fullPath,

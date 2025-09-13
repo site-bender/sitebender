@@ -1,7 +1,9 @@
-export { default as Checkbox } from "./Checkbox/index.tsx"
-export { default as Help } from "./Help/index.tsx"
-export { default as Input } from "./Input/index.tsx"
-export { default as Label } from "./Label/index.tsx"
-export { default as Radio } from "./Radio/index.tsx"
-export { default as Select } from "./Select/index.tsx"
-export { default as TextArea } from "./TextArea/index.tsx"
+import Checkbox from "./Checkbox/index.tsx"
+import Help from "./Help/index.tsx"
+import Input from "./Input/index.tsx"
+import Label from "./Label/index.tsx"
+import Radio from "./Radio/index.tsx"
+import Select from "./Select/index.tsx"
+import TextArea from "./TextArea/index.tsx"
+
+export { Checkbox, Help, Input, Label, Radio, Select, TextArea }

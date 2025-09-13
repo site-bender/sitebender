@@ -1,11 +1,11 @@
 //++ Type definitions for generateMarkdownFromRulesJson
 
-export type JsonValue = 
-	| string 
-	| number 
-	| boolean 
-	| null 
-	| JsonObject 
+export type JsonValue =
+	| string
+	| number
+	| boolean
+	| null
+	| JsonObject
 	| Array<JsonValue>
 
 export type JsonObject = {

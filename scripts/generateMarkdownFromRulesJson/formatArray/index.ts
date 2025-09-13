@@ -15,23 +15,23 @@ export default function formatArray(depth: number) {
 			if (isEmpty(items)) {
 				return "_empty list_"
 			}
-			
+
 			const allStrings = all(isString)(items)
 			const indent = repeat("  ")(depth)
-			
+
 			if (allStrings) {
 				const formatStringItem = (item: JsonValue) => {
 					const dash = "- "
 					const indentedDash = concat(indent)(dash)
-					
+
 					return concat(indentedDash)(String(item))
 				}
-				
+
 				const formatted = map(formatStringItem)(items)
-				
+
 				return join("\n")(formatted)
 			}
-			
+
 			// Complex items - numbered list
 			const formatComplexItem = (item: JsonValue, index: number) => {
 				const formatted = formatValue(item)
@@ -39,12 +39,12 @@ export default function formatArray(depth: number) {
 				const dot = ". "
 				const numberDot = concat(number)(dot)
 				const prefix = concat(indent)(numberDot)
-				
+
 				return concat(prefix)(formatted)
 			}
-			
+
 			const formattedItems = map(formatComplexItem)(items)
-			
+
 			return join("\n\n")(formattedItems)
 		}
 	}

@@ -1,12 +1,12 @@
 import type {
 	IsBeforeDateTimeComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * IsBeforeDateTime JSX Component
  */
-import IsBeforeDateTimeConstructor from "@sitebender/engine/constructors/comparators/dateTime/IsBeforeDateTime/index.ts"
+import IsBeforeDateTimeConstructor from "../../../../../engine/src/constructors/comparators/dateTime/IsBeforeDateTime/index.ts"
 
 export type Props = {
 	type?: "DateTime"

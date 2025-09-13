@@ -1,4 +1,4 @@
-import type { IOEither } from "../../types/fp/io/index.ts"
+import type { IOEither } from "../../../types/fp/io/index.ts"
 
 import right from "../../either/right/index.ts"
 

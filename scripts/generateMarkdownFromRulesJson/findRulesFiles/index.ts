@@ -4,7 +4,6 @@ import filter from "../../../libraries/toolkit/src/vanilla/array/filter/index.ts
 import map from "../../../libraries/toolkit/src/vanilla/array/map/index.ts"
 import pipe from "../../../libraries/toolkit/src/vanilla/combinator/pipe/index.ts"
 import isNotNullish from "../../../libraries/toolkit/src/vanilla/validation/isNotNullish/index.ts"
-
 import { RULES_FILE_LOCATIONS } from "../constants/index.ts"
 import toRulesFile from "./toRulesFile/index.ts"
 
@@ -12,11 +11,12 @@ const PROJECT_ROOT = new URL("../../..", import.meta.url).pathname
 
 //++ Finds all rules JSON files in the project
 export default function findRulesFiles(): Array<RulesFile> {
-	const toRulesFileWithRoot = (location: string) => toRulesFile(location, PROJECT_ROOT)
-	
+	const toRulesFileWithRoot = (location: string) =>
+		toRulesFile(location, PROJECT_ROOT)
+
 	return pipe([
 		map(toRulesFileWithRoot),
-		filter(isNotNullish)
+		filter(isNotNullish),
 	])(RULES_FILE_LOCATIONS)
 }
 

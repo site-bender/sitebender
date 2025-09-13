@@ -2,7 +2,7 @@ import type { Date, DateTime } from "../../../DataType/index.ts"
 import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
+import ThingComponent from "../../../../../../components/src/define/Thing/index.tsx"
 
 export type DataFeedItemType = "DataFeedItem"
 

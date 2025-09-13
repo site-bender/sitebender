@@ -6,9 +6,9 @@ import type { AnatomicalStructureProps } from "../../index.ts"
 import type Vessel from "../index.ts"
 import type { VesselProps } from "../index.ts"
 
-import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../../../components/index.tsx"
-import { AnatomicalSystem as AnatomicalSystemComponent } from "../../../../../../../components/index.tsx"
-import { Vessel as VesselComponent } from "../../../../../../../components/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../../../components/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import VesselComponent from "../../../../../../../../components/src/define/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.tsx"
+import AnatomicalSystemComponent from "../../../../../../../../components/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
 
 export type VeinType = "Vein"
 

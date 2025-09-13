@@ -2,7 +2,7 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { UpdateActionProps } from "../index.ts"
 
-import { Thing as ThingComponent } from "../../../../../../components/index.tsx"
+import ThingComponent from "../../../../../../src/define/Thing/index.tsx"
 
 export type ReplaceActionType = "ReplaceAction"
 

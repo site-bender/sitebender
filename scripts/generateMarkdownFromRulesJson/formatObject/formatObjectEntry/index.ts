@@ -6,11 +6,13 @@ import concatTo from "../../../../libraries/toolkit/src/vanilla/string/concatTo/
 import formatKey from "../../formatKey/index.ts"
 
 //++ Formats an object entry as markdown with bold key
-export default function formatObjectEntry(formatValue: (value: JsonValue) => string) {
+export default function formatObjectEntry(
+	formatValue: (value: JsonValue) => string,
+) {
 	return function formatEntry([key, value]: [string, JsonValue]): string {
 		const formattedKey = formatKey(key)
 		const formattedValue = formatValue(value)
-		
+
 		return pipe([
 			concat("**"),
 			concatTo("**: "),

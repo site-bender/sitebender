@@ -35,8 +35,9 @@
 
 	// Ensure global JSX types are visible to TS during build/test
 	"compilerOptions": {
-		"jsx": "react-jsx",
-		"jsxImportSource": "#components-jsx",
+		"jsx": "react",
+		"jsxFactory": "createElement",
+		"jsxFragmentFactory": "Fragment",
 		"types": [
 			"./types/globals.d.ts",
 			"./types/JSX/jsx-runtime.d.ts"

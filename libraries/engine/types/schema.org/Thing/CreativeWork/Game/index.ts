@@ -6,10 +6,10 @@ import type Place from "../../Place/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { VideoGameType } from "./VideoGame/index.ts"
 
-import { Place as PlaceComponent } from "../../../../../components/index.tsx"
-import { PostalAddress as PostalAddressComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
+import ThingComponent from "../../../../../../components/src/define/Thing/index.tsx"
+import PostalAddressComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
+import QuantitativeValueComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import PlaceComponent from "../../../../../../components/src/define/Thing/Place/index.tsx"
 
 export type GameType = "Game" | VideoGameType
 

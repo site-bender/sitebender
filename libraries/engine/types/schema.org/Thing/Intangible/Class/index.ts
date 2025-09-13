@@ -3,9 +3,9 @@ import type Enumeration from "../Enumeration/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type Property from "../Property/index.ts"
 
-import { Class as ClassComponent } from "../../../../../components/index.tsx"
-import { Enumeration as EnumerationComponent } from "../../../../../components/index.tsx"
-import { Property as PropertyComponent } from "../../../../../components/index.tsx"
+import ClassComponent from "../../../../../../components/src/define/Thing/Intangible/Class/index.tsx"
+import EnumerationComponent from "../../../../../../components/src/define/Thing/Intangible/Enumeration/index.tsx"
+import PropertyComponent from "../../../../../../components/src/define/Thing/Intangible/Property/index.tsx"
 
 export type ClassType = "Class"
 

@@ -1,21 +1,22 @@
 //++ Processes a single rules file, converting JSON to markdown
 
 import type { RulesFile } from "../types/index.ts"
-import determineDocumentTitle from "../determineDocumentTitle/index.ts"
-import parseJsonToMarkdown from "../parseJsonToMarkdown/index.ts"
+
 import concat from "../../../libraries/toolkit/src/vanilla/string/concat/index.ts"
 import replace from "../../../libraries/toolkit/src/vanilla/string/replace/index.ts"
+import determineDocumentTitle from "../determineDocumentTitle/index.ts"
+import parseJsonToMarkdown from "../parseJsonToMarkdown/index.ts"
 
 const PROJECT_ROOT = new URL("../../..", import.meta.url).pathname
 
 export default function processRulesFile(rulesFile: RulesFile): void {
 	const jsonContent = Deno.readTextFileSync(rulesFile.jsonPath)
 	const rulesData = JSON.parse(jsonContent)
-	
+
 	const title = determineDocumentTitle(rulesFile.jsonPath)
 	const relativePath = replace(PROJECT_ROOT)("")(rulesFile.jsonPath)
 	const cleanPath = replace(/^\//)("")(relativePath)
-	
+
 	const headerText = `# ${title}
 
 > **GENERATED FILE - DO NOT EDIT**
@@ -25,9 +26,9 @@ export default function processRulesFile(rulesFile: RulesFile): void {
 
 `
 	const header = headerText
-	
+
 	const content = parseJsonToMarkdown(rulesData)
-	
+
 	const footerText = `
 ---
 
@@ -35,16 +36,16 @@ export default function processRulesFile(rulesFile: RulesFile): void {
 **Generated on**: ${new Date().toISOString()}
 `
 	const footer = footerText
-	
+
 	const fullDocument = concat(header)(concat(content)(footer))
-	
+
 	Deno.writeTextFileSync(rulesFile.markdownPath, fullDocument)
-	
+
 	const cleanMarkdownPath = replace(PROJECT_ROOT)("")(rulesFile.markdownPath)
 	const cleanMdPath = replace(/^\//)("")(cleanMarkdownPath)
-	
+
 	console.log(concat("✅ Generated ")(cleanMdPath))
-	
+
 	if (rulesData.version) {
 		console.log(concat("   Version: ")(rulesData.version))
 	}
