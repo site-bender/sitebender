@@ -5,7 +5,7 @@ import type { ArticleProps } from "../index.ts"
 import type { BlogPostingType } from "./BlogPosting/index.ts"
 import type { DiscussionForumPostingType } from "./DiscussionForumPosting/index.ts"
 
-import { CreativeWork as CreativeWorkComponent } from "../../../../../../components/index.tsx"
+import CreativeWorkComponent from "../../../../../../src/define/Thing/CreativeWork/index.tsx"
 
 export type SocialMediaPostingType =
 	| "SocialMediaPosting"

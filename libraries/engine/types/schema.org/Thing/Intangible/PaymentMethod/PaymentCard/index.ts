@@ -7,7 +7,7 @@ import type MonetaryAmount from "../../StructuredValue/MonetaryAmount/index.ts"
 import type { PaymentMethodProps } from "../index.ts"
 import type { CreditCardType } from "./CreditCard/index.ts"
 
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../components/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
 
 export type PaymentCardType = "PaymentCard" | CreditCardType
 

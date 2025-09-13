@@ -1,7 +1,7 @@
 import type {
 	MultiplyOperator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Multiply JSX Component
@@ -16,7 +16,7 @@ import type {
  * </Multiply>
  */
 
-import MultiplyConstructor from "@sitebender/engine/constructors/operators/Multiply/index.ts"
+import MultiplyConstructor from "../../../../../engine/src/constructors/operators/Multiply/index.ts"
 
 export type Props = {
 	type?: "Number"

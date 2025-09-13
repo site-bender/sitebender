@@ -7,11 +7,11 @@ import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type ServicePeriod from "../ServicePeriod/index.ts"
 import type ShippingConditions from "../ShippingConditions/index.ts"
 
-import { FulfillmentTypeEnumeration as FulfillmentTypeEnumerationComponent } from "../../../../../../components/index.tsx"
-import { MemberProgramTier as MemberProgramTierComponent } from "../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../components/index.tsx"
-import { ServicePeriod as ServicePeriodComponent } from "../../../../../../components/index.tsx"
-import { ShippingConditions as ShippingConditionsComponent } from "../../../../../../components/index.tsx"
+import FulfillmentTypeEnumerationComponent from "../../../../../../../components/src/define/Thing/Intangible/Enumeration/FulfillmentTypeEnumeration/index.tsx"
+import MemberProgramTierComponent from "../../../../../../../components/src/define/Thing/Intangible/MemberProgramTier/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import ServicePeriodComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/ServicePeriod/index.tsx"
+import ShippingConditionsComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/ShippingConditions/index.tsx"
 
 export type ShippingServiceType = "ShippingService"
 

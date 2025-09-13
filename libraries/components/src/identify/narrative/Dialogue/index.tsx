@@ -1,4 +1,5 @@
-import { Person, Quotation } from "../../../define/index.ts"
+import Quotation from "../../../define/Thing/CreativeWork/Quotation/index.tsx"
+import Person from "../../../define/Thing/Person/index.tsx"
 
 type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {

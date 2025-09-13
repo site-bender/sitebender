@@ -52,15 +52,19 @@ function mapTuple<T, U>(
 	(tuple: null | undefined): []
 }
 
-function mapTuple<T, U>(
-	fn: (value: T) => U,
-) {
-	return (tuple: ReadonlyArray<T> | null | undefined): Array<U> => {
+function mapTuple<T, U>(fn: (value: T) => U) {
+	const mapper = (tuple: ReadonlyArray<T> | null | undefined) => {
 		if (isNullish(tuple) || !Array.isArray(tuple)) {
-			return []
+			return [] as []
 		}
-
-		return tuple.map(fn)
+		return (tuple.map(fn) as unknown) as Array<U>
+	}
+	return mapper as unknown as {
+		(tuple: Singleton<T>): Singleton<U>
+		(tuple: Pair<T, T>): Pair<U, U>
+		(tuple: Triple<T, T, T>): Triple<U, U, U>
+		(tuple: ReadonlyArray<T>): Array<U>
+		(tuple: null | undefined): []
 	}
 }
 

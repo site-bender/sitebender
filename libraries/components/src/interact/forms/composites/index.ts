@@ -1,4 +1,6 @@
-export { default as CheckboxGroup } from "./CheckboxGroup/index.tsx"
-export { default as LabelWrapper } from "./LabelWrapper/index.tsx"
-export { default as Legend } from "./Legend/index.tsx"
-export { default as RadioGroup } from "./RadioGroup/index.tsx"
+import CheckboxGroup from "./CheckboxGroup/index.tsx"
+import LabelWrapper from "./LabelWrapper/index.tsx"
+import Legend from "./Legend/index.tsx"
+import RadioGroup from "./RadioGroup/index.tsx"
+
+export { CheckboxGroup, LabelWrapper, Legend, RadioGroup }

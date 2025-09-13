@@ -1,7 +1,7 @@
 import type {
 	AbsoluteValueOperator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * AbsoluteValue JSX Component
@@ -15,7 +15,7 @@ import type {
  * </AbsoluteValue>
  */
 
-import AbsoluteValueConstructor from "@sitebender/engine/constructors/operators/AbsoluteValue/index.ts"
+import AbsoluteValueConstructor from "../../../../../engine/src/constructors/operators/AbsoluteValue/index.ts"
 
 export type Props = {
 	type?: "Number"

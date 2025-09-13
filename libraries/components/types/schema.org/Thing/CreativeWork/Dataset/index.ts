@@ -10,13 +10,13 @@ import type { CreativeWorkProps } from "../index.ts"
 import type DataDownload from "../MediaObject/DataDownload/index.ts"
 import type { DataFeedType } from "./DataFeed/index.ts"
 
-import { DataCatalog as DataCatalogComponent } from "../../../../../components/index.tsx"
-import { DataDownload as DataDownloadComponent } from "../../../../../components/index.tsx"
-import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
-import { MeasurementMethodEnum as MeasurementMethodEnumComponent } from "../../../../../components/index.tsx"
-import { Property as PropertyComponent } from "../../../../../components/index.tsx"
-import { PropertyValue as PropertyValueComponent } from "../../../../../components/index.tsx"
-import { StatisticalVariable as StatisticalVariableComponent } from "../../../../../components/index.tsx"
+import DataCatalogComponent from "../../../../../src/define/Thing/CreativeWork/DataCatalog/index.tsx"
+import DataDownloadComponent from "../../../../../src/define/Thing/CreativeWork/MediaObject/DataDownload/index.tsx"
+import StatisticalVariableComponent from "../../../../../src/define/Thing/Intangible/ConstraintNode/StatisticalVariable/index.tsx"
+import DefinedTermComponent from "../../../../../src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import MeasurementMethodEnumComponent from "../../../../../src/define/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.tsx"
+import PropertyComponent from "../../../../../src/define/Thing/Intangible/Property/index.tsx"
+import PropertyValueComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
 
 export type DatasetType = "Dataset" | DataFeedType
 

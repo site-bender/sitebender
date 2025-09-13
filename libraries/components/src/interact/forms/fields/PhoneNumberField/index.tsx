@@ -1,8 +1,3 @@
-import {
-	CHANNEL_LABELS,
-	TYPE_LABELS,
-} from "@sitebender/toolkit/constants/forms/index.ts"
-
 import type {
 	CommunicationChannel,
 	PhoneType,
@@ -12,6 +7,10 @@ import type { Props as InputProps } from "../../elements/Input/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 import type { Props as SelectProps } from "../../elements/Select/index.tsx"
 
+import {
+	CHANNEL_LABELS,
+	TYPE_LABELS,
+} from "../../../../../../toolkit/src/constants/forms/index.ts"
 import generateShortId from "../../../../helpers/generateShortId/index.ts"
 import CheckboxGroup from "../../composites/CheckboxGroup/index.tsx"
 import Legend from "../../composites/Legend/index.tsx"

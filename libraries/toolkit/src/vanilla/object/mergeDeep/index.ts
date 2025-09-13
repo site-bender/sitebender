@@ -2,6 +2,23 @@ import type { Value } from "../../../types/index.ts"
 
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 
+const isPlainObject = (val: unknown): val is Record<string | symbol, Value> => {
+	if (!val || typeof val !== "object") return false
+	if (Array.isArray(val)) return false
+	if (val instanceof Date) return false
+	if (val instanceof RegExp) return false
+	if (val instanceof Map) return false
+	if (val instanceof Set) return false
+	// Temporal types
+	if (
+		val instanceof Temporal.PlainDate ||
+		val instanceof Temporal.PlainTime ||
+		val instanceof Temporal.PlainDateTime ||
+		val instanceof Temporal.ZonedDateTime
+	) return false
+	return true
+}
+
 /**
  * Deeply merges objects recursively with target properties taking precedence
  *
@@ -46,12 +63,12 @@ import isNotNullish from "../../validation/isNotNullish/index.ts"
  * ```
  */
 const mergeDeep = <T extends Record<string | symbol, Value>>(
-	...sources: Array<unknown | null | undefined>
+	...sources: Array<Record<string | symbol, Value> | null | undefined>
 ) =>
 (target: T | null | undefined): T & Record<string | symbol, Value> => {
 	const deepMergeTwo = (
 		dst: Record<string | symbol, Value>,
-		src: unknown | null | undefined,
+		src: Record<string | symbol, Value> | null | undefined,
 	): Record<string | symbol, Value> => {
 		if (!src || typeof src !== "object") return dst
 
@@ -67,12 +84,7 @@ const mergeDeep = <T extends Record<string | symbol, Value>>(
 			const dstValue = (acc as Record<string | symbol, Value>)[key]
 
 			// If both values are objects (but not arrays), merge them recursively
-			if (
-				srcValue && typeof srcValue === "object" &&
-				!Array.isArray(srcValue) &&
-				dstValue && typeof dstValue === "object" &&
-				!Array.isArray(dstValue)
-			) {
+			if (isPlainObject(srcValue) && isPlainObject(dstValue)) {
 				return {
 					...acc,
 					[key]: deepMergeTwo(dstValue, srcValue),
@@ -88,7 +100,9 @@ const mergeDeep = <T extends Record<string | symbol, Value>>(
 	}
 
 	// Merge all sources and target using reduce
-	const allToMerge = [...sources, target].filter((x) =>
+	const allToMerge = [...sources, target].filter((
+		x,
+	): x is Record<string | symbol, Value> =>
 		isNotNullish(x) && typeof x === "object"
 	)
 

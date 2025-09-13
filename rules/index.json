@@ -143,7 +143,7 @@
 				"That 'optimized' code without measurements? Use the toolkit function"
 			],
 			"remember": "The 'cool' code you write today is the WTF you debug tomorrow",
-			"note": "Nested ternaries OK if properly indented and max 2 levels"
+			"note": "Nested ternaries OK if properly indented (each level indented further) and max 2 levels"
 		},
 		"noGratuitousNothing": {
 			"rule": "Nothing on the page that doesn't serve the purpose",
@@ -212,7 +212,46 @@
 			"types": "PascalCase",
 			"constants": "UPPER_SNAKE_CASE",
 			"routes": "kebab-case (converts to URL paths)",
-			"forbidden": ["kebab-case for non-routes", "snake_case for functions/variables"]
+			"forbidden": ["kebab-case for non-routes", "snake_case for functions/variables"],
+			"initialisms": {
+				"rule": "Only capitalize FIRST letter of initialisms in camelCase/PascalCase",
+				"correct": [
+					"innerHtml (NOT innerHTML)",
+					"apiKey (NOT APIKey)",
+					"xmlParser (NOT XMLParser)",
+					"AstNode (NOT ASTNode)",
+					"JsonValue (NOT JSONValue)",
+					"getCssClass (NOT getCSSClass)"
+				],
+				"incorrect": [
+					"innerHTML → converts to inner-h-t-m-l (unreadable!)",
+					"APIKey → converts to a-p-i-key (garbage!)",
+					"ASTNode → converts to a_s_t_node (broken!)"
+				],
+				"rationale": "When converted to kebab-case or snake_case, multi-cap initialisms create unreadable garbage",
+				"exception": "Standalone constants can be all caps: const API_KEY = '...'"
+			},
+			"abbreviations": {
+				"rule": "NO abbreviations unless instantly recognizable or Architect-approved",
+				"forbidden": [
+					"doc → document",
+					"config → configuration",
+					"admin → administrator",
+					"calc → calculate",
+					"gen → generate",
+					"proc → process",
+					"util → utility",
+					"impl → implementation"
+				],
+				"allowed": [
+					"id, db (universally understood)",
+					"max, min (mathematical convention)",
+					"src, dist (build tool convention)",
+					"req, res (HTTP convention)",
+					"i18n, a11y (established abbreviations)"
+				],
+				"rationale": "Saving 3 characters isn't worth the cognitive load of decoding abbreviations"
+			}
 		},
 		"barrelFiles": "FORBIDDEN - NO EXCEPTIONS"
 	},
@@ -277,12 +316,13 @@
 		]
 	},
 	"testing": {
+		"fundamentalRule": "TEST CODE MUST FOLLOW ALL THE SAME RULES AS PRODUCTION CODE - NO EXCEPTIONS. This means: no loops, no classes, functional programming only, one function per file, proper Envoy comments, etc.",
 		"temporaryRules": {
 			"note": "These are THROWAWAY tests until Prover is ready to generate all tests",
 			"location": "One test file per function/component in same folder named index.test.ts",
 			"framework": "Use Deno.test and t.step (if necessary)",
 			"imports": "Import assert functions from https://deno.land/std/assert/mod.ts",
-			"coverage": "Test for 100% coverage FOR JUST THAT TEST",
+			"coverage": "Test for 100% REPORTED coverage - see coverageIgnore rules below",
 			"requirement": "Tests must pass before you can commit",
 			"implementation": "OK to test implementation in these tests as they are THROWAWAY"
 		},
@@ -290,6 +330,38 @@
 			"newCode": "For NEW functions/components, write test TDD style: test FIRST, then function to pass",
 			"existingCode": "For functions/components we EDIT or fix, write test BEFORE doing the fix",
 			"legacy": "NOT going back to write tests for everything - only new or edited code"
+		},
+		"coverageIgnore": {
+			"standard": "100% REPORTED coverage ALWAYS - ignores must be justified",
+			"process": [
+				"1. Make EVERY effort to cover the line/branch with tests",
+				"2. If truly impossible/impractical (e.g., testing fs internals), document why",
+				"3. Present case to The Architect with detailed reasoning",
+				"4. If approved, add ignore comment WITH REASON",
+				"5. Script in /scripts generates report of all ignores for review"
+			],
+			"syntax": {
+				"singleLine": "// deno-coverage-ignore [reason]",
+				"blockStart": "// deno-coverage-ignore-start [reason]",
+				"blockEnd": "// deno-coverage-ignore-stop"
+			},
+			"requirements": [
+				"MUST include specific reason in brackets",
+				"MUST have made genuine effort to test first",
+				"MUST get Architect approval",
+				"Will appear in coverage ignore report"
+			],
+			"validReasons": [
+				"Testing well-tested internals (fs, crypto, etc.)",
+				"Platform-specific code on other platforms",
+				"Defensive code for impossible states (but try to test these too)"
+			],
+			"invalidReasons": [
+				"Too hard to test",
+				"Not enough time",
+				"Will test later",
+				"Seems unnecessary"
+			]
 		}
 	},
 	"sevenDeadlySins": [
@@ -469,7 +541,7 @@
 		"semicolons": false,
 		"arrayType": "Array<T> not T[]",
 		"constOnly": true,
-		"noLoops": "No for/while loops - use toolkit functions",
+		"noLoops": "No for/while loops - use toolkit functions (map, filter, reduce, etc.)",
 		"spacing": {
 			"operators": "Spaces around ALL operators: x + y not x+y",
 			"objects": "Spaces inside braces and after colons: { x: 7 } not {x:7}",
@@ -496,7 +568,7 @@
 			"semicolons": "Visual noise - JS/TS don't require them, why add them?",
 			"arrayType": "[] is hard to see and requires cognitive load - Array<> is obvious",
 			"constOnly": "Strict FP = immutable. No mutations in objects either",
-			"noLoops": "Loops are imperative - use map, filter, reduce, etc. from toolkit (unless explicitly approved by THE ARCHITECT for performance)",
+			"noLoops": "Loops are imperative - use map, filter, reduce, etc. from toolkit. Loop exception requires: 1) PROVEN bottleneck via profiling, 2) MEASURED improvement with loop, 3) NO functional alternative works, 4) Explicit Architect approval. This bar is nearly impossible to meet - goal is ZERO loops.",
 			"spacing": "Each space is a visual separator - reduces parsing effort",
 			"trailingCommas": "No worry about missing commas when adding/reordering",
 			"blankLines": "Proximity principle - group related, separate unrelated"
@@ -504,6 +576,29 @@
 	},
 	"requiredComments": {
 		"note": "We use the Envoy library for documentation generation. These rules MUST be followed.",
+		"whatEnvoyDoes": {
+			"purpose": "Envoy is our documentation intelligence system that transforms these comments into actionable insights",
+			"capabilities": [
+				"Generates comprehensive documentation from your codebase automatically",
+				"Creates interactive dependency graphs showing how functions connect",
+				"Builds searchable indices for instant code discovery",
+				"Tracks and reports all technical debt marked with //--",
+				"Visualizes the folder hierarchy as a navigable graph",
+				"Links related code elements through //>> references",
+				"Aggregates examples from //?? comments into a pattern library",
+				"Identifies critical issues (//!!) across the entire codebase",
+				"Produces coverage reports showing undocumented code",
+				"Exports to multiple formats: HTML docs, markdown, JSON"
+			],
+			"workflow": {
+				"step1": "Parser reads TypeScript/JSX files and extracts raw comments",
+				"step2": "Envoy interprets comment markers (//++, //--, etc.)",
+				"step3": "Envoy builds a knowledge graph from the interpreted data",
+				"step4": "Documentation, graphs, and reports are generated automatically"
+			},
+			"benefit": "By following these comment rules, you get a self-documenting codebase where technical debt is visible, dependencies are clear, and documentation stays in sync with code",
+			"future": "Envoy will eventually power IDE plugins for real-time documentation hints, automated tech debt prioritization, and AI-assisted refactoring suggestions"
+		},
 		"criticalRules": {
 			"placement": "Description comments (//++) MUST go IMMEDIATELY ABOVE what they describe, NOT at file top above imports",
 			"singleLine": "Single-line comments (//) are ONE LINE ONLY - cannot group them. Use block comments (/* */) for multi-line",
@@ -536,16 +631,17 @@
 				}
 			},
 			"//--": {
-				"purpose": "Tech debt that needs fixing",
+				"purpose": "Track EXISTING tech debt that needs fixing (NOT permission to create new debt)",
 				"placement": "WHERE the tech debt occurs (typically inside functions)",
 				"categories": {
-					"[WORKAROUND]": "Temporary fix",
-					"[LIMITATION]": "Known limitation",
-					"[OPTIMIZATION]": "Performance issue (e.g., recursion that should be loop)",
-					"[REFACTOR]": "Needs restructuring",
-					"[COMPATIBILITY]": "Compatibility issue"
+					"[WORKAROUND]": "Temporary fix that must be replaced",
+					"[LIMITATION]": "Known limitation to address",
+					"[OPTIMIZATION]": "Performance issue to fix (e.g., recursion that should be loop)",
+					"[REFACTOR]": "Code that needs restructuring",
+					"[COMPATIBILITY]": "Compatibility issue to resolve"
 				},
-				"requirement": "MUST include reason WHY it's tech debt"
+				"requirement": "MUST include reason WHY it's tech debt and plan to fix it",
+				"clarification": "This is for tracking debt you discover or inherit, NOT creating new debt. New code should be done right the first time."
 			},
 			"//!!": {
 				"purpose": "Critical issues that BLOCK releases",

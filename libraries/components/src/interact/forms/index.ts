@@ -1,17 +1,25 @@
-// Barrel for interact/forms
-export { default as Form } from "./Form/index.tsx"
-export { default as Field } from "./Field/index.tsx"
-export { default as FieldSet } from "./FieldSet/index.tsx"
+import * as composites from "./composites/index.ts"
+import * as elements from "./elements/index.ts"
+import Field from "./Field/index.tsx"
+import * as fields from "./fields/index.ts"
+import FieldSet from "./FieldSet/index.tsx"
+import Form from "./Form/index.tsx"
+import ContactForm from "./recipes/ContactForm/index.tsx"
+import * as recipes from "./recipes/index.ts"
+import InOrUp from "./recipes/InOrUp/index.tsx"
+import TestForm from "./recipes/Test/index.tsx"
+import * as types from "./types/index.ts"
 
-// Types
-export * as types from "./types/index.ts"
-
-// Recipes (app-level compositions)
-export { default as ContactForm } from "./recipes/ContactForm/index.tsx"
-export { default as InOrUp } from "./recipes/InOrUp/index.tsx"
-export { default as TestForm } from "./recipes/Test/index.tsx"
-
-export * as elements from "./elements/index.ts"
-export * as fields from "./fields/index.ts"
-export * as composites from "./composites/index.ts"
-export * as recipes from "./recipes/index.ts"
+export {
+	composites,
+	ContactForm,
+	elements,
+	Field,
+	fields,
+	FieldSet,
+	Form,
+	InOrUp,
+	recipes,
+	TestForm,
+	types,
+}
