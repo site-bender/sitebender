@@ -5,8 +5,8 @@ import type BusStop from "../../../Place/CivicStructure/BusStop/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { TripProps } from "../index.ts"
 
-import { BusStation as BusStationComponent } from "../../../../../../components/index.tsx"
-import { BusStop as BusStopComponent } from "../../../../../../components/index.tsx"
+import BusStationComponent from "../../../../../../src/define/Thing/Place/CivicStructure/BusStation/index.tsx"
+import BusStopComponent from "../../../../../../src/define/Thing/Place/CivicStructure/BusStop/index.tsx"
 
 export type BusTripType = "BusTrip"
 

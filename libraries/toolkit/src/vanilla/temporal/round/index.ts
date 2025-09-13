@@ -128,13 +128,34 @@ const round = (
 	}
 
 	try {
-		// Use Temporal's built-in round method
-		// The round method supports: 'day', 'hour', 'minute', 'second',
-		// 'millisecond', 'microsecond', 'nanosecond'
-		return datetime.round({
-			smallestUnit: unit,
-			roundingMode: "halfExpand",
-		})
+		// PlainTime does not support 'day' for rounding; guard it
+		if (datetime instanceof Temporal.PlainTime) {
+			const u: Temporal.SmallestUnit<
+				| "hour"
+				| "minute"
+				| "second"
+				| "millisecond"
+				| "microsecond"
+				| "nanosecond"
+			> = unit === "day" ? "hour" : unit
+			return datetime.round({ smallestUnit: u, roundingMode: "halfExpand" })
+		}
+		if (
+			datetime instanceof Temporal.PlainDateTime ||
+			datetime instanceof Temporal.ZonedDateTime
+		) {
+			const u: Temporal.SmallestUnit<
+				| "day"
+				| "hour"
+				| "minute"
+				| "second"
+				| "millisecond"
+				| "microsecond"
+				| "nanosecond"
+			> = unit
+			return datetime.round({ smallestUnit: u, roundingMode: "halfExpand" })
+		}
+		return null
 	} catch {
 		return null
 	}

@@ -4,7 +4,7 @@ import type { AddActionType } from "./AddAction/index.ts"
 import type { DeleteActionType } from "./DeleteAction/index.ts"
 import type { ReplaceActionType } from "./ReplaceAction/index.ts"
 
-import { Thing as ThingComponent } from "../../../../../components/index.tsx"
+import ThingComponent from "../../../../../../components/src/define/Thing/index.tsx"
 
 export type UpdateActionType =
 	| "UpdateAction"

@@ -151,7 +151,8 @@
 			"deno.ns",
 			"deno.window",
 			"deno.unstable"
-		]
+		],
+		"skipLibCheck": true
 	},
 
 	"imports": {

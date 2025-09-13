@@ -6,10 +6,10 @@ import type AnatomicalStructure from "../index.ts"
 import type { AnatomicalStructureProps } from "../index.ts"
 import type Muscle from "../Muscle/index.ts"
 
-import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../../components/index.tsx"
-import { BrainStructure as BrainStructureComponent } from "../../../../../../components/index.tsx"
-import { Muscle as MuscleComponent } from "../../../../../../components/index.tsx"
-import { SuperficialAnatomy as SuperficialAnatomyComponent } from "../../../../../../components/index.tsx"
+import BrainStructureComponent from "../../../../../../src/define/Thing/MedicalEntity/AnatomicalStructure/BrainStructure/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import MuscleComponent from "../../../../../../src/define/Thing/MedicalEntity/AnatomicalStructure/Muscle/index.tsx"
+import SuperficialAnatomyComponent from "../../../../../../src/define/Thing/MedicalEntity/SuperficialAnatomy/index.tsx"
 
 export type NerveType = "Nerve"
 

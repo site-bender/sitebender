@@ -2,7 +2,7 @@ import type {
 	ComplexDatatype,
 	FromLookupInjector,
 	Value,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * FromLookup JSX Component
@@ -18,7 +18,7 @@ import type {
  * />
  */
 
-import FromLookupConstructor from "@sitebender/engine/constructors/injectors/FromLookup/index.ts"
+import FromLookupConstructor from "../../../../../engine/src/constructors/injectors/FromLookup/index.ts"
 
 export type FromLookupProps = {
 	id: string

@@ -8,10 +8,10 @@ import type { StructuredValueProps } from "../../index.ts"
 import type QuantitativeValue from "../../QuantitativeValue/index.ts"
 import type { PriceSpecificationProps } from "../index.ts"
 
-import { Duration as DurationComponent } from "../../../../../../../components/index.tsx"
-import { PriceComponentTypeEnumeration as PriceComponentTypeEnumerationComponent } from "../../../../../../../components/index.tsx"
-import { PriceTypeEnumeration as PriceTypeEnumerationComponent } from "../../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../../components/index.tsx"
+import PriceComponentTypeEnumerationComponent from "../../../../../../../../components/src/define/Thing/Intangible/Enumeration/PriceComponentTypeEnumeration/index.tsx"
+import PriceTypeEnumerationComponent from "../../../../../../../../components/src/define/Thing/Intangible/Enumeration/PriceTypeEnumeration/index.tsx"
+import DurationComponent from "../../../../../../../../components/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type UnitPriceSpecificationType = "UnitPriceSpecification"
 

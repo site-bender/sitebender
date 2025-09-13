@@ -6,10 +6,10 @@ import type { MedicalEntityProps } from "../index.ts"
 import type MedicalCondition from "../MedicalCondition/index.ts"
 import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
-import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../components/index.tsx"
-import { AnatomicalSystem as AnatomicalSystemComponent } from "../../../../../components/index.tsx"
-import { MedicalCondition as MedicalConditionComponent } from "../../../../../components/index.tsx"
-import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../components/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../components/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import AnatomicalSystemComponent from "../../../../../../components/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
+import MedicalConditionComponent from "../../../../../../components/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
+import MedicalTherapyComponent from "../../../../../../components/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
 
 export type SuperficialAnatomyType = "SuperficialAnatomy"
 

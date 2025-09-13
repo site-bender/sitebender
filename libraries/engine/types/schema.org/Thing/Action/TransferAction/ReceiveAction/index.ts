@@ -6,10 +6,10 @@ import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { TransferActionProps } from "../index.ts"
 
-import { Audience as AudienceComponent } from "../../../../../../components/index.tsx"
-import { DeliveryMethod as DeliveryMethodComponent } from "../../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import AudienceComponent from "../../../../../../../components/src/define/Thing/Intangible/Audience/index.tsx"
+import DeliveryMethodComponent from "../../../../../../../components/src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
+import OrganizationComponent from "../../../../../../../components/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../components/src/define/Thing/Person/index.tsx"
 
 export type ReceiveActionType = "ReceiveAction"
 

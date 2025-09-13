@@ -1,4 +1,4 @@
-import type { IO } from "../../types/fp/io/index.ts"
+import type { IO } from "../../../types/fp/io/index.ts"
 
 //++ Creates an IO from a thunk (deferred computation)
 export default function io<A>(thunk: () => A): IO<A> {

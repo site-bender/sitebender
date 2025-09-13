@@ -4,7 +4,7 @@ import type TrainStation from "../../../Place/CivicStructure/TrainStation/index.
 import type { IntangibleProps } from "../../index.ts"
 import type { TripProps } from "../index.ts"
 
-import { TrainStation as TrainStationComponent } from "../../../../../../components/index.tsx"
+import TrainStationComponent from "../../../../../../../components/src/define/Thing/Place/CivicStructure/TrainStation/index.tsx"
 
 export type TrainTripType = "TrainTrip"
 

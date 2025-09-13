@@ -59,9 +59,9 @@ import type { StatusEnumerationType } from "./StatusEnumeration/index.ts"
 import type { TierBenefitEnumerationType } from "./TierBenefitEnumeration/index.ts"
 import type { WarrantyScopeType } from "./WarrantyScope/index.ts"
 
-import { Class as ClassComponent } from "../../../../../components/index.tsx"
-import { Enumeration as EnumerationComponent } from "../../../../../components/index.tsx"
-import { Property as PropertyComponent } from "../../../../../components/index.tsx"
+import ClassComponent from "../../../../../src/define/Thing/Intangible/Class/index.tsx"
+import EnumerationComponent from "../../../../../src/define/Thing/Intangible/Enumeration/index.tsx"
+import PropertyComponent from "../../../../../src/define/Thing/Intangible/Property/index.tsx"
 
 export type EnumerationType =
 	| "Enumeration"

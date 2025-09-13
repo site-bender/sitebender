@@ -1,12 +1,12 @@
 import type {
 	IsAfterTimeComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * IsAfterTime JSX Component
  */
-import IsAfterTimeConstructor from "@sitebender/engine/constructors/comparators/time/IsAfterTime/index.ts"
+import IsAfterTimeConstructor from "../../../../../engine/src/constructors/comparators/time/IsAfterTime/index.ts"
 
 export type Props = {
 	type?: "Time"

@@ -6,7 +6,7 @@ import type { ServiceProps } from "../../index.ts"
 import type { FinancialProductProps } from "../index.ts"
 import type { DepositAccountType } from "./DepositAccount/index.ts"
 
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../../components/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../../components/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
 
 export type BankAccountType = "BankAccount" | DepositAccountType
 
