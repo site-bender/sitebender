@@ -14,29 +14,34 @@
 
 ## Mesh specific
 
-**Crdt implementation**: - Use established CRDT algorithms (Y.js, Automerge, or similar)
+**Crdt implementation**:
 
+- Use established CRDT algorithms (Y.js, Automerge, or similar)
 - Document conflict resolution strategies explicitly
 - Test with network partition scenarios
 - Ensure deterministic merge outcomes
 
-**Distributed protocols**: **Ipfs**: - Use IPFS for content-addressed storage
+**Distributed protocols**: **Ipfs**:
 
+- Use IPFS for content-addressed storage
 - Pin important data to prevent garbage collection
 - Implement fallback gateways for availability
 
-**Solid**: - Support Solid pods for personal data storage
+**Solid**:
 
+- Support Solid pods for personal data storage
 - Implement WebID authentication
 - Respect ACL permissions on pods
 
-**P 2 p**: - Use WebRTC for browser-to-browser communication
+**P 2 p**:
 
+- Use WebRTC for browser-to-browser communication
 - Implement signaling server fallbacks
 - Support both mesh and star topologies
 
-**Semantic web**: **Requirements**: - Generate RDF triples for data relationships
+**Semantic web**: **Requirements**:
 
+- Generate RDF triples for data relationships
 - Support SPARQL queries where applicable
 - Use Schema.org vocabularies
 - Implement JSON-LD for structured data
@@ -44,4 +49,4 @@
 ---
 
 **Generated from**: `libraries/mesh/rules/index.json`\
-**Generated on**: 2025-09-13T00:08:35.373Z
+**Generated on**: 2025-09-13T09:00:09.350Z

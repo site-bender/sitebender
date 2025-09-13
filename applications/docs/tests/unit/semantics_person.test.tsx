@@ -19,7 +19,7 @@ function render(node: unknown): string {
 				[k, v],
 			) => (v === true
 				? k
-				: v === false || v == null
+				: v === false || v === null || v === undefined
 				? ""
 				: `${k}="${String(v)}"`)
 			)

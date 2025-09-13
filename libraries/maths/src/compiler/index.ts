@@ -2,8 +2,10 @@ import type {
 	ComparatorConfig,
 	InjectorConfig,
 	NumericDatatype,
+	Operand,
 	OperatorConfig,
 } from "../../../engine/types/index.ts"
+import type { Left, Right } from "../../../toolkit/src/types/fp/either/index.ts"
 import type {
 	AstNode,
 	ParseError,
@@ -101,7 +103,9 @@ export default function compile(
 				datatype: "Number",
 				value: ast.value,
 			}
-			return { ok: true, value: config }
+			return { _tag: "Right", right: config } as Right<
+				OperatorConfig | InjectorConfig | ComparatorConfig
+			>
 		}
 
 		case "Variable": {
@@ -109,25 +113,34 @@ export default function compile(
 			const injector = variables[ast.name]
 			if (!injector) {
 				return {
-					ok: false,
-					error: {
-						message: `Undefined variable: ${ast.name}`,
-					},
-				}
+					_tag: "Left",
+					left: { message: `Undefined variable: ${ast.name}` },
+				} as Left<ParseError>
 			}
-			return { ok: true, value: injector }
+			return { _tag: "Right", right: injector } as Right<
+				OperatorConfig | InjectorConfig | ComparatorConfig
+			>
 		}
 
 		case "UnaryOp": {
 			// Compile the operand
 			const operandResult = compile(ast.operand, variables)
 			// deno-coverage-ignore
-			if (!operandResult.ok) return operandResult
+			if (operandResult._tag === "Left") return operandResult
 
 			// For unary minus, use Negate
 			if (ast.operator === "-") {
+				// Disallow comparator as unary operand
+				if (operandResult.right.type === "comparator") {
+					return {
+						_tag: "Left",
+						left: { message: "Unary operator requires a value operand" },
+					} as Left<ParseError>
+				}
+
+				const operand: Operand = operandResult.right
 				// Infer type from operand
-				const datatype = operandResult.value.datatype
+				const datatype = operand.datatype
 				const numericType: NumericDatatype = [
 						"Number",
 						"Float",
@@ -137,8 +150,10 @@ export default function compile(
 					? (datatype as NumericDatatype)
 					: "Number"
 
-				const config = Negate(numericType)(operandResult.value as any)
-				return { ok: true, value: config }
+				const config = Negate(numericType)(operand)
+				return { _tag: "Right", right: config } as Right<
+					OperatorConfig | InjectorConfig | ComparatorConfig
+				>
 			}
 
 			// Unary plus is a no-op, just return the operand
@@ -149,73 +164,74 @@ export default function compile(
 			// Compile both operands
 			const leftResult = compile(ast.left, variables)
 			// deno-coverage-ignore
-			if (!leftResult.ok) return leftResult
+			if (leftResult._tag === "Left") return leftResult
 
 			const rightResult = compile(ast.right, variables)
-			if (!rightResult.ok) return rightResult
+			if (rightResult._tag === "Left") return rightResult
 
-			const left = leftResult.value
-			const right = rightResult.value
+			// Disallow comparator operands for arithmetic operators
+			if (
+				leftResult.right.type === "comparator" ||
+				rightResult.right.type === "comparator"
+			) {
+				return {
+					_tag: "Left",
+					left: { message: "Binary operator requires value operands" },
+				} as Left<ParseError>
+			}
+
+			const left: Operand = leftResult.right
+			const right: Operand = rightResult.right
 
 			// Apply the appropriate constructor based on operator
 			// Note: Cast to any since our compile can return ComparatorConfig too
 			switch (ast.operator) {
 				case "+": {
 					// Addition can handle multiple types
-					const datatype = inferNumericType([
-						left as any,
-						right as any,
-					])
-					const config = Add(datatype)([left as any, right as any])
-					return { ok: true, value: config }
+					const datatype = inferNumericType([left, right])
+					const config = Add(datatype)([left, right])
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 
 				case "-": {
-					const datatype = inferNumericType([
-						left as any,
-						right as any,
-					])
-					const config = Subtract(datatype)(left as any)(right as any)
-					return { ok: true, value: config }
+					const datatype = inferNumericType([left, right])
+					const config = Subtract(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 
 				case "*": {
-					const datatype = inferNumericType([
-						left as any,
-						right as any,
-					])
-					const config = Multiply(datatype)([
-						left as any,
-						right as any,
-					])
-					return { ok: true, value: config }
+					const datatype = inferNumericType([left, right])
+					const config = Multiply(datatype)([left, right])
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 
 				case "/": {
-					const datatype = inferNumericType([
-						left as any,
-						right as any,
-					])
-					const config = Divide(datatype)(left as any)(right as any)
-					return { ok: true, value: config }
+					const datatype = inferNumericType([left, right])
+					const config = Divide(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 
 				case "^": {
-					const datatype = inferNumericType([
-						left as any,
-						right as any,
-					])
-					const config = Power(datatype)(left as any)(right as any)
-					return { ok: true, value: config }
+					const datatype = inferNumericType([left, right])
+					const config = Power(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 
 				default:
 					return {
-						ok: false,
-						error: {
-							message: `Unsupported operator`,
-						},
-					}
+						_tag: "Left",
+						left: { message: "Unsupported operator" },
+					} as Left<ParseError>
 			}
 		}
 
@@ -223,66 +239,73 @@ export default function compile(
 			// Compile both operands
 			const leftResult = compile(ast.left, variables)
 			// deno-coverage-ignore
-			if (!leftResult.ok) return leftResult
+			if (leftResult._tag === "Left") return leftResult
 
 			const rightResult = compile(ast.right, variables)
 			// deno-coverage-ignore - error propagation, tested through other paths
-			if (!rightResult.ok) return rightResult
+			if (rightResult._tag === "Left") return rightResult
 
-			const left = leftResult.value
-			const right = rightResult.value
-			const datatype = inferNumericType([left as any, right as any])
+			if (
+				leftResult.right.type === "comparator" ||
+				rightResult.right.type === "comparator"
+			) {
+				return {
+					_tag: "Left",
+					left: { message: "Comparison operands must be values" },
+				} as Left<ParseError>
+			}
+
+			const left: Operand = leftResult.right
+			const right: Operand = rightResult.right
+			const datatype = inferNumericType([left, right])
 
 			// Apply the appropriate comparison constructor
 			// Note: Comparators expect Operand types, but our compile result includes
 			// ComparatorConfig. We cast to any to work around this type limitation.
 			switch (ast.operator) {
 				case "<": {
-					const config = IsLessThan(datatype)(left as any)(
-						right as any,
-					)
-					return { ok: true, value: config as any }
+					const config = IsLessThan(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 				case ">": {
-					const config = IsMoreThan(datatype)(left as any)(
-						right as any,
-					)
-					return { ok: true, value: config as any }
+					const config = IsMoreThan(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 				case "==": {
-					const config = IsEqualTo(datatype)(left as any)(
-						right as any,
-					)
-					return { ok: true, value: config as any }
+					const config = IsEqualTo(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 				case "!=": {
-					const config = IsUnequalTo(datatype)(left as any)(
-						right as any,
-					)
-					return { ok: true, value: config as any }
+					const config = IsUnequalTo(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 				case "<=": {
-					const config = IsNoMoreThan(datatype)(left as any)(
-						right as any,
-					)
-					return { ok: true, value: config as any }
+					const config = IsNoMoreThan(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 				case ">=": {
-					const config = IsNoLessThan(datatype)(left as any)(
-						right as any,
-					)
-					return { ok: true, value: config as any }
+					const config = IsNoLessThan(datatype)(left)(right)
+					return { _tag: "Right", right: config } as Right<
+						OperatorConfig | InjectorConfig | ComparatorConfig
+					>
 				}
 				// deno-coverage-ignore - Type exhaustiveness check, all operators handled
-				default:
+				default: {
 					return {
-						ok: false,
-						error: {
-							message: `Unsupported comparison operator: ${
-								(ast as any).operator
-							}`,
-						},
-					}
+						_tag: "Left",
+						left: { message: "Unsupported comparison operator" },
+					} as Left<ParseError>
+				}
 			}
 		}
 
@@ -290,44 +313,51 @@ export default function compile(
 			// Compile condition
 			const conditionResult = compile(ast.condition, variables)
 			// deno-coverage-ignore
-			if (!conditionResult.ok) return conditionResult
+			if (conditionResult._tag === "Left") return conditionResult
 
 			// Compile ifTrue branch
 			const ifTrueResult = compile(ast.ifTrue, variables)
 			// deno-coverage-ignore
-			if (!ifTrueResult.ok) return ifTrueResult
+			if (ifTrueResult._tag === "Left") return ifTrueResult
 
 			// Compile ifFalse branch
 			const ifFalseResult = compile(ast.ifFalse, variables)
 			// deno-coverage-ignore - error propagation, tested through other paths
-			if (!ifFalseResult.ok) return ifFalseResult
+			if (ifFalseResult._tag === "Left") return ifFalseResult
+
+			// Ensure branches are value operands
+			if (
+				ifTrueResult.right.type === "comparator" ||
+				ifFalseResult.right.type === "comparator"
+			) {
+				return {
+					_tag: "Left",
+					left: { message: "Ternary branches must be value operands" },
+				} as Left<ParseError>
+			}
+
+			const ifTrue: Operand = ifTrueResult.right
+			const ifFalse: Operand = ifFalseResult.right
 
 			// Infer the datatype from the two branches
-			const datatype = inferNumericType([
-				ifTrueResult.value as any,
-				ifFalseResult.value as any,
-			])
+			const datatype = inferNumericType([ifTrue, ifFalse])
 
 			// Create ternary operator
-			// Note: The engine's Ternary expects Operand for condition, but comparators
-			// work as conditions. We cast to any to work around this type limitation.
-			const config = Ternary(datatype)(
-				conditionResult.value as any,
-				ifTrueResult.value as any,
-				ifFalseResult.value as any,
-			)
-			return { ok: true, value: config }
+			// Note: Engine's Ternary expects Operand for condition; comparators are also supported at runtime.
+			const conditionOperand: Operand = conditionResult.right as Operand
+			const config = Ternary(datatype)(conditionOperand, ifTrue, ifFalse)
+			return { _tag: "Right", right: config } as Right<
+				OperatorConfig | InjectorConfig | ComparatorConfig
+			>
 		}
 
 		default: {
 			// Type guard - this should never happen
 			const _exhaustive: never = ast
 			return {
-				ok: false,
-				error: {
-					message: `Unknown AST node type`,
-				},
-			}
+				_tag: "Left",
+				left: { message: "Unknown AST node type" },
+			} as Left<ParseError>
 		}
 	}
 }

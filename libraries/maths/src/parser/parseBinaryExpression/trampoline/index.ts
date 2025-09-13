@@ -1,4 +1,4 @@
-import type { AstNode, ParseError, Result } from "../../../types/index.ts"
+// No external types used here; trampoline is generic and standalone
 
 // Types for eliminating recursion stack frames via thunks
 export type TrampolineResult<T> =

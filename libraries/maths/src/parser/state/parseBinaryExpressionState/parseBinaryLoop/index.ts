@@ -1,4 +1,5 @@
 import type { AstNode, ParseError, Result } from "../../../../types/index.ts"
+import type { Operator } from "../types/index.ts"
 import type { Parser, ParserState } from "../../../types/state/index.ts"
 
 import doState from "../../../../../../toolkit/src/monads/doState/index.ts"
@@ -34,7 +35,8 @@ export default function parseBinaryLoop(
 			}
 
 			// Check operator precedence
-			const info = OPERATOR_INFO[operator as keyof typeof OPERATOR_INFO]
+			const op = operator as Operator
+			const info = OPERATOR_INFO[op as keyof typeof OPERATOR_INFO]
 			if (info.precedence < minPrecedence) {
 				return ok(leftNode)
 			}
@@ -62,7 +64,7 @@ export default function parseBinaryLoop(
 
 			// Create binary node and continue parsing
 			const newLeft = fold<ParseError, AstNode>(handleError(leftNode))<AstNode>(
-				createBinaryNode(operator, leftNode),
+				createBinaryNode(op, leftNode),
 			)(rightResult)
 
 			// Continue parsing with the new left node
