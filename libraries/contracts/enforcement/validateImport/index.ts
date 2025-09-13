@@ -1,6 +1,10 @@
 //++ Validates that an import is allowed according to the boundaries contract
 
-import type { ValidationResult } from "../types"
+import type { ValidationResult } from "../types/index.ts"
+import map from "../../../../toolkit/src/vanilla/array/map/index.ts"
+import filter from "../../../../toolkit/src/vanilla/array/filter/index.ts"
+import flatMap from "../../../../toolkit/src/vanilla/array/flatMap/index.ts"
+import loadBoundaries from "./loadBoundaries/index.ts"
 
 export default function validateImport(
 	fromLibrary: string,
@@ -21,17 +25,17 @@ export default function validateImport(
 
 	// Check if this is a forbidden import
 	if (fromConfig.forbiddenImports) {
-		for (const forbidden of fromConfig.forbiddenImports) {
-			if (forbidden === "*" && toLibrary.startsWith("@sitebender/")) {
-				errors.push(
-					`${fromLibrary} cannot import any @sitebender libraries (tried to import ${toLibrary})`,
-				)
-			} else if (importPath.includes(forbidden)) {
-				errors.push(
-					`${fromLibrary} cannot import ${forbidden} (found in ${importPath})`,
-				)
-			}
-		}
+		const forbiddenHits = filter((forbidden: string) =>
+			(forbidden === "*" && toLibrary.startsWith("@sitebender/")) ||
+			importPath.includes(forbidden)
+		)([...fromConfig.forbiddenImports] as Array<string>)
+		errors.push(
+			...map((forbidden: string) =>
+				forbidden === "*"
+					? `${fromLibrary} cannot import any @sitebender libraries (tried to import ${toLibrary})`
+					: `${fromLibrary} cannot import ${forbidden} (found in ${importPath})`
+			)(forbiddenHits),
+		)
 	}
 
 	// Special check for Envoy's forbidden TypeScript imports
@@ -41,19 +45,22 @@ export default function validateImport(
 			"@typescript",
 			/\.tsx?['"`]/,
 			/\.jsx['"`]/,
-		]
+		] as const
 
-		for (const pattern of typescriptPatterns) {
+		const tsErrors = flatMap<string | RegExp, string>((pattern) => {
 			if (typeof pattern === "string" && importPath.includes(pattern)) {
-				errors.push(
+				return [
 					`Envoy CANNOT import TypeScript compiler directly! Use Parser instead. Violation: ${importPath}`,
-				)
-			} else if (pattern instanceof RegExp && pattern.test(importPath)) {
-				errors.push(
-					`Envoy CANNOT access source files directly! Use Parser instead. Violation: ${importPath}`,
-				)
+				]
 			}
-		}
+			if (pattern instanceof RegExp && pattern.test(importPath)) {
+				return [
+					`Envoy CANNOT access source files directly! Use Parser instead. Violation: ${importPath}`,
+				]
+			}
+			return []
+		})([...typescriptPatterns] as Array<string | RegExp>)
+		errors.push(...tsErrors)
 	}
 
 	// Check if this import is explicitly allowed
@@ -73,57 +80,5 @@ export default function validateImport(
 		valid: errors.length === 0,
 		errors,
 		warnings,
-	}
-}
-
-function loadBoundaries(): any {
-	// In production, this would load and cache the boundaries.json file
-	// For now, returning a minimal structure
-	return {
-		dependencies: {
-			envoy: {
-				canImport: ["parser", "toolkit", "foundry"],
-				forbiddenImports: [
-					"typescript",
-					"@typescript/compiler",
-					"prover",
-					"components",
-					"engine",
-					"maths",
-					"mesh",
-				],
-			},
-			parser: {
-				canImport: ["toolkit", "foundry"],
-				forbiddenImports: [
-					"envoy",
-					"prover",
-					"components",
-					"engine",
-					"maths",
-					"mesh",
-				],
-			},
-			prover: {
-				canImport: ["parser", "toolkit", "foundry"],
-				forbiddenImports: [
-					"typescript",
-					"@typescript/compiler",
-					"envoy",
-					"components",
-					"engine",
-					"maths",
-					"mesh",
-				],
-			},
-			toolkit: {
-				canImport: [],
-				forbiddenImports: ["*"],
-			},
-			foundry: {
-				canImport: [],
-				forbiddenImports: ["*"],
-			},
-		},
 	}
 }

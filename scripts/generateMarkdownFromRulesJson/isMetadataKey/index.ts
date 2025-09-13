@@ -1,16 +1,8 @@
-//++ Checks if a key is a metadata key
-
 import includes from "../../../libraries/toolkit/src/vanilla/array/includes/index.ts"
 
-const METADATA_KEYS = [
-	"version",
-	"lastUpdated",
-	"author",
-	"scope",
-	"description",
-	"inherits",
-]
+import { METADATA_KEYS } from "../constants/index.ts"
 
+//++ Checks if a key is a metadata key
 export default function isMetadataKey(key: string): boolean {
 	return includes(key)(METADATA_KEYS)
 }

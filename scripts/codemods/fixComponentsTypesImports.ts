@@ -154,61 +154,87 @@ async function processFile(
 	const dir = dirname(filePath)
 	const typeMap = buildTypeImportMap(raw, dir)
 
-	let changed = false
-	const newLines: string[] = []
+	// Build tasks for each line; resolve all at once to avoid await-in-loop
+	const lineTasks: Array<Promise<{ lines: string[]; changed: boolean; report: string[] }>> = []
 
 	for (const line of lines) {
 		const specs = parseBarrelImport(line)
 		if (!specs) {
-			newLines.push(line)
+			lineTasks.push(Promise.resolve({ lines: [line], changed: false, report: [] }))
 			continue
 		}
-		// Attempt to replace the barrel line transactionally; if any spec fails, keep original line
-		const replacementLines: string[] = []
-		let failed = false
-		for (const s of specs) {
-			// 1) Preferred: map via existing type imports
-			let srcAbs = ""
-			const typeAbs = typeMap.get(s.symbol)
-			if (typeAbs) {
-				srcAbs = toSrcDefinePath(typeAbs)
-			}
 
-			// 2) Fallback: try to discover the component by walking src/define looking for a unique folder name match
-			if (!srcAbs) {
-				const discovered = await findDefineComponentByName(s.symbol)
-				if (discovered.count === 1) {
-					srcAbs = discovered.paths[0]
-				} else if (discovered.count === 0) {
-					report.push(
-						`WARN ${filePath}: No type import and no src/define match for ${s.symbol}; keeping barrel import`,
+		lineTasks.push((async () => {
+			const replacementLines: string[] = []
+			let failed = false
+			// Collect asynchronous discoveries per spec
+			const pending: Array<Promise<{ s: ImportSpec; srcAbs: string; failed: boolean; report?: string }>> = []
+			for (const s of specs) {
+				// 1) Preferred: map via existing type imports
+				let srcAbs = ""
+				const typeAbs = typeMap.get(s.symbol)
+				if (typeAbs) {
+					srcAbs = toSrcDefinePath(typeAbs)
+				}
+
+				// 2) Fallback: discover via filesystem
+				if (!srcAbs) {
+					pending.push(
+						findDefineComponentByName(s.symbol).then((discovered) => {
+							if (discovered.count === 1) {
+								return { s, srcAbs: discovered.paths[0], failed: false as const }
+							}
+							if (discovered.count === 0) {
+								return {
+									s,
+									srcAbs: "",
+									failed: true as const,
+									report: `WARN ${filePath}: No type import and no src/define match for ${s.symbol}; keeping barrel import`,
+								}
+							}
+							return {
+								s,
+								srcAbs: "",
+								failed: true as const,
+								report: `WARN ${filePath}: Multiple src/define matches for ${s.symbol}: ${discovered.paths.map((p) => relative(dir, p)).join(", ")}; keeping barrel import`,
+							}
+						}),
 					)
-					failed = true
-					break
 				} else {
-					report.push(
-						`WARN ${filePath}: Multiple src/define matches for ${s.symbol}: ${
-							discovered.paths.map((p) => relative(dir, p)).join(", ")
-						}; keeping barrel import`,
-					)
-					failed = true
-					break
+					pending.push(Promise.resolve({ s, srcAbs, failed: false as const }))
 				}
 			}
 
-			const srcRel = relative(dir, srcAbs).replaceAll("\\", "/")
-			replacementLines.push(
-				`import ${s.component} from "${
-					srcRel.startsWith(".") ? srcRel : "./" + srcRel
-				}"`,
-			)
-		}
-		if (failed) {
-			newLines.push(line)
-		} else {
-			newLines.push(...replacementLines)
-			changed = true
-		}
+			const settled = await Promise.all(pending)
+			const localReports: string[] = []
+			for (const res of settled) {
+				if (res.report) localReports.push(res.report)
+				if (res.failed) {
+					failed = true
+					break
+				}
+				const srcRel = relative(dir, res.srcAbs).replaceAll("\\", "/")
+				replacementLines.push(
+					`import ${res.s.component} from "${
+						srcRel.startsWith(".") ? srcRel : "./" + srcRel
+					}"`,
+				)
+			}
+
+			if (failed) {
+				return { lines: [line], changed: false, report: localReports }
+			}
+			return { lines: replacementLines, changed: true, report: localReports }
+		})())
+	}
+
+	const results = await Promise.all(lineTasks)
+	const newLines: string[] = []
+	let changed = false
+	for (const r of results) {
+		if (r.report.length) report.push(...r.report)
+		if (r.changed) changed = true
+		newLines.push(...r.lines)
 	}
 
 	if (changed) {

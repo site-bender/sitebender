@@ -60,6 +60,7 @@ function convertJSXToData(
 	const { type, props } = jsxElement;
 
 	if (typeof type === 'function' && props && typeof props === 'object') {
+		const propObj = props as Record<string, unknown>;
 		const {
 			children: _children,
 			format: _format,
@@ -67,12 +68,12 @@ function convertJSXToData(
 			property: _property,
 			subtypeProperties,
 			...dataProps
-		} = props as any;
+		} = propObj;
 
 		// Spread subtypeProperties into the main props
 		return {
 			...dataProps,
-			...(subtypeProperties || {}),
+			...((subtypeProperties as Record<string, unknown> | undefined) || {}),
 		};
 	}
 
