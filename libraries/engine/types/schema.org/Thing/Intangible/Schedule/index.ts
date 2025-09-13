@@ -11,9 +11,9 @@ import type { IntangibleProps } from "../index.ts"
 import type Duration from "../Quantity/Duration/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-import { DayOfWeek as DayOfWeekComponent } from "../../../../../components/index.tsx"
-import { Duration as DurationComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
+import DayOfWeekComponent from "../../../../../../components/src/define/Thing/Intangible/Enumeration/DayOfWeek/index.tsx"
+import DurationComponent from "../../../../../../components/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type ScheduleType = "Schedule"
 

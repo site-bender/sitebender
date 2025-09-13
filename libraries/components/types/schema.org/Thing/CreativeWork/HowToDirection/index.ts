@@ -8,10 +8,10 @@ import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type MediaObject from "../../MediaObject/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import { Duration as DurationComponent } from "../../../../../components/index.tsx"
-import { HowToSupply as HowToSupplyComponent } from "../../../../../components/index.tsx"
-import { HowToTool as HowToToolComponent } from "../../../../../components/index.tsx"
-import { MediaObject as MediaObjectComponent } from "../../../../../components/index.tsx"
+import MediaObjectComponent from "../../../../../src/define/Thing/CreativeWork/MediaObject/index.tsx"
+import HowToSupplyComponent from "../../../../../src/define/Thing/Intangible/ListItem/HowToItem/HowToSupply/index.tsx"
+import HowToToolComponent from "../../../../../src/define/Thing/Intangible/ListItem/HowToItem/HowToTool/index.tsx"
+import DurationComponent from "../../../../../src/define/Thing/Intangible/Quantity/Duration/index.tsx"
 
 export type HowToDirectionType = "HowToDirection"
 

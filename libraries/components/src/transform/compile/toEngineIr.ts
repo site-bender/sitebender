@@ -6,8 +6,8 @@ import type {
 	IrDocument,
 	Node,
 	OperatorNode,
-} from "@sitebender/engine-types/ir/index.ts"
-import type { DataType } from "@sitebender/engine-types/ir/index.ts"
+} from "../../../../engine/types/ir/index.ts"
+import type { DataType } from "../../../../engine/types/ir/index.ts"
 
 type MaybeVNode = unknown
 type VNode = { type?: unknown; props?: Record<string, unknown> }

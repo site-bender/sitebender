@@ -28,7 +28,7 @@
 		"include": ["tests/", "src/**/*.test.ts"]
 	},
 	"compilerOptions": {
-		"lib": ["deno.window", "esnext"],
+		"lib": ["deno.window", "deno.unstable", "esnext"],
 		"types": []
 	}
 }

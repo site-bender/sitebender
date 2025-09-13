@@ -8,12 +8,12 @@ import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { LegislationObjectType } from "./LegislationObject/index.ts"
 
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
-import { CategoryCode as CategoryCodeComponent } from "../../../../../components/index.tsx"
-import { LegalForceStatus as LegalForceStatusComponent } from "../../../../../components/index.tsx"
-import { Legislation as LegislationComponent } from "../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import LegislationComponent from "../../../../../../components/src/define/Thing/CreativeWork/Legislation/index.tsx"
+import CategoryCodeComponent from "../../../../../../components/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import LegalForceStatusComponent from "../../../../../../components/src/define/Thing/Intangible/Enumeration/StatusEnumeration/LegalForceStatus/index.tsx"
+import OrganizationComponent from "../../../../../../components/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../components/src/define/Thing/Person/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../components/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type LegislationType = "Legislation" | LegislationObjectType
 

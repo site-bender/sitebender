@@ -109,11 +109,17 @@ const getMonth = (
 		return null
 	}
 
-	try {
-		return date.month
-	} catch {
-		return null
+	if (date instanceof Temporal.PlainDate) return date.month
+	if (date instanceof Temporal.PlainDateTime) return date.month
+	if (date instanceof Temporal.PlainYearMonth) return date.month
+	if (date instanceof Temporal.PlainMonthDay) {
+		const code = date.monthCode // e.g. "M02" or "M08L"
+		const digits = code.replace(/[^0-9]/g, "")
+		const num = parseInt(digits, 10)
+		return Number.isFinite(num) ? num : null
 	}
+	if (date instanceof Temporal.ZonedDateTime) return date.month
+	return null
 }
 
 export default getMonth

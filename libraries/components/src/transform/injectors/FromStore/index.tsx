@@ -6,13 +6,13 @@
  * to pattern match later.
  */
 
-import type { DataType } from "@sitebender/engine-types/ir/index.ts"
+import type { DataType } from "../../../../../engine/types/ir/index.ts"
 
 export type FromStoreProps = {
 	key: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: DataType | "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: import("@sitebender/engine-types/index.ts").Value
+	defaultValue?: import("../../../../../engine/types/index.ts").Value
 }
 
 type InjectorShape = {

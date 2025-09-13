@@ -57,7 +57,7 @@ const modify = <K extends string | symbol, V extends Value, R extends Value>(
 	}
 
 	// Get current value (may be undefined)
-	const currentValue = obj[prop] as V
+	const currentValue = obj[prop] as unknown as V
 
 	// Apply transformation and create new object
 	return {

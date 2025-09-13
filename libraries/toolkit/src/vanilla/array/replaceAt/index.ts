@@ -35,7 +35,7 @@ const replaceAt =
 		}
 		// Out of bounds: return the original array reference unchanged
 		if (index < 0 || index >= array.length) {
-			return array as Array<T>
+			return [...array]
 		}
 		return [
 			...array.slice(0, index),

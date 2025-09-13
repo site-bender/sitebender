@@ -1,4 +1,4 @@
-import type { IO, IOMaybe } from "../../types/fp/io/index.ts"
+import type { IO, IOMaybe } from "../../../types/fp/io/index.ts"
 
 import just from "../../maybe/just/index.ts"
 

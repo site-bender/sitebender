@@ -1,7 +1,7 @@
 import type {
 	FromSessionStorageInjector,
 	Value,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * FromSessionStorage JSX Component
@@ -17,7 +17,7 @@ import type {
  * />
  */
 
-import FromSessionStorageConstructor from "@sitebender/engine/constructors/injectors/FromSessionStorage/index.ts"
+import FromSessionStorageConstructor from "../../../../../engine/src/constructors/injectors/FromSessionStorage/index.ts"
 
 export type FromSessionStorageProps = {
 	key: string

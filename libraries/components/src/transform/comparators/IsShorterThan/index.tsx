@@ -1,7 +1,7 @@
 import type {
 	IsShorterThanComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * IsShorterThan JSX Component
@@ -17,7 +17,7 @@ import type {
  * </IsShorterThan>
  */
 
-import IsShorterThanConstructor from "@sitebender/engine/constructors/comparators/length/IsShorterThan/index.ts"
+import IsShorterThanConstructor from "../../../../../engine/src/constructors/comparators/length/IsShorterThan/index.ts"
 
 export type Props = {
 	type?: "String" | "Array"

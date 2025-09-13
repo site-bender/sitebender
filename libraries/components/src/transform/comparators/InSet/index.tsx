@@ -1,7 +1,7 @@
 import type {
 	InSetComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * InSet - Set membership comparator component
@@ -14,7 +14,7 @@ import type {
  *
  * Or positional children: <InSet>{value}{set}</InSet>
  */
-import InSetConstructor from "@sitebender/engine/constructors/comparators/set/InSet/index.ts"
+import InSetConstructor from "../../../../../engine/src/constructors/comparators/set/InSet/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element>

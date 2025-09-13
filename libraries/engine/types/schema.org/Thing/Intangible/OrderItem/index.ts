@@ -7,12 +7,12 @@ import type ParcelDelivery from "../ParcelDelivery/index.ts"
 import type Service from "../Service/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-import { OrderItem as OrderItemComponent } from "../../../../../components/index.tsx"
-import { OrderStatus as OrderStatusComponent } from "../../../../../components/index.tsx"
-import { ParcelDelivery as ParcelDeliveryComponent } from "../../../../../components/index.tsx"
-import { Product as ProductComponent } from "../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../components/index.tsx"
-import { Service as ServiceComponent } from "../../../../../components/index.tsx"
+import OrderStatusComponent from "../../../../../../components/src/define/Thing/Intangible/Enumeration/StatusEnumeration/OrderStatus/index.tsx"
+import OrderItemComponent from "../../../../../../components/src/define/Thing/Intangible/OrderItem/index.tsx"
+import ParcelDeliveryComponent from "../../../../../../components/src/define/Thing/Intangible/ParcelDelivery/index.tsx"
+import ServiceComponent from "../../../../../../components/src/define/Thing/Intangible/Service/index.tsx"
+import QuantitativeValueComponent from "../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import ProductComponent from "../../../../../../components/src/define/Thing/Product/index.tsx"
 
 export type OrderItemType = "OrderItem"
 

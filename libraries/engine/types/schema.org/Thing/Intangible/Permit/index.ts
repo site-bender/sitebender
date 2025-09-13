@@ -8,11 +8,11 @@ import type Duration from "../Quantity/Duration/index.ts"
 import type Service from "../Service/index.ts"
 import type { GovernmentPermitType } from "./GovernmentPermit/index.ts"
 
-import { AdministrativeArea as AdministrativeAreaComponent } from "../../../../../components/index.tsx"
-import { Audience as AudienceComponent } from "../../../../../components/index.tsx"
-import { Duration as DurationComponent } from "../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
-import { Service as ServiceComponent } from "../../../../../components/index.tsx"
+import AudienceComponent from "../../../../../../components/src/define/Thing/Intangible/Audience/index.tsx"
+import DurationComponent from "../../../../../../components/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import ServiceComponent from "../../../../../../components/src/define/Thing/Intangible/Service/index.tsx"
+import OrganizationComponent from "../../../../../../components/src/define/Thing/Organization/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../components/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type PermitType = "Permit" | GovernmentPermitType
 

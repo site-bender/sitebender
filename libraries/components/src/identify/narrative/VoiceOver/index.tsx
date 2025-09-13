@@ -1,6 +1,6 @@
 import type BaseProps from "../../../../types/index.ts"
 
-import { Person } from "../../../define/index.ts"
+import Person from "../../../define/Thing/Person/index.tsx"
 import getDataAttributes from "../../../helpers/getDataAttributes/index.ts"
 
 export type Props = BaseProps & {

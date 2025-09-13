@@ -1,4 +1,5 @@
-import { CreativeWork, Event } from "../../../define/index.ts"
+import CreativeWork from "../../../define/Thing/CreativeWork/index.tsx"
+import Event from "../../../define/Thing/Event/index.tsx"
 
 type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {

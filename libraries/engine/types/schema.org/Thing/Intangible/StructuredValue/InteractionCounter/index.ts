@@ -14,12 +14,12 @@ import type VirtualLocation from "../../VirtualLocation/index.ts"
 import type PostalAddress from "../ContactPoint/PostalAddress/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import { Action as ActionComponent } from "../../../../../../components/index.tsx"
-import { Place as PlaceComponent } from "../../../../../../components/index.tsx"
-import { PostalAddress as PostalAddressComponent } from "../../../../../../components/index.tsx"
-import { SoftwareApplication as SoftwareApplicationComponent } from "../../../../../../components/index.tsx"
-import { VirtualLocation as VirtualLocationComponent } from "../../../../../../components/index.tsx"
-import { WebSite as WebSiteComponent } from "../../../../../../components/index.tsx"
+import ActionComponent from "../../../../../../../components/src/define/Thing/Action/index.tsx"
+import SoftwareApplicationComponent from "../../../../../../../components/src/define/Thing/CreativeWork/SoftwareApplication/index.tsx"
+import WebSiteComponent from "../../../../../../../components/src/define/Thing/CreativeWork/WebSite/index.tsx"
+import PostalAddressComponent from "../../../../../../../components/src/define/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
+import VirtualLocationComponent from "../../../../../../../components/src/define/Thing/Intangible/VirtualLocation/index.tsx"
+import PlaceComponent from "../../../../../../../components/src/define/Thing/Place/index.tsx"
 
 export type InteractionCounterType = "InteractionCounter"
 

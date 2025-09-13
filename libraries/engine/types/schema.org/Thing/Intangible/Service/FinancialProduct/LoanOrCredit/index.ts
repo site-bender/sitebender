@@ -15,11 +15,11 @@ import type { FinancialProductProps } from "../index.ts"
 import type { CreditCardType } from "./CreditCard/index.ts"
 import type { MortgageLoanType } from "./MortgageLoan/index.ts"
 
-import { Duration as DurationComponent } from "../../../../../../../components/index.tsx"
-import { MonetaryAmount as MonetaryAmountComponent } from "../../../../../../../components/index.tsx"
-import { QuantitativeValue as QuantitativeValueComponent } from "../../../../../../../components/index.tsx"
-import { RepaymentSpecification as RepaymentSpecificationComponent } from "../../../../../../../components/index.tsx"
-import { Thing as ThingComponent } from "../../../../../../../components/index.tsx"
+import ThingComponent from "../../../../../../../../components/src/define/Thing/index.tsx"
+import DurationComponent from "../../../../../../../../components/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../../components/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../../components/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import RepaymentSpecificationComponent from "../../../../../../../../components/src/define/Thing/Intangible/StructuredValue/RepaymentSpecification/index.tsx"
 
 export type LoanOrCreditType =
 	| "LoanOrCredit"

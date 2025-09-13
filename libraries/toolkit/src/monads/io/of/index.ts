@@ -1,4 +1,4 @@
-import type { IO } from "../../types/fp/io/index.ts"
+import type { IO } from "../../../types/fp/io/index.ts"
 
 /**
  * Lifts a pure value into IO context

@@ -10,10 +10,10 @@ import type { MedicalBusinessProps } from "../../LocalBusiness/MedicalBusiness/i
 import type { MedicalOrganizationProps } from "../index.ts"
 import type { CovidTestingFacilityType } from "./CovidTestingFacility/index.ts"
 
-import { MedicalProcedure as MedicalProcedureComponent } from "../../../../../../components/index.tsx"
+import MedicalProcedureComponent from "../../../../../../../components/src/define/Thing/MedicalEntity/MedicalProcedure/index.tsx"
+import MedicalTherapyComponent from "../../../../../../../components/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
+import MedicalTestComponent from "../../../../../../../components/src/define/Thing/MedicalEntity/MedicalTest/index.tsx"
 import { MedicalSpecialty as MedicalSpecialtyComponent } from "../../../../../../components/index.tsx"
-import { MedicalTest as MedicalTestComponent } from "../../../../../../components/index.tsx"
-import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../../components/index.tsx"
 
 export type MedicalClinicType = "MedicalClinic" | CovidTestingFacilityType
 
