@@ -3,14 +3,14 @@ import type { MonadDictionary } from "../doNotation/index.ts"
 //++ Provides do-notation with automatic tap injection for debugging monadic flows
 export default function doNotationWithTap<M>(
 	monad: MonadDictionary<M>,
-	tapFn: (value: any) => void,
+	tapFn: (value: unknown) => void,
 ) {
 	return function runGeneratorWithTap<A>(
-		genFn: () => Generator<M, A, any>,
+		genFn: () => Generator<M, A, unknown>,
 	): M {
 		const generator = genFn()
 
-		function stepWithTap(value: any): M {
+		function stepWithTap(value: unknown): M {
 			// Tap the value before passing to generator
 			if (value !== undefined) {
 				tapFn(value)

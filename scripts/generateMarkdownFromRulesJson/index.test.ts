@@ -10,11 +10,11 @@ Deno.test("generateMarkdownFromRulesJson", async (t) => {
 		// Function should handle gracefully
 		const originalLog = console.log
 		const logMessages: Array<string> = []
-		
+
 		function captureLog(msg: string): void {
 			logMessages.push(msg)
 		}
-		
+
 		console.log = captureLog
 
 		generateMarkdownFromRulesJson()

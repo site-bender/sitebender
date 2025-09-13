@@ -13,7 +13,7 @@ export default function formatObjectEntry(
 	return function formatEntry([key, value]: [string, JsonValue]): string {
 		const formattedKey = formatKey(key)
 		const formattedValue = formatValue(value)
-		
+
 		// Arrays should start on a new line
 		const separator = isArray(value) ? "**:\n" : "**: "
 

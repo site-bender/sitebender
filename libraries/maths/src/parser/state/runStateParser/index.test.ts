@@ -150,7 +150,7 @@ Deno.test("runStateParser - parses conditional expressions", () => {
 		assertObjectMatch(result.right, {
 			type: "Conditional",
 			condition: {
-				type: "BinaryOp",
+				type: "Comparison",
 				operator: ">",
 				left: { type: "Variable", name: "x" },
 				right: { type: "Number", value: 0 },
@@ -214,7 +214,7 @@ Deno.test("runStateParser - returns error for empty token array", () => {
 
 Deno.test("runStateParser - returns error for invalid token", () => {
 	const tokens: Token[] = [
-		{ type: "UNKNOWN" as any, value: "§", position: 0 },
+		{ type: "UNKNOWN", value: "§", position: 0 },
 	]
 
 	const result = runStateParser(tokens)

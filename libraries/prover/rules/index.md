@@ -55,20 +55,23 @@ While building Prover, use the temporary testing rules in /rules/index.json
 </div>
 </dl>
 
-**Hierarchy**: - E2E - User journeys (gold standard)
+**Hierarchy**:
 
+- E2E - User journeys (gold standard)
 - Integration - Functions working together
 - Property-based - Mathematical truth
 - Unit - Last resort for the desperate
 
-**What to test**: - Behaviors - What users experience
+**What to test**:
 
+- Behaviors - What users experience
 - Properties - Mathematical laws
 - Accessibility - WCAG AAA for HTML
 - Progressive Enhancement - All three layers
 
-**What not to test**: - Implementation details
+**What not to test**:
 
+- Implementation details
 - Private methods (they don't exist)
 - Things TypeScript already guarantees
 - Lines we've explicitly ignored (with documented reasons)
@@ -78,4 +81,4 @@ While building Prover, use the temporary testing rules in /rules/index.json
 ---
 
 **Generated from**: `libraries/prover/rules/index.json`\
-**Generated on**: 2025-09-13T00:08:35.372Z
+**Generated on**: 2025-09-13T09:00:09.349Z

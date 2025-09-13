@@ -61,55 +61,55 @@ export default async function runDemo() {
 		},
 	]
 
-	testTargets.forEach((target) => {
-		console.log(
-			`${BOLD}${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}`,
-		)
-		console.log(`${BOLD}${MAGENTA}Testing: ${target.description}${RESET}`)
-		console.log(`${BLUE}Path: ${target.path}${RESET}\n`)
+	async function processTarget(
+		target: { path: string; description: string },
+	): Promise<string> {
+		let log = ""
+		const append = (s: string) => {
+			log += s + "\n"
+		}
+
+		append(`${BOLD}${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}`)
+		append(`${BOLD}${MAGENTA}Testing: ${target.description}${RESET}`)
+		append(`${BLUE}Path: ${target.path}${RESET}\n`)
 
 		try {
-			// Generate the tests
-			console.log(`${CYAN}Generating tests...${RESET}`)
+			append(`${CYAN}Generating tests...${RESET}`)
 			const suite = await generateTests(target.path, {
 				includePropertyTests: true,
 				includeEdgeCases: true,
 				targetCoverage: 100,
 			})
 
-			console.log(`\n${GREEN}✅ Test generation successful!${RESET}`)
-			console.log(`${CYAN}Summary:${RESET}`)
-			console.log(`  • Function: ${BOLD}${suite.functionName}${RESET}`)
-			console.log(
+			append(`\n${GREEN}✅ Test generation successful!${RESET}`)
+			append(`${CYAN}Summary:${RESET}`)
+			append(`  • Function: ${BOLD}${suite.functionName}${RESET}`)
+			append(
 				`  • Test cases generated: ${BOLD}${suite.testCases.length}${RESET}`,
 			)
-			console.log(
+			append(
 				`  • Coverage achieved: ${BOLD}${
 					suite.coverage.percentage.toFixed(1)
 				}%${RESET}`,
 			)
 
-			// Show some generated test cases
-			console.log(`\n${CYAN}Sample test cases:${RESET}`)
+			append(`\n${CYAN}Sample test cases:${RESET}`)
 			const sampleTests = suite.testCases.slice(0, 3)
-			sampleTests.forEach((test) => {
-				console.log(`  • ${test.description}`)
+			for (const test of sampleTests) {
+				append(`  • ${test.description}`)
 				if (test.input) {
-					console.log(`    Input: ${JSON.stringify(test.input)}`)
+					append(`    Input: ${JSON.stringify(test.input)}`)
 				}
 				if (test.expected !== undefined) {
-					console.log(
-						`    Expected: ${JSON.stringify(test.expected)}`,
-					)
+					append(`    Expected: ${JSON.stringify(test.expected)}`)
 				}
-			})
+			}
 
-			console.log(
+			append(
 				`${YELLOW}(Test file will be written when tests are generated)${RESET}`,
 			)
 
-			// Try to run the generated tests
-			console.log(`\n${CYAN}Attempting to run generated tests...${RESET}`)
+			append(`\n${CYAN}Attempting to run generated tests...${RESET}`)
 			const testCommand = new Deno.Command("deno", {
 				args: [
 					"test",
@@ -126,8 +126,7 @@ export default async function runDemo() {
 				const errorOutput = new TextDecoder().decode(stderr)
 
 				if (code === 0) {
-					console.log(`${GREEN}✅ Tests passed!${RESET}`)
-					// Show test results
+					append(`${GREEN}✅ Tests passed!${RESET}`)
 					const lines = output.split("\n")
 					const relevantLines = lines.filter((line) =>
 						line.includes("test result") ||
@@ -135,28 +134,35 @@ export default async function runDemo() {
 						line.includes("ok")
 					)
 					if (relevantLines.length > 0) {
-						console.log(`${CYAN}Test output:${RESET}`)
-						relevantLines.forEach((line) => console.log(`  ${line}`))
+						append(`${CYAN}Test output:${RESET}`)
+						for (const line of relevantLines) append(`  ${line}`)
 					}
 				} else {
-					console.log(
+					append(
 						`${YELLOW}⚠️  Tests not yet runnable (may need implementation)${RESET}`,
 					)
 					if (errorOutput) {
-						console.log(
-							`${RED}Error: ${errorOutput.slice(0, 200)}...${RESET}`,
-						)
+						append(`${RED}Error: ${errorOutput.slice(0, 200)}...${RESET}`)
 					}
 				}
 			} catch {
-				console.log(`${YELLOW}Test file not yet created${RESET}`)
+				append(`${YELLOW}Test file not yet created${RESET}`)
 			}
 		} catch (error) {
-			console.log(`${RED}❌ Error: ${error.message}${RESET}`)
+			const message = error instanceof Error ? error.message : String(error)
+			append(`${RED}❌ Error: ${message}${RESET}`)
 		}
 
-		console.log()
-	})
+		append("")
+		return log
+	}
+
+	const logs = await Promise.all(testTargets.map(processTarget))
+	for (const out of logs) {
+		console.log(out)
+	}
+
+	console.log()
 
 	console.log(
 		`${BOLD}${CYAN}========================================${RESET}`,

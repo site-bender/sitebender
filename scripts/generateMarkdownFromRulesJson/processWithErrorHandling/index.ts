@@ -11,9 +11,7 @@ export default function processWithErrorHandling(
 		processRulesFile(rulesFile)
 	} catch (error) {
 		const path = rulesFile.jsonPath || "unknown"
-		const errorMessage = error instanceof Error
-			? error.message
-			: String(error)
+		const errorMessage = error instanceof Error ? error.message : String(error)
 
 		console.error(
 			concat("❌ Failed to process ")(

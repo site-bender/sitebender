@@ -2,7 +2,9 @@ import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts
 import isUndefined from "@sitebender/toolkit/vanilla/validation/isUndefined/index.ts"
 
 import Error from "../../../constructors/Error/index.ts"
-import castValue from "../../../utilities/castValue/index.ts"
+import castValue, {
+	Either as CastEither,
+} from "../../../utilities/castValue/index.ts"
 
 // deno-lint-ignore no-explicit-any
 const getBySegment = (op: any) => {
@@ -10,7 +12,9 @@ const getBySegment = (op: any) => {
 		datatype,
 		options: { segment },
 	} = op
-	const index = castValue("Integer")({ right: segment })
+	const index = castValue<unknown, number>("Integer")(
+		{ right: segment } as CastEither<unknown, number>,
+	)
 
 	if (isDefined(index.left)) {
 		return {
@@ -18,8 +22,9 @@ const getBySegment = (op: any) => {
 		}
 	}
 
+	const idx = index.right as number | undefined
 	const value = (globalThis.location?.pathname ?? "").split("/").at(
-		index.right,
+		idx ?? -1,
 	)
 
 	if (isUndefined(value)) {
@@ -32,11 +37,17 @@ const getBySegment = (op: any) => {
 		}
 	}
 
-	const casted = castValue(datatype)({ right: value })
+	const casted = castValue<unknown, string | number | boolean>(datatype)(
+		{ right: value } as CastEither<unknown, string | number | boolean>,
+	)
 
-	return isDefined(casted.right)
-		? casted
-		: { left: [Error(op)("FromUrlParameter")(casted.left)] }
+	if (isDefined((casted as { right?: unknown }).right)) {
+		return casted
+	}
+	const leftVal = (casted as { left?: unknown }).left
+	return {
+		left: [Error(op)("FromUrlParameter")(String(leftVal))],
+	}
 }
 
 export default getBySegment

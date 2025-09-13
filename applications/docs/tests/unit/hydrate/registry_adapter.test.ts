@@ -5,9 +5,16 @@ import {
 } from "@sitebender/components/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 
-Deno.test("registry viz adapter is preferred over noop in docs hydrate", async () => {
+import type { VizAdapter } from "@sitebender/components/transform/viz/adapter/types.ts"
+
+type GlobalShims = {
+	document?: Document
+	window?: unknown
+}
+
+Deno.test("registry viz adapter is preferred over noop in docs hydrate", () => {
 	// Save previous globals and adapter
-	const g = globalThis as unknown as Record<string, unknown>
+	const g = globalThis as unknown as GlobalShims
 	const prevDoc = g.document
 	const prevWin = g.window
 	const prevAdapter = getVizAdapter()
@@ -24,8 +31,8 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 		querySelectorAll: (_: string) => els,
 		addEventListener: (_: string, __: unknown) => void 0,
 	} as unknown as Document
-	;(g as any).document = fakeDocument
-	;(g as any).window = {}
+	g.document = fakeDocument
+	g.window = {}
 
 	// Register a custom adapter that marks elements differently
 	const customAdapter = {
@@ -39,7 +46,7 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 			for (const n of nodes) n.dataset.vizHydrated = "custom"
 		},
 	}
-	setVizAdapter(customAdapter as any)
+	setVizAdapter(customAdapter as VizAdapter)
 
 	// Dynamically import hydrate entry so it sees our fake document and adapter
 	// Trigger hydration via registry by invoking the adapter manually
@@ -51,8 +58,8 @@ Deno.test("registry viz adapter is preferred over noop in docs hydrate", async (
 		assertEquals(el.dataset.vizHydrated, "custom")
 	} // Restore globals and adapter (fallback to noop if none was set)
 
-	;(g as any).document = prevDoc
-	;(g as any).window = prevWin
+	g.document = prevDoc
+	g.window = prevWin
 	if (prevAdapter) setVizAdapter(prevAdapter)
-	else setVizAdapter(vizNoopAdapter as any)
+	else setVizAdapter(vizNoopAdapter)
 })

@@ -46,10 +46,10 @@ const compare =
 
 		const o = castValue(
 			(op as { operand?: { datatype?: unknown } })?.operand?.datatype,
-		)((operand as { right: unknown }).right)
+		)(operand as { left: unknown } | { right: unknown })
 		const t = castValue(
 			(op as { test?: { datatype?: unknown } })?.test?.datatype,
-		)((test as { right: unknown }).right)
+		)(test as { left: unknown } | { right: unknown })
 
 		if (isLeft(t as { left: unknown } | { right: unknown })) {
 			return isLeft(o as { left: unknown } | { right: unknown })

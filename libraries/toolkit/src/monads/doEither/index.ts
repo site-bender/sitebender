@@ -13,9 +13,9 @@ export { default as tryCatch } from "../either/tryCatch/index.ts"
 
 //++ Specialized do-notation for Either monad with error handling
 export default function doEither<L, R>(
-	genFn: () => Generator<Either<L, any>, R, any>,
+	genFn: () => Generator<Either<L, unknown>, R, unknown>,
 ): Either<L, R> {
-	return doNotation(createEitherMonad<L>())(genFn)
+	return doNotation(createEitherMonad<L>())(genFn) as Either<L, R>
 }
 
 //?? [EXAMPLE] doEither(function* () { const x = yield Right(5); const y = yield Right(3); return x + y })

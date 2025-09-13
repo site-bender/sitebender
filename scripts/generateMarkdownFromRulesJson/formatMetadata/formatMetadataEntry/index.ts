@@ -13,7 +13,7 @@ export default function formatMetadataEntry(
 ): string {
 	const formattedKey = formatKey(key)
 	const formattedValue = formatJsonValue(0)(value)
-	
+
 	// Arrays should start on a new line
 	const separator = isArray(value) ? "**:\n" : "**: "
 
