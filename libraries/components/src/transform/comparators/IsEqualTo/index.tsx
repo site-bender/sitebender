@@ -1,7 +1,7 @@
 import type {
 	IsEqualToComparator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * IsEqualTo JSX Component
@@ -16,7 +16,7 @@ import type {
  * </IsEqualTo>
  */
 
-import IsEqualToConstructor from "@sitebender/engine/constructors/comparators/equality/IsEqualTo/index.ts"
+import IsEqualToConstructor from "../../../../../engine/src/constructors/comparators/equality/IsEqualTo/index.ts"
 
 export type Props = {
 	type?: "Number" | "String" | "Boolean" | "Date"

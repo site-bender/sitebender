@@ -3,7 +3,7 @@ import type Distance from "../../../Intangible/Quantity/Distance/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { MoveActionProps } from "../index.ts"
 
-import { Distance as DistanceComponent } from "../../../../../../components/index.tsx"
+import DistanceComponent from "../../../../../../../components/src/define/Thing/Intangible/Quantity/Distance/index.tsx"
 
 export type TravelActionType = "TravelAction"
 

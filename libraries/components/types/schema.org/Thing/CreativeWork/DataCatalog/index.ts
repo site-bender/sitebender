@@ -5,9 +5,9 @@ import type MeasurementMethodEnum from "../../Intangible/Enumeration/Measurement
 import type Dataset from "../Dataset/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import { Dataset as DatasetComponent } from "../../../../../components/index.tsx"
-import { DefinedTerm as DefinedTermComponent } from "../../../../../components/index.tsx"
-import { MeasurementMethodEnum as MeasurementMethodEnumComponent } from "../../../../../components/index.tsx"
+import DatasetComponent from "../../../../../src/define/Thing/CreativeWork/Dataset/index.tsx"
+import DefinedTermComponent from "../../../../../src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import MeasurementMethodEnumComponent from "../../../../../src/define/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.tsx"
 
 export type DataCatalogType = "DataCatalog"
 

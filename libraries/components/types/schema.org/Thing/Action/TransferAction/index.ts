@@ -12,7 +12,7 @@ import type { ReturnActionType } from "./ReturnAction/index.ts"
 import type { SendActionType } from "./SendAction/index.ts"
 import type { TakeActionType } from "./TakeAction/index.ts"
 
-import { Place as PlaceComponent } from "../../../../../components/index.tsx"
+import PlaceComponent from "../../../../../src/define/Thing/Place/index.tsx"
 
 export type TransferActionType =
 	| "TransferAction"

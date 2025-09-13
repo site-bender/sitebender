@@ -9,13 +9,13 @@ import type Product from "../../Product/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type { MonetaryGrantType } from "./MonetaryGrant/index.ts"
 
-import { BioChemEntity as BioChemEntityComponent } from "../../../../../components/index.tsx"
-import { CreativeWork as CreativeWorkComponent } from "../../../../../components/index.tsx"
-import { Event as EventComponent } from "../../../../../components/index.tsx"
-import { MedicalEntity as MedicalEntityComponent } from "../../../../../components/index.tsx"
-import { Organization as OrganizationComponent } from "../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../components/index.tsx"
-import { Product as ProductComponent } from "../../../../../components/index.tsx"
+import BioChemEntityComponent from "../../../../../src/define/Thing/BioChemEntity/index.tsx"
+import CreativeWorkComponent from "../../../../../src/define/Thing/CreativeWork/index.tsx"
+import EventComponent from "../../../../../src/define/Thing/Event/index.tsx"
+import MedicalEntityComponent from "../../../../../src/define/Thing/MedicalEntity/index.tsx"
+import OrganizationComponent from "../../../../../src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../src/define/Thing/Person/index.tsx"
+import ProductComponent from "../../../../../src/define/Thing/Product/index.tsx"
 
 export type GrantType = "Grant" | MonetaryGrantType
 

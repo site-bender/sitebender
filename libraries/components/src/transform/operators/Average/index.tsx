@@ -1,7 +1,7 @@
 import type {
 	AverageOperator,
 	Operand,
-} from "@sitebender/engine-types/index.ts"
+} from "../../../../../engine/types/index.ts"
 
 /**
  * Average JSX Component
@@ -17,7 +17,7 @@ import type {
  * </Average>
  */
 
-import AverageConstructor from "@sitebender/engine/constructors/operators/Average/index.ts"
+import AverageConstructor from "../../../../../engine/src/constructors/operators/Average/index.ts"
 
 export type Props = {
 	type?: "Number"

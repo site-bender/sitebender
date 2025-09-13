@@ -1,2 +1,3 @@
-// Re-export the shared, documented pipe to keep behavior and lint waivers centralized
-export { default } from "@sitebender/toolkit/vanilla/combinator/pipe/index.ts"
+// Removed: proxy re-export of toolkit pipe. Import directly from toolkit instead.
+// This file intentionally exports nothing to enforce no-barrels/no-proxy policy.
+export {}

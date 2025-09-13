@@ -13,11 +13,11 @@ import type { MuscleType } from "./Muscle/index.ts"
 import type { NerveType } from "./Nerve/index.ts"
 import type { VesselType } from "./Vessel/index.ts"
 
-import { AnatomicalStructure as AnatomicalStructureComponent } from "../../../../../components/index.tsx"
-import { AnatomicalSystem as AnatomicalSystemComponent } from "../../../../../components/index.tsx"
-import { ImageObject as ImageObjectComponent } from "../../../../../components/index.tsx"
-import { MedicalCondition as MedicalConditionComponent } from "../../../../../components/index.tsx"
-import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../components/index.tsx"
+import ImageObjectComponent from "../../../../../../components/src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../components/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import AnatomicalSystemComponent from "../../../../../../components/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
+import MedicalConditionComponent from "../../../../../../components/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
+import MedicalTherapyComponent from "../../../../../../components/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
 
 export type AnatomicalStructureType =
 	| "AnatomicalStructure"

@@ -7,11 +7,11 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { MusicPlaylistProps } from "../index.ts"
 import type MusicRelease from "../MusicRelease/index.ts"
 
-import { MusicAlbumProductionType as MusicAlbumProductionTypeComponent } from "../../../../../../components/index.tsx"
-import { MusicAlbumReleaseType as MusicAlbumReleaseTypeComponent } from "../../../../../../components/index.tsx"
-import { MusicGroup as MusicGroupComponent } from "../../../../../../components/index.tsx"
-import { MusicRelease as MusicReleaseComponent } from "../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../components/index.tsx"
+import MusicReleaseComponent from "../../../../../../src/define/Thing/CreativeWork/MusicPlaylist/MusicRelease/index.tsx"
+import MusicAlbumProductionTypeComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/MusicAlbumProductionType/index.tsx"
+import MusicAlbumReleaseTypeComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/MusicAlbumReleaseType/index.tsx"
+import MusicGroupComponent from "../../../../../../src/define/Thing/Organization/PerformingGroup/MusicGroup/index.tsx"
+import PersonComponent from "../../../../../../src/define/Thing/Person/index.tsx"
 
 export type MusicAlbumType = "MusicAlbum"
 

@@ -4,7 +4,7 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type { CategoryCodeType } from "./CategoryCode/index.ts"
 
-import { DefinedTermSet as DefinedTermSetComponent } from "../../../../../components/index.tsx"
+import DefinedTermSetComponent from "../../../../../../components/src/define/Thing/CreativeWork/DefinedTermSet/index.tsx"
 
 export type DefinedTermType = "DefinedTerm" | CategoryCodeType
 

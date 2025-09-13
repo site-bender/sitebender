@@ -8,10 +8,10 @@ import type Person from "../../../Person/index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { VideoObjectSnapshotType } from "./VideoObjectSnapshot/index.ts"
 
+import PerformingGroupComponent from "../../../../../../../components/src/define/Thing/Organization/PerformingGroup/index.tsx"
+import MusicGroupComponent from "../../../../../../../components/src/define/Thing/Organization/PerformingGroup/MusicGroup/index.tsx"
+import PersonComponent from "../../../../../../../components/src/define/Thing/Person/index.tsx"
 import { MediaObject as MediaObjectComponent } from "../../../../../../components/index.tsx"
-import { MusicGroup as MusicGroupComponent } from "../../../../../../components/index.tsx"
-import { PerformingGroup as PerformingGroupComponent } from "../../../../../../components/index.tsx"
-import { Person as PersonComponent } from "../../../../../../components/index.tsx"
 
 export type VideoObjectType = "VideoObject" | VideoObjectSnapshotType
 

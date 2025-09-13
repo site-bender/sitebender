@@ -6,7 +6,7 @@ import type { PresentationDigitalDocumentType } from "./PresentationDigitalDocum
 import type { SpreadsheetDigitalDocumentType } from "./SpreadsheetDigitalDocument/index.ts"
 import type { TextDigitalDocumentType } from "./TextDigitalDocument/index.ts"
 
-import { DigitalDocumentPermission as DigitalDocumentPermissionComponent } from "../../../../../components/index.tsx"
+import DigitalDocumentPermissionComponent from "../../../../../../components/src/define/Thing/Intangible/DigitalDocumentPermission/index.tsx"
 
 export type DigitalDocumentType =
 	| "DigitalDocument"

@@ -3,7 +3,7 @@ import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { ComicCoverArtType } from "./ComicCoverArt/index.ts"
 
-import { Person as PersonComponent } from "../../../../../components/index.tsx"
+import PersonComponent from "../../../../../../components/src/define/Thing/Person/index.tsx"
 
 export type ComicStoryType = "ComicStory" | ComicCoverArtType
 

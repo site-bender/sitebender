@@ -14,12 +14,12 @@ import type { MedicalOrganizationProps } from "../index.ts"
 import type { IndividualPhysicianType } from "./IndividualPhysician/index.ts"
 import type { PhysiciansOfficeType } from "./PhysiciansOffice/index.ts"
 
-import { CategoryCode as CategoryCodeComponent } from "../../../../../../components/index.tsx"
+import CategoryCodeComponent from "../../../../../../../components/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import MedicalProcedureComponent from "../../../../../../../components/src/define/Thing/MedicalEntity/MedicalProcedure/index.tsx"
+import MedicalTherapyComponent from "../../../../../../../components/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
+import MedicalTestComponent from "../../../../../../../components/src/define/Thing/MedicalEntity/MedicalTest/index.tsx"
 import { Hospital as HospitalComponent } from "../../../../../../components/index.tsx"
-import { MedicalProcedure as MedicalProcedureComponent } from "../../../../../../components/index.tsx"
 import { MedicalSpecialty as MedicalSpecialtyComponent } from "../../../../../../components/index.tsx"
-import { MedicalTest as MedicalTestComponent } from "../../../../../../components/index.tsx"
-import { MedicalTherapy as MedicalTherapyComponent } from "../../../../../../components/index.tsx"
 
 export type PhysicianType =
 	| "Physician"
