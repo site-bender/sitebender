@@ -269,7 +269,7 @@ Deno.test("parseExpressionState - parses conditional expressions", () => {
 		right: {
 			type: "Conditional",
 			condition: {
-				type: "BinaryOp",
+				type: "Comparison",
 				operator: ">",
 				left: { type: "Variable", name: "x" },
 				right: { type: "Number", value: 0 },

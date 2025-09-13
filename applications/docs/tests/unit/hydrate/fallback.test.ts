@@ -1,8 +1,13 @@
 import { assertEquals } from "jsr:@std/assert"
 
+type GlobalShims = {
+	document?: Document
+	window?: unknown
+}
+
 Deno.test("viz hydration falls back to noop when no adapter is set", async () => {
 	// Save previous globals
-	const g = globalThis as unknown as Record<string, unknown>
+	const g = globalThis as unknown as GlobalShims
 	const prevDoc = g.document
 	const prevWin = g.window
 
@@ -18,8 +23,8 @@ Deno.test("viz hydration falls back to noop when no adapter is set", async () =>
 		querySelectorAll: (_: string) => els,
 		addEventListener: (_: string, __: unknown) => void 0,
 	} as unknown as Document // Install fakes
-	;(g as any).document = fakeDocument
-	;(g as any).window = {}
+	g.document = fakeDocument
+	g.window = {}
 
 	// Dynamically import hydrate entry so it sees our fake document
 	const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
@@ -30,6 +35,6 @@ Deno.test("viz hydration falls back to noop when no adapter is set", async () =>
 		assertEquals(el.dataset.vizHydrated, "true")
 	} // Restore globals
 
-	;(g as any).document = prevDoc
-	;(g as any).window = prevWin
+	g.document = prevDoc
+	g.window = prevWin
 })

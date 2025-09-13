@@ -4,13 +4,14 @@ import doNotation from "../doNotation/index.ts"
 
 type State<S, A> = (state: S) => [A, S]
 
-function createStateMonad<S>(): MonadDictionary<State<S, any>> {
+function createStateMonad<S>(): MonadDictionary<State<S, unknown>> {
 	return {
 		chain:
-			<A, B>(f: (a: A) => State<S, B>) => (ma: State<S, A>): State<S, B> => {
-				return function chainedState(state: S): [B, S] {
+			<A, B>(f: (a: A) => State<S, B>) =>
+			(ma: State<S, unknown>): State<S, unknown> => {
+				return function chainedState(state: S): [unknown, S] {
 					const [a, newState] = ma(state)
-					return f(a)(newState)
+					return f(a as A)(newState) as [unknown, S]
 				}
 			},
 		of: <A>(a: A): State<S, A> => {
@@ -42,9 +43,9 @@ export function modify<S>(f: (state: S) => S): State<S, void> {
 
 //++ Specialized do-notation for State monad with built-in helpers
 export default function doState<S, A>(
-	genFn: () => Generator<State<S, any>, A, any>,
+	genFn: () => Generator<State<S, unknown>, A, unknown>,
 ): State<S, A> {
-	return doNotation(createStateMonad<S>())(genFn)
+	return doNotation(createStateMonad<S>())(genFn) as State<S, A>
 }
 
 //?? [EXAMPLE] doState(function* () { const x = yield get(); yield put(x + 1); return x })

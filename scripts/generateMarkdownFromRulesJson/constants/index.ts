@@ -1,5 +1,3 @@
-//++ [GROUP] Rules file locations
-
 //++ List of all potential rules JSON file locations in the project
 export const RULES_FILE_LOCATIONS = [
 	"rules/index.json",
@@ -15,4 +13,12 @@ export const RULES_FILE_LOCATIONS = [
 	"libraries/mesh/rules/index.json",
 ]
 
-//++ [END]
+//++ List of keys that are considered metadata in rules JSON files
+export const METADATA_KEYS = [
+	"version",
+	"lastUpdated",
+	"author",
+	"scope",
+	"description",
+	"inherits",
+]
