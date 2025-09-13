@@ -1,6 +1,6 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
 
-import type { Result, Token } from "../../../types/index.ts"
+import type { Token } from "../../../types/index.ts"
 import type { ParserState } from "../../types/state/index.ts"
 
 import evalState from "../../../../../toolkit/src/monads/state/evalState/index.ts"

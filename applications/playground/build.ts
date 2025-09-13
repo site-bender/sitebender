@@ -23,7 +23,7 @@ const srcFiles = [
 	'src/jsx-runtime/index.ts',
 ];
 
-for (const file of srcFiles) {
+const copyTasks = srcFiles.map(async (file) => {
 	const destFile = `${distDir}/${file}`;
 	const destDir = destFile.substring(0, destFile.lastIndexOf('/'));
 
@@ -34,7 +34,9 @@ for (const file of srcFiles) {
 	}
 
 	await Deno.copyFile(file, destFile);
-}
+});
+
+await Promise.all(copyTasks);
 
 console.log('✅ Build completed successfully!');
 console.log('📦 Output directory: ./dist');

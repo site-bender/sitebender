@@ -100,7 +100,7 @@ export default function generateImports(
 /**
  * Converts an import path from source file to test file location
  */
-function convertImportPathForTest(
+function _convertImportPathForTest(
 	importPath: string,
 	_sourcePath: string,
 ): string {

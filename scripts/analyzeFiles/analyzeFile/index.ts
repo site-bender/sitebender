@@ -2,7 +2,7 @@ import { relative } from "jsr:@std/path"
 
 import type { FileFunction, PerFileAnalysis } from "../types/index.ts"
 
-import stripCommentsAndStrings from "../../enforceFP/stripCommentsAndStrings/index.ts"
+import stripCommentsAndStrings from "../../enforcement/fp/stripCommentsAndStrings/index.ts"
 
 export default async function analyzeFile(
 	opts: { absPath: string; root: string; onlyDefault?: boolean },

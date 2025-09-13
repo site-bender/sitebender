@@ -2,7 +2,9 @@ import getFromLocal from "@sitebender/engine/pending/dom/getValue/getFromLocal/i
 import isDefined from "@sitebender/toolkit/vanilla/validation/isDefined/index.ts"
 
 import Error from "../../constructors/Error/index.ts"
-import castValue from "../../utilities/castValue/index.ts"
+import castValue, {
+	Either as CastEither,
+} from "../../utilities/castValue/index.ts"
 
 const fromSessionStorage =
 	(op: unknown) => (_: unknown, localValues?: Record<string, unknown>) => {
@@ -27,12 +29,18 @@ const fromSessionStorage =
 			}
 		}
 
-		const casted = castValue(datatype)({ right: value })
+		const casted = castValue<unknown, string>(datatype)(
+			{ right: value } as CastEither<unknown, string>,
+		)
 
-		return isDefined(casted.right) ? casted : {
+		if (isDefined((casted as { right?: unknown }).right)) {
+			return casted
+		}
+		const leftVal = (casted as { left?: unknown }).left
+		return {
 			left: [
 				Error("FromSessionStorage")("FromSessionStorage")(
-					String(casted.left),
+					String(leftVal),
 				),
 			],
 		}

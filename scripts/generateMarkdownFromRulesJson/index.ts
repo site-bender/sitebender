@@ -1,11 +1,9 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 
-import type { RulesFile } from "./types/index.ts"
-
 import map from "../../libraries/toolkit/src/vanilla/array/map/index.ts"
 import concat from "../../libraries/toolkit/src/vanilla/string/concat/index.ts"
 import findRulesFiles from "./findRulesFiles/index.ts"
-import processRulesFile from "./processRulesFile/index.ts"
+import processWithErrorHandling from "./processWithErrorHandling/index.ts"
 
 //++ Generates markdown documentation from rules JSON files
 export default function generateMarkdownFromRulesJson(): void {
@@ -22,23 +20,6 @@ export default function generateMarkdownFromRulesJson(): void {
 	console.log(
 		concat("📝 Generating markdown for ")(concat(count)(" rules file(s)...\n")),
 	)
-
-	const processWithErrorHandling = (rulesFile: RulesFile) => {
-		try {
-			processRulesFile(rulesFile)
-		} catch (error) {
-			const path = rulesFile.jsonPath || "unknown"
-			const errorMessage = error instanceof Error
-				? error.message
-				: String(error)
-
-			console.error(
-				concat("❌ Failed to process ")(
-					concat(path)(concat(": ")(errorMessage)),
-				),
-			)
-		}
-	}
 
 	map(processWithErrorHandling)(rulesFiles)
 

@@ -6,11 +6,11 @@ import isRight from "../isRight/index.ts"
 export default function getOrElse<A>(defaultValue: A | ((e: unknown) => A)) {
 	return function getOrElseEither<E>(either: Either<E, A>): A {
 		if (isRight(either)) {
-			return (either as any).right as A
+			return either.right
 		}
 
 		return typeof defaultValue === "function"
-			? (defaultValue as (e: E) => A)((either as any).left as E)
+			? (defaultValue as (e: E) => A)(either.left)
 			: defaultValue
 	}
 }

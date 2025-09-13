@@ -1,5 +1,7 @@
 import { expect, test } from "@playwright/test"
 
+import type { Request } from "@playwright/test"
+
 test("name mirrors to #out", async ({ page }) => {
 	await page.goto("/tutorial/")
 	await page.fill("#name", "Ada")
@@ -12,16 +14,16 @@ test("submit updates query string and prevents navigation", async ({ page }) => 
 
 	// Mark the window so we can detect full reloads
 	const marker = await page.evaluate(() => {
-		// @ts-ignore
+		// @ts-ignore: create ephemeral test-only marker value
 		const v = Math.random().toString(36).slice(2)
-		// @ts-ignore
+		// @ts-ignore: store marker on globalThis for reload detection in test
 		globalThis.__sb_marker = v
 		return v
 	})
 
 	// Watch for a network request to the form action; it should not happen
 	const watchedPost = new Promise<boolean>((resolve) => {
-		const listener = (req: any) => {
+		const listener = (req: Request) => {
 			try {
 				const u = new URL(req.url())
 				if (u.pathname === "/ignored-by-engine") resolve(true)
@@ -45,7 +47,7 @@ test("submit updates query string and prevents navigation", async ({ page }) => 
 
 	// No full reload occurred (marker persists)
 	const still = await page.evaluate(() => {
-		// @ts-ignore
+		// @ts-ignore: read test-only marker from globalThis
 		return globalThis.__sb_marker
 	})
 	expect(still).toBe(marker)
