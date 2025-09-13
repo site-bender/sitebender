@@ -6,7 +6,10 @@ import formatObjectEntry from "./index.ts"
 
 //++ Tests for formatObjectEntry
 Deno.test("formatObjectEntry", async (t) => {
-	const mockFormatValue = (value: JsonValue) => String(value)
+	function mockFormatValue(value: JsonValue): string {
+		return String(value)
+	}
+
 	const formatter = formatObjectEntry(mockFormatValue)
 
 	await t.step("formats simple string entry", () => {
@@ -40,9 +43,11 @@ Deno.test("formatObjectEntry", async (t) => {
 	})
 
 	await t.step("uses provided formatter for complex values", () => {
-		const customFormatter = formatObjectEntry((value: JsonValue) =>
-			`[${typeof value}]`
-		)
+		function typeFormatter(value: JsonValue): string {
+			return `[${typeof value}]`
+		}
+
+		const customFormatter = formatObjectEntry(typeFormatter)
 		const result = customFormatter(["data", { nested: true }])
 
 		assertEquals(result, "**Data**: [object]")

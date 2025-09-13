@@ -29,7 +29,7 @@ Deno.test("parseConditionalExpressionState - parses simple conditional", () => {
 		right: {
 			type: "Conditional",
 			condition: {
-				type: "BinaryOp",
+				type: "Comparison",
 				operator: ">",
 				left: { type: "Variable", name: "a" },
 				right: { type: "Number", value: 5 },
@@ -69,7 +69,7 @@ Deno.test("parseConditionalExpressionState - handles nested conditionals (right-
 		right: {
 			type: "Conditional",
 			condition: {
-				type: "BinaryOp",
+				type: "Comparison",
 				operator: ">",
 				left: { type: "Variable", name: "a" },
 				right: { type: "Number", value: 0 },
@@ -78,7 +78,7 @@ Deno.test("parseConditionalExpressionState - handles nested conditionals (right-
 			ifFalse: {
 				type: "Conditional",
 				condition: {
-					type: "BinaryOp",
+					type: "Comparison",
 					operator: ">",
 					left: { type: "Variable", name: "b" },
 					right: { type: "Number", value: 0 },
@@ -125,7 +125,7 @@ Deno.test("parseConditionalExpressionState - complex expressions in branches", (
 		right: {
 			type: "Conditional",
 			condition: {
-				type: "BinaryOp",
+				type: "Comparison",
 				operator: ">",
 				left: {
 					type: "BinaryOp",

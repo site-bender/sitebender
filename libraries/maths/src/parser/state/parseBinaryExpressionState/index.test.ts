@@ -139,7 +139,7 @@ Deno.test("parseBinaryExpressionState - handles comparison operators", () => {
 	assertEquals(result, {
 		_tag: "Right",
 		right: {
-			type: "BinaryOp",
+			type: "Comparison",
 			operator: ">",
 			left: { type: "Variable", name: "x" },
 			right: { type: "Number", value: 5 },

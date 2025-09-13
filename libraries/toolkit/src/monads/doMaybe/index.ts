@@ -4,14 +4,16 @@ import doNotation from "../doNotation/index.ts"
 
 type Maybe<A> = { tag: "None" } | { tag: "Some"; value: A }
 
-const MaybeMonad: MonadDictionary<Maybe<any>> = {
-	chain: <A, B>(f: (a: A) => Maybe<B>) => (ma: Maybe<A>): Maybe<B> => {
-		if (ma.tag === "None") {
-			return ma
-		}
-		return f(ma.value)
-	},
-	of: <A>(value: A): Maybe<A> => {
+const MaybeMonad: MonadDictionary<Maybe<unknown>> = {
+	chain:
+		<A, B>(f: (a: A) => Maybe<unknown>) =>
+		(ma: Maybe<unknown>): Maybe<unknown> => {
+			if (ma.tag === "None") {
+				return ma
+			}
+			return f(ma.value as unknown as A)
+		},
+	of: <A>(value: A): Maybe<unknown> => {
 		return { tag: "Some", value }
 	},
 }
@@ -51,9 +53,9 @@ export function getOrElse<A>(defaultValue: A) {
 
 //++ Specialized do-notation for Maybe monad with null-safe operations
 export default function doMaybe<A>(
-	genFn: () => Generator<Maybe<any>, A, any>,
+	genFn: () => Generator<Maybe<unknown>, A, unknown>,
 ): Maybe<A> {
-	return doNotation(MaybeMonad)(genFn)
+	return doNotation(MaybeMonad)(genFn) as Maybe<A>
 }
 
 //?? [EXAMPLE] doMaybe(function* () { const x = yield Some(5); const y = yield Some(3); return x + y })

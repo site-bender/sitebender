@@ -15,9 +15,10 @@
 
 **Note**: When using library code, apply the rules from that library's rules/index.json
 
-**Required library rules**:   - /libraries/components/rules/index.json
-  - /libraries/engine/rules/index.json
-  - /libraries/mesh/rules/index.json
+**Required library rules**:
+- /libraries/components/rules/index.json
+- /libraries/engine/rules/index.json
+- /libraries/mesh/rules/index.json
 
 **Clarification**: Library rules apply to code imported from those libraries
 
@@ -25,7 +26,8 @@
 
 **Description**: Requirements for the final rendered pages in the browser
 
-**Layers**:   1. **Level**: 1
+**Layers**:
+1. **Level**: 1
 
 **Name**: Semantic HTML
 
@@ -33,7 +35,7 @@
 
 **Requirement**: This is the foundation
 
-  2. **Level**: 2
+2. **Level**: 2
 
 **Name**: Styled with CSS
 
@@ -41,7 +43,7 @@
 
 **Requirement**: But works without it
 
-  3. **Level**: 3
+3. **Level**: 3
 
 **Name**: Full Enhancement
 
@@ -49,49 +51,56 @@
 
 **Requirement**: But is never required
 
-**Unbreakable rules**:   1. **Rule**: Forms work without JavaScript in the browser
+**Unbreakable rules**:
+1. **Rule**: Forms work without JavaScript in the browser
 
-**Details**:       - Standard POST/GET submissions
-      - Server-side validation
-      - No AJAX-only endpoints
+**Details**:
+- Standard POST/GET submissions
+- Server-side validation
+- No AJAX-only endpoints
 
-  2. **Rule**: Navigation works without JavaScript in the browser
+2. **Rule**: Navigation works without JavaScript in the browser
 
-**Details**:       - Real links to real pages
-      - No SPA-only routes
-      - Back button always works
+**Details**:
+- Real links to real pages
+- No SPA-only routes
+- Back button always works
 
-  3. **Rule**: Content is accessible without CSS
+3. **Rule**: Content is accessible without CSS
 
-**Details**:       - Semantic HTML structure
-      - Logical reading order
-      - No layout-dependent content
+**Details**:
+- Semantic HTML structure
+- Logical reading order
+- No layout-dependent content
 
-  4. **Rule**: Everything has keyboard access
+4. **Rule**: Everything has keyboard access
 
-**Details**:       - Tab order makes sense
-      - Focus indicators visible
-      - No mouse-only interactions
+**Details**:
+- Tab order makes sense
+- Focus indicators visible
+- No mouse-only interactions
 
-  5. **Rule**: Offline-first, online-enhanced
+5. **Rule**: Offline-first, online-enhanced
 
-**Details**:       - All applications MUST work offline to the extent practicable
-      - CRDTs for eventual consistency
-      - IndexedDB for complex state
-      - Service workers for caching
-      - Sync when online, work when offline
-      - No functionality should break just because network is unavailable
+**Details**:
+- All applications MUST work offline to the extent practicable
+- CRDTs for eventual consistency
+- IndexedDB for complex state
+- Service workers for caching
+- Sync when online, work when offline
+- No functionality should break just because network is unavailable
 
-  6. **Rule**: Everything must be responsive in the browser
+6. **Rule**: Everything must be responsive in the browser
 
-**Details**:       - Pages adapt from mobile (320px) to 4K displays
-      - Touch targets minimum 48x48px on touch devices
-      - Text remains readable without horizontal scrolling
-      - Images and media scale appropriately
-      - No fixed-width layouts that break on any device
-      - Mobile-first approach with progressive enhancement
+**Details**:
+- Pages adapt from mobile (320px) to 4K displays
+- Touch targets minimum 48x48px on touch devices
+- Text remains readable without horizontal scrolling
+- Images and media scale appropriately
+- No fixed-width layouts that break on any device
+- Mobile-first approach with progressive enhancement
 
 ---
 
 **Generated from**: `applications/rules/index.json`  
-**Generated on**: 2025-09-13T00:08:35.370Z
+**Generated on**: 2025-09-13T09:00:09.348Z

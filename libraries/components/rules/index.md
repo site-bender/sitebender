@@ -18,8 +18,9 @@
 
 **Title**: Thou shalt generate HTML that works without client-side JavaScript
 
-**Details**: - Components must output semantic HTML
+**Details**:
 
+- Components must output semantic HTML
 - Generated forms must use standard HTML form elements
 - Output must include server-side functionality patterns
 - No client-side-JavaScript-only components
@@ -28,16 +29,18 @@
 
 **Title**: Thou shalt respect accessibility
 
-**Details**: - WCAG 2.3 AAA or better
+**Details**:
 
+- WCAG 2.3 AAA or better
 - ARIA attributes properly applied
 - Screen readers are first-class citizens
 - Keyboard navigation for everything
 
 ## Progressive enhancement
 
-**Component requirements**: - Components must compile to HTML that works without client-side JS
+**Component requirements**:
 
+- Components must compile to HTML that works without client-side JS
 - Generated HTML must support standard form submissions
 - Output validation patterns that work server-side
 - Compile to semantic HTML with proper ARIA attributes
@@ -46,8 +49,9 @@
 
 ## Responsive design
 
-**Requirements**: - Components must be responsive by default
+**Requirements**:
 
+- Components must be responsive by default
 - Use relative units (rem, em, %, vw/vh) not fixed pixels for layout
 - Provide responsive prop options for different breakpoints
 - Support fluid typography that scales with viewport
@@ -57,4 +61,4 @@
 ---
 
 **Generated from**: `libraries/components/rules/index.json`\
-**Generated on**: 2025-09-13T00:08:35.371Z
+**Generated on**: 2025-09-13T09:00:09.348Z

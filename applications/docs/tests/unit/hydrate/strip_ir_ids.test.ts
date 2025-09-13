@@ -1,10 +1,16 @@
 import { assertEquals } from "jsr:@std/assert"
 
+type GlobalShims = {
+	document?: Document
+	window?: unknown
+	location?: Location | { hostname: string }
+}
+
 Deno.test("docs hydrate strips data-ir-id in non-local environments", async () => {
-	const g = globalThis as unknown as Record<string, unknown>
+	const g = globalThis as unknown as GlobalShims
 	const prevDoc = g.document
 	const prevWin = g.window
-	const prevLoc = (g as any).location
+	const prevLoc = g.location
 
 	// Fake nodes
 	const irNodes: Array<
@@ -34,9 +40,9 @@ Deno.test("docs hydrate strips data-ir-id in non-local environments", async () =
 			sel === "[data-ir-id]" ? irNodes : sel === "[data-viz]" ? vizNodes : [],
 		addEventListener: (_: string, __: unknown) => void 0,
 	} as unknown as Document
-	;(g as any).document = fakeDocument
-	;(g as any).window = {}
-	;(g as any).location = { hostname: "example.com" }
+	g.document = fakeDocument
+	g.window = {}
+	g.location = { hostname: "example.com" }
 
 	// Import hydrate entry; it schedules a microtask to strip attributes
 	const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
@@ -49,7 +55,7 @@ Deno.test("docs hydrate strips data-ir-id in non-local environments", async () =
 		assertEquals(n.removed.includes("data-ir-id"), true)
 	} // Restore globals
 
-	;(g as any).document = prevDoc
-	;(g as any).window = prevWin
-	;(g as any).location = prevLoc
+	g.document = prevDoc
+	g.window = prevWin
+	g.location = prevLoc
 })

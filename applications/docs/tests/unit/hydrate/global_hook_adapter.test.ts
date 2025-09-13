@@ -5,12 +5,20 @@ import {
 } from "@sitebender/components/index.ts"
 import { assertEquals } from "jsr:@std/assert"
 
+import type { VizAdapter } from "@sitebender/components/transform/viz/adapter/types.ts"
+
+type GlobalShims = {
+	document?: Document
+	window?: unknown
+	sitebenderVizAdapter?: VizAdapter
+}
+
 Deno.test("global viz adapter hook is auto-registered and used in docs hydrate", async () => {
 	// Preserve globals and registry adapter
-	const g = globalThis as unknown as Record<string, unknown>
+	const g = globalThis as unknown as GlobalShims
 	const prevDoc = g.document
 	const prevWin = g.window
-	const prevGlobalAdapter = (g as any).sitebenderVizAdapter
+	const prevGlobalAdapter = g.sitebenderVizAdapter
 	const prevRegistryAdapter = getVizAdapter()
 
 	// Minimal fake document/window
@@ -25,8 +33,8 @@ Deno.test("global viz adapter hook is auto-registered and used in docs hydrate",
 		querySelectorAll: (_: string) => els,
 		addEventListener: (_: string, __: unknown) => void 0,
 	} as unknown as Document
-	;(g as any).document = fakeDocument
-	;(g as any).window = {}
+	g.document = fakeDocument
+	g.window = {}
 
 	// Provide a global hook adapter
 	const globalAdapter = {
@@ -40,7 +48,7 @@ Deno.test("global viz adapter hook is auto-registered and used in docs hydrate",
 			for (const n of nodes) n.dataset.vizHydrated = "global"
 		},
 	}
-	;(g as any).sitebenderVizAdapter = globalAdapter
+	g.sitebenderVizAdapter = globalAdapter
 
 	// Import hydrate entry so it executes with our fake globals
 	const modUrl = new URL("../../../src/hydrate/engine.ts", import.meta.url)
@@ -51,11 +59,11 @@ Deno.test("global viz adapter hook is auto-registered and used in docs hydrate",
 		assertEquals(el.dataset.vizHydrated, "global")
 	} // Cleanup: restore globals and registry adapter
 
-	;(g as any).document = prevDoc
-	;(g as any).window = prevWin
-	if (prevGlobalAdapter === undefined) delete (g as any).sitebenderVizAdapter
-	else (g as any).sitebenderVizAdapter = prevGlobalAdapter
+	g.document = prevDoc
+	g.window = prevWin
+	if (prevGlobalAdapter === undefined) delete g.sitebenderVizAdapter
+	else g.sitebenderVizAdapter = prevGlobalAdapter
 
 	if (prevRegistryAdapter) setVizAdapter(prevRegistryAdapter)
-	else setVizAdapter(vizNoopAdapter as any)
+	else setVizAdapter(vizNoopAdapter)
 })

@@ -18,8 +18,9 @@
 
 **Title**: Thou shalt output HTML that works without client-side JavaScript
 
-**Details**: - Engine must evaluate IR to semantic HTML
+**Details**:
 
+- Engine must evaluate IR to semantic HTML
 - SSR/SSG output must be fully functional without client JS
 - Hydration adds interactivity to already-working HTML
 - Form actions must compile to standard HTTP methods
@@ -28,22 +29,25 @@
 
 **Title**: Thou shalt respect accessibility
 
-**Details**: - Generated HTML must be WCAG 2.3 AAA compliant
+**Details**:
 
+- Generated HTML must be WCAG 2.3 AAA compliant
 - Preserve ARIA attributes through compilation
 - Maintain semantic structure in output
 
 ## Engine specific
 
-**Ir evaluation**: - IR must evaluate to HTML that functions without client-side JS
+**Ir evaluation**:
 
+- IR must evaluate to HTML that functions without client-side JS
 - Output HTML with proper form actions and methods
 - Generate links with real href attributes
 - Server evaluation produces complete, working HTML
 - Hydration enhances but doesn't break existing functionality
 
-**Responsive output**: - Generated HTML must include responsive meta viewport tag
+**Responsive output**:
 
+- Generated HTML must include responsive meta viewport tag
 - Preserve responsive classes and attributes through compilation
 - Support picture elements and srcset for responsive images
 - Maintain CSS Grid and Flexbox properties in output
@@ -51,4 +55,4 @@
 ---
 
 **Generated from**: `libraries/engine/rules/index.json`\
-**Generated on**: 2025-09-13T00:08:35.371Z
+**Generated on**: 2025-09-13T09:00:09.349Z

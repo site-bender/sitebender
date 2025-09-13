@@ -5,6 +5,24 @@
 console.log("🗃️ Solid Pod Experiment")
 console.log("=".repeat(50))
 
+// Basic RDF-shaped records used in this demo
+interface ProfileData {
+	"@context": string
+	"@type": "Person"
+	"@id": string
+	name: string
+	email: string
+}
+
+interface ArticleData {
+	"@context": string
+	"@type": "Article"
+	headline: string
+	datePublished: string
+	author?: string
+	articleBody?: string
+}
+
 /**
  * Solid Pod simulator for demonstration
  * In real usage, you'd use @inrupt/solid-client
@@ -12,7 +30,7 @@ console.log("=".repeat(50))
 class SolidPodSimulator {
 	private podUrl: string
 	private webId: string
-	private data: Map<string, any> = new Map()
+	private data: Map<string, unknown> = new Map()
 
 	constructor(username: string) {
 		this.podUrl = `https://${username}.solidcommunity.net/`
@@ -36,28 +54,29 @@ class SolidPodSimulator {
 		])
 	}
 
-	async read(path: string): Promise<any> {
+	async read<T = unknown>(path: string): Promise<T | null> {
 		console.log(`📖 Reading from ${path}`)
-		return this.data.get(path) || null
+		return (this.data.get(path) as T | undefined) ?? null
 	}
 
-	async write(path: string, data: any): Promise<boolean> {
+	async write<T = unknown>(path: string, data: T): Promise<boolean> {
 		console.log(`✍️ Writing to ${path}`)
 		this.data.set(path, data)
 		return true
 	}
 
-	async query(sparql: string): Promise<any[]> {
+	async query<T = unknown>(sparql: string): Promise<T[]> {
 		console.log(`🔍 Executing SPARQL query`)
 		// Simplified - real Solid uses LDP and SPARQL
-		const results: any[] = []
+		const results: T[] = []
 
 		if (sparql.includes("Person")) {
-			results.push(this.data.get("profile"))
+			results.push(this.data.get("profile") as T)
 		}
 
 		if (sparql.includes("Article")) {
-			const articles = this.data.get("public/articles") || []
+			const articles = (this.data.get("public/articles") as T[] | undefined) ??
+				[]
 			results.push(...articles)
 		}
 
@@ -85,7 +104,7 @@ interface PortableProfile {
 	name: string
 	email: string
 	friends: string[] // Other WebIDs
-	posts: any[]
+	posts: ArticleData[]
 	apps: string[] // Apps with access
 }
 
@@ -152,14 +171,18 @@ async function main() {
 
 	// Read profile
 	console.log("\n👤 Reading Profile:")
-	const profile = await alicePod.read("profile")
+	const profile = await alicePod.read<ProfileData>("profile")
+	if (!profile) {
+		console.log("   ⚠️ Profile not found")
+		return
+	}
 	console.log(`   Name: ${profile.name}`)
 	console.log(`   Email: ${profile.email}`)
 	console.log(`   Type: ${profile["@type"]}`)
 
 	// Write new article
 	console.log("\n📝 Writing new article to Pod...")
-	const newArticle = {
+	const newArticle: ArticleData = {
 		"@context": "https://schema.org",
 		"@type": "Article",
 		headline: "Understanding Solid Pods",
@@ -168,12 +191,12 @@ async function main() {
 		articleBody: "Solid Pods give users control over their data...",
 	}
 
-	await alicePod.write("public/articles/article2", newArticle)
+	await alicePod.write<ArticleData>("public/articles/article2", newArticle)
 	console.log("   ✅ Article saved to Pod")
 
 	// Query with SPARQL
 	console.log("\n🔍 Querying Pod with SPARQL...")
-	const results = await alicePod.query(
+	const results = await alicePod.query<ArticleData>(
 		"SELECT ?article WHERE { ?article a schema:Article }",
 	)
 	console.log(`   Found ${results.length} articles`)

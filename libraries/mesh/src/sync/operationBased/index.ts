@@ -27,30 +27,33 @@ export default function createOpSyncProtocol<T extends CRDT<unknown>>(
 		})
 	}
 
-	async function receiveLoop(): Promise<void> {
-		while (isReceiving && transport.isConnected()) {
-			try {
-				const message = await transport.receive() as {
-					type: string
-					operations?: Array<Operation>
-				}
-
-				if (message.type === "OPERATIONS" && message.operations) {
-					// Apply received operations
-					for (const op of message.operations) {
-						// In production, we'd need to apply operations
-						// based on their type and the CRDT type
-						// This is a simplified placeholder
-						currentCRDT = applyOperation(currentCRDT, op)
+		function receiveLoop(): void {
+			if (!(isReceiving && transport.isConnected())) return
+			transport
+				.receive()
+				.then((message) => {
+					const msg = message as { type: string; operations?: Array<Operation> }
+					if (msg.type === "OPERATIONS" && msg.operations) {
+						for (const op of msg.operations) {
+							currentCRDT = applyOperation(currentCRDT, op)
+						}
 					}
-				}
-			} catch (error) {
-				// Log error but continue receiving
-				console.error("Error receiving operations:", error)
-				await new Promise((resolve) => setTimeout(resolve, 1000))
-			}
+				})
+				.catch((error) => {
+					console.error("Error receiving operations:", error)
+					// schedule a backoff retry and exit this tick
+					setTimeout(() => {
+						if (isReceiving) receiveLoop()
+					}, 1000)
+					return
+				})
+				.finally(() => {
+					if (isReceiving) {
+						// schedule next tick
+						queueMicrotask(() => receiveLoop())
+					}
+				})
 		}
-	}
 
 	function applyOperation(crdt: T, _op: Operation): T {
 		// This is a placeholder - in production, we'd need to
@@ -82,13 +85,10 @@ export default function createOpSyncProtocol<T extends CRDT<unknown>>(
 		},
 
 		receive(): Promise<T> {
-			if (!isReceiving) {
-				isReceiving = true
-				receiveLoop().catch((error) => {
-					console.error("Receive loop error:", error)
-					isReceiving = false
-				})
-			}
+					if (!isReceiving) {
+						isReceiving = true
+						receiveLoop()
+					}
 
 			return Promise.resolve(currentCRDT)
 		},
@@ -100,10 +100,7 @@ export default function createOpSyncProtocol<T extends CRDT<unknown>>(
 
 			// Start receiving
 			isReceiving = true
-			receiveLoop().catch((error) => {
-				console.error("Receive loop error:", error)
-				isReceiving = false
-			})
+			receiveLoop()
 
 			// Start periodic flush
 			syncInterval = setInterval(() => {
