@@ -1,23 +1,23 @@
 import type { IO } from "../../../types/fp/io/index.ts"
 
-//++ Creates an IO from a thunk (deferred computation)
-export default function io<A>(thunk: () => A): IO<A> {
-	return thunk
+//++ Creates an IO by wrapping a value in a thunk (deferred computation)
+export default function io<A>(value: A): IO<A> {
+	return () => value
 }
 
-//?? [EXAMPLE] io(() => 42) // IO(() => 42)
-//?? [EXAMPLE] runIO(io(() => Math.random())) // 0.123456... (deferred until runIO)
+//?? [EXAMPLE] io(42) // IO<number> that returns 42 when executed
+//?? [EXAMPLE] runIO(io("hello")) // "hello"
 /*??
  | [EXAMPLE]
- | const complexIO = io(() => {
- |   const id = crypto.randomUUID()
- |   const timestamp = Date.now()
- |   return `${id}-${timestamp}`
- | })
- | runIO(complexIO) // "abc-123-1692547200000"
+ | const numberIO = io(42)
+ | runIO(numberIO) // 42
  |
- | [PRO] Enables composable, referentially transparent handling of side effects
- | [PRO] Defers execution until runIO is called
- | [GOTCHA] Contains impure operations - only execute when ready for side effects
+ | const userIO = io({ id: 1, name: "Alice" })
+ | runIO(userIO) // { id: 1, name: "Alice" }
+ |
+ | [PRO] Wraps any value in IO context for composition
+ | [PRO] Maintains referential transparency
+ | [PRO] Type-safe IO construction
+ | [GOTCHA] For effectful computations, pass the computation result, not the computation itself
  |
 */

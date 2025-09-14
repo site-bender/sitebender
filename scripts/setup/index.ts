@@ -1,5 +1,6 @@
 #!/usr/bin/env -S deno run -A
 
+//++ Configures git to use custom hooks directory
 export default async function setup(): Promise<void> {
 	try {
 		// Configure git to use our custom hooks directory
