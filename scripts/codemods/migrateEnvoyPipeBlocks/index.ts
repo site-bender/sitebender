@@ -25,6 +25,19 @@
 
 // Uses Deno namespace; script is intended to run with Deno permissions
 
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import includes from "@sitebender/toolkit/vanilla/array/includes/index.ts"
+import join from "@sitebender/toolkit/vanilla/array/join/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import indexOf from "@sitebender/toolkit/vanilla/string/indexOf/index.ts"
+import replace from "@sitebender/toolkit/vanilla/string/replace/index.ts"
+import slice from "@sitebender/toolkit/vanilla/string/slice/index.ts"
+import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
+import startsWith from "@sitebender/toolkit/vanilla/string/startsWith/index.ts"
+import endsWith from "@sitebender/toolkit/vanilla/string/endsWith/index.ts"
+import trim from "@sitebender/toolkit/vanilla/string/trim/index.ts"
+
 const ROOT: string = Deno.cwd()
 const TARGET_DIRS = [
 	"applications",
@@ -38,27 +51,27 @@ const OPEN = "/*??"
 const CLOSE = "*/"
 
 function transformBlockBody(body: string, indent: string): string {
-	const lines = body.split("\n")
+	const lines = split(body, "\n")
 	const out: string[] = []
 	for (const raw of lines) {
 		// Remove leading whitespace
-		let s = raw.replace(/^\s+/, "")
+		let s = replace(raw, /^\s+/, "")
 		// Strip a single leading '*' if present, plus a single following space
-		if (s.startsWith("*")) s = s.slice(1)
-		if (s.startsWith(" ")) s = s.slice(1)
+		if (startsWith(s, "*")) s = slice(s, 1)
+		if (startsWith(s, " ")) s = slice(s, 1)
 		// If it already starts with a pipe, strip the first pipe and at most one space
-		if (s.startsWith("|")) {
-			s = s.replace(/^\|\s?/, "")
+		if (startsWith(s, "|")) {
+			s = replace(s, /^\|\s?/, "")
 		}
 		// Normalize empty vs non-empty lines
-		const trimmed = s.replace(/\r?$/, "")
-		if (trimmed.trim().length === 0) {
-			out.push(`${indent} |`)
+		const trimmed = replace(s, /\r?$/, "")
+		if (trim(trimmed).length === 0) {
+			out = [...out, `${indent} |`]
 		} else {
-			out.push(`${indent} | ${trimmed}`)
+			out = [...out, `${indent} | ${trimmed}`]
 		}
 	}
-	return out.join("\n")
+	return join(out, "\n")
 }
 
 function migrate(content: string): { changed: boolean; text: string } {
@@ -142,33 +155,33 @@ function migrate(content: string): { changed: boolean; text: string } {
 		}
 		if (ch === "/" && next === "*") {
 			// Check if it's our /*?? marker
-			const maybe = content.slice(i, i + OPEN.length)
+			const maybe = slice(content, i, i + OPEN.length)
 			if (maybe === OPEN) {
 				// Determine indentation (spaces before this on the current line)
 				const lineStart = content.lastIndexOf("\n", i - 1) + 1
-				const indent = content.slice(lineStart, i).match(/^\s*/)?.[0] ?? ""
+				const indent = slice(content, lineStart, i).match(/^\s*/)?.[0] ?? ""
 
 				const bodyStart = i + OPEN.length
-				const closeIdx = content.indexOf(CLOSE, bodyStart)
+				const closeIdx = indexOf(content, CLOSE, bodyStart)
 				if (closeIdx === -1) {
 					out += ch
 					i++
 					continue
 				}
 
-				const rawBody = content.slice(bodyStart, closeIdx)
+				const rawBody = slice(content, bodyStart, closeIdx)
 				// Skip single-line blocks (no newline)
-				if (!rawBody.includes("\n")) {
-					out += content.slice(i, closeIdx + CLOSE.length)
+				if (!includes(rawBody, "\n")) {
+					out += slice(content, i, closeIdx + CLOSE.length)
 					i = closeIdx + CLOSE.length
 					continue
 				}
 
-				const body = rawBody.replace(/^\n/, "").replace(/\n$/, "")
-				const lines = body.split("\n")
-				const nonEmpty = lines.filter((l) => l.trim().length > 0)
+				const body = replace(replace(rawBody, /^\n/, ""), /\n$/, "")
+				const lines = split(body, "\n")
+				const nonEmpty = filter(lines, (l) => trim(l).length > 0)
 				const pipeStyled = nonEmpty.length > 0 &&
-					nonEmpty.every((l) => l.trimStart().startsWith("|"))
+					nonEmpty.every((l) => startsWith(l.trimStart(), "|"))
 
 				if (pipeStyled) {
 					// Already migrated; preserve original
@@ -220,7 +233,7 @@ async function* iteratePaths(roots: string[]): AsyncGenerator<string> {
 	async function* walkDir(dir: string): AsyncGenerator<string> {
 		try {
 			for await (const entry of Deno.readDir(dir)) {
-				const full = (dir.endsWith("/") ? dir : dir + "/") + entry.name
+				const full = (endsWith(dir, "/") ? dir : dir + "/") + entry.name
 				if (entry.isDirectory) {
 					yield* walkDir(full)
 				} else if (entry.isFile) {
@@ -259,11 +272,11 @@ async function run({ roots, dryRun }: RunOpts) {
 	const updated: string[] = []
 	for await (const path of iteratePaths(roots)) {
 		const raw = await Deno.readTextFile(path)
-		if (!raw.includes(OPEN)) continue
+		if (!includes(raw, OPEN)) continue
 		const { changed, text } = migrate(raw)
 		if (changed && text !== raw) {
 			if (!dryRun) await Deno.writeTextFile(path, text)
-			updated.push(path)
+			updated = [...updated, path]
 		}
 	}
 	const action = dryRun ? "Would migrate" : "Migrated"
@@ -274,19 +287,19 @@ async function run({ roots, dryRun }: RunOpts) {
 }
 
 function parseArgs(): RunOpts {
-	const roots: string[] = []
+	let roots: string[] = []
 	let dryRun = false
 	for (const a of Deno.args) {
 		if (a === "--dry" || a === "--dry-run") {
 			dryRun = true
 			continue
 		}
-		roots.push(a)
+		roots = [...roots, a]
 	}
 	if (roots.length === 0) {
-		roots.push(
-			...TARGET_DIRS.map((d) => (ROOT.endsWith("/") ? ROOT : ROOT + "/") + d),
-		)
+		roots = [...roots,
+			...map(TARGET_DIRS, (d) => (endsWith(ROOT, "/") ? ROOT : ROOT + "/") + d),
+		]
 	}
 	return { roots, dryRun }
 }

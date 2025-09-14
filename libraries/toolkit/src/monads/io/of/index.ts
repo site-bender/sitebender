@@ -1,13 +1,17 @@
-import type { IO } from "../../../types/fp/io/index.ts"
+import io from "../io/index.ts"
 
 /**
- * Lifts a pure value into IO context
+ * Lifts a pure value into IO context (alias for io)
  *
  * Creates an IO that simply returns the given value when executed. This is
  * the minimal way to wrap a pure value in IO context, useful for starting
  * IO computations or mixing pure values with effectful operations. The
  * resulting IO has no side effects but maintains the IO interface for
  * composition with other IO operations.
+ *
+ * This is an alias for the `io` function, provided for compatibility with
+ * standard monad interfaces where `of` is the conventional name for the
+ * pure/return operation.
  *
  * @param value - Pure value to lift into IO
  * @returns IO that returns the value when executed
@@ -56,6 +60,6 @@ import type { IO } from "../../../types/fp/io/index.ts"
  * runIO(computationIO)                     // 15 (0 + 5 + 10)
  * ```
  */
-const of = <A>(value: A): IO<A> => () => value
+const of = io
 
 export default of

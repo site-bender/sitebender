@@ -1,7 +1,4 @@
-/**
- * Pretty prints HTML with proper indentation and line breaks
- * Fixed version that handles nested elements correctly
- */
+//++ Pretty prints HTML with proper indentation and line breaks, handling nested elements correctly
 export function prettyPrintHtml(html: string, indentSize: number = 2): string {
 	const indent = " ".repeat(indentSize)
 
