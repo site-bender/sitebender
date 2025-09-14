@@ -1,6 +1,12 @@
 // Forbid React-style prop names in our framework-free codebase.
 // Exposed as a default-exported function and also runnable via CLI.
 
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
+import trim from "@sitebender/toolkit/vanilla/string/trim/index.ts"
+
 import {
 	DEFAULT_NO_REACT_GLOBS,
 	NO_REACT_ALLOWLIST,
@@ -59,23 +65,36 @@ const RULES: Array<
 
 async function* expandGlobs(patterns: string[]): AsyncGenerator<string> {
 	const files = new Set<string>()
-	const procs = patterns.map((raw) => {
+	const procs = map((raw: string) => {
 		const p = raw.replace(/^['"]|['"]$/g, "")
 		return new Deno.Command("bash", {
 			args: ["-lc", `ls -1 ${p}`],
 			stdout: "piped",
 			stderr: "null",
 		}).output()
-	})
+	})(patterns)
 	const outputs = await Promise.allSettled(procs)
-	for (const o of outputs) {
-		if (o.status !== "fulfilled" || !o.value.success) continue
-		const text = new TextDecoder().decode(o.value.stdout)
-		for (const line of text.split("\n")) {
-			const fp = line.trim()
-			if (fp && !files.has(fp)) files.add(fp)
-		}
-	}
+
+	// Process outputs using reduce instead of for loop
+	reduce(
+		(acc: void, o) => {
+			if (o.status !== "fulfilled" || !o.value.success) return acc
+			const text = new TextDecoder().decode(o.value.stdout)
+			const lines = split("\\n")(text)
+			reduce(
+				(acc2: void, line: string) => {
+					const fp = trim(line)
+					if (fp && !files.has(fp)) files.add(fp)
+					return acc2
+				},
+				undefined,
+			)(lines)
+			return acc
+		},
+		undefined,
+	)(outputs)
+
+	// Generator function requires yielding, which can't be fully functional
 	for (const f of files) yield f
 }
 
@@ -98,46 +117,72 @@ export default async function enforceNoReactJunk(args: string[] = Deno.args) {
 			const raw = await Deno.readTextFile(file)
 			const src = stripComments(raw)
 			const lines = src.split(/\r?\n/)
-			lines.forEach((ln: string, idx: number) => {
-				for (const rule of RULES) {
-					const m = rule.re.exec(ln)
-					if (m) {
-						violations.push({
-							file,
-							line: idx + 1,
-							col: m.index + 1,
-							snippet: ln.trim(),
-							rule: rule.name,
-							suggestion: rule.suggestion,
-						})
-					}
-				}
-			})
+
+			// Convert forEach and nested for loop to functional approach
+			reduce(
+				(acc: void, ln: string, idx: number) => {
+					reduce(
+						(acc2: void, rule) => {
+							const m = rule.re.exec(ln)
+							if (m) {
+								violations.push({
+									file,
+									line: idx + 1,
+									col: m.index + 1,
+									snippet: trim(ln),
+									rule: rule.name,
+									suggestion: rule.suggestion,
+								})
+							}
+							return acc2
+						},
+						undefined,
+					)(RULES)
+					return acc
+				},
+				undefined,
+			)(lines)
 		} catch {
 			// ignore
 		}
 	}
 
 	if (violations.length) {
-		const grouped = new Map<string, Violation[]>()
-		for (const v of violations) {
-			const arr = grouped.get(v.rule) ?? []
-			arr.push(v)
-			grouped.set(v.rule, arr)
-		}
+		// Group violations by rule using reduce instead of for loop
+		const grouped = reduce(
+			(map: Map<string, Violation[]>, v: Violation) => {
+				const arr = map.get(v.rule) ?? []
+				arr.push(v)
+				return new Map(map).set(v.rule, arr)
+			},
+			new Map<string, Violation[]>(),
+		)(violations)
 
-		for (const [rule, list] of grouped) {
-			const header = RULES.find((r) => r.name === rule)?.message ||
-				`Forbidden usage: ${rule}`
-			const suggestion = RULES.find((r) => r.name === rule)?.suggestion
-			console.error(header)
-			if (suggestion) console.error(`  ${suggestion}`)
-			console.error("")
-			for (const v of list) {
-				console.error(`${v.file}:${v.line}:${v.col}  ${v.snippet}`)
-			}
-			console.error("")
-		}
+		// Report violations using reduce instead of for loop
+		reduce(
+			(acc: void, [rule, list]: [string, Violation[]]) => {
+				const header = RULES.find((r) => r.name === rule)?.message ||
+					`Forbidden usage: ${rule}`
+				const suggestion = RULES.find((r) => r.name === rule)?.suggestion
+				console.error(header)
+				if (suggestion) console.error(`  ${suggestion}`)
+				console.error("")
+
+				// Print each violation using reduce instead of for loop
+				reduce(
+					(acc2: void, v: Violation) => {
+						console.error(`${v.file}:${v.line}:${v.col}  ${v.snippet}`)
+						return acc2
+					},
+					undefined,
+				)(list)
+
+				console.error("")
+				return acc
+			},
+			undefined,
+		)(Array.from(grouped.entries()))
+
 		console.error(`Total: ${violations.length}`)
 		Deno.exit(1)
 	}

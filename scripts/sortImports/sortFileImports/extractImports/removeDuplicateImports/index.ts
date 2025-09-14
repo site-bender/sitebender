@@ -1,5 +1,6 @@
 import type { ImportInfo } from "../../../../types/index.ts"
 
+//++ Removes duplicate import statements based on type, source, and text content
 export default function removeDuplicateImports(
 	imports: ImportInfo[],
 ): ImportInfo[] {

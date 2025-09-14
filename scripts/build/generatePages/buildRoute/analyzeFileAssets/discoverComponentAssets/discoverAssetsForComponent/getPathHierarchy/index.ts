@@ -1,5 +1,6 @@
 import { join, relative, SEPARATOR } from "jsr:@std/path"
 
+//++ Builds a hierarchy of parent paths from a component path to the components root
 export default function getPathHierarchy(
 	componentPath: string,
 	componentsRoot: string,

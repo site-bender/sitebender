@@ -1,5 +1,4 @@
-// Recursively walk a directory and yield .ts and .tsx files
-
+//++ Recursively walks a directory and yields .ts and .tsx files
 export default async function* walkTsFiles(
 	root: string,
 ): AsyncGenerator<string> {

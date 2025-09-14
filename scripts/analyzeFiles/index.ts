@@ -9,6 +9,19 @@ import {
 	yellow,
 } from "jsr:@std/fmt@1.0.3/colors"
 
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import includes from "@sitebender/toolkit/vanilla/array/includes/index.ts"
+import join from "@sitebender/toolkit/vanilla/array/join/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import range from "@sitebender/toolkit/vanilla/array/range/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import slice from "@sitebender/toolkit/vanilla/array/slice/index.ts"
+import sort from "@sitebender/toolkit/vanilla/array/sort/index.ts"
+import replace from "@sitebender/toolkit/vanilla/string/replace/index.ts"
+import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
+import trim from "@sitebender/toolkit/vanilla/string/trim/index.ts"
+import pipe from "@sitebender/toolkit/pipe/index.ts"
+
 import type {
 	AnalysisOptions,
 	AnalysisResult,
@@ -50,8 +63,9 @@ export default async function analyzeFiles(
 	// We analyze all functions by default; we keep the option for backward-compat but default is false
 	const defaultOnly = opts?.defaultOnly ?? false
 
-	const files: string[] = []
-	for (const d of dirs) {
+	// Collect files from all directories using functional approach
+	const fileCollectionPromises = map(dirs, async (d) => {
+		const dirFiles: string[] = []
 		for await (
 			const f of walkFolder({
 				root,
@@ -59,13 +73,16 @@ export default async function analyzeFiles(
 				exts: EXTENSIONS,
 				excludedDirNames,
 			})
-		) files.push(f)
-	}
+		) dirFiles.push(f)
+		return dirFiles
+	})
+	const fileArrays = await Promise.all(fileCollectionPromises)
+	const files = fileArrays.flat()
 
 	// Exclude barrel files (re-export hubs), capture info for reporting
 	const barrels: BarrelInfo[] = []
 	const filteredFiles = excludeBarrels
-		? files.filter((p) => {
+		? filter(files, (p) => {
 			// Do not consider TSX files as barrels; component files often have named exports alongside a default component
 			if (p.endsWith(".tsx")) return true
 			try {
@@ -80,14 +97,16 @@ export default async function analyzeFiles(
 					namedReExportMatches.length
 				if (reExportStatements === 0) return true
 				// Count specifiers per named block by comma, ignoring whitespace and empty items
-				const namedSpecifiers = namedReExportMatches.reduce(
+				const namedSpecifiers = reduce(
+					namedReExportMatches,
 					(acc, m) => {
-						const inside = m.replace(/^.*?\{([\s\S]*?)\}.*$/, "$1")
-						const count = inside
-							.split(",")
-							.map((s) => s.trim())
-							.filter((s) => s.length > 0)
-							.length
+						const inside = replace(m, /^.*?\{([\s\S]*?)\}.*$/, "$1")
+						const count = pipe(
+							inside,
+							(str) => split(str, ","),
+							(arr) => map(arr, (s) => trim(s)),
+							(arr) => filter(arr, (s) => s.length > 0)
+						).length
 						return acc + count
 					},
 					0,
@@ -108,10 +127,10 @@ export default async function analyzeFiles(
 						(reExportStatements >= 3 || totalReexported >= 10))
 				)
 				if (isBarrel) {
-					barrels.push({
-						file: p.replace(root + "/", ""),
+					barrels = [...barrels, {
+						file: replace(p, root + "/", ""),
 						exports: totalReexported,
-					})
+					}]
 					return false
 				}
 				return true
@@ -122,32 +141,48 @@ export default async function analyzeFiles(
 		})
 		: files
 
-	// Bounded parallelism for file analysis
-	const perFile: PerFileAnalysis[] = []
-	let i = 0
-	async function worker() {
-		const promises: Promise<void>[] = []
-		while (true) {
-			const idx = i++
-			if (idx >= filteredFiles.length) break
-			const f = filteredFiles[idx]
-			promises.push(
-				analyzeFile({ absPath: f, root, onlyDefault: defaultOnly })
-					.then(
-						(res) => {
-							perFile[idx] = res
-						},
-					),
-			)
-		}
-		await Promise.all(promises)
+	// Bounded parallelism for file analysis using functional approach
+	const analyzeFileWithIndex = (file: string, index: number) =>
+		analyzeFile({ absPath: file, root, onlyDefault: defaultOnly })
+			.then(result => ({ index, result }))
+
+	// Process files in chunks to control concurrency using functional approach
+	const createChunks = (files: string[], chunkSize: number): string[][] =>
+		pipe(
+			range(0)(Math.ceil(files.length / chunkSize)),
+			(indices) => map(indices, (i) => files.slice(i * chunkSize, (i + 1) * chunkSize))
+		)
+
+	const processInChunks = async (files: string[], chunkSize: number) => {
+		const chunks = createChunks(files, chunkSize)
+		const results: PerFileAnalysis[] = new Array(files.length)
+
+		// Process chunks sequentially using reduce to control concurrency
+		await reduce(
+			async (acc: Promise<void>, chunk: string[], chunkIndex: number) => {
+				await acc // Wait for previous chunk to complete
+				const startIndex = chunkIndex * chunkSize
+				const chunkPromises = map(chunk, (file, localIndex) =>
+					analyzeFileWithIndex(file, startIndex + localIndex)
+				)
+				const chunkResults = await Promise.all(chunkPromises)
+
+				// Use reduce to accumulate results instead of for loop
+				reduce(
+					(acc: void, { index, result }: { index: number; result: PerFileAnalysis }) => {
+						results[index] = result
+						return acc
+					},
+					undefined,
+				)(chunkResults)
+			},
+			Promise.resolve(),
+		)(chunks)
+
+		return results
 	}
-	await Promise.all(
-		Array.from(
-			{ length: Math.min(concurrency, filteredFiles.length) },
-			() => worker(),
-		),
-	)
+
+	const perFile = await processInChunks(filteredFiles, concurrency)
 	const fileStats = computeFileStats(perFile)
 	const functionStats = computeFunctionStats(
 		perFile.flatMap((f: PerFileAnalysis) => f.functions),
@@ -157,74 +192,85 @@ export default async function analyzeFiles(
 		Math.round(functionStats.mean + 3 * functionStats.stdDev),
 	)
 	const thresholdToUse = opts?.maxFunctionLines ?? dynThreshold
-	const longFunctions: Array<FileFunction & { file: string }> = perFile
-		.flatMap((f: PerFileAnalysis) =>
-			f.functions
-				.filter((fn: FileFunction) => fn.loc > thresholdToUse)
-				.map((fn: FileFunction) => ({ ...fn, file: f.pathRel }))
-		)
-		.sort((a, b) => b.loc - a.loc)
-
-	// Collect non-default exported functions/components
-	const nonDefault: Array<{ file: string; names: string[] }> = []
-	const duplicates: Array<{ file: string; names: string[] }> = []
-	for (const f of perFile) {
-		if (f.nonDefaultExported && f.nonDefaultExported.length) {
-			nonDefault.push({ file: f.pathRel, names: f.nonDefaultExported })
-		}
-		if (f.nonDefaultExported && f.defaultNames && f.defaultNames.length) {
-			const dup = f.nonDefaultExported.filter((n) =>
-				f.defaultNames!.includes(n)
+	const longFunctions: Array<FileFunction & { file: string }> = pipe(
+		perFile,
+		(files) => files.flatMap((f: PerFileAnalysis) =>
+			pipe(
+				f.functions,
+				(fns) => filter(fns, (fn: FileFunction) => fn.loc > thresholdToUse),
+				(fns) => map(fns, (fn: FileFunction) => ({ ...fn, file: f.pathRel }))
 			)
-			if (dup.length) {
-				duplicates.push({ file: f.pathRel, names: dup.sort() })
-			}
-		}
-	}
-	nonDefault.sort((a, b) => a.file.localeCompare(b.file))
-	duplicates.sort((a, b) => a.file.localeCompare(b.file))
+		),
+		(fns) => sort(fns, (a, b) => b.loc - a.loc)
+	)
 
-	// Per-folder aggregates
-	const folderMap = new Map<
-		string,
-		{
+	// Collect non-default exported functions/components using functional approach
+	const nonDefault = pipe(
+		perFile,
+		(files) => filter(files, (f) => f.nonDefaultExported && f.nonDefaultExported.length > 0),
+		(files) => map(files, (f) => ({ file: f.pathRel, names: f.nonDefaultExported! })),
+		(items) => sort(items, (a, b) => a.file.localeCompare(b.file))
+	)
+
+	const duplicates = pipe(
+		perFile,
+		(files) => filter(files, (f) =>
+			f.nonDefaultExported && f.defaultNames && f.defaultNames.length > 0
+		),
+		(files) => map(files, (f) => {
+			const dup = filter(
+				f.nonDefaultExported!,
+				(n) => includes(f.defaultNames!)(n)
+			)
+			return dup.length > 0
+				? { file: f.pathRel, names: sort(dup, (a, b) => a.localeCompare(b)) }
+				: null
+		}),
+		(items) => filter(items, Boolean) as Array<{ file: string; names: string[] }>,
+		(items) => sort(items, (a, b) => a.file.localeCompare(b.file))
+	)
+
+	// Per-folder aggregates using functional approach
+	function folderOf(rel: string): string {
+		const parts = split("/")(rel)
+		// choose first 3 segments as a reasonable package/folder grouping (e.g., libraries/components/src)
+		return join("/")(slice(0, Math.min(3, parts.length - 1))(parts)) || "."
+	}
+
+	const folderMap = reduce(
+		(map: Map<string, {
 			files: number
 			lines: number
 			functions: number
 			longFunctions: number
 			nonDefaultCount: number
-		}
-	>()
-	function folderOf(rel: string): string {
-		const parts = rel.split("/")
-		// choose first 3 segments as a reasonable package/folder grouping (e.g., libraries/components/src)
-		return parts.slice(0, Math.min(3, parts.length - 1)).join("/") || "."
-	}
-	for (const f of perFile) {
-		const key = folderOf(f.pathRel)
-		const agg = folderMap.get(key) ??
-			{
+		}>, f: PerFileAnalysis) => {
+			const key = folderOf(f.pathRel)
+			const existing = map.get(key) ?? {
 				files: 0,
 				lines: 0,
 				functions: 0,
 				longFunctions: 0,
 				nonDefaultCount: 0,
 			}
-		agg.files += 1
-		agg.lines += f.lines
-		agg.functions += f.functions.length
-		agg.longFunctions += f.functions.filter((fn) =>
-			fn.loc > thresholdToUse
-		).length
-		agg.nonDefaultCount += f.nonDefaultExported?.length ?? 0
-		folderMap.set(key, agg)
-	}
-	const folderAggregates = Array.from(folderMap.entries()).map((
-		[folder, v],
-	) => ({ folder, ...v }))
-		.sort((a, b) =>
+			const updated = {
+				files: existing.files + 1,
+				lines: existing.lines + f.lines,
+				functions: existing.functions + f.functions.length,
+				longFunctions: existing.longFunctions + filter(f.functions, (fn) => fn.loc > thresholdToUse).length,
+				nonDefaultCount: existing.nonDefaultCount + (f.nonDefaultExported?.length ?? 0),
+			}
+			return new Map(map).set(key, updated)
+		},
+		new Map(),
+	)(perFile)
+	const folderAggregates = pipe(
+		Array.from(folderMap.entries()),
+		(entries) => map(entries, ([folder, v]) => ({ folder, ...v })),
+		(aggregates) => sort(aggregates, (a, b) =>
 			b.longFunctions - a.longFunctions || b.functions - a.functions
 		)
+	)
 
 	const baseResult: AnalysisResult = {
 		root,
@@ -234,7 +280,7 @@ export default async function analyzeFiles(
 		longFunctions,
 		threshold: thresholdToUse,
 		barrels: barrels.length
-			? barrels.sort((a, b) => b.exports - a.exports)
+			? sort(barrels, (a, b) => b.exports - a.exports)
 			: undefined,
 		nonDefault: nonDefault.length ? nonDefault : undefined,
 		folderAggregates,
@@ -287,15 +333,20 @@ if (import.meta.main) {
 				: undefined
 			const foldersOpt = options["folders"] ?? options["dirs"]
 			const scanDirs = typeof foldersOpt === "string"
-				? String(foldersOpt).split(",").map((s) => s.trim()).filter(
-					Boolean,
+				? pipe(
+					String(foldersOpt),
+					(str) => split(str, ","),
+					(arr) => map(arr, (s) => trim(s)),
+					(arr) => filter(arr, Boolean)
 				)
 				: undefined
 			const excludeDirNames = typeof options["exclude"] === "string"
-				? String(options["exclude"]).split(",").map((s) => s.trim())
-					.filter(
-						Boolean,
-					)
+				? pipe(
+					String(options["exclude"]),
+					(str) => split(str, ","),
+					(arr) => map(arr, (s) => trim(s)),
+					(arr) => filter(arr, Boolean)
+				)
 				: undefined
 			const maxFunctionLines = typeof options["max-fn-lines"] === "string"
 				? Number(options["max-fn-lines"])
@@ -353,13 +404,17 @@ if (import.meta.main) {
 						}`,
 					),
 				)
-				for (const fn of r.longFunctions.slice(0, 20)) {
-					stdout(
-						`  - ${bold(fn.name)} ${yellow(String(fn.loc))}L @ ${
-							white(fn.file)
-						}:${gray(String(fn.startLine))}-${gray(String(fn.endLine))}`,
-					)
-				}
+				reduce(
+					(acc: void, fn) => {
+						stdout(
+							`  - ${bold(fn.name)} ${yellow(String(fn.loc))}L @ ${
+								white(fn.file)
+							}:${gray(String(fn.startLine))}-${gray(String(fn.endLine))}`,
+						)
+						return acc
+					},
+					undefined,
+				)(slice(0, 20)(r.longFunctions))
 				if (r.longFunctions.length > 20) {
 					stdout(gray(`  ...and ${r.longFunctions.length - 20} more`))
 				}
@@ -372,11 +427,15 @@ if (import.meta.main) {
 						`\nExcluded barrels: ${yellow(String(r.barrels.length))}`,
 					),
 				)
-				for (const b of r.barrels.slice(0, 20)) {
-					stdout(
-						`  - ${white(b.file)} (exports: ${cyan(String(b.exports))})`,
-					)
-				}
+				reduce(
+					(acc: void, b) => {
+						stdout(
+							`  - ${white(b.file)} (exports: ${cyan(String(b.exports))})`,
+						)
+						return acc
+					},
+					undefined,
+				)(slice(0, 20)(r.barrels))
 				if (r.barrels.length > 20) {
 					stdout(gray(`  ...and ${r.barrels.length - 20} more`))
 				}
@@ -389,10 +448,14 @@ if (import.meta.main) {
 						}`,
 					),
 				)
-				for (const f of r.nonDefault.slice(0, 20)) {
-					const names = red(f.names.join(", "))
-					stdout(`  - ${white(f.file)}: ${names}`)
-				}
+				reduce(
+					(acc: void, f) => {
+						const names = red(join(", ")(f.names))
+						stdout(`  - ${white(f.file)}: ${names}`)
+						return acc
+					},
+					undefined,
+				)(slice(0, 20)(r.nonDefault))
 				if (r.nonDefault.length > 20) {
 					stdout(
 						gray(
@@ -411,10 +474,14 @@ if (import.meta.main) {
 						}`,
 					),
 				)
-				for (const f of r.duplicates.slice(0, 20)) {
-					const dupNames = red(f.names.join(", "))
-					stdout(`  - ${white(f.file)}: ${dupNames}`)
-				}
+				reduce(
+					(acc: void, f) => {
+						const dupNames = red(join(", ")(f.names))
+						stdout(`  - ${white(f.file)}: ${dupNames}`)
+						return acc
+					},
+					undefined,
+				)(slice(0, 20)(r.duplicates))
 				if (r.duplicates.length > 20) {
 					stdout(
 						gray(
@@ -424,17 +491,21 @@ if (import.meta.main) {
 				}
 			}
 			if (r.folderAggregates && r.folderAggregates.length) {
-				const top = r.folderAggregates.slice(0, 10)
+				const top = slice(r.folderAggregates, 0, 10)
 				stdout(bold(`\nTop folders by long functions:`))
-				for (const a of top) {
-					stdout(
-						`  - ${white(a.folder)}: files=${cyan(String(a.files))} functions=${
-							cyan(String(a.functions))
-						} long=${red(String(a.longFunctions))} non-default=${
-							yellow(String(a.nonDefaultCount))
-						}`,
-					)
-				}
+				reduce(
+					(acc: void, a) => {
+						stdout(
+							`  - ${white(a.folder)}: files=${cyan(String(a.files))} functions=${
+								cyan(String(a.functions))
+							} long=${red(String(a.longFunctions))} non-default=${
+								yellow(String(a.nonDefaultCount))
+							}`,
+						)
+						return acc
+					},
+					undefined,
+				)(top)
 			}
 			if (r.compare) {
 				stdout(bold(`\nCompare to ${white(r.compare.baseline)}:`))
