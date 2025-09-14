@@ -29,7 +29,6 @@ import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
 import includes from "@sitebender/toolkit/vanilla/array/includes/index.ts"
 import join from "@sitebender/toolkit/vanilla/array/join/index.ts"
 import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
 import indexOf from "@sitebender/toolkit/vanilla/string/indexOf/index.ts"
 import replace from "@sitebender/toolkit/vanilla/string/replace/index.ts"
 import slice from "@sitebender/toolkit/vanilla/string/slice/index.ts"
@@ -52,8 +51,7 @@ const CLOSE = "*/"
 
 function transformBlockBody(body: string, indent: string): string {
 	const lines = split(body, "\n")
-	const out: string[] = []
-	for (const raw of lines) {
+	const out = map(lines, function transformLine(raw: string): string {
 		// Remove leading whitespace
 		let s = replace(raw, /^\s+/, "")
 		// Strip a single leading '*' if present, plus a single following space
@@ -66,11 +64,11 @@ function transformBlockBody(body: string, indent: string): string {
 		// Normalize empty vs non-empty lines
 		const trimmed = replace(s, /\r?$/, "")
 		if (trim(trimmed).length === 0) {
-			out = [...out, `${indent} |`]
+			return `${indent} |`
 		} else {
-			out = [...out, `${indent} | ${trimmed}`]
+			return `${indent} | ${trimmed}`
 		}
-	}
+	})
 	return join(out, "\n")
 }
 
@@ -269,7 +267,7 @@ async function* iteratePaths(roots: string[]): AsyncGenerator<string> {
 }
 
 async function run({ roots, dryRun }: RunOpts) {
-	const updated: string[] = []
+	let updated: string[] = []
 	for await (const path of iteratePaths(roots)) {
 		const raw = await Deno.readTextFile(path)
 		if (!includes(raw, OPEN)) continue
