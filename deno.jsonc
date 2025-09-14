@@ -20,6 +20,7 @@
 	],
 
 	"tasks": {
+		"contracts:check": "DENO_NO_PROMPT=1 deno test contracts/enforcement --allow-read && DENO_NO_PROMPT=1 deno run --allow-read --allow-run scripts/validateContracts/index.ts",
 		"analyze": "deno task analyze:files",
 		"analyze:files": "deno run --allow-read scripts/analyzeFiles/index.ts",
 

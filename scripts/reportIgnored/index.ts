@@ -6,6 +6,16 @@
 
 import { join, relative } from "jsr:@std/path@^1.0.8"
 
+import endsWith from "@sitebender/toolkit/vanilla/string/endsWith/index.ts"
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import replace from "@sitebender/toolkit/vanilla/string/replace/index.ts"
+import slice from "@sitebender/toolkit/vanilla/array/slice/index.ts"
+import sort from "@sitebender/toolkit/vanilla/array/sort/index.ts"
+import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
+import startsWith from "@sitebender/toolkit/vanilla/string/startsWith/index.ts"
+import trim from "@sitebender/toolkit/vanilla/string/trim/index.ts"
+
 import runCli, { type CliRunArgs } from "../utilities/cli/runCli/index.ts"
 
 // Determine repo root (assume task is run from repo root)
@@ -30,13 +40,13 @@ const STOP_RE = /\/\/.*?deno-coverage-ignore-stop/
 // Try to infer a package/app label from path
 function groupLabel(root: string, absPath: string): string {
 	const rel = relative(root, absPath)
-	if (rel.startsWith("libraries/")) {
-		const seg = rel.split("/")
+	if (startsWith(rel, "libraries/")) {
+		const seg = split(rel, "/")
 		return seg.length >= 2 ? `libraries/${seg[1]}` : "libraries"
 	}
-	if (rel.startsWith("docs/")) return "docs"
-	if (rel.startsWith("playground/")) return "playground"
-	if (rel.startsWith("scripts/")) return "scripts"
+	if (startsWith(rel, "docs/")) return "docs"
+	if (startsWith(rel, "playground/")) return "playground"
+	if (startsWith(rel, "scripts/")) return "scripts"
 	return "root"
 }
 
@@ -61,7 +71,7 @@ async function* walkFolder(dir: string): AsyncGenerator<string> {
 			) continue
 			yield* walkFolder(p)
 		} else if (entry.isFile) {
-			if (exts.some((e) => p.endsWith(e))) yield p
+			if (exts.some((e) => endsWith(p, e))) yield p
 		}
 	}
 }
@@ -72,7 +82,8 @@ function addRecord(
 	rec: IgnoreRecord,
 ) {
 	if (!groups.has(label)) groups.set(label, [])
-	groups.get(label)!.push(rec)
+	const current = groups.get(label)!
+	groups.set(label, [...current, rec])
 }
 
 async function scanFile(
@@ -81,7 +92,7 @@ async function scanFile(
 	path: string,
 ) {
 	const text = await Deno.readTextFile(path)
-	const lines = text.split("\n")
+	const lines = split(text, "\n")
 	let i = 0
 	while (i < lines.length) {
 		const line = lines[i]
@@ -89,7 +100,7 @@ async function scanFile(
 		let m = line.match(START_RE)
 		if (m) {
 			const startLine = i
-			const firstReason = m[2]?.trim().replace(/^[:\-\s]+/, "") ||
+			const firstReason = replace(trim(m[2] || ""), /^[:\-\s]+/, "") ||
 				"<no reason provided>"
 			let j = i + 1
 			let foundStop = false
@@ -117,7 +128,7 @@ async function scanFile(
 		// Single-line ignore (now safe to match)
 		m = line.match(SINGLE_RE)
 		if (m) {
-			const reason = m[2]?.trim().replace(/^[:\-\s]+/, "") ||
+			const reason = replace(trim(m[2] || ""), /^[:\-\s]+/, "") ||
 				"<no reason provided>"
 			addRecord(groups, groupLabel(root, path), {
 				file: path,
@@ -152,12 +163,15 @@ export default async function reportCoverageIgnores(
 	// Output report
 	if (opts?.json) {
 		const json = Object.fromEntries(
-			Array.from(groups.entries()).map(([label, recs]) => [
+			map(Array.from(groups.entries()), ([label, recs]) => [
 				label,
-				recs
-					.slice()
-					.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line)
-					.map((r) => ({ ...r, file: relative(rootFsPath, r.file) })),
+				map(
+					sort(
+						slice(recs, 0),
+						(a, b) => a.file.localeCompare(b.file) || a.line - b.line
+					),
+					(r) => ({ ...r, file: relative(rootFsPath, r.file) })
+				),
 			]),
 		)
 		console.log(JSON.stringify(json, null, 2))
@@ -169,11 +183,12 @@ export default async function reportCoverageIgnores(
 		return
 	}
 
-	const labels = Array.from(groups.keys()).sort()
+	const labels = sort(Array.from(groups.keys()), (a, b) => a.localeCompare(b))
 	let total = 0
 	for (const label of labels) {
-		const recs = groups.get(label)!.sort((a, b) =>
-			a.file.localeCompare(b.file) || a.line - b.line
+		const recs = sort(
+			groups.get(label)!,
+			(a, b) => a.file.localeCompare(b.file) || a.line - b.line
 		)
 		total += recs.length
 		console.log(`\n=== ${label} (${recs.length}) ===`)
@@ -203,7 +218,11 @@ if (import.meta.main) {
 		onRun: async ({ flags, options }: CliRunArgs) => {
 			const dirsOpt = options["folders"] ?? options["dirs"]
 			const scanDirs = typeof dirsOpt === "string"
-				? (dirsOpt as string).split(",").map((s) => s.trim()).filter(
+				? filter(
+					map(
+						split(dirsOpt as string, ","),
+						(s) => trim(s)
+					),
 					Boolean,
 				)
 				: Array.isArray(dirsOpt)

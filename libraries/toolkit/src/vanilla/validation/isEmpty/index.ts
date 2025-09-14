@@ -1,36 +1,47 @@
+import arrayLength from "../../array/length/index.ts"
+import keys from "../../object/keys/index.ts"
+import mapSize from "../../map/size/index.ts"
+import setSize from "../../set/size/index.ts"
+import stringLength from "../../string/length/index.ts"
+import isArray from "../isArray/index.ts"
+import isNullish from "../isNullish/index.ts"
+import isPlainObject from "../isPlainObject/index.ts"
+import isString from "../isString/index.ts"
+
 //++ Checks if a value is empty based on its type (null, undefined, empty string/array/object/Map/Set)
 export default function isEmpty(value: unknown): boolean {
 	// Nullish values are empty
-	if (value === null || value === undefined) {
+	if (isNullish(value)) {
 		return true
 	}
 
-	// Strings and arrays check length
-	if (typeof value === "string" || Array.isArray(value)) {
-		return value.length === 0
+	// Strings check length
+	if (isString(value)) {
+		return stringLength(value) === 0
 	}
 
-	// Array-like objects check length
-	if (
-		typeof value === "object" && "length" in value &&
-		typeof value.length === "number"
-	) {
-		return value.length === 0
+	// Arrays check length
+	if (isArray(value)) {
+		return arrayLength(value) === 0
 	}
 
-	// Maps and Sets check size
-	if (value instanceof Map || value instanceof Set) {
-		return value.size === 0
+	// Maps check size
+	if (value instanceof Map) {
+		return mapSize(value) === 0
 	}
 
-	// WeakMaps and WeakSets can't be determined as empty
+	// Sets check size
+	if (value instanceof Set) {
+		return setSize(value) === 0
+	}
+
 	if (value instanceof WeakMap || value instanceof WeakSet) {
 		return false
 	}
 
 	// Plain objects check for own enumerable properties
-	if (typeof value === "object" && value.constructor === Object) {
-		return Object.keys(value).length === 0
+	if (isPlainObject(value)) {
+		return arrayLength(keys(value)) === 0
 	}
 
 	// All other values (numbers, booleans, functions, etc.) are not empty
@@ -45,12 +56,6 @@ export default function isEmpty(value: unknown): boolean {
 //?? [EXAMPLE] isEmpty("   ") // false (whitespace is not empty)
 //?? [EXAMPLE] isEmpty(0) // false (numbers never empty)
 //?? [EXAMPLE] isEmpty(false) // false (booleans never empty)
-/*??
- | [EXAMPLE]
- | const data = ["hello", "", null, [], "world", {}]
- | data.filter(item => !isEmpty(item))  // ["hello", "world"]
- |
- | [GOTCHA] Whitespace strings are NOT considered empty
- | [PRO] Handles all common JavaScript types appropriately
- |
-*/
+//?? [GOTCHA] Whitespace strings are NOT considered empty
+//?? [GOTCHA] WeakMaps and WeakSets always return false since we can't check their contents
+//?? [PRO] Handles all common JavaScript types appropriately
