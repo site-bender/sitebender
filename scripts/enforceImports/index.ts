@@ -9,6 +9,9 @@ import {
 	ENGINE_TYPES,
 	TOOLKIT_SRC,
 } from "../constants/index.ts"
+import flatMap from "@sitebender/toolkit/vanilla/array/flatMap/index.ts"
+import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
+
 import walkTsFiles from "./walkTsFiles/index.ts"
 
 function isInside(file: string, pkgDir: string): boolean {
@@ -19,12 +22,17 @@ function checkFileForAliasViolations(
 	file: string,
 	text: string,
 ): AliasViolation[] {
-	const violations: AliasViolation[] = []
-	const lines = text.split(/\r?\n/)
+	const lines = split(/\r?\n/)(text)
 	const importRe = /(import|export)\s+[^;]*?from\s+["']([^"']+)["']/g
 
-	lines.forEach((line, idx) => {
+	// Use flatMap to transform each line into its violations
+	return flatMap<string, AliasViolation>((line, idx) => {
+		const lineViolations: AliasViolation[] = []
 		let m: RegExpExecArray | null
+
+		// Reset regex for each line
+		importRe.lastIndex = 0
+
 		while ((m = importRe.exec(line))) {
 			const spec = m[2]
 
@@ -40,7 +48,7 @@ function checkFileForAliasViolations(
 			// If this file is NOT inside engine/, disallow deep engine imports
 			if (!isInside(file, "libraries/engine")) {
 				if (spec.includes(ENGINE_SRC)) {
-					violations.push({
+					lineViolations.push({
 						file,
 						line: idx + 1,
 						spec,
@@ -48,7 +56,7 @@ function checkFileForAliasViolations(
 					})
 				}
 				if (spec.includes(ENGINE_TYPES)) {
-					violations.push({
+					lineViolations.push({
 						file,
 						line: idx + 1,
 						spec,
@@ -61,7 +69,7 @@ function checkFileForAliasViolations(
 			// If this file is NOT inside toolkit/, disallow deep toolkit imports
 			if (!isInside(file, "libraries/toolkit")) {
 				if (spec.includes(TOOLKIT_SRC)) {
-					violations.push({
+					lineViolations.push({
 						file,
 						line: idx + 1,
 						spec,
@@ -71,9 +79,9 @@ function checkFileForAliasViolations(
 				}
 			}
 		}
-	})
 
-	return violations
+		return lineViolations
+	})(lines)
 }
 
 export default async function enforceImports(rootsArg: string[] = Deno.args) {

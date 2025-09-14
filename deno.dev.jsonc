@@ -1,0 +1,12 @@
+{
+	//++ Dev config: local library aliases
+	"imports": {
+		"@sitebender/toolkit/": "./libraries/toolkit/src/",
+		"@sitebender/engine/": "./libraries/engine/src/",
+		"@sitebender/components/": "./libraries/components/src/",
+		"@sitebender/parser/": "./libraries/parser/src/",
+		"@sitebender/prover/": "./libraries/prover/src/",
+		"@sitebender/mesh/": "./libraries/mesh/src/",
+		"@sitebender/foundry/": "./libraries/foundry/src/"
+	}
+}

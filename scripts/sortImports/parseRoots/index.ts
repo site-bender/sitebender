@@ -1,7 +1,6 @@
 import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
 import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
 import pipe from "@sitebender/toolkit/pipe/index.ts"
-import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
 import slice from "@sitebender/toolkit/vanilla/string/slice/index.ts"
 import startsWith from "@sitebender/toolkit/vanilla/string/startsWith/index.ts"
 

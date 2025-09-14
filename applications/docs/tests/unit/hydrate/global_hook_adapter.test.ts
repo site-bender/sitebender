@@ -3,7 +3,7 @@ import {
 	setVizAdapter,
 	vizNoopAdapter,
 } from "@sitebender/components/index.ts"
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
 
 import type { VizAdapter } from "@sitebender/components/transform/viz/adapter/types.ts"
 

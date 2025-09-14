@@ -1,5 +1,4 @@
 #!/usr/bin/env -S deno run -A
-// deno-lint-ignore-file no-explicit-any
 /*++
  | Codemod: Replace imports from components barrel within libraries/components/types/**
  | with concrete default imports from src/define/**.
