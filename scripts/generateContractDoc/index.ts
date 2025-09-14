@@ -2,6 +2,10 @@
 
 import type { Section } from "./section/index.ts"
 
+import join from "@sitebender/toolkit/vanilla/array/join/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import slice from "@sitebender/toolkit/vanilla/string/slice/index.ts"
+
 import formatFunction from "./formatFunction/index.ts"
 import formatType from "./formatType/index.ts"
 import section from "./section/index.ts"
@@ -69,9 +73,9 @@ type Contract = {
 
 export default function generateContractDoc(contract: Contract): string {
 	const libraryName = contract.library.charAt(0).toUpperCase() +
-		contract.library.slice(1)
+		slice(contract.library, 1)
 
-	const sections: Array<Section> = [
+	let sections: Array<Section> = [
 		// Header
 		[
 			`# ${libraryName} Library Contract v${contract.version}`,
@@ -86,175 +90,175 @@ export default function generateContractDoc(contract: Contract): string {
 		// API
 		section("## Public API", []),
 		subsection("### Exported Functions", [], ""),
-		...contract.api.exports.map(formatFunction),
+		...map(contract.api.exports, formatFunction),
 
 		// Types
 		subsection("### Exported Types", [], ""),
-		...contract.api.types.map(formatType),
+		...map(contract.api.types, formatType),
 	]
 
 	// Responsibilities (Parser style)
 	if (contract.responsibilities) {
-		sections.push(section("## Responsibilities", []))
+		sections = [...sections, section("## Responsibilities", [])]
 
 		if (contract.responsibilities.owns) {
-			sections.push(
+			sections = [...sections,
 				subsection(`### ${libraryName} Owns`, contract.responsibilities.owns),
-			)
+			]
 		}
 		if (contract.responsibilities.provides) {
-			sections.push(
+			sections = [...sections,
 				subsection(
 					`### ${libraryName} Provides`,
 					contract.responsibilities.provides,
 				),
-			)
+			]
 		}
 		if (contract.responsibilities.consumes) {
-			sections.push(
+			sections = [...sections,
 				subsection(
 					`### ${libraryName} Consumes`,
 					contract.responsibilities.consumes,
 				),
-			)
+			]
 		}
 		if (contract.responsibilities.forbidden) {
-			sections.push(
+			sections = [...sections,
 				subsection(
 					`### ${libraryName} Must Never`,
 					contract.responsibilities.forbidden,
 					"- ❌ ",
 				),
-			)
+			]
 		}
 	}
 
 	// Implementation
 	if (contract.implementation) {
-		sections.push(section("## Implementation Rules", []))
+		sections = [...sections, section("## Implementation Rules", [])]
 
 		if (contract.implementation.allowed) {
 			const title = contract.library === "parser"
 				? "### Allowed Internal Operations"
 				: "### Allowed Operations"
-			sections.push(subsection(title, contract.implementation.allowed, "- ✅ "))
+			sections = [...sections, subsection(title, contract.implementation.allowed, "- ✅ ")]
 		}
 		if (contract.implementation.forbidden) {
 			const title = contract.library === "parser"
 				? "### Forbidden Exports"
 				: "### Forbidden Operations"
-			sections.push(
+			sections = [...sections,
 				subsection(title, contract.implementation.forbidden, "- ❌ "),
-			)
+			]
 		}
 	}
 
 	// Output Requirements (Parser style)
 	if (contract.output?.requirements) {
-		sections.push(
+		sections = [...sections,
 			section("## Output Requirements", [
 				`Every output from ${libraryName} must:`,
 			]),
-		)
-		sections.push(subsection("", contract.output.requirements))
+		]
+		sections = [...sections, subsection("", contract.output.requirements)]
 	}
 
 	// Input Requirements (Envoy style)
 	if (contract.input?.requirements) {
-		sections.push(
+		sections = [...sections,
 			section("## Input Requirements", [`Every input to ${libraryName} must:`]),
-		)
-		sections.push(subsection("", contract.input.requirements))
+		]
+		sections = [...sections, subsection("", contract.input.requirements)]
 	}
 
 	// Validation
 	const validation = contract.output?.validation || contract.input?.validation
 	if (validation) {
-		sections.push(section("## Validation Layers", []))
+		sections = [...sections, section("## Validation Layers", [])]
 
 		if (validation["compile-time"]) {
-			sections.push(
+			sections = [...sections,
 				subsection("### Compile-Time Validation", validation["compile-time"]),
-			)
+			]
 		}
 		if (validation.runtime) {
-			sections.push(subsection("### Runtime Validation", validation.runtime))
+			sections = [...sections, subsection("### Runtime Validation", validation.runtime)]
 		}
 		if (validation["test-time"]) {
-			sections.push(
+			sections = [...sections,
 				subsection("### Test-Time Validation", validation["test-time"]),
-			)
+			]
 		}
 	}
 
 	// Consumers (Parser style)
 	if (contract.consumers) {
-		sections.push(section("## Authorized Consumers", []))
+		sections = [...sections, section("## Authorized Consumers", [])]
 
 		if (contract.consumers.allowed) {
-			sections.push(
+			sections = [...sections,
 				subsection(
 					`### Allowed to consume ${libraryName} output:`,
 					contract.consumers.allowed,
 					"- ✅ ",
 				),
-			)
+			]
 		}
 		if (contract.consumers.forbidden) {
-			sections.push(
+			sections = [...sections,
 				subsection(
 					`### Forbidden from consuming ${libraryName} output:`,
 					contract.consumers.forbidden,
 					"- ❌ ",
 				),
-			)
+			]
 		}
 	}
 
 	// Dependencies (Envoy style)
 	if (contract.dependencies) {
-		sections.push(section("## Dependencies", []))
+		sections = [...sections, section("## Dependencies", [])]
 
 		if (contract.dependencies.allowed) {
-			sections.push(
+			sections = [...sections,
 				subsection(
 					"### Allowed dependencies:",
 					contract.dependencies.allowed,
 					"- ✅ ",
 				),
-			)
+			]
 		}
 		if (contract.dependencies.forbidden) {
-			sections.push(
+			sections = [...sections,
 				subsection(
 					"### Forbidden dependencies:",
 					contract.dependencies.forbidden,
 					"- ❌ ",
 				),
-			)
+			]
 		}
 	}
 
 	// Comment Syntax (Envoy specific)
 	if (contract.commentSyntax) {
-		sections.push([
+		sections = [...sections, [
 			"### Comment Syntax",
 			"",
 			"Envoy interprets these comment patterns:",
 			"",
-			...Object.entries(contract.commentSyntax).map(([pattern, meaning]) =>
+			...map(Object.entries(contract.commentSyntax), ([pattern, meaning]) =>
 				`- \`${pattern}\` - ${meaning}`
 			),
 			"",
-		])
+		]]
 	}
 
 	// Footer
-	sections.push([
+	sections = [...sections, [
 		"---",
 		"",
 		"**This document is auto-generated from contract.json. DO NOT EDIT DIRECTLY.**",
-	])
+	]]
 
-	return sections.flat().join("\n")
+	return join(sections.flat(), "\n")
 }

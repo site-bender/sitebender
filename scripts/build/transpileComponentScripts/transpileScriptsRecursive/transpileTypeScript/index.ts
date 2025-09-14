@@ -1,5 +1,6 @@
 import toKebabCase from "../../../../utilities/toKebabCase/index.ts"
 
+//++ Transpiles TypeScript content to JavaScript by removing types and converting imports
 export default function transpileTypeScript(
 	tsContent: string,
 	sourceFile: string,

@@ -1,5 +1,6 @@
 import type { FileFunction, FunctionStats } from "../../types/index.ts"
 
+//++ Computes statistical analysis of function metrics including mean, median, and standard deviation of lines of code
 export default function computeFunctionStats(
 	fns: FileFunction[],
 ): FunctionStats {
