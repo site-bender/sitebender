@@ -9,7 +9,7 @@ import walk from "./walk/index.ts"
 
 //++ Main function to replace aliases in all TypeScript files
 export default async function replaceAliases(): Promise<void> {
-	let changed = 0
+	const changed = 0
 	const walks = INCLUDE_DIRS.map(function createWalker(rel) {
 		const walker = walk(`${ROOT}${rel}`)
 		return walker([])

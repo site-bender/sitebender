@@ -1,6 +1,6 @@
 import { relative } from "jsr:@std/path"
 
-import type { FileFunction, PerFileAnalysis } from "../types/index.ts"
+import type { PerFileAnalysis } from "../types/index.ts"
 
 import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
 import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
@@ -60,7 +60,6 @@ export default async function analyzeFile(
 
 	// Helper function to extract regex matches functionally
 	const extractMatches = (regex: RegExp, text: string): RegExpExecArray[] => {
-		const results: RegExpExecArray[] = []
 		regex.lastIndex = 0 // Reset regex state
 
 		return until(
