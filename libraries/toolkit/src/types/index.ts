@@ -1,6 +1,3 @@
-import isNotNull from "../vanilla/validation/isNotNull/index.ts"
-import isNullish from "../vanilla/validation/isNullish/index.ts"
-
 /**
  * Core type definitions for the toolkit library
  *
@@ -54,48 +51,3 @@ export type Datatype =
 	| BooleanDatatype
 	| TemporalDatatype
 	| ComplexDatatype
-
-/**
- * Checks if something is a valid Value type
- */
-export const isValue = (val: unknown): val is Value => {
-	if (isNullish(val)) return true
-
-	const type = typeof val
-	if (type === "string" || type === "number" || type === "boolean") {
-		return true
-	}
-
-	if (Array.isArray(val)) {
-		return val.every(isValue)
-	}
-
-	if (val instanceof Map) {
-		return Array.from(val.entries()).every(
-			([k, v]) => typeof k === "string" && isValue(v),
-		)
-	}
-
-	if (val instanceof Set) {
-		return Array.from(val.values()).every(isValue)
-	}
-
-	// Check for Temporal types
-	if (
-		val instanceof Temporal.PlainDate ||
-		val instanceof Temporal.PlainTime ||
-		val instanceof Temporal.PlainDateTime ||
-		val instanceof Temporal.ZonedDateTime
-	) {
-		return true
-	}
-
-	if (type === "object" && isNotNull(val)) {
-		// Plain object with string keys only
-		return Object.entries(val as Record<string, unknown>).every(
-			([k, v]) => typeof k === "string" && isValue(v),
-		)
-	}
-
-	return false
-}

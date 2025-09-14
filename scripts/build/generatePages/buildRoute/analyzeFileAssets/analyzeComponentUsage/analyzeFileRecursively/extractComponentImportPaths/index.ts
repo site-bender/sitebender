@@ -1,3 +1,4 @@
+//++ Extracts component import paths from file content using regex pattern matching
 export default function extractComponentImportPaths(
 	content: string,
 ): Array<string> {

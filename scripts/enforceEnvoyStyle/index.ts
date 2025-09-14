@@ -1,8 +1,21 @@
-// Scribe style / structural enforcement
+//++ Enforces Scribe style and structural rules across the codebase
 // Usage: deno run --allow-read scripts/enforceEnvoyStyle/index.ts
 // Reads libraries/scribe/SCRIBE_RULES.json and scans targetGlobs.
 
 import { globToRegExp } from "https://deno.land/std@0.224.0/path/mod.ts"
+import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
+import trim from "@sitebender/toolkit/vanilla/string/trim/index.ts"
+import replace from "@sitebender/toolkit/vanilla/string/replace/index.ts"
+import slice from "@sitebender/toolkit/vanilla/string/slice/index.ts"
+import startsWith from "@sitebender/toolkit/vanilla/string/startsWith/index.ts"
+import endsWith from "@sitebender/toolkit/vanilla/string/endsWith/index.ts"
+import includes from "@sitebender/toolkit/vanilla/string/includes/index.ts"
+import match from "@sitebender/toolkit/vanilla/string/match/index.ts"
+import join from "@sitebender/toolkit/vanilla/array/join/index.ts"
+import forEach from "@sitebender/toolkit/vanilla/array/forEach/index.ts"
+import push from "@sitebender/toolkit/vanilla/array/push/index.ts"
+import test from "@sitebender/toolkit/vanilla/regex/test/index.ts"
+import length from "@sitebender/toolkit/vanilla/array/length/index.ts"
 
 type ScribeRules = {
 	requireMarkerAboveExport: boolean
@@ -16,23 +29,26 @@ type ScribeRules = {
 
 type Violation = { file: string; line: number; rule: string; detail: string }
 
+//++ Reads Scribe rules from configuration file
 async function readRules(): Promise<ScribeRules> {
 	const raw = await Deno.readTextFile("libraries/scribe/SCRIBE_RULES.json")
 	return JSON.parse(raw)
 }
 
-async function* iterFiles(globs: string[]) {
+//++ Iterates through files matching the given glob patterns
+async function* iterFiles(globs: Array<string>) {
 	for (const g of globs) {
 		const re = globToRegExp(g, { globstar: true })
 		for await (const path of walkDir(".")) {
-			const rel = path.startsWith("./")
-				? path.slice(2)
-				: path.replace(/^\.\//, "")
-			if (re.test(rel)) yield rel
+			const rel = startsWith("./")(path)
+				? slice(2)(Infinity)(path)
+				: replace(/^\.\//, "")(path)
+			if (test(re)(rel)) yield rel
 		}
 	}
 }
 
+//++ Recursively walks a directory and yields all file paths
 async function* walkDir(dir: string): AsyncGenerator<string> {
 	for await (const e of Deno.readDir(dir)) {
 		const path = dir === "." ? e.name : `${dir}/${e.name}`
@@ -42,41 +58,42 @@ async function* walkDir(dir: string): AsyncGenerator<string> {
 	}
 }
 
+//++ Checks a file for Scribe rule violations
 function checkFile(
 	rules: ScribeRules,
 	file: string,
 	text: string,
-): Violation[] {
-	const out: Violation[] = []
-	const lines = text.split(/\r?\n/)
+): Array<Violation> {
+	const out: Array<Violation> = []
+	const lines = split(/\r?\n/)(text)
 
 	if (rules.requireMarkerAboveExport) {
-		lines.forEach((ln, i) => {
-			if (/^export default function/.test(ln)) {
+		forEach<string>((ln: string, i: number) => {
+			if (test(/^export default function/)(ln)) {
 				const prev = lines[i - 1] ?? ""
-				if (!/^\/\/\+\+/.test(prev)) {
-					out.push({
+				if (!test(/^\/\/\+\+/)(prev)) {
+					push({
 						file,
 						line: i + 1,
 						rule: "marker-above-export",
 						detail: "Missing //++ line immediately above export",
-					})
+					})(out)
 				}
 			}
-		})
+		})(lines)
 	}
 
 	if (rules.requireBlankLineAfterGuardReturn) {
-		for (let i = 0; i < lines.length; i++) {
-			if (lines[i].includes(rules.guardReturnPattern)) {
+		for (let i = 0; i < length(lines); i++) {
+			if (includes(rules.guardReturnPattern)(lines[i])) {
 				const next = lines[i + 1] ?? ""
-				if (next.trim() !== "") {
-					out.push({
+				if (trim(next) !== "") {
+					push({
 						file,
 						line: i + 2,
 						rule: "blank-after-guard",
 						detail: "Expected blank line after guard return",
-					})
+					})(out)
 				}
 			}
 		}
@@ -84,44 +101,46 @@ function checkFile(
 
 	if (rules.enforceCurriedNesting) {
 		// simple heuristic: count nested 'return function' in file
-		const nestMatches = text.match(/return function /g) || []
-		if (nestMatches.length < rules.curriedNestingDepth - 1) {
-			out.push({
+		const nestMatches = match(/return function /g)(text) || []
+		if (length(nestMatches) < rules.curriedNestingDepth - 1) {
+			push({
 				file,
 				line: 1,
 				rule: "curried-nesting",
 				detail: `Expected >= ${rules.curriedNestingDepth} curried layers`,
-			})
+			})(out)
 		}
 	}
 
-	if (rules.forbidNativeArrayMethods.length) {
+	if (length(rules.forbidNativeArrayMethods)) {
 		const forbid = new RegExp(
-			`\\.(${rules.forbidNativeArrayMethods.join("|")})\\(`,
+			`\\.(${join("|")(rules.forbidNativeArrayMethods)})\\(`,
 		)
-		lines.forEach((ln, i) => {
-			if (forbid.test(ln)) {
-				out.push({
+		forEach<string>((ln: string, i: number) => {
+			if (test(forbid)(ln)) {
+				push({
 					file,
 					line: i + 1,
 					rule: "native-array-method",
-					detail: ln.trim(),
-				})
+					detail: trim(ln),
+				})(out)
 			}
-		})
+		})(lines)
 	}
 
 	return out
 }
 
+//++ Main function that enforces Envoy style across the codebase
 export default async function enforceEnvoyStyle() {
 	const rules = await readRules()
-	const violations: Violation[] = []
+	const violations: Array<Violation> = []
 	for await (const file of iterFiles(rules.targetGlobs)) {
-		if (!file.endsWith(".ts")) continue
+		if (!endsWith(".ts")(file)) continue
 		try {
 			const text = await Deno.readTextFile(file)
-			violations.push(...checkFile(rules, file, text))
+			const newViolations = checkFile(rules, file, text)
+			forEach<Violation>((v: Violation) => push(v)(violations))(newViolations)
 		} catch (e) {
 			// ignore unreadable file (permissions / deleted race)
 			if (Deno.env.get("SCRIBE_STYLE_DEBUG")) {
@@ -129,12 +148,12 @@ export default async function enforceEnvoyStyle() {
 			}
 		}
 	}
-	if (violations.length) {
+	if (length(violations)) {
 		console.error("Scribe style violations:\n")
 		for (const v of violations) {
 			console.error(`${v.file}:${v.line} [${v.rule}] ${v.detail}`)
 		}
-		console.error(`\nTotal: ${violations.length}`)
+		console.error(`\nTotal: ${length(violations)}`)
 		Deno.exit(1)
 	}
 	console.log("Scribe style check passed (no violations)")
