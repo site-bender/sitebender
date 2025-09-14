@@ -80,7 +80,7 @@ export default async function analyzeFiles(
 	const files = fileArrays.flat()
 
 	// Exclude barrel files (re-export hubs), capture info for reporting
-	const barrels: BarrelInfo[] = []
+	let barrels: BarrelInfo[] = []
 	const filteredFiles = excludeBarrels
 		? filter(files, (p) => {
 			// Do not consider TSX files as barrels; component files often have named exports alongside a default component

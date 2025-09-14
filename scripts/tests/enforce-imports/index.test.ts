@@ -1,6 +1,7 @@
 import { expect } from "@std/expect"
 
 import runAliasGuards from "../../enforceImports/aliasGuards/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
 
 Deno.test("alias guards allow preferred aliases and flag deep imports", async () => {
 	// Point the guard at a tiny synthetic scope: the scripts folder itself
@@ -8,12 +9,18 @@ Deno.test("alias guards allow preferred aliases and flag deep imports", async ()
 	const noViolations = await runAliasGuards(["scripts"])
 	expect(Array.isArray(noViolations)).toBe(true)
 	// We can't rely on repo contents to assert zero, but we can assert the shape
-	noViolations.forEach((v) => {
+	type Violation = {
+		file: string
+		line: number
+		spec: string
+		hint: string
+	}
+	map((v: Violation) => {
 		expect(typeof v.file).toBe("string")
 		expect(typeof v.line).toBe("number")
 		expect(typeof v.spec).toBe("string")
 		expect(typeof v.hint).toBe("string")
-	})
+	})(noViolations)
 
 	// Now scan a directory that likely contains deep imports in docs/tests
 	// We only check that any violations mention the expected guidance

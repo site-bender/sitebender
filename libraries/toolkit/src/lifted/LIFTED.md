@@ -7,21 +7,21 @@ Other AIs are working on other parts of the toolkit. Any modifications outside t
 
 ## Purpose
 
-The `lifted` folder contains monadic versions of the `vanilla` functions, designed to work seamlessly with do-notation. These functions "lift" pure operations into the Result monad context, enabling:
+The `lifted` folder contains monadic versions of the `vanilla` functions, designed to work seamlessly with do-notation. These functions "lift" pure operations into the Validation monad context, enabling:
 
 1. **Error accumulation** rather than short-circuiting on first error
 2. **Composability** through do-notation with `yield`
 3. **Type safety** with proper monadic types
 4. **List comprehension** style operations like Haskell
 
-## The Result Monad
+## The Validation Monad
 
-Unlike Either (which short-circuits on first Left) or Maybe (which has no error info), Result accumulates errors while processing, allowing us to collect ALL validation errors or processing failures in a single pass.
+Unlike Result (which fails fast on first error) or Maybe (which has no error info), Validation accumulates errors while processing, allowing us to collect ALL validation errors or processing failures in a single pass.
 
 ```typescript
-type Result<T, E> =
-	| { tag: "Ok"; value: T }
-	| { tag: "Err"; errors: Array<E> }
+type Validation<E, A> = Valid<A> | Invalid<E>
+type Valid<A> = { _tag: "Valid"; value: A }
+type Invalid<E> = { _tag: "Invalid"; errors: NonEmptyArray<E> }
 ```
 
 ## Implementation Rules
@@ -37,7 +37,7 @@ type Result<T, E> =
 ### 2. Use Toolkit Functions
 
 - **NEVER use JavaScript array methods directly**
-- Always use `simple` functions from the toolkit
+- Always use `vanilla` functions from the toolkit
 - Example: Use `map` from `vanilla/array/map`, not `Array.prototype.map`
 
 ### 3. File Structure
@@ -54,12 +54,6 @@ lifted/
 │   └── reduce/
 │       ├── index.ts
 │       └── index.test.ts
-├── result/
-│   ├── index.ts           # Result monad implementation
-│   └── index.test.ts
-└── doResult/
-    ├── index.ts           # Do-notation for Result
-    └── index.test.ts
 ```
 
 ### 4. Function Signature Pattern
@@ -68,20 +62,100 @@ Each lifted function follows this pattern:
 
 ```typescript
 // Original vanilla function
-const map = <T, U>(fn: (T) => U) => (array: Array<T>): Array<U>
+function map<T, U>(fn: (T) => U) {
+	return function mapWithFn(array: Array<T>): Array<U> {
+		// implementation
+	}
+}
 
-// Lifted version
-const mapResult = <T, U, E>(fn: (T) => Result<U, E>) => 
-  (array: Array<T>): Result<Array<U>, Array<E>>
+// Lifted version - Works with EITHER Result OR Validation!
+import mapVanilla from "@sitebender/toolkit/vanilla/array/map/index.ts"
+
+// Function overloads for type safety
+function map<T, U, E>(fn: (T) => Result<E, U>): (array: Array<T>) => Result<Array<E>, Array<U>>
+function map<T, U, E>(fn: (T) => Validation<E, U>): (array: Array<T>) => Validation<Array<E>, Array<U>>
+
+// Implementation - detects monad type and uses appropriate sequencing
+function map<T, U, E>(fn: (T) => Result<E, U> | Validation<E, U>) {
+	return function mapWithFn(array: Array<T>) {
+		// 1. Use vanilla map to apply fn to each element
+		const results = mapVanilla(fn)(array) // Array<Result<E, U> | Validation<E, U>>
+		
+		// 2. Detect monad type and sequence appropriately
+		if (results.length === 0) {
+			// Return appropriate empty based on function signature
+			return /* empty result matching input type */
+		}
+		
+		const firstResult = results[0]
+		if ('tag' in firstResult) {
+			// Result monad - fail fast on first error
+			return sequenceResult(results)
+		} else {
+			// Validation monad - accumulate all errors  
+			return sequenceValidation(results)
+		}
+	}
+}
+
+export default map
+```
+
+## Usage Examples
+
+### Vanilla Function Usage
+```typescript
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+
+// Simple transformation - always succeeds
+const numbers = [1, 2, 3, 4, 5]
+const doubled = map((x: number) => x * 2)(numbers)
+// Result: [2, 4, 6, 8, 10]
+
+const names = ["alice", "bob", "charlie"]
+const uppercased = map((name: string) => name.toUpperCase())(names)
+// Result: ["ALICE", "BOB", "CHARLIE"]
+```
+
+### Lifted Function Usage
+```typescript
+import mapValidation from "@sitebender/toolkit/lifted/array/map/index.ts"
+import valid from "@sitebender/toolkit/monads/validation/valid/index.ts"
+import invalid from "@sitebender/toolkit/monads/validation/invalid/index.ts"
+
+// Transformation that can fail - accumulates ALL errors
+const validateAndDouble = (x: number) =>
+	x > 0 ? valid(x * 2) : invalid([`${x} must be positive`])
+
+const mixedNumbers = [1, -2, 3, -4, 5]
+const result = mapValidation(validateAndDouble)(mixedNumbers)
+// Result: Invalid(["-2 must be positive", "-4 must be positive"])
+
+const validNumbers = [1, 2, 3, 4, 5]
+const successResult = mapResult(validateAndDouble)(validNumbers)
+// Result: Ok([2, 4, 6, 8, 10])
+```
+
+### Do-Notation Usage
+```typescript
+import doNotation from "@sitebender/toolkit/monads/doNotation/index.ts"
+import mapResult from "@sitebender/toolkit/lifted/array/map/index.ts"
+import filterResult from "@sitebender/toolkit/lifted/array/filter/index.ts"
+import Ok from "@sitebender/toolkit/monads/result/Ok/index.ts"
+import Err from "@sitebender/toolkit/monads/result/Err/index.ts"
+
+const processData = doNotation(function* () {
+	const rawData = yield valid([1, -2, 3, -4, 5])
+	const validated = yield mapValidation(validateAndDouble)(rawData)
+	const filtered = yield filterValidation((x: number) => 
+		x > 5 ? valid(true) : invalid([`${x} below threshold`])
+	)(validated)
+	return filtered
+})
+// Accumulates ALL validation errors from both steps
 ```
 
 ## Implementation Order
-
-### Phase 1: Foundation (MUST BE FIRST)
-
-1. **Result monad** - The core type with Ok/Err constructors
-2. **doResult** - Do-notation support for Result
-3. **Basic Result operations** - map, bind, of, isOk, isErr
 
 ### Phase 2: Core Array Operations
 
@@ -116,23 +190,23 @@ We know we've implemented correctly when:
 ### 1. Do-Notation Works Flawlessly
 
 ```typescript
-const result = doResult(function* () {
-	const nums = yield Ok([1, 2, 3, 4, 5])
-	const doubled = yield mapResult((x) => Ok(x * 2))(nums)
-	const filtered = yield filterResult((x) =>
-		x > 5 ? Ok(true) : Err("too small")
+const result = doNotation(function* () {
+	const nums = yield valid([1, 2, 3, 4, 5])
+	const doubled = yield mapValidation((x) => valid(x * 2))(nums)
+	const filtered = yield filterValidation((x) =>
+		x > 5 ? valid(true) : invalid(["too small"])
 	)(doubled)
 	return filtered
 })
-// Result: Ok([6, 8, 10]) or Err(["too small", "too small"])
+// Result: Valid([6, 8, 10]) or Invalid(["too small", "too small"])
 ```
 
 ### 2. Errors Accumulate Properly
 
 ```typescript
-const validateAll = doResult(function* () {
-	const items = yield Ok([item1, item2, item3])
-	const validated = yield mapResult(validate)(items)
+const validateAll = doNotation(function* () {
+	const items = yield valid([item1, item2, item3])
+	const validated = yield mapValidation(validate)(items)
 	return validated
 })
 // If ANY items fail validation, we get ALL the errors, not just the first
@@ -159,27 +233,28 @@ Each function has tests that verify:
 Write tests FIRST for each function:
 
 ```typescript
-// index.test.ts example for mapResult
-import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+// index.test.ts example for mapValidation
+import { assertEquals } from "@std/assert"
 import { describe, it } from "https://deno.land/std/testing/bdd.ts"
-import mapResult from "./index.ts"
-import { Err, Ok } from "../../result/index.ts"
+import mapValidation from "./index.ts"
+import valid from "../../monads/validation/valid/index.ts"
+import invalid from "../../monads/validation/invalid/index.ts"
 
-describe("mapResult", () => {
-	it("maps over Ok values", () => {
-		const result = mapResult((x: number) => Ok(x * 2))([1, 2, 3])
-		assertEquals(result, Ok([2, 4, 6]))
+describe("mapValidation", () => {
+	it("maps over Valid values", () => {
+		const result = mapValidation((x: number) => valid(x * 2))([1, 2, 3])
+		assertEquals(result, valid([2, 4, 6]))
 	})
 
 	it("accumulates errors", () => {
-		const validate = (x: number) => x > 2 ? Ok(x) : Err(`${x} too small`)
-		const result = mapResult(validate)([1, 2, 3, 4])
-		assertEquals(result, Err(["1 too small", "2 too small"]))
+		const validate = (x: number) => x > 2 ? valid(x) : invalid([`${x} too small`])
+		const result = mapValidation(validate)([1, 2, 3, 4])
+		assertEquals(result, invalid(["1 too small", "2 too small"]))
 	})
 
 	it("handles empty arrays", () => {
-		const result = mapResult((x: number) => Ok(x * 2))([])
-		assertEquals(result, Ok([]))
+		const result = mapValidation((x: number) => valid(x * 2))([])
+		assertEquals(result, valid([]))
 	})
 })
 ```

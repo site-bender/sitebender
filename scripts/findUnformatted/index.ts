@@ -6,6 +6,7 @@ import {
 	FORMAT_EXTENSIONS,
 	FORMAT_ROOTS,
 } from "../constants/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
 
 function isExcluded(path: string): boolean {
 	return FORMAT_EXCLUDES.some((p) => path.includes(p))
@@ -51,7 +52,8 @@ export default async function findUnformatted(): Promise<void> {
 	}
 	if (failures.length) {
 		console.log("Unformatted files (failing deno fmt --check):\n")
-		failures.sort().forEach((f) => console.log(f))
+		const sortedFailures = failures.sort()
+		map((f: string) => console.log(f))(sortedFailures)
 		Deno.exit(1)
 	}
 	console.log("All files are formatted.")
