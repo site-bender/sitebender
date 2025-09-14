@@ -1,20 +1,19 @@
-// Remove comments and string/template literals for safer scanning
+import pipe from "@sitebender/toolkit/pipe/index.ts"
+import replace from "@sitebender/toolkit/vanilla/string/replace/index.ts"
 
+//++ Remove comments and string/template literals for safer scanning
 export default function stripCommentsAndStrings(input: string): string {
-	// Remove block comments
-	let s = input.replace(/\/\*[\s\S]*?\*\//g, "")
-
-	// Remove line comments
-	s = s.replace(/(^|[^:])\/\/.*$/gm, "$1")
-
-	// Remove template strings (greedy but fine for scanning)
-	s = s.replace(/`[\s\S]*?`/g, "``")
-
-	// Remove single and double quoted strings
-	s = s.replace(/'(?:\\.|[^'\\])*'/g, "''").replace(
-		/"(?:\\.|[^"\\])*"/g,
-		'""',
+	return pipe(
+		input,
+		// Remove block comments
+		replace(/\/\*[\s\S]*?\*\//g)(""),
+		// Remove line comments
+		replace(/(^|[^:])\/\/.*$/gm)("$1"),
+		// Remove template strings (greedy but fine for scanning)
+		replace(/`[\s\S]*?`/g)("``"),
+		// Remove single quoted strings
+		replace(/'(?:\\.|[^'\\])*'/g)("''"),
+		// Remove double quoted strings
+		replace(/"(?:\\.|[^"\\])*"/g)('""'),
 	)
-
-	return s
 }

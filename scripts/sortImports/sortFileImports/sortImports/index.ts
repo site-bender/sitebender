@@ -1,5 +1,6 @@
 import type { ImportInfo } from "../../../types/index.ts"
 
+//++ Sorts import statements by category, type, and source with proper grouping and spacing
 export default function sortImports(imports: ImportInfo[]): string {
 	if (imports.length === 0) return ""
 

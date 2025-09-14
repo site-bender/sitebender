@@ -1,3 +1,4 @@
+//++ Maps file extensions to appropriate MIME content types for HTTP responses
 export default function getContentType(ext: string): string {
 	const types: Record<string, string> = {
 		".html": "text/html",

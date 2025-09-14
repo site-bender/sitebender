@@ -20,13 +20,13 @@ export type CliConfig = {
 	onRun: (args: CliRunArgs) => Promise<number | void> | number | void
 }
 
-/**
- * Minimal, zero-dep CLI runner with conventional flags:
- * -h, --help           Show help/usage
- * -v, --version        Print version
- * -n, --dry-run        Do not perform side-effects
- *
- * Scripts can pass additional booleans/strings/aliases and handle logic in onRun.
+/*++
+ | Minimal, zero-dep CLI runner with conventional flags:
+ | -h, --help           Show help/usage
+ | -v, --version        Print version
+ | -n, --dry-run        Do not perform side-effects
+ |
+ | Scripts can pass additional booleans/strings/aliases and handle logic in onRun.
  */
 export default async function runCli(cfg: CliConfig): Promise<never> {
 	const { flags, options, positional } = parseArgs(Deno.args, {

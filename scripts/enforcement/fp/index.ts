@@ -1,6 +1,9 @@
-// Strict FP guardrail: scans files for impermissible patterns (mutable or OOP)
-// Usage: deno run --allow-read --allow-run scripts/enforceFP/index.ts [globs...]
-// Defaults to scanning libraries/**/src/**/*.{ts,tsx}
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import includes from "@sitebender/toolkit/vanilla/array/includes/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import pipe from "@sitebender/toolkit/pipe/index.ts"
+import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
+import trim from "@sitebender/toolkit/vanilla/string/trim/index.ts"
 
 import {
 	DEFAULT_FP_GLOBS,
@@ -19,9 +22,14 @@ type Violation = {
 	snippet: string
 }
 
+//++ Strict FP guardrail that scans files for impermissible patterns (mutable or OOP)
 export default async function enforceFP(globsArg: string[] = Deno.args) {
-	const pedantic = globsArg.includes("--pedantic")
-	const globs = pedantic ? globsArg.filter((a) => a !== "--pedantic") : globsArg
+	const pedantic = includes("--pedantic")(globsArg)
+	const globs = pedantic ? pipe(
+		globsArg,
+		filter((a: string) => a !== "--pedantic"),
+		Array.from
+	) : globsArg
 	const patterns = globs.length ? globs : DEFAULT_FP_GLOBS
 
 	const violations: Violation[] = []
@@ -32,22 +40,27 @@ export default async function enforceFP(globsArg: string[] = Deno.args) {
 		try {
 			const raw = await Deno.readTextFile(file)
 			const source = pedantic ? raw : stripCommentsAndStrings(raw)
-			const lines = source.split(/\r?\n/)
+			const lines = split(/\r?\n/)(source)
 
 			// Simple forbidden pattern scan
-			FP_FORBIDDEN.forEach((rule: { name: string; regex: RegExp }) => {
-				lines.forEach((ln: string, idx: number) => {
-					if (rule.regex.test(ln)) {
-						violations.push({
-							file,
-							line: idx + 1,
-							col: ln.search(rule.regex) + 1,
-							rule: rule.name,
-							snippet: ln.trim(),
-						})
+			function checkForbiddenPatterns() {
+				for (const rule of FP_FORBIDDEN) {
+					let idx = 0
+					for (const ln of lines) {
+						if (rule.regex.test(ln)) {
+							violations.push({
+								file,
+								line: idx + 1,
+								col: ln.search(rule.regex) + 1,
+								rule: rule.name,
+								snippet: trim(ln),
+							})
+						}
+						idx++
 					}
-				})
-			})
+				}
+			}
+			checkForbiddenPatterns()
 
 			// Object.assign special-case
 			const assigns = assignMatcher(source)
@@ -60,7 +73,7 @@ export default async function enforceFP(globsArg: string[] = Deno.args) {
 						col = 1
 					} else col++
 				}
-				const snippet = lines[line - 1]?.trim() ?? a.text
+				const snippet = lines[line - 1] ? trim(lines[line - 1]) : a.text
 				violations.push({
 					file,
 					line,
