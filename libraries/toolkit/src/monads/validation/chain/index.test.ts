@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { assertEquals } from "@std/assert"
 
 import type { Validation } from "../../../types/Validation/index.ts"
 import type ValidationError from "../../../types/ValidationError/index.ts"
