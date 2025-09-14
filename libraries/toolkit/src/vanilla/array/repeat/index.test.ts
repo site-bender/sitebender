@@ -1,8 +1,8 @@
-//++ Tests for repeat (array value repetition)
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
 
 import repeat from "./index.ts"
 
+//++ Tests for repeat (array value repetition)
 Deno.test("repeat returns empty array for non-positive counts", () => {
 	assertEquals(repeat(0)("x"), [])
 	assertEquals(repeat(-1)("x"), [])

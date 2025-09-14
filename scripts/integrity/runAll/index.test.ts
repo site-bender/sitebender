@@ -1,6 +1,7 @@
 import { assert, assertEquals } from "@std/assert"
 
 import { runAll } from "./index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
 
 //++ Tests for runAll
 
@@ -33,12 +34,12 @@ Deno.test("runAll includes pending scripts", async () => {
 		"hashValidation",
 	]
 
-	pendingScripts.forEach((scriptName) => {
+	map((scriptName: string) => {
 		const script = result.results.find((r) => r.name === scriptName)
 		assert(script !== undefined)
 		assertEquals(script?.phase, "pending")
 		assertEquals(script?.status, "pending")
-	})
+	})(pendingScripts)
 })
 
 Deno.test("runAll returns valid ISO timestamp", async () => {

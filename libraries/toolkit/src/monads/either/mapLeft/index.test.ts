@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { assertEquals } from "@std/assert"
 
 import isLeft from "../isLeft/index.ts"
 import isRight from "../isRight/index.ts"
