@@ -1,5 +1,6 @@
 import type { ImportInfo } from "../../../../types/index.ts"
 
+//++ Categorizes import paths into local, project-specific, or external dependencies
 export default function categorizeImport(
 	source: string,
 ): ImportInfo["category"] {

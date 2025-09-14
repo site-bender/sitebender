@@ -1,14 +1,35 @@
+import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import pipe from "@sitebender/toolkit/pipe/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import slice from "@sitebender/toolkit/vanilla/string/slice/index.ts"
+import startsWith from "@sitebender/toolkit/vanilla/string/startsWith/index.ts"
+
+//++ Parses root directories from command-line arguments
 export default function parseRoots(args: Array<string>): Array<string> {
 	const defaults = ["agent", "docs", "playground", "libraries", "scripts"]
-	const selected: Array<string> = []
 
-	for (const arg of args) {
-		if (arg.startsWith("--dir=")) {
-			selected.push(arg.slice("--dir=".length))
-		} else if (!arg.startsWith("-")) {
-			selected.push(arg)
+	function extractDir(arg: string): string | null {
+		if (startsWith("--dir=")(arg)) {
+			return slice(6)(Infinity)(arg)
 		}
+		if (startsWith("-")(arg)) {
+			return null
+		}
+
+		return arg
 	}
+
+	function isNotNull<T>(value: T | null): value is T {
+		return value !== null
+	}
+
+	const selected = pipe(
+		args,
+		map(extractDir),
+		filter(isNotNull),
+		Array.from
+	)
 
 	return selected.length > 0 ? selected : defaults
 }

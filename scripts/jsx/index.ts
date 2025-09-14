@@ -211,6 +211,7 @@ async function renderIRToHTML(
 	}
 }
 
+//++ Demonstrates JSX/TSX parsing and conversion to intermediate representation with HTML rendering
 export default async function demoJsxToIr() {
 	// --- Sample TSX source (with component) ---
 	const source = `
