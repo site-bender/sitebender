@@ -1,7 +1,7 @@
 import shouldProcess from "../shouldProcess/index.ts"
 
 //++ Recursively walks a directory and collects TypeScript/TSX files
-export default async function walk(dir: string): Promise<string[]> {
+export default function walk(dir: string) {
 	return async function collectFiles(out: string[] = []): Promise<string[]> {
 		//-- [REFACTOR] For-await loop should be replaced with functional approach
 		for await (const ent of Deno.readDir(dir)) {
