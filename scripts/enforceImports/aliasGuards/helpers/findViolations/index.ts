@@ -1,5 +1,7 @@
 import type { Violation } from "../../types/index.ts"
 
+import flatMap from "@sitebender/toolkit/vanilla/array/flatMap/index.ts"
+
 // Match only real import/export-from statements at the start of a line (ignoring leading whitespace).
 // This avoids false positives for strings that merely CONTAIN such text inside tests or other code.
 const importOrExportFromPattern =
@@ -33,18 +35,22 @@ export default async function findViolations(
 			for await (const file of globWalk(root)) {
 				const text = await Deno.readTextFile(file)
 				const lines = text.split(/\r?\n/)
-				lines.forEach((line, idx) => {
+
+				// Use flatMap to transform each line into its violations
+				const fileViolations = flatMap<string, Violation>((line, idx) => {
+					const lineViolations: Violation[] = []
+
 					// 1) Forbid any top-level re-export statements
 					for (const pat of reExportPatterns) {
 						if (pat.test(line)) {
-							violations.push({
+							lineViolations.push({
 								file,
 								line: idx + 1,
 								spec: line.trim(),
 								hint:
 									"No re-exports/barrels. Export concrete symbols from their own files, or create a wrapper function; do not use `export … from …`.",
 							})
-							return
+							return lineViolations // Early return for this line
 						}
 					}
 
@@ -53,17 +59,20 @@ export default async function findViolations(
 					if (m) {
 						const spec = m[1]
 						if (spec.startsWith("@sitebender/")) {
-							violations.push({
+							lineViolations.push({
 								file,
 								line: idx + 1,
 								spec,
 								hint:
 									"Do not use @sitebender/* aliases. Deep import the precise path (e.g., libraries/.../src/…) and avoid barrels.",
 							})
-							return
 						}
 					}
-				})
+
+					return lineViolations
+				})(lines)
+
+				violations.push(...fileViolations)
 			}
 		} catch (err) {
 			// Non-fatal: missing scope directory

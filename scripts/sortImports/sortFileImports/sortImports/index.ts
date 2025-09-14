@@ -1,5 +1,9 @@
 import type { ImportInfo } from "../../../types/index.ts"
 
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import flatMap from "@sitebender/toolkit/vanilla/array/flatMap/index.ts"
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+
 //++ Sorts import statements by category, type, and source with proper grouping and spacing
 export default function sortImports(imports: ImportInfo[]): string {
 	if (imports.length === 0) return ""
@@ -40,42 +44,49 @@ export default function sortImports(imports: ImportInfo[]): string {
 		return a.text.localeCompare(b.text)
 	})
 
-	// Group by category and type combination for spacing
-	const groups: Array<{
+	// Group by category and type combination for spacing using reduce
+	type ImportGroup = {
 		category: string
 		type: string
 		imports: ImportInfo[]
-	}> = []
-	let currentGroup: {
-		category: string
-		type: string
-		imports: ImportInfo[]
-	} | null = null
+	}
 
-	sortedImports.forEach((imp: ImportInfo) => {
-		if (
-			!currentGroup ||
-			currentGroup.category !== imp.category ||
-			currentGroup.type !== imp.type
-		) {
-			currentGroup = {
-				category: imp.category,
-				type: imp.type,
-				imports: [],
+	const groups = reduce<ImportInfo, ImportGroup[]>(
+		(acc, imp) => {
+			const lastGroup = acc[acc.length - 1]
+			const needsNewGroup = !lastGroup ||
+				lastGroup.category !== imp.category ||
+				lastGroup.type !== imp.type
+
+			if (needsNewGroup) {
+				return [...acc, {
+					category: imp.category,
+					type: imp.type,
+					imports: [imp]
+				}]
 			}
-			groups.push(currentGroup)
-		}
-		currentGroup.imports.push(imp)
-	})
 
-	// Build output with proper spacing between groups
-	const output: string[] = []
-	groups.forEach((group, index: number) => {
-		if (index > 0) {
-			output.push("") // blank line between groups
+			// Add to existing group immutably
+			return [
+				...acc.slice(0, -1),
+				{
+					...lastGroup,
+					imports: [...lastGroup.imports, imp]
+				}
+			]
+		},
+		[]
+	)(sortedImports)
+
+	// Build output with proper spacing between groups using flatMap
+	const output = flatMap<ImportGroup, string>(
+		(group, index) => {
+			const groupTexts = map(group.imports, (imp: ImportInfo) => imp.text)
+			return index > 0
+				? ["", ...groupTexts] // Add blank line before group
+				: groupTexts
 		}
-		group.imports.forEach((imp: ImportInfo) => output.push(imp.text))
-	})
+	)(groups)
 
 	return output.join("\n")
 }
