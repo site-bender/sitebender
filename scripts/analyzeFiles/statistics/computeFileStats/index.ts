@@ -1,5 +1,6 @@
 import type { FileStats, PerFileAnalysis } from "../../types/index.ts"
 
+//++ Computes statistical analysis of file metrics including mean, median, and standard deviation of line counts
 export default function computeFileStats(files: PerFileAnalysis[]): FileStats {
 	if (files.length === 0) {
 		return {

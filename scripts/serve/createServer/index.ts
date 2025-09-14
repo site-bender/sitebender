@@ -6,6 +6,7 @@ type ServerOptions = {
 	port?: number
 }
 
+//++ Creates a static file server that serves files from the dist directory with automatic index.html resolution
 export default function createServer(
 	logger: Logger = console,
 	options: ServerOptions = {},

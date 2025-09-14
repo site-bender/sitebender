@@ -2,6 +2,7 @@ import { join } from "jsr:@std/path"
 
 import extractComponentImportPaths from "./extractComponentImportPaths/index.ts"
 
+//++ Recursively analyzes a file and its component imports to discover all dependencies
 export default function analyzeFileRecursively(componentsRoot: string) {
 	const analyze = async (
 		filePath: string,

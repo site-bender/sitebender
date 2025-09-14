@@ -5,6 +5,7 @@ import type { ImportInfo } from "../../../types/index.ts"
 import categorizeImport from "./categorizeImport/index.ts"
 import removeDuplicateImports from "./removeDuplicateImports/index.ts"
 
+//++ Extracts and deduplicates import statements from TypeScript source code with categorization and metadata
 export default function extractImports(sourceCode: string): {
 	imports: ImportInfo[]
 	restOfFile: string

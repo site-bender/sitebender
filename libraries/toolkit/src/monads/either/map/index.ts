@@ -18,11 +18,14 @@ export default function map<A, B>(fn: (a: A) => B) {
 //?? [EXAMPLE] map((x: number) => x * 2)(left("error")) // Left("error")
 /*??
  | [EXAMPLE]
+ | function double(x: number) { return x * 2 }
+ | function increment(x: number) { return x + 1 }
+ | function numberToString(x: number) { return x.toString() }
  | pipe(
  |   right(5),
- |   map(x => x * 2),          // Right(10)
- |   map(x => x + 1),          // Right(11)
- |   map(x => x.toString())    // Right("11")
+ |   map(double),          // Right(10)
+ |   map(increment),       // Right(11)
+ |   map(numberToString)   // Right("11")
  | )
  |
  | [PRO] Skips computation for Left values (no function call)
