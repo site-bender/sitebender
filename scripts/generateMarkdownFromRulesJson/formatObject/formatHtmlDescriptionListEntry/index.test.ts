@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+import { assertEquals } from "@std/assert"
 
 import includes from "../../../../libraries/toolkit/src/vanilla/string/contains/index.ts"
 import formatHtmlDescriptionListEntry from "./index.ts"

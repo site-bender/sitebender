@@ -1,4 +1,3 @@
-// deno-lint-ignore-file no-explicit-any
 import { dirname, relative } from "https://deno.land/std@0.224.0/path/mod.ts"
 
 import type { ImportSpec } from "../types/index.ts"

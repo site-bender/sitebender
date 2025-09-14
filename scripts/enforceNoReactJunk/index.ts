@@ -1,7 +1,6 @@
 // Forbid React-style prop names in our framework-free codebase.
 // Exposed as a default-exported function and also runnable via CLI.
 
-import filter from "@sitebender/toolkit/vanilla/array/filter/index.ts"
 import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
 import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
 import split from "@sitebender/toolkit/vanilla/string/split/index.ts"
