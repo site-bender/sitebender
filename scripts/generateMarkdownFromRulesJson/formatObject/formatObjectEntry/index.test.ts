@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+import { assertEquals } from "@std/assert"
 
 import type { JsonValue } from "../../types/index.ts"
 

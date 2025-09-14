@@ -1,6 +1,6 @@
 //++ Tests for generateMarkdownFromRulesJson
 
-import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+import { assertEquals } from "@std/assert"
 
 import generateMarkdownFromRulesJson from "./index.ts"
 

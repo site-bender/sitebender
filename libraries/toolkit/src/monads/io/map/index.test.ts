@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std/assert/mod.ts"
+import { assertEquals } from "@std/assert"
 
 import io from "../io/index.ts"
 import of from "../of/index.ts"

@@ -24,9 +24,9 @@ export default function ValidationDemo() {
 					aria-describedby="name-error"
 				/>
 				<span id="name-error" role="alert" aria-live="polite"></span>
-				<div style="margin-top: 1rem">
+				<p>
 					<button type="submit">Submit</button>
-				</div>
+				</p>
 			</form>
 			{/* Inline authored behaviors compiled to IR, hydrated by shared client */}
 			<Program>
