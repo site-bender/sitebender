@@ -1,20 +1,30 @@
+import push from "@sitebender/toolkit/vanilla/array/push/index.ts"
+import startsWith from "@sitebender/toolkit/vanilla/string/startsWith/index.ts"
+import slice from "@sitebender/toolkit/vanilla/string/slice/index.ts"
+import indexOf from "@sitebender/toolkit/vanilla/string/indexOf/index.ts"
+import has from "@sitebender/toolkit/vanilla/set/has/index.ts"
+import length from "@sitebender/toolkit/vanilla/array/length/index.ts"
+import lengthStr from "@sitebender/toolkit/vanilla/string/length/index.ts"
+import isArray from "@sitebender/toolkit/vanilla/array/isArray/index.ts"
+
 export type ParsedArgs = {
 	flags: Record<string, boolean>
-	options: Record<string, string | string[]>
-	positional: string[]
+	options: Record<string, string | Array<string>>
+	positional: Array<string>
 }
 
+//++ Parses command-line arguments into flags, options, and positional arguments with support for aliases and type coercion
 export default function parseArgs(
-	argv: string[],
+	argv: Array<string>,
 	config?: {
-		booleans?: string[]
-		strings?: string[]
+		booleans?: Array<string>
+		strings?: Array<string>
 		aliases?: Record<string, string>
 	},
 ): ParsedArgs {
 	const flags: Record<string, boolean> = {}
-	const options: Record<string, string | string[]> = {}
-	const positional: string[] = []
+	const options: Record<string, string | Array<string>> = {}
+	const positional: Array<string> = []
 	const boolSet = new Set(config?.booleans ?? [])
 	const _strSet = new Set(config?.strings ?? [])
 	const alias = config?.aliases ?? {}
@@ -26,34 +36,34 @@ export default function parseArgs(
 			return
 		}
 		if (options[k] === undefined) options[k] = value
-		else if (Array.isArray(options[k])) (options[k] as string[]).push(value)
+		else if (isArray(options[k])) push(value)(options[k] as Array<string>)
 		else options[k] = [options[k] as string, value]
 	}
 
-	for (let i = 0; i < argv.length; i++) {
+	for (let i = 0; i < length(argv); i++) {
 		const a = argv[i]
 		if (a === "--") {
 			// remainder positional
-			for (let j = i + 1; j < argv.length; j++) positional.push(argv[j])
+			for (let j = i + 1; j < length(argv); j++) push(argv[j])(positional)
 			break
 		}
-		if (a.startsWith("--no-")) {
-			setOpt(a.slice(5), false)
+		if (startsWith("--no-")(a)) {
+			setOpt(slice(5)(Infinity)(a), false)
 			continue
 		}
-		if (a.startsWith("--")) {
-			const eq = a.indexOf("=")
+		if (startsWith("--")(a)) {
+			const eq = indexOf("=")(a)
 			if (eq !== -1) {
-				const k = a.slice(2, eq)
-				const v = a.slice(eq + 1)
-				if (boolSet.has(k)) setOpt(k, v !== "false")
+				const k = slice(2)(eq)(a)
+				const v = slice(eq + 1)(Infinity)(a)
+				if (has(k)(boolSet)) setOpt(k, v !== "false")
 				else setOpt(k, v)
 			} else {
-				const k = a.slice(2)
-				if (boolSet.has(k)) setOpt(k, true)
+				const k = slice(2)(Infinity)(a)
+				if (has(k)(boolSet)) setOpt(k, true)
 				else {
 					const v = argv[i + 1]
-					if (v !== undefined && !v.startsWith("-")) {
+					if (v !== undefined && !startsWith("-")(v)) {
 						setOpt(k, v)
 						i++
 					} else setOpt(k, "true")
@@ -61,16 +71,16 @@ export default function parseArgs(
 			}
 			continue
 		}
-		if (a.startsWith("-")) {
+		if (startsWith("-")(a)) {
 			// short flags cluster like -qv or -o value
-			const cluster = a.slice(1)
-			for (let c = 0; c < cluster.length; c++) {
+			const cluster = slice(1)(Infinity)(a)
+			for (let c = 0; c < lengthStr(cluster); c++) {
 				const k = cluster[c]
 				const full = alias[k] ?? k
-				if (boolSet.has(full)) setOpt(full, true)
+				if (has(full)(boolSet)) setOpt(full, true)
 				else {
 					const v = argv[i + 1]
-					if (v && !v.startsWith("-")) {
+					if (v && !startsWith("-")(v)) {
 						setOpt(full, v)
 						i++
 					} else setOpt(full, "true")
@@ -78,7 +88,7 @@ export default function parseArgs(
 			}
 			continue
 		}
-		positional.push(a)
+		push(a)(positional)
 	}
 
 	// Normalize boolean-defaults to false when not set

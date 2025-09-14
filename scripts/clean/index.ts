@@ -1,5 +1,6 @@
 #!/usr/bin/env -S deno run --allow-write
 
+//++ Removes the dist directory to clean build artifacts
 export default async function clean(): Promise<void> {
 	try {
 		await Deno.remove("dist", { recursive: true })

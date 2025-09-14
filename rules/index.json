@@ -20,7 +20,7 @@
 			"Trust eroded: Once lost, never fully recovered",
 			"Code corrupted: Tech debt that compounds daily"
 		],
-		"enforcement": "Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPTIONS."
+		"enforcement": "Work in smaller increments. Verify everything. Check twice, code once. NO EXCEPTIONS. If not 100% certain of rule compliance or user intent, STOP and ASK before proceeding."
 	},
 	"commandments": [
 		{
@@ -90,9 +90,9 @@
 			"key": "ask-when-uncertain",
 			"title": "Thou shalt ask when uncertain",
 			"details": [
-				"Better to ask than assume",
-				"Better to clarify than cleanup",
-				"Better to be slow and right"
+				"If you are not 100% certain you are following the rules to the letter, STOP and ASK before proceeding",
+				"Clarify user intent and rule application first—do not move forward on assumptions",
+				"Speed never justifies skipping questions; correctness and compliance come first"
 			]
 		},
 		{
@@ -534,6 +534,16 @@
 				"Remember: I WILL check your work. Thoroughly."
 			]
 		}
+	},
+	"assistantCompliance": {
+		"principles": [
+			"User directives outrank defaults, habits, and prior patterns. Always.",
+			"Rules compliance is a hard gate. Tests green is necessary but never sufficient.",
+			"Ask whenever not 100% certain about rule compliance or user intent—no silent assumptions.",
+			"No speculative imports/helpers or staged references—create everything you import in the same change.",
+			"No minimal-diff bias: prefer correct, rule-compliant changes over smaller diffs.",
+			"Any deviation is a bug to fix immediately, not later. No temporary leniency."
+		]
 	},
 	"codeStyle": {
 		"indentation": "tabs",

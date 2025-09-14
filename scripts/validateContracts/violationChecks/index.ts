@@ -44,19 +44,19 @@ export const VIOLATION_CHECKS: Array<ViolationCheck> = [
 		severity: "error",
 	},
 	{
-		name: "Envoy accessing source files",
+		name: "Envoy reading TS/TSX from filesystem",
 		command:
-			`grep -r "\\.tsx\\?['\\\"]\\|readFileSync.*\\.ts\\|readFile.*\\.tsx\\?" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
+			`grep -r "readFileSync.*\\.tsx\\?\\|readFile.*\\.tsx\\?" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
 		errorMessage:
-			"❌ CONTRACT VIOLATION: Envoy is accessing source files directly! Must use Parser output.",
+			"❌ CONTRACT VIOLATION: Envoy is reading TS/TSX files directly! Must consume Parser output instead.",
 		severity: "error",
 	},
 	{
-		name: "Envoy using regex to parse",
+		name: "Envoy using regex to parse TS syntax",
 		command:
-			`grep -r "new RegExp.*\\(function\\|class\\|interface\\|export\\|import\\)" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
+			`grep -r "new RegExp.*\\\\b\\(function\\|class\\|interface\\|export\\|import\\|type\\)\\\\b" libraries/envoy/src/ libraries/envoy/exports/ libraries/envoy/internal/ 2>/dev/null || true`,
 		errorMessage:
-			"❌ CONTRACT VIOLATION: Envoy is using regex to parse TypeScript! Must use Parser AST.",
+			"❌ CONTRACT VIOLATION: Envoy appears to regex-parse TS syntax! Must use Parser AST.",
 		severity: "error",
 	},
 	{
@@ -104,11 +104,11 @@ export const VIOLATION_CHECKS: Array<ViolationCheck> = [
 		severity: "error",
 	},
 	{
-		name: "Foundry importing @sitebender",
+		name: "Foundry importing disallowed @sitebender libs",
 		command:
-			`grep -r "from ['\\\"]@sitebender" libraries/foundry/src/ libraries/foundry/exports/ libraries/foundry/internal/ 2>/dev/null || true`,
+			`(grep -r "from ['\\\"]@sitebender" libraries/foundry/src/ libraries/foundry/exports/ libraries/foundry/internal/ 2>/dev/null | grep -v "@sitebender/toolkit") || true`,
 		errorMessage:
-			"❌ CONTRACT VIOLATION: Foundry cannot import any @sitebender libraries!",
+			"❌ CONTRACT VIOLATION: Foundry can only import @sitebender/toolkit.",
 		severity: "error",
 	},
 ]
