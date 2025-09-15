@@ -1,4 +1,4 @@
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import {
 	assertEquals,
@@ -94,9 +94,9 @@ Deno.test("createSeed - rejects NaN", () => {
 	const result = createSeed(NaN)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidSeed")
 	}
 })
@@ -105,9 +105,9 @@ Deno.test("createSeed - rejects Infinity", () => {
 	const result = createSeed(Infinity)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidSeed")
 	}
 })
@@ -116,9 +116,9 @@ Deno.test("createSeed - rejects negative Infinity", () => {
 	const result = createSeed(-Infinity)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidSeed")
 	}
 })

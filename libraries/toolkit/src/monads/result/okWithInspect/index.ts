@@ -1,19 +1,22 @@
-import rightWithInspect from "../../either/rightWithInspect/index.ts"
+import type { Ok } from "../../../types/fp/result/index.ts"
 
-/**
- * Creates an Ok result with enhanced debugging output
- *
- * Wrapper around Either's rightWithInspect with Result-specific naming.
- * Creates an Ok value with custom inspect method for better console output.
- *
- * @param value - The success value to wrap
- * @returns A Result in the Ok state with inspect method
- * @example
- * ```typescript
- * const result = okWithInspect({ id: 1, name: "Alice" })
- * console.log(result)  // Shows formatted output in console
- * ```
- */
-const okWithInspect = rightWithInspect
+const inspectSymbol = Symbol.for("nodejs.util.inspect.custom")
 
-export default okWithInspect
+//++ Creates an Ok result with enhanced debugging output
+export default function okWithInspect<T>(value: T): Ok<T> & {
+	[inspectSymbol]: () => string
+} {
+	const result = {
+		_tag: "Ok" as const,
+		value,
+		[inspectSymbol]() {
+			return `Ok(${JSON.stringify(value)})`
+		},
+	}
+
+	return result as Ok<T> & { [inspectSymbol]: () => string }
+}
+
+//?? [EXAMPLE]
+// const result = okWithInspect({ id: 1, name: "Alice" })
+// console.log(result)  // Shows formatted output in console
