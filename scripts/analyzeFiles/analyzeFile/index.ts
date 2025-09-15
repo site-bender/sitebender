@@ -26,7 +26,7 @@ export default async function analyzeFile(
 	const lines = split("\n")(text)
 	const clean = stripCommentsAndStrings(text)
 
-	const matches = extractMatches(FUNCTION_PATTERNS.SIMPLE)(clean)
+	const matches = extractMatches(FUNCTION_PATTERNS.simple)(clean)
 
 	const mapToFunctionInfo = map(createFunctionInfo(text))
 	const functions = mapToFunctionInfo(matches)

@@ -2,9 +2,15 @@
 
 //++ Validate library contract & boundary compliance (prints violations; exits 1 on error)
 
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import length from "@sitebender/toolkit/vanilla/array/length/index.ts"
+
 import collectResults from "./collectResults/index.ts"
 import formatViolations from "./formatViolations/index.ts"
 import { VIOLATION_CHECKS } from "./violationChecks/index.ts"
+import logWarning from "./logWarning/index.ts"
+import logError from "./logError/index.ts"
+import createBar from "./createBar/index.ts"
 
 export async function validateContracts(): Promise<boolean> {
 	console.log("🔍 Checking contract compliance...")
@@ -13,13 +19,13 @@ export async function validateContracts(): Promise<boolean> {
 
 	const { errors, warnings } = formatViolations(results)
 
-	warnings.forEach((w) => console.warn(`⚠️  Warning: ${w}`))
+	reduce(logWarning)(null)(warnings)
 
-	if (errors.length > 0) {
-		const bar = "=".repeat(60)
+	if (length(errors) > 0) {
+		const bar = createBar(60)
 		console.error("\n🚨 CONTRACT VIOLATIONS DETECTED 🚨")
 		console.error(bar)
-		errors.forEach((e) => console.error(e))
+		reduce(logError)(null)(errors)
 		console.error(bar)
 		console.error("\n❌ Commit blocked due to contract violations.")
 		console.error("Fix the violations above before committing.\n")
