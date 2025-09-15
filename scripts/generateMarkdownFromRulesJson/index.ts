@@ -2,6 +2,7 @@
 
 import map from "../../libraries/toolkit/src/vanilla/array/map/index.ts"
 import concat from "../../libraries/toolkit/src/vanilla/string/concat/index.ts"
+import length from "../../libraries/toolkit/src/vanilla/array/length/index.ts"
 import findRulesFiles from "./findRulesFiles/index.ts"
 import processWithErrorHandling from "./processWithErrorHandling/index.ts"
 
@@ -9,13 +10,13 @@ import processWithErrorHandling from "./processWithErrorHandling/index.ts"
 export default function generateMarkdownFromRulesJson(): void {
 	const rulesFiles = findRulesFiles()
 
-	if (rulesFiles.length === 0) {
+	if (length(rulesFiles) === 0) {
 		console.log("❌ No rules files found")
 
 		return
 	}
 
-	const count = String(rulesFiles.length)
+	const count = String(length(rulesFiles))
 
 	console.log(
 		concat("📝 Generating markdown for ")(concat(count)(" rules file(s)...\n")),

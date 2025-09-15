@@ -50,7 +50,8 @@ Deno.test("orElse", async (t) => {
 		)
 		const defaultFallback = orElse(() => ok(0))
 
-		const chain = (r: Result<string, number>) => defaultFallback(secondFallback(firstFallback(r)))
+		const chain = (r: Result<string, number>) =>
+			defaultFallback(secondFallback(firstFallback(r)))
 
 		assertEquals(chain(ok(42)), ok(42))
 		assertEquals(chain(error("first")), ok(1))
