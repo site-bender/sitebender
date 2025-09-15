@@ -69,7 +69,9 @@ Deno.test("map", async (t) => {
 	await t.step("satisfies functor composition law", () => {
 		const f = (x: number) => x * 2
 		const g = (x: number) => x + 10
-		const compose = (gFunc: (x: number) => number) => (fFunc: (x: number) => number) => (x: number) => gFunc(fFunc(x))
+		const compose = (gFunc: (x: number) => number) =>
+			(fFunc: (x: number) => number) =>
+				(x: number) => gFunc(fFunc(x))
 
 		const result = ok(5)
 		const left = map(compose(g)(f))(result)
