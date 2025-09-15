@@ -3,6 +3,8 @@ import { assert, assertEquals } from "@std/assert"
 import errorWithInspect from "./index.ts"
 import isError from "../isError/index.ts"
 
+const inspectSymbol = Symbol.for("nodejs.util.inspect.custom")
+
 Deno.test("errorWithInspect", async (t) => {
 	await t.step("creates Error result with string error", () => {
 		const result = errorWithInspect("Not found")
@@ -29,26 +31,25 @@ Deno.test("errorWithInspect", async (t) => {
 
 	await t.step("has custom inspect method", () => {
 		const result = errorWithInspect("test error")
-		const inspectSymbol = Symbol.for("nodejs.util.inspect.custom")
-		const inspectable = result as unknown as { [key: symbol]: () => string }
 
-		assert(typeof inspectable[inspectSymbol] === "function")
-		assertEquals(inspectable[inspectSymbol](), 'Error("test error")')
+		assert(inspectSymbol in result)
+		assert(typeof result[inspectSymbol] === "function")
+		assertEquals(result[inspectSymbol](), 'Error("test error")')
 	})
 
 	await t.step("custom inspect handles complex objects", () => {
 		const result = errorWithInspect({ code: 500, message: "Server error" })
-		const inspectSymbol = Symbol.for("nodejs.util.inspect.custom")
-		const inspectable = result as unknown as { [key: symbol]: () => string }
 
-		assertEquals(inspectable[inspectSymbol](), 'Error({"code":500,"message":"Server error"})')
+		// Access via reflection to avoid type issues
+		const inspect = Reflect.get(result, inspectSymbol)
+		assertEquals(inspect(), 'Error({"code":500,"message":"Server error"})')
 	})
 
 	await t.step("custom inspect handles null", () => {
 		const result = errorWithInspect(null)
-		const inspectSymbol = Symbol.for("nodejs.util.inspect.custom")
-		const inspectable = result as unknown as { [key: symbol]: () => string }
 
-		assertEquals(inspectable[inspectSymbol](), "Error(null)")
+		// Access via reflection to avoid type issues
+		const inspect = Reflect.get(result, inspectSymbol)
+		assertEquals(inspect(), "Error(null)")
 	})
 })
