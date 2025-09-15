@@ -307,13 +307,22 @@
 		},
 		"commandments": [
 			"NO BARREL FILES EVER - Use direct paths",
-			"Separate type imports from non-type imports by a blank line",
 			"Always use the type keyword for type imports",
-			"Separate imports of constants from other imports with a blank line",
-			"Alphabetize within groups",
+			"Alphabetize within each group",
 			"Single blank line between groups",
 			"No circular dependencies (punishable by exile)"
-		]
+		],
+		"importOrder": [
+			"1. Type imports from external libraries (with 'type' keyword)",
+			"2. Type imports from internal sources (with 'type' keyword)",
+			"3. Named imports from external libraries",
+			"4. Constants imports from external libraries",
+			"5. Default imports from external libraries",
+			"6. Named imports from internal sources",
+			"7. Constants imports from internal sources",
+			"8. Default imports from internal sources"
+		],
+		"importSpacing": "Each group separated by a single blank line"
 	},
 	"testing": {
 		"fundamentalRule": "TEST CODE MUST FOLLOW ALL THE SAME RULES AS PRODUCTION CODE - NO EXCEPTIONS. This means: no loops, no classes, functional programming only, one function per file, proper Envoy comments, etc.",
@@ -566,11 +575,15 @@
 			"singleLine": "NO: only for multi-line structures"
 		},
 		"blankLines": {
+			"blockBoundaries": "NO blank lines at the top or bottom of a block",
+			"multilineStatements": "Blank line above AND below any statement that spans multiple lines",
+			"statementTypeChanges": "Blank line between different statement types (const → if, if → return, const → assertEquals, etc.)",
+			"functions": "Blank line above and below functions (but NO blank line between Envoy comment and function declaration)",
+			"helpComments": "Blank line before help comments (//??)",
 			"constGroups": "Group const declarations at top with blank line below (not above)",
 			"beforeReturn": "Blank line before return statements",
-			"aroundMultiline": "Blank lines before AND after multi-line blocks/statements",
 			"maximum": "NEVER more than one blank line in a row",
-			"purpose": "Visual grouping using proximity principle"
+			"purpose": "Visual grouping using proximity principle - like with like, blank line between unlike"
 		},
 		"rationale": {
 			"tabs": "More efficient + lets devs choose indentation width",

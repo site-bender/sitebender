@@ -1,13 +1,19 @@
+import collectTsFiles from "../collectTsFiles/index.ts"
+
 //++ Recursively walks a directory and yields .ts and .tsx files
 export default async function* walkTsFiles(
 	root: string,
 ): AsyncGenerator<string> {
-	for await (const entry of Deno.readDir(root)) {
-		const full = `${root}/${entry.name}`
-		if (entry.isDirectory) {
-			yield* walkTsFiles(full)
-		} else if (entry.isFile && /(\.ts|\.tsx)$/.test(entry.name)) {
-			yield full
+	const files = await collectTsFiles(root)
+
+	// Recursive generator to avoid loops
+	function* yieldFiles(items: Array<string>): Generator<string> {
+		if (items.length === 0) {
+			return
 		}
+		yield items[0]
+		yield* yieldFiles(items.slice(1))
 	}
+
+	yield* yieldFiles(files)
 }

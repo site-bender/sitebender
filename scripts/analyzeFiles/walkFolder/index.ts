@@ -1,30 +1,24 @@
-import { join } from "jsr:@std/path"
+import collectFiles from "./collectFiles/index.ts"
+import joinPath from "./joinPath/index.ts"
 
-export default async function* walkFolder(opts: {
+//++ Async generator that yields all files matching extensions in a directory tree
+export default async function* walkFolder(options: {
 	root: string
 	dir: string
-	exts: readonly string[]
+	extensions: ReadonlyArray<string>
 	excludedDirNames: Set<string>
 }): AsyncGenerator<string> {
-	const base = join(opts.root, opts.dir)
-	try {
-		for await (const entry of Deno.readDir(base)) {
-			const p = join(base, entry.name)
-			if (entry.isDirectory) {
-				if (opts.excludedDirNames.has(entry.name)) continue
-				for await (
-					const sub of walkFolder({
-						...opts,
-						dir: join(opts.dir, entry.name),
-					})
-				) {
-					yield sub
-				}
-			} else if (entry.isFile) {
-				if (opts.exts.some((e) => p.endsWith(e))) yield p
-			}
-		}
-	} catch (_) {
-		// ignore missing directories
+	const { root, dir, extensions, excludedDirNames } = options
+
+	const baseDir = joinPath(root)(dir)
+
+	const files = await collectFiles({
+		baseDir,
+		extensions,
+		excludedDirNames,
+	})
+
+	for (const file of files) {
+		yield file
 	}
 }

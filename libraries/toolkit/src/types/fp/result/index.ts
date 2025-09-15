@@ -1,9 +1,16 @@
-import type { Either, Left, Right } from "../either/index.ts"
-
 /**
- * Result type as an alias for Either with more intuitive naming
- * Ok represents success (Right), Err represents failure (Left)
+ * Result type for error handling with explicit Ok/Error states
+ * Independent of Either, with semantic naming for success/failure
  */
-export type Result<T, E> = Either<E, T>
-export type Ok<T> = Right<T>
-export type Err<E> = Left<E>
+
+export interface Ok<T> {
+	readonly _tag: "Ok"
+	readonly value: T
+}
+
+export interface Error<E> {
+	readonly _tag: "Error"
+	readonly error: E
+}
+
+export type Result<E, T> = Ok<T> | Error<E>

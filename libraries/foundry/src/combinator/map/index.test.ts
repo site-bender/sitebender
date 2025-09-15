@@ -1,5 +1,5 @@
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
 
@@ -55,8 +55,8 @@ Deno.test("map - propagates errors from underlying generator", () => {
 	const seed: Seed = { value: 12345, path: [] }
 	const result = mappedGenerator(seed)
 
-	assertEquals(isErr(result), true)
-	if (isErr(result)) {
+	assertEquals(isError(result), true)
+	if (isError(result)) {
 		assertEquals(result.left.type, "GenerationFailed")
 	}
 })

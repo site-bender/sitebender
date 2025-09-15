@@ -3,7 +3,7 @@ import type { Parser, ParserState } from "../../../types/state/index.ts"
 
 import doState from "../../../../../../toolkit/src/monads/doState/index.ts"
 import fold from "../../../../../../toolkit/src/monads/result/fold/index.ts"
-import isErr from "../../../../../../toolkit/src/monads/result/isErr/index.ts"
+import isError from "../../../../../../toolkit/src/monads/result/isError/index.ts"
 import parseUnaryExpressionState from "../../parseUnaryExpressionState/index.ts"
 import handleError from "./handleError/index.ts"
 import wrapProcessLeftNode from "./wrapProcessLeftNode/index.ts"
@@ -22,7 +22,7 @@ export default function parseBinaryWithPrecedenceGenerator(
 		function* mainParseGenerator() {
 			// Parse left operand (could be unary expression)
 			const leftResult = yield parseUnaryExpressionState(parseExpression)
-			if (isErr(leftResult)) {
+			if (isError(leftResult)) {
 				return leftResult
 			}
 

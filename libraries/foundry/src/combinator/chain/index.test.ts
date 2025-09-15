@@ -1,5 +1,5 @@
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import {
@@ -69,8 +69,8 @@ Deno.test("chain - propagates errors from first generator", () => {
 	const seed: Seed = { value: 12345, path: [] }
 	const result = chainedGenerator(seed)
 
-	assertEquals(isErr(result), true)
-	if (isErr(result)) {
+	assertEquals(isError(result), true)
+	if (isError(result)) {
 		assertEquals(result.left.type, "GenerationFailed")
 		if (result.left.type === "GenerationFailed") {
 			assertEquals(result.left.reason, "First generator failed")
@@ -94,8 +94,8 @@ Deno.test("chain - propagates errors from second generator", () => {
 	const seed: Seed = { value: 12345, path: [] }
 	const result = chainedGenerator(seed)
 
-	assertEquals(isErr(result), true)
-	if (isErr(result)) {
+	assertEquals(isError(result), true)
+	if (isError(result)) {
 		assertEquals(result.left.type, "GenerationFailed")
 		if (result.left.type === "GenerationFailed") {
 			assertEquals(result.left.reason, "Second generator failed")
