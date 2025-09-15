@@ -1,4 +1,4 @@
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
 
@@ -79,9 +79,9 @@ Deno.test("generateString - rejects negative length", () => {
 	const result = generateString(-1)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidLength")
 	}
 })
@@ -91,9 +91,9 @@ Deno.test("generateString - rejects NaN length", () => {
 	const result = generateString(NaN)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidLength")
 	}
 })
@@ -103,9 +103,9 @@ Deno.test("generateString - rejects Infinity length", () => {
 	const result = generateString(Infinity)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidLength")
 	}
 })

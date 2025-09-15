@@ -1,17 +1,21 @@
+import type { Result } from "../../../types/fp/result/index.ts"
+
 import { assertEquals } from "@std/assert"
 
 import ok from "../ok/index.ts"
-import err from "../err/index.ts"
+import error from "../error/index.ts"
 import getOrElse from "./index.ts"
 
 Deno.test("getOrElse", async (t) => {
 	await t.step("returns Ok value when present", () => {
 		const result = getOrElse(0)(ok(42))
+
 		assertEquals(result, 42)
 	})
 
 	await t.step("returns default value for Err", () => {
-		const result = getOrElse(0)(err("failed"))
+		const result = getOrElse(0)(error("failed"))
+
 		assertEquals(result, 0)
 	})
 
@@ -20,27 +24,27 @@ Deno.test("getOrElse", async (t) => {
 		const user = { id: 1, name: "Alice" }
 
 		assertEquals(getOrElse(defaultUser)(ok(user)), user)
-		assertEquals(getOrElse(defaultUser)(err("not found")), defaultUser)
+		assertEquals(getOrElse(defaultUser)(error("not found")), defaultUser)
 	})
 
 	await t.step("works with null and undefined", () => {
-		assertEquals(getOrElse("default")(ok(null)), null)
-		assertEquals(getOrElse("default")(ok(undefined)), undefined)
-		assertEquals(getOrElse("default")(err("error")), "default")
+		assertEquals(getOrElse<null | string>("default")(ok(null)), null)
+		assertEquals(getOrElse<undefined | string>("default")(ok(undefined)), undefined)
+		assertEquals(getOrElse("default")(error("error")), "default")
 	})
 
 	await t.step("default value can be different type in practice", () => {
 		const result1 = getOrElse(0)(ok(42))
-		const result2 = getOrElse(0)(err("error"))
+		const result2 = getOrElse(0)(error("error"))
 
 		assertEquals(result1, 42)
 		assertEquals(result2, 0)
 	})
 
 	await t.step("can be used in pipeline", () => {
-		const processResult = (r: any) => getOrElse(-1)(r)
+		const processResult = (r: Result<string, number>) => getOrElse(-1)(r)
 
 		assertEquals(processResult(ok(10)), 10)
-		assertEquals(processResult(err("failed")), -1)
+		assertEquals(processResult(error("failed")), -1)
 	})
 })

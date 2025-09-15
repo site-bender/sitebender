@@ -1,7 +1,7 @@
 import type { Result } from "@sitebender/toolkit/monads/types/fp/result/index.ts"
 
-import err from "@sitebender/toolkit/monads/result/err/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import error from "@sitebender/toolkit/monads/result/error/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 
 import type { Generator, GeneratorError, Seed } from "../../types/index.ts"
@@ -23,7 +23,7 @@ export default function filter<T>(predicate: (value: T) => boolean) {
 				const result = generator(currentSeed)
 
 				// If generation failed, propagate the error
-				if (isErr(result)) {
+				if (isError(result)) {
 					return result
 				}
 
@@ -38,7 +38,7 @@ export default function filter<T>(predicate: (value: T) => boolean) {
 			}
 
 			// Exhausted all attempts
-			return err({
+			return error({
 				type: "FilterExhausted" as const,
 				attempts: DEFAULT_MAX_ATTEMPTS,
 			})

@@ -4,7 +4,7 @@ import type { Parser, ParserState } from "../../../types/state/index.ts"
 
 import doState from "../../../../../../toolkit/src/monads/doState/index.ts"
 import fold from "../../../../../../toolkit/src/monads/result/fold/index.ts"
-import isErr from "../../../../../../toolkit/src/monads/result/isErr/index.ts"
+import isError from "../../../../../../toolkit/src/monads/result/isError/index.ts"
 import ok from "../../../../../../toolkit/src/monads/result/ok/index.ts"
 import not from "../../../../../../toolkit/src/vanilla/logic/not/index.ts"
 import { OPERATOR_INFO } from "../../../../constants/index.ts"
@@ -47,7 +47,7 @@ export default function parseBinaryLoop(
 			// Check for ambiguous operator sequences
 			const nextToken = yield currentToken()
 			const ambiguityResult = checkOperatorAmbiguity(token, nextToken)
-			if (isErr(ambiguityResult)) {
+			if (isError(ambiguityResult)) {
 				return ambiguityResult
 			}
 
@@ -58,7 +58,7 @@ export default function parseBinaryLoop(
 
 			// Parse right side recursively
 			const rightResult = yield parseBinaryWithPrecedence(nextMinPrecedence)
-			if (isErr(rightResult)) {
+			if (isError(rightResult)) {
 				return rightResult
 			}
 
