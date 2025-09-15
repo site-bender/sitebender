@@ -1,24 +1,33 @@
 #!/usr/bin/env -S deno run --allow-all
-/**
- * Standalone server script for e2e testing
- * Uses our custom server logic to handle routes correctly
- */
+
+import findIndex from "@sitebender/toolkit/vanilla/array/findIndex/index.ts"
 
 import createServer from "../index.ts"
 
-// Parse command line arguments
-const args = Deno.args
-let port = 5556 // default port for e2e testing
+/*++
+ | Standalone server script for e2e testing
+ | Uses our custom server logic to handle routes correctly
+ */
 
-for (let i = 0; i < args.length; i++) {
-	if (args[i] === "--port" && i + 1 < args.length) {
-		port = parseInt(args[i + 1], 10)
-		if (isNaN(port)) {
+//++ Parses port number from command line arguments
+function parsePort(args: Array<string>): number {
+	const portFlagIndex = findIndex((arg: string) => arg === "--port")(args)
+
+	if (portFlagIndex !== undefined && portFlagIndex !== -1 && portFlagIndex + 1 < args.length) {
+		const parsedPort = parseInt(args[portFlagIndex + 1], 10)
+		if (isNaN(parsedPort)) {
 			console.error("Invalid port number")
 			Deno.exit(1)
 		}
+		return parsedPort
 	}
+
+	return 5556 // default port for e2e testing
 }
+
+// Parse command line arguments
+const args = Deno.args
+const port = parsePort(args)
 
 // Create a simple logger
 const logger = {

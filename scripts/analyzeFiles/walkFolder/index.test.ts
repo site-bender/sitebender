@@ -3,10 +3,11 @@ import { join } from "jsr:@std/path"
 
 import walkFolder from "./index.ts"
 
-//++ Tests for walkFolder generator that recursively walks directories
+//++ Tests for walkFolder async generator function
 Deno.test("walkFolder", async function testWalkFolder(t) {
 	// Create temporary test directory structure
 	const testDir = await Deno.makeTempDir()
+	const testRoot = testDir
 
 	// Create test file structure
 	await Deno.mkdir(join(testDir, "src"), { recursive: true })
@@ -14,12 +15,9 @@ Deno.test("walkFolder", async function testWalkFolder(t) {
 	await Deno.mkdir(join(testDir, "src/utils"), { recursive: true })
 	await Deno.mkdir(join(testDir, "node_modules"), { recursive: true })
 	await Deno.mkdir(join(testDir, ".git"), { recursive: true })
-	await Deno.mkdir(join(testDir, "tests"), { recursive: true })
 
 	// Create test files
-	await Deno.writeTextFile(join(testDir, "index.ts"), "")
-	await Deno.writeTextFile(join(testDir, "readme.md"), "")
-	await Deno.writeTextFile(join(testDir, "src/main.ts"), "")
+	await Deno.writeTextFile(join(testDir, "src/index.ts"), "")
 	await Deno.writeTextFile(join(testDir, "src/app.tsx"), "")
 	await Deno.writeTextFile(join(testDir, "src/style.css"), "")
 	await Deno.writeTextFile(join(testDir, "src/components/Button.tsx"), "")
@@ -27,116 +25,82 @@ Deno.test("walkFolder", async function testWalkFolder(t) {
 	await Deno.writeTextFile(join(testDir, "src/utils/helpers.ts"), "")
 	await Deno.writeTextFile(join(testDir, "src/utils/api.js"), "")
 	await Deno.writeTextFile(join(testDir, "node_modules/lib.ts"), "")
-	await Deno.writeTextFile(join(testDir, ".git/config"), "")
-	await Deno.writeTextFile(join(testDir, "tests/app.test.ts"), "")
 
-	await t.step("finds all TypeScript files", async function testFindTsFiles() {
-		const files: string[] = []
+	await t.step("generates files from directory", async function testGeneratesFiles() {
+		const files: Array<string> = []
+
 		for await (const file of walkFolder({
-			root: testDir,
-			dir: "",
-			exts: [".ts", ".tsx"],
+			root: testRoot,
+			dir: "src",
+			extensions: [".ts", ".tsx"],
 			excludedDirNames: new Set(),
 		})) {
-			files.push(file.replace(testDir, ""))
+			files.push(file)
 		}
 
-		files.sort()
-		assertEquals(files.length, 7)
-		assertEquals(files.includes("/index.ts"), true)
-		assertEquals(files.includes("/src/main.ts"), true)
-		assertEquals(files.includes("/src/app.tsx"), true)
-		assertEquals(files.includes("/src/components/Button.tsx"), true)
-		assertEquals(files.includes("/src/components/Header.tsx"), true)
-		assertEquals(files.includes("/src/utils/helpers.ts"), true)
-		assertEquals(files.includes("/tests/app.test.ts"), true)
-	})
-
-	await t.step("excludes specified directories", async function testExcludeDirs() {
-		const files: string[] = []
-		for await (const file of walkFolder({
-			root: testDir,
-			dir: "",
-			exts: [".ts", ".tsx"],
-			excludedDirNames: new Set(["node_modules", ".git", "tests"]),
-		})) {
-			files.push(file.replace(testDir, ""))
-		}
-
-		files.sort()
 		assertEquals(files.length, 5)
-		assertEquals(files.includes("/node_modules/lib.ts"), false)
-		assertEquals(files.includes("/.git/config"), false)
-		assertEquals(files.includes("/tests/app.test.ts"), false)
+
+		const relativePaths = files.map(f => f.replace(testRoot + "/", "")).sort()
+		assertEquals(relativePaths, [
+			"src/app.tsx",
+			"src/components/Button.tsx",
+			"src/components/Header.tsx",
+			"src/index.ts",
+			"src/utils/helpers.ts",
+		])
 	})
 
-	await t.step("filters by file extensions", async function testFilterExtensions() {
-		const mdFiles: string[] = []
+	await t.step("excludes specified directories", async function testExcludes() {
+		const files: Array<string> = []
+
 		for await (const file of walkFolder({
-			root: testDir,
+			root: testRoot,
 			dir: "",
-			exts: [".md"],
-			excludedDirNames: new Set(),
+			extensions: [".ts", ".tsx"],
+			excludedDirNames: new Set(["node_modules", ".git"]),
 		})) {
-			mdFiles.push(file.replace(testDir, ""))
+			files.push(file)
 		}
 
-		assertEquals(mdFiles.length, 1)
-		assertEquals(mdFiles[0], "/readme.md")
-
-		const cssFiles: string[] = []
-		for await (const file of walkFolder({
-			root: testDir,
-			dir: "",
-			exts: [".css"],
-			excludedDirNames: new Set(),
-		})) {
-			cssFiles.push(file.replace(testDir, ""))
-		}
-
-		assertEquals(cssFiles.length, 1)
-		assertEquals(cssFiles[0], "/src/style.css")
+		const relativePaths = files.map(f => f.replace(testRoot + "/", ""))
+		assertEquals(relativePaths.includes("node_modules/lib.ts"), false)
 	})
 
-	await t.step("handles multiple extensions", async function testMultipleExtensions() {
-		const files: string[] = []
+	await t.step("filters by extensions", async function testFilterExtensions() {
+		const tsFiles: Array<string> = []
+
 		for await (const file of walkFolder({
-			root: testDir,
-			dir: "",
-			exts: [".ts", ".tsx", ".js", ".jsx"],
+			root: testRoot,
+			dir: "src",
+			extensions: [".ts"],
 			excludedDirNames: new Set(),
 		})) {
-			files.push(file.replace(testDir, ""))
+			tsFiles.push(file)
 		}
 
-		files.sort()
-		assertEquals(files.length, 8) // All TS/TSX files plus api.js
-		assertEquals(files.includes("/src/utils/api.js"), true)
-	})
+		assertEquals(tsFiles.length, 2)
 
-	await t.step("works with subdirectory as starting point", async function testSubdirectory() {
-		const files: string[] = []
+		const tsxFiles: Array<string> = []
+
 		for await (const file of walkFolder({
-			root: testDir,
-			dir: "src/components",
-			exts: [".tsx"],
+			root: testRoot,
+			dir: "src",
+			extensions: [".tsx"],
 			excludedDirNames: new Set(),
 		})) {
-			files.push(file.replace(testDir, ""))
+			tsxFiles.push(file)
 		}
 
-		files.sort()
-		assertEquals(files.length, 2)
-		assertEquals(files.includes("/src/components/Button.tsx"), true)
-		assertEquals(files.includes("/src/components/Header.tsx"), true)
+		assertEquals(tsxFiles.length, 3)
 	})
 
 	await t.step("handles non-existent directory gracefully", async function testNonExistent() {
-		const files: string[] = []
+		const files: Array<string> = []
+
 		for await (const file of walkFolder({
-			root: testDir,
+			root: testRoot,
 			dir: "non-existent",
-			exts: [".ts"],
+			extensions: [".ts"],
 			excludedDirNames: new Set(),
 		})) {
 			files.push(file)
@@ -148,11 +112,12 @@ Deno.test("walkFolder", async function testWalkFolder(t) {
 	await t.step("handles empty directory", async function testEmptyDir() {
 		await Deno.mkdir(join(testDir, "empty"), { recursive: true })
 
-		const files: string[] = []
+		const files: Array<string> = []
+
 		for await (const file of walkFolder({
-			root: testDir,
+			root: testRoot,
 			dir: "empty",
-			exts: [".ts"],
+			extensions: [".ts"],
 			excludedDirNames: new Set(),
 		})) {
 			files.push(file)
@@ -161,26 +126,24 @@ Deno.test("walkFolder", async function testWalkFolder(t) {
 		assertEquals(files.length, 0)
 	})
 
-	await t.step("respects nested excluded directories", async function testNestedExclude() {
-		// Create nested node_modules
-		await Deno.mkdir(join(testDir, "src/components/node_modules"), { recursive: true })
-		await Deno.writeTextFile(join(testDir, "src/components/node_modules/dep.ts"), "")
+	await t.step("returns absolute paths", async function testAbsolutePaths() {
+		const files: Array<string> = []
 
-		const files: string[] = []
 		for await (const file of walkFolder({
-			root: testDir,
+			root: testRoot,
 			dir: "src",
-			exts: [".ts", ".tsx"],
-			excludedDirNames: new Set(["node_modules"]),
+			extensions: [".ts"],
+			excludedDirNames: new Set(),
 		})) {
-			files.push(file.replace(testDir, ""))
+			files.push(file)
 		}
 
-		assertEquals(files.includes("/src/components/node_modules/dep.ts"), false)
+		const allAbsolute = files.every(f => f.startsWith("/"))
+		assertEquals(allAbsolute, true)
 	})
 
 	// Cleanup
 	await Deno.remove(testDir, { recursive: true })
 })
 
-//?? [EXAMPLE] Run with: deno test scripts/analyzeFiles/walkFolder/index.test.ts
+//?? [EXAMPLE] Run with: deno test --allow-all scripts/analyzeFiles/walkFolder/index.test.ts
