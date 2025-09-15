@@ -1,35 +1,50 @@
-import type { FileStats, PerFileAnalysis } from "../../types/index.ts"
+import type { PerFileAnalysis, FileStats } from "../../types/index.ts"
 
-//++ Computes statistical analysis of file metrics including mean, median, and standard deviation of line counts
-export default function computeFileStats(files: PerFileAnalysis[]): FileStats {
-	if (files.length === 0) {
-		return {
-			longestFile: { path: "<none>", lines: 0 },
-			mean: 0,
-			median: 0,
-			stdDev: 0,
-		}
-	}
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import sort from "@sitebender/toolkit/vanilla/array/sort/index.ts"
+import length from "@sitebender/toolkit/vanilla/array/length/index.ts"
 
-	let total = 0
-	let longest = files[0]
-	for (const f of files) {
-		total += f.lines
-		if (f.lines > longest.lines) longest = f
-	}
-	const mean = total / files.length
-	const sorted = files.map((f) => f.lines).sort((a, b) => a - b)
-	const median = sorted.length % 2
-		? sorted[(sorted.length - 1) / 2]
-		: (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
-	const variance = sorted.reduce((acc, n) => acc + Math.pow(n - mean, 2), 0) /
-		sorted.length
-	const stdDev = Math.sqrt(variance)
+//++ Computes statistical metrics for analyzed files
+export default function computeFileStats(
+  files: Array<PerFileAnalysis>
+): FileStats {
+  if (length(files) === 0) {
+    return {
+      longestFile: { path: "", lines: 0 },
+      mean: 0,
+      median: 0,
+      stdDev: 0,
+    }
+  }
 
-	return {
-		longestFile: { path: longest.pathRel, lines: longest.lines },
-		mean,
-		median,
-		stdDev,
-	}
+  const lineCounts = map((f: PerFileAnalysis) => f.lines)(files)
+
+  const longestFile = reduce<PerFileAnalysis, { path: string; lines: number }>(
+    (acc, file) => {
+      return file.lines > acc.lines
+        ? { path: file.pathRel, lines: file.lines }
+        : acc
+    }
+  )({ path: "", lines: 0 })(files)
+
+  const sum = reduce<number, number>((acc, n) => acc + n)(0)(lineCounts)
+  const mean = sum / length(lineCounts)
+
+  const sorted = sort((a: number, b: number) => a - b)(lineCounts)
+  const mid = Math.floor(length(sorted) / 2)
+  const median = length(sorted) % 2 === 0
+    ? (sorted[mid - 1] + sorted[mid]) / 2
+    : sorted[mid]
+
+  const squaredDiffs = map((n: number) => Math.pow(n - mean, 2))(lineCounts)
+  const variance = reduce<number, number>((acc, n) => acc + n)(0)(squaredDiffs) / length(lineCounts)
+  const stdDev = Math.sqrt(variance)
+
+  return {
+    longestFile,
+    mean,
+    median,
+    stdDev,
+  }
 }

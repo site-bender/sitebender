@@ -2,9 +2,9 @@ import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
 
 import doState from "../../../../../toolkit/src/monads/doState/index.ts"
-import err from "../../../../../toolkit/src/monads/result/err/index.ts"
+import error from "../../../../../toolkit/src/monads/result/error/index.ts"
 import fold from "../../../../../toolkit/src/monads/result/fold/index.ts"
-import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
+import isError from "../../../../../toolkit/src/monads/result/isError/index.ts"
 import ok from "../../../../../toolkit/src/monads/result/ok/index.ts"
 import advance from "../advance/index.ts"
 import currentToken from "../currentToken/index.ts"
@@ -21,7 +21,7 @@ export default function parseConditionalExpressionState(
 		const parseWithRecursion = parseBinaryExpressionState(parseExpression)
 		const conditionResult = yield parseWithRecursion(0)
 
-		if (isErr(conditionResult)) {
+		if (isError(conditionResult)) {
 			return conditionResult
 		}
 
@@ -37,14 +37,14 @@ export default function parseConditionalExpressionState(
 
 		// Parse the 'if true' expression (recursively allows nested conditionals)
 		const ifTrueResult = yield parseConditionalExpressionState(parseExpression)
-		if (isErr(ifTrueResult)) {
+		if (isError(ifTrueResult)) {
 			return ifTrueResult
 		}
 
 		// Expect ':'
 		const colonToken = yield currentToken()
 		if (colonToken.type !== "COLON") {
-			return err({
+			return error({
 				message:
 					`Expected ':' in conditional expression, found '${colonToken.value}'`,
 				position: colonToken.position,
@@ -58,21 +58,21 @@ export default function parseConditionalExpressionState(
 
 		// Parse the 'if false' expression (right-associative)
 		const ifFalseResult = yield parseConditionalExpressionState(parseExpression)
-		if (isErr(ifFalseResult)) {
+		if (isError(ifFalseResult)) {
 			return ifFalseResult
 		}
 
 		// Return the conditional AST node using fold to extract values
 		const createConditional = fold<ParseError, AstNode>(
-			() => conditionResult as unknown as AstNode, // Should never happen since we checked isErr
+			() => conditionResult as unknown as AstNode, // Should never happen since we checked isError
 		)<AstNode>(
 			(condition) =>
 				fold<ParseError, AstNode>(
-					() => ifTrueResult as unknown as AstNode, // Should never happen since we checked isErr
+					() => ifTrueResult as unknown as AstNode, // Should never happen since we checked isError
 				)<AstNode>(
 					(ifTrue) =>
 						fold<ParseError, AstNode>(
-							() => ifFalseResult as unknown as AstNode, // Should never happen since we checked isErr
+							() => ifFalseResult as unknown as AstNode, // Should never happen since we checked isError
 						)<AstNode>(
 							(ifFalse) => ({
 								type: "Conditional",

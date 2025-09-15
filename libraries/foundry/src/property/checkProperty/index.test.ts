@@ -1,6 +1,6 @@
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
 import fold from "@sitebender/toolkit/monads/result/fold/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
@@ -58,7 +58,7 @@ Deno.test("checkProperty - fails for always false property", () => {
 	const result = checkProperty(property)()
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
 		(error: PropertyFailure) => error,
@@ -95,7 +95,7 @@ Deno.test("checkProperty - finds counterexample for incorrect property", () => {
 	const result = checkProperty(property)()
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
 		(error: PropertyFailure) => error,
@@ -149,7 +149,7 @@ Deno.test("checkProperty - uses provided seed", () => {
 	const result2 = checkProperty(property)(config)
 
 	// Should produce same result with same seed
-	if (isErr(result1) && isErr(result2)) {
+	if (isError(result1) && isError(result2)) {
 		const failure1 = fold<PropertyFailure, PropertyFailure | null>(
 			(error: PropertyFailure) => error,
 		)(
@@ -210,7 +210,7 @@ Deno.test("checkProperty - captures predicate errors", () => {
 	const result = checkProperty(property)()
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
 		(error: PropertyFailure) => error,
@@ -237,7 +237,7 @@ Deno.test("checkProperty - handles generator failures", () => {
 	const result = checkProperty(property)()
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
 	const failure = fold<PropertyFailure, PropertyFailure | null>(
 		(error: PropertyFailure) => error,

@@ -1,19 +1,46 @@
-import type { FileFunction, FunctionStats } from "../../types/index.ts"
+import type { PerFileAnalysis, FunctionStats } from "../../types/index.ts"
 
-//++ Computes statistical analysis of function metrics including mean, median, and standard deviation of lines of code
+import map from "@sitebender/toolkit/vanilla/array/map/index.ts"
+import reduce from "@sitebender/toolkit/vanilla/array/reduce/index.ts"
+import sort from "@sitebender/toolkit/vanilla/array/sort/index.ts"
+import length from "@sitebender/toolkit/vanilla/array/length/index.ts"
+import flatMap from "@sitebender/toolkit/vanilla/array/flatMap/index.ts"
+
+//++ Computes statistical metrics for functions across all analyzed files
 export default function computeFunctionStats(
-	fns: FileFunction[],
+  files: Array<PerFileAnalysis>
 ): FunctionStats {
-	if (fns.length === 0) return { total: 0, mean: 0, median: 0, stdDev: 0 }
-	const total = fns.length
-	const locs = fns.map((f) => f.loc).sort((a, b) => a - b)
-	const sum = locs.reduce((a, b) => a + b, 0)
-	const mean = sum / total
-	const median = locs.length % 2
-		? locs[(locs.length - 1) / 2]
-		: (locs[locs.length / 2 - 1] + locs[locs.length / 2]) / 2
-	const variance = locs.reduce((acc, n) => acc + Math.pow(n - mean, 2), 0) /
-		locs.length
-	const stdDev = Math.sqrt(variance)
-	return { total, mean, median, stdDev }
+  const allFunctions = flatMap((f: PerFileAnalysis) => f.functions)(files)
+  const total = length(allFunctions)
+
+  if (total === 0) {
+    return {
+      total: 0,
+      mean: 0,
+      median: 0,
+      stdDev: 0,
+    }
+  }
+
+  const locs = map((f: { loc: number }) => f.loc)(allFunctions)
+
+  const sum = reduce<number, number>((acc, n) => acc + n)(0)(locs)
+  const mean = sum / total
+
+  const sorted = sort((a: number, b: number) => a - b)(locs)
+  const mid = Math.floor(length(sorted) / 2)
+  const median = length(sorted) % 2 === 0
+    ? (sorted[mid - 1] + sorted[mid]) / 2
+    : sorted[mid]
+
+  const squaredDiffs = map((n: number) => Math.pow(n - mean, 2))(locs)
+  const variance = reduce<number, number>((acc, n) => acc + n)(0)(squaredDiffs) / total
+  const stdDev = Math.sqrt(variance)
+
+  return {
+    total,
+    mean,
+    median,
+    stdDev,
+  }
 }
