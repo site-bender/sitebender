@@ -1,50 +1,93 @@
-import { assertEquals } from "@std/assert"
+import { assert, assertEquals } from "@std/assert"
+
+import type { Result } from "../../../types/fp/result/index.ts"
 
 import ok from "../ok/index.ts"
-import err from "../err/index.ts"
+import error from "../error/index.ts"
+import isOk from "../isOk/index.ts"
+import isError from "../isError/index.ts"
 import chain from "./index.ts"
+import fold from "../fold/index.ts"
 
 Deno.test("chain", async (t) => {
 	await t.step("chains Ok to Ok", () => {
 		const double = (x: number) => ok(x * 2)
+
 		const result = chain(double)(ok(5))
-		assertEquals(result._tag, "Right")
-		assertEquals((result as any).right, 10)
+
+		assert(isOk(result))
+		const value = fold<string, number>(
+			(_: string) => 0
+		)(
+			(v: number) => v
+		)(result)
+		assertEquals(value, 10)
 	})
 
-	await t.step("chains Ok to Err", () => {
-		const safeDivide = (x: number) => x === 0
-			? err("Division by zero")
-			: ok(10 / x)
+	await t.step("chains Ok to Error", () => {
+		const safeDivide = (x: number): Result<string, number> =>
+			x === 0 ? error("Division by zero") : ok(10 / x)
 
 		const result = chain(safeDivide)(ok(0))
-		assertEquals(result._tag, "Left")
-		assertEquals((result as any).left, "Division by zero")
+
+		assert(isError(result))
+		const errorValue = fold<string, string>(
+			(e: string) => e
+		)(
+			(_: number) => "should not be ok"
+		)(result)
+		assertEquals(errorValue, "Division by zero")
 	})
 
-	await t.step("short-circuits on Err", () => {
-		const double = (x: number) => ok(x * 2)
-		const result = chain(double)(err("previous error"))
-		assertEquals(result._tag, "Left")
-		assertEquals((result as any).left, "previous error")
+	await t.step("short-circuits on Error", () => {
+		const double = (x: number): Result<string, number> => ok(x * 2)
+		const errorInput: Result<string, number> = error("previous error")
+
+		const result = chain(double)(errorInput)
+
+		assert(isError(result))
+		const errorValue = fold<string, string>(
+			(e: string) => e
+		)(
+			(_: number) => "should not be ok"
+		)(result)
+		assertEquals(errorValue, "previous error")
 	})
 
 	await t.step("chains multiple operations", () => {
-		const safeDivide = (divisor: number) => (x: number) =>
-			divisor === 0 ? err("Division by zero") : ok(x / divisor)
+		const safeDivide = (divisor: number) => (x: number): Result<string, number> =>
+			divisor === 0 ? error("Division by zero") : ok(x / divisor)
 
-		const result = chain(safeDivide(2))(chain(safeDivide(5))(ok(100)))
-		assertEquals(result._tag, "Right")
-		assertEquals((result as any).right, 10)
+		const divideBy5 = chain(safeDivide(5))
+		const divideBy2 = chain(safeDivide(2))
+
+		const result = divideBy2(divideBy5(ok(100)))
+
+		assert(isOk(result))
+		const value = fold<string, number>(
+			(_: string) => 0
+		)(
+			(v: number) => v
+		)(result)
+		assertEquals(value, 10)
 	})
 
 	await t.step("stops at first error in chain", () => {
-		const safeDivide = (divisor: number) => (x: number) =>
-			divisor === 0 ? err(`Cannot divide by ${divisor}`) : ok(x / divisor)
+		const safeDivide = (divisor: number) => (x: number): Result<string, number> =>
+			divisor === 0 ? error(`Cannot divide by ${divisor}`) : ok(x / divisor)
 
-		const result = chain(safeDivide(2))(chain(safeDivide(0))(ok(100)))
-		assertEquals(result._tag, "Left")
-		assertEquals((result as any).left, "Cannot divide by 0")
+		const divideBy0 = chain(safeDivide(0))
+		const divideBy2 = chain(safeDivide(2))
+
+		const result = divideBy2(divideBy0(ok(100)))
+
+		assert(isError(result))
+		const errorValue = fold<string, string>(
+			(e: string) => e
+		)(
+			(_: number) => "should not be ok"
+		)(result)
+		assertEquals(errorValue, "Cannot divide by 0")
 	})
 
 	await t.step("satisfies left identity monad law", () => {
@@ -59,7 +102,9 @@ Deno.test("chain", async (t) => {
 
 	await t.step("satisfies right identity monad law", () => {
 		const m = ok(42)
+
 		const result = chain(ok)(m)
+
 		assertEquals(result, m)
 	})
 
@@ -75,18 +120,30 @@ Deno.test("chain", async (t) => {
 	})
 
 	await t.step("works with different types", () => {
-		const parseAndDouble = (s: string) => {
+		const parseAndDouble = (s: string): Result<string, number> => {
 			const n = parseInt(s)
-			return isNaN(n) ? err("Not a number") : ok(n * 2)
+
+			return isNaN(n) ? error("Not a number") : ok(n * 2)
 		}
 
-		assertEquals(
-			chain(parseAndDouble)(ok("21")),
-			ok(42)
-		)
-		assertEquals(
-			chain(parseAndDouble)(ok("abc")),
-			err("Not a number")
-		)
+		const validResult = chain(parseAndDouble)(ok("21"))
+
+		assert(isOk(validResult))
+		const value = fold<string, number>(
+			(_: string) => 0
+		)(
+			(v: number) => v
+		)(validResult)
+		assertEquals(value, 42)
+
+		const invalidResult = chain(parseAndDouble)(ok("abc"))
+
+		assert(isError(invalidResult))
+		const errorValue = fold<string, string>(
+			(e: string) => e
+		)(
+			(_: number) => "should not be ok"
+		)(invalidResult)
+		assertEquals(errorValue, "Not a number")
 	})
 })
