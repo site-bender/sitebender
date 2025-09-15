@@ -1,25 +1,30 @@
-import { assertEquals } from "@std/assert"
+import type { Result } from "../../../types/fp/result/index.ts"
+
+import { assert, assertEquals } from "@std/assert"
 
 import ok from "../ok/index.ts"
-import err from "../err/index.ts"
+import error from "../error/index.ts"
 import isOk from "./index.ts"
 
 Deno.test("isOk", async (t) => {
 	await t.step("returns true for Ok result", () => {
 		const result = ok(42)
+
 		assertEquals(isOk(result), true)
 	})
 
-	await t.step("returns false for Err result", () => {
-		const result = err("failed")
+	await t.step("returns false for Error result", () => {
+		const result = error("failed")
+
 		assertEquals(isOk(result), false)
 	})
 
 	await t.step("narrows type to Ok", () => {
-		const result = ok(42) as any
+		const result: Result<string, number> = ok(42)
+
 		if (isOk(result)) {
-			assertEquals(result._tag, "Right")
-			assertEquals(result.right, 42)
+			assert(result._tag === "Ok")
+			assertEquals(result.value, 42)
 		}
 	})
 
@@ -31,9 +36,9 @@ Deno.test("isOk", async (t) => {
 	})
 
 	await t.step("works with different error types", () => {
-		assertEquals(isOk(err("error")), false)
-		assertEquals(isOk(err(new Error("fail"))), false)
-		assertEquals(isOk(err({ code: 404 })), false)
-		assertEquals(isOk(err(null)), false)
+		assertEquals(isOk(error("error")), false)
+		assertEquals(isOk(error(new Error("fail"))), false)
+		assertEquals(isOk(error({ code: 404 })), false)
+		assertEquals(isOk(error(null)), false)
 	})
 })

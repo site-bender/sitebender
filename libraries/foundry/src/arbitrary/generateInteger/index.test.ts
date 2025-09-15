@@ -1,4 +1,4 @@
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
 
@@ -92,9 +92,9 @@ Deno.test("generateInteger - rejects invalid bounds (min > max)", () => {
 	const result = generateInteger(10)(1)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidBounds")
 	}
 })
@@ -104,9 +104,9 @@ Deno.test("generateInteger - rejects NaN for min", () => {
 	const result = generateInteger(NaN)(10)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidBounds")
 	}
 })
@@ -116,9 +116,9 @@ Deno.test("generateInteger - rejects NaN for max", () => {
 	const result = generateInteger(1)(NaN)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidBounds")
 	}
 })
@@ -128,9 +128,9 @@ Deno.test("generateInteger - rejects Infinity for min", () => {
 	const result = generateInteger(Infinity)(10)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidBounds")
 	}
 })
@@ -140,9 +140,9 @@ Deno.test("generateInteger - rejects Infinity for max", () => {
 	const result = generateInteger(1)(Infinity)(seed)
 
 	assertExists(result)
-	assertEquals(isErr(result), true)
+	assertEquals(isError(result), true)
 
-	if (isErr(result)) {
+	if (isError(result)) {
 		assertEquals(result.left.type, "InvalidBounds")
 	}
 })
