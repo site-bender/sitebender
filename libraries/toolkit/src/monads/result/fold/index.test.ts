@@ -1,7 +1,7 @@
 import { assertEquals } from "@std/assert"
 
 import ok from "../ok/index.ts"
-import err from "../err/index.ts"
+import error from "../error/index.ts"
 import fold from "./index.ts"
 
 Deno.test("fold", async (t) => {
@@ -10,6 +10,7 @@ Deno.test("fold", async (t) => {
 			((e: string) => `Error: ${e}`)
 			((x: number) => `Success: ${x}`)
 			(ok(42))
+
 		assertEquals(result, "Success: 42")
 	})
 
@@ -17,17 +18,18 @@ Deno.test("fold", async (t) => {
 		const result = fold
 			((e: string) => `Error: ${e}`)
 			((x: number) => `Success: ${x}`)
-			(err("failed"))
+			(error("failed"))
+
 		assertEquals(result, "Error: failed")
 	})
 
 	await t.step("can transform to different type", () => {
 		const toNumber = fold
-			((e: string) => 0)
+			((_e: string) => 0)
 			((x: number) => x)
 
 		assertEquals(toNumber(ok(42)), 42)
-		assertEquals(toNumber(err("failed")), 0)
+		assertEquals(toNumber(error("failed")), 0)
 	})
 
 	await t.step("works with complex types", () => {
@@ -38,8 +40,8 @@ Deno.test("fold", async (t) => {
 			((e: ApiError) => `Error ${e.code}: ${e.message}`)
 			((u: User) => `User: ${u.name}`)
 
-		const okResult = ok<User, ApiError>({ id: 1, name: "Alice" })
-		const errResult = err<User, ApiError>({ code: 404, message: "Not found" })
+		const okResult = ok<User>({ id: 1, name: "Alice" })
+		const errResult = error<ApiError>({ code: 404, message: "Not found" })
 
 		assertEquals(handleResult(okResult), "User: Alice")
 		assertEquals(handleResult(errResult), "Error 404: Not found")
@@ -58,7 +60,7 @@ Deno.test("fold", async (t) => {
 		fold
 			((e: string) => { sideEffect = `err: ${e}` })
 			((x: number) => { sideEffect = `ok: ${x}` })
-			(err("failed"))
+			(error("failed"))
 
 		assertEquals(sideEffect, "err: failed")
 	})
@@ -70,6 +72,6 @@ Deno.test("fold", async (t) => {
 
 		assertEquals(toBoolean(ok(42)), true)
 		assertEquals(toBoolean(ok(-5)), false)
-		assertEquals(toBoolean(err("any error")), false)
+		assertEquals(toBoolean(error("any error")), false)
 	})
 })

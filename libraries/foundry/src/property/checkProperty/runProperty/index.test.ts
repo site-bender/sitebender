@@ -1,6 +1,6 @@
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
 import fold from "@sitebender/toolkit/monads/result/fold/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import {
 	assertEquals,
@@ -50,7 +50,7 @@ Deno.test("runProperty - returns error for failing property", () => {
 
 	assertExists(result)
 	assertExists(result.result)
-	assertEquals(isErr(result.result), true)
+	assertEquals(isError(result.result), true)
 })
 
 Deno.test("runProperty - short-circuits on existing failure", () => {
@@ -99,7 +99,7 @@ Deno.test("runProperty - captures predicate exceptions", () => {
 
 	assertExists(result)
 	assertExists(result.result)
-	assertEquals(isErr(result.result), true)
+	assertEquals(isError(result.result), true)
 
 	const error = fold<PropertyFailure, PropertyFailure | null>(
 		(err: PropertyFailure) => err,
@@ -132,7 +132,7 @@ Deno.test("runProperty - propagates generator failures", () => {
 
 	assertExists(result)
 	assertExists(result.result)
-	assertEquals(isErr(result.result), true)
+	assertEquals(isError(result.result), true)
 
 	const error = fold<PropertyFailure, PropertyFailure | null>(
 		(err: PropertyFailure) => err,
@@ -165,7 +165,7 @@ Deno.test("runProperty - includes counterexample on failure", () => {
 
 	assertExists(result)
 	assertExists(result.result)
-	assertEquals(isErr(result.result), true)
+	assertEquals(isError(result.result), true)
 
 	const error = fold<PropertyFailure, PropertyFailure | null>(
 		(err: PropertyFailure) => err,
