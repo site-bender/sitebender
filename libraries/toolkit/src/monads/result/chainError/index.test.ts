@@ -7,7 +7,6 @@ import error from "../error/index.ts"
 import isOk from "../isOk/index.ts"
 import isError from "../isError/index.ts"
 import chainError from "./index.ts"
-import fold from "../fold/index.ts"
 
 Deno.test("chainError", async (t) => {
 	await t.step("recovers from error to Ok", () => {
@@ -17,12 +16,7 @@ Deno.test("chainError", async (t) => {
 		const result = chainError(recover)(error("recoverable"))
 
 		assert(isOk(result))
-		const value = fold<string, number>(
-			(_: string) => -1
-		)(
-			(v: number) => v
-		)(result)
-		assertEquals(value, 0)
+		assertEquals(result.value, 0)
 	})
 
 	await t.step("transforms error to new error", () => {
@@ -32,12 +26,7 @@ Deno.test("chainError", async (t) => {
 		const result = chainError(addContext)(error("failed"))
 
 		assert(isError(result))
-		const errorValue = fold<string, string>(
-			(e: string) => e
-		)(
-			(_: number) => "should not be ok"
-		)(result)
-		assertEquals(errorValue, "Fatal: failed")
+		assertEquals(result.error, "Fatal: failed")
 	})
 
 	await t.step("leaves Ok unchanged", () => {
@@ -47,12 +36,7 @@ Deno.test("chainError", async (t) => {
 		const result = chainError(recover)(ok(42))
 
 		assert(isOk(result))
-		const value = fold<string, number>(
-			(_: string) => -1
-		)(
-			(v: number) => v
-		)(result)
-		assertEquals(value, 42)
+		assertEquals(result.value, 42)
 	})
 
 	await t.step("chains multiple error handlers", () => {
@@ -62,35 +46,26 @@ Deno.test("chainError", async (t) => {
 		const secondRecover = (e: string): Result<string, number> =>
 			e === "second" ? ok(2) : error(e)
 
-		const chain1 = chainError(secondRecover)(chainError(firstRecover)(error("first")))
+		const chain1 = chainError(secondRecover)(
+			chainError(firstRecover)(error("first"))
+		)
 
 		assert(isOk(chain1))
-		const value1 = fold<string, number>(
-			(_: string) => -1
-		)(
-			(v: number) => v
-		)(chain1)
-		assertEquals(value1, 1)
+		assertEquals(chain1.value, 1)
 
-		const chain2 = chainError(secondRecover)(chainError(firstRecover)(error("second")))
+		const chain2 = chainError(secondRecover)(
+			chainError(firstRecover)(error("second"))
+		)
 
 		assert(isOk(chain2))
-		const value2 = fold<string, number>(
-			(_: string) => -1
-		)(
-			(v: number) => v
-		)(chain2)
-		assertEquals(value2, 2)
+		assertEquals(chain2.value, 2)
 
-		const chain3 = chainError(secondRecover)(chainError(firstRecover)(error("other")))
+		const chain3 = chainError(secondRecover)(
+			chainError(firstRecover)(error("other"))
+		)
 
 		assert(isError(chain3))
-		const error3 = fold<string, string>(
-			(e: string) => e
-		)(
-			(_: number) => "should not be ok"
-		)(chain3)
-		assertEquals(error3, "other")
+		assertEquals(chain3.error, "other")
 	})
 
 	await t.step("can transform error types", () => {
@@ -102,16 +77,13 @@ Deno.test("chainError", async (t) => {
 		const result = chainError(standardizeError)(error("Database failed"))
 
 		assert(isError(result))
-		const errorValue = fold<ApiError, ApiError | null>(
-			(e: ApiError) => e
-		)(
-			(_: number) => null
-		)(result)
-		assertEquals(errorValue, { code: 500, message: "Database failed" })
+		assertEquals(result.error, { code: 500, message: "Database failed" })
 	})
 
 	await t.step("works with complex recovery logic", () => {
-		const complexRecover = (e: { code: number }): Result<string, { id: number; name: string }> => {
+		const complexRecover = (
+			e: { code: number }
+		): Result<string, { id: number; name: string }> => {
 			if (e.code === 404) return ok({ id: 0, name: "Default" })
 			if (e.code === 403) return ok({ id: -1, name: "Guest" })
 
@@ -121,31 +93,16 @@ Deno.test("chainError", async (t) => {
 		const notFound = chainError(complexRecover)(error({ code: 404 }))
 
 		assert(isOk(notFound))
-		const notFoundValue = fold<string, { id: number; name: string }>(
-			(_: string) => ({ id: -999, name: "error" })
-		)(
-			(v: { id: number; name: string }) => v
-		)(notFound)
-		assertEquals(notFoundValue, { id: 0, name: "Default" })
+		assertEquals(notFound.value, { id: 0, name: "Default" })
 
 		const forbidden = chainError(complexRecover)(error({ code: 403 }))
 
 		assert(isOk(forbidden))
-		const forbiddenValue = fold<string, { id: number; name: string }>(
-			(_: string) => ({ id: -999, name: "error" })
-		)(
-			(v: { id: number; name: string }) => v
-		)(forbidden)
-		assertEquals(forbiddenValue, { id: -1, name: "Guest" })
+		assertEquals(forbidden.value, { id: -1, name: "Guest" })
 
 		const serverError = chainError(complexRecover)(error({ code: 500 }))
 
 		assert(isError(serverError))
-		const serverErrorValue = fold<string, string>(
-			(e: string) => e
-		)(
-			(_: { id: number; name: string }) => "should not be ok"
-		)(serverError)
-		assertEquals(serverErrorValue, "Unrecoverable error")
+		assertEquals(serverError.error, "Unrecoverable error")
 	})
 })
