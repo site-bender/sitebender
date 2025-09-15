@@ -18,7 +18,6 @@ export default async function* walkFolder(options: {
 		excludedDirNames,
 	})
 
-	for (const file of files) {
-		yield file
-	}
+	// I/O boundary: async generator yields from collected array
+	yield* files
 }
