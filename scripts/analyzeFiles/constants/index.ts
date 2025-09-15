@@ -33,27 +33,27 @@ export const MAX_FN_LINES_DEFAULT = 60
 
 //++ Regex patterns for detecting different function types
 export const FUNCTION_PATTERNS = {
-	SIMPLE: /(export\s+default\s+)?(async\s+)?function\s+([A-Za-z0-9_$]+)?\s*\(/g,
-	DECLARATION:
+	simple: /(export\s+default\s+)?(async\s+)?function\s+([A-Za-z0-9_$]+)?\s*\(/g,
+	declaration:
 		/(export\s+default\s+)?(async\s+)?function(\s*\*)?\s*([A-Za-z0-9_$]+)?\s*\(/g,
-	NAMED_EXPRESSION:
+	namedExpression:
 		/(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(async\s+)?function(\s*\*)?\s*\(/g,
-	ARROW_BLOCK:
+	arrowBlock:
 		/(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:async\s+)?(?:\([^)]*\)|[A-Za-z0-9_$]+)\s*=>\s*\{/g,
-	ARROW_CONCISE:
+	arrowConcise:
 		/(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:async\s+)?(?:\([^)]*\)|[A-Za-z0-9_$]+)\s*=>\s*(?!\{)/g,
-	EXPORT_DEFAULT_ARROW:
+	exportDefaultArrow:
 		/export\s+default\s+(?:async\s+)?(?:\([^)]*\)|[A-Za-z0-9_$]+)\s*=>\s*(\{)?/g,
-	EXPORT_DEFAULT_NAME:
+	exportDefaultName:
 		/\bexport\s+default\s+([A-Za-z0-9_$]+)\b(?!\s*\()/g,
-	LOCAL_EXPORT_AS_DEFAULT: /\bexport\s*\{([\s\S]*?)\}/g,
-	EXPORT_NAMED_EXPR_FUNC:
+	localExportAsDefault: /\bexport\s*\{([\s\S]*?)\}/g,
+	exportNamedExpressionFunction:
 		/\bexport\s+(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:async\s+)?function/g,
-	EXPORT_NAMED_EXPR_ARROW:
+	exportNamedExpressionArrow:
 		/\bexport\s+(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:async\s+)?(?:\([^)]*\)|[A-Za-z0-9_$]+)\s*=>/g,
-	EXPORT_FUNCTION_DECL:
+	exportFunctionDeclaration:
 		/\bexport\s+(?:async\s+)?function\s+([A-Za-z0-9_$]+)/g,
-	LOCAL_NAMED_EXPORT_LIST: /\bexport\s*\{([\s\S]*?)\}\s*(?!from\b)/g,
+	localNamedExportList: /\bexport\s*\{([\s\S]*?)\}\s*(?!from\b)/g,
 } as const
 
 //++ [END]
