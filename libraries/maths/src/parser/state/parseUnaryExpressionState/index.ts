@@ -2,7 +2,7 @@ import type { AstNode, ParseError, Result } from "../../../types/index.ts"
 import type { Parser, ParserState } from "../../types/state/index.ts"
 
 import doState from "../../../../../toolkit/src/monads/doState/index.ts"
-import isErr from "../../../../../toolkit/src/monads/result/isErr/index.ts"
+import isError from "../../../../../toolkit/src/monads/result/isError/index.ts"
 import map from "../../../../../toolkit/src/monads/result/map/index.ts"
 import advance from "../advance/index.ts"
 import currentToken from "../currentToken/index.ts"
@@ -25,7 +25,7 @@ export default function parseUnaryExpressionState(
 			// Recursively parse the operand (allows for nested unary ops like --x)
 			const operandResult = yield parseUnaryExpressionState(parseExpression)
 
-			if (isErr(operandResult)) {
+			if (isError(operandResult)) {
 				return operandResult
 			}
 

@@ -1,3 +1,6 @@
+//++ [GROUP] Type definitions for file analysis system
+
+//++ Information about a function found in a source file
 export type FileFunction = {
 	name: string
 	loc: number
@@ -5,17 +8,20 @@ export type FileFunction = {
 	endLine: number
 }
 
+//++ Alias for FileFunction for backward compatibility
+export type FunctionInfo = FileFunction
+
+//++ Analysis results for a single file
 export type PerFileAnalysis = {
 	pathAbs: string
 	pathRel: string
 	lines: number
-	functions: FileFunction[]
-	// Names of functions/components that are exported but not as default
-	nonDefaultExported?: string[]
-	// Local identifiers that are exported as default (e.g., `export default X` or `export { X as default }` or `export default function X()`)
-	defaultNames?: string[]
+	functions: Array<FileFunction>
+	nonDefaultExported?: Array<string>
+	defaultNames?: Array<string>
 }
 
+//++ Statistical metrics for all analyzed files
 export type FileStats = {
 	longestFile: { path: string; lines: number }
 	mean: number
@@ -23,6 +29,7 @@ export type FileStats = {
 	stdDev: number
 }
 
+//++ Statistical metrics for all analyzed functions
 export type FunctionStats = {
 	total: number
 	mean: number
@@ -30,11 +37,13 @@ export type FunctionStats = {
 	stdDev: number
 }
 
+//++ Information about a barrel file (re-export hub)
 export type BarrelInfo = {
-	file: string // path relative to root
-	exports: number // approximate count of exported symbols
+	file: string
+	exports: number
 }
 
+//++ Aggregated metrics for a folder
 export type FolderAggregate = {
 	folder: string
 	files: number
@@ -44,10 +53,11 @@ export type FolderAggregate = {
 	nonDefaultCount: number
 }
 
+//++ Configuration options for file analysis
 export type AnalysisOptions = {
 	root?: string
-	scanDirs?: string[]
-	excludeDirNames?: string[]
+	scanDirs?: Array<string>
+	excludeDirNames?: Array<string>
 	maxFunctionLines?: number
 	concurrency?: number
 	excludeBarrels?: boolean
@@ -55,6 +65,7 @@ export type AnalysisOptions = {
 	compareWith?: string
 }
 
+//++ Complete analysis results for all scanned files
 export type AnalysisResult = {
 	root: string
 	scannedFiles: number
@@ -62,9 +73,9 @@ export type AnalysisResult = {
 	functionStats: FunctionStats
 	longFunctions: Array<FileFunction & { file: string }>
 	threshold: number
-	barrels?: BarrelInfo[]
-	nonDefault?: Array<{ file: string; names: string[] }>
-	folderAggregates?: FolderAggregate[]
+	barrels?: Array<BarrelInfo>
+	nonDefault?: Array<{ file: string; names: Array<string> }>
+	folderAggregates: Array<FolderAggregate>
 	compare?: {
 		baseline: string
 		scannedFilesDelta: number
@@ -72,5 +83,7 @@ export type AnalysisResult = {
 		longFunctionsDelta: number
 		nonDefaultFilesDelta: number
 	}
-	duplicates?: Array<{ file: string; names: string[] }>
+	duplicates?: Array<{ file: string; names: Array<string> }>
 }
+
+//++ [END]

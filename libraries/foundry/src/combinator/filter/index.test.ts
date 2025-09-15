@@ -1,4 +1,4 @@
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolkit/monads/result/isOk/index.ts"
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
 
@@ -48,7 +48,7 @@ Deno.test("filter - retries on predicate failure", () => {
 	// It should either succeed with 17 or fail with FilterExhausted
 	if (isOk(result)) {
 		assertEquals(result.right, 17)
-	} else if (isErr(result)) {
+	} else if (isError(result)) {
 		assertEquals(result.left.type, "FilterExhausted")
 	}
 })
@@ -62,8 +62,8 @@ Deno.test("filter - returns FilterExhausted after max attempts", () => {
 	const seed: Seed = { value: 12345, path: [] }
 	const result = impossibleGenerator(seed)
 
-	assertEquals(isErr(result), true)
-	if (isErr(result)) {
+	assertEquals(isError(result), true)
+	if (isError(result)) {
 		assertEquals(result.left.type, "FilterExhausted")
 		assertExists(result.left.attempts)
 		assertEquals(result.left.attempts > 0, true)
@@ -83,7 +83,7 @@ Deno.test("filter - preserves determinism for same seed", () => {
 	// Both should produce the same result
 	if (isOk(result1) && isOk(result2)) {
 		assertEquals(result1.right, result2.right)
-	} else if (isErr(result1) && isErr(result2)) {
+	} else if (isError(result1) && isError(result2)) {
 		assertEquals(result1.left.type, result2.left.type)
 	}
 })
@@ -100,8 +100,8 @@ Deno.test("filter - propagates errors from underlying generator", () => {
 	const seed: Seed = { value: 12345, path: [] }
 	const result = filteredGenerator(seed)
 
-	assertEquals(isErr(result), true)
-	if (isErr(result)) {
+	assertEquals(isError(result), true)
+	if (isError(result)) {
 		// Should propagate the original error, not FilterExhausted
 		assertEquals(result.left.type, "GenerationFailed")
 	}
