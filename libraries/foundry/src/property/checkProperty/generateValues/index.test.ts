@@ -1,5 +1,5 @@
 import err from "@sitebender/toolkit/monads/result/err/index.ts"
-import isErr from "@sitebender/toolkit/monads/result/isErr/index.ts"
+import isError from "@sitebender/toolkit/monads/result/isError/index.ts"
 import ok from "@sitebender/toolkit/monads/result/ok/index.ts"
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
 
@@ -52,7 +52,7 @@ Deno.test("generateValues - stops on first generator failure", () => {
 
 	assertExists(result)
 	assertExists(result.error)
-	assertEquals(isErr(result.error), true)
+	assertEquals(isError(result.error), true)
 	// Should only have the first value
 	assertEquals(result.values.length, 1)
 	assertEquals(result.values[0], 5)
