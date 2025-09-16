@@ -1,0 +1,39 @@
+name: "Claude — Scripts Refactor Step 1: Extract Named Functions"
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Claude Opus 4.1 (Anthropic)
+    provider: anthropic
+    model: claude-opus-4.1
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.1
+
+context:
+  - provider: code
+  - provider: diff
+
+rules:
+  - uses: sitebender/stable-header
+  - uses: sitebender/guardrails
+  - uses: sitebender/assistant-compliance
+  - uses: sitebender/toolkit-fp
+  - uses: sitebender/imports
+  - uses: sitebender/code-style
+  - name: "Guardrails: Extract to named functions in subfolders"
+    rule: |
+      Goal: For files in scripts/, move all inline functions (including lambdas passed to map/filter/reduce/etc.) into subfolders as named functions with clear names (no abbreviations), export default, one function per folder.
+      Placement:
+      - Nest the new function folder immediately under the folder where it is used.
+      - If a helper is used by multiple functions across siblings, place its folder at the lowest common ancestor folder above all usages.
+      Exact outputs per extracted function:
+      - Create folder `<parent>/<functionName>/` with `index.ts` exporting a default named function.
+      - Replace inline usage with an import of that default export.
+      Constraints:
+      - No changes to behavior. No external dependencies.
+      - Preserve tests; do not modify tests in this step.
+      - Keep imports realm/order rules.

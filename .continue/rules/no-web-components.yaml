@@ -1,0 +1,8 @@
+name: sitebender/no-web-components
+version: 1.0.0
+schema: v1
+
+rules:
+  - name: No Web Components
+    rule: |
+      Never use Web Components or Shadow DOM. Violates progressive enhancement.
