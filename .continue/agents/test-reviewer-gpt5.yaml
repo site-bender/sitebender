@@ -1,0 +1,34 @@
+name: GPT — Test Reviewer (GPT‑5)
+version: 1.0.0
+schema: v1
+
+models:
+  - name: GPT-5 (OpenAI)
+    provider: openai
+    model: gpt-5
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.2
+
+context:
+  - provider: code
+  - provider: diff
+  - provider: terminal
+
+rules:
+  - uses: sitebender/stable-header
+  - uses: sitebender/guardrails
+  - uses: sitebender/assistant-compliance
+  - uses: sitebender/testing
+  - name: "Guardrails: Tests Only"
+    rule: |
+      Task: Improve correctness and coverage of tests for the target lifted function.
+      Allowed:
+      - Edit test files only (index.test.ts in the target folder).
+      - Add missing cases; maintain determinism.
+      Forbidden:
+      - Editing production code.
+      - Introducing external dependencies.

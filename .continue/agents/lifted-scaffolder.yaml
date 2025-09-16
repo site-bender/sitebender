@@ -1,0 +1,35 @@
+name: DeepSeek — Lifted Scaffolder
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek Coder 33B (Ollama)
+    provider: ollama
+    model: deepseek-coder:33b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.2
+
+context:
+  - provider: code
+  - provider: diff
+
+rules:
+  - uses: sitebender/assistant-compliance
+  - uses: sitebender/testing
+  - uses: sitebender/toolkit-fp
+  - uses: sitebender/imports
+  - name: "Guardrails: Allowed Changes"
+    rule: |
+      Task: For a single vanilla function, create the corresponding lifted folder with index.ts and index.test.ts. No comments, no formatting passes.
+      Allowed:
+      - Create files and minimal code necessary to compile and run the tests for the single target function.
+      - Add minimal imports strictly from toolkit.
+      Forbidden:
+      - Editing unrelated files.
+      - Adding comments (Envoy) or formatting unrelated lines.
+      - Adding external dependencies.
