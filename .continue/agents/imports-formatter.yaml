@@ -1,0 +1,33 @@
+name: DeepSeek — Imports & Grouping
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek Coder 33B (Ollama)
+    provider: ollama
+    model: deepseek-coder:33b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.1
+
+context:
+  - provider: code
+  - provider: diff
+
+rules:
+  - uses: sitebender/assistant-compliance
+  - uses: sitebender/imports
+  - uses: sitebender/code-style
+  - name: "Guardrails: Imports & Blank Lines Only"
+    rule: |
+      Task: Enforce import grouping/order and blank-line separation, plus spacing around imports per rules.
+      Allowed:
+      - Reorder and group import statements.
+      - Insert/remove blank lines strictly between import groups and per blank-line rules.
+      Forbidden:
+      - Changing business logic or comments.
+      - Adding/removing imports beyond reordering and de-duplicating.
