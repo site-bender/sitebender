@@ -1,0 +1,33 @@
+name: DeepSeek — Monadic Implementer
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek Coder 33B (Ollama)
+    provider: ollama
+    model: deepseek-coder:33b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.2
+
+context:
+  - provider: code
+  - provider: diff
+
+rules:
+  - uses: sitebender/assistant-compliance
+  - uses: sitebender/toolkit-fp
+  - uses: sitebender/imports
+  - name: "Guardrails: Implementation Only"
+    rule: |
+      Task: Implement the lifted function using toolkit monads to satisfy existing tests.
+      Allowed:
+      - Edit the single target implementation file.
+      - Add minimal toolkit-only imports.
+      Forbidden:
+      - Editing tests.
+      - Introducing external dependencies, exceptions, loops, classes, or side effects.

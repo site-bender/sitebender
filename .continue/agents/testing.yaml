@@ -1,0 +1,29 @@
+name: DeepSeek — Testing
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek Coder 33B (Ollama)
+    provider: ollama
+    model: deepseek-coder:33b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.2
+
+context:
+  - provider: code
+  - provider: diff
+  - provider: terminal
+
+rules:
+  - uses: sitebender/core-philosophy
+  - uses: sitebender/code-style
+  - uses: sitebender/imports
+  - uses: sitebender/toolkit-fp
+  - uses: sitebender/envoy-style
+  - uses: sitebender/testing
+  - uses: sitebender/git-discipline
