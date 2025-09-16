@@ -1,0 +1,31 @@
+name: "Claude — Scripts Refactor Step 3: Tests Pass & Cover"
+version: 1.0.0
+schema: v1
+
+models:
+  - name: Claude Sonnet 4 (Anthropic)
+    provider: anthropic
+    model: claude-sonnet-4
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.2
+
+context:
+  - provider: code
+  - provider: diff
+  - provider: terminal
+
+rules:
+  - uses: sitebender/stable-header
+  - uses: sitebender/guardrails
+  - uses: sitebender/assistant-compliance
+  - uses: sitebender/testing
+  - name: "Guardrails: Tests only"
+    rule: |
+      Goal: Ensure all tests pass. Add unit tests to reach 100% coverage for modules under scripts/.
+      - Edit only test files; do not change production code.
+      - Keep determinism; prefer small, focused tests.
+      - Follow Deno.test rules and coverage-ignore policy.

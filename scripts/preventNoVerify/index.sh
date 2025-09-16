@@ -1,3 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-echo "🚫 Preventing accidental --no-verify commits in @sitebender libraries"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+exec "$ROOT_DIR/scripts/enforcement/noVerify/index.sh" "$@"

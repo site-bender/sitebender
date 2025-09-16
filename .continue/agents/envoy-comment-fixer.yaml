@@ -1,0 +1,41 @@
+name: DeepSeek — Envoy Comment Fixer
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek Coder 33B (Ollama)
+    provider: ollama
+    model: deepseek-coder:33b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.1
+
+context:
+  - provider: code
+  - provider: diff
+  - provider: terminal
+
+rules:
+  - uses: sitebender/core-philosophy
+  - uses: sitebender/code-style
+  - uses: sitebender/envoy-style
+  - uses: sitebender/git-discipline
+  - name: "Guardrails: Comments Only"
+    rule: |
+      This agent edits comments only; it must not change code logic, imports, or identifiers.
+
+      Tasks:
+      - Add missing `//++` above exported items, with concise, accurate descriptions.
+      - Fix placement and formatting of `//++`, `//??`, `//--`, `//!!`, `//>>` per Envoy rules.
+      - Convert multi-line `//` sequences into a block comment with `|` margins when needed.
+      - Ensure Markdown link syntax for `//>>` references.
+
+      Non-goals:
+      - No changes to function signatures, logic, imports, exports, or types.
+      - No reordering of code beyond comment placement corrections.
+
+      Output minimal diffs per file and keep commits atomic (folder/module-sized).
