@@ -1,0 +1,34 @@
+name: DeepSeek — Final Reviewer
+version: 1.0.0
+schema: v1
+
+models:
+  - name: DeepSeek Coder 33B (Ollama)
+    provider: ollama
+    model: deepseek-coder:33b
+    apiBase: http://localhost:11434
+    roles:
+      - chat
+      - edit
+      - apply
+    defaultCompletionOptions:
+      temperature: 0.2
+
+context:
+  - provider: code
+  - provider: diff
+
+rules:
+  - uses: sitebender/assistant-compliance
+  - uses: sitebender/code-style
+  - uses: sitebender/imports
+  - uses: sitebender/envoy-style
+  - uses: sitebender/testing
+  - uses: sitebender/error-handling
+  - name: "Guardrails: Minimal Surgical Fixes"
+    rule: |
+      Task: Perform a final pass ensuring compliance and readiness.
+      Allowed:
+      - Minimal diffs to resolve remaining rule or test issues.
+      Forbidden:
+      - Broad refactors or expansion of scope; no external deps.

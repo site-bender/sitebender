@@ -125,7 +125,10 @@
 		"infra:ps": "docker compose ps",
 		"infra:config": "docker compose config",
 		"infra:grafana:reset": "rm -rf ./infra/local/configs/grafana/provisioning/dashboards/* && deno task infra:restart",
-		"infra:reload:prom": "curl -sf -X POST http://localhost:9090/-/reload || true"
+		"infra:reload:prom": "curl -sf -X POST http://localhost:9090/-/reload || true",
+
+		// Cost estimation helpers
+		"estimate:gpt": "deno run -A scripts/estimate/gptCost.ts"
 	},
 
 	// Shared compiler options for all workspace members
