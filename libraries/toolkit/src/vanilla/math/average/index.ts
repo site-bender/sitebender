@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Calculates the arithmetic mean of an Array<number>; returns NaN on invalid input
 /**
  * Calculates the arithmetic mean of an array of numbers
  *
@@ -64,3 +65,7 @@ const average = (
 }
 
 export default average
+
+//?? [EXAMPLE] average([1, 2, 3, 4, 5]) // 3
+//?? [EXAMPLE] average([]) // NaN
+//?? [EXAMPLE] average([1, NaN, 3]) // NaN

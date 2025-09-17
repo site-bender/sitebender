@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Calculates n! for non-negative integers; returns Infinity for n>170 and NaN on invalid input
 /**
  * Calculates the factorial of a non-negative integer
  *
@@ -76,3 +77,7 @@ const factorial = (
 }
 
 export default factorial
+
+//?? [EXAMPLE] factorial(0) // 1
+//?? [EXAMPLE] factorial(5) // 120
+//?? [EXAMPLE] factorial(-1) // NaN
