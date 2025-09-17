@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ True mathematical modulo; adjusts remainder sign; returns NaN on invalid input
 /**
  * Returns the remainder of division (modulo operation)
  *
@@ -98,3 +99,6 @@ const modulo = (
 }
 
 export default modulo
+
+//?? [EXAMPLE] modulo(3)(-10) // 2
+//?? [EXAMPLE] modulo(0)(10) // NaN

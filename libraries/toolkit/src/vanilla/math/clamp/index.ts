@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Constrains a number between min and max; returns NaN on invalid input
 /**
  * Constrains a number between minimum and maximum bounds
  *
@@ -95,3 +96,7 @@ const clamp = (
 }
 
 export default clamp
+
+//?? [EXAMPLE] clamp(0)(10)(15) // 10
+//?? [EXAMPLE] clamp(0)(10)(-5) // 0
+//?? [EXAMPLE] clamp(10)(5)(7) // NaN

@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Rounds to nearest integer; away-from-zero at .5; returns NaN on invalid input
 /**
  * Rounds a number to the nearest integer
  *
@@ -52,3 +53,6 @@ const round = (
 }
 
 export default round
+
+//?? [EXAMPLE] round(3.5) // 4
+//?? [EXAMPLE] round(-3.5) // -3
