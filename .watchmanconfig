@@ -1,0 +1,13 @@
+{
+  "ignore_dirs": [
+    "node_modules",
+    "temp",
+    ".git",
+    "dist",
+    "build",
+    ".next",
+    ".cache",
+    "coverage",
+    ".nyc_output"
+  ]
+}
