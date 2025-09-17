@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Returns the non-negative square root; returns NaN on invalid input
 /**
  * Returns the square root of a number
  *
@@ -62,3 +63,6 @@ const squareRoot = (
 }
 
 export default squareRoot
+
+//?? [EXAMPLE] squareRoot(9) // 3
+//?? [EXAMPLE] squareRoot(-4) // NaN

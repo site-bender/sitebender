@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Calculates the greatest common divisor (GCD) of two integers; returns NaN on invalid input
 /**
  * Calculates the greatest common divisor of two integers
  *
@@ -82,3 +83,7 @@ const gcd = (
 }
 
 export default gcd
+
+//?? [EXAMPLE] gcd(12)(8) // 4
+//?? [EXAMPLE] gcd(7)(5) // 1
+//?? [EXAMPLE] gcd(0)(0) // NaN

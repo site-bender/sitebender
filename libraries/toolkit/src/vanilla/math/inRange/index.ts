@@ -1,3 +1,4 @@
+//++ Checks if a number is within a [start, end) range; returns false on invalid input
 /**
  * Checks if a number is within a specified range
  *

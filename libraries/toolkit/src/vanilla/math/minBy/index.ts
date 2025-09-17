@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Returns the value with the smaller mapped result; returns NaN on invalid mapping
 /**
  * Finds the minimum value using a mapping function
  *
@@ -83,3 +84,6 @@ const minBy = <T>(
 }
 
 export default minBy
+
+//?? [EXAMPLE] minBy(Math.abs)(-5)(3) // 3
+//?? [EXAMPLE] minBy(() => NaN)(1)(2) // NaN
