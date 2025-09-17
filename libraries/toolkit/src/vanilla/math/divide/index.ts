@@ -1,78 +1,22 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isFinite from "../../validation/isFinite/index.ts"
 
-/**
- * Divides the first number by the second
- *
- * Performs division with curried application for functional composition.
- * Returns the quotient of dividend divided by divisor. Returns NaN for
- * invalid inputs or division by zero, enabling safe error propagation
- * in functional pipelines.
- *
- * @param dividend - Number to be divided (numerator)
- * @param divisor - Number to divide by (denominator)
- * @returns Quotient of dividend/divisor, or NaN if invalid
- * @example
- * ```typescript
- * // Basic division
- * divide(10)(2)
- * // 5
- *
- * divide(7)(2)
- * // 3.5
- *
- * // Division by zero returns NaN
- * divide(10)(0)
- * // NaN
- *
- * // Negative numbers
- * divide(-10)(2)
- * // -5
- *
- * divide(-10)(-2)
- * // 5
- *
- * // Special values
- * divide(Infinity)(2)
- * // Infinity
- *
- * // Partial application
- * const halfOf = (n: number) => divide(n)(2)
- * halfOf(10)
- * // 5
- *
- * const reciprocal = divide(1)
- * reciprocal(4)
- * // 0.25
- *
- * // Array operations
- * const numbers = [100, 50, 25, 10]
- * const halved = numbers.map(n => divide(n)(2))
- * // [50, 25, 12.5, 5]
- * ```
- * @pure Always returns same result for same inputs
- * @curried Enables partial application and composition
- * @safe Returns NaN for invalid inputs or division by zero
- */
-const divide = (
-	dividend: number | null | undefined,
-) =>
-(
-	divisor: number | null | undefined,
-): number => {
-	if (isNullish(dividend) || typeof dividend !== "number") {
-		return NaN
+export function divide(divisor: number): (dividend: number) => number | undefined
+
+//++ Divides numbers: number→(number→quotient); undefined on non-finite or zero divisor
+export default function divide(
+	divisor: number,
+) {
+	return function divideDividend(
+		dividend: number,
+	): number | undefined {
+		if (isFinite(divisor) && isFinite(dividend) && divisor !== 0) {
+			return dividend / divisor
+		}
+
+		return undefined
 	}
-
-	if (isNullish(divisor) || typeof divisor !== "number") {
-		return NaN
-	}
-
-	// Division by zero returns NaN
-	if (divisor === 0) {
-		return NaN
-	}
-
-	return dividend / divisor
 }
 
-export default divide
+//?? [EXAMPLE] divide(2)(10) // 5
+//?? [EXAMPLE] divide(0)(10) // undefined
+//?? [EXAMPLE] divide(Infinity)(10) // undefined

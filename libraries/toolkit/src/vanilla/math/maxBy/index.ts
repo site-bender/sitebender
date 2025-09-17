@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Returns the value with the larger mapped result; returns NaN on invalid mapping
 /**
  * Finds the maximum value using a mapping function
  *
@@ -90,3 +91,6 @@ const maxBy = <T>(
 }
 
 export default maxBy
+
+//?? [EXAMPLE] maxBy(Math.abs)(-5)(3) // -5
+//?? [EXAMPLE] maxBy(() => NaN)(1)(2) // NaN
