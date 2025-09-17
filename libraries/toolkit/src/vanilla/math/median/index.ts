@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Finds the median of an Array<number>; returns NaN on invalid input
 /**
  * Finds the median value of an array of numbers
  *
@@ -89,3 +90,7 @@ const median = (
 }
 
 export default median
+
+//?? [EXAMPLE] median([1, 2, 3, 4]) // 2.5
+//?? [EXAMPLE] median([3, 1, 2]) // 2
+//?? [EXAMPLE] median([]) // NaN

@@ -1,3 +1,4 @@
+//++ Alias for average (arithmetic mean)
 /**
  * Alias for `average` - Calculates the arithmetic mean of an array of numbers
  *
@@ -8,3 +9,5 @@
 import average from "../average/index.ts"
 
 export default average
+
+//?? [EXAMPLE] mean([1, 2, 3]) // 2
