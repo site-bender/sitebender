@@ -1,6 +1,7 @@
 import isEmpty from "../../array/isEmpty/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Sums an Array<number>; returns 0 for empty array; returns NaN on invalid input
 /**
  * Sums all numbers in an array
  *
@@ -70,3 +71,7 @@ const sum = (
 }
 
 export default sum
+
+//?? [EXAMPLE] sum([1, 2, 3]) // 6
+//?? [EXAMPLE] sum([]) // 0
+//?? [EXAMPLE] sum([1, NaN, 3]) // NaN

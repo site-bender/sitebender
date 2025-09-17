@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Finds the most frequent value(s) in an Array<number>; returns [] on invalid input
 /**
  * Finds the most frequent value(s) in an array of numbers
  *
@@ -78,3 +79,7 @@ const mode = (
 }
 
 export default mode
+
+//?? [EXAMPLE] mode([1, 2, 2, 3, 4]) // [2]
+//?? [EXAMPLE] mode([1, 1, 2, 2, 3]) // [1, 2]
+//?? [EXAMPLE] mode([]) // []
