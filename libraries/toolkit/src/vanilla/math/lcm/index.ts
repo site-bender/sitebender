@@ -1,6 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import gcd from "../gcd/index.ts"
 
+//++ Calculates the least common multiple (LCM) of two integers; returns NaN on invalid input
 /**
  * Calculates the least common multiple of two integers
  *
@@ -89,3 +90,7 @@ const lcm = (
 }
 
 export default lcm
+
+//?? [EXAMPLE] lcm(4)(6) // 12
+//?? [EXAMPLE] lcm(5)(20) // 20
+//?? [EXAMPLE] lcm(0)(5) // NaN
