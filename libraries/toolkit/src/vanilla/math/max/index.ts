@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Returns the larger of two numbers; returns NaN on invalid input
 /**
  * Finds the maximum of two values
  *
@@ -71,3 +72,6 @@ const max = (
 }
 
 export default max
+
+//?? [EXAMPLE] max(5)(3) // 5
+//?? [EXAMPLE] max(NaN)(5) // NaN
