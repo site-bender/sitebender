@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Multiplies an Array<number>; returns 1 for empty array; returns NaN on invalid input
 /**
  * Multiplies all numbers in an array together
  *
@@ -76,3 +77,7 @@ const product = (
 }
 
 export default product
+
+//?? [EXAMPLE] product([2, 3, 4]) // 24
+//?? [EXAMPLE] product([]) // 1
+//?? [EXAMPLE] product([1, NaN, 3]) // NaN
