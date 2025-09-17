@@ -1,5 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Generates a random float in [min, max); returns NaN on invalid range
 /**
  * Generates a random number within a specified range
  *
@@ -76,3 +77,6 @@ const random = (
 }
 
 export default random
+
+//?? [EXAMPLE] random(0)(1) // 0 <= x < 1
+//?? [EXAMPLE] random(10)(5) // NaN

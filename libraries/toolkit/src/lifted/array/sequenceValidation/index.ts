@@ -9,7 +9,7 @@ import invalid from "../../../monads/validation/invalid/index.ts"
 import accumulateValidations from "./accumulateValidations/index.ts"
 
 //++ Sequences an array of Validations into a Validation of array, accumulating all errors
-export default function \<E, T>(
+export default function sequenceValidation<E, T>(
 	validations: Array<Validation<E, T>>,
 ): Validation<E, Array<T>> {
 	const result = reduce<
