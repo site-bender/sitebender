@@ -5,7 +5,9 @@ import reduce from "../../array/reduce/index.ts"
 import multiplyFactors from "./multiplyFactors/index.ts"
 import { MULTIPLICATIVE_IDENTITY } from "../constants/index.ts"
 
-export function multiply(multiplier: number): (multiplicand: number) => number | undefined
+export function multiply(
+	multiplier: number,
+): (multiplicand: number) => number | undefined
 export function multiply(multiplierOrFactors: Array<number>): number | undefined
 
 //++ Multiplies numbers: number→(number→product) or Array<number>→product; undefined on non-finite
@@ -16,7 +18,9 @@ export default function multiply(
 		const factors = multiplierOrFactors
 
 		if (all(isFinite)(factors)) {
-			return reduce(multiplyFactors)(MULTIPLICATIVE_IDENTITY)(factors as Array<number>)
+			return reduce(multiplyFactors)(MULTIPLICATIVE_IDENTITY)(
+				factors as Array<number>,
+			)
 		}
 
 		return undefined
@@ -44,3 +48,14 @@ export default function multiply(
 //?? [EXAMPLE] multiply(NaN) // undefined
 //?? [EXAMPLE] multiply(2)(Infinity) // undefined
 //?? [EXAMPLE] multiply([2, Infinity, 3]) // undefined
+
+//?? [PRO] Curried form enables partial application and composition
+//?? [PRO] Handles arrays naturally for reducing multiple factors
+//?? [PRO] Type-safe with overloads preventing runtime type errors
+
+//?? [GOTCHA] Returns undefined instead of throwing on invalid inputs
+//?? [GOTCHA] Single NaN or Infinity in array makes entire result undefined
+//?? [GOTCHA] Empty array would return multiplicative identity (1)
+
+//?? [CON] Two different calling patterns may confuse developers
+//?? [CON] Undefined return requires explicit null checking
