@@ -61,6 +61,7 @@
  * @predicate
  * @safe
  */
+//++ UUID validator — supports v1–v5 with options and nil handling
 type UuidOptions = {
 	version?: 1 | 2 | 3 | 4 | 5
 	versions?: Array<1 | 2 | 3 | 4 | 5>
@@ -112,3 +113,6 @@ const isUuid = (options: UuidOptions = {}): (value: unknown) => boolean => {
 }
 
 export default isUuid
+
+//?? [EXAMPLE] isUuid()("00000000-0000-0000-0000-000000000000") // true
+//?? [EXAMPLE] isUuid({ allowNil: false })("00000000-0000-0000-0000-000000000000") // false
