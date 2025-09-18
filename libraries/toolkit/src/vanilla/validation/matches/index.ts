@@ -48,6 +48,7 @@
  * matches(/test/)(123)           // false
  * ```
  */
+//++ matches(pattern)(value) — RegExp/string pattern predicate for strings
 const matches = (
 	pattern: RegExp | string,
 ) =>
@@ -64,3 +65,6 @@ const matches = (
 }
 
 export default matches
+
+//?? [EXAMPLE] matches(/^\d+$/)("123") // true
+//?? [EXAMPLE] matches(/^\d+$/)("12a") // false
