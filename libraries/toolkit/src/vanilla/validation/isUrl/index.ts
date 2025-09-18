@@ -54,6 +54,7 @@ import isEmpty from "../isEmpty/index.ts"
  * @predicate
  * @safe
  */
+//++ URL validator — WHATWG-compliant via URL() with optional constraints
 type UrlOptions = {
 	protocols?: Array<string>
 	allowedDomains?: Array<string>
@@ -128,3 +129,6 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 }
 
 export default isUrl
+
+//?? [EXAMPLE] isUrl()("https://example.com") // true
+//?? [EXAMPLE] isUrl({ protocols: ["https"] })("http://example.com") // false

@@ -1,5 +1,6 @@
 import type { CardType } from "../types/index.ts"
 
+//++ Credit card patterns and length bounds for supported card brands
 export const CARD_TYPE_PATTERNS: Record<CardType, RegExp> = {
 	visa: /^4\d{12}(\d{3})?$/,
 	mastercard:
@@ -10,5 +11,6 @@ export const CARD_TYPE_PATTERNS: Record<CardType, RegExp> = {
 	jcb: /^35(2[89]|[3-8]\d)\d{12}$/,
 }
 
+//++ Minimum and maximum credit card number length (digits)
 export const MIN_CARD_LENGTH = 13
 export const MAX_CARD_LENGTH = 19
