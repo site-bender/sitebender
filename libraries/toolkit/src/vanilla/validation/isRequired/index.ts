@@ -58,6 +58,7 @@
  * @curried
  * @predicate
  */
+//++ Required predicate — present and non-empty (configurable by type)
 type RequiredOptions = {
 	allowWhitespace?: boolean
 	minLength?: number // For strings
@@ -118,3 +119,6 @@ const isRequired = (
 }
 
 export default isRequired
+
+//?? [EXAMPLE] isRequired()(" ") // false
+//?? [EXAMPLE] isRequired({ allowWhitespace: true })(" ") // true
