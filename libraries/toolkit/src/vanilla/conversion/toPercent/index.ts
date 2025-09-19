@@ -1,3 +1,7 @@
+import isNaN from "../../validation/isNaN/index.ts"
+import isPositiveInfinity from "../../validation/isPositiveInfinity/index.ts"
+import isNegativeInfinity from "../../validation/isNegativeInfinity/index.ts"
+
 /**
  * Converts a number to a percentage string representation
  *
@@ -42,38 +46,35 @@
  * @pure
  * @safe
  */
-const toPercent = (
+export default function toPercent(
 	options: {
 		decimals?: number
 		includeSign?: boolean
 	} = {},
-) =>
-(
-	value: number,
-): string => {
-	const { decimals = 2, includeSign = true } = options
+): (value: number) => string {
+	return function toPercentInner(value: number): string {
+		const { decimals = 2, includeSign = true } = options
 
-	// Handle special cases
-	if (Number.isNaN(value)) {
-		return includeSign ? "NaN%" : "NaN"
+		// Handle special cases
+		if (isNaN(value)) {
+			return includeSign ? "NaN%" : "NaN"
+		}
+
+		if (isPositiveInfinity(value)) {
+			return includeSign ? "Infinity%" : "Infinity"
+		}
+
+		if (isNegativeInfinity(value)) {
+			return includeSign ? "-Infinity%" : "-Infinity"
+		}
+
+		// Convert to percentage (multiply by 100)
+		const percentage = value * 100
+
+		// Format with specified decimal places
+		const formatted = percentage.toFixed(Math.max(0, decimals))
+
+		// Add percent sign if requested
+		return includeSign ? `${formatted}%` : formatted
 	}
-
-	if (value === Infinity) {
-		return includeSign ? "Infinity%" : "Infinity"
-	}
-
-	if (value === -Infinity) {
-		return includeSign ? "-Infinity%" : "-Infinity"
-	}
-
-	// Convert to percentage (multiply by 100)
-	const percentage = value * 100
-
-	// Format with specified decimal places
-	const formatted = percentage.toFixed(Math.max(0, decimals))
-
-	// Add percent sign if requested
-	return includeSign ? `${formatted}%` : formatted
 }
-
-export default toPercent
