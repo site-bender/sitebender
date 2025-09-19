@@ -44,6 +44,10 @@
  * @pure
  * @predicate
  */
-const isZero = (value: unknown): boolean => value === 0
+import isNumber from "../isNumber/index.ts"
+import and from "../../logic/and/index.ts"
+import isEqual from "../isEqual/index.ts"
 
-export default isZero
+export default function isZero(value: unknown): value is number {
+	return and(isNumber(value))(isEqual(0)(value))
+}

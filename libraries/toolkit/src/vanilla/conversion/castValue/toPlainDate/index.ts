@@ -2,20 +2,18 @@ import type {
 	DateInput,
 	PlainDateLike,
 } from "../../../../types/temporal/index.ts"
-
+import trim from "../../../string/trim/index.ts"
 import isNullish from "../../../validation/isNullish/index.ts"
-
-function hasMethod<T extends string>(
-	obj: unknown,
-	name: T,
-): obj is
-	& Record<string, unknown>
-	& {
-		[K in T]: (...args: Array<unknown>) => unknown
-	} {
-	return typeof obj === "object" && obj !== null && name in obj &&
-		typeof (obj as Record<string, unknown>)[name] === "function"
-}
+import hasMethod from "../../../validation/hasMethod/index.ts"
+import hasProperty from "../../../validation/hasProperty/index.ts"
+import isString from "../../../validation/isString/index.ts"
+import isObject from "../../../validation/isObject/index.ts"
+import isEmpty from "../../../string/isEmpty/index.ts"
+import isFunction from "../../../validation/isFunction/index.ts"
+import isDate from "../../../validation/isDate/index.ts"
+import isPlainDate from "../../../validation/isPlainDate/index.ts"
+import allPass from "../../../validation/allPass/index.ts"
+import and from "../../../logic/and/index.ts"
 
 /**
  * Parses values into Temporal PlainDate objects
@@ -59,23 +57,23 @@ function hasMethod<T extends string>(
  * }
  * ```
  */
-const toPlainDate = (
+export default function toPlainDate(
 	value: DateInput | null | undefined,
-): Temporal.PlainDate | null => {
+): Temporal.PlainDate | null {
 	// Handle nullish values
 	if (isNullish(value)) {
 		return null
 	}
 
 	// If already a PlainDate, return as-is
-	if (value instanceof Temporal.PlainDate) {
+	if (isPlainDate(value)) {
 		return value
 	}
 
 	// Handle strings (ISO format expected)
-	if (typeof value === "string") {
-		const trimmed = value.trim()
-		if (trimmed.length === 0) {
+	if (isString(value)) {
+		const trimmed = trim(value)
+		if (isEmpty(trimmed)) {
 			return null
 		}
 
@@ -89,7 +87,7 @@ const toPlainDate = (
 	}
 
 	// Handle JavaScript Date objects
-	if (value instanceof Date) {
+	if (isDate(value)) {
 		if (isNaN(value.getTime())) {
 			return null
 		}
@@ -106,10 +104,12 @@ const toPlainDate = (
 
 	// Handle PlainDateLike objects
 	if (
-		typeof value === "object" &&
-		"year" in value &&
-		"month" in value &&
-		"day" in value
+		allPass([
+			isObject,
+			hasProperty("year"),
+			hasProperty("month"),
+			hasProperty("day"),
+		])(value)
 	) {
 		try {
 			// Construct from y/m/d only
@@ -125,13 +125,11 @@ const toPlainDate = (
 	}
 
 	// Handle objects that provide a toPlainDate() method (PlainDateTime/ZonedDateTime)
-	if (hasMethod(value, "toPlainDate")) {
+	if (hasMethod("toPlainDate")(value)) {
 		const result = (value as { toPlainDate: () => unknown }).toPlainDate()
 		// Best-effort: if result looks like a Temporal.PlainDate, return it
 		if (
-			result &&
-			typeof (result as { toString: () => string }).toString ===
-				"function"
+			and(result)(isFunction((result as { toString: () => string }).toString))
 		) {
 			try {
 				// Reconstruct via ISO to ensure a proper PlainDate instance
@@ -149,5 +147,3 @@ const toPlainDate = (
 	// Exhaustive type check - should never reach here with proper types
 	return null
 }
-
-export default toPlainDate

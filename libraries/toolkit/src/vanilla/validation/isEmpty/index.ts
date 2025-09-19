@@ -4,9 +4,14 @@ import mapSize from "../../map/size/index.ts"
 import setSize from "../../set/size/index.ts"
 import stringLength from "../../string/length/index.ts"
 import isArray from "../isArray/index.ts"
+import isMap from "../isMap/index.ts"
 import isNullish from "../isNullish/index.ts"
 import isPlainObject from "../isPlainObject/index.ts"
+import isSet from "../isSet/index.ts"
 import isString from "../isString/index.ts"
+import isWeakMap from "../isWeakMap/index.ts"
+import isWeakSet from "../isWeakSet/index.ts"
+import either from "../either/index.ts"
 
 //++ Checks if a value is empty based on its type (null, undefined, empty string/array/object/Map/Set)
 export default function isEmpty(value: unknown): boolean {
@@ -26,16 +31,16 @@ export default function isEmpty(value: unknown): boolean {
 	}
 
 	// Maps check size
-	if (value instanceof Map) {
+	if (isMap(value)) {
 		return mapSize(value) === 0
 	}
 
 	// Sets check size
-	if (value instanceof Set) {
+	if (isSet(value)) {
 		return setSize(value) === 0
 	}
 
-	if (value instanceof WeakMap || value instanceof WeakSet) {
+	if (either(isWeakMap)(isWeakSet)(value)) {
 		return false
 	}
 
