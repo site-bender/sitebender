@@ -1,4 +1,9 @@
 import toFloat from "../toFloat/index.ts"
+import max from "../../../math/max/index.ts"
+import floor from "../../../math/floor/index.ts"
+import power from "../../../math/power/index.ts"
+import round from "../../../math/round/index.ts"
+import isInfinite from "../../../validation/isInfinite/index.ts"
 
 /**
  * Converts values to numbers with specified decimal precision
@@ -124,17 +129,17 @@ const toPrecision = (places: number) => (value: unknown): number => {
 	}
 
 	// Handle infinity
-	if (!isFinite(num)) {
+	if (isInfinite(num)) {
 		return num
 	}
 
 	// Ensure places is a non-negative integer
-	const decimalPlaces = Math.max(0, Math.floor(places))
+	const decimalPlaces = max(0)(floor(places))
 
 	// Round to the specified number of decimal places
 	// Multiply, round, then divide to avoid floating point errors
-	const multiplier = Math.pow(10, decimalPlaces)
-	return Math.round(num * multiplier) / multiplier
+	const multiplier = power(decimalPlaces)(10)
+	return round(num * multiplier) / multiplier
 }
 
 export default toPrecision

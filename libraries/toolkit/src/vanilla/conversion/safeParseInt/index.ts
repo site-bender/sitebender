@@ -1,5 +1,20 @@
 import isNull from "../../validation/isNull/index.ts"
 import isUndefined from "../../validation/isUndefined/index.ts"
+import trim from "../../string/trim/index.ts"
+import contains from "../../string/contains/index.ts"
+import slice from "../../string/slice/index.ts"
+import isBoolean from "../../validation/isBoolean/index.ts"
+import isNumber from "../../validation/isNumber/index.ts"
+import isString from "../../validation/isString/index.ts"
+import isInteger from "../../validation/isInteger/index.ts"
+import truncate from "../../math/truncate/index.ts"
+import isFinite from "../../validation/isFinite/index.ts"
+import isNaN from "../../validation/isNaN/index.ts"
+import toString from "../castValue/toString/index.ts"
+import startsWith from "../../string/startsWith/index.ts"
+import not from "../../logic/not/index.ts"
+import isEmpty from "../../string/isEmpty/index.ts"
+import isEqual from "../../validation/isEqual/index.ts"
 
 /**
  * Safely parses a value as an integer, returns null on failure
@@ -41,10 +56,10 @@ import isUndefined from "../../validation/isUndefined/index.ts"
  * @pure
  * @safe
  */
-const safeParseInt =
-	(radix: number = 10) => (value: unknown): number | null => {
+export default function safeParseInt(radix: number = 10): (value: unknown) => number | null {
+	return function safeParseIntInner(value: unknown): number | null {
 		// Validate radix
-		if (radix < 2 || radix > 36 || !Number.isInteger(radix)) {
+		if (radix < 2 || radix > 36 || not(isInteger(radix))) {
 			return null
 		}
 
@@ -54,33 +69,31 @@ const safeParseInt =
 		}
 
 		// Handle booleans
-		if (typeof value === "boolean") {
+		if (isBoolean(value)) {
 			return value ? 1 : 0
 		}
 
 		// Handle numbers directly
-		if (typeof value === "number") {
+		if (isNumber(value)) {
 			// Return null for NaN or Infinity
-			if (!isFinite(value)) {
+			if (not(isFinite(value))) {
 				return null
 			}
 			// Truncate to integer
-			return Math.trunc(value)
+			return truncate(value)
 		}
 
 		// Handle strings
-		if (typeof value === "string") {
-			// Trim whitespace
-			const trimmed = value.trim()
-
-			// Check for empty string
-			if (trimmed === "") {
+		if (isString(value)) {
+		// Trim whitespace
+		const trimmed = trim(value)			// Check for empty string
+			if (isEmpty(trimmed)) {
 				return null
 			}
 
 			// For radix 10, check if string contains decimal point
 			// This ensures strict integer parsing (no decimals allowed in strings)
-			if (radix === 10 && trimmed.includes(".")) {
+			if (radix === 10 && contains(".")(trimmed)) {
 				return null
 			}
 
@@ -97,16 +110,18 @@ const safeParseInt =
 			// For radix 10, we do a stricter check
 			if (radix === 10) {
 				// Check if the string represents a valid integer
-				const normalizedInput = trimmed.startsWith("+")
-					? trimmed.slice(1)
+				const normalizedInput = startsWith("+")(trimmed)
+					? slice(1)()(trimmed)
 					: trimmed
-				const stringifiedParsed = String(parsed)
+				const stringifiedParsed = toString(parsed)
 
-				if (normalizedInput !== stringifiedParsed) {
-					// Check for leading zeros which are valid
-					if (!/^[+-]?0*\d+$/.test(trimmed)) {
-						return null
-					}
+				if (isEqual(normalizedInput)(stringifiedParsed)) {
+					return parsed
+				}
+
+				// Check for leading zeros which are valid
+				if (!/^[+-]?0*\d+$/.test(trimmed)) {
+					return null
 				}
 			}
 
@@ -116,5 +131,4 @@ const safeParseInt =
 		// All other types return null
 		return null
 	}
-
-export default safeParseInt
+}

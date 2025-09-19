@@ -47,8 +47,8 @@ import isUndefined from "../../validation/isUndefined/index.ts"
  * parseNumbers("1,a,3")                  // null
  * ```
  */
-const safeParse =
-	<T>(parser: (value: unknown) => T) => (value: unknown): T | null => {
+export default function safeParse<T>(parser: (value: unknown) => T): (value: unknown) => T | null {
+	return function safeParseInner(value: unknown): T | null {
 		try {
 			const result = parser(value)
 			// Return null if parser returns undefined
@@ -58,5 +58,4 @@ const safeParse =
 			return null
 		}
 	}
-
-export default safeParse
+}

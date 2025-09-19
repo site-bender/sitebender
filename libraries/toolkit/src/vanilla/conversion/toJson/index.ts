@@ -1,4 +1,4 @@
-import isUndefined from "../../validation/isUndefined/index.ts"
+import isSerializable from "../../validation/isSerializable/index.ts"
 
 /**
  * Converts values to JSON strings
@@ -119,23 +119,21 @@ import isUndefined from "../../validation/isUndefined/index.ts"
  * @pure
  * @safe
  */
-const toJson = (indent: number = 0) => (value: unknown): string | null => {
-	// Handle values that are not serializable
-	if (
-		isUndefined(value) || typeof value === "symbol" ||
-		typeof value === "function"
-	) {
-		return null
-	}
+export default function toJson(indent: number = 0): (value: unknown) => string | null {
+	return function toJsonInner(value: unknown): string | null {
+		// Handle serializable values first (positive path)
+		if (isSerializable(value)) {
+			try {
+				// Use indent for pretty printing (0 means no formatting)
+				const space = indent > 0 ? indent : undefined
+				return JSON.stringify(value, null, space)
+			} catch {
+				// Return null for circular references or other serialization errors
+				return null
+			}
+		}
 
-	try {
-		// Use indent for pretty printing (0 means no formatting)
-		const space = indent > 0 ? indent : undefined
-		return JSON.stringify(value, null, space)
-	} catch {
-		// Return null for circular references or other serialization errors
+		// Non-serializable values
 		return null
 	}
 }
-
-export default toJson

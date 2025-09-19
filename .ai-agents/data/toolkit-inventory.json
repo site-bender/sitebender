@@ -1,0 +1,4815 @@
+{
+  "statistics": {
+    "variance": {
+      "signature": "function variance(\n\tisSample: boolean = false,\n)",
+      "path": "libraries/toolkit/src/vanilla/statistics/variance/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "correlation": {
+      "signature": "function correlation(\n\tx: number[] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/statistics/correlation/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "covariance": {
+      "signature": "function covariance(\n\tx: number[] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/statistics/covariance/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "percentile": {
+      "signature": "function percentile(\n\tp: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/statistics/percentile/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "kurtosis": {
+      "signature": "function kurtosis(...)",
+      "path": "libraries/toolkit/src/vanilla/statistics/kurtosis/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "zScore": {
+      "signature": "function zScore(\n\tvalue: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/statistics/zScore/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "interquartileRange": {
+      "signature": "function interquartileRange(...)",
+      "path": "libraries/toolkit/src/vanilla/statistics/interquartileRange/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "skewness": {
+      "signature": "function skewness(...)",
+      "path": "libraries/toolkit/src/vanilla/statistics/skewness/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "standardDeviation": {
+      "signature": "function standardDeviation(\n\tisSample: boolean = false,\n)",
+      "path": "libraries/toolkit/src/vanilla/statistics/standardDeviation/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "temporal": {
+    "endOfWeek": {
+      "signature": "function endOfWeek(weekStartDay: number = 1)",
+      "path": "libraries/toolkit/src/vanilla/temporal/endOfWeek/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toZonedDateTime": {
+      "signature": "function toZonedDateTime(\n\ttimeZone: string,\n\tdisambiguation: \"compatible\" | \"earlier\" | \"later\" | \"reject\" = \"compatible\",\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/toZonedDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "startOfDay": {
+      "signature": "function startOfDay(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/startOfDay/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "formatDuration": {
+      "signature": "function formatDuration(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/formatDuration/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "totalDuration": {
+      "signature": "function totalDuration(unit: Temporal.DateTimeUnit | string)",
+      "path": "libraries/toolkit/src/vanilla/temporal/totalDuration/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "adjustTime": {
+      "signature": "function adjustTime(\n\ttimeAdjustment:\n\t\t| {\n\t\t\thour?: number\n\t\t\tminute?: number\n\t\t\tsecond?: number\n\t\t\tmillisecond?: number\n\t\t\tmicrosecond?: number\n\t\t\tnanosecond?: number\n\t\t}\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/adjustTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "startOfWeek": {
+      "signature": "function startOfWeek(weekStartDay: number = 1)",
+      "path": "libraries/toolkit/src/vanilla/temporal/startOfWeek/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isWeekday": {
+      "signature": "function isWeekday(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/isWeekday/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "diffHours": {
+      "signature": "function diffHours(\n\tfrom:\n\t\t| Temporal.PlainTime\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/diffHours/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getQuarter": {
+      "signature": "function getQuarter(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getQuarter/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "addMonths": {
+      "signature": "function addMonths(months: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/addMonths/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toPlainDateTime": {
+      "signature": "function toPlainDateTime(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/toPlainDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "diffMinutes": {
+      "signature": "function diffMinutes(\n\tfrom:\n\t\t| Temporal.PlainTime\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/diffMinutes/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "withTimeZone": {
+      "signature": "function withTimeZone(timeZone: string)",
+      "path": "libraries/toolkit/src/vanilla/temporal/withTimeZone/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "parseTime": {
+      "signature": "function parseTime(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/parseTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toPlainDate": {
+      "signature": "function toPlainDate(timeZone?: string)",
+      "path": "libraries/toolkit/src/vanilla/temporal/toPlainDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "dateRange": {
+      "signature": "function dateRangeconst dateRange =\n\t(start: Temporal.PlainDate | null | undefined)",
+      "path": "libraries/toolkit/src/vanilla/temporal/dateRange/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "since": {
+      "signature": "function since(\n\treference:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.PlainTime\n\t\t| Temporal.ZonedDateTime\n\t\t| Temporal.Instant\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/since/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "today": {
+      "signature": "function today(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/today/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "withCalendar": {
+      "signature": "function withCalendar(calendar: string)",
+      "path": "libraries/toolkit/src/vanilla/temporal/withCalendar/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "diffSeconds": {
+      "signature": "function diffSeconds(\n\tfrom:\n\t\t| Temporal.PlainTime\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/diffSeconds/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getTimeZone": {
+      "signature": "function getTimeZone(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getTimeZone/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getDayOfYear": {
+      "signature": "function getDayOfYear(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getDayOfYear/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "until": {
+      "signature": "function until(\n\ttarget:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.PlainTime\n\t\t| Temporal.ZonedDateTime\n\t\t| Temporal.Instant\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/until/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getCalendar": {
+      "signature": "function getCalendar(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getCalendar/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "parse": {
+      "signature": "function parse(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/parse/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "durationToSeconds": {
+      "signature": "function durationToSeconds(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/durationToSeconds/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getDay": {
+      "signature": "function getDay(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getDay/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "durationToMinutes": {
+      "signature": "function durationToMinutes(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/durationToMinutes/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getOffsetTransitions": {
+      "signature": "function getOffsetTransitions(timeZone: string)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getOffsetTransitions/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "addYears": {
+      "signature": "function addYears(years: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/addYears/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "addDuration": {
+      "signature": "function addDuration(duration: Temporal.Duration | null | undefined)",
+      "path": "libraries/toolkit/src/vanilla/temporal/addDuration/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "sortByAbsoluteTime": {
+      "signature": "function sortByAbsoluteTime(timeZone: string = \"UTC\")",
+      "path": "libraries/toolkit/src/vanilla/temporal/sortByAbsoluteTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "setDay": {
+      "signature": "function setDay(day: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/setDay/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isWeekend": {
+      "signature": "function isWeekend(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/isWeekend/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "setYear": {
+      "signature": "function setYear(year: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/setYear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "setHour": {
+      "signature": "function setHour(hour: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/setHour/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getMillisecond": {
+      "signature": "function getMillisecond(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getMillisecond/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getNextOccurrence": {
+      "signature": "function getNextOccurrence(pattern: {\n\tunit: string\n\tinterval: number\n})",
+      "path": "libraries/toolkit/src/vanilla/temporal/getNextOccurrence/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "diffMonths": {
+      "signature": "function diffMonths(\n\tfrom:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.PlainYearMonth\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/diffMonths/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isLeapYear": {
+      "signature": "function isLeapYear(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/isLeapYear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "startOfMonth": {
+      "signature": "function startOfMonth(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/startOfMonth/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "clampDate": {
+      "signature": "function clampDate(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/clampDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "addHours": {
+      "signature": "function addHours(hours: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/addHours/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "setMinute": {
+      "signature": "function setMinute(minute: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/setMinute/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "subtractDuration": {
+      "signature": "function subtractDuration(duration: Temporal.Duration | null | undefined)",
+      "path": "libraries/toolkit/src/vanilla/temporal/subtractDuration/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "equals": {
+      "signature": "function equals(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/equals/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "fromISO": {
+      "signature": "function fromISO(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/fromISO/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "endOfDay": {
+      "signature": "function endOfDay(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/endOfDay/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "now": {
+      "signature": "function now(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/now/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "startOfYear": {
+      "signature": "function startOfYear(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/startOfYear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "withTime": {
+      "signature": "function withTime(time: Temporal.PlainTime | string | null | undefined)",
+      "path": "libraries/toolkit/src/vanilla/temporal/withTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "compare": {
+      "signature": "function compare(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/compare/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "getMinute": {
+      "signature": "function getMinute(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getMinute/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "endOfYear": {
+      "signature": "function endOfYear(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/endOfYear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "format": {
+      "signature": "function format(locale: string = \"en-US\")",
+      "path": "libraries/toolkit/src/vanilla/temporal/format/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getNanosecond": {
+      "signature": "function getNanosecond(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getNanosecond/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getYear": {
+      "signature": "function getYear(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getYear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getHour": {
+      "signature": "function getHour(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getHour/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "diffDays": {
+      "signature": "function diffDaysconst diffDays =\n\t(from: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined)",
+      "path": "libraries/toolkit/src/vanilla/temporal/diffDays/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "setSecond": {
+      "signature": "function setSecond(second: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/setSecond/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "serializeZonedDateTime": {
+      "signature": "function serializeZonedDateTime(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/serializeZonedDateTime/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "addSeconds": {
+      "signature": "function addSeconds(seconds: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/addSeconds/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toISO": {
+      "signature": "function toISO(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/toISO/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "getWeekOfYear": {
+      "signature": "function getWeekOfYear(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getWeekOfYear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "addMinutes": {
+      "signature": "function addMinutes(minutes: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/addMinutes/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toPlainTime": {
+      "signature": "function toPlainTime(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/toPlainTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "duration": {
+      "signature": "function duration(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/duration/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "addDays": {
+      "signature": "function addDays(days: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/addDays/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "getSecond": {
+      "signature": "function getSecond(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getSecond/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "setMonth": {
+      "signature": "function setMonth(month: number)",
+      "path": "libraries/toolkit/src/vanilla/temporal/setMonth/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getWeekday": {
+      "signature": "function getWeekday(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getWeekday/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getDaysInYear": {
+      "signature": "function getDaysInYear(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getDaysInYear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getMonth": {
+      "signature": "function getMonth(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getMonth/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getDaysInMonth": {
+      "signature": "function getDaysInMonth(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getDaysInMonth/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "round": {
+      "signature": "function round(\n\tunit:\n\t\t| \"hour\"\n\t\t| \"minute\"\n\t\t| \"second\"\n\t\t| \"millisecond\"\n\t\t| \"microsecond\"\n\t\t| \"nanosecond\"\n\t\t| \"day\",\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/round/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "getDayOfWeek": {
+      "signature": "function getDayOfWeek(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/getDayOfWeek/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "diffYears": {
+      "signature": "function diffYears(\n\tfrom:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.PlainYearMonth\n\t\t| null\n\t\t| undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/temporal/diffYears/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "endOfMonth": {
+      "signature": "function endOfMonth(...)",
+      "path": "libraries/toolkit/src/vanilla/temporal/endOfMonth/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "trigonometry": {
+    "arcTangent": {
+      "signature": "function arcTangent(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/arcTangent/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "degreesToRadians": {
+      "signature": "function degreesToRadians(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/degreesToRadians/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "tangent": {
+      "signature": "function tangent(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/tangent/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cosine": {
+      "signature": "function cosine(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/cosine/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cartesianToPolar": {
+      "signature": "function cartesianToPolar(\n\tx: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/cartesianToPolar/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "arcTangent2": {
+      "signature": "function arcTangent2(\n\ty: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/arcTangent2/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sine": {
+      "signature": "function sine(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/sine/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "radiansToDegrees": {
+      "signature": "function radiansToDegrees(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/radiansToDegrees/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "arcCosine": {
+      "signature": "function arcCosine(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/arcCosine/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "hyperbolicSine": {
+      "signature": "function hyperbolicSine(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/hyperbolicSine/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "arcSine": {
+      "signature": "function arcSine(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/arcSine/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "polarToCartesian": {
+      "signature": "function polarToCartesian(\n\tr: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/polarToCartesian/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "hypotenuse": {
+      "signature": "function hypotenuse(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/hypotenuse/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "hyperbolicTangent": {
+      "signature": "function hyperbolicTangent(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/hyperbolicTangent/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "hyperbolicCosine": {
+      "signature": "function hyperbolicCosine(...)",
+      "path": "libraries/toolkit/src/vanilla/trigonometry/hyperbolicCosine/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "hash": {
+    "bytesToHex": {
+      "signature": "function bytesToHex(...)",
+      "path": "libraries/toolkit/src/vanilla/hash/hashHex/algorithms/sha256/bytesToHex/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "sha256": {
+      "signature": "function sha256HexInternal(...)",
+      "path": "libraries/toolkit/src/vanilla/hash/hashHex/algorithms/sha256/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toUint8Array": {
+      "signature": "function toUint8Array(...)",
+      "path": "libraries/toolkit/src/vanilla/hash/hashHex/algorithms/sha256/toUint8Array/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "hashHex": {
+      "signature": "function hashHex(...)",
+      "path": "libraries/toolkit/src/vanilla/hash/hashHex/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "tuple": {
+    "uncurry": {
+      "signature": "function uncurry(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/uncurry/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "curry": {
+      "signature": "function curry(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/curry/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "mapTuple": {
+      "signature": "function mapTuple(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/mapTuple/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toArray": {
+      "signature": "function toArray(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/toArray/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "first": {
+      "signature": "function first(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/first/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "third": {
+      "signature": "function third(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/third/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "second": {
+      "signature": "function second(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/second/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "swap": {
+      "signature": "function swap(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/swap/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "singleton": {
+      "signature": "function singleton(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/singleton/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "bimap": {
+      "signature": "function bimap(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/bimap/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "triple": {
+      "signature": "function triple(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/triple/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "fromArray": {
+      "signature": "function fromArray(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/fromArray/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "pair": {
+      "signature": "function pair(...)",
+      "path": "libraries/toolkit/src/vanilla/tuple/pair/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "array": {
+    "nth": {
+      "signature": "function nth(index: number)",
+      "path": "libraries/toolkit/src/vanilla/array/nth/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "move": {
+      "signature": "function move(...)",
+      "path": "libraries/toolkit/src/vanilla/array/move/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "init": {
+      "signature": "function init(...)",
+      "path": "libraries/toolkit/src/vanilla/array/init/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "repeat": {
+      "signature": "function repeat(count: number)",
+      "path": "libraries/toolkit/src/vanilla/array/repeat/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "concat": {
+      "signature": "function concat(...)",
+      "path": "libraries/toolkit/src/vanilla/array/concat/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "unique": {
+      "signature": "function unique(...)",
+      "path": "libraries/toolkit/src/vanilla/array/unique/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "indexBy": {
+      "signature": "function indexBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/indexBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "replaceFirstMatch": {
+      "signature": "function replaceFirstMatchconst replaceFirstMatch =\n\t(pattern: RegExp)",
+      "path": "libraries/toolkit/src/vanilla/array/replaceFirstMatch/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "unfold": {
+      "signature": "function unfold(...)",
+      "path": "libraries/toolkit/src/vanilla/array/unfold/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "remove": {
+      "signature": "function remove(...)",
+      "path": "libraries/toolkit/src/vanilla/array/remove/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "shuffle": {
+      "signature": "function shuffle(...)",
+      "path": "libraries/toolkit/src/vanilla/array/shuffle/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "splitEvery": {
+      "signature": "function splitEveryconst splitEvery =\n\t(chunkSize: number)",
+      "path": "libraries/toolkit/src/vanilla/array/splitEvery/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "compact": {
+      "signature": "function compact(...)",
+      "path": "libraries/toolkit/src/vanilla/array/compact/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "unflatten": {
+      "signature": "function unflatten(depths: Array<number>)",
+      "path": "libraries/toolkit/src/vanilla/array/unflatten/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "combinations": {
+      "signature": "function combinations(...)",
+      "path": "libraries/toolkit/src/vanilla/array/combinations/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "last": {
+      "signature": "function last(...)",
+      "path": "libraries/toolkit/src/vanilla/array/last/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sampleSize": {
+      "signature": "function sampleSize(...)",
+      "path": "libraries/toolkit/src/vanilla/array/sampleSize/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "replaceFirst": {
+      "signature": "function replaceFirst(...)",
+      "path": "libraries/toolkit/src/vanilla/array/replaceFirst/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "replaceAllMatches": {
+      "signature": "function replaceAllMatchesconst replaceAllMatches =\n\t(pattern: RegExp)",
+      "path": "libraries/toolkit/src/vanilla/array/replaceAllMatches/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "insertAt": {
+      "signature": "function insertAtconst insertAt =\n\t(index: number)",
+      "path": "libraries/toolkit/src/vanilla/array/insertAt/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "slidingWithStep": {
+      "signature": "function slidingWithStep(...)",
+      "path": "libraries/toolkit/src/vanilla/array/slidingWithStep/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sliding": {
+      "signature": "function sliding(...)",
+      "path": "libraries/toolkit/src/vanilla/array/sliding/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "chunk": {
+      "signature": "function chunk(...)",
+      "path": "libraries/toolkit/src/vanilla/array/chunk/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "join": {
+      "signature": "function join(...)",
+      "path": "libraries/toolkit/src/vanilla/array/join/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "findIndex": {
+      "signature": "function findIndex(...)",
+      "path": "libraries/toolkit/src/vanilla/array/findIndex/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toSet": {
+      "signature": "function toSet(...)",
+      "path": "libraries/toolkit/src/vanilla/array/toSet/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "reject": {
+      "signature": "function reject(...)",
+      "path": "libraries/toolkit/src/vanilla/array/reject/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "countBy": {
+      "signature": "function countBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/countBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "update": {
+      "signature": "function update(...)",
+      "path": "libraries/toolkit/src/vanilla/array/update/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "sort": {
+      "signature": "function sort(...)",
+      "path": "libraries/toolkit/src/vanilla/array/sort/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "frequency": {
+      "signature": "function frequency(...)",
+      "path": "libraries/toolkit/src/vanilla/array/frequency/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "replaceLastMatch": {
+      "signature": "function replaceLastMatch(...)",
+      "path": "libraries/toolkit/src/vanilla/array/replaceLastMatch/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "maximumBy": {
+      "signature": "function maximumBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/maximumBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "reduce": {
+      "signature": "function reduce(...)",
+      "path": "libraries/toolkit/src/vanilla/array/reduce/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "first": {
+      "signature": "function first(...)",
+      "path": "libraries/toolkit/src/vanilla/array/first/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "slice": {
+      "signature": "function slice(start: number)",
+      "path": "libraries/toolkit/src/vanilla/array/slice/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "times": {
+      "signature": "function times(...)",
+      "path": "libraries/toolkit/src/vanilla/array/times/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "zipWith": {
+      "signature": "function zipWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/zipWith/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "mapAccumRight": {
+      "signature": "function mapAccumRight(...)",
+      "path": "libraries/toolkit/src/vanilla/array/mapAccumRight/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "unzip": {
+      "signature": "function unzip(...)",
+      "path": "libraries/toolkit/src/vanilla/array/unzip/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "removeAll": {
+      "signature": "function removeAll(...)",
+      "path": "libraries/toolkit/src/vanilla/array/removeAll/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cycle": {
+      "signature": "function cycle(...)",
+      "path": "libraries/toolkit/src/vanilla/array/cycle/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "findLastIndex": {
+      "signature": "function findLastIndex(...)",
+      "path": "libraries/toolkit/src/vanilla/array/findLastIndex/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "takeLastWhile": {
+      "signature": "function takeLastWhile(...)",
+      "path": "libraries/toolkit/src/vanilla/array/takeLastWhile/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "symmetricDifferenceWith": {
+      "signature": "function symmetricDifferenceWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/symmetricDifferenceWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cartesianProduct": {
+      "signature": "function cartesianProduct(...)",
+      "path": "libraries/toolkit/src/vanilla/array/cartesianProduct/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lastIndexOfMatch": {
+      "signature": "function lastIndexOfMatch(pattern: RegExp | string)",
+      "path": "libraries/toolkit/src/vanilla/array/lastIndexOfMatch/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "mapAccum": {
+      "signature": "function mapAccum(...)",
+      "path": "libraries/toolkit/src/vanilla/array/mapAccum/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "transpose": {
+      "signature": "function transpose(...)",
+      "path": "libraries/toolkit/src/vanilla/array/transpose/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "groupWith": {
+      "signature": "function groupWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/groupWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "includes": {
+      "signature": "function includes(...)",
+      "path": "libraries/toolkit/src/vanilla/array/includes/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "xprod": {
+      "signature": "function xprod(...)",
+      "path": "libraries/toolkit/src/vanilla/array/xprod/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "differenceWith": {
+      "signature": "function differenceWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/differenceWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "all": {
+      "signature": "function all(...)",
+      "path": "libraries/toolkit/src/vanilla/array/all/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "endsWith": {
+      "signature": "function endsWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/endsWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "pluck": {
+      "signature": "function pluck(...)",
+      "path": "libraries/toolkit/src/vanilla/array/pluck/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "length": {
+      "signature": "function length<T>(array: ReadonlyArray<T>): number ",
+      "path": "libraries/toolkit/src/vanilla/array/length/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "rotateLeft": {
+      "signature": "function rotateLeft(...)",
+      "path": "libraries/toolkit/src/vanilla/array/rotateLeft/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "dropRepeatsWith": {
+      "signature": "function dropRepeatsWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/dropRepeatsWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "reduceWhile": {
+      "signature": "function reduceWhile(...)",
+      "path": "libraries/toolkit/src/vanilla/array/reduceWhile/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "scan": {
+      "signature": "function scan(...)",
+      "path": "libraries/toolkit/src/vanilla/array/scan/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "nub": {
+      "signature": "function nub(...)",
+      "path": "libraries/toolkit/src/vanilla/array/nub/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "tail": {
+      "signature": "function tail(...)",
+      "path": "libraries/toolkit/src/vanilla/array/tail/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr.slice(1)",
+        "array.slice(1)"
+      ]
+    },
+    "reverse": {
+      "signature": "function reverse(...)",
+      "path": "libraries/toolkit/src/vanilla/array/reverse/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "intersection": {
+      "signature": "function intersection(...)",
+      "path": "libraries/toolkit/src/vanilla/array/intersection/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "minimumBy": {
+      "signature": "function minimumBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/minimumBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "omit": {
+      "signature": "function omit(...)",
+      "path": "libraries/toolkit/src/vanilla/array/omit/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "zipAll": {
+      "signature": "function zipAll(...)",
+      "path": "libraries/toolkit/src/vanilla/array/zipAll/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "groupBy": {
+      "signature": "function groupBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/groupBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "head": {
+      "signature": "function head(...)",
+      "path": "libraries/toolkit/src/vanilla/array/head/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr[0]",
+        "array[0]"
+      ]
+    },
+    "rotateRight": {
+      "signature": "function rotateRight(...)",
+      "path": "libraries/toolkit/src/vanilla/array/rotateRight/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "difference": {
+      "signature": "function difference(...)",
+      "path": "libraries/toolkit/src/vanilla/array/difference/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "pairwise": {
+      "signature": "function pairwise(...)",
+      "path": "libraries/toolkit/src/vanilla/array/pairwise/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "zip": {
+      "signature": "function zip(...)",
+      "path": "libraries/toolkit/src/vanilla/array/zip/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sliceFrom": {
+      "signature": "function sliceFrom(startIndex: number)",
+      "path": "libraries/toolkit/src/vanilla/array/sliceFrom/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "repeatItem": {
+      "signature": "function repeatItem(...)",
+      "path": "libraries/toolkit/src/vanilla/array/repeatItem/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "drop": {
+      "signature": "function drop(...)",
+      "path": "libraries/toolkit/src/vanilla/array/drop/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "map": {
+      "signature": "function map(...)",
+      "path": "libraries/toolkit/src/vanilla/array/map/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "flatten": {
+      "signature": "function flatten(...)",
+      "path": "libraries/toolkit/src/vanilla/array/flatten/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "nubBy": {
+      "signature": "function nubBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/nubBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "span": {
+      "signature": "function span(...)",
+      "path": "libraries/toolkit/src/vanilla/array/span/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "reduceRight": {
+      "signature": "function reduceRight(...)",
+      "path": "libraries/toolkit/src/vanilla/array/reduceRight/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "flatMap": {
+      "signature": "function flatMap(...)",
+      "path": "libraries/toolkit/src/vanilla/array/flatMap/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "take": {
+      "signature": "function take(count: number)",
+      "path": "libraries/toolkit/src/vanilla/array/take/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "aperture": {
+      "signature": "function aperture(...)",
+      "path": "libraries/toolkit/src/vanilla/array/aperture/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "intersperse": {
+      "signature": "function intersperse(...)",
+      "path": "libraries/toolkit/src/vanilla/array/intersperse/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "concatTo": {
+      "signature": "function concatTo(...)",
+      "path": "libraries/toolkit/src/vanilla/array/concatTo/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "unionWith": {
+      "signature": "function unionWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/unionWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "replaceAt": {
+      "signature": "function replaceAt(...)",
+      "path": "libraries/toolkit/src/vanilla/array/replaceAt/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sample": {
+      "signature": "function sample(...)",
+      "path": "libraries/toolkit/src/vanilla/array/sample/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNotEmpty": {
+      "signature": "function isNotEmpty<T>(array: ReadonlyArray<T>): boolean ",
+      "path": "libraries/toolkit/src/vanilla/array/isNotEmpty/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "union": {
+      "signature": "function union(...)",
+      "path": "libraries/toolkit/src/vanilla/array/union/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lastIndexOf": {
+      "signature": "function lastIndexOf(...)",
+      "path": "libraries/toolkit/src/vanilla/array/lastIndexOf/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "intersectionWith": {
+      "signature": "function intersectionWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/intersectionWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "partitionBy": {
+      "signature": "function partitionBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/partitionBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "findIndices": {
+      "signature": "function findIndices(...)",
+      "path": "libraries/toolkit/src/vanilla/array/findIndices/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "dropWhile": {
+      "signature": "function dropWhile(...)",
+      "path": "libraries/toolkit/src/vanilla/array/dropWhile/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "takeWhile": {
+      "signature": "function takeWhile(...)",
+      "path": "libraries/toolkit/src/vanilla/array/takeWhile/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "takeLast": {
+      "signature": "function takeLast(count: number)",
+      "path": "libraries/toolkit/src/vanilla/array/takeLast/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isEmpty": {
+      "signature": "function isEmpty<T>(array: ReadonlyArray<T>): boolean ",
+      "path": "libraries/toolkit/src/vanilla/array/isEmpty/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr.length === 0",
+        "array.length === 0"
+      ]
+    },
+    "sortBy": {
+      "signature": "function sortBy(...)",
+      "path": "libraries/toolkit/src/vanilla/array/sortBy/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "find": {
+      "signature": "function find(...)",
+      "path": "libraries/toolkit/src/vanilla/array/find/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "filter": {
+      "signature": "function filter(...)",
+      "path": "libraries/toolkit/src/vanilla/array/filter/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "removeAt": {
+      "signature": "function removeAt(...)",
+      "path": "libraries/toolkit/src/vanilla/array/removeAt/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "partition": {
+      "signature": "function partition(...)",
+      "path": "libraries/toolkit/src/vanilla/array/partition/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "closest": {
+      "signature": "function closest(\n\ttarget: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/array/closest/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "findDuplicates": {
+      "signature": "function findDuplicates(...)",
+      "path": "libraries/toolkit/src/vanilla/array/findDuplicates/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "dropRepeats": {
+      "signature": "function dropRepeats(...)",
+      "path": "libraries/toolkit/src/vanilla/array/dropRepeats/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "range": {
+      "signature": "function range(\n\tstart: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/array/range/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "none": {
+      "signature": "function none(...)",
+      "path": "libraries/toolkit/src/vanilla/array/none/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sortWith": {
+      "signature": "function sortWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/sortWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "replaceLast": {
+      "signature": "function replaceLast(...)",
+      "path": "libraries/toolkit/src/vanilla/array/replaceLast/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "some": {
+      "signature": "function some(...)",
+      "path": "libraries/toolkit/src/vanilla/array/some/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "findMostCommon": {
+      "signature": "function findMostCommon(...)",
+      "path": "libraries/toolkit/src/vanilla/array/findMostCommon/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "dropLast": {
+      "signature": "function dropLast(...)",
+      "path": "libraries/toolkit/src/vanilla/array/dropLast/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "permutations": {
+      "signature": "function permutations(...)",
+      "path": "libraries/toolkit/src/vanilla/array/permutations/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "zipObj": {
+      "signature": "function zipObj(...)",
+      "path": "libraries/toolkit/src/vanilla/array/zipObj/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "startsWith": {
+      "signature": "function startsWith(...)",
+      "path": "libraries/toolkit/src/vanilla/array/startsWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "replaceAll": {
+      "signature": "function replaceAll(...)",
+      "path": "libraries/toolkit/src/vanilla/array/replaceAll/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "findLast": {
+      "signature": "function findLast(...)",
+      "path": "libraries/toolkit/src/vanilla/array/findLast/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "rangeStep": {
+      "signature": "function rangeStep(\n\tstep: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/array/rangeStep/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "interleave": {
+      "signature": "function interleave(...)",
+      "path": "libraries/toolkit/src/vanilla/array/interleave/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "subsequences": {
+      "signature": "function subsequences(...)",
+      "path": "libraries/toolkit/src/vanilla/array/subsequences/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "indexOf": {
+      "signature": "function indexOf(...)",
+      "path": "libraries/toolkit/src/vanilla/array/indexOf/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "symmetricDifference": {
+      "signature": "function symmetricDifference(...)",
+      "path": "libraries/toolkit/src/vanilla/array/symmetricDifference/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "async": {
+    "series": {
+      "signature": "function series(...)",
+      "path": "libraries/toolkit/src/vanilla/async/series/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "whilst": {
+      "signature": "function whilst(...)",
+      "path": "libraries/toolkit/src/vanilla/async/whilst/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "parallel": {
+      "signature": "function parallel(...)",
+      "path": "libraries/toolkit/src/vanilla/async/parallel/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "retry": {
+      "signature": "function retry(options: RetryOptions = {})",
+      "path": "libraries/toolkit/src/vanilla/async/retry/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "waterfall": {
+      "signature": "function waterfall(...)",
+      "path": "libraries/toolkit/src/vanilla/async/waterfall/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "timeout": {
+      "signature": "function timeout(milliseconds: number)",
+      "path": "libraries/toolkit/src/vanilla/async/timeout/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "delayReject": {
+      "signature": "function delayReject(milliseconds: number)",
+      "path": "libraries/toolkit/src/vanilla/async/delayReject/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "parallelLimit": {
+      "signature": "function parallelLimit(limit: number)",
+      "path": "libraries/toolkit/src/vanilla/async/parallelLimit/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "race": {
+      "signature": "function race(...)",
+      "path": "libraries/toolkit/src/vanilla/async/race/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "delay": {
+      "signature": "function delay(milliseconds: number)",
+      "path": "libraries/toolkit/src/vanilla/async/delay/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "activation": {
+    "gelu": {
+      "signature": "function gelu(...)",
+      "path": "libraries/toolkit/src/vanilla/activation/gelu/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "gaussianErrorLinearUnit": {
+      "signature": "function gaussianErrorLinearUnit(...)",
+      "path": "libraries/toolkit/src/vanilla/activation/gaussianErrorLinearUnit/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "leakyRectifiedLinearUnit": {
+      "signature": "function leakyRectifiedLinearUnit(\n\talpha: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/activation/leakyRectifiedLinearUnit/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "softplus": {
+      "signature": "function softplus(...)",
+      "path": "libraries/toolkit/src/vanilla/activation/softplus/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "rectifiedLinearUnit": {
+      "signature": "function rectifiedLinearUnit(...)",
+      "path": "libraries/toolkit/src/vanilla/activation/rectifiedLinearUnit/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "softmax": {
+      "signature": "function softmax(...)",
+      "path": "libraries/toolkit/src/vanilla/activation/softmax/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sigmoid": {
+      "signature": "function sigmoid(...)",
+      "path": "libraries/toolkit/src/vanilla/activation/sigmoid/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "swish": {
+      "signature": "function swish(\n\tbeta: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/activation/swish/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "logic": {
+    "xor": {
+      "signature": "function xor(a: unknown)",
+      "path": "libraries/toolkit/src/vanilla/logic/xor/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "defaultTo": {
+      "signature": "function defaultTo(...)",
+      "path": "libraries/toolkit/src/vanilla/logic/defaultTo/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "not": {
+      "signature": "function not(...)",
+      "path": "libraries/toolkit/src/vanilla/logic/not/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "nor": {
+      "signature": "function nor(a: unknown)",
+      "path": "libraries/toolkit/src/vanilla/logic/nor/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "iff": {
+      "signature": "function iff(a: unknown)",
+      "path": "libraries/toolkit/src/vanilla/logic/iff/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "cond": {
+      "signature": "function cond(...)",
+      "path": "libraries/toolkit/src/vanilla/logic/cond/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "ifElse": {
+      "signature": "function ifElse(...)",
+      "path": "libraries/toolkit/src/vanilla/logic/ifElse/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "and": {
+      "signature": "function and(a: unknown)",
+      "path": "libraries/toolkit/src/vanilla/logic/and/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "unless": {
+      "signature": "function unless(...)",
+      "path": "libraries/toolkit/src/vanilla/logic/unless/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "when": {
+      "signature": "function when(...)",
+      "path": "libraries/toolkit/src/vanilla/logic/when/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "nand": {
+      "signature": "function nand(a: unknown)",
+      "path": "libraries/toolkit/src/vanilla/logic/nand/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "or": {
+      "signature": "function or(a: unknown)",
+      "path": "libraries/toolkit/src/vanilla/logic/or/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "implies": {
+      "signature": "function implies(antecedent: unknown)",
+      "path": "libraries/toolkit/src/vanilla/logic/implies/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "math": {
+    "minBy": {
+      "signature": "function minBy(...)",
+      "path": "libraries/toolkit/src/vanilla/math/minBy/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "squareRoot": {
+      "signature": "function squareRoot(...)",
+      "path": "libraries/toolkit/src/vanilla/math/squareRoot/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "power": {
+      "signature": "function power(\n\texponent: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/power/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "divisors": {
+      "signature": "function divisors(...)",
+      "path": "libraries/toolkit/src/vanilla/math/divisors/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPrime": {
+      "signature": "function isPrime(...)",
+      "path": "libraries/toolkit/src/vanilla/math/isPrime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "negate": {
+      "signature": "function negate(...)",
+      "path": "libraries/toolkit/src/vanilla/math/negate/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "randomInteger": {
+      "signature": "function randomInteger(\n\tmin: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/randomInteger/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "combinations": {
+      "signature": "function combinations(\n\tn: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/combinations/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "quadratic": {
+      "signature": "function quadratic(\n\ta: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/quadratic/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "truncate": {
+      "signature": "function truncate(...)",
+      "path": "libraries/toolkit/src/vanilla/math/truncate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "mean": {
+      "signature": "function average(...)",
+      "path": "libraries/toolkit/src/vanilla/math/mean/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "mode": {
+      "signature": "function mode(...)",
+      "path": "libraries/toolkit/src/vanilla/math/mode/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "subtract": {
+      "signature": "function subtract(\n\tsubtrahend: number,\n) ",
+      "path": "libraries/toolkit/src/vanilla/math/subtract/index.ts",
+      "curried": true,
+      "replaces": [
+        "(a, b) => a - b",
+        "a - b"
+      ]
+    },
+    "rootMeanSquare": {
+      "signature": "function rootMeanSquare(...)",
+      "path": "libraries/toolkit/src/vanilla/math/rootMeanSquare/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "multiply": {
+      "signature": "function multiply(\n\tmultiplierOrFactors: number | Array<number>,\n) ",
+      "path": "libraries/toolkit/src/vanilla/math/multiply/index.ts",
+      "curried": true,
+      "replaces": [
+        "(a, b) => a * b",
+        "a * b"
+      ]
+    },
+    "multiplyFactors": {
+      "signature": "function multiplyFactors(product: number, value: number): number ",
+      "path": "libraries/toolkit/src/vanilla/math/multiply/multiplyFactors/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "exponential": {
+      "signature": "function exponential(...)",
+      "path": "libraries/toolkit/src/vanilla/math/exponential/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "median": {
+      "signature": "function median(...)",
+      "path": "libraries/toolkit/src/vanilla/math/median/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "totient": {
+      "signature": "function totient(...)",
+      "path": "libraries/toolkit/src/vanilla/math/totient/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "primeFactorization": {
+      "signature": "function primeFactorization(...)",
+      "path": "libraries/toolkit/src/vanilla/math/primeFactorization/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "divide": {
+      "signature": "function divide(\n\tdivisor: number,\n) ",
+      "path": "libraries/toolkit/src/vanilla/math/divide/index.ts",
+      "curried": true,
+      "replaces": [
+        "(a, b) => a / b",
+        "a / b"
+      ]
+    },
+    "factorial": {
+      "signature": "function factorial(...)",
+      "path": "libraries/toolkit/src/vanilla/math/factorial/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "gcd": {
+      "signature": "function gcd(\n\ta: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/gcd/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "product": {
+      "signature": "function product(...)",
+      "path": "libraries/toolkit/src/vanilla/math/product/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "max": {
+      "signature": "function max(\n\ta: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/max/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "ceiling": {
+      "signature": "function ceiling(...)",
+      "path": "libraries/toolkit/src/vanilla/math/ceiling/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "absoluteValue": {
+      "signature": "function absoluteValue(...)",
+      "path": "libraries/toolkit/src/vanilla/math/absoluteValue/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sumAddends": {
+      "signature": "function sumAddends(total: number, value: number): number ",
+      "path": "libraries/toolkit/src/vanilla/math/add/sumAddends/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "add": {
+      "signature": "function add(\n\taddendOrAddends: number | Array<number>,\n) ",
+      "path": "libraries/toolkit/src/vanilla/math/add/index.ts",
+      "curried": true,
+      "replaces": [
+        "(a, b) => a + b",
+        "a + b"
+      ]
+    },
+    "clamp": {
+      "signature": "function clamp(\n\tmin: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/clamp/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sum": {
+      "signature": "function sum(...)",
+      "path": "libraries/toolkit/src/vanilla/math/sum/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "maxBy": {
+      "signature": "function maxBy(...)",
+      "path": "libraries/toolkit/src/vanilla/math/maxBy/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "lcm": {
+      "signature": "function lcm(\n\ta: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/lcm/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "increment": {
+      "signature": "function increment(...)",
+      "path": "libraries/toolkit/src/vanilla/math/increment/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isOdd": {
+      "signature": "function isOdd(...)",
+      "path": "libraries/toolkit/src/vanilla/math/isOdd/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "digitSum": {
+      "signature": "function digitSum(...)",
+      "path": "libraries/toolkit/src/vanilla/math/digitSum/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "inRange": {
+      "signature": "function inRange(\n\tstart: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/inRange/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "decrement": {
+      "signature": "function decrement(...)",
+      "path": "libraries/toolkit/src/vanilla/math/decrement/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "binomialCoefficient": {
+      "signature": "function binomialCoefficient(\n\tn: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/binomialCoefficient/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "fibonacci": {
+      "signature": "function fibonacci(...)",
+      "path": "libraries/toolkit/src/vanilla/math/fibonacci/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "floor": {
+      "signature": "function floor(...)",
+      "path": "libraries/toolkit/src/vanilla/math/floor/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "random": {
+      "signature": "function random(\n\tmin: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/random/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "logarithmBase10": {
+      "signature": "function logarithmBase10(...)",
+      "path": "libraries/toolkit/src/vanilla/math/logarithmBase10/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "logarithm": {
+      "signature": "function logarithm(\n\tbase: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/logarithm/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "modulo": {
+      "signature": "function modulo(\n\tdivisor: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/modulo/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "modularExponentiation": {
+      "signature": "function modularExponentiation(\n\tbase: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/modularExponentiation/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "harmonicMean": {
+      "signature": "function harmonicMean(...)",
+      "path": "libraries/toolkit/src/vanilla/math/harmonicMean/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sign": {
+      "signature": "function sign(...)",
+      "path": "libraries/toolkit/src/vanilla/math/sign/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "min": {
+      "signature": "function min(\n\ta: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/min/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "geometricMean": {
+      "signature": "function geometricMean(...)",
+      "path": "libraries/toolkit/src/vanilla/math/geometricMean/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "round": {
+      "signature": "function round(...)",
+      "path": "libraries/toolkit/src/vanilla/math/round/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isEven": {
+      "signature": "function isEven(...)",
+      "path": "libraries/toolkit/src/vanilla/math/isEven/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "permutations": {
+      "signature": "function permutations(\n\tn: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/math/permutations/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "average": {
+      "signature": "function average(...)",
+      "path": "libraries/toolkit/src/vanilla/math/average/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cubeRoot": {
+      "signature": "function cubeRoot(...)",
+      "path": "libraries/toolkit/src/vanilla/math/cubeRoot/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "special": {
+    "errorFunction": {
+      "signature": "function errorFunction(...)",
+      "path": "libraries/toolkit/src/vanilla/special/errorFunction/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "besselJ": {
+      "signature": "function besselJ(\n\tn: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/special/besselJ/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "complementaryErrorFunction": {
+      "signature": "function complementaryErrorFunction(...)",
+      "path": "libraries/toolkit/src/vanilla/special/complementaryErrorFunction/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "stirlingApproximation": {
+      "signature": "function stirlingApproximation(...)",
+      "path": "libraries/toolkit/src/vanilla/special/stirlingApproximation/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "gammaFunction": {
+      "signature": "function gammaFunction(...)",
+      "path": "libraries/toolkit/src/vanilla/special/gammaFunction/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "betaFunction": {
+      "signature": "function betaFunction(\n\tx: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/special/betaFunction/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "lens": {
+    "lensSatisfies": {
+      "signature": "function lensSatisfies(...)",
+      "path": "libraries/toolkit/src/vanilla/lens/lensSatisfies/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lensEq": {
+      "signature": "function lensEq(...)",
+      "path": "libraries/toolkit/src/vanilla/lens/lensEq/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "lensLte": {
+      "signature": "function lensLte(...)",
+      "path": "libraries/toolkit/src/vanilla/lens/lensLte/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "lensGte": {
+      "signature": "function lensGte(...)",
+      "path": "libraries/toolkit/src/vanilla/lens/lensGte/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "composeLens": {
+      "signature": "function composeLens(...)",
+      "path": "libraries/toolkit/src/vanilla/lens/composeLens/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "map": {
+    "getOr": {
+      "signature": "function getOr(...)",
+      "path": "libraries/toolkit/src/vanilla/map/getOr/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "deleteAll": {
+      "signature": "function deleteAll(...)",
+      "path": "libraries/toolkit/src/vanilla/map/deleteAll/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "mapEntries": {
+      "signature": "function mapEntries(...)",
+      "path": "libraries/toolkit/src/vanilla/map/mapEntries/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "entries": {
+      "signature": "function entries(...)",
+      "path": "libraries/toolkit/src/vanilla/map/entries/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sliding": {
+      "signature": "function sliding(...)",
+      "path": "libraries/toolkit/src/vanilla/map/sliding/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "update": {
+      "signature": "function update(...)",
+      "path": "libraries/toolkit/src/vanilla/map/update/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "filterKeys": {
+      "signature": "function filterKeys(...)",
+      "path": "libraries/toolkit/src/vanilla/map/filterKeys/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "delete": {
+      "signature": "function deleteKey(...)",
+      "path": "libraries/toolkit/src/vanilla/map/delete/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "merge": {
+      "signature": "function merge(...)",
+      "path": "libraries/toolkit/src/vanilla/map/merge/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "frequency": {
+      "signature": "function frequency(...)",
+      "path": "libraries/toolkit/src/vanilla/map/frequency/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "reduce": {
+      "signature": "function reduce(...)",
+      "path": "libraries/toolkit/src/vanilla/map/reduce/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "values": {
+      "signature": "function values(...)",
+      "path": "libraries/toolkit/src/vanilla/map/values/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "differenceWith": {
+      "signature": "function differenceWith(...)",
+      "path": "libraries/toolkit/src/vanilla/map/differenceWith/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "get": {
+      "signature": "function get(...)",
+      "path": "libraries/toolkit/src/vanilla/map/get/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "intersection": {
+      "signature": "function intersection(...)",
+      "path": "libraries/toolkit/src/vanilla/map/intersection/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "groupBy": {
+      "signature": "function groupBy(...)",
+      "path": "libraries/toolkit/src/vanilla/map/groupBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "clear": {
+      "signature": "function clear(...)",
+      "path": "libraries/toolkit/src/vanilla/map/clear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "fromObject": {
+      "signature": "function fromObject(...)",
+      "path": "libraries/toolkit/src/vanilla/map/fromObject/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "difference": {
+      "signature": "function difference(...)",
+      "path": "libraries/toolkit/src/vanilla/map/difference/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "map": {
+      "signature": "function map(...)",
+      "path": "libraries/toolkit/src/vanilla/map/map/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toObject": {
+      "signature": "function toObject(...)",
+      "path": "libraries/toolkit/src/vanilla/map/toObject/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "withDefault": {
+      "signature": "function withDefault(...)",
+      "path": "libraries/toolkit/src/vanilla/map/withDefault/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNotEmpty": {
+      "signature": "function isNotEmpty<K, V>(map: Map<K, V>): boolean ",
+      "path": "libraries/toolkit/src/vanilla/map/isNotEmpty/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "filterValues": {
+      "signature": "function filterValues(...)",
+      "path": "libraries/toolkit/src/vanilla/map/filterValues/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "union": {
+      "signature": "function union(...)",
+      "path": "libraries/toolkit/src/vanilla/map/union/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "intersectionWith": {
+      "signature": "function intersectionWith(...)",
+      "path": "libraries/toolkit/src/vanilla/map/intersectionWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "partitionBy": {
+      "signature": "function partitionBy(...)",
+      "path": "libraries/toolkit/src/vanilla/map/partitionBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "keys": {
+      "signature": "function keys(...)",
+      "path": "libraries/toolkit/src/vanilla/map/keys/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "has": {
+      "signature": "function has(...)",
+      "path": "libraries/toolkit/src/vanilla/map/has/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isEmpty": {
+      "signature": "function isEmpty<K, V>(map: Map<K, V>): boolean ",
+      "path": "libraries/toolkit/src/vanilla/map/isEmpty/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr.length === 0",
+        "array.length === 0"
+      ]
+    },
+    "size": {
+      "signature": "function size(...)",
+      "path": "libraries/toolkit/src/vanilla/map/size/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "filter": {
+      "signature": "function filter(...)",
+      "path": "libraries/toolkit/src/vanilla/map/filter/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "set": {
+      "signature": "function set(...)",
+      "path": "libraries/toolkit/src/vanilla/map/set/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "partition": {
+      "signature": "function partition(...)",
+      "path": "libraries/toolkit/src/vanilla/map/partition/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "fromEntries": {
+      "signature": "function fromEntries(...)",
+      "path": "libraries/toolkit/src/vanilla/map/fromEntries/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "mapKeys": {
+      "signature": "function mapKeys(...)",
+      "path": "libraries/toolkit/src/vanilla/map/mapKeys/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "setAll": {
+      "signature": "function setAll(...)",
+      "path": "libraries/toolkit/src/vanilla/map/setAll/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "mergeWith": {
+      "signature": "function mergeWith(...)",
+      "path": "libraries/toolkit/src/vanilla/map/mergeWith/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "fromArray": {
+      "signature": "function fromArray(...)",
+      "path": "libraries/toolkit/src/vanilla/map/fromArray/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "interleave": {
+      "signature": "function interleave(...)",
+      "path": "libraries/toolkit/src/vanilla/map/interleave/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "symmetricDifference": {
+      "signature": "function symmetricDifference(...)",
+      "path": "libraries/toolkit/src/vanilla/map/symmetricDifference/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "object": {
+    "propSatisfies": {
+      "signature": "function propSatisfies(...)",
+      "path": "libraries/toolkit/src/vanilla/object/propSatisfies/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "invert": {
+      "signature": "function invert(...)",
+      "path": "libraries/toolkit/src/vanilla/object/invert/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "invertBy": {
+      "signature": "function invertBy(...)",
+      "path": "libraries/toolkit/src/vanilla/object/invertBy/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "prop": {
+      "signature": "function prop(...)",
+      "path": "libraries/toolkit/src/vanilla/object/prop/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lensPath": {
+      "signature": "function lensPath(...)",
+      "path": "libraries/toolkit/src/vanilla/object/lensPath/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "entries": {
+      "signature": "function entries(...)",
+      "path": "libraries/toolkit/src/vanilla/object/entries/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "propOr": {
+      "signature": "function propOr(...)",
+      "path": "libraries/toolkit/src/vanilla/object/propOr/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "reject": {
+      "signature": "function reject(...)",
+      "path": "libraries/toolkit/src/vanilla/object/reject/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "zipObject": {
+      "signature": "function zipObject(...)",
+      "path": "libraries/toolkit/src/vanilla/object/zipObject/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toPairs": {
+      "signature": "function toPairs(...)",
+      "path": "libraries/toolkit/src/vanilla/object/toPairs/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "hasPath": {
+      "signature": "function hasPath(\n\tpath: Array<string | number | symbol>,\n)",
+      "path": "libraries/toolkit/src/vanilla/object/hasPath/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "merge": {
+      "signature": "function merge(...)",
+      "path": "libraries/toolkit/src/vanilla/object/merge/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "frequency": {
+      "signature": "function frequency(...)",
+      "path": "libraries/toolkit/src/vanilla/object/frequency/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "dissoc": {
+      "signature": "function dissoc(...)",
+      "path": "libraries/toolkit/src/vanilla/object/dissoc/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "without": {
+      "signature": "function without(...)",
+      "path": "libraries/toolkit/src/vanilla/object/without/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "props": {
+      "signature": "function props(...)",
+      "path": "libraries/toolkit/src/vanilla/object/props/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "accumulate": {
+      "signature": "function accumulate(...)",
+      "path": "libraries/toolkit/src/vanilla/object/accumulate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "path": {
+      "signature": "function pathconst path =\n\t(pathInput: string | Array<string | number>)",
+      "path": "libraries/toolkit/src/vanilla/object/path/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "values": {
+      "signature": "function values(...)",
+      "path": "libraries/toolkit/src/vanilla/object/values/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "modify": {
+      "signature": "function modify(...)",
+      "path": "libraries/toolkit/src/vanilla/object/modify/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "over": {
+      "signature": "function over(...)",
+      "path": "libraries/toolkit/src/vanilla/object/over/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lensProp": {
+      "signature": "function lensProp(...)",
+      "path": "libraries/toolkit/src/vanilla/object/lensProp/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toMap": {
+      "signature": "function toMap(...)",
+      "path": "libraries/toolkit/src/vanilla/object/toMap/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "evolve": {
+      "signature": "function evolve(...)",
+      "path": "libraries/toolkit/src/vanilla/object/evolve/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "modifyPath": {
+      "signature": "function modifyPath(...)",
+      "path": "libraries/toolkit/src/vanilla/object/modifyPath/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "xform": {
+      "signature": "function xform(...)",
+      "path": "libraries/toolkit/src/vanilla/object/xform/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "omit": {
+      "signature": "function omit(...)",
+      "path": "libraries/toolkit/src/vanilla/object/omit/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "pickAll": {
+      "signature": "function pickAll(...)",
+      "path": "libraries/toolkit/src/vanilla/object/pickAll/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "project": {
+      "signature": "function project(...)",
+      "path": "libraries/toolkit/src/vanilla/object/project/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lens": {
+      "signature": "function lens(...)",
+      "path": "libraries/toolkit/src/vanilla/object/lens/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "clone": {
+      "signature": "function clone(...)",
+      "path": "libraries/toolkit/src/vanilla/object/clone/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "eqProps": {
+      "signature": "function eqProps(...)",
+      "path": "libraries/toolkit/src/vanilla/object/eqProps/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "objOf": {
+      "signature": "function objOf(...)",
+      "path": "libraries/toolkit/src/vanilla/object/objOf/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "mergeDeep": {
+      "signature": "function mergeDeep(...)",
+      "path": "libraries/toolkit/src/vanilla/object/mergeDeep/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "renameKeys": {
+      "signature": "function renameKeys(...)",
+      "path": "libraries/toolkit/src/vanilla/object/renameKeys/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "propEq": {
+      "signature": "function propEq(...)",
+      "path": "libraries/toolkit/src/vanilla/object/propEq/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "assoc": {
+      "signature": "function assoc(...)",
+      "path": "libraries/toolkit/src/vanilla/object/assoc/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "smartMerge": {
+      "signature": "function smartMergeconst smartMerge =\n\t(strategy: MergeStrategy = {})",
+      "path": "libraries/toolkit/src/vanilla/object/smartMerge/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "assocPath": {
+      "signature": "function assocPath(...)",
+      "path": "libraries/toolkit/src/vanilla/object/assocPath/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "view": {
+      "signature": "function view(...)",
+      "path": "libraries/toolkit/src/vanilla/object/view/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNotEmpty": {
+      "signature": "function isNotEmpty<T extends object>(obj: T): boolean ",
+      "path": "libraries/toolkit/src/vanilla/object/isNotEmpty/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lensIndex": {
+      "signature": "function lensIndex(...)",
+      "path": "libraries/toolkit/src/vanilla/object/lensIndex/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "partitionBy": {
+      "signature": "function partitionBy(...)",
+      "path": "libraries/toolkit/src/vanilla/object/partitionBy/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "keys": {
+      "signature": "function keys(...)",
+      "path": "libraries/toolkit/src/vanilla/object/keys/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "mapValues": {
+      "signature": "function mapValues(...)",
+      "path": "libraries/toolkit/src/vanilla/object/mapValues/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "has": {
+      "signature": "function hasconst has =\n\t(pathInput: string | Array<string | number>)",
+      "path": "libraries/toolkit/src/vanilla/object/has/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isEmpty": {
+      "signature": "function isEmpty<T extends object>(obj: T): boolean ",
+      "path": "libraries/toolkit/src/vanilla/object/isEmpty/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr.length === 0",
+        "array.length === 0"
+      ]
+    },
+    "pickBy": {
+      "signature": "function pickBy(...)",
+      "path": "libraries/toolkit/src/vanilla/object/pickBy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "dissocPath": {
+      "signature": "function dissocPath(\n\tpath: Array<string | number>,\n)",
+      "path": "libraries/toolkit/src/vanilla/object/dissocPath/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "whereEq": {
+      "signature": "function whereEq(...)",
+      "path": "libraries/toolkit/src/vanilla/object/whereEq/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toPairsIn": {
+      "signature": "function toPairsIn(...)",
+      "path": "libraries/toolkit/src/vanilla/object/toPairsIn/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "pathOr": {
+      "signature": "function pathOr(...)",
+      "path": "libraries/toolkit/src/vanilla/object/pathOr/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "set": {
+      "signature": "function setconst set =\n\t(pathInput: string | Array<string | number>)",
+      "path": "libraries/toolkit/src/vanilla/object/set/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "fromEntries": {
+      "signature": "function fromEntries(...)",
+      "path": "libraries/toolkit/src/vanilla/object/fromEntries/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "mapKeys": {
+      "signature": "function mapKeys(...)",
+      "path": "libraries/toolkit/src/vanilla/object/mapKeys/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "where": {
+      "signature": "function where(...)",
+      "path": "libraries/toolkit/src/vanilla/object/where/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "transform": {
+      "signature": "function transform(...)",
+      "path": "libraries/toolkit/src/vanilla/object/transform/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "pick": {
+      "signature": "function pick(...)",
+      "path": "libraries/toolkit/src/vanilla/object/pick/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "conversion": {
+    "toJson": {
+      "signature": "function toJson(indent: number = 0): (value: unknown) => string | null ",
+      "path": "libraries/toolkit/src/vanilla/conversion/toJson/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toPercent": {
+      "signature": "function toPercent(\n\toptions: ",
+      "path": "libraries/toolkit/src/vanilla/conversion/toPercent/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "safeParse": {
+      "signature": "function safeParse<T>(parser: (value: unknown) => T): (value: unknown) => T | null ",
+      "path": "libraries/toolkit/src/vanilla/conversion/safeParse/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "stringify": {
+      "signature": "function stringify(value: unknown): string ",
+      "path": "libraries/toolkit/src/vanilla/conversion/stringify/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "sortByKey": {
+      "signature": "function sortByKey([a]: [string, unknown], [b]: [string, unknown]): number ",
+      "path": "libraries/toolkit/src/vanilla/conversion/stringify/sortByKey/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "fromJson": {
+      "signature": "function fromJson(json: string): unknown ",
+      "path": "libraries/toolkit/src/vanilla/conversion/fromJson/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "safeParseInt": {
+      "signature": "function safeParseInt(radix: number = 10): (value: unknown) => number | null ",
+      "path": "libraries/toolkit/src/vanilla/conversion/safeParseInt/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toPlainDateTime": {
+      "signature": "function toPlainDateTime(\n\tvalue: DateTimeInput | null | undefined,\n): Temporal.PlainDateTime | null ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toPlainDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toPlainDate": {
+      "signature": "function toPlainDate(\n\tvalue: DateInput | null | undefined,\n): Temporal.PlainDate | null ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toPlainDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toPrecision": {
+      "signature": "function toPrecision(places: number): (value: unknown) => number ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toPrecision/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toInteger": {
+      "signature": "function toInteger(value: unknown): number ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toInteger/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toBoolean": {
+      "signature": "function toBoolean(value: unknown): boolean ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toBoolean/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toString": {
+      "signature": "function toString(value: unknown): string ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toString/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "jsonReplacer": {
+      "signature": "function jsonReplacer(seen: WeakSet<object>) ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toString/jsonReplacer/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "castValue": {
+      "signature": "function castValue<T extends CastType>(type: T) ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toFloat": {
+      "signature": "function toFloat(value: unknown): number ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toFloat/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toPlainTime": {
+      "signature": "function toPlainTime(\n\tvalue: TimeInput | null | undefined,\n): Temporal.PlainTime | null ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/toPlainTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "hasMethod": {
+      "signature": "function hasMethod<T extends string>(\n\tobj: unknown,\n\tname: T,\n): obj is\n\t& Record<string, unknown>\n\t& ",
+      "path": "libraries/toolkit/src/vanilla/conversion/castValue/hasMethod/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "safeParseFloat": {
+      "signature": "function safeParseFloat(value: unknown): number | null ",
+      "path": "libraries/toolkit/src/vanilla/conversion/safeParseFloat/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "finance": {
+    "netPresentValue": {
+      "signature": "function netPresentValue(\n\trate: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/finance/netPresentValue/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "internalRateOfReturn": {
+      "signature": "function internalRateOfReturn(...)",
+      "path": "libraries/toolkit/src/vanilla/finance/internalRateOfReturn/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "futureValue": {
+      "signature": "function futureValue(\n\trate: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/finance/futureValue/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "amortizationSchedule": {
+      "signature": "function amortizationSchedule(\n\tprincipal: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/finance/amortizationSchedule/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "compoundInterest": {
+      "signature": "function compoundInterest(\n\tprincipal: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/finance/compoundInterest/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "paymentAmount": {
+      "signature": "function paymentAmount(\n\tprincipal: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/finance/paymentAmount/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "annuity": {
+      "signature": "function annuity(\n\tpayment: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/finance/annuity/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "presentValue": {
+      "signature": "function presentValue(\n\tfutureValue: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/finance/presentValue/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "irr": {
+      "signature": "function irr(...)",
+      "path": "libraries/toolkit/src/vanilla/finance/irr/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "string": {
+    "indent": {
+      "signature": "function indent(\n\tindentStr: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/indent/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "padStartTo": {
+      "signature": "function padStartToconst padStartTo =\n\t(chars: string)",
+      "path": "libraries/toolkit/src/vanilla/string/padStartTo/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "split": {
+      "signature": "function split(separator: string | RegExp)",
+      "path": "libraries/toolkit/src/vanilla/string/split/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "escape": {
+      "signature": "function escape(...)",
+      "path": "libraries/toolkit/src/vanilla/string/escape/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "repeat": {
+      "signature": "function repeat(str: string)",
+      "path": "libraries/toolkit/src/vanilla/string/repeat/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "concat": {
+      "signature": "function concat(first: string)",
+      "path": "libraries/toolkit/src/vanilla/string/concat/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "padBothToFromStart": {
+      "signature": "function padBothToFromStartconst padBothToFromStart =\n\t(chars: string)",
+      "path": "libraries/toolkit/src/vanilla/string/padBothToFromStart/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "trimStart": {
+      "signature": "function trimStart(...)",
+      "path": "libraries/toolkit/src/vanilla/string/trimStart/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "words": {
+      "signature": "function words(...)",
+      "path": "libraries/toolkit/src/vanilla/string/words/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "removePrefix": {
+      "signature": "function removePrefix(\n\tprefix: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/removePrefix/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "remove": {
+      "signature": "function remove(\n\tsubstring: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/remove/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "splitEvery": {
+      "signature": "function splitEvery(n: number)",
+      "path": "libraries/toolkit/src/vanilla/string/splitEvery/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "swapCase": {
+      "signature": "function swapCase(...)",
+      "path": "libraries/toolkit/src/vanilla/string/swapCase/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "changeExtension": {
+      "signature": "function changeExtension(\n\tnewExtension: string,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/changeExtension/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "padEndTo": {
+      "signature": "function padEndToconst padEndTo =\n\t(chars: string)",
+      "path": "libraries/toolkit/src/vanilla/string/padEndTo/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "escapeRegExp": {
+      "signature": "function escapeRegExp(...)",
+      "path": "libraries/toolkit/src/vanilla/string/escapeRegExp/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "padBoth": {
+      "signature": "function padBoth(chars: string)",
+      "path": "libraries/toolkit/src/vanilla/string/padBoth/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "truncate": {
+      "signature": "function truncate(\n\tmaxLength: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/truncate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "removeSuffix": {
+      "signature": "function removeSuffix(\n\tsuffix: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/removeSuffix/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "substr": {
+      "signature": "function substr(\n\tstart: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/substr/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "hashCode": {
+      "signature": "function hashCode(...)",
+      "path": "libraries/toolkit/src/vanilla/string/hashCode/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "test": {
+      "signature": "function test(pattern: RegExp)",
+      "path": "libraries/toolkit/src/vanilla/string/test/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "quote": {
+      "signature": "function quote(\n\tquoteChar: string | null | undefined = '\"',\n)",
+      "path": "libraries/toolkit/src/vanilla/string/quote/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "match": {
+      "signature": "function match(pattern: string | RegExp)",
+      "path": "libraries/toolkit/src/vanilla/string/match/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "sanitize": {
+      "signature": "function sanitize(...)",
+      "path": "libraries/toolkit/src/vanilla/string/sanitize/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "slice": {
+      "signature": "function slice(\n\tstart: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/slice/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "padBothTo": {
+      "signature": "function padBothToconst padBothTo =\n\t(chars: string)",
+      "path": "libraries/toolkit/src/vanilla/string/padBothTo/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toPascal": {
+      "signature": "function toPascal(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toPascal/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toCamel": {
+      "signature": "function toCamel(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toCamel/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toTitle": {
+      "signature": "function toTitle(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toTitle/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toKebab": {
+      "signature": "function toKebab(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toKebab/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toUpperFirst": {
+      "signature": "function toUpperFirst(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toUpperFirst/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toSentence": {
+      "signature": "function toSentence(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toSentence/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toLowerFirst": {
+      "signature": "function toLowerFirst(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toLowerFirst/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toSnake": {
+      "signature": "function toSnake(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toSnake/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toLower": {
+      "signature": "function toLower(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toLower/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toCase": {
+      "signature": "function toCase(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toTrain": {
+      "signature": "function toTrain(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toTrain/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toUpper": {
+      "signature": "function toUpper(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toUpper/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toScreamingSnake": {
+      "signature": "function toScreamingSnake(...)",
+      "path": "libraries/toolkit/src/vanilla/string/toCase/toScreamingSnake/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "unquote": {
+      "signature": "function unquote(...)",
+      "path": "libraries/toolkit/src/vanilla/string/unquote/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "chars": {
+      "signature": "function chars(...)",
+      "path": "libraries/toolkit/src/vanilla/string/chars/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "template": {
+      "signature": "function template(\n\ttemplateStr: string,\n\toptions?: { syntax?: \"mustache\" | \"dollar\" | \"colon\" },\n)",
+      "path": "libraries/toolkit/src/vanilla/string/template/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "similarity": {
+      "signature": "function similarity(\n\tstr1: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/similarity/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "normalizeForComparison": {
+      "signature": "function normalizeForComparison(...)",
+      "path": "libraries/toolkit/src/vanilla/string/normalizeForComparison/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "endsWith": {
+      "signature": "function endsWith(searchString: string)",
+      "path": "libraries/toolkit/src/vanilla/string/endsWith/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "length": {
+      "signature": "function length(str: string): number ",
+      "path": "libraries/toolkit/src/vanilla/string/length/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "slugify": {
+      "signature": "function slugify(...)",
+      "path": "libraries/toolkit/src/vanilla/string/slugify/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "padEnd": {
+      "signature": "function padEnd(chars: string)",
+      "path": "libraries/toolkit/src/vanilla/string/padEnd/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "splitAt": {
+      "signature": "function splitAt(index: number)",
+      "path": "libraries/toolkit/src/vanilla/string/splitAt/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "reverse": {
+      "signature": "function reverse(...)",
+      "path": "libraries/toolkit/src/vanilla/string/reverse/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "contains": {
+      "signature": "function contains(\n\tsubstring: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/contains/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "truncateMiddle": {
+      "signature": "function truncateMiddle(\n\tmaxLength: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/truncateMiddle/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "trim": {
+      "signature": "function trim(...)",
+      "path": "libraries/toolkit/src/vanilla/string/trim/index.ts",
+      "curried": false,
+      "replaces": [
+        "str.trim()",
+        "string.trim()"
+      ]
+    },
+    "substring": {
+      "signature": "function substring(\n\tstart: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/substring/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "normalize": {
+      "signature": "function normalize(\n\tform: \"NFC\" | \"NFD\" | \"NFKC\" | \"NFKD\" | null | undefined = \"NFC\",\n)",
+      "path": "libraries/toolkit/src/vanilla/string/normalize/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "wrap": {
+      "signature": "function wrap(\n\twidth: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/wrap/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "trimEnd": {
+      "signature": "function trimEnd(...)",
+      "path": "libraries/toolkit/src/vanilla/string/trimEnd/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "chomp": {
+      "signature": "function chomp(...)",
+      "path": "libraries/toolkit/src/vanilla/string/chomp/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "concatTo": {
+      "signature": "function concatTo(toAppend: string)",
+      "path": "libraries/toolkit/src/vanilla/string/concatTo/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "levenshtein": {
+      "signature": "function levenshtein(\n\tstr1: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/levenshtein/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "padStart": {
+      "signature": "function padStart(chars: string)",
+      "path": "libraries/toolkit/src/vanilla/string/padStart/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNotEmpty": {
+      "signature": "function isNotEmpty(str: string): boolean ",
+      "path": "libraries/toolkit/src/vanilla/string/isNotEmpty/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "stripIndent": {
+      "signature": "function stripIndent(...)",
+      "path": "libraries/toolkit/src/vanilla/string/stripIndent/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cleanFilename": {
+      "signature": "function cleanFilename(...)",
+      "path": "libraries/toolkit/src/vanilla/string/cleanFilename/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lastIndexOf": {
+      "signature": "function lastIndexOf(\n\tsubstring: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/lastIndexOf/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "splice": {
+      "signature": "function splice(\n\tstart: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/splice/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "deburr": {
+      "signature": "function deburr(...)",
+      "path": "libraries/toolkit/src/vanilla/string/deburr/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "padBothToFromEnd": {
+      "signature": "function padBothToFromEnd(...)",
+      "path": "libraries/toolkit/src/vanilla/string/padBothToFromEnd/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "unescape": {
+      "signature": "function unescape(...)",
+      "path": "libraries/toolkit/src/vanilla/string/unescape/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "countMatches": {
+      "signature": "function countMatches(\n\tpattern: string | RegExp | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/countMatches/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isEmpty": {
+      "signature": "function isEmpty(str: string): boolean ",
+      "path": "libraries/toolkit/src/vanilla/string/isEmpty/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr.length === 0",
+        "array.length === 0"
+      ]
+    },
+    "replace": {
+      "signature": "function replaceconst replace =\n\t(searchValue: string | RegExp)",
+      "path": "libraries/toolkit/src/vanilla/string/replace/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lines": {
+      "signature": "function lines(...)",
+      "path": "libraries/toolkit/src/vanilla/string/lines/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "extractAfter": {
+      "signature": "function extractAfter(\n\tmarker: string,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/extractAfter/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "findExtension": {
+      "signature": "function findExtension(...)",
+      "path": "libraries/toolkit/src/vanilla/string/findExtension/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "startsWith": {
+      "signature": "function startsWith(searchString: string)",
+      "path": "libraries/toolkit/src/vanilla/string/startsWith/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "replaceAll": {
+      "signature": "function replaceAllconst replaceAll =\n\t(searchValue: string | RegExp)",
+      "path": "libraries/toolkit/src/vanilla/string/replaceAll/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "wrapWith": {
+      "signature": "function wrapWith(\n\tprefix: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/wrapWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "indexOf": {
+      "signature": "function indexOf(\n\tsubstring: string | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/string/indexOf/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "geometry": {
+    "dotProduct": {
+      "signature": "function dotProduct(\n\tvector1: Array<number> | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/dotProduct/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "crossProduct": {
+      "signature": "function crossProduct(\n\ta: number[] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/crossProduct/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "vectorProjection": {
+      "signature": "function vectorProjection(\n\tvectorA: Array<number> | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/vectorProjection/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "haversineDistance": {
+      "signature": "function haversineDistance(\n\tpoint1: [number, number] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/haversineDistance/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "euclideanDistance": {
+      "signature": "function euclideanDistance(\n\tpoint1: Array<number> | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/euclideanDistance/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "chebyshevDistance": {
+      "signature": "function chebyshevDistance(\n\tpoint1: number[] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/chebyshevDistance/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "normalize": {
+      "signature": "function normalize(...)",
+      "path": "libraries/toolkit/src/vanilla/geometry/normalize/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "anglesBetweenVectors": {
+      "signature": "function anglesBetweenVectors(\n\tvector1: number[] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/anglesBetweenVectors/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "magnitude": {
+      "signature": "function magnitude(...)",
+      "path": "libraries/toolkit/src/vanilla/geometry/magnitude/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "manhattanDistance": {
+      "signature": "function manhattanDistance(\n\tpoint1: number[] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/geometry/manhattanDistance/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "combinator": {
+    "arity": {
+      "signature": "function arity(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/arity/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "useWith": {
+      "signature": "function useWith(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/useWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "apply": {
+      "signature": "function apply(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/apply/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "memoizeKey": {
+      "signature": "function memoizeKeyconst memoizeKey =\n\t(options: KeyOptions = {})",
+      "path": "libraries/toolkit/src/vanilla/combinator/memoizeKey/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "unary": {
+      "signature": "function unary(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/unary/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "curry": {
+      "signature": "function curry(fn: (...args: any[])",
+      "path": "libraries/toolkit/src/vanilla/combinator/curry/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "pipe": {
+      "signature": "function pipe(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/pipe/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "complement": {
+      "signature": "function complement(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/complement/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "partialRight": {
+      "signature": "function partialRight(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/partialRight/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "liftA3": {
+      "signature": "function liftA3(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftA3/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "liftA4": {
+      "signature": "function liftA4(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftA4/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "identity": {
+      "signature": "function identity(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/identity/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "throttle": {
+      "signature": "function throttle(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/throttle/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "partial": {
+      "signature": "function partial(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/partial/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "liftA5": {
+      "signature": "function liftA5(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftA5/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "liftA2": {
+      "signature": "function liftA2(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftA2/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "composeAsync": {
+      "signature": "function composeAsync(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/composeAsync/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "once": {
+      "signature": "function once(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/once/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "until": {
+      "signature": "function until(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/until/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "debounce": {
+      "signature": "function debounce(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/debounce/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "nthArg": {
+      "signature": "function nthArg(n: number)",
+      "path": "libraries/toolkit/src/vanilla/combinator/nthArg/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "tryCatch": {
+      "signature": "function tryCatch(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/tryCatch/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "liftN": {
+      "signature": "function liftN(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftN/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "compose": {
+      "signature": "function compose(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/compose/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "thunkify": {
+      "signature": "function thunkify(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/thunkify/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "flip": {
+      "signature": "function flip(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/flip/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "converge": {
+      "signature": "function converge(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/converge/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "tap": {
+      "signature": "function tap(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/tap/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "memoize": {
+      "signature": "function memoize(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/memoize/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "nAry": {
+      "signature": "function nAry(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/nAry/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "wrap": {
+      "signature": "function wrap(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/wrap/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "call": {
+      "signature": "function call(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/call/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "unless": {
+      "signature": "function unless(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/unless/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "constant": {
+      "signature": "function constant(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/constant/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "juxt": {
+      "signature": "function juxt(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/juxt/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "liftBinary": {
+      "signature": "function liftBinary(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftBinary/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "constructN": {
+      "signature": "function constructN(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/constructN/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "liftUnary": {
+      "signature": "function liftUnary(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftUnary/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "pipeWith": {
+      "signature": "function pipeWith(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/pipeWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "curryN": {
+      "signature": "function curryN(n: number, fn: (...args: any[])",
+      "path": "libraries/toolkit/src/vanilla/combinator/curryN/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "binary": {
+      "signature": "function binary(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/binary/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "memoizeWith": {
+      "signature": "function memoizeWith(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/memoizeWith/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "of": {
+      "signature": "function of(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/of/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "when": {
+      "signature": "function when(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/when/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "pipeAsync": {
+      "signature": "function pipeAsync(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/pipeAsync/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "bind": {
+      "signature": "function bind(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/bind/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "liftTernary": {
+      "signature": "function liftTernary(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/liftTernary/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "construct": {
+      "signature": "function construct(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/construct/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lift": {
+      "signature": "function lift(...)",
+      "path": "libraries/toolkit/src/vanilla/combinator/lift/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "physics": {
+    "acceleration": {
+      "signature": "function acceleration(\n\tforce: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/physics/acceleration/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "frequency": {
+      "signature": "function frequency(...)",
+      "path": "libraries/toolkit/src/vanilla/physics/frequency/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "momentum": {
+      "signature": "function momentum(\n\tmass: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/physics/momentum/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "wavelength": {
+      "signature": "function wavelength(\n\tspeed: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/physics/wavelength/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "potentialEnergy": {
+      "signature": "function potentialEnergy(\n\tmass: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/physics/potentialEnergy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "velocity": {
+      "signature": "function velocity(\n\tdistance: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/physics/velocity/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "force": {
+      "signature": "function force(\n\tmass: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/physics/force/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "kineticEnergy": {
+      "signature": "function kineticEnergy(\n\tmass: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/physics/kineticEnergy/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "set": {
+    "sliding": {
+      "signature": "function sliding(...)",
+      "path": "libraries/toolkit/src/vanilla/set/sliding/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "delete": {
+      "signature": "function deleteElement(...)",
+      "path": "libraries/toolkit/src/vanilla/set/delete/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "frequency": {
+      "signature": "function frequency(...)",
+      "path": "libraries/toolkit/src/vanilla/set/frequency/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toArray": {
+      "signature": "function toArray(...)",
+      "path": "libraries/toolkit/src/vanilla/set/toArray/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "reduce": {
+      "signature": "function reduce(...)",
+      "path": "libraries/toolkit/src/vanilla/set/reduce/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "symmetricDifferenceWith": {
+      "signature": "function symmetricDifferenceWith(...)",
+      "path": "libraries/toolkit/src/vanilla/set/symmetricDifferenceWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "differenceWith": {
+      "signature": "function differenceWith(...)",
+      "path": "libraries/toolkit/src/vanilla/set/differenceWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "intersection": {
+      "signature": "function intersection(...)",
+      "path": "libraries/toolkit/src/vanilla/set/intersection/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "clear": {
+      "signature": "function clear(...)",
+      "path": "libraries/toolkit/src/vanilla/set/clear/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "difference": {
+      "signature": "function difference(...)",
+      "path": "libraries/toolkit/src/vanilla/set/difference/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "map": {
+      "signature": "function map(...)",
+      "path": "libraries/toolkit/src/vanilla/set/map/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "add": {
+      "signature": "function add(...)",
+      "path": "libraries/toolkit/src/vanilla/set/add/index.ts",
+      "curried": false,
+      "replaces": [
+        "(a, b) => a + b",
+        "a + b"
+      ]
+    },
+    "unionWith": {
+      "signature": "function unionWith(...)",
+      "path": "libraries/toolkit/src/vanilla/set/unionWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNotEmpty": {
+      "signature": "function isNotEmpty<T>(set: Set<T>): boolean ",
+      "path": "libraries/toolkit/src/vanilla/set/isNotEmpty/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "union": {
+      "signature": "function union(...)",
+      "path": "libraries/toolkit/src/vanilla/set/union/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "intersectionWith": {
+      "signature": "function intersectionWith(...)",
+      "path": "libraries/toolkit/src/vanilla/set/intersectionWith/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "partitionBy": {
+      "signature": "function partitionBy(...)",
+      "path": "libraries/toolkit/src/vanilla/set/partitionBy/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "has": {
+      "signature": "function has(...)",
+      "path": "libraries/toolkit/src/vanilla/set/has/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isSubsetOf": {
+      "signature": "function isSubsetOf(...)",
+      "path": "libraries/toolkit/src/vanilla/set/isSubsetOf/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isEmpty": {
+      "signature": "function isEmpty<T>(\n\tset: Set<T> | null | undefined,\n): boolean ",
+      "path": "libraries/toolkit/src/vanilla/set/isEmpty/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr.length === 0",
+        "array.length === 0"
+      ]
+    },
+    "size": {
+      "signature": "function size(...)",
+      "path": "libraries/toolkit/src/vanilla/set/size/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "filter": {
+      "signature": "function filter(...)",
+      "path": "libraries/toolkit/src/vanilla/set/filter/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isSupersetOf": {
+      "signature": "function isSupersetOf(...)",
+      "path": "libraries/toolkit/src/vanilla/set/isSupersetOf/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isDisjointFrom": {
+      "signature": "function isDisjointFrom(...)",
+      "path": "libraries/toolkit/src/vanilla/set/isDisjointFrom/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "fromArray": {
+      "signature": "function fromArray(...)",
+      "path": "libraries/toolkit/src/vanilla/set/fromArray/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "interleave": {
+      "signature": "function interleave(...)",
+      "path": "libraries/toolkit/src/vanilla/set/interleave/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "symmetricDifference": {
+      "signature": "function symmetricDifference(...)",
+      "path": "libraries/toolkit/src/vanilla/set/symmetricDifference/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "matrix": {
+    "matrixScalarMultiply": {
+      "signature": "function matrixScalarMultiply(\n\tscalar: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/matrix/matrixScalarMultiply/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "determinant3x3": {
+      "signature": "function determinant3x3(...)",
+      "path": "libraries/toolkit/src/vanilla/matrix/determinant3x3/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matrixInverse2x2": {
+      "signature": "function matrixInverse2x2(...)",
+      "path": "libraries/toolkit/src/vanilla/matrix/matrixInverse2x2/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matrixAddition": {
+      "signature": "function matrixAddition(\n\tmatrix1: number[][] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/matrix/matrixAddition/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matrixTrace": {
+      "signature": "function matrixTrace(...)",
+      "path": "libraries/toolkit/src/vanilla/matrix/matrixTrace/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matrixMultiply": {
+      "signature": "function matrixMultiply(\n\ta: number[][] | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/matrix/matrixMultiply/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matrixInverse3x3": {
+      "signature": "function matrixInverse3x3(...)",
+      "path": "libraries/toolkit/src/vanilla/matrix/matrixInverse3x3/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "identityMatrix": {
+      "signature": "function identityMatrix(...)",
+      "path": "libraries/toolkit/src/vanilla/matrix/identityMatrix/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matrixTranspose": {
+      "signature": "function matrixTranspose(...)",
+      "path": "libraries/toolkit/src/vanilla/matrix/matrixTranspose/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "determinant2x2": {
+      "signature": "function determinant2x2(...)",
+      "path": "libraries/toolkit/src/vanilla/matrix/determinant2x2/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  },
+  "interpolation": {
+    "bezierInterpolation": {
+      "signature": "function bezierInterpolation(\n\tcontrolPoints: Array<Array<number>> | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/interpolation/bezierInterpolation/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "linearInterpolation": {
+      "signature": "function linearInterpolation(\n\tstart: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/interpolation/linearInterpolation/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cubicInterpolation": {
+      "signature": "function cubicInterpolation(\n\ty0: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/interpolation/cubicInterpolation/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "bilinearInterpolation": {
+      "signature": "function bilinearInterpolation(\n\tq00: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/interpolation/bilinearInterpolation/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "smoothstep": {
+      "signature": "function smoothstep(\n\tedge0: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/interpolation/smoothstep/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "inverseLinearInterpolation": {
+      "signature": "function inverseLinearInterpolation(\n\tstart: number | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/interpolation/inverseLinearInterpolation/index.ts",
+      "curried": true,
+      "replaces": []
+    }
+  },
+  "validation": {
+    "isBeforeTime": {
+      "signature": "function isBeforeTime(\n\treference: TimeInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBeforeTime/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "both": {
+      "signature": "function both<T>(pred1: (value: T) => unknown) ",
+      "path": "libraries/toolkit/src/vanilla/validation/both/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isAlpha": {
+      "signature": "function isAlpha(options: AlphaOptions = ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAlpha/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isTruthy": {
+      "signature": "function isTruthy(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isTruthy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "lte": {
+      "signature": "function lte(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/lte/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isError": {
+      "signature": "function isError(value: unknown): value is Error ",
+      "path": "libraries/toolkit/src/vanilla/validation/isError/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isFalsy": {
+      "signature": "function isFalsy(value: unknown): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFalsy/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isBetweenTimes": {
+      "signature": "function isBetweenTimes(\n\tstartTime: TimeInput | null | undefined,\n\tendTime: TimeInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBetweenTimes/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isValidDate": {
+      "signature": "function isValidDate(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isValidDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNumber": {
+      "signature": "function isNumber(value: unknown): value is number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isNumber/index.ts",
+      "curried": false,
+      "replaces": [
+        "typeof x === 'number'",
+        "typeof value === 'number'"
+      ]
+    },
+    "maxLength": {
+      "signature": "function maxLength(\n\tmax: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/maxLength/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isFutureInstant": {
+      "signature": "function isFutureInstant(value: unknown) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFutureInstant/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNil": {
+      "signature": "function isNil(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNil/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isTomorrow": {
+      "signature": "function isTomorrow(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isTomorrow/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isEmail": {
+      "signature": "function isEmail(\n\toptions: EmailOptions = ",
+      "path": "libraries/toolkit/src/vanilla/validation/isEmail/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isObject": {
+      "signature": "function isObject(value: unknown): value is object ",
+      "path": "libraries/toolkit/src/vanilla/validation/isObject/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "neither": {
+      "signature": "function neither(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/neither/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "calculateLuhnSum": {
+      "signature": "function calculateLuhnSum(digits: Array<number>): number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/passesLuhnCheck/calculateLuhnSum/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "doubleEverySecondDigit": {
+      "signature": "function doubleEverySecondDigit(digit: number): number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/passesLuhnCheck/doubleEverySecondDigit/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "passesLuhnCheck": {
+      "signature": "function passesLuhnCheck(cardNumber: string): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/passesLuhnCheck/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "cleanCardNumber": {
+      "signature": "function cleanCardNumber(cardNumber: string): string ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/cleanCardNumber/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matchesCardType": {
+      "signature": "function matchesCardType(\n\tcardNumber: string,\n\tcardType: CardType,\n): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/matchesCardType/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isOnlyDigits": {
+      "signature": "function isOnlyDigits(value: string): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/isOnlyDigits/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isCreditCard": {
+      "signature": "function isCreditCard(\n\toptions: CreditCardOptions = ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isValidLength": {
+      "signature": "function isValidLength(cardNumber: string): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isCreditCard/isValidLength/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPastDateTime": {
+      "signature": "function isPastDateTime(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPastDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isWeakSet": {
+      "signature": "function isWeakSet(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isWeakSet/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "validateConfig": {
+      "signature": "function validateConfig(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/validateConfig/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "either": {
+      "signature": "function either<T>(pred1: (value: T) => unknown) ",
+      "path": "libraries/toolkit/src/vanilla/validation/either/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isInstant": {
+      "signature": "function isInstant(value: unknown): value is Temporal.Instant ",
+      "path": "libraries/toolkit/src/vanilla/validation/isInstant/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isFunction": {
+      "signature": "function isFunction(value: unknown): value is AnyFunction ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFunction/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "allPass": {
+      "signature": "function allPass<T>(predicates: Array<(value: T) => unknown>) ",
+      "path": "libraries/toolkit/src/vanilla/validation/allPass/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isUuid": {
+      "signature": "function isUuid(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isUuid/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isIpv6": {
+      "signature": "function isIpv6(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isIpv6/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isRequired": {
+      "signature": "function isRequired(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isRequired/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "not": {
+      "signature": "function not(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/not/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isAfterTime": {
+      "signature": "function isAfterTime(\n\treference: TimeInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAfterTime/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "gt": {
+      "signature": "function gt<T>(threshold: T) ",
+      "path": "libraries/toolkit/src/vanilla/validation/gt/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNegative": {
+      "signature": "function isNegative(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNegative/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPositive": {
+      "signature": "function isPositive(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPositive/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPlainDate": {
+      "signature": "function isPlainDate(\n\tvalue: unknown,\n): value is Temporal.PlainDate ",
+      "path": "libraries/toolkit/src/vanilla/validation/isPlainDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPlainObject": {
+      "signature": "function isPlainObject(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPlainObject/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isBeforeDateTime": {
+      "signature": "function isBeforeDateTime(\n\treference: DateTimeInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBeforeDateTime/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isDefined": {
+      "signature": "function isDefined<T>(value: T | null | undefined): value is T ",
+      "path": "libraries/toolkit/src/vanilla/validation/isDefined/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPlainDateTime": {
+      "signature": "function isPlainDateTime(\n\tvalue: unknown,\n): value is Temporal.PlainDateTime ",
+      "path": "libraries/toolkit/src/vanilla/validation/isPlainDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNullish": {
+      "signature": "function isNullish(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNullish/index.ts",
+      "curried": false,
+      "replaces": [
+        "x == null",
+        "value == null",
+        "x === null || x === undefined"
+      ]
+    },
+    "isString": {
+      "signature": "function isString(value: unknown): value is string ",
+      "path": "libraries/toolkit/src/vanilla/validation/isString/index.ts",
+      "curried": false,
+      "replaces": [
+        "typeof x === 'string'",
+        "typeof value === 'string'"
+      ]
+    },
+    "isNull": {
+      "signature": "function isNull(value: unknown): value is null ",
+      "path": "libraries/toolkit/src/vanilla/validation/isNull/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPhone": {
+      "signature": "function isPhone(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPhone/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isUrl": {
+      "signature": "function isUrl(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isUrl/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isZero": {
+      "signature": "function isZero(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isZero/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNotNil": {
+      "signature": "function isNotNil(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNotNil/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isWeakMap": {
+      "signature": "function isWeakMap(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isWeakMap/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "is": {
+      "signature": "function is<T>(constructor: new (...args: Array<unknown>) => T) ",
+      "path": "libraries/toolkit/src/vanilla/validation/is/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isBetweenDates": {
+      "signature": "function isBetweenDates(\n\tstartDate: DateInput | null | undefined,\n\tendDate: DateInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBetweenDates/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isHexColor": {
+      "signature": "function isHexColor(options: HexColorOptions = ",
+      "path": "libraries/toolkit/src/vanilla/validation/isHexColor/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isJSON": {
+      "signature": "function isJSON(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isJSON/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNaN": {
+      "signature": "function isNaN(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNaN/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isZonedDateTime": {
+      "signature": "function isZonedDateTime(\n\tvalue: unknown,\n): value is Temporal.ZonedDateTime ",
+      "path": "libraries/toolkit/src/vanilla/validation/isZonedDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isUndefined": {
+      "signature": "function isUndefined(value: unknown): value is undefined ",
+      "path": "libraries/toolkit/src/vanilla/validation/isUndefined/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isSameOrAfterDate": {
+      "signature": "function isSameOrAfterDate(\n\treference: DateInput | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSameOrAfterDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "matches": {
+      "signature": "function matches(\n\tpattern: RegExp | string,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/matches/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isBlank": {
+      "signature": "function isBlank(\n\tstr: string | null | undefined,\n): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBlank/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "validateRange": {
+      "signature": "function validateRangeconst validateRange =\n\t(options: RangeOptions)",
+      "path": "libraries/toolkit/src/vanilla/validation/validateRange/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isSameOrBeforeTime": {
+      "signature": "function isSameOrBeforeTime(\n\treference: TimeInput | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSameOrBeforeTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNotNull": {
+      "signature": "function isNotNull(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNotNull/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPastDate": {
+      "signature": "function isPastDate(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPastDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPastInstant": {
+      "signature": "function isPastInstant(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPastInstant/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toMillis": {
+      "signature": "function toMillis(\n\tvalue: InstantInput | null | undefined,\n): number | null ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAfterInstant/toMillis/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isAfterInstant": {
+      "signature": "function isAfterInstant(\n\treference: InstantInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAfterInstant/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "equals": {
+      "signature": "function equals<T>(a: T) ",
+      "path": "libraries/toolkit/src/vanilla/validation/equals/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isBetweenDateTimes": {
+      "signature": "function isBetweenDateTimes(\n\tstartDateTime: DateTimeInput | null | undefined,\n\tendDateTime: DateTimeInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBetweenDateTimes/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isPrimitive": {
+      "signature": "function isPrimitive(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPrimitive/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPlainTime": {
+      "signature": "function isPlainTime(\n\tvalue: unknown,\n): value is Temporal.PlainTime ",
+      "path": "libraries/toolkit/src/vanilla/validation/isPlainTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isDate": {
+      "signature": "function isDate(value: unknown): value is Date ",
+      "path": "libraries/toolkit/src/vanilla/validation/isDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isRegExp": {
+      "signature": "function isRegExp(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isRegExp/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isSameOrBeforeDate": {
+      "signature": "function isSameOrBeforeDate(\n\treference: DateInput | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSameOrBeforeDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "ibanLengths": {
+      "signature": "function ibanLengths(): Record<string, number> ",
+      "path": "libraries/toolkit/src/vanilla/validation/isIban/ibanLengths/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isIban": {
+      "signature": "function isIban(value: unknown) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isIban/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "validateMod97": {
+      "signature": "function validateMod97(iban: string): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isIban/validateMod97/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNotUndefined": {
+      "signature": "function isNotUndefined(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNotUndefined/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isAfterDateTime": {
+      "signature": "function isAfterDateTime(\n\treference: DateTimeInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAfterDateTime/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "nonePass": {
+      "signature": "function nonePass(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/nonePass/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isOdd": {
+      "signature": "function isOdd(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isOdd/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isDuration": {
+      "signature": "function isDuration(value: unknown): value is Temporal.Duration ",
+      "path": "libraries/toolkit/src/vanilla/validation/isDuration/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNotEmpty": {
+      "signature": "function isNotEmpty(value: unknown): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isNotEmpty/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isValidOctet": {
+      "signature": "function isValidOctet(octet: string): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isIpv4/isValidOctet/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isIpv4": {
+      "signature": "function isIpv4(value: unknown) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isIpv4/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isYesterday": {
+      "signature": "function isYesterday(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isYesterday/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isSameOrAfterTime": {
+      "signature": "function isSameOrAfterTime(\n\treference: TimeInput | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSameOrAfterTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNotNullish": {
+      "signature": "function isNotNullish(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNotNullish/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isMap": {
+      "signature": "function isMap(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isMap/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "identical": {
+      "signature": "function identical<T>(a: T) ",
+      "path": "libraries/toolkit/src/vanilla/validation/identical/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "gte": {
+      "signature": "function gte<T>(threshold: T) ",
+      "path": "libraries/toolkit/src/vanilla/validation/gte/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isFinite": {
+      "signature": "function isFinite(value: unknown): value is number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFinite/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isEmpty": {
+      "signature": "function isEmpty(value: unknown): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isEmpty/index.ts",
+      "curried": false,
+      "replaces": [
+        "arr.length === 0",
+        "array.length === 0"
+      ]
+    },
+    "minLength": {
+      "signature": "function minLength(\n\tmin: number,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/minLength/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isNumeric": {
+      "signature": "function isNumeric(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isNumeric/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "lt": {
+      "signature": "function lt(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/lt/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isBase64": {
+      "signature": "function isBase64(\n\tvalue: unknown,\n\toptions: Base64Options = ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBase64/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isBeforeDate": {
+      "signature": "function isBeforeDate(\n\treference: DateInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBeforeDate/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isIsbn": {
+      "signature": "function isIsbn(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isIsbn/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isArray": {
+      "signature": "function isArray(value: unknown): value is Array<unknown> ",
+      "path": "libraries/toolkit/src/vanilla/validation/isArray/index.ts",
+      "curried": false,
+      "replaces": [
+        "Array.isArray(x)",
+        "Array.isArray(value)"
+      ]
+    },
+    "validateField": {
+      "signature": "function validateFieldconst validateField =\n\t(rules: ValidationRules)",
+      "path": "libraries/toolkit/src/vanilla/validation/validateField/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isArrayLike": {
+      "signature": "function isArrayLike(\n\tvalue: unknown,\n): value is ArrayLike<unknown> ",
+      "path": "libraries/toolkit/src/vanilla/validation/isArrayLike/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isToday": {
+      "signature": "function isToday(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isToday/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isInteger": {
+      "signature": "function isInteger(value: unknown): value is number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isInteger/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isPromise": {
+      "signature": "function isPromise(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPromise/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isBeforeInstant": {
+      "signature": "function isBeforeInstant(\n\treference: InstantInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBeforeInstant/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isPostalCode": {
+      "signature": "function isPostalCode(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isPostalCode/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isSameOrBeforeDateTime": {
+      "signature": "function isSameOrBeforeDateTime(\n\treference: DateTimeInput | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSameOrBeforeDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isSymbol": {
+      "signature": "function isSymbol(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSymbol/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isAlphanumeric": {
+      "signature": "function isAlphanumeric(\n\toptions: AlphanumericOptions = ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAlphanumeric/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isEven": {
+      "signature": "function isEven(value: unknown): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isEven/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isBoolean": {
+      "signature": "function isBoolean(value: unknown): value is boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBoolean/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "anyPass": {
+      "signature": "function anyPass<T>(predicates: Array<(value: T) => unknown>) ",
+      "path": "libraries/toolkit/src/vanilla/validation/anyPass/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isSameOrAfterDateTime": {
+      "signature": "function isSameOrAfterDateTime(\n\treference: DateTimeInput | null | undefined,\n)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSameOrAfterDateTime/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "validateForm": {
+      "signature": "function validateFormconst validateForm =\n\t(schema: FormSchema)",
+      "path": "libraries/toolkit/src/vanilla/validation/validateForm/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "toIsoDateTimeString": {
+      "signature": "function toIsoDateTimeString(pdt: unknown): string | null ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFutureDateTime/toIsoDateTimeString/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "nowIsoLocal": {
+      "signature": "function nowIsoLocal(): string ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFutureDateTime/nowIsoLocal/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isFutureDateTime": {
+      "signature": "function isFutureDateTime(\n\tvalue: DateTimeInput | null | undefined,\n): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFutureDateTime/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "todayIsoLocal": {
+      "signature": "function todayIsoLocal(): string ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFutureDate/todayIsoLocal/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "toIsoDateString": {
+      "signature": "function toIsoDateString(pd: unknown): string | null ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAfterDate/toIsoDateString/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isFutureDate": {
+      "signature": "function isFutureDate(\n\tvalue: DateInput | null | undefined,\n): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isFutureDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isAfterDate": {
+      "signature": "function isAfterDate(\n\treference: DateInput | null | undefined,\n) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isAfterDate/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isSet": {
+      "signature": "function isSet(...)",
+      "path": "libraries/toolkit/src/vanilla/validation/isSet/index.ts",
+      "curried": false,
+      "replaces": []
+    }
+  }
+}

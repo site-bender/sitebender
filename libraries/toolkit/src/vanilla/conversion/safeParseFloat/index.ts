@@ -1,5 +1,12 @@
 import isNull from "../../validation/isNull/index.ts"
 import isUndefined from "../../validation/isUndefined/index.ts"
+import trim from "../../string/trim/index.ts"
+import isBoolean from "../../validation/isBoolean/index.ts"
+import isNumber from "../../validation/isNumber/index.ts"
+import isString from "../../validation/isString/index.ts"
+import toFloat from "../castValue/toFloat/index.ts"
+import isEmpty from "../../string/isEmpty/index.ts"
+import isNaN from "../../validation/isNaN/index.ts"
 
 /**
  * Safely parses a value as a floating-point number, returns null on failure
@@ -37,35 +44,35 @@ import isUndefined from "../../validation/isUndefined/index.ts"
  * @pure
  * @safe
  */
-const safeParseFloat = (value: unknown): number | null => {
+export default function safeParseFloat(value: unknown): number | null {
 	// Handle null and undefined
 	if (isNull(value) || isUndefined(value)) {
 		return null
 	}
 
 	// Handle booleans
-	if (typeof value === "boolean") {
+	if (isBoolean(value)) {
 		return value ? 1 : 0
 	}
 
 	// Handle numbers directly
-	if (typeof value === "number") {
+	if (isNumber(value)) {
 		// Return null for NaN
 		return isNaN(value) ? null : value
 	}
 
 	// Handle strings
-	if (typeof value === "string") {
+	if (isString(value)) {
 		// Trim whitespace
-		const trimmed = value.trim()
+		const trimmed = trim(value)
 
 		// Check for empty string
-		if (trimmed === "") {
+		if (isEmpty(trimmed)) {
 			return null
 		}
 
 		// Parse the number
-		const parsed = parseFloat(trimmed)
+		const parsed = toFloat(trimmed)
 
 		// Return null if parsing resulted in NaN
 		return isNaN(parsed) ? null : parsed
@@ -74,5 +81,3 @@ const safeParseFloat = (value: unknown): number | null => {
 	// All other types return null
 	return null
 }
-
-export default safeParseFloat
