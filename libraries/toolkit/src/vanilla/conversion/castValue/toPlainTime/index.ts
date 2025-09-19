@@ -2,8 +2,18 @@ import type {
 	PlainTimeLike,
 	TimeInput,
 } from "../../../../types/temporal/index.ts"
-
+import trim from "../../../string/trim/index.ts"
+import isString from "../../../validation/isString/index.ts"
+import isObject from "../../../validation/isObject/index.ts"
+import isEmpty from "../../../string/isEmpty/index.ts"
+import hasProperty from "../../../validation/hasProperty/index.ts"
 import isNullish from "../../../validation/isNullish/index.ts"
+import isPlainTime from "../../../validation/isPlainTime/index.ts"
+import isDate from "../../../validation/isDate/index.ts"
+import isPlainDateTime from "../../../validation/isPlainDateTime/index.ts"
+import isZonedDateTime from "../../../validation/isZonedDateTime/index.ts"
+import anyPass from "../../../validation/anyPass/index.ts"
+import allPass from "../../../validation/allPass/index.ts"
 
 /**
  * Parses values into Temporal PlainTime objects
@@ -48,23 +58,23 @@ import isNullish from "../../../validation/isNullish/index.ts"
  * @pure
  * @safe
  */
-const toPlainTime = (
+export default function toPlainTime(
 	value: TimeInput | null | undefined,
-): Temporal.PlainTime | null => {
+): Temporal.PlainTime | null {
 	// Handle nullish values
 	if (isNullish(value)) {
 		return null
 	}
 
 	// If already a PlainTime, return as-is
-	if (value instanceof Temporal.PlainTime) {
+	if (isPlainTime(value)) {
 		return value
 	}
 
 	// Handle strings (ISO format expected)
-	if (typeof value === "string") {
-		const trimmed = value.trim()
-		if (trimmed.length === 0) {
+	if (isString(value)) {
+		const trimmed = trim(value)
+		if (isEmpty(trimmed)) {
 			return null
 		}
 
@@ -77,7 +87,7 @@ const toPlainTime = (
 	}
 
 	// Handle JavaScript Date objects
-	if (value instanceof Date) {
+	if (isDate(value)) {
 		if (isNaN(value.getTime())) {
 			return null
 		}
@@ -97,10 +107,17 @@ const toPlainTime = (
 
 	// Handle PlainTimeLike objects
 	if (
-		typeof value === "object" &&
-		("hour" in value || "minute" in value || "second" in value ||
-			"millisecond" in value || "microsecond" in value ||
-			"nanosecond" in value)
+		allPass([
+			isObject,
+			anyPass([
+				hasProperty("hour"),
+				hasProperty("minute"),
+				hasProperty("second"),
+				hasProperty("millisecond"),
+				hasProperty("microsecond"),
+				hasProperty("nanosecond"),
+			]),
+		])(value)
 	) {
 		try {
 			// Use strict construction; invalid times throw and return null
@@ -111,17 +128,15 @@ const toPlainTime = (
 	}
 
 	// Handle PlainDateTime
-	if (value instanceof Temporal.PlainDateTime) {
+	if (isPlainDateTime(value)) {
 		return value.toPlainTime()
 	}
 
 	// Handle ZonedDateTime
-	if (value instanceof Temporal.ZonedDateTime) {
+	if (isZonedDateTime(value)) {
 		return value.toPlainTime()
 	}
 
 	// Exhaustive type check - should never reach here with proper types
 	return null
 }
-
-export default toPlainTime

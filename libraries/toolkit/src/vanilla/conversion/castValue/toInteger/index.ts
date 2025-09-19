@@ -1,5 +1,13 @@
 import isNull from "../../../validation/isNull/index.ts"
 import isUndefined from "../../../validation/isUndefined/index.ts"
+import trim from "../../../string/trim/index.ts"
+import isBoolean from "../../../validation/isBoolean/index.ts"
+import isNumber from "../../../validation/isNumber/index.ts"
+import isString from "../../../validation/isString/index.ts"
+import isFinite from "../../../validation/isFinite/index.ts"
+import not from "../../../logic/not/index.ts"
+import truncate from "../../../math/truncate/index.ts"
+import isEmpty from "../../../string/isEmpty/index.ts"
 
 /**
  * Strictly parses values as integers
@@ -49,7 +57,7 @@ import isUndefined from "../../../validation/isUndefined/index.ts"
  * }
  * ```
  */
-const toInteger = (value: unknown): number => {
+export default function toInteger(value: unknown): number {
 	// Handle nullish values
 	if (isNull(value)) {
 		return 0
@@ -59,24 +67,24 @@ const toInteger = (value: unknown): number => {
 	}
 
 	// Handle booleans
-	if (typeof value === "boolean") {
+	if (isBoolean(value)) {
 		return value ? 1 : 0
 	}
 
 	// Handle numbers (truncate decimals)
-	if (typeof value === "number") {
-		if (!isFinite(value)) {
+	if (isNumber(value)) {
+		if (not(isFinite(value))) {
 			return NaN
 		}
-		return Math.trunc(value)
+		return truncate(value)
 	}
 
 	// Handle strings with strict integer parsing
-	if (typeof value === "string") {
-		const trimmed = value.trim()
+	if (isString(value)) {
+		const trimmed = trim(value)
 
 		// Empty or whitespace-only strings
-		if (trimmed.length === 0) {
+		if (isEmpty(trimmed)) {
 			return NaN
 		}
 
@@ -89,7 +97,7 @@ const toInteger = (value: unknown): number => {
 		const parsed = parseInt(trimmed, 10)
 
 		// Additional safety check
-		if (!isFinite(parsed)) {
+		if (not(isFinite(parsed))) {
 			return NaN
 		}
 
@@ -99,5 +107,3 @@ const toInteger = (value: unknown): number => {
 	// All other types (objects, arrays, functions, symbols) return NaN
 	return NaN
 }
-
-export default toInteger

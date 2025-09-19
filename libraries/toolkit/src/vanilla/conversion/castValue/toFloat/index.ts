@@ -1,5 +1,13 @@
 import isNull from "../../../validation/isNull/index.ts"
 import isUndefined from "../../../validation/isUndefined/index.ts"
+import isEqual from "../../../validation/isEqual/index.ts"
+import isArray from "../../../validation/isArray/index.ts"
+import length from "../../../array/length/index.ts"
+import trim from "../../../string/trim/index.ts"
+import isNumber from "../../../validation/isNumber/index.ts"
+import isBoolean from "../../../validation/isBoolean/index.ts"
+import isString from "../../../validation/isString/index.ts"
+import isEmpty from "../../../string/isEmpty/index.ts"
 
 /**
  * Flexibly parses values as floating-point numbers
@@ -48,7 +56,7 @@ import isUndefined from "../../../validation/isUndefined/index.ts"
  * // numbers: [1.5, 2, 3.7]
  * ```
  */
-const toFloat = (value: unknown): number => {
+export default function toFloat(value: unknown): number {
 	// Handle nullish values
 	if (isNull(value)) {
 		return 0
@@ -58,32 +66,32 @@ const toFloat = (value: unknown): number => {
 	}
 
 	// If already a number, return as-is
-	if (typeof value === "number") {
+	if (isNumber(value)) {
 		return value
 	}
 
 	// Handle booleans
-	if (typeof value === "boolean") {
+	if (isBoolean(value)) {
 		return value ? 1 : 0
 	}
 
 	// Handle strings
-	if (typeof value === "string") {
-		const trimmed = value.trim()
+	if (isString(value)) {
+		const trimmed = trim(value)
 
 		// Empty or whitespace-only strings become 0
-		if (trimmed.length === 0) {
+		if (isEmpty(trimmed)) {
 			return 0
 		}
 
 		// Handle special cases
-		if (trimmed === "Infinity") {
+		if (isEqual("Infinity")(trimmed)) {
 			return Infinity
 		}
-		if (trimmed === "-Infinity") {
+		if (isEqual("-Infinity")(trimmed)) {
 			return -Infinity
 		}
-		if (trimmed === "NaN") {
+		if (isEqual("NaN")(trimmed)) {
 			return NaN
 		}
 
@@ -93,8 +101,8 @@ const toFloat = (value: unknown): number => {
 	}
 
 	// Handle single-element arrays
-	if (Array.isArray(value)) {
-		if (value.length === 1) {
+	if (isArray(value)) {
+		if (isEqual(1)(length(value))) {
 			return toFloat(value[0])
 		}
 		return NaN
@@ -103,5 +111,3 @@ const toFloat = (value: unknown): number => {
 	// All other types (objects, functions, symbols) return NaN
 	return NaN
 }
-
-export default toFloat
