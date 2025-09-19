@@ -1,4 +1,13 @@
 import isNullish from "../../validation/isNullish/index.ts"
+import sortByKey from "./sortByKey/index.ts"
+import map from "../../array/map/index.ts"
+import join from "../../array/join/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isObject from "../../validation/isObject/index.ts"
+import isEmpty from "../../array/isEmpty/index.ts"
+import sort from "../../array/sort/index.ts"
+import toString from "../../conversion/castValue/toString/index.ts"
+import entries from "../../object/entries/index.ts"
 
 /**
  * Creates a deterministic string representation of objects/arrays
@@ -124,34 +133,38 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @pure
  * @immutable
  */
-const stringify = (value: unknown): string => {
+export default function stringify(value: unknown): string {
 	// Handle null and undefined
 	if (isNullish(value)) {
 		return ""
 	}
 
 	// Handle arrays
-	if (Array.isArray(value)) {
-		return value.map(stringify).join(";")
+	if (isArray(value)) {
+		return join(";")(map(stringify)(value))
 	}
 
 	// Handle objects
-	if (typeof value === "object") {
+	if (isObject(value)) {
 		// Get entries and sort by key
-		const entries = Object.entries(value)
+		const entryList = entries(
+			value as Record<string, import("../../../types/index.ts").Value>,
+		)
 
-		if (entries.length === 0) {
+		if (isEmpty(entryList)) {
 			return ""
 		}
 
-		return entries
-			.sort(([a], [b]) => a.localeCompare(b))
-			.map(([key, val]) => `${key}:${stringify(val)}`)
-			.join(";")
+		const sorted = sort(sortByKey)(entryList)
+
+		function formatEntry([key, val]: [string, unknown]): string {
+			return `${key}:${stringify(val)}`
+		}
+
+		const mapped = map(formatEntry)(sorted)
+		return join(";")(mapped)
 	}
 
 	// Handle primitives (string, number, boolean)
-	return String(value)
+	return toString(value)
 }
-
-export default stringify

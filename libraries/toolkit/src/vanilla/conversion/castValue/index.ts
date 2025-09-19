@@ -149,8 +149,8 @@ import toString from "./toString/index.ts"
  * @safe
  * @curried
  */
-function castValue<T extends CastType>(type: T) {
-	return (value: unknown): CastResult<T> => {
+export default function castValue<T extends CastType>(type: T) {
+	return function castValueInner(value: unknown): CastResult<T> {
 		switch (type) {
 			case "boolean":
 				return toBoolean(value) as CastResult<T>
@@ -168,5 +168,3 @@ function castValue<T extends CastType>(type: T) {
 		}
 	}
 }
-
-export default castValue
