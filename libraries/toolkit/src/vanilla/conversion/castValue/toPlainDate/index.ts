@@ -13,6 +13,7 @@ import isFunction from "../../../validation/isFunction/index.ts"
 import isDate from "../../../validation/isDate/index.ts"
 import isPlainDate from "../../../validation/isPlainDate/index.ts"
 import allPass from "../../../validation/allPass/index.ts"
+import and from "../../../logic/and/index.ts"
 
 /**
  * Parses values into Temporal PlainDate objects
@@ -128,8 +129,7 @@ export default function toPlainDate(
 		const result = (value as { toPlainDate: () => unknown }).toPlainDate()
 		// Best-effort: if result looks like a Temporal.PlainDate, return it
 		if (
-			result &&
-			isFunction((result as { toString: () => string }).toString)
+			and(result)(isFunction((result as { toString: () => string }).toString))
 		) {
 			try {
 				// Reconstruct via ISO to ensure a proper PlainDate instance

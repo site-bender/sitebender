@@ -1,5 +1,8 @@
 import isNull from "../../../validation/isNull/index.ts"
 import isUndefined from "../../../validation/isUndefined/index.ts"
+import isEqual from "../../../validation/isEqual/index.ts"
+import isArray from "../../../validation/isArray/index.ts"
+import length from "../../../array/length/index.ts"
 import trim from "../../../string/trim/index.ts"
 import isNumber from "../../../validation/isNumber/index.ts"
 import isBoolean from "../../../validation/isBoolean/index.ts"
@@ -82,13 +85,13 @@ export default function toFloat(value: unknown): number {
 		}
 
 		// Handle special cases
-		if (trimmed === "Infinity") {
+		if (isEqual("Infinity")(trimmed)) {
 			return Infinity
 		}
-		if (trimmed === "-Infinity") {
+		if (isEqual("-Infinity")(trimmed)) {
 			return -Infinity
 		}
-		if (trimmed === "NaN") {
+		if (isEqual("NaN")(trimmed)) {
 			return NaN
 		}
 
@@ -98,8 +101,8 @@ export default function toFloat(value: unknown): number {
 	}
 
 	// Handle single-element arrays
-	if (Array.isArray(value)) {
-		if (value.length === 1) {
+	if (isArray(value)) {
+		if (isEqual(1)(length(value))) {
 			return toFloat(value[0])
 		}
 		return NaN

@@ -1,3 +1,7 @@
+import isNaN from "../../validation/isNaN/index.ts"
+import isPositiveInfinity from "../../validation/isPositiveInfinity/index.ts"
+import isNegativeInfinity from "../../validation/isNegativeInfinity/index.ts"
+
 /**
  * Converts a number to a percentage string representation
  *
@@ -52,15 +56,15 @@ export default function toPercent(
 		const { decimals = 2, includeSign = true } = options
 
 		// Handle special cases
-		if (Number.isNaN(value)) {
+		if (isNaN(value)) {
 			return includeSign ? "NaN%" : "NaN"
 		}
 
-		if (value === Infinity) {
+		if (isPositiveInfinity(value)) {
 			return includeSign ? "Infinity%" : "Infinity"
 		}
 
-		if (value === -Infinity) {
+		if (isNegativeInfinity(value)) {
 			return includeSign ? "-Infinity%" : "-Infinity"
 		}
 

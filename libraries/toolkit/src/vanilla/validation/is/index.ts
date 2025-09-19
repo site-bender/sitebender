@@ -1,36 +1,41 @@
-//++ Creates a predicate that checks if a value is an instance of a constructor
-export default function is<T>(constructor: new (...args: Array<unknown>) => T) {
-	return function isInstanceOf(value: unknown): value is T {
-		return value instanceof constructor
+//++ Performs SameValue comparison using Object.is
+export default function is<T>(a: T) {
+	return function isSameAs<U>(b: U): boolean {
+		return Object.is(a, b)
 	}
 }
 
-//?? [EXAMPLE] is(Date)(new Date()) // true
-//?? [EXAMPLE] is(Date)(Date.now()) // false (returns number)
-//?? [EXAMPLE] is(Error)(new Error("oops")) // true
-//?? [EXAMPLE] is(Error)(new TypeError()) // true (TypeError extends Error)
-//?? [EXAMPLE] is(String)("hello") // false (primitive)
-//?? [EXAMPLE] is(String)(new String("hi")) // true (object)
+//?? [EXAMPLE] is(5)(5) // true
+//?? [EXAMPLE] is("hello")("hello") // true
+//?? [EXAMPLE] is(NaN)(NaN) // true (unlike ===)
+//?? [EXAMPLE] is(0)(-0) // false (distinguishes +0 and -0)
+//?? [EXAMPLE] is(null)(null) // true
+//?? [EXAMPLE] is(undefined)(undefined) // true
 /*??
  | [EXAMPLE]
- | const isDate = is(Date)
- | isDate(new Date())  // true
- | isDate(Date.now())  // false (returns number)
- | isDate("2024-01-01") // false (string)
+ | const isNaN = is(NaN)
+ | isNaN(NaN)        // true (works unlike === NaN)
+ | isNaN(5)          // false
+ | isNaN("NaN")      // false
  |
- | class User {
- |   constructor(public name: string) {}
- | }
- | const isUser = is(User)
- | isUser(new User("Alice"))   // true
- | isUser({ name: "Charlie" }) // false (plain object)
+ | const isPositiveZero = is(0)
+ | isPositiveZero(0)   // true
+ | isPositiveZero(-0)  // false (distinguishes +0 from -0)
+ | isPositiveZero(1)   // false
  |
- | const mixed = [new Date(), "string", 42, new Error("oops")]
- | mixed.filter(is(Error))  // [Error: oops]
- | mixed.filter(is(Date))   // [Date]
+ | const isNull = is(null)
+ | isNull(null)      // true
+ | isNull(undefined) // false
+ | isNull(0)         // false
  |
- | [GOTCHA] Primitives always return false (they're not instances)
- | [GOTCHA] Fails across different JavaScript realms (e.g., iframes)
- | [GOTCHA] Array.isArray is more reliable than is(Array)
+ | const obj1 = { a: 1 }
+ | const obj2 = { a: 1 }
+ | const obj3 = obj1
+ | is(obj1)(obj2)  // false (different objects)
+ | is(obj1)(obj3)  // true (same reference)
+ |
+ | [GOTCHA] For deep equality use isEqual instead
+ | [GOTCHA] +0 and -0 are different (use identical if you want === behavior)
+ | [GOTCHA] NaN equals NaN (unlike === but same as Object.is)
  |
 */

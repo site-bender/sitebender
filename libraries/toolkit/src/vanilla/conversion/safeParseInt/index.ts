@@ -1,5 +1,8 @@
-import isNull from "../../validation/isNull/index.ts"
-import isUndefined from "../../validation/isUndefined/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
+import lt from "../../validation/lt/index.ts"
+import gt from "../../validation/gt/index.ts"
+import anyPass from "../../validation/anyPass/index.ts"
+import allPass from "../../validation/allPass/index.ts"
 import trim from "../../string/trim/index.ts"
 import contains from "../../string/contains/index.ts"
 import slice from "../../string/slice/index.ts"
@@ -56,15 +59,17 @@ import isEqual from "../../validation/isEqual/index.ts"
  * @pure
  * @safe
  */
-export default function safeParseInt(radix: number = 10): (value: unknown) => number | null {
+export default function safeParseInt(
+	radix: number = 10,
+): (value: unknown) => number | null {
 	return function safeParseIntInner(value: unknown): number | null {
 		// Validate radix
-		if (radix < 2 || radix > 36 || not(isInteger(radix))) {
+		if (anyPass([lt(2), gt(36), not(isInteger)])(radix)) {
 			return null
 		}
 
 		// Handle null and undefined
-		if (isNull(value) || isUndefined(value)) {
+		if (isNullish(value)) {
 			return null
 		}
 
@@ -85,15 +90,18 @@ export default function safeParseInt(radix: number = 10): (value: unknown) => nu
 
 		// Handle strings
 		if (isString(value)) {
-		// Trim whitespace
-		const trimmed = trim(value)			// Check for empty string
+			// Trim whitespace
+			const trimmed = trim(value) // Check for empty string
 			if (isEmpty(trimmed)) {
 				return null
 			}
 
 			// For radix 10, check if string contains decimal point
 			// This ensures strict integer parsing (no decimals allowed in strings)
-			if (radix === 10 && contains(".")(trimmed)) {
+			function hasDecimalPoint() {
+				return contains(".")(trimmed)
+			}
+			if (allPass([isEqual(10), hasDecimalPoint])(radix)) {
 				return null
 			}
 
@@ -108,7 +116,7 @@ export default function safeParseInt(radix: number = 10): (value: unknown) => nu
 			// Verify that the parsed value when converted back matches
 			// This catches cases like "123abc" which parseInt would parse as 123
 			// For radix 10, we do a stricter check
-			if (radix === 10) {
+			if (isEqual(10)(radix)) {
 				// Check if the string represents a valid integer
 				const normalizedInput = startsWith("+")(trimmed)
 					? slice(1)()(trimmed)

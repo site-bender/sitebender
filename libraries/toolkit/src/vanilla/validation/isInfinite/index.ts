@@ -1,9 +1,10 @@
 import or from "../../logic/or/index.ts"
-import isEqual from "../isEqual/index.ts"
+import isPositiveInfinity from "../isPositiveInfinity/index.ts"
+import isNegativeInfinity from "../isNegativeInfinity/index.ts"
 
 //++ Type guard that checks if a value is infinite (positive or negative Infinity)
 export default function isInfinite(value: unknown): value is number {
-	return or(isEqual(Infinity)(value))(isEqual(-Infinity)(value))
+	return or(isPositiveInfinity(value))(isNegativeInfinity(value))
 }
 
 //?? [EXAMPLE] isInfinite(Infinity) // true

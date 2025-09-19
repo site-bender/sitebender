@@ -2732,7 +2732,7 @@
       "replaces": []
     },
     "fromJson": {
-      "signature": "function fromJson(json: string): unknown ",
+      "signature": "function fromJson(json: unknown): unknown ",
       "path": "libraries/toolkit/src/vanilla/conversion/fromJson/index.ts",
       "curried": false,
       "replaces": []
@@ -2756,7 +2756,7 @@
       "replaces": []
     },
     "toPrecision": {
-      "signature": "function toPrecision(places: number): (value: unknown) => number ",
+      "signature": "function toPrecision(\n\tplaces: number,\n): (value: unknown) => number ",
       "path": "libraries/toolkit/src/vanilla/conversion/castValue/toPrecision/index.ts",
       "curried": true,
       "replaces": []
@@ -2800,12 +2800,6 @@
     "toPlainTime": {
       "signature": "function toPlainTime(\n\tvalue: TimeInput | null | undefined,\n): Temporal.PlainTime | null ",
       "path": "libraries/toolkit/src/vanilla/conversion/castValue/toPlainTime/index.ts",
-      "curried": false,
-      "replaces": []
-    },
-    "hasMethod": {
-      "signature": "function hasMethod<T extends string>(\n\tobj: unknown,\n\tname: T,\n): obj is\n\t& Record<string, unknown>\n\t& ",
-      "path": "libraries/toolkit/src/vanilla/conversion/castValue/hasMethod/index.ts",
       "curried": false,
       "replaces": []
     },
@@ -4276,6 +4270,12 @@
       "curried": false,
       "replaces": []
     },
+    "isNonEmptyString": {
+      "signature": "function isNonEmptyString(value: unknown): value is string ",
+      "path": "libraries/toolkit/src/vanilla/validation/isNonEmptyString/index.ts",
+      "curried": false,
+      "replaces": []
+    },
     "isPositive": {
       "signature": "function isPositive(...)",
       "path": "libraries/toolkit/src/vanilla/validation/isPositive/index.ts",
@@ -4350,7 +4350,7 @@
       "replaces": []
     },
     "isZero": {
-      "signature": "function isZero(...)",
+      "signature": "function isZero(value: unknown): value is number ",
       "path": "libraries/toolkit/src/vanilla/validation/isZero/index.ts",
       "curried": false,
       "replaces": []
@@ -4382,6 +4382,12 @@
     "isHexColor": {
       "signature": "function isHexColor(options: HexColorOptions = ",
       "path": "libraries/toolkit/src/vanilla/validation/isHexColor/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "isEqual": {
+      "signature": "function isEqual<T>(a: T) ",
+      "path": "libraries/toolkit/src/vanilla/validation/isEqual/index.ts",
       "curried": true,
       "replaces": []
     },
@@ -4448,6 +4454,12 @@
     "isPastDate": {
       "signature": "function isPastDate(...)",
       "path": "libraries/toolkit/src/vanilla/validation/isPastDate/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isNonZero": {
+      "signature": "function isNonZero(value: unknown): value is number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isNonZero/index.ts",
       "curried": false,
       "replaces": []
     },
@@ -4541,6 +4553,12 @@
       "curried": true,
       "replaces": []
     },
+    "isNegativeInfinity": {
+      "signature": "function isNegativeInfinity(value: unknown): value is number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isNegativeInfinity/index.ts",
+      "curried": false,
+      "replaces": []
+    },
     "nonePass": {
       "signature": "function nonePass(...)",
       "path": "libraries/toolkit/src/vanilla/validation/nonePass/index.ts",
@@ -4553,9 +4571,21 @@
       "curried": false,
       "replaces": []
     },
+    "isBigInt": {
+      "signature": "function isBigInt(value: unknown): value is bigint ",
+      "path": "libraries/toolkit/src/vanilla/validation/isBigInt/index.ts",
+      "curried": false,
+      "replaces": []
+    },
     "isDuration": {
       "signature": "function isDuration(value: unknown): value is Temporal.Duration ",
       "path": "libraries/toolkit/src/vanilla/validation/isDuration/index.ts",
+      "curried": false,
+      "replaces": []
+    },
+    "isInfinite": {
+      "signature": "function isInfinite(value: unknown): value is number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isInfinite/index.ts",
       "curried": false,
       "replaces": []
     },
@@ -4575,6 +4605,12 @@
       "signature": "function isIpv4(value: unknown) ",
       "path": "libraries/toolkit/src/vanilla/validation/isIpv4/index.ts",
       "curried": true,
+      "replaces": []
+    },
+    "isPositiveInfinity": {
+      "signature": "function isPositiveInfinity(value: unknown): value is number ",
+      "path": "libraries/toolkit/src/vanilla/validation/isPositiveInfinity/index.ts",
+      "curried": false,
       "replaces": []
     },
     "isYesterday": {
@@ -4697,6 +4733,12 @@
       "curried": false,
       "replaces": []
     },
+    "isSerializable": {
+      "signature": "function isSerializable(value: unknown): boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isSerializable/index.ts",
+      "curried": false,
+      "replaces": []
+    },
     "isPromise": {
       "signature": "function isPromise(...)",
       "path": "libraries/toolkit/src/vanilla/validation/isPromise/index.ts",
@@ -4739,6 +4781,12 @@
       "curried": false,
       "replaces": []
     },
+    "isUnequal": {
+      "signature": "function isUnequal<T>(a: T): (b: unknown) => boolean ",
+      "path": "libraries/toolkit/src/vanilla/validation/isUnequal/index.ts",
+      "curried": true,
+      "replaces": []
+    },
     "isBoolean": {
       "signature": "function isBoolean(value: unknown): value is boolean ",
       "path": "libraries/toolkit/src/vanilla/validation/isBoolean/index.ts",
@@ -4755,6 +4803,12 @@
       "signature": "function isSameOrAfterDateTime(\n\treference: DateTimeInput | null | undefined,\n)",
       "path": "libraries/toolkit/src/vanilla/validation/isSameOrAfterDateTime/index.ts",
       "curried": false,
+      "replaces": []
+    },
+    "hasMethod": {
+      "signature": "function hasMethod<T extends string>(\n\tname: T,\n): (obj: unknown) => obj is Record<string, unknown> & ",
+      "path": "libraries/toolkit/src/vanilla/validation/hasMethod/index.ts",
+      "curried": true,
       "replaces": []
     },
     "validateForm": {
@@ -4778,6 +4832,12 @@
     "isFutureDateTime": {
       "signature": "function isFutureDateTime(\n\tvalue: DateTimeInput | null | undefined,\n): boolean ",
       "path": "libraries/toolkit/src/vanilla/validation/isFutureDateTime/index.ts",
+      "curried": true,
+      "replaces": []
+    },
+    "hasProperty": {
+      "signature": "function hasProperty<T extends string>(\n\tname: T,\n): (obj: unknown) => obj is Record<string, unknown> & ",
+      "path": "libraries/toolkit/src/vanilla/validation/hasProperty/index.ts",
       "curried": true,
       "replaces": []
     },

@@ -1,5 +1,4 @@
-import isNull from "../../validation/isNull/index.ts"
-import isUndefined from "../../validation/isUndefined/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 import trim from "../../string/trim/index.ts"
 import isBoolean from "../../validation/isBoolean/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
@@ -46,7 +45,7 @@ import isNaN from "../../validation/isNaN/index.ts"
  */
 export default function safeParseFloat(value: unknown): number | null {
 	// Handle null and undefined
-	if (isNull(value) || isUndefined(value)) {
+	if (isNullish(value)) {
 		return null
 	}
 

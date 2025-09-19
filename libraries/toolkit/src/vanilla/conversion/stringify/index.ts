@@ -4,7 +4,7 @@ import map from "../../array/map/index.ts"
 import join from "../../array/join/index.ts"
 import isArray from "../../validation/isArray/index.ts"
 import isObject from "../../validation/isObject/index.ts"
-import length from "../../array/length/index.ts"
+import isEmpty from "../../array/isEmpty/index.ts"
 import sort from "../../array/sort/index.ts"
 import toString from "../../conversion/castValue/toString/index.ts"
 import entries from "../../object/entries/index.ts"
@@ -147,14 +147,21 @@ export default function stringify(value: unknown): string {
 	// Handle objects
 	if (isObject(value)) {
 		// Get entries and sort by key
-		const entryList = entries(value as Record<string, import("../../../types/index.ts").Value>)
+		const entryList = entries(
+			value as Record<string, import("../../../types/index.ts").Value>,
+		)
 
-		if (length(entryList) === 0) {
+		if (isEmpty(entryList)) {
 			return ""
 		}
 
 		const sorted = sort(sortByKey)(entryList)
-		const mapped = map(([key, val]: [string, unknown]) => `${key}:${stringify(val)}`)(sorted)
+
+		function formatEntry([key, val]: [string, unknown]): string {
+			return `${key}:${stringify(val)}`
+		}
+
+		const mapped = map(formatEntry)(sorted)
 		return join(";")(mapped)
 	}
 

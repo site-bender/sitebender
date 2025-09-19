@@ -13,6 +13,7 @@ import isRegExp from "../../../validation/isRegExp/index.ts"
 import isError from "../../../validation/isError/index.ts"
 import isMap from "../../../validation/isMap/index.ts"
 import isSet from "../../../validation/isSet/index.ts"
+import is from "../../../validation/is/index.ts"
 
 /**
  * Safely converts any value to its string representation
@@ -80,7 +81,7 @@ export default function toString(value: unknown): string {
 	// Handle primitives
 	if (isNumber(value)) {
 		// Special handling for -0 to return "0"
-		if (Object.is(value, -0)) {
+		if (is(-0)(value)) {
 			return "0"
 		}
 		return String(value)

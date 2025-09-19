@@ -1,4 +1,5 @@
 import isSerializable from "../../validation/isSerializable/index.ts"
+import type { Serializable } from "../../../types/index.ts"
 
 /**
  * Converts values to JSON strings
@@ -119,8 +120,10 @@ import isSerializable from "../../validation/isSerializable/index.ts"
  * @pure
  * @safe
  */
-export default function toJson(indent: number = 0): (value: unknown) => string | null {
-	return function toJsonInner(value: unknown): string | null {
+export default function toJson(
+	indent: number = 0,
+): (value?: Serializable) => string | null {
+	return function toJsonInner(value?: Serializable): string | null {
 		// Handle serializable values first (positive path)
 		if (isSerializable(value)) {
 			try {
