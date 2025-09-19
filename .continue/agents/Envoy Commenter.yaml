@@ -43,6 +43,5 @@ prompts:
       - Never change identifiers, imports, or code structure.
       - Output only a unified diff patch (git-style) for each file I ask you to process.
 
-# rules temporarily disabled due to loader error "rules: Array must contain exactly 1 element"
-# rules:
-#   - uses: file:../rules/envoy-style.yaml
+rules:
+  - uses: sitebender/envoy-style
