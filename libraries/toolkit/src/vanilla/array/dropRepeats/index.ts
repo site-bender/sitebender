@@ -1,51 +1,10 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
+import is from "../../validation/is/index.ts"
 
-/**
- * Returns a new array without consecutive duplicate elements
- *
- * Removes consecutive duplicate elements from an array, keeping only the
- * first occurrence of each run of duplicates. Uses Object.is (SameValue) equality
- * for comparison. This is useful for cleaning up data with repeated values,
- * compressing sequences, or removing stuttering in time series data.
- *
- * @param array - Array to remove consecutive duplicates from
- * @returns New array with consecutive duplicates removed
- * @example
- * ```typescript
- * // Basic usage
- * dropRepeats([1, 1, 2, 2, 2, 3, 3, 1, 1])
- * // [1, 2, 3, 1]
- *
- * dropRepeats(["a", "a", "b", "b", "c", "c", "c", "a"])
- * // ["a", "b", "c", "a"]
- *
- * // Object references
- * const obj = { id: 1 }
- * dropRepeats([obj, obj, { id: 1 }, obj])
- * // [obj, { id: 1 }, obj] (different references)
- *
- * // Edge cases
- * dropRepeats([])          // []
- * dropRepeats([1])         // [1]
- * dropRepeats([5, 5, 5])   // [5]
- *
- * // NaN handling (Object.is treats NaN as equal to itself)
- * dropRepeats([NaN, NaN, 1, 1, NaN])
- * // [NaN, 1, NaN]
- *
- * // Practical: state changes
- * const states = ["loading", "loading", "ready", "ready", "error", "ready"]
- * dropRepeats(states)
- * // ["loading", "ready", "error", "ready"]
- * ```
- * @pure
- * @immutable
- * @safe
- */
-const dropRepeats = <T>(
+export default function dropRepeats<T>(
 	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
+): Array<T> {
 	if (isNullish(array) || array.length === 0) {
 		return []
 	}
@@ -54,12 +13,10 @@ const dropRepeats = <T>(
 		return [...array]
 	}
 
-	return array.reduce((acc: Array<T>, curr, index) => {
-		if (index === 0 || not(Object.is(curr, array[index - 1]))) {
+	return array.reduce(function dropRepeat(acc: Array<T>, curr, index) {
+		if (index === 0 || not(is(curr)(array[index - 1]))) {
 			return [...acc, curr]
 		}
 		return acc
 	}, [])
 }
-
-export default dropRepeats
