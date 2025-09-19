@@ -4,8 +4,10 @@ import mapSize from "../../map/size/index.ts"
 import setSize from "../../set/size/index.ts"
 import stringLength from "../../string/length/index.ts"
 import isArray from "../isArray/index.ts"
+import isMap from "../isMap/index.ts"
 import isNullish from "../isNullish/index.ts"
 import isPlainObject from "../isPlainObject/index.ts"
+import isSet from "../isSet/index.ts"
 import isString from "../isString/index.ts"
 
 //++ Checks if a value is not empty based on its type
@@ -22,11 +24,11 @@ export default function isNotEmpty(value: unknown): boolean {
 		return arrayLength(value) > 0
 	}
 
-	if (value instanceof Map) {
+	if (isMap(value)) {
 		return mapSize(value) > 0
 	}
 
-	if (value instanceof Set) {
+	if (isSet(value)) {
 		return setSize(value) > 0
 	}
 

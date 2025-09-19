@@ -1,3 +1,5 @@
+import isNonEmptyString from "../../validation/isNonEmptyString/index.ts"
+
 /**
  * Parses JSON strings to JavaScript values
  *
@@ -28,18 +30,17 @@
  * const data = stored ? fromJson(stored) : null
  * ```
  */
-const fromJson = (json: string): unknown => {
-	// Handle empty or non-string input
-	if (!json || typeof json !== "string") {
-		return null
+export default function fromJson(json: unknown): unknown {
+	// Handle valid string input first (positive logic)
+	if (isNonEmptyString(json)) {
+		try {
+			// TypeScript now knows json is a string
+			return JSON.parse(json)
+		} catch {
+			// Return null for any parsing errors
+			return null
+		}
 	}
 
-	try {
-		return JSON.parse(json)
-	} catch {
-		// Return null for any parsing errors
-		return null
-	}
+	return null
 }
-
-export default fromJson
