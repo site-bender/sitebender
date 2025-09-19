@@ -1,4 +1,9 @@
 import toFloat from "../toFloat/index.ts"
+import max from "../../../math/max/index.ts"
+import floor from "../../../math/floor/index.ts"
+import power from "../../../math/power/index.ts"
+import round from "../../../math/round/index.ts"
+import isInfinite from "../../../validation/isInfinite/index.ts"
 
 /**
  * Converts values to numbers with specified decimal precision
@@ -114,27 +119,29 @@ import toFloat from "../toFloat/index.ts"
  * @pure
  * @safe
  */
-const toPrecision = (places: number) => (value: unknown): number => {
-	// Parse the value as a float first
-	const num = toFloat(value)
+export default function toPrecision(
+	places: number,
+): (value: unknown) => number {
+	return function toPrecisionWithPlaces(value: unknown): number {
+		// Parse the value as a float first
+		const num = toFloat(value)
 
-	// If parsing failed, return NaN
-	if (isNaN(num)) {
-		return NaN
+		// If parsing failed, return NaN
+		if (isNaN(num)) {
+			return NaN
+		}
+
+		// Handle infinity
+		if (isInfinite(num)) {
+			return num
+		}
+
+		// Ensure places is a non-negative integer
+		const decimalPlaces = max(0)(floor(places))
+
+		// Round to the specified number of decimal places
+		// Multiply, round, then divide to avoid floating point errors
+		const multiplier = power(decimalPlaces)(10)
+		return round(num * multiplier) / multiplier
 	}
-
-	// Handle infinity
-	if (!isFinite(num)) {
-		return num
-	}
-
-	// Ensure places is a non-negative integer
-	const decimalPlaces = Math.max(0, Math.floor(places))
-
-	// Round to the specified number of decimal places
-	// Multiply, round, then divide to avoid floating point errors
-	const multiplier = Math.pow(10, decimalPlaces)
-	return Math.round(num * multiplier) / multiplier
 }
-
-export default toPrecision
