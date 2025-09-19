@@ -1,6 +1,19 @@
-import isNotNull from "../../../validation/isNotNull/index.ts"
+import jsonReplacer from "./jsonReplacer/index.ts"
 import isNull from "../../../validation/isNull/index.ts"
 import isUndefined from "../../../validation/isUndefined/index.ts"
+import isString from "../../../validation/isString/index.ts"
+import isNumber from "../../../validation/isNumber/index.ts"
+import isBoolean from "../../../validation/isBoolean/index.ts"
+import isSymbol from "../../../validation/isSymbol/index.ts"
+import isBigInt from "../../../validation/isBigInt/index.ts"
+import isFunction from "../../../validation/isFunction/index.ts"
+import isObject from "../../../validation/isObject/index.ts"
+import isDate from "../../../validation/isDate/index.ts"
+import isRegExp from "../../../validation/isRegExp/index.ts"
+import isError from "../../../validation/isError/index.ts"
+import isMap from "../../../validation/isMap/index.ts"
+import isSet from "../../../validation/isSet/index.ts"
+import is from "../../../validation/is/index.ts"
 
 /**
  * Safely converts any value to its string representation
@@ -51,7 +64,7 @@ import isUndefined from "../../../validation/isUndefined/index.ts"
  * toString(obj)                    // '{"a":1,"self":"[Circular]"}'
  * ```
  */
-const toString = (value: unknown): string => {
+export default function toString(value: unknown): string {
 	// Handle nullish values
 	if (isNull(value)) {
 		return "null"
@@ -61,55 +74,55 @@ const toString = (value: unknown): string => {
 	}
 
 	// If already a string, return as-is
-	if (typeof value === "string") {
+	if (isString(value)) {
 		return value
 	}
 
 	// Handle primitives
-	if (typeof value === "number") {
+	if (isNumber(value)) {
 		// Special handling for -0 to return "0"
-		if (Object.is(value, -0)) {
+		if (is(-0)(value)) {
 			return "0"
 		}
 		return String(value)
 	}
 
-	if (typeof value === "boolean") {
+	if (isBoolean(value)) {
 		return value ? "true" : "false"
 	}
 
-	if (typeof value === "symbol") {
+	if (isSymbol(value)) {
 		return value.toString()
 	}
 
-	if (typeof value === "bigint") {
+	if (isBigInt(value)) {
 		return value.toString()
 	}
 
 	// Handle functions
-	if (typeof value === "function") {
+	if (isFunction(value)) {
 		return value.toString()
 	}
 
 	// Handle objects
-	if (typeof value === "object") {
+	if (isObject(value)) {
 		// Special handling for Dates
-		if (value instanceof Date) {
+		if (isDate(value)) {
 			return value.toISOString()
 		}
 
 		// Special handling for RegExp
-		if (value instanceof RegExp) {
+		if (isRegExp(value)) {
 			return value.toString()
 		}
 
 		// Special handling for Errors
-		if (value instanceof Error) {
+		if (isError(value)) {
 			return `${value.name}: ${value.message}`
 		}
 
 		// Special handling for Map
-		if (value instanceof Map) {
+		if (isMap(value)) {
 			try {
 				return JSON.stringify({
 					dataType: "Map",
@@ -121,7 +134,7 @@ const toString = (value: unknown): string => {
 		}
 
 		// Special handling for Set
-		if (value instanceof Set) {
+		if (isSet(value)) {
 			try {
 				return JSON.stringify({
 					dataType: "Set",
@@ -135,24 +148,7 @@ const toString = (value: unknown): string => {
 		// For arrays and plain objects, use JSON.stringify with circular reference handling
 		try {
 			const seen = new WeakSet()
-			return JSON.stringify(value, (_key, val) => {
-				if (typeof val === "object" && isNotNull(val)) {
-					if (seen.has(val)) {
-						return "[Circular]"
-					}
-					seen.add(val)
-				}
-				if (typeof val === "bigint") {
-					return val.toString()
-				}
-				if (typeof val === "symbol") {
-					return val.toString()
-				}
-				if (typeof val === "function") {
-					return "[Function]"
-				}
-				return val
-			})
+			return JSON.stringify(value, jsonReplacer(seen))
 		} catch {
 			// Fallback for any JSON.stringify errors
 			return Object.prototype.toString.call(value)
@@ -162,5 +158,3 @@ const toString = (value: unknown): string => {
 	// Fallback (should never reach here)
 	return String(value)
 }
-
-export default toString

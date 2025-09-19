@@ -1,0 +1,114 @@
+name: OOP to FP Method Mappings
+version: 1.0.0
+description: Maps JavaScript OOP methods to toolkit FP functions with exact paths and usage patterns
+
+mappings:
+  # Array methods
+  - jsMethod: ".length"
+    toolkitFunction: "length"
+    path: "libraries/toolkit/src/vanilla/array/length"
+    usage: "length(array)"
+
+  - jsMethod: ".reduce"
+    toolkitFunction: "reduce"
+    path: "libraries/toolkit/src/vanilla/array/reduce"
+    usage: "reduce(fn)(initial)(array)"
+
+  - jsMethod: ".map"
+    toolkitFunction: "map"
+    path: "libraries/toolkit/src/vanilla/array/map"
+    usage: "map(fn)(array)"
+
+  - jsMethod: ".filter"
+    toolkitFunction: "filter"
+    path: "libraries/toolkit/src/vanilla/array/filter"
+    usage: "filter(predicate)(array)"
+
+  - jsMethod: ".find"
+    toolkitFunction: "find"
+    path: "libraries/toolkit/src/vanilla/array/find"
+    usage: "find(predicate)(array)"
+
+  - jsMethod: ".sort"
+    toolkitFunction: "sort"
+    path: "libraries/toolkit/src/vanilla/array/sort"
+    usage: "sort(compareFn)(array)"
+
+  - jsMethod: ".reverse"
+    toolkitFunction: "reverse"
+    path: "libraries/toolkit/src/vanilla/array/reverse"
+    usage: "reverse(array)"
+
+  - jsMethod: ".slice"
+    toolkitFunction: "slice"
+    path: "libraries/toolkit/src/vanilla/array/slice"
+    usage: "slice(start)(end)(array)"
+
+  - jsMethod: ".concat"
+    toolkitFunction: "concat"
+    path: "libraries/toolkit/src/vanilla/array/concat"
+    usage: "concat(array1)(array2)"
+
+  - jsMethod: ".includes"
+    toolkitFunction: "includes"
+    path: "libraries/toolkit/src/vanilla/array/includes"
+    usage: "includes(item)(array)"
+
+  # String methods
+  - jsMethod: ".split"
+    toolkitFunction: "split"
+    path: "libraries/toolkit/src/vanilla/string/split"
+    usage: "split(delimiter)(string)"
+
+  - jsMethod: ".join"
+    toolkitFunction: "join"
+    path: "libraries/toolkit/src/vanilla/string/join"
+    usage: "join(delimiter)(array)"
+
+  - jsMethod: ".toLowerCase()"
+    toolkitFunction: "toLower"
+    path: "libraries/toolkit/src/vanilla/string/toCase/toLower"
+    usage: "toLower(string)"
+
+  - jsMethod: ".toUpperCase()"
+    toolkitFunction: "toUpper"
+    path: "libraries/toolkit/src/vanilla/string/toCase/toUpper"
+    usage: "toUpper(string)"
+
+  - jsMethod: ".trim()"
+    toolkitFunction: "trim"
+    path: "libraries/toolkit/src/vanilla/string/trim"
+    usage: "trim(string)"
+
+  - jsMethod: ".replace"
+    toolkitFunction: "replace"
+    path: "libraries/toolkit/src/vanilla/string/replace"
+    usage: "replace(search)(replacement)(string)"
+
+  - jsMethod: ".substring"
+    toolkitFunction: "substring"
+    path: "libraries/toolkit/src/vanilla/string/substring"
+    usage: "substring(start)(end)(string)"
+
+  - jsMethod: ".charAt"
+    toolkitFunction: "charAt"
+    path: "libraries/toolkit/src/vanilla/string/charAt"
+    usage: "charAt(index)(string)"
+
+# Common magic number constants
+magicNumbers:
+  - value: "0"
+    constant: "ADDITIVE_IDENTITY"
+    context: "reduce operations, array start index"
+
+  - value: "1"
+    constant: "MULTIPLICATIVE_IDENTITY"
+    context: "multiply operations, single item"
+
+  - value: "-1"
+    constant: "NOT_FOUND_INDEX"
+    context: "indexOf, findIndex results"
+
+  - value: "1000"
+    constant: "ONE_SECOND_MS"
+    context: "setTimeout, intervals"
