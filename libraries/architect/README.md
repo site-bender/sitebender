@@ -35,18 +35,18 @@ JSX → IR → JSON/YAML/Turtle → Storage → Retrieval → DOM + Behaviors
 ### Example: Complex Validation
 
 ```jsx
-import Data from "@sitebender/architect/components/data/Data/index.tsx";
-import Validation from "@sitebender/architect/components/validation/Validation/index.tsx";
-import And from "@sitebender/architect/components/logical/And/index.tsx";
-import Or from "@sitebender/architect/components/logical/Or/index.tsx";
-import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx";
-import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx";
-import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx";
-import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx";
-import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx";
-import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx";
-import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx";
-import From from "@sitebender/architect/components/injectors/From/index.tsx";
+import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx"
+import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx"
+import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx"
+import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx"
+import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx"
+import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx"
+import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx"
+import Data from "@sitebender/architect/components/data/Data/index.tsx"
+import From from "@sitebender/architect/components/injectors/From/index.tsx"
+import And from "@sitebender/architect/components/logical/And/index.tsx"
+import Or from "@sitebender/architect/components/logical/Or/index.tsx"
+import Validation from "@sitebender/architect/components/validation/Validation/index.tsx"
 
 // Declarative validation that becomes data
 // Value must be: an integer && ((value >= 6 && value < 12) || (value > 20 && value <= 42))
@@ -96,7 +96,7 @@ import From from "@sitebender/architect/components/injectors/From/index.tsx";
       </Or>
     </And>
   </Validation>
-</Data>;
+</Data>
 ```
 
 This JSX compiles to a data structure that:
@@ -109,11 +109,11 @@ This JSX compiles to a data structure that:
 ### Example: Reactive Calculations
 
 ```jsx
-import Input from "@sitebender/architect/components/forms/Input/index.tsx";
-import Display from "@sitebender/architect/components/display/Display/index.tsx";
-import Add from "@sitebender/architect/components/operators/Add/index.tsx";
-import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx";
-import From from "@sitebender/architect/components/injectors/From/index.tsx";
+import Input from "@sitebender/architect/components/forms/Input/index.tsx"
+import Display from "@sitebender/architect/components/display/Display/index.tsx"
+import Add from "@sitebender/architect/components/operators/Add/index.tsx"
+import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx"
+import From from "@sitebender/architect/components/injectors/From/index.tsx"
 
 <>
   <Input id="price" type="number" />
@@ -140,7 +140,7 @@ import From from "@sitebender/architect/components/injectors/From/index.tsx";
       <From.Element selector="#tax" />
     </Add>
   </Display>
-</>;
+</>
 ```
 
 Changes cascade automatically. Update price or quantity, and subtotal, tax, and total all recalculate.
@@ -464,15 +464,15 @@ Architect attaches behaviors as properties on DOM elements:
 
 ```javascript
 // After rendering, elements have these properties:
-element.__sbCalculate; // Async calculation function
-element.__sbValidate; // Async validation function
-element.__sbFormat; // Async formatting function
+element.__sbCalculate // Async calculation function
+element.__sbValidate // Async validation function
+element.__sbFormat // Async formatting function
 
 // Global registries track dependencies:
-document.__sbCalculators; // Set of element IDs with calculations
-document.__sbCalculations; // Map of selector to dependent element IDs
-document.__sbFormatters; // Set of element IDs with formatters
-document.__sbValidators; // Set of element IDs with validators
+document.__sbCalculators // Set of element IDs with calculations
+document.__sbCalculations // Map of selector to dependent element IDs
+document.__sbFormatters // Set of element IDs with formatters
+document.__sbValidators // Set of element IDs with validators
 ```
 
 ## Data Persistence
@@ -531,48 +531,51 @@ document.__sbValidators; // Set of element IDs with validators
 ## Server-Side Rendering
 
 ```typescript
-import render from "@sitebender/architect/rendering/ssr/render/index.ts";
+import render from "@sitebender/architect/rendering/ssr/render/index.ts"
 
 // Fetch UI definition from database
-const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'");
+const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'")
 
 // Render to HTML with embedded behaviors
 const html = await render(uiConfig, {
   embedBehaviors: true,
   includeHydration: true,
-});
+})
 ```
 
 ## Client-Side Hydration
 
 ```typescript
-import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts";
+import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts"
 
 // Find all elements with embedded configurations
-const elements = document.querySelectorAll("[data-architect]");
+const elements = document.querySelectorAll("[data-architect]")
 
-// Attach behaviors from configurations
-elements.forEach((el) => {
-  const config = JSON.parse(el.dataset.architect);
-  hydrate(el, config);
-});
+function hydrateElement(el) {
+
+  const config = JSON.parse(el.dataset.architect)
+
+  hydrate(el, config)
+}
+
+elements.forEach(hydrateElement)
 ```
 
 ## Integration with Triple Stores
 
 ```typescript
-import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts";
-import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts";
-import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts";
+import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts"
+import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts"
+import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts"
 
 // Convert UI to RDF triples
-const triples = toRDF(uiConfig);
+const triples = toRDF(uiConfig)
 
 // Store in triple store
-await tripleStore.insert(triples);
+await tripleStore.insert(triples)
 
 // Validate data against generated SHACL
-const validation = await validateSHACL(data, uiConfig);
+const validation = await validateSHACL(data, uiConfig)
 
 // Query UI components
 const query = `
@@ -581,8 +584,8 @@ const query = `
     ?component arch:hasValidation ?validation .
     ?component rdf:type ?type .
   }
-`;
-const components = await tripleStore.query(query);
+`
+const components = await tripleStore.query(query)
 ```
 
 ## Advantages Over Traditional Frameworks
@@ -651,13 +654,14 @@ npm install @sitebender/architect
 ### Simple Example
 
 ```tsx
-import render from "@sitebender/architect/rendering/render/index.ts";
-import Input from "@sitebender/architect/components/forms/Input/index.tsx";
-import Display from "@sitebender/architect/components/display/Display/index.tsx";
-import Add from "@sitebender/architect/components/operators/Add/index.tsx";
-import From from "@sitebender/architect/components/injectors/From/index.tsx";
+import Display from "@sitebender/architect/components/display/Display/index.tsx"
+import Input from "@sitebender/architect/components/forms/Input/index.tsx"
+import From from "@sitebender/architect/components/injectors/From/index.tsx"
+import Add from "@sitebender/architect/components/operators/Add/index.tsx"
+import render from "@sitebender/architect/rendering/render/index.ts"
 
 function Calculator() {
+
   return (
     <div>
       <Input id="a" type="number" />
@@ -671,11 +675,11 @@ function Calculator() {
         </Add>
       </Display>
     </div>
-  );
+  )
 }
 
 // Render to DOM
-render(<Calculator />, document.getElementById("root"));
+render(<Calculator />, document.getElementById("root"))
 ```
 
 ## Advanced Topics
@@ -685,15 +689,21 @@ render(<Calculator />, document.getElementById("root"));
 Define your own operators that compose with existing ones:
 
 ```tsx
+function computeFactorial(n) {
+
+  return n <= 1 ? 1 : n * computeFactorial(n - 1)
+}
+
 function Factorial({ children }) {
+
   return (
     <CustomOperator
       name="factorial"
-      compute={(n) => (n <= 1 ? 1 : n * factorial(n - 1))}
+      compute={computeFactorial}
     >
       {children}
     </CustomOperator>
-  );
+  )
 }
 ```
 
@@ -703,15 +713,20 @@ Create injectors for any data source:
 
 ```tsx
 function FromGraphQL({ query, variables }) {
+
+  async function fetchGraphQL() {
+
+    const result = await graphqlClient.query({ query, variables })
+
+    return result.data
+  }
+
   return (
     <CustomInjector
       name="graphql"
-      fetch={async () => {
-        const result = await graphqlClient.query({ query, variables });
-        return result.data;
-      }}
+      fetch={fetchGraphQL}
     />
-  );
+  )
 }
 ```
 

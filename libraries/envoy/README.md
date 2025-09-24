@@ -575,7 +575,7 @@ Envoy is part of the @sitebender studio. See [CONTRIBUTING.md](../../CONTRIBUTIN
 
 ## License
 
-MIT - Because knowledge should be free.
+[MIT](../../LICENSE) - Because knowledge should be free.
 
 ## See Also
 

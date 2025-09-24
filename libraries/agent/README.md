@@ -463,7 +463,19 @@ Agent components seamlessly integrate with Architect's reactive system:
 ### Collaborative Todo App
 
 ```jsx
+function renderTodo(todo) {
+
+  return (
+    <TodoView>
+      <Checkbox bound={todo.completed} />
+      <Text bound={todo.title} />
+      <UserAvatar bound={todo.assignee} />
+    </TodoView>
+  )
+}
+
 function TodoApp() {
+
   return (
     <DistributedApp>
       <Identity id="user">
@@ -486,13 +498,7 @@ function TodoApp() {
 
       <TodoList>
         <RenderEach from="#todos">
-          {(todo) => (
-            <TodoView>
-              <Checkbox bound={todo.completed} />
-              <Text bound={todo.title} />
-              <UserAvatar bound={todo.assignee} />
-            </TodoView>
-          )}
+          {renderTodo}
         </RenderEach>
       </TodoList>
 
@@ -500,14 +506,42 @@ function TodoApp() {
         <With.AllPeers />
       </AutoSync>
     </DistributedApp>
-  );
+  )
 }
 ```
 
 ### Decentralized Chat
 
 ```jsx
+function handleSubmit(msg) {
+
+  return (
+    <AppendTo target="#messages">
+      <Message>
+        <From.CurrentUser />
+        <Timestamp />
+        <Content>{msg}</Content>
+        <SignWith selector="#user" />
+      </Message>
+    </AppendTo>
+  )
+}
+
+function renderMessage(msg) {
+
+  return (
+    <MessageBubble
+      verified={msg.signature}
+      sender={msg.from}
+      time={msg.timestamp}
+    >
+      {msg.content}
+    </MessageBubble>
+  )
+}
+
 function ChatRoom({ roomId }) {
+
   return (
     <>
       <SecureChannel id="chat" room={roomId}>
@@ -526,34 +560,15 @@ function ChatRoom({ roomId }) {
         <ShowTyping debounce={1000} />
       </PresenceIndicator>
 
-      <MessageInput
-        onSubmit={(msg) => (
-          <AppendTo target="#messages">
-            <Message>
-              <From.CurrentUser />
-              <Timestamp />
-              <Content>{msg}</Content>
-              <SignWith selector="#user" />
-            </Message>
-          </AppendTo>
-        )}
-      />
+      <MessageInput onSubmit={handleSubmit} />
 
       <MessageList>
         <RenderEach from="#messages">
-          {(msg) => (
-            <MessageBubble
-              verified={msg.signature}
-              sender={msg.from}
-              time={msg.timestamp}
-            >
-              {msg.content}
-            </MessageBubble>
-          )}
+          {renderMessage}
         </RenderEach>
       </MessageList>
     </>
-  );
+  )
 }
 ```
 
@@ -561,6 +576,7 @@ function ChatRoom({ roomId }) {
 
 ```jsx
 function CollaborativeForm() {
+
   return (
     <Form distributed={true}>
       <SharedField name="title" type="text">
@@ -597,7 +613,7 @@ function CollaborativeForm() {
         <NotifyPeers />
       </SubmitStrategy>
     </Form>
-  );
+  )
 }
 ```
 
@@ -759,21 +775,22 @@ deno add @sitebender/agent
 ### Quick Start
 
 ```tsx
-import DistributedCounter from "@sitebender/agent/components/crdt/DistributedCounter/index.ts";
-import SyncWith from "@sitebender/agent/components/sync/SyncWith/index.ts";
-import render from "@sitebender/architect/render/index.ts";
+import DistributedCounter from "@sitebender/agent/components/crdt/DistributedCounter/index.ts"
+import SyncWith from "@sitebender/agent/components/sync/SyncWith/index.ts"
+import render from "@sitebender/architect/render/index.ts"
 
 function App() {
+
   return (
     <DistributedCounter id="sharedCount">
       <InitialValue>0</InitialValue>
       <SyncWith.Peers />
       <IncrementButton>+1</IncrementButton>
     </DistributedCounter>
-  );
+  )
 }
 
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById("root"))
 ```
 
 ## Architectural Principles

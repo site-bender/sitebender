@@ -1,408 +1,480 @@
-# @sitebender/formulator
+# Formulator: Bidirectional Formula Parser & Compiler
 
-Pure TypeScript formula parser for mathematical expressions. Compiles formula strings to @sitebender/architect configuration objects.
+> **Transform mathematical and chemical formulas between human-readable notation, Architect IR, and semantic markup**
 
-## Installation
+Formulator is a pure functional TypeScript library that creates perfect isomorphism between formula representations. Write formulas as strings, JSX components, or structured data—Formulator seamlessly converts between all formats while preserving semantic meaning and ensuring type safety.
 
-```bash
-deno add @sitebender/formulator
+## Core Philosophy
+
+**One formula, many representations, zero information loss.**
+
+Formulator bridges the gap between how humans write formulas and how computers process them:
+
+- **Humans write**: `"E = mc²"` or `"H₂O + CO₂ → H₂CO₃"`
+- **Architect needs**: Structured IR for reactive calculations
+- **Browsers display**: MathML or ChemML for semantic rendering
+- **Databases store**: JSON/YAML/Turtle for persistence
+
+All representations are perfectly interchangeable through Formulator.
+
+## The Isomorphism
+
+```
+Formula String ←→ AST ←→ Architect IR ←→ JSX Components
+      ↓            ↓           ↓              ↓
+   MathML      ChemML    JSON/YAML      Semantic HTML
 ```
 
-## Demo
-
-```bash
-# Run the demo to see various parsing examples
-deno run demo/index.ts
-```
-
-## The Problem
-
-Deep nested calculations in JSX are unreadable and hard to maintain:
-
-```tsx
-// This is hard to understand - what's the formula?
-<Divide>
-	<Subtract>
-		<Multiply>
-			<From.Constant>5</From.Constant>
-			<From.Constant>10</From.Constant>
-		</Multiply>
-		<From.Constant>2</From.Constant>
-	</Subtract>
-	<From.Constant>3</From.Constant>
-</Divide>
-```
-
-## The Solution
-
-Use mathematical formula syntax that compiles to the same configuration:
-
-```tsx
-// Much clearer - you can see the formula!
-<Calculation formula="((w * x) - y) / z">
-	<Variable name="w">
-		<From.Constant>5</From.Constant>
-	</Variable>
-	<Variable name="x">
-		<From.Constant>10</From.Constant>
-	</Variable>
-	<Variable name="y">
-		<From.Constant>2</From.Constant>
-	</Variable>
-	<Variable name="z">
-		<From.Constant>3</From.Constant>
-	</Variable>
-</Calculation>
-```
-
-Both compile to **exactly the same** architect configuration. The formula is readable, and variables can be injected at compile time, runtime, or lazily when the function runs.
-
-## Data Sources
-
-Variables can pull data from anywhere using the `From.*` components:
-
-- `From.Constant` - Static values
-- `From.Element` - DOM elements
-- `From.UrlSegment` - URL path segments
-- `From.QueryString` - URL query parameters
-- `From.Api` - API endpoints
-- `From.LocalStorage` - Browser local storage
-- `From.SessionStorage` - Browser session storage
-- `From.Lookup` - Lookup tables
-- `From.LookupTable` - Multi-dimensional lookups
-
-These are used in `<Validation>`, `<Display>` (conditional rendering), and calculations throughout your application.
-
-## Usage
-
-```typescript
-import { parseFormula } from "@sitebender/formulator"
-
-// Define variables with injector configurations
-const variables = {
-	a: { tag: "Constant", type: "injector", datatype: "Integer", value: 99 },
-	b: {
-		tag: "FromElement",
-		type: "injector",
-		datatype: "Integer",
-		source: "#divisor",
-	},
-	c: { tag: "Constant", type: "injector", datatype: "Integer", value: 44 },
-	d: { tag: "Constant", type: "injector", datatype: "Integer", value: 2 },
-}
-
-// Parse formula into architect configuration
-const result = parseFormula("(a / b) + (c / d)", variables)
-
-if (result.ok) {
-	console.log(result.value) // Architect configuration object
-} else {
-	console.error(result.error) // Parse error details
-}
-```
+Every arrow is bidirectional. Every transformation is lossless.
 
 ## Features
 
-### Phase 1 (Current)
+### Mathematical Formulas
 
-- ✅ Basic arithmetic: `+`, `-`, `*`, `/`, `^`
-- ✅ Parentheses for grouping
-- ✅ Variables (lowercase identifiers)
-- ✅ Unary operators: `+`, `-`
-- ✅ Type inference from variables
-- ✅ All injector types supported (Constant, FromElement, etc.)
+Parse and compile mathematical expressions with full support for:
 
-### Phase 2 (Planned)
+- **Arithmetic**: `+`, `-`, `*`, `/`, `^`, `%`, `√`
+- **Comparisons**: `<`, `>`, `≤`, `≥`, `=`, `≠`
+- **Logical**: `∧`, `∨`, `¬`, `⊕`, `→` (and, or, not, xor, implies)
+- **Functions**: `sin`, `cos`, `tan`, `log`, `ln`, `exp`, `abs`, `round`, `floor`, `ceil`
+- **Statistics**: `avg`, `sum`, `min`, `max`, `median`, `σ` (standard deviation)
+- **Constants**: `π`, `e`, `φ` (golden ratio), `∞`
+- **Variables**: Any valid identifier with subscripts/superscripts
+- **Grouping**: Parentheses, brackets, braces with proper precedence
 
-- Comparison operators: `<`, `<=`, `>`, `>=`, `==`, `!=`
-- Logical operators: `&&`, `||`
-- Boolean algebra for validations and conditional display
+### Chemical Formulas
 
-### Phase 3 (Future)
+Parse and compile chemical notation with support for:
 
-- Mathematical functions: `sin`, `cos`, `sqrt`, `max`, `min`
-- Constants: `PI`, `E`
+- **Molecular formulas**: `H₂O`, `C₆H₁₂O₆`, `Ca(OH)₂`
+- **Structural formulas**: `CH₃CH₂OH`, `(CH₃)₃COH`
+- **Ionic charges**: `Na⁺`, `SO₄²⁻`, `Fe³⁺`
+- **Isotopes**: `¹⁴C`, `²³⁵U`, `³H` (tritium)
+- **Chemical equations**: `2H₂ + O₂ → 2H₂O`
+- **Equilibrium**: `N₂ + 3H₂ ⇌ 2NH₃`
+- **Phase notation**: `H₂O(l) → H₂O(g)`
+- **Catalysts**: `2H₂O₂ →[MnO₂] 2H₂O + O₂`
 
-## Operator Precedence
+### Output Formats
 
-From highest to lowest:
-
-1. Parentheses `()`
-2. Exponentiation `^` (right-associative)
-3. Unary `+`, `-`
-4. Multiplication/Division `*`, `/` (left-associative)
-5. Addition/Subtraction `+`, `-` (left-associative)
-
-## Type System
-
-- Default numeric type: `"Number"`
-- Type inference: When all variables share the same numeric type, that type is used
-- Mixed types: Default to `"Number"`
-- Supported types: `Number`, `Integer`, `Float`, `Precision`
-
-## Error Handling
-
-The parser uses a Result type for error handling:
+#### MathML Generation
 
 ```typescript
-type Result<T, E> = { ok: true; value: T } | { ok: false; error: E }
+import toMathML from "@sitebender/formulator/converters/toMathML/index.ts";
+
+const mathML = toMathML("(a + b)² = a² + 2ab + b²");
+// Generates proper MathML with <math>, <mrow>, <msup>, etc.
 ```
 
-Common errors:
-
-- Undefined variables
-- Syntax errors
-- Mismatched parentheses
-- Invalid characters
-
-## Development
-
-```bash
-# Run tests
-deno task test
-
-# Run with coverage
-deno task test:cov
-
-# Type check
-deno task type-check
-
-# Lint
-deno task lint
-
-# Format
-deno task fmt
-```
-
-## Architecture
-
-Pure functional TypeScript with:
-
-- Tokenizer for lexical analysis
-- Pratt parser with precedence climbing
-- Compiler using @sitebender/architect constructors
-- Zero external dependencies
-- Comprehensive test coverage
-
-## Reverse Compilation (Decompilation)
-
-The formulator library creates an isomorphism between three equivalent representations:
-
-- Mathematical formula strings
-- Architect configuration objects
-- JSX component trees
-
-This means you can convert in any direction:
-
-```
-Formula ←→ Architect Config ←→ JSX Components
-   ↑______________|_______________↑
-            All Equivalent
-```
-
-### From Architect Config to Formula
-
-You can reverse-architecter a mathematical formula from an architect configuration:
+#### ChemML Generation
 
 ```typescript
-import { decompile } from "@sitebender/formulator"
+import toChemML from "@sitebender/formulator/converters/toChemML/index.ts";
 
-// Given an architect configuration
-const config = {
-	tag: "Add",
-	type: "operator",
-	datatype: "Integer",
-	addends: [
-		{ tag: "Constant", type: "injector", datatype: "Integer", value: 6 },
-		{ tag: "Constant", type: "injector", datatype: "Integer", value: 9 },
-	],
-}
-
-// Convert back to formula
-const formula = decompile(config)
-// Could return: "6 + 9" (if eager evaluation and constants)
-// Or: "x + y" (if lazy evaluation or other injector types)
+const chemML = toChemML("H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O");
+// Generates semantic chemical markup
 ```
 
-### Eager vs Lazy Evaluation
-
-The architect supports both eager and lazy evaluation for injectors:
-
-- **Eager + Constants**: Can inline values like `"6 + 9"` since constants are truly constant (specified directly in the element)
-- **Lazy evaluation**: Must use variables like `"x + y"` since values aren't resolved until runtime
-- **Other injectors**: Always use variables since they load from external sources (DOM, URL, storage, etc.)
-
-### Variable Naming Strategies
-
-When decompiling, variables are assigned names based on their source:
-
-#### 1. Named Constants
-
-```tsx
-// JSX with explicit name
-<From.Constant name="price" type="Number">
-	99.99
-</From.Constant>
-// Decompiles to: "price"
-```
-
-#### 2. DOM Elements
+#### Architect IR
 
 ```typescript
-{ tag: "FromElement", source: "#quantity-input" }
-// Decompiles to: "quantity_input" (sanitized from ID)
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
+
+const result = parseFormula("(price * quantity) * (1 + tax_rate)", {
+  price: { tag: "FromElement", source: "#price" },
+  quantity: { tag: "FromElement", source: "#quantity" },
+  tax_rate: { tag: "FromConstant", value: 0.08 },
+});
+// Generates Architect operator configuration for reactive calculations
 ```
 
-#### 3. URL Parameters
+## Usage Examples
+
+### Mathematical Expression with Semantic Output
 
 ```typescript
-{ tag: "FromURL", param: "age" }
-// Decompiles to: "age"
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
+import toMathML from "@sitebender/formulator/converters/toMathML/index.ts"
+import MathMLDisplay from "@sitebender/codewright/scientific/MathMLDisplay/index.tsx"
+
+// Parse formula to Architect IR
+const formula = "x = (-b ± √(b² - 4ac)) / (2a)"
+const ir = parseFormula(formula, {
+  a: { tag: "FromElement", source: "#coeff-a" },
+  b: { tag: "FromElement", source: "#coeff-b" },
+  c: { tag: "FromElement", source: "#coeff-c" }
+})
+
+// Generate MathML for display
+const mathML = toMathML(formula)
+
+// Use in JSX with Codewright wrapper
+<MathMLDisplay formula={mathML} fallback={formula} />
 ```
 
-#### 4. Storage Keys
+### Chemical Equation with Interactive Elements
 
 ```typescript
-{ tag: "FromLocalStorage", key: "user_score" }
-// Decompiles to: "user_score"
+import parseChemical from "@sitebender/formulator/chemical/parseChemical/index.ts"
+import toChemML from "@sitebender/formulator/converters/toChemML/index.ts"
+import ChemMLDisplay from "@sitebender/codewright/scientific/ChemMLDisplay/index.tsx"
 
-{ tag: "FromSessionStorage", key: "temp_value" }
-// Decompiles to: "temp_value"
+// Parse balanced equation
+const equation = "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O"
+const ir = parseChemical(equation)
+
+// Generate semantic chemical markup
+const chemML = toChemML(equation)
+
+// Render with tooltips for each compound
+<ChemMLDisplay
+  formula={chemML}
+  tooltips={{
+    "C₆H₁₂O₆": "Glucose",
+    "O₂": "Oxygen",
+    "CO₂": "Carbon Dioxide",
+    "H₂O": "Water"
+  }}
+/>
 ```
 
-#### 5. Anonymous Constants
+### Molecular Structure Visualization
+
+```typescript
+import toMolecularStructure from "@sitebender/formulator/converters/toMolecularStructure/index.ts"
+import MoleculeViewer from "@sitebender/codewright/scientific/MoleculeViewer/index.tsx"
+
+// Parse molecular formula
+const molecule = parseChemical("CH₃CH₂OH")  // Ethanol
+
+// Generate 2D structural representation
+const structure2D = toMolecularStructure(molecule, { mode: "2D" })
+// Produces bond-line structure with proper angles
+
+// Generate 3D ball-and-stick model data
+const structure3D = toMolecularStructure(molecule, { mode: "3D" })
+// Produces coordinates for 3D visualization
+
+// Render interactive molecule viewer
+<MoleculeViewer
+  structure={structure2D}
+  mode="2D"
+  showAtoms
+  showBonds
+  showAngles
+  interactive
+/>
+
+// Or show Lewis dot structure
+<MoleculeViewer
+  structure={molecule}
+  mode="lewis"
+  showLonePairs
+  showFormalCharges
+/>
+```
+
+The molecular structure features include:
+
+- **2D Structural Formulas**: Bond-line notation with proper bond angles
+- **3D Ball-and-Stick Models**: Interactive 3D rotation and zoom
+- **Lewis Dot Structures**: Show valence electrons and lone pairs
+- **Space-Filling Models**: Van der Waals radius representation
+- **Orbital Diagrams**: Electron configuration and hybridization
+- **Resonance Structures**: Multiple valid structures for compounds
+- **Newman Projections**: Conformational analysis
+- **Fischer Projections**: Stereochemistry for sugars and amino acids
+
+### Bidirectional Conversion
+
+```typescript
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
+import decompile from "@sitebender/formulator/decompile/index.ts";
+
+// Start with a formula string
+const original = "(a + b) * c";
+
+// Parse to Architect IR
+const ir = parseFormula(original, variables);
+
+// Convert back to formula string
+const decompiled = decompile(ir.value);
+// Result: "(a + b) * c"
+
+// Perfect round-trip preservation
+assert(parseFormula(decompiled, variables) === ir);
+```
+
+### Visual Formula Builder Integration
+
+```typescript
+import decompile from "@sitebender/formulator/decompile/index.ts"
+
+// User builds formula visually in Architect JSX
+const visualFormula = (
+  <Multiply>
+    <Add>
+      <From.Element source="#base-salary" />
+      <From.Element source="#bonus" />
+    </Add>
+    <From.Constant name="tax_rate">1.1</From.Constant>
+  </Multiply>
+)
+
+// Show them the mathematical notation
+const formula = decompile(visualFormula)
+// Result: "(base_salary + bonus) * tax_rate"
+```
+
+## Formula Syntax
+
+### Smart Symbol Recognition
+
+Formulator automatically converts typed names to proper mathematical symbols. No need to know keyboard shortcuts!
+
+#### Greek Letters
+
+Type the name, get the symbol:
+
+- `alpha` → α, `beta` → β, `gamma` → γ, `delta` → δ
+- `epsilon` → ε, `zeta` → ζ, `eta` → η, `theta` → θ
+- `iota` → ι, `kappa` → κ, `lambda` → λ, `mu` → μ
+- `nu` → ν, `xi` → ξ, `omicron` → ο, `pi` → π
+- `rho` → ρ, `sigma` → σ, `tau` → τ, `upsilon` → υ
+- `phi` → φ, `chi` → χ, `psi` → ψ, `omega` → ω
+- Uppercase: `Alpha` → Α, `Beta` → Β, `Gamma` → Γ, `Delta` → Δ, etc.
+
+#### Mathematical Operators
+
+Type the word, get the symbol:
+
+- `integral` → ∫, `partial` → ∂, `nabla` → ∇
+- `sum` or `Sum` → Σ, `product` or `Product` → Π
+- `infinity` or `inf` → ∞, `plusminus` or `pm` → ±
+- `approx` → ≈, `notequal` or `neq` → ≠
+- `leq` → ≤, `geq` → ≥, `ll` → ≪, `gg` → ≫
+- `subset` → ⊂, `superset` → ⊃, `union` → ∪, `intersection` → ∩
+- `forall` → ∀, `exists` → ∃, `in` → ∈, `notin` → ∉
+- `dot` → ·, `cross` → ×, `otimes` → ⊗, `oplus` → ⊕
+
+#### Calculus & Advanced Math
+
+- `lim` → lim, `d/dx` → derivative notation
+- `integral(f, a, b)` → ∫ₐᵇ f dx
+- `partial(f)/partial(x)` → ∂f/∂x
+- `grad` → ∇, `div` → ∇·, `curl` → ∇×
+- `matrix([[1,2],[3,4]])` → matrix notation
+- `vec(v)` → v⃗ (vector notation)
+- `hat(x)` → x̂ (unit vector)
+- `dot(x)` → ẋ (time derivative)
+
+### Mathematical Notation
+
+Formulator accepts ASCII, typed names, and Unicode mathematical symbols:
+
+| Operation             | ASCII    | Typed Name | Unicode     | Example                          |
+| --------------------- | -------- | ---------- | ----------- | -------------------------------- |
+| Multiplication        | `*`      | `times`    | `×` or `·`  | `2 * 3` or `2 times 3`           |
+| Division              | `/`      | `div`      | `÷`         | `6 / 2` or `6 div 2`             |
+| Exponent              | `^`      | `pow`      | superscript | `x^2` or `x pow 2`               |
+| Square root           | `sqrt()` | `sqrt`     | `√`         | `sqrt(16)` or `√16`              |
+| Less than or equal    | `<=`     | `leq`      | `≤`         | `x <= 5` or `x leq 5`            |
+| Greater than or equal | `>=`     | `geq`      | `≥`         | `x >= 5` or `x geq 5`            |
+| Not equal             | `!=`     | `neq`      | `≠`         | `x != y` or `x neq y`            |
+| Pi                    | `PI`     | `pi`       | `π`         | `2 * PI` or `2 * pi`             |
+| Sum                   | `sum()`  | `Sum`      | `Σ`         | `sum(x, 1, 10)` or `Sum(x,1,10)` |
+| Infinity              | `INF`    | `infinity` | `∞`         | `lim(x → ∞)`                     |
+
+### Chemical Notation
+
+Chemical formulas use standard notation with subscripts and superscripts:
+
+- **Subscripts**: Numbers after elements (`H2O` → H₂O)
+- **Superscripts**: Charges (`Na+` → Na⁺, `SO4^2-` → SO₄²⁻)
+- **Parentheses**: Group multipliers (`Ca(OH)2` → Ca(OH)₂)
+- **Arrows**: Reactions (`->` → →, `<->` → ⇌)
+- **Phase indicators**: States of matter (`(s)`, `(l)`, `(g)`, `(aq)`)
+- **Catalysts**: Above arrow notation (`->[cat]` → →[cat])
+
+## Type Inference
+
+Formulator intelligently infers types from context:
+
+```typescript
+// All Integer inputs → Integer output
+parseFormula("a + b", {
+  a: { tag: "Constant", datatype: "Integer", value: 5 },
+  b: { tag: "Constant", datatype: "Integer", value: 3 },
+});
+// Result type: Integer
+
+// Mixed numeric types → Number (most general)
+parseFormula("x * y", {
+  x: { tag: "Constant", datatype: "Integer", value: 5 },
+  y: { tag: "Constant", datatype: "Float", value: 3.14 },
+});
+// Result type: Number
+
+// Chemical formulas → Molecule type
+parseChemical("H2O");
+// Result type: Molecule with composition {H: 2, O: 1}
+```
+
+## Variable Resolution
+
+When decompiling from IR to formula strings, Formulator uses intelligent variable naming:
+
+### Explicit Names
+
+```typescript
+<From.Constant name="tax_rate">0.08</From.Constant>
+// Decompiles to: "tax_rate"
+```
+
+### DOM Elements
+
+```typescript
+{ tag: "FromElement", source: "#user-age" }
+// Decompiles to: "user_age" (sanitized from ID)
+```
+
+### URL Parameters
+
+```typescript
+{ tag: "FromQueryString", param: "discount" }
+// Decompiles to: "discount"
+```
+
+### Anonymous Values
 
 ```typescript
 { tag: "Constant", value: 42 }
-// Decompiles to: "x", "y", "z", ... (sequential assignment)
+// Decompiles to: "x", "y", "z", ... (sequential)
 ```
 
-### Collision Handling
-
-When multiple injectors would produce the same variable name, the system handles collisions:
-
-#### Strategy 1: Numeric Suffixes
+### Collision Resolution
 
 ```typescript
-// Two elements with similar IDs
-{ tag: "FromElement", source: "#price" }      // → "price"
-{ tag: "FromElement", source: "#price-tax" }  // → "price_tax"
-{ tag: "FromURL", param: "price" }            // → "price_2"
+// Multiple sources with same name get suffixes
+#price (element) → "price"
+?price (URL param) → "price_2"
+localStorage.price → "price_3"
 ```
 
-#### Strategy 2: Source Prefixing
+## Integration with Architect
 
-```typescript
-// Prefix by source type when collision detected
-{ tag: "FromElement", source: "#value" }      // → "el_value"
-{ tag: "FromURL", param: "value" }            // → "url_value"
-{ tag: "FromLocalStorage", key: "value" }     // → "ls_value"
-```
-
-#### Strategy 3: Hash Suffixing
-
-```typescript
-// For complex collisions, append a short hash
-{ tag: "FromElement", source: "#input" }      // → "input"
-{ tag: "FromElement", source: "#input" }      // → "input_a3f"
-```
-
-### Practical Examples
-
-#### Example 1: Visual to Formula
+Formulator is designed as the formula layer for @sitebender/architect:
 
 ```tsx
-// User builds visually:
-<Multiply type="Number">
-	<Add type="Number">
-		<From.Element source="#base-salary" />
-		<From.Element source="#bonus" />
-	</Add>
-	<From.Constant name="tax_multiplier">1.1</From.Constant>
-</Multiply>
+import Calculation from "@sitebender/architect/components/Calculation/index.tsx"
+import Validation from "@sitebender/architect/components/Validation/index.tsx"
 
-// System shows formula:
-"(base_salary + bonus) * tax_multiplier"
+// Use formula strings instead of nested components
+<Calculation formula="(base + bonus) * (1 - tax_rate)">
+  <Variable name="base" from="#base-salary" />
+  <Variable name="bonus" from="#bonus-amount" />
+  <Variable name="tax_rate" from="#tax-rate" />
+</Calculation>
+
+// Validation with formula syntax
+<Validation formula="age >= 18 && age < 65">
+  <Variable name="age" from="#user-age" />
+</Validation>
 ```
 
-#### Example 2: Formula to Visual
+## MathML & ChemML Components
+
+Formulator works seamlessly with Codewright's scientific display components:
+
+```tsx
+import MathMLDisplay from "@sitebender/codewright/scientific/MathMLDisplay/index.tsx"
+import ChemMLDisplay from "@sitebender/codewright/scientific/ChemMLDisplay/index.tsx"
+import toMathML from "@sitebender/formulator/converters/toMathML/index.ts"
+import toChemML from "@sitebender/formulator/converters/toChemML/index.ts"
+
+// Mathematical formulas with proper semantic markup
+<MathMLDisplay>
+  {toMathML("E = mc²")}
+</MathMLDisplay>
+
+// Chemical formulas with interactive features
+<ChemMLDisplay interactive>
+  {toChemML("2H₂ + O₂ → 2H₂O")}
+</ChemMLDisplay>
+```
+
+These components provide:
+
+- Proper semantic markup for accessibility
+- Fallback rendering for browsers without MathML/ChemML support
+- Optional interactive features (hover for element info, etc.)
+- Print-optimized styling
+- Copy-to-clipboard with proper formatting
+
+## Performance
+
+- **Zero dependencies**: Pure TypeScript, no external libraries
+- **Tree-shakeable**: Import only what you need
+- **Compile-time optimization**: Formulas parsed at build time when possible
+- **Lazy evaluation**: Variables resolved only when needed
+- **Memoization**: Parsed formulas cached for reuse
+- **Streaming**: Large formulas processed incrementally
+
+## Error Handling
+
+Formulator provides detailed error messages with position tracking:
 
 ```typescript
-// User types formula:
-const formula = "price * quantity * (1 + tax_rate)"
+const result = parseFormula("(a + b")
+// Error: Missing closing parenthesis at position 6
 
-// With variable mappings:
-const variables = {
-  price: { tag: "FromElement", source: "#price-input" },
-  quantity: { tag: "FromElement", source: "#qty-input" },
-  tax_rate: { tag: "FromElement", source: "#tax-select" }
-}
+const result = parseFormula("x + y", { x: {...} })
+// Error: Undefined variable 'y' at position 4
 
-// Generates equivalent JSX:
-<Multiply>
-  <From.Element source="#price-input" />
-  <From.Element source="#qty-input" />
-  <Add>
-    <From.Constant>1</From.Constant>
-    <From.Element source="#tax-select" />
-  </Add>
-</Multiply>
+const result = parseChemical("H2O3X")
+// Error: Unknown element 'X' at position 5
 ```
 
-#### Example 3: Round-Trip Preservation
+## Testing
+
+Formulator uses property-based testing to ensure correctness:
 
 ```typescript
-// Original formula
-const original = "(a + b) * c"
+// Property: Parsing and decompiling are inverse operations
+property("round-trip preservation", arbitrary.formula(), (formula) => {
+  const ir = parseFormula(formula, vars);
+  const decompiled = decompile(ir);
+  const reparsed = parseFormula(decompiled, vars);
+  return deepEqual(ir, reparsed);
+});
 
-// Parse to config
-const config = parseFormula(original, variables)
-
-// Decompile back to formula
-const rebuilt = decompile(config.value)
-
-// Parse again - should be equivalent
-const reparsed = parseFormula(rebuilt, variables)
-
-// Assert: config === reparsed (structurally)
+// Property: Operator precedence is preserved
+property("precedence preservation", arbitrary.expression(), (expr) => {
+  const withParens = addAllParentheses(expr);
+  const withoutParens = removeUnnecessaryParentheses(expr);
+  return evaluate(withParens) === evaluate(withoutParens);
+});
 ```
 
-### Use Cases
+## Contributing
 
-1. **Formula Extraction**: Show users the math behind their visual compositions
-2. **Import/Export**: Move formulas between systems (spreadsheets, databases)
-3. **Optimization Detection**: Identify and simplify equivalent formulas
-4. **User Preference**: Let users toggle between visual and textual editing
-5. **Documentation**: Auto-generate formula documentation from components
-6. **Validation**: Prove all representations are equivalent
+Formulator follows strict functional programming principles:
 
-### Future Enhancements
+1. **Pure functions only** - No mutations, no side effects
+2. **One function per file** - Located in folder with function name
+3. **Envoy documentation** - Every exported function must have //++ comment
+4. **100% test coverage** - No exceptions
+5. **Property-based tests** - For all mathematical operations
+6. **Type safety** - Full TypeScript with no `any`
 
-- **Simplification Architect**: Detect and simplify patterns like `x * 1 → x`
-- **Variable Inference**: Automatically detect optimal variable names
-- **Formula Formatting**: Pretty-print with configurable parentheses
-- **Symbolic Computation**: Algebraic manipulation of formulas
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for details.
 
-## Recommendations for Improvement
+## License
 
-Based on a thorough analysis of the library:
+[MIT](../../LICENSE)
 
-1. **Fix Unary Plus Bug** - The expression `"5 + + 3"` incorrectly parses successfully. The unary plus is being treated as identity and ignored when it should be a syntax error.
+## See Also
 
-2. **Add Property-Based Testing** - Despite TESTING.md mandating property-based testing for mathematical operations, the tests are mostly unit tests. AND HOMIE DON'T DO UNIT TESTS (how'd those get in there?). USE THE `logician` LIBRARY TEST GENERATOR to add fast-check property tests for:
-   - Operator precedence properties
-   - Type inference properties
-   - Tokenization invariants
-
-3. **Improve Test Organization** - Tests are in `/behaviors/` but not truly organized by behavior. Reorganize into:
-   - `/behaviors/precedence/`
-   - `/behaviors/type-inference/`
-   - `/behaviors/error-handling/`
-
-4. **Add Integration Testing** - Create tests showing the library integrating with @sitebender/architect in real scenarios
-
-5. **Implement Decompilation Feature** - The README promises bidirectional conversion but only compilation is implemented. Add the `decompile` function to convert architect configs back to formulas.
-
-6. **Add Performance Benchmarks** - Create benchmarks for parsing complex formulas to ensure performance doesn't degrade
-
-7. **Enhance Error Messages** - Add more detailed position tracking and context in error messages for better debugging
+- [Architect](../architect/README.md) - Reactive rendering with calculations
+- [Codewright](../codewright/README.md) - Semantic HTML components
+- [Toolsmith](../toolsmith/README.md) - Functional programming utilities

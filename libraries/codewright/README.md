@@ -21,24 +21,24 @@ Codewright is a **semantic HTML component library** for Static Site Generation (
 - Back button always works
 - Machine-readable via embedded JSON-LD and microdata
 
-## Standards-Compliant HTML Elements
+## Standards-Compliant Element Wrappers
 
-Codewright provides **typed wrappers for all HTML elements** that enforce W3C/WHATWG standards at compile time. Instead of using permissive JSX that allows any attribute on any element, Codewright's HTML components catch errors before they reach the browser.
+Codewright provides **typed wrappers for HTML, SVG, MathML, and ChemML elements** that enforce W3C/WHATWG standards at compile time. Instead of using permissive JSX that allows any attribute on any element, Codewright's typed components catch errors before they reach the browser.
 
 ### How It Works
 
-The build process **automatically** substitutes typed wrappers for all HTML elements:
+The build process **automatically** substitutes typed wrappers for all standard elements:
+
+#### HTML Elements
 
 ```tsx
 // You write normal JSX:
 <a href="/page" invalidAttr="oops">
-  {" "}
-  // Build catches: invalid attribute
   <a href="/nested">Nested link</a> // Build catches: invalid nesting
 </a>;
 
-// But behind the scenes, the build converts it to:
-import { A } from "@sitebender/codewright/html/interactive/A";
+// Behind the scenes, the build converts it to:
+import A from "@sitebender/codewright/html/interactive/A/index.tsx";
 
 <A href="/page" invalidAttr="oops">
   {" "}
@@ -47,38 +47,146 @@ import { A } from "@sitebender/codewright/html/interactive/A";
 </A>;
 ```
 
+#### SVG Elements
+
+```tsx
+// You write SVG:
+<svg width="100" invalidAttr="oops">
+  <circle r="50" cx="50" cy="50" />
+  <div>Invalid in SVG</div> // Build catches: div not allowed in svg
+</svg>;
+
+// Build converts to typed components:
+import Svg from "@sitebender/codewright/svg/structural/Svg/index.tsx";
+import Circle from "@sitebender/codewright/svg/shapes/Circle/index.tsx";
+
+<Svg width="100" invalidAttr="oops">
+  {" "}
+  // TypeScript ERROR: invalidAttr doesn't exist
+  <Circle r="50" cx="50" cy="50" />
+  <div>Invalid in SVG</div> // TypeScript ERROR: div not allowed in svg context
+</Svg>;
+```
+
+#### MathML Elements
+
+```tsx
+// You write MathML:
+<math>
+  <mfrac invalidAttr="oops">
+    <mi>x</mi>
+    <mn>2</mn>
+    <mn>3</mn> // Build catches: mfrac requires exactly 2 children
+  </mfrac>
+</math>;
+
+// Build converts to typed components:
+import Math from "@sitebender/codewright/mathml/presentation/Math/index.tsx";
+import Mfrac from "@sitebender/codewright/mathml/layout/Mfrac/index.tsx";
+import Mi from "@sitebender/codewright/mathml/presentation/Mi/index.tsx";
+import Mn from "@sitebender/codewright/mathml/presentation/Mn/index.tsx";
+
+<Math>
+  <Mfrac invalidAttr="oops">
+    {" "}
+    // TypeScript ERROR: invalidAttr doesn't exist
+    <Mi>x</Mi>
+    <Mn>2</Mn>
+    <Mn>3</Mn> // TypeScript ERROR: Mfrac requires exactly 2 children
+  </Mfrac>
+</Math>;
+```
+
 You can also explicitly import typed elements for immediate IDE feedback:
 
 ```tsx
-import { A } from "@sitebender/codewright/html/interactive/A";
+import A from "@sitebender/codewright/html/interactive/A/index.tsx"
+import Svg from "@sitebender/codewright/svg/structural/Svg/index.tsx"
+import Math from "@sitebender/codewright/mathml/presentation/Math/index.tsx"
 
 // Get errors as you type, not just at build time
-<A href="/page">Valid link</A>;
+<A href="/page">Valid link</A>
+<Svg width="100" height="100">...</Svg>
+<Math>...</Math>
 ```
 
 ### Element Organization
 
-HTML elements are organized by their content categories in `src/html/`:
+Elements are organized by their specifications and content categories:
+
+#### HTML Elements (`src/html/`)
 
 - **metadata/** - `<head>`, `<title>`, `<meta>`, `<link>`, etc.
 - **sections/** - `<article>`, `<section>`, `<nav>`, `<aside>`, etc.
 - **grouping/** - `<p>`, `<div>`, `<ul>`, `<ol>`, `<blockquote>`, etc.
 - **text/** - `<span>`, `<em>`, `<strong>`, `<code>`, etc.
 - **edits/** - `<ins>`, `<del>`, etc.
-- **embedded/** - `<img>`, `<video>`, `<audio>`, `<iframe>`, etc.
+- **embedded/** - `<img>`, `<video>`, `<audio>`, `<iframe>`, `<canvas>`, etc.
 - **tabular/** - `<table>`, `<tr>`, `<td>`, `<th>`, etc.
 - **forms/** - `<form>`, `<input>`, `<select>`, `<button>`, etc.
 - **interactive/** - `<a>`, `<button>`, `<details>`, etc.
 - **scripting/** - `<script>`, `<noscript>`, `<template>`, etc.
 
+#### SVG Elements (`src/svg/`)
+
+- **structural/** - `<svg>`, `<g>`, `<defs>`, `<symbol>`, `<use>`, etc.
+- **shapes/** - `<rect>`, `<circle>`, `<ellipse>`, `<line>`, `<polyline>`, `<polygon>`, `<path>`, etc.
+- **text/** - `<text>`, `<tspan>`, `<textPath>`, `<tref>`, etc.
+- **painting/** - `<fill>`, `<stroke>`, `<marker>`, `<pattern>`, `<gradient>`, etc.
+- **filters/** - `<filter>`, `<feGaussianBlur>`, `<feColorMatrix>`, etc.
+- **animation/** - `<animate>`, `<animateTransform>`, `<animateMotion>`, etc.
+- **metadata/** - `<metadata>`, `<title>`, `<desc>`, etc.
+
+#### MathML Elements (`src/mathml/`)
+
+- **presentation/** - `<math>`, `<mrow>`, `<mi>`, `<mn>`, `<mo>`, `<mtext>`, etc.
+- **layout/** - `<mfrac>`, `<msqrt>`, `<mroot>`, `<mfenced>`, `<mtable>`, etc.
+- **scripts/** - `<msup>`, `<msub>`, `<msubsup>`, `<munder>`, `<mover>`, `<munderover>`, etc.
+- **spacing/** - `<mspace>`, `<mpadded>`, `<mphantom>`, etc.
+- **semantic/** - `<annotation>`, `<annotation-xml>`, `<semantics>`, etc.
+
+#### ChemML Elements (`src/chemml/`)
+
+- **molecules/** - `<molecule>`, `<atom>`, `<bond>`, `<formula>`, etc.
+- **reactions/** - `<reaction>`, `<reactant>`, `<product>`, `<catalyst>`, etc.
+- **properties/** - `<property>`, `<mass>`, `<charge>`, `<state>`, etc.
+- **notation/** - `<subscript>`, `<superscript>`, `<phase>`, etc.
+
+#### MusicXML Elements (`src/musicxml/`)
+
+- **score/** - `<score-partwise>`, `<score-timewise>`, `<part>`, `<measure>`, etc.
+- **notes/** - `<note>`, `<pitch>`, `<duration>`, `<rest>`, `<chord>`, etc.
+- **notation/** - `<slur>`, `<tied>`, `<articulations>`, `<dynamics>`, etc.
+- **attributes/** - `<key>`, `<time>`, `<clef>`, `<transpose>`, etc.
+- **direction/** - `<tempo>`, `<rehearsal>`, `<pedal>`, `<metronome>`, etc.
+
+#### RSS/Atom Elements (`src/feeds/`)
+
+- **rss/** - `<rss>`, `<channel>`, `<item>`, `<guid>`, `<pubDate>`, etc.
+- **atom/** - `<feed>`, `<entry>`, `<link>`, `<updated>`, `<id>`, etc.
+- **metadata/** - `<title>`, `<description>`, `<author>`, `<category>`, etc.
+- **media/** - `<enclosure>`, `<content:encoded>`, `<media:content>`, etc.
+- **syndication/** - `<sy:updatePeriod>`, `<sy:updateFrequency>`, etc.
+
+#### SSML Elements (`src/ssml/`)
+
+- **speech/** - `<speak>`, `<p>`, `<s>`, `<w>`, `<token>`, etc.
+- **prosody/** - `<prosody>`, `<emphasis>`, `<pitch>`, `<rate>`, `<volume>`, etc.
+- **pronunciation/** - `<phoneme>`, `<sub>`, `<say-as>`, `<lang>`, etc.
+- **timing/** - `<break>`, `<pause>`, `<mark>`, `<audio>`, etc.
+- **voice/** - `<voice>`, `<amazon:effect>`, `<google:voice>`, etc.
+
 ### What Gets Validated
 
-1. **Attributes** - Only valid HTML attributes for each element
-2. **Attribute Values** - Enums for restricted values (e.g., `type` on `<input>`)
+1. **Attributes** - Only valid attributes for each element per spec (HTML5, SVG2, MathML3, ChemML)
+2. **Attribute Values** - Enums for restricted values (e.g., `type` on `<input>`, `stroke-linecap` on SVG)
 3. **Content Models** - Which elements can contain which children
 4. **Nesting Rules** - Full descendant validation (not just immediate children)
-5. **ARIA Compliance** - Valid ARIA roles and attributes per element
-6. **Required Attributes** - Ensures required attributes are present
+5. **Context Rules** - SVG elements in SVG context, MathML in MathML context, etc.
+6. **ARIA Compliance** - Valid ARIA roles and attributes per element
+7. **Required Attributes** - Ensures required attributes are present
+8. **Child Count** - Elements like `<mfrac>` that require exactly 2 children
+9. **Namespace Mixing** - Validates foreign content (SVG in HTML, MathML in SVG, etc.)
 
 ### Benefits
 
@@ -90,12 +198,13 @@ HTML elements are organized by their content categories in `src/html/`:
 
 ### Implementation Notes
 
-- **Automatic Substitution**: The build process automatically replaces lowercase HTML elements with their typed wrappers
-- Even if you write `<div>`, the build converts it to use the typed `<Div>` component (with safeguards against infinite loops)
-- The `createElement` function recognizes these components and renders them as their lowercase HTML equivalents
+- **Automatic Substitution**: The build process automatically replaces lowercase elements with their typed wrappers
+- Works for HTML (`<div>` → `<Div>`), SVG (`<rect>` → `<Rect>`), MathML (`<mi>` → `<Mi>`), ChemML (`<atom>` → `<Atom>`)
+- The `createElement` function recognizes these components and renders them as their lowercase equivalents
+- Namespace detection happens automatically based on context (SVG in `<svg>`, MathML in `<math>`)
 - TypeScript enforces validation rules during development with zero runtime overhead
-- Obsolete and deprecated HTML elements are intentionally excluded
-- **Alpha Status**: All HTML element wrappers will be fully implemented before any beta release
+- Obsolete and deprecated elements are intentionally excluded
+- **Alpha Status**: All element wrappers will be fully implemented before any beta release
 
 ### Error Handling Philosophy
 
@@ -223,31 +332,174 @@ Codewright provides semantic components organized by purpose:
 
 ### Document Structure
 
-- **Format** - Code, InlineMath, Emphasized, Highlighted, Subscripted, etc.
-- **Identify** - Scientific terms, Cultural references, Historical markers, Quotations
-- **Navigate** - PageNavigation, SiteNavigation, TableOfContents, Breadcrumbs
-- **Group** - Article, Section, Sidebar, Lists, Tables
-- **Refer** - Citations, Cross-references, Footnotes, Bibliography
+- **Format** (`src/format/`)
+  - `Code`, `CodeBlock`, `PreformattedText` - Source code display with syntax highlighting
+  - `InlineMath`, `BlockMath`, `Equation` - Mathematical expressions (renders to MathML)
+  - `ChemicalFormula`, `Reaction` - Chemical notation (renders to ChemML)
+  - `Emphasized`, `Strong`, `Highlighted` - Text emphasis
+  - `Subscripted`, `Superscripted` - Scientific notation
+  - `Abbreviation`, `Definition` - Semantic markup with tooltips
+  - `Variable`, `Constant`, `Sample` - Technical documentation
+
+- **Identify** (`src/identify/`)
+  - `ScientificName`, `ChemicalName`, `BiologicalTaxon` - Scientific terminology
+  - `PersonName`, `PlaceName`, `OrganizationName` - Named entities
+  - `BookTitle`, `FilmTitle`, `ArtworkTitle` - Creative works
+  - `ForeignPhrase`, `Transliteration` - Multilingual content
+  - `HistoricalDate`, `GeologicalPeriod` - Temporal references
+  - `Quote`, `BlockQuote`, `Epigraph` - Quotations with attribution
+
+- **Navigate** (`src/navigate/`)
+  - `PageNavigation`, `SiteNavigation` - Main navigation structures
+  - `TableOfContents`, `Index`, `Glossary` - Document navigation
+  - `Breadcrumb`, `Pagination` - Positional navigation
+  - `SkipLink`, `BackToTop` - Accessibility navigation
+  - `SiteMap`, `SearchForm` - Discovery navigation
+  - `LanguageSelector`, `ThemeToggle` - User preferences
+
+- **Group** (`src/group/`)
+  - `Article`, `BlogPost`, `NewsArticle` - Content articles
+  - `Section`, `Chapter`, `Part` - Document divisions
+  - `Sidebar`, `Callout`, `Alert` - Supplementary content
+  - `List`, `OrderedList`, `DescriptionList` - Various list types
+  - `Table`, `DataTable`, `ComparisonTable` - Tabular data
+  - `Gallery`, `Slideshow`, `Carousel` - Media collections
+
+- **Refer** (`src/refer/`)
+  - `Citation`, `Reference`, `Bibliography` - Academic citations
+  - `Footnote`, `Endnote`, `Marginal` - Annotations
+  - `CrossReference`, `InternalLink` - Document references
+  - `ExternalLink`, `ResourceLink` - External references
+  - `Glossary`, `Index`, `Concordance` - Reference sections
 
 ### Interactive Components
 
-- **Forms** - Form, FieldSet, Input types with built-in validation
-- **Buttons** - Button, ButtonBar with accessibility features
-- **Augment** - Screen reader helpers, Skip links, Live regions
+- **Forms** (`src/interact/forms/`)
+  - `Form`, `FieldSet`, `Legend` - Form structure
+  - `TextField`, `EmailField`, `PasswordField` - Text inputs
+  - `NumberField`, `RangeField`, `DateField` - Numeric/temporal inputs
+  - `SelectField`, `RadioGroup`, `CheckboxGroup` - Choice inputs
+  - `TextArea`, `RichTextEditor` - Long-form input
+  - `FileUpload`, `ImageUpload` - File inputs
+  - `ValidationMessage`, `HelpText` - Form assistance
+  - `SearchForm`, `LoginForm`, `ContactForm` - Pre-built forms
 
-### Coming Soon
+- **Buttons** (`src/interact/buttons/`)
+  - `Button`, `SubmitButton`, `ResetButton` - Form buttons
+  - `LinkButton`, `DownloadButton` - Navigation buttons
+  - `ToggleButton`, `MenuButton` - State buttons
+  - `ButtonGroup`, `ButtonBar` - Button collections
+  - `FloatingActionButton`, `IconButton` - Special buttons
 
-- **UI Components** - Card, Accordion, Tooltip, Modal, Carousel, Tabs, etc.
-  (All with full accessibility and no-JS fallbacks)
+- **Augment** (`src/augment/`)
+  - `ScreenReaderOnly` - Visually hidden but accessible
+  - `LiveRegion`, `Alert`, `Status` - ARIA live regions
+  - `Tooltip`, `HelpBubble` - Contextual help
+  - `ProgressIndicator`, `LoadingSpinner` - Status feedback
+  - `ExpandCollapse`, `ShowHide` - Content visibility
+
+### UI Components
+
+- **Layout** (`src/ui/layout/`)
+  - `Container`, `Grid`, `Flexbox` - Layout primitives
+  - `Card`, `Panel`, `Well` - Content containers
+  - `Header`, `Footer`, `Main` - Page regions
+  - `TwoColumn`, `ThreeColumn`, `Masonry` - Layout patterns
+  - `Sticky`, `Fixed`, `Floating` - Positioning
+
+- **Disclosure** (`src/ui/disclosure/`)
+  - `Accordion`, `AccordionItem` - Collapsible sections
+  - `Tabs`, `TabPanel` - Tabbed content
+  - `Modal`, `Dialog`, `Popover` - Overlays
+  - `Drawer`, `Sheet` - Slide-out panels
+  - `Dropdown`, `Menu` - Menus and dropdowns
+
+- **Media** (`src/ui/media/`)
+  - `Image`, `Picture`, `Figure` - Images with captions
+  - `Video`, `Audio`, `MediaPlayer` - Time-based media
+  - `Canvas`, `WebGL` - Graphics canvases
+  - `Iframe`, `Embed` - Embedded content
+  - `Icon`, `Avatar` - Iconography
+
+- **Feedback** (`src/ui/feedback/`)
+  - `Toast`, `Snackbar` - Temporary messages
+  - `Alert`, `Banner` - Persistent messages
+  - `Badge`, `Chip`, `Tag` - Labels and indicators
+  - `Progress`, `Meter` - Quantitative feedback
+  - `Rating`, `Review` - User feedback
+
+### Scientific Components
+
+- **Mathematics** (`src/scientific/math/`)
+  - `MathMLDisplay` - Rendered mathematical formulas
+  - `EquationEditor` - Interactive equation input
+  - `Graph`, `Plot`, `Chart` - Data visualization
+  - `Matrix`, `Vector` - Linear algebra display
+  - `Proof`, `Theorem`, `Lemma` - Mathematical structures
+
+- **Chemistry** (`src/scientific/chem/`)
+  - `ChemMLDisplay` - Rendered chemical formulas
+  - `MoleculeViewer` - 2D/3D molecular structures
+  - `ReactionEquation` - Chemical reactions
+  - `PeriodicTable` - Interactive periodic table
+  - `SpectrumViewer` - NMR, IR, MS spectra
+
+- **Music** (`src/scientific/music/`)
+  - `MusicXMLDisplay` - Rendered musical notation
+  - `ScoreViewer` - Interactive sheet music
+  - `TabViewer` - Guitar/bass tablature
+  - `ChordDiagram` - Chord fingerings
+  - `AudioWaveform` - Audio visualization
+
+### Data Components
+
+- **Feeds** (`src/data/feeds/`)
+  - `RSSFeed`, `AtomFeed` - Syndication feeds
+  - `FeedItem`, `FeedEntry` - Feed entries
+  - `Podcast`, `Episode` - Podcast feeds
+  - `NewsWire`, `UpdateStream` - Live feeds
+
+- **Structured Data** (`src/data/structured/`)
+  - `JsonLd`, `Microdata`, `RDFa` - Semantic markup
+  - `OpenGraph`, `TwitterCard` - Social metadata
+  - `SiteLinks`, `BreadcrumbList` - Search enhancement
+  - `FAQ`, `HowTo`, `Recipe` - Rich results
+
+### Voice Interface Components
+
+- **SSML Generation** (`src/voice/ssml/`)
+  - `SpeechOutput` - Wrapper for SSML generation
+  - `PronunciationGuide` - Custom pronunciation rules
+  - `VoicePrompt`, `VoiceResponse` - Conversational UI
+  - `AudioDescription` - Describes visual content for voice
+  - `NumberReader`, `DateReader`, `CurrencyReader` - Specialized readers
+
+- **Voice Controls** (`src/voice/controls/`)
+  - `VoiceCommand` - Voice-activated commands
+  - `SpeechInput` - Speech-to-text input field
+  - `VoiceNavigation` - Navigate by voice
+  - `AudioFeedback` - Confirmations and alerts
+  - `WakeWord` - Activation phrase detection
+
+- **Accessibility Voice** (`src/voice/a11y/`)
+  - `ScreenReaderHint` - SSML-enhanced screen reader text
+  - `AriaLiveSSML` - Live regions with voice markup
+  - `NavigationCues` - Voice landmarks
+  - `FormInstructions` - Voice form guidance
+  - `ErrorAnnouncement` - Voice error messages
 
 ### Schema.org Components
 
 Over 1000 components mapping to Schema.org types for rich metadata:
 
-- Person, Organization, Event, Product
-- Article, BlogPosting, Review
-- LocalBusiness, Restaurant, Hotel
-- And many more...
+- **CreativeWork** - Article, BlogPosting, Book, Course, Dataset, etc.
+- **Person** - Author, Contributor, Employee, Patient, etc.
+- **Organization** - Corporation, EducationalOrganization, MedicalOrganization, etc.
+- **Place** - LocalBusiness, Restaurant, Hotel, Museum, Park, etc.
+- **Product** - Book, Car, FoodProduct, SoftwareApplication, etc.
+- **Event** - Conference, Concert, Festival, SportsEvent, etc.
+- **Action** - BuyAction, ReviewAction, SearchAction, ShareAction, etc.
+- **Medical** - Drug, MedicalCondition, MedicalProcedure, etc.
 
 _For a complete component inventory, see `docs/component-inventory.md`_
 
