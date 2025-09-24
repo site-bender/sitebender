@@ -1,0 +1,49 @@
+:root {
+	--footer-background-color: var(--light-gray);
+	--footer-border-color: var(--border-color);
+	--footer-foreground-color: var(--dark-gray);
+	--footer-font: var(--sans-font);
+
+	--footer-border-top: 1px solid var(--footer-border-color);
+
+	@media (prefers-color-scheme: dark) {
+		--footer-background-color: var(--dark-gray);
+		--footer-foreground-color: var(--lightest-gray);
+		--footer-border-top: 1px solid var(--dark-medium-gray);
+	}
+}
+
+footer.page-footer {
+	/* Fallback layout without flexbox */
+	background-color: var(--footer-background-color);
+	border-top: var(--footer-border-top);
+	color: var(--footer-foreground-color);
+	font-family: var(--footer-font);
+	font-size: 1rem;
+	padding-block: 1rem;
+	padding-inline: 1.5rem;
+	text-align: center;
+}
+
+@supports (display: flex) {
+	footer.page-footer {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		text-align: initial;
+	}
+}
+
+@media (width < 40rem) {
+	@supports (display: flex) {
+		footer.page-footer {
+			flex-direction: column-reverse;
+		}
+	}
+
+	@supports (gap: 1rem) {
+		footer.page-footer {
+			gap: 1rem;
+		}
+	}
+}

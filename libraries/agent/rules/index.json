@@ -1,0 +1,41 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-12",
+	"author": "The Architect",
+	"scope": "libraries/agent",
+	"description": "Rules specific to the Agent library - distributed, offline-first data",
+	"inherits": "/rules/index.json",
+	"agentSpecific": {
+		"crdtImplementation": [
+			"Use established CRDT algorithms (Y.js, Automerge, or similar)",
+			"Document conflict resolution strategies explicitly",
+			"Test with network partition scenarios",
+			"Ensure deterministic merge outcomes"
+		],
+		"distributedProtocols": {
+			"ipfs": [
+				"Use IPFS for content-addressed storage",
+				"Pin important data to prevent garbage collection",
+				"Implement fallback gateways for availability"
+			],
+			"solid": [
+				"Support Solid pods for personal data storage",
+				"Implement WebID authentication",
+				"Respect ACL permissions on pods"
+			],
+			"p2p": [
+				"Use WebRTC for browser-to-browser communication",
+				"Implement signaling server fallbacks",
+				"Support both agent and star topologies"
+			]
+		},
+		"semanticWeb": {
+			"requirements": [
+				"Generate RDF triples for data relationships",
+				"Support SPARQL queries where applicable",
+				"Use Schema.org vocabularies",
+				"Implement JSON-LD for structured data"
+			]
+		}
+	}
+}

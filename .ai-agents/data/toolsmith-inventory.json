@@ -1,0 +1,295 @@
+{
+  "statistics": {
+    "standardDeviation": {
+      "signature": "function standardDeviation(\n\tisSample: boolean = false,\n)",
+      "path": "libraries/toolsmith/src/vanilla/statistics/standardDeviation/index.ts",
+      "curried": false
+    }
+  },
+  "temporal": {
+    "startOfWeek": {
+      "signature": "function startOfWeek(weekStartDay: number = 1)",
+      "path": "libraries/toolsmith/src/vanilla/temporal/startOfWeek/index.ts",
+      "curried": false
+    },
+    "durationToSeconds": {
+      "signature": "function durationToSeconds(...)",
+      "path": "libraries/toolsmith/src/vanilla/temporal/durationToSeconds/index.ts",
+      "curried": false
+    },
+    "equals": {
+      "signature": "function equals(...)",
+      "path": "libraries/toolsmith/src/vanilla/temporal/equals/index.ts",
+      "curried": false
+    },
+    "toPlainTime": {
+      "signature": "function toPlainTime(...)",
+      "path": "libraries/toolsmith/src/vanilla/temporal/toPlainTime/index.ts",
+      "curried": false
+    }
+  },
+  "trigonometry": {
+    "sine": {
+      "signature": "function sine(...)",
+      "path": "libraries/toolsmith/src/vanilla/trigonometry/sine/index.ts",
+      "curried": false
+    }
+  },
+  "hash": {
+    "hashHex": {
+      "signature": "function hashHex(...)",
+      "path": "libraries/toolsmith/src/vanilla/hash/hashHex/index.ts",
+      "curried": true
+    }
+  },
+  "tuple": {
+    "mapTuple": {
+      "signature": "function mapTuple(...)",
+      "path": "libraries/toolsmith/src/vanilla/tuple/mapTuple/index.ts",
+      "curried": true
+    }
+  },
+  "array": {
+    "remove": {
+      "signature": "function remove(...)",
+      "path": "libraries/toolsmith/src/vanilla/array/remove/index.ts",
+      "curried": false
+    },
+    "sort": {
+      "signature": "function sort(...)",
+      "path": "libraries/toolsmith/src/vanilla/array/sort/index.ts",
+      "curried": false
+    },
+    "groupWith": {
+      "signature": "function groupWith(...)",
+      "path": "libraries/toolsmith/src/vanilla/array/groupWith/index.ts",
+      "curried": false
+    },
+    "zipAll": {
+      "signature": "function zipAll(...)",
+      "path": "libraries/toolsmith/src/vanilla/array/zipAll/index.ts",
+      "curried": false
+    },
+    "concatTo": {
+      "signature": "function concatTo(...)",
+      "path": "libraries/toolsmith/src/vanilla/array/concatTo/index.ts",
+      "curried": true
+    },
+    "closest": {
+      "signature": "function closest(\n\ttarget: number,\n)",
+      "path": "libraries/toolsmith/src/vanilla/array/closest/index.ts",
+      "curried": false
+    }
+  },
+  "async": {
+    "series": {
+      "signature": "function series(...)",
+      "path": "libraries/toolsmith/src/vanilla/async/series/index.ts",
+      "curried": false
+    }
+  },
+  "activation": {
+    "swish": {
+      "signature": "function swish(\n\tbeta: number | null | undefined,\n): (x: number | null | undefined) => number ",
+      "path": "libraries/toolsmith/src/vanilla/activation/swish/index.ts",
+      "curried": true
+    }
+  },
+  "logic": {
+    "defaultTo": {
+      "signature": "function defaultTo(...)",
+      "path": "libraries/toolsmith/src/vanilla/logic/defaultTo/index.ts",
+      "curried": true
+    }
+  },
+  "math": {
+    "quadratic": {
+      "signature": "function quadratic(\n\ta: number | null | undefined,\n)",
+      "path": "libraries/toolsmith/src/vanilla/math/quadratic/index.ts",
+      "curried": true
+    },
+    "sumAddends": {
+      "signature": "function sumAddends(total: number, value: number): number ",
+      "path": "libraries/toolsmith/src/vanilla/math/add/sumAddends/index.ts",
+      "curried": false
+    },
+    "sign": {
+      "signature": "function sign(...)",
+      "path": "libraries/toolsmith/src/vanilla/math/sign/index.ts",
+      "curried": false
+    }
+  },
+  "special": {
+    "betaFunction": {
+      "signature": "function betaFunction(\n\tx: number | null | undefined,\n)",
+      "path": "libraries/toolsmith/src/vanilla/special/betaFunction/index.ts",
+      "curried": true
+    }
+  },
+  "lens": {
+    "lensGte": {
+      "signature": "function lensGte(...)",
+      "path": "libraries/toolsmith/src/vanilla/lens/lensGte/index.ts",
+      "curried": true
+    }
+  },
+  "map": {
+    "difference": {
+      "signature": "function difference(...)",
+      "path": "libraries/toolsmith/src/vanilla/map/difference/index.ts",
+      "curried": true
+    },
+    "fromArray": {
+      "signature": "function fromArray(...)",
+      "path": "libraries/toolsmith/src/vanilla/map/fromArray/index.ts",
+      "curried": false
+    }
+  },
+  "object": {
+    "path": {
+      "signature": "function pathconst path =\n\t(pathInput: string | Array<string | number>)",
+      "path": "libraries/toolsmith/src/vanilla/object/path/index.ts",
+      "curried": true
+    },
+    "smartMerge": {
+      "signature": "function smartMergeconst smartMerge =\n\t(strategy: MergeStrategy = {})",
+      "path": "libraries/toolsmith/src/vanilla/object/smartMerge/index.ts",
+      "curried": true
+    },
+    "pick": {
+      "signature": "function pick(...)",
+      "path": "libraries/toolsmith/src/vanilla/object/pick/index.ts",
+      "curried": false
+    }
+  },
+  "conversion": {
+    "safeParseFloat": {
+      "signature": "function safeParseFloat(value: unknown): number | null ",
+      "path": "libraries/toolsmith/src/vanilla/conversion/safeParseFloat/index.ts",
+      "curried": false
+    }
+  },
+  "finance": {
+    "irr": {
+      "signature": "function irr(...)",
+      "path": "libraries/toolsmith/src/vanilla/finance/irr/index.ts",
+      "curried": false
+    }
+  },
+  "string": {
+    "words": {
+      "signature": "function words(...)",
+      "path": "libraries/toolsmith/src/vanilla/string/words/index.ts",
+      "curried": false
+    },
+    "toCamel": {
+      "signature": "function toCamel(...)",
+      "path": "libraries/toolsmith/src/vanilla/string/toCase/toCamel/index.ts",
+      "curried": false
+    },
+    "padEnd": {
+      "signature": "function padEnd(chars: string)",
+      "path": "libraries/toolsmith/src/vanilla/string/padEnd/index.ts",
+      "curried": true
+    },
+    "padBothToFromEnd": {
+      "signature": "function padBothToFromEnd(...)",
+      "path": "libraries/toolsmith/src/vanilla/string/padBothToFromEnd/index.ts",
+      "curried": false
+    }
+  },
+  "geometry": {
+    "magnitude": {
+      "signature": "function magnitude(...)",
+      "path": "libraries/toolsmith/src/vanilla/geometry/magnitude/index.ts",
+      "curried": false
+    }
+  },
+  "combinator": {
+    "until": {
+      "signature": "function until(...)",
+      "path": "libraries/toolsmith/src/vanilla/combinator/until/index.ts",
+      "curried": false
+    },
+    "pipeWith": {
+      "signature": "function pipeWith(...)",
+      "path": "libraries/toolsmith/src/vanilla/combinator/pipeWith/index.ts",
+      "curried": false
+    }
+  },
+  "physics": {
+    "kineticEnergy": {
+      "signature": "function kineticEnergy(\n\tmass: number | null | undefined,\n)",
+      "path": "libraries/toolsmith/src/vanilla/physics/kineticEnergy/index.ts",
+      "curried": false
+    }
+  },
+  "set": {
+    "delete": {
+      "signature": "function deleteElement(...)",
+      "path": "libraries/toolsmith/src/vanilla/set/delete/index.ts",
+      "curried": false
+    },
+    "filter": {
+      "signature": "function filter(...)",
+      "path": "libraries/toolsmith/src/vanilla/set/filter/index.ts",
+      "curried": false
+    }
+  },
+  "matrix": {
+    "determinant2x2": {
+      "signature": "function determinant2x2(...)",
+      "path": "libraries/toolsmith/src/vanilla/matrix/determinant2x2/index.ts",
+      "curried": false
+    }
+  },
+  "interpolation": {
+    "bilinearInterpolation": {
+      "signature": "function bilinearInterpolation(\n\tq00: number | null | undefined,\n)",
+      "path": "libraries/toolsmith/src/vanilla/interpolation/bilinearInterpolation/index.ts",
+      "curried": false
+    }
+  },
+  "validation": {
+    "neither": {
+      "signature": "function neither(...)",
+      "path": "libraries/toolsmith/src/vanilla/validation/neither/index.ts",
+      "curried": false
+    },
+    "not": {
+      "signature": "function not(...)",
+      "path": "libraries/toolsmith/src/vanilla/validation/not/index.ts",
+      "curried": false
+    },
+    "is": {
+      "signature": "function is<T>(a: T) ",
+      "path": "libraries/toolsmith/src/vanilla/validation/is/index.ts",
+      "curried": true
+    },
+    "isAfterInstant": {
+      "signature": "function isAfterInstant(\n\treference: InstantInput | null | undefined,\n) ",
+      "path": "libraries/toolsmith/src/vanilla/validation/isAfterInstant/index.ts",
+      "curried": true
+    },
+    "isValidOctet": {
+      "signature": "function isValidOctet(octet: string): boolean ",
+      "path": "libraries/toolsmith/src/vanilla/validation/isIpv4/isValidOctet/index.ts",
+      "curried": false
+    },
+    "isToday": {
+      "signature": "function isToday(...)",
+      "path": "libraries/toolsmith/src/vanilla/validation/isToday/index.ts",
+      "curried": false
+    },
+    "todayIsoLocal": {
+      "signature": "function todayIsoLocal(): string ",
+      "path": "libraries/toolsmith/src/vanilla/validation/isFutureDate/todayIsoLocal/index.ts",
+      "curried": false
+    },
+    "isSet": {
+      "signature": "function isSet(...)",
+      "path": "libraries/toolsmith/src/vanilla/validation/isSet/index.ts",
+      "curried": false
+    }
+  }
+}

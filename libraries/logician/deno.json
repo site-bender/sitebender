@@ -1,0 +1,14 @@
+{
+	"name": "@sitebender/logician",
+	"version": "1.0.0",
+	"exports": {
+		".": "./src/index.ts",
+		"./analyzeBranches": "./src/analyzeBranches/index.ts",
+		"./generateBenchmarks": "./src/generateBenchmarks/index.ts",
+		"./generatePropertyTests": "./src/generatePropertyTests/index.ts",
+		"./generateTests": "./src/generateTests/index.ts",
+		"./orchestrate": "./src/orchestrateTestGeneration/index.ts",
+		"./validateCoverage": "./src/validateCoverage/index.ts",
+		"./types": "./src/types/index.ts"
+	}
+}

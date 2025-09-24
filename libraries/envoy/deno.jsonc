@@ -1,0 +1,16 @@
+{
+	"name": "@sitebender/envoy",
+	"version": "0.1.0",
+	"exports": "./mod.ts",
+	// Note: mod.ts provides exports but documentation encourages direct imports
+	"tasks": {
+		"test": "deno test --unstable-temporal tests/",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
+		"test:watch": "deno test --unstable-temporal --watch tests/",
+		"lint": "deno lint src/",
+		"fmt": "deno fmt src/ tests/",
+		"type-check": "deno check src/**/*.ts",
+		// Dev now points to the demo script (was barrel entry before removal)
+		"dev": "deno run --allow-read --allow-write demo.ts"
+	}
+}

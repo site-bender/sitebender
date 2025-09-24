@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+MSG_FILE="$1"
+MSG=$(cat "$MSG_FILE")
+
+# Allow merge and revert commits without enforcement
+if [[ "$MSG" =~ ^Merge\  || "$MSG" =~ ^Revert\  ]]; then
+  exit 0
+fi
+
+# Conventional Commits 1.0.0 minimal enforcement
+# Allowed types: feat, fix, docs, chore, refactor, test
+# Format: type[: or (scope):] description
+if ! echo "$MSG" | grep -E '^(feat|fix|docs|chore|refactor|test)(\([a-z0-9\-]+\))?(!)?:\s.+' >/dev/null; then
+  echo "[commit-msg] ❌ Invalid commit message format" >&2
+  echo "[commit-msg] Use Conventional Commits, e.g.:" >&2
+  echo "  feat: add lifted map function" >&2
+  echo "  fix(parser): correct tokenization edge case" >&2
+  echo "  refactor!: rename Result to Outcome (breaking)" >&2
+  exit 1
+fi
+
+exit 0

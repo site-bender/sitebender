@@ -1,0 +1,33 @@
+{
+	// Mathematical formula parser for the Calculate component
+	"name": "@sitebender/formulator",
+	"version": "0.1.0",
+	"description": "Pure TypeScript formula parser that compiles mathematical expressions to @sitebender/architect configurations.",
+
+	// Main export point for the library
+	"exports": {
+		".": "./src/index.ts"
+	},
+
+	"tasks": {
+		// Run tests
+		"test": "deno test --unstable-temporal tests/",
+		"test:watch": "deno test --unstable-temporal tests/ --watch",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
+
+		// Code quality (inherits config from root workspace)
+		"lint": "deno lint src/",
+		"fmt": "deno fmt src/",
+		"type-check": "deno check --unstable-temporal src/**/*.ts"
+	},
+
+	// Test configuration
+	"test": {
+		"include": ["tests/", "src/"]
+	},
+
+	"compilerOptions": {
+		"lib": ["deno.window", "esnext"],
+		"types": []
+	}
+}

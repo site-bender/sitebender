@@ -1,0 +1,495 @@
+studio:
+  name: "@sitebender/studio"
+  description: >
+    Deno + TypeScript, progressive-enhancement-first framework built from zero-dependency
+    functional libraries. No React/VDOM. Author in JSX; compile to an internal IR; persist
+    as JSON/YAML/TOML/Turtle in a data-centric architecture (triple store is the single
+    source of truth). Architect renders directly to the DOM from JSON, attaching composed
+    behaviors as properties on DOM elements. Warden provides cryptographic, privacy, and
+    import governance—primarily to constrain AIs.
+  updated: "2025-09-23T17:34:00+12:00"
+  goals:
+    - Minimize cognitive load via strong conventions, generated docs, and proofs
+    - Zero tech debt: every line verified, documented, and (aspirationally) proven
+    - Accessibility and semantics are mandatory, not optional
+  constraints:
+    runtime: ["Deno", "TypeScript", "pure ESM", "no bundling", "no Node target"]
+    authoring: ["plain JSX (class, for, etc.)", "no React", "no VDOM"]
+    dependencies:
+      zero_dependencies: true
+      exceptions:
+        - library: "linguist (Linguist)"
+          reason: "Uses the TypeScript compiler"
+      testing_and_server_side_deps_allowed: true
+    governance_enforced_by_warden: true
+    privacy:
+      underscore_folders: "strict"
+      escape_hatches: "none"
+    imports:
+      style: "alias imports via import maps (dev -> local src; prod -> published lib); resolve to precise files; no barrels"
+      barrel_files: "forbidden"
+      re_exports: "forbidden (except explicit function aliases e.g., includes -> contains)"
+    coding_style:
+      one_function_per_file: true
+      named_functions_only: true
+      export_on_same_line: true
+
+data_model:
+  single_source_of_truth: "triple_store"
+  canonical_semantics: ["SHACL", "OWL2"]
+  persistence_formats: ["JSON", "YAML", "TOML", "Turtle"]
+  notes:
+    - Validation constraints (e.g., regex facets) live in SHACL/OWL2
+    - Whole applications may be stored in the triple store
+
+authoring_and_rendering_flow:
+  steps:
+    - "JSX -> IR (internal only; visible in the-workshop for debugging)"
+    - "IR -> persisted artifacts (JSON/YAML/TOML/Turtle)"
+    - "architect.render(JSON) -> DOM (no VDOM)"
+  ir_visibility:
+    external: false
+    exceptions: ["applications/the-workshop (the-workshop) for visualization/debugging"]
+  renderer_input_format: "JSON"
+
+architect_runtime:
+  build_pipeline:
+    entry: "libraries/architect/src/rendering/buildDomTree/index.ts"
+    behavior: "Creates elements, attaches behaviors (calculation/format/validation), appends children"
+    special_cases:
+      - tag: "Fragment"
+        handler: "handleFragment"
+      - tag: "TextNode"
+        handler: "appendTextNode"
+      - tag: "Hn"
+        handler: "setLevel -> creates H{level}"
+    attributes_and_dataset:
+      attributes: "addAttributes(elem)(attributes)"
+      dataset: "addDataAttributes(elem)(dataset)"
+  dom_attachment:
+    element_self_input_tags: ["DATA", "INPUT", "SELECT", "TEXTAREA"]
+    dataset_keys:
+      calculation: "element.dataset.calculation = JSON.stringify(calculation)"
+      format: "element.dataset.format = JSON.stringify(fmt)"
+    properties:
+      - name: "__sbCalculate"
+        defined_in: "libraries/architect/src/rendering/buildDomTree/addCalculation/index.ts"
+        signature: "(arg?: unknown, localValues?: LocalValues) => Promise<Either<Error[], unknown>>"
+        behavior:
+          - "Composes operators via composeOperators(Operand)"
+          - "Reads input from .value (INPUT/SELECT/TEXTAREA/DATA) else innerHTML"
+          - "Writes output back to .value or innerHTML"
+          - "Dispatches InputEvent('input', { bubbles: true })"
+        registries:
+          - "document.__sbCalculators: Set<elementId>"
+          - "document.__sbCalculations[selector]: Set<elementId>"
+      - name: "__sbFormat"
+        defined_in: "libraries/architect/src/rendering/buildDomTree/addFormatter/index.ts"
+        signature: "(arg?: unknown, localValues?: Record<string, unknown>) => Promise<unknown>"
+        behavior:
+          - "Uses formatter(fmtTag) to construct async format fn"
+          - "Returns formatted value; does not write back"
+        registries:
+          - "document.__sbFormatters: Set<elementId>"
+          - "document.__sbFormatted[selector]: Set<elementId>"
+      - name: "__sbValidate"
+        defined_in: "libraries/architect/src/rendering/buildDomTree/addValidation/index.ts"
+        signature: "(arg: unknown, localValues?: LocalValues) => Promise<Either<ArchitectError[], boolean>>"
+        behavior:
+          - "Lazily composes on first call via composeValidator(Comparator|Logical|Operand)"
+          - "Normalizes Right to boolean"
+        registries: []
+    globals:
+      - "document.__sbCalculators"
+      - "document.__sbCalculations"
+      - "document.__sbFormatters"
+      - "document.__sbFormatted"
+    event_dispatch:
+      - type: "InputEvent"
+        options: { bubbles: true, view: "window" }
+  ssr_and_ir:
+    embed_ir_helper: "libraries/architect/src/rendering/embedIr.ts"
+    ssr_renderer: "libraries/architect/src/rendering/index.ts (minimal for tests)"
+    hydration_strategy: "TBD (no VDOM)"
+
+accessibility:
+  enforcement:
+    tool: "axe"
+    ci_policy:
+      alpha: "warn"
+      pre_production: "hard_fail"
+  codewright:
+    enforce_semantic_html: true
+    aria_rules: "enforced via allowlists; stabilizes before production"
+
+governance_and_warden:
+  purpose: "Cryptographically enforced architectural governance, especially AI-safety"
+  contracts:
+    hash: "SHA-256 hash-locked contracts"
+    auditable_history: true
+  privacy:
+    underscore_folders: true
+    import_validation: true
+    nested_privacy: true
+    escape_hatches: "none"
+  enforcement_phases: ["pending", "warn", "block"]
+  repo_policy:
+    pr_branch: "warn"
+    main_branch: "block"
+  performance_targets:
+    validation_suite_ms: 5000
+    privacy_validation_ms: 1000
+    contract_generation_ms: 2000
+    zero_false_positives: true
+  coding_standards:
+    no_barrel_files: true
+    direct_tree_imports_only: true
+    one_function_per_file: true
+    named_functions_only: true
+    export_on_same_line: true
+    privacy_convention:
+      public_functions: "src/functionName/index.ts"
+      private_helpers: "src/functionName/_helperName/index.ts"
+      shared_private: "src/_sharedHelper/index.ts (only when src is lowest common ancestor)"
+      no_generic_folders: "No 'utils' or 'helpers' buckets; helpers must be descriptive"
+  references:
+    readme: "libraries/warden/README.md"
+    tasks_file: "libraries/warden/deno.jsonc"
+    mod_ts_note: "mod.ts may exist as a warning-only file; no barrel usage"
+
+dependencies_policy:
+  zero_dependencies: true
+  exception:
+    library: "linguist (Linguist)"
+    depends_on: "TypeScript compiler"
+  notes:
+    - "Testing and server-side infra may use dependencies as needed"
+
+libraries:
+  - current: "@sitebender/toolsmith"
+    studio_name: "Toolsmith"
+    purpose: "Pure FP primitives/combinators; laws; absolutely pure"
+    priority: "highest after Warden"
+    status: "active - must complete and lock"
+  - current: "@sitebender/codewright"
+    studio_name: "Codewright"
+    purpose: "Accessible JSX codewright/DSL for semantic HTML and structured data"
+    status: "advanced (more complete than typical alpha)"
+  - current: "@sitebender/architect"
+    studio_name: "Architect"
+    purpose: "Reactive core and render pipeline (JSX -> IR -> formats -> DOM); no VDOM"
+    status: "advanced (more complete than typical alpha)"
+  - current: "@sitebender/formulator"
+    studio_name: "Formulator"
+    purpose: "Expression parser to/from Architect IR; proper precedence; variables/functions"
+    status: "independent; can proceed in parallel"
+  - current: "@sitebender/agent"
+    studio_name: "Agent"
+    purpose: "Distributed/hybrid adapters (CRDTs, DID/VC, IPFS, Solid); offline-first"
+    status: "independent; can proceed in parallel"
+  - current: "@sitebender/envoy"
+    studio_name: "Envoy"
+    purpose: "Docs/observability from TS/JSX with HATEOAS"
+    comment_syntax:
+      description: "//++"
+      tech_debt: "//--"
+      help_examples: "//??"
+      critical: "//!!"
+      links: "//>>"
+    status: "dependent on Quarrier + Linguist readiness"
+  - current: "@sitebender/logician"
+    studio_name: "Logician"
+    purpose: "Proof/test generation: AST branch detection, property-based tests, algebraic laws"
+    aspirational_coverage: "100%"
+    status: "dependent on Quarrier + Linguist readiness"
+  - current: "@sitebender/linguist"
+    studio_name: "Linguist"
+    purpose: "TS/JSX parsing for Envoy/Logician; formal API"
+    depends_on: "TypeScript compiler"
+    status: "independent; can proceed in parallel"
+  - current: "@sitebender/quarrier"
+    studio_name: "Quarrier"
+    purpose: "Generators, QuickCheck-style property testing, shrinking, sample triples"
+    status: "independent; can proceed in parallel"
+  - current: "@sitebender/warden"
+    studio_name: "Warden"
+    purpose: "Architectural governance (contracts, privacy, imports); AI-safe"
+    status: "highest priority; must be foolproof"
+  - current: "@sitebender/steward"
+    studio_name: "Steward"
+    purpose: "Deterministic, non-configurable style/structure enforcer with safe autofixes; complements Warden"
+    status: "alpha (spec + stubs)"
+  - current: "@sitebender/quartermaster"
+    studio_name: "Quartermaster"
+    purpose: "Studio application generator CLI; declarative blueprints; import-map wiring; Warden/Steward tasks pre-wired"
+    status: "alpha (spec + stubs)"
+
+applications:
+  - path: "/applications/mission-control"
+    studio_name: "mission-control"
+    description: "Envoy-generated docs; live examples; structured data visible"
+  - path: "/applications/the-workshop"
+    studio_name: "the-workshop"
+    description: "Interactive sandbox JSX -> IR -> formats -> DB -> HTML; real-time visualization"
+  - path: "/applications/the-agency"
+    studio_name: "the-agency"
+    description: "Experimental IPFS/Solid/RDF/blockchain; orchestrated by Agent"
+
+roadmap_priorities:
+  - order: 1
+    item: "Warden"
+    policy: "warn in PRs, block on main; make foolproof; stop AI-induced drift"
+  - order: 2
+    item: "Toolsmith (Toolsmith)"
+    policy: "complete lifted functions; clean comments; enforce style; lock down"
+  - order: 3
+    item: "Steward"
+    policy: "introduce deterministic style/shape enforcement; reduce governance noise; wire CI (PR warn, main block)"
+  - order: 4
+    item: "Parallel independents"
+    includes: ["Quarrier (Quarrier)", "Linguist (Linguist)", "Formulator (Formulator)", "Agent (Agent)", "Quartermaster (App Generator)"]
+  - order: 5
+    item: "Dependent pair"
+    includes: ["Logician (Logician)", "Envoy"]
+  - order: 6
+    item: "Codewright & Architect"
+    note: "Already far along; continue active development"
+  - order: 7
+    item: "Monorepo wiring & cleanup"
+    includes: ["import maps", "pure ESM delivery", "remove stale/confusing docs"]
+
+release_and_versioning:
+  strategy: "semver_by_package"
+  local_iteration: "apps dogfood local libs via import maps (no publish needed)"
+  publish_targets: "TBD"
+
+testing_and_docs:
+  docs:
+    generator: "Envoy"
+    navigation: "HATEOAS"
+  tests:
+    generator: "Logician (aspirational 100% coverage)"
+    property_testing_helpers: "Quarrier"
+    co_located_tests: "index.test.ts near functions (as per Warden docs)"
+
+acceptance_criteria_alpha:
+  warden: "enforced; pass on main"
+  steward: "steward:check passes repo-wide; ≥90% safe autofix coverage on targeted rules; ≤ ~3s typical"
+  quartermaster: "generates mission-control and the-workshop skeletons (Codewright-only and +Architect); import maps correct; Warden enforce passes; axe warn wired"
+  axe: "warn-only"
+  the-workshop: "renders JSON-defined example without JS assumptions"
+  mission_control_app: "serves Envoy-generated docs for key APIs"
+  performance: "validation ~< 5s repo-wide"
+
+acceptance_criteria_production:
+  warden: "block violations in CI and locally"
+  axe: "hard-fail with documented allowlists"
+  privacy: "no private boundary violations; no escape hatches"
+  imports: "no barrel files; direct tree imports; aliases allowed only as explicit function synonyms"
+  docs: "Envoy docs up-to-date with code; navigable HATEOAS graph"
+  proofs_tests: "coverage gate meets target; logician-generated tests stable"
+
+deferred_topics:
+  - hydration_strategy_and_lifecycle_details
+  - reactivity_model_specifics (signals/effects/scheduling/cleanup)
+  - jsx_transform_pipeline (TS compiler hooks, custom createElement/Fragment)
+  - final_ir_v0_schema_and_serialization_rules
+  - accessibility_allowlists_finalization_and_gate_transition
+  - agent_mvp_scope (CRDT type, persistence, DID/VC, encryption model)
+
+naming_map:
+  toolsmith: "Toolsmith"
+  codewright: "Codewright"
+  architect: "Architect"
+  formulator: "Formulator"
+  agent: "Agent"
+  envoy: "Envoy"
+  logician: "Logician"
+  linguist: "Linguist"
+  quarrier: "Quarrier"
+  warden: "Warden"
+  steward: "Steward"
+  quartermaster: "Quartermaster"
+
+paths_of_interest:
+  architect:
+    buildDomTree: "libraries/architect/src/rendering/buildDomTree/index.ts"
+    addCalculation: "libraries/architect/src/rendering/buildDomTree/addCalculation/index.ts"
+    addFormatter: "libraries/architect/src/rendering/buildDomTree/addFormatter/index.ts"
+    addValidation: "libraries/architect/src/rendering/buildDomTree/addValidation/index.ts"
+    constants: "libraries/architect/src/rendering/constants.ts"
+    embedIr: "libraries/architect/src/rendering/embedIr.ts"
+    minimalSSR: "libraries/architect/src/rendering/index.ts"
+  warden:
+    readme: "libraries/warden/README.md"
+    config: "libraries/warden/deno.jsonc"
+    contract: "libraries/warden/contracts/warden.json (if present)"
+  steward:
+    readme: "libraries/steward/README.md"
+    tasks_example: "libraries/steward/deno.jsonc (planned)"
+  quartermaster:
+    readme: "libraries/quartermaster/README.md (planned)"
+    blueprints: "libraries/quartermaster/src/blueprints/ (planned)"
+  docs:
+    overview_md: "docs/studio-overview.md"
+    overview_yaml: "docs/studio-overview.yaml"
+
+decision_log:
+  - id: "runtime-platform"
+    decision: "Deno + TypeScript only; pure ESM; no bundling; no Node"
+    rationale: "Modern runtime; leverages Deno tooling; avoid legacy/bloat"
+  - id: "no-react-no-vdom"
+    decision: "Plain JSX; direct DOM manipulation by Architect; no VDOM"
+    rationale: "Eliminate overhead; simpler mental model; SSR/SSG-friendly"
+  - id: "data-centric-truth"
+    decision: "Triple store is the single source of truth"
+    rationale: "Unified, strict validation via SHACL/OWL2; consistent data view"
+  - id: "governance-strict"
+    decision: "Warden enforces contracts, privacy, imports; no escape hatches"
+    rationale: "AI-safe development; eliminate architectural drift"
+  - id: "accessibility-gating"
+    decision: "Axe warn until allowlists stabilize; hard-fail before production"
+    rationale: "Pragmatic ramp-up without blocking early iteration"
+  - id: "semver-by-package"
+    decision: "Independent versioning per package"
+    rationale: "Flexibility across libraries with different cadences"
+  - id: "steward-pre-enforcement"
+    decision: "Introduce Steward as deterministic style/shape autofixer before Warden"
+    rationale: "Normalize code surface to reduce governance noise and simplify downstream tools"
+  - id: "quartermaster-blueprints"
+    decision: "Blueprint-driven app generator with import-map wiring"
+    rationale: "Deterministic scaffolding, consistent CI tasks, easier GUI integration"
+
+non_goals:
+  - "Node compatibility (explicitly out-of-scope)"
+  - "Bundling or VDOM abstractions"
+  - "Relying on third-party runtime libraries for core behavior"
+  - "Barrel files and blanket re-exports"
+
+style_guide:
+  functions:
+    one_per_file: true
+    named_only: true
+    export_on_same_line: true
+  folders:
+    privacy_convention:
+      public: "src/functionName/index.ts"
+      private: "src/functionName/_helperName/index.ts"
+      shared_private: "src/_sharedHelper/index.ts"
+      no_generic_folders: true
+  imports:
+    direct_tree_imports_only: true
+    barrels_forbidden: true
+    examples:
+      good: "import foo from '@sitebender/warden/enforce/index.ts'"
+      bad: "import { enforce } from '@sitebender/warden/mod.ts'"
+  typescript:
+    strict_types_preferred: true
+    curried_functions_preferred: true
+    no_ambient_any: true
+
+import_maps:
+  policy: "Use import maps for stable aliases. Dev: alias @sitebender/* to local library src. Prod: import published library paths."
+  example: |
+    {
+      "imports": {
+        "@sitebender/toolsmith/": "./libraries/toolsmith/src/",
+        "@sitebender/architect/": "./libraries/architect/src/"
+      }
+    }
+
+ci_policies:
+  warden:
+    pr: "warn"
+    main: "block"
+  steward:
+    pr: "warn"
+    main: "block"
+  axe:
+    pr: "warn"
+    main: "block before production"
+  coverage:
+    gate_script: "libraries/architect/deno.jsonc -> tasks.coverage-gate (example)"
+    target: "TBD per lib; logician aims to remove hand-written tests where feasible"
+
+repo_structure:
+  top_level_dirs:
+    - "applications/"
+    - "libraries/"
+    - "docs/"
+    - "scripts/"
+    - "tools/"
+    - "tests/"
+    - "contracts/"
+    - "rules/"
+    - "infrastructure/"
+    - "ops/"
+  notes:
+    - "Apps dogfood libraries"
+    - "Docs are generated via Envoy and hand-authored where needed"
+    - "Contracts (warden) live under libraries/*/contracts or repo-level contracts/"
+
+cross_library_dependencies:
+  toolsmith/: []
+  codewright: ["toolsmith/"]
+  architect: ["toolsmith/", "codewright"]
+  formulator: ["architect (IR spec)"]
+  agent: []
+  envoy: ["linguist"]
+  logician: ["linguist", "quarrier"]
+  linguist: ["typescript_compiler"]
+  quarrier: []
+  warden: ["everyone depends on Warden for governance"]
+  steward: ["linguist"]
+  quartermaster: ["toolsmith/", "warden"]
+
+do_not_list:
+  - "Do not add Node-only APIs or polyfills"
+  - "Do not introduce bundlers or VDOM layers"
+  - "Do not create barrel files (mod.ts as index is forbidden)"
+  - "Do not bypass underscore privacy; no friend modules"
+  - "Do not add external runtime deps (testing/server OK where justified)"
+  - "Do not persist or expose the IR externally (workshop exception only)"
+
+planning_protocol:
+  - "Operate at high level first; defer low-level RFCs until requested"
+  - "Read existing code (architect/codewright) before asking what's already implemented"
+  - "Prefer rolling our own over 3rd-party deps when feasible"
+  - "Keep AIs on-rails by extending Warden contracts before expanding surface area"
+
+ai_guardrails:
+  intent: "Warden constrains AI behavior to architectural rules"
+  checks:
+    - "No barrel imports"
+    - "No private imports across underscore boundaries"
+    - "One-function-per-file naming enforced"
+    - "Contracts hashed; changes require contract updates"
+  failure_policy:
+    pr: "warn"
+    main: "block"
+  messaging: "Clear, actionable errors; zero false positives target"
+
+commands:
+  deno_tasks_common:
+    fmt: "deno task fmt"
+    lint: "deno task lint"
+    test: "deno task test"
+  warden:
+    enforce: "deno task enforce (see libraries/warden/deno.jsonc)"
+  architect:
+    test_cov: "deno task test:cov"
+    coverage_gate: "deno task coverage-gate"
+  steward:
+    check: "deno task steward:check"
+    fix: "deno task steward:fix"
+  quartermaster:
+    new: "deno task quartermaster:new --template <name> [--with architect] [--dry-run]"
+    dry_run: "deno task quartermaster:dry-run --plan ./plan.json"
+
+next_steps_shortlist:
+  - "Make Warden foolproof repo-wide (warn PR, block main)"
+  - "Complete and lock Toolsmith (lifted functions, comments, style)"
+  - "Introduce Steward and wire CI gates (PR warn, main block)"
+  - "Start monorepo wiring and docs cleanup to avoid confusing AIs"
+  - "Run parallel efforts on Quarrier, Linguist, Formulator, Agent, Quartermaster"
+  - "When ready, bring up Logician and Envoy leveraging the above"

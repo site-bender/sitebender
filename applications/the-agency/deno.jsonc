@@ -1,0 +1,66 @@
+{
+	"name": "@sitebender/the-agency",
+	"version": "0.0.1",
+	"exports": "./src/main.ts",
+
+	"tasks": {
+		"dev": "deno run --allow-net --allow-read --allow-write --watch src/main.ts",
+		"ipfs": "deno run --allow-net --allow-read --allow-write src/ipfs/experiment.ts",
+		"solid": "deno run --allow-net --allow-read --allow-write src/solid/experiment.ts",
+		"rdf": "deno run --allow-read --allow-write src/rdf/experiment.ts",
+		"blockchain": "deno run --allow-net --allow-read src/blockchain/experiment.ts",
+		"test": "deno test --allow-net --allow-read --allow-write tests/",
+		"fmt": "deno fmt",
+		"lint": "deno lint"
+	},
+
+	"imports": {
+		// Import from existing Sitebender libraries
+		"@sitebender/codewright": "../../libraries/codewright/mod.ts",
+		"@sitebender/toolsmith": "../../libraries/toolsmith/mod.ts",
+		"@sitebender/architect": "../../libraries/architect/mod.ts",
+		"@sitebender/agent": "../../libraries/agent/mod.ts",
+
+		// Web3-specific dependencies - using Helia instead of deprecated IPFS
+		"@helia/http": "npm:@helia/http@^1.0.0",
+		"@helia/unixfs": "npm:@helia/unixfs@^1.4.0",
+		"@helia/ipns": "npm:@helia/ipns@^1.0.0",
+		"oxigraph": "npm:oxigraph@^0.3.22",
+		"@inrupt/solid-client": "npm:@inrupt/solid-client@^1.30.0",
+		"@inrupt/solid-client-authn-browser": "npm:@inrupt/solid-client-authn-browser@^1.17.0",
+		"ethers": "npm:ethers@^6.9.0",
+		"n3": "npm:n3@^1.17.0"
+	},
+
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "@sitebender/codewright",
+		"lib": ["deno.window", "dom", "dom.iterable", "dom.asynciterable"]
+	},
+
+	"lint": {
+		"include": ["src/", "tests/"],
+		"exclude": ["src/testdata/"],
+		"rules": {
+			"tags": ["recommended"],
+			"include": ["ban-untagged-todo"],
+			"exclude": ["no-unused-vars", "require-await"]
+		}
+	},
+
+	"fmt": {
+		"include": ["src/", "tests/"],
+		"exclude": ["src/testdata/"],
+		"useTabs": true,
+		"lineWidth": 80,
+		"indentWidth": 2,
+		"semiColons": false,
+		"singleQuote": false,
+		"proseWrap": "preserve"
+	},
+
+	"test": {
+		"include": ["tests/"],
+		"exclude": ["src/testdata/"]
+	}
+}

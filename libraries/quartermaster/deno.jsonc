@@ -1,0 +1,19 @@
+{
+	//++ Quartermaster package config (stubs phase)
+	"name": "@sitebender/quartermaster",
+	"version": "0.0.0-alpha",
+	"exports": {},
+	"tasks": {
+		"quartermaster:new": "deno run -A --config ../../deno.dev.jsonc src/new/index.ts",
+		"quartermaster:dry-run": "deno run -A --config ../../deno.dev.jsonc src/dryRun/index.ts"
+	},
+	"imports": {
+		// Dev-only alias to local Toolsmith; aligns with repo import-map policy
+		"@sitebender/toolsmith/": "../toolsmith/src/",
+		"@sitebender/quartermaster": "./src/",
+		"@sitebender/quartermaster/": "./src/"
+	},
+	"compilerOptions": {
+		"strict": true
+	}
+}

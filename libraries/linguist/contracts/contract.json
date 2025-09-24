@@ -1,0 +1,169 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-11",
+	"library": "linguist",
+	"purpose": "Single source of truth for TypeScript/JSX parsing. Provides normalized AST data to other libraries.",
+	"api": {
+		"exports": [
+			{
+				"name": "parseFile",
+				"signature": "(filePath: string) => ContractOutput<ParsedFile>",
+				"description": "Parse a single TypeScript/JSX file and return normalized AST data"
+			},
+			{
+				"name": "parseProject",
+				"signature": "(rootPath: string) => ContractOutput<ParsedProject>",
+				"description": "Parse an entire project and return normalized AST data for all files"
+			},
+			{
+				"name": "parseString",
+				"signature": "(source: string, fileName?: string) => ContractOutput<ParsedFile>",
+				"description": "Parse TypeScript/JSX source code from a string"
+			}
+		],
+		"types": [
+			{
+				"name": "ContractOutput",
+				"description": "Wrapper for all Linguist outputs ensuring contract compliance",
+				"fields": [
+					"contractVersion: string",
+					"libraryVersion: string",
+					"timestamp: number",
+					"checksum: string",
+					"data: Readonly<T>",
+					"validate(): boolean"
+				]
+			},
+			{
+				"name": "ParsedFile",
+				"description": "Normalized representation of a parsed TypeScript/JSX file",
+				"fields": [
+					"filePath: string",
+					"functions: ParsedFunction[]",
+					"types: ParsedType[]",
+					"constants: ParsedConstant[]",
+					"imports: ParsedImport[]",
+					"exports: ParsedExport[]",
+					"comments: ParsedComment[]"
+				]
+			},
+			{
+				"name": "ParsedComment",
+				"description": "Raw comment data without interpretation",
+				"fields": [
+					"text: string",
+					"lineNumber: number",
+					"columnNumber: number",
+					"type: 'line' | 'block' | 'leading' | 'trailing'",
+					"associatedNodeId?: string",
+					"associatedNodeType?: string"
+				],
+				"note": "Linguist does NOT interpret comment syntax (//++, //--, etc). That is Envoy's responsibility."
+			},
+			{
+				"name": "ParsedFunction",
+				"description": "Normalized function data",
+				"fields": [
+					"id: string",
+					"name: string",
+					"signature: string",
+					"parameters: ParsedParameter[]",
+					"returnType: string",
+					"isAsync: boolean",
+					"isExported: boolean",
+					"isDefault: boolean",
+					"lineNumber: number",
+					"associatedComments: string[]"
+				]
+			},
+			{
+				"name": "ParsedType",
+				"description": "Normalized type/interface data",
+				"fields": [
+					"id: string",
+					"name: string",
+					"kind: 'type' | 'interface' | 'enum'",
+					"definition: string",
+					"properties?: ParsedProperty[]",
+					"isExported: boolean",
+					"lineNumber: number",
+					"associatedComments: string[]"
+				]
+			}
+		]
+	},
+	"responsibilities": {
+		"owns": [
+			"TypeScript compiler interaction",
+			"AST parsing and traversal",
+			"Type extraction and analysis",
+			"Comment extraction (raw text only)",
+			"Import/export analysis",
+			"Function signature parsing"
+		],
+		"provides": [
+			"Normalized, validated data structures",
+			"Immutable, frozen outputs",
+			"Contract-validated responses",
+			"Self-validating checksums"
+		],
+		"forbidden": [
+			"Interpreting Envoy comment syntax",
+			"Generating documentation",
+			"Generating tests",
+			"Making network requests",
+			"Modifying source files",
+			"Caching parsed data"
+		]
+	},
+	"implementation": {
+		"allowed": [
+			"Import TypeScript compiler",
+			"Import ts-morph",
+			"Read file system",
+			"Use Quarrier for test data generation"
+		],
+		"forbidden": [
+			"Export TypeScript compiler",
+			"Export ts-morph",
+			"Export raw AST nodes",
+			"Allow mutation of output objects",
+			"Expose internal parsing functions"
+		]
+	},
+	"output": {
+		"requirements": [
+			"All output objects must be frozen (Object.freeze)",
+			"All output objects must be sealed (Object.seal)",
+			"Include contract version in every response",
+			"Include validation checksum",
+			"Provide self-validation method",
+			"Timestamp every output"
+		],
+		"validation": {
+			"compile-time": [
+				"TypeScript types enforce structure",
+				"Exports folder hides internals"
+			],
+			"runtime": [
+				"Contract version checking",
+				"Checksum validation",
+				"Object immutability checks"
+			],
+			"test-time": [
+				"No forbidden exports",
+				"Output immutability",
+				"Contract compliance"
+			]
+		}
+	},
+	"consumers": {
+		"allowed": ["envoy", "logician", "quarrier"],
+		"forbidden": ["toolsmith", "codewright", "architect", "formulator", "agent"]
+	},
+	"versioning": {
+		"strategy": "semver",
+		"breaking-changes": "Major version bump required",
+		"deprecation": "One minor version warning before removal"
+	}
+}

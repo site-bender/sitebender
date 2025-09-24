@@ -1,0 +1,8 @@
+{
+	"name": "@sitebender/web3-tools",
+	"version": "0.0.1",
+	"exports": "./src/cli.ts",
+	"tasks": {
+		"dev": "deno run --allow-net --allow-read --allow-write --watch src/cli.ts"
+	}
+}

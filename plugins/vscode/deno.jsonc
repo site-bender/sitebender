@@ -1,0 +1,21 @@
+{
+	// Deno config for agent scripts only; exclude Node/VS Code glue
+	"exclude": [
+		"commands/**",
+		"extension/**",
+		"package.json",
+		".vscode/**"
+	],
+	"compilerOptions": {
+		// Ensure workspace root types (docs/codewright) don't leak into agent checks
+		"types": []
+	},
+	"tasks": {
+		"type-check": "deno check 'scripts/**/*.ts'"
+	},
+	"lint": {
+		"rules": {
+			"tags": ["recommended"]
+		}
+	}
+}

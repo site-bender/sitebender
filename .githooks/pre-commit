@@ -1,0 +1,51 @@
+#!/bin/sh
+# Git pre-commit hook to protect specific paths from changes and run integrity checks
+
+# Find the actual git directory (works in worktrees too)
+GIT_DIR=$(git rev-parse --git-common-dir)
+PROTECTED_FILE="$GIT_DIR/protected-paths.txt"
+
+# Check if protection file exists
+if [ ! -f "$PROTECTED_FILE" ]; then
+	exit 0  # No protection configured
+fi
+
+# Check each staged file against protected paths
+git diff --cached --name-only | while read file; do
+	while IFS= read -r protected; do
+		if echo "$file" | grep -q "^$protected"; then
+			if [ "$THE_ARCHITECT_APPROVED" != "1" ]; then
+				echo "❌ YOU ARE NOT ALLOWED TO MAKE CHANGES TO THAT FOLDER WITHOUT APPROVAL FROM THE ARCHITECT."
+				echo "Protected path: $protected"
+				echo "Attempted change: $file"
+				exit 1
+			fi
+		fi
+	done < "$PROTECTED_FILE"
+done
+
+# Run integrity checks
+echo "🔍 Running integrity checks..."
+deno run --allow-read --allow-write scripts/integrity/runAll/index.ts > /tmp/integrity-result.json
+
+# Check the result
+if [ $? -ne 0 ]; then
+	echo "❌ Integrity script failed to run"
+	exit 1
+fi
+
+# Parse the decision from the JSON result
+DECISION=$(cat /tmp/integrity-result.json | grep -o '"decision":"[^"]*"' | cut -d'"' -f4)
+
+if [ "$DECISION" = "block" ]; then
+	echo "❌ Integrity check BLOCKED the commit"
+	echo "Check /tmp/integrity-result.json for details"
+	exit 1
+elif [ "$DECISION" = "warn" ]; then
+	echo "⚠️  Integrity check found warnings"
+	echo "Check /tmp/integrity-result.json for details"
+	# Allow commit with warnings for now
+fi
+
+echo "✅ Integrity checks passed"
+exit 0

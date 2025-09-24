@@ -1,0 +1,5 @@
+injectRequestHeaders:
+    - name: Authorization
+      values:
+          - value: "Basic bWluaW9hZG1pbjptaW5pb2FkbWlu"
+      preserveRequestValue: false

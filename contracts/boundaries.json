@@ -1,0 +1,314 @@
+{
+	"$schema": "./schemas/boundaries.schema.json",
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-11",
+	"description": "Inter-library dependency boundaries and communication rules for @sitebender ecosystem",
+	"principles": {
+		"noCircularDependencies": "Dependencies must form a directed acyclic graph (DAG)",
+		"singleResponsibility": "Each library has one clear purpose and cannot duplicate another's responsibilities",
+		"contractCompliance": "All inter-library communication must go through contract-defined APIs",
+		"immutableOutputs": "All data passed between libraries must be immutable",
+		"noBackdoors": "No library can access another's internals or bypass its public API"
+	},
+	"layers": {
+		"0": {
+			"name": "Foundation",
+			"description": "Core utilities with zero dependencies on other @sitebender libraries",
+			"libraries": ["toolsmith", "quarrier"],
+			"rules": {
+				"cannotDepend": ["ANY @sitebender library"],
+				"canBeUsedBy": ["ALL @sitebender libraries"]
+			}
+		},
+		"1": {
+			"name": "Infrastructure",
+			"description": "Low-level services that parse and analyze code",
+			"libraries": ["linguist"],
+			"rules": {
+				"canDepend": ["toolsmith", "quarrier"],
+				"cannotDepend": [
+					"envoy",
+					"logician",
+					"codewright",
+					"architect",
+					"formulator",
+					"agent"
+				],
+				"canBeUsedBy": ["envoy", "logician", "architect", "formulator"]
+			}
+		},
+		"2": {
+			"name": "Services",
+			"description": "Mid-level services that process Linguist output",
+			"libraries": ["envoy", "logician"],
+			"rules": {
+				"canDepend": ["linguist", "toolsmith", "quarrier"],
+				"cannotDepend": ["codewright", "architect", "formulator", "agent", "EACH OTHER"],
+				"canBeUsedBy": ["applications", "tools", "plugins"],
+				"specialRules": {
+					"envoy": {
+						"FORBIDDEN": [
+							"Importing TypeScript compiler directly",
+							"Using regex to parse TypeScript/JSX",
+							"Accessing source files directly",
+							"Rewriting Linguist types",
+							"Modifying Linguist output"
+						],
+						"REQUIRED": [
+							"Must consume Linguist output AS-IS",
+							"Must only interpret comment syntax",
+							"Must preserve all Linguist data unchanged"
+						]
+					},
+					"logician": {
+						"FORBIDDEN": [
+							"Parsing TypeScript/JSX directly",
+							"Duplicating Linguist functionality",
+							"Modifying test subjects"
+						],
+						"REQUIRED": [
+							"Must use Linguist for all AST needs",
+							"Must use Quarrier for all arbitrary data generation"
+						]
+					}
+				}
+			}
+		},
+		"3": {
+			"name": "Runtime",
+			"description": "Component system and runtime architect",
+			"libraries": ["codewright", "architect", "formulator"],
+			"rules": {
+				"canDepend": ["linguist", "toolsmith", "quarrier"],
+				"cannotDepend": ["envoy", "logician", "agent"],
+				"canBeUsedBy": ["applications", "agent"],
+				"specialRules": {
+					"codewright": {
+						"REQUIRED": ["Must compile to Architect IR format"]
+					},
+					"architect": {
+						"REQUIRED": ["Must evaluate IR from Codewright and Formulator"]
+					},
+					"formulator": {
+						"REQUIRED": ["Must compile expressions to Architect IR"]
+					}
+				}
+			}
+		},
+		"4": {
+			"name": "Distribution",
+			"description": "Distributed data and agent networking",
+			"libraries": ["agent"],
+			"rules": {
+				"canDepend": ["codewright", "architect", "toolsmith", "quarrier"],
+				"cannotDepend": ["linguist", "envoy", "logician", "formulator"],
+				"canBeUsedBy": ["applications"]
+			}
+		},
+		"5": {
+			"name": "Applications",
+			"description": "End-user applications",
+			"libraries": [
+				"applications/mission-control",
+				"applications/the-workshop",
+				"applications/the-agency"
+			],
+			"rules": {
+				"canDepend": ["ALL @sitebender libraries"],
+				"cannotDepend": ["OTHER applications"],
+				"canBeUsedBy": ["NO @sitebender libraries"]
+			}
+		}
+	},
+	"dependencies": {
+		"toolsmith": {
+			"canImport": [],
+			"canBeImportedBy": ["ALL"],
+			"forbiddenImports": ["*"],
+			"publicAPI": "libraries/toolsmith/exports/",
+			"internalPath": "libraries/toolsmith/internal/"
+		},
+		"quarrier": {
+			"canImport": [
+				"toolsmith"
+			],
+			"canBeImportedBy": [
+				"linguist",
+				"envoy",
+				"logician",
+				"architect",
+				"agent",
+				"applications"
+			],
+			"forbiddenImports": ["*"],
+			"publicAPI": "libraries/quarrier/exports/",
+			"internalPath": "libraries/quarrier/internal/"
+		},
+		"linguist": {
+			"canImport": ["toolsmith", "quarrier"],
+			"canBeImportedBy": [
+				"envoy",
+				"logician",
+				"codewright",
+				"architect",
+				"formulator",
+				"applications"
+			],
+			"forbiddenImports": [
+				"envoy",
+				"logician",
+				"codewright",
+				"architect",
+				"formulator",
+				"agent"
+			],
+			"publicAPI": "libraries/linguist/exports/",
+			"internalPath": "libraries/linguist/internal/",
+			"exports": {
+				"ALLOWED": [
+					"ParsedFile",
+					"ParsedFunction",
+					"ParsedComponent",
+					"ParsedType",
+					"Comment",
+					"parseFile",
+					"parseDirectory"
+				],
+				"FORBIDDEN": [
+					"TypeScript compiler internals",
+					"Raw AST nodes",
+					"Internal parsing functions"
+				]
+			}
+		},
+		"envoy": {
+			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["applications", "tools", "plugins"],
+			"forbiddenImports": [
+				"typescript",
+				"@typescript/compiler",
+				"logician",
+				"codewright",
+				"architect",
+				"formulator",
+				"agent",
+				"ANY TypeScript parsing library",
+				"ANY regex-based TypeScript parser"
+			],
+			"publicAPI": "libraries/envoy/exports/",
+			"internalPath": "libraries/envoy/internal/",
+			"inputRequirements": {
+				"source": "Linguist output ONLY",
+				"format": "ParsedFile[] from Linguist",
+				"modifications": "NONE - must use AS-IS"
+			},
+			"outputRequirements": {
+				"format": "Documentation graph",
+				"immutable": true,
+				"includesLinguistData": "Must preserve all Linguist data unchanged"
+			}
+		},
+		"logician": {
+			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["applications", "tools", "plugins"],
+			"forbiddenImports": [
+				"typescript",
+				"@typescript/compiler",
+				"envoy",
+				"codewright",
+				"architect",
+				"formulator",
+				"agent"
+			],
+			"publicAPI": "libraries/logician/exports/",
+			"internalPath": "libraries/logician/internal/",
+			"inputRequirements": {
+				"astSource": "Linguist output ONLY",
+				"arbitraryData": "Quarrier generators ONLY"
+			}
+		},
+		"codewright": {
+			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["architect", "agent", "applications"],
+			"forbiddenImports": ["envoy", "logician", "formulator"],
+			"publicAPI": "libraries/codewright/exports/",
+			"internalPath": "libraries/codewright/internal/"
+		},
+		"architect": {
+			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["agent", "applications"],
+			"forbiddenImports": ["envoy", "logician", "codewright", "formulator"],
+			"publicAPI": "libraries/architect/exports/",
+			"internalPath": "libraries/architect/internal/"
+		},
+		"formulator": {
+			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["applications"],
+			"forbiddenImports": ["envoy", "logician", "codewright", "architect", "agent"],
+			"publicAPI": "libraries/formulator/exports/",
+			"internalPath": "libraries/formulator/internal/"
+		},
+		"agent": {
+			"canImport": ["codewright", "architect", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["applications"],
+			"forbiddenImports": ["linguist", "envoy", "logician", "formulator"],
+			"publicAPI": "libraries/agent/exports/",
+			"internalPath": "libraries/agent/internal/"
+		}
+	},
+	"enforcement": {
+		"mechanisms": [
+			"compile-time: TypeScript project references",
+			"runtime: ContractOutput<T> wrapper with validation",
+			"test-time: Automated contract violation tests",
+			"commit-time: Git hooks checking import patterns",
+			"build-time: Custom bundler rules"
+		],
+		"violations": {
+			"detection": [
+				"Grep for forbidden import patterns",
+				"AST analysis of import statements",
+				"Runtime checksums on outputs",
+				"Frozen object validation"
+			],
+			"consequences": [
+				"Build failure",
+				"Test failure",
+				"Commit rejection",
+				"Runtime exception"
+			]
+		},
+		"validation": {
+			"importPatterns": {
+				"forbidden": [
+					"envoy.*typescript",
+					"envoy.*@typescript",
+					"logician.*typescript",
+					"logician.*@typescript",
+					"envoy.*\\.ts['|\"]",
+					"envoy.*\\.tsx['|\"]",
+					"envoy.*\\.jsx['|\"]"
+				],
+				"required": [
+					"envoy.*@sitebender/linguist",
+					"logician.*@sitebender/linguist",
+					"logician.*@sitebender/quarrier"
+				]
+			},
+			"outputValidation": {
+				"immutability": "Object.freeze() on all outputs",
+				"checksums": "SHA-256 hash of stringified output",
+				"versioning": "Semantic version in output metadata"
+			}
+		}
+	},
+	"migration": {
+		"phase1": "Create boundaries.json and enforcement infrastructure",
+		"phase2": "Add ContractOutput<T> wrapper to all library exports",
+		"phase3": "Create exports/ and internal/ folders in each library",
+		"phase4": "Update all imports to use public APIs only",
+		"phase5": "Add automated testing for contract violations",
+		"phase6": "Enable git hooks and build-time enforcement",
+		"timeline": "Implement incrementally, test thoroughly at each phase"
+	}
+}

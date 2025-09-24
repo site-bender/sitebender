@@ -1,0 +1,45 @@
+{
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"baseUrl": ".",
+		"jsx": "react",
+		"jsxFactory": "createElement",
+		"jsxFragmentFactory": "Fragment",
+		"lib": ["esnext", "dom"],
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"noEmit": true,
+		"skipLibCheck": true,
+		"alwaysStrict": true,
+		"noFallthroughCasesInSwitch": true,
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"resolveJsonModule": true,
+		"strict": true,
+		"strictBindCallApply": true,
+		"strictFunctionTypes": true,
+		"strictNullChecks": true,
+		"strictPropertyInitialization": true,
+		"paths": {
+			"~codewright/*": ["./src/codewright/*"],
+			"~constants/*": ["./src/constants/*"],
+			"~layouts/*": ["./src/layouts/*"],
+			"~scripts/*": ["./scripts/*"],
+			"~tests/*": ["temp/tests/*"],
+			"~types/*": ["./src/types/*"],
+			"~utilities/*": ["./utilities/*"],
+			"~src/*": ["./src/*"],
+			"~*": ["./*"]
+		},
+		"target": "esnext",
+		"types": [
+			"./libraries/codewright/types/globals.d.ts"
+		]
+	},
+	"include": ["src/**/*", "lib/**/*", "utilities/**/*", "libraries/**/*"],
+	"exclude": ["scripts/**"]
+}

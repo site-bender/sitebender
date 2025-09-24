@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"target": "esnext",
+		"module": "esnext",
+		"moduleResolution": "nodenext",
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["ESNext", "DOM"],
+		"types": []
+	},
+	"include": ["src/**/*"],
+	"exclude": []
+}

@@ -1,0 +1,11 @@
+{
+	"name": "@sitebender/agent",
+	"version": "0.0.1",
+	"exports": "./mod.ts",
+	"tasks": {
+		"test": "deno test --allow-net --allow-read --allow-write tests/",
+		"fmt": "deno fmt",
+		"lint": "deno lint",
+		"demo": "deno run --allow-net --allow-read --allow-write demo.ts"
+	}
+}

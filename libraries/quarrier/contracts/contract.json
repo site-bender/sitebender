@@ -1,0 +1,158 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-11",
+	"library": "quarrier",
+	"purpose": "Property-based testing tools, arbitrary data generation, and test utilities. Provides QuickCheck-style testing and fake data generation.",
+	"api": {
+		"exports": [
+			{
+				"name": "arbitrary",
+				"signature": "(type: ParsedType) => Arbitrary<unknown>",
+				"description": "Generate arbitrary values for a given type from Linguist output"
+			},
+			{
+				"name": "generateForType",
+				"signature": "(typeInfo: ContractOutput<ParsedType>) => Generator<unknown>",
+				"description": "Create a generator for values matching a specific type"
+			},
+			{
+				"name": "generateTriples",
+				"signature": "(subject: string, predicate: string, objectType: ParsedType) => Triple[]",
+				"description": "Generate RDF-style triples for semantic testing"
+			},
+			{
+				"name": "property",
+				"signature": "(description: string, arbitrary: Arbitrary<T>, predicate: (value: T) => boolean) => PropertyTest",
+				"description": "Define a property-based test"
+			},
+			{
+				"name": "fake",
+				"signature": "(schema: Schema) => FakeData",
+				"description": "Generate fake data matching a schema"
+			}
+		],
+		"types": [
+			{
+				"name": "Arbitrary",
+				"description": "Generator for arbitrary values of a type",
+				"fields": [
+					"generate: () => T",
+					"shrink: (value: T) => T[]",
+					"filter: (predicate: (value: T) => boolean) => Arbitrary<T>",
+					"map: <U>(fn: (value: T) => U) => Arbitrary<U>",
+					"chain: <U>(fn: (value: T) => Arbitrary<U>) => Arbitrary<U>"
+				]
+			},
+			{
+				"name": "Generator",
+				"description": "Configurable value generator",
+				"fields": [
+					"next: () => T",
+					"take: (n: number) => T[]",
+					"seed: (value: number) => Generator<T>",
+					"config: GeneratorConfig"
+				]
+			},
+			{
+				"name": "Triple",
+				"description": "RDF-style triple for semantic testing",
+				"fields": [
+					"subject: string",
+					"predicate: string",
+					"object: unknown",
+					"metadata?: TripleMetadata"
+				]
+			},
+			{
+				"name": "PropertyTest",
+				"description": "Property-based test specification",
+				"fields": [
+					"description: string",
+					"arbitrary: Arbitrary<unknown>",
+					"predicate: (value: unknown) => boolean",
+					"numTests: number",
+					"seed?: number"
+				],
+				"note": "Property tests verify mathematical laws and invariants"
+			}
+		]
+	},
+	"responsibilities": {
+		"owns": [
+			"Arbitrary value generation",
+			"Property-based testing primitives",
+			"Fake data generation",
+			"Shrinking strategies",
+			"Generator combinators",
+			"Triple generation for RDF/semantic testing"
+		],
+		"provides": [
+			"Test data to Logician",
+			"Arbitrary values to Linguist for testing",
+			"Property test definitions",
+			"Shrinking for minimal failing cases"
+		],
+		"forbidden": [
+			"Parsing TypeScript/JSX directly",
+			"Generating actual test files",
+			"Running tests",
+			"Coverage analysis",
+			"Documentation generation",
+			"Making network requests"
+		]
+	},
+	"implementation": {
+		"allowed": [
+			"Import from @sitebender/linguist/exports/types",
+			"Pure functional generators",
+			"Mathematical operations",
+			"Random number generation (seedable)"
+		],
+		"forbidden": [
+			"Import TypeScript compiler",
+			"Import ts-morph",
+			"Side effects in generators",
+			"Non-deterministic behavior without seed",
+			"File system access",
+			"Network access"
+		]
+	},
+	"output": {
+		"requirements": [
+			"All generators must be pure functions",
+			"All generators must be seedable for reproducibility",
+			"Shrinking must preserve the failing property",
+			"Generated values must match type constraints"
+		],
+		"validation": {
+			"compile-time": [
+				"TypeScript types ensure generator compatibility",
+				"Pure function signatures enforced"
+			],
+			"runtime": [
+				"Type constraint validation",
+				"Seed reproducibility checks"
+			],
+			"test-time": [
+				"Generator determinism with seeds",
+				"Shrinking effectiveness",
+				"Type constraint compliance"
+			]
+		}
+	},
+	"consumers": {
+		"allowed": ["linguist", "logician"],
+		"forbidden": ["envoy", "toolsmith", "codewright", "architect", "formulator", "agent"]
+	},
+	"principles": {
+		"determinism": "Same seed must always produce same sequence",
+		"shrinking": "Find minimal failing cases automatically",
+		"composition": "Generators compose via map, chain, filter",
+		"purity": "No side effects in generation functions"
+	},
+	"versioning": {
+		"strategy": "semver",
+		"breaking-changes": "Major version bump required",
+		"deprecation": "One minor version warning before removal"
+	}
+}
