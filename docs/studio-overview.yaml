@@ -240,17 +240,17 @@ roadmap_priorities:
     item: "Warden"
     policy: "warn in PRs, block on main; make foolproof; stop AI-induced drift"
   - order: 2
-    item: "Toolsmith (Toolsmith)"
-    policy: "complete lifted functions; clean comments; enforce style; lock down"
-  - order: 3
     item: "Steward"
     policy: "introduce deterministic style/shape enforcement; reduce governance noise; wire CI (PR warn, main block)"
+  - order: 3
+    item: "Toolsmith"
+    policy: "complete lifted functions; clean comments; enforce style; lock down"
   - order: 4
     item: "Parallel independents"
-    includes: ["Quarrier (Quarrier)", "Linguist (Linguist)", "Formulator (Formulator)", "Agent (Agent)", "Quartermaster (App Generator)"]
+    includes: ["Quarrier", "Linguist", "Formulator", "Agent", "Quartermaster (App Generator)"]
   - order: 5
     item: "Dependent pair"
-    includes: ["Logician (Logician)", "Envoy"]
+    includes: ["Logician", "Envoy"]
   - order: 6
     item: "Codewright & Architect"
     note: "Already far along; continue active development"
@@ -415,6 +415,7 @@ ci_policies:
 repo_structure:
   top_level_dirs:
     - "applications/"
+    - "extensions/"
     - "libraries/"
     - "docs/"
     - "scripts/"
@@ -488,8 +489,8 @@ commands:
 
 next_steps_shortlist:
   - "Make Warden foolproof repo-wide (warn PR, block main)"
-  - "Complete and lock Toolsmith (lifted functions, comments, style)"
   - "Introduce Steward and wire CI gates (PR warn, main block)"
+  - "Complete and lock Toolsmith (lifted functions, comments, style)"
   - "Start monorepo wiring and docs cleanup to avoid confusing AIs"
   - "Run parallel efforts on Quarrier, Linguist, Formulator, Agent, Quartermaster"
   - "When ready, bring up Logician and Envoy leveraging the above"
