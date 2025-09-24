@@ -2,6 +2,7 @@
 	"$schema": "https://deno.land/x/deno/schemas/deno.jsonc",
 	"name": "@sitebender/studio",
 	"version": "0.0.1-alpha",
+	"exports": "mod.ts",
 	// Workspace configuration for the Sitebender monorepo
 	"workspace": [
 		"./applications/mission-control",
