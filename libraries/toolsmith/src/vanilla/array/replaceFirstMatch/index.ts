@@ -27,23 +27,24 @@ import findIndex from "../findIndex/index.ts"
  * fixFirstError(["ERROR: fail", "info", "ERROR: bad"]) // ["WARNING: fail", "info", "ERROR: bad"]
  * ```
  */
-const replaceFirstMatch =
-	(pattern: RegExp) =>
-	(replacer: (item: string) => string) =>
-	<T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
-		if (isNullish(array)) {
-			return []
-		}
-		const index = findIndex((item: T) =>
-			typeof item === "string" && pattern.test(item)
-		)(array as Array<T>)
+export default function replaceFirstMatch(pattern: RegExp) {
+	return function withReplacer(replacer: (item: string) => string) {
+		return function replaceInArray<T>(
+			array: ReadonlyArray<T> | null | undefined,
+		): Array<T> {
+			if (isNullish(array)) {
+				return []
+			}
+			const index = findIndex(function matchesPattern(item: T) {
+				return typeof item === "string" && pattern.test(item)
+			})(array as Array<T>)
 
-		if (index === undefined) {
-			return [...array]
+			if (index === undefined) {
+				return [...array]
+			}
+			const out = [...array]
+			out[index] = replacer(out[index] as unknown as string) as T
+			return out
 		}
-		const out = [...array]
-		out[index] = replacer(out[index] as unknown as string) as T
-		return out
 	}
-
-export default replaceFirstMatch
+}

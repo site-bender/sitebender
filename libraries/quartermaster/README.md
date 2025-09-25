@@ -14,14 +14,14 @@ Applications are defined as data, not templates:
 
 ```json
 {
-  "name": "my-app",
-  "type": "application",
-  "libraries": ["architect", "pagewright", "custodian"],
-  "features": {
-    "authentication": "sentinel",
-    "state": "custodian",
-    "testing": "declarative"
-  }
+	"name": "my-app",
+	"type": "application",
+	"libraries": ["architect", "pagewright", "custodian"],
+	"features": {
+		"authentication": "sentinel",
+		"state": "custodian",
+		"testing": "declarative"
+	}
 }
 ```
 

@@ -9,9 +9,9 @@ Operator treats events as first-class data in Studio's triple store architecture
 ## Installation
 
 ```typescript
-import Channel from "@sitebender/operator/components/Channel/index.ts";
-import Publishes from "@sitebender/operator/components/Publishes/index.ts";
-import Subscribes from "@sitebender/operator/components/Subscribes/index.ts";
+import Channel from "@sitebender/operator/components/Channel/index.ts"
+import Publishes from "@sitebender/operator/components/Publishes/index.ts"
+import Subscribes from "@sitebender/operator/components/Subscribes/index.ts"
 ```
 
 ## Core Concepts
@@ -22,10 +22,10 @@ All events in Operator are RDF triples stored in the triple store:
 
 ```tsx
 <Publisher
-  subject="user-123"
-  predicate="clicked"
-  object="button-save"
-  timestamp="temporal"
+	subject="user-123"
+	predicate="clicked"
+	object="button-save"
+	timestamp="temporal"
 />
 ```
 
@@ -51,10 +51,10 @@ Operator automatically selects optimal transport based on scope:
 
 ```tsx
 <Channel id="user-actions" scope="local">
-  <Button>
-    <Publishes event="click" as="user:clicked:button" />
-    Save
-  </Button>
+	<Button>
+		<Publishes event="click" as="user:clicked:button" />
+		Save
+	</Button>
 </Channel>
 ```
 
@@ -62,7 +62,7 @@ Operator automatically selects optimal transport based on scope:
 
 ```tsx
 <Panel>
-  <Subscribes to="user:clicked:*" then={<Effect apply={updatePanel} />} />
+	<Subscribes to="user:clicked:*" then={<Effect apply={updatePanel} />} />
 </Panel>
 ```
 
@@ -70,12 +70,12 @@ Operator automatically selects optimal transport based on scope:
 
 ```tsx
 <Button>
-  <Publishes
-    event="click"
-    as="payment:initiated"
-    with={<Transform map={clickToPayment} />}
-  />
-  Pay Now
+	<Publishes
+		event="click"
+		as="payment:initiated"
+		with={<Transform map={clickToPayment} />}
+	/>
+	Pay Now
 </Button>
 ```
 
@@ -83,11 +83,11 @@ Operator automatically selects optimal transport based on scope:
 
 ```tsx
 <Dashboard>
-  <Subscribes
-    to="metrics:*"
-    when={<Filter match={isAboveThreshold} />}
-    then={<Effect apply={showAlert} />}
-  />
+	<Subscribes
+		to="metrics:*"
+		when={<Filter match={isAboveThreshold} />}
+		then={<Effect apply={showAlert} />}
+	/>
 </Dashboard>
 ```
 
@@ -99,7 +99,7 @@ Connect different transport layers seamlessly:
 
 ```tsx
 <Bridge from="local:user-actions" to="broadcast:user-actions">
-  <Encrypt with="nacl-box" for={["did:key:xyz", "did:key:abc"]} />
+	<Encrypt with="nacl-box" for={["did:key:xyz", "did:key:abc"]} />
 </Bridge>
 ```
 
@@ -109,20 +109,20 @@ Compose complex event processing with Toolsmith monads:
 
 ```tsx
 <Subscribes to="sensor:reading">
-  <Pipe>
-    <Map with={parseReading} />
-    <Filter with={isValid} />
-    <FlatMap with={enrichWithContext} />
-    <Fold with={calculateAverage} into={0} />
-    <Fork>
-      <Left>
-        <Log to="metrics" />
-      </Left>
-      <Right>
-        <Render to="display" />
-      </Right>
-    </Fork>
-  </Pipe>
+	<Pipe>
+		<Map with={parseReading} />
+		<Filter with={isValid} />
+		<FlatMap with={enrichWithContext} />
+		<Fold with={calculateAverage} into={0} />
+		<Fork>
+			<Left>
+				<Log to="metrics" />
+			</Left>
+			<Right>
+				<Render to="display" />
+			</Right>
+		</Fork>
+	</Pipe>
 </Subscribes>
 ```
 
@@ -132,8 +132,8 @@ Events form a partially ordered lattice with vector clocks:
 
 ```tsx
 <Channel id="collaborative" ordering="causal">
-  <VectorClock />
-  <CrdtMerge strategy="lww-element-set" />
+	<VectorClock />
+	<CrdtMerge strategy="lww-element-set" />
 </Channel>
 ```
 
@@ -143,11 +143,11 @@ Process encrypted events without decryption:
 
 ```tsx
 <Subscribes to="salary:updated">
-  <HomomorphicSum
-    compute="average"
-    without="decrypting"
-    reveal="only-to-authorized"
-  />
+	<HomomorphicSum
+		compute="average"
+		without="decrypting"
+		reveal="only-to-authorized"
+	/>
 </Subscribes>
 ```
 
@@ -157,8 +157,8 @@ Events exist in superposition until observed:
 
 ```tsx
 <Publisher entangled="true">
-  <Superpose states={["saved", "saving", "error"]} />
-  <Collapse when={<Observe by="user-interface" />} />
+	<Superpose states={["saved", "saving", "error"]} />
+	<Collapse when={<Observe by="user-interface" />} />
 </Publisher>
 ```
 
@@ -168,10 +168,10 @@ Events exist in superposition until observed:
 
 ```tsx
 <Capability
-  issuer="did:key:publisher"
-  bearer="did:key:subscriber"
-  allows={["subscribe", "replay"]}
-  expires="PT1H"
+	issuer="did:key:publisher"
+	bearer="did:key:subscriber"
+	allows={["subscribe", "replay"]}
+	expires="PT1H"
 />
 ```
 
@@ -181,8 +181,8 @@ Anonymous publishing with cryptographic proof of group membership:
 
 ```tsx
 <Publisher anonymous="ring">
-  <RingMembers did={["alice", "bob", "carol"]} />
-  <Publishes event="whistleblower:report" />
+	<RingMembers did={["alice", "bob", "carol"]} />
+	<Publishes event="whistleblower:report" />
 </Publisher>
 ```
 
@@ -192,7 +192,7 @@ Add calibrated noise for privacy-preserving analytics:
 
 ```tsx
 <Analytics epsilon="1.0">
-  <Subscribes to="*" aggregate="count" noise="laplacian" />
+	<Subscribes to="*" aggregate="count" noise="laplacian" />
 </Analytics>
 ```
 
@@ -202,7 +202,7 @@ Verify event properties without revealing content:
 
 ```tsx
 <Subscribes to="transaction:*">
-  <VerifyProof that="amount > 1000" without="revealing-amount" />
+	<VerifyProof that="amount > 1000" without="revealing-amount" />
 </Subscribes>
 ```
 
@@ -212,11 +212,11 @@ Execute deterministic computations on events:
 
 ```tsx
 <Channel blockchain="local-first">
-  <SmartEvent
-    condition="balance > 100"
-    execute="transfer"
-    verify="zero-knowledge"
-  />
+	<SmartEvent
+		condition="balance > 100"
+		execute="transfer"
+		verify="zero-knowledge"
+	/>
 </Channel>
 ```
 
@@ -226,9 +226,9 @@ ML-optimized event prediction and routing:
 
 ```tsx
 <Optimizer mode="neural">
-  <Learn from="event-history" />
-  <Predict next="likely-subscribers" />
-  <Preload components={predicted} />
+	<Learn from="event-history" />
+	<Predict next="likely-subscribers" />
+	<Preload components={predicted} />
 </Optimizer>
 ```
 
@@ -238,10 +238,10 @@ Identical TSX components work server-side with Deno:
 
 ```tsx
 <Server transport="quic">
-  <Channel id="global">
-    <Subscribes to="client:*" from="anywhere" />
-    <Publishes to="client:*" everywhere="true" />
-  </Channel>
+	<Channel id="global">
+		<Subscribes to="client:*" from="anywhere" />
+		<Publishes to="client:*" everywhere="true" />
+	</Channel>
 </Server>
 ```
 
@@ -260,14 +260,14 @@ Operator integrates with Studio's declarative testing:
 
 ```tsx
 <TestHarness>
-  <MockPublisher id="test-source">
-    <EmitSequence events={testEvents} timing="realistic" />
-  </MockPublisher>
+	<MockPublisher id="test-source">
+		<EmitSequence events={testEvents} timing="realistic" />
+	</MockPublisher>
 
-  <AssertSubscriber to="test:*">
-    <Receives exactly={3} within="PT1S" />
-    <Ordering is="causal" />
-  </AssertSubscriber>
+	<AssertSubscriber to="test:*">
+		<Receives exactly={3} within="PT1S" />
+		<Ordering is="causal" />
+	</AssertSubscriber>
 </TestHarness>
 ```
 
@@ -277,8 +277,8 @@ Operator integrates with Studio's declarative testing:
 
 ```tsx
 <Replay from="2024-01-01T00:00:00Z" to="2024-01-01T01:00:00Z">
-  <Speed factor={10} />
-  <Filter match={debugPredicate} />
+	<Speed factor={10} />
+	<Filter match={debugPredicate} />
 </Replay>
 ```
 
@@ -301,10 +301,10 @@ Operator measures actual performance in production:
 
 ```tsx
 <PerformanceMonitor>
-  <Measure latency="p50,p90,p99" />
-  <Measure throughput="events/second" />
-  <Measure backpressure="queue-depth" />
-  <StoreTo triple-store="metrics" />
+	<Measure latency="p50,p90,p99" />
+	<Measure throughput="events/second" />
+	<Measure backpressure="queue-depth" />
+	<StoreTo triple-store="metrics" />
 </PerformanceMonitor>
 ```
 
@@ -364,12 +364,12 @@ Dynamic event expressions compiled from formulas.
 
 ```tsx
 <Document collaborative="true">
-  <Channel scope="network" ordering="causal">
-    <Publishes event="cursor:moved" throttle="16ms" />
-    <Publishes event="text:changed" debounce="300ms" />
-    <Subscribes to="peer:cursor:*" then={<ShowCursor />} />
-    <Subscribes to="peer:text:*" then={<MergeText />} />
-  </Channel>
+	<Channel scope="network" ordering="causal">
+		<Publishes event="cursor:moved" throttle="16ms" />
+		<Publishes event="text:changed" debounce="300ms" />
+		<Subscribes to="peer:cursor:*" then={<ShowCursor />} />
+		<Subscribes to="peer:text:*" then={<MergeText />} />
+	</Channel>
 </Document>
 ```
 
@@ -377,14 +377,14 @@ Dynamic event expressions compiled from formulas.
 
 ```tsx
 <SensorNetwork>
-  <Channel scope="distributed" transport="mqtt">
-    <Subscribes to="sensor:temperature:*">
-      <Window size="PT5M" slide="PT1M">
-        <Aggregate function="mean" />
-        <Alert when={<Threshold above={30} />} />
-      </Window>
-    </Subscribes>
-  </Channel>
+	<Channel scope="distributed" transport="mqtt">
+		<Subscribes to="sensor:temperature:*">
+			<Window size="PT5M" slide="PT1M">
+				<Aggregate function="mean" />
+				<Alert when={<Threshold above={30} />} />
+			</Window>
+		</Subscribes>
+	</Channel>
 </SensorNetwork>
 ```
 
@@ -392,22 +392,22 @@ Dynamic event expressions compiled from formulas.
 
 ```tsx
 <TradingSystem>
-  <Channel scope="network" priority="realtime">
-    <Subscribes to="market:tick:*">
-      <Pipe>
-        <Map with={normalizePrice} />
-        <Filter with={isSignificant} />
-        <Fork>
-          <Left>
-            <Execute trade={strategy} />
-          </Left>
-          <Right>
-            <Log to="audit-trail" />
-          </Right>
-        </Fork>
-      </Pipe>
-    </Subscribes>
-  </Channel>
+	<Channel scope="network" priority="realtime">
+		<Subscribes to="market:tick:*">
+			<Pipe>
+				<Map with={normalizePrice} />
+				<Filter with={isSignificant} />
+				<Fork>
+					<Left>
+						<Execute trade={strategy} />
+					</Left>
+					<Right>
+						<Log to="audit-trail" />
+					</Right>
+				</Fork>
+			</Pipe>
+		</Subscribes>
+	</Channel>
 </TradingSystem>
 ```
 

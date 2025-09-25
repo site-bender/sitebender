@@ -52,17 +52,15 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @pure Always returns same result for same input
  * @safe Returns NaN for invalid or negative inputs
  */
-const squareRoot = (
+export default function squareRoot(
 	n: number | null | undefined,
-): number => {
+): number {
 	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 
 	return Math.sqrt(n)
 }
-
-export default squareRoot
 
 //?? [EXAMPLE] squareRoot(9) // 3
 //?? [EXAMPLE] squareRoot(-4) // NaN

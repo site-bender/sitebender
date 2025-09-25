@@ -53,14 +53,14 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe Returns null for invalid inputs
  * @calendarAware Respects the calendar system of the input date
  */
-const getDayOfYear = (
+export default function getDayOfYear(
 	date:
 		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
 		| null
 		| undefined,
-): number | null => {
+): number | null {
 	if (isNullish(date)) {
 		return null
 	}
@@ -79,5 +79,3 @@ const getDayOfYear = (
 		return null
 	}
 }
-
-export default getDayOfYear

@@ -55,9 +55,9 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @pure Always returns same result for same input
  * @safe Returns NaN for invalid inputs
  */
-const median = (
+export default function median(
 	numbers: Array<number> | null | undefined,
-): number => {
+): number {
 	if (isNullish(numbers) || !Array.isArray(numbers)) {
 		return NaN
 	}
@@ -67,16 +67,18 @@ const median = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValue = numbers.some(
-		(num) => isNullish(num) || typeof num !== "number" || isNaN(num),
-	)
+	const hasInvalidValue = numbers.some(function checkInvalidNumber(num) {
+		return isNullish(num) || typeof num !== "number" || isNaN(num)
+	})
 
 	if (hasInvalidValue) {
 		return NaN
 	}
 
 	// Create a sorted copy to avoid mutating the input
-	const sorted = [...numbers].sort((a, b) => a - b)
+	const sorted = [...numbers].sort(function sortNumbers(a, b) {
+		return a - b
+	})
 
 	const middle = Math.floor(sorted.length / 2)
 
@@ -88,8 +90,6 @@ const median = (
 	// If even number of elements, return average of the two middle ones
 	return (sorted[middle - 1] + sorted[middle]) / 2
 }
-
-export default median
 
 //?? [EXAMPLE] median([1, 2, 3, 4]) // 2.5
 //?? [EXAMPLE] median([3, 1, 2]) // 2

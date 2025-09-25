@@ -57,45 +57,44 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @curried
  * @safe
  */
-const withCalendar = (calendar: string) =>
-(
-	temporal:
+export default function withCalendar(calendar: string) {
+	return function changeCalendarForTemporal(
+		temporal:
+			| Temporal.PlainDate
+			| Temporal.PlainDateTime
+			| Temporal.PlainYearMonth
+			| Temporal.PlainMonthDay
+			| null
+			| undefined,
+	):
 		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.PlainMonthDay
-		| null
-		| undefined,
-):
-	| Temporal.PlainDate
-	| Temporal.PlainDateTime
-	| Temporal.PlainYearMonth
-	| Temporal.PlainMonthDay
-	| null => {
-	if (isNullish(temporal)) {
-		return null
-	}
+		| null {
+		if (isNullish(temporal)) {
+			return null
+		}
 
-	// Validate temporal is a type that supports calendar
-	const isValidTemporal = temporal instanceof Temporal.PlainDate ||
-		temporal instanceof Temporal.PlainDateTime ||
-		temporal instanceof Temporal.PlainYearMonth ||
-		temporal instanceof Temporal.PlainMonthDay
+		// Validate temporal is a type that supports calendar
+		const isValidTemporal = temporal instanceof Temporal.PlainDate ||
+			temporal instanceof Temporal.PlainDateTime ||
+			temporal instanceof Temporal.PlainYearMonth ||
+			temporal instanceof Temporal.PlainMonthDay
 
-	if (!isValidTemporal) {
-		return null
-	}
+		if (!isValidTemporal) {
+			return null
+		}
 
-	try {
-		// Validate calendar by attempting to create a test date
-		Temporal.PlainDate.from({ year: 2000, month: 1, day: 1, calendar })
+		try {
+			// Validate calendar by attempting to create a test date
+			Temporal.PlainDate.from({ year: 2000, month: 1, day: 1, calendar })
 
-		// Use withCalendar method to change the calendar system
-		// @ts-ignore - TypeScript doesn't recognize the common withCalendar method
-		return temporal.withCalendar(calendar)
-	} catch {
-		return null
+			// Use withCalendar method to change the calendar system
+			// @ts-ignore - TypeScript doesn't recognize the common withCalendar method
+			return temporal.withCalendar(calendar)
+		} catch {
+			return null
+		}
 	}
 }
-
-export default withCalendar

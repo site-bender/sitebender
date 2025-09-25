@@ -72,10 +72,10 @@ type PhoneOptions = {
 	strict?: boolean
 }
 
-const isPhone = (
+export default function isPhone(
 	options: PhoneOptions = {},
-): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+) {
+	return function validatePhoneNumber(value: unknown): boolean {
 		if (typeof value !== "string" || isEmpty(value)) {
 			return false
 		}
@@ -180,5 +180,3 @@ const isPhone = (
 		}
 	}
 }
-
-export default isPhone

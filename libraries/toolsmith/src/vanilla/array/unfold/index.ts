@@ -41,29 +41,28 @@ import isNullish from "../../validation/isNullish/index.ts"
  * unfold((n: number) => n < 5 ? [n, n + 1] : null)(null) // []
  * ```
  */
-const unfold = <T, U>(
+export default function unfold<T, U>(
 	fn: (seed: T) => readonly [U, T] | null,
-) =>
-(
-	seed: T | null | undefined,
-): Array<U> => {
-	if (isNullish(seed)) {
-		return []
-	}
-
-	// Build array using recursion
-	const unfoldRecursive = (currentSeed: T): Array<U> => {
-		const result = fn(currentSeed)
-
-		if (isNull(result)) {
+) {
+	return function unfoldFromSeed(
+		seed: T | null | undefined,
+	): Array<U> {
+		if (isNullish(seed)) {
 			return []
 		}
 
-		const [value, nextSeed] = result
-		return [value, ...unfoldRecursive(nextSeed)]
+		// Build array using recursion
+		function unfoldRecursive(currentSeed: T): Array<U> {
+			const result = fn(currentSeed)
+
+			if (isNull(result)) {
+				return []
+			}
+
+			const [value, nextSeed] = result
+			return [value, ...unfoldRecursive(nextSeed)]
+		}
+
+		return unfoldRecursive(seed)
 	}
-
-	return unfoldRecursive(seed)
 }
-
-export default unfold

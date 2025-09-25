@@ -43,9 +43,9 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @pure Always returns same result for same input
  * @safe Returns NaN for invalid inputs or empty arrays
  */
-const rootMeanSquare = (
+export default function rootMeanSquare(
 	values: Array<number> | null | undefined,
-): number => {
+): number {
 	if (isNullish(values) || !Array.isArray(values)) {
 		return NaN
 	}
@@ -55,18 +55,18 @@ const rootMeanSquare = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValue = values.some(
-		(value) => isNullish(value) || typeof value !== "number" || isNaN(value),
-	)
+	const hasInvalidValue = values.some(function checkInvalidValue(value) {
+		return isNullish(value) || typeof value !== "number" || isNaN(value)
+	})
 
 	if (hasInvalidValue) {
 		return NaN
 	}
 
 	// Calculate sum of squares using reduce
-	const sumOfSquares = values.reduce((acc, value) => acc + value * value, 0)
+	const sumOfSquares = values.reduce(function sumSquaredValues(acc, value) {
+		return acc + value * value
+	}, 0)
 
 	return Math.sqrt(sumOfSquares / values.length)
 }
-
-export default rootMeanSquare

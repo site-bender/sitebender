@@ -49,28 +49,28 @@ Agent requires:
 
 ```javascript
 // Server setup
-const server = new WebSocketServer();
-const redis = new Redis();
+const server = new WebSocketServer()
+const redis = new Redis()
 server.on("connection", (ws) => {
-  ws.on("increment", async () => {
-    await redis.incr("counter");
-    const value = await redis.get("counter");
-    broadcast("update", value);
-  });
-});
+	ws.on("increment", async () => {
+		await redis.incr("counter")
+		const value = await redis.get("counter")
+		broadcast("update", value)
+	})
+})
 
 // Client code
-const ws = new WebSocket("wss://server.com");
+const ws = new WebSocket("wss://server.com")
 ws.on("update", (value) => {
-  document.getElementById("counter").textContent = value;
-});
+	document.getElementById("counter").textContent = value
+})
 ```
 
 **Agent approach (just JSX):**
 
 ```jsx
 <DistributedCounter id="sharedCount">
-  <SyncWith.Peers />
+	<SyncWith.Peers />
 </DistributedCounter>
 ```
 
@@ -85,14 +85,14 @@ Agent provides JSX components for all CRDT types that automatically sync without
 ```jsx
 // Distributed counter that merges increments from all peers
 <DistributedCounter id="votes" nodeId={userId}>
-  <InitialValue>0</InitialValue>
-  <SyncWith protocol="state-based" interval={5000}>
-    <AllPeers />
-  </SyncWith>
-  <PersistTo>
-    <LocalStorage key="votes" />
-    <SolidPod path="/data/votes" />
-  </PersistTo>
+	<InitialValue>0</InitialValue>
+	<SyncWith protocol="state-based" interval={5000}>
+		<AllPeers />
+	</SyncWith>
+	<PersistTo>
+		<LocalStorage key="votes" />
+		<SolidPod path="/data/votes" />
+	</PersistTo>
 </DistributedCounter>
 ```
 
@@ -131,15 +131,15 @@ Agent provides JSX components for all CRDT types that automatically sync without
 ```jsx
 // Collaborative text editing with position preservation
 <CollaborativeText id="document">
-  <RGA>
-    <ShowCursors for={["user1", "user2"]} />
-    <ShowPresence />
-    <HighlightChanges duration={1000} />
-  </RGA>
-  <AutoSave interval={1000}>
-    <To.LocalStorage />
-    <To.IPFS pin={true} />
-  </AutoSave>
+	<RGA>
+		<ShowCursors for={["user1", "user2"]} />
+		<ShowPresence />
+		<HighlightChanges duration={1000} />
+	</RGA>
+	<AutoSave interval={1000}>
+		<To.LocalStorage />
+		<To.IPFS pin={true} />
+	</AutoSave>
 </CollaborativeText>
 ```
 
@@ -189,15 +189,15 @@ Decentralized identity without central authorities:
 ```jsx
 // Connect to Solid pods for personal data storage
 <SolidAuth webId="https://alice.solidpod.com/profile/card#me">
-  <OnAuthenticated>
-    <LoadProfile into="#userProfile" />
-    <MountPod at="/solid" />
-    <EnableTypeIndex />
-  </OnAuthenticated>
-  <Permissions>
-    <Read path="/public/*" />
-    <Write path="/private/myapp/*" />
-  </Permissions>
+	<OnAuthenticated>
+		<LoadProfile into="#userProfile" />
+		<MountPod at="/solid" />
+		<EnableTypeIndex />
+	</OnAuthenticated>
+	<Permissions>
+		<Read path="/public/*" />
+		<Write path="/private/myapp/*" />
+	</Permissions>
 </SolidAuth>
 ```
 
@@ -206,16 +206,16 @@ Decentralized identity without central authorities:
 ```jsx
 // Combine multiple identity providers
 <MultiAuth id="auth">
-  <Providers>
-    <DidKey primary={true} />
-    <Solid webId={userWebId} />
-    <IPFS peerId={peerId} />
-  </Providers>
-  <FallbackChain>
-    <Try>DIDKey</Try>
-    <Then>Solid</Then>
-    <Finally>IPFS</Finally>
-  </FallbackChain>
+	<Providers>
+		<DidKey primary={true} />
+		<Solid webId={userWebId} />
+		<IPFS peerId={peerId} />
+	</Providers>
+	<FallbackChain>
+		<Try>DIDKey</Try>
+		<Then>Solid</Then>
+		<Finally>IPFS</Finally>
+	</FallbackChain>
 </MultiAuth>
 ```
 
@@ -228,31 +228,31 @@ Multi-tier storage with automatic fallbacks:
 ```jsx
 // Local-first storage with remote backup
 <PersistentStorage id="userData">
-  <Layers>
-    <LocalFirst>
-      <IndexedDB database="myapp" version={2}>
-        <Store name="documents" keyPath="id" />
-        <Store name="settings" keyPath="key" />
-      </IndexedDB>
-    </LocalFirst>
-    <RemoteBackup delay={5000}>
-      <IPFS>
-        <Pin duration="permanent" />
-        <Encrypt with="#currentUser.publicKey" />
-      </IPFS>
-      <SolidPod container="/backup">
-        <ACL>
-          <Agent webId="#currentUser">
-            <Read />
-            <Write />
-          </Agent>
-        </ACL>
-      </SolidPod>
-    </RemoteBackup>
-  </Layers>
-  <ConflictResolution>
-    <ThreeWayMerge />
-  </ConflictResolution>
+	<Layers>
+		<LocalFirst>
+			<IndexedDB database="myapp" version={2}>
+				<Store name="documents" keyPath="id" />
+				<Store name="settings" keyPath="key" />
+			</IndexedDB>
+		</LocalFirst>
+		<RemoteBackup delay={5000}>
+			<IPFS>
+				<Pin duration="permanent" />
+				<Encrypt with="#currentUser.publicKey" />
+			</IPFS>
+			<SolidPod container="/backup">
+				<ACL>
+					<Agent webId="#currentUser">
+						<Read />
+						<Write />
+					</Agent>
+				</ACL>
+			</SolidPod>
+		</RemoteBackup>
+	</Layers>
+	<ConflictResolution>
+		<ThreeWayMerge />
+	</ConflictResolution>
 </PersistentStorage>
 ```
 
@@ -261,22 +261,22 @@ Multi-tier storage with automatic fallbacks:
 ```jsx
 // RDF triple store with SPARQL queries
 <TripleStore id="knowledge">
-  <Namespaces>
-    <Namespace prefix="app" uri="https://myapp.com/ontology#" />
-    <Namespace prefix="foaf" uri="http://xmlns.com/foaf/0.1/" />
-  </Namespaces>
-  <LoadOntologies>
-    <From path="/ontology/app.ttl" />
-    <From uri="http://xmlns.com/foaf/spec/index.rdf" />
-  </LoadOntologies>
-  <SyncWith>
-    <SolidPod typeIndex={true} />
-    <Peers sharing="public-triples" />
-  </SyncWith>
-  <Reasoning>
-    <OWL2 profile="EL" />
-    <SHACL validation={true} />
-  </Reasoning>
+	<Namespaces>
+		<Namespace prefix="app" uri="https://myapp.com/ontology#" />
+		<Namespace prefix="foaf" uri="http://xmlns.com/foaf/0.1/" />
+	</Namespaces>
+	<LoadOntologies>
+		<From path="/ontology/app.ttl" />
+		<From uri="http://xmlns.com/foaf/spec/index.rdf" />
+	</LoadOntologies>
+	<SyncWith>
+		<SolidPod typeIndex={true} />
+		<Peers sharing="public-triples" />
+	</SyncWith>
+	<Reasoning>
+		<OWL2 profile="EL" />
+		<SHACL validation={true} />
+	</Reasoning>
 </TripleStore>
 ```
 
@@ -289,20 +289,20 @@ P2P networking without servers:
 ```jsx
 // Automatic peer discovery via multiple mechanisms
 <PeerDiscovery id="network">
-  <Mechanisms>
-    <IpfsPubSub topic="myapp/peers" />
-    <WebRTCSignaling servers={["stun:stun.l.google.com:19302"]} />
-    <LocalNetwork via="mdns" />
-    <Manual>
-      <Peer id="friend1" address="did:key:z6Mk..." />
-      <Peer id="friend2" address="https://friend2.com/agent" />
-    </Manual>
-  </Mechanisms>
-  <ConnectionStrategy>
-    <MaxPeers>50</MaxPeers>
-    <PreferredPeers>['friend1', 'friend2']</PreferredPeers>
-    <MinConnections>3</MinConnections>
-  </ConnectionStrategy>
+	<Mechanisms>
+		<IpfsPubSub topic="myapp/peers" />
+		<WebRTCSignaling servers={["stun:stun.l.google.com:19302"]} />
+		<LocalNetwork via="mdns" />
+		<Manual>
+			<Peer id="friend1" address="did:key:z6Mk..." />
+			<Peer id="friend2" address="https://friend2.com/agent" />
+		</Manual>
+	</Mechanisms>
+	<ConnectionStrategy>
+		<MaxPeers>50</MaxPeers>
+		<PreferredPeers>['friend1', 'friend2']</PreferredPeers>
+		<MinConnections>3</MinConnections>
+	</ConnectionStrategy>
 </PeerDiscovery>
 ```
 
@@ -311,18 +311,18 @@ P2P networking without servers:
 ```jsx
 // End-to-end encrypted communication
 <SecureChannel id="messages">
-  <Encryption algorithm="xchacha20-poly1305">
-    <KeyExchange via="x25519" />
-    <PerfectForwardSecrecy />
-  </Encryption>
-  <Transport>
-    <WebRTC primary={true} />
-    <WebSocket fallback={true} url="wss://relay.example.com" />
-    <IPFS pubsub={true} />
-  </Transport>
-  <MessageOrdering>
-    <CausalOrder via="vector-clocks" />
-  </MessageOrdering>
+	<Encryption algorithm="xchacha20-poly1305">
+		<KeyExchange via="x25519" />
+		<PerfectForwardSecrecy />
+	</Encryption>
+	<Transport>
+		<WebRTC primary={true} />
+		<WebSocket fallback={true} url="wss://relay.example.com" />
+		<IPFS pubsub={true} />
+	</Transport>
+	<MessageOrdering>
+		<CausalOrder via="vector-clocks" />
+	</MessageOrdering>
 </SecureChannel>
 ```
 
@@ -331,22 +331,22 @@ P2P networking without servers:
 ```jsx
 // Adaptive synchronization based on network conditions
 <AdaptiveSync id="smartSync">
-  <Strategies>
-    <When condition="highBandwidth">
-      <StateBasedSync interval={1000} />
-    </When>
-    <When condition="lowBandwidth">
-      <DeltaSync interval={10000} />
-    </When>
-    <When condition="offline">
-      <QueueOperations in="localStorage" />
-    </When>
-  </Strategies>
-  <Optimization>
-    <CompressMessages via="lz4" />
-    <BatchOperations threshold={10} />
-    <DeduplicateMessages />
-  </Optimization>
+	<Strategies>
+		<When condition="highBandwidth">
+			<StateBasedSync interval={1000} />
+		</When>
+		<When condition="lowBandwidth">
+			<DeltaSync interval={10000} />
+		</When>
+		<When condition="offline">
+			<QueueOperations in="localStorage" />
+		</When>
+	</Strategies>
+	<Optimization>
+		<CompressMessages via="lz4" />
+		<BatchOperations threshold={10} />
+		<DeduplicateMessages />
+	</Optimization>
 </AdaptiveSync>
 ```
 
@@ -359,8 +359,8 @@ Distributed queries across peers:
 ```jsx
 // Federated SPARQL queries across data sources
 <DistributedQuery id="sharedTodos">
-  <SPARQL>
-    {`
+	<SPARQL>
+		{`
       SELECT ?todo ?title ?assignee
       WHERE {
         ?todo a :Todo ;
@@ -370,17 +370,17 @@ Distributed queries across peers:
       }
       ORDER BY DESC(?priority)
     `}
-  </SPARQL>
-  <Sources>
-    <LocalTriples />
-    <PeerTriples trusted={true} />
-    <SolidPod path="/todos" />
-  </Sources>
-  <Cache duration={60000} />
-  <RefreshOn>
-    <PeerJoin />
-    <DataChange />
-  </RefreshOn>
+	</SPARQL>
+	<Sources>
+		<LocalTriples />
+		<PeerTriples trusted={true} />
+		<SolidPod path="/todos" />
+	</Sources>
+	<Cache duration={60000} />
+	<RefreshOn>
+		<PeerJoin />
+		<DataChange />
+	</RefreshOn>
 </DistributedQuery>
 ```
 
@@ -389,20 +389,20 @@ Distributed queries across peers:
 ```jsx
 // Privacy-preserving aggregations
 <DistributedAggregate id="statistics">
-  <Compute>
-    <Average of="#rating" />
-    <Sum of="#votes" />
-    <Count of="#participants" />
-  </Compute>
-  <Privacy>
-    <DifferentialPrivacy epsilon={1.0} />
-    <MinParticipants>10</MinParticipants>
-    <NoiseInjection />
-  </Privacy>
-  <Verification>
-    <MerkleProof />
-    <ThresholdSignatures required={0.51} />
-  </Verification>
+	<Compute>
+		<Average of="#rating" />
+		<Sum of="#votes" />
+		<Count of="#participants" />
+	</Compute>
+	<Privacy>
+		<DifferentialPrivacy epsilon={1.0} />
+		<MinParticipants>10</MinParticipants>
+		<NoiseInjection />
+	</Privacy>
+	<Verification>
+		<MerkleProof />
+		<ThresholdSignatures required={0.51} />
+	</Verification>
 </DistributedAggregate>
 ```
 
@@ -415,11 +415,11 @@ Agent components seamlessly integrate with Architect's reactive system:
 ```jsx
 // Use distributed values in calculations
 <Display id="total">
-  <Add>
-    <From.CRDT selector="#counter1" />
-    <From.CRDT selector="#counter2" />
-    <From.Peers aggregate="sum" selector="#counter3" />
-  </Add>
+	<Add>
+		<From.CRDT selector="#counter1" />
+		<From.CRDT selector="#counter2" />
+		<From.Peers aggregate="sum" selector="#counter3" />
+	</Add>
 </Display>
 ```
 
@@ -428,11 +428,11 @@ Agent components seamlessly integrate with Architect's reactive system:
 ```jsx
 // Validate using distributed consensus
 <Validation>
-  <ConsensusRequired threshold={0.66}>
-    <IsTrue>
-      <From.Peers selector="#approved" />
-    </IsTrue>
-  </ConsensusRequired>
+	<ConsensusRequired threshold={0.66}>
+		<IsTrue>
+			<From.Peers selector="#approved" />
+		</IsTrue>
+	</ConsensusRequired>
 </Validation>
 ```
 
@@ -441,20 +441,20 @@ Agent components seamlessly integrate with Architect's reactive system:
 ```jsx
 // Sync based on Architect conditions
 <ConditionalSync>
-  <When>
-    <And>
-      <IsGreaterThan>
-        <Referent>
-          <From.Element selector="#priority" />
-        </Referent>
-        <Comparand>
-          <From.Constant>5</From.Constant>
-        </Comparand>
-      </IsGreaterThan>
-      <HasPeers minimum={2} />
-    </And>
-  </When>
-  <SyncNow />
+	<When>
+		<And>
+			<IsGreaterThan>
+				<Referent>
+					<From.Element selector="#priority" />
+				</Referent>
+				<Comparand>
+					<From.Constant>5</From.Constant>
+				</Comparand>
+			</IsGreaterThan>
+			<HasPeers minimum={2} />
+		</And>
+	</When>
+	<SyncNow />
 </ConditionalSync>
 ```
 
@@ -468,16 +468,16 @@ Shows real-time divergence and merge of distributed state:
 
 ```tsx
 <ConflictVisualizer target="#todos">
-  <ShowDivergence>
-    <HighlightConflicts color="red" />
-    <ShowVectorClocks />
-    <DisplayMergeStrategy />
-  </ShowDivergence>
-  <AnimateMerge duration={500} />
-  <ShowResolution>
-    <ExplainMergeDecision />
-    <HighlightWinner color="green" />
-  </ShowResolution>
+	<ShowDivergence>
+		<HighlightConflicts color="red" />
+		<ShowVectorClocks />
+		<DisplayMergeStrategy />
+	</ShowDivergence>
+	<AnimateMerge duration={500} />
+	<ShowResolution>
+		<ExplainMergeDecision />
+		<HighlightWinner color="green" />
+	</ShowResolution>
 </ConflictVisualizer>
 ```
 
@@ -487,16 +487,16 @@ Displays causality relationships between events:
 
 ```tsx
 <VectorClockInspector id="causality">
-  <ShowTimeline>
-    <NodeColumn for="each-peer" />
-    <DrawArrows for="causal-dependencies" />
-    <HighlightConcurrent color="yellow" />
-  </ShowTimeline>
-  <InteractiveMode>
-    <HoverToSeeDetails />
-    <ClickToFilterEvents />
-    <ZoomAndPan />
-  </InteractiveMode>
+	<ShowTimeline>
+		<NodeColumn for="each-peer" />
+		<DrawArrows for="causal-dependencies" />
+		<HighlightConcurrent color="yellow" />
+	</ShowTimeline>
+	<InteractiveMode>
+		<HoverToSeeDetails />
+		<ClickToFilterEvents />
+		<ZoomAndPan />
+	</InteractiveMode>
 </VectorClockInspector>
 ```
 
@@ -506,21 +506,21 @@ Enables time-travel debugging through distributed state evolution:
 
 ```tsx
 <StateHistory target="#appState">
-  <Timeline>
-    <ShowSnapshots every={1000} />
-    <ShowOperations between="snapshots" />
-    <MarkConflicts with="⚠️" />
-  </Timeline>
-  <TimeTravel>
-    <Slider min={0} max="now" />
-    <PlaybackSpeed factor={1} />
-    <JumpTo snapshot="any" />
-  </TimeTravel>
-  <DiffView>
-    <ShowChanges from="selected" to="selected+1" />
-    <HighlightAdditions color="green" />
-    <HighlightDeletions color="red" />
-  </DiffView>
+	<Timeline>
+		<ShowSnapshots every={1000} />
+		<ShowOperations between="snapshots" />
+		<MarkConflicts with="⚠️" />
+	</Timeline>
+	<TimeTravel>
+		<Slider min={0} max="now" />
+		<PlaybackSpeed factor={1} />
+		<JumpTo snapshot="any" />
+	</TimeTravel>
+	<DiffView>
+		<ShowChanges from="selected" to="selected+1" />
+		<HighlightAdditions color="green" />
+		<HighlightDeletions color="red" />
+	</DiffView>
 </StateHistory>
 ```
 
@@ -530,25 +530,25 @@ Explains how different CRDT types resolve conflicts:
 
 ```tsx
 <MergeStrategyVisualizer type="or-set">
-  <ShowScenario>
-    <Peer id="alice">
-      <Add element="x" at="t1" />
-      <Remove element="x" at="t3" />
-    </Peer>
-    <Peer id="bob">
-      <Add element="x" at="t2" />
-    </Peer>
-  </ShowScenario>
-  <ShowMerge>
-    <Step>Alice adds x → {x}</Step>
-    <Step>Bob adds x → {x}</Step>
-    <Step>Alice removes x → {}</Step>
-    <Step>Merge: Add wins → {x}</Step>
-  </ShowMerge>
-  <Interactive>
-    <ModifyScenario />
-    <SeeResult />
-  </Interactive>
+	<ShowScenario>
+		<Peer id="alice">
+			<Add element="x" at="t1" />
+			<Remove element="x" at="t3" />
+		</Peer>
+		<Peer id="bob">
+			<Add element="x" at="t2" />
+		</Peer>
+	</ShowScenario>
+	<ShowMerge>
+		<Step>Alice adds x → {x}</Step>
+		<Step>Bob adds x → {x}</Step>
+		<Step>Alice removes x → {}</Step>
+		<Step>Merge: Add wins → {x}</Step>
+	</ShowMerge>
+	<Interactive>
+		<ModifyScenario />
+		<SeeResult />
+	</Interactive>
 </MergeStrategyVisualizer>
 ```
 
@@ -558,20 +558,20 @@ The workshop provides a visual playground for CRDT experimentation:
 
 ```tsx
 <CrdtPlayground>
-  <SelectType from={["counter", "lww-register", "or-set", "rga"]} />
-  <SimulatePeers count={3} />
-  <DefineOperations>
-    <Draggable operations={true} />
-    <ReorderOperations />
-    <SimulateNetworkDelay />
-    <InjectPartitions />
-  </DefineOperations>
-  <Visualize>
-    <StateEvolution />
-    <ConflictResolution />
-    <FinalState />
-  </Visualize>
-  <ExportScenario as="test-case" />
+	<SelectType from={["counter", "lww-register", "or-set", "rga"]} />
+	<SimulatePeers count={3} />
+	<DefineOperations>
+		<Draggable operations={true} />
+		<ReorderOperations />
+		<SimulateNetworkDelay />
+		<InjectPartitions />
+	</DefineOperations>
+	<Visualize>
+		<StateEvolution />
+		<ConflictResolution />
+		<FinalState />
+	</Visualize>
+	<ExportScenario as="test-case" />
 </CrdtPlayground>
 ```
 
@@ -629,56 +629,56 @@ function TodoApp() {
 
 ```jsx
 function handleSubmit(msg) {
-  return (
-    <AppendTo target="#messages">
-      <Message>
-        <From.CurrentUser />
-        <Timestamp />
-        <Content>{msg}</Content>
-        <SignWith selector="#user" />
-      </Message>
-    </AppendTo>
-  );
+	return (
+		<AppendTo target="#messages">
+			<Message>
+				<From.CurrentUser />
+				<Timestamp />
+				<Content>{msg}</Content>
+				<SignWith selector="#user" />
+			</Message>
+		</AppendTo>
+	)
 }
 
 function renderMessage(msg) {
-  return (
-    <MessageBubble
-      verified={msg.signature}
-      sender={msg.from}
-      time={msg.timestamp}
-    >
-      {msg.content}
-    </MessageBubble>
-  );
+	return (
+		<MessageBubble
+			verified={msg.signature}
+			sender={msg.from}
+			time={msg.timestamp}
+		>
+			{msg.content}
+		</MessageBubble>
+	)
 }
 
 function ChatRoom({ roomId }) {
-  return (
-    <>
-      <SecureChannel id="chat" room={roomId}>
-        <E2EEncryption />
-      </SecureChannel>
+	return (
+		<>
+			<SecureChannel id="chat" room={roomId}>
+				<E2EEncryption />
+			</SecureChannel>
 
-      <MessageHistory id="messages">
-        <RGA>
-          <MaxMessages>1000</MaxMessages>
-          <PersistTo.IndexedDB />
-        </RGA>
-      </MessageHistory>
+			<MessageHistory id="messages">
+				<RGA>
+					<MaxMessages>1000</MaxMessages>
+					<PersistTo.IndexedDB />
+				</RGA>
+			</MessageHistory>
 
-      <PresenceIndicator>
-        <ShowPeers in="#chat" />
-        <ShowTyping debounce={1000} />
-      </PresenceIndicator>
+			<PresenceIndicator>
+				<ShowPeers in="#chat" />
+				<ShowTyping debounce={1000} />
+			</PresenceIndicator>
 
-      <MessageInput onSubmit={handleSubmit} />
+			<MessageInput onSubmit={handleSubmit} />
 
-      <MessageList>
-        <RenderEach from="#messages">{renderMessage}</RenderEach>
-      </MessageList>
-    </>
-  );
+			<MessageList>
+				<RenderEach from="#messages">{renderMessage}</RenderEach>
+			</MessageList>
+		</>
+	)
 }
 ```
 
@@ -686,43 +686,43 @@ function ChatRoom({ roomId }) {
 
 ```jsx
 function CollaborativeForm() {
-  return (
-    <Form distributed={true}>
-      <SharedField name="title" type="text">
-        <LastWriteWins />
-        <ShowLastEditedBy />
-      </SharedField>
+	return (
+		<Form distributed={true}>
+			<SharedField name="title" type="text">
+				<LastWriteWins />
+				<ShowLastEditedBy />
+			</SharedField>
 
-      <SharedField name="description" type="textarea">
-        <OperationalTransform />
-        <ShowCursors />
-        <ShowPresence />
-      </SharedField>
+			<SharedField name="description" type="textarea">
+				<OperationalTransform />
+				<ShowCursors />
+				<ShowPresence />
+			</SharedField>
 
-      <SharedField name="priority" type="voting">
-        <QuadraticVoting credits={100} />
-        <ShowVoteDistribution />
-      </SharedField>
+			<SharedField name="priority" type="voting">
+				<QuadraticVoting credits={100} />
+				<ShowVoteDistribution />
+			</SharedField>
 
-      <SharedField name="tags" type="set">
-        <OrSet />
-        <ShowAddedBy />
-      </SharedField>
+			<SharedField name="tags" type="set">
+				<OrSet />
+				<ShowAddedBy />
+			</SharedField>
 
-      <ConflictDisplay>
-        <When conflicts={true}>
-          <ShowMergeUI />
-          <OfferManualResolution />
-        </When>
-      </ConflictDisplay>
+			<ConflictDisplay>
+				<When conflicts={true}>
+					<ShowMergeUI />
+					<OfferManualResolution />
+				</When>
+			</ConflictDisplay>
 
-      <SubmitStrategy>
-        <RequireConsensus threshold={0.5} />
-        <SaveTo.IPFS />
-        <NotifyPeers />
-      </SubmitStrategy>
-    </Form>
-  );
+			<SubmitStrategy>
+				<RequireConsensus threshold={0.5} />
+				<SaveTo.IPFS />
+				<NotifyPeers />
+			</SubmitStrategy>
+		</Form>
+	)
 }
 ```
 
@@ -733,11 +733,11 @@ function CollaborativeForm() {
 ```jsx
 // Compute on encrypted data without decrypting
 <PrivateComputation id="salary-average">
-  <HomomorphicSum>
-    <From.Peers selector="#encrypted-salary" />
-  </HomomorphicSum>
-  <Divide by={<PeerCount />} />
-  <RevealOnly when="threshold-met" threshold={10} />
+	<HomomorphicSum>
+		<From.Peers selector="#encrypted-salary" />
+	</HomomorphicSum>
+	<Divide by={<PeerCount />} />
+	<RevealOnly when="threshold-met" threshold={10} />
 </PrivateComputation>
 ```
 
@@ -765,17 +765,17 @@ function CollaborativeForm() {
 ```jsx
 // Share only what's necessary
 <SelectiveShare id="profile">
-  <ShareWith peer="merchant">
-    <Field name="shippingAddress" />
-    <Field name="paymentVerified" />
-  </ShareWith>
-  <ShareWith peer="friend">
-    <Field name="nickname" />
-    <Field name="avatar" />
-  </ShareWith>
-  <Default>
-    <Field name="publicKey" />
-  </Default>
+	<ShareWith peer="merchant">
+		<Field name="shippingAddress" />
+		<Field name="paymentVerified" />
+	</ShareWith>
+	<ShareWith peer="friend">
+		<Field name="nickname" />
+		<Field name="avatar" />
+	</ShareWith>
+	<Default>
+		<Field name="publicKey" />
+	</Default>
 </SelectiveShare>
 ```
 
@@ -785,16 +785,16 @@ function CollaborativeForm() {
 
 ```jsx
 <EventSourcedState id="account">
-  <Events>
-    <Append only={true} />
-    <SignEach with="#user.key" />
-    <ChainWith hash="sha256" />
-  </Events>
-  <Replay from="genesis">
-    <ValidateChain />
-    <BuildState />
-  </Replay>
-  <Snapshot every={100} to="IPFS" />
+	<Events>
+		<Append only={true} />
+		<SignEach with="#user.key" />
+		<ChainWith hash="sha256" />
+	</Events>
+	<Replay from="genesis">
+		<ValidateChain />
+		<BuildState />
+	</Replay>
+	<Snapshot every={100} to="IPFS" />
 </EventSourcedState>
 ```
 
@@ -802,12 +802,12 @@ function CollaborativeForm() {
 
 ```jsx
 <FederatedModel id="recommendation">
-  <LocalTraining data="#user-actions" />
-  <ShareGradients not="data">
-    <WithPeers trusted={true} />
-    <DifferentialPrivacy />
-  </ShareGradients>
-  <AggregateModel when="round-complete" />
+	<LocalTraining data="#user-actions" />
+	<ShareGradients not="data">
+		<WithPeers trusted={true} />
+		<DifferentialPrivacy />
+	</ShareGradients>
+	<AggregateModel when="round-complete" />
 </FederatedModel>
 ```
 
@@ -815,17 +815,17 @@ function CollaborativeForm() {
 
 ```jsx
 <DistributedDecision id="governance">
-  <VotingMechanism>
-    <QuadraticVoting />
-    <MinQuorum percentage={30} />
-    <Duration days={7} />
-  </VotingMechanism>
-  <Implementation>
-    <When passed={true}>
-      <ExecuteProposal />
-      <RecordOnChain />
-    </When>
-  </Implementation>
+	<VotingMechanism>
+		<QuadraticVoting />
+		<MinQuorum percentage={30} />
+		<Duration days={7} />
+	</VotingMechanism>
+	<Implementation>
+		<When passed={true}>
+			<ExecuteProposal />
+			<RecordOnChain />
+		</When>
+	</Implementation>
 </DistributedDecision>
 ```
 
@@ -835,13 +835,13 @@ function CollaborativeForm() {
 
 ```jsx
 <LazySync id="large-dataset">
-  <PrioritizeBy>
-    <ViewportVisible />
-    <RecentlyModified />
-    <FrequentlyAccessed />
-  </PrioritizeBy>
-  <BatchSize>100</BatchSize>
-  <Compression>brotli</Compression>
+	<PrioritizeBy>
+		<ViewportVisible />
+		<RecentlyModified />
+		<FrequentlyAccessed />
+	</PrioritizeBy>
+	<BatchSize>100</BatchSize>
+	<Compression>brotli</Compression>
 </LazySync>
 ```
 
@@ -849,15 +849,15 @@ function CollaborativeForm() {
 
 ```jsx
 <SmartCache id="distributed-cache">
-  <Strategy>
-    <LRU maxItems={1000} />
-    <TTL seconds={3600} />
-    <Prefetch based="patterns" />
-  </Strategy>
-  <Invalidation>
-    <OnPeerUpdate />
-    <OnSchemaChange />
-  </Invalidation>
+	<Strategy>
+		<LRU maxItems={1000} />
+		<TTL seconds={3600} />
+		<Prefetch based="patterns" />
+	</Strategy>
+	<Invalidation>
+		<OnPeerUpdate />
+		<OnSchemaChange />
+	</Invalidation>
 </SmartCache>
 ```
 
@@ -884,21 +884,21 @@ deno add @sitebender/agent
 ### Quick Start
 
 ```tsx
-import DistributedCounter from "@sitebender/agent/components/crdt/DistributedCounter/index.ts";
-import SyncWith from "@sitebender/agent/components/sync/SyncWith/index.ts";
-import render from "@sitebender/architect/render/index.ts";
+import DistributedCounter from "@sitebender/agent/components/crdt/DistributedCounter/index.ts"
+import SyncWith from "@sitebender/agent/components/sync/SyncWith/index.ts"
+import render from "@sitebender/architect/render/index.ts"
 
 function App() {
-  return (
-    <DistributedCounter id="sharedCount">
-      <InitialValue>0</InitialValue>
-      <SyncWith.Peers />
-      <IncrementButton>+1</IncrementButton>
-    </DistributedCounter>
-  );
+	return (
+		<DistributedCounter id="sharedCount">
+			<InitialValue>0</InitialValue>
+			<SyncWith.Peers />
+			<IncrementButton>+1</IncrementButton>
+		</DistributedCounter>
+	)
 }
 
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById("root"))
 ```
 
 ## Architectural Principles

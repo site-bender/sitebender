@@ -39,9 +39,9 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @deterministic Results are always sorted in ascending order
  * @complete Returns all values with highest frequency
  */
-const mode = (
+export default function mode(
 	numbers: Array<number> | null | undefined,
-): Array<number> => {
+): Array<number> {
 	if (isNullish(numbers) || !Array.isArray(numbers)) {
 		return []
 	}
@@ -51,34 +51,40 @@ const mode = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValue = numbers.some(
-		(num) => isNullish(num) || typeof num !== "number" || isNaN(num),
-	)
+	const hasInvalidValue = numbers.some(function checkInvalidNumber(num) {
+		return isNullish(num) || typeof num !== "number" || isNaN(num)
+	})
 
 	if (hasInvalidValue) {
 		return []
 	}
 
 	// Count frequencies using reduce
-	const frequency = numbers.reduce((acc, num) => {
+	const frequency = numbers.reduce(function countFrequencies(acc, num) {
 		acc.set(num, (acc.get(num) || 0) + 1)
 		return acc
 	}, new Map<number, number>())
 
 	// Find maximum frequency using reduce
 	const maxFrequency = Array.from(frequency.values()).reduce(
-		(max, count) => count > max ? count : max,
+		function findMaximumFrequency(max, count) {
+			return count > max ? count : max
+		},
 		0,
 	)
 
 	// Collect all values with maximum frequency and sort
 	return Array.from(frequency.entries())
-		.filter(([_, count]) => count === maxFrequency)
-		.map(([value, _]) => value)
-		.sort((a, b) => a - b)
+		.filter(function hasMaxFrequency([_, count]) {
+			return count === maxFrequency
+		})
+		.map(function extractValue([value, _]) {
+			return value
+		})
+		.sort(function sortAscending(a, b) {
+			return a - b
+		})
 }
-
-export default mode
 
 //?? [EXAMPLE] mode([1, 2, 2, 3, 4]) // [2]
 //?? [EXAMPLE] mode([1, 1, 2, 2, 3]) // [1, 2]

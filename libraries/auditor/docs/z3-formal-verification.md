@@ -31,14 +31,22 @@ Consider this age validator from our JSX:
 
 ```tsx
 <And>
-  <IsGreaterThanOrEqual>
-    <Referent><From.Argument /></Referent>
-    <Comparand><From.Constant>0</From.Constant></Comparand>
-  </IsGreaterThanOrEqual>
-  <IsLessThanOrEqual>
-    <Referent><From.Argument /></Referent>
-    <Comparand><From.Constant>120</From.Constant></Comparand>
-  </IsLessThanOrEqual>
+	<IsGreaterThanOrEqual>
+		<Referent>
+			<From.Argument />
+		</Referent>
+		<Comparand>
+			<From.Constant>0</From.Constant>
+		</Comparand>
+	</IsGreaterThanOrEqual>
+	<IsLessThanOrEqual>
+		<Referent>
+			<From.Argument />
+		</Referent>
+		<Comparand>
+			<From.Constant>120</From.Constant>
+		</Comparand>
+	</IsLessThanOrEqual>
 </And>
 ```
 
@@ -85,19 +93,19 @@ Consider this calculation from Architect:
 
 ```tsx
 <Display id="total">
-  <Add>
-    <Multiply>
-      <From.Element selector="#price" />
-      <From.Element selector="#quantity" />
-    </Multiply>
-    <Multiply>
-      <Multiply>
-        <From.Element selector="#price" />
-        <From.Element selector="#quantity" />
-      </Multiply>
-      <From.Element selector="#taxRate" />
-    </Multiply>
-  </Add>
+	<Add>
+		<Multiply>
+			<From.Element selector="#price" />
+			<From.Element selector="#quantity" />
+		</Multiply>
+		<Multiply>
+			<Multiply>
+				<From.Element selector="#price" />
+				<From.Element selector="#quantity" />
+			</Multiply>
+			<From.Element selector="#taxRate" />
+		</Multiply>
+	</Add>
 </Display>
 ```
 
@@ -173,6 +181,7 @@ Auditor translates our IR directly to Z3 assertions:
 Auditor can verify these properties:
 
 #### Determinism
+
 ```python
 # Prove same input always gives same output
 x1, x2 = Int('x1'), Int('x2')
@@ -182,6 +191,7 @@ solver.check()  # unsat = deterministic
 ```
 
 #### Totality
+
 ```python
 # Prove function defined for all inputs
 x = Int('x')
@@ -190,6 +200,7 @@ solver.check()  # unsat = total function
 ```
 
 #### Injectivity
+
 ```python
 # Prove different inputs give different outputs
 x1, x2 = Int('x1'), Int('x2')
@@ -199,6 +210,7 @@ solver.check()  # unsat = injective
 ```
 
 #### Bounds
+
 ```python
 # Prove output is bounded
 x = Int('x')
@@ -262,38 +274,38 @@ JSX → IR → Z3 Translation → Proof Generation → Result
 ```typescript
 //++ Translates IR to Z3 assertions
 export function translateToZ3(ir: IrNode): Z3Assertion {
-  switch (ir.type) {
-    case "IsGreaterThan":
-      return z3.gt(
-        translateToZ3(ir.children[0]),
-        translateToZ3(ir.children[1])
-      )
-    case "And":
-      return z3.and(
-        ...ir.children.map(translateToZ3)
-      )
-    case "From.Constant":
-      return z3.const(ir.value)
-    // ... other node types
-  }
+	switch (ir.type) {
+		case "IsGreaterThan":
+			return z3.gt(
+				translateToZ3(ir.children[0]),
+				translateToZ3(ir.children[1]),
+			)
+		case "And":
+			return z3.and(
+				...ir.children.map(translateToZ3),
+			)
+		case "From.Constant":
+			return z3.const(ir.value)
+			// ... other node types
+	}
 }
 
 //++ Proves a property about a computation
 export function proveProperty(
-  computation: IrNode,
-  property: Property
+	computation: IrNode,
+	property: Property,
 ): ProofResult {
-  const solver = new Z3.Solver()
-  const assertion = translateToZ3(computation)
-  
-  switch (property.type) {
-    case "deterministic":
-      return proveDeterminism(solver, assertion)
-    case "bounded":
-      return proveBounds(solver, assertion, property.bounds)
-    case "invariant":
-      return proveInvariant(solver, assertion, property.invariant)
-  }
+	const solver = new Z3.Solver()
+	const assertion = translateToZ3(computation)
+
+	switch (property.type) {
+		case "deterministic":
+			return proveDeterminism(solver, assertion)
+		case "bounded":
+			return proveBounds(solver, assertion, property.bounds)
+		case "invariant":
+			return proveInvariant(solver, assertion, property.invariant)
+	}
 }
 ```
 
@@ -348,8 +360,8 @@ Auditor translates these to user-friendly test cases:
 ```typescript
 // Auditor generates this test from Z3 counterexample
 it("should reject age 121", () => {
-  const result = validateAge(121)
-  expect(result).toBe(false)
+	const result = validateAge(121)
+	expect(result).toBe(false)
 })
 ```
 
@@ -469,12 +481,10 @@ Write properties first, then implementation:
 
 ```typescript
 // 1. Specify property
-@Prove("∀ x. x >= 0 → sqrt(x)² = x")
-@Prove("∀ x. x < 0 → sqrt(x) = undefined")
 
 // 2. Implement
 export function sqrt(x: number): number | undefined {
-  // Auditor ensures implementation satisfies properties
+	// Auditor ensures implementation satisfies properties
 }
 ```
 
@@ -515,19 +525,19 @@ if solver.check() == unsat:
 import proveProperty from "@sitebender/auditor/proveProperty/index.ts"
 
 const validation = {
-  type: "IsPositive",
-  children: [{ type: "From.Argument" }]
+	type: "IsPositive",
+	children: [{ type: "From.Argument" }],
 }
 
 const result = await proveProperty(validation, {
-  type: "soundness",
-  description: "Never accepts negative numbers"
+	type: "soundness",
+	description: "Never accepts negative numbers",
 })
 
 if (result.proved) {
-  console.log("✓ Validation is sound!")
+	console.log("✓ Validation is sound!")
 } else {
-  console.log("✗ Counterexample:", result.counterexample)
+	console.log("✗ Counterexample:", result.counterexample)
 }
 ```
 

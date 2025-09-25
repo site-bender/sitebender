@@ -15,7 +15,10 @@ import isNotUndefined from "../../validation/isNotUndefined/index.ts"
  * compact([0, false, "", null, NaN, undefined]) // [0, false, "", null, NaN]
  * ```
  */
-const compact = <T>(array: Array<T | null | undefined>): Array<T> =>
-	array.filter((item): item is T => isNotUndefined(item))
-
-export default compact
+export default function compact<T>(
+	array: Array<T | null | undefined>,
+): Array<T> {
+	return array.filter(function isItemDefined(item): item is T {
+		return isNotUndefined(item)
+	})
+}

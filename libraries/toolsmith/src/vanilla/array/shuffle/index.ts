@@ -30,19 +30,19 @@ import isNullish from "../../validation/isNullish/index.ts"
  * shuffle(null)        // []
  * ```
  */
-const shuffle = <T>(
+export default function shuffle<T>(
 	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
+): Array<T> {
 	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
 		return []
 	}
 
 	// Fisher-Yates shuffle (pure functional approach)
-	const shuffleRecursive = (arr: Array<T>, i: number): Array<T> => {
+	function shuffleRecursive(arr: Array<T>, i: number): Array<T> {
 		if (i <= 0) return arr
 		const j = Math.floor(Math.random() * (i + 1))
 		// Create new array with swapped elements (no mutation)
-		const shuffled = arr.map((item, idx) => {
+		const shuffled = arr.map(function swapElements(item, idx) {
 			if (idx === i) return arr[j]
 			if (idx === j) return arr[i]
 			return item
@@ -52,5 +52,3 @@ const shuffle = <T>(
 
 	return shuffleRecursive([...array], array.length - 1)
 }
-
-export default shuffle

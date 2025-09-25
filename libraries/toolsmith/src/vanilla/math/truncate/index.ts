@@ -51,14 +51,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @pure Always returns same result for same input
  * @safe Returns NaN for invalid inputs
  */
-const truncate = (
+export default function truncate(
 	n: number | null | undefined,
-): number => {
+): number {
 	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 
 	return Math.trunc(n)
 }
-
-export default truncate

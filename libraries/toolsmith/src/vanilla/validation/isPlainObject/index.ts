@@ -70,7 +70,7 @@ import isNull from "../isNull/index.ts"
  * @predicate
  * @safe
  */
-const isPlainObject = (value: unknown): boolean => {
+export default function isPlainObject(value: unknown): boolean {
 	// Check if it's an object type and not null
 	if (typeof value !== "object" || isNull(value)) {
 		return false
@@ -82,5 +82,3 @@ const isPlainObject = (value: unknown): boolean => {
 	// Plain objects have either Object.prototype or null as prototype
 	return isNull(proto) || proto === Object.prototype
 }
-
-export default isPlainObject

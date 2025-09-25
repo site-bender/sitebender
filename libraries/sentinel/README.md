@@ -334,26 +334,26 @@ All auth data lives in the triple store as RDF:
 ## Getting Started
 
 ```tsx
-import Authentication from "@sitebender/sentinel/components/Authentication/index.tsx";
-import Authorization from "@sitebender/sentinel/components/Authorization/index.tsx";
-import SecureRoute from "@sitebender/sentinel/components/SecureRoute/index.tsx";
+import Authentication from "@sitebender/sentinel/components/Authentication/index.tsx"
+import Authorization from "@sitebender/sentinel/components/Authorization/index.tsx"
+import SecureRoute from "@sitebender/sentinel/components/SecureRoute/index.tsx"
 
 // Your entire auth system
 <Application>
-  <Authentication>
-    <OAuthTwo provider="github" />
-  </Authentication>
+	<Authentication>
+		<OAuthTwo provider="github" />
+	</Authentication>
 
-  <Authorization>
-    <Rbac>
-      <Role name="admin" permissions="*" />
-    </Rbac>
-  </Authorization>
+	<Authorization>
+		<Rbac>
+			<Role name="admin" permissions="*" />
+		</Rbac>
+	</Authorization>
 
-  <SecureRoute path="/admin" requires="admin">
-    <AdminPanel />
-  </SecureRoute>
-</Application>;
+	<SecureRoute path="/admin" requires="admin">
+		<AdminPanel />
+	</SecureRoute>
+</Application>
 ```
 
 ## Why This Changes Everything

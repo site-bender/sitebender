@@ -51,7 +51,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @pure
  * @safe
  */
-const parse = (
+export default function parse(
 	dateString: string | null | undefined,
 ):
 	| Temporal.PlainDate
@@ -61,7 +61,7 @@ const parse = (
 	| Temporal.Instant
 	| Temporal.PlainYearMonth
 	| Temporal.PlainMonthDay
-	| null => {
+	| null {
 	if (isNullish(dateString) || dateString === "") {
 		return null
 	}
@@ -145,5 +145,3 @@ const parse = (
 		return null
 	}
 }
-
-export default parse

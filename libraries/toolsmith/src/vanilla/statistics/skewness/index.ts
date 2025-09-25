@@ -41,9 +41,9 @@ import standardDeviation from "../standardDeviation/index.ts"
  * @pure
  * @safe
  */
-const skewness = (
+export default function skewness(
 	data: number[] | null | undefined,
-): number => {
+): number {
 	if (isNullish(data) || !Array.isArray(data)) {
 		return NaN
 	}
@@ -56,9 +56,9 @@ const skewness = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValues = data.some((value) =>
-		isNullish(value) || typeof value !== "number"
-	)
+	const hasInvalidValues = data.some(function checkInvalidValue(value) {
+		return isNullish(value) || typeof value !== "number"
+	})
 
 	if (hasInvalidValues) {
 		return NaN
@@ -79,7 +79,7 @@ const skewness = (
 	}
 
 	// Calculate the third standardized moment
-	const sumCubed = data.reduce((sum, value) => {
+	const sumCubed = data.reduce(function calculateCubedSum(sum, value) {
 		const z = (value - dataMean) / std
 		return sum + z * z * z
 	}, 0)
@@ -90,5 +90,3 @@ const skewness = (
 
 	return g1
 }
-
-export default skewness

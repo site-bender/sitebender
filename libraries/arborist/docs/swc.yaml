@@ -77,7 +77,7 @@ architecture:
         - name: "string"
           constraintText: "string | undefined"
           defaultText: "string | undefined"
-      jsDocSpan: { start: "number", end: "number" , "?": "optional"}
+      jsDocSpan: { start: "number", end: "number", "?": "optional" }
     ImportIR:
       specifier: "string"
       kind: "named | default | namespace"

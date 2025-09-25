@@ -47,7 +47,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @pure
  * @safe
  */
-const getQuarter = (
+export default function getQuarter(
 	date:
 		| Temporal.PlainDate
 		| Temporal.PlainDateTime
@@ -55,7 +55,7 @@ const getQuarter = (
 		| Temporal.ZonedDateTime
 		| null
 		| undefined,
-): number | null => {
+): number | null {
 	if (isNullish(date)) {
 		return null
 	}
@@ -76,5 +76,3 @@ const getQuarter = (
 		return null
 	}
 }
-
-export default getQuarter

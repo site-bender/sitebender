@@ -41,9 +41,9 @@ import standardDeviation from "../standardDeviation/index.ts"
  * @pure
  * @safe
  */
-const kurtosis = (
+export default function kurtosis(
 	data: number[] | null | undefined,
-): number => {
+): number {
 	if (isNullish(data) || !Array.isArray(data)) {
 		return NaN
 	}
@@ -56,9 +56,9 @@ const kurtosis = (
 	}
 
 	// Check for non-numeric values
-	const hasInvalidValues = data.some((value) =>
-		isNullish(value) || typeof value !== "number"
-	)
+	const hasInvalidValues = data.some(function checkInvalidValue(value) {
+		return isNullish(value) || typeof value !== "number"
+	})
 
 	if (hasInvalidValues) {
 		return NaN
@@ -79,7 +79,7 @@ const kurtosis = (
 	}
 
 	// Calculate the fourth standardized moment
-	const sumQuad = data.reduce((sum, value) => {
+	const sumQuad = data.reduce(function calculateFourthMoment(sum, value) {
 		const z = (value - dataMean) / std
 		return sum + z * z * z * z
 	}, 0)
@@ -96,5 +96,3 @@ const kurtosis = (
 
 	return g2
 }
-
-export default kurtosis

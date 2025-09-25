@@ -63,8 +63,8 @@ type UrlOptions = {
 	disallowLocalhost?: boolean
 }
 
-const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+export default function isUrl(options: UrlOptions = {}) {
+	return function validateUrl(value: unknown): boolean {
 		if (typeof value !== "string" || isEmpty(value.trim())) {
 			return false
 		}
@@ -91,9 +91,11 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 			if (
 				options.allowedDomains && !arrayIsEmpty(options.allowedDomains)
 			) {
-				const isAllowed = options.allowedDomains.some((domain) =>
-					url.hostname === domain ||
-					url.hostname.endsWith(`.${domain}`)
+				const isAllowed = options.allowedDomains.some(
+					function checkDomain(domain) {
+						return url.hostname === domain ||
+							url.hostname.endsWith(`.${domain}`)
+					},
 				)
 				if (!isAllowed) {
 					return false
@@ -127,8 +129,6 @@ const isUrl = (options: UrlOptions = {}): (value: unknown) => boolean => {
 		}
 	}
 }
-
-export default isUrl
 
 //?? [EXAMPLE] isUrl()("https://example.com") // true
 //?? [EXAMPLE] isUrl({ protocols: ["https"] })("http://example.com") // false

@@ -74,10 +74,10 @@ type JSONOptions = {
 	type?: JSONType
 }
 
-const isJSON = (
+export default function isJSON(
 	options: JSONOptions = {},
-): (value: unknown) => boolean => {
-	return (value: unknown): boolean => {
+) {
+	return function validateJSON(value: unknown): boolean {
 		if (typeof value !== "string" || value.length === 0) {
 			return false
 		}
@@ -113,5 +113,3 @@ const isJSON = (
 		}
 	}
 }
-
-export default isJSON

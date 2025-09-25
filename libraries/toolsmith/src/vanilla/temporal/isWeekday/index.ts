@@ -55,14 +55,14 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe
  * @predicate
  */
-const isWeekday = (
+export default function isWeekday(
 	date:
 		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
 		| null
 		| undefined,
-): boolean => {
+): boolean {
 	if (isNullish(date)) {
 		return false
 	}
@@ -82,5 +82,3 @@ const isWeekday = (
 		return false
 	}
 }
-
-export default isWeekday

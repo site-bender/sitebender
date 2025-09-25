@@ -183,17 +183,17 @@ type PublisherIrNode = {
 
 ```typescript
 type SubscriberIrNode = {
-  tag: "Subscribes";
-  attributes: {
-    to: string | Array<string>;
-    when?: FilterExpression;
-    then: EffectExpression;
-  };
-  parent: string; // ID of parent element
-  behaviors: {
-    subscribe: SubscriptionConfig;
-  };
-};
+	tag: "Subscribes"
+	attributes: {
+		to: string | Array<string>
+		when?: FilterExpression
+		then: EffectExpression
+	}
+	parent: string // ID of parent element
+	behaviors: {
+		subscribe: SubscriptionConfig
+	}
+}
 ```
 
 ## Reactive Composition
@@ -204,14 +204,14 @@ Events can trigger calculations that cascade through the DOM:
 
 ```tsx
 <Data id="temperature">
-  <Subscribes to="sensor:temp:*" />
-  <Calculation
-    operator="multiply"
-    operands={[1.8, { ref: "value" }]}
-    then="add"
-    with={32}
-  />
-  <Format as="temperature" unit="fahrenheit" />
+	<Subscribes to="sensor:temp:*" />
+	<Calculation
+		operator="multiply"
+		operands={[1.8, { ref: "value" }]}
+		then="add"
+		with={32}
+	/>
+	<Format as="temperature" unit="fahrenheit" />
 </Data>
 ```
 
@@ -219,10 +219,10 @@ This compiles to composed behaviors:
 
 ```typescript
 element.__sbSubscribe = compose(
-  extractTemperature,
-  element.__sbCalculate, // Celsius to Fahrenheit
-  element.__sbFormat, // Format with unit
-);
+	extractTemperature,
+	element.__sbCalculate, // Celsius to Fahrenheit
+	element.__sbFormat, // Format with unit
+)
 ```
 
 ### Event-Driven Validation
@@ -231,8 +231,8 @@ Validation can be triggered by events:
 
 ```tsx
 <Input type="email">
-  <Subscribes to="user:email:changed" />
-  <Validation comparator="matches" pattern="^[^@]+@[^@]+\.[^@]+$" />
+	<Subscribes to="user:email:changed" />
+	<Validation comparator="matches" pattern="^[^@]+@[^@]+\.[^@]+$" />
 </Input>
 ```
 
@@ -242,15 +242,15 @@ Events can cascade through multiple elements:
 
 ```tsx
 <Form>
-  <Input name="username">
-    <Publishes event="change" as="form:field:changed" />
-  </Input>
+	<Input name="username">
+		<Publishes event="change" as="form:field:changed" />
+	</Input>
 
-  <Button type="submit">
-    <Subscribes to="form:field:*" />
-    <Calculation operator="checkFormValidity" />
-    <Effect apply={enableIfValid} />
-  </Button>
+	<Button type="submit">
+		<Subscribes to="form:field:*" />
+		<Calculation operator="checkFormValidity" />
+		<Effect apply={enableIfValid} />
+	</Button>
 </Form>
 ```
 
@@ -262,30 +262,30 @@ During SSR/hydration, Operator restores event bindings from data attributes:
 //++ Hydrate Operator behaviors from DOM
 // File: src/integration/architect/hydrateOperator/index.ts
 export default function hydrateOperator(element: HTMLElement): void {
-  // Restore publisher
-  if (element.dataset.publisher) {
-    const config = JSON.parse(element.dataset.publisher);
-    attachPublisher(element)(config);
+	// Restore publisher
+	if (element.dataset.publisher) {
+		const config = JSON.parse(element.dataset.publisher)
+		attachPublisher(element)(config)
 
-    // Re-bind DOM event listener
-    const eventName = element.dataset.publishEvent ?? "click";
-    element.addEventListener(eventName, element.__sbPublish);
-  }
+		// Re-bind DOM event listener
+		const eventName = element.dataset.publishEvent ?? "click"
+		element.addEventListener(eventName, element.__sbPublish)
+	}
 
-  // Restore subscriber
-  if (element.dataset.subscriber) {
-    const config = JSON.parse(element.dataset.subscriber);
-    attachSubscriber(element)(config);
+	// Restore subscriber
+	if (element.dataset.subscriber) {
+		const config = JSON.parse(element.dataset.subscriber)
+		attachSubscriber(element)(config)
 
-    // Re-subscribe to pattern
-    subscribeToPattern(config.pattern)(element.__sbSubscribe);
-  }
+		// Re-subscribe to pattern
+		subscribeToPattern(config.pattern)(element.__sbSubscribe)
+	}
 
-  // Restore channel context
-  if (element.dataset.channel) {
-    const channelConfig = JSON.parse(element.dataset.channel);
-    initializeChannel(element)(channelConfig);
-  }
+	// Restore channel context
+	if (element.dataset.channel) {
+		const channelConfig = JSON.parse(element.dataset.channel)
+		initializeChannel(element)(channelConfig)
+	}
 }
 ```
 
@@ -295,16 +295,16 @@ Operator extends Architect's document-level registries:
 
 ```typescript
 type OperatorDocumentRegistries = {
-  __sbPublishers: Set<string>; // Element IDs that publish
-  __sbSubscribers: Map<string, Set<string>>; // Pattern -> Element IDs
-  __sbChannels: Map<string, ChannelConfig>; // Channel configurations
-  __sbTransports: Map<string, Transport>; // Active transports
-  __sbEventLog: Array<EventTriple>; // Event history for replay
-};
+	__sbPublishers: Set<string> // Element IDs that publish
+	__sbSubscribers: Map<string, Set<string>> // Pattern -> Element IDs
+	__sbChannels: Map<string, ChannelConfig> // Channel configurations
+	__sbTransports: Map<string, Transport> // Active transports
+	__sbEventLog: Array<EventTriple> // Event history for replay
+}
 
 // Extend Architect's document type
 // Note: In pure FP, we'd pass document as parameter, not mutate global
-type OperatorDocument = Document & OperatorDocumentRegistries;
+type OperatorDocument = Document & OperatorDocumentRegistries
 ```
 
 ## Performance Optimizations
@@ -353,14 +353,14 @@ Only update DOM elements affected by events:
 //++ Selective DOM updates based on event patterns
 // File: src/integration/architect/selectiveUpdate/index.ts
 export default function selectiveUpdate(pattern: string): Set<HTMLElement> {
-  // Get only subscribers to this pattern
-  const elementIds = document.__sbSubscribers.get(pattern) ?? new Set();
+	// Get only subscribers to this pattern
+	const elementIds = document.__sbSubscribers.get(pattern) ?? new Set()
 
-  return new Set(
-    Array.from(elementIds)
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as Array<HTMLElement>,
-  );
+	return new Set(
+		Array.from(elementIds)
+			.map((id) => document.getElementById(id))
+			.filter(Boolean) as Array<HTMLElement>,
+	)
 }
 ```
 
@@ -372,18 +372,18 @@ export default function selectiveUpdate(pattern: string): Set<HTMLElement> {
 //++ Called when Architect mounts component
 // File: src/integration/architect/lifecycle/onMount/index.ts
 export default function onMount(element: HTMLElement): void {
-  // Initialize transport if needed
-  initializeTransportForScope(element);
+	// Initialize transport if needed
+	initializeTransportForScope(element)
 
-  // Start listening for events
-  if (element.__sbSubscribe) {
-    activateSubscription(element);
-  }
+	// Start listening for events
+	if (element.__sbSubscribe) {
+		activateSubscription(element)
+	}
 
-  // Begin publishing if configured
-  if (element.__sbPublish) {
-    activatePublisher(element);
-  }
+	// Begin publishing if configured
+	if (element.__sbPublish) {
+		activatePublisher(element)
+	}
 }
 ```
 
@@ -393,21 +393,21 @@ export default function onMount(element: HTMLElement): void {
 //++ Called when Architect unmounts component
 // File: src/integration/architect/lifecycle/onUnmount/index.ts
 export default function onUnmount(element: HTMLElement): void {
-  // Clean up subscriptions
-  if (element.__sbSubscribe) {
-    unsubscribeFromPattern(element);
-    document.__sbSubscribers.forEach((subscribers) => {
-      subscribers.delete(element.id);
-    });
-  }
+	// Clean up subscriptions
+	if (element.__sbSubscribe) {
+		unsubscribeFromPattern(element)
+		document.__sbSubscribers.forEach((subscribers) => {
+			subscribers.delete(element.id)
+		})
+	}
 
-  // Clean up publishers
-  if (element.__sbPublish) {
-    document.__sbPublishers?.delete(element.id);
-  }
+	// Clean up publishers
+	if (element.__sbPublish) {
+		document.__sbPublishers?.delete(element.id)
+	}
 
-  // Clean up event listeners
-  cleanupEventListeners(element);
+	// Clean up event listeners
+	cleanupEventListeners(element)
 }
 ```
 
@@ -417,23 +417,23 @@ Test event-driven behaviors using Architect's test utilities:
 
 ```tsx
 <TestHarness>
-  <MockPublisher id="test-sensor">
-    <EmitSequence
-      events={[
-        { subject: "sensor", predicate: "reading", object: 25 },
-        { subject: "sensor", predicate: "reading", object: 30 },
-      ]}
-    />
-  </MockPublisher>
+	<MockPublisher id="test-sensor">
+		<EmitSequence
+			events={[
+				{ subject: "sensor", predicate: "reading", object: 25 },
+				{ subject: "sensor", predicate: "reading", object: 30 },
+			]}
+		/>
+	</MockPublisher>
 
-  <Data id="display">
-    <Subscribes to="sensor:reading" />
-    <Calculation operator="multiply" operands={[1.8, { ref: "value" }]} />
-  </Data>
+	<Data id="display">
+		<Subscribes to="sensor:reading" />
+		<Calculation operator="multiply" operands={[1.8, { ref: "value" }]} />
+	</Data>
 
-  <AssertElement id="display">
-    <HasValue equalTo="54" after="PT0.1S" />
-  </AssertElement>
+	<AssertElement id="display">
+		<HasValue equalTo="54" after="PT0.1S" />
+	</AssertElement>
 </TestHarness>
 ```
 

@@ -53,11 +53,11 @@ Arborist SHALL provide Either constructors that maintain backward compatibility:
 
 ```typescript
 // Arborist provides these constructors
-const Right = <A>(value: A): Either<never, A> => ({ ok: true, value });
-const Left = <E>(error: E): Either<E, never> => ({ ok: false, error });
+const Right = <A>(value: A): Either<never, A> => ({ ok: true, value })
+const Left = <E>(error: E): Either<E, never> => ({ ok: false, error })
 
 // Existing Result API continues to work
-type Result<T, E> = Either<E, T>; // Aliased for compatibility
+type Result<T, E> = Either<E, T> // Aliased for compatibility
 ```
 
 ### 1.3 Pre-computed Metadata
@@ -66,28 +66,28 @@ Arborist SHALL compute and provide the following metadata during parsing:
 
 ```typescript
 type TraversalMetadata = {
-  // PHASE 1: High Priority (Week 1)
-  hasThrowStatements: boolean; // For purity detection
-  hasAwaitExpressions: boolean; // For purity detection
-  hasGlobalAccess: boolean; // For purity detection (console, window, etc.)
-  cyclomaticComplexity: number; // For complexity detection
-  hasReturnStatements: boolean; // For currying detection
+	// PHASE 1: High Priority (Week 1)
+	hasThrowStatements: boolean // For purity detection
+	hasAwaitExpressions: boolean // For purity detection
+	hasGlobalAccess: boolean // For purity detection (console, window, etc.)
+	cyclomaticComplexity: number // For complexity detection
+	hasReturnStatements: boolean // For currying detection
 
-  // PHASE 2: Medium Priority (Week 3)
-  hasIfStatements: boolean;
-  hasLoops: boolean;
-  hasTryCatch: boolean;
-  parameterCount: number;
-  isArrowFunction: boolean;
-  isAsync: boolean;
-  isGenerator: boolean;
-  nestingDepth: number;
+	// PHASE 2: Medium Priority (Week 3)
+	hasIfStatements: boolean
+	hasLoops: boolean
+	hasTryCatch: boolean
+	parameterCount: number
+	isArrowFunction: boolean
+	isAsync: boolean
+	isGenerator: boolean
+	nestingDepth: number
 
-  // PHASE 3: Low Priority (Future)
-  referencedIdentifiers: ReadonlySet<string>;
-  callExpressions: ReadonlyArray<string>;
-  propertyAccesses: ReadonlyArray<string>;
-};
+	// PHASE 3: Low Priority (Future)
+	referencedIdentifiers: ReadonlySet<string>
+	callExpressions: ReadonlyArray<string>
+	propertyAccesses: ReadonlyArray<string>
+}
 ```
 
 ---
@@ -169,23 +169,23 @@ Example implementation:
 
 ```typescript
 const detectPurityFromAST = (
-  node: typescript.Node,
-  metadata?: TraversalMetadata,
+	node: typescript.Node,
+	metadata?: TraversalMetadata,
 ): boolean => {
-  // Fast path using metadata
-  if (metadata) {
-    if (
-      metadata.hasThrowStatements ||
-      metadata.hasAwaitExpressions ||
-      metadata.hasGlobalAccess
-    ) {
-      return false; // Definitely not pure
-    }
-  }
+	// Fast path using metadata
+	if (metadata) {
+		if (
+			metadata.hasThrowStatements ||
+			metadata.hasAwaitExpressions ||
+			metadata.hasGlobalAccess
+		) {
+			return false // Definitely not pure
+		}
+	}
 
-  // Deep analysis only when needed
-  return deepPurityAnalysis(node);
-};
+	// Deep analysis only when needed
+	return deepPurityAnalysis(node)
+}
 ```
 
 ---
@@ -203,23 +203,23 @@ Example implementation:
 
 ```typescript
 const parseFileWithCompiler = (content: string, filePath: string) =>
-  doEither<ParseError, ParsedModule>(function* () {
-    const sourceFile = yield parseSourceFile(content, filePath);
-    const functions = yield extractFunctions(sourceFile);
+	doEither<ParseError, ParsedModule>(function* () {
+		const sourceFile = yield parseSourceFile(content, filePath)
+		const functions = yield extractFunctions(sourceFile)
 
-    // Compute metadata during extraction
-    const functionsWithMetadata = yield functions.map((func) => ({
-      ...func,
-      metadata: computeMetadata(func.node), // Single traversal
-    }));
+		// Compute metadata during extraction
+		const functionsWithMetadata = yield functions.map((func) => ({
+			...func,
+			metadata: computeMetadata(func.node), // Single traversal
+		}))
 
-    return {
-      functions: functionsWithMetadata,
-      types: [],
-      constants: [],
-      exports: [],
-    };
-  });
+		return {
+			functions: functionsWithMetadata,
+			types: [],
+			constants: [],
+			exports: [],
+		}
+	})
 ```
 
 ---

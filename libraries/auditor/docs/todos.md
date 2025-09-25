@@ -126,21 +126,25 @@ Auditor proves code correct mathematically, not just by example.
 ## Integration Points
 
 ### With Agent
+
 - Verify IO interception correctness
 - Prove distributed algorithms
 - Validate CRDT properties
 
 ### With Architect
+
 - Verify IR transformations
 - Prove calculation correctness
 - Validate validation logic
 
 ### With Warden
+
 - Verify contract compliance
 - Prove privacy boundaries
 - Validate governance rules
 
 ### With Envoy
+
 - Generate verification reports
 - Visualize proof trees
 - Track verification coverage

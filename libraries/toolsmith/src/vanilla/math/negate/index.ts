@@ -45,14 +45,12 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @involutive negate(negate(n)) === n
  * @selfInverse Function is its own inverse
  */
-const negate = (
+export default function negate(
 	n: number | null | undefined,
-): number => {
+): number {
 	if (isNullish(n) || typeof n !== "number") {
 		return NaN
 	}
 
 	return -n
 }
-
-export default negate

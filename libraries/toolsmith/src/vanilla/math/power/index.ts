@@ -50,21 +50,20 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe Returns NaN for invalid inputs
  * @mathematical Follows standard exponentiation rules
  */
-const power = (
+export default function power(
 	exponent: number | null | undefined,
-) =>
-(
-	base: number | null | undefined,
-): number => {
-	if (isNullish(exponent) || typeof exponent !== "number") {
-		return NaN
-	}
+) {
+	return function raiseBaseToPower(
+		base: number | null | undefined,
+	): number {
+		if (isNullish(exponent) || typeof exponent !== "number") {
+			return NaN
+		}
 
-	if (isNullish(base) || typeof base !== "number") {
-		return NaN
-	}
+		if (isNullish(base) || typeof base !== "number") {
+			return NaN
+		}
 
-	return Math.pow(base, exponent)
+		return Math.pow(base, exponent)
+	}
 }
-
-export default power

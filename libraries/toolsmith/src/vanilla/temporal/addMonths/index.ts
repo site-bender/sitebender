@@ -50,36 +50,35 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe
  * @curried
  */
-const addMonths = (months: number) =>
-(
-	date:
+export default function addMonths(months: number) {
+	return function addMonthsToDate(
+		date:
+			| Temporal.PlainDate
+			| Temporal.PlainDateTime
+			| Temporal.PlainYearMonth
+			| null
+			| undefined,
+	):
 		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
-		| null
-		| undefined,
-):
-	| Temporal.PlainDate
-	| Temporal.PlainDateTime
-	| Temporal.PlainYearMonth
-	| null => {
-	if (isNullish(date)) {
-		return null
-	}
+		| null {
+		if (isNullish(date)) {
+			return null
+		}
 
-	if (
-		!(date instanceof Temporal.PlainDate) &&
-		!(date instanceof Temporal.PlainDateTime) &&
-		!(date instanceof Temporal.PlainYearMonth)
-	) {
-		return null
-	}
+		if (
+			!(date instanceof Temporal.PlainDate) &&
+			!(date instanceof Temporal.PlainDateTime) &&
+			!(date instanceof Temporal.PlainYearMonth)
+		) {
+			return null
+		}
 
-	try {
-		return date.add({ months })
-	} catch {
-		return null
+		try {
+			return date.add({ months })
+		} catch {
+			return null
+		}
 	}
 }
-
-export default addMonths

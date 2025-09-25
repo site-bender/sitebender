@@ -59,7 +59,7 @@ Envoy requires:
  * @since 1.0.0
  */
 export function validateEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 ```
 
@@ -68,7 +68,7 @@ export function validateEmail(email: string): boolean {
 ```typescript
 //++ Validates email addresses using regex pattern matching
 export function validateEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 //?? [EXAMPLE] validateEmail("user@example.com") // true
@@ -97,9 +97,9 @@ What code does - mandatory for exports
 ```typescript
 //++ Adds two numbers together
 export default function add(a: number) {
-  return function (b: number): number {
-    return a + b;
-  };
+	return function (b: number): number {
+		return a + b
+	}
 }
 ```
 
@@ -119,10 +119,10 @@ Track issues with remediation plans
 
 ```typescript
 function processData(input: readonly unknown[]): unknown[] {
-  //-- [OPTIMIZATION] Unbounded recursion - add tail call optimization or trampolining
-  return input.length === 0
-    ? []
-    : [transform(input[0]), ...processData(input.slice(1))];
+	//-- [OPTIMIZATION] Unbounded recursion - add tail call optimization or trampolining
+	return input.length === 0
+		? []
+		: [transform(input[0]), ...processData(input.slice(1))]
 }
 ```
 
@@ -132,7 +132,7 @@ Blocking problems that must be fixed
 
 ```typescript
 //!! [SECURITY] SQL injection vulnerability - parameterize queries!
-const query = `SELECT * FROM users WHERE id = ${userId}`;
+const query = `SELECT * FROM users WHERE id = ${userId}`
 ```
 
 #### 5. Links: `//>>`
@@ -238,15 +238,15 @@ Every documentation page is a state machine with links:
 
 ```json
 {
-  "_links": {
-    "self": "/functions/validateEmail",
-    "module": "/modules/auth",
-    "calls": ["/functions/parseEmail"],
-    "calledBy": ["/functions/register", "/functions/login"],
-    "tests": ["/tests/validateEmail.test.ts"],
-    "author": "/developers/guybedford",
-    "next": "/functions/validatePassword"
-  }
+	"_links": {
+		"self": "/functions/validateEmail",
+		"module": "/modules/auth",
+		"calls": ["/functions/parseEmail"],
+		"calledBy": ["/functions/register", "/functions/login"],
+		"tests": ["/tests/validateEmail.test.ts"],
+		"author": "/developers/guybedford",
+		"next": "/functions/validatePassword"
+	}
 }
 ```
 
@@ -255,14 +255,14 @@ Every documentation page is a state machine with links:
 **CRITICAL**: Envoy receives ALL its AST data from Arborist. It NEVER imports or uses TypeScript compiler directly.
 
 ```typescript
-import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts"
 
 // Envoy works with pre-parsed AST nodes and metadata
-const result = await parseFileWithCompiler(content, filePath);
+const result = await parseFileWithCompiler(content, filePath)
 if (result.ok) {
-  const { functions, comments } = result.value;
-  // Generate documentation from structured data
-  // No string parsing, no regex, just data transformation
+	const { functions, comments } = result.value
+	// Generate documentation from structured data
+	// No string parsing, no regex, just data transformation
 }
 ```
 
@@ -273,39 +273,39 @@ This architectural boundary is enforced by Warden contracts. Any violation will 
 ### Creating Project Intelligence
 
 ```typescript
-import createEnvoy from "@sitebender/envoy/createEnvoy/index.ts";
-import parseProject from "@sitebender/envoy/parseProject/index.ts";
-import generateDocs from "@sitebender/envoy/generateDocs/index.ts";
-import startDashboard from "@sitebender/envoy/startDashboard/index.ts";
-import querySparql from "@sitebender/envoy/querySparql/index.ts";
-import onFeedback from "@sitebender/envoy/onFeedback/index.ts";
+import createEnvoy from "@sitebender/envoy/createEnvoy/index.ts"
+import parseProject from "@sitebender/envoy/parseProject/index.ts"
+import generateDocs from "@sitebender/envoy/generateDocs/index.ts"
+import startDashboard from "@sitebender/envoy/startDashboard/index.ts"
+import querySparql from "@sitebender/envoy/querySparql/index.ts"
+import onFeedback from "@sitebender/envoy/onFeedback/index.ts"
 
 // Initialize Envoy with your codebase
 const envoy = await createEnvoy({
-  projectRoot: "./src",
-  gitRepo: true,
-});
+	projectRoot: "./src",
+	gitRepo: true,
+})
 
 // Parse the entire project
-const project = await parseProject(envoy);
+const project = await parseProject(envoy)
 
 // Generate comprehensive documentation
 const docs = await generateDocs(project)({
-  format: "markdown",
-  includeMetrics: true,
-  includeGraph: true,
-});
+	format: "markdown",
+	includeMetrics: true,
+	includeGraph: true,
+})
 
 // Start the intelligence dashboard
 await startDashboard(envoy)({
-  port: 3000,
-  realtime: true,
-  metrics: {
-    quality: true,
-    velocity: true,
-    happiness: true,
-  },
-});
+	port: 3000,
+	realtime: true,
+	metrics: {
+		quality: true,
+		velocity: true,
+		happiness: true,
+	},
+})
 
 // Query the knowledge graph
 const results = await querySparql(envoy)(`
@@ -313,13 +313,13 @@ const results = await querySparql(envoy)(`
     ?function hasComplexity ?complexity .
     FILTER(?complexity > 15)
   }
-`);
+`)
 
 // Track developer experience
 function handleFeedback(rating: FeedbackRating): void {
-  console.log(`Developer rated ${rating.context}: ${rating.emoji}`);
+	console.log(`Developer rated ${rating.context}: ${rating.emoji}`)
 }
-onFeedback(envoy)(handleFeedback);
+onFeedback(envoy)(handleFeedback)
 ```
 
 ## Output Formats
@@ -350,18 +350,18 @@ Envoy aggregates performance metrics from ALL production deployments:
 
 ```tsx
 <BenchmarkAggregator>
-  <CollectFrom>
-    <ProductionDeployments />
-    <DevelopmentEnvironments />
-    <TestRuns />
-  </CollectFrom>
-  <Metrics>
-    <Latency percentiles={[50, 90, 99, 99.9]} />
-    <Throughput window="1m" />
-    <MemoryUsage peak={true} average={true} />
-    <CpuUsage cores={true} />
-  </Metrics>
-  <StoreTo triple-store="benchmarks" />
+	<CollectFrom>
+		<ProductionDeployments />
+		<DevelopmentEnvironments />
+		<TestRuns />
+	</CollectFrom>
+	<Metrics>
+		<Latency percentiles={[50, 90, 99, 99.9]} />
+		<Throughput window="1m" />
+		<MemoryUsage peak={true} average={true} />
+		<CpuUsage cores={true} />
+	</Metrics>
+	<StoreTo triple-store="benchmarks" />
 </BenchmarkAggregator>
 ```
 
@@ -388,18 +388,18 @@ Not marketing numbers against competitors, but YOUR actual performance over time
 ```typescript
 //++ Compares current performance against historical baselines
 export function comparePerformance(
-  current: Metrics,
-  baseline: Metrics,
+	current: Metrics,
+	baseline: Metrics,
 ): Comparison {
-  return {
-    regression: current.p99 > baseline.p99 * 1.1,
-    improvement: current.p99 < baseline.p99 * 0.9,
-    details: {
-      p50Delta: (current.p50 - baseline.p50) / baseline.p50,
-      p90Delta: (current.p90 - baseline.p90) / baseline.p90,
-      p99Delta: (current.p99 - baseline.p99) / baseline.p99,
-    },
-  };
+	return {
+		regression: current.p99 > baseline.p99 * 1.1,
+		improvement: current.p99 < baseline.p99 * 0.9,
+		details: {
+			p50Delta: (current.p50 - baseline.p50) / baseline.p50,
+			p90Delta: (current.p90 - baseline.p90) / baseline.p90,
+			p99Delta: (current.p99 - baseline.p99) / baseline.p99,
+		},
+	}
 }
 ```
 
@@ -407,16 +407,16 @@ export function comparePerformance(
 
 ```tsx
 <PerformanceMonitor>
-  <Alert when="regression">
-    <SlowdownDetected threshold="10%" />
-    <MemoryLeakDetected growth="5%/hour" />
-    <ThroughputDrop threshold="20%" />
-  </Alert>
-  <Report to="mission-control">
-    <Realtime graphs={true} />
-    <Historical trends={true} />
-    <RootCauseAnalysis />
-  </Report>
+	<Alert when="regression">
+		<SlowdownDetected threshold="10%" />
+		<MemoryLeakDetected growth="5%/hour" />
+		<ThroughputDrop threshold="20%" />
+	</Alert>
+	<Report to="mission-control">
+		<Realtime graphs={true} />
+		<Historical trends={true} />
+		<RootCauseAnalysis />
+	</Report>
 </PerformanceMonitor>
 ```
 
@@ -430,19 +430,19 @@ deno add @sitebender/envoy @sitebender/arborist
 ### Basic Setup
 
 ```typescript
-import generateDocs from "@sitebender/envoy/generateDocs/index.ts";
-import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
+import generateDocs from "@sitebender/envoy/generateDocs/index.ts"
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts"
 
 // Parse a file
 const ast = await parseFileWithCompiler(
-  await Deno.readTextFile("./src/index.ts"),
-  "./src/index.ts",
-);
+	await Deno.readTextFile("./src/index.ts"),
+	"./src/index.ts",
+)
 
 // Generate documentation
 if (ast.ok) {
-  const docs = generateDocs(ast.value);
-  console.log(docs);
+	const docs = generateDocs(ast.value)
+	console.log(docs)
 }
 ```
 
@@ -451,10 +451,10 @@ if (ast.ok) {
 ```typescript
 //++ Calculates fibonacci number recursively
 export default function fibonacci(n: number): number {
-  //-- [OPTIMIZATION] Stack overflow risk - needs memoization or iterative approach
-  //-- [REFACTOR] Should return Either for error handling instead of throwing
-  if (n < 0) throw new Error("Negative input not allowed");
-  return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+	//-- [OPTIMIZATION] Stack overflow risk - needs memoization or iterative approach
+	//-- [REFACTOR] Should return Either for error handling instead of throwing
+	if (n < 0) throw new Error("Negative input not allowed")
+	return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
 //?? [EXAMPLE] fibonacci(10) // 55

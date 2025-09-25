@@ -339,24 +339,24 @@ A state management library that works without JavaScript, enhances progressively
 ```typescript
 //++ Tests UUID operation idempotency
 Deno.test("Operation idempotency", async function (t) {
-  await t.step("same UUID produces same result", function () {
-    fc.assert(
-      fc.property(
-        fc.uuid(),
-        fc.record({
-          title: fc.string(),
-          value: fc.integer(),
-        }),
-        function (uuid, data) {
-          const op1 = createOperation(uuid)(data);
-          const op2 = createOperation(uuid)(data);
+	await t.step("same UUID produces same result", function () {
+		fc.assert(
+			fc.property(
+				fc.uuid(),
+				fc.record({
+					title: fc.string(),
+					value: fc.integer(),
+				}),
+				function (uuid, data) {
+					const op1 = createOperation(uuid)(data)
+					const op2 = createOperation(uuid)(data)
 
-          return equals(applyOperation(op1))(applyOperation(op2));
-        },
-      ),
-    );
-  });
-});
+					return equals(applyOperation(op1))(applyOperation(op2))
+				},
+			),
+		)
+	})
+})
 ```
 
 ### Behavior Test Example
@@ -364,28 +364,28 @@ Deno.test("Operation idempotency", async function (t) {
 ```typescript
 //++ Tests form submission without JavaScript
 Deno.test("Form submission no-JS", async function (t) {
-  await t.step("submits with UUID", async function () {
-    // Setup mock server
-    const server = setupMockServer([
-      rest.post("/api/items", function (req, res, ctx) {
-        const formData = await req.formData();
-        const uuid = formData.get("_uuid");
+	await t.step("submits with UUID", async function () {
+		// Setup mock server
+		const server = setupMockServer([
+			rest.post("/api/items", function (req, res, ctx) {
+				const formData = await req.formData()
+				const uuid = formData.get("_uuid")
 
-        assert(isUuid(uuid), "UUID required");
-        return res(ctx.status(201));
-      }),
-    ]);
+				assert(isUuid(uuid), "UUID required")
+				return res(ctx.status(201))
+			}),
+		])
 
-    // Test form submission
-    const form = createTestForm({
-      action: "/api/items",
-      method: "POST",
-    });
+		// Test form submission
+		const form = createTestForm({
+			action: "/api/items",
+			method: "POST",
+		})
 
-    const result = await submitForm(form);
-    assertEquals(result.status, 201);
-  });
-});
+		const result = await submitForm(form)
+		assertEquals(result.status, 201)
+	})
+})
 ```
 
 ### E2E Test Example
@@ -393,24 +393,24 @@ Deno.test("Form submission no-JS", async function (t) {
 ```typescript
 //++ Tests complete wizard flow
 Deno.test("Wizard flow E2E", async function (t) {
-  await t.step("complete, save, resume", async function () {
-    // Start wizard
-    const step1 = await navigateTo("/wizard/step1");
-    await fillField("name", "John");
-    await clickButton("Next");
+	await t.step("complete, save, resume", async function () {
+		// Start wizard
+		const step1 = await navigateTo("/wizard/step1")
+		await fillField("name", "John")
+		await clickButton("Next")
 
-    // Save continuation
-    const saveResult = await clickButton("Save for Later");
-    const continuationUrl = saveResult.url;
+		// Save continuation
+		const saveResult = await clickButton("Save for Later")
+		const continuationUrl = saveResult.url
 
-    // Clear session
-    await clearAllData();
+		// Clear session
+		await clearAllData()
 
-    // Resume from URL
-    const resumed = await navigateTo(continuationUrl);
-    assertEquals(getFieldValue("name"), "John");
-  });
-});
+		// Resume from URL
+		const resumed = await navigateTo(continuationUrl)
+		assertEquals(getFieldValue("name"), "John")
+	})
+})
 ```
 
 ## Parallel Execution Strategy

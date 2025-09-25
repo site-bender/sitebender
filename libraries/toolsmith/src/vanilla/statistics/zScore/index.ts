@@ -44,45 +44,49 @@ import standardDeviation from "../standardDeviation/index.ts"
  * @curried
  * @safe
  */
-const zScore = (
+export default function zScore(
 	value: number | null | undefined,
-) =>
-(
-	data: number[] | null | undefined,
-) =>
-(
-	sample: boolean = false,
-): number => {
-	if (isNullish(value) || typeof value !== "number") {
-		return NaN
-	}
+) {
+	return function calculateZScoreForData(
+		data: number[] | null | undefined,
+	) {
+		return function calculateZScoreWithSampleFlag(
+			sample: boolean = false,
+		): number {
+			if (isNullish(value) || typeof value !== "number") {
+				return NaN
+			}
 
-	if (isNullish(data) || !Array.isArray(data)) {
-		return NaN
-	}
+			if (isNullish(data) || !Array.isArray(data)) {
+				return NaN
+			}
 
-	if (data.length === 0) {
-		return NaN
-	}
+			if (data.length === 0) {
+				return NaN
+			}
 
-	// Check for non-numeric values in data
-	if (data.some((d) => isNullish(d) || typeof d !== "number")) {
-		return NaN
-	}
+			// Check for non-numeric values in data
+			if (
+				data.some(function isInvalidValue(d) {
+					return isNullish(d) || typeof d !== "number"
+				})
+			) {
+				return NaN
+			}
 
-	const dataMean = mean(data)
-	const dataStdDev = standardDeviation(sample)(data)
+			const dataMean = mean(data)
+			const dataStdDev = standardDeviation(sample)(data)
 
-	// Can't calculate z-score if standard deviation is 0
-	if (dataStdDev === 0) {
-		// Special case: if value equals the mean (all values are the same), return 0
-		if (value === dataMean) {
-			return 0
+			// Can't calculate z-score if standard deviation is 0
+			if (dataStdDev === 0) {
+				// Special case: if value equals the mean (all values are the same), return 0
+				if (value === dataMean) {
+					return 0
+				}
+				return NaN
+			}
+
+			return (value - dataMean) / dataStdDev
 		}
-		return NaN
 	}
-
-	return (value - dataMean) / dataStdDev
 }
-
-export default zScore

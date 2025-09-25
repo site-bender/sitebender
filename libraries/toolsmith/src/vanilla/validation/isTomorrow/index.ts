@@ -4,7 +4,9 @@ import toPlainDate from "../../conversion/castValue/toPlainDate/index.ts"
 
 // (JSDoc removed in favor of Envoy)
 //++ Tomorrow date predicate — true if date equals system tomorrow (ISO PlainDate)
-const isTomorrow = (date: DateInput | null | undefined): boolean => {
+export default function isTomorrow(
+	date: DateInput | null | undefined,
+): boolean {
 	const checkDate = toPlainDate(date)
 
 	if (!checkDate) {
@@ -18,8 +20,6 @@ const isTomorrow = (date: DateInput | null | undefined): boolean => {
 		return false
 	}
 }
-
-export default isTomorrow
 
 //?? [EXAMPLE] isTomorrow(Temporal.Now.plainDateISO().add({ days: 1 })) // true
 //?? [EXAMPLE] isTomorrow(new Date()) // false (today)

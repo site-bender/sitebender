@@ -65,9 +65,9 @@ import toPlainDateTime from "../../conversion/castValue/toPlainDateTime/index.ts
  * @predicate
  * @safe
  */
-const isPastDateTime = (
+export default function isPastDateTime(
 	value: DateTimeInput | null | undefined,
-): boolean => {
+): boolean {
 	const dateTime = toPlainDateTime(value)
 
 	if (!dateTime) {
@@ -81,5 +81,3 @@ const isPastDateTime = (
 		return false
 	}
 }
-
-export default isPastDateTime

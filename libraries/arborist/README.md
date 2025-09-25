@@ -19,22 +19,22 @@ Arborist uses SWC (via deno_ast) as its parser backend, providing:
 
 ```typescript
 //++ Parses source file using SWC and returns structured data
-import parseSourceFile from "@sitebender/arborist/parseSourceFile/index.ts";
+import parseSourceFile from "@sitebender/arborist/parseSourceFile/index.ts"
 
 //++ Extracts all functions from parsed module
-import extractFunctions from "@sitebender/arborist/extractFunctions/index.ts";
+import extractFunctions from "@sitebender/arborist/extractFunctions/index.ts"
 
 //++ Extracts function signature from function IR
-import extractSignature from "@sitebender/arborist/extractSignature/index.ts";
+import extractSignature from "@sitebender/arborist/extractSignature/index.ts"
 
 //++ Extracts all comments with position data
-import extractComments from "@sitebender/arborist/extractComments/index.ts";
+import extractComments from "@sitebender/arborist/extractComments/index.ts"
 
 //++ Extracts all imports from module
-import extractImports from "@sitebender/arborist/extractImports/index.ts";
+import extractImports from "@sitebender/arborist/extractImports/index.ts"
 
 //++ Analyzes conditional branches for coverage
-import analyzeBranches from "@sitebender/arborist/analyzeBranches/index.ts";
+import analyzeBranches from "@sitebender/arborist/analyzeBranches/index.ts"
 ```
 
 ## Data Structures
@@ -43,102 +43,102 @@ import analyzeBranches from "@sitebender/arborist/analyzeBranches/index.ts";
 
 ```typescript
 type ParsedModule = {
-  program: SwcModule; // SWC AST module
-  comments: CommentCollection; // deno_ast comments
-  sourceText: SourceText; // Position utilities
-  mediaType: MediaType; // File type detection
-  specifier: string; // File path or URL
-};
+	program: SwcModule // SWC AST module
+	comments: CommentCollection // deno_ast comments
+	sourceText: SourceText // Position utilities
+	mediaType: MediaType // File type detection
+	specifier: string // File path or URL
+}
 ```
 
 ### FunctionNodeIR
 
 ```typescript
 type FunctionNodeIR = {
-  name: string;
-  span: { start: number; end: number };
-  isAsync: boolean;
-  isGenerator: boolean;
-  isArrow: boolean;
-  params: Array<{
-    name: string;
-    optional: boolean;
-    typeText?: string;
-    span: { start: number; end: number };
-  }>;
-  returnTypeText?: string;
-  typeParams?: Array<{
-    name: string;
-    constraintText?: string;
-    defaultText?: string;
-  }>;
-};
+	name: string
+	span: { start: number; end: number }
+	isAsync: boolean
+	isGenerator: boolean
+	isArrow: boolean
+	params: Array<{
+		name: string
+		optional: boolean
+		typeText?: string
+		span: { start: number; end: number }
+	}>
+	returnTypeText?: string
+	typeParams?: Array<{
+		name: string
+		constraintText?: string
+		defaultText?: string
+	}>
+}
 ```
 
 ### RawComment
 
 ```typescript
 type RawComment = {
-  kind: "line" | "block";
-  text: string; // Content without markers
-  fullText: string; // Original with // or /* */
-  start: number; // Absolute position
-  end: number;
-  line: number; // 1-based
-  column: number; // 1-based
-  nodeId?: string; // Associated function name
-};
+	kind: "line" | "block"
+	text: string // Content without markers
+	fullText: string // Original with // or /* */
+	start: number // Absolute position
+	end: number
+	line: number // 1-based
+	column: number // 1-based
+	nodeId?: string // Associated function name
+}
 ```
 
 ### ImportIR
 
 ```typescript
 type ImportIR = {
-  specifier: string;
-  kind: "named" | "default" | "namespace";
-  names: Array<{
-    imported: string;
-    local: string;
-  }>;
-  span: { start: number; end: number };
-};
+	specifier: string
+	kind: "named" | "default" | "namespace"
+	names: Array<{
+		imported: string
+		local: string
+	}>
+	span: { start: number; end: number }
+}
 ```
 
 ### BranchInfo
 
 ```typescript
 type BranchInfo = {
-  kind: "if" | "ternary" | "logical" | "switch" | "try";
-  span: { start: number; end: number };
-  consequent?: { start: number; end: number };
-  alternate?: { start: number; end: number };
-};
+	kind: "if" | "ternary" | "logical" | "switch" | "try"
+	span: { start: number; end: number }
+	consequent?: { start: number; end: number }
+	alternate?: { start: number; end: number }
+}
 ```
 
 ## Usage Example
 
 ```typescript
-import parseSourceFile from "@sitebender/arborist/parseSourceFile/index.ts";
-import extractFunctions from "@sitebender/arborist/extractFunctions/index.ts";
-import extractSignature from "@sitebender/arborist/extractSignature/index.ts";
-import extractComments from "@sitebender/arborist/extractComments/index.ts";
-import extractImports from "@sitebender/arborist/extractImports/index.ts";
-import analyzeBranches from "@sitebender/arborist/analyzeBranches/index.ts";
+import parseSourceFile from "@sitebender/arborist/parseSourceFile/index.ts"
+import extractFunctions from "@sitebender/arborist/extractFunctions/index.ts"
+import extractSignature from "@sitebender/arborist/extractSignature/index.ts"
+import extractComments from "@sitebender/arborist/extractComments/index.ts"
+import extractImports from "@sitebender/arborist/extractImports/index.ts"
+import analyzeBranches from "@sitebender/arborist/analyzeBranches/index.ts"
 
-const specifier = "/path/to/file.ts";
-const source = await Deno.readTextFile(specifier);
+const specifier = "/path/to/file.ts"
+const source = await Deno.readTextFile(specifier)
 
 // Parse with SWC
-const parsed = parseSourceFile(specifier, source);
+const parsed = parseSourceFile(specifier, source)
 
 // Extract structured data
-const comments = extractComments(parsed);
-const functions = extractFunctions(parsed.program, parsed.sourceText);
+const comments = extractComments(parsed)
+const functions = extractFunctions(parsed.program, parsed.sourceText)
 const signatures = functions.map((fn) =>
-  extractSignature(fn, parsed.sourceText),
-);
-const imports = extractImports(parsed.program, parsed.sourceText);
-const branches = analyzeBranches(parsed.program, parsed.sourceText);
+	extractSignature(fn, parsed.sourceText)
+)
+const imports = extractImports(parsed.program, parsed.sourceText)
+const branches = analyzeBranches(parsed.program, parsed.sourceText)
 ```
 
 ## Integration Points
@@ -184,10 +184,10 @@ Arborist depends on deno_ast (pinned version):
 
 ```typescript
 import {
-  parseModule,
-  MediaType,
-  SourceText,
-} from "https://deno.land/x/deno_ast@0.34.4/mod.ts";
+	MediaType,
+	parseModule,
+	SourceText,
+} from "https://deno.land/x/deno_ast@0.34.4/mod.ts"
 ```
 
 This is the ONLY external dependency allowed in the entire @sitebender ecosystem (replacing the TypeScript compiler dependency).
@@ -230,10 +230,10 @@ This is the ONLY external dependency allowed in the entire @sitebender ecosystem
 
 ```typescript
 // Content-addressed caching
-const cacheKey = await crypto.subtle.digest("SHA-256", encoder.encode(source));
+const cacheKey = await crypto.subtle.digest("SHA-256", encoder.encode(source))
 
 // Batch parsing for performance
-const results = await parseMany(files);
+const results = await parseMany(files)
 ```
 
 ## Design Principles

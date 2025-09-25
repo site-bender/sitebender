@@ -9,9 +9,9 @@ Exact data structures Envoy receives from Arborist using SWC-based parsing.
 ```typescript
 //++ Validates email address using regex pattern matching
 export default function validateEmail(email: string): boolean {
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-  return pattern.test(email);
+	return pattern.test(email)
 }
 
 //?? [EXAMPLE] validateEmail("test@example.com") // true
@@ -89,19 +89,19 @@ export default function validateEmail(email: string): boolean {
 ```typescript
 //++ Fetches user data from API with error handling
 export async function fetchUser(id: number): Promise<User | null> {
-  try {
-    const response = await fetch(`/api/users/${id}`);
+	try {
+		const response = await fetch(`/api/users/${id}`)
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+		if (!response.ok) {
+			throw new Error(`HTTP ${response.status}`)
+		}
 
-    return await response.json();
-  } catch (error) {
-    console.error("Failed to fetch user:", error);
+		return await response.json()
+	} catch (error) {
+		console.error("Failed to fetch user:", error)
 
-    return null;
-  }
+		return null
+	}
 }
 
 //?? [EXAMPLE] const user = await fetchUser(123)
@@ -150,9 +150,9 @@ export async function fetchUser(id: number): Promise<User | null> {
 ```typescript
 //++ Creates curried function for adding numbers
 export function createAdder<T extends number>(base: T): (value: T) => T {
-  return function addToBase(value: T): T {
-    return (base + value) as T;
-  };
+	return function addToBase(value: T): T {
+		return (base + value) as T
+	}
 }
 
 //?? [EXAMPLE] const add5 = createAdder(5)
@@ -196,11 +196,11 @@ export function createAdder<T extends number>(base: T): (value: T) => T {
 ```typescript
 //++ Generates sequential IDs starting from 1
 export function* generateIds(): Generator<number, void, unknown> {
-  let id = 1;
+	let id = 1
 
-  while (true) {
-    yield id++;
-  }
+	while (true) {
+		yield id++
+	}
 }
 
 //?? [EXAMPLE] const idGen = generateIds()
@@ -237,22 +237,22 @@ export function* generateIds(): Generator<number, void, unknown> {
 ```typescript
 //++ Processes array items with transformation
 export const processItems = async <T, U>(
-  items: ReadonlyArray<T>,
-  transform: (item: T) => Promise<U>,
+	items: ReadonlyArray<T>,
+	transform: (item: T) => Promise<U>,
 ): Promise<Array<U>> => {
-  const results: Array<U> = [];
+	const results: Array<U> = []
 
-  for (const item of items) {
-    try {
-      const transformed = await transform(item);
-      results.push(transformed);
-    } catch (error) {
-      continue;
-    }
-  }
+	for (const item of items) {
+		try {
+			const transformed = await transform(item)
+			results.push(transformed)
+		} catch (error) {
+			continue
+		}
+	}
 
-  return results;
-};
+	return results
+}
 
 //?? [EXAMPLE] const numbers = await processItems([1, 2, 3], async (x) => x * 2)
 ```
@@ -311,8 +311,8 @@ export const processItems = async <T, U>(
 ```typescript
 //++ Checks if value is defined (not null or undefined)
 export const isDefined = <T>(value: T | undefined | null): value is T => {
-  return value !== undefined && value !== null;
-};
+	return value !== undefined && value !== null
+}
 
 //?? [EXAMPLE] isDefined(null) // false
 //?? [EXAMPLE] isDefined("hello") // true

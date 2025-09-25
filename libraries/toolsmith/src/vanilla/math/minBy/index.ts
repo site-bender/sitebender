@@ -53,37 +53,37 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe Returns NaN when mapper produces invalid numbers
  * @higherOrder Takes a function and returns a comparison function
  */
-const minBy = <T>(
+export default function minBy<T>(
 	fn: (value: T) => number,
-) =>
-(
-	a: T,
-) =>
-(
-	b: T,
-): T => {
-	if (typeof fn !== "function") {
-		return (NaN as unknown) as T
+) {
+	return function minByWithMapper(
+		a: T,
+	) {
+		return function compareMinimum(
+			b: T,
+		): T {
+			if (typeof fn !== "function") {
+				return (NaN as unknown) as T
+			}
+
+			const aValue = fn(a)
+			const bValue = fn(b)
+
+			// Check if mapped values are valid numbers
+			if (isNullish(aValue) || typeof aValue !== "number" || isNaN(aValue)) {
+				return (NaN as unknown) as T
+			}
+
+			if (isNullish(bValue) || typeof bValue !== "number" || isNaN(bValue)) {
+				return (NaN as unknown) as T
+			}
+
+			// Return the value with smaller mapped result
+			// If equal, return the second value
+			return aValue <= bValue ? a : b
+		}
 	}
-
-	const aValue = fn(a)
-	const bValue = fn(b)
-
-	// Check if mapped values are valid numbers
-	if (isNullish(aValue) || typeof aValue !== "number" || isNaN(aValue)) {
-		return (NaN as unknown) as T
-	}
-
-	if (isNullish(bValue) || typeof bValue !== "number" || isNaN(bValue)) {
-		return (NaN as unknown) as T
-	}
-
-	// Return the value with smaller mapped result
-	// If equal, return the second value
-	return aValue <= bValue ? a : b
 }
-
-export default minBy
 
 //?? [EXAMPLE] minBy(Math.abs)(-5)(3) // 3
 //?? [EXAMPLE] minBy(() => NaN)(1)(2) // NaN

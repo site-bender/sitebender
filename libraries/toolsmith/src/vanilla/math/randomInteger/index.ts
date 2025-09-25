@@ -45,37 +45,36 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @curried Enables partial application for range reuse
  * @safe Returns NaN for invalid inputs or invalid range
  */
-const randomInteger = (
+export default function randomInteger(
 	min: number | null | undefined,
-) =>
-(
-	max: number | null | undefined,
-): number => {
-	if (isNullish(min) || typeof min !== "number") {
-		return NaN
-	}
+) {
+	return function generateRandomUpTo(
+		max: number | null | undefined,
+	): number {
+		if (isNullish(min) || typeof min !== "number") {
+			return NaN
+		}
 
-	if (isNullish(max) || typeof max !== "number") {
-		return NaN
-	}
+		if (isNullish(max) || typeof max !== "number") {
+			return NaN
+		}
 
-	// Check for NaN inputs
-	if (isNaN(min) || isNaN(max)) {
-		return NaN
-	}
+		// Check for NaN inputs
+		if (isNaN(min) || isNaN(max)) {
+			return NaN
+		}
 
-	// Check if bounds are integers
-	if (!Number.isInteger(min) || !Number.isInteger(max)) {
-		return NaN
-	}
+		// Check if bounds are integers
+		if (!Number.isInteger(min) || !Number.isInteger(max)) {
+			return NaN
+		}
 
-	// Validate range
-	if (min >= max) {
-		return NaN
-	}
+		// Validate range
+		if (min >= max) {
+			return NaN
+		}
 
-	// Generate random integer in range [min, max)
-	return Math.floor(Math.random() * (max - min)) + min
+		// Generate random integer in range [min, max)
+		return Math.floor(Math.random() * (max - min)) + min
+	}
 }
-
-export default randomInteger

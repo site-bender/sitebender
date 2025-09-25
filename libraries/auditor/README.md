@@ -31,22 +31,20 @@ Instead of testing with examples (which can miss edge cases), Auditor proves pro
 ```typescript
 // Hope these examples cover all cases
 test("age validator", () => {
-  expect(validate(25)).toBe(true);
-  expect(validate(-1)).toBe(false);
-  expect(validate(150)).toBe(false);
-  // Did we miss edge cases? 🤷
-});
+	expect(validate(25)).toBe(true)
+	expect(validate(-1)).toBe(false)
+	expect(validate(150)).toBe(false)
+	// Did we miss edge cases? 🤷
+})
 ```
 
 ### Formal Verification with Auditor
 
 ```typescript
 // Prove it works for ALL possible inputs
-@Prove("∀ age. (age ≥ 0 ∧ age ≤ 120) ↔ validate(age) = true")
-@Prove("∀ age. age < 0 → validate(age) = false")
-@Prove("∀ age. age > 120 → validate(age) = false")
+
 export function validateAge(age: number): boolean {
-  // Auditor PROVES these properties hold mathematically
+	// Auditor PROVES these properties hold mathematically
 }
 ```
 
@@ -112,10 +110,10 @@ Auditor delegates ALL TypeScript parsing to @sitebender/arborist:
 
 ```typescript
 // We use arborist for all AST operations
-import parseSourceFile from "@sitebender/arborist/parseSourceFile/index.ts";
-import extractSignature from "@sitebender/arborist/extractSignature/index.ts";
-import analyzeBranches from "@sitebender/arborist/analyzeBranches/index.ts";
-import detectPurity from "@sitebender/arborist/detectProperties/detectPurity/index.ts";
+import parseSourceFile from "@sitebender/arborist/parseSourceFile/index.ts"
+import extractSignature from "@sitebender/arborist/extractSignature/index.ts"
+import analyzeBranches from "@sitebender/arborist/analyzeBranches/index.ts"
+import detectPurity from "@sitebender/arborist/detectProperties/detectPurity/index.ts"
 ```
 
 ### What Parser Provides to Auditor
@@ -140,9 +138,9 @@ Auditor will use Quarrier for test data generation:
 
 ```typescript
 // Use quarrier generators for test inputs
-import generateInteger from "@sitebender/quarrier/arbitrary/generateInteger/index.ts";
-import generateString from "@sitebender/quarrier/arbitrary/generateString/index.ts";
-import createProperty from "@sitebender/quarrier/property/createProperty/index.ts";
+import generateInteger from "@sitebender/quarrier/arbitrary/generateInteger/index.ts"
+import generateString from "@sitebender/quarrier/arbitrary/generateString/index.ts"
+import createProperty from "@sitebender/quarrier/property/createProperty/index.ts"
 ```
 
 ### What Quarrier Provides to Auditor
@@ -198,38 +196,38 @@ import createProperty from "@sitebender/quarrier/property/createProperty/index.t
 ### Basic Test Generation
 
 ```typescript
-import { generateTests } from "@sitebender/auditor";
+import { generateTests } from "@sitebender/auditor"
 
 // Generate tests for a toolsmith function
 const testSuite = await generateTests(
-  "libraries/toolsmith/src/vanilla/array/map/index.ts",
-  {
-    includePropertyTests: true,
-    includeBenchmarks: true,
-    targetCoverage: 100,
-  },
-);
+	"libraries/toolsmith/src/vanilla/array/map/index.ts",
+	{
+		includePropertyTests: true,
+		includeBenchmarks: true,
+		targetCoverage: 100,
+	},
+)
 ```
 
 ### Orchestrated Generation
 
 ```typescript
-import { orchestrateTestGeneration } from "@sitebender/auditor";
+import { orchestrateTestGeneration } from "@sitebender/auditor"
 
 // Generate tests for multiple functions
 const signatures = {
-  "array/map": {
-    /* signature */
-  },
-  "array/filter": {
-    /* signature */
-  },
-  "math/add": {
-    /* signature */
-  },
-};
+	"array/map": {
+		/* signature */
+	},
+	"array/filter": {
+		/* signature */
+	},
+	"math/add": {
+		/* signature */
+	},
+}
 
-const testFiles = await orchestrateTestGeneration(signatures);
+const testFiles = await orchestrateTestGeneration(signatures)
 ```
 
 ## Test Types Generated
@@ -240,9 +238,9 @@ Basic functionality tests for simple inputs:
 
 ```typescript
 it("handles single element array", () => {
-  const result = map((x) => x)([1]);
-  assertEquals(result, [1]);
-});
+	const result = map((x) => x)([1])
+	assertEquals(result, [1])
+})
 ```
 
 ### 2. Property Tests
@@ -251,19 +249,19 @@ Mathematical property verification:
 
 ```typescript
 it("functor composition law", () => {
-  fc.assert(
-    fc.property(
-      fc.func(fc.integer()),
-      fc.func(fc.integer()),
-      fc.array(fc.integer()),
-      (f, g, arr) => {
-        const composed = map(compose(f, g))(arr);
-        const sequential = pipe([map(g), map(f)])(arr);
-        return deepEqual(composed, sequential);
-      },
-    ),
-  );
-});
+	fc.assert(
+		fc.property(
+			fc.func(fc.integer()),
+			fc.func(fc.integer()),
+			fc.array(fc.integer()),
+			(f, g, arr) => {
+				const composed = map(compose(f, g))(arr)
+				const sequential = pipe([map(g), map(f)])(arr)
+				return deepEqual(composed, sequential)
+			},
+		),
+	)
+})
 ```
 
 ### 3. Edge Cases
@@ -272,9 +270,9 @@ Boundary condition testing:
 
 ```typescript
 it("handles null input", () => {
-  const result = map((x) => x)(null);
-  assertEquals(result, []);
-});
+	const result = map((x) => x)(null)
+	assertEquals(result, [])
+})
 ```
 
 ### 4. Branch Coverage
@@ -283,21 +281,21 @@ Tests for all code paths:
 
 ```typescript
 it("covers branch: isNullish check", () => {
-  const result = map((x) => x)(undefined);
-  assertEquals(result, []); // Covers the null check branch
-});
+	const result = map((x) => x)(undefined)
+	assertEquals(result, []) // Covers the null check branch
+})
 ```
 
 ## Configuration
 
 ```typescript
 type GeneratorConfig = {
-  maxPropertyRuns: number; // Default: 100
-  includeEdgeCases: boolean; // Default: true
-  includePropertyTests: boolean; // Default: true
-  includeBenchmarks: boolean; // Default: false
-  targetCoverage: number; // Default: 100
-};
+	maxPropertyRuns: number // Default: 100
+	includeEdgeCases: boolean // Default: true
+	includePropertyTests: boolean // Default: true
+	includeBenchmarks: boolean // Default: false
+	targetCoverage: number // Default: 100
+}
 ```
 
 ## Coverage Philosophy
@@ -309,7 +307,7 @@ Auditor enforces 100% code coverage. If a line can't be tested, it must be expli
 ```typescript
 // deno-coverage-ignore REASON: Platform-specific code tested in CI
 if (Deno.build.os === "windows") {
-  path = path.replace(/\//g, "\\");
+	path = path.replace(/\//g, "\\")
 }
 ```
 

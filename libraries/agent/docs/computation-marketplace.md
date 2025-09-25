@@ -31,6 +31,7 @@ import creditCard from "@marketplace/validators/credit-card-luhn@v3.2.0"
 ```
 
 Each computation comes with:
+
 - **Formal proofs** of correctness
 - **Performance guarantees**
 - **Security audit trail**
@@ -46,28 +47,40 @@ Developer creates a validated behavior:
 ```tsx
 // A complex age validation with business logic
 <And>
-  <IsInteger>
-    <From.Argument />
-  </IsInteger>
-  <Or>
-    <And>
-      <IsGreaterThanOrEqual>
-        <Referent><From.Argument /></Referent>
-        <Comparand><From.Constant>13</From.Constant></Comparand>
-      </IsGreaterThanOrEqual>
-      <IsLessThan>
-        <Referent><From.Argument /></Referent>
-        <Comparand><From.Constant>18</From.Constant></Comparand>
-      </IsLessThan>
-      <HasParentalConsent>
-        <From.Element selector="#parental-consent" />
-      </HasParentalConsent>
-    </And>
-    <IsGreaterThanOrEqual>
-      <Referent><From.Argument /></Referent>
-      <Comparand><From.Constant>18</From.Constant></Comparand>
-    </IsGreaterThanOrEqual>
-  </Or>
+	<IsInteger>
+		<From.Argument />
+	</IsInteger>
+	<Or>
+		<And>
+			<IsGreaterThanOrEqual>
+				<Referent>
+					<From.Argument />
+				</Referent>
+				<Comparand>
+					<From.Constant>13</From.Constant>
+				</Comparand>
+			</IsGreaterThanOrEqual>
+			<IsLessThan>
+				<Referent>
+					<From.Argument />
+				</Referent>
+				<Comparand>
+					<From.Constant>18</From.Constant>
+				</Comparand>
+			</IsLessThan>
+			<HasParentalConsent>
+				<From.Element selector="#parental-consent" />
+			</HasParentalConsent>
+		</And>
+		<IsGreaterThanOrEqual>
+			<Referent>
+				<From.Argument />
+			</Referent>
+			<Comparand>
+				<From.Constant>18</From.Constant>
+			</Comparand>
+		</IsGreaterThanOrEqual>
+	</Or>
 </And>
 ```
 
@@ -141,21 +154,21 @@ The computation package:
 
 ```json
 {
-  "metadata": {
-    "name": "teenager-consent-validator",
-    "version": "1.0.0",
-    "author": "did:key:z6Mkfriq1MqLBoPW...",
-    "license": "MIT",
-    "price": "0.001 ETH per 1000 validations"
-  },
-  "computation": { /* The IR JSON */ },
-  "proof": "QmProof123...",
-  "semantics": "QmSemantics456...",
-  "tests": "QmTests789...",
-  "dependencies": [
-    "ipfs://QmIsInteger...",
-    "ipfs://QmHasParentalConsent..."
-  ]
+	"metadata": {
+		"name": "teenager-consent-validator",
+		"version": "1.0.0",
+		"author": "did:key:z6Mkfriq1MqLBoPW...",
+		"license": "MIT",
+		"price": "0.001 ETH per 1000 validations"
+	},
+	"computation": {/* The IR JSON */},
+	"proof": "QmProof123...",
+	"semantics": "QmSemantics456...",
+	"tests": "QmTests789...",
+	"dependencies": [
+		"ipfs://QmIsInteger...",
+		"ipfs://QmHasParentalConsent..."
+	]
 }
 ```
 
@@ -200,30 +213,35 @@ contract ComputationMarketplace {
 ## Marketplace Categories
 
 ### Validators
+
 - Email, phone, address validation
 - Business rules (age limits, credit checks)
 - Regulatory compliance (GDPR, HIPAA)
 - Domain-specific (ISBN, VIN, SSN)
 
 ### Calculators
+
 - Financial (interest, tax, discounts)
 - Scientific (statistical, physics)
 - Geographic (distance, area)
 - Temporal (date math, scheduling)
 
 ### Formatters
+
 - Internationalization (dates, currency)
 - Data transformations
 - Markdown/HTML processors
 - Code formatters
 
 ### Complete Workflows
+
 - Shopping cart with tax
 - User registration flow
 - Payment processing
 - Multi-step wizards
 
 ### AI/ML Models (as computation)
+
 - Sentiment analysis
 - Language detection
 - Image classification
@@ -243,25 +261,25 @@ contract ComputationMarketplace {
 
 ```typescript
 type ComputationReputation = {
-  author: {
-    did: string
-    computationsPublished: number
-    averageRating: number
-    verificationRate: number
-  }
-  computation: {
-    downloads: number
-    activeUsers: number
-    bugReports: number
-    fixTime: number // Average time to fix issues
-    forks: number
-  }
-  reviews: Array<{
-    reviewer: string // DID
-    rating: number
-    comment: string
-    verified: boolean // Did they actually use it?
-  }>
+	author: {
+		did: string
+		computationsPublished: number
+		averageRating: number
+		verificationRate: number
+	}
+	computation: {
+		downloads: number
+		activeUsers: number
+		bugReports: number
+		fixTime: number // Average time to fix issues
+		forks: number
+	}
+	reviews: Array<{
+		reviewer: string // DID
+		rating: number
+		comment: string
+		verified: boolean // Did they actually use it?
+	}>
 }
 ```
 
@@ -297,10 +315,10 @@ Every computation has an immutable IPFS hash:
 
 ```typescript
 type ComputationAddress = {
-  ipfs: string      // QmX4h7...
-  version: string   // semver
-  chain: string     // ethereum, polygon, etc
-  contract: string  // Smart contract address
+	ipfs: string // QmX4h7...
+	version: string // semver
+	chain: string // ethereum, polygon, etc
+	contract: string // Smart contract address
 }
 ```
 
@@ -310,15 +328,15 @@ Like npm but for computations:
 
 ```json
 {
-  "dependencies": {
-    "email-validator": "ipfs://QmEmail...",
-    "age-checker": "ipfs://QmAge...",
-    "credit-validator": {
-      "ipfs": "QmCredit...",
-      "version": ">=2.0.0",
-      "maxPrice": "0.001 ETH"
-    }
-  }
+	"dependencies": {
+		"email-validator": "ipfs://QmEmail...",
+		"age-checker": "ipfs://QmAge...",
+		"credit-validator": {
+			"ipfs": "QmCredit...",
+			"version": ">=2.0.0",
+			"maxPrice": "0.001 ETH"
+		}
+	}
 }
 ```
 

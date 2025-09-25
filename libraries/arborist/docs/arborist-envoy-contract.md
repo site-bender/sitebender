@@ -46,34 +46,34 @@ analyzeBranches(
 
 ```typescript
 type ParsedModule = {
-  program: SwcModule; // SWC AST
-  comments: CommentCollection; // deno_ast comments
-  sourceText: SourceText; // Position utilities
-  mediaType: MediaType; // File type
-  specifier: string; // File path
-};
+	program: SwcModule // SWC AST
+	comments: CommentCollection // deno_ast comments
+	sourceText: SourceText // Position utilities
+	mediaType: MediaType // File type
+	specifier: string // File path
+}
 
 type FunctionNodeIR = {
-  name: string;
-  span: { start: number; end: number };
-  isAsync: boolean;
-  isGenerator: boolean;
-  isArrow: boolean;
-  params: Array<ParamInfo>;
-  returnTypeText?: string;
-  typeParams?: Array<TypeParamInfo>;
-};
+	name: string
+	span: { start: number; end: number }
+	isAsync: boolean
+	isGenerator: boolean
+	isArrow: boolean
+	params: Array<ParamInfo>
+	returnTypeText?: string
+	typeParams?: Array<TypeParamInfo>
+}
 
 type RawComment = {
-  kind: "line" | "block";
-  text: string; // Without markers
-  fullText: string; // With markers
-  start: number;
-  end: number;
-  line: number;
-  column: number;
-  nodeId?: string; // Associated function
-};
+	kind: "line" | "block"
+	text: string // Without markers
+	fullText: string // With markers
+	start: number
+	end: number
+	line: number
+	column: number
+	nodeId?: string // Associated function
+}
 ```
 
 ## Division of Responsibilities
@@ -124,7 +124,7 @@ type RawComment = {
 Arborist uses SWC exclusively:
 
 ```typescript
-import { parseModule } from "https://deno.land/x/deno_ast@0.34.4/mod.ts";
+import { parseModule } from "https://deno.land/x/deno_ast@0.34.4/mod.ts"
 ```
 
 ### Comment Association

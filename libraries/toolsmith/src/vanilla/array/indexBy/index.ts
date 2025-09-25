@@ -36,23 +36,22 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // { "a": { id: "a", val: 1 }, "b": { id: "b", val: 2 } }
  * ```
  */
-const indexBy = <T, K extends string | number | symbol>(
+export default function indexBy<T, K extends string | number | symbol>(
 	keyFn: (element: T, index: number, array: ReadonlyArray<T>) => K,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Record<K, T> => {
-	if (isNullish(array)) {
-		return {} as Record<K, T>
-	}
-
-	return array.reduce((result, element, index) => {
-		const key = keyFn(element, index, array)
-		if (isNotNullish(key)) {
-			result[key] = element
+) {
+	return function indexArrayByKey(
+		array: ReadonlyArray<T> | null | undefined,
+	): Record<K, T> {
+		if (isNullish(array)) {
+			return {} as Record<K, T>
 		}
-		return result
-	}, {} as Record<K, T>)
-}
 
-export default indexBy
+		return array.reduce(function buildIndex(result, element, index) {
+			const key = keyFn(element, index, array)
+			if (isNotNullish(key)) {
+				result[key] = element
+			}
+			return result
+		}, {} as Record<K, T>)
+	}
+}
