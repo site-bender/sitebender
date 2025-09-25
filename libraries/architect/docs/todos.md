@@ -47,6 +47,14 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 - [ ] Connect to Custodian's state machines
 - [ ] Link to Envoy's observability
 
+### Cross-Library Test Integration
+
+- [ ] Implement contract testing framework from cross-library-testing-strategy.md
+- [ ] Create integration test runner for multi-library workflows
+- [ ] Build system test orchestrator for end-to-end scenarios
+- [ ] Connect all test execution to triple store for replay
+- [ ] Generate test documentation automatically via Envoy
+
 ## Phase 1: Foundation Cleanup (Week 1-2)
 
 ### Remove Legacy Code

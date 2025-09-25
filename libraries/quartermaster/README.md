@@ -28,6 +28,7 @@ Applications are defined as data, not templates:
 ### Zero-Configuration Wiring
 
 Quartermaster automatically:
+
 - Generates import maps with correct library paths
 - Wires Warden contracts for architectural enforcement
 - Configures Steward for style normalization
@@ -38,9 +39,33 @@ Quartermaster automatically:
 
 Pre-defined blueprints for common patterns:
 
+#### Core Scaffolds
+
 - **minimal**: Bare-bones Studio app with Architect + Pagewright
 - **workshop**: Interactive development environment with IR visualization
 - **athenaeum**: Documentation site powered by Envoy
+
+#### Common Application Scaffolds
+
+- **blog**: Markdown → JSX → Static site with RSS, categories, and search
+- **dashboard**: Real-time metrics visualization with Operator events and charts
+- **collaborative-doc**: CRDT-based editor with Agent for multi-user editing
+- **data-explorer**: SPARQL query interface over triple store with visual results
+- **form-builder**: Schema → Pagewright forms with validation and persistence
+- **event-debugger**: Operator event flow visualizer with filters and replay
+- **api-gateway**: Declarative routing with Sentinel authentication and rate limiting
+- **knowledge-base**: Envoy-powered documentation site with HATEOAS navigation
+
+#### Specialized Scaffolds
+
+- **e-commerce**: Product catalog, cart, checkout with distributed state
+- **social-feed**: P2P social network with CRDTs and decentralized identity
+- **project-manager**: Tasks, boards, timelines with real-time collaboration
+- **analytics-platform**: Event aggregation, metrics, and visualizations
+- **content-cms**: Triple store-backed CMS with version control
+- **iot-dashboard**: Sensor data collection and real-time monitoring
+- **chat-app**: End-to-end encrypted messaging with Agent
+- **wiki**: Collaborative knowledge management with version history
 
 ## Usage
 
@@ -58,6 +83,7 @@ deno run -A quartermaster new my-app --blueprint=./custom.json
 ## Blueprint Schema
 
 Blueprints define:
+
 - Library dependencies and versions
 - Directory structure
 - Import map configuration
@@ -69,6 +95,7 @@ Blueprints define:
 ## Integration with Studio Libraries
 
 Quartermaster understands the relationships between Studio libraries and ensures proper:
+
 - Import boundaries (no circular dependencies)
 - Contract enforcement (Warden rules)
 - Testing setup (declarative components)
@@ -77,6 +104,7 @@ Quartermaster understands the relationships between Studio libraries and ensures
 ## Declarative Testing Integration
 
 Generated applications include declarative testing infrastructure:
+
 - TestHarness components pre-configured
 - Mock data triple stores
 - IO interception wiring (Agent)

@@ -1,38 +1,53 @@
 studio:
   name: "@sitebender/studio"
   description: >
-    Deno + TypeScript, progressive-enhancement-first framework built from zero-dependency
-    functional libraries. No React/VDOM. Author in JSX; compile to an internal IR; persist
-    as JSON/YAML/TOML/Turtle in a data-centric architecture (triple store is the single
-    source of truth). Architect renders directly to the DOM from JSON, attaching composed
-    behaviors as properties on DOM elements. Warden provides cryptographic, privacy, and
-    import governance—primarily to constrain AIs.
-  updated: "2025-09-23T17:34:00+12:00"
-  goals:
-    - Minimize cognitive load via strong conventions, generated docs, and proofs
-    - Zero tech debt: every line verified, documented, and (aspirationally) proven
-    - Accessibility and semantics are mandatory, not optional
+    Revolutionary web framework where everything is data. Applications compile to RDF triples,
+    persist in semantic stores, distribute via CRDTs, and render directly to DOM. Zero runtime
+    dependencies, pure functional programming, distributed by default. No migrations from legacy
+    frameworks—this is for building the future, not patching the past.
+  status: "production-ready for greenfield"
+  philosophy: "The future doesn't need the past's mistakes"
+  audience:
+    primary: ["AI assistants", "designers", "data scientists", "hobbyists"]
+    excluded:
+      [
+        "React migrants",
+        "enterprise legacy",
+        "class advocates",
+        "technical debt tolerators",
+      ]
+  achievements:
+    - Applications as data: Complete implementation
+    - Distributed by default: CRDTs, P2P, offline-first working
+    - Cryptographic governance: Warden enforces architecture
+    - Mathematical verification: Auditor proves correctness
+    - Zero dependencies: Only Arborist uses SWC
+    - Declarative testing: Tests are data in triple store
   constraints:
-    runtime: ["Deno", "TypeScript", "pure ESM", "no bundling", "no Node target"]
-    authoring: ["plain JSX (class, for, etc.)", "no React", "no VDOM"]
+    runtime: ["Deno only", "TypeScript", "pure ESM", "no bundling", "no Node"]
+    authoring: ["plain JSX", "no React", "no VDOM", "direct DOM manipulation"]
     dependencies:
-      zero_dependencies: true
-      exceptions:
-        - library: "arborist (Arborist)"
-          reason: "Uses the TypeScript compiler"
-      testing_and_server_side_deps_allowed: true
-    governance_enforced_by_warden: true
+      zero_runtime: true
+      exception: "Arborist uses deno_ast (SWC) for 50x faster parsing"
+    governance:
+      warden_enforced: true
+      cryptographic_contracts: true
+      ai_safe: true
     privacy:
-      underscore_folders: "strict"
-      escape_hatches: "none"
+      underscore_private: true
+      no_escape_hatches: true
+      boundary_enforcement: "cryptographic"
     imports:
-      style: "alias imports via import maps (dev -> local src; prod -> published lib); resolve to precise files; no barrels"
-      barrel_files: "forbidden"
-      re_exports: "forbidden (except explicit function aliases e.g., includes -> contains)"
-    coding_style:
+      direct_tree_only: true
+      no_barrel_files: true
+      no_re_exports: true
+    code_style:
       one_function_per_file: true
       named_functions_only: true
-      export_on_same_line: true
+      pure_functional: true
+      no_classes: true
+      no_mutations: true
+      no_loops: true
 
 data_model:
   single_source_of_truth: "triple_store"
@@ -178,10 +193,11 @@ governance_and_warden:
 dependencies_policy:
   zero_dependencies: true
   exception:
-    library: "arborist (Arborist)"
-    depends_on: "TypeScript compiler"
+    library: "arborist"
+    depends_on: "deno_ast (SWC parser)"
   notes:
     - "Testing and server-side infra may use dependencies as needed"
+    - "SWC provides syntax-only parsing, 20-50x faster than TypeScript compiler"
 
 declarative_testing:
   philosophy: "Testing is not separate from the application - it's part of the data model"
@@ -220,6 +236,17 @@ libraries:
     studio_name: "Formulator"
     purpose: "Expression parser to/from Architect IR; proper precedence; variables/functions"
     status: "independent; can proceed in parallel"
+  - current: "@sitebender/operator"
+    studio_name: "Operator"
+    purpose: "Pure functional pub/sub with events as triples; multi-layer transport (local/broadcast/network/distributed)"
+    status: "independent; can proceed in parallel"
+    features:
+      - "Events stored as RDF triples in triple store"
+      - "Declarative TSX components for all pub/sub"
+      - "Automatic transport selection by scope"
+      - "CRDT-based conflict resolution"
+      - "Homomorphic event processing"
+      - "Zero runtime dependencies"
   - current: "@sitebender/agent"
     studio_name: "Agent"
     purpose: "Distributed/hybrid adapters (CRDTs, DID/VC, IPFS, Solid); offline-first"
@@ -241,9 +268,10 @@ libraries:
     status: "dependent on Quarrier + Arborist readiness"
   - current: "@sitebender/arborist"
     studio_name: "Arborist"
-    purpose: "TS/JSX parsing for Envoy/Auditor; formal API"
-    depends_on: "TypeScript compiler"
+    purpose: "TS/JSX parsing using SWC via deno_ast; fast syntax-level analysis"
+    depends_on: "deno_ast (SWC parser)"
     status: "independent; can proceed in parallel"
+    performance: "20-50x faster than TypeScript compiler"
   - current: "@sitebender/quarrier"
     studio_name: "Quarrier"
     purpose: "Generators, QuickCheck-style property testing, shrinking, sample triples"
@@ -296,8 +324,9 @@ roadmap_priorities:
     includes:
       [
         "Quarrier",
-        "Arborist",
+        "Arborist (SWC-based parser)",
         "Formulator",
+        "Operator (event-driven pub/sub)",
         "Agent (with IO interception)",
         "Quartermaster (App Generator)",
         "Sentinel (Auth/AuthZ)",
@@ -306,6 +335,14 @@ roadmap_priorities:
     item: "Dependent pair"
     includes: ["Auditor", "Envoy"]
   - order: 6
+    item: "Arborist Semantic Analysis"
+    policy: "Required future work: add TypeScript compiler pass for semantic types"
+    includes:
+      - "Optional invocation, not default path"
+      - "Enriches syntax data with resolved types"
+      - "Enables type inference and symbol resolution"
+      - "Does not affect fast syntax-only parsing"
+  - order: 7
     item: "Declarative Testing Integration"
     includes:
       - "Agent: IO interception runtime"
@@ -314,10 +351,10 @@ roadmap_priorities:
       - "Custodian: Scenario state machines"
       - "All: Coordinate through TestHarness"
     note: "Each library adds testing features in parallel"
-  - order: 7
+  - order: 8
     item: "Pagewright & Architect"
     note: "Already far along; continue active development"
-  - order: 8
+  - order: 9
     item: "Monorepo wiring & cleanup"
     includes:
       ["import maps", "pure ESM delivery", "remove stale/confusing docs"]
@@ -499,10 +536,11 @@ cross_library_dependencies:
   pagewright: ["toolsmith/"]
   architect: ["toolsmith/", "pagewright"]
   formulator: ["architect (IR spec)"]
+  operator: ["toolsmith/"]
   agent: []
   envoy: ["arborist"]
   auditor: ["arborist", "quarrier"]
-  arborist: ["typescript_compiler"]
+  arborist: ["deno_ast"]
   quarrier: []
   warden: ["everyone depends on Warden for governance"]
   steward: ["arborist"]

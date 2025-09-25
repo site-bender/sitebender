@@ -1,0 +1,252 @@
+document: "Arborist SWC Backend Plan (AI-oriented YAML)"
+version: "0.1.0"
+updated: "2025-09-25T16:37:00+12:00"
+
+status:
+  decision: "Use SWC via deno_ast as Arborist’s primary parser backend"
+  scope: "Syntax-first pipeline for TS/TSX/JS/JSX plus structural comments/spans"
+  rationale:
+    - "Deno uses SWC (Rust) internally; deno_ast exposes it for Deno"
+    - "Fast parsing, first-class TS/JSX support, pure ESM (no Node/npm)"
+  caveats:
+    - "No semantic type-checker in SWC; only syntax-level types"
+    - "Add optional typing phase later if needed"
+
+goals:
+  - "Parse TS/TSX/JS/JSX quickly and deterministically"
+  - "Produce stable structural outputs (AST, spans, comments)"
+  - "Keep Arborist public API stable while swapping backend"
+  - "Add extractImports and syntax-level analyzeBranches"
+  - "Defer semantic types to an optional phase"
+
+public_api:
+  - name: "parseSourceFile"
+    stability: "stable"
+    backend: "SWC via deno_ast"
+    input:
+      - specifier: "string (path or URL-like id)"
+      - source: "string"
+    output:
+      program: "SWC Module/Program"
+      comments: "deno_ast comments collection"
+      sourceText: "deno_ast.SourceText for spans/line-column"
+      mediaType: "deno_ast.MediaType"
+      specifier: "string"
+  - name: "extractFunctions"
+    stability: "stable"
+    input:
+      - module: "SWC Module"
+      - sourceText: "SourceText"
+    output: "Array<FunctionNodeIR>"
+  - name: "extractSignature"
+    stability: "stable (syntax-level only)"
+    input:
+      - fn: "FunctionNodeIR"
+      - sourceText: "SourceText"
+    output: "FunctionSignature (syntax text, no semantic typing)"
+  - name: "extractComments"
+    stability: "stable"
+    input:
+      - parsed: "Parsed (program, comments, sourceText, mediaType, specifier)"
+    output: "Array<RawComment>"
+  - name: "extractImports"
+    stability: "new"
+    output: "Array<ImportIR>"
+  - name: "analyzeBranches"
+    stability: "new (syntax-level)"
+    output: "Array<BranchInfo>"
+
+architecture:
+  parser_backend:
+    syntax_backend: "SWC via deno_ast (default)"
+    typing_backend: "none (placeholder; add later if semantic types needed)"
+  internal_ir:
+    FunctionNodeIR:
+      name: "string"
+      span: { start: "number", end: "number" }
+      isAsync: "boolean"
+      isGenerator: "boolean"
+      isArrow: "boolean"
+      params:
+        - name: "string"
+          optional: "boolean"
+          typeText: "string | undefined"
+          span: { start: "number", end: "number" }
+      returnTypeText: "string | undefined"
+      typeParams:
+        - name: "string"
+          constraintText: "string | undefined"
+          defaultText: "string | undefined"
+      jsDocSpan: { start: "number", end: "number" , "?": "optional"}
+    ImportIR:
+      specifier: "string"
+      kind: "named | default | namespace"
+      names:
+        - imported: "string"
+          local: "string"
+      span: { start: "number", end: "number" }
+    RawComment:
+      kind: "line | block"
+      text: "string"
+      fullText: "string"
+      start: "number"
+      end: "number"
+      line: "number"
+      column: "number"
+      nodeId: "string | undefined"
+  design_notes:
+    - "All extract* functions operate on IR; only the adapter touches SWC AST"
+    - "Use SourceText for position↔line/column and safe slicing of type text"
+
+dependency:
+  name: "deno_ast"
+  role: "Rust-backed SWC interface for Deno"
+  url: "https://deno.land/x/deno_ast@0.34.4/mod.ts"
+  purity: "Pure Deno ESM; no Node/npm"
+  notes:
+    - "Pin version for reproducibility"
+
+media_types:
+  mapping:
+    ".ts": "TypeScript"
+    ".tsx": "Tsx"
+    ".js": "JavaScript"
+    ".jsx": "Jsx"
+    ".mts": "Mts"
+    ".cts": "Cts"
+    ".mjs": "Mjs"
+    ".cjs": "Cjs"
+  default: "TypeScript"
+
+implementations:
+  parseSourceFile:
+    description: "Create Parsed from specifier/source using deno_ast.parseModule"
+    options:
+      captureTokens: true
+      comments: true
+    output_fields:
+      - "program"
+      - "comments"
+      - "sourceText"
+      - "mediaType"
+      - "specifier"
+    pseudocode: |
+      import { parseModule, MediaType, SourceText } from "deno_ast"
+      const mediaType = detectMediaType(specifier)
+      const parsed = parseModule({ specifier, source, mediaType, captureTokens: true, comments: true })
+      return { program: parsed.program, comments: parsed.comments, sourceText: new SourceText(source), mediaType, specifier }
+  extractComments:
+    description: "Normalize deno_ast comments → RawComment"
+    steps:
+      - "Iterate leading/trailing comments"
+      - "fullText = slice(SourceText.text, start..end)"
+      - "text = strip // or /* */ markers + trim"
+      - "line/column via SourceText.getLineAndColumnAt(start)"
+      - "Associate to nearest following function (optional nodeId)"
+  extractFunctions:
+    description: "Discover functions in SWC Module and emit FunctionNodeIR"
+    sources:
+      - "FunctionDeclaration"
+      - "VarDecl with FunctionExpression | ArrowFunctionExpression"
+    ignore_or_flag:
+      - "Class methods (Studio avoids classes); optional isMethod metadata if tracked"
+    data_extraction:
+      name: "identifier or binding id"
+      flags: "isAsync, isGenerator, isArrow"
+      params: "names, optional, type text via TsTypeAnn span slice"
+      return: "returnTypeText via function return type span"
+      generics: "typeParams via TsTypeParamDecl spans"
+  extractSignature:
+    description: "Build syntax-level FunctionSignature from FunctionNodeIR"
+    semantics: "No type-checking; lossless textual slices only"
+  extractImports:
+    description: "Normalize ImportDeclaration → ImportIR"
+    kinds: ["named", "default", "namespace"]
+  analyzeBranches:
+    description: "Enumerate syntax-level conditionals to drive coverage mapping"
+    node_kinds:
+      - "IfStatement"
+      - "ConditionalExpression"
+      - "LogicalExpression (&&, ||, ??)"
+      - "SwitchStatement"
+      - "Try/Catch presence"
+      - "Loops (rare; included for completeness)"
+
+performance_and_cache:
+  cache_key: "(specifier, contentHash)"
+  parse_many: "parseMany(files[]) for batch workflows"
+  parallelism: "Use Promise.all; measure benefits"
+  ir_minimalism: "Keep IR lean to reduce GC and copying"
+
+non_ts_formats:
+  json:
+    strategy_options:
+      - "Opaque resource with full-document span"
+      - "Tiny tokenizer for spans and node kinds (optional)"
+  yaml_toml:
+    strategy: "Opaque by default; add parser only with explicit allowance"
+  note: "SWC does not parse JSON/YAML/TOML"
+
+api_stability:
+  preserve_paths:
+    - "@sitebender/arborist/parseSourceFile/index.ts"
+    - "@sitebender/arborist/extractFunctions/index.ts"
+    - "@sitebender/arborist/extractSignature/index.ts"
+    - "@sitebender/arborist/extractComments/index.ts"
+  doc_caveat: "Signatures are syntax-level; no semantic typing"
+
+tests:
+  framework: "Deno.test"
+  fixtures:
+    - "TS/TSX/JS/JSX files"
+  assertions:
+    - "Function discovery: names, spans, flags"
+    - "Param and return type text slicing"
+    - "Comments: mapping + line/column accuracy"
+    - "Imports: specifier and specifiers"
+    - "Branches: counts/kinds on synthetic examples"
+  coverage_focus: "Span accuracy, IR correctness, stability across formats"
+
+execution_plan:
+  phase_1_backend_swap:
+    - "Implement parseSourceFile (deno_ast) + media type detection"
+    - "Port extractFunctions to SWC AST → FunctionNodeIR"
+    - "Port extractComments to RawComment via deno_ast + SourceText"
+    - "Implement extractSignature from FunctionNodeIR + spans"
+    - "Add extractImports and syntax-level analyzeBranches"
+  phase_2_perf_stability:
+    - "Add parse cache and parseMany batching"
+    - "Benchmark repo-wide"
+    - "Expand fixtures; verify spans and line/column precision"
+  phase_3_optional_typing:
+    - "If needed, add enrichWithTypes API behind feature flag"
+    - "Augment FunctionSignature with semantic TypeInfo (separate path)"
+    - "Do not compromise fast syntactic path"
+
+tradeoffs:
+  pros:
+    - "Max parsing speed; aligns with Deno internals"
+    - "Pure ESM; no Node/npm"
+    - "Great for Envoy and many Auditor/Quarrier syntactic needs"
+  cons:
+    - "No semantic types; type-driven features require separate phase"
+  mitigation:
+    - "Introduce optional typing enrichment API later if required"
+
+example_minimal_usage: |
+  import { parseSourceFile } from "@sitebender/arborist/parseSourceFile/index.ts"
+  import { extractFunctions } from "@sitebender/arborist/extractFunctions/index.ts"
+  import { extractSignature } from "@sitebender/arborist/extractSignature/index.ts"
+  import { extractComments } from "@sitebender/arborist/extractComments/index.ts"
+
+  const specifier = "/abs/path/to/file.ts"
+  const source = await Deno.readTextFile(specifier)
+
+  const parsed = parseSourceFile(specifier, source)
+  const comments = extractComments(parsed)
+  const fns = extractFunctions(parsed.program, parsed.sourceText)
+  const signatures = fns.map((fn) => extractSignature(fn, parsed.sourceText))
+
+versioning:
+  deno_ast_version: "0.34.4"
+  pin_policy: "Always pin versions for reproducibility"

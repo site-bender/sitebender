@@ -458,6 +458,123 @@ Agent components seamlessly integrate with Architect's reactive system:
 </ConditionalSync>
 ```
 
+## Conflict Visualization
+
+Built-in components for understanding CRDT convergence:
+
+### ConflictVisualizer
+
+Shows real-time divergence and merge of distributed state:
+
+```tsx
+<ConflictVisualizer target="#todos">
+  <ShowDivergence>
+    <HighlightConflicts color="red" />
+    <ShowVectorClocks />
+    <DisplayMergeStrategy />
+  </ShowDivergence>
+  <AnimateMerge duration={500} />
+  <ShowResolution>
+    <ExplainMergeDecision />
+    <HighlightWinner color="green" />
+  </ShowResolution>
+</ConflictVisualizer>
+```
+
+### VectorClockInspector
+
+Displays causality relationships between events:
+
+```tsx
+<VectorClockInspector id="causality">
+  <ShowTimeline>
+    <NodeColumn for="each-peer" />
+    <DrawArrows for="causal-dependencies" />
+    <HighlightConcurrent color="yellow" />
+  </ShowTimeline>
+  <InteractiveMode>
+    <HoverToSeeDetails />
+    <ClickToFilterEvents />
+    <ZoomAndPan />
+  </InteractiveMode>
+</VectorClockInspector>
+```
+
+### StateHistory
+
+Enables time-travel debugging through distributed state evolution:
+
+```tsx
+<StateHistory target="#appState">
+  <Timeline>
+    <ShowSnapshots every={1000} />
+    <ShowOperations between="snapshots" />
+    <MarkConflicts with="⚠️" />
+  </Timeline>
+  <TimeTravel>
+    <Slider min={0} max="now" />
+    <PlaybackSpeed factor={1} />
+    <JumpTo snapshot="any" />
+  </TimeTravel>
+  <DiffView>
+    <ShowChanges from="selected" to="selected+1" />
+    <HighlightAdditions color="green" />
+    <HighlightDeletions color="red" />
+  </DiffView>
+</StateHistory>
+```
+
+### MergeStrategyVisualizer
+
+Explains how different CRDT types resolve conflicts:
+
+```tsx
+<MergeStrategyVisualizer type="or-set">
+  <ShowScenario>
+    <Peer id="alice">
+      <Add element="x" at="t1" />
+      <Remove element="x" at="t3" />
+    </Peer>
+    <Peer id="bob">
+      <Add element="x" at="t2" />
+    </Peer>
+  </ShowScenario>
+  <ShowMerge>
+    <Step>Alice adds x → {x}</Step>
+    <Step>Bob adds x → {x}</Step>
+    <Step>Alice removes x → {}</Step>
+    <Step>Merge: Add wins → {x}</Step>
+  </ShowMerge>
+  <Interactive>
+    <ModifyScenario />
+    <SeeResult />
+  </Interactive>
+</MergeStrategyVisualizer>
+```
+
+### Integration with the-workshop
+
+The workshop provides a visual playground for CRDT experimentation:
+
+```tsx
+<CrdtPlayground>
+  <SelectType from={["counter", "lww-register", "or-set", "rga"]} />
+  <SimulatePeers count={3} />
+  <DefineOperations>
+    <Draggable operations={true} />
+    <ReorderOperations />
+    <SimulateNetworkDelay />
+    <InjectPartitions />
+  </DefineOperations>
+  <Visualize>
+    <StateEvolution />
+    <ConflictResolution />
+    <FinalState />
+  </Visualize>
+  <ExportScenario as="test-case" />
+</CrdtPlayground>
+```
+
 ## Complete Application Examples
 
 ### Collaborative Todo App

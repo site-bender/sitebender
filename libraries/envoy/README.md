@@ -340,6 +340,86 @@ onFeedback(envoy)(handleFeedback);
 - **Time-Lapse**: Watch your codebase evolve
 - **Mood Rings**: Team satisfaction visualization
 
+## Brutal Performance Truth
+
+No cherry-picked numbers, only production reality:
+
+### Distributed Benchmarking
+
+Envoy aggregates performance metrics from ALL production deployments:
+
+```tsx
+<BenchmarkAggregator>
+  <CollectFrom>
+    <ProductionDeployments />
+    <DevelopmentEnvironments />
+    <TestRuns />
+  </CollectFrom>
+  <Metrics>
+    <Latency percentiles={[50, 90, 99, 99.9]} />
+    <Throughput window="1m" />
+    <MemoryUsage peak={true} average={true} />
+    <CpuUsage cores={true} />
+  </Metrics>
+  <StoreTo triple-store="benchmarks" />
+</BenchmarkAggregator>
+```
+
+### Honest Performance Reporting
+
+```sparql
+# Query actual production performance
+SELECT ?function ?p99_latency ?calls_per_second
+WHERE {
+  ?function env:hasMetrics ?metrics ;
+           env:environment "production" .
+  ?metrics env:p99_latency ?p99_latency ;
+          env:throughput ?calls_per_second ;
+          env:timestamp ?time .
+  FILTER(?time > NOW() - "PT24H"^^xsd:duration)
+}
+ORDER BY DESC(?p99_latency)
+```
+
+### Baseline Comparisons
+
+Not marketing numbers against competitors, but YOUR actual performance over time:
+
+```typescript
+//++ Compares current performance against historical baselines
+export function comparePerformance(
+  current: Metrics,
+  baseline: Metrics,
+): Comparison {
+  return {
+    regression: current.p99 > baseline.p99 * 1.1,
+    improvement: current.p99 < baseline.p99 * 0.9,
+    details: {
+      p50Delta: (current.p50 - baseline.p50) / baseline.p50,
+      p90Delta: (current.p90 - baseline.p90) / baseline.p90,
+      p99Delta: (current.p99 - baseline.p99) / baseline.p99,
+    },
+  };
+}
+```
+
+### Automated Performance Alerts
+
+```tsx
+<PerformanceMonitor>
+  <Alert when="regression">
+    <SlowdownDetected threshold="10%" />
+    <MemoryLeakDetected growth="5%/hour" />
+    <ThroughputDrop threshold="20%" />
+  </Alert>
+  <Report to="mission-control">
+    <Realtime graphs={true} />
+    <Historical trends={true} />
+    <RootCauseAnalysis />
+  </Report>
+</PerformanceMonitor>
+```
+
 ## Getting Started
 
 ```bash

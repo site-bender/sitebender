@@ -1,199 +1,298 @@
-# Arborist Library Contract v1.0.0
+# Arborist Library Contract v2.0.0
 
-> Last Updated: 2025-01-11
+> Last Updated: 2025-0909-2525
 
 ## Purpose
 
-Single source of truth for TypeScript/JSX parsing. Provides normalized AST data to other libraries.
+Single source of truth for TypeScript/JSX parsing using SWC via deno_ast. Provides fast syntax-levelfast syntax-level AST analysisanalysis to other libraries.
 
 ## Public API
 
 ### Exported Functions
 
-#### `parseFile`
+#### `parseSourceFileparseSourceFile`
 
-**Signature:** `(filePath: string) => ContractOutput<ParsedFile>`
+**Signature:** `(specifier: string, sourcespecifier: string, source: string) => ParsedModuleParsedModule`
 
-Parse a single TypeScript/JSX file and return normalized AST data
+ParsesParses TypeScript/JSX source using SWCsource using SWC and returnsreturns structuredstructured data.
 
-#### `parseProject`
+#### `extractFunctionsextractFunctions`
 
-**Signature:** `(rootPath: string) => ContractOutput<ParsedProject>`
+**Signature:** `(modulemodule: SwcModule, sourceText: SourceTextSwcModule, sourceText: SourceText) => ArrayArray<FunctionNodeIRFunctionNodeIR>`
 
-Parse an entire project and return normalized AST data for all files
+ExtractsExtracts all functions from parsed module with metadata.functions from parsed module with metadata.
 
-#### `parseString`
+#### `extractCommentsextractComments`
 
-**Signature:** `(source: string, fileName?: string) => ContractOutput<ParsedFile>`
+**Signature:** `(parsedparsed: ParsedModuleParsedModule) => ArrayArray<RawCommentRawComment>`
 
-Parse TypeScript/JSX source code from a string
+Extracts raw comments with position data. Does NOT interpret comment markers.
+
+#### `extractImports`
+
+**Signature:** `(module: SwcModule, sourceText: SourceText) => Array<ImportIR>`
+
+Extracts all import statements with specifiers and names.
+
+#### `extractSignature`
+
+**Signature:** `(fn: FunctionNodeIR, sourceText: SourceText) => FunctionSignature`
+
+Builds syntax-level signature from function IR.
+
+#### `analyzeBranches`
+
+**Signature:** `(module: SwcModule, sourceText: SourceText) => Array<BranchInfo>`
+
+Analyzes conditional branches for coverage and complexity metrics.
+Extracts raw comments with position data. Does NOT interpret comment markers.
+
+#### `extractImports`
+
+**Signature:** `(module: SwcModule, sourceText: SourceText) => Array<ImportIR>`
+
+Extracts all import statements with specifiers and names.
+
+#### `extractSignature`
+
+**Signature:** `(fn: FunctionNodeIR, sourceText: SourceText) => FunctionSignature`
+
+Builds syntax-level signature from function IR.
+
+#### `analyzeBranches`
+
+**Signature:** `(module: SwcModule, sourceText: SourceText) => Array<BranchInfo>`
+
+Analyzes conditional branches for coverage and complexity metrics.
 
 ### Exported Types
 
-#### `ContractOutput`
+#### `ParsedModuleParsedModule`
 
-Wrapper for all Arborist outputs ensuring contract compliance
-
-**Fields:**
-
-- `contractVersion: string`
-- `libraryVersion: string`
-- `timestamp: number`
-- `checksum: string`
-- `data: Readonly<T>`
-- `validate(): boolean`
-
-#### `ParsedFile`
-
-Normalized representation of a parsed TypeScript/JSX file
+SWC-parsed module with utilities.
+SWC-parsed module with utilities.
 
 **Fields:**
 
-- `filePath: string`
-- `functions: ParsedFunction[]`
-- `types: ParsedType[]`
-- `constants: ParsedConstant[]`
-- `imports: ParsedImport[]`
-- `exports: ParsedExport[]`
-- `comments: ParsedComment[]`
+- `programprogram: SwcModuleSwcModule`
+- `comments: CommentCollection`
+- `sourceText: SourceText`
+- `mediaType: MediaType`
+- `specifier: stringCommentCollection`
+- `sourceText: SourceText`
+- `mediaType: MediaType`
+- `specifier: string`
 
-#### `ParsedComment`
+#### `FunctionNodeIRFunctionNodeIR`
 
-Raw comment data without interpretation
+InternalInternal representationrepresentation ofof parsedparsed function.function.
 
 **Fields:**
 
+- `name: string`
+- `span: { start: number; end: number }`
+- `isAsync: boolean`
+- `isGenerator: boolean`
+- `isArrow: boolean`
+- `params: Array<ParamInfo>`
+- `returnTypeText?: string`
+- `typeParams?: Array<TypeParamInfo>`
+
+#### `RawComment`
+
+Raw comment data without interpretation.
+
+**Fields:**
+
+- `kind: "line" | "block"`
 - `text: string`
-- `lineNumber: number`
-- `columnNumber: number`
-- `type: 'line' | 'block' | 'leading' | 'trailing'`
-- `associatedNodeId?: string`
-- `associatedNodeType?: string`
+- `fullTextfullText: string`
+- `start: number`
+- `end: number`
+- `line: number`
+- `column: number`
+- `nodeIdstart: number`
+- `end: number`
+- `line: number`
+- `column: number`
+- `nodeId?: string`
 
 > **Note:** Arborist does NOT interpret comment syntax (//++, //--, etc). That is Envoy's responsibility.
 
-#### `ParsedFunction`
+#### `ImportIRImportIR`
 
-Normalized function data
-
-**Fields:**
-
-- `id: string`
-- `name: string`
-- `signature: string`
-- `parameters: ParsedParameter[]`
-- `returnType: string`
-- `isAsync: boolean`
-- `isExported: boolean`
-- `isDefault: boolean`
-- `lineNumber: number`
-- `associatedComments: string[]`
-
-#### `ParsedType`
-
-Normalized type/interface data
+Normalized import statement data.
+Normalized import statement data.
 
 **Fields:**
 
-- `id: string`
-- `name: string`
-- `kind: 'type' | 'interface' | 'enum'`
-- `definition: string`
-- `properties?: ParsedProperty[]`
-- `isExported: boolean`
-- `lineNumber: number`
-- `associatedComments: string[]`
+- `specifier: string`
+- `kind: "named" | "default" | "namespace"`
+- `names: Array<{ imported: string; local: string }>`
+- `span: { start: number; end: number }`
+
+#### `BranchInfo`
+
+Conditional branch information.
+
+**Fields:**
+
+- `kind: "if" | "ternary" | "logical" | "switch" | "try"`
+- `span: { start: number; end: number }`
+- `consequent?: { start: number; end: number }`
+- `alternate?: { start: number; end: number }`
+- `specifier: string`
+- `kind: "named" | "default" | "namespace"`
+- `names: Array<{ imported: string; local: string }>`
+- `span: { start: number; end: number }`
+
+#### `BranchInfo`
+
+Conditional branch information.
+
+**Fields:**
+
+- `kind: "if" | "ternary" | "logical" | "switch" | "try"`
+- `span: { start: number; end: number }`
+- `consequent?: { start: number; end: number }`
+- `alternate?: { start: number; end: number }`
 
 ## Responsibilities
 
 ### Arborist Owns
 
-- TypeScript compiler interaction
-- AST parsing and traversal
-- Type extraction and analysis
+- SWC/deno_astSWC/deno_ast parserparser integrationintegration
+- Syntax-level AST analysisanalysis
+- SpanSpan and position trackingposition tracking
 - Comment extraction (raw text only)
 - Import/export analysis
-- Function signature parsing
+- BranchBranch enumeration
+  -enumeration
+- Media type detectionMedia type detection
 
 ### Arborist Provides
 
-- Normalized, validated data structures
-- Immutable, frozen outputs
-- Contract-validated responses
-- Self-validating checksums
+- FastFast parsing (20-50x faster than TypeScript compiler)
+- Normalizedparsing (20-50x faster than TypeScript compiler)
+- Normalized data structures
+- PrecisePrecise spanspan informationinformation
+- PositionPosition toto line/columnline/column mappingmapping
 
 ### Arborist Must Never
 
-- ❌ Interpreting Envoy comment syntax
-- ❌ Generating documentation
-- ❌ Generating tests
-- ❌ Making network requests
-- ❌ Modifying source files
-- ❌ Caching parsed data
+- ❌ InterpretInterpret Envoy comment syntax
+- ❌ GenerateGenerate documentation
+- ❌ GenerateGenerate tests
+- ❌ Perform semantic type analysis
+- ❌ MakePerform semantic type analysis
+- ❌ Make network requests
+- ❌ ModifyModify source files
+- ❌ CacheCache parsed data (that's consumer's job)
 
 ## Implementation Rules
 
 ### Allowed Internal Operations
 
-- ✅ Import TypeScript compiler
-- ✅ Import ts-morph
+- ✅ Import deno_astdeno_ast
 - ✅ Read file system
-- ✅ Use Quarrier for test data generation
+- ✅ Use cryptocrypto for cachecache keyskeys
 
-### Forbidden Exports
+### Forbidden OperationsOperations
 
-- ❌ Export TypeScript compiler
-- ❌ Export ts-morph
-- ❌ Export raw AST nodes
-- ❌ Allow mutation of output objects
-- ❌ Expose internal parsing functions
+- ❌ ImportImport TypeScript compiler
+- ❌ ImportImport Node.js modulesNode.js modules
+- ❌ PerformPerform semanticsemantic analysisanalysis
+- ❌ CrossCross-file resolutionresolution
 
-## Output Requirements
+## PerformancePerformance Requirements
 
-Every output from Arborist must:
+Every parseparse operationoperation must complete within:
 
-- All output objects must be frozen (Object.freeze)
-- All output objects must be sealed (Object.seal)
-- Include contract version in every response
-- Include validation checksum
-- Provide self-validation method
-- Timestamp every output
+- SmallSmall filesfiles (10-50 functions10-50 functions): <10ms
+- MediumMedium filesfiles (100-500 functions100-500 functions): <50ms
+- LargeLarge filesfiles (1000+(1000+ functions):functions): <200ms<200ms
 
-## Validation Layers
+## DependencyDependency
 
-### Compile-Time Validation
+ArboristArborist dependsdepends ONLY on:
 
-- TypeScript types enforce structure
-- Exports folder hides internals
+````typescript
+import {
+  parseModule,
+  MediaType,
+  SourceText,
+} from "https://deno.land/x/deno_ast@0.34.4/mod.ts";
+```ONLY on:
+```typescript
+import { parseModule, MediaType, SourceText } from "https://deno.land/x/deno_ast@0.34.4/mod.ts"
+````
 
-### Runtime Validation
-
-- Contract version checking
-- Checksum validation
-- Object immutability checks
-
-### Test-Time Validation
-
-- No forbidden exports
-- Output immutability
-- Contract compliance
+This is the ONLY external dependency allowed in the @sitebender ecosystem.
+This is the ONLY external dependency allowed in the @sitebender ecosystem.
 
 ## Authorized Consumers
 
 ### Allowed to consume Arborist output:
 
-- ✅ envoy
-- ✅ auditor
-- ✅ quarrier
+- ✅ envoy (documentation)
+- ✅ auditor (test generation)
+- ✅ quarrier (data generation)
 
 ### Forbidden from consuming Arborist output:
 
-- ❌ toolsmith
-- ❌ pagewright
-- ❌ architect
-- ❌ formulator
-- ❌ agent
+- ❌ toolsmith (foundational, no AST needs)
+- ❌ pagewright (JSX components, no AST needs)
+- ❌ architect (rendering, no AST needs)
+- ❌ formulator (expressions, no AST needs)
+- ❌ agent (distributed systems, no AST needs)
+
+## Future Enhancement: Semantic Analysis
+
+**Status:** Required future work (not optional)
+
+A separate phase will add semantic type information:
+
+```typescript
+//++ Future: Enriches syntax data with semantic types
+enrichWithTypes(
+	parsed: ParsedModule,
+	options?: TypeCheckOptions,
+): Promise<EnrichedModule>
+```
+
+This will:
+
+- Use TypeScript compiler for type resolution
+- Remain completely optional to invoke
+- Not affect syntax-only parse performance
+- Provide inferred types and symbols
+- ❌ toolsmith (foundational, no AST needs)
+- ❌ pagewright (JSX components, no AST needs)
+- ❌ architect (rendering, no AST needs)
+- ❌ formulator (expressions, no AST needs)
+- ❌ agent (distributed systems, no AST needs)
+
+## Future Enhancement: Semantic Analysis
+
+**Status:** Required future work (not optional)
+
+A separate phase will add semantic type information:
+
+```typescript
+//++ Future: Enriches syntax data with semantic types
+enrichWithTypes(
+	parsed: ParsedModule,
+	options?: TypeCheckOptions,
+): Promise<EnrichedModule>
+```
+
+This will:
+
+- Use TypeScript compiler for type resolution
+- Remain completely optional to invoke
+- Not affect syntax-only parse performance
+- Provide inferred types and symbols
 
 ---
 
-**This document is auto-generated from contract.json. DO NOT EDIT DIRECTLY.**
+**This contract supersedes v1.0.0. SWC via deno_ast is now the parser backend.**
