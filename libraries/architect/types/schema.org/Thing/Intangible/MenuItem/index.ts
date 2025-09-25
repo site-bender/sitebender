@@ -6,12 +6,12 @@ import type { IntangibleProps } from "../index.ts"
 import type Offer from "../Offer/index.ts"
 import type NutritionInformation from "../StructuredValue/NutritionInformation/index.ts"
 
-import MenuSectionComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/MenuSection/index.tsx"
-import DemandComponent from "../../../../../../codewright/src/define/Thing/Intangible/Demand/index.tsx"
-import RestrictedDietComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/RestrictedDiet/index.tsx"
-import MenuItemComponent from "../../../../../../codewright/src/define/Thing/Intangible/MenuItem/index.tsx"
-import OfferComponent from "../../../../../../codewright/src/define/Thing/Intangible/Offer/index.tsx"
-import NutritionInformationComponent from "../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/NutritionInformation/index.tsx"
+import MenuSectionComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/MenuSection/index.tsx"
+import DemandComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Demand/index.tsx"
+import RestrictedDietComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/RestrictedDiet/index.tsx"
+import MenuItemComponent from "../../../../../../pagewright/src/define/Thing/Intangible/MenuItem/index.tsx"
+import OfferComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Offer/index.tsx"
+import NutritionInformationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/NutritionInformation/index.tsx"
 
 export type MenuItemType = "MenuItem"
 

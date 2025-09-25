@@ -22,11 +22,11 @@ import type { MotelType } from "./Motel/index.ts"
 import type { ResortType } from "./Resort/index.ts"
 import type { VacationRentalType } from "./VacationRental/index.ts"
 
-import AudienceComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Audience/index.tsx"
-import LanguageComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Language/index.tsx"
-import RatingComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Rating/index.tsx"
-import LocationFeatureSpecificationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import AudienceComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
+import LanguageComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Language/index.tsx"
+import RatingComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Rating/index.tsx"
+import LocationFeatureSpecificationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type LodgingBusinessType =
 	| "LodgingBusiness"

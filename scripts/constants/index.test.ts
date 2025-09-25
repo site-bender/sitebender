@@ -1,22 +1,22 @@
 import {
 	assertEquals,
 	assertExists,
-	assertInstanceOf
+	assertInstanceOf,
 } from "https://deno.land/std/assert/mod.ts"
 
 import {
 	ARCHITECT_SRC,
 	ARCHITECT_TYPES,
-	TOOLSMITH_SRC,
 	DEFAULT_ALIAS_SCOPES,
 	DEFAULT_FP_GLOBS,
-	FP_FORBIDDEN,
-	FP_ALLOWLIST,
 	DEFAULT_NO_REACT_GLOBS,
-	NO_REACT_ALLOWLIST,
-	FORMAT_ROOTS,
-	FORMAT_EXTENSIONS,
 	FORMAT_EXCLUDES,
+	FORMAT_EXTENSIONS,
+	FORMAT_ROOTS,
+	FP_ALLOWLIST,
+	FP_FORBIDDEN,
+	NO_REACT_ALLOWLIST,
+	TOOLSMITH_SRC,
 } from "./index.ts"
 
 //++ Tests for script constants and configuration
@@ -34,8 +34,14 @@ Deno.test("constants", async function testConstants(t) {
 		assertExists(DEFAULT_ALIAS_SCOPES)
 		assertInstanceOf(DEFAULT_ALIAS_SCOPES, Array)
 		assertEquals(DEFAULT_ALIAS_SCOPES.length > 0, true)
-		assertEquals(DEFAULT_ALIAS_SCOPES.includes("libraries/codewright/src"), true)
-		assertEquals(DEFAULT_ALIAS_SCOPES.includes("applications/mission-control/src"), true)
+		assertEquals(
+			DEFAULT_ALIAS_SCOPES.includes("libraries/pagewright/src"),
+			true,
+		)
+		assertEquals(
+			DEFAULT_ALIAS_SCOPES.includes("applications/mission-control/src"),
+			true,
+		)
 		assertEquals(DEFAULT_ALIAS_SCOPES.includes("scripts"), true)
 	})
 
@@ -64,7 +70,7 @@ Deno.test("constants", async function testConstants(t) {
 		}
 
 		// Check specific patterns exist
-		const names = FP_FORBIDDEN.map(p => p.name)
+		const names = FP_FORBIDDEN.map((p) => p.name)
 		assertEquals(names.includes("let"), true)
 		assertEquals(names.includes("var"), true)
 		assertEquals(names.includes("for-loop"), true)
@@ -79,8 +85,14 @@ Deno.test("constants", async function testConstants(t) {
 		assertInstanceOf(FP_ALLOWLIST, Set)
 
 		// Check it contains expected files
-		assertEquals(FP_ALLOWLIST.has("libraries/toolsmith/src/state/store.ts"), true)
-		assertEquals(FP_ALLOWLIST.has("libraries/architect/src/reactive/signal.ts"), true)
+		assertEquals(
+			FP_ALLOWLIST.has("libraries/toolsmith/src/state/store.ts"),
+			true,
+		)
+		assertEquals(
+			FP_ALLOWLIST.has("libraries/architect/src/reactive/signal.ts"),
+			true,
+		)
 	})
 
 	await t.step("exports no-React globs", function testNoReactGlobs() {
@@ -117,20 +129,23 @@ Deno.test("constants", async function testConstants(t) {
 		}
 	})
 
-	await t.step("regex patterns match expected code", function testRegexPatterns() {
-		// Test FP forbidden patterns
-		const letPattern = FP_FORBIDDEN.find(p => p.name === "let")!
-		assertEquals(letPattern.regex.test("let x = 5"), true)
-		assertEquals(letPattern.regex.test("letter"), false) // Should not match inside words
+	await t.step(
+		"regex patterns match expected code",
+		function testRegexPatterns() {
+			// Test FP forbidden patterns
+			const letPattern = FP_FORBIDDEN.find((p) => p.name === "let")!
+			assertEquals(letPattern.regex.test("let x = 5"), true)
+			assertEquals(letPattern.regex.test("letter"), false) // Should not match inside words
 
-		const classPattern = FP_FORBIDDEN.find(p => p.name === "class")!
-		assertEquals(classPattern.regex.test("class MyClass {"), true)
-		assertEquals(classPattern.regex.test("className"), false) // Should not match className
+			const classPattern = FP_FORBIDDEN.find((p) => p.name === "class")!
+			assertEquals(classPattern.regex.test("class MyClass {"), true)
+			assertEquals(classPattern.regex.test("className"), false) // Should not match className
 
-		const pushPattern = FP_FORBIDDEN.find(p => p.name === "push")!
-		assertEquals(pushPattern.regex.test("arr.push(item)"), true)
-		assertEquals(pushPattern.regex.test("pushButton"), false) // Should not match function names
-	})
+			const pushPattern = FP_FORBIDDEN.find((p) => p.name === "push")!
+			assertEquals(pushPattern.regex.test("arr.push(item)"), true)
+			assertEquals(pushPattern.regex.test("pushButton"), false) // Should not match function names
+		},
+	)
 })
 
 //?? [EXAMPLE] Run with: deno test scripts/constants/index.test.ts

@@ -2,7 +2,7 @@ import type Thing from "../../index.ts"
 import type MapCategoryType from "../../Intangible/Enumeration/MapCategoryType/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import MapCategoryTypeComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MapCategoryType/index.tsx"
+import MapCategoryTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MapCategoryType/index.tsx"
 
 export type MapType = "Map"
 

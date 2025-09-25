@@ -2,6 +2,7 @@ import pipe from "../../combinator/pipe/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 import insertAt from "../insertAt/index.ts"
 import removeAt from "../removeAt/index.ts"
+
 //++ move(from)(to)(array) — returns new array with element repositioned or original if invalid
 const move = <T>(from: number) =>
 (to: number) =>

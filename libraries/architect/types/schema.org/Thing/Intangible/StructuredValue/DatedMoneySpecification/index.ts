@@ -9,7 +9,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 
-import MonetaryAmountComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
 
 export type DatedMoneySpecificationType = "DatedMoneySpecification"
 

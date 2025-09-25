@@ -13,7 +13,7 @@ rules:
       Policy
       - NEW files: write tests first (TDD), then implement to pass.
       - Edited files: add/adjust tests before making the fix.
-      - "Throwaway" means temporary until Logician generates tests—not a license to ignore rules.
+      - "Throwaway" means temporary until Auditor generates tests—not a license to ignore rules.
 
       Rules Apply Equally
       - Tests must follow all production rules: no classes, no loops, functional style, code style, imports order, Envoy comments where exported.

@@ -5,7 +5,10 @@ import type {
 	Operand,
 	OperatorConfig,
 } from "../../../architect/types/index.ts"
-import type { Left, Right } from "../../../toolsmith/src/types/fp/either/index.ts"
+import type {
+	Left,
+	Right,
+} from "../../../toolsmith/src/types/fp/either/index.ts"
 import type {
 	AstNode,
 	ParseError,

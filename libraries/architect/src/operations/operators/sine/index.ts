@@ -1,7 +1,7 @@
 import type { HydratedSine } from "../../../../types/hydrated/index.ts"
 import type {
-	Either,
 	ArchitectError,
+	Either,
 	LocalValues,
 	OperationFunction,
 } from "../../../types/index.ts"

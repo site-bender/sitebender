@@ -21,7 +21,7 @@ export function _printHelp(): void {
 		"",
 		"Notes:",
 		"  - Stubs phase: 'new' and 'dry-run' only validate and print help/plan. No writes.",
-		"  - Import maps: dev -> local src; prod -> published libraries."
+		"  - Import maps: dev -> local src; prod -> published libraries.",
 	].join("\n")
 	console.log(message)
 }

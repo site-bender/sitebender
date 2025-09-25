@@ -1,6 +1,6 @@
-import type { Violation } from "../../types/index.ts"
-
 import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
+
+import type { Violation } from "../../types/index.ts"
 
 // Match only real import/export-from statements at the start of a line (ignoring leading whitespace).
 // This avoids false positives for strings that merely CONTAIN such text inside tests or other code.

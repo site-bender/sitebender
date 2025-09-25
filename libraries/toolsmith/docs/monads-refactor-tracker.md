@@ -148,7 +148,7 @@ Legend: [x] done · [ ] pending
 
 - Either vs Result semantics: Either is a general two-branch choice; Result is for success/failure with short-circuiting. Validation is for accumulation. Maybe is for optional.
 - Prefer “left-to-right inference” signatures across helpers.
-- Keep property-based tests light; they’re temporary until Logician lands.
+- Keep property-based tests light; they’re temporary until Auditor lands.
 
 ## Progress log
 

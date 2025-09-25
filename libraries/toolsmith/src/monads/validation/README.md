@@ -97,4 +97,4 @@ import isInvalid from "./isInvalid/index.ts"
 
 For now, tests in this folder are handwritten unit tests using Deno.test and std expect. Where helpful, we may add targeted property-based tests (e.g., functor/monad laws).
 
-This is a temporary measure. Once the Logician library is ready, it will synthesize and maintain the full test suites for the Toolsmith and the rest of the codebase (including itself). The plan is to remove all handwritten tests (unit, property, integration) in favor of Logician-generated tests. Any remaining manual tests would serve only as supplemental safety harnesses around the generated proofs/tests.
+This is a temporary measure. Once the Auditor library is ready, it will synthesize and maintain the full test suites for the Toolsmith and the rest of the codebase (including itself). The plan is to remove all handwritten tests (unit, property, integration) in favor of Auditor-generated tests. Any remaining manual tests would serve only as supplemental safety harnesses around the generated proofs/tests.

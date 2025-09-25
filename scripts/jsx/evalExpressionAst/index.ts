@@ -15,9 +15,7 @@ export default function evalExpressionAst(
 		? context[(ast as { name: string }).name]
 		: null
 
-	const stringResult = isStringLiteral
-		? (ast as { value: string }).value
-		: null
+	const stringResult = isStringLiteral ? (ast as { value: string }).value : null
 
 	const numericResult = isNumericLiteral
 		? (ast as { value: number }).value

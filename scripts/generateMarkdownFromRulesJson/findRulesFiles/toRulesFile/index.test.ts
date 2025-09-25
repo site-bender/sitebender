@@ -44,7 +44,9 @@ Deno.test("toRulesFile", async (t) => {
 				)
 			} else {
 				// If the file doesn't exist, that's a problem we want to know about
-				throw new Error("Expected libraries/architect/rules/index.json to exist")
+				throw new Error(
+					"Expected libraries/architect/rules/index.json to exist",
+				)
 			}
 		},
 	)

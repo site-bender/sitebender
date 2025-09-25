@@ -1,7 +1,7 @@
 import { assert, assertEquals } from "@std/assert"
 
-import of from "./index.ts"
 import isOk from "../isOk/index.ts"
+import of from "./index.ts"
 
 Deno.test("of", async (t) => {
 	await t.step("creates Ok result with number", () => {

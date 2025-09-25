@@ -1,5 +1,6 @@
-import isUndefined from "../../validation/isUndefined/index.ts"
 import type { Value } from "../../../types/index.ts"
+
+import isUndefined from "../../validation/isUndefined/index.ts"
 
 /**
  * Safely parses a value with a parser function, returning null on failure

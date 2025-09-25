@@ -1,7 +1,7 @@
 import { assert, assertEquals } from "@std/assert"
 
-import isOk from "../isOk/index.ts"
 import isError from "../isError/index.ts"
+import isOk from "../isOk/index.ts"
 import tryCatch from "./index.ts"
 
 Deno.test("tryCatch", async (t) => {
@@ -38,21 +38,27 @@ Deno.test("tryCatch", async (t) => {
 		assert(isOk(validJson))
 		assertEquals(validJson.value, { valid: "json" })
 
-		const invalidJson = safeJsonParse(() => JSON.parse('invalid'))
+		const invalidJson = safeJsonParse(() => JSON.parse("invalid"))
 
 		assert(isError(invalidJson))
 		assert(invalidJson.error.startsWith("Parse error:"))
 	})
 
 	await t.step("transforms error with onError function", () => {
-		const withObjectError = tryCatch((e) => ({ type: "error", message: String(e) }))
+		const withObjectError = tryCatch((e) => ({
+			type: "error",
+			message: String(e),
+		}))
 
 		const result = withObjectError(() => {
 			throw new Error("string error")
 		})
 
 		assert(isError(result))
-		assertEquals(result.error, { type: "error", message: "Error: string error" })
+		assertEquals(result.error, {
+			type: "error",
+			message: "Error: string error",
+		})
 	})
 
 	await t.step("handles undefined and null returns", () => {

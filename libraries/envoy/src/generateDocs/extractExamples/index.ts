@@ -1,7 +1,7 @@
 import type { ParsedComments } from "../../comments/parseCommentMarkers/types/index.ts"
 import type { ParsedComment } from "../../types/index.ts"
 
-//++ Extract examples from comment markers and Linguist comments
+//++ Extract examples from comment markers and Arborist comments
 export default function extractExamples(
 	commentMarkers: ParsedComments,
 	comments: ReadonlyArray<ParsedComment>,

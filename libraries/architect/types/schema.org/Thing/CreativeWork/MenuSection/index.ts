@@ -2,8 +2,8 @@ import type Thing from "../../index.ts"
 import type MenuItem from "../../Intangible/MenuItem/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import MenuSectionComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/MenuSection/index.tsx"
-import MenuItemComponent from "../../../../../../codewright/src/define/Thing/Intangible/MenuItem/index.tsx"
+import MenuSectionComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/MenuSection/index.tsx"
+import MenuItemComponent from "../../../../../../pagewright/src/define/Thing/Intangible/MenuItem/index.tsx"
 
 export type MenuSectionType = "MenuSection"
 

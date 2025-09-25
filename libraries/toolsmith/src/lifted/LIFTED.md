@@ -72,27 +72,31 @@ function map<T, U>(fn: (T) => U) {
 import mapVanilla from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 
 // Function overloads for type safety
-function map<T, U, E>(fn: (T) => Result<E, U>): (array: Array<T>) => Result<Array<E>, Array<U>>
-function map<T, U, E>(fn: (T) => Validation<E, U>): (array: Array<T>) => Validation<Array<E>, Array<U>>
+function map<T, U, E>(
+	fn: (T) => Result<E, U>,
+): (array: Array<T>) => Result<Array<E>, Array<U>>
+function map<T, U, E>(
+	fn: (T) => Validation<E, U>,
+): (array: Array<T>) => Validation<Array<E>, Array<U>>
 
 // Implementation - detects monad type and uses appropriate sequencing
 function map<T, U, E>(fn: (T) => Result<E, U> | Validation<E, U>) {
 	return function mapWithFn(array: Array<T>) {
 		// 1. Use vanilla map to apply fn to each element
 		const results = mapVanilla(fn)(array) // Array<Result<E, U> | Validation<E, U>>
-		
+
 		// 2. Detect monad type and sequence appropriately
 		if (results.length === 0) {
 			// Return appropriate empty based on function signature
 			return /* empty result matching input type */
 		}
-		
+
 		const firstResult = results[0]
-		if ('tag' in firstResult) {
+		if ("tag" in firstResult) {
 			// Result monad - fail fast on first error
 			return sequenceResult(results)
 		} else {
-			// Validation monad - accumulate all errors  
+			// Validation monad - accumulate all errors
 			return sequenceValidation(results)
 		}
 	}
@@ -104,6 +108,7 @@ export default map
 ## Usage Examples
 
 ### Vanilla Function Usage
+
 ```typescript
 import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 
@@ -118,6 +123,7 @@ const uppercased = map((name: string) => name.toUpperCase())(names)
 ```
 
 ### Lifted Function Usage
+
 ```typescript
 import mapValidation from "@sitebender/toolsmith/lifted/array/map/index.ts"
 import valid from "@sitebender/toolsmith/monads/validation/valid/index.ts"
@@ -137,6 +143,7 @@ const successResult = mapResult(validateAndDouble)(validNumbers)
 ```
 
 ### Do-Notation Usage
+
 ```typescript
 import doNotation from "@sitebender/toolsmith/monads/doNotation/index.ts"
 import mapResult from "@sitebender/toolsmith/lifted/array/map/index.ts"
@@ -147,7 +154,7 @@ import Err from "@sitebender/toolsmith/monads/result/Err/index.ts"
 const processData = doNotation(function* () {
 	const rawData = yield valid([1, -2, 3, -4, 5])
 	const validated = yield mapValidation(validateAndDouble)(rawData)
-	const filtered = yield filterValidation((x: number) => 
+	const filtered = yield filterValidation((x: number) =>
 		x > 5 ? valid(true) : invalid([`${x} below threshold`])
 	)(validated)
 	return filtered
@@ -247,7 +254,8 @@ describe("mapValidation", () => {
 	})
 
 	it("accumulates errors", () => {
-		const validate = (x: number) => x > 2 ? valid(x) : invalid([`${x} too small`])
+		const validate = (x: number) =>
+			x > 2 ? valid(x) : invalid([`${x} too small`])
 		const result = mapValidation(validate)([1, 2, 3, 4])
 		assertEquals(result, invalid(["1 too small", "2 too small"]))
 	})

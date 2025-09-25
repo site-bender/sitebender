@@ -4,7 +4,10 @@ import isNullish from "../../validation/isNullish/index.ts"
 import isSymbol from "../../validation/isSymbol/index.ts"
 
 //++ Creates an object from an array of [key, value] pairs
-export default function fromEntries<K extends string | number | symbol, V extends Value>(
+export default function fromEntries<
+	K extends string | number | symbol,
+	V extends Value,
+>(
 	entries: Iterable<readonly [K, V]> | null | undefined,
 ): Record<K, V> {
 	if (isNullish(entries)) {

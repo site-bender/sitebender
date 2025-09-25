@@ -1,9 +1,11 @@
-import type { FunctionInfo } from "../types/index.ts"
 import isNullish from "@sitebender/toolsmith/vanilla/validation/isNullish/index.ts"
+
+import type { FunctionInfo } from "../types/index.ts"
+
 import _extractFunctionName from "./_extractFunctionName/index.ts"
 import _extractSignature from "./_extractSignature/index.ts"
-import _isCurriedFunction from "./_isCurriedFunction/index.ts"
 import _generateRelativePath from "./_generateRelativePath/index.ts"
+import _isCurriedFunction from "./_isCurriedFunction/index.ts"
 
 /**
  * Extract function information from index.ts file content

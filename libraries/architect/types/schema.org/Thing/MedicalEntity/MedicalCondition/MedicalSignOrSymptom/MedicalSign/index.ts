@@ -6,8 +6,8 @@ import type { MedicalConditionProps } from "../../index.ts"
 import type { MedicalSignOrSymptomProps } from "../index.ts"
 import type { VitalSignType } from "./VitalSign/index.ts"
 
-import MedicalTestComponent from "../../../../../../../../codewright/src/define/Thing/MedicalEntity/MedicalTest/index.tsx"
-import { PhysicalExam as PhysicalExamComponent } from "../../../../../../../codewright/index.tsx"
+import MedicalTestComponent from "../../../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalTest/index.tsx"
+import { PhysicalExam as PhysicalExamComponent } from "../../../../../../../pagewright/index.tsx"
 
 export type MedicalSignType = "MedicalSign" | VitalSignType
 

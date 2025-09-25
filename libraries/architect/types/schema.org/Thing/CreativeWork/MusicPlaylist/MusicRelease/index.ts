@@ -9,12 +9,12 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { MusicPlaylistProps } from "../index.ts"
 import type MusicAlbum from "../MusicAlbum/index.ts"
 
-import MusicAlbumComponent from "../../../../../../../codewright/src/define/Thing/CreativeWork/MusicPlaylist/MusicAlbum/index.tsx"
-import MusicReleaseFormatTypeComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MusicReleaseFormatType/index.tsx"
-import DurationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import OrganizationComponent from "../../../../../../../codewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../../codewright/src/define/Thing/Person/index.tsx"
+import MusicAlbumComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/MusicPlaylist/MusicAlbum/index.tsx"
+import MusicReleaseFormatTypeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MusicReleaseFormatType/index.tsx"
+import DurationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import OrganizationComponent from "../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
 
 export type MusicReleaseType = "MusicRelease"
 

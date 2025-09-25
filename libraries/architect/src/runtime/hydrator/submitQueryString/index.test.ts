@@ -1,3 +1,4 @@
+import createTestDomWithBody from "@sitebender/toolsmith/testing/dom/createTestDomWithBody.ts"
 //++ Tests submit query string hydration (Act.SetQueryString via On.Submit)
 import { assert, assertStringIncludes } from "jsr:@std/assert@1"
 
@@ -8,7 +9,6 @@ import type {
 	IrDocument,
 } from "../../../../types/ir/index.ts"
 
-import createTestDomWithBody from "@sitebender/toolsmith/testing/dom/createTestDomWithBody.ts"
 import createComposeContext from "../../../context/composeContext/index.ts"
 import registerDefaultExecutors from "../../../operations/defaults/registerDefaults/index.ts"
 import hydrate from "../index.ts"

@@ -17,8 +17,8 @@ Deno.test("determineDocumentTitle", async (t) => {
 				"Envoy rules",
 			)
 			assertEquals(
-				determineDocumentTitle("/libraries/linguist/rules/index.json"),
-				"Linguist rules",
+				determineDocumentTitle("/libraries/arborist/rules/index.json"),
+				"Arborist rules",
 			)
 			assertEquals(
 				determineDocumentTitle("/libraries/agent/rules/index.json"),

@@ -1,8 +1,8 @@
 import type { Result } from "../../../types/fp/result/index.ts"
 
-import ok from "../ok/index.ts"
 import error from "../error/index.ts"
 import isOk from "../isOk/index.ts"
+import ok from "../ok/index.ts"
 
 //++ Maps functions over both Error and Ok values
 export default function bimap<E, F>(onError: (err: E) => F) {

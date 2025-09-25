@@ -1,10 +1,11 @@
 //++ Detects contract violations in source code using pattern matching
 
 import type { ContractViolation } from "../../types/enforcement.ts"
-import map from "../../../../toolsmith/src/vanilla/array/map/index.ts"
+
 import flatMap from "../../../../toolsmith/src/vanilla/array/flatMap/index.ts"
-import getForbiddenPatterns from "./getForbiddenPatterns/index.ts"
+import map from "../../../../toolsmith/src/vanilla/array/map/index.ts"
 import findPattern from "./findPattern/index.ts"
+import getForbiddenPatterns from "./getForbiddenPatterns/index.ts"
 
 export default async function detectViolations(
 	libraryPath: string,
@@ -76,7 +77,7 @@ export default async function detectViolations(
 					type: "boundary" as const,
 					library,
 					description:
-						`CRITICAL: ${p.description}. Envoy MUST use Linguist output only!`,
+						`CRITICAL: ${p.description}. Envoy MUST use Arborist output only!`,
 					file: match.file,
 					line: match.line,
 					severity: "error" as const,
@@ -85,18 +86,21 @@ export default async function detectViolations(
 	}
 
 	let internalViolations: ReadonlyArray<ContractViolation> = []
-	if (library === "linguist") {
-		// Check if Linguist is exporting TypeScript internals
+	if (library === "arborist") {
+		// Check if Arborist is exporting TypeScript internals
 		const internalExports = [
 			{
 				regex: /export.*ts\./,
-				description: "Linguist exporting TypeScript internals",
+				description: "Arborist exporting TypeScript internals",
 			},
 			{
 				regex: /export.*SyntaxKind/,
-				description: "Linguist exporting SyntaxKind",
+				description: "Arborist exporting SyntaxKind",
 			},
-			{ regex: /export.*Node/, description: "Linguist exporting raw AST nodes" },
+			{
+				regex: /export.*Node/,
+				description: "Arborist exporting raw AST nodes",
+			},
 		]
 
 		const internalResults = await Promise.all(

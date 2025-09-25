@@ -16,12 +16,12 @@ import type { InviteActionType } from "./InviteAction/index.ts"
 import type { ReplyActionType } from "./ReplyAction/index.ts"
 import type { ShareActionType } from "./ShareAction/index.ts"
 
-import ThingComponent from "../../../../../../../codewright/src/define/Thing/index.tsx"
-import AudienceComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Audience/index.tsx"
-import LanguageComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Language/index.tsx"
-import ContactPointComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
-import OrganizationComponent from "../../../../../../../codewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../../codewright/src/define/Thing/Person/index.tsx"
+import ThingComponent from "../../../../../../../pagewright/src/define/Thing/index.tsx"
+import AudienceComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
+import LanguageComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Language/index.tsx"
+import ContactPointComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import OrganizationComponent from "../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
 
 export type CommunicateActionType =
 	| "CommunicateAction"

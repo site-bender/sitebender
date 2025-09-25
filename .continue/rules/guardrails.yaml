@@ -12,6 +12,6 @@ rules:
       - Do not delete/rename files unless the prompt explicitly authorizes it.
       - Imports: follow realm/order groups; single blank line between groups.
       - Style-only or comments-only passes must not change behavior.
-      - Linguist is the only AST source; Envoy must not parse code.
+      - Arborist is the only AST source; Envoy must not parse code.
       - Tests must be deterministic; coverage-ignore requires an explicit reason.
       - All pre-commit gates must pass; prefer minimal diffs.

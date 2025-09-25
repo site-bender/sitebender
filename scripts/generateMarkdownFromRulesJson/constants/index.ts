@@ -2,13 +2,13 @@
 export const RULES_FILE_LOCATIONS = [
 	"rules/index.json",
 	"applications/rules/index.json",
-	"libraries/codewright/rules/index.json",
+	"libraries/pagewright/rules/index.json",
 	"libraries/architect/rules/index.json",
 	"libraries/toolsmith/rules/index.json",
 	"libraries/quarrier/rules/index.json",
-	"libraries/logician/rules/index.json",
+	"libraries/auditor/rules/index.json",
 	"libraries/envoy/rules/index.json",
-	"libraries/linguist/rules/index.json",
+	"libraries/arborist/rules/index.json",
 	"libraries/formulator/rules/index.json",
 	"libraries/agent/rules/index.json",
 ]

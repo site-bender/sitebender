@@ -23,6 +23,8 @@ Deno.test("subtract: non-finite inputs return undefined", () => {
 
 	const minus5 = subtract(5)
 	// @ts-ignore intentional invalid input
-	const r2 = typeof minus5 === "function" ? minus5(NaN as unknown as number) : undefined
+	const r2 = typeof minus5 === "function"
+		? minus5(NaN as unknown as number)
+		: undefined
 	assertEquals(r2, undefined)
 })

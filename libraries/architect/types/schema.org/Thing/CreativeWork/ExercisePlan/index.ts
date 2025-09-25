@@ -8,9 +8,9 @@ import type { LifestyleModificationProps } from "../../MedicalEntity/LifestyleMo
 import type { PhysicalActivityProps } from "../../MedicalEntity/LifestyleModification/PhysicalActivity/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import DurationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import EnergyComponent from "../../../../../../codewright/src/define/Thing/Intangible/Quantity/Energy/index.tsx"
-import QuantitativeValueComponent from "../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import DurationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import EnergyComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Energy/index.tsx"
+import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type ExercisePlanType = "ExercisePlan"
 

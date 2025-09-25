@@ -4,7 +4,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type { RatingProps } from "../index.ts"
 import type { EmployerAggregateRatingType } from "./EmployerAggregateRating/index.ts"
 
-import ThingComponent from "../../../../../../../codewright/src/define/Thing/index.tsx"
+import ThingComponent from "../../../../../../../pagewright/src/define/Thing/index.tsx"
 
 export type AggregateRatingType =
 	| "AggregateRating"

@@ -8,7 +8,7 @@ type Comment = {
 	position: "before" | "after"
 }
 
-//++ Extracts description from parsed comments using Linguist API output
+//++ Extracts description from parsed comments using Arborist API output
 export default function extractDescription(
 	comments: Array<Comment>,
 ): string | undefined {

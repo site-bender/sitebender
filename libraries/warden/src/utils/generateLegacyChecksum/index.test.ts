@@ -1,4 +1,5 @@
 import { assertEquals, assertMatch } from "https://deno.land/std/assert/mod.ts"
+
 import generateLegacyChecksum from "./index.ts"
 
 Deno.test("generateLegacyChecksum", async (t) => {

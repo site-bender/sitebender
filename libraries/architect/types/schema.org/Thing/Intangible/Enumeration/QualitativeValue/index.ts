@@ -13,13 +13,13 @@ import type { DriveWheelConfigurationValueType } from "./DriveWheelConfiguration
 import type { SizeSpecificationType } from "./SizeSpecification/index.ts"
 import type { SteeringPositionValueType } from "./SteeringPositionValue/index.ts"
 
-import DefinedTermComponent from "../../../../../../../codewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
-import EnumerationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/index.tsx"
-import MeasurementTypeEnumerationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/index.tsx"
-import QualitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
-import StructuredValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/index.tsx"
-import PropertyValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import DefinedTermComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import EnumerationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/index.tsx"
+import MeasurementTypeEnumerationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/index.tsx"
+import QualitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import StructuredValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/index.tsx"
+import PropertyValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type QualitativeValueType =
 	| "QualitativeValue"

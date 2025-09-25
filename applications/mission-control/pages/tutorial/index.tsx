@@ -1,12 +1,12 @@
-import SetQueryString from "@sitebender/codewright/transform/actions/SetQueryString/index.tsx"
-import NotEmpty from "@sitebender/codewright/transform/comparators/NotEmpty/index.tsx"
-import If from "@sitebender/codewright/transform/control/If/index.tsx"
-import On from "@sitebender/codewright/transform/control/On/index.tsx"
-import Program from "@sitebender/codewright/transform/control/Program/index.tsx"
-import SetValue from "@sitebender/codewright/transform/do/SetValue/index.tsx"
-import Constant from "@sitebender/codewright/transform/injectors/Constant/index.tsx"
-import FromElement from "@sitebender/codewright/transform/injectors/FromElement/index.tsx"
-import Add from "@sitebender/codewright/transform/operators/Add/index.tsx"
+import SetQueryString from "@sitebender/pagewright/transform/actions/SetQueryString/index.tsx"
+import NotEmpty from "@sitebender/pagewright/transform/comparators/NotEmpty/index.tsx"
+import If from "@sitebender/pagewright/transform/control/If/index.tsx"
+import On from "@sitebender/pagewright/transform/control/On/index.tsx"
+import Program from "@sitebender/pagewright/transform/control/Program/index.tsx"
+import SetValue from "@sitebender/pagewright/transform/do/SetValue/index.tsx"
+import Constant from "@sitebender/pagewright/transform/injectors/Constant/index.tsx"
+import FromElement from "@sitebender/pagewright/transform/injectors/FromElement/index.tsx"
+import Add from "@sitebender/pagewright/transform/operators/Add/index.tsx"
 
 // compileToArchitect no longer needed directly here
 

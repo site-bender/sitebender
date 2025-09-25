@@ -1,21 +1,21 @@
+import forEach from "@sitebender/toolsmith/vanilla/array/forEach/index.ts"
+import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
+import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
+import push from "@sitebender/toolsmith/vanilla/array/push/index.ts"
+import test from "@sitebender/toolsmith/vanilla/regex/test/index.ts"
+import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
+import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
+import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
+import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
+import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
+import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
+import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
 //++ Enforces Envoy style and structural rules across the codebase
 // Usage: deno run --allow-read scripts/enforceEnvoyStyle/index.ts
 // Reads libraries/envoy/SCRIBE_RULES.json and scans targetGlobs.
 
 import { globToRegExp } from "https://deno.land/std@0.224.0/path/mod.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
-import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
-import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
-import forEach from "@sitebender/toolsmith/vanilla/array/forEach/index.ts"
-import push from "@sitebender/toolsmith/vanilla/array/push/index.ts"
-import test from "@sitebender/toolsmith/vanilla/regex/test/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
 
 type ScribeRules = {
 	requireMarkerAboveExport: boolean

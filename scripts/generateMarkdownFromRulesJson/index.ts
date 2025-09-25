@@ -1,8 +1,6 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write
-
+import length from "../../libraries/toolsmith/src/vanilla/array/length/index.ts"
 import map from "../../libraries/toolsmith/src/vanilla/array/map/index.ts"
 import concat from "../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
-import length from "../../libraries/toolsmith/src/vanilla/array/length/index.ts"
 import findRulesFiles from "./findRulesFiles/index.ts"
 import processWithErrorHandling from "./processWithErrorHandling/index.ts"
 

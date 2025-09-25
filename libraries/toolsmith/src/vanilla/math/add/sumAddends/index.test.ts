@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
-import { ADDITIVE_IDENTITY } from "../../constants/index.ts"
 import reduce from "../../../array/reduce/index.ts"
+import { ADDITIVE_IDENTITY } from "../../constants/index.ts"
 import sumAddends from "./index.ts"
 
 //++ Tests for sumAddends: (total, value) => total + value

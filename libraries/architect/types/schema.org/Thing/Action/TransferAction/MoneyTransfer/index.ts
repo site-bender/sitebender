@@ -5,8 +5,8 @@ import type BankOrCreditUnion from "../../../Organization/LocalBusiness/Financia
 import type { ActionProps } from "../../index.ts"
 import type { TransferActionProps } from "../index.ts"
 
-import MonetaryAmountComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
-import { BankOrCreditUnion as BankOrCreditUnionComponent } from "../../../../../../codewright/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import { BankOrCreditUnion as BankOrCreditUnionComponent } from "../../../../../../pagewright/index.tsx"
 
 export type MoneyTransferType = "MoneyTransfer"
 

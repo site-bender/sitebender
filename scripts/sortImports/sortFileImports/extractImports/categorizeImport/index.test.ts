@@ -18,23 +18,32 @@ Deno.test("categorizeImport", async function testCategorizeImport(t) {
 		assertEquals(categorizeImport("~types/api/Response"), "types")
 	})
 
-	await t.step("categorizes project components imports", function testComponents() {
-		assertEquals(categorizeImport("~codewright/Button"), "components")
-		assertEquals(categorizeImport("~codewright/forms/Input"), "components")
-		assertEquals(categorizeImport("~codewright/layout/Header"), "components")
-	})
+	await t.step(
+		"categorizes project components imports",
+		function testComponents() {
+			assertEquals(categorizeImport("~pagewright/Button"), "components")
+			assertEquals(categorizeImport("~pagewright/forms/Input"), "components")
+			assertEquals(categorizeImport("~pagewright/layout/Header"), "components")
+		},
+	)
 
-	await t.step("categorizes project utilities imports", function testUtilities() {
-		assertEquals(categorizeImport("~utilities/format"), "utilities")
-		assertEquals(categorizeImport("~utilities/api/fetch"), "utilities")
-		assertEquals(categorizeImport("~utilities/date"), "utilities")
-	})
+	await t.step(
+		"categorizes project utilities imports",
+		function testUtilities() {
+			assertEquals(categorizeImport("~utilities/format"), "utilities")
+			assertEquals(categorizeImport("~utilities/api/fetch"), "utilities")
+			assertEquals(categorizeImport("~utilities/date"), "utilities")
+		},
+	)
 
-	await t.step("categorizes project constants imports", function testConstants() {
-		assertEquals(categorizeImport("~constants/config"), "constants")
-		assertEquals(categorizeImport("~constants/routes"), "constants")
-		assertEquals(categorizeImport("~constants/api/endpoints"), "constants")
-	})
+	await t.step(
+		"categorizes project constants imports",
+		function testConstants() {
+			assertEquals(categorizeImport("~constants/config"), "constants")
+			assertEquals(categorizeImport("~constants/routes"), "constants")
+			assertEquals(categorizeImport("~constants/api/endpoints"), "constants")
+		},
+	)
 
 	await t.step("categorizes external imports", function testExternal() {
 		// NPM packages
@@ -43,7 +52,10 @@ Deno.test("categorizeImport", async function testCategorizeImport(t) {
 		assertEquals(categorizeImport("lodash/debounce"), "external")
 
 		// Deno imports
-		assertEquals(categorizeImport("https://deno.land/std/path/mod.ts"), "external")
+		assertEquals(
+			categorizeImport("https://deno.land/std/path/mod.ts"),
+			"external",
+		)
 		assertEquals(categorizeImport("jsr:@std/path"), "external")
 
 		// Node built-ins
@@ -71,19 +83,25 @@ Deno.test("categorizeImport", async function testCategorizeImport(t) {
 
 		// Case sensitive
 		assertEquals(categorizeImport("~Types/User"), "external") // Capital T
-		assertEquals(categorizeImport("~codewright/Button"), "external") // All caps
+		assertEquals(categorizeImport("~pagewright/Button"), "external") // All caps
 	})
 
-	await t.step("preserves exact categorization rules", function testExactRules() {
-		// Must start with exact prefix
-		assertEquals(categorizeImport("~types"), "external") // No slash
-		assertEquals(categorizeImport("~types/"), "types") // With slash
-		assertEquals(categorizeImport("prefix~types/User"), "external") // Doesn't start with ~
+	await t.step(
+		"preserves exact categorization rules",
+		function testExactRules() {
+			// Must start with exact prefix
+			assertEquals(categorizeImport("~types"), "external") // No slash
+			assertEquals(categorizeImport("~types/"), "types") // With slash
+			assertEquals(categorizeImport("prefix~types/User"), "external") // Doesn't start with ~
 
-		// Nested paths still categorize correctly
-		assertEquals(categorizeImport("~types/deep/nested/type"), "types")
-		assertEquals(categorizeImport("~codewright/very/deep/nested/component"), "components")
-	})
+			// Nested paths still categorize correctly
+			assertEquals(categorizeImport("~types/deep/nested/type"), "types")
+			assertEquals(
+				categorizeImport("~pagewright/very/deep/nested/component"),
+				"components",
+			)
+		},
+	)
 })
 
 //?? [EXAMPLE] Run with: deno test scripts/sortImports/sortFileImports/extractImports/categorizeImport/index.test.ts

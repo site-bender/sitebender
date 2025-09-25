@@ -1,6 +1,10 @@
 import isDefined from "@sitebender/toolsmith/vanilla/validation/isDefined/index.ts"
 
-import type { Either, ArchitectError, Value } from "../../../../../types/index.ts"
+import type {
+	ArchitectError,
+	Either,
+	Value,
+} from "../../../../../types/index.ts"
 
 export type SelectorOp = {
 	id?: string

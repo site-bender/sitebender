@@ -96,4 +96,4 @@ import isErr from "./isErr/index.ts"
 
 ## Testing and roadmap
 
-Handwritten tests for now; Logician will replace them once ready.
+Handwritten tests for now; Auditor will replace them once ready.

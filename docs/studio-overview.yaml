@@ -18,7 +18,7 @@ studio:
     dependencies:
       zero_dependencies: true
       exceptions:
-        - library: "linguist (Linguist)"
+        - library: "arborist (Arborist)"
           reason: "Uses the TypeScript compiler"
       testing_and_server_side_deps_allowed: true
     governance_enforced_by_warden: true
@@ -38,9 +38,26 @@ data_model:
   single_source_of_truth: "triple_store"
   canonical_semantics: ["SHACL", "OWL2"]
   persistence_formats: ["JSON", "YAML", "TOML", "Turtle"]
+  distribution_strategy:
+    primary: "IPFS + IPLD"
+    rationale: "Content-addressed triples with natural deduplication and P2P distribution"
+    benefits:
+      - "Each triple becomes content-addressed and immutable"
+      - "Natural versioning through IPFS hashes"
+      - "Distributed by default, no single point of failure"
+      - "Debugging sessions shareable via IPFS hashes"
+      - "Computation behaviors tradeable as verified content"
+  event_sourcing:
+    pattern: "Store triples as immutable events"
+    benefits:
+      - "Natural time-travel debugging"
+      - "Perfect audit trail"
+      - "CRDT-like conflict resolution"
+      - "Distributed replication friendly"
   notes:
     - Validation constraints (e.g., regex facets) live in SHACL/OWL2
     - Whole applications may be stored in the triple store
+    - Event sourcing enables perfect state reconstruction
 
 authoring_and_rendering_flow:
   steps:
@@ -49,7 +66,8 @@ authoring_and_rendering_flow:
     - "architect.render(JSON) -> DOM (no VDOM)"
   ir_visibility:
     external: false
-    exceptions: ["applications/the-workshop (the-workshop) for visualization/debugging"]
+    exceptions:
+      ["applications/the-workshop (the-workshop) for visualization/debugging"]
   renderer_input_format: "JSON"
 
 architect_runtime:
@@ -118,7 +136,7 @@ accessibility:
     ci_policy:
       alpha: "warn"
       pre_production: "hard_fail"
-  codewright:
+  pagewright:
     enforce_semantic_html: true
     aria_rules: "enforced via allowlists; stabilizes before production"
 
@@ -160,10 +178,29 @@ governance_and_warden:
 dependencies_policy:
   zero_dependencies: true
   exception:
-    library: "linguist (Linguist)"
+    library: "arborist (Arborist)"
     depends_on: "TypeScript compiler"
   notes:
     - "Testing and server-side infra may use dependencies as needed"
+
+declarative_testing:
+  philosophy: "Testing is not separate from the application - it's part of the data model"
+  approach: "JSX components define all IO boundaries, mocks, scenarios, and verification"
+  benefits:
+    - "No mock drift - contracts enforced by production validation"
+    - "Scenarios as data - shareable, versionable, tradeable"
+    - "Formal verification - prove mocks maintain invariants"
+    - "Progressive enhancement - works without JS, enhanced with"
+  distribution:
+    agent: "IO interception, recording, replay, network simulation"
+    architect: "Mock response generation, scenario state, transformations"
+    auditor: "Contract verification, coverage analysis, invariant proofs"
+    custodian: "Stateful scenarios, time control, state machines"
+    envoy: "Mock observability, dashboards, drift detection"
+    warden: "Production safety, mock boundary enforcement"
+    sentinel: "Authentication/authorization mocking and policies"
+    formulator: "Dynamic mock expressions, conditional logic"
+  coordination: "TestHarness meta-component orchestrates all mock functionality"
 
 libraries:
   - current: "@sitebender/toolsmith"
@@ -171,9 +208,9 @@ libraries:
     purpose: "Pure FP primitives/combinators; laws; absolutely pure"
     priority: "highest after Warden"
     status: "active - must complete and lock"
-  - current: "@sitebender/codewright"
-    studio_name: "Codewright"
-    purpose: "Accessible JSX codewright/DSL for semantic HTML and structured data"
+  - current: "@sitebender/pagewright"
+    studio_name: "Pagewright"
+    purpose: "Accessible JSX pagewright/DSL for semantic HTML and structured data"
     status: "advanced (more complete than typical alpha)"
   - current: "@sitebender/architect"
     studio_name: "Architect"
@@ -196,15 +233,15 @@ libraries:
       help_examples: "//??"
       critical: "//!!"
       links: "//>>"
-    status: "dependent on Quarrier + Linguist readiness"
-  - current: "@sitebender/logician"
-    studio_name: "Logician"
+    status: "dependent on Quarrier + Arborist readiness"
+  - current: "@sitebender/auditor"
+    studio_name: "Auditor"
     purpose: "Proof/test generation: AST branch detection, property-based tests, algebraic laws"
     aspirational_coverage: "100%"
-    status: "dependent on Quarrier + Linguist readiness"
-  - current: "@sitebender/linguist"
-    studio_name: "Linguist"
-    purpose: "TS/JSX parsing for Envoy/Logician; formal API"
+    status: "dependent on Quarrier + Arborist readiness"
+  - current: "@sitebender/arborist"
+    studio_name: "Arborist"
+    purpose: "TS/JSX parsing for Envoy/Auditor; formal API"
     depends_on: "TypeScript compiler"
     status: "independent; can proceed in parallel"
   - current: "@sitebender/quarrier"
@@ -223,6 +260,15 @@ libraries:
     studio_name: "Quartermaster"
     purpose: "Studio application generator CLI; declarative blueprints; import-map wiring; Warden/Steward tasks pre-wired"
     status: "alpha (spec + stubs)"
+  - current: "@sitebender/sentinel"
+    studio_name: "Sentinel"
+    purpose: "Authentication, authorization, and security policies as declarative JSX"
+    status: "planning phase"
+    features:
+      - "OAuth2, WebAuthn, DID authentication providers"
+      - "Role-based and attribute-based access control"
+      - "Security policies as data in triple store"
+      - "Mock authentication for testing"
 
 applications:
   - path: "/applications/mission-control"
@@ -247,16 +293,34 @@ roadmap_priorities:
     policy: "complete lifted functions; clean comments; enforce style; lock down"
   - order: 4
     item: "Parallel independents"
-    includes: ["Quarrier", "Linguist", "Formulator", "Agent", "Quartermaster (App Generator)"]
+    includes:
+      [
+        "Quarrier",
+        "Arborist",
+        "Formulator",
+        "Agent (with IO interception)",
+        "Quartermaster (App Generator)",
+        "Sentinel (Auth/AuthZ)",
+      ]
   - order: 5
     item: "Dependent pair"
-    includes: ["Logician", "Envoy"]
+    includes: ["Auditor", "Envoy"]
   - order: 6
-    item: "Codewright & Architect"
-    note: "Already far along; continue active development"
+    item: "Declarative Testing Integration"
+    includes:
+      - "Agent: IO interception runtime"
+      - "Architect: Mock response generation"
+      - "Auditor: Contract verification"
+      - "Custodian: Scenario state machines"
+      - "All: Coordinate through TestHarness"
+    note: "Each library adds testing features in parallel"
   - order: 7
+    item: "Pagewright & Architect"
+    note: "Already far along; continue active development"
+  - order: 8
     item: "Monorepo wiring & cleanup"
-    includes: ["import maps", "pure ESM delivery", "remove stale/confusing docs"]
+    includes:
+      ["import maps", "pure ESM delivery", "remove stale/confusing docs"]
 
 release_and_versioning:
   strategy: "semver_by_package"
@@ -268,14 +332,14 @@ testing_and_docs:
     generator: "Envoy"
     navigation: "HATEOAS"
   tests:
-    generator: "Logician (aspirational 100% coverage)"
+    generator: "Auditor (aspirational 100% coverage)"
     property_testing_helpers: "Quarrier"
     co_located_tests: "index.test.ts near functions (as per Warden docs)"
 
 acceptance_criteria_alpha:
   warden: "enforced; pass on main"
   steward: "steward:check passes repo-wide; ≥90% safe autofix coverage on targeted rules; ≤ ~3s typical"
-  quartermaster: "generates mission-control and the-workshop skeletons (Codewright-only and +Architect); import maps correct; Warden enforce passes; axe warn wired"
+  quartermaster: "generates mission-control and the-workshop skeletons (Pagewright-only and +Architect); import maps correct; Warden enforce passes; axe warn wired"
   axe: "warn-only"
   the-workshop: "renders JSON-defined example without JS assumptions"
   mission_control_app: "serves Envoy-generated docs for key APIs"
@@ -287,7 +351,7 @@ acceptance_criteria_production:
   privacy: "no private boundary violations; no escape hatches"
   imports: "no barrel files; direct tree imports; aliases allowed only as explicit function synonyms"
   docs: "Envoy docs up-to-date with code; navigable HATEOAS graph"
-  proofs_tests: "coverage gate meets target; logician-generated tests stable"
+  proofs_tests: "coverage gate meets target; auditor-generated tests stable"
 
 deferred_topics:
   - hydration_strategy_and_lifecycle_details
@@ -299,13 +363,13 @@ deferred_topics:
 
 naming_map:
   toolsmith: "Toolsmith"
-  codewright: "Codewright"
+  pagewright: "Pagewright"
   architect: "Architect"
   formulator: "Formulator"
   agent: "Agent"
   envoy: "Envoy"
-  logician: "Logician"
-  linguist: "Linguist"
+  auditor: "Auditor"
+  arborist: "Arborist"
   quarrier: "Quarrier"
   warden: "Warden"
   steward: "Steward"
@@ -410,7 +474,7 @@ ci_policies:
     main: "block before production"
   coverage:
     gate_script: "libraries/architect/deno.jsonc -> tasks.coverage-gate (example)"
-    target: "TBD per lib; logician aims to remove hand-written tests where feasible"
+    target: "TBD per lib; auditor aims to remove hand-written tests where feasible"
 
 repo_structure:
   top_level_dirs:
@@ -432,16 +496,16 @@ repo_structure:
 
 cross_library_dependencies:
   toolsmith/: []
-  codewright: ["toolsmith/"]
-  architect: ["toolsmith/", "codewright"]
+  pagewright: ["toolsmith/"]
+  architect: ["toolsmith/", "pagewright"]
   formulator: ["architect (IR spec)"]
   agent: []
-  envoy: ["linguist"]
-  logician: ["linguist", "quarrier"]
-  linguist: ["typescript_compiler"]
+  envoy: ["arborist"]
+  auditor: ["arborist", "quarrier"]
+  arborist: ["typescript_compiler"]
   quarrier: []
   warden: ["everyone depends on Warden for governance"]
-  steward: ["linguist"]
+  steward: ["arborist"]
   quartermaster: ["toolsmith/", "warden"]
 
 do_not_list:
@@ -454,7 +518,7 @@ do_not_list:
 
 planning_protocol:
   - "Operate at high level first; defer low-level RFCs until requested"
-  - "Read existing code (architect/codewright) before asking what's already implemented"
+  - "Read existing code (architect/pagewright) before asking what's already implemented"
   - "Prefer rolling our own over 3rd-party deps when feasible"
   - "Keep AIs on-rails by extending Warden contracts before expanding surface area"
 
@@ -492,5 +556,45 @@ next_steps_shortlist:
   - "Introduce Steward and wire CI gates (PR warn, main block)"
   - "Complete and lock Toolsmith (lifted functions, comments, style)"
   - "Start monorepo wiring and docs cleanup to avoid confusing AIs"
-  - "Run parallel efforts on Quarrier, Linguist, Formulator, Agent, Quartermaster"
-  - "When ready, bring up Logician and Envoy leveraging the above"
+  - "Run parallel efforts on Quarrier, Arborist, Formulator, Agent, Quartermaster"
+  - "When ready, bring up Auditor and Envoy leveraging the above"
+
+future_vision:
+  computation_marketplace:
+    concept: "Since behaviors are data (JSON/YAML/Turtle), they can be traded/shared/verified cryptographically"
+    implementation:
+      - "Each computation as a content-addressed IPFS object"
+      - "Cryptographic proofs of correctness via Auditor"
+      - "Semantic descriptions via SHACL/OWL2"
+      - "Automatic compatibility checking"
+      - "Usage tracking and micropayments"
+    documentation: "See docs/computation-marketplace.md for details"
+
+  formal_verification:
+    tool: "Z3 Theorem Prover integration"
+    approach:
+      - "IR as formal specification language"
+      - "Pure functions enable SMT solving"
+      - "Prove correctness properties, not just test"
+      - "Generate counter-examples for failures"
+      - "Verify entire applications mathematically"
+    documentation: "See docs/z3-formal-verification.md for details"
+
+  distributed_architecture:
+    gun_inspired: "Build pure functional version of GUN.js CRDT algorithm"
+    sqlite_virtual_tables: "SQLite virtual tables for triple store over distributed SQLite (Cloudflare D1/Turso)"
+    did_vc: "Every triple as a verifiable credential with DIDs"
+    blockchain_witness: "Periodic anchoring of triple store hash to blockchain for immutable history"
+    crdt_native: "Make each triple a CRDT for automatic conflict resolution"
+
+  ai_enhancements:
+    neural_search: "Embed triples in vector space for semantic search"
+    pattern_learning: "Learn common patterns from codebase evolution"
+    auto_optimization: "Suggest optimizations based on usage patterns"
+    intent_detection: "Convert natural language to formal specifications"
+
+  developer_experience:
+    capabilities_versioning: "Version capabilities not IR structure"
+    ast_extensibility: "Unknown nodes preserved but ignored (like browsers with unknown HTML)"
+    bidirectional_transformers: "Lossless IR version migrations"
+    embedded_compiler_version: "Store Architect version in IR for perfect reproducibility"

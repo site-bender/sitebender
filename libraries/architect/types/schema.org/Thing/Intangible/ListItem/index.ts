@@ -7,8 +7,8 @@ import type { HowToSectionType } from "./HowToSection/index.ts"
 import type { HowToStepType } from "./HowToStep/index.ts"
 import type { HowToTipType } from "./HowToTip/index.ts"
 
-import ThingComponent from "../../../../../../codewright/src/define/Thing/index.tsx"
-import ListItemComponent from "../../../../../../codewright/src/define/Thing/Intangible/ListItem/index.tsx"
+import ThingComponent from "../../../../../../pagewright/src/define/Thing/index.tsx"
+import ListItemComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ListItem/index.tsx"
 
 export type ListItemType =
 	| "ListItem"

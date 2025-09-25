@@ -1,0 +1,219 @@
+computation_marketplace:
+  name: "Computation Marketplace"
+  tagline: "When behaviors are data, computation becomes a tradeable commodity"
+  library: "@sitebender/agent"
+
+  core_concept:
+    principle: "Every behavior in Studio is data (JSON/YAML/Turtle), not code"
+    implications:
+      - "Computations are content-addressable via IPFS"
+      - "Formally verifiable via Auditor proofs"
+      - "Semantically describable via SHACL/OWL2"
+      - "Automatically composable via type checking"
+      - "Tradeable and monetizable via smart contracts"
+
+  marketplace_structure:
+    publishing_flow:
+      - step: "Create behavior in JSX"
+      - step: "Compile to IR via Architect"
+      - step: "Generate formal proofs via Auditor"
+      - step: "Add semantic descriptions (SHACL/OWL2)"
+      - step: "Publish to IPFS"
+      - step: "Register on blockchain"
+
+    verification_levels:
+      self_verified:
+        level: 1
+        description: "Author claims correctness"
+        trust: "low"
+      community_verified:
+        level: 2
+        description: "Other developers confirm"
+        trust: "medium"
+      formally_verified:
+        level: 3
+        description: "Mathematical proofs via Auditor"
+        trust: "high"
+      audit_verified:
+        level: 4
+        description: "Professional security audit"
+        trust: "very high"
+      production_verified:
+        level: 5
+        description: "Used in production by major sites"
+        trust: "highest"
+
+  categories:
+    validators:
+      types: ["email", "phone", "address", "business rules", "compliance"]
+      examples:
+        - "GDPR compliance validator"
+        - "Credit card Luhn algorithm"
+        - "Age with parental consent"
+
+    calculators:
+      types: ["financial", "scientific", "geographic", "temporal"]
+      examples:
+        - "Compound interest calculator"
+        - "Distance between coordinates"
+        - "Working days calculator"
+
+    formatters:
+      types: ["i18n", "transformations", "processors"]
+      examples:
+        - "International phone formatter"
+        - "Markdown to HTML"
+        - "Currency display"
+
+    workflows:
+      types: ["complete processes", "multi-step wizards"]
+      examples:
+        - "Shopping cart with tax and shipping"
+        - "User registration flow"
+        - "Payment processing pipeline"
+
+    ai_models:
+      types: ["nlp", "vision", "recommendations"]
+      examples:
+        - "Sentiment analysis"
+        - "Language detection"
+        - "Product recommendations"
+
+  technical_architecture:
+    content_addressing:
+      method: "IPFS hashes"
+      benefits:
+        - "Immutable references"
+        - "Deduplication"
+        - "P2P distribution"
+        - "Cryptographic integrity"
+
+    proof_system:
+      tool: "Z3 via Auditor"
+      proves:
+        deterministic: "Same input → same output"
+        total: "Defined for all inputs"
+        pure: "No side effects"
+        terminating: "Always completes"
+        type_safe: "Type-correct for all paths"
+        complexity: "Time and space bounds"
+
+    composition:
+      type_safety: "Enforced at composition time"
+      rule: "compose<T,U,V>(f: T→U, g: U→V): T→V"
+      prevents: "Incompatible type composition"
+
+    sandboxing:
+      allowed:
+        - "Read provided inputs"
+        - "Return computed outputs"
+      forbidden:
+        - "Network access"
+        - "Filesystem access"
+        - "Global state mutation"
+        - "Timer access"
+        - "Random generation (unless explicit)"
+
+  economic_model:
+    pricing_strategies:
+      pay_per_use:
+        model: "Micropayments per execution"
+        example: "0.0001 ETH per validation"
+      subscription:
+        model: "Monthly/yearly unlimited"
+        example: "10 ETH/year for all validators"
+      one_time:
+        model: "Permanent license"
+        example: "100 ETH lifetime access"
+      freemium:
+        model: "Basic free, advanced paid"
+        example: "Email free, complex validators paid"
+      open_source:
+        model: "Free with optional donations"
+        example: "MIT licensed with tip jar"
+
+    revenue_distribution:
+      creator: "85%"
+      platform: "10%"
+      verifiers: "3%"
+      reviewers: "2%"
+
+    incentives:
+      bug_bounties: "Find issues, get paid"
+      verification_rewards: "Prove properties, earn tokens"
+      composition_bonuses: "Popular combinations earn extra"
+      documentation_rewards: "Great docs get tips"
+
+  security_model:
+    verification_chain:
+      - "Source available (IR/JSON visible)"
+      - "Proofs available (downloadable)"
+      - "Tests available (runnable)"
+      - "Audits available (readable)"
+      - "Reviews available (community feedback)"
+
+    attack_mitigation:
+      supply_chain: "Cryptographic hashes prevent tampering"
+      typosquatting: "DIDs prevent impersonation"
+      malicious_code: "Sandboxing prevents damage"
+      economic_attacks: "Pricing limits prevent drain"
+
+  use_cases:
+    enterprise_compliance:
+      need: "Verified regulatory compliance"
+      solution: "Buy proven compliance packages"
+      benefit: "Instant compliance with formal proofs"
+
+    startup_acceleration:
+      need: "Build MVPs quickly"
+      solution: "Compose from proven pieces"
+      benefit: "Hours to launch, not months"
+
+    academic_research:
+      need: "Reproducible algorithms"
+      solution: "Share verified implementations"
+      benefit: "Peer-reviewed, proven correct"
+
+    government_services:
+      need: "Standardized citizen services"
+      solution: "Official verified computations"
+      benefit: "Consistent, auditable, trusted"
+
+  future_vision:
+    ai_generated:
+      - "AI suggests computations from requirements"
+      - "Automatic proof generation"
+      - "Self-improving algorithms"
+      - "Evolutionary breeding of computations"
+
+    quantum_computing:
+      - "Quantum algorithms as computations"
+      - "Hybrid classical/quantum compositions"
+      - "Quantum proof verification"
+
+    zero_knowledge:
+      - "Buy without seeing implementation"
+      - "Prove properties without revealing algorithm"
+      - "Private computation trading"
+
+    decentralized_governance:
+      - "Community votes on standards"
+      - "Decentralized verification network"
+      - "DAO-managed marketplace"
+      - "Token-incentivized quality"
+
+  implementation_status:
+    current: "Concept phase"
+    dependencies:
+      - "Architect for IR generation"
+      - "Auditor for proof generation"
+      - "Agent for P2P distribution"
+      - "IPFS for content addressing"
+      - "Smart contracts for payments"
+    timeline: "Post-v1.0 of core libraries"
+
+  related_docs:
+    - "docs/z3-formal-verification.md"
+    - "libraries/auditor/README.md"
+    - "libraries/architect/README.md"
+    - "libraries/agent/README.md"

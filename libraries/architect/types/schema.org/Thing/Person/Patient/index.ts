@@ -7,8 +7,8 @@ import type MedicalCondition from "../../MedicalEntity/MedicalCondition/index.ts
 import type Drug from "../../Product/Drug/index.ts"
 import type { PersonProps } from "../index.ts"
 
-import MedicalConditionComponent from "../../../../../../codewright/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
-import { Drug as DrugComponent } from "../../../../../codewright/index.tsx"
+import MedicalConditionComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
+import { Drug as DrugComponent } from "../../../../../pagewright/index.tsx"
 
 export type PatientType = "Patient"
 

@@ -6,13 +6,13 @@
 
 Transform Envoy from a collection of AST analyzers and comment parsers into a complete project intelligence platform that creates living documentation, real-time observability, and developer experience optimization.
 
-## Critical Dependency: Linguist
+## Critical Dependency: Arborist
 
-**ABSOLUTE RULE**: Envoy gets ALL AST data from Linguist. No TypeScript compiler imports. Ever. This is enforced by Warden contracts. Violations will be caught and rejected.
+**ABSOLUTE RULE**: Envoy gets ALL AST data from Arborist. No TypeScript compiler imports. Ever. This is enforced by Warden contracts. Violations will be caught and rejected.
 
 ```typescript
 // The ONLY way Envoy gets AST data:
-import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/index.ts";
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts"
 ```
 
 ## Milestone 1: Comment System Enhancement
@@ -58,20 +58,20 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 
 ### Property Detection Enhancement
 
-- [ ] Complete purity detection using Linguist metadata
+- [ ] Complete purity detection using Arborist metadata
 - [ ] Finish mathematical property detection (associative, commutative, etc.)
 - [ ] Implement complexity calculation with Big-O notation
 - [ ] Add currying detection with level counting
 - [ ] Create type safety scoring system
 - [ ] Build dependency impact analyzer
 
-### Integration with Linguist
+### Integration with Arborist
 
-- [ ] Use Linguist's metadata for fast-path optimization
-- [ ] Work with TypeScript AST nodes from Linguist
-- [ ] Process Linguist's comment structures
-- [ ] Handle Linguist's Either/Result types properly
-- [ ] Never bypass Linguist for AST access
+- [ ] Use Arborist's metadata for fast-path optimization
+- [ ] Work with TypeScript AST nodes from Arborist
+- [ ] Process Arborist's comment structures
+- [ ] Handle Arborist's Either/Result types properly
+- [ ] Never bypass Arborist for AST access
 
 ## Milestone 3: Knowledge Graph Foundation
 
@@ -229,7 +229,7 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 ### Test Suite
 
 - [ ] Unit tests for all parsers and generators
-- [ ] Integration tests with Linguist
+- [ ] Integration tests with Arborist
 - [ ] Graph construction tests
 - [ ] Dashboard functionality tests
 - [ ] Performance benchmarks
@@ -246,7 +246,7 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 ### Documentation
 
 - [ ] API reference for all functions
-- [ ] Integration guide with Linguist
+- [ ] Integration guide with Arborist
 - [ ] Dashboard customization guide
 - [ ] SPARQL query examples
 - [ ] Best practices guide
@@ -315,7 +315,7 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 - [ ] Complete comment parser working
 - [ ] Basic documentation generation
 - [ ] Property detection functional
-- [ ] Integration with Linguist verified
+- [ ] Integration with Arborist verified
 
 ### Week 2 Checkpoint
 
@@ -354,12 +354,12 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 
 - **Graph complexity**: Use proven algorithms, optimize queries
 - **Performance issues**: Lazy loading, incremental updates
-- **Linguist integration**: Clear contracts, version pinning
+- **Arborist integration**: Clear contracts, version pinning
 - **Visualization performance**: WebGL, virtualization
 
 ### Integration Risks
 
-- **Breaking Linguist contract**: Warden enforcement, testing
+- **Breaking Arborist contract**: Warden enforcement, testing
 - **Dashboard complexity**: Progressive enhancement
 - **Triple store setup**: Docker containers, managed service
 
@@ -371,9 +371,9 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 
 ## Critical Rules for AI Swarms
 
-1. **NEVER import TypeScript compiler** - Only use Linguist
+1. **NEVER import TypeScript compiler** - Only use Arborist
 2. **Follow Warden rules** - One function per file, no barrels
-3. **Respect the contract** - Linguist provides AST, Envoy documents
+3. **Respect the contract** - Arborist provides AST, Envoy documents
 4. **Truth over assumptions** - Code is truth, comments enhance
 5. **Test everything** - No feature without tests
 6. **Document everything** - Use Envoy's own comment system
@@ -381,7 +381,7 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 ## Order of Implementation Priority
 
 1. **Comment parser completion** (enables everything)
-2. **Linguist integration** (required for all analysis)
+2. **Arborist integration** (required for all analysis)
 3. **Basic documentation** (immediate value)
 4. **Knowledge graph** (foundation for intelligence)
 5. **Dashboard** (visibility into system)
@@ -392,7 +392,7 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 
 ### Required from Other Libraries
 
-- **Linguist**: AST parsing, metadata, comment extraction
+- **Arborist**: AST parsing, metadata, comment extraction
 - **Toolsmith**: Functional utilities, Either/Result types
 - **Warden**: Contract enforcement, architectural governance
 
@@ -400,7 +400,7 @@ import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/in
 
 - **Mission Control**: Documentation and dashboards
 - **The Workshop**: Interactive documentation examples
-- **Logician**: Documentation for generated tests
+- **Auditor**: Documentation for generated tests
 
 ## The Vision
 
@@ -447,7 +447,7 @@ This isn't incremental improvement. This is **revolutionary project intelligence
 
 ### Technology Stack
 
-- **Parser**: Via Linguist only
+- **Parser**: Via Arborist only
 - **Graph**: Apache Jena Fuseki
 - **Dashboard**: WebSockets + Web Components
 - **Visualizations**: D3.js + Three.js

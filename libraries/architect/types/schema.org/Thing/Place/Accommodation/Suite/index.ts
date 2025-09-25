@@ -6,9 +6,9 @@ import type QuantitativeValue from "../../../Intangible/StructuredValue/Quantita
 import type { PlaceProps } from "../../index.ts"
 import type { AccommodationProps } from "../index.ts"
 
-import BedDetailsComponent from "../../../../../../../codewright/src/define/Thing/Intangible/BedDetails/index.tsx"
-import BedTypeComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import BedDetailsComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/BedDetails/index.tsx"
+import BedTypeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type SuiteType = "Suite"
 

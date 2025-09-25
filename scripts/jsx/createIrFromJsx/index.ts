@@ -1,18 +1,18 @@
-import type {
-	IRNode,
-	UnknownJSXNode,
-	JSXTextNode,
-	JSXExpressionContainerNode,
-	JSXFragmentNode,
-	JSXElementNode,
-	JSXIdentifierNode,
-	JSXAttributeNode,
-	IRElement,
-} from "../types/index.ts"
-
 import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
 import test from "@sitebender/toolsmith/vanilla/string/test/index.ts"
+
+import type {
+	IRElement,
+	IRNode,
+	JSXAttributeNode,
+	JSXElementNode,
+	JSXExpressionContainerNode,
+	JSXFragmentNode,
+	JSXIdentifierNode,
+	JSXTextNode,
+	UnknownJSXNode,
+} from "../types/index.ts"
 
 import serializeExpression from "../serializeExpression/index.ts"
 
@@ -50,7 +50,8 @@ export default function createIrFromJsx(node: UnknownJSXNode): IRNode {
 			const element = node as JSXElementNode
 			const opening = element.openingElement
 			const tag = opening.name
-			const tagIsIdentifier = (tag as { type?: string }).type === "JSXIdentifier"
+			const tagIsIdentifier =
+				(tag as { type?: string }).type === "JSXIdentifier"
 			const tagName = tagIsIdentifier
 				? (tag as JSXIdentifierNode).name
 				: ((tag as { name?: { name?: string } }).name?.name ?? "Unknown")
@@ -76,13 +77,15 @@ export default function createIrFromJsx(node: UnknownJSXNode): IRNode {
 									...acc,
 									[a.name.name]: {
 										type: "expression" as const,
-										expr: serializeExpression((value as { expression: unknown }).expression),
+										expr: serializeExpression(
+											(value as { expression: unknown }).expression,
+										),
 									},
 								}
 								: acc
 						})()
 						: acc
-				}
+				},
 			)({})(opening.attributes as Array<JSXAttributeNode>)
 
 			return {
@@ -94,5 +97,6 @@ export default function createIrFromJsx(node: UnknownJSXNode): IRNode {
 		})()
 		: null
 
-	return textNode || expressionNode || fragmentNode || elementNode || { type: "text" as const, value: "" }
+	return textNode || expressionNode || fragmentNode || elementNode ||
+		{ type: "text" as const, value: "" }
 }

@@ -1,6 +1,6 @@
 import type {
-	Either,
 	ArchitectError,
+	Either,
 	LocalValues,
 	OperationFunction,
 	Value,

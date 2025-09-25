@@ -18,16 +18,16 @@ function detectsViolationsForEnvoyLibrary(): Promise<void> {
 	})()
 }
 
-function detectsViolationsForLinguistLibrary(): Promise<void> {
+function detectsViolationsForArboristLibrary(): Promise<void> {
 	return (async function run(): Promise<void> {
-		const violations = await detectViolations("/libraries/linguist", "linguist")
+		const violations = await detectViolations("/libraries/arborist", "arborist")
 		assertEquals(Array.isArray(violations), true)
 	})()
 }
 
-function detectsViolationsForLogicianLibrary(): Promise<void> {
+function detectsViolationsForAuditorLibrary(): Promise<void> {
 	return (async function run(): Promise<void> {
-		const violations = await detectViolations("/libraries/logician", "logician")
+		const violations = await detectViolations("/libraries/auditor", "auditor")
 		assertEquals(Array.isArray(violations), true)
 		assertEquals(violations.length, 0)
 	})()
@@ -35,7 +35,10 @@ function detectsViolationsForLogicianLibrary(): Promise<void> {
 
 function returnsViolationsWithCorrectStructure(): Promise<void> {
 	return (async function run(): Promise<void> {
-		const violations = await detectViolations("/libraries/toolsmith", "toolsmith")
+		const violations = await detectViolations(
+			"/libraries/toolsmith",
+			"toolsmith",
+		)
 		assertEquals(Array.isArray(violations), true)
 		violations.forEach((v) => {
 			assertEquals(typeof v.type, "string")
@@ -66,13 +69,13 @@ Deno.test("detectViolations", async (t) => {
 	)
 
 	await t.step(
-		"detects violations for linguist library",
-		detectsViolationsForLinguistLibrary,
+		"detects violations for arborist library",
+		detectsViolationsForArboristLibrary,
 	)
 
 	await t.step(
-		"detects violations for logician library",
-		detectsViolationsForLogicianLibrary,
+		"detects violations for auditor library",
+		detectsViolationsForAuditorLibrary,
 	)
 
 	await t.step(

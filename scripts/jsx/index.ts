@@ -1,9 +1,7 @@
-#!/usr/bin/env -S deno run -A
-
-import type { IRNode, UnknownJSXNode, ComponentModule } from "./types/index.ts"
-
-import * as babelParser from "npm:@babel/linguist"
+import * as babelParser from "npm:@babel/arborist"
 import babelTraverse from "npm:@babel/traverse"
+
+import type { ComponentModule, IRNode, UnknownJSXNode } from "./types/index.ts"
 
 import createIrFromJsx from "./createIrFromJsx/index.ts"
 import renderIrToHtml from "./renderIrToHtml/index.ts"
@@ -67,10 +65,8 @@ const App = <Hello name="World" />;
 	)
 }
 
-//?? [GOTCHA] This module uses external babel dependencies which violates the rules that only Linguist and Agent can have external deps
+//?? [GOTCHA] This module uses external babel dependencies which violates the rules that only Arborist and Agent can have external deps
 
 const isMain = import.meta.main
 
-const _runDemo = isMain
-	? await demoJsxToIr()
-	: null
+const _runDemo = isMain ? await demoJsxToIr() : null

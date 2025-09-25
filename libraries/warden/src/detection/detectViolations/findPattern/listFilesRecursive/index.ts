@@ -1,8 +1,7 @@
 import reduce from "../../../../../../../../../toolsmith/src/vanilla/array/reduce/index.ts"
-
 import collectFolderEntries from "./collectFolderEntries/index.ts"
-import createFolderEntryExpander from "./createFolderEntryExpander/index.ts"
 import concatArrays from "./concatArrays/index.ts"
+import createFolderEntryExpander from "./createFolderEntryExpander/index.ts"
 
 /*++
  | Recursively lists all file paths under a folder
@@ -25,8 +24,7 @@ export default async function listFilesRecursive(
 	try {
 		const iterator = Deno.readDir(folderPath)[Symbol.asyncIterator]()
 		const entries = await collectFolderEntries(iterator)
-		const expandFolderEntries =
-			createFolderEntryExpander(listFilesRecursive)
+		const expandFolderEntries = createFolderEntryExpander(listFilesRecursive)
 		const promises = expandFolderEntries(folderPath, entries)
 		const results = await Promise.all(promises)
 

@@ -46,7 +46,7 @@ The generator ensures 100% coverage by:
 
 ## Testing Revolution
 
-- **Build the test generator (Logician)**
+- **Build the test generator (Auditor)**
   - Revolutionary test generator achieving 100% coverage automatically
   - AST analysis for branch detection
   - Property-based test generation

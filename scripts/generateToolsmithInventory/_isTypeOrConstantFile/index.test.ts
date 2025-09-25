@@ -27,7 +27,7 @@ Deno.test("_isTypeOrConstantFile - identifies nested constants file", () => {
 })
 
 Deno.test("_isTypeOrConstantFile - returns false for regular index file", () => {
-	const result = _isTypeOrConstantFile("src/codewright/index.ts")
+	const result = _isTypeOrConstantFile("src/pagewright/index.ts")
 	assertEquals(result, false)
 })
 

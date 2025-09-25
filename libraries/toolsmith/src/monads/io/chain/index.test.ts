@@ -41,8 +41,7 @@ Deno.test("chain", async (t) => {
 
 	await t.step("can branch based on values", () => {
 		const valueIO = io(0.7)
-		const branchIO = (x: number) =>
-			x > 0.5 ? io("High") : io("Low")
+		const branchIO = (x: number) => x > 0.5 ? io("High") : io("Low")
 
 		const result = chain(branchIO)(valueIO)
 		const value = runIO(result)

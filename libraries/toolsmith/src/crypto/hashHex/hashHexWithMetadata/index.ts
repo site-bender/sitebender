@@ -1,4 +1,5 @@
 import type { HashInput, HashOptions, HashResult } from "../types/index.ts"
+
 import hashHex from "../index.ts"
 
 //++ Creates a hash with full metadata for contract outputs

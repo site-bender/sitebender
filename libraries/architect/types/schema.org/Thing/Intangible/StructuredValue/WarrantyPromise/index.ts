@@ -4,8 +4,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
-import WarrantyScopeComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/WarrantyScope/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import WarrantyScopeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/WarrantyScope/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type WarrantyPromiseType = "WarrantyPromise"
 

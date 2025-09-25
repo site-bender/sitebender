@@ -29,12 +29,12 @@ import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
 import includes from "@sitebender/toolsmith/vanilla/array/includes/index.ts"
 import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
 import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
 import indexOf from "@sitebender/toolsmith/vanilla/string/indexOf/index.ts"
 import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
 import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
 import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
 import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
 import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
 
 const ROOT: string = Deno.cwd()
@@ -245,13 +245,15 @@ async function* iteratePaths(roots: string[]): AsyncGenerator<string> {
 
 	// Precompute absolute roots
 	const absRoots = roots.map((root) =>
-		root.startsWith("/") ? root : (ROOT.endsWith("/") ? ROOT : ROOT + "/") + root,
+		root.startsWith("/")
+			? root
+			: (ROOT.endsWith("/") ? ROOT : ROOT + "/") + root
 	)
 
 	// Batch stat calls to avoid await-in-loop
 	const stats = await Promise.all(
 		absRoots.map((abs) =>
-			Deno.stat(abs).then((s) => ({ abs, s })).catch(() => ({ abs, s: null })),
+			Deno.stat(abs).then((s) => ({ abs, s })).catch(() => ({ abs, s: null }))
 		),
 	)
 
@@ -295,7 +297,8 @@ function parseArgs(): RunOpts {
 		roots = [...roots, a]
 	}
 	if (roots.length === 0) {
-		roots = [...roots,
+		roots = [
+			...roots,
 			...map(TARGET_DIRS, (d) => (endsWith(ROOT, "/") ? ROOT : ROOT + "/") + d),
 		]
 	}

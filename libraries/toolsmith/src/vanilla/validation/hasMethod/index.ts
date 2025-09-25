@@ -1,7 +1,7 @@
-import isObject from "../isObject/index.ts"
+import hasProperty from "../hasProperty/index.ts"
 import isFunction from "../isFunction/index.ts"
 import isNotNull from "../isNotNull/index.ts"
-import hasProperty from "../hasProperty/index.ts"
+import isObject from "../isObject/index.ts"
 
 /**
  * Type guard to check if an object has a method property
@@ -30,8 +30,16 @@ import hasProperty from "../hasProperty/index.ts"
  */
 export default function hasMethod<T extends string>(
 	name: T,
-): (obj: unknown) => obj is Record<string, unknown> & { [K in T]: (...args: Array<unknown>) => unknown } {
-	return (obj: unknown): obj is Record<string, unknown> & { [K in T]: (...args: Array<unknown>) => unknown } =>
+): (
+	obj: unknown,
+) => obj is
+	& Record<string, unknown>
+	& { [K in T]: (...args: Array<unknown>) => unknown } {
+	return (
+		obj: unknown,
+	): obj is
+		& Record<string, unknown>
+		& { [K in T]: (...args: Array<unknown>) => unknown } =>
 		isObject(obj) && isNotNull(obj) && hasProperty(name)(obj) &&
 		isFunction((obj as Record<string, unknown>)[name])
 }

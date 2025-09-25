@@ -8,9 +8,9 @@ import type DataFeed from "../../Dataset/DataFeed/index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { CreativeWorkSeriesProps } from "../index.ts"
 
-import DataFeedComponent from "../../../../../../../codewright/src/define/Thing/CreativeWork/Dataset/DataFeed/index.tsx"
-import PerformingGroupComponent from "../../../../../../../codewright/src/define/Thing/Organization/PerformingGroup/index.tsx"
-import PersonComponent from "../../../../../../../codewright/src/define/Thing/Person/index.tsx"
+import DataFeedComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/Dataset/DataFeed/index.tsx"
+import PerformingGroupComponent from "../../../../../../../pagewright/src/define/Thing/Organization/PerformingGroup/index.tsx"
+import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
 
 export type PodcastSeriesType = "PodcastSeries"
 

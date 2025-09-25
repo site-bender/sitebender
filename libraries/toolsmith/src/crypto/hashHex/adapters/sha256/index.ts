@@ -1,6 +1,7 @@
 import type { HashInput } from "../../types/index.ts"
-import normalizeInput from "./normalizeInput/index.ts"
+
 import bytesToHex from "../../utilities/bytesToHex/index.ts"
+import normalizeInput from "./normalizeInput/index.ts"
 
 //++ SHA-256 adapter for hashHex using Deno's native crypto.subtle API
 

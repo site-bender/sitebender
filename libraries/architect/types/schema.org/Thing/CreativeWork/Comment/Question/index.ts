@@ -7,10 +7,10 @@ import type Answer from "../Answer/index.ts"
 import type Comment from "../index.ts"
 import type { CommentProps } from "../index.ts"
 
-import AnswerComponent from "../../../../../../../codewright/src/define/Thing/CreativeWork/Comment/Answer/index.tsx"
-import CommentComponent from "../../../../../../../codewright/src/define/Thing/CreativeWork/Comment/index.tsx"
-import CreativeWorkComponent from "../../../../../../../codewright/src/define/Thing/CreativeWork/index.tsx"
-import ItemListComponent from "../../../../../../../codewright/src/define/Thing/Intangible/ItemList/index.tsx"
+import AnswerComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/Comment/Answer/index.tsx"
+import CommentComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/Comment/index.tsx"
+import CreativeWorkComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
+import ItemListComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/ItemList/index.tsx"
 
 export type QuestionType = "Question"
 

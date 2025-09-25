@@ -1,6 +1,6 @@
 import arrayLength from "../../array/length/index.ts"
-import keys from "../../object/keys/index.ts"
 import mapSize from "../../map/size/index.ts"
+import keys from "../../object/keys/index.ts"
 import setSize from "../../set/size/index.ts"
 import stringLength from "../../string/length/index.ts"
 import isArray from "../isArray/index.ts"

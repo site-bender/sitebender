@@ -1,9 +1,9 @@
-import type { Result } from "../../../types/fp/result/index.ts"
-
 import { assertEquals } from "@std/assert"
 
-import ok from "../ok/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+
 import error from "../error/index.ts"
+import ok from "../ok/index.ts"
 import getOrElse from "./index.ts"
 
 Deno.test("getOrElse", async (t) => {
@@ -29,7 +29,10 @@ Deno.test("getOrElse", async (t) => {
 
 	await t.step("works with null and undefined", () => {
 		assertEquals(getOrElse<null | string>("default")(ok(null)), null)
-		assertEquals(getOrElse<undefined | string>("default")(ok(undefined)), undefined)
+		assertEquals(
+			getOrElse<undefined | string>("default")(ok(undefined)),
+			undefined,
+		)
 		assertEquals(getOrElse("default")(error("error")), "default")
 	})
 

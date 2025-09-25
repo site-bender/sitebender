@@ -4,8 +4,8 @@ import type QualitativeValue from "../Enumeration/QualitativeValue/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-import QualitativeValueComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
-import QuantitativeValueComponent from "../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import QualitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type BroadcastFrequencySpecificationType =
 	"BroadcastFrequencySpecification"

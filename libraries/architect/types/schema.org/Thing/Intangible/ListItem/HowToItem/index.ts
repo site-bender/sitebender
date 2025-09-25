@@ -6,7 +6,7 @@ import type { ListItemProps } from "../index.ts"
 import type { HowToSupplyType } from "./HowToSupply/index.ts"
 import type { HowToToolType } from "./HowToTool/index.ts"
 
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type HowToItemType = "HowToItem" | HowToSupplyType | HowToToolType
 

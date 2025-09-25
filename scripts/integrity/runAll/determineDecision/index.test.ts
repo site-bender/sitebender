@@ -1,4 +1,5 @@
 import { assertEquals } from "@std/assert"
+
 import type { ScriptResult } from "../../types/index.ts"
 
 import { determineDecision } from "./index.ts"

@@ -6,10 +6,10 @@ import type Place from "../../../Place/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { CreateActionProps } from "../index.ts"
 
-import RecipeComponent from "../../../../../../../codewright/src/define/Thing/CreativeWork/HowTo/Recipe/index.tsx"
-import FoodEventComponent from "../../../../../../../codewright/src/define/Thing/Event/FoodEvent/index.tsx"
-import PlaceComponent from "../../../../../../../codewright/src/define/Thing/Place/index.tsx"
-import { FoodEstablishment as FoodEstablishmentComponent } from "../../../../../../codewright/index.tsx"
+import RecipeComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/HowTo/Recipe/index.tsx"
+import FoodEventComponent from "../../../../../../../pagewright/src/define/Thing/Event/FoodEvent/index.tsx"
+import PlaceComponent from "../../../../../../../pagewright/src/define/Thing/Place/index.tsx"
+import { FoodEstablishment as FoodEstablishmentComponent } from "../../../../../../pagewright/index.tsx"
 
 export type CookActionType = "CookAction"
 

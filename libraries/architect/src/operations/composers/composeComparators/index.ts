@@ -1,6 +1,6 @@
 import type {
-	ComparatorConfig,
 	ArchitectError,
+	ComparatorConfig,
 	LogicalConfig,
 	Operand,
 	OperationFunction,

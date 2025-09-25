@@ -1,22 +1,22 @@
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
 import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
 
+import type { Violation } from "../../../types/enforcement/Violation.ts"
+
+import isPedantic from "./isPedantic/index.ts"
 // FP_ALLOWLIST handled within loadFile helper
 
 import iterateFiles from "./iterateFiles/index.ts"
-import printViolation from "./printViolation/index.ts"
-import isPedantic from "./isPedantic/index.ts"
-import prepareGlobs from "./prepareGlobs/index.ts"
-import pickPatterns from "./pickPatterns/index.ts"
-import toLines from "./toLines/index.ts"
-import scanForbidden from "./scanForbidden/index.ts"
-import scanAssigns from "./scanAssigns/index.ts"
-import type { Violation } from "../../../types/enforcement/Violation.ts"
 import loadFile from "./loadFile/index.ts"
 import mapEntryToViolations from "./mapEntryToViolations/index.ts"
+import pickPatterns from "./pickPatterns/index.ts"
+import prepareGlobs from "./prepareGlobs/index.ts"
+import printViolation from "./printViolation/index.ts"
+import scanAssigns from "./scanAssigns/index.ts"
 import concatViolations from "./scanForbidden/concatViolations/index.ts"
-
+import scanForbidden from "./scanForbidden/index.ts"
+import toLines from "./toLines/index.ts"
 
 export default async function enforceFunctionalProgramming(
 	globsArg: Array<string> = Deno.args,
@@ -28,7 +28,9 @@ export default async function enforceFunctionalProgramming(
 	const files = await iterateFiles(patterns)
 
 	const loaded = await Promise.all(files.map(loadFile))
-	const usable = loaded.filter((x): x is { file: string; source: string } => x !== null)
+	const usable = loaded.filter((x): x is { file: string; source: string } =>
+		x !== null
+	)
 
 	const violations = pipe([
 		map(mapEntryToViolations(pedantic, toLines, scanForbidden, scanAssigns)),
@@ -37,7 +39,7 @@ export default async function enforceFunctionalProgramming(
 
 	if (violations.length) {
 		console.error("Strict FP violations found:\n")
-	pipe([map(printViolation)])(violations)
+		pipe([map(printViolation)])(violations)
 		console.error(`\nTotal: ${violations.length}`)
 		Deno.exit(1)
 	}

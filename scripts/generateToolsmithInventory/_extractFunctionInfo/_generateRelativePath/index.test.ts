@@ -20,8 +20,8 @@ Deno.test("_generateRelativePath - handles single level path", () => {
 })
 
 Deno.test("_generateRelativePath - handles path with .ts extension", () => {
-	const result = _generateRelativePath("src/codewright/Button.ts")
-	assertEquals(result, "src/codewright/Button.ts")
+	const result = _generateRelativePath("src/pagewright/Button.ts")
+	assertEquals(result, "src/pagewright/Button.ts")
 })
 
 Deno.test("_generateRelativePath - handles path without extension", () => {

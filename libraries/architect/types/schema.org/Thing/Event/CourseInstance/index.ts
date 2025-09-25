@@ -4,8 +4,8 @@ import type Schedule from "../../Intangible/Schedule/index.ts"
 import type Person from "../../Person/index.ts"
 import type { EventProps } from "../index.ts"
 
-import ScheduleComponent from "../../../../../../codewright/src/define/Thing/Intangible/Schedule/index.tsx"
-import PersonComponent from "../../../../../../codewright/src/define/Thing/Person/index.tsx"
+import ScheduleComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Schedule/index.tsx"
+import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
 
 export type CourseInstanceType = "CourseInstance"
 

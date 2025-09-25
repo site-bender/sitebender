@@ -1,8 +1,8 @@
 // Use native Set; avoid external polyfills
 
 import type {
-	Either,
 	ArchitectError,
+	Either,
 	IsSupersetComparator,
 	LocalValues,
 	OperationFunction,

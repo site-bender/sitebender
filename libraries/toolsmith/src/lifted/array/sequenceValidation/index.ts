@@ -1,11 +1,10 @@
-import type { Validation } from "../../../types/Validation/index.ts"
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
+import type { Validation } from "../../../types/Validation/index.ts"
 
-import reduce from "../../../vanilla/array/reduce/index.ts"
-import isNotEmpty from "../../../vanilla/array/isNotEmpty/index.ts"
-import valid from "../../../monads/validation/valid/index.ts"
 import invalid from "../../../monads/validation/invalid/index.ts"
-
+import valid from "../../../monads/validation/valid/index.ts"
+import isNotEmpty from "../../../vanilla/array/isNotEmpty/index.ts"
+import reduce from "../../../vanilla/array/reduce/index.ts"
 import accumulateValidations from "./accumulateValidations/index.ts"
 
 //++ Sequences an array of Validations into a Validation of array, accumulating all errors

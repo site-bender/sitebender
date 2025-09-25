@@ -1,4 +1,5 @@
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+
 import loadBoundaries from "./index.ts"
 
 Deno.test("loadBoundaries", async (t) => {
@@ -19,13 +20,13 @@ Deno.test("loadBoundaries", async (t) => {
 		assertEquals(Array.isArray(envoyConfig.forbiddenImports), true)
 	})
 
-	await t.step("includes linguist library configuration", () => {
+	await t.step("includes arborist library configuration", () => {
 		const boundaries = loadBoundaries()
-		const linguistConfig = boundaries.dependencies.linguist
+		const arboristConfig = boundaries.dependencies.arborist
 
-		assertExists(linguistConfig)
-		assertEquals(Array.isArray(linguistConfig.canImport), true)
-		assertEquals(Array.isArray(linguistConfig.forbiddenImports), true)
+		assertExists(arboristConfig)
+		assertEquals(Array.isArray(arboristConfig.canImport), true)
+		assertEquals(Array.isArray(arboristConfig.forbiddenImports), true)
 	})
 
 	await t.step("includes toolsmith library configuration", () => {
@@ -53,13 +54,13 @@ Deno.test("loadBoundaries", async (t) => {
 		const boundaries = loadBoundaries()
 		const envoyConfig = boundaries.dependencies.envoy
 
-		assertExists(envoyConfig.forbiddenImports.find(i => i === "typescript"))
+		assertExists(envoyConfig.forbiddenImports.find((i) => i === "typescript"))
 	})
 
-	await t.step("linguist cannot import envoy", () => {
+	await t.step("arborist cannot import envoy", () => {
 		const boundaries = loadBoundaries()
-		const linguistConfig = boundaries.dependencies.linguist
+		const arboristConfig = boundaries.dependencies.arborist
 
-		assertExists(linguistConfig.forbiddenImports.find(i => i === "envoy"))
+		assertExists(arboristConfig.forbiddenImports.find((i) => i === "envoy"))
 	})
 })

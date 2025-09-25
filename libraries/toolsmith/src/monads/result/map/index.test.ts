@@ -1,10 +1,10 @@
 import { assert, assertEquals } from "@std/assert"
 
-import ok from "../ok/index.ts"
 import error from "../error/index.ts"
-import map from "./index.ts"
-import isOk from "../isOk/index.ts"
 import isError from "../isError/index.ts"
+import isOk from "../isOk/index.ts"
+import ok from "../ok/index.ts"
+import map from "./index.ts"
 
 Deno.test("map", async (t) => {
 	await t.step("transforms Ok value", () => {
@@ -69,9 +69,10 @@ Deno.test("map", async (t) => {
 	await t.step("satisfies functor composition law", () => {
 		const f = (x: number) => x * 2
 		const g = (x: number) => x + 10
-		const compose = (gFunc: (x: number) => number) =>
+		const compose =
+			(gFunc: (x: number) => number) =>
 			(fFunc: (x: number) => number) =>
-				(x: number) => gFunc(fFunc(x))
+			(x: number) => gFunc(fFunc(x))
 
 		const result = ok(5)
 		const left = map(compose(g)(f))(result)

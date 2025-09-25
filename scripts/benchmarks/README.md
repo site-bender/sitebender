@@ -25,6 +25,7 @@ deno run -A scripts/benchmarks/recordRun.ts \
 ```
 
 Notes:
+
 - Uses zsh non-login, non-interactive shell to run commands.
 - If `--out` is provided, JSON will be saved; otherwise printed to stdout.
 - `--from` defaults to `HEAD~1`, `--to` defaults to `HEAD`.

@@ -1,9 +1,9 @@
-import isFinite from "../../validation/isFinite/index.ts"
-import isArray from "../../validation/isArray/index.ts"
 import all from "../../array/all/index.ts"
 import reduce from "../../array/reduce/index.ts"
-import multiplyFactors from "./multiplyFactors/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isFinite from "../../validation/isFinite/index.ts"
 import { MULTIPLICATIVE_IDENTITY } from "../constants/index.ts"
+import multiplyFactors from "./multiplyFactors/index.ts"
 
 export function multiply(
 	multiplier: number,

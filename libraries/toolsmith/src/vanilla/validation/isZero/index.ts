@@ -1,3 +1,5 @@
+import and from "../../logic/and/index.ts"
+import isEqual from "../isEqual/index.ts"
 /**
  * Checks if a value is zero
  *
@@ -45,8 +47,6 @@
  * @predicate
  */
 import isNumber from "../isNumber/index.ts"
-import and from "../../logic/and/index.ts"
-import isEqual from "../isEqual/index.ts"
 
 export default function isZero(value: unknown): value is number {
 	return and(isNumber(value))(isEqual(0)(value))

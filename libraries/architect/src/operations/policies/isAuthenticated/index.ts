@@ -1,6 +1,6 @@
 import type {
-	Either,
 	ArchitectError,
+	Either,
 	LocalValues,
 	OperationFunction,
 } from "@sitebender/architect-types/index.ts"

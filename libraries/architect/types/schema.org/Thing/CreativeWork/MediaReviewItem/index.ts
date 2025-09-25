@@ -2,7 +2,7 @@ import type Thing from "../../index.ts"
 import type MediaObject from "../../MediaObject/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import { MediaObject as MediaObjectComponent } from "../../../../../codewright/index.tsx"
+import { MediaObject as MediaObjectComponent } from "../../../../../pagewright/index.tsx"
 
 export type MediaReviewItemType = "MediaReviewItem"
 

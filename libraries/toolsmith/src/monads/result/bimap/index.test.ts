@@ -3,12 +3,12 @@ import { assert, assertEquals } from "@std/assert"
 import type { Result } from "../../../types/fp/result/index.ts"
 
 import toUpper from "../../../vanilla/string/toCase/toUpper/index.ts"
-import ok from "../ok/index.ts"
 import error from "../error/index.ts"
-import isOk from "../isOk/index.ts"
-import isError from "../isError/index.ts"
-import bimap from "./index.ts"
 import fold from "../fold/index.ts"
+import isError from "../isError/index.ts"
+import isOk from "../isOk/index.ts"
+import ok from "../ok/index.ts"
+import bimap from "./index.ts"
 
 Deno.test("bimap", async (t) => {
 	await t.step("transforms Ok value with onOk function", () => {
@@ -19,9 +19,9 @@ Deno.test("bimap", async (t) => {
 
 		assert(isOk(result))
 		const value = fold<string, number>(
-			(_: string) => 0
+			(_: string) => 0,
 		)(
-			(v: number) => v
+			(v: number) => v,
 		)(result)
 		assertEquals(value, 10)
 	})
@@ -34,9 +34,9 @@ Deno.test("bimap", async (t) => {
 
 		assert(isError(result))
 		const errorValue = fold<string, string>(
-			(e: string) => e
+			(e: string) => e,
 		)(
-			(_: number) => "should not be ok"
+			(_: number) => "should not be ok",
 		)(result)
 		assertEquals(errorValue, "FAIL")
 	})
@@ -50,9 +50,9 @@ Deno.test("bimap", async (t) => {
 
 		assert(isOk(okResult))
 		const okValue = fold<{ error: string }, string>(
-			(_: { error: string }) => "error"
+			(_: { error: string }) => "error",
 		)(
-			(v: string) => v
+			(v: string) => v,
 		)(okResult)
 		assertEquals(okValue, "42")
 
@@ -60,9 +60,9 @@ Deno.test("bimap", async (t) => {
 
 		assert(isError(errorResult))
 		const errorValue = fold<{ error: string }, { error: string } | null>(
-			(e: { error: string }) => e
+			(e: { error: string }) => e,
 		)(
-			(_: string) => null
+			(_: string) => null,
 		)(errorResult)
 		assertEquals(errorValue, { error: "not found" })
 	})
@@ -92,9 +92,9 @@ Deno.test("bimap", async (t) => {
 
 		assert(isOk(finalOkResult))
 		const finalOkValue = fold<string, number>(
-			(_: string) => 0
+			(_: string) => 0,
 		)(
-			(v: number) => v
+			(v: number) => v,
 		)(finalOkResult)
 		assertEquals(finalOkValue, 20)
 
@@ -104,9 +104,9 @@ Deno.test("bimap", async (t) => {
 
 		assert(isError(finalErrorResult))
 		const finalErrorValue = fold<string, string>(
-			(e: string) => e
+			(e: string) => e,
 		)(
-			(_: number) => "should not be ok"
+			(_: number) => "should not be ok",
 		)(finalErrorResult)
 		assertEquals(finalErrorValue, "ERROR: FAILED")
 	})
@@ -119,23 +119,27 @@ Deno.test("bimap", async (t) => {
 		const getUserName = (u: User) => u.name.toUpperCase()
 		const transform = bimap(toApiError)(getUserName)
 
-		const okResult = transform(ok({ id: 1, name: "alice" }) as Result<string, User>)
+		const okResult = transform(
+			ok({ id: 1, name: "alice" }) as Result<string, User>,
+		)
 
 		assert(isOk(okResult))
 		const okValue = fold<ApiError, string>(
-			(_: ApiError) => "error"
+			(_: ApiError) => "error",
 		)(
-			(v: string) => v
+			(v: string) => v,
 		)(okResult)
 		assertEquals(okValue, "ALICE")
 
-		const errorResult = transform(error("Connection failed") as Result<string, User>)
+		const errorResult = transform(
+			error("Connection failed") as Result<string, User>,
+		)
 
 		assert(isError(errorResult))
 		const errorValue = fold<ApiError, ApiError | null>(
-			(e: ApiError) => e
+			(e: ApiError) => e,
 		)(
-			(_: string) => null
+			(_: string) => null,
 		)(errorResult)
 		assertEquals(errorValue, { code: 500, message: "Connection failed" })
 	})

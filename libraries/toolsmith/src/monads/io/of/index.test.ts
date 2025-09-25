@@ -1,7 +1,7 @@
 import { assertEquals } from "@std/assert"
 
-import of from "./index.ts"
 import runIO from "../runIO/index.ts"
+import of from "./index.ts"
 
 Deno.test("of", async (t) => {
 	await t.step("lifts a pure value into IO context", () => {

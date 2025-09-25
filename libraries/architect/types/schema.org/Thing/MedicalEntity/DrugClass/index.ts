@@ -2,7 +2,7 @@ import type Thing from "../../index.ts"
 import type Drug from "../../Product/Drug/index.ts"
 import type { MedicalEntityProps } from "../index.ts"
 
-import { Drug as DrugComponent } from "../../../../../codewright/index.tsx"
+import { Drug as DrugComponent } from "../../../../../pagewright/index.tsx"
 
 export type DrugClassType = "DrugClass"
 

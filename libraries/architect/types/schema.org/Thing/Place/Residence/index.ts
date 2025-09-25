@@ -4,7 +4,7 @@ import type { PlaceProps } from "../index.ts"
 import type { ApartmentComplexType } from "./ApartmentComplex/index.ts"
 import type { GatedResidenceCommunityType } from "./GatedResidenceCommunity/index.ts"
 
-import FloorPlanComponent from "../../../../../../codewright/src/define/Thing/Intangible/FloorPlan/index.tsx"
+import FloorPlanComponent from "../../../../../../pagewright/src/define/Thing/Intangible/FloorPlan/index.tsx"
 
 export type ResidenceType =
 	| "Residence"

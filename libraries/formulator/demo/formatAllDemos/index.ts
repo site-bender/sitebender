@@ -7,7 +7,8 @@ export default function formatAllDemos(
 	demos: ReadonlyArray<DemoResult>,
 ): string {
 	const separator = "=".repeat(60)
-	const header = `${separator}\n@sitebender/formulator Library Demo\n${separator}`
+	const header =
+		`${separator}\n@sitebender/formulator Library Demo\n${separator}`
 	const results = demos.map(formatDemoResult).join("\n")
 	const footer = `\n${separator}\nDemo complete!\n${separator}`
 

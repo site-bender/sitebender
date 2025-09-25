@@ -1,9 +1,9 @@
 import allPass from "../allPass/index.ts"
+import either from "../either/index.ts"
 import isFunction from "../isFunction/index.ts"
 import isNull from "../isNull/index.ts"
 import isObject from "../isObject/index.ts"
 import isUndefined from "../isUndefined/index.ts"
-import either from "../either/index.ts"
 
 /**
  * Type guard that checks if a value is a Promise
@@ -75,7 +75,7 @@ const isPromise = (value: unknown): value is Promise<unknown> => {
 	// Duck-type check for thenable objects
 	return allPass([
 		isObject,
-		(obj: unknown) => isFunction((obj as { then?: unknown }).then)
+		(obj: unknown) => isFunction((obj as { then?: unknown }).then),
 	])(value)
 }
 

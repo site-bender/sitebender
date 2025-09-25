@@ -1,11 +1,11 @@
+import type { VizAdapter } from "@sitebender/pagewright/transform/viz/adapter/types.ts"
+
 import {
 	getVizAdapter,
 	setVizAdapter,
 	vizNoopAdapter,
-} from "@sitebender/codewright/index.ts"
+} from "@sitebender/pagewright/index.ts"
 import { assertEquals } from "@std/assert"
-
-import type { VizAdapter } from "@sitebender/codewright/transform/viz/adapter/types.ts"
 
 type GlobalShims = {
 	document?: Document

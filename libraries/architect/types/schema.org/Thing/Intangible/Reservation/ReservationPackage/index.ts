@@ -3,7 +3,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type Reservation from "../index.ts"
 import type { ReservationProps } from "../index.ts"
 
-import ReservationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Reservation/index.tsx"
+import ReservationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Reservation/index.tsx"
 
 export type ReservationPackageType = "ReservationPackage"
 

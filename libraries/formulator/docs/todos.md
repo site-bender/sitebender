@@ -208,11 +208,11 @@ The library is partially functional but broken due to an incomplete refactor and
 - [ ] Create bond angle and length calculations
 - [ ] Add hybridization detection (sp, sp², sp³)
 
-### 5.4 Codewright Components
+### 5.4 Pagewright Components
 
-- [ ] Create `libraries/codewright/src/scientific/MathMLDisplay/index.tsx`
-- [ ] Create `libraries/codewright/src/scientific/ChemMLDisplay/index.tsx`
-- [ ] Create `libraries/codewright/src/scientific/MoleculeViewer/index.tsx`
+- [ ] Create `libraries/pagewright/src/scientific/MathMLDisplay/index.tsx`
+- [ ] Create `libraries/pagewright/src/scientific/ChemMLDisplay/index.tsx`
+- [ ] Create `libraries/pagewright/src/scientific/MoleculeViewer/index.tsx`
 - [ ] Ensure semantic HTML wrapper
 - [ ] Add fallback for non-MathML browsers
 - [ ] Include print styles
@@ -271,7 +271,7 @@ The library is partially functional but broken due to an incomplete refactor and
 ### 7.2 Integration Testing
 
 - [ ] Test with Architect library
-- [ ] Test with Codewright components
+- [ ] Test with Pagewright components
 - [ ] Test in SSR context
 - [ ] Test in browser context
 - [ ] Test with various injector types
@@ -388,7 +388,7 @@ Total: 8 weeks to production-ready library
 
 - **Toolsmith**: For Result, State monad, and FP utilities
 - **Architect**: For IR types and constructors
-- **Codewright**: For MathML/ChemML display components
+- **Pagewright**: For MathML/ChemML display components
 - **Quarrier**: For property-based testing
 - **Envoy**: For documentation generation
 

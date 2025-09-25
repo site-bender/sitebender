@@ -162,7 +162,7 @@ Envoy **automatically detects** without any configuration:
 - **Complexity**: Big-O notation, cyclomatic complexity
 - **Currying**: Multi-level function composition
 - **Type Safety**: Coverage and strictness metrics
-- **Test Coverage**: Integration with Logician
+- **Test Coverage**: Integration with Auditor
 - **Dependencies**: What calls what, impact radius
 
 ## Project Intelligence Dashboard
@@ -250,12 +250,12 @@ Every documentation page is a state machine with links:
 }
 ```
 
-## Integration with Linguist
+## Integration with Arborist
 
-**CRITICAL**: Envoy receives ALL its AST data from Linguist. It NEVER imports or uses TypeScript compiler directly.
+**CRITICAL**: Envoy receives ALL its AST data from Arborist. It NEVER imports or uses TypeScript compiler directly.
 
 ```typescript
-import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/index.ts";
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
 
 // Envoy works with pre-parsed AST nodes and metadata
 const result = await parseFileWithCompiler(content, filePath);
@@ -344,14 +344,14 @@ onFeedback(envoy)(handleFeedback);
 
 ```bash
 # Install
-deno add @sitebender/envoy @sitebender/linguist
+deno add @sitebender/envoy @sitebender/arborist
 ```
 
 ### Basic Setup
 
 ```typescript
 import generateDocs from "@sitebender/envoy/generateDocs/index.ts";
-import parseFileWithCompiler from "@sitebender/linguist/parseFileWithCompiler/index.ts";
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
 
 // Parse a file
 const ast = await parseFileWithCompiler(
@@ -402,7 +402,7 @@ Smart defaults. It just works. Override only when needed.
 
 ### 3. **Separation of Concerns**
 
-Linguist parses. Envoy documents. Clean boundaries.
+Arborist parses. Envoy documents. Clean boundaries.
 
 ### 4. **Progressive Enhancement**
 
@@ -499,9 +499,163 @@ When you combine Envoy's intelligence with Sitebender Studio's ecosystem, you ge
 - Time-lapse evolution
 - Interactive exploration
 
+## Advanced Debugging Capabilities
+
+### Time-Travel Debugging
+
+**Already planned** - Immutable data architecture enables perfect state reconstruction
+
+- **State Snapshots**: Record every state transition in the triple store
+- **Replay Engine**: Step forward/backward through any execution
+- **Diff Visualization**: See exactly what changed between states
+- **Causality Tracking**: Follow the chain of events that led to any state
+- **Branch Exploration**: Try different execution paths from any point
+
+### Visual Debugging
+
+**Already planned** - Interactive graph explorer and computation tracer
+
+- **3D Code Flow**: Watch data flow through your architecture in real-time
+- **Computation Cascade**: See calculations ripple through the DOM
+- **Dependency Highlighting**: Click any function to highlight all dependencies
+- **Hot Path Analysis**: Visualize the most-executed code paths
+- **Memory Topology**: See object relationships and reference patterns
+
+### "Why" Explanations
+
+Transform debugging from "what happened" to "why it happened":
+
+- **Lineage Tracking**: Every value knows its complete derivation history
+- **Decision Trees**: Visualize all conditional branches taken
+- **Validation Chains**: See why validation passed or failed with full context
+- **Effect Attribution**: Trace any DOM change back to its root cause
+- **Natural Language**: Get plain English explanations of complex behaviors
+
+Example output:
+
+```
+Q: Why did #totalPrice show $127.50?
+A: Because:
+   1. #quantity (3) multiplied by #price ($39.00) = $117.00 [calculation at Display.tsx:42]
+   2. #taxRate (8.5%) applied to $117.00 = $9.95 [calculation at Display.tsx:47]
+   3. #shipping ($0.55) added = $127.50 [calculation at Display.tsx:52]
+   4. All inputs validated successfully [validation at Input.tsx:15-27]
+```
+
+### Hot-Reload with Diff Intelligence
+
+Not just reloading, but understanding what changed:
+
+- **Semantic Diffs**: Show what changed in meaning, not just syntax
+- **Impact Analysis**: Highlight all affected components before reload
+- **Safe Reload**: Preserve user state through reload when possible
+- **Change Explanations**: Describe what will change in plain language
+- **Rollback Points**: Mark safe states to return to if reload breaks
+
+### Query-Based Debugging
+
+Use SPARQL to debug your running application:
+
+```sparql
+# Find all functions that modified #userBalance in the last 5 minutes
+SELECT ?function ?timestamp ?oldValue ?newValue WHERE {
+  ?modification hasTarget <#userBalance> ;
+                hasFunction ?function ;
+                hasTimestamp ?timestamp ;
+                hasOldValue ?oldValue ;
+                hasNewValue ?newValue .
+  FILTER(?timestamp > NOW() - "PT5M"^^xsd:duration)
+}
+
+# Find all validation failures in the checkout flow
+SELECT ?element ?validation ?reason WHERE {
+  ?failure hasElement ?element ;
+           hasValidation ?validation ;
+           hasReason ?reason ;
+           inFlow <#checkout> .
+}
+```
+
+### Performance Forensics
+
+Deep insights into performance issues:
+
+- **Flamegraph Integration**: See where time is spent in your pure functions
+- **Allocation Tracking**: Monitor object creation and garbage collection
+- **Calculation Overhead**: Measure the cost of each reactive computation
+- **Bundle Impact**: See how each import affects load time
+- **Progressive Enhancement Metrics**: Measure each layer's contribution
+
+### Error Archaeology
+
+Understand not just errors, but their entire context:
+
+- **Error Lineage**: Trace errors back through the entire call stack
+- **State at Error**: Complete snapshot of application state when error occurred
+- **User Journey**: See the exact sequence of actions that led to the error
+- **Similar Errors**: Find patterns across similar errors
+- **Fix Suggestions**: AI-powered suggestions based on error patterns
+
+### Collaborative Debugging
+
+Debug together in real-time:
+
+- **Shared Sessions**: Multiple developers see the same debugging view
+- **Pointer Sharing**: See where teammates are looking
+- **Annotation System**: Leave notes on specific code paths
+- **Recording & Playback**: Record debugging sessions for later review
+- **Knowledge Capture**: Convert debugging insights into documentation
+
+### Contract Violation Detection
+
+Integration with Warden for architectural debugging:
+
+- **Real-time Violations**: See contract violations as they happen
+- **Violation Timeline**: Track when violations were introduced
+- **Impact Radius**: See what's affected by each violation
+- **Fix Pathways**: Get suggested fixes that maintain contracts
+- **Prevention Analysis**: Understand why violations weren't caught earlier
+
+### Integration with Other Libraries
+
+#### Custodian Integration
+
+- **State History Browser**: Navigate through all state transitions
+- **State Diff Viewer**: Compare any two states side-by-side
+- **State Search**: Find when specific state conditions occurred
+- **State Predictions**: See likely future states based on patterns
+
+#### Agent Integration
+
+- **Distributed Debugging**: Debug across multiple nodes/browsers
+- **CRDT Visualization**: See how distributed state converges
+- **Network Replay**: Replay network conditions that caused issues
+- **Peer State Inspection**: See state of all connected peers
+
+#### Auditor Integration
+
+- **Test Coverage Overlay**: See test coverage in real-time on running app
+- **Property Verification**: Verify mathematical properties during execution
+- **Invariant Monitoring**: Get alerts when invariants are violated
+- **Test Generation**: Generate tests from debugging sessions
+
+#### Arborist Integration
+
+- **AST Debugging**: Step through AST transformations
+- **Compilation Tracing**: See how JSX becomes IR becomes JSON
+- **Type Flow Analysis**: Track type information through transformations
+- **Source Mapping**: Perfect source maps back to original JSX
+
+#### Quarrier Integration
+
+- **Generative Debugging**: Generate test cases that reproduce bugs
+- **Shrinking Visualization**: Watch Quarrier shrink failing cases
+- **Property Explorer**: Interactively explore property-based tests
+- **Counterexample Analysis**: Understand why properties fail
+
 ## Performance
 
-- **AST parsing**: Via Linguist (< 100ms typical)
+- **AST parsing**: Via Arborist (< 100ms typical)
 - **Documentation generation**: < 1s for 1000 functions
 - **Dashboard update**: Real-time via WebSockets
 - **SPARQL queries**: < 50ms for typical queries
@@ -579,8 +733,8 @@ Envoy is part of the @sitebender studio. See [CONTRIBUTING.md](../../CONTRIBUTIN
 
 ## See Also
 
-- [Linguist](../linguist/README.md) - TypeScript/JSX parsing engine
-- [Logician](../logician/README.md) - Proof and test generation
+- [Arborist](../arborist/README.md) - TypeScript/JSX parsing engine
+- [Auditor](../auditor/README.md) - Proof and test generation
 - [Warden](../warden/README.md) - Architectural governance
 - [Agent](../agent/README.md) - Distributed intelligence
 

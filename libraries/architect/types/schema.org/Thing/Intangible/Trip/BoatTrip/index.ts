@@ -3,7 +3,7 @@ import type BoatTerminal from "../../../Place/CivicStructure/BoatTerminal/index.
 import type { IntangibleProps } from "../../index.ts"
 import type { TripProps } from "../index.ts"
 
-import BoatTerminalComponent from "../../../../../../../codewright/src/define/Thing/Place/CivicStructure/BoatTerminal/index.tsx"
+import BoatTerminalComponent from "../../../../../../../pagewright/src/define/Thing/Place/CivicStructure/BoatTerminal/index.tsx"
 
 export type BoatTripType = "BoatTrip"
 

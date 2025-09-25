@@ -2,10 +2,10 @@ import { assert, assertEquals } from "@std/assert"
 
 import type { Result } from "../../../types/fp/result/index.ts"
 
-import ok from "../ok/index.ts"
 import error from "../error/index.ts"
-import isOk from "../isOk/index.ts"
 import isError from "../isError/index.ts"
+import isOk from "../isOk/index.ts"
+import ok from "../ok/index.ts"
 import chain from "./index.ts"
 
 Deno.test("chain", async (t) => {
@@ -39,8 +39,8 @@ Deno.test("chain", async (t) => {
 	})
 
 	await t.step("chains multiple operations", () => {
-		const safeDivide = (divisor: number) =>
-			(x: number): Result<string, number> =>
+		const safeDivide =
+			(divisor: number) => (x: number): Result<string, number> =>
 				divisor === 0 ? error("Division by zero") : ok(x / divisor)
 
 		const divideBy5 = chain(safeDivide(5))
@@ -53,8 +53,8 @@ Deno.test("chain", async (t) => {
 	})
 
 	await t.step("stops at first error in chain", () => {
-		const safeDivide = (divisor: number) =>
-			(x: number): Result<string, number> =>
+		const safeDivide =
+			(divisor: number) => (x: number): Result<string, number> =>
 				divisor === 0 ? error(`Cannot divide by ${divisor}`) : ok(x / divisor)
 
 		const divideBy0 = chain(safeDivide(0))

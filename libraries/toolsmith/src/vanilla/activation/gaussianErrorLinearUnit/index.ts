@@ -1,8 +1,8 @@
+import divide from "../../math/divide/index.ts"
+import squareRoot from "../../math/squareRoot/index.ts"
+import hyperbolicTangent from "../../trigonometry/hyperbolicTangent/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
-import squareRoot from "../../math/squareRoot/index.ts"
-import divide from "../../math/divide/index.ts"
-import hyperbolicTangent from "../../trigonometry/hyperbolicTangent/index.ts"
 
 /**
  * Gaussian Error Linear Unit (GELU) activation function

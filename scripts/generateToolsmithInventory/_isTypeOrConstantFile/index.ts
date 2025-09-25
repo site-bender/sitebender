@@ -1,5 +1,5 @@
-import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
 import or from "@sitebender/toolsmith/vanilla/logic/or/index.ts"
+import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
 
 /**
  * Check if file path represents a type or constant file

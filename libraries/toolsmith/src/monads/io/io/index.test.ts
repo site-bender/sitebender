@@ -1,7 +1,7 @@
 import { assertEquals } from "@std/assert"
 
-import io from "./index.ts"
 import runIO from "../runIO/index.ts"
+import io from "./index.ts"
 
 Deno.test("io", async (t) => {
 	await t.step("wraps a value in a thunk", () => {

@@ -1,6 +1,6 @@
+import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
 import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
 
 //++ Strips comments and string contents from source code while preserving structure
 export default function stripCommentsAndStrings(text: string): string {
@@ -15,7 +15,7 @@ export default function stripCommentsAndStrings(text: string): string {
 	const processChar = function process(
 		state: State,
 		char: string,
-		index?: number
+		index?: number,
 	): State {
 		const nextChar = chars[index! + 1] || ""
 		const { mode, stringDelim, result } = state

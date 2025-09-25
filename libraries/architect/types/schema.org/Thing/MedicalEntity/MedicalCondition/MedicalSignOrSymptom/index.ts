@@ -5,7 +5,7 @@ import type { MedicalConditionProps } from "../index.ts"
 import type { MedicalSignType } from "./MedicalSign/index.ts"
 import type { MedicalSymptomType } from "./MedicalSymptom/index.ts"
 
-import MedicalTherapyComponent from "../../../../../../../codewright/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
+import MedicalTherapyComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
 
 export type MedicalSignOrSymptomType =
 	| "MedicalSignOrSymptom"

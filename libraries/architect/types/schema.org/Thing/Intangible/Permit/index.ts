@@ -8,11 +8,11 @@ import type Duration from "../Quantity/Duration/index.ts"
 import type Service from "../Service/index.ts"
 import type { GovernmentPermitType } from "./GovernmentPermit/index.ts"
 
-import AudienceComponent from "../../../../../../codewright/src/define/Thing/Intangible/Audience/index.tsx"
-import DurationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import ServiceComponent from "../../../../../../codewright/src/define/Thing/Intangible/Service/index.tsx"
-import OrganizationComponent from "../../../../../../codewright/src/define/Thing/Organization/index.tsx"
-import AdministrativeAreaComponent from "../../../../../../codewright/src/define/Thing/Place/AdministrativeArea/index.tsx"
+import AudienceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
+import DurationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import ServiceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Service/index.tsx"
+import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type PermitType = "Permit" | GovernmentPermitType
 

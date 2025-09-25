@@ -1,8 +1,8 @@
 import type { Task } from "../task/task/index.ts"
 
+import doNotation, { type MonadDictionary } from "../doNotation/index.ts"
 import chain from "../task/chain/index.ts"
 import of from "../task/of/index.ts"
-import doNotation, { type MonadDictionary } from "../doNotation/index.ts"
 
 const TaskMonad: MonadDictionary<Task<unknown>> = {
 	chain: chain as unknown as MonadDictionary<Task<unknown>>["chain"],

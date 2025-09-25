@@ -16,7 +16,7 @@
 
 	"imports": {
 		// Import from existing Sitebender libraries
-		"@sitebender/codewright": "../../libraries/codewright/mod.ts",
+		"@sitebender/pagewright": "../../libraries/pagewright/mod.ts",
 		"@sitebender/toolsmith": "../../libraries/toolsmith/mod.ts",
 		"@sitebender/architect": "../../libraries/architect/mod.ts",
 		"@sitebender/agent": "../../libraries/agent/mod.ts",
@@ -34,7 +34,7 @@
 
 	"compilerOptions": {
 		"jsx": "react-jsx",
-		"jsxImportSource": "@sitebender/codewright",
+		"jsxImportSource": "@sitebender/pagewright",
 		"lib": ["deno.window", "dom", "dom.iterable", "dom.asynciterable"]
 	},
 

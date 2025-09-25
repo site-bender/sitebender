@@ -12,11 +12,11 @@ import type ReturnMethodEnumeration from "../Enumeration/ReturnMethodEnumeration
 import type { IntangibleProps } from "../index.ts"
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 
-import MerchantReturnEnumerationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MerchantReturnEnumeration/index.tsx"
-import RefundTypeEnumerationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/RefundTypeEnumeration/index.tsx"
-import ReturnFeesEnumerationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/ReturnFeesEnumeration/index.tsx"
-import ReturnMethodEnumerationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/ReturnMethodEnumeration/index.tsx"
-import MonetaryAmountComponent from "../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import MerchantReturnEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MerchantReturnEnumeration/index.tsx"
+import RefundTypeEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/RefundTypeEnumeration/index.tsx"
+import ReturnFeesEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/ReturnFeesEnumeration/index.tsx"
+import ReturnMethodEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/ReturnMethodEnumeration/index.tsx"
+import MonetaryAmountComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
 
 export type MerchantReturnPolicySeasonalOverrideType =
 	"MerchantReturnPolicySeasonalOverride"

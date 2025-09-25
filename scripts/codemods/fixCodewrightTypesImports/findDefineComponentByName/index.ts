@@ -1,4 +1,8 @@
-import { basename, dirname, join } from "https://deno.land/std@0.224.0/path/mod.ts"
+import {
+	basename,
+	dirname,
+	join,
+} from "https://deno.land/std@0.224.0/path/mod.ts"
 
 import { defineLookupCache, SRC_DEFINE_ROOT } from "../constants/index.ts"
 

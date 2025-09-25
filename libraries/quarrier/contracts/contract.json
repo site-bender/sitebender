@@ -8,7 +8,7 @@
 			{
 				"name": "arbitrary",
 				"signature": "(type: ParsedType) => Arbitrary<unknown>",
-				"description": "Generate arbitrary values for a given type from Linguist output"
+				"description": "Generate arbitrary values for a given type from Arborist output"
 			},
 			{
 				"name": "generateForType",
@@ -87,8 +87,8 @@
 			"Triple generation for RDF/semantic testing"
 		],
 		"provides": [
-			"Test data to Logician",
-			"Arbitrary values to Linguist for testing",
+			"Test data to Auditor",
+			"Arbitrary values to Arborist for testing",
 			"Property test definitions",
 			"Shrinking for minimal failing cases"
 		],
@@ -103,7 +103,7 @@
 	},
 	"implementation": {
 		"allowed": [
-			"Import from @sitebender/linguist/exports/types",
+			"Import from @sitebender/arborist/exports/types",
 			"Pure functional generators",
 			"Mathematical operations",
 			"Random number generation (seedable)"
@@ -141,8 +141,15 @@
 		}
 	},
 	"consumers": {
-		"allowed": ["linguist", "logician"],
-		"forbidden": ["envoy", "toolsmith", "codewright", "architect", "formulator", "agent"]
+		"allowed": ["arborist", "auditor"],
+		"forbidden": [
+			"envoy",
+			"toolsmith",
+			"pagewright",
+			"architect",
+			"formulator",
+			"agent"
+		]
 	},
 	"principles": {
 		"determinism": "Same seed must always produce same sequence",

@@ -40,7 +40,7 @@ This codebase has zero dependencies by design. Keep it that way.
 
 **Exceptions:** Deno standard library and TypeScript compiler only.
 
-## Progressive Enhancement Philosophy (for codewright/codewright and architect/architect)
+## Progressive Enhancement Philosophy (for pagewright/pagewright and architect/architect)
 
 ### The Three Layers of Truth
 

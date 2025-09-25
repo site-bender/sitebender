@@ -2,18 +2,19 @@ import type {
 	PlainTimeLike,
 	TimeInput,
 } from "../../../../types/temporal/index.ts"
-import trim from "../../../string/trim/index.ts"
-import isString from "../../../validation/isString/index.ts"
-import isObject from "../../../validation/isObject/index.ts"
+
 import isEmpty from "../../../string/isEmpty/index.ts"
-import hasProperty from "../../../validation/hasProperty/index.ts"
-import isNullish from "../../../validation/isNullish/index.ts"
-import isPlainTime from "../../../validation/isPlainTime/index.ts"
-import isDate from "../../../validation/isDate/index.ts"
-import isPlainDateTime from "../../../validation/isPlainDateTime/index.ts"
-import isZonedDateTime from "../../../validation/isZonedDateTime/index.ts"
-import anyPass from "../../../validation/anyPass/index.ts"
+import trim from "../../../string/trim/index.ts"
 import allPass from "../../../validation/allPass/index.ts"
+import anyPass from "../../../validation/anyPass/index.ts"
+import hasProperty from "../../../validation/hasProperty/index.ts"
+import isDate from "../../../validation/isDate/index.ts"
+import isNullish from "../../../validation/isNullish/index.ts"
+import isObject from "../../../validation/isObject/index.ts"
+import isPlainDateTime from "../../../validation/isPlainDateTime/index.ts"
+import isPlainTime from "../../../validation/isPlainTime/index.ts"
+import isString from "../../../validation/isString/index.ts"
+import isZonedDateTime from "../../../validation/isZonedDateTime/index.ts"
 
 /**
  * Parses values into Temporal PlainTime objects

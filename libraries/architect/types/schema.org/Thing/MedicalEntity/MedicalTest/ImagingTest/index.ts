@@ -3,7 +3,7 @@ import type MedicalImagingTechnique from "../../../Intangible/Enumeration/Medica
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalTestProps } from "../index.ts"
 
-import MedicalImagingTechniqueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalImagingTechnique/index.tsx"
+import MedicalImagingTechniqueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalImagingTechnique/index.tsx"
 
 export type ImagingTestType = "ImagingTest"
 

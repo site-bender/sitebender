@@ -10,7 +10,7 @@
  * - Within a package folder, relative imports are allowed.
  *
  * Scope (default):
- *   - libraries/codewright/src/**
+ *   - libraries/pagewright/src/**
  *   - mission-control/src/**
  *   - scripts/**
  *
@@ -44,7 +44,7 @@ const ARCHITECT_TYPES = 'libraries/architect/types/';
 const TOOLSMITH_SRC = 'libraries/toolsmith/src/';
 
 const DEFAULT_SCOPES = [
-	'libraries/codewright/src',
+	'libraries/pagewright/src',
 	'mission-control/src',
 	'scripts',
 ];

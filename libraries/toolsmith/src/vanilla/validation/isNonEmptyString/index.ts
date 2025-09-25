@@ -1,5 +1,5 @@
-import isString from "../isString/index.ts"
 import isNotEmpty from "../isNotEmpty/index.ts"
+import isString from "../isString/index.ts"
 
 //++ Type guard that checks if a value is a non-empty string primitive
 /**

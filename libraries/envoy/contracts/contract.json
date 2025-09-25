@@ -2,18 +2,18 @@
 	"version": "1.0.0",
 	"lastUpdated": "2025-01-11",
 	"library": "envoy",
-	"purpose": "Generate comprehensive documentation from Linguist output. Creates graphs, diagrams, and human-readable docs.",
+	"purpose": "Generate comprehensive documentation from Arborist output. Creates graphs, diagrams, and human-readable docs.",
 	"api": {
 		"exports": [
 			{
 				"name": "generateDocumentation",
 				"signature": "(input: ContractOutput<ParsedProject>) => Documentation",
-				"description": "Generate documentation for an entire project from Linguist output"
+				"description": "Generate documentation for an entire project from Arborist output"
 			},
 			{
 				"name": "generateFileDocumentation",
 				"signature": "(input: ContractOutput<ParsedFile>) => FileDocumentation",
-				"description": "Generate documentation for a single file from Linguist output"
+				"description": "Generate documentation for a single file from Arborist output"
 			},
 			{
 				"name": "generateGraph",
@@ -56,7 +56,7 @@
 					"lineNumber: number",
 					"associatedNode: string"
 				],
-				"note": "Envoy interprets comment syntax (//++, //--, etc.) that Linguist provides as raw text"
+				"note": "Envoy interprets comment syntax (//++, //--, etc.) that Arborist provides as raw text"
 			},
 			{
 				"name": "CodebaseGraph",
@@ -81,24 +81,24 @@
 			"Search index generation"
 		],
 		"consumes": [
-			"Linguist's ContractOutput only",
-			"Raw comment text from Linguist",
-			"AST data from Linguist",
-			"Type information from Linguist"
+			"Arborist's ContractOutput only",
+			"Raw comment text from Arborist",
+			"AST data from Arborist",
+			"Type information from Arborist"
 		],
 		"forbidden": [
 			"Parsing TypeScript/JSX directly",
 			"Using TypeScript compiler",
 			"Using ts-morph",
 			"Reading source files for parsing",
-			"Modifying Linguist's output",
+			"Modifying Arborist's output",
 			"Generating tests",
 			"Making network requests"
 		]
 	},
 	"implementation": {
 		"allowed": [
-			"Import from @sitebender/linguist/exports/types",
+			"Import from @sitebender/arborist/exports/types",
 			"Read configuration files",
 			"Walk folder hierarchy",
 			"Generate markdown/HTML",
@@ -107,9 +107,9 @@
 		"forbidden": [
 			"Import TypeScript compiler",
 			"Import ts-morph",
-			"Import from @sitebender/linguist/internal",
+			"Import from @sitebender/arborist/internal",
 			"Use regex to parse TypeScript",
-			"Redefine Linguist's types",
+			"Redefine Arborist's types",
 			"Access .ts/.tsx files for parsing"
 		]
 	},
@@ -138,12 +138,12 @@
 		}
 	},
 	"dependencies": {
-		"allowed": ["linguist"],
+		"allowed": ["arborist"],
 		"forbidden": [
-			"logician",
+			"auditor",
 			"quarrier",
 			"toolsmith",
-			"codewright",
+			"pagewright",
 			"architect",
 			"formulator",
 			"agent"

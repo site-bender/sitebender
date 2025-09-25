@@ -1,22 +1,20 @@
+import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
+import isEmpty from "@sitebender/toolsmith/vanilla/array/isEmpty/index.ts"
+import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
+import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import sort from "@sitebender/toolsmith/vanilla/array/sort/index.ts"
+import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
+import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
 import { relative } from "jsr:@std/path"
 
 import type { FileFunction, PerFileAnalysis } from "../types/index.ts"
 
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import sort from "@sitebender/toolsmith/vanilla/array/sort/index.ts"
-import isEmpty from "@sitebender/toolsmith/vanilla/array/isEmpty/index.ts"
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
-
 import { FUNCTION_PATTERNS } from "../constants/index.ts"
-
-import stripCommentsAndStrings from "./stripCommentsAndStrings/index.ts"
-import extractMatches from "./extractMatches/index.ts"
 import createFunctionInfo from "./createFunctionInfo/index.ts"
 import extractDefaultNames from "./extractDefaultNames/index.ts"
+import extractMatches from "./extractMatches/index.ts"
 import isNotAnonymous from "./isNotAnonymous/index.ts"
+import stripCommentsAndStrings from "./stripCommentsAndStrings/index.ts"
 
 //++ Analyzes a TypeScript/JavaScript file to extract function metrics and export patterns
 export default async function analyzeFile(

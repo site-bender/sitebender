@@ -91,17 +91,17 @@ test.describe("Navigation without JavaScript", () => {
 		await page.goto("/")
 
 		// Check main navigation works
-		await page.click('a[href="/codewright"]')
-		await expect(page).toHaveURL("/codewright")
-		await expect(page.locator("h1")).toContainText("Codewright Library")
+		await page.click('a[href="/pagewright"]')
+		await expect(page).toHaveURL("/pagewright")
+		await expect(page.locator("h1")).toContainText("Pagewright Library")
 
 		// Check sub-navigation works
-		await page.click('a[href="/codewright/forms"]')
-		await expect(page).toHaveURL("/codewright/forms")
+		await page.click('a[href="/pagewright/forms"]')
+		await expect(page).toHaveURL("/pagewright/forms")
 
 		// Check breadcrumbs work
-		await page.click('nav[aria-label="breadcrumb"] a[href="/codewright"]')
-		await expect(page).toHaveURL("/codewright")
+		await page.click('nav[aria-label="breadcrumb"] a[href="/pagewright"]')
+		await expect(page).toHaveURL("/pagewright")
 
 		// Check search form submits to edge function
 		await page.fill('input[name="search"]', "Button component")
@@ -111,7 +111,7 @@ test.describe("Navigation without JavaScript", () => {
 	})
 
 	test("table of contents links work without JS", async ({ page }) => {
-		await page.goto("/codewright/forms/validation")
+		await page.goto("/pagewright/forms/validation")
 
 		// All TOC links should be anchors
 		const tocLinks = page.locator('nav[aria-label="On this page"] a')
@@ -338,9 +338,9 @@ test.describe("Code the-workshop behaviors", () => {
 				expected: 'tag: "Add"',
 			},
 			{
-				lib: "codewright",
+				lib: "pagewright",
 				code: `
-          import Button from "@sitebender/codewright/interact/buttons/Button"
+          import Button from "@sitebender/pagewright/interact/buttons/Button"
           
           const btn = Button({ label: "Click me", variant: "primary" })
           console.log(btn)
@@ -373,7 +373,7 @@ import { injectAxe, checkA11y } from "@axe-core/playwright"
 test.describe("WCAG 2.3 AAA Compliance", () => {
   const pages = [
     "/",
-    "/codewright",
+    "/pagewright",
     "/toolsmith",
     "/architect",
     "/examples",
@@ -414,7 +414,7 @@ test.describe("WCAG 2.3 AAA Compliance", () => {
 ## Golden and Smoke Tests
 
 ### Goldens (snapshot-style)
-- No-JS SSR HTML snapshots for key pages: Home, Codewright index, Component detail, Examples (form, conditional, JSON-LD), Playground.
+- No-JS SSR HTML snapshots for key pages: Home, Pagewright index, Component detail, Examples (form, conditional, JSON-LD), Playground.
 - Snapshot both the HTML and the embedded root IR script payload shape (schema version, node ids present).
 - Tolerate dynamic IDs via stable serializers or deterministic seeds.
 
@@ -492,7 +492,7 @@ test.describe("Usability without CSS", () => {
 	})
 
 	test("content structure remains clear", async ({ page }) => {
-		await page.goto("/codewright/forms")
+		await page.goto("/pagewright/forms")
 
 		// Headings should create hierarchy
 		const h1 = page.locator("h1").first()
@@ -516,7 +516,7 @@ test.describe("Usability without CSS", () => {
 	})
 
 	test("tables remain readable", async ({ page }) => {
-		await page.goto("/codewright/reference")
+		await page.goto("/pagewright/reference")
 
 		const table = page.locator("table").first()
 		const headers = table.locator("th")

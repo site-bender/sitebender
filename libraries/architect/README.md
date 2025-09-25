@@ -8,7 +8,7 @@ Architect is a revolutionary rendering and behavior composition library that tre
 
 **Everything is data. Everything is composable. Everything is reactive.**
 
-Architect extends [Codewright](../codewright/README.md)'s semantic HTML components with a powerful layer of composed behaviors. While Codewright handles HTML semantics and accessibility, Architect adds:
+Architect extends [Pagewright](../pagewright/README.md)'s semantic HTML components with a powerful layer of composed behaviors. While Pagewright handles HTML semantics and accessibility, Architect adds:
 
 - **Reactive calculations** that cascade through your UI
 - **Validation rules** that work identically on client and server
@@ -192,12 +192,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <IsLessThan>
-  <Referent>
-    <From.Argument />
-  </Referent>
-  <Comparand>
-    <From.Constant>100</From.Constant>
-  </Comparand>
+	<Referent>
+		<From.Argument />
+	</Referent>
+	<Comparand>
+		<From.Constant>100</From.Constant>
+	</Comparand>
 </IsLessThan>
 ```
 
@@ -208,12 +208,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <Matches>
-  <Referent>
-    <From.Element selector="#email" />
-  </Referent>
-  <Comparand>
-    <From.Constant>^[^@]+@[^@]+$</From.Constant>
-  </Comparand>
+	<Referent>
+		<From.Element selector="#email" />
+	</Referent>
+	<Comparand>
+		<From.Constant>^[^@]+@[^@]+$</From.Constant>
+	</Comparand>
 </Matches>
 ```
 
@@ -224,12 +224,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <IsBeforeDate>
-  <Referent>
-    <From.Argument />
-  </Referent>
-  <Comparand>
-    <From.Constant>2024-12-31</From.Constant>
-  </Comparand>
+	<Referent>
+		<From.Argument />
+	</Referent>
+	<Comparand>
+		<From.Constant>2024-12-31</From.Constant>
+	</Comparand>
 </IsBeforeDate>
 ```
 
@@ -241,12 +241,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <InSet>
-  <Referent>
-    <From.Argument />
-  </Referent>
-  <Comparand>
-    <From.Constant>["admin", "editor", "viewer"]</From.Constant>
-  </Comparand>
+	<Referent>
+		<From.Argument />
+	</Referent>
+	<Comparand>
+		<From.Constant>["admin", "editor", "viewer"]</From.Constant>
+	</Comparand>
 </InSet>
 ```
 
@@ -283,15 +283,15 @@ Control visibility and presentation:
 ```jsx
 // Example: Show content only if user is admin
 <ShowIf>
-  <IsEqualTo>
-    <Referent>
-      <From.Element selector="#userRole" />
-    </Referent>
-    <Comparand>
-      <From.Constant>admin</From.Constant>
-    </Comparand>
-  </IsEqualTo>
-  <div>Admin Controls Here</div>
+	<IsEqualTo>
+		<Referent>
+			<From.Element selector="#userRole" />
+		</Referent>
+		<Comparand>
+			<From.Constant>admin</From.Constant>
+		</Comparand>
+	</IsEqualTo>
+	<div>Admin Controls Here</div>
 </ShowIf>
 ```
 
@@ -314,16 +314,16 @@ Traditional form libraries make developers choose widgets:
 <Input type="text" name="description" />
 ```
 
-Architect/Codewright uses data types instead:
+Architect/Pagewright uses data types instead:
 
 ```jsx
 // ✅ Data-driven approach - system picks widgets
 <Form schema="User">
-  <ChooseOneField name="role" type="String" /> // Becomes radio OR select
-  <BooleanField name="active" /> // Becomes checkbox OR toggle
-  <MemberField name="country" of="CountryEnum" /> // Becomes select OR
-  autocomplete
-  <StringField name="description" type="Text" /> // Becomes input OR textarea
+	<ChooseOneField name="role" type="String" /> // Becomes radio OR select
+	<BooleanField name="active" /> // Becomes checkbox OR toggle
+	<MemberField name="country" of="CountryEnum" />{" "}
+	// Becomes select OR autocomplete
+	<StringField name="description" type="Text" /> // Becomes input OR textarea
 </Form>
 ```
 
@@ -350,10 +350,10 @@ Architect/Codewright uses data types instead:
    ```jsx
    // Given a database schema or triple store shape:
    <Form entity="Customer" include={["name", "email", "tier", "active"]}>
-     // Automatically generates: // - StringField for name (required from NOT
-     NULL) // - StringField for email (with email validation from SHACL) // -
-     MemberField for tier (enum from database) // - BooleanField for active
-     (with default from schema)
+   	// Automatically generates: // - StringField for name (required from NOT
+   	NULL) // - StringField for email (with email validation from SHACL) // -
+   	MemberField for tier (enum from database) // - BooleanField for active
+   	(with default from schema)
    </Form>
    ```
 
@@ -403,9 +403,9 @@ Architect/Codewright uses data types instead:
 ```jsx
 // Configure widget selection thresholds
 <Config>
-  <From.Constant name="RADIO_MAX_ITEMS">6</From.Constant>
-  <From.Constant name="TEXTAREA_MIN_LENGTH">200</From.Constant>
-  <From.Constant name="SLIDER_FOR_BOUNDED_NUMBERS">true</From.Constant>
+	<From.Constant name="RADIO_MAX_ITEMS">6</From.Constant>
+	<From.Constant name="TEXTAREA_MIN_LENGTH">200</From.Constant>
+	<From.Constant name="SLIDER_FOR_BOUNDED_NUMBERS">true</From.Constant>
 </Config>
 ```
 
@@ -416,12 +416,12 @@ Architect/Codewright uses data types instead:
 ```jsx
 // A designer or product manager writes:
 <CustomerForm>
-  <Section title="Basic Info">
-    <Fields include={["name", "company", "email"]} />
-  </Section>
-  <Section title="Preferences">
-    <Fields include={["tier", "notifications", "language"]} />
-  </Section>
+	<Section title="Basic Info">
+		<Fields include={["name", "company", "email"]} />
+	</Section>
+	<Section title="Preferences">
+		<Fields include={["tier", "notifications", "language"]} />
+	</Section>
 </CustomerForm>
 
 // The system knows from the schema:
@@ -445,7 +445,7 @@ This approach means:
 
 Most form libraries are stuck in the 1990s mindset of "HTML forms" where developers manually map widgets to data. They're thinking about `<input type="radio">` vs `<select>` when they should be thinking about "choosing one item from a set."
 
-**The old way**: "I need a form, let me pick some HTML widgets and figure out validation"  
+**The old way**: "I need a form, let me pick some HTML widgets and figure out validation"\
 **The Architect way**: "I have data types, the system knows how to collect them"
 
 This isn't just a technical improvement - it's a fundamental paradigm shift that enables:
@@ -481,25 +481,25 @@ document.__sbValidators // Set of element IDs with validators
 
 ```json
 {
-  "_tag": "Validation",
-  "type": "logical",
-  "children": [
-    {
-      "_tag": "And",
-      "type": "logical",
-      "operands": [
-        {
-          "_tag": "IsInteger",
-          "type": "comparator"
-        },
-        {
-          "_tag": "IsGreaterThan",
-          "type": "comparator",
-          "value": 0
-        }
-      ]
-    }
-  ]
+	"_tag": "Validation",
+	"type": "logical",
+	"children": [
+		{
+			"_tag": "And",
+			"type": "logical",
+			"operands": [
+				{
+					"_tag": "IsInteger",
+					"type": "comparator"
+				},
+				{
+					"_tag": "IsGreaterThan",
+					"type": "comparator",
+					"value": 0
+				}
+			]
+		}
+	]
 }
 ```
 
@@ -538,8 +538,8 @@ const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'")
 
 // Render to HTML with embedded behaviors
 const html = await render(uiConfig, {
-  embedBehaviors: true,
-  includeHydration: true,
+	embedBehaviors: true,
+	includeHydration: true,
 })
 ```
 
@@ -552,10 +552,9 @@ import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts"
 const elements = document.querySelectorAll("[data-architect]")
 
 function hydrateElement(el) {
+	const config = JSON.parse(el.dataset.architect)
 
-  const config = JSON.parse(el.dataset.architect)
-
-  hydrate(el, config)
+	hydrate(el, config)
 }
 
 elements.forEach(hydrateElement)
@@ -661,21 +660,20 @@ import Add from "@sitebender/architect/components/operators/Add/index.tsx"
 import render from "@sitebender/architect/rendering/render/index.ts"
 
 function Calculator() {
-
-  return (
-    <div>
-      <Input id="a" type="number" />
-      <span> + </span>
-      <Input id="b" type="number" />
-      <span> = </span>
-      <Display>
-        <Add>
-          <From.Element selector="#a" />
-          <From.Element selector="#b" />
-        </Add>
-      </Display>
-    </div>
-  )
+	return (
+		<div>
+			<Input id="a" type="number" />
+			<span>+</span>
+			<Input id="b" type="number" />
+			<span>=</span>
+			<Display>
+				<Add>
+					<From.Element selector="#a" />
+					<From.Element selector="#b" />
+				</Add>
+			</Display>
+		</div>
+	)
 }
 
 // Render to DOM
@@ -690,20 +688,18 @@ Define your own operators that compose with existing ones:
 
 ```tsx
 function computeFactorial(n) {
-
-  return n <= 1 ? 1 : n * computeFactorial(n - 1)
+	return n <= 1 ? 1 : n * computeFactorial(n - 1)
 }
 
 function Factorial({ children }) {
-
-  return (
-    <CustomOperator
-      name="factorial"
-      compute={computeFactorial}
-    >
-      {children}
-    </CustomOperator>
-  )
+	return (
+		<CustomOperator
+			name="factorial"
+			compute={computeFactorial}
+		>
+			{children}
+		</CustomOperator>
+	)
 }
 ```
 
@@ -713,20 +709,18 @@ Create injectors for any data source:
 
 ```tsx
 function FromGraphQL({ query, variables }) {
+	async function fetchGraphQL() {
+		const result = await graphqlClient.query({ query, variables })
 
-  async function fetchGraphQL() {
+		return result.data
+	}
 
-    const result = await graphqlClient.query({ query, variables })
-
-    return result.data
-  }
-
-  return (
-    <CustomInjector
-      name="graphql"
-      fetch={fetchGraphQL}
-    />
-  )
+	return (
+		<CustomInjector
+			name="graphql"
+			fetch={fetchGraphQL}
+		/>
+	)
 }
 ```
 
@@ -736,29 +730,29 @@ Combine multiple behaviors on a single element:
 
 ```tsx
 <Input id="email">
-  <Validation>
-    <And>
-      <Matches>
-        <Referent>
-          <From.Argument />
-        </Referent>
-        <Comparand>
-          <From.Constant>^[^@]+@[^@]+\.[^@]+$</From.Constant>
-        </Comparand>
-      </Matches>
-      <IsUniqueEmail>
-        <From.Argument />
-      </IsUniqueEmail>
-    </And>
-  </Validation>
-  <Format>
-    <As.LowerCase />
-  </Format>
-  <Calculation>
-    <TrimWhitespace>
-      <From.Argument />
-    </TrimWhitespace>
-  </Calculation>
+	<Validation>
+		<And>
+			<Matches>
+				<Referent>
+					<From.Argument />
+				</Referent>
+				<Comparand>
+					<From.Constant>^[^@]+@[^@]+\.[^@]+$</From.Constant>
+				</Comparand>
+			</Matches>
+			<IsUniqueEmail>
+				<From.Argument />
+			</IsUniqueEmail>
+		</And>
+	</Validation>
+	<Format>
+		<As.LowerCase />
+	</Format>
+	<Calculation>
+		<TrimWhitespace>
+			<From.Argument />
+		</TrimWhitespace>
+	</Calculation>
 </Input>
 ```
 
@@ -787,7 +781,7 @@ Architect is part of the @sitebender Studio suite. See [CONTRIBUTING.md](../../C
 
 ## See Also
 
-- [Codewright](../codewright/README.md) - Semantic HTML components
+- [Pagewright](../pagewright/README.md) - Semantic HTML components
 - [Formulator](../formulator/README.md) - Expression parser for Architect IR
 - [Agent](../agent/README.md) - Distributed data synchronization
 - [Warden](../warden/README.md) - Architectural governance

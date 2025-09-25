@@ -1,8 +1,8 @@
+import exponential from "../../math/exponential/index.ts"
+import isArray from "../../validation/isArray/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
-import isArray from "../../validation/isArray/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
-import exponential from "../../math/exponential/index.ts"
 
 /**
  * Calculates the softmax activation function for a vector
@@ -53,9 +53,11 @@ export default function softmax(
 	}
 
 	// Check for non-numeric values
-	if (!x.every(function isNumberCheck(val: number): boolean {
-		return isNumber(val)
-	})) {
+	if (
+		!x.every(function isNumberCheck(val: number): boolean {
+			return isNumber(val)
+		})
+	) {
 		return []
 	}
 
@@ -73,9 +75,12 @@ export default function softmax(
 	})
 
 	// Sum of all exponentials
-	const sumExp = expValues.reduce(function sumReducer(sum: number, val: number): number {
-		return sum + val
-	}, 0)
+	const sumExp = expValues.reduce(
+		function sumReducer(sum: number, val: number): number {
+			return sum + val
+		},
+		0,
+	)
 
 	// Normalize to get probabilities
 	return expValues.map(function normalizeValue(val: number): number {

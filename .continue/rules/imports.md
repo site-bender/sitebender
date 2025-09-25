@@ -6,7 +6,7 @@ alwaysApply: true
 # Import Realms and Order
 
 ## Realms
-- External dependencies only allowed in Linguist (TS compiler) and Agent (distributed services). All others: zero external deps.
+- External dependencies only allowed in Arborist (TS compiler) and Agent (distributed services). All others: zero external deps.
 - Libraries: internal imports are relative; cross-library use @sitebender namespace; external use Deno std URLs.
 - Applications: internal use ~ aliases; libraries via @sitebender; external standard paths.
 - Tests: import tested code relatively; test deps via standard URLs.

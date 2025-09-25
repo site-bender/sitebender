@@ -1,3 +1,4 @@
+import and from "../../logic/and/index.ts"
 /**
  * Checks if a value is non-zero
  *
@@ -49,7 +50,6 @@
  * @predicate
  */
 import isNumber from "../isNumber/index.ts"
-import and from "../../logic/and/index.ts"
 import isUnequal from "../isUnequal/index.ts"
 
 export default function isNonZero(value: unknown): value is number {

@@ -18,12 +18,12 @@ import type { PlaceType } from "./Place/index.ts"
 import type { ProductType } from "./Product/index.ts"
 import type { TaxonType } from "./Taxon/index.ts"
 
-import ActionComponent from "../../../../codewright/src/define/Thing/Action/index.tsx"
-import CreativeWorkComponent from "../../../../codewright/src/define/Thing/CreativeWork/index.tsx"
-import ImageObjectComponent from "../../../../codewright/src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
-import TextObjectComponent from "../../../../codewright/src/define/Thing/CreativeWork/MediaObject/TextObject/index.tsx"
-import EventComponent from "../../../../codewright/src/define/Thing/Event/index.tsx"
-import PropertyValueComponent from "../../../../codewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
+import ActionComponent from "../../../../pagewright/src/define/Thing/Action/index.tsx"
+import CreativeWorkComponent from "../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
+import ImageObjectComponent from "../../../../pagewright/src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+import TextObjectComponent from "../../../../pagewright/src/define/Thing/CreativeWork/MediaObject/TextObject/index.tsx"
+import EventComponent from "../../../../pagewright/src/define/Thing/Event/index.tsx"
+import PropertyValueComponent from "../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
 
 export type ThingType =
 	| "Thing"

@@ -48,8 +48,8 @@
 		"@sitebender/architect": "../../libraries/architect/src/",
 		"@sitebender/architect/": "../../libraries/architect/src/",
 		// Repo-wide aliases (mirror root config) for cross-workspace type-checks and builds
-		"@sitebender/codewright": "../../libraries/codewright/src/index.ts",
-		"@sitebender/codewright/": "../../libraries/codewright/src/",
+		"@sitebender/pagewright": "../../libraries/pagewright/src/index.ts",
+		"@sitebender/pagewright/": "../../libraries/pagewright/src/",
 
 		// === Deno Standard Library ===
 		"@std/expect": "jsr:@std/expect@^1.0.17",

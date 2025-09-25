@@ -1,5 +1,5 @@
-import isObject from "../isObject/index.ts"
 import isNotNull from "../isNotNull/index.ts"
+import isObject from "../isObject/index.ts"
 
 /**
  * Type guard to check if an object has a specific property
@@ -29,6 +29,8 @@ import isNotNull from "../isNotNull/index.ts"
 export default function hasProperty<T extends string>(
 	name: T,
 ): (obj: unknown) => obj is Record<string, unknown> & { [K in T]: unknown } {
-	return (obj: unknown): obj is Record<string, unknown> & { [K in T]: unknown } =>
+	return (
+		obj: unknown,
+	): obj is Record<string, unknown> & { [K in T]: unknown } =>
 		isObject(obj) && isNotNull(obj) && name in obj
 }

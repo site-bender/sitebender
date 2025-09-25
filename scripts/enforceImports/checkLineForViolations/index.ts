@@ -1,16 +1,15 @@
-import type { AliasViolation } from "../../types/index.ts"
-
 import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
 import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
 import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
+import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
+
+import type { AliasViolation } from "../../types/index.ts"
 
 import {
 	ARCHITECT_SRC,
 	ARCHITECT_TYPES,
 	TOOLSMITH_SRC,
 } from "../../constants/index.ts"
-
 import extractImportSpecifier from "../extractImportSpecifier/index.ts"
 import findAllMatches from "../findAllMatches/index.ts"
 import isInsidePackage from "../isInsidePackage/index.ts"
@@ -44,7 +43,8 @@ export default function checkLineForViolations(
 					file,
 					line: lineNumber,
 					spec,
-					hint: "Use @sitebender/architect/… instead of libraries/architect/src/…",
+					hint:
+						"Use @sitebender/architect/… instead of libraries/architect/src/…",
 				})
 			}
 			if (includes(ARCHITECT_TYPES)(spec)) {
@@ -52,7 +52,8 @@ export default function checkLineForViolations(
 					file,
 					line: lineNumber,
 					spec,
-					hint: "Use @sitebender/architect-types/… instead of libraries/architect/types/…",
+					hint:
+						"Use @sitebender/architect-types/… instead of libraries/architect/types/…",
 				})
 			}
 		}
@@ -64,7 +65,8 @@ export default function checkLineForViolations(
 					file,
 					line: lineNumber,
 					spec,
-					hint: "Use @sitebender/toolsmith/… instead of libraries/toolsmith/src/…",
+					hint:
+						"Use @sitebender/toolsmith/… instead of libraries/toolsmith/src/…",
 				})
 			}
 		}

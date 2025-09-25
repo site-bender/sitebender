@@ -37,7 +37,10 @@ export type JSXExpressionContainerNode = {
 }
 
 //++ JSX fragment from parser
-export type JSXFragmentNode = { type: "JSXFragment"; children: Array<UnknownJSXNode> }
+export type JSXFragmentNode = {
+	type: "JSXFragment"
+	children: Array<UnknownJSXNode>
+}
 
 //++ JSX identifier from parser
 export type JSXIdentifierNode = { type: "JSXIdentifier"; name: string }

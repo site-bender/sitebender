@@ -1,7 +1,7 @@
 import type { Result } from "../../../types/fp/result/index.ts"
 
-import ok from "../../../monads/result/ok/index.ts"
 import error from "../../../monads/result/error/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
 import vanillaMultiply from "../../../vanilla/math/multiply/index.ts"
 import isArray from "../../../vanilla/validation/isArray/index.ts"
 

@@ -1,6 +1,6 @@
-import isUndefined from "../isUndefined/index.ts"
-import isSymbol from "../isSymbol/index.ts"
 import isFunction from "../isFunction/index.ts"
+import isSymbol from "../isSymbol/index.ts"
+import isUndefined from "../isUndefined/index.ts"
 
 //++ Type guard that checks if a value can be serialized to JSON
 export default function isSerializable(value: unknown): boolean {

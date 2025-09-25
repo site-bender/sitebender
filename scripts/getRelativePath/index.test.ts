@@ -9,7 +9,7 @@ Deno.test("getRelativePath - basic relative path calculation", () => {
 })
 
 Deno.test("getRelativePath - same directory level", () => {
-	const result = getRelativePath("src/codewright/index.ts")(
+	const result = getRelativePath("src/pagewright/index.ts")(
 		"src/utils/helpers.ts",
 	)
 
@@ -25,8 +25,8 @@ Deno.test("getRelativePath - no common ancestor", () => {
 })
 
 Deno.test("getRelativePath - same directory", () => {
-	const result = getRelativePath("src/codewright/index.ts")(
-		"src/codewright/Button.tsx",
+	const result = getRelativePath("src/pagewright/index.ts")(
+		"src/pagewright/Button.tsx",
 	)
 
 	assertEquals(result, "Button.tsx")
@@ -58,7 +58,7 @@ Deno.test("getRelativePath - partial common path", () => {
 })
 
 Deno.test("getRelativePath - complex nested structure", () => {
-	const result = getRelativePath("apps/web/src/codewright/ui/Button/index.ts")(
+	const result = getRelativePath("apps/web/src/pagewright/ui/Button/index.ts")(
 		"libs/shared/types/api.ts",
 	)
 
@@ -66,18 +66,18 @@ Deno.test("getRelativePath - complex nested structure", () => {
 })
 
 Deno.test("getRelativePath - curried function works", () => {
-	const getRelativeFromCodewright = getRelativePath("src/codewright/index.ts")
+	const getRelativeFromPagewright = getRelativePath("src/pagewright/index.ts")
 
 	assertEquals(
-		getRelativeFromCodewright("src/utils/helpers.ts"),
+		getRelativeFromPagewright("src/utils/helpers.ts"),
 		"../utils/helpers.ts",
 	)
 	assertEquals(
-		getRelativeFromCodewright("src/types/user.ts"),
+		getRelativeFromPagewright("src/types/user.ts"),
 		"../types/user.ts",
 	)
 	assertEquals(
-		getRelativeFromCodewright("src/codewright/Button.tsx"),
+		getRelativeFromPagewright("src/pagewright/Button.tsx"),
 		"Button.tsx",
 	)
 })
@@ -89,7 +89,7 @@ Deno.test("getRelativePath - preserves file extensions", () => {
 })
 
 Deno.test("getRelativePath - handles non-index.ts files in from path", () => {
-	const result = getRelativePath("src/codewright/Button.tsx")(
+	const result = getRelativePath("src/pagewright/Button.tsx")(
 		"src/utils/helpers.ts",
 	)
 

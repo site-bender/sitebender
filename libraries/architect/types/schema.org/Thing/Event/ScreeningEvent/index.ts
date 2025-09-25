@@ -4,8 +4,8 @@ import type Thing from "../../index.ts"
 import type Language from "../../Intangible/Language/index.ts"
 import type { EventProps } from "../index.ts"
 
-import MovieComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/Movie/index.tsx"
-import LanguageComponent from "../../../../../../codewright/src/define/Thing/Intangible/Language/index.tsx"
+import MovieComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/Movie/index.tsx"
+import LanguageComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Language/index.tsx"
 
 export type ScreeningEventType = "ScreeningEvent"
 

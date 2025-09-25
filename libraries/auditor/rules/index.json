@@ -1,0 +1,41 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-12",
+	"author": "The Architect",
+	"scope": "libraries/auditor",
+	"description": "Rules for what Auditor WILL GENERATE once complete - NOT for building Auditor",
+	"inherits": "/rules/index.json",
+	"note": "While building Auditor, use the temporary testing rules in /rules/index.json",
+	"futureAuditorGeneration": {
+		"description": "What Auditor will automatically generate once operational",
+		"scope": "100% test coverage for ALL code: libraries, infrastructure, scripts, applications, etc.",
+		"timeline": "These rules activate when Auditor successfully provides 100% coverage",
+		"transition": "Once Auditor is operational, remove temporary testing rules from /rules/index.json"
+	},
+	"whatAuditorWillGenerate": {
+		"coverage": {
+			"requirement": "100% reported coverage. NO EXCEPTIONS.",
+			"rationale": "Less than 100%? You have untested code that WILL break.",
+			"escape": "Can't test it? Add deno-coverage-ignore with a REASON. Must get approval from The Architect."
+		},
+		"hierarchy": [
+			"E2E - User journeys (gold standard)",
+			"Integration - Functions working together",
+			"Property-based - Mathematical truth",
+			"Unit - Last resort for the desperate"
+		],
+		"whatToTest": [
+			"Behaviors - What users experience",
+			"Properties - Mathematical laws",
+			"Accessibility - WCAG AAA for HTML",
+			"Progressive Enhancement - All three layers"
+		],
+		"whatNotToTest": [
+			"Implementation details",
+			"Private methods (they don't exist)",
+			"Things TypeScript already guarantees",
+			"Lines we've explicitly ignored (with documented reasons)"
+		],
+		"location": "Same folder as function using index.test.ts"
+	}
+}

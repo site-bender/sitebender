@@ -6,8 +6,8 @@ export type TestDom = { document: Document; window: Window }
 
 export default function createTestDomWithBody(bodyHtml: string): TestDom {
 	// Always create a fresh document via DOMParser
-	const linguist = new DOMParser()
-	const doc = linguist.parseFromString(
+	const arborist = new DOMParser()
+	const doc = arborist.parseFromString(
 		"<!doctype html><html><head></head><body></body></html>",
 		"text/html",
 	) as unknown as Document

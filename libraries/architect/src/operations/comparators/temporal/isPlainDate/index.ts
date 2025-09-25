@@ -1,7 +1,7 @@
 import type {
+	ArchitectError,
 	ComparatorConfig,
 	Either,
-	ArchitectError,
 	LocalValues,
 	OperationFunction,
 } from "@sitebender/architect-types/index.ts"

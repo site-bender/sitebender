@@ -65,9 +65,9 @@ export type ValidationResult = {
 
 // Re-export enforcement types
 export type {
+	Boundaries,
 	ContractMetadata,
 	ContractOutput,
 	ContractViolation,
 	EnforcementConfig,
-	Boundaries,
 } from "./enforcement.ts"

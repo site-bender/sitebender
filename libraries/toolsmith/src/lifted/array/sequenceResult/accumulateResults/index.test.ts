@@ -1,8 +1,7 @@
 import { assertEquals } from "@std/assert"
 
-import ok from "../../../../monads/result/ok/index.ts"
 import err from "../../../../monads/result/err/index.ts"
-
+import ok from "../../../../monads/result/ok/index.ts"
 import accumulateResults from "./index.ts"
 
 Deno.test("accumulateResults should accumulate when both are Ok", () => {

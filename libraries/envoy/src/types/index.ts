@@ -26,24 +26,24 @@ export type GenerateOptions = {
 	includeComplexity?: boolean
 }
 
-// Linguist Output Types - What Linguist provides to Envoy
-export type LinguistOutput = {
+// Arborist Output Types - What Arborist provides to Envoy
+export type ArboristOutput = {
 	readonly functions: ReadonlyArray<ParsedFunction>
 	readonly comments: ReadonlyArray<ParsedComment>
 }
 
 export type ParsedFunction = {
 	readonly node: unknown // TypeScript AST node - Envoy doesn't need to know the type
-	readonly signature: LinguistFunctionSignature
+	readonly signature: ArboristFunctionSignature
 	readonly metadata: TraversalMetadata
 }
 
-export type LinguistFunctionSignature = {
+export type ArboristFunctionSignature = {
 	readonly name: string
 	readonly filePath: string
-	readonly parameters: ReadonlyArray<LinguistParameter>
-	readonly returnType: LinguistTypeInfo
-	readonly generics?: ReadonlyArray<LinguistGeneric>
+	readonly parameters: ReadonlyArray<ArboristParameter>
+	readonly returnType: ArboristTypeInfo
+	readonly generics?: ReadonlyArray<ArboristGeneric>
 	readonly isAsync: boolean
 	readonly isGenerator: boolean
 	readonly isCurried: boolean
@@ -52,15 +52,15 @@ export type LinguistFunctionSignature = {
 	readonly isDefault: boolean
 }
 
-export type LinguistParameter = {
+export type ArboristParameter = {
 	readonly name: string
-	readonly type: LinguistTypeInfo
+	readonly type: ArboristTypeInfo
 	readonly isOptional: boolean
 	readonly isRest: boolean
 	readonly defaultValue?: string
 }
 
-export type LinguistTypeInfo = {
+export type ArboristTypeInfo = {
 	readonly raw: string
 	readonly kind:
 		| "primitive"
@@ -79,7 +79,7 @@ export type LinguistTypeInfo = {
 		| "undefined"
 }
 
-export type LinguistGeneric = {
+export type ArboristGeneric = {
 	readonly name: string
 	readonly constraint?: string
 	readonly default?: string
@@ -201,7 +201,7 @@ export type Documentation = {
 	metadata: FunctionMetadata
 }
 
-export type LinguistContext = {
+export type ArboristContext = {
 	filePath: string
 	sourceCode: string
 }

@@ -68,12 +68,12 @@ Example blueprint: the‑workshop (Architect the-workshop; placeholder)
 }
 ```
 
-Example blueprint: minimal (Codewright‑only; placeholder)
+Example blueprint: minimal (Pagewright‑only; placeholder)
 ```json
 {
   "id": "minimal",
   "name": "minimal-app",
-  "description": "Codewright-only minimal app skeleton (placeholder)",
+  "description": "Pagewright-only minimal app skeleton (placeholder)",
   "outputs": { "appPath": "./applications/minimal-app" },
   "files": [],
   "postScaffoldMessages": [
@@ -87,12 +87,12 @@ Import‑map policy (what blueprints should encode for generated apps)
 - Dev (deno.dev.jsonc equivalent):
   - "@sitebender/toolsmith/": "./libraries/toolsmith/src/"
   - "@sitebender/architect/": "./libraries/architect/src/"
-  - "@sitebender/codewright/": "./libraries/codewright/src/"
+  - "@sitebender/pagewright/": "./libraries/pagewright/src/"
   - etc.
 - Prod (deno.prod.jsonc equivalent):
   - "@sitebender/toolsmith/": "https://deno.land/x/sitebender_toolsmith@v0.0.0/src/"
   - "@sitebender/architect/": "https://deno.land/x/sitebender_architect@v0.0.0/src/"
-  - "@sitebender/codewright/": "https://deno.land/x/sitebender_codewright@v0.0.0/src/"
+  - "@sitebender/pagewright/": "https://deno.land/x/sitebender_pagewright@v0.0.0/src/"
   - etc.
 
 Deno tasks (generated app expectations)
@@ -117,14 +117,14 @@ Sample dry‑run plan (what quartermaster:dry‑run will print later; no writes)
       "imports": {
         "@sitebender/toolsmith/": "./libraries/toolsmith/src/",
         "@sitebender/architect/": "./libraries/architect/src/",
-        "@sitebender/codewright/": "./libraries/codewright/src/"
+        "@sitebender/pagewright/": "./libraries/pagewright/src/"
       }
     },
     "prod": {
       "imports": {
         "@sitebender/toolsmith/": "https://deno.land/x/sitebender_toolsmith@v0.0.0/src/",
         "@sitebender/architect/": "https://deno.land/x/sitebender_architect@v0.0.0/src/",
-        "@sitebender/codewright/": "https://deno.land/x/sitebender_codewright@v0.0.0/src/"
+        "@sitebender/pagewright/": "https://deno.land/x/sitebender_pagewright@v0.0.0/src/"
       }
     }
   },

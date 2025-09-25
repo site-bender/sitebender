@@ -1,7 +1,7 @@
 import type { Result } from "../../../types/fp/result/index.ts"
 
-import ok from "../ok/index.ts"
 import error from "../error/index.ts"
+import ok from "../ok/index.ts"
 
 //++ Converts a try/catch operation to a Result
 export default function tryCatch<E>(onError: (err: unknown) => E) {

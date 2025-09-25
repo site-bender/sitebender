@@ -18,7 +18,7 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 
 	await t.step("parses boolean flags", function testBooleanFlags() {
 		const result = parseArgs(["--verbose", "--no-debug"], {
-			booleans: ["verbose", "debug"]
+			booleans: ["verbose", "debug"],
 		})
 
 		assertEquals(result.flags.verbose, true)
@@ -27,7 +27,7 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 
 	await t.step("parses string options", function testStringOptions() {
 		const result = parseArgs(["--name", "test", "--output", "file.txt"], {
-			strings: ["name", "output"]
+			strings: ["name", "output"],
 		})
 
 		assertEquals(result.options.name, "test")
@@ -45,9 +45,9 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 		const result = parseArgs(["-v", "-o", "output.txt"], {
 			aliases: {
 				v: "verbose",
-				o: "output"
+				o: "output",
 			},
-			booleans: ["verbose"]
+			booleans: ["verbose"],
 		})
 
 		assertEquals(result.flags.verbose, true)
@@ -55,8 +55,13 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 	})
 
 	await t.step("collects positional arguments", function testPositional() {
-		const result = parseArgs(["file1.txt", "--verbose", "file2.txt", "file3.txt"], {
-			booleans: ["verbose"]
+		const result = parseArgs([
+			"file1.txt",
+			"--verbose",
+			"file2.txt",
+			"file3.txt",
+		], {
+			booleans: ["verbose"],
 		})
 
 		assertEquals(result.positional, ["file1.txt", "file2.txt", "file3.txt"])
@@ -65,7 +70,7 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 
 	await t.step("handles double dash separator", function testDoubleDash() {
 		const result = parseArgs(["--verbose", "--", "--not-a-flag", "file.txt"], {
-			booleans: ["verbose"]
+			booleans: ["verbose"],
 		})
 
 		assertEquals(result.flags.verbose, true)
@@ -77,9 +82,9 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 			aliases: {
 				v: "verbose",
 				q: "quiet",
-				d: "debug"
+				d: "debug",
 			},
-			booleans: ["verbose", "quiet", "debug"]
+			booleans: ["verbose", "quiet", "debug"],
 		})
 
 		assertEquals(result.flags.verbose, true)
@@ -87,31 +92,44 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 		assertEquals(result.flags.debug, true)
 	})
 
-	await t.step("handles repeated options as arrays", function testRepeatedOptions() {
-		const result = parseArgs(["--file", "a.txt", "--file", "b.txt", "--file", "c.txt"])
+	await t.step(
+		"handles repeated options as arrays",
+		function testRepeatedOptions() {
+			const result = parseArgs([
+				"--file",
+				"a.txt",
+				"--file",
+				"b.txt",
+				"--file",
+				"c.txt",
+			])
 
-		assertExists(result.options.file)
-		assertEquals(result.options.file, ["a.txt", "b.txt", "c.txt"])
-	})
+			assertExists(result.options.file)
+			assertEquals(result.options.file, ["a.txt", "b.txt", "c.txt"])
+		},
+	)
 
 	await t.step("handles --no- prefix for negation", function testNegation() {
 		const result = parseArgs(["--no-color", "--no-verbose"], {
-			booleans: ["color", "verbose"]
+			booleans: ["color", "verbose"],
 		})
 
 		assertEquals(result.flags.color, false)
 		assertEquals(result.flags.verbose, false)
 	})
 
-	await t.step("defaults boolean flags to false", function testBooleanDefaults() {
-		const result = parseArgs([], {
-			booleans: ["verbose", "debug", "quiet"]
-		})
+	await t.step(
+		"defaults boolean flags to false",
+		function testBooleanDefaults() {
+			const result = parseArgs([], {
+				booleans: ["verbose", "debug", "quiet"],
+			})
 
-		assertEquals(result.flags.verbose, false)
-		assertEquals(result.flags.debug, false)
-		assertEquals(result.flags.quiet, false)
-	})
+			assertEquals(result.flags.verbose, false)
+			assertEquals(result.flags.debug, false)
+			assertEquals(result.flags.quiet, false)
+		},
+	)
 
 	await t.step("handles mixed arguments", function testMixedArgs() {
 		const result = parseArgs([
@@ -121,14 +139,14 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 			"--count",
 			"5",
 			"-q",
-			"extra.txt"
+			"extra.txt",
 		], {
 			aliases: {
 				v: "verbose",
-				q: "quiet"
+				q: "quiet",
 			},
 			booleans: ["verbose", "quiet"],
-			strings: ["output", "count"]
+			strings: ["output", "count"],
 		})
 
 		assertEquals(result.positional, ["input.txt", "extra.txt"])
@@ -148,19 +166,22 @@ Deno.test("parseArgs", async function testParseArgs(t) {
 
 	await t.step("handles boolean with value", function testBooleanWithValue() {
 		const result = parseArgs(["--enabled=false"], {
-			booleans: ["enabled"]
+			booleans: ["enabled"],
 		})
 
 		assertEquals(result.flags.enabled, false)
 	})
 
-	await t.step("handles short option with value", function testShortWithValue() {
-		const result = parseArgs(["-o", "output.txt"], {
-			aliases: { o: "output" }
-		})
+	await t.step(
+		"handles short option with value",
+		function testShortWithValue() {
+			const result = parseArgs(["-o", "output.txt"], {
+				aliases: { o: "output" },
+			})
 
-		assertEquals(result.options.output, "output.txt")
-	})
+			assertEquals(result.options.output, "output.txt")
+		},
+	)
 })
 
 //?? [EXAMPLE] Run with: deno test scripts/utilities/cli/parseArgs/index.test.ts

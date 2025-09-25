@@ -1,4 +1,4 @@
-# The Abbreviation Hierarchy: A Linguistic Clarification
+# The Abbreviation Hierarchy: A Arboristic Clarification
 
 ## The Problem
 

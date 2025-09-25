@@ -1,12 +1,12 @@
-import type { Result } from "../../../types/fp/result/index.ts"
-
 import { assert, assertEquals } from "@std/assert"
 
-import ok from "../ok/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+
 import error from "../error/index.ts"
-import mapError from "./index.ts"
-import isOk from "../isOk/index.ts"
 import isError from "../isError/index.ts"
+import isOk from "../isOk/index.ts"
+import ok from "../ok/index.ts"
+import mapError from "./index.ts"
 
 Deno.test("mapError", async (t) => {
 	await t.step("transforms Error value", () => {
@@ -73,7 +73,7 @@ Deno.test("mapError", async (t) => {
 		})
 
 		const result = mapError(standardizeError)(
-			error("Database connection failed")
+			error("Database connection failed"),
 		)
 
 		assert(isError(result))

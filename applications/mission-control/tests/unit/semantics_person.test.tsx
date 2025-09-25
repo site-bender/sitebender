@@ -1,7 +1,7 @@
+import Person from "~pagewright/semantics/Person/index.tsx"
+
 import { expect } from "@std/expect"
 import { describe, it } from "@std/testing/bdd"
-
-import Person from "~codewright/semantics/Person/index.tsx"
 
 function render(node: unknown): string {
 	// Extremely small renderer for our createElement shape used in docs

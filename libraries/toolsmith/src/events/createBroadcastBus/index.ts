@@ -1,4 +1,10 @@
-import type { Bus, BusEnvelope, DomDispatcher, Handler } from "../types/index.ts"
+import type {
+	Bus,
+	BusEnvelope,
+	DomDispatcher,
+	Handler,
+} from "../types/index.ts"
+
 import createLocalBus from "../createLocalBus/index.ts"
 
 //++ Creates a cross-tab event bus using BroadcastChannel when available

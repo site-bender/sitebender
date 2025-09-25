@@ -85,9 +85,9 @@ Deno.test("_processEntry - recursive function returns multiple paths", async () 
 	const result = await _processEntry("src")(mockRecursiveFn)(mockEntry)
 
 	assertEquals(result, [
-		"src/codewright/Button/index.ts",
-		"src/codewright/Modal/index.ts",
-		"src/codewright/Card/index.ts",
+		"src/pagewright/Button/index.ts",
+		"src/pagewright/Modal/index.ts",
+		"src/pagewright/Card/index.ts",
 	])
 })
 

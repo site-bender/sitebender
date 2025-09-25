@@ -6,7 +6,7 @@ export async function initProject(): Promise<number> {
 	console.log(`Initializing Sitebender project in ${Deno.cwd()}`)
 
 	await ensureDirectory("applications/example/routes")
-	await ensureDirectory("applications/example/codewright")
+	await ensureDirectory("applications/example/pagewright")
 
 	await ensureFile(
 		"applications/example/main.ts",

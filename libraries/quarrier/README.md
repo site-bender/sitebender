@@ -127,14 +127,14 @@ When a property fails, shrinking finds the minimal counterexample:
 
 ## Integration with Ecosystem
 
-### With @sitebender/linguist
+### With @sitebender/arborist
 
-Quarrier uses Linguist to understand TypeScript types:
+Quarrier uses Arborist to understand TypeScript types:
 
 ```typescript
-// Use linguist to extract type information
-import extractTypes from "@sitebender/linguist/extractTypes/index.ts"
-import { TypeInfo, TypeKind } from "@sitebender/linguist/types/index.ts"
+// Use arborist to extract type information
+import extractTypes from "@sitebender/arborist/extractTypes/index.ts"
+import { TypeInfo, TypeKind } from "@sitebender/arborist/types/index.ts"
 
 // Generate data that matches TypeScript types
 function createGeneratorFromType(typeInfo: TypeInfo) {
@@ -150,7 +150,7 @@ function createGeneratorFromType(typeInfo: TypeInfo) {
 }
 ```
 
-### What Linguist Provides to Quarrier
+### What Arborist Provides to Quarrier
 
 - Type extraction from interfaces/types
 - Constraint analysis for bounded types
@@ -158,13 +158,13 @@ function createGeneratorFromType(typeInfo: TypeInfo) {
 - Literal type values
 - Generic type parameters
 
-### With @sitebender/logician
+### With @sitebender/auditor
 
-Logician uses Quarrier to generate test inputs:
+Auditor uses Quarrier to generate test inputs:
 
 ```typescript
-// Logician gets signature from linguist
-import extractSignature from "@sitebender/linguist/extractSignature/index.ts"
+// Auditor gets signature from arborist
+import extractSignature from "@sitebender/arborist/extractSignature/index.ts"
 
 // Quarrier generates appropriate test data
 import generateInteger from "@sitebender/quarrier/arbitrary/generateInteger/index.ts"
@@ -176,7 +176,7 @@ const testData = signature.parameters.map((param) =>
 )
 ```
 
-### What Quarrier Provides to Logician
+### What Quarrier Provides to Auditor
 
 - Deterministic test data generation
 - Property-based testing infrastructure
@@ -188,8 +188,8 @@ const testData = signature.parameters.map((param) =>
 Envoy uses Quarrier for realistic documentation examples:
 
 ```typescript
-// Envoy gets function info from linguist
-import extractSignature from "@sitebender/linguist/extractSignature/index.ts"
+// Envoy gets function info from arborist
+import extractSignature from "@sitebender/arborist/extractSignature/index.ts"
 
 // Quarrier generates realistic examples
 import generatePerson from "@sitebender/quarrier/fake/generatePerson/index.ts"
@@ -212,8 +212,8 @@ const examples = generateExamplesForFunction(signature)
 
 **WHEN working on Quarrier:**
 
-- Check linguist for type extraction capabilities
-- Coordinate with logician on generator needs
+- Check arborist for type extraction capabilities
+- Coordinate with auditor on generator needs
 - Align with envoy on example generation
 
 **TELL other teams when:**
@@ -223,7 +223,7 @@ const examples = generateExamplesForFunction(signature)
 - Adding domain-specific generators (RDF, etc.)
 - Improving shrinking algorithms
 
-**USE linguist for:**
+**USE arborist for:**
 
 - All TypeScript type analysis
 - Constraint extraction
@@ -234,14 +234,14 @@ const examples = generateExamplesForFunction(signature)
 
 **COORDINATE on:**
 
-1. Generator naming conventions with logician
+1. Generator naming conventions with auditor
 2. Example data formats with envoy
-3. Type extraction needs with linguist
+3. Type extraction needs with arborist
 
 **NEVER:**
 
-1. Parse TypeScript directly (use linguist)
-2. Duplicate type analysis (use linguist)
+1. Parse TypeScript directly (use arborist)
+2. Duplicate type analysis (use arborist)
 3. Create incompatible generator interfaces
 
 **ALWAYS:**
@@ -297,7 +297,7 @@ const examples = generateExamplesForFunction(signature)
 
 ### Phase 6: Integration (Week 6)
 
-- [ ] Logician integration
+- [ ] Auditor integration
 - [ ] Envoy integration
 - [ ] Apache Jena Fuseki integration examples
 - [ ] Performance optimization

@@ -4,7 +4,7 @@ import type { IntangibleProps } from "../index.ts"
 import type { PaymentCardType } from "./PaymentCard/index.ts"
 import type { PaymentServiceType } from "./PaymentService/index.ts"
 
-import PaymentMethodTypeComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/PaymentMethodType/index.tsx"
+import PaymentMethodTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/PaymentMethodType/index.tsx"
 
 export type PaymentMethodType =
 	| "PaymentMethod"

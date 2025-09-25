@@ -7,7 +7,7 @@ export const ROOT = new URL("../../../..", import.meta.url).pathname
 export const INCLUDE_DIRS = [
 	"applications/mission-control",
 	"applications/the-workshop",
-	"libraries/codewright",
+	"libraries/pagewright",
 	"libraries/architect",
 	"libraries/toolsmith",
 	"scripts",

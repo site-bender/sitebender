@@ -4,8 +4,8 @@ import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 import joinPath from "../joinPath/index.ts"
 import shouldIncludeFile from "../shouldIncludeFile/index.ts"
 import shouldProcessDirectory from "../shouldProcessDirectory/index.ts"
-import processEntry from "./processEntry/index.ts"
 import extractFiles from "./extractFiles/index.ts"
+import processEntry from "./processEntry/index.ts"
 
 //++ Recursively collects all files matching extensions from a directory
 export default async function collectFiles(options: {

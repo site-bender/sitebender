@@ -2010,7 +2010,7 @@ export type TextMediaType =
 	| "text/vnd.si.uricatalogue"
 	| "text/vnd.sun.j2me.app-descriptor"
 	| "text/vnd.sosi"
-	| "text/vnd.trolltech.linguist"
+	| "text/vnd.trolltech.arborist"
 	| "text/vnd.wap.si"
 	| "text/vnd.wap.sl"
 	| "text/vnd.wap.wml"

@@ -1,5 +1,6 @@
-import { IMPORT_SPECIFIER_AS_REGEX } from "../../../constants/index.ts"
 import type { ImportSpec } from "../../types/index.ts"
+
+import { IMPORT_SPECIFIER_AS_REGEX } from "../../../constants/index.ts"
 
 //++ Parses a single import specifier with "as" renaming into an ImportSpec
 export default function parseSpecifier(segment: string): ImportSpec | null {

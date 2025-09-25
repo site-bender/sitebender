@@ -15,9 +15,9 @@ import type { DeliveryChargeSpecificationType } from "./DeliveryChargeSpecificat
 import type { PaymentChargeSpecificationType } from "./PaymentChargeSpecification/index.ts"
 import type { UnitPriceSpecificationType } from "./UnitPriceSpecification/index.ts"
 
-import MemberProgramTierComponent from "../../../../../../../codewright/src/define/Thing/Intangible/MemberProgramTier/index.tsx"
-import PriceSpecificationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import MemberProgramTierComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/MemberProgramTier/index.tsx"
+import PriceSpecificationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type PriceSpecificationType =
 	| "PriceSpecification"

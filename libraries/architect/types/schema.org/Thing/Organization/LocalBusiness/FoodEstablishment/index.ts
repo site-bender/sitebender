@@ -15,8 +15,8 @@ import type { IceCreamShopType } from "./IceCreamShop/index.ts"
 import type { RestaurantType } from "./Restaurant/index.ts"
 import type { WineryType } from "./Winery/index.ts"
 
-import MenuComponent from "../../../../../../../codewright/src/define/Thing/CreativeWork/Menu/index.tsx"
-import RatingComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Rating/index.tsx"
+import MenuComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/Menu/index.tsx"
+import RatingComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Rating/index.tsx"
 
 export type FoodEstablishmentType =
 	| "FoodEstablishment"

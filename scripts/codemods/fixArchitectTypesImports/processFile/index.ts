@@ -1,6 +1,7 @@
 import { dirname, relative } from "https://deno.land/std@0.224.0/path/mod.ts"
 
 import type { ImportSpec } from "../types/index.ts"
+
 import buildTypeImportMap from "../buildTypeImportMap/index.ts"
 import findDefineComponentByName from "../findDefineComponentByName/index.ts"
 import parseBarrelImport from "../parseBarrelImport/index.ts"
@@ -17,13 +18,17 @@ export default async function processFile(
 	const typeMap = buildTypeImportMap(raw)(dir)
 
 	// Build tasks for each line; resolve all at once to avoid await-in-loop
-	const lineTasks: Array<Promise<{ lines: string[]; changed: boolean; report: string[] }>> = []
+	const lineTasks: Array<
+		Promise<{ lines: string[]; changed: boolean; report: string[] }>
+	> = []
 
 	//-- [REFACTOR] For loop should be replaced with functional approach
 	for (const line of lines) {
 		const specs = parseBarrelImport(line)
 		if (!specs) {
-			lineTasks.push(Promise.resolve({ lines: [line], changed: false, report: [] }))
+			lineTasks.push(
+				Promise.resolve({ lines: [line], changed: false, report: [] }),
+			)
 			continue
 		}
 
@@ -59,7 +64,9 @@ async function processLineWithSpecs(
 	const replacementLines: string[] = []
 	let failed = false
 	// Collect asynchronous discoveries per spec
-	const pending: Array<Promise<{ s: ImportSpec; srcAbs: string; failed: boolean; report?: string }>> = []
+	const pending: Array<
+		Promise<{ s: ImportSpec; srcAbs: string; failed: boolean; report?: string }>
+	> = []
 
 	//-- [REFACTOR] For loop should be replaced with functional approach
 	for (const s of specs) {
@@ -73,25 +80,33 @@ async function processLineWithSpecs(
 		// 2) Fallback: discover via filesystem
 		if (!srcAbs) {
 			pending.push(
-				findDefineComponentByName(s.symbol).then(function handleDiscovered(discovered) {
-					if (discovered.count === 1) {
-						return { s, srcAbs: discovered.paths[0], failed: false as const }
-					}
-					if (discovered.count === 0) {
+				findDefineComponentByName(s.symbol).then(
+					function handleDiscovered(discovered) {
+						if (discovered.count === 1) {
+							return { s, srcAbs: discovered.paths[0], failed: false as const }
+						}
+						if (discovered.count === 0) {
+							return {
+								s,
+								srcAbs: "",
+								failed: true as const,
+								report:
+									`WARN ${filePath}: No type import and no src/define match for ${s.symbol}; keeping barrel import`,
+							}
+						}
 						return {
 							s,
 							srcAbs: "",
 							failed: true as const,
-							report: `WARN ${filePath}: No type import and no src/define match for ${s.symbol}; keeping barrel import`,
+							report:
+								`WARN ${filePath}: Multiple src/define matches for ${s.symbol}: ${
+									discovered.paths.map((p: string) => relative(dir, p)).join(
+										", ",
+									)
+								}; keeping barrel import`,
 						}
-					}
-					return {
-						s,
-						srcAbs: "",
-						failed: true as const,
-						report: `WARN ${filePath}: Multiple src/define matches for ${s.symbol}: ${discovered.paths.map((p: string) => relative(dir, p)).join(", ")}; keeping barrel import`,
-					}
-				}),
+					},
+				),
 			)
 		} else {
 			pending.push(Promise.resolve({ s, srcAbs, failed: false as const }))

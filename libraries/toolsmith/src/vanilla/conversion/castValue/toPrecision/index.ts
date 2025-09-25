@@ -1,9 +1,9 @@
-import toFloat from "../toFloat/index.ts"
-import max from "../../../math/max/index.ts"
 import floor from "../../../math/floor/index.ts"
+import max from "../../../math/max/index.ts"
 import power from "../../../math/power/index.ts"
 import round from "../../../math/round/index.ts"
 import isInfinite from "../../../validation/isInfinite/index.ts"
+import toFloat from "../toFloat/index.ts"
 
 /**
  * Converts values to numbers with specified decimal precision

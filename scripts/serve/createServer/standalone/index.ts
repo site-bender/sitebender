@@ -13,7 +13,10 @@ import createServer from "../index.ts"
 function parsePort(args: Array<string>): number {
 	const portFlagIndex = findIndex((arg: string) => arg === "--port")(args)
 
-	if (portFlagIndex !== undefined && portFlagIndex !== -1 && portFlagIndex + 1 < args.length) {
+	if (
+		portFlagIndex !== undefined && portFlagIndex !== -1 &&
+		portFlagIndex + 1 < args.length
+	) {
 		const parsedPort = parseInt(args[portFlagIndex + 1], 10)
 		if (isNaN(parsedPort)) {
 			console.error("Invalid port number")

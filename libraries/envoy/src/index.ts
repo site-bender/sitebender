@@ -6,11 +6,12 @@
  * requiring only single-line descriptions from developers.
  */
 
-// Main function export - Envoy takes Linguist output and generates docs
+// Main function export - Envoy takes Arborist output and generates docs
 export { default as generateDocs } from "./generateDocs/index.ts"
 
 // Type exports
 export type {
+	ArboristContext,
 	ASTNode,
 	ComplexityClass,
 	Documentation,
@@ -24,12 +25,11 @@ export type {
 	OutputFormat,
 	Parameter,
 	ParseError,
-	LinguistContext,
 	Properties,
 	Result,
 } from "./types/index.ts"
 
-// Linguist functionality now comes from @sitebender/linguist
+// Arborist functionality now comes from @sitebender/arborist
 // Envoy should NOT have its own parser implementation
 
 // Extractor exports

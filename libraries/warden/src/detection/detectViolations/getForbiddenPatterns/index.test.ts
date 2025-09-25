@@ -1,4 +1,5 @@
 import { assertEquals, assertExists } from "https://deno.land/std/assert/mod.ts"
+
 import getForbiddenPatterns from "./index.ts"
 
 Deno.test("getForbiddenPatterns", async (t) => {
@@ -7,15 +8,15 @@ Deno.test("getForbiddenPatterns", async (t) => {
 
 		assertEquals(Array.isArray(patterns), true)
 		assertEquals(patterns.length > 0, true)
-		assertExists(patterns.find(p => p.description.includes("TypeScript")))
+		assertExists(patterns.find((p) => p.description.includes("TypeScript")))
 	})
 
-	await t.step("returns patterns for logician library", () => {
-		const patterns = getForbiddenPatterns("logician")
+	await t.step("returns patterns for auditor library", () => {
+		const patterns = getForbiddenPatterns("auditor")
 
 		assertEquals(Array.isArray(patterns), true)
 		assertEquals(patterns.length > 0, true)
-		assertExists(patterns.find(p => p.description.includes("TypeScript")))
+		assertExists(patterns.find((p) => p.description.includes("TypeScript")))
 	})
 
 	await t.step("returns patterns for toolsmith library", () => {
@@ -23,7 +24,9 @@ Deno.test("getForbiddenPatterns", async (t) => {
 
 		assertEquals(Array.isArray(patterns), true)
 		assertEquals(patterns.length > 0, true)
-		assertExists(patterns.find(p => p.description.includes("Toolsmith importing")))
+		assertExists(
+			patterns.find((p) => p.description.includes("Toolsmith importing")),
+		)
 	})
 
 	await t.step("returns patterns for quarrier library", () => {
@@ -31,7 +34,9 @@ Deno.test("getForbiddenPatterns", async (t) => {
 
 		assertEquals(Array.isArray(patterns), true)
 		assertEquals(patterns.length > 0, true)
-		assertExists(patterns.find(p => p.description.includes("Quarrier importing")))
+		assertExists(
+			patterns.find((p) => p.description.includes("Quarrier importing")),
+		)
 	})
 
 	await t.step("returns empty array for unknown library", () => {
@@ -44,7 +49,7 @@ Deno.test("getForbiddenPatterns", async (t) => {
 	await t.step("patterns have correct structure", () => {
 		const patterns = getForbiddenPatterns("envoy")
 
-		patterns.forEach(pattern => {
+		patterns.forEach((pattern) => {
 			assertEquals(pattern.regex instanceof RegExp, true)
 			assertEquals(typeof pattern.description, "string")
 		})

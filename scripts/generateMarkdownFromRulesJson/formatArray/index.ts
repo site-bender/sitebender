@@ -7,7 +7,6 @@ import concat from "../../../libraries/toolsmith/src/vanilla/string/concat/index
 import repeat from "../../../libraries/toolsmith/src/vanilla/string/repeat/index.ts"
 import isEmpty from "../../../libraries/toolsmith/src/vanilla/validation/isEmpty/index.ts"
 import isString from "../../../libraries/toolsmith/src/vanilla/validation/isString/index.ts"
-
 import formatComplexItem from "./formatComplexItem/index.ts"
 
 //++ Formats a JSON array into markdown

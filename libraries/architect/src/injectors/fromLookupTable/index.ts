@@ -1,4 +1,8 @@
-import type { Either, ArchitectError, LocalValues } from "../../../types/index.ts"
+import type {
+	ArchitectError,
+	Either,
+	LocalValues,
+} from "../../../types/index.ts"
 
 import { isLeft } from "../../../types/index.ts"
 import Error from "../../constructors/Error/index.ts"

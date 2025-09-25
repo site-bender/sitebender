@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test"
-
 import type { Request } from "@playwright/test"
+
+import { expect, test } from "@playwright/test"
 
 // Validation behaviors are authored inline via <Program> on the /validation page
 

@@ -10,7 +10,9 @@ Deno.test("_getCategoryFromPath - returns category name from vanilla path", () =
 
 Deno.test("_getCategoryFromPath - returns category for different categories", () => {
 	assertEquals(
-		_getCategoryFromPath("libraries/toolsmith/src/vanilla/string/split/index.ts"),
+		_getCategoryFromPath(
+			"libraries/toolsmith/src/vanilla/string/split/index.ts",
+		),
 		"string",
 	)
 	assertEquals(

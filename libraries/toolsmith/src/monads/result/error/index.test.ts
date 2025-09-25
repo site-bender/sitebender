@@ -1,7 +1,7 @@
 import { assert, assertEquals } from "@std/assert"
 
-import error from "./index.ts"
 import isError from "../isError/index.ts"
+import error from "./index.ts"
 
 Deno.test("error", async (t) => {
 	await t.step("creates Error result with string error", () => {

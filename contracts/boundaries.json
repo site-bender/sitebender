@@ -23,27 +23,27 @@
 		"1": {
 			"name": "Infrastructure",
 			"description": "Low-level services that parse and analyze code",
-			"libraries": ["linguist"],
+			"libraries": ["arborist"],
 			"rules": {
 				"canDepend": ["toolsmith", "quarrier"],
 				"cannotDepend": [
 					"envoy",
-					"logician",
-					"codewright",
+					"auditor",
+					"pagewright",
 					"architect",
 					"formulator",
 					"agent"
 				],
-				"canBeUsedBy": ["envoy", "logician", "architect", "formulator"]
+				"canBeUsedBy": ["envoy", "auditor", "architect", "formulator"]
 			}
 		},
 		"2": {
 			"name": "Services",
-			"description": "Mid-level services that process Linguist output",
-			"libraries": ["envoy", "logician"],
+			"description": "Mid-level services that process Arborist output",
+			"libraries": ["envoy", "auditor"],
 			"rules": {
-				"canDepend": ["linguist", "toolsmith", "quarrier"],
-				"cannotDepend": ["codewright", "architect", "formulator", "agent", "EACH OTHER"],
+				"canDepend": ["arborist", "toolsmith", "quarrier"],
+				"cannotDepend": ["pagewright", "architect", "formulator", "agent", "EACH OTHER"],
 				"canBeUsedBy": ["applications", "tools", "plugins"],
 				"specialRules": {
 					"envoy": {
@@ -51,23 +51,23 @@
 							"Importing TypeScript compiler directly",
 							"Using regex to parse TypeScript/JSX",
 							"Accessing source files directly",
-							"Rewriting Linguist types",
-							"Modifying Linguist output"
+							"Rewriting Arborist types",
+							"Modifying Arborist output"
 						],
 						"REQUIRED": [
-							"Must consume Linguist output AS-IS",
+							"Must consume Arborist output AS-IS",
 							"Must only interpret comment syntax",
-							"Must preserve all Linguist data unchanged"
+							"Must preserve all Arborist data unchanged"
 						]
 					},
-					"logician": {
+					"auditor": {
 						"FORBIDDEN": [
 							"Parsing TypeScript/JSX directly",
-							"Duplicating Linguist functionality",
+							"Duplicating Arborist functionality",
 							"Modifying test subjects"
 						],
 						"REQUIRED": [
-							"Must use Linguist for all AST needs",
+							"Must use Arborist for all AST needs",
 							"Must use Quarrier for all arbitrary data generation"
 						]
 					}
@@ -77,17 +77,17 @@
 		"3": {
 			"name": "Runtime",
 			"description": "Component system and runtime architect",
-			"libraries": ["codewright", "architect", "formulator"],
+			"libraries": ["pagewright", "architect", "formulator"],
 			"rules": {
-				"canDepend": ["linguist", "toolsmith", "quarrier"],
-				"cannotDepend": ["envoy", "logician", "agent"],
+				"canDepend": ["arborist", "toolsmith", "quarrier"],
+				"cannotDepend": ["envoy", "auditor", "agent"],
 				"canBeUsedBy": ["applications", "agent"],
 				"specialRules": {
-					"codewright": {
+					"pagewright": {
 						"REQUIRED": ["Must compile to Architect IR format"]
 					},
 					"architect": {
-						"REQUIRED": ["Must evaluate IR from Codewright and Formulator"]
+						"REQUIRED": ["Must evaluate IR from Pagewright and Formulator"]
 					},
 					"formulator": {
 						"REQUIRED": ["Must compile expressions to Architect IR"]
@@ -100,8 +100,8 @@
 			"description": "Distributed data and agent networking",
 			"libraries": ["agent"],
 			"rules": {
-				"canDepend": ["codewright", "architect", "toolsmith", "quarrier"],
-				"cannotDepend": ["linguist", "envoy", "logician", "formulator"],
+				"canDepend": ["pagewright", "architect", "toolsmith", "quarrier"],
+				"cannotDepend": ["arborist", "envoy", "auditor", "formulator"],
 				"canBeUsedBy": ["applications"]
 			}
 		},
@@ -133,9 +133,9 @@
 				"toolsmith"
 			],
 			"canBeImportedBy": [
-				"linguist",
+				"arborist",
 				"envoy",
-				"logician",
+				"auditor",
 				"architect",
 				"agent",
 				"applications"
@@ -144,26 +144,26 @@
 			"publicAPI": "libraries/quarrier/exports/",
 			"internalPath": "libraries/quarrier/internal/"
 		},
-		"linguist": {
+		"arborist": {
 			"canImport": ["toolsmith", "quarrier"],
 			"canBeImportedBy": [
 				"envoy",
-				"logician",
-				"codewright",
+				"auditor",
+				"pagewright",
 				"architect",
 				"formulator",
 				"applications"
 			],
 			"forbiddenImports": [
 				"envoy",
-				"logician",
-				"codewright",
+				"auditor",
+				"pagewright",
 				"architect",
 				"formulator",
 				"agent"
 			],
-			"publicAPI": "libraries/linguist/exports/",
-			"internalPath": "libraries/linguist/internal/",
+			"publicAPI": "libraries/arborist/exports/",
+			"internalPath": "libraries/arborist/internal/",
 			"exports": {
 				"ALLOWED": [
 					"ParsedFile",
@@ -182,13 +182,13 @@
 			}
 		},
 		"envoy": {
-			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canImport": ["arborist", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications", "tools", "plugins"],
 			"forbiddenImports": [
 				"typescript",
 				"@typescript/compiler",
-				"logician",
-				"codewright",
+				"auditor",
+				"pagewright",
 				"architect",
 				"formulator",
 				"agent",
@@ -198,60 +198,60 @@
 			"publicAPI": "libraries/envoy/exports/",
 			"internalPath": "libraries/envoy/internal/",
 			"inputRequirements": {
-				"source": "Linguist output ONLY",
-				"format": "ParsedFile[] from Linguist",
+				"source": "Arborist output ONLY",
+				"format": "ParsedFile[] from Arborist",
 				"modifications": "NONE - must use AS-IS"
 			},
 			"outputRequirements": {
 				"format": "Documentation graph",
 				"immutable": true,
-				"includesLinguistData": "Must preserve all Linguist data unchanged"
+				"includesArboristData": "Must preserve all Arborist data unchanged"
 			}
 		},
-		"logician": {
-			"canImport": ["linguist", "toolsmith", "quarrier"],
+		"auditor": {
+			"canImport": ["arborist", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications", "tools", "plugins"],
 			"forbiddenImports": [
 				"typescript",
 				"@typescript/compiler",
 				"envoy",
-				"codewright",
+				"pagewright",
 				"architect",
 				"formulator",
 				"agent"
 			],
-			"publicAPI": "libraries/logician/exports/",
-			"internalPath": "libraries/logician/internal/",
+			"publicAPI": "libraries/auditor/exports/",
+			"internalPath": "libraries/auditor/internal/",
 			"inputRequirements": {
-				"astSource": "Linguist output ONLY",
+				"astSource": "Arborist output ONLY",
 				"arbitraryData": "Quarrier generators ONLY"
 			}
 		},
-		"codewright": {
-			"canImport": ["linguist", "toolsmith", "quarrier"],
+		"pagewright": {
+			"canImport": ["arborist", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["architect", "agent", "applications"],
-			"forbiddenImports": ["envoy", "logician", "formulator"],
-			"publicAPI": "libraries/codewright/exports/",
-			"internalPath": "libraries/codewright/internal/"
+			"forbiddenImports": ["envoy", "auditor", "formulator"],
+			"publicAPI": "libraries/pagewright/exports/",
+			"internalPath": "libraries/pagewright/internal/"
 		},
 		"architect": {
-			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canImport": ["arborist", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["agent", "applications"],
-			"forbiddenImports": ["envoy", "logician", "codewright", "formulator"],
+			"forbiddenImports": ["envoy", "auditor", "pagewright", "formulator"],
 			"publicAPI": "libraries/architect/exports/",
 			"internalPath": "libraries/architect/internal/"
 		},
 		"formulator": {
-			"canImport": ["linguist", "toolsmith", "quarrier"],
+			"canImport": ["arborist", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications"],
-			"forbiddenImports": ["envoy", "logician", "codewright", "architect", "agent"],
+			"forbiddenImports": ["envoy", "auditor", "pagewright", "architect", "agent"],
 			"publicAPI": "libraries/formulator/exports/",
 			"internalPath": "libraries/formulator/internal/"
 		},
 		"agent": {
-			"canImport": ["codewright", "architect", "toolsmith", "quarrier"],
+			"canImport": ["pagewright", "architect", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications"],
-			"forbiddenImports": ["linguist", "envoy", "logician", "formulator"],
+			"forbiddenImports": ["arborist", "envoy", "auditor", "formulator"],
 			"publicAPI": "libraries/agent/exports/",
 			"internalPath": "libraries/agent/internal/"
 		}
@@ -283,16 +283,16 @@
 				"forbidden": [
 					"envoy.*typescript",
 					"envoy.*@typescript",
-					"logician.*typescript",
-					"logician.*@typescript",
+					"auditor.*typescript",
+					"auditor.*@typescript",
 					"envoy.*\\.ts['|\"]",
 					"envoy.*\\.tsx['|\"]",
 					"envoy.*\\.jsx['|\"]"
 				],
 				"required": [
-					"envoy.*@sitebender/linguist",
-					"logician.*@sitebender/linguist",
-					"logician.*@sitebender/quarrier"
+					"envoy.*@sitebender/arborist",
+					"auditor.*@sitebender/arborist",
+					"auditor.*@sitebender/quarrier"
 				]
 			},
 			"outputValidation": {

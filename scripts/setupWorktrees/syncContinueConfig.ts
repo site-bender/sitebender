@@ -5,7 +5,10 @@
 // no encoder needed
 
 async function readWorktrees(): Promise<string[]> {
-	const cmd = new Deno.Command("git", { args: ["worktree", "list"], stdout: "piped" })
+	const cmd = new Deno.Command("git", {
+		args: ["worktree", "list"],
+		stdout: "piped",
+	})
 	const { stdout } = await cmd.output()
 	const text = new TextDecoder().decode(stdout)
 	return text
@@ -32,9 +35,16 @@ async function copyDir(src: string, dest: string) {
 
 async function ensureHooks(worktreePath: string) {
 	const hooksDir = `${worktreePath}/.githooks`
-	try { await Deno.chmod(`${hooksDir}/pre-commit`, 0o755) } catch (_e) { /* optional */ }
-	try { await Deno.chmod(`${hooksDir}/commit-msg`, 0o755) } catch (_e) { /* optional */ }
-	const git = new Deno.Command("git", { cwd: worktreePath, args: ["config", "core.hooksPath", ".githooks"] })
+	try {
+		await Deno.chmod(`${hooksDir}/pre-commit`, 0o755)
+	} catch (_e) { /* optional */ }
+	try {
+		await Deno.chmod(`${hooksDir}/commit-msg`, 0o755)
+	} catch (_e) { /* optional */ }
+	const git = new Deno.Command("git", {
+		cwd: worktreePath,
+		args: ["config", "core.hooksPath", ".githooks"],
+	})
 	await git.output()
 }
 

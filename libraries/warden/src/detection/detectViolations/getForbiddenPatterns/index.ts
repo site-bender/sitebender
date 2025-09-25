@@ -20,9 +20,9 @@ export default function getForbiddenPatterns(
 				regex: /from ['"].*\.tsx?['"]/,
 				description: "Direct source file import",
 			},
-			{ regex: /from ['"].*logician/, description: "Importing from logician" },
+			{ regex: /from ['"].*auditor/, description: "Importing from auditor" },
 		],
-		logician: [
+		auditor: [
 			{
 				regex: /from ['"]typescript['"]/,
 				description: "Direct TypeScript import",

@@ -1,12 +1,10 @@
-import repoRootUrl from "./repoRootUrl/index.ts"
-import resolvePath from "./resolvePath/index.ts"
-import listFilesRecursive from "./listFilesRecursive/index.ts"
-
 import map from "../../../../../../../../toolsmith/src/vanilla/array/map/index.ts"
 import reduce from "../../../../../../../../toolsmith/src/vanilla/array/reduce/index.ts"
-
 import buildFindMatchesForPattern from "./buildFindMatchesForPattern/index.ts"
 import concatMatchArrays from "./concatMatchArrays/index.ts"
+import listFilesRecursive from "./listFilesRecursive/index.ts"
+import repoRootUrl from "./repoRootUrl/index.ts"
+import resolvePath from "./resolvePath/index.ts"
 
 /*++
  | Recursively scans files under a repo-relative path and finds lines

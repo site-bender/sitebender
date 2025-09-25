@@ -4,7 +4,7 @@ import type { ActionProps } from "../../../index.ts"
 import type { AssessActionProps } from "../../index.ts"
 import type { ChooseActionProps } from "../index.ts"
 
-import PersonComponent from "../../../../../../../../codewright/src/define/Thing/Person/index.tsx"
+import PersonComponent from "../../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
 
 export type VoteActionType = "VoteAction"
 

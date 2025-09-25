@@ -1,9 +1,9 @@
 import { isLeft, isRight } from "@sitebender/architect-types/index.ts"
 
 import type {
+	ArchitectError,
 	ComparatorConfig,
 	Either,
-	ArchitectError,
 	LocalValues,
 	LogicalConfig,
 	OperationFunction,

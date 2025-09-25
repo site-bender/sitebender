@@ -27,26 +27,29 @@ Deno.test("nothing", async function nothingTests(t) {
 		assertEquals(nothingObject._tag, "Nothing")
 	})
 
-	await t.step("all Nothing values are structurally equal", function structuralEquality() {
-		const nothing1 = nothing()
-		const nothing2 = nothing()
-		const nothing3 = nothing<string>()
-		const nothing4 = nothing<number>()
+	await t.step(
+		"all Nothing values are structurally equal",
+		function structuralEquality() {
+			const nothing1 = nothing()
+			const nothing2 = nothing()
+			const nothing3 = nothing<string>()
+			const nothing4 = nothing<number>()
 
-		assertEquals(nothing1, nothing2)
-		assertEquals(nothing1, nothing3)
-		assertEquals(nothing1, nothing4)
-		assertEquals(nothing3, nothing4)
-	})
+			assertEquals(nothing1, nothing2)
+			assertEquals(nothing1, nothing3)
+			assertEquals(nothing1, nothing4)
+			assertEquals(nothing3, nothing4)
+		},
+	)
 
 	await t.step("can be used in array of Maybe", function arrayOfMaybe() {
 		const values = [
 			nothing(),
 			nothing<number>(),
-			nothing<string>()
+			nothing<string>(),
 		]
 
-		assertEquals(values.every(v => v._tag === "Nothing"), true)
+		assertEquals(values.every((v) => v._tag === "Nothing"), true)
 		assertEquals(values.length, 3)
 	})
 

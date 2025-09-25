@@ -11,9 +11,18 @@ export default function processEntry(options: {
 		excludedDirNames: Set<string>
 	}) => Promise<Array<string>>
 }): (entry: Deno.DirEntry) => Promise<Array<string>> {
-	const { joinToBase, isFile, shouldProcess, extensions, excludedDirNames, collectFiles } = options
+	const {
+		joinToBase,
+		isFile,
+		shouldProcess,
+		extensions,
+		excludedDirNames,
+		collectFiles,
+	} = options
 
-	return async function processEntryImpl(entry: Deno.DirEntry): Promise<Array<string>> {
+	return async function processEntryImpl(
+		entry: Deno.DirEntry,
+	): Promise<Array<string>> {
 		const fullPath = joinToBase(entry.name)
 
 		if (entry.isFile && isFile(entry.name)) {

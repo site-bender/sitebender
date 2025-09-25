@@ -1,3 +1,5 @@
+import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+
 // Lists files that fail `deno fmt --check`, honoring the repo's include/exclude.
 // Exposed as a default export and runnable via CLI.
 
@@ -6,7 +8,6 @@ import {
 	FORMAT_EXTENSIONS,
 	FORMAT_ROOTS,
 } from "../constants/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 
 function isExcluded(path: string): boolean {
 	return FORMAT_EXCLUDES.some((p) => path.includes(p))

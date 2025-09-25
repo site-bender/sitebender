@@ -7,12 +7,12 @@ import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type MusicRecording from "../MusicRecording/index.ts"
 
-import CreativeWorkComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/index.tsx"
-import MusicCompositionComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/MusicComposition/index.tsx"
-import MusicRecordingComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/MusicRecording/index.tsx"
-import EventComponent from "../../../../../../codewright/src/define/Thing/Event/index.tsx"
-import OrganizationComponent from "../../../../../../codewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../codewright/src/define/Thing/Person/index.tsx"
+import CreativeWorkComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
+import MusicCompositionComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/MusicComposition/index.tsx"
+import MusicRecordingComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/MusicRecording/index.tsx"
+import EventComponent from "../../../../../../pagewright/src/define/Thing/Event/index.tsx"
+import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
 
 export type MusicCompositionType = "MusicComposition"
 

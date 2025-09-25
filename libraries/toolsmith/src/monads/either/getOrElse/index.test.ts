@@ -12,12 +12,15 @@ Deno.test("getOrElse", async function getOrElseTests(t) {
 		assertEquals(result, 42)
 	})
 
-	await t.step("returns default value when Left", function returnsDefaultWhenLeft() {
-		const either = left("error")
-		const result = getOrElse(99)(either)
+	await t.step(
+		"returns default value when Left",
+		function returnsDefaultWhenLeft() {
+			const either = left("error")
+			const result = getOrElse(99)(either)
 
-		assertEquals(result, 99)
-	})
+			assertEquals(result, 99)
+		},
+	)
 
 	await t.step("works with function default", function functionDefault() {
 		const withLength = getOrElse<number>((err: string) => err.length)
@@ -43,13 +46,16 @@ Deno.test("getOrElse", async function getOrElseTests(t) {
 		assertEquals(getUser(missingUser), { id: 0, name: "Guest" })
 	})
 
-	await t.step("handles null and undefined values", function handlesNullUndefined() {
-		const getWithDefault = getOrElse("default")
+	await t.step(
+		"handles null and undefined values",
+		function handlesNullUndefined() {
+			const getWithDefault = getOrElse("default")
 
-		assertEquals(getWithDefault(right(null)), null)
-		assertEquals(getWithDefault(right(undefined)), undefined)
-		assertEquals(getWithDefault(left("error")), "default")
-	})
+			assertEquals(getWithDefault(right(null)), null)
+			assertEquals(getWithDefault(right(undefined)), undefined)
+			assertEquals(getWithDefault(left("error")), "default")
+		},
+	)
 
 	await t.step("works with partial application", function partialApplication() {
 		const getWithZero = getOrElse(0)
@@ -58,47 +64,56 @@ Deno.test("getOrElse", async function getOrElseTests(t) {
 			right(10),
 			left("error"),
 			right(-5),
-			left("another error")
+			left("another error"),
 		]
 
 		const results = values.map(getWithZero)
 		assertEquals(results, [10, 0, -5, 0])
 	})
 
-	await t.step("lazy evaluation of function default", function lazyEvaluation() {
-		let callCount = 0
-		const expensiveDefault = () => {
-			callCount++
-			return 999
-		}
+	await t.step(
+		"lazy evaluation of function default",
+		function lazyEvaluation() {
+			let callCount = 0
+			const expensiveDefault = () => {
+				callCount++
+				return 999
+			}
 
-		const getWithLazy = getOrElse(expensiveDefault)
+			const getWithLazy = getOrElse(expensiveDefault)
 
-		// Should not call the function for Right values
-		assertEquals(getWithLazy(right(42)), 42)
-		assertEquals(callCount, 0)
+			// Should not call the function for Right values
+			assertEquals(getWithLazy(right(42)), 42)
+			assertEquals(callCount, 0)
 
-		// Should call the function for Left values
-		assertEquals(getWithLazy(left("error")), 999)
-		assertEquals(callCount, 1)
-	})
+			// Should call the function for Left values
+			assertEquals(getWithLazy(left("error")), 999)
+			assertEquals(callCount, 1)
+		},
+	)
 
-	await t.step("function default receives Left value", function functionReceivesLeft() {
-		interface ErrorInfo {
-			code: number
-			message: string
-		}
+	await t.step(
+		"function default receives Left value",
+		function functionReceivesLeft() {
+			interface ErrorInfo {
+				code: number
+				message: string
+			}
 
-		const handleError = getOrElse<string>((err: ErrorInfo) =>
-			`Error ${err.code}: ${err.message}`
-		)
+			const handleError = getOrElse<string>((err: ErrorInfo) =>
+				`Error ${err.code}: ${err.message}`
+			)
 
-		const success = right<string, ErrorInfo>("Success!")
-		const failure = left<ErrorInfo, string>({ code: 404, message: "Not Found" })
+			const success = right<string, ErrorInfo>("Success!")
+			const failure = left<ErrorInfo, string>({
+				code: 404,
+				message: "Not Found",
+			})
 
-		assertEquals(handleError(success), "Success!")
-		assertEquals(handleError(failure), "Error 404: Not Found")
-	})
+			assertEquals(handleError(success), "Success!")
+			assertEquals(handleError(failure), "Error 404: Not Found")
+		},
+	)
 
 	await t.step("works with arrays", function worksWithArrays() {
 		const getNumbers = getOrElse<Array<number>>([])

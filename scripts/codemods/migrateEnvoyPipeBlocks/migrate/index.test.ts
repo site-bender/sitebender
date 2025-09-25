@@ -19,45 +19,51 @@ function test() {
 		assertEquals(result.text, input)
 	})
 
-	await t.step("converts simple asterisk block to pipe style", function testSimpleConversion() {
-		const input = `
+	await t.step(
+		"converts simple asterisk block to pipe style",
+		function testSimpleConversion() {
+			const input = `
 /*??
  * [EXAMPLE] This is an example
  * with multiple lines
  */
 `
-		const expected = `
+			const expected = `
 /*??
  | [EXAMPLE] This is an example
  | with multiple lines
  */
 `
-		const result = migrate(input)
+			const result = migrate(input)
 
-		assertEquals(result.changed, true)
-		assertEquals(result.text, expected)
-	})
+			assertEquals(result.changed, true)
+			assertEquals(result.text, expected)
+		},
+	)
 
-	await t.step("handles blocks with mixed asterisk and content", function testMixedContent() {
-		const input = `
+	await t.step(
+		"handles blocks with mixed asterisk and content",
+		function testMixedContent() {
+			const input = `
 /*??
  * [GOTCHA] Something to watch out for
  * * Nested bullet point
  * Regular line
  */
 `
-		const expected = `
+			const expected = `
 /*??
  | [GOTCHA] Something to watch out for
  | * Nested bullet point
  | Regular line
  */
 `
-		const result = migrate(input)
+			const result = migrate(input)
 
-		assertEquals(result.changed, true)
-		assertEquals(result.text, expected)
-	})
+			assertEquals(result.changed, true)
+			assertEquals(result.text, expected)
+		},
+	)
 
 	await t.step("preserves indentation", function testIndentation() {
 		const input = `
@@ -99,21 +105,26 @@ function test() {
 		assertEquals(result.text, expected)
 	})
 
-	await t.step("skips blocks already in pipe style", function testAlreadyPipeStyle() {
-		const input = `
+	await t.step(
+		"skips blocks already in pipe style",
+		function testAlreadyPipeStyle() {
+			const input = `
 /*??
  | [EXAMPLE] Already converted
  | to pipe style
  */
 `
-		const result = migrate(input)
+			const result = migrate(input)
 
-		assertEquals(result.changed, false)
-		assertEquals(result.text, input)
-	})
+			assertEquals(result.changed, false)
+			assertEquals(result.text, input)
+		},
+	)
 
-	await t.step("handles multiple blocks in same file", function testMultipleBlocks() {
-		const input = `
+	await t.step(
+		"handles multiple blocks in same file",
+		function testMultipleBlocks() {
+			const input = `
 /*??
  * [EXAMPLE] First block
  */
@@ -124,7 +135,7 @@ function test() {}
  * [GOTCHA] Second block
  */
 `
-		const expected = `
+			const expected = `
 /*??
  | [EXAMPLE] First block
  */
@@ -135,14 +146,17 @@ function test() {}
  | [GOTCHA] Second block
  */
 `
-		const result = migrate(input)
+			const result = migrate(input)
 
-		assertEquals(result.changed, true)
-		assertEquals(result.text, expected)
-	})
+			assertEquals(result.changed, true)
+			assertEquals(result.text, expected)
+		},
+	)
 
-	await t.step("preserves non-Envoy block comments", function testNonEnvoyComments() {
-		const input = `
+	await t.step(
+		"preserves non-Envoy block comments",
+		function testNonEnvoyComments() {
+			const input = `
 /**
  * Regular JSDoc comment
  * @param x - parameter
@@ -153,7 +167,7 @@ function test(x) {}
  * [EXAMPLE] Envoy block
  */
 `
-		const expected = `
+			const expected = `
 /**
  * Regular JSDoc comment
  * @param x - parameter
@@ -164,31 +178,35 @@ function test(x) {}
  | [EXAMPLE] Envoy block
  */
 `
-		const result = migrate(input)
+			const result = migrate(input)
 
-		assertEquals(result.changed, true)
-		// Only the Envoy block should be changed
-		assertEquals(result.text, expected)
-	})
+			assertEquals(result.changed, true)
+			// Only the Envoy block should be changed
+			assertEquals(result.text, expected)
+		},
+	)
 
-	await t.step("handles blocks without category tags", function testNoCategory() {
-		const input = `
+	await t.step(
+		"handles blocks without category tags",
+		function testNoCategory() {
+			const input = `
 /*??
  * Just a plain help text
  * without category brackets
  */
 `
-		const expected = `
+			const expected = `
 /*??
  | Just a plain help text
  | without category brackets
  */
 `
-		const result = migrate(input)
+			const result = migrate(input)
 
-		assertEquals(result.changed, true)
-		assertEquals(result.text, expected)
-	})
+			assertEquals(result.changed, true)
+			assertEquals(result.text, expected)
+		},
+	)
 
 	await t.step("preserves trailing spaces", function testTrailingSpaces() {
 		const input = `

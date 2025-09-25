@@ -1,10 +1,10 @@
-import SetValue from "@sitebender/codewright/transform/actions/SetValue/index.tsx"
-import NotEmpty from "@sitebender/codewright/transform/comparators/NotEmpty/index.tsx"
-import If from "@sitebender/codewright/transform/control/If/index.tsx"
-import On from "@sitebender/codewright/transform/control/On/index.tsx"
-import Program from "@sitebender/codewright/transform/control/Program/index.tsx"
-import Constant from "@sitebender/codewright/transform/injectors/Constant/index.tsx"
-import FromElement from "@sitebender/codewright/transform/injectors/FromElement/index.tsx"
+import SetValue from "@sitebender/pagewright/transform/actions/SetValue/index.tsx"
+import NotEmpty from "@sitebender/pagewright/transform/comparators/NotEmpty/index.tsx"
+import If from "@sitebender/pagewright/transform/control/If/index.tsx"
+import On from "@sitebender/pagewright/transform/control/On/index.tsx"
+import Program from "@sitebender/pagewright/transform/control/Program/index.tsx"
+import Constant from "@sitebender/pagewright/transform/injectors/Constant/index.tsx"
+import FromElement from "@sitebender/pagewright/transform/injectors/FromElement/index.tsx"
 
 export default function ValidationDemo() {
 	return (

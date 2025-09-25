@@ -21,5 +21,6 @@ export default function serializeExpression(expr: unknown): SerializedExpr {
 		? { type: "NumericLiteral" as const, value: Number(e.value ?? 0) }
 		: null
 
-	return identifierResult || stringResult || numericResult || { type: "Unsupported" as const, raw: String(t ?? "unknown") }
+	return identifierResult || stringResult || numericResult ||
+		{ type: "Unsupported" as const, raw: String(t ?? "unknown") }
 }

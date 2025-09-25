@@ -1,7 +1,7 @@
 import type {
+	ArchitectError,
 	ComparatorConfig,
 	Either,
-	ArchitectError,
 	LocalValues,
 	MatchesComparator,
 	OperationFunction,

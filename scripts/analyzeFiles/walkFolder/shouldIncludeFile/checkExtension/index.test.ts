@@ -4,11 +4,14 @@ import checkExtension from "./index.ts"
 
 //++ Tests for checkExtension function
 Deno.test("checkExtension", async function testCheckExtension(t) {
-	await t.step("creates a predicate for checking file extension", function testCreatesPredicate() {
-		const checkFile = checkExtension("file.ts")
+	await t.step(
+		"creates a predicate for checking file extension",
+		function testCreatesPredicate() {
+			const checkFile = checkExtension("file.ts")
 
-		assertEquals(typeof checkFile, "function")
-	})
+			assertEquals(typeof checkFile, "function")
+		},
+	)
 
 	await t.step("matches files with the extension", function testMatches() {
 		const checkFile = checkExtension("file.ts")

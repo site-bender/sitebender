@@ -1,11 +1,11 @@
-import push from "@sitebender/toolsmith/vanilla/array/push/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
-import indexOf from "@sitebender/toolsmith/vanilla/string/indexOf/index.ts"
-import has from "@sitebender/toolsmith/vanilla/set/has/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import lengthStr from "@sitebender/toolsmith/vanilla/string/length/index.ts"
 import isArray from "@sitebender/toolsmith/vanilla/array/isArray/index.ts"
+import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
+import push from "@sitebender/toolsmith/vanilla/array/push/index.ts"
+import has from "@sitebender/toolsmith/vanilla/set/has/index.ts"
+import indexOf from "@sitebender/toolsmith/vanilla/string/indexOf/index.ts"
+import lengthStr from "@sitebender/toolsmith/vanilla/string/length/index.ts"
+import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
+import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
 
 export type ParsedArgs = {
 	flags: Record<string, boolean>

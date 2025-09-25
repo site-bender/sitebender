@@ -11,12 +11,12 @@ import type { PodcastSeasonType } from "./PodcastSeason/index.ts"
 import type { RadioSeasonType } from "./RadioSeason/index.ts"
 import type { TVSeasonType } from "./TVSeason/index.ts"
 
-import EpisodeComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/Episode/index.tsx"
-import VideoObjectComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/MediaObject/VideoObject/index.tsx"
-import OrganizationComponent from "../../../../../../codewright/src/define/Thing/Organization/index.tsx"
-import PerformingGroupComponent from "../../../../../../codewright/src/define/Thing/Organization/PerformingGroup/index.tsx"
-import PersonComponent from "../../../../../../codewright/src/define/Thing/Person/index.tsx"
-import { CreativeWorkSeries as CreativeWorkSeriesComponent } from "../../../../../codewright/index.tsx"
+import EpisodeComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/Episode/index.tsx"
+import VideoObjectComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/MediaObject/VideoObject/index.tsx"
+import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import PerformingGroupComponent from "../../../../../../pagewright/src/define/Thing/Organization/PerformingGroup/index.tsx"
+import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import { CreativeWorkSeries as CreativeWorkSeriesComponent } from "../../../../../pagewright/index.tsx"
 
 export type CreativeWorkSeasonType =
 	| "CreativeWorkSeason"

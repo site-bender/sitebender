@@ -1,11 +1,11 @@
+import createComposeContext from "@sitebender/architect/context/composeContext/index.ts"
+import registerDefaultExecutors from "@sitebender/architect/operations/defaults/registerDefaults/index.ts"
+import hydrate from "@sitebender/architect/runtime/hydrator/index.ts"
 import {
 	getVizAdapter,
 	setVizAdapter,
 	vizNoopAdapter,
-} from "@sitebender/codewright/index.ts"
-import createComposeContext from "@sitebender/architect/context/composeContext/index.ts"
-import registerDefaultExecutors from "@sitebender/architect/operations/defaults/registerDefaults/index.ts"
-import hydrate from "@sitebender/architect/runtime/hydrator/index.ts"
+} from "@sitebender/pagewright/index.ts"
 
 type GlobalWithViz = Record<string, unknown> & {
 	sitebenderVizAdapter?: { hydrate: (root?: Document | HTMLElement) => void }

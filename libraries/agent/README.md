@@ -100,12 +100,12 @@ Agent provides JSX components for all CRDT types that automatically sync without
 
 ```jsx
 // Single value that uses timestamps to resolve conflicts
-<LWWRegister id="status">
-  <InitialValue>online</InitialValue>
-  <OnChange>
-    <BroadcastTo.Peers />
-    <SaveTo.IndexedDB />
-  </OnChange>
+<LwwRegister id="status">
+	<InitialValue>online</InitialValue>
+	<OnChange>
+		<BroadcastTo.Peers />
+		<SaveTo.IndexedDB />
+	</OnChange>
 </LWWRegister>
 ```
 
@@ -113,16 +113,16 @@ Agent provides JSX components for all CRDT types that automatically sync without
 
 ```jsx
 // Set that tracks additions and removals
-<ORSet id="participants">
-  <Validation>
-    <MaxItems>1000</MaxItems>
-  </Validation>
-  <RenderAs>
-    <UserList />
-  </RenderAs>
-  <ConflictResolution>
-    <AddWins /> // Additions beat removals
-  </ConflictResolution>
+<OrSet id="participants">
+	<Validation>
+		<MaxItems>1000</MaxItems>
+	</Validation>
+	<RenderAs>
+		<UserList />
+	</RenderAs>
+	<ConflictResolution>
+		<AddWins /> // Additions beat removals
+	</ConflictResolution>
 </ORSet>
 ```
 
@@ -148,15 +148,15 @@ Agent provides JSX components for all CRDT types that automatically sync without
 ```jsx
 // Distributed map combining multiple CRDTs
 <DistributedState id="appState">
-  <ORMap>
-    <Field name="users" type="ORSet" />
-    <Field name="messages" type="RGA" />
-    <Field name="settings" type="LWWRegister" />
-    <Field name="votes" type="Counter" />
-  </ORMap>
-  <MergeStrategy>
-    <SemanticMerge using="/ontology/app.ttl" />
-  </MergeStrategy>
+	<OrMap>
+		<Field name="users" type="ORSet" />
+		<Field name="messages" type="RGA" />
+		<Field name="settings" type="LWWRegister" />
+		<Field name="votes" type="Counter" />
+	</ORMap>
+	<MergeStrategy>
+		<SemanticMerge using="/ontology/app.ttl" />
+	</MergeStrategy>
 </DistributedState>
 ```
 
@@ -169,18 +169,18 @@ Decentralized identity without central authorities:
 ```jsx
 // Self-sovereign identity with local key generation
 <Identity id="currentUser">
-  <DIDKey>
-    <GenerateKeypair algorithm="ed25519" />
-  </DIDKey>
-  <VerifiableCredentials>
-    <Request type="EmailVerified" from="did:web:verifier.com" />
-    <Request type="AgeOver18" from="did:web:gov.example" />
-  </VerifiableCredentials>
-  <Capabilities>
-    <Can action="read" resource="*" />
-    <Can action="write" resource="/my/*" />
-    <DelegatedFrom did="did:key:parent" expires="2025-12-31" />
-  </Capabilities>
+	<DidKey>
+		<GenerateKeypair algorithm="ed25519" />
+	</DIDKey>
+	<VerifiableCredentials>
+		<Request type="EmailVerified" from="did:web:verifier.com" />
+		<Request type="AgeOver18" from="did:web:gov.example" />
+	</VerifiableCredentials>
+	<Capabilities>
+		<Can action="read" resource="*" />
+		<Can action="write" resource="/my/*" />
+		<DelegatedFrom did="did:key:parent" expires="2025-12-31" />
+	</Capabilities>
 </Identity>
 ```
 
@@ -207,7 +207,7 @@ Decentralized identity without central authorities:
 // Combine multiple identity providers
 <MultiAuth id="auth">
   <Providers>
-    <DIDKey primary={true} />
+    <DidKey primary={true} />
     <Solid webId={userWebId} />
     <IPFS peerId={peerId} />
   </Providers>
@@ -290,7 +290,7 @@ P2P networking without servers:
 // Automatic peer discovery via multiple mechanisms
 <PeerDiscovery id="network">
   <Mechanisms>
-    <IPFSPubSub topic="myapp/peers" />
+    <IpfsPubSub topic="myapp/peers" />
     <WebRTCSignaling servers={["stun:stun.l.google.com:19302"]} />
     <LocalNetwork via="mdns" />
     <Manual>
@@ -464,49 +464,47 @@ Agent components seamlessly integrate with Architect's reactive system:
 
 ```jsx
 function renderTodo(todo) {
-
-  return (
-    <TodoView>
-      <Checkbox bound={todo.completed} />
-      <Text bound={todo.title} />
-      <UserAvatar bound={todo.assignee} />
-    </TodoView>
-  )
+	return (
+		<TodoView>
+			<Checkbox bound={todo.completed} />
+			<Text bound={todo.title} />
+			<UserAvatar bound={todo.assignee} />
+		</TodoView>
+	)
 }
 
 function TodoApp() {
+	return (
+		<DistributedApp>
+			<Identity id="user">
+				<DidKey />
+			</Identity>
 
-  return (
-    <DistributedApp>
-      <Identity id="user">
-        <DIDKey />
-      </Identity>
+			<PeerDiscovery id="network">
+				<IpfsPubSub topic="todos/peers" />
+			</PeerDiscovery>
 
-      <PeerDiscovery id="network">
-        <IPFSPubSub topic="todos/peers" />
-      </PeerDiscovery>
+			<DistributedState id="todos">
+				<OrSet>
+					<TodoItem id={generateId()}>
+						<Field name="title" type="LWWRegister" />
+						<Field name="completed" type="LWWRegister" />
+						<Field name="assignee" type="LWWRegister" />
+					</TodoItem>
+				</ORSet>
+			</DistributedState>
 
-      <DistributedState id="todos">
-        <ORSet>
-          <TodoItem id={generateId()}>
-            <Field name="title" type="LWWRegister" />
-            <Field name="completed" type="LWWRegister" />
-            <Field name="assignee" type="LWWRegister" />
-          </TodoItem>
-        </ORSet>
-      </DistributedState>
+			<TodoList>
+				<RenderEach from="#todos">
+					{renderTodo}
+				</RenderEach>
+			</TodoList>
 
-      <TodoList>
-        <RenderEach from="#todos">
-          {renderTodo}
-        </RenderEach>
-      </TodoList>
-
-      <AutoSync every={5000}>
-        <With.AllPeers />
-      </AutoSync>
-    </DistributedApp>
-  )
+			<AutoSync every={5000}>
+				<With.AllPeers />
+			</AutoSync>
+		</DistributedApp>
+	)
 }
 ```
 
@@ -514,7 +512,6 @@ function TodoApp() {
 
 ```jsx
 function handleSubmit(msg) {
-
   return (
     <AppendTo target="#messages">
       <Message>
@@ -524,11 +521,10 @@ function handleSubmit(msg) {
         <SignWith selector="#user" />
       </Message>
     </AppendTo>
-  )
+  );
 }
 
 function renderMessage(msg) {
-
   return (
     <MessageBubble
       verified={msg.signature}
@@ -537,11 +533,10 @@ function renderMessage(msg) {
     >
       {msg.content}
     </MessageBubble>
-  )
+  );
 }
 
 function ChatRoom({ roomId }) {
-
   return (
     <>
       <SecureChannel id="chat" room={roomId}>
@@ -563,12 +558,10 @@ function ChatRoom({ roomId }) {
       <MessageInput onSubmit={handleSubmit} />
 
       <MessageList>
-        <RenderEach from="#messages">
-          {renderMessage}
-        </RenderEach>
+        <RenderEach from="#messages">{renderMessage}</RenderEach>
       </MessageList>
     </>
-  )
+  );
 }
 ```
 
@@ -576,7 +569,6 @@ function ChatRoom({ roomId }) {
 
 ```jsx
 function CollaborativeForm() {
-
   return (
     <Form distributed={true}>
       <SharedField name="title" type="text">
@@ -596,7 +588,7 @@ function CollaborativeForm() {
       </SharedField>
 
       <SharedField name="tags" type="set">
-        <ORSet />
+        <OrSet />
         <ShowAddedBy />
       </SharedField>
 
@@ -613,7 +605,7 @@ function CollaborativeForm() {
         <NotifyPeers />
       </SubmitStrategy>
     </Form>
-  )
+  );
 }
 ```
 
@@ -636,18 +628,18 @@ function CollaborativeForm() {
 
 ```jsx
 // Prove facts without revealing data
-<ZKProof id="age-verification">
-  <Prove>
-    <IsGreaterThan>
-      <Referent>
-        <From.Private key="age" />
-      </Referent>
-      <Comparand>
-        <From.Constant>18</From.Constant>
-      </Comparand>
-    </IsGreaterThan>
-  </Prove>
-  <Without revealing="age" />
+<ZkProof id="age-verification">
+	<Prove>
+		<IsGreaterThan>
+			<Referent>
+				<From.Private key="age" />
+			</Referent>
+			<Comparand>
+				<From.Constant>18</From.Constant>
+			</Comparand>
+		</IsGreaterThan>
+	</Prove>
+	<Without revealing="age" />
 </ZKProof>
 ```
 
@@ -775,22 +767,21 @@ deno add @sitebender/agent
 ### Quick Start
 
 ```tsx
-import DistributedCounter from "@sitebender/agent/components/crdt/DistributedCounter/index.ts"
-import SyncWith from "@sitebender/agent/components/sync/SyncWith/index.ts"
-import render from "@sitebender/architect/render/index.ts"
+import DistributedCounter from "@sitebender/agent/components/crdt/DistributedCounter/index.ts";
+import SyncWith from "@sitebender/agent/components/sync/SyncWith/index.ts";
+import render from "@sitebender/architect/render/index.ts";
 
 function App() {
-
   return (
     <DistributedCounter id="sharedCount">
       <InitialValue>0</InitialValue>
       <SyncWith.Peers />
       <IncrementButton>+1</IncrementButton>
     </DistributedCounter>
-  )
+  );
 }
 
-render(<App />, document.getElementById("root"))
+render(<App />, document.getElementById("root"));
 ```
 
 ## Architectural Principles
@@ -942,7 +933,7 @@ Agent is part of the @sitebender studio. See [CONTRIBUTING.md](../../CONTRIBUTIN
 ## See Also
 
 - [Architect](../architect/README.md) - Reactive rendering and behavior composition
-- [Codewright](../codewright/README.md) - Semantic HTML components
+- [Pagewright](../pagewright/README.md) - Semantic HTML components
 - [Formulator](../formulator/README.md) - Expression parser
 - [Warden](../warden/README.md) - Architectural governance
 

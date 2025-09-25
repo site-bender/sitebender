@@ -9,7 +9,9 @@ export default function fromException<TOp extends string>(operation: TOp) {
 	return function withArguments<TArgs extends ReadonlyArray<Value>>(
 		args: TArgs,
 	) {
-		return function withException(exception: unknown): ArchitectError<TOp, TArgs> {
+		return function withException(
+			exception: unknown,
+		): ArchitectError<TOp, TArgs> {
 			const err = exception instanceof Error
 				? exception
 				: new Error(String(exception))

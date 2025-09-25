@@ -1,11 +1,11 @@
-import type { Result } from "../../../types/fp/result/index.ts"
-
 import { assert, assertEquals } from "@std/assert"
 
-import ok from "../ok/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+
 import error from "../error/index.ts"
-import isOk from "../isOk/index.ts"
 import isError from "../isError/index.ts"
+import isOk from "../isOk/index.ts"
+import ok from "../ok/index.ts"
 import chainError from "./index.ts"
 
 Deno.test("chainError", async (t) => {
@@ -30,8 +30,7 @@ Deno.test("chainError", async (t) => {
 	})
 
 	await t.step("leaves Ok unchanged", () => {
-		const recover = (_e: string): Result<string, number> =>
-			ok(99)
+		const recover = (_e: string): Result<string, number> => ok(99)
 
 		const result = chainError(recover)(ok(42))
 
@@ -47,21 +46,21 @@ Deno.test("chainError", async (t) => {
 			e === "second" ? ok(2) : error(e)
 
 		const chain1 = chainError(secondRecover)(
-			chainError(firstRecover)(error("first"))
+			chainError(firstRecover)(error("first")),
 		)
 
 		assert(isOk(chain1))
 		assertEquals(chain1.value, 1)
 
 		const chain2 = chainError(secondRecover)(
-			chainError(firstRecover)(error("second"))
+			chainError(firstRecover)(error("second")),
 		)
 
 		assert(isOk(chain2))
 		assertEquals(chain2.value, 2)
 
 		const chain3 = chainError(secondRecover)(
-			chainError(firstRecover)(error("other"))
+			chainError(firstRecover)(error("other")),
 		)
 
 		assert(isError(chain3))
@@ -82,7 +81,7 @@ Deno.test("chainError", async (t) => {
 
 	await t.step("works with complex recovery logic", () => {
 		const complexRecover = (
-			e: { code: number }
+			e: { code: number },
 		): Result<string, { id: number; name: string }> => {
 			if (e.code === 404) return ok({ id: 0, name: "Default" })
 			if (e.code === 403) return ok({ id: -1, name: "Guest" })

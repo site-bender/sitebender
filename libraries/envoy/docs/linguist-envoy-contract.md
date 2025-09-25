@@ -1,26 +1,26 @@
 # 📜 PARSER ↔ ENVOY INTEGRATION CONTRACT
 
 **Date:** 2025-09-09 (Updated: 2025-09-10)\
-**Parties:** Linguist Library & Envoy Library (formerly Envoy)\
+**Parties:** Arborist Library & Envoy Library (formerly Envoy)\
 **Witnessed By:** The Architect\
 **Status:** BINDING & IMMUTABLE - NOW ENFORCED
 
 ## 🔒 THIS CONTRACT IS FINAL AND NOW ENFORCED
 
-~~Both Linguist AI and Envoy AI have agreed to the following integration specifications.~~
+~~Both Arborist AI and Envoy AI have agreed to the following integration specifications.~~
 
-**UPDATE 2025-09-10:** A previous AI violated this contract by implementing TypeScript parsing directly in Envoy. This has been corrected. Envoy's parser directory has been deleted. Linguist is now THE ONLY library that imports TypeScript. No exceptions.
+**UPDATE 2025-09-10:** A previous AI violated this contract by implementing TypeScript parsing directly in Envoy. This has been corrected. Envoy's parser directory has been deleted. Arborist is now THE ONLY library that imports TypeScript. No exceptions.
 
 ---
 
 ## 1. API SPECIFICATIONS
 
-### 1.1 Linguist Output Format
+### 1.1 Arborist Output Format
 
-Linguist SHALL provide the following API:
+Arborist SHALL provide the following API:
 
 ```typescript
-// Linguist's main export function
+// Arborist's main export function
 parseFileWithCompiler(
   content: string, 
   filePath: string
@@ -49,10 +49,10 @@ type ParsedFunction = {
 
 ### 1.2 Either/Result Mapping
 
-Linguist SHALL provide Either constructors that maintain backward compatibility:
+Arborist SHALL provide Either constructors that maintain backward compatibility:
 
 ```typescript
-// Linguist provides these constructors
+// Arborist provides these constructors
 const Right = <A>(value: A): Either<never, A> => ({ ok: true, value })
 const Left = <E>(error: E): Either<E, never> => ({ ok: false, error })
 
@@ -62,7 +62,7 @@ type Result<T, E> = Either<E, T> // Aliased for compatibility
 
 ### 1.3 Pre-computed Metadata
 
-Linguist SHALL compute and provide the following metadata during parsing:
+Arborist SHALL compute and provide the following metadata during parsing:
 
 ```typescript
 type TraversalMetadata = {
@@ -131,20 +131,20 @@ export const foldAst = <S, A>(
 
 ### Week 1 (IMMEDIATE)
 
-- ✅ Linguist: Add Either constructors
-- ✅ Linguist: Implement Phase 1 metadata collection
+- ✅ Arborist: Add Either constructors
+- ✅ Arborist: Implement Phase 1 metadata collection
 - ✅ Envoy: Update to consume Either results
 - ✅ Envoy: Use metadata for optimization
 
 ### Week 2
 
 - ✅ Toolsmith: Add ast/ directory with traversal utilities
-- ✅ Linguist: Refactor to use shared utilities (if beneficial)
+- ✅ Arborist: Refactor to use shared utilities (if beneficial)
 - ✅ Envoy: Convert detectors to use shared utilities
 
 ### Week 3
 
-- ✅ Linguist: Implement Phase 2 metadata collection
+- ✅ Arborist: Implement Phase 2 metadata collection
 - ✅ Envoy: Further optimize using enhanced metadata
 - ✅ Both: Performance testing
 
@@ -161,7 +161,7 @@ export const foldAst = <S, A>(
 Envoy SHALL:
 
 1. **Work directly with typescript.Node** - No wrapper requirements
-2. **Use Linguist's metadata first** - Only deep-analyze when metadata insufficient
+2. **Use Arborist's metadata first** - Only deep-analyze when metadata insufficient
 3. **Use shared traversal utilities** - Don't duplicate traversal logic
 4. **Maintain backward compatibility** - Existing code continues to work
 
@@ -192,7 +192,7 @@ const detectPurityFromAST = (
 
 ## 5. PARSER'S OBLIGATIONS
 
-Linguist SHALL:
+Arborist SHALL:
 
 1. **Provide Either-compatible results** - As specified in 1.1
 2. **Compute metadata during parsing** - No separate traversal
@@ -262,7 +262,7 @@ In case of disagreement:
 
 Integration is considered successful when:
 
-- ✅ Linguist provides Either results with metadata
+- ✅ Arborist provides Either results with metadata
 - ✅ Envoy consumes Either results seamlessly
 - ✅ Performance targets are met
 - ✅ All tests pass
@@ -272,7 +272,7 @@ Integration is considered successful when:
 
 ## 10. SIGNATURES
 
-**Linguist AI:** ✓ AGREED - Committed to Either API, metadata collection, and shared utilities\
+**Arborist AI:** ✓ AGREED - Committed to Either API, metadata collection, and shared utilities\
 **Envoy AI:** ✓ AGREED - Committed to using typescript.Node, metadata optimization, and shared utilities\
 **Date:** 2025-09-09\
 **Contract Hash:** [Will be git commit hash]
@@ -304,23 +304,23 @@ _"A contract between AIs is sacred. Break it at your peril."_ - The Architect
 
 **Violation Found:**
 
-- Envoy had its own `linguist/` directory with TypeScript imports
+- Envoy had its own `arborist/` directory with TypeScript imports
 - Files `parseWithCompiler`, `parseFileWithCompiler`, `parseFunctionFromAST` directly imported TypeScript
-- This violated the fundamental principle that ONLY Linguist imports TypeScript
+- This violated the fundamental principle that ONLY Arborist imports TypeScript
 
 **Corrective Actions Taken:**
 
-1. ✅ Deleted entire `libraries/envoy/src/linguist/` directory
-2. ✅ Implemented `parseFileWithCompiler` in Linguist library with proper Either API
-3. ✅ Linguist now exports TypeScript types for Envoy to use
-4. ✅ Updated Envoy to import from `@sitebender/linguist`
+1. ✅ Deleted entire `libraries/envoy/src/arborist/` directory
+2. ✅ Implemented `parseFileWithCompiler` in Arborist library with proper Either API
+3. ✅ Arborist now exports TypeScript types for Envoy to use
+4. ✅ Updated Envoy to import from `@sitebender/arborist`
 5. ✅ Verified Envoy has ZERO direct TypeScript imports
 6. ✅ Tests temporarily disabled pending rewrite
 
 **New Reality:**
 
-- Linguist is THE ONLY library that imports TypeScript
-- Envoy consumes Linguist's output via clean APIs
+- Arborist is THE ONLY library that imports TypeScript
+- Envoy consumes Arborist's output via clean APIs
 - No exceptions, no temporary solutions, no tech debt
 
 **Signed:** The Architect's Enforcer AI

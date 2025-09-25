@@ -1,8 +1,9 @@
 import arrayLength from "../../array/length/index.ts"
-import keys from "../../object/keys/index.ts"
 import mapSize from "../../map/size/index.ts"
+import keys from "../../object/keys/index.ts"
 import setSize from "../../set/size/index.ts"
 import stringLength from "../../string/length/index.ts"
+import either from "../either/index.ts"
 import isArray from "../isArray/index.ts"
 import isMap from "../isMap/index.ts"
 import isNullish from "../isNullish/index.ts"
@@ -11,7 +12,6 @@ import isSet from "../isSet/index.ts"
 import isString from "../isString/index.ts"
 import isWeakMap from "../isWeakMap/index.ts"
 import isWeakSet from "../isWeakSet/index.ts"
-import either from "../either/index.ts"
 
 //++ Checks if a value is empty based on its type (null, undefined, empty string/array/object/Map/Set)
 export default function isEmpty(value: unknown): boolean {

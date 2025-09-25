@@ -1,4 +1,5 @@
 import { assertEquals } from "@std/assert"
+
 import deepFreeze from "./index.ts"
 
 Deno.test("deepFreeze", async (t) => {

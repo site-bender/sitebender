@@ -145,7 +145,9 @@ function ConditionalDisplay({ children }: { children: unknown }) {
 	const arr = Array.isArray(children)
 		? children
 		: (children !== null && children !== undefined ? [children] : []);
-	const condition = arr.find((c) => c && typeof c === 'object' && 'kind' in c) as Kinded | undefined;
+	const condition = arr.find((c) => c && typeof c === 'object' && 'kind' in c) as
+		| Kinded
+		| undefined;
 	const rest = arr.filter((c) => !(c && typeof c === 'object' && 'kind' in c));
 	return {
 		type: 'div',

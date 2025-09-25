@@ -1,10 +1,10 @@
 import type {
+	ArboristOutput,
 	Documentation,
 	FunctionMetadata,
 	FunctionSignature,
 	GenerateOptions,
 	Parameter,
-	LinguistOutput,
 	Properties,
 	Result,
 } from "../types/index.ts"
@@ -17,9 +17,9 @@ import extractLaws from "./extractLaws/index.ts"
 import findDescription from "./findDescription/index.ts"
 import generateOutput from "./generateOutput/index.ts"
 
-//++ Generate documentation from Linguist's output
+//++ Generate documentation from Arborist's output
 export default function generateDocs(
-	parserOutput: LinguistOutput,
+	parserOutput: ArboristOutput,
 	sourceCode: string, // Raw source for Envoy's comment parsing
 	options: GenerateOptions = {},
 ): Result<Documentation, { message: string }> {
@@ -30,14 +30,14 @@ export default function generateDocs(
 		if (functions.length === 0) {
 			return {
 				ok: false,
-				error: { message: "No functions found in Linguist output" },
+				error: { message: "No functions found in Arborist output" },
 			}
 		}
 
 		const firstFunction = functions[0]
 		const { signature: parserSignature, metadata } = firstFunction
 
-		// Convert Linguist signature to legacy format
+		// Convert Arborist signature to legacy format
 		const signature: FunctionSignature = {
 			name: parserSignature.name,
 			parameters: parserSignature.parameters.map((p): Parameter => ({
@@ -72,7 +72,7 @@ export default function generateDocs(
 			properties,
 			examples,
 			laws,
-			relatedFunctions: [], // TODO(@parser): Linguist could provide related functions
+			relatedFunctions: [], // TODO(@parser): Arborist could provide related functions
 		}
 
 		const output = generateOutput(docMetadata, opts)

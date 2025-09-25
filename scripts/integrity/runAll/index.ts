@@ -1,7 +1,6 @@
 import type { AggregatedResults, ScriptResult } from "../types/index.ts"
 
 import { PENDING_SCRIPTS } from "../constants/index.ts"
-
 import { calculateSummary } from "./calculateSummary/index.ts"
 import { createPendingResult } from "./createPendingResult/index.ts"
 import { determineDecision } from "./determineDecision/index.ts"

@@ -49,32 +49,39 @@ Deno.test("map", async function mapTests(t) {
 		}
 	})
 
-	await t.step("preserves Nothing through chain", function preservesNothingInChain() {
-		const addOne = (x: number) => x + 1
-		const double = (x: number) => x * 2
+	await t.step(
+		"preserves Nothing through chain",
+		function preservesNothingInChain() {
+			const addOne = (x: number) => x + 1
+			const double = (x: number) => x * 2
 
-		const result = map(double)(map(addOne)(nothing<number>()))
+			const result = map(double)(map(addOne)(nothing<number>()))
 
-		assertEquals(result._tag, "Nothing")
-	})
+			assertEquals(result._tag, "Nothing")
+		},
+	)
 
-	await t.step("works with object transformation", function objectTransformation() {
-		interface User {
-			name: string
-			age: number
-		}
+	await t.step(
+		"works with object transformation",
+		function objectTransformation() {
+			interface User {
+				name: string
+				age: number
+			}
 
-		const getName = (user: User) => user.name
-		const result = map(getName)(just({ name: "Alice", age: 30 }))
+			const getName = (user: User) => user.name
+			const result = map(getName)(just({ name: "Alice", age: 30 }))
 
-		assertEquals(result._tag, "Just")
-		if (result._tag === "Just") {
-			assertEquals(result.value, "Alice")
-		}
-	})
+			assertEquals(result._tag, "Just")
+			if (result._tag === "Just") {
+				assertEquals(result.value, "Alice")
+			}
+		},
+	)
 
 	await t.step("handles function composition", function functionComposition() {
-		const compose = <A, B, C>(f: (b: B) => C) => (g: (a: A) => B) => (a: A) => f(g(a))
+		const compose = <A, B, C>(f: (b: B) => C) => (g: (a: A) => B) => (a: A) =>
+			f(g(a))
 		const add = (x: number) => x + 10
 		const multiply = (x: number) => x * 2
 		const composed = compose(multiply)(add)

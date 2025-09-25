@@ -28,7 +28,7 @@ Pure programmatic APIs that power all tooling:
   - Symbol documentation lookup
   - HATEOAS navigation for interconnected docs
 
-- **Architect/Codewright Metadata**: Component intelligence
+- **Architect/Pagewright Metadata**: Component intelligence
   - Tag/prop schemas for completion
   - ARIA contracts and allowlists
   - JSX-to-IR transformation rules
@@ -80,7 +80,7 @@ Single TypeScript LSP server (ESM) with platform-specific packaging:
 
 **Completions**
 
-- Codewright JSX tags (`Hn`, `Fragment`, `TextNode`)
+- Pagewright JSX tags (`Hn`, `Fragment`, `TextNode`)
 - Allowed attributes and dataset properties
 - ARIA props with semantic correctness
 - Import paths (respecting privacy)
@@ -171,7 +171,7 @@ Local MCP tools for orchestrating Studio workflows:
 **Development Tools**
 
 - `generateTest(function)` → Quarrier property tests
-- `extractComponent(selection)` → Codewright component
+- `extractComponent(selection)` → Pagewright component
 - `verifyAccessibility(component)` → Axe validation
 
 ## Platform-Specific Implementation
@@ -188,7 +188,7 @@ Local MCP tools for orchestrating Studio workflows:
 **Contributions**
 
 - Grammars: TextMate injections for TS/TSX
-- Snippets: Codewright patterns, curried functions
+- Snippets: Pagewright patterns, curried functions
 - Commands: "Studio: Steward Fix", "Studio: Warden Enforce", "Studio: Open Envoy Docs"
 - Tasks: Problem matchers for Deno tasks
 - Views: Contract status, privacy boundaries

@@ -1,11 +1,12 @@
-import flatMap from "../../../../libraries/toolsmith/src/vanilla/array/flatMap/index.ts"
-import map from "../../../../libraries/toolsmith/src/vanilla/array/map/index.ts"
-import sort from "../../../../libraries/toolsmith/src/vanilla/array/sort/index.ts"
 import type {
 	BoundariesConfig,
 	ContractEdge,
 	ContractGraph,
 } from "../types/index.ts"
+
+import flatMap from "../../../../libraries/toolsmith/src/vanilla/array/flatMap/index.ts"
+import map from "../../../../libraries/toolsmith/src/vanilla/array/map/index.ts"
+import sort from "../../../../libraries/toolsmith/src/vanilla/array/sort/index.ts"
 
 //++ Extracts contract dependency graph from boundaries configuration
 
@@ -36,6 +37,6 @@ export default function extractGraph(
 }
 
 //?? [EXAMPLE]
-// const boundaries = { dependencies: { linguist: { canImport: ["toolsmith"] } } }
+// const boundaries = { dependencies: { arborist: { canImport: ["toolsmith"] } } }
 // const graph = extractGraph(boundaries)
-// // Returns: { version: 1, libraries: ["linguist"], edges: [{ from: "linguist", to: "toolsmith" }] }
+// // Returns: { version: 1, libraries: ["arborist"], edges: [{ from: "arborist", to: "toolsmith" }] }

@@ -4,7 +4,7 @@ import type InfectiousAgentClass from "../../../Intangible/Enumeration/MedicalEn
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalConditionProps } from "../index.ts"
 
-import InfectiousAgentClassComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.tsx"
+import InfectiousAgentClassComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/InfectiousAgentClass/index.tsx"
 
 export type InfectiousDiseaseType = "InfectiousDisease"
 

@@ -109,25 +109,25 @@ content.match(/export\s+default/)
 ```typescript
 // ✅ CORRECT - One function per file
 export default function myFunction(param: string) {
-  return function withNextParam(next: number): Result {
-    // Pure FP logic here
-  };
+	return function withNextParam(next: number): Result {
+		// Pure FP logic here
+	}
 }
 
 // ✅ CORRECT - Use toolsmith functions
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts";
-const parts = split("/")(filePath);
+import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+const parts = split("/")(filePath)
 
 // ✅ CORRECT - RegExp in constants
-import { MATCH_EXPORT_DEFAULT } from "../constants/index.ts";
-const matches = match(MATCH_EXPORT_DEFAULT)(content);
+import { MATCH_EXPORT_DEFAULT } from "../constants/index.ts"
+const matches = match(MATCH_EXPORT_DEFAULT)(content)
 
 // ✅ CORRECT - Pure FP with map/filter/reduce
 const results = pipe([
-  map(processItem),
-  filter(isValid),
-  reduce(combine)(initialValue),
-])(items);
+	map(processItem),
+	filter(isValid),
+	reduce(combine)(initialValue),
+])(items)
 ```
 
 ### Remember

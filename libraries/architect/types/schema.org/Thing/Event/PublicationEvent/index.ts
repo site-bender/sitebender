@@ -7,9 +7,9 @@ import type { EventProps } from "../index.ts"
 import type { BroadcastEventType } from "./BroadcastEvent/index.ts"
 import type { OnDemandEventType } from "./OnDemandEvent/index.ts"
 
-import BroadcastServiceComponent from "../../../../../../codewright/src/define/Thing/Intangible/Service/BroadcastService/index.tsx"
-import OrganizationComponent from "../../../../../../codewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../codewright/src/define/Thing/Person/index.tsx"
+import BroadcastServiceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Service/BroadcastService/index.tsx"
+import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
 
 export type PublicationEventType =
 	| "PublicationEvent"

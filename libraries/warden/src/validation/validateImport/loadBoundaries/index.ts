@@ -8,35 +8,35 @@ function defaultBoundaries(): Boundaries {
 	return {
 		dependencies: {
 			envoy: {
-				canImport: ["linguist", "toolsmith", "quarrier"],
+				canImport: ["arborist", "toolsmith", "quarrier"],
 				forbiddenImports: [
 					"typescript",
 					"@typescript/compiler",
-					"logician",
-					"codewright",
+					"auditor",
+					"pagewright",
 					"architect",
 					"formulator",
 					"agent",
 				],
 			},
-			linguist: {
+			arborist: {
 				canImport: ["toolsmith", "quarrier"],
 				forbiddenImports: [
 					"envoy",
-					"logician",
-					"codewright",
+					"auditor",
+					"pagewright",
 					"architect",
 					"formulator",
 					"agent",
 				],
 			},
-			logician: {
-				canImport: ["linguist", "toolsmith", "quarrier"],
+			auditor: {
+				canImport: ["arborist", "toolsmith", "quarrier"],
 				forbiddenImports: [
 					"typescript",
 					"@typescript/compiler",
 					"envoy",
-					"codewright",
+					"pagewright",
 					"architect",
 					"formulator",
 					"agent",
@@ -61,7 +61,10 @@ export default function loadBoundaries(): Boundaries {
 
 	try {
 		// Resolve absolute path from repo root to contracts/boundaries.json
-		const url = new URL("../../../../contracts/boundaries.json", import.meta.url)
+		const url = new URL(
+			"../../../../contracts/boundaries.json",
+			import.meta.url,
+		)
 		const text = Deno.readTextFileSync(url)
 		const json = JSON.parse(text)
 

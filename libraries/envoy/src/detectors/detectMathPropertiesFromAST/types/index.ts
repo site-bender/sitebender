@@ -1,4 +1,4 @@
-//++ Type definitions for AST nodes received from the Linguist
+//++ Type definitions for AST nodes received from the Arborist
 
 export type SyntaxKind = {
 	// Binary operators

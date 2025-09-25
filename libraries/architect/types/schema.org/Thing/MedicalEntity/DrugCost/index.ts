@@ -5,9 +5,9 @@ import type QualitativeValue from "../../Intangible/Enumeration/QualitativeValue
 import type AdministrativeArea from "../../Place/AdministrativeArea/index.ts"
 import type { MedicalEntityProps } from "../index.ts"
 
-import DrugCostCategoryComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.tsx"
-import QualitativeValueComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
-import AdministrativeAreaComponent from "../../../../../../codewright/src/define/Thing/Place/AdministrativeArea/index.tsx"
+import DrugCostCategoryComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/DrugCostCategory/index.tsx"
+import QualitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type DrugCostType = "DrugCost"
 

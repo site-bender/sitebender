@@ -1,16 +1,16 @@
 {
-  "id": "workshop",
-  "name": "the-workshop",
-  "description": "Playground (Architect pipeline) skeleton (placeholder)",
-  "outputs": {
-    "appPath": "./applications/the-workshop"
-  },
-  "files": [],
-  "postScaffoldMessages": [
-    "Stub blueprint: metadata and target path only. No templates yet."
-  ],
-  "variants": {
-    "architect": true,
-    "envoy": false
-  }
+	"id": "workshop",
+	"name": "the-workshop",
+	"description": "Playground (Architect pipeline) skeleton (placeholder)",
+	"outputs": {
+		"appPath": "./applications/the-workshop"
+	},
+	"files": [],
+	"postScaffoldMessages": [
+		"Stub blueprint: metadata and target path only. No templates yet."
+	],
+	"variants": {
+		"architect": true,
+		"envoy": false
+	}
 }

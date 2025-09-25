@@ -1,5 +1,5 @@
-import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
 import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
+import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
 
 import {
 	MATCH_EXPORT_DEFAULT_FUNCTION_WITH_NAME,

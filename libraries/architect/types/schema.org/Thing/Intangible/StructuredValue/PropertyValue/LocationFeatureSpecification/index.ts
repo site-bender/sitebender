@@ -5,7 +5,7 @@ import type { StructuredValueProps } from "../../index.ts"
 import type OpeningHoursSpecification from "../../OpeningHoursSpecification/index.ts"
 import type { PropertyValueProps } from "../index.ts"
 
-import OpeningHoursSpecificationComponent from "../../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.tsx"
+import OpeningHoursSpecificationComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.tsx"
 
 export type LocationFeatureSpecificationType = "LocationFeatureSpecification"
 

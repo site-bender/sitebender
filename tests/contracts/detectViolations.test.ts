@@ -42,19 +42,19 @@ Deno.test("Detect Violations: Envoy should not access .ts/.tsx files directly", 
 	}
 })
 
-Deno.test("Detect Violations: Linguist should not import from Envoy", async () => {
+Deno.test("Detect Violations: Arborist should not import from Envoy", async () => {
 	try {
 		const { stdout } = await execAsync(
-			`grep -r "from ['\\"].*envoy" libraries/linguist/src/ 2>/dev/null || true`
+			`grep -r "from ['\\"].*envoy" libraries/arborist/src/ 2>/dev/null || true`
 		)
 
 		if (stdout.trim()) {
-			throw new Error(`Linguist is importing from Envoy:\n${stdout}`)
+			throw new Error(`Arborist is importing from Envoy:\n${stdout}`)
 		}
 	} catch (error) {
 		// Expected to not find anything
 		if (error && error.stdout && error.stdout.trim()) {
-			throw new Error(`Linguist is importing from Envoy`)
+			throw new Error(`Arborist is importing from Envoy`)
 		}
 	}
 })
@@ -94,7 +94,7 @@ Deno.test("Detect Violations: Quarrier should not import any @sitebender library
 })
 
 Deno.test("Detect Violations: No library should use regex to parse TypeScript", async () => {
-	const libraries = ["envoy", "logician", "codewright", "architect"]
+	const libraries = ["envoy", "auditor", "pagewright", "architect"]
 
 	for (const lib of libraries) {
 		try {

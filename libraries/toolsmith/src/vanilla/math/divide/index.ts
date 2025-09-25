@@ -1,6 +1,8 @@
 import isFinite from "../../validation/isFinite/index.ts"
 
-export function divide(divisor: number): (dividend: number) => number | undefined
+export function divide(
+	divisor: number,
+): (dividend: number) => number | undefined
 
 //++ Divides numbers: number→(number→quotient); undefined on non-finite or zero divisor
 export default function divide(

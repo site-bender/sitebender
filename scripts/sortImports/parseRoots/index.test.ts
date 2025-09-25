@@ -7,20 +7,38 @@ Deno.test("parseRoots", async function testParseRoots(t) {
 	await t.step("returns defaults when no args provided", function testNoArgs() {
 		const result = parseRoots([])
 
-		assertEquals(result, ["agent", "mission-control", "the-workshop", "libraries", "scripts"])
+		assertEquals(result, [
+			"agent",
+			"mission-control",
+			"the-workshop",
+			"libraries",
+			"scripts",
+		])
 	})
 
-	await t.step("returns defaults when only flags provided", function testOnlyFlags() {
-		const result = parseRoots(["--verbose", "--dry-run"])
+	await t.step(
+		"returns defaults when only flags provided",
+		function testOnlyFlags() {
+			const result = parseRoots(["--verbose", "--dry-run"])
 
-		assertEquals(result, ["agent", "mission-control", "the-workshop", "libraries", "scripts"])
-	})
+			assertEquals(result, [
+				"agent",
+				"mission-control",
+				"the-workshop",
+				"libraries",
+				"scripts",
+			])
+		},
+	)
 
-	await t.step("extracts directories from --dir= flags", function testDirFlags() {
-		const result = parseRoots(["--dir=src", "--dir=tests"])
+	await t.step(
+		"extracts directories from --dir= flags",
+		function testDirFlags() {
+			const result = parseRoots(["--dir=src", "--dir=tests"])
 
-		assertEquals(result, ["src", "tests"])
-	})
+			assertEquals(result, ["src", "tests"])
+		},
+	)
 
 	await t.step("extracts plain directory arguments", function testPlainArgs() {
 		const result = parseRoots(["src", "lib", "tests"])
@@ -28,11 +46,19 @@ Deno.test("parseRoots", async function testParseRoots(t) {
 		assertEquals(result, ["src", "lib", "tests"])
 	})
 
-	await t.step("mixes --dir= flags and plain arguments", function testMixedArgs() {
-		const result = parseRoots(["--dir=src", "lib", "--dir=tests", "mission-control"])
+	await t.step(
+		"mixes --dir= flags and plain arguments",
+		function testMixedArgs() {
+			const result = parseRoots([
+				"--dir=src",
+				"lib",
+				"--dir=tests",
+				"mission-control",
+			])
 
-		assertEquals(result, ["src", "lib", "tests", "mission-control"])
-	})
+			assertEquals(result, ["src", "lib", "tests", "mission-control"])
+		},
+	)
 
 	await t.step("ignores non-directory flags", function testIgnoresOtherFlags() {
 		const result = parseRoots([
@@ -41,7 +67,7 @@ Deno.test("parseRoots", async function testParseRoots(t) {
 			"--dry-run",
 			"--dir=lib",
 			"tests",
-			"--help"
+			"--help",
 		])
 
 		assertEquals(result, ["src", "lib", "tests"])
@@ -53,16 +79,24 @@ Deno.test("parseRoots", async function testParseRoots(t) {
 		assertEquals(result, ["", "src"]) // Empty string is preserved
 	})
 
-	await t.step("handles directories with special characters", function testSpecialChars() {
-		const result = parseRoots([
-			"--dir=my-dir",
-			"test_folder",
-			"--dir=./path/to/dir",
-			"@scope/package"
-		])
+	await t.step(
+		"handles directories with special characters",
+		function testSpecialChars() {
+			const result = parseRoots([
+				"--dir=my-dir",
+				"test_folder",
+				"--dir=./path/to/dir",
+				"@scope/package",
+			])
 
-		assertEquals(result, ["my-dir", "test_folder", "./path/to/dir", "@scope/package"])
-	})
+			assertEquals(result, [
+				"my-dir",
+				"test_folder",
+				"./path/to/dir",
+				"@scope/package",
+			])
+		},
+	)
 
 	await t.step("preserves order of directories", function testPreservesOrder() {
 		const result = parseRoots(["zebra", "alpha", "beta"])
@@ -76,24 +110,30 @@ Deno.test("parseRoots", async function testParseRoots(t) {
 		assertEquals(result, ["src"])
 	})
 
-	await t.step("handles --dir flag with equals and value", function testDirWithEquals() {
-		const result = parseRoots(["--dir=applications/mission-control"])
+	await t.step(
+		"handles --dir flag with equals and value",
+		function testDirWithEquals() {
+			const result = parseRoots(["--dir=applications/mission-control"])
 
-		assertEquals(result, ["applications/mission-control"])
-	})
+			assertEquals(result, ["applications/mission-control"])
+		},
+	)
 
-	await t.step("filters out flags starting with dash", function testFiltersDashFlags() {
-		const result = parseRoots([
-			"-v",
-			"src",
-			"-rf",
-			"--recursive",
-			"lib",
-			"-abc"
-		])
+	await t.step(
+		"filters out flags starting with dash",
+		function testFiltersDashFlags() {
+			const result = parseRoots([
+				"-v",
+				"src",
+				"-rf",
+				"--recursive",
+				"lib",
+				"-abc",
+			])
 
-		assertEquals(result, ["src", "lib"])
-	})
+			assertEquals(result, ["src", "lib"])
+		},
+	)
 })
 
-//?? [EXAMPLE] Run with: deno test scripts/sortImports/linguistoots/index.test.ts
+//?? [EXAMPLE] Run with: deno test scripts/sortImports/parseRoots/index.test.ts

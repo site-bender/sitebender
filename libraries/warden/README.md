@@ -13,16 +13,19 @@ In an era where AI assistants can inadvertently break architectural patterns and
 Warden introduces three revolutionary concepts:
 
 ### 1. Cryptographic Contract System
+
 - **SHA-256 hash-locked contracts** ensure every change is cryptographically verified
 - **Auditable evolution** - every architectural decision is recorded and verifiable
 - **Zero trust architecture** - no assumptions, only cryptographic proof
 
 ### 2. Underscore Privacy System
+
 - **Clean folder-based privacy** without breaking modularity
 - **Visual privacy indicators** - underscore folders clearly mark private functions
 - **Import validation** - prevents accidental access to private APIs
 
 ### 3. Graduated Enforcement
+
 - **Pending** → **Warn** → **Block** progression allows smooth adoption
 - **Team-ready rollout** - adopt incrementally without disrupting workflow
 - **Context-aware enforcement** - different rules for different development phases
@@ -30,18 +33,21 @@ Warden introduces three revolutionary concepts:
 ## Key Features
 
 ### Architectural Governance
+
 - **Zero architectural drift** - cryptographic contracts prevent unintended changes
 - **Instant onboarding** - new developers immediately understand and respect boundaries
 - **AI-safe development** - AI assistants cannot accidentally break architectural patterns
 - **Reduced code review burden** - automated validation catches issues before review
 
 ### Privacy Enforcement
+
 - **Underscore folder system** - visual privacy without encapsulation complexity
 - **Import validation** - prevents access to private functions across boundaries
 - **Nested privacy** - supports complex privacy hierarchies
 - **Clear violation reporting** - actionable feedback for developers
 
 ### Performance & Developer Experience
+
 - **Sub-5-second validation** - maintains development velocity
 - **Zero false positives** - 100% accuracy in violation detection
 - **Clear error messages** - actionable feedback for developers
@@ -50,6 +56,7 @@ Warden introduces three revolutionary concepts:
 ## Architecture
 
 ### Core Structure
+
 ```
 libraries/warden/
 ├── src/
@@ -84,6 +91,7 @@ libraries/warden/
 **Perfect Match**: Structure now exactly matches the warden-library-plan.md specification with all private helpers nested correctly.
 
 ### Privacy Convention
+
 - **Public Functions**: `src/functionName/index.ts`
 - **Private Helpers**: `src/functionName/_helperName/index.ts`
 - **Shared Private**: `src/_sharedHelper/index.ts` (only when src is lowest common ancestor)
@@ -92,6 +100,7 @@ libraries/warden/
 ## API Overview
 
 ### Direct Tree Imports (No Barrel Files)
+
 ```typescript
 // Import directly from the tree - no barrel files, no re-exports
 import enforce from "@sitebender/warden/enforce/index.ts"
@@ -100,19 +109,24 @@ import validatePrivacy from "@sitebender/warden/privacy/importValidation/index.t
 import validateContract from "@sitebender/warden/contracts/schemaValidator/index.ts"
 
 // Import types directly from where they're defined
-import type { WardenConfig, EnforcementPhase, EnforcementResult } from "@sitebender/warden/types/index.ts"
+import type {
+	EnforcementPhase,
+	EnforcementResult,
+	WardenConfig,
+} from "@sitebender/warden/types/index.ts"
 ```
 
 ### Usage
+
 ```typescript
 // All functions are curried - call in stages
 const config: WardenConfig = {
-  targets: ["libraries/"],
-  phase: "warn",
-  privacyRules: [],
-  contractPaths: [],
-  performance: { maxExecutionTime: 5000 },
-  reporting: { format: "console" }
+	targets: ["libraries/"],
+	phase: "warn",
+	privacyRules: [],
+	contractPaths: [],
+	performance: { maxExecutionTime: 5000 },
+	reporting: { format: "console" },
 }
 
 // Enforce architectural governance
@@ -135,16 +149,19 @@ const result = await validateWithContract(implementationPath)()
 ## Use Cases
 
 ### Enterprise Development
+
 - **Architectural governance at scale** - maintain consistency across large teams
 - **Compliance & security** - audit trails for regulated industries
 - **Knowledge transfer** - machine-verifiable architectural constraints
 
 ### AI-First Development
+
 - **AI assistant safety** - prevent AI-induced architectural drift
 - **Deterministic evolution** - ensure predictable code evolution
 - **Quality assurance** - automated validation of architectural decisions
 
 ### Open Source Projects
+
 - **Maintainer burden reduction** - automated architectural enforcement
 - **Contributor guidance** - clear rules for new contributors
 - **Project integrity** - prevent accidental architectural violations
@@ -187,6 +204,7 @@ deno task enforce
 ## Status
 
 **Phase 1.1 Complete** - Perfect structure and functional implementations completed:
+
 - ✅ Hash functions (canonicalStringify, sha256, hashArtifact) - **Fully implemented and curried**
 - ✅ Privacy validation functions (underscore rules, import validation) - **Fully implemented and curried**
 - ✅ Contract validation functions (schema validation) - **Fully implemented and curried**
@@ -201,6 +219,7 @@ deno task enforce
 - ✅ **Tests passing** - All core functions tested and working
 
 **Key Features Implemented:**
+
 - 🔄 enforce() - Main enforcement orchestrator with actual validation logic
 - 🔄 validatePrivacy() - Privacy validation with underscore folder detection
 - 🔄 validateContract() - Contract validation with JSON schema checking

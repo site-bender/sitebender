@@ -27,33 +27,33 @@ export default function createOpSyncProtocol<T extends CRDT<unknown>>(
 		})
 	}
 
-		function receiveLoop(): void {
-			if (!(isReceiving && transport.isConnected())) return
-			transport
-				.receive()
-				.then((message) => {
-					const msg = message as { type: string; operations?: Array<Operation> }
-					if (msg.type === "OPERATIONS" && msg.operations) {
-						for (const op of msg.operations) {
-							currentCRDT = applyOperation(currentCRDT, op)
-						}
+	function receiveLoop(): void {
+		if (!(isReceiving && transport.isConnected())) return
+		transport
+			.receive()
+			.then((message) => {
+				const msg = message as { type: string; operations?: Array<Operation> }
+				if (msg.type === "OPERATIONS" && msg.operations) {
+					for (const op of msg.operations) {
+						currentCRDT = applyOperation(currentCRDT, op)
 					}
-				})
-				.catch((error) => {
-					console.error("Error receiving operations:", error)
-					// schedule a backoff retry and exit this tick
-					setTimeout(() => {
-						if (isReceiving) receiveLoop()
-					}, 1000)
-					return
-				})
-				.finally(() => {
-					if (isReceiving) {
-						// schedule next tick
-						queueMicrotask(() => receiveLoop())
-					}
-				})
-		}
+				}
+			})
+			.catch((error) => {
+				console.error("Error receiving operations:", error)
+				// schedule a backoff retry and exit this tick
+				setTimeout(() => {
+					if (isReceiving) receiveLoop()
+				}, 1000)
+				return
+			})
+			.finally(() => {
+				if (isReceiving) {
+					// schedule next tick
+					queueMicrotask(() => receiveLoop())
+				}
+			})
+	}
 
 	function applyOperation(crdt: T, _op: Operation): T {
 		// This is a placeholder - in production, we'd need to
@@ -85,10 +85,10 @@ export default function createOpSyncProtocol<T extends CRDT<unknown>>(
 		},
 
 		receive(): Promise<T> {
-					if (!isReceiving) {
-						isReceiving = true
-						receiveLoop()
-					}
+			if (!isReceiving) {
+				isReceiving = true
+				receiveLoop()
+			}
 
 			return Promise.resolve(currentCRDT)
 		},

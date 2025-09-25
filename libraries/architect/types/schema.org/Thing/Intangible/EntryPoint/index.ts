@@ -4,8 +4,8 @@ import type Thing from "../../index.ts"
 import type DigitalPlatformEnumeration from "../Enumeration/DigitalPlatformEnumeration/index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import SoftwareApplicationComponent from "../../../../../../codewright/src/define/Thing/CreativeWork/SoftwareApplication/index.tsx"
-import DigitalPlatformEnumerationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/DigitalPlatformEnumeration/index.tsx"
+import SoftwareApplicationComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/SoftwareApplication/index.tsx"
+import DigitalPlatformEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/DigitalPlatformEnumeration/index.tsx"
 
 export type EntryPointType = "EntryPoint"
 

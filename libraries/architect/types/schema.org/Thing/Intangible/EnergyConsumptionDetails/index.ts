@@ -3,8 +3,8 @@ import type EUEnergyEfficiencyEnumeration from "../Enumeration/EnergyEfficiencyE
 import type EnergyEfficiencyEnumeration from "../Enumeration/EnergyEfficiencyEnumeration/index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import EUEnergyEfficiencyEnumerationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/EUEnergyEfficiencyEnumeration/index.tsx"
-import EnergyEfficiencyEnumerationComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/index.tsx"
+import EUEnergyEfficiencyEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/EUEnergyEfficiencyEnumeration/index.tsx"
+import EnergyEfficiencyEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/EnergyEfficiencyEnumeration/index.tsx"
 
 export type EnergyConsumptionDetailsType = "EnergyConsumptionDetails"
 

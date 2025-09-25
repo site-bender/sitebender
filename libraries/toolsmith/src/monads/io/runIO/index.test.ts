@@ -47,7 +47,7 @@ Deno.test("runIO", async (t) => {
 		assertThrows(
 			() => runIO(errorIO),
 			Error,
-			"Something went wrong"
+			"Something went wrong",
 		)
 	})
 

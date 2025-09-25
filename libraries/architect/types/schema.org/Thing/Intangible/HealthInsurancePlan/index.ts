@@ -5,9 +5,9 @@ import type HealthPlanNetwork from "../HealthPlanNetwork/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 
-import HealthPlanFormularyComponent from "../../../../../../codewright/src/define/Thing/Intangible/HealthPlanFormulary/index.tsx"
-import HealthPlanNetworkComponent from "../../../../../../codewright/src/define/Thing/Intangible/HealthPlanNetwork/index.tsx"
-import ContactPointComponent from "../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import HealthPlanFormularyComponent from "../../../../../../pagewright/src/define/Thing/Intangible/HealthPlanFormulary/index.tsx"
+import HealthPlanNetworkComponent from "../../../../../../pagewright/src/define/Thing/Intangible/HealthPlanNetwork/index.tsx"
+import ContactPointComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
 
 export type HealthInsurancePlanType = "HealthInsurancePlan"
 

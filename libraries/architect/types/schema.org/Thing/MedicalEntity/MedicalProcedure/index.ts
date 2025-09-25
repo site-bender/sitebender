@@ -11,10 +11,10 @@ import type { PhysicalExamType } from "./PhysicalExam/index.ts"
 import type { SurgicalProcedureType } from "./SurgicalProcedure/index.ts"
 import type { TherapeuticProcedureType } from "./TherapeuticProcedure/index.ts"
 
-import MedicalProcedureTypeComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalProcedureType/index.tsx"
-import MedicalStudyStatusComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.tsx"
-import EventStatusTypeComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.tsx"
-import MedicalEntityComponent from "../../../../../../codewright/src/define/Thing/MedicalEntity/index.tsx"
+import MedicalProcedureTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalProcedureType/index.tsx"
+import MedicalStudyStatusComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalStudyStatus/index.tsx"
+import EventStatusTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/StatusEnumeration/EventStatusType/index.tsx"
+import MedicalEntityComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/index.tsx"
 
 export type MedicalProcedureType =
 	| "MedicalProcedure"

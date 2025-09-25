@@ -1,13 +1,12 @@
 import { assertEquals } from "@std/assert"
 
-import map from "./index.ts"
-
 import type { Validation } from "../../../types/Validation/index.ts"
 
-import ok from "../../../monads/result/ok/index.ts"
 import err from "../../../monads/result/err/index.ts"
-import valid from "../../../monads/validation/valid/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
 import invalid from "../../../monads/validation/invalid/index.ts"
+import valid from "../../../monads/validation/valid/index.ts"
+import map from "./index.ts"
 
 //++ Tests for lifted map function supporting both Result and Validation monads
 

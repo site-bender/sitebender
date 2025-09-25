@@ -16,7 +16,11 @@ export default function canonicalStringify(value: unknown): string {
 
 	if (isPlainObject(value)) {
 		const keys = Object.keys(value).sort()
-		const entries = keys.map((k) => `${JSON.stringify(k)}:${canonicalStringify((value as Record<string, unknown>)[k])}`)
+		const entries = keys.map((k) =>
+			`${JSON.stringify(k)}:${
+				canonicalStringify((value as Record<string, unknown>)[k])
+			}`
+		)
 		return `{${entries.join(",")}}`
 	}
 

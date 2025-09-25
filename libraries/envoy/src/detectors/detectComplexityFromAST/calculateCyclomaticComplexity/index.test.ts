@@ -12,7 +12,7 @@ type FunctionMetadata = {
 }
 
 describe("calculateCyclomaticComplexity", () => {
-	describe("using pre-calculated Linguist metadata", () => {
+	describe("using pre-calculated Arborist metadata", () => {
 		it("should return the pre-calculated complexity from metadata", () => {
 			const metadata: FunctionMetadata = {
 				hasThrowStatements: false,

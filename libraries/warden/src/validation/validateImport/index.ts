@@ -1,9 +1,10 @@
 //++ Validates that an import is allowed according to the boundaries contract
 
 import type { ValidationResult } from "../../types/enforcement.ts"
-import map from "../../../../toolsmith/src/vanilla/array/map/index.ts"
+
 import filter from "../../../../toolsmith/src/vanilla/array/filter/index.ts"
 import flatMap from "../../../../toolsmith/src/vanilla/array/flatMap/index.ts"
+import map from "../../../../toolsmith/src/vanilla/array/map/index.ts"
 import loadBoundaries from "./loadBoundaries/index.ts"
 
 export default function validateImport(
@@ -53,12 +54,12 @@ export default function validateImport(
 		const tsErrors = flatMap<string | RegExp, string>((pattern) => {
 			if (typeof pattern === "string" && importPath.includes(pattern)) {
 				return [
-					`Envoy CANNOT import TypeScript compiler directly! Use Linguist instead. Violation: ${importPath}`,
+					`Envoy CANNOT import TypeScript compiler directly! Use Arborist instead. Violation: ${importPath}`,
 				]
 			}
 			if (pattern instanceof RegExp && pattern.test(importPath)) {
 				return [
-					`Envoy CANNOT access source files directly! Use Linguist instead. Violation: ${importPath}`,
+					`Envoy CANNOT access source files directly! Use Arborist instead. Violation: ${importPath}`,
 				]
 			}
 			return []

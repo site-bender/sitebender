@@ -1,6 +1,6 @@
+import exponential from "../../math/exponential/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
-import exponential from "../../math/exponential/index.ts"
 
 /**
  * Calculates the sigmoid (logistic) activation function

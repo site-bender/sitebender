@@ -1,6 +1,7 @@
+import type { BoundariesConfig } from "../types/index.ts"
+
 import hashHex from "../../../../libraries/toolsmith/src/crypto/hashHex/index.ts"
 import serializeContractGraph from "../serializeContractGraph/index.ts"
-import type { BoundariesConfig } from "../types/index.ts"
 
 //++ Generates contract graph JSON and hash files from boundaries.json
 

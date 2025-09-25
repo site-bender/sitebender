@@ -1,4 +1,4 @@
-// Adapter: classify RawComment[] (from Linguist) into marker semantics for Envoy.
+// Adapter: classify RawComment[] (from Arborist) into marker semantics for Envoy.
 // Non-destructive; produces structured diagnostics + grouped content.
 
 export type RawComment = {

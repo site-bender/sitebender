@@ -6,7 +6,7 @@ export const ARCHITECT_TYPES = "libraries/architect/types/"
 export const TOOLSMITH_SRC = "libraries/toolsmith/src/"
 
 export const DEFAULT_ALIAS_SCOPES = [
-	"libraries/codewright/src",
+	"libraries/pagewright/src",
 	"applications/mission-control/src",
 	"scripts",
 ]
@@ -58,7 +58,12 @@ export const NO_REACT_ALLOWLIST = new Set<string>([
 ])
 
 // Formatting scan defaults
-export const FORMAT_ROOTS = ["mission-control", "the-workshop", "libraries", "scripts"]
+export const FORMAT_ROOTS = [
+	"mission-control",
+	"the-workshop",
+	"libraries",
+	"scripts",
+]
 export const FORMAT_EXCLUDES = [
 	"/dist/",
 	"/temp/",

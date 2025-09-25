@@ -44,7 +44,7 @@ Deno.test("isRight", async function isRightTests(t) {
 			right(1),
 			left("error2"),
 			right(2),
-			right(3)
+			right(3),
 		]
 
 		const rights = values.filter(isRight)
@@ -73,7 +73,7 @@ Deno.test("isRight", async function isRightTests(t) {
 			left("a"),
 			right(1),
 			left("b"),
-			right(2)
+			right(2),
 		]
 
 		for (const value of values) {

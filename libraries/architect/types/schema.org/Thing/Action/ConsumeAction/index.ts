@@ -12,8 +12,8 @@ import type { UseActionType } from "./UseAction/index.ts"
 import type { ViewActionType } from "./ViewAction/index.ts"
 import type { WatchActionType } from "./WatchAction/index.ts"
 
-import ActionAccessSpecificationComponent from "../../../../../../codewright/src/define/Thing/Intangible/ActionAccessSpecification/index.tsx"
-import OfferComponent from "../../../../../../codewright/src/define/Thing/Intangible/Offer/index.tsx"
+import ActionAccessSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ActionAccessSpecification/index.tsx"
+import OfferComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Offer/index.tsx"
 
 export type ConsumeActionType =
 	| "ConsumeAction"

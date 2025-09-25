@@ -1,4 +1,5 @@
 import { assertEquals } from "@std/assert"
+
 import createPropertyFreezer from "./index.ts"
 
 Deno.test("createPropertyFreezer", async (t) => {
@@ -78,7 +79,11 @@ Deno.test("createPropertyFreezer", async (t) => {
 	})
 
 	await t.step("freezes functions", () => {
-		const obj = { func: function test() { return "test" } }
+		const obj = {
+			func: function test() {
+				return "test"
+			},
+		}
 		let freezeCalled = false
 		const mockDeepFreeze = <T>(o: T): T => {
 			freezeCalled = true

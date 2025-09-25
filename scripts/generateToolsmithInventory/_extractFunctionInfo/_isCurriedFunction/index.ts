@@ -1,11 +1,11 @@
-import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
 import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
+import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
 import escapeRegExp from "@sitebender/toolsmith/vanilla/string/escapeRegExp/index.ts"
+import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
 
-import _stripComments from "./_stripComments/index.ts"
-import _countParameters from "./_countParameters/index.ts"
 import _extractFunctionName from "../_extractFunctionName/index.ts"
+import _countParameters from "./_countParameters/index.ts"
+import _stripComments from "./_stripComments/index.ts"
 
 /**
  * Check if a function has exactly one parameter (is curried).

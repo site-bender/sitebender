@@ -22,8 +22,8 @@ Deno.test("map", async (t) => {
 		const initialIO = of(5)
 		const result = map((x: number) => x.toString())(
 			map((x: number) => x + 10)(
-				map((x: number) => x * 2)(initialIO)
-			)
+				map((x: number) => x * 2)(initialIO),
+			),
 		)
 		assertEquals(runIO(result), "20")
 	})
@@ -54,7 +54,8 @@ Deno.test("map", async (t) => {
 	await t.step("satisfies functor composition law", () => {
 		const f = (x: number) => x * 2
 		const g = (x: number) => x + 10
-		const compose = <A, B, C>(f: (b: B) => C) => (g: (a: A) => B) => (a: A) => f(g(a))
+		const compose = <A, B, C>(f: (b: B) => C) => (g: (a: A) => B) => (a: A) =>
+			f(g(a))
 
 		const sourceIO = of(5)
 		const left = map(compose(g)(f))(sourceIO)
@@ -75,7 +76,9 @@ Deno.test("map", async (t) => {
 
 	await t.step("can transform to objects", () => {
 		const numberIO = of(42)
-		const objectIO = map((x: number) => ({ value: x, doubled: x * 2 }))(numberIO)
+		const objectIO = map((x: number) => ({ value: x, doubled: x * 2 }))(
+			numberIO,
+		)
 		assertEquals(runIO(objectIO), { value: 42, doubled: 84 })
 	})
 

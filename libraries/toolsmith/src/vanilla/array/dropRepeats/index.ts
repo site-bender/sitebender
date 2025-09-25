@@ -1,6 +1,6 @@
 import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
 import is from "../../validation/is/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 export default function dropRepeats<T>(
 	array: ReadonlyArray<T> | null | undefined,

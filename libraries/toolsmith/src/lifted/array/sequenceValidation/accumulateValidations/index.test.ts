@@ -1,8 +1,7 @@
 import { assertEquals } from "@std/assert"
 
-import valid from "../../../../monads/validation/valid/index.ts"
 import invalid from "../../../../monads/validation/invalid/index.ts"
-
+import valid from "../../../../monads/validation/valid/index.ts"
 import accumulateValidations from "./index.ts"
 
 Deno.test("accumulateValidations should accumulate values when validation is Valid", () => {

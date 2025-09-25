@@ -1,8 +1,8 @@
-import type { IRNode, ComponentModule, SerializedExpr } from "../types/index.ts"
-
+import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
 import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
+
+import type { ComponentModule, IRNode, SerializedExpr } from "../types/index.ts"
 
 import evalExpressionAst from "../evalExpressionAst/index.ts"
 
@@ -20,19 +20,22 @@ export default async function renderIrToHtml(
 	const isFragment = nodeType === "fragment"
 	const isComponent = nodeType === "component"
 
-	const textResult = isText
-		? (node as { value: string }).value
-		: null
+	const textResult = isText ? (node as { value: string }).value : null
 
 	const expressionResult = isExpression
-		? String(evalExpressionAst((node as { expr: SerializedExpr }).expr, context))
+		? String(
+			evalExpressionAst((node as { expr: SerializedExpr }).expr, context),
+		)
 		: null
 
 	const elementResult = isElement
 		? await (async () => {
 			const element = node as {
 				name: string
-				props: Record<string, string | { type: "expression"; expr: SerializedExpr }>
+				props: Record<
+					string,
+					string | { type: "expression"; expr: SerializedExpr }
+				>
 				children: Array<IRNode>
 			}
 
@@ -43,12 +46,14 @@ export default async function renderIrToHtml(
 					(v as { type?: string }).type === "expression"
 
 				return isExpressionProp
-					? `${k}="${String(
-						evalExpressionAst(
-							(v as { type: string; expr: SerializedExpr }).expr,
-							context,
-						),
-					)}"`
+					? `${k}="${
+						String(
+							evalExpressionAst(
+								(v as { type: string; expr: SerializedExpr }).expr,
+								context,
+							),
+						)
+					}"`
 					: `${k}="${String(v)}"`
 			})
 
@@ -59,7 +64,9 @@ export default async function renderIrToHtml(
 			const closeTag = `</${element.name}>`
 
 			const childrenHtml = await Promise.all(
-				map((c: IRNode) => renderIrToHtml(c, context, componentModule))(element.children)
+				map((c: IRNode) => renderIrToHtml(c, context, componentModule))(
+					element.children,
+				),
 			)
 
 			return openTag + join("")(childrenHtml) + closeTag
@@ -70,7 +77,9 @@ export default async function renderIrToHtml(
 		? await (async () => {
 			const fragment = node as { children: Array<IRNode> }
 			const childrenHtml = await Promise.all(
-				map((c: IRNode) => renderIrToHtml(c, context, componentModule))(fragment.children)
+				map((c: IRNode) => renderIrToHtml(c, context, componentModule))(
+					fragment.children,
+				),
 			)
 			return join("")(childrenHtml)
 		})()
@@ -80,7 +89,10 @@ export default async function renderIrToHtml(
 		? await (async () => {
 			const component = node as {
 				name: string
-				props: Record<string, string | { type: "expression"; expr: SerializedExpr }>
+				props: Record<
+					string,
+					string | { type: "expression"; expr: SerializedExpr }
+				>
 			}
 
 			const componentFn = componentModule[component.name]
@@ -103,7 +115,7 @@ export default async function renderIrToHtml(
 						: v
 
 					return { ...acc, [k]: evaluatedValue }
-				}
+				},
 			)({})(Object.entries(component.props))
 
 			const childIR = errorResult || await componentFn(evaluatedProps)
@@ -112,5 +124,6 @@ export default async function renderIrToHtml(
 		})()
 		: null
 
-	return textResult ?? expressionResult ?? elementResult ?? fragmentResult ?? componentResult ?? ""
+	return textResult ?? expressionResult ?? elementResult ?? fragmentResult ??
+		componentResult ?? ""
 }

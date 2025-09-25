@@ -1,7 +1,10 @@
 // deno-lint-ignore-file no-explicit-any
 import { resolve } from "https://deno.land/std@0.224.0/path/mod.ts"
 
-import { TYPE_IMPORT_DEFAULT_REGEX, TYPE_IMPORT_NAMED_REGEX } from "../../constants/index.ts"
+import {
+	TYPE_IMPORT_DEFAULT_REGEX,
+	TYPE_IMPORT_NAMED_REGEX,
+} from "../../constants/index.ts"
 
 //++ Builds a map of type imports from file content, curried for functional composition
 export default function buildTypeImportMap(content: string) {

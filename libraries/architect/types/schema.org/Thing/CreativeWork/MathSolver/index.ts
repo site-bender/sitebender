@@ -3,7 +3,7 @@ import type SolveMathAction from "../../Action/SolveMathAction/index.ts"
 import type Thing from "../../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import SolveMathActionComponent from "../../../../../../codewright/src/define/Thing/Action/SolveMathAction/index.tsx"
+import SolveMathActionComponent from "../../../../../../pagewright/src/define/Thing/Action/SolveMathAction/index.tsx"
 
 export type MathSolverType = "MathSolver"
 

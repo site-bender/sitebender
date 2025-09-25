@@ -17,36 +17,38 @@ Warden addresses these challenges through automated enforcement that integrates 
 ## How Warden Works
 
 ### Cryptographic Contract System
+
 Warden uses SHA-256 hash-locked contracts to ensure every change to your codebase is cryptographically verified and auditable:
 
 ```json
 {
-  "version": "1.0.0",
-  "library": "linguist",
-  "api": {
-    "exports": [
-      {
-        "name": "parseFile",
-        "signature": "(content: string, filepath: string) => ContractOutput<ParsedFile>",
-        "description": "Parse a single TypeScript/TSX file"
-      }
-    ]
-  },
-  "privacy": {
-    "publicFunctions": ["src/*/index.ts"],
-    "privateFunctions": ["src/*/_*/index.ts"],
-    "enforcement": "strict"
-  }
+	"version": "1.0.0",
+	"library": "arborist",
+	"api": {
+		"exports": [
+			{
+				"name": "parseFile",
+				"signature": "(content: string, filepath: string) => ContractOutput<ParsedFile>",
+				"description": "Parse a single TypeScript/TSX file"
+			}
+		]
+	},
+	"privacy": {
+		"publicFunctions": ["src/*/index.ts"],
+		"privateFunctions": ["src/*/_*/index.ts"],
+		"enforcement": "strict"
+	}
 }
 ```
 
 ### Underscore Privacy System
+
 Warden implements a folder-based privacy system that maintains clean modularity without breaking encapsulation:
 
 ```
-libraries/linguist/
+libraries/arborist/
 ├── contracts/
-│   └── linguist.json               # Cryptographic contract
+│   └── arborist.json               # Cryptographic contract
 ├── src/
     ├── parseFile/                # Public function
     │   ├── _parseContent/        # Private helper
@@ -59,12 +61,14 @@ libraries/linguist/
 ```
 
 **Privacy Rules:**
+
 - Public functions: `src/functionName/index.ts`
 - Private helpers: `src/functionName/_helperName/index.ts`
 - Shared utilities: `[folder]/_sharedHelper/index.ts` (where [folder] is the lowest common ancestor)
 - No generic "utils" or "helpers" folders - functions use descriptive names
 
 ### Graduated Enforcement
+
 Warden implements a three-phase enforcement system for smooth adoption:
 
 - **Pending**: Track violations without blocking
@@ -76,6 +80,7 @@ This approach ensures teams can adopt Warden incrementally without disrupting ex
 ## Key Benefits
 
 ### For Development Teams
+
 - **Architectural Consistency**: Cryptographic contracts prevent unintended architectural changes
 - **Clear Boundaries**: New developers immediately understand and respect architectural boundaries
 - **AI-Safe Development**: AI assistants cannot accidentally break architectural patterns
@@ -83,6 +88,7 @@ This approach ensures teams can adopt Warden incrementally without disrupting ex
 - **Auditable Evolution**: Every change is traceable and reversible
 
 ### For Product Teams
+
 - **Consistent Quality**: Architectural governance ensures predictable code quality
 - **Faster Development**: Reduced debugging and refactoring time from architectural violations
 - **Risk Mitigation**: Automated enforcement prevents costly architectural mistakes
@@ -90,6 +96,7 @@ This approach ensures teams can adopt Warden incrementally without disrupting ex
 - **Scalable Architecture**: Architecture remains clean as the codebase grows
 
 ### For Technical Leadership
+
 - **Enforced Best Practices**: Architectural decisions become automatically enforced
 - **Knowledge Preservation**: Architectural intent is captured in machine-verifiable contracts
 - **Team Autonomy**: Teams can work independently while maintaining architectural consistency
@@ -111,6 +118,7 @@ The system integrates with existing development workflows through Git hooks and 
 ## Implementation Examples
 
 ### Before Warden
+
 ```typescript
 // Accidental privacy violation - AI might create this
 import _internalParser from "../parser/internal/parserUtils/_internalParser/index.ts"
@@ -120,6 +128,7 @@ import _internalParser from "../parser/internal/parserUtils/_internalParser/inde
 ```
 
 ### With Warden
+
 ```typescript
 // Privacy violation caught immediately
 // Cryptographic contract prevents this import

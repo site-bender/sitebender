@@ -1,19 +1,17 @@
-#!/usr/bin/env -S deno run --allow-read --allow-write
+import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
+import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
+import keys from "@sitebender/toolsmith/vanilla/object/keys/index.ts"
+import values from "@sitebender/toolsmith/vanilla/object/values/index.ts"
+import { stringify } from "jsr:@std/yaml@1.0.0"
 
 import type { ToolsmithInventory } from "./types/index.ts"
 
-import { stringify } from "jsr:@std/yaml@1.0.0"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import keys from "@sitebender/toolsmith/vanilla/object/keys/index.ts"
-import values from "@sitebender/toolsmith/vanilla/object/values/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-
-import { OUTPUT_PATH, TOOLSMITH_ROOT } from "./constants/index.ts"
 import _findIndexFiles from "./_findIndexFiles/index.ts"
 import _processFiles from "./_processFiles/index.ts"
 import _sumCategoryCounts from "./_sumCategoryCounts/index.ts"
+import { OUTPUT_PATH, TOOLSMITH_ROOT } from "./constants/index.ts"
 
 /*++
  | Scans libraries/toolsmith/src/vanilla/ and generates a comprehensive inventory

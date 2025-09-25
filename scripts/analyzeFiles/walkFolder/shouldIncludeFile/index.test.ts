@@ -17,34 +17,49 @@ Deno.test("shouldIncludeFile", async function testShouldIncludeFile(t) {
 	})
 
 	await t.step("matches TSX files", function testMatchesTsx() {
-		assertEquals(checkTsFiles("codewright/Button.tsx"), true)
+		assertEquals(checkTsFiles("pagewright/Button.tsx"), true)
 		assertEquals(checkTsFiles("App.tsx"), true)
 	})
 
-	await t.step("rejects non-matching extensions", function testRejectsNonMatching() {
-		assertEquals(checkTsFiles("script.js"), false)
-		assertEquals(checkTsFiles("style.css"), false)
-		assertEquals(checkTsFiles("README.md"), false)
-		assertEquals(checkTsFiles("Makefile"), false)
-	})
+	await t.step(
+		"rejects non-matching extensions",
+		function testRejectsNonMatching() {
+			assertEquals(checkTsFiles("script.js"), false)
+			assertEquals(checkTsFiles("style.css"), false)
+			assertEquals(checkTsFiles("README.md"), false)
+			assertEquals(checkTsFiles("Makefile"), false)
+		},
+	)
 
-	await t.step("handles empty extensions array", function testEmptyExtensions() {
-		const checkFile = shouldIncludeFile([])
+	await t.step(
+		"handles empty extensions array",
+		function testEmptyExtensions() {
+			const checkFile = shouldIncludeFile([])
 
-		assertEquals(checkFile("anything.ts"), false)
-		assertEquals(checkFile("file.js"), false)
-	})
+			assertEquals(checkFile("anything.ts"), false)
+			assertEquals(checkFile("file.js"), false)
+		},
+	)
 
-	await t.step("handles multiple extensions", function testMultipleExtensions() {
-		const checkFile = shouldIncludeFile([".js", ".jsx", ".ts", ".tsx", ".mjs"])
+	await t.step(
+		"handles multiple extensions",
+		function testMultipleExtensions() {
+			const checkFile = shouldIncludeFile([
+				".js",
+				".jsx",
+				".ts",
+				".tsx",
+				".mjs",
+			])
 
-		assertEquals(checkFile("script.js"), true)
-		assertEquals(checkFile("component.jsx"), true)
-		assertEquals(checkFile("index.ts"), true)
-		assertEquals(checkFile("App.tsx"), true)
-		assertEquals(checkFile("module.mjs"), true)
-		assertEquals(checkFile("style.css"), false)
-	})
+			assertEquals(checkFile("script.js"), true)
+			assertEquals(checkFile("component.jsx"), true)
+			assertEquals(checkFile("index.ts"), true)
+			assertEquals(checkFile("App.tsx"), true)
+			assertEquals(checkFile("module.mjs"), true)
+			assertEquals(checkFile("style.css"), false)
+		},
+	)
 
 	await t.step("is case sensitive", function testCaseSensitive() {
 		const checkFile = shouldIncludeFile([".ts"])

@@ -1,13 +1,13 @@
-import isNull from "../../../validation/isNull/index.ts"
-import isUndefined from "../../../validation/isUndefined/index.ts"
-import trim from "../../../string/trim/index.ts"
-import isBoolean from "../../../validation/isBoolean/index.ts"
-import isNumber from "../../../validation/isNumber/index.ts"
-import isString from "../../../validation/isString/index.ts"
-import isFinite from "../../../validation/isFinite/index.ts"
 import not from "../../../logic/not/index.ts"
 import truncate from "../../../math/truncate/index.ts"
 import isEmpty from "../../../string/isEmpty/index.ts"
+import trim from "../../../string/trim/index.ts"
+import isBoolean from "../../../validation/isBoolean/index.ts"
+import isFinite from "../../../validation/isFinite/index.ts"
+import isNull from "../../../validation/isNull/index.ts"
+import isNumber from "../../../validation/isNumber/index.ts"
+import isString from "../../../validation/isString/index.ts"
+import isUndefined from "../../../validation/isUndefined/index.ts"
 
 /**
  * Strictly parses values as integers

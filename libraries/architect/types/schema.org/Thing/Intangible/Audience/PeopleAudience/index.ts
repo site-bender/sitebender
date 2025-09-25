@@ -8,9 +8,9 @@ import type { AudienceProps } from "../index.ts"
 import type { MedicalAudienceType } from "./MedicalAudience/index.ts"
 import type { ParentAudienceType } from "./ParentAudience/index.ts"
 
-import GenderTypeComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/GenderType/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import MedicalConditionComponent from "../../../../../../../codewright/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
+import GenderTypeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/GenderType/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import MedicalConditionComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
 
 export type PeopleAudienceType =
 	| "PeopleAudience"

@@ -275,7 +275,7 @@ export default function generateInteger(min: number) {
 
 ### TESTING REQUIREMENTS - TDD POLICY (UPDATED BY THE ARCHITECT)
 
-**NEW DIRECTIVE:** Since we're waiting on Logician for auto-generated tests, we're doing TDD manually.
+**NEW DIRECTIVE:** Since we're waiting on Auditor for auto-generated tests, we're doing TDD manually.
 
 #### TDD Process for EVERY Function
 
@@ -423,16 +423,16 @@ When resuming work:
 
 #### Integration Points
 
-- **Linguist** - Will extract TypeScript types for generator creation
-- **Logician** - Will use generators for automatic test creation
+- **Arborist** - Will extract TypeScript types for generator creation
+- **Auditor** - Will use generators for automatic test creation
 - **Envoy** - Will use generators for documentation examples
 - **Toolsmith** - We MUST use toolsmith functions, never native JS methods
 
 #### Communication Protocol
 
 - **Tell other teams** when adding new generator types
-- **Check linguist** for type extraction capabilities
-- **Coordinate with logician** on generator interfaces
+- **Check arborist** for type extraction capabilities
+- **Coordinate with auditor** on generator interfaces
 - **Use toolsmith monads** - Result for short-circuit, Validation for accumulation
 
 #### TOOLSMITH INTEGRATION - CRITICAL

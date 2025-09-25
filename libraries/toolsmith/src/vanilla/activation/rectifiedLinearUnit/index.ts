@@ -1,6 +1,6 @@
+import max from "../../math/max/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
-import max from "../../math/max/index.ts"
 
 /**
  * Calculates the Rectified Linear Unit (ReLU) activation function

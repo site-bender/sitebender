@@ -1,7 +1,7 @@
+import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 import { assert, assertEquals } from "@std/assert"
 
 import { runAll } from "./index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 
 //++ Tests for runAll
 

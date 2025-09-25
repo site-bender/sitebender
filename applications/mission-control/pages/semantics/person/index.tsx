@@ -1,4 +1,4 @@
-import Person from "../../../../../libraries/codewright/src/define/Thing/Person/index.tsx"
+import Person from "../../../../../libraries/pagewright/src/define/Thing/Person/index.tsx"
 
 export default function PersonPage() {
 	return (

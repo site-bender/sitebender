@@ -8,7 +8,9 @@ import isDirectory from "./isDirectory/index.ts"
 import isTypeScriptFile from "./isTypeScriptFile/index.ts"
 
 //++ Recursively collects all TypeScript files from a directory
-export default async function collectTsFiles(root: string): Promise<Array<string>> {
+export default async function collectTsFiles(
+	root: string,
+): Promise<Array<string>> {
 	try {
 		const entries = Array.from(Deno.readDirSync(root))
 

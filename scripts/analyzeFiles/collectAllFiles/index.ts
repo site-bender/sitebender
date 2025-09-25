@@ -1,7 +1,7 @@
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
 
-import walkFolder from "../walkFolder/index.ts"
 import { EXTENSIONS } from "../constants/index.ts"
+import walkFolder from "../walkFolder/index.ts"
 
 //++ Collects all files from scan directories
 export default async function collectAllFiles(options: {
@@ -13,17 +13,19 @@ export default async function collectAllFiles(options: {
 
 	async function collectFromDir(
 		acc: Array<string>,
-		dir: string
+		dir: string,
 	): Promise<Array<string>> {
 		const files: Array<string> = []
 
 		// Async generators require iteration at I/O boundary
-		for await (const file of walkFolder({
-			root,
-			dir,
-			extensions: EXTENSIONS,
-			excludedDirNames,
-		})) {
+		for await (
+			const file of walkFolder({
+				root,
+				dir,
+				extensions: EXTENSIONS,
+				excludedDirNames,
+			})
+		) {
 			files.push(file)
 		}
 
@@ -35,6 +37,6 @@ export default async function collectAllFiles(options: {
 		async (accPromise: Promise<Array<string>>, dir: string) => {
 			const acc = await accPromise
 			return collectFromDir(acc, dir)
-		}
+		},
 	)(Promise.resolve([]))(scanDirs)
 }

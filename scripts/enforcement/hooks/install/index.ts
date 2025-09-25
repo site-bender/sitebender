@@ -30,14 +30,22 @@ export default async function installHooks() {
 
 	await ensureDir(hooksDir)
 	// Ensure tracked hooks are executable
-	try { await Deno.chmod(preCommit, 0o755) } catch (_e) { /* optional */ }
-	try { await Deno.chmod(`${hooksDir}/commit-msg`, 0o755) } catch (_e) { /* optional */ }
+	try {
+		await Deno.chmod(preCommit, 0o755)
+	} catch (_e) { /* optional */ }
+	try {
+		await Deno.chmod(`${hooksDir}/commit-msg`, 0o755)
+	} catch (_e) { /* optional */ }
 
 	// Point Git to use the tracked hooks directory
-	const gitCmd = new Deno.Command("git", { args: ["config", "core.hooksPath", ".githooks"] })
+	const gitCmd = new Deno.Command("git", {
+		args: ["config", "core.hooksPath", ".githooks"],
+	})
 	await gitCmd.output()
 
-	console.log("[hooks] Configured core.hooksPath to .githooks and ensured executables")
+	console.log(
+		"[hooks] Configured core.hooksPath to .githooks and ensured executables",
+	)
 }
 
 if (import.meta.main) {

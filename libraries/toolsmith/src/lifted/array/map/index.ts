@@ -1,11 +1,11 @@
 import type { Result } from "../../../types/fp/result/index.ts"
 import type { Validation } from "../../../types/Validation/index.ts"
 
-import mapVanilla from "../../../vanilla/array/map/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
 import length from "../../../vanilla/array/length/index.ts"
+import mapVanilla from "../../../vanilla/array/map/index.ts"
 import sequenceResult from "../sequenceResult/index.ts"
 import sequenceValidation from "../sequenceValidation/index.ts"
-import ok from "../../../monads/result/ok/index.ts"
 
 //++ Lifts a monadic function over an array; use Result to fail fast, Validation to accumulate errors
 function map<T, U, E>(fn: (value: T) => Result<U, E> | Validation<E, U>) {

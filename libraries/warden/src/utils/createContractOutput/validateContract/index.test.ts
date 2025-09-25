@@ -1,4 +1,5 @@
 import { assertEquals } from "@std/assert"
+
 import validateContract from "./index.ts"
 
 Deno.test("validateContract", async (t) => {

@@ -1,11 +1,11 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isEmpty from "../../string/isEmpty/index.ts"
 import trim from "../../string/trim/index.ts"
 import isBoolean from "../../validation/isBoolean/index.ts"
+import isNaN from "../../validation/isNaN/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
 import isString from "../../validation/isString/index.ts"
 import toFloat from "../castValue/toFloat/index.ts"
-import isEmpty from "../../string/isEmpty/index.ts"
-import isNaN from "../../validation/isNaN/index.ts"
 
 /**
  * Safely parses a value as a floating-point number, returns null on failure

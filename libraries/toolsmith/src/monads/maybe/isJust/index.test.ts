@@ -17,12 +17,15 @@ Deno.test("isJust", async function isJustTests(t) {
 		assertEquals(isJust(just("")), true)
 	})
 
-	await t.step("returns false for Nothing values", function returnsFalseForNothing() {
-		assertEquals(isJust(nothing()), false)
-		assertEquals(isJust(nothing<string>()), false)
-		assertEquals(isJust(nothing<number>()), false)
-		assertEquals(isJust(nothing<object>()), false)
-	})
+	await t.step(
+		"returns false for Nothing values",
+		function returnsFalseForNothing() {
+			assertEquals(isJust(nothing()), false)
+			assertEquals(isJust(nothing<string>()), false)
+			assertEquals(isJust(nothing<number>()), false)
+			assertEquals(isJust(nothing<object>()), false)
+		},
+	)
 
 	await t.step("works as type guard", function typeGuard() {
 		const justValue = just("test")
@@ -45,7 +48,7 @@ Deno.test("isJust", async function isJustTests(t) {
 			nothing(),
 			just(2),
 			nothing(),
-			just(3)
+			just(3),
 		]
 
 		const justs = values.filter(isJust)

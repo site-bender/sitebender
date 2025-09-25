@@ -1,15 +1,15 @@
 #!/usr/bin/env -S deno run -A
 /*++
  | Codemod: Replace imports from the architect components barrel within libraries/architect/types/**
- | with concrete default imports from libraries/codewright/src/define/**.
+ | with concrete default imports from libraries/pagewright/src/define/**.
  |
  | Strategy:
  | - For each architect types file, build a map of symbol -> type path from existing `import type` lines.
- | - For each line importing from any ../../…/codewright/index.tsx, for each specifier like
+ | - For each line importing from any ../../…/pagewright/index.tsx, for each specifier like
  |   `{ X as XComponent }`, find the type path for X, convert …/libraries/architect/types/schema.org/… to
- |   …/libraries/codewright/src/define/…, and switch to: `import XComponent from "<computed>/index.tsx"`.
+ |   …/libraries/pagewright/src/define/…, and switch to: `import XComponent from "<computed>/index.tsx"`.
  | - If we can't find a type import for a symbol, try to discover the src/define path via filesystem
- |   lookup under libraries/codewright/src/define. If still not found or ambiguous, leave the original line and report.
+ |   lookup under libraries/pagewright/src/define. If still not found or ambiguous, leave the original line and report.
  */
 
 import { TYPES_ROOT } from "./constants/index.ts"

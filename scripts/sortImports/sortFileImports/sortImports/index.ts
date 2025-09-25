@@ -1,8 +1,8 @@
-import type { ImportInfo } from "../../../types/index.ts"
-
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
 import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
 import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+
+import type { ImportInfo } from "../../../types/index.ts"
 
 //++ Sorts import statements by category, type, and source with proper grouping and spacing
 export default function sortImports(imports: ImportInfo[]): string {
@@ -62,7 +62,7 @@ export default function sortImports(imports: ImportInfo[]): string {
 				return [...acc, {
 					category: imp.category,
 					type: imp.type,
-					imports: [imp]
+					imports: [imp],
 				}]
 			}
 
@@ -71,21 +71,20 @@ export default function sortImports(imports: ImportInfo[]): string {
 				...acc.slice(0, -1),
 				{
 					...lastGroup,
-					imports: [...lastGroup.imports, imp]
-				}
+					imports: [...lastGroup.imports, imp],
+				},
 			]
 		},
-		[]
-	)(sortedImports)
+	)([])(sortedImports)
 
 	// Build output with proper spacing between groups using flatMap
 	const output = flatMap<ImportGroup, string>(
 		(group, index) => {
-			const groupTexts = map(group.imports, (imp: ImportInfo) => imp.text)
+			const groupTexts = map((imp: ImportInfo) => imp.text)(group.imports)
 			return index > 0
 				? ["", ...groupTexts] // Add blank line before group
 				: groupTexts
-		}
+		},
 	)(groups)
 
 	return output.join("\n")

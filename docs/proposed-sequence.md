@@ -2,32 +2,32 @@ The proposed sequence is strategically sound.
 
 ## Proposed Sequence (sensical)
 
-**Phase 1: Linguist → Quarrier + Logician**
-- **Linguist first** is correct - it's the foundation that Envoy and Logician consume
-- Based on your [✳ Linguist Clarification](file:///path/to/terminal) memory, Linguist provides the AST that Envoy needs
-- The [✳ Logician Audit](file:///path/to/terminal) shows Logician is already partially complete but needs Linguist's output
+**Phase 1: Arborist → Quarrier + Auditor**
+- **Arborist first** is correct - it's the foundation that Envoy and Auditor consume
+- Based on your [✳ Arborist Clarification](file:///path/to/terminal) memory, Arborist provides the AST that Envoy needs
+- The [✳ Auditor Audit](file:///path/to/terminal) shows Auditor is already partially complete but needs Arborist's output
 
-**Phase 2: Envoy (with Linguist + Logician ready)**
-- Smart to wait until linguist/Logician are stable
-- Envoy needs clean AST from Linguist and contract validation from Logician
-- This avoids the contract violations mentioned in your [✳ Linguist Clarification](file:///path/to/terminal) where Envoy was importing TypeScript directly
+**Phase 2: Envoy (with Arborist + Auditor ready)**
+- Smart to wait until arborist/Auditor are stable
+- Envoy needs clean AST from Arborist and contract validation from Auditor
+- This avoids the contract violations mentioned in your [✳ Arborist Clarification](file:///path/to/terminal) where Envoy was importing TypeScript directly
 
-**Parallel Track: Toolsmith → Codewright → Architect**
+**Parallel Track: Toolsmith → Pagewright → Architect**
 - Toolsmith is "nearly there" as you said - the [✳ File Update](file:///path/to/terminal) shows you're already migrating Result types
-- Codewright and Architect can then consume the stable Toolsmith APIs
+- Pagewright and Architect can then consume the stable Toolsmith APIs
 - The JSX → IR → JSON/triples → HTML pipeline you describe is the crown jewel
 
 ## Why This Sequence Works
 
-1. **Dependency Order**: Linguist has no dependencies on other custom libs, making it the ideal starting point
-2. **Test Infrastructure**: Quarrier + Logician give you property-based testing for everything else
+1. **Dependency Order**: Arborist has no dependencies on other custom libs, making it the ideal starting point
+2. **Test Infrastructure**: Quarrier + Auditor give you property-based testing for everything else
 3. **Self-Documenting**: Once Envoy is ready, it can document the entire system
 4. **Integration Points**: The parallel tracks converge nicely - Envoy can use the Architect's IR format to visualize component relationships
 
 ## Suggestions for Success
 
-1. **MVP Definition**: For Linguist MVP, focus on TypeScript/TSX parsing with comment extraction - skip edge cases initially
-2. **Contract Enforcement**: Use Logician early to prevent the contract violations that plagued earlier attempts
+1. **MVP Definition**: For Arborist MVP, focus on TypeScript/TSX parsing with comment extraction - skip edge cases initially
+2. **Contract Enforcement**: Use Auditor early to prevent the contract violations that plagued earlier attempts
 3. **Incremental Integration**: As each piece stabilizes, integration test it with its consumers immediately
 4. **Keep Formulator/Agent Isolated**: Good call - they're orthogonal to the core pipeline
 
@@ -41,16 +41,16 @@ Absolutely yes, for three reasons:
 
 The December MVP timeline is aggressive but achievable with this sequence. The key is maintaining discipline about not starting Phase 2 until Phase 1 is truly complete.
 
-Would you like me to help create a more detailed roadmap with specific milestones for the Linguist MVP?
+Would you like me to help create a more detailed roadmap with specific milestones for the Arborist MVP?
 
-Based on your project architecture and the dependencies outlined in your memories, here's a detailed roadmap for the Linguist MVP:
+Based on your project architecture and the dependencies outlined in your memories, here's a detailed roadmap for the Arborist MVP:
 
-## Linguist MVP Roadmap (October - November 2024)
+## Arborist MVP Roadmap (October - November 2024)
 
 ### Week 1-2: Core TypeScript/TSX Parsing Foundation
 **Goal**: Basic AST generation for TypeScript files
 
-- [ ] Set up Linguist project structure following your functional patterns
+- [ ] Set up Arborist project structure following your functional patterns
 - [ ] Implement core AST node types (using your Result/Option types from Toolsmith)
 - [ ] Basic TypeScript parser for:
   - Import/export statements
@@ -80,7 +80,7 @@ Based on your project architecture and the dependencies outlined in your memorie
 - [ ] Children analysis
 - [ ] Component composition detection
 - [ ] Fragment and conditional rendering support
-- [ ] Test against your Codewright library
+- [ ] Test against your Pagewright library
 
 ### Week 7-8: Integration & Polish
 **Goal**: Production-ready for Envoy consumption
@@ -98,7 +98,7 @@ Based on your project architecture and the dependencies outlined in your memorie
 2. **Extract 100% of documentation comments** accurately
 3. **Generate ASTs that Envoy can traverse** for its analysis
 4. **Performance**: Parse 1000 files in under 10 seconds
-5. **Contract compliance**: Passes all Logician validations
+5. **Contract compliance**: Passes all Auditor validations
 
 ## Key Design Decisions
 
@@ -116,7 +116,7 @@ export const extractComments = (ast: AST): CommentMap => {
 }
 ```
 
-### Avoid Common Linguist Pitfalls
+### Avoid Common Arborist Pitfalls
 - No mutable state during parsing
 - No global variables
 - Use your Option type instead of null/undefined
@@ -124,10 +124,10 @@ export const extractComments = (ast: AST): CommentMap => {
 
 ## Parallel Work Opportunities
 
-While building Linguist, you can:
+While building Arborist, you can:
 - Have another AI finish the remaining Toolsmith functions
-- Review and update the Codewright library patterns
-- Draft Envoy's data model based on Linguist's output format
+- Review and update the Pagewright library patterns
+- Draft Envoy's data model based on Arborist's output format
 
 ## Risk Mitigation
 
@@ -135,21 +135,21 @@ While building Linguist, you can:
 2. **Performance**: Profile early and often. AST generation can be slow if not careful.
 3. **Edge Cases**: Document what you're NOT handling in MVP (decorators, complex generics, etc.)
 
-## Next Steps After Linguist MVP
+## Next Steps After Arborist MVP
 
-Once Linguist is complete (late November):
-1. **Quarrier**: 2 weeks to adapt for Linguist testing
-2. **Logician**: 2 weeks to add Linguist contract validations  
-3. **Envoy**: Can start December 1st with Linguist ready
+Once Arborist is complete (late November):
+1. **Quarrier**: 2 weeks to adapt for Arborist testing
+2. **Auditor**: 2 weeks to add Arborist contract validations  
+3. **Envoy**: Can start December 1st with Arborist ready
 
-This timeline gives you a working Linguist by end of November, leaving December for Envoy's core development. The key is staying disciplined about the MVP scope - you can always add features after Envoy is consuming the basic AST successfully.
+This timeline gives you a working Arborist by end of November, leaving December for Envoy's core development. The key is staying disciplined about the MVP scope - you can always add features after Envoy is consuming the basic AST successfully.
 
 Would you like me to break down any of these weeks into more specific daily tasks?
 
 
-Based on your ambitious Envoy vision and the systematic approach you've outlined, here's a comprehensive roadmap for your Linguist MVP and beyond:
+Based on your ambitious Envoy vision and the systematic approach you've outlined, here's a comprehensive roadmap for your Arborist MVP and beyond:
 
-## Linguist MVP Roadmap (Target: December 2024)
+## Arborist MVP Roadmap (Target: December 2024)
 
 ### Phase 1: Core Parsing Infrastructure (2 weeks)
 **Week 1: AST Foundation**
@@ -210,7 +210,7 @@ Based on your ambitious Envoy vision and the systematic approach you've outlined
 - Performance optimization
 - Integration tests with Quarrier
 
-## Success Metrics for Linguist MVP
+## Success Metrics for Arborist MVP
 - ✅ Can parse all TypeScript 5.x syntax
 - ✅ Extracts 100% of special comments
 - ✅ Generates traversable AST
@@ -220,21 +220,21 @@ Based on your ambitious Envoy vision and the systematic approach you've outlined
 
 ## Parallel Track Timeline
 
-### Toolsmith Completion (During Linguist Weeks 1-2)
+### Toolsmith Completion (During Arborist Weeks 1-2)
 - Finish Result type migration
 - Complete Option type implementation
 - Add remaining functional utilities
 - Comprehensive test coverage
 - API documentation
 
-### Codewright Library (During Linguist Weeks 3-5)
+### Pagewright Library (During Arborist Weeks 3-5)
 - Audit existing components
 - Standardize prop interfaces
 - Add accessibility annotations
 - Create component catalog
 - Storybook integration
 
-### Architect Development (During Linguist Weeks 6-8)
+### Architect Development (During Arborist Weeks 6-8)
 - JSX → IR transformer
 - IR → Triple store converter
 - Triple → JSON serializer
@@ -245,18 +245,18 @@ Based on your ambitious Envoy vision and the systematic approach you've outlined
 
 ```mermaid
 graph LR
-    Linguist --> Logician
-    Linguist --> Envoy
-    Toolsmith --> Codewright
+    Arborist --> Auditor
+    Arborist --> Envoy
+    Toolsmith --> Pagewright
     Toolsmith --> Architect
-    Codewright --> Architect
-    Logician --> Envoy
+    Pagewright --> Architect
+    Auditor --> Envoy
     Architect --> Envoy
 ```
 
 ## Risk Mitigation Strategies
 
-**1. Linguist Complexity**
+**1. Arborist Complexity**
 - Start with TypeScript only, add TSX later if needed
 - Use battle-tested parsing library vs. rolling your own
 - Focus on common patterns first, edge cases later
@@ -264,17 +264,17 @@ graph LR
 **2. Time Constraints**
 - Define "done" clearly for each phase
 - Use AI assistants for boilerplate/tests
-- Dogfood early - use Linguist on its own codebase
+- Dogfood early - use Arborist on its own codebase
 
 **3. Integration Challenges**
 - Define contracts between systems early
-- Use Logician to validate interfaces
+- Use Auditor to validate interfaces
 - Keep APIs minimal and focused
 
 ## Weekly Checkpoints
 
 **Every Friday:**
-- Run Linguist on its own codebase
+- Run Arborist on its own codebase
 - Check memory usage trends
 - Review parsing accuracy
 - Update progress dashboard
@@ -282,7 +282,7 @@ graph LR
 
 ## Post-MVP Roadmap Preview
 
-**January 2025: Quarrier + Logician Polish**
+**January 2025: Quarrier + Auditor Polish**
 - Property-based testing framework
 - Contract validation system
 - Test generation from types
@@ -301,13 +301,13 @@ graph LR
 
 ## Immediate Next Steps
 
-1. **Set up Linguist project structure** with proper module boundaries
+1. **Set up Arborist project structure** with proper module boundaries
 2. **Choose parsing technology** (tree-sitter recommended for performance)
 3. **Define AST types** in TypeScript with strict interfaces
-4. **Create first test file** - parse Linguist's own index.ts
+4. **Create first test file** - parse Arborist's own index.ts
 5. **Set up GitHub issues** for each week's deliverables
 
-This roadmap gives you concrete milestones while maintaining flexibility. The key is staying disciplined about scope - Linguist doesn't need to be perfect, just good enough to unblock Envoy.
+This roadmap gives you concrete milestones while maintaining flexibility. The key is staying disciplined about scope - Arborist doesn't need to be perfect, just good enough to unblock Envoy.
 
 Remember your own wisdom from the [On being wrong](file:///Users/username/path/to/obsidian) note: "Being wrong more often ironically means you end up being more right more often." Ship the MVP, learn from it, iterate. Don't let perfect parsing be the enemy of good-enough insights.
 
@@ -318,10 +318,10 @@ Based on your comprehensive project vision and the dependencies I see in your co
 
 ## Master Timeline: October 2024 - December 2024 MVP
 
-### October 2024: Linguist Foundation
+### October 2024: Arborist Foundation
 
-#### Week 1 (Oct 7-13): Core Linguist Setup
-**AI Stream 1 - Linguist Core**
+#### Week 1 (Oct 7-13): Core Arborist Setup
+**AI Stream 1 - Arborist Core**
 - Day 1-2: Project structure, tsconfig, deno.json setup
 - Day 3-4: Core AST node type definitions (using Result/Option from Toolsmith)
 - Day 5-7: Basic tokenizer/lexer for TypeScript
@@ -330,7 +330,7 @@ Based on your comprehensive project vision and the dependencies I see in your co
 - Complete remaining utility functions
 - Add comprehensive tests for each function
 - Document with `//++` comments
-- Focus on functions Linguist will need (string manipulation, etc.)
+- Focus on functions Arborist will need (string manipulation, etc.)
 
 **AI Stream 3 - Component Library Audit** (parallel)
 - Review existing components for consistency
@@ -339,7 +339,7 @@ Based on your comprehensive project vision and the dependencies I see in your co
 - Identify components Envoy dashboard will need
 
 #### Week 2 (Oct 14-20): TypeScript Parsing
-**AI Stream 1 - Linguist Development**
+**AI Stream 1 - Arborist Development**
 - Day 1-2: Import/export statement parsing
 - Day 3-4: Function declaration parsing (arrow + regular)
 - Day 5-6: Type/interface parsing
@@ -348,7 +348,7 @@ Based on your comprehensive project vision and the dependencies I see in your co
 **AI Stream 2 - Quarrier Property Tests** (parallel)
 - Set up property-based testing infrastructure
 - Create generators for AST nodes
-- Write invariant tests for Linguist outputs
+- Write invariant tests for Arborist outputs
 - No code conflicts since Quarrier is separate
 
 **AI Stream 3 - Architect IR Design** (parallel)
@@ -364,7 +364,7 @@ Based on your comprehensive project vision and the dependencies I see in your co
 - Day 5-6: Comment-to-code association
 - Day 7: Test with your existing codebases
 
-**AI Stream 2 - Formulator Linguist Planning** (parallel)
+**AI Stream 2 - Formulator Arborist Planning** (parallel)
 - Study the operators in [architect/src/constructors/operators](file:///libraries/architect/src/constructors/operators)
 - Design formula tokenizer
 - Plan precedence handling
@@ -377,7 +377,7 @@ Based on your comprehensive project vision and the dependencies I see in your co
 - Create TypeScript interfaces
 
 #### Week 4 (Oct 28 - Nov 3): JSX/TSX Support
-**AI Stream 1 - JSX Linguist**
+**AI Stream 1 - JSX Arborist**
 - Day 1-2: JSX element parsing
 - Day 3-4: Props extraction with types
 - Day 5-6: Children and composition analysis
@@ -395,17 +395,17 @@ Based on your comprehensive project vision and the dependencies I see in your co
 - Create triple store schema
 - Design efficient indexes
 
-### November 2024: Integration & Logician
+### November 2024: Integration & Auditor
 
-#### Week 5 (Nov 4-10): Linguist Polish
-**AI Stream 1 - Linguist Finalization**
+#### Week 5 (Nov 4-10): Arborist Polish
+**AI Stream 1 - Arborist Finalization**
 - Day 1-2: Error recovery/partial ASTs
 - Day 3-4: Performance optimization
 - Day 5-6: CLI tool creation
 - Day 7: API documentation
 
-**AI Stream 2 - Logician Contract System**
-- Adapt Logician for Linguist validation
+**AI Stream 2 - Auditor Contract System**
+- Adapt Auditor for Arborist validation
 - Create contracts for AST structure
 - Add invariant checking
 - Build contract violation reporting
@@ -417,8 +417,8 @@ Based on your comprehensive project vision and the dependencies I see in your co
 - Design REST API endpoints
 
 #### Week 6 (Nov 11-17): Quarrier Integration
-**AI Stream 1 - Quarrier + Linguist**
-- Create property tests for Linguist
+**AI Stream 1 - Quarrier + Arborist**
+- Create property tests for Arborist
 - Build AST generators
 - Test parsing/unparsing roundtrips
 - Verify comment preservation
@@ -436,8 +436,8 @@ Based on your comprehensive project vision and the dependencies I see in your co
 - Prepare for Envoy dashboard use
 
 #### Week 7 (Nov 18-24): Full Integration
-**AI Stream 1 - Linguist + Envoy Integration**
-- Connect Linguist output to Envoy input
+**AI Stream 1 - Arborist + Envoy Integration**
+- Connect Arborist output to Envoy input
 - Test full pipeline on real code
 - Optimize performance bottlenecks
 - Add caching layer
@@ -494,19 +494,19 @@ Based on your comprehensive project vision and the dependencies I see in your co
 
 ## Parallel Work Rules to Avoid Conflicts
 
-1. **Separate Libraries**: Each AI works on different libraries (Linguist, Toolsmith, Codewright, etc.)
+1. **Separate Libraries**: Each AI works on different libraries (Arborist, Toolsmith, Pagewright, etc.)
 2. **Interface First**: Define interfaces before implementation
 3. **No Shared Files**: AIs shouldn't edit the same files
-4. **Contract Boundaries**: Use Logician contracts to define boundaries
+4. **Contract Boundaries**: Use Auditor contracts to define boundaries
 5. **Daily Sync Points**: Share progress and interfaces daily
 
 ## Critical Path Items
 
 These must be done in sequence:
-1. Linguist AST types → Linguist implementation → Envoy consumption
+1. Arborist AST types → Arborist implementation → Envoy consumption
 2. Toolsmith Result/Option → Used by all other libraries  
 3. Quarrier basics → Property tests for everything
-4. Logician contracts → Validation for all components
+4. Auditor contracts → Validation for all components
 
 ## Risk Management
 
@@ -521,14 +521,14 @@ Want me to drill down into any specific week or create daily task lists for the 
 
 
 
-Based on your request for more granular detail, let me break down the Linguist MVP roadmap into daily tasks for maximum clarity and actionability:
+Based on your request for more granular detail, let me break down the Arborist MVP roadmap into daily tasks for maximum clarity and actionability:
 
-## Linguist MVP: Week-by-Week Daily Breakdown
+## Arborist MVP: Week-by-Week Daily Breakdown
 
 ### Week 1: AST Foundation (Days 1-5)
 
 **Day 1: Project Setup & Architecture**
-- Morning: Create Linguist repository with your standard project structure
+- Morning: Create Arborist repository with your standard project structure
 - Afternoon: Set up TypeScript with strict configs following your standards
 - Tasks:
   - [ ] Initialize git repo with .gitignore
@@ -547,12 +547,12 @@ Based on your request for more granular detail, let me break down the Linguist M
   - [ ] Add Import/Export node definitions
   - [ ] Create Comment node with classification enum
 
-**Day 3: Linguist Infrastructure**
+**Day 3: Arborist Infrastructure**
 - Morning: Set up tree-sitter parser
 - Afternoon: Create AST builder utilities
 - Tasks:
   - [ ] Initialize tree-sitter with TypeScript grammar
-  - [ ] Create `linguist/core.ts` with parse function
+  - [ ] Create `arborist/core.ts` with parse function
   - [ ] Implement AST node factory functions
   - [ ] Add error handling with Result types
   - [ ] Write first unit test: parse simple function
@@ -565,7 +565,7 @@ Based on your request for more granular detail, let me break down the Linguist M
   - [ ] Implement glob pattern matching for file discovery
   - [ ] Add `.parserignore` support (like .gitignore)
   - [ ] Create progress reporting for large codebases
-  - [ ] Test on Linguist's own source files
+  - [ ] Test on Arborist's own source files
 
 **Day 5: Visitor Pattern & Traversal**
 - Morning: Implement visitor pattern
@@ -579,7 +579,7 @@ Based on your request for more granular detail, let me break down the Linguist M
 
 ### Week 2: Comment Extraction System (Days 6-10)
 
-**Day 6: Comment Linguist Foundation**
+**Day 6: Comment Arborist Foundation**
 - Morning: Comment detection logic
 - Afternoon: Comment classification
 - Tasks:
@@ -780,7 +780,7 @@ Based on your request for more granular detail, let me break down the Linguist M
 - Afternoon: Component library testing
 - Tasks:
   - [ ] Integrate TSX with TypeScript parsing
-  - [ ] Test on your Codewright library
+  - [ ] Test on your Pagewright library
   - [ ] Handle React types correctly
   - [ ] Performance test on large TSX files
   - [ ] Create TSX-specific documentation
@@ -945,7 +945,7 @@ Based on your request for more granular detail, let me break down the Linguist M
 
 **Every Morning (15 minutes)**
 - Review yesterday's progress
-- Check Linguist performance on its own codebase
+- Check Arborist performance on its own codebase
 - Run test suite
 - Update task checklist
 

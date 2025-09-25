@@ -29,14 +29,14 @@ print_code_hint() {
 
 # All library branches
 BRANCHES=(
-    "ai/codewright"
+    "ai/pagewright"
     "ai/architect"
     "ai/envoy"
     "ai/quarrier"
     "ai/formulator"
     "ai/agent"
-    "ai/linguist"
-    "ai/logician"
+    "ai/arborist"
+    "ai/auditor"
     "ai/toolsmith"
 )
 

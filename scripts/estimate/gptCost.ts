@@ -26,7 +26,10 @@ function toNum(v: string | undefined, def: number): number {
 const inRate = toNum(getFlag("in-rate"), 10) // USD per 1M input
 const outRate = toNum(getFlag("out-rate"), 30) // USD per 1M output
 const cachedInRate = toNum(getFlag("cached-in-rate"), inRate)
-const cachedShare = Math.min(1, Math.max(0, toNum(getFlag("cached-in-share"), 0)))
+const cachedShare = Math.min(
+	1,
+	Math.max(0, toNum(getFlag("cached-in-share"), 0)),
+)
 
 const light = toNum(getFlag("light"), 30)
 const medium = toNum(getFlag("medium"), 10)
@@ -42,26 +45,35 @@ const TOKENS = {
 	heavy: { in: 150_000, out: 12_000 },
 }
 
-const totalIn = light * TOKENS.light.in + medium * TOKENS.medium.in + heavy * TOKENS.heavy.in
-const totalOut = light * TOKENS.light.out + medium * TOKENS.medium.out + heavy * TOKENS.heavy.out
+const totalIn = light * TOKENS.light.in + medium * TOKENS.medium.in +
+	heavy * TOKENS.heavy.in
+const totalOut = light * TOKENS.light.out + medium * TOKENS.medium.out +
+	heavy * TOKENS.heavy.out
 
 const effectiveInRate = (1 - cachedShare) * inRate + cachedShare * cachedInRate
-const costUSD = (totalIn / 1_000_000) * effectiveInRate + (totalOut / 1_000_000) * outRate
+const costUSD = (totalIn / 1_000_000) * effectiveInRate +
+	(totalOut / 1_000_000) * outRate
 const fx = getFlag("fx")
 const rate = fx ? Number(fx) : undefined
 const costNZD = rate ? costUSD * rate : undefined
 
-console.log(JSON.stringify({
-	inputTokens: totalIn,
-	outputTokens: totalOut,
-	usd: Number(costUSD.toFixed(2)),
-	nzd: costNZD !== undefined ? Number(costNZD.toFixed(2)) : undefined,
-	assumptions: {
-		inRatePer1M: inRate,
-		cachedInRatePer1M: cachedInRate,
-		cachedInShare: cachedShare,
-		outRatePer1M: outRate,
-		light, medium, heavy,
-		profiles: TOKENS,
+console.log(JSON.stringify(
+	{
+		inputTokens: totalIn,
+		outputTokens: totalOut,
+		usd: Number(costUSD.toFixed(2)),
+		nzd: costNZD !== undefined ? Number(costNZD.toFixed(2)) : undefined,
+		assumptions: {
+			inRatePer1M: inRate,
+			cachedInRatePer1M: cachedInRate,
+			cachedInShare: cachedShare,
+			outRatePer1M: outRate,
+			light,
+			medium,
+			heavy,
+			profiles: TOKENS,
+		},
 	},
-}, null, 2))
+	null,
+	2,
+))

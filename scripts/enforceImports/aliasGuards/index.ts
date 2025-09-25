@@ -21,7 +21,7 @@ if (import.meta.main) {
 		name: "alias-guards",
 		version: "1.0.0",
 		usage:
-			"alias-guards [roots...] [--json] [--quiet]\n\nExamples:\n  alias-guards\n  alias-guards libraries/architect libraries/codewright --json",
+			"alias-guards [roots...] [--json] [--quiet]\n\nExamples:\n  alias-guards\n  alias-guards libraries/architect libraries/pagewright --json",
 		booleans: ["json", "quiet"],
 		aliases: { q: "quiet", j: "json" },
 		onRun: async ({ flags, positional, stderr, stdout }: CliRunArgs) => {

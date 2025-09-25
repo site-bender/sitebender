@@ -1,9 +1,9 @@
-import type { Result } from "../../../types/fp/result/index.ts"
-
 import { assert, assertEquals } from "@std/assert"
 
-import ok from "../ok/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+
 import error from "../error/index.ts"
+import ok from "../ok/index.ts"
 import isError from "./index.ts"
 
 Deno.test("isError", async (t) => {

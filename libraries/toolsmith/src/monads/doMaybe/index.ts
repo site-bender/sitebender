@@ -1,9 +1,9 @@
 import type { Maybe } from "../../types/fp/maybe/index.ts"
 import type { MonadDictionary } from "../doNotation/index.ts"
 
+import doNotation from "../doNotation/index.ts"
 import chain from "../maybe/chain/index.ts"
 import of_ from "../maybe/of/index.ts"
-import doNotation from "../doNotation/index.ts"
 
 // Keep dictionary tiny by adapting existing Maybe ops to the expected shape
 const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]

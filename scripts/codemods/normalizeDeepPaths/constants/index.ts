@@ -5,8 +5,8 @@ import * as path from "https://deno.land/std@0.224.0/path/mod.ts"
 //++ Root directory of the project
 export const ROOT = Deno.cwd()
 
-//++ Codewright root directory
-export const CODEWRIGHT_ROOT = path.join(ROOT, "libraries/codewright/src")
+//++ Pagewright root directory
+export const PAGEWRIGHT_ROOT = path.join(ROOT, "libraries/pagewright/src")
 
 //++ Prefixes that need rewriting to relative paths
 export const TARGET_PREFIXES = [

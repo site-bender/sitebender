@@ -1,9 +1,9 @@
-import isNullish from "../../validation/isNullish/index.ts"
-import isNumber from "../../validation/isNumber/index.ts"
+import exponential from "../../math/exponential/index.ts"
 import isFinite from "../../validation/isFinite/index.ts"
 import isInfinite from "../../validation/isInfinite/index.ts"
 import isNegativeInfinity from "../../validation/isNegativeInfinity/index.ts"
-import exponential from "../../math/exponential/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
+import isNumber from "../../validation/isNumber/index.ts"
 
 /**
  * SoftPlus activation function

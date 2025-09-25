@@ -6,9 +6,9 @@ import type { AnatomicalStructureProps } from "../../index.ts"
 import type Vessel from "../index.ts"
 import type { VesselProps } from "../index.ts"
 
-import AnatomicalStructureComponent from "../../../../../../../../codewright/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
-import VesselComponent from "../../../../../../../../codewright/src/define/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.tsx"
-import AnatomicalSystemComponent from "../../../../../../../../codewright/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import VesselComponent from "../../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.tsx"
+import AnatomicalSystemComponent from "../../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
 
 export type LymphaticVesselType = "LymphaticVessel"
 

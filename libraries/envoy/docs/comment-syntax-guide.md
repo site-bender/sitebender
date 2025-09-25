@@ -39,7 +39,7 @@ Describes what ANY code element does.
 ```typescript
 //++ Converts a string to uppercase
 export default function toUpperCase(str: string): string {
-  return str.toUpperCase();
+	return str.toUpperCase()
 }
 ```
 
@@ -47,10 +47,10 @@ export default function toUpperCase(str: string): string {
 
 ```typescript
 //++ Primary brand color for all UI components
-export const PRIMARY_COLOR = "#007ACC";
+export const PRIMARY_COLOR = "#007ACC"
 
 //++ Dark mode background color
-export const DARK_BACKGROUND = "#20232A";
+export const DARK_BACKGROUND = "#20232A"
 ```
 
 **Types/Interfaces:**
@@ -58,9 +58,9 @@ export const DARK_BACKGROUND = "#20232A";
 ```typescript
 //++ User authentication token with expiry
 export interface AuthToken {
-  token: string;
-  expires: Date;
-  refreshToken?: string;
+	token: string
+	expires: Date
+	refreshToken?: string
 }
 ```
 
@@ -68,7 +68,7 @@ export interface AuthToken {
 
 ```typescript
 /*++
- | # CSV Linguist
+ | # CSV Arborist
  |
  | Parses CSV files with the following features:
  |
@@ -79,9 +79,9 @@ export interface AuthToken {
  | Returns an array of objects with column headers as keys.
  */
 export default function parseCsv(
-  content: string,
+	content: string,
 ): Array<Record<string, string>> {
-  // implementation
+	// implementation
 }
 ```
 
@@ -92,13 +92,13 @@ Groups related code elements with shared documentation.
 ```typescript
 //++ [GROUP] Authentication Constants
 //++ JWT signing algorithm
-export const JWT_ALGORITHM = "HS256";
+export const JWT_ALGORITHM = "HS256"
 
 //++ Token expiry time in seconds
-export const TOKEN_EXPIRY = 3600;
+export const TOKEN_EXPIRY = 3600
 
 //++ Refresh token expiry (7 days)
-export const REFRESH_EXPIRY = 604800;
+export const REFRESH_EXPIRY = 604800
 //++ [END]
 ```
 
@@ -108,18 +108,18 @@ export const REFRESH_EXPIRY = 604800;
 //++ [GROUP] Color System
 //++ [GROUP] Brand Colors
 //++ Primary interactive color
-export const PRIMARY = "#007ACC";
+export const PRIMARY = "#007ACC"
 
 //++ Secondary brand color
-export const SECONDARY = "#20232A";
+export const SECONDARY = "#20232A"
 //++ [END]
 
 //++ [GROUP] Semantic Colors
 //++ Success state color
-export const SUCCESS = "#10B981";
+export const SUCCESS = "#10B981"
 
 //++ Error state color
-export const ERROR = "#EF4444";
+export const ERROR = "#EF4444"
 //++ [END]
 //++ [END]
 ```
@@ -162,7 +162,7 @@ Documents entire modules (collections of files and folders), not individual file
 
 ```typescript
 /*++ [MODULE]
- | # Linguist Library
+ | # Arborist Library
  | Advanced TypeScript parsing and analysis
  */
 
@@ -288,7 +288,7 @@ Documents known issues, workarounds, or areas needing improvement.
  |
  | ## Migration Plan
  |
- | - [ ] Replace regex with Linguist library
+ | - [ ] Replace regex with Arborist library
  | - [ ] Implement memoization
  | - [ ] Add Redis caching layer
  |
@@ -349,15 +349,15 @@ Marks critical problems that MUST be fixed. These block releases!
 ## 📋 Complete Example (With Proper Spacing)
 
 ````typescript
-import { AstNode } from "../types/index.ts";
+import { AstNode } from "../types/index.ts"
 
 //!! [INCOMPLETE] Generator function support not implemented
 
 //++ [GROUP] Associativity Detection
 //++ Detects if a function exhibits associative behavior
 export function isAssociative(node: AstNode): boolean {
-  //-- [OPTIMIZATION] This recursion should probably be a loop
-  return hasBinaryAssociativeOperator(node) || hasAssociativeMethodCall(node);
+	//-- [OPTIMIZATION] This recursion should probably be a loop
+	return hasBinaryAssociativeOperator(node) || hasAssociativeMethodCall(node)
 }
 
 /*??
@@ -376,7 +376,7 @@ export function isAssociative(node: AstNode): boolean {
 
 //++ Helper to check for associative operators
 function hasBinaryAssociativeOperator(node: AstNode): boolean {
-  // implementation
+	// implementation
 }
 
 //++ [END] // End of Associativity Detection group
@@ -384,7 +384,7 @@ function hasBinaryAssociativeOperator(node: AstNode): boolean {
 //++ [GROUP] Commutativity Detection
 //++ Detects if a function exhibits commutative behavior
 export function isCommutative(node: AstNode): boolean {
-  // implementation
+	// implementation
 }
 
 //++ [END]
@@ -409,7 +409,7 @@ All comment content supports:
 - **Lists**: `* bullet`, `- dash`, `1. numbered`
 - **Links**: `[text](url)`
 - **Images**: `![alt text](path/to/image.png)` or `![diagram](https://example.com/diagram.svg)`
-- **Code**: `` `inline` `` and ` ```blocks``` `
+- **Code**: `` `inline` `` and `` ```blocks``` ``
 - **Emphasis**: `**bold**`, `*italic*`, `~~strikethrough~~`
 - **Tables**, blockquotes, and more!
 
@@ -423,7 +423,7 @@ All comment content supports:
 4. **Critical issues (`//!!`)** next to issue or file-wide with proper spacing
 5. **Links (`//>>`)** in code for direct refs or at file bottom as references
 6. Blank lines and regular comments (`//` without markers) are ignored
-7. Linguist automatically determines element type
+7. Arborist automatically determines element type
 8. Orphaned `[END]` markers are ignored but reported in diagnostics
 
 ## ✅ Best Practices
@@ -440,7 +440,7 @@ All comment content supports:
 ### DON'T:
 
 - ❌ Try to group multiple `//` lines together - use `/* */` blocks instead
-- ❌ Use type markers like `[FUNCTION]` - Linguist determines this automatically
+- ❌ Use type markers like `[FUNCTION]` - Arborist determines this automatically
 - ❌ Mix categories in one line (`//?? [EXAMPLE] [GOTCHA]`)
 - ❌ Leave tech debt without reasons
 - ❌ Create unmatched `[GROUP]` without `[END]`
@@ -477,7 +477,7 @@ All comment content supports:
 | `[DESCRIPTION]` | Default, optional | `//++ Adds two numbers`                  |
 | `[GROUP]`       | Start group       | `//++ [GROUP] Math utilities`            |
 | `[END]`         | End group         | `//++ [END]`                             |
-| `[MODULE]`      | Entire module     | `/*++ [MODULE] \| # Linguist Library */`   |
+| `[MODULE]`      | Entire module     | `/*++ [MODULE] \| # Arborist Library */` |
 | `[EXPORTS]`     | Public API        | `/*>> [EXPORTS] \| ./parse/index */`     |
 | `[INCLUDES]`    | Internal files    | `/*>> [INCLUDES] \| ./internal/utils */` |
 
@@ -597,9 +597,9 @@ export function toUpper(str: string): string {
 ```typescript
 //++ [GROUP] Color constants
 //++ Primary brand color
-export const PRIMARY = "#007ACC";
+export const PRIMARY = "#007ACC"
 //++ Secondary color
-export const SECONDARY = "#666";
+export const SECONDARY = "#666"
 //++ [END]
 ```
 
@@ -608,7 +608,7 @@ export const SECONDARY = "#666";
 ```typescript
 //++ Adds two numbers together
 export function add(a: number, b: number): number {
-  return a + b;
+	return a + b
 }
 //?? [EXAMPLE] add(2, 3) // 5
 //?? [GOTCHA] May return NaN with invalid input
@@ -642,7 +642,7 @@ These comments don't just create documentation - they power a **revolutionary tr
 
 #### 1. **Filesystem Semantics**
 
-Path structure reveals dependencies: `a/b/c` means `c` is used by `b`, `b` is used by `a`. Folder names encode categories. Linguist infers semantic meaning from architectural patterns.
+Path structure reveals dependencies: `a/b/c` means `c` is used by `b`, `b` is used by `a`. Folder names encode categories. Arborist infers semantic meaning from architectural patterns.
 
 #### 2. **TypeScript Compiler Data**
 
@@ -695,18 +695,18 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 ```json
 {
-  "_links": {
-    "self": "/functions/parseSourceFile",
-    "module": "/modules/linguist",
-    "calls": ["/functions/createCompiler", "/functions/readFile"],
-    "calledBy": ["/functions/analyze", "/functions/lint"],
-    "implements": "/types/linguist",
-    "next": "/functions/extractFunctions",
-    "tests": ["/tests/parseSourceFile.test.ts"],
-    "source": "/src/parseSourceFile/index.ts",
-    "author": "/authors/guybeford",
-    "lastModified": "2025-09-10T14:30:00Z"
-  }
+	"_links": {
+		"self": "/functions/parseSourceFile",
+		"module": "/modules/arborist",
+		"calls": ["/functions/createCompiler", "/functions/readFile"],
+		"calledBy": ["/functions/analyze", "/functions/lint"],
+		"implements": "/types/arborist",
+		"next": "/functions/extractFunctions",
+		"tests": ["/tests/parseSourceFile.test.ts"],
+		"source": "/src/parseSourceFile/index.ts",
+		"author": "/authors/guybeford",
+		"lastModified": "2025-09-10T14:30:00Z"
+	}
 }
 ```
 
@@ -766,7 +766,7 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 ### 🏗️ Implementation Roadmap
 
-**Phase 1**: Linguist Extensions (Current)
+**Phase 1**: Arborist Extensions (Current)
 **Phase 2**: Graph Foundation (Next)
 **Phase 3**: Envoy MVP (v1) - HATEOAS navigation, dashboards, diplomatic conflict resolution
 **Phase 4**: Interactive Envoy (v2) - Live playgrounds, visual exploration

@@ -1,15 +1,15 @@
-import isNullish from "../../../validation/isNullish/index.ts"
+import includes from "../../../array/includes/index.ts"
+import pipe from "../../../combinator/pipe/index.ts"
+import and from "../../../logic/and/index.ts"
 import toLower from "../../../string/toCase/toLower/index.ts"
 import trim from "../../../string/trim/index.ts"
-import pipe from "../../../combinator/pipe/index.ts"
-import includes from "../../../array/includes/index.ts"
 import isBoolean from "../../../validation/isBoolean/index.ts"
-import isString from "../../../validation/isString/index.ts"
-import isNumber from "../../../validation/isNumber/index.ts"
 import isFinite from "../../../validation/isFinite/index.ts"
-import isNonZero from "../../../validation/isNonZero/index.ts"
-import and from "../../../logic/and/index.ts"
 import isNonEmptyString from "../../../validation/isNonEmptyString/index.ts"
+import isNonZero from "../../../validation/isNonZero/index.ts"
+import isNullish from "../../../validation/isNullish/index.ts"
+import isNumber from "../../../validation/isNumber/index.ts"
+import isString from "../../../validation/isString/index.ts"
 
 /**
  * Converts various values to boolean
@@ -77,7 +77,7 @@ export default function toBoolean(value: unknown): boolean {
 	if (isString(value)) {
 		const normalized = pipe([
 			toLower,
-			trim
+			trim,
 		])(value)
 
 		// Explicit true values

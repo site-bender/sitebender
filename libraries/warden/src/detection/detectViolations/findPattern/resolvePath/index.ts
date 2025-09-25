@@ -7,9 +7,7 @@ export default function resolvePath(base: URL, inputPath: string): string {
 		? inputPath.replace(/^\//, "")
 		: inputPath
 
-	const withSlash = normalized.endsWith("/")
-		? normalized
-		: normalized + "/"
+	const withSlash = normalized.endsWith("/") ? normalized : normalized + "/"
 
 	const url = new URL(withSlash, base)
 	return new URL(".", url).pathname.replace(/\/$/, "")

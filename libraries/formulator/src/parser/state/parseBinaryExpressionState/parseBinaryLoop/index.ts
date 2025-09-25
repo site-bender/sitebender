@@ -1,6 +1,6 @@
 import type { AstNode, ParseError, Result } from "../../../../types/index.ts"
-import type { Operator } from "../types/index.ts"
 import type { Parser, ParserState } from "../../../types/state/index.ts"
+import type { Operator } from "../types/index.ts"
 
 import doState from "../../../../../../toolsmith/src/monads/doState/index.ts"
 import fold from "../../../../../../toolsmith/src/monads/result/fold/index.ts"

@@ -1,7 +1,7 @@
 import { assert, assertEquals } from "@std/assert"
 
-import errorWithInspect from "./index.ts"
 import isError from "../isError/index.ts"
+import errorWithInspect from "./index.ts"
 
 const inspectSymbol = Symbol.for("nodejs.util.inspect.custom")
 

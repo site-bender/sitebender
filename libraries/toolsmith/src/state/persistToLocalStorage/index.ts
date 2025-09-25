@@ -1,4 +1,5 @@
 import type { Store, Unsubscribe } from "../types/index.ts"
+
 import isNotNull from "../../vanilla/validation/isNotNull/index.ts"
 
 //++ Persists store state to localStorage (browser-only, no-op on server)

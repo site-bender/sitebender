@@ -10,7 +10,7 @@
  * ```typescript
  * // Preferred: Import specific functions directly
  * import generateDocs from "@sitebender/envoy/generateDocs"
- * import parseFile from "@sitebender/envoy/linguist/parseFile"
+ * import parseFile from "@sitebender/envoy/arborist/parseFile"
  *
  * // Also available: Main entry point for convenience
  * import { generateDocs } from "@sitebender/envoy"

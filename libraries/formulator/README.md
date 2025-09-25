@@ -60,31 +60,31 @@ Parse and compile chemical notation with support for:
 #### MathML Generation
 
 ```typescript
-import toMathML from "@sitebender/formulator/converters/toMathML/index.ts";
+import toMathML from "@sitebender/formulator/converters/toMathML/index.ts"
 
-const mathML = toMathML("(a + b)² = a² + 2ab + b²");
+const mathML = toMathML("(a + b)² = a² + 2ab + b²")
 // Generates proper MathML with <math>, <mrow>, <msup>, etc.
 ```
 
 #### ChemML Generation
 
 ```typescript
-import toChemML from "@sitebender/formulator/converters/toChemML/index.ts";
+import toChemML from "@sitebender/formulator/converters/toChemML/index.ts"
 
-const chemML = toChemML("H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O");
+const chemML = toChemML("H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O")
 // Generates semantic chemical markup
 ```
 
 #### Architect IR
 
 ```typescript
-import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
 
 const result = parseFormula("(price * quantity) * (1 + tax_rate)", {
-  price: { tag: "FromElement", source: "#price" },
-  quantity: { tag: "FromElement", source: "#quantity" },
-  tax_rate: { tag: "FromConstant", value: 0.08 },
-});
+	price: { tag: "FromElement", source: "#price" },
+	quantity: { tag: "FromElement", source: "#quantity" },
+	tax_rate: { tag: "FromConstant", value: 0.08 },
+})
 // Generates Architect operator configuration for reactive calculations
 ```
 
@@ -95,7 +95,7 @@ const result = parseFormula("(price * quantity) * (1 + tax_rate)", {
 ```typescript
 import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
 import toMathML from "@sitebender/formulator/converters/toMathML/index.ts"
-import MathMLDisplay from "@sitebender/codewright/scientific/MathMLDisplay/index.tsx"
+import MathMLDisplay from "@sitebender/pagewright/scientific/MathMLDisplay/index.tsx"
 
 // Parse formula to Architect IR
 const formula = "x = (-b ± √(b² - 4ac)) / (2a)"
@@ -108,7 +108,7 @@ const ir = parseFormula(formula, {
 // Generate MathML for display
 const mathML = toMathML(formula)
 
-// Use in JSX with Codewright wrapper
+// Use in JSX with Pagewright wrapper
 <MathMLDisplay formula={mathML} fallback={formula} />
 ```
 
@@ -117,7 +117,7 @@ const mathML = toMathML(formula)
 ```typescript
 import parseChemical from "@sitebender/formulator/chemical/parseChemical/index.ts"
 import toChemML from "@sitebender/formulator/converters/toChemML/index.ts"
-import ChemMLDisplay from "@sitebender/codewright/scientific/ChemMLDisplay/index.tsx"
+import ChemMLDisplay from "@sitebender/pagewright/scientific/ChemMLDisplay/index.tsx"
 
 // Parse balanced equation
 const equation = "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O"
@@ -142,7 +142,7 @@ const chemML = toChemML(equation)
 
 ```typescript
 import toMolecularStructure from "@sitebender/formulator/converters/toMolecularStructure/index.ts"
-import MoleculeViewer from "@sitebender/codewright/scientific/MoleculeViewer/index.tsx"
+import MoleculeViewer from "@sitebender/pagewright/scientific/MoleculeViewer/index.tsx"
 
 // Parse molecular formula
 const molecule = parseChemical("CH₃CH₂OH")  // Ethanol
@@ -188,21 +188,21 @@ The molecular structure features include:
 ### Bidirectional Conversion
 
 ```typescript
-import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
-import decompile from "@sitebender/formulator/decompile/index.ts";
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
+import decompile from "@sitebender/formulator/decompile/index.ts"
 
 // Start with a formula string
-const original = "(a + b) * c";
+const original = "(a + b) * c"
 
 // Parse to Architect IR
-const ir = parseFormula(original, variables);
+const ir = parseFormula(original, variables)
 
 // Convert back to formula string
-const decompiled = decompile(ir.value);
+const decompiled = decompile(ir.value)
 // Result: "(a + b) * c"
 
 // Perfect round-trip preservation
-assert(parseFormula(decompiled, variables) === ir);
+assert(parseFormula(decompiled, variables) === ir)
 ```
 
 ### Visual Formula Builder Integration
@@ -212,13 +212,13 @@ import decompile from "@sitebender/formulator/decompile/index.ts"
 
 // User builds formula visually in Architect JSX
 const visualFormula = (
-  <Multiply>
-    <Add>
-      <From.Element source="#base-salary" />
-      <From.Element source="#bonus" />
-    </Add>
-    <From.Constant name="tax_rate">1.1</From.Constant>
-  </Multiply>
+	<Multiply>
+		<Add>
+			<From.Element source="#base-salary" />
+			<From.Element source="#bonus" />
+		</Add>
+		<From.Constant name="tax_rate">1.1</From.Constant>
+	</Multiply>
 )
 
 // Show them the mathematical notation
@@ -303,20 +303,20 @@ Formulator intelligently infers types from context:
 ```typescript
 // All Integer inputs → Integer output
 parseFormula("a + b", {
-  a: { tag: "Constant", datatype: "Integer", value: 5 },
-  b: { tag: "Constant", datatype: "Integer", value: 3 },
-});
+	a: { tag: "Constant", datatype: "Integer", value: 5 },
+	b: { tag: "Constant", datatype: "Integer", value: 3 },
+})
 // Result type: Integer
 
 // Mixed numeric types → Number (most general)
 parseFormula("x * y", {
-  x: { tag: "Constant", datatype: "Integer", value: 5 },
-  y: { tag: "Constant", datatype: "Float", value: 3.14 },
-});
+	x: { tag: "Constant", datatype: "Integer", value: 5 },
+	y: { tag: "Constant", datatype: "Float", value: 3.14 },
+})
 // Result type: Number
 
 // Chemical formulas → Molecule type
-parseChemical("H2O");
+parseChemical("H2O")
 // Result type: Molecule with composition {H: 2, O: 1}
 ```
 
@@ -384,11 +384,11 @@ import Validation from "@sitebender/architect/components/Validation/index.tsx"
 
 ## MathML & ChemML Components
 
-Formulator works seamlessly with Codewright's scientific display components:
+Formulator works seamlessly with Pagewright's scientific display components:
 
 ```tsx
-import MathMLDisplay from "@sitebender/codewright/scientific/MathMLDisplay/index.tsx"
-import ChemMLDisplay from "@sitebender/codewright/scientific/ChemMLDisplay/index.tsx"
+import MathMLDisplay from "@sitebender/pagewright/scientific/MathMLDisplay/index.tsx"
+import ChemMLDisplay from "@sitebender/pagewright/scientific/ChemMLDisplay/index.tsx"
 import toMathML from "@sitebender/formulator/converters/toMathML/index.ts"
 import toChemML from "@sitebender/formulator/converters/toChemML/index.ts"
 
@@ -442,18 +442,18 @@ Formulator uses property-based testing to ensure correctness:
 ```typescript
 // Property: Parsing and decompiling are inverse operations
 property("round-trip preservation", arbitrary.formula(), (formula) => {
-  const ir = parseFormula(formula, vars);
-  const decompiled = decompile(ir);
-  const reparsed = parseFormula(decompiled, vars);
-  return deepEqual(ir, reparsed);
-});
+	const ir = parseFormula(formula, vars)
+	const decompiled = decompile(ir)
+	const reparsed = parseFormula(decompiled, vars)
+	return deepEqual(ir, reparsed)
+})
 
 // Property: Operator precedence is preserved
 property("precedence preservation", arbitrary.expression(), (expr) => {
-  const withParens = addAllParentheses(expr);
-  const withoutParens = removeUnnecessaryParentheses(expr);
-  return evaluate(withParens) === evaluate(withoutParens);
-});
+	const withParens = addAllParentheses(expr)
+	const withoutParens = removeUnnecessaryParentheses(expr)
+	return evaluate(withParens) === evaluate(withoutParens)
+})
 ```
 
 ## Contributing
@@ -476,5 +476,5 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md) for details.
 ## See Also
 
 - [Architect](../architect/README.md) - Reactive rendering with calculations
-- [Codewright](../codewright/README.md) - Semantic HTML components
+- [Pagewright](../pagewright/README.md) - Semantic HTML components
 - [Toolsmith](../toolsmith/README.md) - Functional programming utilities

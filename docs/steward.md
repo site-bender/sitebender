@@ -2,8 +2,8 @@
 
 Purpose
 - Deterministic, non-configurable enforcement of Studio style/shape with safe autofixes.
-- Runs before Warden to normalize surface area, reduce governance noise, and simplify downstream tools (Envoy, Logician).
-- Uses Linguist (TypeScript compiler) for AST-precise analysis; zero runtime deps in libraries remain intact.
+- Runs before Warden to normalize surface area, reduce governance noise, and simplify downstream tools (Envoy, Auditor).
+- Uses Arborist (TypeScript compiler) for AST-precise analysis; zero runtime deps in libraries remain intact.
 
 Scope boundaries
 - Steward: formatting, structure, naming, imports shape/order, comment syntax, a subset of FP/error-handling checks that are mechanical and/or automatable.

@@ -2,8 +2,8 @@ import { resolve } from "https://deno.land/std@0.224.0/path/mod.ts"
 
 //++ Converts types path to src/define path for components
 export default function toSrcDefinePath(typeAbsPath: string): string {
-	// Convert .../libraries/codewright/types/schema.org/<schema path>/index.ts
-	// to .../libraries/codewright/src/define/<schema path>/index.tsx
+	// Convert .../libraries/pagewright/types/schema.org/<schema path>/index.ts
+	// to .../libraries/pagewright/src/define/<schema path>/index.tsx
 	const idx = typeAbsPath.indexOf("/types/schema.org/")
 	if (idx === -1) return ""
 
@@ -17,5 +17,5 @@ export default function toSrcDefinePath(typeAbsPath: string): string {
 }
 
 //?? [EXAMPLE]
-// toSrcDefinePath("/project/libraries/codewright/types/schema.org/Person/index.ts")
-// Returns: "/project/libraries/codewright/src/define/Person/index.tsx"
+// toSrcDefinePath("/project/libraries/pagewright/types/schema.org/Person/index.ts")
+// Returns: "/project/libraries/pagewright/src/define/Person/index.tsx"

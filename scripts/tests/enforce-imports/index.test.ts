@@ -1,7 +1,7 @@
+import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 import { expect } from "@std/expect"
 
 import runAliasGuards from "../../enforceImports/aliasGuards/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
 
 Deno.test("alias guards allow preferred aliases and flag deep imports", async () => {
 	// Point the guard at a tiny synthetic scope: the scripts folder itself
@@ -26,7 +26,7 @@ Deno.test("alias guards allow preferred aliases and flag deep imports", async ()
 	// We only check that any violations mention the expected guidance
 	const violations = await runAliasGuards([
 		"applications/mission-control/src",
-		"libraries/codewright/src",
+		"libraries/pagewright/src",
 	])
 	if (violations.length) {
 		const hints = violations.map((v) => v.hint).join("\n")

@@ -7,7 +7,7 @@ Deno.test("shouldProcess", async function testShouldProcess(t) {
 	await t.step("returns true for .ts files", function testTsFiles() {
 		assertEquals(shouldProcess("file.ts"), true)
 		assertEquals(shouldProcess("/path/to/file.ts"), true)
-		assertEquals(shouldProcess("src/codewright/Button.ts"), true)
+		assertEquals(shouldProcess("src/pagewright/Button.ts"), true)
 		assertEquals(shouldProcess("index.ts"), true)
 	})
 
@@ -18,20 +18,26 @@ Deno.test("shouldProcess", async function testShouldProcess(t) {
 		assertEquals(shouldProcess("App.tsx"), true)
 	})
 
-	await t.step("returns false for non-TypeScript files", function testNonTsFiles() {
-		assertEquals(shouldProcess("file.js"), false)
-		assertEquals(shouldProcess("script.jsx"), false)
-		assertEquals(shouldProcess("readme.md"), false)
-		assertEquals(shouldProcess("style.css"), false)
-		assertEquals(shouldProcess("data.json"), false)
-		assertEquals(shouldProcess("image.png"), false)
-	})
+	await t.step(
+		"returns false for non-TypeScript files",
+		function testNonTsFiles() {
+			assertEquals(shouldProcess("file.js"), false)
+			assertEquals(shouldProcess("script.jsx"), false)
+			assertEquals(shouldProcess("readme.md"), false)
+			assertEquals(shouldProcess("style.css"), false)
+			assertEquals(shouldProcess("data.json"), false)
+			assertEquals(shouldProcess("image.png"), false)
+		},
+	)
 
-	await t.step("returns false for files without extension", function testNoExtension() {
-		assertEquals(shouldProcess("README"), false)
-		assertEquals(shouldProcess("Makefile"), false)
-		assertEquals(shouldProcess(".gitignore"), false)
-	})
+	await t.step(
+		"returns false for files without extension",
+		function testNoExtension() {
+			assertEquals(shouldProcess("README"), false)
+			assertEquals(shouldProcess("Makefile"), false)
+			assertEquals(shouldProcess(".gitignore"), false)
+		},
+	)
 
 	await t.step("handles edge cases", function testEdgeCases() {
 		// File ending with .ts but not as extension
@@ -58,13 +64,16 @@ Deno.test("shouldProcess", async function testShouldProcess(t) {
 		assertEquals(shouldProcess("file.tS"), false)
 	})
 
-	await t.step("handles paths with special characters", function testSpecialChars() {
-		assertEquals(shouldProcess("my-file.ts"), true)
-		assertEquals(shouldProcess("my_file.tsx"), true)
-		assertEquals(shouldProcess("file@v1.0.0.ts"), true)
-		assertEquals(shouldProcess("file (copy).tsx"), true)
-		assertEquals(shouldProcess("file[1].ts"), true)
-	})
+	await t.step(
+		"handles paths with special characters",
+		function testSpecialChars() {
+			assertEquals(shouldProcess("my-file.ts"), true)
+			assertEquals(shouldProcess("my_file.tsx"), true)
+			assertEquals(shouldProcess("file@v1.0.0.ts"), true)
+			assertEquals(shouldProcess("file (copy).tsx"), true)
+			assertEquals(shouldProcess("file[1].ts"), true)
+		},
+	)
 
 	await t.step("handles absolute and relative paths", function testPaths() {
 		assertEquals(shouldProcess("/absolute/path/file.ts"), true)

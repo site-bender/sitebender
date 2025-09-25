@@ -1,7 +1,7 @@
-import type { AliasViolation } from "../../types/index.ts"
-
 import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
 import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+
+import type { AliasViolation } from "../../types/index.ts"
 
 import checkLineForViolations from "../checkLineForViolations/index.ts"
 

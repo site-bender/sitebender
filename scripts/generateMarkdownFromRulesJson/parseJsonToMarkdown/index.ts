@@ -9,7 +9,6 @@ import isEmpty from "../../../libraries/toolsmith/src/vanilla/validation/isEmpty
 import extractMetadata from "../extractMetadata/index.ts"
 import formatMetadata from "../formatMetadata/index.ts"
 import isMetadataKey from "../isMetadataKey/index.ts"
-
 import formatSection from "./formatSection/index.ts"
 
 //++ Parses JSON data into markdown sections

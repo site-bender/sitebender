@@ -1,6 +1,8 @@
 import { assertEquals } from "@std/assert"
-import serializeContractGraph from "./index.ts"
+
 import type { BoundariesConfig } from "../types/index.ts"
+
+import serializeContractGraph from "./index.ts"
 
 //++ Tests for serializeContractGraph function
 
@@ -18,7 +20,7 @@ Deno.test("serializeContractGraph", async (t) => {
 	await t.step("serializes single dependency", () => {
 		const boundaries: BoundariesConfig = {
 			dependencies: {
-				linguist: {
+				arborist: {
 					canImport: ["toolsmith"],
 				},
 			},
@@ -26,8 +28,8 @@ Deno.test("serializeContractGraph", async (t) => {
 		const result = serializeContractGraph(boundaries)
 		const parsed = JSON.parse(result)
 
-		assertEquals(parsed.libraries, ["linguist"])
-		assertEquals(parsed.edges, [{ from: "linguist", to: "toolsmith" }])
+		assertEquals(parsed.libraries, ["arborist"])
+		assertEquals(parsed.edges, [{ from: "arborist", to: "toolsmith" }])
 	})
 
 	await t.step("sorts libraries alphabetically", () => {

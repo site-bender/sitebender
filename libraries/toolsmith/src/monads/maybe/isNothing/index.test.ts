@@ -5,14 +5,17 @@ import nothing from "../nothing/index.ts"
 import isNothing from "./index.ts"
 
 Deno.test("isNothing", async function isNothingTests(t) {
-	await t.step("returns true for Nothing values", function returnsTrueForNothing() {
-		assertEquals(isNothing(nothing()), true)
-		assertEquals(isNothing(nothing<string>()), true)
-		assertEquals(isNothing(nothing<number>()), true)
-		assertEquals(isNothing(nothing<object>()), true)
-		assertEquals(isNothing(nothing<boolean>()), true)
-		assertEquals(isNothing(nothing<Array<number>>()), true)
-	})
+	await t.step(
+		"returns true for Nothing values",
+		function returnsTrueForNothing() {
+			assertEquals(isNothing(nothing()), true)
+			assertEquals(isNothing(nothing<string>()), true)
+			assertEquals(isNothing(nothing<number>()), true)
+			assertEquals(isNothing(nothing<object>()), true)
+			assertEquals(isNothing(nothing<boolean>()), true)
+			assertEquals(isNothing(nothing<Array<number>>()), true)
+		},
+	)
 
 	await t.step("returns false for Just values", function returnsFalseForJust() {
 		assertEquals(isNothing(just("hello")), false)
@@ -48,12 +51,12 @@ Deno.test("isNothing", async function isNothingTests(t) {
 			nothing(),
 			just(2),
 			nothing(),
-			nothing()
+			nothing(),
 		]
 
 		const nothings = values.filter(isNothing)
 		assertEquals(nothings.length, 3)
-		assertEquals(nothings.every(n => n._tag === "Nothing"), true)
+		assertEquals(nothings.every((n) => n._tag === "Nothing"), true)
 	})
 
 	await t.step("works with array some/every", function arraySomeEvery() {
@@ -76,7 +79,7 @@ Deno.test("isNothing", async function isNothingTests(t) {
 			nothing(),
 			just(1),
 			nothing(),
-			just(true)
+			just(true),
 		]
 
 		for (const value of values) {
@@ -105,7 +108,9 @@ Deno.test("isNothing", async function isNothingTests(t) {
 	})
 
 	await t.step("early return pattern", function earlyReturnPattern() {
-		function processValue<T>(maybe: typeof just<T> | typeof nothing<T>): T | string {
+		function processValue<T>(
+			maybe: typeof just<T> | typeof nothing<T>,
+		): T | string {
 			const value = maybe(42 as T)
 			if (isNothing(value)) {
 				return "No value"

@@ -3,7 +3,7 @@ import type Thing from "../../index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type PriceSpecification from "../StructuredValue/PriceSpecification/index.ts"
 
-import PriceSpecificationComponent from "../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
+import PriceSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
 
 export type HealthPlanCostSharingSpecificationType =
 	"HealthPlanCostSharingSpecification"

@@ -1,5 +1,5 @@
 // Run in Node, Deno, or Bun
-import * as babelParser from "npm:@babel/linguist"
+import * as babelParser from "npm:@babel/arborist"
 import traverse from "npm:@babel/traverse"
 
 // Minimal IR and AST helper types for this demo script

@@ -30,8 +30,8 @@
  * // ".gitignore.bak"
  *
  * // Path handling
- * changeExtension("js")("src/codewright/Button.tsx")
- * // "src/codewright/Button.js"
+ * changeExtension("js")("src/pagewright/Button.tsx")
+ * // "src/pagewright/Button.js"
  *
  * // Partial application
  * const toMarkdown = changeExtension("md")

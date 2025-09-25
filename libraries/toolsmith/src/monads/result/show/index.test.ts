@@ -1,7 +1,7 @@
 import { assert, assertEquals } from "@std/assert"
 
-import ok from "../ok/index.ts"
 import error from "../error/index.ts"
+import ok from "../ok/index.ts"
 import show from "./index.ts"
 
 Deno.test("show", async (t) => {

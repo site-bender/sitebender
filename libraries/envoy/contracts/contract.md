@@ -4,7 +4,7 @@
 
 ## Purpose
 
-Generate comprehensive documentation from Linguist output. Creates graphs, diagrams, and human-readable docs.
+Generate comprehensive documentation from Arborist output. Creates graphs, diagrams, and human-readable docs.
 
 ## Public API
 
@@ -14,13 +14,13 @@ Generate comprehensive documentation from Linguist output. Creates graphs, diagr
 
 **Signature:** `(input: ContractOutput<ParsedProject>) => Documentation`
 
-Generate documentation for an entire project from Linguist output
+Generate documentation for an entire project from Arborist output
 
 #### `generateFileDocumentation`
 
 **Signature:** `(input: ContractOutput<ParsedFile>) => FileDocumentation`
 
-Generate documentation for a single file from Linguist output
+Generate documentation for a single file from Arborist output
 
 #### `generateGraph`
 
@@ -68,7 +68,7 @@ Parsed Envoy comment with interpreted syntax
 - `lineNumber: number`
 - `associatedNode: string`
 
-> **Note:** Envoy interprets comment syntax (//++, //--, etc.) that Linguist provides as raw text
+> **Note:** Envoy interprets comment syntax (//++, //--, etc.) that Arborist provides as raw text
 
 #### `CodebaseGraph`
 
@@ -95,10 +95,10 @@ Dependency and relationship graph of the codebase
 
 ### Envoy Consumes
 
-- Linguist's ContractOutput only
-- Raw comment text from Linguist
-- AST data from Linguist
-- Type information from Linguist
+- Arborist's ContractOutput only
+- Raw comment text from Arborist
+- AST data from Arborist
+- Type information from Arborist
 
 ### Envoy Must Never
 
@@ -106,7 +106,7 @@ Dependency and relationship graph of the codebase
 - ❌ Using TypeScript compiler
 - ❌ Using ts-morph
 - ❌ Reading source files for parsing
-- ❌ Modifying Linguist's output
+- ❌ Modifying Arborist's output
 - ❌ Generating tests
 - ❌ Making network requests
 
@@ -114,7 +114,7 @@ Dependency and relationship graph of the codebase
 
 ### Allowed Operations
 
-- ✅ Import from @sitebender/linguist/exports/types
+- ✅ Import from @sitebender/arborist/exports/types
 - ✅ Read configuration files
 - ✅ Walk folder hierarchy
 - ✅ Generate markdown/HTML
@@ -124,9 +124,9 @@ Dependency and relationship graph of the codebase
 
 - ❌ Import TypeScript compiler
 - ❌ Import ts-morph
-- ❌ Import from @sitebender/linguist/internal
+- ❌ Import from @sitebender/arborist/internal
 - ❌ Use regex to parse TypeScript
-- ❌ Redefine Linguist's types
+- ❌ Redefine Arborist's types
 - ❌ Access .ts/.tsx files for parsing
 
 ## Input Requirements
@@ -161,14 +161,14 @@ Every input to Envoy must:
 
 ### Allowed dependencies:
 
-- ✅ linguist
+- ✅ arborist
 
 ### Forbidden dependencies:
 
-- ❌ logician
+- ❌ auditor
 - ❌ quarrier
 - ❌ toolsmith
-- ❌ codewright
+- ❌ pagewright
 - ❌ architect
 - ❌ formulator
 - ❌ agent

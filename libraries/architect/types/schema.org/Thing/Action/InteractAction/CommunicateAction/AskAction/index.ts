@@ -4,7 +4,7 @@ import type { ActionProps } from "../../../index.ts"
 import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
 
-import QuestionComponent from "../../../../../../../../codewright/src/define/Thing/CreativeWork/Comment/Question/index.tsx"
+import QuestionComponent from "../../../../../../../../pagewright/src/define/Thing/CreativeWork/Comment/Question/index.tsx"
 
 export type AskActionType = "AskAction"
 

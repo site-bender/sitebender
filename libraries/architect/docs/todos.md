@@ -13,12 +13,46 @@ This document outlines the path to achieve the vision described in the README. T
 
 Remember: **Data is the single source of truth. UI is just a view of that data.**
 
+## NEW: Declarative Testing Infrastructure
+
+### Mock Response Generation Components
+
+- [ ] `<MockResponse>` - Base response builder component
+- [ ] `<From.TripleStore>` - Generate from SPARQL queries
+- [ ] `<From.Generator>` - Generate from SHACL/OWL schemas
+- [ ] `<From.Fixture>` - Load from fixture files
+- [ ] `<Transform>` - Apply transformations to responses
+
+### Scenario State Management
+
+- [ ] `<Scenario>` - Container for test scenarios
+- [ ] `<State>` - Define initial state as triples
+- [ ] `<Transition>` - State transitions based on triggers
+- [ ] `<Timeline>` - Time-based state changes
+- [ ] `<Branch>` - Conditional scenario paths
+
+### Data Generation from Schemas
+
+- [ ] SHACL to mock data generator
+- [ ] OWL2 to mock data generator
+- [ ] JSON Schema to mock data generator
+- [ ] Respect all constraints (min/max, patterns, etc.)
+- [ ] Generate edge cases automatically
+
+### TestHarness Meta-Component
+
+- [ ] `<TestHarness>` - Orchestrates all testing libraries
+- [ ] Coordinate with Agent's IoInterceptor
+- [ ] Integrate with Auditor's contract verification
+- [ ] Connect to Custodian's state machines
+- [ ] Link to Envoy's observability
+
 ## Phase 1: Foundation Cleanup (Week 1-2)
 
 ### Remove Legacy Code
 
-- [ ] Delete `src/constructors/elements` folder entirely (HTML elements belong in Codewright)
-- [ ] Remove all element constructors that duplicate Codewright functionality
+- [ ] Delete `src/constructors/elements` folder entirely (HTML elements belong in Pagewright)
+- [ ] Remove all element constructors that duplicate Pagewright functionality
 - [ ] Clean up commented console.log statements throughout codebase
 - [ ] Remove unused/incomplete stub files in `src/pending`
 
@@ -59,7 +93,7 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 ### Build JSX to IR Pipeline
 
 - [ ] Create `src/compiler/jsxToIr.ts` transformer
-- [ ] Hook into TypeScript compiler API (leverage Linguist when ready)
+- [ ] Hook into TypeScript compiler API (leverage Arborist when ready)
 - [ ] Handle nested components properly
 - [ ] Preserve source locations for debugging
 - [ ] Generate unique IDs for each IR node
@@ -288,16 +322,16 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 
 ### Immediate Dependencies
 
-- **Codewright**: For HTML element rendering
+- **Pagewright**: For HTML element rendering
 - **Toolsmith**: For functional utilities
 
 ### Future Dependencies
 
-- **Linguist**: For JSX transformation hooks
+- **Arborist**: For JSX transformation hooks
 - **Formulator**: For expression parsing
 - **Agent**: For distributed synchronization
 - **Quarrier**: For property-based testing
-- **Logician**: For proof generation
+- **Auditor**: For proof generation
 
 ## Success Metrics
 
@@ -310,7 +344,7 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 - [ ] **Non-developers can create forms using only data field names**
 - [ ] **Widget selection is 100% automatic based on data types**
 - [ ] **All UI configuration can be stored as data and retrieved**
-- [ ] Zero runtime dependencies (except Codewright)
+- [ ] Zero runtime dependencies (except Pagewright)
 - [ ] Performance meets or exceeds React for similar operations
 - [ ] The-workshop can visualize and edit any Architect component
 

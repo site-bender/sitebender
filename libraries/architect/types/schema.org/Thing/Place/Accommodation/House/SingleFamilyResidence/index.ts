@@ -5,7 +5,7 @@ import type { PlaceProps } from "../../../index.ts"
 import type { AccommodationProps } from "../../index.ts"
 import type { HouseProps } from "../index.ts"
 
-import QuantitativeValueComponent from "../../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type SingleFamilyResidenceType = "SingleFamilyResidence"
 

@@ -4,7 +4,7 @@ import type { IntangibleProps } from "../index.ts"
 import type Property from "../Property/index.ts"
 import type { StatisticalVariableType } from "./StatisticalVariable/index.ts"
 
-import PropertyComponent from "../../../../../../codewright/src/define/Thing/Intangible/Property/index.tsx"
+import PropertyComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Property/index.tsx"
 
 export type ConstraintNodeType = "ConstraintNode" | StatisticalVariableType
 

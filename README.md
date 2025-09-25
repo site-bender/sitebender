@@ -36,11 +36,11 @@ The Architect renderer takes JSON configuration and builds the DOM directly, att
 
 - **Agent** (`@sitebender/agent`) - Distributed/offline capabilities (CRDTs, DID/VC, IPFS)
 - **Architect** (`@sitebender/architect`) - Rendering pipeline and reactive core
-- **Codewright** (`@sitebender/codewright`) - Accessible JSX components for semantic HTML
+- **Pagewright** (`@sitebender/pagewright`) - Accessible JSX components for semantic HTML
 - **Envoy** (`@sitebender/envoy`) - Living documentation & observability platform with code intelligence
 - **Formulator** (`@sitebender/formulator`) - Bidirectional formula parser (math string ↔ Architect IR)
-- **Linguist** (`@sitebender/linguist`) - TypeScript/JSX parsing to AST for tools
-- **Logician** (`@sitebender/logician`) - Proof and test generation for entire codebase
+- **Arborist** (`@sitebender/arborist`) - TypeScript/JSX parsing to AST for tools
+- **Auditor** (`@sitebender/auditor`) - Proof and test generation for entire codebase
 - **Quarrier** (`@sitebender/quarrier`) - Data generators (including triples) and property-based testing
 - **Quartermaster** (`@sitebender/quartermaster`) - Application generator CLI
 - **Steward** (`@sitebender/steward`) - Deterministic code style enforcement based on best practices
@@ -50,7 +50,7 @@ The Architect renderer takes JSON configuration and builds the DOM directly, att
 ## Development Constraints
 
 - **Runtime**: Deno + TypeScript only, pure ESM, no bundling
-- **Dependencies**: Zero runtime dependencies (except Linguist which uses TypeScript compiler)
+- **Dependencies**: Zero runtime dependencies (except Arborist which uses TypeScript compiler)
 - **Code organization**: One function per file, direct tree imports only, no barrel files
 - **Privacy**: Underscore folders are private, no escape hatches
 - **Accessibility**: Enforced via axe, required not optional
@@ -104,7 +104,7 @@ Currently in active development. Priority order:
 2. Toolsmith - Core functional primitives
 3. Steward - Style enforcement
 4. Parallel work on independent libraries
-5. Dependent libraries (Logician, Envoy)
+5. Dependent libraries (Auditor, Envoy)
 
 ## Philosophy
 

@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test"
-
 import type { Request } from "@playwright/test"
+
+import { expect, test } from "@playwright/test"
 
 test("name mirrors to #out", async ({ page }) => {
 	await page.goto("/tutorial/")

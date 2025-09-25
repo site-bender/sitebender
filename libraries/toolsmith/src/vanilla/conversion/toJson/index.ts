@@ -1,5 +1,6 @@
-import isSerializable from "../../validation/isSerializable/index.ts"
 import type { Serializable } from "../../../types/index.ts"
+
+import isSerializable from "../../validation/isSerializable/index.ts"
 
 /**
  * Converts values to JSON strings

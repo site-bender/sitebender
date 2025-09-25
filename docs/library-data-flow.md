@@ -27,13 +27,13 @@ Arbitrary<T> // Generator that produces random T values
 Gen<T> // Generator monad for composing generators
 TestProperty // Mathematical property to verify
 ```
-**Used By**: Logician (to generate test inputs), Linguist (for testing)
+**Used By**: Auditor (to generate test inputs), Arborist (for testing)
 
 ---
 
 ## Layer 1: Infrastructure
 
-### 📜 **Linguist** (Can use: Toolsmith, Quarrier)
+### 📜 **Arborist** (Can use: Toolsmith, Quarrier)
 **Purpose**: THE ONLY library that touches TypeScript compiler - parses all code  
 **What It Does**: Reads `.ts`/`.tsx` files, extracts everything into normalized data  
 **Exports**:
@@ -59,16 +59,16 @@ ContractOutput<ParsedFile> {
   metadata: { checksum, frozen: true }
 }
 ```
-**Critical**: Linguist does NOT interpret comment syntax (`//++`, `//--`). It just extracts raw text.
+**Critical**: Arborist does NOT interpret comment syntax (`//++`, `//--`). It just extracts raw text.
 
 ---
 
-## Layer 2: Services (Process Linguist Output)
+## Layer 2: Services (Process Arborist Output)
 
-### 📚 **Envoy** (Can use: Linguist, Toolsmith, Quarrier)
-**Purpose**: Documentation generator - interprets Linguist's comment syntax  
-**What It Does**: Takes Linguist output, interprets comment meanings, builds documentation graph  
-**Receives from Linguist**:
+### 📚 **Envoy** (Can use: Arborist, Toolsmith, Quarrier)
+**Purpose**: Documentation generator - interprets Arborist's comment syntax  
+**What It Does**: Takes Arborist output, interprets comment meanings, builds documentation graph  
+**Receives from Arborist**:
 ```typescript
 ParsedFile.comments // Raw: "//++ This function adds numbers"
 ```
@@ -78,7 +78,7 @@ ContractOutput<DocumentedModule> {
   data: {
     functions: DocumentedFunction[] {
       name: string
-      signature: string     // From Linguist unchanged
+      signature: string     // From Arborist unchanged
       description: string   // Extracted from //++ comments
       examples: string[]    // From //?? comments
       warnings: string[]    // From //!! comments
@@ -96,12 +96,12 @@ ContractOutput<DocumentedModule> {
 - Cannot import TypeScript
 - Cannot parse code
 - Cannot use regex on TypeScript
-- MUST use Linguist data AS-IS
+- MUST use Arborist data AS-IS
 
-### 🧪 **Logician** (Can use: Linguist, Toolsmith, Quarrier)
+### 🧪 **Auditor** (Can use: Arborist, Toolsmith, Quarrier)
 **Purpose**: Test generator - achieves 100% coverage automatically  
-**What It Does**: Analyzes Linguist's AST to find all branches, generates tests using Quarrier  
-**Receives from Linguist**:
+**What It Does**: Analyzes Arborist's AST to find all branches, generates tests using Quarrier  
+**Receives from Arborist**:
 ```typescript
 ParsedFunction {
   signature: "divide(a: number, b: number): number"
@@ -142,7 +142,7 @@ ContractOutput<GeneratedTests> {
 
 ## Layer 3: Runtime
 
-### 🎨 **Codewright** (Can use: Linguist, Toolsmith, Quarrier)
+### 🎨 **Pagewright** (Can use: Arborist, Toolsmith, Quarrier)
 **Purpose**: JSX component library that compiles to IR  
 **What It Does**: Declarative components for everything (forms, validation, calculations)  
 **Exports Components That Produce**:
@@ -157,10 +157,10 @@ IRNode {
 ```
 **Example**: `<Button onClick={handleClick}>` → IR node → HTML
 
-### ⚙️ **Architect** (Can use: Linguist, Toolsmith, Quarrier)
-**Purpose**: Evaluates IR from Codewright and Formulator  
+### ⚙️ **Architect** (Can use: Arborist, Toolsmith, Quarrier)
+**Purpose**: Evaluates IR from Pagewright and Formulator  
 **What It Does**: Takes IR trees, evaluates them to HTML or executes calculations  
-**Receives IR From codewright/Formulator**:
+**Receives IR From pagewright/Formulator**:
 ```typescript
 IRTree {
   root: IRNode
@@ -179,7 +179,7 @@ EvaluationResult {
 }
 ```
 
-### 🔢 **Formulator** (Can use: Linguist, Toolsmith, Quarrier)
+### 🔢 **Formulator** (Can use: Arborist, Toolsmith, Quarrier)
 **Purpose**: Mathematical expression parser  
 **What It Does**: Parses math expressions, compiles to Architect IR  
 **Input**: `"2 * x + sqrt(y)"`  
@@ -197,10 +197,10 @@ IRNode {
 
 ## Layer 4: Distribution
 
-### 🌐 **Agent** (Can use: Codewright, Architect, Toolsmith, Quarrier)
+### 🌐 **Agent** (Can use: Pagewright, Architect, Toolsmith, Quarrier)
 **Purpose**: Distributed data with CRDTs, P2P, IPFS, Solid  
 **What It Does**: Synchronizes data across peers, handles offline-first  
-**Uses from codewright/Architect**:
+**Uses from pagewright/Architect**:
 ```typescript
 // Components for UI
 <AgentProvider endpoint="...">
@@ -224,7 +224,7 @@ AgentState {
 
 ## The Critical Rules
 
-1. **Linguist** is the ONLY source of TypeScript AST - everyone else transforms its output
+1. **Arborist** is the ONLY source of TypeScript AST - everyone else transforms its output
 2. **Envoy** ONLY interprets comment syntax - cannot parse code itself
 3. **Toolsmith/Quarrier** cannot import ANY @sitebender libraries (they're the foundation)
 4. **No circular dependencies** - data flows in one direction through layers
@@ -235,11 +235,11 @@ AgentState {
 ```
 Layer 0: [Toolsmith] [Quarrier]
            ↓         ↓
-Layer 1: [Linguist] ←──┘
+Layer 1: [Arborist] ←──┘
            ↓
-Layer 2: [Envoy] [Logician] ←── Both consume Linguist output
+Layer 2: [Envoy] [Auditor] ←── Both consume Arborist output
            ↓         ↓
-Layer 3: [Codewright] [Architect] [Formulator]
+Layer 3: [Pagewright] [Architect] [Formulator]
            ↓         ↓
 Layer 4: [Agent] ←────┘
            ↓

@@ -10,7 +10,7 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 
 	// Create test file structure
 	await Deno.mkdir(join(testDir, "src"), { recursive: true })
-	await Deno.mkdir(join(testDir, "src/codewright"), { recursive: true })
+	await Deno.mkdir(join(testDir, "src/pagewright"), { recursive: true })
 	await Deno.mkdir(join(testDir, "src/utils"), { recursive: true })
 	await Deno.mkdir(join(testDir, "node_modules"), { recursive: true })
 	await Deno.mkdir(join(testDir, ".git"), { recursive: true })
@@ -21,8 +21,8 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 	await Deno.writeTextFile(join(testDir, "src/main.ts"), "")
 	await Deno.writeTextFile(join(testDir, "src/app.tsx"), "")
 	await Deno.writeTextFile(join(testDir, "src/style.css"), "")
-	await Deno.writeTextFile(join(testDir, "src/codewright/Button.tsx"), "")
-	await Deno.writeTextFile(join(testDir, "src/codewright/Header.tsx"), "")
+	await Deno.writeTextFile(join(testDir, "src/pagewright/Button.tsx"), "")
+	await Deno.writeTextFile(join(testDir, "src/pagewright/Header.tsx"), "")
 	await Deno.writeTextFile(join(testDir, "src/utils/helpers.ts"), "")
 	await Deno.writeTextFile(join(testDir, "src/utils/api.js"), "")
 	await Deno.writeTextFile(join(testDir, "node_modules/lib.ts"), "")
@@ -37,13 +37,13 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 
 		assertEquals(files.length, 7)
 
-		const relativePaths = files.map(f => f.replace(testDir, "")).sort()
+		const relativePaths = files.map((f) => f.replace(testDir, "")).sort()
 		assertEquals(relativePaths, [
 			"/index.ts",
 			"/node_modules/lib.ts",
 			"/src/app.tsx",
-			"/src/codewright/Button.tsx",
-			"/src/codewright/Header.tsx",
+			"/src/pagewright/Button.tsx",
+			"/src/pagewright/Header.tsx",
 			"/src/main.ts",
 			"/src/utils/helpers.ts",
 		])
@@ -58,7 +58,7 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 
 		assertEquals(files.length, 6)
 
-		const relativePaths = files.map(f => f.replace(testDir, ""))
+		const relativePaths = files.map((f) => f.replace(testDir, ""))
 		assertEquals(relativePaths.includes("/node_modules/lib.ts"), false)
 	})
 
@@ -93,15 +93,18 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 		assertEquals(files.length, 0)
 	})
 
-	await t.step("handles non-existent directory", async function testNonExistent() {
-		const files = await collectFiles({
-			baseDir: join(testDir, "non-existent"),
-			extensions: [".ts"],
-			excludedDirNames: new Set(),
-		})
+	await t.step(
+		"handles non-existent directory",
+		async function testNonExistent() {
+			const files = await collectFiles({
+				baseDir: join(testDir, "non-existent"),
+				extensions: [".ts"],
+				excludedDirNames: new Set(),
+			})
 
-		assertEquals(files.length, 0)
-	})
+			assertEquals(files.length, 0)
+		},
+	)
 
 	await t.step("returns absolute paths", async function testAbsolutePaths() {
 		const files = await collectFiles({
@@ -110,7 +113,7 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 			excludedDirNames: new Set(["node_modules", ".git"]),
 		})
 
-		const allAbsolute = files.every(f => f.startsWith("/"))
+		const allAbsolute = files.every((f) => f.startsWith("/"))
 		assertEquals(allAbsolute, true)
 	})
 

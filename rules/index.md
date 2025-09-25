@@ -389,10 +389,10 @@
 **External dependencies**: <dl>
 <div>
 <dt><strong>Rule</strong></dt>
-<dd>ONLY Linguist and Agent can reach outside the project</dd>
+<dd>ONLY Arborist and Agent can reach outside the project</dd>
 </div>
 <div>
-<dt><strong>Linguist</strong></dt>
+<dt><strong>Arborist</strong></dt>
 <dd>Can import TypeScript compiler ONLY</dd>
 </div>
 <div>
@@ -462,7 +462,7 @@
 **Temporary rules**: <dl>
 <div>
 <dt><strong>Note</strong></dt>
-<dd>These are THROWAWAY tests until Logician is ready to generate all tests</dd>
+<dd>These are THROWAWAY tests until Auditor is ready to generate all tests</dd>
 </div>
 <div>
 <dt><strong>Location</strong></dt>
@@ -493,11 +493,11 @@
 **When to write tests**: <dl>
 <div>
 <dt><strong>New code</strong></dt>
-<dd>For NEW functions/codewright, write test TDD style: test FIRST, then function to pass</dd>
+<dd>For NEW functions/pagewright, write test TDD style: test FIRST, then function to pass</dd>
 </div>
 <div>
 <dt><strong>Existing code</strong></dt>
-<dd>For functions/codewright we EDIT or fix, write test BEFORE doing the fix</dd>
+<dd>For functions/pagewright we EDIT or fix, write test BEFORE doing the fix</dd>
 </div>
 <div>
 <dt><strong>Legacy</strong></dt>
@@ -866,7 +866,7 @@
 **Workflow**: <dl>
 <div>
 <dt><strong>Step 1</strong></dt>
-<dd>Linguist reads TypeScript/JSX files and extracts raw comments</dd>
+<dd>Arborist reads TypeScript/JSX files and extracts raw comments</dd>
 </div>
 <div>
 <dt><strong>Step 2</strong></dt>

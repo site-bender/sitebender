@@ -4,7 +4,7 @@ import type Audience from "../../Audience/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { TripProps } from "../index.ts"
 
-import AudienceComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Audience/index.tsx"
+import AudienceComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
 
 export type TouristTripType = "TouristTrip"
 

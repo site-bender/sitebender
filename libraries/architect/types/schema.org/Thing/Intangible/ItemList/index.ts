@@ -8,9 +8,9 @@ import type { HowToSectionType } from "./HowToSection/index.ts"
 import type { HowToStepType } from "./HowToStep/index.ts"
 import type { OfferCatalogType } from "./OfferCatalog/index.ts"
 
-import ThingComponent from "../../../../../../codewright/src/define/Thing/index.tsx"
-import ItemListOrderTypeComponent from "../../../../../../codewright/src/define/Thing/Intangible/Enumeration/ItemListOrderType/index.tsx"
-import ListItemComponent from "../../../../../../codewright/src/define/Thing/Intangible/ListItem/index.tsx"
+import ThingComponent from "../../../../../../pagewright/src/define/Thing/index.tsx"
+import ItemListOrderTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/ItemListOrderType/index.tsx"
+import ListItemComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ListItem/index.tsx"
 
 export type ItemListType =
 	| "ItemList"

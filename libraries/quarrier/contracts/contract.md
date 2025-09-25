@@ -14,7 +14,7 @@ Property-based testing tools, arbitrary data generation, and test utilities. Pro
 
 **Signature:** `(type: ParsedType) => Arbitrary<unknown>`
 
-Generate arbitrary values for a given type from Linguist output
+Generate arbitrary values for a given type from Arborist output
 
 #### `generateForType`
 
@@ -103,8 +103,8 @@ Property-based test specification
 
 ### Quarrier Provides
 
-- Test data to Logician
-- Arbitrary values to Linguist for testing
+- Test data to Auditor
+- Arbitrary values to Arborist for testing
 - Property test definitions
 - Shrinking for minimal failing cases
 
@@ -121,7 +121,7 @@ Property-based test specification
 
 ### Allowed Operations
 
-- ✅ Import from @sitebender/linguist/exports/types
+- ✅ Import from @sitebender/arborist/exports/types
 - ✅ Pure functional generators
 - ✅ Mathematical operations
 - ✅ Random number generation (seedable)
@@ -166,14 +166,14 @@ Every output from Quarrier must:
 
 ### Allowed to consume Quarrier output:
 
-- ✅ linguist
-- ✅ logician
+- ✅ arborist
+- ✅ auditor
 
 ### Forbidden from consuming Quarrier output:
 
 - ❌ envoy
 - ❌ toolsmith
-- ❌ codewright
+- ❌ pagewright
 - ❌ architect
 - ❌ formulator
 - ❌ agent

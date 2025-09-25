@@ -1,4 +1,6 @@
 import allPass from "../allPass/index.ts"
+import either from "../either/index.ts"
+import gte from "../gte/index.ts"
 import isFunction from "../isFunction/index.ts"
 import isInteger from "../isInteger/index.ts"
 import isNaN from "../isNaN/index.ts"
@@ -7,8 +9,6 @@ import isNumber from "../isNumber/index.ts"
 import isObject from "../isObject/index.ts"
 import isString from "../isString/index.ts"
 import isUndefined from "../isUndefined/index.ts"
-import either from "../either/index.ts"
-import gte from "../gte/index.ts"
 import lte from "../lte/index.ts"
 import nonePass from "../nonePass/index.ts"
 
@@ -40,7 +40,7 @@ export default function isArrayLike(
 		gte(0),
 		lte(Number.MAX_SAFE_INTEGER),
 		isInteger,
-		nonePass([isNaN])
+		nonePass([isNaN]),
 	])(numLen)
 }
 

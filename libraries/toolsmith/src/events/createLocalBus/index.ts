@@ -1,4 +1,9 @@
-import type { Bus, BusEnvelope, DomDispatcher, Handler } from "../types/index.ts"
+import type {
+	Bus,
+	BusEnvelope,
+	DomDispatcher,
+	Handler,
+} from "../types/index.ts"
 
 //++ Creates a local document-scoped event bus using CustomEvent when available
 export default function createLocalBus(

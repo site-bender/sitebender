@@ -8,9 +8,9 @@ Deno.test("fold", async function foldTests(t) {
 	await t.step("eliminates Just branch", function eliminatesJust() {
 		const maybe = just(42)
 		const result = fold<number, string>(
-			() => "Nothing value"
+			() => "Nothing value",
 		)(
-			(val) => `Just value: ${val}`
+			(val) => `Just value: ${val}`,
 		)(maybe)
 
 		assertEquals(result, "Just value: 42")
@@ -19,9 +19,9 @@ Deno.test("fold", async function foldTests(t) {
 	await t.step("eliminates Nothing branch", function eliminatesNothing() {
 		const maybe = nothing<number>()
 		const result = fold<number, string>(
-			() => "Nothing value"
+			() => "Nothing value",
 		)(
-			(val) => `Just value: ${val}`
+			(val) => `Just value: ${val}`,
 		)(maybe)
 
 		assertEquals(result, "Nothing value")
@@ -29,9 +29,9 @@ Deno.test("fold", async function foldTests(t) {
 
 	await t.step("converts to boolean", function convertsToBoolean() {
 		const hasValue = fold<number, boolean>(
-			() => false
+			() => false,
 		)(
-			() => true
+			() => true,
 		)
 
 		assertEquals(hasValue(just(100)), true)
@@ -40,33 +40,36 @@ Deno.test("fold", async function foldTests(t) {
 
 	await t.step("converts to number", function convertsToNumber() {
 		const getOrZero = fold<number, number>(
-			() => 0
+			() => 0,
 		)(
-			(val) => val
+			(val) => val,
 		)
 
 		assertEquals(getOrZero(just(42)), 42)
 		assertEquals(getOrZero(nothing()), 0)
 	})
 
-	await t.step("handles complex transformations", function complexTransformations() {
-		interface User {
-			id: number
-			name: string
-		}
+	await t.step(
+		"handles complex transformations",
+		function complexTransformations() {
+			interface User {
+				id: number
+				name: string
+			}
 
-		const userToString = fold<User, string>(
-			() => "Guest User"
-		)(
-			(user) => `${user.name} (ID: ${user.id})`
-		)
+			const userToString = fold<User, string>(
+				() => "Guest User",
+			)(
+				(user) => `${user.name} (ID: ${user.id})`,
+			)
 
-		const justUser = just({ id: 1, name: "Alice" })
-		const nothingUser = nothing<User>()
+			const justUser = just({ id: 1, name: "Alice" })
+			const nothingUser = nothing<User>()
 
-		assertEquals(userToString(justUser), "Alice (ID: 1)")
-		assertEquals(userToString(nothingUser), "Guest User")
-	})
+			assertEquals(userToString(justUser), "Alice (ID: 1)")
+			assertEquals(userToString(nothingUser), "Guest User")
+		},
+	)
 
 	await t.step("onNothing is lazy", function onNothingIsLazy() {
 		let callCount = 0
@@ -75,7 +78,9 @@ Deno.test("fold", async function foldTests(t) {
 			return "default"
 		}
 
-		const foldWithCount = fold<number, string>(onNothing)((val) => val.toString())
+		const foldWithCount = fold<number, string>(onNothing)((val) =>
+			val.toString()
+		)
 
 		// Should not call onNothing for Just values
 		assertEquals(foldWithCount(just(42)), "42")
@@ -97,23 +102,29 @@ Deno.test("fold", async function foldTests(t) {
 		assertEquals(foldComplete(just("hello")), "HELLO")
 	})
 
-	await t.step("handles null and undefined in Just", function handlesNullUndefined() {
-		const handleNull = fold<null | undefined, string>(
-			() => "was nothing"
-		)(
-			(val) => val === null ? "was null" : "was undefined"
-		)
+	await t.step(
+		"handles null and undefined in Just",
+		function handlesNullUndefined() {
+			const handleNull = fold<null | undefined, string>(
+				() => "was nothing",
+			)(
+				(val) => val === null ? "was null" : "was undefined",
+			)
 
-		assertEquals(handleNull(nothing()), "was nothing")
-		assertEquals(handleNull(just(null)), "was null")
-		assertEquals(handleNull(just(undefined)), "was undefined")
-	})
+			assertEquals(handleNull(nothing()), "was nothing")
+			assertEquals(handleNull(just(null)), "was null")
+			assertEquals(handleNull(just(undefined)), "was undefined")
+		},
+	)
 
 	await t.step("can return Maybe values", function returnsMaybe() {
-		const doubleOrNothing = fold<number, typeof just<number> | typeof nothing<number>>(
-			() => nothing<number>()
+		const doubleOrNothing = fold<
+			number,
+			typeof just<number> | typeof nothing<number>
+		>(
+			() => nothing<number>(),
 		)(
-			(val) => just(val * 2)
+			(val) => just(val * 2),
 		)
 
 		const result1 = doubleOrNothing(just(21))
@@ -131,9 +142,9 @@ Deno.test("fold", async function foldTests(t) {
 		const defaultValue = 5
 
 		const calculate = fold<number, number>(
-			() => defaultValue
+			() => defaultValue,
 		)(
-			(val) => val * multiplier
+			(val) => val * multiplier,
 		)
 
 		assertEquals(calculate(just(4)), 40) // 4 * 10
@@ -142,9 +153,9 @@ Deno.test("fold", async function foldTests(t) {
 
 	await t.step("works with arrays", function worksWithArrays() {
 		const getLength = fold<Array<number>, number>(
-			() => -1
+			() => -1,
 		)(
-			(arr) => arr.length
+			(arr) => arr.length,
 		)
 
 		assertEquals(getLength(just([1, 2, 3])), 3)
@@ -156,9 +167,9 @@ Deno.test("fold", async function foldTests(t) {
 		type Result = { type: "empty" } | { type: "value"; data: number }
 
 		const toResult = fold<number, Result>(
-			() => ({ type: "empty" as const })
+			() => ({ type: "empty" as const }),
 		)(
-			(val) => ({ type: "value" as const, data: val })
+			(val) => ({ type: "value" as const, data: val }),
 		)
 
 		const result1 = toResult(just(42))

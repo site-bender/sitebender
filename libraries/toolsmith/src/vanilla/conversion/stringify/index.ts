@@ -1,15 +1,15 @@
 import type { Value } from "../../../types/index.ts"
 
-import isNullish from "../../validation/isNullish/index.ts"
-import sortByKey from "./sortByKey/index.ts"
-import map from "../../array/map/index.ts"
-import join from "../../array/join/index.ts"
-import isArray from "../../validation/isArray/index.ts"
-import isObject from "../../validation/isObject/index.ts"
 import isEmpty from "../../array/isEmpty/index.ts"
+import join from "../../array/join/index.ts"
+import map from "../../array/map/index.ts"
 import sort from "../../array/sort/index.ts"
 import toString from "../../conversion/castValue/toString/index.ts"
 import entries from "../../object/entries/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
+import isObject from "../../validation/isObject/index.ts"
+import sortByKey from "./sortByKey/index.ts"
 
 //++ Formats object entries as key: value (here to avoid circular imports)
 function formatEntry([key, val]: [string, Value]): string {

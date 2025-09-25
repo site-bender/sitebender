@@ -2,7 +2,7 @@
 
 ## The Goal of This Project
 
-Create a zero-dependency ecosystem of nine functional programming libraries that form a fully accessible, progressive enhancement-first web application framework where everything works without JavaScript. Revolutionary tooling automatically generates 100% test coverage (Logician) and documentation from code (Envoy). Every line verified, tested, and documented. No assumptions, no shortcuts, no tech debt.
+Create a zero-dependency ecosystem of nine functional programming libraries that form a fully accessible, progressive enhancement-first web application framework where everything works without JavaScript. Revolutionary tooling automatically generates 100% test coverage (Auditor) and documentation from code (Envoy). Every line verified, tested, and documented. No assumptions, no shortcuts, no tech debt.
 
 Perhaps more importantly: create a codebase that **minimizes cognitive load** for developers, making it easy to understand, maintain, and extend.
 
@@ -22,7 +22,7 @@ Pure functional building blocks. The foundation everything else builds upon.
 - Monads, combinators, do-notation, and mathematical truth
 - If it's not pure, it doesn't belong here (IO excepted)
 
-#### @sitebender/codewright (potential name change to codewright)
+#### @sitebender/pagewright (potential name change to pagewright)
 
 Accessible JSX components forming a declarative DSL for web applications. For those who just want a component library.
 
@@ -50,7 +50,7 @@ The reactive computation core. No VDOM, no bloat, just efficiency.
   - Theming
   - Calculations
   - Formatting
-- Incorporates @sitebender/codewright (codewright) for essential HTML output components
+- Incorporates @sitebender/pagewright (pagewright) for essential HTML output components
 - Adds JSX components that compile (eventually) to composed functions
 
 #### @sitebender/formulator (potential name change to formulator)
@@ -115,7 +115,7 @@ Automatic documentation generator and code base observability/control platform f
 - Implements HATEOAS for documentation
 - Uses paths, configuration files, etc. to create a graph of the entire codebase automatically
 
-#### @sitebender/logician (potential name change to logician)
+#### @sitebender/auditor (potential name change to auditor)
 
 Revolutionary test generator achieving 100% coverage automatically.
 
@@ -124,12 +124,12 @@ Revolutionary test generator achieving 100% coverage automatically.
 - Mathematical law verification (commutative, associative, idempotent, functor, etc.)
 - "We don't write tests. We generate proofs."
 
-#### @sitebender/linguist (potential name change to linguist)
+#### @sitebender/arborist (potential name change to arborist)
 
 The only library with a dependency: the TypeScript compiler.
 
 - Parses TypeScript/JSX to extract types, signatures, properties, and comments (for Envoy)
-- Used by Envoy and Logician (logician)
+- Used by Envoy and Auditor (auditor)
 - Formal API for future tools
 
 #### @sitebender/quarrier (potential name change to quarrier)

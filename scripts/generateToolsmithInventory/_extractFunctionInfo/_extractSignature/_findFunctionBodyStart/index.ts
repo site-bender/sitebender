@@ -1,7 +1,7 @@
-import chars from "@sitebender/toolsmith/vanilla/string/chars/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
 import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
+import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import chars from "@sitebender/toolsmith/vanilla/string/chars/index.ts"
 
 /**
  * Find the position of the opening brace that starts the function body,

@@ -1,12 +1,14 @@
-import type { ContractMetadata, ContractOutput } from "../../types/enforcement.ts"
-
-import { DEFAULT_HASH_ALGORITHM, HASH_VERSION } from "../../constants/index.ts"
+import type {
+	ContractMetadata,
+	ContractOutput,
+} from "../../types/enforcement.ts"
 
 import hashHex from "../../../../toolsmith/src/crypto/hashHex/index.ts"
+import { DEFAULT_HASH_ALGORITHM, HASH_VERSION } from "../../constants/index.ts"
+import canonicalStringify from "../canonicalStringify/index.ts"
 import deepFreeze from "../deepFreeze/index.ts"
 import generateLegacyChecksum from "../generateLegacyChecksum/index.ts"
 import validateContract from "./validateContract/index.ts"
-import canonicalStringify from "../canonicalStringify/index.ts"
 
 //++ Creates an immutable contract output with validation and metadata
 

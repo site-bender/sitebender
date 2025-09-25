@@ -14,14 +14,17 @@ Deno.test("isLeft", async function isLeftTests(t) {
 		assertEquals(isLeft(left([])), true)
 	})
 
-	await t.step("returns false for Right values", function returnsFalseForRight() {
-		assertEquals(isLeft(right("success")), false)
-		assertEquals(isLeft(right(42)), false)
-		assertEquals(isLeft(right(null)), false)
-		assertEquals(isLeft(right(undefined)), false)
-		assertEquals(isLeft(right({ data: "ok" })), false)
-		assertEquals(isLeft(right([])), false)
-	})
+	await t.step(
+		"returns false for Right values",
+		function returnsFalseForRight() {
+			assertEquals(isLeft(right("success")), false)
+			assertEquals(isLeft(right(42)), false)
+			assertEquals(isLeft(right(null)), false)
+			assertEquals(isLeft(right(undefined)), false)
+			assertEquals(isLeft(right({ data: "ok" })), false)
+			assertEquals(isLeft(right([])), false)
+		},
+	)
 
 	await t.step("works as type guard", function typeGuard() {
 		const leftValue = left<string, number>("error")
@@ -44,7 +47,7 @@ Deno.test("isLeft", async function isLeftTests(t) {
 			right(1),
 			left("error2"),
 			right(2),
-			left("error3")
+			left("error3"),
 		]
 
 		const lefts = values.filter(isLeft)

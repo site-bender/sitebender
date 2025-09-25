@@ -27,7 +27,7 @@ CLI commands (stubs)
 Blueprints (initial placeholders)
 - mission-control (docs app / Envoy)
 - the-workshop (playground / Architect)
-- minimal (Codewright-only)
+- minimal (Pagewright-only)
 
 Outputs: guarantees (to be implemented)
 - Import maps:

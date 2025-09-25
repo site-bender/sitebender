@@ -1,9 +1,10 @@
 //++ Generic hash function with pluggable algorithm adapters
 
 import type { HashInput, HashOptions } from "./types/index.ts"
-import sha256Adapter from "./adapters/sha256/index.ts"
-import blake3Adapter from "./adapters/blake3/index.ts"
 import type { HashAdapter } from "./types/index.ts"
+
+import blake3Adapter from "./adapters/blake3/index.ts"
+import sha256Adapter from "./adapters/sha256/index.ts"
 
 const sha512Placeholder: HashAdapter = (_input) =>
 	Promise.reject(new Error("SHA-512 adapter not yet implemented"))

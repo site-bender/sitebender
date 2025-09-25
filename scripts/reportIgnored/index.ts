@@ -1,20 +1,18 @@
-#!/usr/bin/env -S deno run -A --unstable-temporal
+import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
+import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
+import sort from "@sitebender/toolsmith/vanilla/array/sort/index.ts"
+import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
+import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
+import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
+import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
 /**
  * Report all deno-coverage-ignore markers across the repo, grouped by package/app.
  * Default export is provided; script also runnable via CLI.
  */
 
 import { join, relative } from "jsr:@std/path@^1.0.8"
-
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
-import sort from "@sitebender/toolsmith/vanilla/array/sort/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
 
 import runCli, { type CliRunArgs } from "../utilities/cli/runCli/index.ts"
 
@@ -26,11 +24,11 @@ const DEFAULT_SCAN_DIRS = [
 	"applications/the-agency",
 	"libraries/agency",
 	"libraries/architect",
-	"libraries/codewright",
+	"libraries/pagewright",
 	"libraries/envoy",
 	"libraries/formulator",
-	"libraries/linguist",
-	"libraries/logician",
+	"libraries/arborist",
+	"libraries/auditor",
 	"libraries/quarrier",
 	"libraries/quartermaster",
 	"libraries/steward",
@@ -179,9 +177,9 @@ export default async function reportCoverageIgnores(
 				map(
 					sort(
 						slice(recs, 0),
-						(a, b) => a.file.localeCompare(b.file) || a.line - b.line
+						(a, b) => a.file.localeCompare(b.file) || a.line - b.line,
 					),
-					(r) => ({ ...r, file: relative(rootFsPath, r.file) })
+					(r) => ({ ...r, file: relative(rootFsPath, r.file) }),
 				),
 			]),
 		)
@@ -199,7 +197,7 @@ export default async function reportCoverageIgnores(
 	for (const label of labels) {
 		const recs = sort(
 			groups.get(label)!,
-			(a, b) => a.file.localeCompare(b.file) || a.line - b.line
+			(a, b) => a.file.localeCompare(b.file) || a.line - b.line,
 		)
 		total += recs.length
 		console.log(`\n=== ${label} (${recs.length}) ===`)
@@ -232,7 +230,7 @@ if (import.meta.main) {
 				? filter(
 					map(
 						split(dirsOpt as string, ","),
-						(s) => trim(s)
+						(s) => trim(s),
 					),
 					Boolean,
 				)

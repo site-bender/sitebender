@@ -7,10 +7,10 @@ import type { StructuredValueProps } from "../index.ts"
 import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
-import DayOfWeekComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Enumeration/DayOfWeek/index.tsx"
-import DurationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import OpeningHoursSpecificationComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../codewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import DayOfWeekComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/DayOfWeek/index.tsx"
+import DurationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import OpeningHoursSpecificationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type ServicePeriodType = "ServicePeriod"
 

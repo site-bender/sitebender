@@ -1,4 +1,4 @@
-//++ [GROUP] Type definitions for fixCodewrightTypesImports codemod
+//++ [GROUP] Type definitions for fixPagewrightTypesImports codemod
 
 //++ Import specification for barrel imports
 export interface ImportSpec {

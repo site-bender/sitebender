@@ -27,6 +27,7 @@ The Warden library solves architectural governance challenges in modern developm
 Warden must meet strict performance targets to ensure seamless integration into development workflows:
 
 ### Core Performance Targets
+
 - **Hash Computation**: < 100ms for files up to 1MB, < 500ms for files up to 10MB
 - **Privacy Validation**: < 1 second for projects with up to 10,000 files
 - **Contract Validation**: < 2 seconds for complete contract verification
@@ -35,12 +36,14 @@ Warden must meet strict performance targets to ensure seamless integration into 
 - **Parallel Processing**: Support for concurrent validation of up to 8 targets simultaneously
 
 ### Scalability Requirements
+
 - **Large Codebases**: < 15 seconds for projects with 50,000+ files
 - **Incremental Validation**: < 1 second for validating only changed files
 - **Cache Efficiency**: 90%+ cache hit rate for unchanged files
 - **Network Independence**: Zero network dependencies during validation
 
 ### Quality Requirements
+
 - **Accuracy**: 100% accuracy in violation detection (zero false positives)
 - **Deterministic Results**: Identical results across different machines and environments
 - **Error Recovery**: Graceful handling of corrupted files or incomplete file systems
@@ -90,19 +93,23 @@ libraries/warden/
 ### **FUNCTION DESCRIPTIONS (for //++ comments)**
 
 #### **Core Functions**
+
 - `enforce`: Main enforcement orchestrator that runs all validations and returns results
 - `hashArtifact`: Generate SHA-256 hash of data using canonical JSON serialization
 
-#### **Privacy Functions**  
+#### **Privacy Functions**
+
 - `validatePrivacy`: Validate that imports follow underscore privacy rules
 - `isPrivateFunction`: Check if a function path indicates privacy (contains underscore)
 - `getParentDirectory`: Get parent directory path for privacy rule calculations
 
 #### **Contract Functions**
+
 - `validateContract`: Validate contract JSON against implementation and schema
 - `_schemaValidator`: Private helper for JSON schema validation logic
 
 #### **Constants and Types**
+
 - `constants/index.ts`: Privacy rule constants and pattern definitions (named exports)
 - `types/index.ts`: All Warden type definitions (named exports)
 
@@ -158,22 +165,22 @@ libraries/warden/
 ```typescript
 // Main enforcement function (curried)
 export declare function enforce(
-  config: WardenConfig
+	config: WardenConfig,
 ): (phase?: EnforcementPhase) => Promise<EnforcementResult>
 
 // Hash computation (to be implemented with toolsmith)
 export declare function hashArtifact(
-  data: unknown
+	data: unknown,
 ): Promise<string>
 
 // Privacy validation (curried)
 export declare function validatePrivacy(
-  filePath: string
+	filePath: string,
 ): (usageMap: Map<string, string[]>) => () => Promise<boolean>
 
 // Contract validation (curried)
 export declare function validateContract(
-  contractPath: string
+	contractPath: string,
 ): (implementationPath: string) => () => Promise<ValidationResult>
 ```
 
@@ -181,32 +188,32 @@ export declare function validateContract(
 
 ```typescript
 type WardenConfig = {
-  // Target directories to enforce
-  targets: string[]
+	// Target directories to enforce
+	targets: string[]
 
-  // Enforcement phase
-  phase: "pending" | "warn" | "block"
+	// Enforcement phase
+	phase: "pending" | "warn" | "block"
 
-  // Custom privacy rules
-  privacyRules?: PrivacyRule[]
+	// Custom privacy rules
+	privacyRules?: PrivacyRule[]
 
-  // Contract locations
-  contractPaths?: string[]
+	// Contract locations
+	contractPaths?: string[]
 
-  // Performance settings
-  performance?: {
-    maxExecutionTime: number        // Maximum time in milliseconds (default: 5000)
-    parallelProcessing: boolean     // Enable concurrent validation (default: true)
-    maxMemoryUsage: number         // Maximum memory in MB (default: 512)
-    cacheEnabled: boolean          // Enable result caching (default: true)
-    incrementalMode: boolean       // Only validate changed files (default: false)
-  }
+	// Performance settings
+	performance?: {
+		maxExecutionTime: number // Maximum time in milliseconds (default: 5000)
+		parallelProcessing: boolean // Enable concurrent validation (default: true)
+		maxMemoryUsage: number // Maximum memory in MB (default: 512)
+		cacheEnabled: boolean // Enable result caching (default: true)
+		incrementalMode: boolean // Only validate changed files (default: false)
+	}
 
-  // Reporting configuration
-  reporting?: {
-    format: "json" | "markdown" | "console"
-    outputPath?: string
-  }
+	// Reporting configuration
+	reporting?: {
+		format: "json" | "markdown" | "console"
+		outputPath?: string
+	}
 }
 ```
 
@@ -215,13 +222,15 @@ type WardenConfig = {
 ### Phase 1: Foundation
 
 #### 1.1 Library Structure and Types ✅ COMPLETED
-- [x] Create `libraries/warden/` directory structure  
+
+- [x] Create `libraries/warden/` directory structure
 - [x] Set up TypeScript configuration
 - [x] Create basic mod.ts with comments only (no barrel files)
 - [x] Set up contract system for Warden itself
 - [x] Create core type definitions in `src/enforce/types/`
 
 #### 1.2 Core Algorithm Implementation (CURRENT PHASE)
+
 - [ ] Implement `hashArtifact` using `libraries/toolsmith/src/crypto/hashHex/`
 - [ ] Implement `canonicalStringify` for deterministic JSON serialization
 - [ ] Implement underscore privacy validation logic
@@ -230,6 +239,7 @@ type WardenConfig = {
 - [ ] Build proper error handling using toolsmith validation functions
 
 #### 1.3 Enforcement Orchestrator
+
 - [ ] Complete the main `enforce` function implementation
 - [ ] Integrate all validation functions properly
 - [ ] Add proper return type handling (`ValidationResult`)
@@ -237,6 +247,7 @@ type WardenConfig = {
 - [ ] Add comprehensive error reporting
 
 #### 1.4 Testing and Validation
+
 - [ ] Create comprehensive test suite for all functions
 - [ ] Add performance benchmarking
 - [ ] Validate performance targets against actual implementation
@@ -245,6 +256,7 @@ type WardenConfig = {
 ### Phase 2: Enhanced Functionality
 
 #### 2.1 Advanced Features
+
 - [ ] Implement plugin system for custom rules
 - [ ] Add performance monitoring and reporting
 - [ ] Create caching system for unchanged files
@@ -253,12 +265,14 @@ type WardenConfig = {
 - [ ] Create performance benchmarking suite
 
 #### 2.2 Developer Experience
+
 - [ ] Create CLI wrapper for easy adoption
 - [ ] Add VSCode extension integration points
 - [ ] Implement real-time validation mode
 - [ ] Create interactive setup wizard
 
 #### 2.3 Integration and Polish
+
 - [ ] Generate comprehensive violation reports
 - [ ] Add trend analysis over time
 - [ ] Create dashboard-ready metrics
@@ -267,18 +281,21 @@ type WardenConfig = {
 ### Phase 3: External Integration (Future)
 
 #### 3.1 Library Integration
+
 - [ ] Update existing project scripts to use new Warden library
 - [ ] Ensure backward compatibility during transition
 - [ ] Update CI/CD pipelines
 - [ ] Create migration documentation
 
 #### 3.2 External Adoption Tools (Optional)
+
 - [ ] Create standalone CLI tool
 - [ ] Add npm/deno package configurations
 - [ ] Create Docker container for easy deployment
 - [ ] Implement GitHub Actions integration
 
 #### 3.3 Documentation & Examples
+
 - [ ] Create comprehensive README with examples
 - [ ] Add API documentation
 - [ ] Create migration guides for different frameworks
@@ -287,18 +304,21 @@ type WardenConfig = {
 ## Current Implementation Status
 
 ### ✅ What's Complete (Phase 1.1)
+
 - Basic directory structure exists
 - TypeScript configuration is set up
 - Type definitions are partially implemented
 - Contract system framework exists
 
 ### 🚧 What's In Progress (Phase 1.2)
+
 - Core function implementations exist but are stub/partial
 - Hash functions need to use toolsmith crypto functions
 - Privacy validation logic needs proper implementation
 - Contract validation needs JSON schema implementation
 
 ### ❌ What's Missing (Critical for Phase 1.2)
+
 - `ValidationResult` type is missing from types
 - Hash functions don't use toolsmith `hashHex`
 - Privacy validation doesn't implement underscore rules
@@ -308,10 +328,12 @@ type WardenConfig = {
 ## Key Toolsmith Functions to Use
 
 ### For Hashing (Phase 1.2)
+
 - `libraries/toolsmith/src/crypto/hashHex/index.ts` - Main hash function
 - Already implements SHA-256 with proper canonical input handling
 
-### For Validation (Phase 1.2) 
+### For Validation (Phase 1.2)
+
 - `libraries/toolsmith/src/vanilla/validation/equals/index.ts` ✅ Already used
 - `libraries/toolsmith/src/vanilla/array/length/index.ts` ✅ Already used
 - `libraries/toolsmith/src/vanilla/validation/isEmpty/index.ts`
@@ -319,6 +341,7 @@ type WardenConfig = {
 - `libraries/toolsmith/src/vanilla/validation/isDefined/index.ts`
 
 ### For File/String Operations (Phase 1.2)
+
 - `libraries/toolsmith/src/vanilla/string/startsWith/index.ts`
 - `libraries/toolsmith/src/vanilla/string/endsWith/index.ts`
 - `libraries/toolsmith/src/vanilla/string/contains/index.ts`
@@ -330,7 +353,7 @@ type WardenConfig = {
 ### From Current State → Working Library
 
 1. **Complete Core Implementation**: Finish Phase 1.2 using toolsmith functions
-2. **Build Enforcement Orchestrator**: Complete Phase 1.3 with proper integration  
+2. **Build Enforcement Orchestrator**: Complete Phase 1.3 with proper integration
 3. **Add Comprehensive Testing**: Phase 1.4 to validate all functionality
 4. **Performance Validation**: Ensure we meet the stated performance targets
 5. **Integration**: Update existing project usage to use new library
@@ -347,7 +370,7 @@ type WardenConfig = {
 ### Technical Innovation
 
 - **Architectural Governance**: Demonstrates novel solution to development governance
-- **Cryptographic Trust**: Shows technical sophistication in security approaches  
+- **Cryptographic Trust**: Shows technical sophistication in security approaches
 - **Performance Architectering**: Validates ability to build high-performance development tools
 - **Ecosystem Integration**: Proves capability to build reusable, composable libraries
 
@@ -361,6 +384,7 @@ type WardenConfig = {
 ## Success Metrics
 
 ### Technical Metrics
+
 - **Performance**: Maintain < 5 second execution time for typical projects
 - **Scalability**: Support projects with 50,000+ files in < 15 seconds
 - **Accuracy**: Zero false positives in violation detection
@@ -369,6 +393,7 @@ type WardenConfig = {
 - **Compatibility**: 100% compatibility with existing project structure
 
 ### Implementation Metrics
+
 - **Feature Completeness**: All planned Phase 1 features working correctly
 - **Test Coverage**: Comprehensive test suite with high coverage
 - **Performance Validation**: All stated performance targets met in practice
@@ -377,18 +402,21 @@ type WardenConfig = {
 ## Implementation Timeline
 
 ### Phase 1: Core Implementation (Current Focus)
+
 - Complete library implementation with toolsmith integration
 - Add comprehensive testing and validation
 - Performance optimization and benchmarking
 - Documentation completion
 
 ### Phase 2: Enhanced Features (Next)
+
 - Advanced features and plugin system
-- Developer experience improvements  
+- Developer experience improvements
 - Performance monitoring and analytics
 - Integration tooling
 
 ### Phase 3: Polish and Integration (Future)
+
 - Full project integration
 - Documentation and examples
 - Performance validation at scale

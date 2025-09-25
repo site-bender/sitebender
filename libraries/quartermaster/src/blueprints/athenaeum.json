@@ -1,16 +1,16 @@
 {
-  "id": "athenaeum",
-  "name": "mission-control",
-  "description": "Docs app (Envoy) skeleton (placeholder)",
-  "outputs": {
-    "appPath": "./applications/mission-control"
-  },
-  "files": [],
-  "postScaffoldMessages": [
-    "Stub blueprint: metadata and target path only. No templates yet."
-  ],
-  "variants": {
-    "envoy": true,
-    "architect": false
-  }
+	"id": "athenaeum",
+	"name": "mission-control",
+	"description": "Docs app (Envoy) skeleton (placeholder)",
+	"outputs": {
+		"appPath": "./applications/mission-control"
+	},
+	"files": [],
+	"postScaffoldMessages": [
+		"Stub blueprint: metadata and target path only. No templates yet."
+	],
+	"variants": {
+		"envoy": true,
+		"architect": false
+	}
 }

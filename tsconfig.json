@@ -25,7 +25,7 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"paths": {
-			"~codewright/*": ["./src/codewright/*"],
+			"~pagewright/*": ["./src/pagewright/*"],
 			"~constants/*": ["./src/constants/*"],
 			"~layouts/*": ["./src/layouts/*"],
 			"~scripts/*": ["./scripts/*"],
@@ -37,7 +37,7 @@
 		},
 		"target": "esnext",
 		"types": [
-			"./libraries/codewright/types/globals.d.ts"
+			"./libraries/pagewright/types/globals.d.ts"
 		]
 	},
 	"include": ["src/**/*", "lib/**/*", "utilities/**/*", "libraries/**/*"],

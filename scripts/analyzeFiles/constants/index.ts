@@ -43,8 +43,7 @@ export const FUNCTION_PATTERNS = {
 		/(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:async\s+)?(?:\([^)]*\)|[A-Za-z0-9_$]+)\s*=>\s*(?!\{)/g,
 	exportDefaultArrow:
 		/export\s+default\s+(?:async\s+)?(?:\([^)]*\)|[A-Za-z0-9_$]+)\s*=>\s*(\{)?/g,
-	exportDefaultName:
-		/\bexport\s+default\s+([A-Za-z0-9_$]+)\b(?!\s*\()/g,
+	exportDefaultName: /\bexport\s+default\s+([A-Za-z0-9_$]+)\b(?!\s*\()/g,
 	localExportAsDefault: /\bexport\s*\{([\s\S]*?)\}/g,
 	exportNamedExpressionFunction:
 		/\bexport\s+(?:const|let|var)\s+([A-Za-z0-9_$]+)\s*=\s*(?:async\s+)?function/g,

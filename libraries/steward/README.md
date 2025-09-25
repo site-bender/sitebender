@@ -1,9 +1,9 @@
 # @sitebender/steward (Studio: “Steward”)
 
-Deterministic, non-configurable Studio style and structure enforcer. Steward normalizes code shape and folder layout up-front so downstream tools (Envoy, Logician, Architect, Warden) operate on a predictable surface. It complements Warden by focusing on mechanical style/shape with safe autofixes; Warden remains the source of truth for architectural governance and cryptographic contracts.
+Deterministic, non-configurable Studio style and structure enforcer. Steward normalizes code shape and folder layout up-front so downstream tools (Envoy, Auditor, Architect, Warden) operate on a predictable surface. It complements Warden by focusing on mechanical style/shape with safe autofixes; Warden remains the source of truth for architectural governance and cryptographic contracts.
 
 Status: alpha (spec + stubs)
-Runtime: Deno + TypeScript, pure ESM, zero runtime deps (uses Linguist/TS compiler for AST in dev tooling)
+Runtime: Deno + TypeScript, pure ESM, zero runtime deps (uses Arborist/TS compiler for AST in dev tooling)
 Policy: Opinionated, no user overrides. Studio rules only.
 
 ## Goals
@@ -41,29 +41,34 @@ These will be exposed as Deno tasks in this package and embeddable in root-level
 ## Rule Matrix (initial)
 
 Legend:
+
 - Mode: check (diagnose only), fix (safe autofix)
 - Severity: error (blocks), warn (PR-warn), info (advice)
 - Source of truth: Studio rules (this repo), Warden (contracts), Deno fmt/lint (baseline)
 
-1) export_on_same_line
+1. export_on_same_line
+
 - Intent: Exports must be declared on the same line as the named function/const.
 - Mode: fix (rewrite where safe), check for complex cases (e.g., re-export patterns).
 - Severity: error
 - Notes: Uses AST to move `export` keyword into the declaration where allowed.
 
-2) named_functions_only
+2. named_functions_only
+
 - Intent: No anonymous functions assigned to identifiers; require `function name(...)` or `const name = namedFn`.
 - Mode: check; optional fix where name inference is unambiguous.
 - Severity: error
 - Notes: Arrow functions must be assigned to a const with a clear name.
 
-3) one_function_per_file
+3. one_function_per_file
+
 - Intent: Production files define one public function per file; helpers live under `_helper` folders as per privacy convention.
 - Mode: check; codemod suggestion emitted (no auto split in alpha).
 - Severity: error
 - Notes: Test files and clearly-marked script files are exempt (policy list TBD).
 
-4) envoy_comment_syntax
+4. envoy_comment_syntax
+
 - Intent: Enforce Envoy comment markers and placement:
   - `//++` description
   - `//--` tech debt
@@ -74,13 +79,15 @@ Legend:
 - Severity: warn (alpha), error (pre-prod)
 - Notes: Ensures comments are near declarations and follow structured layout.
 
-5) import_normalization (direct tree imports only)
+5. import_normalization (direct tree imports only)
+
 - Intent: Ban barrel usage and blanket re-exports; normalize import paths to direct-tree form, sorted deterministically.
 - Mode: fix (path normalization and sorting), check (disallowed forms).
 - Severity: error
 - Notes: Coordinate with Warden to ensure governance rules match normalized form.
 
-6) privacy_folder_convention
+6. privacy_folder_convention
+
 - Intent: File and folder naming must reflect privacy boundaries:
   - Public function: `src/functionName/index.ts`
   - Private helper: `src/functionName/_helperName/index.ts`
@@ -89,7 +96,8 @@ Legend:
 - Severity: error
 - Notes: For safety, default to suggestions with a codemod plan in JSON.
 
-7) ban_barrel_files
+7. ban_barrel_files
+
 - Intent: Forbid index-like “barrel” modules that re-export trees (e.g., `mod.ts` serving as a barrel). A `mod.ts` may exist as a warning-only sentinel but must not perform re-export aggregation.
 - Mode: check; fix (remove disallowed re-exports) optional; prefer explicit imports.
 - Severity: error
@@ -106,69 +114,90 @@ Steward emits a stable JSON diagnostic stream suitable for CI and IDE integratio
 
 ```json
 {
-  "version": "0.1.0",
-  "summary": {
-    "checkedFiles": 123,
-    "issues": 45,
-    "fixed": 32,
-    "elapsedMs": 1870
-  },
-  "issues": [
-    {
-      "rule": "export_on_same_line",
-      "severity": "error",
-      "path": "libraries/toolsmith/src/foo/index.ts",
-      "position": { "line": 12, "column": 1 },
-      "message": "Export must be on the same line as declaration.",
-      "suggestedFix": {
-        "type": "textEdit",
-        "description": "Move export keyword to declaration.",
-        "edits": [
-          { "range": { "start": {"line":12,"column":1}, "end": {"line":12,"column":1} }, "newText": "export " }
-        ]
-      }
-    }
-  ]
+	"version": "0.1.0",
+	"summary": {
+		"checkedFiles": 123,
+		"issues": 45,
+		"fixed": 32,
+		"elapsedMs": 1870
+	},
+	"issues": [
+		{
+			"rule": "export_on_same_line",
+			"severity": "error",
+			"path": "libraries/toolsmith/src/foo/index.ts",
+			"position": { "line": 12, "column": 1 },
+			"message": "Export must be on the same line as declaration.",
+			"suggestedFix": {
+				"type": "textEdit",
+				"description": "Move export keyword to declaration.",
+				"edits": [
+					{
+						"range": {
+							"start": { "line": 12, "column": 1 },
+							"end": { "line": 12, "column": 1 }
+						},
+						"newText": "export "
+					}
+				]
+			}
+		}
+	]
 }
 ```
 
 TypeScript types (reference):
 
 ```ts
-export interface StewardPosition { line: number; column: number }
-export interface StewardRange { start: StewardPosition; end: StewardPosition }
+export interface StewardPosition {
+	line: number
+	column: number
+}
+export interface StewardRange {
+	start: StewardPosition
+	end: StewardPosition
+}
 
-export type StewardSeverity = "info" | "warn" | "error";
+export type StewardSeverity = "info" | "warn" | "error"
 
 export interface StewardTextEdit {
-  range: StewardRange;
-  newText: string;
+	range: StewardRange
+	newText: string
 }
 
 export interface StewardIssue {
-  rule: string;
-  severity: StewardSeverity;
-  path: string;
-  position?: StewardPosition;
-  message: string;
-  suggestedFix?: { type: "textEdit" | "rename" | "move"; description?: string; edits?: StewardTextEdit[] };
+	rule: string
+	severity: StewardSeverity
+	path: string
+	position?: StewardPosition
+	message: string
+	suggestedFix?: {
+		type: "textEdit" | "rename" | "move"
+		description?: string
+		edits?: StewardTextEdit[]
+	}
 }
 
 export interface StewardReport {
-  version: string;
-  summary: { checkedFiles: number; issues: number; fixed?: number; elapsedMs: number };
-  issues: StewardIssue[];
+	version: string
+	summary: {
+		checkedFiles: number
+		issues: number
+		fixed?: number
+		elapsedMs: number
+	}
+	issues: StewardIssue[]
 }
 ```
 
 ## Execution model
 
-1) Parse with Linguist (TS compiler) → AST.
-2) Run rule pipeline:
+1. Parse with Arborist (TS compiler) → AST.
+2. Run rule pipeline:
    - Checkers collect issues (with fixers where available).
    - Fixers apply safe transforms; then `deno fmt` for stable print.
-3) Re-check until stable or max 2 passes.
-4) Emit diagnostics and exit code (0 when clean; non-zero if issues remain in `check`, or if fixes failed in `fix`).
+3. Re-check until stable or max 2 passes.
+4. Emit diagnostics and exit code (0 when clean; non-zero if issues remain in `check`, or if fixes failed in `fix`).
 
 ## Performance targets (alpha)
 
@@ -184,7 +213,7 @@ export interface StewardReport {
 ## Tasks (to be wired in this package)
 
 - `deno task steward:check` → `deno run -A src/cli/check.ts [paths...]`
-- `deno task steward:fix`   → `deno run -A src/cli/fix.ts [paths...]`
+- `deno task steward:fix` → `deno run -A src/cli/fix.ts [paths...]`
 
 ## Repository layout (package)
 
@@ -216,5 +245,5 @@ libraries/steward/
 
 - Carve exact exemptions (tests, fixtures).
 - Finalize JSON schema and pretty formatting styles.
-- Rule-by-rule unit/property tests (Quarrier + Logician later).
+- Rule-by-rule unit/property tests (Quarrier + Auditor later).
 - Wire deno tasks and minimal CLI stubs.

@@ -1,5 +1,5 @@
 export default function countNewlines(text: string): number {
-  const m = text.match(/\n/g)
+	const m = text.match(/\n/g)
 
-  return (m?.length ?? 0)
+	return (m?.length ?? 0)
 }

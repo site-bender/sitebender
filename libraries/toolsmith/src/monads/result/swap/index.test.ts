@@ -1,9 +1,9 @@
 import { assert, assertEquals } from "@std/assert"
 
-import ok from "../ok/index.ts"
 import error from "../error/index.ts"
-import isOk from "../isOk/index.ts"
 import isError from "../isError/index.ts"
+import isOk from "../isOk/index.ts"
+import ok from "../ok/index.ts"
 import swap from "./index.ts"
 
 Deno.test("swap", async (t) => {

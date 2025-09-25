@@ -1,8 +1,8 @@
 import type { Value } from "../../../types/index.ts"
 
-import gte from "../../validation/gte/index.ts"
 import length from "../../array/length/index.ts"
 import slice from "../../array/slice/index.ts"
+import gte from "../../validation/gte/index.ts"
 
 //++ Curries a function to exactly n arguments
 export default function curryN<TFunction extends (...args: Value[]) => Value>(

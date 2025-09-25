@@ -1,18 +1,18 @@
 import type { Value } from "../../../types/index.ts"
 
-import isString from "../isString/index.ts"
-import isZero from "../isZero/index.ts"
 import length from "../../array/length/index.ts"
+import defaultTo from "../../logic/defaultTo/index.ts"
 import not from "../../logic/not/index.ts"
 import or from "../../logic/or/index.ts"
-import test from "../../string/test/index.ts"
-import match from "../../string/match/index.ts"
-import replace from "../../string/replace/index.ts"
 import modulo from "../../math/modulo/index.ts"
 import subtract from "../../math/subtract/index.ts"
+import match from "../../string/match/index.ts"
+import replace from "../../string/replace/index.ts"
+import test from "../../string/test/index.ts"
 import isEqual from "../isEqual/index.ts"
 import isNull from "../isNull/index.ts"
-import defaultTo from "../../logic/defaultTo/index.ts"
+import isString from "../isString/index.ts"
+import isZero from "../isZero/index.ts"
 
 type Base64Options = {
 	urlSafe?: boolean // Allow URL-safe characters (- and _)

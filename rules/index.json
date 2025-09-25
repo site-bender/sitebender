@@ -284,8 +284,8 @@
 	},
 	"imports": {
 		"externalDependencies": {
-			"rule": "ONLY Linguist and Agent can reach outside the project",
-			"linguist": "Can import TypeScript compiler ONLY",
+			"rule": "ONLY Arborist and Agent can reach outside the project",
+			"arborist": "Can import TypeScript compiler ONLY",
 			"agent": "Can connect to distributed services (IPFS, Solid, etc.)",
 			"allOthers": "ZERO external dependencies. NO EXCEPTIONS."
 		},
@@ -327,7 +327,7 @@
 	"testing": {
 		"fundamentalRule": "TEST CODE MUST FOLLOW ALL THE SAME RULES AS PRODUCTION CODE - NO EXCEPTIONS. This means: no loops, no classes, functional programming only, one function per file, proper Envoy comments, etc.",
 		"temporaryRules": {
-			"note": "These are THROWAWAY tests until Logician is ready to generate all tests",
+			"note": "These are THROWAWAY tests until Auditor is ready to generate all tests",
 			"location": "One test file per function/component in same folder named index.test.ts",
 			"framework": "Use Deno.test and t.step (if necessary)",
 			"imports": "Import assert functions from https://deno.land/std/assert/mod.ts",
@@ -336,8 +336,8 @@
 			"implementation": "OK to test implementation in these tests as they are THROWAWAY"
 		},
 		"whenToWriteTests": {
-			"newCode": "For NEW functions/codewright, write test TDD style: test FIRST, then function to pass",
-			"existingCode": "For functions/codewright we EDIT or fix, write test BEFORE doing the fix",
+			"newCode": "For NEW functions/pagewright, write test TDD style: test FIRST, then function to pass",
+			"existingCode": "For functions/pagewright we EDIT or fix, write test BEFORE doing the fix",
 			"legacy": "NOT going back to write tests for everything - only new or edited code"
 		},
 		"coverageIgnore": {
@@ -614,7 +614,7 @@
 				"Exports to multiple formats: HTML docs, markdown, JSON"
 			],
 			"workflow": {
-				"step1": "Linguist reads TypeScript/JSX files and extracts raw comments",
+				"step1": "Arborist reads TypeScript/JSX files and extracts raw comments",
 				"step2": "Envoy interprets comment markers (//++, //--, etc.)",
 				"step3": "Envoy builds a knowledge graph from the interpreted data",
 				"step4": "Documentation, graphs, and reports are generated automatically"

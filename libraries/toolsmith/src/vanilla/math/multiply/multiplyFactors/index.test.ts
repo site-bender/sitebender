@@ -1,7 +1,7 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
-import { MULTIPLICATIVE_IDENTITY } from "../../constants/index.ts"
 import reduce from "../../../array/reduce/index.ts"
+import { MULTIPLICATIVE_IDENTITY } from "../../constants/index.ts"
 import multiplyFactors from "./index.ts"
 
 //++ Tests for multiplyFactors: (product, value) => product * value

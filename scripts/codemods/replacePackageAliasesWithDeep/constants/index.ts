@@ -6,7 +6,7 @@ import replaceAll from "@sitebender/toolsmith/vanilla/string/replaceAll/index.ts
 export const ROOT = new URL("../../../..", import.meta.url).pathname
 
 //++ Directories to include in processing
-export const INCLUDE = ["libraries/codewright/src"]
+export const INCLUDE = ["libraries/pagewright/src"]
 
 //++ Transforms @sitebender/architect package alias to deep path
 function replaceArchitect(s: string): string {
@@ -15,7 +15,9 @@ function replaceArchitect(s: string): string {
 
 //++ Transforms @sitebender/architect-types package alias to deep path
 function replaceArchitectTypes(s: string): string {
-	return replaceAll("@sitebender/architect-types/")("libraries/architect/types/")(s)
+	return replaceAll("@sitebender/architect-types/")(
+		"libraries/architect/types/",
+	)(s)
 }
 
 //++ Transforms @sitebender/toolsmith package alias to deep path

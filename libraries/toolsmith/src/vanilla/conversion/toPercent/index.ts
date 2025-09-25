@@ -1,6 +1,6 @@
 import isNaN from "../../validation/isNaN/index.ts"
-import isPositiveInfinity from "../../validation/isPositiveInfinity/index.ts"
 import isNegativeInfinity from "../../validation/isNegativeInfinity/index.ts"
+import isPositiveInfinity from "../../validation/isPositiveInfinity/index.ts"
 
 /**
  * Converts a number to a percentage string representation
