@@ -1,53 +1,14 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * The opposite of zip - separates an array of pairs into two arrays
- *
- * Takes an array of 2-element tuples and returns a tuple of two arrays,
- * where the first array contains all first elements and the second array
- * contains all second elements. This is the inverse operation of zip.
- * Useful for separating paired data, extracting columns from row data,
- * or decomposing coordinate pairs.
- *
- * @pure
- * @immutable
- * @safe
- * @param pairs - Array of 2-element tuples to unzip
- * @returns Tuple of two arrays [firstElements, secondElements]
- * @example
- * ```typescript
- * // Basic unzipping
- * unzip([[1, "a"], [2, "b"], [3, "c"]])
- * // [[1, 2, 3], ["a", "b", "c"]]
- *
- * // Separate names and ages
- * const people: Array<[string, number]> = [
- *   ["Alice", 25],
- *   ["Bob", 30],
- *   ["Charlie", 35]
- * ]
- * const [names, ages] = unzip(people)
- * // names: ["Alice", "Bob", "Charlie"]
- * // ages: [25, 30, 35]
- *
- * // Empty array
- * unzip([])  // [[], []]
- *
- * // Handle null/undefined
- * unzip(null)       // [[], []]
- * unzip(undefined)  // [[], []]
- *
- * // Extract columns from table data
- * const tableRows: Array<[string, number]> = [
- *   ["Product A", 100],
- *   ["Product B", 200],
- *   ["Product C", 150]
- * ]
- * const [products, prices] = unzip(tableRows)
- * // products: ["Product A", "Product B", "Product C"]
- * // prices: [100, 200, 150]
- * ```
+/*++
+ | The opposite of zip - separates an array of pairs into two arrays
+ |
+ | Takes an array of 2-element tuples and returns a tuple of two arrays,
+ | where the first array contains all first elements and the second array
+ | contains all second elements. This is the inverse operation of zip.
+ | Useful for separating paired data, extracting columns from row data,
+ | or decomposing coordinate pairs.
  */
 const unzip = <T, U>(
 	pairs: ReadonlyArray<readonly [T, U]> | null | undefined,
@@ -83,3 +44,10 @@ const unzip = <T, U>(
 }
 
 export default unzip
+
+//?? [EXAMPLE] `unzip([[1, "a"], [2, "b"], [3, "c"]]) // [[1, 2, 3], ["a", "b", "c"]]`
+//?? [EXAMPLE] `unzip([["Alice", 25], ["Bob", 30], ["Charlie", 35]]) // [["Alice", "Bob", "Charlie"], [25, 30, 35]]`
+//?? [EXAMPLE] `unzip([]) // [[], []]`
+//?? [EXAMPLE] `unzip(null) // [[], []]`
+//?? [EXAMPLE] `unzip([["Product A", 100], ["Product B", 200], ["Product C", 150]]) // [["Product A", "Product B", "Product C"], [100, 200, 150]]`
+//?? [EXAMPLE] `unzip([[true, 1], [false, 0]]) // [[true, false], [1, 0]]`

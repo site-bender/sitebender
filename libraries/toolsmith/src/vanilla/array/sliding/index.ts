@@ -1,40 +1,12 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Creates a sliding window over an array
- *
- * Returns an array of overlapping windows of specified size, moving by
- * a specified step. Each window is a view of consecutive elements.
- * Useful for analyzing patterns, computing moving averages, or examining
- * local neighborhoods in data.
- *
- * @param size - Size of each window (must be positive)
- * @param step - Number of elements to advance between windows (default 1)
- * @param array - Array to create windows from
- * @returns Array of window arrays
- * @pure
- * @curried
- * @immutable
- * @safe
- * @example
- * ```typescript
- * // Basic sliding window
- * sliding(3)(1)([1, 2, 3, 4, 5])
- * // [[1, 2, 3], [2, 3, 4], [3, 4, 5]]
- *
- * // With custom step
- * sliding(3)(2)([1, 2, 3, 4, 5, 6, 7])
- * // [[1, 2, 3], [3, 4, 5], [5, 6, 7]]
- *
- * // Pairwise windows
- * const pairwise = sliding(2)(1)
- * pairwise([1, 2, 3, 4]) // [[1, 2], [2, 3], [3, 4]]
- *
- * // Edge cases
- * sliding(5)(1)([1, 2, 3]) // []
- * sliding(2)(1)(null) // []
- * sliding(0)(1)([1, 2, 3]) // []
- * ```
+/*++
+ | Creates a sliding window over an array
+ |
+ | Returns an array of overlapping windows of specified size, moving by
+ | a specified step. Each window is a view of consecutive elements.
+ | Useful for analyzing patterns, computing moving averages, or examining
+ | local neighborhoods in data.
  */
 const sliding = <T>(
 	size: number,
@@ -76,3 +48,10 @@ const sliding = <T>(
 }
 
 export default sliding
+
+//?? [EXAMPLE] `sliding(3)(1)([1, 2, 3, 4, 5]) // [[1, 2, 3], [2, 3, 4], [3, 4, 5]]`
+//?? [EXAMPLE] `sliding(3)(2)([1, 2, 3, 4, 5, 6, 7]) // [[1, 2, 3], [3, 4, 5], [5, 6, 7]]`
+//?? [EXAMPLE] `sliding(2)(1)([1, 2, 3, 4]) // [[1, 2], [2, 3], [3, 4]]`
+//?? [EXAMPLE] `sliding(5)(1)([1, 2, 3]) // []`
+//?? [EXAMPLE] `sliding(2)(1)(null) // []`
+//?? [EXAMPLE] `sliding(0)(1)([1, 2, 3]) // []`

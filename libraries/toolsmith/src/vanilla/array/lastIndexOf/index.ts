@@ -1,6 +1,7 @@
 import is from "../../validation/is/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Find the last index of an item in an array; returns undefined for null/undefined/empty arrays or if not found
 export default function lastIndexOf<T>(item: T) {
 	return function findLastIndexOf(
 		array: ReadonlyArray<T> | null | undefined,
@@ -17,3 +18,9 @@ export default function lastIndexOf<T>(item: T) {
 		return reversedIndex === -1 ? undefined : array.length - 1 - reversedIndex
 	}
 }
+
+//?? [EXAMPLE] `lastIndexOf(3)([1, 2, 3, 2, 3]) // 4`
+//?? [EXAMPLE] `lastIndexOf("b")(["a", "b", "c", "b"]) // 3`
+//?? [EXAMPLE] `lastIndexOf(5)([1, 2, 3]) // undefined`
+//?? [EXAMPLE] `lastIndexOf(1)([]) // undefined`
+//?? [EXAMPLE] `lastIndexOf(1)(null) // undefined`

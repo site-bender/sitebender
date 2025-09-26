@@ -1,34 +1,11 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns a new array with elements randomly shuffled
- *
- * Creates a new array with all elements randomly reordered using the
- * Fisher-Yates shuffle algorithm. Produces a uniform distribution where
- * each permutation has equal probability. The original array is not modified.
- *
- * @param array - Array to shuffle
- * @returns New array with elements in random order
- * @impure
- * @safe
- * @example
- * ```typescript
- * // Basic shuffle
- * shuffle([1, 2, 3, 4, 5])  // [3, 1, 5, 2, 4] (random order)
- *
- * // String array
- * shuffle(["a", "b", "c", "d"])  // ["c", "a", "d", "b"]
- *
- * // Object array
- * const items = [{ id: 1 }, { id: 2 }, { id: 3 }]
- * shuffle(items)  // Random order, original unchanged
- *
- * // Edge cases
- * shuffle([42])        // [42] (single element)
- * shuffle([1, 2])      // [2, 1] or [1, 2]
- * shuffle([])          // []
- * shuffle(null)        // []
- * ```
+/*++
+ | Returns a new array with elements randomly shuffled
+ |
+ | Creates a new array with all elements randomly reordered using the
+ | Fisher-Yates shuffle algorithm. Produces a uniform distribution where
+ | each permutation has equal probability. The original array is not modified.
  */
 export default function shuffle<T>(
 	array: ReadonlyArray<T> | null | undefined,
@@ -52,3 +29,10 @@ export default function shuffle<T>(
 
 	return shuffleRecursive([...array], array.length - 1)
 }
+
+//?? [EXAMPLE] `shuffle([1, 2, 3, 4, 5]) // [3, 1, 5, 2, 4] (random order)`
+//?? [EXAMPLE] `shuffle(["a", "b", "c", "d"]) // ["c", "a", "d", "b"] (random)`
+//?? [EXAMPLE] `shuffle([{ id: 1 }, { id: 2 }, { id: 3 }]) // random order`
+//?? [EXAMPLE] `shuffle([42]) // [42] (single element)`
+//?? [EXAMPLE] `shuffle([]) // []`
+//?? [EXAMPLE] `shuffle(null) // []`

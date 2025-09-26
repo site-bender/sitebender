@@ -1,28 +1,10 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Replaces all occurrences of a value with the result of a function
- *
- * Uses strict equality (===) to find matches. The replacer function
- * receives the matched item and can transform it.
- *
- * @param target - The value to replace
- * @param replacer - Function to transform matched items
- * @param array - The array to process
- * @returns New array with all occurrences replaced
- * @pure
- * @curried
- * @immutable
- * @safe
- * @example
- * ```typescript
- * replaceAll(2)((n) => n * 10)([1, 2, 3, 2, 4]) // [1, 20, 3, 20, 4]
- * replaceAll("old")(() => "new")(["old", "test", "old"]) // ["new", "test", "new"]
- *
- * // Replace nulls with default
- * const replaceNulls = replaceAll(null)(() => 0)
- * replaceNulls([1, null, 2, null]) // [1, 0, 2, 0]
- * ```
+/*++
+ | Replaces all occurrences of a value with the result of a function
+ |
+ | Uses strict equality (===) to find matches. The replacer function
+ | receives the matched item and can transform it.
  */
 const replaceAll =
 	<T>(target: T) =>
@@ -35,3 +17,9 @@ const replaceAll =
 	}
 
 export default replaceAll
+
+//?? [EXAMPLE] `replaceAll(2)((n) => n * 10)([1, 2, 3, 2, 4]) // [1, 20, 3, 20, 4]`
+//?? [EXAMPLE] `replaceAll("old")(() => "new")(["old", "test", "old"]) // ["new", "test", "new"]`
+//?? [EXAMPLE] `replaceAll(null)(() => 0)([1, null, 2, null]) // [1, 0, 2, 0]`
+//?? [EXAMPLE] `replaceAll(5)((n) => n + 1)([1, 2, 3]) // [1, 2, 3] (no match)`
+//?? [EXAMPLE] `replaceAll(1)((n) => n * 2)(null) // []`

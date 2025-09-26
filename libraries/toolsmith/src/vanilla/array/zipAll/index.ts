@@ -1,43 +1,11 @@
-/**
- * Like zip but continues until the longest array is exhausted, using undefined for missing values
- *
- * Combines elements from multiple arrays into tuples, continuing until the longest
- * array is exhausted. When arrays have different lengths, missing values are
- * filled with undefined. This ensures no data is lost and all array elements
- * are included in the result. Useful for processing arrays of different lengths,
- * data alignment, or when you need to preserve all values.
- *
- * @curried
- * @pure
- * @immutable
- * @safe
- * @param array2 - Second array to zip with
- * @param array1 - First array to zip from
- * @returns Array of tuples containing elements from both arrays
- * @example
- * ```typescript
- * // Different length arrays
- * zipAll([4, 5, 6, 7])([1, 2, 3])
- * // [[1, 4], [2, 5], [3, 6], [undefined, 7]]
- *
- * // First array longer
- * zipAll([4, 5])([1, 2, 3, 4])
- * // [[1, 4], [2, 5], [3, undefined], [4, undefined]]
- *
- * // Combine names and scores (missing scores)
- * const names = ["Alice", "Bob", "Charlie", "David"]
- * const scores = [85, 92, 78]
- * zipAll(scores)(names)
- * // [["Alice", 85], ["Bob", 92], ["Charlie", 78], ["David", undefined]]
- *
- * // Handle null/undefined gracefully
- * zipAll([1, 2, 3])(null)       // []
- * zipAll(null)([1, 2, 3])       // []
- *
- * // One empty array
- * zipAll([])(["a", "b", "c"])
- * // [["a", undefined], ["b", undefined], ["c", undefined]]
- * ```
+/*++
+ | Like zip but continues until the longest array is exhausted, using undefined for missing values
+ |
+ | Combines elements from multiple arrays into tuples, continuing until the longest
+ | array is exhausted. When arrays have different lengths, missing values are
+ | filled with undefined. This ensures no data is lost and all array elements
+ | are included in the result. Useful for processing arrays of different lengths,
+ | data alignment, or when you need to preserve all values.
  */
 const zipAll = <T, U>(
 	array2: ReadonlyArray<U> | null | undefined,
@@ -76,3 +44,10 @@ const zipAll = <T, U>(
 }
 
 export default zipAll
+
+//?? [EXAMPLE] `zipAll([4, 5, 6, 7])([1, 2, 3]) // [[1, 4], [2, 5], [3, 6], [undefined, 7]]`
+//?? [EXAMPLE] `zipAll([4, 5])([1, 2, 3, 4]) // [[1, 4], [2, 5], [3, undefined], [4, undefined]]`
+//?? [EXAMPLE] `zipAll([85, 92, 78])(["Alice", "Bob", "Charlie", "David"]) // [["Alice", 85], ["Bob", 92], ["Charlie", 78], ["David", undefined]]`
+//?? [EXAMPLE] `zipAll([1, 2, 3])(null) // []`
+//?? [EXAMPLE] `zipAll(null)([1, 2, 3]) // []`
+//?? [EXAMPLE] `zipAll([])(["a", "b", "c"]) // [["a", undefined], ["b", undefined], ["c", undefined]]`

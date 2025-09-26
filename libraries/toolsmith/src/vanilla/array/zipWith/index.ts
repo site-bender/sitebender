@@ -1,44 +1,11 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Combines two arrays element-wise using a function
- *
- * Takes a binary function and two arrays, applying the function to
- * corresponding elements from each array. The result length is the
- * minimum of the two input array lengths. Excess elements are ignored.
- *
- * @curried
- * @pure
- * @immutable
- * @safe
- * @param fn - Binary function to combine elements (a: T, b: U) => V
- * @param array1 - First array
- * @param array2 - Second array
- * @returns New array with combined elements
- * @example
- * ```typescript
- * // Add corresponding elements
- * zipWith((a: number, b: number) => a + b)([1, 2, 3])([10, 20, 30])
- * // [11, 22, 33]
- *
- * // Different length arrays (uses shorter length)
- * zipWith((a: number, b: number) => a * b)([1, 2, 3, 4])([10, 20])
- * // [10, 40]
- *
- * // Create objects
- * zipWith((name: string, age: number) => ({ name, age }))(
- *   ["Alice", "Bob", "Charlie"]
- * )([30, 25, 35])
- * // [{ name: "Alice", age: 30 }, { name: "Bob", age: 25 }, { name: "Charlie", age: 35 }]
- *
- * // String concatenation
- * zipWith((a: string, b: string) => `${a}-${b}`)(["A", "B", "C"])(["1", "2", "3"])
- * // ["A-1", "B-2", "C-3"]
- *
- * // Handle null/undefined gracefully
- * zipWith((a: number, b: number) => a + b)([1, 2])(null) // []
- * zipWith((a: number, b: number) => a + b)(null)([1, 2]) // []
- * ```
+/*++
+ | Combines two arrays element-wise using a function
+ |
+ | Takes a binary function and two arrays, applying the function to
+ | corresponding elements from each array. The result length is the
+ | minimum of the two input array lengths. Excess elements are ignored.
  */
 const zipWith = <T, U, V>(
 	fn: (a: T, b: U) => V,
@@ -74,3 +41,10 @@ const zipWith = <T, U, V>(
 }
 
 export default zipWith
+
+//?? [EXAMPLE] `zipWith((a: number, b: number) => a + b)([1, 2, 3])([10, 20, 30]) // [11, 22, 33]`
+//?? [EXAMPLE] `zipWith((a: number, b: number) => a * b)([1, 2, 3, 4])([10, 20]) // [10, 40]`
+//?? [EXAMPLE] `zipWith((name: string, age: number) => ({ name, age }))(["Alice", "Bob", "Charlie"])([30, 25, 35]) // [{ name: "Alice", age: 30 }, { name: "Bob", age: 25 }, { name: "Charlie", age: 35 }]`
+//?? [EXAMPLE] `zipWith((a: string, b: string) => \`\${a}-\${b}\`)(["A", "B", "C"])(["1", "2", "3"]) // ["A-1", "B-2", "C-3"]`
+//?? [EXAMPLE] `zipWith((a: number, b: number) => a + b)([1, 2])(null) // []`
+//?? [EXAMPLE] `zipWith((a: number, b: number) => a + b)(null)([1, 2]) // []`

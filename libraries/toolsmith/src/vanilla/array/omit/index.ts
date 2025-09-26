@@ -1,41 +1,12 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Removes elements at specified indices from an array
- *
- * Creates a new array excluding elements at the given indices.
- * Supports negative indices which count from the end (-1 is last element).
- * Invalid indices are ignored. Preserves order of kept elements.
- *
- * @param indices - Array of indices to exclude (supports negative indices)
- * @param array - The array to filter
- * @returns New array with specified indices omitted
- *
- * @pure
- * @curried
- * @immutable
- * @safe
- *
- * @example
- * ```typescript
- * // Basic usage
- * omit([1, 3])([1, 2, 3, 4, 5]) // [1, 3, 5]
- * omit([0])(["a", "b", "c"]) // ["b", "c"]
- * omit([0, 2, 4])(["a", "b", "c", "d", "e"]) // ["b", "d"]
- *
- * // Negative indices
- * omit([-1, -2])([1, 2, 3, 4, 5]) // [1, 2, 3]
- *
- * // Remove headers and footers
- * const removeEnds = omit([0, -1])
- * removeEnds(["header", "data1", "data2", "footer"]) // ["data1", "data2"]
- *
- * // Edge cases
- * omit([0])(null) // []
- * omit([0])(undefined) // []
- * omit([])([1, 2, 3]) // [1, 2, 3]
- * ```
+/*++
+ | Removes elements at specified indices from an array
+ |
+ | Creates a new array excluding elements at the given indices.
+ | Supports negative indices which count from the end (-1 is last element).
+ | Invalid indices are ignored. Preserves order of kept elements.
  */
 export default function omit<T>(indices: Array<number>) {
 	return function omitFromArray(
@@ -55,3 +26,12 @@ export default function omit<T>(indices: Array<number>) {
 		})
 	}
 }
+
+//?? [EXAMPLE] `omit([1, 3])([1, 2, 3, 4, 5]) // [1, 3, 5]`
+//?? [EXAMPLE] `omit([0])(["a", "b", "c"]) // ["b", "c"]`
+//?? [EXAMPLE] `omit([0, 2, 4])(["a", "b", "c", "d", "e"]) // ["b", "d"]`
+//?? [EXAMPLE] `omit([-1, -2])([1, 2, 3, 4, 5]) // [1, 2, 3]`
+//?? [EXAMPLE] `omit([0, -1])(["header", "data1", "data2", "footer"]) // ["data1", "data2"]`
+//?? [EXAMPLE] `omit([0])(null) // []`
+//?? [EXAMPLE] `omit([0])(undefined) // []`
+//?? [EXAMPLE] `omit([])([1, 2, 3]) // [1, 2, 3]`

@@ -1,55 +1,13 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Sorts an array using multiple comparator functions
- *
- * Applies comparator functions in order until one returns a non-zero value,
- * providing multi-level sorting. Each comparator should return negative for
- * less than, positive for greater than, and zero for equal. Useful for
- * complex sorting with primary, secondary, tertiary sort keys, or different
- * sort directions per field.
- *
- * @param comparators - Array of comparator functions to apply in order
- * @param array - Array to sort
- * @returns New sorted array (original unchanged)
- * @pure
- * @curried
- * @immutable
- * @safe
- * @example
- * ```typescript
- * // Basic multi-level sort
- * const byAge = (a: any, b: any) => a.age - b.age
- * const byName = (a: any, b: any) => a.name.localeCompare(b.name)
- * const people = [
- *   { name: "Charlie", age: 30 },
- *   { name: "Alice", age: 25 },
- *   { name: "Bob", age: 25 }
- * ]
- * sortWith([byAge, byName])(people)
- * // [{ name: "Alice", age: 25 }, { name: "Bob", age: 25 }, { name: "Charlie", age: 30 }]
- *
- * // Different sort directions
- * const byPriceDesc = (a: any, b: any) => b.price - a.price
- * const byNameAsc = (a: any, b: any) => a.name.localeCompare(b.name)
- * const products = [
- *   { name: "Widget", price: 10 },
- *   { name: "Gadget", price: 20 },
- *   { name: "Doohickey", price: 20 }
- * ]
- * sortWith([byPriceDesc, byNameAsc])(products)
- * // Price descending, name ascending for ties
- *
- * // String sorting by length then alphabetically
- * const compareLength = (a: string, b: string) => a.length - b.length
- * const compareAlpha = (a: string, b: string) => a.localeCompare(b)
- * sortWith([compareLength, compareAlpha])(["cat", "dog", "ox"])
- * // ["ox", "cat", "dog"]
- *
- * // Edge cases
- * sortWith([])(["b", "a", "c"]) // ["b", "a", "c"] (no sorting)
- * sortWith([(a, b) => a - b])(null) // []
- * ```
+/*++
+ | Sorts an array using multiple comparator functions
+ |
+ | Applies comparator functions in order until one returns a non-zero value,
+ | providing multi-level sorting. Each comparator should return negative for
+ | less than, positive for greater than, and zero for equal. Useful for
+ | complex sorting with primary, secondary, tertiary sort keys, or different
+ | sort directions per field.
  */
 const sortWith = <T>(
 	comparators: ReadonlyArray<(a: T, b: T) => number>,
@@ -80,3 +38,10 @@ const sortWith = <T>(
 }
 
 export default sortWith
+
+//?? [EXAMPLE] `sortWith([(a: {age: number}, b: {age: number}) => a.age - b.age, (a: {name: string}, b: {name: string}) => a.name.localeCompare(b.name)])([{ name: "Charlie", age: 30 }, { name: "Alice", age: 25 }, { name: "Bob", age: 25 }]) // [{ name: "Alice", age: 25 }, { name: "Bob", age: 25 }, { name: "Charlie", age: 30 }]`
+//?? [EXAMPLE] `sortWith([(a: string, b: string) => a.length - b.length, (a: string, b: string) => a.localeCompare(b)])(["cat", "dog", "ox"]) // ["ox", "cat", "dog"]`
+//?? [EXAMPLE] `sortWith([])(["b", "a", "c"]) // ["b", "a", "c"] (no sorting)`
+//?? [EXAMPLE] `sortWith([(a: number, b: number) => a - b])([3, 1, 2]) // [1, 2, 3]`
+//?? [EXAMPLE] `sortWith([(a: number, b: number) => b - a, (a: number, b: number) => a - b])([1, 2, 1, 3]) // [3, 2, 1, 1]`
+//?? [EXAMPLE] `sortWith([(a: number, b: number) => a - b])(null) // []`

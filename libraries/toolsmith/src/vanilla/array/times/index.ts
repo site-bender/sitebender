@@ -1,48 +1,14 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calls a function n times and collects the results in an array
- *
- * Executes a function n times, passing the current index to each call,
- * and returns an array of the results. The function receives the current
- * iteration index (0-based) as its argument. Useful for generating arrays
- * of a specific length, creating test data, repeating operations, or
- * building sequences based on index.
- *
- * @param n - Number of times to call the function
- * @param fn - Function to call, receives index as argument
- * @returns Array containing the results of each function call
- * @example
- * ```typescript
- * // Basic usage - generate array of numbers
- * times(5)((i: number) => i)       // [0, 1, 2, 3, 4]
- * times(5)((i: number) => i * i)   // [0, 1, 4, 9, 16]
- *
- * // Create constants
- * times(3)(() => "hello")  // ["hello", "hello", "hello"]
- *
- * // Generate IDs
- * times(4)((i: number) => `id-${i + 1}`)
- * // ["id-1", "id-2", "id-3", "id-4"]
- *
- * // Create objects
- * times(3)((i: number) => ({ id: i, value: i * 10 }))
- * // [{ id: 0, value: 0 }, { id: 1, value: 10 }, { id: 2, value: 20 }]
- *
- * // Powers of 2
- * times(8)((i: number) => Math.pow(2, i))
- * // [1, 2, 4, 8, 16, 32, 64, 128]
- *
- * // Edge cases
- * times(0)((i: number) => i)   // []
- * times(-5)((i: number) => i)  // []
- * times(NaN)((i: number) => i) // []
- * times(3.7)((i: number) => i) // [0, 1, 2] (truncated)
- * ```
- * @pure
- * @curried
- * @safe
+/*++
+ | Calls a function n times and collects the results in an array
+ |
+ | Executes a function n times, passing the current index to each call,
+ | and returns an array of the results. The function receives the current
+ | iteration index (0-based) as its argument. Useful for generating arrays
+ | of a specific length, creating test data, repeating operations, or
+ | building sequences based on index.
  */
 const times = <T>(
 	n: number,
@@ -63,3 +29,10 @@ const times = <T>(
 }
 
 export default times
+
+//?? [EXAMPLE] `times(5)((i: number) => i) // [0, 1, 2, 3, 4]`
+//?? [EXAMPLE] `times(5)((i: number) => i * i) // [0, 1, 4, 9, 16]`
+//?? [EXAMPLE] `times(3)(() => "hello") // ["hello", "hello", "hello"]`
+//?? [EXAMPLE] `times(4)((i: number) => \`id-\${i + 1}\`) // ["id-1", "id-2", "id-3", "id-4"]`
+//?? [EXAMPLE] `times(0)((i: number) => i) // []`
+//?? [EXAMPLE] `times(-5)((i: number) => i) // []`

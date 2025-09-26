@@ -1,30 +1,11 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Removes an element at a specific index from an array
- *
- * Supports negative indices (counting from end). Returns original array
- * if index is out of bounds. Creates new array, doesn't mutate.
- *
- * @param index - Position to remove (negative counts from end)
- * @param array - The array to remove from
- * @returns New array with element at index removed
- * @pure
- * @curried
- * @immutable
- * @safe
- * @example
- * ```typescript
- * removeAt(1)([1, 2, 3, 4]) // [1, 3, 4]
- * removeAt(0)(["a", "b", "c"]) // ["b", "c"]
- * removeAt(-1)([1, 2, 3]) // [1, 2] (removes last)
- * removeAt(10)([1, 2, 3]) // [1, 2, 3] (out of bounds)
- *
- * // Remove by position
- * const removeSecond = removeAt(1)
- * removeSecond(["first", "second", "third"]) // ["first", "third"]
- * ```
+/*++
+ | Removes an element at a specific index from an array
+ |
+ | Supports negative indices (counting from end). Returns original array
+ | if index is out of bounds. Creates new array, doesn't mutate.
  */
 export default function removeAt<T>(index: number) {
 	return function removeAtIndex(
@@ -44,3 +25,10 @@ export default function removeAt<T>(index: number) {
 			: array as Array<T>
 	}
 }
+
+//?? [EXAMPLE] `removeAt(1)([1, 2, 3, 4]) // [1, 3, 4]`
+//?? [EXAMPLE] `removeAt(0)(["a", "b", "c"]) // ["b", "c"]`
+//?? [EXAMPLE] `removeAt(-1)([1, 2, 3]) // [1, 2] (removes last)`
+//?? [EXAMPLE] `removeAt(10)([1, 2, 3]) // [1, 2, 3] (out of bounds)`
+//?? [EXAMPLE] `removeAt(1)(["first", "second", "third"]) // ["first", "third"]`
+//?? [EXAMPLE] `removeAt(0)(null) // []`

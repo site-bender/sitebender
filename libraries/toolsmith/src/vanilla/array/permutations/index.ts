@@ -1,42 +1,12 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Generates all permutations of an array
- *
- * Returns all possible orderings of the array elements. For an array of
- * length n, this generates n! (n factorial) permutations. Each permutation
- * contains all the original elements in a different order.
- * Warning: Factorial growth! Be careful with arrays > 10 elements.
- *
- * @param array - Array to generate permutations from
- * @returns Array of all possible permutations
- *
- * @pure
- * @immutable
- * @safe
- *
- * @example
- * ```typescript
- * // All orderings of 3 elements
- * permutations([1, 2, 3])
- * // [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]
- *
- * // String permutations
- * permutations(["a", "b", "c"])
- * // [["a", "b", "c"], ["a", "c", "b"], ["b", "a", "c"],
- * //  ["b", "c", "a"], ["c", "a", "b"], ["c", "b", "a"]]
- *
- * // Two elements
- * permutations([1, 2]) // [[1, 2], [2, 1]]
- *
- * // Edge cases
- * permutations([])  // [[]]
- * permutations([1]) // [[1]]
- * permutations(null) // [[]]
- *
- * // Warning: 5 elements = 120 permutations
- * permutations([1,2,3,4,5]).length // 120
- * ```
+/*++
+ | Generates all permutations of an array
+ |
+ | Returns all possible orderings of the array elements. For an array of
+ | length n, this generates n! (n factorial) permutations. Each permutation
+ | contains all the original elements in a different order.
+ | Warning: Factorial growth! Be careful with arrays > 10 elements.
  */
 const permutations = <T>(
 	array: ReadonlyArray<T> | null | undefined,
@@ -86,3 +56,11 @@ const permutations = <T>(
 }
 
 export default permutations
+
+//?? [EXAMPLE] `permutations([1, 2, 3]) // [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]`
+//?? [EXAMPLE] `permutations(["a", "b", "c"]) // [["a", "b", "c"], ["a", "c", "b"], ["b", "a", "c"], ["b", "c", "a"], ["c", "a", "b"], ["c", "b", "a"]]`
+//?? [EXAMPLE] `permutations([1, 2]) // [[1, 2], [2, 1]]`
+//?? [EXAMPLE] `permutations([]) // [[]]`
+//?? [EXAMPLE] `permutations([1]) // [[1]]`
+//?? [EXAMPLE] `permutations(null) // [[]]`
+//?? [GOTCHA] `permutations([1, 2, 3, 4, 5]).length // 120 (5! = 120)`

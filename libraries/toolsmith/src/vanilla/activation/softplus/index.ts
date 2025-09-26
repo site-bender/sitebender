@@ -1,9 +1,7 @@
-import not from "../../logic/not/index.ts"
 import exponential from "../../math/exponential/index.ts"
 import isFinite from "../../validation/isFinite/index.ts"
-import isInfinite from "../../validation/isInfinite/index.ts"
 import isNegativeInfinity from "../../validation/isNegativeInfinity/index.ts"
-import isNumber from "../../validation/isNumber/index.ts"
+import isPositiveInfinity from "../../validation/isPositiveInfinity/index.ts"
 
 /*++
  | SoftPlus activation function
@@ -17,14 +15,17 @@ import isNumber from "../../validation/isNumber/index.ts"
 export default function softplus(
 	x: number | null | undefined,
 ): number {
-	if (not(isNumber(x))) {
-		return NaN
+	// Explicit infinities first
+	if (isNegativeInfinity(x)) {
+		return 0
 	}
 
-	// Handle special cases for numerical stability
-	if (not(isFinite(x))) {
-		if (isInfinite(x)) return Infinity
-		if (isNegativeInfinity(x)) return 0
+	if (isPositiveInfinity(x)) {
+		return Infinity
+	}
+
+	// Reject all non-finite (includes null/undefined/NaN)
+	if (!isFinite(x)) {
 		return NaN
 	}
 

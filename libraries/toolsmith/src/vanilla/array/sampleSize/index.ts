@@ -1,37 +1,12 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns n random elements from the array
- *
- * Selects n random elements from the array without replacement. Each element
- * can be selected at most once. If n is greater than array length, returns
- * all elements in random order. Uses Fisher-Yates algorithm for efficient
- * random sampling.
- *
- * @param n - Number of elements to sample
- * @param array - Array to sample from
- * @returns Array of n random elements (or all elements if n > length)
- * @impure
- * @curried
- * @safe
- * @example
- * ```typescript
- * // Basic sampling
- * sampleSize(3)([1, 2, 3, 4, 5, 6, 7, 8])  // [7, 2, 5] (3 random)
- *
- * // Random team selection
- * const players = ["Alice", "Bob", "Charlie", "David", "Eve"]
- * sampleSize(3)(players)  // ["Charlie", "Alice", "Eve"]
- *
- * // Request more than available (returns all in random order)
- * sampleSize(10)([1, 2, 3])  // [3, 1, 2]
- *
- * // Edge cases
- * sampleSize(0)([1, 2, 3])     // []
- * sampleSize(1)([1, 2, 3])     // [2] (single element)
- * sampleSize(3)([])            // []
- * sampleSize(3)(null)          // []
- * ```
+/*++
+ | Returns n random elements from the array
+ |
+ | Selects n random elements from the array without replacement. Each element
+ | can be selected at most once. If n is greater than array length, returns
+ | all elements in random order. Uses Fisher-Yates algorithm for efficient
+ | random sampling.
  */
 export default function sampleSize<T>(n: number) {
 	return function sampleFromArray(
@@ -78,3 +53,10 @@ export default function sampleSize<T>(n: number) {
 		})
 	}
 }
+
+//?? [EXAMPLE] `sampleSize(3)([1, 2, 3, 4, 5, 6, 7, 8]) // [7, 2, 5] (3 random)`
+//?? [EXAMPLE] `sampleSize(3)(["Alice", "Bob", "Charlie", "David", "Eve"]) // ["Charlie", "Alice", "Eve"]`
+//?? [EXAMPLE] `sampleSize(10)([1, 2, 3]) // [3, 1, 2] (all in random order)`
+//?? [EXAMPLE] `sampleSize(0)([1, 2, 3]) // []`
+//?? [EXAMPLE] `sampleSize(1)([1, 2, 3]) // [2] (single element)`
+//?? [EXAMPLE] `sampleSize(3)(null) // []`

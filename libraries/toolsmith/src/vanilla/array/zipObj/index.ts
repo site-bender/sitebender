@@ -1,46 +1,14 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Creates an object from arrays of keys and values
- *
- * Takes two arrays - one of keys and one of values - and creates an object
- * where each key is paired with its corresponding value by index position.
- * If arrays have different lengths, extra keys get undefined values, and
- * extra values are ignored. Keys must be strings or numbers. Useful for
- * creating objects from parallel arrays, configuration building, or
- * transforming tabular data.
- *
- * @curried
- * @pure
- * @immutable
- * @safe
- * @param values - Array of values for the object
- * @param keys - Array of keys for the object
- * @returns Object with keys mapped to corresponding values
- * @example
- * ```typescript
- * // Basic usage
- * zipObj([1, 2, 3])(["a", "b", "c"])
- * // { a: 1, b: 2, c: 3 }
- *
- * // More keys than values
- * zipObj([1, 2])(["a", "b", "c", "d"])
- * // { a: 1, b: 2, c: undefined, d: undefined }
- *
- * // More values than keys (extra values ignored)
- * zipObj([1, 2, 3, 4, 5])(["x", "y", "z"])
- * // { x: 1, y: 2, z: 3 }
- *
- * // Configuration object from arrays
- * const settingNames = ["theme", "fontSize", "autoSave", "notifications"]
- * const settingValues = ["dark", 14, true, false]
- * zipObj(settingValues)(settingNames)
- * // { theme: "dark", fontSize: 14, autoSave: true, notifications: false }
- *
- * // Handle null/undefined gracefully
- * zipObj([1, 2, 3])(null)       // {}
- * zipObj(null)(["a", "b"])      // { a: undefined, b: undefined }
- * ```
+/*++
+ | Creates an object from arrays of keys and values
+ |
+ | Takes two arrays - one of keys and one of values - and creates an object
+ | where each key is paired with its corresponding value by index position.
+ | If arrays have different lengths, extra keys get undefined values, and
+ | extra values are ignored. Keys must be strings or numbers. Useful for
+ | creating objects from parallel arrays, configuration building, or
+ | transforming tabular data.
  */
 const zipObj = <T>(
 	values: ReadonlyArray<T> | null | undefined,
@@ -85,3 +53,10 @@ const zipObj = <T>(
 }
 
 export default zipObj
+
+//?? [EXAMPLE] `zipObj([1, 2, 3])(["a", "b", "c"]) // { a: 1, b: 2, c: 3 }`
+//?? [EXAMPLE] `zipObj([1, 2])(["a", "b", "c", "d"]) // { a: 1, b: 2, c: undefined, d: undefined }`
+//?? [EXAMPLE] `zipObj([1, 2, 3, 4, 5])(["x", "y", "z"]) // { x: 1, y: 2, z: 3 }`
+//?? [EXAMPLE] `zipObj(["dark", 14, true, false])(["theme", "fontSize", "autoSave", "notifications"]) // { theme: "dark", fontSize: 14, autoSave: true, notifications: false }`
+//?? [EXAMPLE] `zipObj([1, 2, 3])(null) // {}`
+//?? [EXAMPLE] `zipObj(null)(["a", "b"]) // { a: undefined, b: undefined }`

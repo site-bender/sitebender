@@ -1,29 +1,10 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Replaces the first occurrence of a value using a transformation function
- *
- * Uses strict equality (===) to find the item. Returns original array
- * if item not found. Only replaces first occurrence.
- *
- * @param target - The value to find and replace
- * @param replacer - Function to transform the found item
- * @param array - The array to search in
- * @returns New array with first occurrence replaced
- * @pure
- * @curried
- * @immutable
- * @safe
- * @example
- * ```typescript
- * replaceFirst(2)(n => n * 10)([1, 2, 3, 2, 4]) // [1, 20, 3, 2, 4]
- * replaceFirst("old")(s => "new")(["old", "test", "old"]) // ["new", "test", "old"]
- * replaceFirst(5)(n => n)([1, 2, 3]) // [1, 2, 3] (not found)
- *
- * // Update first error
- * const fixFirstError = replaceFirst("ERROR")(s => "WARNING")
- * fixFirstError(["ERROR", "info", "ERROR"]) // ["WARNING", "info", "ERROR"]
- * ```
+/*++
+ | Replaces the first occurrence of a value using a transformation function
+ |
+ | Uses strict equality (===) to find the item. Returns original array
+ | if item not found. Only replaces first occurrence.
  */
 const replaceFirst =
 	<T>(target: T) =>
@@ -40,3 +21,10 @@ const replaceFirst =
 	}
 
 export default replaceFirst
+
+//?? [EXAMPLE] `replaceFirst(2)(n => n * 10)([1, 2, 3, 2, 4]) // [1, 20, 3, 2, 4]`
+//?? [EXAMPLE] `replaceFirst("old")(s => "new")(["old", "test", "old"]) // ["new", "test", "old"]`
+//?? [EXAMPLE] `replaceFirst(5)(n => n)([1, 2, 3]) // [1, 2, 3] (not found)`
+//?? [EXAMPLE] `replaceFirst("ERROR")(s => "WARNING")(["ERROR", "info", "ERROR"]) // ["WARNING", "info", "ERROR"]`
+//?? [EXAMPLE] `replaceFirst(null)(() => 0)([null, 1, null]) // [0, 1, null]`
+//?? [EXAMPLE] `replaceFirst(1)(x => x * 2)(null) // []`

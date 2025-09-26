@@ -1,52 +1,14 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Finds the minimum element according to a comparator function
- *
- * Returns the element from the array that is smallest according to the
- * provided comparator function. The comparator should return a positive
- * number if the first argument is greater, negative if smaller, and zero
- * if equal (like standard sort comparators). Returns undefined for empty
- * arrays. Useful for finding minimum by custom criteria, complex comparisons,
- * or multi-field sorting.
- *
- * @param comparator - Function that compares two elements (returns negative if a < b)
- * @param array - Array to find minimum element from
- * @returns Minimum element according to comparator, or undefined if array is empty
- *
- * @pure
- * @curried
- * @immutable
- * @safe
- *
- * @example
- * ```typescript
- * // Simple numeric comparison
- * const numCompare = (a: number, b: number) => a - b
- * minimumBy(numCompare)([3, 1, 4, 1, 5, 9, 2]) // 1
- *
- * // String length comparison
- * const byLength = (a: string, b: string) => a.length - b.length
- * minimumBy(byLength)(["aaa", "b", "cc", "dddd"]) // "b"
- *
- * // Object property comparison
- * const byAge = (a: { age: number }, b: { age: number }) => a.age - b.age
- * const people = [
- *   { name: "Alice", age: 30 },
- *   { name: "Bob", age: 25 },
- *   { name: "Charlie", age: 35 }
- * ]
- * minimumBy(byAge)(people) // { name: "Bob", age: 25 }
- *
- * // Partial application
- * const getYoungest = minimumBy((a: { age: number }, b: { age: number }) => a.age - b.age)
- * getYoungest([{ age: 30 }, { age: 20 }]) // { age: 20 }
- *
- * // Edge cases
- * minimumBy((a: number, b: number) => a - b)([42]) // 42
- * minimumBy((a: number, b: number) => a - b)([]) // undefined
- * minimumBy((a: number, b: number) => a - b)(null) // undefined
- * ```
+/*++
+ | Finds the minimum element according to a comparator function
+ |
+ | Returns the element from the array that is smallest according to the
+ | provided comparator function. The comparator should return a positive
+ | number if the first argument is greater, negative if smaller, and zero
+ | if equal (like standard sort comparators). Returns undefined for empty
+ | arrays. Useful for finding minimum by custom criteria, complex comparisons,
+ | or multi-field sorting.
  */
 const minimumBy = <T>(
 	comparator: (a: T, b: T) => number,
@@ -75,3 +37,10 @@ const minimumBy = <T>(
 }
 
 export default minimumBy
+
+//?? [EXAMPLE] `minimumBy((a: number, b: number) => a - b)([3, 1, 4, 1, 5, 9, 2]) // 1`
+//?? [EXAMPLE] `minimumBy((a: string, b: string) => a.length - b.length)(["aaa", "b", "cc", "dddd"]) // "b"`
+//?? [EXAMPLE] `minimumBy((a: { age: number }, b: { age: number }) => a.age - b.age)([{ name: "Alice", age: 30 }, { name: "Bob", age: 25 }, { name: "Charlie", age: 35 }]) // { name: "Bob", age: 25 }`
+//?? [EXAMPLE] `minimumBy((a: number, b: number) => a - b)([42]) // 42`
+//?? [EXAMPLE] `minimumBy((a: number, b: number) => a - b)([]) // undefined`
+//?? [EXAMPLE] `minimumBy((a: number, b: number) => a - b)(null) // undefined`

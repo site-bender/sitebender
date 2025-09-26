@@ -12,6 +12,8 @@ export default function nth(index: number) {
 	}
 }
 
-//?? [EXAMPLE] nth(1)([1,2,3]) // 2
-//?? [EXAMPLE] nth(-1)([1,2,3]) // 3
-//?? [EXAMPLE] nth(10)([1,2,3]) // undefined
+//?? [EXAMPLE] `nth(1)([1, 2, 3]) // 2`
+//?? [EXAMPLE] `nth(-1)([1, 2, 3]) // 3`
+//?? [EXAMPLE] `nth(10)([1, 2, 3]) // undefined`
+//?? [EXAMPLE] `nth(0)(["a", "b", "c"]) // "a"`
+//?? [EXAMPLE] `nth(0)(null) // undefined`

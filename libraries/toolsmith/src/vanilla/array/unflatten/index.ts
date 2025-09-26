@@ -1,39 +1,11 @@
-/**
- * Reconstructs nested arrays from flattened array with depth info
- *
- * Takes a flattened array and depth information to reconstruct the original
- * nested structure. This is the inverse of flatten operations that track
- * nesting depth. Can accept either a parallel array of depths or a function
- * that determines depth from elements. Useful for deserializing hierarchical
- * data, reconstructing trees, and undoing flatten operations.
- *
- * @param depths - Array of depth levels or function to compute depth
- * @param array - Flattened array to reconstruct
- * @returns Nested array with original structure restored
- * @pure
- * @immutable
- * @curried
- * @example
- * ```typescript
- * // Basic unflattening with depth array
- * unflatten([0, 1, 1, 0, 1, 2])([1, 2, 3, 4, 5, 6])
- * // [1, [2, 3], 4, [5, [6]]]
- *
- * // Tree structure reconstruction
- * const nodes = ["A", "B", "C", "D", "E", "F", "G"]
- * unflatten([0, 1, 2, 2, 1, 2, 0])(nodes)
- * // ["A", ["B", ["C", "D"], "E", ["F"]], "G"]
- *
- * // Menu hierarchy
- * const items = ["File", "New", "Open", "Edit", "Cut"]
- * unflatten([0, 1, 1, 0, 1])(items)
- * // ["File", ["New", "Open"], "Edit", ["Cut"]]
- *
- * // Edge cases
- * unflatten([])([])          // []
- * unflatten([0])([42])       // [42]
- * unflatten([1])([42])       // [[42]]
- * ```
+/*++
+ | Reconstructs nested arrays from flattened array with depth info
+ |
+ | Takes a flattened array and depth information to reconstruct the original
+ | nested structure. This is the inverse of flatten operations that track
+ | nesting depth. Can accept either a parallel array of depths or a function
+ | that determines depth from elements. Useful for deserializing hierarchical
+ | data, reconstructing trees, and undoing flatten operations.
  */
 const unflatten = (depths: Array<number>) =>
 <T>(
@@ -84,3 +56,10 @@ const unflatten = (depths: Array<number>) =>
 }
 
 export default unflatten
+
+//?? [EXAMPLE] `unflatten([0, 1, 1, 0, 1, 2])([1, 2, 3, 4, 5, 6]) // [1, [2, 3], 4, [5, [6]]]`
+//?? [EXAMPLE] `unflatten([0, 1, 2, 2, 1, 2, 0])(["A", "B", "C", "D", "E", "F", "G"]) // ["A", ["B", ["C", "D"], "E", ["F"]], "G"]`
+//?? [EXAMPLE] `unflatten([0, 1, 1, 0, 1])(["File", "New", "Open", "Edit", "Cut"]) // ["File", ["New", "Open"], "Edit", ["Cut"]]`
+//?? [EXAMPLE] `unflatten([])([]) // []`
+//?? [EXAMPLE] `unflatten([0])([42]) // [42]`
+//?? [EXAMPLE] `unflatten([1])([42]) // [[42]]`
