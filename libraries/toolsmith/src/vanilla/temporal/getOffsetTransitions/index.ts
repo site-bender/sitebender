@@ -1,5 +1,5 @@
-import isNull from "../../validation/isNull/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
+import _checkTransitions from "./_checkTransitions/index.ts"
 
 /**
  * Gets timezone offset transition points
@@ -106,101 +106,47 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @comprehensive Includes transition type and offset information
  * @historical Works with historical timezone rule changes
  */
-const getOffsetTransitions = (timeZone: string) =>
-(
-	startDate: Temporal.PlainDate | null | undefined,
-	endDate: Temporal.PlainDate | null | undefined,
-): Array<{
-	date: Temporal.PlainDate
-	offsetBefore: string
-	offsetAfter: string
-	type: "forward" | "backward"
-}> => {
-	if (isNullish(startDate) || isNullish(endDate)) {
-		return []
-	}
+export default function getOffsetTransitions(timeZone: string) {
+	return function getOffsetTransitionsForTimeZone(
+		startDate: Temporal.PlainDate | null | undefined,
+		endDate: Temporal.PlainDate | null | undefined,
+	): Array<{
+		date: Temporal.PlainDate
+		offsetBefore: string
+		offsetAfter: string
+		type: "forward" | "backward"
+	}> {
+		if (isNullish(startDate) || isNullish(endDate)) {
+			return []
+		}
 
-	if (
-		!(startDate instanceof Temporal.PlainDate) ||
-		!(endDate instanceof Temporal.PlainDate)
-	) {
-		return []
-	}
+		if (
+			!(startDate instanceof Temporal.PlainDate) ||
+			!(endDate instanceof Temporal.PlainDate)
+		) {
+			return []
+		}
 
-	if (typeof timeZone !== "string" || timeZone.length === 0) {
-		return []
-	}
+		if (typeof timeZone !== "string" || timeZone.length === 0) {
+			return []
+		}
 
-	// Invalid date range (end before start)
-	if (Temporal.PlainDate.compare(endDate, startDate) < 0) {
-		return []
-	}
+		// Invalid date range (end before start)
+		if (Temporal.PlainDate.compare(endDate, startDate) < 0) {
+			return []
+		}
 
-	try {
-		const _transitions: Array<{
-			date: Temporal.PlainDate
-			offsetBefore: string
-			offsetAfter: string
-			type: "forward" | "backward"
-		}> = []
-
-		// Check each day in the range for offset transitions (recursive)
-		const checkTransitions = (
-			current: Temporal.PlainDate,
-			prevOffset: string | null,
-			acc: Array<{
+		try {
+			const _transitions: Array<{
 				date: Temporal.PlainDate
 				offsetBefore: string
 				offsetAfter: string
 				type: "forward" | "backward"
-			}>,
-		): Array<{
-			date: Temporal.PlainDate
-			offsetBefore: string
-			offsetAfter: string
-			type: "forward" | "backward"
-		}> => {
-			if (Temporal.PlainDate.compare(current, endDate) > 0) {
-				return acc
-			}
+			}> = []
 
-			try {
-				// Get the offset at noon on this date to avoid DST transition edge cases
-				const dateTime = current.toPlainDateTime({ hour: 12 })
-				const zonedDateTime = dateTime.toZonedDateTime(timeZone)
-				const currentOffset = zonedDateTime.offset
-
-				const newTransitions =
-					!isNull(prevOffset) && prevOffset !== currentOffset
-						? [...acc, {
-							date: current,
-							offsetBefore: prevOffset,
-							offsetAfter: currentOffset,
-							type: (prevOffset < currentOffset ? "forward" : "backward") as
-								| "forward"
-								| "backward",
-						}]
-						: acc
-
-				return checkTransitions(
-					current.add({ days: 1 }),
-					currentOffset,
-					newTransitions,
-				)
-			} catch {
-				// Invalid timezone or date, skip this date
-				return checkTransitions(
-					current.add({ days: 1 }),
-					prevOffset,
-					acc,
-				)
-			}
+			return _checkTransitions(startDate, null, [], endDate, timeZone)
+		} catch {
+			return []
 		}
-
-		return checkTransitions(startDate, null, [])
-	} catch {
-		return []
 	}
 }
-
-export default getOffsetTransitions

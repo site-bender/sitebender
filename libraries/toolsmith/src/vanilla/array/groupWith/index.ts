@@ -1,41 +1,13 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Groups consecutive elements that satisfy a binary predicate
- *
- * Takes a binary predicate function and creates groups of consecutive
- * elements where each adjacent pair satisfies the predicate. When the
- * predicate returns false for a pair, a new group is started. This is
- * useful for segmenting data, creating runs, or grouping related consecutive
- * items based on their relationship to each other.
- *
- * @pure
- * @immutable
- * @curried
- * @param predicate - Binary function to test adjacent elements
- * @param array - Array to group
- * @returns Array of arrays, each containing consecutive related elements
- * @example
- * ```typescript
- * // Group consecutive equal elements
- * const equal = (a: number, b: number) => a === b
- * groupWith(equal)([1, 1, 2, 2, 2, 3, 1, 1])
- * // [[1, 1], [2, 2, 2], [3], [1, 1]]
- *
- * // Group ascending sequences
- * const ascending = (a: number, b: number) => b >= a
- * groupWith(ascending)([1, 2, 3, 2, 3, 4, 1, 5])
- * // [[1, 2, 3], [2, 3, 4], [1, 5]]
- *
- * // Group by property
- * const items = [
- *   { category: "A", value: 1 },
- *   { category: "A", value: 2 },
- *   { category: "B", value: 3 }
- * ]
- * groupWith((a, b) => a.category === b.category)(items)
- * // [[A,A], [B]]
- * ```
+/*++
+ | Groups consecutive elements that satisfy a binary predicate
+ |
+ | Takes a binary predicate function and creates groups of consecutive
+ | elements where each adjacent pair satisfies the predicate. When the
+ | predicate returns false for a pair, a new group is started. This is
+ | useful for segmenting data, creating runs, or grouping related consecutive
+ | items based on their relationship to each other.
  */
 const groupWith = <T>(
 	predicate: (a: T, b: T) => boolean,
@@ -62,5 +34,38 @@ const groupWith = <T>(
 		[[array[0]]],
 	)
 }
+
+//?? [EXAMPLE] `groupWith((a: number, b: number) => a === b)([1, 1, 2, 2, 3]) // [[1, 1], [2, 2], [3]]`
+//?? [EXAMPLE] `groupWith((a: number, b: number) => b - a === 1)([1, 2, 3, 5, 6]) // [[1, 2, 3], [5, 6]]`
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | // Group consecutive equal elements
+ | const equal = (a: number, b: number) => a === b
+ | groupWith(equal)([1, 1, 2, 2, 2, 3, 1, 1])
+ | // [[1, 1], [2, 2, 2], [3], [1, 1]]
+ | ```
+ |
+ | [EXAMPLE]
+ | ```typescript
+ | // Group ascending sequences
+ | const ascending = (a: number, b: number) => b >= a
+ | groupWith(ascending)([1, 2, 3, 2, 3, 4, 1, 5])
+ | // [[1, 2, 3], [2, 3, 4], [1, 5]]
+ | ```
+ |
+ | [EXAMPLE]
+ | ```typescript
+ | // Group by property
+ | const items = [
+ |   { category: "A", value: 1 },
+ |   { category: "A", value: 2 },
+ |   { category: "B", value: 3 }
+ | ]
+ | groupWith((a, b) => a.category === b.category)(items)
+ | // [[{ category: "A", value: 1 }, { category: "A", value: 2 }],
+ | //  [{ category: "B", value: 3 }]]
+ | ```
+ */
 
 export default groupWith

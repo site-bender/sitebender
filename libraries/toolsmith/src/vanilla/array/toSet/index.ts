@@ -35,11 +35,9 @@ import isNullish from "../../validation/isNullish/index.ts"
  * toSet(undefined)   // Set(0) {}
  * ```
  */
-const toSet = <T>(array: Array<T> | null | undefined): Set<T> => {
+export default function toSet<T>(array: Array<T> | null | undefined): Set<T> {
 	if (isNullish(array)) {
 		return new Set<T>()
 	}
 	return new Set(array)
 }
-
-export default toSet

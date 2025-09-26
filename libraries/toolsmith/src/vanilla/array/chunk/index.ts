@@ -1,46 +1,13 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Splits an array into chunks of specified size
- *
- * Divides an array into smaller arrays of a maximum size. The last chunk
- * may be smaller than the specified size if the array length is not evenly
- * divisible. Similar to splitEvery but specifically for arrays.
- *
- * @param size - Maximum size of each chunk (must be positive)
- * @param array - Array to split into chunks
- * @returns Array of arrays, each of maximum size
- * @example
- * ```typescript
- * // Basic usage
- * chunk(2)([1, 2, 3, 4, 5])
- * // [[1, 2], [3, 4], [5]]
- *
- * chunk(3)([1, 2, 3, 4, 5, 6, 7, 8])
- * // [[1, 2, 3], [4, 5, 6], [7, 8]]
- *
- * // Edge cases
- * chunk(10)([1, 2, 3])  // [[1, 2, 3]]
- * chunk(1)([1, 2, 3])   // [[1], [2], [3]]
- * chunk(0)([1, 2, 3])   // []
- * chunk(3)([])          // []
- *
- * // Batch processing
- * const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
- * chunk(3)(ids)
- * // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
- *
- * // Partial application
- * const pairwise = chunk(2)
- * pairwise([1, 2, 3, 4])     // [[1, 2], [3, 4]]
- * pairwise(["a", "b", "c"])   // [["a", "b"], ["c"]]
- * ```
- * @pure
- * @immutable
- * @curried
- * @safe
- */
+/*++
+Splits an array into chunks of specified size
+
+Divides an array into smaller arrays of a maximum size. The last chunk
+may be smaller than the specified size if the array length is not evenly
+divisible. Similar to splitEvery but specifically for arrays.
+*/
 const chunk = <T>(
 	size: number,
 ) =>
@@ -69,5 +36,29 @@ const chunk = <T>(
 
 	return chunkRecursive(array)
 }
+
+//?? [EXAMPLE] `chunk(2)([1, 2, 3, 4, 5]) // [[1, 2], [3, 4], [5]]`
+//?? [EXAMPLE] `chunk(3)([1, 2, 3, 4, 5, 6, 7, 8]) // [[1, 2, 3], [4, 5, 6], [7, 8]]`
+//?? [EXAMPLE] `chunk(10)([1, 2, 3])  // [[1, 2, 3]]`
+//?? [EXAMPLE] `chunk(1)([1, 2, 3])   // [[1], [2], [3]]`
+//?? [EXAMPLE] `chunk(0)([1, 2, 3])   // []`
+//?? [EXAMPLE] `chunk(3)([])          // []`
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | // Batch processing
+ | const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+ | chunk(3)(ids)
+ | // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
+ | ```
+ |
+ | [EXAMPLE]
+ | ```typescript
+ | // Partial application
+ | const pairwise = chunk(2)
+ | pairwise([1, 2, 3, 4])     // [[1, 2], [3, 4]]
+ | pairwise(["a", "b", "c"])   // [["a", "b"], ["c"]]
+ | ```
+ */
 
 export default chunk

@@ -35,14 +35,13 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe
  * @idempotent
  */
-const takeLast = (count: number) =>
-<T>(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array) || count <= 0 || Number.isNaN(count)) {
-		return []
+export default function takeLast(count: number) {
+	return function takeLastFromArray<T>(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<T> {
+		if (isNullish(array) || count <= 0 || Number.isNaN(count)) {
+			return []
+		}
+		return array.slice(-count)
 	}
-	return array.slice(-count)
 }
-
-export default takeLast

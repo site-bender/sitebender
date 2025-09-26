@@ -1,35 +1,12 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Finds the most frequently occurring element(s)
- *
- * Returns an array of the element(s) that appear most frequently
- * in the input array. When multiple elements have the same maximum
- * frequency, all are returned in order of first occurrence.
- *
- * @pure
- * @immutable
- * @param array - Array to analyze for most common elements
- * @returns Array of the most frequently occurring element(s)
- * @example
- * ```typescript
- * // Basic usage
- * findMostCommon([1, 2, 3, 2, 4, 2, 5])         // [2]
- * findMostCommon([1, 1, 2, 2, 3, 3])            // [1, 2, 3] (tie)
- *
- * // String arrays
- * const words = "the quick brown fox the".split(" ")
- * findMostCommon(words)                         // ["the"]
- *
- * // Edge cases
- * findMostCommon([1, 2, 3, 4, 5])               // [1, 2, 3, 4, 5] (all unique)
- * findMostCommon([])                            // []
- * findMostCommon([NaN, NaN, 1, 1])              // [NaN, 1] (uses SameValueZero)
- *
- * // Preserves order on ties
- * findMostCommon([3, 1, 2, 1, 3, 2])            // [3, 1, 2] (first occurrence order)
- * ```
+/*++
+ | Finds the most frequently occurring element(s)
+ |
+ | Returns an array of the element(s) that appear most frequently
+ | in the input array. When multiple elements have the same maximum
+ | frequency, all are returned in order of first occurrence.
  */
 const findMostCommon = <T>(
 	array: ReadonlyArray<T> | null | undefined,
@@ -68,5 +45,20 @@ const findMostCommon = <T>(
 			return indexA - indexB
 		})
 }
+
+//?? [EXAMPLE] `findMostCommon([1, 2, 3, 2, 4, 2, 5])         // [2]`
+//?? [EXAMPLE] `findMostCommon([1, 1, 2, 2, 3, 3])            // [1, 2, 3] (tie)`
+//?? [EXAMPLE] `findMostCommon([1, 2, 3, 4, 5])               // [1, 2, 3, 4, 5] (all unique)`
+//?? [EXAMPLE] `findMostCommon([])                            // []`
+//?? [EXAMPLE] `findMostCommon([NaN, NaN, 1, 1])              // [NaN, 1] (uses SameValueZero)`
+//?? [EXAMPLE] `findMostCommon([3, 1, 2, 1, 3, 2])            // [3, 1, 2] (first occurrence order)`
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | // String arrays
+ | const words = "the quick brown fox the".split(" ")
+ | findMostCommon(words)                         // ["the"]
+ | ```
+ */
 
 export default findMostCommon

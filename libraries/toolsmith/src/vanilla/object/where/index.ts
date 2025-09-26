@@ -59,31 +59,32 @@ import isEmpty from "../../validation/isEmpty/index.ts"
  * })
  * items.filter(isAffordable)                      // [{ price: 50, inStock: true }]
  */
-const where = <S extends Record<string, (value: unknown) => boolean>>(
+export default function where<
+	S extends Record<string, (value: unknown) => boolean>,
+>(
 	spec: S,
-) =>
-<T extends Record<string | symbol, Value>>(
-	obj: T,
-): boolean => {
-	// Handle null/undefined
-	if (!obj || typeof obj !== "object") {
-		// Check if any predicates exist
-		return isEmpty(spec)
-	}
-
-	// Check each predicate in the spec
-	return Object.keys(spec).every((key) => {
-		const predicate = spec[key]
-		const value = obj[key]
-
-		// Run predicate and check result
-		try {
-			return predicate(value)
-		} catch {
-			// If predicate throws, consider it failed
-			return false
+) {
+	return function checkWhere<T extends Record<string | symbol, Value>>(
+		obj: T,
+	): boolean {
+		// Handle null/undefined
+		if (!obj || typeof obj !== "object") {
+			// Check if any predicates exist
+			return isEmpty(spec)
 		}
-	})
-}
 
-export default where
+		// Check each predicate in the spec
+		return Object.keys(spec).every(function checkPredicate(key) {
+			const predicate = spec[key]
+			const value = obj[key]
+
+			// Run predicate and check result
+			try {
+				return predicate(value)
+			} catch {
+				// If predicate throws, consider it failed
+				return false
+			}
+		})
+	}
+}

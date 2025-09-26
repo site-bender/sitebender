@@ -1,51 +1,14 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns the Cartesian product of two arrays (all possible pairs)
- *
- * Creates an array containing all possible ordered pairs [a, b] where 'a'
- * is from the first array and 'b' is from the second array. The result
- * has length array1.length × array2.length. Order is preserved: all pairs
- * with the first element from array1[0] come before pairs with array1[1].
- * Useful for generating combinations, test cases, or coordinate grids.
- *
- * @param array1 - First array
- * @param array2 - Second array
- * @returns Array of all possible pairs [element1, element2]
- * @example
- * ```typescript
- * // Basic usage
- * cartesianProduct([1, 2])([3, 4])
- * // [[1, 3], [1, 4], [2, 3], [2, 4]]
- *
- * // String combinations
- * cartesianProduct(["a", "b"])(["x", "y", "z"])
- * // [["a", "x"], ["a", "y"], ["a", "z"], ["b", "x"], ["b", "y"], ["b", "z"]]
- *
- * // Generate coordinates
- * cartesianProduct([0, 1, 2])([0, 1])
- * // [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]]
- *
- * // Product combinations
- * const sizes = ["S", "M", "L"]
- * const colors = ["red", "blue"]
- * cartesianProduct(sizes)(colors)
- * // [["S", "red"], ["S", "blue"], ["M", "red"], ["M", "blue"], ["L", "red"], ["L", "blue"]]
- *
- * // Empty array cases
- * cartesianProduct([])([1, 2])    // []
- * cartesianProduct([1, 2])([])    // []
- *
- * // Partial application
- * const withColors = cartesianProduct(["red", "green", "blue"])
- * withColors(["circle", "square"])
- * // [["red", "circle"], ["red", "square"], ["green", "circle"], ["green", "square"], ["blue", "circle"], ["blue", "square"]]
- * ```
- * @pure
- * @immutable
- * @curried
- * @safe
- */
+/*++
+Returns the Cartesian product of two arrays (all possible pairs)
+
+Creates an array containing all possible ordered pairs [a, b] where 'a'
+is from the first array and 'b' is from the second array. The result
+has length array1.length × array2.length. Order is preserved: all pairs
+with the first element from array1[0] come before pairs with array1[1].
+Useful for generating combinations, test cases, or coordinate grids.
+*/
 const cartesianProduct = <T, U>(
 	array1: ReadonlyArray<T> | null | undefined,
 ) =>
@@ -68,5 +31,29 @@ const cartesianProduct = <T, U>(
 		array2.map((element2) => [element1, element2] as [T, U])
 	)
 }
+
+//?? [EXAMPLE] `cartesianProduct([1, 2])([3, 4]) // [[1, 3], [1, 4], [2, 3], [2, 4]]`
+//?? [EXAMPLE] `cartesianProduct(["a", "b"])(["x", "y", "z"]) // [["a", "x"], ["a", "y"], ["a", "z"], ["b", "x"], ["b", "y"], ["b", "z"]]`
+//?? [EXAMPLE] `cartesianProduct([0, 1, 2])([0, 1]) // [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [2, 1]]`
+//?? [EXAMPLE] `cartesianProduct([])([1, 2])    // []`
+//?? [EXAMPLE] `cartesianProduct([1, 2])([])    // []`
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | // Product combinations
+ | const sizes = ["S", "M", "L"]
+ | const colors = ["red", "blue"]
+ | cartesianProduct(sizes)(colors)
+ | // [["S", "red"], ["S", "blue"], ["M", "red"], ["M", "blue"], ["L", "red"], ["L", "blue"]]
+ | ```
+ |
+ | [EXAMPLE]
+ | ```typescript
+ | // Partial application
+ | const withColors = cartesianProduct(["red", "green", "blue"])
+ | withColors(["circle", "square"])
+ | // [["red", "circle"], ["red", "square"], ["green", "circle"], ["green", "square"], ["blue", "circle"], ["blue", "square"]]
+ | ```
+ */
 
 export default cartesianProduct

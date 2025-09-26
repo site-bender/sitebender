@@ -132,26 +132,25 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe
  * @curried
  */
-const addDays = (days: number) =>
-(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,
-): Temporal.PlainDate | Temporal.PlainDateTime | null => {
-	if (isNullish(date)) {
-		return null
-	}
+export default function addDays(days: number) {
+	return function addDaysToDate(
+		date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,
+	): Temporal.PlainDate | Temporal.PlainDateTime | null {
+		if (isNullish(date)) {
+			return null
+		}
 
-	if (
-		!(date instanceof Temporal.PlainDate) &&
-		!(date instanceof Temporal.PlainDateTime)
-	) {
-		return null
-	}
+		if (
+			!(date instanceof Temporal.PlainDate) &&
+			!(date instanceof Temporal.PlainDateTime)
+		) {
+			return null
+		}
 
-	try {
-		return date.add({ days })
-	} catch {
-		return null
+		try {
+			return date.add({ days })
+		} catch {
+			return null
+		}
 	}
 }
-
-export default addDays

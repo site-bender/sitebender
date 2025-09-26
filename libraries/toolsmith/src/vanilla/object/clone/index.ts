@@ -53,7 +53,7 @@ import isNullish from "../../validation/isNullish/index.ts"
  * clonedFunc.data === withFunc.data     // false
  * ```
  */
-const clone = <T extends Value>(obj: T): T => {
+export default function clone<T extends Value>(obj: T): T {
 	// Handle primitives and null/undefined
 	if (isNullish(obj) || typeof obj !== "object") {
 		return obj
@@ -62,7 +62,7 @@ const clone = <T extends Value>(obj: T): T => {
 	// Use a WeakMap to track visited objects for circular reference handling
 	const visited = new WeakMap()
 
-	const cloneRecursive = (source: Value): Value => {
+	function cloneRecursive(source: Value): Value {
 		// Handle primitives
 		if (isNullish(source) || typeof source !== "object") {
 			return source
@@ -91,10 +91,12 @@ const clone = <T extends Value>(obj: T): T => {
 		if (source instanceof Map) {
 			const cloned = new Map<string, Value>()
 			visited.set(source, cloned)
-			Array.from(source.entries()).forEach(([key, value]) => {
-				const k = String(key)
-				cloned.set(k, cloneRecursive(value))
-			})
+			Array.from(source.entries()).forEach(
+				function cloneMapEntry([key, value]) {
+					const k = String(key)
+					cloned.set(k, cloneRecursive(value))
+				},
+			)
 			return cloned
 		}
 
@@ -102,9 +104,9 @@ const clone = <T extends Value>(obj: T): T => {
 		if (source instanceof Set) {
 			const cloned = new Set<Value>()
 			visited.set(source, cloned)
-			Array.from(source.values()).forEach((value) =>
+			Array.from(source.values()).forEach(function cloneSetValue(value) {
 				cloned.add(cloneRecursive(value))
-			)
+			})
 			return cloned
 		}
 
@@ -112,7 +114,7 @@ const clone = <T extends Value>(obj: T): T => {
 		if (Array.isArray(source)) {
 			const cloned: Array<Value> = []
 			visited.set(source, cloned)
-			source.forEach((item, index) => {
+			source.forEach(function cloneArrayItem(item, index) {
 				cloned[index] = cloneRecursive(item)
 			})
 			return cloned
@@ -128,7 +130,7 @@ const clone = <T extends Value>(obj: T): T => {
 			...Object.getOwnPropertySymbols(source),
 		]
 
-		keys.forEach((key) => {
+		keys.forEach(function cloneProperty(key) {
 			const descriptor = Object.getOwnPropertyDescriptor(source, key)
 			if (descriptor) {
 				if (descriptor.get || descriptor.set) {
@@ -150,5 +152,3 @@ const clone = <T extends Value>(obj: T): T => {
 
 	return cloneRecursive(obj) as T
 }
-
-export default clone

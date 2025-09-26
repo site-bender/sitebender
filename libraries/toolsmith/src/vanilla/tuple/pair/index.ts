@@ -46,8 +46,8 @@ import type { Pair } from "../../../types/tuple/index.ts"
  * @pure
  * @curried
  */
-const pair = <U>(second: U) => <T>(first: T): Pair<T, U> => {
-	return [first, second]
+export default function pair<U>(second: U) {
+	return function pairWithFirst<T>(first: T): Pair<T, U> {
+		return [first, second]
+	}
 }
-
-export default pair

@@ -78,41 +78,40 @@
  */
 import isNullish from "../../validation/isNullish/index.ts"
 
-const setSecond = (second: number) =>
-(
-	time:
+export default function setSecond(second: number) {
+	return function setSecondOnTime(
+		time:
+			| Temporal.PlainTime
+			| Temporal.PlainDateTime
+			| Temporal.ZonedDateTime
+			| null
+			| undefined,
+	):
 		| Temporal.PlainTime
 		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
-		| null
-		| undefined,
-):
-	| Temporal.PlainTime
-	| Temporal.PlainDateTime
-	| Temporal.ZonedDateTime
-	| null => {
-	if (isNullish(time)) {
-		return null
-	}
+		| null {
+		if (isNullish(time)) {
+			return null
+		}
 
-	if (
-		!(time instanceof Temporal.PlainTime) &&
-		!(time instanceof Temporal.PlainDateTime) &&
-		!(time instanceof Temporal.ZonedDateTime)
-	) {
-		return null
-	}
+		if (
+			!(time instanceof Temporal.PlainTime) &&
+			!(time instanceof Temporal.PlainDateTime) &&
+			!(time instanceof Temporal.ZonedDateTime)
+		) {
+			return null
+		}
 
-	// Validate second is in valid range
-	if (second < 0 || second > 59 || !Number.isInteger(second)) {
-		return null
-	}
+		// Validate second is in valid range
+		if (second < 0 || second > 59 || !Number.isInteger(second)) {
+			return null
+		}
 
-	try {
-		return time.with({ second })
-	} catch {
-		return null
+		try {
+			return time.with({ second })
+		} catch {
+			return null
+		}
 	}
 }
-
-export default setSecond

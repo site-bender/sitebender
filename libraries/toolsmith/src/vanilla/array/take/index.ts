@@ -35,14 +35,13 @@ import isNullish from "../../validation/isNullish/index.ts"
  * @safe
  * @idempotent
  */
-const take = (count: number) =>
-<T>(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array) || !Array.isArray(array) || count <= 0) {
-		return []
+export default function take(count: number) {
+	return function takeFromArray<T>(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<T> {
+		if (isNullish(array) || !Array.isArray(array) || count <= 0) {
+			return []
+		}
+		return array.slice(0, count)
 	}
-	return array.slice(0, count)
 }
-
-export default take

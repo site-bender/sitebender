@@ -49,35 +49,36 @@ import isNullish from "../../validation/isNullish/index.ts"
  * partitionBy(isEven)(null) // []
  * ```
  */
-const partitionBy = <T>(predicate: (value: T) => unknown) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<Array<T>> => {
-	if (isNullish(array) || array.length === 0) {
-		return []
+export default function partitionBy<T>(predicate: (value: T) => unknown) {
+	return function partitionByPredicate(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<Array<T>> {
+		if (isNullish(array) || array.length === 0) {
+			return []
+		}
+
+		const groups = array.reduce(
+			function groupConsecutive(acc, current, index) {
+				const currentKey = predicate(current)
+				const lastGroup = acc[acc.length - 1]
+
+				if (index === 0 || lastGroup.key !== currentKey) {
+					return [...acc, { key: currentKey, items: [current] }]
+				} else {
+					return [
+						...acc.slice(0, -1),
+						{
+							key: lastGroup.key,
+							items: [...lastGroup.items, current],
+						},
+					]
+				}
+			},
+			[] as Array<{ key: unknown; items: Array<T> }>,
+		)
+
+		return groups.map(function extractItems(group) {
+			return group.items
+		})
 	}
-
-	const groups = array.reduce(
-		(acc, current, index) => {
-			const currentKey = predicate(current)
-			const lastGroup = acc[acc.length - 1]
-
-			if (index === 0 || lastGroup.key !== currentKey) {
-				return [...acc, { key: currentKey, items: [current] }]
-			} else {
-				return [
-					...acc.slice(0, -1),
-					{
-						key: lastGroup.key,
-						items: [...lastGroup.items, current],
-					},
-				]
-			}
-		},
-		[] as Array<{ key: unknown; items: Array<T> }>,
-	)
-
-	return groups.map((group) => group.items)
 }
-
-export default partitionBy

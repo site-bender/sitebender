@@ -37,18 +37,21 @@ import isNullish from "../../validation/isNullish/index.ts"
  * omit([])([1, 2, 3]) // [1, 2, 3]
  * ```
  */
-const omit = <T>(indices: Array<number>) =>
-(
-	array: Array<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array)) {
-		return []
+export default function omit<T>(indices: Array<number>) {
+	return function omitFromArray(
+		array: Array<T> | null | undefined,
+	): Array<T> {
+		if (isNullish(array)) {
+			return []
+		}
+
+		// Normalize negative indices to positive ones
+		const normalizedIndices = indices.map(function normalizeIndex(i) {
+			return i < 0 ? array.length + i : i
+		})
+
+		return array.filter(function isNotAtIndex(_, index) {
+			return not(normalizedIndices.includes(index))
+		})
 	}
-
-	// Normalize negative indices to positive ones
-	const normalizedIndices = indices.map((i) => i < 0 ? array.length + i : i)
-
-	return array.filter((_, index) => not(normalizedIndices.includes(index)))
 }
-
-export default omit

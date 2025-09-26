@@ -50,36 +50,35 @@
  */
 import isNullish from "../../validation/isNullish/index.ts"
 
-const addMinutes = (minutes: number) =>
-(
-	time:
+export default function addMinutes(minutes: number) {
+	return function addMinutesToTime(
+		time:
+			| Temporal.PlainTime
+			| Temporal.PlainDateTime
+			| Temporal.ZonedDateTime
+			| null
+			| undefined,
+	):
 		| Temporal.PlainTime
 		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
-		| null
-		| undefined,
-):
-	| Temporal.PlainTime
-	| Temporal.PlainDateTime
-	| Temporal.ZonedDateTime
-	| null => {
-	if (isNullish(time)) {
-		return null
-	}
+		| null {
+		if (isNullish(time)) {
+			return null
+		}
 
-	if (
-		!(time instanceof Temporal.PlainTime) &&
-		!(time instanceof Temporal.PlainDateTime) &&
-		!(time instanceof Temporal.ZonedDateTime)
-	) {
-		return null
-	}
+		if (
+			!(time instanceof Temporal.PlainTime) &&
+			!(time instanceof Temporal.PlainDateTime) &&
+			!(time instanceof Temporal.ZonedDateTime)
+		) {
+			return null
+		}
 
-	try {
-		return time.add({ minutes })
-	} catch {
-		return null
+		try {
+			return time.add({ minutes })
+		} catch {
+			return null
+		}
 	}
 }
-
-export default addMinutes

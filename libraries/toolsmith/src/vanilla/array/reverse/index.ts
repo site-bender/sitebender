@@ -26,11 +26,11 @@ import isNullish from "../../validation/isNullish/index.ts"
  * // original is still [1, 2, 3, 4]
  * ```
  */
-const reverse = <T>(array: ReadonlyArray<T> | null | undefined): Array<T> => {
+export default function reverse<T>(
+	array: ReadonlyArray<T> | null | undefined,
+): Array<T> {
 	if (isNullish(array) || not(Array.isArray(array))) {
 		return []
 	}
 	return [...array].reverse()
 }
-
-export default reverse

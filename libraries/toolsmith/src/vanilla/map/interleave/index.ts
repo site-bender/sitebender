@@ -45,25 +45,32 @@ import isNotNull from "../../validation/isNotNull/index.ts"
  * @pure
  * @immutable
  */
-const interleave = <K, V>(maps: Array<Map<K, V>>): Map<K, V> => {
+export default function interleave<K, V>(maps: Array<Map<K, V>>): Map<K, V> {
 	if (maps.length === 0) {
 		return new Map<K, V>()
 	}
 
 	// Convert each Map to an array of entries
-	const iterators = maps.map((m) => Array.from(m.entries()))
-	const maxLength = Math.max(...iterators.map((it) => it.length))
+	const iterators = maps.map(function toEntries(m) {
+		return Array.from(m.entries())
+	})
+	const maxLength = Math.max(...iterators.map(function getLength(it) {
+		return it.length
+	}))
 
 	// Generate interleaved entries functionally
 	const interleavedEntries = Array.from(
 		{ length: maxLength },
-		(_, i) =>
-			iterators
-				.map((iterator) => (i < iterator.length ? iterator[i] : null))
-				.filter((entry): entry is [K, V] => isNotNull(entry)),
+		function createInterleavedRow(_, i) {
+			return iterators
+				.map(function getEntryAtIndex(iterator) {
+					return i < iterator.length ? iterator[i] : null
+				})
+				.filter(function isValidEntry(entry): entry is [K, V] {
+					return isNotNull(entry)
+				})
+		},
 	).flat()
 
 	return new Map(interleavedEntries)
 }
-
-export default interleave

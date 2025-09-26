@@ -43,8 +43,6 @@ import type { Singleton } from "../../../types/tuple/index.ts"
  * @pure
  * @curried
  */
-const singleton = <T>(value: T): Singleton<T> => {
+export default function singleton<T>(value: T): Singleton<T> {
 	return [value]
 }
-
-export default singleton

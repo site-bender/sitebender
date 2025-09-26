@@ -25,15 +25,16 @@ import filter from "../filter/index.ts"
  * removeNulls([1, null, 2, null, 3]) // [1, 2, 3]
  * ```
  */
-const removeAll = <T>(item: T) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array)) {
-		return []
+export default function removeAll<T>(item: T) {
+	return function removeAllFromArray(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<T> {
+		if (isNullish(array)) {
+			return []
+		}
+		// filter returns a new array; spread to ensure a mutable Array<T>
+		return filter(function isNotItem(element: T) {
+			return element !== item
+		})([...array])
 	}
-	// filter returns a new array; spread to ensure a mutable Array<T>
-	return filter((element: T) => element !== item)([...array])
 }
-
-export default removeAll

@@ -1,6 +1,7 @@
 import is from "../../validation/is/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
+//++ Checks if an array ends with a given suffix array
 export default function endsWith<T>(
 	suffix: ReadonlyArray<T> | null | undefined,
 ) {
@@ -30,3 +31,18 @@ export default function endsWith<T>(
 		})
 	}
 }
+
+//?? [EXAMPLE] `endsWith([3, 4])([1, 2, 3, 4])        // true`
+//?? [EXAMPLE] `endsWith([2, 3])([1, 2, 3, 4])        // false`
+//?? [EXAMPLE] `endsWith([])([1, 2, 3])               // true (empty suffix)`
+//?? [EXAMPLE] `endsWith([1, 2, 3, 4])([1, 2, 3])     // false (suffix too long)`
+//?? [EXAMPLE] `endsWith(null)([1, 2, 3])             // false`
+//?? [EXAMPLE] `endsWith([1])(null)                   // false`
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | // Check file extensions match
+ | const hasExtension = endsWith(['.', 't', 's'])
+ | hasExtension(['f', 'i', 'l', 'e', '.', 't', 's']) // true
+ | ```
+ */

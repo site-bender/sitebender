@@ -5,5 +5,5 @@ const concat = <T>(first: Array<T>) => (second: Array<T>): Array<T> =>
 
 export default concat
 
-//?? [EXAMPLE] concat([1,2])([3,4]) // [1,2,3,4]
-//?? [EXAMPLE] concat([])([1,2]) // [1,2]
+//?? [EXAMPLE] `concat([1,2])([3,4]) // [1,2,3,4]`
+//?? [EXAMPLE] `concat([])([1,2]) // [1,2]`

@@ -51,20 +51,20 @@ import isNotUndefined from "../../validation/isNotUndefined/index.ts"
  * @curried
  * @safe
  */
-const withDefault = <K, V>(defaultValue: V) => (map: Map<K, V>): Map<K, V> => {
-	// Create a new Map that extends the original
-	const wrappedMap = new Map(map)
+export default function withDefault<K, V>(defaultValue: V) {
+	return function withDefaultValue(map: Map<K, V>): Map<K, V> {
+		// Create a new Map that extends the original
+		const wrappedMap = new Map(map)
 
-	// Store the original get method
-	const originalGet = wrappedMap.get.bind(wrappedMap)
+		// Store the original get method
+		const originalGet = wrappedMap.get.bind(wrappedMap)
 
-	// Override the get method to return default for missing keys
-	wrappedMap.get = function (key: K): V {
-		const value = originalGet(key)
-		return isNotUndefined(value) ? value : defaultValue
+		// Override the get method to return default for missing keys
+		wrappedMap.get = function getWithDefault(key: K): V {
+			const value = originalGet(key)
+			return isNotUndefined(value) ? value : defaultValue
+		}
+
+		return wrappedMap
 	}
-
-	return wrappedMap
 }
-
-export default withDefault

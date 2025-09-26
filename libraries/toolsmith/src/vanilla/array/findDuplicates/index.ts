@@ -1,32 +1,12 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns array of elements that appear more than once
- *
- * Identifies all elements in an array that occur two or more times.
- * Each duplicate element appears only once in the result, preserving
- * the order of first occurrence.
- *
- * @pure
- * @immutable
- * @param array - Array to search for duplicates
- * @returns Array containing each duplicate element once, in order of first occurrence
- * @example
- * ```typescript
- * // Basic usage
- * findDuplicates([1, 2, 3, 2, 4, 1, 5])      // [1, 2]
- * findDuplicates(["a", "b", "c", "b", "a"])  // ["a", "b"]
- *
- * // Edge cases
- * findDuplicates([1, 2, 3, 4, 5])            // [] (no duplicates)
- * findDuplicates([])                         // [] (empty array)
- * findDuplicates([NaN, NaN])                 // [NaN] (uses SameValueZero)
- *
- * // Objects by reference
- * const obj = { id: 1 }
- * findDuplicates([obj, { id: 1 }, obj])      // [obj] (same reference only)
- * ```
+/*++
+ | Returns array of elements that appear more than once
+ |
+ | Identifies all elements in an array that occur two or more times.
+ | Each duplicate element appears only once in the result, preserving
+ | the order of first occurrence.
  */
 const findDuplicates = <T>(
 	array: ReadonlyArray<T> | null | undefined,
@@ -72,5 +52,19 @@ const findDuplicates = <T>(
 		.sort((a, b) => a.firstIndex - b.firstIndex)
 		.map((entry) => entry.item)
 }
+
+//?? [EXAMPLE] `findDuplicates([1, 2, 3, 2, 4, 1, 5])      // [1, 2]`
+//?? [EXAMPLE] `findDuplicates(["a", "b", "c", "b", "a"])  // ["a", "b"]`
+//?? [EXAMPLE] `findDuplicates([1, 2, 3, 4, 5])            // [] (no duplicates)`
+//?? [EXAMPLE] `findDuplicates([])                         // [] (empty array)`
+//?? [EXAMPLE] `findDuplicates([NaN, NaN])                 // [NaN] (uses SameValueZero)`
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | // Objects by reference
+ | const obj = { id: 1 }
+ | findDuplicates([obj, { id: 1 }, obj])      // [obj] (same reference only)
+ | ```
+ */
 
 export default findDuplicates

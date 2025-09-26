@@ -11,5 +11,5 @@ export default function init<T>(
 	return dropLast<T>(1)(array as Array<T>)
 }
 
-//?? [EXAMPLE] init([1,2,3]) // [1,2]
-//?? [EXAMPLE] init([42]) // []
+//?? [EXAMPLE] `init([1, 2, 3])  // [1, 2]`
+//?? [EXAMPLE] `init([42])       // []`
