@@ -1,50 +1,47 @@
-import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import reduce from "../reduce/index.ts"
+import sort from "../sort/index.ts"
+import map from "../map/index.ts"
+import subtract from "../../math/subtract/index.ts"
+import _findDuplicatesReducer from "./_findDuplicatesReducer/index.ts"
+import type {
+	DuplicateEntry,
+	FindDuplicatesAccumulator,
+} from "./types/index.ts"
 
 //++ Finds elements that appear more than once
-const findDuplicates = <T>(
+export default function findDuplicates<T>(
 	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array) || array.length === 0) {
-		return []
-	}
+): Array<T> {
+	if (isNotEmpty(array)) {
+		const validArray = array as Array<T>
 
-	// Track duplicates and their first occurrence index
-	interface AccType {
-		seen: Map<T, number>
-		duplicates: Array<{ item: T; firstIndex: number }>
-		processedDuplicates: Set<T>
-	}
-
-	const result = array.reduce<AccType>(
-		(acc, item, index) => {
-			const seenIndex = acc.seen.get(item)
-
-			if (seenIndex !== undefined) {
-				// Item has been seen before
-				if (not(acc.processedDuplicates.has(item))) {
-					// First time we're seeing this as a duplicate
-					acc.duplicates.push({ item, firstIndex: seenIndex })
-					acc.processedDuplicates.add(item)
-				}
-			} else {
-				// First occurrence of this item
-				acc.seen.set(item, index)
-			}
-
-			return acc
-		},
-		{
+		const result = reduce(function findDups(
+			acc: FindDuplicatesAccumulator<T>,
+			item: T,
+			index: number,
+		) {
+			return _findDuplicatesReducer(acc, item, index)
+		})({
 			seen: new Map(),
 			duplicates: [],
 			processedDuplicates: new Set(),
-		},
-	)
+		})(validArray)
 
-	// Sort by first occurrence index and extract items
-	return result.duplicates
-		.sort((a, b) => a.firstIndex - b.firstIndex)
-		.map((entry) => entry.item)
+		// Sort by first occurrence index and extract items
+		const sorted = sort(function byFirstIndex(
+			a: DuplicateEntry<T>,
+			b: DuplicateEntry<T>,
+		) {
+			return subtract(b.firstIndex)(a.firstIndex) as number
+		})(result.duplicates)
+
+		return map(function extractItem(entry: DuplicateEntry<T>) {
+			return entry.item
+		})(sorted)
+	}
+
+	return []
 }
 
 //?? [EXAMPLE] `findDuplicates([1, 2, 3, 2, 4, 1, 5])      // [1, 2]`
@@ -60,5 +57,3 @@ const findDuplicates = <T>(
  | findDuplicates([obj, { id: 1 }, obj])      // [obj] (same reference only)
  | ```
  */
-
-export default findDuplicates

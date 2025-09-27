@@ -1,19 +1,28 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import concatTo from "../concatTo/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import reduce from "../reduce/index.ts"
 
 //++ Finds all indices of matching elements
-const findIndices = <T>(
+export default function findIndices<T>(
 	predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<number> => {
-	if (isNullish(array)) {
+) {
+	return function findIndicesWithPredicate(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<number> {
+		if (isArray(array)) {
+			return reduce<T, Array<number>>(
+				(indices, value, index) => {
+					if (predicate(value, index, array as ReadonlyArray<T>)) {
+						return concatTo([index])(indices)
+					}
+
+					return indices
+				},
+			)([])(array as ReadonlyArray<T>)
+		}
+
 		return []
 	}
-
-	return array.reduce<Array<number>>((indices, value, index) => {
-		return predicate(value, index, array) ? [...indices, index] : indices
-	}, [])
 }
 
 //?? [EXAMPLE] `findIndices((x: number) => x % 2 === 0)([1, 2, 3, 4, 5, 6])  // [1, 3, 5]`
@@ -39,5 +48,3 @@ const findIndices = <T>(
  | findEvens([1, 2, 3, 4, 5])  // [1, 3]
  | ```
  */
-
-export default findIndices

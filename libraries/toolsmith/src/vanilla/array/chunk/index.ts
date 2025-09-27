@@ -1,21 +1,18 @@
-import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import isPositive from "../../validation/isPositive/index.ts"
+import isInteger from "../../validation/isInteger/index.ts"
 import chunkRecursive from "./chunkRecursive/index.ts"
 
 //++ Splits an array into fixed-size chunks
 export default function chunk<T>(size: number) {
 	return function chunkWithSize(
-		array: ReadonlyArray<T> | null | undefined,
+		array?: ReadonlyArray<T> | null,
 	): Array<Array<T>> {
-		if (isNullish(array) || array.length === 0) {
-			return []
+		if (isNotEmpty(array) && isPositive(size) && isInteger(size)) {
+			return chunkRecursive(size, array as Array<T>)
 		}
 
-		if (size <= 0 || not(Number.isInteger(size))) {
-			return []
-		}
-
-		return chunkRecursive(size, array)
+		return []
 	}
 }
 

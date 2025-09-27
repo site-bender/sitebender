@@ -1,22 +1,33 @@
 import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isEqual from "../../validation/isEqual/index.ts"
+import findIndex from "../findIndex/index.ts"
+import slice from "../slice/index.ts"
 
 //++ Drops leading elements while predicate is true
-const dropWhile = <T>(
+export default function dropWhile<T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array)) {
+) {
+	return function dropWhileWithPredicate(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<T> {
+		if (isArray(array)) {
+			const validArray = array as Array<T>
+			const dropIndex = findIndex(
+				function stopDropping(element: T, index: number) {
+					return not(predicate(element, index, validArray))
+				},
+			)(validArray)
+
+			if (isEqual(dropIndex)(-1)) {
+				return []
+			}
+
+			return slice(dropIndex)(undefined)(validArray)
+		}
+
 		return []
 	}
-
-	const dropIndex = array.findIndex((element, index) =>
-		not(predicate(element, index, array))
-	)
-
-	return dropIndex === -1 ? [] : array.slice(dropIndex)
 }
 
 //?? [EXAMPLE] `dropWhile((x: number) => x < 5)([1, 3, 5, 7, 2, 1]) // [5, 7, 2, 1]  (keeps everything from 5 onward)`
@@ -57,5 +68,3 @@ const dropWhile = <T>(
  | // ["Data row 1", "# Not a header"]
  | ```
  */
-
-export default dropWhile

@@ -1,8 +1,24 @@
+import isArray from "../../validation/isArray/index.ts"
+
+/*++
+ | [EXCEPTION] Using native findLast for performance
+ | Native method is optimized for backward iteration
+ | No toolsmith alternative exists for reverse iteration
+ */
+
 //++ Finds the last element matching a predicate
-const findLast = <T>(
+export default function findLast<T>(
 	predicate: (item: T, index: number, array: Array<T>) => boolean,
-) =>
-(array: Array<T>): T | undefined => array.findLast(predicate)
+) {
+	return function findLastWithPredicate(
+		array: Array<T>,
+	): T | undefined {
+		if (isArray(array)) {
+			return array.findLast(predicate)
+		}
+		return undefined
+	}
+}
 
 //?? [EXAMPLE] `findLast((n: number) => n > 2)([1, 3, 2, 4])                    // 4`
 //?? [EXAMPLE] `findLast((s: string) => s.startsWith("h"))(["hello", "hi", "world"]) // "hi"`
@@ -15,5 +31,3 @@ const findLast = <T>(
  | findLastError(logs) // Most recent error or undefined
  | ```
  */
-
-export default findLast

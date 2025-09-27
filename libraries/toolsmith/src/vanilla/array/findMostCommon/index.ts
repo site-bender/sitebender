@@ -1,43 +1,44 @@
-import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import reduce from "../reduce/index.ts"
+import filter from "../filter/index.ts"
+import map from "../map/index.ts"
+import sort from "../sort/index.ts"
+import max from "../max/index.ts"
+import _buildFrequencyMaps from "./_buildFrequencyMaps/index.ts"
+import _filterMaxFrequency from "./_filterMaxFrequency/index.ts"
+import _extractFirstItem from "./_extractFirstItem/index.ts"
+import _sortByFirstOccurrence from "./_sortByFirstOccurrence/index.ts"
 
 //++ Finds the most frequently occurring elements
-const findMostCommon = <T>(
+export default function findMostCommon<T>(
 	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array) || array.length === 0) {
-		return []
-	}
-
-	// Build frequency and first occurrence maps
-	const { frequencyMap, firstOccurrence } = array.reduce(
-		(acc, item, index) => {
-			if (not(acc.frequencyMap.has(item))) {
-				acc.firstOccurrence.set(item, index)
-			}
-			acc.frequencyMap.set(item, (acc.frequencyMap.get(item) || 0) + 1)
-			return acc
-		},
-		{
+): Array<T> {
+	if (isNotEmpty(array)) {
+		// Build frequency and first occurrence maps
+		const { frequencyMap, firstOccurrence } = reduce<T, {
+			frequencyMap: Map<T, number>
+			firstOccurrence: Map<T, number>
+		}>(_buildFrequencyMaps)({
 			frequencyMap: new Map<T, number>(),
 			firstOccurrence: new Map<T, number>(),
-		},
-	)
+		})(array as ReadonlyArray<T>)
 
-	// Find the maximum frequency
-	const maxFrequency = Math.max(...frequencyMap.values())
+		// Find the maximum frequency
+		const frequencies = Array.from(frequencyMap.values())
+		const maxFrequency = max(frequencies)
 
-	// Collect all elements with maximum frequency and sort by first occurrence
-	return Array.from(frequencyMap.entries())
-		.filter(([_, count]) => count === maxFrequency)
-		.map(([item]) => item)
-		.sort((a, b) => {
-			// deno-coverage-ignore - defensive fallback, logically unreachable
-			const indexA = firstOccurrence.get(a) ?? 0
-			// deno-coverage-ignore - defensive fallback, logically unreachable
-			const indexB = firstOccurrence.get(b) ?? 0
-			return indexA - indexB
-		})
+		// Collect all elements with maximum frequency and sort by first occurrence
+		const entries = Array.from(frequencyMap.entries())
+
+		const maxItems = filter<[T, number]>(_filterMaxFrequency(maxFrequency))(
+			entries,
+		)
+
+		const items = map<[T, number], T>(_extractFirstItem)(maxItems)
+
+		return sort<T>(_sortByFirstOccurrence(firstOccurrence))(items)
+	}
+	return []
 }
 
 //?? [EXAMPLE] `findMostCommon([1, 2, 3, 2, 4, 2, 5])         // [2]`
@@ -54,5 +55,3 @@ const findMostCommon = <T>(
  | findMostCommon(words)                         // ["the"]
  | ```
  */
-
-export default findMostCommon

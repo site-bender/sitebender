@@ -1,29 +1,32 @@
 import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isEmpty from "../isEmpty/index.ts"
+import filter from "../filter/index.ts"
+import toSet from "../toSet/index.ts"
 
 //++ Set difference between arrays
-const difference = <T>(
+export default function difference<T>(
 	subtrahend: ReadonlyArray<T> | null | undefined,
-) =>
-(
-	minuend: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(minuend)) {
+) {
+	return function differenceWithSubtrahend(
+		minuend: ReadonlyArray<T> | null | undefined,
+	): Array<T> {
+		if (isArray(minuend)) {
+			if (isArray(subtrahend) && not(isEmpty(subtrahend))) {
+				const set2 = toSet(subtrahend)
+
+				// Use filter for O(n) time with O(1) lookups
+				// This preserves duplicates in the minuend
+				return filter(function notInSet(element: T) {
+					return not(set2.has(element))
+				})(minuend as Array<T>)
+			}
+
+			return [...minuend]
+		}
+
 		return []
 	}
-
-	if (
-		isNullish(subtrahend) ||
-		subtrahend.length === 0
-	) {
-		return [...minuend]
-	}
-
-	const set2 = new Set(subtrahend)
-
-	// Use filter for O(n) time with O(1) lookups
-	// This preserves duplicates in the minuend
-	return minuend.filter((element) => not(set2.has(element)))
 }
 
 //?? [EXAMPLE] `difference([2, 3])([1, 2, 3, 4, 5]) // [1, 4, 5]`
@@ -50,5 +53,3 @@ const difference = <T>(
  | difference([obj2])([obj1, obj2])  // [obj1]
  | ```
  */
-
-export default difference

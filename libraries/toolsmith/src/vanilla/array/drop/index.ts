@@ -1,6 +1,16 @@
+import lte from "../../validation/lte/index.ts"
+import slice from "../slice/index.ts"
+
 //++ Drops the first n elements
-const drop = <T>(n: number) => (array: Array<T>): Array<T> =>
-	n <= 0 ? array : array.slice(n)
+export default function drop<T>(n: number) {
+	return function dropWithN(array: Array<T>): Array<T> {
+		if (lte(n)(0)) {
+			return array
+		}
+
+		return slice(n)(undefined)(array)
+	}
+}
 
 //?? [EXAMPLE] `drop(2)([1, 2, 3, 4, 5]) // [3, 4, 5]`
 //?? [EXAMPLE] `drop(0)([1, 2, 3])       // [1, 2, 3]`
@@ -14,5 +24,3 @@ const drop = <T>(n: number) => (array: Array<T>): Array<T> =>
  | skipHeader(["header", "data1", "data2"]) // ["data1", "data2"]
  | ```
  */
-
-export default drop

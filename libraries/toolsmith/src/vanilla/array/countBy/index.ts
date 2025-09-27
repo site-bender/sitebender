@@ -1,28 +1,32 @@
 import isNotNullish from "../../validation/isNotNullish/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import reduce from "../reduce/index.ts"
 
 //++ Counts elements by grouping criteria
-const countBy = <T, K extends string | number | symbol>(
+export default function countBy<T, K extends string | number | symbol>(
 	fn: (element: T) => K,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Record<K, number> => {
-	if (isNullish(array)) {
+) {
+	return function countByWithFn(
+		array: ReadonlyArray<T> | null | undefined,
+	): Record<K, number> {
+		if (isArray(array)) {
+			return reduce(function count(
+				acc: Record<K, number>,
+				element: T,
+			): Record<K, number> {
+				const key = fn(element)
+				if (isNotNullish(key)) {
+					return {
+						...acc,
+						[key]: (acc[key] || 0) + 1,
+					}
+				}
+				return acc
+			})(Object.create(null) as Record<K, number>)(array)
+		}
+
 		return Object.create(null) as Record<K, number>
 	}
-
-	return array.reduce((acc, element) => {
-		const key = fn(element)
-		if (isNotNullish(key)) {
-			return Object.assign(
-				Object.create(null),
-				acc,
-				{ [key]: (acc[key] || 0) + 1 },
-			) as Record<K, number>
-		}
-		return acc
-	}, Object.create(null) as Record<K, number>)
 }
 
 //?? [EXAMPLE] `countBy((x: number) => x % 2 === 0 ? "even" : "odd")([1, 2, 3, 4, 5]) // { odd: 3, even: 2 }`
@@ -62,5 +66,3 @@ const countBy = <T, K extends string | number | symbol>(
  | // { number: 2, string: 1, boolean: 1 }
  | ```
  */
-
-export default countBy

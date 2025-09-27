@@ -1,16 +1,145 @@
-import { assert, assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assert,
+	assertEquals,
+	assertAlmostEquals
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "https://esm.sh/fast-check@3.15.0"
 
+import softmax from "./index.ts"
 import _shiftAndExp from "./_shiftAndExp/index.ts"
 import _normalize from "./_normalize/index.ts"
 
-//++ Tests for softmax activation - skipped due to circular dependency issue in array functions
+//++ Tests for softmax activation function (multi-class probability distribution)
 Deno.test("softmax", async (t) => {
-	await t.step("SKIPPED - circular dependency in toolsmith array functions", () => {
-		// The softmax function works correctly but testing it triggers a stack overflow
-		// due to a circular dependency in the array/validation functions it uses.
-		// This needs to be fixed in the toolsmith library itself.
-		assert(true)
+	await t.step("converts logits to probability distribution", () => {
+		const result = softmax([1, 2, 3])
+
+		// Check individual values (approximately)
+		assertAlmostEquals(result[0], 0.09003057317038046, 1e-10)
+		assertAlmostEquals(result[1], 0.24472847105479764, 1e-10)
+		assertAlmostEquals(result[2], 0.6652409557748219, 1e-10)
+
+		// Check sum equals 1
+		const sum = result.reduce((acc, val) => acc + val, 0)
+		assertAlmostEquals(sum, 1, 1e-10)
+	})
+
+	await t.step("handles uniform inputs", () => {
+		const result = softmax([0, 0, 0])
+
+		// All values should be equal
+		assertAlmostEquals(result[0], 1/3, 1e-10)
+		assertAlmostEquals(result[1], 1/3, 1e-10)
+		assertAlmostEquals(result[2], 1/3, 1e-10)
+
+		// Check sum equals 1
+		const sum = result.reduce((acc, val) => acc + val, 0)
+		assertAlmostEquals(sum, 1, 1e-10)
+	})
+
+	await t.step("handles dominant value", () => {
+		const result = softmax([10, 0, 0])
+
+		// First value should dominate
+		assert(result[0] > 0.999)
+		assert(result[1] < 0.001)
+		assert(result[2] < 0.001)
+
+		// Check sum equals 1
+		const sum = result.reduce((acc, val) => acc + val, 0)
+		assertAlmostEquals(sum, 1, 1e-10)
+	})
+
+	await t.step("handles single element", () => {
+		const result = softmax([5])
+		assertEquals(result, [1])
+	})
+
+	await t.step("handles empty array", () => {
+		const result = softmax([])
+		assertEquals(result, [])
+	})
+
+	await t.step("handles null and undefined", () => {
+		assertEquals(softmax(null), [])
+		assertEquals(softmax(undefined), [])
+	})
+
+	await t.step("handles negative values", () => {
+		const result = softmax([-1, -2, -3])
+
+		// Should still sum to 1
+		const sum = result.reduce((acc, val) => acc + val, 0)
+		assertAlmostEquals(sum, 1, 1e-10)
+
+		// Order should be preserved (-1 > -2 > -3)
+		assert(result[0] > result[1])
+		assert(result[1] > result[2])
+	})
+
+	await t.step("provides numerical stability for large values", () => {
+		// Without the max subtraction trick, this would overflow
+		const result = softmax([1000, 1001, 999])
+
+		// Should still produce valid probabilities
+		assert(result.every(x => x >= 0 && x <= 1))
+
+		// Sum should be 1
+		const sum = result.reduce((acc, val) => acc + val, 0)
+		assertAlmostEquals(sum, 1, 1e-10)
+
+		// 1001 should have highest probability
+		assert(result[1] > result[0])
+		assert(result[1] > result[2])
+	})
+
+	await t.step("sum always equals 1", () => {
+		fc.assert(
+			fc.property(
+				fc.array(fc.float({ min: -100, max: 100, noNaN: true }), { minLength: 2, maxLength: 10 }),
+				(values) => {
+					const result = softmax(values)
+					const sum = result.reduce((acc, val) => acc + val, 0)
+					return Math.abs(sum - 1) < 1e-10
+				}
+			)
+		)
+	})
+
+	await t.step("all outputs are in [0, 1]", () => {
+		fc.assert(
+			fc.property(
+				fc.array(fc.float({ min: -100, max: 100, noNaN: true }), { minLength: 1, maxLength: 10 }),
+				(values) => {
+					const result = softmax(values)
+					return result.every(x => x >= 0 && x <= 1)
+				}
+			)
+		)
+	})
+
+	await t.step("preserves order", () => {
+		fc.assert(
+			fc.property(
+				fc.array(fc.float({ min: -50, max: 50, noNaN: true }), { minLength: 2, maxLength: 10 }),
+				(values) => {
+					const result = softmax(values)
+
+					// If input[i] > input[j], then output[i] > output[j]
+					for (let i = 0; i < values.length; i++) {
+						for (let j = i + 1; j < values.length; j++) {
+							// Only check if there's a meaningful difference
+							if (values[i] - values[j] > 1e-10) {
+								if (!(result[i] > result[j])) {
+									return false
+								}
+							}
+						}
+					}
+					return true
+				}
+			)
+		)
 	})
 })
 

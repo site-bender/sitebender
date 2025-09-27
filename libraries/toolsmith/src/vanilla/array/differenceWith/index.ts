@@ -1,32 +1,36 @@
 import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isEmpty from "../isEmpty/index.ts"
+import filter from "../filter/index.ts"
+import some from "../some/index.ts"
 
 //++ Set difference with custom equality
-const differenceWith = <T, U>(
+export default function differenceWith<T, U>(
 	comparator: (a: T, b: U) => boolean,
-) =>
-(
-	subtrahend: ReadonlyArray<U> | null | undefined,
-) =>
-(
-	minuend: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(minuend)) {
-		return []
-	}
-
-	if (
-		isNullish(subtrahend) ||
-		subtrahend.length === 0
+) {
+	return function differenceWithComparator(
+		subtrahend: ReadonlyArray<U> | null | undefined,
 	) {
-		return [...minuend]
-	}
+		return function differenceWithSubtrahend(
+			minuend: ReadonlyArray<T> | null | undefined,
+		): Array<T> {
+			if (isArray(minuend)) {
+				if (isArray(subtrahend) && not(isEmpty(subtrahend))) {
+					return filter(function notInSubtrahend(element: T) {
+						return not(
+							some(function matches(excludeElement: U) {
+								return comparator(element, excludeElement)
+							})(subtrahend as Array<U>),
+						)
+					})(minuend as Array<T>)
+				}
 
-	return minuend.filter((element) =>
-		not(
-			subtrahend.some((excludeElement) => comparator(element, excludeElement)),
-		)
-	)
+				return [...minuend]
+			}
+
+			return []
+		}
+	}
 }
 
 //?? [EXAMPLE] `differenceWith((a, b) => a === b)([])([1, 2, 3])     // [1, 2, 3]`
@@ -60,5 +64,3 @@ const differenceWith = <T, U>(
  | // [1.5, 3.0]
  | ```
  */
-
-export default differenceWith

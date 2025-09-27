@@ -1,25 +1,26 @@
-import not from "../../logic/not/index.ts"
-import is from "../../validation/is/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import isEqual from "../../validation/isEqual/index.ts"
+import length from "../length/index.ts"
+import reduce from "../reduce/index.ts"
+import _dropRepeatsReducer from "./_dropRepeatsReducer/index.ts"
 
 //++ Removes consecutive duplicate elements from an array
 export default function dropRepeats<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> {
-	if (isNullish(array) || array.length === 0) {
-		return []
-	}
+	if (isNotEmpty(array)) {
+		const validArray = array as Array<T>
 
-	if (array.length === 1) {
-		return [...array]
-	}
-
-	return array.reduce(function dropRepeat(acc: Array<T>, curr, index) {
-		if (index === 0 || not(is(curr)(array[index - 1]))) {
-			return [...acc, curr]
+		if (isEqual(length(validArray))(1)) {
+			return [...validArray]
 		}
-		return acc
-	}, [])
+
+		return reduce(function dropRepeat(acc: Array<T>, curr: T) {
+			return _dropRepeatsReducer(acc, curr)
+		})([])(validArray)
+	}
+
+	return []
 }
 
 //?? [EXAMPLE] `dropRepeats([1, 1, 2, 3, 3, 3, 4]) // [1, 2, 3, 4]`

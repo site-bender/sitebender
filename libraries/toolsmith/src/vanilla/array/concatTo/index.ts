@@ -1,6 +1,9 @@
 //++ Appends a fixed array to any array
-const concatTo = <T>(toAppend: Array<T>) => (baseArray: Array<T>): Array<T> =>
-	baseArray.concat(toAppend)
+export default function concatTo<T>(toAppend: Array<T>) {
+	return function concatToWithAppend(baseArray: Array<T>): Array<T> {
+		return [...baseArray, ...toAppend]
+	}
+}
 
 //?? [EXAMPLE] `concatTo([3, 4])([1, 2]) // [1, 2, 3, 4]`
 //?? [EXAMPLE] `concatTo([])([1, 2])     // [1, 2]`
@@ -22,5 +25,3 @@ const concatTo = <T>(toAppend: Array<T>) => (baseArray: Array<T>): Array<T> =>
  | addSentinel([])        // [-1]
  | ```
  */
-
-export default concatTo

@@ -1,25 +1,15 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import _cycleRecursive from "./_cycleRecursive/index.ts"
 
 //++ Cycles through array elements infinitely
-function* cycle<T>(
+export default function* cycle<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Generator<T, void, unknown> {
-	if (isNullish(array) || array.length === 0) {
-		return
+	if (isArray(array) && isNotEmpty(array)) {
+		// deno-coverage-ignore - Coverage tool cannot track yield* delegation to recursive generator
+		yield* _cycleRecursive(array as ReadonlyArray<T>)
 	}
-
-	// Array is guaranteed to be non-null here due to isNullish check
-	const validArray = array
-	// Use recursive generator for functional approach
-	function* cycleRecursive(): Generator<T, void, unknown> {
-		yield* validArray
-		// deno-coverage-ignore - Coverage tool cannot track yield* in recursive generator context
-		yield* cycleRecursive()
-		// deno-coverage-ignore - Generator function closing brace not detected by coverage tool
-	}
-
-	// deno-coverage-ignore - Coverage tool cannot track yield* delegation to recursive generator
-	yield* cycleRecursive()
 }
 
 //?? [EXAMPLE] `const empty = cycle([]); empty.next()  // { value: undefined, done: true }`
@@ -67,5 +57,3 @@ function* cycle<T>(
  | // [42, 42, 42]
  | ```
  */
-
-export default cycle

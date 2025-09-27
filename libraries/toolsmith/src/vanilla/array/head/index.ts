@@ -1,7 +1,9 @@
-//++ Returns the first element (alias for first)
-const head = <T>(array: Array<T>): T | undefined => array.at(0)
+import at from "../at/index.ts"
 
-export default head
+//++ Returns the first element (alias for first)
+export default function head<T>(array: Array<T>): T | undefined {
+	return at(0)(array)
+}
 
 //?? [EXAMPLE] `head([1, 2, 3])  // 1`
 //?? [EXAMPLE] `head(["a", "b"])  // "a"`
