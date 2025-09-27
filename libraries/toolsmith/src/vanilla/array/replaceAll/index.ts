@@ -1,11 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Replaces all occurrences of a value with the result of a function
- |
- | Uses strict equality (===) to find matches. The replacer function
- | receives the matched item and can transform it.
- */
+//++ Replaces all occurrences via function
 const replaceAll =
 	<T>(target: T) =>
 	(replacer: (item: T) => T) =>

@@ -1,13 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Drops elements from the beginning of an array while predicate returns true
- |
- | Returns a new array with elements from the beginning removed as long as
- | the predicate returns true. Once predicate returns false, all remaining
- | elements are included. Does not continue checking after the first false.
- */
+//++ Drops leading elements while predicate is true
 const dropWhile = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

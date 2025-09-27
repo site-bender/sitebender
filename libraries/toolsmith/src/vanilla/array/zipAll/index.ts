@@ -1,12 +1,4 @@
-/*++
- | Like zip but continues until the longest array is exhausted, using undefined for missing values
- |
- | Combines elements from multiple arrays into tuples, continuing until the longest
- | array is exhausted. When arrays have different lengths, missing values are
- | filled with undefined. This ensures no data is lost and all array elements
- | are included in the result. Useful for processing arrays of different lengths,
- | data alignment, or when you need to preserve all values.
- */
+//++ Zips arrays filling missing with undefined
 const zipAll = <T, U>(
 	array2: ReadonlyArray<U> | null | undefined,
 ) =>

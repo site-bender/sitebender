@@ -1,15 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Combines map and reduce, returning both accumulated value and mapped array
- |
- | Performs a stateful map operation that threads an accumulator through the
- | array from left to right. Each iteration produces both a new accumulator
- | value and a mapped element. Returns a tuple containing the final accumulator
- | and an array of all mapped values. Useful for stateful transformations,
- | running totals with transformations, or any operation that needs both
- | aggregation and mapping.
- */
+//++ Maps with an accumulator from left to right
 const mapAccum = <T, U, V>(
 	fn: (accumulator: U, element: T) => [U, V],
 ) =>

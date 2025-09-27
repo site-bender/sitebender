@@ -1,65 +1,32 @@
-import exponential from "../../math/exponential/index.ts"
-import isArray from "../../validation/isArray/index.ts"
-import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
+import _normalize from "./_normalize/index.ts"
+import _shiftAndExp from "./_shiftAndExp/index.ts"
+import isNotEmpty from "../../array/isNotEmpty/index.ts"
+import hasLength from "../../array/hasLength/index.ts"
+import all from "../../array/all/index.ts"
+import max from "../../array/max/index.ts"
+import map from "../../array/map/index.ts"
+import sum from "../../math/sum/index.ts"
 
-/*++
- | Calculates the softmax activation function for a vector
- |
- | Transforms a vector of values into a probability distribution where all
- | outputs sum to 1. Each output represents the probability of that class.
- | Uses numerical stability trick by subtracting the maximum value before
- | exponentiation to prevent overflow. Returns empty array for invalid inputs.
- */
+//++ Softmax activation for multi-class probability distribution
 export default function softmax(
-	x: Array<number> | null | undefined,
+	numbers: Array<number> | null | undefined,
 ): Array<number> {
-	if (!isNotNullish(x)) {
-		return []
+	if (isNotEmpty(numbers) && all(isNumber)(numbers as Array<number>)) {
+		if (hasLength(1)(numbers)) {
+			return [1]
+		}
+
+		const maximumValue = max(numbers) as number
+
+		const exponentialValues = map(_shiftAndExp(maximumValue))(numbers)
+
+		const sumOfExponentialValues = sum(exponentialValues)
+
+		return map(_normalize(sumOfExponentialValues))(exponentialValues)
 	}
 
-	if (!isArray(x)) {
-		return []
-	}
-
-	if (x.length === 0) {
-		return []
-	}
-
-	// Check for non-numeric values
-	if (
-		!x.every(function isNumberCheck(val: number): boolean {
-			return isNumber(val)
-		})
-	) {
-		return []
-	}
-
-	// Single element case
-	if (x.length === 1) {
-		return [1]
-	}
-
-	// Numerical stability: subtract max to prevent overflow
-	const maxValue = Math.max(...x)
-
-	// Compute exp(x - max) for each element
-	const expValues = x.map(function applyExponential(val: number): number {
-		return exponential(val - maxValue)
-	})
-
-	// Sum of all exponentials
-	const sumExp = expValues.reduce(
-		function sumReducer(sum: number, val: number): number {
-			return sum + val
-		},
-		0,
-	)
-
-	// Normalize to get probabilities
-	return expValues.map(function normalizeValue(val: number): number {
-		return val / sumExp
-	})
+	return []
 }
 
 //?? [EXAMPLE] `softmax([1, 2, 3])    // [0.0900..., 0.2447..., 0.6652...] (sums to 1)`

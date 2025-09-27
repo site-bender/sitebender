@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns all indices of elements that satisfy the predicate
- |
- | Finds and returns an array of all indices where the predicate function
- | returns true for the element at that index. Unlike findIndex which returns
- | only the first match, this returns all matching indices. Useful for locating
- | all occurrences, pattern matching, or multi-element operations.
- */
+//++ Finds all indices of matching elements
 const findIndices = <T>(
 	predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

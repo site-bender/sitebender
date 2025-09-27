@@ -1,9 +1,4 @@
-/*++
- | Tests whether at least one element in an array passes a test function
- |
- | Returns true if any element satisfies the predicate, false otherwise.
- | Short-circuits on first match. Empty arrays always return false.
- */
+//++ Tests if any element satisfies predicate
 const some = <T>(
 	predicate: (value: T, index: number, array: Array<T>) => boolean,
 ) =>

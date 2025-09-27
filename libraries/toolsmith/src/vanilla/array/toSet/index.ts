@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Converts an array to a Set
- |
- | Creates a new Set from an array, automatically removing duplicate values.
- | The Set will contain only unique elements from the original array,
- | maintaining insertion order. Returns empty Set for null/undefined.
- */
+//++ Converts array to Set
 export default function toSet<T>(array: Array<T> | null | undefined): Set<T> {
 	if (isNullish(array)) {
 		return new Set<T>()

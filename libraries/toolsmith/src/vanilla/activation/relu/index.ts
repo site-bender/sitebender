@@ -1,4 +1,6 @@
+import relu from "../rectifiedLinearUnit/index.ts"
+
 //++ Alias for rectifiedLinearUnit
-export { default } from "../rectifiedLinearUnit/index.ts"
+export default relu
 
 //>> [RELATED] [rectifiedLinearUnit](../rectifiedLinearUnit/index.ts)

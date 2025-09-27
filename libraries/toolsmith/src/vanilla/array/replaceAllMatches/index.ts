@@ -1,11 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Replaces all strings that match a pattern with transformed values
- |
- | Tests each string element against the pattern. Non-string elements
- | are passed through unchanged. The replacer receives matching strings.
- */
+//++ Replaces strings matching a pattern
 const replaceAllMatches =
 	(pattern: RegExp) =>
 	(replacer: (item: string) => string) =>

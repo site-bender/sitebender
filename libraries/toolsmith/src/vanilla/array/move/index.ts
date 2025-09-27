@@ -3,7 +3,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 import insertAt from "../insertAt/index.ts"
 import removeAt from "../removeAt/index.ts"
 
-//++ move(from)(to)(array) — returns new array with element repositioned or original if invalid
+//++ Moves an element to a new position
 export default function move<T>(from: number) {
 	return function moveFromIndexTo(to: number) {
 		return function moveInArray(

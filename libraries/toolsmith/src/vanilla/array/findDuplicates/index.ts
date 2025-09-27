@@ -1,13 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns array of elements that appear more than once
- |
- | Identifies all elements in an array that occur two or more times.
- | Each duplicate element appears only once in the result, preserving
- | the order of first occurrence.
- */
+//++ Finds elements that appear more than once
 const findDuplicates = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {

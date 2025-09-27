@@ -1,11 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Removes the first occurrence of a value from an array
- |
- | Uses strict equality (===) to find the item. Returns original array
- | if item not found. Only removes first occurrence, not all.
- */
+//++ Removes first occurrence of a value
 export default function remove<T>(item: T) {
 	return function removeFromArray(
 		array: ReadonlyArray<T> | null | undefined,

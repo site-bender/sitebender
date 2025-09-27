@@ -1,14 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | The complement of filter - keeps elements that don't satisfy the predicate
- |
- | Returns a new array containing only the elements for which the predicate
- | returns false. This is the logical opposite of filter - where filter keeps
- | elements that match, reject removes them. Useful when it's clearer to
- | specify what you don't want rather than what you do want.
- */
+//++ Removes elements that satisfy predicate
 const reject = <T>(
 	predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

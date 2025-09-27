@@ -1,11 +1,6 @@
 import isNotUndefined from "../../validation/isNotUndefined/index.ts"
 
-/*++
-Removes undefined values from an array
-
-Preserves all other values including falsy ones (0, false, "", NaN, null).
-Uses type predicate to ensure correct output type.
-*/
+//++ Removes undefined values from an array
 export default function compact<T>(
 	array: Array<T | null | undefined>,
 ): Array<T> {

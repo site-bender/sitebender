@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns the union of two arrays (all unique elements from both)
- |
- | Combines two arrays and returns all unique elements that appear in either
- | array. Duplicates within each array and across arrays are removed. Uses
- | SameValueZero equality for comparisons. Elements from the first array
- | appear before elements from the second array in the result. Useful for
- | merging lists, combining sets, or removing duplicates.
- */
+//++ Returns unique elements from both arrays
 const union = <T>(
 	array1: ReadonlyArray<T> | null | undefined,
 ) =>

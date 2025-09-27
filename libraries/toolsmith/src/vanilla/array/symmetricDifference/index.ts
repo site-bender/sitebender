@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns elements that are in either array but not both
- |
- | Computes the symmetric difference (XOR) of two arrays - elements that
- | exist in exactly one of the arrays. Uses SameValueZero equality for
- | comparisons. The result contains unique elements from both arrays that
- | don't appear in their intersection. Useful for finding changes, unique
- | items, or exclusive elements between sets.
- */
+//++ Returns elements in either array but not both
 const symmetricDifference = <T>(
 	array1: ReadonlyArray<T> | null | undefined,
 ) =>

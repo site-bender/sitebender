@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
-Returns an infinite repetition of the given array (generator function)
-
-Creates a generator that yields elements from the array in a continuous
-cycle, starting over from the beginning when it reaches the end. The
-generator runs infinitely, so use with caution and always include a
-termination condition when consuming it. Useful for round-robin selection,
-creating repeating patterns, or infinite sequences.
-*/
+//++ Cycles through array elements infinitely
 function* cycle<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Generator<T, void, unknown> {

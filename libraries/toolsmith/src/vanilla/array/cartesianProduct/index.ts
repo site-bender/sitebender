@@ -1,35 +1,30 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
-Returns the Cartesian product of two arrays (all possible pairs)
-
-Creates an array containing all possible ordered pairs [a, b] where 'a'
-is from the first array and 'b' is from the second array. The result
-has length array1.length × array2.length. Order is preserved: all pairs
-with the first element from array1[0] come before pairs with array1[1].
-Useful for generating combinations, test cases, or coordinate grids.
-*/
-const cartesianProduct = <T, U>(
+//++ Generates all possible pairs from two arrays
+export default function cartesianProduct<T, U>(
 	array1: ReadonlyArray<T> | null | undefined,
-) =>
-(
-	array2: ReadonlyArray<U> | null | undefined,
-): Array<[T, U]> => {
-	if (
-		isNullish(array1) ||
-		!Array.isArray(array1) ||
-		array1.length === 0 ||
-		isNullish(array2) ||
-		!Array.isArray(array2) ||
-		array2.length === 0
-	) {
-		return []
-	}
+) {
+	return function cartesianProductWithFirstArray(
+		array2: ReadonlyArray<U> | null | undefined,
+	): Array<[T, U]> {
+		if (
+			isNullish(array1) ||
+			!Array.isArray(array1) ||
+			array1.length === 0 ||
+			isNullish(array2) ||
+			!Array.isArray(array2) ||
+			array2.length === 0
+		) {
+			return []
+		}
 
-	// Use flatMap for efficient generation
-	return array1.flatMap((element1) =>
-		array2.map((element2) => [element1, element2] as [T, U])
-	)
+		// Use flatMap for efficient generation
+		return array1.flatMap(function mapFirstElement(element1) {
+			return array2.map(function pairElements(element2) {
+				return [element1, element2] as [T, U]
+			})
+		})
+	}
 }
 
 //?? [EXAMPLE] `cartesianProduct([1, 2])([3, 4]) // [[1, 3], [1, 4], [2, 3], [2, 4]]`
@@ -55,5 +50,3 @@ const cartesianProduct = <T, U>(
  | // [["red", "circle"], ["red", "square"], ["green", "circle"], ["green", "square"], ["blue", "circle"], ["blue", "square"]]
  | ```
  */
-
-export default cartesianProduct

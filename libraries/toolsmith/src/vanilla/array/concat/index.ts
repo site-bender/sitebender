@@ -1,5 +1,5 @@
 // (JSDoc removed in favor of Envoy)
-//++ concat(first)(second) — returns new array: first elements then second
+//++ Concatenates two arrays
 const concat = <T>(first: Array<T>) => (second: Array<T>): Array<T> =>
 	first.concat(second)
 

@@ -1,14 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns a new array without consecutive duplicate elements using a comparator
- |
- | Like dropRepeats but uses a custom comparator function to determine equality
- | between consecutive elements. Removes consecutive elements that the comparator
- | considers equal, keeping only the first of each run. Useful for complex objects,
- | custom equality logic, or tolerance-based comparisons.
- */
+//++ Removes consecutive duplicates with custom equality
 const dropRepeatsWith = <T>(
 	comparator: (a: T, b: T) => boolean,
 ) =>

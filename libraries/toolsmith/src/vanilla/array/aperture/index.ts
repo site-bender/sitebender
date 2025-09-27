@@ -1,33 +1,26 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
-Returns a new array of consecutive n-tuples (sliding window)
+//++ Creates sliding windows of consecutive elements
+export default function aperture<T>(width: number) {
+	return function apertureWithWidth(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<Array<T>> {
+		if (isNullish(array) || !Array.isArray(array)) {
+			return []
+		}
 
-Creates a sliding window of specified size over an array, returning
-an array of consecutive n-tuples. Each tuple contains n consecutive
-elements from the original array. The window moves one position at
-a time, creating overlapping groups. Returns empty array if the
-window size is larger than the array length.
-*/
-const aperture = <T>(
-	n: number,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<Array<T>> => {
-	if (isNullish(array) || !Array.isArray(array)) {
-		return []
+		if (width <= 0 || width > array.length) {
+			return []
+		}
+
+		// Create sliding window of size width using functional approach
+		return Array.from(
+			{ length: array.length - width + 1 },
+			function createWindow(_, i) {
+				return array.slice(i, i + width)
+			},
+		)
 	}
-
-	if (n <= 0 || n > array.length) {
-		return []
-	}
-
-	// Create sliding window of size n using functional approach
-	return Array.from(
-		{ length: array.length - n + 1 },
-		(_, i) => array.slice(i, i + n),
-	)
 }
 
 //?? [EXAMPLE] `aperture(2)([1, 2, 3, 4, 5]) // [[1, 2], [2, 3], [3, 4], [4, 5]]`
@@ -53,5 +46,3 @@ const aperture = <T>(
  | // [[1, 2], [2, 3], [3, 4]]
  | ```
  */
-
-export default aperture

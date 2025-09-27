@@ -1,65 +1,4 @@
-/**
- * Retries an async function on failure with configurable attempts and delays
- *
- * Executes an async function and automatically retries if it fails, with options
- * for maximum attempts, delays between retries, exponential backoff, and custom
- * retry conditions. Useful for handling transient failures in network requests,
- * database operations, or any operation that might temporarily fail.
- *
- * @param options - Configuration for retry behavior
- * @param fn - The async function to retry
- * @returns Promise resolving to the function's successful result
- * @curried
- * @impure
- * @example
- * ```typescript
- * // Basic retry with default options (3 attempts, no delay)
- * const result = await retry()(async () => {
- *   const response = await fetch("/api/flaky")
- *   if (!response.ok) throw new Error("Failed")
- *   return response.json()
- * })
- *
- * // Retry with custom attempts and delay
- * const fetchWithRetry = retry({
- *   attempts: 5,
- *   delay: 1000
- * })
- * const data = await fetchWithRetry(async () =>
- *   fetch("/api/data").then(r => r.json())
- * )
- *
- * // Exponential backoff
- * const exponentialRetry = retry({
- *   attempts: 4,
- *   delay: 1000,
- *   exponential: true // 1s, 2s, 4s, 8s
- * })
- *
- * // Custom retry condition
- * const retryOnNetwork = retry({
- *   attempts: 3,
- *   delay: 1000,
- *   shouldRetry: (error) => error.code === "NETWORK_ERROR"
- * })
- *
- * // Database operations with retry
- * const saveToDb = retry({
- *   attempts: 3,
- *   delay: 500,
- *   shouldRetry: (e) => e.code === "ECONNREFUSED"
- * })
- * await saveToDb(async () => db.save(data))
- *
- * // Partial application for different scenarios
- * const quickRetry = retry({ attempts: 2, delay: 100 })
- * const robustRetry = retry({ attempts: 5, delay: 1000, exponential: true })
- *
- * // Edge cases
- * retry({ attempts: 1 }) // No retry, single attempt
- * retry({ attempts: 0 }) // Throws error
- * ```
- */
+//++ Retries failed async operations with configurable strategies
 
 type RetryOptions = {
 	/** Maximum number of attempts (default: 3) */
@@ -169,3 +108,49 @@ const retry = (options: RetryOptions = {}) =>
 }
 
 export default retry
+
+//?? [EXAMPLE] `await retry()(async () => fetch("/api/data"))`
+//?? [EXAMPLE] `const fetchWithRetry = retry({ attempts: 5, delay: 1000 })`
+//?? [EXAMPLE] `retry({ attempts: 0 }) // Throws error`
+/*??
+ | [EXAMPLE]
+ | ```ts
+ | // Basic retry with default options (3 attempts, no delay)
+ | const result = await retry()(async () => {
+ |   const response = await fetch("/api/flaky")
+ |   if (!response.ok) throw new Error("Failed")
+ |   return response.json()
+ | })
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Exponential backoff
+ | const exponentialRetry = retry({
+ |   attempts: 4,
+ |   delay: 1000,
+ |   exponential: true // 1s, 2s, 4s, 8s
+ | })
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Custom retry condition
+ | const retryOnNetwork = retry({
+ |   attempts: 3,
+ |   delay: 1000,
+ |   shouldRetry: (error) => error.code === "NETWORK_ERROR"
+ | })
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Database operations with retry
+ | const saveToDb = retry({
+ |   attempts: 3,
+ |   delay: 500,
+ |   shouldRetry: (e) => e.code === "ECONNREFUSED"
+ | })
+ | await saveToDb(async () => db.save(data))
+ | ```
+ */

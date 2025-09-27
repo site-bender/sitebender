@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Generates all permutations of an array
- |
- | Returns all possible orderings of the array elements. For an array of
- | length n, this generates n! (n factorial) permutations. Each permutation
- | contains all the original elements in a different order.
- | Warning: Factorial growth! Be careful with arrays > 10 elements.
- */
+//++ Generates all permutations
 const permutations = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {

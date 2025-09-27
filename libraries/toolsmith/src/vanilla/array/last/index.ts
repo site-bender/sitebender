@@ -1,6 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-//++ Return the last element of an array; null/undefined or empty arrays yield undefined
+//++ Returns the last element
 const last = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined =>

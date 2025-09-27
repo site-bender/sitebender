@@ -1,15 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Removes duplicate elements from an array (alias for unique)
- |
- | Returns a new array with all duplicate elements removed, keeping only
- | the first occurrence of each unique element. Uses SameValueZero equality
- | for comparison. The term "nub" comes from Haskell and means to remove
- | duplicates. Order is preserved based on first occurrence. This is
- | functionally identical to unique but provided for those familiar with
- | Haskell terminology.
- */
+//++ Removes duplicates (alias for unique)
 const nub = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {

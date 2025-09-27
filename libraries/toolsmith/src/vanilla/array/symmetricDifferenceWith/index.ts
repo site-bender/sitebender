@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Like symmetricDifference but uses a comparator function
- |
- | Computes the symmetric difference of two arrays using a custom comparator
- | function to determine equality. Returns elements that exist in exactly one
- | of the arrays according to the comparator. Useful when you need custom
- | equality logic for objects, deep comparison, or property-based matching.
- */
+//++ Symmetric difference with custom comparator
 const symmetricDifferenceWith = <T>(
 	comparator: (a: T, b: T) => boolean,
 ) =>

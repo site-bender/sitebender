@@ -1,23 +1,15 @@
-import and from "../../logic/and/index.ts"
+import gt from "../../validation/gt/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
 
-/*++
- | Leaky Rectified Linear Unit (Leaky ReLU) activation function
- |
- | A variant of ReLU that allows a small gradient when the input is negative,
- | preventing "dying ReLU" problem. Uses f(x) = x for x > 0 and f(x) = αx
- | for x ≤ 0, where α is the leak coefficient (typically 0.01).
- | Returns NaN for invalid inputs.
- */
+//++ Leaky ReLU activation with configurable negative slope
 export default function leakyRectifiedLinearUnit(
 	alpha: number | null | undefined,
 ): (x: number | null | undefined) => number {
 	return function leakyRectifiedLinearUnitWithAlpha(
 		x: number | null | undefined,
 	): number {
-		if (and(isNumber(alpha))(isNumber(x))) {
-			// Leaky ReLU: f(x) = x if x > 0, else α × x
-			return x > 0 ? x : alpha * x
+		if (isNumber(alpha) && isNumber(x)) {
+			return gt(0)(x) ? x : alpha * x
 		}
 
 		return NaN

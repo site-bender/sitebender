@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Takes the first n elements from an array
- |
- | Returns a new array with at most n elements from the beginning.
- | Returns fewer elements if n exceeds array length. Zero or negative
- | n returns empty array.
- */
+//++ Takes first n elements
 export default function take(count: number) {
 	return function takeFromArray<T>(
 		array: ReadonlyArray<T> | null | undefined,

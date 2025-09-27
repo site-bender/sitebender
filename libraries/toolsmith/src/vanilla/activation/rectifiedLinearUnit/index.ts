@@ -1,14 +1,7 @@
 import max from "../../math/max/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
 
-/*++
- | Calculates the Rectified Linear Unit (ReLU) activation function
- |
- | Computes the ReLU function: f(x) = max(0, x), which returns x if x > 0,
- | otherwise returns 0. This is the most widely used activation function
- | in deep learning due to its simplicity and effectiveness in avoiding
- | vanishing gradients. Returns NaN for invalid inputs.
- */
+//++ Rectified Linear Unit (ReLU) activation function
 export default function rectifiedLinearUnit(
 	x: number | null | undefined,
 ): number {
@@ -32,7 +25,7 @@ export default function rectifiedLinearUnit(
  | // [0, 0, 0, 1, 2, 3]
  | ```
  |
- | //[EXAMPLE]
+ | [EXAMPLE]
  | ```ts
  | // Feature detection with threshold
  | const featureStrength = (score: number) =>

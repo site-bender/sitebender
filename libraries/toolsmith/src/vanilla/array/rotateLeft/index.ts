@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Rotates array elements to the left by n positions
- |
- | Moves elements from the beginning of the array to the end, rotating
- | the array leftward. Elements that fall off the left side wrap around
- | to the right. Negative rotations rotate right. Rotations larger than
- | array length wrap around. Useful for circular buffers, carousels,
- | scheduling, or cyclic operations.
- */
+//++ Rotates elements left by n positions
 const rotateLeft = <T>(
 	n: number,
 ) =>

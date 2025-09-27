@@ -1,12 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import filter from "../filter/index.ts"
 
-/*++
- | Removes all occurrences of a value from an array
- |
- | Uses strict equality (===) to find items. Returns new array with
- | all matching elements removed. Preserves order of remaining elements.
- */
+//++ Removes all occurrences of a value
 export default function removeAll<T>(item: T) {
 	return function removeAllFromArray(
 		array: ReadonlyArray<T> | null | undefined,

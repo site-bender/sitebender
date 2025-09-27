@@ -1,9 +1,4 @@
-/*++
- | Finds the index of the first element that satisfies a predicate
- |
- | Returns the zero-based index of the first element for which the predicate
- | returns truthy, or undefined if no element matches. Short-circuits on first match.
- */
+//++ Finds the index of the first matching element
 const findIndex =
 	<T>(predicate: (item: T, index: number, array: Array<T>) => boolean) =>
 	(array: Array<T>): number | undefined => {

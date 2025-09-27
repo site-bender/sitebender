@@ -1,9 +1,4 @@
-/*++
- | Finds the last element in an array that satisfies a predicate
- |
- | Searches from end to start, returning the last element for which the
- | predicate returns truthy, or undefined if no element matches.
- */
+//++ Finds the last element matching a predicate
 const findLast = <T>(
 	predicate: (item: T, index: number, array: Array<T>) => boolean,
 ) =>

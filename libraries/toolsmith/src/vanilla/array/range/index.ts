@@ -1,12 +1,4 @@
-/*++
- | Generates an array of numbers from start to end (exclusive)
- |
- | Creates an array containing a sequence of numbers from start up to but
- | not including end, incrementing by 1. If start is greater than or equal
- | to end, returns an empty array. For custom step values, use rangeStep.
- | Useful for generating sequences, creating indices, or iteration without
- | loops.
- */
+//++ Generates a numeric range
 const range = (
 	start: number,
 ) =>

@@ -19,7 +19,6 @@ import isObject from "../../isObject/index.ts"
 import isRegExp from "../../isRegExp/index.ts"
 import isUndefined from "../../isUndefined/index.ts"
 import isUnequal from "../../isUnequal/index.ts"
-import isZero from "../../isZero/index.ts"
 
 //++ Private helper function for deep equality comparison
 export default function _deepEquals(
@@ -33,8 +32,9 @@ export default function _deepEquals(
 	}
 
 	// Check for +0 vs -0 case
-	if (and(allPass([isNumber, isZero])(x))(allPass([isNumber, isZero])(y))) {
-		return is(x)(y)
+	// Don't use isZero here to avoid circular dependency - check directly
+	if (isNumber(x) && x === 0 && isNumber(y) && y === 0) {
+		return is(x)(y)  // This will distinguish +0 from -0
 	}
 
 	// Handle NaN equality

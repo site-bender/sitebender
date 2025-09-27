@@ -1,13 +1,6 @@
 import nub from "../nub/index.ts"
 
-/*++
- | Returns a new array with duplicate elements removed
- |
- | Alias for `nub`. The term "unique" is more commonly used in JavaScript/TypeScript
- | while "nub" comes from Haskell. Both functions are identical - they remove
- | duplicate elements from an array, keeping only the first occurrence of each
- | unique element. Uses SameValueZero equality for comparison.
- */
+//++ Removes duplicate elements
 const unique = nub
 
 export default unique

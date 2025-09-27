@@ -1,12 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Return all elements of an array except the first
- |
- | Returns a new array containing all elements except the first one.
- | Empty arrays return empty arrays. Null/undefined yield empty arrays.
- */
+//++ Returns all elements except the first
 export default function tail<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> {

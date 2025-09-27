@@ -1,12 +1,4 @@
-/*++
- | Generates an array of numbers from start to end with custom step
- |
- | Creates an array containing a sequence of numbers from start towards end,
- | incrementing by the specified step value. The sequence stops before
- | exceeding end (for positive step) or going below end (for negative step).
- | Returns empty array if the step direction doesn't lead from start to end.
- | This is the flexible version of range that allows custom increments.
- */
+//++ Generates a range with custom step
 const rangeStep = (
 	step: number,
 ) =>

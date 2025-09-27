@@ -1,6 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-//++ Join array elements into a string with a separator; null/undefined arrays yield an empty string
+//++ Joins array elements into a string
 export default function join<T>(separator: string) {
 	return function joinWithSeparator(
 		array: ReadonlyArray<T> | null | undefined,

@@ -1,12 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Replaces an element at a specific index using a transformation function
- |
- | The replacer function receives the current value at that index.
- | Returns original array if index is out of bounds.
- */
+//++ Replaces element at index via function
 const replaceAt =
 	<T>(index: number) =>
 	(replacer: (item: T) => T) =>

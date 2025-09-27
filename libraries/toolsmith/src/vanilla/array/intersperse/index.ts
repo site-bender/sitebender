@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Inserts a separator element between all elements of an array
- |
- | Places the separator between each pair of adjacent elements in the array.
- | The separator is not added before the first element or after the last.
- | Useful for formatting, creating delimited lists, or adding spacing.
- */
+//++ Inserts a separator between elements
 const intersperse = <T, U>(
 	separator: U,
 ) =>

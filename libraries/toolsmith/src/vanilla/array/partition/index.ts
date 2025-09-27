@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Splits an array into two arrays based on a predicate function
- |
- | Partitions elements into two groups: those that satisfy the predicate
- | (first array) and those that don't (second array). Returns a tuple
- | containing both arrays. Preserves the original order of elements.
- */
+//++ Splits array by predicate into two groups
 const partition = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

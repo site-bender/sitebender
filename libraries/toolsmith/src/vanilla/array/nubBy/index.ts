@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Removes duplicate elements from an array using a custom equality function
- |
- | Like nub but uses a custom equality function to determine which elements
- | are considered duplicates. Returns a new array with duplicates removed,
- | keeping only the first occurrence of each unique element according to
- | the equality function. Order is preserved based on first occurrence.
- | This is the customizable version of nub/unique.
- */
+//++ Removes duplicates by custom equality
 const nubBy = <T>(
 	equalityFn: (a: T, b: T) => boolean,
 ) =>

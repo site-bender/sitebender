@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Like union but uses a comparator function
- |
- | Combines two arrays and returns all unique elements using a custom
- | comparator function to determine equality. Removes duplicates within
- | and across arrays based on the comparator. Useful when you need custom
- | equality logic for objects, deep comparison, or property-based matching.
- */
+//++ Union with custom comparator
 const unionWith = <T>(
 	comparator: (a: T, b: T) => boolean,
 ) =>

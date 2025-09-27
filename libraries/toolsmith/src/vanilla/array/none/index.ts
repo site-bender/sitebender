@@ -1,11 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Tests whether no elements in an array satisfy a predicate function
- |
- | Returns true if predicate returns falsy for every element, or true for empty array.
- | Equivalent to !some(predicate). Short-circuits on first truthy result.
- */
+//++ Tests if no elements satisfy a predicate
 const none =
 	<T>(predicate: (item: T, index: number, array: Array<T>) => boolean) =>
 	(array: Array<T> | null | undefined): boolean => {

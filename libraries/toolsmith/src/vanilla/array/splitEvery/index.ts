@@ -1,10 +1,4 @@
-/*++
- | Splits an array into chunks of specified size
- |
- | Divides array into subarrays of at most n elements. Last chunk may
- | have fewer elements if array doesn't divide evenly. Returns empty
- | array for chunk sizes <= 0.
- */
+//++ Splits array into fixed-size chunks
 const splitEvery =
 	(chunkSize: number) => <T>(array: Array<T>): Array<Array<T>> =>
 		array.length && chunkSize > 0

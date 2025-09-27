@@ -1,14 +1,7 @@
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
-Counts elements of an array according to the values returned by a function
-
-Groups array elements by the result of calling a function on each element,
-then counts how many elements are in each group. Returns an object where
-keys are the function results and values are the counts. This is useful
-for creating frequency distributions or aggregating data by categories.
-*/
+//++ Counts elements by grouping criteria
 const countBy = <T, K extends string | number | symbol>(
 	fn: (element: T) => K,
 ) =>

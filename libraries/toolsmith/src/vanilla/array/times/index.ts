@@ -1,15 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Calls a function n times and collects the results in an array
- |
- | Executes a function n times, passing the current index to each call,
- | and returns an array of the results. The function receives the current
- | iteration index (0-based) as its argument. Useful for generating arrays
- | of a specific length, creating test data, repeating operations, or
- | building sequences based on index.
- */
+//++ Calls function n times, collecting results
 const times = <T>(
 	n: number,
 ) =>

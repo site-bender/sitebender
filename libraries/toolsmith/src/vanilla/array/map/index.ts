@@ -1,6 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-//++ Transform each element of an array using a function; returns a new array; curried
+//++ Transforms each element using a function
 const map = <T, U>(
 	fn: (element: T, index: number, array: ReadonlyArray<T>) => U,
 ) =>

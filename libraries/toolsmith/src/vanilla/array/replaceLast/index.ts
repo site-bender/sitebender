@@ -1,12 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import replaceAt from "../replaceAt/index.ts"
 
-/*++
- | Replaces the last occurrence of a value using a transformation function
- |
- | Uses strict equality (===) to find the item. Returns original array
- | if item not found. Only replaces the last occurrence.
- */
+//++ Replaces last occurrence via function
 const replaceLast =
 	<T>(target: T) =>
 	(replacer: (item: T) => T) =>

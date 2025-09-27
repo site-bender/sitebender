@@ -1,64 +1,6 @@
 import isEmpty from "../../array/isEmpty/index.ts"
 
-/**
- * Returns the result of the first async function to complete (resolve or reject)
- *
- * Executes all provided async functions concurrently and returns a Promise that
- * resolves or rejects with the first result to complete. This is essentially
- * Promise.race but for functions that need to be invoked. Useful for timeouts,
- * fallbacks, or getting the fastest response from multiple sources.
- *
- * @param tasks - Array of async functions to race
- * @returns Promise resolving to the first completed result
- * @impure
- * @example
- * ```typescript
- * // Basic race - first to complete wins
- * const result = await race([
- *   async () => delay(300)("slow"),
- *   async () => delay(100)("fast"),
- *   async () => delay(200)("medium")
- * ])
- * console.log(result) // "fast" (completes first)
- *
- * // Timeout pattern
- * const fetchWithTimeout = async (url: string, timeoutMs = 5000) => {
- *   return race([
- *     async () => fetch(url).then(r => r.json()),
- *     async () => delayReject(timeoutMs)(new Error("Timeout"))
- *   ])
- * }
- *
- * // Fallback pattern - try multiple sources
- * const fetchFromFastest = async () => {
- *   return race([
- *     async () => fetch("https://primary.com/data"),
- *     async () => fetch("https://backup.com/data")
- *   ])
- * }
- *
- * // Load balancing - use fastest server
- * const servers = ["server1.com", "server2.com", "server3.com"]
- * const tasks = servers.map(server =>
- *   async () => fetch(`https://${server}/api`)
- * )
- * const fastest = await race(tasks)
- *
- * // First rejection wins if it's fastest
- * try {
- *   await race([
- *     async () => { throw new Error("Instant fail") },
- *     async () => delay(100)("too late")
- *   ])
- * } catch (err) {
- *   console.error(err.message) // "Instant fail"
- * }
- *
- * // Edge cases
- * race([]) // Throws - would never settle
- * race([async () => "single"]) // Returns "single"
- * ```
- */
+//++ Races async functions and returns the first to complete
 const race = <T>(
 	tasks: ReadonlyArray<() => Promise<T>>,
 ): Promise<T> => {
@@ -80,3 +22,53 @@ const race = <T>(
 }
 
 export default race
+
+//?? [EXAMPLE] `await race([async () => delay(100)("fast"), async () => delay(300)("slow")]) // "fast"`
+//?? [EXAMPLE] `race([async () => "single"]) // Returns "single"`
+//?? [GOTCHA] `race([]) // Throws - would never settle`
+/*??
+ | [EXAMPLE]
+ | ```ts
+ | // Timeout pattern
+ | const fetchWithTimeout = async (url: string, timeoutMs = 5000) => {
+ |   return race([
+ |     async () => fetch(url).then(r => r.json()),
+ |     async () => delayReject(timeoutMs)(new Error("Timeout"))
+ |   ])
+ | }
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Fallback pattern - try multiple sources
+ | const fetchFromFastest = async () => {
+ |   return race([
+ |     async () => fetch("https://primary.com/data"),
+ |     async () => fetch("https://backup.com/data")
+ |   ])
+ | }
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Load balancing - use fastest server
+ | const servers = ["server1.com", "server2.com", "server3.com"]
+ | const tasks = servers.map(server =>
+ |   async () => fetch(`https://${server}/api`)
+ | )
+ | const fastest = await race(tasks)
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // First rejection wins if it's fastest
+ | try {
+ |   await race([
+ |     async () => { throw new Error("Instant fail") },
+ |     async () => delay(100)("too late")
+ |   ])
+ | } catch (err) {
+ |   console.error(err.message) // "Instant fail"
+ | }
+ | ```
+ */

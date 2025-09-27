@@ -1,15 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
-Returns elements in the first array that are not in the second array using a comparator
-
-Like difference but uses a custom comparator function to determine equality
-between elements. Returns a new array containing only the elements from the
-first array for which no equivalent element exists in the second array
-according to the comparator. Useful when comparing complex objects or when
-you need custom equality logic.
-*/
+//++ Set difference with custom equality
 const differenceWith = <T, U>(
 	comparator: (a: T, b: U) => boolean,
 ) =>

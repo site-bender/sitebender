@@ -1,66 +1,6 @@
 import isEmpty from "../../array/isEmpty/index.ts"
 
-/**
- * Executes async functions in parallel with a concurrency limit
- *
- * Runs async functions concurrently but limits the number of functions executing
- * at any given time. This is useful for rate limiting, managing resource usage,
- * or preventing overwhelming external services. Results are returned in the same
- * order as the input tasks, regardless of completion order.
- *
- * @param limit - Maximum number of concurrent executions
- * @param tasks - Array of async functions to execute
- * @returns Promise resolving to array of results in the same order as input
- * @curried
- * @example
- * ```typescript
- * // Basic usage with concurrency limit
- * const results = await parallelLimit(2)([
- *   async () => fetch("/api/1").then(r => r.json()),
- *   async () => fetch("/api/2").then(r => r.json()),
- *   async () => fetch("/api/3").then(r => r.json()),
- *   async () => fetch("/api/4").then(r => r.json())
- * ])
- * // Only 2 requests run at a time
- *
- * // Rate limiting API calls
- * const fetchWithRateLimit = parallelLimit(3)
- * const userIds = [1, 2, 3, 4, 5]
- * const tasks = userIds.map(id =>
- *   async () => fetch(`/api/users/${id}`).then(r => r.json())
- * )
- * const users = await fetchWithRateLimit(tasks)
- *
- * // Database connection pooling
- * const queryWithPool = parallelLimit(5)
- * const queries = [
- *   async () => db.query("SELECT * FROM users"),
- *   async () => db.query("SELECT * FROM posts")
- * ]
- * const results = await queryWithPool(queries)
- *
- * // Partial application for different scenarios
- * const sequential = parallelLimit(1)
- * const moderate = parallelLimit(5)
- * const aggressive = parallelLimit(20)
- *
- * // Error handling - fails fast on first error
- * try {
- *   await parallelLimit(2)([
- *     async () => "ok",
- *     async () => { throw new Error("Failed!") },
- *     async () => "never runs"
- *   ])
- * } catch (err) {
- *   console.error("Task failed:", err.message)
- * }
- *
- * // Edge cases
- * await parallelLimit(5)([])  // []
- * await parallelLimit(10)([async () => "one"])  // ["one"]
- * await parallelLimit(Infinity)(tasks)  // Same as Promise.all
- * ```
- */
+//++ Limits concurrent async function execution
 export default function parallelLimit(limit: number) {
 	return async function runWithLimit<T>(
 		tasks: ReadonlyArray<() => Promise<T>>,
@@ -118,3 +58,57 @@ export default function parallelLimit(limit: number) {
 		return results
 	}
 }
+
+//?? [EXAMPLE] `await parallelLimit(2)([async () => fetch("/api/1"), async () => fetch("/api/2")])`
+//?? [EXAMPLE] `const sequential = parallelLimit(1) // Process one at a time`
+//?? [EXAMPLE] `await parallelLimit(5)([]) // []`
+//?? [EXAMPLE] `await parallelLimit(Infinity)(tasks) // Same as Promise.all`
+/*??
+ | [EXAMPLE]
+ | ```ts
+ | // Basic usage with concurrency limit
+ | const results = await parallelLimit(2)([
+ |   async () => fetch("/api/1").then(r => r.json()),
+ |   async () => fetch("/api/2").then(r => r.json()),
+ |   async () => fetch("/api/3").then(r => r.json()),
+ |   async () => fetch("/api/4").then(r => r.json())
+ | ])
+ | // Only 2 requests run at a time
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Rate limiting API calls
+ | const fetchWithRateLimit = parallelLimit(3)
+ | const userIds = [1, 2, 3, 4, 5]
+ | const tasks = userIds.map(id =>
+ |   async () => fetch(`/api/users/${id}`).then(r => r.json())
+ | )
+ | const users = await fetchWithRateLimit(tasks)
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Database connection pooling
+ | const queryWithPool = parallelLimit(5)
+ | const queries = [
+ |   async () => db.query("SELECT * FROM users"),
+ |   async () => db.query("SELECT * FROM posts")
+ | ]
+ | const results = await queryWithPool(queries)
+ | ```
+ |
+ | [EXAMPLE]
+ | ```ts
+ | // Error handling - fails fast on first error
+ | try {
+ |   await parallelLimit(2)([
+ |     async () => "ok",
+ |     async () => { throw new Error("Failed!") },
+ |     async () => "never runs"
+ |   ])
+ | } catch (err) {
+ |   console.error("Task failed:", err.message)
+ | }
+ | ```
+ */

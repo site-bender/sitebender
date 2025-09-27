@@ -1,14 +1,7 @@
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Creates an object indexing array elements by the given key
- |
- | Transforms an array into an object where each element is indexed by a
- | key derived from that element. If multiple elements produce the same key,
- | the last one wins. This is useful for creating lookup tables, converting
- | arrays to dictionaries, or indexing collections for fast access.
- */
+//++ Indexes elements by a key function
 export default function indexBy<T, K extends string | number | symbol>(
 	keyFn: (element: T, index: number, array: ReadonlyArray<T>) => K,
 ) {

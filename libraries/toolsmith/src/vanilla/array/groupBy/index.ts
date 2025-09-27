@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Groups array elements by the result of a key function
- |
- | Creates an object where keys are the results of the key function and
- | values are arrays of elements that produced that key. Useful for
- | categorizing, indexing, or aggregating data.
- */
+//++ Groups elements by a key function
 const groupBy = <T, K extends string | number>(
 	keyFn: (element: T) => K,
 ) =>

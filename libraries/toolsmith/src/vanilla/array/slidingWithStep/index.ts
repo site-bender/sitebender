@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Creates sliding windows over array with custom step size
- |
- | Generates an array of overlapping or non-overlapping windows of specified
- | size, moving by a custom step amount. When step equals window size, windows
- | don't overlap. When step is less than window size, windows overlap. When
- | step is greater than window size, elements are skipped. Useful for signal
- | processing, time series analysis, and batch processing.
- */
+//++ Creates windows with custom size and step
 const slidingWithStep =
 	<T>(size: number, step: number) =>
 	(array: Array<T> | null | undefined): Array<Array<T>> => {

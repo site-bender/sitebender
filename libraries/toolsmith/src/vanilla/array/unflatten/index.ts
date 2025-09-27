@@ -1,12 +1,4 @@
-/*++
- | Reconstructs nested arrays from flattened array with depth info
- |
- | Takes a flattened array and depth information to reconstruct the original
- | nested structure. This is the inverse of flatten operations that track
- | nesting depth. Can accept either a parallel array of depths or a function
- | that determines depth from elements. Useful for deserializing hierarchical
- | data, reconstructing trees, and undoing flatten operations.
- */
+//++ Reconstructs nested arrays from flat structure
 const unflatten = (depths: Array<number>) =>
 <T>(
 	array: Array<T>,

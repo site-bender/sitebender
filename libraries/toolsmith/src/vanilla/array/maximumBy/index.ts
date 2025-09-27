@@ -1,15 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Finds the maximum element according to a comparator function
- |
- | Returns the element from the array that is greatest according to the
- | provided comparator function. The comparator should return a positive
- | number if the first argument is greater, negative if smaller, and zero
- | if equal (like standard sort comparators). Returns undefined for empty
- | arrays. Useful for finding maximum by custom criteria, complex comparisons,
- | or multi-field sorting.
- */
+//++ Finds the maximum element by comparator
 const maximumBy = <T>(
 	comparator: (a: T, b: T) => number,
 ) =>

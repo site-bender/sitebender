@@ -1,15 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Like mapAccum but processes the array from right to left
- |
- | Performs a stateful map operation that threads an accumulator through the
- | array from right to left. Each iteration produces both a new accumulator
- | value and a mapped element. Returns a tuple containing the final accumulator
- | and an array of all mapped values (in original left-to-right order). Useful
- | for operations that need to process elements with knowledge of what comes
- | after, suffix operations, or right-associative transformations.
- */
+//++ Maps with an accumulator from right to left
 const mapAccumRight = <T, U, V>(
 	fn: (accumulator: U, element: T) => [U, V],
 ) =>

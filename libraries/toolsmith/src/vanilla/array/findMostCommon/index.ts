@@ -1,13 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Finds the most frequently occurring element(s)
- |
- | Returns an array of the element(s) that appear most frequently
- | in the input array. When multiple elements have the same maximum
- | frequency, all are returned in order of first occurrence.
- */
+//++ Finds the most frequently occurring elements
 const findMostCommon = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> => {

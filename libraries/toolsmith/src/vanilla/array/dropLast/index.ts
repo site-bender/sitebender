@@ -1,9 +1,4 @@
-/*++
- | Drops the last n elements from an array
- |
- | Returns a new array without the last n elements. If n is greater than
- | array length, returns empty array. Negative n values are treated as 0.
- */
+//++ Drops the last n elements
 const dropLast = <T>(n: number) => (array: Array<T>): Array<T> =>
 	n <= 0 ? array : array.slice(0, Math.max(0, array.length - n))
 

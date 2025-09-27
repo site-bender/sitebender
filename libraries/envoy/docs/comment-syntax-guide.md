@@ -22,7 +22,7 @@ Comments work on ANY code element:
 
 Describes what ANY code element does.
 
-**PLACEMENT:** IMMEDIATELY ABOVE the code element (no blank line between comment and code).
+**PLACEMENT:** IMMEDIATELY ABOVE the code element (no blank line between comment and code). Note: \*\*only the [DESCRIPTION] comment needs to go immediately above the code element. [GROUP] and [END] obviously need to go around what they group. [MODULE] can go at the top of the file (typically, `mod.ts`). As we don't allow barrel files, [MODULE] is typically used with [EXPORTS] to provide links to the actual deep-path exports. [INCLUDES] should go below [EXPORTS] if both are used. [REPLACES] is used in non-module files and should be placed below the code element (blank line separating).
 
 #### Categories for `//++`:
 
@@ -32,14 +32,15 @@ Describes what ANY code element does.
 - `[MODULE]` - Document an entire module/file (use with `/*++ */`)
 - `[EXPORTS]` - List public API components (used with MODULE)
 - `[INCLUDES]` - List internal/private components (used with MODULE)
-- `[REPLACES]` - Give example of what this function replaces, if relevant (e.g., `isEqual(x)(y)` replaces `x === y`)
+- `[REPLACES]` - Give example of what this function replaces, if relevant (e.g., "`isEqual(x)(y)` replaces `x === y`")
+- `[EXCEPTION]` - A permitted exception to the rules, typically for optimization (e.g., allowed use of loop)
 
 **Functions:**
 
 ```typescript
 //++ Converts a string to uppercase
 export default function toUpperCase(str: string): string {
-	return str.toUpperCase()
+  return str.toUpperCase();
 }
 ```
 
@@ -47,10 +48,10 @@ export default function toUpperCase(str: string): string {
 
 ```typescript
 //++ Primary brand color for all UI components
-export const PRIMARY_COLOR = "#007ACC"
+export const PRIMARY_COLOR = "#007ACC";
 
 //++ Dark mode background color
-export const DARK_BACKGROUND = "#20232A"
+export const DARK_BACKGROUND = "#20232A";
 ```
 
 **Types/Interfaces:**
@@ -58,9 +59,9 @@ export const DARK_BACKGROUND = "#20232A"
 ```typescript
 //++ User authentication token with expiry
 export interface AuthToken {
-	token: string
-	expires: Date
-	refreshToken?: string
+  token: string;
+  expires: Date;
+  refreshToken?: string;
 }
 ```
 
@@ -79,9 +80,9 @@ export interface AuthToken {
  | Returns an array of objects with column headers as keys.
  */
 export default function parseCsv(
-	content: string,
+  content: string,
 ): Array<Record<string, string>> {
-	// implementation
+  // implementation
 }
 ```
 
@@ -92,13 +93,13 @@ Groups related code elements with shared documentation.
 ```typescript
 //++ [GROUP] Authentication Constants
 //++ JWT signing algorithm
-export const JWT_ALGORITHM = "HS256"
+export const JWT_ALGORITHM = "HS256";
 
 //++ Token expiry time in seconds
-export const TOKEN_EXPIRY = 3600
+export const TOKEN_EXPIRY = 3600;
 
 //++ Refresh token expiry (7 days)
-export const REFRESH_EXPIRY = 604800
+export const REFRESH_EXPIRY = 604800;
 //++ [END]
 ```
 
@@ -108,18 +109,18 @@ export const REFRESH_EXPIRY = 604800
 //++ [GROUP] Color System
 //++ [GROUP] Brand Colors
 //++ Primary interactive color
-export const PRIMARY = "#007ACC"
+export const PRIMARY = "#007ACC";
 
 //++ Secondary brand color
-export const SECONDARY = "#20232A"
+export const SECONDARY = "#20232A";
 //++ [END]
 
 //++ [GROUP] Semantic Colors
 //++ Success state color
-export const SUCCESS = "#10B981"
+export const SUCCESS = "#10B981";
 
 //++ Error state color
-export const ERROR = "#EF4444"
+export const ERROR = "#EF4444";
 //++ [END]
 //++ [END]
 ```
@@ -349,15 +350,15 @@ Marks critical problems that MUST be fixed. These block releases!
 ## 📋 Complete Example (With Proper Spacing)
 
 ````typescript
-import { AstNode } from "../types/index.ts"
+import { AstNode } from "../types/index.ts";
 
 //!! [INCOMPLETE] Generator function support not implemented
 
 //++ [GROUP] Associativity Detection
 //++ Detects if a function exhibits associative behavior
 export function isAssociative(node: AstNode): boolean {
-	//-- [OPTIMIZATION] This recursion should probably be a loop
-	return hasBinaryAssociativeOperator(node) || hasAssociativeMethodCall(node)
+  //-- [OPTIMIZATION] This recursion should probably be a loop
+  return hasBinaryAssociativeOperator(node) || hasAssociativeMethodCall(node);
 }
 
 /*??
@@ -376,7 +377,7 @@ export function isAssociative(node: AstNode): boolean {
 
 //++ Helper to check for associative operators
 function hasBinaryAssociativeOperator(node: AstNode): boolean {
-	// implementation
+  // implementation
 }
 
 //++ [END] // End of Associativity Detection group
@@ -384,7 +385,7 @@ function hasBinaryAssociativeOperator(node: AstNode): boolean {
 //++ [GROUP] Commutativity Detection
 //++ Detects if a function exhibits commutative behavior
 export function isCommutative(node: AstNode): boolean {
-	// implementation
+  // implementation
 }
 
 //++ [END]
@@ -409,7 +410,7 @@ All comment content supports:
 - **Lists**: `* bullet`, `- dash`, `1. numbered`
 - **Links**: `[text](url)`
 - **Images**: `![alt text](path/to/image.png)` or `![diagram](https://example.com/diagram.svg)`
-- **Code**: `` `inline` `` and `` ```blocks``` ``
+- **Code**: `` `inline` `` and ` ```blocks``` `
 - **Emphasis**: `**bold**`, `*italic*`, `~~strikethrough~~`
 - **Tables**, blockquotes, and more!
 
@@ -597,9 +598,9 @@ export function toUpper(str: string): string {
 ```typescript
 //++ [GROUP] Color constants
 //++ Primary brand color
-export const PRIMARY = "#007ACC"
+export const PRIMARY = "#007ACC";
 //++ Secondary color
-export const SECONDARY = "#666"
+export const SECONDARY = "#666";
 //++ [END]
 ```
 
@@ -608,7 +609,7 @@ export const SECONDARY = "#666"
 ```typescript
 //++ Adds two numbers together
 export function add(a: number, b: number): number {
-	return a + b
+  return a + b;
 }
 //?? [EXAMPLE] add(2, 3) // 5
 //?? [GOTCHA] May return NaN with invalid input
@@ -695,18 +696,18 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 ```json
 {
-	"_links": {
-		"self": "/functions/parseSourceFile",
-		"module": "/modules/arborist",
-		"calls": ["/functions/createCompiler", "/functions/readFile"],
-		"calledBy": ["/functions/analyze", "/functions/lint"],
-		"implements": "/types/arborist",
-		"next": "/functions/extractFunctions",
-		"tests": ["/tests/parseSourceFile.test.ts"],
-		"source": "/src/parseSourceFile/index.ts",
-		"author": "/authors/guybeford",
-		"lastModified": "2025-09-10T14:30:00Z"
-	}
+  "_links": {
+    "self": "/functions/parseSourceFile",
+    "module": "/modules/arborist",
+    "calls": ["/functions/createCompiler", "/functions/readFile"],
+    "calledBy": ["/functions/analyze", "/functions/lint"],
+    "implements": "/types/arborist",
+    "next": "/functions/extractFunctions",
+    "tests": ["/tests/parseSourceFile.test.ts"],
+    "source": "/src/parseSourceFile/index.ts",
+    "author": "/authors/guybeford",
+    "lastModified": "2025-09-10T14:30:00Z"
+  }
 }
 ```
 

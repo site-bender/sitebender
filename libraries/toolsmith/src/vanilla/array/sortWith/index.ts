@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Sorts an array using multiple comparator functions
- |
- | Applies comparator functions in order until one returns a non-zero value,
- | providing multi-level sorting. Each comparator should return negative for
- | less than, positive for greater than, and zero for equal. Useful for
- | complex sorting with primary, secondary, tertiary sort keys, or different
- | sort directions per field.
- */
+//++ Sorts using multiple comparators
 const sortWith = <T>(
 	comparators: ReadonlyArray<(a: T, b: T) => number>,
 ) =>

@@ -1,7 +1,7 @@
 import isArray from "../../validation/isArray/index.ts"
 
-//++ Checks if an array is not empty (has at least one element)
-export default function isNotEmpty<T>(array: ReadonlyArray<T>): boolean {
+//++ Checks if an array has elements
+export default function isNotEmpty<T>(array: ReadonlyArray<T> | null | undefined): boolean {
 	return isArray(array) && array.length > 0
 }
 

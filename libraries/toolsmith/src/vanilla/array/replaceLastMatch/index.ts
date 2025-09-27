@@ -2,14 +2,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 import findLastIndex from "../findLastIndex/index.ts"
 import replaceAt from "../replaceAt/index.ts"
 
-/*++
- | Replaces the last element that matches a pattern with a transformed value
- |
- | Tests each element against the pattern. Returns original array
- | if no match found. Only replaces the last matching occurrence.
- | Accepts RegExp or string (string converted to RegExp).
- | Non-string elements are converted to strings for testing.
- */
+//++ Replaces last element matching pattern
 const replaceLastMatch =
 	<T>(pattern: RegExp | string) =>
 	(replacer: (item: T) => T) =>

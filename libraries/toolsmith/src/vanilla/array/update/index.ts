@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns a new array with the element at index replaced by the result of a function
- |
- | Applies a transformation function to the element at the specified index,
- | returning a new array with the transformed element. If the index is out
- | of bounds, returns a copy of the original array unchanged. Negative
- | indices count from the end. Useful for immutable updates, state
- | transformations, or conditional modifications.
- */
+//++ Updates element at index via function
 const update = <T>(
 	index: number,
 ) =>

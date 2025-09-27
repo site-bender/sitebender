@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Generates all possible subsequences of an array
- |
- | Returns the power set of the array - all possible combinations of elements
- | while maintaining their original order. This includes the empty array and
- | the full array itself. The number of subsequences is 2^n where n is the
- | array length.
- */
+//++ Generates all possible subsequences
 //?? [WARNING] `Exponential complexity - 2^n subsequences for n elements`
 const subsequences = <T>(
 	array: ReadonlyArray<T> | null | undefined,

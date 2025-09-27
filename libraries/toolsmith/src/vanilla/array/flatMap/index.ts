@@ -1,9 +1,4 @@
-/*++
- | Maps each element to an array and flattens the result by one level
- |
- | Equivalent to map followed by flatten(1). Useful for expanding elements
- | into multiple values or filtering while mapping (return [] to exclude).
- */
+//++ Maps and flattens in a single pass
 const flatMap = <T, U>(
 	fn: (item: T, index: number, array: Array<T>) => U | ReadonlyArray<U>,
 ) =>

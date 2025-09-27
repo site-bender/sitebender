@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Takes the last n elements from an array
- |
- | Returns a new array with at most n elements from the end.
- | Returns fewer elements if n exceeds array length. Zero or negative
- | n returns empty array.
- */
+//++ Takes last n elements
 export default function takeLast(count: number) {
 	return function takeLastFromArray<T>(
 		array: ReadonlyArray<T> | null | undefined,

@@ -1,4 +1,4 @@
-//++ Returns the first element that satisfies the predicate, or undefined if none found
+//++ Finds the first element matching a predicate
 const find =
 	<T>(predicate: (item: T) => boolean) => (array: Array<T>): T | undefined =>
 		array.find(predicate)

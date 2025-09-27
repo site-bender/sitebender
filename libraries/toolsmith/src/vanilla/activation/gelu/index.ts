@@ -1,8 +1,6 @@
-import gaussianErrorLinearUnit from "../gaussianErrorLinearUnit/index.ts"
+import gelu from "../gaussianErrorLinearUnit/index.ts"
 
 //++ Alias for gaussianErrorLinearUnit - GELU activation function
-const gelu = gaussianErrorLinearUnit
+export default gelu
 
 //>> [RELATED] [gaussianErrorLinearUnit](../gaussianErrorLinearUnit/index.ts)
-
-export default gelu

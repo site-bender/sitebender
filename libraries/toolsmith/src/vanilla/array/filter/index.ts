@@ -1,4 +1,4 @@
-//++ Returns a new array containing only elements that satisfy the predicate
+//++ Filters elements that satisfy a predicate
 const filter =
 	<T>(predicate: (item: T) => boolean) => (array: Array<T>): Array<T> =>
 		array.filter(predicate)

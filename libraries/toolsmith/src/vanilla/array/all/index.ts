@@ -1,12 +1,11 @@
-/*++
-Tests whether all elements in an array satisfy a predicate function
-
-Returns true if predicate returns truthy for every element, or true for empty array.
-Short-circuits on first falsy result.
-*/
-const all =
-	<T>(predicate: (item: T, index: number, array: Array<T>) => boolean) =>
-	(array: Array<T>): boolean => array.every(predicate)
+//++ Tests whether all elements satisfy a predicate
+export default function all<T>(
+	predicate: (item: T, index: number, array: Array<T>) => boolean,
+) {
+	return function allWithPredicate(array: Array<T>): boolean {
+		return array.every(predicate)
+	}
+}
 
 //?? [EXAMPLE] `all((n: number) => n > 0)([1, 2, 3]) // true`
 //?? [EXAMPLE] `all((n: number) => n > 2)([1, 2, 3]) // false`
@@ -20,5 +19,3 @@ const all =
  | allPositive([1, -2, 3]) // false
  | ```
  */
-
-export default all

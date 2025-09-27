@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Combines two arrays element-wise using a function
- |
- | Takes a binary function and two arrays, applying the function to
- | corresponding elements from each array. The result length is the
- | minimum of the two input array lengths. Excess elements are ignored.
- */
+//++ Combines arrays using a function
 const zipWith = <T, U, V>(
 	fn: (a: T, b: U) => V,
 ) =>

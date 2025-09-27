@@ -1,4 +1,4 @@
-//++ Return the first element of an array (alias for first); undefined for empty arrays
+//++ Returns the first element (alias for first)
 const head = <T>(array: Array<T>): T | undefined => array.at(0)
 
 export default head

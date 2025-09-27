@@ -1,12 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns a new array with elements in reverse order
- |
- | Creates a new array without modifying the original. Empty arrays
- | return empty arrays.
- */
+//++ Reverses array order
 export default function reverse<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> {

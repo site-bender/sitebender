@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns an array of adjacent pairs from the input array
- |
- | Creates a new array where each element is a tuple of two consecutive
- | elements from the original array. This is equivalent to a sliding window
- | of size 2 with step 1. Returns empty array if input has fewer than 2
- | elements. Useful for comparing adjacent elements, calculating differences,
- | or processing sequences pairwise.
- */
+//++ Returns adjacent element pairs
 const pairwise = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<[T, T]> => {

@@ -1,11 +1,4 @@
-/*++
- | Count occurrences of each unique element in an array
- |
- | Creates a frequency map that counts how many times each unique element
- | appears in the array. Returns a Map where keys are the unique elements
- | and values are their occurrence counts. Useful for statistical analysis,
- | duplicate detection, and data summarization.
- */
+//++ Counts occurrences of each element
 const frequency = <T>(array: Array<T>): Map<T, number> => {
 	return array.reduce((freq, item) => {
 		freq.set(item, (freq.get(item) ?? 0) + 1)

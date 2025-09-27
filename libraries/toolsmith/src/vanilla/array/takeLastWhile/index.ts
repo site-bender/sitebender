@@ -1,15 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Takes elements from the end while predicate is true
- |
- | Returns a new array containing elements from the end of the input array,
- | taking elements as long as the predicate returns true. Stops at the first
- | element (scanning from the end) where the predicate returns false. Useful
- | for extracting trailing elements that match a condition, suffix extraction,
- | or reverse filtering.
- */
+//++ Takes from end while predicate is true
 const takeLastWhile = <T>(
 	predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

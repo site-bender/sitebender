@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Finds the index of the last string that matches a pattern
- |
- | Tests each string against the pattern, returning the index of the
- | last matching element. Accepts RegExp or string (converted to RegExp).
- | Returns undefined for null/undefined arrays or if no match found.
- */
+//++ Finds the last index matching a pattern
 export default function lastIndexOfMatch(pattern: RegExp | string) {
 	return function findLastIndexOfMatch(
 		array: ReadonlyArray<string> | null | undefined,

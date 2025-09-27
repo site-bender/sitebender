@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Transposes a matrix (2D array)
- |
- | Converts rows to columns and columns to rows in a 2D array. The element
- | at position [i][j] becomes the element at position [j][i]. For non-square
- | matrices, the result has dimensions swapped. Missing elements in jagged
- | arrays are filled with undefined. Useful for matrix operations, data
- | transformation, or rotating tabular data.
- */
+//++ Transposes a 2D array
 const transpose = <T>(
 	matrix: ReadonlyArray<ReadonlyArray<T>> | null | undefined,
 ): Array<Array<T | undefined>> => {

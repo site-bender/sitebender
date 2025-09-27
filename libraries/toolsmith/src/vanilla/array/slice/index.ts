@@ -1,10 +1,4 @@
-/*++
- | Returns a shallow copy of a portion of an array
- |
- | Extracts elements from start index up to (but not including) end index.
- | Negative indices count from the end. If end is omitted, extracts through
- | the end of the array.
- */
+//++ Extracts a portion of an array
 const slice = (start: number) =>
 (end?: number) =>
 <T>(

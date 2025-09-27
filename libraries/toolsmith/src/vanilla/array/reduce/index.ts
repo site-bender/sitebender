@@ -1,6 +1,6 @@
 import isArray from "../../validation/isArray/index.ts"
 
-//++ Reduce: transform an array into any type via accumulator; curried as (fn) => (initial) => (array)
+//++ Reduces array to a single value
 export default function reduce<T, U>(
 	fn: (acc: U, item: T, index: number) => U,
 ) {

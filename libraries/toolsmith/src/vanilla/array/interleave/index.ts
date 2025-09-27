@@ -1,15 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Alternate elements from multiple arrays
- |
- | Takes multiple arrays and interleaves their elements, taking one element
- | from each array in turn until all arrays are exhausted. Shorter arrays
- | are exhausted first, and the remaining elements from longer arrays continue
- | to be interleaved. Useful for merging data streams, creating alternating
- | patterns, and combining parallel sequences.
- */
+//++ Alternates elements from multiple arrays
 const interleave = <T>(
 	...arrays: Array<Array<T> | null | undefined>
 ): Array<T> => {

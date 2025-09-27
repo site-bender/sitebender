@@ -1,11 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Flattens nested arrays by the specified depth
- |
- | Recursively concatenates sub-arrays up to the specified depth level.
- | Depth of 1 flattens one level, Infinity flattens all levels.
- */
+//++ Flattens nested arrays to specified depth
 const flatten = <T, D extends number = 1>(
 	depth: D = 1 as D,
 ) =>

@@ -1,17 +1,10 @@
 import exponential from "../../math/exponential/index.ts"
+import logarithm from "../../math/logarithm/index.ts"
 import isFinite from "../../validation/isFinite/index.ts"
 import isNegativeInfinity from "../../validation/isNegativeInfinity/index.ts"
 import isPositiveInfinity from "../../validation/isPositiveInfinity/index.ts"
 
-/*++
- | SoftPlus activation function
- |
- | Computes the smooth approximation of ReLU: f(x) = ln(1 + e^x).
- | This function is differentiable everywhere, unlike ReLU which has
- | a non-differentiable point at x = 0. The output is always positive
- | and approaches x for large positive values and 0 for large negative
- | values. Returns NaN for invalid inputs.
- */
+//++ Smooth approximation of ReLU activation
 export default function softplus(
 	x: number | null | undefined,
 ): number {
@@ -25,24 +18,24 @@ export default function softplus(
 	}
 
 	// Reject all non-finite (includes null/undefined/NaN)
-	if (!isFinite(x)) {
-		return NaN
+	if (isFinite(x)) {
+		// For large positive x, softplus(x) ≈ x
+		// This avoids overflow in exp(x)
+		if (x > 20) {
+			return x
+		}
+
+		// For large negative x, softplus(x) ≈ exp(x)
+		// This avoids computing log(1 + very small number)
+		if (x < -20) {
+			return exponential(x)
+		}
+
+		// Standard computation for moderate values
+		return logarithm(Math.E)(1 + exponential(x))
 	}
 
-	// For large positive x, softplus(x) ≈ x
-	// This avoids overflow in exp(x)
-	if (x > 20) {
-		return x
-	}
-
-	// For large negative x, softplus(x) ≈ exp(x)
-	// This avoids computing log(1 + very small number)
-	if (x < -20) {
-		return exponential(x)
-	}
-
-	// Standard computation for moderate values
-	return Math.log(1 + Math.exp(x))
+	return NaN
 }
 
 //?? [EXAMPLE] `softplus(0)       // 0.693... (ln(2))`

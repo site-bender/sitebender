@@ -1,13 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import findIndex from "../findIndex/index.ts"
 
-/*++
- | Replaces the first string that matches a pattern with a transformed value
- |
- | Tests each string element against the pattern. Returns original array
- | if no match found. Only replaces the first matching occurrence.
- | Non-string elements are skipped.
- */
+//++ Replaces first string matching pattern
 export default function replaceFirstMatch(pattern: RegExp) {
 	return function withReplacer(replacer: (item: string) => string) {
 		return function replaceInArray<T>(

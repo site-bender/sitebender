@@ -1,13 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Takes elements from the beginning of an array while predicate returns true
- |
- | Returns a new array containing elements from the start of the input array,
- | stopping at the first element for which the predicate returns false.
- | Does not continue checking after the first false result.
- */
+//++ Takes from start while predicate is true
 const takeWhile = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns elements that exist in both arrays using a comparator function
- |
- | Like intersection but uses a custom comparator function to determine equality
- | between elements from the two arrays. Returns a new array containing elements
- | from the first array for which an equivalent element exists in the second array
- | according to the comparator. Useful for complex objects or custom equality logic.
- */
+//++ Finds intersection using custom comparator
 const intersectionWith = <T, U>(
 	comparator: (a: T, b: U) => boolean,
 ) =>

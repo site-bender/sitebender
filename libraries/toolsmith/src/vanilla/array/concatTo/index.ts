@@ -1,11 +1,4 @@
-/*++
-Concatenates an array to another array
-
-Takes an array to append, then returns a function that will concatenate
-that array TO the end of whatever array is passed to it. This is useful
-for partial application when you know what you want to append to various
-arrays.
-*/
+//++ Appends a fixed array to any array
 const concatTo = <T>(toAppend: Array<T>) => (baseArray: Array<T>): Array<T> =>
 	baseArray.concat(toAppend)
 

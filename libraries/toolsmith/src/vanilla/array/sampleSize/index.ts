@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns n random elements from the array
- |
- | Selects n random elements from the array without replacement. Each element
- | can be selected at most once. If n is greater than array length, returns
- | all elements in random order. Uses Fisher-Yates algorithm for efficient
- | random sampling.
- */
+//++ Returns n random elements without replacement
 export default function sampleSize<T>(n: number) {
 	return function sampleFromArray(
 		array: ReadonlyArray<T> | null | undefined,

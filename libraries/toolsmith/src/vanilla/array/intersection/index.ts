@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns elements that exist in both arrays
- |
- | Performs a set intersection operation, returning a new array containing
- | only the elements that appear in both input arrays. Uses strict equality
- | (===) for comparison. Preserves the order from the first array and keeps
- | duplicates from the first array.
- */
+//++ Returns elements that exist in both arrays
 const intersection = <T>(
 	array2: ReadonlyArray<T> | null | undefined,
 ) =>

@@ -1,10 +1,4 @@
-/*++
- | Returns a new sorted array using an optional comparison function
- |
- | Creates a new array without modifying the original. If no compare function
- | provided, elements are sorted as strings in ascending order. Compare function
- | should return negative for a<b, positive for a>b, zero for equal.
- */
+//++ Sorts array with optional comparator
 const sort = <T>(
 	compareFn?: (a: T, b: T) => number,
 ) =>

@@ -1,9 +1,4 @@
-/*++
- | Finds the index of the last element that satisfies a predicate
- |
- | Searches from end to start, returning the zero-based index of the last
- | element for which the predicate returns truthy, or undefined if none match.
- */
+//++ Finds the index of the last matching element
 const findLastIndex = <T>(
 	predicate: (item: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

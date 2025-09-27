@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Groups consecutive elements that satisfy a binary predicate
- |
- | Takes a binary predicate function and creates groups of consecutive
- | elements where each adjacent pair satisfies the predicate. When the
- | predicate returns false for a pair, a new group is started. This is
- | useful for segmenting data, creating runs, or grouping related consecutive
- | items based on their relationship to each other.
- */
+//++ Groups consecutive elements by predicate
 const groupWith = <T>(
 	predicate: (a: T, b: T) => boolean,
 ) =>

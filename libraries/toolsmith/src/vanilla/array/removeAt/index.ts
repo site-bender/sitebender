@@ -1,12 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Removes an element at a specific index from an array
- |
- | Supports negative indices (counting from end). Returns original array
- | if index is out of bounds. Creates new array, doesn't mutate.
- */
+//++ Removes element at index
 export default function removeAt<T>(index: number) {
 	return function removeAtIndex(
 		array: ReadonlyArray<T> | null | undefined,

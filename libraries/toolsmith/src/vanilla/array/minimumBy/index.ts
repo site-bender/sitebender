@@ -1,15 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Finds the minimum element according to a comparator function
- |
- | Returns the element from the array that is smallest according to the
- | provided comparator function. The comparator should return a positive
- | number if the first argument is greater, negative if smaller, and zero
- | if equal (like standard sort comparators). Returns undefined for empty
- | arrays. Useful for finding minimum by custom criteria, complex comparisons,
- | or multi-field sorting.
- */
+//++ Finds the minimum element by comparator
 const minimumBy = <T>(
 	comparator: (a: T, b: T) => number,
 ) =>

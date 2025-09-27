@@ -1,11 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Replaces the first occurrence of a value using a transformation function
- |
- | Uses strict equality (===) to find the item. Returns original array
- | if item not found. Only replaces first occurrence.
- */
+//++ Replaces first occurrence via function
 const replaceFirst =
 	<T>(target: T) =>
 	(replacer: (item: T) => T) =>

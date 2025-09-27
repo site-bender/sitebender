@@ -1,6 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-//++ nth(index)(array) — safe accessor with negative indices; undefined if out of bounds
+//++ Gets element at index with negative support
 export default function nth(index: number) {
 	return function getElementAtIndex<T>(
 		array: Array<T> | null | undefined,

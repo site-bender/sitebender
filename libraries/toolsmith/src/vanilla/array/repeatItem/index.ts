@@ -1,11 +1,4 @@
-/*++
- | Creates an array by repeating a specific value multiple times
- |
- | Takes item first for partial application of the value to repeat.
- | This is the inverse of repeat which takes the count first.
- | Returns empty array for counts <= 0. Note: for objects, all
- | positions reference the same object.
- */
+//++ Repeats an item (item-first variant)
 const repeatItem = <T>(item: T) => (count: number): Array<T> =>
 	count > 0 ? Array.from({ length: count }, () => item) : []
 

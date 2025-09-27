@@ -1,7 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import dropLast from "../dropLast/index.ts"
 
-//++ init(array) — all but last element; returns [] for empty/singleton
+//++ Returns all but the last element
 export default function init<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> {

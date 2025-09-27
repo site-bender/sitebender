@@ -1,15 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Creates an object from arrays of keys and values
- |
- | Takes two arrays - one of keys and one of values - and creates an object
- | where each key is paired with its corresponding value by index position.
- | If arrays have different lengths, extra keys get undefined values, and
- | extra values are ignored. Keys must be strings or numbers. Useful for
- | creating objects from parallel arrays, configuration building, or
- | transforming tabular data.
- */
+//++ Creates object from keys and values arrays
 const zipObj = <T>(
 	values: ReadonlyArray<T> | null | undefined,
 ) =>

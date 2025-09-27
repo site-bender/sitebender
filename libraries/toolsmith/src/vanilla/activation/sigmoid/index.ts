@@ -1,14 +1,7 @@
 import exponential from "../../math/exponential/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
 
-/*++
- | Calculates the sigmoid (logistic) activation function
- |
- | Computes the sigmoid function: σ(x) = 1 / (1 + e^(-x)), which maps
- | any real value to the range (0, 1). Commonly used in machine learning
- | for binary classification and neural network activation. The output
- | represents a probability-like value. Returns NaN for invalid inputs.
- */
+//++ Sigmoid (logistic) activation function
 export default function sigmoid(
 	x: number | null | undefined,
 ): number {

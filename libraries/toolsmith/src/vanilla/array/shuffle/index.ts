@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns a new array with elements randomly shuffled
- |
- | Creates a new array with all elements randomly reordered using the
- | Fisher-Yates shuffle algorithm. Produces a uniform distribution where
- | each permutation has equal probability. The original array is not modified.
- */
+//++ Randomly shuffles array elements
 export default function shuffle<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<T> {

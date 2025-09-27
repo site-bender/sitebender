@@ -1,4 +1,4 @@
-//++ Drops the first n elements from an array, returning a new array
+//++ Drops the first n elements
 const drop = <T>(n: number) => (array: Array<T>): Array<T> =>
 	n <= 0 ? array : array.slice(n)
 

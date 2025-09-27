@@ -1,40 +1,22 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
+import chunkRecursive from "./chunkRecursive/index.ts"
 
-/*++
-Splits an array into chunks of specified size
-
-Divides an array into smaller arrays of a maximum size. The last chunk
-may be smaller than the specified size if the array length is not evenly
-divisible. Similar to splitEvery but specifically for arrays.
-*/
-const chunk = <T>(
-	size: number,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<Array<T>> => {
-	if (isNullish(array) || array.length === 0) {
-		return []
-	}
-
-	if (size <= 0 || not(Number.isInteger(size))) {
-		return []
-	}
-
-	// Build chunks using recursion
-	const chunkRecursive = (remaining: ReadonlyArray<T>): Array<Array<T>> => {
-		if (remaining.length === 0) {
+//++ Splits an array into fixed-size chunks
+export default function chunk<T>(size: number) {
+	return function chunkWithSize(
+		array: ReadonlyArray<T> | null | undefined,
+	): Array<Array<T>> {
+		if (isNullish(array) || array.length === 0) {
 			return []
 		}
 
-		const currentChunk = remaining.slice(0, size)
-		const rest = remaining.slice(size)
+		if (size <= 0 || not(Number.isInteger(size))) {
+			return []
+		}
 
-		return [currentChunk, ...chunkRecursive(rest)]
+		return chunkRecursive(size, array)
 	}
-
-	return chunkRecursive(array)
 }
 
 //?? [EXAMPLE] `chunk(2)([1, 2, 3, 4, 5]) // [[1, 2], [3, 4], [5]]`
@@ -60,5 +42,3 @@ const chunk = <T>(
  | pairwise(["a", "b", "c"])   // [["a", "b"], ["c"]]
  | ```
  */
-
-export default chunk

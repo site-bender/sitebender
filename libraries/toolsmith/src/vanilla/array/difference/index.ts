@@ -1,13 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
-Returns elements in the first array that are not in the second array
-
-Performs a set difference operation, returning a new array containing
-only the elements from the first array that don't appear in the second.
-Uses strict equality (===) for comparison by default.
-*/
+//++ Set difference between arrays
 const difference = <T>(
 	subtrahend: ReadonlyArray<T> | null | undefined,
 ) =>

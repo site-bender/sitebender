@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Creates a sliding window over an array
- |
- | Returns an array of overlapping windows of specified size, moving by
- | a specified step. Each window is a view of consecutive elements.
- | Useful for analyzing patterns, computing moving averages, or examining
- | local neighborhoods in data.
- */
+//++ Creates sliding windows over array
 const sliding = <T>(
 	size: number,
 ) =>

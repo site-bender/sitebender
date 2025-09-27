@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Accumulates values progressively, returning all intermediate results
- |
- | Like reduce, but returns an array of all intermediate accumulator values
- | including the initial value. Useful for running totals, progressive
- | transformations, or tracking state changes over time.
- */
+//++ Returns all intermediate accumulator values
 const scan = <T, U>(
 	fn: (acc: U, item: T, index?: number) => U,
 ) =>

@@ -1,15 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | The opposite of zip - separates an array of pairs into two arrays
- |
- | Takes an array of 2-element tuples and returns a tuple of two arrays,
- | where the first array contains all first elements and the second array
- | contains all second elements. This is the inverse operation of zip.
- | Useful for separating paired data, extracting columns from row data,
- | or decomposing coordinate pairs.
- */
+//++ Separates array of pairs into two arrays
 const unzip = <T, U>(
 	pairs: ReadonlyArray<readonly [T, U]> | null | undefined,
 ): [Array<T>, Array<U>] => {

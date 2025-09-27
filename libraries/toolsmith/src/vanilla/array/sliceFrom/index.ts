@@ -1,10 +1,4 @@
-/*++
- | Returns a slice of an array starting from an index with specified length
- |
- | Extracts a specific number of elements starting from the given index.
- | Returns fewer elements if length extends beyond array bounds.
- | Negative indices count from the end.
- */
+//++ Slices from index with specified length
 const sliceFrom = (startIndex: number) =>
 (length: number) =>
 <T>(

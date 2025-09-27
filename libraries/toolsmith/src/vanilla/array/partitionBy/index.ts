@@ -1,15 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Partition array by consecutive elements satisfying predicate
- |
- | Splits an array into subarrays where each subarray contains consecutive
- | elements that produce the same result when passed to the predicate function.
- | Unlike regular partition which creates two groups, this creates multiple
- | groups based on runs of elements with the same predicate result. Useful
- | for grouping consecutive similar items, run-length encoding, and data
- | segmentation.
- */
+//++ Groups consecutive elements with same predicate result
 export default function partitionBy<T>(predicate: (value: T) => unknown) {
 	return function partitionByPredicate(
 		array: ReadonlyArray<T> | null | undefined,

@@ -1,24 +1,20 @@
-import and from "../../logic/and/index.ts"
 import isNumber from "../../validation/isNumber/index.ts"
 import sigmoid from "../sigmoid/index.ts"
 
-/*++
- | Swish activation function (self-gated)
- |
- | Computes f(x) = x × sigmoid(βx) where β is a trainable parameter
- | (typically 1). Swish is a smooth, non-monotonic function that has
- | shown superior performance in deep networks. When β = 1, it becomes
- | the SiLU (Sigmoid Linear Unit) function. Returns NaN for invalid inputs.
- */
+//++ Self-gated activation with configurable smoothness
 export default function swish(
 	beta: number | null | undefined,
 ): (x: number | null | undefined) => number {
 	return function swishWithBeta(
 		x: number | null | undefined,
 	): number {
-		if (and(isNumber(beta))(isNumber(x))) {
-			// Swish: f(x) = x × sigmoid(βx)
-			return x * sigmoid(beta * x)
+		if (isNumber(beta)) {
+			if (isNumber(x)) {
+				// Swish: f(x) = x × sigmoid(βx)
+				return x * sigmoid(beta * x)
+			}
+
+			return NaN
 		}
 
 		return NaN

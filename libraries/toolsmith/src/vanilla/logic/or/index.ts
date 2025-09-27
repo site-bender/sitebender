@@ -1,54 +1,61 @@
-/**
- * Performs logical OR operation on two values
- *
- * Evaluates the logical disjunction of two values, returning true when
- * at least one operand is truthy. Uses JavaScript's truthiness semantics
- * where falsy values include: false, 0, -0, 0n, "", null, undefined, NaN.
- *
- * @param a - The first value to evaluate
- * @param b - The second value to evaluate
- * @returns True if at least one value is truthy, false otherwise
- * @example
- * ```typescript
- * // Basic boolean logic
- * or(true)(true)                       // true
- * or(true)(false)                      // true
- * or(false)(true)                      // true
- * or(false)(false)                     // false
- *
- * // Truthy/falsy values
- * or(1)(0)                             // true
- * or(0)(0)                             // false
- * or("hello")("")                      // true
- * or("")("")                           // false
- * or([])(null)                         // true ([] is truthy)
- *
- * // Partial application
- * const hasDefault = or("default value")
- * hasDefault(userInput)                // true if userInput or default is truthy
- *
- * // Validation alternatives
- * const isValidEmail = (value: string) => value.includes("@")
- * const isValidPhone = (value: string) => /^\d{10}$/.test(value)
- * const hasContact = (email: string, phone: string) =>
- *   or(isValidEmail(email))(isValidPhone(phone))
- *
- * // Permission checking with alternatives
- * const canAccess = or(user.isAdmin)(user.isOwner)
- * const canModify = or(canAccess)(user.hasEditPermission)
- *
- * // Array filtering with alternative conditions
- * const isWeekend = (date: Date) => {
- *   const day = date.getDay()
- *   return or(day === 0)(day === 6)  // Sunday or Saturday
- * }
- * ```
- * @pure Always returns same result for same inputs
- * @curried Allows partial application for reusable conditions
- * @predicate Returns boolean value
- * @commutative or(a)(b) equals or(b)(a)
- * @associative or(or(a)(b))(c) equals or(a)(or(b)(c))
- */
-const or = (a: unknown) => (b: unknown): boolean => Boolean(a) || Boolean(b)
+//++ Logical OR with dual mode:
+//++ 1) Value mode: or(a)(b) → Boolean(a) || Boolean(b)
+//++ 2) Predicate mode (same-value): or(p1)(p2)(v) applies either predicate to v,
+//++    preserving TypeScript narrowing when both are type guards.
+export default function or<T, A extends T>(
+	p1: (value: T) => value is A,
+): <B extends A>(
+	p2: (value: A) => value is B,
+) => (value: T) => value is A | B
 
-export default or
+export default function or<T>(
+	p1: (value: T) => boolean,
+): (p2: (value: T) => boolean) => (value: T) => boolean
+
+// Implementation signature is intentionally broad to satisfy both overload families
+export default function or(
+	a: unknown,
+): (b: unknown) => any
+
+export default function or(
+	a: unknown,
+) {
+	return function orWithSecond(
+		b: unknown,
+	): any {
+		if (typeof a === "function" && typeof b === "function") {
+			const p1 = a as (v: unknown) => boolean
+			const p2 = b as (v: unknown) => boolean
+
+			return function orPredicates(
+				value: unknown,
+			): boolean {
+				if (p1(value)) {
+					return true
+				}
+
+				if (p2(value)) {
+					return true
+				}
+
+				return false
+			}
+		}
+
+		return Boolean(a) || Boolean(b)
+	}
+}
+
+//?? [EXAMPLE] Value mode
+//?? or(true)(false)  // true
+//?? or(0)("x")       // true
+//?? or(0)(0)         // false
+//?? [EXAMPLE] Predicate mode (same-value)
+//?? const isFiniteNumber = or(isNumber)(isFinite)
+//?? function g(x: unknown) {
+//??   if (isFiniteNumber(x)) {
+//??     // x is number OR finite here
+//??     return x
+//??   }
+//??   return NaN
+//?? }

@@ -1,13 +1,7 @@
 import is from "../../validation/is/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Checks if an array starts with a given prefix
- |
- | Returns true if the array begins with all elements of the prefix
- | in the same order. Uses strict equality for comparison. Empty
- | prefix always returns true.
- */
+//++ Checks if array starts with prefix
 export default function startsWith<T>(
 	prefix: ReadonlyArray<T> | null | undefined,
 ) {

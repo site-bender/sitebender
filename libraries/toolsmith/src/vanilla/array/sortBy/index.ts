@@ -1,14 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Sorts an array based on a mapping function
- |
- | Sorts elements by comparing the values returned by applying a mapping
- | function to each element. The mapping function is called once per element
- | and results are cached for efficiency. Sorts in ascending order by default.
- | For descending order, negate numbers or reverse the result. Useful for
- | sorting objects by property, computed values, or complex sort keys.
- */
+//++ Sorts by mapping function result
 const sortBy = <T, U>(
 	fn: (value: T) => U,
 ) =>

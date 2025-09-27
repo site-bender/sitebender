@@ -1,38 +1,40 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import absoluteValue from "../../math/absoluteValue/index.ts"
+import isArray from "../../validation/isArray/index.ts"
+import isEmpty from "../isEmpty/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import filter from "../filter/index.ts"
+import reduce from "../reduce/index.ts"
 
-/*++
-Finds the value closest to a target number
+//++ Finds the value closest to a target
+export default function closest(target: number) {
+	return function closestWithTarget(
+		array: ReadonlyArray<number> | null | undefined,
+	): number | null {
+		if (isArray(array) && isNotEmpty(array)) {
+			// Filter out non-finite numbers
+			const validNumbers = filter(function isFiniteNumber(n: number) {
+				return Number.isFinite(n)
+			})(array)
 
-Searches through an array of numbers to find the value that has the
-smallest absolute difference from the target. When multiple values
-are equally close, returns the first one encountered.
-*/
-const closest = (
-	target: number,
-) =>
-(
-	array: ReadonlyArray<number> | null | undefined,
-): number | null => {
-	if (isNullish(array) || !Array.isArray(array) || array.length === 0) {
+			if (isNotEmpty(validNumbers)) {
+				// Use reduce to find the closest value
+				const result = reduce(
+					function findClosest(closestValue: number, currentValue: number) {
+						const currentDistance = absoluteValue(currentValue - target)
+						const closestDistance = absoluteValue(closestValue - target)
+
+						return currentDistance < closestDistance
+							? currentValue
+							: closestValue
+					},
+				)(validNumbers[0])(validNumbers)
+
+				return result
+			}
+		}
+
 		return null
 	}
-
-	// Filter out non-finite numbers
-	const validNumbers = array.filter((n) => Number.isFinite(n))
-
-	if (validNumbers.length === 0) {
-		return null
-	}
-
-	// Use reduce to find the closest value
-	const result = validNumbers.reduce((closestValue, currentValue) => {
-		const currentDistance = Math.abs(currentValue - target)
-		const closestDistance = Math.abs(closestValue - target)
-
-		return currentDistance < closestDistance ? currentValue : closestValue
-	})
-
-	return result
 }
 
 //?? [EXAMPLE] `closest(5)([1, 3, 6, 9])      // 6`
@@ -59,5 +61,3 @@ const closest = (
  | findClosestToZero([1, -1, 2, -2])   // 1
  | ```
  */
-
-export default closest

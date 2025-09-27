@@ -1,6 +1,6 @@
 import is from "../../validation/is/index.ts"
 
-//++ Find the index of the first occurrence of an item in an array; undefined if not found
+//++ Finds the index of the first occurrence
 export default function indexOf<T>(item: T) {
 	return function findIndexOf(array: Array<T>): number | undefined {
 		const index = array.findIndex(is(item))

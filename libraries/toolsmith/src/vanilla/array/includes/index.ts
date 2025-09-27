@@ -1,4 +1,4 @@
-//++ Check if an array contains a specific value using strict equality; curried
+//++ Checks if array contains a value
 const includes = <T>(item: T) => (array: Array<T>): boolean =>
 	array.includes(item)
 

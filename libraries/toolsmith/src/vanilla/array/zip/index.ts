@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Combines two arrays into an array of pairs
- |
- | Takes two arrays and returns an array of tuples, where each tuple
- | contains the elements at the same index from both arrays. The result
- | length is the minimum of the two input array lengths. This is a
- | special case of zipWith where the combining function creates a tuple.
- */
+//++ Combines two arrays into pairs
 const zip = <T, U>(
 	array2: ReadonlyArray<U> | null | undefined,
 ) =>

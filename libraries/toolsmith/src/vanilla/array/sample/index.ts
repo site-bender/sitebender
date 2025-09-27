@@ -1,12 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Returns a random element from the array
- |
- | Selects a single random element from the array using uniform distribution.
- | Each element has an equal probability of being selected. Returns undefined
- | for empty arrays or null/undefined inputs. Uses Math.random() internally.
- */
+//++ Returns a random element
 const sample = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): T | undefined => {

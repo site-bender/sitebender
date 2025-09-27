@@ -1,6 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-//++ Reduce from right to left; useful for right-associative ops and building from the end; curried
+//++ Reduces array from right to left
 const reduceRight = <T, U>(
 	fn: (
 		accumulator: U,

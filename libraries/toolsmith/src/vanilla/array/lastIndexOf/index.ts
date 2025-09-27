@@ -1,7 +1,7 @@
 import is from "../../validation/is/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-//++ Find the last index of an item in an array; returns undefined for null/undefined/empty arrays or if not found
+//++ Finds the last index of an item
 export default function lastIndexOf<T>(item: T) {
 	return function findLastIndexOf(
 		array: ReadonlyArray<T> | null | undefined,

@@ -1,14 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Splits an array at the first element that fails a predicate
- |
- | Returns a tuple of two arrays: the first contains all elements from the
- | beginning that satisfy the predicate, and the second contains the remaining
- | elements starting from the first that failed. This is like a combination of
- | takeWhile and dropWhile in a single pass.
- */
+//++ Splits at first failing predicate
 const span = <T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) =>

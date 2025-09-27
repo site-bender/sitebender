@@ -1,13 +1,7 @@
 import isNull from "../../validation/isNull/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Generates an array by repeatedly applying a function to a seed value
- |
- | The dual of reduce/fold - while reduce consumes an array to produce a value,
- | unfold generates an array from a seed value. The generator function returns
- | either null to stop, or a tuple of [value, nextSeed] to continue.
- */
+//++ Generates array from seed value
 export default function unfold<T, U>(
 	fn: (seed: T) => readonly [U, T] | null,
 ) {

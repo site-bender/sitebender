@@ -1,15 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Reduces an array while a predicate returns true
- |
- | Like reduce but stops processing when the predicate returns false.
- | The predicate receives the current accumulator and element, allowing
- | you to stop based on either the accumulated value or the current element.
- | Useful for short-circuit evaluation, early termination, or conditional
- | aggregation.
- */
+//++ Reduces while predicate is true
 const reduceWhile = <T, U>(
 	predicate: (
 		accumulator: U,

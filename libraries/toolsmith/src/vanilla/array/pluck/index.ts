@@ -1,14 +1,7 @@
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/*++
- | Extracts a list of property values from an array of objects
- |
- | Maps over an array of objects and extracts the value of a specified
- | property from each object. Returns an array of the extracted values.
- | If an object doesn't have the property, undefined is included in the
- | result. This is a specialized map operation for property extraction.
- */
+//++ Extracts property values from objects
 const pluck = <T, K extends keyof T>(
 	key: K,
 ) =>

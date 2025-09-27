@@ -1,10 +1,4 @@
-/*++
- | Inserts an item at a specific index in an array
- |
- | Returns a new array with the item inserted at the specified position.
- | If index is out of bounds (negative or > length), returns original array unchanged.
- | Index equal to length appends to the end.
- */
+//++ Inserts an item at a specific index
 const insertAt =
 	(index: number) => <T>(item: T) => (array: Array<T>): Array<T> =>
 		index >= 0 && index <= array.length
