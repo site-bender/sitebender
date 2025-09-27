@@ -40,3 +40,5 @@ export default slidingWithStep
 //?? [EXAMPLE] `slidingWithStep(5, 1)([1, 2, 3]) // []`
 //?? [EXAMPLE] `slidingWithStep(3, 1)(null) // []`
 //?? [EXAMPLE] `slidingWithStep(3, 1)([]) // []`
+
+//!! This is not curried.

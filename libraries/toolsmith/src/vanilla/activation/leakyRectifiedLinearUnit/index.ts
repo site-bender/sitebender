@@ -40,7 +40,6 @@ export default function leakyRectifiedLinearUnit(
  |
  | [EXAMPLE]
  | ```ts
- | // Partial applicationts
  | // Partial application
  | const leakyRelu = leakyRectifiedLinearUnit(0.01)
  | leakyRelu(-100)  // -1
