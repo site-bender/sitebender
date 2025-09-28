@@ -1,7 +1,9 @@
 # Quarrier Implementation Todos
 
 ## Core Philosophy
+
 Build a pure functional property-based testing library with:
+
 - Pipeline-based architecture
 - Lazy shrink trees from day one
 - Effects as values (not IO monads)
@@ -11,37 +13,48 @@ Build a pure functional property-based testing library with:
 - Zero external dependencies
 
 ## Milestone 0: Clean Slate
+
 ### Clear existing implementation
-- [ ] Archive current src to src.old for reference
-- [ ] Create new folder structure per proposal
-- [ ] Set up types/index.ts with core types
-- [ ] Establish import conventions
+
+- [x] Archive current src to src.old for reference
+- [x] Create new folder structure per proposal
+- [x] Set up types/index.ts with core types
+- [x] Establish import conventions
 
 **Definition of Done**: Empty folder structure ready, old code archived
+**Status**: COMPLETE (2024-01-28)
+**Next**: Implement PRNG foundation
 
 ## Milestone 1: Algebraic Foundations
+
 ### Core Types
-- [ ] Generator protocol (next, shrink, parse?)
-- [ ] GeneratorResult with size awareness
-- [ ] ShrinkTree lazy implementation
-- [ ] Effect ADT (Pure, Async, IO, Random)
-- [ ] Pipeline Stage types
-- [ ] Seed type with dual state
+
+- [x] Generator protocol (next, shrink, parse?)
+- [x] GeneratorResult with size awareness
+- [x] ShrinkTree lazy implementation
+- [x] Effect ADT (Pure, Async, IO, Random)
+- [x] Pipeline Stage types
+- [x] Seed type with dual state
+      **Status**: COMPLETE - All in types/index.ts
 
 ### PRNG Implementation
+
 - [ ] PCG XSH RR 32 or SplitMix32 algorithm
-- [ ] createSeed with validation
+- [ ] createSeed with validation **IN PROGRESS**
 - [ ] nextUint32 pure function
 - [ ] nextFloat53 for [0,1) range
 - [ ] splitSeed for independence
+- [ ] advanceSeed for sequential advance
 - [ ] boundedInt without bias
 
 ### Pipeline Composition
+
 - [ ] pipe function for stage composition
 - [ ] identity stage
 - [ ] kleisli composition for dependent generation
 
 ### Effect System
+
 - [ ] Effect type hierarchy
 - [ ] interpret function for boundary
 - [ ] Effect combinators (map, chain, all)
@@ -49,7 +62,9 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Can compose generators through pipelines, PRNG is deterministic and splittable, effects are values
 
 ## Milestone 2: Core Generators
+
 ### Primitive Generators
+
 - [ ] boolean generator with shrinking
 - [ ] integer generator with boundedInt
 - [ ] float generator with precision control
@@ -58,12 +73,14 @@ Build a pure functional property-based testing library with:
 - [ ] date generator
 
 ### Shrinking Strategies
+
 - [ ] Integer shrinking (halve toward zero)
 - [ ] String shrinking (length first)
 - [ ] Boolean shrinking (true → false)
 - [ ] Float shrinking (toward integers)
 
 ### Basic Combinators
+
 - [ ] map combinator
 - [ ] filter combinator with retry
 - [ ] chain for dependent generation
@@ -74,7 +91,9 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: All primitives generate and shrink correctly, combinators compose cleanly
 
 ## Milestone 3: Composite Generators
+
 ### Structure Generators
+
 - [ ] arrayOf with size control
 - [ ] tuple for fixed arrays
 - [ ] record for objects
@@ -83,12 +102,14 @@ Build a pure functional property-based testing library with:
 - [ ] fix for recursive structures
 
 ### Advanced Combinators
+
 - [ ] sized for size-aware generation
 - [ ] scaleSize for size transformation
 - [ ] frequency for weighted choice
 - [ ] suchThat as filter alias
 
 ### Bidirectional Features
+
 - [ ] parse method on generators
 - [ ] Round-trip properties
 - [ ] Validation through parsing
@@ -96,19 +117,23 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Can generate complex nested structures with proper shrinking
 
 ## Milestone 4: Property Engine
+
 ### Property Creation
+
 - [ ] createProperty with normalization
 - [ ] Property type with Effect predicate
 - [ ] normalizePredicate helper
 - [ ] PropertyProof types
 
 ### Test Runner
+
 - [ ] checkProperty main runner
 - [ ] Size progression (sqrt default)
 - [ ] Deterministic seed threading
 - [ ] Effect interpretation at boundary
 
 ### Shrink Search
+
 - [ ] DFS with trampoline
 - [ ] Resumable shrink state
 - [ ] Step/time budgets
@@ -116,6 +141,7 @@ Build a pure functional property-based testing library with:
 - [ ] Optional IDDFS mode
 
 ### Reporting
+
 - [ ] Pure data structures for results
 - [ ] Coverage collection
 - [ ] Duration tracking
@@ -124,7 +150,9 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Can run properties with shrinking and get minimal counterexamples
 
 ## Milestone 5: Proof & Metamorphic Features
+
 ### Proof-Carrying Properties
+
 - [ ] ProofOf type system
 - [ ] Determinism proofs
 - [ ] Termination proofs
@@ -132,6 +160,7 @@ Build a pure functional property-based testing library with:
 - [ ] Proof verification
 
 ### Metamorphic Testing
+
 - [ ] Metamorphic type
 - [ ] Property derivation
 - [ ] Idempotence properties
@@ -139,6 +168,7 @@ Build a pure functional property-based testing library with:
 - [ ] Length-preserving properties
 
 ### Law Builders
+
 - [ ] Functor laws
 - [ ] Monad laws
 - [ ] Monoid laws
@@ -147,7 +177,9 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Properties carry proofs, can derive related properties automatically
 
 ## Milestone 6: Integration Layer
+
 ### Arborist Integration
+
 - [ ] fromTypeInfo entry point
 - [ ] Primitive type mapping
 - [ ] Array type handling
@@ -156,6 +188,7 @@ Build a pure functional property-based testing library with:
 - [ ] Error reporting with paths
 
 ### Toolsmith Reuse
+
 - [ ] Standardize Result imports
 - [ ] Use array utilities
 - [ ] Use functional helpers
@@ -164,19 +197,23 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Can generate arbitraries from TypeScript types
 
 ## Milestone 7: Advanced Features
+
 ### Statistical Testing
+
 - [ ] Distribution properties
 - [ ] Hypothesis testing
 - [ ] Bayesian inference
 - [ ] Coverage metrics
 
 ### Performance
+
 - [ ] Parallel property checking
 - [ ] Distributed shrinking
 - [ ] Memory-efficient trees
 - [ ] Benchmark suite
 
 ### Debugging
+
 - [ ] Shrink path visualization
 - [ ] Replay from seed
 - [ ] Step-through shrinking
@@ -185,25 +222,30 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Advanced testing patterns work efficiently
 
 ## Milestone 8: Fake Data Layer
+
 ### Person Generators
+
 - [ ] Names (first, last, full)
 - [ ] Emails with domains
 - [ ] Phone numbers by region
 - [ ] Addresses with validation
 
 ### Internet Data
+
 - [ ] URLs with protocols
 - [ ] IP addresses (v4/v6)
 - [ ] User agents
 - [ ] MAC addresses
 
 ### Commerce Data
+
 - [ ] Products with categories
 - [ ] Prices with currency
 - [ ] SKUs with patterns
 - [ ] Credit card numbers (valid)
 
 ### Identifiers
+
 - [ ] UUIDs (v4, v7)
 - [ ] ISBNs with check digits
 - [ ] Barcodes (EAN, UPC)
@@ -212,37 +254,44 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Realistic fake data generation with proper formats
 
 ## Milestone 9: Semantic Web Features
+
 ### RDF Generation
+
 - [ ] URI/IRI generators
 - [ ] Triple generation
 - [ ] Literal values with types
 - [ ] Blank nodes
 
 ### Ontology Support
+
 - [ ] OWL class generation
 - [ ] Property generation
 - [ ] Restriction generation
 - [ ] Axiom generation
 
 ### Knowledge Graphs
+
 - [ ] Graph structure generation
 - [ ] Hub detection
 - [ ] Community structure
 - [ ] Scale-free networks
 
 ### Format Serializers
+
 - [ ] Turtle serialization
 - [ ] N-Triples format
 - [ ] JSON-LD output
 - [ ] RDF/XML generation
 
 ### Domain Ontologies
+
 - [ ] FOAF person networks
 - [ ] Dublin Core metadata
 - [ ] Schema.org entities
 - [ ] Custom domain support
 
 ### SPARQL Testing
+
 - [ ] Query generation
 - [ ] Result validation
 - [ ] Query properties
@@ -251,13 +300,16 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Can generate and test semantic web data at scale
 
 ## Milestone 10: Documentation & Examples
+
 ### API Documentation
+
 - [ ] Envoy comments on all exports
 - [ ] Usage examples per function
 - [ ] Gotchas and edge cases
 - [ ] Performance notes
 
 ### Tutorials
+
 - [ ] Getting started guide
 - [ ] Property testing basics
 - [ ] Shrinking explained
@@ -265,6 +317,7 @@ Build a pure functional property-based testing library with:
 - [ ] Integration patterns
 
 ### Examples
+
 - [ ] Common properties
 - [ ] Domain modeling
 - [ ] Round-trip testing
@@ -274,13 +327,16 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Fully documented with clear examples
 
 ## Milestone 11: Self-Testing
+
 ### Property Tests
+
 - [ ] Test generators with themselves
 - [ ] Shrinking properties
 - [ ] Combinator laws
 - [ ] PRNG properties
 
 ### Integration Tests
+
 - [ ] End-to-end scenarios
 - [ ] Arborist round-trips
 - [ ] Performance benchmarks
@@ -289,19 +345,23 @@ Build a pure functional property-based testing library with:
 **Definition of Done**: Library tests itself comprehensively
 
 ## Future Extensions (ASAP)
+
 ### Cloud Features
+
 - [ ] Cloud-based generation
 - [ ] Distributed property runs
 - [ ] Result aggregation
 - [ ] Real-time monitoring
 
 ### Formal Methods
+
 - [ ] SMT solver integration
 - [ ] Symbolic execution
 - [ ] Model checking hooks
 - [ ] Proof extraction
 
 ### AI Integration
+
 - [ ] ML-guided shrinking
 - [ ] Pattern learning
 - [ ] Anomaly detection
@@ -310,6 +370,7 @@ Build a pure functional property-based testing library with:
 ## Implementation Notes
 
 ### Order of Attack
+
 1. Start with clean slate and core types
 2. Build PRNG and basic generators
 3. Add shrinking immediately (not deferred)
@@ -319,6 +380,7 @@ Build a pure functional property-based testing library with:
 7. Documentation throughout
 
 ### Key Principles
+
 - One function per file
 - Named exports only
 - No classes ever
@@ -328,7 +390,9 @@ Build a pure functional property-based testing library with:
 - Envoy comments mandatory
 
 ### Review Points
+
 Stop for review after:
+
 - PRNG implementation
 - First 3 generators
 - Shrink tree implementation
@@ -337,6 +401,7 @@ Stop for review after:
 - Each major milestone
 
 ## Success Metrics
+
 - Zero external dependencies achieved
 - All properties deterministic
 - Shrinking finds true minimal cases
@@ -345,6 +410,7 @@ Stop for review after:
 - Documentation comprehensive
 
 ## Current Status
+
 **Phase**: Pre-implementation
 **Next Step**: Archive current code, create folder structure
 **Blocker**: None
@@ -352,4 +418,4 @@ Stop for review after:
 
 ---
 
-*"The pipeline paradigm delivers everything immediately through compositional simplicity."*
+_"The pipeline paradigm delivers everything immediately through compositional simplicity."_

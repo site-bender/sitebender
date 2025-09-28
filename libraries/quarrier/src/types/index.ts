@@ -1,4 +1,4 @@
-import type { Result } from "@sitebender/toolsmith/monads/result"
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
 //++ [GROUP] Core PRNG types
 
@@ -29,7 +29,7 @@ export type ShrinkTree<T> = {
 export type Generator<T> = {
 	readonly next: (seed: Seed) => GeneratorResult<T>
 	readonly shrink: (value: T) => ShrinkTree<T>
-	readonly parse?: (input: unknown) => Result<T, ParseError>
+	readonly parse?: (input: unknown) => Result<ParseError, T>
 }
 
 //++ [END]
