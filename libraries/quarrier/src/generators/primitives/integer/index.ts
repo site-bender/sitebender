@@ -52,27 +52,45 @@ export default function integer(
 
 			const shrinks: ShrinkTree<number>[] = []
 
-			// First shrink: go directly to target if it's different
-			if (value !== shrinkTarget) {
-				shrinks.push({
-					value: shrinkTarget,
-					children: () => [],
-				})
-			}
+			// First shrink: go directly to target (most aggressive)
+			shrinks.push({
+				value: shrinkTarget,
+				children: () => [],
+			})
 
-			// Binary search shrinking for more efficient minimization
-			const step = Math.floor((value - shrinkTarget) / 2)
+			// FULL halving sequence: generate ALL halfway points
+			// This is the CORRECT QuickCheck/Hedgehog algorithm
+			function generateHalvingSequence(diff: number): void {
+				const half = Math.floor(diff / 2)
+				if (half === 0) return
 
-			if (Math.abs(step) > 0) {
-				const mid = shrinkTarget + step
+				const candidate = shrinkTarget + half
+				// Only add if within bounds
 				if (
-					mid !== value && mid !== shrinkTarget && mid >= actualMin &&
-					mid <= actualMax
+					candidate >= actualMin && candidate <= actualMax &&
+					candidate !== shrinkTarget
 				) {
 					shrinks.push({
-						value: mid,
+						value: candidate,
 						children: () =>
-							integer(actualMin, actualMax).shrink(mid).children(),
+							integer(actualMin, actualMax).shrink(candidate).children(),
+					})
+				}
+
+				// Recursive call with halved difference
+				generateHalvingSequence(half)
+			}
+
+			generateHalvingSequence(value - shrinkTarget)
+
+			// For negative values, also try negation (if in bounds)
+			if (value < 0) {
+				const negated = -value
+				if (negated >= actualMin && negated <= actualMax && negated !== value) {
+					shrinks.push({
+						value: negated,
+						children: () =>
+							integer(actualMin, actualMax).shrink(negated).children(),
 					})
 				}
 			}

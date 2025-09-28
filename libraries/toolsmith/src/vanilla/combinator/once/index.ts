@@ -1,29 +1,4 @@
-/**
- * Ensures a function can only be called once
- * Subsequent calls return the result of the first invocation
- *
- * @impure
- * @param fn - Function to restrict to single invocation
- * @returns Function that executes only once with reset method
- * @example
- * ```typescript
- * let counter = 0
- * const increment = () => ++counter
- * const incrementOnce = once(increment)
- *
- * incrementOnce() // 1
- * incrementOnce() // 1 (returns cached result)
- * incrementOnce() // 1 (still returns first result)
- * counter // 1 (only incremented once)
- *
- * // Can reset to allow another call
- * incrementOnce.reset()
- * incrementOnce() // 2 (executes again after reset)
- * ```
- *
- * Note: The function remembers its first result indefinitely unless reset.
- * Arguments passed to subsequent calls are ignored.
- */
+//++ Ensures a function can only be called once, with subsequent calls returning the result of the first invocation
 // deno-lint-ignore no-explicit-any
 const once = <T extends ReadonlyArray<any>, R>(
 	fn: (...args: T) => R,
@@ -46,5 +21,32 @@ const once = <T extends ReadonlyArray<any>, R>(
 
 	return onced
 }
+
+//?? [EXAMPLE] incrementOnce() // 1
+//?? [EXAMPLE] incrementOnce() // 1 (returns cached result)
+//?? [EXAMPLE] incrementOnce() // 1 (still returns first result)
+//?? [EXAMPLE] counter // 1 (only incremented once)
+//?? [EXAMPLE] incrementOnce.reset() // Allows another call
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | let counter = 0
+ | const increment = () => ++counter
+ | const incrementOnce = once(increment)
+ |
+ | incrementOnce() // 1
+ | incrementOnce() // 1 (returns cached result)
+ | incrementOnce() // 1 (still returns first result)
+ | counter // 1 (only incremented once)
+ |
+ | // Can reset to allow another call
+ | incrementOnce.reset()
+ | incrementOnce() // 2 (executes again after reset)
+ | ```
+ |
+ | [GOTCHA]
+ | The function remembers its first result indefinitely unless reset.
+ | Arguments passed to subsequent calls are ignored.
+ */
 
 export default once

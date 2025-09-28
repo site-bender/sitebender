@@ -1,57 +1,7 @@
 import isNull from "../../validation/isNull/index.ts"
 import isUndefined from "../../validation/isUndefined/index.ts"
 
-/**
- * Creates consistent cache keys for memoization
- *
- * Generates deterministic string keys from various input types for use in
- * memoization and caching. Handles primitives, objects, arrays, dates, and
- * complex nested structures. Sorts object keys for consistency and handles
- * circular references safely. Optimized for cache key generation.
- *
- * @curried
- * @param options - Key generation configuration
- * @param args - Arguments to create key from
- * @returns Deterministic cache key string
- * @example
- * ```typescript
- * // Basic key generation
- * const makeKey = memoizeKey()
- * makeKey(1, 2, 3)                    // "1|2|3"
- * makeKey("hello", "world")           // "hello|world"
- *
- * // Object keys are sorted for consistency
- * makeKey({ b: 2, a: 1 })             // '{"a":1,"b":2}'
- * makeKey({ a: 1, b: 2 })             // '{"a":1,"b":2}' (same)
- *
- * // Custom separator
- * const customKey = memoizeKey({ separator: ":" })
- * customKey("user", 123, "profile")  // "user:123:profile"
- *
- * // Function argument caching
- * function createMemoized<T extends Array<any>, R>(
- *   fn: (...args: T) => R
- * ): (...args: T) => R {
- *   const cache = new Map<string, R>()
- *   const fnKey = memoizeKey()
- *
- *   return (...args: T): R => {
- *     const key = fnKey(...args)
- *     if (cache.has(key)) return cache.get(key)!
- *     const result = fn(...args)
- *     cache.set(key, result)
- *     return result
- *   }
- * }
- *
- * // Circular references handled safely
- * const obj: any = { a: 1 }
- * obj.self = obj
- * memoizeKey()(obj)                   // Returns key with [Circular] marker
- * ```
- * @pure
- * @curried
- */
+//++ Creates consistent cache keys for memoization, generating deterministic string keys from various input types with circular reference handling
 type KeyOptions = {
 	separator?: string
 	maxDepth?: number
@@ -205,5 +155,71 @@ const memoizeKey =
 
 		return key
 	}
+
+//?? [EXAMPLE] makeKey(1, 2, 3) // "1|2|3"
+//?? [EXAMPLE] makeKey("hello", "world") // "hello|world"
+//?? [EXAMPLE] makeKey({ b: 2, a: 1 }) // '{"a":1,"b":2}'
+//?? [EXAMPLE] makeKey({ a: 1, b: 2 }) // '{"a":1,"b":2}' (same)
+//?? [EXAMPLE] customKey("user", 123, "profile") // "user:123:profile"
+//?? [EXAMPLE] memoizeKey()(obj) // Returns key with [Circular] marker
+/*??
+ | [EXAMPLE]
+ | ```typescript
+ | // Basic key generation
+ | const makeKey = memoizeKey()
+ | makeKey(1, 2, 3)                    // "1|2|3"
+ | makeKey("hello", "world")           // "hello|world"
+ |
+ | // Object keys are sorted for consistency
+ | makeKey({ b: 2, a: 1 })             // '{"a":1,"b":2}'
+ | makeKey({ a: 1, b: 2 })             // '{"a":1,"b":2}' (same)
+ | ```
+ |
+ | [EXAMPLE]
+ | ```typescript
+ | // Custom separator
+ | const customKey = memoizeKey({ separator: ":" })
+ | customKey("user", 123, "profile")  // "user:123:profile"
+ | ```
+ |
+ | [EXAMPLE]
+ | ```typescript
+ | // Function argument caching
+ | function createMemoized<T extends Array<any>, R>(
+ |   fn: (...args: T) => R
+ | ): (...args: T) => R {
+ |   const cache = new Map<string, R>()
+ |   const fnKey = memoizeKey()
+ |
+ |   return (...args: T): R => {
+ |     const key = fnKey(...args)
+ |     if (cache.has(key)) return cache.get(key)!
+ |     const result = fn(...args)
+ |     cache.set(key, result)
+ |     return result
+ |   }
+ | }
+ | ```
+ |
+ | [EXAMPLE]
+ | ```typescript
+ | // Circular references handled safely
+ | const obj: any = { a: 1 }
+ | obj.self = obj
+ | memoizeKey()(obj)                   // Returns key with [Circular] marker
+ | ```
+ |
+ | [PRO]
+ | * Handles complex nested structures safely
+ | * Consistent key generation for objects (sorted keys)
+ | * Circular reference protection
+ | * Configurable options for different use cases
+ | * Works with all JavaScript types
+ |
+ | [CON]
+ | * Performance overhead for complex objects
+ | * Memory usage for visited object tracking
+ | * JSON.stringify limitations for some types
+ */
 
 export default memoizeKey
