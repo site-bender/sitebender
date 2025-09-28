@@ -1,490 +1,310 @@
 # @sitebender/quarrier
 
-> Pure functional property-based testing and data generation for TypeScript. Zero dependencies. Zero classes. Zero compromises.
+> Pure functional property-based testing through compositional pipelines. Zero dependencies. Zero classes. Mathematical guarantees.
 
 ## What is Quarrier?
 
-Quarrier is a pure functional library that serves three complementary purposes:
+Quarrier is a revolutionary property-based testing library that treats testing as **algebraic pipeline composition**. Unlike traditional approaches with monadic overhead or deferred features, Quarrier delivers:
 
-1. **Property-Based Testing** - Generate thousands of test cases from mathematical properties (like QuickCheck/fast-check)
-2. **Deterministic Data Generation** - Create realistic fake data for testing, demos, and development
-3. **Semantic Web Data Generation** - Generate RDF triples, ontologies, and knowledge graphs for triple stores like Apache Jena Fuseki
+1. **Pipeline-Based Testing** - Properties are transformation pipelines: `Seed → Generate → Test → Shrink → Report`
+2. **Bidirectional Generators** - Generate _and_ parse with the same logic for round-trip testing
+3. **Proof-Carrying Properties** - Properties carry formal correctness proofs without HKT ceremony
+4. **Metamorphic Testing** - Properties that derive other properties automatically
+5. **Effects as Values** - Not IO monads, just data describing computations
+6. **Lazy Shrink Trees** - From day one, not v1.1 - efficient minimal counterexamples immediately
 
-Built with the same uncompromising functional principles as the rest of @sitebender:
+Built with uncompromising functional principles:
 
-- ZERO dependencies
+- ZERO external dependencies
 - ZERO classes or OOP
-- ZERO mutations (except seeded random)
-- ZERO null/undefined (Result monad everywhere)
+- ZERO mutation (except PRNG)
+- ZERO null/undefined (Result monad)
 - 100% pure functions
-- 100% type-safe
+- 100% deterministic
 
-## Architecture
+## The Pipeline Paradigm
 
-```
-libraries/quarrier/
-├── src/
-│   ├── arbitrary/          # Core generators (primitives & combinators)
-│   │   ├── integer/        # Generate integers with constraints
-│   │   ├── string/         # Generate strings with patterns
-│   │   ├── array/          # Generate arrays of arbitrary values
-│   │   ├── record/         # Generate objects from schemas
-│   │   ├── union/          # Generate union types
-│   │   ├── map/            # Transform generator outputs
-│   │   ├── filter/         # Filter generator outputs
-│   │   └── chain/          # Monadic composition
-│   │
-│   ├── property/           # Property testing architect
-│   │   ├── check/          # Run property tests
-│   │   ├── assert/         # Property assertions
-│   │   ├── laws/           # Mathematical law generators
-│   │   │   ├── functor/    # Functor laws
-│   │   │   ├── monad/      # Monad laws
-│   │   │   └── monoid/     # Monoid laws
-│   │   └── shrink/         # Minimal counterexample finder
-│   │
-│   ├── fake/               # Realistic data generators
-│   │   ├── person/         # Names, emails, phones
-│   │   ├── address/        # Streets, cities, postcodes
-│   │   ├── company/        # Company names, departments
-│   │   ├── internet/       # URLs, IPs, user agents
-│   │   ├── commerce/       # Products, prices, SKUs
-│   │   ├── identifier/     # UUIDs, ISBNs, barcodes
-│   │   └── semantic/       # RDF/semantic web data
-│   │       ├── triple/     # RDF triple generation
-│   │       ├── ontology/   # OWL ontology generation
-│   │       ├── graph/      # Knowledge graph generation
-│   │       ├── uri/        # URI/IRI generation
-│   │       ├── literal/    # RDF literal generation
-│   │       ├── formats/    # Turtle, N-Triples, JSON-LD
-│   │       └── domains/    # Domain ontologies (FOAF, Dublin Core, etc.)
-│   │
-│   ├── random/             # Seedable PRNG
-│   │   ├── seed/           # Seed generation/validation
-│   │   ├── next/           # Generate next random value
-│   │   └── split/          # Split seed for independence
-│   │
-│   └── types/              # Type definitions
-│       └── index.ts        # All quarrier types (named exports)
-│
-└── tests/
-    ├── behaviors/          # Behavioral tests
-    └── properties/         # Self-hosted property tests
-```
-
-## Core Concepts
-
-### 1. Arbitrary (Generator)
-
-An Arbitrary is a pure function that generates values from a seed:
+Property testing is fundamentally about transformation pipelines:
 
 ```typescript
-type Arbitrary<T> = {
-	readonly generate: (seed: Seed) => Result<T, GeneratorError>
-	readonly shrink: (value: T) => ReadonlyArray<T>
-}
+//++ Generator protocol for pure, deterministic value generation
+export type Generator<T> = {
+  readonly next: (seed: Seed) => GeneratorResult<T>;
+  readonly shrink: (value: T) => ShrinkTree<T>;
+  readonly parse?: (input: unknown) => Result<T, ParseError>;
+};
+
+//++ Pipeline stage that transforms generators
+export type Stage<A, B> = (gen: Generator<A>) => Generator<B>;
+
+//++ Compose stages into pipelines
+const pipeline = pipe(
+  map((x) => x * 2),
+  filter((x) => x > 0),
+  shrinkToward(0),
+);
 ```
 
-### 2. Property
+This gives us:
 
-A Property is a mathematical law that should hold for all inputs:
+- **Associativity**: Composition is mathematically sound
+- **Identity**: The identity stage does nothing
+- **Composition**: Build complex from simple
+
+## Core Architecture
+
+### 1. Effects as Values (Not Monads)
 
 ```typescript
-type Property<Arguments extends ReadonlyArray<unknown>> = {
-	readonly name: string
-	readonly arbitraries: {
-		readonly [K in keyof Arguments]: Arbitrary<Arguments[K]>
-	}
-	readonly predicate: (arguments: Arguments) => Result<boolean, PropertyError>
-}
+//++ Effect descriptor for property testing
+export type Effect<T> =
+  | { readonly tag: "Pure"; readonly value: T }
+  | { readonly tag: "Async"; readonly computation: () => Promise<T> }
+  | { readonly tag: "IO"; readonly action: () => T }
+  | { readonly tag: "Random"; readonly generator: Generator<T> };
+
+//++ Properties return effects, not promises
+export type Property<Args> = {
+  readonly name: string;
+  readonly generators: Generators<Args>;
+  readonly predicate: (args: Args) => Effect<boolean>;
+};
 ```
 
-### 3. Shrinking
+### 2. Bidirectional Generators
 
-When a property fails, shrinking finds the minimal counterexample:
+Generators that can parse enable powerful patterns:
 
 ```typescript
-// Start with failing: [1000, -500, 777]
-// Shrink to minimal: [1, 0, 1]
+const email: Generator<string> = {
+  next: (seed) => generateValidEmail(seed),
+  shrink: (email) => shrinkEmail(email),
+  parse: (input) => validateEmail(input), // Same validation logic!
+};
+
+// Automatic round-trip property
+const emailRoundTrip = createProperty("email round-trips", [email], ([e]) =>
+  Effect.Pure(email.parse!(e).isOk),
+);
 ```
 
-## How It Works
+### 3. Proof-Carrying Properties
 
-### Property Testing Flow
-
-1. **Define Property** - Specify a mathematical law
-2. **Generate Cases** - Create test inputs from arbitraries
-3. **Check Property** - Verify the law holds
-4. **Shrink Failures** - Find minimal counterexample
-5. **Report Results** - Return success or minimal failure
-
-### Data Generation Flow
-
-1. **Choose Generator** - Select appropriate fake data type
-2. **Configure Options** - Set constraints and patterns
-3. **Supply Seed** - Provide deterministic seed
-4. **Generate Data** - Produce consistent, realistic data
-
-## Integration with Ecosystem
-
-### With @sitebender/arborist
-
-Quarrier uses Arborist to understand TypeScript types:
+Properties carry formal proofs of correctness:
 
 ```typescript
-// Use arborist to extract type information
-import extractTypes from "@sitebender/arborist/extractTypes/index.ts"
-import { TypeInfo, TypeKind } from "@sitebender/arborist/types/index.ts"
+export type PropertyProof<Args> = {
+  readonly generators_deterministic: ProofOf<"deterministic", Args>;
+  readonly shrink_terminates: ProofOf<"terminating", Args>;
+  readonly shrink_sound: ProofOf<"sound", Args>;
+};
 
-// Generate data that matches TypeScript types
-function createGeneratorFromType(typeInfo: TypeInfo) {
-	switch (typeInfo.kind) {
-		case TypeKind.Primitive:
-			return generatePrimitive(typeInfo)
-		case TypeKind.Array:
-			return generateArray(typeInfo.elementType)
-		case TypeKind.Object:
-			return generateRecord(typeInfo.members)
-			// etc.
-	}
-}
+export type ProvenProperty<Args> = {
+  readonly property: Property<Args>;
+  readonly proof: PropertyProof<Args>;
+};
 ```
 
-### What Arborist Provides to Quarrier
+### 4. Metamorphic Testing
 
-- Type extraction from interfaces/types
-- Constraint analysis for bounded types
-- Union/intersection type decomposition
-- Literal type values
-- Generic type parameters
-
-### With @sitebender/auditor
-
-Auditor uses Quarrier to generate test inputs:
+Properties that transform into other properties:
 
 ```typescript
-// Auditor gets signature from arborist
-import extractSignature from "@sitebender/arborist/extractSignature/index.ts"
-
-// Quarrier generates appropriate test data
-import generateInteger from "@sitebender/quarrier/arbitrary/generateInteger/index.ts"
-import generateString from "@sitebender/quarrier/arbitrary/generateString/index.ts"
-
-const signature = extractSignature(sourceCode)
-const testData = signature.parameters.map((param) =>
-	generateFromType(param.type)
-)
+const sortMetamorphic: Metamorphic<[number[]], [number[]]> = {
+  source: sortProperty,
+  derive: (prop) => [
+    idempotenceProperty(prop), // Sorting twice = sorting once
+    involutionProperty(prop), // reverse(sort(reverse(x))) = sort(x)
+    lengthPreservingProperty(prop), // length unchanged
+  ],
+};
 ```
 
-### What Quarrier Provides to Auditor
+### 5. Resumable Shrinking
 
-- Deterministic test data generation
-- Property-based testing infrastructure
-- Edge case generators
-- Shrinking algorithms for minimal counterexamples
-
-### With @sitebender/envoy
-
-Envoy uses Quarrier for realistic documentation examples:
+Shrink operations can be paused and resumed:
 
 ```typescript
-// Envoy gets function info from arborist
-import extractSignature from "@sitebender/arborist/extractSignature/index.ts"
+export type ShrinkState<T> = {
+  readonly tree: ShrinkTree<T>;
+  readonly path: ReadonlyArray<number>; // Breadcrumb trail
+  readonly visited: Set<string>; // Dedup via hashing
+};
 
-// Quarrier generates realistic examples
-import generatePerson from "@sitebender/quarrier/fake/generatePerson/index.ts"
-import generateCompany from "@sitebender/quarrier/fake/generateCompany/index.ts"
-
-// Include in documentation
-const examples = generateExamplesForFunction(signature)
+// Can pause, save, and resume shrinking across sessions
+const session = resumeShrinking(state, predicate);
 ```
 
-### What Quarrier Provides to Envoy
+## Why Quarrier Wins
 
-- Realistic fake data for examples
-- Property test examples
-- Edge case demonstrations
-- Domain-specific data (RDF, ontologies)
+### vs Academic Approaches (HKTs, Monads)
 
-## Coordination with Other Libraries
+- **No HKT Overhead**: TypeScript-native, not fighting the language
+- **Better Performance**: Direct calls, not monadic chains
+- **Clear Stack Traces**: No wrapper hell
+- **Practical**: Real tools for real developers
 
-### Communication Protocol
+### vs Pragmatic Approaches (Deferred Features)
 
-**WHEN working on Quarrier:**
+- **Shrink Trees Day One**: Not waiting for v1.1
+- **Effects as Values**: Not Promise normalization complexity
+- **Bidirectional**: Parse and generate with same logic
+- **Proof-Carrying**: Correctness guarantees built-in
 
-- Check arborist for type extraction capabilities
-- Coordinate with auditor on generator needs
-- Align with envoy on example generation
+### Novel Features Others Lack
 
-**TELL other teams when:**
-
-- Adding new generator types
-- Changing generator interfaces
-- Adding domain-specific generators (RDF, etc.)
-- Improving shrinking algorithms
-
-**USE arborist for:**
-
-- All TypeScript type analysis
-- Constraint extraction
-- Union/intersection decomposition
-- Never parse TypeScript directly
-
-## For AI Agents Working on Quarrier
-
-**COORDINATE on:**
-
-1. Generator naming conventions with auditor
-2. Example data formats with envoy
-3. Type extraction needs with arborist
-
-**NEVER:**
-
-1. Parse TypeScript directly (use arborist)
-2. Duplicate type analysis (use arborist)
-3. Create incompatible generator interfaces
-
-**ALWAYS:**
-
-1. Use descriptive function names (no namespacing)
-2. Follow pure functional principles
-3. Return Result monads for errors
-4. Document generator constraints
-
-## Implementation Plan
-
-### Phase 1: Core (Week 1)
-
-- [ ] Seed-based PRNG
-- [ ] Basic arbitraries (integer, string, boolean)
-- [ ] Combinators (map, filter, chain)
-- [ ] Property runner
-- [ ] Basic shrinking
-
-### Phase 2: Arbitraries (Week 2)
-
-- [ ] Complex types (array, record, union)
-- [ ] Recursive arbitraries
-- [ ] Weighted unions
-- [ ] Frequency combinators
-- [ ] Size control
-
-### Phase 3: Properties (Week 3)
-
-- [ ] Mathematical laws (functor, monad, monoid)
-- [ ] Custom property builders
-- [ ] Async property support
-- [ ] Property composition
-- [ ] Coverage tracking
-
-### Phase 4: Fake Data (Week 4)
-
-- [ ] Person generators (names, emails)
-- [ ] Address generators
-- [ ] Company generators
-- [ ] Internet generators
-- [ ] Commerce generators
-
-### Phase 5: Semantic Web Data (Week 5)
-
-- [ ] URI/IRI generators
-- [ ] RDF triple generation
-- [ ] Ontology generation (OWL)
-- [ ] Knowledge graph generation
-- [ ] Format serializers (Turtle, N-Triples, JSON-LD)
-- [ ] Domain ontologies (FOAF, Dublin Core, Schema.org)
-- [ ] SPARQL query property testing
-
-### Phase 6: Integration (Week 6)
-
-- [ ] Auditor integration
-- [ ] Envoy integration
-- [ ] Apache Jena Fuseki integration examples
-- [ ] Performance optimization
-- [ ] Documentation
-- [ ] Examples
+- Bidirectional generators
+- Metamorphic property derivation
+- Resumable shrinking sessions
+- Pipeline composition algebra
+- Effects as values (not monads)
 
 ## Usage Examples
 
 ### Property Testing
 
 ```typescript
-import generateInteger from "@sitebender/quarrier/arbitrary/generateInteger/index.ts"
-import createProperty from "@sitebender/quarrier/property/createProperty/index.ts"
-import checkProperty from "@sitebender/quarrier/property/checkProperty/index.ts"
+import { createProperty, checkProperty } from "@sitebender/quarrier";
+import { integer } from "@sitebender/quarrier/generators";
 
-// Define a property: addition is commutative
+// Mathematical law as property
 const commutative = createProperty(
-	"addition is commutative",
-	[generateInteger(), generateInteger()],
-	([a, b]) => add(a, b) === add(b, a),
-)
+  "addition commutes",
+  [integer(-100, 100), integer(-100, 100)],
+  ([a, b]) => Effect.Pure(a + b === b + a),
+);
 
-// Check the property
-const result = checkProperty(commutative, { runs: 1000 })
-result.fold(
-	(failure) => console.error(`Failed with: ${failure.counterexample}`),
-	(success) => console.log(`Passed ${success.runs} tests`),
-)
+// Check with automatic shrinking
+const result = await checkProperty(commutative, { runs: 1000 });
+// If fails: minimal counterexample like [0, 1] not [847, -923]
 ```
 
-### Fake Data Generation
+### Bidirectional Round-Trip Testing
 
 ```typescript
-import generatePerson from "@sitebender/quarrier/fake/generatePerson/index.ts"
-import generateCompany from "@sitebender/quarrier/fake/generateCompany/index.ts"
-import createSeed from "@sitebender/quarrier/random/createSeed/index.ts"
+// One generator, two directions
+const phoneNumber = createBidirectional({
+  generate: (seed) => generatePhone(seed),
+  parse: (input) => validatePhone(input),
+  shrink: (phone) => simplifyPhone(phone),
+});
 
-// Generate consistent test data
-const testSeed = createSeed(12345)
-const testPerson = generatePerson(testSeed)
-	.map((p) => ({
-		...p,
-		company: generateCompany(testSeed).getOrElse("ACME Corp"),
-	}))
-
-// Result: {
-//   firstName: "Alice",
-//   lastName: "Smith",
-//   email: "alice.smith@example.com",
-//   company: "TechCorp Industries"
-// }
+// Automatic round-trip property
+const phoneRoundTrip = createProperty(
+  "phone formats round-trip",
+  [phoneNumber],
+  ([p]) => {
+    const formatted = format(p);
+    const parsed = phoneNumber.parse!(formatted);
+    return Effect.Pure(parsed.isOk && normalize(parsed.value) === normalize(p));
+  },
+);
 ```
 
-### Law Verification
+### Metamorphic Testing
 
 ```typescript
-import { functorLaws } from "@sitebender/quarrier/property/laws"
-import { arrayArbitrary } from "@sitebender/quarrier"
+// Derive related properties automatically
+const encryptionMeta = createMetamorphic(encryptProperty, {
+  deriveInverse: true, // decrypt(encrypt(x)) = x
+  deriveIdempotent: false, // encrypt not idempotent
+  deriveCommutative: false, // order matters
+  deriveDistributive: true, // distributes over concatenation
+});
 
-// Verify that Array is a lawful Functor
-const arrayFunctorLaws = functorLaws(
-	arrayArbitrary(integer()),
-	map, // Your map implementation
-)
-
-arrayFunctorLaws.forEach((law) => {
-	check(law, { runs: 1000 }).fold(
-		(failure) => console.error(`${law.name} violated!`),
-		(success) => console.log(`${law.name} verified`),
-	)
-})
+// Generates and checks all derived properties
+const results = await checkMetamorphic(encryptionMeta);
 ```
 
-### Semantic Web / RDF Generation
+## Architecture
 
-```typescript
-import generateTriple from "@sitebender/quarrier/fake/semantic/generateTriple/index.ts"
-import generateOntology from "@sitebender/quarrier/fake/semantic/generateOntology/index.ts"
-import generateKnowledgeGraph from "@sitebender/quarrier/fake/semantic/generateKnowledgeGraph/index.ts"
-import convertToTurtle from "@sitebender/quarrier/fake/semantic/formats/convertToTurtle/index.ts"
-import generateFoafPerson from "@sitebender/quarrier/fake/semantic/domains/foaf/generateFoafPerson/index.ts"
-
-// Generate an ontology
-const myOntology = generateOntology().generate(createSeed(42))
-	.map((onto) => ({
-		...onto,
-		namespace: "http://example.org/my-onto#",
-	}))
-
-// Generate RDF triples
-const triples = generateTriple(myOntology)
-	.array({ min: 100, max: 500 })
-	.generate(createSeed(123))
-
-// Convert to Turtle format
-const turtleData = triples.map(convertToTurtle)
-
-// Generate a knowledge graph with realistic structure
-const graph = knowledgeGraph({
-	nodes: 1000,
-	hubCount: 10, // High-connectivity nodes
-	averageDegree: 6,
-	ontology: myOntology,
-}).generate(seed(456))
-
-// Generate FOAF social network
-const socialNetwork = foafPerson()
-	.array({ min: 50, max: 100 })
-	.map((people) => connectPeople(people)) // Add knows relationships
-	.generate(seed(789))
-
-// Upload to Apache Jena Fuseki
-const uploadToFuseki = async (data: string) => {
-	const response = await fetch("http://localhost:3030/dataset/data", {
-		method: "POST",
-		headers: { "Content-Type": "text/turtle" },
-		body: data,
-	})
-	return response.ok
-}
-
-// Test SPARQL queries with properties
-const sparqlProperty = property(
-	"UNION is commutative",
-	[knowledgeGraph(100), sparqlPattern(), sparqlPattern()],
-	([graph, pattern1, pattern2]) => {
-		const query1 = `SELECT * WHERE { ${pattern1} UNION ${pattern2} }`
-		const query2 = `SELECT * WHERE { ${pattern2} UNION ${pattern1} }`
-		const result1 = executeSparql(query1, graph)
-		const result2 = executeSparql(query2, graph)
-		return setsEqual(result1, result2)
-	},
-)
 ```
+quarrier/
+├── src/
+│   ├── generator/          # Generator protocol & primitives
+│   │   ├── protocol/       # Core Generator<T> type
+│   │   ├── primitives/     # boolean, integer, string, etc.
+│   │   └── combinators/    # map, filter, chain
+│   │
+│   ├── pipeline/           # Pipeline composition algebra
+│   │   ├── compose/        # pipe, kleisli
+│   │   └── stages/         # Stage transformers
+│   │
+│   ├── effect/            # Effects as values
+│   │   ├── types/         # Effect ADT
+│   │   └── interpret/     # Effect interpreter
+│   │
+│   ├── shrink/            # Lazy shrink trees
+│   │   ├── tree/          # ShrinkTree<T>
+│   │   ├── search/        # DFS with resumable state
+│   │   └── strategies/    # Type-specific shrinking
+│   │
+│   ├── property/          # Property engine
+│   │   ├── create/        # Property builder
+│   │   ├── check/         # Test runner
+│   │   └── proof/         # Proof verification
+│   │
+│   ├── metamorphic/       # Property derivation
+│   │   ├── derive/        # Derivation strategies
+│   │   └── laws/          # Mathematical laws
+│   │
+│   └── semantic/          # RDF & ontology generation
+│       ├── triple/        # RDF triples
+│       ├── ontology/      # OWL generation
+│       └── sparql/        # Query testing
+```
+
+## Implementation Status
+
+See [docs/todos.md](docs/todos.md) for detailed implementation plan.
+
+Current focus: **Pipeline architecture with immediate shrink trees**
 
 ## Design Principles
 
-1. **Pure Functions Only** - No classes, no mutations, no side effects
-2. **Result Monad Everywhere** - No null, no undefined, no throws
-3. **Deterministic Generation** - Same seed = same output, always
-4. **Type-Safe** - Full TypeScript types, no any
-5. **Composable** - Small functions that combine into complex behaviors
-6. **Zero Dependencies** - Complete control, no supply chain risks
+1. **Pipeline Composition** - Testing as algebraic transformation
+2. **Effects as Values** - Not monads, just data
+3. **Bidirectional by Design** - Parse and generate symmetrically
+4. **Proof-Carrying** - Correctness guaranteed
+5. **Lazy but Immediate** - Shrink trees from day one
+6. **Zero Dependencies** - Complete control
 
-## Code Organization
+## Integration
 
-Following @sitebender's sacred structure:
+### With @sitebender/arborist
 
-### Functions
+- Type-driven generator synthesis
+- No parsing TypeScript directly
+- Syntax-level type information only
 
-- **One function per file** - Each function in its own `index.ts`
-- **Named functions only** - `export default function functionName(...)`
-- **Helper functions in subfolders** - Dependencies nest below consumers
-- **camelCase folder names** - `generateInteger`, not `generate-integer`
+### With @sitebender/auditor
 
-### Types & Constants
+- Property discovery from code
+- Test synthesis with minimal cases
+- Coverage-guided generation
 
-- **Types grouped in `types/index.ts`** - Named exports at lowest common ancestor
-- **Constants grouped in `constants/index.ts`** - Named exports where shared
-- **Local constants stay local** - If only one function uses it, keep it there
+### With @sitebender/envoy
 
-### Example Structure
-
-```
-arbitrary/
-├── integer/
-│   ├── index.ts           # Main integer generator function
-│   ├── shrinkInteger/     # Helper function
-│   │   └── index.ts
-│   └── types/
-│       └── index.ts       # Types used by integer and its helpers
-└── types/
-    └── index.ts           # Types used across all arbitraries
-```
+- Example generation for docs
+- Property documentation
+- Visual shrink trees
 
 ## Why Not fast-check?
 
-- **Zero dependencies** - We control everything
-- **Pure functional** - No classes or OOP patterns
-- **Result monad** - Better error handling
-- **Custom features** - Exactly what we need
-- **Integration** - Designed for @sitebender ecosystem
-- **Learning** - Understanding by building
+- **Zero dependencies** vs 30+ transitive deps
+- **Pipeline paradigm** vs traditional approach
+- **Bidirectional** vs generate-only
+- **Proof-carrying** vs hope-it-works
+- **Effects as values** vs ad-hoc async
+- **Built for @sitebender** vs generic tool
 
-## Status
+## Future Vision
 
-🚧 **Under Construction** - This library is being actively developed.
+- **Statistical Properties** - Distribution testing, Bayesian inference
+- **Concurrent Testing** - Parallel properties, distributed shrinking
+- **Formal Methods** - SMT solver integration, symbolic execution
+- **Cloud Scale** - Distributed generation, real-time monitoring
+- **AI Integration** - ML-guided shrinking, pattern learning
 
 ## License
 
@@ -492,4 +312,6 @@ MIT
 
 ---
 
-_"In the quarrier of code, we forge unbreakable software through mathematical truth."_
+_"Property testing is about finding bugs through mathematical laws. Quarrier makes those laws explicit, compositional, and efficient."_
+
+**The future of testing is algebraic. The implementation is functional. The delivery is immediate.**
