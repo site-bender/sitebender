@@ -61,7 +61,6 @@ export default function integer(
 			}
 
 			// Binary search shrinking for more efficient minimization
-			let current = value
 			const step = Math.floor((value - shrinkTarget) / 2)
 
 			if (Math.abs(step) > 0) {

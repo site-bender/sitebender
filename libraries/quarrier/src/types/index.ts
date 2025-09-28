@@ -99,9 +99,9 @@ export type ProofOf<Kind extends string, Subject> = {
 
 //++ Property proof with multiple guarantees
 export type PropertyProof<Args extends ReadonlyArray<unknown>> = {
-	readonly generators_deterministic: ProofOf<"deterministic", Args>
-	readonly shrink_terminates: ProofOf<"terminating", Args>
-	readonly shrink_sound: ProofOf<"sound", Args>
+	readonly "generators_deterministic": ProofOf<"deterministic", Args>
+	readonly "shrink_terminates": ProofOf<"terminating", Args>
+	readonly "shrink_sound": ProofOf<"sound", Args>
 }
 
 //++ Property with embedded correctness proof
