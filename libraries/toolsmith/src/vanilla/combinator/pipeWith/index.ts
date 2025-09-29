@@ -1,5 +1,4 @@
 //++ Like pipe but uses a custom composition function, allowing custom logic for combining function results
-//++ Like pipe but uses a custom composition function, allowing custom logic for combining function results
 const pipeWith = <T, R>(
 	composer: (fn: (value: unknown) => unknown, value: unknown) => unknown,
 	fns: ReadonlyArray<(value: unknown) => unknown> = [],

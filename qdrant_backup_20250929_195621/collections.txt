@@ -1,0 +1,4 @@
+revolutionary_rules
+code_patterns
+forbidden_patterns
+project_context

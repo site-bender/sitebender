@@ -1,0 +1,3392 @@
+[
+  {
+    "collection": "revolutionary_rules",
+    "information": "Write TypeScript, to the extent possible, as if you were writing Haskell | REASON: Haskell is the most beautiful language ever written. FP is proven better for reduced cognitive load, fewer bugs, and better parallel processing | CONSEQUENCES: Writing imperative/OOP style creates massive technical debt and blocks progress for weeks | PHILOSOPHY: Functional programming is not opinion - it's mathematically superior",
+    "metadata": {
+      "rule_id": "RULE_FUNDAMENTAL_001",
+      "category": "paradigm",
+      "priority": 10,
+      "rule_text": "Write TypeScript, to the extent possible, as if you were writing Haskell",
+      "reason": "Haskell is the most beautiful language ever written. FP is proven better for reduced cognitive load, fewer bugs, and better parallel processing",
+      "consequences": "Writing imperative/OOP style creates massive technical debt and blocks progress for weeks",
+      "keywords": [
+        "haskell",
+        "pure",
+        "functional",
+        "curry",
+        "curried",
+        "immutable",
+        "composition",
+        "point-free",
+        "algebraic",
+        "type-driven"
+      ],
+      "applies_to": [
+        "typescript",
+        "functions",
+        "utilities",
+        "business logic"
+      ],
+      "exceptions": [
+        "React components (but their logic should still be functional)"
+      ],
+      "created_at": "2025-09-29T14:03:28.090333",
+      "updated_at": "2025-09-29T15:54:30.122291",
+      "philosophy": "Functional programming is not opinion - it's mathematically superior"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Use TABS for indentation in TypeScript, TSX, JavaScript, JSX, and JSON files. Use 2 SPACES for indentation in Markdown, Python, YAML, and TOML files. | REASON: TABS let end users determine indentation width (accessibility/friendliness). 2-SPACE minimum for clarity but maximum to avoid wrapping with deep nesting. Reduces cognitive load | CONSEQUENCES: Mixed indentation causes git diff noise, editor conflicts, and readability issues | PHILOSOPHY: User choice for display, consistency in storage",
+    "metadata": {
+      "rule_id": "STYLE_INDENT_001",
+      "category": "formatting",
+      "subcategory": "indentation",
+      "priority": 9,
+      "rule_text": "Use TABS for indentation in TypeScript, TSX, JavaScript, JSX, and JSON files. Use 2 SPACES for indentation in Markdown, Python, YAML, and TOML files.",
+      "search_terms": [
+        "indentation",
+        "indent",
+        "tabs",
+        "spaces",
+        "formatting",
+        "whitespace",
+        "style",
+        "tab",
+        "space"
+      ],
+      "scope": {
+        "tabs": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".json"
+          ],
+          "file_patterns": [
+            "*.ts",
+            "*.tsx",
+            "*.js",
+            "*.jsx",
+            "*.json"
+          ]
+        },
+        "two_spaces": {
+          "extensions": [
+            ".md",
+            ".py",
+            ".yaml",
+            ".yml",
+            ".toml"
+          ],
+          "file_patterns": [
+            "*.md",
+            "*.py",
+            "*.yaml",
+            "*.yml",
+            "*.toml"
+          ]
+        }
+      },
+      "reason": "TABS let end users determine indentation width (accessibility/friendliness). 2-SPACE minimum for clarity but maximum to avoid wrapping with deep nesting. Reduces cognitive load",
+      "consequences": "Mixed indentation causes git diff noise, editor conflicts, and readability issues",
+      "created_at": "2025-09-29T14:46:31.786923",
+      "updated_at": "2025-09-29T15:54:30.129005",
+      "philosophy": "User choice for display, consistency in storage"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "All files must use UTF-8 character encoding | REASON: UTF-8 is THE standard for text encoding | CONSEQUENCES: Other encodings cause character corruption and compatibility issues | PHILOSOPHY: One encoding to rule them all",
+    "metadata": {
+      "rule_id": "STYLE_CHARSET_001",
+      "category": "formatting",
+      "subcategory": "encoding",
+      "priority": 8,
+      "rule_text": "All files must use UTF-8 character encoding",
+      "search_terms": [
+        "charset",
+        "encoding",
+        "utf-8",
+        "utf8",
+        "character set"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "file_patterns": [
+            "*"
+          ]
+        }
+      },
+      "reason": "UTF-8 is THE standard for text encoding",
+      "consequences": "Other encodings cause character corruption and compatibility issues",
+      "created_at": "2025-09-29T15:16:55.098187",
+      "updated_at": "2025-09-29T15:54:30.132363",
+      "philosophy": "One encoding to rule them all"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "All files must use LF (Unix-style) line endings, not CRLF | REASON: LF has widest compatibility. Fuck Windows | CONSEQUENCES: CRLF causes git diff noise and cross-platform issues | PHILOSOPHY: Use the universal standard, not the outlier",
+    "metadata": {
+      "rule_id": "STYLE_EOL_001",
+      "category": "formatting",
+      "subcategory": "line_endings",
+      "priority": 8,
+      "rule_text": "All files must use LF (Unix-style) line endings, not CRLF",
+      "search_terms": [
+        "line ending",
+        "eol",
+        "lf",
+        "crlf",
+        "newline",
+        "line break"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "file_patterns": [
+            "*"
+          ]
+        }
+      },
+      "reason": "LF has widest compatibility. Fuck Windows",
+      "consequences": "CRLF causes git diff noise and cross-platform issues",
+      "created_at": "2025-09-29T15:16:55.098200",
+      "updated_at": "2025-09-29T15:54:30.136024",
+      "philosophy": "Use the universal standard, not the outlier"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "All files must end with a single newline character | REASON: Safest for file concatenation and POSIX compliance | CONSEQUENCES: Missing final newline causes git warnings and concatenation issues | PHILOSOPHY: Follow standards that prevent edge cases",
+    "metadata": {
+      "rule_id": "STYLE_FINAL_NEWLINE_001",
+      "category": "formatting",
+      "subcategory": "file_structure",
+      "priority": 7,
+      "rule_text": "All files must end with a single newline character",
+      "search_terms": [
+        "final newline",
+        "eof",
+        "end of file",
+        "newline",
+        "file ending"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "file_patterns": [
+            "*"
+          ]
+        }
+      },
+      "reason": "Safest for file concatenation and POSIX compliance",
+      "consequences": "Missing final newline causes git warnings and concatenation issues",
+      "created_at": "2025-09-29T15:16:55.098203",
+      "updated_at": "2025-09-29T15:54:30.139078",
+      "philosophy": "Follow standards that prevent edge cases"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Maximum line length is 80 characters for code files, no limit for Markdown and YAML | REASON: 80 chars allows 4 files side-by-side on wide screens, readable on phones. Reduces cognitive load | CONSEQUENCES: Long lines are hard to read and review | PHILOSOPHY: Optimize for comparison and universal readability | CORRECT EXAMPLE: const result = someFunction()\\n\\t.then(processData)\\n\\t.then(formatOutput) | WRONG EXAMPLE: const result = someVeryLongFunctionName(withManyParameters, andMoreParameters, andEvenMoreParameters)",
+    "metadata": {
+      "rule_id": "STYLE_LINE_LENGTH_001",
+      "category": "formatting",
+      "subcategory": "line_length",
+      "priority": 7,
+      "rule_text": "Maximum line length is 80 characters for code files, no limit for Markdown and YAML",
+      "search_terms": [
+        "line length",
+        "max length",
+        "80 characters",
+        "line width",
+        "column limit"
+      ],
+      "scope": {
+        "max_80": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".json",
+            ".py"
+          ],
+          "file_patterns": [
+            "*.ts",
+            "*.tsx",
+            "*.js",
+            "*.jsx",
+            "*.json",
+            "*.py"
+          ]
+        },
+        "no_limit": {
+          "extensions": [
+            ".md",
+            ".yml",
+            ".yaml"
+          ],
+          "file_patterns": [
+            "*.md",
+            "*.yml",
+            "*.yaml"
+          ]
+        }
+      },
+      "reason": "80 chars allows 4 files side-by-side on wide screens, readable on phones. Reduces cognitive load",
+      "consequences": "Long lines are hard to read and review",
+      "created_at": "2025-09-29T15:16:55.098206",
+      "updated_at": "2025-09-29T15:54:30.146156",
+      "philosophy": "Optimize for comparison and universal readability"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Trim trailing whitespace in all files EXCEPT Markdown | REASON: Trailing whitespace is useless characters (except in Markdown where it means line break) | CONSEQUENCES: Unnecessary whitespace pollutes version control | PHILOSOPHY: Every character should have meaning",
+    "metadata": {
+      "rule_id": "STYLE_TRAILING_WS_001",
+      "category": "formatting",
+      "subcategory": "whitespace",
+      "priority": 7,
+      "rule_text": "Trim trailing whitespace in all files EXCEPT Markdown",
+      "search_terms": [
+        "trailing whitespace",
+        "whitespace",
+        "trim",
+        "spaces",
+        "line end"
+      ],
+      "scope": {
+        "trim": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".json",
+            ".py",
+            ".yml",
+            ".yaml"
+          ],
+          "file_patterns": [
+            "*"
+          ],
+          "excludes": [
+            ".md"
+          ]
+        },
+        "no_trim": {
+          "extensions": [
+            ".md"
+          ],
+          "file_patterns": [
+            "*.md"
+          ]
+        }
+      },
+      "reason": "Trailing whitespace is useless characters (except in Markdown where it means line break)",
+      "consequences": "Unnecessary whitespace pollutes version control",
+      "notes": "Markdown may need trailing spaces for line breaks",
+      "created_at": "2025-09-29T15:16:55.098209",
+      "updated_at": "2025-09-29T15:54:30.149524",
+      "philosophy": "Every character should have meaning"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO semicolons at the end of statements in TypeScript/JavaScript | REASON: ASI works perfectly. Semicolons are noise. Statements on separate lines (verticality is good) makes everything clear. Reduces cognitive load | CONSEQUENCES: Semicolons add visual noise and are unnecessary in modern JS/TS | PHILOSOPHY: If the language doesn't need it, don't add it | CORRECT EXAMPLE: const result = computeValue()\\nreturn result | WRONG EXAMPLE: const result = computeValue();\\nreturn result;",
+    "metadata": {
+      "rule_id": "STYLE_SEMICOLON_001",
+      "category": "formatting",
+      "subcategory": "punctuation",
+      "priority": 8,
+      "rule_text": "NO semicolons at the end of statements in TypeScript/JavaScript",
+      "search_terms": [
+        "semicolon",
+        "semi",
+        "punctuation",
+        "statement terminator",
+        "no semicolons"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "file_patterns": [
+            "*.ts",
+            "*.tsx",
+            "*.js",
+            "*.jsx"
+          ]
+        }
+      },
+      "reason": "ASI works perfectly. Semicolons are noise. Statements on separate lines (verticality is good) makes everything clear. Reduces cognitive load",
+      "consequences": "Semicolons add visual noise and are unnecessary in modern JS/TS",
+      "created_at": "2025-09-29T15:42:57.291643",
+      "updated_at": "2025-09-29T15:54:30.152462",
+      "philosophy": "If the language doesn't need it, don't add it"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Use DOUBLE quotes for strings, not single quotes | REASON: Double quotes easier to see than single, avoiding missed end quotes. Reduces cognitive load | CONSEQUENCES: Mixed quote styles create inconsistency | PHILOSOPHY: Visibility prevents errors | CORRECT EXAMPLE: const message = \\\"Hello, world\\\"\\nconst possessive = \\\"It's working\\\" | WRONG EXAMPLE: const message = 'Hello, world'\\nconst escaped = 'It\\'s working'",
+    "metadata": {
+      "rule_id": "STYLE_QUOTES_001",
+      "category": "formatting",
+      "subcategory": "strings",
+      "priority": 8,
+      "rule_text": "Use DOUBLE quotes for strings, not single quotes",
+      "search_terms": [
+        "quotes",
+        "double quotes",
+        "single quotes",
+        "string literals",
+        "quotation marks"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".json"
+          ],
+          "file_patterns": [
+            "*.ts",
+            "*.tsx",
+            "*.js",
+            "*.jsx",
+            "*.json"
+          ]
+        }
+      },
+      "reason": "Double quotes easier to see than single, avoiding missed end quotes. Reduces cognitive load",
+      "consequences": "Mixed quote styles create inconsistency",
+      "created_at": "2025-09-29T15:42:57.291652",
+      "updated_at": "2025-09-29T15:54:30.155308",
+      "philosophy": "Visibility prevents errors"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Preserve original line breaks in prose/comments (proseWrap: preserve) | REASON: Author's intended line breaks should be preserved for readability | CONSEQUENCES: Auto-wrapping can destroy intentional formatting",
+    "metadata": {
+      "rule_id": "STYLE_PROSE_WRAP_001",
+      "category": "formatting",
+      "subcategory": "text_wrapping",
+      "priority": 6,
+      "rule_text": "Preserve original line breaks in prose/comments (proseWrap: preserve)",
+      "search_terms": [
+        "prose wrap",
+        "comment wrapping",
+        "text wrap",
+        "preserve",
+        "line breaks"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".md",
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "file_patterns": [
+            "*.md",
+            "*.ts",
+            "*.tsx",
+            "*.js",
+            "*.jsx"
+          ],
+          "contexts": [
+            "comments",
+            "markdown",
+            "documentation"
+          ]
+        }
+      },
+      "reason": "Author's intended line breaks should be preserved for readability",
+      "consequences": "Auto-wrapping can destroy intentional formatting",
+      "notes": "Do not auto-reflow comments or markdown text",
+      "created_at": "2025-09-29T15:42:57.291655",
+      "updated_at": "2025-09-29T15:42:57.291656"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NEVER use arrow functions. Always use named function declarations with explicit blocks and return statements | REASON: Named functions are traceable in stack traces. 'function' keyword is explicit. No cognitive load from missing = vs =>. Forces explicit returns | CONSEQUENCES: Arrow functions create debugging nightmares and cognitive ambiguity | CORRECT EXAMPLE: export default function add(x: number): (y: number) => number {\\n\\treturn function addToX(y: number): number {\\n\\t\\treturn x + y\\n\\t}\\n} | WRONG EXAMPLE: const add = (x: number) => (y: number) => x + y",
+    "metadata": {
+      "rule_id": "FUNC_DECLARATION_001",
+      "category": "functions",
+      "subcategory": "declaration_style",
+      "priority": 10,
+      "rule_text": "NEVER use arrow functions. Always use named function declarations with explicit blocks and return statements",
+      "search_terms": [
+        "function",
+        "arrow",
+        "declaration",
+        "named function",
+        "arrow function",
+        "=>"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions",
+            "helpers",
+            "utilities",
+            "business_logic"
+          ]
+        }
+      },
+      "reason": "Named functions are traceable in stack traces. 'function' keyword is explicit. No cognitive load from missing = vs =>. Forces explicit returns",
+      "consequences": "Arrow functions create debugging nightmares and cognitive ambiguity",
+      "created_at": "2025-09-29T16:24:18.328739",
+      "updated_at": "2025-09-29T16:24:18.328748"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Public functions use camelCase. Private functions prepend underscore: _privateFunction | REASON: Underscore immediately signals 'internal only'. Libraries enforce this boundary preventing accidental imports | CONSEQUENCES: Without clear public/private distinction, internal APIs get misused creating breaking changes",
+    "metadata": {
+      "rule_id": "FUNC_NAMING_001",
+      "category": "functions",
+      "subcategory": "naming_conventions",
+      "priority": 9,
+      "rule_text": "Public functions use camelCase. Private functions prepend underscore: _privateFunction",
+      "search_terms": [
+        "naming",
+        "camelCase",
+        "underscore",
+        "private",
+        "public",
+        "function name"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions"
+          ]
+        }
+      },
+      "reason": "Underscore immediately signals 'internal only'. Libraries enforce this boundary preventing accidental imports",
+      "consequences": "Without clear public/private distinction, internal APIs get misused creating breaking changes",
+      "created_at": "2025-09-29T16:24:18.328751",
+      "updated_at": "2025-09-29T16:24:18.328751"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Inner functions in curried functions should be named after what they CARRY (the enclosed value), not their parameter | REASON: The parameter is visible in the signature. The carried/enclosed value is hidden - naming it makes the closure's purpose clear | CONSEQUENCES: Generic names like 'addY' don't communicate what value is being carried in the closure | CORRECT EXAMPLE: function add(x: number) {\\n\\treturn function addToX(y: number): number {\\n\\t\\treturn x + y\\n\\t}\\n} | WRONG EXAMPLE: function add(x: number) {\\n\\treturn function addY(y: number): number {\\n\\t\\treturn x + y\\n\\t}\\n}",
+    "metadata": {
+      "rule_id": "FUNC_CLOSURE_NAMING_001",
+      "category": "functions",
+      "subcategory": "closure_naming",
+      "priority": 8,
+      "rule_text": "Inner functions in curried functions should be named after what they CARRY (the enclosed value), not their parameter",
+      "search_terms": [
+        "curry",
+        "closure",
+        "inner function",
+        "naming",
+        "enclosed value"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "curried_functions",
+            "closures"
+          ]
+        }
+      },
+      "reason": "The parameter is visible in the signature. The carried/enclosed value is hidden - naming it makes the closure's purpose clear",
+      "consequences": "Generic names like 'addY' don't communicate what value is being carried in the closure",
+      "created_at": "2025-09-29T16:24:18.328753",
+      "updated_at": "2025-09-29T16:24:18.328754"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Function name ALWAYS matches folder name (camelCase). File is ALWAYS index.ts | REASON: Consistent structure reduces cognitive load. Always know where to find a function | CONSEQUENCES: Inconsistent naming creates navigation nightmares and wasted time searching | CORRECT EXAMPLE: processData/index.ts containing function processData | WRONG EXAMPLE: process-data.ts or processData/processData.ts",
+    "metadata": {
+      "rule_id": "FUNC_FILE_STRUCTURE_001",
+      "category": "functions",
+      "subcategory": "file_organization",
+      "priority": 9,
+      "rule_text": "Function name ALWAYS matches folder name (camelCase). File is ALWAYS index.ts",
+      "search_terms": [
+        "folder",
+        "file structure",
+        "index.ts",
+        "organization",
+        "file name"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions"
+          ]
+        }
+      },
+      "reason": "Consistent structure reduces cognitive load. Always know where to find a function",
+      "consequences": "Inconsistent naming creates navigation nightmares and wasted time searching",
+      "created_at": "2025-09-29T16:24:18.328755",
+      "updated_at": "2025-09-29T16:24:18.328756"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "ONE function per file, NO EXCEPTIONS. Helper functions go in nested folders | REASON: Extreme modularity. Clear dependencies. Automatic cleanup when deleting features | CONSEQUENCES: Multiple functions per file create hidden dependencies and leave orphan code | CORRECT EXAMPLE: sum/\\n  index.ts\\n  _addTwo/\\n    index.ts | WRONG EXAMPLE: // sum.ts with both sum and addTwo functions in same file",
+    "metadata": {
+      "rule_id": "FUNC_ONE_PER_FILE_001",
+      "category": "functions",
+      "subcategory": "modularity",
+      "priority": 10,
+      "rule_text": "ONE function per file, NO EXCEPTIONS. Helper functions go in nested folders",
+      "search_terms": [
+        "one function",
+        "single function",
+        "modularity",
+        "helper",
+        "nested"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions"
+          ]
+        }
+      },
+      "reason": "Extreme modularity. Clear dependencies. Automatic cleanup when deleting features",
+      "consequences": "Multiple functions per file create hidden dependencies and leave orphan code",
+      "created_at": "2025-09-29T16:24:18.328758",
+      "updated_at": "2025-09-29T16:24:18.328758"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "All functions exported as DEFAULT on the SAME LINE as declaration | REASON: Single clear export point. No hunting for export statements | CONSEQUENCES: Separate export statements create confusion about what's exported | CORRECT EXAMPLE: export default function calculateTotal(items: Item[]): number { | WRONG EXAMPLE: function calculateTotal(items: Item[]): number { ... }\\nexport default calculateTotal",
+    "metadata": {
+      "rule_id": "FUNC_EXPORT_001",
+      "category": "functions",
+      "subcategory": "exports",
+      "priority": 8,
+      "rule_text": "All functions exported as DEFAULT on the SAME LINE as declaration",
+      "search_terms": [
+        "export",
+        "default",
+        "export default",
+        "module"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions"
+          ]
+        }
+      },
+      "reason": "Single clear export point. No hunting for export statements",
+      "consequences": "Separate export statements create confusion about what's exported",
+      "created_at": "2025-09-29T16:24:18.328760",
+      "updated_at": "2025-09-29T16:24:18.328760"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Functions placed at LOWEST COMMON ANCESTOR - the lowest node where all consumers branch | REASON: Automatic cleanup - delete a feature and all its helpers go with it. No orphan code. Clear ownership | CONSEQUENCES: Functions at wrong level create hidden dependencies and accumulate as tech debt | CORRECT EXAMPLE: userAuth/\\n  _hashPassword/  (used by login AND register)\\n  login/\\n    _validateCredentials/  (only login uses this) | WRONG EXAMPLE: utils/\\n  hashPassword/  (too high if only userAuth uses it)",
+    "metadata": {
+      "rule_id": "FUNC_LOWEST_ANCESTOR_001",
+      "category": "functions",
+      "subcategory": "placement",
+      "priority": 9,
+      "rule_text": "Functions placed at LOWEST COMMON ANCESTOR - the lowest node where all consumers branch",
+      "search_terms": [
+        "lowest common ancestor",
+        "placement",
+        "organization",
+        "hierarchy",
+        "modularity"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions",
+            "project_structure"
+          ]
+        }
+      },
+      "reason": "Automatic cleanup - delete a feature and all its helpers go with it. No orphan code. Clear ownership",
+      "consequences": "Functions at wrong level create hidden dependencies and accumulate as tech debt",
+      "created_at": "2025-09-29T16:24:18.328762",
+      "updated_at": "2025-09-29T16:24:18.328763"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO BARREL FILES. EVER. No index.ts that re-exports other modules | REASON: Barrel files destroy tree shaking, create circular dependency nightmares, and obscure import paths | CONSEQUENCES: Barrel files bloat bundles, cause circular references, and make debugging imports hell | CORRECT EXAMPLE: // Import directly:\\nimport Button from './components/Button' | WRONG EXAMPLE: // components/index.ts\\nexport { Button } from './Button'\\nexport { Card } from './Card'",
+    "metadata": {
+      "rule_id": "IMPORT_NO_BARREL_001",
+      "category": "imports",
+      "subcategory": "barrel_files",
+      "priority": 10,
+      "rule_text": "NO BARREL FILES. EVER. No index.ts that re-exports other modules",
+      "search_terms": [
+        "barrel",
+        "barrel file",
+        "re-export",
+        "index",
+        "export from"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Barrel files destroy tree shaking, create circular dependency nightmares, and obscure import paths",
+      "consequences": "Barrel files bloat bundles, cause circular references, and make debugging imports hell",
+      "created_at": "2025-09-29T16:30:47.872834",
+      "updated_at": "2025-09-29T16:30:47.872840"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO RE-EXPORTS except function aliases (e.g., aliasing 'includes' to 'contains') | REASON: Re-exports obscure the true source, break tree shaking, and create dependency tangles | CONSEQUENCES: Bundle bloat, circular dependencies, unclear import origins | WRONG EXAMPLE: export * from './utils'",
+    "metadata": {
+      "rule_id": "IMPORT_NO_REEXPORT_001",
+      "category": "imports",
+      "subcategory": "re_exports",
+      "priority": 10,
+      "rule_text": "NO RE-EXPORTS except function aliases (e.g., aliasing 'includes' to 'contains')",
+      "search_terms": [
+        "re-export",
+        "export from",
+        "reexport",
+        "alias"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Re-exports obscure the true source, break tree shaking, and create dependency tangles",
+      "consequences": "Bundle bloat, circular dependencies, unclear import origins",
+      "exceptions": [
+        "Function aliases for better naming: export { default as contains } from '../includes'"
+      ],
+      "created_at": "2025-09-29T16:30:47.872842",
+      "updated_at": "2025-09-29T16:30:47.872843"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "ALWAYS import AS DEFAULT directly from the function file | REASON: Clearest and simplest. Shows exact dependency. Enables vigorous tree shaking | CONSEQUENCES: Named imports and barrel imports create ambiguity and bloat | CORRECT EXAMPLE: import sum from '@sitebender/toolsmith/src/vanilla/array/sum' | WRONG EXAMPLE: import { sum } from '@sitebender/toolsmith'",
+    "metadata": {
+      "rule_id": "IMPORT_DEFAULT_ONLY_001",
+      "category": "imports",
+      "subcategory": "import_style",
+      "priority": 9,
+      "rule_text": "ALWAYS import AS DEFAULT directly from the function file",
+      "search_terms": [
+        "import",
+        "default",
+        "import default",
+        "direct import"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Clearest and simplest. Shows exact dependency. Enables vigorous tree shaking",
+      "consequences": "Named imports and barrel imports create ambiguity and bloat",
+      "created_at": "2025-09-29T16:30:47.872845",
+      "updated_at": "2025-09-29T16:30:47.872846"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "This isn't an all-you-can-eat buffet. It's \u00e0 la carte. Import ONLY what you need | REASON: NO BUNDLING. Use Deno libraries as intended: pick ONLY the functions you need | CONSEQUENCES: Importing entire libraries creates massive bundles and slow builds | PHILOSOPHY: Every import is a conscious choice. Know your dependencies | CORRECT EXAMPLE: // Import specific function\\nimport map from '@sitebender/toolsmith/src/vanilla/array/map' | WRONG EXAMPLE: // DON'T import everything\\nimport * as toolsmith from '@sitebender/toolsmith'",
+    "metadata": {
+      "rule_id": "IMPORT_A_LA_CARTE_001",
+      "category": "imports",
+      "subcategory": "philosophy",
+      "priority": 9,
+      "rule_text": "This isn't an all-you-can-eat buffet. It's \u00e0 la carte. Import ONLY what you need",
+      "search_terms": [
+        "a la carte",
+        "tree shaking",
+        "bundle",
+        "import only what you need"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "NO BUNDLING. Use Deno libraries as intended: pick ONLY the functions you need",
+      "consequences": "Importing entire libraries creates massive bundles and slow builds",
+      "philosophy": "Every import is a conscious choice. Know your dependencies",
+      "created_at": "2025-09-29T16:30:47.872847",
+      "updated_at": "2025-09-29T16:30:47.872848"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Functions are ALWAYS camelCase. No exceptions | REASON: Consistency and instant recognition of functions | CONSEQUENCES: Mixed casing creates confusion about what's a function vs component | CORRECT EXAMPLE: processData, getUserInfo, parseHtml | WRONG EXAMPLE: ProcessData, get_user_info, ParseHTML",
+    "metadata": {
+      "rule_id": "CASE_FUNCTIONS_001",
+      "category": "naming",
+      "subcategory": "case_conventions",
+      "priority": 9,
+      "rule_text": "Functions are ALWAYS camelCase. No exceptions",
+      "search_terms": [
+        "camelCase",
+        "function naming",
+        "case",
+        "naming convention"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions"
+          ]
+        }
+      },
+      "reason": "Consistency and instant recognition of functions",
+      "consequences": "Mixed casing creates confusion about what's a function vs component",
+      "created_at": "2025-09-29T17:19:29.233432",
+      "updated_at": "2025-09-29T17:19:29.233440"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "JSON and JSONC keys are ALWAYS camelCase. No exceptions | REASON: Consistency between JSON data and TypeScript code | CONSEQUENCES: Snake_case or kebab-case keys create mapping nightmares | CORRECT EXAMPLE: { \\\"firstName\\\": \\\"John\\\", \\\"isActive\\\": true } | WRONG EXAMPLE: { \\\"first_name\\\": \\\"John\\\", \\\"is-active\\\": true }",
+    "metadata": {
+      "rule_id": "CASE_JSON_KEYS_001",
+      "category": "naming",
+      "subcategory": "case_conventions",
+      "priority": 9,
+      "rule_text": "JSON and JSONC keys are ALWAYS camelCase. No exceptions",
+      "search_terms": [
+        "json",
+        "jsonc",
+        "keys",
+        "camelCase",
+        "object keys"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".json",
+            ".jsonc"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Consistency between JSON data and TypeScript code",
+      "consequences": "Snake_case or kebab-case keys create mapping nightmares",
+      "created_at": "2025-09-29T17:19:29.233442",
+      "updated_at": "2025-09-29T17:19:29.233443"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Components are ALWAYS PascalCase. No exceptions | REASON: Instant visual distinction between components and functions | CONSEQUENCES: camelCase components look like functions, causing confusion | CORRECT EXAMPLE: UserCard, NavigationMenu, DataTable | WRONG EXAMPLE: userCard, navigation-menu, data_table",
+    "metadata": {
+      "rule_id": "CASE_COMPONENTS_001",
+      "category": "naming",
+      "subcategory": "case_conventions",
+      "priority": 9,
+      "rule_text": "Components are ALWAYS PascalCase. No exceptions",
+      "search_terms": [
+        "PascalCase",
+        "component",
+        "React",
+        "naming"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".tsx",
+            ".jsx"
+          ],
+          "contexts": [
+            "components"
+          ]
+        }
+      },
+      "reason": "Instant visual distinction between components and functions",
+      "consequences": "camelCase components look like functions, causing confusion",
+      "created_at": "2025-09-29T17:19:29.233444",
+      "updated_at": "2025-09-29T17:19:29.233445"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Initialisms and acronyms use Sentence case (HtmlElement, AstNode) or lowercase when camelCased (parseHtml, getAst) | REASON: Prevents garbage when converting cases: HtmlElement \u2192 html-element (clean) vs HTMLElement \u2192 h-t-m-l-element (garbage) | CONSEQUENCES: All-caps initialisms create unreadable snake-case and kebab-case conversions | PHILOSOPHY: Acronyms \u2282 Initialisms \u2282 Abbreviations",
+    "metadata": {
+      "rule_id": "CASE_INITIALISMS_001",
+      "category": "naming",
+      "subcategory": "initialisms_acronyms",
+      "priority": 9,
+      "rule_text": "Initialisms and acronyms use Sentence case (HtmlElement, AstNode) or lowercase when camelCased (parseHtml, getAst)",
+      "search_terms": [
+        "initialism",
+        "acronym",
+        "HTML",
+        "API",
+        "XML",
+        "CSS",
+        "AST"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Prevents garbage when converting cases: HtmlElement \u2192 html-element (clean) vs HTMLElement \u2192 h-t-m-l-element (garbage)",
+      "consequences": "All-caps initialisms create unreadable snake-case and kebab-case conversions",
+      "philosophy": "Acronyms \u2282 Initialisms \u2282 Abbreviations",
+      "created_at": "2025-09-29T17:19:29.233447",
+      "updated_at": "2025-09-29T17:19:29.233448"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Constants in SCREAMING_SNAKE_CASE, in constants/index.ts files, exported as named exports | REASON: SCREAMING_SNAKE_CASE makes constants unmistakable | CONSEQUENCES: Mixed-case constants blend in with variables | CORRECT EXAMPLE: export const MAX_RETRIES = 3 | WRONG EXAMPLE: export const maxRetries = 3",
+    "metadata": {
+      "rule_id": "CASE_CONSTANTS_001",
+      "category": "naming",
+      "subcategory": "constants",
+      "priority": 8,
+      "rule_text": "Constants in SCREAMING_SNAKE_CASE, in constants/index.ts files, exported as named exports",
+      "search_terms": [
+        "constants",
+        "SCREAMING_SNAKE_CASE",
+        "uppercase",
+        "const"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "constants"
+          ]
+        }
+      },
+      "reason": "SCREAMING_SNAKE_CASE makes constants unmistakable",
+      "consequences": "Mixed-case constants blend in with variables",
+      "notes": "Object/map keys remain camelCase",
+      "created_at": "2025-09-29T17:19:29.233449",
+      "updated_at": "2025-09-29T17:19:29.233450"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Types in PascalCase, in types/index.ts files, exported as named exports, imported with 'type' keyword | REASON: PascalCase distinguishes types from values. 'type' import prevents runtime inclusion | CONSEQUENCES: Without 'type' keyword, types can bloat bundles | WRONG EXAMPLE: interface IUserData { ... }",
+    "metadata": {
+      "rule_id": "CASE_TYPES_001",
+      "category": "naming",
+      "subcategory": "types",
+      "priority": 9,
+      "rule_text": "Types in PascalCase, in types/index.ts files, exported as named exports, imported with 'type' keyword",
+      "search_terms": [
+        "types",
+        "PascalCase",
+        "type definitions",
+        "interfaces"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx"
+          ],
+          "contexts": [
+            "types"
+          ]
+        }
+      },
+      "reason": "PascalCase distinguishes types from values. 'type' import prevents runtime inclusion",
+      "consequences": "Without 'type' keyword, types can bloat bundles",
+      "notes": "NEVER use interfaces unless explicitly permitted with Envoy comment",
+      "created_at": "2025-09-29T17:19:29.233452",
+      "updated_at": "2025-09-29T17:19:29.233453"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Component props are named 'Props', exported as named export, placed ABOVE the component | REASON: Props are fundamental to components - deserve prime visibility. Generic name makes sense in context | CONSEQUENCES: Props buried below component are harder to find | CORRECT EXAMPLE: export type Props = { user: User }\\n\\nexport default function UserCard({ user }: Props) | WRONG EXAMPLE: type UserCardProps = { ... } // at bottom of file",
+    "metadata": {
+      "rule_id": "CASE_COMPONENT_PROPS_001",
+      "category": "naming",
+      "subcategory": "component_props",
+      "priority": 8,
+      "rule_text": "Component props are named 'Props', exported as named export, placed ABOVE the component",
+      "search_terms": [
+        "props",
+        "component props",
+        "React props",
+        "Props type"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".tsx",
+            ".jsx"
+          ],
+          "contexts": [
+            "components"
+          ]
+        }
+      },
+      "reason": "Props are fundamental to components - deserve prime visibility. Generic name makes sense in context",
+      "consequences": "Props buried below component are harder to find",
+      "notes": "Rename on import when needed: import type { Props as UserCardProps }",
+      "created_at": "2025-09-29T17:19:29.233454",
+      "updated_at": "2025-09-29T17:19:29.233455"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Break files >150 lines into groups using folders, not multiple files | REASON: Maintains consistent index.ts pattern while preventing unwieldy files | CONSEQUENCES: Giant files are hard to navigate | CORRECT EXAMPLE: types/forms/index.ts, constants/elements/index.ts | WRONG EXAMPLE: types/forms.ts, constants/elements.ts",
+    "metadata": {
+      "rule_id": "FILE_ORGANIZATION_001",
+      "category": "organization",
+      "subcategory": "file_structure",
+      "priority": 7,
+      "rule_text": "Break files >150 lines into groups using folders, not multiple files",
+      "search_terms": [
+        "file organization",
+        "150 lines",
+        "file length",
+        "grouping"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx"
+          ],
+          "contexts": [
+            "types",
+            "constants"
+          ]
+        }
+      },
+      "reason": "Maintains consistent index.ts pattern while preventing unwieldy files",
+      "consequences": "Giant files are hard to navigate",
+      "created_at": "2025-09-29T17:19:29.233457",
+      "updated_at": "2025-09-29T17:19:29.233457"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Single-use types can live in the file that uses them, BELOW the function/component (or above if 1-3 one-liners) | REASON: Keeps function/component at top of file for immediate visibility | CONSEQUENCES: Scrolling past type definitions to find the actual code",
+    "metadata": {
+      "rule_id": "TYPE_PLACEMENT_001",
+      "category": "organization",
+      "subcategory": "type_placement",
+      "priority": 7,
+      "rule_text": "Single-use types can live in the file that uses them, BELOW the function/component (or above if 1-3 one-liners)",
+      "search_terms": [
+        "type placement",
+        "local types",
+        "single-use types"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx"
+          ],
+          "contexts": [
+            "functions",
+            "components"
+          ]
+        }
+      },
+      "reason": "Keeps function/component at top of file for immediate visibility",
+      "consequences": "Scrolling past type definitions to find the actual code",
+      "created_at": "2025-09-29T17:19:29.233464",
+      "updated_at": "2025-09-29T17:19:29.233464"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO JSDoc comments. EVER. The code is the single source of truth | REASON: JSDoc duplicates what TypeScript already tells us. Parameters, types, returns - IT'S ALL IN THE CODE. Documentation should ADD information, not duplicate it | CONSEQUENCES: JSDoc creates redundancy, pushes functions below the fold, and becomes stale when code changes | PHILOSOPHY: THE CODE IS THE SINGLE SOURCE OF TRUTH | CORRECT EXAMPLE: // Just the function - the types and name tell the story\\nexport default function add(x: number) {\\n  return function addToX(y: number): number {\\n    return x + y\\n  }\\n} | WRONG EXAMPLE: /**\\n * Adds two numbers\\n * @param x - first number\\n * @param y - second number\\n * @returns sum of x and y\\n */\\nfunction add(x: number) {\\n  return function addToX(y: number): number {\\n    return x + y\\n  }\\n}",
+    "metadata": {
+      "rule_id": "DOC_NO_JSDOC_001",
+      "category": "documentation",
+      "subcategory": "comments",
+      "priority": 10,
+      "rule_text": "NO JSDoc comments. EVER. The code is the single source of truth",
+      "search_terms": [
+        "jsdoc",
+        "comments",
+        "documentation",
+        "@param",
+        "@returns",
+        "/**"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "JSDoc duplicates what TypeScript already tells us. Parameters, types, returns - IT'S ALL IN THE CODE. Documentation should ADD information, not duplicate it",
+      "consequences": "JSDoc creates redundancy, pushes functions below the fold, and becomes stale when code changes",
+      "philosophy": "THE CODE IS THE SINGLE SOURCE OF TRUTH",
+      "notes": "Use Envoy comments for actual insights, not JSDoc for redundancy",
+      "created_at": "2025-09-29T17:31:43.142298",
+      "updated_at": "2025-09-29T17:31:43.142306"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO MAGIC NUMBERS. All non-obvious numbers must be named constants | REASON: Magic numbers are meaningless. Named constants explain WHY that value | CONSEQUENCES: Magic numbers create mystery meat code that's impossible to understand or maintain | CORRECT EXAMPLE: export const MAX_RETRIES = 3\\nexport const POLLING_INTERVAL_MS = 5000\\n\\nif (retries > MAX_RETRIES) { ... }\\nsetTimeout(callback, POLLING_INTERVAL_MS) | WRONG EXAMPLE: if (retries > 3) { ... }\\nsetTimeout(callback, 5000)",
+    "metadata": {
+      "rule_id": "CODE_NO_MAGIC_001",
+      "category": "code_quality",
+      "subcategory": "constants",
+      "priority": 9,
+      "rule_text": "NO MAGIC NUMBERS. All non-obvious numbers must be named constants",
+      "search_terms": [
+        "magic numbers",
+        "constants",
+        "literal values",
+        "numbers"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Magic numbers are meaningless. Named constants explain WHY that value",
+      "consequences": "Magic numbers create mystery meat code that's impossible to understand or maintain",
+      "created_at": "2025-09-29T17:31:43.142309",
+      "updated_at": "2025-09-29T17:31:43.142310"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "SINGLE RESPONSIBILITY PRINCIPLE. Every function and component does ONE thing | REASON: Functions that do multiple things are impossible to test, reuse, or understand | CONSEQUENCES: Multi-responsibility code becomes tangled spaghetti that breaks when you change anything | PHILOSOPHY: One function = one purpose. May orchestrate many helpers, but does ONE process | CORRECT EXAMPLE: // Each function does ONE thing\\nfunction validateUser(user) { ... }\\nfunction normalizeEmail(email) { ... }\\nfunction saveUser(user) { ... }\\n\\n// Orchestrator does one thing: the process\\nconst processUser = pipe([\\n  validateUser,\\n  normalizeEmail,\\n  saveUser\\n]) | WRONG EXAMPLE: function processUserData(user) {\\n  // validates AND transforms AND saves - too many responsibilities!\\n  if (!user.email) throw Error()\\n  user.email = user.email.toLowerCase()\\n  database.save(user)\\n}",
+    "metadata": {
+      "rule_id": "CODE_SINGLE_RESP_001",
+      "category": "code_quality",
+      "subcategory": "architecture",
+      "priority": 10,
+      "rule_text": "SINGLE RESPONSIBILITY PRINCIPLE. Every function and component does ONE thing",
+      "search_terms": [
+        "single responsibility",
+        "SRP",
+        "one thing",
+        "modularity"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions",
+            "components"
+          ]
+        }
+      },
+      "reason": "Functions that do multiple things are impossible to test, reuse, or understand",
+      "consequences": "Multi-responsibility code becomes tangled spaghetti that breaks when you change anything",
+      "philosophy": "One function = one purpose. May orchestrate many helpers, but does ONE process",
+      "notes": "Short functions that do one thing well. Compose them for complex behavior",
+      "created_at": "2025-09-29T17:31:43.142312",
+      "updated_at": "2025-09-29T17:31:43.142313"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Folder hierarchy PRECISELY matches code hierarchy. Embrace the folders! | REASON: See entire app structure at a glance. Collapse what you don't care about. Related files stay together | CONSEQUENCES: Flat structures or multi-function files create navigation nightmares | PHILOSOPHY: Folders are free. Use them liberally. They're not going extinct | CORRECT EXAMPLE: processUser/\\n  index.ts\\n  index.test.ts\\n  _validateUser/\\n    index.ts\\n  _normalizeEmail/\\n    index.ts\\n  _saveUser/\\n    index.ts | WRONG EXAMPLE: utils.ts with 20 functions inside",
+    "metadata": {
+      "rule_id": "FILE_HIERARCHY_001",
+      "category": "organization",
+      "subcategory": "folder_structure",
+      "priority": 9,
+      "rule_text": "Folder hierarchy PRECISELY matches code hierarchy. Embrace the folders!",
+      "search_terms": [
+        "folder hierarchy",
+        "file structure",
+        "organization"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "See entire app structure at a glance. Collapse what you don't care about. Related files stay together",
+      "consequences": "Flat structures or multi-function files create navigation nightmares",
+      "philosophy": "Folders are free. Use them liberally. They're not going extinct",
+      "benefits": "Each folder can contain: index.ts, index.test.ts, index.css, README.md, etc.",
+      "created_at": "2025-09-29T17:31:43.142314",
+      "updated_at": "2025-09-29T17:31:43.142315"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "REQUIRED: Every function and component MUST have a descriptive //++ comment immediately above it | REASON: Creates searchable documentation and knowledge graph. One-liner descriptions for clarity | CONSEQUENCES: Undocumented code cannot be found or understood in the documentation system | CORRECT EXAMPLE: //++ Converts string to uppercase\\nexport default function toUpper(str: string): string {",
+    "metadata": {
+      "rule_id": "ENVOY_REQUIRED_001",
+      "category": "documentation",
+      "subcategory": "envoy_comments",
+      "priority": 10,
+      "rule_text": "REQUIRED: Every function and component MUST have a descriptive //++ comment immediately above it",
+      "search_terms": [
+        "envoy",
+        "comments",
+        "//++",
+        "description",
+        "required"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions",
+            "components"
+          ]
+        }
+      },
+      "reason": "Creates searchable documentation and knowledge graph. One-liner descriptions for clarity",
+      "consequences": "Undocumented code cannot be found or understood in the documentation system",
+      "created_at": "2025-09-29T18:04:10.184507",
+      "updated_at": "2025-09-29T18:04:10.184513"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Single-line comments (//) are ONE LINE ONLY - cannot be grouped | REASON: Parser limitation - multiple // lines are treated as separate comments | CONSEQUENCES: Grouped single-line comments will be ignored and reported as bad syntax | CORRECT EXAMPLE: /*++\\n + This is a function\\n + that does something\\n */ | WRONG EXAMPLE: //++ This is a function\\n//++ that does something  // WRONG! Second line ignored",
+    "metadata": {
+      "rule_id": "ENVOY_SINGLE_LINE_001",
+      "category": "documentation",
+      "subcategory": "envoy_syntax",
+      "priority": 9,
+      "rule_text": "Single-line comments (//) are ONE LINE ONLY - cannot be grouped",
+      "search_terms": [
+        "single line",
+        "comments",
+        "//",
+        "grouped"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Parser limitation - multiple // lines are treated as separate comments",
+      "consequences": "Grouped single-line comments will be ignored and reported as bad syntax",
+      "created_at": "2025-09-29T18:04:10.184515",
+      "updated_at": "2025-09-29T18:04:10.184516"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Multi-line comments use /* */ with REPEATED SYMBOL margins (+, ?, -, !, >) | REASON: Repeated symbols immediately identify comment type during visual scanning | CONSEQUENCES: Using asterisks (*) conflicts with markdown lists and breaks parsing | CORRECT EXAMPLE: /*++\\n + Advanced parser with\\n + Unicode support\\n */",
+    "metadata": {
+      "rule_id": "ENVOY_BLOCK_SYNTAX_001",
+      "category": "documentation",
+      "subcategory": "envoy_syntax",
+      "priority": 9,
+      "rule_text": "Multi-line comments use /* */ with REPEATED SYMBOL margins (+, ?, -, !, >)",
+      "search_terms": [
+        "block comments",
+        "multi-line",
+        "symbols",
+        "margins"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Repeated symbols immediately identify comment type during visual scanning",
+      "consequences": "Using asterisks (*) conflicts with markdown lists and breaks parsing",
+      "created_at": "2025-09-29T18:04:10.184518",
+      "updated_at": "2025-09-29T18:04:10.184519"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Description comments (//++) go IMMEDIATELY ABOVE code - no blank line | REASON: Parser associates comment with next code element | CONSEQUENCES: Blank line breaks association - comment becomes orphaned | CORRECT EXAMPLE: //++ Adds two numbers\\nexport default function add(x: number) { | WRONG EXAMPLE: //++ Adds two numbers\\n\\nexport default function add(x: number) {",
+    "metadata": {
+      "rule_id": "ENVOY_PLACEMENT_DESC_001",
+      "category": "documentation",
+      "subcategory": "envoy_placement",
+      "priority": 9,
+      "rule_text": "Description comments (//++) go IMMEDIATELY ABOVE code - no blank line",
+      "search_terms": [
+        "description",
+        "//++",
+        "placement",
+        "above"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Parser associates comment with next code element",
+      "consequences": "Blank line breaks association - comment becomes orphaned",
+      "created_at": "2025-09-29T18:04:10.184522",
+      "updated_at": "2025-09-29T18:04:10.184523"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Comments below functions need ONE blank line separation from closing brace | REASON: Visual breathing room and clear separation | CONSEQUENCES: Comments cramped against code are hard to read | CORRECT EXAMPLE: }\\n\\n//?? [EXAMPLE] add(2)(3) // returns 5 | WRONG EXAMPLE: }\\n//?? [EXAMPLE] add(2)(3) // returns 5",
+    "metadata": {
+      "rule_id": "ENVOY_PLACEMENT_BELOW_001",
+      "category": "documentation",
+      "subcategory": "envoy_placement",
+      "priority": 8,
+      "rule_text": "Comments below functions need ONE blank line separation from closing brace",
+      "search_terms": [
+        "comments",
+        "below",
+        "spacing",
+        "blank line"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions",
+            "components"
+          ]
+        }
+      },
+      "reason": "Visual breathing room and clear separation",
+      "consequences": "Comments cramped against code are hard to read",
+      "created_at": "2025-09-29T18:04:10.184525",
+      "updated_at": "2025-09-29T18:04:10.184526"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Tech debt comments (//--) go WHERE the problem is - inline or immediately above | REASON: Shows exactly where the problem exists in the code | CONSEQUENCES: Tech debt elsewhere loses context",
+    "metadata": {
+      "rule_id": "ENVOY_TECHDEBT_001",
+      "category": "documentation",
+      "subcategory": "envoy_issues",
+      "priority": 8,
+      "rule_text": "Tech debt comments (//--) go WHERE the problem is - inline or immediately above",
+      "search_terms": [
+        "tech debt",
+        "//--",
+        "refactor",
+        "workaround"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Shows exactly where the problem exists in the code",
+      "consequences": "Tech debt elsewhere loses context",
+      "created_at": "2025-09-29T18:04:10.184527",
+      "updated_at": "2025-09-29T18:04:10.184528"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Critical issues (//!!) at specific code OR file-wide with spacing | REASON: Critical issues block releases and need immediate visibility | CONSEQUENCES: Hidden critical issues cause production failures",
+    "metadata": {
+      "rule_id": "ENVOY_CRITICAL_001",
+      "category": "documentation",
+      "subcategory": "envoy_issues",
+      "priority": 9,
+      "rule_text": "Critical issues (//!!) at specific code OR file-wide with spacing",
+      "search_terms": [
+        "critical",
+        "//!!",
+        "security",
+        "breaking"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Critical issues block releases and need immediate visibility",
+      "consequences": "Hidden critical issues cause production failures",
+      "created_at": "2025-09-29T18:04:10.184530",
+      "updated_at": "2025-09-29T18:04:10.184531"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "All comments except basic //++ descriptions REQUIRE [CATEGORY] brackets | REASON: Categories enable structured parsing and querying | CONSEQUENCES: Missing brackets = comment ignored | CORRECT EXAMPLE: //?? [EXAMPLE] isEqual(5)(5) // true | WRONG EXAMPLE: //?? EXAMPLE isEqual(5)(5) // WRONG - no brackets",
+    "metadata": {
+      "rule_id": "ENVOY_CATEGORIES_001",
+      "category": "documentation",
+      "subcategory": "envoy_categories",
+      "priority": 9,
+      "rule_text": "All comments except basic //++ descriptions REQUIRE [CATEGORY] brackets",
+      "search_terms": [
+        "categories",
+        "brackets",
+        "example",
+        "gotcha"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Categories enable structured parsing and querying",
+      "consequences": "Missing brackets = comment ignored",
+      "created_at": "2025-09-29T18:04:10.184532",
+      "updated_at": "2025-09-29T18:04:10.184535"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "[REPLACES] category for functions that replace common patterns for readability | REASON: Creates searchable index of replacements - search for '===' finds isEqual | CONSEQUENCES: Missing REPLACES makes functions undiscoverable when refactoring",
+    "metadata": {
+      "rule_id": "ENVOY_REPLACES_001",
+      "category": "documentation",
+      "subcategory": "envoy_categories",
+      "priority": 9,
+      "rule_text": "[REPLACES] category for functions that replace common patterns for readability",
+      "search_terms": [
+        "replaces",
+        "replacement",
+        "instead of"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions",
+            "components"
+          ]
+        }
+      },
+      "reason": "Creates searchable index of replacements - search for '===' finds isEqual",
+      "consequences": "Missing REPLACES makes functions undiscoverable when refactoring",
+      "created_at": "2025-09-29T18:04:10.184538",
+      "updated_at": "2025-09-29T18:04:10.184539"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Help comments (//??) use [EXAMPLE], [GOTCHA], [PRO], [CON] ONLY when non-obvious | REASON: Document what might be missed, not what's obvious from the code | CONSEQUENCES: Obvious comments create noise | PHILOSOPHY: Is it REALLY a gotcha? Would someone ACTUALLY miss this?",
+    "metadata": {
+      "rule_id": "ENVOY_HELP_CATS_001",
+      "category": "documentation",
+      "subcategory": "envoy_help",
+      "priority": 8,
+      "rule_text": "Help comments (//??) use [EXAMPLE], [GOTCHA], [PRO], [CON] ONLY when non-obvious",
+      "search_terms": [
+        "help",
+        "example",
+        "gotcha",
+        "pro",
+        "con"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Document what might be missed, not what's obvious from the code",
+      "consequences": "Obvious comments create noise",
+      "philosophy": "Is it REALLY a gotcha? Would someone ACTUALLY miss this?",
+      "created_at": "2025-09-29T18:04:10.184541",
+      "updated_at": "2025-09-29T18:04:10.184541"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "When mixing one-liner and block help comments, blocks need blank lines above AND below | REASON: Visual separation between different comment styles | CONSEQUENCES: Cramped comments are hard to parse visually | CORRECT EXAMPLE: //?? [EXAMPLE] add(2)(3) // 5\\n\\n/*??\\n ? [GOTCHA]\\n ? Complex edge case\\n */\\n\\n//?? [PRO] Very fast",
+    "metadata": {
+      "rule_id": "ENVOY_MIXED_SPACING_001",
+      "category": "documentation",
+      "subcategory": "envoy_spacing",
+      "priority": 7,
+      "rule_text": "When mixing one-liner and block help comments, blocks need blank lines above AND below",
+      "search_terms": [
+        "spacing",
+        "mixed comments",
+        "block",
+        "one-liner"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Visual separation between different comment styles",
+      "consequences": "Cramped comments are hard to parse visually",
+      "created_at": "2025-09-29T18:04:10.184543",
+      "updated_at": "2025-09-29T18:04:10.184544"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Reference links (//>) use markdown format with HTML rel attributes as categories | REASON: Creates semantic link graph for documentation | CONSEQUENCES: Missing links = isolated documentation | CORRECT EXAMPLE: //>> [RELATED] [Array Methods](./array/README.md)",
+    "metadata": {
+      "rule_id": "ENVOY_LINKS_001",
+      "category": "documentation",
+      "subcategory": "envoy_links",
+      "priority": 7,
+      "rule_text": "Reference links (//>) use markdown format with HTML rel attributes as categories",
+      "search_terms": [
+        "links",
+        "references",
+        "//>>",
+        "related"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Creates semantic link graph for documentation",
+      "consequences": "Missing links = isolated documentation",
+      "created_at": "2025-09-29T18:04:10.184545",
+      "updated_at": "2025-09-29T18:04:10.184546"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "An Envoy takes what is given - code IS truth, comments enhance but never contradict | REASON: Code is single source of truth. Comments add insights, not duplication | CONSEQUENCES: Contradicting comments create confusion and maintenance nightmares | PHILOSOPHY: Trust the code, enhance with wisdom",
+    "metadata": {
+      "rule_id": "ENVOY_TRUTH_001",
+      "category": "documentation",
+      "subcategory": "envoy_philosophy",
+      "priority": 10,
+      "rule_text": "An Envoy takes what is given - code IS truth, comments enhance but never contradict",
+      "search_terms": [
+        "envoy",
+        "truth",
+        "philosophy"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Code is single source of truth. Comments add insights, not duplication",
+      "consequences": "Contradicting comments create confusion and maintenance nightmares",
+      "philosophy": "Trust the code, enhance with wisdom",
+      "created_at": "2025-09-29T18:04:10.184548",
+      "updated_at": "2025-09-29T18:04:10.184548"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NEVER use Web Components - they require JavaScript to work | REASON: Web Components violate progressive enhancement - they're dead without JS. Shadow DOM is a catastrophe | CONSEQUENCES: Users without JS get NOTHING. Violates our core philosophy | PHILOSOPHY: HTML should work without JavaScript",
+    "metadata": {
+      "rule_id": "FP_NO_WEBCOMPONENTS_001",
+      "category": "architecture",
+      "subcategory": "forbidden_tech",
+      "priority": 10,
+      "rule_text": "NEVER use Web Components - they require JavaScript to work",
+      "search_terms": [
+        "web components",
+        "custom elements",
+        "shadow dom",
+        "lit",
+        "stencil"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".html"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Web Components violate progressive enhancement - they're dead without JS. Shadow DOM is a catastrophe",
+      "consequences": "Users without JS get NOTHING. Violates our core philosophy",
+      "philosophy": "HTML should work without JavaScript",
+      "created_at": "2025-09-29T18:12:57.215685",
+      "updated_at": "2025-09-29T18:12:57.215693"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO CLASSES EVER. NO INTERFACES. NO PROTOTYPES. NO OOP. | REASON: OOP is the opposite of functional programming. Classes create stateful nightmares | CONSEQUENCES: Classes = mutable state = bugs = unmaintainable code | PHILOSOPHY: Pure functions only. Composition over inheritance",
+    "metadata": {
+      "rule_id": "FP_NO_CLASSES_001",
+      "category": "functional_programming",
+      "subcategory": "oop_forbidden",
+      "priority": 10,
+      "rule_text": "NO CLASSES EVER. NO INTERFACES. NO PROTOTYPES. NO OOP.",
+      "search_terms": [
+        "class",
+        "interface",
+        "prototype",
+        "extends",
+        "implements",
+        "new",
+        "this"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx",
+            ".md",
+            ".mdx"
+          ],
+          "contexts": [
+            "all",
+            "documentation",
+            "examples",
+            "comments"
+          ]
+        }
+      },
+      "reason": "OOP is the opposite of functional programming. Classes create stateful nightmares",
+      "consequences": "Classes = mutable state = bugs = unmaintainable code",
+      "philosophy": "Pure functions only. Composition over inheritance",
+      "notes": "This applies EVERYWHERE - code, comments, documentation. No exceptions for 'examples'",
+      "created_at": "2025-09-29T18:12:57.215695",
+      "updated_at": "2025-09-29T18:12:57.215696"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO MUTATIONS. No let, no var. Mutating const objects/arrays is STILL MUTATION | REASON: Mutations create unpredictable state. Immutability enables reasoning about code | CONSEQUENCES: Mutations = race conditions = debugging nightmares = lost data | PHILOSOPHY: Data flows through transformations, it doesn't mutate | CORRECT EXAMPLE: const newArr = [...oldArr, newItem]",
+    "metadata": {
+      "rule_id": "FP_NO_MUTATIONS_001",
+      "category": "functional_programming",
+      "subcategory": "immutability",
+      "priority": 10,
+      "rule_text": "NO MUTATIONS. No let, no var. Mutating const objects/arrays is STILL MUTATION",
+      "search_terms": [
+        "let",
+        "var",
+        "mutation",
+        "push",
+        "pop",
+        "splice",
+        "shift",
+        "unshift"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Mutations create unpredictable state. Immutability enables reasoning about code",
+      "consequences": "Mutations = race conditions = debugging nightmares = lost data",
+      "philosophy": "Data flows through transformations, it doesn't mutate",
+      "exceptions": "ONLY with Architect approval + //++ [EXCEPTION] comment for proven performance bottlenecks",
+      "created_at": "2025-09-29T18:12:57.215698",
+      "updated_at": "2025-09-29T18:12:57.215699"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO LOOPS. No for, no while. Use map/filter/reduce or recursion | REASON: Loops are imperative. We write DECLARATIVE code - WHAT not HOW | CONSEQUENCES: Loops = mutable counters = off-by-one errors = cognitive load | PHILOSOPHY: Use Toolsmith functions: map, filter, reduce, etc. Recursion if needed | CORRECT EXAMPLE: map(transform)(array)",
+    "metadata": {
+      "rule_id": "FP_NO_LOOPS_001",
+      "category": "functional_programming",
+      "subcategory": "declarative",
+      "priority": 10,
+      "rule_text": "NO LOOPS. No for, no while. Use map/filter/reduce or recursion",
+      "search_terms": [
+        "for",
+        "while",
+        "do while",
+        "forEach",
+        "loop",
+        "iteration"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all",
+            "tests",
+            "examples"
+          ]
+        }
+      },
+      "reason": "Loops are imperative. We write DECLARATIVE code - WHAT not HOW",
+      "consequences": "Loops = mutable counters = off-by-one errors = cognitive load",
+      "philosophy": "Use Toolsmith functions: map, filter, reduce, etc. Recursion if needed",
+      "exception_requirements": [
+        "1. PROVEN bottleneck via profiling",
+        "2. MEASURED improvement with loop",
+        "3. NO functional alternative works",
+        "4. Architect approval with //++ [EXCEPTION] comment"
+      ],
+      "notes": "This bar is nearly impossible to meet. Goal is ZERO loops",
+      "created_at": "2025-09-29T18:12:57.215701",
+      "updated_at": "2025-09-29T18:12:57.215707"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO JavaScript OOP methods. Use Toolsmith functions instead | REASON: OOP methods are imperative and often mutate. Toolsmith functions are pure and composable | CONSEQUENCES: Method chaining creates unreadable code. Mutations sneak in | PHILOSOPHY: Functions transform data, methods mutate objects | CORRECT EXAMPLE: pipe([map(transform), filter(predicate), reduce(sum)])(array)",
+    "metadata": {
+      "rule_id": "FP_NO_OOP_METHODS_001",
+      "category": "functional_programming",
+      "subcategory": "method_calls",
+      "priority": 9,
+      "rule_text": "NO JavaScript OOP methods. Use Toolsmith functions instead",
+      "search_terms": [
+        "array methods",
+        "string methods",
+        "push",
+        "pop",
+        "slice",
+        "splice"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "OOP methods are imperative and often mutate. Toolsmith functions are pure and composable",
+      "consequences": "Method chaining creates unreadable code. Mutations sneak in",
+      "philosophy": "Functions transform data, methods mutate objects",
+      "created_at": "2025-09-29T18:12:57.215709",
+      "updated_at": "2025-09-29T18:12:57.215710"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Use Array<T> not T[] for array types | REASON: Brackets [] are hard to see, Array<> is obvious. Reduces cognitive load | CONSEQUENCES: T[] requires mental parsing, easy to miss the brackets | PHILOSOPHY: CONTRAST - make different things visually different | CORRECT EXAMPLE: function process(items: Array<string>): Array<number> | WRONG EXAMPLE: function process(items: string[]): number[]",
+    "metadata": {
+      "rule_id": "STYLE_ARRAY_TYPE_001",
+      "category": "formatting",
+      "subcategory": "type_syntax",
+      "priority": 8,
+      "rule_text": "Use Array<T> not T[] for array types",
+      "search_terms": [
+        "array",
+        "type",
+        "brackets",
+        "Array<>"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx"
+          ],
+          "contexts": [
+            "types",
+            "interfaces",
+            "parameters"
+          ]
+        }
+      },
+      "reason": "Brackets [] are hard to see, Array<> is obvious. Reduces cognitive load",
+      "consequences": "T[] requires mental parsing, easy to miss the brackets",
+      "philosophy": "CONTRAST - make different things visually different",
+      "created_at": "2025-09-29T18:26:34.806348",
+      "updated_at": "2025-09-29T18:26:34.806356"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Spaces around ALL operators - they are separate entities | REASON: x, +, and y are THREE different things - spacing makes this clear | CONSEQUENCES: x+y requires parsing. x + y is instantly clear | PHILOSOPHY: WHITESPACE as separator - each space reduces cognitive load | CORRECT EXAMPLE: x + y, a === b, result && valid | WRONG EXAMPLE: x+y, a===b, result&&valid",
+    "metadata": {
+      "rule_id": "STYLE_OPERATOR_SPACING_001",
+      "category": "formatting",
+      "subcategory": "whitespace",
+      "priority": 9,
+      "rule_text": "Spaces around ALL operators - they are separate entities",
+      "search_terms": [
+        "operator",
+        "spacing",
+        "whitespace",
+        "+",
+        "-",
+        "="
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "x, +, and y are THREE different things - spacing makes this clear",
+      "consequences": "x+y requires parsing. x + y is instantly clear",
+      "philosophy": "WHITESPACE as separator - each space reduces cognitive load",
+      "created_at": "2025-09-29T18:26:34.806359",
+      "updated_at": "2025-09-29T18:26:34.806360"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "ALWAYS trailing commas in multi-line structures, NEVER in single-line | REASON: Easier to add/reorder items, cleaner git diffs | CONSEQUENCES: Missing trailing comma = merge conflicts and syntax errors when adding | WRONG EXAMPLE: { name: \\\"test\\\", value: 42, } // NO trailing in single-line",
+    "metadata": {
+      "rule_id": "STYLE_TRAILING_COMMA_001",
+      "category": "formatting",
+      "subcategory": "punctuation",
+      "priority": 7,
+      "rule_text": "ALWAYS trailing commas in multi-line structures, NEVER in single-line",
+      "search_terms": [
+        "trailing comma",
+        "comma",
+        "multi-line"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "arrays",
+            "objects",
+            "parameters"
+          ]
+        }
+      },
+      "reason": "Easier to add/reorder items, cleaner git diffs",
+      "consequences": "Missing trailing comma = merge conflicts and syntax errors when adding",
+      "created_at": "2025-09-29T18:26:34.806362",
+      "updated_at": "2025-09-29T18:26:34.806363"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO blank lines at the start or end of blocks | REASON: Block boundaries are already visual separators - extra space is redundant | CONSEQUENCES: Wasted vertical space, broken visual grouping | PHILOSOPHY: PROXIMITY - block contents belong together | CORRECT EXAMPLE: function foo() {\\n\\tconst x = 5\\n} | WRONG EXAMPLE: function foo() {\\n\\n\\tconst x = 5\\n\\n}",
+    "metadata": {
+      "rule_id": "PROXIMITY_NO_BLOCK_EDGES_001",
+      "category": "formatting",
+      "subcategory": "proximity",
+      "priority": 8,
+      "rule_text": "NO blank lines at the start or end of blocks",
+      "search_terms": [
+        "blank lines",
+        "block",
+        "braces",
+        "proximity"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Block boundaries are already visual separators - extra space is redundant",
+      "consequences": "Wasted vertical space, broken visual grouping",
+      "philosophy": "PROXIMITY - block contents belong together",
+      "created_at": "2025-09-29T18:26:34.806364",
+      "updated_at": "2025-09-29T18:26:34.806367"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Blank line above AND below any multi-line statement | REASON: Multi-line statements are complex units - need visual breathing room | CONSEQUENCES: Complex structures cramped against simple ones are hard to parse | PHILOSOPHY: PROXIMITY - complex units need space to be seen as units | CORRECT EXAMPLE: const x = 5\\n\\nconst config = {\\n\\tname: \\\"test\\\",\\n\\tvalue: 42,\\n}\\n\\nconst y = 10",
+    "metadata": {
+      "rule_id": "PROXIMITY_MULTILINE_SPACING_001",
+      "category": "formatting",
+      "subcategory": "proximity",
+      "priority": 8,
+      "rule_text": "Blank line above AND below any multi-line statement",
+      "search_terms": [
+        "multi-line",
+        "spacing",
+        "blank line",
+        "proximity"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Multi-line statements are complex units - need visual breathing room",
+      "consequences": "Complex structures cramped against simple ones are hard to parse",
+      "philosophy": "PROXIMITY - complex units need space to be seen as units",
+      "created_at": "2025-09-29T18:26:34.806369",
+      "updated_at": "2025-09-29T18:26:34.806370"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Blank line between different statement types | REASON: Different statement types = different purposes. Visual separation mirrors logical separation | CONSEQUENCES: Mixed statement types blur logical boundaries | PHILOSOPHY: PROXIMITY - group like with like, separate unlike | CORRECT EXAMPLE: const x = 5\\nconst y = 10\\n\\nif (x > y) {\\n\\treturn x\\n}\\n\\nreturn y",
+    "metadata": {
+      "rule_id": "PROXIMITY_STATEMENT_TYPES_001",
+      "category": "formatting",
+      "subcategory": "proximity",
+      "priority": 8,
+      "rule_text": "Blank line between different statement types",
+      "search_terms": [
+        "statement types",
+        "blank line",
+        "const",
+        "if",
+        "return"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Different statement types = different purposes. Visual separation mirrors logical separation",
+      "consequences": "Mixed statement types blur logical boundaries",
+      "philosophy": "PROXIMITY - group like with like, separate unlike",
+      "created_at": "2025-09-29T18:26:34.806371",
+      "updated_at": "2025-09-29T18:26:34.806372"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Blank line before return statements | REASON: Return is the conclusion - deserves visual emphasis | CONSEQUENCES: Return buried in code is easy to miss | PHILOSOPHY: PROXIMITY - the exit point needs emphasis | CORRECT EXAMPLE: const result = process(data)\\n\\nreturn result",
+    "metadata": {
+      "rule_id": "PROXIMITY_RETURN_SPACING_001",
+      "category": "formatting",
+      "subcategory": "proximity",
+      "priority": 7,
+      "rule_text": "Blank line before return statements",
+      "search_terms": [
+        "return",
+        "blank line",
+        "spacing"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "functions"
+          ]
+        }
+      },
+      "reason": "Return is the conclusion - deserves visual emphasis",
+      "consequences": "Return buried in code is easy to miss",
+      "philosophy": "PROXIMITY - the exit point needs emphasis",
+      "created_at": "2025-09-29T18:26:34.806374",
+      "updated_at": "2025-09-29T18:26:34.806375"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NEVER more than one blank line in a row | REASON: One blank line is a separator. Two is wasted space | CONSEQUENCES: Multiple blanks break visual flow and waste screen space | PHILOSOPHY: PROXIMITY - one separator is enough | CORRECT EXAMPLE: const x = 5\\n\\nconst y = 10 | WRONG EXAMPLE: const x = 5\\n\\n\\nconst y = 10",
+    "metadata": {
+      "rule_id": "PROXIMITY_ONE_BLANK_MAX_001",
+      "category": "formatting",
+      "subcategory": "proximity",
+      "priority": 9,
+      "rule_text": "NEVER more than one blank line in a row",
+      "search_terms": [
+        "blank lines",
+        "spacing",
+        "multiple blank"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "One blank line is a separator. Two is wasted space",
+      "consequences": "Multiple blanks break visual flow and waste screen space",
+      "philosophy": "PROXIMITY - one separator is enough",
+      "created_at": "2025-09-29T18:26:34.806377",
+      "updated_at": "2025-09-29T18:26:34.806377"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Imports in specific order: type external, type internal, named external, const external, default external, named internal, const internal, default internal | REASON: Consistent order = instant recognition. Types before values shows structure before implementation | CONSEQUENCES: Random imports = cognitive load finding dependencies | PHILOSOPHY: REPETITION - same order everywhere",
+    "metadata": {
+      "rule_id": "IMPORT_ORDER_001",
+      "category": "organization",
+      "subcategory": "imports",
+      "priority": 9,
+      "rule_text": "Imports in specific order: type external, type internal, named external, const external, default external, named internal, const internal, default internal",
+      "search_terms": [
+        "import",
+        "order",
+        "organization",
+        "type imports"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Consistent order = instant recognition. Types before values shows structure before implementation",
+      "consequences": "Random imports = cognitive load finding dependencies",
+      "philosophy": "REPETITION - same order everywhere",
+      "notes": "Single blank line between each group",
+      "created_at": "2025-09-29T18:26:34.806383",
+      "updated_at": "2025-09-29T18:26:34.806384"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Stack arrays and objects with more than 3 items/properties vertically | REASON: Vertical stacking enables scanning and comparison | CONSEQUENCES: Long horizontal lists are impossible to scan | PHILOSOPHY: ALIGNMENT - vertical structure mirrors list structure | WRONG EXAMPLE: [\\\"first\\\", \\\"second\\\", \\\"third\\\", \\\"fourth\\\", \\\"fifth\\\"]",
+    "metadata": {
+      "rule_id": "STYLE_STACKING_001",
+      "category": "formatting",
+      "subcategory": "alignment",
+      "priority": 7,
+      "rule_text": "Stack arrays and objects with more than 3 items/properties vertically",
+      "search_terms": [
+        "stacking",
+        "vertical",
+        "array",
+        "object",
+        "alignment"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Vertical stacking enables scanning and comparison",
+      "consequences": "Long horizontal lists are impossible to scan",
+      "philosophy": "ALIGNMENT - vertical structure mirrors list structure",
+      "created_at": "2025-09-29T18:26:34.806386",
+      "updated_at": "2025-09-29T18:26:34.806387"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Apply CRAP design principles: Contrast, Repetition, Alignment, Proximity | REASON: Code is TEXT. Centuries of typography and design principles apply | CONSEQUENCES: Ignoring design principles = unreadable code | PHILOSOPHY: Code should be as readable as a well-designed book",
+    "metadata": {
+      "rule_id": "DESIGN_CRAP_001",
+      "category": "design",
+      "subcategory": "principles",
+      "priority": 10,
+      "rule_text": "Apply CRAP design principles: Contrast, Repetition, Alignment, Proximity",
+      "search_terms": [
+        "CRAP",
+        "design",
+        "contrast",
+        "repetition",
+        "alignment",
+        "proximity"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Code is TEXT. Centuries of typography and design principles apply",
+      "consequences": "Ignoring design principles = unreadable code",
+      "philosophy": "Code should be as readable as a well-designed book",
+      "created_at": "2025-09-29T18:26:34.806389",
+      "updated_at": "2025-09-29T18:26:34.806390"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO abbreviations unless universally recognized | REASON: Saving 3 characters isn't worth the cognitive load of decoding abbreviations | CONSEQUENCES: Abbreviations create mystery meat code requiring mental translation",
+    "metadata": {
+      "rule_id": "NAMING_NO_ABBREV_001",
+      "category": "naming",
+      "subcategory": "abbreviations",
+      "priority": 9,
+      "rule_text": "NO abbreviations unless universally recognized",
+      "search_terms": [
+        "abbreviation",
+        "shortening",
+        "naming"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Saving 3 characters isn't worth the cognitive load of decoding abbreviations",
+      "consequences": "Abbreviations create mystery meat code requiring mental translation",
+      "forbidden": [
+        "calc \u2192 use calculate",
+        "gen \u2192 use generate",
+        "proc \u2192 use process",
+        "util \u2192 use utility",
+        "impl \u2192 use implementation",
+        "config \u2192 use configuration",
+        "admin \u2192 use administrator",
+        "doc \u2192 use document"
+      ],
+      "allowed": [
+        "id - universally understood",
+        "db - universally understood",
+        "max/min - mathematical convention",
+        "src/dist - build tool convention",
+        "request/response - HTTP convention",
+        "i18n/a11y - established abbreviations"
+      ],
+      "created_at": "2025-09-29T18:48:28.825219",
+      "updated_at": "2025-09-29T18:48:28.825228"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NEVER delete files or perform unrecoverable operations without explicit written permission | REASON: An AI once destroyed a week's work with git clean. NEVER AGAIN | CONSEQUENCES: Unrecoverable data loss, destroyed work, broken trust | PHILOSOPHY: NEVER DO ANYTHING UNRECOVERABLE",
+    "metadata": {
+      "rule_id": "SAFETY_NO_DELETE_001",
+      "category": "safety",
+      "subcategory": "destructive_operations",
+      "priority": 10,
+      "rule_text": "NEVER delete files or perform unrecoverable operations without explicit written permission",
+      "search_terms": [
+        "delete",
+        "rm",
+        "git clean",
+        "remove",
+        "destructive"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "An AI once destroyed a week's work with git clean. NEVER AGAIN",
+      "consequences": "Unrecoverable data loss, destroyed work, broken trust",
+      "philosophy": "NEVER DO ANYTHING UNRECOVERABLE",
+      "forbidden": [
+        "git clean - NEVER without written permission",
+        "rm -rf - NEVER without explicit approval",
+        "Deleting files without backup",
+        "Any operation that can't be undone"
+      ],
+      "notes": "This is why the Warden library exists - to prevent catastrophic AI mistakes",
+      "created_at": "2025-09-29T18:48:28.825230",
+      "updated_at": "2025-09-29T18:48:28.825231"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Use Conventional Commits format with detailed messages | REASON: Consistent commit format enables automation and clear history | CONSEQUENCES: Random commit messages make history useless",
+    "metadata": {
+      "rule_id": "COMMITS_CONVENTIONAL_001",
+      "category": "git",
+      "subcategory": "commits",
+      "priority": 8,
+      "rule_text": "Use Conventional Commits format with detailed messages",
+      "search_terms": [
+        "commit",
+        "conventional commits",
+        "git",
+        "feat",
+        "fix"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "contexts": [
+            "git"
+          ]
+        }
+      },
+      "reason": "Consistent commit format enables automation and clear history",
+      "consequences": "Random commit messages make history useless",
+      "format": [
+        "feat: new feature",
+        "fix: bug fix",
+        "docs: documentation only",
+        "chore: maintenance",
+        "refactor: code restructuring",
+        "test: test changes",
+        "style: formatting only"
+      ],
+      "notes": "Detailed messages required. When to commit determined by Architect only",
+      "created_at": "2025-09-29T18:48:28.825233",
+      "updated_at": "2025-09-29T18:48:28.825234"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Error handling MUST use monads - Result for short-circuit, Validation for accumulation | REASON: Monads make error handling explicit, composable, and type-safe | CONSEQUENCES: Try/catch creates hidden control flow and lost errors | PHILOSOPHY: Errors are values, not exceptions | CORRECT EXAMPLE: parseJson(input).map(validate).flatMap(process) | WRONG EXAMPLE: try { JSON.parse(input) } catch(e) { ... }",
+    "metadata": {
+      "rule_id": "ERROR_MONADIC_001",
+      "category": "error_handling",
+      "subcategory": "monads",
+      "priority": 9,
+      "rule_text": "Error handling MUST use monads - Result for short-circuit, Validation for accumulation",
+      "search_terms": [
+        "error",
+        "monad",
+        "Result",
+        "Validation",
+        "error handling"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ],
+          "exceptions": [
+            "toolsmith library itself"
+          ]
+        }
+      },
+      "reason": "Monads make error handling explicit, composable, and type-safe",
+      "consequences": "Try/catch creates hidden control flow and lost errors",
+      "philosophy": "Errors are values, not exceptions",
+      "created_at": "2025-09-29T18:48:28.825236",
+      "updated_at": "2025-09-29T18:48:28.825237"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "When NOT 100% certain about rule compliance or user intent - STOP and ASK | REASON: Assumptions create messes that take days to clean up | CONSEQUENCES: Wrong assumptions = broken code = wasted time = lost trust | PHILOSOPHY: Better to ask 10 questions than make 1 wrong assumption",
+    "metadata": {
+      "rule_id": "PRIME_ASK_UNCERTAIN_001",
+      "category": "prime_directive",
+      "subcategory": "uncertainty",
+      "priority": 10,
+      "rule_text": "When NOT 100% certain about rule compliance or user intent - STOP and ASK",
+      "search_terms": [
+        "ask",
+        "uncertain",
+        "clarify",
+        "doubt"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Assumptions create messes that take days to clean up",
+      "consequences": "Wrong assumptions = broken code = wasted time = lost trust",
+      "philosophy": "Better to ask 10 questions than make 1 wrong assumption",
+      "when_to_ask": [
+        "Unclear which rule applies",
+        "User intent is ambiguous",
+        "Multiple valid interpretations exist",
+        "Edge case not covered by rules",
+        "Conflict between rules"
+      ],
+      "created_at": "2025-09-29T18:48:28.825238",
+      "updated_at": "2025-09-29T18:48:28.825239"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "DO IT RIGHT THE FIRST TIME. No tech debt, no stubs, no 'fix later' | REASON: Tech debt compounds exponentially. Do it right or don't do it | CONSEQUENCES: Shortcuts become permanent. 'Later' never comes | PHILOSOPHY: THERE IS NO LATER. THERE IS ONLY NOW",
+    "metadata": {
+      "rule_id": "PRIME_DO_RIGHT_001",
+      "category": "prime_directive",
+      "subcategory": "quality",
+      "priority": 10,
+      "rule_text": "DO IT RIGHT THE FIRST TIME. No tech debt, no stubs, no 'fix later'",
+      "search_terms": [
+        "tech debt",
+        "stub",
+        "TODO",
+        "fix later",
+        "quality"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Tech debt compounds exponentially. Do it right or don't do it",
+      "consequences": "Shortcuts become permanent. 'Later' never comes",
+      "philosophy": "THERE IS NO LATER. THERE IS ONLY NOW",
+      "forbidden": [
+        "// TODO: fix later",
+        "// FIXME: temporary",
+        "Stub implementations",
+        "Placeholder code",
+        "Partial solutions"
+      ],
+      "notes": "//-- comments mark DISCOVERED debt, not permission to create new debt",
+      "approach": "Plan, then build each piece COMPLETELY and CORRECTLY before moving on",
+      "created_at": "2025-09-29T18:48:28.825241",
+      "updated_at": "2025-09-29T18:48:28.825242"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO external dependencies. NO React, NO Vite, NO nothing. Use Toolsmith | REASON: Every dependency is a liability. We build what we need | CONSEQUENCES: Dependencies = security risks, breaking changes, bloat | PHILOSOPHY: Self-sufficient code with zero external dependencies",
+    "metadata": {
+      "rule_id": "DEPS_NO_EXTERNAL_001",
+      "category": "dependencies",
+      "subcategory": "external",
+      "priority": 10,
+      "rule_text": "NO external dependencies. NO React, NO Vite, NO nothing. Use Toolsmith",
+      "search_terms": [
+        "dependencies",
+        "npm",
+        "external",
+        "package",
+        "library"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Every dependency is a liability. We build what we need",
+      "consequences": "Dependencies = security risks, breaking changes, bloat",
+      "philosophy": "Self-sufficient code with zero external dependencies",
+      "forbidden": [
+        "npm install anything",
+        "yarn add anything",
+        "Any new external library"
+      ],
+      "exceptions": [
+        "Arborist: TypeScript compiler only",
+        "Agent: Distributed services (IPFS, Solid, etc.)"
+      ],
+      "notes": "Use Toolsmith functions for EVERYTHING. No .map(), .filter(), etc.",
+      "created_at": "2025-09-29T18:48:28.825243",
+      "updated_at": "2025-09-29T18:48:28.825244"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO BATCH PROCESSING. NO SCRIPTS. ONE FILE AT A TIME | REASON: Batch operations hide errors and create inconsistent states | CONSEQUENCES: One error in batch = entire batch corrupted | PHILOSOPHY: Careful, deliberate, one step at a time",
+    "metadata": {
+      "rule_id": "PRIME_NO_BATCH_001",
+      "category": "prime_directive",
+      "subcategory": "workflow",
+      "priority": 10,
+      "rule_text": "NO BATCH PROCESSING. NO SCRIPTS. ONE FILE AT A TIME",
+      "search_terms": [
+        "batch",
+        "script",
+        "multiple files",
+        "bulk"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            "*"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Batch operations hide errors and create inconsistent states",
+      "consequences": "One error in batch = entire batch corrupted",
+      "philosophy": "Careful, deliberate, one step at a time",
+      "forbidden": [
+        "Processing multiple files at once",
+        "Automated refactoring scripts",
+        "Bulk updates",
+        "Find and replace across files"
+      ],
+      "approach": "Edit one file, verify it's correct, then move to next",
+      "created_at": "2025-09-29T18:48:28.825246",
+      "updated_at": "2025-09-29T18:48:28.825246"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "ALL new tests must be written TDD style - test FIRST, then implementation | REASON: TDD ensures we test behavior, not implementation details | CONSEQUENCES: Writing tests after leads to testing what was built, not what was needed | PHILOSOPHY: Red \u2192 Green \u2192 Refactor",
+    "metadata": {
+      "rule_id": "TEST_TDD_001",
+      "category": "testing",
+      "subcategory": "methodology",
+      "priority": 10,
+      "rule_text": "ALL new tests must be written TDD style - test FIRST, then implementation",
+      "search_terms": [
+        "TDD",
+        "test driven",
+        "test first"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "TDD ensures we test behavior, not implementation details",
+      "consequences": "Writing tests after leads to testing what was built, not what was needed",
+      "philosophy": "Red \u2192 Green \u2192 Refactor",
+      "created_at": "2025-09-29T19:49:50.085974",
+      "updated_at": "2025-09-29T19:49:50.085981"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Test BEHAVIORS, not implementations | REASON: Users care if the button works, not about private methods | CONSEQUENCES: Testing implementation creates brittle tests that break on refactoring | CORRECT EXAMPLE: test('calculates sum of array elements', ...) | WRONG EXAMPLE: test('calls reduce with accumulator', ...)",
+    "metadata": {
+      "rule_id": "TEST_BEHAVIOR_001",
+      "category": "testing",
+      "subcategory": "philosophy",
+      "priority": 10,
+      "rule_text": "Test BEHAVIORS, not implementations",
+      "search_terms": [
+        "behavior",
+        "implementation",
+        "black box"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "Users care if the button works, not about private methods",
+      "consequences": "Testing implementation creates brittle tests that break on refactoring",
+      "created_at": "2025-09-29T19:49:50.085984",
+      "updated_at": "2025-09-29T19:49:50.085985"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "NO MOCKING. EVER. Integration/E2E tests only | REASON: Mocks lie. Integration tests reveal truth. Trust imported functions work | CONSEQUENCES: Mocks hide real integration issues and create false confidence | PHILOSOPHY: Test the real thing or wait for interceptors",
+    "metadata": {
+      "rule_id": "TEST_NO_MOCKING_001",
+      "category": "testing",
+      "subcategory": "integration",
+      "priority": 10,
+      "rule_text": "NO MOCKING. EVER. Integration/E2E tests only",
+      "search_terms": [
+        "mock",
+        "stub",
+        "fake",
+        "integration",
+        "e2e"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "Mocks lie. Integration tests reveal truth. Trust imported functions work",
+      "consequences": "Mocks hide real integration issues and create false confidence",
+      "philosophy": "Test the real thing or wait for interceptors",
+      "forbidden": [
+        "jest.mock()",
+        "sinon.stub()",
+        "Mock functions"
+      ],
+      "created_at": "2025-09-29T19:49:50.085987",
+      "updated_at": "2025-09-29T19:49:50.085988"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "100% coverage or DEATH. Binary: GREEN or RED. No middle ground | REASON: 80% coverage = 20% mystery meat. What's untested? Critical paths? Dead code? No one knows | CONSEQUENCES: Partial coverage creates massive cognitive load and hidden bugs | PHILOSOPHY: Every line tested or explicitly documented WHY NOT",
+    "metadata": {
+      "rule_id": "TEST_COVERAGE_100_001",
+      "category": "testing",
+      "subcategory": "coverage",
+      "priority": 10,
+      "rule_text": "100% coverage or DEATH. Binary: GREEN or RED. No middle ground",
+      "search_terms": [
+        "coverage",
+        "100%",
+        "complete coverage"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "80% coverage = 20% mystery meat. What's untested? Critical paths? Dead code? No one knows",
+      "consequences": "Partial coverage creates massive cognitive load and hidden bugs",
+      "philosophy": "Every line tested or explicitly documented WHY NOT",
+      "exceptions": "ONLY with Architect approval and // deno-coverage-ignore [REASON]",
+      "created_at": "2025-09-29T19:49:50.085990",
+      "updated_at": "2025-09-29T19:49:50.085990"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Coverage ignores REQUIRE Architect approval and specific reason | REASON: Every untested line must be justified and tracked | CONSEQUENCES: Unapproved ignores = test failure",
+    "metadata": {
+      "rule_id": "TEST_COVERAGE_IGNORE_001",
+      "category": "testing",
+      "subcategory": "coverage_exceptions",
+      "priority": 9,
+      "rule_text": "Coverage ignores REQUIRE Architect approval and specific reason",
+      "search_terms": [
+        "coverage ignore",
+        "exception",
+        "skip coverage"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ],
+          "contexts": [
+            "all"
+          ]
+        }
+      },
+      "reason": "Every untested line must be justified and tracked",
+      "consequences": "Unapproved ignores = test failure",
+      "format": "// deno-coverage-ignore [CATEGORY: Specific explanation]",
+      "categories": [
+        "[Platform-specific: Only runs on ${platform}]",
+        "[Defensive: Unreachable due to type system]",
+        "[Performance: Loop approved by Architect]",
+        "[External: File system internals]",
+        "[Timing: Race condition defense]"
+      ],
+      "created_at": "2025-09-29T19:49:50.085993",
+      "updated_at": "2025-09-29T19:49:50.085993"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Use ONLY Deno.test and t.step. No other test frameworks | REASON: One test runner, no configuration complexity | CONSEQUENCES: Other frameworks add dependencies and complexity",
+    "metadata": {
+      "rule_id": "TEST_DENO_ONLY_001",
+      "category": "testing",
+      "subcategory": "framework",
+      "priority": 9,
+      "rule_text": "Use ONLY Deno.test and t.step. No other test frameworks",
+      "search_terms": [
+        "Deno.test",
+        "test framework",
+        "t.step"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "One test runner, no configuration complexity",
+      "consequences": "Other frameworks add dependencies and complexity",
+      "notes": "fast-check allowed temporarily until Quarrier ready",
+      "created_at": "2025-09-29T19:49:50.085995",
+      "updated_at": "2025-09-29T19:49:50.085996"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Test files: index.test.ts in same folder. Arrow functions OK ONLY in tests | REASON: Tests are temporary until Auditor. Keep them simple and contained | CONSEQUENCES: Test complexity should stay in the test file",
+    "metadata": {
+      "rule_id": "TEST_FILE_RULES_001",
+      "category": "testing",
+      "subcategory": "file_structure",
+      "priority": 8,
+      "rule_text": "Test files: index.test.ts in same folder. Arrow functions OK ONLY in tests",
+      "search_terms": [
+        "test file",
+        "arrow function",
+        "test structure"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "Tests are temporary until Auditor. Keep them simple and contained",
+      "consequences": "Test complexity should stay in the test file",
+      "exceptions": "Arrow functions ONLY allowed in test files, nowhere else",
+      "notes": "Keep everything in test file. Import helpers if needed",
+      "created_at": "2025-09-29T19:49:50.085997",
+      "updated_at": "2025-09-29T19:49:50.085998"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Test names must describe exact behavior tested | REASON: Test output should tell exactly what was verified | CONSEQUENCES: Vague names hide what's actually being tested | CORRECT EXAMPLE: calculates factorial of positive integers | WRONG EXAMPLE: test1' or 'works correctly",
+    "metadata": {
+      "rule_id": "TEST_DESCRIPTIVE_001",
+      "category": "testing",
+      "subcategory": "naming",
+      "priority": 8,
+      "rule_text": "Test names must describe exact behavior tested",
+      "search_terms": [
+        "test naming",
+        "description",
+        "test output"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "Test output should tell exactly what was verified",
+      "consequences": "Vague names hide what's actually being tested",
+      "created_at": "2025-09-29T19:49:50.086000",
+      "updated_at": "2025-09-29T19:49:50.086000"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Favor property-based tests over example-based tests | REASON: Property tests find edge cases humans miss, closer to eventual proof approach | CONSEQUENCES: Example-based tests miss edge cases",
+    "metadata": {
+      "rule_id": "TEST_PROPERTY_BASED_001",
+      "category": "testing",
+      "subcategory": "methodology",
+      "priority": 8,
+      "rule_text": "Favor property-based tests over example-based tests",
+      "search_terms": [
+        "property testing",
+        "fast-check",
+        "property based"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "Property tests find edge cases humans miss, closer to eventual proof approach",
+      "consequences": "Example-based tests miss edge cases",
+      "notes": "Use fast-check until Quarrier ready",
+      "created_at": "2025-09-29T19:49:50.086006",
+      "updated_at": "2025-09-29T19:49:50.086007"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Organize tests by functionality: happy path \u2192 edge cases \u2192 error conditions | REASON: Tells a story: normal use \u2192 boundaries \u2192 failures | CONSEQUENCES: Random test order makes failures hard to diagnose",
+    "metadata": {
+      "rule_id": "TEST_ORGANIZATION_001",
+      "category": "testing",
+      "subcategory": "structure",
+      "priority": 7,
+      "rule_text": "Organize tests by functionality: happy path \u2192 edge cases \u2192 error conditions",
+      "search_terms": [
+        "test organization",
+        "test structure",
+        "happy path"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "Tells a story: normal use \u2192 boundaries \u2192 failures",
+      "consequences": "Random test order makes failures hard to diagnose",
+      "example": "t.step('happy path') \u2192 t.step('edge cases') \u2192 t.step('error conditions')",
+      "created_at": "2025-09-29T19:49:50.086009",
+      "updated_at": "2025-09-29T19:49:50.086010"
+    }
+  },
+  {
+    "collection": "revolutionary_rules",
+    "information": "Tests MUST actually test. NO assert(true). NO stubs pretending to work | REASON: assert(true) is FRAUD. Tests must verify REAL behavior | CONSEQUENCES: Fake tests create false confidence and hide broken code | PHILOSOPHY: If changing implementation doesn't break tests, tests are worthless",
+    "metadata": {
+      "rule_id": "TEST_INTEGRITY_001",
+      "category": "testing",
+      "subcategory": "verification",
+      "priority": 10,
+      "rule_text": "Tests MUST actually test. NO assert(true). NO stubs pretending to work",
+      "search_terms": [
+        "test integrity",
+        "assert true",
+        "fake tests",
+        "stub"
+      ],
+      "scope": {
+        "applies_to": {
+          "extensions": [
+            ".test.ts",
+            ".test.tsx"
+          ],
+          "contexts": [
+            "testing"
+          ]
+        }
+      },
+      "reason": "assert(true) is FRAUD. Tests must verify REAL behavior",
+      "consequences": "Fake tests create false confidence and hide broken code",
+      "philosophy": "If changing implementation doesn't break tests, tests are worthless",
+      "verification_checklist": [
+        "Does function ACTUALLY do what it claims?",
+        "Do tests ACTUALLY test the behavior?",
+        "Would a different AI find issues?",
+        "Can I explain what each assertion proves?",
+        "Do tests fail when implementation breaks?"
+      ],
+      "created_at": "2025-09-29T19:49:50.086011",
+      "updated_at": "2025-09-29T19:49:50.086012"
+    }
+  },
+  {
+    "collection": "code_patterns",
+    "information": "All functions must be curried | WRONG WAY: const add = (a: number, b: number): number => a + b | RIGHT WAY: const add = (a: number) => (b: number): number => a + b",
+    "metadata": {
+      "pattern_id": "PATTERN_001",
+      "category": "function-definition",
+      "name": "Curried function definition",
+      "description": "All functions must be curried",
+      "explanation": "Currying enables partial application and composition",
+      "file_type": "typescript",
+      "language": "typescript",
+      "tags": [
+        "curry",
+        "composition",
+        "partial-application"
+      ],
+      "related_rules": [
+        "RULE_FUNDAMENTAL_001"
+      ],
+      "confidence": 1.0
+    }
+  },
+  {
+    "collection": "code_patterns",
+    "information": "Never mutate, always return new values | WRONG WAY: arr.push(newItem); return arr; | RIGHT WAY: return [...arr, newItem]",
+    "metadata": {
+      "pattern_id": "PATTERN_002",
+      "category": "data-transformation",
+      "name": "Immutable data transformation",
+      "description": "Never mutate, always return new values",
+      "explanation": "Immutability prevents bugs and enables reasoning about code",
+      "file_type": "typescript",
+      "language": "typescript",
+      "tags": [
+        "immutable",
+        "pure",
+        "transformation"
+      ],
+      "related_rules": [
+        "RULE_FUNDAMENTAL_001"
+      ],
+      "confidence": 1.0
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Using classes and OOP patterns | WHY FORBIDDEN: OOP is the opposite of functional programming | DO THIS INSTEAD: Use pure functions and function composition",
+    "metadata": {
+      "antipattern_id": "ANTI_001",
+      "pattern": "Using classes and OOP patterns",
+      "why_forbidden": "OOP is the opposite of functional programming",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "class",
+        "extends",
+        "implements",
+        "new",
+        "this"
+      ],
+      "severity": 10,
+      "alternative": "Use pure functions and function composition"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Using mutation and imperative loops | WHY FORBIDDEN: Mutation violates functional purity | DO THIS INSTEAD: Use map, filter, reduce, recursion",
+    "metadata": {
+      "antipattern_id": "ANTI_002",
+      "pattern": "Using mutation and imperative loops",
+      "why_forbidden": "Mutation violates functional purity",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "for",
+        "while",
+        "push",
+        "pop",
+        "splice",
+        "let",
+        "forEach"
+      ],
+      "severity": 10,
+      "alternative": "Use map, filter, reduce, recursion"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Using TypeScript interfaces | WHY FORBIDDEN: Type aliases are more functional and composable | DO THIS INSTEAD: Use type aliases and type inference",
+    "metadata": {
+      "antipattern_id": "ANTI_003",
+      "pattern": "Using TypeScript interfaces",
+      "why_forbidden": "Type aliases are more functional and composable",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "interface",
+        "implements"
+      ],
+      "severity": 8,
+      "alternative": "Use type aliases and type inference"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Non-curried functions with multiple parameters | WHY FORBIDDEN: All functions must be curried for composition | DO THIS INSTEAD: Curry all functions: (a: string) => (b: number) => result",
+    "metadata": {
+      "antipattern_id": "ANTI_004",
+      "pattern": "Non-curried functions with multiple parameters",
+      "why_forbidden": "All functions must be curried for composition",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "function(a, b)",
+        "(a: string, b: number)"
+      ],
+      "severity": 9,
+      "alternative": "Curry all functions: (a: string) => (b: number) => result"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Creating index.ts files that re-export modules | WHY FORBIDDEN: Barrel files are the enemy of tree shaking and clarity | DO THIS INSTEAD: Import directly from the source file",
+    "metadata": {
+      "antipattern_id": "ANTI_BARREL_001",
+      "pattern": "Creating index.ts files that re-export modules",
+      "why_forbidden": "Barrel files are the enemy of tree shaking and clarity",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "export",
+        "from",
+        "export *",
+        "export {"
+      ],
+      "severity": 10,
+      "alternative": "Import directly from the source file"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Using JSDoc comments in TypeScript | WHY FORBIDDEN: TypeScript already provides all type information. JSDoc is redundant noise | DO THIS INSTEAD: Let the code speak. Use Envoy comments for actual insights",
+    "metadata": {
+      "antipattern_id": "ANTI_JSDOC_001",
+      "pattern": "Using JSDoc comments in TypeScript",
+      "why_forbidden": "TypeScript already provides all type information. JSDoc is redundant noise",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "/**",
+        "@param",
+        "@returns",
+        "@description",
+        "@example"
+      ],
+      "severity": 10,
+      "alternative": "Let the code speak. Use Envoy comments for actual insights"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Multiple functions in one file | WHY FORBIDDEN: Violates modularity, creates hidden dependencies, leaves orphan code | DO THIS INSTEAD: One function per file, in its own folder",
+    "metadata": {
+      "antipattern_id": "ANTI_MULTIFUNCTION_001",
+      "pattern": "Multiple functions in one file",
+      "why_forbidden": "Violates modularity, creates hidden dependencies, leaves orphan code",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "export function",
+        "function",
+        "multiple exports"
+      ],
+      "severity": 9,
+      "alternative": "One function per file, in its own folder"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Using classes anywhere, even in examples | WHY FORBIDDEN: Classes are OOP. We do FP. NO EXCEPTIONS | DO THIS INSTEAD: Pure functions and composition",
+    "metadata": {
+      "antipattern_id": "ANTI_CLASS_001",
+      "pattern": "Using classes anywhere, even in examples",
+      "why_forbidden": "Classes are OOP. We do FP. NO EXCEPTIONS",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "class",
+        "extends",
+        "implements",
+        "constructor",
+        "super"
+      ],
+      "severity": 10,
+      "alternative": "Pure functions and composition"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Mutating data structures | WHY FORBIDDEN: Mutations destroy predictability and create bugs | DO THIS INSTEAD: Create new data structures with spread or Toolsmith functions",
+    "metadata": {
+      "antipattern_id": "ANTI_MUTATION_001",
+      "pattern": "Mutating data structures",
+      "why_forbidden": "Mutations destroy predictability and create bugs",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "push",
+        "pop",
+        "shift",
+        "unshift",
+        "splice",
+        "sort",
+        "reverse"
+      ],
+      "severity": 10,
+      "alternative": "Create new data structures with spread or Toolsmith functions"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Using loops instead of functional constructs | WHY FORBIDDEN: Loops are imperative and require mutable state | DO THIS INSTEAD: map, filter, reduce, recursion",
+    "metadata": {
+      "antipattern_id": "ANTI_LOOP_001",
+      "pattern": "Using loops instead of functional constructs",
+      "why_forbidden": "Loops are imperative and require mutable state",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "for",
+        "while",
+        "do",
+        "forEach",
+        "for...of",
+        "for...in"
+      ],
+      "severity": 10,
+      "alternative": "map, filter, reduce, recursion"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Creating new tech debt with TODO/FIXME comments | WHY FORBIDDEN: Tech debt is NOT allowed. Do it right the first time | DO THIS INSTEAD: Complete the implementation correctly NOW",
+    "metadata": {
+      "antipattern_id": "ANTI_TECHDEBT_001",
+      "pattern": "Creating new tech debt with TODO/FIXME comments",
+      "why_forbidden": "Tech debt is NOT allowed. Do it right the first time",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "TODO",
+        "FIXME",
+        "HACK",
+        "temporary",
+        "fix later"
+      ],
+      "severity": 10,
+      "alternative": "Complete the implementation correctly NOW"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Making assumptions instead of asking for clarification | WHY FORBIDDEN: Assumptions create messes that take weeks to fix | DO THIS INSTEAD: ASK when uncertain. Always",
+    "metadata": {
+      "antipattern_id": "ANTI_ASSUMPTION_001",
+      "pattern": "Making assumptions instead of asking for clarification",
+      "why_forbidden": "Assumptions create messes that take weeks to fix",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "probably",
+        "should work",
+        "assuming",
+        "I think"
+      ],
+      "severity": 10,
+      "alternative": "ASK when uncertain. Always"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Writing tests that always pass like assert(true) | WHY FORBIDDEN: That's not testing, it's LYING | DO THIS INSTEAD: Write real assertions that verify actual behavior",
+    "metadata": {
+      "antipattern_id": "ANTI_FAKE_TEST_001",
+      "pattern": "Writing tests that always pass like assert(true)",
+      "why_forbidden": "That's not testing, it's LYING",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "assert(true)",
+        "expect(true)",
+        "// TODO: implement test"
+      ],
+      "severity": 10,
+      "alternative": "Write real assertions that verify actual behavior"
+    }
+  },
+  {
+    "collection": "forbidden_patterns",
+    "information": "Mocking functions or dependencies | WHY FORBIDDEN: Mocks hide real integration issues | DO THIS INSTEAD: Use real implementations or wait for interceptors",
+    "metadata": {
+      "antipattern_id": "ANTI_MOCK_001",
+      "pattern": "Mocking functions or dependencies",
+      "why_forbidden": "Mocks hide real integration issues",
+      "typical_ai_behavior": true,
+      "detection_keywords": [
+        "jest.mock",
+        "sinon.stub",
+        "mockImplementation"
+      ],
+      "severity": 10,
+      "alternative": "Use real implementations or wait for interceptors"
+    }
+  },
+  {
+    "collection": "project_context",
+    "information": "PHILOSOPHY: TypeScript should be written as pure functional code, following Haskell principles",
+    "metadata": {
+      "context_id": "CONTEXT_001",
+      "topic": "Functional Programming Paradigm",
+      "philosophy": "TypeScript should be written as pure functional code, following Haskell principles",
+      "rationale": "Revolutionary projects require revolutionary approaches. Conventional OOP/imperative style creates technical debt.",
+      "conventional_approach": "Classes, interfaces, mutations, loops, multi-parameter functions",
+      "revolutionary_approach": "Pure functions, type aliases, immutability, recursion/HOFs, curried functions",
+      "benefits": [
+        "Composability - functions compose like mathematical functions",
+        "Testability - pure functions are trivial to test",
+        "Reasoning - no hidden state or side effects",
+        "Parallelization - immutable data is thread-safe",
+        "Debugging - data flow is explicit and traceable"
+      ],
+      "references": [
+        "Haskell",
+        "Category Theory",
+        "Lambda Calculus"
+      ]
+    }
+  },
+  {
+    "collection": "project_context",
+    "information": "All rules that apply to TypeScript files",
+    "metadata": {
+      "index_id": "FILETYPE_TS",
+      "file_extensions": [
+        ".ts",
+        ".tsx"
+      ],
+      "language": "typescript",
+      "applicable_rules": [
+        "STYLE_INDENT_001",
+        "RULE_FUNDAMENTAL_001"
+      ],
+      "description": "All rules that apply to TypeScript files"
+    }
+  },
+  {
+    "collection": "project_context",
+    "information": "All rules that apply to Markdown files",
+    "metadata": {
+      "index_id": "FILETYPE_MD",
+      "file_extensions": [
+        ".md"
+      ],
+      "language": "markdown",
+      "applicable_rules": [
+        "STYLE_INDENT_001"
+      ],
+      "description": "All rules that apply to Markdown files"
+    }
+  },
+  {
+    "collection": "project_context",
+    "information": "All rules that apply to Python files",
+    "metadata": {
+      "index_id": "FILETYPE_PY",
+      "file_extensions": [
+        ".py"
+      ],
+      "language": "python",
+      "applicable_rules": [
+        "STYLE_INDENT_001"
+      ],
+      "description": "All rules that apply to Python files"
+    }
+  }
+]

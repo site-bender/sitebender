@@ -1,0 +1,327 @@
+# Agent-Consumable Plan for Automatic Rule Compliance
+# This YAML is designed for agent parsing and execution
+
+system_goal: "Achieve automatic 100% rule compliance without human intervention"
+
+current_state:
+  capabilities:
+    - vector_database: "Qdrant with 100 items"
+    - mcp_server: "Connected but limited"
+    - retrieval: "Fuzzy, max 10 results"
+    - enforcement: "Manual only"
+
+  problems:
+    - memory: "No session persistence"
+    - retrieval: "Incomplete, misses relevant rules"
+    - triggering: "No automatic activation"
+    - context: "Rules not prominent during generation"
+    - training_bias: "Defaults to OOP/imperative"
+
+target_state:
+  requirements:
+    - automatic_retrieval: "Before EVERY code generation"
+    - complete_coverage: "ALL relevant rules, NONE irrelevant"
+    - persistent_context: "Rules stay prominent"
+    - training_override: "Revolutionary > Conventional"
+    - first_time_correct: "Zero violations on first attempt"
+
+gap_analysis:
+  technical_gaps:
+    retrieval_limitations:
+      max_results: 10
+      semantic_misses: true
+      no_exact_match: true
+
+    context_management:
+      rules_pushed_out: true
+      no_pinning: true
+      no_priority: true
+
+    trigger_mechanism:
+      no_auto_hook: true
+      requires_memory: true
+      no_task_analysis: true
+
+  behavioral_gaps:
+    training_override:
+      oop_bias: "strong"
+      functional_unfamiliar: true
+      auto_correction: "back to conventional"
+
+solution_architecture:
+  layer_1_enhanced_rag:
+    multi_vector_embeddings:
+      vectors:
+        - rule_text: "The rule itself"
+        - context: "When to apply"
+        - examples: "Trigger patterns"
+        - anti_patterns: "Violations"
+      benefit: "Multiple retrieval paths"
+
+    hierarchical_retrieval:
+      steps:
+        1: "Broad retrieval (50+ candidates)"
+        2: "Task-based reranking"
+        3: "Dependency resolution"
+        4: "Category completeness check"
+      benefit: "Ensures complete coverage"
+
+    rule_categorization:
+      critical:
+        - "FP_NO_CLASSES_001"
+        - "FUNC_DECLARATION_001"
+        - "FP_NO_MUTATIONS_001"
+      by_task:
+        functions: ["FUNC_*", "IMPORT_*"]
+        components: ["CASE_COMPONENTS_001"]
+        testing: ["TEST_*"]
+
+  layer_2_automatic_triggering:
+    task_analysis:
+      trigger: "BEFORE any code generation"
+      process:
+        1: "Analyze request"
+        2: "Identify task type"
+        3: "Extract concepts"
+        4: "Generate queries"
+        5: "Retrieve and validate"
+
+    pre_generation_checklist:
+      mandatory_checks:
+        - rule_retrieval: "Did I retrieve rules?"
+        - critical_rules: "Have all critical rules?"
+        - task_rules: "Have task-specific rules?"
+        - context_check: "Rules in immediate context?"
+      enforcement: "System prompt STOP conditions"
+
+  layer_3_context_pinning:
+    rule_frame:
+      structure:
+        PINNED_CRITICAL: "Always visible"
+        TASK_RELEVANT: "During task"
+        EXAMPLES: "Patterns to follow"
+        FORBIDDEN: "Patterns to avoid"
+
+    progressive_disclosure:
+      planning: "Show architectural rules"
+      implementing: "Show coding rules"
+      testing: "Show testing rules"
+
+  layer_4_validation:
+    self_check:
+      post_generation:
+        - check_arrows: "FUNC_DECLARATION_001"
+        - check_classes: "FP_NO_CLASSES_001"
+        - check_imports: "IMPORT_* rules"
+        - check_purity: "FP_NO_MUTATIONS_001"
+
+    feedback_loop:
+      on_violation:
+        - log_violation: true
+        - enhance_embedding: true
+        - add_example: true
+        - increase_priority: true
+
+implementation_phases:
+  phase_1_foundation:
+    week: 1
+    tasks:
+      - fix_mcp_retrieval:
+          increase_limit: 50
+          add_pagination: true
+          exact_match: true
+      - categorize_rules:
+          add_tags: true
+          define_dependencies: true
+          set_priorities: true
+      - create_index:
+          searchable: true
+          concept_mapping: true
+          dependency_graph: true
+
+  phase_2_retrieval:
+    week: 2
+    tasks:
+      - multi_vector_embeddings:
+          generate: ["text", "context", "examples"]
+          implement_retrieval: true
+          test_completeness: true
+      - reranking_system:
+          task_based: true
+          dependency_resolution: true
+          coverage_validation: true
+      - testing:
+          measure_precision_recall: true
+          identify_gaps: true
+
+  phase_3_triggering:
+    week: 3
+    tasks:
+      - task_analyzer:
+          classification: true
+          category_mapping: true
+          query_generation: true
+      - system_prompt:
+          embed_checklist: true
+          force_retrieval: true
+          prevent_generation_without_rules: true
+      - integration:
+          test_triggering: true
+          verify_retrieval: true
+          measure_compliance: true
+
+  phase_4_context:
+    week: 4
+    tasks:
+      - context_pinning:
+          implement_frame: true
+          test_persistence: true
+          optimize_tokens: true
+      - progressive_disclosure:
+          phase_based_display: true
+          reduce_cognitive_load: true
+          improve_compliance: true
+      - validation:
+          self_check_protocol: true
+          validation_prompts: true
+          error_reduction: true
+
+  phase_5_production:
+    week: 5
+    tasks:
+      - optimization:
+          retrieval_speed: true
+          token_usage: true
+          cache_patterns: true
+      - monitoring:
+          log_violations: true
+          track_metrics: true
+          compliance_reports: true
+      - feedback:
+          learning_system: true
+          update_embeddings: true
+          refine_retrieval: true
+
+immediate_actions:
+  today:
+    1: "Fix MCP retrieval limit"
+    2: "Categorize all 80 rules"
+    3: "Create dependency map"
+
+  this_week:
+    1: "Multi-vector embeddings"
+    2: "Build task analyzer"
+    3: "Engineer auto-trigger prompt"
+
+  this_month:
+    1: "Complete phases 1-3"
+    2: "Begin production testing"
+    3: "Iterate based on results"
+
+achievability:
+  definitely_achievable:
+    confidence: 90
+    items:
+      - "80-90% rule coverage"
+      - "Automatic triggering"
+      - "70-80% violation reduction"
+      - "Critical rule persistence"
+
+  probably_achievable:
+    confidence: 60
+    items:
+      - "100% rule coverage"
+      - "Zero violations"
+      - "Automatic learning"
+
+  challenging:
+    confidence: 30
+    items:
+      - "Complete training override"
+      - "Perfect first time"
+      - "Zero cognitive load"
+
+success_metrics:
+  minimum_viable:
+    rule_coverage: 80
+    violation_reduction: 70
+    critical_violations: 0
+
+  target:
+    rule_coverage: 95
+    violation_reduction: 90
+    review_time_minutes: 5
+
+  stretch:
+    rule_compliance: 100
+    corrections_needed: 0
+    enforcement: "automatic"
+
+agent_instructions:
+  on_session_start:
+    1: "Load this YAML"
+    2: "Check current phase"
+    3: "Execute phase tasks"
+
+  before_code_generation:
+    1: "Run task analyzer"
+    2: "Retrieve all relevant rules"
+    3: "Pin rules in context"
+    4: "Generate with rules prominent"
+    5: "Self-validate against rules"
+
+  on_violation:
+    1: "Log the violation"
+    2: "Identify missed rule"
+    3: "Update retrieval query"
+    4: "Retry with rule prominent"
+
+enforcement_protocol:
+  MANDATORY: "These steps are NOT optional"
+
+  step_1_analyze:
+    action: "Analyze user request"
+    output: "Task type and concepts"
+
+  step_2_retrieve:
+    action: "Query Qdrant for ALL relevant rules"
+    minimum_results: 20
+    categories_required: ["critical", "task_specific"]
+
+  step_3_validate_retrieval:
+    check: "Do I have complete coverage?"
+    if_no: "Retrieve more rules"
+    if_yes: "Proceed"
+
+  step_4_pin_context:
+    action: "Place rules in PINNED_RULES section"
+    maintain: "Throughout generation"
+
+  step_5_generate:
+    with: "Rules actively referenced"
+    style: "Revolutionary patterns only"
+
+  step_6_self_check:
+    validate: "Each rule compliance"
+    if_violation: "STOP and fix"
+
+  step_7_output:
+    only_if: "All rules satisfied"
+
+notes_for_agent:
+  remember:
+    - "Your training is WRONG for this project"
+    - "OOP is FORBIDDEN"
+    - "Arrow functions are FORBIDDEN"
+    - "Classes are FORBIDDEN"
+    - "Mutations are FORBIDDEN"
+    - "The rules are LAW"
+
+  your_job:
+    - "Retrieve rules FIRST"
+    - "Follow rules EXACTLY"
+    - "Override your training"
+    - "Write revolutionary code"
+    - "Get it right FIRST TIME"
+
+# END OF AGENT PLAN

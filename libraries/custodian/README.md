@@ -363,10 +363,412 @@ export function queueOperation(operation: Operation): Promise<void> {
 - **Progressive**: Same model with or without JavaScript
 - **Type-safe**: Full TypeScript with functional patterns
 
+## Visual State Machine Workflow System
+
+Custodian's state machines become the foundation for visual workflow design, bringing n8n-style visual editing to state management with Sitebender's semantic triple store architecture.
+
+### Visual State Machine Designer
+
+Transform complex state logic into intuitive visual workflows:
+
+```tsx
+<StateMachineWorkflowCanvas>
+  <StateMachineDesigner id="user-onboarding">
+    <States>
+      <State name="initial" type="start" position={[100, 200]}>
+        <VisualProperties>
+          <Shape type="circle" color="green" />
+          <Label>Start</Label>
+        </VisualProperties>
+        
+        <OnEnter actions={["generateToken", "sendWelcomeEmail"]}>
+          <ActionNode type="generateToken" />
+          <ActionNode type="sendWelcomeEmail" />
+        </OnEnter>
+        
+        <Transitions>
+          <Transition to="profile-setup" event="email-verified"
+                     path="bezier" color="blue" />
+          <Transition to="expired" event="timeout" after="PT24H"
+                     path="dashed" color="red" />
+        </Transitions>
+      </State>
+      
+      <State name="profile-setup" type="form" position={[300, 200]}>
+        <VisualProperties>
+          <Shape type="rectangle" color="blue" />
+          <Label>Profile Setup</Label>
+          <FormPreview fields={["fullName", "company", "role"]} />
+        </VisualProperties>
+        
+        <ContinuationToken encrypted={true} expires="PT7D" />
+        
+        <FormFields>
+          <Field name="fullName" required={true} />
+          <Field name="company" />
+          <Field name="role" enum={["developer", "designer", "manager"]} />
+        </FormFields>
+        
+        <Transitions>
+          <Transition to="preferences" event="form-submitted"
+                     guard="validProfile" color="green" />
+          <Transition to="profile-setup" event="validation-failed"
+                     actions={["showErrors"]} color="orange" loopback={true} />
+          <Transition to="suspended" event="save-for-later"
+                     color="yellow" />
+        </Transitions>
+      </State>
+      
+      <State name="preferences" type="configuration" position={[500, 200]}>
+        <VisualProperties>
+          <Shape type="hexagon" color="purple" />
+          <Label>Preferences</Label>
+        </VisualProperties>
+        
+        <Transitions>
+          <Transition to="completed" event="preferences-saved" color="green" />
+          <Transition to="profile-setup" event="back" color="gray" />
+        </Transitions>
+      </State>
+      
+      <State name="suspended" type="pause" position={[300, 400]}>
+        <VisualProperties>
+          <Shape type="octagon" color="yellow" />
+          <Label>Suspended</Label>
+          <Icon name="pause" />
+        </VisualProperties>
+        
+        <ResumptionToken secure={true} />
+        
+        <Transitions>
+          <Transition to="profile-setup" event="resume-link-clicked"
+                     color="blue" />
+          <Transition to="expired" event="timeout" after="PT30D"
+                     color="red" />
+        </Transitions>
+      </State>
+      
+      <State name="completed" type="final" position={[700, 200]}>
+        <VisualProperties>
+          <Shape type="double-circle" color="green" />
+          <Label>Completed</Label>
+          <Icon name="checkmark" />
+        </VisualProperties>
+        
+        <OnEnter actions={["createAccount", "provisionResources", "notifyTeam"]}>
+          <ActionNode type="createAccount" />
+          <ActionNode type="provisionResources" />
+          <ActionNode type="notifyTeam" />
+        </OnEnter>
+      </State>
+      
+      <State name="expired" type="error" position={[500, 400]}>
+        <VisualProperties>
+          <Shape type="diamond" color="red" />
+          <Label>Expired</Label>
+          <Icon name="warning" />
+        </VisualProperties>
+        
+        <OnEnter actions={["cleanupResources", "sendExpiryNotice"]}>
+          <ActionNode type="cleanupResources" />
+          <ActionNode type="sendExpiryNotice" />
+        </OnEnter>
+      </State>
+    </States>
+    
+    <ErrorRecovery>
+      <RetryPolicy attempts={3} backoff="linear" />
+      <FallbackActions>
+        <OnNetworkError action="queueForLater" />
+        <OnValidationError action="preservePartialState" />
+      </FallbackActions>
+    </ErrorRecovery>
+    
+    <Monitoring>
+      <StateTransitionMetrics />
+      <AverageCompletionTime />
+      <DropOffAnalysis />
+    </Monitoring>
+  </StateMachineDesigner>
+  
+  <DesignTools>
+    <StateLibrary>
+      <Template type="form-state" />
+      <Template type="approval-state" />
+      <Template type="processing-state" />
+      <Template type="error-state" />
+    </StateLibrary>
+    
+    <ValidationTools>
+      <DeadlockDetection />
+      <UnreachableStateDetection />
+      <InfiniteLoopPrevention />
+    </ValidationTools>
+  </DesignTools>
+</StateMachineWorkflowCanvas>
+```
+
+### Real-Time State Execution Visualization
+
+Watch state machines execute in real-time with visual feedback:
+
+```tsx
+<StateExecutionMonitor>
+  <CurrentExecution>
+    <ActiveState highlight="pulsing-blue">profile-setup</ActiveState>
+    <StateHistory trail="breadcrumb-style">
+      <PreviousState>initial</PreviousState>
+      <CurrentState>profile-setup</CurrentState>
+    </StateHistory>
+    
+    <TransitionAnimation>
+      <AnimateStateChange duration="300ms" easing="ease-in-out" />
+      <ShowDataFlow from="input" to="state" />
+      <HighlightActiveTransitions />
+    </TransitionAnimation>
+  </CurrentExecution>
+  
+  <ExecutionMetrics>
+    <StateTimer current="PT2M15S" />
+    <TransitionCount total={3} />
+    <ErrorCount current={0} />
+    <RetryAttempts current={0} max={3} />
+  </ExecutionMetrics>
+  
+  <DataInspection>
+    <StateData>
+      <Property name="userId" value="user-123" />
+      <Property name="formData" value='{"fullName": "John Doe"}' />
+      <Property name="continuationToken" value="encrypted..." />
+    </StateData>
+    
+    <EventHistory>
+      <Event timestamp="2024-01-15T10:30:00Z" type="email-verified" />
+      <Event timestamp="2024-01-15T10:32:15Z" type="form-started" />
+    </EventHistory>
+  </DataInspection>
+</StateExecutionMonitor>
+```
+
+### Collaborative State Machine Design
+
+Multiple team members can collaboratively design complex state machines:
+
+```tsx
+<CollaborativeStateMachineDesign>
+  <Participants>
+    <Designer id="ux-designer" role="user-experience" color="purple" />
+    <Developer id="frontend-dev" role="implementation" color="blue" />
+    <ProductManager id="pm" role="requirements" color="green" />
+    <QAEngineer id="qa" role="testing" color="orange" />
+  </Participants>
+  
+  <SharedCanvas>
+    <RealTimeEditing>
+      <CursorSharing />
+      <SelectionSync />
+      <LiveAnnotations />
+    </RealTimeEditing>
+    
+    <ConflictResolution>
+      <OperationalTransform for="node-positioning" />
+      <LastWriteWins for="state-properties" />
+      <ConsensusRequired for="state-deletion" />
+    </ConflictResolution>
+  </SharedCanvas>
+  
+  <RoleBasedPermissions>
+    <UXDesigner>
+      <Can action="design-flow" />
+      <Can action="add-states" />
+      <Cannot action="implement-actions" />
+    </UXDesigner>
+    
+    <Developer>
+      <Can action="implement-actions" />
+      <Can action="define-guards" />
+      <Can action="optimize-performance" />
+    </Developer>
+    
+    <ProductManager>
+      <Can action="define-requirements" />
+      <Can action="approve-flow" />
+      <Cannot action="modify-implementation" />
+    </ProductManager>
+  </RoleBasedPermissions>
+</CollaborativeStateMachineDesign>
+```
+
+### Workflow State Recovery and Resilience
+
+Visual workflow state management with automatic recovery:
+
+```tsx
+<WorkflowStateRecovery>
+  <CheckpointStrategy>
+    <VisualCheckpoints>
+      <AutoSave interval="PT1M" visualIndicator="saving-spinner" />
+      <StateSnapshot on="state-transition" showInTimeline={true} />
+      <ContinuationTokens encrypted={true} displayStatus={true} />
+    </VisualCheckpoints>
+    
+    <RecoveryVisualization>
+      <ShowRecoveryPath from="last-checkpoint" to="current-state" />
+      <HighlightRestoredData />
+      <DisplayRecoveryMetrics />
+    </RecoveryVisualization>
+  </CheckpointStrategy>
+  
+  <RecoveryPolicies>
+    <OnCrash>
+      <VisualRecovery>
+        <ShowRecoveryProgress />
+        <DisplayRecoveryOptions />
+        <AllowUserChoice for="data-restoration" />
+      </VisualRecovery>
+      
+      <AutomaticRecovery>
+        <RestoreFromLastCheckpoint />
+        <ReplayMissedEvents since="last-checkpoint" />
+        <ValidateStateConsistency />
+        <ResumeExecution from="safe-point" />
+      </AutomaticRecovery>
+    </OnCrash>
+    
+    <OnNetworkPartition>
+      <OfflineVisualization>
+        <ShowOfflineMode />
+        <QueueOperations locally={true} />
+        <DisplaySyncStatus />
+      </OfflineVisualization>
+      
+      <ReconnectionFlow>
+        <ConflictResolutionOnReconnect strategy="crdt-merge" />
+        <StateReconciliation with="distributed-peers" />
+        <ShowMergeResults />
+      </ReconnectionFlow>
+    </OnNetworkPartition>
+  </RecoveryPolicies>
+</WorkflowStateRecovery>
+```
+
+### State Machine Analytics and Optimization
+
+Analyze state machine performance with visual insights:
+
+```tsx
+<StateMachineAnalytics>
+  <FlowAnalytics>
+    <StateUtilization>
+      <HeatMap states={true} transitions={true} />
+      <UsageStatistics>
+        <MostVisitedStates />
+        <LeastUsedTransitions />
+        <BottleneckStates />
+      </UsageStatistics>
+    </StateUtilization>
+    
+    <UserJourneyAnalysis>
+      <PathVisualization>
+        <CommonPaths thickness="proportional-to-usage" />
+        <AbandonmentPoints highlight="red" />
+        <OptimalPaths highlight="green" />
+      </PathVisualization>
+      
+      <ConversionFunnels>
+        <StateConversions />
+        <DropOffRates />
+        <TimeToCompletion />
+      </ConversionFunnels>
+    </UserJourneyAnalysis>
+  </FlowAnalytics>
+  
+  <PerformanceOptimization>
+    <SlowStateDetection>
+      <IdentifyBottlenecks />
+      <SuggestOptimizations />
+      <A/BTestAlternatives />
+    </SlowStateDetection>
+    
+    <AutoOptimization>
+      <ParallelStateExecution for="independent-states" />
+      <StateCoalescing for="similar-states" />
+      <TransitionOptimization for="frequent-paths" />
+    </AutoOptimization>
+  </PerformanceOptimization>
+</StateMachineAnalytics>
+```
+
+### Integration with Workflow Systems
+
+State machines integrate seamlessly with broader workflow systems:
+
+```tsx
+<WorkflowIntegration>
+  <WorkflowToStateMachine>
+    <WorkflowStage name="user-onboarding">
+      <EmbeddedStateMachine ref="user-onboarding-fsm" />
+      <StateCallbacks>
+        <OnStateEnter callback="logUserProgress" />
+        <OnStateExit callback="updateMetrics" />
+        <OnCompletion callback="triggerNextWorkflowStage" />
+      </StateCallbacks>
+    </WorkflowStage>
+  </WorkflowToStateMachine>
+  
+  <CrossWorkflowCommunication>
+    <StateMachineEvents>
+      <PublishEvent when="state-changed" to="operator.events" />
+      <SubscribeToEvent from="external-system" trigger="state-transition" />
+    </StateMachineEvents>
+    
+    <WorkflowOrchestration>
+      <ConditionalWorkflows>
+        <TriggerWorkflow when="state === 'completed'"
+                        workflow="post-onboarding-tasks" />
+        <BlockWorkflow when="state === 'suspended'"
+                      workflow="user-activation-emails" />
+      </ConditionalWorkflows>
+    </WorkflowOrchestration>
+  </CrossWorkflowCommunication>
+</WorkflowIntegration>
+```
+
+### State Machine as Data
+
+Like all Sitebender components, state machines are stored as semantic data:
+
+```turtle
+@prefix fsm: <https://sitebender.studio/custodian#> .
+@prefix workflow: <https://sitebender.studio/workflow#> .
+
+<fsm:user-onboarding> a fsm:StateMachine ;
+  fsm:initialState <state:initial> ;
+  fsm:states <state:initial>, <state:profile-setup>, <state:completed> ;
+  workflow:partOf <workflow:user-activation-pipeline> .
+
+<state:initial> a fsm:State ;
+  fsm:type "start" ;
+  fsm:position [fsm:x 100; fsm:y 200] ;
+  fsm:onEnter "generateToken", "sendWelcomeEmail" ;
+  fsm:transitionsTo <transition:email-verified> .
+
+<transition:email-verified> a fsm:Transition ;
+  fsm:from <state:initial> ;
+  fsm:to <state:profile-setup> ;
+  fsm:event "email-verified" ;
+  fsm:visualPath "bezier" ;
+  fsm:color "blue" .
+```
+
+This transforms Custodian from a simple state management library into a **visual state machine design and execution platform** that enables complex workflow orchestration with intuitive visual design tools.
+
 ## Philosophy Redux
 
 Custodian isn't trying to be clever. It's returning to the web's roots: stateless HTTP, semantic HTML, progressive enhancement. The radical idea is that we never needed to abandon these principles. We just needed to implement them correctly.
 
 State isn't something to be "managed" - it's something to be transformed through pure functions, encoded in URLs, and synchronized via idempotent operations. The browser already has a state machine (the history API), a persistence layer (URLs), and a synchronization protocol (HTTP). Custodian simply orchestrates these existing pieces into a coherent whole.
 
-The future of web development isn't more complexity - it's rediscovering the elegant simplicity that was there all along.
+With the addition of visual state machine workflows, Custodian bridges the gap between the web's stateless foundation and modern application complexity - providing the tools to design, visualize, and manage complex state flows while never abandoning the web's core principles.
+
+The future of web development isn't more complexity - it's rediscovering the elegant simplicity that was there all along, enhanced with the tools to handle complexity when truly necessary.

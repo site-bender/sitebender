@@ -818,6 +818,244 @@ Envoy is part of the @sitebender studio. See [CONTRIBUTING.md](../../CONTRIBUTIN
 - [Warden](../warden/README.md) - Architectural governance
 - [Agent](../agent/README.md) - Distributed intelligence
 
+## Visual Workflow Dashboard
+
+Envoy's revolutionary capability extends beyond documentation to become an **interactive visual command center** that shows your entire codebase as a living workflow system, inspired by n8n's visual paradigm but powered by our semantic triple store architecture.
+
+### Real-Time System Visualization
+
+Transform your development environment into a visual workflow canvas where libraries become nodes and data flows become connections:
+
+```tsx
+<EnvoyWorkflowDashboard>
+  <WorkflowCanvas>
+    {/* Library nodes with real-time status */}
+    <LibraryNode id="warden" type="governance" status="active">
+      <Inputs>
+        <Port name="codebase" type="file[]" />
+        <Port name="contracts" type="contract[]" />
+      </Inputs>
+      <Outputs>
+        <Port name="violations" type="violation[]" />
+        <Port name="metrics" type="metric[]" />
+      </Outputs>
+      <RealTimeMetrics>
+        <ValidationTime>2.3s</ValidationTime>
+        <ViolationCount>0</ViolationCount>
+        <DeveloperSatisfaction>😊</DeveloperSatisfaction>
+      </RealTimeMetrics>
+    </LibraryNode>
+
+    <LibraryNode id="agent" type="distributed" status="syncing">
+      <NetworkTopology>
+        <PeerCount>5</PeerCount>
+        <SyncLatency>23ms</SyncLatency>
+        <ConflictResolution>automatic</ConflictResolution>
+      </NetworkTopology>
+    </LibraryNode>
+
+    <LibraryNode id="operator" type="messaging" status="active">
+      <EventMetrics>
+        <Throughput>1,247 events/sec</Throughput>
+        <BackpressureQueues>0</BackpressureQueues>
+        <DeliveryGuarantee>exactly-once</DeliveryGuarantee>
+      </EventMetrics>
+    </LibraryNode>
+
+    {/* Visual connections show data flow */}
+    <Connection from="warden.violations" to="steward.autofix"
+                type="error-recovery" realTime={true} />
+    <Connection from="agent.networkHealth" to="envoy.monitoring"
+                type="telemetry" batchSize={100} />
+    <Connection from="operator.events" to="architect.reactions"
+                type="reactive-update" latency="<1ms" />
+  </WorkflowCanvas>
+
+  <ExecutionMonitor>
+    <RealTimeDataFlow>
+      <EventStream />
+      <StateTransitions />
+      <NetworkActivity />
+    </RealTimeDataFlow>
+    
+    <PerformanceMetrics>
+      <SystemHealth />
+      <ResourceUsage />
+      <ThroughputGraphs />
+    </PerformanceMetrics>
+    
+    <DeveloperExperience>
+      <FeedbackStream />
+      <ErrorFrequency />
+      <OnboardingMetrics />
+    </DeveloperExperience>
+  </ExecutionMonitor>
+</EnvoyWorkflowDashboard>
+```
+
+### Interactive Knowledge Graph Navigation
+
+Navigate your codebase through SPARQL-powered visual queries:
+
+```tsx
+<InteractiveKnowledgeGraph>
+  <VisualQueryBuilder>
+    <QueryCanvas>
+      {/* Drag and drop query construction */}
+      <TriplePattern subject="?function" predicate="calls" object="validateEmail" />
+      <Filter property="complexity" operator=">" value="10" />
+      <OrderBy property="usage" direction="desc" />
+    </QueryCanvas>
+    
+    <GeneratedSparql>
+      {`SELECT ?function WHERE {
+        ?function calls :validateEmail ;
+                 hasComplexity ?c .
+        FILTER(?c > 10)
+      } ORDER BY DESC(?usage)`}
+    </GeneratedSparql>
+  </VisualQueryBuilder>
+  
+  <ResultVisualization>
+    <NodeGraph interactive={true} />
+    <DataTable sortable={true} />
+    <TimelineScrubber />
+  </ResultVisualization>
+</InteractiveKnowledgeGraph>
+```
+
+### Real-Time Collaboration Features
+
+Multiple developers can collaborate on the same workflow visualization in real-time:
+
+```tsx
+<CollaborativeDashboard>
+  <Participants>
+    <User id="architect" cursor={{ x: 245, y: 130 }} />
+    <User id="developer" selection={["node-warden-1"]} />
+    <User id="sre" editing="connection-props" />
+  </Participants>
+  
+  <SharedViewport>
+    <SyncCursors realTime={true} />
+    <DistributedSelection />
+    <CollaborativeAnnotations />
+  </SharedViewport>
+  
+  <ConflictResolution>
+    <OperationalTransform for="viewport-changes" />
+    <LastWriteWins for="annotations" />
+    <MergeStrategies for="filters" />
+  </ConflictResolution>
+</CollaborativeDashboard>
+```
+
+### Workflow Execution Monitoring
+
+Watch workflows execute in real-time with detailed tracing:
+
+```tsx
+<WorkflowExecutionMonitor>
+  <ExecutionTrace>
+    <StageProgress current="validation" total={5} />
+    <DataFlow>
+      <Input stage="parse" data="1,247 files" status="completed" />
+      <Processing stage="validate" data="234 violations" status="in-progress" />
+      <Output stage="report" data="pending" status="queued" />
+    </DataFlow>
+  </ExecutionTrace>
+  
+  <PerformanceMetrics>
+    <Latency p50="120ms" p90="340ms" p99="890ms" />
+    <Throughput current="450 ops/sec" target="500 ops/sec" />
+    <ResourceUsage cpu="23%" memory="1.2GB" disk="45MB/s" />
+  </PerformanceMetrics>
+  
+  <ErrorTracking>
+    <RecentErrors count={3} severity="warning" />
+    <ErrorTrends improving={true} />
+    <ResolutionSuggestions />
+  </ErrorTracking>
+</WorkflowExecutionMonitor>
+```
+
+### Workflow Configuration as Data
+
+Unlike n8n's JSON configurations, Envoy workflows are stored as semantic RDF triples:
+
+```turtle
+@prefix workflow: <https://sitebender.studio/workflow#> .
+@prefix env: <https://sitebender.studio/envoy#> .
+
+<workflow:ci-pipeline> a workflow:Pipeline ;
+  workflow:hasStage <stage:parse>, <stage:validate>, <stage:test> ;
+  workflow:triggeredBy <trigger:git-push> ;
+  workflow:owner <user:architect> ;
+  workflow:created "2024-01-15T10:00:00Z"^^xsd:dateTime ;
+  env:hasMetrics <metrics:performance> .
+
+<stage:validate> a workflow:Stage ;
+  workflow:executor <library:warden> ;
+  workflow:input <data:ast> ;
+  workflow:output <data:violations> ;
+  workflow:dependsOn <stage:parse> ;
+  env:averageExecutionTime "PT2.3S"^^xsd:duration .
+```
+
+### Progressive Enhancement Workflow UI
+
+Envoy's workflow dashboard works across all devices and capabilities:
+
+#### Layer 1: Text-Based (CLI/Terminal)
+```
+Workflow: CI Pipeline
+├── Parse (✓ 2.1s) → 1,247 files processed
+├── Validate (⚠ 3.2s) → 5 warnings, 0 errors
+├── Test (⏳ running) → 847/1,200 tests passed
+└── Deploy (⏸ waiting) → Prerequisites: validation complete
+```
+
+#### Layer 2: Web Dashboard (HTML+CSS)
+- Clean web interface with tables and basic visualizations
+- Real-time updates via Server-Sent Events
+- Responsive design for mobile/tablet
+- Keyboard navigation support
+
+#### Layer 3: Interactive Visualization (Modern Browsers)
+- Full 3D workflow canvas with WebGL
+- Drag-and-drop workflow editor
+- Real-time collaborative editing
+- Advanced analytics and debugging
+
+### Developer Experience Integration
+
+The workflow dashboard integrates with Envoy's five-smiley feedback system:
+
+```tsx
+<WorkflowFeedback>
+  <DeveloperSatisfaction>
+    <FeedbackPrompt trigger="workflow-completion">
+      How was your experience with this workflow execution?
+      <Emojis>😱 😟 😐 😊 🤩</Emojis>
+    </FeedbackPrompt>
+    
+    <ContextualAnalysis>
+      <ExecutionTime>3.2s</ExecutionTime>
+      <ErrorCount>0</ErrorCount>
+      <CognitiveBurden>low</CognitiveBurden>
+    </ContextualAnalysis>
+  </DeveloperSatisfaction>
+  
+  <ContinuousImprovement>
+    <TrendAnalysis />
+    <PainPointIdentification />
+    <AutomaticOptimizations />
+  </ContinuousImprovement>
+</WorkflowFeedback>
+```
+
+This transforms Envoy from a documentation generator into the **central nervous system** of your development environment - a living, breathing intelligence platform that understands, monitors, and optimizes your entire workflow ecosystem.
+
 ---
 
 **Transform your codebase into a living, breathing intelligence system. This is Envoy.**

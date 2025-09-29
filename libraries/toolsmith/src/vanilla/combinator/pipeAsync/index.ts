@@ -1,5 +1,4 @@
 //++ Async version of pipe for Promise-returning functions, composing async functions left-to-right with automatic promise handling
-//++ Async version of pipe for Promise-returning functions, composing async functions left-to-right with automatic promise handling
 const pipeAsync = <T, R = unknown>(
 	fns: ReadonlyArray<(value: unknown) => unknown | Promise<unknown>> = [],
 ) =>

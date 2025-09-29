@@ -230,11 +230,439 @@ deno task enforce
 
 **Next**: Phase 1.2 - Core extraction from existing scripts and full functionality implementation.
 
+## Workflow Validation & Governance
+
+Warden extends beyond code governance to provide **cryptographic validation of workflow configurations**, ensuring that visual workflow designs are architecturally sound, secure, and compliant with organizational policies.
+
+### Cryptographic Workflow Contracts
+
+Every workflow configuration is cryptographically signed and verified to prevent tampering and ensure authenticity:
+
+```tsx
+<WorkflowGovernance>
+  <WorkflowContract id="ci-cd-pipeline">
+    <RequiredComponents>
+      <Component name="security-scan" mandatory={true} />
+      <Component name="accessibility-check" mandatory={true} />
+      <Component name="performance-test" mandatory={false} />
+      <Component name="warden-validation" mandatory={true} />
+    </RequiredComponents>
+    
+    <AllowedConnections>
+      <Rule from="external-api" to="internal-service" requires="authentication" />
+      <Rule from="user-input" to="database" requires="validation" />
+      <Rule from="ai-system" to="production" forbidden={true} />
+      <Rule from="development" to="production" requires="approval-gate" />
+    </AllowedConnections>
+    
+    <ComplianceRequirements>
+      <GDPR dataRetention="P2Y" anonymization="required" />
+      <SOX auditTrail="complete" approvalRequired={true} />
+      <HIPAA encryption="at-rest-and-transit" accessLogging="detailed" />
+      <PCI_DSS cardDataHandling="prohibited" tokenization="required" />
+    </ComplianceRequirements>
+    
+    <PerformanceBounds>
+      <MaxLatency>PT5S</MaxLatency>
+      <MaxMemoryUsage>2GB</MaxMemoryUsage>
+      <MaxConcurrency>100</MaxConcurrency>
+      <MaxWorkflowDuration>PT30M</MaxWorkflowDuration>
+    </PerformanceBounds>
+    
+    <SecurityConstraints>
+      <AllowedNetworks>["internal", "trusted-partners"]</AllowedNetworks>
+      <ForbiddenOperations>["direct-database-access", "credential-logging"]</ForbiddenOperations>
+      <EncryptionRequired for="sensitive-data" />
+      <AuditLogging level="detailed" retention="P7Y" />
+    </SecurityConstraints>
+  </WorkflowContract>
+  
+  <ValidationRules>
+    <Rule name="no-circular-dependencies">
+      <Check type="graph-cycle-detection" />
+      <Severity>error</Severity>
+      <AutoFix>false</AutoFix>
+    </Rule>
+    
+    <Rule name="required-error-handling">
+      <Check type="error-path-coverage" />
+      <MinimumCoverage>90%</MinimumCoverage>
+      <Severity>warning</Severity>
+      <AutoFix>suggest-error-handlers</AutoFix>
+    </Rule>
+    
+    <Rule name="security-boundaries">
+      <Check type="trust-boundary-validation" />
+      <RequiredGates>["authentication", "authorization", "input-validation"]</RequiredGates>
+      <Severity>error</Severity>
+      <AutoFix>false</AutoFix>
+    </Rule>
+    
+    <Rule name="resource-limits">
+      <Check type="resource-consumption-analysis" />
+      <MaxCpu>80%</MaxCpu>
+      <MaxMemory>4GB</MaxMemory>
+      <Severity>warning</Severity>
+      <AutoFix>suggest-optimization</AutoFix>
+    </Rule>
+  </ValidationRules>
+  
+  <CryptographicVerification>
+    <WorkflowSignature algorithm="Ed25519" />
+    <IntegrityHash algorithm="SHA-256" />
+    <TimestampAuthority trusted={true} />
+    <NonRepudiation enabled={true} />
+    <ChangeDetection realTime={true} />
+  </CryptographicVerification>
+</WorkflowGovernance>
+```
+
+### AI-Safe Workflow Generation
+
+Prevent AI assistants from generating invalid or insecure workflow configurations:
+
+```tsx
+<AIWorkflowSafety>
+  <GenerationConstraints>
+    <AllowedPatterns>
+      <Pattern name="read-process-write" validated={true} />
+      <Pattern name="request-response" validated={true} />
+      <Pattern name="event-driven" validated={true} />
+      <Pattern name="state-machine" validated={true} />
+    </AllowedPatterns>
+    
+    <ForbiddenPatterns>
+      <Pattern name="direct-database-access" reason="security" />
+      <Pattern name="infinite-recursion" reason="performance" />
+      <Pattern name="credential-logging" reason="privacy" />
+      <Pattern name="unencrypted-transmission" reason="compliance" />
+      <Pattern name="bypass-authentication" reason="security" />
+    </ForbiddenPatterns>
+    
+    <RequiredComponents>
+      <Component name="input-validation" />
+      <Component name="error-handling" />
+      <Component name="audit-logging" />
+      <Component name="resource-limits" />
+    </RequiredComponents>
+  </GenerationConstraints>
+  
+  <ValidationPipeline>
+    <PreValidation>
+      <CheckAgainstPatternLibrary />
+      <StaticAnalysis />
+      <SecurityScanning />
+      <ComplianceChecking />
+    </PreValidation>
+    
+    <RuntimeValidation>
+      <ConstraintChecking continuous={true} />
+      <ResourceMonitoring />
+      <BehaviorAnalysis />
+      <AnomalyDetection />
+    </RuntimeValidation>
+    
+    <PostValidation>
+      <ComplianceVerification />
+      <PerformanceValidation />
+      <SecurityAudit />
+      <IntegrityCheck />
+    </PostValidation>
+  </ValidationPipeline>
+  
+  <AIConstraints>
+    <ModelRestrictions>
+      <NoDirectProductionAccess />
+      <RequireHumanApproval for="critical-workflows" />
+      <LimitedModificationScope to="non-security-components" />
+    </ModelRestrictions>
+    
+    <OutputValidation>
+      <SchemaValidation against="workflow-schema" />
+      <SemanticValidation against="business-rules" />
+      <SecurityValidation against="security-policies" />
+    </OutputValidation>
+  </AIConstraints>
+</AIWorkflowSafety>
+```
+
+### Real-Time Workflow Monitoring
+
+Monitor workflow executions for contract violations and security breaches:
+
+```tsx
+<WorkflowMonitoring>
+  <ContractCompliance>
+    <RealTimeValidation>
+      <CheckBounds continuously={true} />
+      <ValidateConnections on="execution" />
+      <VerifyPermissions before="sensitive-operations" />
+      <AuditActions all={true} />
+    </RealTimeValidation>
+    
+    <ViolationDetection>
+      <UnauthorizedConnections severity="critical" />
+      <ResourceLimitExceeded severity="warning" />
+      <SecurityBoundaryBreach severity="critical" />
+      <ComplianceViolation severity="error" />
+    </ViolationDetection>
+    
+    <AutomaticResponse>
+      <OnCriticalViolation>
+        <HaltExecution immediately={true} />
+        <NotifySecurityTeam />
+        <LogIncident />
+        <IsolateWorkflow />
+      </OnCriticalViolation>
+      
+      <OnWarningViolation>
+        <LogViolation />
+        <NotifyOwner />
+        <ContinueWithCaution />
+      </OnWarningViolation>
+    </AutomaticResponse>
+  </ContractCompliance>
+  
+  <PerformanceGovernance>
+    <ResourceTracking>
+      <CpuUsage threshold="80%" action="throttle" />
+      <MemoryUsage threshold="4GB" action="alert" />
+      <NetworkBandwidth threshold="100Mbps" action="queue" />
+      <DiskIO threshold="1000 IOPS" action="batch" />
+    </ResourceTracking>
+    
+    <LatencyEnforcement>
+      <ResponseTime threshold="PT5S" action="timeout" />
+      <ThroughputLimit minimum="10 ops/sec" action="scale-up" />
+      <QueueDepth maximum={1000} action="backpressure" />
+    </LatencyEnforcement>
+  </PerformanceGovernance>
+  
+  <SecurityMonitoring>
+    <ThreatDetection>
+      <AnomalousPatterns />
+      <UnusualNetworkTraffic />
+      <SuspiciousDataAccess />
+      <PrivilegeEscalation />
+    </ThreatDetection>
+    
+    <IntrusionResponse>
+      <IsolateCompromisedNodes />
+      <RevokePermissions />
+      <NotifySecurityTeam />
+      <PreserveForen sics />
+    </IntrusionResponse>
+  </SecurityMonitoring>
+</WorkflowMonitoring>
+```
+
+### Workflow Architecture Validation
+
+Ensure workflow architectures follow organizational best practices:
+
+```tsx
+<ArchitecturalGovernance>
+  <DesignPatterns>
+    <RequiredPatterns>
+      <Pattern name="circuit-breaker" for="external-dependencies" />
+      <Pattern name="retry-with-backoff" for="transient-failures" />
+      <Pattern name="bulkhead" for="resource-isolation" />
+      <Pattern name="timeout" for="long-running-operations" />
+    </RequiredPatterns>
+    
+    <ForbiddenAntiPatterns>
+      <AntiPattern name="god-workflow" reason="maintainability" />
+      <AntiPattern name="chatty-interface" reason="performance" />
+      <AntiPattern name="shared-database" reason="coupling" />
+      <AntiPattern name="synchronous-everything" reason="scalability" />
+    </ForbiddenAntiPatterns>
+  </DesignPatterns>
+  
+  <ArchitecturalConstraints>
+    <LayeredArchitecture>
+      <Layer name="presentation" dependencies={[]} />
+      <Layer name="business" dependencies={["presentation"]} />
+      <Layer name="data" dependencies={["business"]} />
+      <NoCircularDependencies />
+    </LayeredArchitecture>
+    
+    <ServiceBoundaries>
+      <Service name="user-management">
+        <ResponsibilityScope>["authentication", "authorization", "profiles"]</ResponsibilityScope>
+        <ExternalDependencies>["email-service", "audit-log"]</ExternalDependencies>
+        <DataOwnership>["user-data", "session-data"]</DataOwnership>
+      </Service>
+      
+      <CrossServiceCommunication>
+        <AllowedProtocols>["https", "grpc", "message-queue"]</AllowedProtocols>
+        <ForbiddenDirectAccess to="database" />
+        <RequiredAuthentication />
+      </CrossServiceCommunication>
+    </ServiceBoundaries>
+  </ArchitecturalConstraints>
+  
+  <QualityGates>
+    <ComplexityLimits>
+      <MaxWorkflowNodes>50</MaxWorkflowNodes>
+      <MaxNestingDepth>5</MaxNestingDepth>
+      <MaxFanOut>10</MaxFanOut>
+      <MaxFanIn>5</MaxFanIn>
+    </ComplexityLimits>
+    
+    <MaintainabilityMetrics>
+      <CognitiveComplexity threshold={15} />
+      <CyclomaticComplexity threshold={10} />
+      <CouplingBetweenComponents threshold={5} />
+      <LackOfCohesion threshold={0.5} />
+    </MaintainabilityMetrics>
+  </QualityGates>
+</ArchitecturalGovernance>
+```
+
+### Compliance Validation
+
+Automated compliance checking for industry regulations:
+
+```tsx
+<ComplianceValidation>
+  <RegulatoryFrameworks>
+    <GDPR>
+      <DataProcessingLawfulness>
+        <ConsentManagement required={true} />
+        <DataMinimization enforced={true} />
+        <RightToErasure implemented={true} />
+        <DataPortability supported={true} />
+      </DataProcessingLawfulness>
+      
+      <TechnicalMeasures>
+        <EncryptionAtRest required={true} />
+        <EncryptionInTransit required={true} />
+        <AccessControls granular={true} />
+        <AuditTrails immutable={true} />
+      </TechnicalMeasures>
+    </GDPR>
+    
+    <SOX>
+      <InternalControls>
+        <ChangeManagement>
+          <ApprovalWorkflows required={true} />
+          <SegregationOfDuties enforced={true} />
+          <AuditTrails complete={true} />
+        </ChangeManagement>
+        
+        <AccessManagement>
+          <PrincipleOfLeastPrivilege />
+          <RegularAccessReviews />
+          <PrivilegedAccessMonitoring />
+        </AccessManagement>
+      </InternalControls>
+    </SOX>
+    
+    <HIPAA>
+      <PhysicalSafeguards>
+        <AccessControls />
+        <WorkstationUse />
+        <DeviceAndMediaControls />
+      </PhysicalSafeguards>
+      
+      <TechnicalSafeguards>
+        <AccessControl unique="user-identification" />
+        <AuditControls />
+        <Integrity />
+        <TransmissionSecurity />
+      </TechnicalSafeguards>
+    </HIPAA>
+  </RegulatoryFrameworks>
+  
+  <ComplianceReporting>
+    <AutomatedAudits>
+      <ScheduledScans frequency="daily" />
+      <ContinuousMonitoring />
+      <ExceptionReporting />
+      <TrendAnalysis />
+    </AutomatedAudits>
+    
+    <CertificationSupport>
+      <EvidenceCollection automated={true} />
+      <ControlsMapping />
+      <RiskAssessment />
+      <ComplianceScoring />
+    </CertificationSupport>
+  </ComplianceReporting>
+</ComplianceValidation>
+```
+
+### Workflow Change Management
+
+Govern changes to workflow configurations with approval processes:
+
+```tsx
+<WorkflowChangeManagement>
+  <ChangeClassification>
+    <MinorChange approval="team-lead" testing="unit-tests">
+      <ConfigurationTweaks />
+      <NonCriticalParameterChanges />
+      <PerformanceOptimizations />
+    </MinorChange>
+    
+    <MajorChange approval="architecture-review-board" testing="full-suite">
+      <WorkflowStructureChanges />
+      <SecurityBoundaryModifications />
+      <ComplianceImpactingChanges />
+    </MajorChange>
+    
+    <EmergencyChange approval="incident-commander" testing="smoke-tests">
+      <ProductionHotfixes />
+      <SecurityVulnerabilityPatches />
+      <CriticalBugFixes />
+    </EmergencyChange>
+  </ChangeClassification>
+  
+  <ApprovalWorkflows>
+    <ReviewProcess>
+      <TechnicalReview by="senior-engineer" focus="implementation" />
+      <SecurityReview by="security-architect" focus="vulnerabilities" />
+      <ComplianceReview by="compliance-officer" focus="regulations" />
+      <BusinessReview by="product-owner" focus="requirements" />
+    </ReviewProcess>
+    
+    <ApprovalCriteria>
+      <AllReviewersApprove />
+      <AutomatedTestsPass />
+      <SecurityScanClean />
+      <PerformanceWithinBounds />
+      <NoComplianceViolations />
+    </ApprovalCriteria>
+  </ApprovalWorkflows>
+  
+  <RollbackCapability>
+    <VersionedWorkflows>
+      <ImmutableHistory />
+      <PointInTimeRecovery />
+      <RollbackTesting />
+    </VersionedWorkflows>
+    
+    <AutomaticRollback>
+      <TriggerConditions>
+        <PerformanceDegradation threshold="20%" />
+        <ErrorRateIncrease threshold="2%" />
+        <SecurityIncident />
+        <ComplianceViolation severity="critical" />
+      </TriggerConditions>
+    </AutomaticRollback>
+  </RollbackCapability>
+</WorkflowChangeManagement>
+```
+
+This transforms Warden from a code governance tool into a **comprehensive workflow governance platform** that ensures visual workflow configurations are secure, compliant, performant, and architecturally sound through cryptographic verification and real-time monitoring.
+
 ## The Bottom Line
 
 Warden isn't just another linting tool—it's a **complete architectural governance platform** that brings unbreakable trust to software development. In an era where AI assistance is becoming the norm, Warden provides the essential governance framework that ensures your architecture remains intentional, auditable, and trustworthy.
 
-**Ready to bring unbreakable trust to your codebase?** Warden makes it possible.
+With workflow validation capabilities, Warden extends this trust to visual workflow configurations, ensuring that complex distributed systems maintain architectural integrity, security compliance, and operational excellence across their entire lifecycle.
+
+**Ready to bring unbreakable trust to your codebase and workflows?** Warden makes it possible.
 
 ## License
 

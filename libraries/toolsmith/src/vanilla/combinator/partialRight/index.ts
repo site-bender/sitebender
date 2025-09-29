@@ -1,5 +1,4 @@
 //++ Like partial but fixes arguments from the right, returning a new function that takes the initial arguments
-//++ Like partial but fixes arguments from the right, returning a new function that takes the initial arguments
 const partialRight =
 	<T extends ReadonlyArray<unknown>, U extends ReadonlyArray<unknown>, R>(
 		fn: (...args: [...T, ...U]) => R,
