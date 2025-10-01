@@ -4,10 +4,13 @@ import isNullish from "../../validation/isNullish/index.ts"
 export default function nth(index: number) {
 	return function getElementAtIndex<T>(
 		array: Array<T> | null | undefined,
-	): T | undefined {
+	): T | null {
 		if (isNullish(array) || !Array.isArray(array)) {
-			return undefined
+			return null
 		}
-		return array.at(index)
+
+		const element = array.at(index)
+
+		return element === undefined ? null : element
 	}
 }

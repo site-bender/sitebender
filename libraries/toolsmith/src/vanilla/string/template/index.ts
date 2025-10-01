@@ -51,19 +51,19 @@ export default function template(
 			const getNestedValue = (
 				obj: Value | Record<string, Value>,
 				path: string,
-			): Value | undefined => {
+			): Value | null => {
 				const keys = split(".")(path)
 
 				const traverse = (
-					current: Value | Record<string, Value> | undefined,
+					current: Value | Record<string, Value> | null,
 					remainingKeys: Array<string>,
-				): Value | undefined => {
+				): Value | null => {
 					if (or(isZero(length(remainingKeys)))(isNullish(current))) {
 						return current
 					}
 
 					if (not(isObject(current))) {
-						return undefined
+						return null
 					}
 
 					const [key, ...rest] = remainingKeys

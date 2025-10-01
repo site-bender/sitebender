@@ -8,14 +8,16 @@ const prop = <T extends Record<string | symbol, Value>, K extends keyof T>(
 ) =>
 (
 	obj: T,
-): T[K] | undefined => {
+): T[K] | null => {
 	// Handle null/undefined objects
 	if (isNullish(obj)) {
-		return undefined
+		return null
 	}
 
-	// Return the property value
-	return obj[key]
+	// Return the property value - convert undefined to null
+	const value = obj[key]
+
+	return value === undefined ? null : value
 }
 
 export default prop

@@ -7,10 +7,10 @@ import multiplyFactors from "./multiplyFactors/index.ts"
 
 export function multiply(
 	multiplier: number,
-): (multiplicand: number) => number | undefined
-export function multiply(multiplierOrFactors: Array<number>): number | undefined
+): (multiplicand: number) => number | null
+export function multiply(multiplierOrFactors: Array<number>): number | null
 
-//++ Multiplies numbers: number→(number→product) or Array<number>→product; undefined on non-finite
+//++ Multiplies numbers: number→(number→product) or Array<number>→product; null on non-finite
 export default function multiply(
 	multiplierOrFactors: number | Array<number>,
 ) {
@@ -23,7 +23,7 @@ export default function multiply(
 			)
 		}
 
-		return undefined
+		return null
 	}
 
 	if (isFinite(multiplierOrFactors)) {
@@ -31,14 +31,14 @@ export default function multiply(
 
 		return function multiplyByMultiplier(
 			multiplicand: number,
-		): number | undefined {
+		): number | null {
 			if (isFinite(multiplicand)) {
 				return multiplicand * multiplier
 			}
 
-			return undefined
+			return null
 		}
 	}
 
-	return undefined
+	return null
 }

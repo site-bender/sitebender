@@ -4,9 +4,9 @@ const cond = <T, R>(
 ) =>
 (
 	value: T,
-): R | undefined => {
+): R | null => {
 	const match = pairs.find(([predicate]) => predicate(value))
-	return match ? match[1](value) : undefined
+	return match ? match[1](value) : null
 }
 
 export default cond

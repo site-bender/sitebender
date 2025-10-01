@@ -3,7 +3,7 @@ import isArray from "../../validation/isArray/index.ts"
 /*++
  | [EXCEPTION] Using native findLastIndex for performance
  | Native method is optimized for backward iteration
- | Returns undefined instead of -1 for consistency with toolsmith patterns
+ | Returns null instead of -1 for consistency with toolsmith patterns
  */
 
 //++ Finds the index of the last matching element
@@ -12,13 +12,13 @@ export default function findLastIndex<T>(
 ) {
 	return function findLastIndexWithPredicate(
 		array: ReadonlyArray<T>,
-	): number | undefined {
+	): number | null {
 		if (isArray(array)) {
 			const index = array.findLastIndex(predicate)
 
-			return index === -1 ? undefined : index
+			return index === -1 ? null : index
 		}
 
-		return undefined
+		return null
 	}
 }

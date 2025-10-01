@@ -6,9 +6,9 @@ const maximumBy = <T>(
 ) =>
 (
 	array: ReadonlyArray<T> | null | undefined,
-): T | undefined => {
+): T | null => {
 	if (isNullish(array) || array.length === 0) {
-		return undefined
+		return null
 	}
 
 	const findMaximum = (

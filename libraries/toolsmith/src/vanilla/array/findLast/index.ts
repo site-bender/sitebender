@@ -12,10 +12,12 @@ export default function findLast<T>(
 ) {
 	return function findLastWithPredicate(
 		array: Array<T>,
-	): T | undefined {
+	): T | null {
 		if (isArray(array)) {
-			return array.findLast(predicate)
+			const element = array.findLast(predicate)
+
+			return element === undefined ? null : element
 		}
-		return undefined
+		return null
 	}
 }

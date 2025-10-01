@@ -3,9 +3,9 @@ import isNullish from "../../validation/isNullish/index.ts"
 //++ Returns a random element
 const sample = <T>(
 	array: ReadonlyArray<T> | null | undefined,
-): T | undefined => {
+): T | null => {
 	if (isNullish(array) || array.length === 0) {
-		return undefined
+		return null
 	}
 
 	const index = Math.floor(Math.random() * array.length)

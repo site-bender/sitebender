@@ -78,7 +78,7 @@ const evolve = <T extends Record<string | symbol, Value>>(
 				} else if (isNotUndefined(targetValue)) {
 					return targetValue
 				}
-				return undefined
+				return null
 			})()
 
 			// Only add to result if value is defined

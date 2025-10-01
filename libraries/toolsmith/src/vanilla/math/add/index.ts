@@ -5,10 +5,10 @@ import isFinite from "../../validation/isFinite/index.ts"
 import { ADDITIVE_IDENTITY } from "../constants/index.ts"
 import sumAddends from "./sumAddends/index.ts"
 
-export function add(addend: number): (augend: number) => number | undefined
-export function add(addendOrAddends: Array<number>): number | undefined
+export function add(addend: number): (augend: number) => number | null
+export function add(addendOrAddends: Array<number>): number | null
 
-//++ Adds numbers: number→(number→sum) or Array<number>→sum; undefined on non-finite
+//++ Adds numbers: number→(number→sum) or Array<number>→sum; null on non-finite
 export default function add(
 	addendOrAddends: number | Array<number>,
 ) {
@@ -19,7 +19,7 @@ export default function add(
 			return reduce(sumAddends)(ADDITIVE_IDENTITY)(addends as Array<number>)
 		}
 
-		return undefined
+		return null
 	}
 
 	if (isFinite(addendOrAddends)) {
@@ -27,14 +27,14 @@ export default function add(
 
 		return function addToAugend(
 			augend: number,
-		): number | undefined {
+		): number | null {
 			if (isFinite(augend)) {
 				return augend + addend
 			}
 
-			return undefined
+			return null
 		}
 	}
 
-	return undefined
+	return null
 }

@@ -4,9 +4,9 @@ import isNullish from "../../validation/isNullish/index.ts"
 export default function lastIndexOfMatch(pattern: RegExp | string) {
 	return function findLastIndexOfMatch(
 		array: ReadonlyArray<string> | null | undefined,
-	): number | undefined {
+	): number | null {
 		if (isNullish(array) || array.length === 0) {
-			return undefined
+			return null
 		}
 
 		const regex = new RegExp(pattern)
@@ -16,6 +16,6 @@ export default function lastIndexOfMatch(pattern: RegExp | string) {
 			},
 			-1,
 		)
-		return index === -1 ? undefined : index
+		return index === -1 ? null : index
 	}
 }

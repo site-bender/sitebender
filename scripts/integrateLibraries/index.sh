@@ -29,15 +29,21 @@ print_code_hint() {
 
 # All library branches
 BRANCHES=(
-    "ai/pagewright"
-    "ai/architect"
-    "ai/envoy"
-    "ai/quarrier"
-    "ai/formulator"
     "ai/agent"
     "ai/arborist"
+    "ai/architect"
     "ai/auditor"
+    "ai/custodian"
+    "ai/envoy"
+    "ai/formulator"
+    "ai/operator"
+    "ai/pagewright"
+    "ai/quarrier"
+    "ai/quartermaster"
+    "ai/sentinel"
+    "ai/steward"
     "ai/toolsmith"
+    "ai/warden"
 )
 
 # Resolve a worktree directory for a given branch using porcelain output (robust against formatting)

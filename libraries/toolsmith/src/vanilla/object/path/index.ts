@@ -6,7 +6,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 const path =
 	(pathInput: string | Array<string | number>) => (obj: Value): Value => {
 		// Handle null/undefined object
-		if (isNullish(obj)) return undefined
+		if (isNullish(obj)) return null
 
 		// Convert string path to array
 		const keys = typeof pathInput === "string"
@@ -18,24 +18,29 @@ const path =
 
 		// Traverse the path using reduce (pure FP)
 		return keys.reduce((acc: Value, key) => {
-			if (isNullish(acc)) return undefined
+			if (isNullish(acc)) return null
 
 			if (Array.isArray(acc)) {
 				const index = typeof key === "number" ? key : parseInt(String(key), 10)
-				return !isNaN(index) ? acc[index] : undefined
+				const element = !isNaN(index) ? acc[index] : undefined
+				return element === undefined ? null : element
 			}
 
-			if (acc instanceof Map) return acc.get(key as unknown as never)
-			if (acc instanceof Set) return undefined
+			if (acc instanceof Map) {
+				const value = acc.get(key as unknown as never)
+				return value === undefined ? null : value
+			}
+			if (acc instanceof Set) return null
 
 			if (typeof acc === "object") {
 				const strKey = String(key)
-				return Object.prototype.hasOwnProperty.call(acc, strKey)
+				const value = Object.prototype.hasOwnProperty.call(acc, strKey)
 					? (acc as Record<string, Value>)[strKey]
 					: undefined
+				return value === undefined ? null : value
 			}
 
-			return undefined
+			return null
 		}, obj as Value)
 	}
 

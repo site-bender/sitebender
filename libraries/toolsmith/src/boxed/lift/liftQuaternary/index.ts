@@ -1,8 +1,11 @@
 import type { Result } from "../../../types/fp/result/index.ts"
 import type { Validation } from "../../../types/Validation/index.ts"
 
+import error from "../../../monads/result/error/index.ts"
+import failure from "../../../monads/validation/failure/index.ts"
 import isOk from "../../../monads/result/isOk/index.ts"
 import isResult from "../../../monads/result/isResult/index.ts"
+import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 import resultMap4 from "../../../monads/result/map4/index.ts"
@@ -12,9 +15,11 @@ import validationMap4 from "../../../monads/validation/map4/index.ts"
 //++ Lifts a curried quaternary function to work with Result/Validation monads
 //++ If any argument is Validation, returns Validation
 //++ Otherwise defaults to Result
+//++ Handles null returns from vanilla functions by converting to Error/Failure
 export default function liftQuaternary<A, B, C, D, E, F>(
-	fn: (a: A) => (b: B) => (c: C) => (d: D) => E,
+	fn: (a: A) => ((b: B) => ((c: C) => ((d: D) => E | null) | null) | null) | null,
 ) {
+
 	return function liftedFirst(
 		ma: A | Result<F, A> | Validation<F,A>,
 	) {
@@ -56,7 +61,14 @@ export default function liftQuaternary<A, B, C, D, E, F>(
 								? (isOk(md) ? success(md.value) : { _tag: "Failure" as const, errors: [md.error] as [F] })
 								: success(md as D)
 
-						return validationMap4(fn)(aVal as Validation<F, A>)(bVal as Validation<F, B>)(cVal as Validation<F, C>)(dVal as Validation<F, D>) as Validation<F,E>
+						const result = validationMap4(fn as (a: A) => (b: B) => (c: C) => (d: D) => E)(aVal as Validation<F, A>)(bVal as Validation<F, B>)(cVal as Validation<F, C>)(dVal as Validation<F, D>)
+
+						// Check if result is Success(null) and convert to Failure
+						if (isValid(result) && result.value === null) {
+							return failure(["Null return from function" as unknown as F]) as Validation<F, E>
+						}
+
+						return result as Validation<F,E>
 					}
 
 					// Otherwise use Result (all Result or all plain)
@@ -64,7 +76,14 @@ export default function liftQuaternary<A, B, C, D, E, F>(
 					const bResult = isResult(mb) ? mb : ok(mb as B)
 					const cResult = isResult(mc) ? mc : ok(mc as C)
 					const dResult = isResult(md) ? md : ok(md as D)
-					return resultMap4(fn)(aResult as Result<F, A>)(bResult as Result<F, B>)(cResult as Result<F, C>)(dResult as Result<F, D>) as Result<F, E>
+					const result = resultMap4(fn as (a: A) => (b: B) => (c: C) => (d: D) => E)(aResult as Result<F, A>)(bResult as Result<F, B>)(cResult as Result<F, C>)(dResult as Result<F, D>)
+
+					// Check if result is Ok(null) and convert to Error
+					if (isOk(result) && result.value === null) {
+						return error("Null return from function" as unknown as F)
+					}
+
+					return result as Result<F, E>
 				}
 			}
 		}

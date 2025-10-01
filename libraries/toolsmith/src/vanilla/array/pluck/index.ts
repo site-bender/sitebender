@@ -7,7 +7,7 @@ const pluck = <T, K extends keyof T>(
 ) =>
 (
 	array: ReadonlyArray<T> | null | undefined,
-): Array<T[K] | undefined> => {
+): Array<T[K] | null> => {
 	if (isNullish(array)) {
 		return []
 	}
@@ -16,9 +16,9 @@ const pluck = <T, K extends keyof T>(
 		if (isNotNullish(item) && typeof item === "object") {
 			return (item as Record<string | number | symbol, unknown>)[
 				key as unknown as string
-			] as T[K] | undefined
+			] as T[K] | null
 		}
-		return undefined
+		return null
 	})
 }
 
