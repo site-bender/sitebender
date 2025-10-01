@@ -9,7 +9,7 @@ export default function fold<A, B>(onValid: (value: A) => B) {
 		return function applyFold(
 			validation: Validation<E, A>,
 		): B {
-			if (validation._tag === "Invalid") {
+			if (validation._tag === "Failure") {
 				return onInvalid(validation.errors)
 			}
 

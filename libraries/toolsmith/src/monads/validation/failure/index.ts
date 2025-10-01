@@ -6,15 +6,15 @@ export default function failure<E, A = never>(
 	errors: NonEmptyArray<E>,
 ): Validation<E, A> {
 	return {
-		_tag: "Invalid" as const,
+		_tag: "Failure" as const,
 		errors,
 	} as Invalid<E>
 }
 
-//?? [EXAMPLE] invalid(["error"]) // {_tag: "Invalid", errors: ["error"]}
-//?? [EXAMPLE] invalid(["error1", "error2"]) // {_tag: "Invalid", errors: ["error1", "error2"]}
+//?? [EXAMPLE] invalid(["error"]) // {_tag: "Failure", errors: ["error"]}
+//?? [EXAMPLE] invalid(["error1", "error2"]) // {_tag: "Failure", errors: ["error1", "error2"]}
 //?? [EXAMPLE] invalid([{field: "age", messages: ["required"]}])
-//?? // {_tag: "Invalid", errors: [{field: "age", messages: ["required"]}]}
+//?? // {_tag: "Failure", errors: [{field: "age", messages: ["required"]}]}
 
 /*??
  | [EXAMPLE]
@@ -22,18 +22,18 @@ export default function failure<E, A = never>(
  |   field: "email",
  |   messages: ["invalid format", "domain not allowed"]
  | }])
- | // {_tag: "Invalid", errors: [{field: "email", messages: [...]}]}
+ | // {_tag: "Failure", errors: [{field: "email", messages: [...]}]}
  |
  | // Multiple errors
  | const multipleErrors = invalid([
  |   {field: "age", messages: ["must be 18+"]},
  |   {field: "name", messages: ["required"]}
  | ])
- | // {_tag: "Invalid", errors: [{...}, {...}]}
+ | // {_tag: "Failure", errors: [{...}, {...}]}
  |
  | // Simple string errors
  | const simpleError = invalid(["Something went wrong"])
- | // {_tag: "Invalid", errors: ["Something went wrong"]}
+ | // {_tag: "Failure", errors: ["Something went wrong"]}
  |
  | // Type must be NonEmptyArray - at least one error required
  | // invalid([]) // TypeScript error - empty array not allowed

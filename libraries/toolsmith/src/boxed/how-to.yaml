@@ -329,6 +329,215 @@ implementation_checklist:
   - "7. Add single descriptive comment at top"
   - "8. Test with Result, Validation, and plain values"
 
+testing_rules:
+  critical_rules:
+    - "Test file MUST be named index.test.ts in same folder as index.ts"
+    - "Use Deno.test (with t.step if useful for organizing test cases)"
+    - "Use fast-check for property-based testing of edge cases"
+    - "NO MOCKS - these are integration tests, not unit tests"
+    - "Test behavior, not implementation - use the PUBLIC API only"
+    - "NEVER reach into monad internals - use isOk/isError/isValid/isInvalid"
+    - "NEVER create monads by hand - use ok/error/success/failure functions"
+    - "Shoot for 100% line and branch coverage"
+    - "Find bugs now with fast-check, not in production"
+
+  framework_setup: |
+    import { assert, assertEquals, assertStrictEquals } from "jsr:@std/assert"
+    import * as fc from "npm:fast-check"
+
+  public_api_usage:
+    explanation: |
+      Always use the monad's public API functions. Never inspect internal structure.
+      This ensures tests remain valid even if implementation changes.
+
+    bad_example: |
+      // BAD - depends on implementation details
+      const result = boxedFunction(5)
+      assertEquals(result._tag, "Ok")
+      assertEquals(result.value, 10)
+
+    good_example: |
+      // GOOD - uses public API
+      import isOk from "../../../monads/result/isOk/index.ts"
+      import getOr from "../../../monads/result/getOr/index.ts"
+
+      const result = boxedFunction(5)
+      assert(isOk(result))
+      assertEquals(getOr(0)(result), 10)
+
+  test_structure:
+    basic_test: |
+      Deno.test("functionName - basic behavior", () => {
+        // Test the happy path with plain values
+        const result = functionName(input)
+        assert(isOk(result))
+        assertEquals(getOr(null)(result), expectedOutput)
+      })
+
+    with_steps: |
+      Deno.test("functionName - comprehensive", async (t) => {
+        await t.step("plain values default to Result", () => {
+          const result = functionName(5)
+          assert(isOk(result))
+        })
+
+        await t.step("Result monad propagates", () => {
+          const result = functionName(ok(5))
+          assert(isOk(result))
+        })
+
+        await t.step("Validation monad propagates", () => {
+          const result = functionName(success(5))
+          assert(isValid(result))
+        })
+      })
+
+  what_to_test:
+    for_lift_functions:
+      - "Plain values → wraps in Result.Ok"
+      - "Result.Ok → maps function correctly"
+      - "Result.Error → propagates error"
+      - "Validation.Valid → maps function correctly"
+      - "Validation.Invalid → propagates errors"
+      - "Validation wins rule: Result + Validation → Validation"
+      - "Error accumulation in Validation (for binary/ternary)"
+      - "Property tests with random inputs using fast-check"
+
+    for_boxed_functions:
+      - "All vanilla function behaviors work through monad"
+      - "Plain values default to Result"
+      - "Result monad propagation (Ok and Error)"
+      - "Validation monad propagation (Valid and Invalid)"
+      - "Mixed monad handling (Validation wins)"
+      - "Error accumulation in Validation for multi-arg functions"
+      - "Currying behavior preserved"
+      - "Array overloads work correctly (if applicable)"
+      - "Edge cases: NaN, Infinity, very large/small numbers"
+      - "Property-based tests for mathematical properties"
+
+  property_testing_examples:
+    commutativity: |
+      // For commutative operations like add
+      fc.assert(
+        fc.property(fc.integer(), fc.integer(), (a, b) => {
+          const resultAB = add(a)(b)
+          const resultBA = add(b)(a)
+          assert(isOk(resultAB))
+          assert(isOk(resultBA))
+          assertEquals(getOr(0)(resultAB), getOr(0)(resultBA))
+        })
+      )
+
+    associativity: |
+      // For associative operations
+      fc.assert(
+        fc.property(fc.integer(), fc.integer(), fc.integer(), (a, b, c) => {
+          const left = add(add(a)(b))(c)
+          const right = add(a)(add(b)(c))
+          assertEquals(getOr(0)(left), getOr(0)(right))
+        })
+      )
+
+    identity: |
+      // For operations with identity elements
+      fc.assert(
+        fc.property(fc.integer(), (n) => {
+          const result = add(0)(n)
+          assertEquals(getOr(null)(result), n)
+        })
+      )
+
+    edge_cases: |
+      // Test with extreme values
+      fc.assert(
+        fc.property(
+          fc.oneof(
+            fc.constant(Number.MAX_SAFE_INTEGER),
+            fc.constant(Number.MIN_SAFE_INTEGER),
+            fc.constant(0),
+            fc.constant(-0),
+            fc.double({ min: -1e10, max: 1e10 })
+          ),
+          (n) => {
+            const result = functionName(n)
+            // Assert expected behavior
+          }
+        )
+      )
+
+  coverage_guidelines:
+    - "Aim for 100% line coverage"
+    - "Aim for 100% branch coverage"
+    - "If a line or branch cannot reasonably be tested, document why"
+    - "Use // deno-coverage-ignore-file or // deno-coverage-ignore-next-line sparingly"
+    - "Every code path should be exercised by tests"
+    - "Use fast-check to discover untested edge cases"
+
+  test_organization:
+    - "Group related tests using t.step"
+    - "Test happy path first, then error cases"
+    - "Test monad behavior separately from function behavior"
+    - "Keep tests focused - one assertion per concept"
+    - "Use descriptive test names that explain what is being tested"
+
+  example_test_file: |
+    import { assert, assertEquals } from "jsr:@std/assert"
+    import * as fc from "npm:fast-check"
+
+    import error from "../../../monads/result/error/index.ts"
+    import getOr from "../../../monads/result/getOr/index.ts"
+    import isOk from "../../../monads/result/isOk/index.ts"
+    import ok from "../../../monads/result/ok/index.ts"
+    import failure from "../../../monads/validation/failure/index.ts"
+    import getOrElse from "../../../monads/validation/getOrElse/index.ts"
+    import isValid from "../../../monads/validation/isValid/index.ts"
+    import success from "../../../monads/validation/success/index.ts"
+
+    import add from "./index.ts"
+
+    Deno.test("add - plain values default to Result", () => {
+      const result = add(2)(3)
+
+      assert(isOk(result))
+      assertEquals(getOr(0)(result), 5)
+    })
+
+    Deno.test("add - Result monad behavior", async (t) => {
+      await t.step("Ok + Ok → Ok", () => {
+        const result = add(ok(2))(ok(3))
+        assert(isOk(result))
+        assertEquals(getOr(0)(result), 5)
+      })
+
+      await t.step("Error + Ok → Error", () => {
+        const result = add(error("bad"))(ok(3))
+        assert(isOk(result) === false)
+      })
+    })
+
+    Deno.test("add - Validation monad behavior", async (t) => {
+      await t.step("Valid + Valid → Valid", () => {
+        const result = add(success(2))(success(3))
+        assert(isValid(result))
+        assertEquals(getOrElse(() => 0)(result), 5)
+      })
+
+      await t.step("Invalid + Valid → Invalid", () => {
+        const result = add(failure(["e1"]))(success(3))
+        assert(isValid(result) === false)
+      })
+    })
+
+    Deno.test("add - property: commutativity", () => {
+      fc.assert(
+        fc.property(fc.integer(), fc.integer(), (a, b) => {
+          const ab = add(a)(b)
+          const ba = add(b)(a)
+          assertEquals(getOr(0)(ab), getOr(0)(ba))
+        })
+      )
+    })
+
 common_mistakes_to_avoid:
   - "DON'T use arrow functions - use traditional function declarations"
   - "DON'T use named imports - everything is default export"

@@ -5,7 +5,7 @@ export default function chain<A, E, B>(fn: (value: A) => Validation<E, B>) {
 	return function applyChain(
 		validation: Validation<E, A>,
 	): Validation<E, B> {
-		if (validation._tag === "Invalid") {
+		if (validation._tag === "Failure") {
 			return validation
 		}
 

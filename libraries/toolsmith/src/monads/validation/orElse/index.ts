@@ -5,7 +5,7 @@ export default function orElse<E, A>(
 	alternative: () => Validation<E, A>,
 ) {
 	return function applyOrElse(validation: Validation<E, A>): Validation<E, A> {
-		if (validation._tag === "Invalid") {
+		if (validation._tag === "Failure") {
 			return alternative()
 		}
 

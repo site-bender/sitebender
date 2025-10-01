@@ -1,10 +1,10 @@
-import type { Valid, Validation } from "../../../types/Validation/index.ts"
+import type { Success, Validation } from "../../../types/Validation/index.ts"
 
-//++ Checks if a validation is valid
+//++ Checks if a validation is successful
 export default function isValid<E, A>(
 	validation: Validation<E, A>,
-): validation is Valid<A> {
-	return validation._tag === "Valid"
+): validation is Success<A> {
+	return validation._tag === "Success"
 }
 
 //?? [EXAMPLE] isValid(valid(42)) // true

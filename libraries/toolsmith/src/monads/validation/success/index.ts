@@ -3,30 +3,30 @@ import type { Valid, Validation } from "../../../types/Validation/index.ts"
 //++ Creates a Success validation representing a successful value
 export default function success<A>(value: A): Validation<never, A> {
 	return {
-		_tag: "Valid" as const,
+		_tag: "Success" as const,
 		value,
 	} as Valid<A>
 }
 
-//?? [EXAMPLE] valid(42) // {_tag: "Valid", value: 42}
-//?? [EXAMPLE] valid("hello") // {_tag: "Valid", value: "hello"}
-//?? [EXAMPLE] valid({id: 1, name: "Alice"}) // {_tag: "Valid", value: {id: 1, name: "Alice"}}
+//?? [EXAMPLE] valid(42) // {_tag: "Success", value: 42}
+//?? [EXAMPLE] valid("hello") // {_tag: "Success", value: "hello"}
+//?? [EXAMPLE] valid({id: 1, name: "Alice"}) // {_tag: "Success", value: {id: 1, name: "Alice"}}
 
 /*??
  | [EXAMPLE]
  | const userValidation = valid({ id: 123, name: "Bob" })
- | // {_tag: "Valid", value: { id: 123, name: "Bob" }}
+ | // {_tag: "Success", value: { id: 123, name: "Bob" }}
  |
  | // Creating valid results from computations
  | const parseResult = Number("42")
  | const validation = isNaN(parseResult)
  |   ? invalid(["not a number"])
  |   : valid(parseResult)
- | // {_tag: "Valid", value: 42}
+ | // {_tag: "Success", value: 42}
  |
  | // Use with map, chain, fold
  | const doubled = map(n => n * 2)(valid(21))
- | // {_tag: "Valid", value: 42}
+ | // {_tag: "Success", value: 42}
  |
  | // Type inference works correctly
  | const stringValidation = valid("test")

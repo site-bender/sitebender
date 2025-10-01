@@ -238,22 +238,23 @@ developer_experience:
 
 declarative_testing:
   philosophy: "Testing is not separate from the application - it's part of the data model"
-  approach: "JSX components define all IO boundaries, mocks, scenarios, and verification"
+  approach: "JSX components define all IO boundaries, test scenarios, and verification"
+  note: "NO MOCKING except MSW-style edge interception for IO boundaries (HTTP, file system, network). Test with real implementations and declarative scenario data."
   benefits:
-    - "No mock drift - contracts enforced by production validation"
+    - "No contract drift - contracts enforced by production validation"
     - "Scenarios as data - shareable, versionable, tradeable"
-    - "Formal verification - prove mocks maintain invariants"
+    - "Formal verification - prove scenarios maintain invariants"
     - "Progressive enhancement - works without JS, enhanced with"
   distribution:
-    agent: "IO interception, recording, replay, network simulation"
-    architect: "Mock response generation, scenario state, transformations"
+    agent: "IO edge interception (MSW-style), recording, replay, network simulation"
+    architect: "Test response generation, scenario state, transformations"
     auditor: "Contract verification, coverage analysis, invariant proofs"
     custodian: "Stateful scenarios, time control, state machines"
-    envoy: "Mock observability, dashboards, drift detection"
-    warden: "Production safety, mock boundary enforcement"
-    sentinel: "Authentication/authorization mocking and policies"
-    formulator: "Dynamic mock expressions, conditional logic"
-  coordination: "TestHarness meta-component orchestrates all mock functionality"
+    envoy: "Test observability, dashboards, contract drift detection"
+    warden: "Production safety, test boundary enforcement"
+    sentinel: "Test authentication/authorization policies"
+    formulator: "Test scenario expressions, conditional logic for test data"
+  coordination: "TestHarness meta-component orchestrates all test functionality"
 
 libraries:
   - current: "@sitebender/toolsmith"
@@ -338,8 +339,16 @@ libraries:
         - "WebSocket fallback"
         - "Meta refresh baseline"
       automated_detection:
-        mathematical_properties: ["purity", "commutativity", "associativity", "idempotence", "distributivity"]
-        code_characteristics: ["complexity", "currying", "type_safety", "dependencies"]
+        mathematical_properties:
+          [
+            "purity",
+            "commutativity",
+            "associativity",
+            "idempotence",
+            "distributivity",
+          ]
+        code_characteristics:
+          ["complexity", "currying", "type_safety", "dependencies"]
     status: "dependent on Quarrier + Arborist readiness"
   - current: "@sitebender/auditor"
     studio_name: "Auditor"
@@ -396,7 +405,7 @@ libraries:
       - "OAuth2, WebAuthn, DID authentication providers"
       - "Role-based and attribute-based access control"
       - "Security policies as data in triple store"
-      - "Mock authentication for testing"
+      - "Test authentication credentials for testing (declarative test data, not mocks)"
 
 applications:
   - path: "/applications/mission-control"
@@ -445,12 +454,12 @@ roadmap_priorities:
   - order: 7
     item: "Declarative Testing Integration"
     includes:
-      - "Agent: IO interception runtime"
-      - "Architect: Mock response generation"
+      - "Agent: IO edge interception runtime (MSW-style)"
+      - "Architect: Test response generation"
       - "Auditor: Contract verification"
       - "Custodian: Scenario state machines"
       - "All: Coordinate through TestHarness"
-    note: "Each library adds testing features in parallel"
+    note: "Each library adds testing features in parallel. NO MOCKING - real implementations with declarative test data only."
   - order: 8
     item: "Pagewright & Architect"
     note: "Already far along; continue active development"
@@ -642,7 +651,10 @@ cross_library_dependencies:
   operator: ["toolsmith/"]
   agent: []
   envoy: ["arborist (CRITICAL: ALL AST data - Warden enforced)"]
-  auditor: ["arborist (CRITICAL: ALL parsing operations), quarrier (ALL test data generation)"]
+  auditor:
+    [
+      "arborist (CRITICAL: ALL parsing operations), quarrier (ALL test data generation)",
+    ]
   arborist: ["deno_ast (ONLY external dependency allowed in entire ecosystem)"]
   quarrier: ["arborist (type information only)"]
   warden: ["everyone depends on Warden for governance"]

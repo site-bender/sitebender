@@ -1,10 +1,11 @@
-import type { Result } from "../../../monads/result/types/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
 import type { Validation } from "../../../types/Validation/index.ts"
+
 import isResult from "../../../monads/result/isResult/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
 import resultMap from "../../../monads/result/map/index.ts"
 import validationMap from "../../../monads/validation/map/index.ts"
-import ok from "../../../monads/result/ok/index.ts"
 
 //++ Lifts a unary function to work with Result/Validation monads
 //++ Defaults to Result if given plain values

@@ -8,14 +8,14 @@ export default function mapErrors<E, F>(fn: (error: E) => F) {
 	return function applyMapErrors<A>(
 		validation: Validation<E, A>,
 	): Validation<F, A> {
-		if (validation._tag === "Invalid") {
+		if (validation._tag === "Failure") {
 			// NonEmptyArray is guaranteed since Invalid always has at least one error
 			const [firstError, ...restErrors] = validation.errors
 			const transformedFirst = fn(firstError)
 			const transformedRest = map(fn)(restErrors)
 
 			return {
-				_tag: "Invalid",
+				_tag: "Failure",
 				errors: [transformedFirst, ...transformedRest] as NonEmptyArray<F>,
 			}
 		}

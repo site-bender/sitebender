@@ -5,7 +5,7 @@ export default function getOrElse<E, A>(
 	defaultValue: A,
 ) {
 	return function applyGetOrElse(validation: Validation<E, A>): A {
-		if (validation._tag === "Invalid") {
+		if (validation._tag === "Failure") {
 			return defaultValue
 		}
 
