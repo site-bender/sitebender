@@ -21,17 +21,20 @@ BASE_DIR=$(dirname "$MAIN_REPO")
 # All available libraries
 ALL_LIBRARIES=(
     "agent"
+    "arborist"
     "architect"
-    "pagewright"
+    "auditor"
+    "custodian"
     "envoy"
     "formulator"
-    "arborist"
-    "auditor"
+    "operator"
+    "pagewright"
     "quarrier"
-		"quartermaster"
-		"steward"
+    "quartermaster"
+    "sentinel"
+    "steward"
     "toolsmith"
-		"warden"
+    "warden"
 )
 
 # Function to extract library name from branch

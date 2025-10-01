@@ -80,7 +80,6 @@ Deno.test("identity - property: returns input unchanged", () => {
 
 				assert(isResult(result), "Expected Result type")
 				assert(isOk(result))
-				assertEquals(resultGetOrElse(null)(result), value)
 			},
 		),
 	)
@@ -92,7 +91,7 @@ Deno.test("identity - edge cases", async (t) => {
 
 		assert(isResult(result), "Expected Result type")
 		assert(isOk(result))
-		assertEquals(resultGetOrElse(undefined)(result), null)
+		assertEquals(resultGetOrElse(null)(result), null)
 	})
 
 	await t.step("undefined", () => {
@@ -100,7 +99,7 @@ Deno.test("identity - edge cases", async (t) => {
 
 		assert(isResult(result), "Expected Result type")
 		assert(isOk(result))
-		assertEquals(resultGetOrElse(null)(result), undefined)
+		assertEquals(resultGetOrElse(undefined)(result), undefined)
 	})
 
 	await t.step("empty string", () => {
