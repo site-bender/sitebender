@@ -5,12 +5,7 @@ import includes from "@sitebender/toolsmith/vanilla/array/includes/index.ts"
 
 import flatMapDescendants from "./flatMapDescendants/index.ts"
 
-/**
- * Checks if an element has descendants with specific tags
- *
- * @param config - Element configuration
- * @returns Function that checks if any descendants match the given tags
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const hasDescendant =
 	(config: ElementConfig) => (tags: readonly string[]): boolean => {
 		const { children = [] } = config

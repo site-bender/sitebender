@@ -1,6 +1,4 @@
-/**
- * Format a single duration part with proper pluralization
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatDurationPart(
 	value: number,
 	unit: Intl.RelativeTimeFormatUnit,

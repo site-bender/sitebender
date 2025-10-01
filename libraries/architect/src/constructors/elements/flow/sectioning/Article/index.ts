@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Article attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ArticleElementAttributes =
 	& ArticleAttributes
 	& ArticleAriaAttributes
@@ -32,30 +30,9 @@ export type ArticleElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Article element
- * Allows global attributes and validates article-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Article element configuration object
- *
- * The article element represents a complete, or self-contained, composition
- * in a document, page, application, or site. This could be a magazine or
- * newspaper article, a blog or forum post, a product card, a user-submitted
- * comment, an interactive widget or gadget, or any other independent item.
- *
- * @example
- * ```typescript
- * const article = Article({
- *   id: "main-article",
- *   "aria-labelledby": "article-title"
- * })([
- *   H1({ id: "article-title" })("Article Title"),
- *   P()("Article content...")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Article = (attributes: ArticleElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

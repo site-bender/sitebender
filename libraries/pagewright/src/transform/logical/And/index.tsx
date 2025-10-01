@@ -3,24 +3,7 @@ import type {
 	LogicalConfig,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * And JSX Component
- *
- * Wrapper for the And logical operator constructor.
- * All children conditions must be true for the And to be true.
- *
- * @example
- * <And>
- *   <IsMoreThan>
- *     <Value><FromElement id="price" /></Value>
- *     <Threshold><Constant value={0} /></Threshold>
- *   </IsMoreThan>
- *   <IsLessThan>
- *     <Value><FromElement id="price" /></Value>
- *     <Threshold><Constant value={1000} /></Threshold>
- *   </IsLessThan>
- * </And>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import AndConstructor from "../../../../../architect/src/constructors/comparators/algebraic/And/index.ts"
 

@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Data attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DataElementAttributes = DataAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type DataElementAttributes = DataAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Data element
- * Allows global attributes and validates data-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Data element configuration object
- *
- * The data element links content with a machine-readable value.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const data = Data({
- *   id: "product-price",
- *   value: "39.99"
- * })([
- *   TextNode("$39.99")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Data = (attributes: DataElementAttributes) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

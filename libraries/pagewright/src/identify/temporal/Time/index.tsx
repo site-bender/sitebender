@@ -1,30 +1,4 @@
-/**
- * Time component
- *
- * Architect component that renders times of day. Works as PlainTime
- * without timezone, or shows local time in specified timezone when
- * timezone is provided.
- *
- * Example usage:
- *
- * // Simple time
- * <Time value="14:30:00" />
- *
- * // 12-hour format with locale
- * <Time value="14:30:00" locale="en-US" />
- * // → 2:30 PM
- *
- * // 24-hour format
- * <Time value="14:30:00" locale="fr-FR" />
- * // → 14:30
- *
- * // With timezone
- * <Time value="14:30:00" timezone="Europe/Paris" showZone />
- * // → 14:30 CET
- *
- * // With seconds and microseconds
- * <Time value="14:30:45.123456" showSeconds showMicroseconds />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

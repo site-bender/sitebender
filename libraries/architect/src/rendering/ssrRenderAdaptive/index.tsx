@@ -1,11 +1,6 @@
 // Note: avoid importing precise HTML/ARIA types here; use minimal local shapes.
 
-/**
- * Server-Side Rendering for Architect Components
- *
- * Converts architect configuration objects into JSX elements
- * with data attributes for client-side hydration.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import { OPERAND_TYPES } from "../../constructors/constants/index.ts"
 
@@ -15,9 +10,7 @@ type ArchitectConfig = {
 	[key: string]: unknown
 }
 
-/**
- * Renders an architect configuration to JSX for SSR
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const ssrRenderArchitect = (config: ArchitectConfig): JSX.Element | string => {
 	if (!config || typeof config !== "object") {
 		return String(config)

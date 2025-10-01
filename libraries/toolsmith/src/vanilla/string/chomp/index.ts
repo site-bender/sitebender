@@ -1,49 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Removes trailing newline characters from a string
- *
- * Removes line terminators from the end of a string including \n (LF),
- * \r\n (CRLF), and \r (CR). This is useful for cleaning up strings from
- * file reads, user input, or data processing where trailing newlines
- * are unwanted. Only removes newlines from the end, not from within
- * the string.
- *
- * @param str - String to remove trailing newlines from
- * @returns String with trailing newlines removed
- * @example
- * ```typescript
- * // Basic usage
- * chomp("hello\n")
- * // "hello"
- *
- * chomp("hello\r\n")
- * // "hello"
- *
- * chomp("hello\r")
- * // "hello"
- *
- * // Multiple newlines
- * chomp("hello\n\n\n")
- * // "hello"
- *
- * // Mixed newlines
- * chomp("hello\r\n\n\r")
- * // "hello"
- *
- * // Preserve internal newlines
- * chomp("hello\nworld\n")
- * // "hello\nworld"
- *
- * // Array processing
- * const lines = ["line1\n", "line2\n", "line3\n"]
- * lines.map(chomp)
- * // ["line1", "line2", "line3"]
- * ```
- * @pure
- * @immutable
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const chomp = (
 	str: string | null | undefined,
 ): string => {

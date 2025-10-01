@@ -1,27 +1,4 @@
-/**
- * MentionedTerm component
- *
- * Marks up terms that are being mentioned, defined, or introduced
- * in the text. Commonly used when explaining terminology or in
- * educational content where terms are being discussed.
- *
- * Example usage:
- *
- * The term <MentionedTerm>algorithm</MentionedTerm> comes from
- * the name of a Persian mathematician.
- *
- * <MentionedTerm defining glossaryId="recursion">
- *   Recursion
- * </MentionedTerm>
- * is when a function calls itself.
- *
- * <MentionedTerm
- *   firstUse
- *   definition="a step-by-step procedure"
- * >
- *   algorithm
- * </MentionedTerm>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

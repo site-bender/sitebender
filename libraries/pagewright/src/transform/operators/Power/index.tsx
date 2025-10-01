@@ -3,18 +3,7 @@ import type {
 	PowerOperator,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Power JSX Component
- *
- * Wrapper for the Power operator constructor.
- * Requires <Base> and <Exponent> wrapper components.
- *
- * @example
- * <Power>
- *   <Base><FromElement id="base" type="Number" /></Base>
- *   <Exponent><Constant value={2} /></Exponent>
- * </Power>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import PowerConstructor from "../../../../../architect/src/constructors/operators/Power/index.ts"
 

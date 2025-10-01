@@ -11,13 +11,9 @@ import Input from "@sitebender/architect/constructors/elements/flow/interactive/
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for InputSubmit
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended InputSubmit attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputSubmitElementAttributes = InputSubmitAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -29,20 +25,7 @@ export type InputSubmitElementAttributes = InputSubmitAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an InputSubmit element configuration object
- *
- * The submit input creates a button that submits the form.
- *
- * @example
- * ```typescript
- * const input = InputSubmit({
- *   value: "Submit Form",
- *   formaction: "/submit",
- *   formmethod: "post"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputSubmit = Input("submit")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

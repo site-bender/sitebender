@@ -4,12 +4,7 @@ import type { TypeInfo } from "../../../../../types/index.ts"
 
 import { TypeKind } from "../../../../../types/index.ts"
 
-/**
- * Converts a TypeScript Type object to TypeInfo structure
- * @param type TypeScript Type object
- * @param checker TypeScript type checker
- * @returns TypeInfo representation of the type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function typeToTypeInfo(
 	type: ts.Type,
 	checker: ts.TypeChecker,

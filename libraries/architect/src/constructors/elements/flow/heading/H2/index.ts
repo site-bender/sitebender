@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended H2 attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type H2ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,21 +27,9 @@ export type H2ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for H2 element
- * Allows global attributes and validates heading-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an H2 element configuration object
- *
- * @example
- * ```typescript
- * const h2 = H2({ id: "section-title", role: "tab" })([
- *   TextNode("Section Heading")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const H2 = (attributes: H2ElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

@@ -1,8 +1,6 @@
 import type { FunctionSignature } from "../../types/index.ts"
 
-/**
- * Formats a function signature for documentation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractSignature(signature: FunctionSignature): string {
 	const { name, parameters, returnType, generics, isAsync, isGenerator } =
 		signature
@@ -38,9 +36,7 @@ export default function extractSignature(signature: FunctionSignature): string {
 	return `${prefix}${name}${genericString}(${paramString}): ${returnType}`
 }
 
-/**
- * Formats a generic parameter
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function formatGeneric(generic: { name: string; constraint?: string }): string {
 	if (generic.constraint) {
 		return `${generic.name} extends ${generic.constraint}`
@@ -48,9 +44,7 @@ function formatGeneric(generic: { name: string; constraint?: string }): string {
 	return generic.name
 }
 
-/**
- * Formats a function parameter
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function formatParameter(
 	param: { name: string; type: string; optional: boolean },
 ): string {
@@ -58,9 +52,7 @@ function formatParameter(
 	return `${param.name}${optionalMarker}: ${param.type}`
 }
 
-/**
- * Formats a curried function signature
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function formatCurriedSignature(
 	name: string,
 	parameters: Array<{ name: string; type: string; optional: boolean }>,

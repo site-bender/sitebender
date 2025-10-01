@@ -1,8 +1,6 @@
 import type { FormatOptions } from "../../../../types/temporal/index.ts"
 
-/**
- * Format a date value with internationalization
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatDate(
 	value: Date | string,
 	locale?: string,

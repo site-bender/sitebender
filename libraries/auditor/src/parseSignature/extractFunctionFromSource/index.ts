@@ -1,11 +1,6 @@
 import * as ts from "npm:typescript@5.7.2"
 
-/**
- * Extracts the main exported function from a source file
- * @param sourceFile TypeScript source file
- * @param checker TypeScript type checker
- * @returns Function node or null if not found
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractFunctionFromSource(
 	sourceFile: ts.SourceFile,
 	checker: ts.TypeChecker,
@@ -89,12 +84,7 @@ export default function extractFunctionFromSource(
 	)
 }
 
-/**
- * Check if a name is exported from the source file
- * @param sourceFile TypeScript source file
- * @param name Name to check for export
- * @returns Whether the name is exported
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function findExportForName(sourceFile: ts.SourceFile, name: string): boolean {
 	const children: Array<ts.Node> = []
 	ts.forEachChild(sourceFile, (child) => {

@@ -1,5 +1,2 @@
-/**
- * Alias for linearInterpolation (common abbreviation in graphics/game programming)
- * @see linearInterpolation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export { default } from "../linearInterpolation/index.ts"

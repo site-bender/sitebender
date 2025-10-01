@@ -1,8 +1,4 @@
-/**
- * ARIA Role Constants for HTML Elements
- * Based on W3C ARIA in HTML specification
- * @see https://www.w3.org/TR/html-aria/
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // ============================================================================
 // ALL VALID ARIA ROLES
@@ -606,25 +602,19 @@ export const SPAN_ROLES = ALL_ARIA_ROLES // Can have any role
 // HELPER FUNCTIONS
 // ============================================================================
 
-/**
- * Check if an element should not have any role attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function isNoRoleElement(tagName: string): boolean {
 	const t = tagName.toLowerCase() as (typeof NO_ROLE_ELEMENTS)[number]
 	return (NO_ROLE_ELEMENTS as readonly string[]).includes(t)
 }
 
-/**
- * Check if an element can have any role
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function canHaveAnyRole(tagName: string): boolean {
 	const anyRoleElements = ["div", "span"]
 	return anyRoleElements.includes(tagName.toLowerCase())
 }
 
-/**
- * Get allowed roles for an input element based on its type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function getInputAllowedRoles(type: string): readonly string[] {
 	switch (type.toLowerCase()) {
 		case "button":
@@ -672,16 +662,12 @@ export function getInputAllowedRoles(type: string): readonly string[] {
 	}
 }
 
-/**
- * Get allowed roles for select element based on multiple attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function getSelectAllowedRoles(multiple: boolean): readonly string[] {
 	return multiple ? SELECT_WITH_MULTIPLE_ROLES : SELECT_WITHOUT_MULTIPLE_ROLES
 }
 
-/**
- * Get allowed roles for img element based on alt attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function getImgAllowedRoles(alt: string | undefined): readonly string[] {
 	if (alt === "") {
 		return IMG_WITH_EMPTY_ALT_ROLES
@@ -689,9 +675,7 @@ export function getImgAllowedRoles(alt: string | undefined): readonly string[] {
 	return IMG_WITH_ALT_ROLES
 }
 
-/**
- * Get allowed roles for section element based on accessible name
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function getSectionAllowedRoles(
 	hasAccessibleName: boolean,
 ): readonly string[] {
@@ -700,9 +684,7 @@ export function getSectionAllowedRoles(
 		: SECTION_WITHOUT_NAME_ROLES
 }
 
-/**
- * Get allowed roles for header element based on context
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function getHeaderAllowedRoles(
 	inSectioningContent: boolean,
 ): readonly string[] {
@@ -711,9 +693,7 @@ export function getHeaderAllowedRoles(
 		: HEADER_NOT_IN_SECTIONING_ROLES
 }
 
-/**
- * Get allowed roles for footer element based on context
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function getFooterAllowedRoles(
 	inSectioningContent: boolean,
 ): readonly string[] {

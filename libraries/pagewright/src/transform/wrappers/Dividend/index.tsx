@@ -1,15 +1,4 @@
-/**
- * Dividend JSX Component
- *
- * Mathematical alias for Value in Divide operations.
- * The dividend is the number being divided.
- *
- * @example
- * <Divide>
- *   <Dividend><FromElement id="total" type="Number" /></Dividend>
- *   <Divisor><FromElement id="parts" type="Number" /></Divisor>
- * </Divide>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type DividendProps = {
 	children?: JSX.Element | JSX.Element[]

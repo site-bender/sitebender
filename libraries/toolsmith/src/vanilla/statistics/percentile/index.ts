@@ -1,43 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the nth percentile of a dataset
- *
- * Finds the value below which a given percentage of observations fall.
- * Uses linear interpolation between closest ranks when the percentile
- * falls between two values. Requires percentile between 0 and 100.
- * Returns NaN for invalid inputs or empty arrays.
- *
- * @param p - Percentile to calculate (0-100)
- * @param data - Array of numeric values
- * @returns Value at the given percentile, or NaN if invalid
- * @example
- * ```typescript
- * // Basic percentiles
- * percentile(50)([1, 2, 3, 4, 5])
- * // 3 (median)
- *
- * percentile(25)([1, 2, 3, 4, 5])
- * // 1.5 (first quartile)
- *
- * percentile(75)([1, 2, 3, 4, 5])
- * // 4.5 (third quartile)
- *
- * percentile(0)([1, 2, 3, 4, 5])  // 1 (minimum)
- * percentile(100)([1, 2, 3, 4, 5])  // 5 (maximum)
- *
- * // Unsorted data (automatically sorted)
- * percentile(50)([5, 1, 3, 2, 4])
- * // 3
- *
- * // Invalid inputs
- * percentile(-10)([1, 2, 3])  // NaN
- * percentile(50)([])  // NaN
- * ```
- * @pure
- * @curried
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function percentile(
 	p: number | null | undefined,
 ) {

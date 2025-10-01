@@ -1,12 +1,7 @@
 // Intentionally keep this helper generic: it collects any 'operands' arrays
 // without constraining to specific Operand shapes.
 
-/**
- * Extracts all operands from an operations list
- *
- * @param operations - List of operations containing operands
- * @returns Array of all operands
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type HasOperands = { operands?: Array<unknown> | null }
 
 const getOperands = (

@@ -1,16 +1,4 @@
-/**
- * LetterAsLetter component
- *
- * Marks up individual letters when they are being discussed as
- * letters rather than used as part of words. Common in educational
- * content, arboristics, and typography discussions.
- *
- * Example usage:
- *
- * The letter <LetterAsLetter>A</LetterAsLetter> is the first letter of the alphabet.
- *
- * In Spanish, <LetterAsLetter>ñ</LetterAsLetter> is considered a separate letter.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

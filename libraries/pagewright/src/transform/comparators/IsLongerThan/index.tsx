@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsLongerThan JSX Component
- *
- * Wrapper for the IsLongerThan comparator constructor.
- * Checks if a string or array is longer than a threshold.
- * Requires <Value> and <Threshold> wrapper components.
- *
- * @example
- * <IsLongerThan>
- *   <Value><FromElement id="description" type="String" /></Value>
- *   <Threshold><Constant value={100} /></Threshold>
- * </IsLongerThan>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsLongerThanConstructor from "../../../../../architect/src/constructors/comparators/length/IsLongerThan/index.ts"
 

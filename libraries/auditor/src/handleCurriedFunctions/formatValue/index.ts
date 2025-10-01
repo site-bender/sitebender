@@ -1,8 +1,4 @@
-/**
- * Formats a value for display in test code
- * @param value Value to format
- * @returns Formatted string representation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatValue(value: unknown): string {
 	if (value === null) return "null"
 	if (value === undefined) return "undefined"

@@ -1,33 +1,4 @@
-/**
- * Neologism component
- *
- * Marks up newly coined words or expressions. Tracks when and how
- * the term was created, its formation type, and adoption status.
- * Useful for documenting language evolution and emerging terminology.
- *
- * Example usage:
- *
- * <Neologism coined="2020" type="blend">
- *   doomscrolling
- * </Neologism>
- *
- * <Neologism
- *   coined="2019"
- *   by="Greta Thunberg"
- *   type="compound"
- *   definition="flight avoidance due to climate concerns"
- * >
- *   flygskam
- * </Neologism>
- *
- * <Neologism
- *   type="portmanteau"
- *   from={["glamorous", "camping"]}
- *   status="mainstream"
- * >
- *   glamping
- * </Neologism>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type FormationType =
 	| "blend" // Parts of two words (brunch)

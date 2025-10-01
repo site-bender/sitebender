@@ -1,8 +1,6 @@
 import type { ParsedTemporal } from "../../../../types/temporal/index.ts"
 
-/**
- * Build a datetime attribute value from components
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function buildDateTimeAttribute(
 	parsed: ParsedTemporal,
 	includeTimezone = true,

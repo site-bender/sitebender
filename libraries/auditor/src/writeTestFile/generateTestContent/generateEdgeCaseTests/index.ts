@@ -3,13 +3,7 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 import escapeTestName from "../escapeTestName/index.ts"
 import valueToString from "../valueToString/index.ts"
 
-/**
- * Generates edge case test code
- * @param tests Array of edge case test cases
- * @param functionName Name of the function being tested
- * @param signature Optional function signature information
- * @returns Generated edge case test code string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateEdgeCaseTests(
 	tests: Array<TestCase>,
 	functionName: string,

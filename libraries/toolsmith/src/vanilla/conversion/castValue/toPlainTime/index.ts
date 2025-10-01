@@ -16,49 +16,7 @@ import isPlainTime from "../../../validation/isPlainTime/index.ts"
 import isString from "../../../validation/isString/index.ts"
 import isZonedDateTime from "../../../validation/isZonedDateTime/index.ts"
 
-/**
- * Parses values into Temporal PlainTime objects
- *
- * Converts various time representations to Temporal.PlainTime.
- * Returns null for invalid inputs rather than throwing errors.
- *
- * Parsing rules:
- * - Temporal.PlainTime: returned as-is
- * - Temporal.PlainDateTime/ZonedDateTime: extracts time portion
- * - Strings: ISO 8601 time format (HH:MM:SS or variants)
- * - Date objects: extracts time in local timezone
- * - PlainTimeLike objects: accepts hour, minute, second, etc.
- * - null/undefined: null
- *
- * @param value - The value to convert to PlainTime
- * @returns The PlainTime representation or null if invalid
- * @example
- * ```typescript
- * // ISO time strings
- * toPlainTime("14:30:00")          // PlainTime 14:30:00
- * toPlainTime("14:30")             // PlainTime 14:30:00
- * toPlainTime("14:30:00.123")      // PlainTime 14:30:00.123
- *
- * // Temporal objects
- * const dateTime = Temporal.PlainDateTime.from("2024-03-15T14:30:00")
- * toPlainTime(dateTime)            // PlainTime 14:30:00
- *
- * // PlainTimeLike objects
- * toPlainTime({ hour: 14, minute: 30 })          // PlainTime 14:30:00
- * toPlainTime({ hour: 9, minute: 5, second: 30 }) // PlainTime 09:05:30
- *
- * // Invalid inputs
- * toPlainTime("25:00:00")          // null (hour 25 invalid)
- * toPlainTime(null)                // null
- * toPlainTime(123)                 // null
- *
- * // Date objects (extracts time)
- * const jsDate = new Date("2024-03-15T14:30:45.123Z")
- * toPlainTime(jsDate)              // PlainTime from local time
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function toPlainTime(
 	value: TimeInput | null | undefined,
 ): Temporal.PlainTime | null {

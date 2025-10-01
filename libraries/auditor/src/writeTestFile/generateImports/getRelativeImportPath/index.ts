@@ -1,8 +1,4 @@
-/**
- * Gets relative import path from test file to source file
- * @param functionPath Absolute path to the function file
- * @returns Relative import path string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getRelativeImportPath(functionPath: string): string {
 	const pathParts = functionPath.split("/")
 	const libraryIndex = pathParts.indexOf("libraries")

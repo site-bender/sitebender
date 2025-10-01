@@ -1,14 +1,8 @@
-/**
- * Generate tests for predicate pattern functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 
-/**
- * Generate test cases for predicate functions (returning boolean)
- * @param signature Function signature
- * @returns Array of predicate-specific test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generatePredicatePatternTests(
 	signature: FunctionSignature,
 ): Array<TestCase> {

@@ -2,18 +2,7 @@ import type { TypeInfo } from "../../types/index.ts"
 
 import { TypeKind } from "../../types/index.ts"
 
-/**
- * Generates appropriate test inputs based on type information
- *
- * @example
- * ```typescript
- * const input = generateTestInput({ raw: "string", kind: TypeKind.Primitive })
- * // Returns: "test string"
- *
- * const input = generateTestInput({ raw: "number", kind: TypeKind.Primitive })
- * // Returns: 42
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateTestInput(type: TypeInfo): unknown {
 	// Handle primitive types properly
 	if (type.kind === TypeKind.Primitive) {

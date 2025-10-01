@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Legend attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type LegendElementAttributes =
 	& GlobalAttributes
 	& LegendAriaAttributes
@@ -32,26 +30,9 @@ export type LegendElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Legend element
- * Allows global attributes and validates legend-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Legend element configuration object
- *
- * The legend element represents a caption for the rest of the contents
- * of the legend element's parent fieldset element.
- *
- * @example
- * ```typescript
- * const legend = Legend({
- *   id: "personal-info-legend"
- * })([
- *   TextNode("Personal Information")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Legend = (attributes: LegendElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

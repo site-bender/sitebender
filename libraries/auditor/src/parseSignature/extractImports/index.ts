@@ -7,17 +7,7 @@ export type ImportInfo = {
 	isDefault: boolean
 }
 
-/**
- * Extracts import statements from a TypeScript source file
- * This is crucial for detecting custom types like Result<T, E> that need to be imported in tests
- *
- * @example
- * ```typescript
- * // Given source with: import type { Result } from "../../types/index.ts"
- * const imports = extractImports(sourceFile)
- * // Returns: [{ name: "Result", path: "../../types/index.ts", isType: true, isDefault: false }]
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractImports(
 	sourceFile: ts.SourceFile,
 ): Array<ImportInfo> {

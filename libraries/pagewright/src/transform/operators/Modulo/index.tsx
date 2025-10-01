@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Modulo JSX Component
- *
- * Wrapper for the Modulo operator constructor.
- * Returns the remainder after division.
- * Requires <Value> and <By> wrapper components.
- *
- * @example
- * <Modulo>
- *   <Value><FromElement id="number" type="Number" /></Value>
- *   <By><Constant value={3} /></By>
- * </Modulo>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import ModuloConstructor from "../../../../../architect/src/constructors/operators/Modulo/index.ts"
 

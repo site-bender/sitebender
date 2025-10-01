@@ -1,4 +1,4 @@
-/** HelpTooltip - Contextual help in tooltip format */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = Record<string, unknown> & {
 	classes?: Array<string>
@@ -6,13 +6,7 @@ export type Props = Record<string, unknown> & {
 	label?: string
 }
 
-/**
- * HelpTooltip
- *
- * Minimal tooltip trigger + content, progressively enhanced.
- * - Renders a button with aria-describedby pointing to help content
- * - CSS can position the content; JS can optionally enhance interactions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function HelpTooltip(
 	{ children, classes = [], id, label = "Help", ...props }: Props,
 ) {

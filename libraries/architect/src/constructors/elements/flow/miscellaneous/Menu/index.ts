@@ -2,9 +2,7 @@ import type { ElementConfig } from "../../../types/index.ts"
 
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
 
-/**
- * Child filter for Menu element - allows li, script, and template elements
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isValidMenuChild = (child: ElementConfig): boolean => {
 	if (!child || typeof child !== "object" || !child.tag) {
 		return false
@@ -12,21 +10,7 @@ const isValidMenuChild = (child: ElementConfig): boolean => {
 	return ["Li", "Script", "Template"].includes(child.tag)
 }
 
-/**
- * Creates a Menu element configuration object
- *
- * The menu element represents a list of commands or options.
- * It can only contain li, script, and template elements.
- *
- * @example
- * ```typescript
- * const menu = Menu({ id: "context-menu", class: "menu" })([
- *   Li()([Button()("Copy")]),
- *   Li()([Button()("Paste")]),
- *   Li()([Button()("Delete")])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Menu = GlobalOnly("Menu")(isValidMenuChild)
 
 export default Menu

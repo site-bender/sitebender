@@ -168,11 +168,7 @@ const TOOLSMITH_SIGNATURES: Record<string, FunctionSignature> = {
 	},
 }
 
-/**
- * Orchestrates test generation for multiple function signatures
- * @param signatures Map of function path to signature
- * @returns Promise resolving to map of test file paths to content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default async function orchestrateTestGeneration(
 	signatures: Record<string, FunctionSignature>,
 ): Promise<Map<string, string>> {
@@ -194,11 +190,7 @@ export default async function orchestrateTestGeneration(
 	return writeTestFiles(testFiles)
 }
 
-/**
- * Generates test content for a single function signature
- * @param signature Function signature to generate tests for
- * @returns Generated test file content as string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 async function generateTestsForFunction(
 	signature: FunctionSignature,
 ): Promise<string> {
@@ -221,11 +213,7 @@ async function generateTestsForFunction(
 	return fileContent
 }
 
-/**
- * Generates tests for multiple function signatures in batch
- * @param signatures Array of function key and signature pairs
- * @returns Map of test file paths to content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 async function generateBatchTests(
 	signatures: Array<[string, FunctionSignature]>,
 ): Promise<Map<string, string>> {
@@ -244,10 +232,7 @@ async function generateBatchTests(
 	return testFiles
 }
 
-/**
- * Analyzes and displays priority functions for testing
- * @param signatures Map of function signatures
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function analyzeAndPrioritize(
 	signatures: Record<string, FunctionSignature>,
 ): void {
@@ -261,10 +246,7 @@ function analyzeAndPrioritize(
 	})
 }
 
-/**
- * Generates and displays test generation report
- * @param testFiles Map of generated test files
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateReport(testFiles: Map<string, string>): void {
 	console.log("\n" + "=".repeat(80))
 	console.log("TEST GENERATION REPORT")
@@ -304,11 +286,7 @@ function generateReport(testFiles: Map<string, string>): void {
 	)
 }
 
-/**
- * Writes test files to disk
- * @param testFiles Map of test files to write
- * @returns Promise resolving to the test files map
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 async function writeTestFiles(
 	testFiles: Map<string, string>,
 ): Promise<Map<string, string>> {
@@ -332,9 +310,7 @@ async function writeTestFiles(
 	return testFiles
 }
 
-/**
- * Main entry point for test generation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 async function main(): Promise<void> {
 	await orchestrateTestGeneration(TOOLSMITH_SIGNATURES)
 	console.log("\n✅ Test generation complete!")

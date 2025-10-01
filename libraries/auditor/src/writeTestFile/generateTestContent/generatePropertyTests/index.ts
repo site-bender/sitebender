@@ -2,12 +2,7 @@ import type { TestCase } from "../../../types/index.ts"
 
 import escapeTestName from "../escapeTestName/index.ts"
 
-/**
- * Generates property-based test code
- * @param _functionName Name of the function being tested (reserved for future use)
- * @param tests Array of test cases with property tests
- * @returns Generated property test code string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generatePropertyTests(
 	_functionName: string,
 	tests: Array<TestCase>,
@@ -39,9 +34,7 @@ export default function generatePropertyTests(
 	].join("\n")
 }
 
-/**
- * Generate fc.assert wrapper for a property test
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateFcAssert(
 	property: { generator: string; property: string; runs?: number },
 ): Array<string> {

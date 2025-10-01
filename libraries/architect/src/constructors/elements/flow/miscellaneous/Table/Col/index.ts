@@ -13,14 +13,9 @@ import filterAttributes from "./filterAttributes/index.ts"
 
 // no local guards needed here; handled in filterAttributes
 
-/**
- * Filters attributes for Col element
- * Allows global attributes and validates span attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Col attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ColElementAttributes = TableColumnAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -32,20 +27,7 @@ export type ColElementAttributes = TableColumnAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Col element configuration object
- *
- * The col element represents a column in a table.
- * It's a void element that doesn't contain content.
- *
- * @example
- * ```typescript
- * const col = Col({
- *   id: "column-1",
- *   span: 2
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Col = FilteredEmpty("Col")(filterAttributes)
 
 export default Col

@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended I attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type IElementAttributes = IdiomaticTextAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,24 +27,9 @@ export type IElementAttributes = IdiomaticTextAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for I element
- * Allows global attributes and validates i-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an I element configuration object
- *
- * The i element represents a span of text in an alternate voice or mood,
- * or otherwise offset from the normal prose.
- *
- * @example
- * ```typescript
- * const i = I({ id: "italic", class: "highlight" })([
- *   TextNode("Italic text")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const I = (attributes: IElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

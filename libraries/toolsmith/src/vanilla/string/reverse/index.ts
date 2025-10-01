@@ -1,50 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Reverses the characters in a string
- *
- * Returns a new string with the characters in reverse order. This function
- * properly handles Unicode characters, including emojis and combining
- * characters, when Intl.Segmenter is available. Falls back to basic
- * reversal for simpler cases. Useful for palindrome checking, text effects,
- * or string manipulation puzzles.
- *
- * @pure
- * @immutable
- * @safe
- * @param str - String to reverse
- * @returns String with characters in reverse order
- * @example
- * ```typescript
- * // Basic reversal
- * reverse("hello")       // "olleh"
- *
- * // Single character
- * reverse("a")           // "a"
- *
- * // Empty string
- * reverse("")            // ""
- *
- * // Numbers and symbols
- * reverse("123!@#")      // "#@!321"
- *
- * // Spaces preserved
- * reverse("hello world") // "dlrow olleh"
- *
- * // Unicode characters
- * reverse("Hello 世界")  // "界世 olleH"
- *
- * // Emojis (properly handled with Intl.Segmenter)
- * reverse("Hello 🌍")    // "🌍 olleH"
- *
- * // Palindrome checking
- * const isPalindrome = (s: string) => {
- *   const clean = s.toLowerCase().replace(/[^a-z0-9]/g, "")
- *   return clean === reverse(clean)
- * }
- * isPalindrome("racecar") // true
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const reverse = (
 	str: string | null | undefined,
 ): string => {

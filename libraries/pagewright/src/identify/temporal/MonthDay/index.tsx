@@ -1,33 +1,4 @@
-/**
- * MonthDay component
- *
- * Represents a month-day combination without a specific year.
- * Useful for recurring dates like birthdays, anniversaries, holidays.
- * Maps to Temporal.PlainMonthDay.
- *
- * Example usage:
- *
- * // Birthday (no year)
- * <MonthDay value="--07-15" />
- * // → July 15
- *
- * // With locale
- * <MonthDay value="--12-25" locale="es-ES" />
- * // → 25 de diciembre
- *
- * // Short format
- * <MonthDay value="--01-01" format="short" />
- * // → Jan 1
- *
- * // Numeric format
- * <MonthDay value="--07-04" format="numeric" />
- * // → 7/4
- *
- * // With custom content
- * <MonthDay value="--02-14">
- *   {({ display }) => <>Valentine's Day is {display}</>}
- * </MonthDay>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

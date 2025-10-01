@@ -1,6 +1,4 @@
-/**
- * Do.SetQueryString (alias for Act.SetQueryString)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type SetQueryStringProps = {
 	key: string | JSX.Element

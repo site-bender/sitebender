@@ -1,11 +1,5 @@
 //++ Alias for average (arithmetic mean)
-/**
- * Alias for `average` - Calculates the arithmetic mean of an array of numbers
- *
- * @see average for full documentation and examples
- * @pure Always returns same result for same input
- * @safe Returns NaN for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import average from "../average/index.ts"
 
 export default average

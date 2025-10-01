@@ -15,14 +15,9 @@ import isString from "@sitebender/architect/guards/isString/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Time element
- * Allows global attributes and validates time-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Time attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TimeElementAttributes = TimeAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -34,24 +29,8 @@ export type TimeElementAttributes = TimeAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Time element configuration object
- *
- * The time element represents a specific period in time.
- *
- * @example
- * ```typescript
- * const time = Time({
- *   datetime: "2023-12-25T10:30:00Z",
- *   id: "event-time"
- * })([
- *   TextNode("December 25, 2023 at 10:30 AM")
- * ])
- * ```
- */
-/**
- * Child filter that validates phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isValidTimeChild = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {

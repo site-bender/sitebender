@@ -1,9 +1,4 @@
-/**
- * Pure, curried flatten function
- * @param depth - The depth to flatten (Infinity for complete flattening)
- * @param array - The array to flatten (last parameter for proper currying)
- * @returns A new flattened array
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function flatten<T>(depth: number = Infinity) {
 	return function (array: readonly T[]): T[] {
 		if (depth === 0) return [...array]

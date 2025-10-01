@@ -1,10 +1,6 @@
 import type ReportData from "./types/index.ts"
 
-/**
- * Generates a human-readable coverage report
- * @param data Coverage report data
- * @returns Formatted coverage report string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateCoverageReport(data: ReportData): string {
 	const lines: Array<string> = []
 

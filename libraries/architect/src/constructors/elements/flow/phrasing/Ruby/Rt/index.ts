@@ -11,24 +11,8 @@ import type { ElementConfig } from "@sitebender/architect/constructors/elements/
 import GlobalOnly from "@sitebender/architect/constructors/abstracted/GlobalOnly/index.ts"
 import isPhrasingContent from "@sitebender/architect/guards/isPhrasingContent/index.ts"
 
-/**
- * Creates an Rt element configuration object
- *
- * The rt element marks the ruby text component of a ruby annotation.
- * It provides pronunciation or meaning for the base text.
- *
- * @example
- * ```typescript
- * const rt = Rt({
- *   id: "kanji-reading"
- * })([
- *   TextNode("かんじ")
- * ])
- * ```
- */
-/**
- * Child filter that validates phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const phrasingContentFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		return isPhrasingContent()(
@@ -39,9 +23,7 @@ const phrasingContentFilter = (child: ElementConfig): boolean => {
 	return true
 }
 
-/**
- * Extended Rt attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type RtElementAttributes = RubyTextAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand

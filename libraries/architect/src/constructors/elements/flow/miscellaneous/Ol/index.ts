@@ -15,14 +15,10 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Valid type values for ordered lists
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 // Note: OL_TYPES constants moved to filterAttributes
 
-/**
- * Extended Ol attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type OlElementAttributes = OrderedListAttributes & ListAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -33,30 +29,9 @@ export type OlElementAttributes = OrderedListAttributes & ListAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Ol element
- * Allows global attributes and validates ol-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Ol element configuration object
- *
- * The ol element represents an ordered list of items.
- * It can only contain li, script, and template elements.
- *
- * @example
- * ```typescript
- * const ol = Ol({
- *   id: "ordered-list",
- *   start: 5,
- *   type: "i"
- * })([
- *   Li()("First item"),
- *   Li()("Second item"),
- *   Li()("Third item")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Ol = (attributes: OlElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

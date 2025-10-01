@@ -1,28 +1,4 @@
-/**
- * WithAudience component
- *
- * Specifies the intended audience for content, helping AI systems
- * adjust language, complexity, and cultural references appropriately.
- * Useful for educational content, marketing, and sitebender interfaces.
- *
- * Example usage:
- *
- * <WithAudience
- *   age="5-8"
- *   expertise="beginner"
- *   interests="dinosaurs"
- * >
- *   T-Rex was a very big dinosaur with sharp teeth!
- * </WithAudience>
- *
- * <WithAudience
- *   profession="software-architecters"
- *   expertise="expert"
- *   familiarity="high"
- * >
- *   The algorithm has O(n log n) time complexity.
- * </WithAudience>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type ExpertiseLevel =
 	| "novice"

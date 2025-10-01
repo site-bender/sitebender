@@ -3,17 +3,7 @@ import type {
 	RoundOperator,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Round JSX Component
- *
- * Wrapper for the Round operator constructor.
- * Rounds a number to the nearest integer.
- *
- * @example
- * <Round>
- *   <FromElement id="price" type="Number" />
- * </Round>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import RoundConstructor from "../../../../../architect/src/constructors/operators/Round/index.ts"
 

@@ -1,14 +1,8 @@
-/**
- * Generate tests for combinator pattern functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 
-/**
- * Generate test cases for combinator functions (higher-order functions)
- * @param signature Function signature
- * @returns Array of combinator-specific test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateCombinatorPatternTests(
 	signature: FunctionSignature,
 ): Array<TestCase> {

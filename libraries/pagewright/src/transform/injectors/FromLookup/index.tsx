@@ -4,19 +4,7 @@ import type {
 	Value,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * FromLookup JSX Component
- *
- * Wrapper for the FromLookup injector constructor.
- * Gets a value from a lookup table based on a key.
- *
- * @example
- * <FromLookup
- *   table="statusCodes"
- *   key="404"
- *   type="String"
- * />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromLookupConstructor from "../../../../../architect/src/constructors/injectors/FromLookup/index.ts"
 

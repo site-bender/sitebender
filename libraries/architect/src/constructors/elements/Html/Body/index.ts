@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Body attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BodyElementAttributes = BodyAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,29 +27,9 @@ export type BodyElementAttributes = BodyAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Body element
- * Allows global attributes only (no element-specific attributes)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Body element configuration object
- *
- * The body element represents the content of an HTML document.
- * It can contain flow content.
- *
- * @example
- * ```typescript
- * const body = Body({
- *   id: "main-body",
- *   class: "page-content"
- * })([
- *   Header()([H1()("Welcome")]),
- *   Main()([P()("Page content")]),
- *   Footer()([P()("Copyright info")])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Body = (attributes: BodyElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

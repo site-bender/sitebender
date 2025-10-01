@@ -1,6 +1,4 @@
-/**
- * When.Clicked (authoring alias for On.Click)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { OnMarker } from "../../On/index.tsx"
 

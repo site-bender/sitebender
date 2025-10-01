@@ -1,6 +1,4 @@
-/**
- * Format weekday name
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatWeekday(
 	date: Date | string,
 	locale?: string,

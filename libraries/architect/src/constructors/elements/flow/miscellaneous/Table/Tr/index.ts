@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Tr attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TrElementAttributes = TableRowAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -28,27 +26,9 @@ export type TrElementAttributes = TableRowAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Tr element
- * Allows global attributes and validates tr-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Tr element configuration object
- *
- * The tr element represents a row of cells in a table.
- * It can contain td, th, script, and template elements.
- *
- * @example
- * ```typescript
- * const tr = Tr({
- *   id: "table-row"
- * })([
- *   Td()([TextNode("Cell 1")]),
- *   Td()([TextNode("Cell 2")])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Tr = (attributes: TrElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

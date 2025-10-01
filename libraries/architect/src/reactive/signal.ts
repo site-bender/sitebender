@@ -1,13 +1,6 @@
 import { reactiveState, type Subscriber } from "./shared.ts"
 
-/**
- * Create a reactive signal that holds a value and notifies dependents when it changes.
- *
- * Example:
- * const count = signal(0)
- * count.set(1)
- * console.log(count.value) // 1
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function signal<T>(initialValue: T) {
 	let _value = initialValue
 	const subscribers = new Set<Subscriber>()

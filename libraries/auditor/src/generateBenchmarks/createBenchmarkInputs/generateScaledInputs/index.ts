@@ -2,16 +2,7 @@ import type { FunctionSignature } from "../../../types/index.ts"
 import type { BenchmarkPattern } from "../../detectBenchmarkPatterns/index.ts"
 import type { BenchmarkInputSet } from "../index.ts"
 
-/**
- * Generates scaled benchmark inputs for complexity analysis
- * Pure function that creates inputs of increasing sizes
- * @param signature - The function signature
- * @param patterns - Detected benchmark patterns
- * @returns Array of scaled input sets
- * @example
- * const inputs = generateScaledInputs(signature, patterns)
- * // Returns: [{ name: "scale-10", inputs: [...] }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateScaledInputs(
 	_signature: FunctionSignature,
 	patterns: Array<BenchmarkPattern>,

@@ -10,16 +10,7 @@ export type BenchmarkInputSet = {
 	inputs: Array<Array<unknown>>
 }
 
-/**
- * Creates benchmark input sets based on detected patterns
- * Pure function that generates various input scenarios for performance testing
- * @param signature - The function signature
- * @param patterns - Detected benchmark patterns
- * @returns Array of benchmark input sets
- * @example
- * const inputs = createBenchmarkInputs(signature, patterns)
- * // Returns: [{ name: "small-array", inputs: [[1,2,3]] }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function createBenchmarkInputs(
 	signature: FunctionSignature,
 	patterns: Array<BenchmarkPattern>,

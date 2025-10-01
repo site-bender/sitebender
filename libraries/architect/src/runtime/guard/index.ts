@@ -16,12 +16,7 @@ export type GuardPolicy = { tag: string; args?: Record<string, unknown> }
 
 export type GuardOnFail = { redirect?: string; status?: 401 | 403 }
 
-/**
- * guardAuthorized
- *
- * Evaluates an auth policy using the runtime comparator→policy fallback.
- * Returns an allow/redirect/status decision for SSR routing.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 async function guardAuthorized(
 	ctx: ComposeContext,
 	policy: GuardPolicy,
@@ -55,9 +50,7 @@ async function guardAuthorized(
 	return { status: 403 }
 }
 
-/**
- * Convenience wrapper with a flat signature.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function _guardRoute(
 	ctx: ComposeContext,
 	policyTag: string,

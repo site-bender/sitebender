@@ -1,6 +1,4 @@
-/**
- * NotEmpty comparator (marker) — true if stringified length > 0
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = { children?: JSX.Element | Array<JSX.Element> }
 

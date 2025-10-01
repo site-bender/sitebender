@@ -1,11 +1,1 @@
-/**
- * CharacterThoughts component
- *
- * Renders an i element with the class "character-thoughts" for character thoughts.
- *
- * Example usage:
- *
- * <CharacterThoughts>
- *   I can't believe I did that.
- * </CharacterThoughts>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style

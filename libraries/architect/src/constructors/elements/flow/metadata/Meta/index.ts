@@ -13,14 +13,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Meta element
- * Allows global attributes and validates meta-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Meta attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type MetaElementAttributes = MetaAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -31,24 +26,9 @@ export type MetaElementAttributes = MetaAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Meta element
- * Allows global attributes and validates meta-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Meta element configuration object
- *
- * The meta element represents various kinds of metadata that cannot be expressed
- * using other HTML elements. It is a void element.
- *
- * @example
- * ```typescript
- * const meta = Meta({
- *   charset: "utf-8"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Meta = (attributes: MetaElementAttributes = {}): ElementConfig => {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {

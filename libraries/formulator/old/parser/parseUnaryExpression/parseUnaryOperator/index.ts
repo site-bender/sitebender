@@ -3,13 +3,7 @@ import type { ParserContext } from "../../types/index.ts"
 
 import createUnaryNode from "../createUnaryNode/index.ts"
 
-/**
- * Parses a unary operator and its operand
- * @param ctx - Parser context
- * @param operator - The unary operator ("+" or "-")
- * @param parseUnaryExpression - Reference to main parser for recursion
- * @returns Result with unary AST node or error
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseUnaryOperator(
 	ctx: ParserContext,
 	operator: "+" | "-",

@@ -1,28 +1,4 @@
-/**
- * WithNuance component
- *
- * Captures subtle meanings, implications, and layered communication.
- * Helps AI understand subtext, double meanings, hints, and indirect
- * communication patterns common in human interaction.
- *
- * Example usage:
- *
- * <WithNuance
- *   subtext="disappointment"
- *   implies="you should have known better"
- * >
- *   Oh, you decided to show up.
- * </WithNuance>
- *
- * <WithNuance
- *   layered
- *   surface="compliment"
- *   underlying="insult"
- *   technique="backhanded"
- * >
- *   You're so brave to wear that!
- * </WithNuance>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

@@ -1,9 +1,4 @@
-/**
- * Viz.Line JSX Component (thin slice)
- *
- * Returns a lightweight SSR container element with data-viz attributes.
- * A client-side adapter can hydrate this container later.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	id?: string

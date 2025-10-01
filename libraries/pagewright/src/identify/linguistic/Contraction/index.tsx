@@ -1,18 +1,4 @@
-/**
- * Contraction component
- *
- * Marks up contractions with their expanded forms. Used in educational
- * content, formal writing that requires expansions, and for accessibility
- * to ensure screen readers can properly interpret contractions.
- *
- * Example usage:
- *
- * <Contraction expanded="cannot">can't</Contraction> go to the party.
- *
- * <Contraction expanded="I would" formal>I'd</Contraction> appreciate your help.
- *
- * <Contraction expanded="you all" regional="Southern US">y'all</Contraction>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

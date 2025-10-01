@@ -11,13 +11,9 @@ import Input from "@sitebender/architect/constructors/elements/flow/interactive/
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for InputButton
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended InputButton attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputButtonElementAttributes = InputButtonAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -29,20 +25,7 @@ export type InputButtonElementAttributes = InputButtonAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an InputButton element configuration object
- *
- * The button input creates a clickable button.
- *
- * @example
- * ```typescript
- * const input = InputButton({
- *   name: "action",
- *   value: "Click me",
- *   disabled: false
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputButton = Input("button")(filterAttributes)
 
 export default InputButton

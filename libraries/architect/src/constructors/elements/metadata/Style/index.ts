@@ -15,14 +15,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Style element
- * Allows global attributes and validates style-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Style attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type StyleElementAttributes = StyleAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -33,25 +28,9 @@ export type StyleElementAttributes = StyleAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Style element
- * Allows global attributes and validates style-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Style element configuration object
- *
- * The style element allows authors to embed style information in their documents.
- * It can contain CSS text content.
- *
- * @example
- * ```typescript
- * const style = Style({
- *   media: "screen",
- *   title: "Main styles"
- * })([TextNode("body { margin: 0; }")])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Style = (attributes: StyleElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

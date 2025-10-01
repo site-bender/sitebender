@@ -1,11 +1,6 @@
 import * as ts from "npm:typescript@5.7.2"
 
-/**
- * Extracts the function name from an AST node or derives it from the file path
- * @param node Function declaration, expression, or arrow function
- * @param filePath Path to the source file
- * @returns Function name or derived name from path
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractFunctionName(
 	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
 	filePath: string,

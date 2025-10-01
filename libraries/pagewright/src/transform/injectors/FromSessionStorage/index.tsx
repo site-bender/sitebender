@@ -3,19 +3,7 @@ import type {
 	Value,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * FromSessionStorage JSX Component
- *
- * Wrapper for the FromSessionStorage injector constructor.
- * Gets a value from browser session storage.
- *
- * @example
- * <FromSessionStorage
- *   key="userSession"
- *   type="Json"
- *   defaultValue={{}}
- * />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromSessionStorageConstructor from "../../../../../architect/src/constructors/injectors/FromSessionStorage/index.ts"
 

@@ -1,53 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
 //++ True mathematical modulo; adjusts remainder sign; returns NaN on invalid input
-/**
- * Returns the remainder of division (modulo operation)
- *
- * Calculates the remainder when dividing the dividend by the divisor.
- * Unlike the % operator, this implements true mathematical modulo which
- * always returns a non-negative result when the divisor is positive.
- * Returns NaN if divisor is zero or if inputs are invalid.
- *
- * @curried (divisor) => (dividend) => remainder
- * @param divisor - The number to divide by (modulus)
- * @param dividend - The number to be divided
- * @returns The remainder of dividend / divisor, or NaN if invalid
- * @example
- * ```typescript
- * modulo(3)(10)
- * // 1
- *
- * modulo(3)(-10)
- * // 2 (true modulo, not remainder)
- *
- * modulo(0.5)(2.3)
- * // 0.3
- *
- * modulo(0)(10)
- * // NaN (division by zero)
- *
- * // Partial application
- * const mod12 = modulo(12)
- * mod12(25)
- * // 1 (clock arithmetic)
- *
- * // Cyclic indexing
- * const cyclicIndex = (index: number, length: number) =>
- *   modulo(length)(index)
- * cyclicIndex(-1, 5)
- * // 4 (last element)
- *
- * // Even/odd checking
- * const isEven = (n: number) => modulo(2)(n) === 0
- * isEven(4)
- * // true
- * ```
- * @pure Always returns same result for same inputs
- * @curried Enables partial application and composition
- * @safe Returns NaN for invalid inputs or division by zero
- * @mathematical Implements true modulo (not remainder)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const modulo = (
 	divisor: number | null | undefined,
 ) =>

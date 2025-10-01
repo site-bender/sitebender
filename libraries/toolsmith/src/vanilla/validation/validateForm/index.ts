@@ -3,53 +3,7 @@ import isNotUndefined from "../isNotUndefined/index.ts"
 import isNullish from "../isNullish/index.ts"
 import isUrl from "../isUrl/index.ts"
 
-/**
- * Validates entire form data, returns array of errors
- *
- * Validates multiple form fields simultaneously using a schema that maps
- * field names to validation rules. Returns a comprehensive error object
- * with all validation failures or null if all fields are valid. Supports
- * field dependencies, cross-field validation, and conditional rules.
- *
- * @curried (schema) => (formData) => errors | null
- * @param schema - Validation schema mapping field names to rules
- * @param formData - Form data object to validate
- * @returns Object with field errors or null if valid
- * @example
- * ```typescript
- * // Registration form validation
- * const schema = {
- *   username: { required: true, minLength: 3, maxLength: 20 },
- *   email: { required: true, type: "email" },
- *   password: { required: true, minLength: 8 },
- *   confirmPassword: { required: true, match: "password" },
- *   age: { required: true, type: "number", min: 13 },
- *   terms: { required: true, equals: true }
- * }
- *
- * const validate = validateForm(schema)
- * validate({ username: "ab", email: "bad" })
- * // { username: "Minimum length is 3", email: "Invalid email format" }
- *
- * // Cross-field validation
- * const dateSchema = {
- *   startDate: { required: true, type: "date" },
- *   endDate: { required: true, type: "date", after: "startDate" }
- * }
- *
- * // Conditional validation
- * const conditionalSchema = {
- *   isGift: { type: "boolean" },
- *   giftMessage: {
- *     when: (data: any) => data.isGift,
- *     required: true,
- *     maxLength: 200
- *   }
- * }
- * ```
- * @pure
- * @curried
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type FormFieldRules = {
 	required?: boolean
 	type?: "string" | "number" | "boolean" | "email" | "date" | "url"

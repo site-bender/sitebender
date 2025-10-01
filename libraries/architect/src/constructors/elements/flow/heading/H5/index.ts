@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended H5 attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type H5ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,21 +27,9 @@ export type H5ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for H5 element
- * Allows global attributes and validates heading-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an H5 element configuration object
- *
- * @example
- * ```typescript
- * const h5 = H5({ id: "small-title", role: "tab" })([
- *   TextNode("Small Heading")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const H5 = (attributes: H5ElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

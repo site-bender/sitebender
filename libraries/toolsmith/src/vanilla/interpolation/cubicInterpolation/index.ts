@@ -1,40 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Performs cubic interpolation between four points
- *
- * Interpolates smoothly through four data points using a cubic polynomial.
- * Given points at positions 0, 1, 2, 3 with values y0, y1, y2, y3,
- * finds the value at position 1+t where t is between 0 and 1.
- * Uses Catmull-Rom spline formula for smooth curves through data points.
- * Returns NaN for invalid inputs.
- *
- * @curried
- * @param y0 - Value at position 0 (before interval)
- * @param y1 - Value at position 1 (start of interval)
- * @param y2 - Value at position 2 (end of interval)
- * @param y3 - Value at position 3 (after interval)
- * @param t - Interpolation parameter (0 to 1, where 0=y1, 1=y2)
- * @returns Interpolated value between y1 and y2, or NaN if invalid
- * @example
- * ```typescript
- * // Basic interpolation
- * cubicInterpolation(0)(1)(2)(3)(0.5) // 1.5
- * cubicInterpolation(1)(4)(9)(16)(0.5) // 6.5
- *
- * // Edge cases
- * cubicInterpolation(0)(1)(2)(3)(0) // 1 (returns y1)
- * cubicInterpolation(0)(1)(2)(3)(1) // 2 (returns y2)
- * cubicInterpolation(null)(1)(2)(3)(0.5) // NaN
- *
- * // Partial application
- * const interpolate = cubicInterpolation(0)(10)(10)(0)
- * interpolate(0.5) // 11.25 (overshoots due to cubic nature)
- * ```
- * @pure
- * @curried
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const cubicInterpolation = (
 	y0: number | null | undefined,
 ) =>

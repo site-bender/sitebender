@@ -1,12 +1,4 @@
-/**
- * @sitebender/auditor - Automated Test Generation & Code Proving
- *
- * "We don't write tests. We generate proofs."
- *
- * This library automatically generates comprehensive test suites
- * that prove code correctness through property-based testing,
- * branch analysis, and 100% coverage enforcement.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Main exports
 export { default as generateTests } from "./generateTests/index.ts"

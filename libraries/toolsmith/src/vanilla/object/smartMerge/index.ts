@@ -1,73 +1,7 @@
 import isNotNull from "../../validation/isNotNull/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Merges objects with intelligent type-aware conflict resolution
- *
- * Performs a deep merge with smart handling of different data types.
- * Arrays can be concatenated or replaced, objects are recursively merged,
- * and primitive values use customizable conflict resolution. Provides
- * fine-grained control over the merge behavior through strategy options.
- *
- * @curried (strategy) => (...sources) => result
- * @param strategy - Merge strategy configuration
- * @param sources - Objects to merge from left to right
- * @returns A new deeply merged object
- * @example
- * ```typescript
- * // Default: arrays concat, last value wins
- * const defaultMerge = smartMerge({})
- * defaultMerge(
- *   { a: 1, b: [1, 2], c: { x: 10 } },
- *   { a: 2, b: [3], c: { y: 20 } }
- * )
- * // { a: 2, b: [1, 2, 3], c: { x: 10, y: 20 } }
- *
- * // Array strategies
- * const replaceArrays = smartMerge({ arrays: "replace" })
- * replaceArrays({ items: [1, 2] }, { items: [3, 4] })
- * // { items: [3, 4] }
- *
- * const unionArrays = smartMerge({ arrays: "union" })
- * unionArrays({ tags: ["a", "b"] }, { tags: ["b", "c"] })
- * // { tags: ["a", "b", "c"] }
- *
- * // Custom conflict resolver
- * const custom = smartMerge({
- *   resolver: (key, left, right) => {
- *     if (key === "version") return Math.max(left, right)
- *     return right
- *   }
- * })
- * custom({ version: 1 }, { version: 3 })
- * // { version: 3 }
- *
- * // Deep nested merge
- * const deep = smartMerge({ depth: 10 })
- * deep(
- *   { user: { profile: { theme: "light" } } },
- *   { user: { profile: { lang: "en" } } }
- * )
- * // { user: { profile: { theme: "light", lang: "en" } } }
- *
- * // Multiple sources
- * const multi = smartMerge({})
- * multi(
- *   { a: 1 },
- *   { b: 2 },
- *   { c: 3 }
- * )
- * // { a: 1, b: 2, c: 3 }
- *
- * // Shallow merge (depth = 1)
- * const shallow = smartMerge({ depth: 1 })
- * shallow({ a: { b: 1 } }, { a: { c: 2 } })
- * // { a: { c: 2 } } - nested object replaced
- * ```
- * @pure
- * @immutable
- * @curried
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type MergeStrategy = {
 	arrays?: "concat" | "replace" | "union"
 	depth?: number

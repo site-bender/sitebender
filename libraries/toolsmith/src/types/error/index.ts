@@ -1,8 +1,6 @@
 import type { Datatype, Value } from "../index.ts"
 
-/**
- * Error codes for categorizing failures
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ErrorCode =
 	| "OPERATION_FAILED"
 	| "TYPE_MISMATCH"
@@ -23,86 +21,53 @@ export type ErrorCode =
 	| "DATA_LOSS"
 	| "UNKNOWN"
 
-/**
- * Error severity levels
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ErrorSeverity = "warning" | "error" | "critical"
 
-/**
- * Comprehensive error type for the toolsmith library
- *
- * @template TOp - The operation name as a string literal
- * @template TArgs - The arguments tuple type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export interface ArchitectError<
 	TOp extends string = string,
 	TArgs extends ReadonlyArray<Value> = ReadonlyArray<Value>,
 > {
-	/**
-	 * Error name, typically in the form "{operation}Error"
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly name: `${TOp}Error`
 
-	/**
-	 * The operation that failed
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly operation: TOp
 
-	/**
-	 * Arguments passed to the operation when it failed
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly args: TArgs
 
-	/**
-	 * Human-readable error message
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly message: string
 
-	/**
-	 * Machine-readable error code for categorization
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly code: ErrorCode
 
-	/**
-	 * Severity of the error
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly severity: ErrorSeverity
 
-	/**
-	 * Optional index where the error occurred (for array operations)
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly failedIndex?: number
 
-	/**
-	 * Optional argument that caused the failure
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly failedArg?: Value
 
-	/**
-	 * Optional expected and actual types for type errors
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly types?: {
 		readonly expected: Datatype | ReadonlyArray<Datatype>
 		readonly actual: Datatype
 	}
 
-	/**
-	 * Optional suggestion for fixing the error
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly suggestion?: string
 
-	/**
-	 * Optional original error that caused this error
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly cause?: Error | ArchitectError | unknown
 
-	/**
-	 * Optional stack trace
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly stack?: string
 
-	/**
-	 * Optional additional context
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	readonly context?: Record<string, Value>
 }

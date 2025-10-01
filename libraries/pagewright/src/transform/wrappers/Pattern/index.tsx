@@ -1,6 +1,4 @@
-/**
- * Pattern - Semantic wrapper for regex patterns in comparisons
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type PatternProps = {
 	// Transparent wrapper: accept common JSX children shapes

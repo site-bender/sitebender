@@ -2,21 +2,7 @@ import filterDateTimeAttributes from "@sitebender/architect/constructors/element
 
 import Input from "../index.ts"
 
-/**
- * Creates an InputWeek element configuration object
- *
- * The week input allows users to select a week and year.
- *
- * @example
- * ```typescript
- * const input = InputWeek({
- *   name: "schedule",
- *   min: "2023-W01",
- *   max: "2023-W52",
- *   required: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputWeek = Input("week")(filterDateTimeAttributes)
 
 export default InputWeek

@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsLength JSX Component
- *
- * Wrapper for the IsLength comparator constructor.
- * Checks if a string or array has a specific length.
- * Requires <Value> and <ExpectedValue> wrapper components.
- *
- * @example
- * <IsLength>
- *   <Value><FromElement id="password" type="String" /></Value>
- *   <ExpectedValue><Constant value={8} /></ExpectedValue>
- * </IsLength>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsLengthConstructor from "../../../../../architect/src/constructors/comparators/length/IsLength/index.ts"
 

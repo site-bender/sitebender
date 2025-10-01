@@ -4,20 +4,7 @@ import type {
 	Value,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * FromUrlParameter JSX Component
- *
- * Wrapper for the FromUrlParameter injector constructor.
- * Gets a value from URL path parameters (e.g., /user/:id).
- *
- * @example
- * <FromUrlParameter
- *   segment={2}
- *   type="String"
- * />
- *
- * For URL /user/123/profile, segment 2 would return "123"
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromUrlParameterConstructor from "../../../../../architect/src/constructors/injectors/FromUrlParameter/index.ts"
 

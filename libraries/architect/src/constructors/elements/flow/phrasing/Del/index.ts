@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Del attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DelElementAttributes = DeletedTextAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type DelElementAttributes = DeletedTextAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Del element
- * Allows global attributes and validates del-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Del element configuration object
- *
- * The del element represents text that has been deleted from a document.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const del = Del({
- *   cite: "https://example.com/edit-log",
- *   datetime: "2023-12-25T10:00:00Z"
- * })([
- *   TextNode("This text was deleted")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Del = (attributes: DelElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

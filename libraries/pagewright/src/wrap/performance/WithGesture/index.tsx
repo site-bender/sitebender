@@ -1,27 +1,4 @@
-/**
- * WithGesture component
- *
- * Indicates physical gestures, body language, or visual cues that
- * accompany speech. Useful for screenplays, dialogue, accessibility,
- * and multimodal AI systems that can generate or interpret gestures.
- *
- * Example usage:
- *
- * <WithGesture
- *   action="shrug"
- *   hands="raised"
- * >
- *   I don't know what you want me to say.
- * </WithGesture>
- *
- * <WithGesture
- *   facial="eyebrow-raise"
- *   head="tilt"
- *   expression="skeptical"
- * >
- *   Really? That's your excuse?
- * </WithGesture>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	// Specific gesture action

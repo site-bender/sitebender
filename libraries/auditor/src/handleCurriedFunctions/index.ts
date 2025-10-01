@@ -1,7 +1,4 @@
-/**
- * Helper for handling curried function test generation
- * Exports all curried function handling utilities
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export { default as needsCurriedHandling } from "./needsCurriedHandling/index.ts"
 export { default as generateCurriedInputs } from "./generateCurriedInputs/index.ts"

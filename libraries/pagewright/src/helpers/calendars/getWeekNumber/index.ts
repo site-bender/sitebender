@@ -2,9 +2,7 @@ import type { WeekNumberingSystem } from "../../../../types/temporal/index.ts"
 
 import getISOWeekNumber from "../getISOWeekNumber/index.ts"
 
-/**
- * Calculate week number based on week numbering system
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getWeekNumber(
 	date: Date,
 	system: WeekNumberingSystem = "ISO",

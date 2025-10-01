@@ -5,38 +5,17 @@ type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
 	element?: "div" | "section" | "article" | "p"
 	define?: "microdata" | "linkedData" | "both"
-	/**
-	 * Narrative perspective (e.g., "first-person", "second-person", "third-person-limited", "third-person-omniscient")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	perspective?: string
-	/**
-	 * The narrator or character whose POV this is
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	narrator?: string
-	/**
-	 * Reliability of the narrator (e.g., "reliable", "unreliable", "ambiguous")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	reliability?: string
-	/**
-	 * Level of access to thoughts (e.g., "external", "internal", "omniscient")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	access?: string
 }
 
-/**
- * Marks narrative sections with a specific point of view or perspective.
- * Used to indicate shifts in narrative voice or focalization.
- *
- * @example
- * <PointOfView perspective="first-person" narrator="Alice">
- *   I never thought I'd see the day when...
- * </PointOfView>
- *
- * @example
- * <PointOfView perspective="third-person-limited" narrator="omniscient" access="internal">
- *   She wondered if anyone else noticed the strange occurrence.
- * </PointOfView>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function PointOfView({
 	element: Element = "div",
 	define: _define,

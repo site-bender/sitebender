@@ -2,10 +2,7 @@ import includes from "@sitebender/toolsmith/vanilla/array/includes/index.ts"
 
 import hasDescendant from "./hasDescendant/index.ts"
 
-/**
- * Phrasing elements from HTML5 spec
- * TODO: Import from rendering/constants when available
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const PHRASING_ELEMENTS = [
 	"Abbr",
 	"Audio",
@@ -64,28 +61,19 @@ const PHRASING_IF_AREA_DESCENDANT = ["Map"]
 const PHRASING_IF_ITEMPROP_ATTRIBUTE = ["Link", "Meta"]
 const PHRASING_IF_CONTAINS_PHRASING = ["A", "Del", "Ins", "Map"]
 
-/**
- * Configuration object for element validation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type ElementConfig = {
 	readonly tag?: string
 	readonly attributes?: Record<string, unknown>
 	readonly children?: readonly unknown[]
 }
 
-/**
- * Options for phrasing content validation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type PhrasingContentOptions = {
 	readonly ancestors?: readonly string[]
 }
 
-/**
- * Creates a phrasing content validator function
- *
- * @param options - Validation options (ancestors, etc.)
- * @returns Function that validates if an element config represents phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isPhrasingContent =
 	(options: PhrasingContentOptions = {}) =>
 	(config: ElementConfig = {}): boolean => {

@@ -1,15 +1,6 @@
 import type { Operand } from "@sitebender/architect-types/index.ts"
 
-/**
- * Extracts the operands array from an operation
- *
- * @param operation - The operation to extract operands from
- * @returns Array of operands or empty array if none exist
- * @example
- * ```typescript
- * const operands = getOperands(addOperation)
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getOperands(
 	operation: Partial<{ operands: Array<Operand> }>,
 ): Array<Operand> {

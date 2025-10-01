@@ -1,20 +1,4 @@
-/**
- * Generate deterministic, seedable node IDs for testing and consistent builds.
- *
- * This replaces crypto.randomUUID() in tests to ensure deterministic output.
- * Uses a simple linear congruential generator (LCG) for predictable sequences.
- *
- * @example
- * ```typescript
- * const gen = createDeterministicIdGenerator("test-seed")
- * const id1 = gen() // Always the same for this seed
- * const id2 = gen() // Next in sequence
- *
- * // Reset for reproducible tests
- * const gen2 = createDeterministicIdGenerator("test-seed")
- * assertEquals(gen2(), id1) // Same first ID
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function createDeterministicIdGenerator(seed: string) {
 	// Convert seed string to number using simple hash
 	let state = 0

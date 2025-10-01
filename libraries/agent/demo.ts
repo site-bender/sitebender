@@ -1,14 +1,6 @@
 #!/usr/bin/env -S deno run --allow-net --allow-read --allow-write
 
-/**
- * @sitebender/agent Demo
- *
- * This demo showcases the core features of the agent library:
- * - CRDTs for conflict-free data synchronization
- * - DID:Key for decentralized identity
- * - IPFS gateway integration
- * - Offline-first storage with IndexedDB
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import {
 	createCounter,

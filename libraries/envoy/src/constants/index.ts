@@ -1,6 +1,4 @@
-/**
- * Constants for @sitebender/envoy
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Property badge labels
 export const PROPERTY_BADGES = {

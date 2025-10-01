@@ -1,6 +1,4 @@
-/**
- * Hydrate elements marked with data-viz attributes.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function hydrateVizContainers(root?: Document | HTMLElement) {
 	// Environment guard for SSR
 	if (typeof document === "undefined" && !root) return

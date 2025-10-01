@@ -1,14 +1,6 @@
 import type { SourceNode } from "./types/index.ts"
 
-/**
- * Parses TypeScript/JavaScript source code into an AST representation
- * Pure function that converts source code string to AST nodes
- * @param sourceCode - The source code to parse
- * @returns AST representation of the source code
- * @example
- * const ast = parseSourceCode("if (x > 0) { return x }")
- * // Returns: { type: "IfStatement", test: {...}, consequent: {...} }
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseSourceCode(sourceCode: string): SourceNode {
 	// Simple AST arborist for common patterns
 	// In production, would use TypeScript Compiler API or similar

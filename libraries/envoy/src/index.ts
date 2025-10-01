@@ -1,10 +1,4 @@
-/**
- * @module @sitebender/envoy
- *
- * Automatic documentation generator for TypeScript code.
- * Extracts comprehensive documentation from type signatures and code analysis,
- * requiring only single-line descriptions from developers.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Main function export - Envoy takes Arborist output and generates docs
 export { default as generateDocs } from "./generateDocs/index.ts"

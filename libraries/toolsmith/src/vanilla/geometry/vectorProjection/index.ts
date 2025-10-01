@@ -1,42 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 import dotProduct from "../dotProduct/index.ts"
 
-/**
- * Projects one vector onto another vector
- *
- * Calculates the vector projection of vector a onto vector b, which is the
- * orthogonal projection of a onto the line spanned by b. The result is a
- * vector in the direction of b with magnitude equal to the component of a
- * in that direction. Formula: proj_b(a) = ((a·b) / (b·b)) × b. Returns
- * array of NaN values for invalid inputs.
- *
- * @param vectorA - Vector to be projected
- * @param vectorB - Vector to project onto (non-zero)
- * @returns Projection of vectorA onto vectorB, or NaN array if invalid
- * @pure
- * @curried
- * @safe
- * @immutable
- * @example
- * ```typescript
- * // Project onto axes
- * vectorProjection([3, 4])([1, 0])  // [3, 0] (x-component)
- * vectorProjection([3, 4])([0, 1])  // [0, 4] (y-component)
- * vectorProjection([4, 2])([1, 1])  // [3, 3] (diagonal)
- *
- * // 3D projection
- * vectorProjection([1, 2, 3])([1, 0, 0])  // [1, 0, 0]
- * vectorProjection([2, 3, 4])([1, 1, 1])  // [3, 3, 3]
- *
- * // Orthogonal vectors project to zero
- * vectorProjection([1, 0])([0, 1])  // [0, 0]
- * vectorProjection([3, 4])([-4, 3])  // [0, 0]
- *
- * // Invalid: cannot project onto zero vector
- * vectorProjection([1, 2])([0, 0])  // [NaN, NaN]
- * vectorProjection(null)([1, 2])  // [NaN, NaN]
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const vectorProjection = (
 	vectorA: Array<number> | null | undefined,
 ) =>

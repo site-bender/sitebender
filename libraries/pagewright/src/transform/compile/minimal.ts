@@ -1,10 +1,4 @@
-/**
- * Minimal compile-to-IR walker (scaffold)
- *
- * Goal: turn JSX trees containing our control markers into a tiny IR that
- * groups Element nodes and attached behaviors. This is intentionally small
- * and will be replaced by the full compiler.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Marker type imports are implicit; we duck-type via __kind to avoid coupling
 

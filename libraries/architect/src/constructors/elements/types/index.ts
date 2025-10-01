@@ -6,58 +6,46 @@ import type {
 	Value,
 } from "@sitebender/architect-types/index.ts"
 
-/**
- * Generic element constructor attributes type
- * Combines HTML-specific attributes with reactive system attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ElementAttributes<T> = T & {
-	/** ARIA attributes */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	aria?: Record<string, unknown>
 
-	/** Reactive calculation configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	calculation?: Operand
 
-	/** Data attributes (becomes data-* on the element) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	dataset?: Record<string, unknown>
 
-	/** Conditional display configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	display?: ComparatorConfig | LogicalConfig
 
-	/** Value formatting configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	format?: OperatorConfig
 
-	/** JavaScript files to include */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	scripts?: Array<string>
 
-	/** CSS files to include */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	stylesheets?: Array<string>
 
-	/** Form validation configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Text node configuration
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TextNodeConfig = {
 	tag: "TextNode"
 	content: string
 }
 
-/**
- * Text node constructor function type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TextNodeConstructor = (content: unknown) => TextNodeConfig
 
-/**
- * Child filter function type used by element constructors
- * to validate and filter children elements
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ChildFilter = (child: ElementConfig) => boolean
 
-/**
- * Element configuration object structure (OUTPUT of constructors)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ElementConfig<T = Record<string, unknown>> = {
 	readonly tag: string
 	readonly attributes: T

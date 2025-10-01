@@ -1,14 +1,6 @@
 import type { ImportInfo } from "../extractImports/index.ts"
 
-/**
- * Finds types that need to be imported based on function signature
- *
- * @example
- * ```typescript
- * const required = findRequiredImports(signature, availableImports)
- * // Returns imports needed for Result<T, E> and other custom types
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function findRequiredImports(
 	signature: {
 		parameters: Array<{ type: { raw: string } }>
@@ -37,9 +29,7 @@ export default function findRequiredImports(
 	return required
 }
 
-/**
- * Extracts type names from a type string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function extractTypeNames(typeStr: string, types: Set<string>) {
 	// Match custom type names (capitalized identifiers)
 	const typeNamePattern = /\b([A-Z][a-zA-Z0-9]*)/g
@@ -54,9 +44,7 @@ function extractTypeNames(typeStr: string, types: Set<string>) {
 	})
 }
 
-/**
- * Checks if a type name is a built-in TypeScript type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function isBuiltInType(typeName: string): boolean {
 	const builtIns = new Set([
 		"Array",

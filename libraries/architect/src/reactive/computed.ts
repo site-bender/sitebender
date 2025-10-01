@@ -1,13 +1,6 @@
 import { reactiveState, type Subscriber } from "./shared.ts"
 
-/**
- * Create a computed value that tracks dependencies and recomputes lazily.
- *
- * Example:
- * const a = signal(2), b = signal(3)
- * const sum = computed(() => a.value + b.value)
- * console.log(sum.value) // 5
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function computed<T>(computeFn: () => T) {
 	let _value!: T
 	let _computed = false

@@ -3,17 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * InSet - Set membership comparator component
- *
- * Usage examples:
- * <InSet>
- *   <Value><From.Value name="size" /></Value>
- *   <Set><From.Value name="sizes" /></Set>
- * </InSet>
- *
- * Or positional children: <InSet>{value}{set}</InSet>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import InSetConstructor from "../../../../../architect/src/constructors/comparators/set/InSet/index.ts"
 
 export type Props = {

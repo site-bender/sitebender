@@ -1,42 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the binomial coefficient (n choose k)
- *
- * Computes C(n,k) = n!/(k!(n-k)!), representing the number of ways to choose
- * k items from n items without regard to order. Also known as Pascal's triangle
- * values. Uses an optimized algorithm to avoid large factorial calculations
- * when possible. Returns NaN for invalid inputs (negative values, k > n,
- * non-integers).
- *
- * @curried (n) => (k) => number
- * @param n - Total number of items (non-negative integer)
- * @param k - Number of items to choose (non-negative integer, k ≤ n)
- * @returns Binomial coefficient C(n,k), or NaN if invalid
- * @example
- * ```typescript
- * // Basic usage - n choose k
- * binomialCoefficient(4)(2)   // 6
- * binomialCoefficient(5)(3)   // 10
- * binomialCoefficient(10)(5)  // 252
- *
- * // Edge cases
- * binomialCoefficient(5)(0)   // 1 (choose nothing)
- * binomialCoefficient(5)(5)   // 1 (choose everything)
- * binomialCoefficient(3)(5)   // NaN (k > n)
- *
- * // Pascal's triangle row
- * const row5 = [0, 1, 2, 3, 4, 5].map(binomialCoefficient(5))
- * // [1, 5, 10, 10, 5, 1]
- *
- * // Partial application
- * const choose6 = binomialCoefficient(6)
- * choose6(2)  // 15
- * choose6(3)  // 20
- * ```
- * @pure
- * @curried
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const binomialCoefficient = (
 	n: number | null | undefined,
 ) =>

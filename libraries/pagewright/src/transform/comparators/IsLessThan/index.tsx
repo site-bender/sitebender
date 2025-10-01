@@ -3,9 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsLessThan - Less than comparison for architect conditionals
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsLessThanConstructor from "../../../../../architect/src/constructors/comparators/amount/IsLessThan/index.ts"
 

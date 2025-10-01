@@ -5,18 +5,7 @@ import type {
 	TemporalDatatype,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsMoreThan JSX Component
- *
- * Wrapper for the IsMoreThan comparator constructor.
- * Requires <Value> and <Threshold> wrapper components.
- *
- * @example
- * <IsMoreThan>
- *   <Value><FromElement id="price" type="Number" /></Value>
- *   <Threshold><Constant value={100} /></Threshold>
- * </IsMoreThan>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsMoreThanConstructor from "../../../../../architect/src/constructors/comparators/amount/IsMoreThan/index.ts"
 

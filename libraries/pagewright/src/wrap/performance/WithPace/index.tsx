@@ -1,24 +1,4 @@
-/**
- * WithPace component
- *
- * Controls the tempo and rhythm of speech delivery. Essential for
- * dramatic readings, emphasis, and natural speech patterns. Can
- * indicate pauses, speed changes, and rhythmic patterns.
- *
- * Example usage:
- *
- * <WithPace speed="slow" pause-before="long">
- *   I... never... saw... it... coming.
- * </WithPace>
- *
- * <WithPace
- *   speed="fast"
- *   rhythm="staccato"
- *   breathless
- * >
- *   Quick! We need to get out of here right now!
- * </WithPace>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Speed =
 	| "x-slow"

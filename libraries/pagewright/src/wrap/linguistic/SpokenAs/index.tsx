@@ -1,26 +1,4 @@
-/**
- * SpokenAs component
- *
- * Wraps text to indicate the pronunciation of the text.
- * It can include phonetic transcription or IPA notation.
- * The component can be used to provide additional context
- * for how the text should be spoken or pronounced.
- *
- * Example usage:
- *
- * <SpokenAs ipa="/mʌˈnɒt/" phonetic="muh-NAHT">
- *   Munat
- * </SpokenAs>
- *
- * <SpokenAs
- *   ipa="/ˈpærɪs/"
- *   phonetic="PAR-iss"
- *   lang="en-US"
- *   audio="/audio/paris-pronunciation.mp3"
- * >
- *   Paris
- * </SpokenAs>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

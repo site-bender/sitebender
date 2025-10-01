@@ -10,16 +10,7 @@ export type BenchmarkPattern =
 	| "functional-composition"
 	| "unknown"
 
-/**
- * Detects performance patterns in a function to guide benchmark generation
- * Pure function that analyzes code patterns for optimization opportunities
- * @param signature - The function signature
- * @param sourceCode - The source code to analyze
- * @returns Array of detected benchmark patterns
- * @example
- * const patterns = detectBenchmarkPatterns(signature, sourceCode)
- * // Returns: ['array-operation', 'iterative']
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function detectBenchmarkPatterns(
 	signature: FunctionSignature,
 	sourceCode: string,

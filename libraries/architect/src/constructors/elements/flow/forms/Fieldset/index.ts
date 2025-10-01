@@ -16,14 +16,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Fieldset element
- * Allows global attributes and validates fieldset-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Fieldset attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type FieldsetElementAttributes =
 	& FieldSetAttributes
 	& FieldsetAriaAttributes
@@ -37,28 +32,9 @@ export type FieldsetElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Fieldset element
- * Allows global attributes and validates fieldset-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Fieldset element configuration object
- *
- * The fieldset element represents a set of form controls optionally grouped under a common name.
- *
- * @example
- * ```typescript
- * const fieldset = Fieldset({
- *   name: "personal-info",
- *   disabled: false
- * })([
- *   Legend()([TextNode("Personal Information")]),
- *   Input({ type: "text", name: "firstName", placeholder: "First Name" }),
- *   Input({ type: "text", name: "lastName", placeholder: "Last Name" })
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Fieldset = (attributes: FieldsetElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

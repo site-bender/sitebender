@@ -1,15 +1,4 @@
-/**
- * Subtrahend JSX Component
- *
- * Mathematical alias for Amount in Subtract operations.
- * The subtrahend is the number that is subtracted from another.
- *
- * @example
- * <Subtract>
- *   <Minuend><FromElement id="total" type="Number" /></Minuend>
- *   <Subtrahend><FromElement id="discount" type="Number" /></Subtrahend>
- * </Subtract>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type SubtrahendProps = {
 	children?: JSX.Element | JSX.Element[]

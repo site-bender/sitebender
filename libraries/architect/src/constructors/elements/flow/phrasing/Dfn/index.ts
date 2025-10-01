@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Dfn attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DfnElementAttributes = DefinitionAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type DfnElementAttributes = DefinitionAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Dfn element
- * Allows global attributes and validates dfn-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Dfn element configuration object
- *
- * The dfn element represents the defining instance of a term.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const dfn = Dfn({
- *   id: "html-definition",
- *   title: "HyperText Markup Language"
- * })([
- *   TextNode("HTML")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Dfn = (attributes: DfnElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

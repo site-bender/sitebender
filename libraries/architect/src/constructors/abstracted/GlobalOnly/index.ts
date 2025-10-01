@@ -12,12 +12,7 @@ import pickGlobalAttributes from "@sitebender/architect/guards/pickGlobalAttribu
 import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
 import isDefined from "@sitebender/toolsmith/vanilla/validation/isDefined/index.ts"
 
-/**
- * Creates an element constructor that only accepts global attributes
- *
- * @param tag - HTML tag name (defaults to "Span")
- * @returns Curried function: (filterChildren) => (attributes) => (children) => ElementConfig
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export const GlobalOnly =
 	<T extends Record<string, unknown>>(tag = "Span") =>
 	(filterChildren: ChildFilter = () => true) =>

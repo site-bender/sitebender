@@ -1,14 +1,8 @@
-/**
- * Generate tests for transformer pattern functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 
-/**
- * Generate test cases for transformer functions (map, filter, reduce, etc.)
- * @param signature Function signature
- * @returns Array of transformer-specific test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateTransformerPatternTests(
 	signature: FunctionSignature,
 ): Array<TestCase> {

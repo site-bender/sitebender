@@ -1,10 +1,6 @@
 import type { TestCase } from "../../../../types/index.ts"
 
-/**
- * Determines if a test case is an edge case
- * @param test Test case to check
- * @returns True if the test is an edge case
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function isEdgeCase(test: TestCase): boolean {
 	const edgeCaseKeywords = [
 		"empty",

@@ -2,12 +2,7 @@ import type { Value } from "@sitebender/architect-types/index.ts"
 
 import generateShortId from "@sitebender/architect/pending/misc/generateShortId/index.ts"
 
-/**
- * Processes ID attribute value and returns appropriate object
- *
- * @param id - ID value (string, boolean, null, or undefined)
- * @returns Object with id property or empty object
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export const getId = (id: Value): Record<string, string> => {
 	if (id === true || id === undefined) {
 		return { id: generateShortId() }

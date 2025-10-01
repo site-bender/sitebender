@@ -4,12 +4,7 @@ import generateCurriedInputs from "../generateCurriedInputs/index.ts"
 import getExpectedOutputForInvalid from "../getExpectedOutputForInvalid/index.ts"
 import needsCurriedHandling from "../needsCurriedHandling/index.ts"
 
-/**
- * Transforms a test case for curried function testing
- * @param testCase Original test case
- * @param signature Function signature information
- * @returns Transformed test case with proper curry inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function transformTestCase(
 	testCase: TestCase,
 	signature: FunctionSignature,

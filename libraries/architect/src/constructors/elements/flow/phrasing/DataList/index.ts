@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended DataList attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DataListElementAttributes = DataListAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,29 +27,9 @@ export type DataListElementAttributes = DataListAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for DataList element
- * Allows global attributes and validates datalist-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a DataList element configuration object
- *
- * The datalist element represents a set of option elements that represent
- * predefined options for other controls.
- * It can contain phrasing content and Option elements.
- *
- * @example
- * ```typescript
- * const datalist = DataList({
- *   id: "browsers"
- * })([
- *   Option({ value: "Chrome" })("Chrome"),
- *   Option({ value: "Firefox" })("Firefox"),
- *   Option({ value: "Safari" })("Safari")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const DataList = (attributes: DataListElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

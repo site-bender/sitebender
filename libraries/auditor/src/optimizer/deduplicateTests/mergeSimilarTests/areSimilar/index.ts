@@ -1,15 +1,8 @@
-/**
- * Check if two test cases are similar enough to merge
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../../types/index.ts"
 
-/**
- * Determine if two test cases are similar and can be merged
- * @param a First test case
- * @param b Second test case
- * @returns True if tests are similar enough to merge
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function areSimilar(a: TestCase, b: TestCase): boolean {
 	// Same type of test (both property or both unit)
 	if ((a.properties && !b.properties) || (!a.properties && b.properties)) {
@@ -43,10 +36,7 @@ export default function areSimilar(a: TestCase, b: TestCase): boolean {
 	return similarity > 0.8
 }
 
-/**
- * Calculate Levenshtein distance between two strings using functional approach
- * Uses recursion with memoization for pure functional implementation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function levenshteinDistance(a: string, b: string): number {
 	// Memoization cache for recursive calls
 	const cache = new Map<string, number>()

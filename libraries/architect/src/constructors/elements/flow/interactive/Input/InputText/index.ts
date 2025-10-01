@@ -12,9 +12,7 @@ import Input from "@sitebender/architect/constructors/elements/flow/interactive/
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended InputText attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputTextElementAttributes =
 	& InputTextAttributes
 	& InputTextAriaAttributes
@@ -28,25 +26,9 @@ export type InputTextElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for InputText element
- * Allows global attributes and validates text input-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an InputText element configuration object
- *
- * The text input field allows users to input and edit text.
- *
- * @example
- * ```typescript
- * const input = InputText({
- *   name: "username",
- *   placeholder: "Enter your username",
- *   required: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputText = Input("text")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

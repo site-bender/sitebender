@@ -2,11 +2,7 @@ import type { TestCase } from "../../../types/index.ts"
 
 import isEdgeCase from "./isEdgeCase/index.ts"
 
-/**
- * Groups test cases by type
- * @param tests Array of test cases to group
- * @returns Grouped test cases by category
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function groupTests(tests: Array<TestCase>): {
 	unit: Array<TestCase>
 	property: Array<TestCase>

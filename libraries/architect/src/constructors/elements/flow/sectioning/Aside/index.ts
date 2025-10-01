@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Aside attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type AsideElementAttributes = AsideAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,31 +27,9 @@ export type AsideElementAttributes = AsideAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Aside element
- * Allows global attributes and validates aside-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Aside element configuration object
- *
- * The aside element represents content that is related to the
- * primary content but is separate from it, such as sidebars,
- * pull quotes, or advertising.
- *
- * @example
- * ```typescript
- * const aside = Aside({
- *   id: "sidebar",
- *   class: "sidebar",
- *   role: "complementary",
- *   "aria-label": "Related content"
- * })([
- *   P()("Related content..."),
- *   Nav()([...])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Aside = (attributes: AsideElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

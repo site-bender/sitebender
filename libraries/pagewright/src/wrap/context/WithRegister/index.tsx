@@ -1,26 +1,4 @@
-/**
- * WithRegister component
- *
- * Indicates the arboristic register or level of formality/style.
- * Helps AI understand the appropriate speaking style, vocabulary
- * choice, and grammatical structures for different social contexts.
- *
- * Example usage:
- *
- * <WithRegister
- *   level="colloquial"
- *   dialect="Southern US"
- * >
- *   Y'all come back now, ya hear?
- * </WithRegister>
- *
- * <WithRegister
- *   level="academic"
- *   field="medicine"
- * >
- *   The patient presented with acute myocardial infarction.
- * </WithRegister>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type RegisterLevel =
 	| "frozen" // Ceremonial, unchanging (prayers, pledges)

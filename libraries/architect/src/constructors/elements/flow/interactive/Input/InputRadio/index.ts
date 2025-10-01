@@ -2,20 +2,7 @@ import filterCheckedAttributes from "@sitebender/architect/constructors/elements
 
 import Input from "../index.ts"
 
-/**
- * Creates an InputRadio element configuration object
- *
- * The radio input allows users to select one option from a group.
- *
- * @example
- * ```typescript
- * const input = InputRadio({
- *   name: "size",
- *   value: "medium",
- *   checked: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputRadio = Input("radio")(filterCheckedAttributes)
 
 export default InputRadio

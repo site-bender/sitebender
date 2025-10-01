@@ -1,15 +1,8 @@
-/**
- * Find minimal set of tests covering all branches
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../../types/index.ts"
 
-/**
- * Find the minimal set of tests that cover all branches
- * Uses a greedy set cover algorithm
- * @param tests Array of tests with branch coverage
- * @returns Minimal set of tests covering all branches
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function findMinimalBranchSet(
 	tests: Array<TestCase>,
 ): Array<TestCase> {

@@ -1,48 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Generates a loan amortization schedule
- *
- * Creates a detailed payment schedule showing how each payment is split
- * between principal and interest over the life of a loan. Each entry
- * includes the payment number, payment amount, interest portion, principal
- * portion, and remaining balance. The schedule demonstrates how early
- * payments are mostly interest while later payments are mostly principal.
- *
- * @param principal - Initial loan amount
- * @param rate - Interest rate per period (as decimal)
- * @param periods - Number of payment periods
- * @returns Array of amortization entries, or empty array if invalid
- * @example
- * ```typescript
- * // Simple loan: $1000 at 1% monthly for 3 months
- * amortizationSchedule(1000)(0.01)(3)
- * // Returns 3 payment entries with decreasing interest
- *
- * // No interest loan
- * amortizationSchedule(1200)(0)(4)
- * // 4 equal payments of $300 principal
- *
- * // View total interest paid
- * const schedule = amortizationSchedule(50000)(0.06/12)(60)
- * const totalInterest = schedule.reduce(
- *   (sum, entry) => sum + entry.interest, 0
- * )
- *
- * // Partial application
- * const fiveYearLoan = (amount: number) =>
- *   amortizationSchedule(amount)(0.07/12)(60)
- * fiveYearLoan(10000)  // Small loan
- * fiveYearLoan(50000)  // Large loan
- *
- * // Invalid inputs
- * amortizationSchedule(null)(0.05)(12)  // []
- * amortizationSchedule(10000)(0.05)(0)  // []
- * ```
- * @pure
- * @curried
- * @safe - Returns empty array for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type AmortizationEntry = {
 	period: number
 	payment: number

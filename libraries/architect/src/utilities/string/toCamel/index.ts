@@ -1,6 +1,4 @@
-/**
- * Minimal camelCase converter for tags and names
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const toCamel = (str: string | null | undefined): string => {
 	if (!str) return ""
 	// Split on non-alphanumerics and case boundaries

@@ -43,42 +43,7 @@ const TITLE_CASE_EXCEPTIONS = [
 	"per",
 ]
 
-/**
- * Converts a string to Title Case with proper grammar rules
- *
- * Transforms a string to Title Case format following English title
- * capitalization rules. Capitalizes the first letter of major words
- * while keeping articles, conjunctions, and short prepositions lowercase
- * (except when they are the first or last word). Handles various input
- * formats including camelCase, kebab-case, snake_case, and mixed formats.
- *
- * @param s - The string to convert to Title Case
- * @returns The string in Title Case format
- * @pure - Function has no side effects
- * @immutable - Does not modify inputs
- * @safe - Returns safe values for invalid inputs
- * @example
- * ```typescript
- * // Basic title case
- * toTitle("hello world")         // "Hello World"
- * toTitle("the lord of the rings") // "The Lord of the Rings"
- * toTitle("a tale of two cities")  // "A Tale of Two Cities"
- *
- * // Preserves articles and prepositions
- * toTitle("war and peace")       // "War and Peace"
- * toTitle("the cat in the hat")  // "The Cat in the Hat"
- * toTitle("to be or not to be")  // "To Be or Not to Be"
- *
- * // From different formats
- * toTitle("snake_case_title")    // "Snake Case Title"
- * toTitle("kebab-case-title")    // "Kebab Case Title"
- * toTitle("camelCaseTitle")      // "Camel Case Title"
- *
- * // Edge cases
- * toTitle("")                    // ""
- * toTitle("a")                   // "A" (single word always capitalized)
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const toTitle = (s: string): string => {
 	if (not(s)) return s
 

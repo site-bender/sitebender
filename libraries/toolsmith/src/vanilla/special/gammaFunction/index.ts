@@ -1,43 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the gamma function Γ(x)
- *
- * Computes the gamma function, which extends factorials to real numbers.
- * For positive integers n, Γ(n) = (n-1)!. Uses Lanczos approximation for
- * real values, accurate to about 10 decimal places. Input must be positive
- * (implementation handles positive values only). Returns NaN for invalid inputs.
- *
- * @param x - Positive real number
- * @returns Gamma of x, or NaN if invalid
- * @example
- * ```typescript
- * // Integer values (factorial relationship)
- * gammaFunction(1) // 1 (0! = 1)
- * gammaFunction(5) // 24 (4! = 24)
- * gammaFunction(10) // 362880 (9!)
- *
- * // Half-integer values
- * gammaFunction(0.5) // 1.7724... (√π)
- * gammaFunction(1.5) // 0.8862... (√π/2)
- *
- * // Factorial calculation
- * const factorial = (n: number) => {
- *   if (n < 0 || n !== Math.floor(n)) return NaN
- *   return gammaFunction(n + 1)
- * }
- *
- * // Beta function B(x,y) = Γ(x)Γ(y)/Γ(x+y)
- * const beta = (x: number, y: number) =>
- *   gammaFunction(x) * gammaFunction(y) / gammaFunction(x + y)
- *
- * // Edge cases
- * gammaFunction(0) // NaN (pole at 0)
- * gammaFunction(-1) // NaN (negative not supported)
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const gammaFunction = (
 	x: number | null | undefined,
 ): number => {

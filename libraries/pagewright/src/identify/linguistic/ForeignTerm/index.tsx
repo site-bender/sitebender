@@ -1,36 +1,4 @@
-/**
- * ForeignTerm component
- *
- * Marks up terms from foreign languages within text. Provides
- * language identification, translations, and optional romanization
- * for proper rendering and accessibility.
- *
- * Example usage:
- *
- * <ForeignTerm
- *   lang="de"
- *   translation="pleasure derived from another's misfortune"
- * >
- *   Schadenfreude
- * </ForeignTerm>
- *
- * <ForeignTerm
- *   lang="ja"
- *   translation="cherry blossom"
- *   romanized="sakura"
- * >
- *   桜
- * </ForeignTerm>
- *
- * <ForeignTerm
- *   lang="ar"
- *   translation="hello"
- *   romanized="marhaban"
- *   dir="rtl"
- * >
- *   مرحبا
- * </ForeignTerm>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

@@ -3,49 +3,7 @@ import type { Value } from "../../../types/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isPlainObject from "../../validation/isPlainObject/index.ts"
 
-/**
- * Deeply merges objects recursively with target properties taking precedence
- *
- * Performs a deep recursive merge where nested objects are merged rather than
- * replaced. Arrays are replaced (not concatenated). Useful for deeply nested
- * configuration objects. Handles circular references safely.
- *
- * @pure
- * @immutable
- * @curried
- * @param sources - Default objects to be recursively merged and overridden by target
- * @param target - The object whose properties take precedence at all levels
- * @returns A new deeply merged object
- * @example
- * ```typescript
- * // Deep merge nested objects
- * mergeDeep({
- *   user: { name: "default", role: "user" },
- *   settings: { theme: "light" }
- * })({ user: { name: "Alice" } })
- * // { user: { name: "Alice", role: "user" }, settings: { theme: "light" } }
- *
- * // Configuration with defaults
- * const withDefaults = mergeDeep({
- *   server: { port: 3000, host: "localhost" },
- *   features: { auth: true }
- * })
- * withDefaults({ server: { port: 8080 } })
- * // { server: { port: 8080, host: "localhost" }, features: { auth: true } }
- *
- * // Arrays are replaced
- * mergeDeep({ tags: ["default"] })({ tags: ["custom"] })
- * // { tags: ["custom"] }
- *
- * // Multiple sources
- * mergeDeep({ a: { x: 1 } }, { a: { y: 2 } })({ a: { z: 3 } })
- * // { a: { x: 1, y: 2, z: 3 } }
- *
- * // Edge cases
- * mergeDeep({ a: 1 })(null) // { a: 1 }
- * mergeDeep({})({}) // {}
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function mergeDeep<T extends Record<string | symbol, Value>>(
 	...sources: Array<Record<string | symbol, Value> | null | undefined>
 ) {

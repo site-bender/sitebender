@@ -1,9 +1,4 @@
-/**
- * If control (sugar for Conditional)
- *
- * Supports either slot-based usage with <Condition/>, <IfTrue/>, <IfFalse/>
- * or prop/children-based usage: <If condition={...} then={...} else={...} />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	condition?: JSX.Element | Array<JSX.Element>

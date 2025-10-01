@@ -1,11 +1,6 @@
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
 
-/**
- * Generates import statements for a test file
- * @param signature Function signature with type information
- * @param tests Array of test cases that may require imports
- * @returns Combined import statements as a string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateImports(
 	signature: FunctionSignature,
 	tests: Array<TestCase>,
@@ -97,9 +92,7 @@ export default function generateImports(
 	return imports.join("\n")
 }
 
-/**
- * Converts an import path from source file to test file location
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function _convertImportPathForTest(
 	importPath: string,
 	_sourcePath: string,
@@ -119,9 +112,7 @@ function _convertImportPathForTest(
 	return importPath
 }
 
-/**
- * Generates relative path from test file to source file
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateRelativePath(sourcePath: string): string {
 	// Convert absolute path to relative from test location
 	// Assuming test is in tests/libraries/... and source is in libraries/...

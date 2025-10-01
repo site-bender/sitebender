@@ -1,33 +1,4 @@
-/**
- * Duration component
- *
- * Renders time durations with full internationalization support.
- * Uses ISO 8601 duration format (e.g., P3DT4H30M) or can be created
- * from individual units. Supports various display formats and locales.
- *
- * Example usage:
- *
- * // ISO 8601 duration string
- * <Duration value="PT2H30M" />
- * // → 2 hours, 30 minutes
- *
- * // Object notation
- * <Duration value={{ hours: 2, minutes: 30 }} locale="fr-FR" />
- * // → 2 heures et 30 minutes
- *
- * // Milliseconds
- * <Duration value={150000} format="narrow" />
- * // → 2m 30s
- *
- * // Relative format
- * <Duration value="PT48H" format="relative" />
- * // → in 2 days
- *
- * // Custom display
- * <Duration value="P1Y2M3D">
- *   {({ display }) => <>Duration: {display}</>}
- * </Duration>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type {
 	DurationValue,

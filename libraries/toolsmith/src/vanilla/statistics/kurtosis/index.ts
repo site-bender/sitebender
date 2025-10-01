@@ -2,45 +2,7 @@ import mean from "../../math/mean/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 import standardDeviation from "../standardDeviation/index.ts"
 
-/**
- * Calculates the excess kurtosis of a dataset
- *
- * Measures the "tailedness" of the probability distribution. Returns
- * excess kurtosis (kurtosis - 3), where 0 represents normal distribution.
- * Positive values indicate heavy tails (leptokurtic), negative values
- * indicate light tails (platykurtic). Uses the adjusted moment-based
- * estimator. Returns NaN for datasets with fewer than 4 values.
- *
- * @param data - Array of numeric values
- * @returns Excess kurtosis coefficient, or NaN if invalid
- * @example
- * ```typescript
- * // Normal-like distribution (excess kurtosis ≈ 0)
- * kurtosis([1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1])
- * // -0.153...
- *
- * // Uniform distribution (light tails)
- * kurtosis([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
- * // -1.224... (platykurtic)
- *
- * // Peaked distribution with outliers
- * kurtosis([5, 5, 5, 5, 5, 5, 5, 5, 1, 10])
- * // 3.571... (leptokurtic, heavy tails)
- *
- * // Minimum dataset size (4 values)
- * kurtosis([1, 2, 3, 4])
- * // -1.2
- *
- * // Too few values
- * kurtosis([1, 2, 3])  // NaN
- *
- * // Invalid inputs
- * kurtosis([])  // NaN
- * kurtosis(null)  // NaN
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function kurtosis(
 	data: number[] | null | undefined,
 ): number {

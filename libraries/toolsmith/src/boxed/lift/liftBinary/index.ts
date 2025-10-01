@@ -14,11 +14,11 @@ import validationMap2 from "../../../monads/validation/map2/index.ts"
 //++ Otherwise defaults to Result
 export default function liftBinary<A, B, C, E>(fn: (a: A) => (b: B) => C) {
 	return function liftedOuter(
-		ma: A | Result<E, A> | Validation<E[], A>,
+		ma: A | Result<E, A> | Validation<E, A>,
 	) {
 		return function liftedInner(
-			mb: B | Result<E, B> | Validation<E[], B>,
-		): Result<E, C> | Validation<E[], C> {
+			mb: B | Result<E, B> | Validation<E, B>,
+		): Result<E, C> | Validation<E, C> {
 			// If EITHER argument is Validation, use Validation
 			if (isValidation(ma) || isValidation(mb)) {
 				// Extract value from Result if needed, otherwise wrap plain value
@@ -34,7 +34,7 @@ export default function liftBinary<A, B, C, E>(fn: (a: A) => (b: B) => C) {
 						? (isOk(mb) ? success(mb.value) : { _tag: "Failure" as const, errors: [mb.error] as [E] })
 						: success(mb as B)
 
-				return validationMap2(fn)(aVal as Validation<E, A>)(bVal as Validation<E, B>) as Validation<E[], C>
+				return validationMap2(fn)(aVal as Validation<E, A>)(bVal as Validation<E, B>) as Validation<E, C>
 			}
 
 			// Otherwise use Result (either both Result or both plain)

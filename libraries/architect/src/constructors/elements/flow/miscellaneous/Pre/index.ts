@@ -11,9 +11,7 @@ import type { ElementConfig } from "@sitebender/architect/constructors/elements/
 import GlobalOnly from "@sitebender/architect/constructors/abstracted/GlobalOnly/index.ts"
 import isPhrasingContent from "@sitebender/architect/guards/isPhrasingContent/index.ts"
 
-/**
- * Child filter that validates phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const phrasingContentFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		return isPhrasingContent()(
@@ -24,23 +22,9 @@ const phrasingContentFilter = (child: ElementConfig): boolean => {
 	return true
 }
 
-/**
- * Creates a Pre element configuration object
- *
- * The pre element represents preformatted text where whitespace is significant.
- * It can only contain phrasing content.
- *
- * @example
- * ```typescript
- * const pre = Pre({ id: "code-block", class: "syntax-highlight" })([
- *   Code()("function hello() {\n  console.log('Hello World!');\n}")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Pre attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PreElementAttributes = PreformattedTextAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand

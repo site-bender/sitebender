@@ -14,14 +14,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Option element
- * Allows global attributes and validates disabled, label, selected, and value attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Option attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type OptionElementAttributes = OptionAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -33,24 +28,7 @@ export type OptionElementAttributes = OptionAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an Option element configuration object
- *
- * The option element represents an option in a select element
- * or as part of a list of suggestions in a datalist element.
- *
- * @param attributes - Element attributes
- * @param label - Text content for the option
- * @returns Element configuration object
- *
- * @example
- * ```typescript
- * const option = Option({
- *   value: "red",
- *   selected: true
- * })("Red")
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Option = (attributes: Record<string, Value> = {}) => (label?: string) => {
 	const { dataset, display, id, ...attrs } = attributes
 	const { ...attribs } = filterAttributes(attrs)

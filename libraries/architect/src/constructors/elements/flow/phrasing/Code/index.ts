@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Code attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CodeElementAttributes = CodeAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type CodeElementAttributes = CodeAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Code element
- * Allows global attributes and validates code-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Code element configuration object
- *
- * The code element represents a fragment of computer code.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const code = Code({
- *   id: "example-code",
- *   class: "language-javascript"
- * })([
- *   TextNode("console.log('Hello, World!')")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Code = (attributes: CodeElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

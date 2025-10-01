@@ -1,20 +1,8 @@
-/**
- * Base58 alphabet (excludes 0, O, I, l to avoid confusion)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const BASE58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 const len = BigInt(BASE58.length)
 
-/**
- * Converts a BigInt to base58 string
- *
- * @param bigInt - The BigInt to convert
- * @returns Base58 encoded string
- * @example
- * ```typescript
- * convertBigIntToBase58(123456789n) // "BukQL93"
- * convertBigIntToBase58(0n) // ""
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function convertBigIntToBase58(bigInt: bigint): string {
 	const convert = (n: bigint, out: string): string => {
 		return n > 0

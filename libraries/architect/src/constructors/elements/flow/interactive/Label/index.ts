@@ -15,14 +15,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Label element
- * Allows global attributes and validates label-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Label attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type LabelElementAttributes = LabelAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -34,22 +29,7 @@ export type LabelElementAttributes = LabelAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Label element configuration object
- *
- * The label element represents a caption for a form control.
- * It can contain phrasing content and text, but not interactive elements or nested labels.
- *
- * @example
- * ```typescript
- * const label = Label({
- *   id: "name-label",
- *   for: "name-input"
- * })([
- *   TextNode("Full Name:")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Label = (attributes: LabelElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

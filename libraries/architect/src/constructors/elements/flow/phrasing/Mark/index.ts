@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Mark attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type MarkElementAttributes = MarkTextAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type MarkElementAttributes = MarkTextAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Mark element
- * Allows global attributes and validates mark-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Mark element configuration object
- *
- * The mark element represents text which is marked or highlighted
- * for reference or notation purposes.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const mark = Mark({
- *   id: "search-highlight"
- * })([
- *   TextNode("important text")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Mark = (attributes: MarkElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

@@ -16,48 +16,7 @@ import isObject from "../../../validation/isObject/index.ts"
 import isPlainDate from "../../../validation/isPlainDate/index.ts"
 import isString from "../../../validation/isString/index.ts"
 
-/**
- * Parses values into Temporal PlainDate objects
- *
- * Converts various date representations to Temporal.PlainDate.
- * Returns null for invalid inputs rather than throwing errors,
- * making it easy to wrap in monadic error handling later.
- *
- * Parsing rules:
- * - Temporal.PlainDate: returned as-is
- * - Temporal.PlainDateTime/ZonedDateTime: extracts date portion
- * - Strings: ISO 8601 date format (YYYY-MM-DD)
- * - Date objects: converted to PlainDate (date only, no time)
- * - PlainDateLike objects: must have year, month, day properties
- * - null/undefined: null
- *
- * @pure
- * @safe
- * @param value - The value to convert to PlainDate
- * @returns The PlainDate representation or null if invalid
- * @example
- * ```typescript
- * // Basic usage
- * toPlainDate("2024-03-15")        // PlainDate 2024-03-15
- * toPlainDate("2024-12-31")        // PlainDate 2024-12-31
- * toPlainDate(new Date("2024-03-15T12:30:00Z"))  // PlainDate 2024-03-15
- *
- * // PlainDateLike objects
- * toPlainDate({ year: 2024, month: 3, day: 15 })  // PlainDate 2024-03-15
- *
- * // Invalid inputs
- * toPlainDate("2024-13-01")        // null (invalid month)
- * toPlainDate("03/15/2024")        // null (wrong format)
- * toPlainDate(null)                // null
- * toPlainDate(123)                 // null
- *
- * // Date validation example
- * const date = toPlainDate(userInput)
- * if (!date) {
- *   throw new Error("Invalid date format")
- * }
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function toPlainDate(
 	value: DateInput | null | undefined,
 ): Temporal.PlainDate | null {

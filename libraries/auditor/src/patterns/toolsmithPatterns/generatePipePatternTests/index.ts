@@ -1,14 +1,8 @@
-/**
- * Generate tests for pipe pattern functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 
-/**
- * Generate test cases for pipe pattern (left-to-right composition)
- * @param _signature Function signature (reserved for future use)
- * @returns Array of pipe-specific test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generatePipePatternTests(
 	_signature: FunctionSignature,
 ): Array<TestCase> {

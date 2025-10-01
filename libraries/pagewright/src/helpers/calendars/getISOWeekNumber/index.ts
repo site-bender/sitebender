@@ -1,6 +1,4 @@
-/**
- * Calculate ISO week number
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getISOWeekNumber(date: Date): number {
 	const d = new Date(
 		Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),

@@ -1,46 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Wraps a string in quotes
- *
- * Surrounds a string with quotation marks, with options for different quote
- * styles (single, double, backticks, or custom). Useful for generating code,
- * formatting output, creating JSON strings, or preparing strings for display.
- * Does not escape internal quotes - use with escape functions if needed.
- *
- * @pure
- * @curried
- * @immutable
- * @safe
- * @param quoteChar - Quote character(s) to use (default: '"')
- * @param str - String to wrap in quotes
- * @returns String wrapped in quotes
- * @example
- * ```typescript
- * // Default double quotes
- * quote()("hello")       // '"hello"'
- *
- * // Single quotes
- * quote("'")("hello")    // "'hello'"
- *
- * // Custom quotes
- * quote("**")("bold")    // "**bold**"
- *
- * // Empty string
- * quote()("")            // '""'
- *
- * // Paired delimiters
- * quote("[]")("array")   // "[array]"
- * quote("()")("group")   // "(group)"
- *
- * // Partial application
- * const doubleQuote = quote('"')
- * doubleQuote("test")    // '"test"'
- *
- * // HTML attributes
- * quote('"')("container")  // '"container"'
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const quote = (
 	quoteChar: string | null | undefined = '"',
 ) =>

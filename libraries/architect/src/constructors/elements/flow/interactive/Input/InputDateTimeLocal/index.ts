@@ -2,21 +2,7 @@ import filterDateTimeAttributes from "@sitebender/architect/constructors/element
 
 import Input from "../index.ts"
 
-/**
- * Creates an InputDateTimeLocal element configuration object
- *
- * The datetime-local input allows users to select a date and time.
- *
- * @example
- * ```typescript
- * const input = InputDateTimeLocal({
- *   name: "schedule",
- *   min: "2023-01-01T00:00",
- *   max: "2023-12-31T23:59",
- *   required: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputDateTimeLocal = Input("datetime-local")(filterDateTimeAttributes)
 
 export default InputDateTimeLocal

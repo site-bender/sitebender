@@ -2,16 +2,7 @@ import type { FunctionSignature } from "../../../types/index.ts"
 import type { BenchmarkPattern } from "../../detectBenchmarkPatterns/index.ts"
 import type { BenchmarkInputSet } from "../index.ts"
 
-/**
- * Generates realistic benchmark inputs based on common use cases
- * Pure function that creates real-world input scenarios
- * @param signature - The function signature
- * @param patterns - Detected benchmark patterns
- * @returns Array of realistic input sets
- * @example
- * const inputs = generateRealisticInputs(signature, patterns)
- * // Returns: [{ name: "typical-use", inputs: [...] }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateRealisticInputs(
 	signature: FunctionSignature,
 	patterns: Array<BenchmarkPattern>,

@@ -1,48 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the number of permutations (nPr)
- *
- * Computes the number of ways to arrange r items from n items where
- * order matters, using the formula: P(n,r) = n! / (n-r)!. Also known
- * as partial permutations or r-permutations of n. Returns NaN for
- * invalid inputs, negative numbers, or when r > n.
- *
- * @curried (n) => (r) => number
- * @param n - Total number of items
- * @param r - Number of items to arrange
- * @returns Number of permutations, or NaN if invalid
- * @example
- * ```typescript
- * permutations(5)(3)
- * // 60 (ways to arrange 3 from 5)
- *
- * permutations(5)(0)
- * // 1 (one way to arrange nothing)
- *
- * permutations(5)(5)
- * // 120 (5! ways to arrange all)
- *
- * permutations(0)(0)
- * // 1 (by definition)
- *
- * permutations(3)(5)
- * // NaN (can't arrange 5 from 3)
- *
- * // Race finishing positions
- * permutations(8)(3)
- * // 336 (ways to fill gold, silver, bronze)
- *
- * // Partial application
- * const arrangeFrom10 = permutations(10)
- * arrangeFrom10(3)
- * // 720
- * ```
- * @pure Always returns same result for same inputs
- * @curried Enables partial application
- * @safe Returns NaN for invalid inputs
- * @mathematical Order matters (unlike combinations)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const permutations = (
 	n: number | null | undefined,
 ) =>

@@ -2,13 +2,7 @@ import type { FunctionSignature } from "../../types/index.ts"
 
 import formatValue from "../formatValue/index.ts"
 
-/**
- * Generates function call code for tests
- * @param functionName Name of the function to call
- * @param inputs Array of input values
- * @param signature Function signature information
- * @returns Generated function call string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateFunctionCall(
 	functionName: string,
 	inputs: Array<unknown>,

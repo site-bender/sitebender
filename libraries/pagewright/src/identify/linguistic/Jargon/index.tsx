@@ -1,32 +1,4 @@
-/**
- * Jargon component
- *
- * Marks up specialized or technical language specific to a field
- * or profession. Helps identify terms that may need explanation
- * for general audiences while preserving precise technical meaning.
- *
- * Example usage:
- *
- * <Jargon field="computing" definition="page not found error">
- *   404 error
- * </Jargon>
- *
- * <Jargon
- *   field="medicine"
- *   definition="heart attack"
- *   formal="myocardial infarction"
- * >
- *   MI
- * </Jargon>
- *
- * <Jargon
- *   field="finance"
- *   acronym="ROI"
- *   expansion="return on investment"
- * >
- *   return on investment
- * </Jargon>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	// Acronym form if applicable

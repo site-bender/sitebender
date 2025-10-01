@@ -3,17 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * AbsoluteValue JSX Component
- *
- * Wrapper for the AbsoluteValue operator constructor.
- * Returns the absolute value of a number.
- *
- * @example
- * <AbsoluteValue>
- *   <FromElement id="temperature" type="Number" />
- * </AbsoluteValue>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import AbsoluteValueConstructor from "../../../../../architect/src/constructors/operators/AbsoluteValue/index.ts"
 

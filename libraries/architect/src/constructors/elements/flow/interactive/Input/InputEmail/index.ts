@@ -11,9 +11,7 @@ import type { InputEmailAttributes } from "@sitebender/architect/constructors/el
 import Input from "../index.ts"
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended InputEmail attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputEmailElementAttributes =
 	& InputEmailAttributes
 	& InputEmailAriaAttributes
@@ -27,26 +25,9 @@ export type InputEmailElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for InputEmail element
- * Allows global attributes and validates email input-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an InputEmail element configuration object
- *
- * The email input field allows users to input and edit email addresses.
- *
- * @example
- * ```typescript
- * const input = InputEmail({
- *   name: "email",
- *   placeholder: "Enter your email address",
- *   required: true,
- *   multiple: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputEmail = Input("email")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

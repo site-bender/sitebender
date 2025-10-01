@@ -1,15 +1,8 @@
-/**
- * Check if an edge case is covered by a property test
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../../types/index.ts"
 
-/**
- * Determine if an edge case test is covered by a property test
- * @param edgeCase Edge case test
- * @param propertyTest Property test
- * @returns True if edge case is covered
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function isEdgeCaseCoveredByProperty(
 	edgeCase: TestCase,
 	propertyTest: TestCase,

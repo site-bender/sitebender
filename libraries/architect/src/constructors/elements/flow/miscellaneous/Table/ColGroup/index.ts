@@ -12,14 +12,9 @@ import Filtered from "@sitebender/architect/constructors/abstracted/Filtered/ind
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for ColGroup element
- * Allows global attributes and validates span attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended ColGroup attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ColGroupElementAttributes = TableColumnGroupAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -31,9 +26,7 @@ export type ColGroupElementAttributes = TableColumnGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Child filter that validates column content (col, script, template)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const colGroupFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		const tag = (child as { tag?: string }).tag?.toLowerCase()
@@ -42,23 +35,7 @@ const colGroupFilter = (child: ElementConfig): boolean => {
 	return false
 }
 
-/**
- * Creates a ColGroup element configuration object
- *
- * The colgroup element represents a group of columns in a table.
- * It can contain col, script, and template elements.
- *
- * @example
- * ```typescript
- * const colgroup = ColGroup({
- *   id: "column-group",
- *   span: 3
- * })([
- *   Col({ span: 2 }),
- *   Col({ span: 1 })
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const ColGroup = (attributes: ColGroupElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig = [],

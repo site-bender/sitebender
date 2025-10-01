@@ -11,14 +11,9 @@ import Filtered from "@sitebender/architect/constructors/abstracted/Filtered/ind
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Th element
- * Allows global attributes and validates th-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Th attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ThElementAttributes = TableHeaderCellAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -30,24 +25,7 @@ export type ThElementAttributes = TableHeaderCellAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Th element configuration object
- *
- * The th element represents a header cell in a table.
- * It can contain flow content.
- *
- * @example
- * ```typescript
- * const th = Th({
- *   id: "header-1",
- *   scope: "col",
- *   abbr: "Product Name",
- *   sorted: true
- * })([
- *   TextNode("Product")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Th = Filtered("Th")(filterAttributes)
 
 export default Th

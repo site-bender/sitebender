@@ -5,19 +5,7 @@ import type {
 	TemporalDatatype,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsNoLessThan JSX Component
- *
- * Wrapper for the IsNoLessThan comparator constructor.
- * Checks if a value is greater than or equal to a threshold.
- * Requires <Value> and <Threshold> wrapper components.
- *
- * @example
- * <IsNoLessThan>
- *   <Value><FromElement id="age" type="Number" /></Value>
- *   <Threshold><Constant value={18} /></Threshold>
- * </IsNoLessThan>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsNoLessThanConstructor from "../../../../../architect/src/constructors/comparators/amount/IsNoLessThan/index.ts"
 

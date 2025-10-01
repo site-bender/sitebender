@@ -7,42 +7,19 @@ import getDataAttributes from "../../../helpers/getDataAttributes/index.ts"
 export type Props = BaseProps & {
 	element?: "div" | "section" | "p" | "span"
 	define?: "microdata" | "linkedData" | "both"
-	/**
-	 * The location of the setting
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	location?: string
-	/**
-	 * The time period of the setting
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	timePeriod?: string
-	/**
-	 * Type of setting (e.g., "physical", "social", "cultural", "psychological")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	settingType?: string
-	/**
-	 * Mood or atmosphere of the setting
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	atmosphere?: string
-	/**
-	 * Significance to the narrative (e.g., "primary", "secondary", "symbolic")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	significance?: string
 }
 
-/**
- * Describes the time and place where narrative events occur.
- * Used for establishing context and atmosphere in storytelling.
- *
- * @example
- * <Setting location="Victorian London" timePeriod="1888" atmosphere="foggy">
- *   The gas lamps flickered in the dense fog that rolled through the cobblestone streets.
- * </Setting>
- *
- * @example
- * <Setting settingType="psychological" atmosphere="tense">
- *   The room felt smaller with each passing moment, the walls seeming to close in.
- * </Setting>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function Setting({
 	element: Element = "div",
 	define: _define,

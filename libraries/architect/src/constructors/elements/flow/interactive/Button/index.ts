@@ -18,9 +18,7 @@ import filterAttributes from "./filterAttributes/index.ts"
 
 // Button-specific attribute filtering is handled in ./filterAttributes
 
-/**
- * Extended Button attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ButtonElementAttributes =
 	& ButtonAttributes
 	& ButtonAriaAttributes
@@ -34,28 +32,9 @@ export type ButtonElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Button element
- * Allows global attributes and validates button-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Button element configuration object
- *
- * The button element represents a clickable button.
- * It can contain phrasing content and text, but not interactive elements.
- *
- * @example
- * ```typescript
- * const button = Button({
- *   id: "submit-btn",
- *   type: "submit",
- *   disabled: false
- * })([
- *   TextNode("Submit Form")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Button = (attributes: ButtonElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

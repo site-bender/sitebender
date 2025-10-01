@@ -1,10 +1,6 @@
 import type CoverageData from "./types/index.ts"
 
-/**
- * Parses LCOV coverage report from Deno
- * @param lcovData Raw LCOV data string
- * @returns Parsed coverage data structure
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseLcovReport(lcovData: string): CoverageData {
 	const processLine = (
 		acc: {

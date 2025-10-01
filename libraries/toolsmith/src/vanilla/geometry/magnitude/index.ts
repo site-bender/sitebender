@@ -1,40 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the magnitude (length) of a vector
- *
- * Computes the Euclidean norm (L2 norm) of a vector, which represents
- * its length in n-dimensional space. This is the square root of the sum
- * of squared components. Returns NaN for invalid inputs or empty arrays.
- *
- * @param vector - Array of vector components
- * @returns Magnitude of the vector (always non-negative), or NaN if invalid
- * @pure
- * @safe
- * @immutable
- * @example
- * ```typescript
- * // 2D vectors
- * magnitude([3, 4])  // 5 (Pythagorean theorem)
- * magnitude([1, 1])  // 1.414... (√2)
- *
- * // 3D vectors
- * magnitude([2, 3, 6])  // 7
- * magnitude([1, 1, 1])  // 1.732... (√3)
- *
- * // Zero vector returns 0
- * magnitude([0, 0, 0])  // 0
- *
- * // Single dimension (absolute value)
- * magnitude([5])  // 5
- * magnitude([-5])  // 5 (always positive)
- *
- * // Invalid inputs return NaN
- * magnitude([])  // NaN (empty array)
- * magnitude(null)  // NaN
- * magnitude([1, "2", 3])  // NaN
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const magnitude = (
 	vector: number[] | null | undefined,
 ): number => {

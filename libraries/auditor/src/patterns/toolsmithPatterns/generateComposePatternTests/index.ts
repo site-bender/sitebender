@@ -1,14 +1,8 @@
-/**
- * Generate tests for compose pattern functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 
-/**
- * Generate test cases for compose pattern (right-to-left composition)
- * @param _signature Function signature (reserved for future use)
- * @returns Array of compose-specific test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateComposePatternTests(
 	_signature: FunctionSignature,
 ): Array<TestCase> {

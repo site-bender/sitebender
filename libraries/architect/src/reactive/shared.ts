@@ -1,7 +1,4 @@
-/**
- * Shared reactive state.
- * Internal only; modules coordinate via this object to avoid global pollution.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type Subscriber = () => void
 
 export const reactiveState = {

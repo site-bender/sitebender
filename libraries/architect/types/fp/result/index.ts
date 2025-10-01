@@ -1,9 +1,6 @@
 import type { Either, Left, Right } from "../either/index.ts"
 
-/**
- * Result type as an alias for Either with more intuitive naming
- * Ok represents success (Right), Err represents failure (Left)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type Result<T, E> = Either<E, T>
 export type Ok<T> = Right<T>
 export type Err<E> = Left<E>

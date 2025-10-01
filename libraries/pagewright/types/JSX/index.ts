@@ -1,57 +1,45 @@
-/**
- * Generic element constructor attributes type
- * Combines HTML-specific attributes with reactive system attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ElementAttributes<T> = T & {
-	/** ARIA attributes */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	aria?: Record<string, unknown>
 
-	/** Reactive calculation configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	calculation?: unknown
 
-	/** Data attributes (becomes data-* on the element) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	dataset?: Record<string, unknown>
 
-	/** Conditional display configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	display?: unknown
 
-	/** Value formatting configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	format?: unknown
 
-	/** JavaScript files to include */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	scripts?: Array<string>
 
-	/** CSS files to include */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	stylesheets?: Array<string>
 
-	/** Form validation configuration */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	validation?: unknown
 }
 
-/**
- * Text node configuration
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TextNodeConfig = {
 	tag: "TextNode"
 	content: string
 }
 
-/**
- * Text node constructor function type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TextNodeConstructor = (content: unknown) => TextNodeConfig
 
-/**
- * Child filter function type used by element constructors
- * to validate and filter children elements
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ChildFilter = (child: unknown) => boolean
 
 export type ComponentType<P> = (props: P) => JSX.Element
 
-/**
- * Element configuration object structure (OUTPUT of constructors)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ElementConfig<T = Record<string, unknown>> = {
 	readonly tag: string
 	readonly attributes: T

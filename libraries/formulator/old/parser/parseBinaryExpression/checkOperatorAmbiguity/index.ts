@@ -1,11 +1,6 @@
 import type { ParseError, Result, Token } from "../../../types/index.ts"
 
-/**
- * Checks for ambiguous operator sequences and returns error if found
- * @param currentToken - Current operator token
- * @param nextToken - Next token after operator
- * @returns Result with success or ambiguity error
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function checkOperatorAmbiguity(
 	currentToken: Token,
 	nextToken: Token,

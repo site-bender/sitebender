@@ -1,1 +1,1 @@
-/** Table - Accessible table with caption and proper structure */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style

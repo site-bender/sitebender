@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Summary attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SummaryElementAttributes = SummaryAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -30,23 +28,7 @@ export type SummaryElementAttributes = SummaryAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Summary element configuration object
- *
- * The summary element represents a summary, caption, or legend for the
- * rest of the contents of the details element.
- *
- * @example
- * ```typescript
- * const summary = Summary({
- *   id: "details-summary",
- *   role: "button"
- * })([
- *   TextNode("Click to expand"),
- *   Strong()(TextNode(" (Important)"))
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Summary = (attributes: SummaryElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

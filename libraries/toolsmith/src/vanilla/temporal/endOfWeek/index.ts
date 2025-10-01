@@ -1,63 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns the end of week for a given date
- *
- * Creates a PlainDate representing the last day of the week for the given date.
- * The week start day is configurable (default is Monday = 1). Days are numbered
- * 1-7 where 1 is Monday and 7 is Sunday (ISO 8601 standard). Useful for weekly
- * reports, calendar views, and scheduling. Works with PlainDate and PlainDateTime.
- * Returns null for invalid inputs.
- *
- * @param weekStartDay - Day week starts on (1=Mon to 7=Sun, default 1)
- * @param date - The date to get end of week for
- * @returns PlainDate of the last day of the week, or null if invalid
- * @example
- * ```typescript
- * // Basic usage (Monday as week start)
- * const date = Temporal.PlainDate.from("2024-03-15")  // Friday
- * endOfWeek()(date)                       // PlainDate 2024-03-17 (Sunday)
- * endOfWeek(1)(date)                      // PlainDate 2024-03-17 (Sunday)
- *
- * // Sunday as week start (US convention)
- * endOfWeek(7)(date)                      // PlainDate 2024-03-16 (Saturday)
- *
- * // Different week conventions
- * const endOfWeekISO = endOfWeek(1)       // Monday start (ISO)
- * const endOfWeekUS = endOfWeek(7)        // Sunday start (US)
- * const endOfWeekMiddleEast = endOfWeek(6) // Saturday start
- *
- * // With PlainDateTime
- * const datetime = Temporal.PlainDateTime.from("2024-03-15T10:30:00")
- * endOfWeek()(datetime)                   // PlainDate 2024-03-17
- *
- * // Edge cases
- * endOfWeek()(null)                       // null
- * endOfWeek()(undefined)                  // null
- *
- * // Calendar weeks generation
- * const getCalendarWeeks = (month: Temporal.PlainYearMonth) => {
- *   const weeks = []
- *   const firstDay = month.toPlainDate({ day: 1 })
- *   const lastDay = month.toPlainDate({ day: month.daysInMonth })
- *
- *   const daysFromWeekStart = (firstDay.dayOfWeek - 1 + 7) % 7
- *   const current = firstDay.subtract({ days: daysFromWeekStart })
- *
- *   const buildWeeks = (date: Temporal.PlainDate): Array<any> =>
- *     Temporal.PlainDate.compare(date, lastDay) > 0 ? [] :
- *     [{ start: date, end: endOfWeek()(date) }].concat(
- *       buildWeeks(date.add({ days: 7 }))
- *     )
- *
- *   return buildWeeks(current)
- * }
- * ```
- * @pure
- * @immutable
- * @safe
- * @curried
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function endOfWeek(weekStartDay: number = 1) {
 	return function getEndOfWeekForDate(
 		date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,

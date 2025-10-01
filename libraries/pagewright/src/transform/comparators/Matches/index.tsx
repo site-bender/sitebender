@@ -3,9 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Matches - String pattern matching component for architect validation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import MatchesConstructor from "../../../../../architect/src/constructors/comparators/matching/Matches/index.ts"
 

@@ -1,39 +1,4 @@
-/**
- * RelativeTime component
- *
- * Displays time relative to another point in time using
- * Intl.RelativeTimeFormat for proper localization.
- * Auto-updates the display unit based on the time difference.
- *
- * Example usage:
- *
- * // Relative to now
- * <RelativeTime value="2024-01-10T14:30:00Z" />
- * // → 3 days ago
- *
- * // Relative to specific date
- * <RelativeTime
- *   value="2024-01-20"
- *   relativeTo="2024-01-15"
- * />
- * // → in 5 days
- *
- * // With numeric style
- * <RelativeTime value="2024-01-10T14:30:00Z" numeric="always" />
- * // → 3 days ago
- *
- * // With auto style (today, yesterday, tomorrow)
- * <RelativeTime value={yesterday} numeric="auto" />
- * // → yesterday
- *
- * // Force specific unit
- * <RelativeTime value="2024-01-10T14:30:00Z" unit="hour" />
- * // → 72 hours ago
- *
- * // With locale
- * <RelativeTime value="2024-01-10" locale="es-ES" />
- * // → hace 3 días
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

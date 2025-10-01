@@ -1,60 +1,6 @@
 import isEmpty from "../isEmpty/index.ts"
 
-/**
- * Validates phone numbers for various countries and formats
- *
- * Checks whether a string is a valid phone number according to the specified
- * country's format. Supports international formats, national formats, and
- * various common formatting styles with spaces, hyphens, and parentheses.
- * Returns false for non-string values, empty strings, or invalid formats.
- *
- * Phone validation rules:
- * - Country-specific formats and lengths
- * - Optional international prefix (+, 00)
- * - Flexible formatting (spaces, hyphens, parentheses, dots)
- * - Mobile and landline numbers
- * - Extension numbers (where applicable)
- * - Default validates generic international format
- *
- * @param options - Optional configuration for country and strictness
- * @returns A predicate function that validates phone numbers
- * @example
- * ```typescript
- * // Generic international format
- * const isValidPhone = isPhone()
- * isValidPhone("+1-555-123-4567")      // true
- * isValidPhone("+44 20 7123 4567")     // true
- * isValidPhone("invalid")              // false
- *
- * // US phone validation
- * const isUSPhone = isPhone({ country: "US" })
- * isUSPhone("555-123-4567")           // true
- * isUSPhone("(555) 123-4567")         // true
- * isUSPhone("+1 555 123 4567")        // true
- *
- * // UK phone validation
- * const isUKPhone = isPhone({ country: "GB" })
- * isUKPhone("020 7123 4567")          // true
- * isUKPhone("07700 900123")           // true (mobile)
- * isUKPhone("+44 20 7123 4567")       // true
- *
- * // Form validation
- * const validatePhone = (phone: unknown, country = "US"): string | null => {
- *   const trimmed = typeof phone === "string" ? phone.trim() : ""
- *   return !isPhone({ country })(trimmed)
- *     ? `Invalid ${country} phone format`
- *     : null
- * }
- *
- * // Filter valid phones
- * const phones = ["555-123-4567", "invalid", "+44 20 7123 4567"]
- * const valid = phones.filter(isPhone())  // ["555-123-4567", "+44 20 7123 4567"]
- * ```
- *
- * @pure
- * @curried
- * @predicate
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type PhoneCountry =
 	| "US"
 	| "CA"

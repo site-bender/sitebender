@@ -8,13 +8,7 @@ import extractGenerics from "./extractGenerics/index.ts"
 import extractParameters from "./extractParameters/index.ts"
 import extractReturnType from "./extractReturnType/index.ts"
 
-/**
- * Extracts function signature information from a TypeScript AST node
- * @param node Function declaration, expression, or arrow function
- * @param filePath Path to the source file
- * @param checker TypeScript type checker
- * @returns Complete function signature information
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractSignatureFromNode(
 	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
 	filePath: string,

@@ -11,23 +11,8 @@ import type { ElementConfig } from "@sitebender/architect/constructors/elements/
 import GlobalOnly from "@sitebender/architect/constructors/abstracted/GlobalOnly/index.ts"
 import isPhrasingContent from "@sitebender/architect/guards/isPhrasingContent/index.ts"
 
-/**
- * Creates a Sup element configuration object
- *
- * The sup element represents a superscript.
- *
- * @example
- * ```typescript
- * const sup = Sup({
- *   id: "exponent"
- * })([
- *   TextNode("2")
- * ])
- * ```
- */
-/**
- * Child filter that validates phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const phrasingContentFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		return isPhrasingContent()(
@@ -38,9 +23,7 @@ const phrasingContentFilter = (child: ElementConfig): boolean => {
 	return true
 }
 
-/**
- * Extended Sup attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SupElementAttributes = SuperscriptAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand

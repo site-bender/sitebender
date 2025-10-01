@@ -1,8 +1,4 @@
-/**
- * Conditional control component
- *
- * Wraps a comparator graph and two branches for IR; no DOM rendering.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element>

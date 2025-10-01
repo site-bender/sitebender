@@ -1,8 +1,6 @@
 import type { WeekNumberingSystem } from "../../../../types/temporal/index.ts"
 
-/**
- * Get the start date of the week containing the given date
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getWeekStartDate(
 	date: Date,
 	system: WeekNumberingSystem = "ISO",

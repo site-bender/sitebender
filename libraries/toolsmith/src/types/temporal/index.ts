@@ -1,25 +1,13 @@
-/**
- * Temporal API type definitions for date/time operations
- *
- * Provides unified type definitions for various Temporal input formats
- * used throughout the toolsmith library. These types support flexible
- * input handling while maintaining type safety.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Plain date-like object structure
- * Represents the minimum required fields to construct a date
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PlainDateLike = {
 	year: number
 	month: number
 	day: number
 }
 
-/**
- * Plain time-like object structure
- * Represents optional time fields for constructing time values
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PlainTimeLike = {
 	hour?: number
 	minute?: number
@@ -29,10 +17,7 @@ export type PlainTimeLike = {
 	nanosecond?: number
 }
 
-/**
- * Plain datetime-like object structure
- * Combines date and time fields for constructing datetime values
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PlainDateTimeLike = {
 	year: number
 	month: number
@@ -45,10 +30,7 @@ export type PlainDateTimeLike = {
 	nanosecond?: number
 }
 
-/**
- * Flexible date input type
- * Accepts various formats that can be converted to Temporal.PlainDate
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DateInput =
 	| string // ISO date string (YYYY-MM-DD)
 	| Date // JavaScript Date object
@@ -57,10 +39,7 @@ export type DateInput =
 	| Temporal.ZonedDateTime // Extract date part
 	| PlainDateLike // Object with year/month/day
 
-/**
- * Flexible time input type
- * Accepts various formats that can be converted to Temporal.PlainTime
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TimeInput =
 	| string // ISO time string (HH:MM:SS)
 	| Date // Extract time in local timezone
@@ -69,10 +48,7 @@ export type TimeInput =
 	| Temporal.ZonedDateTime // Extract time part
 	| PlainTimeLike // Object with time fields
 
-/**
- * Flexible datetime input type
- * Accepts various formats that can be converted to Temporal.PlainDateTime
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DateTimeInput =
 	| string // ISO datetime string (YYYY-MM-DDTHH:MM:SS)
 	| Date // JavaScript Date in local timezone
@@ -82,11 +58,7 @@ export type DateTimeInput =
 	| Temporal.ZonedDateTime // Remove timezone info
 	| PlainDateTimeLike // Object with date and time fields
 
-/**
- * Flexible instant input type
- * Accepts various formats that can be converted to Temporal.Instant
- * Instants represent absolute points in time (UTC)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InstantInput =
 	| string // ISO instant string with Z suffix
 	| number // Epoch milliseconds

@@ -1,61 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns elements in either Set but not both, using custom equality
- *
- * Performs a symmetric difference operation (XOR for sets) using a custom
- * equality function to determine element equivalence. Returns a new Set
- * containing elements that appear in exactly one of the two Sets according
- * to the custom equality test. Elements that are considered equal by the
- * comparator are excluded from the result.
- *
- * @pure
- * @immutable
- * @curried
- * @safe Returns appropriate Set for null/undefined inputs
- * @param equals - Function to test element equality (a, b) => boolean
- * @param set2 - Second Set to compare
- * @param set1 - First Set to compare
- * @returns New Set with elements in exactly one Set per custom equality
- * @example
- * // Case-insensitive symmetric difference
- * symmetricDifferenceWith(
- *   (a: string, b: string) => a.toLowerCase() === b.toLowerCase()
- * )(new Set(["WORLD", "FOO"]))(new Set(["hello", "world"]))
- * // Set { "hello", "FOO" } ("world"/"WORLD" excluded as equal)
- *
- * // Object property comparison
- * interface User { id: number; name: string }
- * symmetricDifferenceWith(
- *   (a: User, b: User) => a.id === b.id
- * )(
- *   new Set([{ id: 2, name: "Bob" }, { id: 3, name: "Charlie" }])
- * )(
- *   new Set([{ id: 1, name: "Alice" }, { id: 2, name: "Robert" }])
- * )
- * // Set { { id: 1, name: "Alice" }, { id: 3, name: "Charlie" } }
- *
- * // Numeric tolerance
- * symmetricDifferenceWith(
- *   (a: number, b: number) => Math.abs(a - b) < 0.1
- * )(new Set([1.05, 2.0, 3.0]))(new Set([1.0, 2.5, 4.0]))
- * // Set { 2.5, 3.0, 4.0 } (1.0≈1.05)
- *
- * // Partial application
- * const caseInsensitiveXor = symmetricDifferenceWith(
- *   (a: string, b: string) => a.toLowerCase() === b.toLowerCase()
- * )
- * caseInsensitiveXor(new Set(["apple", "Cherry"]))(new Set(["Apple", "Banana"]))
- * // Set { "Banana", "Cherry" }
- *
- * // Empty or nullish
- * symmetricDifferenceWith(
- *   (a: number, b: number) => a === b
- * )(new Set())(new Set([1, 2, 3])) // Set { 1, 2, 3 }
- * symmetricDifferenceWith(
- *   (a: number, b: number) => a === b
- * )(new Set([1, 2]))(null) // Set { 1, 2 }
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const symmetricDifferenceWith = <T>(
 	equals: (a: T, b: T) => boolean,
 ) =>

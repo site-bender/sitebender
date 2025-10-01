@@ -46,30 +46,16 @@ Envoy requires:
 
 ### Simple Example: Self-Documenting Code
 
-**Traditional approach (verbose JSDoc):**
+**Traditional approach (verbose JSDoc with @param, @returns, etc.):**
 
-```typescript
-/**
- * Validates an email address using regex pattern matching
- * @param {string} email - The email address to validate
- * @returns {boolean} True if valid, false otherwise
- * @example
- * validateEmail("user@example.com") // returns true
- * @see {@link https://emailregex.com}
- * @throws Never throws
- * @since 1.0.0
- */
-export function validateEmail(email: string): boolean {
-	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-```
+Don't use JSDoc - it's verbose and clutters files.
 
 **Envoy approach (elegant markers):**
 
 ```typescript
 //++ Validates email addresses using regex pattern matching
 export function validateEmail(email: string): boolean {
-	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 //?? [EXAMPLE] validateEmail("user@example.com") // true
@@ -109,15 +95,16 @@ What code does - mandatory for exports
 ```typescript
 //++ Adds two numbers together
 export default function add(a: number) {
-	return function (b: number): number {
-		return a + b
-	}
+  return function (b: number): number {
+    return a + b;
+  };
 }
 ```
 
 #### 2. Help: `//??` (Discouraged - Let Automation Handle This)
 
 **Prefer automated generation:**
+
 - Examples: Let Quarrier generate from property-based tests
 - Gotchas: Let Auditor discover through formal verification
 - Pros/Cons: Let Envoy analyze from code characteristics
@@ -130,10 +117,10 @@ Track issues with remediation plans
 
 ```typescript
 function processData(input: readonly unknown[]): unknown[] {
-	//-- [OPTIMIZATION] Unbounded recursion - add tail call optimization or trampolining
-	return input.length === 0
-		? []
-		: [transform(input[0]), ...processData(input.slice(1))]
+  //-- [OPTIMIZATION] Unbounded recursion - add tail call optimization or trampolining
+  return input.length === 0
+    ? []
+    : [transform(input[0]), ...processData(input.slice(1))];
 }
 ```
 
@@ -143,7 +130,7 @@ Blocking problems that must be fixed
 
 ```typescript
 //!! [SECURITY] SQL injection vulnerability - parameterize queries!
-const query = `SELECT * FROM users WHERE id = ${userId}`
+const query = `SELECT * FROM users WHERE id = ${userId}`;
 ```
 
 #### 5. Links: `//>>`
@@ -249,15 +236,15 @@ Every documentation page is a state machine with links:
 
 ```json
 {
-	"_links": {
-		"self": "/functions/validateEmail",
-		"module": "/modules/auth",
-		"calls": ["/functions/parseEmail"],
-		"calledBy": ["/functions/register", "/functions/login"],
-		"tests": ["/tests/validateEmail.test.ts"],
-		"author": "/developers/guybedford",
-		"next": "/functions/validatePassword"
-	}
+  "_links": {
+    "self": "/functions/validateEmail",
+    "module": "/modules/auth",
+    "calls": ["/functions/parseEmail"],
+    "calledBy": ["/functions/register", "/functions/login"],
+    "tests": ["/tests/validateEmail.test.ts"],
+    "author": "/developers/guybedford",
+    "next": "/functions/validatePassword"
+  }
 }
 ```
 
@@ -266,14 +253,14 @@ Every documentation page is a state machine with links:
 **CRITICAL**: Envoy receives ALL its AST data from Arborist. It NEVER imports or uses TypeScript compiler directly.
 
 ```typescript
-import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts"
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
 
 // Envoy works with pre-parsed AST nodes and metadata
-const result = await parseFileWithCompiler(content, filePath)
+const result = await parseFileWithCompiler(content, filePath);
 if (result.ok) {
-	const { functions, comments } = result.value
-	// Generate documentation from structured data
-	// No string parsing, no regex, just data transformation
+  const { functions, comments } = result.value;
+  // Generate documentation from structured data
+  // No string parsing, no regex, just data transformation
 }
 ```
 
@@ -284,39 +271,39 @@ This architectural boundary is enforced by Warden contracts. Any violation will 
 ### Creating Project Intelligence
 
 ```typescript
-import createEnvoy from "@sitebender/envoy/createEnvoy/index.ts"
-import parseProject from "@sitebender/envoy/parseProject/index.ts"
-import generateDocs from "@sitebender/envoy/generateDocs/index.ts"
-import startDashboard from "@sitebender/envoy/startDashboard/index.ts"
-import querySparql from "@sitebender/envoy/querySparql/index.ts"
-import onFeedback from "@sitebender/envoy/onFeedback/index.ts"
+import createEnvoy from "@sitebender/envoy/createEnvoy/index.ts";
+import parseProject from "@sitebender/envoy/parseProject/index.ts";
+import generateDocs from "@sitebender/envoy/generateDocs/index.ts";
+import startDashboard from "@sitebender/envoy/startDashboard/index.ts";
+import querySparql from "@sitebender/envoy/querySparql/index.ts";
+import onFeedback from "@sitebender/envoy/onFeedback/index.ts";
 
 // Initialize Envoy with your codebase
 const envoy = await createEnvoy({
-	projectRoot: "./src",
-	gitRepo: true,
-})
+  projectRoot: "./src",
+  gitRepo: true,
+});
 
 // Parse the entire project
-const project = await parseProject(envoy)
+const project = await parseProject(envoy);
 
 // Generate comprehensive documentation
 const docs = await generateDocs(project)({
-	format: "markdown",
-	includeMetrics: true,
-	includeGraph: true,
-})
+  format: "markdown",
+  includeMetrics: true,
+  includeGraph: true,
+});
 
 // Start the intelligence dashboard
 await startDashboard(envoy)({
-	port: 3000,
-	realtime: true,
-	metrics: {
-		quality: true,
-		velocity: true,
-		happiness: true,
-	},
-})
+  port: 3000,
+  realtime: true,
+  metrics: {
+    quality: true,
+    velocity: true,
+    happiness: true,
+  },
+});
 
 // Query the knowledge graph
 const results = await querySparql(envoy)(`
@@ -324,13 +311,13 @@ const results = await querySparql(envoy)(`
     ?function hasComplexity ?complexity .
     FILTER(?complexity > 15)
   }
-`)
+`);
 
 // Track developer experience
 function handleFeedback(rating: FeedbackRating): void {
-	console.log(`Developer rated ${rating.context}: ${rating.emoji}`)
+  console.log(`Developer rated ${rating.context}: ${rating.emoji}`);
 }
-onFeedback(envoy)(handleFeedback)
+onFeedback(envoy)(handleFeedback);
 ```
 
 ## Output Formats
@@ -361,18 +348,18 @@ Envoy aggregates performance metrics from ALL production deployments:
 
 ```tsx
 <BenchmarkAggregator>
-	<CollectFrom>
-		<ProductionDeployments />
-		<DevelopmentEnvironments />
-		<TestRuns />
-	</CollectFrom>
-	<Metrics>
-		<Latency percentiles={[50, 90, 99, 99.9]} />
-		<Throughput window="1m" />
-		<MemoryUsage peak={true} average={true} />
-		<CpuUsage cores={true} />
-	</Metrics>
-	<StoreTo triple-store="benchmarks" />
+  <CollectFrom>
+    <ProductionDeployments />
+    <DevelopmentEnvironments />
+    <TestRuns />
+  </CollectFrom>
+  <Metrics>
+    <Latency percentiles={[50, 90, 99, 99.9]} />
+    <Throughput window="1m" />
+    <MemoryUsage peak={true} average={true} />
+    <CpuUsage cores={true} />
+  </Metrics>
+  <StoreTo triple-store="benchmarks" />
 </BenchmarkAggregator>
 ```
 
@@ -399,18 +386,18 @@ Not marketing numbers against competitors, but YOUR actual performance over time
 ```typescript
 //++ Compares current performance against historical baselines
 export function comparePerformance(
-	current: Metrics,
-	baseline: Metrics,
+  current: Metrics,
+  baseline: Metrics,
 ): Comparison {
-	return {
-		regression: current.p99 > baseline.p99 * 1.1,
-		improvement: current.p99 < baseline.p99 * 0.9,
-		details: {
-			p50Delta: (current.p50 - baseline.p50) / baseline.p50,
-			p90Delta: (current.p90 - baseline.p90) / baseline.p90,
-			p99Delta: (current.p99 - baseline.p99) / baseline.p99,
-		},
-	}
+  return {
+    regression: current.p99 > baseline.p99 * 1.1,
+    improvement: current.p99 < baseline.p99 * 0.9,
+    details: {
+      p50Delta: (current.p50 - baseline.p50) / baseline.p50,
+      p90Delta: (current.p90 - baseline.p90) / baseline.p90,
+      p99Delta: (current.p99 - baseline.p99) / baseline.p99,
+    },
+  };
 }
 ```
 
@@ -418,16 +405,16 @@ export function comparePerformance(
 
 ```tsx
 <PerformanceMonitor>
-	<Alert when="regression">
-		<SlowdownDetected threshold="10%" />
-		<MemoryLeakDetected growth="5%/hour" />
-		<ThroughputDrop threshold="20%" />
-	</Alert>
-	<Report to="mission-control">
-		<Realtime graphs={true} />
-		<Historical trends={true} />
-		<RootCauseAnalysis />
-	</Report>
+  <Alert when="regression">
+    <SlowdownDetected threshold="10%" />
+    <MemoryLeakDetected growth="5%/hour" />
+    <ThroughputDrop threshold="20%" />
+  </Alert>
+  <Report to="mission-control">
+    <Realtime graphs={true} />
+    <Historical trends={true} />
+    <RootCauseAnalysis />
+  </Report>
 </PerformanceMonitor>
 ```
 
@@ -441,19 +428,19 @@ deno add @sitebender/envoy @sitebender/arborist
 ### Basic Setup
 
 ```typescript
-import generateDocs from "@sitebender/envoy/generateDocs/index.ts"
-import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts"
+import generateDocs from "@sitebender/envoy/generateDocs/index.ts";
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
 
 // Parse a file
 const ast = await parseFileWithCompiler(
-	await Deno.readTextFile("./src/index.ts"),
-	"./src/index.ts",
-)
+  await Deno.readTextFile("./src/index.ts"),
+  "./src/index.ts",
+);
 
 // Generate documentation
 if (ast.ok) {
-	const docs = generateDocs(ast.value)
-	console.log(docs)
+  const docs = generateDocs(ast.value);
+  console.log(docs);
 }
 ```
 
@@ -462,10 +449,10 @@ if (ast.ok) {
 ```typescript
 //++ Calculates fibonacci number recursively
 export default function fibonacci(n: number): number {
-	//-- [OPTIMIZATION] Stack overflow risk - needs memoization or iterative approach
-	//-- [REFACTOR] Should return Either for error handling instead of throwing
-	if (n < 0) throw new Error("Negative input not allowed")
-	return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2)
+  //-- [OPTIMIZATION] Stack overflow risk - needs memoization or iterative approach
+  //-- [REFACTOR] Should return Either for error handling instead of throwing
+  if (n < 0) throw new Error("Negative input not allowed");
+  return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);
 }
 
 //?? [EXAMPLE] fibonacci(10) // 55
@@ -874,12 +861,24 @@ Transform your development environment into a visual workflow canvas where libra
     </LibraryNode>
 
     {/* Visual connections show data flow */}
-    <Connection from="warden.violations" to="steward.autofix"
-                type="error-recovery" realTime={true} />
-    <Connection from="agent.networkHealth" to="envoy.monitoring"
-                type="telemetry" batchSize={100} />
-    <Connection from="operator.events" to="architect.reactions"
-                type="reactive-update" latency="<1ms" />
+    <Connection
+      from="warden.violations"
+      to="steward.autofix"
+      type="error-recovery"
+      realTime={true}
+    />
+    <Connection
+      from="agent.networkHealth"
+      to="envoy.monitoring"
+      type="telemetry"
+      batchSize={100}
+    />
+    <Connection
+      from="operator.events"
+      to="architect.reactions"
+      type="reactive-update"
+      latency="<1ms"
+    />
   </WorkflowCanvas>
 
   <ExecutionMonitor>
@@ -888,13 +887,13 @@ Transform your development environment into a visual workflow canvas where libra
       <StateTransitions />
       <NetworkActivity />
     </RealTimeDataFlow>
-    
+
     <PerformanceMetrics>
       <SystemHealth />
       <ResourceUsage />
       <ThroughputGraphs />
     </PerformanceMetrics>
-    
+
     <DeveloperExperience>
       <FeedbackStream />
       <ErrorFrequency />
@@ -913,11 +912,15 @@ Navigate your codebase through SPARQL-powered visual queries:
   <VisualQueryBuilder>
     <QueryCanvas>
       {/* Drag and drop query construction */}
-      <TriplePattern subject="?function" predicate="calls" object="validateEmail" />
+      <TriplePattern
+        subject="?function"
+        predicate="calls"
+        object="validateEmail"
+      />
       <Filter property="complexity" operator=">" value="10" />
       <OrderBy property="usage" direction="desc" />
     </QueryCanvas>
-    
+
     <GeneratedSparql>
       {`SELECT ?function WHERE {
         ?function calls :validateEmail ;
@@ -926,7 +929,7 @@ Navigate your codebase through SPARQL-powered visual queries:
       } ORDER BY DESC(?usage)`}
     </GeneratedSparql>
   </VisualQueryBuilder>
-  
+
   <ResultVisualization>
     <NodeGraph interactive={true} />
     <DataTable sortable={true} />
@@ -946,13 +949,13 @@ Multiple developers can collaborate on the same workflow visualization in real-t
     <User id="developer" selection={["node-warden-1"]} />
     <User id="sre" editing="connection-props" />
   </Participants>
-  
+
   <SharedViewport>
     <SyncCursors realTime={true} />
     <DistributedSelection />
     <CollaborativeAnnotations />
   </SharedViewport>
-  
+
   <ConflictResolution>
     <OperationalTransform for="viewport-changes" />
     <LastWriteWins for="annotations" />
@@ -975,13 +978,13 @@ Watch workflows execute in real-time with detailed tracing:
       <Output stage="report" data="pending" status="queued" />
     </DataFlow>
   </ExecutionTrace>
-  
+
   <PerformanceMetrics>
     <Latency p50="120ms" p90="340ms" p99="890ms" />
     <Throughput current="450 ops/sec" target="500 ops/sec" />
     <ResourceUsage cpu="23%" memory="1.2GB" disk="45MB/s" />
   </PerformanceMetrics>
-  
+
   <ErrorTracking>
     <RecentErrors count={3} severity="warning" />
     <ErrorTrends improving={true} />
@@ -1018,6 +1021,7 @@ Unlike n8n's JSON configurations, Envoy workflows are stored as semantic RDF tri
 The workflow dashboard works across all devices and capabilities:
 
 #### Layer 1: Text-Based (CLI/Terminal)
+
 ```
 Workflow: CI Pipeline
 ├── Parse (✓ 2.1s) → 1,247 files processed
@@ -1027,12 +1031,14 @@ Workflow: CI Pipeline
 ```
 
 #### Layer 2: Web Dashboard (HTML+CSS)
+
 - Clean web interface with tables and basic visualizations
 - Real-time updates via Server-Sent Events
 - Responsive design for mobile/tablet
 - Keyboard navigation support
 
 #### Layer 3: Interactive Visualization (Modern Browsers)
+
 - Full 3D workflow canvas with WebGL
 - Drag-and-drop workflow editor
 - Real-time collaborative editing
@@ -1049,14 +1055,14 @@ The workflow dashboard integrates with Envoy's five-smiley feedback system:
       How was your experience with this workflow execution?
       <Emojis>😱 😟 😐 😊 🤩</Emojis>
     </FeedbackPrompt>
-    
+
     <ContextualAnalysis>
       <ExecutionTime>3.2s</ExecutionTime>
       <ErrorCount>0</ErrorCount>
       <CognitiveBurden>low</CognitiveBurden>
     </ContextualAnalysis>
   </DeveloperSatisfaction>
-  
+
   <ContinuousImprovement>
     <TrendAnalysis />
     <PainPointIdentification />

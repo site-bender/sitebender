@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Average JSX Component
- *
- * Wrapper for the Average operator constructor.
- * Calculates the average of all operands.
- *
- * @example
- * <Average type="Number">
- *   <FromElement id="score1" />
- *   <FromElement id="score2" />
- *   <FromElement id="score3" />
- * </Average>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import AverageConstructor from "../../../../../architect/src/constructors/operators/Average/index.ts"
 

@@ -1,31 +1,4 @@
-/**
- * WithEtymology component
- *
- * Provides etymological information about words, including their
- * origins, root forms, and historical evolution. Useful for educational
- * content, dictionaries, and arboristic analysis.
- *
- * Example usage:
- *
- * <WithEtymology
- *   originLang="la"
- *   root="fortis"
- *   meaning="strong"
- *   ipa="/ˈfɔːr.teɪ/"
- * >
- *   forte
- * </WithEtymology>
- *
- * <WithEtymology
- *   originLang="grc"
- *   root="δημοκρατία"
- *   meaning="rule by the people"
- *   via={["fr", "en-ME"]}
- *   period="14th century"
- * >
- *   democracy
- * </WithEtymology>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

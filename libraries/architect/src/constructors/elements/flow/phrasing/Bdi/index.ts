@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Bdi attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BdiElementAttributes =
 	& BidirectionalIsolateAttributes
 	& AriaAttributes
@@ -32,26 +30,9 @@ export type BdiElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Bdi element
- * Allows global attributes and validates bdi-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Bdi element configuration object
- *
- * The bdi element represents a span of text that is to be isolated from
- * its surroundings for the purposes of bidirectional text formatting.
- *
- * @example
- * ```typescript
- * const bdi = Bdi({
- *   id: "user-name"
- * })([
- *   TextNode("أهلا")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Bdi = (attributes: BdiElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

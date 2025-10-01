@@ -7,15 +7,7 @@ import type {
 
 import Error from "@sitebender/architect/constructors/Error/index.ts"
 
-/**
- * On.HasRole
- *
- * Policy op: returns right(true) when LocalValues.user has a role matching
- * the expected role(s). Otherwise returns left([Error]).
- *
- * Accepts an op config of the form:
- *   { role: string } | { roles: string[] }
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type HasRoleOp = { role?: unknown; roles?: unknown }
 
 const toStringArray = (v: unknown): string[] => {

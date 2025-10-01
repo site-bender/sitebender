@@ -19,46 +19,7 @@ import isString from "../../validation/isString/index.ts"
 import lt from "../../validation/lt/index.ts"
 import toString from "../castValue/toString/index.ts"
 
-/**
- * Safely parses a value as an integer, returns null on failure
- *
- * Strictly parses values as integers with no decimal places allowed.
- * Returns null for any invalid input including decimal numbers in strings,
- * making it safe for use in pipelines. Supports optional radix for parsing
- * different number bases (binary, octal, decimal, hexadecimal).
- *
- * @curried (radix) => (value) => result
- * @param radix - The base to use for parsing (2-36), defaults to 10
- * @param value - The value to parse as an integer
- * @returns The parsed integer or null if parsing fails
- * @example
- * ```typescript
- * // Basic usage (decimal)
- * const parseInt = safeParseInt(10)
- * parseInt("42")                     // 42
- * parseInt("-100")                   // -100
- * parseInt(42.7)                     // 42 (truncates)
- * parseInt("42.5")                   // null (strict: no decimals in strings)
- *
- * // Different radix parsing
- * safeParseInt(2)("1010")            // 10 (binary)
- * safeParseInt(8)("77")              // 63 (octal)
- * safeParseInt(16)("FF")             // 255 (hex)
- *
- * // Invalid inputs
- * parseInt("abc")                    // null
- * parseInt(null)                     // null
- * parseInt("")                       // null
- *
- * // Validation pattern
- * const age = safeParseInt(10)(input)
- * if (age === null || age < 0 || age > 150) {
- *   throw new Error("Invalid age")
- * }
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function safeParseInt(
 	radix: number = 10,
 ): (value: unknown) => number | null {

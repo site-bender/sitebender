@@ -11,8 +11,8 @@ import validationMap from "../../../monads/validation/map/index.ts"
 //++ Defaults to Result if given plain values
 export default function liftUnary<A, B, E>(fn: (a: A) => B) {
 	return function lifted(
-		ma: A | Result<E, A> | Validation<E[], A>,
-	): Result<E, B> | Validation<E[], B> {
+		ma: A | Result<E, A> | Validation<E, A>,
+	): Result<E, B> | Validation<E, B> {
 		// If input is Validation, use Validation
 		if (isValidation(ma)) {
 			return validationMap(fn)(ma)

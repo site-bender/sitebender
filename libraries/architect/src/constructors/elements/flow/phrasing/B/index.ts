@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended B attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BElementAttributes = BringAttentionToAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,24 +27,9 @@ export type BElementAttributes = BringAttentionToAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for B element
- * Allows global attributes and validates b-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a B element configuration object
- *
- * The b element represents content to which attention is being drawn
- * for utilitarian purposes without conveying any extra importance.
- *
- * @example
- * ```typescript
- * const b = B({ id: "bold", class: "highlight" })([
- *   TextNode("Bold text")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const B = (attributes: BElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

@@ -16,14 +16,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Progress element
- * Allows global attributes and validates progress-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Progress attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ProgressElementAttributes =
 	& ProgressAttributes
 	& ProgressAriaAttributes
@@ -37,26 +32,9 @@ export type ProgressElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Progress element
- * Allows global attributes and validates progress-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Progress element configuration object
- *
- * The progress element represents the completion progress of a task.
- *
- * @example
- * ```typescript
- * const progress = Progress({
- *   value: 70,
- *   max: 100
- * })([
- *   TextNode("70% complete")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Progress = (attributes: ProgressElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

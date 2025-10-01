@@ -13,14 +13,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for OptGroup element
- * Allows global attributes and validates disabled and label attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended OptGroup attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type OptGroupElementAttributes = OptionGroupAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -32,27 +27,7 @@ export type OptGroupElementAttributes = OptionGroupAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an OptGroup element configuration object
- *
- * The optgroup element represents a group of option elements
- * with a common label.
- *
- * @param attributes - Element attributes
- * @param children - Child elements (typically Option elements)
- * @returns Element configuration object
- *
- * @example
- * ```typescript
- * const optgroup = OptGroup({
- *   label: "Colors",
- *   disabled: false
- * })([
- *   Option({ value: "red" })("Red"),
- *   Option({ value: "blue" })("Blue")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const OptGroup =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {

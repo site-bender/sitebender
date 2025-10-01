@@ -1,39 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the hyperbolic tangent of a number
- *
- * Computes tanh(x) = sinh(x) / cosh(x) = (e^x - e^(-x)) / (e^x + e^(-x)).
- * The hyperbolic tangent function maps all real numbers to the range (-1, 1)
- * and is commonly used as an activation function in neural networks.
- * Returns NaN for invalid inputs.
- *
- * @param x - The input value in radians
- * @returns Hyperbolic tangent of x, or NaN if invalid
- * @pure
- * @safe
- * @example
- * ```typescript
- * // Basic values
- * hyperbolicTangent(0)  // 0
- * hyperbolicTangent(1)  // 0.761...
- * hyperbolicTangent(-1) // -0.761... (odd function)
- * hyperbolicTangent(2)  // 0.964...
- *
- * // Approaches ±1 for large values
- * hyperbolicTangent(5)         // 0.9999...
- * hyperbolicTangent(Infinity)  // 1
- * hyperbolicTangent(-Infinity) // -1
- *
- * // Edge cases
- * hyperbolicTangent(NaN)  // NaN
- * hyperbolicTangent(null) // NaN
- *
- * // Neural network activation
- * const tanhActivation = (x: number) =>
- *   hyperbolicTangent(x) // Maps to (-1, 1)
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const hyperbolicTangent = (
 	x: number | null | undefined,
 ): number => {

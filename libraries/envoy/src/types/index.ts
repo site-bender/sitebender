@@ -1,6 +1,4 @@
-/**
- * Type definitions for @sitebender/envoy
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Result type for error handling
 export type Result<T, E> =

@@ -9,9 +9,7 @@ import extractSignature from "../extractSignature/index.ts"
 // Define Either type locally since it doesn't exist in either/index.ts
 type Either<L, R> = { ok: false; error: L } | { ok: true; value: R }
 
-/**
- * Parses a TypeScript file using the compiler API and returns structured module data
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseFileWithCompiler(
 	content: string,
 	filePath: string,
@@ -73,9 +71,7 @@ export default function parseFileWithCompiler(
 	}
 }
 
-/**
- * Computes traversal metadata for a TypeScript node
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function computeMetadata(node: ts.Node): TraversalMetadata {
 	// Initial metadata state
 	const initialMetadata: TraversalMetadata = {
@@ -111,9 +107,7 @@ function computeMetadata(node: ts.Node): TraversalMetadata {
 	}
 }
 
-/**
- * Extract function-specific metadata
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function getFunctionMetadata(node: ts.Node): Partial<TraversalMetadata> {
 	const isArrow = ts.isArrowFunction(node)
 	const isFunction = ts.isFunctionDeclaration(node) ||
@@ -136,9 +130,7 @@ function getFunctionMetadata(node: ts.Node): Partial<TraversalMetadata> {
 	}
 }
 
-/**
- * Traverse node and collect metadata without mutation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function traverseNode(node: ts.Node): Partial<TraversalMetadata> {
 	interface TraversalState {
 		readonly hasThrowStatements: boolean
@@ -231,9 +223,7 @@ function traverseNode(node: ts.Node): Partial<TraversalMetadata> {
 	return visitNode(node, initialState, 0)
 }
 
-/**
- * Checks if an identifier is a global
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function isGlobalIdentifier(name: string): boolean {
 	const globals = new Set([
 		"console",

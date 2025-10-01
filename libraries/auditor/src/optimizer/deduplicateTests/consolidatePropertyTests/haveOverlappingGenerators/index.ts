@@ -1,15 +1,8 @@
-/**
- * Check if two property tests have overlapping generators
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../../types/index.ts"
 
-/**
- * Determine if two test cases have overlapping property generators
- * @param a First test case
- * @param b Second test case
- * @returns True if generators overlap
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function haveOverlappingGenerators(
 	a: TestCase,
 	b: TestCase,
@@ -34,9 +27,7 @@ export default function haveOverlappingGenerators(
 	)
 }
 
-/**
- * Check if two generators are similar enough to consolidate
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function areGeneratorsSimilar(a: string, b: string): boolean {
 	// Both are array generators
 	if (a.includes("fc.array") && b.includes("fc.array")) {

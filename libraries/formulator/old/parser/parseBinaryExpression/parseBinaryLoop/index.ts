@@ -8,14 +8,7 @@ import createBinaryNode from "../createBinaryNode/index.ts"
 import getOperatorFromToken from "../getOperatorFromToken/index.ts"
 import isValidBinaryOperator from "../isValidBinaryOperator/index.ts"
 
-/**
- * Parses binary operators using trampoline for true tail recursion
- * @param ctx - Parser context
- * @param currentLeft - Current left operand
- * @param minPrecedence - Minimum precedence to parse
- * @param parseBinaryExpression - Reference to main parser for recursion
- * @returns Trampoline computation for final AST node or error
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseBinaryLoop(
 	ctx: ParserContext,
 	currentLeft: AstNode,

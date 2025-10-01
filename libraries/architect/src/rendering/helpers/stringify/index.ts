@@ -1,7 +1,4 @@
-/**
- * Converts a value to a string representation
- * Handles various types including functions, objects, arrays, and primitives
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const stringify = (value: unknown, spaceLength = 2): string => {
 	if (value === null) return "null"
 	if (value === undefined) return "undefined"

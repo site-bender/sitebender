@@ -1,24 +1,4 @@
-/**
- * CrossReference component
- *
- * Marks up references to other parts of a document, such as sections,
- * figures, tables, or pages. Provides semantic linking within documents
- * and helps with navigation and document structure understanding.
- *
- * Example usage:
- *
- * <CrossReference target="figure-1" type="figure">
- *   See Figure 1
- * </CrossReference>
- *
- * <CrossReference target="methodology" type="section">
- *   as discussed in the Methodology section
- * </CrossReference>
- *
- * <CrossReference page="42">
- *   (p. 42)
- * </CrossReference>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type ReferenceType =
 	| "section"

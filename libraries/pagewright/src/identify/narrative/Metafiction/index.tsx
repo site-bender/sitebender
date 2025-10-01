@@ -5,34 +5,15 @@ import getDataAttributes from "../../../helpers/getDataAttributes/index.ts"
 export type Props = BaseProps & {
 	element?: "span" | "div" | "section" | "aside"
 	define?: "microdata" | "linkedData" | "both"
-	/**
-	 * Type of metafiction (e.g., "author-intrusion", "breaking-fourth-wall", "frame-story")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	metaType?: string
-	/**
-	 * Level of self-awareness (e.g., "subtle", "explicit", "parody")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	selfAwareness?: string
-	/**
-	 * Target of reference (e.g., "narrative-device", "reader", "author", "genre")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	referenceTarget?: string
 }
 
-/**
- * Marks self-referential narrative elements that acknowledge their fictional nature.
- * Used for text that breaks the fourth wall or comments on its own narrative construction.
- *
- * @example
- * <Metafiction metaType="author-intrusion">
- *   Dear reader, you may wonder why I'm telling you this...
- * </Metafiction>
- *
- * @example
- * <Metafiction selfAwareness="explicit" referenceTarget="genre">
- *   This isn't like those detective stories where the butler did it.
- * </Metafiction>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function Metafiction({
 	element: Element = "span",
 	define: _define,

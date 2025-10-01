@@ -1,11 +1,6 @@
 import type { TokenType } from "../../../types/index.ts"
 
-/**
- * Parses two-character operators
- * @param input - The input string
- * @param position - Current position
- * @returns Operator info or null if no match
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseTwoCharOperator(
 	input: string,
 	position: number,

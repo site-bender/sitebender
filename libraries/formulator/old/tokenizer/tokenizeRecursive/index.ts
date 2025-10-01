@@ -5,13 +5,7 @@ import parseNumber from "../parseNumber/index.ts"
 import parseOperator from "../parseOperator/index.ts"
 import parseWhitespace from "../parseWhitespace/index.ts"
 
-/**
- * Recursively tokenizes input string
- * @param input - The input string
- * @param position - Current position
- * @param tokens - Accumulated tokens
- * @returns Result with complete token array or error
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function tokenizeRecursive(
 	input: string,
 	position: number,

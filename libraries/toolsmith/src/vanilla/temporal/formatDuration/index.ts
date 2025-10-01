@@ -1,55 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Formats duration in human-readable format
- *
- * Converts a Temporal.Duration into a human-readable string representation
- * using common time unit abbreviations (e.g., "2h 30m", "1d 3h 45m"). Only
- * displays non-zero units and automatically selects the most appropriate
- * units for readability. Returns null for invalid inputs to support safe
- * error handling.
- *
- * @param duration - The Temporal.Duration to format
- * @returns Human-readable duration string, or null if invalid
- * @example
- * ```typescript
- * // Basic time units
- * formatDuration(Temporal.Duration.from({ minutes: 30 }))     // "30m"
- * formatDuration(Temporal.Duration.from({ hours: 2 }))        // "2h"
- * formatDuration(Temporal.Duration.from({ days: 1 }))         // "1d"
- * formatDuration(Temporal.Duration.from({ weeks: 1 }))        // "1w"
- *
- * // Combined units
- * formatDuration(Temporal.Duration.from({
- *   hours: 1, minutes: 30
- * }))  // "1h 30m"
- *
- * formatDuration(Temporal.Duration.from({
- *   days: 2, hours: 3, minutes: 45
- * }))  // "2d 3h 45m"
- *
- * // Sub-second handling
- * formatDuration(Temporal.Duration.from({ milliseconds: 245 }))  // "245ms"
- * formatDuration(Temporal.Duration.from({ seconds: 3, milliseconds: 250 }))  // "3s"
- *
- * // Zero duration
- * formatDuration(Temporal.Duration.from({}))  // "0s"
- *
- * // Invalid inputs
- * formatDuration(null)          // null
- * formatDuration(undefined)     // null
- *
- * // Meeting duration
- * const meeting = Temporal.Duration.from({ hours: 1, minutes: 30 })
- * console.log(`Meeting duration: ${formatDuration(meeting)}`)  // "Meeting duration: 1h 30m"
- *
- * // Time tracking
- * const workday = Temporal.Duration.from({ hours: 8, minutes: 15 })
- * const formatted = formatDuration(workday) ?? "Unknown"  // "8h 15m"
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const formatDuration = (
 	duration: Temporal.Duration | null | undefined,
 ): string | null => {

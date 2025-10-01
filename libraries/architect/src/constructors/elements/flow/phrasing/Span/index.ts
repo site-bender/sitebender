@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Span attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SpanElementAttributes = GenericContainerAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -28,25 +26,9 @@ export type SpanElementAttributes = GenericContainerAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Span element
- * Allows global attributes and validates span-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Span element configuration object
- *
- * The span element doesn't mean anything on its own, but can be useful when used
- * together with the global attributes, e.g. class, lang, or dir.
- *
- * @example
- * ```typescript
- * const span = Span({
- *   id: "highlight",
- *   class: "important"
- * })([TextNode("Important text")])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Span = (attributes: SpanElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

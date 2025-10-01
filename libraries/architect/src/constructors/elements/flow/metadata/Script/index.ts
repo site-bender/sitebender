@@ -14,14 +14,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Script element
- * Allows global attributes and validates script-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Script attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ScriptElementAttributes = ScriptAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -32,25 +27,9 @@ export type ScriptElementAttributes = ScriptAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Script element
- * Allows global attributes and validates script-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Script element configuration object
- *
- * The script element allows authors to include dynamic script and data blocks
- * in their documents.
- *
- * @example
- * ```typescript
- * const script = Script({
- *   src: "script.ts",
- *   type: "module"
- * })([])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Script = (attributes: ScriptElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

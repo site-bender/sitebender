@@ -1,44 +1,4 @@
-/**
- * Timestamp component
- *
- * Represents an exact instant in time (Temporal.Instant). Always has
- * timezone information (UTC by default) and supports microsecond precision.
- * Can display the instant in any timezone.
- *
- * Example usage:
- *
- * // UTC timestamp
- * <Timestamp value="2024-01-15T19:30:00.123456Z" />
- *
- * // Display in specific timezone
- * <Timestamp
- *   value="2024-01-15T19:30:00.123456Z"
- *   timezone="America/Los_Angeles"
- *   locale="en-US"
- * />
- * // → January 15, 2024, 11:30:00 AM PST
- *
- * // Show microseconds
- * <Timestamp
- *   value="2024-01-15T19:30:00.123456Z"
- *   showMicroseconds
- * />
- * // → January 15, 2024, 7:30:00.123456 PM UTC
- *
- * // Show as epoch milliseconds
- * <Timestamp
- *   value="2024-01-15T19:30:00.123456Z"
- *   format="epoch"
- * />
- * // → 1705347000123
- *
- * // Relative time
- * <Timestamp
- *   value="2024-01-15T19:30:00Z"
- *   format="relative"
- * />
- * // → 3 days ago
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

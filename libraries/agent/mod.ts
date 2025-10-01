@@ -1,8 +1,4 @@
-/**
- * @module @sitebender/agent
- *
- * Utilities for agent networking and Web3 technologies
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export const VERSION = "0.0.1"
 

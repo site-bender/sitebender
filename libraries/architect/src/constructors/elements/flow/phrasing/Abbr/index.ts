@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Abbr attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type AbbrElementAttributes = AbbreviationAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type AbbrElementAttributes = AbbreviationAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Abbr element
- * Allows global attributes and validates abbr-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Abbr element configuration object
- *
- * The abbr element represents an abbreviation or acronym.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const abbr = Abbr({
- *   id: "html-abbr",
- *   title: "HyperText Markup Language"
- * })([
- *   TextNode("HTML")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Abbr = (attributes: AbbrElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

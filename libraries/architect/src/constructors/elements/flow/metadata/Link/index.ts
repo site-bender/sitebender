@@ -13,14 +13,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Link element
- * Allows global attributes and validates link-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Link attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type LinkElementAttributes = LinkAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -31,25 +26,9 @@ export type LinkElementAttributes = LinkAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Link element
- * Allows global attributes and validates link-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Link element configuration object
- *
- * The link element allows authors to link their document to other resources.
- * It is a void element.
- *
- * @example
- * ```typescript
- * const link = Link({
- *   rel: "stylesheet",
- *   href: "styles.css"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Link = (attributes: LinkElementAttributes = {}): ElementConfig => {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {

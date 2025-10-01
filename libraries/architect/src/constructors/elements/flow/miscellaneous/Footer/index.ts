@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Footer attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type FooterElementAttributes = FooterAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -28,25 +26,9 @@ export type FooterElementAttributes = FooterAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Footer element
- * Allows global attributes and validates footer-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Footer element configuration object
- *
- * The footer element represents a footer for its nearest sectioning content
- * or sectioning root element.
- *
- * @example
- * ```typescript
- * const footer = Footer({
- *   id: "site-footer",
- *   role: "contentinfo"
- * })([TextNode("Site Footer")])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Footer = (attributes: FooterElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

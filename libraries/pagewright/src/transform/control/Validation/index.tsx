@@ -1,10 +1,4 @@
-/**
- * Validation control component
- *
- * Wraps a comparator graph (from transform/*) and attaches it to the nearest
- * field/element anchor in IR. This component does not render DOM; it returns
- * a marker object consumed by the compile pass.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	when?: "input" | "blur" | "submit"

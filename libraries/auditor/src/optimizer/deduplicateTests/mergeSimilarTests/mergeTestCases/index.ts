@@ -1,14 +1,8 @@
-/**
- * Merge multiple similar test cases into one
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../../types/index.ts"
 
-/**
- * Merge multiple similar test cases into a single comprehensive test
- * @param tests Array of similar test cases to merge
- * @returns Single merged test case
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function mergeTestCases(tests: Array<TestCase>): TestCase {
 	// Use the most descriptive name
 	const name = tests

@@ -1,34 +1,4 @@
-/**
- * YearMonth component
- *
- * Represents a year-month combination without a specific day.
- * Useful for credit card expiration dates, monthly reports, etc.
- * Maps to Temporal.PlainYearMonth.
- *
- * Example usage:
- *
- * // Simple year-month
- * <YearMonth value="2024-01" />
- * // → January 2024
- *
- * // With locale
- * <YearMonth value="2024-01" locale="fr-FR" />
- * // → janvier 2024
- *
- * // Different formats
- * <YearMonth value="2024-01" format="numeric" />
- * // → 01/2024
- *
- * // With calendar system
- * <YearMonth value="2024-01" calendar="hebrew" locale="he-IL" />
- * // → טבת תשפ״ד
- *
- * // Credit card expiration
- * <YearMonth value="2025-12" format="short">
- *   {({ display }) => <>Expires: {display}</>}
- * </YearMonth>
- * // → Expires: 12/25
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

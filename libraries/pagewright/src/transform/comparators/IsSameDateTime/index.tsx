@@ -3,9 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsSameDateTime JSX Component
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import IsSameDateTimeConstructor from "../../../../../architect/src/constructors/comparators/dateTime/IsSameDateTime/index.ts"
 
 export type Props = {

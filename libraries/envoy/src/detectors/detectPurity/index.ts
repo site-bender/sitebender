@@ -3,9 +3,7 @@ import {
 	SIDE_EFFECT_INDICATORS,
 } from "../../constants/index.ts"
 
-/**
- * Detects if a function is pure (no side effects)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function detectPurity(source: string): boolean {
 	return !([
 		() => hasSideEffectIndicator(source),

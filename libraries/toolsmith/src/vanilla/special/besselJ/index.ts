@@ -1,44 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Bessel function of the first kind Jn(x)
- *
- * Computes the Bessel function of the first kind using series expansion
- * for small x and asymptotic approximation for large x. Bessel functions
- * are solutions to Bessel's differential equation and appear in wave
- * propagation, heat conduction, and vibration problems with cylindrical
- * symmetry. This implementation supports integer orders n ≥ 0.
- *
- * @param n - Order of the Bessel function (non-negative integer)
- * @param x - Argument value
- * @returns Jn(x) value, or NaN if invalid inputs
- * @example
- * ```typescript
- * // J0(x) - zeroth order
- * besselJ(0)(0) // 1 (J0(0) = 1)
- * besselJ(0)(2.4048) // ≈ 0 (first zero of J0)
- *
- * // J1(x) - first order
- * besselJ(1)(0) // 0 (J1(0) = 0)
- * besselJ(1)(1) // 0.4400... (J1(1))
- *
- * // Vibrating circular membrane
- * const drumRadius = 1
- * const firstMode = 2.4048  // First zero of J0
- * const amplitude = (r: number) => besselJ(0)(firstMode * r / drumRadius)
- *
- * // FM synthesis sidebands
- * const modulationIndex = 2.5
- * const sideband = (n: number) => besselJ(n)(modulationIndex)
- *
- * // Edge cases
- * besselJ(-1)(2) // NaN (negative order)
- * besselJ(1.5)(2) // NaN (non-integer order)
- * ```
- * @pure
- * @curried
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function besselJ(
 	n: number | null | undefined,
 ) {

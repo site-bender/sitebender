@@ -5,22 +5,14 @@ import isHeadingContent from "@sitebender/architect/guards/isHeadingContent/inde
 import isInteractiveContent from "@sitebender/architect/guards/isInteractiveContent/index.ts"
 import isPhrasingContent from "@sitebender/architect/guards/isPhrasingContent/index.ts"
 
-/**
- * Configuration object for element validation (partial for flexibility)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type PartialElementConfig = {
 	readonly tag?: string
 	readonly attributes?: Record<string, unknown>
 	readonly children?: readonly unknown[]
 }
 
-/**
- * Creates a child filter that allows phrasing content but excludes interactive elements
- * Used for interactive elements like Button, Label that cannot contain other interactive elements
- *
- * @param additionalExclusions - Additional element tags to exclude (e.g., ["Label"] for Label elements)
- * @returns Child filter function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const createPhrasingNonInteractiveFilter = (
 	additionalExclusions: string[] = [],
 ) =>
@@ -47,13 +39,7 @@ const createPhrasingNonInteractiveFilter = (
 	return isPhrasingContent()(element)
 }
 
-/**
- * Creates a child filter that allows flow content but excludes interactive elements
- * Used for A elements that can contain flow content but not interactive elements
- *
- * @param additionalExclusions - Additional element tags to exclude
- * @returns Child filter function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const createFlowNonInteractiveFilter = (
 	additionalExclusions: string[] = [],
 ) =>
@@ -80,13 +66,7 @@ const createFlowNonInteractiveFilter = (
 	return isFlowContent()(element)
 }
 
-/**
- * Creates a child filter that allows phrasing and heading content but excludes specific elements
- * Used for Legend elements
- *
- * @param exclusions - Element tags to exclude (e.g., ["Legend"])
- * @returns Child filter function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const createLegendContentFilter = (
 	exclusions: string[] = [],
 ) =>
@@ -109,13 +89,7 @@ const createLegendContentFilter = (
 		(tag ? isHeadingContent({ tag }) : false)
 }
 
-/**
- * Creates a content reorganizer for Details elements
- * Finds the first Summary element (regardless of position) and moves it to the front,
- * then validates remaining children as flow content (excluding interactive elements)
- *
- * @returns Function that reorganizes and validates Details children
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const createDetailsContentFilter = () => (children: unknown[]): unknown[] => {
 	if (!Array.isArray(children)) {
 		return []
@@ -172,13 +146,7 @@ const createDetailsContentFilter = () => (children: unknown[]): unknown[] => {
 	return [...firstSummary, ...textAndPrimitives, ...validOtherElements]
 }
 
-/**
- * Creates a child filter that excludes elements that cannot be nested within themselves
- * Used for Address, Form, and other self-excluding elements
- *
- * @param selfTag - The tag that cannot be nested within itself
- * @returns Child filter function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const createSelfExcludingFilter =
 	(selfTag: string) => (child: ElementConfig): boolean => {
 		// Accept text nodes and other primitive content
@@ -198,9 +166,7 @@ const createSelfExcludingFilter =
 		return isFlowContent()(element)
 	}
 
-/**
- * Predefined filter instances for common use cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const ADVANCED_FILTERS = {
 	// For Button elements - phrasing content but no interactive elements
 	buttonContent: createPhrasingNonInteractiveFilter(),

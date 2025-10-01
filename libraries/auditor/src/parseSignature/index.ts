@@ -6,11 +6,7 @@ import extractFunctionFromSource from "./extractFunctionFromSource/index.ts"
 import extractImports from "./extractImports/index.ts"
 import extractSignatureFromNode from "./extractSignatureFromNode/index.ts"
 
-/**
- * Parses a TypeScript file and extracts the function signature
- * @param filePath Path to the TypeScript file
- * @returns Function signature or null if no function found
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseSignature(
 	filePath: string,
 ): FunctionSignature | null {

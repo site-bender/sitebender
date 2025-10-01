@@ -13,13 +13,9 @@ import filterAttributes from "./filterAttributes/index.ts"
 
 // No local guards here; filtering delegated to filterAttributes
 
-/**
- * Filters attributes for InputHidden
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended InputHidden attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputHiddenElementAttributes = InputHiddenAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -31,19 +27,7 @@ export type InputHiddenElementAttributes = InputHiddenAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an InputHidden element configuration object
- *
- * The hidden input stores data that should be submitted with the form but not displayed.
- *
- * @example
- * ```typescript
- * const input = InputHidden({
- *   name: "token",
- *   value: "abc123"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputHidden = Input("hidden")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

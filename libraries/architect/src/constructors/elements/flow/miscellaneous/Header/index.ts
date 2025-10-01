@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Header attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type HeaderElementAttributes = HeaderAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,25 +27,9 @@ export type HeaderElementAttributes = HeaderAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Header element
- * Allows global attributes and validates header-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Header element configuration object
- *
- * The header element represents introductory content, typically a group of
- * introductory or navigational aids.
- *
- * @example
- * ```typescript
- * const header = Header({
- *   id: "site-header",
- *   role: "banner"
- * })([TextNode("Site Header")])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Header = (attributes: HeaderElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

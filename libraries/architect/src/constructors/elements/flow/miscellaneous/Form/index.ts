@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Form attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type FormElementAttributes = FormAttributes & FormAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,31 +27,9 @@ export type FormElementAttributes = FormAttributes & FormAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Form element
- * Allows global attributes and validates form-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Form element configuration object
- *
- * The form element represents a form for collecting user input.
- * It can contain flow content but excludes nested forms.
- *
- * @example
- * ```typescript
- * const form = Form({
- *   id: "contact-form",
- *   action: "/submit",
- *   method: "post",
- *   encType: "application/x-www-form-urlencoded"
- * })([
- *   Label()("Name: "),
- *   Input({ type: "text", name: "name" }),
- *   Button({ type: "submit" })("Submit")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Form = (attributes: FormElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

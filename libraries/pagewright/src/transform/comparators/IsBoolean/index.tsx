@@ -1,16 +1,6 @@
 import type { Operand } from "../../../../../architect/types/index.ts"
 
-/**
- * IsBoolean JSX Component
- *
- * Wrapper for the IsBoolean comparator constructor.
- * Checks if a value is a boolean.
- *
- * @example
- * <IsBoolean>
- *   <FromElement id="isActive" />
- * </IsBoolean>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsBooleanConstructor from "../../../../../architect/src/constructors/comparators/scalar/IsBoolean/index.ts"
 

@@ -1,6 +1,4 @@
-/**
- * Get timezone abbreviation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getTimezoneAbbreviation(
 	timezone: string,
 	date: Date = new Date(),

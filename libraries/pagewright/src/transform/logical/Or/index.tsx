@@ -3,24 +3,7 @@ import type {
 	LogicalConfig,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Or JSX Component
- *
- * Wrapper for the Or logical operator constructor.
- * At least one child condition must be true for the Or to be true.
- *
- * @example
- * <Or>
- *   <IsEqualTo>
- *     <Value><FromElement id="status" /></Value>
- *     <ExpectedValue><Constant value="active" /></ExpectedValue>
- *   </IsEqualTo>
- *   <IsEqualTo>
- *     <Value><FromElement id="status" /></Value>
- *     <ExpectedValue><Constant value="pending" /></ExpectedValue>
- *   </IsEqualTo>
- * </Or>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import OrConstructor from "../../../../../architect/src/constructors/comparators/algebraic/Or/index.ts"
 

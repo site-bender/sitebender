@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Html attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type HtmlElementAttributes = HtmlAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -28,30 +26,9 @@ export type HtmlElementAttributes = HtmlAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Html element
- * Allows global attributes and validates html-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Html element configuration object
- *
- * The html element represents the root of an HTML document.
- * It can contain metadata and flow content.
- *
- * @example
- * ```typescript
- * const html = Html({
- *   id: "root",
- *   lang: "en",
- *   manifest: "/app.manifest",
- *   xmlns: "http://www.w3.org/1999/xhtml"
- * })([
- *   Head()([Title()("Page Title")]),
- *   Body()([H1()("Welcome")])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Html = (attributes: HtmlElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

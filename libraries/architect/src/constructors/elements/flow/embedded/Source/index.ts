@@ -13,10 +13,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Source attributes including reactive properties and ARIA
- * Source elements have limited ARIA support (mainly aria-hidden)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SourceElementAttributes = SourceAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -27,27 +24,9 @@ export type SourceElementAttributes = SourceAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Source element
- * Allows global attributes and validates source-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Source element configuration object
- *
- * The source element allows authors to specify multiple alternative source sets
- * for img elements or multiple alternative media resources for media elements.
- * This is a void element (cannot have children).
- *
- * @example
- * ```typescript
- * const source = Source({
- *   media: "(min-width: 800px)",
- *   srcset: "large.jpg 1x, large-2x.jpg 2x",
- *   type: "image/jpeg"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Source = (
 	attributes: SourceElementAttributes = {},
 ): ElementConfig => {

@@ -2,16 +2,7 @@ import type { FunctionSignature } from "../../types/index.ts"
 import type { BenchmarkInputSet } from "../createBenchmarkInputs/index.ts"
 import type { BenchmarkTest } from "../types/index.ts"
 
-/**
- * Generates performance test cases from input sets
- * Pure function that creates runnable benchmark tests
- * @param signature - The function signature
- * @param inputSets - Array of benchmark input sets
- * @returns Array of benchmark tests
- * @example
- * const tests = generatePerformanceTests(signature, inputSets)
- * // Returns: [{ name: "perf-small-array", iterations: 1000, ... }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generatePerformanceTests(
 	_signature: FunctionSignature,
 	inputSets: Array<BenchmarkInputSet>,
@@ -27,11 +18,7 @@ export default function generatePerformanceTests(
 	)
 }
 
-/**
- * Calculates appropriate iteration count based on input size
- * @param inputName - Name of the input set
- * @returns Number of iterations to run
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function calculateIterations(inputName: string): number {
 	// Scale iterations inversely with input size
 	if (inputName.includes("10000")) return 10

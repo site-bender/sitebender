@@ -14,14 +14,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for TextArea element
- * Allows global attributes and validates textarea-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended TextArea attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TextAreaElementAttributes = TextAreaAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -33,26 +28,7 @@ export type TextAreaElementAttributes = TextAreaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a TextArea element configuration object
- *
- * The textarea element represents a multiline plain text edit control
- * for the element's raw value.
- *
- * @param attributes - Element attributes
- * @param content - Text content for the textarea
- * @returns Element configuration object
- *
- * @example
- * ```typescript
- * const textarea = TextArea({
- *   name: "message",
- *   rows: 4,
- *   cols: 50,
- *   placeholder: "Enter your message..."
- * })("Default content")
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const TextArea =
 	(attributes: Record<string, Value> = {}) => (content?: string) => {
 		const {

@@ -1,13 +1,1 @@
-/**
- * IdiomaticPhrase component
- *
- * For phrases that have a figurative meaning different from their literal meaning.
- *
- * Example usage:
- *
- * <IdiomaticPhrase
- *   meaning="to be very happy"
- * >
- *   On cloud nine
- * </IdiomaticPhrase>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style

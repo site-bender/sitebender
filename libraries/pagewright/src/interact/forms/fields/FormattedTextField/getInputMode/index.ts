@@ -1,8 +1,6 @@
 import type { InputFormat } from "../index.tsx"
 
-/**
- * Determines the appropriate inputmode attribute for better mobile keyboard experience
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getInputMode(format?: InputFormat): string | undefined {
 	switch (format) {
 		case "creditCard":

@@ -1,44 +1,4 @@
-/**
- * TimeZone component
- *
- * Displays timezone information with proper names, abbreviations,
- * and offsets. Handles DST transitions and supports various display
- * formats. Can show current time in the timezone.
- *
- * Example usage:
- *
- * // Simple timezone abbreviation
- * <TimeZone value="America/New_York" />
- * // → EST (or EDT in summer)
- *
- * // With full name
- * <TimeZone value="Europe/London" format="long" />
- * // → Greenwich Mean Time
- *
- * // With offset
- * <TimeZone value="Asia/Tokyo" showOffset />
- * // → JST (UTC+9)
- *
- * // Show current time in timezone
- * <TimeZone value="Australia/Sydney" showTime />
- * // → AEDT (3:45 PM)
- *
- * // All available info
- * <TimeZone
- *   value="America/Los_Angeles"
- *   format="long"
- *   showOffset
- *   showTime
- * />
- * // → Pacific Standard Time (UTC-8, 11:30 AM)
- *
- * // Custom reference date (for DST)
- * <TimeZone
- *   value="Europe/Paris"
- *   referenceDate="2024-07-15"
- * />
- * // → CEST (summer time)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TimeZoneInfo } from "../../../../types/temporal/index.ts"
 

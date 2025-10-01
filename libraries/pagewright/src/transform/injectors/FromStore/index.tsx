@@ -1,10 +1,4 @@
-/**
- * From.Store JSX Marker (no-op lowering initially)
- *
- * Represents ephemeral program/UI state lookup.
- * For now we just emit a recognizable injector-shaped object for the IR pass
- * to pattern match later.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { DataType } from "../../../../../architect/types/ir/index.ts"
 

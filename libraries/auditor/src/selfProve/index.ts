@@ -1,13 +1,6 @@
 import type { FunctionSignature } from "../types/index.ts"
 
-/**
- * Self-Proving Auditor
- *
- * "I think, therefore I test myself" — Descartes, probably
- *
- * This is the ultimate demonstration: the auditor generating tests for itself.
- * It's not just meta-programming—it's meta-meta-programming.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import orchestrateTestGeneration from "../orchestrateTestGeneration/index.ts"
 import { TypeKind } from "../types/index.ts"
@@ -83,11 +76,7 @@ const AUDITOR_SIGNATURES: Record<string, FunctionSignature> = {
 	},
 }
 
-/**
- * The Auditor Recursion Theorem:
- * If a test generator is pure and deterministic,
- * it can generate tests for itself that prove its own correctness.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default async function proveAuditor(): Promise<void> {
 	console.log("🔮 THE AUDITOR RECURSION")
 	console.log("=".repeat(80))

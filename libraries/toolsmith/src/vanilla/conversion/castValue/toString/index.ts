@@ -15,55 +15,7 @@ import isSymbol from "../../../validation/isSymbol/index.ts"
 import isUndefined from "../../../validation/isUndefined/index.ts"
 import jsonReplacer from "./jsonReplacer/index.ts"
 
-/**
- * Safely converts any value to its string representation
- *
- * Converts values to strings with consistent, predictable rules.
- * Handles all JavaScript types safely without throwing errors.
- * Objects and arrays are converted to JSON for better debugging.
- *
- * Conversion rules:
- * - Strings: returned as-is
- * - Numbers: standard toString conversion
- * - Booleans: "true" or "false"
- * - null: "null"
- * - undefined: "undefined"
- * - Arrays: JSON stringified
- * - Objects: JSON stringified (with circular reference handling)
- * - Functions: returns function signature
- * - Symbols: returns symbol description
- * - Dates: ISO string format
- * - RegExp: returns pattern as string
- * - Errors: returns error message
- *
- * @pure
- * @safe
- * @param value - The value to convert to string
- * @returns The string representation of the value
- * @example
- * ```typescript
- * // Basic usage
- * toString("hello")                // "hello"
- * toString(42)                     // "42"
- * toString(true)                   // "true"
- * toString(null)                   // "null"
- * toString(undefined)              // "undefined"
- *
- * // Objects and arrays (JSON stringified)
- * toString([1, 2, 3])              // "[1,2,3]"
- * toString({ a: 1 })               // '{"a":1}'
- *
- * // Special types
- * toString(new Date("2024-03-15T12:00:00Z"))  // "2024-03-15T12:00:00.000Z"
- * toString(/test/gi)               // "/test/gi"
- * toString(new Error("Oops"))      // "Error: Oops"
- *
- * // Circular references handled safely
- * const obj: any = { a: 1 }
- * obj.self = obj
- * toString(obj)                    // '{"a":1,"self":"[Circular]"}'
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function toString(value: unknown): string {
 	// Handle nullish values
 	if (isNull(value)) {

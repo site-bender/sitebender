@@ -1,36 +1,15 @@
-/**
- * String manipulation type definitions
- *
- * Provides type definitions for string operations throughout the toolsmith.
- * These types support various string transformation and manipulation functions.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Function signature for string replacement operations
- * Used by replace and replaceAll functions for dynamic replacements
- *
- * @param substring - The matched substring
- * @param args - Additional arguments (capture groups, offset, full string)
- * @returns The replacement string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ReplacerFunction = (
 	substring: string,
 	...args: Array<string | number>
 ) => string
 
-/**
- * Function signature for case conversion operations
- * Transforms a string to a specific case format
- *
- * @param s - The string to convert
- * @returns The converted string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CaseConverter = (s: string) => string
 
-/**
- * Supported case conversion types
- * Each type represents a different string casing convention
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CaseType =
 	| "camel" // camelCase - firstName
 	| "kebab" // kebab-case - first-name

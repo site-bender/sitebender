@@ -3,15 +3,7 @@ import type { SourceNode } from "../../parseSourceCode/types/index.ts"
 
 import computeBranchId from "../../computeBranchId/index.ts"
 
-/**
- * Extracts logical operator branch paths from an AST
- * Pure function that finds all && and || operators
- * @param ast - The AST node to analyze
- * @returns Array of logical branch paths
- * @example
- * const branches = extractLogicalBranches(ast)
- * // Returns: [{ id: "and_0", type: BranchType.LogicalAnd, ... }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractLogicalBranches(
 	ast: SourceNode,
 ): Array<BranchPath> {

@@ -4,16 +4,7 @@ import type {
 	TestInput,
 } from "../../types/index.ts"
 
-/**
- * Generates test inputs required to trigger specific branch paths
- * Pure function that analyzes branch conditions and creates appropriate inputs
- * @param branches - Array of branch paths to generate inputs for
- * @param signature - Function signature for parameter types
- * @returns Branches with populated requiredInputs arrays
- * @example
- * const branchesWithInputs = generateBranchInputs(branches, signature)
- * // Returns branches with requiredInputs populated
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateBranchInputs(
 	branches: Array<BranchPath>,
 	signature: FunctionSignature,
@@ -24,12 +15,7 @@ export default function generateBranchInputs(
 	}))
 }
 
-/**
- * Generates inputs for a specific condition
- * @param condition - The condition string to satisfy
- * @param signature - Function signature for parameter types
- * @returns Array of test inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateInputsForCondition(
 	condition: string,
 	signature: FunctionSignature,

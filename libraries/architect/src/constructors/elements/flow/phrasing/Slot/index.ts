@@ -15,14 +15,9 @@ import isString from "@sitebender/architect/guards/isString/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Slot element
- * Allows global attributes and validates slot-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Slot attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SlotElementAttributes = SlotAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -34,25 +29,8 @@ export type SlotElementAttributes = SlotAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Slot element configuration object
- *
- * The slot element represents a placeholder inside a web component that
- * you can fill with your own markup.
- *
- * @example
- * ```typescript
- * const slot = Slot({
- *   name: "header",
- *   id: "main-header-slot"
- * })([
- *   TextNode("Default header content")
- * ])
- * ```
- */
-/**
- * Child filter that validates flow content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isValidSlotChild = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {

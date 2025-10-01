@@ -1,9 +1,4 @@
-/**
- * @module @sitebender/formulator
- *
- * Pure TypeScript formula parser for mathematical expressions.
- * Compiles formula strings to @sitebender/architect configuration objects.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Main function export
 export { default as parseFormula } from "./parseFormula/index.ts"

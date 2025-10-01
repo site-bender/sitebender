@@ -1,48 +1,4 @@
-/**
- * Changes the file extension of a filename
- *
- * Replaces the existing file extension with a new one, or adds an extension
- * if none exists. The extension should be provided without a leading dot
- * unless you want multiple dots. Handles edge cases like files with multiple
- * dots and files without extensions.
- *
- * @param newExtension - The new extension to apply (without leading dot)
- * @param filename - The filename to modify
- * @returns Filename with the new extension
- * @example
- * ```typescript
- * // Basic usage
- * changeExtension("md")("readme.txt")
- * // "readme.md"
- *
- * changeExtension("js")("script")
- * // "script.js"
- *
- * changeExtension("js")("app.min.ts")
- * // "app.min.js"
- *
- * // Remove extension
- * changeExtension("")("file.txt")
- * // "file"
- *
- * // Dot files
- * changeExtension("bak")(".gitignore")
- * // ".gitignore.bak"
- *
- * // Path handling
- * changeExtension("js")("src/pagewright/Button.tsx")
- * // "src/pagewright/Button.js"
- *
- * // Partial application
- * const toMarkdown = changeExtension("md")
- * toMarkdown("doc1.txt")  // "doc1.md"
- * toMarkdown("doc2.html") // "doc2.md"
- * ```
- * @pure
- * @curried
- * @immutable
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const changeExtension = (
 	newExtension: string,
 ) =>

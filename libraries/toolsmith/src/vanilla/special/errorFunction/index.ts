@@ -1,37 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the error function (erf)
- *
- * Computes the error function, a special function used in probability,
- * statistics, and partial differential equations. It represents the
- * probability that a normally distributed random variable falls within
- * [-x, x] standard deviations. Uses a numerical approximation accurate
- * to about 5 decimal places. Returns NaN for invalid inputs.
- *
- * @param x - Input value
- * @returns Error function value (between -1 and 1), or NaN if invalid
- * @example
- * ```typescript
- * // Basic usage
- * errorFunction(0)      // 0
- * errorFunction(1)      // 0.8427... (84.27% within ±1σ)
- * errorFunction(-1)     // -0.8427... (odd function)
- * errorFunction(2)      // 0.9953... (99.53% within ±2σ)
- *
- * // Normal distribution CDF
- * const normalCDF = (x: number, mean: number, stdDev: number) => {
- *   const z = (x - mean) / (stdDev * Math.sqrt(2))
- *   return 0.5 * (1 + errorFunction(z))
- * }
- *
- * // Edge cases
- * errorFunction(null)   // NaN
- * errorFunction(4)      // 0.999999984... (approaches 1)
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const errorFunction = (
 	x: number | null | undefined,
 ): number => {

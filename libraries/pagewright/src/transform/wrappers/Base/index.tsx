@@ -1,14 +1,4 @@
-/**
- * Base JSX Component
- *
- * Semantic wrapper for the base value in Power operations.
- *
- * @example
- * <Power>
- *   <Base><FromElement id="base" type="Number" /></Base>
- *   <Exponent><Constant value={2} /></Exponent>
- * </Power>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type BaseProps = {
 	children?: JSX.Element | JSX.Element[]

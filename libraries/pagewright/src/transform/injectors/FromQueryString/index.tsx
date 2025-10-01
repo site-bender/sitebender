@@ -4,19 +4,7 @@ import type {
 	Value,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * FromQueryString JSX Component
- *
- * Wrapper for the FromQueryString injector constructor.
- * Gets a value from the URL query string parameters.
- *
- * @example
- * <FromQueryString
- *   param="page"
- *   type="Number"
- *   defaultValue={1}
- * />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromQueryStringConstructor from "../../../../../architect/src/constructors/injectors/FromQueryString/index.ts"
 

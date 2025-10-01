@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Canvas attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CanvasElementAttributes = CanvasAttributes & ImageAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,28 +27,9 @@ export type CanvasElementAttributes = CanvasAttributes & ImageAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Canvas element
- * Allows global attributes and validates canvas-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Canvas element configuration object
- *
- * The canvas element provides a resolution-dependent bitmap canvas,
- * which can be used for rendering graphs, game graphics, or other visual images on the fly.
- *
- * @example
- * ```typescript
- * const canvas = Canvas({
- *   width: 800,
- *   height: 600,
- *   id: "game-canvas"
- * })([
- *   TextNode("Your browser does not support the canvas element.")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Canvas = (attributes: CanvasElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

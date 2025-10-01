@@ -1,24 +1,12 @@
 import { ELEMENTS } from "../../guards/constants/index.ts"
 
-/**
- * Configuration object for element validation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type ElementConfig = {
 	readonly tag?: string
 	readonly attributes?: Record<string, unknown>
 }
 
-/**
- * Checks if an element config represents interactive content
- *
- * Interactive content is content that is specifically intended for user interaction.
- * This includes:
- * - Always interactive elements (button, details, embed, iframe, label, select, textarea)
- * - Conditionally interactive elements (a with href, audio/video with controls, input, etc.)
- *
- * @param config - Element configuration object
- * @returns true if the element is interactive content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isInteractiveContent = (config: unknown = {}): boolean => {
 	if (typeof config !== "object" || config === null || !("tag" in config)) {
 		return false

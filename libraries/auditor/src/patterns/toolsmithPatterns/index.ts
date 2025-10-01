@@ -1,6 +1,4 @@
-/**
- * Generate toolsmith-specific test patterns based on function characteristics
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
 
@@ -13,11 +11,7 @@ import generatePipePatternTests from "./generatePipePatternTests/index.ts"
 import generatePredicatePatternTests from "./generatePredicatePatternTests/index.ts"
 import generateTransformerPatternTests from "./generateTransformerPatternTests/index.ts"
 
-/**
- * Generate test cases based on toolsmith-specific patterns
- * @param signature Function signature
- * @returns Array of pattern-based test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateToolsmithPatternTests(
 	signature: FunctionSignature,
 ): Array<TestCase> {

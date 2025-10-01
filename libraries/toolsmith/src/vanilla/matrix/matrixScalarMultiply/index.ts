@@ -1,39 +1,4 @@
-/**
- * Multiplies a matrix by a scalar value
- *
- * Performs scalar multiplication where each element of the matrix is
- * multiplied by the scalar value: B[i][j] = k × A[i][j]. This operation
- * scales all matrix values uniformly. Returns NaN for invalid inputs.
- *
- * @param scalar - Scalar value to multiply by
- * @param matrix - Matrix to scale (2D array)
- * @returns Scaled matrix, or NaN if invalid
- * @example
- * ```typescript
- * // Scale 2×2 matrix by 2
- * matrixScalarMultiply(2)([[1, 2], [3, 4]])
- * // [[2, 4], [6, 8]]
- *
- * // Scale by -1 (negate matrix)
- * matrixScalarMultiply(-1)([[1, -2], [-3, 4]])
- * // [[-1, 2], [3, -4]]
- *
- * // Scale 3×3 identity matrix
- * matrixScalarMultiply(3)([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
- * // [[3, 0, 0], [0, 3, 0], [0, 0, 3]]
- *
- * // Non-square matrix
- * matrixScalarMultiply(2)([[1, 2, 3], [4, 5, 6]])
- * // [[2, 4, 6], [8, 10, 12]]
- *
- * // Invalid inputs
- * matrixScalarMultiply(null)([[1, 2]])  // NaN
- * matrixScalarMultiply(2)(null)  // NaN
- * ```
- * @pure
- * @curried
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import isNullish from "../../validation/isNullish/index.ts"
 
 const matrixScalarMultiply = (

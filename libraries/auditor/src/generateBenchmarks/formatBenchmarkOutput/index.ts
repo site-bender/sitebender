@@ -1,15 +1,6 @@
 import type { BenchmarkResult } from "../types/index.ts"
 
-/**
- * Formats benchmark results into readable output
- * Pure function that creates human-readable benchmark reports
- * @param results - Array of benchmark results
- * @param functionName - Name of the benchmarked function
- * @returns Formatted string representation of results
- * @example
- * const output = formatBenchmarkOutput(results, "map")
- * // Returns: "Benchmark Results for map\n..."
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatBenchmarkOutput(
 	results: Array<BenchmarkResult>,
 	functionName: string,

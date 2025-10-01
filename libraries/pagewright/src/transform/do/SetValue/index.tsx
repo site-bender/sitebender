@@ -1,6 +1,4 @@
-/**
- * Do.SetValue (alias for Act.SetValue)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type SetValueProps = {
 	selector: string | JSX.Element

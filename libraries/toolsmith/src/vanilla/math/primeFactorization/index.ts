@@ -1,49 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns the prime factorization of a positive integer
- *
- * Decomposes n into its prime factors with their multiplicities, returned
- * as a Map where keys are prime factors and values are their powers.
- * For example, 12 = 2² × 3¹ returns Map {2 => 2, 3 => 1}. Returns an
- * empty Map for invalid inputs or n = 1.
- *
- * @param n - Positive integer greater than 1 to factorize
- * @returns Map of prime factors to their multiplicities, or empty Map if invalid
- * @example
- * ```typescript
- * primeFactorization(12)
- * // Map { 2 => 2, 3 => 1 }
- *
- * primeFactorization(7)
- * // Map { 7 => 1 } (prime)
- *
- * primeFactorization(8)
- * // Map { 2 => 3 } (perfect power)
- *
- * primeFactorization(60)
- * // Map { 2 => 2, 3 => 1, 5 => 1 }
- *
- * primeFactorization(1)
- * // Map {} (no prime factors)
- *
- * // Reconstruct number from factorization
- * const reconstruct = (factors: Map<number, number>): number =>
- *   Array.from(factors.entries())
- *     .reduce((acc, [prime, power]) => acc * Math.pow(prime, power), 1)
- * const factors = primeFactorization(60)
- * reconstruct(factors) // 60
- *
- * // Count total divisors
- * const countDivisors = (n: number): number =>
- *   Array.from(primeFactorization(n).values())
- *     .reduce((acc, power) => acc * (power + 1), 1)
- * countDivisors(12) // 6
- * ```
- * @pure Always returns same result for same input
- * @safe Returns empty Map for invalid inputs
- * @efficient O(√n) time complexity
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const primeFactorization = (
 	n: number | null | undefined,
 ): Map<number, number> => {

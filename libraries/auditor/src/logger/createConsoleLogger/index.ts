@@ -1,9 +1,6 @@
 import type Logger from "../../types/Logger/index.ts"
 
-/**
- * Creates a default logger that outputs to console
- * @returns Logger instance using console methods
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function createConsoleLogger(): Logger {
 	return {
 		log: (message: string) => console.log(message),

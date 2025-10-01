@@ -4,12 +4,7 @@ import type {
 	TestCase,
 } from "../../types/index.ts"
 
-/**
- * Generates test cases for code branches
- * @param branches Array of branch paths to test
- * @param signature Function signature information
- * @returns Array of branch test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateBranchTests(
 	branches: Array<BranchPath>,
 	signature: FunctionSignature,

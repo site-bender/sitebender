@@ -2,9 +2,7 @@ import type { ElementConfig } from "../../../../../types/index.ts"
 
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
 
-/**
- * Child filter for Dl element - allows dt, dd, script, and template elements
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isValidDlChild = (child: ElementConfig): boolean => {
 	if (!child || typeof child !== "object" || !child.tag) {
 		return false
@@ -12,22 +10,7 @@ const isValidDlChild = (child: ElementConfig): boolean => {
 	return ["Dt", "Dd", "Script", "Template"].includes(child.tag)
 }
 
-/**
- * Creates a Dl element configuration object
- *
- * The dl element represents a description list of name-value groups.
- * It can only contain dt, dd, script, and template elements.
- *
- * @example
- * ```typescript
- * const dl = Dl({ id: "definitions", class: "definition-list" })([
- *   Dt()("HTML"),
- *   Dd()("HyperText Markup Language"),
- *   Dt()("CSS"),
- *   Dd()("Cascading Style Sheets")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Dl = GlobalOnly("Dl")(isValidDlChild)
 
 export default Dl

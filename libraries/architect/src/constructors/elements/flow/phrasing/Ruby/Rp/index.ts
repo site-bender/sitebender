@@ -2,21 +2,7 @@ import type { ElementConfig } from "@sitebender/architect/constructors/elements/
 
 import GlobalOnly from "@sitebender/architect/constructors/abstracted/GlobalOnly/index.ts"
 
-/**
- * Creates an Rp element configuration object
- *
- * The rp element provides fallback parentheses for browsers that don't
- * support ruby annotations. It typically contains only text content.
- *
- * @example
- * ```typescript
- * const rp = Rp({
- *   id: "ruby-fallback"
- * })([
- *   TextNode("(")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Rp = GlobalOnly("rp")(
 	(child: ElementConfig) => child.tag?.toLowerCase() === "textnode",
 )

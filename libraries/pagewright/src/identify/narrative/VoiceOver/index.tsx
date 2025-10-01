@@ -6,38 +6,17 @@ import getDataAttributes from "../../../helpers/getDataAttributes/index.ts"
 export type Props = BaseProps & {
 	element?: "div" | "aside" | "p" | "span"
 	define?: "microdata" | "linkedData" | "both"
-	/**
-	 * The narrator providing the voice-over
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	narrator?: string
-	/**
-	 * Type of voice-over (e.g., "narration", "commentary", "exposition", "internal")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	voiceType?: string
-	/**
-	 * Temporal relationship to main narrative (e.g., "concurrent", "retrospective", "prospective")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	timing?: string
-	/**
-	 * Tone of the voice-over (e.g., "neutral", "ironic", "nostalgic", "dramatic")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	tone?: string
 }
 
-/**
- * Marks narration or commentary that overlays the main narrative.
- * Often used for omniscient narration, retrospective commentary, or character thoughts.
- *
- * @example
- * <VoiceOver narrator="Older Scout" timing="retrospective">
- *   Looking back now, I realize we never really understood Boo Radley.
- * </VoiceOver>
- *
- * @example
- * <VoiceOver voiceType="commentary" tone="ironic">
- *   (Little did they know, their troubles were just beginning.)
- * </VoiceOver>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function VoiceOver({
 	element: Element = "aside",
 	define: _define,

@@ -1,19 +1,4 @@
-/**
- * Value Wrapper Component
- *
- * Used with comparators and Divide to specify the value being tested or divided.
- *
- * @example
- * <IsMoreThan>
- *   <Value><FromElement id="price" /></Value>
- *   <Threshold><Constant value={100} /></Threshold>
- * </IsMoreThan>
- *
- * <Divide>
- *   <Value><FromElement id="total" /></Value>
- *   <By><FromElement id="numPeople" /></By>
- * </Divide>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type ValueProps = {
 	children?: JSX.Element | JSX.Element[]

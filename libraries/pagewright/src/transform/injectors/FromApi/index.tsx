@@ -4,19 +4,7 @@ import type {
 	Value,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * FromApi JSX Component
- *
- * Wrapper for the FromApi injector constructor.
- * Fetches data from an API endpoint.
- *
- * @example
- * <FromApi
- *   endpoint="/api/user/profile"
- *   type="Json"
- *   method="GET"
- * />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromApiConstructor from "../../../../../architect/src/constructors/injectors/FromApi/index.ts"
 

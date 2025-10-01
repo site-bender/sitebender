@@ -1,11 +1,6 @@
 import type { FunctionSignature } from "../../types/index.ts"
 
-/**
- * Gets a default value for a specific curry level
- * @param _level Curry level (reserved for future use)
- * @param signature Function signature information
- * @returns Default value based on function type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getDefaultValueForLevel(
 	_level: number,
 	signature: FunctionSignature,

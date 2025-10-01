@@ -1,14 +1,8 @@
-/**
- * Compute hash for test case deduplication
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../../types/index.ts"
 
-/**
- * Compute a hash for a test case based on its input and expected output
- * @param test Test case to hash
- * @returns Hash string for comparison
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function computeTestHash(test: TestCase): string {
 	const parts: Array<string> = []
 

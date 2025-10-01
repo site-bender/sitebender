@@ -1,10 +1,4 @@
-/**
- * On control component (marker)
- *
- * Wraps an event name and a handler subtree. This is a compile-time marker
- * that doesn't render DOM and is consumed by the compile pass to attach
- * behaviors to the nearest prior element.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	event: string // e.g., "Click", "Input", "Submit" -> will map to On.<Event>

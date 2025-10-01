@@ -1,6 +1,4 @@
-/**
- * Constants for temporal components
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // First day of week by locale/culture
 // 0 = Sunday, 1 = Monday, etc.

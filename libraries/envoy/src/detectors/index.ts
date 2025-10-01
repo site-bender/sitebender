@@ -1,6 +1,4 @@
-/**
- * Detector module exports
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export { default as detectPurity } from "./detectPurity/index.ts"
 export { default as detectCurrying } from "./detectCurrying/index.ts"

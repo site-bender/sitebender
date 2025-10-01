@@ -1,5 +1,2 @@
-/**
- * Alias for futureValue
- * @see futureValue
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export { default } from "../futureValue/index.ts"

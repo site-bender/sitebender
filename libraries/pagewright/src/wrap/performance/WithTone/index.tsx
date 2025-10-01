@@ -1,18 +1,4 @@
-/**
- * WithTone component
- *
- * For expressing a specific emotional tone in text.
- * Supports various tones like angry, happy, sad, etc.
- * Uses CSS to style the text according to the tone.
- * Can also include an emoji to visually represent the tone.
- * Constants for common tones and emojis are provided.
- *
- * Example usage:
- *
- * <WithTone tone={TONE.angry} emoji={EMOJI.angry}>
- *   If you do that again, I'll punch your lights out!
- * </WithTone>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { Emoji, Tone } from "../../constants/index.ts"
 
 export type Props = {

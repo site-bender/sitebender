@@ -1,27 +1,4 @@
-/**
- * WithRhythm component
- *
- * Defines rhythmic patterns, meter, and cadence in speech or text.
- * Essential for poetry, rap, speeches, and any content where rhythm
- * enhances meaning or memorability. Supports both speech and musical contexts.
- *
- * Example usage:
- *
- * <WithRhythm
- *   meter="iambic-pentameter"
- *   feet={5}
- * >
- *   But soft, what light through yonder window breaks?
- * </WithRhythm>
- *
- * <WithRhythm
- *   pattern="stressed unstressed unstressed"
- *   repeat={3}
- *   style="waltz"
- * >
- *   ONE two three, ONE two three, ONE two three
- * </WithRhythm>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Meter =
 	| "iambic" // da-DUM

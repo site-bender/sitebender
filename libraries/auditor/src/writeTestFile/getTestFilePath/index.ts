@@ -1,8 +1,4 @@
-/**
- * Generates test file path from function path
- * @param functionPath Path to the function source file
- * @returns Path where test file should be created
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getTestFilePath(functionPath: string): string {
 	const pathParts = functionPath.split("/")
 	const libraryIndex = pathParts.indexOf("libraries")

@@ -2,57 +2,7 @@ import type { Value } from "../../../types/index.ts"
 
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Creates a deep clone of an object
- *
- * Recursively clones an object and all its nested properties, creating
- * new instances of objects and arrays. Handles circular references by
- * tracking visited objects. Preserves special object types like Date,
- * RegExp, Map, and Set. Functions and symbols are copied by reference.
- *
- * @pure
- * @immutable
- * @param obj - The object to clone
- * @returns A deep clone of the object
- * @example
- * ```typescript
- * // Basic object cloning
- * const original = { a: 1, b: { c: 2 } }
- * const cloned = clone(original)
- * // Original remains unchanged when mutating clone
- * original.b.c // 2
- *
- * // Array cloning
- * const arr = [1, [2, 3], { a: 4 }]
- * const clonedArr = clone(arr)
- * // Deep structures are fully cloned
- *
- * // Date objects preserved
- * const obj = { created: new Date("2024-01-01") }
- * const clonedObj = clone(obj)
- * clonedObj.created instanceof Date // true
- *
- * // Map and Set support
- * const data = {
- *   map: new Map([["key1", "value1"]]),
- *   set: new Set([1, 2, 3])
- * }
- * const clonedData = clone(data)
- * clonedData.map instanceof Map // true
- *
- * // Circular references handled
- * const circular: any = { a: 1 }
- * circular.self = circular
- * const clonedCircular = clone(circular)
- * clonedCircular.self === clonedCircular // true
- *
- * // Functions copied by reference
- * const withFunc = { method: () => "hello", data: { x: 1 } }
- * const clonedFunc = clone(withFunc)
- * clonedFunc.method === withFunc.method // true
- * clonedFunc.data === withFunc.data     // false
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function clone<T extends Value>(obj: T): T {
 	// Handle primitives and null/undefined
 	if (isNullish(obj) || typeof obj !== "object") {

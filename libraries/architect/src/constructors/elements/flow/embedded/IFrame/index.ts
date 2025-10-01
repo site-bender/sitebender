@@ -13,9 +13,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended IFrame attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type IFrameElementAttributes =
 	& InlineFrameAttributes
 	& Pick<
@@ -36,28 +34,9 @@ export type IFrameElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for IFrame element
- * Allows global attributes and validates iframe-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an IFrame element configuration object
- *
- * The iframe element represents a nested browsing context, embedding another HTML page.
- * This is a void element (cannot have children).
- *
- * @example
- * ```typescript
- * const iframe = IFrame({
- *   src: "https://example.com",
- *   width: 800,
- *   height: 600,
- *   sandbox: "allow-scripts",
- *   loading: "lazy"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const IFrame = (
 	attributes: IFrameElementAttributes = {},
 ): ElementConfig => {

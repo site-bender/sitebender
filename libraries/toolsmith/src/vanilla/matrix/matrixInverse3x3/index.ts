@@ -1,38 +1,4 @@
-/**
- * Calculates the inverse of a 3x3 matrix
- *
- * Computes the inverse of a 3x3 matrix using the adjugate (adjoint) method.
- * The inverse is calculated as: A^(-1) = (1/det(A)) * adj(A), where adj(A)
- * is the adjugate matrix (transpose of the cofactor matrix). Returns null
- * if the matrix is singular (determinant = 0) or invalid. The inverse
- * satisfies: A * A^(-1) = I (identity matrix).
- *
- * @param matrix - 3x3 matrix as array of arrays [[a,b,c],[d,e,f],[g,h,i]]
- * @returns Inverse matrix or null if singular/invalid
- * @example
- * ```typescript
- * // Identity matrix (inverse is itself)
- * matrixInverse3x3([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
- * // [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
- *
- * // Diagonal matrix
- * matrixInverse3x3([[2, 0, 0], [0, 3, 0], [0, 0, 4]])
- * // [[0.5, 0, 0], [0, 0.333..., 0], [0, 0, 0.25]]
- *
- * // Upper triangular matrix
- * matrixInverse3x3([[1, 2, 3], [0, 1, 2], [0, 0, 1]])
- * // [[1, -2, 1], [0, 1, -2], [0, 0, 1]]
- *
- * // Singular matrix (determinant = 0)
- * matrixInverse3x3([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
- * // null
- *
- * // Invalid input
- * matrixInverse3x3([[1, 2], [3, 4]])  // null (not 3x3)
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import isNullish from "../../validation/isNullish/index.ts"
 
 const matrixInverse3x3 = (

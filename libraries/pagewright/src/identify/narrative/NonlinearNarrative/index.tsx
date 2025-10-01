@@ -5,38 +5,17 @@ type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
 	element?: "div" | "section" | "article" | "aside"
 	define?: "microdata" | "linkedData" | "both"
-	/**
-	 * Type of non-linear structure (e.g., "parallel", "circular", "fragmented", "branching")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	structure?: string
-	/**
-	 * Sequence indicator for this segment
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	sequence?: number | string
-	/**
-	 * Timeline this segment belongs to (for parallel narratives)
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	timeline?: string
-	/**
-	 * Temporal relationship (e.g., "simultaneous", "retrospective", "alternative")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	temporalRelation?: string
 }
 
-/**
- * Wrapper for non-linear storytelling segments that don't follow chronological order.
- * Used for parallel narratives, circular structures, or fragmented timelines.
- *
- * @example
- * <NonlinearNarrative structure="parallel" timeline="past">
- *   <p>Meanwhile, twenty years earlier...</p>
- * </NonlinearNarrative>
- *
- * @example
- * <NonlinearNarrative structure="circular" sequence="end-as-beginning">
- *   <p>And so we return to where we started...</p>
- * </NonlinearNarrative>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function NonlinearNarrative({
 	element: Element = "section",
 	define: _define,

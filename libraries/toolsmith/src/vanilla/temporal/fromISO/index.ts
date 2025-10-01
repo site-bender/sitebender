@@ -1,59 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Parses an ISO 8601 string to the appropriate Temporal object
- *
- * Automatically detects the format and returns the corresponding Temporal type:
- * PlainDate for dates, PlainTime for times, PlainDateTime for date-times,
- * ZonedDateTime for zoned date-times, YearMonth for year-months, or Duration
- * for durations. Returns null for invalid or unrecognized formats.
- *
- * @param isoString - ISO 8601 formatted string
- * @returns Appropriate Temporal object, or null if invalid
- * @example
- * ```typescript
- * // Different ISO formats
- * fromISO("2024-03-15")                   // Temporal.PlainDate
- * fromISO("14:30:00")                     // Temporal.PlainTime
- * fromISO("2024-03-15T14:30:00")          // Temporal.PlainDateTime
- * fromISO("2024-03-15T14:30:00Z")         // Temporal.Instant (UTC)
- * fromISO("2024-03")                      // Temporal.PlainYearMonth
- * fromISO("P1Y2M3DT4H5M6S")               // Temporal.Duration
- *
- * // Invalid formats
- * fromISO("2024-13-01")                   // null
- * fromISO("not-a-date")                   // null
- * fromISO(null as any)                    // null
- *
- * // Type checking
- * const parseDate = (input: string): Temporal.PlainDate | null => {
- *   const parsed = fromISO(input)
- *   return parsed instanceof Temporal.PlainDate ? parsed : null
- * }
- *
- * // Batch processing
- * const validDates = [
- *   "2024-03-15",
- *   "2024-03-16",
- *   "invalid"
- * ].map(fromISO).filter((d): d is Temporal.PlainDate =>
- *   d instanceof Temporal.PlainDate
- * )
- *
- * // Type detection
- * const getTemporalType = (isoStr: string): string => {
- *   const parsed = fromISO(isoStr)
- *   if (!parsed) return "invalid"
- *   if (parsed instanceof Temporal.PlainDate) return "date"
- *   if (parsed instanceof Temporal.PlainTime) return "time"
- *   if (parsed instanceof Temporal.PlainDateTime) return "datetime"
- *   if (parsed instanceof Temporal.Duration) return "duration"
- *   return "unknown"
- * }
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const fromISO = (
 	isoString: string | null | undefined,
 ):

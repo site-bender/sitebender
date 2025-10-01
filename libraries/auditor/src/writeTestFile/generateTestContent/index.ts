@@ -6,13 +6,7 @@ import generatePropertyTests from "./generatePropertyTests/index.ts"
 import generateUnitTests from "./generateUnitTests/index.ts"
 import groupTests from "./groupTests/index.ts"
 
-/**
- * Generates complete test file content
- * @param functionName Name of the function being tested
- * @param tests Array of all test cases
- * @param signature Optional function signature information
- * @returns Complete test file content as string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateTestContent(
 	functionName: string,
 	tests: Array<TestCase>,

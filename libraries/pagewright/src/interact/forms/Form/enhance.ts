@@ -1,10 +1,4 @@
-/**
- * Progressive enhancement for Form
- *
- * This script is intentionally minimal. It should not prevent default
- * submission or break no-JS behavior. Use it to progressively enhance
- * UX (client-side validation, async submit, etc.).
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export function enhanceForm(form: HTMLFormElement) {
 	if (!form || form.dataset.enhanced === "true") return

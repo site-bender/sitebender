@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Section attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SectionElementAttributes =
 	& SectionAttributes
 	& SectionAriaAttributes
@@ -32,30 +30,9 @@ export type SectionElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Section element
- * Allows global attributes and validates section-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Section element configuration object
- *
- * The section element represents a generic section of a document or application.
- * A section, in this context, is a thematic grouping of content, typically with a heading.
- *
- * @example
- * ```typescript
- * const section = Section({
- *   id: "intro",
- *   class: "intro-section",
- *   role: "region",
- *   "aria-labelledby": "intro-heading"
- * })([
- *   H2({ id: "intro-heading" })("Introduction"),
- *   P()("This is the introduction section...")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Section = (attributes: SectionElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

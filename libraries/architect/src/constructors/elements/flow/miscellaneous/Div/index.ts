@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Div attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DivElementAttributes = DivisionAttributes & DivAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -28,26 +26,9 @@ export type DivElementAttributes = DivisionAttributes & DivAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Div element
- * Allows global attributes and validates div-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Div element configuration object
- *
- * The div element has no special meaning at all. It represents its children.
- * It can be used with class, lang, and title attributes to mark up semantics
- * common to a group of consecutive elements.
- *
- * @example
- * ```typescript
- * const div = Div({
- *   id: "container",
- *   class: "main"
- * })([TextNode("Content")])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Div = (attributes: DivElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

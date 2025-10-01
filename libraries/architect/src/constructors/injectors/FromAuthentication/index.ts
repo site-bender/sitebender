@@ -9,13 +9,7 @@ type FromAuthenticatorInjector = {
 	path?: string
 }
 
-/**
- * FromAuthenticator
- *
- * Authoring-time constructor that represents reading from auth context
- * (ComposeContext.localValues.user by default). Optional dot-path lets you
- * reach into claims, e.g., "user.email" or "claims.sub".
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const FromAuthenticator =
 	(datatype: Datatype = "String") =>
 	(path?: string): FromAuthenticatorInjector => ({

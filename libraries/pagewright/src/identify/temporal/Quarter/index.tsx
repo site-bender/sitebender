@@ -1,35 +1,4 @@
-/**
- * Quarter component
- *
- * Represents a calendar or fiscal quarter of a year.
- * Supports different fiscal year start months.
- *
- * Example usage:
- *
- * // Calendar quarter
- * <Quarter value="2024-Q1" />
- * // → Q1 2024
- *
- * // From date
- * <Quarter value="2024-04-15" />
- * // → Q2 2024
- *
- * // With date range
- * <Quarter value="2024-Q3" showRange />
- * // → Q3 2024 (Jul - Sep)
- *
- * // Fiscal quarter (fiscal year starts in April)
- * <Quarter value="2024-04-15" fiscalYearStart={4} />
- * // → Q1 FY2024
- *
- * // Full format with months
- * <Quarter value="2024-Q2" format="long" showRange />
- * // → 2nd Quarter 2024 (April - June)
- *
- * // With locale
- * <Quarter value="2024-Q1" locale="fr-FR" showRange />
- * // → T1 2024 (janv. - mars)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

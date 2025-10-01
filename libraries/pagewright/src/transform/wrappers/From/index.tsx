@@ -1,14 +1,4 @@
-/**
- * From Wrapper Component
- *
- * Used with Subtract to specify the value to subtract from.
- *
- * @example
- * <Subtract>
- *   <From><FromElement id="total" /></From>
- *   <Amount><FromElement id="discount" /></Amount>
- * </Subtract>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type FromProps = {
 	children?: JSX.Element | JSX.Element[]

@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Anchor attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type AnchorElementAttributes =
 	& AnchorAttributes
 	& AnchorAriaAttributes
@@ -32,28 +30,9 @@ export type AnchorElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for A element
- * Allows global attributes and validates anchor-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an A element configuration object
- *
- * The a element represents a hyperlink or anchor.
- * It can contain flow content but not interactive content.
- *
- * @example
- * ```typescript
- * const link = A({
- *   id: "home-link",
- *   href: "/home",
- *   target: "_blank"
- * })([
- *   TextNode("Go to Home")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const A = (attributes: AnchorElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

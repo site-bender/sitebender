@@ -13,14 +13,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Base element
- * Allows global attributes and validates href and target attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Base attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BaseElementAttributes = BaseAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -31,26 +26,9 @@ export type BaseElementAttributes = BaseAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Base element
- * Allows global attributes and validates href and target attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Base element configuration object
- *
- * The base element allows authors to specify the document base URL
- * for the purposes of resolving relative URLs.
- * It is a void element.
- *
- * @example
- * ```typescript
- * const base = Base({
- *   href: "/api/",
- *   target: "_blank"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Base = (attributes: BaseElementAttributes = {}): ElementConfig => {
 	const { id, ...attribs } = filterAttributes(attributes)
 	const {

@@ -1,8 +1,4 @@
-/**
- * Converts a value to its string representation for test code
- * @param value Value to convert to string
- * @returns String representation of the value
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function valueToString(value: unknown): string {
 	if (value === null) return "null"
 	if (value === undefined) return "undefined"

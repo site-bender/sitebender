@@ -1,40 +1,4 @@
-/**
- * TransliteratedTerm component
- *
- * Marks up terms that have been converted from one writing system
- * to another. Preserves the original script, indicates the system
- * used, and provides pronunciation guidance.
- *
- * Example usage:
- *
- * <TransliteratedTerm
- *   from="ru"
- *   script="Cyrillic"
- *   original="Спасибо"
- * >
- *   Spasibo
- * </TransliteratedTerm>
- *
- * <TransliteratedTerm
- *   from="ar"
- *   script="Arabic"
- *   original="شكرا"
- *   system="ALA-LC"
- *   ipa="ˈʃʊkrɑn"
- * >
- *   shukran
- * </TransliteratedTerm>
- *
- * <TransliteratedTerm
- *   from="zh-Hans"
- *   script="Simplified Chinese"
- *   original="北京"
- *   system="Pinyin"
- *   meaning="Northern Capital"
- * >
- *   Beijing
- * </TransliteratedTerm>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type TransliterationSystem =

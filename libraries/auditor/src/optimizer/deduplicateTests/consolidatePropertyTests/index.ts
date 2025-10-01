@@ -1,17 +1,11 @@
-/**
- * Consolidate overlapping property tests
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { PropertyTest, TestCase } from "../../../types/index.ts"
 
 import haveOverlappingGenerators from "./haveOverlappingGenerators/index.ts"
 import mergeProperties from "./mergeProperties/index.ts"
 
-/**
- * Consolidate property tests with overlapping generators
- * @param tests Array of test cases
- * @returns Array with consolidated property tests
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function consolidatePropertyTests(
 	tests: Array<TestCase>,
 ): Array<TestCase> {

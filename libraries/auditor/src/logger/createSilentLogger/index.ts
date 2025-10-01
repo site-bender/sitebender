@@ -1,9 +1,6 @@
 import type Logger from "../../types/Logger/index.ts"
 
-/**
- * Creates a silent logger that discards all output
- * @returns Logger instance that does nothing
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function createSilentLogger(): Logger {
 	return {
 		log: (_message: string) => {},

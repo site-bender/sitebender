@@ -1,8 +1,6 @@
 import type { ComplexityClass } from "../../types/index.ts"
 
-/**
- * Analyzes function complexity and returns Big-O notation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function detectComplexity(source: string): ComplexityClass {
 	// Remove comments
 	const cleanSource = removeComments(source)
@@ -76,26 +74,20 @@ export default function detectComplexity(source: string): ComplexityClass {
 	return "O(1)"
 }
 
-/**
- * Removes comments from source
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function removeComments(source: string): string {
 	return source
 		.replace(/\/\/.*$/gm, "")
 		.replace(/\/\*[\s\S]*?\*\//g, "")
 }
 
-/**
- * Counts occurrences of a pattern
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function countOccurrences(source: string, pattern: RegExp): number {
 	const matches = source.match(pattern)
 	return matches ? matches.length : 0
 }
 
-/**
- * Detects nested loops
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function detectNestedLoops(source: string): number {
 	const tokens = source.split(/\s+/)
 	// Fold over tokens to compute nesting metrics
@@ -114,9 +106,7 @@ function detectNestedLoops(source: string): number {
 	return max > 1 ? max - 1 : 0
 }
 
-/**
- * Detects if loops are independent (not nested)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function areLoopsIndependent(source: string): boolean {
 	const loopLines = source
 		.split("\n")
@@ -128,9 +118,7 @@ function areLoopsIndependent(source: string): boolean {
 	return true
 }
 
-/**
- * Detects recursion in the function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function detectRecursion(source: string): boolean {
 	// Extract function name
 	const functionMatch = source.match(/function\s+(\w+)/) ||
@@ -150,18 +138,14 @@ function detectRecursion(source: string): boolean {
 	return matches ? matches.length > 1 : false
 }
 
-/**
- * Detects binary recursion pattern
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function detectBinaryRecursion(source: string): boolean {
 	// Look for patterns like dividing by 2, or binary tree traversal
 	return /\/\s*2|>>>\s*1|>>\s*1/.test(source) ||
 		/left.*right|right.*left/.test(source)
 }
 
-/**
- * Detects binary search pattern
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function detectBinarySearch(source: string): boolean {
 	// Look for typical binary search patterns
 	return /mid|middle|low.*high|left.*right/.test(source) &&

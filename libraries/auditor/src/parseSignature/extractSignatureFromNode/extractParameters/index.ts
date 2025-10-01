@@ -4,12 +4,7 @@ import type { Parameter } from "../../../types/index.ts"
 
 import extractTypeInfo from "./extractTypeInfo/index.ts"
 
-/**
- * Extracts parameter information from a function node
- * @param node Function declaration, expression, or arrow function
- * @param checker TypeScript type checker
- * @returns Array of parameter information
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractParameters(
 	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
 	checker: ts.TypeChecker,

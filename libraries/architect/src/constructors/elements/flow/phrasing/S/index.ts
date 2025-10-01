@@ -11,9 +11,7 @@ import type { ElementConfig, Value } from "../../../../../types/index.ts"
 import GlobalOnly from "../../../../../constructors/abstracted/GlobalOnly/index.ts"
 import isPhrasingContent from "../../../../../guards/isPhrasingContent/index.ts"
 
-/**
- * Child filter that validates phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const phrasingContentFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		return isPhrasingContent()(
@@ -24,25 +22,9 @@ const phrasingContentFilter = (child: ElementConfig): boolean => {
 	return true
 }
 
-/**
- * Creates an S element configuration object
- *
- * The s element represents contents that are no longer accurate
- * or no longer relevant.
- *
- * @example
- * ```typescript
- * const s = S({
- *   id: "old-price"
- * })([
- *   TextNode("$19.99")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended S attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SElementAttributes = StrikethroughAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand

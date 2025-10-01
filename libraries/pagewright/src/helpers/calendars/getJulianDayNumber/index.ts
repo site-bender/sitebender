@@ -1,6 +1,4 @@
-/**
- * Calculate Julian Day Number
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getJulianDayNumber(date: Date): number {
 	const a = Math.floor((14 - (date.getMonth() + 1)) / 12)
 	const y = date.getFullYear() + 4800 - a

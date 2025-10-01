@@ -8,10 +8,7 @@ import isMemberOf from "@sitebender/architect/guards/isMemberOf/index.ts"
 import isString from "@sitebender/architect/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/architect/guards/pickGlobalAttributes/index.ts"
 
-/**
- * Filters attributes for text-based input types
- * Validates common text input attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export const filterTextAttributes = (
 	attributes: Record<string, Value>,
 ): Record<string, Value> => {

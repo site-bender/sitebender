@@ -5,10 +5,7 @@ import isBoolean from "@sitebender/architect/guards/isBoolean/index.ts"
 import isString from "@sitebender/architect/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/architect/guards/pickGlobalAttributes/index.ts"
 
-/**
- * Filters attributes for checked input types (checkbox, radio)
- * Validates common checked input attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const filterCheckedAttributes = (
 	attributes: Record<string, Value>,
 ): Record<string, Value> => {

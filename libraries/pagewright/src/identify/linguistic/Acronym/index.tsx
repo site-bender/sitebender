@@ -1,32 +1,4 @@
-/**
- * Acronym component
- *
- * Marks up acronyms - initialisms that are pronounced as words
- * rather than letter by letter. Provides expansion, pronunciation,
- * and contextual information for accessibility.
- *
- * Example usage:
- *
- * <Acronym expansion="National Aeronautics and Space Administration">
- *   NASA
- * </Acronym>
- *
- * <Acronym
- *   expansion="Light Amplification by Stimulated Emission of Radiation"
- *   ipa="/ˈleɪzər/"
- *   commonWord
- * >
- *   laser
- * </Acronym>
- *
- * <Acronym
- *   expansion="Self-Contained Underwater Breathing Apparatus"
- *   field="diving"
- *   pronunciation="SKOO-bah"
- * >
- *   SCUBA
- * </Acronym>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

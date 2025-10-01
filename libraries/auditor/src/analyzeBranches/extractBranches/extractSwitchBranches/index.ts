@@ -3,15 +3,7 @@ import type { SourceNode } from "../../parseSourceCode/types/index.ts"
 
 import computeBranchId from "../../computeBranchId/index.ts"
 
-/**
- * Extracts switch statement branch paths from an AST
- * Pure function that finds all switch cases
- * @param ast - The AST node to analyze
- * @returns Array of switch branch paths
- * @example
- * const branches = extractSwitchBranches(ast)
- * // Returns: [{ id: "switch_0_case_0", type: BranchType.Switch, ... }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractSwitchBranches(
 	ast: SourceNode,
 ): Array<BranchPath> {

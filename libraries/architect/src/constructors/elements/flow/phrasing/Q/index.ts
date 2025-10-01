@@ -15,14 +15,9 @@ import isString from "@sitebender/architect/guards/isString/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Q element
- * Allows global attributes and validates q-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Q attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type QElementAttributes = QuotationAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -34,25 +29,8 @@ export type QElementAttributes = QuotationAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Q element configuration object
- *
- * The q element represents some phrasing content quoted from
- * another source.
- *
- * @example
- * ```typescript
- * const q = Q({
- *   cite: "https://example.com/quote-source",
- *   id: "famous-quote"
- * })([
- *   TextNode("To be or not to be")
- * ])
- * ```
- */
-/**
- * Child filter that validates phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isValidQChild = (child: ElementConfig): boolean => {
 	// Accept text nodes and other primitive content
 	if (!child || typeof child !== "object" || !child.tag) {

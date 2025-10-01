@@ -1,51 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Performs bilinear interpolation on a 2D grid
- *
- * Interpolates a value at point (x, y) using the four corner values of the
- * surrounding unit square. Assumes corners are at (0,0), (1,0), (0,1), and
- * (1,1) with values q00, q10, q01, q11 respectively. x and y must be in [0,1].
- * First interpolates in x-direction, then in y-direction. Returns NaN for
- * invalid inputs or coordinates outside [0,1].
- *
- * @param q00 - Value at (0, 0) - bottom-left
- * @param q10 - Value at (1, 0) - bottom-right
- * @param q01 - Value at (0, 1) - top-left
- * @param q11 - Value at (1, 1) - top-right
- * @param x - X-coordinate in [0, 1]
- * @param y - Y-coordinate in [0, 1]
- * @returns Interpolated value at (x, y), or NaN if invalid
- * @curried
- * @pure
- * @safe
- * @example
- * ```typescript
- * // Simple unit square
- * bilinearInterpolation(0)(1)(2)(3)(0.5)(0.5)  // 1.5 (center)
- * bilinearInterpolation(0)(10)(20)(30)(0.5)(0.5)  // 15 (center)
- *
- * // Corner values (no interpolation needed)
- * bilinearInterpolation(5)(10)(15)(20)(0)(0)  // 5 (q00)
- * bilinearInterpolation(5)(10)(15)(20)(1)(1)  // 20 (q11)
- *
- * // Edge interpolation
- * bilinearInterpolation(0)(4)(8)(12)(0.5)(0)  // 2 (bottom edge)
- * bilinearInterpolation(0)(4)(8)(12)(0)(0.5)  // 4 (left edge)
- *
- * // Height map interpolation
- * const terrain = bilinearInterpolation(100)(120)(110)(130)
- * terrain(0.3, 0.7)  // 113 meters
- *
- * // Image pixel smoothing
- * const pixel = bilinearInterpolation(50)(75)(100)(150)
- * pixel(0.5, 0.5)  // 93.75 (smoothed value)
- *
- * // Edge cases
- * bilinearInterpolation(0)(1)(2)(3)(1.5)(0.5)  // NaN (x > 1)
- * bilinearInterpolation(null)(1)(2)(3)(0.5)(0.5)  // NaN
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const bilinearInterpolation = (
 	q00: number | null | undefined,
 ) =>

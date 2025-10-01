@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Video attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type VideoElementAttributes = VideoAttributes & ImageAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,29 +27,9 @@ export type VideoElementAttributes = VideoAttributes & ImageAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Video element
- * Allows global attributes and validates video-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Video element configuration object
- *
- * The video element is used to embed video content in a document.
- *
- * @example
- * ```typescript
- * const video = Video({
- *   src: "movie.mp4",
- *   controls: true,
- *   width: 640,
- *   height: 480,
- *   poster: "poster.jpg"
- * })([
- *   TextNode("Your browser does not support the video tag.")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Video = (attributes: VideoElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

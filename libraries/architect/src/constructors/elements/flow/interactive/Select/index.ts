@@ -13,14 +13,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Select element
- * Allows global attributes and validates select-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Select attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SelectElementAttributes = SelectAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -32,26 +27,7 @@ export type SelectElementAttributes = SelectAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Select element configuration object
- *
- * The select element represents a control that provides a menu of options.
- *
- * @param attributes - Element attributes
- * @param children - Child elements (typically Option and OptGroup elements)
- * @returns Element configuration object
- *
- * @example
- * ```typescript
- * const select = Select({
- *   name: "color",
- *   required: true
- * })([
- *   Option({ value: "red" })("Red"),
- *   Option({ value: "blue" })("Blue")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Select =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {

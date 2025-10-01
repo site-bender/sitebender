@@ -9,15 +9,7 @@ const HEADING_ELEMENTS = [
 	"Hn",
 ]
 
-/**
- * Type guard to check if an element config represents heading content
- *
- * @example
- * ```typescript
- * isHeadingContent({ tag: "H1" }) // true
- * isHeadingContent({ tag: "P" }) // false
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isHeadingContent = ({ tag }: { tag: string }): boolean =>
 	HEADING_ELEMENTS.includes(tag)
 

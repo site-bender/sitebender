@@ -1,10 +1,6 @@
 import type { TokenType } from "../../../types/index.ts"
 
-/**
- * Parses single-character operators and parentheses
- * @param char - Single character to parse
- * @returns Operator info or null if no match
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseOneCharOperator(
 	char: string,
 ): { tokenType: TokenType; tokenValue: string; tokenLength: number } | null {

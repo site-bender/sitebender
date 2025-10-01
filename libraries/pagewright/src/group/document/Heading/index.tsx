@@ -1,1 +1,1 @@
-/** Heading - Semantic heading (h1-h6) with level prop */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style

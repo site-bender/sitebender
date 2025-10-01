@@ -5,12 +5,7 @@ import createComposeContext from "../../../context/composeContext/index.ts"
 import registerDefaultExecutors from "../../../operations/defaults/registerDefaults/index.ts"
 import evaluate from "../../evaluate/index.ts"
 
-/**
- * Minimal IR → HTML string renderer for SSR/SSG.
- * - Supports ElementNode trees
- * - Children may include injectors/operators; they are evaluated to strings
- * - Unknown node kinds are ignored in output
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default async function renderHtml(
 	node: ElementNode,
 	ctx?: ComposeContext,

@@ -10,9 +10,7 @@ import {
 } from "../detectMathProperties/index.ts"
 import detectPurity from "../detectPurity/index.ts"
 
-/**
- * Detects all properties from source code
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function detectProperties(source: string): Properties {
 	const isPure = detectPurity(source)
 	const currying = detectCurrying(source)

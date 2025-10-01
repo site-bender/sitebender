@@ -13,9 +13,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Valid track kinds
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const _TRACK_KINDS = [
 	"subtitles",
 	"captions",
@@ -24,10 +22,7 @@ const _TRACK_KINDS = [
 	"metadata",
 ] as const
 
-/**
- * Extended Track attributes including reactive properties and ARIA
- * Track elements have limited ARIA support (mainly aria-hidden)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TrackElementAttributes = TrackAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -38,28 +33,9 @@ export type TrackElementAttributes = TrackAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Track element
- * Allows global attributes and validates track-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Track element configuration object
- *
- * The track element provides text tracks for audio and video elements.
- * This is a void element (cannot have children).
- *
- * @example
- * ```typescript
- * const track = Track({
- *   src: "subtitles.vtt",
- *   kind: "subtitles",
- *   srcLang: "en",
- *   label: "English Subtitles",
- *   default: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Track = (
 	attributes: Partial<TrackElementAttributes> = {},
 ): ElementConfig => {

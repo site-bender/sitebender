@@ -6,19 +6,7 @@ import type {
 	TemporalDatatype,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Add JSX Component
- *
- * Wrapper for the Add operator constructor.
- * Children are treated as addends to be summed.
- *
- * @example
- * <Add type="Number">
- *   <FromElement id="price" />
- *   <FromElement id="tax" />
- *   <Constant value={5} />
- * </Add>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import AddConstructor from "../../../../../architect/src/constructors/operators/Add/index.ts"
 

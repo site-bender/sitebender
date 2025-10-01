@@ -1,10 +1,6 @@
 import type { FunctionSignature } from "../../../types/index.ts"
 
-/**
- * Infers expected output for empty array inputs
- * @param signature Function signature information
- * @returns Inferred output value for empty array
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function inferEmptyArrayOutput(
 	signature: FunctionSignature,
 ): unknown {

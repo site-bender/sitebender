@@ -1,14 +1,4 @@
-/**
- * ExpectedValue Wrapper Component
- *
- * Used with IsEqualTo and IsUnequalTo to specify the expected value.
- *
- * @example
- * <IsEqualTo>
- *   <Value><FromElement id="status" /></Value>
- *   <ExpectedValue><Constant value="active" /></ExpectedValue>
- * </IsEqualTo>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type ExpectedValueProps = {
 	children?: JSX.Element | JSX.Element[]

@@ -14,28 +14,11 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Title element
- * Allows global attributes and validates title-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Title element configuration object
- *
- * The title element represents the title of the document.
- * It can only contain text content.
- *
- * @example
- * ```typescript
- * const title = Title({
- *   id: "page-title"
- * })("Page Title")
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Title attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TitleElementAttributes = TitleAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>

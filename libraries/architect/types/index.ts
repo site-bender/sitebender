@@ -1,10 +1,5 @@
 /// <reference path="./shims/temporal.d.ts" />
-/**
- * Type definitions for the Architect library
- *
- * This file contains all the type definitions for the architect system,
- * including operators, injectors, comparators, and their configurations.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // ============================================================================
 // Base Types

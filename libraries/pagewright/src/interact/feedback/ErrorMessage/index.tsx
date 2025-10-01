@@ -3,13 +3,7 @@ export type Props = Record<string, unknown> & {
 	id?: string
 }
 
-/**
- * ErrorMessage
- *
- * Accessible inline error message for form fields.
- * - Always renders role="alert" for assistive tech announcement
- * - Intended to be referenced by inputs via aria-describedby
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function ErrorMessage({
 	children,
 	classes = [],

@@ -16,14 +16,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Meter element
- * Allows global attributes and validates meter-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Meter attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type MeterElementAttributes = MeterAttributes & MeterAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -34,29 +29,9 @@ export type MeterElementAttributes = MeterAttributes & MeterAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Meter element
- * Allows global attributes and validates meter-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Meter element configuration object
- *
- * The meter element represents a scalar measurement within a known range,
- * or a fractional value; for example disk usage, the relevance of a query result, or the fraction of a voting population.
- *
- * @example
- * ```typescript
- * const meter = Meter({
- *   value: 6,
- *   min: 0,
- *   max: 10,
- *   optimum: 8
- * })([
- *   TextNode("6 out of 10")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Meter = (attributes: Partial<MeterElementAttributes> = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

@@ -1,16 +1,10 @@
-/**
- * Remove exact duplicate test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../types/index.ts"
 
 import computeTestHash from "./computeTestHash/index.ts"
 
-/**
- * Remove exact duplicate test cases based on input/output combinations
- * @param tests Array of test cases
- * @returns Array with exact duplicates removed
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function removeDuplicates(
 	tests: Array<TestCase>,
 ): Array<TestCase> {

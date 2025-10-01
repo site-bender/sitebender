@@ -1,14 +1,4 @@
-/**
- * By Wrapper Component
- *
- * Used with Divide to specify the divisor.
- *
- * @example
- * <Divide>
- *   <Value><FromElement id="total" /></Value>
- *   <By><FromElement id="numPeople" /></By>
- * </Divide>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type ByProps = {
 	children?: JSX.Element | JSX.Element[]

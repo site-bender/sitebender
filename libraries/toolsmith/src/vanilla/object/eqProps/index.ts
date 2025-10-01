@@ -2,54 +2,7 @@ import type { Value } from "../../../types/index.ts"
 
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Checks if two objects have equal values for a specified property
- *
- * Compares the values of a specific property in two objects using
- * deep equality comparison. Returns true if both values are deeply
- * equal, false otherwise. Handles nested objects, arrays, and special
- * types like Date and RegExp.
- *
- * @pure
- * @curried
- * @predicate
- * @param prop - The property key to compare
- * @param obj1 - The first object
- * @param obj2 - The second object
- * @returns True if the property values are equal, false otherwise
- * @example
- * ```typescript
- * // Basic property comparison
- * eqProps("a")({ a: 1, b: 2 })({ a: 1, c: 3 })    // true
- * eqProps("a")({ a: 1 })({ a: 2 })                // false
- *
- * // Missing properties
- * eqProps("x")({ a: 1 })({ b: 2 })                // true (both undefined)
- * eqProps("x")({ x: null })({ x: undefined })     // false
- *
- * // Deep equality for objects
- * eqProps("data")(
- *   { data: { x: 1, y: 2 } }
- * )(
- *   { data: { x: 1, y: 2 } }
- * ) // true
- *
- * // Array comparison
- * eqProps("items")({ items: [1, 2, 3] })({ items: [1, 2, 3] }) // true
- * eqProps("items")({ items: [1, 2, 3] })({ items: [1, 3, 2] }) // false
- *
- * // Date and RegExp objects
- * const date1 = new Date("2024-01-01")
- * const date2 = new Date("2024-01-01")
- * eqProps("created")({ created: date1 })({ created: date2 }) // true
- * eqProps("pattern")({ pattern: /test/gi })({ pattern: /test/gi }) // true
- *
- * // Partial application for validation
- * const haveSameId = eqProps("id")
- * haveSameId({ id: 1, name: "A" })({ id: 1, name: "B" }) // true
- * haveSameId({ id: 1 })({ id: 2 })                       // false
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const eqProps = <K extends string | symbol>(
 	prop: K,
 ) =>

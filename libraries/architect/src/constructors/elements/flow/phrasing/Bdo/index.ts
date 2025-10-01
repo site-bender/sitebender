@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Bdo attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BdoElementAttributes =
 	& BidirectionalTextOverrideAttributes
 	& AriaAttributes
@@ -32,26 +30,9 @@ export type BdoElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Bdo element
- * Allows global attributes and validates bdo-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Bdo element configuration object
- *
- * The bdo element represents explicit text directionality formatting control
- * for its children. It allows you to override the Unicode bidirectional algorithm.
- *
- * @example
- * ```typescript
- * const bdo = Bdo({
- *   dir: "rtl"
- * })([
- *   TextNode("Hello World")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Bdo = (attributes: BdoElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

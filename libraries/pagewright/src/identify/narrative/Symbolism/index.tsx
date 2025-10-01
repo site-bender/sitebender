@@ -5,38 +5,17 @@ type BaseProps = Record<string, unknown>
 export type Props = BaseProps & {
 	element?: "span" | "div" | "em" | "strong"
 	define?: "microdata" | "linkedData" | "both"
-	/**
-	 * What this symbol represents
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	represents?: string
-	/**
-	 * Type of symbolism (e.g., "metaphor", "allegory", "motif", "archetype")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	symbolType?: string
-	/**
-	 * How explicit the symbolism is (e.g., "subtle", "apparent", "explicit")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	explicitness?: string
-	/**
-	 * Thematic connection (e.g., "death", "rebirth", "freedom", "oppression")
-	 */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	theme?: string
 }
 
-/**
- * Marks symbolic representations in narrative text.
- * Used for metaphors, allegories, motifs, and other symbolic elements.
- *
- * @example
- * <Symbolism represents="hope" symbolType="metaphor">
- *   The single green shoot pushing through the concrete
- * </Symbolism>
- *
- * @example
- * <Symbolism represents="isolation" theme="loneliness" symbolType="motif">
- *   the locked door
- * </Symbolism>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function Symbolism({
 	element: Element = "span",
 	define: _define,

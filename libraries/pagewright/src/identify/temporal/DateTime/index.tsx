@@ -1,40 +1,4 @@
-/**
- * DateTime component
- *
- * Architect component that renders date and time together. Works as
- * PlainDateTime without timezone (local wall-clock time), or as
- * ZonedDateTime when timezone is provided.
- *
- * Example usage:
- *
- * // Local datetime (no timezone)
- * <DateTime value="2024-01-15T14:30:00" />
- *
- * // With locale formatting
- * <DateTime value="2024-01-15T14:30:00" locale="en-GB" />
- * // → 15 January 2024, 14:30
- *
- * // With timezone (becomes ZonedDateTime)
- * <DateTime
- *   value="2024-01-15T14:30:00"
- *   timezone="America/New_York"
- *   locale="en-US"
- * />
- * // → January 15, 2024, 2:30 PM EST
- *
- * // With calendar system
- * <DateTime
- *   value="2024-01-15T14:30:00"
- *   timezone="Asia/Tokyo"
- *   calendar="japanese"
- *   locale="ja-JP"
- * />
- * // → 令和6年1月15日 14:30
- *
- * // UTC instant (Z suffix)
- * <DateTime value="2024-01-15T19:30:00Z" showZone />
- * // → January 15, 2024, 7:30 PM UTC
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

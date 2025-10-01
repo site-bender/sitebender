@@ -1,11 +1,6 @@
 import type CoverageData from "../parseLcovReport/types/index.ts"
 
-/**
- * Finds uncovered lines for a specific function file
- * @param coverageData Coverage data from lcov report
- * @param functionPath Path to the function file
- * @returns Array of uncovered line numbers
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function findUncoveredLines(
 	coverageData: CoverageData,
 	functionPath: string,

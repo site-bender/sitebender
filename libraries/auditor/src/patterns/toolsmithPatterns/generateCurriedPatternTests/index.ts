@@ -1,14 +1,8 @@
-/**
- * Generate tests for curried pattern functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 
-/**
- * Generate test cases for curried functions
- * @param signature Function signature
- * @returns Array of curry-specific test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateCurriedPatternTests(
 	signature: FunctionSignature,
 ): Array<TestCase> {

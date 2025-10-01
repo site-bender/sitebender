@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsAfterDate JSX Component
- *
- * Wrapper for the IsAfterDate comparator constructor.
- * Checks if a date is after another date.
- * Requires <Value> and <Date> wrapper components.
- *
- * @example
- * <IsAfterDate>
- *   <Value><FromElement id="eventDate" type="Date" /></Value>
- *   <Date><Constant value="2024-12-25" /></Date>
- * </IsAfterDate>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsAfterDateConstructor from "../../../../../architect/src/constructors/comparators/date/IsAfterDate/index.ts"
 

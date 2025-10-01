@@ -1,43 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the internal rate of return (IRR) for a series of cash flows
- *
- * Computes the discount rate that makes the net present value (NPV) of all
- * cash flows equal to zero. Uses the Newton-Raphson method to find the root
- * of the NPV equation. The first cash flow is typically negative (initial
- * investment) followed by positive returns. Returns the IRR as a decimal
- * (e.g., 0.12 for 12%). Converges to a solution within 0.00001 accuracy
- * or 100 iterations.
- *
- * @param cashFlows - Array of cash flows (first is usually negative)
- * @returns IRR as decimal (0.1 = 10%), or NaN if no solution
- * @example
- * ```typescript
- * // Simple investment: -$1000 initial, $500 returns for 3 years
- * internalRateOfReturn([-1000, 500, 500, 500]) // 0.2337... (23.37% IRR)
- *
- * // Project with varying returns
- * internalRateOfReturn([-10000, 3000, 4000, 5000, 6000]) // 0.2520... (25.20% IRR)
- *
- * // Break-even (0% return)
- * internalRateOfReturn([-1000, 500, 500]) // 0 (exactly break even)
- *
- * // Loss-making investment (negative IRR)
- * internalRateOfReturn([-1000, 400, 400]) // -0.1312... (-13.12% IRR)
- *
- * // Real estate investment
- * const property = [-200000, 24000, 24000, 24000, 24000, 250000]
- * internalRateOfReturn(property) // 0.1547... (15.47% annual return)
- *
- * // Edge cases
- * internalRateOfReturn([-1000, -500, -200]) // NaN (no positive flows)
- * internalRateOfReturn([]) // NaN
- * internalRateOfReturn(null) // NaN
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const internalRateOfReturn = (
 	cashFlows: Array<number> | null | undefined,
 ): number => {

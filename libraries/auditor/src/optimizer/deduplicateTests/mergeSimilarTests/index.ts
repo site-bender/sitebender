@@ -1,17 +1,11 @@
-/**
- * Merge similar test cases that can be combined
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../types/index.ts"
 
 import areSimilar from "./areSimilar/index.ts"
 import mergeTestCases from "./mergeTestCases/index.ts"
 
-/**
- * Merge similar test cases that test the same behavior
- * @param tests Array of test cases
- * @returns Array with similar tests merged
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function mergeSimilarTests(
 	tests: Array<TestCase>,
 ): Array<TestCase> {

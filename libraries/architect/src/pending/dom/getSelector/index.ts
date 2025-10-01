@@ -6,18 +6,7 @@ type SelectorSource = {
 	tag?: string
 }
 
-/**
- * Generates a CSS selector from various source properties
- *
- * @param source - Object containing selector information
- * @returns CSS selector string
- * @example
- * ```typescript
- * getSelector({ id: "myId" }) // "#myId"
- * getSelector({ name: "fieldName", tag: "input" }) // "input[name=fieldName]"
- * getSelector({ selector: ".custom" }) // ".custom"
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const getSelector = (source: SelectorSource): string | null => {
 	if (!source) return null
 	const { form, id, name, selector, tag } = source

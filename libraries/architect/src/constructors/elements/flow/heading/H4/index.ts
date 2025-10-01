@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended H4 attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type H4ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,21 +27,9 @@ export type H4ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for H4 element
- * Allows global attributes and validates heading-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an H4 element configuration object
- *
- * @example
- * ```typescript
- * const h4 = H4({ id: "minor-title", role: "tab" })([
- *   TextNode("Minor Heading")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const H4 = (attributes: H4ElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

@@ -1,41 +1,4 @@
-/**
- * Transposes a matrix (2D array)
- *
- * Swaps rows and columns of a matrix, converting an m×n matrix to
- * an n×m matrix where element [i][j] becomes element [j][i].
- * Returns NaN for invalid inputs or non-rectangular matrices.
- * Returns empty array for empty input.
- *
- * @param matrix - 2D array representing the matrix
- * @returns Transposed matrix, or NaN if invalid
- * @example
- * ```typescript
- * // 2×3 matrix to 3×2
- * matrixTranspose([[1, 2, 3], [4, 5, 6]])
- * // [[1, 4], [2, 5], [3, 6]]
- *
- * // Square matrix
- * matrixTranspose([[1, 2], [3, 4]])
- * // [[1, 3], [2, 4]]
- *
- * // Row vector to column vector
- * matrixTranspose([[1, 2, 3, 4]])
- * // [[1], [2], [3], [4]]
- *
- * // Column vector to row vector
- * matrixTranspose([[1], [2], [3]])
- * // [[1, 2, 3]]
- *
- * // Non-rectangular matrix
- * matrixTranspose([[1, 2, 3], [4, 5]])  // NaN
- *
- * // Invalid inputs
- * matrixTranspose(null)  // NaN
- * matrixTranspose([1, 2, 3])  // NaN (not 2D)
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import isNullish from "../../validation/isNullish/index.ts"
 
 const matrixTranspose = (

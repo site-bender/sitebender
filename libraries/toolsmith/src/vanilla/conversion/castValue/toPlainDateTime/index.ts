@@ -14,55 +14,7 @@ import isObject from "../../../validation/isObject/index.ts"
 import isPlainDateTime from "../../../validation/isPlainDateTime/index.ts"
 import isString from "../../../validation/isString/index.ts"
 
-/**
- * Parses values into Temporal PlainDateTime objects
- *
- * Converts various date-time representations to Temporal.PlainDateTime.
- * Returns null for invalid inputs rather than throwing errors.
- *
- * Parsing rules:
- * - Temporal.PlainDateTime: returned as-is
- * - Temporal.ZonedDateTime: removes timezone
- * - Strings: ISO 8601 datetime format (YYYY-MM-DDTHH:MM:SS)
- * - Date objects: converted to PlainDateTime in local timezone
- * - PlainDate: becomes midnight (00:00:00) of that date
- * - PlainTime: becomes that time on 1970-01-01
- * - PlainDateTimeLike: object with year, month, day, and optional time fields
- * - null/undefined: null
- *
- * @param value - The value to convert to PlainDateTime
- * @returns The PlainDateTime representation or null if invalid
- * @example
- * ```typescript
- * // ISO datetime strings
- * toPlainDateTime("2024-03-15T14:30:00")     // PlainDateTime 2024-03-15 14:30:00
- * toPlainDateTime("2024-03-15")              // PlainDateTime 2024-03-15 00:00:00
- *
- * // Temporal objects
- * const plainDate = Temporal.PlainDate.from("2024-03-15")
- * toPlainDateTime(plainDate)                 // PlainDateTime 2024-03-15 00:00:00
- *
- * const plainTime = Temporal.PlainTime.from("14:30:00")
- * toPlainDateTime(plainTime)                 // PlainDateTime 1970-01-01 14:30:00
- *
- * // PlainDateTimeLike objects
- * toPlainDateTime({
- *   year: 2024, month: 3, day: 15,
- *   hour: 14, minute: 30
- * })                                          // PlainDateTime 2024-03-15 14:30:00
- *
- * // Invalid inputs
- * toPlainDateTime("2024-13-01T12:00:00")     // null (month 13 invalid)
- * toPlainDateTime(null)                      // null
- * toPlainDateTime(123)                       // null
- *
- * // Date objects
- * const jsDate = new Date("2024-03-15T14:30:45.123Z")
- * toPlainDateTime(jsDate)                    // PlainDateTime in local timezone
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function toPlainDateTime(
 	value: DateTimeInput | null | undefined,
 ): Temporal.PlainDateTime | null {

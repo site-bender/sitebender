@@ -13,9 +13,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Br attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BrElementAttributes = GlobalAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -26,22 +24,9 @@ export type BrElementAttributes = GlobalAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Br element
- * Allows global attributes only
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Br element configuration object
- *
- * The br element represents a line break.
- * It is a void element and cannot contain children.
- *
- * @example
- * ```typescript
- * const br = Br({ id: "line-break" })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function Br(
 	attributes: BrElementAttributes = {},
 ): ElementConfig {

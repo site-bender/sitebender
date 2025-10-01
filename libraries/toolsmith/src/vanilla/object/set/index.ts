@@ -2,42 +2,7 @@ import type { Value } from "../../../types/index.ts"
 
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Immutably sets a value at a nested path in an object
- *
- * Creates a new object with the value at the specified path updated.
- * Intermediate objects are created as needed. The original object is not modified.
- * Supports both dot notation strings and array paths.
- *
- * @param pathInput - Dot-separated string or array of keys where to set the value
- * @param value - The value to set at the path
- * @param obj - The object to update
- * @returns A new object with the value set at the path
- * @example
- * // Set a simple property
- * set("name")("Bob")({ name: "Alice", age: 30 })
- * // { name: "Bob", age: 30 }
- *
- * // Set a nested property
- * set("user.email")("new@example.com")({
- *   user: { name: "Alice", email: "old@example.com" }
- * })
- * // { user: { name: "Alice", email: "new@example.com" } }
- *
- * // Create intermediate objects as needed
- * set("a.b.c")(42)({})
- * // { a: { b: { c: 42 } } }
- *
- * // Array path notation
- * set(["user", "settings", "theme"])("dark")({
- *   user: { settings: { theme: "light" } }
- * })
- * // { user: { settings: { theme: "dark" } } }
- * @pure
- * @immutable
- * @curried
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const set =
 	(pathInput: string | Array<string | number>) =>
 	<V extends Value>(value: V) =>

@@ -12,9 +12,7 @@ import type { InputNumberAttributes } from "@sitebender/architect/constructors/e
 import Input from "../index.ts"
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended InputNumber attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputNumberElementAttributes =
 	& InputNumberAttributes
 	& InputNumberAriaAttributes
@@ -28,26 +26,9 @@ export type InputNumberElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for InputNumber element
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an InputNumber element configuration object
- *
- * The number input allows users to input numeric values.
- *
- * @example
- * ```typescript
- * const input = InputNumber({
- *   name: "quantity",
- *   min: 1,
- *   max: 100,
- *   step: 1,
- *   placeholder: "Enter quantity"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputNumber = Input("number")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

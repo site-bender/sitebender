@@ -1,16 +1,10 @@
-/**
- * Optimize branch coverage tests
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../types/index.ts"
 
 import findMinimalBranchSet from "./findMinimalBranchSet/index.ts"
 
-/**
- * Optimize branch coverage tests to find minimal set covering all branches
- * @param tests Array of test cases
- * @returns Optimized array with minimal branch coverage
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function optimizeBranchTests(
 	tests: Array<TestCase>,
 ): Array<TestCase> {

@@ -1,13 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Reduce a Set to a single value using an accumulator function
- *
- * @pure
- * @curried
- * @immutable Does not modify the input Set
- * @safe Returns the initial value for null/undefined inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const reduce = <T, U>(fn: (accumulator: U, value: T) => U) =>
 (initial: U) =>
 (

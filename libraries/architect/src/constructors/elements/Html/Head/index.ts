@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Head attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type HeadElementAttributes = HeadAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,28 +27,9 @@ export type HeadElementAttributes = HeadAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Head element
- * Allows global attributes only (no element-specific attributes)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Head element configuration object
- *
- * The head element represents a collection of metadata for the document.
- * It can only contain metadata content (title, meta, link, style, script, etc.).
- *
- * @example
- * ```typescript
- * const head = Head({
- *   id: "document-head"
- * })([
- *   Title()("Page Title"),
- *   Meta({ charset: "utf-8" }),
- *   Link({ rel: "stylesheet", href: "styles.css" })
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Head = (attributes: HeadElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

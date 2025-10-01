@@ -1,6 +1,4 @@
-/**
- * Format relative time (e.g., "3 days ago")
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatRelativeTime(
 	date: Date | string,
 	relativeTo: Date = new Date(),

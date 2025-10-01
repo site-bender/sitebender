@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Nav attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type NavElementAttributes = NavigationAttributes & NavAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,33 +27,9 @@ export type NavElementAttributes = NavigationAttributes & NavAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Nav element
- * Allows global attributes and validates nav-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Nav element configuration object
- *
- * The nav element represents a section of navigation links.
- * It is appropriate for major navigation blocks.
- *
- * @example
- * ```typescript
- * const nav = Nav({
- *   id: "main-nav",
- *   class: "navigation",
- *   role: "navigation",
- *   "aria-label": "Main navigation"
- * })([
- *   Ul()([
- *     Li()([A({ href: "/" })("Home")]),
- *     Li()([A({ href: "/about" })("About")]),
- *     Li()([A({ href: "/contact" })("Contact")])
- *   ])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Nav = (attributes: NavElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

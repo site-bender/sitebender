@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Obj attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ObjElementAttributes = ObjectAttributes & ImageAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,29 +27,9 @@ export type ObjElementAttributes = ObjectAttributes & ImageAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Object element
- * Allows global attributes and validates object-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Object element configuration object
- *
- * The object element can represent an external resource,
- * which can be treated as an image, a nested browsing context, or a resource.
- *
- * @example
- * ```typescript
- * const obj = Obj({
- *   data: "flash-movie.swf",
- *   type: "application/x-shockwave-flash",
- *   width: 400,
- *   height: 300
- * })([
- *   TextNode("Flash content not supported")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Obj = (attributes: ObjElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

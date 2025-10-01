@@ -11,9 +11,7 @@ import type { ElementConfig } from "@sitebender/architect/constructors/elements/
 import GlobalOnly from "@sitebender/architect/constructors/abstracted/GlobalOnly/index.ts"
 import isFlowContent from "@sitebender/architect/guards/isFlowContent/index.ts"
 
-/**
- * Child filter that validates flow content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const flowContentFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		return isFlowContent()(
@@ -24,23 +22,9 @@ const flowContentFilter = (child: ElementConfig): boolean => {
 	return true
 }
 
-/**
- * Creates a Caption element configuration object
- *
- * The caption element represents a title or legend for a table.
- * It can contain flow content.
- *
- * @example
- * ```typescript
- * const caption = Caption({ id: "table-caption" })([
- *   TextNode("Sales Report for Q1 2023")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Caption attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CaptionElementAttributes = TableCaptionAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand

@@ -3,53 +3,7 @@ import type { ParserContext } from "../parseExpression/index.ts"
 
 import parseBinaryExpression from "../parseBinaryExpression/index.ts"
 
-/**
- * Parses a conditional (ternary) expression: condition ? ifTrue : ifFalse
- * Handles the lowest precedence operator in the expression hierarchy.
- *
- * @param ctx - Parser context with tokens and position
- * @returns Result containing conditional AST node or parse error
- *
- * @example
- * ```typescript
- * // Example 1: Simple conditional
- * const ctx = createParserContext(tokenize("a > 5 ? x : y"))
- * const result = parseConditionalExpression(ctx)
- * // Returns: { ok: true, value: { type: "Conditional", condition: ..., ifTrue: ..., ifFalse: ... } }
- * ```
- *
- * @example
- * ```typescript
- * // Example 2: Nested conditionals
- * const ctx = createParserContext(tokenize("a > 0 ? x : b > 0 ? y : z"))
- * const result = parseConditionalExpression(ctx)
- * // Returns nested conditional AST (right-associative)
- * ```
- *
- * @example
- * ```typescript
- * // Example 3: Complex conditions
- * const ctx = createParserContext(tokenize("(a + b) > (c + d) ? x * 2 : y / 2"))
- * const result = parseConditionalExpression(ctx)
- * // Returns conditional with complex expressions in all branches
- * ```
- *
- * @example
- * ```typescript
- * // Example 4: Without conditional (falls through to binary expression)
- * const ctx = createParserContext(tokenize("a + b"))
- * const result = parseConditionalExpression(ctx)
- * // Returns: { ok: true, value: { type: "BinaryOp", operator: "+", ... } }
- * ```
- *
- * @example
- * ```typescript
- * // Example 5: Missing colon error
- * const ctx = createParserContext(tokenize("a > 5 ? x"))
- * const result = parseConditionalExpression(ctx)
- * // Returns: { ok: false, error: { message: "Expected ':' in conditional expression", ... } }
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseConditionalExpression(
 	ctx: ParserContext,
 ): Result<AstNode, ParseError> {

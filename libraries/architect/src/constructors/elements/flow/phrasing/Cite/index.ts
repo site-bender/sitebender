@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Cite attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CiteElementAttributes = CitationAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type CiteElementAttributes = CitationAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Cite element
- * Allows global attributes and validates cite-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Cite element configuration object
- *
- * The cite element represents the title of a creative work.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const cite = Cite({
- *   id: "book-title",
- *   class: "citation"
- * })([
- *   TextNode("The Great Gatsby")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Cite = (attributes: CiteElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

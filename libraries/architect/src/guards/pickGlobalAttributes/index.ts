@@ -9,9 +9,7 @@ import isMemberOf from "../../guards/isMemberOf/index.ts"
 import isString from "../../guards/isString/index.ts"
 import isTabIndex from "../../guards/isTabIndex/index.ts"
 
-/**
- * Global HTML attributes with comprehensive validation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const globalAttributes = {
 	// canonical keys per GlobalAttributes
 	accessKey: isCharacter,
@@ -81,12 +79,7 @@ const toCanonicalKey = (key: string): keyof GlobalAttributes | undefined => {
 	}
 }
 
-/**
- * Filters and validates global HTML attributes
- *
- * @param attributes - Input attributes object
- * @returns Validated global attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function pickGlobalAttributes(
 	attributes: Record<string, unknown> = {},
 ): GlobalAttributes {

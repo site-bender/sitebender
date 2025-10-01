@@ -1,43 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the hypotenuse for multiple dimensions
- *
- * Computes the Euclidean norm (length) of a vector, equivalent to the
- * distance from the origin. For 2D, this is the Pythagorean theorem:
- * √(x² + y²). Generalizes to n dimensions as √(Σxᵢ²). Uses a numerically
- * stable algorithm to avoid overflow. Returns NaN for invalid inputs.
- *
- * @param values - Array of coordinate values
- * @returns Length of the vector (hypotenuse), or NaN if invalid
- * @example
- * ```typescript
- * // Classic Pythagorean theorem (3-4-5 triangle)
- * hypotenuse([3, 4]) // 5
- * hypotenuse([5, 12]) // 13
- *
- * // 3D and 4D space
- * hypotenuse([2, 3, 6]) // 7
- * hypotenuse([1, 2, 2, 2]) // 3.605...
- *
- * // Edge cases
- * hypotenuse([]) // 0
- * hypotenuse([-3, 4]) // 5 (signs don't matter)
- * hypotenuse([1e200, 1e200]) // 1.414...e200 (avoids overflow)
- *
- * // Invalid inputs
- * hypotenuse(null) // NaN
- *
- * // Practical use: normalize vector
- * const normalizeVector = (v: number[]): number[] => {
- *   const length = hypotenuse(v)
- *   return length === 0 ? v : v.map(x => x / length)
- * }
- * normalizeVector([3, 4]) // [0.6, 0.8]
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const hypotenuse = (
 	values: number[] | null | undefined,
 ): number => {

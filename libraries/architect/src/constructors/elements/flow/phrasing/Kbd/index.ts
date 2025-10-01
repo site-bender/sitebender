@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Kbd attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type KbdElementAttributes = KeyboardInputAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type KbdElementAttributes = KeyboardInputAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Kbd element
- * Allows global attributes and validates kbd-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Kbd element configuration object
- *
- * The kbd element represents user input (typically keyboard input).
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const kbd = Kbd({
- *   id: "keyboard-shortcut",
- *   class: "key-combination"
- * })([
- *   TextNode("Ctrl+C")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Kbd = (attributes: KbdElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

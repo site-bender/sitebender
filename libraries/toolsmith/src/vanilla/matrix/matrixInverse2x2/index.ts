@@ -1,39 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the inverse of a 2x2 matrix
- *
- * Computes the inverse of a 2x2 matrix [[a, b], [c, d]] using the formula:
- * inverse = (1/determinant) * [[d, -b], [-c, a]]. The determinant is ad - bc.
- * Returns null if the matrix is singular (determinant = 0) or invalid.
- * The inverse matrix satisfies: A * A^(-1) = I (identity matrix).
- *
- * @param matrix - 2x2 matrix as array of arrays [[a, b], [c, d]]
- * @returns Inverse matrix or null if singular/invalid
- * @example
- * ```typescript
- * // Basic usage
- * matrixInverse2x2([[2, 1], [1, 2]])
- * // [[0.666..., -0.333...], [-0.333..., 0.666...]]
- *
- * // Identity matrix (inverse is itself)
- * matrixInverse2x2([[1, 0], [0, 1]])
- * // [[1, 0], [0, 1]]
- *
- * // Rotation matrix inverse
- * matrixInverse2x2([[0, -1], [1, 0]])
- * // [[0, 1], [-1, 0]]
- *
- * // Singular matrix (determinant = 0)
- * matrixInverse2x2([[1, 2], [2, 4]])
- * // null
- *
- * // Invalid input
- * matrixInverse2x2([[1, 2]])  // null (not 2x2)
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const matrixInverse2x2 = (
 	matrix: Array<Array<number>> | null | undefined,
 ): Array<Array<number>> | null => {

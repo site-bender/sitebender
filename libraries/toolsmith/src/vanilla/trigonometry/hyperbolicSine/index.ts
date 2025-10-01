@@ -1,39 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the hyperbolic sine of a number
- *
- * Computes sinh(x) = (e^x - e^(-x)) / 2, where e is Euler's number.
- * The hyperbolic sine function is the odd part of the exponential
- * function and appears in solutions to differential equations,
- * special relativity, and hanging chain problems (catenary curves).
- * Returns NaN for invalid inputs.
- *
- * @param x - The input value in radians
- * @returns Hyperbolic sine of x, or NaN if invalid
- * @pure
- * @safe
- * @example
- * ```typescript
- * // Basic values
- * hyperbolicSine(0)  // 0
- * hyperbolicSine(1)  // 1.175...
- * hyperbolicSine(-1) // -1.175... (odd function)
- * hyperbolicSine(2)  // 3.626...
- *
- * // Special values
- * hyperbolicSine(Infinity)  // Infinity
- * hyperbolicSine(-Infinity) // -Infinity
- *
- * // Edge cases
- * hyperbolicSine(NaN)  // NaN
- * hyperbolicSine(null) // NaN
- *
- * // Exponential form
- * const sinhExp = (x: number) =>
- *   (Math.exp(x) - Math.exp(-x)) / 2
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const hyperbolicSine = (
 	x: number | null | undefined,
 ): number => {

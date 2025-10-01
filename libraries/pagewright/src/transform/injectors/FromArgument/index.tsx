@@ -1,17 +1,6 @@
 import type { FromArgumentInjector } from "../../../../../architect/types/index.ts"
 
-/**
- * FromArgument JSX Component
- *
- * Wrapper for the FromArgument injector constructor.
- * Gets a value passed as an argument to a calculation.
- *
- * @example
- * <FromArgument
- *   name="userId"
- *   type="String"
- * />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromArgumentConstructor from "../../../../../architect/src/constructors/injectors/FromArgument/index.ts"
 

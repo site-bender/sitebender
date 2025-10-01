@@ -1,45 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Returns the nth Fibonacci number
- *
- * Calculates the nth number in the Fibonacci sequence, where each number
- * is the sum of the two preceding ones. The sequence starts with 0 and 1.
- * Uses an iterative approach for efficiency. Returns NaN for negative
- * indices, non-integers, or invalid inputs. Limited to n ≤ 78 to avoid
- * exceeding JavaScript's MAX_SAFE_INTEGER.
- *
- * @param n - Zero-based index of the Fibonacci number to calculate
- * @returns The nth Fibonacci number, or NaN if invalid
- * @example
- * ```typescript
- * fibonacci(0)
- * // 0
- *
- * fibonacci(1)
- * // 1
- *
- * fibonacci(5)
- * // 5
- *
- * fibonacci(10)
- * // 55
- *
- * fibonacci(20)
- * // 6765
- *
- * fibonacci(78)
- * // 8944394323791464
- *
- * fibonacci(79)
- * // NaN
- *
- * fibonacci(null)
- * // NaN
- * ```
- * @pure - Always returns same result for same input
- * @safe - Returns NaN for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const fibonacci = (
 	n: number | null | undefined,
 ): number => {

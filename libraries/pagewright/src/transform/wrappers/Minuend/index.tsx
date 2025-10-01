@@ -1,15 +1,4 @@
-/**
- * Minuend JSX Component
- *
- * Mathematical alias for From in Subtract operations.
- * The minuend is the number from which another number is subtracted.
- *
- * @example
- * <Subtract>
- *   <Minuend><FromElement id="total" type="Number" /></Minuend>
- *   <Subtrahend><FromElement id="discount" type="Number" /></Subtrahend>
- * </Subtract>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type MinuendProps = {
 	children?: JSX.Element | JSX.Element[]

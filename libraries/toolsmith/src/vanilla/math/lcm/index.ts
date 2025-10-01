@@ -2,57 +2,7 @@ import isNullish from "../../validation/isNullish/index.ts"
 import gcd from "../gcd/index.ts"
 
 //++ Calculates the least common multiple (LCM) of two integers; returns NaN on invalid input
-/**
- * Calculates the least common multiple of two integers
- *
- * Finds the smallest positive integer that is divisible by both numbers.
- * Uses the formula LCM(a,b) = |a × b| / GCD(a,b) for efficiency. Works
- * with negative numbers by using their absolute values. Returns NaN for
- * non-integers, invalid inputs, or when either number is zero.
- *
- * @param a - First integer
- * @param b - Second integer
- * @returns Least common multiple, or NaN if invalid
- * @example
- * ```typescript
- * // Basic usage
- * lcm(4)(6)
- * // 12
- *
- * lcm(12)(18)
- * // 36
- *
- * lcm(3)(5)
- * // 15
- *
- * // Same number
- * lcm(10)(10)
- * // 10
- *
- * // One divides the other
- * lcm(5)(20)
- * // 20
- *
- * // Negative numbers
- * lcm(-4)(6)
- * // 12
- *
- * // Invalid inputs
- * lcm(0)(5)
- * // NaN
- *
- * lcm(12.5)(8)
- * // NaN
- *
- * // Partial application
- * const lcmWith12 = lcm(12)
- * lcmWith12(8)
- * // 24
- * ```
- * @pure Always returns same result for same inputs
- * @curried Enables partial application and composition
- * @safe Returns NaN for invalid inputs or zero
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const lcm = (
 	a: number | null | undefined,
 ) =>

@@ -1,41 +1,4 @@
-/**
- * Splits a string into an array of words
- *
- * Intelligently identifies word boundaries in various formats including
- * camelCase, PascalCase, snake_case, kebab-case, and regular sentences.
- * Handles acronyms, numbers, and special cases gracefully.
- *
- * @param str - String to split into words
- * @returns Array of words found in the string
- * @example
- * ```typescript
- * // camelCase and PascalCase
- * words("camelCase")          // ["camel", "Case"]
- * words("PascalCase")         // ["Pascal", "Case"]
- * words("XMLHttpRequest")     // ["XML", "Http", "Request"]
- *
- * // snake_case and kebab-case
- * words("snake_case_example") // ["snake", "case", "example"]
- * words("kebab-case-example") // ["kebab", "case", "example"]
- *
- * // Regular sentences
- * words("Hello, world!")      // ["Hello", "world"]
- *
- * // Mixed formats
- * words("getData_fromAPI")    // ["get", "Data", "from", "API"]
- *
- * // Numbers and acronyms
- * words("HTML5Parser")        // ["HTML", "5", "Parser"]
- * words("HTTPSConnection")    // ["HTTPS", "Connection"]
- *
- * // Edge cases
- * words("")                   // []
- * words("!!!")                // []
- * ```
- * @pure - Function has no side effects
- * @immutable - Does not modify inputs
- * @safe - Returns safe values for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const words = (str: string | null | undefined): Array<string> => {
 	if (!str || typeof str !== "string") {
 		return []

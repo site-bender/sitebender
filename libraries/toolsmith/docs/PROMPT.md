@@ -152,22 +152,21 @@ The monads folder has been audited and contains 70+ files with violations that M
 ### Conversion Rules (MUST FOLLOW EXACTLY):
 
 1. **Arrow → Named Function:**
+
    ```typescript
    // ❌ WRONG
-   const foo = <T>(x: T) => result
+   const foo = <T>(x: T) => result;
 
    // ✅ CORRECT
    export default function foo<T>(x: T): ResultType {
-   	return result
+     return result;
    }
    ```
 
 2. **JSDoc → Envoy:**
+
    ```typescript
-   // ❌ WRONG
-   /**
-    * Long JSDoc comment
-    */
+   // ❌ WRONG - Don't use JSDoc style with @param, @returns, etc.
 
    // ✅ CORRECT
    //++ Brief one-line description
@@ -243,28 +242,14 @@ Migrating @sitebender/toolsmith validation functions from JSDoc to Envoy syntax,
 
 ### The Envoy Migration Pattern
 
-Converting functions from this (JSDoc):
-
-```typescript
-/**
- * Long verbose JSDoc comment
- * with multiple paragraphs
- * @param x - parameter
- * @returns result
- * @example
- * // example code
- */
-const myFunction = (x: Type) => (y: Type) => result
-```
-
-To this (Envoy):
+Converting functions from JSDoc style (verbose, with @param/@returns annotations) to Envoy style:
 
 ```typescript
 //++ Brief one-line description of what function does
 export default function myFunction(x: Type) {
-	return function descriptiveInnerName(y: Type): ResultType {
-		// implementation
-	}
+  return function descriptiveInnerName(y: Type): ResultType {
+    // implementation
+  };
 }
 
 //?? [EXAMPLE] myFunction(arg1)(arg2) // result
@@ -345,7 +330,7 @@ The validation monad cleanup is **COMPLETE**. All helper functions have been ext
 # Find unmigrated functions
 grep -l "^/\*\*" libraries/toolsmith/src/vanilla/validation/*/index.ts
 
-# Type check specific files  
+# Type check specific files
 deno check --unstable-temporal path/to/file1.ts path/to/file2.ts
 
 # Run tests (now supports tests in src/)

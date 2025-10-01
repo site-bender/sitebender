@@ -1,8 +1,4 @@
-/**
- * Comprehensive ARIA (Accessible Rich Internet Applications) type definitions
- * Based on WAI-ARIA 1.2 specification
- * @see https://www.w3.org/TR/wai-aria-1.2/
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // ============================================================================
 // ARIA Roles
@@ -1014,14 +1010,10 @@ export interface BlockquoteAriaAttributes {
 // Type utilities
 // ============================================================================
 
-/**
- * Extract only the ARIA attributes that are valid for a specific element
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ExtractAriaAttributes<T> = T extends AriaAttributes ? T : never
 
-/**
- * Type guard to check if a value is a valid ARIA role
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function isValidAriaRole(role: string): role is AriaRole {
 	const validRoles = new Set<string>([
 		// Document structure roles
@@ -1113,9 +1105,7 @@ export function isValidAriaRole(role: string): role is AriaRole {
 	return validRoles.has(role)
 }
 
-/**
- * Type guard to check if a value is a valid ARIA attribute name
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export function isValidAriaAttribute(
 	attr: string,
 ): attr is keyof AriaAttributes {

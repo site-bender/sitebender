@@ -16,14 +16,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Output element
- * Allows global attributes and validates output-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Output attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type OutputElementAttributes =
 	& OutputAttributes
 	& OutputAriaAttributes
@@ -37,27 +32,9 @@ export type OutputElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Output element
- * Allows global attributes and validates output-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Output element configuration object
- *
- * The output element represents the result of a calculation or user action.
- *
- * @example
- * ```typescript
- * const output = Output({
- *   name: "result",
- *   for: "input1 input2",
- *   form: "calculator"
- * })([
- *   TextNode("42")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Output = (attributes: OutputElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

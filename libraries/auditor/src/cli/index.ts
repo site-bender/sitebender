@@ -1,16 +1,6 @@
 import type { FunctionSignature } from "../types/index.ts"
 
-/**
- * Auditor CLI
- *
- * Command-line interface for the @sitebender/auditor test generation library
- *
- * Usage:
- *   deno run --allow-all libraries/auditor/src/cli/index.ts [options]
- *
- * Or with task:
- *   deno task auditor:generate
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import orchestrateTestGeneration from "../orchestrateTestGeneration/index.ts"
 import { TypeKind } from "../types/index.ts"

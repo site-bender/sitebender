@@ -13,9 +13,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Embed attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type EmbedElementAttributes = EmbedAttributes & ImageAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -26,27 +24,9 @@ export type EmbedElementAttributes = EmbedAttributes & ImageAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Embed element
- * Allows global attributes and validates embed-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Embed element configuration object
- *
- * The embed element embeds external content at the specified point in the document.
- * This is a void element (cannot have children).
- *
- * @example
- * ```typescript
- * const embed = Embed({
- *   src: "media.swf",
- *   type: "application/x-shockwave-flash",
- *   width: 400,
- *   height: 300
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Embed = (
 	attributes: EmbedElementAttributes = {},
 ): ElementConfig => {

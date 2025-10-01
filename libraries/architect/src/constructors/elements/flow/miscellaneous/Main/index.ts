@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Main attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type MainElementAttributes = MainAttributes & MainAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -28,26 +26,9 @@ export type MainElementAttributes = MainAttributes & MainAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Main element
- * Allows global attributes and validates main-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Main element configuration object
- *
- * The main element represents the dominant content of the body of a document.
- * The main content area consists of content that is directly related to or
- * expands upon the central topic of a document.
- *
- * @example
- * ```typescript
- * const main = Main({
- *   id: "main-content",
- *   class: "content"
- * })([TextNode("Main content here")])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Main = (attributes: MainElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

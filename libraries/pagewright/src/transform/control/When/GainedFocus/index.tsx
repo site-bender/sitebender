@@ -1,6 +1,4 @@
-/**
- * When.GainedFocus (authoring alias for On.Focus)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { OnMarker } from "../../On/index.tsx"
 

@@ -8,11 +8,7 @@ import { TypeKind } from "../../../types/index.ts"
 import escapeTestName from "../escapeTestName/index.ts"
 import valueToString from "../valueToString/index.ts"
 
-/**
- * Checks if a type can return undefined
- * @param type The TypeInfo to check
- * @returns true if the type includes undefined
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function canReturnUndefined(type: TypeInfo): boolean {
 	// Direct undefined type
 	if (type.raw === "undefined") return true
@@ -31,13 +27,7 @@ function canReturnUndefined(type: TypeInfo): boolean {
 	return false
 }
 
-/**
- * Generates unit test code
- * @param tests Array of unit test cases
- * @param functionName Name of the function being tested
- * @param signature Optional function signature for curried functions
- * @returns Generated unit test code string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateUnitTests(
 	tests: Array<TestCase>,
 	functionName: string,

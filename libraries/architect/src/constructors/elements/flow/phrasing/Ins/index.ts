@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Ins attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InsElementAttributes = InsertedTextAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,27 +27,9 @@ export type InsElementAttributes = InsertedTextAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Ins element
- * Allows global attributes and validates ins-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Ins element configuration object
- *
- * The ins element represents text that has been inserted into a document.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const ins = Ins({
- *   cite: "https://example.com/edit-log",
- *   datetime: "2023-12-25T10:00:00Z"
- * })([
- *   TextNode("This text was inserted")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Ins = (attributes: InsElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

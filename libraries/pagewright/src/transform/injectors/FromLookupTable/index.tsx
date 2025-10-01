@@ -4,19 +4,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * FromLookupTable JSX Component
- *
- * Wrapper for the FromLookupTable injector constructor.
- * Gets a value from a complex lookup table with multiple keys.
- *
- * @example
- * <FromLookupTable
- *   table="pricingMatrix"
- *   keys={["premium", "annual"]}
- *   type="Number"
- * />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromLookupTableConstructor from "../../../../../architect/src/constructors/injectors/FromLookupTable/index.ts"
 

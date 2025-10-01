@@ -2,45 +2,7 @@ import mean from "../../math/mean/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 import standardDeviation from "../standardDeviation/index.ts"
 
-/**
- * Calculates the skewness of a dataset
- *
- * Measures the asymmetry of the probability distribution about its mean.
- * Uses the adjusted Fisher-Pearson standardized moment coefficient (G1).
- * Positive skewness indicates a longer right tail, negative skewness
- * indicates a longer left tail, and zero indicates symmetry. Returns
- * NaN for datasets with fewer than 3 values or invalid inputs.
- *
- * @param data - Array of numeric values
- * @returns Skewness coefficient, or NaN if invalid
- * @example
- * ```typescript
- * // Symmetric distribution
- * skewness([1, 2, 3, 4, 5])
- * // 0
- *
- * // Right-skewed (positive skewness)
- * skewness([1, 1, 1, 2, 3, 4, 5, 10])
- * // 1.528... (long right tail)
- *
- * // Left-skewed (negative skewness)
- * skewness([1, 5, 6, 7, 8, 8, 8, 8])
- * // -1.528... (long left tail)
- *
- * // Minimum dataset size (3 values)
- * skewness([1, 2, 3])
- * // 0
- *
- * // Too few values
- * skewness([1, 2])  // NaN
- *
- * // Invalid inputs
- * skewness([])  // NaN
- * skewness(null)  // NaN
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function skewness(
 	data: number[] | null | undefined,
 ): number {

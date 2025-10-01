@@ -12,10 +12,7 @@ import TextNode from "@sitebender/architect/constructors/elements/TextNode/index
 import isString from "@sitebender/architect/guards/isString/index.ts"
 import isDefined from "@sitebender/architect/utilities/isDefined.ts"
 
-/**
- * Extended Fragment attributes including reactive properties and ARIA
- * Fragment is special - it doesn't render as an HTML element but can carry reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type FragmentElementAttributes = NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -26,24 +23,7 @@ export type FragmentElementAttributes = NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Fragment element configuration object
- *
- * The Fragment element allows grouping of children without creating a wrapper element.
- * It can optionally include scripts and stylesheets.
- * Fragment is special - it doesn't render as an HTML element but serves as a container.
- *
- * @example
- * ```typescript
- * const fragment = Fragment({
- *   scripts: ["script1.ts"],
- *   stylesheets: ["style1.css"]
- * })([
- *   H1()("Title"),
- *   P()("Content")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Fragment = (attributes: FragmentElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

@@ -1,11 +1,6 @@
 import type CoverageData from "../parseLcovReport/types/index.ts"
 
-/**
- * Finds uncovered branches for a specific function file
- * @param coverageData Coverage data from report
- * @param functionPath Path to the function file
- * @returns Array of uncovered branch identifiers
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function findUncoveredBranches(
 	coverageData: CoverageData,
 	functionPath: string,

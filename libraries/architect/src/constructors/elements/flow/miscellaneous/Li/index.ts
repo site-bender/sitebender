@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Li attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type LiElementAttributes =
 	& ListItemAttributes
 	& ListItemAriaAttributes
@@ -31,28 +29,9 @@ export type LiElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Li element
- * Allows global attributes and validates li-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Li element configuration object
- *
- * The li element represents a list item in ordered or unordered lists.
- * It can contain flow content.
- *
- * @example
- * ```typescript
- * const li = Li({
- *   id: "item-1",
- *   value: 3
- * })([
- *   P()("List item content"),
- *   Ul()([...])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Li = (attributes: LiElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

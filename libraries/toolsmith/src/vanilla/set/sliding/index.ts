@@ -1,11 +1,4 @@
-/**
- * Create sliding windows over Set elements
- *
- * @pure
- * @immutable
- * @curried
- * @safe Returns [] for invalid inputs or non-positive window size
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const sliding = <T>(windowSize: number) =>
 (
 	set: Set<T> | null | undefined,

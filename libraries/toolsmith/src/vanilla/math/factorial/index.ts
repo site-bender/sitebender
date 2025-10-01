@@ -1,45 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
 //++ Calculates n! for non-negative integers; returns Infinity for n>170 and NaN on invalid input
-/**
- * Calculates the factorial of a non-negative integer
- *
- * Computes n! (n factorial), which is the product of all positive integers
- * less than or equal to n. By definition, 0! = 1. Only works with
- * non-negative integers up to 170 (beyond which JavaScript returns Infinity).
- * Returns NaN for negative numbers, non-integers, or invalid inputs.
- *
- * @param n - Non-negative integer to calculate factorial of
- * @returns Factorial of n (n!), or NaN if invalid
- * @example
- * ```typescript
- * factorial(0)
- * // 1
- *
- * factorial(5)
- * // 120
- *
- * factorial(10)
- * // 3628800
- *
- * factorial(21)
- * // 51090942171709440000
- *
- * factorial(170)
- * // 7.257415615307994e+306
- *
- * factorial(171)
- * // Infinity
- *
- * factorial(-1)
- * // NaN
- *
- * factorial(null)
- * // NaN
- * ```
- * @pure - Always returns same result for same input
- * @safe - Returns NaN for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const factorial = (
 	n: number | null | undefined,
 ): number => {

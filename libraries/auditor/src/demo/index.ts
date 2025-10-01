@@ -1,15 +1,6 @@
 #!/usr/bin/env -S deno run --allow-all
 
-/**
- * Demo: Proving the Auditor Works
- *
- * This demo shows that the auditor ACTUALLY generates real, working tests
- * by:
- * 1. Generating tests for real toolsmith functions
- * 2. Showing the generated test code
- * 3. Running the generated tests to verify they work
- * 4. Showing coverage results
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import generateTests from "../generateTests/index.ts"
 

@@ -1,54 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Truncates a string from the middle with ellipsis
- *
- * Shortens a string by removing characters from the middle and replacing
- * them with an ellipsis or custom separator. Preserves the beginning and
- * end of the string, which is useful for displaying file paths, URLs,
- * long identifiers, or any text where the start and end are most important.
- *
- * @pure
- * @curried
- * @immutable
- * @safe
- * @param maxLength - Maximum total length including separator
- * @param separator - String to insert in the middle (default: "...")
- * @param str - String to truncate
- * @returns Truncated string with middle replaced by separator
- * @example
- * ```typescript
- * // Basic middle truncation
- * truncateMiddle(20)("...")("/very/long/path/to/file.txt")
- * // "/very/long...file.txt"
- *
- * // No truncation needed
- * truncateMiddle(50)("...")("Short text")
- * // "Short text"
- *
- * // Very short max length
- * truncateMiddle(5)("...")("HelloWorld")
- * // "H...d"
- *
- * // Custom separator
- * truncateMiddle(15)("…")("ThisIsAVeryLongString")
- * // "ThisIsA…tring"
- *
- * // File path truncation
- * const truncatePath = truncateMiddle(30)(".../")
- * truncatePath("/Users/john/Documents/Projects/MyApp/src/index.js")
- * // "/Users/john/Doc.../src/index.js"
- *
- * // URL truncation
- * const truncateUrl = truncateMiddle(40)("...")
- * truncateUrl("https://example.com/very/long/path/to/resource?param=value")
- * // "https://example.com/very...?param=value"
- *
- * // Handle null/undefined
- * truncateMiddle(10)("...")(null)       // ""
- * truncateMiddle(10)("...")(undefined)  // ""
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const truncateMiddle = (
 	maxLength: number,
 ) =>

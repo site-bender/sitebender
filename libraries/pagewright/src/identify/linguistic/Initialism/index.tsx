@@ -1,30 +1,4 @@
-/**
- * Initialism component
- *
- * Marks up initialisms - abbreviations pronounced letter by letter
- * rather than as words. Provides expansion and proper spacing hints
- * for screen readers and speech synthesis.
- *
- * Example usage:
- *
- * <Initialism expansion="Federal Bureau of Investigation">
- *   FBI
- * </Initialism>
- *
- * <Initialism
- *   expansion="Hypertext Markup Language"
- *   field="technology"
- * >
- *   HTML
- * </Initialism>
- *
- * <Initialism
- *   expansion="United Kingdom"
- *   spacing="grouped"
- * >
- *   UK
- * </Initialism>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

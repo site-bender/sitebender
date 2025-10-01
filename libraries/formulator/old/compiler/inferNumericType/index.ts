@@ -3,65 +3,7 @@ import type {
 	Operand,
 } from "../../../../architect/types/index.ts"
 
-/**
- * Infers the numeric datatype from an array of operands.
- * Returns the common type if all match, otherwise defaults to "Number".
- *
- * @param operands - Array of operands to analyze
- * @returns The inferred numeric datatype
- *
- * @example
- * ```typescript
- * // Example 1: All Integer types
- * const operands = [
- *   { tag: "Constant", type: "injector", datatype: "Integer", value: 5 },
- *   { tag: "Constant", type: "injector", datatype: "Integer", value: 3 }
- * ]
- * const type = inferNumericType(operands)
- * // Returns: "Integer"
- * ```
- *
- * @example
- * ```typescript
- * // Example 2: Mixed Integer and Float
- * const operands = [
- *   { tag: "Constant", type: "injector", datatype: "Integer", value: 5 },
- *   { tag: "Constant", type: "injector", datatype: "Float", value: 3.14 }
- * ]
- * const type = inferNumericType(operands)
- * // Returns: "Number"
- * ```
- *
- * @example
- * ```typescript
- * // Example 3: All Float types
- * const operands = [
- *   { tag: "Constant", type: "injector", datatype: "Float", value: 1.5 },
- *   { tag: "Constant", type: "injector", datatype: "Float", value: 2.7 }
- * ]
- * const type = inferNumericType(operands)
- * // Returns: "Float"
- * ```
- *
- * @example
- * ```typescript
- * // Example 4: Non-numeric type defaults to Number
- * const operands = [
- *   { tag: "Constant", type: "injector", datatype: "String", value: "hello" },
- *   { tag: "Constant", type: "injector", datatype: "Integer", value: 5 }
- * ]
- * const type = inferNumericType(operands)
- * // Returns: "Number"
- * ```
- *
- * @example
- * ```typescript
- * // Example 5: Empty array defaults to Number
- * const operands = []
- * const type = inferNumericType(operands)
- * // Returns: "Number"
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function inferNumericType(
 	operands: Array<Operand>,
 ): NumericDatatype {

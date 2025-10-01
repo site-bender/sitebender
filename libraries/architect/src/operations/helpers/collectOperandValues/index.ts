@@ -8,13 +8,7 @@ import type {
 	OperatorConfig,
 } from "../../../../types/index.ts"
 
-/**
- * Collects operand values from a data object based on an operations list
- *
- * @param data - The data object to extract values from
- * @param operations - List of operations containing operands
- * @returns Array of extracted values
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const collectOperandValues = (
 	data: Operand,
 	operations: Array<ComparatorConfig | OperatorConfig>,

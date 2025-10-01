@@ -1,6 +1,4 @@
-/**
- * Or comparator (marker) — at least one child condition must be truthy
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type ComparatorMarker = {
 	__kind: "comparator"

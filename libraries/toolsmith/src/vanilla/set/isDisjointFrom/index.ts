@@ -1,38 +1,4 @@
-/**
- * Checks if two Sets have no elements in common
- *
- * Returns true if the Sets are disjoint (their intersection is empty).
- * Two empty Sets are considered disjoint. Uses SameValueZero equality
- * for comparisons.
- *
- * @compatibility Uses native Set.isDisjointFrom when available (ES2025, ~84% browser support).
- * Falls back to manual implementation for older browsers (Opera Mobile, IE).
- *
- * @param set2 - Second Set to check against
- * @param set1 - First Set to check
- * @returns True if Sets have no elements in common, false otherwise
- * @example
- * ```typescript
- * // Basic usage
- * isDisjointFrom(new Set([4, 5, 6]))(new Set([1, 2, 3]))  // true
- * isDisjointFrom(new Set([3, 4, 5]))(new Set([1, 2, 3]))  // false (3 in both)
- *
- * // Edge cases
- * isDisjointFrom(new Set())(new Set())         // true
- * isDisjointFrom(new Set([1]))(new Set())     // true
- * isDisjointFrom(null)(new Set([1, 2]))       // true
- *
- * // Partial application
- * const reservedWords = new Set(["class", "function", "const"])
- * const hasNoReserved = isDisjointFrom(reservedWords)
- * hasNoReserved(new Set(["myVar", "myFunc"]))   // true
- * hasNoReserved(new Set(["class", "myVar"]))    // false
- * ```
- * @pure
- * @curried
- * @predicate
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import isNullish from "../../validation/isNullish/index.ts"
 
 const isDisjointFrom = <T>(

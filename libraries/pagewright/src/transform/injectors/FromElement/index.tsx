@@ -1,13 +1,4 @@
-/**
- * FromElement JSX Component
- *
- * Wrapper for the FromElement injector constructor.
- * Gets a value from a DOM element by ID or selector.
- *
- * @example
- * <FromElement id="price" type="Number" />
- * <FromElement selector=".total-field" type="String" />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Marker only; compiler maps to Architect IR
 

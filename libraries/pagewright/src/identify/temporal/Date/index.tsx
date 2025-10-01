@@ -1,32 +1,4 @@
-/**
- * Date component
- *
- * Architect component that renders calendar dates. Works as PlainDate
- * without timezone, or as zoned date when timezone is provided.
- * Supports internationalization and multiple calendar systems.
- *
- * Example usage:
- *
- * // Simple date
- * <Date value="2024-01-15" />
- *
- * // With locale formatting
- * <Date value="2024-01-15" locale="fr-FR" />
- * // → 15 janvier 2024
- *
- * // With timezone (shows date in that timezone)
- * <Date value="2024-01-15" timezone="Asia/Tokyo" locale="ja-JP" />
- * // → 2024年1月15日
- *
- * // With calendar system
- * <Date value="2024-01-15" calendar="hebrew" locale="he-IL" />
- * // → כ״ג בטבת תשפ״ד
- *
- * // With custom content
- * <Date value="2024-01-15" format="full">
- *   {({ display }) => <>Born on {display}</>}
- * </Date>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TemporalBaseProps } from "../../../../types/temporal/index.ts"
 

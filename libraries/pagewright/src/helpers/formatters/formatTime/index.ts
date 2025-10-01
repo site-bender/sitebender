@@ -1,8 +1,6 @@
 import type { FormatOptions } from "../../../../types/temporal/index.ts"
 
-/**
- * Format a time value
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatTime(
 	hours: number,
 	minutes: number,

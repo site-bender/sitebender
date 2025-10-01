@@ -16,14 +16,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Audio element
- * Allows global attributes and validates audio-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Audio attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type AudioElementAttributes = AudioAttributes & ImageAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -34,27 +29,9 @@ export type AudioElementAttributes = AudioAttributes & ImageAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Audio element
- * Allows global attributes and validates audio-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Audio element configuration object
- *
- * The audio element represents a sound or audio stream.
- *
- * @example
- * ```typescript
- * const audio = Audio({
- *   src: "audio.mp3",
- *   controls: true,
- *   preload: "metadata"
- * })([
- *   TextNode("Your browser does not support the audio element.")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Audio = (attributes: AudioElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

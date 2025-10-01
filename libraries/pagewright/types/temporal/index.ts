@@ -1,6 +1,4 @@
-/**
- * Temporal types for date/time components and utilities
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Calendar system types
 export type CalendarSystem =

@@ -1,27 +1,4 @@
-/**
- * WithIntent component
- *
- * Captures the speaker's or author's intention behind the content.
- * Helps AI and assistive technologies understand not just what is
- * being said, but why it's being said and what response is expected.
- *
- * Example usage:
- *
- * <WithIntent
- *   purpose="persuade"
- *   action="purchase"
- *   urgency="high"
- * >
- *   Limited time offer - Act now before it's gone!
- * </WithIntent>
- *
- * <WithIntent
- *   purpose="inform"
- *   expectation="acknowledgment"
- * >
- *   The meeting has been rescheduled to 3 PM.
- * </WithIntent>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type IntentPurpose =
 	| "inform"

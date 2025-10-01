@@ -11,23 +11,8 @@ import type { ElementConfig } from "@sitebender/architect/constructors/elements/
 import GlobalOnly from "@sitebender/architect/constructors/abstracted/GlobalOnly/index.ts"
 import isPhrasingContent from "@sitebender/architect/guards/isPhrasingContent/index.ts"
 
-/**
- * Creates a Sub element configuration object
- *
- * The sub element represents a subscript.
- *
- * @example
- * ```typescript
- * const sub = Sub({
- *   id: "chemical-formula"
- * })([
- *   TextNode("2")
- * ])
- * ```
- */
-/**
- * Child filter that validates phrasing content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const phrasingContentFilter = (child: ElementConfig): boolean => {
 	if (typeof child === "object" && child !== null && "tag" in child) {
 		return isPhrasingContent()(
@@ -38,9 +23,7 @@ const phrasingContentFilter = (child: ElementConfig): boolean => {
 	return true
 }
 
-/**
- * Extended Sub attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SubElementAttributes = SubscriptAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand

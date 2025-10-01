@@ -1,14 +1,4 @@
-/**
- * Date JSX Component
- *
- * Semantic wrapper for date values in date comparison operations.
- *
- * @example
- * <IsAfterDate>
- *   <Value><FromElement id="eventDate" type="Date" /></Value>
- *   <Date><Constant value="2024-12-25" /></Date>
- * </IsAfterDate>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type DateProps = {
 	children?: JSX.Element | JSX.Element[]

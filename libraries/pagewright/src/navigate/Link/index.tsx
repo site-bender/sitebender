@@ -4,7 +4,7 @@ import openAsToTarget from "./openAsToTarget/index.ts"
 import processHref from "./processHref/index.ts"
 
 export type Props = {
-	/** The destination URL or special @-prefixed shortcut */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	to: string
 	children?: string | JSX.Element | (string | JSX.Element)[]
 

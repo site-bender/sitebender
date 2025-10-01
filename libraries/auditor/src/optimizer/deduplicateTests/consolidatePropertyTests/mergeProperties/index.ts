@@ -1,14 +1,8 @@
-/**
- * Merge multiple property tests into consolidated set
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { PropertyTest } from "../../../../types/index.ts"
 
-/**
- * Merge multiple property tests, removing duplicates
- * @param properties Array of property tests to merge
- * @returns Consolidated array of unique properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function mergeProperties(
 	properties: Array<PropertyTest>,
 ): Array<PropertyTest> {

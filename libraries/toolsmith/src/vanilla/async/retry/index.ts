@@ -1,23 +1,23 @@
 //++ Retries failed async operations with configurable strategies
 
 type RetryOptions = {
-	/** Maximum number of attempts (default: 3) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	attempts?: number
-	/** Base delay between retries in milliseconds (default: 0) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	delay?: number
-	/** Use exponential backoff (default: false) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	exponential?: boolean
-	/** Multiplier for delay increase (default: 2 for exponential, 1 for linear) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	multiplier?: number
-	/** Maximum delay cap in milliseconds */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	maxDelay?: number
-	/** Add random jitter to delays (default: false) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	jitter?: boolean
-	/** Custom condition for retrying (return false to stop) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	shouldRetry?: (error: unknown, attempt: number) => boolean
-	/** Callback on each error */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	onError?: (error: unknown, attempt: number, nextDelay: number) => void
-	/** Callback on success */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	onSuccess?: (result: unknown, attempts: number) => void
 }
 

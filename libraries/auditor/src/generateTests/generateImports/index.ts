@@ -1,11 +1,6 @@
 import type { FunctionSignature, TestCase } from "../../types/index.ts"
 
-/**
- * Generates import statements for test files
- * @param signature Function signature information
- * @param tests Array of test cases
- * @returns Array of import statement strings
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateImports(
 	signature: FunctionSignature,
 	tests: Array<TestCase>,

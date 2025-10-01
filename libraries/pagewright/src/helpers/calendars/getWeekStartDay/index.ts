@@ -1,8 +1,6 @@
 import { WEEK_START_DAY } from "../../../identify/temporal/constants/index.ts"
 
-/**
- * Get week start day for locale
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getWeekStartDay(locale?: string): number {
 	if (!locale) return WEEK_START_DAY.default
 

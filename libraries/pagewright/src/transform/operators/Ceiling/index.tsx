@@ -3,17 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Ceiling JSX Component
- *
- * Wrapper for the Ceiling operator constructor.
- * Rounds a number up to the nearest integer.
- *
- * @example
- * <Ceiling>
- *   <FromElement id="price" type="Number" />
- * </Ceiling>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import CeilingConstructor from "../../../../../architect/src/constructors/operators/Ceiling/index.ts"
 

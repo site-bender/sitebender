@@ -3,12 +3,7 @@ import type { FunctionSignature, TestCase } from "../../types/index.ts"
 import generateEdgeCaseInputs from "../generateEdgeCaseInputs/index.ts"
 import generateTestInput from "../generateTestInputs/index.ts"
 
-/**
- * Generates edge case test scenarios based on actual type information
- *
- * @param signature Function signature with proper type information
- * @returns Array of type-appropriate edge case test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateEdgeCases(
 	signature: FunctionSignature,
 ): Array<TestCase> {
@@ -64,9 +59,7 @@ export default function generateEdgeCases(
 	return [...parameterEdgeCases, ...noParamCase]
 }
 
-/**
- * Generates a human-readable description of an input value
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function describeInput(value: unknown, _typeHint: string): string {
 	if (value === null) return "null"
 	if (value === undefined) return "undefined"

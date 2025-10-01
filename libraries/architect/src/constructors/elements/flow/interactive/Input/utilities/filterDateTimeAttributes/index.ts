@@ -8,10 +8,7 @@ import isNumber from "@sitebender/architect/guards/isNumber/index.ts"
 import isString from "@sitebender/architect/guards/isString/index.ts"
 import pickGlobalAttributes from "@sitebender/architect/guards/pickGlobalAttributes/index.ts"
 
-/**
- * Filters attributes for date/time input types
- * Validates common date/time input attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const filterDateTimeAttributes = (
 	attributes: Record<string, Value>,
 ): Record<string, Value> => {

@@ -1,9 +1,4 @@
-/**
- * Suggests intelligent coverage ignores for uncoverable code
- * @param uncoveredLines Array of uncovered line numbers
- * @param functionPath Path to the function file
- * @returns Array of suggestions for coverage ignores
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function suggestCoverageIgnores(
 	uncoveredLines: Array<number>,
 	functionPath: string,

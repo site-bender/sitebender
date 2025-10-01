@@ -1,6 +1,4 @@
-/**
- * Session information for an authenticated user
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type Session = {
 	user: {
 		id: string
@@ -11,9 +9,7 @@ export type Session = {
 	expiresAt: number
 }
 
-/**
- * Registration data for completing user signup
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type RegistrationData = {
 	id: string
 	email: string
@@ -21,9 +17,7 @@ export type RegistrationData = {
 	userId: string
 }
 
-/**
- * Status of an email address in the system
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type EmailStatus = {
 	existsInAccount: boolean
 	existsInRegistrant: boolean

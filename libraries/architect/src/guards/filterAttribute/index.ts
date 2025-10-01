@@ -1,9 +1,4 @@
-/**
- * Creates a function that filters an attribute based on a guard function
- *
- * @param guard - Function that validates the value
- * @returns Function that takes a key and returns a function that takes a value and returns filtered attribute object
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const filterAttribute = <P, T extends P>(
 	guard: ((value: P) => value is T) | ((value: P) => boolean),
 ) =>

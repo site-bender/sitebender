@@ -1,9 +1,4 @@
-/**
- * Converts ARIA attributes object to HTML aria-* attributes
- *
- * @param aria - ARIA attributes object
- * @returns Object with aria-* prefixed attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export const getAriaAttributes = (
 	aria: Record<string, unknown> | undefined,
 ): Record<string, unknown> => {

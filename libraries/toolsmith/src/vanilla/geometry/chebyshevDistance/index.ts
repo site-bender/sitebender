@@ -1,41 +1,4 @@
-/**
- * Calculates the Chebyshev distance between two points
- *
- * Computes the L∞ (infinity norm) distance, which is the maximum absolute
- * difference between coordinates. Also known as chessboard distance or
- * king move distance, as it represents the minimum number of moves for
- * a chess king. Returns NaN for invalid inputs or mismatched dimensions.
- *
- * @param point1 - First point as array of coordinates
- * @param point2 - Second point as array of coordinates
- * @returns Chebyshev distance between points, or NaN if invalid
- * @pure
- * @curried
- * @safe
- * @immutable
- * @example
- * ```typescript
- * // 2D points - max absolute difference
- * chebyshevDistance([0, 0])([3, 4])  // 4 (max of 3, 4)
- * chebyshevDistance([1, 1])([4, 5])  // 4 (max of 3, 4)
- *
- * // 3D points
- * chebyshevDistance([0, 0, 0])([2, 3, 1])  // 3 (max of 2, 3, 1)
- * chebyshevDistance([1, 2, 3])([4, 6, 5])  // 4 (max of 3, 4, 2)
- *
- * // Same points return 0
- * chebyshevDistance([1, 2, 3])([1, 2, 3])  // 0
- *
- * // Chess king movement (minimum moves)
- * const kingPos = [4, 4]
- * const targetPos = [7, 6]
- * chebyshevDistance(kingPos)(targetPos)  // 3 moves
- *
- * // Invalid inputs return NaN
- * chebyshevDistance([1, 2])([1, 2, 3])  // NaN (dimension mismatch)
- * chebyshevDistance(null)([1, 2])  // NaN
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import isNullish from "../../validation/isNullish/index.ts"
 
 const chebyshevDistance = (

@@ -3,9 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsAfterDateTime JSX Component
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import IsAfterDateTimeConstructor from "../../../../../architect/src/constructors/comparators/dateTime/IsAfterDateTime/index.ts"
 
 export type Props = {

@@ -1,13 +1,4 @@
-/**
- * @module @sitebender/arborist
- *
- * Shared TypeScript AST parsing and code analysis for the @sitebender ecosystem.
- * This is THE ONLY library that should import TypeScript directly.
- * All other libraries consume Arborist's output.
- *
- * CONTRACT ENFORCED: Only exports from the exports/ directory are public API.
- * Internal implementation details are hidden in internal/ directory.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 // Public API - Contract compliant exports only
 export { default as parseFile } from "./exports/parseFile/index.ts"

@@ -3,13 +3,7 @@ export type Props = Record<string, unknown> & {
 	id?: string
 }
 
-/**
- * HelpMessage
- *
- * Visible inline help for form fields.
- * - By default, role="note"; assistive tech reads as advisory content
- * - Intended to be referenced by inputs via aria-describedby
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function HelpMessage({
 	children,
 	classes = [],

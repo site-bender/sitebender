@@ -1,6 +1,4 @@
-/**
- * Detect which toolsmith patterns apply to a function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature } from "../../../types/index.ts"
 
@@ -13,11 +11,7 @@ export type ToolsmithPattern =
 	| "combinator"
 	| "monad"
 
-/**
- * Detect which toolsmith patterns apply to a function based on its signature
- * @param signature Function signature
- * @returns Array of applicable patterns
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function detectPatternType(
 	signature: FunctionSignature,
 ): Array<ToolsmithPattern> {

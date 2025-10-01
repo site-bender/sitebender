@@ -1,24 +1,4 @@
-/**
- * WithContext component
- *
- * Provides contextual metadata about the circumstances or environment
- * in which content appears. Useful for indicating setting, time period,
- * cultural context, or situational framing that affects interpretation.
- *
- * Example usage:
- *
- * <WithContext
- *   setting="Victorian England"
- *   period="1880s"
- *   situation="formal dinner"
- * >
- *   "I say, old chap, rather inclement weather we're having!"
- * </WithContext>
- *
- * <WithContext cultural="Japanese" formality="keigo">
- *   お元気ですか？
- * </WithContext>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element> | string

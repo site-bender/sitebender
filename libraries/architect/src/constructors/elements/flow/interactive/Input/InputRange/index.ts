@@ -11,13 +11,9 @@ import Input from "@sitebender/architect/constructors/elements/flow/interactive/
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for InputRange
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended InputRange attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputRangeElementAttributes = InputRangeAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -29,22 +25,7 @@ export type InputRangeElementAttributes = InputRangeAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an InputRange element configuration object
- *
- * The range input allows users to select a numeric value from a range.
- *
- * @example
- * ```typescript
- * const input = InputRange({
- *   name: "volume",
- *   min: 0,
- *   max: 100,
- *   step: 1,
- *   value: 50
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputRange = Input("range")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

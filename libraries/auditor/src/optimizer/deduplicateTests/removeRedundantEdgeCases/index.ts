@@ -1,16 +1,10 @@
-/**
- * Remove edge cases that are covered by property tests
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { TestCase } from "../../../types/index.ts"
 
 import isEdgeCaseCoveredByProperty from "./isEdgeCaseCoveredByProperty/index.ts"
 
-/**
- * Remove edge case tests that are already covered by property tests
- * @param tests Array of test cases
- * @returns Array with redundant edge cases removed
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function removeRedundantEdgeCases(
 	tests: Array<TestCase>,
 ): Array<TestCase> {

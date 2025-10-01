@@ -1,43 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the number of combinations (nCr)
- *
- * Computes the number of ways to choose r items from n items without
- * regard to order, using the formula: C(n,r) = n! / (r! × (n-r)!).
- * Also known as "n choose r" or the binomial coefficient. Returns NaN
- * for invalid inputs, negative numbers, or when r > n.
- *
- * @curried (n) => (r) => number
- * @param n - Total number of items
- * @param r - Number of items to choose
- * @returns Number of combinations, or NaN if invalid
- * @example
- * ```typescript
- * // Basic combinations
- * combinations(5)(3)  // 10 (ways to choose 3 from 5)
- * combinations(4)(2)  // 6 (ways to choose 2 from 4)
- * combinations(10)(5)  // 252 (ways to choose 5 from 10)
- *
- * // Edge cases
- * combinations(5)(0)  // 1 (one way to choose nothing)
- * combinations(5)(5)  // 1 (one way to choose all)
- * combinations(0)(0)  // 1 (by definition)
- *
- * // Invalid cases
- * combinations(3)(5)  // NaN (can't choose 5 from 3)
- * combinations(-1)(2)  // NaN (negative n)
- * combinations(5.5)(2)  // NaN (non-integer)
- *
- * // Partial application
- * const choose5 = combinations(10)
- * choose5(2)  // 45
- * choose5(3)  // 120
- * ```
- * @pure
- * @curried
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function combinations(
 	n: number | null | undefined,
 ) {

@@ -2,12 +2,7 @@ import type { ElementConfig } from "@sitebender/architect/constructors/elements/
 
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
 
-/**
- * Flattens child elements to get all descendant tags
- *
- * @param children - Array of child elements
- * @returns Array of descendant tag names
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function flatMapDescendants(
 	children: readonly unknown[],
 ): readonly string[] {

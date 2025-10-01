@@ -11,13 +11,9 @@ import Input from "@sitebender/architect/constructors/elements/flow/interactive/
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for InputColor
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended InputColor attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputColorElementAttributes = InputColorAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -29,20 +25,7 @@ export type InputColorElementAttributes = InputColorAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an InputColor element configuration object
- *
- * The color input allows users to select a color.
- *
- * @example
- * ```typescript
- * const input = InputColor({
- *   name: "background",
- *   value: "#ff0000",
- *   required: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputColor = Input("color")(filterAttributes)
 
 export default InputColor

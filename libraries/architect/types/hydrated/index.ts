@@ -1,9 +1,4 @@
-/**
- * Hydrated type definitions for the Architect library
- *
- * These types represent the configuration objects after composition,
- * where operand references have been resolved to OperationFunction instances.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { OperationFunction, Value } from "../index.ts"
 

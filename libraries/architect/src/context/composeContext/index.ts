@@ -14,7 +14,7 @@ export type ComposeContext = {
 		debug: (...args: unknown[]) => void
 		error: (...args: unknown[]) => void
 	}
-	/** Optional per-request/local evaluation values (e.g., auth user, claims) */
+	//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 	localValues?: LocalValues
 }
 

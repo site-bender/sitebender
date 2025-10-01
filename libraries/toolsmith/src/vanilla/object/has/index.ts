@@ -2,44 +2,7 @@ import type { Value } from "../../../types/index.ts"
 
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Checks if an object has a property at the specified path
- *
- * Safely checks if a property exists in an object using either a dot-separated
- * string or an array of keys. Returns true only if the complete path exists,
- * even if the value is undefined. Does not check prototype properties.
- *
- * @pure
- * @safe
- * @curried
- * @predicate
- * @param pathInput - Dot-separated string or array of keys
- * @param obj - The object to check
- * @returns True if the path exists, false otherwise
- * @example
- * ```typescript
- * // Checking for existing properties
- * has("name")({ name: "John", age: 30 })           // true
- * has("email")({ name: "John", age: 30 })          // false
- *
- * // Works with undefined values
- * has("value")({ value: undefined })               // true
- * has("missing")({ value: undefined })             // false
- *
- * // Nested property checking with dot notation
- * has("user.name")({ user: { name: "Alice" } })    // true
- * has("user.email")({ user: { name: "Alice" } })   // false
- *
- * // Array path notation
- * has(["user", "name"])({ user: { name: "Bob" } }) // true
- * has(["a", "b", "c"])({ a: { b: { c: null } } })  // true
- *
- * // Partial application
- * const hasUserId = has("user.id")
- * hasUserId({ user: { id: 1, name: "John" } })     // true
- * hasUserId({ user: { name: "John" } })            // false
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const has =
 	(pathInput: string | Array<string | number>) => (obj: Value): boolean => {
 		// Handle null/undefined object

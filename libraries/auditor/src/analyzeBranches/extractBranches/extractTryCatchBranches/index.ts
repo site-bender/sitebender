@@ -3,15 +3,7 @@ import type { SourceNode } from "../../parseSourceCode/types/index.ts"
 
 import computeBranchId from "../../computeBranchId/index.ts"
 
-/**
- * Extracts try/catch branch paths from an AST
- * Pure function that finds all try/catch blocks
- * @param ast - The AST node to analyze
- * @returns Array of try/catch branch paths
- * @example
- * const branches = extractTryCatchBranches(ast)
- * // Returns: [{ id: "try_0", type: BranchType.TryCatch, ... }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractTryCatchBranches(
 	ast: SourceNode,
 ): Array<BranchPath> {

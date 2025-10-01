@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended H6 attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type H6ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,21 +27,9 @@ export type H6ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for H6 element
- * Allows global attributes and validates heading-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an H6 element configuration object
- *
- * @example
- * ```typescript
- * const h6 = H6({ id: "tiny-title", role: "tab" })([
- *   TextNode("Tiny Heading")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const H6 = (attributes: H6ElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

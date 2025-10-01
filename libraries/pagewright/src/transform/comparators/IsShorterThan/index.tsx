@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsShorterThan JSX Component
- *
- * Wrapper for the IsShorterThan comparator constructor.
- * Checks if a string or array is shorter than a threshold.
- * Requires <Value> and <Threshold> wrapper components.
- *
- * @example
- * <IsShorterThan>
- *   <Value><FromElement id="username" type="String" /></Value>
- *   <Threshold><Constant value={20} /></Threshold>
- * </IsShorterThan>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsShorterThanConstructor from "../../../../../architect/src/constructors/comparators/length/IsShorterThan/index.ts"
 

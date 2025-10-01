@@ -3,15 +3,7 @@ import type { SourceNode } from "../../parseSourceCode/types/index.ts"
 
 import computeBranchId from "../../computeBranchId/index.ts"
 
-/**
- * Extracts ternary conditional branch paths from an AST
- * Pure function that finds all ternary operators and their branches
- * @param ast - The AST node to analyze
- * @returns Array of ternary branch paths
- * @example
- * const branches = extractTernaryBranches(ast)
- * // Returns: [{ id: "ternary_0_true", type: BranchType.Ternary, ... }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractTernaryBranches(
 	ast: SourceNode,
 ): Array<BranchPath> {

@@ -13,13 +13,9 @@ import filterAttributes from "./filterAttributes/index.ts"
 
 // No local guards used; filtering delegated to filterAttributes
 
-/**
- * Filters attributes for InputFile
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended InputFile attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputFileElementAttributes = InputFileAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -31,22 +27,7 @@ export type InputFileElementAttributes = InputFileAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an InputFile element configuration object
- *
- * The file input allows users to select files from their device.
- *
- * @example
- * ```typescript
- * const input = InputFile({
- *   name: "upload",
- *   accept: "image/*",
- *   multiple: true,
- *   required: true,
- *   capture: "camera"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputFile = Input("file")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

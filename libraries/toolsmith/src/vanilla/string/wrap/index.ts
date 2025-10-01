@@ -1,53 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Wraps a string at specified width with line breaks
- *
- * Breaks a string into lines of maximum width, inserting line breaks
- * at word boundaries when possible. Useful for formatting text for
- * display in fixed-width contexts like terminals, text files, or
- * print layouts.
- *
- * @curried - Function returns a function for partial application
- * @param width - Maximum line width
- * @param str - String to wrap
- * @returns String with line breaks inserted
- * @example
- * ```typescript
- * // Basic wrapping
- * wrap(10)("This is a long sentence that needs wrapping")
- * // "This is a\nlong\nsentence\nthat needs\nwrapping"
- *
- * // Short string (no wrapping needed)
- * wrap(20)("Short text")  // "Short text"
- *
- * // Single long word (forced break)
- * wrap(5)("verylongword")  // "veryl\nongwo\nrd"
- *
- * // Empty string
- * wrap(10)("")  // ""
- *
- * // Width of 1
- * wrap(1)("hello")  // "h\ne\nl\nl\no"
- *
- * // Preserve existing newlines
- * wrap(20)("First line\nSecond line here")
- * // "First line\nSecond line here"
- *
- * // Multiple spaces collapsed
- * wrap(10)("Too    many    spaces")  // "Too many\nspaces"
- *
- * // Partial application
- * const wrap40 = wrap(40)
- * const emailWrap = wrap(72)
- *
- * // Handle null/undefined
- * wrap(10)(null)  // ""
- * ```
- * @pure - Function has no side effects
- * @immutable - Does not modify inputs
- * @safe - Returns safe values for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const wrap = (
 	width: number,
 ) =>

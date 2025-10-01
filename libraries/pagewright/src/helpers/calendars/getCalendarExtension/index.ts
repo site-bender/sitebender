@@ -1,8 +1,6 @@
 import type { CalendarSystem } from "../../../../types/temporal/index.ts"
 
-/**
- * Get calendar extension for datetime attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function getCalendarExtension(
 	calendar?: CalendarSystem,
 ): string {

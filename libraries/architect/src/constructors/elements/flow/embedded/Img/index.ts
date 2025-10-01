@@ -13,9 +13,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Img attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ImgElementAttributes = ImageAttributes & ImageAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -26,28 +24,9 @@ export type ImgElementAttributes = ImageAttributes & ImageAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Img element
- * Allows global attributes and validates img-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Img element configuration object
- *
- * The img element embeds an image into the document.
- * Images are void elements and cannot have children.
- *
- * @example
- * ```typescript
- * const img = Img({
- *   src: "image.jpg",
- *   alt: "Description of image",
- *   width: 300,
- *   height: 200,
- *   loading: "lazy"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Img = (attributes: Partial<ImgElementAttributes> = {}): ElementConfig => {
 	const { id, ...attribs } = filterAttributes(
 		attributes as ImgElementAttributes,

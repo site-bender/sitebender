@@ -1,1 +1,1 @@
-/** TableCell - Table cell (td/th) with scope attributes */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style

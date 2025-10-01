@@ -1,10 +1,6 @@
 import type CoverageData from "../parseLcovReport/types/index.ts"
 
-/**
- * Parses the JSON coverage report from Deno
- * @param jsonData Raw JSON coverage data string
- * @returns Parsed coverage data structure
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseCoverageReport(jsonData: string): CoverageData {
 	try {
 		const data = JSON.parse(jsonData)

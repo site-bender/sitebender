@@ -1,42 +1,4 @@
-/**
- * WeekDay component
- *
- * Represents a day of the week with optional week number, quarter,
- * and other calendar information. Supports various week numbering
- * systems (ISO 8601, US, etc.).
- *
- * Example usage:
- *
- * // Simple weekday
- * <WeekDay value="2024-01-15" />
- * // → Monday
- *
- * // With week number (ISO 8601)
- * <WeekDay value="2024-01-15" showWeek />
- * // → Monday, Week 3
- *
- * // With quarter
- * <WeekDay value="2024-04-01" showQuarter />
- * // → Monday, Q2
- *
- * // Full information
- * <WeekDay
- *   value="2024-01-15"
- *   showWeek
- *   showQuarter
- *   showDayOfYear
- *   locale="en-GB"
- * />
- * // → Monday, Week 3, Q1, Day 15
- *
- * // Different week systems
- * <WeekDay value="2024-01-01" showWeek weekSystem="US" />
- * // → Monday, Week 1 (US week starts on Sunday)
- *
- * // Julian day number
- * <WeekDay value="2024-01-15" showJulianDay />
- * // → Monday (JD 2460325)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type {
 	TemporalBaseProps,

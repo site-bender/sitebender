@@ -4,27 +4,18 @@ import {
 	FLOW_IF_MAP_DESCENDANT,
 } from "../../guards/constants/index.ts"
 
-/**
- * Configuration object for element validation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type ElementConfig = {
 	readonly tag?: string
 	readonly attributes?: Record<string, unknown>
 }
 
-/**
- * Options for flow content validation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type FlowContentOptions = {
 	readonly ancestors?: readonly string[]
 }
 
-/**
- * Creates a flow content validator function
- *
- * @param options - Validation options (ancestors, etc.)
- * @returns Function that validates if an element config represents flow content
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function isFlowContent(options: FlowContentOptions = {}) {
 	return (config: ElementConfig = {}) => {
 		const { attributes = {}, tag } = config

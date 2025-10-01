@@ -16,14 +16,14 @@ export default function liftTernary<A, B, C, D, E>(
 	fn: (a: A) => (b: B) => (c: C) => D,
 ) {
 	return function liftedFirst(
-		ma: A | Result<E, A> | Validation<E[], A>,
+		ma: A | Result<E, A> | Validation<E,A>,
 	) {
 		return function liftedSecond(
-			mb: B | Result<E, B> | Validation<E[], B>,
+			mb: B | Result<E, B> | Validation<E,B>,
 		) {
 			return function liftedThird(
-				mc: C | Result<E, C> | Validation<E[], C>,
-			): Result<E, D> | Validation<E[], D> {
+				mc: C | Result<E, C> | Validation<E,C>,
+			): Result<E, D> | Validation<E,D> {
 				// If ANY argument is Validation, use Validation
 				if (isValidation(ma) || isValidation(mb) || isValidation(mc)) {
 					// Extract value from Result if needed, otherwise wrap plain value
@@ -45,7 +45,7 @@ export default function liftTernary<A, B, C, D, E>(
 							? (isOk(mc) ? success(mc.value) : { _tag: "Failure" as const, errors: [mc.error] as [E] })
 							: success(mc as C)
 
-					return validationMap3(fn)(aVal as Validation<E, A>)(bVal as Validation<E, B>)(cVal as Validation<E, C>) as Validation<E[], D>
+					return validationMap3(fn)(aVal as Validation<E, A>)(bVal as Validation<E, B>)(cVal as Validation<E, C>) as Validation<E,D>
 				}
 
 				// Otherwise use Result (all Result or all plain)

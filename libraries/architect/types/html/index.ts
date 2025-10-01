@@ -1,6 +1,4 @@
-/**
- * Base type for all element configurations in the Sitebender library
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type {
 	ComparatorConfig,
 	LogicalConfig,
@@ -19,30 +17,22 @@ export type ElementTag =
 	| "Span"
 // Add more as we migrate
 
-/**
- * Minimal element configuration for utility functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ElementConfig = {
 	readonly tag?: string
 	readonly children?: readonly unknown[]
 }
 
-/**
- * Configuration object returned by TextNode constructor
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TextNodeConfig = {
 	readonly tag: "TextNode"
 	readonly content: string
 }
 
-/**
- * Type for the TextNode constructor function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TextNodeConstructor = (content: Value) => TextNodeConfig
 
-/**
- * Global HTML attributes that can be applied to any element
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type GlobalAttributes = {
 	readonly id?: string
 	readonly class?: string
@@ -57,9 +47,7 @@ export type GlobalAttributes = {
 	// Add more global attributes as needed
 }
 
-/**
- * ARIA attributes for accessibility
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type AriaAttributes = {
 	readonly label?: string
 	readonly hidden?: boolean
@@ -70,9 +58,7 @@ export type AriaAttributes = {
 	// Add more ARIA attributes as needed
 }
 
-/**
- * Special properties that can be attached to elements
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SpecialProperties = {
 	readonly calculation?: Operand | undefined
 	readonly dataset?: Record<string, unknown> | undefined
@@ -82,37 +68,27 @@ export type SpecialProperties = {
 	readonly stylesheets?: readonly string[] | undefined
 }
 
-/**
- * Base element configuration that all elements share
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BaseElementConfig<TTag extends ElementTag> = {
 	readonly tag: TTag
 	readonly attributes: GlobalAttributes
 	readonly children: readonly unknown[]
 } & SpecialProperties
 
-/**
- * Configuration object returned by Div constructor
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DivConfig = BaseElementConfig<"Div">
 
-/**
- * Input type for Div attributes (includes special properties)
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DivAttributes = GlobalAttributes & SpecialProperties & {
 	readonly aria?: AriaAttributes
 }
 
-/**
- * Type for the Div constructor function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DivConstructor = (
 	attributes?: Record<string, unknown>,
 ) => (children: Array<ElementConfig>) => DivConfig
 
-/**
- * Configuration object returned by GlobalEmpty constructor
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type GlobalEmptyConfig<TTag extends string = string> = {
 	readonly tag: TTag
 	readonly attributes: Record<string, unknown> & {
@@ -130,9 +106,7 @@ export type GlobalEmptyConfig<TTag extends string = string> = {
 	}
 } & Partial<SpecialProperties>
 
-/**
- * Input type for GlobalEmpty attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type GlobalEmptyAttributes<TTag extends string = string> =
 	& GlobalAttributes
 	& SpecialProperties
@@ -141,9 +115,7 @@ export type GlobalEmptyAttributes<TTag extends string = string> =
 		readonly [key: `data-${string}`]: string | number | boolean | undefined
 	}
 
-/**
- * Type for the GlobalEmpty constructor function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type GlobalEmptyConstructor<TTag extends string = string> = (
 	attributes?: GlobalEmptyAttributes<TTag>,
 ) => GlobalEmptyConfig<TTag>

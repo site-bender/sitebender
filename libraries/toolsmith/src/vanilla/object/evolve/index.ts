@@ -8,65 +8,7 @@ import isNotNullish from "../../validation/isNotNullish/index.ts"
 import isNotUndefined from "../../validation/isNotUndefined/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Recursively evolves an object by applying transformation functions to specific paths
- *
- * Creates a new object by recursively applying a structure of transformation
- * functions to a matching structure in the target object. Each function in the
- * transformations object is applied to the corresponding value in the target.
- * Non-function values in transformations are ignored. Unmatched paths in target
- * are preserved unchanged.
- *
- * @pure
- * @immutable
- * @curried
- * @param transformations - Object matching target structure with functions as values
- * @param obj - Object to evolve
- * @returns A new object with transformations applied
- * @example
- * ```typescript
- * // Simple transformations
- * evolve({
- *   count: (x: number) => x + 1,
- *   name: (s: string) => s.toUpperCase()
- * })({
- *   count: 10,
- *   name: "alice",
- *   unchanged: true
- * })
- * // { count: 11, name: "ALICE", unchanged: true }
- *
- * // Nested transformations
- * evolve({
- *   user: {
- *     age: (x: number) => x + 1,
- *     name: (s: string) => s.trim()
- *   },
- *   scores: (arr: number[]) => arr.map(x => x * 2)
- * })({
- *   user: { age: 30, name: "  Bob  ", id: 123 },
- *   scores: [10, 20, 30],
- *   other: "unchanged"
- * })
- * // { user: { age: 31, name: "Bob", id: 123 }, scores: [20, 40, 60], other: "unchanged" }
- *
- * // Array element transformations
- * evolve({
- *   items: {
- *     0: { price: (p: number) => p * 1.1 },
- *     1: { price: (p: number) => p * 0.9 }
- *   }
- * })({ items: [{ name: "A", price: 100 }, { name: "B", price: 200 }] })
- * // { items: [{ name: "A", price: 110 }, { name: "B", price: 180 }] }
- *
- * // Partial application for configuration
- * const incrementPatch = evolve({
- *   version: { patch: (x: number) => x + 1 }
- * })
- * incrementPatch({ version: { major: 1, minor: 2, patch: 3 }, name: "app" })
- * // { version: { major: 1, minor: 2, patch: 4 }, name: "app" }
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const evolve = <T extends Record<string | symbol, Value>>(
 	transformations: Record<string | symbol, TransformationSpec>,
 ) =>

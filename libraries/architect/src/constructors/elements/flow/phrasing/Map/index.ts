@@ -12,14 +12,9 @@ import Filtered from "@sitebender/architect/constructors/abstracted/Filtered/ind
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Map element
- * Allows global attributes and validates map-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Map attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type MapElementAttributes = ImageMapAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -31,22 +26,7 @@ export type MapElementAttributes = ImageMapAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Map element configuration object
- *
- * The map element represents an image map, used with area elements to define
- * clickable regions on an image.
- *
- * @example
- * ```typescript
- * const map = Map({
- *   name: "navigation-map"
- * })([
- *   Area({ shape: "rect", coords: "0,0,100,50", href: "/home", alt: "Home" }),
- *   Area({ shape: "rect", coords: "100,0,200,50", href: "/about", alt: "About" })
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Map =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {

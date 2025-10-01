@@ -3,17 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Floor JSX Component
- *
- * Wrapper for the Floor operator constructor.
- * Rounds a number down to the nearest integer.
- *
- * @example
- * <Floor>
- *   <FromElement id="price" type="Number" />
- * </Floor>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FloorConstructor from "../../../../../architect/src/constructors/operators/Floor/index.ts"
 

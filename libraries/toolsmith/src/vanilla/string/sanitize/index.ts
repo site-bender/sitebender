@@ -1,46 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Sanitizes strings for safe use in HTML/URLs
- *
- * Aggressively cleans strings to prevent XSS attacks and injection vulnerabilities.
- * Unlike escape which preserves content with HTML entities, sanitize removes
- * potentially dangerous content entirely. Strips HTML tags, JavaScript protocols,
- * dangerous attributes, and normalizes whitespace. Use this for untrusted user
- * input that needs to be displayed as plain text.
- *
- * @pure
- * @immutable
- * @safe
- * @param input - String to sanitize
- * @returns Sanitized string safe for HTML/URL contexts
- * @example
- * ```typescript
- * // Remove HTML tags completely
- * sanitize("<script>alert('XSS')</script>Hello")  // "Hello"
- *
- * // Remove all HTML formatting
- * sanitize("<b>Bold</b> and <i>italic</i> text")  // "Bold and italic text"
- *
- * // Remove dangerous protocols
- * sanitize("javascript:alert('XSS')")             // ""
- *
- * // Clean up URLs
- * sanitize("https://example.com/page")            // "https://example.com/page"
- *
- * // Remove event handlers
- * sanitize("Click me <span onclick='alert(1)'>here</span>")  // "Click me here"
- *
- * // Strip comments
- * sanitize("<!-- Hidden comment -->Visible text")  // "Visible text"
- *
- * // Normalize whitespace
- * sanitize("Too    many\n\n\nspaces")             // "Too many spaces"
- *
- * // Plain text preserved
- * sanitize("Hello World! This is safe text.")     // "Hello World! This is safe text."
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const sanitize = (
 	input: string | null | undefined,
 ): string => {

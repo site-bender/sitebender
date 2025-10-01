@@ -1,14 +1,8 @@
-/**
- * Generate tests for monad pattern functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 
-/**
- * Generate test cases for monad pattern functions (Maybe, Either, Result, etc.)
- * @param signature Function signature
- * @returns Array of monad-specific test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateMonadPatternTests(
 	signature: FunctionSignature,
 ): Array<TestCase> {

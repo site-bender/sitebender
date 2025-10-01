@@ -10,12 +10,7 @@ type CoveragePercentages = {
 	branchPercentage: number
 }
 
-/**
- * Calculates coverage percentages from the coverage data
- * @param coverageData Coverage data from report
- * @param functionPath Path to the function file
- * @returns Coverage percentages breakdown
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function calculatePercentages(
 	coverageData: CoverageData,
 	functionPath: string,

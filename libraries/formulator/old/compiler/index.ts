@@ -31,68 +31,7 @@ import Subtract from "../../../architect/src/constructors/operators/Subtract/ind
 import Ternary from "../../../architect/src/constructors/operators/Ternary/index.ts"
 import inferNumericType from "./inferNumericType/index.ts"
 
-/**
- * Compiles an AST node into an architect configuration using architect constructors.
- * Transforms the parsed AST into executable architect operator configurations.
- *
- * @param ast - Abstract Syntax Tree node to compile
- * @param variables - Map of variable names to injector configurations
- * @returns Result containing architect configuration or parse error
- *
- * @example
- * ```typescript
- * // Example 1: Compile a number literal
- * const ast = { type: "Number", value: 42 }
- * const result = compile(ast, {})
- * // Returns: { ok: true, value: { tag: "Constant", type: "injector", datatype: "Number", value: 42 } }
- * ```
- *
- * @example
- * ```typescript
- * // Example 2: Compile a variable reference
- * const ast = { type: "Variable", name: "x" }
- * const variables = { x: { tag: "FromElement", type: "injector", datatype: "Number", source: "#input" } }
- * const result = compile(ast, variables)
- * // Returns: { ok: true, value: { tag: "FromElement", type: "injector", datatype: "Number", source: "#input" } }
- * ```
- *
- * @example
- * ```typescript
- * // Example 3: Compile binary addition
- * const ast = {
- *   type: "BinaryOp",
- *   operator: "+",
- *   left: { type: "Variable", name: "a" },
- *   right: { type: "Variable", name: "b" }
- * }
- * const variables = {
- *   a: { tag: "Constant", type: "injector", datatype: "Integer", value: 5 },
- *   b: { tag: "Constant", type: "injector", datatype: "Integer", value: 3 }
- * }
- * const result = compile(ast, variables)
- * // Returns: Add configuration with Integer datatype
- * ```
- *
- * @example
- * ```typescript
- * // Example 4: Compile unary negation
- * const ast = {
- *   type: "UnaryOp",
- *   operator: "-",
- *   operand: { type: "Number", value: 5 }
- * }
- * const result = compile(ast, {})
- * // Returns: Negate configuration wrapping Constant(5)
- * ```
- *
- * @example
- * ```typescript
- * // Example 5: Error on undefined variable
- * const ast = { type: "Variable", name: "unknown" }
- * const result = compile(ast, {})
- * // Returns: { ok: false, error: { message: "Undefined variable: unknown" } }
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function compile(
 	ast: AstNode,
 	variables: VariableMap,

@@ -1,61 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Removes common leading whitespace from all lines in a string
- *
- * Analyzes all non-empty lines to find the minimum indentation level,
- * then removes that amount of leading whitespace from every line.
- * This is useful for cleaning up template literals, heredocs, or
- * multiline strings while preserving relative indentation.
- *
- * @pure
- * @immutable
- * @safe
- * @param str - String to strip indentation from
- * @returns String with common indentation removed
- * @example
- * ```typescript
- * // Basic indentation removal
- * stripIndent(`
- *     line 1
- *     line 2
- *     line 3
- * `)
- * // "line 1\nline 2\nline 3"
- *
- * // Preserves relative indentation
- * stripIndent(`
- *     function test() {
- *         console.log('hello');
- *     }
- * `)
- * // "function test() {\n    console.log('hello');\n}"
- *
- * // Template literal cleanup
- * const sql = stripIndent(`
- *     SELECT *
- *     FROM users
- *     WHERE active = true
- * `)
- * // "SELECT *\nFROM users\nWHERE active = true"
- *
- * // Single line
- * stripIndent("    single line")
- * // "single line"
- *
- * // Handle null/undefined gracefully
- * stripIndent(null)       // ""
- * stripIndent(undefined)  // ""
- *
- * // Create dedent helper
- * const dedent = (strings: TemplateStringsArray, ...values: Array<any>) => {
- *   const result = strings.reduce((acc, str, i) => {
- *     return acc + str + (values[i] || "")
- *   }, "")
- *   return stripIndent(result)
- * }
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const stripIndent = (
 	str: string | null | undefined,
 ): string => {

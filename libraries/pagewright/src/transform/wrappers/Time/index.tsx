@@ -1,14 +1,4 @@
-/**
- * Time JSX Component
- *
- * Semantic wrapper for time values in time comparison operations.
- *
- * @example
- * <IsAfterTime>
- *   <Value><FromElement id="startTime" type="Time" /></Value>
- *   <Time><Constant value="14:30:00" /></Time>
- * </IsAfterTime>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type TimeProps = {
 	children?: JSX.Element | JSX.Element[]

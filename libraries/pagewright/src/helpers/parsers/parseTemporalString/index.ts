@@ -3,15 +3,7 @@ import type {
 	ParsedTemporal,
 } from "../../../../types/temporal/index.ts"
 
-/**
- * Parse a Temporal-style string with bracket notation
- * Examples:
- * - "2024-01-15"
- * - "2024-01-15[America/New_York]"
- * - "2024-01-15[America/New_York][u-ca=hebrew]"
- * - "2024-01-15T14:30:00[America/New_York]"
- * - "14:30:00[Europe/Paris]"
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function parseTemporalString(value: string): ParsedTemporal {
 	const original = value
 

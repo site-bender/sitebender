@@ -1,35 +1,4 @@
-/**
- * Week component
- *
- * Represents a calendar week using various week numbering systems.
- * Supports ISO 8601 weeks, US weeks, and other regional systems.
- *
- * Example usage:
- *
- * // ISO week (YYYY-Www format)
- * <Week value="2024-W03" />
- * // → Week 3, 2024
- *
- * // From date with ISO week
- * <Week value="2024-01-15" />
- * // → Week 3, 2024
- *
- * // US week system
- * <Week value="2024-01-15" weekSystem="US" />
- * // → Week 3, 2024 (US)
- *
- * // Show date range
- * <Week value="2024-W03" showRange />
- * // → Week 3, 2024 (Jan 15 - Jan 21)
- *
- * // With locale
- * <Week value="2024-W03" locale="fr-FR" showRange />
- * // → Semaine 3, 2024 (15 janv. - 21 janv.)
- *
- * // Compact format
- * <Week value="2024-W03" format="short" />
- * // → W3 2024
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import type {
 	TemporalBaseProps,

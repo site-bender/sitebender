@@ -1,10 +1,6 @@
 import internalRateOfReturn from "../internalRateOfReturn/index.ts"
 
-/**
- * Alias for internalRateOfReturn - Calculates IRR for cash flows
- *
- * @see {@link internalRateOfReturn} for full documentation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const irr = internalRateOfReturn
 
 export default irr

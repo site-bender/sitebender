@@ -1,47 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Parses time strings into Temporal.PlainTime objects
- *
- * Converts various time string formats into Temporal.PlainTime objects with
- * flexible parsing support for common time formats. Handles 12-hour and 24-hour
- * formats, optional seconds, and various separators. Returns null for invalid
- * inputs to support safe error handling. Uses strict validation to ensure
- * parsed times are valid.
- *
- * @param timeString - Time string in various supported formats
- * @returns Temporal.PlainTime object or null if invalid
- * @example
- * ```typescript
- * // 24-hour format
- * parseTime("14:30:00")   // PlainTime 14:30:00
- * parseTime("14:30")      // PlainTime 14:30:00
- * parseTime("23:59:59")   // PlainTime 23:59:59
- *
- * // 12-hour format with AM/PM
- * parseTime("2:30 PM")    // PlainTime 14:30:00
- * parseTime("9:15 AM")    // PlainTime 09:15:00
- * parseTime("12:00 PM")   // PlainTime 12:00:00 (noon)
- * parseTime("12:00 AM")   // PlainTime 00:00:00 (midnight)
- *
- * // Alternative separators and precision
- * parseTime("14.30.00")         // PlainTime 14:30:00
- * parseTime("14:30:00.500")    // PlainTime 14:30:00.500
- *
- * // Schedule parsing with filtering
- * const schedule = ["9:00 AM", "10:30 AM", "2:15 PM"]
- * const parsedTimes = schedule
- *   .map(parseTime)
- *   .filter((time): time is Temporal.PlainTime => time !== null)
- *
- * // Invalid input handling
- * parseTime("25:00")      // null (hour > 23)
- * parseTime("14:60")      // null (minute > 59)
- * parseTime(null)         // null
- * ```
- * @pure
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const parseTime = (
 	timeString: string | null | undefined,
 ): Temporal.PlainTime | null => {

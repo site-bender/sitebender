@@ -1,14 +1,4 @@
-/**
- * Threshold Wrapper Component
- *
- * Used with comparison operators like IsMoreThan, IsLessThan to specify the threshold value.
- *
- * @example
- * <IsMoreThan>
- *   <Value><FromElement id="price" /></Value>
- *   <Threshold><Constant value={100} /></Threshold>
- * </IsMoreThan>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type ThresholdProps = {
 	children?: JSX.Element | JSX.Element[]

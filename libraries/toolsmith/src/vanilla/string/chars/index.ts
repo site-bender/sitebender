@@ -1,49 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Splits a string into an array of individual characters
- *
- * Converts a string into an array where each element is a single character
- * or grapheme cluster. Uses Intl.Segmenter when available for proper
- * grapheme cluster segmentation (handles complex emojis, combining characters,
- * etc.), falling back to spread operator for basic Unicode support.
- *
- * @param str - String to split into characters
- * @returns Array of individual characters/graphemes
- * @example
- * ```typescript
- * // Basic usage
- * chars("hello")
- * // ["h", "e", "l", "l", "o"]
- *
- * chars("")
- * // []
- *
- * chars("123!@#")
- * // ["1", "2", "3", "!", "@", "#"]
- *
- * // Complex emoji
- * chars("👨‍👩‍👧‍👦🎉")
- * // ["👨‍👩‍👧‍👦", "🎉"] (with Intl.Segmenter)
- *
- * // Unicode handling
- * chars("café")
- * // ["c", "a", "f", "é"]
- *
- * chars("你好世界")
- * // ["你", "好", "世", "界"]
- *
- * // Use with array methods
- * chars("hello").map(c => c.toUpperCase())
- * // ["H", "E", "L", "L", "O"]
- *
- * chars("hello").filter(c => c !== "l")
- * // ["h", "e", "o"]
- * ```
- * @pure
- * @immutable
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const chars = (
 	str: string | null | undefined,
 ): Array<string> => {

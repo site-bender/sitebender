@@ -11,14 +11,9 @@ import Filtered from "@sitebender/architect/constructors/abstracted/Filtered/ind
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Dialog element
- * Allows global attributes and validates the open boolean attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Dialog attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DialogElementAttributes = DialogAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -30,27 +25,7 @@ export type DialogElementAttributes = DialogAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Dialog element configuration object
- *
- * The dialog element represents a dialog box or other interactive component.
- * It can contain flow content and has an optional open attribute.
- *
- * @example
- * ```typescript
- * const dialog = Dialog({
- *   id: "confirmation-dialog",
- *   open: true
- * })([
- *   H2()("Confirm Action"),
- *   P()("Are you sure you want to delete this item?"),
- *   Footer()([
- *     Button()("Cancel"),
- *     Button()("Delete")
- *   ])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Dialog = Filtered("Dialog")(filterAttributes)
 
 export default Dialog

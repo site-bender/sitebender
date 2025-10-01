@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended P attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PElementAttributes = ParagraphAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,25 +27,9 @@ export type PElementAttributes = ParagraphAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for P element
- * Allows global attributes and validates paragraph-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a P element configuration object
- *
- * The p element represents a paragraph. A paragraph is typically a run of
- * phrasing content that forms a block of text with one or more sentences.
- *
- * @example
- * ```typescript
- * const paragraph = P({
- *   id: "intro",
- *   class: "lead"
- * })([TextNode("This is a paragraph of text.")])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const P = (attributes: PElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Ul attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type UlElementAttributes =
 	& UnorderedListAttributes
 	& ListAriaAttributes
@@ -31,29 +29,9 @@ export type UlElementAttributes =
 		validation?: ComparatorConfig | LogicalConfig
 	}
 
-/**
- * Filters attributes for Ul element
- * Allows global attributes and validates list-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Ul element configuration object
- *
- * The ul element represents an unordered list of items.
- * It can only contain li, script, and template elements.
- *
- * @example
- * ```typescript
- * const ul = Ul({
- *   id: "main-list",
- *   class: "list"
- * })([
- *   Li()("First item"),
- *   Li()("Second item"),
- *   Li()("Third item")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Ul = (attributes: UlElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

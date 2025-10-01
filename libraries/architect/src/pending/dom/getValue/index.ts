@@ -14,17 +14,7 @@ import getFromLocal from "./getFromLocal/index.ts"
 import getFromSelect from "./getFromSelect/index.ts"
 import getFromTextArea from "./getFromTextArea/index.ts"
 
-/**
- * Retrieves a value from a DOM element based on element configuration
- *
- * @param op - Element configuration containing selector information
- * @returns Function that takes local values and returns either an error or the element value
- * @example
- * ```typescript
- * getValue({ id: "myInput" })()
- * getValue({ name: "fieldName", tag: "input" })(localValues)
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const getValue =
 	(op: ElementConfig) => (localValues?: Record<string, unknown>) => {
 		const selector = getSelector(

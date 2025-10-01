@@ -4,11 +4,7 @@ import { walk } from "https://deno.land/std@0.212.0/fs/walk.ts"
 
 import type { ValidationResult } from "./types/index.ts"
 
-/**
- * Validates the structure of the test generator codebase
- * @param basePath Base path to validate
- * @returns Validation result with violations and statistics
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default async function validateStructure(
 	basePath: string = ".",
 ): Promise<ValidationResult> {
@@ -110,11 +106,7 @@ async function validateOneFunctionPerFile(
 	}
 }
 
-/**
- * Validates folder structure follows CLAUDE.md conventions
- * @param path File path to validate
- * @param result Validation result object to update
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function validateFolderStructure(path: string, result: ValidationResult): void {
 	if (!path.endsWith("/index.ts") && !path.endsWith("/types/index.ts")) {
 		result.violations.push(`File not named index.ts: ${path}`)

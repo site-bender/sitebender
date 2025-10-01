@@ -2,20 +2,7 @@ import filterCheckedAttributes from "@sitebender/architect/constructors/elements
 
 import Input from "../index.ts"
 
-/**
- * Creates an InputCheckbox element configuration object
- *
- * The checkbox input allows users to select multiple options.
- *
- * @example
- * ```typescript
- * const input = InputCheckbox({
- *   name: "preferences",
- *   value: "newsletter",
- *   checked: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputCheckbox = Input("checkbox")(filterCheckedAttributes)
 
 export default InputCheckbox

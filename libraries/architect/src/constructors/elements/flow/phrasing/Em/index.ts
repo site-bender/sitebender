@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Em attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type EmElementAttributes = EmphasisAttributes & AriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,24 +27,9 @@ export type EmElementAttributes = EmphasisAttributes & AriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Em element
- * Allows global attributes and validates em-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Em element configuration object
- *
- * The em element represents stress emphasis of its contents.
- * It can contain phrasing content.
- *
- * @example
- * ```typescript
- * const em = Em({ id: "emphasis", class: "highlight" })([
- *   TextNode("Emphasized text")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Em = (attributes: EmElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

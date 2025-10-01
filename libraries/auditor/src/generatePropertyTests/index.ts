@@ -2,12 +2,7 @@ import type { FunctionSignature, TestCase, TypeInfo } from "../types/index.ts"
 
 import { TypeKind } from "../types/index.ts"
 
-/**
- * Generates property-based tests that actually work with fast-check
- *
- * @param signature Function signature with type information
- * @returns Array of property-based test cases
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generatePropertyTests(
 	signature: FunctionSignature,
 ): Array<TestCase> {
@@ -46,9 +41,7 @@ export default function generatePropertyTests(
 	return tests.filter((t) => t !== null) as Array<TestCase>
 }
 
-/**
- * Generates a property test for type correctness
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateTypeCorrectnessProperty(
 	signature: FunctionSignature,
 ): TestCase {
@@ -77,9 +70,7 @@ function generateTypeCorrectnessProperty(
 	}
 }
 
-/**
- * Generates a property test for determinism
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateDeterminismProperty(signature: FunctionSignature): TestCase {
 	// Skip determinism test for functions that return functions
 	if (signature.returnType.kind === TypeKind.Function) {
@@ -126,9 +117,7 @@ function generateDeterminismProperty(signature: FunctionSignature): TestCase {
 	}
 }
 
-/**
- * Generates a property test for Result structure
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateResultStructureProperty(
 	signature: FunctionSignature,
 ): TestCase {
@@ -164,9 +153,7 @@ function generateResultStructureProperty(
 	}
 }
 
-/**
- * Generates a property test for array-returning functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateArrayProperty(signature: FunctionSignature): TestCase | null {
 	// Only for functions that take arrays and return arrays
 	const arrayParams = signature.parameters.filter((p) =>
@@ -205,9 +192,7 @@ function generateArrayProperty(signature: FunctionSignature): TestCase | null {
 	}
 }
 
-/**
- * Generates a property test for string functions
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateStringProperty(signature: FunctionSignature): TestCase | null {
 	const stringParams = signature.parameters.filter((p) =>
 		p.type.raw === "string"
@@ -239,9 +224,7 @@ function generateStringProperty(signature: FunctionSignature): TestCase | null {
 	}
 }
 
-/**
- * Generates a property test for referential transparency
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateReferentialTransparencyProperty(
 	signature: FunctionSignature,
 ): TestCase {
@@ -291,9 +274,7 @@ function generateReferentialTransparencyProperty(
 	}
 }
 
-/**
- * Converts a TypeInfo to a fast-check generator string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function typeToFastCheckGenerator(type: TypeInfo): string {
 	switch (type.kind) {
 		case TypeKind.Primitive:
@@ -362,9 +343,7 @@ function typeToFastCheckGenerator(type: TypeInfo): string {
 	}
 }
 
-/**
- * Generates appropriate type check code
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function generateTypeCheck(type: TypeInfo, varName: string): string {
 	switch (type.kind) {
 		case TypeKind.Primitive:
@@ -407,9 +386,7 @@ function generateTypeCheck(type: TypeInfo, varName: string): string {
 	}
 }
 
-/**
- * Checks if function signature suggests randomness
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function hasRandomness(signature: FunctionSignature): boolean {
 	return signature.name.toLowerCase().includes("random") ||
 		signature.name.toLowerCase().includes("shuffle") ||
@@ -417,9 +394,7 @@ function hasRandomness(signature: FunctionSignature): boolean {
 		signature.name.toLowerCase().includes("guid")
 }
 
-/**
- * Checks if function appears to be pure
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function isPureFunction(signature: FunctionSignature): boolean {
 	// Async and generator functions are likely not pure
 	if (signature.isAsync || signature.isGenerator) return false

@@ -3,15 +3,7 @@ import type { TypeInfo } from "../../types/index.ts"
 import { TypeKind } from "../../types/index.ts"
 import generateTestInput from "../generateTestInputs/index.ts"
 
-/**
- * Generates edge case inputs for a given type
- *
- * @example
- * ```typescript
- * const inputs = generateEdgeCaseInputs({ raw: "string", kind: TypeKind.Primitive })
- * // Returns: ["", " ", "🎯 Unicode 文字", ...]
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateEdgeCaseInputs(type: TypeInfo): Array<unknown> {
 	const cases: Array<unknown> = []
 

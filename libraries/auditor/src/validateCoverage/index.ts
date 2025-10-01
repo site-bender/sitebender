@@ -8,10 +8,7 @@ import parseLcovReport from "./parseLcovReport/index.ts"
 import runCoverage from "./runCoverage/index.ts"
 import suggestCoverageIgnores from "./suggestCoverageIgnores/index.ts"
 
-/**
- * Validates test coverage for a given function
- * Runs tests with coverage, parses results, identifies gaps
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default async function validateCoverage(
 	functionPath: string,
 	testFilePath: string,

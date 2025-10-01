@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * DoesNotMatch JSX Component
- *
- * Wrapper for the DoesNotMatch comparator constructor.
- * Checks if a value does not match a regular expression pattern.
- * Requires <Value> and <Pattern> wrapper components.
- *
- * @example
- * <DoesNotMatch>
- *   <Value><FromElement id="phone" type="String" /></Value>
- *   <Pattern><Constant value={/^[0-9]{10}$/} /></Pattern>
- * </DoesNotMatch>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import DoesNotMatchConstructor from "../../../../../architect/src/constructors/comparators/matching/DoesNotMatch/index.ts"
 

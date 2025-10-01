@@ -1,6 +1,4 @@
-/**
- * Detects if a function is curried and how many levels
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function detectCurrying(
 	source: string,
 ): { isCurried: boolean; levels: number } {
@@ -48,9 +46,7 @@ export default function detectCurrying(
 	}
 }
 
-/**
- * Removes comments from source code
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 function removeComments(source: string): string {
 	// Remove single-line comments, then multi-line comments
 	const withoutSingleLine = source.replace(/\/\/.*$/gm, "")

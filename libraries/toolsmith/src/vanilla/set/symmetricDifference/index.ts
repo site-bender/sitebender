@@ -1,11 +1,4 @@
-/**
- * Elements present in exactly one of the two Sets (XOR)
- *
- * @pure
- * @immutable Returns a new Set, does not modify inputs
- * @curried
- * @safe Handles null/undefined by returning the other set or empty
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 type MaybeSymDiffSet<T> = Set<T> & {
 	symmetricDifference?: (other: Set<T>) => Set<T>
 }

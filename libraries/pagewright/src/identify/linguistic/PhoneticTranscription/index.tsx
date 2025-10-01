@@ -1,21 +1,4 @@
-/**
- * PhoneticTranscription component
- *
- * Marks up phonetic transcriptions in IPA (International Phonetic
- * Alphabet) or other phonetic notation systems. Used in arboristics,
- * dictionaries, and language learning materials.
- *
- * Example usage:
- *
- * <PhoneticTranscription notation="ipa">/fəˈnɛtɪk/</PhoneticTranscription>
- *
- * <PhoneticTranscription
- *   notation="respelling"
- *   word="phonetic"
- * >
- *   fuh-NET-ik
- * </PhoneticTranscription>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type NotationType =
 	| "ipa" // International Phonetic Alphabet

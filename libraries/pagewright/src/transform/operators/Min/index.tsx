@@ -6,19 +6,7 @@ import type {
 	TemporalDatatype,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Min JSX Component
- *
- * Wrapper for the Min operator constructor.
- * Returns the minimum value from the provided operands.
- *
- * @example
- * <Min type="Number">
- *   <FromElement id="price1" />
- *   <FromElement id="price2" />
- *   <FromElement id="price3" />
- * </Min>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import MinConstructor from "../../../../../architect/src/constructors/operators/Min/index.ts"
 

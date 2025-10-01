@@ -3,15 +3,7 @@ import type { SourceNode } from "../../parseSourceCode/types/index.ts"
 
 import computeBranchId from "../../computeBranchId/index.ts"
 
-/**
- * Extracts if/else branch paths from an AST
- * Pure function that finds all if statements and their branches
- * @param ast - The AST node to analyze
- * @returns Array of if/else branch paths
- * @example
- * const branches = extractIfBranches(ast)
- * // Returns: [{ id: "if_1", type: BranchType.If, ... }]
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function extractIfBranches(ast: SourceNode): Array<BranchPath> {
 	if (!ast.children) return []
 

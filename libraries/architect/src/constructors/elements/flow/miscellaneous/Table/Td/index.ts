@@ -11,14 +11,9 @@ import Filtered from "@sitebender/architect/constructors/abstracted/Filtered/ind
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Td element
- * Allows global attributes and validates colSpan, headers, and rowSpan
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Td attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TdElementAttributes = TableDataCellAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -30,23 +25,7 @@ export type TdElementAttributes = TableDataCellAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Td element configuration object
- *
- * The td element represents a data cell in a table.
- * It can contain flow content.
- *
- * @example
- * ```typescript
- * const td = Td({
- *   id: "cell-1",
- *   colSpan: 2,
- *   headers: "header1 header2"
- * })([
- *   TextNode("Cell content")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Td = Filtered("Td")(filterAttributes)
 
 export default Td

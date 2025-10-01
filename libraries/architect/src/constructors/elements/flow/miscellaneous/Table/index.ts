@@ -15,9 +15,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Table attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TableElementAttributes = TableAttributes & TableAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -28,39 +26,9 @@ export type TableElementAttributes = TableAttributes & TableAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Table element
- * Allows global attributes and validates table-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Table element configuration object
- *
- * The table element represents tabular data in rows and columns.
- * It can contain caption, colgroup, thead, tbody, tfoot, tr, script, and template elements.
- *
- * @example
- * ```typescript
- * const table = Table({
- *   id: "data-table",
- *   class: "table"
- * })([
- *   Caption()("Sales Data"),
- *   THead()([
- *     Tr()([
- *       Th()("Month"),
- *       Th()("Sales")
- *     ])
- *   ]),
- *   TBody()([
- *     Tr()([
- *       Td()("January"),
- *       Td()("$1000")
- *     ])
- *   ])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Table = (attributes: TableElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

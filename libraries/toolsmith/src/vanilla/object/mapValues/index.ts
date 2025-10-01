@@ -2,49 +2,7 @@ import type { Value } from "../../../types/index.ts"
 
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Maps a function over all values in an object, preserving keys
- *
- * Transforms each value in an object by applying a function, while keeping
- * the same keys. Creates a new object with the same keys but transformed values.
- * Useful for bulk transformations of object values.
- *
- * @pure
- * @immutable
- * @curried
- * @param fn - Function to apply to each value
- * @param obj - Object whose values will be transformed
- * @returns A new object with same keys but transformed values
- * @example
- * ```typescript
- * // Basic usage
- * mapValues((x: number) => x * 2)({ a: 1, b: 2, c: 3 })
- * // { a: 2, b: 4, c: 6 }
- *
- * // String transformation
- * mapValues((s: string) => s.toUpperCase())({ first: "hello", last: "world" })
- * // { first: "HELLO", last: "WORLD" }
- *
- * // Type detection
- * mapValues((v: Value) => typeof v)({ name: "Alice", age: 30, active: true })
- * // { name: "string", age: "number", active: "boolean" }
- *
- * // Extract nested values
- * mapValues((user: { name: string }) => user.name)({
- *   u1: { name: "Alice" },
- *   u2: { name: "Bob" }
- * })
- * // { u1: "Alice", u2: "Bob" }
- *
- * // Partial application
- * const doubleValues = mapValues((x: number) => x * 2)
- * doubleValues({ x: 10, y: 20 }) // { x: 20, y: 40 }
- *
- * // Edge cases
- * mapValues((x: number) => x + 1)(null) // {}
- * mapValues((x: number) => x * 2)({}) // {}
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const mapValues = <T extends Value, R extends Value>(
 	fn: (value: T) => R,
 ) =>

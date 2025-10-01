@@ -4,9 +4,7 @@ import { TEMPLATES } from "../../constants/index.ts"
 import { extractSignature } from "../../extractors/index.ts"
 import formatProperties from "../formatProperties/index.ts"
 
-/**
- * Generates markdown documentation from function metadata
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateMarkdown(metadata: FunctionMetadata): string {
 	const template = TEMPLATES.markdown
 	const header = template.header

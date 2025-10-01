@@ -1,19 +1,4 @@
-/**
- * WordAsWord component
- *
- * Marks up words when they are being discussed as words rather
- * than used for their meaning. Common in arboristic discussions,
- * dictionaries, and educational content about language.
- *
- * Example usage:
- *
- * The word <WordAsWord>run</WordAsWord> can be a noun or a verb.
- *
- * <WordAsWord lang="es">Amigo</WordAsWord> means "friend" in Spanish.
- *
- * The word <WordAsWord partOfSpeech="adjective">quick</WordAsWord>
- * modifies the noun.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

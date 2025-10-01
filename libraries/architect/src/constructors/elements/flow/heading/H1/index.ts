@@ -16,9 +16,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended H1 attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type H1ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -29,21 +27,9 @@ export type H1ElementAttributes = HeadingAttributes & HeadingAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for H1 element
- * Allows global attributes and validates heading-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an H1 element configuration object
- *
- * @example
- * ```typescript
- * const h1 = H1({ id: "main-title", role: "tab" })([
- *   TextNode("Main Heading")
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const H1 = (attributes: H1ElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

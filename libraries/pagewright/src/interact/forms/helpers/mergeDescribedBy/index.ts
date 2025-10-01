@@ -1,12 +1,4 @@
-/**
- * Merge aria-describedby token list with additional ids.
- * - Pure function; returns a space-separated, de-duplicated string or undefined.
- * - Preserves original token order; appends new unique tokens.
- *
- * @example
- * mergeDescribedBy(undefined, "a", undefined, "b") //=> "a b"
- * mergeDescribedBy("a", "b", "a") //=> "a b"
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function mergeDescribedBy(
 	existing: string | undefined,
 	...ids: Array<string | undefined>

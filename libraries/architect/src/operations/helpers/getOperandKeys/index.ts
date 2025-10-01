@@ -1,12 +1,6 @@
 import type { Operand } from "../../../../types/index.ts"
 
-/**
- * Extracts operand keys from an operation configuration
- * These are the properties that contain Operand values that need to be composed
- *
- * @param operation - Operation configuration object
- * @returns Array of property names that contain operands
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const getOperandKeys = (operation: Operand): Array<string> => {
 	const knownOperandKeys = [
 		// Unary operators

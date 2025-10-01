@@ -7,12 +7,7 @@ import type {
 
 import Error from "@sitebender/architect/constructors/Error/index.ts"
 
-/**
- * On.IsAuthenticated
- *
- * Minimal policy op: returns right(true) when LocalValues.user exists/truthy,
- * otherwise left([Error]). Ignores arg and any config.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const isAuthenticated = (_op?: unknown): OperationFunction<boolean> =>
 (
 	_arg: unknown,

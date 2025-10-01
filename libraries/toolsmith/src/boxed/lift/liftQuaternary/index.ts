@@ -16,17 +16,17 @@ export default function liftQuaternary<A, B, C, D, E, F>(
 	fn: (a: A) => (b: B) => (c: C) => (d: D) => E,
 ) {
 	return function liftedFirst(
-		ma: A | Result<F, A> | Validation<F[], A>,
+		ma: A | Result<F, A> | Validation<F,A>,
 	) {
 		return function liftedSecond(
-			mb: B | Result<F, B> | Validation<F[], B>,
+			mb: B | Result<F, B> | Validation<F,B>,
 		) {
 			return function liftedThird(
-				mc: C | Result<F, C> | Validation<F[], C>,
+				mc: C | Result<F, C> | Validation<F,C>,
 			) {
 				return function liftedFourth(
-					md: D | Result<F, D> | Validation<F[], D>,
-				): Result<F, E> | Validation<F[], E> {
+					md: D | Result<F, D> | Validation<F,D>,
+				): Result<F, E> | Validation<F,E> {
 					// If ANY argument is Validation, use Validation
 					if (
 						isValidation(ma) || isValidation(mb) || isValidation(mc) ||
@@ -56,7 +56,7 @@ export default function liftQuaternary<A, B, C, D, E, F>(
 								? (isOk(md) ? success(md.value) : { _tag: "Failure" as const, errors: [md.error] as [F] })
 								: success(md as D)
 
-						return validationMap4(fn)(aVal as Validation<F, A>)(bVal as Validation<F, B>)(cVal as Validation<F, C>)(dVal as Validation<F, D>) as Validation<F[], E>
+						return validationMap4(fn)(aVal as Validation<F, A>)(bVal as Validation<F, B>)(cVal as Validation<F, C>)(dVal as Validation<F, D>) as Validation<F,E>
 					}
 
 					// Otherwise use Result (all Result or all plain)

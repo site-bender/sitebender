@@ -1,60 +1,7 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
 //++ Finds the median of an Array<number>; returns NaN on invalid input
-/**
- * Finds the median value of an array of numbers
- *
- * Calculates the middle value when the array is sorted. For arrays with
- * an odd number of elements, returns the middle element. For arrays with
- * an even number of elements, returns the average of the two middle elements.
- * Returns NaN for empty arrays or arrays containing non-numeric values.
- *
- * @param numbers - Array of numbers to find the median of
- * @returns The median value, or NaN if invalid input
- * @example
- * ```typescript
- * // Odd number of elements
- * median([3, 1, 2])
- * // 2
- *
- * median([5, 2, 8, 1, 9])
- * // 5
- *
- * // Even number of elements
- * median([1, 2, 3, 4])
- * // 2.5
- *
- * median([10, 20])
- * // 15
- *
- * // Negative numbers
- * median([-5, -2, -8, -1, -3])
- * // -3
- *
- * // Duplicate values
- * median([5, 5, 5, 5, 5])
- * // 5
- *
- * // Invalid inputs
- * median([])
- * // NaN
- *
- * median([1, NaN, 3])
- * // NaN
- *
- * // Statistical examples
- * const testScores = [85, 92, 78, 95, 88, 73, 98]
- * median(testScores)
- * // 88
- *
- * // Outlier resistance
- * const dataset = [1, 2, 3, 4, 100]
- * median(dataset)
- * // 3 (not affected by outlier 100)
- * ```
- * @pure Always returns same result for same input
- * @safe Returns NaN for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function median(
 	numbers: Array<number> | null | undefined,
 ): number {

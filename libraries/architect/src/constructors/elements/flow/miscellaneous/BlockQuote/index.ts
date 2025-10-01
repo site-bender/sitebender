@@ -13,14 +13,9 @@ import isFlowContent from "@sitebender/architect/guards/isFlowContent/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for BlockQuote element
- * Allows global attributes and validates the cite attribute
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended BlockQuote attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type BlockQuoteElementAttributes = BlockQuotationAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -32,23 +27,7 @@ export type BlockQuoteElementAttributes = BlockQuotationAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a BlockQuote element configuration object
- *
- * The blockquote element represents content that is quoted from another source.
- * It can contain flow content and optionally cite the source.
- *
- * @example
- * ```typescript
- * const blockquote = BlockQuote({
- *   id: "famous-quote",
- *   cite: "https://example.com/source"
- * })([
- *   P()("To be or not to be, that is the question."),
- *   Footer()([P()("— Shakespeare")])
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const BlockQuote =
 	(attributes: Record<string, Value> = {}) =>
 	(children: Array<ElementConfig> | ElementConfig | string = []) => {

@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsUnequalTo JSX Component
- *
- * Wrapper for the IsUnequalTo comparator constructor.
- * Checks if two values are not equal.
- * Requires <Value> and <ExpectedValue> wrapper components.
- *
- * @example
- * <IsUnequalTo>
- *   <Value><FromElement id="status" type="String" /></Value>
- *   <ExpectedValue><Constant value="pending" /></ExpectedValue>
- * </IsUnequalTo>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsUnequalToConstructor from "../../../../../architect/src/constructors/comparators/equality/IsUnequalTo/index.ts"
 

@@ -2,46 +2,7 @@ import type { Pair } from "../../../types/tuple/index.ts"
 
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Performs Bezier curve interpolation at a given parameter t
- *
- * Computes a point on a Bezier curve defined by control points using
- * De Casteljau's algorithm. The curve starts at the first control point
- * (t=0) and ends at the last control point (t=1). Works with 2D points
- * represented as [x, y] pairs. Supports any number of control points:
- * 2 points create a linear interpolation, 3 points create a quadratic
- * Bezier, 4 points create a cubic Bezier, and so on.
- *
- * @param controlPoints - Array of [x, y] control points defining the curve
- * @param t - Parameter value between 0 and 1 (0=start, 1=end)
- * @returns Interpolated [x, y] point on the curve, or [NaN, NaN] if invalid
- * @curried
- * @pure
- * @safe
- * @example
- * ```typescript
- * // Linear Bezier (2 control points)
- * bezierInterpolation([[0, 0], [10, 10]])(0.5)  // [5, 5]
- *
- * // Quadratic Bezier (3 control points)
- * bezierInterpolation([[0, 0], [5, 10], [10, 0]])(0.5)  // [5, 5]
- *
- * // Cubic Bezier (4 control points)
- * bezierInterpolation([[0, 0], [0, 10], [10, 10], [10, 0]])(0.5)  // [5, 7.5]
- *
- * // CSS cubic-bezier for ease-in-out
- * const easeInOut = [[0, 0], [0.42, 0], [0.58, 1], [1, 1]]
- * bezierInterpolation(easeInOut)(0.5)  // [0.5, 0.5]
- *
- * // At boundaries
- * bezierInterpolation([[1, 2], [5, 6]])(0)  // [1, 2] (first point)
- * bezierInterpolation([[1, 2], [5, 6]])(1)  // [5, 6] (last point)
- *
- * // Edge cases
- * bezierInterpolation(null)(0.5)  // [NaN, NaN]
- * bezierInterpolation([[1, 2]])(0.5)  // [NaN, NaN] (need >=2 points)
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const bezierInterpolation = (
 	controlPoints: Array<Array<number>> | null | undefined,
 ) =>

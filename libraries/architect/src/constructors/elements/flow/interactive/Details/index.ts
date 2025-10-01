@@ -15,14 +15,9 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for Details element
- * Allows global attributes and validates details-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended Details attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DetailsElementAttributes = DetailsAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -34,23 +29,7 @@ export type DetailsElementAttributes = DetailsAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates a Details element configuration object
- *
- * The details element represents a disclosure widget from which the user
- * can obtain additional information or controls.
- *
- * @example
- * ```typescript
- * const details = Details({
- *   id: "more-info",
- *   open: false
- * })([
- *   Summary()(TextNode("More Information")),
- *   P()(TextNode("Additional details here..."))
- * ])
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Details = (attributes: DetailsElementAttributes = {}) =>
 (
 	children: Array<ElementConfig> | ElementConfig | string = [],

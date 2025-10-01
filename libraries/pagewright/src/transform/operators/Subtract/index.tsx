@@ -4,24 +4,7 @@ import type {
 	SubtractOperator,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Subtract JSX Component
- *
- * Wrapper for the Subtract operator constructor.
- * Requires <From> and <Amount> wrapper components to specify operands.
- *
- * @example
- * <Subtract>
- *   <From><FromElement id="total" /></From>
- *   <Amount><FromElement id="discount" /></Amount>
- * </Subtract>
- *
- * Mathematical aliases available:
- * <Subtract>
- *   <Minuend><FromElement id="total" /></Minuend>
- *   <Subtrahend><FromElement id="discount" /></Subtrahend>
- * </Subtract>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import SubtractConstructor from "../../../../../architect/src/constructors/operators/Subtract/index.ts"
 

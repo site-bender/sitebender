@@ -1,47 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates compound interest on a principal amount
- *
- * Computes the future value using the compound interest formula:
- * A = P(1 + r/n)^(nt), where P is principal, r is annual rate,
- * n is compounds per year, and t is time in years. Returns the
- * total amount (principal + interest). Returns NaN for invalid inputs.
- *
- * @param principal - Initial amount (must be non-negative)
- * @param rate - Annual interest rate as decimal (0.05 for 5%)
- * @param compounds - Number of times interest compounds per year
- * @param time - Time period in years
- * @returns Future value (principal + interest), or NaN if invalid
- * @example
- * ```typescript
- * // Basic usage
- * compoundInterest(1000)(0.05)(1)(1)    // 1050 (annual)
- * compoundInterest(1000)(0.05)(12)(1)   // 1051.16 (monthly)
- * compoundInterest(1000)(0.05)(365)(1)  // 1051.27 (daily)
- *
- * // Different periods
- * compoundInterest(1000)(0.05)(1)(5)   // 1276.28 (5 years)
- * compoundInterest(1000)(0.05)(1)(10)  // 1628.89 (10 years)
- *
- * // Edge cases
- * compoundInterest(1000)(0)(12)(5)    // 1000 (no interest)
- * compoundInterest(-1000)(0.05)(12)(1) // NaN (negative principal)
- *
- * // Partial application
- * const savings = compoundInterest(10000)(0.03)(12)
- * savings(1)   // 10304.16 (1 year)
- * savings(5)   // 11616.17 (5 years)
- * savings(10)  // 13493.54 (10 years)
- *
- * // Invalid inputs
- * compoundInterest(null)(0.05)(12)(1)  // NaN
- * compoundInterest(1000)(0.05)(0)(1)   // NaN
- * ```
- * @pure
- * @curried
- * @safe - Returns NaN for invalid inputs
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const compoundInterest = (
 	principal: number | null | undefined,
 ) =>

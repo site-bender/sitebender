@@ -1,7 +1,4 @@
-/**
- * Viz.Bar JSX Component (thin slice)
- * SSR-safe container with data-viz attributes for bar charts.
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 export type Props = {
 	id?: string

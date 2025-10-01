@@ -11,9 +11,7 @@ import filterAttribute from "../../../../../guards/filterAttribute/index.ts"
 import isMemberOf from "../../../../../guards/isMemberOf/index.ts"
 import { getInputAllowedRoles } from "../../../constants/aria-roles.ts"
 
-/**
- * Gets the appropriate inputMode for the given input type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const getInputMode =
 	(type: string) =>
 	(attribs: Record<string, unknown>): Record<string, unknown> => {
@@ -35,9 +33,7 @@ const getInputMode =
 		}
 	}
 
-/**
- * Validates and filters the role attribute for the given input type
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const validateInputRole =
 	(type: string) => (role: Value | undefined): Record<string, unknown> => {
 		if (!isDefined(role)) {
@@ -50,13 +46,7 @@ const validateInputRole =
 		)
 	}
 
-/**
- * Base Input constructor that creates input elements of specified type
- *
- * @param type - The input type (e.g., "Text", "Email", "Password")
- * @param filterAttributes - Function to filter and validate attributes for this input type
- * @returns A function that creates an input element configuration
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Input = (type: string = "Text") =>
 (
 	filterAttributes: (

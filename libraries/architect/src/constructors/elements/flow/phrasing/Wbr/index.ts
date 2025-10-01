@@ -13,9 +13,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Wbr attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type WbrElementAttributes = GlobalAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -26,22 +24,9 @@ export type WbrElementAttributes = GlobalAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Wbr element
- * Allows global attributes only
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates a Wbr element configuration object
- *
- * The wbr element represents a word break opportunity.
- * It is a void element and cannot contain children.
- *
- * @example
- * ```typescript
- * const wbr = Wbr({ id: "word-break" })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function Wbr(
 	attributes: WbrElementAttributes = {},
 ): ElementConfig {

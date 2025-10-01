@@ -2,11 +2,7 @@ import * as ts from "npm:typescript@5.7.2"
 
 import isFunction from "./isFunction/index.ts"
 
-/**
- * Detects if a function uses currying pattern (returns another function)
- * @param node Function declaration, expression, or arrow function
- * @returns True if the function returns another function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function detectCurrying(
 	node: ts.FunctionDeclaration | ts.FunctionExpression | ts.ArrowFunction,
 ): boolean {

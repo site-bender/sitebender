@@ -1,15 +1,6 @@
 import type { FromLocalStorageInjector } from "../../../../../architect/types/index.ts"
 
-/**
- * FromLocalStorage JSX Component
- *
- * Wrapper for the FromLocalStorage injector constructor.
- * Gets a value from browser localStorage.
- *
- * @example
- * <FromLocalStorage key="userPreference" type="String" />
- * <FromLocalStorage key="settings" type="Json" />
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import FromLocalStorageConstructor from "../../../../../architect/src/constructors/injectors/FromLocalStorage/index.ts"
 

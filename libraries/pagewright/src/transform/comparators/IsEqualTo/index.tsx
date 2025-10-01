@@ -3,18 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsEqualTo JSX Component
- *
- * Wrapper for the IsEqualTo comparator constructor.
- * Requires <Value> and <ExpectedValue> wrapper components.
- *
- * @example
- * <IsEqualTo>
- *   <Value><FromElement id="status" /></Value>
- *   <ExpectedValue><Constant value="active" /></ExpectedValue>
- * </IsEqualTo>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsEqualToConstructor from "../../../../../architect/src/constructors/comparators/equality/IsEqualTo/index.ts"
 

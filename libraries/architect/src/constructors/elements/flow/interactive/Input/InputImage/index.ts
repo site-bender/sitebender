@@ -11,13 +11,9 @@ import Input from "@sitebender/architect/constructors/elements/flow/interactive/
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Filters attributes for InputImage
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Extended InputImage attributes including reactive properties
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InputImageElementAttributes = InputImageAttributes & {
 	aria?: Record<string, Value>
 	calculation?: Operand
@@ -29,23 +25,7 @@ export type InputImageElementAttributes = InputImageAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Creates an InputImage element configuration object
- *
- * The image input creates a clickable image that submits the form.
- *
- * @example
- * ```typescript
- * const input = InputImage({
- *   name: "submit",
- *   src: "submit-button.png",
- *   alt: "Submit",
- *   width: 100,
- *   height: 40,
- *   disabled: false
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputImage = Input("image")(
 	filterAttributes as unknown as (
 		a: Record<string, Value>,

@@ -2,15 +2,7 @@ import type { TypeInfo } from "../../types/index.ts"
 
 import { TypeKind } from "../../types/index.ts"
 
-/**
- * Generates invalid inputs for negative testing
- *
- * @example
- * ```typescript
- * const inputs = generateInvalidInputs({ raw: "string", kind: TypeKind.Primitive })
- * // Returns: [123, true, {}] - wrong types for string parameter
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateInvalidInputs(type: TypeInfo): Array<unknown> {
 	const invalid: Array<unknown> = []
 

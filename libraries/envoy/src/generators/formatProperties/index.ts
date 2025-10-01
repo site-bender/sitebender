@@ -2,9 +2,7 @@ import type { Properties } from "../../types/index.ts"
 
 import { PROPERTY_BADGES } from "../../constants/index.ts"
 
-/**
- * Formats properties as badges for documentation
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatProperties(properties: Properties): string {
 	const badges: Array<string> = []
 

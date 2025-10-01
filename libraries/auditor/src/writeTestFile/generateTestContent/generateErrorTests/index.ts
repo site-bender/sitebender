@@ -3,13 +3,7 @@ import type { FunctionSignature, TestCase } from "../../../types/index.ts"
 import escapeTestName from "../escapeTestName/index.ts"
 import valueToString from "../valueToString/index.ts"
 
-/**
- * Generates test code for error cases
- * @param tests Array of test cases with expected errors
- * @param functionName Name of the function being tested
- * @param _signature Function signature (reserved for future use)
- * @returns Generated test code string
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateErrorTests(
 	tests: Array<TestCase>,
 	functionName: string,

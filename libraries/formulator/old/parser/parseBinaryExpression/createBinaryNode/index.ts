@@ -4,13 +4,7 @@ import type {
 	ComparisonNode,
 } from "../../../types/index.ts"
 
-/**
- * Creates appropriate binary AST node based on operator type
- * @param operator - The operator string
- * @param left - Left operand AST node
- * @param right - Right operand AST node
- * @returns Binary or comparison AST node
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function createBinaryNode(
 	operator: string,
 	left: AstNode,

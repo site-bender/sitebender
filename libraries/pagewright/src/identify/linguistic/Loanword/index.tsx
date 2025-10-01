@@ -1,33 +1,4 @@
-/**
- * Loanword component
- *
- * Marks up words borrowed from other languages that have been
- * integrated into the current language. Tracks the source language,
- * adaptation status, and historical context of borrowing.
- *
- * Example usage:
- *
- * <Loanword from="fr" adapted>
- *   café
- * </Loanword>
- *
- * <Loanword
- *   from="ja"
- *   period="1990s"
- *   originalForm="絵文字"
- * >
- *   emoji
- * </Loanword>
- *
- * <Loanword
- *   from="it"
- *   via={["fr"]}
- *   adapted
- *   meaning="final section of music"
- * >
- *   finale
- * </Loanword>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

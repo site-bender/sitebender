@@ -1,45 +1,7 @@
 import mean from "../../math/mean/index.ts"
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Calculates the covariance between two datasets
- *
- * Measures how two variables vary together. Positive covariance indicates
- * variables tend to increase together, negative indicates one increases as
- * the other decreases, and zero indicates no linear relationship. Returns
- * population covariance by default. Arrays must be of equal length. Returns
- * NaN for invalid inputs or arrays with less than 2 elements.
- *
- * @param x - First array of numeric values
- * @param y - Second array of numeric values
- * @param sample - If true, calculates sample covariance (divides by n-1)
- * @returns Covariance value, or NaN if invalid
- * @example
- * ```typescript
- * // Positive covariance
- * covariance([1, 2, 3, 4, 5])([2, 4, 6, 8, 10])()
- * // 4 (population covariance)
- *
- * // Sample covariance (divides by n-1)
- * covariance([1, 2, 3, 4, 5])([2, 4, 6, 8, 10])(true)
- * // 5
- *
- * // Negative covariance
- * covariance([1, 2, 3, 4, 5])([5, 4, 3, 2, 1])()
- * // -2
- *
- * // No covariance (independent)
- * covariance([1, 2, 3, 4, 5])([3, 3, 3, 3, 3])()
- * // 0
- *
- * // Invalid inputs
- * covariance([1, 2, 3])([1, 2])()  // NaN (different lengths)
- * covariance([5])([10])()  // NaN (too few elements)
- * ```
- * @pure
- * @curried
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function covariance(
 	x: number[] | null | undefined,
 ) {

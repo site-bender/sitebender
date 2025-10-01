@@ -2,20 +2,7 @@ import filterTextAttributes from "@sitebender/architect/constructors/elements/fl
 
 import Input from "../index.ts"
 
-/**
- * Creates an InputPassword element configuration object
- *
- * The password input field allows users to securely input passwords.
- *
- * @example
- * ```typescript
- * const input = InputPassword({
- *   name: "password",
- *   placeholder: "Enter your password",
- *   required: true
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const InputPassword = Input("password")(filterTextAttributes)
 
 export default InputPassword

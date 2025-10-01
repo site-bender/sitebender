@@ -3,9 +3,7 @@ import type { DurationValue } from "../../../../types/temporal/index.ts"
 import formatRelativeTime from "../formatRelativeTime/index.ts"
 import formatDurationPart from "./formatDurationPart/index.ts"
 
-/**
- * Format a duration to human-readable text
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function formatDuration(
 	duration: DurationValue,
 	locale?: string,

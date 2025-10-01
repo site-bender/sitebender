@@ -1,48 +1,4 @@
-/**
- * Normalizes string for comparison (lowercase, remove special chars)
- *
- * Transforms a string to a normalized form suitable for case-insensitive
- * and accent-insensitive comparisons. Converts to lowercase, removes
- * diacritics, and optionally removes non-alphanumeric characters.
- * Useful for fuzzy matching, search, and deduplication.
- *
- * @param text - The text to normalize
- * @returns Normalized string suitable for comparison
- * @example
- * ```typescript
- * // Basic normalization
- * normalizeForComparison("Hello World!")  // "hello world"
- * normalizeForComparison("Café")          // "cafe"
- * normalizeForComparison("naïve résumé")  // "naive resume"
- *
- * // Special character handling
- * normalizeForComparison("hello@world.com")  // "helloworldcom"
- * normalizeForComparison("price: $99.99!")   // "price 9999"
- *
- * // Unicode normalization
- * normalizeForComparison("Zürich")      // "zurich"
- * normalizeForComparison("São Paulo")   // "sao paulo"
- *
- * // String comparison utility
- * const areEqual = (a: string, b: string) =>
- *   normalizeForComparison(a) === normalizeForComparison(b)
- * areEqual("Café", "cafe")         // true
- * areEqual("HELLO", "hello")       // true
- * areEqual("user@123", "USER 123") // true
- *
- * // Fuzzy search
- * const fuzzyMatch = (needle: string, haystack: string) => {
- *   const normNeedle = normalizeForComparison(needle)
- *   const normHaystack = normalizeForComparison(haystack)
- *   return normHaystack.includes(normNeedle)
- * }
- * fuzzyMatch("cafe", "Café Luna")  // true
- * fuzzyMatch("email", "e-mail")    // true
- * ```
- * @pure
- * @immutable
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const normalizeForComparison = (text: string): string => {
 	if (!text || typeof text !== "string") {
 		return ""

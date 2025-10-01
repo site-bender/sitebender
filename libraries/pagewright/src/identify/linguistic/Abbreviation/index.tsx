@@ -1,30 +1,4 @@
-/**
- * Abbreviation component
- *
- * Marks up general abbreviations (not acronyms or initialisms).
- * Provides expansion, language context, and pronunciation guidance
- * for accessibility and proper rendering.
- *
- * Example usage:
- *
- * <Abbreviation expansion="Doctor">Dr.</Abbreviation> Smith
- *
- * <Abbreviation
- *   expansion="et cetera"
- *   lang="la"
- *   ipa="/ɛt ˈsɛtərə/"
- * >
- *   etc.
- * </Abbreviation>
- *
- * <Abbreviation
- *   expansion="versus"
- *   context="legal"
- *   period={false}
- * >
- *   vs
- * </Abbreviation>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 import type { BCP47LanguageTag } from "../../../../types/bcp47/index.ts"
 
 export type Props = {

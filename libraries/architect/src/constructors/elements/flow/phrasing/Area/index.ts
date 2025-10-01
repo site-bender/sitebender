@@ -14,9 +14,7 @@ import isDefined from "@sitebender/architect/utilities/isDefined/index.ts"
 
 import filterAttributes from "./filterAttributes/index.ts"
 
-/**
- * Extended Area attributes including reactive properties and ARIA
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type AreaElementAttributes = AreaAttributes & NoAriaAttributes & {
 	calculation?: Operand
 	dataset?: Record<string, Value>
@@ -27,28 +25,9 @@ export type AreaElementAttributes = AreaAttributes & NoAriaAttributes & {
 	validation?: ComparatorConfig | LogicalConfig
 }
 
-/**
- * Filters attributes for Area element
- * Allows global attributes and validates area-specific attributes
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-/**
- * Creates an Area element configuration object
- *
- * The area element represents an area inside an image map,
- * or a dead area on an image map.
- * It is a void element and cannot contain children.
- *
- * @example
- * ```typescript
- * const area = Area({
- *   shape: "rect",
- *   coords: "0,0,100,100",
- *   href: "/section1",
- *   alt: "Section 1"
- * })
- * ```
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const Area = (
 	attributes: Partial<AreaElementAttributes> = {},
 ): ElementConfig => {

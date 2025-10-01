@@ -3,19 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * IsBeforeDate JSX Component
- *
- * Wrapper for the IsBeforeDate comparator constructor.
- * Checks if a date is before another date.
- * Requires <Value> and <Date> wrapper components.
- *
- * @example
- * <IsBeforeDate>
- *   <Value><FromElement id="expiryDate" type="Date" /></Value>
- *   <Date><Constant value="2025-01-01" /></Date>
- * </IsBeforeDate>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import IsBeforeDateConstructor from "../../../../../architect/src/constructors/comparators/date/IsBeforeDate/index.ts"
 

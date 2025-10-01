@@ -1,52 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
-/**
- * Removes diacritical marks from characters
- *
- * Converts accented characters to their basic Latin equivalents by removing
- * diacritical marks (accents, tildes, umlauts, etc.). This is useful for
- * search normalization, URL slugs, or creating ASCII-safe strings. The
- * function handles a comprehensive set of Latin-based diacritics but
- * preserves non-Latin scripts unchanged.
- *
- * @param str - String to remove diacritics from
- * @returns String with diacritical marks removed
- * @example
- * ```typescript
- * // Basic usage
- * deburr("café")
- * // "cafe"
- *
- * deburr("naïve résumé")
- * // "naive resume"
- *
- * // Various languages
- * deburr("niño mañana")  // Spanish
- * // "nino manana"
- *
- * deburr("über schön")   // German
- * // "uber schon"
- *
- * deburr("São Paulo")     // Portuguese
- * // "Sao Paulo"
- *
- * // Case preserved
- * deburr("CaféMañana")
- * // "CafeManana"
- *
- * // Search normalization
- * const normalize = (s: string) => deburr(s.toLowerCase())
- * normalize("Café") === normalize("cafe")
- * // true
- *
- * // Non-Latin scripts unchanged
- * deburr("你好 мир שלום")
- * // "你好 мир שלום"
- * ```
- * @pure
- * @immutable
- * @safe
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const deburr = (
 	str: string | null | undefined,
 ): string => {

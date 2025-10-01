@@ -2,11 +2,7 @@ import type { FunctionSignature } from "../../types/index.ts"
 
 import { TypeKind } from "../../types/index.ts"
 
-/**
- * Determines if a function signature requires curried function handling
- * @param signature Function signature to check
- * @returns True if the function is curried and returns a function
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function needsCurriedHandling(
 	signature: FunctionSignature,
 ): boolean {

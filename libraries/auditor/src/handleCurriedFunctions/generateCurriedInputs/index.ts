@@ -4,12 +4,7 @@ import countCurryLevels from "../countCurryLevels/index.ts"
 import getDefaultValueForLevel from "../getDefaultValueForLevel/index.ts"
 import needsCurriedHandling from "../needsCurriedHandling/index.ts"
 
-/**
- * Generates inputs for curried function testing
- * @param baseInput Base array of input values
- * @param signature Function signature information
- * @returns Extended array of inputs for all curry levels
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export default function generateCurriedInputs(
 	baseInput: Array<unknown>,
 	signature: FunctionSignature,

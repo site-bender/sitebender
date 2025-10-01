@@ -3,17 +3,7 @@ import type {
 	Operand,
 } from "../../../../../architect/types/index.ts"
 
-/**
- * Negate JSX Component
- *
- * Wrapper for the Negate operator constructor.
- * Returns the negation of a number (multiplies by -1).
- *
- * @example
- * <Negate>
- *   <FromElement id="profit" type="Number" />
- * </Negate>
- */
+//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
 import NegateConstructor from "../../../../../architect/src/constructors/operators/Negate/index.ts"
 
