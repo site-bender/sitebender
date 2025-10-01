@@ -16,8 +16,3 @@ export default function handleError(
 		return err(error) as Result<AstNode, ParseError>
 	})
 }
-
-//?? [EXAMPLE] handleError(parseError) returns Parser that yields error
-//?? [PRO] Pure function that wraps error in Parser context
-//?? [PRO] Maintains type safety with proper error propagation
-//?? [GOTCHA] Only used when left node parsing fails unexpectedly

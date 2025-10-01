@@ -13,8 +13,3 @@ export default function hasBinaryCommutativeOperator(node: AstNode): boolean {
 
 	return isCommutativeOperator || findInChildren(node)
 }
-
-//?? [EXAMPLE] hasBinaryCommutativeOperator(plusOperatorNode) // true
-//?? [EXAMPLE] hasBinaryCommutativeOperator(minusOperatorNode) // false
-//?? [PRO] Properly traverses AST structure instead of string matching
-//?? [CON] Relies on hardcoded SyntaxKind numbers

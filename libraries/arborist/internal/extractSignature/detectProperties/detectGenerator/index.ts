@@ -24,7 +24,3 @@ export default function detectGenerator(
 
 	return false
 }
-
-//?? [EXAMPLE] const isGenerator = detectGenerator(functionNode)
-//?? [EXAMPLE] isGenerator // true for function* generators
-//?? [EXAMPLE] isGenerator // false for regular functions

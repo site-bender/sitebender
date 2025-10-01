@@ -44,7 +44,3 @@ export default function hasSymmetricParameters(source: string): boolean {
 		return test(pattern)(source)
 	})(symmetricPatterns)
 }
-
-//?? [EXAMPLE] hasSymmetricParameters("function f(a, b) { return a + b }") // true
-//?? [EXAMPLE] hasSymmetricParameters("function f(x, y) { return Math.max(x, y) }") // true
-//?? [EXAMPLE] hasSymmetricParameters("function f(a, b) { return a - b }") // false

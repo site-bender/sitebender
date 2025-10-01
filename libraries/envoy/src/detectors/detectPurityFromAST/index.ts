@@ -19,7 +19,3 @@ export default function detectPurityFromAST(node: AstNode): boolean {
 
 	return !hasSideEffects && !hasMutations && !hasExternalDeps
 }
-
-//?? [EXAMPLE] detectPurityFromAST(addFunctionNode) // true for pure add
-//?? [EXAMPLE] detectPurityFromAST(consoleFunctionNode) // false for console.log
-//?? [GOTCHA] May have false negatives for complex indirection

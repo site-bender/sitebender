@@ -44,12 +44,3 @@ const boolean: Generator<boolean> = {
 }
 
 export default boolean
-
-//?? [EXAMPLE] Generating boolean values
-//?? const seed = createSeed(42)
-//?? const { value, nextSeed } = boolean.next(seed.value)
-//?? // value: true or false
-//?? // nextSeed: advanced seed for next generation
-
-//?? [SHRINKING] true → false → (no more shrinks)
-//?? [PARSING] Accepts only true/false, rejects all other values

@@ -19,7 +19,3 @@ export default function transformGeneric(
 		}
 	}
 }
-
-//?? [EXAMPLE] const transform = transformGeneric(sourceFile)
-//?? [EXAMPLE] transform(typeParam) // "T"
-//?? [EXAMPLE] transform(typeParam) // "K extends keyof T"

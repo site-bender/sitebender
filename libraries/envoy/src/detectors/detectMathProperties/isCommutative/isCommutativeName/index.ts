@@ -16,7 +16,3 @@ export default function isCommutativeName(
 		return contains(commutativeName)(lowerName)
 	})(Array.from(COMMUTATIVE_FUNCTION_NAMES))
 }
-
-//?? [EXAMPLE] isCommutativeName("multiply") // true
-//?? [EXAMPLE] isCommutativeName("addNumbers") // true (contains "add")
-//?? [EXAMPLE] isCommutativeName("subtract") // false

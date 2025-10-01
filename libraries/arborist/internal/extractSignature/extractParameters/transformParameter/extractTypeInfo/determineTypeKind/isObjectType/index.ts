@@ -6,6 +6,3 @@ export default function isObjectType(
 ): boolean {
 	return typescript.isTypeLiteralNode(typeNode)
 }
-
-//?? [EXAMPLE] isObjectType(typeNode) // true for "{ name: string }"
-//?? [EXAMPLE] isObjectType(typeNode) // false for "string"

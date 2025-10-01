@@ -84,14 +84,3 @@ export default function _boundedInt(
 		nextSeed: r.nextSeed,
 	})
 }
-
-//?? [EXAMPLE] Generating bounded integers
-//?? const seed = createSeed(12345).value
-//?? const r1 = boundedInt(seed, 1, 6) // Dice roll
-//?? // r1.value.value: 4
-//?? const r2 = boundedInt(r1.value.nextSeed, 0, 99)
-//?? // r2.value.value: 67
-
-//?? [GOTCHA] Uses rejection sampling for small ranges to eliminate bias
-//?? [GOTCHA] Falls back to multiply-high for large ranges
-//?? [PRO] No modulo bias unlike simple % operations

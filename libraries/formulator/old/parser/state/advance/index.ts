@@ -34,9 +34,3 @@ export default function advance(): Parser<Token> {
 		return token
 	})
 }
-
-//?? [EXAMPLE] With tokens [NUMBER(1), PLUS, NUMBER(2)] at position 0:
-//?? advance() returns NUMBER(1) and moves position to 1
-//?? [PRO] Returns consumed token for immediate use
-//?? [PRO] Prevents advancing past EOF - idempotent at end
-//?? [GOTCHA] Modifies state unlike currentToken - use when consuming

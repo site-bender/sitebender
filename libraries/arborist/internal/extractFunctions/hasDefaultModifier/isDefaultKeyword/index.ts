@@ -6,7 +6,3 @@ export default function isDefaultKeyword(
 ): boolean {
 	return modifier.kind === typescript.SyntaxKind.DefaultKeyword
 }
-
-//?? [EXAMPLE] isDefaultKeyword(defaultModifier) // true
-//?? [EXAMPLE] isDefaultKeyword(exportModifier) // false
-//?? [PRO] Works with any ModifierLike node type

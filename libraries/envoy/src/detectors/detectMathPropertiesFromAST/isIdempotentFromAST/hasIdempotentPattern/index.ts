@@ -50,7 +50,3 @@ function checkIdentityReturn(node: AstNode): boolean {
 
 	return hasDirectReturn || hasArrowReturn
 }
-
-//?? [EXAMPLE] hasIdempotentPattern(mathAbsNode) // true
-//?? [PRO] Detects common idempotent patterns
-//?? [CON] May have false positives with text-based matching

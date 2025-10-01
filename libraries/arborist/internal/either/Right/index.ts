@@ -7,7 +7,3 @@ export default function Right<A>(value: A): Result<A, never> {
 		value,
 	}
 }
-
-//?? [EXAMPLE] const result = Right(42)
-//?? [EXAMPLE] result.ok // true
-//?? [EXAMPLE] result.value // 42

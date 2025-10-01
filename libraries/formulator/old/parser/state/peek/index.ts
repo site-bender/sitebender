@@ -26,10 +26,3 @@ export default function peek(offset: number = 1): Parser<Token> {
 		return token
 	})
 }
-
-//?? [EXAMPLE] With tokens [NUMBER(1), PLUS, NUMBER(2)] at position 0:
-//?? peek() returns PLUS without changing position from 0
-//?? peek(2) returns NUMBER(2) without changing position
-//?? [PRO] Enables lookahead for complex parsing decisions
-//?? [PRO] Parameterized offset for multi-token lookahead
-//?? [GOTCHA] Returns EOF for any position beyond token array

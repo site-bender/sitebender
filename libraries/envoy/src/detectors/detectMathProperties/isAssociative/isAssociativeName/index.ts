@@ -21,7 +21,3 @@ export default function isAssociativeName(
 		return contains(associativeName)(lowerName)
 	})(Array.from(ASSOCIATIVE_FUNCTION_NAMES))
 }
-
-//?? [EXAMPLE] isAssociativeName("multiply") // true
-//?? [EXAMPLE] isAssociativeName("addNumbers") // true (contains "add")
-//?? [EXAMPLE] isAssociativeName("absolute") // false (contains "abs")

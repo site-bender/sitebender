@@ -17,8 +17,3 @@ export default function hasAssociativeFunctionName(node: AstNode): boolean {
 		})(FUNCTION_DECLARATION_PATTERNS)
 	})(ASSOCIATIVE_FUNCTION_NAMES)
 }
-
-//?? [EXAMPLE] hasAssociativeFunctionName(addFunctionNode) // true
-//?? [EXAMPLE] hasAssociativeFunctionName(subtractFunctionNode) // false
-//?? [PRO] Uses toolsmith functions for array operations
-//?? [CON] Pattern matching on text rather than proper AST node analysis

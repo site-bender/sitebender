@@ -22,6 +22,3 @@ export default function extractParameters(
 
 	return map(transformParameter(sourceFile))(parametersArray)
 }
-
-//?? [EXAMPLE] extractParameters(functionNode, sourceFile) // [{ name: "arg1", type: {...} }]
-//?? [EXAMPLE] extractParameters(emptyFunction, sourceFile) // []

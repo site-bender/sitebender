@@ -127,11 +127,3 @@ export default function integer(
 		},
 	}
 }
-
-//?? [EXAMPLE] Creating integer generators
-//?? const anyInt = integer() // Full 32-bit range
-//?? const smallInt = integer(-100, 100) // Small range
-//?? const positiveInt = integer(0, 1000) // Positive only
-
-//?? [SHRINKING] Values shrink towards 0 if in range, else towards min
-//?? [SIZE] Size parameter can be used to bias generation towards smaller values

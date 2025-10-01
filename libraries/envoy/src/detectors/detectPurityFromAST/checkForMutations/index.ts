@@ -59,7 +59,3 @@ export default function checkForMutations(node: AstNode): boolean {
 
 	return false
 }
-
-//?? [EXAMPLE] checkForMutations(arrayPushNode) // true
-//?? [EXAMPLE] checkForMutations(pureMapNode) // false
-//?? [GOTCHA] May have false positives for local variable assignments

@@ -27,12 +27,3 @@ export default function splitSeed(seed: Seed): {
 
 	return { left, right }
 }
-
-//?? [EXAMPLE] Splitting for independent generators
-//?? const seed = createSeed(42).value
-//?? const { left, right } = splitSeed(seed)
-//?? // left and right can now be used independently
-//?? // with no correlation between their sequences
-
-//?? [GOTCHA] Both seeds have odd streams (PCG requirement)
-//?? [GOTCHA] Splitting is deterministic - same input always gives same splits

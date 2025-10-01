@@ -44,6 +44,3 @@ export default function determineTypeKind(
 
 	return determineKeywordTypeKind(typeNode.kind)
 }
-
-//?? [EXAMPLE] determineTypeKind(typeNode) // TypeKind.Primitive
-//?? [EXAMPLE] determineTypeKind(arrayTypeNode) // TypeKind.Array

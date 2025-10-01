@@ -18,7 +18,3 @@ export default function isAssociative(source: string): boolean {
 		hasStructuralAssociativity(source)
 	)
 }
-
-//?? [EXAMPLE] isAssociative("function add(a, b) { return a + b }") // true
-//?? [EXAMPLE] isAssociative("const multiply = (x, y) => x * y") // true
-//?? [EXAMPLE] isAssociative("function abs(x) { return Math.abs(x) }") // false

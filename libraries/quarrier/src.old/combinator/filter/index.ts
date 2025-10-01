@@ -45,12 +45,3 @@ export default function filter<T>(predicate: (value: T) => boolean) {
 		}
 	}
 }
-
-//?? [EXAMPLE] filter((n: number) => n % 2 === 0)(generateInteger(1)(10)) // Only even numbers
-//?? [EXAMPLE] filter((s: string) => s.length > 5)(generateString(10)) // Only strings longer than 5
-//?? [EXAMPLE] filter((n: number) => n > 0)(generateInteger(-10)(10)) // Only positive numbers
-//?? [GOTCHA] Can exhaust attempts if predicate is too restrictive
-//?? [GOTCHA] Performance degrades with low probability predicates
-//?? [PRO] Maintains determinism - same seed produces same filtered value
-//?? [PRO] Automatically retries with advanced seeds
-//?? [CON] No control over retry strategy or max attempts (yet)

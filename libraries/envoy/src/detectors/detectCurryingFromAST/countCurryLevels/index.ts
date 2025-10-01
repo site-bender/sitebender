@@ -97,7 +97,3 @@ function checkReturnedFunction(returnNode: AstNode): number {
 
 	return 0
 }
-
-//?? [EXAMPLE] countCurryLevels(curriedAddNode) // 2 for add = a => b => a + b
-//?? [EXAMPLE] countCurryLevels(regularFunctionNode) // 1 for non-curried
-//?? [GOTCHA] Text-based detection may miss complex patterns

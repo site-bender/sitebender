@@ -20,7 +20,3 @@ export default function isDistributive(source: string): boolean {
 		hasAnyPattern(COLLECTION_DISTRIBUTIVE_PATTERNS)(source)
 	)
 }
-
-//?? [EXAMPLE] isDistributive("function multiply(a, b) { return a * b }") // true
-//?? [EXAMPLE] isDistributive("const scale = (factor) => (value) => factor * value") // true
-//?? [EXAMPLE] isDistributive("function identity(x) { return x }") // false

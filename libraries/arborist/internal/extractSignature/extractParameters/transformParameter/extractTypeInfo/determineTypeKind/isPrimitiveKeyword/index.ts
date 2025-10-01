@@ -10,6 +10,3 @@ export default function isPrimitiveKeyword(
 		kind === typescript.SyntaxKind.SymbolKeyword ||
 		kind === typescript.SyntaxKind.BigIntKeyword
 }
-
-//?? [EXAMPLE] isPrimitiveKeyword(SyntaxKind.StringKeyword) // true
-//?? [EXAMPLE] isPrimitiveKeyword(SyntaxKind.VoidKeyword) // false

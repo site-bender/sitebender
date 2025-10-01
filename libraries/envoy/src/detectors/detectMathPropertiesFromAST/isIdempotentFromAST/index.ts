@@ -13,8 +13,5 @@ export default function isIdempotentFromAST(node: AstNode): boolean {
 	)
 }
 
-//?? [EXAMPLE] isIdempotentFromAST(absoluteValueNode) // true
-//?? [EXAMPLE] isIdempotentFromAST(incrementNode) // false
 //++ [PRO] Uses proper AST analysis instead of fragile string patterns
 //++ [CON] Cannot detect semantic idempotency that isn't structurally obvious
-//?? [GOTCHA] Only detects structurally obvious idempotent patterns

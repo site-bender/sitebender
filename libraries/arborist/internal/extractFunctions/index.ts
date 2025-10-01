@@ -35,5 +35,3 @@ export default function extractFunctions(
 ): ExtractFunctionsResult {
 	return visitNodes(sourceFile)
 }
-
-//?? extractFunctions(sourceFile) // Returns all functions found in the file

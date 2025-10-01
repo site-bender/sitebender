@@ -6,7 +6,3 @@ export default function isExportKeyword(
 ): boolean {
 	return modifier.kind === typescript.SyntaxKind.ExportKeyword
 }
-
-//?? [EXAMPLE] isExportKeyword(exportModifier) // true
-//?? [EXAMPLE] isExportKeyword(asyncModifier) // false
-//?? [PRO] Works with any ModifierLike node type

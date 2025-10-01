@@ -14,7 +14,3 @@ export default function isAssociativeFromAST(node: AstNode): boolean {
 		hasAssociativeFunctionName(node)
 	)
 }
-
-//?? [EXAMPLE] isAssociativeFromAST(addFunctionNode) // true
-//?? [EXAMPLE] isAssociativeFromAST(subtractFunctionNode) // false
-//?? [GOTCHA] Only detects structurally obvious patterns, not semantic associativity

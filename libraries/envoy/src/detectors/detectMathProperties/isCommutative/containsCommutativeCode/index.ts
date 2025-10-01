@@ -8,7 +8,3 @@ export default function containsCommutativeCode(source: string): boolean {
 		return test(pattern)(source)
 	})(Array.from(COMMUTATIVE_CODE_PATTERNS))
 }
-
-//?? [EXAMPLE] containsCommutativeCode("Math.max(a, b)") // true
-//?? [EXAMPLE] containsCommutativeCode("arr.concat(other)") // true
-//?? [EXAMPLE] containsCommutativeCode("a - b") // false

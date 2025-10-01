@@ -26,6 +26,3 @@ export default function findInChildren(node: AstNode): boolean {
 
 	return !!foundCommutativeOperator
 }
-
-//?? [EXAMPLE] findInChildren(functionBodyNode) // searches entire tree
-//?? [GOTCHA] Can be expensive for deeply nested ASTs

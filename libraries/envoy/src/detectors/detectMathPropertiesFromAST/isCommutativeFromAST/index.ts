@@ -14,7 +14,3 @@ export default function isCommutativeFromAST(node: AstNode): boolean {
 		hasCommutativeFunctionName(node)
 	)
 }
-
-//?? [EXAMPLE] isCommutativeFromAST(addFunctionNode) // true
-//?? [EXAMPLE] isCommutativeFromAST(subtractFunctionNode) // false
-//?? [GOTCHA] Only detects structurally obvious patterns, not semantic commutativity

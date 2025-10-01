@@ -76,8 +76,3 @@ export default function parseBinaryLoop(
 		},
 	)
 }
-
-//?? [EXAMPLE] parseBinaryLoop(numberNode, 0, parser) continues parsing binary operations
-//?? [PRO] Handles precedence climbing algorithm functionally
-//?? [PRO] Uses toolsmith functions instead of raw operators
-//?? [GOTCHA] Recursive function that can create deep call stacks

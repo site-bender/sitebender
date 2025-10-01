@@ -92,14 +92,3 @@ export default function record<T extends Record<string, unknown>>(
 		},
 	}
 }
-
-//?? [EXAMPLE] Creating record generators
-//?? const userGen = record({
-//??   id: integer(0, 999999),
-//??   name: string(),
-//??   email: string(),
-//??   isAdmin: boolean,
-//?? })
-
-//?? [SHRINKING] Each property shrinks independently
-//?? [PARSING] Validates exact shape - no missing or extra properties

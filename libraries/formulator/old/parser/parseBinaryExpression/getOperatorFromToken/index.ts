@@ -31,9 +31,3 @@ export default function getOperatorFromToken(
 			return null
 	}
 }
-
-//?? [EXAMPLE] getOperatorFromToken({ type: "PLUS", value: "+", position: 5 }) // "+"
-//?? [EXAMPLE] getOperatorFromToken({ type: "IDENTIFIER", value: "abc", position: 0 }) // null
-//?? [EXAMPLE] getOperatorFromToken({ type: "EQUAL", value: "==", position: 10 }) // "=="
-//?? [PRO] Type-safe exhaustive switch ensures all operators are handled
-//?? [PRO] Pure function with no side effects - easy to test and reason about

@@ -28,7 +28,3 @@ export default function visitNodes(
 		metadata,
 	}
 }
-
-//?? [EXAMPLE] const functions = visitNodes(sourceFile) // Returns all function nodes
-//?? [EXAMPLE] visitNodes(sourceFile).length // Count of functions in file
-//?? [PRO] Returns immutable ReadonlyArray for safety

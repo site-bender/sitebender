@@ -19,11 +19,3 @@ export default function runStateParser(
 
 	return result
 }
-
-//?? [EXAMPLE] runStateParser([{ type: "NUMBER", value: "42", position: 0 }])
-//?? // Returns: { ok: true, value: { type: "Number", value: 42 } }
-//?? [EXAMPLE] runStateParser([{ type: "UNKNOWN", value: "§", position: 0 }])
-//?? // Returns: { ok: false, error: { message: "Unexpected token", position: 0 } }
-//?? [PRO] Single entry point for complete parsing pipeline
-//?? [PRO] Purely functional with no side effects or mutations
-//?? [GOTCHA] Tokens must be pre-tokenized - this doesn't handle raw strings

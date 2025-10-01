@@ -15,7 +15,3 @@ export default function hasExportModifier(
 
 	return some(isExportKeyword)(modifiersArray)
 }
-
-//?? [EXAMPLE] hasExportModifier(exportedFunction) // true
-//?? [EXAMPLE] hasExportModifier(privateFunction) // false
-//?? [GOTCHA] Only works with FunctionDeclaration nodes, not expressions

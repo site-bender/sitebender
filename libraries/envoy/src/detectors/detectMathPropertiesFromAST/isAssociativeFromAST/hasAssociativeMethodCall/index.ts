@@ -25,8 +25,3 @@ export default function hasAssociativeMethodCall(node: AstNode): boolean {
 
 	return hasInstanceMethod
 }
-
-//?? [EXAMPLE] hasAssociativeMethodCall(mathMinNode) // true
-//?? [EXAMPLE] hasAssociativeMethodCall(concatNode) // true
-//?? [PRO] Uses toolsmith functions instead of native methods
-//?? [CON] Still relies on string matching rather than pure AST traversal

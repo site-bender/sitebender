@@ -14,7 +14,3 @@ export default function isIdempotent(source: string): boolean {
 		hasAnyPattern(IDEMPOTENT_OPERATION_PATTERNS)(source)
 	)
 }
-
-//?? [EXAMPLE] isIdempotent("function normalize(x) { return x.trim() }") // true
-//?? [EXAMPLE] isIdempotent("const abs = (n) => Math.abs(n)") // true
-//?? [EXAMPLE] isIdempotent("function increment(x) { return x + 1 }") // false

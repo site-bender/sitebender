@@ -162,12 +162,3 @@ export type ParseError =
 	}
 
 //++ [END]
-
-//?? [EXAMPLE] Creating a simple generator
-//?? const boolGen: Generator<boolean> = {
-//??   next: (seed) => ({ value: seed.state % 2 === 0, nextSeed: advanceSeed(seed), size: 1 }),
-//??   shrink: (value) => ({ value, children: () => value ? [{ value: false, children: () => [] }] : [] })
-//?? }
-
-//?? [GOTCHA] The parse method is optional but enables bidirectional testing
-//?? [GOTCHA] ShrinkTree children is a thunk for lazy evaluation - don't eagerly evaluate!

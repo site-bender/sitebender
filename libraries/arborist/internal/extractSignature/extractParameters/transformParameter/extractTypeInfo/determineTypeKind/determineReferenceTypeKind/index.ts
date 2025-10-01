@@ -15,6 +15,3 @@ export default function determineReferenceTypeKind(
 
 	return TypeKind.Unknown
 }
-
-//?? [EXAMPLE] determineReferenceTypeKind(stringRefNode) // TypeKind.Primitive
-//?? [EXAMPLE] determineReferenceTypeKind(customRefNode) // TypeKind.Unknown

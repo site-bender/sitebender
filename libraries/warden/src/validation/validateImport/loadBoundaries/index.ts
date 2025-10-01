@@ -78,5 +78,3 @@ export default function loadBoundaries(): Boundaries {
 		return cached
 	}
 }
-
-//?? [GOTCHA] Uses sync file read at startup; acceptable for small config. Consider async + caching for long-running processes.

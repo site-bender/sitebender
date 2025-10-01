@@ -24,7 +24,3 @@ export default function extractGenerics(
 		Array.from(node.typeParameters),
 	)
 }
-
-//?? [EXAMPLE] const generics = extractGenerics(functionNode, sourceFile)
-//?? [EXAMPLE] generics // ["T", "K extends keyof T"]
-//?? [EXAMPLE] generics // []

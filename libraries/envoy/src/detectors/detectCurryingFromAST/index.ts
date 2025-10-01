@@ -13,8 +13,5 @@ export default function detectCurryingFromAST(node: AstNode): CurryInfo {
 	}
 }
 
-//?? [EXAMPLE] detectCurryingFromAST(curriedAddNode) // { isCurried: true, levels: 2 }
-//?? [EXAMPLE] detectCurryingFromAST(regularFunctionNode) // { isCurried: false, levels: 0 }
 //++ [PRO] Can detect nested function returns indicating currying
 //++ [CON] May miss complex currying patterns or false positive on closures
-//?? [GOTCHA] May confuse closures with currying

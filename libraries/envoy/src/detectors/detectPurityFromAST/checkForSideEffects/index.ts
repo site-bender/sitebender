@@ -51,6 +51,3 @@ export default function checkForSideEffects(node: AstNode): boolean {
 
 	return false
 }
-
-//?? [EXAMPLE] checkForSideEffects(consoleLogNode) // true
-//?? [EXAMPLE] checkForSideEffects(pureFunctionNode) // false

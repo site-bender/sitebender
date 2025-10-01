@@ -93,7 +93,3 @@ export default function inferReturnType(
 			}
 	}
 }
-
-//?? [EXAMPLE] const type = inferReturnType(expression, sourceFile)
-//?? [EXAMPLE] type // "string" for string literal
-//?? [EXAMPLE] type // "number" for numeric literal

@@ -28,7 +28,3 @@ export default function detectProperties(
 		isPure: detectPure(node, sourceFile),
 	}
 }
-
-//?? [EXAMPLE] const props = detectProperties(functionNode, sourceFile)
-//?? [EXAMPLE] props.isAsync // true
-//?? [EXAMPLE] props.isCurried // false

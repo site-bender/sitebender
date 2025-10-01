@@ -25,6 +25,3 @@ export default function extractTypeInfo(
 		kind,
 	}
 }
-
-//?? [EXAMPLE] extractTypeInfo(stringTypeNode, sourceFile) // { raw: "string", kind: TypeKind.Primitive }
-//?? [EXAMPLE] extractTypeInfo(undefined, sourceFile) // { raw: "any", kind: TypeKind.Any }

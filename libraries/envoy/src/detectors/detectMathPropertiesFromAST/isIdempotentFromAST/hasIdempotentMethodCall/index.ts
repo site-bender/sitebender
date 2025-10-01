@@ -27,8 +27,3 @@ export default function hasIdempotentMethodCall(node: AstNode): boolean {
 
 	return hasMathMethod || hasMethodName
 }
-
-//?? [EXAMPLE] hasIdempotentMethodCall(mathFloorCallNode) // true
-//?? [EXAMPLE] hasIdempotentMethodCall(incrementCallNode) // false
-//?? [PRO] Catches common idempotent method patterns
-//?? [CON] Uses text search which can have false positives in strings/comments

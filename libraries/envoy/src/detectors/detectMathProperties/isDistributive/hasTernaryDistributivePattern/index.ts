@@ -19,6 +19,3 @@ export default function hasTernaryDistributivePattern(source: string): boolean {
 
 	return hasApplyOp && hasCombineOp
 }
-
-//?? [EXAMPLE] hasTernaryDistributivePattern("function f(a, b, c) { return a * (b + c) }") // true
-//?? [EXAMPLE] hasTernaryDistributivePattern("function f(a, b) { return a + b }") // false (not ternary)

@@ -21,10 +21,3 @@ export default function parseBinaryExpressionState(
 
 	return parseBinaryWithPrecedence
 }
-
-//?? [EXAMPLE] Parse "a + b * c" with precedence:
-//?? parseBinaryExpressionState()(0) returns Parser that yields:
-//?? BinaryOp("+", Variable("a"), BinaryOp("*", Variable("b"), Variable("c")))
-//?? [PRO] Handles operator precedence and associativity correctly
-//?? [PRO] State monad manages position tracking purely functionally
-//?? [GOTCHA] Right-associative operators like ^ require special precedence handling

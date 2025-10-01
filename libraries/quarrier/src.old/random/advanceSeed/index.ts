@@ -22,13 +22,3 @@ export default function advanceSeed(seed: Seed): Seed {
 		path: seed.path,
 	}
 }
-
-//?? [EXAMPLE] advanceSeed({ value: 12345, path: [] }) // { value: 595905335, path: [] }
-//?? [EXAMPLE] advanceSeed({ value: 1, path: [] }) // { value: 48271, path: [] }
-//?? [GOTCHA] Uses Park & Miller LCG algorithm - period of 2^31 - 2
-//?? [GOTCHA] Zero seed will produce 1 to maintain non-zero sequence
-//?? [PRO] Deterministic - same seed always produces same next value
-//?? [PRO] Good statistical properties for testing purposes
-//?? [PRO] Fast single multiplication and modulo operation
-//?? [CON] Not cryptographically secure - predictable sequence
-//?? [ADVANCED] Can be chained repeatedly to generate sequences: advanceSeed(advanceSeed(seed))

@@ -49,9 +49,3 @@ export default function generateNextValue<T>(
 		)(generated)
 	}
 }
-
-//?? [EXAMPLE] generateNextValue(42)({ seed: { value: 100, path: [] }, values: [1, 2], error: null }, intArb) // { seed: { value: 12345, path: [] }, values: [1, 2, 0], error: null }
-//?? [EXAMPLE] generateNextValue(42)({ seed: { value: 100, path: [] }, values: [], error: existingError }, intArb) // { seed: { value: 100, path: [] }, values: [], error: existingError }
-//?? [EXAMPLE] generateNextValue(42)({ seed: { value: 100, path: [] }, values: [1], error: null }, failingArb) // { seed: { value: 100, path: [] }, values: [1], error: err(...) }
-//?? [GOTCHA] Short-circuits on existing error - generator won't be called if state.error is set
-//?? [PRO] Preserves immutability - returns new state object, never modifies input

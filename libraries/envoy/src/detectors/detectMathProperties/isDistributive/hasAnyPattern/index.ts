@@ -9,6 +9,3 @@ export default function hasAnyPattern(patterns: ReadonlyArray<RegExp>) {
 		})(Array.from(patterns))
 	}
 }
-
-//?? [EXAMPLE] hasAnyPattern([/hello/, /world/])("hello there") // true
-//?? [EXAMPLE] hasAnyPattern([/foo/, /bar/])("baz") // false

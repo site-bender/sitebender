@@ -6,7 +6,3 @@ export default function calculateCyclomaticComplexity(
 ): number {
 	return metadata.cyclomaticComplexity
 }
-
-//?? [EXAMPLE] calculateCyclomaticComplexity({ cyclomaticComplexity: 1, ... }) // 1
-//?? [EXAMPLE] calculateCyclomaticComplexity({ cyclomaticComplexity: 5, ... }) // 5
-//?? [PRO] Uses pre-calculated value from Arborist - no re-computation needed

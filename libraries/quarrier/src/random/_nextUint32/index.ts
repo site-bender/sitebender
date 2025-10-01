@@ -24,13 +24,3 @@ export default function _nextUint32(seed: Seed): {
 		},
 	}
 }
-
-//?? [EXAMPLE] Generating random numbers
-//?? const seed = createSeed(12345).value
-//?? const r1 = _nextUint32(seed)
-//?? // r1.value: 1806136981
-//?? const r2 = _nextUint32(r1.nextSeed)
-//?? // r2.value: 3265139774
-
-//?? [GOTCHA] Always use the returned nextSeed for the next call
-//?? [GOTCHA] SplitMix32 provides good statistical quality with simple implementation

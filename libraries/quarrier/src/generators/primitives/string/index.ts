@@ -139,11 +139,3 @@ export default function string(options: StringOptions = {}): Generator<string> {
 		},
 	}
 }
-
-//?? [EXAMPLE] Creating string generators
-//?? const anyString = string() // Default charset, 0-100 length
-//?? const alphaString = string({ charset: "abcdefghijklmnopqrstuvwxyz" })
-//?? const fixedString = string({ minLength: 10, maxLength: 10 })
-
-//?? [SHRINKING] Strings shrink by removing characters, ultimately to empty string
-//?? [CHARSET] Default includes alphanumeric and common punctuation

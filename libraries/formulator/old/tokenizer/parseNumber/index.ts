@@ -43,32 +43,3 @@ export default function parseNumber(
 		value: { token, length: numberMatch[0].length },
 	}
 }
-
-/*??
- | [EXAMPLE]
- | parseNumber("42", 0)
- | // { ok: true, value: { token: { type: "NUMBER", value: "42", position: 0 }, length: 2 } }
- |
- | [EXAMPLE]
- | parseNumber("3.14", 0)
- | // { ok: true, value: { token: { type: "NUMBER", value: "3.14", position: 0 }, length: 4 } }
- |
- | [EXAMPLE]
- | parseNumber("3.14.159", 0)
- | // { ok: false, error: { message: "Invalid number format at position 0: 3.14.159", position: 0 } }
- |
- | [GOTCHA]
- | Numbers are stored as strings in tokens and only converted to numeric values during compilation.
- | This preserves exact input format and avoids floating point precision issues during parsing.
- |
- | [GOTCHA]
- | The pattern matches greedy decimals, so "3.14.159" matches "3.14" first,
- | then validation catches the invalid second decimal point.
- |
- | [PRO]
- | Validates against malformed numbers like multiple decimal points that regex alone would miss.
- |
- | [CON]
- | No support for scientific notation (1e10), hexadecimal (0xFF), or underscore separators (1_000).
- |
-*/

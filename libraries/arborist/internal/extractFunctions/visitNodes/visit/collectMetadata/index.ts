@@ -42,7 +42,3 @@ export default function collectMetadata(
 			(hasLogicalOperator ? 1 : 0),
 	}
 }
-
-//?? [EXAMPLE] collectMetadata(node, metadata)
-//?? [EXAMPLE] metadata.hasThrowStatements // true if throw found
-//?? [EXAMPLE] metadata.cyclomaticComplexity // increased for each branch

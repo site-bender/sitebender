@@ -13,7 +13,3 @@ export default function isCommutative(source: string): boolean {
 		hasSymmetricParameters(source)
 	)
 }
-
-//?? [EXAMPLE] isCommutative("function add(a, b) { return a + b }") // true
-//?? [EXAMPLE] isCommutative("const multiply = (x, y) => x * y") // true
-//?? [EXAMPLE] isCommutative("function subtract(a, b) { return a - b }") // false

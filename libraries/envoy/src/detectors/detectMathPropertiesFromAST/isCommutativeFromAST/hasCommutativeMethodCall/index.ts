@@ -27,8 +27,3 @@ export default function hasCommutativeMethodCall(node: AstNode): boolean {
 
 	return hasMathMethod || hasMethodName
 }
-
-//?? [EXAMPLE] hasCommutativeMethodCall(mathMinCallNode) // true
-//?? [EXAMPLE] hasCommutativeMethodCall(subtractCallNode) // false
-//?? [PRO] Catches common commutative method patterns
-//?? [CON] Uses text search which can have false positives in strings/comments

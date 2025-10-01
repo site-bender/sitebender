@@ -31,7 +31,3 @@ export default function detectComplexityFromAST(
 		return "Unknown"
 	}
 }
-
-//?? [EXAMPLE] detectComplexityFromAST({ cyclomaticComplexity: 1, hasThrowStatements: false, hasAwaitExpressions: false, hasGlobalAccess: false, hasReturnStatements: true }) // "O(1)"
-//?? [EXAMPLE] detectComplexityFromAST({ cyclomaticComplexity: 10, hasThrowStatements: false, hasAwaitExpressions: false, hasGlobalAccess: false, hasReturnStatements: true }) // "O(n²)"
-//?? [GOTCHA] This measures cyclomatic complexity, not time complexity

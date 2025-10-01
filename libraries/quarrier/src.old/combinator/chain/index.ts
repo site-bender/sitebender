@@ -29,12 +29,3 @@ export default function chain<A, B>(fn: (value: A) => Generator<B>) {
 		}
 	}
 }
-
-//?? [EXAMPLE] chain((n: number) => generateString(n))(generateInteger(1)(10)) // String with generated length
-//?? [EXAMPLE] chain((b: boolean) => b ? genA : genB)(generateBoolean) // Conditional generation
-//?? [EXAMPLE] chain((min: number) => generateInteger(min)(100))(generateInteger(1)(50)) // Dependent ranges
-//?? [GOTCHA] Uses seed splitting for independence between generators
-//?? [PRO] Enables dependent generation patterns
-//?? [PRO] Preserves determinism through seed splitting
-//?? [PRO] Implements monadic bind for generators
-//?? [PRO] Composes well with map and filter

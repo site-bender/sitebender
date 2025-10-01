@@ -13,7 +13,3 @@ export default function mapTarget(target?: string) {
 			return typescript.ScriptTarget.ESNext
 	}
 }
-
-//?? mapTarget("ES2020") // Returns: ScriptTarget.ES2020
-//?? mapTarget("ESNext") // Returns: ScriptTarget.ESNext
-//?? mapTarget(undefined) // Returns: ScriptTarget.ESNext (default)

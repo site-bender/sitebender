@@ -58,8 +58,3 @@ export default function checkForExternalDependencies(node: AstNode): boolean {
 
 	return false
 }
-
-//?? [EXAMPLE] checkForExternalDependencies(fetchNode) // true
-//?? [EXAMPLE] checkForExternalDependencies(pureCalculationNode) // false
-//?? [PRO] Catches most common external dependencies
-//?? [CON] Text-based matching can have false positives

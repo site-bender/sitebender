@@ -27,6 +27,3 @@ export default function transformParameter(
 		}
 	}
 }
-
-//?? [EXAMPLE] const transformer = transformParameter(sourceFile)
-//?? [EXAMPLE] transformer(paramNode) // { name: "arg1", type: {...}, isOptional: false }

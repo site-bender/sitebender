@@ -14,7 +14,3 @@ export default function isIdempotentName(functionName: string | null): boolean {
 		return contains(idempotentName)(lowerName)
 	})(Array.from(IDEMPOTENT_FUNCTION_NAMES))
 }
-
-//?? [EXAMPLE] isIdempotentName("normalize") // true
-//?? [EXAMPLE] isIdempotentName("sanitizeInput") // true (contains "sanitize")
-//?? [EXAMPLE] isIdempotentName("increment") // false

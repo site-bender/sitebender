@@ -46,10 +46,3 @@ export default function expect(
 		return ok(consumed)
 	})
 }
-
-//?? [EXAMPLE] With tokens [LEFT_PAREN, NUMBER(1)] at position 0:
-//?? expect("LEFT_PAREN") returns { ok: true, value: LEFT_PAREN } and advances
-//?? expect("NUMBER") returns { ok: false, error: ... } without advancing
-//?? [PRO] Combines validation with consumption in one operation
-//?? [PRO] Rich error messages with expected vs found information
-//?? [GOTCHA] Only advances on successful match - stays put on error

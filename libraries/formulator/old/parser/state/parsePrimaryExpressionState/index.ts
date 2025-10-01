@@ -78,10 +78,3 @@ export default function parsePrimaryExpressionState(
 		}
 	})
 }
-
-//?? [EXAMPLE] Parse number literal "42"
-//?? parsePrimaryExpressionState() returns Parser that yields:
-//?? { ok: true, value: { type: "Number", value: 42 } }
-//?? [PRO] Uses State monad for pure functional token navigation
-//?? [PRO] Handles parenthesized expressions recursively
-//?? [GOTCHA] Requires parseExpression for parenthesized expressions

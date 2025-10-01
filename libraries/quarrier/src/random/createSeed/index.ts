@@ -31,10 +31,3 @@ export default function createSeed(
 		stream: normalizedStream,
 	})
 }
-
-//?? [EXAMPLE] Creating a seed
-//?? const seed1 = createSeed(12345) // ok({ state: 12345, stream: 0x9E3779B9 })
-//?? const seed2 = createSeed(42, 7) // ok({ state: 42, stream: 7 })
-
-//?? [GOTCHA] Stream is always forced to be odd (required by PCG algorithm)
-//?? [GOTCHA] Zero state is coerced to 1 to avoid degenerate cycles

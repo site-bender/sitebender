@@ -15,7 +15,6 @@ export default function generateLegacyChecksum(data: string): string {
 	return hash.toString(16)
 }
 
-//?? [EXAMPLE]
 // generateLegacyChecksum("hello") // Returns hex string like "5d41402a"
 
 //-- [WORKAROUND] This is the old weak checksum kept for compatibility

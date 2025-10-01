@@ -13,8 +13,3 @@ export default function hasBinaryAssociativeOperator(node: AstNode): boolean {
 
 	return isAssociativeOperator || findInChildren(node)
 }
-
-//?? [EXAMPLE] hasBinaryAssociativeOperator(plusOperatorNode) // true
-//?? [EXAMPLE] hasBinaryAssociativeOperator(minusOperatorNode) // false
-//?? [PRO] Properly traverses AST structure instead of string matching
-//?? [CON] Relies on hardcoded SyntaxKind numbers

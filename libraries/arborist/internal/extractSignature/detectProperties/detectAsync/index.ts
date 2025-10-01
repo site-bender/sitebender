@@ -20,7 +20,3 @@ export default function detectAsync(
 function isAsyncKeyword(modifier: typescript.ModifierLike): boolean {
 	return modifier.kind === typescript.SyntaxKind.AsyncKeyword
 }
-
-//?? [EXAMPLE] const isAsync = detectAsync(functionNode)
-//?? [EXAMPLE] isAsync // true for async functions
-//?? [EXAMPLE] isAsync // false for regular functions

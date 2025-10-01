@@ -22,29 +22,3 @@ export default function expect(
 		return { ok: true, value: ctx.advance() }
 	}
 }
-
-/*??
- | [EXAMPLE]
- | // Successfully expect a right parenthesis
- | const result = expect(ctx)("RIGHT_PAREN")
- | // If current token is ")", returns: { ok: true, value: { type: "RIGHT_PAREN", value: ")", position: 5 } }
- | // If current token is "+", returns: { ok: false, error: { message: "Expected RIGHT_PAREN but found PLUS..." } }
- |
- | [EXAMPLE]
- | // Chain expectations for matching parentheses
- | const leftParen = expect(ctx)("LEFT_PAREN")
- | if (!leftParen.ok) return leftParen
- | const expr = parseExpression(ctx)(0)
- | const rightParen = expect(ctx)("RIGHT_PAREN")
- |
- | [GOTCHA]
- | The function consumes the token if it matches, so calling expect() twice
- | with the same type will fail the second time (token already consumed).
- |
- | [PRO]
- | Provides detailed error messages with position info for better debugging.
- |
- | [PRO]
- | Curried design allows partial application for cleaner code patterns.
- |
-*/

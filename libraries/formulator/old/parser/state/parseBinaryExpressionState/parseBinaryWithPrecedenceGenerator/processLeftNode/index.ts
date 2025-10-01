@@ -31,8 +31,3 @@ export default function processLeftNode(
 		})
 	})
 }
-
-//?? [EXAMPLE] processLeftNode(leftNode, 0, parser) starts binary parsing loop
-//?? [PRO] Pure function that delegates to appropriate parser
-//?? [PRO] Handles edge case when parser is not provided
-//?? [GOTCHA] Requires parseBinaryWithPrecedence to be passed correctly

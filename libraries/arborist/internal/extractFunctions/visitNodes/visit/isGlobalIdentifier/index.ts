@@ -18,6 +18,3 @@ export default function isGlobalIdentifier(text: string): boolean {
 	]
 	return globals.includes(text)
 }
-
-//?? [EXAMPLE] isGlobalIdentifier("console") // true
-//?? [EXAMPLE] isGlobalIdentifier("myVar") // false

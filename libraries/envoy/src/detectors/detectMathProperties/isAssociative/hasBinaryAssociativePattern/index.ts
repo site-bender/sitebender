@@ -19,7 +19,3 @@ export default function hasBinaryAssociativePattern(source: string): boolean {
 
 	return hasAssociativeOp || hasReducePattern
 }
-
-//?? [EXAMPLE] hasBinaryAssociativePattern("function f(a, b) { return a + b }") // true
-//?? [EXAMPLE] hasBinaryAssociativePattern("function f(a, b) { return acc * b }") // true
-//?? [EXAMPLE] hasBinaryAssociativePattern("function f(x) { return x }") // false (not binary)

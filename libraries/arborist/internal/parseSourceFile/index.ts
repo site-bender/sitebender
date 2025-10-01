@@ -109,7 +109,3 @@ export default function parseSourceFile(filePath: string) {
 		}
 	}
 }
-
-//?? parseSourceFile("./src/add.ts")() // Returns: Result<SourceFile, ParseError>
-//?? parseSourceFile("./src/map.ts")({ skipTypeChecking: true }) // Fast parse without type checking
-//?? parseSourceFile("./lib.ts")({ target: "ES2020", module: "CommonJS" }) // Custom compiler options

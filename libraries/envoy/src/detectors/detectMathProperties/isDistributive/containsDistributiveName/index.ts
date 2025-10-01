@@ -8,7 +8,3 @@ export default function containsDistributiveName(source: string): boolean {
 		return contains(name)(source)
 	})(Array.from(DISTRIBUTIVE_FUNCTION_NAMES))
 }
-
-//?? [EXAMPLE] containsDistributiveName("function multiply(a, b)") // true
-//?? [EXAMPLE] containsDistributiveName("const result = scale(5)") // true
-//?? [EXAMPLE] containsDistributiveName("function add(a, b)") // false

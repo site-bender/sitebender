@@ -77,10 +77,3 @@ export default function tuple<T extends ReadonlyArray<unknown>>(
 		},
 	}
 }
-
-//?? [EXAMPLE] Creating tuple generators
-//?? const point2D = tuple([integer(-100, 100), integer(-100, 100)])
-//?? const userInfo = tuple([string(), integer(0, 120), boolean]) // [name, age, isActive]
-
-//?? [SHRINKING] Each element shrinks independently
-//?? [PARSING] Validates exact tuple length and element types

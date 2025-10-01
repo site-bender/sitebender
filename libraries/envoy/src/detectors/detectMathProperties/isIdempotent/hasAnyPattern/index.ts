@@ -9,6 +9,3 @@ export default function hasAnyPattern(patterns: ReadonlyArray<RegExp>) {
 		})(Array.from(patterns))
 	}
 }
-
-//?? [EXAMPLE] hasAnyPattern([/Math\.abs/, /Math\.floor/])("Math.abs(x)") // true
-//?? [EXAMPLE] hasAnyPattern([/Set/, /Map/])("new Set()") // true

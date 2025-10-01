@@ -9,7 +9,3 @@ import hasDistributivePattern from "./hasDistributivePattern/index.ts"
 export default function isDistributiveFromAST(node: AstNode): boolean {
 	return hasDistributivePattern(node) || hasDistributiveFunctionName(node)
 }
-
-//?? [EXAMPLE] isDistributiveFromAST(distributeFunctionNode) // true
-//?? [EXAMPLE] isDistributiveFromAST(simpleFunctionNode) // false
-//?? [GOTCHA] Only detects obvious distributive patterns in the AST structure

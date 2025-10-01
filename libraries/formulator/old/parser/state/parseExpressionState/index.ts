@@ -25,9 +25,3 @@ export default function parseExpressionState(
 		return yield parseWithRecursion(minPrecedence)
 	})
 }
-
-//?? [EXAMPLE] parseExpressionState(0) for "a + b" returns BinaryOp("+", Variable("a"), Variable("b"))
-//?? [EXAMPLE] parseExpressionState(0) for "x > 0 ? 1 : -1" returns Conditional node
-//?? [PRO] Handles all expression types through unified entry point
-//?? [PRO] Passes recursive reference for parenthesized expressions
-//?? [GOTCHA] minPrecedence = 0 includes conditionals, > 0 skips them

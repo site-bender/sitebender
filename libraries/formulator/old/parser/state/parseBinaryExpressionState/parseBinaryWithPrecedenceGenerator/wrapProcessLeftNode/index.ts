@@ -14,8 +14,3 @@ export default function wrapProcessLeftNode(
 		return processLeftNode(leftNode, minPrecedence, parseBinaryWithPrecedence)
 	}
 }
-
-//?? [EXAMPLE] wrapProcessLeftNode(0, parser)(leftNode) processes left node with precedence 0
-//?? [PRO] Curried function for use with fold
-//?? [PRO] Encapsulates parameter passing logic
-//?? [GOTCHA] Must provide correct parseBinaryWithPrecedence function

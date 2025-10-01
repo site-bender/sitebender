@@ -75,15 +75,3 @@ export default function generateString(length: number) {
 		return ok(result)
 	}
 }
-
-//?? [EXAMPLE] generateString(5)({ value: 12345, path: [] }) // Result.Ok("kP3@x")
-//?? [EXAMPLE] generateString(0)({ value: 12345, path: [] }) // Result.Ok("")
-//?? [EXAMPLE] generateString(10)({ value: 54321, path: [] }) // Result.Ok("a9$mK!7vR#")
-//?? [GOTCHA] Only generates printable ASCII characters (space through tilde)
-//?? [GOTCHA] Floating point lengths are truncated to integers
-//?? [GOTCHA] Negative lengths return an error Result
-//?? [PRO] Deterministic - same seed and length always produce same string
-//?? [PRO] Memory efficient - builds character array then joins once
-//?? [PRO] Suitable for property testing - predictable character set
-//?? [CON] Limited to ASCII - no Unicode support in this basic version
-//?? [CON] Uses modulo which can introduce slight bias in character distribution

@@ -22,8 +22,3 @@ export default function hasIdempotentFunctionName(node: AstNode): boolean {
 		)
 	})(IDEMPOTENT_FUNCTION_NAMES)
 }
-
-//?? [EXAMPLE] hasIdempotentFunctionName(absoluteFunctionNode) // true
-//?? [EXAMPLE] hasIdempotentFunctionName(incrementFunctionNode) // false
-//?? [PRO] Simple heuristic based on common naming patterns
-//?? [CON] Relies on naming conventions which may not always be accurate

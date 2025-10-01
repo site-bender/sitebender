@@ -22,8 +22,3 @@ export default function hasDistributiveFunctionName(node: AstNode): boolean {
 		)
 	})(DISTRIBUTIVE_FUNCTION_NAMES)
 }
-
-//?? [EXAMPLE] hasDistributiveFunctionName(distributeFunctionNode) // true
-//?? [EXAMPLE] hasDistributiveFunctionName(simpleFunctionNode) // false
-//?? [PRO] Simple heuristic based on common naming patterns
-//?? [CON] Relies on naming conventions which may not always be accurate

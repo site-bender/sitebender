@@ -50,8 +50,3 @@ export default function visit(
 		typescript.forEachChild(node, visit(accumulator, updatedMetadata))
 	}
 }
-
-//?? [EXAMPLE] const accumulator = []; visit(accumulator)(sourceFile)
-//?? [EXAMPLE] typescript.forEachChild(sourceFile, visit(accumulator))
-//?? [GOTCHA] Mutates the accumulator array passed in
-//?? [PRO] Avoids creating intermediate arrays during traversal

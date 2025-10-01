@@ -25,9 +25,3 @@ export default function currentToken(): Parser<Token> {
 		return token
 	})
 }
-
-//?? [EXAMPLE] With tokens [NUMBER(1), PLUS, NUMBER(2)] at position 1:
-//?? currentToken() returns PLUS token without changing position
-//?? [PRO] Pure function that doesn't mutate parser state
-//?? [PRO] Automatically handles EOF when position exceeds token array
-//?? [GOTCHA] Always returns a token - never undefined or null

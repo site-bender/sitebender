@@ -49,7 +49,3 @@ function checkReturnsFunction(block: typescript.Block): boolean {
 		return false
 	})
 }
-
-//?? [EXAMPLE] const isCurried = detectCurried(functionNode, sourceFile)
-//?? [EXAMPLE] isCurried // true for const add = (a) => (b) => a + b
-//?? [EXAMPLE] isCurried // false for const add = (a, b) => a + b

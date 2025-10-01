@@ -54,8 +54,3 @@ export default function runProperty<Arguments extends ReadonlyArray<unknown>>(
 		}
 	}
 }
-
-//?? [EXAMPLE] runProperty(alwaysTrueProperty, 42)({ seed: { value: 100, path: [] }, result: null }, 0) // { seed: { value: 1234, path: [0] }, result: null }
-//?? [EXAMPLE] runProperty(alwaysFalseProperty, 42)({ seed: { value: 100, path: [] }, result: null }, 0) // { seed: { value: 1234, path: [0] }, result: err(...) }
-//?? [GOTCHA] Short-circuits on existing failure - won't run if state.result is already set
-//?? [PRO] Captures both predicate failures and exceptions in a unified error structure

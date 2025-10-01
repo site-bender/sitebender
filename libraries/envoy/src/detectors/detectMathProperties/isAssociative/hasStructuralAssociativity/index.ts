@@ -14,7 +14,3 @@ export default function hasStructuralAssociativity(source: string): boolean {
 
 	return hasAnyPattern(ASSOCIATIVE_OPERATIONS)(source)
 }
-
-//?? [EXAMPLE] hasStructuralAssociativity("const identity = 0; return a + b") // true
-//?? [EXAMPLE] hasStructuralAssociativity("function append(a, b) { return a * b }") // true
-//?? [EXAMPLE] hasStructuralAssociativity("const empty = []") // false (no binary op)

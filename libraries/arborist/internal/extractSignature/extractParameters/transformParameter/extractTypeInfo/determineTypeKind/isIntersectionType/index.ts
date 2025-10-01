@@ -6,6 +6,3 @@ export default function isIntersectionType(
 ): boolean {
 	return typescript.isIntersectionTypeNode(typeNode)
 }
-
-//?? [EXAMPLE] isIntersectionType(typeNode) // true for "A & B"
-//?? [EXAMPLE] isIntersectionType(typeNode) // false for "A | B"

@@ -42,13 +42,3 @@ export default function createSeed(
 
 	return ok(seed)
 }
-
-//?? [EXAMPLE] createSeed(12345) // Result.Ok({ value: 12345, path: [] })
-//?? [EXAMPLE] createSeed(-42) // Result.Ok({ value: 42, path: [] })
-//?? [EXAMPLE] createSeed(3.14159) // Result.Ok({ value: 3, path: [] })
-//?? [GOTCHA] Negative numbers are converted to positive values deterministically
-//?? [GOTCHA] Floating point numbers are truncated (not rounded) to integers
-//?? [GOTCHA] Zero is converted to 1 to ensure proper PRNG behavior
-//?? [PRO] Deterministic - same input always produces same seed
-//?? [PRO] Handles edge cases gracefully (negatives, floats, zero)
-//?? [CON] Limited to 32-bit unsigned integer range due to JavaScript limitations

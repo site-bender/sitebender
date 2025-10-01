@@ -25,13 +25,3 @@ export default function _nextFloat53(seed: Seed): {
 		nextSeed: r2.nextSeed,
 	}
 }
-
-//?? [EXAMPLE] Generating floats
-//?? const seed = createSeed(12345).value
-//?? const r1 = nextFloat53(seed)
-//?? // r1.value: 0.7015460587478219
-//?? const r2 = nextFloat53(r1.nextSeed)
-//?? // r2.value: 0.3193160506895413
-
-//?? [GOTCHA] Uses two calls to nextUint32 for full precision
-//?? [GOTCHA] Result is always in [0,1) - never exactly 1.0

@@ -56,7 +56,3 @@ export default function extractSignature(
 		isDefault,
 	}
 }
-
-//?? [EXAMPLE] const signature = extractSignature(functionNode, sourceFile, "path/to/file.ts")
-//?? [EXAMPLE] signature.name // "myFunction"
-//?? [EXAMPLE] signature.isAsync // true

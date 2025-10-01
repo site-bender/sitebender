@@ -13,7 +13,3 @@ export default function mapModule(module?: string) {
 			return typescript.ModuleKind.ESNext
 	}
 }
-
-//?? mapModule("CommonJS") // Returns: ModuleKind.CommonJS
-//?? mapModule("ESNext") // Returns: ModuleKind.ESNext
-//?? mapModule(undefined) // Returns: ModuleKind.ESNext (default)

@@ -6,6 +6,3 @@ export default function isUnionType(
 ): boolean {
 	return typescript.isUnionTypeNode(typeNode)
 }
-
-//?? [EXAMPLE] isUnionType(typeNode) // true for "string | number"
-//?? [EXAMPLE] isUnionType(typeNode) // false for "string"

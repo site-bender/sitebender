@@ -15,7 +15,3 @@ export default function hasDefaultModifier(
 
 	return some(isDefaultKeyword)(modifiersArray)
 }
-
-//?? [EXAMPLE] hasDefaultModifier(defaultExportFunction) // true
-//?? [EXAMPLE] hasDefaultModifier(namedExportFunction) // false
-//?? [GOTCHA] Only works with FunctionDeclaration nodes

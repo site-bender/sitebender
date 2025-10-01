@@ -16,7 +16,3 @@ export default function isDistributiveName(
 		return contains(distributiveName)(lowerName)
 	})(Array.from(DISTRIBUTIVE_FUNCTION_NAMES))
 }
-
-//?? [EXAMPLE] isDistributiveName("multiply") // true
-//?? [EXAMPLE] isDistributiveName("scaleTransform") // true (contains "scale")
-//?? [EXAMPLE] isDistributiveName("add") // false

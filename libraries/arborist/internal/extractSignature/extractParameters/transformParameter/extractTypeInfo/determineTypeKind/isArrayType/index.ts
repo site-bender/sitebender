@@ -6,6 +6,3 @@ export default function isArrayType(
 ): boolean {
 	return typescript.isArrayTypeNode(typeNode)
 }
-
-//?? [EXAMPLE] isArrayType(typeNode) // true for "string[]"
-//?? [EXAMPLE] isArrayType(typeNode) // false for "string"

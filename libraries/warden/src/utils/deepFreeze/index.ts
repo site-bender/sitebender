@@ -16,7 +16,6 @@ export default function deepFreeze<T>(obj: T): T {
 	return obj
 }
 
-//?? [EXAMPLE]
 // const mutable = { a: 1, b: { c: 2 } }
 // const frozen = deepFreeze(mutable)
 // frozen.a = 2 // Throws in strict mode, silently fails otherwise

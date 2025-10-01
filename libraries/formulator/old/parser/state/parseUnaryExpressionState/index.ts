@@ -41,10 +41,3 @@ export default function parseUnaryExpressionState(
 		return yield parsePrimaryExpressionState(parseExpression)
 	})
 }
-
-//?? [EXAMPLE] Parse negative number "-5":
-//?? parseUnaryExpressionState() returns Parser that yields:
-//?? { ok: true, value: { type: "UnaryOp", operator: "-", operand: { type: "Number", value: 5 } } }
-//?? [PRO] Handles recursive unary operations like --x or +-x
-//?? [PRO] Falls through to primary expression when no unary operator
-//?? [GOTCHA] Recursive structure allows arbitrary nesting of unary operators

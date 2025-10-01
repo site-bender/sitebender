@@ -22,8 +22,3 @@ export default function hasCommutativeFunctionName(node: AstNode): boolean {
 		)
 	})(COMMUTATIVE_FUNCTION_NAMES)
 }
-
-//?? [EXAMPLE] hasCommutativeFunctionName(addFunctionNode) // true
-//?? [EXAMPLE] hasCommutativeFunctionName(divideFunctionNode) // false
-//?? [PRO] Simple heuristic based on common naming patterns
-//?? [CON] Relies on naming conventions which may not always be accurate

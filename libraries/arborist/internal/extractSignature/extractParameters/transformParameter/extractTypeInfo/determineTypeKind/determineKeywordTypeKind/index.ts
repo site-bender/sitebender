@@ -37,6 +37,3 @@ export default function determineKeywordTypeKind(
 
 	return TypeKind.Unknown
 }
-
-//?? [EXAMPLE] determineKeywordTypeKind(SyntaxKind.StringKeyword) // TypeKind.Primitive
-//?? [EXAMPLE] determineKeywordTypeKind(SyntaxKind.VoidKeyword) // TypeKind.Void

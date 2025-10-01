@@ -30,13 +30,3 @@ export default function splitSeed(seed: Seed): [Seed, Seed] {
 
 	return [leftSeed, rightSeed]
 }
-
-//?? [EXAMPLE] splitSeed({ value: 12345, path: [] }) // [{ value: 595905335, path: [0] }, { value: 488902743, path: [1] }]
-//?? [EXAMPLE] splitSeed({ value: 42, path: [2] }) // [{ value: 2027382, path: [2, 0] }, { value: 1885988630, path: [2, 1] }]
-//?? [GOTCHA] Uses two advances to ensure branches are sufficiently different
-//?? [GOTCHA] Path array grows with each split - deep recursion can create long paths
-//?? [PRO] Creates truly independent sequences that won't collide
-//?? [PRO] Path tracking allows debugging which branch generated what value
-//?? [PRO] Deterministic - same seed always produces same split
-//?? [CON] Each split "consumes" two advances from the parent sequence
-//?? [ADVANCED] Use for parallel generation: const [seed1, seed2] = splitSeed(seed); generatePerson(seed1), generateAddress(seed2)

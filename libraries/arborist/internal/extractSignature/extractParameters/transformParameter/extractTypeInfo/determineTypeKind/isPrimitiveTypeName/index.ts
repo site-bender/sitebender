@@ -8,6 +8,3 @@ export default function isPrimitiveTypeName(
 		typeName === "symbol" ||
 		typeName === "bigint"
 }
-
-//?? [EXAMPLE] isPrimitiveTypeName("string") // true
-//?? [EXAMPLE] isPrimitiveTypeName("MyCustomType") // false

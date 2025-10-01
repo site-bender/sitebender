@@ -61,7 +61,3 @@ function checkDistributiveStructure(node: AstNode): boolean {
 
 	return !!foundDistributive
 }
-
-//?? [EXAMPLE] hasDistributivePattern(distributiveExpressionNode) // true
-//?? [PRO] Detects common distributive patterns in AST
-//?? [CON] May miss complex distributive operations

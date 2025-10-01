@@ -86,7 +86,3 @@ function determineTypeKind(node: typescript.TypeNode): TypeKind {
 			return TypeKind.Unknown
 	}
 }
-
-//?? [EXAMPLE] const returnType = extractReturnType(functionNode, sourceFile)
-//?? [EXAMPLE] returnType // "string"
-//?? [EXAMPLE] returnType // "Promise<void>"

@@ -6,6 +6,3 @@ export default function isLiteralType(
 ): boolean {
 	return typescript.isLiteralTypeNode(typeNode)
 }
-
-//?? [EXAMPLE] isLiteralType(typeNode) // true for '"hello"' or '42'
-//?? [EXAMPLE] isLiteralType(typeNode) // false for "string"

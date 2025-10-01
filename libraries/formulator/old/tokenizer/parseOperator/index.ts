@@ -34,26 +34,3 @@ export default function parseOperator(
 		},
 	}
 }
-
-/*??
- | [EXAMPLE]
- | parseOperator("==", 0)
- | // { ok: true, value: { tokenType: "EQUAL", tokenValue: "==", tokenLength: 2 } }
- |
- | [EXAMPLE]
- | parseOperator("+ 5", 0)
- | // { ok: true, value: { tokenType: "PLUS", tokenValue: "+", tokenLength: 1 } }
- |
- | [EXAMPLE]
- | parseOperator("@", 0)
- | // { ok: false, error: { message: "Unexpected character '@' at position 0", position: 0, found: "@" } }
- |
- | [PRO]
- | Two-character lookahead ensures "==" is parsed as EQUAL, not two separate tokens.
- | This prevents ambiguity and simplifies the parser.
- |
- | [GOTCHA]
- | Order matters: must check two-char operators first, otherwise "<=" would be
- | parsed as LESS_THAN followed by an unexpected "=" character.
- |
-*/

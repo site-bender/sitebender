@@ -14,7 +14,3 @@ export default function containsAssociativeCode(source: string): boolean {
 		return test(pattern)(source)
 	})(Array.from(ASSOCIATIVE_CODE_PATTERNS))
 }
-
-//?? [EXAMPLE] containsAssociativeCode("Math.max(a, b)") // true
-//?? [EXAMPLE] containsAssociativeCode("arr.concat(other)") // true
-//?? [EXAMPLE] containsAssociativeCode("Math.abs(value)") // false

@@ -37,8 +37,3 @@ export default function parseBinaryWithPrecedenceGenerator(
 		},
 	)
 }
-
-//?? [EXAMPLE] parseBinaryWithPrecedenceGenerator(0, parseExpr, parseBinary) creates parsing flow
-//?? [PRO] Separates generator logic from main function
-//?? [PRO] Uses named functions instead of anonymous ones
-//?? [GOTCHA] Requires all parser functions to be passed as parameters

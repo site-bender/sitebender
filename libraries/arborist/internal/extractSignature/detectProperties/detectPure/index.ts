@@ -130,7 +130,3 @@ function isGlobalIdentifier(text: string): boolean {
 	]
 	return globals.includes(text)
 }
-
-//?? [EXAMPLE] const isPure = detectPure(functionNode, sourceFile)
-//?? [EXAMPLE] isPure // true for (a, b) => a + b
-//?? [EXAMPLE] isPure // false for () => console.log("hello")

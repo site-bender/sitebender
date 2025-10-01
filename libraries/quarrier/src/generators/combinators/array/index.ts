@@ -91,13 +91,3 @@ export default function array<T>(
 		},
 	}
 }
-
-//?? [EXAMPLE] Creating array generators
-//?? const intArray = array(integer(0, 100)) // Arrays of integers
-//?? const boolArray = array(boolean, { minSize: 5, maxSize: 10 }) // Fixed size range
-//?? const nestedArray = array(array(integer())) // Arrays of arrays
-
-//?? [SHRINKING] Arrays shrink by:
-//?? 1. Reducing size (removing elements)
-//?? 2. Shrinking individual elements
-//?? 3. Binary search on array size for efficiency
