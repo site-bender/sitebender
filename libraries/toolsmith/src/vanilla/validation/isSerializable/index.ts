@@ -11,25 +11,3 @@ export default function isSerializable(value: unknown): boolean {
 
 	return true
 }
-
-//?? [EXAMPLE] isSerializable("hello") // true
-//?? [EXAMPLE] isSerializable(42) // true
-//?? [EXAMPLE] isSerializable(null) // true
-//?? [EXAMPLE] isSerializable({ a: 1 }) // true
-//?? [EXAMPLE] isSerializable([1, 2, 3]) // true
-//?? [EXAMPLE] isSerializable(undefined) // false
-//?? [EXAMPLE] isSerializable(Symbol("test")) // false
-//?? [EXAMPLE] isSerializable(() => {}) // false
-/*??
- | [EXAMPLE]
- | const processForJson = (value: unknown) => {
- |   if (isSerializable(value)) {
- |     return JSON.stringify(value)
- |   }
- |   return null
- | }
- |
- | processForJson({ a: 1 }) // '{"a":1}'
- | processForJson(undefined) // null
- | processForJson(() => {}) // null
- */

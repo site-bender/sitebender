@@ -24,7 +24,3 @@ const average = (
 }
 
 export default average
-
-//?? [EXAMPLE] average([1, 2, 3, 4, 5]) // 3
-//?? [EXAMPLE] average([]) // NaN
-//?? [EXAMPLE] average([1, NaN, 3]) // NaN

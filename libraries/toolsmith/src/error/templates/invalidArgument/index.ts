@@ -7,11 +7,9 @@ export function invalidArgument(op: string) {
 	}
 }
 
-//?? [EXAMPLE]
 // const error = invalidArgument("setAge")("age")("must be positive")
 // // Returns: "setAge received invalid age: must be positive"
 
-//?? [EXAMPLE] Building up the error
 // const validateInput = invalidArgument("processData")
 // const invalidFormat = validateInput("format")
 // const message = invalidFormat("expected JSON or XML")

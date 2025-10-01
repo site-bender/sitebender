@@ -18,7 +18,3 @@ export default function divide(
 		return undefined
 	}
 }
-
-//?? [EXAMPLE] divide(2)(10) // 5
-//?? [EXAMPLE] divide(0)(10) // undefined
-//?? [EXAMPLE] divide(Infinity)(10) // undefined

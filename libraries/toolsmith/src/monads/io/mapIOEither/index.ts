@@ -13,22 +13,3 @@ export default function mapIOEither<E, A, B>(f: (a: A) => B) {
 		}
 	}
 }
-
-//?? [EXAMPLE] mapIOEither((x: number) => x * 2)(ioEither(() => right(42))) // IOEither(() => Right(84))
-//?? [EXAMPLE] mapIOEither((x: number) => x * 2)(ioEither(() => left("error"))) // IOEither(() => Left("error"))
-/*??
- | [EXAMPLE]
- | const dataIO = ioEither(() => right(5))
- | const processedIO = pipe(
- |   dataIO,
- |   mapIOEither((x: number) => x * 2),     // Right(10)
- |   mapIOEither((x: number) => x + 3),     // Right(13)
- |   mapIOEither((x: number) => x.toString()) // Right("13")
- | )
- | runIO(processedIO)  // Right("13")
- |
- | [PRO] Transforms success values while preserving errors
- | [PRO] Allows chaining transformations on successful results
- | [PRO] Composable with other IOEither operations
- |
-*/

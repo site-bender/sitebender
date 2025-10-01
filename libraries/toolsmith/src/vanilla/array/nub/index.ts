@@ -14,11 +14,3 @@ const nub = <T>(
 }
 
 export default nub
-
-//?? [EXAMPLE] `nub([1, 2, 3, 2, 1, 4]) // [1, 2, 3, 4]`
-//?? [EXAMPLE] `nub(["apple", "banana", "apple", "cherry"]) // ["apple", "banana", "cherry"]`
-//?? [EXAMPLE] `nub([1, "1", 2, "2", 1]) // [1, "1", 2, "2"]`
-//?? [EXAMPLE] `nub([NaN, 1, NaN, 2]) // [NaN, 1, 2]`
-//?? [EXAMPLE] `nub([]) // []`
-//?? [EXAMPLE] `nub(null) // []`
-//?? [EXAMPLE] `nub([7, 7, 7]) // [7]`

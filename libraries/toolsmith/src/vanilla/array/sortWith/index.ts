@@ -30,10 +30,3 @@ const sortWith = <T>(
 }
 
 export default sortWith
-
-//?? [EXAMPLE] `sortWith([(a: {age: number}, b: {age: number}) => a.age - b.age, (a: {name: string}, b: {name: string}) => a.name.localeCompare(b.name)])([{ name: "Charlie", age: 30 }, { name: "Alice", age: 25 }, { name: "Bob", age: 25 }]) // [{ name: "Alice", age: 25 }, { name: "Bob", age: 25 }, { name: "Charlie", age: 30 }]`
-//?? [EXAMPLE] `sortWith([(a: string, b: string) => a.length - b.length, (a: string, b: string) => a.localeCompare(b)])(["cat", "dog", "ox"]) // ["ox", "cat", "dog"]`
-//?? [EXAMPLE] `sortWith([])(["b", "a", "c"]) // ["b", "a", "c"] (no sorting)`
-//?? [EXAMPLE] `sortWith([(a: number, b: number) => a - b])([3, 1, 2]) // [1, 2, 3]`
-//?? [EXAMPLE] `sortWith([(a: number, b: number) => b - a, (a: number, b: number) => a - b])([1, 2, 1, 3]) // [3, 2, 1, 1]`
-//?? [EXAMPLE] `sortWith([(a: number, b: number) => a - b])(null) // []`

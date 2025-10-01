@@ -7,10 +7,8 @@ export function notFound(op: string) {
 	}
 }
 
-//?? [EXAMPLE]
 // const error = notFound("getData")("user")("database")
 // // Returns: "getData: user not found in database"
 
-//?? [EXAMPLE] File system operations
 // const fileError = notFound("readConfig")("config.json")("/etc/app/")
 // // Returns: "readConfig: config.json not found in /etc/app/"

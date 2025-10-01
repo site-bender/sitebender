@@ -8,7 +8,3 @@ export default function bytesToBigInt(bytes: Uint8Array): bigint {
 		},
 	)(0n)(Array.from(bytes))
 }
-
-//?? [EXAMPLE] bytesToBigInt(new Uint8Array([255, 255])) // 65535n
-//?? [EXAMPLE] bytesToBigInt(new Uint8Array([1, 0, 0])) // 65536n
-//?? [EXAMPLE] bytesToBigInt(new Uint8Array([])) // 0n

@@ -28,7 +28,3 @@ const sum = (
 }
 
 export default sum
-
-//?? [EXAMPLE] sum([1, 2, 3]) // 6
-//?? [EXAMPLE] sum([]) // 0
-//?? [EXAMPLE] sum([1, NaN, 3]) // NaN

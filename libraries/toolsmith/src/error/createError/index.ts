@@ -22,11 +22,3 @@ export default function createError<TOp extends string>(operation: TOp) {
 		}
 	}
 }
-
-//?? [EXAMPLE] createError("map")([fn, array])("Transformation failed")("CALLBACK_THREW")
-//?? [EXAMPLE] createError("filter")([pred, data])("Invalid predicate")()
-/*??
- | [EXAMPLE]
- | const createMapError = createError("map")
- | const mapError = createMapError([mapper, items])("Failed at index 3")("EXCEPTION_THROWN")
- */

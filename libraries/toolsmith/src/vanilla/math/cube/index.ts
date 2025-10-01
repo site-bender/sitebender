@@ -8,8 +8,3 @@ export default function cube(n?: number | null): number | null {
 
 	return null
 }
-
-//?? [EXAMPLE] `cube(3) // returns 27`
-//?? [EXAMPLE] `cube() // returns null`
-//?? [EXAMPLE] `cube(null) // returns null`
-//?? [EXAMPLE] `cube([]) // returns null` (etc.)

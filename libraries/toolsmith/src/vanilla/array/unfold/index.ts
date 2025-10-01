@@ -27,10 +27,3 @@ export default function unfold<T, U>(
 		return unfoldRecursive(seed)
 	}
 }
-
-//?? [EXAMPLE] `unfold((n: number) => n < 10 ? [n, n + 1] : null)(0) // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]`
-//?? [EXAMPLE] `unfold(([a, b]: [number, number]) => a <= 100 ? [a, [b, a + b]] : null)([0, 1]) // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]`
-//?? [EXAMPLE] `unfold((n: number) => n <= 256 ? [n, n * 2] : null)(1) // [1, 2, 4, 8, 16, 32, 64, 128, 256]`
-//?? [EXAMPLE] `unfold((s: string) => s.length > 0 ? [s[0], s.slice(1)] : null)("hello") // ["h", "e", "l", "l", "o"]`
-//?? [EXAMPLE] `unfold((n: number) => n < 3 ? [n * n, n + 1] : null)(0) // [0, 1, 4]`
-//?? [EXAMPLE] `unfold((n: number) => n < 5 ? [n, n + 1] : null)(null) // []`

@@ -17,6 +17,5 @@ export default function errorWithInspect<E>(err: E): Error<E> & {
 	return result as Error<E> & { [inspectSymbol]: () => string }
 }
 
-//?? [EXAMPLE]
 // const result = errorWithInspect(new Error("Something went wrong"))
 // console.log(result)  // Shows formatted error output in console

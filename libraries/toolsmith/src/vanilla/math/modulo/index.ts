@@ -53,6 +53,3 @@ const modulo = (
 }
 
 export default modulo
-
-//?? [EXAMPLE] modulo(3)(-10) // 2
-//?? [EXAMPLE] modulo(0)(10) // NaN

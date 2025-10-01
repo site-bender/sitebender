@@ -8,7 +8,3 @@ export default function extractPairs(hex: string): Array<string> {
 			: null
 	})(hex)
 }
-
-//?? [EXAMPLE] extractPairs("deadbeef") // ["de", "ad", "be", "ef"]
-//?? [EXAMPLE] extractPairs("12345") // ["12", "34"]
-//?? [GOTCHA] Odd-length strings drop the last character

@@ -206,6 +206,3 @@ const validateRange =
 	}
 
 export default validateRange
-
-//?? [EXAMPLE] validateRange({ min: 0, max: 10 })(5) // true
-//?? [EXAMPLE] validateRange({ min: 0, max: 10, exclusive: true })(0) // false

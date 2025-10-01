@@ -11,10 +11,3 @@ export default function take(count: number) {
 		return array.slice(0, count)
 	}
 }
-
-//?? [EXAMPLE] `take(3)([1, 2, 3, 4, 5]) // [1, 2, 3]`
-//?? [EXAMPLE] `take(2)(["a", "b", "c"]) // ["a", "b"]`
-//?? [EXAMPLE] `take(0)([1, 2, 3]) // []`
-//?? [EXAMPLE] `take(10)([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `take(-1)([1, 2, 3]) // []`
-//?? [EXAMPLE] `take(3)(null) // []`

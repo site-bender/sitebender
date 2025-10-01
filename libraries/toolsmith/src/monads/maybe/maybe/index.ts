@@ -14,19 +14,3 @@ export default function maybe<B>(onNothing: () => B) {
 		}
 	}
 }
-
-//?? [EXAMPLE] maybe(() => 0)((x: number) => x)(just(42)) // 42
-//?? [EXAMPLE] maybe(() => 0)((x: number) => x)(nothing()) // 0
-/*??
- | [EXAMPLE]
- | const toResult = <T>(maybeValue: Maybe<T>) =>
- |   maybe(
- |     () => ({ success: false, error: "No value present" })
- |   )(
- |     value => ({ success: true, value })
- |   )(maybeValue)
- |
- | [PRO] Primary way to consume Maybe values and convert to regular values
- | [PRO] Forces explicit handling of absence case
- |
-*/

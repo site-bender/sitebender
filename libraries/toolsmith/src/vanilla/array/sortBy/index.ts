@@ -31,10 +31,3 @@ const sortBy = <T, U>(
 }
 
 export default sortBy
-
-//?? [EXAMPLE] `sortBy(Math.abs)([-5, 3, -1, 4, -2]) // [-1, -2, 3, 4, -5]`
-//?? [EXAMPLE] `sortBy((u: { age: number }) => u.age)([{ name: "Charlie", age: 30 }, { name: "Alice", age: 25 }]) // [{ name: "Alice", age: 25 }, { name: "Charlie", age: 30 }]`
-//?? [EXAMPLE] `sortBy((s: string) => s.length)(["cat", "elephant", "dog"]) // ["cat", "dog", "elephant"]`
-//?? [EXAMPLE] `sortBy((item: {price: number, quantity: number}) => item.price * item.quantity)([{ price: 10, quantity: 5 }, { price: 20, quantity: 2 }]) // [{ price: 20, quantity: 2 }, { price: 10, quantity: 5 }]`
-//?? [EXAMPLE] `sortBy((x: number) => x)([]) // []`
-//?? [EXAMPLE] `sortBy((x: any) => x)(null) // []`

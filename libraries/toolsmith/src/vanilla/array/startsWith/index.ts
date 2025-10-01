@@ -26,10 +26,3 @@ export default function startsWith<T>(
 		})
 	}
 }
-
-//?? [EXAMPLE] `startsWith([1, 2])([1, 2, 3, 4]) // true`
-//?? [EXAMPLE] `startsWith(["a", "b"])(["a", "b", "c"]) // true`
-//?? [EXAMPLE] `startsWith([1, 2])([1, 3, 2]) // false`
-//?? [EXAMPLE] `startsWith([])([1, 2, 3]) // true`
-//?? [EXAMPLE] `startsWith([1, 2, 3])([1, 2]) // false`
-//?? [EXAMPLE] `startsWith(null)([1, 2, 3]) // false`

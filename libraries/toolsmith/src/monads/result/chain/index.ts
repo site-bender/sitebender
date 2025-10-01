@@ -12,7 +12,6 @@ export default function chain<T, U, E>(fn: (value: T) => Result<E, U>) {
 	}
 }
 
-//?? [EXAMPLE]
 // const safeDivide = (x: number) => x === 0
 //   ? error("Division by zero")
 //   : ok(10 / x)

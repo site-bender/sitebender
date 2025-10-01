@@ -7,6 +7,5 @@ export default function isError<E, T>(
 	return result._tag === "Error"
 }
 
-//?? [EXAMPLE]
 // isError(error("failed"))  // true
 // isError(ok(42))  // false

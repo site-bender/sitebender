@@ -20,10 +20,3 @@ export default function removeAt<T>(index: number) {
 			: array as Array<T>
 	}
 }
-
-//?? [EXAMPLE] `removeAt(1)([1, 2, 3, 4]) // [1, 3, 4]`
-//?? [EXAMPLE] `removeAt(0)(["a", "b", "c"]) // ["b", "c"]`
-//?? [EXAMPLE] `removeAt(-1)([1, 2, 3]) // [1, 2] (removes last)`
-//?? [EXAMPLE] `removeAt(10)([1, 2, 3]) // [1, 2, 3] (out of bounds)`
-//?? [EXAMPLE] `removeAt(1)(["first", "second", "third"]) // ["first", "third"]`
-//?? [EXAMPLE] `removeAt(0)(null) // []`

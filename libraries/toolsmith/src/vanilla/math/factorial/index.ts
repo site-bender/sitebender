@@ -39,7 +39,3 @@ const factorial = (
 }
 
 export default factorial
-
-//?? [EXAMPLE] factorial(0) // 1
-//?? [EXAMPLE] factorial(5) // 120
-//?? [EXAMPLE] factorial(-1) // NaN

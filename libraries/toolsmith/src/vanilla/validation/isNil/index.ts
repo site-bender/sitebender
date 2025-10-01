@@ -5,6 +5,3 @@ import isNullish from "../isNullish/index.ts"
 const isNil = isNullish
 
 export default isNil
-
-//?? [EXAMPLE] isNil(null) // true
-//?? [EXAMPLE] isNil(0) // false

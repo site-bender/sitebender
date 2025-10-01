@@ -20,10 +20,3 @@ export default function isValidOctet(octet: string): boolean {
 
 	return num >= 0 && num <= 255
 }
-
-//?? [EXAMPLE] isValidOctet("192") // true
-//?? [EXAMPLE] isValidOctet("0") // true
-//?? [EXAMPLE] isValidOctet("255") // true
-//?? [EXAMPLE] isValidOctet("256") // false
-//?? [EXAMPLE] isValidOctet("-1") // false
-//?? [EXAMPLE] isValidOctet("abc") // false

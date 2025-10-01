@@ -26,11 +26,5 @@ const slidingWithStep =
 
 export default slidingWithStep
 
-//?? [EXAMPLE] `slidingWithStep(3, 1)([1, 2, 3, 4, 5]) // [[1, 2, 3], [2, 3, 4], [3, 4, 5]]`
-//?? [EXAMPLE] `slidingWithStep(3, 3)([1, 2, 3, 4, 5, 6, 7, 8, 9]) // [[1, 2, 3], [4, 5, 6], [7, 8, 9]]`
-//?? [EXAMPLE] `slidingWithStep(2, 3)([1, 2, 3, 4, 5, 6, 7, 8]) // [[1, 2], [4, 5], [7, 8]]`
-//?? [EXAMPLE] `slidingWithStep(5, 1)([1, 2, 3]) // []`
-//?? [EXAMPLE] `slidingWithStep(3, 1)(null) // []`
-//?? [EXAMPLE] `slidingWithStep(3, 1)([]) // []`
 
 //!! This is not curried.

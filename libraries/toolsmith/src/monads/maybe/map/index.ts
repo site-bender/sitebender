@@ -13,19 +13,3 @@ export default function map<A, B>(fn: (a: A) => B) {
 		return just(fn(maybe.value))
 	}
 }
-
-//?? [EXAMPLE] map((x: number) => x * 2)(just(5)) // Just(10)
-//?? [EXAMPLE] map((x: number) => x * 2)(nothing()) // Nothing
-/*??
- | [EXAMPLE]
- | pipe(
- |   just(5),
- |   map(x => x * 2),        // Just(10)
- |   map(x => x + 1),        // Just(11)
- |   map(x => x.toString())  // Just("11")
- | )
- |
- | [PRO] Fundamental operation for transforming optional values safely
- | [PRO] Short-circuits on Nothing, making null checking unnecessary
- |
-*/

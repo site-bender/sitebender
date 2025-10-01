@@ -21,32 +21,3 @@ export default function indexBy<T, K extends string | number | symbol>(
 		}, {} as Record<K, T>)
 	}
 }
-
-/*??
- | [EXAMPLE]
- | ```typescript
- | // Basic usage - index by id
- | const users = [
- |   { id: 1, name: "Alice" },
- |   { id: 2, name: "Bob" },
- |   { id: 3, name: "Charlie" }
- | ]
- | indexBy(u => u.id)(users)
- | // { 1: { id: 1, name: "Alice" }, 2: { id: 2, name: "Bob" }, 3: { id: 3, name: "Charlie" } }
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Last value wins for duplicates
- | indexBy((s: string) => s.length)(["a", "bb", "ccc", "dd", "e"])
- | // { 1: "e", 2: "dd", 3: "ccc" }
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Partial application
- | const indexById = indexBy((x: { id: string }) => x.id)
- | indexById([{ id: "a", val: 1 }, { id: "b", val: 2 }])
- | // { "a": { id: "a", val: 1 }, "b": { id: "b", val: 2 } }
- | ```
- */

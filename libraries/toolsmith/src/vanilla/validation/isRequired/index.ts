@@ -60,6 +60,3 @@ const isRequired = (
 }
 
 export default isRequired
-
-//?? [EXAMPLE] isRequired()(" ") // false
-//?? [EXAMPLE] isRequired({ allowWhitespace: true })(" ") // true

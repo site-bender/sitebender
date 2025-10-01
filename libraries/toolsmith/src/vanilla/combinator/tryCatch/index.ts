@@ -12,42 +12,5 @@ const tryCatch = <T extends ReadonlyArray<any>, R, E>(
 	}
 }
 
-//?? [EXAMPLE] safeParseJSON('{"valid": "json"}') // { valid: "json" }
-//?? [EXAMPLE] safeParseJSON('invalid json') // null (logs error)
-//?? [EXAMPLE] safeDivide(10, 0) // Infinity
-/*??
- | [EXAMPLE]
- | ```typescript
- | const parseJSON = (str: string) => JSON.parse(str)
- | const safeParseJSON = tryCatch(
- |   parseJSON,
- |   (error, str) => {
- |     console.error("Failed to parse:", str)
- |     return null
- |   }
- | )
- |
- | safeParseJSON('{"valid": "json"}') // { valid: "json" }
- | safeParseJSON('invalid json') // null (logs error)
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Can transform errors
- | const divide = (a: number, b: number) => {
- |   if (b === 0) throw new Error("Division by zero")
- |   return a / b
- | }
- |
- | const safeDivide = tryCatch(
- |   divide,
- |   (error) => Infinity // Return infinity for division by zero
- | )
- | ```
- |
- | [GOTCHA]
- | The catch function receives both the error and the original arguments.
- | This allows for context-aware error handling.
- */
 
 export default tryCatch

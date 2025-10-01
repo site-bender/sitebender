@@ -43,17 +43,3 @@ export default function findDuplicates<T>(
 
 	return []
 }
-
-//?? [EXAMPLE] `findDuplicates([1, 2, 3, 2, 4, 1, 5])      // [1, 2]`
-//?? [EXAMPLE] `findDuplicates(["a", "b", "c", "b", "a"])  // ["a", "b"]`
-//?? [EXAMPLE] `findDuplicates([1, 2, 3, 4, 5])            // [] (no duplicates)`
-//?? [EXAMPLE] `findDuplicates([])                         // [] (empty array)`
-//?? [EXAMPLE] `findDuplicates([NaN, NaN])                 // [NaN] (uses SameValueZero)`
-/*??
- | [EXAMPLE]
- | ```typescript
- | // Objects by reference
- | const obj = { id: 1 }
- | findDuplicates([obj, { id: 1 }, obj])      // [obj] (same reference only)
- | ```
- */

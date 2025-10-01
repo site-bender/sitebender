@@ -48,7 +48,3 @@ export default function mode(
 			return a - b
 		})
 }
-
-//?? [EXAMPLE] mode([1, 2, 2, 3, 4]) // [2]
-//?? [EXAMPLE] mode([1, 1, 2, 2, 3]) // [1, 2]
-//?? [EXAMPLE] mode([]) // []

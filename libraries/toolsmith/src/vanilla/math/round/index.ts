@@ -13,6 +13,3 @@ const round = (
 }
 
 export default round
-
-//?? [EXAMPLE] round(3.5) // 4
-//?? [EXAMPLE] round(-3.5) // -3

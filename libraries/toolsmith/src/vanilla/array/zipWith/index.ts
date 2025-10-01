@@ -35,10 +35,3 @@ const zipWith = <T, U, V>(
 }
 
 export default zipWith
-
-//?? [EXAMPLE] `zipWith((a: number, b: number) => a + b)([1, 2, 3])([10, 20, 30]) // [11, 22, 33]`
-//?? [EXAMPLE] `zipWith((a: number, b: number) => a * b)([1, 2, 3, 4])([10, 20]) // [10, 40]`
-//?? [EXAMPLE] `zipWith((name: string, age: number) => ({ name, age }))(["Alice", "Bob", "Charlie"])([30, 25, 35]) // [{ name: "Alice", age: 30 }, { name: "Bob", age: 25 }, { name: "Charlie", age: 35 }]`
-//?? [EXAMPLE] `zipWith((a: string, b: string) => \`\${a}-\${b}\`)(["A", "B", "C"])(["1", "2", "3"]) // ["A-1", "B-2", "C-3"]`
-//?? [EXAMPLE] `zipWith((a: number, b: number) => a + b)([1, 2])(null) // []`
-//?? [EXAMPLE] `zipWith((a: number, b: number) => a + b)(null)([1, 2]) // []`

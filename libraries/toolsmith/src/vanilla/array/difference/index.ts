@@ -28,28 +28,3 @@ export default function difference<T>(
 		return []
 	}
 }
-
-//?? [EXAMPLE] `difference([2, 3])([1, 2, 3, 4, 5]) // [1, 4, 5]`
-//?? [EXAMPLE] `difference(["b", "c"])(["a", "b", "c", "d"]) // ["a", "d"]`
-//?? [EXAMPLE] `difference([])([1, 2, 3])          // [1, 2, 3]`
-//?? [EXAMPLE] `difference([1, 2])([])              // []`
-//?? [EXAMPLE] `difference([1, 2, 3])([1, 2, 3])   // []`
-//?? [EXAMPLE] `difference([1, 2])(null)     // []`
-//?? [EXAMPLE] `difference(null)([1, 2, 3])  // [1, 2, 3]`
-/*??
- | [EXAMPLE]
- | ```typescript
- | // Partial application for filtering
- | const removeStopWords = difference(["the", "a", "an", "and"])
- | removeStopWords(["the", "quick", "brown", "fox", "and", "lazy"])
- | // ["quick", "brown", "fox", "lazy"]
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Objects use reference equality
- | const obj1 = { id: 1 }
- | const obj2 = { id: 2 }
- | difference([obj2])([obj1, obj2])  // [obj1]
- | ```
- */

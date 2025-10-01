@@ -6,41 +6,5 @@ const partialRight =
 	) =>
 	(...initialArgs: T): R => fn(...initialArgs, ...fixedArgs)
 
-//?? [EXAMPLE] exclaim("Hello", "Alice") // "Hello, Alice!"
-//?? [EXAMPLE] exclaim("Goodbye", "Bob") // "Goodbye, Bob!"
-//?? [EXAMPLE] greetBobExcitedly("Hi") // "Hi, Bob!!"
-//?? [EXAMPLE] greetBobExcitedly("Welcome") // "Welcome, Bob!!"
-//?? [EXAMPLE] divideBy2(10) // 5
-/*??
- | [EXAMPLE]
- | ```typescript
- | const greet = (greeting: string, name: string, punctuation: string) =>
- |   `${greeting}, ${name}${punctuation}`
- |
- | const exclaim = partialRight(greet, "!")
- | exclaim("Hello", "Alice") // "Hello, Alice!"
- | exclaim("Goodbye", "Bob") // "Goodbye, Bob!"
- |
- | const greetBobExcitedly = partialRight(greet, "Bob", "!!")
- | greetBobExcitedly("Hi") // "Hi, Bob!!"
- | greetBobExcitedly("Welcome") // "Welcome, Bob!!"
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Useful for creating specialized functions
- | const divide = (dividend: number, divisor: number) => dividend / divisor
- | const divideBy2 = partialRight(divide, 2)
- | divideBy2(10) // 5
- | divideBy2(100) // 50
- |
- | const divideInto100 = partialRight(divide, 100)
- | divideInto100(4) // 0.04 (4 / 100)
- | ```
- |
- | [GOTCHA]
- | The fixed arguments are applied from the right side,
- | filling the last parameter positions first.
- */
 
 export default partialRight

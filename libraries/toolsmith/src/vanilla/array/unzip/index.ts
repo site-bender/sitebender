@@ -36,10 +36,3 @@ const unzip = <T, U>(
 }
 
 export default unzip
-
-//?? [EXAMPLE] `unzip([[1, "a"], [2, "b"], [3, "c"]]) // [[1, 2, 3], ["a", "b", "c"]]`
-//?? [EXAMPLE] `unzip([["Alice", 25], ["Bob", 30], ["Charlie", 35]]) // [["Alice", "Bob", "Charlie"], [25, 30, 35]]`
-//?? [EXAMPLE] `unzip([]) // [[], []]`
-//?? [EXAMPLE] `unzip(null) // [[], []]`
-//?? [EXAMPLE] `unzip([["Product A", 100], ["Product B", 200], ["Product C", 150]]) // [["Product A", "Product B", "Product C"], [100, 200, 150]]`
-//?? [EXAMPLE] `unzip([[true, 1], [false, 0]]) // [[true, false], [1, 0]]`

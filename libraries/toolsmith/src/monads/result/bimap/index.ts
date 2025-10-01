@@ -17,7 +17,6 @@ export default function bimap<E, F>(onError: (err: E) => F) {
 	}
 }
 
-//?? [EXAMPLE]
 // const transform = bimap
 //   ((e: string) => e.toUpperCase())
 //   ((x: number) => x * 2)

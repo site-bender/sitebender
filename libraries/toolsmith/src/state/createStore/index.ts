@@ -24,7 +24,3 @@ export default function createStore<S>(initial: S): Store<S> {
 
 	return { get, set, subscribe }
 }
-
-//?? [EXAMPLE] const store = createStore({ count: 0 })
-//?? [EXAMPLE] store.set(s => ({ count: s.count + 1 }))
-//?? [EXAMPLE] const unsub = store.subscribe(s => console.log(s.count))

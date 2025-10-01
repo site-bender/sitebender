@@ -15,6 +15,3 @@ export default function isValidDate(
 	// If conversion succeeded, it's a valid date
 	return isNotNull(date)
 }
-
-//?? [EXAMPLE] isValidDate("2024-02-29") // true (leap year)
-//?? [EXAMPLE] isValidDate("2024-02-30") // false

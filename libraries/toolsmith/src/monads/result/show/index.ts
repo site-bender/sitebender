@@ -10,6 +10,5 @@ export default function show<E, T>(result: Result<E, T>): string {
 	return `Error(${JSON.stringify(result.error)})`
 }
 
-//?? [EXAMPLE]
 // show(ok(42))  // "Ok(42)"
 // show(error("failed"))  // "Error(\"failed\")"

@@ -38,9 +38,3 @@ export default function add(
 
 	return undefined
 }
-
-//?? [EXAMPLE] add(2)(3) // 5
-//?? [EXAMPLE] add([1, 2, 3]) // 6
-//?? [EXAMPLE] add(NaN) // undefined
-//?? [EXAMPLE] add(2)(Infinity) // undefined
-//?? [EXAMPLE] add([1, Infinity, 2]) // undefined

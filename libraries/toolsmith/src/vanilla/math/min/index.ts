@@ -25,6 +25,3 @@ const min = (
 }
 
 export default min
-
-//?? [EXAMPLE] min(5)(3) // 3
-//?? [EXAMPLE] min(5)(NaN) // NaN

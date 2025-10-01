@@ -33,10 +33,3 @@ const zip = <T, U>(
 }
 
 export default zip
-
-//?? [EXAMPLE] `zip([4, 5, 6])([1, 2, 3]) // [[1, 4], [2, 5], [3, 6]]`
-//?? [EXAMPLE] `zip(["a", "b", "c"])([1, 2, 3]) // [[1, "a"], [2, "b"], [3, "c"]]`
-//?? [EXAMPLE] `zip([10, 20])([1, 2, 3, 4, 5]) // [[1, 10], [2, 20]]`
-//?? [EXAMPLE] `zip(["Alice", 30, "NYC"])(["name", "age", "city"]) // [["name", "Alice"], ["age", 30], ["city", "NYC"]]`
-//?? [EXAMPLE] `zip([1, 2])(null) // []`
-//?? [EXAMPLE] `zip(null)([1, 2]) // []`

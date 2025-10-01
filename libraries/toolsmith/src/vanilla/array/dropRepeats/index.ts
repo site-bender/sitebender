@@ -22,10 +22,3 @@ export default function dropRepeats<T>(
 
 	return []
 }
-
-//?? [EXAMPLE] `dropRepeats([1, 1, 2, 3, 3, 3, 4]) // [1, 2, 3, 4]`
-//?? [EXAMPLE] `dropRepeats([1, 2, 2, 1, 1])       // [1, 2, 1]`
-//?? [EXAMPLE] `dropRepeats(["a", "a", "b", "a"])  // ["a", "b", "a"]`
-//?? [EXAMPLE] `dropRepeats([])                    // []`
-//?? [EXAMPLE] `dropRepeats(null)                  // []`
-//?? [EXAMPLE] `dropRepeats([1, 2, 1, 2]) // [1, 2, 1, 2] (preserves non-consecutive duplicates)`

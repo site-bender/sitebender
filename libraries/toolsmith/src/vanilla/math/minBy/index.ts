@@ -33,6 +33,3 @@ export default function minBy<T>(
 		}
 	}
 }
-
-//?? [EXAMPLE] minBy(Math.abs)(-5)(3) // 3
-//?? [EXAMPLE] minBy(() => NaN)(1)(2) // NaN

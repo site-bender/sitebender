@@ -27,7 +27,3 @@ const product = (
 }
 
 export default product
-
-//?? [EXAMPLE] product([2, 3, 4]) // 24
-//?? [EXAMPLE] product([]) // 1
-//?? [EXAMPLE] product([1, NaN, 3]) // NaN

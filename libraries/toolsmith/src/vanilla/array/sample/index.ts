@@ -13,10 +13,3 @@ const sample = <T>(
 }
 
 export default sample
-
-//?? [EXAMPLE] `sample([1, 2, 3, 4, 5]) // 3 (random element)`
-//?? [EXAMPLE] `sample(["red", "green", "blue"]) // "blue" (random)`
-//?? [EXAMPLE] `sample(["common", "common", "rare"]) // "common" (66% chance)`
-//?? [EXAMPLE] `sample([42]) // 42 (single element)`
-//?? [EXAMPLE] `sample([]) // undefined`
-//?? [EXAMPLE] `sample(null) // undefined`

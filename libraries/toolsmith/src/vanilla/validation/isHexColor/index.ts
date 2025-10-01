@@ -52,23 +52,3 @@ export default function isHexColor(options: HexColorOptions = {}) {
 		}
 	}
 }
-
-//?? [EXAMPLE] isHexColor()("#FF0000") // true
-//?? [EXAMPLE] isHexColor()("#FFF") // true
-//?? [EXAMPLE] isHexColor()("FF0000") // true
-//?? [EXAMPLE] isHexColor()("#GGG") // false
-/*??
- | [EXAMPLE] Require hash prefix
- | const requireHash = isHexColor({ requireHash: true })
- | requireHash("#FF0000")  // true
- | requireHash("FF0000")   // false
- |
- | [EXAMPLE] Specific format validation
- | const sixDigitOnly = isHexColor({ format: "6-digit" })
- | sixDigitOnly("#FF0000") // true
- | sixDigitOnly("#FFF")    // false
- |
- | [GOTCHA] Empty strings return false
- | [PRO] Supports 3, 4, 6, and 8 digit formats with optional alpha channel
- |
-*/

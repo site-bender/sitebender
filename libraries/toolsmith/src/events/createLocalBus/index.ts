@@ -54,7 +54,3 @@ export default function createLocalBus(
 		},
 	}
 }
-
-//?? [EXAMPLE] const bus = createLocalBus(document)
-//?? [EXAMPLE] bus.publish("user-login", { userId: "123" })
-//?? [EXAMPLE] const unsub = bus.subscribe("user-login", (e) => console.log(e.payload))

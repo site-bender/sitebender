@@ -15,18 +15,3 @@ export default function withSuggestion(suggestion: string) {
 		}
 	}
 }
-
-//?? [EXAMPLE] const suggest = withSuggestion("Check that the array is not null")
-/*??
- | [EXAMPLE] Pipeline usage:
- | const errorWithHelp = pipe(
- |   createError("divide")([10, 0])("Division by zero")(),
- |   withSuggestion("Ensure divisor is not zero before dividing")
- | )
- |
- | [EXAMPLE] Conditional suggestion:
- | const addSuggestion = error.code === "NULL_INPUT"
- |   ? withSuggestion("Initialize the value before use")
- |   : withSuggestion("Check the input type")
- | const improved = addSuggestion(error)
- */

@@ -9,8 +9,3 @@ export default function toIsoDateString(pd: unknown): string | null {
 	}
 	return null
 }
-
-//?? [EXAMPLE] toIsoDateString({ toString: () => "2024-01-15" }) // "2024-01-15"
-//?? [EXAMPLE] toIsoDateString({ toString: () => "invalid" }) // null
-//?? [EXAMPLE] toIsoDateString(null) // null
-//?? [EXAMPLE] toIsoDateString(undefined) // null

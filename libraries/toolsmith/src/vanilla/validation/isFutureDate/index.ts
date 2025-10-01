@@ -24,18 +24,3 @@ export default function isFutureDate(
 
 	return iso > todayIsoLocal()
 }
-
-//?? [EXAMPLE] isFutureDate("2025-01-01") // true (if today is before 2025-01-01)
-//?? [EXAMPLE] isFutureDate(new Date()) // false (today is not future)
-//?? [EXAMPLE] isFutureDate(null) // false
-//?? [EXAMPLE] isFutureDate("invalid") // false
-/*??
- | [EXAMPLE]
- | const tomorrow = Temporal.Now.plainDateISO().add({ days: 1 })
- | isFutureDate(tomorrow)  // true
- | isFutureDate(Temporal.Now.plainDateISO())  // false (today)
- |
- | [GOTCHA] Today's date returns false (not considered future)
- | [PRO] Accepts various date formats via DateInput type
- |
-*/

@@ -9,19 +9,3 @@ export default function isPlainTime(
 		return false
 	}
 }
-
-//?? [EXAMPLE] isPlainTime(Temporal.PlainTime.from("12:30:00")) // true
-//?? [EXAMPLE] isPlainTime("12:30:00") // false (string)
-//?? [EXAMPLE] isPlainTime({ hour: 12, minute: 30 }) // false (plain object)
-//?? [EXAMPLE] isPlainTime(null) // false
-/*??
- | [EXAMPLE]
- | const time = Temporal.PlainTime.from("12:30:00")
- | if (isPlainTime(time)) {
- |   time.add({ hours: 1 })  // TypeScript knows it's PlainTime
- | }
- |
- | [GOTCHA] Returns false if Temporal API is not available
- | [PRO] TypeScript type guard for safe PlainTime operations
- |
-*/

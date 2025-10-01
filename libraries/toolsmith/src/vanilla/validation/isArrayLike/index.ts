@@ -43,32 +43,3 @@ export default function isArrayLike(
 		nonePass([isNaN]),
 	])(numLen)
 }
-
-//?? [EXAMPLE] isArrayLike([1, 2, 3]) // true
-//?? [EXAMPLE] isArrayLike("hello") // true
-//?? [EXAMPLE] isArrayLike({ length: 0 }) // true
-//?? [EXAMPLE] isArrayLike({ length: 3, 0: "a", 1: "b", 2: "c" }) // true
-//?? [EXAMPLE] isArrayLike(null) // false
-//?? [EXAMPLE] isArrayLike(42) // false
-//?? [EXAMPLE] isArrayLike({}) // false (no length)
-//?? [EXAMPLE] isArrayLike({ length: -1 }) // false (negative)
-/*??
- | [EXAMPLE]
- | isArrayLike([1, 2, 3])  // true (actual array)
- | isArrayLike("hello")    // true (string)
- | isArrayLike([])         // true (empty array)
- |
- | isArrayLike({ length: 0 })  // true (array-like object)
- | isArrayLike({ length: 3, 0: "a", 1: "b", 2: "c" })  // true
- |
- | isArrayLike(new Uint8Array(10))  // true (typed array)
- | isArrayLike(document.querySelectorAll("div"))  // true (NodeList)
- |
- | const toArray = <T>(value: unknown): Array<T> =>
- |   isArrayLike(value) ? Array.from(value as ArrayLike<T>) : []
- | toArray("hello")  // ["h", "e", "l", "l", "o"]
- |
- | [GOTCHA] Doesn't verify all indices exist, just that length is valid
- | [GOTCHA] Functions with length property return true (they're array-like)
- |
-*/

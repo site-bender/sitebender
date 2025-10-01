@@ -19,11 +19,3 @@ export default function lastIndexOfMatch(pattern: RegExp | string) {
 		return index === -1 ? undefined : index
 	}
 }
-
-//?? [EXAMPLE] `lastIndexOfMatch(/^h/)(["hi", "hello", "world", "hey"]) // 3`
-//?? [EXAMPLE] `lastIndexOfMatch("ell")(["hello", "bell", "well", "test"]) // 2`
-//?? [EXAMPLE] `lastIndexOfMatch(/\d+/)(["one", "2", "three", "4"]) // 3`
-//?? [EXAMPLE] `lastIndexOfMatch(/error/i)(["info", "ERROR 1", "warning", "Error 2"]) // 3`
-//?? [EXAMPLE] `lastIndexOfMatch(/test/)([]) // undefined`
-//?? [EXAMPLE] `lastIndexOfMatch(/test/)(null) // undefined`
-//?? [EXAMPLE] `lastIndexOfMatch(/^z/)(["hi", "hello"]) // undefined`

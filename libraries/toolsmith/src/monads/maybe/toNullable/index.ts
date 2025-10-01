@@ -10,20 +10,3 @@ export default function toNullable<A>(maybe: Maybe<A>): A | null {
 
 	return maybe.value
 }
-
-//?? [EXAMPLE] toNullable(just(42)) // 42
-//?? [EXAMPLE] toNullable(nothing()) // null
-/*??
- | [EXAMPLE]
- | const prepareResponse = (
- |   email: Maybe<string>,
- |   phone: Maybe<string>
- | ) => ({
- |   email: toNullable(email),
- |   phone: toNullable(phone)
- | })
- |
- | [PRO] Inverse of fromNullable for exiting Maybe context
- | [PRO] Useful when interfacing with APIs expecting nullable values
- |
-*/

@@ -21,30 +21,3 @@ export default function curryN<TFunction extends (...args: Value[]) => Value>(
 		}
 	}
 }
-
-//?? [EXAMPLE] max3(1)(2)(3) // 3
-//?? [EXAMPLE] sum4(1)(2)(3)(4) // 10
-//?? [EXAMPLE] curryN(2)(Math.pow)(2)(3) // 8
-/*??
- | [EXAMPLE]
- | ```typescript
- | const max3 = curryN(3)(Math.max)
- | max3(1)(2)(3) // 3
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | const sum = (...nums: number[]) => nums.reduce((a, b) => a + b, 0)
- | const sum4 = curryN(4)(sum)
- | sum4(1)(2)(3)(4) // 10
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | curryN(2)(Math.pow)(2)(3) // 8
- | ```
- |
- | [GOTCHA]
- | Unlike regular curry, curryN limits functions to exactly n arguments.
- | Extra arguments beyond the specified arity are ignored.
- */

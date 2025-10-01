@@ -52,15 +52,3 @@ export default function isEmpty(value: unknown): boolean {
 	// All other values (numbers, booleans, functions, etc.) are not empty
 	return false
 }
-
-//?? [EXAMPLE] isEmpty(null) // true
-//?? [EXAMPLE] isEmpty(undefined) // true
-//?? [EXAMPLE] isEmpty("") // true
-//?? [EXAMPLE] isEmpty([]) // true
-//?? [EXAMPLE] isEmpty({}) // true
-//?? [EXAMPLE] isEmpty("   ") // false (whitespace is not empty)
-//?? [EXAMPLE] isEmpty(0) // false (numbers never empty)
-//?? [EXAMPLE] isEmpty(false) // false (booleans never empty)
-//?? [GOTCHA] Whitespace strings are NOT considered empty
-//?? [GOTCHA] WeakMaps and WeakSets always return false since we can't check their contents
-//?? [PRO] Handles all common JavaScript types appropriately

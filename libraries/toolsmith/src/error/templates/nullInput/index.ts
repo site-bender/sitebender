@@ -5,8 +5,5 @@ export function nullInput(op: string) {
 	}
 }
 
-//?? [EXAMPLE]
 // const error = nullInput("calculateTotal")("items")
 // // Returns: "calculateTotal received null/undefined for required parameter 'items'"
-
-//?? [GOTCHA] This is for required parameters only - optional parameters should handle null gracefully

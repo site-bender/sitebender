@@ -48,10 +48,3 @@ const unflatten = (depths: Array<number>) =>
 }
 
 export default unflatten
-
-//?? [EXAMPLE] `unflatten([0, 1, 1, 0, 1, 2])([1, 2, 3, 4, 5, 6]) // [1, [2, 3], 4, [5, [6]]]`
-//?? [EXAMPLE] `unflatten([0, 1, 2, 2, 1, 2, 0])(["A", "B", "C", "D", "E", "F", "G"]) // ["A", ["B", ["C", "D"], "E", ["F"]], "G"]`
-//?? [EXAMPLE] `unflatten([0, 1, 1, 0, 1])(["File", "New", "Open", "Edit", "Cut"]) // ["File", ["New", "Open"], "Edit", ["Cut"]]`
-//?? [EXAMPLE] `unflatten([])([]) // []`
-//?? [EXAMPLE] `unflatten([0])([42]) // [42]`
-//?? [EXAMPLE] `unflatten([1])([42]) // [[42]]`

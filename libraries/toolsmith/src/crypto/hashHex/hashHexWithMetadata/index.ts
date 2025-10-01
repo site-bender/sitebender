@@ -21,7 +21,6 @@ export default async function hashHexWithMetadata(
 	}
 }
 
-//?? [EXAMPLE]
 // const result = await hashHexWithMetadata("contract data")
 // console.log(result.hex) // "abc123..."
 // console.log(result.metadata.algorithm) // "sha256"

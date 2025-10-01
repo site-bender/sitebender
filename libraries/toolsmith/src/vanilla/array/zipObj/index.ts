@@ -44,10 +44,3 @@ const zipObj = <T>(
 }
 
 export default zipObj
-
-//?? [EXAMPLE] `zipObj([1, 2, 3])(["a", "b", "c"]) // { a: 1, b: 2, c: 3 }`
-//?? [EXAMPLE] `zipObj([1, 2])(["a", "b", "c", "d"]) // { a: 1, b: 2, c: undefined, d: undefined }`
-//?? [EXAMPLE] `zipObj([1, 2, 3, 4, 5])(["x", "y", "z"]) // { x: 1, y: 2, z: 3 }`
-//?? [EXAMPLE] `zipObj(["dark", 14, true, false])(["theme", "fontSize", "autoSave", "notifications"]) // { theme: "dark", fontSize: 14, autoSave: true, notifications: false }`
-//?? [EXAMPLE] `zipObj([1, 2, 3])(null) // {}`
-//?? [EXAMPLE] `zipObj(null)(["a", "b"]) // { a: undefined, b: undefined }`

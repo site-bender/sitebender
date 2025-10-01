@@ -31,6 +31,3 @@ const random = (
 }
 
 export default random
-
-//?? [EXAMPLE] random(0)(1) // 0 <= x < 1
-//?? [EXAMPLE] random(10)(5) // NaN

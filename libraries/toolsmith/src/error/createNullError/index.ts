@@ -26,16 +26,3 @@ export default function createNullError<TOp extends string>(operation: TOp) {
 		}
 	}
 }
-
-//?? [EXAMPLE] createNullError("map")([fn, null])(1)("array")
-//?? [EXAMPLE] createNullError("filter")([undefined, data])(0)("predicate")
-/*??
- | [EXAMPLE]
- | const value = undefined
- | const preciseError = createNullError("process")([value])(0)("input")
- |
- | const createMapNullError = createNullError("map")
- | const arrayNullError = createMapNullError([fn, null])(1)("array")
- |
- | [GOTCHA] Automatically generates message and suggestion based on argName
- */

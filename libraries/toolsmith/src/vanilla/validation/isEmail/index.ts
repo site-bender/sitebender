@@ -112,18 +112,3 @@ export default function isEmail(
 		return true
 	}
 }
-
-//?? [EXAMPLE] isEmail()("user@example.com") // true
-//?? [EXAMPLE] isEmail()("john.doe@company.org") // true
-//?? [EXAMPLE] isEmail()("invalid.email") // false (no @)
-//?? [EXAMPLE] isEmail({ requireTLD: true })("user@localhost") // false (no TLD)
-//?? [EXAMPLE] isEmail({ allowDisplayName: true })('"John Doe" <john@example.com>') // true
-/*??
- | [EXAMPLE]
- | const emails = ["valid@email.com", "invalid", "test@domain.org"]
- | emails.filter(isEmail())  // ["valid@email.com", "test@domain.org"]
- |
- | [GOTCHA] Display names must be extracted before validation
- | [PRO] Comprehensive validation with RFC 5322 compliance
- | [PRO] Configurable strictness levels for different use cases
- */

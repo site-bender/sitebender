@@ -1,7 +1,6 @@
 import isNullish from "../../validation/isNullish/index.ts"
 
 //++ Generates all possible subsequences
-//?? [WARNING] `Exponential complexity - 2^n subsequences for n elements`
 const subsequences = <T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Array<Array<T>> => {
@@ -41,10 +40,3 @@ const subsequences = <T>(
 }
 
 export default subsequences
-
-//?? [EXAMPLE] `subsequences([1, 2, 3]) // [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]`
-//?? [EXAMPLE] `subsequences([1]) // [[], [1]]`
-//?? [EXAMPLE] `subsequences([]) // [[]]`
-//?? [EXAMPLE] `subsequences(["a", "b"]) // [[], ["a"], ["b"], ["a", "b"]]`
-//?? [EXAMPLE] `subsequences(null) // [[]]`
-//?? [EXAMPLE] `subsequences([1, 2]).filter(sub => sub.length === 1) // [[1], [2]]`

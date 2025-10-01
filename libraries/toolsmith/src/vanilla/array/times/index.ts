@@ -21,10 +21,3 @@ const times = <T>(
 }
 
 export default times
-
-//?? [EXAMPLE] `times(5)((i: number) => i) // [0, 1, 2, 3, 4]`
-//?? [EXAMPLE] `times(5)((i: number) => i * i) // [0, 1, 4, 9, 16]`
-//?? [EXAMPLE] `times(3)(() => "hello") // ["hello", "hello", "hello"]`
-//?? [EXAMPLE] `times(4)((i: number) => \`id-\${i + 1}\`) // ["id-1", "id-2", "id-3", "id-4"]`
-//?? [EXAMPLE] `times(0)((i: number) => i) // []`
-//?? [EXAMPLE] `times(-5)((i: number) => i) // []`

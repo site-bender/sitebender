@@ -59,22 +59,3 @@ export default function randomSubset<T>(
 		}
 	}
 }
-
-//?? [EXAMPLE] randomSubset([1, 2, 3, 4, 5])(2) // [3, 5]
-//?? [EXAMPLE] randomSubset(['a', 'b', 'c', 'd', 'e'])(3) // ['b', 'd', 'e']
-//?? [EXAMPLE] randomSubset([1, 2, 3, 4, 5])() // [2, 4] (random size)
-//?? [EXAMPLE] randomSubset(new Set(['red', 'green', 'blue', 'yellow']))(2) // Set(['blue', 'yellow'])
-/*??
- | [EXAMPLE]
- | const players = ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
- | const team = randomSubset(players)(3) // ['Bob', 'Diana', 'Frank']
- |
- | const deck = Array.from({ length: 52 }, (_, i) => i + 1)
- | const drawHand = randomSubset(deck)
- | const hand1 = drawHand(5) // [3, 12, 28, 41, 50]
- | const hand2 = drawHand(5) // [7, 15, 22, 38, 44]
- |
- | [GOTCHA] Size larger than collection returns the entire collection
- | [GOTCHA] Returns null for invalid inputs
- |
-*/

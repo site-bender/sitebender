@@ -32,10 +32,3 @@ const nubBy = <T>(
 }
 
 export default nubBy
-
-//?? [EXAMPLE] `nubBy((a: string, b: string) => a.toLowerCase() === b.toLowerCase())(["Hello", "HELLO", "world"]) // ["Hello", "world"]`
-//?? [EXAMPLE] `nubBy((a: { id: number }, b: { id: number }) => a.id === b.id)([{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }, { id: 1, name: "Alicia" }]) // [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]`
-//?? [EXAMPLE] `nubBy((a: number, b: number) => Math.abs(a - b) < 0.1)([1.0, 1.05, 1.5, 1.48, 2.0]) // [1.0, 1.5, 2.0]`
-//?? [EXAMPLE] `nubBy((a, b) => a === b)([]) // []`
-//?? [EXAMPLE] `nubBy((a, b) => a === b)(null) // []`
-//?? [EXAMPLE] `nubBy(() => true)([1, 2, 3]) // [1]`

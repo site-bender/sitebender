@@ -21,13 +21,3 @@ export default function withTypes<TDataType extends Datatype>(
 		}
 	}
 }
-
-//?? [EXAMPLE] const expectNumber = withTypes("Number")("String")
-//?? [EXAMPLE] const expectInteger = withTypes("Integer")("null")
-/*??
- | [EXAMPLE] Pipeline usage:
- | const errorWithTypes = pipe(
- |   createError("parse")([value])("Cannot parse value")(),
- |   withTypes("Float")("String")
- | )
- */

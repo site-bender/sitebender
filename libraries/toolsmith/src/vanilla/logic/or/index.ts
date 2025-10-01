@@ -45,17 +45,3 @@ export default function or(
 		return Boolean(a) || Boolean(b)
 	}
 }
-
-//?? [EXAMPLE] Value mode
-//?? or(true)(false)  // true
-//?? or(0)("x")       // true
-//?? or(0)(0)         // false
-//?? [EXAMPLE] Predicate mode (same-value)
-//?? const isFiniteNumber = or(isNumber)(isFinite)
-//?? function g(x: unknown) {
-//??   if (isFiniteNumber(x)) {
-//??     // x is number OR finite here
-//??     return x
-//??   }
-//??   return NaN
-//?? }

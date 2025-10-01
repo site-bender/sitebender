@@ -33,10 +33,3 @@ const symmetricDifference = <T>(
 }
 
 export default symmetricDifference
-
-//?? [EXAMPLE] `symmetricDifference([1, 2, 3])([3, 4, 5]) // [1, 2, 4, 5]`
-//?? [EXAMPLE] `symmetricDifference([1, 2])([3, 4]) // [1, 2, 3, 4]`
-//?? [EXAMPLE] `symmetricDifference([1, 2, 3])([1, 2, 3]) // []`
-//?? [EXAMPLE] `symmetricDifference([1, 1, 2])([2, 2, 3]) // [1, 3]`
-//?? [EXAMPLE] `symmetricDifference(null)([1, 2]) // [1, 2]`
-//?? [EXAMPLE] `symmetricDifference([1, 2])(null) // [1, 2]`

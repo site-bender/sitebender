@@ -40,10 +40,3 @@ const scan = <T, U>(
 }
 
 export default scan
-
-//?? [EXAMPLE] `scan((acc: number, n: number) => acc + n)(0)([1, 2, 3, 4]) // [0, 1, 3, 6, 10]`
-//?? [EXAMPLE] `scan((acc: number, n: number) => acc * n)(1)([2, 3, 4]) // [1, 2, 6, 24]`
-//?? [EXAMPLE] `scan((acc: string, char: string) => acc + char)("")(["h", "e", "l", "l", "o"]) // ["", "h", "he", "hel", "hell", "hello"]`
-//?? [EXAMPLE] `scan((max: number, n: number) => Math.max(max, n))(-Infinity)([3, 1, 4, 1, 5]) // [-Infinity, 3, 3, 4, 4, 5]`
-//?? [EXAMPLE] `scan((acc: number, n: number) => acc + n)(0)(null) // [0]`
-//?? [EXAMPLE] `scan((acc: number, n: number) => acc + n)(0)([]) // [0]`

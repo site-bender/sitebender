@@ -23,10 +23,3 @@ const pluck = <T, K extends keyof T>(
 }
 
 export default pluck
-
-//?? [EXAMPLE] `pluck("name")([{ id: 1, name: "Alice", age: 30 }, { id: 2, name: "Bob", age: 25 }, { id: 3, name: "Charlie", age: 35 }]) // ["Alice", "Bob", "Charlie"]`
-//?? [EXAMPLE] `pluck("age")([{ id: 1, name: "Alice", age: 30 }, { id: 2, name: "Bob", age: 25 }, { id: 3, name: "Charlie", age: 35 }]) // [30, 25, 35]`
-//?? [EXAMPLE] `pluck("a")([{ a: 1, b: 2 }, { a: 3 }, { b: 7 }]) // [1, 3, undefined]`
-//?? [EXAMPLE] `pluck("key")(null) // []`
-//?? [EXAMPLE] `pluck("key")(undefined) // []`
-//?? [EXAMPLE] `pluck("key")([]) // []`

@@ -20,6 +20,3 @@ export default function isTomorrow(
 		return false
 	}
 }
-
-//?? [EXAMPLE] isTomorrow(Temporal.Now.plainDateISO().add({ days: 1 })) // true
-//?? [EXAMPLE] isTomorrow(new Date()) // false (today)

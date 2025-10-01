@@ -31,13 +31,10 @@ export default async function hashHex(
 	return hex
 }
 
-//?? [EXAMPLE] Basic usage with default SHA-256
 // const hash = await hashHex("hello world")
 // console.log(hash) // "b94d27b9934d3e08..."
 
-//?? [EXAMPLE] Using different algorithm (when implemented)
 // const hash = await hashHex("hello world", { algorithm: "blake3" })
 
-//?? [EXAMPLE] Custom adapter injection
 // const customAdapter = async (input) => "custom-hash"
 // const hash = await hashHex("data", { adapter: customAdapter })

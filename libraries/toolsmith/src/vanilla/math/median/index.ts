@@ -37,7 +37,3 @@ export default function median(
 	// If even number of elements, return average of the two middle ones
 	return (sorted[middle - 1] + sorted[middle]) / 2
 }
-
-//?? [EXAMPLE] median([1, 2, 3, 4]) // 2.5
-//?? [EXAMPLE] median([3, 1, 2]) // 2
-//?? [EXAMPLE] median([]) // NaN

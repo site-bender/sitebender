@@ -24,20 +24,3 @@ export default function isFutureDateTime(
 	// Narrow iso to string after the guard
 	return (iso as string) > nowIsoLocal()
 }
-
-//?? [EXAMPLE] isFutureDateTime("2099-01-01T00:00:00") // true
-//?? [EXAMPLE] isFutureDateTime("2000-01-01T00:00:00") // false
-//?? [EXAMPLE] isFutureDateTime(null) // false
-/*??
- | [EXAMPLE]
- | const tomorrow = Temporal.Now.plainDateTimeISO().add({ days: 1 })
- | isFutureDateTime(tomorrow) // true
- |
- | [EXAMPLE] Meeting validation
- | const meetingTimeIsInFuture = isFutureDateTime(meetingTime)
- | meetingTimeIsInFuture // true if meeting is in future
- |
- | [GOTCHA] Current moment returns false (not considered future)
- | [PRO] Accepts various datetime formats (string, Date, Temporal types)
- |
-*/

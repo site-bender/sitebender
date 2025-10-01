@@ -13,7 +13,6 @@ export default function mapError<E, F>(fn: (err: E) => F) {
 	}
 }
 
-//?? [EXAMPLE]
 // const addContext = (e: string) => `Error: ${e}`
 // mapError(addContext)(error("failed"))  // error("Error: failed")
 // mapError(addContext)(ok(42))  // ok(42)

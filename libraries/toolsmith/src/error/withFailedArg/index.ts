@@ -20,14 +20,3 @@ export default function withFailedArg(index: number) {
 		}
 	}
 }
-
-//?? [EXAMPLE] const withFirstArg = withFailedArg(0)(undefined)
-//?? [EXAMPLE] const withNamedArg = withFailedArg(1)("array")
-/*??
- | [EXAMPLE] Pipeline usage:
- | const errorWithDetails = pipe(
- |   createError("map")([fn, null])("Array is null")(),
- |   withFailedArg(1)("array")
- | )
- |
-*/

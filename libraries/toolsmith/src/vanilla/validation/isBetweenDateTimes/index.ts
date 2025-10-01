@@ -35,30 +35,3 @@ export default function isBetweenDateTimes(
 		}
 	}
 }
-
-//?? [EXAMPLE] isBetweenDateTimes("2024-01-15T09:00:00")("2024-01-15T17:00:00")("2024-01-15T12:00:00") // true
-//?? [EXAMPLE] isBetweenDateTimes("2024-01-15T09:00:00")("2024-01-15T17:00:00")("2024-01-15T08:59:59") // false
-//?? [EXAMPLE] isBetweenDateTimes("2024-01-01T00:00:00")("2024-12-31T23:59:59")("2024-01-01T00:00:00") // true (inclusive)
-//?? [EXAMPLE] isBetweenDateTimes("2024-01-01T00:00:00")("2024-12-31T23:59:59")("2024-12-31T23:59:59") // true (inclusive)
-/*??
- | [EXAMPLE]
- | const isWorkingHours = isBetweenDateTimes("2024-01-15T09:00:00")("2024-01-15T17:00:00")
- | isWorkingHours("2024-01-15T12:00:00")  // true
- | isWorkingHours("2024-01-15T08:59:59")  // false
- | isWorkingHours("2024-01-16T12:00:00")  // false (next day)
- |
- | const isEventActive = isBetweenDateTimes("2024-06-01T10:00:00")("2024-06-03T22:00:00")
- | const events = [
- |   { name: "Setup", time: "2024-06-01T08:00:00" },
- |   { name: "Opening", time: "2024-06-01T10:00:00" },
- |   { name: "Closing", time: "2024-06-03T22:00:00" }
- | ]
- | const activeEvents = events.filter(e => isEventActive(e.time))
- | // [{ name: "Opening", ... }, { name: "Closing", ... }]
- |
- | [GOTCHA] Inclusive boundaries - datetime can equal start or end
- | [GOTCHA] Invalid range (start > end) always returns false
- | [GOTCHA] Nanosecond precision for time comparisons
- | [GOTCHA] No timezone awareness (uses plain/local datetime)
- |
-*/

@@ -11,11 +11,9 @@ export function outOfRange(op: string) {
 	}
 }
 
-//?? [EXAMPLE]
 // const error = outOfRange("setVolume")("volume")(0)(100)(150)
 // // Returns: "setVolume: volume must be between 0 and 100, got 150"
 
-//?? [EXAMPLE] Partial application for reusable validators
 // const validatePercentage = outOfRange("setProgress")("percentage")(0)(100)
 // const error1 = validatePercentage(-10)
 // // Returns: "setProgress: percentage must be between 0 and 100, got -10"

@@ -5,8 +5,3 @@ import length from "../length/index.ts"
 export default function isNotEmpty(str: string): boolean {
 	return isString(str) && length(str) > 0
 }
-
-//?? [EXAMPLE] isNotEmpty("") // false
-//?? [EXAMPLE] isNotEmpty("hello") // true
-//?? [EXAMPLE] isNotEmpty(" ") // true (whitespace is not empty)
-//?? [EXAMPLE] isNotEmpty("\n") // true (newline is not empty)

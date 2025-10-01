@@ -27,37 +27,5 @@ const debounce = <T extends ReadonlyArray<unknown>, R>(
 	return debounced
 }
 
-//?? [EXAMPLE] debounced("third") // Only this executes, logging "Processing: third"
-//?? [EXAMPLE] debounced.cancel() // Prevents execution
-/*??
- | [EXAMPLE]
- | ```typescript
- | const expensiveOperation = (value: string) => {
- |   console.log("Processing:", value)
- |   return value.toUpperCase()
- | }
- |
- | const debounced = debounce(300, expensiveOperation)
- |
- | // Rapid calls - only the last one executes after 300ms
- | debounced("first")
- | debounced("second")
- | debounced("third") // Only this executes, logging "Processing: third"
- |
- | // Can cancel pending invocations
- | debounced("value")
- | debounced.cancel() // Prevents execution
- | ```
- |
- | [PRO]
- | * Prevents excessive API calls during user input
- | * Smooth user experience for search suggestions
- | * Reduces server load from rapid events
- |
- | [CON]
- | * Last call may be delayed or lost if not followed by wait period
- | * Requires manual cancellation for cleanup
- | * Not suitable for time-critical operations
- */
 
 export default debounce

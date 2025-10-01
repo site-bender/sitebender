@@ -11,6 +11,3 @@ export default function squareRoot(
 
 	return Math.sqrt(n)
 }
-
-//?? [EXAMPLE] squareRoot(9) // 3
-//?? [EXAMPLE] squareRoot(-4) // NaN

@@ -32,20 +32,3 @@ export default function isCreditCard(
 		return passesLuhnCheck(cleaned)
 	}
 }
-
-//?? [EXAMPLE] isCreditCard()("4532015112830366") // true (valid Visa)
-//?? [EXAMPLE] isCreditCard()("5425233430109903") // true (valid Mastercard)
-//?? [EXAMPLE] isCreditCard()("4532015112830367") // false (invalid checksum)
-//?? [EXAMPLE] isCreditCard({ cardType: "visa" })("4532015112830366") // true
-//?? [EXAMPLE] isCreditCard({ cardType: "visa" })("5425233430109903") // false (Mastercard)
-/*??
- | [EXAMPLE]
- | const isVisa = isCreditCard({ cardType: "visa" })
- | isVisa("4532015112830366")  // true
- | isVisa("5425233430109903")  // false
- |
- | [GOTCHA] Spaces and hyphens are automatically removed from input
- | [PRO] Validates using industry-standard Luhn algorithm
- | [PRO] Supports all major card types with specific pattern validation
- |
-*/

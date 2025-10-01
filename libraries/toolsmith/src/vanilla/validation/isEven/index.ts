@@ -15,19 +15,3 @@ export default function isEven(value: unknown): boolean {
 	// Check if divisible by 2
 	return value % 2 === 0
 }
-
-//?? [EXAMPLE] isEven(0) // true (zero is even)
-//?? [EXAMPLE] isEven(2) // true
-//?? [EXAMPLE] isEven(1) // false
-//?? [EXAMPLE] isEven(-2) // true
-//?? [EXAMPLE] isEven(2.5) // false (not an integer)
-//?? [EXAMPLE] isEven(NaN) // false
-/*??
- | [EXAMPLE]
- | const numbers = [1, 2, 3, 4, 5, 6]
- | numbers.filter(isEven)  // [2, 4, 6]
- |
- | [GOTCHA] Returns false for decimal numbers like 2.5
- | [PRO] Handles negative numbers correctly
- |
-*/

@@ -15,10 +15,3 @@ const sliceFrom = (startIndex: number) =>
 }
 
 export default sliceFrom
-
-//?? [EXAMPLE] `sliceFrom(1)(2)([1, 2, 3, 4, 5]) // [2, 3]`
-//?? [EXAMPLE] `sliceFrom(0)(3)(["a", "b", "c", "d"]) // ["a", "b", "c"]`
-//?? [EXAMPLE] `sliceFrom(-3)(2)([1, 2, 3, 4, 5]) // [3, 4]`
-//?? [EXAMPLE] `sliceFrom(2)(10)([1, 2, 3, 4]) // [3, 4] (length exceeds bounds)`
-//?? [EXAMPLE] `sliceFrom(5)(3)([1, 2, 3]) // []`
-//?? [EXAMPLE] `sliceFrom(0)(0)([1, 2, 3]) // []`

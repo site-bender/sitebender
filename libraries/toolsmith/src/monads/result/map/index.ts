@@ -13,7 +13,6 @@ export default function map<T, U>(fn: (value: T) => U) {
 	}
 }
 
-//?? [EXAMPLE]
 // const double = (x: number) => x * 2
 // map(double)(ok(5))  // ok(10)
 // map(double)(error("fail"))  // error("fail")

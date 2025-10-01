@@ -9,25 +9,3 @@ export default function chainIOEither<E, A, B>(f: (a: A) => IOEither<E, B>) {
 		}
 	}
 }
-
-//?? [EXAMPLE] chainIOEither((user) => ioEither(() => right(`Profile: ${user.name}`)))(getUserIO(1)) // IOEither
-//?? [EXAMPLE] runIO(chainIOEither(processUserIO)(fetchUserIO)) // Right or Left based on chain
-/*??
- | [EXAMPLE]
- | const validateEmailIO = (email: string) =>
- |   ioEither(() =>
- |     email.includes("@")
- |       ? right(email)
- |       : left("Invalid email")
- |   )
- | const normalizeEmailIO = (email: string) =>
- |   ioEither(() => right(email.toLowerCase()))
- | const emailChainIO = chainIOEither(normalizeEmailIO)(
- |   validateEmailIO("USER@EXAMPLE.COM")
- | )
- | runIO(emailChainIO) // Right("user@example.com")
- |
- | [PRO] Enables building pipelines of potentially failing effectful computations
- | [PRO] Error short-circuits - Left values skip subsequent operations
- |
-*/

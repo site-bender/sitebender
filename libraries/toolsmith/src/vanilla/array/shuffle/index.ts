@@ -23,10 +23,3 @@ export default function shuffle<T>(
 
 	return shuffleRecursive([...array], array.length - 1)
 }
-
-//?? [EXAMPLE] `shuffle([1, 2, 3, 4, 5]) // [3, 1, 5, 2, 4] (random order)`
-//?? [EXAMPLE] `shuffle(["a", "b", "c", "d"]) // ["c", "a", "d", "b"] (random)`
-//?? [EXAMPLE] `shuffle([{ id: 1 }, { id: 2 }, { id: 3 }]) // random order`
-//?? [EXAMPLE] `shuffle([42]) // [42] (single element)`
-//?? [EXAMPLE] `shuffle([]) // []`
-//?? [EXAMPLE] `shuffle(null) // []`

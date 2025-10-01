@@ -11,7 +11,3 @@ export default function matchesCardType(cardType: CardType) {
 		return test(pattern)(cardNumber)
 	}
 }
-
-//?? [EXAMPLE] matchesCardType("visa")("4111111111111111") // true
-//?? [EXAMPLE] matchesCardType("mastercard")("5500000000000004") // true
-//?? [EXAMPLE] matchesCardType("amex")("340000000000009") // true

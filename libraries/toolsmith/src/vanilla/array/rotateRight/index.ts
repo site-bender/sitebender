@@ -25,10 +25,3 @@ const rotateRight = <T>(
 }
 
 export default rotateRight
-
-//?? [EXAMPLE] `rotateRight(2)([1, 2, 3, 4, 5]) // [4, 5, 1, 2, 3]`
-//?? [EXAMPLE] `rotateRight(1)([1, 2, 3, 4, 5]) // [5, 1, 2, 3, 4]`
-//?? [EXAMPLE] `rotateRight(-2)([1, 2, 3, 4, 5]) // [3, 4, 5, 1, 2]`
-//?? [EXAMPLE] `rotateRight(7)([1, 2, 3, 4, 5]) // [4, 5, 1, 2, 3] (wraps around)`
-//?? [EXAMPLE] `rotateRight(0)([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `rotateRight(2)(null) // []`

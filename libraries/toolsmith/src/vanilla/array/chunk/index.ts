@@ -15,27 +15,3 @@ export default function chunk<T>(size: number) {
 		return []
 	}
 }
-
-//?? [EXAMPLE] `chunk(2)([1, 2, 3, 4, 5]) // [[1, 2], [3, 4], [5]]`
-//?? [EXAMPLE] `chunk(3)([1, 2, 3, 4, 5, 6, 7, 8]) // [[1, 2, 3], [4, 5, 6], [7, 8]]`
-//?? [EXAMPLE] `chunk(10)([1, 2, 3])  // [[1, 2, 3]]`
-//?? [EXAMPLE] `chunk(1)([1, 2, 3])   // [[1], [2], [3]]`
-//?? [EXAMPLE] `chunk(0)([1, 2, 3])   // []`
-//?? [EXAMPLE] `chunk(3)([])          // []`
-/*??
- | [EXAMPLE]
- | ```typescript
- | // Batch processing
- | const ids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
- | chunk(3)(ids)
- | // [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10]]
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Partial application
- | const pairwise = chunk(2)
- | pairwise([1, 2, 3, 4])     // [[1, 2], [3, 4]]
- | pairwise(["a", "b", "c"])   // [["a", "b"], ["c"]]
- | ```
- */

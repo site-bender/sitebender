@@ -12,19 +12,3 @@ export default function orElse<A>(getAlternative: () => Maybe<A>) {
 		return maybe
 	}
 }
-
-//?? [EXAMPLE] orElse(() => just(0))(just(42)) // Just(42) - original kept
-//?? [EXAMPLE] orElse(() => just(0))(nothing()) // Just(0) - alternative used
-/*??
- | [EXAMPLE]
- | pipe(
- |   nothing(),
- |   orElse(() => nothing()),
- |   orElse(() => just(42)),
- |   orElse(() => just(999))
- | )  // Just(42)
- |
- | [PRO] Keeps you within Maybe monad for continued chaining
- | [PRO] Lazy evaluation - alternative only computed if needed
- |
-*/

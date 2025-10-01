@@ -41,38 +41,3 @@ export default function isBetweenTimes(
 		}
 	}
 }
-
-//?? [EXAMPLE] isBetweenTimes("09:00:00")("17:00:00")("12:00:00") // true
-//?? [EXAMPLE] isBetweenTimes("09:00:00")("17:00:00")("08:59:59") // false
-//?? [EXAMPLE] isBetweenTimes("22:00:00")("06:00:00")("23:00:00") // true (overnight)
-//?? [EXAMPLE] isBetweenTimes("22:00:00")("06:00:00")("02:00:00") // true (overnight)
-//?? [EXAMPLE] isBetweenTimes("09:00:00")("17:00:00")(null) // false
-/*??
- | [EXAMPLE]
- | const isBusinessHours = isBetweenTimes("09:00:00")("17:00:00")
- | isBusinessHours("12:00:00")  // true
- | isBusinessHours("08:59:59")  // false
- | isBusinessHours("17:00:01")  // false
- |
- | // Overnight ranges (crossing midnight)
- | const isNightShift = isBetweenTimes("22:00:00")("06:00:00")
- | isNightShift("23:00:00")  // true (late evening)
- | isNightShift("02:00:00")  // true (early morning)
- | isNightShift("12:00:00")  // false (daytime)
- |
- | const getServicePeriod = (time: TimeInput): string => {
- |   const isBreakfast = isBetweenTimes("06:00")("10:59")
- |   const isLunch = isBetweenTimes("11:00")("16:59")
- |   const isDinner = isBetweenTimes("17:00")("21:59")
- |
- |   return isBreakfast(time) ? "breakfast"
- |     : isLunch(time) ? "lunch"
- |     : isDinner(time) ? "dinner"
- |     : "closed"
- | }
- |
- | [GOTCHA] Handles overnight ranges (e.g., 22:00 to 06:00)
- | [GOTCHA] Inclusive boundaries - time can equal start or end
- | [GOTCHA] Nanosecond precision for time comparisons
- |
-*/

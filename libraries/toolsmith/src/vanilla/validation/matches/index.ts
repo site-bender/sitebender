@@ -16,6 +16,3 @@ const matches = (
 }
 
 export default matches
-
-//?? [EXAMPLE] matches(/^\d+$/)("123") // true
-//?? [EXAMPLE] matches(/^\d+$/)("12a") // false

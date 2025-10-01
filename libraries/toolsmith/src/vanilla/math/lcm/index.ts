@@ -40,7 +40,3 @@ const lcm = (
 }
 
 export default lcm
-
-//?? [EXAMPLE] lcm(4)(6) // 12
-//?? [EXAMPLE] lcm(5)(20) // 20
-//?? [EXAMPLE] lcm(0)(5) // NaN

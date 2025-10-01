@@ -21,10 +21,3 @@ const partition = <T>(
 }
 
 export default partition
-
-//?? [EXAMPLE] `partition((x: number) => x % 2 === 0)([1, 2, 3, 4, 5, 6]) // [[2, 4, 6], [1, 3, 5]]`
-//?? [EXAMPLE] `partition((x: number) => x > 10)([5, 15, 8, 20, 3, 12]) // [[15, 20, 12], [5, 8, 3]]`
-//?? [EXAMPLE] `partition((user: { active: boolean }) => user.active)([{ name: "Alice", active: true }, { name: "Bob", active: false }, { name: "Charlie", active: true }]) // [[{ name: "Alice", active: true }, { name: "Charlie", active: true }], [{ name: "Bob", active: false }]]`
-//?? [EXAMPLE] `partition((x: number) => x > 0)([]) // [[], []]`
-//?? [EXAMPLE] `partition((x: number) => x > 0)(null) // [[], []]`
-//?? [EXAMPLE] `partition((x: number) => x > 0)(undefined) // [[], []]`

@@ -8,8 +8,3 @@ export default function square(n?: number | null): number | null {
 
 	return null
 }
-
-//?? [EXAMPLE] `square(3) // returns 9`
-//?? [EXAMPLE] `square() // returns null`
-//?? [EXAMPLE] `square(null) // returns null`
-//?? [EXAMPLE] `square([]) // returns null` (etc.)

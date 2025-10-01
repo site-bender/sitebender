@@ -18,22 +18,3 @@ export default function withCause(cause: Error | ArchitectError) {
 		}
 	}
 }
-
-/*??
- | [EXAMPLE] Wrap a caught exception:
- | try {
- |   somethingDangerous()
- | } catch (err) {
- |   const wrapped = pipe(
- |     createError("process")([data])("Processing failed")(),
- |     withCause(err as Error)
- |   )
- | }
- |
- | [EXAMPLE] Chain errors:
- | const originalError = new Error("Network timeout")
- | const contextualError = pipe(
- |   createError("fetchUser")([userId])("Could not fetch user data")(),
- |   withCause(originalError)
- | )
- */

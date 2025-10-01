@@ -19,6 +19,3 @@ const maxLength = (
 }
 
 export default maxLength
-
-//?? [EXAMPLE] maxLength(5)("hello") // true
-//?? [EXAMPLE] maxLength(5)("welcome") // false

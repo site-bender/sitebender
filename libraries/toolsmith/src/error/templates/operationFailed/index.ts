@@ -5,8 +5,5 @@ export function operationFailed(op: string) {
 	}
 }
 
-//?? [EXAMPLE]
 // const error = operationFailed("saveFile")("disk full")
 // // Returns: "saveFile failed: disk full"
-
-//?? [PRO] Simple and flexible for any operation failure

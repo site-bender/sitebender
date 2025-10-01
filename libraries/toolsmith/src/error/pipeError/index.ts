@@ -24,28 +24,3 @@ export default function pipeError<TOp extends string>(operation: TOp) {
 		}
 	}
 }
-
-/*??
- | [EXAMPLE] Build a rich error through composition:
- | const error = pipeError("map")([fn, array])("Mapping failed")(
- |   withFailedArg(1)("array"),
- |   withTypes("Array")("null"),
- |   withSuggestion("Ensure array is initialized"),
- |   withCause(originalError)
- | )
- |
- | [EXAMPLE] Partial application for error factories:
- | const createMapError = pipeError("map")
- | const mapNullError = createMapError([fn, null])("Array is null")(
- |   withFailedArg(1)("array"),
- |   withSuggestion("Initialize array before mapping")
- | )
- |
- | [EXAMPLE] Conditional transforms:
- | const transforms = [
- |   withFailedArg(0)("predicate"),
- |   isProduction ? identity : withCause(err),
- |   withSuggestion("Check predicate function")
- | ]
- | const error = pipeError("filter")([pred, data])("Filter failed")(...transforms)
- */

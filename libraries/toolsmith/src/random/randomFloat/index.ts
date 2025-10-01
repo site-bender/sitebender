@@ -21,17 +21,3 @@ export default function randomFloat(
 		return Math.random() * (actualMax - actualMin) + actualMin
 	}
 }
-
-//?? [EXAMPLE] randomFloat(0)(1) // 0.7263849502...
-//?? [EXAMPLE] randomFloat(0)(100) // 42.8391047...
-//?? [EXAMPLE] randomFloat(-1)(1) // -0.2847395...
-//?? [EXAMPLE] randomFloat(10)(5) // 7.239... (between 5 and 10)
-/*??
- | [EXAMPLE]
- | const randomPercent = randomFloat(0)
- | randomPercent(100) // 0-100
- | randomPercent(1) // 0-1
- |
- | [GOTCHA] Returns NaN for invalid inputs like randomFloat(null)(10)
- |
-*/

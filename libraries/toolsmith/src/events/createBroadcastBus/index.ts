@@ -72,7 +72,3 @@ export default function createBroadcastBus(
 		},
 	}
 }
-
-//?? [EXAMPLE] const bus = createBroadcastBus("my-app")
-//?? [EXAMPLE] bus.publish("sync-data", { updated: true })
-//?? [GOTCHA] Falls back to local bus if BroadcastChannel is not available

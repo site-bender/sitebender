@@ -36,10 +36,3 @@ const zipAll = <T, U>(
 }
 
 export default zipAll
-
-//?? [EXAMPLE] `zipAll([4, 5, 6, 7])([1, 2, 3]) // [[1, 4], [2, 5], [3, 6], [undefined, 7]]`
-//?? [EXAMPLE] `zipAll([4, 5])([1, 2, 3, 4]) // [[1, 4], [2, 5], [3, undefined], [4, undefined]]`
-//?? [EXAMPLE] `zipAll([85, 92, 78])(["Alice", "Bob", "Charlie", "David"]) // [["Alice", 85], ["Bob", 92], ["Charlie", 78], ["David", undefined]]`
-//?? [EXAMPLE] `zipAll([1, 2, 3])(null) // []`
-//?? [EXAMPLE] `zipAll(null)([1, 2, 3]) // []`
-//?? [EXAMPLE] `zipAll([])(["a", "b", "c"]) // [["a", undefined], ["b", undefined], ["c", undefined]]`

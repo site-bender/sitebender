@@ -3,6 +3,3 @@
 const not = <T>(value: T): boolean => !value
 
 export default not
-
-//?? [EXAMPLE] not(true) // false
-//?? [EXAMPLE] not(0) // true

@@ -20,10 +20,3 @@ const takeWhile = <T>(
 }
 
 export default takeWhile
-
-//?? [EXAMPLE] `takeWhile((x: number) => x < 5)([1, 3, 5, 7, 2, 1]) // [1, 3]`
-//?? [EXAMPLE] `takeWhile((x: number) => x % 2 === 0)([2, 4, 6, 7, 8]) // [2, 4, 6]`
-//?? [EXAMPLE] `takeWhile((item: { active: boolean }) => item.active)([{ id: 1, active: true }, { id: 2, active: true }, { id: 3, active: false }, { id: 4, active: true }]) // [{ id: 1, active: true }, { id: 2, active: true }]`
-//?? [EXAMPLE] `takeWhile((x: number) => x < 5)([]) // []`
-//?? [EXAMPLE] `takeWhile((x: number) => x > 0)([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `takeWhile((x: number) => x > 0)(null) // []`

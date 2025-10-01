@@ -25,9 +25,3 @@ export default function move<T>(from: number) {
 		}
 	}
 }
-
-//?? [EXAMPLE] `move(0)(2)([1, 2, 3, 4]) // [2, 3, 1, 4]`
-//?? [EXAMPLE] `move(3)(0)(["a", "b", "c", "d"]) // ["d", "a", "b", "c"]`
-//?? [EXAMPLE] `move(1)(1)([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `move(5)(2)([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `move(0)(1)(null) // []`

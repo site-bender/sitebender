@@ -41,7 +41,3 @@ const gcd = (
 }
 
 export default gcd
-
-//?? [EXAMPLE] gcd(12)(8) // 4
-//?? [EXAMPLE] gcd(7)(5) // 1
-//?? [EXAMPLE] gcd(0)(0) // NaN

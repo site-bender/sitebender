@@ -8,40 +8,5 @@ const pipeAsync = <T, R = unknown>(
 		Promise.resolve(input as unknown),
 	) as Promise<R>
 
-//?? [EXAMPLE] await getUserWithTimestamp(123) // { id: 123, name: "Alice", fetchedAt: ... }
-//?? [EXAMPLE] await process(5) // 20
-/*??
- | [EXAMPLE]
- | ```typescript
- | // Chain async operations
- | const fetchUser = async (id: number) => ({ id, name: "Alice" })
- | const addTimestamp = async (user: any) => ({
- |   ...user,
- |   fetchedAt: Date.now()
- | })
- |
- | const getUserWithTimestamp = pipeAsync([
- |   fetchUser,
- |   addTimestamp
- | ])
- |
- | await getUserWithTimestamp(123) // { id: 123, name: "Alice", fetchedAt: ... }
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Mix sync and async functions
- | const process = pipeAsync([
- |   async (x: number) => x * 2,
- |   (x: number) => x + 10
- | ])
- |
- | await process(5) // 20
- | ```
- |
- | [GOTCHA]
- | Each function receives the resolved value from the previous promise.
- | Sync functions are automatically converted to async.
- */
 
 export default pipeAsync

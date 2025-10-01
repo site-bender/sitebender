@@ -77,6 +77,3 @@ export default function isUrl(options: UrlOptions = {}) {
 		}
 	}
 }
-
-//?? [EXAMPLE] isUrl()("https://example.com") // true
-//?? [EXAMPLE] isUrl({ protocols: ["https"] })("http://example.com") // false

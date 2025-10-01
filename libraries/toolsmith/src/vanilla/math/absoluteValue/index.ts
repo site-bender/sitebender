@@ -13,7 +13,3 @@ const absoluteValue = (
 }
 
 export default absoluteValue
-
-//?? [EXAMPLE] absoluteValue(-5) // 5
-//?? [EXAMPLE] absoluteValue(0) // 0
-//?? [EXAMPLE] absoluteValue(NaN) // NaN

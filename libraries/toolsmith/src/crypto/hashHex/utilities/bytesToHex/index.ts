@@ -14,6 +14,5 @@ export default function bytesToHex(bytes: Uint8Array): string {
 	return join("")(hexStrings)
 }
 
-//?? [EXAMPLE]
 // bytesToHex(new Uint8Array([255, 0, 128])) // "ff0080"
 // bytesToHex(new Uint8Array([1, 2, 3])) // "010203"

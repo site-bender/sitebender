@@ -7,8 +7,5 @@ export function callbackThrew(op: string) {
 	}
 }
 
-//?? [EXAMPLE]
 // const error = callbackThrew("map")("transform function")("Cannot read property 'x' of undefined")
 // // Returns: "map: transform function threw an error: Cannot read property 'x' of undefined"
-
-//?? [GOTCHA] Always wrap callbacks in try-catch when using this template

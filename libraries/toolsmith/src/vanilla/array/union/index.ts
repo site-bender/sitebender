@@ -25,10 +25,3 @@ const union = <T>(
 }
 
 export default union
-
-//?? [EXAMPLE] `union([1, 2, 3])([3, 4, 5]) // [1, 2, 3, 4, 5]`
-//?? [EXAMPLE] `union(["a", "b", "c"])(["c", "d", "e"]) // ["a", "b", "c", "d", "e"]`
-//?? [EXAMPLE] `union([1, 1, 2, 2])([2, 2, 3, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `union([])([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `union(null)([1, 2]) // [1, 2]`
-//?? [EXAMPLE] `union([1, 2])(null) // [1, 2]`

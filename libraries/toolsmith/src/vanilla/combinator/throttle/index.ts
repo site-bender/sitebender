@@ -50,30 +50,5 @@ const throttle = <T extends ReadonlyArray<unknown>, R>(
 	return throttled
 }
 
-//?? [EXAMPLE] throttled(event1) // Executes immediately
-//?? [EXAMPLE] throttled(event2) // Ignored (too soon)
-//?? [EXAMPLE] throttled(event3) // Ignored (too soon)
-//?? [EXAMPLE] throttled(event4) // Executes (after 1000ms)
-/*??
- | [EXAMPLE]
- | ```typescript
- | const logScroll = (event: Event) => {
- |   console.log("Scrolled at:", Date.now())
- | }
- |
- | const throttled = throttle(1000, logScroll)
- |
- | // Rapid calls - executes immediately, then at most once per second
- | throttled(event1) // Executes immediately
- | throttled(event2) // Ignored (too soon)
- | throttled(event3) // Ignored (too soon)
- | // After 1000ms passes
- | throttled(event4) // Executes
- | ```
- |
- | [GOTCHA]
- | Unlike debounce, throttle executes immediately on first call,
- | then limits subsequent calls to once per wait period.
- */
 
 export default throttle

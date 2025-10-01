@@ -25,10 +25,3 @@ const takeLastWhile = <T>(
 }
 
 export default takeLastWhile
-
-//?? [EXAMPLE] `takeLastWhile((x: number) => x > 3)([1, 2, 5, 4, 6, 7]) // [4, 6, 7]`
-//?? [EXAMPLE] `takeLastWhile(Boolean)([1, 2, 0, 3, 4, 5]) // [3, 4, 5]`
-//?? [EXAMPLE] `takeLastWhile((tag: string) => tag.startsWith("</"))(["<div>", "<p>", "text", "</p>", "</div>"]) // ["</p>", "</div>"]`
-//?? [EXAMPLE] `takeLastWhile((x: number) => x > 10)([1, 2, 3]) // []`
-//?? [EXAMPLE] `takeLastWhile((x: number) => x < 10)([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `takeLastWhile((x: any) => true)(null) // []`

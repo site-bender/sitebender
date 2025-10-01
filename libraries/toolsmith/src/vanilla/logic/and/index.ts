@@ -45,16 +45,3 @@ export default function and(
 		return Boolean(a) && Boolean(b)
 	}
 }
-
-//?? [EXAMPLE] Value mode
-//?? and(true)(true)  // true
-//?? and(1)(0)        // false
-//?? [EXAMPLE] Predicate mode (same-value)
-//?? const isFiniteNumber = and(isNumber)(isFinite)
-//?? function f(x: unknown) {
-//??   if (isFiniteNumber(x)) {
-//??     // x is number here (both guards applied)
-//??     return x + 1
-//??   }
-//??   return NaN
-//?? }

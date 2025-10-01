@@ -41,10 +41,3 @@ const sliding = <T>(
 }
 
 export default sliding
-
-//?? [EXAMPLE] `sliding(3)(1)([1, 2, 3, 4, 5]) // [[1, 2, 3], [2, 3, 4], [3, 4, 5]]`
-//?? [EXAMPLE] `sliding(3)(2)([1, 2, 3, 4, 5, 6, 7]) // [[1, 2, 3], [3, 4, 5], [5, 6, 7]]`
-//?? [EXAMPLE] `sliding(2)(1)([1, 2, 3, 4]) // [[1, 2], [2, 3], [3, 4]]`
-//?? [EXAMPLE] `sliding(5)(1)([1, 2, 3]) // []`
-//?? [EXAMPLE] `sliding(2)(1)(null) // []`
-//?? [EXAMPLE] `sliding(0)(1)([1, 2, 3]) // []`

@@ -14,7 +14,6 @@ export default function fold<E, B>(onError: (error: E) => B) {
 	}
 }
 
-//?? [EXAMPLE]
 // const toNumber = fold<string, number>(
 //   (e: string) => 0  // Error case returns 0
 // )(

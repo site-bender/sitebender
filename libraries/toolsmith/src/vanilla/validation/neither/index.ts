@@ -5,5 +5,3 @@ const neither =
 	(value: T): boolean => !predA(value) && !predB(value)
 
 export default neither
-
-//?? [EXAMPLE] neither((n:number)=>n>0,(n:number)=>n%2===0)(-3) // true

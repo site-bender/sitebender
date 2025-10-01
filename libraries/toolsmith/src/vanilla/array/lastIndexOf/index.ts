@@ -18,9 +18,3 @@ export default function lastIndexOf<T>(item: T) {
 		return reversedIndex === -1 ? undefined : array.length - 1 - reversedIndex
 	}
 }
-
-//?? [EXAMPLE] `lastIndexOf(3)([1, 2, 3, 2, 3]) // 4`
-//?? [EXAMPLE] `lastIndexOf("b")(["a", "b", "c", "b"]) // 3`
-//?? [EXAMPLE] `lastIndexOf(5)([1, 2, 3]) // undefined`
-//?? [EXAMPLE] `lastIndexOf(1)([]) // undefined`
-//?? [EXAMPLE] `lastIndexOf(1)(null) // undefined`

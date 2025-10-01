@@ -12,7 +12,6 @@ export default function orElse<E, F, T>(recover: (err: E) => Result<F, T>) {
 	}
 }
 
-//?? [EXAMPLE]
 // const fallback = orElse(() => ok(0))
 //
 // fallback(ok(42))  // ok(42)

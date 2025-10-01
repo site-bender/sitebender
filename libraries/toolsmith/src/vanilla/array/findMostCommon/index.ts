@@ -40,18 +40,3 @@ export default function findMostCommon<T>(
 	}
 	return []
 }
-
-//?? [EXAMPLE] `findMostCommon([1, 2, 3, 2, 4, 2, 5])         // [2]`
-//?? [EXAMPLE] `findMostCommon([1, 1, 2, 2, 3, 3])            // [1, 2, 3] (tie)`
-//?? [EXAMPLE] `findMostCommon([1, 2, 3, 4, 5])               // [1, 2, 3, 4, 5] (all unique)`
-//?? [EXAMPLE] `findMostCommon([])                            // []`
-//?? [EXAMPLE] `findMostCommon([NaN, NaN, 1, 1])              // [NaN, 1] (uses SameValueZero)`
-//?? [EXAMPLE] `findMostCommon([3, 1, 2, 1, 3, 2])            // [3, 1, 2] (first occurrence order)`
-/*??
- | [EXAMPLE]
- | ```typescript
- | // String arrays
- | const words = "the quick brown fox the".split(" ")
- | findMostCommon(words)                         // ["the"]
- | ```
- */

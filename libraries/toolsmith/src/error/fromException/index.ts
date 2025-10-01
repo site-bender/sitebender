@@ -27,26 +27,3 @@ export default function fromException<TOp extends string>(operation: TOp) {
 		}
 	}
 }
-
-/*??
- | [EXAMPLE] In a catch block:
- | try {
- |   return mapUnsafe(fn)(array)
- | } catch (err) {
- |   return left(fromException("map")([fn, array])(err))
- | }
- |
- | [EXAMPLE] With additional context:
- | try {
- |   JSON.parse(text)
- | } catch (err) {
- |   const error = pipe(
- |     fromException("parse")([text])(err),
- |     withSuggestion("Ensure JSON is valid"),
- |     withFailedArg(0)("json")
- |   )
- |   return left(error)
- | }
- */
-//?? [EXAMPLE] const mapException = fromException("map")
-//?? [GOTCHA] Safely converts any thrown value, even non-Error objects

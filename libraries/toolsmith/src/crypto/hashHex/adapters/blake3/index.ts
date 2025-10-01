@@ -11,7 +11,6 @@ export default function blake3Adapter(_input: HashInput): Promise<string> {
 	)
 }
 
-//?? [GOTCHA] This is a placeholder. When implementing:
 // 1. Will need to add BLAKE3 WASM or native binding
 // 2. Must maintain same interface as sha256Adapter
 // 3. Should be significantly faster for large inputs

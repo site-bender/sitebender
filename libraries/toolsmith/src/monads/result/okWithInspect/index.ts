@@ -17,6 +17,5 @@ export default function okWithInspect<T>(value: T): Ok<T> & {
 	return result as Ok<T> & { [inspectSymbol]: () => string }
 }
 
-//?? [EXAMPLE]
 // const result = okWithInspect({ id: 1, name: "Alice" })
 // console.log(result)  // Shows formatted output in console

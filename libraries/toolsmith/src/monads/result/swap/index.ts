@@ -12,6 +12,5 @@ export default function swap<E, T>(result: Result<E, T>): Result<T, E> {
 	return ok(result.error)
 }
 
-//?? [EXAMPLE]
 // swap(ok(42))  // error(42)
 // swap(error("failed"))  // ok("failed")

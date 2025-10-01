@@ -51,6 +51,3 @@ const isUuid = (options: UuidOptions = {}): (value: unknown) => boolean => {
 }
 
 export default isUuid
-
-//?? [EXAMPLE] isUuid()("00000000-0000-0000-0000-000000000000") // true
-//?? [EXAMPLE] isUuid({ allowNil: false })("00000000-0000-0000-0000-000000000000") // false

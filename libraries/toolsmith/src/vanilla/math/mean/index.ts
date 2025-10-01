@@ -3,5 +3,3 @@
 import average from "../average/index.ts"
 
 export default average
-
-//?? [EXAMPLE] mean([1, 2, 3]) // 2

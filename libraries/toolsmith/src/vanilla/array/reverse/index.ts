@@ -10,10 +10,3 @@ export default function reverse<T>(
 	}
 	return [...array].reverse()
 }
-
-//?? [EXAMPLE] `reverse([1, 2, 3]) // [3, 2, 1]`
-//?? [EXAMPLE] `reverse(["a", "b", "c"]) // ["c", "b", "a"]`
-//?? [EXAMPLE] `reverse([]) // []`
-//?? [EXAMPLE] `reverse([42]) // [42]`
-//?? [EXAMPLE] `reverse([true, false, true]) // [true, false, true]`
-//?? [EXAMPLE] `reverse(null) // []`

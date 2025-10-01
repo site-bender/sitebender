@@ -13,10 +13,3 @@ const replaceLast =
 	}
 
 export default replaceLast
-
-//?? [EXAMPLE] `replaceLast(2)(n => n * 10)([1, 2, 3, 2, 4]) // [1, 2, 3, 20, 4]`
-//?? [EXAMPLE] `replaceLast("old")(s => "new")(["old", "test", "old"]) // ["old", "test", "new"]`
-//?? [EXAMPLE] `replaceLast(5)(n => n)([1, 2, 3]) // [1, 2, 3] (not found)`
-//?? [EXAMPLE] `replaceLast("ERROR")(s => "WARNING")(["ERROR", "info", "ERROR"]) // ["ERROR", "info", "WARNING"]`
-//?? [EXAMPLE] `replaceLast(null)(() => 0)([1, null, 2, null]) // [1, null, 2, 0]`
-//?? [EXAMPLE] `replaceLast(1)(n => n * 2)(null) // []`

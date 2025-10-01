@@ -11,6 +11,3 @@ export default function encodeToBase58(bytes: Uint8Array): string {
 
 	return join("")(withLeading)
 }
-
-//?? [EXAMPLE] encodeToBase58(new Uint8Array([0, 0, 255])) // "11JL"
-//?? [EXAMPLE] encodeToBase58(new Uint8Array([255, 255, 255])) // "2UzHL"

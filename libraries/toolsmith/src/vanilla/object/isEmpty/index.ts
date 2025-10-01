@@ -15,9 +15,3 @@ export default function isEmpty<T extends object>(obj: T): boolean {
 
 	return length(keys(obj)) === 0
 }
-
-//?? [EXAMPLE] isEmpty({}) // true
-//?? [EXAMPLE] isEmpty({ a: 1 }) // false
-//?? [EXAMPLE] isEmpty(Object.create(null)) // true
-//?? [EXAMPLE] isEmpty(new Date()) // false (not a plain object)
-//?? [EXAMPLE] isEmpty([]) // false (array is not a plain object)

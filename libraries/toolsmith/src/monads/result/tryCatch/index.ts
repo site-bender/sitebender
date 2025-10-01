@@ -14,7 +14,6 @@ export default function tryCatch<E>(onError: (err: unknown) => E) {
 	}
 }
 
-//?? [EXAMPLE]
 // const safeParse = tryCatch
 //   ((e) => `Parse error: ${e}`)
 //   (() => JSON.parse('{"valid": "json"}'))

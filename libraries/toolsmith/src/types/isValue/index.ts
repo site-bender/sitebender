@@ -46,15 +46,11 @@ export function isValue(val: unknown): val is Value {
 	return false
 }
 
-//?? [EXAMPLE]
 // const validValue = { name: "John", age: 30, tags: ["user", "admin"] }
 // isValue(validValue) // true
 
-//?? [EXAMPLE] With nested structures
 // const complexValue = new Map([
 //   ["users", [{ id: 1, name: "Alice" }, { id: 2, name: "Bob" }]],
 //   ["config", { enabled: true, timeout: 5000 }]
 // ])
 // isValue(complexValue) // true
-
-//?? [GOTCHA] Circular references will cause infinite recursion

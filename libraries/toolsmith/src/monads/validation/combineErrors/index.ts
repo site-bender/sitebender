@@ -43,30 +43,3 @@ export default function combineErrors(
 		return [firstError, ...restErrors]
 	}
 }
-
-//?? [EXAMPLE] combineErrors([{field: "age", messages: ["too young"]}])([{field: "age", messages: ["not adult"]}])
-//?? // [{field: "age", messages: ["too young", "not adult"]}]
-
-//?? [EXAMPLE] combineErrors([{field: "age", messages: ["too young"]}])([{field: "name", messages: ["required"]}])
-//?? // [{field: "age", messages: ["too young"]}, {field: "name", messages: ["required"]}]
-
-/*??
- | [EXAMPLE]
- | const ageError = [{field: "age", messages: ["must be 18+"]}]
- | const emailError = [{field: "email", messages: ["invalid format"]}]
- | const nameError = [{field: "name", messages: ["required"]}]
- |
- | const combined1 = combineErrors(ageError)(emailError)
- | // [{field: "age", messages: ["must be 18+"]}, {field: "email", messages: ["invalid format"]}]
- |
- | const duplicateAge = [{field: "age", messages: ["too young"]}]
- | const combined2 = combineErrors(ageError)(duplicateAge)
- | // [{field: "age", messages: ["must be 18+", "too young"]}]
- |
- | [PRO] Accumulates all error messages for the same field
- | [PRO] Preserves field grouping for better error reporting
- | [PRO] Follows semigroup laws (associative operation)
- |
- | [GOTCHA] Field order in output depends on JavaScript's Object.keys ordering
- | [GOTCHA] Messages are concatenated, not deduplicated
- */

@@ -12,25 +12,3 @@ export default function chainIOMaybe<A, B>(f: (a: A) => IOMaybe<B>) {
 		}
 	}
 }
-
-//?? [EXAMPLE] chainIOMaybe((id) => fetchUserIO(id))(ioMaybe(() => just("123"))) // IOMaybe
-//?? [EXAMPLE] runIO(chainIOMaybe(processUserIO)(getUserIdIO)) // Just or Nothing based on chain
-/*??
- | [EXAMPLE]
- | const parseJsonIO = ioMaybe(() => {
- |   try {
- |     return just(JSON.parse('{"name": "Alice"}'))
- |   } catch {
- |     return nothing()
- |   }
- | })
- | const validateIO = (data: any) => ioMaybe(() =>
- |   data.name ? just(data) : nothing()
- | )
- | const validatedIO = chainIOMaybe(validateIO)(parseJsonIO)
- | runIO(validatedIO) // Just({ name: "Alice" })
- |
- | [PRO] Prevents nested IOMaybe<Maybe<A>> structures
- | [PRO] Nothing short-circuits - skips subsequent operations
- |
-*/

@@ -14,7 +14,3 @@ export default function toIsoDateTimeString(pdt: unknown): string | null {
 
 	return null
 }
-
-//?? [EXAMPLE] toIsoDateTimeString(Temporal.PlainDateTime.from("2024-01-15T14:30:00")) // "2024-01-15T14:30:00"
-//?? [EXAMPLE] toIsoDateTimeString(null) // null
-//?? [EXAMPLE] toIsoDateTimeString("invalid") // null

@@ -21,6 +21,3 @@ const max = (
 }
 
 export default max
-
-//?? [EXAMPLE] max(5)(3) // 5
-//?? [EXAMPLE] max(NaN)(5) // NaN

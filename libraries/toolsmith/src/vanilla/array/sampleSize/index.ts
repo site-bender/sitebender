@@ -46,10 +46,3 @@ export default function sampleSize<T>(n: number) {
 		})
 	}
 }
-
-//?? [EXAMPLE] `sampleSize(3)([1, 2, 3, 4, 5, 6, 7, 8]) // [7, 2, 5] (3 random)`
-//?? [EXAMPLE] `sampleSize(3)(["Alice", "Bob", "Charlie", "David", "Eve"]) // ["Charlie", "Alice", "Eve"]`
-//?? [EXAMPLE] `sampleSize(10)([1, 2, 3]) // [3, 1, 2] (all in random order)`
-//?? [EXAMPLE] `sampleSize(0)([1, 2, 3]) // []`
-//?? [EXAMPLE] `sampleSize(1)([1, 2, 3]) // [2] (single element)`
-//?? [EXAMPLE] `sampleSize(3)(null) // []`

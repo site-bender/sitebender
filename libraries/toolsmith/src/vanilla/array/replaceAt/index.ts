@@ -21,10 +21,3 @@ const replaceAt =
 	}
 
 export default replaceAt
-
-//?? [EXAMPLE] `replaceAt(1)(n => n * 2)([1, 2, 3, 4]) // [1, 4, 3, 4]`
-//?? [EXAMPLE] `replaceAt(0)(s => s.toUpperCase())(["hello", "world"]) // ["HELLO", "world"]`
-//?? [EXAMPLE] `replaceAt(10)(x => x)([1, 2, 3]) // [1, 2, 3] (out of bounds)`
-//?? [EXAMPLE] `replaceAt(-1)(x => x * 10)([1, 2, 3]) // [1, 2, 3] (negative index)`
-//?? [EXAMPLE] `replaceAt(1)((n: number) => n * 2)([10, 20, 30]) // [10, 40, 30]`
-//?? [EXAMPLE] `replaceAt(0)(x => x + 1)(null) // []`

@@ -49,11 +49,3 @@ const permutations = <T>(
 }
 
 export default permutations
-
-//?? [EXAMPLE] `permutations([1, 2, 3]) // [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]`
-//?? [EXAMPLE] `permutations(["a", "b", "c"]) // [["a", "b", "c"], ["a", "c", "b"], ["b", "a", "c"], ["b", "c", "a"], ["c", "a", "b"], ["c", "b", "a"]]`
-//?? [EXAMPLE] `permutations([1, 2]) // [[1, 2], [2, 1]]`
-//?? [EXAMPLE] `permutations([]) // [[]]`
-//?? [EXAMPLE] `permutations([1]) // [[1]]`
-//?? [EXAMPLE] `permutations(null) // [[]]`
-//?? [GOTCHA] `permutations([1, 2, 3, 4, 5]).length // 120 (5! = 120)`

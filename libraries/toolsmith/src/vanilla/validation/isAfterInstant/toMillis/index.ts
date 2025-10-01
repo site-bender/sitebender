@@ -24,9 +24,3 @@ export default function toMillis(
 		return null
 	}
 }
-
-//?? [EXAMPLE] toMillis("2024-01-15T14:30:00Z") // 1705329000000
-//?? [EXAMPLE] toMillis(1705329000000) // 1705329000000
-//?? [EXAMPLE] toMillis(null) // null
-//?? [EXAMPLE] toMillis("invalid") // null
-//?? [EXAMPLE] toMillis(Infinity) // null

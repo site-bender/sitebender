@@ -12,16 +12,3 @@ export default function getOrElse<A>(getDefault: () => A) {
 		return maybe.value
 	}
 }
-
-//?? [EXAMPLE] getOrElse(() => 0)(just(42)) // 42
-//?? [EXAMPLE] getOrElse(() => 0)(nothing()) // 0
-/*??
- | [EXAMPLE]
- | const expensiveDefault = () => computeExpensiveValue()
- | getOrElse(expensiveDefault)(just(5))   // 5 (not computed)
- | getOrElse(expensiveDefault)(nothing()) // expensive value (computed)
- |
- | [PRO] Lazy evaluation - default only computed if needed
- | [PRO] Primary way to exit Maybe context with concrete value
- |
-*/

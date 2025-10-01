@@ -16,7 +16,3 @@ export default function prependLeadingOnes(bytes: Uint8Array) {
 		return [...leadingOnes, ...chars]
 	}
 }
-
-//?? [EXAMPLE] prependLeadingOnes(new Uint8Array([0, 0, 255]))(["F", "F"]) // ["1", "1", "F", "F"]
-//?? [EXAMPLE] prependLeadingOnes(new Uint8Array([255]))(["F", "F"]) // ["F", "F"]
-//?? [GOTCHA] Base58 convention requires '1' for each leading zero byte

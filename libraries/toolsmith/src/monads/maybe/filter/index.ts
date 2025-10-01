@@ -15,20 +15,3 @@ export default function filter<A>(predicate: (a: A) => boolean) {
 			: nothing()
 	}
 }
-
-//?? [EXAMPLE] filter((n: number) => n > 0)(just(5)) // Just(5)
-//?? [EXAMPLE] filter((n: number) => n > 0)(just(-3)) // Nothing
-/*??
- | [EXAMPLE]
- | const isEven = (n: number) => n % 2 === 0
- | const isPositive = (n: number) => n > 0
- | pipe(
- |   just(42),
- |   filter(isPositive),     // Just(42)
- |   filter(isEven)          // Just(42)
- | )
- |
- | [PRO] Enables conditional propagation of values through computation chains
- | [PRO] Nothing values always remain Nothing (short-circuits)
- |
-*/

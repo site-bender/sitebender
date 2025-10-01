@@ -26,12 +26,3 @@ export default function omit<T>(indices: Array<number>) {
 		})
 	}
 }
-
-//?? [EXAMPLE] `omit([1, 3])([1, 2, 3, 4, 5]) // [1, 3, 5]`
-//?? [EXAMPLE] `omit([0])(["a", "b", "c"]) // ["b", "c"]`
-//?? [EXAMPLE] `omit([0, 2, 4])(["a", "b", "c", "d", "e"]) // ["b", "d"]`
-//?? [EXAMPLE] `omit([-1, -2])([1, 2, 3, 4, 5]) // [1, 2, 3]`
-//?? [EXAMPLE] `omit([0, -1])(["header", "data1", "data2", "footer"]) // ["data1", "data2"]`
-//?? [EXAMPLE] `omit([0])(null) // []`
-//?? [EXAMPLE] `omit([0])(undefined) // []`
-//?? [EXAMPLE] `omit([])([1, 2, 3]) // [1, 2, 3]`

@@ -7,24 +7,3 @@ export default function ioEither<E, A>(
 ): IOEither<E, A> {
 	return thunk
 }
-
-//?? [EXAMPLE] ioEither(() => right(42)) // IOEither(() => Right(42))
-//?? [EXAMPLE] runIO(ioEither(() => b === 0 ? left("Division by zero") : right(a / b))) // Either result
-/*??
- | [EXAMPLE]
- | const safeParseIO = (json: string) =>
- |   ioEither(() => {
- |     try {
- |       return right(JSON.parse(json))
- |     } catch (error) {
- |       return left(`Parse error: ${error}`)
- |     }
- |   })
- | runIO(safeParseIO('{"valid": true}')) // Right({ valid: true })
- | runIO(safeParseIO('invalid')) // Left("Parse error: ...")
- |
- | [PRO] Combines deferred execution with error handling
- | [PRO] Referentially transparent side effects with safe error handling
- | [GOTCHA] Contains impure operations - only execute when ready for side effects
- |
-*/

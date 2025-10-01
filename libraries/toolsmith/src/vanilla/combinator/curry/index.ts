@@ -13,25 +13,5 @@ const curry = (fn: (...args: any[]) => any): any => {
  	}
 }
 
-//?? [EXAMPLE] curriedAdd(1)(2)(3) // 6
-//?? [EXAMPLE] curriedAdd(1, 2)(3) // 6
-//?? [EXAMPLE] curriedAdd(1)(2, 3) // 6
-//?? [EXAMPLE] curriedAdd(1, 2, 3) // 6
-/*??
- | [EXAMPLE]
- | ```typescript
- | const add = (a: number, b: number, c: number) => a + b + c
- | const curriedAdd = curry(add)
- |
- | curriedAdd(1)(2)(3) // 6
- | curriedAdd(1, 2)(3) // 6
- | curriedAdd(1)(2, 3) // 6
- | curriedAdd(1, 2, 3) // 6
- |
- | const add5 = curriedAdd(5)
- | const add5and10 = add5(10)
- | add5and10(2) // 17
- | ```
- */
 
 export default curry

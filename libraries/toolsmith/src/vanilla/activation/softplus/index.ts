@@ -37,23 +37,3 @@ export default function softplus(
 
 	return NaN
 }
-
-//?? [EXAMPLE] `softplus(0)       // 0.693... (ln(2))`
-//?? [EXAMPLE] `softplus(1)       // 1.313... (ln(1 + e))`
-//?? [EXAMPLE] `softplus(-1)      // 0.313... (ln(1 + 1/e))`
-//?? [EXAMPLE] `softplus(10)      // 10.000045... (≈ 10)`
-//?? [EXAMPLE] `softplus(100)     // 100 (approaches identity)`
-//?? [EXAMPLE] `softplus(-10)     // 0.0000454... (≈ 0)`
-//?? [EXAMPLE] `softplus(-100)    // 3.72e-44 (approaches 0)`
-//?? [EXAMPLE] `softplus(Infinity)  // Infinity`
-//?? [EXAMPLE] `softplus(-Infinity) // 0`
-//?? [EXAMPLE] `softplus(NaN)       // NaN`
-/*??
- | [EXAMPLE]
- | ```ts
- | // Neural network activation
- | const layer = [0.5, -1.2, 2.3, -0.8, 1.5]
- | const activated = layer.map(softplus)
- | // [0.974, 0.263, 2.398, 0.371, 1.702]
- | ```
- */

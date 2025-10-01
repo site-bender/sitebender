@@ -68,27 +68,3 @@ export default function isBase64(options: Base64Options = {}) {
 		return true
 	}
 }
-
-//?? [EXAMPLE] isBase64({})("SGVsbG8gV29ybGQ=") // true
-//?? [EXAMPLE] isBase64({})("YQ==") // true (single char)
-//?? [EXAMPLE] isBase64({})("Hello World") // false (not encoded)
-//?? [EXAMPLE] isBase64({})("") // false (empty)
-//?? [EXAMPLE] isBase64({ urlSafe: true })("SGVsbG8tV29ybGQ") // true
-/*??
- | [EXAMPLE]
- | const isStandardBase64 = isBase64({})
- | isStandardBase64("SGVsbG8gV29ybGQ=")  // true
- | isStandardBase64("YQ==")              // true
- | isStandardBase64("Hello World")       // false
- |
- | const isUrlSafeBase64 = isBase64({ urlSafe: true })
- | isUrlSafeBase64("SGVsbG8tV29ybGQ")  // true
- | isUrlSafeBase64("data-with_underscore")  // true
- |
- | const isStrictBase64 = isBase64({ strict: true })
- | isStrictBase64("SGVsbG8gV29ybGQ")   // false (needs padding)
- | isStrictBase64("SGVsbG8gV29ybGQ=")  // true (proper padding)
- |
- | [GOTCHA] Empty strings always return false
- | [GOTCHA] URL-safe and standard Base64 use different character sets
- */

@@ -39,10 +39,3 @@ const span = <T>(
 }
 
 export default span
-
-//?? [EXAMPLE] `span((x: number) => x >= 0)([1, 2, 3, -1, 4, 5]) // [[1, 2, 3], [-1, 4, 5]]`
-//?? [EXAMPLE] `span((x: number) => x % 2 === 0)([2, 4, 6, 7, 8, 10]) // [[2, 4, 6], [7, 8, 10]]`
-//?? [EXAMPLE] `span((u: { active: boolean }) => u.active)([{ name: "Alice", active: true }, { name: "Bob", active: true }, { name: "Charlie", active: false }]) // [[{name: "Alice", active: true}, {name: "Bob", active: true}], [{name: "Charlie", active: false}]]`
-//?? [EXAMPLE] `span((x: number) => x > 0)([1, 2, 3, 4]) // [[1, 2, 3, 4], []]`
-//?? [EXAMPLE] `span((x: number) => x > 10)([1, 2, 3]) // [[], [1, 2, 3]]`
-//?? [EXAMPLE] `span((x: number) => x > 0)(null) // [[], []]`

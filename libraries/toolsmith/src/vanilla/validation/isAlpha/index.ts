@@ -36,34 +36,3 @@ export default function isAlpha(options: AlphaOptions = {}) {
 		return regex.test(value)
 	}
 }
-
-//?? [EXAMPLE] isAlpha()("HelloWorld") // true
-//?? [EXAMPLE] isAlpha()("Hello World") // false (contains space)
-//?? [EXAMPLE] isAlpha()("Hello123") // false (contains numbers)
-//?? [EXAMPLE] isAlpha()("") // false (empty)
-//?? [EXAMPLE] isAlpha()(null) // false
-/*??
- | [EXAMPLE]
- | const isBasicAlpha = isAlpha()
- | isBasicAlpha("HelloWorld")  // true
- | isBasicAlpha("Hello World") // false (contains space)
- | isBasicAlpha("Hello123")    // false (contains numbers)
- |
- | const isValidName = isAlpha({
- |   allowSpaces: true,
- |   allowHyphens: true,
- |   allowApostrophes: true
- | })
- | isValidName("Mary Jane")  // true
- | isValidName("Jean-Paul")  // true
- | isValidName("O'Brien")    // true
- | isValidName("John123")    // false (contains numbers)
- |
- | const isUnicodeAlpha = isAlpha({ unicode: true })
- | isUnicodeAlpha("José")    // true
- | isUnicodeAlpha("北京")     // true (Chinese)
- | isUnicodeAlpha("Москва")  // true (Cyrillic)
- |
- | [GOTCHA] Empty strings always return false
- | [GOTCHA] Non-string values always return false
- */

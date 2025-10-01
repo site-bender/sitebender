@@ -45,10 +45,3 @@ const symmetricDifferenceWith = <T>(
 }
 
 export default symmetricDifferenceWith
-
-//?? [EXAMPLE] `symmetricDifferenceWith((a: {id: number}, b: {id: number}) => a.id === b.id)([{ id: 1 }, { id: 2 }, { id: 3 }])([{ id: 2 }, { id: 3 }, { id: 4 }]) // [{ id: 1 }, { id: 4 }]`
-//?? [EXAMPLE] `symmetricDifferenceWith((a: string, b: string) => a.toLowerCase() === b.toLowerCase())(["Hello", "World"])(["WORLD", "foo"]) // ["Hello", "foo"]`
-//?? [EXAMPLE] `symmetricDifferenceWith((a: number, b: number) => Math.abs(a - b) < 0.01)([1.0, 2.0])([2.001, 3.0]) // [1.0, 3.0]`
-//?? [EXAMPLE] `symmetricDifferenceWith((a: any, b: any) => a === b)([])([1, 2, 3]) // [1, 2, 3]`
-//?? [EXAMPLE] `symmetricDifferenceWith((a: any, b: any) => a === b)(null)([1, 2]) // [1, 2]`
-//?? [EXAMPLE] `symmetricDifferenceWith((a: any, b: any) => a === b)([1, 2])(null) // [1, 2]`

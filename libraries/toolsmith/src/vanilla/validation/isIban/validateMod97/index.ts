@@ -26,6 +26,3 @@ export default function validateMod97(iban: string): boolean {
 
 	return remainder === 1
 }
-
-//?? [EXAMPLE] validateMod97("GB82WEST12345698765432") // true (valid checksum)
-//?? [EXAMPLE] validateMod97("GB82WEST12345698765433") // false (invalid checksum)

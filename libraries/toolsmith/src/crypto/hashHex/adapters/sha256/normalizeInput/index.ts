@@ -20,7 +20,6 @@ export default function normalizeInput(input: HashInput): Uint8Array {
 	throw new Error(`Invalid input type for hashing: ${typeof input}`)
 }
 
-//?? [EXAMPLE]
 // normalizeInput("hello") // Returns Uint8Array of UTF-8 bytes
 // normalizeInput(new ArrayBuffer(8)) // Returns Uint8Array view
 // normalizeInput(new Uint8Array([1,2,3])) // Returns same array

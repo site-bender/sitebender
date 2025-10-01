@@ -77,6 +77,3 @@ export default function ibanLengths(): Record<string, number> {
 
 	return IBAN_LENGTHS
 }
-
-//?? [EXAMPLE] ibanLengths()["GB"] // 22
-//?? [EXAMPLE] ibanLengths()["DE"] // 22

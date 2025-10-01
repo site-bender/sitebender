@@ -16,25 +16,3 @@ export default function bimap<E, F>(leftFn: (e: E) => F) {
 		}
 	}
 }
-
-//?? [EXAMPLE] bimap((e: string) => e.toUpperCase())((v: number) => v * 2)(right(5)) // Right(10)
-//?? [EXAMPLE] bimap((e: string) => e.toUpperCase())((v: number) => v * 2)(left("error")) // Left("ERROR")
-/*??
- | [EXAMPLE]
- | const convertCurrency = (rate: number) => bimap(
- |   (err: string) => `Currency issue: ${err}`
- | )(
- |   (amount: number) => amount * rate
- | )
- | const toEuros = convertCurrency(0.85)
- | toEuros(right(100))               // Right(85)
- | toEuros(left("Invalid amount"))   // Left("Currency issue: Invalid amount")
- |
- | [PRO] Single pass branch-aware transformation
- | [PRO] Combines map + mapLeft ergonomically
- | [PRO] Keeps original shape (Either) for further composition
- |
- | [GOTCHA] Only one of the functions runs (based on branch)
- | [GOTCHA] Avoid heavy logic in both functions if only one branch is common
- | [GOTCHA] Prefer map/mapLeft when only one branch needs change (smaller bundle)
- */

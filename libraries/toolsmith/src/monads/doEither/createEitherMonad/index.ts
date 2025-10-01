@@ -20,24 +20,3 @@ export default function createEitherMonad<L>(): MonadDictionary<
 		},
 	}
 }
-
-//?? [EXAMPLE] createEitherMonad<string>() // Returns monad dictionary for Either<string, any>
-//?? [EXAMPLE] const eitherMonad = createEitherMonad<Error>() // For error handling
-/*??
- | [EXAMPLE]
- | const stringErrorMonad = createEitherMonad<string>()
- | const chain = stringErrorMonad.chain
- | const of = stringErrorMonad.of
- |
- | // Now can use with doNotation
- | doNotation(stringErrorMonad)(function* () {
- |   const x = yield of(5)
- |   const y = yield of(3)
- |   return x + y
- | })
- |
- | [PRO] Enables do-notation for Either monad
- | [PRO] Type-safe error handling with specified error type
- | [GOTCHA] Error type L must be consistent throughout computation
- |
-*/

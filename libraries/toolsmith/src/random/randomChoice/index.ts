@@ -28,21 +28,3 @@ export default function randomChoice<T>(
 
 	return undefined
 }
-
-//?? [EXAMPLE] randomChoice(['red', 'green', 'blue']) // 'green'
-//?? [EXAMPLE] randomChoice([1, 2, 3, 4, 5]) // 3
-//?? [EXAMPLE] randomChoice(new Set(['red', 'green', 'blue'])) // 'blue'
-/*??
- | [EXAMPLE]
- | const users = ['Alice', 'Bob', 'Charlie', 'Diana']
- | const winner = randomChoice(users) // 'Charlie'
- |
- | const testCases = [
- |   { input: 1, expected: 2 },
- |   { input: 5, expected: 10 }
- | ]
- | const testCase = randomChoice(testCases)
- |
- | [GOTCHA] Returns undefined for empty collections or invalid inputs
- |
-*/

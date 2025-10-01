@@ -12,7 +12,6 @@ export default function getOrElse<T>(defaultValue: T) {
 	}
 }
 
-//?? [EXAMPLE]
 // const withDefault = getOrElse(0)
 //
 // withDefault(ok(42))  // 42

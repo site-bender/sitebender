@@ -33,6 +33,3 @@ const maxBy = <T>(
 }
 
 export default maxBy
-
-//?? [EXAMPLE] maxBy(Math.abs)(-5)(3) // -5
-//?? [EXAMPLE] maxBy(() => NaN)(1)(2) // NaN

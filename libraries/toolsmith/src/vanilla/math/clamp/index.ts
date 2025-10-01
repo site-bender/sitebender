@@ -40,7 +40,3 @@ const clamp = (
 }
 
 export default clamp
-
-//?? [EXAMPLE] clamp(0)(10)(15) // 10
-//?? [EXAMPLE] clamp(0)(10)(-5) // 0
-//?? [EXAMPLE] clamp(10)(5)(7) // NaN

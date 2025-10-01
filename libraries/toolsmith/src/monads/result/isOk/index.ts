@@ -5,6 +5,5 @@ export default function isOk<E, T>(result: Result<E, T>): result is Ok<T> {
 	return result._tag === "Ok"
 }
 
-//?? [EXAMPLE]
 // isOk(ok(42))  // true
 // isOk(error("failed"))  // false

@@ -10,10 +10,3 @@ export default function tail<T>(
 	}
 	return array.slice(1)
 }
-
-//?? [EXAMPLE] `tail([1, 2, 3, 4]) // [2, 3, 4]`
-//?? [EXAMPLE] `tail(["a"]) // []`
-//?? [EXAMPLE] `tail([]) // []`
-//?? [EXAMPLE] `tail(["first", "second", "third"]) // ["second", "third"]`
-//?? [EXAMPLE] `tail(null) // []`
-//?? [EXAMPLE] `tail([42]) // []`

@@ -22,37 +22,5 @@ const groupBy = <T, K extends string | number>(
 	}, Object.create(null))
 }
 
-//?? [EXAMPLE] `groupBy((x: number) => x % 2)([1, 2, 3, 4]) // { "0": [2, 4], "1": [1, 3] }`
-//?? [EXAMPLE] `groupBy((s: string) => s.length)(["a", "bb", "ccc"]) // { "1": ["a"], "2": ["bb"], "3": ["ccc"] }`
-/*??
- | [EXAMPLE]
- | ```typescript
- | // Group people by age
- | const people = [
- |   { name: "Alice", age: 30 },
- |   { name: "Bob", age: 25 },
- |   { name: "Charlie", age: 30 }
- | ]
- | groupBy(p => p.age)(people)
- | // { "25": [{ name: "Bob", age: 25 }],
- | //   "30": [{ name: "Alice", age: 30 }, { name: "Charlie", age: 30 }] }
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Group by computed value
- | const byEvenOdd = groupBy((x: number) => x % 2 === 0 ? "even" : "odd")
- | byEvenOdd([1, 2, 3, 4, 5])
- | // { odd: [1, 3, 5], even: [2, 4] }
- | ```
- |
- | [EXAMPLE]
- | ```typescript
- | // Partial application
- | const groupByType = groupBy((item: { type: string }) => item.type)
- | groupByType([{ type: "A", value: 1 }, { type: "B", value: 2 }])
- | // { A: [{ type: "A", value: 1 }], B: [{ type: "B", value: 2 }] }
- | ```
- */
 
 export default groupBy

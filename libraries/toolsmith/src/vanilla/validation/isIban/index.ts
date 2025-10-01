@@ -32,21 +32,3 @@ export default function isIban(value: unknown) {
 		return validateMod97(iban)
 	}
 }
-
-//?? [EXAMPLE] isIban("GB82 WEST 1234 5698 7654 32")() // true
-//?? [EXAMPLE] isIban("DE89 3704 0044 0532 0130 00")() // true
-//?? [EXAMPLE] isIban("INVALID")() // false
-//?? [EXAMPLE] isIban(null)() // false
-/*??
- | [EXAMPLE] Case insensitive validation
- | isIban("gb82 west 1234 5698 7654 32")() // true
- |
- | [EXAMPLE] Different country formats
- | isIban("CH93 0076 2011 6238 5295 7")() // true (Switzerland)
- | isIban("NO93 8601 1117 947")() // true (Norway - 15 chars)
- |
- | [GOTCHA] Spaces are ignored for validation
- | [GOTCHA] Country code must be valid ISO code with correct length
- | [PRO] Performs full mod-97 checksum validation
- |
-*/

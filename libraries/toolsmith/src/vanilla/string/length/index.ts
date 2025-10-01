@@ -3,7 +3,6 @@ export default function length(str: string): number {
 	return str.length
 }
 
-//?? [EXAMPLE]
 // length("") // 0
 // length("hello") // 5
 // length(" ") // 1 (space counts)

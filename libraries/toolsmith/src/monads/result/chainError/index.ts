@@ -12,7 +12,6 @@ export default function chainError<E, F, T>(fn: (err: E) => Result<F, T>) {
 	}
 }
 
-//?? [EXAMPLE]
 // const recoverError = (e: string) =>
 //   e === "recoverable" ? ok(0) : error(`Fatal: ${e}`)
 //

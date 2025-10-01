@@ -28,29 +28,3 @@ export default function softmax(
 
 	return []
 }
-
-//?? [EXAMPLE] `softmax([1, 2, 3])    // [0.0900..., 0.2447..., 0.6652...] (sums to 1)`
-//?? [EXAMPLE] `softmax([0, 0, 0])    // [0.333..., 0.333..., 0.333...] (equal)`
-//?? [EXAMPLE] `softmax([10, 0, 0])   // [0.9999..., 0.00002..., 0.00002...]`
-//?? [EXAMPLE] `softmax([])     // []`
-//?? [EXAMPLE] `softmax(null)   // []`
-//?? [EXAMPLE] `softmax([5])    // [1] (single element)`
-/*??
- | [EXAMPLE]
- | ```ts
- | // Neural network output layer
- | const logits = [2.1, 0.5, -1.2, 3.8]  // Raw scores
- | const probabilities = softmax(logits)
- | // [0.1849..., 0.0372..., 0.0068..., 0.7709...]
- | ```
- |
- | [EXAMPLE]
- | ```ts
- | // Multi-class classification
- | const classify = (scores: Array<number>) => {
- |   const probs = softmax(scores)
- |   const maxIndex = probs.indexOf(Math.max(...probs))
- |   return { class: maxIndex, confidence: probs[maxIndex] }
- | }
- | ```
- */

@@ -25,7 +25,3 @@ export default function persistToLocalStorage<S>(
 		}
 	})
 }
-
-//?? [EXAMPLE] const store = createStore({ theme: "dark" })
-//?? [EXAMPLE] persistToLocalStorage(store, "app-theme")
-//?? [GOTCHA] Returns undefined on server or when localStorage unavailable
