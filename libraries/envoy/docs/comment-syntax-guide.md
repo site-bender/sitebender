@@ -4,7 +4,24 @@ A comprehensive guide to Envoy's comment syntax that transforms documentation in
 
 ## 📚 Core Philosophy
 
-"An Envoy takes what is given" - The code IS the truth. Comments describe and enhance, never contradict.
+**"An Envoy takes what is given"** - The code IS the truth. Comments enhance what machines cannot derive.
+
+### The Automated Documentation Revolution
+
+Envoy's ecosystem (Arborist + Auditor + Quarrier + Envoy) can automatically generate most documentation:
+
+- **Examples**: Quarrier generates property-based test cases that serve as comprehensive examples
+- **Gotchas**: Auditor's formal verification discovers edge cases and boundary conditions
+- **Pros/Cons**: Envoy analyzes complexity, performance, mathematical properties, and usage patterns
+- **Function descriptions**: Often derivable from function names, parameter types, and algorithm analysis
+
+**Manual comments should be the exception, not the rule** - used only for information that machines cannot derive:
+
+- **Business context** that code cannot infer
+- **Design decisions** and their rationale
+- **Critical issues** requiring human judgment
+- **External links** and references
+- **Tech debt** with specific remediation plans
 
 ## 🎯 Universal Application
 
@@ -429,24 +446,42 @@ All comment content supports:
 
 ## ✅ Best Practices
 
-### DO:
+### Automated-First Approach
 
-- ✅ Use `//++` on any code element that needs documentation
-- ✅ Group related constants/types with `[GROUP]...[END]`
-- ✅ Add `[MODULE]` documentation to describe file purpose
-- ✅ Use markdown for rich formatting
-- ✅ Create semantic links with `//>>` markers
+**PREFER**: Let the system generate documentation automatically
+- Quarrier generates comprehensive examples from property-based tests
+- Auditor discovers gotchas through formal verification and edge case detection
+- Envoy analyzes pros/cons from complexity, performance, and mathematical properties
+- Function descriptions often derivable from names, types, and algorithm structure
+
+**USE MANUAL COMMENTS ONLY FOR**:
+- Business context machines cannot infer
+- Design decisions and rationale
+- Critical issues requiring human judgment
+- External references and links
+- Tech debt with specific remediation plans
+
+### When You Do Comment
+
+#### DO:
+- ✅ Use `//++` sparingly - only when function purpose isn't clear from name/signature
+- ✅ Group related constants/types with `[GROUP]...[END]` when logical grouping isn't obvious
+- ✅ Add `[MODULE]` documentation for business context
+- ✅ Use `//!!` for critical issues requiring immediate attention
+- ✅ Use `//--` for tech debt with clear remediation plans
+- ✅ Use `//>>` for semantic links to external resources
 - ✅ Use pipe `|` for block comment margins (avoids markdown conflicts)
 
-### DON'T:
-
+#### DON'T:
+- ❌ Add examples manually - let Quarrier generate comprehensive test-based examples
+- ❌ Document gotchas manually - let Auditor discover them through formal verification
+- ❌ List pros/cons manually - let Envoy analyze and measure them
 - ❌ Try to group multiple `//` lines together - use `/* */` blocks instead
 - ❌ Use type markers like `[FUNCTION]` - Arborist determines this automatically
 - ❌ Mix categories in one line (`//?? [EXAMPLE] [GOTCHA]`)
 - ❌ Leave tech debt without reasons
 - ❌ Create unmatched `[GROUP]` without `[END]`
 - ❌ Use asterisk `*` for block comment margins (conflicts with markdown lists)
-- ❌ Use bad syntax - it will be ignored and reported
 
 ## 🔗 Quick Reference (For AIs That Don't Read So Good)
 
@@ -645,9 +680,9 @@ These comments don't just create documentation - they power a **revolutionary tr
 
 Path structure reveals dependencies: `a/b/c` means `c` is used by `b`, `b` is used by `a`. Folder names encode categories. Arborist infers semantic meaning from architectural patterns.
 
-#### 2. **TypeScript Compiler Data**
+#### 2. **TypeScript Analysis Data**
 
-Full symbol analysis, type relationships, import/export mappings, call graphs, implementation chains.
+Full symbol analysis, type relationships, import/export mappings, call graphs, implementation chains via Arborist.
 
 #### 3. **Configuration Files (First-Class Citizens)**
 
@@ -660,7 +695,7 @@ Full symbol analysis, type relationships, import/export mappings, call graphs, i
 
 When functions were added/modified, author attribution, tech debt age tracking.
 
-#### 5. **CSS Analysis (v2)**
+#### 5. **CSS Analysis**
 
 Parse styles, match to components, document theming systems and progressive enhancement layers.
 
@@ -727,24 +762,24 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 **Version Change Tracking**: Generate changelogs from `deno.jsonc` export changes and conventional commits, noting any inconsistencies.
 
-### 🎯 Version 1 Features (The Revolution Begins)
+### 🎯 Core Features
 
-1. **Core Graph Construction**
+1. **Graph Construction**
    - Filesystem semantic parser, TypeScript symbol analysis, dependency extraction, HATEOAS state/transitions
 
 2. **Triple Store Integration**
    - Apache Jena Fuseki backend, RDF triple generation, SPARQL query interface
 
 3. **Comprehensive Dashboard**
-   - Critical bugs aggregated, tech debt by age, test coverage gaps, complexity hotspots, recent changes, author contributions, **linting status**, **formatting compliance**, **versioning overview**
+   - Critical bugs aggregated, tech debt by age, test coverage gaps, complexity hotspots, recent changes, author contributions, linting status, formatting compliance, versioning overview
 
 4. **Intelligent Navigation**
    - Context-aware links, impact analysis, dependency trees, call flow tracking
 
 5. **Multi-Source Metadata**
-   - From filesystem paths, config files, git history, TypeScript compiler
+   - From filesystem paths, config files, git history, TypeScript analysis via Arborist
 
-### 🚀 Version 2 Features (The Future is Interactive)
+### 🚀 Interactive Features
 
 1. **Live Playgrounds**
    - **Functions**: Editable parameters with real-time results
@@ -764,13 +799,6 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 5. **Automated Style Guide Generation**
    - From lint/format configs, convention documentation, code style examples
-
-### 🏗️ Implementation Roadmap
-
-**Phase 1**: Arborist Extensions (Current)
-**Phase 2**: Graph Foundation (Next)
-**Phase 3**: Envoy MVP (v1) - HATEOAS navigation, dashboards, diplomatic conflict resolution
-**Phase 4**: Interactive Envoy (v2) - Live playgrounds, visual exploration
 
 ### 🎭 The Envoy Philosophy
 

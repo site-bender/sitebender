@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/guy/Workspace/@sitebender/sitebender"
+      ]
+    },
+    "sequentialthinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "qdrant": {
+      "command": "mcp-server-qdrant",
+      "args": [],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_API_KEY": "local-development-key",
+        "COLLECTION_NAME": "revolutionary_rules",
+        "EMBEDDING_MODEL": "BAAI/bge-large-en-v1.5"
+      }
+    }
+  }
+}

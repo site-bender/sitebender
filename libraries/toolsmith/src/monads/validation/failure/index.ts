@@ -1,8 +1,8 @@
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type { Invalid, Validation } from "../../../types/Validation/index.ts"
 
-//++ Creates an Invalid validation containing errors
-export default function invalid<E, A = never>(
+//++ Creates a Failure validation containing errors
+export default function failure<E, A = never>(
 	errors: NonEmptyArray<E>,
 ): Validation<E, A> {
 	return {

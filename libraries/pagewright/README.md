@@ -1,10 +1,21 @@
-# Pagewright: Semantic HTML Components Library
+# Pagewright: Semantic Authoring Language
 
 > **Alpha Software**: This library is under active development. All features will be fully implemented before beta release. No compromises, no shortcuts.
 
-Pagewright is a **semantic HTML component library** for Static Site Generation (SSG) and Server-Side Rendering (SSR). It provides accessible, metadata-rich components that compile from JSX to pure HTML at build time.
+Pagewright is a **semantic authoring language** that compiles to perfect HTML. Write in terms of what you're building (`<Essay>`, `<Recipe>`, `<Dialogue>`), not how HTML works (`<div>`, `<section>`, `<header>`). The system handles all technical details automatically.
 
-## Core Philosophy
+## Revolutionary Philosophy
+
+**Think semantically, not structurally.**
+
+Users should never need HTML element wrappers. Instead of `<Header>` or `<Footer>`, use semantic components like `<Masthead>`, `<Colophon>`, `<EndMatter>`, `<Bibliography>`, `<References>`, `<Appendix>`, `<Glossary>`, `<Index>`.
+
+**Context-aware compilation** determines the correct HTML structure:
+- `<Heading>` in `<Article>` becomes `<h1>`
+- `<Heading>` in `<Section>` becomes `<h2>` (or deeper based on nesting)
+- `<Line>` in `<Poem>` becomes poetry markup
+- `<Line>` in `<Address>` becomes address formatting
+- `<Item>` in `<Navigation>` becomes proper navigation links
 
 **Progressive Enhancement in Three Layers:**
 
@@ -15,7 +26,9 @@ Pagewright is a **semantic HTML component library** for Static Site Generation (
 **Key Principles:**
 
 - JSX → pure vanilla HTML at build time (no React, no VDOM, no hooks)
-- Direct component imports for tree-shaking (no bundles!)
+- Context determines HTML structure automatically
+- Semantic components for every conceivable use case
+- Graceful attribute handling with data-x prefixing
 - Forms work with standard POST/GET
 - Real links, real pages, no SPA-only routes
 - Back button always works
@@ -206,53 +219,108 @@ Elements are organized by their specifications and content categories:
 - Obsolete and deprecated elements are intentionally excluded
 - **Alpha Status**: All element wrappers will be fully implemented before any beta release
 
-### Error Handling Philosophy
+### Graceful Handling Philosophy
 
-Following HTML's principle of "be liberal in what you accept, conservative in what you produce," Pagewright gracefully handles validation errors while preserving debugging information.
+Following HTML's principle of "be liberal in what you accept, conservative in what you produce," Pagewright gracefully handles unknown attributes and invalid nesting while preserving all user intent.
 
-#### Invalid Attributes
+#### Context-Aware Semantic Compilation
 
-Invalid attributes are captured in a `data-errors` attribute:
+The compiler analyzes the entire component tree to determine correct HTML structure:
 
 ```tsx
-// Input (if TypeScript checks are bypassed):
-<A href="/page" invalidAttr="oops" badProp={42}>
+// Developer writes semantic JSX:
+<Article>
+  <Heading>
+    <Title>Why Sitebender Rocks</Title>
+    <ByLine>
+      <Author>The Architect</Author>
+    </ByLine>
+  </Heading>
+  <Paragraph>Content here...</Paragraph>
+  <Section>
+    <Heading>
+      <Title>'Cuz it is!</Title>
+    </Heading>
+    <Paragraph>More content...</Paragraph>
+  </Section>
+</Article>
 
-// Output HTML:
-<a href="/page"
-   data-errors='[
-     {"type":"INVALID_ATTRIBUTE","name":"invalidAttr","value":"oops"},
-     {"type":"INVALID_ATTRIBUTE","name":"badProp","value":42}
-   ]'>
+// Compiler generates contextually correct HTML:
+<article>
+  <header>
+    <h1>Why Sitebender Rocks</h1>
+    <p class="byline">
+      <span class="author">The Architect</span>
+    </p>
+  </header>
+  <p>Content here...</p>
+  <section>
+    <h2>'Cuz it is!</h2>
+    <p>More content...</p>
+  </section>
+</article>
 ```
 
-#### Invalid Nesting
+Context determines structure:
+- `<Title>` in `<Article>` `<Heading>` → `<h1>`
+- `<Title>` in `<Section>` `<Heading>` → `<h2>` (or deeper based on nesting)
+- `<Line>` in `<Poem>` → poetry-specific markup
+- `<Line>` in `<Address>` → address-specific formatting
+- `<Item>` in `<Navigation>` → proper navigation links
 
-Invalid nested elements are replaced with safe alternatives:
+#### Unknown Attributes: Auto-Prefixing with data-x-
+
+Unknown attributes are automatically prefixed with `data-x-` and preserved:
+
+```tsx
+// Developer writes:
+<Essay customId="my-essay" trackingCode="analytics-123" badProp="whatever">
+  <Title>My Great Essay</Title>
+</Essay>
+
+// System generates:
+<article class="essay" data-x-custom-id="my-essay" data-x-tracking-code="analytics-123" data-x-bad-prop="whatever">
+  <h1>My Great Essay</h1>
+</article>
+```
+
+Benefits:
+- **Nothing is lost** - All user intent preserved
+- **CSS integration** - `[data-x-custom-id="my-essay"]` selectors work
+- **JavaScript access** - `element.dataset.xCustomId` available
+- **Clear namespace** - `data-x-` indicates user-generated attributes
+- **IDE enhancement** - Unknown props can be highlighted with tooltips
+
+#### Invalid Nesting: Safe Replacement
+
+Invalid nested elements are replaced with safe alternatives while preserving content:
 
 ```tsx
 // Input (invalid nesting):
-<A href="/page">
-  <A href="/nested">Nested link</A>  // Can't nest <a> in <a>
-</A>
+<Essay>
+  <Heading>
+    <Button>Invalid button in heading</Button>  // Interactive in heading
+  </Heading>
+</Essay>
 
 // Output HTML:
-<a href="/page">
-  <span data-errors='[{"type":"INVALID_NESTING","element":"a","context":"a"}]'
-        data-original-tag="a"
-        data-href="/nested">
-    Nested link
-  </span>
-</a>
+<article class="essay">
+  <h1>
+    <span data-replaces="button"
+          data-reason="Interactive elements not allowed in headings"
+          data-x-original-type="button">
+      Invalid button in heading
+    </span>
+  </h1>
+</article>
 ```
 
 Replacement logic:
-
-- Invalid block element in inline context → `<span>`
-- Invalid inline element in block context → `<div>`
-- Invalid interactive in interactive → `<span>` (safest)
-- Original attributes → prefixed with `data-`
-- Original tag → preserved in `data-original-tag`
+- Invalid interactive in heading → `<span>` (safest)
+- Invalid block in inline → `<span>`
+- Invalid inline in block → `<div>`
+- Original attributes → prefixed with `data-x-`
+- Original tag → preserved in `data-x-original-tag`
 
 #### Development Mode Features
 
@@ -300,31 +368,233 @@ This approach ensures:
 - **Production is clean** - `data-errors` stripped in production builds
 - **Learning is built-in** - Clear guidance on fixing issues
 
-## What Pagewright Does
+## What Pagewright Provides
 
-- **Enforces HTML standards** via typed element wrappers
-- **Generates semantic HTML** from JSX at build time
-- **Embeds structured data** (Schema.org JSON-LD, microdata) automatically
-- **Ensures accessibility** with proper ARIA attributes and keyboard navigation
-- **Provides 1000+ semantic components** covering documents, forms, navigation, and Schema.org types
-- **Supports theming** via CSS Custom Properties
-- **Enables opt-in enhancement** via `data-*` attributes
+- **Context-aware semantic compilation** - Determines correct HTML structure from component nesting
+- **Complete semantic vocabulary** - Components for every conceivable use case
+- **Graceful attribute handling** - Unknown props become `data-x-` attributes
+- **Automatic HTML standards compliance** - Perfect output regardless of input
+- **Embedded structured data** - Schema.org JSON-LD and microdata automatically
+- **Accessibility by default** - Proper ARIA attributes and keyboard navigation
+- **1000+ semantic components** covering documents, forms, navigation, and Schema.org types
+- **CSS theming** via Custom Properties
+- **Progressive enhancement** via `data-enhance` attributes
 
-## What Pagewright Doesn't Do
+## Semantic Component Examples
 
-- No client-side state management (see Architect library)
-- No reactive components or re-rendering
-- No SPA routing or client-side navigation
-- No JavaScript event handlers in components
-- No automatic progressive enhancement (must opt-in)
+Instead of thinking in HTML elements, think in semantic concepts:
 
-For reactive, client-side functionality with CSR/SSR/SSG options, use the **Architect** library, which incorporates all of Pagewright and adds:
+### **Document Structure**
+```tsx
+<Essay>
+  <Heading>
+    <Title>The Future of Web Development</Title>
+    <Subtitle>A Revolutionary Approach</Subtitle>
+    <ByLine>
+      <Author>The Architect</Author>
+      <PublicationDate>2024-12-30</PublicationDate>
+    </ByLine>
+  </Heading>
+  
+  <Abstract>
+    This essay explores how semantic authoring transforms web development...
+  </Abstract>
+  
+  <Section>
+    <Heading>
+      <Title>The Problem with Current Frameworks</Title>
+    </Heading>
+    <Paragraph>Most frameworks force developers to think in HTML...</Paragraph>
+  </Section>
+  
+  <EndMatter>
+    <References>
+      <Citation>Smith, J. (2024). Semantic Web Principles.</Citation>
+    </References>
+    <Notes>
+      <Note id="1">This approach was inspired by...</Note>
+    </Notes>
+  </EndMatter>
+</Essay>
+```
 
-- Progressive enhancement behaviors (`__sbCalculate`, `__sbFormat`, `__sbValidate` properties)
-- Pub-sub event system
-- State management
-- Triple store architecture
-- Real-time updates and offline sync
+### **Creative Content**
+```tsx
+<Poem>
+  <Heading>
+    <Title>Ode to Semantic HTML</Title>
+    <Author>A Developer</Author>
+  </Heading>
+  
+  <Stanza>
+    <Line>In the beginning was the div,</Line>
+    <Line>And the div was without meaning.</Line>
+  </Stanza>
+  
+  <Stanza>
+    <Line>But then came semantic components,</Line>
+    <Line>And meaning was restored.</Line>
+  </Stanza>
+</Poem>
+
+<Song>
+  <Heading>
+    <Title>The Semantic Blues</Title>
+    <Composer>Code Musician</Composer>
+  </Heading>
+  
+  <Verse>
+    <Line>I got those semantic HTML blues,</Line>
+    <Line>Don't know which element to choose.</Line>
+  </Verse>
+  
+  <Chorus>
+    <Line>But Pagewright shows the way,</Line>
+    <Line>Semantic components save the day!</Line>
+  </Chorus>
+</Song>
+```
+
+### **Interactive Content**
+```tsx
+<Dialogue>
+  <Speaker name="Hamlet">
+    <Line>To be or not to be, that is the question.</Line>
+  </Speaker>
+  
+  <Speaker name="Horatio">
+    <Line>My lord, what troubles you?</Line>
+  </Speaker>
+  
+  <StageDirection>
+    <Action>Hamlet paces across the stage</Action>
+  </StageDirection>
+</Dialogue>
+
+<Interview>
+  <Heading>
+    <Title>Interview with The Architect</Title>
+    <Participants>
+      <Interviewer>Tech Journalist</Interviewer>
+      <Interviewee>The Architect</Interviewee>
+    </Participants>
+  </Heading>
+  
+  <Question speaker="Tech Journalist">
+    What inspired you to create Sitebender?
+  </Question>
+  
+  <Answer speaker="The Architect">
+    The realization that everything should be data...
+  </Answer>
+</Interview>
+```
+
+For reactive, client-side functionality, use the **Architect** library, which extends Pagewright with:
+
+- Reactive calculations and validation
+- Data-driven form generation
+- Conditional display logic
+- State management through data
+- Event handling via declarative composition
+
+## Route-Based Page Promotion
+
+**Revolutionary feature**: Any component becomes a full page when it's the top-level component in a route.
+
+```tsx
+// In pages/contact/index.tsx (top-level route):
+<Contact>
+  <Heading>
+    <Title>Get In Touch</Title>
+  </Heading>
+  <Form action="/api/contact" method="POST">
+    <EmailField name="email" required />
+    <TextField name="message" required />
+    <SubmitButton>Send Message</SubmitButton>
+  </Form>
+</Contact>
+
+// Automatically becomes a FULL PAGE:
+<html>
+  <head>
+    <title>Get In Touch</title>
+    <meta name="description" content="Contact us..." />
+    <!-- All site metadata, overridable but not required -->
+  </head>
+  <body>
+    <main>
+      <section class="contact">
+        <h1>Get In Touch</h1>
+        <form action="/api/contact" method="POST">
+          <input type="email" name="email" required />
+          <textarea name="message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
+
+// In article.tsx (nested context):
+<Article>
+  <Paragraph>Main content...</Paragraph>
+  <EndMatter>
+    <Contact>...</Contact>  // Same component, different context!
+  </EndMatter>
+</Article>
+// → Becomes contact SECTION within footer, no page wrapper
+```
+
+### Universal Page Promotion
+
+Even the most basic component gets full page treatment when it's top-level:
+
+```tsx
+// In pages/simple/index.tsx:
+<Strong>Just emphasized text</Strong>
+
+// Becomes:
+<html>
+  <head>
+    <title>Simple</title>  <!-- Derived from route -->
+    <!-- Site metadata -->
+  </head>
+  <body>
+    <main>
+      <strong>Just emphasized text</strong>
+    </main>
+  </body>
+</html>
+```
+
+### Semantic Component Types
+
+Think in terms of what things ARE, not their implementation:
+
+```tsx
+<Essay>                    // Academic or long-form writing
+<Tutorial>                 // Instructional content
+<Reference>                // Documentation
+<Portfolio>                // Showcasing work
+<Landing>                  // Marketing content
+<Dashboard>                // Application interfaces
+<Blog>                     // Blog collection
+<Article>                  // Individual article
+<Products>                 // Product collection
+<Product>                  // Individual product
+<Contact>                  // Contact information
+<About>                    // About information
+<Services>                 // Service offerings
+<Team>                     // Team information
+```
+
+Each generates appropriate structure based on context:
+- **As top-level route**: Full page with html/head/body wrapper
+- **As nested component**: Appropriate section/article/div element
+- **Schema.org metadata**: Automatic based on semantic type
+- **Accessibility patterns**: Context-appropriate ARIA roles
+- **CSS classes**: Semantic class names for styling
 
 ## Component Categories
 

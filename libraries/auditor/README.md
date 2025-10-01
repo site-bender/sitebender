@@ -134,7 +134,7 @@ import detectPurity from "@sitebender/arborist/detectProperties/detectPurity/ind
 
 ## Integration with @sitebender/quarrier
 
-Auditor will use Quarrier for test data generation:
+Auditor uses Quarrier for test data generation:
 
 ```typescript
 // Use quarrier generators for test inputs
@@ -311,16 +311,16 @@ if (Deno.build.os === "windows") {
 }
 ```
 
-## Future Extensions
+## Extended Verification Capabilities
 
-### Component Testing (Coming Soon)
+### Component Testing
 
 - JSX component property testing
 - HTML validity verification
 - Accessibility validation
 - Schema.org metadata testing
 
-### Architect Testing (Planned)
+### Architect Testing
 
 - Reactive calculation verification
 - SSR/hydration testing

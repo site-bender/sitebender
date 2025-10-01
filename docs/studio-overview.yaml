@@ -21,14 +21,14 @@ studio:
     - Distributed by default: CRDTs, P2P, offline-first working
     - Cryptographic governance: Warden enforces architecture
     - Mathematical verification: Auditor proves correctness
-    - Zero dependencies: Only Arborist uses SWC
+    - Zero dependencies: Only Arborist uses deno_ast (which uses SWC internally)
     - Declarative testing: Tests are data in triple store
   constraints:
     runtime: ["Deno only", "TypeScript", "pure ESM", "no bundling", "no Node"]
     authoring: ["plain JSX", "no React", "no VDOM", "direct DOM manipulation"]
     dependencies:
       zero_runtime: true
-      exception: "Arborist uses deno_ast (SWC) for 50x faster parsing"
+      exception: "Arborist uses deno_ast (which uses SWC internally) for 20-50x performance improvements"
     governance:
       warden_enforced: true
       cryptographic_contracts: true
@@ -197,7 +197,44 @@ dependencies_policy:
     depends_on: "deno_ast (SWC parser)"
   notes:
     - "Testing and server-side infra may use dependencies as needed"
-    - "SWC provides syntax-only parsing, 20-50x faster than TypeScript compiler"
+    - "deno_ast provides syntax-only parsing via SWC, delivering 20-50x performance improvements"
+
+performance_benchmarks:
+  arborist:
+    small_files: "<10ms (10-50 functions)"
+    medium_files: "<50ms (100-500 functions)"
+    large_files: "<200ms (1000+ functions)"
+    speedup: "20-50x performance improvement"
+  envoy:
+    ast_parsing: "<100ms typical (via Arborist)"
+    doc_generation: "<1s for 1000 functions"
+    sparql_queries: "<50ms typical queries"
+    graph_traversal: "<10ms local connections"
+  auditor:
+    formal_verification: "TBD - Z3 theorem prover dependent"
+    test_generation: "30+ tests per function in seconds"
+
+browser_support:
+  philosophy: "EVERYTHING WORKS EVERYWHERE - progressive enhancement"
+  layers:
+    layer_1: "Pure HTML (Lynx/Mosaic/Netscape 1.0 compatible)"
+    layer_2: "CSS enhancement (graphical browsers)"
+    layer_3: "JavaScript enhancement (modern features)"
+  minimum_requirements:
+    absolute_minimum: "HTML 2.0 (1995)"
+    recommended: "CSS 2.1 (1998)"
+    enhanced: "Modern browsers get full experience"
+
+developer_experience:
+  measurement_system: "Five-smiley feedback (😱😟😐😊🤩)"
+  tracked_interactions:
+    - "Error messages"
+    - "Documentation quality"
+    - "Build failures"
+    - "Test output"
+    - "Code reviews"
+    - "AI suggestions"
+  continuous_improvement: "Granular feedback drives development experience optimization"
 
 declarative_testing:
   philosophy: "Testing is not separate from the application - it's part of the data model"
@@ -226,7 +263,15 @@ libraries:
     status: "active - must complete and lock"
   - current: "@sitebender/pagewright"
     studio_name: "Pagewright"
-    purpose: "Accessible JSX pagewright/DSL for semantic HTML and structured data"
+    purpose: "Semantic authoring language - write what you're building, not how HTML works"
+    revolutionary_features:
+      context_aware_compilation: "Determines correct HTML structure from component nesting automatically"
+      route_based_page_promotion: "Any component becomes full page when top-level in route (Contact vs ContactPage)"
+      semantic_vocabulary: "Components for every conceivable use case (Essay, Recipe, Dialogue, Poem, etc.)"
+      graceful_attribute_handling: "Unknown props become data-x- attributes, preserving all user intent"
+      heading_hierarchy: "Automatic H1-H6 generation based on nesting context"
+      element_substitution: "Line in Poem vs Line in Address vs Line in Dialogue - context determines output"
+      user_friendly_props: "url instead of href, semantic prop names instead of HTML implementation details"
     status: "advanced (more complete than typical alpha)"
   - current: "@sitebender/architect"
     studio_name: "Architect"
@@ -253,28 +298,83 @@ libraries:
     status: "independent; can proceed in parallel"
   - current: "@sitebender/envoy"
     studio_name: "Envoy"
-    purpose: "Docs/observability from TS/JSX with HATEOAS"
+    purpose: "Revolutionary documentation and observability platform - living knowledge graph with visual workflow dashboard"
+    automated_documentation_philosophy: "Most documentation generated automatically - manual comments only for what machines cannot derive"
     comment_syntax:
-      description: "//++"
-      tech_debt: "//--"
-      help_examples: "//??"
-      critical: "//!!"
-      links: "//>>"
+      description: "//++ (use sparingly - only when purpose unclear from name/signature)"
+      help_examples: "//??  (discouraged - let Quarrier generate examples, Auditor find gotchas, Envoy analyze pros/cons)"
+      tech_debt: "//-- with specific remediation plans"
+      critical: "//!! blocking problems requiring human judgment"
+      links: "//>> semantic connections to external resources"
+    automated_capabilities:
+      examples: "Quarrier generates comprehensive examples from property-based tests"
+      gotchas: "Auditor discovers edge cases through formal verification"
+      pros_cons: "Envoy analyzes from complexity, performance, mathematical properties"
+      descriptions: "Often derivable from function names, parameter types, algorithm analysis"
+    manual_comments_reserved_for:
+      - "Business context machines cannot infer"
+      - "Design decisions and rationale"
+      - "Critical issues requiring human judgment"
+      - "External references and links"
+      - "Tech debt with specific remediation plans"
+    features:
+      visual_workflow_dashboard: "n8n-style workflow canvas powered by semantic triple store"
+      advanced_debugging:
+        - "Time-travel debugging with state reconstruction"
+        - "Visual debugging with 3D code flow"
+        - "Query-based debugging with SPARQL"
+        - "Collaborative debugging sessions"
+        - "Contract violation detection"
+      developer_experience:
+        - "Five-smiley feedback system (😱😟😐😊🤩)"
+        - "Error message quality tracking"
+        - "Onboarding speed measurement"
+      progressive_enhancement:
+        - "Layer 1: Pure HTML (Lynx/Mosaic compatible)"
+        - "Layer 2: CSS enhancement"
+        - "Layer 3: Modern JavaScript features"
+      real_time_updates:
+        - "HTTP/3 server push (best)"
+        - "WebSocket fallback"
+        - "Meta refresh baseline"
+      automated_detection:
+        mathematical_properties: ["purity", "commutativity", "associativity", "idempotence", "distributivity"]
+        code_characteristics: ["complexity", "currying", "type_safety", "dependencies"]
     status: "dependent on Quarrier + Arborist readiness"
   - current: "@sitebender/auditor"
     studio_name: "Auditor"
-    purpose: "Proof/test generation: AST branch detection, property-based tests, algebraic laws"
+    purpose: "Formal verification system using Z3 theorem prover - proves mathematical correctness, doesn't just test"
     aspirational_coverage: "100%"
+    features:
+      formal_verification:
+        - "Z3 theorem prover integration"
+        - "SMT solving for property verification"
+        - "Counterexample generation for failures"
+        - "Mathematical law verification (associativity, commutativity, etc.)"
+        - "Performance bound proofs (Big-O verification)"
+        - "Termination proofs"
+      integration:
+        - "Direct IR verification from Architect"
+        - "Complete AST analysis via Arborist"
+        - "ALL test data generation via Quarrier"
     status: "dependent on Quarrier + Arborist readiness"
   - current: "@sitebender/arborist"
     studio_name: "Arborist"
-    purpose: "TS/JSX parsing using SWC via deno_ast; fast syntax-level analysis"
-    depends_on: "deno_ast (SWC parser)"
+    purpose: "TS/JSX parsing using deno_ast (SWC internally); THE ONLY library allowed to parse - all others use Arborist output"
+    depends_on: "deno_ast (ONLY external dependency allowed in entire ecosystem)"
     status: "independent; can proceed in parallel"
-    performance: "20-50x faster than TypeScript compiler"
+    performance: "20-50x performance improvement"
+    architectural_role: "Central parsing hub - Warden enforces parsing boundaries"
   - current: "@sitebender/quarrier"
     studio_name: "Quarrier"
-    purpose: "Generators, QuickCheck-style property testing, shrinking, sample triples"
+    purpose: "Revolutionary property-based testing through compositional pipelines - zero dependencies, zero classes"
+    advanced_features:
+      bidirectional_generators: "Generate AND parse with same logic for round-trip testing"
+      pipeline_paradigm: "Seed → Generate → Test → Shrink → Report"
+      proof_carrying: "Properties carry formal correctness proofs"
+      metamorphic_testing: "Properties derive other properties automatically"
+      resumable_shrinking: "Pause and resume shrinking across sessions"
+      effects_as_values: "Not IO monads, just data describing computations"
     status: "independent; can proceed in parallel"
   - current: "@sitebender/warden"
     studio_name: "Warden"
@@ -324,7 +424,7 @@ roadmap_priorities:
     includes:
       [
         "Quarrier",
-        "Arborist (SWC-based parser)",
+        "Arborist (deno_ast-based parser)",
         "Formulator",
         "Operator (event-driven pub/sub)",
         "Agent (with IO interception)",
@@ -336,7 +436,7 @@ roadmap_priorities:
     includes: ["Auditor", "Envoy"]
   - order: 6
     item: "Arborist Semantic Analysis"
-    policy: "Required future work: add TypeScript compiler pass for semantic types"
+    policy: "Required future work: add semantic analysis pass for type information"
     includes:
       - "Optional invocation, not default path"
       - "Enriches syntax data with resolved types"
@@ -390,13 +490,16 @@ acceptance_criteria_production:
   docs: "Envoy docs up-to-date with code; navigable HATEOAS graph"
   proofs_tests: "coverage gate meets target; auditor-generated tests stable"
 
-deferred_topics:
+implementation_details:
   - hydration_strategy_and_lifecycle_details
   - reactivity_model_specifics (signals/effects/scheduling/cleanup)
-  - jsx_transform_pipeline (TS compiler hooks, custom createElement/Fragment)
+  - jsx_transform_pipeline (deno_ast integration, custom createElement/Fragment)
   - final_ir_v0_schema_and_serialization_rules
   - accessibility_allowlists_finalization_and_gate_transition
   - agent_mvp_scope (CRDT type, persistence, DID/VC, encryption model)
+  - envoy_visual_workflow_dashboard_implementation
+  - auditor_z3_integration_specifics
+  - quarrier_bidirectional_generator_protocols
 
 naming_map:
   toolsmith: "Toolsmith"
@@ -538,13 +641,21 @@ cross_library_dependencies:
   formulator: ["architect (IR spec)"]
   operator: ["toolsmith/"]
   agent: []
-  envoy: ["arborist"]
-  auditor: ["arborist", "quarrier"]
-  arborist: ["deno_ast"]
-  quarrier: []
+  envoy: ["arborist (CRITICAL: ALL AST data - Warden enforced)"]
+  auditor: ["arborist (CRITICAL: ALL parsing operations), quarrier (ALL test data generation)"]
+  arborist: ["deno_ast (ONLY external dependency allowed in entire ecosystem)"]
+  quarrier: ["arborist (type information only)"]
   warden: ["everyone depends on Warden for governance"]
   steward: ["arborist"]
   quartermaster: ["toolsmith/", "warden"]
+
+architectural_boundaries:
+  parsing_centralization: "Arborist provides all TypeScript/JSX parsing. Other libraries consume Arborist's structured outputs."
+  warden_enforcement: "Violations of parsing boundaries are cryptographically prevented by Warden contracts"
+  integration_patterns:
+    arborist_hub: "Arborist is the central hub - all libraries get AST data from it"
+    test_data_flow: "Quarrier provides ALL test data to Auditor"
+    verification_chain: "Arborist → Auditor → Formal Verification → Proof Certificates"
 
 do_not_list:
   - "Do not add Node-only APIs or polyfills"
@@ -553,6 +664,7 @@ do_not_list:
   - "Do not bypass underscore privacy; no friend modules"
   - "Do not add external runtime deps (testing/server OK where justified)"
   - "Do not persist or expose the IR externally (workshop exception only)"
+  - "Use Arborist's structured outputs for all AST operations"
 
 planning_protocol:
   - "Operate at high level first; defer low-level RFCs until requested"
@@ -597,9 +709,18 @@ next_steps_shortlist:
   - "Run parallel efforts on Quarrier, Arborist, Formulator, Agent, Quartermaster"
   - "When ready, bring up Auditor and Envoy leveraging the above"
 
-future_vision:
+system_capabilities:
+  visual_development:
+    concept: "Development as visual workflow management"
+    implementation:
+      - "n8n-style workflow canvas for library interactions"
+      - "Real-time collaboration on workflow visualizations"
+      - "SPARQL-powered visual queries"
+      - "Workflow configurations as RDF triples"
+    envoy_dashboard: "Complete visual command center for development environment"
+
   computation_marketplace:
-    concept: "Since behaviors are data (JSON/YAML/Turtle), they can be traded/shared/verified cryptographically"
+    concept: "Behaviors are data (JSON/YAML/Turtle) that can be traded/shared/verified cryptographically"
     implementation:
       - "Each computation as a content-addressed IPFS object"
       - "Cryptographic proofs of correctness via Auditor"
@@ -609,30 +730,39 @@ future_vision:
     documentation: "See docs/computation-marketplace.md for details"
 
   formal_verification:
-    tool: "Z3 Theorem Prover integration"
+    tool: "Z3 Theorem Prover integration via Auditor"
     approach:
       - "IR as formal specification language"
       - "Pure functions enable SMT solving"
-      - "Prove correctness properties, not just test"
-      - "Generate counter-examples for failures"
-      - "Verify entire applications mathematically"
+      - "Proves correctness properties for ALL inputs, not just test cases"
+      - "Generates exact counterexamples for failures"
+      - "Verifies entire applications mathematically"
+      - "Machine-checkable proof certificates"
+    philosophy: "We don't test code. We prove it correct."
     documentation: "See docs/z3-formal-verification.md for details"
 
+  advanced_debugging:
+    time_travel: "Perfect state reconstruction from immutable triple store"
+    visual_debugging: "3D code flow and computation cascade visualization"
+    collaborative: "Real-time shared debugging sessions"
+    query_based: "SPARQL queries for debugging running applications"
+    why_explanations: "Natural language explanations of complex behaviors"
+
   distributed_architecture:
-    gun_inspired: "Build pure functional version of GUN.js CRDT algorithm"
+    gun_inspired: "Pure functional version of GUN.js CRDT algorithm"
     sqlite_virtual_tables: "SQLite virtual tables for triple store over distributed SQLite (Cloudflare D1/Turso)"
     did_vc: "Every triple as a verifiable credential with DIDs"
     blockchain_witness: "Periodic anchoring of triple store hash to blockchain for immutable history"
-    crdt_native: "Make each triple a CRDT for automatic conflict resolution"
+    crdt_native: "Each triple is a CRDT for automatic conflict resolution"
 
   ai_enhancements:
-    neural_search: "Embed triples in vector space for semantic search"
-    pattern_learning: "Learn common patterns from codebase evolution"
-    auto_optimization: "Suggest optimizations based on usage patterns"
-    intent_detection: "Convert natural language to formal specifications"
+    neural_search: "Triples embedded in vector space for semantic search"
+    pattern_learning: "Learns common patterns from codebase evolution"
+    auto_optimization: "Suggests optimizations based on usage patterns"
+    intent_detection: "Converts natural language to formal specifications"
 
   developer_experience:
-    capabilities_versioning: "Version capabilities not IR structure"
+    capabilities_versioning: "Versions capabilities not IR structure"
     ast_extensibility: "Unknown nodes preserved but ignored (like browsers with unknown HTML)"
     bidirectional_transformers: "Lossless IR version migrations"
-    embedded_compiler_version: "Store Architect version in IR for perfect reproducibility"
+    embedded_compiler_version: "Stores Architect version in IR for perfect reproducibility"

@@ -39,17 +39,17 @@ Instead of yelling about what's wrong, we gently suggest what could be better an
 
 // Output (what gets rendered):
 <Div class="container">
-  <A href="/page" data-errors='[{"type":"INVALID_ATTRIBUTE","name":"badAttribute","value":"invalid"}]'>
+  <A href="/page" data-x-bad-attribute="invalid">
     <Span data-replaces="a"
           data-reason="Cannot nest interactive element inside interactive element"
-          data-original-href="/nested">
+          data-x-original-href="/nested">
       Nested link
     </Span>
   </A>
   <P>
     <Span data-replaces="div"
           data-reason="Block element not allowed in phrasing content"
-          data-original-class="invalid">
+          data-x-original-class="invalid">
       Block in inline
     </Span>
   </P>
@@ -58,16 +58,14 @@ Instead of yelling about what's wrong, we gently suggest what could be better an
 
 #### 2. Attribute Error Handling
 ```tsx
-// Invalid attributes become data-help with gentle guidance
+// Invalid attributes become data-x- with gentle guidance
 <input type="email" invalidAttr="oops" badProp={42} />
 
 // Becomes:
 <Input type="email"
-       data-help="We noticed some attributes that could be improved for better compatibility"
-       data-guidance='[
-         {"type":"ATTRIBUTE_GUIDANCE","name":"invalidAttr","value":"oops","suggestion":"This attribute isn\'t part of the HTML standard. Consider using data-invalid-attr instead, or check if you meant a standard attribute like \'aria-invalid\'","validAttributes":["type","name","value","placeholder","required","disabled","readonly","autofocus","autocomplete","pattern","minlength","maxlength","size","multiple","form","formaction","formenctype","formmethod","formnovalidate","formtarget"]},
-         {"type":"ATTRIBUTE_GUIDANCE","name":"badProp","value":42,"suggestion":"Custom properties work best in the data-* namespace (like data-bad-prop) to avoid conflicts with future HTML standards"}
-       ]' />
+       data-x-invalid-attr="oops"
+       data-x-bad-prop="42"
+       data-help="We noticed some custom attributes - they've been preserved as data-x- attributes for CSS and JavaScript use" />
 ```
 
 #### 3. Nesting Error Handling
@@ -83,13 +81,13 @@ Instead of yelling about what's wrong, we gently suggest what could be better an
   <Span data-replaces="button"
         data-suggestion="Interactive elements work better when not nested - this helps with accessibility and user experience"
         data-why="Screen readers and keyboard navigation work more predictably with non-nested interactive elements"
-        data-original-type="button">
+        data-x-original-type="button">
     Nested button
   </Span>
   <Span data-replaces="div"
         data-suggestion="Inline elements work better with other inline content - consider using a span here"
         data-why="This helps maintain proper document structure and screen reader navigation"
-        data-original-element="div">
+        data-x-original-element="div">
     Block in inline
   </Span>
 </Button>
@@ -281,8 +279,8 @@ function showError(error) {
 </div>
 
 // System renders with corrections and debugging info
-<Div data-errors='[{"type":"INVALID_ATTRIBUTE","name":"onclick",...}]'
-     data-badattr="preserved">
+<Div data-x-onclick="alert('click')"
+     data-x-badattr="preserved">
   <Span>Content always preserved</Span>
 </Div>
 ```
@@ -375,7 +373,7 @@ async function handleSystemError(error: Error, context: UserContext) {
 ### AI-Driven Self-Healing (Opt-in)
 
 ```tsx
-// Future: AI resolution with user notification
+// AI resolution with user notification
 <SystemMessage type="resolution">
   <P>Good news! We've automatically fixed the issue you encountered earlier.</P>
   <P>You can now continue with what you were doing. Everything should work smoothly.</P>
@@ -454,7 +452,7 @@ This creates a feedback loop where:
 ## Implementation Priority
 
 1. **Phase 1**: Basic element substitution (`<a>` → `<A>`)
-2. **Phase 2**: Attribute validation and `data-errors` generation
+2. **Phase 2**: Attribute validation and `data-x-` prefixing
 3. **Phase 3**: Child element replacement and nesting validation
 4. **Phase 4**: Visual debugging CSS and development tools
 5. **Phase 5**: Envoy dashboard integration

@@ -20,12 +20,12 @@ All achieved through one principle: **The code is the single source of truth.**
 
 ## Core Beliefs
 
-- **Documentation should write itself** - From code structure and smart comments
+- **Documentation should generate itself** - From code structure, with minimal manual enhancement
 - **Everything is measurable** - Code quality, team velocity, developer happiness
 - **Knowledge graphs beat wikis** - HATEOAS navigation through your entire codebase
 - **Developer experience matters** - Every error, every build, every interaction rated
 - **Truth over assumptions** - When in doubt, trust the code, not the comments
-- **Zero manual updates** - Documentation that's always current because it's generated
+- **Automated over manual** - Let machines derive what they can, humans add what they cannot
 
 ## The Paradigm Shift
 
@@ -40,7 +40,8 @@ Traditional documentation requires:
 
 Envoy requires:
 
-- Smart comment markers (`//++`, `//??`, `//--`, `//!!`, `//>>`)
+- Your actual codebase (the primary source of truth)
+- Minimal smart comment markers for what machines cannot derive
 - That's it
 
 ### Simple Example: Self-Documenting Code
@@ -84,11 +85,22 @@ Envoy automatically generates complete documentation PLUS:
 - Tracks **usage patterns** 📊
 - Measures **developer satisfaction** with error messages
 
-## Smart Comment System
+## Automated Documentation with Minimal Manual Enhancement
 
 **📚 Complete Syntax Reference:** See [comment-syntax-guide.md](./docs/comment-syntax-guide.md) for exhaustive documentation with examples.
 
-### The Five Markers
+### The Automated-First Approach
+
+Envoy's ecosystem automatically generates most documentation:
+
+- **Examples**: Quarrier's property-based tests provide comprehensive, mathematically-derived examples
+- **Gotchas**: Auditor's formal verification discovers edge cases and boundary conditions
+- **Pros/Cons**: Envoy analyzes complexity, performance, mathematical properties, and usage patterns
+- **Function descriptions**: Often derivable from function names, parameter types, and algorithm analysis
+
+### Manual Enhancement (Use Sparingly)
+
+The five markers are available for information machines cannot derive:
 
 #### 1. Description: `//++`
 
@@ -103,15 +115,14 @@ export default function add(a: number) {
 }
 ```
 
-#### 2. Help: `//??`
+#### 2. Help: `//??` (Discouraged - Let Automation Handle This)
 
-Examples, gotchas, pros/cons
+**Prefer automated generation:**
+- Examples: Let Quarrier generate from property-based tests
+- Gotchas: Let Auditor discover through formal verification
+- Pros/Cons: Let Envoy analyze from code characteristics
 
-```typescript
-//?? [EXAMPLE] add(2)(3) // 5
-//?? [GOTCHA] Returns NaN for non-numbers
-//?? [PRO] Curried for partial application
-```
+**Use manually only for business context machines cannot infer**
 
 #### 3. Tech Debt: `//--`
 
@@ -147,17 +158,17 @@ Semantic connections using HTML rel values
 
 ## Automated Code Intelligence
 
-Envoy **automatically detects** without any configuration:
+Envoy **automatically analyzes** code characteristics and integrates mathematical properties from Auditor:
 
-### Mathematical Properties
+### Mathematical Properties (via Auditor Integration)
 
-- **Purity**: No side effects, deterministic
-- **Commutativity**: `f(a,b) === f(b,a)`
-- **Associativity**: `f(f(a,b),c) === f(a,f(b,c))`
-- **Idempotence**: `f(f(x)) === f(x)`
-- **Distributivity**: `f(a,g(b,c)) === g(f(a,b),f(a,c))`
+- **Purity**: No side effects, deterministic (detected by Auditor)
+- **Commutativity**: `f(a,b) === f(b,a)` (proven by Auditor)
+- **Associativity**: `f(f(a,b),c) === f(a,f(b,c))` (proven by Auditor)
+- **Idempotence**: `f(f(x)) === f(x)` (proven by Auditor)
+- **Distributivity**: `f(a,g(b,c)) === g(f(a,b),f(a,c))` (proven by Auditor)
 
-### Code Characteristics
+### Code Characteristics (Envoy Analysis)
 
 - **Complexity**: Big-O notation, cyclomatic complexity
 - **Currying**: Multi-level function composition
@@ -579,13 +590,13 @@ When you combine Envoy's intelligence with Sitebender Studio's ecosystem, you ge
 - Time-lapse evolution
 - Interactive exploration
 
-## Advanced Debugging Capabilities
+## Debugging & Development Intelligence
 
 ### Time-Travel Debugging
 
-**Already planned** - Immutable data architecture enables perfect state reconstruction
+Immutable data architecture enables perfect state reconstruction:
 
-- **State Snapshots**: Record every state transition in the triple store
+- **State Snapshots**: Records every state transition in the triple store
 - **Replay Engine**: Step forward/backward through any execution
 - **Diff Visualization**: See exactly what changed between states
 - **Causality Tracking**: Follow the chain of events that led to any state
@@ -593,7 +604,7 @@ When you combine Envoy's intelligence with Sitebender Studio's ecosystem, you ge
 
 ### Visual Debugging
 
-**Already planned** - Interactive graph explorer and computation tracer
+Interactive graph explorer and computation tracer:
 
 - **3D Code Flow**: Watch data flow through your architecture in real-time
 - **Computation Cascade**: See calculations ripple through the DOM
@@ -624,7 +635,7 @@ A: Because:
 
 ### Hot-Reload with Diff Intelligence
 
-Not just reloading, but understanding what changed:
+Understanding what changed, not just reloading:
 
 - **Semantic Diffs**: Show what changed in meaning, not just syntax
 - **Impact Analysis**: Highlight all affected components before reload
@@ -820,7 +831,7 @@ Envoy is part of the @sitebender studio. See [CONTRIBUTING.md](../../CONTRIBUTIN
 
 ## Visual Workflow Dashboard
 
-Envoy's revolutionary capability extends beyond documentation to become an **interactive visual command center** that shows your entire codebase as a living workflow system, inspired by n8n's visual paradigm but powered by our semantic triple store architecture.
+Envoy is an **interactive visual command center** that shows your entire codebase as a living workflow system, inspired by n8n's visual paradigm but powered by our semantic triple store architecture.
 
 ### Real-Time System Visualization
 
@@ -1004,7 +1015,7 @@ Unlike n8n's JSON configurations, Envoy workflows are stored as semantic RDF tri
 
 ### Progressive Enhancement Workflow UI
 
-Envoy's workflow dashboard works across all devices and capabilities:
+The workflow dashboard works across all devices and capabilities:
 
 #### Layer 1: Text-Based (CLI/Terminal)
 ```
@@ -1054,7 +1065,7 @@ The workflow dashboard integrates with Envoy's five-smiley feedback system:
 </WorkflowFeedback>
 ```
 
-This transforms Envoy from a documentation generator into the **central nervous system** of your development environment - a living, breathing intelligence platform that understands, monitors, and optimizes your entire workflow ecosystem.
+Envoy is the **central nervous system** of your development environment - a living, breathing intelligence platform that understands, monitors, and optimizes your entire workflow ecosystem.
 
 ---
 

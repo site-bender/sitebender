@@ -274,7 +274,7 @@ Current focus: **Pipeline architecture with immediate shrink trees**
 ### With @sitebender/arborist
 
 - Type-driven generator synthesis
-- No parsing TypeScript directly
+- Uses Arborist's structured outputs
 - Syntax-level type information only
 
 ### With @sitebender/auditor
@@ -298,7 +298,7 @@ Current focus: **Pipeline architecture with immediate shrink trees**
 - **Effects as values** vs ad-hoc async
 - **Built for @sitebender** vs generic tool
 
-## Future Vision
+## Advanced Capabilities
 
 - **Statistical Properties** - Distribution testing, Bayesian inference
 - **Concurrent Testing** - Parallel properties, distributed shrinking
@@ -314,4 +314,4 @@ MIT
 
 _"Property testing is about finding bugs through mathematical laws. Quarrier makes those laws explicit, compositional, and efficient."_
 
-**The future of testing is algebraic. The implementation is functional. The delivery is immediate.**
+**Testing is algebraic. The implementation is functional. The delivery is immediate.**

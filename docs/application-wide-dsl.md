@@ -25,15 +25,15 @@ Every Sitebender application starts with the `<Sitebender>` root component:
 ```tsx
 <Sitebender>
   <Page>
-    {/* All HTML-rendering components (Pagewright) */}
+    {/* Default page layout */}
   </Page>
   
   <Data>
-    {/* Data model and concepts (Agent/Custodian) */}
+    {/* Data model and concepts (Agent/Custodian) — creates the data store */}
   </Data>
   
   <Behavior>
-    {/* Reactive calculations, validations, formatting (Architect) */}
+    {/* Reusable reactive calculations, validations, conditionals, formatting (Architect) */}
   </Behavior>
   
   <Events>
@@ -130,19 +130,31 @@ import { A, Div, P, Input } from "@sitebender/pagewright"
 **Owns**: All HTML-rendering components, semantic markup, and standards-compliant element wrappers
 **Compiles to**: Pure HTML with progressive enhancement hooks
 
-**Critical Architecture**: Pagewright provides wrapped versions of ALL HTML elements (`<a>` → `<A>`, `<div>` → `<Div>`, `<p>` → `<P>`) that enforce W3C standards compliance and accessibility. **All Sitebender libraries must use these wrapped elements instead of lowercase HTML.**
+**Critical Architecture**: Pagewright provides wrapped versions of ALL HTML elements (`<a>` → `<A>`, `<div>` → `<Div>`, `<p>` → `<P>`) that enforce W3C standards compliance and accessibility. **All Sitebender libraries must use these wrapped elements instead of lowercase HTML.** BUT, wherever possible, libraries should use the Pagewright components rather than the wrappers. Code semantically, not to the implementation. Tell it what, not how.
 
 ```tsx
-<Page>
-  <Article>
-    <Heading level={1}>Welcome</Heading>
-    <Form concept="Person" type="create" enhance="validate" />
-    <Nav>
-      <A href="/about">About</A>
-      <A href="/contact">Contact</A>
-    </Nav>
-  </Article>
-</Page>
+<!-- In a page route (e.g., `pages/about/index.tsx`), the top level component is promoted to a Page element -->
+<Article>
+  <Heading>
+    <Title>About us</Title>
+  </Heading>
+  <Paragraph>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.<Ref>1</Ref> Phasellus at magna vitae mauris lacinia placerat.
+  </Paragraph>
+  <Section>
+    <Heading>
+      <Title>A subtitle</Title>
+    </Heading>
+    <Paragraph>
+      In tincidunt venenatis enim a scelerisque. Donec vel enim a urna feugiat elementum in vitae.
+    </Paragraph>
+  </Section>
+  <EndMatter>
+    <Notes>
+      <Note id="1">Curabitur rhoncus dolor et rhoncus.</Note>
+    </Notes>
+  </EndMatter>
+</Article>
 ```
 
 ### Architect: `<Behavior>` Wrapper
@@ -154,8 +166,15 @@ import { A, Div, P, Input } from "@sitebender/pagewright"
   <Validation name="EmailFormat">
     <And>
       <Is.String />
-      <Matches pattern="/.+@.+/" />
-      <IsLength min={5} max={100} />
+      <Is.Matching>
+        <Constant>^.+@.+$</Constant>
+      </Is.Matching>
+      <MinLength>
+        <Constant>5<Constant>
+      </MinLength>
+      <MaxLength>
+        <Constant>150<Constant>
+      </MaxLength>
     </And>
   </Validation>
   
@@ -167,13 +186,18 @@ import { A, Div, P, Input } from "@sitebender/pagewright"
   </Calculation>
   
   <Display>
-    <ShowIf>
+    <If>
       <IsEqualTo>
         <From.Element selector="#userRole" />
         <Constant>admin</Constant>
       </IsEqualTo>
+    </If>
+    <Then>
       <AdminPanel />
-    </ShowIf>
+    </Then>
+    <Else>
+      <UserDashboard />
+    </Else>
   </Display>
 </Behavior>
 ```
@@ -372,18 +396,16 @@ For forms that combine persisted data model fields with ephemeral fields (like c
 ```tsx
 <Form concept="Person">
   <!-- Persisted fields get validation automatically from Person concept -->
-  <Feature name="email" errorMessage="Please enter a valid work email" />
+  <Feature name="email help="This is the email address that you use at work" />
   
   <!-- Ephemeral fields need explicit behaviors -->
-  <Feature name="confirmPassword" ephemeral>
-    <Behavior>
-      <Validation>
-        <IsEqualTo>
-          <From.Feature name="confirmPassword" />
-          <From.Feature name="password" />
-        </IsEqualTo>
-      </Validation>
-    </Behavior>
+  <Feature name="confirmPassword">
+    <Validation>
+      <Is.Equal>
+        <From.Feature name="confirmPassword" />
+        <From.Feature name="password" />
+      </Is.Equal>
+    </Validation>
   </Feature>
 </Form>
 ```
@@ -454,25 +476,23 @@ All components communicate through the Operator pub-sub system. Components decla
 
 ### Behaviors within Pages
 
-**For Persisted Data**: Validation comes automatically from the concept's Shape definition. Behaviors in forms are typically for overriding error messages or ephemeral fields:
+**For Persisted Data**: Validation comes automatically from the concept's Shape definition. Behaviors in forms are typically for overriding help messages or ephemeral fields:
 
 ```tsx
 <Page>
   <Article>
     <Form concept="Person">
       <!-- Persisted fields get validation automatically from Person concept -->
-      <Feature name="email" errorMessage="Please enter a valid work email" />
+      <Feature name="email" help="This is your personal email address." />
       
       <!-- Ephemeral fields need explicit behaviors -->
-      <Feature name="confirmPassword" ephemeral>
-        <Behavior>
-          <Validation>
-            <IsEqualTo>
-              <From.Feature name="confirmPassword" />
-              <From.Feature name="password" />
-            </IsEqualTo>
-          </Validation>
-        </Behavior>
+      <Feature name="confirmPassword">
+        <Validation>
+          <Is.Equal>
+            <From.Feature name="confirmPassword" />
+            <From.Feature name="password" />
+          </Is.Equal>
+        </Validation>
       </Feature>
     </Form>
   </Article>
@@ -499,22 +519,20 @@ export default function ShowAdminOnly() {
 export default function PasswordConfirmation() {
   return (
     <Validation name="PasswordsMatch">
-      <IsEqualTo>
+      <Is.Equal>
         <From.Feature name="password" />
         <From.Feature name="confirmPassword" />
-      </IsEqualTo>
+      </Is.Equal>
     </Validation>
   )
 }
 
 // In pages/admin/Dashboard/index.tsx
-import ShowAdminOnly from "~behaviors/display/ShowAdminOnly/index.tsx"
-
 <Page>
   <Article>
-    <ShowAdminOnly>
+    <If.Admin>
       <AdminControlPanel />
-    </ShowAdminOnly>
+    </If.Admin>
     
     <!-- Regular persisted data gets automatic validation -->
     <Form concept="User" />
@@ -545,7 +563,9 @@ End users compose and configure existing components rather than writing custom c
   <And>
     <Is.Integer />
     <Is.Positive />
-    <IsLessThan value={120} />
+    <Is.LessThan>
+      <Constant>42</Constant>
+    </Is.LessThan>
   </And>
 </Validation>
 
@@ -570,12 +590,21 @@ This philosophy extends throughout the entire DSL - from component composition t
 Data concepts defined once drive everything else:
 
 ```tsx
-<Concept name="EmailAddress" type="string">
+<Concept name="EmailAddress">
   <Shape>
     <And>
       <Is.String />
-      <Matches pattern="/.+@.+/" />
-      <IsLength min={5} max={100} />
+      <Is.Matching>
+        <Constant>/.+@.+/</Constant>
+      </Is.Matching>
+      <And>
+        <Is.GreaterThan>
+          <Constant>5</Constant>
+        </Is.GreaterThan>
+        <Is.LessThan>
+          <Constant>100</Constant>
+        </Is.LessThan>
+      </And>
     </And>
   </Shape>
 </Concept>
@@ -628,29 +657,35 @@ Component names and compositions read like plain English:
   </HasMany>
 </Person>
 
-<ShowIf>
+<If>
   <Is.Adult>
     <From.Element selector="#age" />
   </Is.Adult>
-  <VotingEligibilityForm />
-</ShowIf>
+  <Then>
+    <VotingEligibilityForm />
+  </Then>
+</If>
 ```
 
 **Or using more explicit comparison:**
 ```tsx
-<ShowIf>
-  <IsGreaterThanOrEqual value={18}>
-    <From.Element selector="#age" />
-  </IsGreaterThanOrEqual>
-  <VotingEligibilityForm />
-</ShowIf>
+<If>
+  <Is.GreaterThanOrEqual>
+    <Referent>
+      <From.Element selector="#age" />
+    </Referent>
+    <Comparand>
+      <Constant>18</Constant>
+    </Comparand>
+  </Is.GreaterThanOrEqual>
+  <Then>
+    <VotingEligibilityForm />
+  </Then>
+</If>
 ```
 
 ## Implementation Status
 
-- **Current**: Mixed approaches with overlapping concerns
-- **Target**: Clean DSL with clear library boundaries
-- **Migration**: Remove duplications, establish consistent patterns (see [Architect-Pagewright Analysis](./architect-pagewright-analysis.md) for cleanup details)
-- **Validation**: Warden contracts enforce architectural rules
+**ALPHA** with plenty of obsolete or broken code and even more missing.
 
 This DSL specification enables the "everything is data" philosophy while maintaining intuitive, English-like component composition that domain experts can understand and configure without programming knowledge.
