@@ -48,17 +48,17 @@ The build process **automatically** substitutes typed wrappers for all standard 
 ```tsx
 // You write normal JSX:
 <a href="/page" invalidAttr="oops">
-	<a href="/nested">Nested link</a> // Build catches: invalid nesting
-</a>
+  <a href="/nested">Nested link</a> // Build catches: invalid nesting
+</a>;
 
 // Behind the scenes, the build converts it to:
-import A from "@sitebender/pagewright/html/interactive/A/index.tsx"
+import A from "@sitebender/pagewright/html/interactive/A/index.tsx";
 
 <A href="/page" invalidAttr="oops">
-	{" "}
-	// TypeScript ERROR: invalidAttr doesn't exist
-	<A href="/nested">Nested link</A> // TypeScript ERROR: A cannot contain A
-</A>
+  {" "}
+  // TypeScript ERROR: invalidAttr doesn't exist
+  <A href="/nested">Nested link</A> // TypeScript ERROR: A cannot contain A
+</A>;
 ```
 
 #### SVG Elements
@@ -66,20 +66,20 @@ import A from "@sitebender/pagewright/html/interactive/A/index.tsx"
 ```tsx
 // You write SVG:
 <svg width="100" invalidAttr="oops">
-	<circle r="50" cx="50" cy="50" />
-	<div>Invalid in SVG</div> // Build catches: div not allowed in svg
-</svg>
+  <circle r="50" cx="50" cy="50" />
+  <div>Invalid in SVG</div> // Build catches: div not allowed in svg
+</svg>;
 
 // Build converts to typed components:
-import Svg from "@sitebender/pagewright/svg/structural/Svg/index.tsx"
-import Circle from "@sitebender/pagewright/svg/shapes/Circle/index.tsx"
+import Svg from "@sitebender/pagewright/svg/structural/Svg/index.tsx";
+import Circle from "@sitebender/pagewright/svg/shapes/Circle/index.tsx";
 
 <Svg width="100" invalidAttr="oops">
-	{" "}
-	// TypeScript ERROR: invalidAttr doesn't exist
-	<Circle r="50" cx="50" cy="50" />
-	<div>Invalid in SVG</div> // TypeScript ERROR: div not allowed in svg context
-</Svg>
+  {" "}
+  // TypeScript ERROR: invalidAttr doesn't exist
+  <Circle r="50" cx="50" cy="50" />
+  <div>Invalid in SVG</div> // TypeScript ERROR: div not allowed in svg context
+</Svg>;
 ```
 
 #### MathML Elements
@@ -87,28 +87,28 @@ import Circle from "@sitebender/pagewright/svg/shapes/Circle/index.tsx"
 ```tsx
 // You write MathML:
 <math>
-	<mfrac invalidAttr="oops">
-		<mi>x</mi>
-		<mn>2</mn>
-		<mn>3</mn> // Build catches: mfrac requires exactly 2 children
-	</mfrac>
-</math>
+  <mfrac invalidAttr="oops">
+    <mi>x</mi>
+    <mn>2</mn>
+    <mn>3</mn> // Build catches: mfrac requires exactly 2 children
+  </mfrac>
+</math>;
 
 // Build converts to typed components:
-import Math from "@sitebender/pagewright/mathml/presentation/Math/index.tsx"
-import Mfrac from "@sitebender/pagewright/mathml/layout/Mfrac/index.tsx"
-import Mi from "@sitebender/pagewright/mathml/presentation/Mi/index.tsx"
-import Mn from "@sitebender/pagewright/mathml/presentation/Mn/index.tsx"
+import Math from "@sitebender/pagewright/mathml/presentation/Math/index.tsx";
+import Mfrac from "@sitebender/pagewright/mathml/layout/Mfrac/index.tsx";
+import Mi from "@sitebender/pagewright/mathml/presentation/Mi/index.tsx";
+import Mn from "@sitebender/pagewright/mathml/presentation/Mn/index.tsx";
 
 <Math>
-	<Mfrac invalidAttr="oops">
-		{" "}
-		// TypeScript ERROR: invalidAttr doesn't exist
-		<Mi>x</Mi>
-		<Mn>2</Mn>
-		<Mn>3</Mn> // TypeScript ERROR: Mfrac requires exactly 2 children
-	</Mfrac>
-</Math>
+  <Mfrac invalidAttr="oops">
+    {" "}
+    // TypeScript ERROR: invalidAttr doesn't exist
+    <Mi>x</Mi>
+    <Mn>2</Mn>
+    <Mn>3</Mn> // TypeScript ERROR: Mfrac requires exactly 2 children
+  </Mfrac>
+</Math>;
 ```
 
 You can also explicitly import typed elements for immediate IDE feedback:
@@ -333,12 +333,12 @@ In development, errors are highlighted visually and in console:
 ```css
 /* Elements with errors get red outline */
 [data-errors] {
-	outline: 2px dashed red !important;
+  outline: 2px dashed red !important;
 }
 
 [data-errors]::before {
-	content: "⚠️ HTML Error";
-	/* Visual indicator */
+  content: "⚠️ HTML Error";
+  /* Visual indicator */
 }
 ```
 
@@ -359,9 +359,9 @@ Enable strict mode to throw errors instead of recovering:
 ```tsx
 // In your config
 {
-	pagewright: {
-		strictMode: true // Throws on any HTML violation
-	}
+  pagewright: {
+    strictMode: true; // Throws on any HTML violation
+  }
 }
 ```
 
@@ -431,12 +431,12 @@ Instead of thinking in HTML elements, think in semantic concepts:
     <Title>Ode to Semantic HTML</Title>
     <Author>A Developer</Author>
   </Heading>
-  
+
   <Stanza>
     <Line>In the beginning was the div,</Line>
     <Line>And the div was without meaning.</Line>
   </Stanza>
-  
+
   <Stanza>
     <Line>But then came semantic components,</Line>
     <Line>And meaning was restored.</Line>
@@ -448,12 +448,12 @@ Instead of thinking in HTML elements, think in semantic concepts:
     <Title>The Semantic Blues</Title>
     <Composer>Code Musician</Composer>
   </Heading>
-  
+
   <Verse>
     <Line>I got those semantic HTML blues,</Line>
     <Line>Don't know which element to choose.</Line>
   </Verse>
-  
+
   <Chorus>
     <Line>But Pagewright shows the way,</Line>
     <Line>Semantic components save the day!</Line>
@@ -468,11 +468,11 @@ Instead of thinking in HTML elements, think in semantic concepts:
   <Speaker name="Hamlet">
     <Line>To be or not to be, that is the question.</Line>
   </Speaker>
-  
+
   <Speaker name="Horatio">
     <Line>My lord, what troubles you?</Line>
   </Speaker>
-  
+
   <StageDirection>
     <Action>Hamlet paces across the stage</Action>
   </StageDirection>
@@ -486,11 +486,11 @@ Instead of thinking in HTML elements, think in semantic concepts:
       <Interviewee>The Architect</Interviewee>
     </Participants>
   </Heading>
-  
+
   <Question speaker="Tech Journalist">
     What inspired you to create Sitebender?
   </Question>
-  
+
   <Answer speaker="The Architect">
     The realization that everything should be data...
   </Answer>
@@ -508,6 +508,8 @@ For reactive, client-side functionality, use the **Architect** library, which ex
 ## Route-Based Page Promotion
 
 **Revolutionary feature**: Any component becomes a full page when it's the top-level component in a route.
+
+**Note on Route Protection**: Routes can be protected with the lock system. See [Lock Documentation](../steward/docs/locks.md) for authentication and authorization patterns using `<Locked>`, `<Key>`, `<And>`, and `<Or>` components.
 
 ```tsx
 // In pages/contact/index.tsx (top-level route):
@@ -797,12 +799,12 @@ Configure your `tsconfig.json` for JSX compilation:
 
 ```json
 {
-	"compilerOptions": {
-		"jsx": "react-jsx",
-		"jsxImportSource": "@sitebender/pagewright",
-		"module": "NodeNext",
-		"moduleResolution": "NodeNext"
-	}
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "@sitebender/pagewright",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  }
 }
 ```
 
@@ -812,28 +814,28 @@ Configure your `tsconfig.json` for JSX compilation:
 // Direct imports - no barrels, no bundles!
 
 // Import typed HTML elements for standards compliance
-import H1 from "@sitebender/pagewright/html/text/H1/index.tsx"
-import Label from "@sitebender/pagewright/html/forms/Label/index.tsx"
-import Input from "@sitebender/pagewright/html/forms/Input/index.tsx"
+import H1 from "@sitebender/pagewright/html/text/H1/index.tsx";
+import Label from "@sitebender/pagewright/html/forms/Label/index.tsx";
+import Input from "@sitebender/pagewright/html/forms/Input/index.tsx";
 
 // Import semantic components for rich functionality
-import Form from "@sitebender/pagewright/interact/forms/Form/index.tsx"
-import Button from "@sitebender/pagewright/interact/buttons/Button/index.tsx"
-import Article from "@sitebender/pagewright/group/document/Article/index.tsx"
+import Form from "@sitebender/pagewright/interact/forms/Form/index.tsx";
+import Button from "@sitebender/pagewright/interact/buttons/Button/index.tsx";
+import Article from "@sitebender/pagewright/group/document/Article/index.tsx";
 
 export function ContactPage() {
-	return (
-		<Article>
-			<H1>Contact Us</H1>
-			<Form action="/api/contact" method="POST" data-enhance="ajax validation">
-				<Label>
-					Email:
-					<Input type="email" name="email" required />
-				</Label>
-				<Button type="submit">Send Message</Button>
-			</Form>
-		</Article>
-	)
+  return (
+    <Article>
+      <H1>Contact Us</H1>
+      <Form action="/api/contact" method="POST" data-enhance="ajax validation">
+        <Label>
+          Email:
+          <Input type="email" name="email" required />
+        </Label>
+        <Button type="submit">Send Message</Button>
+      </Form>
+    </Article>
+  );
 }
 ```
 
@@ -841,26 +843,26 @@ This JSX compiles to semantic HTML at build time:
 
 ```html
 <article class="ld-Article" data-type="Article">
-	<h1>Contact Us</h1>
-	<form
-		class="form"
-		action="/api/contact"
-		method="POST"
-		data-enhance="ajax validation"
-	>
-		<input type="hidden" name="_charset_" value="UTF-8" />
-		<label>
-			Email:
-			<input type="email" name="email" required />
-		</label>
-		<button class="button" type="submit">Send Message</button>
-	</form>
-	<script type="application/ld+json">
-		{
-			"@context": "https://schema.org",
-			"@type": "Article"
-		}
-	</script>
+  <h1>Contact Us</h1>
+  <form
+    class="form"
+    action="/api/contact"
+    method="POST"
+    data-enhance="ajax validation"
+  >
+    <input type="hidden" name="_charset_" value="UTF-8" />
+    <label>
+      Email:
+      <input type="email" name="email" required />
+    </label>
+    <button class="button" type="submit">Send Message</button>
+  </form>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article"
+    }
+  </script>
 </article>
 ```
 
@@ -889,10 +891,10 @@ Components use CSS Custom Properties for theming:
 
 ```css
 :root {
-	--cw-color-primary: #0066cc;
-	--cw-color-text: #333;
-	--cw-spacing-unit: 1rem;
-	--cw-font-family: system-ui, sans-serif;
+  --cw-color-primary: #0066cc;
+  --cw-color-text: #333;
+  --cw-spacing-unit: 1rem;
+  --cw-font-family: system-ui, sans-serif;
 }
 ```
 
