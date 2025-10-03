@@ -27,5 +27,4 @@ const debounce = <T extends ReadonlyArray<unknown>, R>(
 	return debounced
 }
 
-
 export default debounce

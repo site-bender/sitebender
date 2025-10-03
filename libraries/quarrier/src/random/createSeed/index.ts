@@ -1,8 +1,9 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { GeneratorError, Seed } from "../../types/index.ts"
 
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import err from "@sitebender/toolsmith/monads/result/error/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+
+import type { GeneratorError, Seed } from "../../types/index.ts"
 
 //++ Creates a validated seed for deterministic random number generation
 export default function createSeed(

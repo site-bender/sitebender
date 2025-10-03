@@ -12,5 +12,4 @@ const liftBinary = <A, B, R>(
 	return Array.from({ length: minLength }, (_, i) => fn(fa[i], fb[i]))
 }
 
-
 export default liftBinary
