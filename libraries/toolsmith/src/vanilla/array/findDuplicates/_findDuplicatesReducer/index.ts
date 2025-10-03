@@ -1,6 +1,7 @@
+import type { FindDuplicatesAccumulator } from "../types/index.ts"
+
 import not from "../../../logic/not/index.ts"
 import isNotUndefined from "../../../validation/isNotUndefined/index.ts"
-import type { FindDuplicatesAccumulator } from "../types/index.ts"
 
 //++ Reducer for finding duplicates (private, not curried for use in reduce)
 export default function _findDuplicatesReducer<T>(

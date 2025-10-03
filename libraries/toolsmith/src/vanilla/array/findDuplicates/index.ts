@@ -1,13 +1,14 @@
-import isNotEmpty from "../isNotEmpty/index.ts"
-import reduce from "../reduce/index.ts"
-import sort from "../sort/index.ts"
-import map from "../map/index.ts"
-import subtract from "../../math/subtract/index.ts"
-import _findDuplicatesReducer from "./_findDuplicatesReducer/index.ts"
 import type {
 	DuplicateEntry,
 	FindDuplicatesAccumulator,
 } from "./types/index.ts"
+
+import subtract from "../../math/subtract/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import map from "../map/index.ts"
+import reduce from "../reduce/index.ts"
+import sort from "../sort/index.ts"
+import _findDuplicatesReducer from "./_findDuplicatesReducer/index.ts"
 
 //++ Finds elements that appear more than once
 export default function findDuplicates<T>(

@@ -37,21 +37,25 @@ Deno.test("softplus", async (t) => {
 			fc.property(fc.float({ noNaN: true, noDefaultInfinity: true }), (x) => {
 				const result = softplus(x)
 				return result > 0 || result === 0 // Allow 0 for -Infinity
-			})
+			}),
 		)
 	})
 
 	await t.step("is strictly increasing", () => {
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(-100), max: Math.fround(100), noNaN: true }),
+				fc.float({
+					min: Math.fround(-100),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
 				fc.float({ min: Math.fround(0.1), max: Math.fround(10), noNaN: true }),
 				(x, delta) => {
 					const y1 = softplus(x)
 					const y2 = softplus(x + delta)
 					return y2 > y1
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -62,7 +66,7 @@ Deno.test("softplus", async (t) => {
 				const relu = Math.max(0, x)
 				const diff = Math.abs(result - relu)
 				return diff < 0.0001
-			})
+			}),
 		)
 	})
 

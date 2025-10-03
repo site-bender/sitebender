@@ -1,7 +1,7 @@
-import lte from "../../validation/lte/index.ts"
 import max from "../../math/max/index.ts"
-import slice from "../slice/index.ts"
+import lte from "../../validation/lte/index.ts"
 import length from "../length/index.ts"
+import slice from "../slice/index.ts"
 
 //++ Drops the last n elements
 export default function dropLast<T>(n: number) {

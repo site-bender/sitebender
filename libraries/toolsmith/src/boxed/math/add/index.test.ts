@@ -11,7 +11,6 @@ import validationGetOrElse from "../../../monads/validation/getOrElse/index.ts"
 import isInvalid from "../../../monads/validation/isInvalid/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import success from "../../../monads/validation/success/index.ts"
-
 import add from "./index.ts"
 
 Deno.test("add - curried form with plain values", () => {

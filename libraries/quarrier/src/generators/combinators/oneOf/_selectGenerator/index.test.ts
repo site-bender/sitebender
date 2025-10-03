@@ -1,7 +1,9 @@
 import { assertEquals } from "@std/assert"
 import { describe, it } from "@std/testing/bdd"
 import * as fc from "fast-check"
+
 import type { Generator, Seed } from "../../../../types/index.ts"
+
 import createSeed from "../../../../random/createSeed/index.ts"
 import _selectGenerator from "./index.ts"
 

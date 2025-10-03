@@ -1,0 +1,258 @@
+{
+  "metadata": {
+    "phase": "2.6",
+    "encoding_type": "counterexample",
+    "created": "2025-10-03T05:41:25Z",
+    "description": "Counter-examples showing violations with detailed explanations of why they're wrong and how to fix them. Educational focus for learning."
+  },
+  "constitutional_rules": [
+    {
+      "rule_id": "const-001-no-classes",
+      "category": "constitutional",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: class UserService with mutable state. WHY WRONG: (1) Uses class keyword, (2) Has mutable instance state (this.users), (3) Methods mutate state, (4) Uses this binding, (5) Encourages OOP over FP. HOW TO FIX: Replace with module containing pure functions that take state as parameters and return new state.",
+      "fix_reference": "See pattern const-001-no-classes for correct module-based organization",
+      "learning_points": ["Classes hide state", "this binding is implicit", "Methods encourage mutation", "Modules with pure functions are explicit"],
+      "keywords": ["class", "violation", "OOP", "this"],
+      "tags": ["counter-example", "classes", "violation", "learning"]
+    },
+    {
+      "rule_id": "const-002-no-mutations",
+      "category": "constitutional",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: let count = 0; count++; user.age = 31; items.push(4). WHY WRONG: (1) Uses let/var, (2) Reassigns variables, (3) Mutates object properties, (4) Uses mutating array methods, (5) Breaks referential transparency. HOW TO FIX: Use const, return new values with spread operators, use map/filter/reduce instead of push/pop.",
+      "fix_reference": "See pattern const-002-no-mutations for immutable operations",
+      "learning_points": ["Mutations break predictability", "const enforces immutability", "Spread creates new values", "Functional methods don't mutate"],
+      "keywords": ["mutation", "let", "var", "push", "violation"],
+      "tags": ["counter-example", "mutation", "violation", "learning"]
+    },
+    {
+      "rule_id": "const-003-no-loops",
+      "category": "constitutional",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: for(let i=0; i<arr.length; i++), while(condition), for...of, for...in. WHY WRONG: (1) Uses forbidden loop constructs, (2) Requires mutable variables, (3) Encourages imperative style, (4) Mutates accumulators. HOW TO FIX: Use map for transform, filter for selection, reduce for accumulation, recursion for custom logic.",
+      "fix_reference": "See pattern const-003-no-loops for functional iteration",
+      "learning_points": ["Loops require mutation", "map/filter/reduce are declarative", "Functional iteration is composable", "Recursion for custom logic"],
+      "keywords": ["loop", "for", "while", "violation"],
+      "tags": ["counter-example", "loops", "violation", "learning"]
+    },
+    {
+      "rule_id": "const-004-no-exceptions",
+      "category": "constitutional",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: throw new Error('msg'), try { } catch(e) { }. WHY WRONG: (1) Exceptions break referential transparency, (2) Not tracked in type system, (3) Implicit control flow, (4) Can't compose. HOW TO FIX: Return Result<T,E> for fail-fast, Validation<T,E> for accumulation, Promise<Result<T,E>> for async. try-catch ONLY at effect boundaries.",
+      "fix_reference": "See pattern const-004-no-exceptions for error-as-value",
+      "learning_points": ["Errors should be values", "Result for fail-fast", "Validation for accumulation", "Type system tracks errors"],
+      "keywords": ["throw", "try", "catch", "exception", "violation"],
+      "tags": ["counter-example", "exceptions", "violation", "learning"]
+    }
+  ],
+  "functional_programming_rules": [
+    {
+      "rule_id": "fp-001-pure-functions",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: Functions with console.log, Math.random(), new Date(), global state access, parameter mutation. WHY WRONG: (1) Side effects break purity, (2) Non-deterministic, (3) Can't test reliably, (4) Can't memoize. HOW TO FIX: Remove side effects, pass dependencies as parameters, return new values.",
+      "fix_reference": "See pattern fp-001-pure-functions for pure function examples",
+      "learning_points": ["Pure = same input, same output", "No side effects", "Deterministic behavior", "Easy to test"],
+      "keywords": ["impure", "side-effects", "console", "random", "violation"],
+      "tags": ["counter-example", "purity", "violation", "learning"]
+    },
+    {
+      "rule_id": "fp-002-immutability",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: User[] instead of ReadonlyArray<User>, no Readonly<T> wrapper, mutable properties, .sort() without copy. WHY WRONG: (1) Allows mutations, (2) Type system doesn't enforce immutability, (3) Can accidentally mutate. HOW TO FIX: Use ReadonlyArray<T>, Readonly<T>, readonly modifiers.",
+      "fix_reference": "See pattern fp-002-immutability for readonly types",
+      "learning_points": ["Readonly types prevent mutations", "ReadonlyArray for arrays", "Readonly for objects", "Type-level immutability"],
+      "keywords": ["mutable", "T[]", "no-readonly", "violation"],
+      "tags": ["counter-example", "immutability", "violation", "learning"]
+    },
+    {
+      "rule_id": "fp-003-total-functions",
+      "category": "functional_programming",
+      "severity": "warning",
+      "counterexample": "VIOLATION: Returning undefined without encoding in type, returning null implicitly, not handling all cases, using ! assertion. WHY WRONG: (1) Type signature lies, (2) Can cause runtime errors, (3) Not exhaustive. HOW TO FIX: Use Maybe<T> for optional, Result<T,E> for errors, Validation<T,E> for accumulation.",
+      "fix_reference": "See pattern fp-003-total-functions for total function examples",
+      "learning_points": ["Total functions handle all inputs", "Maybe for optional", "Result for errors", "No undefined/null without encoding"],
+      "keywords": ["partial", "undefined", "null", "!", "violation"],
+      "tags": ["counter-example", "totality", "violation", "learning"]
+    },
+    {
+      "rule_id": "fp-004-function-composition",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "counterexample": "SUBOPTIMAL: Deeply nested function calls, many intermediate variables, repeated operations not extracted, monolithic functions. WHY SUBOPTIMAL: (1) Hard to read, (2) Verbose, (3) Not DRY, (4) Not composable. HOW TO IMPROVE: Use pipe/compose, extract common patterns, break into small functions.",
+      "fix_reference": "See pattern fp-004-function-composition for composition examples",
+      "learning_points": ["Composition improves readability", "pipe for left-to-right", "compose for right-to-left", "Small composable functions"],
+      "keywords": ["nested", "verbose", "not-composed", "suboptimal"],
+      "tags": ["counter-example", "composition", "suboptimal", "learning"]
+    },
+    {
+      "rule_id": "fp-005-higher-order-functions",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "counterexample": "SUBOPTIMAL: Duplicated logic, not parameterizing behavior, repeated patterns, not abstracting. WHY SUBOPTIMAL: (1) Code duplication, (2) More to maintain, (3) Misses abstraction opportunities. HOW TO IMPROVE: Use map/filter/reduce, parameterize with functions, create HOFs.",
+      "fix_reference": "See pattern fp-005-higher-order-functions for HOF examples",
+      "learning_points": ["HOFs eliminate duplication", "Parameterize behavior", "Abstract common patterns", "Functions as first-class values"],
+      "keywords": ["duplication", "not-parameterized", "suboptimal"],
+      "tags": ["counter-example", "higher-order-functions", "suboptimal", "learning"]
+    }
+  ],
+  "syntax_rules": [
+    {
+      "rule_id": "syntax-001-no-arrow-functions",
+      "category": "syntax",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: const add = (a,b) => a+b, numbers.map(n => n*2), () => { }. WHY WRONG: (1) Uses arrow syntax (=>), (2) Creates anonymous functions, (3) Poor stack traces, (4) Less readable. HOW TO FIX: Use function keyword with explicit names for all functions including callbacks.",
+      "fix_reference": "See pattern syntax-001-no-arrow-functions for named functions",
+      "learning_points": ["Named functions improve debugging", "function keyword required", "Name all callbacks", "Better stack traces"],
+      "keywords": ["arrow", "=>", "lambda", "violation"],
+      "tags": ["counter-example", "arrow-functions", "violation", "learning"]
+    },
+    {
+      "rule_id": "syntax-002-no-abbreviations",
+      "category": "syntax",
+      "severity": "warning",
+      "counterexample": "VIOLATION: usr, cfg, msg, btn, idx, calc, proc, init, val, fmt. WHY WRONG: (1) Abbreviations reduce comprehension, (2) Not self-documenting, (3) Inconsistent. HOW TO FIX: Write full words: user, config, message, button, index, calculate, process, initialize, validate, format. Whitelist: id, html, url, api, ast.",
+      "fix_reference": "See pattern syntax-002-no-abbreviations for full names",
+      "learning_points": ["Full names are self-documenting", "Abbreviations cost comprehension", "Code is read more than written", "Whitelist exists for standards"],
+      "keywords": ["abbreviation", "usr", "cfg", "calc", "violation"],
+      "tags": ["counter-example", "abbreviations", "violation", "learning"]
+    },
+    {
+      "rule_id": "syntax-003-plain-english-names",
+      "category": "syntax",
+      "severity": "warning",
+      "counterexample": "VIOLATION: Single-letter names (f, g, x, y), cryptic names, clever/cute names (yeet, bazinga), technical jargon without context (xform, munge, grok). WHY WRONG: (1) Doesn't express intent, (2) Requires code reading to understand, (3) Not self-documenting. HOW TO FIX: Use clear English: transform, process, understand.",
+      "fix_reference": "See pattern syntax-003-plain-english-names for readable names",
+      "learning_points": ["Names should express intent", "Avoid single letters", "No clever names", "Plain English preferred"],
+      "keywords": ["cryptic", "single-letter", "clever", "violation"],
+      "tags": ["counter-example", "naming", "violation", "learning"]
+    },
+    {
+      "rule_id": "syntax-004-curried-function-naming",
+      "category": "syntax",
+      "severity": "advisory",
+      "counterexample": "SUBOPTIMAL: function add(a) { return function inner(b) { return a+b } }, generic names (f, inner), anonymous inner functions. WHY SUBOPTIMAL: (1) Generic names don't show captured params, (2) Poor stack traces, (3) Unclear closure behavior. HOW TO IMPROVE: Name inner functions with captured params: addToAugend.",
+      "fix_reference": "See pattern syntax-004-curried-function-naming for curried naming",
+      "learning_points": ["Include captured params in name", "Makes closures explicit", "Improves stack traces", "Documents data flow"],
+      "keywords": ["currying", "inner", "generic-names", "suboptimal"],
+      "tags": ["counter-example", "currying", "suboptimal", "learning"]
+    }
+  ],
+  "formatting_rules": [
+    {
+      "rule_id": "format-001-character-encoding",
+      "category": "formatting",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: Non-UTF-8 encoding (ISO-8859-1, Windows-1252), UTF-8 with BOM, mixed encodings. WHY WRONG: (1) Character corruption, (2) BOM causes parsing issues, (3) Inconsistency, (4) Cross-platform problems. HOW TO FIX: Use UTF-8 without BOM everywhere. Configure in .editorconfig and VSCode.",
+      "fix_reference": "See pattern format-001-character-encoding for UTF-8 setup",
+      "learning_points": ["UTF-8 is universal standard", "No BOM needed", "Prevents corruption", "Ensures compatibility"],
+      "keywords": ["encoding", "BOM", "ISO-8859-1", "violation"],
+      "tags": ["counter-example", "encoding", "violation", "learning"]
+    },
+    {
+      "rule_id": "format-002-line-endings",
+      "category": "formatting",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: CRLF (\\r\\n) line endings, mixed line endings, CR (\\r) endings. WHY WRONG: (1) Diff noise, (2) Merge conflicts, (3) Breaks shell scripts, (4) Inconsistent across platforms. HOW TO FIX: Use LF (\\n) everywhere. Configure Git core.autocrlf=input and .gitattributes.",
+      "fix_reference": "See pattern format-002-line-endings for LF setup",
+      "learning_points": ["LF is Unix standard", "Consistent across platforms", "Git can normalize", "Prevents merge issues"],
+      "keywords": ["CRLF", "line-endings", "mixed", "violation"],
+      "tags": ["counter-example", "line-endings", "violation", "learning"]
+    },
+    {
+      "rule_id": "format-003-indentation",
+      "category": "formatting",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: Spaces in .ts files, tabs in .md files, mixed tabs and spaces, inconsistent indent levels. WHY WRONG: (1) Breaks editor consistency, (2) Mixed indentation confuses, (3) Wrong for file type. HOW TO FIX: Tabs for code files, spaces for markdown/YAML. Configure in .editorconfig.",
+      "fix_reference": "See pattern format-003-indentation for indent setup",
+      "learning_points": ["Tabs for code flexibility", "Spaces for markdown/YAML", "Never mix", "Configure editor"],
+      "keywords": ["indentation", "mixed", "spaces", "tabs", "violation"],
+      "tags": ["counter-example", "indentation", "violation", "learning"]
+    },
+    {
+      "rule_id": "format-004-line-length",
+      "category": "formatting",
+      "severity": "warning",
+      "counterexample": "VIOLATION: Lines exceeding 80 characters, long function signatures, long strings, long type definitions. WHY WRONG: (1) Requires horizontal scrolling, (2) Hard to read in split-screen, (3) Doesn't fit in code review tools. HOW TO FIX: Break at natural boundaries, use multi-line for parameters, split strings.",
+      "fix_reference": "See pattern format-004-line-length for line breaking",
+      "learning_points": ["80 chars for readability", "Break at natural points", "Multi-line parameters OK", "No limit for markdown"],
+      "keywords": ["line-length", "long-lines", "80-characters", "violation"],
+      "tags": ["counter-example", "line-length", "violation", "learning"]
+    },
+    {
+      "rule_id": "format-005-final-newline",
+      "category": "formatting",
+      "severity": "warning",
+      "counterexample": "VIOLATION: File ends without newline character. WHY WRONG: (1) POSIX standard violation, (2) Shell script issues, (3) Diff tool problems, (4) Git warning. HOW TO FIX: Configure editor to insert final newline automatically.",
+      "fix_reference": "See pattern format-005-final-newline for newline setup",
+      "learning_points": ["POSIX requires final newline", "Prevents tool issues", "Editor can auto-insert", "Standard practice"],
+      "keywords": ["final-newline", "missing", "EOF", "violation"],
+      "tags": ["counter-example", "final-newline", "violation", "learning"]
+    },
+    {
+      "rule_id": "format-006-trailing-whitespace",
+      "category": "formatting",
+      "severity": "warning",
+      "counterexample": "VIOLATION: Spaces or tabs at end of lines (except markdown). WHY WRONG: (1) Diff noise, (2) Wastes space, (3) Tool issues, (4) Invisible in editors. HOW TO FIX: Configure editor to trim trailing whitespace. Exception: markdown uses two trailing spaces for line breaks.",
+      "fix_reference": "See pattern format-006-trailing-whitespace for trim setup",
+      "learning_points": ["Trailing whitespace is noise", "Editor can auto-trim", "Markdown exception exists", "Invisible but problematic"],
+      "keywords": ["trailing-whitespace", "spaces", "EOL", "violation"],
+      "tags": ["counter-example", "whitespace", "violation", "learning"]
+    }
+  ],
+  "typescript_rules": [
+    {
+      "rule_id": "ts-001-discriminated-unions",
+      "category": "typescript",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: Boolean flags (success: boolean, value?: T), no _tag field, optional properties, null/undefined unions. WHY WRONG: (1) Can't ensure exhaustive matching, (2) Type system can't guarantee mutual exclusivity, (3) Requires unsafe assertions. HOW TO FIX: Use _tag field with string literals, no optional properties.",
+      "fix_reference": "See pattern ts-001-discriminated-unions for tagged unions",
+      "learning_points": ["_tag enables discrimination", "No optional properties", "Exhaustive matching", "Type-safe access"],
+      "keywords": ["boolean-flag", "optional", "no-tag", "violation"],
+      "tags": ["counter-example", "discriminated-unions", "violation", "learning"]
+    },
+    {
+      "rule_id": "ts-002-branded-types",
+      "category": "typescript",
+      "severity": "warning",
+      "counterexample": "VIOLATION: type UserId = string with no brand, can mix UserId and Email, no validation at creation, direct casting without validation. WHY WRONG: (1) Can accidentally mix types, (2) No compile-time safety, (3) Can create invalid values. HOW TO FIX: Add brand: string & {readonly __brand: 'UserId'}, smart constructor with validation.",
+      "fix_reference": "See pattern ts-002-branded-types for branded type setup",
+      "learning_points": ["Brands prevent mixing", "Smart constructors validate", "Zero runtime cost", "Compile-time safety"],
+      "keywords": ["no-brand", "plain-string", "mixing-types", "violation"],
+      "tags": ["counter-example", "branded-types", "violation", "learning"]
+    },
+    {
+      "rule_id": "ts-003-explicit-annotations",
+      "category": "typescript",
+      "severity": "warning",
+      "counterexample": "VIOLATION: Missing parameter types, missing return types, relying on inference for public APIs, implicit any. WHY WRONG: (1) Not self-documenting, (2) Harder to catch errors, (3) Poor IDE support, (4) Implicit any is unsafe. HOW TO FIX: Annotate all function parameters and return types explicitly.",
+      "fix_reference": "See pattern ts-003-explicit-annotations for annotation examples",
+      "learning_points": ["Annotations are documentation", "Catch errors at boundaries", "Improve IDE support", "Make contracts explicit"],
+      "keywords": ["missing-types", "no-annotation", "implicit-any", "violation"],
+      "tags": ["counter-example", "type-annotations", "violation", "learning"]
+    },
+    {
+      "rule_id": "ts-004-readonly-types",
+      "category": "typescript",
+      "severity": "blocking",
+      "counterexample": "VIOLATION: User[] instead of ReadonlyArray<User>, no Readonly<T> wrapper, no readonly modifiers, mutable parameters. WHY WRONG: (1) Allows mutations, (2) Type system doesn't prevent changes, (3) Can accidentally mutate. HOW TO FIX: Use ReadonlyArray<T> for arrays, Readonly<T> for objects, readonly on properties.",
+      "fix_reference": "See pattern ts-004-readonly-types for readonly examples",
+      "learning_points": ["Readonly prevents mutations", "Type-level immutability", "Compile-time safety", "Explicit guarantees"],
+      "keywords": ["mutable", "T[]", "no-readonly", "violation"],
+      "tags": ["counter-example", "readonly", "violation", "learning"]
+    },
+    {
+      "rule_id": "ts-005-type-level-programming",
+      "category": "typescript",
+      "severity": "advisory",
+      "counterexample": "SUBOPTIMAL: Duplicated types, runtime validation instead of type-level, not using utility types (Partial, Pick, etc.), not encoding constraints in types. WHY SUBOPTIMAL: (1) Duplication, (2) Runtime overhead, (3) Misses type-level opportunities. HOW TO IMPROVE: Use mapped types, conditional types, utility types.",
+      "fix_reference": "See pattern ts-005-type-level-programming for type-level examples",
+      "learning_points": ["Type-level catches errors early", "Utility types reduce duplication", "Encode constraints in types", "Compile-time > runtime"],
+      "keywords": ["duplication", "runtime-check", "not-using-utility", "suboptimal"],
+      "tags": ["counter-example", "type-level", "suboptimal", "learning"]
+    }
+  ]
+}

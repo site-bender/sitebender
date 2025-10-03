@@ -2,13 +2,13 @@ import type { Result } from "../../../types/fp/result/index.ts"
 import type { Validation } from "../../../types/Validation/index.ts"
 
 import error from "../../../monads/result/error/index.ts"
-import failure from "../../../monads/validation/failure/index.ts"
 import isOk from "../../../monads/result/isOk/index.ts"
 import isResult from "../../../monads/result/isResult/index.ts"
+import resultMap from "../../../monads/result/map/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
+import failure from "../../../monads/validation/failure/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
-import ok from "../../../monads/result/ok/index.ts"
-import resultMap from "../../../monads/result/map/index.ts"
 import validationMap from "../../../monads/validation/map/index.ts"
 
 //++ Lifts a unary function to work with Result/Validation monads

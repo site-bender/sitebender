@@ -1,7 +1,7 @@
-import isNotEmpty from "../isNotEmpty/index.ts"
-import filter from "../filter/index.ts"
-import reduce from "../reduce/index.ts"
 import isFinite from "../../validation/isFinite/index.ts"
+import filter from "../filter/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
+import reduce from "../reduce/index.ts"
 import _findClosest from "./_findClosest/index.ts"
 
 //++ Finds the value closest to a target

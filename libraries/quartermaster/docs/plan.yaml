@@ -1,0 +1,1058 @@
+quartermaster_implementation_plan:
+  overview:
+    purpose: "Voice-guided, collaborative application generator for Studio"
+    philosophy:
+      - "Dogfooding First: Build Quartermaster using Studio itself"
+      - "Incremental Value: Each phase delivers working functionality"
+      - "Test-Driven: Property-based tests via Quarrier"
+      - "Voice-First: Conversational interface is foundational"
+      - "Data-Centric: Blueprints as RDF triples from day one"
+      - "Collaborative by Default: Real-time multi-user architecture"
+    timeline: "ASAP - no fixed dates, prioritized by value and dependencies"
+
+  phases:
+    - id: "phase_1"
+      name: "Foundation & CLI Core"
+      goal: "Command-line blueprint generation with basic dev server"
+      milestones:
+        - id: "M1.1"
+          name: "Blueprint Data Model"
+          tasks:
+            - "Define RDF schema for blueprints in Turtle"
+            - "Create TypeScript types for blueprint IR"
+            - "Implement validation functions (pure, testable)"
+            - "Property-based tests for schema conformance"
+
+        - id: "M1.2"
+          name: "CLI Argument Parsing"
+          tasks:
+            - "Parse 'qm new <name> --blueprint=<type>' commands"
+            - "Flag parsing: --dry-run, --voice, --gui, --collaborate"
+            - "Help text generation"
+            - "Error handling for invalid arguments"
+
+        - id: "M1.3"
+          name: "File Generation Engine"
+          tasks:
+            - "Template-free generation (no string interpolation)"
+            - "Generate from blueprint data structure"
+            - "Directory structure creation"
+            - "Import map generation"
+            - "deno.jsonc configuration"
+
+        - id: "M1.4"
+          name: "Blueprint Library"
+          tasks:
+            - "Core scaffolds: minimal, workshop, athenaeum"
+            - "Common scaffolds: blog, dashboard, form-builder"
+            - "Blueprint validation functions"
+            - "Default configuration logic"
+
+        - id: "M1.5"
+          name: "Basic Dev Server"
+          tasks:
+            - "HTTP server (HTTPS comes in Phase 2)"
+            - "Static file serving"
+            - "Port detection and selection (31415, 27182, etc.)"
+            - "Graceful shutdown"
+
+      definition_of_done:
+        - "'qm new my-app --blueprint=minimal' generates working application"
+        - "Generated app runs with 'deno task dev'"
+        - "At least 3 blueprint types working (minimal, blog, dashboard)"
+        - "100% test coverage on blueprint validation"
+        - "Property-based tests for file generation"
+        - "CLI help text complete and accurate"
+        - "Dry-run mode shows accurate preview"
+
+      deliverables:
+        - "Working CLI binary"
+        - "3+ tested blueprints"
+        - "File generation engine"
+        - "Basic dev server"
+        - "Comprehensive test suite"
+
+    - id: "phase_2"
+      name: "HTTPS & Production-Quality Dev Environment"
+      goal: "SSL certificates, professional dev server with hot reload"
+      dependencies: ["phase_1"]
+      milestones:
+        - id: "M2.1"
+          name: "mkcert Detection & Installation"
+          tasks:
+            - "Detect mkcert installation on system"
+            - "Identify OS and package manager"
+            - "Generate installation instructions"
+            - "Guided sudo prompt for 'mkcert -install'"
+            - "Certificate generation for localhost"
+
+        - id: "M2.2"
+          name: "HTTPS Dev Server"
+          tasks:
+            - "TLS/SSL server implementation"
+            - "Certificate loading and validation"
+            - "HTTPS-only configuration (no HTTP fallback)"
+            - "Certificate renewal detection"
+
+        - id: "M2.3"
+          name: "File Watching & Hot Reload"
+          tasks:
+            - "Watch src/**/*.{ts,tsx} for changes"
+            - "Incremental rebuild on file change"
+            - "WebSocket connection to browser"
+            - "Auto-refresh on successful rebuild"
+            - "Error overlay for build failures"
+
+        - id: "M2.4"
+          name: "Firewall & Security UX"
+          tasks:
+            - "Clear explanations before first server start"
+            - "Expected permission prompts documented"
+            - "Troubleshooting guide for common issues"
+            - "Security best practices documentation"
+
+        - id: "M2.5"
+          name: "Port Management"
+          tasks:
+            - "Math constant port preferences (31415, 27182, 16180, 14142, 26180)"
+            - "Availability detection"
+            - "Random port fallback"
+            - "Port-in-use clear error messages"
+
+      definition_of_done:
+        - "'qm new my-app' generates SSL certificates automatically"
+        - "Dev server runs on HTTPS by default"
+        - "File changes trigger browser reload"
+        - "Clear guidance for mkcert installation"
+        - "All math constant ports tried before random fallback"
+        - "WebSocket hot reload works reliably"
+        - "Error overlay shows build errors in browser"
+        - "Security documentation complete"
+
+      deliverables:
+        - "mkcert integration module"
+        - "HTTPS dev server"
+        - "File watcher with hot reload"
+        - "WebSocket client for browser"
+        - "Security and troubleshooting docs"
+
+    - id: "phase_3"
+      name: "Web-Based GUI & Visual Configuration"
+      goal: "Browser-based configuration wizard (Quartermaster as Studio app)"
+      dependencies: ["phase_2"]
+      milestones:
+        - id: "M3.1"
+          name: "GUI Application Structure"
+          tasks:
+            - "Build Quartermaster GUI with Pagewright"
+            - "Application routing (wizard steps)"
+            - "State management with Custodian"
+            - "Styling and responsive layout"
+
+        - id: "M3.2"
+          name: "Configuration Wizard Components"
+          tasks:
+            - "Step 1: Application name and description"
+            - "Step 2: Library selection (checkboxes with descriptions)"
+            - "Step 3: Feature configuration (conditional forms)"
+            - "Step 4: Preview (generated file tree)"
+            - "Step 5: Generate (with progress tracking)"
+
+        - id: "M3.3"
+          name: "Live Preview"
+          tasks:
+            - "Virtual file system representation"
+            - "Syntax-highlighted code previews"
+            - "Collapsible directory tree"
+            - "File content inspection"
+            - "Blueprint JSON/Turtle view"
+
+        - id: "M3.4"
+          name: "Standalone Web Server"
+          tasks:
+            - "Launch GUI without CLI ('qm gui')"
+            - "Embedded in dev server at '/_quartermaster'"
+            - "Communication between GUI and CLI"
+            - "State synchronization"
+
+        - id: "M3.5"
+          name: "Blueprint Validation UI"
+          tasks:
+            - "Real-time validation as user configures"
+            - "Clear error messages with suggestions"
+            - "Warden contract visualization"
+            - "Dependency graph display"
+
+      definition_of_done:
+        - "'qm gui' opens browser to configuration wizard"
+        - "Complete wizard flow for minimal blueprint"
+        - "Live preview shows accurate file structure"
+        - "Validation errors displayed clearly"
+        - "Generated apps match CLI-generated apps exactly"
+        - "Responsive design works on mobile"
+        - "Accessible (keyboard navigation, screen readers)"
+        - "GUI itself is a Studio app (dogfooding)"
+
+      deliverables:
+        - "Pagewright-based GUI application"
+        - "Wizard component library"
+        - "Live preview engine"
+        - "Validation UI components"
+        - "Standalone web server"
+
+    - id: "phase_4"
+      name: "Voice Interface & AI Integration"
+      goal: "Natural language configuration with Claude"
+      dependencies: ["phase_3"]
+      milestones:
+        - id: "M4.1"
+          name: "Speech Recognition Integration"
+          tasks:
+            - "Web Speech API for browser-based recognition"
+            - "Fallback to local Whisper model"
+            - "Speech-to-text with confidence scores"
+            - "Error correction and confirmation"
+
+        - id: "M4.2"
+          name: "Claude API Integration"
+          tasks:
+            - "Conversational blueprint configuration"
+            - "Context management (conversation history)"
+            - "Intent extraction from natural language"
+            - "Structured output (blueprint modifications)"
+
+        - id: "M4.3"
+          name: "Envoy Knowledge Graph Integration"
+          tasks:
+            - "Claude access to Envoy code graph"
+            - "Studio documentation as context"
+            - "Component relationship queries"
+            - "Example code suggestions"
+
+        - id: "M4.4"
+          name: "Voice-Driven Wizard Flow"
+          tasks:
+            - "Voice replaces form inputs"
+            - "'Tell me more about X' expands explanations"
+            - "'Undo that' reverses decisions"
+            - "'Show me options' lists choices"
+
+        - id: "M4.5"
+          name: "Multi-Modal Interaction"
+          tasks:
+            - "Voice + GUI simultaneously"
+            - "Voice fills forms, GUI shows result"
+            - "Click to refine voice input"
+            - "Seamless switching between modes"
+
+      definition_of_done:
+        - "'qm new --voice' launches voice-guided setup"
+        - "Natural language intents correctly interpreted"
+        - "Blueprint generated from voice-only interaction"
+        - "AI explains choices and provides context"
+        - "Envoy knowledge graph enhances suggestions"
+        - "Voice recognition accuracy > 95% for technical terms"
+        - "Fallback to text input when recognition fails"
+        - "Conversation history maintained and reviewable"
+
+      deliverables:
+        - "Speech recognition module"
+        - "Claude integration layer"
+        - "Envoy knowledge graph connector"
+        - "Voice-controlled wizard components"
+        - "Multi-modal interaction system"
+
+    - id: "phase_5"
+      name: "Real-Time Collaboration"
+      goal: "Multi-user blueprint configuration with CRDTs"
+      dependencies: ["phase_4"]
+      milestones:
+        - id: "M5.1"
+          name: "Agent CRDT Integration"
+          tasks:
+            - "Blueprint as CRDT data structure"
+            - "Conflict-free merges"
+            - "Real-time synchronization"
+            - "Offline editing support"
+
+        - id: "M5.2"
+          name: "Session Management"
+          tasks:
+            - "Create collaborative session"
+            - "Share session URL/code"
+            - "Participant management"
+            - "Permissions (view/edit/admin)"
+
+        - id: "M5.3"
+          name: "Presence & Awareness"
+          tasks:
+            - "Live cursor tracking"
+            - "User avatars and colors"
+            - "'User X is editing Y' indicators"
+            - "Active participant list"
+
+        - id: "M5.4"
+          name: "Voice Chat Integration"
+          tasks:
+            - "WebRTC peer-to-peer voice"
+            - "Push-to-talk mode"
+            - "Always-on option"
+            - "Voice activity indicators"
+
+        - id: "M5.5"
+          name: "Decision Consensus"
+          tasks:
+            - "Voting on major choices"
+            - "Proposal system for changes"
+            - "Approval workflows"
+            - "Decision history tracking"
+
+      definition_of_done:
+        - "'qm new my-app --collaborate' starts shared session"
+        - "Multiple users configure simultaneously"
+        - "Conflicts resolve automatically (CRDT)"
+        - "Live cursors show participant activity"
+        - "Voice chat works peer-to-peer"
+        - "Decision history tracked in triple store"
+        - "Session can be resumed later"
+        - "Works with voice, GUI, and CLI simultaneously"
+
+      deliverables:
+        - "CRDT blueprint synchronization"
+        - "Session management system"
+        - "Presence tracking UI"
+        - "WebRTC voice chat"
+        - "Consensus decision system"
+
+    - id: "phase_6"
+      name: "Time-Travel & Configuration History"
+      goal: "Complete audit trail and decision replay"
+      dependencies: ["phase_4"]
+      parallel_with: ["phase_5"]
+      milestones:
+        - id: "M6.1"
+          name: "Event Sourcing Architecture"
+          tasks:
+            - "Every decision as immutable event"
+            - "Event storage in triple store"
+            - "Event replay for state reconstruction"
+            - "Event schema design"
+
+        - id: "M6.2"
+          name: "History Visualization"
+          tasks:
+            - "Timeline view of configuration"
+            - "Decision tree branching"
+            - "'Why did we choose X?' explanations"
+            - "Participant attribution"
+
+        - id: "M6.3"
+          name: "Time-Travel Interface"
+          tasks:
+            - "Jump to any point in history"
+            - "See blueprint state at that time"
+            - "Compare configurations side-by-side"
+            - "Branch from historical point"
+
+        - id: "M6.4"
+          name: "Configuration Branching"
+          tasks:
+            - "Create 'what-if' branches"
+            - "Parallel exploration of alternatives"
+            - "Merge branches"
+            - "Diff between branches"
+
+        - id: "M6.5"
+          name: "Reasoning Capture"
+          tasks:
+            - "AI records reasoning for suggestions"
+            - "User reasoning captured during decisions"
+            - "'Because X, we chose Y' chains"
+            - "Learning from past projects"
+
+      definition_of_done:
+        - "'qm history' shows complete decision timeline"
+        - "Every configuration change tracked"
+        - "Reasons recorded for all decisions"
+        - "Branch and compare alternatives"
+        - "Replay configuration with modifications"
+        - "Visual diff between configurations"
+        - "SPARQL queries over decision history"
+        - "Export history as documentation"
+
+      deliverables:
+        - "Event sourcing system"
+        - "History visualization UI"
+        - "Time-travel browser"
+        - "Branch/merge logic"
+        - "Reasoning capture system"
+
+    - id: "phase_7"
+      name: "Sketch-to-App & Visual Input"
+      goal: "Generate blueprints from wireframes and mockups"
+      dependencies: ["phase_3"]
+      parallel_with: ["phase_5", "phase_6"]
+      milestones:
+        - id: "M7.1"
+          name: "Image Upload & Processing"
+          tasks:
+            - "Drag-and-drop interface"
+            - "Multi-file upload support"
+            - "Image preprocessing (contrast, scale)"
+            - "Format conversion (PNG, JPG, PDF, SVG)"
+
+        - id: "M7.2"
+          name: "Computer Vision for Layout"
+          tasks:
+            - "Component detection (buttons, forms, nav)"
+            - "Layout hierarchy extraction"
+            - "Spatial relationship analysis"
+            - "Text extraction (OCR)"
+
+        - id: "M7.3"
+          name: "Component Mapping"
+          tasks:
+            - "Visual elements → Pagewright components"
+            - "Layout patterns → routing structure"
+            - "Forms → Architect calculations"
+            - "Interactions → event handlers"
+
+        - id: "M7.4"
+          name: "AI-Assisted Refinement"
+          tasks:
+            - "Claude interprets ambiguous elements"
+            - "Suggests component alternatives"
+            - "Asks clarifying questions"
+            - "Generates descriptions from visuals"
+
+        - id: "M7.5"
+          name: "Iterative Refinement UI"
+          tasks:
+            - "Show detected components overlaid"
+            - "Click to adjust interpretation"
+            - "Regenerate with feedback"
+            - "Approve and generate blueprint"
+
+      definition_of_done:
+        - "'qm new my-app --from-sketch=wireframe.png' generates blueprint"
+        - "Common UI patterns recognized accurately"
+        - "Navigation structure inferred correctly"
+        - "Forms mapped to appropriate components"
+        - "AI fills gaps in ambiguous designs"
+        - "User can refine detected components"
+        - "Multiple sketches combine into single blueprint"
+        - "Hand-drawn and digital mockups both work"
+
+      deliverables:
+        - "Image upload and processing"
+        - "Computer vision component detection"
+        - "Component mapping logic"
+        - "AI interpretation layer"
+        - "Refinement UI"
+
+    - id: "phase_8"
+      name: "Blueprint Marketplace"
+      goal: "Community sharing with cryptographic verification"
+      dependencies: ["phase_3"]
+      parallel_with: ["phase_6", "phase_7"]
+      milestones:
+        - id: "M8.1"
+          name: "Marketplace Data Model"
+          tasks:
+            - "Blueprint listing schema (RDF)"
+            - "Author identity (DIDs)"
+            - "Versioning system"
+            - "Dependency tracking"
+
+        - id: "M8.2"
+          name: "Cryptographic Signing"
+          tasks:
+            - "Warden integration for signing"
+            - "Signature verification"
+            - "Trust chain validation"
+            - "Revocation system"
+
+        - id: "M8.3"
+          name: "Publishing Flow"
+          tasks:
+            - "Blueprint validation before publish"
+            - "Metadata collection (description, keywords, etc.)"
+            - "IPFS upload (content-addressed)"
+            - "Marketplace indexing"
+
+        - id: "M8.4"
+          name: "Discovery & Search"
+          tasks:
+            - "Category browsing"
+            - "Keyword search"
+            - "Semantic search via embeddings"
+            - "Popularity and ratings"
+
+        - id: "M8.5"
+          name: "Installation & Updates"
+          tasks:
+            - "Download from IPFS"
+            - "Signature verification"
+            - "Dependency resolution"
+            - "Update notifications"
+
+        - id: "M8.6"
+          name: "Community Features"
+          tasks:
+            - "Ratings and reviews"
+            - "Usage statistics"
+            - "Issue reporting"
+            - "Blueprint forking"
+
+      definition_of_done:
+        - "'qm marketplace publish' publishes blueprint"
+        - "Cryptographic signatures verified"
+        - "IPFS content-addressed storage"
+        - "'qm marketplace search keyword' finds blueprints"
+        - "'qm marketplace install @user/blueprint' installs"
+        - "Ratings and reviews visible"
+        - "Blueprint versions tracked"
+        - "Community moderation for malicious blueprints"
+
+      deliverables:
+        - "Marketplace triple store schema"
+        - "Cryptographic signing system"
+        - "IPFS integration"
+        - "Search and discovery UI"
+        - "Installation engine"
+        - "Community moderation tools"
+
+    - id: "phase_9"
+      name: "Editor Integration"
+      goal: "VSCode and Zed plugins"
+      dependencies: ["phase_8"]
+      milestones:
+        - id: "M9.1"
+          name: "VSCode Extension Architecture"
+          tasks:
+            - "Extension manifest and structure"
+            - "Command palette commands"
+            - "Sidebar panel registration"
+            - "WebView integration"
+
+        - id: "M9.2"
+          name: "VSCode WebView Embedding"
+          tasks:
+            - "Embed Quartermaster GUI in VSCode"
+            - "Communication between extension and WebView"
+            - "File system access from WebView"
+            - "Workspace integration"
+
+        - id: "M9.3"
+          name: "VSCode Status & Notifications"
+          tasks:
+            - "Status bar: dev server status, port, Warden violations"
+            - "Notification for blueprint updates"
+            - "Quick actions in status bar"
+            - "Progress indicators"
+
+        - id: "M9.4"
+          name: "Zed Extension Architecture"
+          tasks:
+            - "Zed extension manifest"
+            - "Command integration"
+            - "Collaboration features"
+            - "View embedding (if supported)"
+
+        - id: "M9.5"
+          name: "Zed Integration Specifics"
+          tasks:
+            - "Command mode: 'qm:new', 'qm:add', etc."
+            - "Split view configuration GUI"
+            - "Voice command integration"
+            - "Status indicators"
+
+      definition_of_done:
+        - "VSCode extension published to marketplace"
+        - "Command palette: 'Quartermaster: New Application'"
+        - "Sidebar panel shows configuration GUI"
+        - "Status bar shows dev server info"
+        - "Zed extension available"
+        - "Both editors launch web GUI seamlessly"
+        - "File system integration works correctly"
+        - "Extensions auto-update"
+
+      deliverables:
+        - "VSCode extension"
+        - "Zed extension"
+        - "Extension update mechanism"
+        - "Documentation for both editors"
+
+    - id: "phase_10"
+      name: "Advanced Features & Workflows"
+      goal: "Feature addition, specialized blueprints, workflow tools"
+      dependencies: ["phase_8"]
+      milestones:
+        - id: "M10.1"
+          name: "Feature Addition to Existing Apps"
+          tasks:
+            - "Analyze existing application"
+            - "Suggest compatible features"
+            - "Generate integration code"
+            - "Update import maps and contracts"
+
+        - id: "M10.2"
+          name: "Workflow-Specific Blueprints"
+          tasks:
+            - "workflow-designer blueprint"
+            - "automation-platform blueprint"
+            - "data-pipeline-builder blueprint"
+            - "Industry-specific workflows (CI/CD, marketing, etc.)"
+
+        - id: "M10.3"
+          name: "Smart Blueprint Suggestions"
+          tasks:
+            - "Analyze user's project history (optional)"
+            - "Suggest blueprints based on description"
+            - "Pattern recognition for common needs"
+            - "Learning from marketplace usage"
+
+        - id: "M10.4"
+          name: "Blueprint Composition"
+          tasks:
+            - "Combine multiple blueprints"
+            - "Merge feature sets"
+            - "Conflict resolution"
+            - "Hybrid blueprint generation"
+
+        - id: "M10.5"
+          name: "Export & Documentation"
+          tasks:
+            - "Export blueprint to JSON/YAML/Turtle"
+            - "Generate README from blueprint"
+            - "Architecture diagrams"
+            - "Decision documentation"
+
+      definition_of_done:
+        - "'qm add feature sentinel-auth' adds auth to existing app"
+        - "All workflow blueprints functional"
+        - "AI suggests blueprints based on description"
+        - "Multiple blueprints combine cleanly"
+        - "Generated README documents architecture"
+        - "Blueprint export in all formats"
+        - "Feature addition doesn't break existing code"
+
+      deliverables:
+        - "Feature addition engine"
+        - "10+ workflow blueprints"
+        - "Smart suggestion system"
+        - "Blueprint composition logic"
+        - "Export and documentation generator"
+
+    - id: "phase_11"
+      name: "Performance & Optimization"
+      goal: "Fast generation, efficient dev server, resource optimization"
+      dependencies: ["phase_10"]
+      continuous: true
+      milestones:
+        - id: "M11.1"
+          name: "Blueprint Generation Optimization"
+          tasks:
+            - "Parallel file generation"
+            - "Incremental generation (only changed files)"
+            - "Caching validated blueprints"
+            - "Memoization of expensive operations"
+
+        - id: "M11.2"
+          name: "Dev Server Performance"
+          tasks:
+            - "HTTP/3 support"
+            - "Compression (gzip, brotli)"
+            - "Efficient file watching (debouncing)"
+            - "Optimized hot reload protocol"
+
+        - id: "M11.3"
+          name: "Voice Processing Optimization"
+          tasks:
+            - "Local speech recognition option"
+            - "Streaming responses from Claude"
+            - "Intent caching"
+            - "Reduced API calls"
+
+        - id: "M11.4"
+          name: "Collaborative Session Optimization"
+          tasks:
+            - "Efficient CRDT operations"
+            - "Diff-based synchronization"
+            - "Connection pooling"
+            - "Bandwidth reduction"
+
+        - id: "M11.5"
+          name: "Marketplace Performance"
+          tasks:
+            - "Indexed search"
+            - "CDN for popular blueprints"
+            - "Lazy loading"
+            - "Pagination"
+
+      definition_of_done:
+        - "Minimal blueprint generates in < 100ms"
+        - "Large blueprints generate in < 2s"
+        - "Hot reload completes in < 300ms"
+        - "Voice responses stream incrementally"
+        - "Collaborative edits propagate in < 300ms"
+        - "Marketplace search returns in < 100ms"
+        - "Dev server handles 100+ requests/sec"
+        - "Memory usage remains stable over time"
+
+      deliverables:
+        - "Optimized generation engine"
+        - "High-performance dev server"
+        - "Efficient voice processing"
+        - "Optimized CRDT sync"
+        - "Fast marketplace search"
+
+    - id: "phase_12"
+      name: "Documentation & Educational Content"
+      goal: "Comprehensive docs, tutorials, onboarding"
+      dependencies: ["phase_10"]
+      continuous: true
+      milestones:
+        - id: "M12.1"
+          name: "User Documentation"
+          tasks:
+            - "Getting started guide"
+            - "Blueprint reference"
+            - "Feature documentation"
+            - "CLI reference"
+            - "GUI walkthrough"
+
+        - id: "M12.2"
+          name: "Video Tutorials"
+          tasks:
+            - "'Your First Studio App' (10 min)"
+            - "'Voice-Guided Development' (15 min)"
+            - "'Collaborative Configuration' (12 min)"
+            - "'Sketch to Application' (8 min)"
+            - "'Advanced Blueprints' (20 min)"
+
+        - id: "M12.3"
+          name: "Interactive Tutorials"
+          tasks:
+            - "In-app guided tours"
+            - "Interactive exercises"
+            - "Sandbox environment"
+            - "Achievement tracking"
+
+        - id: "M12.4"
+          name: "Architecture Documentation"
+          tasks:
+            - "System design docs"
+            - "Data flow diagrams"
+            - "Integration guides"
+            - "Extension development"
+
+        - id: "M12.5"
+          name: "Community Resources"
+          tasks:
+            - "Discord/forum setup"
+            - "GitHub discussions"
+            - "Example projects"
+            - "Blueprint showcase"
+
+      definition_of_done:
+        - "Complete user documentation published"
+        - "5+ video tutorials available"
+        - "Interactive tutorial in Quartermaster GUI"
+        - "Architecture docs for contributors"
+        - "Community forum active"
+        - "10+ example projects"
+        - "Blueprint showcase with 20+ entries"
+
+      deliverables:
+        - "User documentation site"
+        - "Video tutorial series"
+        - "Interactive tutorial system"
+        - "Architecture documentation"
+        - "Community infrastructure"
+
+    - id: "phase_13"
+      name: "Production Hardening"
+      goal: "Reliability, security, error recovery"
+      dependencies: ["phase_10"]
+      continuous: true
+      milestones:
+        - id: "M13.1"
+          name: "Error Recovery"
+          tasks:
+            - "Graceful degradation"
+            - "Automatic retry logic"
+            - "State recovery after crash"
+            - "Rollback on generation failure"
+
+        - id: "M13.2"
+          name: "Security Hardening"
+          tasks:
+            - "Input validation everywhere"
+            - "XSS prevention in GUI"
+            - "CSRF protection"
+            - "Rate limiting"
+
+        - id: "M13.3"
+          name: "Monitoring & Telemetry"
+          tasks:
+            - "Usage analytics (opt-in)"
+            - "Error reporting"
+            - "Performance metrics"
+            - "Health checks"
+
+        - id: "M13.4"
+          name: "Reliability Testing"
+          tasks:
+            - "Chaos engineering tests"
+            - "Network failure simulation"
+            - "Concurrent user stress tests"
+            - "Long-running stability tests"
+
+        - id: "M13.5"
+          name: "Backup & Recovery"
+          tasks:
+            - "Blueprint backup system"
+            - "Configuration export"
+            - "Disaster recovery procedures"
+            - "Data migration tools"
+
+      definition_of_done:
+        - "System recovers from all tested failure modes"
+        - "Security audit passes"
+        - "Telemetry system operational"
+        - "Stress tests pass (100 concurrent users)"
+        - "99.9% uptime for marketplace"
+        - "Backup and recovery procedures documented"
+        - "Incident response plan in place"
+
+      deliverables:
+        - "Error recovery system"
+        - "Security audit report"
+        - "Monitoring infrastructure"
+        - "Reliability test suite"
+        - "Backup and recovery tools"
+
+    - id: "phase_14"
+      name: "Release & Launch"
+      goal: "Public release, marketing, community building"
+      dependencies: ["phase_11", "phase_12", "phase_13"]
+      milestones:
+        - id: "M14.1"
+          name: "Release Preparation"
+          tasks:
+            - "Version 1.0 tagging"
+            - "Release notes"
+            - "Migration guides (for alpha users)"
+            - "Deprecation notices for breaking changes"
+
+        - id: "M14.2"
+          name: "Marketing Materials"
+          tasks:
+            - "Website launch"
+            - "Demo videos"
+            - "Blog posts"
+            - "Social media content"
+
+        - id: "M14.3"
+          name: "Launch Events"
+          tasks:
+            - "Release announcement"
+            - "Live demo webinar"
+            - "Tutorial workshop"
+            - "Q&A sessions"
+
+        - id: "M14.4"
+          name: "Community Onboarding"
+          tasks:
+            - "Welcome guide"
+            - "Contributor guidelines"
+            - "Code of conduct"
+            - "Governance model"
+
+        - id: "M14.5"
+          name: "Feedback Collection"
+          tasks:
+            - "User surveys"
+            - "Usage analytics review"
+            - "Feature request tracking"
+            - "Bug bounty program"
+
+      definition_of_done:
+        - "Version 1.0 released"
+        - "Website live with documentation"
+        - "Launch announcement published"
+        - "3+ demo videos available"
+        - "Live demo webinar conducted"
+        - "Community guidelines published"
+        - "Feedback mechanisms active"
+        - "100+ users onboarded in first week"
+
+      deliverables:
+        - "Version 1.0 release"
+        - "Marketing website"
+        - "Demo video series"
+        - "Community infrastructure"
+        - "Feedback collection system"
+
+  cross_cutting_concerns:
+    testing:
+      unit_tests:
+        - "Pure function testing with Quarrier"
+        - "100% coverage requirement"
+        - "Property-based tests for validation logic"
+        - "Fast feedback (< 1s for unit suite)"
+
+      integration_tests:
+        - "Blueprint generation end-to-end"
+        - "Dev server functionality"
+        - "Voice interface workflows"
+        - "Collaborative sessions"
+
+      system_tests:
+        - "Full application generation"
+        - "Multi-user scenarios"
+        - "Performance benchmarks"
+        - "Security penetration testing"
+
+      regression_tests:
+        - "Automated on every commit"
+        - "Generated apps must build and run"
+        - "No breaking changes without major version"
+
+    documentation:
+      code_documentation:
+        - "Envoy //++ comments on all exported functions"
+        - "Type annotations comprehensive"
+        - "Architecture decision records (ADRs)"
+        - "Inline examples"
+
+      user_documentation:
+        - "Updated with every feature"
+        - "Screenshots and videos"
+        - "Interactive examples"
+        - "Troubleshooting guides"
+
+    security:
+      code_review:
+        - "All PRs require review"
+        - "Security-focused review checklist"
+        - "Warden contract validation in CI"
+        - "Dependency audit automation"
+
+      threat_modeling:
+        - "Regular security assessments"
+        - "Penetration testing"
+        - "Vulnerability disclosure process"
+        - "Security advisories"
+
+    performance:
+      benchmarking:
+        - "Automated performance tests"
+        - "Regression detection"
+        - "Resource usage monitoring"
+        - "Optimization targets maintained"
+
+    accessibility:
+      wcag_compliance:
+        - "axe testing in CI"
+        - "Keyboard navigation"
+        - "Screen reader compatibility"
+        - "High contrast modes"
+
+  dependencies_and_sequencing:
+    critical_path:
+      - "Phase 1 (Foundation) → Blocks all other phases"
+      - "Phase 2 (HTTPS) → Blocks Phase 3 (GUI needs HTTPS)"
+      - "Phase 3 (GUI) → Blocks Phase 4 (Voice needs GUI)"
+      - "Phase 4 (Voice + AI) → Blocks Phase 5 (Voice chat)"
+      - "Phase 6 (Time-Travel) → Integrates into Phases 4-5"
+
+    parallel_workstreams:
+      - "Phase 7 (Sketch-to-App) can develop alongside Phases 4-5"
+      - "Phase 8 (Marketplace) can develop alongside Phases 6-7"
+      - "Phase 9 (Editor Integration) can develop alongside Phase 8"
+      - "Phase 10 (Advanced Features) builds on stable foundation"
+
+    deferrable:
+      - "Phase 11 (Performance) can be incremental throughout"
+      - "Phase 12 (Documentation) continuous but release before Phase 14"
+      - "Phase 13 (Hardening) throughout, critical before Phase 14"
+      - "Phase 14 (Launch) only when Phases 1-10 complete"
+
+  success_criteria:
+    functional:
+      - "All 14 phases completed"
+      - "Every blueprint type generates working applications"
+      - "Voice interface handles 95%+ of common requests"
+      - "Collaborative sessions support 10+ simultaneous users"
+      - "Marketplace has 50+ community blueprints"
+
+    quality:
+      - "100% test coverage maintained"
+      - "Zero known security vulnerabilities"
+      - "< 1% error rate in production"
+      - "Performance targets met"
+      - "Accessibility WCAG AA compliant"
+
+    adoption:
+      - "1000+ applications generated in first 3 months"
+      - "100+ active community members"
+      - "50+ marketplace blueprints published"
+      - "5+ editor plugins (community-contributed)"
+      - "Featured in 3+ major developer publications"
+
+  risk_mitigation:
+    technical_risks:
+      - risk: "Voice recognition accuracy insufficient"
+        mitigation: "Fallback to text input, allow correction, continuous model improvement"
+
+      - risk: "CRDT conflicts in complex scenarios"
+        mitigation: "Extensive testing, manual resolution UI, conflict logging"
+
+      - risk: "mkcert installation friction"
+        mitigation: "Clear documentation, video tutorials, alternative manual process"
+
+      - risk: "Performance degrades with large blueprints"
+        mitigation: "Profiling, optimization phase, incremental generation"
+
+    adoption_risks:
+      - risk: "Voice interface intimidates traditional developers"
+        mitigation: "GUI and CLI as full alternatives, progressive enhancement"
+
+      - risk: "Too complex for target audience"
+        mitigation: "User testing with non-developers, simplification, defaults"
+
+      - risk: "Marketplace spam or malicious blueprints"
+        mitigation: "Warden validation, community moderation, cryptographic signing"
+
+    business_risks:
+      - risk: "Claude API costs too high"
+        mitigation: "Caching, local models, user-provided keys option"
+
+      - risk: "Community doesn't materialize"
+        mitigation: "Active outreach, content creation, partnership with influencers"
+
+      - risk: "Competing tools emerge"
+        mitigation: "Unique value proposition (voice, collaboration, Studio integration)"
+
+  future_enhancements:
+    version_2_possibilities:
+      - "Migration wizards (if community demands)"
+      - "Mobile app for blueprint configuration"
+      - "AR/VR interface for spatial configuration"
+      - "Automated optimization suggestions"
+      - "Multi-language voice support"
+      - "Blueprint recommendation engine (ML)"
+      - "Integration with design tools (Figma plugins)"
+      - "Cloud-hosted collaborative sessions"
+      - "Enterprise features (SSO, audit logs)"
+      - "Blueprint certification program"
+
+    research_directions:
+      - "Formal verification of generated applications"
+      - "AI-generated blueprints from high-level descriptions"
+      - "Automatic performance optimization"
+      - "Self-healing applications"
+      - "Predictive feature suggestions"
+      - "Cross-framework migration (if absolutely necessary)"

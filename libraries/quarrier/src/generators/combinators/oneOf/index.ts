@@ -1,3 +1,5 @@
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
 import type {
 	Generator,
 	GeneratorResult,
@@ -5,7 +7,7 @@ import type {
 	Seed,
 	ShrinkTree,
 } from "../../../types/index.ts"
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
 import _selectGenerator from "./_selectGenerator/index.ts"
 import _shrinkWithAlternatives from "./_shrinkWithAlternatives/index.ts"
 import _tryParsers from "./_tryParsers/index.ts"

@@ -6,11 +6,11 @@ import resultGetOrElse from "../getOrElse/index.ts"
 import isError from "../isError/index.ts"
 import isOk from "../isOk/index.ts"
 import ok from "../ok/index.ts"
-
 import map4 from "./index.ts"
 
-const sumFour = (a: number) => (b: number) => (c: number) => (d: number): number =>
-	a + b + c + d
+const sumFour =
+	(a: number) => (b: number) => (c: number) => (d: number): number =>
+		a + b + c + d
 
 const mappedSum = map4(sumFour)
 

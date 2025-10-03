@@ -6,5 +6,4 @@ const partial = <T extends ReadonlyArray<any>, U extends ReadonlyArray<any>, R>(
 ) =>
 (...remainingArgs: U): R => fn(...fixedArgs, ...remainingArgs)
 
-
 export default partial

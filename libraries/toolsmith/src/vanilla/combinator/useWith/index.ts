@@ -10,5 +10,4 @@ const useWith = <R>(
 	return fn(...transformedArgs)
 }
 
-
 export default useWith
