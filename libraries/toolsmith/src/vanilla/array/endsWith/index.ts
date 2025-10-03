@@ -1,9 +1,9 @@
+import subtract from "../../math/subtract/index.ts"
 import is from "../../validation/is/index.ts"
 import isArray from "../../validation/isArray/index.ts"
+import all from "../all/index.ts"
 import isEmpty from "../isEmpty/index.ts"
 import length from "../length/index.ts"
-import subtract from "../../math/subtract/index.ts"
-import all from "../all/index.ts"
 
 //++ Checks if an array ends with a given suffix array
 export default function endsWith<T>(

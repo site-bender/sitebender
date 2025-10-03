@@ -4,5 +4,4 @@ const flatMap = <T, U>(
 ) =>
 (array: Array<T>): Array<U> => array.flatMap(fn)
 
-
 export default flatMap

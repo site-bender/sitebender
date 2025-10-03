@@ -34,7 +34,7 @@ export default function _deepEquals(
 	// Check for +0 vs -0 case
 	// Don't use isZero here to avoid circular dependency - check directly
 	if (isNumber(x) && x === 0 && isNumber(y) && y === 0) {
-		return is(x)(y)  // This will distinguish +0 from -0
+		return is(x)(y) // This will distinguish +0 from -0
 	}
 
 	// Handle NaN equality

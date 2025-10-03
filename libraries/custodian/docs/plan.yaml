@@ -1,0 +1,1130 @@
+custodian_implementation_plan:
+  overview:
+    purpose: "State management with progressive enhancement, continuations, and visual workflow design"
+    philosophy:
+      - "Stateless by Default: URL and forms encode all UI state"
+      - "Progressive Enhancement: Works without JavaScript, enhances with it"
+      - "Server as Source of Truth: No client-side state duplication"
+      - "Continuations for Flows: Cryptographically signed resumable workflows"
+      - "Event Sourcing Integration: State machines emit events via Operator"
+      - "Visual Design: State machines as visual workflows (n8n-style)"
+      - "Pure Functions: All state transitions are deterministic and testable"
+    timeline: "12-18 months to v1.0.0 (ASAP, prioritized by value and dependencies)"
+
+  success_metrics:
+    functional:
+      - "State machines work without JavaScript"
+      - "Continuations cryptographically secure"
+      - "Event sourcing via Operator"
+      - "Visual designer functional"
+      - "Collaborative editing works"
+      - "Distributed state synchronizes"
+    performance:
+      - "< 1ms state transition latency"
+      - "< 100ms continuation signing"
+      - "60fps visual animations"
+      - "< 1s crash recovery time"
+      - "1000+ concurrent state machines"
+      - "Zero data loss"
+    quality:
+      - "100% test coverage"
+      - "Property-based tests for invariants"
+      - "Security audit passed"
+      - "Documentation for all public APIs"
+      - "Examples for common patterns"
+
+  phases:
+    - id: "phase_1"
+      name: "URL-as-State Foundation"
+      goal: "Complete UI state encoded in URLs with stateless server rendering"
+      milestones:
+        - id: "M1.1"
+          name: "URL State Model"
+          tasks:
+            - "Define URL structure for UI state (query params, fragments)"
+            - "State serialization functions (pure, curried)"
+            - "State deserialization functions"
+            - "URL generation from state object"
+            - "URL validation and sanitization"
+
+        - id: "M1.2"
+          name: "Server-Side Rendering"
+          tasks:
+            - "Read state from URL query parameters"
+            - "Render appropriate UI for current state"
+            - "No client-side state required"
+            - "Works in Lynx/Mosaic (text browsers)"
+            - "Semantic HTML only (no JavaScript)"
+
+        - id: "M1.3"
+          name: "Form-Based State Mutations"
+          tasks:
+            - "Forms as state transition mechanisms"
+            - "HTTP POST/PUT/DELETE methods"
+            - "Server processes form → new state → new URL"
+            - "Form validation server-side"
+            - "Redirect to new URL after mutation"
+
+        - id: "M1.4"
+          name: "Idempotent Operations"
+          tasks:
+            - "UUID-based operation IDs"
+            - "Server-generated UUIDs in forms"
+            - "Idempotency key checking"
+            - "Exactly-once semantics"
+            - "Operation result caching"
+
+        - id: "M1.5"
+          name: "Client-Side URL Updates"
+          tasks:
+            - "JavaScript intercepts link clicks"
+            - "Update URL via pushState"
+            - "Re-render without page load"
+            - "Fallback: works without JavaScript"
+            - "History API integration"
+
+      definition_of_done:
+        - "All UI state in URL query params"
+        - "Server renders from URL state"
+        - "Works perfectly in Lynx (no JavaScript)"
+        - "Forms submit via HTTP, redirect to new state"
+        - "JavaScript intercepts and updates locally"
+        - "100% test coverage on state serialization"
+        - "Property-based tests for URL encoding/decoding"
+        - "Zero client-side state duplication"
+
+      deliverables:
+        - "URL state schema documentation"
+        - "State serialization library"
+        - "Server-side rendering integration"
+        - "Form handling utilities"
+        - "Progressive enhancement layer"
+        - "Test suite"
+
+    - id: "phase_2"
+      name: "Cryptographic Continuations"
+      goal: "Resumable multi-step workflows with tamper-proof continuation tokens"
+      dependencies: ["phase_1"]
+      milestones:
+        - id: "M2.1"
+          name: "Continuation Data Model"
+          tasks:
+            - "Continuation structure (step, data, remaining steps)"
+            - "Rollback chain (previous continuation)"
+            - "Expiration timestamp"
+            - "Nonce for replay prevention"
+            - "TypeScript types for Continuation IR"
+
+        - id: "M2.2"
+          name: "Cryptographic Signing"
+          tasks:
+            - "Ed25519 signing of continuations"
+            - "HMAC for symmetric key scenarios"
+            - "Signature verification"
+            - "Key rotation support"
+            - "Tamper detection"
+
+        - id: "M2.3"
+          name: "Continuation Serialization"
+          tasks:
+            - "Base64 encoding for URLs"
+            - "JSON serialization of continuation data"
+            - "Compression for large continuations"
+            - "Size limits (prevent DoS)"
+            - "URL-safe encoding"
+
+        - id: "M2.4"
+          name: "Resumable Workflows"
+          tasks:
+            - "Multi-step form wizards"
+            - "Save-for-later functionality"
+            - "Bookmark mid-workflow and resume"
+            - "Continuation expiration handling"
+            - "Graceful degradation (expired continuations)"
+
+        - id: "M2.5"
+          name: "Privacy-Aware Continuations"
+          tasks:
+            - "Public data (goes in URL)"
+            - "Private data (server-side only)"
+            - "Proof of validity without exposure"
+            - "Zero-knowledge resumption tokens"
+            - "Selective disclosure"
+
+      definition_of_done:
+        - "Continuations cryptographically signed"
+        - "Tamper detection functional"
+        - "Multi-step forms resumable from bookmark"
+        - "Continuation expiration enforced"
+        - "Private data never in URLs"
+        - "Zero-knowledge proofs validate state"
+        - "Property-based tests for crypto invariants"
+        - "Security audit on continuation implementation"
+
+      deliverables:
+        - "Continuation data model"
+        - "Signing/verification library"
+        - "Serialization utilities"
+        - "Workflow wizard components"
+        - "Privacy mechanisms"
+        - "Security documentation"
+
+    - id: "phase_3"
+      name: "State Machine Primitives"
+      goal: "Pure functional state machines with declarative definitions"
+      dependencies: ["phase_2"]
+      milestones:
+        - id: "M3.1"
+          name: "State Machine Model"
+          tasks:
+            - "Discriminated unions for states"
+            - "Event type definitions"
+            - "Transition functions (pure)"
+            - "Guard predicates"
+            - "Action lists per transition"
+
+        - id: "M3.2"
+          name: "State Machine Execution"
+          tasks:
+            - "Current state tracking"
+            - "Event processing"
+            - "Transition validation"
+            - "Guard evaluation"
+            - "Action execution"
+
+        - id: "M3.3"
+          name: "State Machine as Data"
+          tasks:
+            - "State machines as RDF triples"
+            - "SPARQL queries over state machines"
+            - "State machine serialization (Turtle/JSON/YAML)"
+            - "State machine versioning"
+            - "State machine composition"
+
+        - id: "M3.4"
+          name: "Server-Side State Machines"
+          tasks:
+            - "Form submissions as state machine events"
+            - "Server computes next state"
+            - "Redirect to URL with new state"
+            - "Works without JavaScript"
+            - "Stateless HTTP semantics"
+
+        - id: "M3.5"
+          name: "Client-Side Enhancement"
+          tasks:
+            - "JavaScript intercepts form submissions"
+            - "Local state machine execution"
+            - "Optimistic state transitions"
+            - "Background sync to server"
+            - "Conflict resolution"
+
+      definition_of_done:
+        - "State machines defined as discriminated unions"
+        - "Transitions are pure functions"
+        - "State machines stored as RDF triples"
+        - "Server-side execution functional"
+        - "Client-side progressive enhancement works"
+        - "Works identically with/without JavaScript"
+        - "100% test coverage on state transitions"
+        - "Property-based tests for state machine invariants"
+
+      deliverables:
+        - "State machine data model"
+        - "Execution engine"
+        - "Triple store integration"
+        - "Server-side handlers"
+        - "Client-side enhancement layer"
+        - "Test suite"
+
+    - id: "phase_4"
+      name: "Event Sourcing Integration"
+      goal: "State machines emit events to Operator, state derived from event history"
+      dependencies: ["phase_3"]
+      milestones:
+        - id: "M4.1"
+          name: "State Transitions as Events"
+          tasks:
+            - "Every state transition produces event"
+            - "Events published to Operator"
+            - "Event payload includes (from state, to state, event trigger)"
+            - "Events stored as RDF triples"
+            - "SPARQL queries over state history"
+
+        - id: "M4.2"
+          name: "State from Event Replay"
+          tasks:
+            - "Current state derived by folding events"
+            - "Replay from any point in history"
+            - "Time-travel debugging"
+            - "Event validation (Warden contracts)"
+            - "Idempotent event application"
+
+        - id: "M4.3"
+          name: "CQRS Pattern"
+          tasks:
+            - "Commands (form submissions) produce events"
+            - "Events update state machines"
+            - "Queries are nullipotent (pure reads)"
+            - "Command/query separation enforced"
+            - "Event audit trail"
+
+        - id: "M4.4"
+          name: "Event Snapshots"
+          tasks:
+            - "Periodic state snapshots"
+            - "Snapshot validation (hash of events)"
+            - "Replay from snapshot + subsequent events"
+            - "Snapshot pruning strategies"
+            - "Performance optimization"
+
+        - id: "M4.5"
+          name: "Distributed State Machines"
+          tasks:
+            - "State machine events via Operator P2P"
+            - "CRDT-based state convergence (via Agent)"
+            - "Conflict-free state synchronization"
+            - "Vector clock ordering"
+            - "Eventual consistency"
+
+      definition_of_done:
+        - "All state transitions produce events"
+        - "Events published to Operator triple store"
+        - "Current state derived from event replay"
+        - "Time-travel debugging functional"
+        - "CQRS pattern enforced"
+        - "Snapshots accelerate replay"
+        - "Distributed state machines synchronize"
+        - "Property-based tests for event sourcing invariants"
+
+      deliverables:
+        - "Event emission integration"
+        - "Event replay engine"
+        - "CQRS utilities"
+        - "Snapshot mechanism"
+        - "Distributed state synchronization"
+        - "Event sourcing test suite"
+
+    - id: "phase_5"
+      name: "Generator-Based State Machines"
+      goal: "Resumable state machines using generator functions"
+      dependencies: ["phase_4"]
+      milestones:
+        - id: "M5.1"
+          name: "Generator State Machine Model"
+          tasks:
+            - "Generator functions for state transitions"
+            - "Yield points as state checkpoints"
+            - "Resumable execution via next()"
+            - "State carried through generator"
+            - "Generator composition"
+
+        - id: "M5.2"
+          name: "Generator Continuation"
+          tasks:
+            - "Serialize generator state"
+            - "Resume from serialized checkpoint"
+            - "Continuation token includes generator state"
+            - "Crash-resilient workflows"
+            - "Long-running workflows"
+
+        - id: "M5.3"
+          name: "Generator Error Handling"
+          tasks:
+            - "Try/catch within generators"
+            - "Error state transitions"
+            - "Rollback on error"
+            - "Compensation actions"
+            - "Error recovery workflows"
+
+        - id: "M5.4"
+          name: "Generator Performance"
+          tasks:
+            - "Lazy evaluation of states"
+            - "Only compute next state when needed"
+            - "Memory-efficient for large state spaces"
+            - "Stream-like processing"
+            - "Backpressure handling"
+
+        - id: "M5.5"
+          name: "Generator Testing"
+          tasks:
+            - "Property-based tests for generators"
+            - "Generator state snapshot testing"
+            - "Resumption testing"
+            - "Error path testing"
+            - "Performance benchmarks"
+
+      definition_of_done:
+        - "State machines can use generators"
+        - "Generator state serializable"
+        - "Resumption from continuation works"
+        - "Error handling functional"
+        - "Performance meets targets (< 1ms transitions)"
+        - "Generators integrate with event sourcing"
+        - "Property-based tests pass"
+        - "Documentation on generator patterns"
+
+      deliverables:
+        - "Generator state machine implementation"
+        - "Continuation serialization for generators"
+        - "Error handling utilities"
+        - "Performance benchmarks"
+        - "Generator testing framework"
+        - "Generator pattern documentation"
+
+    - id: "phase_6"
+      name: "Visual State Machine Designer"
+      goal: "n8n-style visual workflow designer for state machines"
+      dependencies: ["phase_5"]
+      milestones:
+        - id: "M6.1"
+          name: "Canvas & Node System"
+          tasks:
+            - "Drag-and-drop canvas (HTML5 Canvas or SVG)"
+            - "State nodes (draggable, connectable)"
+            - "Transition edges (Bezier curves)"
+            - "Node palette (state types: start, end, form, decision, etc.)"
+            - "Grid snapping and alignment"
+
+        - id: "M6.2"
+          name: "State Node Configuration"
+          tasks:
+            - "Visual property editing"
+            - "Form field configuration"
+            - "Action definitions"
+            - "Guard conditions"
+            - "Metadata (labels, colors, icons)"
+
+        - id: "M6.3"
+          name: "Transition Configuration"
+          tasks:
+            - "Event triggers"
+            - "Guard conditions (visual expression builder)"
+            - "Action lists"
+            - "Transition priority"
+            - "Visual path styling (color, thickness, dashed)"
+
+        - id: "M6.4"
+          name: "Validation & Analysis"
+          tasks:
+            - "Deadlock detection"
+            - "Unreachable state detection"
+            - "Infinite loop prevention"
+            - "Required field validation"
+            - "Visual error indicators"
+
+        - id: "M6.5"
+          name: "Code Generation"
+          tasks:
+            - "State machine → TypeScript code"
+            - "RDF triple generation"
+            - "YAML/JSON export"
+            - "Import from code"
+            - "Bidirectional sync"
+
+      definition_of_done:
+        - "Visual designer functional"
+        - "Drag-and-drop state creation"
+        - "Transition drawing with Bezier curves"
+        - "Node configuration UI complete"
+        - "Validation detects deadlocks/loops"
+        - "Generated code matches visual design"
+        - "Bidirectional sync works"
+        - "Designer built with Pagewright"
+
+      deliverables:
+        - "Visual designer application"
+        - "Canvas rendering engine"
+        - "Node/edge configuration UI"
+        - "Validation engine"
+        - "Code generation utilities"
+        - "Designer documentation"
+
+    - id: "phase_7"
+      name: "Real-Time State Execution Visualization"
+      goal: "Watch state machines execute in real-time with visual feedback"
+      dependencies: ["phase_6"]
+      milestones:
+        - id: "M7.1"
+          name: "Execution Highlighting"
+          tasks:
+            - "Active state pulsing/highlighting"
+            - "Transition animations"
+            - "State history breadcrumb trail"
+            - "Event trigger indicators"
+            - "Time-in-state display"
+
+        - id: "M7.2"
+          name: "Data Flow Visualization"
+          tasks:
+            - "Show data moving through transitions"
+            - "Input/output displays"
+            - "Variable values at each state"
+            - "Continuation token inspection"
+            - "Event payload display"
+
+        - id: "M7.3"
+          name: "Execution Metrics"
+          tasks:
+            - "State duration tracking"
+            - "Transition count"
+            - "Error count"
+            - "Retry attempts"
+            - "Performance metrics (latency per state)"
+
+        - id: "M7.4"
+          name: "Debugging Tools"
+          tasks:
+            - "State breakpoints"
+            - "Step-through execution"
+            - "Variable inspection"
+            - "Event replay with debugging"
+            - "Causal chain visualization"
+
+        - id: "M7.5"
+          name: "Multi-Instance Visualization"
+          tasks:
+            - "Show multiple state machine instances"
+            - "Instance filtering (by entity, status)"
+            - "Aggregate statistics"
+            - "Heatmaps (state utilization)"
+            - "Flow diagrams (common paths)"
+
+      definition_of_done:
+        - "Active states highlighted in real-time"
+        - "Transition animations smooth"
+        - "Data flow visible"
+        - "Execution metrics displayed"
+        - "Debugging tools functional"
+        - "Multi-instance view works"
+        - "Visualization integrates with Envoy"
+        - "Performance (60fps animations)"
+
+      deliverables:
+        - "Execution visualization engine"
+        - "Animation system"
+        - "Metrics dashboard"
+        - "Debugging UI"
+        - "Multi-instance visualizer"
+        - "Visualization documentation"
+
+    - id: "phase_8"
+      name: "Collaborative State Machine Design"
+      goal: "Real-time multi-user state machine editing"
+      dependencies: ["phase_7"]
+      milestones:
+        - id: "M8.1"
+          name: "CRDT-Based Canvas"
+          tasks:
+            - "State machines as CRDTs (via Agent)"
+            - "Conflict-free collaborative editing"
+            - "Real-time node position sync"
+            - "Automatic conflict resolution"
+            - "Offline editing support"
+
+        - id: "M8.2"
+          name: "Presence & Cursors"
+          tasks:
+            - "Show collaborator cursors"
+            - "User color coding"
+            - "Active selection indicators"
+            - "Name labels"
+            - "Idle/active status"
+
+        - id: "M8.3"
+          name: "Voice Integration"
+          tasks:
+            - "Voice chat during collaboration"
+            - "Voice commands for editing (add state, connect to, etc.)"
+            - "AI-assisted state machine design"
+            - "Natural language → state machine"
+            - "Context-aware suggestions"
+
+        - id: "M8.4"
+          name: "Permission System"
+          tasks:
+            - "Role-based editing permissions (Warden)"
+            - "Read-only vs edit access"
+            - "State-level permissions"
+            - "Approval workflows for critical changes"
+            - "Audit trail of changes"
+
+        - id: "M8.5"
+          name: "Session Management"
+          tasks:
+            - "Collaborative session creation"
+            - "Session links (shareable URLs)"
+            - "Session replay"
+            - "Session archival"
+            - "Session recovery after disconnect"
+
+      definition_of_done:
+        - "Multiple users edit simultaneously"
+        - "CRDT prevents conflicts"
+        - "Cursor/presence visible"
+        - "Voice chat functional"
+        - "Voice commands work"
+        - "Permissions enforced"
+        - "Sessions shareable via URL"
+        - "Collaboration via Operator events"
+
+      deliverables:
+        - "CRDT canvas implementation"
+        - "Presence system"
+        - "Voice integration"
+        - "Permission enforcement"
+        - "Session management"
+        - "Collaboration documentation"
+
+    - id: "phase_9"
+      name: "Workflow State Recovery"
+      goal: "Automatic recovery from crashes, network partitions, and failures"
+      dependencies: ["phase_8"]
+      milestones:
+        - id: "M9.1"
+          name: "Checkpoint Strategy"
+          tasks:
+            - "Auto-save intervals (configurable)"
+            - "State snapshots on transitions"
+            - "Incremental state updates"
+            - "Checkpoint visualization"
+            - "Checkpoint pruning"
+
+        - id: "M9.2"
+          name: "Crash Recovery"
+          tasks:
+            - "Restore from last checkpoint"
+            - "Replay missed events"
+            - "Validate state consistency"
+            - "Resume from safe point"
+            - "Recovery UI (show recovery progress)"
+
+        - id: "M9.3"
+          name: "Network Partition Handling"
+          tasks:
+            - "Offline state queue"
+            - "Partition detection"
+            - "CRDT merge on reconnection"
+            - "Conflict resolution strategies"
+            - "Visual partition indicators"
+
+        - id: "M9.4"
+          name: "Failure Modes"
+          tasks:
+            - "Timeout handling"
+            - "Resource exhaustion (memory, storage)"
+            - "Invalid state detection"
+            - "Rollback mechanisms"
+            - "Compensation workflows"
+
+        - id: "M9.5"
+          name: "Recovery Testing"
+          tasks:
+            - "Chaos testing (random crashes)"
+            - "Network partition simulation"
+            - "Concurrent state mutations"
+            - "Byzantine fault injection"
+            - "Recovery time measurement"
+
+      definition_of_done:
+        - "State survives crashes"
+        - "Recovery from checkpoint functional"
+        - "Network partitions heal gracefully"
+        - "Offline state queued correctly"
+        - "Chaos tests pass"
+        - "Recovery time < 1s"
+        - "No data loss"
+        - "Property-based tests for recovery invariants"
+
+      deliverables:
+        - "Checkpoint implementation"
+        - "Recovery engine"
+        - "Partition handling"
+        - "Failure mode handlers"
+        - "Chaos test suite"
+        - "Recovery documentation"
+
+    - id: "phase_10"
+      name: "State Machine Analytics"
+      goal: "Performance analysis and optimization insights"
+      dependencies: ["phase_9"]
+      milestones:
+        - id: "M10.1"
+          name: "Flow Analytics"
+          tasks:
+            - "State utilization heatmaps"
+            - "Transition frequency"
+            - "Bottleneck detection"
+            - "Path analysis (common flows)"
+            - "Abandonment points"
+
+        - id: "M10.2"
+          name: "User Journey Analysis"
+          tasks:
+            - "Path visualization (user flows)"
+            - "Conversion funnels"
+            - "Drop-off analysis"
+            - "Time-to-completion metrics"
+            - "Cohort analysis"
+
+        - id: "M10.3"
+          name: "Performance Optimization"
+          tasks:
+            - "Slow state detection"
+            - "Optimization suggestions"
+            - "A/B testing alternate flows"
+            - "Parallelization opportunities"
+            - "State coalescing"
+
+        - id: "M10.4"
+          name: "Predictive Analytics"
+          tasks:
+            - "Next-state prediction (ML-based)"
+            - "Abandonment risk detection"
+            - "Completion time estimation"
+            - "Resource demand forecasting"
+            - "Anomaly detection"
+
+        - id: "M10.5"
+          name: "Analytics Dashboard"
+          tasks:
+            - "Real-time metrics visualization"
+            - "Historical trend analysis"
+            - "Custom metric queries (SPARQL)"
+            - "Export to BI tools"
+            - "Alert configuration"
+
+      definition_of_done:
+        - "Heatmaps show state utilization"
+        - "Bottlenecks identified automatically"
+        - "User journeys visualized"
+        - "Conversion funnels computed"
+        - "Optimization suggestions provided"
+        - "Predictive analytics functional"
+        - "Dashboard integrated with Envoy"
+        - "All metrics queryable via SPARQL"
+
+      deliverables:
+        - "Analytics engine"
+        - "Flow analysis tools"
+        - "User journey visualizer"
+        - "Optimization recommender"
+        - "Predictive models"
+        - "Analytics dashboard"
+
+    - id: "phase_11"
+      name: "Workflow Integration"
+      goal: "State machines integrate with Operator workflows"
+      dependencies: ["phase_10"]
+      milestones:
+        - id: "M11.1"
+          name: "State Machine as Workflow"
+          tasks:
+            - "State machines as workflow phases"
+            - "Embedded state machines in workflows"
+            - "State callbacks (on enter, on exit)"
+            - "State machine composition"
+            - "Nested state machines"
+
+        - id: "M11.2"
+          name: "Cross-Workflow Communication"
+          tasks:
+            - "State machine events trigger workflows"
+            - "Workflow events trigger state transitions"
+            - "Event-based orchestration"
+            - "Conditional workflow triggers"
+            - "Workflow blocking based on state"
+
+        - id: "M11.3"
+          name: "Distributed Workflow State"
+          tasks:
+            - "State machines distributed across nodes (Agent)"
+            - "Phase execution on different executors"
+            - "State synchronization via Operator"
+            - "Distributed state recovery"
+            - "Consensus on state transitions"
+
+        - id: "M11.4"
+          name: "External System Integration"
+          tasks:
+            - "State machine events to webhooks"
+            - "External events trigger transitions"
+            - "API polling → state machine events"
+            - "Integration templates (GitHub, Slack, etc.)"
+            - "Scheduled state transitions (cron-like)"
+
+        - id: "M11.5"
+          name: "Workflow Templates"
+          tasks:
+            - "Common workflow patterns"
+            - "State machine libraries"
+            - "Template marketplace"
+            - "Version control for state machines"
+            - "Template customization"
+
+      definition_of_done:
+        - "State machines embed in workflows"
+        - "Cross-workflow events functional"
+        - "Distributed state machines work"
+        - "External integrations functional"
+        - "10+ workflow templates available"
+        - "Template marketplace operational"
+        - "Integration via Operator events"
+        - "Documentation for integration patterns"
+
+      deliverables:
+        - "Workflow integration layer"
+        - "Event routing system"
+        - "Distributed state implementation"
+        - "External integration library"
+        - "Template marketplace"
+        - "Integration documentation"
+
+    - id: "phase_12"
+      name: "State Monad Integration"
+      goal: "State monad for threading state through computations"
+      dependencies: ["phase_11"]
+      milestones:
+        - id: "M12.1"
+          name: "State Monad Implementation"
+          tasks:
+            - "State monad data structure"
+            - "bind and return operations"
+            - "get, put, modify primitives"
+            - "Monad laws validation"
+            - "Type-safe state threading"
+
+        - id: "M12.2"
+          name: "State Monad Composition"
+          tasks:
+            - "Compose state transformations"
+            - "Sequential state operations"
+            - "Parallel state operations (where safe)"
+            - "Error handling with Either monad"
+            - "Monad transformer stack"
+
+        - id: "M12.3"
+          name: "State Machine with Monad"
+          tasks:
+            - "State transitions as monadic computations"
+            - "Thread state through transition chain"
+            - "Pure state transformations"
+            - "Effect isolation"
+            - "Referential transparency"
+
+        - id: "M12.4"
+          name: "Performance Optimization"
+          tasks:
+            - "Lazy evaluation of monadic chain"
+            - "Memoization of state computations"
+            - "Batching state updates"
+            - "Minimal allocations"
+            - "Benchmarking vs direct style"
+
+        - id: "M12.5"
+          name: "Testing & Documentation"
+          tasks:
+            - "Property-based tests for monad laws"
+            - "Monadic state machine examples"
+            - "Tutorial on State monad usage"
+            - "Performance comparison docs"
+            - "Best practices guide"
+
+      definition_of_done:
+        - "State monad implemented"
+        - "Monad laws verified (property tests)"
+        - "State machines can use monads"
+        - "Composition works correctly"
+        - "Performance acceptable (< 10% overhead)"
+        - "Documentation complete"
+        - "Examples for common patterns"
+        - "Integration with existing state machines"
+
+      deliverables:
+        - "State monad implementation"
+        - "Composition utilities"
+        - "State machine integration"
+        - "Performance benchmarks"
+        - "Tutorial documentation"
+        - "Example repository"
+
+    - id: "phase_13"
+      name: "Integration & Ecosystem"
+      goal: "Seamless integration with all Studio libraries"
+      dependencies: ["phase_12"]
+      milestones:
+        - id: "M13.1"
+          name: "Architect Integration"
+          tasks:
+            - "State changes trigger Architect calculations"
+            - "Form values reactive to state"
+            - "Calculation results update state"
+            - "Bidirectional data binding"
+            - "No VDOM overhead"
+
+        - id: "M13.2"
+          name: "Operator Integration"
+          tasks:
+            - "State transitions produce events"
+            - "Events trigger state transitions"
+            - "Event-driven state machines"
+            - "Distributed state via Operator"
+            - "CQRS pattern enforcement"
+
+        - id: "M13.3"
+          name: "Agent Integration"
+          tasks:
+            - "State machines as CRDTs"
+            - "Distributed state convergence"
+            - "Conflict-free state sync"
+            - "Peer-to-peer state machines"
+            - "Offline-first state management"
+
+        - id: "M13.4"
+          name: "Warden Integration"
+          tasks:
+            - "State transition validation (contracts)"
+            - "State machine contract enforcement"
+            - "Capability-based state access"
+            - "Transition authorization"
+            - "Audit trail via events"
+
+        - id: "M13.5"
+          name: "Sentinel Integration"
+          tasks:
+            - "Authentication-gated states"
+            - "Authorization checks per transition"
+            - "User-specific state machines"
+            - "Session state management"
+            - "DID-based state signing"
+
+      definition_of_done:
+        - "All Studio libraries integrate"
+        - "State-driven architecture works"
+        - "No tight coupling"
+        - "State as universal mechanism"
+        - "Documentation for each integration"
+        - "Examples for common patterns"
+        - "Integration tests pass"
+
+      deliverables:
+        - "Integration documentation"
+        - "Example applications"
+        - "Integration test suite"
+        - "Migration guides"
+        - "Best practices documentation"
+
+    - id: "phase_14"
+      name: "Documentation & Developer Experience"
+      goal: "Comprehensive documentation and excellent DX"
+      dependencies: ["phase_13"]
+      milestones:
+        - id: "M14.1"
+          name: "API Documentation"
+          tasks:
+            - "Envoy-generated API docs"
+            - "TSX component reference"
+            - "Function signatures"
+            - "Usage examples"
+            - "State machine patterns"
+
+        - id: "M14.2"
+          name: "Tutorials & Guides"
+          tasks:
+            - "Getting started guide"
+            - "State machine tutorial"
+            - "Continuation patterns"
+            - "Event sourcing with state machines"
+            - "Visual designer guide"
+
+        - id: "M14.3"
+          name: "Migration Guides"
+          tasks:
+            - "From client-side state (Redux, MobX)"
+            - "From server-side frameworks"
+            - "From traditional routing"
+            - "URL-as-state migration"
+            - "Breaking change documentation"
+
+        - id: "M14.4"
+          name: "Pattern Library"
+          tasks:
+            - "Common state machine patterns"
+            - "Form wizard patterns"
+            - "Multi-step checkout"
+            - "Approval workflows"
+            - "Onboarding flows"
+
+        - id: "M14.5"
+          name: "Troubleshooting"
+          tasks:
+            - "Common errors and solutions"
+            - "Debugging techniques"
+            - "State machine visualization tips"
+            - "Performance tuning"
+            - "Support resources"
+
+      definition_of_done:
+        - "API documentation complete"
+        - "10+ tutorials published"
+        - "Migration guides available"
+        - "20+ pattern examples"
+        - "Troubleshooting documentation"
+        - "All examples tested"
+        - "Documentation searchable"
+        - "Code samples compileable"
+
+      deliverables:
+        - "Complete API reference"
+        - "Tutorial library"
+        - "Migration guides"
+        - "Pattern documentation"
+        - "Troubleshooting guide"
+        - "Example repository"
+
+    - id: "phase_15"
+      name: "Production Hardening & Release"
+      goal: "Battle-tested, production-ready release"
+      dependencies: ["phase_14"]
+      milestones:
+        - id: "M15.1"
+          name: "Chaos Testing"
+          tasks:
+            - "Random state mutations"
+            - "Continuation corruption scenarios"
+            - "Network partitions during workflows"
+            - "Concurrent state machine instances"
+            - "Resource exhaustion"
+
+        - id: "M15.2"
+          name: "Performance Validation"
+          tasks:
+            - "Sustained load testing (24+ hours)"
+            - "Memory leak detection"
+            - "State transition latency (< 1ms)"
+            - "Large state machine performance"
+            - "Visualization performance (60fps)"
+
+        - id: "M15.3"
+          name: "Security Audit"
+          tasks:
+            - "Continuation signing review"
+            - "Cryptographic implementation audit"
+            - "XSS/CSRF prevention verification"
+            - "Privacy leak analysis"
+            - "Penetration testing"
+
+        - id: "M15.4"
+          name: "Compatibility Testing"
+          tasks:
+            - "Browser compatibility (including Lynx)"
+            - "Works without JavaScript"
+            - "Progressive enhancement verified"
+            - "Deno compatibility"
+            - "Mobile browser testing"
+
+        - id: "M15.5"
+          name: "Release Preparation"
+          tasks:
+            - "Semantic versioning"
+            - "Changelog generation"
+            - "Release notes"
+            - "Deprecation notices"
+            - "Upgrade path documentation"
+
+      definition_of_done:
+        - "Chaos tests pass"
+        - "Performance targets met"
+        - "Security audit passed"
+        - "Works in Lynx (no JS)"
+        - "Progressive enhancement verified"
+        - "Release documentation complete"
+        - "Breaking changes documented"
+        - "v1.0.0 released"
+
+      deliverables:
+        - "Chaos test suite"
+        - "Performance test results"
+        - "Security audit report"
+        - "Compatibility matrix"
+        - "Release package"
+        - "Migration guide"
+
+  dependencies:
+    internal_libraries:
+      - name: "Toolsmith"
+        purpose: "Curried functions, functional utilities (Either, Maybe, etc.)"
+      - name: "Operator"
+        purpose: "Event emission, CQRS, event sourcing integration"
+      - name: "Agent"
+        purpose: "CRDT state machines, distributed synchronization"
+      - name: "Warden"
+        purpose: "State transition validation, contracts"
+      - name: "Sentinel"
+        purpose: "Authentication/authorization for state access"
+      - name: "Pagewright"
+        purpose: "Visual designer UI components"
+      - name: "Envoy"
+        purpose: "Documentation generation, analytics dashboard"
+
+    external_dependencies:
+      - name: "Deno"
+        purpose: "Runtime (standard library for crypto, HTTP)"
+      - name: "Web Crypto API"
+        purpose: "Continuation signing (Ed25519)"
+      - name: "Temporal"
+        purpose: "Timestamp representation"
+      - name: "SPARQL"
+        purpose: "Query language for state history"
+      - name: "HTML5 Canvas/SVG"
+        purpose: "Visual designer rendering"
+
+    optional_enhancements:
+      - name: "ML libraries"
+        purpose: "Predictive analytics (future phase)"
+      - name: "Graph databases"
+        purpose: "State machine relationship queries"
+      - name: "Blockchain"
+        purpose: "Snapshot consensus (community-driven)"
+
+  risk_mitigation:
+    technical_risks:
+      - risk: "Continuation security vulnerabilities"
+        mitigation: "Cryptographic signing with Ed25519, external security audit, time-bound tokens"
+
+      - risk: "Visual designer performance with large state machines"
+        mitigation: "Canvas virtualization, level-of-detail rendering, WASM acceleration"
+
+      - risk: "State synchronization conflicts"
+        mitigation: "CRDT-based state, vector clocks, comprehensive conflict tests"
+
+      - risk: "Generator serialization complexity"
+        mitigation: "Well-defined serialization format, extensive testing, fallback to explicit state"
+
+    organizational_risks:
+      - risk: "Scope creep (too many features)"
+        mitigation: "Phased approach, clear milestones, defer non-essential features"
+
+      - risk: "Visual designer complexity"
+        mitigation: "Start simple, iterate based on feedback, reference n8n patterns"
+
+      - risk: "Documentation falls behind"
+        mitigation: "Envoy auto-generation, docs as code, regular doc reviews"
+
+  post_v1_roadmap:
+    future_enhancements:
+      - "Machine learning-based state prediction"
+      - "GraphQL interface for state queries"
+      - "State machine schema evolution tools"
+      - "Multi-region state replication"
+      - "Advanced visual designer features (sub-machines, macros)"
+      - "State machine marketplace (community templates)"
+      - "IDE integrations (VSCode, Zed state machine plugins)"
+
+    community_contributions:
+      - "Additional workflow templates"
+      - "State machine patterns library"
+      - "Visual designer themes"
+      - "Performance optimizations"
+      - "Language bindings (if needed)"

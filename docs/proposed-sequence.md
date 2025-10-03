@@ -769,7 +769,7 @@ Based on your request for more granular detail, let me break down the Arborist M
 - Morning: Component detection
 - Afternoon: Composition patterns
 - Tasks:
-  - [ ] Identify React components
+  - [ ] Identify JSX components
   - [ ] Detect component composition
   - [ ] Track prop drilling
   - [ ] Identify render props
@@ -781,7 +781,7 @@ Based on your request for more granular detail, let me break down the Arborist M
 - Tasks:
   - [ ] Integrate TSX with TypeScript parsing
   - [ ] Test on your Pagewright library
-  - [ ] Handle React types correctly
+  - [ ] Handle JSX types correctly
   - [ ] Performance test on large TSX files
   - [ ] Create TSX-specific documentation
 

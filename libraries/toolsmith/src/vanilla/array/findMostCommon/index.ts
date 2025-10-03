@@ -1,12 +1,12 @@
-import isNotEmpty from "../isNotEmpty/index.ts"
-import reduce from "../reduce/index.ts"
 import filter from "../filter/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
 import map from "../map/index.ts"
-import sort from "../sort/index.ts"
 import max from "../max/index.ts"
+import reduce from "../reduce/index.ts"
+import sort from "../sort/index.ts"
 import _buildFrequencyMaps from "./_buildFrequencyMaps/index.ts"
-import _filterMaxFrequency from "./_filterMaxFrequency/index.ts"
 import _extractFirstItem from "./_extractFirstItem/index.ts"
+import _filterMaxFrequency from "./_filterMaxFrequency/index.ts"
 import _sortByFirstOccurrence from "./_sortByFirstOccurrence/index.ts"
 
 //++ Finds the most frequently occurring elements

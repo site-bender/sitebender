@@ -1,7 +1,7 @@
 import {
 	assert,
-	assertEquals,
 	assertAlmostEquals,
+	assertEquals,
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import fc from "https://esm.sh/fast-check@3.15.0"
 
@@ -13,7 +13,7 @@ Deno.test("swish", async (t) => {
 		const swish1 = swish(1)
 
 		// Test specific values
-		assertEquals(swish1(0), 0)  // 0 * sigmoid(0) = 0 * 0.5 = 0
+		assertEquals(swish1(0), 0) // 0 * sigmoid(0) = 0 * 0.5 = 0
 
 		// swish(1)(1) = 1 * sigmoid(1) = 1 * (1/(1+e^-1))
 		const expected1 = 1 / (1 + Math.exp(-1))
@@ -43,7 +43,7 @@ Deno.test("swish", async (t) => {
 
 		// Beta = 0 gives x/2
 		const swish0 = swish(0)
-		assertAlmostEquals(swish0(4), 2, 1e-10)  // 4 * sigmoid(0) = 4 * 0.5
+		assertAlmostEquals(swish0(4), 2, 1e-10) // 4 * sigmoid(0) = 4 * 0.5
 		assertAlmostEquals(swish0(10), 5, 1e-10)
 		assertAlmostEquals(swish0(-6), -3, 1e-10)
 	})
@@ -73,9 +73,9 @@ Deno.test("swish", async (t) => {
 	await t.step("handles beta = 1 (standard swish)", () => {
 		const swish1 = swish(1)
 		// Should be smooth and non-linear
-		assert(swish1(0.5) !== 0.5)  // Not linear
-		assert(swish1(0.5) > 0)      // Positive for positive input
-		assert(swish1(-0.5) < 0)     // Negative for negative input
+		assert(swish1(0.5) !== 0.5) // Not linear
+		assert(swish1(0.5) > 0) // Positive for positive input
+		assert(swish1(-0.5) < 0) // Negative for negative input
 	})
 
 	await t.step("handles null and undefined", () => {
@@ -93,16 +93,16 @@ Deno.test("swish", async (t) => {
 	await t.step("handles edge cases", () => {
 		const swish1 = swish(1)
 		assertEquals(swish1(Infinity), Infinity)
-		assertEquals(swish1(-Infinity), NaN)  // -Infinity * sigmoid(-Infinity) = -Infinity * 0 = NaN
+		assertEquals(swish1(-Infinity), NaN) // -Infinity * sigmoid(-Infinity) = -Infinity * 0 = NaN
 		assertEquals(swish1(NaN), NaN)
 
 		// Beta edge cases
 		const swishInf = swish(Infinity)
-		assertEquals(swishInf(5), 5)     // 5 * sigmoid(∞) = 5 * 1
-		assertEquals(swishInf(-5), 0)    // -5 * sigmoid(-∞) = -5 * 0
+		assertEquals(swishInf(5), 5) // 5 * sigmoid(∞) = 5 * 1
+		assertEquals(swishInf(-5), 0) // -5 * sigmoid(-∞) = -5 * 0
 
 		const swishNegInf = swish(-Infinity)
-		assertEquals(swishNegInf(5), 0)   // 5 * sigmoid(-∞) = 5 * 0 = 0
+		assertEquals(swishNegInf(5), 0) // 5 * sigmoid(-∞) = 5 * 0 = 0
 		assertEquals(swishNegInf(-5), -5) // -5 * sigmoid(∞) = -5 * 1 = -5
 	})
 
@@ -111,7 +111,11 @@ Deno.test("swish", async (t) => {
 			fc.property(
 				fc.float({ min: Math.fround(0.1), max: Math.fround(2), noNaN: true }),
 				fc.float({ min: Math.fround(-5), max: Math.fround(5), noNaN: true }),
-				fc.float({ min: Math.fround(0.0001), max: Math.fround(0.001), noNaN: true }),
+				fc.float({
+					min: Math.fround(0.0001),
+					max: Math.fround(0.001),
+					noNaN: true,
+				}),
 				(beta, x, epsilon) => {
 					const swishBeta = swish(beta)
 
@@ -122,8 +126,8 @@ Deno.test("swish", async (t) => {
 
 					// Change should be proportional to epsilon
 					return change < 10 * epsilon
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -142,8 +146,8 @@ Deno.test("swish", async (t) => {
 						// For negative x, result is between approximately beta*x and 0
 						return result <= 0 && result >= x
 					}
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -159,8 +163,8 @@ Deno.test("swish", async (t) => {
 
 					// Both NaN or both equal
 					return (isNaN(result1) && isNaN(result2)) || result1 === result2
-				}
-			)
+				},
+			),
 		)
 	})
 
