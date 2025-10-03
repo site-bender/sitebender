@@ -22,5 +22,4 @@ const once = <T extends ReadonlyArray<any>, R>(
 	return onced
 }
 
-
 export default once

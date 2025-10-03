@@ -5,5 +5,4 @@ const when = <T>(
 ) =>
 (value: T): T => predicate(value) ? fn(value) : value
 
-
 export default when

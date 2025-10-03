@@ -15,5 +15,4 @@ const liftTernary = <A, B, C, R>(
 	return Array.from({ length: minLength }, (_, i) => fn(fa[i], fb[i], fc[i]))
 }
 
-
 export default liftTernary

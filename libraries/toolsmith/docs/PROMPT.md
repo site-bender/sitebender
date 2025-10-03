@@ -155,11 +155,11 @@ The monads folder has been audited and contains 70+ files with violations that M
 
    ```typescript
    // ❌ WRONG
-   const foo = <T>(x: T) => result;
+   const foo = <T>(x: T) => result
 
    // ✅ CORRECT
    export default function foo<T>(x: T): ResultType {
-     return result;
+   	return result
    }
    ```
 
@@ -247,9 +247,9 @@ Converting functions from JSDoc style (verbose, with @param/@returns annotations
 ```typescript
 //++ Brief one-line description of what function does
 export default function myFunction(x: Type) {
-  return function descriptiveInnerName(y: Type): ResultType {
-    // implementation
-  };
+	return function descriptiveInnerName(y: Type): ResultType {
+		// implementation
+	}
 }
 
 //?? [EXAMPLE] myFunction(arg1)(arg2) // result

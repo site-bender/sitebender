@@ -5,5 +5,4 @@ const thunkify = <T extends ReadonlyArray<unknown>, R>(
 ): () => R =>
 () => fn(...args)
 
-
 export default thunkify
