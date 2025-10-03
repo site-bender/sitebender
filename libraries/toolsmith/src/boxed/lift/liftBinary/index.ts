@@ -2,15 +2,15 @@ import type { Result } from "../../../types/fp/result/index.ts"
 import type { Validation } from "../../../types/Validation/index.ts"
 
 import error from "../../../monads/result/error/index.ts"
-import failure from "../../../monads/validation/failure/index.ts"
 import isOk from "../../../monads/result/isOk/index.ts"
 import isResult from "../../../monads/result/isResult/index.ts"
+import resultMap2 from "../../../monads/result/map2/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
+import failure from "../../../monads/validation/failure/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
-import ok from "../../../monads/result/ok/index.ts"
-import resultMap2 from "../../../monads/result/map2/index.ts"
-import success from "../../../monads/validation/success/index.ts"
 import validationMap2 from "../../../monads/validation/map2/index.ts"
+import success from "../../../monads/validation/success/index.ts"
 
 //++ Lifts a curried binary function to work with Result/Validation monads
 //++ If either argument is Validation, returns Validation
@@ -43,20 +43,28 @@ export default function liftBinary<A, B, C, E>(
 				const aVal = isValidation(ma)
 					? ma
 					: isResult(ma)
-						? (isOk(ma) ? success(ma.value) : { _tag: "Failure" as const, errors: [ma.error] as [E] })
-						: success(ma as A)
+					? (isOk(ma)
+						? success(ma.value)
+						: { _tag: "Failure" as const, errors: [ma.error] as [E] })
+					: success(ma as A)
 
 				const bVal = isValidation(mb)
 					? mb
 					: isResult(mb)
-						? (isOk(mb) ? success(mb.value) : { _tag: "Failure" as const, errors: [mb.error] as [E] })
-						: success(mb as B)
+					? (isOk(mb)
+						? success(mb.value)
+						: { _tag: "Failure" as const, errors: [mb.error] as [E] })
+					: success(mb as B)
 
-				const result = validationMap2(safeFn as (a: A) => (b: B) => C)(aVal as Validation<E, A>)(bVal as Validation<E, B>)
+				const result = validationMap2(safeFn as (a: A) => (b: B) => C)(
+					aVal as Validation<E, A>,
+				)(bVal as Validation<E, B>)
 
 				// Check if result is Success(null) and convert to Failure
 				if (isValid(result) && result.value === null) {
-					return failure(["Null return from function" as unknown as E]) as Validation<E, C>
+					return failure([
+						"Null return from function" as unknown as E,
+					]) as Validation<E, C>
 				}
 
 				return result as Validation<E, C>
@@ -65,7 +73,9 @@ export default function liftBinary<A, B, C, E>(
 			// Otherwise use Result (either both Result or both plain)
 			const aResult = isResult(ma) ? ma : ok(ma as A)
 			const bResult = isResult(mb) ? mb : ok(mb as B)
-			const result = resultMap2(safeFn as (a: A) => (b: B) => C)(aResult as Result<E, A>)(bResult as Result<E, B>)
+			const result = resultMap2(safeFn as (a: A) => (b: B) => C)(
+				aResult as Result<E, A>,
+			)(bResult as Result<E, B>)
 
 			// Check if result is Ok(null) and convert to Error
 			if (isOk(result) && result.value === null) {

@@ -37,5 +37,4 @@ const liftN = <R>(n: number, fn: (...args: ReadonlyArray<unknown>) => R) => {
 	}
 }
 
-
 export default liftN

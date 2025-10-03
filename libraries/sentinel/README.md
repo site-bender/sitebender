@@ -413,64 +413,80 @@ Control access to workflow stages, resources, and operations through declarative
 
 ```tsx
 <WorkflowSecurityGates>
-  <WorkflowGate name="deployment-pipeline" workflow="ci-cd">
-    <AccessControl>
-      <RequiredRoles>["developer", "devops-engineer"]</RequiredRoles>
-      <RequiredClearance level="confidential" />
-      <TimeRestrictions>
-        <AllowedHours from="09:00" to="17:00" timezone="UTC" />
-        <BlackoutPeriods>["2024-12-24", "2024-12-25"]</BlackoutPeriods>
-      </TimeRestrictions>
-      <LocationRestrictions>
-        <AllowedCountries>["US", "CA", "GB"]</AllowedCountries>
-        <ForbiddenNetworks>["public-wifi", "vpn-exit-nodes"]</ForbiddenNetworks>
-      </LocationRestrictions>
-    </AccessControl>
-    
-    <StagePermissions>
-      <Stage name="build" roles={["developer", "devops-engineer"]} />
-      <Stage name="test" roles={["developer", "qa-engineer", "devops-engineer"]} />
-      <Stage name="security-scan" roles={["security-engineer", "devops-engineer"]} />
-      <Stage name="production-deploy" roles={["devops-engineer", "release-manager"]} />
-    </StagePermissions>
-    
-    <ConditionalAccess>
-      <If condition="environment === 'production'">
-        <RequireApproval from="release-manager" within="PT2H" />
-        <RequireMFA type="hardware-key" />
-        <RequireChangeTicket validated={true} />
-      </If>
-      
-      <If condition="timeOfDay >= '18:00' || isWeekend()">
-        <RequireApproval from="on-call-manager" />
-        <RequireJustification category="emergency-deploy" />
-        <NotifyStakeholders immediately={true} />
-      </If>
-    </ConditionalAccess>
-  </WorkflowGate>
-  
-  <WorkflowGate name="data-processing" workflow="analytics-pipeline">
-    <DataClassification>
-      <PublicData permissions={["read", "process"]} />
-      <InternalData permissions={["read", "process"]} roles={["analyst", "data-scientist"]} />
-      <ConfidentialData permissions={["read"]} roles={["senior-analyst"]} mfa={true} />
-      <RestrictedData permissions={[]} reason="no-workflow-access" />
-    </DataClassification>
-    
-    <GeographicRestrictions>
-      <DataResidency>
-        <EUData processingLocation="EU" />
-        <USData processingLocation="US" />
-        <CanadianData processingLocation="CA" />
-      </DataResidency>
-      
-      <CrossBorderTransfer>
-        <RequireAdequacyDecision />
-        <RequireStandardContractualClauses />
-        <RequireConsentForTransfer />
-      </CrossBorderTransfer>
-    </GeographicRestrictions>
-  </WorkflowGate>
+	<WorkflowGate name="deployment-pipeline" workflow="ci-cd">
+		<AccessControl>
+			<RequiredRoles>["developer", "devops-engineer"]</RequiredRoles>
+			<RequiredClearance level="confidential" />
+			<TimeRestrictions>
+				<AllowedHours from="09:00" to="17:00" timezone="UTC" />
+				<BlackoutPeriods>["2024-12-24", "2024-12-25"]</BlackoutPeriods>
+			</TimeRestrictions>
+			<LocationRestrictions>
+				<AllowedCountries>["US", "CA", "GB"]</AllowedCountries>
+				<ForbiddenNetworks>["public-wifi", "vpn-exit-nodes"]</ForbiddenNetworks>
+			</LocationRestrictions>
+		</AccessControl>
+
+		<StagePermissions>
+			<Stage name="build" roles={["developer", "devops-engineer"]} />
+			<Stage
+				name="test"
+				roles={["developer", "qa-engineer", "devops-engineer"]}
+			/>
+			<Stage
+				name="security-scan"
+				roles={["security-engineer", "devops-engineer"]}
+			/>
+			<Stage
+				name="production-deploy"
+				roles={["devops-engineer", "release-manager"]}
+			/>
+		</StagePermissions>
+
+		<ConditionalAccess>
+			<If condition="environment === 'production'">
+				<RequireApproval from="release-manager" within="PT2H" />
+				<RequireMFA type="hardware-key" />
+				<RequireChangeTicket validated={true} />
+			</If>
+
+			<If condition="timeOfDay >= '18:00' || isWeekend()">
+				<RequireApproval from="on-call-manager" />
+				<RequireJustification category="emergency-deploy" />
+				<NotifyStakeholders immediately={true} />
+			</If>
+		</ConditionalAccess>
+	</WorkflowGate>
+
+	<WorkflowGate name="data-processing" workflow="analytics-pipeline">
+		<DataClassification>
+			<PublicData permissions={["read", "process"]} />
+			<InternalData
+				permissions={["read", "process"]}
+				roles={["analyst", "data-scientist"]}
+			/>
+			<ConfidentialData
+				permissions={["read"]}
+				roles={["senior-analyst"]}
+				mfa={true}
+			/>
+			<RestrictedData permissions={[]} reason="no-workflow-access" />
+		</DataClassification>
+
+		<GeographicRestrictions>
+			<DataResidency>
+				<EUData processingLocation="EU" />
+				<USData processingLocation="US" />
+				<CanadianData processingLocation="CA" />
+			</DataResidency>
+
+			<CrossBorderTransfer>
+				<RequireAdequacyDecision />
+				<RequireStandardContractualClauses />
+				<RequireConsentForTransfer />
+			</CrossBorderTransfer>
+		</GeographicRestrictions>
+	</WorkflowGate>
 </WorkflowSecurityGates>
 ```
 
@@ -480,80 +496,80 @@ Authorization policies that adapt based on workflow context, risk assessment, an
 
 ```tsx
 <DynamicAuthorizationPolicies>
-  <ContextAwareAuthorization>
-    <RiskBasedAccess>
-      <LowRisk conditions="normal-hours && office-network && known-device">
-        <Allow workflows={["development", "testing"]} />
-        <SingleFactorAuth />
-      </LowRisk>
-      
-      <MediumRisk conditions="after-hours || vpn-connection || unusual-location">
-        <Allow workflows={["development", "staging-deploy"]} />
-        <RequireMFA />
-        <RequireApproval for="production-access" />
-      </MediumRisk>
-      
-      <HighRisk conditions="anonymous-network || multiple-failed-attempts || suspicious-patterns">
-        <Deny workflows={["production-deploy", "data-export"]} />
-        <AllowEmergencyAccess with="emergency-override" />
-        <RequireManualReview />
-        <NotifySecurityTeam immediately={true} />
-      </HighRisk>
-    </RiskBasedAccess>
-    
-    <AdaptivePolicies>
-      <Policy name="deployment-access">
-        <BasePermissions>
-          <Role name="developer" workflows={["development", "testing"]} />
-          <Role name="devops" workflows={["staging", "production"]} />
-        </BasePermissions>
-        
-        <DynamicAdjustments>
-          <If condition="recentSecurityIncident()">
-            <ElevateApprovalRequirements />
-            <RequireAdditionalMFA />
-            <IncreaseMon itoring />
-          </If>
-          
-          <If condition="systemUnderHighLoad()">
-            <RestrictNonCriticalDeployments />
-            <RequireLoadTestResults />
-            <NotifyPerformanceTeam />
-          </If>
-          
-          <If condition="complianceAuditPeriod()">
-            <RequireAuditTrail detailed={true} />
-            <MandatoryApprovalChain />
-            <EnhancedLogging />
-          </If>
-        </DynamicAdjustments>
-      </Policy>
-    </AdaptivePolicies>
-  </ContextAwareAuthorization>
-  
-  <WorkflowInheritance>
-    <ParentWorkflow name="base-security">
-      <RequireAuthentication />
-      <RequireAuditLogging />
-      <EnforceRateLimiting />
-    </ParentWorkflow>
-    
-    <ChildWorkflow name="financial-processing" inherits="base-security">
-      <AdditionalRequirements>
-        <RequireSOXCompliance />
-        <RequireDualApproval />
-        <EnforceSegregationOfDuties />
-      </AdditionalRequirements>
-    </ChildWorkflow>
-    
-    <ChildWorkflow name="healthcare-data" inherits="base-security">
-      <AdditionalRequirements>
-        <RequireHIPAACompliance />
-        <RequirePHIHandlingCertification />
-        <EnforceMinimumNecessaryAccess />
-      </AdditionalRequirements>
-    </ChildWorkflow>
-  </WorkflowInheritance>
+	<ContextAwareAuthorization>
+		<RiskBasedAccess>
+			<LowRisk conditions="normal-hours && office-network && known-device">
+				<Allow workflows={["development", "testing"]} />
+				<SingleFactorAuth />
+			</LowRisk>
+
+			<MediumRisk conditions="after-hours || vpn-connection || unusual-location">
+				<Allow workflows={["development", "staging-deploy"]} />
+				<RequireMFA />
+				<RequireApproval for="production-access" />
+			</MediumRisk>
+
+			<HighRisk conditions="anonymous-network || multiple-failed-attempts || suspicious-patterns">
+				<Deny workflows={["production-deploy", "data-export"]} />
+				<AllowEmergencyAccess with="emergency-override" />
+				<RequireManualReview />
+				<NotifySecurityTeam immediately={true} />
+			</HighRisk>
+		</RiskBasedAccess>
+
+		<AdaptivePolicies>
+			<Policy name="deployment-access">
+				<BasePermissions>
+					<Role name="developer" workflows={["development", "testing"]} />
+					<Role name="devops" workflows={["staging", "production"]} />
+				</BasePermissions>
+
+				<DynamicAdjustments>
+					<If condition="recentSecurityIncident()">
+						<ElevateApprovalRequirements />
+						<RequireAdditionalMFA />
+						<IncreaseMon itoring />
+					</If>
+
+					<If condition="systemUnderHighLoad()">
+						<RestrictNonCriticalDeployments />
+						<RequireLoadTestResults />
+						<NotifyPerformanceTeam />
+					</If>
+
+					<If condition="complianceAuditPeriod()">
+						<RequireAuditTrail detailed={true} />
+						<MandatoryApprovalChain />
+						<EnhancedLogging />
+					</If>
+				</DynamicAdjustments>
+			</Policy>
+		</AdaptivePolicies>
+	</ContextAwareAuthorization>
+
+	<WorkflowInheritance>
+		<ParentWorkflow name="base-security">
+			<RequireAuthentication />
+			<RequireAuditLogging />
+			<EnforceRateLimiting />
+		</ParentWorkflow>
+
+		<ChildWorkflow name="financial-processing" inherits="base-security">
+			<AdditionalRequirements>
+				<RequireSOXCompliance />
+				<RequireDualApproval />
+				<EnforceSegregationOfDuties />
+			</AdditionalRequirements>
+		</ChildWorkflow>
+
+		<ChildWorkflow name="healthcare-data" inherits="base-security">
+			<AdditionalRequirements>
+				<RequireHIPAACompliance />
+				<RequirePHIHandlingCertification />
+				<EnforceMinimumNecessaryAccess />
+			</AdditionalRequirements>
+		</ChildWorkflow>
+	</WorkflowInheritance>
 </DynamicAuthorizationPolicies>
 ```
 
@@ -563,58 +579,58 @@ Authenticate workflow participants without revealing sensitive information:
 
 ```tsx
 <ZeroKnowledgeWorkflowAuth>
-  <PrivacyPreservingCredentials>
-    <ProofOfRole without="revealing-identity">
-      <Prove property="has-admin-role" />
-      <Prove property="clearance-level >= confidential" />
-      <Prove property="employment-status = active" />
-      <Without revealing={["name", "employee-id", "department"]} />
-    </ProofOfRole>
-    
-    <ProofOfAttributes without="revealing-values">
-      <Prove property="age >= 21" />
-      <Prove property="security-training-completed" />
-      <Prove property="background-check-passed" />
-      <Without revealing={["actual-age", "training-date", "check-details"]} />
-    </ProofOfAttributes>
-    
-    <ProofOfAuthorization without="revealing-source">
-      <Prove property="has-deployment-permission" />
-      <Prove property="approval-received-within-24h" />
-      <Without revealing={["approver-identity", "approval-timestamp"]} />
-    </ProofOfAuthorization>
-  </PrivacyPreservingCredentials>
-  
-  <SelectiveDisclosure>
-    <DisclosurePolicy>
-      <ForAuditPurposes reveal={["action", "timestamp", "resource"]} />
-      <ForMonitoring reveal={["user-role", "workflow-stage"]} />
-      <ForCompliance reveal={["approval-chain", "risk-level"]} />
-      <Never reveal={["personal-identifiers", "biometric-data"]} />
-    </DisclosurePolicy>
-    
-    <ConditionalReveal>
-      <OnSecurityIncident reveal={["full-audit-trail"]} />
-      <OnComplianceRequest reveal={["regulatory-required-fields"]} />
-      <OnEmergencyOverride reveal={["minimal-identification"]} />
-    </ConditionalReveal>
-  </SelectiveDisclosure>
-  
-  <DistributedVerification>
-    <VerifierNetwork>
-      <TrustedVerifiers>
-        <HR system="identity-verification" />
-        <Security system="clearance-verification" />
-        <Compliance system="training-verification" />
-      </TrustedVerifiers>
-      
-      <VerificationProtocol>
-        <MultiPartyComputation for="sensitive-attributes" />
-        <ThresholdSignatures required={2} of={3} />
-        <VerifiableComputations with="zk-SNARKs" />
-      </VerificationProtocol>
-    </VerifierNetwork>
-  </DistributedVerification>
+	<PrivacyPreservingCredentials>
+		<ProofOfRole without="revealing-identity">
+			<Prove property="has-admin-role" />
+			<Prove property="clearance-level >= confidential" />
+			<Prove property="employment-status = active" />
+			<Without revealing={["name", "employee-id", "department"]} />
+		</ProofOfRole>
+
+		<ProofOfAttributes without="revealing-values">
+			<Prove property="age >= 21" />
+			<Prove property="security-training-completed" />
+			<Prove property="background-check-passed" />
+			<Without revealing={["actual-age", "training-date", "check-details"]} />
+		</ProofOfAttributes>
+
+		<ProofOfAuthorization without="revealing-source">
+			<Prove property="has-deployment-permission" />
+			<Prove property="approval-received-within-24h" />
+			<Without revealing={["approver-identity", "approval-timestamp"]} />
+		</ProofOfAuthorization>
+	</PrivacyPreservingCredentials>
+
+	<SelectiveDisclosure>
+		<DisclosurePolicy>
+			<ForAuditPurposes reveal={["action", "timestamp", "resource"]} />
+			<ForMonitoring reveal={["user-role", "workflow-stage"]} />
+			<ForCompliance reveal={["approval-chain", "risk-level"]} />
+			<Never reveal={["personal-identifiers", "biometric-data"]} />
+		</DisclosurePolicy>
+
+		<ConditionalReveal>
+			<OnSecurityIncident reveal={["full-audit-trail"]} />
+			<OnComplianceRequest reveal={["regulatory-required-fields"]} />
+			<OnEmergencyOverride reveal={["minimal-identification"]} />
+		</ConditionalReveal>
+	</SelectiveDisclosure>
+
+	<DistributedVerification>
+		<VerifierNetwork>
+			<TrustedVerifiers>
+				<HR system="identity-verification" />
+				<Security system="clearance-verification" />
+				<Compliance system="training-verification" />
+			</TrustedVerifiers>
+
+			<VerificationProtocol>
+				<MultiPartyComputation for="sensitive-attributes" />
+				<ThresholdSignatures required={2} of={3} />
+				<VerifiableComputations with="zk-SNARKs" />
+			</VerificationProtocol>
+		</VerifierNetwork>
+	</DistributedVerification>
 </ZeroKnowledgeWorkflowAuth>
 ```
 
@@ -624,71 +640,73 @@ Implement sophisticated MFA patterns for high-security workflows:
 
 ```tsx
 <MultiFactorWorkflowAuth>
-  <AdaptiveMFA>
-    <FactorSelection based="risk-assessment">
-      <LowRisk factors={["password", "sms"]} />
-      <MediumRisk factors={["password", "authenticator-app"]} />
-      <HighRisk factors={["password", "hardware-key", "biometric"]} />
-      <CriticalRisk factors={["hardware-key", "biometric", "voice-verification"]} />
-    </FactorSelection>
-    
-    <WorkflowSpecificFactors>
-      <Workflow name="financial-transactions">
-        <RequiredFactors>
-          <Primary type="password" />
-          <Secondary type="hardware-key" certification="FIPS-140-2" />
-          <Tertiary type="biometric" modality="fingerprint" />
-        </RequiredFactors>
-        <BackupFactors>
-          <Voice verification="speaker-recognition" />
-          <SMS to="registered-phone" />
-        </BackupFactors>
-      </Workflow>
-      
-      <Workflow name="code-deployment">
-        <RequiredFactors>
-          <Primary type="sso-with-mfa" />
-          <Secondary type="hardware-key" />
-        </RequiredFactors>
-        <ConditionalFactors>
-          <If condition="production-deployment">
-            <Additional type="approval-notification" />
-          </If>
-        </ConditionalFactors>
-      </Workflow>
-    </WorkflowSpecificFactors>
-  </AdaptiveMFA>
-  
-  <ContinuousAuthentication>
-    <BehavioralBiometrics>
-      <TypingPatterns baseline="user-profile" />
-      <MouseMovements pattern="recognition" />
-      <NavigationBehavior consistency="check" />
-      <DeviceFingerprinting />
-    </BehavioralBiometrics>
-    
-    <RiskMonitoring>
-      <SessionAnomaly detection="real-time" />
-      <LocationDeviations from="normal-patterns" />
-      <AccessPatterns unusual="flag-for-review" />
-      <NetworkChanges suspicious="re-authenticate" />
-    </RiskMonitoring>
-    
-    <StepUpAuthentication>
-      <Triggers>
-        <PrivilegeEscalation />
-        <SensitiveDataAccess />
-        <UnusualWorkflowExecution />
-        <SecurityBoundaryChange />
-      </Triggers>
-      
-      <StepUpFactors>
-        <ManagerApproval for="privilege-escalation" />
-        <HardwareKey for="sensitive-data" />
-        <BiometricConfirmation for="critical-operations" />
-      </StepUpFactors>
-    </StepUpAuthentication>
-  </ContinuousAuthentication>
+	<AdaptiveMFA>
+		<FactorSelection based="risk-assessment">
+			<LowRisk factors={["password", "sms"]} />
+			<MediumRisk factors={["password", "authenticator-app"]} />
+			<HighRisk factors={["password", "hardware-key", "biometric"]} />
+			<CriticalRisk
+				factors={["hardware-key", "biometric", "voice-verification"]}
+			/>
+		</FactorSelection>
+
+		<WorkflowSpecificFactors>
+			<Workflow name="financial-transactions">
+				<RequiredFactors>
+					<Primary type="password" />
+					<Secondary type="hardware-key" certification="FIPS-140-2" />
+					<Tertiary type="biometric" modality="fingerprint" />
+				</RequiredFactors>
+				<BackupFactors>
+					<Voice verification="speaker-recognition" />
+					<SMS to="registered-phone" />
+				</BackupFactors>
+			</Workflow>
+
+			<Workflow name="code-deployment">
+				<RequiredFactors>
+					<Primary type="sso-with-mfa" />
+					<Secondary type="hardware-key" />
+				</RequiredFactors>
+				<ConditionalFactors>
+					<If condition="production-deployment">
+						<Additional type="approval-notification" />
+					</If>
+				</ConditionalFactors>
+			</Workflow>
+		</WorkflowSpecificFactors>
+	</AdaptiveMFA>
+
+	<ContinuousAuthentication>
+		<BehavioralBiometrics>
+			<TypingPatterns baseline="user-profile" />
+			<MouseMovements pattern="recognition" />
+			<NavigationBehavior consistency="check" />
+			<DeviceFingerprinting />
+		</BehavioralBiometrics>
+
+		<RiskMonitoring>
+			<SessionAnomaly detection="real-time" />
+			<LocationDeviations from="normal-patterns" />
+			<AccessPatterns unusual="flag-for-review" />
+			<NetworkChanges suspicious="re-authenticate" />
+		</RiskMonitoring>
+
+		<StepUpAuthentication>
+			<Triggers>
+				<PrivilegeEscalation />
+				<SensitiveDataAccess />
+				<UnusualWorkflowExecution />
+				<SecurityBoundaryChange />
+			</Triggers>
+
+			<StepUpFactors>
+				<ManagerApproval for="privilege-escalation" />
+				<HardwareKey for="sensitive-data" />
+				<BiometricConfirmation for="critical-operations" />
+			</StepUpFactors>
+		</StepUpAuthentication>
+	</ContinuousAuthentication>
 </MultiFactorWorkflowAuth>
 ```
 
@@ -789,76 +807,78 @@ Controlled emergency access patterns for critical situations:
 
 ```tsx
 <EmergencyAccess>
-  <BreakGlassProtocols>
-    <EmergencyScenarios>
-      <Scenario name="production-outage" severity="critical">
-        <TriggerConditions>
-          <ServiceUnavailable duration="PT5M" />
-          <ErrorRate threshold="50%" />
-          <CustomerImpact severity="high" />
-        </TriggerConditions>
-        
-        <EmergencyRoles>
-          <IncidentCommander permissions={["full-access", "approve-changes"]} />
-          <OnCallEngineer permissions={["deploy-fixes", "access-logs"]} />
-          <CommunicationsLead permissions={["status-updates", "customer-communication"]} />
-        </EmergencyRoles>
-        
-        <ApprovalRequirements>
-          <IncidentCommander approval="immediate" />
-          <PostIncidentReview required={true} within="PT24H" />
-        </ApprovalRequirements>
-      </Scenario>
-      
-      <Scenario name="security-incident" severity="critical">
-        <TriggerConditions>
-          <SecurityBreach detected={true} />
-          <UnauthorizedAccess confirmed={true} />
-          <DataExfiltration suspected={true} />
-        </TriggerConditions>
-        
-        <EmergencyActions>
-          <IsolateAffectedSystems />
-          <RevokeAllNonEssentialAccess />
-          <EnableForensicsMode />
-          <NotifySecurityTeam />
-          <ActivateIncidentResponse />
-        </EmergencyActions>
-      </Scenario>
-    </EmergencyScenarios>
-    
-    <BreakGlassAudit>
-      <RealTimeMonitoring>
-        <EmergencyAccessUsage />
-        <ActionsTaken />
-        <DataAccessed />
-        <SystemsModified />
-      </RealTimeMonitoring>
-      
-      <PostIncidentReview>
-        <AccessJustification required={true} />
-        <ActionsReview by="security-committee" />
-        <LessonsLearned documentation={true} />
-        <PolicyUpdates as-needed={true} />
-      </PostIncidentReview>
-    </BreakGlassAudit>
-  </BreakGlassProtocols>
-  
-  <ControlledEscalation>
-    <EscalationLadder>
-      <Level1 authority="team-lead" scope="team-resources" />
-      <Level2 authority="department-head" scope="department-resources" />
-      <Level3 authority="vp-engineering" scope="engineering-resources" />
-      <Level4 authority="ciso" scope="security-overrides" />
-      <Level5 authority="ceo" scope="company-wide-emergency" />
-    </EscalationLadder>
-    
-    <AutomaticEscalation>
-      <TimeBasedEscalation after="PT15M" if="no-response" />
-      <SeverityBasedEscalation when="critical-severity" skip-levels={1} />
-      <ImpactBasedEscalation when="customer-impacting" notify="all-levels" />
-    </AutomaticEscalation>
-  </ControlledEscalation>
+	<BreakGlassProtocols>
+		<EmergencyScenarios>
+			<Scenario name="production-outage" severity="critical">
+				<TriggerConditions>
+					<ServiceUnavailable duration="PT5M" />
+					<ErrorRate threshold="50%" />
+					<CustomerImpact severity="high" />
+				</TriggerConditions>
+
+				<EmergencyRoles>
+					<IncidentCommander permissions={["full-access", "approve-changes"]} />
+					<OnCallEngineer permissions={["deploy-fixes", "access-logs"]} />
+					<CommunicationsLead
+						permissions={["status-updates", "customer-communication"]}
+					/>
+				</EmergencyRoles>
+
+				<ApprovalRequirements>
+					<IncidentCommander approval="immediate" />
+					<PostIncidentReview required={true} within="PT24H" />
+				</ApprovalRequirements>
+			</Scenario>
+
+			<Scenario name="security-incident" severity="critical">
+				<TriggerConditions>
+					<SecurityBreach detected={true} />
+					<UnauthorizedAccess confirmed={true} />
+					<DataExfiltration suspected={true} />
+				</TriggerConditions>
+
+				<EmergencyActions>
+					<IsolateAffectedSystems />
+					<RevokeAllNonEssentialAccess />
+					<EnableForensicsMode />
+					<NotifySecurityTeam />
+					<ActivateIncidentResponse />
+				</EmergencyActions>
+			</Scenario>
+		</EmergencyScenarios>
+
+		<BreakGlassAudit>
+			<RealTimeMonitoring>
+				<EmergencyAccessUsage />
+				<ActionsTaken />
+				<DataAccessed />
+				<SystemsModified />
+			</RealTimeMonitoring>
+
+			<PostIncidentReview>
+				<AccessJustification required={true} />
+				<ActionsReview by="security-committee" />
+				<LessonsLearned documentation={true} />
+				<PolicyUpdates as-needed={true} />
+			</PostIncidentReview>
+		</BreakGlassAudit>
+	</BreakGlassProtocols>
+
+	<ControlledEscalation>
+		<EscalationLadder>
+			<Level1 authority="team-lead" scope="team-resources" />
+			<Level2 authority="department-head" scope="department-resources" />
+			<Level3 authority="vp-engineering" scope="engineering-resources" />
+			<Level4 authority="ciso" scope="security-overrides" />
+			<Level5 authority="ceo" scope="company-wide-emergency" />
+		</EscalationLadder>
+
+		<AutomaticEscalation>
+			<TimeBasedEscalation after="PT15M" if="no-response" />
+			<SeverityBasedEscalation when="critical-severity" skip-levels={1} />
+			<ImpactBasedEscalation when="customer-impacting" notify="all-levels" />
+		</AutomaticEscalation>
+	</ControlledEscalation>
 </EmergencyAccess>
 ```
 

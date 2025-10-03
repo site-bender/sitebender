@@ -15,9 +15,9 @@
 Always use direct imports with full paths including index.ts:
 
 ```typescript
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts";
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts";
-import err from "@sitebender/toolsmith/monads/result/error/index.ts";
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import err from "@sitebender/toolsmith/monads/result/error/index.ts"
 ```
 
 ### Within Quarrier
@@ -25,8 +25,8 @@ import err from "@sitebender/toolsmith/monads/result/error/index.ts";
 Use relative paths with full index.ts:
 
 ```typescript
-import type { Seed } from "../../types/index.ts";
-import advanceSeed from "../advanceSeed/index.ts";
+import type { Seed } from "../../types/index.ts"
+import advanceSeed from "../advanceSeed/index.ts"
 ```
 
 ### No Barrel Files

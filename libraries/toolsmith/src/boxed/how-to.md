@@ -58,11 +58,11 @@ Import groups (alphabetical within each group, blank line between groups):
 2. Internal default imports (alphabetical)
 
 ```typescript
-import type { Result } from "../../../monads/result/types/index.ts";
-import type { Validation } from "../../../types/Validation/index.ts";
+import type { Result } from "../../../monads/result/types/index.ts"
+import type { Validation } from "../../../types/Validation/index.ts"
 
-import liftBinary from "../../lift/liftBinary/index.ts";
-import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts";
+import liftBinary from "../../lift/liftBinary/index.ts"
+import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts"
 ```
 
 ## Implementation Patterns
@@ -74,26 +74,26 @@ For functions that take one argument.
 **Template:**
 
 ```typescript
-import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts";
-import liftUnary from "../../lift/liftUnary/index.ts";
+import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts"
+import liftUnary from "../../lift/liftUnary/index.ts"
 
 //++ Boxed version of functionName that works with Result/Validation monads
-const functionName = liftUnary(vanillaFunctionName);
+const functionName = liftUnary(vanillaFunctionName)
 
-export default functionName;
+export default functionName
 ```
 
 **Example:**
 
 ```typescript
 // File: libraries/toolsmith/src/boxed/math/negate/index.ts
-import vanillaNegate from "../../../vanilla/math/negate/index.ts";
-import liftUnary from "../../lift/liftUnary/index.ts";
+import vanillaNegate from "../../../vanilla/math/negate/index.ts"
+import liftUnary from "../../lift/liftUnary/index.ts"
 
 //++ Boxed version of negate that works with Result/Validation monads
-const negate = liftUnary(vanillaNegate);
+const negate = liftUnary(vanillaNegate)
 
-export default negate;
+export default negate
 ```
 
 ### Binary Function
@@ -105,13 +105,13 @@ For curried functions that take two arguments.
 **Template:**
 
 ```typescript
-import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts";
-import liftBinary from "../../lift/liftBinary/index.ts";
+import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts"
+import liftBinary from "../../lift/liftBinary/index.ts"
 
 //++ Boxed version of functionName that works with Result/Validation monads
-const functionName = liftBinary(vanillaFunctionName);
+const functionName = liftBinary(vanillaFunctionName)
 
-export default functionName;
+export default functionName
 ```
 
 **Examples:**
@@ -122,13 +122,13 @@ export default functionName;
 // File: libraries/toolsmith/src/boxed/math/add/index.ts
 // Vanilla: First param is augend, second is addend
 // Vanilla inner function: addToAugend
-import vanillaAdd from "../../../vanilla/math/add/index.ts";
-import liftBinary from "../../lift/liftBinary/index.ts";
+import vanillaAdd from "../../../vanilla/math/add/index.ts"
+import liftBinary from "../../lift/liftBinary/index.ts"
 
 //++ Boxed version of add that works with Result/Validation monads
-const add = liftBinary(vanillaAdd);
+const add = liftBinary(vanillaAdd)
 
-export default add;
+export default add
 ```
 
 **Divide:**
@@ -137,13 +137,13 @@ export default add;
 // File: libraries/toolsmith/src/boxed/math/divide/index.ts
 // Vanilla: First param is DIVISOR, second is dividend
 // Vanilla inner function: divideByDivisor (captures divisor!)
-import vanillaDivide from "../../../vanilla/math/divide/index.ts";
-import liftBinary from "../../lift/liftBinary/index.ts";
+import vanillaDivide from "../../../vanilla/math/divide/index.ts"
+import liftBinary from "../../lift/liftBinary/index.ts"
 
 //++ Boxed version of divide that works with Result/Validation monads
-const divide = liftBinary(vanillaDivide);
+const divide = liftBinary(vanillaDivide)
 
-export default divide;
+export default divide
 ```
 
 **Subtract:**
@@ -152,13 +152,13 @@ export default divide;
 // File: libraries/toolsmith/src/boxed/math/subtract/index.ts
 // Vanilla: First param is subtrahend, second is minuend
 // Vanilla inner function: subtractFromMinuend
-import vanillaSubtract from "../../../vanilla/math/subtract/index.ts";
-import liftBinary from "../../lift/liftBinary/index.ts";
+import vanillaSubtract from "../../../vanilla/math/subtract/index.ts"
+import liftBinary from "../../lift/liftBinary/index.ts"
 
 //++ Boxed version of subtract that works with Result/Validation monads
-const subtract = liftBinary(vanillaSubtract);
+const subtract = liftBinary(vanillaSubtract)
 
-export default subtract;
+export default subtract
 ```
 
 ### Ternary Function
@@ -168,26 +168,26 @@ For curried functions that take three arguments. **Needs implementation:** Creat
 **Template:**
 
 ```typescript
-import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts";
-import liftTernary from "../../lift/liftTernary/index.ts";
+import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts"
+import liftTernary from "../../lift/liftTernary/index.ts"
 
 //++ Boxed version of functionName that works with Result/Validation monads
-const functionName = liftTernary(vanillaFunctionName);
+const functionName = liftTernary(vanillaFunctionName)
 
-export default functionName;
+export default functionName
 ```
 
 **Example:**
 
 ```typescript
 // File: libraries/toolsmith/src/boxed/math/clamp/index.ts
-import vanillaClamp from "../../../vanilla/math/clamp/index.ts";
-import liftTernary from "../../lift/liftTernary/index.ts";
+import vanillaClamp from "../../../vanilla/math/clamp/index.ts"
+import liftTernary from "../../lift/liftTernary/index.ts"
 
 //++ Boxed version of clamp that works with Result/Validation monads
-const clamp = liftTernary(vanillaClamp);
+const clamp = liftTernary(vanillaClamp)
 
-export default clamp;
+export default clamp
 ```
 
 ### Quaternary Function
@@ -199,13 +199,13 @@ For curried functions that take four arguments. **Needs implementation:** Create
 **Template:**
 
 ```typescript
-import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts";
-import liftQuaternary from "../../lift/liftQuaternary/index.ts";
+import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts"
+import liftQuaternary from "../../lift/liftQuaternary/index.ts"
 
 //++ Boxed version of functionName that works with Result/Validation monads
-const functionName = liftQuaternary(vanillaFunctionName);
+const functionName = liftQuaternary(vanillaFunctionName)
 
-export default functionName;
+export default functionName
 ```
 
 ### N-ary Function
@@ -228,13 +228,13 @@ For functions with 5+ arguments. **Needs implementation:** Create `liftN` that h
 **Template:**
 
 ```typescript
-import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts";
-import liftN from "../../lift/liftN/index.ts";
+import vanillaFunctionName from "../../../vanilla/category/functionName/index.ts"
+import liftN from "../../lift/liftN/index.ts"
 
 //++ Boxed version of functionName that works with Result/Validation monads
-const functionName = liftN(5)(vanillaFunctionName); // specify arity
+const functionName = liftN(5)(vanillaFunctionName) // specify arity
 
-export default functionName;
+export default functionName
 ```
 
 ## Lift Helpers
@@ -244,30 +244,30 @@ export default functionName;
 **Location:** `libraries/toolsmith/src/boxed/lift/liftUnary/index.ts`
 
 ```typescript
-import type { Result } from "../../../monads/result/types/index.ts";
-import type { Validation } from "../../../types/Validation/index.ts";
+import type { Result } from "../../../monads/result/types/index.ts"
+import type { Validation } from "../../../types/Validation/index.ts"
 
-import isResult from "../../../monads/result/isResult/index.ts";
-import isValidation from "../../../monads/validation/isValidation/index.ts";
-import ok from "../../../monads/result/ok/index.ts";
-import resultMap from "../../../monads/result/map/index.ts";
-import validationMap from "../../../monads/validation/map/index.ts";
+import isResult from "../../../monads/result/isResult/index.ts"
+import isValidation from "../../../monads/validation/isValidation/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
+import resultMap from "../../../monads/result/map/index.ts"
+import validationMap from "../../../monads/validation/map/index.ts"
 
 //++ Lifts a unary function to work with Result/Validation monads
 export default function liftUnary<A, B, E>(fn: (a: A) => B) {
-  return function lifted(
-    ma: A | Result<E, A> | Validation<E[], A>,
-  ): Result<E, B> | Validation<E[], B> {
-    if (isValidation(ma)) {
-      return validationMap(fn)(ma);
-    }
+	return function lifted(
+		ma: A | Result<E, A> | Validation<E[], A>,
+	): Result<E, B> | Validation<E[], B> {
+		if (isValidation(ma)) {
+			return validationMap(fn)(ma)
+		}
 
-    if (isResult(ma)) {
-      return resultMap(fn)(ma);
-    }
+		if (isResult(ma)) {
+			return resultMap(fn)(ma)
+		}
 
-    return ok(fn(ma));
-  };
+		return ok(fn(ma))
+	}
 }
 ```
 
@@ -278,36 +278,36 @@ export default function liftUnary<A, B, E>(fn: (a: A) => B) {
 **IMPORTANT:** Only for curried binary functions `(a: A) => (b: B) => C`, NOT for uncurried `(a: A, b: B) => C`
 
 ```typescript
-import type { Result } from "../../../monads/result/types/index.ts";
-import type { Validation } from "../../../types/Validation/index.ts";
+import type { Result } from "../../../monads/result/types/index.ts"
+import type { Validation } from "../../../types/Validation/index.ts"
 
-import isResult from "../../../monads/result/isResult/index.ts";
-import isValidation from "../../../monads/validation/isValidation/index.ts";
-import ok from "../../../monads/result/ok/index.ts";
-import resultMap2 from "../../../monads/result/map2/index.ts";
-import success from "../../../monads/validation/success/index.ts";
-import validationMap2 from "../../../monads/validation/map2/index.ts";
+import isResult from "../../../monads/result/isResult/index.ts"
+import isValidation from "../../../monads/validation/isValidation/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
+import resultMap2 from "../../../monads/result/map2/index.ts"
+import success from "../../../monads/validation/success/index.ts"
+import validationMap2 from "../../../monads/validation/map2/index.ts"
 
 //++ Lifts a curried binary function to work with Result/Validation monads
 //++ Note: Inner functions should be named semantically in actual implementations
 export default function liftBinary<A, B, C, E>(fn: (a: A) => (b: B) => C) {
-  return function liftedFirst(ma: A | Result<E, A> | Validation<E[], A>) {
-    return function liftedSecond(
-      mb: B | Result<E, B> | Validation<E[], B>,
-    ): Result<E, C> | Validation<E[], C> {
-      if (isValidation(ma) || isValidation(mb)) {
-        const aVal = isValidation(ma) ? ma : success(ma as A);
-        const bVal = isValidation(mb) ? mb : success(mb as B);
+	return function liftedFirst(ma: A | Result<E, A> | Validation<E[], A>) {
+		return function liftedSecond(
+			mb: B | Result<E, B> | Validation<E[], B>,
+		): Result<E, C> | Validation<E[], C> {
+			if (isValidation(ma) || isValidation(mb)) {
+				const aVal = isValidation(ma) ? ma : success(ma as A)
+				const bVal = isValidation(mb) ? mb : success(mb as B)
 
-        return validationMap2(fn)(aVal)(bVal);
-      }
+				return validationMap2(fn)(aVal)(bVal)
+			}
 
-      const aResult = isResult(ma) ? ma : ok(ma as A);
-      const bResult = isResult(mb) ? mb : ok(mb as B);
+			const aResult = isResult(ma) ? ma : ok(ma as A)
+			const bResult = isResult(mb) ? mb : ok(mb as B)
 
-      return resultMap2(fn)(aResult)(bResult);
-    };
-  };
+			return resultMap2(fn)(aResult)(bResult)
+		}
+	}
 }
 ```
 
@@ -328,71 +328,71 @@ export default function liftBinary<A, B, C, E>(fn: (a: A) => (b: B) => C) {
 ### Plain Values
 
 ```typescript
-import add from "@toolsmith/boxed/math/add";
+import add from "@toolsmith/boxed/math/add"
 
 // Plain values default to Result
-add(5)(10); // Returns: {_tag: "Ok", value: 15}
+add(5)(10) // Returns: {_tag: "Ok", value: 15}
 ```
 
 ### Result Monad
 
 ```typescript
-import add from "@toolsmith/boxed/math/add";
-import error from "@toolsmith/monads/result/error";
-import ok from "@toolsmith/monads/result/ok";
+import add from "@toolsmith/boxed/math/add"
+import error from "@toolsmith/monads/result/error"
+import ok from "@toolsmith/monads/result/ok"
 
 // Result propagates
-add(ok(5))(ok(10)); // {_tag: "Ok", value: 15}
-add(error("bad"))(ok(10)); // {_tag: "Error", error: "bad"}
-add(ok(5))(error("bad")); // {_tag: "Error", error: "bad"}
+add(ok(5))(ok(10)) // {_tag: "Ok", value: 15}
+add(error("bad"))(ok(10)) // {_tag: "Error", error: "bad"}
+add(ok(5))(error("bad")) // {_tag: "Error", error: "bad"}
 ```
 
 ### Validation Monad
 
 ```typescript
-import add from "@toolsmith/boxed/math/add";
-import failure from "@toolsmith/monads/validation/failure";
-import success from "@toolsmith/monads/validation/success";
+import add from "@toolsmith/boxed/math/add"
+import failure from "@toolsmith/monads/validation/failure"
+import success from "@toolsmith/monads/validation/success"
 
 // Validation propagates and accumulates
-add(success(5))(success(10)); // {_tag: "Valid", value: 15}
-add(failure(["e1"]))(success(10)); // {_tag: "Invalid", errors: ["e1"]}
-add(failure(["e1"]))(failure(["e2"])); // {_tag: "Invalid", errors: ["e1", "e2"]}
+add(success(5))(success(10)) // {_tag: "Valid", value: 15}
+add(failure(["e1"]))(success(10)) // {_tag: "Invalid", errors: ["e1"]}
+add(failure(["e1"]))(failure(["e2"])) // {_tag: "Invalid", errors: ["e1", "e2"]}
 ```
 
 ### Mixed Monads
 
 ```typescript
-import add from "@toolsmith/boxed/math/add";
-import ok from "@toolsmith/monads/result/ok";
-import success from "@toolsmith/monads/validation/success";
+import add from "@toolsmith/boxed/math/add"
+import ok from "@toolsmith/monads/result/ok"
+import success from "@toolsmith/monads/validation/success"
 
 // Validation "wins" over Result
-add(ok(5))(success(10)); // {_tag: "Valid", value: 15}
-add(success(5))(ok(10)); // {_tag: "Valid", value: 15}
-add(success(5))(10); // {_tag: "Valid", value: 15}
+add(ok(5))(success(10)) // {_tag: "Valid", value: 15}
+add(success(5))(ok(10)) // {_tag: "Valid", value: 15}
+add(success(5))(10) // {_tag: "Valid", value: 15}
 ```
 
 ### Pipeline
 
 ```typescript
-import pipe from "@toolsmith/pipe";
-import add from "@toolsmith/boxed/math/add";
-import multiply from "@toolsmith/boxed/math/multiply";
-import success from "@toolsmith/monads/validation/success";
+import pipe from "@toolsmith/pipe"
+import add from "@toolsmith/boxed/math/add"
+import multiply from "@toolsmith/boxed/math/multiply"
+import success from "@toolsmith/monads/validation/success"
 
 // Monad type propagates through pipeline
 pipe(
-  10, // Plain value
-  add(5), // Result.Ok(15)
-  multiply(2), // Result.Ok(30)
-);
+	10, // Plain value
+	add(5), // Result.Ok(15)
+	multiply(2), // Result.Ok(30)
+)
 
 pipe(
-  success(10), // Start with Validation
-  add(5), // Validation.Valid(15)
-  multiply(2), // Validation.Valid(30)
-);
+	success(10), // Start with Validation
+	add(5), // Validation.Valid(15)
+	multiply(2), // Validation.Valid(30)
+)
 ```
 
 ## Implementation Checklist
@@ -429,20 +429,20 @@ Always check for valid conditions first, not invalid ones. Handle the normal cas
 ```typescript
 // BAD - checking for invalid condition (even with not)
 if (not(isNumber(x))) {
-  return NaN;
+	return NaN
 }
-return process(x);
+return process(x)
 
 // BAD - still checking the negative case first
 if (not(valid)) {
-  return handleError();
+	return handleError()
 }
-return process();
+return process()
 
 // BAD - redundant checks
 if (isArray(arr) && isEmpty(arr)) {
-  // isEmpty already checks isArray!
-  return defaultValue;
+	// isEmpty already checks isArray!
+	return defaultValue
 }
 ```
 
@@ -451,33 +451,33 @@ if (isArray(arr) && isEmpty(arr)) {
 ```typescript
 // GOOD - happy path first
 if (isNumber(x)) {
-  return process(x); // Happy path inside
+	return process(x) // Happy path inside
 }
 
-return NaN; // Error case outside
+return NaN // Error case outside
 
 // GOOD - when you MUST check negative, use not function
-import not from "../predicates/not/index.ts";
+import not from "../predicates/not/index.ts"
 
 // Only use not when there's no positive alternative
 if (hasPermission(user)) {
-  return processRequest();
+	return processRequest()
 }
 
 // Sometimes negation is clearer for guards
 if (not(isEmpty(errors))) {
-  return handleErrors(errors);
+	return handleErrors(errors)
 }
 
 // GOOD - intelligent guards include type checks
 if (isEmpty(arr)) {
-  // isEmpty checks isArray internally
-  return defaultValue;
+	// isEmpty checks isArray internally
+	return defaultValue
 }
 
 if (isNotEmpty(arr)) {
-  // Already validates it's an array
-  return process(arr);
+	// Already validates it's an array
+	return process(arr)
 }
 ```
 
@@ -489,7 +489,7 @@ ALL inline functions must be extracted to their own files, even simple ones pass
 
 ```typescript
 // BAD - inline lambda
-reduce((acc, n) => acc + n * n)(ADDITIVE_IDENTITY)(numbers);
+reduce((acc, n) => acc + n * n)(ADDITIVE_IDENTITY)(numbers)
 ```
 
 ### Good Example
@@ -497,18 +497,18 @@ reduce((acc, n) => acc + n * n)(ADDITIVE_IDENTITY)(numbers);
 ```typescript
 // GOOD - extracted and named
 // In ./_squareThenSum/index.ts (private, note the underscore)
-import square from "@sitebender/toolsmith/vanilla/math/square/index.ts";
+import square from "@sitebender/toolsmith/vanilla/math/square/index.ts"
 
 //++ Adds the square of a number to a sum accumulator
 export default function _squareThenSum(sum: number): (n: number) => number {
-  return function squareAndAddToSum(n: number): number {
-    return sum + square(n);
-  };
+	return function squareAndAddToSum(n: number): number {
+		return sum + square(n)
+	}
 }
 
 // In the main file
-import _squareThenSum from "./_squareThenSum/index.ts";
-reduce(_squareThenSum)(ADDITIVE_IDENTITY)(numbers);
+import _squareThenSum from "./_squareThenSum/index.ts"
+reduce(_squareThenSum)(ADDITIVE_IDENTITY)(numbers)
 ```
 
 ### Naming Convention
@@ -537,13 +537,13 @@ Instead of using `any` or `unknown`, use our specific type definitions from `typ
 
 ```typescript
 // Validator function
-function isString(value?: Value): value is string;
+function isString(value?: Value): value is string
 
 // Converter function
-function toString(value?: Serializable): string;
+function toString(value?: Serializable): string
 
 // Predicate function
-function not(value: Value): boolean;
+function not(value: Value): boolean
 ```
 
 ## Type Signatures

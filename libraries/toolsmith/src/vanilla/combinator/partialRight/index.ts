@@ -6,5 +6,4 @@ const partialRight =
 	) =>
 	(...initialArgs: T): R => fn(...initialArgs, ...fixedArgs)
 
-
 export default partialRight
