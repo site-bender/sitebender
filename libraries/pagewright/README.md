@@ -392,34 +392,34 @@ Instead of thinking in HTML elements, think in semantic concepts:
 
 ```tsx
 <Essay>
-  <Heading>
-    <Title>The Future of Web Development</Title>
-    <Subtitle>A Revolutionary Approach</Subtitle>
-    <ByLine>
-      <Author>The Architect</Author>
-      <PublicationDate>2024-12-30</PublicationDate>
-    </ByLine>
-  </Heading>
+	<Heading>
+		<Title>The Future of Web Development</Title>
+		<Subtitle>A Revolutionary Approach</Subtitle>
+		<ByLine>
+			<Author>The Architect</Author>
+			<PublicationDate>2024-12-30</PublicationDate>
+		</ByLine>
+	</Heading>
 
-  <Abstract>
-    This essay explores how semantic authoring transforms web development...
-  </Abstract>
+	<Abstract>
+		This essay explores how semantic authoring transforms web development...
+	</Abstract>
 
-  <Section>
-    <Heading>
-      <Title>The Problem with Current Frameworks</Title>
-    </Heading>
-    <Paragraph>Most frameworks force developers to think in HTML...</Paragraph>
-  </Section>
+	<Section>
+		<Heading>
+			<Title>The Problem with Current Frameworks</Title>
+		</Heading>
+		<Paragraph>Most frameworks force developers to think in HTML...</Paragraph>
+	</Section>
 
-  <EndMatter>
-    <References>
-      <Citation>Smith, J. (2024). Semantic Web Principles.</Citation>
-    </References>
-    <Notes>
-      <Note id="1">This approach was inspired by...</Note>
-    </Notes>
-  </EndMatter>
+	<EndMatter>
+		<References>
+			<Citation>Smith, J. (2024). Semantic Web Principles.</Citation>
+		</References>
+		<Notes>
+			<Note id="1">This approach was inspired by...</Note>
+		</Notes>
+	</EndMatter>
 </Essay>
 ```
 

@@ -1,4 +1,8 @@
-import { assert, assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assert,
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "https://esm.sh/fast-check@3.15.0"
 
 import sigmoid from "./index.ts"
@@ -46,7 +50,7 @@ Deno.test("sigmoid", async (t) => {
 			fc.property(
 				fc.tuple(
 					fc.double({ min: -100, max: 100, noNaN: true }),
-					fc.double({ min: -100, max: 100, noNaN: true })
+					fc.double({ min: -100, max: 100, noNaN: true }),
 				),
 				([a, b]) => {
 					if (a < b) {
@@ -54,8 +58,8 @@ Deno.test("sigmoid", async (t) => {
 						const resultB = sigmoid(b)
 						assert(resultA < resultB || Math.abs(resultA - resultB) < 1e-10)
 					}
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -66,8 +70,8 @@ Deno.test("sigmoid", async (t) => {
 				(x) => {
 					const result = sigmoid(x)
 					assert(result >= 0 && result <= 1)
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -80,30 +84,33 @@ Deno.test("sigmoid", async (t) => {
 					const negative = sigmoid(-x)
 					// sigmoid(x) + sigmoid(-x) = 1
 					assertAlmostEquals(positive + negative, 1, 1e-10)
-				}
-			)
+				},
+			),
 		)
 	})
 
-	await t.step("derivative property sigmoid'(x) = sigmoid(x) * (1 - sigmoid(x))", () => {
-		fc.assert(
-			fc.property(
-				fc.double({ min: -10, max: 10, noNaN: true }),
-				(x) => {
-					const s = sigmoid(x)
-					// We can't test the actual derivative without calculating it,
-					// but we can verify that s * (1 - s) is always between 0 and 0.25
-					const derivativeForm = s * (1 - s)
-					assert(derivativeForm >= 0 && derivativeForm <= 0.25)
+	await t.step(
+		"derivative property sigmoid'(x) = sigmoid(x) * (1 - sigmoid(x))",
+		() => {
+			fc.assert(
+				fc.property(
+					fc.double({ min: -10, max: 10, noNaN: true }),
+					(x) => {
+						const s = sigmoid(x)
+						// We can't test the actual derivative without calculating it,
+						// but we can verify that s * (1 - s) is always between 0 and 0.25
+						const derivativeForm = s * (1 - s)
+						assert(derivativeForm >= 0 && derivativeForm <= 0.25)
 
-					// Maximum derivative is at x=0 where s=0.5, giving 0.5 * 0.5 = 0.25
-					if (Math.abs(x) < 0.01) {
-						assertAlmostEquals(derivativeForm, 0.25, 0.01)
-					}
-				}
+						// Maximum derivative is at x=0 where s=0.5, giving 0.5 * 0.5 = 0.25
+						if (Math.abs(x) < 0.01) {
+							assertAlmostEquals(derivativeForm, 0.25, 0.01)
+						}
+					},
+				),
 			)
-		)
-	})
+		},
+	)
 
 	await t.step("produces consistent results for same input", () => {
 		fc.assert(
@@ -113,8 +120,8 @@ Deno.test("sigmoid", async (t) => {
 					const result1 = sigmoid(x)
 					const result2 = sigmoid(x)
 					assertEquals(result1, result2)
-				}
-			)
+				},
+			),
 		)
 	})
 

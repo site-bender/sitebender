@@ -1,5 +1,5 @@
-import not from "../../../logic/not/index.ts"
 import defaultTo from "../../../logic/defaultTo/index.ts"
+import not from "../../../logic/not/index.ts"
 import add from "../../../math/add/index.ts"
 
 type FrequencyAccumulator<T> = {

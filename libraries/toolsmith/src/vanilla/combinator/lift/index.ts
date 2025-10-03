@@ -23,5 +23,4 @@ const lift = <R>(fn: (...args: ReadonlyArray<unknown>) => R) => {
 	}
 }
 
-
 export default lift

@@ -834,95 +834,95 @@ Transform complex conditional logic into intuitive visual workflow components:
 
 ```tsx
 <ConditionalWorkflowCanvas>
-  <DecisionNode id="deployment-readiness" position={[300, 200]}>
-    <VisualProperties>
-      <Shape type="diamond" color="orange" />
-      <Label>Ready to Deploy?</Label>
-    </VisualProperties>
+	<DecisionNode id="deployment-readiness" position={[300, 200]}>
+		<VisualProperties>
+			<Shape type="diamond" color="orange" />
+			<Label>Ready to Deploy?</Label>
+		</VisualProperties>
 
-    <Condition>
-      <And>
-        <IsEqualTo>
-          <Referent>
-            <From.Warden selector="violations" />
-          </Referent>
-          <Comparand>
-            <From.Constant>0</From.Constant>
-          </Comparand>
-        </IsEqualTo>
-        <IsGreaterThan>
-          <Referent>
-            <From.Auditor selector="coverage" />
-          </Referent>
-          <Comparand>
-            <From.Constant>95</From.Constant>
-          </Comparand>
-        </IsGreaterThan>
-        <IsEqualTo>
-          <Referent>
-            <From.Agent selector="networkHealth" />
-          </Referent>
-          <Comparand>
-            <From.Constant>"healthy"</From.Constant>
-          </Comparand>
-        </IsEqualTo>
-      </And>
-    </Condition>
+		<Condition>
+			<And>
+				<IsEqualTo>
+					<Referent>
+						<From.Warden selector="violations" />
+					</Referent>
+					<Comparand>
+						<From.Constant>0</From.Constant>
+					</Comparand>
+				</IsEqualTo>
+				<IsGreaterThan>
+					<Referent>
+						<From.Auditor selector="coverage" />
+					</Referent>
+					<Comparand>
+						<From.Constant>95</From.Constant>
+					</Comparand>
+				</IsGreaterThan>
+				<IsEqualTo>
+					<Referent>
+						<From.Agent selector="networkHealth" />
+					</Referent>
+					<Comparand>
+						<From.Constant>"healthy"</From.Constant>
+					</Comparand>
+				</IsEqualTo>
+			</And>
+		</Condition>
 
-    <WhenTrue>
-      <Connection to="production-deployment" color="green" />
-      <WorkflowTrigger name="production-deployment" />
-    </WhenTrue>
+		<WhenTrue>
+			<Connection to="production-deployment" color="green" />
+			<WorkflowTrigger name="production-deployment" />
+		</WhenTrue>
 
-    <WhenFalse>
-      <SwitchDisplay>
-        <Case condition="wardenViolations > 0">
-          <Connection to="fix-violations" color="red" />
-          <WorkflowTrigger name="fix-violations" />
-        </Case>
-        <Case condition="coverage < 95">
-          <Connection to="improve-tests" color="yellow" />
-          <WorkflowTrigger name="improve-tests" />
-        </Case>
-        <Case condition="networkHealth !== 'healthy'">
-          <Connection to="network-recovery" color="purple" />
-          <WorkflowTrigger name="network-recovery" />
-        </Case>
-        <Default>
-          <Connection to="investigate-failure" color="gray" />
-          <WorkflowTrigger name="investigate-failure" />
-        </Default>
-      </SwitchDisplay>
-    </WhenFalse>
+		<WhenFalse>
+			<SwitchDisplay>
+				<Case condition="wardenViolations > 0">
+					<Connection to="fix-violations" color="red" />
+					<WorkflowTrigger name="fix-violations" />
+				</Case>
+				<Case condition="coverage < 95">
+					<Connection to="improve-tests" color="yellow" />
+					<WorkflowTrigger name="improve-tests" />
+				</Case>
+				<Case condition="networkHealth !== 'healthy'">
+					<Connection to="network-recovery" color="purple" />
+					<WorkflowTrigger name="network-recovery" />
+				</Case>
+				<Default>
+					<Connection to="investigate-failure" color="gray" />
+					<WorkflowTrigger name="investigate-failure" />
+				</Default>
+			</SwitchDisplay>
+		</WhenFalse>
 
-    <ReactiveUpdates>
-      <OnChange selector="warden.violations">
-        <UpdateCondition />
-        <TriggerRevaluation />
-        <HighlightChange color="red" duration="PT2S" />
-      </OnChange>
+		<ReactiveUpdates>
+			<OnChange selector="warden.violations">
+				<UpdateCondition />
+				<TriggerRevaluation />
+				<HighlightChange color="red" duration="PT2S" />
+			</OnChange>
 
-      <OnChange selector="auditor.coverage">
-        <UpdateMetrics />
-        <CheckDeploymentReadiness />
-        <VisualFeedback type="pulse" />
-      </OnChange>
-    </ReactiveUpdates>
-  </DecisionNode>
+			<OnChange selector="auditor.coverage">
+				<UpdateMetrics />
+				<CheckDeploymentReadiness />
+				<VisualFeedback type="pulse" />
+			</OnChange>
+		</ReactiveUpdates>
+	</DecisionNode>
 
-  <ConditionEvaluator>
-    <RealTimeDisplay>
-      <ShowCurrentValues />
-      <HighlightActiveConditions />
-      <DisplayEvaluationPath />
-    </RealTimeDisplay>
+	<ConditionEvaluator>
+		<RealTimeDisplay>
+			<ShowCurrentValues />
+			<HighlightActiveConditions />
+			<DisplayEvaluationPath />
+		</RealTimeDisplay>
 
-    <DebuggingTools>
-      <StepThroughEvaluation />
-      <ShowIntermediateResults />
-      <ExplainDecision />
-    </DebuggingTools>
-  </ConditionEvaluator>
+		<DebuggingTools>
+			<StepThroughEvaluation />
+			<ShowIntermediateResults />
+			<ExplainDecision />
+		</DebuggingTools>
+	</ConditionEvaluator>
 </ConditionalWorkflowCanvas>
 ```
 
@@ -932,86 +932,86 @@ Create reactive data processing pipelines with visual flow control:
 
 ```tsx
 <ReactiveWorkflowPipeline>
-  <Stage name="source-analysis" position={[100, 200]}>
-    <Input from="git.changes" />
-    <Process with="arborist.parseFiles" />
-    <Output to="parsed-files" />
-    <ReactsTo changes="file-system" />
+	<Stage name="source-analysis" position={[100, 200]}>
+		<Input from="git.changes" />
+		<Process with="arborist.parseFiles" />
+		<Output to="parsed-files" />
+		<ReactsTo changes="file-system" />
 
-    <ConditionalProcessing>
-      <When condition="fileCount > 100">
-        <Parallelize workers={4} />
-      </When>
-      <When condition="fileCount <= 10">
-        <SequentialProcessing />
-      </When>
-    </ConditionalProcessing>
-  </Stage>
+		<ConditionalProcessing>
+			<When condition="fileCount > 100">
+				<Parallelize workers={4} />
+			</When>
+			<When condition="fileCount <= 10">
+				<SequentialProcessing />
+			</When>
+		</ConditionalProcessing>
+	</Stage>
 
-  <Stage name="quality-checks" position={[300, 200]}>
-    <Input from="parsed-files" />
+	<Stage name="quality-checks" position={[300, 200]}>
+		<Input from="parsed-files" />
 
-    <ParallelBranches>
-      <Branch name="warden-validation">
-        <Process with="warden.validate" output="violations" />
-        <ConditionalFlow>
-          <If condition="violations.length === 0">
-            <Continue to="next-stage" />
-          </If>
-          <ElseIf condition="violations.some(v => v.critical)">
-            <Abort reason="critical-violations" />
-          </ElseIf>
-          <Else>
-            <Continue with="warnings" to="next-stage" />
-          </Else>
-        </ConditionalFlow>
-      </Branch>
+		<ParallelBranches>
+			<Branch name="warden-validation">
+				<Process with="warden.validate" output="violations" />
+				<ConditionalFlow>
+					<If condition="violations.length === 0">
+						<Continue to="next-stage" />
+					</If>
+					<ElseIf condition="violations.some(v => v.critical)">
+						<Abort reason="critical-violations" />
+					</ElseIf>
+					<Else>
+						<Continue with="warnings" to="next-stage" />
+					</Else>
+				</ConditionalFlow>
+			</Branch>
 
-      <Branch name="test-generation">
-        <Process with="auditor.testGeneration" output="tests" />
-        <ConditionalFlow>
-          <If condition="tests.coverage >= 90">
-            <SetFlag name="high-coverage" />
-          </If>
-        </ConditionalFlow>
-      </Branch>
+			<Branch name="test-generation">
+				<Process with="auditor.testGeneration" output="tests" />
+				<ConditionalFlow>
+					<If condition="tests.coverage >= 90">
+						<SetFlag name="high-coverage" />
+					</If>
+				</ConditionalFlow>
+			</Branch>
 
-      <Branch name="documentation">
-        <Process with="envoy.documentation" output="docs" />
-      </Branch>
-    </ParallelBranches>
+			<Branch name="documentation">
+				<Process with="envoy.documentation" output="docs" />
+			</Branch>
+		</ParallelBranches>
 
-    <ReactsTo changes="code-structure" />
-  </Stage>
+		<ReactsTo changes="code-structure" />
+	</Stage>
 
-  <Stage name="deployment-decision" position={[500, 200]}>
-    <Input from="violations, tests, docs" />
+	<Stage name="deployment-decision" position={[500, 200]}>
+		<Input from="violations, tests, docs" />
 
-    <DecisionMatrix>
-      <Rule priority={1} when="violations.length === 0 && tests.coverage > 90">
-        <Action>deploy-to-staging</Action>
-        <Visual color="green" />
-      </Rule>
+		<DecisionMatrix>
+			<Rule priority={1} when="violations.length === 0 && tests.coverage > 90">
+				<Action>deploy-to-staging</Action>
+				<Visual color="green" />
+			</Rule>
 
-      <Rule priority={2} when="violations.some(v => v.severity === 'critical')">
-        <Action>block-deployment</Action>
-        <Notify channels={["alerts", "team-lead"]} />
-        <Visual color="red" />
-      </Rule>
+			<Rule priority={2} when="violations.some(v => v.severity === 'critical')">
+				<Action>block-deployment</Action>
+				<Notify channels={["alerts", "team-lead"]} />
+				<Visual color="red" />
+			</Rule>
 
-      <Rule priority={3} when="tests.coverage < 50">
-        <Action>require-more-tests</Action>
-        <Visual color="yellow" />
-      </Rule>
+			<Rule priority={3} when="tests.coverage < 50">
+				<Action>require-more-tests</Action>
+				<Visual color="yellow" />
+			</Rule>
 
-      <Default>
-        <Action>queue-for-review</Action>
-        <Visual color="gray" />
-      </Default>
-    </DecisionMatrix>
+			<Default>
+				<Action>queue-for-review</Action>
+				<Visual color="gray" />
+			</Default>
+		</DecisionMatrix>
 
-    <ReactsTo changes="quality-metrics" />
-  </Stage>
+		<ReactsTo changes="quality-metrics" />
+	</Stage>
 </ReactiveWorkflowPipeline>
 ```
 
@@ -1021,55 +1021,55 @@ Workflows that adapt their behavior based on runtime conditions:
 
 ```tsx
 <AdaptiveWorkflow>
-  <WorkflowController>
-    <ContextAwareness>
-      <SystemLoad current="high" threshold="moderate" />
-      <NetworkConditions latency="120ms" bandwidth="good" />
-      <ResourceAvailability cpu="78%" memory="65%" disk="45%" />
-      <TimeOfDay current="business-hours" />
-      <ErrorRate current="0.02%" threshold="1%" />
-    </ContextAwareness>
+	<WorkflowController>
+		<ContextAwareness>
+			<SystemLoad current="high" threshold="moderate" />
+			<NetworkConditions latency="120ms" bandwidth="good" />
+			<ResourceAvailability cpu="78%" memory="65%" disk="45%" />
+			<TimeOfDay current="business-hours" />
+			<ErrorRate current="0.02%" threshold="1%" />
+		</ContextAwareness>
 
-    <AdaptationRules>
-      <Rule condition="systemLoad > 'moderate'">
-        <ReduceParallelism factor={0.5} />
-        <IncreaseTimeout factor={1.5} />
-        <EnableCaching aggressively={true} />
-      </Rule>
+		<AdaptationRules>
+			<Rule condition="systemLoad > 'moderate'">
+				<ReduceParallelism factor={0.5} />
+				<IncreaseTimeout factor={1.5} />
+				<EnableCaching aggressively={true} />
+			</Rule>
 
-      <Rule condition="networkLatency > 200">
-        <BatchOperations size={50} />
-        <EnableCompression algorithm="lz4" />
-        <ReduceNetworkCalls />
-      </Rule>
+			<Rule condition="networkLatency > 200">
+				<BatchOperations size={50} />
+				<EnableCompression algorithm="lz4" />
+				<ReduceNetworkCalls />
+			</Rule>
 
-      <Rule condition="errorRate > 0.5%">
-        <IncreaseRetries attempts={5} />
-        <EnableCircuitBreaker />
-        <AlertOperations />
-      </Rule>
+			<Rule condition="errorRate > 0.5%">
+				<IncreaseRetries attempts={5} />
+				<EnableCircuitBreaker />
+				<AlertOperations />
+			</Rule>
 
-      <Rule condition="timeOfDay === 'off-hours'">
-        <EnableMaintenanceTasks />
-        <AllowLongRunningOperations />
-        <ReducedMonitoring />
-      </Rule>
-    </AdaptationRules>
-  </WorkflowController>
+			<Rule condition="timeOfDay === 'off-hours'">
+				<EnableMaintenanceTasks />
+				<AllowLongRunningOperations />
+				<ReducedMonitoring />
+			</Rule>
+		</AdaptationRules>
+	</WorkflowController>
 
-  <VisualAdaptation>
-    <ShowAdaptations>
-      <HighlightChangedBehaviors />
-      <DisplayAdaptationReasons />
-      <ShowPerformanceImpact />
-    </ShowAdaptations>
+	<VisualAdaptation>
+		<ShowAdaptations>
+			<HighlightChangedBehaviors />
+			<DisplayAdaptationReasons />
+			<ShowPerformanceImpact />
+		</ShowAdaptations>
 
-    <AdaptationHistory>
-      <TrackAdaptations over="PT24H" />
-      <AnalyzeEffectiveness />
-      <SuggestOptimizations />
-    </AdaptationHistory>
-  </VisualAdaptation>
+		<AdaptationHistory>
+			<TrackAdaptations over="PT24H" />
+			<AnalyzeEffectiveness />
+			<SuggestOptimizations />
+		</AdaptationHistory>
+	</VisualAdaptation>
 </AdaptiveWorkflow>
 ```
 
@@ -1079,67 +1079,67 @@ Transform data through conditional processing workflows:
 
 ```tsx
 <ConditionalDataPipeline>
-  <DataSource name="user-events">
-    <Input from="operator.events" filter="user.*" />
+	<DataSource name="user-events">
+		<Input from="operator.events" filter="user.*" />
 
-    <ConditionalTransformation>
-      <When condition="event.type === 'purchase'">
-        <Transform>
-          <ExtractPurchaseData />
-          <CalculateValue />
-          <EnrichWithUserProfile />
-          <FormatForAnalytics />
-        </Transform>
-        <Output to="purchase-analytics" />
-      </When>
+		<ConditionalTransformation>
+			<When condition="event.type === 'purchase'">
+				<Transform>
+					<ExtractPurchaseData />
+					<CalculateValue />
+					<EnrichWithUserProfile />
+					<FormatForAnalytics />
+				</Transform>
+				<Output to="purchase-analytics" />
+			</When>
 
-      <When condition="event.type === 'navigation'">
-        <Transform>
-          <ExtractNavigationData />
-          <CalculateSessionTime />
-          <DetermineUserIntent />
-        </Transform>
-        <Output to="user-behavior-analytics" />
-      </When>
+			<When condition="event.type === 'navigation'">
+				<Transform>
+					<ExtractNavigationData />
+					<CalculateSessionTime />
+					<DetermineUserIntent />
+				</Transform>
+				<Output to="user-behavior-analytics" />
+			</When>
 
-      <When condition="event.type === 'error'">
-        <Transform>
-          <ExtractErrorDetails />
-          <ClassifyErrorType />
-          <DetermineImpact />
-        </Transform>
-        <Output to="error-tracking" />
-        <TriggerAlert when="error.severity === 'critical'" />
-      </When>
+			<When condition="event.type === 'error'">
+				<Transform>
+					<ExtractErrorDetails />
+					<ClassifyErrorType />
+					<DetermineImpact />
+				</Transform>
+				<Output to="error-tracking" />
+				<TriggerAlert when="error.severity === 'critical'" />
+			</When>
 
-      <Default>
-        <Transform>
-          <BasicEventProcessing />
-        </Transform>
-        <Output to="general-analytics" />
-      </Default>
-    </ConditionalTransformation>
-  </DataSource>
+			<Default>
+				<Transform>
+					<BasicEventProcessing />
+				</Transform>
+				<Output to="general-analytics" />
+			</Default>
+		</ConditionalTransformation>
+	</DataSource>
 
-  <ConditionalAggregation>
-    <Aggregate data="purchase-analytics">
-      <If condition="timeWindow === 'real-time'">
-        <SlidingWindow size="PT5M" />
-        <UpdateFrequency interval="PT30S" />
-      </If>
+	<ConditionalAggregation>
+		<Aggregate data="purchase-analytics">
+			<If condition="timeWindow === 'real-time'">
+				<SlidingWindow size="PT5M" />
+				<UpdateFrequency interval="PT30S" />
+			</If>
 
-      <ElseIf condition="timeWindow === 'batch'">
-        <TumblingWindow size="PT1H" />
-        <UpdateFrequency interval="PT1H" />
-      </ElseIf>
+			<ElseIf condition="timeWindow === 'batch'">
+				<TumblingWindow size="PT1H" />
+				<UpdateFrequency interval="PT1H" />
+			</ElseIf>
 
-      <Metrics>
-        <Sum field="revenue" />
-        <Count field="transactions" />
-        <Average field="order-value" />
-      </Metrics>
-    </Aggregate>
-  </ConditionalAggregation>
+			<Metrics>
+				<Sum field="revenue" />
+				<Count field="transactions" />
+				<Average field="order-value" />
+			</Metrics>
+		</Aggregate>
+	</ConditionalAggregation>
 </ConditionalDataPipeline>
 ```
 
@@ -1149,99 +1149,99 @@ Complex gating logic with multiple conditions and approval workflows:
 
 ```tsx
 <MultiConditionGate>
-  <DeploymentGate name="production-release">
-    <RequiredConditions>
-      <TechnicalGate>
-        <Condition name="tests-pass" weight={0.3}>
-          <IsEqualTo>
-            <Referent>
-              <From.Auditor selector="testResults.passed" />
-            </Referent>
-            <Comparand>
-              <From.Auditor selector="testResults.total" />
-            </Comparand>
-          </IsEqualTo>
-        </Condition>
+	<DeploymentGate name="production-release">
+		<RequiredConditions>
+			<TechnicalGate>
+				<Condition name="tests-pass" weight={0.3}>
+					<IsEqualTo>
+						<Referent>
+							<From.Auditor selector="testResults.passed" />
+						</Referent>
+						<Comparand>
+							<From.Auditor selector="testResults.total" />
+						</Comparand>
+					</IsEqualTo>
+				</Condition>
 
-        <Condition name="no-critical-violations" weight={0.3}>
-          <IsEqualTo>
-            <Referent>
-              <From.Warden selector="criticalViolations" />
-            </Referent>
-            <Comparand>
-              <From.Constant>0</From.Constant>
-            </Comparand>
-          </IsEqualTo>
-        </Condition>
+				<Condition name="no-critical-violations" weight={0.3}>
+					<IsEqualTo>
+						<Referent>
+							<From.Warden selector="criticalViolations" />
+						</Referent>
+						<Comparand>
+							<From.Constant>0</From.Constant>
+						</Comparand>
+					</IsEqualTo>
+				</Condition>
 
-        <Condition name="performance-acceptable" weight={0.2}>
-          <IsLessThan>
-            <Referent>
-              <From.Metrics selector="p99Latency" />
-            </Referent>
-            <Comparand>
-              <From.Constant>500</From.Constant>
-            </Comparand>
-          </IsLessThan>
-        </Condition>
+				<Condition name="performance-acceptable" weight={0.2}>
+					<IsLessThan>
+						<Referent>
+							<From.Metrics selector="p99Latency" />
+						</Referent>
+						<Comparand>
+							<From.Constant>500</From.Constant>
+						</Comparand>
+					</IsLessThan>
+				</Condition>
 
-        <Condition name="security-scan-clean" weight={0.2}>
-          <IsEqualTo>
-            <Referent>
-              <From.Security selector="vulnerabilities.high" />
-            </Referent>
-            <Comparand>
-              <From.Constant>0</From.Constant>
-            </Comparand>
-          </IsEqualTo>
-        </Condition>
-      </TechnicalGate>
+				<Condition name="security-scan-clean" weight={0.2}>
+					<IsEqualTo>
+						<Referent>
+							<From.Security selector="vulnerabilities.high" />
+						</Referent>
+						<Comparand>
+							<From.Constant>0</From.Constant>
+						</Comparand>
+					</IsEqualTo>
+				</Condition>
+			</TechnicalGate>
 
-      <BusinessGate>
-        <Condition name="product-approval">
-          <HasApproval from="product-manager" within="PT24H" />
-        </Condition>
+			<BusinessGate>
+				<Condition name="product-approval">
+					<HasApproval from="product-manager" within="PT24H" />
+				</Condition>
 
-        <Condition name="qa-signoff">
-          <HasApproval from="qa-lead" within="PT24H" />
-        </Condition>
+				<Condition name="qa-signoff">
+					<HasApproval from="qa-lead" within="PT24H" />
+				</Condition>
 
-        <Condition name="business-hours">
-          <And>
-            <IsAfterTime time="09:00" />
-            <IsBeforeTime time="17:00" />
-            <IsWeekday />
-          </And>
-        </Condition>
-      </BusinessGate>
-    </RequiredConditions>
+				<Condition name="business-hours">
+					<And>
+						<IsAfterTime time="09:00" />
+						<IsBeforeTime time="17:00" />
+						<IsWeekday />
+					</And>
+				</Condition>
+			</BusinessGate>
+		</RequiredConditions>
 
-    <GateVisualization>
-      <ProgressIndicator>
-        <TechnicalProgress value="85%" color="green" />
-        <BusinessProgress value="67%" color="yellow" />
-        <OverallProgress value="76%" />
-      </ProgressIndicator>
+		<GateVisualization>
+			<ProgressIndicator>
+				<TechnicalProgress value="85%" color="green" />
+				<BusinessProgress value="67%" color="yellow" />
+				<OverallProgress value="76%" />
+			</ProgressIndicator>
 
-      <ConditionStatus>
-        <ShowMet conditions={["tests-pass", "no-critical-violations"]} />
-        <ShowPending conditions={["product-approval"]} />
-        <ShowFailed conditions={[]} />
-      </ConditionStatus>
-    </GateVisualization>
+			<ConditionStatus>
+				<ShowMet conditions={["tests-pass", "no-critical-violations"]} />
+				<ShowPending conditions={["product-approval"]} />
+				<ShowFailed conditions={[]} />
+			</ConditionStatus>
+		</GateVisualization>
 
-    <OnGateOpen>
-      <TriggerWorkflow name="production-deployment" />
-      <NotifyStakeholders />
-      <LogDeployment />
-    </OnGateOpen>
+		<OnGateOpen>
+			<TriggerWorkflow name="production-deployment" />
+			<NotifyStakeholders />
+			<LogDeployment />
+		</OnGateOpen>
 
-    <OnGateBlocked>
-      <ShowBlockingConditions />
-      <SuggestActions />
-      <NotifyResponsible />
-    </OnGateBlocked>
-  </DeploymentGate>
+		<OnGateBlocked>
+			<ShowBlockingConditions />
+			<SuggestActions />
+			<NotifyResponsible />
+		</OnGateBlocked>
+	</DeploymentGate>
 </MultiConditionGate>
 ```
 
@@ -1251,58 +1251,58 @@ Monitor and visualize condition states in real-time:
 
 ```tsx
 <ConditionMonitoringDashboard>
-  <RealTimeConditions>
-    <ConditionGrid>
-      <ConditionCard name="warden-violations">
-        <CurrentValue>0</CurrentValue>
-        <Status color="green">PASS</Status>
-        <Trend direction="stable" />
-        <LastUpdated>2s ago</LastUpdated>
-      </ConditionCard>
+	<RealTimeConditions>
+		<ConditionGrid>
+			<ConditionCard name="warden-violations">
+				<CurrentValue>0</CurrentValue>
+				<Status color="green">PASS</Status>
+				<Trend direction="stable" />
+				<LastUpdated>2s ago</LastUpdated>
+			</ConditionCard>
 
-      <ConditionCard name="test-coverage">
-        <CurrentValue>94.2%</CurrentValue>
-        <Status color="red">FAIL</Status>
-        <Trend direction="improving" />
-        <LastUpdated>1m ago</LastUpdated>
-        <RequiredValue>95%</RequiredValue>
-      </ConditionCard>
+			<ConditionCard name="test-coverage">
+				<CurrentValue>94.2%</CurrentValue>
+				<Status color="red">FAIL</Status>
+				<Trend direction="improving" />
+				<LastUpdated>1m ago</LastUpdated>
+				<RequiredValue>95%</RequiredValue>
+			</ConditionCard>
 
-      <ConditionCard name="network-health">
-        <CurrentValue>healthy</CurrentValue>
-        <Status color="green">PASS</Status>
-        <Trend direction="stable" />
-        <LastUpdated>5s ago</LastUpdated>
-      </ConditionCard>
-    </ConditionGrid>
-  </RealTimeConditions>
+			<ConditionCard name="network-health">
+				<CurrentValue>healthy</CurrentValue>
+				<Status color="green">PASS</Status>
+				<Trend direction="stable" />
+				<LastUpdated>5s ago</LastUpdated>
+			</ConditionCard>
+		</ConditionGrid>
+	</RealTimeConditions>
 
-  <ConditionalAlerts>
-    <AlertRule condition="testCoverage < 95" severity="warning">
-      <Message>Test coverage below threshold</Message>
-      <Action>Suggest test generation</Action>
-      <Escalation after="PT15M" to="team-lead" />
-    </AlertRule>
+	<ConditionalAlerts>
+		<AlertRule condition="testCoverage < 95" severity="warning">
+			<Message>Test coverage below threshold</Message>
+			<Action>Suggest test generation</Action>
+			<Escalation after="PT15M" to="team-lead" />
+		</AlertRule>
 
-    <AlertRule condition="wardenViolations > 0" severity="error">
-      <Message>Code quality violations detected</Message>
-      <Action>Block deployment</Action>
-      <Escalation immediate={true} to="development-team" />
-    </AlertRule>
-  </ConditionalAlerts>
+		<AlertRule condition="wardenViolations > 0" severity="error">
+			<Message>Code quality violations detected</Message>
+			<Action>Block deployment</Action>
+			<Escalation immediate={true} to="development-team" />
+		</AlertRule>
+	</ConditionalAlerts>
 
-  <HistoricalTrends>
-    <TimeSeriesChart>
-      <Metric name="condition-success-rate" timeRange="PT24H" />
-      <Metric name="average-resolution-time" timeRange="PT24H" />
-    </TimeSeriesChart>
+	<HistoricalTrends>
+		<TimeSeriesChart>
+			<Metric name="condition-success-rate" timeRange="PT24H" />
+			<Metric name="average-resolution-time" timeRange="PT24H" />
+		</TimeSeriesChart>
 
-    <PatternAnalysis>
-      <IdentifyRecurringIssues />
-      <PredictFailureProbability />
-      <SuggestPreventiveMeasures />
-    </PatternAnalysis>
-  </HistoricalTrends>
+		<PatternAnalysis>
+			<IdentifyRecurringIssues />
+			<PredictFailureProbability />
+			<SuggestPreventiveMeasures />
+		</PatternAnalysis>
+	</HistoricalTrends>
 </ConditionMonitoringDashboard>
 ```
 

@@ -7,6 +7,7 @@ Functions needed to implement the lexer in pure FP style using lifted monadic fu
 ### Core Monads & Constructors
 
 **Result monad:**
+
 - `ok` - Create Ok result
 - `error` - Create Error result
 - `isOk` - Type guard for Ok
@@ -16,6 +17,7 @@ Functions needed to implement the lexer in pure FP style using lifted monadic fu
 - `getOrElse` - Extract value with fallback
 
 **Validation monad:**
+
 - `success` - Create Valid result
 - `failure` - Create Invalid result with errors
 - `isValid` - Type guard for Valid
@@ -155,6 +157,7 @@ Functions needed to implement the lexer in pure FP style using lifted monadic fu
 ## Implementation Priority
 
 ### Phase 1: Essential for Lexer (implement first)
+
 1. `charCodeAt` - Unicode code point lookup
 2. `charAt` - Character access
 3. `lookup` - Map/object property access
@@ -162,20 +165,24 @@ Functions needed to implement the lexer in pure FP style using lifted monadic fu
 5. `identity` - Identity function
 
 ### Phase 2: Supporting Utilities
+
 6. `slice` - Multi-character operators
 7. `stringLength` - Bounds checking
 8. `has` - Key existence checks
 9. `compose` - Alternative composition
 
 ### Phase 3: Error Handling
+
 10. `validateWith` - Predicate validation
 11. `test` - RegExp testing
 
 ### Phase 4: Array Operations (tokenizer phase)
+
 12. `head` / `tail` - List processing
 13. `take` / `drop` - Stream slicing
 
 ### Phase 5: Generator Support (deferred)
+
 14. `fromGenerator` - Generator materialization
 15. `toArray` - Iterable conversion
 
