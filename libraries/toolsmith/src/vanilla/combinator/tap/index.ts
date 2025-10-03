@@ -4,5 +4,4 @@ const tap = <T>(fn: (value: T) => unknown) => (value: T): T => {
 	return value
 }
 
-
 export default tap

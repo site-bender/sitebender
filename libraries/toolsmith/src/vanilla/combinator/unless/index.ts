@@ -5,5 +5,4 @@ const unless = <T>(
 ) =>
 (value: T): T => predicate(value) ? value : fn(value)
 
-
 export default unless

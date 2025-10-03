@@ -1,26 +1,26 @@
 statistics:
   variance:
-    signature: "function variance(\n\tisSample: boolean = false,\n)"
+    signature: "function variance(\n\tisSample: boolean = false,\n) "
     path: libraries/toolsmith/src/vanilla/statistics/variance/index.ts
     curried: true
   correlation:
-    signature: "function correlation(\n\tx: number[] | null | undefined,\n)"
+    signature: "function correlation(\n\tx: number[] | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/statistics/correlation/index.ts
     curried: true
   covariance:
-    signature: "function covariance(\n\tx: number[] | null | undefined,\n)"
+    signature: "function covariance(\n\tx: number[] | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/statistics/covariance/index.ts
     curried: true
   percentile:
-    signature: "function percentile(\n\tp: number | null | undefined,\n)"
+    signature: "function percentile(\n\tp: number | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/statistics/percentile/index.ts
     curried: true
   kurtosis:
-    signature: function kurtosis(...)
+    signature: "function kurtosis(\n\tdata: number[] | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/statistics/kurtosis/index.ts
     curried: true
   zScore:
-    signature: "function zScore(\n\tvalue: number | null | undefined,\n)"
+    signature: "function zScore(\n\tvalue: number | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/statistics/zScore/index.ts
     curried: true
   interquartileRange:
@@ -28,22 +28,22 @@ statistics:
     path: libraries/toolsmith/src/vanilla/statistics/interquartileRange/index.ts
     curried: true
   skewness:
-    signature: function skewness(...)
+    signature: "function skewness(\n\tdata: number[] | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/statistics/skewness/index.ts
     curried: true
   standardDeviation:
-    signature: "function standardDeviation(\n\tisSample: boolean = false,\n)"
+    signature: "function standardDeviation(\n\tisSample: boolean = false,\n) "
     path: libraries/toolsmith/src/vanilla/statistics/standardDeviation/index.ts
     curried: true
 temporal:
   endOfWeek:
-    signature: 'function endOfWeek(weekStartDay: number = 1)'
+    signature: 'function endOfWeek(weekStartDay: number = 1) '
     path: libraries/toolsmith/src/vanilla/temporal/endOfWeek/index.ts
     curried: true
   toZonedDateTime:
-    signature: "function toZonedDateTime(\n\ttimeZone: string,\n\tdisambiguation: \"compatible\" | \"earlier\" | \"later\" | \"reject\" = \"compatible\",\n)"
+    signature: "function toZonedDateTime(\n\tdisambiguation: \"compatible\" | \"earlier\" | \"later\" | \"reject\" = \"compatible\",\n) "
     path: libraries/toolsmith/src/vanilla/temporal/toZonedDateTime/index.ts
-    curried: false
+    curried: true
   startOfDay:
     signature: function startOfDay(...)
     path: libraries/toolsmith/src/vanilla/temporal/startOfDay/index.ts
@@ -53,7 +53,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/formatDuration/index.ts
     curried: true
   totalDuration:
-    signature: 'function totalDuration(unit: Temporal.DateTimeUnit | string)'
+    signature: 'function totalDuration(unit: Temporal.DateTimeUnit | string) '
     path: libraries/toolsmith/src/vanilla/temporal/totalDuration/index.ts
     curried: true
   adjustTime:
@@ -61,11 +61,11 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/adjustTime/index.ts
     curried: true
   startOfWeek:
-    signature: 'function startOfWeek(weekStartDay: number = 1)'
+    signature: 'function startOfWeek(weekStartDay: number = 1) '
     path: libraries/toolsmith/src/vanilla/temporal/startOfWeek/index.ts
     curried: true
   isWeekday:
-    signature: function isWeekday(...)
+    signature: "function isWeekday(\n\tdate:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n): boolean "
     path: libraries/toolsmith/src/vanilla/temporal/isWeekday/index.ts
     curried: true
   diffHours:
@@ -73,11 +73,11 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/diffHours/index.ts
     curried: true
   getQuarter:
-    signature: function getQuarter(...)
+    signature: "function getQuarter(\n\tdate:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.PlainYearMonth\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n): number | null "
     path: libraries/toolsmith/src/vanilla/temporal/getQuarter/index.ts
     curried: true
   addMonths:
-    signature: 'function addMonths(months: number)'
+    signature: 'function addMonths(months: number) '
     path: libraries/toolsmith/src/vanilla/temporal/addMonths/index.ts
     curried: true
   toPlainDateTime:
@@ -85,11 +85,11 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/toPlainDateTime/index.ts
     curried: true
   diffMinutes:
-    signature: "function diffMinutes(\n\tfrom:\n\t\t| Temporal.PlainTime\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n)"
+    signature: "function diffMinutes(\n\tfrom:\n\t\t| Temporal.PlainTime\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n) "
     path: libraries/toolsmith/src/vanilla/temporal/diffMinutes/index.ts
     curried: true
   withTimeZone:
-    signature: 'function withTimeZone(timeZone: string)'
+    signature: 'function withTimeZone(timeZone: string) '
     path: libraries/toolsmith/src/vanilla/temporal/withTimeZone/index.ts
     curried: true
   parseTime:
@@ -97,7 +97,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/parseTime/index.ts
     curried: true
   toPlainDate:
-    signature: 'function toPlainDate(timeZone?: string)'
+    signature: 'function toPlainDate(timeZone?: string) '
     path: libraries/toolsmith/src/vanilla/temporal/toPlainDate/index.ts
     curried: true
   dateRange:
@@ -113,11 +113,11 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/today/index.ts
     curried: false
   withCalendar:
-    signature: 'function withCalendar(calendar: string)'
+    signature: 'function withCalendar(calendar: string) '
     path: libraries/toolsmith/src/vanilla/temporal/withCalendar/index.ts
     curried: true
   diffSeconds:
-    signature: "function diffSeconds(\n\tfrom:\n\t\t| Temporal.PlainTime\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n)"
+    signature: "function diffSeconds(\n\tfrom:\n\t\t| Temporal.PlainTime\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n) "
     path: libraries/toolsmith/src/vanilla/temporal/diffSeconds/index.ts
     curried: true
   getTimeZone:
@@ -125,11 +125,11 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/getTimeZone/index.ts
     curried: true
   getDayOfYear:
-    signature: function getDayOfYear(...)
+    signature: "function getDayOfYear(\n\tdate:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.ZonedDateTime\n\t\t| null\n\t\t| undefined,\n): number | null "
     path: libraries/toolsmith/src/vanilla/temporal/getDayOfYear/index.ts
     curried: true
   until:
-    signature: "function until(\n\ttarget:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.PlainTime\n\t\t| Temporal.ZonedDateTime\n\t\t| Temporal.Instant\n\t\t| null\n\t\t| undefined,\n)"
+    signature: "function until(\n\ttarget:\n\t\t| Temporal.PlainDate\n\t\t| Temporal.PlainDateTime\n\t\t| Temporal.PlainTime\n\t\t| Temporal.ZonedDateTime\n\t\t| Temporal.Instant\n\t\t| null\n\t\t| undefined,\n) "
     path: libraries/toolsmith/src/vanilla/temporal/until/index.ts
     curried: true
   getCalendar:
@@ -137,7 +137,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/getCalendar/index.ts
     curried: true
   parse:
-    signature: function parse(...)
+    signature: "function parse(\n\tdateString: string | null | undefined,\n):\n\t| Temporal.PlainDate\n\t| Temporal.PlainTime\n\t| Temporal.PlainDateTime\n\t| Temporal.ZonedDateTime\n\t| Temporal.Instant\n\t| Temporal.PlainYearMonth\n\t| Temporal.PlainMonthDay\n\t| null "
     path: libraries/toolsmith/src/vanilla/temporal/parse/index.ts
     curried: true
   durationToSeconds:
@@ -152,24 +152,29 @@ temporal:
     signature: function durationToMinutes(...)
     path: libraries/toolsmith/src/vanilla/temporal/durationToMinutes/index.ts
     curried: true
+  _checkTransitions:
+    signature: "function _checkTransitions(\n\tcurrent: Temporal.PlainDate,\n\tprevOffset: string | null,\n\tacc: Array<{\n\t\tdate: Temporal.PlainDate\n\t\toffsetBefore: string\n\t\toffsetAfter: string\n\t\ttype: \"forward\" | \"backward\"\n\t}>,\n\tendDate: Temporal.PlainDate | string,\n\ttimeZone: string,\n): Array<{\n\tdate: Temporal.PlainDate\n\toffsetBefore: string\n\toffsetAfter: string\n\ttype: \"forward\" | \"backward\"\n}> "
+    path: >-
+      libraries/toolsmith/src/vanilla/temporal/getOffsetTransitions/_checkTransitions/index.ts
+    curried: false
   getOffsetTransitions:
-    signature: 'function getOffsetTransitions(timeZone: string)'
+    signature: 'function getOffsetTransitions(timeZone: string) '
     path: libraries/toolsmith/src/vanilla/temporal/getOffsetTransitions/index.ts
     curried: true
   addYears:
-    signature: 'function addYears(years: number)'
+    signature: 'function addYears(years: number) '
     path: libraries/toolsmith/src/vanilla/temporal/addYears/index.ts
     curried: true
   addDuration:
-    signature: 'function addDuration(duration: Temporal.Duration | null | undefined)'
+    signature: "function addDuration(\n\tduration: Temporal.Duration | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/temporal/addDuration/index.ts
     curried: true
   sortByAbsoluteTime:
-    signature: 'function sortByAbsoluteTime(timeZone: string = "UTC")'
+    signature: 'function sortByAbsoluteTime(timeZone: string = "UTC") '
     path: libraries/toolsmith/src/vanilla/temporal/sortByAbsoluteTime/index.ts
     curried: true
   setDay:
-    signature: 'function setDay(day: number)'
+    signature: 'function setDay(day: number) '
     path: libraries/toolsmith/src/vanilla/temporal/setDay/index.ts
     curried: true
   isWeekend:
@@ -177,11 +182,11 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/isWeekend/index.ts
     curried: true
   setYear:
-    signature: 'function setYear(year: number)'
+    signature: 'function setYear(year: number) '
     path: libraries/toolsmith/src/vanilla/temporal/setYear/index.ts
     curried: true
   setHour:
-    signature: 'function setHour(hour: number)'
+    signature: 'function setHour(hour: number) '
     path: libraries/toolsmith/src/vanilla/temporal/setHour/index.ts
     curried: true
   getMillisecond:
@@ -209,15 +214,15 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/clampDate/index.ts
     curried: true
   addHours:
-    signature: 'function addHours(hours: number)'
+    signature: 'function addHours(hours: number) '
     path: libraries/toolsmith/src/vanilla/temporal/addHours/index.ts
     curried: true
   setMinute:
-    signature: 'function setMinute(minute: number)'
+    signature: 'function setMinute(minute: number) '
     path: libraries/toolsmith/src/vanilla/temporal/setMinute/index.ts
     curried: true
   subtractDuration:
-    signature: 'function subtractDuration(duration: Temporal.Duration | null | undefined)'
+    signature: "function subtractDuration(\n\tduration: Temporal.Duration | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/temporal/subtractDuration/index.ts
     curried: true
   equals:
@@ -241,7 +246,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/startOfYear/index.ts
     curried: true
   withTime:
-    signature: 'function withTime(time: Temporal.PlainTime | string | null | undefined)'
+    signature: "function withTime(\n\ttime: Temporal.PlainTime | string | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/temporal/withTime/index.ts
     curried: true
   compare:
@@ -257,7 +262,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/endOfYear/index.ts
     curried: true
   format:
-    signature: 'function format(locale: string = "en-US")'
+    signature: 'function format(locale: string = "en-US") '
     path: libraries/toolsmith/src/vanilla/temporal/format/index.ts
     curried: true
   getNanosecond:
@@ -277,7 +282,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/diffDays/index.ts
     curried: true
   setSecond:
-    signature: 'function setSecond(second: number)'
+    signature: 'function setSecond(second: number) '
     path: libraries/toolsmith/src/vanilla/temporal/setSecond/index.ts
     curried: true
   serializeZonedDateTime:
@@ -285,7 +290,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/serializeZonedDateTime/index.ts
     curried: true
   addSeconds:
-    signature: 'function addSeconds(seconds: number)'
+    signature: 'function addSeconds(seconds: number) '
     path: libraries/toolsmith/src/vanilla/temporal/addSeconds/index.ts
     curried: true
   toISO:
@@ -297,7 +302,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/getWeekOfYear/index.ts
     curried: true
   addMinutes:
-    signature: 'function addMinutes(minutes: number)'
+    signature: 'function addMinutes(minutes: number) '
     path: libraries/toolsmith/src/vanilla/temporal/addMinutes/index.ts
     curried: true
   toPlainTime:
@@ -309,7 +314,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/duration/index.ts
     curried: true
   addDays:
-    signature: 'function addDays(days: number)'
+    signature: 'function addDays(days: number) '
     path: libraries/toolsmith/src/vanilla/temporal/addDays/index.ts
     curried: true
   getSecond:
@@ -317,7 +322,7 @@ temporal:
     path: libraries/toolsmith/src/vanilla/temporal/getSecond/index.ts
     curried: true
   setMonth:
-    signature: 'function setMonth(month: number)'
+    signature: 'function setMonth(month: number) '
     path: libraries/toolsmith/src/vanilla/temporal/setMonth/index.ts
     curried: true
   getWeekday:
@@ -466,7 +471,7 @@ tuple:
     path: libraries/toolsmith/src/vanilla/tuple/swap/index.ts
     curried: true
   singleton:
-    signature: function singleton(...)
+    signature: 'function singleton<T>(value: T): Singleton<T> '
     path: libraries/toolsmith/src/vanilla/tuple/singleton/index.ts
     curried: true
   bimap:
@@ -482,20 +487,20 @@ tuple:
     path: libraries/toolsmith/src/vanilla/tuple/fromArray/index.ts
     curried: false
   pair:
-    signature: function pair(...)
+    signature: 'function pair<U>(second: U) '
     path: libraries/toolsmith/src/vanilla/tuple/pair/index.ts
     curried: true
 array:
   nth:
-    signature: 'function nth(index: number)'
+    signature: 'function nth(index: number) '
     path: libraries/toolsmith/src/vanilla/array/nth/index.ts
     curried: true
   move:
-    signature: function move(...)
+    signature: 'function move<T>(from: number) '
     path: libraries/toolsmith/src/vanilla/array/move/index.ts
     curried: true
   init:
-    signature: function init(...)
+    signature: "function init<T>(\n\tarray: ReadonlyArray<T> | null | undefined,\n): Array<T> "
     path: libraries/toolsmith/src/vanilla/array/init/index.ts
     curried: true
   repeat:
@@ -503,7 +508,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/repeat/index.ts
     curried: true
   concat:
-    signature: function concat(...)
+    signature: 'function concat<T>(first: Array<T>) '
     path: libraries/toolsmith/src/vanilla/array/concat/index.ts
     curried: true
   unique:
@@ -511,23 +516,23 @@ array:
     path: libraries/toolsmith/src/vanilla/array/unique/index.ts
     curried: false
   indexBy:
-    signature: function indexBy(...)
+    signature: "function indexBy<T, K extends string | number | symbol>(\n\tkeyFn: (element: T, index: number, array: ReadonlyArray<T>) => K,\n) "
     path: libraries/toolsmith/src/vanilla/array/indexBy/index.ts
     curried: true
   replaceFirstMatch:
-    signature: "function replaceFirstMatchconst replaceFirstMatch =\n\t(pattern: RegExp)"
+    signature: 'function replaceFirstMatch(pattern: RegExp) '
     path: libraries/toolsmith/src/vanilla/array/replaceFirstMatch/index.ts
     curried: true
   unfold:
-    signature: function unfold(...)
+    signature: "function unfold<T, U>(\n\tfn: (seed: T) => readonly [U, T] | null,\n) "
     path: libraries/toolsmith/src/vanilla/array/unfold/index.ts
     curried: true
   remove:
-    signature: function remove(...)
+    signature: 'function remove<T>(item: T) '
     path: libraries/toolsmith/src/vanilla/array/remove/index.ts
     curried: true
   shuffle:
-    signature: function shuffle(...)
+    signature: "function shuffle<T>(\n\tarray: ReadonlyArray<T> | null | undefined,\n): Array<T> "
     path: libraries/toolsmith/src/vanilla/array/shuffle/index.ts
     curried: true
   splitEvery:
@@ -535,15 +540,20 @@ array:
     path: libraries/toolsmith/src/vanilla/array/splitEvery/index.ts
     curried: true
   compact:
-    signature: function compact(...)
+    signature: "function compact<T>(\n\tarray: Array<T | null | undefined>,\n): Array<T> "
     path: libraries/toolsmith/src/vanilla/array/compact/index.ts
     curried: true
   unflatten:
     signature: 'function unflatten(depths: Array<number>)'
     path: libraries/toolsmith/src/vanilla/array/unflatten/index.ts
     curried: true
+  _buildCombinations:
+    signature: "function _buildCombinations<T>(\n\telements: ReadonlyArray<T>,\n\tk: number,\n\tstartIndex: number,\n): Array<Array<T>> "
+    path: >-
+      libraries/toolsmith/src/vanilla/array/combinations/_buildCombinations/index.ts
+    curried: false
   combinations:
-    signature: function combinations(...)
+    signature: 'function combinations<T>(k: number) '
     path: libraries/toolsmith/src/vanilla/array/combinations/index.ts
     curried: true
   last:
@@ -551,7 +561,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/last/index.ts
     curried: true
   sampleSize:
-    signature: function sampleSize(...)
+    signature: 'function sampleSize<T>(n: number) '
     path: libraries/toolsmith/src/vanilla/array/sampleSize/index.ts
     curried: true
   replaceFirst:
@@ -575,19 +585,23 @@ array:
     path: libraries/toolsmith/src/vanilla/array/sliding/index.ts
     curried: true
   chunk:
-    signature: function chunk(...)
+    signature: 'function chunk<T>(size: number) '
     path: libraries/toolsmith/src/vanilla/array/chunk/index.ts
     curried: true
+  chunkRecursive:
+    signature: "function chunkRecursive<T>(\n\tsize: number,\n\tremaining: ReadonlyArray<T>,\n): Array<Array<T>> "
+    path: libraries/toolsmith/src/vanilla/array/chunk/chunkRecursive/index.ts
+    curried: false
   join:
-    signature: function join(...)
+    signature: 'function join<T>(separator: string) '
     path: libraries/toolsmith/src/vanilla/array/join/index.ts
     curried: true
   findIndex:
-    signature: function findIndex(...)
+    signature: "function findIndex<T>(\n\tpredicate: (item: T, index: number, array: Array<T>) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/findIndex/index.ts
     curried: true
   toSet:
-    signature: function toSet(...)
+    signature: 'function toSet<T>(array: Array<T> | null | undefined): Set<T> '
     path: libraries/toolsmith/src/vanilla/array/toSet/index.ts
     curried: true
   reject:
@@ -595,7 +609,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/reject/index.ts
     curried: true
   countBy:
-    signature: function countBy(...)
+    signature: "function countBy<T, K extends string | number | symbol>(\n\tfn: (element: T) => K,\n) "
     path: libraries/toolsmith/src/vanilla/array/countBy/index.ts
     curried: true
   update:
@@ -619,13 +633,13 @@ array:
     path: libraries/toolsmith/src/vanilla/array/maximumBy/index.ts
     curried: true
   reduce:
-    signature: function reduce(...)
+    signature: "function reduce<T, U>(\n\tfn: (acc: U, item: T, index: number) => U,\n) "
     path: libraries/toolsmith/src/vanilla/array/reduce/index.ts
     curried: true
   first:
-    signature: function first(...)
+    signature: 'function first<T>(array: Array<T>): T | null '
     path: libraries/toolsmith/src/vanilla/array/first/index.ts
-    curried: false
+    curried: true
   slice:
     signature: 'function slice(start: number)'
     path: libraries/toolsmith/src/vanilla/array/slice/index.ts
@@ -647,15 +661,19 @@ array:
     path: libraries/toolsmith/src/vanilla/array/unzip/index.ts
     curried: true
   removeAll:
-    signature: function removeAll(...)
+    signature: 'function removeAll<T>(item: T) '
     path: libraries/toolsmith/src/vanilla/array/removeAll/index.ts
     curried: true
+  _cycleRecursive:
+    signature: function function(...)
+    path: libraries/toolsmith/src/vanilla/array/cycle/_cycleRecursive/index.ts
+    curried: false
   cycle:
-    signature: function cycle(...)
+    signature: function function(...)
     path: libraries/toolsmith/src/vanilla/array/cycle/index.ts
     curried: false
   findLastIndex:
-    signature: function findLastIndex(...)
+    signature: "function findLastIndex<T>(\n\tpredicate: (item: T, index: number, array: ReadonlyArray<T>) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/findLastIndex/index.ts
     curried: true
   takeLastWhile:
@@ -667,11 +685,11 @@ array:
     path: libraries/toolsmith/src/vanilla/array/symmetricDifferenceWith/index.ts
     curried: true
   cartesianProduct:
-    signature: function cartesianProduct(...)
+    signature: "function cartesianProduct<T, U>(\n\tarray1: ReadonlyArray<T> | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/array/cartesianProduct/index.ts
     curried: true
   lastIndexOfMatch:
-    signature: 'function lastIndexOfMatch(pattern: RegExp | string)'
+    signature: 'function lastIndexOfMatch(pattern: RegExp | string) '
     path: libraries/toolsmith/src/vanilla/array/lastIndexOfMatch/index.ts
     curried: true
   mapAccum:
@@ -699,11 +717,11 @@ array:
     path: libraries/toolsmith/src/vanilla/array/xprod/index.ts
     curried: false
   differenceWith:
-    signature: function differenceWith(...)
+    signature: "function differenceWith<T, U>(\n\tcomparator: (a: T, b: U) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/differenceWith/index.ts
     curried: true
   all:
-    signature: function all(...)
+    signature: "function all<T>(\n\tpredicate: (item: T, index: number, array: Array<T>) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/all/index.ts
     curried: true
   endsWith:
@@ -722,8 +740,13 @@ array:
     signature: function rotateLeft(...)
     path: libraries/toolsmith/src/vanilla/array/rotateLeft/index.ts
     curried: true
+  _dropRepeatsReducer:
+    signature: "function _dropRepeatsReducer<T>(\n\tacc: Array<T>,\n\tcurr: T,\n): Array<T> "
+    path: >-
+      libraries/toolsmith/src/vanilla/array/dropRepeats/_dropRepeatsReducer/index.ts
+    curried: false
   dropRepeatsWith:
-    signature: function dropRepeatsWith(...)
+    signature: "function dropRepeatsWith<T>(\n\tcomparator: (a: T, b: T) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/dropRepeatsWith/index.ts
     curried: true
   reduceWhile:
@@ -742,24 +765,32 @@ array:
     signature: function nub(...)
     path: libraries/toolsmith/src/vanilla/array/nub/index.ts
     curried: true
+  hasLength:
+    signature: 'function hasLength(len: number) '
+    path: libraries/toolsmith/src/vanilla/array/hasLength/index.ts
+    curried: true
   tail:
-    signature: function tail(...)
+    signature: "function tail<T>(\n\tarray: ReadonlyArray<T> | null | undefined,\n): Array<T> "
     path: libraries/toolsmith/src/vanilla/array/tail/index.ts
     curried: true
   reverse:
-    signature: function reverse(...)
+    signature: "function reverse<T>(\n\tarray: ReadonlyArray<T> | null | undefined,\n): Array<T> "
     path: libraries/toolsmith/src/vanilla/array/reverse/index.ts
     curried: true
   intersection:
     signature: function intersection(...)
     path: libraries/toolsmith/src/vanilla/array/intersection/index.ts
     curried: true
+  max:
+    signature: 'function max(numbers?: Array<number> | null): number | null '
+    path: libraries/toolsmith/src/vanilla/array/max/index.ts
+    curried: true
   minimumBy:
     signature: function minimumBy(...)
     path: libraries/toolsmith/src/vanilla/array/minimumBy/index.ts
     curried: true
   omit:
-    signature: function omit(...)
+    signature: 'function omit<T>(indices: Array<number>) '
     path: libraries/toolsmith/src/vanilla/array/omit/index.ts
     curried: true
   zipAll:
@@ -771,7 +802,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/groupBy/index.ts
     curried: true
   head:
-    signature: function head(...)
+    signature: 'function head<T>(array: Array<T>): T | null '
     path: libraries/toolsmith/src/vanilla/array/head/index.ts
     curried: true
   rotateRight:
@@ -779,7 +810,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/rotateRight/index.ts
     curried: true
   difference:
-    signature: function difference(...)
+    signature: "function difference<T>(\n\tsubtrahend: ReadonlyArray<T> | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/array/difference/index.ts
     curried: true
   pairwise:
@@ -799,7 +830,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/repeatItem/index.ts
     curried: true
   drop:
-    signature: function drop(...)
+    signature: 'function drop<T>(n: number) '
     path: libraries/toolsmith/src/vanilla/array/drop/index.ts
     curried: true
   map:
@@ -831,11 +862,11 @@ array:
     path: libraries/toolsmith/src/vanilla/array/flatMap/index.ts
     curried: true
   take:
-    signature: 'function take(count: number)'
+    signature: 'function take(count: number) '
     path: libraries/toolsmith/src/vanilla/array/take/index.ts
     curried: true
   aperture:
-    signature: function aperture(...)
+    signature: 'function aperture<T>(width: number) '
     path: libraries/toolsmith/src/vanilla/array/aperture/index.ts
     curried: true
   intersperse:
@@ -843,7 +874,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/intersperse/index.ts
     curried: true
   concatTo:
-    signature: function concatTo(...)
+    signature: 'function concatTo<T>(toAppend: Array<T>) '
     path: libraries/toolsmith/src/vanilla/array/concatTo/index.ts
     curried: true
   unionWith:
@@ -859,7 +890,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/sample/index.ts
     curried: true
   isNotEmpty:
-    signature: 'function isNotEmpty<T>(array: ReadonlyArray<T>): boolean '
+    signature: "function isNotEmpty<T>(\n\tarray?: ReadonlyArray<T> | null,\n): boolean "
     path: libraries/toolsmith/src/vanilla/array/isNotEmpty/index.ts
     curried: true
   at:
@@ -879,15 +910,15 @@ array:
     path: libraries/toolsmith/src/vanilla/array/intersectionWith/index.ts
     curried: true
   partitionBy:
-    signature: function partitionBy(...)
+    signature: 'function partitionBy<T>(predicate: (value: T) => unknown) '
     path: libraries/toolsmith/src/vanilla/array/partitionBy/index.ts
     curried: true
   findIndices:
-    signature: function findIndices(...)
+    signature: "function findIndices<T>(\n\tpredicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/findIndices/index.ts
     curried: true
   dropWhile:
-    signature: function dropWhile(...)
+    signature: "function dropWhile<T>(\n\tpredicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/dropWhile/index.ts
     curried: true
   takeWhile:
@@ -895,7 +926,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/takeWhile/index.ts
     curried: true
   takeLast:
-    signature: 'function takeLast(count: number)'
+    signature: 'function takeLast(count: number) '
     path: libraries/toolsmith/src/vanilla/array/takeLast/index.ts
     curried: true
   isEmpty:
@@ -907,27 +938,36 @@ array:
     path: libraries/toolsmith/src/vanilla/array/sortBy/index.ts
     curried: true
   find:
-    signature: function find(...)
+    signature: 'function find<T>(predicate: (item: T) => boolean) '
     path: libraries/toolsmith/src/vanilla/array/find/index.ts
     curried: true
   filter:
-    signature: function filter(...)
+    signature: 'function filter<T>(predicate: (item: T) => boolean) '
     path: libraries/toolsmith/src/vanilla/array/filter/index.ts
     curried: true
   removeAt:
-    signature: function removeAt(...)
+    signature: 'function removeAt<T>(index: number) '
     path: libraries/toolsmith/src/vanilla/array/removeAt/index.ts
     curried: true
   partition:
     signature: function partition(...)
     path: libraries/toolsmith/src/vanilla/array/partition/index.ts
     curried: true
+  _findClosest:
+    signature: "function _findClosest(\n\ttarget: number,\n\tclosestValue: number,\n\tcurrentValue: number,\n): number "
+    path: libraries/toolsmith/src/vanilla/array/closest/_findClosest/index.ts
+    curried: false
   closest:
-    signature: "function closest(\n\ttarget: number,\n)"
+    signature: 'function closest(target: number) '
     path: libraries/toolsmith/src/vanilla/array/closest/index.ts
     curried: true
+  _findDuplicatesReducer:
+    signature: "function _findDuplicatesReducer<T>(\n\tacc: FindDuplicatesAccumulator<T>,\n\titem: T,\n\tindex: number,\n): FindDuplicatesAccumulator<T> "
+    path: >-
+      libraries/toolsmith/src/vanilla/array/findDuplicates/_findDuplicatesReducer/index.ts
+    curried: false
   findDuplicates:
-    signature: function findDuplicates(...)
+    signature: "function findDuplicates<T>(\n\tarray: ReadonlyArray<T> | null | undefined,\n): Array<T> "
     path: libraries/toolsmith/src/vanilla/array/findDuplicates/index.ts
     curried: true
   dropRepeats:
@@ -954,12 +994,32 @@ array:
     signature: function some(...)
     path: libraries/toolsmith/src/vanilla/array/some/index.ts
     curried: true
+  _extractFirstItem:
+    signature: 'function _extractFirstItem<T>([item]: [T, number]): T '
+    path: >-
+      libraries/toolsmith/src/vanilla/array/findMostCommon/_extractFirstItem/index.ts
+    curried: true
+  _buildFrequencyMaps:
+    signature: "function _buildFrequencyMaps<T>(\n\tacc: FrequencyAccumulator<T>,\n\titem: T,\n\tindex: number,\n): FrequencyAccumulator<T> "
+    path: >-
+      libraries/toolsmith/src/vanilla/array/findMostCommon/_buildFrequencyMaps/index.ts
+    curried: false
+  _filterMaxFrequency:
+    signature: "function _filterMaxFrequency<T>(\n\tmaxFrequency: number | null,\n) "
+    path: >-
+      libraries/toolsmith/src/vanilla/array/findMostCommon/_filterMaxFrequency/index.ts
+    curried: true
+  _sortByFirstOccurrence:
+    signature: "function _sortByFirstOccurrence<T>(\n\tfirstOccurrence: Map<T, number>,\n) "
+    path: >-
+      libraries/toolsmith/src/vanilla/array/findMostCommon/_sortByFirstOccurrence/index.ts
+    curried: true
   findMostCommon:
-    signature: function findMostCommon(...)
+    signature: "function findMostCommon<T>(\n\tarray: ReadonlyArray<T> | null | undefined,\n): Array<T> "
     path: libraries/toolsmith/src/vanilla/array/findMostCommon/index.ts
     curried: true
   dropLast:
-    signature: function dropLast(...)
+    signature: 'function dropLast<T>(n: number) '
     path: libraries/toolsmith/src/vanilla/array/dropLast/index.ts
     curried: true
   permutations:
@@ -979,7 +1039,7 @@ array:
     path: libraries/toolsmith/src/vanilla/array/replaceAll/index.ts
     curried: true
   findLast:
-    signature: function findLast(...)
+    signature: "function findLast<T>(\n\tpredicate: (item: T, index: number, array: Array<T>) => boolean,\n) "
     path: libraries/toolsmith/src/vanilla/array/findLast/index.ts
     curried: true
   rangeStep:
@@ -1032,7 +1092,7 @@ async:
     path: libraries/toolsmith/src/vanilla/async/delayReject/index.ts
     curried: true
   parallelLimit:
-    signature: 'function parallelLimit(limit: number)'
+    signature: 'function parallelLimit(limit: number) '
     path: libraries/toolsmith/src/vanilla/async/parallelLimit/index.ts
     curried: true
   race:
@@ -1050,11 +1110,13 @@ activation:
     curried: false
   gaussianErrorLinearUnit:
     signature: "function gaussianErrorLinearUnit(\n\tx: number | null | undefined,\n): number "
-    path: libraries/toolsmith/src/vanilla/activation/gaussianErrorLinearUnit/index.ts
+    path: >-
+      libraries/toolsmith/src/vanilla/activation/gaussianErrorLinearUnit/index.ts
     curried: true
   leakyRectifiedLinearUnit:
     signature: "function leakyRectifiedLinearUnit(\n\talpha: number | null | undefined,\n): (x: number | null | undefined) => number "
-    path: libraries/toolsmith/src/vanilla/activation/leakyRectifiedLinearUnit/index.ts
+    path: >-
+      libraries/toolsmith/src/vanilla/activation/leakyRectifiedLinearUnit/index.ts
     curried: true
   softplus:
     signature: "function softplus(\n\tx: number | null | undefined,\n): number "
@@ -1064,10 +1126,22 @@ activation:
     signature: "function rectifiedLinearUnit(\n\tx: number | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/activation/rectifiedLinearUnit/index.ts
     curried: true
+  _shiftAndExp:
+    signature: 'function _shiftAndExp(maxValue: number): (n: number) => number '
+    path: libraries/toolsmith/src/vanilla/activation/softmax/_shiftAndExp/index.ts
+    curried: true
+  _normalize:
+    signature: 'function _normalize(sumExp: number): (val: number) => number '
+    path: libraries/toolsmith/src/vanilla/activation/softmax/_normalize/index.ts
+    curried: true
   softmax:
-    signature: "function softmax(\n\tx: number[] | null | undefined,\n): number[] "
+    signature: "function softmax(\n\tnumbers: Array<number> | null | undefined,\n): Array<number> "
     path: libraries/toolsmith/src/vanilla/activation/softmax/index.ts
     curried: true
+  relu:
+    signature: function relu(...)
+    path: libraries/toolsmith/src/vanilla/activation/relu/index.ts
+    curried: false
   sigmoid:
     signature: "function sigmoid(\n\tx: number | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/activation/sigmoid/index.ts
@@ -1106,7 +1180,7 @@ logic:
     path: libraries/toolsmith/src/vanilla/logic/ifElse/index.ts
     curried: true
   and:
-    signature: 'function and(a: unknown)'
+    signature: "function and<T, A extends T>(\n\tp1: (value: T) => value is A,\n): <B extends A>(\n\tp2: (value: A) => value is B,\n) => (value: T) => value is B\n\nexport default function and<T>(\n\tp1: (value: T) => boolean,\n): (p2: (value: T) => boolean) => (value: T) => boolean\n\n// Implementation signature is intentionally broad to satisfy both overload families\nexport default function and(\n\ta: unknown,\n): (b: unknown) => any\n\nexport default function and(\n\ta: unknown,\n) "
     path: libraries/toolsmith/src/vanilla/logic/and/index.ts
     curried: true
   unless:
@@ -1122,7 +1196,7 @@ logic:
     path: libraries/toolsmith/src/vanilla/logic/nand/index.ts
     curried: true
   or:
-    signature: 'function or(a: unknown)'
+    signature: "function or<T, A extends T>(\n\tp1: (value: T) => value is A,\n): <B extends A>(\n\tp2: (value: A) => value is B,\n) => (value: T) => value is A | B\n\nexport default function or<T>(\n\tp1: (value: T) => boolean,\n): (p2: (value: T) => boolean) => (value: T) => boolean\n\n// Implementation signature is intentionally broad to satisfy both overload families\nexport default function or(\n\ta: unknown,\n): (b: unknown) => any\n\nexport default function or(\n\ta: unknown,\n) "
     path: libraries/toolsmith/src/vanilla/logic/or/index.ts
     curried: true
   implies:
@@ -1131,15 +1205,15 @@ logic:
     curried: true
 math:
   minBy:
-    signature: function minBy(...)
+    signature: "function minBy<T>(\n\tfn: (value: T) => number,\n) "
     path: libraries/toolsmith/src/vanilla/math/minBy/index.ts
     curried: true
   squareRoot:
-    signature: function squareRoot(...)
+    signature: "function squareRoot(\n\tn: number | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/math/squareRoot/index.ts
     curried: true
   power:
-    signature: "function power(\n\texponent: number | null | undefined,\n)"
+    signature: "function power(\n\texponent: number | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/math/power/index.ts
     curried: true
   divisors:
@@ -1151,15 +1225,15 @@ math:
     path: libraries/toolsmith/src/vanilla/math/isPrime/index.ts
     curried: true
   negate:
-    signature: function negate(...)
+    signature: "function negate(\n\tn: number | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/math/negate/index.ts
     curried: true
   randomInteger:
-    signature: "function randomInteger(\n\tmin: number | null | undefined,\n)"
+    signature: "function randomInteger(\n\tmin: number | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/math/randomInteger/index.ts
     curried: true
   combinations:
-    signature: "function combinations(\n\tn: number | null | undefined,\n)"
+    signature: "function combinations(\n\tn: number | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/math/combinations/index.ts
     curried: true
   quadratic:
@@ -1167,7 +1241,7 @@ math:
     path: libraries/toolsmith/src/vanilla/math/quadratic/index.ts
     curried: true
   truncate:
-    signature: function truncate(...)
+    signature: "function truncate(\n\tn: number | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/math/truncate/index.ts
     curried: true
   mean:
@@ -1175,7 +1249,7 @@ math:
     path: libraries/toolsmith/src/vanilla/math/mean/index.ts
     curried: false
   mode:
-    signature: function mode(...)
+    signature: "function mode(\n\tnumbers: Array<number> | null | undefined,\n): Array<number> "
     path: libraries/toolsmith/src/vanilla/math/mode/index.ts
     curried: true
   subtract:
@@ -1183,7 +1257,7 @@ math:
     path: libraries/toolsmith/src/vanilla/math/subtract/index.ts
     curried: true
   rootMeanSquare:
-    signature: function rootMeanSquare(...)
+    signature: "function rootMeanSquare(\n\tvalues: Array<number> | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/math/rootMeanSquare/index.ts
     curried: true
   multiply:
@@ -1191,7 +1265,7 @@ math:
     path: libraries/toolsmith/src/vanilla/math/multiply/index.ts
     curried: true
   multiplyFactors:
-    signature: 'function multiplyFactors(product: number, value: number): number '
+    signature: "function multiplyFactors(\n\tproduct: number,\n\tvalue: number,\n): number "
     path: libraries/toolsmith/src/vanilla/math/multiply/multiplyFactors/index.ts
     curried: false
   exponential:
@@ -1199,7 +1273,7 @@ math:
     path: libraries/toolsmith/src/vanilla/math/exponential/index.ts
     curried: true
   median:
-    signature: function median(...)
+    signature: "function median(\n\tnumbers: Array<number> | null | undefined,\n): number "
     path: libraries/toolsmith/src/vanilla/math/median/index.ts
     curried: true
   totient:
@@ -1209,6 +1283,14 @@ math:
   primeFactorization:
     signature: function primeFactorization(...)
     path: libraries/toolsmith/src/vanilla/math/primeFactorization/index.ts
+    curried: true
+  square:
+    signature: 'function square(n?: number | null): number | null '
+    path: libraries/toolsmith/src/vanilla/math/square/index.ts
+    curried: true
+  cube:
+    signature: 'function cube(n?: number | null): number | null '
+    path: libraries/toolsmith/src/vanilla/math/cube/index.ts
     curried: true
   divide:
     signature: "function divide(\n\tdivisor: number,\n) "
@@ -1356,12 +1438,13 @@ special:
     path: libraries/toolsmith/src/vanilla/special/errorFunction/index.ts
     curried: true
   besselJ:
-    signature: "function besselJ(\n\tn: number | null | undefined,\n)"
+    signature: "function besselJ(\n\tn: number | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/special/besselJ/index.ts
     curried: true
   complementaryErrorFunction:
     signature: function complementaryErrorFunction(...)
-    path: libraries/toolsmith/src/vanilla/special/complementaryErrorFunction/index.ts
+    path: >-
+      libraries/toolsmith/src/vanilla/special/complementaryErrorFunction/index.ts
     curried: true
   stirlingApproximation:
     signature: function stirlingApproximation(...)
@@ -1482,7 +1565,7 @@ map:
     path: libraries/toolsmith/src/vanilla/map/toObject/index.ts
     curried: true
   withDefault:
-    signature: function withDefault(...)
+    signature: 'function withDefault<K, V>(defaultValue: V) '
     path: libraries/toolsmith/src/vanilla/map/withDefault/index.ts
     curried: true
   isNotEmpty:
@@ -1554,7 +1637,7 @@ map:
     path: libraries/toolsmith/src/vanilla/map/fromArray/index.ts
     curried: true
   interleave:
-    signature: function interleave(...)
+    signature: 'function interleave<K, V>(maps: Array<Map<K, V>>): Map<K, V> '
     path: libraries/toolsmith/src/vanilla/map/interleave/index.ts
     curried: true
   symmetricDifference:
@@ -1650,6 +1733,14 @@ object:
     signature: function lensProp(...)
     path: libraries/toolsmith/src/vanilla/object/lensProp/index.ts
     curried: false
+  hasOwn:
+    signature: 'function hasOwn<K extends PropertyKey>(key: K) '
+    path: libraries/toolsmith/src/vanilla/object/hasOwn/index.ts
+    curried: true
+  lookup:
+    signature: 'function lookup<K extends PropertyKey>(key: K) '
+    path: libraries/toolsmith/src/vanilla/object/lookup/index.ts
+    curried: true
   toMap:
     signature: function toMap(...)
     path: libraries/toolsmith/src/vanilla/object/toMap/index.ts
@@ -1683,7 +1774,7 @@ object:
     path: libraries/toolsmith/src/vanilla/object/lens/index.ts
     curried: true
   clone:
-    signature: function clone(...)
+    signature: 'function clone<T extends Value>(obj: T): T '
     path: libraries/toolsmith/src/vanilla/object/clone/index.ts
     curried: true
   eqProps:
@@ -1695,7 +1786,7 @@ object:
     path: libraries/toolsmith/src/vanilla/object/objOf/index.ts
     curried: true
   mergeDeep:
-    signature: function mergeDeep(...)
+    signature: function function(...)
     path: libraries/toolsmith/src/vanilla/object/mergeDeep/index.ts
     curried: false
   renameKeys:
@@ -1775,7 +1866,7 @@ object:
     path: libraries/toolsmith/src/vanilla/object/set/index.ts
     curried: true
   fromEntries:
-    signature: "function fromEntries<K extends string | number | symbol, V extends Value>(\n\tentries: Iterable<readonly [K, V]> | null | undefined,\n): Record<K, V> "
+    signature: "function fromEntries<\n\tK extends string | number | symbol,\n\tV extends Value,\n>(\n\tentries: Iterable<readonly [K, V]> | null | undefined,\n): Record<K, V> "
     path: libraries/toolsmith/src/vanilla/object/fromEntries/index.ts
     curried: true
   mapKeys:
@@ -1783,7 +1874,7 @@ object:
     path: libraries/toolsmith/src/vanilla/object/mapKeys/index.ts
     curried: false
   where:
-    signature: function where(...)
+    signature: function function(...)
     path: libraries/toolsmith/src/vanilla/object/where/index.ts
     curried: false
   transform:
@@ -1812,7 +1903,7 @@ conversion:
     path: libraries/toolsmith/src/vanilla/conversion/stringify/index.ts
     curried: true
   sortByKey:
-    signature: "function sortByKey(\n\t[a]: [string, unknown],\n\t[b]: [string, unknown],\n): number "
+    signature: "function sortByKey(\n\t[firstKey]: [string, Serializable],\n\t[secondKey]: [string, Serializable],\n): number "
     path: libraries/toolsmith/src/vanilla/conversion/stringify/sortByKey/index.ts
     curried: false
   jsonStringify:
@@ -1999,6 +2090,10 @@ string:
     signature: 'function test(pattern: RegExp)'
     path: libraries/toolsmith/src/vanilla/string/test/index.ts
     curried: true
+  charAt:
+    signature: 'function charAt(index: number) '
+    path: libraries/toolsmith/src/vanilla/string/charAt/index.ts
+    curried: true
   quote:
     signature: "function quote(\n\tquoteChar: string | null | undefined = '\"',\n)"
     path: libraries/toolsmith/src/vanilla/string/quote/index.ts
@@ -2080,9 +2175,9 @@ string:
     path: libraries/toolsmith/src/vanilla/string/chars/index.ts
     curried: true
   template:
-    signature: "function template(\n\ttemplateStr: string,\n\toptions?: { syntax?: \"mustache\" | \"dollar\" | \"colon\" },\n)"
+    signature: "function template(\n\toptions?: { syntax?: \"mustache\" | \"dollar\" | \"colon\" },\n) "
     path: libraries/toolsmith/src/vanilla/string/template/index.ts
-    curried: false
+    curried: true
   includes:
     signature: function includes(...)
     path: libraries/toolsmith/src/vanilla/string/includes/index.ts
@@ -2174,6 +2269,10 @@ string:
   cleanFilename:
     signature: function cleanFilename(...)
     path: libraries/toolsmith/src/vanilla/string/cleanFilename/index.ts
+    curried: true
+  charCodeAt:
+    signature: 'function charCodeAt(index: number) '
+    path: libraries/toolsmith/src/vanilla/string/charCodeAt/index.ts
     curried: true
   lastIndexOf:
     signature: "function lastIndexOf(\n\tsubstring: string | null | undefined,\n)"
@@ -2434,7 +2533,7 @@ combinator:
     path: libraries/toolsmith/src/vanilla/combinator/pipeWith/index.ts
     curried: true
   curryN:
-    signature: 'function curryN(n: number, fn: (...args: any[])'
+    signature: function function(...)
     path: libraries/toolsmith/src/vanilla/combinator/curryN/index.ts
     curried: false
   binary:
@@ -2671,7 +2770,8 @@ interpolation:
     curried: true
   bilinearInterpolation:
     signature: "function bilinearInterpolation(\n\tq00: number | null | undefined,\n)"
-    path: libraries/toolsmith/src/vanilla/interpolation/bilinearInterpolation/index.ts
+    path: >-
+      libraries/toolsmith/src/vanilla/interpolation/bilinearInterpolation/index.ts
     curried: true
   smoothstep:
     signature: "function smoothstep(\n\tedge0: number | null | undefined,\n)"
@@ -2712,11 +2812,11 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/isFalsy/index.ts
     curried: true
   isBetweenTimes:
-    signature: "function isBetweenTimes(\n\tstartTime: TimeInput | null | undefined,\n\tendTime: TimeInput | null | undefined,\n) "
+    signature: "function isBetweenTimes(\n\tstartTime: TimeInput | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/validation/isBetweenTimes/index.ts
-    curried: false
+    curried: true
   isValidDate:
-    signature: function isValidDate(...)
+    signature: "function isValidDate(\n\tvalue: DateInput | null | undefined,\n): boolean "
     path: libraries/toolsmith/src/vanilla/validation/isValidDate/index.ts
     curried: true
   isNumber:
@@ -2736,7 +2836,7 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/isNil/index.ts
     curried: false
   isTomorrow:
-    signature: function isTomorrow(...)
+    signature: "function isTomorrow(\n\tdate: DateInput | null | undefined,\n): boolean "
     path: libraries/toolsmith/src/vanilla/validation/isTomorrow/index.ts
     curried: true
   isEmail:
@@ -2772,10 +2872,10 @@ validation:
       libraries/toolsmith/src/vanilla/validation/isCreditCard/cleanCardNumber/index.ts
     curried: true
   matchesCardType:
-    signature: "function matchesCardType(\n\tcardNumber: string,\n\tcardType: CardType,\n): boolean "
+    signature: 'function matchesCardType(cardType: CardType) '
     path: >-
       libraries/toolsmith/src/vanilla/validation/isCreditCard/matchesCardType/index.ts
-    curried: false
+    curried: true
   isOnlyDigits:
     signature: 'function isOnlyDigits(value: string): boolean '
     path: >-
@@ -2791,7 +2891,7 @@ validation:
       libraries/toolsmith/src/vanilla/validation/isCreditCard/isValidLength/index.ts
     curried: true
   isPastDateTime:
-    signature: function isPastDateTime(...)
+    signature: "function isPastDateTime(\n\tvalue: DateTimeInput | null | undefined,\n): boolean "
     path: libraries/toolsmith/src/vanilla/validation/isPastDateTime/index.ts
     curried: true
   isWeakSet:
@@ -2863,7 +2963,7 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/isPlainDate/index.ts
     curried: true
   isPlainObject:
-    signature: function isPlainObject(...)
+    signature: 'function isPlainObject(value: unknown): boolean '
     path: libraries/toolsmith/src/vanilla/validation/isPlainObject/index.ts
     curried: true
   isBeforeDateTime:
@@ -2891,11 +2991,11 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/isNull/index.ts
     curried: true
   isPhone:
-    signature: function isPhone(...)
+    signature: "function isPhone(\n\toptions: PhoneOptions = {},\n) "
     path: libraries/toolsmith/src/vanilla/validation/isPhone/index.ts
     curried: true
   isUrl:
-    signature: function isUrl(...)
+    signature: 'function isUrl(options: UrlOptions = {}) '
     path: libraries/toolsmith/src/vanilla/validation/isUrl/index.ts
     curried: true
   isZero:
@@ -2915,9 +3015,9 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/is/index.ts
     curried: true
   isBetweenDates:
-    signature: "function isBetweenDates(\n\tstartDate: DateInput | null | undefined,\n\tendDate: DateInput | null | undefined,\n) "
+    signature: "function isBetweenDates(\n\tstartDate: DateInput | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/validation/isBetweenDates/index.ts
-    curried: false
+    curried: true
   isHexColor:
     signature: 'function isHexColor(options: HexColorOptions = {}) '
     path: libraries/toolsmith/src/vanilla/validation/isHexColor/index.ts
@@ -2931,7 +3031,7 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/isEqual/index.ts
     curried: true
   isJSON:
-    signature: function isJSON(...)
+    signature: "function isJSON(\n\toptions: JSONOptions = {},\n) "
     path: libraries/toolsmith/src/vanilla/validation/isJSON/index.ts
     curried: true
   isNaN:
@@ -2984,7 +3084,8 @@ validation:
     curried: true
   toMillis:
     signature: "function toMillis(\n\tvalue: InstantInput | null | undefined,\n): number | null "
-    path: libraries/toolsmith/src/vanilla/validation/isAfterInstant/toMillis/index.ts
+    path: >-
+      libraries/toolsmith/src/vanilla/validation/isAfterInstant/toMillis/index.ts
     curried: true
   isAfterInstant:
     signature: "function isAfterInstant(\n\treference: InstantInput | null | undefined,\n) "
@@ -2995,9 +3096,9 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/equals/index.ts
     curried: false
   isBetweenDateTimes:
-    signature: "function isBetweenDateTimes(\n\tstartDateTime: DateTimeInput | null | undefined,\n\tendDateTime: DateTimeInput | null | undefined,\n) "
+    signature: "function isBetweenDateTimes(\n\tstartDateTime: DateTimeInput | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/validation/isBetweenDateTimes/index.ts
-    curried: false
+    curried: true
   isPrimitive:
     signature: 'function isPrimitive(value: unknown): boolean '
     path: libraries/toolsmith/src/vanilla/validation/isPrimitive/index.ts
@@ -3106,6 +3207,10 @@ validation:
     signature: 'function isFinite(value: unknown): value is number '
     path: libraries/toolsmith/src/vanilla/validation/isFinite/index.ts
     curried: true
+  validateWith:
+    signature: 'function validateWith<T>(predicate: (value: T) => boolean) '
+    path: libraries/toolsmith/src/vanilla/validation/validateWith/index.ts
+    curried: true
   isEmpty:
     signature: 'function isEmpty(value: unknown): boolean '
     path: libraries/toolsmith/src/vanilla/validation/isEmpty/index.ts
@@ -3123,9 +3228,9 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/lt/index.ts
     curried: true
   isBase64:
-    signature: "function isBase64(\n\tvalue: unknown,\n\toptions: Base64Options = {},\n): boolean "
+    signature: 'function isBase64(options: Base64Options = {}) '
     path: libraries/toolsmith/src/vanilla/validation/isBase64/index.ts
-    curried: false
+    curried: true
   isBeforeDate:
     signature: "function isBeforeDate(\n\treference: DateInput | null | undefined,\n) "
     path: libraries/toolsmith/src/vanilla/validation/isBeforeDate/index.ts
@@ -3203,7 +3308,7 @@ validation:
     path: libraries/toolsmith/src/vanilla/validation/isSameOrAfterDateTime/index.ts
     curried: true
   hasMethod:
-    signature: "function hasMethod<T extends string>(\n\tname: T,\n): (obj: unknown) => obj is Record<string, unknown> & "
+    signature: "function hasMethod<T extends string>(\n\tname: T,\n): (\n\tobj: unknown,\n) => obj is\n\t& Record<string, unknown>\n\t& "
     path: libraries/toolsmith/src/vanilla/validation/hasMethod/index.ts
     curried: true
   validateForm:

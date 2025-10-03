@@ -1,8 +1,8 @@
 import gte from "../../validation/gte/index.ts"
 import isInteger from "../../validation/isInteger/index.ts"
+import lt from "../../validation/lt/index.ts"
 import isNotEmpty from "../isNotEmpty/index.ts"
 import length from "../length/index.ts"
-import lt from "../../validation/lt/index.ts"
 
 //++ Returns the character at the given index in a string
 export default function charAt(index: number) {

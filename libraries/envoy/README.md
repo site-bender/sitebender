@@ -55,7 +55,7 @@ Don't use JSDoc - it's verbose and clutters files.
 ```typescript
 //++ Validates email addresses using regex pattern matching
 export function validateEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 //?? [EXAMPLE] validateEmail("user@example.com") // true
@@ -95,9 +95,9 @@ What code does - mandatory for exports
 ```typescript
 //++ Adds two numbers together
 export default function add(a: number) {
-  return function (b: number): number {
-    return a + b;
-  };
+	return function (b: number): number {
+		return a + b
+	}
 }
 ```
 
@@ -117,10 +117,10 @@ Track issues with remediation plans
 
 ```typescript
 function processData(input: readonly unknown[]): unknown[] {
-  //-- [OPTIMIZATION] Unbounded recursion - add tail call optimization or trampolining
-  return input.length === 0
-    ? []
-    : [transform(input[0]), ...processData(input.slice(1))];
+	//-- [OPTIMIZATION] Unbounded recursion - add tail call optimization or trampolining
+	return input.length === 0
+		? []
+		: [transform(input[0]), ...processData(input.slice(1))]
 }
 ```
 
@@ -130,7 +130,7 @@ Blocking problems that must be fixed
 
 ```typescript
 //!! [SECURITY] SQL injection vulnerability - parameterize queries!
-const query = `SELECT * FROM users WHERE id = ${userId}`;
+const query = `SELECT * FROM users WHERE id = ${userId}`
 ```
 
 #### 5. Links: `//>>`
@@ -236,15 +236,15 @@ Every documentation page is a state machine with links:
 
 ```json
 {
-  "_links": {
-    "self": "/functions/validateEmail",
-    "module": "/modules/auth",
-    "calls": ["/functions/parseEmail"],
-    "calledBy": ["/functions/register", "/functions/login"],
-    "tests": ["/tests/validateEmail.test.ts"],
-    "author": "/developers/guybedford",
-    "next": "/functions/validatePassword"
-  }
+	"_links": {
+		"self": "/functions/validateEmail",
+		"module": "/modules/auth",
+		"calls": ["/functions/parseEmail"],
+		"calledBy": ["/functions/register", "/functions/login"],
+		"tests": ["/tests/validateEmail.test.ts"],
+		"author": "/developers/guybedford",
+		"next": "/functions/validatePassword"
+	}
 }
 ```
 
@@ -253,14 +253,14 @@ Every documentation page is a state machine with links:
 **CRITICAL**: Envoy receives ALL its AST data from Arborist. It NEVER imports or uses TypeScript compiler directly.
 
 ```typescript
-import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts"
 
 // Envoy works with pre-parsed AST nodes and metadata
-const result = await parseFileWithCompiler(content, filePath);
+const result = await parseFileWithCompiler(content, filePath)
 if (result.ok) {
-  const { functions, comments } = result.value;
-  // Generate documentation from structured data
-  // No string parsing, no regex, just data transformation
+	const { functions, comments } = result.value
+	// Generate documentation from structured data
+	// No string parsing, no regex, just data transformation
 }
 ```
 
@@ -271,39 +271,39 @@ This architectural boundary is enforced by Warden contracts. Any violation will 
 ### Creating Project Intelligence
 
 ```typescript
-import createEnvoy from "@sitebender/envoy/createEnvoy/index.ts";
-import parseProject from "@sitebender/envoy/parseProject/index.ts";
-import generateDocs from "@sitebender/envoy/generateDocs/index.ts";
-import startDashboard from "@sitebender/envoy/startDashboard/index.ts";
-import querySparql from "@sitebender/envoy/querySparql/index.ts";
-import onFeedback from "@sitebender/envoy/onFeedback/index.ts";
+import createEnvoy from "@sitebender/envoy/createEnvoy/index.ts"
+import parseProject from "@sitebender/envoy/parseProject/index.ts"
+import generateDocs from "@sitebender/envoy/generateDocs/index.ts"
+import startDashboard from "@sitebender/envoy/startDashboard/index.ts"
+import querySparql from "@sitebender/envoy/querySparql/index.ts"
+import onFeedback from "@sitebender/envoy/onFeedback/index.ts"
 
 // Initialize Envoy with your codebase
 const envoy = await createEnvoy({
-  projectRoot: "./src",
-  gitRepo: true,
-});
+	projectRoot: "./src",
+	gitRepo: true,
+})
 
 // Parse the entire project
-const project = await parseProject(envoy);
+const project = await parseProject(envoy)
 
 // Generate comprehensive documentation
 const docs = await generateDocs(project)({
-  format: "markdown",
-  includeMetrics: true,
-  includeGraph: true,
-});
+	format: "markdown",
+	includeMetrics: true,
+	includeGraph: true,
+})
 
 // Start the intelligence dashboard
 await startDashboard(envoy)({
-  port: 3000,
-  realtime: true,
-  metrics: {
-    quality: true,
-    velocity: true,
-    happiness: true,
-  },
-});
+	port: 3000,
+	realtime: true,
+	metrics: {
+		quality: true,
+		velocity: true,
+		happiness: true,
+	},
+})
 
 // Query the knowledge graph
 const results = await querySparql(envoy)(`
@@ -311,13 +311,13 @@ const results = await querySparql(envoy)(`
     ?function hasComplexity ?complexity .
     FILTER(?complexity > 15)
   }
-`);
+`)
 
 // Track developer experience
 function handleFeedback(rating: FeedbackRating): void {
-  console.log(`Developer rated ${rating.context}: ${rating.emoji}`);
+	console.log(`Developer rated ${rating.context}: ${rating.emoji}`)
 }
-onFeedback(envoy)(handleFeedback);
+onFeedback(envoy)(handleFeedback)
 ```
 
 ## Output Formats
@@ -348,18 +348,18 @@ Envoy aggregates performance metrics from ALL production deployments:
 
 ```tsx
 <BenchmarkAggregator>
-  <CollectFrom>
-    <ProductionDeployments />
-    <DevelopmentEnvironments />
-    <TestRuns />
-  </CollectFrom>
-  <Metrics>
-    <Latency percentiles={[50, 90, 99, 99.9]} />
-    <Throughput window="1m" />
-    <MemoryUsage peak={true} average={true} />
-    <CpuUsage cores={true} />
-  </Metrics>
-  <StoreTo triple-store="benchmarks" />
+	<CollectFrom>
+		<ProductionDeployments />
+		<DevelopmentEnvironments />
+		<TestRuns />
+	</CollectFrom>
+	<Metrics>
+		<Latency percentiles={[50, 90, 99, 99.9]} />
+		<Throughput window="1m" />
+		<MemoryUsage peak={true} average={true} />
+		<CpuUsage cores={true} />
+	</Metrics>
+	<StoreTo triple-store="benchmarks" />
 </BenchmarkAggregator>
 ```
 
@@ -386,18 +386,18 @@ Not marketing numbers against competitors, but YOUR actual performance over time
 ```typescript
 //++ Compares current performance against historical baselines
 export function comparePerformance(
-  current: Metrics,
-  baseline: Metrics,
+	current: Metrics,
+	baseline: Metrics,
 ): Comparison {
-  return {
-    regression: current.p99 > baseline.p99 * 1.1,
-    improvement: current.p99 < baseline.p99 * 0.9,
-    details: {
-      p50Delta: (current.p50 - baseline.p50) / baseline.p50,
-      p90Delta: (current.p90 - baseline.p90) / baseline.p90,
-      p99Delta: (current.p99 - baseline.p99) / baseline.p99,
-    },
-  };
+	return {
+		regression: current.p99 > baseline.p99 * 1.1,
+		improvement: current.p99 < baseline.p99 * 0.9,
+		details: {
+			p50Delta: (current.p50 - baseline.p50) / baseline.p50,
+			p90Delta: (current.p90 - baseline.p90) / baseline.p90,
+			p99Delta: (current.p99 - baseline.p99) / baseline.p99,
+		},
+	}
 }
 ```
 
@@ -405,16 +405,16 @@ export function comparePerformance(
 
 ```tsx
 <PerformanceMonitor>
-  <Alert when="regression">
-    <SlowdownDetected threshold="10%" />
-    <MemoryLeakDetected growth="5%/hour" />
-    <ThroughputDrop threshold="20%" />
-  </Alert>
-  <Report to="mission-control">
-    <Realtime graphs={true} />
-    <Historical trends={true} />
-    <RootCauseAnalysis />
-  </Report>
+	<Alert when="regression">
+		<SlowdownDetected threshold="10%" />
+		<MemoryLeakDetected growth="5%/hour" />
+		<ThroughputDrop threshold="20%" />
+	</Alert>
+	<Report to="mission-control">
+		<Realtime graphs={true} />
+		<Historical trends={true} />
+		<RootCauseAnalysis />
+	</Report>
 </PerformanceMonitor>
 ```
 
@@ -428,19 +428,19 @@ deno add @sitebender/envoy @sitebender/arborist
 ### Basic Setup
 
 ```typescript
-import generateDocs from "@sitebender/envoy/generateDocs/index.ts";
-import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts";
+import generateDocs from "@sitebender/envoy/generateDocs/index.ts"
+import parseFileWithCompiler from "@sitebender/arborist/parseFileWithCompiler/index.ts"
 
 // Parse a file
 const ast = await parseFileWithCompiler(
-  await Deno.readTextFile("./src/index.ts"),
-  "./src/index.ts",
-);
+	await Deno.readTextFile("./src/index.ts"),
+	"./src/index.ts",
+)
 
 // Generate documentation
 if (ast.ok) {
-  const docs = generateDocs(ast.value);
-  console.log(docs);
+	const docs = generateDocs(ast.value)
+	console.log(docs)
 }
 ```
 
@@ -449,10 +449,10 @@ if (ast.ok) {
 ```typescript
 //++ Calculates fibonacci number recursively
 export default function fibonacci(n: number): number {
-  //-- [OPTIMIZATION] Stack overflow risk - needs memoization or iterative approach
-  //-- [REFACTOR] Should return Either for error handling instead of throwing
-  if (n < 0) throw new Error("Negative input not allowed");
-  return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2);
+	//-- [OPTIMIZATION] Stack overflow risk - needs memoization or iterative approach
+	//-- [REFACTOR] Should return Either for error handling instead of throwing
+	if (n < 0) throw new Error("Negative input not allowed")
+	return n <= 1 ? n : fibonacci(n - 1) + fibonacci(n - 2)
 }
 
 //?? [EXAMPLE] fibonacci(10) // 55
@@ -826,80 +826,80 @@ Transform your development environment into a visual workflow canvas where libra
 
 ```tsx
 <EnvoyWorkflowDashboard>
-  <WorkflowCanvas>
-    {/* Library nodes with real-time status */}
-    <LibraryNode id="warden" type="governance" status="active">
-      <Inputs>
-        <Port name="codebase" type="file[]" />
-        <Port name="contracts" type="contract[]" />
-      </Inputs>
-      <Outputs>
-        <Port name="violations" type="violation[]" />
-        <Port name="metrics" type="metric[]" />
-      </Outputs>
-      <RealTimeMetrics>
-        <ValidationTime>2.3s</ValidationTime>
-        <ViolationCount>0</ViolationCount>
-        <DeveloperSatisfaction>😊</DeveloperSatisfaction>
-      </RealTimeMetrics>
-    </LibraryNode>
+	<WorkflowCanvas>
+		{/* Library nodes with real-time status */}
+		<LibraryNode id="warden" type="governance" status="active">
+			<Inputs>
+				<Port name="codebase" type="file[]" />
+				<Port name="contracts" type="contract[]" />
+			</Inputs>
+			<Outputs>
+				<Port name="violations" type="violation[]" />
+				<Port name="metrics" type="metric[]" />
+			</Outputs>
+			<RealTimeMetrics>
+				<ValidationTime>2.3s</ValidationTime>
+				<ViolationCount>0</ViolationCount>
+				<DeveloperSatisfaction>😊</DeveloperSatisfaction>
+			</RealTimeMetrics>
+		</LibraryNode>
 
-    <LibraryNode id="agent" type="distributed" status="syncing">
-      <NetworkTopology>
-        <PeerCount>5</PeerCount>
-        <SyncLatency>23ms</SyncLatency>
-        <ConflictResolution>automatic</ConflictResolution>
-      </NetworkTopology>
-    </LibraryNode>
+		<LibraryNode id="agent" type="distributed" status="syncing">
+			<NetworkTopology>
+				<PeerCount>5</PeerCount>
+				<SyncLatency>23ms</SyncLatency>
+				<ConflictResolution>automatic</ConflictResolution>
+			</NetworkTopology>
+		</LibraryNode>
 
-    <LibraryNode id="operator" type="messaging" status="active">
-      <EventMetrics>
-        <Throughput>1,247 events/sec</Throughput>
-        <BackpressureQueues>0</BackpressureQueues>
-        <DeliveryGuarantee>exactly-once</DeliveryGuarantee>
-      </EventMetrics>
-    </LibraryNode>
+		<LibraryNode id="operator" type="messaging" status="active">
+			<EventMetrics>
+				<Throughput>1,247 events/sec</Throughput>
+				<BackpressureQueues>0</BackpressureQueues>
+				<DeliveryGuarantee>exactly-once</DeliveryGuarantee>
+			</EventMetrics>
+		</LibraryNode>
 
-    {/* Visual connections show data flow */}
-    <Connection
-      from="warden.violations"
-      to="steward.autofix"
-      type="error-recovery"
-      realTime={true}
-    />
-    <Connection
-      from="agent.networkHealth"
-      to="envoy.monitoring"
-      type="telemetry"
-      batchSize={100}
-    />
-    <Connection
-      from="operator.events"
-      to="architect.reactions"
-      type="reactive-update"
-      latency="<1ms"
-    />
-  </WorkflowCanvas>
+		{/* Visual connections show data flow */}
+		<Connection
+			from="warden.violations"
+			to="steward.autofix"
+			type="error-recovery"
+			realTime={true}
+		/>
+		<Connection
+			from="agent.networkHealth"
+			to="envoy.monitoring"
+			type="telemetry"
+			batchSize={100}
+		/>
+		<Connection
+			from="operator.events"
+			to="architect.reactions"
+			type="reactive-update"
+			latency="<1ms"
+		/>
+	</WorkflowCanvas>
 
-  <ExecutionMonitor>
-    <RealTimeDataFlow>
-      <EventStream />
-      <StateTransitions />
-      <NetworkActivity />
-    </RealTimeDataFlow>
+	<ExecutionMonitor>
+		<RealTimeDataFlow>
+			<EventStream />
+			<StateTransitions />
+			<NetworkActivity />
+		</RealTimeDataFlow>
 
-    <PerformanceMetrics>
-      <SystemHealth />
-      <ResourceUsage />
-      <ThroughputGraphs />
-    </PerformanceMetrics>
+		<PerformanceMetrics>
+			<SystemHealth />
+			<ResourceUsage />
+			<ThroughputGraphs />
+		</PerformanceMetrics>
 
-    <DeveloperExperience>
-      <FeedbackStream />
-      <ErrorFrequency />
-      <OnboardingMetrics />
-    </DeveloperExperience>
-  </ExecutionMonitor>
+		<DeveloperExperience>
+			<FeedbackStream />
+			<ErrorFrequency />
+			<OnboardingMetrics />
+		</DeveloperExperience>
+	</ExecutionMonitor>
 </EnvoyWorkflowDashboard>
 ```
 
@@ -909,32 +909,32 @@ Navigate your codebase through SPARQL-powered visual queries:
 
 ```tsx
 <InteractiveKnowledgeGraph>
-  <VisualQueryBuilder>
-    <QueryCanvas>
-      {/* Drag and drop query construction */}
-      <TriplePattern
-        subject="?function"
-        predicate="calls"
-        object="validateEmail"
-      />
-      <Filter property="complexity" operator=">" value="10" />
-      <OrderBy property="usage" direction="desc" />
-    </QueryCanvas>
+	<VisualQueryBuilder>
+		<QueryCanvas>
+			{/* Drag and drop query construction */}
+			<TriplePattern
+				subject="?function"
+				predicate="calls"
+				object="validateEmail"
+			/>
+			<Filter property="complexity" operator=">" value="10" />
+			<OrderBy property="usage" direction="desc" />
+		</QueryCanvas>
 
-    <GeneratedSparql>
-      {`SELECT ?function WHERE {
+		<GeneratedSparql>
+			{`SELECT ?function WHERE {
         ?function calls :validateEmail ;
                  hasComplexity ?c .
         FILTER(?c > 10)
       } ORDER BY DESC(?usage)`}
-    </GeneratedSparql>
-  </VisualQueryBuilder>
+		</GeneratedSparql>
+	</VisualQueryBuilder>
 
-  <ResultVisualization>
-    <NodeGraph interactive={true} />
-    <DataTable sortable={true} />
-    <TimelineScrubber />
-  </ResultVisualization>
+	<ResultVisualization>
+		<NodeGraph interactive={true} />
+		<DataTable sortable={true} />
+		<TimelineScrubber />
+	</ResultVisualization>
 </InteractiveKnowledgeGraph>
 ```
 
@@ -944,23 +944,23 @@ Multiple developers can collaborate on the same workflow visualization in real-t
 
 ```tsx
 <CollaborativeDashboard>
-  <Participants>
-    <User id="architect" cursor={{ x: 245, y: 130 }} />
-    <User id="developer" selection={["node-warden-1"]} />
-    <User id="sre" editing="connection-props" />
-  </Participants>
+	<Participants>
+		<User id="architect" cursor={{ x: 245, y: 130 }} />
+		<User id="developer" selection={["node-warden-1"]} />
+		<User id="sre" editing="connection-props" />
+	</Participants>
 
-  <SharedViewport>
-    <SyncCursors realTime={true} />
-    <DistributedSelection />
-    <CollaborativeAnnotations />
-  </SharedViewport>
+	<SharedViewport>
+		<SyncCursors realTime={true} />
+		<DistributedSelection />
+		<CollaborativeAnnotations />
+	</SharedViewport>
 
-  <ConflictResolution>
-    <OperationalTransform for="viewport-changes" />
-    <LastWriteWins for="annotations" />
-    <MergeStrategies for="filters" />
-  </ConflictResolution>
+	<ConflictResolution>
+		<OperationalTransform for="viewport-changes" />
+		<LastWriteWins for="annotations" />
+		<MergeStrategies for="filters" />
+	</ConflictResolution>
 </CollaborativeDashboard>
 ```
 
@@ -970,26 +970,26 @@ Watch workflows execute in real-time with detailed tracing:
 
 ```tsx
 <WorkflowExecutionMonitor>
-  <ExecutionTrace>
-    <StageProgress current="validation" total={5} />
-    <DataFlow>
-      <Input stage="parse" data="1,247 files" status="completed" />
-      <Processing stage="validate" data="234 violations" status="in-progress" />
-      <Output stage="report" data="pending" status="queued" />
-    </DataFlow>
-  </ExecutionTrace>
+	<ExecutionTrace>
+		<StageProgress current="validation" total={5} />
+		<DataFlow>
+			<Input stage="parse" data="1,247 files" status="completed" />
+			<Processing stage="validate" data="234 violations" status="in-progress" />
+			<Output stage="report" data="pending" status="queued" />
+		</DataFlow>
+	</ExecutionTrace>
 
-  <PerformanceMetrics>
-    <Latency p50="120ms" p90="340ms" p99="890ms" />
-    <Throughput current="450 ops/sec" target="500 ops/sec" />
-    <ResourceUsage cpu="23%" memory="1.2GB" disk="45MB/s" />
-  </PerformanceMetrics>
+	<PerformanceMetrics>
+		<Latency p50="120ms" p90="340ms" p99="890ms" />
+		<Throughput current="450 ops/sec" target="500 ops/sec" />
+		<ResourceUsage cpu="23%" memory="1.2GB" disk="45MB/s" />
+	</PerformanceMetrics>
 
-  <ErrorTracking>
-    <RecentErrors count={3} severity="warning" />
-    <ErrorTrends improving={true} />
-    <ResolutionSuggestions />
-  </ErrorTracking>
+	<ErrorTracking>
+		<RecentErrors count={3} severity="warning" />
+		<ErrorTrends improving={true} />
+		<ResolutionSuggestions />
+	</ErrorTracking>
 </WorkflowExecutionMonitor>
 ```
 
@@ -1050,24 +1050,24 @@ The workflow dashboard integrates with Envoy's five-smiley feedback system:
 
 ```tsx
 <WorkflowFeedback>
-  <DeveloperSatisfaction>
-    <FeedbackPrompt trigger="workflow-completion">
-      How was your experience with this workflow execution?
-      <Emojis>😱 😟 😐 😊 🤩</Emojis>
-    </FeedbackPrompt>
+	<DeveloperSatisfaction>
+		<FeedbackPrompt trigger="workflow-completion">
+			How was your experience with this workflow execution?
+			<Emojis>😱 😟 😐 😊 🤩</Emojis>
+		</FeedbackPrompt>
 
-    <ContextualAnalysis>
-      <ExecutionTime>3.2s</ExecutionTime>
-      <ErrorCount>0</ErrorCount>
-      <CognitiveBurden>low</CognitiveBurden>
-    </ContextualAnalysis>
-  </DeveloperSatisfaction>
+		<ContextualAnalysis>
+			<ExecutionTime>3.2s</ExecutionTime>
+			<ErrorCount>0</ErrorCount>
+			<CognitiveBurden>low</CognitiveBurden>
+		</ContextualAnalysis>
+	</DeveloperSatisfaction>
 
-  <ContinuousImprovement>
-    <TrendAnalysis />
-    <PainPointIdentification />
-    <AutomaticOptimizations />
-  </ContinuousImprovement>
+	<ContinuousImprovement>
+		<TrendAnalysis />
+		<PainPointIdentification />
+		<AutomaticOptimizations />
+	</ContinuousImprovement>
 </WorkflowFeedback>
 ```
 

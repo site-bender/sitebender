@@ -73,7 +73,7 @@ This is the connective tissue that makes the CoE effective, as you rightly point
 
 - **Agile & Product Management Tools:**
   - **Examples:** Jira, Azure DevOps, Linear.
-  - **CoE Use Case:** Managing the CoE's own backlog of initiatives (e.g., "Create new React template," "Investigate new database technology").
+  - **CoE Use Case:** Managing the CoE's own backlog of initiatives (e.g., "Create new JSX template," "Investigate new database technology").
 
 ---
 

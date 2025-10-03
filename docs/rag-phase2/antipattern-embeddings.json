@@ -1,0 +1,234 @@
+{
+  "metadata": {
+    "phase": "2.4",
+    "encoding_type": "antipattern",
+    "created": "2025-10-03T05:32:27Z",
+    "description": "Anti-patterns showing prohibited code with explanations of why they violate rules. Used for verification and detection of violations."
+  },
+  "constitutional_rules": [
+    {
+      "rule_id": "const-001-no-classes",
+      "category": "constitutional",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Using classes\n\nclass UserService {\n  private users: User[] = []\n\n  constructor() {\n    this.users = []\n  }\n\n  addUser(user: User): void {\n    this.users.push(user)\n  }\n\n  getUser(id: string): User | undefined {\n    return this.users.find(u => u.id === id)\n  }\n\n  updateUser(id: string, updates: Partial<User>): void {\n    const user = this.getUser(id)\n    if (user) {\n      Object.assign(user, updates)\n    }\n  }\n}\n\nconst service = new UserService()\nservice.addUser(newUser)\n\n// Why this is wrong:\n// 1. Uses class keyword (forbidden)\n// 2. Has mutable instance state (this.users)\n// 3. Methods mutate state (push, Object.assign)\n// 4. Uses 'this' binding (implicit context)\n// 5. Encourages OOP patterns over FP\n// 6. Returns undefined instead of Maybe/Result\n// 7. Uses arrow functions in find\n\n// Correct approach: Use modules with pure functions\n// See pattern embedding for const-001-no-classes",
+      "violation_markers": ["class", "constructor", "this.", "new ", "extends", "implements"],
+      "keywords": ["class", "OOP", "this", "new", "constructor", "methods"],
+      "tags": ["anti-pattern", "classes", "OOP", "forbidden"]
+    },
+    {
+      "rule_id": "const-002-no-mutations",
+      "category": "constitutional",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Mutating data\n\nlet count = 0\ncount++  // Mutation\ncount += 5  // Mutation\n\nconst user = { name: 'Alice', age: 30 }\nuser.age = 31  // Mutation\nuser.email = 'alice@example.com'  // Mutation\n\nconst items = [1, 2, 3]\nitems.push(4)  // Mutation\nitems.pop()  // Mutation\nitems[0] = 10  // Mutation\nitems.splice(1, 1)  // Mutation\n\nfunction updateUser(user: User, name: string): void {\n  user.name = name  // Mutation of parameter\n}\n\nfor (let i = 0; i < items.length; i++) {  // Mutable loop variable\n  items[i] = items[i] * 2  // Mutation in loop\n}\n\n// Why this is wrong:\n// 1. Uses let instead of const\n// 2. Reassigns variables (count++, count += 5)\n// 3. Mutates object properties directly\n// 4. Uses mutating array methods (push, pop, splice)\n// 5. Mutates function parameters\n// 6. Uses mutable loop variables\n// 7. Modifies array elements in place\n\n// Correct approach: Use const and return new values\n// See pattern embedding for const-002-no-mutations",
+      "violation_markers": ["let ", "var ", "++", "--", "+=", "-=", "*=", "/=", ".push(", ".pop(", ".splice(", ".shift(", ".unshift(", ".sort(", ".reverse(", "= "],
+      "keywords": ["mutation", "let", "var", "push", "pop", "splice", "assignment"],
+      "tags": ["anti-pattern", "mutation", "immutability", "forbidden"]
+    },
+    {
+      "rule_id": "const-003-no-loops",
+      "category": "constitutional",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Using loops\n\n// For loop\nconst doubled = []\nfor (let i = 0; i < numbers.length; i++) {\n  doubled.push(numbers[i] * 2)\n}\n\n// For...of loop\nconst sum = 0\nfor (const num of numbers) {\n  sum += num\n}\n\n// While loop\nlet i = 0\nwhile (i < numbers.length) {\n  console.log(numbers[i])\n  i++\n}\n\n// Do...while loop\nlet j = 0\ndo {\n  process(items[j])\n  j++\n} while (j < items.length)\n\n// For...in loop\nfor (const key in object) {\n  console.log(object[key])\n}\n\n// Why this is wrong:\n// 1. Uses for loop (forbidden)\n// 2. Uses for...of loop (forbidden)\n// 3. Uses while loop (forbidden)\n// 4. Uses do...while loop (forbidden)\n// 5. Uses for...in loop (forbidden)\n// 6. Requires mutable variables (let i, let sum)\n// 7. Encourages imperative style\n// 8. Mutates accumulator (push, +=)\n\n// Correct approach: Use map/filter/reduce\n// See pattern embedding for const-003-no-loops",
+      "violation_markers": ["for (", "for(", "while (", "while(", "do {", "for...of", "for...in", ".forEach("],
+      "keywords": ["for", "while", "loop", "forEach", "iteration"],
+      "tags": ["anti-pattern", "loops", "iteration", "forbidden"]
+    },
+    {
+      "rule_id": "const-004-no-exceptions",
+      "category": "constitutional",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Using exceptions\n\nfunction parseUser(data: unknown): User {\n  if (!data || typeof data !== 'object') {\n    throw new Error('Invalid data')  // Throwing exception\n  }\n  \n  if (!('name' in data)) {\n    throw new Error('Missing name')  // Throwing exception\n  }\n  \n  return data as User\n}\n\nasync function fetchUser(id: string): Promise<User> {\n  try {\n    const response = await fetch(`/api/users/${id}`)\n    \n    if (!response.ok) {\n      throw new Error(`HTTP ${response.status}`)  // Throwing\n    }\n    \n    return await response.json()\n  } catch (error) {  // Catching exceptions\n    console.error('Failed to fetch user:', error)\n    throw error  // Re-throwing\n  }\n}\n\nfunction divide(a: number, b: number): number {\n  if (b === 0) {\n    throw new Error('Division by zero')  // Throwing\n  }\n  return a / b\n}\n\n// Why this is wrong:\n// 1. Uses throw statements (forbidden)\n// 2. Uses try-catch blocks (forbidden in pure code)\n// 3. Exceptions break referential transparency\n// 4. Error handling is implicit, not in type signature\n// 5. Can't track errors in type system\n// 6. Makes control flow non-obvious\n// 7. Exceptions can't be composed\n\n// Correct approach: Return Result<T, E> or Validation<T, E>\n// See pattern embedding for const-004-no-exceptions",
+      "violation_markers": ["throw ", "try {", "catch (", "catch(", "finally {"],
+      "keywords": ["throw", "try", "catch", "finally", "exception", "Error"],
+      "tags": ["anti-pattern", "exceptions", "error-handling", "forbidden"]
+    }
+  ],
+  "functional_programming_rules": [
+    {
+      "rule_id": "fp-001-pure-functions",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Impure functions\n\n// Accessing global state\nlet globalCounter = 0\nfunction incrementCounter(): number {\n  return ++globalCounter  // Impure: modifies global\n}\n\n// Side effects\nfunction logAndDouble(n: number): number {\n  console.log(n)  // Side effect: I/O\n  return n * 2\n}\n\n// Non-deterministic\nfunction addRandom(n: number): number {\n  return n + Math.random()  // Impure: non-deterministic\n}\n\n// Mutating parameters\nfunction addItem(array: number[], item: number): void {\n  array.push(item)  // Impure: mutates parameter\n}\n\n// Depending on external mutable state\nconst config = { multiplier: 2 }\nfunction multiply(n: number): number {\n  return n * config.multiplier  // Impure: depends on mutable external state\n}\n\n// Time-dependent\nfunction isBusinessHours(): boolean {\n  const hour = new Date().getHours()  // Impure: depends on time\n  return hour >= 9 && hour < 17\n}\n\n// Why this is wrong:\n// 1. Accesses/modifies global state\n// 2. Performs I/O operations (console.log)\n// 3. Uses non-deterministic functions (Math.random, Date)\n// 4. Mutates parameters\n// 5. Depends on external mutable state\n// 6. Same input doesn't always give same output\n// 7. Can't be safely memoized or parallelized\n\n// Correct approach: Pure functions with no side effects\n// See pattern embedding for fp-001-pure-functions",
+      "violation_markers": ["console.", "Math.random()", "Date()", "new Date()", "fetch(", "localStorage", "sessionStorage", "window.", "document.", "process."],
+      "keywords": ["impure", "side-effects", "global", "console", "random", "Date"],
+      "tags": ["anti-pattern", "impure", "side-effects", "forbidden"]
+    },
+    {
+      "rule_id": "fp-002-immutability",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Mutable data structures\n\n// Mutable array type\nfunction processUsers(users: User[]): User[] {\n  users.sort((a, b) => a.name.localeCompare(b.name))  // Mutates input\n  return users\n}\n\n// Mutable object type\nfunction updateConfig(config: Config): void {\n  config.timeout = 5000  // Mutates parameter\n  config.retries = 3\n}\n\n// No readonly modifiers\ntype User = {\n  id: string\n  name: string  // Mutable\n  roles: string[]  // Mutable array\n}\n\n// Mutating nested structures\nfunction addRole(user: User, role: string): void {\n  user.roles.push(role)  // Mutates nested array\n}\n\n// Using mutable methods\nconst numbers = [3, 1, 2]\nnumbers.sort()  // Mutates array\nnumbers.reverse()  // Mutates array\n\n// Why this is wrong:\n// 1. Uses T[] instead of ReadonlyArray<T>\n// 2. No Readonly<T> wrapper on objects\n// 3. No readonly modifiers on properties\n// 4. Mutates function parameters\n// 5. Uses mutating array methods (sort, reverse)\n// 6. Modifies nested structures\n// 7. Types don't enforce immutability\n\n// Correct approach: Use Readonly and ReadonlyArray\n// See pattern embedding for fp-002-immutability",
+      "violation_markers": ["User[]", "string[]", "number[]", ": {", ".sort()", ".reverse()", "= "],
+      "keywords": ["mutable", "T[]", "mutation", "sort", "reverse"],
+      "tags": ["anti-pattern", "mutable", "immutability", "forbidden"]
+    },
+    {
+      "rule_id": "fp-003-total-functions",
+      "category": "functional_programming",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Partial functions\n\n// Returning undefined without encoding in type\nfunction findUser(users: User[], id: string): User {\n  return users.find(u => u.id === id)  // Returns User | undefined but type says User\n}\n\n// Returning null implicitly\nfunction getConfig(key: string): Config {\n  const config = configs[key]\n  return config  // Could be undefined\n}\n\n// Not handling all cases\nfunction getStatusColor(status: string): string {\n  if (status === 'active') return 'green'\n  if (status === 'pending') return 'yellow'\n  // Missing case for other statuses - returns undefined\n}\n\n// Throwing instead of returning error type\nfunction divide(a: number, b: number): number {\n  if (b === 0) throw new Error('Division by zero')\n  return a / b\n}\n\n// Using ! assertion to hide undefined\nfunction getFirstItem<T>(array: T[]): T {\n  return array[0]!  // Unsafe assertion\n}\n\n// Why this is wrong:\n// 1. Returns undefined but type doesn't show it\n// 2. Returns null without encoding in type\n// 3. Doesn't handle all possible inputs\n// 4. Throws exceptions instead of returning Result\n// 5. Uses ! assertion to hide potential undefined\n// 6. Type signature lies about what function returns\n// 7. Can cause runtime errors\n\n// Correct approach: Use Maybe/Result/Validation\n// See pattern embedding for fp-003-total-functions",
+      "violation_markers": ["return undefined", "return null", "!.", "! ", "throw "],
+      "keywords": ["partial", "undefined", "null", "!", "assertion"],
+      "tags": ["anti-pattern", "partial-functions", "totality", "warning"]
+    },
+    {
+      "rule_id": "fp-004-function-composition",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "antipattern": "// ✗ SUBOPTIMAL: Not using composition\n\n// Nested function calls (hard to read)\nconst result = formatOutput(\n  transformData(\n    validateInput(\n      parseJson(rawData)\n    )\n  )\n)\n\n// Intermediate variables (verbose)\nconst parsed = parseJson(rawData)\nconst validated = validateInput(parsed)\nconst transformed = transformData(validated)\nconst formatted = formatOutput(transformed)\n\n// Repeated operations (not DRY)\nfunction processUser(user: User): string {\n  const normalized = normalizeEmail(user.email)\n  const formatted = formatForDisplay(normalized)\n  return formatted\n}\n\nfunction processAdmin(admin: Admin): string {\n  const normalized = normalizeEmail(admin.email)\n  const formatted = formatForDisplay(normalized)\n  return formatted\n}\n\n// Monolithic function (not composable)\nfunction processUserData(data: unknown): string {\n  // Parse\n  if (!data || typeof data !== 'object') return 'Invalid'\n  \n  // Validate\n  if (!('email' in data)) return 'Missing email'\n  \n  // Transform\n  const email = String(data.email).toLowerCase()\n  \n  // Format\n  return `Email: ${email}`\n}\n\n// Why this is suboptimal:\n// 1. Nested calls are hard to read (inside-out)\n// 2. Intermediate variables are verbose\n// 3. Repeated code not extracted to composition\n// 4. Monolithic functions not broken into composable pieces\n// 5. Can't reuse parts of the pipeline\n// 6. Hard to test individual steps\n\n// Better approach: Use pipe/compose\n// See pattern embedding for fp-004-function-composition",
+      "violation_markers": ["nested calls", "intermediate variables", "repeated operations"],
+      "keywords": ["composition", "pipe", "compose", "nested", "verbose"],
+      "tags": ["anti-pattern", "composition", "advisory"]
+    },
+    {
+      "rule_id": "fp-005-higher-order-functions",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "antipattern": "// ✗ SUBOPTIMAL: Not using higher-order functions\n\n// Duplicated logic\nfunction doubleNumbers(numbers: number[]): number[] {\n  const result = []\n  for (let i = 0; i < numbers.length; i++) {\n    result.push(numbers[i] * 2)\n  }\n  return result\n}\n\nfunction tripleNumbers(numbers: number[]): number[] {\n  const result = []\n  for (let i = 0; i < numbers.length; i++) {\n    result.push(numbers[i] * 3)\n  }\n  return result\n}\n\n// Not parameterizing behavior\nfunction filterAdults(users: User[]): User[] {\n  const result = []\n  for (const user of users) {\n    if (user.age >= 18) {\n      result.push(user)\n    }\n  }\n  return result\n}\n\nfunction filterActive(users: User[]): User[] {\n  const result = []\n  for (const user of users) {\n    if (user.status === 'active') {\n      result.push(user)\n    }\n  }\n  return result\n}\n\n// Not abstracting patterns\nfunction sumNumbers(numbers: number[]): number {\n  let sum = 0\n  for (const n of numbers) {\n    sum += n\n  }\n  return sum\n}\n\nfunction productNumbers(numbers: number[]): number {\n  let product = 1\n  for (const n of numbers) {\n    product *= n\n  }\n  return product\n}\n\n// Why this is suboptimal:\n// 1. Duplicates logic instead of parameterizing\n// 2. Doesn't abstract common patterns\n// 3. Can't reuse behavior\n// 4. More code to maintain\n// 5. Misses opportunities for abstraction\n\n// Better approach: Use map/filter/reduce with functions\n// See pattern embedding for fp-005-higher-order-functions",
+      "violation_markers": ["duplicated logic", "not parameterized", "repeated pattern"],
+      "keywords": ["higher-order", "duplication", "abstraction", "parameterization"],
+      "tags": ["anti-pattern", "higher-order-functions", "advisory"]
+    }
+  ],
+  "syntax_rules": [
+    {
+      "rule_id": "syntax-001-no-arrow-functions",
+      "category": "syntax",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Using arrow functions\n\n// Arrow function declaration\nconst add = (a: number, b: number): number => a + b\n\n// Arrow function with block\nconst multiply = (a: number, b: number): number => {\n  return a * b\n}\n\n// Arrow function in callback\nconst doubled = numbers.map(n => n * 2)\n\n// Arrow function in filter\nconst evens = numbers.filter(n => n % 2 === 0)\n\n// Curried arrow functions\nconst add = (a: number) => (b: number) => a + b\n\n// Arrow function in promise\nfetchUser(id).then(user => console.log(user))\n\n// Arrow function as event handler\nbutton.addEventListener('click', (e) => {\n  console.log('Clicked')\n})\n\n// Why this is wrong:\n// 1. Uses arrow function syntax (=>)\n// 2. Creates anonymous functions\n// 3. Makes stack traces less readable\n// 4. Doesn't encourage naming\n// 5. Harder to debug\n// 6. Less self-documenting\n\n// Correct approach: Use function keyword with names\n// See pattern embedding for syntax-001-no-arrow-functions",
+      "violation_markers": ["=>", "() =>", "(", ") =>"],
+      "keywords": ["arrow", "=>", "lambda", "anonymous"],
+      "tags": ["anti-pattern", "arrow-functions", "syntax", "forbidden"]
+    },
+    {
+      "rule_id": "syntax-002-no-abbreviations",
+      "category": "syntax",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Using abbreviations\n\n// Abbreviated variable names\nconst usr = getUser()\nconst cfg = loadConfig()\nconst msg = 'Hello'\nconst btn = document.querySelector('button')\nconst idx = 0\nconst len = array.length\nconst tmp = processData()\nconst res = await fetch(url)\nconst err = new Error('Failed')\nconst ctx = canvas.getContext('2d')\n\n// Abbreviated function names\nfunction calcTotal(items: Item[]): number { ... }\nfunction procUser(user: User): void { ... }\nfunction initApp(): void { ... }\nfunction valInput(input: string): boolean { ... }\nfunction fmtDate(date: Date): string { ... }\n\n// Abbreviated type names\ntype UsrData = { ... }\ntype CfgOpts = { ... }\ntype MsgType = 'info' | 'warn' | 'err'\n\n// Why this is wrong:\n// 1. Uses abbreviations (usr, cfg, msg, btn, etc.)\n// 2. Saves a few characters but costs comprehension\n// 3. Not self-documenting\n// 4. Requires mental translation\n// 5. Inconsistent abbreviation styles\n// 6. Makes code harder to search\n\n// Correct approach: Write full descriptive names\n// See pattern embedding for syntax-002-no-abbreviations",
+      "violation_markers": ["usr", "cfg", "msg", "btn", "idx", "len", "tmp", "res", "err", "ctx", "calc", "proc", "init", "val", "fmt"],
+      "keywords": ["abbreviation", "short-names", "usr", "cfg", "calc"],
+      "tags": ["anti-pattern", "abbreviations", "naming", "warning"]
+    },
+    {
+      "rule_id": "syntax-003-plain-english-names",
+      "category": "syntax",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Cryptic or clever names\n\n// Cryptic names\nfunction f(x: number): number { return x * 2 }\nfunction g(a: string, b: string): string { return a + b }\nconst x = getData()\nconst y = processX(x)\nconst z = formatY(y)\n\n// Overly terse names\nfunction p(u: User): boolean { ... }  // What does 'p' mean?\nfunction q(n: number): number { ... }  // What does 'q' do?\n\n// Clever/cute names\nfunction yeetTheUser(user: User): void { ... }\nfunction bazinga(data: Data): Result { ... }\nfunction doTheThing(): void { ... }\n\n// Technical jargon without context\nfunction xform(data: Data): Data { ... }\nfunction munge(input: string): string { ... }\nfunction grok(obj: unknown): boolean { ... }\n\n// Inconsistent naming\nfunction getUserData(id: string): User { ... }\nfunction fetchUserInfo(id: string): User { ... }  // Same thing, different name\nfunction retrieveUserDetails(id: string): User { ... }  // Same thing again\n\n// Why this is wrong:\n// 1. Single-letter names (f, g, x, y, z)\n// 2. Doesn't express intent\n// 3. Uses slang or cute names\n// 4. Technical jargon without context\n// 5. Inconsistent terminology\n// 6. Requires code reading to understand\n\n// Correct approach: Clear, descriptive English names\n// See pattern embedding for syntax-003-plain-english-names",
+      "violation_markers": ["function f(", "function g(", "const x =", "const y =", "yeet", "bazinga", "doTheThing"],
+      "keywords": ["cryptic", "clever", "single-letter", "jargon"],
+      "tags": ["anti-pattern", "naming", "readability", "warning"]
+    },
+    {
+      "rule_id": "syntax-004-curried-function-naming",
+      "category": "syntax",
+      "severity": "advisory",
+      "antipattern": "// ✗ SUBOPTIMAL: Poor curried function naming\n\n// Generic inner function names\nfunction add(a: number) {\n  return function inner(b: number): number {\n    return a + b\n  }\n}\n\n// No indication of captured parameters\nfunction multiply(x: number) {\n  return function f(y: number): number {\n    return x * y\n  }\n}\n\n// Repeated generic names\nfunction createUser(id: string) {\n  return function inner(name: string) {\n    return function inner(email: string): User {\n      return { id, name, email }\n    }\n  }\n}\n\n// Anonymous inner functions\nfunction filter(predicate: (x: number) => boolean) {\n  return function(array: number[]): number[] {\n    return array.filter(predicate)\n  }\n}\n\n// Why this is suboptimal:\n// 1. Uses generic names (inner, f)\n// 2. Doesn't show captured parameters\n// 3. Repeated generic names confuse\n// 4. Anonymous functions in currying\n// 5. Stack traces less helpful\n// 6. Harder to understand closure behavior\n\n// Better approach: Include captured params in name\n// See pattern embedding for syntax-004-curried-function-naming",
+      "violation_markers": ["function inner(", "function f(", "return function("],
+      "keywords": ["currying", "inner", "generic-names", "anonymous"],
+      "tags": ["anti-pattern", "currying", "naming", "advisory"]
+    }
+  ],
+  "formatting_rules": [
+    {
+      "rule_id": "format-001-character-encoding",
+      "category": "formatting",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Incorrect character encoding\n\n// Using non-UTF-8 encoding\n// File saved as ISO-8859-1 or Windows-1252\n// Characters like é, ñ, 中文 may be corrupted\n\n// Including BOM (Byte Order Mark)\n// File starts with: EF BB BF (UTF-8 BOM)\n// Causes issues with some tools and parsers\n\n// Mixed encodings in project\n// Some files UTF-8, others ISO-8859-1\n// Causes character corruption when files interact\n\n// Not specifying encoding in tools\n// .editorconfig missing charset = utf-8\n// VSCode settings missing \"files.encoding\": \"utf8\"\n\n// Why this is wrong:\n// 1. Non-UTF-8 encodings cause character corruption\n// 2. BOM causes parsing issues\n// 3. Mixed encodings create inconsistency\n// 4. Not all characters supported\n// 5. Breaks cross-platform compatibility\n// 6. Can cause build failures\n\n// Correct approach: UTF-8 without BOM everywhere\n// See pattern embedding for format-001-character-encoding",
+      "violation_markers": ["ISO-8859-1", "Windows-1252", "BOM", "non-UTF-8"],
+      "keywords": ["encoding", "BOM", "ISO-8859-1", "charset"],
+      "tags": ["anti-pattern", "encoding", "formatting", "forbidden"]
+    },
+    {
+      "rule_id": "format-002-line-endings",
+      "category": "formatting",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Incorrect line endings\n\n// Using CRLF (Windows) line endings\n// Lines end with \\r\\n instead of \\n\n// Mixed line endings in same file\n// Some lines \\n, others \\r\\n\n// Using CR (old Mac) line endings\n// Lines end with \\r\n\n// Not configuring Git\n// core.autocrlf not set to 'input'\n// Causes line ending conversions\n\n// Missing .gitattributes\n// No * text=auto eol=lf\n// Git doesn't normalize line endings\n\n// Why this is wrong:\n// 1. CRLF causes diff noise\n// 2. Mixed endings break tools\n// 3. Causes merge conflicts\n// 4. Breaks shell scripts\n// 5. Inconsistent across platforms\n// 6. Makes diffs harder to read\n\n// Correct approach: LF (Unix) everywhere\n// See pattern embedding for format-002-line-endings",
+      "violation_markers": ["\\r\\n", "CRLF", "mixed line endings"],
+      "keywords": ["line-endings", "CRLF", "\\r\\n", "mixed"],
+      "tags": ["anti-pattern", "line-endings", "formatting", "forbidden"]
+    },
+    {
+      "rule_id": "format-003-indentation",
+      "category": "formatting",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Incorrect indentation\n\n// Using spaces in TypeScript files\nfunction add(a: number, b: number): number {\n  return a + b  // 2 spaces instead of tab\n}\n\n// Using tabs in markdown files\n# Heading\n\n\t- List item  // Tab instead of spaces\n\n// Mixed tabs and spaces\nfunction multiply(a: number, b: number): number {\n\treturn a *  // Tab\n      b  // Spaces\n}\n\n// Inconsistent indentation\nfunction divide(a: number, b: number): number {\n  if (b === 0) {\n      return 0  // 4 spaces\n  }\n    return a / b  // 2 spaces\n}\n\n// Wrong indent size\nfunction subtract(a: number, b: number): number {\n    return a - b  // 4 spaces instead of tab\n}\n\n// Why this is wrong:\n// 1. Uses spaces in code files (should be tabs)\n// 2. Uses tabs in markdown (should be spaces)\n// 3. Mixes tabs and spaces\n// 4. Inconsistent indentation levels\n// 5. Wrong indent size\n// 6. Breaks editor consistency\n\n// Correct approach: Tabs for code, spaces for markdown/YAML\n// See pattern embedding for format-003-indentation",
+      "violation_markers": ["mixed tabs and spaces", "spaces in .ts", "tabs in .md"],
+      "keywords": ["indentation", "tabs", "spaces", "mixed"],
+      "tags": ["anti-pattern", "indentation", "formatting", "forbidden"]
+    },
+    {
+      "rule_id": "format-004-line-length",
+      "category": "formatting",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Lines too long\n\n// Line exceeds 80 characters\nfunction calculateTotalPriceWithTaxAndShippingAndDiscountAndPromoCode(items: Item[], taxRate: number, shippingCost: number, discount: number, promoCode: string): number {\n  return items.reduce((total, item) => total + item.price, 0) * (1 + taxRate) + shippingCost - discount\n}\n\n// Long string literals\nconst message = \"This is a very long error message that exceeds the 80 character limit and should be broken into multiple lines for better readability\"\n\n// Long type definitions\ntype VeryLongTypeName = { id: string; name: string; email: string; address: string; phone: string; age: number; status: string }\n\n// Long function calls\nconst result = someVeryLongFunctionName(firstParameter, secondParameter, thirdParameter, fourthParameter, fifthParameter)\n\n// Why this is wrong:\n// 1. Lines exceed 80 characters\n// 2. Requires horizontal scrolling\n// 3. Hard to read in split-screen\n// 4. Doesn't fit in code review tools\n// 5. Breaks reading flow\n// 6. Hard to see in terminals\n\n// Correct approach: Break at 80 characters\n// See pattern embedding for format-004-line-length",
+      "violation_markers": ["line > 80 chars"],
+      "keywords": ["line-length", "80-characters", "long-lines"],
+      "tags": ["anti-pattern", "line-length", "formatting", "warning"]
+    },
+    {
+      "rule_id": "format-005-final-newline",
+      "category": "formatting",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Missing final newline\n\n// File ends without newline\nfunction hello(): string {\n  return 'Hello, World!'\n}\n\nexport default hello// ← No newline after this line\n\n// Why this is wrong:\n// 1. POSIX defines text file as ending with newline\n// 2. Causes issues with shell scripts\n// 3. Breaks some diff tools\n// 4. Can cause concatenation issues\n// 5. Git shows \"No newline at end of file\" warning\n// 6. Inconsistent with standards\n\n// Correct approach: Always end with newline\n// See pattern embedding for format-005-final-newline",
+      "violation_markers": ["no final newline", "missing EOF newline"],
+      "keywords": ["final-newline", "EOF", "missing-newline"],
+      "tags": ["anti-pattern", "final-newline", "formatting", "warning"]
+    },
+    {
+      "rule_id": "format-006-trailing-whitespace",
+      "category": "formatting",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Trailing whitespace\n\n// Spaces at end of lines\nfunction add(a: number, b: number): number {   \n  return a + b  \n}  \n\n// Tabs at end of lines\nconst message = 'Hello'\t\t\n\n// Mixed whitespace at end\nconst value = 42 \t \n\n// Why this is wrong:\n// 1. Creates diff noise\n// 2. Wastes space\n// 3. Can cause issues with some tools\n// 4. Inconsistent\n// 5. Not visible in editors\n// 6. Serves no purpose\n\n// Exception: Markdown uses two trailing spaces for line breaks\n// This is a line with two trailing spaces  \n// This creates a line break in markdown\n\n// Correct approach: Trim trailing whitespace (except markdown)\n// See pattern embedding for format-006-trailing-whitespace",
+      "violation_markers": ["trailing spaces", "trailing tabs", "whitespace at EOL"],
+      "keywords": ["trailing-whitespace", "spaces", "tabs", "EOL"],
+      "tags": ["anti-pattern", "trailing-whitespace", "formatting", "warning"]
+    }
+  ],
+  "typescript_rules": [
+    {
+      "rule_id": "ts-001-discriminated-unions",
+      "category": "typescript",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Not using discriminated unions\n\n// Using boolean flags\ntype Result<T> = {\n  success: boolean\n  value?: T\n  error?: Error\n}\n\n// Using null/undefined\ntype Option<T> = T | null | undefined\n\n// No tag field\ntype Shape = \n  | { kind: string; radius: number }\n  | { kind: string; width: number; height: number }\n\n// Using string literals without tag\ntype Status = 'pending' | 'success' | 'error'\ntype Response = {\n  status: Status\n  data?: unknown\n  error?: string\n}\n\n// Non-exhaustive matching\nfunction handleResult(result: Result<string>): string {\n  if (result.success) {\n    return result.value!  // Unsafe assertion\n  }\n  return 'Error'  // Doesn't check error field\n}\n\n// Why this is wrong:\n// 1. Uses boolean flags instead of tags\n// 2. Uses optional properties (? operator)\n// 3. No _tag field for discrimination\n// 4. Can't ensure exhaustive matching\n// 5. Type system can't guarantee mutual exclusivity\n// 6. Requires unsafe assertions (!)\n// 7. Pattern matching not type-safe\n\n// Correct approach: Tagged unions with _tag\n// See pattern embedding for ts-001-discriminated-unions",
+      "violation_markers": ["success: boolean", "value?:", "error?:", "| null", "| undefined", "!"],
+      "keywords": ["boolean-flag", "optional", "null", "undefined", "non-exhaustive"],
+      "tags": ["anti-pattern", "discriminated-unions", "type-safety", "forbidden"]
+    },
+    {
+      "rule_id": "ts-002-branded-types",
+      "category": "typescript",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Not using branded types\n\n// Plain string types for IDs\ntype UserId = string\ntype EmailAddress = string\ntype PostId = string\n\nfunction getUser(id: UserId): User { ... }\nfunction sendEmail(email: EmailAddress): void { ... }\n\n// Can accidentally mix them\nconst userId: UserId = 'user123'\nconst email: EmailAddress = 'user@example.com'\n\ngetUser(email)  // TypeScript allows this! Wrong semantics.\nsendEmail(userId)  // TypeScript allows this! Wrong semantics.\n\n// No validation at creation\nconst userId: UserId = ''  // Empty string allowed\nconst email: EmailAddress = 'not-an-email'  // Invalid email allowed\n\n// Direct casting without validation\nfunction unsafeUserId(s: string): UserId {\n  return s  // No validation, no brand\n}\n\n// Why this is wrong:\n// 1. No brand to distinguish types\n// 2. Can mix semantically different values\n// 3. No validation at creation\n// 4. Type system doesn't prevent mixing\n// 5. No smart constructors\n// 6. Can create invalid values\n\n// Correct approach: Use branded types with validation\n// See pattern embedding for ts-002-branded-types",
+      "violation_markers": ["type UserId = string", "type Email = string", "no brand", "no validation"],
+      "keywords": ["plain-string", "no-brand", "no-validation", "mixing-types"],
+      "tags": ["anti-pattern", "branded-types", "type-safety", "warning"]
+    },
+    {
+      "rule_id": "ts-003-explicit-annotations",
+      "category": "typescript",
+      "severity": "warning",
+      "antipattern": "// ✗ WRONG: Missing type annotations\n\n// No parameter types\nfunction add(a, b) {\n  return a + b\n}\n\n// No return type\nfunction multiply(a: number, b: number) {\n  return a * b\n}\n\n// Relying on inference for public API\nexport function processUser(user) {\n  return {\n    name: user.name,\n    email: user.email\n  }\n}\n\n// No type on exported constants\nexport const config = {\n  timeout: 5000,\n  retries: 3\n}\n\n// Implicit any\nfunction handleData(data) {\n  return data.map(item => item.value)\n}\n\n// Why this is wrong:\n// 1. No parameter type annotations\n// 2. No return type annotations\n// 3. Relies on type inference for public APIs\n// 4. Implicit any types\n// 5. Not self-documenting\n// 6. Harder to catch errors\n// 7. Poor IDE support\n\n// Correct approach: Explicit annotations everywhere\n// See pattern embedding for ts-003-explicit-annotations",
+      "violation_markers": ["function name(", "): {", "export const", "implicit any"],
+      "keywords": ["missing-types", "no-annotation", "implicit-any", "inference"],
+      "tags": ["anti-pattern", "type-annotations", "type-safety", "warning"]
+    },
+    {
+      "rule_id": "ts-004-readonly-types",
+      "category": "typescript",
+      "severity": "blocking",
+      "antipattern": "// ✗ WRONG: Not using readonly types\n\n// Mutable array type\nfunction processUsers(users: User[]): User[] {\n  return users.filter(u => u.active)\n}\n\n// Mutable object type\ntype Config = {\n  timeout: number\n  retries: number\n}\n\n// No readonly modifier\ntype User = {\n  id: string\n  name: string\n  email: string\n}\n\n// Mutable function parameters\nfunction updateConfig(config: Config): void {\n  config.timeout = 5000  // Can mutate\n}\n\n// Mutable nested structures\ntype Settings = {\n  database: {\n    host: string\n    port: number\n  }\n}\n\n// Why this is wrong:\n// 1. Uses T[] instead of ReadonlyArray<T>\n// 2. No Readonly<T> wrapper\n// 3. No readonly modifiers on properties\n// 4. Allows mutations\n// 5. Type system doesn't enforce immutability\n// 6. Can accidentally mutate data\n// 7. Breaks functional programming principles\n\n// Correct approach: Use Readonly and ReadonlyArray\n// See pattern embedding for ts-004-readonly-types",
+      "violation_markers": ["User[]", "string[]", "number[]", ": {", "no readonly"],
+      "keywords": ["mutable", "T[]", "no-readonly", "mutation"],
+      "tags": ["anti-pattern", "readonly", "immutability", "forbidden"]
+    },
+    {
+      "rule_id": "ts-005-type-level-programming",
+      "category": "typescript",
+      "severity": "advisory",
+      "antipattern": "// ✗ SUBOPTIMAL: Not leveraging type system\n\n// Duplicated types\ntype CreateUserInput = {\n  name: string\n  email: string\n  age: number\n}\n\ntype UpdateUserInput = {\n  name?: string\n  email?: string\n  age?: number\n}\n\n// Runtime validation instead of type-level\nfunction isValidEmail(email: string): boolean {\n  return email.includes('@')\n}\n\n// Not using utility types\ntype PartialUser = {\n  id?: string\n  name?: string\n  email?: string\n}\n\n// Not encoding constraints in types\nfunction setPort(port: number): void {\n  if (port < 0 || port > 65535) {\n    throw new Error('Invalid port')\n  }\n}\n\n// Not using conditional types\nfunction unwrap<T>(value: T | null | undefined): T {\n  if (value === null || value === undefined) {\n    throw new Error('Cannot unwrap null/undefined')\n  }\n  return value\n}\n\n// Why this is suboptimal:\n// 1. Duplicates types instead of deriving\n// 2. Runtime checks instead of type-level\n// 3. Doesn't use utility types (Partial, Pick, etc.)\n// 4. Doesn't encode constraints in types\n// 5. Misses type-level opportunities\n// 6. More runtime code needed\n\n// Better approach: Use mapped/conditional types\n// See pattern embedding for ts-005-type-level-programming",
+      "violation_markers": ["duplicated types", "runtime validation", "not using utility types"],
+      "keywords": ["duplication", "runtime-check", "utility-types", "type-level"],
+      "tags": ["anti-pattern", "type-level-programming", "advisory"]
+    }
+  ]
+}

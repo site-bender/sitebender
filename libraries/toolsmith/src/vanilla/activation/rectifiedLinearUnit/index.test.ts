@@ -1,6 +1,4 @@
-import {
-	assertEquals,
-} from "https://deno.land/std@0.218.0/assert/mod.ts"
+import { assertEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import fc from "https://esm.sh/fast-check@3.15.0"
 
 import rectifiedLinearUnit from "./index.ts"
@@ -45,7 +43,7 @@ Deno.test("rectifiedLinearUnit", async (t) => {
 				const once = rectifiedLinearUnit(x)
 				const twice = rectifiedLinearUnit(once)
 				return once === twice
-			})
+			}),
 		)
 	})
 
@@ -54,7 +52,7 @@ Deno.test("rectifiedLinearUnit", async (t) => {
 			fc.property(fc.float({ noNaN: true, noDefaultInfinity: true }), (x) => {
 				const result = rectifiedLinearUnit(x)
 				return result >= 0
-			})
+			}),
 		)
 	})
 
@@ -68,24 +66,38 @@ Deno.test("rectifiedLinearUnit", async (t) => {
 						return rectifiedLinearUnit(x1) <= rectifiedLinearUnit(x2)
 					}
 					return true
-				}
-			)
+				},
+			),
 		)
 	})
 
 	await t.step("acts as identity for positive inputs", () => {
 		fc.assert(
-			fc.property(fc.float({ min: Math.fround(0.001), max: Math.fround(1000), noNaN: true }), (x) => {
-				return rectifiedLinearUnit(x) === x
-			})
+			fc.property(
+				fc.float({
+					min: Math.fround(0.001),
+					max: Math.fround(1000),
+					noNaN: true,
+				}),
+				(x) => {
+					return rectifiedLinearUnit(x) === x
+				},
+			),
 		)
 	})
 
 	await t.step("acts as zero function for negative inputs", () => {
 		fc.assert(
-			fc.property(fc.float({ min: Math.fround(-1000), max: Math.fround(-0.001), noNaN: true }), (x) => {
-				return rectifiedLinearUnit(x) === 0
-			})
+			fc.property(
+				fc.float({
+					min: Math.fround(-1000),
+					max: Math.fround(-0.001),
+					noNaN: true,
+				}),
+				(x) => {
+					return rectifiedLinearUnit(x) === 0
+				},
+			),
 		)
 	})
 
@@ -93,8 +105,16 @@ Deno.test("rectifiedLinearUnit", async (t) => {
 		// Test that the function behaves like it has a derivative of 0 or 1
 		fc.assert(
 			fc.property(
-				fc.float({ min: Math.fround(-100), max: Math.fround(100), noNaN: true }),
-				fc.float({ min: Math.fround(0.001), max: Math.fround(0.1), noNaN: true }),
+				fc.float({
+					min: Math.fround(-100),
+					max: Math.fround(100),
+					noNaN: true,
+				}),
+				fc.float({
+					min: Math.fround(0.001),
+					max: Math.fround(0.1),
+					noNaN: true,
+				}),
 				(x, epsilon) => {
 					// Skip test near x = 0 where derivative is undefined
 					if (Math.abs(x) < 0.01) return true
@@ -105,8 +125,8 @@ Deno.test("rectifiedLinearUnit", async (t) => {
 
 					// Slope should be approximately 0 or 1
 					return Math.abs(slope) < 0.01 || Math.abs(slope - 1) < 0.01
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -115,8 +135,9 @@ Deno.test("rectifiedLinearUnit", async (t) => {
 			fc.property(fc.float({ noNaN: true, noDefaultInfinity: true }), (x) => {
 				const reluResult = rectifiedLinearUnit(x)
 				const maxResult = Math.max(0, x)
-				return reluResult === maxResult || (isNaN(reluResult) && isNaN(maxResult))
-			})
+				return reluResult === maxResult ||
+					(isNaN(reluResult) && isNaN(maxResult))
+			}),
 		)
 	})
 })

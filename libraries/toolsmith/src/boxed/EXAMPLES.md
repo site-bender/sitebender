@@ -86,18 +86,18 @@ import pipe from "../pipe/index.ts"
 
 const result9 = pipe(
 	10,
-	add(5),      // Result.Ok(15)
-	add(3),      // Result.Ok(18)
-	negate       // Result.Ok(-18)
+	add(5), // Result.Ok(15)
+	add(3), // Result.Ok(18)
+	negate, // Result.Ok(-18)
 )
 // { _tag: "Ok", value: -18 }
 
 // Validation propagates through pipeline
 const result10 = pipe(
 	success(10),
-	add(5),      // Validation.Valid(15)
-	add(3),      // Validation.Valid(18)
-	negate       // Validation.Valid(-18)
+	add(5), // Validation.Valid(15)
+	add(3), // Validation.Valid(18)
+	negate, // Validation.Valid(-18)
 )
 // { _tag: "Valid", value: -18 }
 ```
@@ -140,9 +140,9 @@ import pipe from "../pipe/index.ts"
 
 const result7 = pipe(
 	5,
-	double,      // 10
-	triple,      // 30
-	negate       // -30
+	double, // 10
+	triple, // 30
+	negate, // -30
 )
 // { _tag: "Ok", value: -30 }
 ```
@@ -162,8 +162,9 @@ const result7 = pipe(
 ```typescript
 // ❌ DON'T reach into the monad
 const result = add(2)(3)
-console.log(result.value)  // DON'T DO THIS!
+console.log(result.value) // DON'T DO THIS!
 
 // ✅ DO use the public API
 import getOrElse from "../monads/result/getOrElse/index.ts"
-const value = getOrElse(0)(result)  // CORRECT
+const value = getOrElse(0)(result) // CORRECT
+```
