@@ -1,8 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.213.0/assert/mod.ts"
 import * as fc from "https://esm.sh/fast-check@3.15.0"
 
-import _boundedInt from "./index.ts"
 import createSeed from "../createSeed/index.ts"
+import _boundedInt from "./index.ts"
 
 Deno.test("_boundedInt", async (t) => {
 	await t.step("generates integer in specified range", () => {

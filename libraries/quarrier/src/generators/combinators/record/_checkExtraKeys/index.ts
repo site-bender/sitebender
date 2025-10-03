@@ -1,8 +1,9 @@
-import type { ParseError } from "../../../../types/index.ts"
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import err from "@sitebender/toolsmith/monads/result/error/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+
+import type { ParseError } from "../../../../types/index.ts"
 
 //++ Check for extra keys in input object
 export default function _checkExtraKeys(

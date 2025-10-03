@@ -1,6 +1,7 @@
 import type { Generator, Seed } from "../../../../types/index.ts"
-import splitSeed from "../../../../random/splitSeed/index.ts"
+
 import _boundedInt from "../../../../random/_boundedInt/index.ts"
+import splitSeed from "../../../../random/splitSeed/index.ts"
 
 export default function _selectGenerator<T>(
 	generators: ReadonlyArray<Generator<T>>,

@@ -5,9 +5,10 @@ import {
 import * as fc from "npm:fast-check@3.15.0"
 
 import type { ShrinkTree } from "../../../types/index.ts"
+
 import createSeed from "../../../random/createSeed/index.ts"
-import integer from "../../primitives/integer/index.ts"
 import boolean from "../../primitives/boolean/index.ts"
+import integer from "../../primitives/integer/index.ts"
 import array from "./index.ts"
 
 Deno.test("array: generates empty array with minSize 0", () => {

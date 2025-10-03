@@ -156,5 +156,4 @@ const memoizeKey =
 		return key
 	}
 
-
 export default memoizeKey

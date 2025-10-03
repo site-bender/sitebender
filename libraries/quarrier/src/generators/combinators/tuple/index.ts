@@ -1,3 +1,7 @@
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
+import err from "@sitebender/toolsmith/monads/result/error/index.ts"
+
 import type {
 	Generator,
 	GeneratorResult,
@@ -5,12 +9,10 @@ import type {
 	Seed,
 	ShrinkTree,
 } from "../../../types/index.ts"
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
-import err from "@sitebender/toolsmith/monads/result/error/index.ts"
 import _generateTupleElements from "./_generateTupleElements/index.ts"
-import _shrinkTupleElements from "./_shrinkTupleElements/index.ts"
 import _parseTupleElements from "./_parseTupleElements/index.ts"
+import _shrinkTupleElements from "./_shrinkTupleElements/index.ts"
 
 type TupleGenerators<T extends ReadonlyArray<unknown>> = {
 	readonly [K in keyof T]: Generator<T[K]>

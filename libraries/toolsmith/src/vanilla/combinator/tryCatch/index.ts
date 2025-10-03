@@ -12,5 +12,4 @@ const tryCatch = <T extends ReadonlyArray<any>, R, E>(
 	}
 }
 
-
 export default tryCatch

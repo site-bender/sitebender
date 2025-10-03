@@ -1,3 +1,7 @@
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
+import err from "@sitebender/toolsmith/monads/result/error/index.ts"
+
 import type {
 	Generator,
 	GeneratorResult,
@@ -5,13 +9,11 @@ import type {
 	Seed,
 	ShrinkTree,
 } from "../../../types/index.ts"
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
-import err from "@sitebender/toolsmith/monads/result/error/index.ts"
 import _boundedInt from "../../../random/_boundedInt/index.ts"
 import _generateElements from "./_generateElements/index.ts"
-import _shrinkElements from "./_shrinkElements/index.ts"
 import _parseElements from "./_parseElements/index.ts"
+import _shrinkElements from "./_shrinkElements/index.ts"
 import _sizeShrinks from "./_sizeShrinks/index.ts"
 
 type ArrayOptions = {
