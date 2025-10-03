@@ -28,7 +28,7 @@
         "business logic"
       ],
       "exceptions": [
-        "React components (but their logic should still be functional)"
+        "JSX components (but their logic should still be functional)"
       ],
       "created_at": "2025-09-29T14:03:28.090333",
       "updated_at": "2025-09-29T15:54:30.122291",
@@ -900,7 +900,7 @@
       "search_terms": [
         "PascalCase",
         "component",
-        "React",
+        "JSX",
         "naming"
       ],
       "scope": {
@@ -1038,7 +1038,7 @@
       "search_terms": [
         "props",
         "component props",
-        "React props",
+        "JSX props",
         "Props type"
       ],
       "scope": {
@@ -2561,13 +2561,13 @@
   },
   {
     "collection": "revolutionary_rules",
-    "information": "NO external dependencies. NO React, NO Vite, NO nothing. Use Toolsmith | REASON: Every dependency is a liability. We build what we need | CONSEQUENCES: Dependencies = security risks, breaking changes, bloat | PHILOSOPHY: Self-sufficient code with zero external dependencies",
+    "information": "NO external dependencies. NO JSX, NO Vite, NO nothing. Use Toolsmith | REASON: Every dependency is a liability. We build what we need | CONSEQUENCES: Dependencies = security risks, breaking changes, bloat | PHILOSOPHY: Self-sufficient code with zero external dependencies",
     "metadata": {
       "rule_id": "DEPS_NO_EXTERNAL_001",
       "category": "dependencies",
       "subcategory": "external",
       "priority": 10,
-      "rule_text": "NO external dependencies. NO React, NO Vite, NO nothing. Use Toolsmith",
+      "rule_text": "NO external dependencies. NO JSX, NO Vite, NO nothing. Use Toolsmith",
       "search_terms": [
         "dependencies",
         "npm",

@@ -4,8 +4,8 @@ import {
 } from "https://deno.land/std@0.213.0/assert/mod.ts"
 import * as fc from "https://esm.sh/fast-check@3.15.0"
 
-import _nextUint32 from "./index.ts"
 import createSeed from "../createSeed/index.ts"
+import _nextUint32 from "./index.ts"
 
 Deno.test("_nextUint32", async (t) => {
 	await t.step("generates a 32-bit unsigned integer", () => {

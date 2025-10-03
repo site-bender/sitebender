@@ -1,0 +1,431 @@
+# Lock System: Authentication & Authorization (AI-Consumable)
+# Status: 🟢 CANONICAL - Finalized 2025-10-02
+
+metadata:
+  status: canonical
+  finalized: 2025-10-02
+  version: 1.0.0
+  documentation: libraries/steward/docs/locks.md
+  syntax_status: docs/syntax-status.md
+
+philosophy:
+  metaphor: "Locks are doors. Keys open them."
+  principle: "If something is locked, authentication is required."
+  no_separate_auth: true
+  security_first: true
+
+components:
+  - name: Locked
+    type: wrapper
+    status: canonical
+    purpose: Wraps routes or content requiring authentication and keys
+    children:
+      - Key (one or more, optionally wrapped in And/Or)
+      - Routes or content to protect
+    behavior:
+      - Triggers authentication if user not authenticated
+      - Checks user keys against lock requirements
+      - Nested locks accumulate requirements (AND)
+    example: |
+      <Locked>
+        <Key>{KEYS.admin}</Key>
+        <Route path="/admin" page={<Admin />} />
+      </Locked>
+
+  - name: Key
+    type: primitive
+    status: canonical
+    purpose: Specifies required role or permission
+    children: Key name from KEYS constant
+    example: |
+      <Key>{KEYS.admin}</Key>
+
+  - name: And
+    type: logical_operator
+    status: canonical
+    source: Architect (general-purpose conditional)
+    purpose: Logical AND - user must have ALL keys
+    children: Multiple Key components (or nested And/Or)
+    example: |
+      <And>
+        <Key>{KEYS.admin}</Key>
+        <Key>{KEYS.accounting}</Key>
+      </And>
+
+  - name: Or
+    type: logical_operator
+    status: canonical
+    source: Architect (general-purpose conditional)
+    purpose: Logical OR - user must have ANY key
+    children: Multiple Key components (or nested And/Or)
+    example: |
+      <Or>
+        <Key>{KEYS.admin}</Key>
+        <Key>{KEYS.editor}</Key>
+      </Or>
+
+  - name: Not
+    type: logical_operator
+    status: future
+    source: Architect (general-purpose conditional)
+    purpose: Logical NOT - user must NOT have the key
+    note: Reserved for future use if needed
+
+keys_constant:
+  location: .sitebender/auth/keys.ts
+  format: typescript_const
+  type_safety: true
+  example: |
+    export const KEYS = {
+      user: "USER",
+      admin: "ADMIN",
+      accounting: "ACCOUNTING",
+      editor: "EDITOR",
+      verified: "VERIFIED",
+      superuser: "SUPERUSER",
+    } as const;
+  usage: |
+    import { KEYS } from "../../.sitebender/auth/keys";
+
+    <Locked>
+      <Key>{KEYS.admin}</Key>
+      <Route path="/admin" page={<Admin />} />
+    </Locked>
+  integration:
+    steward:
+      purpose: Generate role ontology (OWL2), role constraints (SHACL), auth configs
+      example_prompt: "Create role ontology for all keys in .sitebender/auth/keys.ts"
+      generated_turtle: |
+        @prefix auth: <https://sitebender.io/auth#> .
+        @prefix owl: <http://www.w3.org/2002/07/owl#> .
+        @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+        auth:Role a owl:Class ;
+          rdfs:label "User Role" ;
+          rdfs:comment "Represents a user role/permission" .
+
+        auth:USER a auth:Role ;
+          rdfs:label "User" .
+
+        auth:ADMIN a auth:Role ;
+          rdfs:label "Administrator" .
+
+        auth:ACCOUNTING a auth:Role ;
+          rdfs:label "Accounting" .
+
+rules:
+  - name: default_and_behavior
+    description: Multiple keys without And/Or wrapper default to AND (most restrictive)
+    rationale: Security-first design
+    example: |
+      # This (implicit AND):
+      <Locked>
+        <Key>{KEYS.admin}</Key>
+        <Key>{KEYS.accounting}</Key>
+      </Locked>
+
+      # Equals this (explicit AND):
+      <Locked>
+        <And>
+          <Key>{KEYS.admin}</Key>
+          <Key>{KEYS.accounting}</Key>
+        </And>
+      </Locked>
+
+  - name: lock_accumulation
+    description: Nested locks accumulate requirements (AND behavior)
+    rationale: Security cannot be weakened by nesting
+    example: |
+      <Locked>
+        <Key>{KEYS.user}</Key>
+        <Locked>
+          <Key>{KEYS.admin}</Key>
+          <!-- Requires BOTH user AND admin -->
+        </Locked>
+      </Locked>
+
+  - name: role_hierarchy
+    description: Role hierarchy is Steward's responsibility, not lock system's
+    explanation: |
+      - Locks check: "Does user have these keys?"
+      - Steward decides: "Which keys does this role grant?"
+    example: |
+      # Steward role hierarchy:
+      roleHierarchy = {
+        ADMIN: ["EDITOR", "USER"],
+        EDITOR: ["USER"],
+        USER: []
+      }
+
+      # User with ADMIN role gets keys: ["ADMIN", "EDITOR", "USER"]
+      # Passes locks requiring USER, EDITOR, or ADMIN
+
+examples:
+  - name: simple_single_key
+    description: Lock with single key
+    code: |
+      <Locked>
+        <Key>{KEYS.admin}</Key>
+        <Route path="/admin" page={<Admin />} />
+      </Locked>
+    meaning: User must have ADMIN key
+
+  - name: or_logic
+    description: Any key works (OR)
+    code: |
+      <Locked>
+        <Or>
+          <Key>{KEYS.admin}</Key>
+          <Key>{KEYS.editor}</Key>
+        </Or>
+        <Route path="/edit" page={<Editor />} />
+      </Locked>
+    meaning: User must have ADMIN or EDITOR
+
+  - name: and_logic
+    description: All keys required (AND)
+    code: |
+      <Locked>
+        <And>
+          <Key>{KEYS.admin}</Key>
+          <Key>{KEYS.accounting}</Key>
+        </And>
+        <Route path="/financials" page={<Financials />} />
+      </Locked>
+    meaning: User must have ADMIN and ACCOUNTING
+
+  - name: complex_nested
+    description: Complex nested logic
+    code: |
+      <Locked>
+        <Or>
+          <Key>{KEYS.admin}</Key>
+          <And>
+            <Key>{KEYS.editor}</Key>
+            <Key>{KEYS.verified}</Key>
+          </And>
+        </Or>
+        <Route path="/publish" page={<Publish />} />
+      </Locked>
+    meaning: "ADMIN or (EDITOR and VERIFIED)"
+    logical_expression: "ADMIN ∨ (EDITOR ∧ VERIFIED)"
+
+  - name: nested_locks
+    description: Locks accumulate requirements
+    code: |
+      <Locked>
+        <Key>{KEYS.user}</Key>
+        <Route path="/profile" page={<Profile />} />
+
+        <Locked>
+          <Key>{KEYS.admin}</Key>
+          <Route path="/admin-profile" page={<AdminProfile />} />
+        </Locked>
+      </Locked>
+    meaning: |
+      - /profile requires USER
+      - /admin-profile requires USER and ADMIN
+
+  - name: complete_module
+    description: Real-world module with multiple lock patterns
+    code: |
+      import { KEYS } from "../../.sitebender/auth/keys";
+
+      export default (
+        <Module>
+          {/* Public */}
+          <Route path="/" page={<Index />} />
+
+          {/* User only */}
+          <Locked>
+            <Key>{KEYS.user}</Key>
+            <Route path="/profile" page={<Profile />} />
+          </Locked>
+
+          {/* Editor OR Admin */}
+          <Locked>
+            <Or>
+              <Key>{KEYS.admin}</Key>
+              <Key>{KEYS.editor}</Key>
+            </Or>
+            <Route path="/new" page={<NewPost />} />
+          </Locked>
+
+          {/* Admin AND Accounting */}
+          <Locked>
+            <And>
+              <Key>{KEYS.admin}</Key>
+              <Key>{KEYS.accounting}</Key>
+            </And>
+            <Route path="/revenue" page={<Revenue />} />
+          </Locked>
+        </Module>
+      )
+
+internal_representation:
+  format: JSON (IR after JSX compilation)
+  structure: boolean_expression_tree
+  example_jsx: |
+    <Locked>
+      <Or>
+        <Key>{KEYS.admin}</Key>
+        <And>
+          <Key>{KEYS.editor}</Key>
+          <Key>{KEYS.verified}</Key>
+        </And>
+      </Or>
+      <Route path="/publish" page={<Publish />} />
+    </Locked>
+
+  example_ir: |
+    {
+      "type": "locked",
+      "condition": {
+        "type": "or",
+        "children": [
+          { "type": "key", "value": "ADMIN" },
+          {
+            "type": "and",
+            "children": [
+              { "type": "key", "value": "EDITOR" },
+              { "type": "key", "value": "VERIFIED" }
+            ]
+          }
+        ]
+      },
+      "routes": [{ "path": "/publish", "page": "Publish" }]
+    }
+
+  evaluation_algorithm: |
+    function evaluateCondition(condition, userKeys: Set<string>): boolean {
+      switch (condition.type) {
+        case "key":
+          return userKeys.has(condition.value);
+        case "and":
+          return condition.children.every(c => evaluateCondition(c, userKeys));
+        case "or":
+          return condition.children.some(c => evaluateCondition(c, userKeys));
+        case "not":
+          return !evaluateCondition(condition.children[0], userKeys);
+      }
+    }
+
+integration:
+  architect_conditionals:
+    note: "And/Or/Not are general-purpose components from Architect"
+    contexts:
+      - validation: "Validation rules"
+      - locks: "Authentication requirements"
+      - conditional_rendering: "UI visibility (future)"
+    example_validation: |
+      <Validation>
+        <And>
+          <IsInteger><From.Argument /></IsInteger>
+          <IsGreaterThan value={0}><From.Argument /></IsGreaterThan>
+        </And>
+      </Validation>
+
+security:
+  considerations:
+    - name: lock_accumulation
+      rule: Nested locks always add requirements, never reduce
+      enforcement: Compile-time validation
+
+    - name: default_and
+      rule: Multiple unwrapped keys default to AND (most restrictive)
+      rationale: Security-first
+
+    - name: server_side_enforcement
+      rule: Locks must be enforced server-side
+      warning: Client-side locks are UI hints only
+      best_practice: Server generates locks during SSR
+
+    - name: key_verification
+      requirements:
+        - short_lived: JWT/session timeout
+        - cryptographically_signed: Tamper-proof
+        - revocable: Can be invalidated server-side
+
+future_extensions:
+  - name: time_based_locks
+    status: planned
+    example: |
+      <Locked>
+        <And>
+          <Key>{KEYS.admin}</Key>
+          <TimeWindow start="09:00" end="17:00" timezone="UTC" />
+        </And>
+      </Locked>
+
+  - name: context_based_locks
+    status: planned
+    example: |
+      <Locked>
+        <And>
+          <Key>{KEYS.editor}</Key>
+          <IpWhitelist ranges={["10.0.0.0/8"]} />
+        </And>
+      </Locked>
+
+  - name: multi_factor_locks
+    status: planned
+    example: |
+      <Locked>
+        <And>
+          <Key>{KEYS.admin}</Key>
+          <MfaRequired methods={["totp", "webauthn"]} />
+        </And>
+      </Locked>
+
+testing:
+  unit_tests:
+    - evaluate single key (has/lacks)
+    - evaluate AND (all/partial/none)
+    - evaluate OR (any/none)
+    - evaluate complex nested logic
+    - lock accumulation (nested locks)
+
+  integration_tests:
+    - unauthenticated user redirects to login
+    - authenticated user with key allowed
+    - authenticated user without key denied
+    - nested lock accumulation enforced
+
+faq:
+  - q: Why <Locked> instead of <Auth> and <Gate>?
+    a: Simpler metaphor. Locks need keys. Authentication is implied.
+
+  - q: Can I use <Not> to exclude banned users?
+    a: Future feature. For now, don't grant keys to banned users.
+
+  - q: What if I want role hierarchy (Admin includes User)?
+    a: Steward handles that via role hierarchy definition.
+
+  - q: Can locks be used outside of routes?
+    a: "Yes! Wrap any content: <Locked><Key>{KEYS.admin}</Key><AdminDashboard /></Locked>"
+
+  - q: How do I know which keys a user has?
+    a: "Via Steward auth context: const { keys } = useAuth()"
+
+  - q: Can I check keys in Architect calculations?
+    a: 'Yes: <From.Auth selector="keys" has="ADMIN" />'
+
+  - q: What about OAuth2, SAML, WebAuthn?
+    a: Steward handles auth providers. Locks only care about resulting keys.
+
+related_documentation:
+  - title: Syntax Status
+    path: docs/syntax-status.md
+    description: All canonical vs proposed syntax
+
+  - title: Architect README
+    path: libraries/architect/README.md
+    description: "<And>, <Or>, <Not> general-purpose conditionals"
+
+  - title: Quartermaster Folder Hierarchy
+    path: libraries/quartermaster/docs/folder-hierarchy.md
+    description: "auth/ folder structure"
+
+  - title: Steward README
+    path: libraries/steward/README.md
+    description: Authentication provider integration

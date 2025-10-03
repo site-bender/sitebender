@@ -2,14 +2,34 @@
 	"name": "@sitebender/arborist",
 	"version": "0.1.0",
 	"exports": {
-		"./parseSourceFile": "./src/parseSourceFile/index.ts",
-		"./extractSignature": "./src/extractSignature/index.ts",
-		"./extractTypes": "./src/extractTypes/index.ts",
-		"./detectProperties": "./src/detectProperties/index.ts",
-		"./analyzeBranches": "./src/analyzeBranches/index.ts",
-		"./detectPurity": "./src/detectProperties/detectPurity/index.ts",
-		"./detectCurrying": "./src/detectProperties/detectCurrying/index.ts",
-		"./types": "./src/types/index.ts",
-		"./constants": "./src/constants/index.ts"
+		"./parseFile": "./src/parseFile/index.ts",
+		"./buildParsedFile": "./src/buildParsedFile/index.ts",
+		"./types": "./src/types/index.ts"
+	},
+	"tasks": {
+		"test": "deno test --allow-read src/",
+		"test:cov": "deno test --allow-read --coverage=coverage src/ && deno coverage coverage",
+		"lint": "deno lint src/",
+		"typecheck": "deno check src/types/index.ts src/types/index.test.ts src/parseFile/index.ts src/parseFile/index.test.ts src/parseFile/test-fixtures/valid.ts src/buildParsedFile/index.ts src/buildParsedFile/index.test.ts src/_helpers/traverseAST/index.ts",
+		"fmt": "deno fmt src/"
+	},
+	"lint": {
+		"rules": {
+			"tags": ["recommended"]
+		},
+		"exclude": [
+			"src/parseFile/test-fixtures/invalid-syntax.ts"
+		]
+	},
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 80,
+		"indentWidth": 2,
+		"semiColons": false,
+		"singleQuote": false,
+		"proseWrap": "preserve",
+		"exclude": [
+			"src/parseFile/test-fixtures/invalid-syntax.ts"
+		]
 	}
 }

@@ -9,7 +9,7 @@ overview: |
 critical_rules:
   - ONE function per file, exported as DEFAULT on same line as definition
   - Function name is the folder name (e.g., /add/index.ts exports function add)
-  - ALL functions must be CURRIED
+  - ALL functions must be CURRIED (except generator functions - see exceptions below)
   - NO arrow functions - use traditional function declarations
   - NO TypeScript "any" type - everything must be properly typed
   - NO "unknown" type - use Value, Serializable, or PrimitiveValue from types/index.ts
@@ -45,6 +45,149 @@ directory_structure: |
       └── category/    # Same structure as vanilla
           └── functionName/
               └── index.ts
+
+exceptions_to_currying:
+  generator_functions:
+    rule: "Generator functions CANNOT be curried"
+    rationale: |
+      Generator functions return generator objects (iterators), not values.
+      Calling a generator function doesn't execute the body - it returns an iterator.
+      You cannot partially apply a generator and get another generator.
+      The semantics of generators are fundamentally incompatible with currying.
+
+    explanation: |
+      # Why generators can't be curried:
+
+      function* normalGenerator(a, b) {
+        yield a
+        yield b
+      }
+
+      const gen = normalGenerator(1, 2)  // Returns generator object
+      gen.next()  // { value: 1, done: false }
+      gen.next()  // { value: 2, done: false }
+
+      # If we tried to curry:
+      function* curriedGenerator(a) {
+        return function*(b) {  // INVALID - can't return generator from generator
+          yield a
+          yield b
+        }
+      }
+
+      # The fundamental problem:
+      # - Generators return iterators, not values
+      # - You can't "partially apply" an iterator
+      # - Calling generator(a) doesn't execute, it creates an iterator
+      # - There's no way to capture 'a' and return a new generator that remembers it
+
+    workaround: |
+      If you need generator-like behavior with currying, use regular functions
+      that return generators:
+
+      # Instead of a curried generator, use a curried function returning a generator
+      function makeGenerator(a) {
+        return function(b) {
+          return {
+            *[Symbol.iterator]() {
+              yield a
+              yield b
+            }
+          }
+        }
+      }
+
+      # Or use a builder pattern
+      function generatorBuilder(config) {
+        return function* () {
+          // Use config to guide generation
+          yield* processConfig(config)
+        }
+      }
+
+    documentation_requirement: |
+      Generator functions must be clearly marked in documentation as exceptions
+      to the currying rule. Use this comment pattern:
+
+      //++ Generator function for X (NOT CURRIED - generators cannot be curried)
+      export default function* generatorName(param1, param2) {
+        // implementation
+      }
+
+    examples:
+      invalid: |
+        # WRONG - trying to curry a generator
+        function* badCurry(a) {
+          return function* (b) {  // Syntax error!
+            yield a + b
+          }
+        }
+
+      valid_non_curried: |
+        # CORRECT - non-curried generator (documented exception)
+        //++ Generator that yields fibonacci sequence (NOT CURRIED - generators cannot be curried)
+        export default function* fibonacci(max, start = 0) {
+          let a = start
+          let b = 1
+
+          while (a <= max) {
+            yield a
+            const next = a + b
+            a = b
+            b = next
+          }
+        }
+
+      valid_curried_factory: |
+        # CORRECT - curried function that returns a generator
+        //++ Creates a generator factory with the given config
+        function createRangeGenerator(step) {
+          return function(max) {
+            return function* () {
+              for (let i = 0; i <= max; i += step) {
+                yield i
+              }
+            }
+          }
+        }
+
+        const stepBy2 = createRangeGenerator(2)
+        const upTo10 = stepBy2(10)
+        const gen = upTo10()  // Get the actual generator
+
+        for (const num of gen) {
+          console.log(num)  // 0, 2, 4, 6, 8, 10
+        }
+
+  async_generators:
+    rule: "Async generator functions also CANNOT be curried"
+    rationale: "Same as regular generators - they return async iterators, not values"
+
+    example: |
+      //++ Async generator for streaming data (NOT CURRIED - async generators cannot be curried)
+      export default async function* streamData(source, batchSize) {
+        let offset = 0
+
+        while (true) {
+          const batch = await fetchBatch(source, offset, batchSize)
+
+          if (batch.length === 0) {
+            break
+          }
+
+          yield* batch
+          offset += batchSize
+        }
+      }
+
+  no_lift_functions:
+    note: |
+      The lift helper functions themselves (liftUnary, liftBinary, etc.) are NOT curried
+      because they are higher-order functions that need all their arguments at once
+      to perform the lifting operation correctly.
+
+      These are infrastructure functions, not business logic, and currying them
+      would make the API more confusing without adding value.
 
 imports_pattern: |
   # Import groups (alphabetical within each group, blank line between groups):

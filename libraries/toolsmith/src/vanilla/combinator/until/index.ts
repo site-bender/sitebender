@@ -5,5 +5,4 @@ const until = <T>(
 	initial: T,
 ): T => predicate(initial) ? initial : until(predicate, fn, fn(initial))
 
-
 export default until

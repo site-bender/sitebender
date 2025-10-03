@@ -1,6 +1,6 @@
-import isNotEmpty from "../isNotEmpty/index.ts"
-import isPositive from "../../validation/isPositive/index.ts"
 import isInteger from "../../validation/isInteger/index.ts"
+import isPositive from "../../validation/isPositive/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
 import chunkRecursive from "./chunkRecursive/index.ts"
 
 //++ Splits an array into fixed-size chunks
