@@ -1,0 +1,210 @@
+{
+  "metadata": {
+    "phase": "2.1",
+    "encoding_type": "principle",
+    "created": "2025-10-03T05:06:44Z",
+    "description": "High-level principle statements for all rule categories to be embedded and stored in Qdrant"
+  },
+  "constitutional_rules": [
+    {
+      "rule_id": "const-001-no-classes",
+      "category": "constitutional",
+      "severity": "blocking",
+      "principle": "TypeScript classes are prohibited in this codebase. All code must be organized as modules containing pure functions. Classes introduce hidden state, mutable instances, and implicit this-binding which violate functional programming principles. Instead, use modules with exported functions that operate on immutable data structures.",
+      "keywords": ["classes", "OOP", "object-oriented", "this", "new", "constructor", "methods", "inheritance"],
+      "tags": ["code-organization", "functional-programming", "purity"]
+    },
+    {
+      "rule_id": "const-002-no-mutations",
+      "category": "constitutional",
+      "severity": "blocking",
+      "principle": "All data structures must be immutable. Variables must be declared with const, never let or var. Operations must return new values instead of modifying existing ones. Mutation introduces unpredictable state changes, makes reasoning about code difficult, and breaks referential transparency. Use spread operators, array methods like map/filter/reduce, and immutable update patterns.",
+      "keywords": ["mutation", "immutability", "const", "let", "var", "push", "pop", "splice", "assignment"],
+      "tags": ["immutability", "functional-programming", "data-structures"]
+    },
+    {
+      "rule_id": "const-003-no-loops",
+      "category": "constitutional",
+      "severity": "blocking",
+      "principle": "Imperative loops (for, for...of, for...in, while, do...while) are prohibited. Use functional array methods (map, filter, reduce, flatMap) or recursion instead. Loops encourage mutation of loop variables and accumulator state, making code harder to reason about and test. Functional iteration methods are composable, declarative, and maintain immutability.",
+      "keywords": ["for", "while", "loop", "iteration", "for-of", "for-in", "do-while"],
+      "tags": ["iteration", "functional-programming", "immutability"]
+    },
+    {
+      "rule_id": "const-004-no-exceptions",
+      "category": "constitutional",
+      "severity": "blocking",
+      "principle": "Exception throwing and try-catch blocks are prohibited in pure code. Errors must be represented as values using discriminated unions: Result<T, E> for fail-fast sequential error handling (stops at first error), or Validation<T, E> for accumulative parallel error handling (collects all errors). Exceptions break referential transparency, make control flow implicit, and cannot be tracked in the type system. Error-as-value patterns make error handling explicit, composable, and type-safe. Use try-catch ONLY at effect boundaries when calling external APIs that throw.",
+      "keywords": ["throw", "try", "catch", "finally", "exception", "error", "Error", "Result", "Validation"],
+      "tags": ["error-handling", "functional-programming", "type-safety"]
+    }
+  ],
+  "functional_programming_rules": [
+    {
+      "rule_id": "fp-001-pure-functions",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "principle": "Functions must be pure: given the same inputs, they always return the same output, and they produce no side effects. Pure functions do not access or modify global state, do not perform I/O operations, do not mutate their arguments, and do not depend on external mutable state. Purity enables equational reasoning, makes testing trivial, and allows safe memoization and parallelization.",
+      "keywords": ["pure", "side-effects", "referential-transparency", "deterministic", "idempotent"],
+      "tags": ["purity", "functional-programming", "testability"]
+    },
+    {
+      "rule_id": "fp-002-immutability",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "principle": "All data structures must be immutable. Use const for all variable declarations. Use ReadonlyArray<T> instead of T[] for arrays. Use Readonly<T> for object types. Create modified copies using spread operators rather than mutating originals. Immutability eliminates entire classes of bugs related to unexpected state changes, makes code easier to reason about, and enables safe sharing of data across function boundaries.",
+      "keywords": ["immutable", "const", "readonly", "ReadonlyArray", "Readonly", "spread"],
+      "tags": ["immutability", "type-safety", "data-structures"]
+    },
+    {
+      "rule_id": "fp-003-total-functions",
+      "category": "functional_programming",
+      "severity": "warning",
+      "principle": "Functions must be total: they must handle all possible inputs and return a value for every valid input. Avoid returning undefined or null without explicit encoding in the return type. Use Maybe<T> for optional values (when a value might be absent but that's not an error), Result<T,E> for operations that can fail (fail-fast, sequential error handling), or Validation<T,E> for operations that should accumulate multiple errors (parallel validation). Total functions eliminate runtime errors from unexpected undefined/null values, make function contracts explicit in types, and enable exhaustive pattern matching.",
+      "keywords": ["total", "partial", "undefined", "null", "Maybe", "Result", "Validation", "exhaustive"],
+      "tags": ["totality", "type-safety", "error-handling"]
+    },
+    {
+      "rule_id": "fp-004-function-composition",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "principle": "Build complex operations by composing simple, focused functions. Each function should do one thing well. Use pipe operations for left-to-right composition and compose for right-to-left. Composition enables building sophisticated behavior from simple, well-tested building blocks, improves code reusability, and makes data transformations explicit and readable.",
+      "keywords": ["composition", "pipe", "compose", "combinator", "point-free"],
+      "tags": ["composition", "functional-programming", "code-organization"]
+    },
+    {
+      "rule_id": "fp-005-higher-order-functions",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "principle": "Embrace higher-order functions: functions that take functions as parameters or return functions as results. Higher-order functions enable powerful abstractions, code reuse through parameterization of behavior, and declarative programming patterns. Common examples include map, filter, reduce, and curried functions.",
+      "keywords": ["higher-order", "HOF", "map", "filter", "reduce", "curry", "partial-application"],
+      "tags": ["higher-order-functions", "functional-programming", "abstraction"]
+    }
+  ],
+  "syntax_rules": [
+    {
+      "rule_id": "syntax-001-no-arrow-functions",
+      "category": "syntax",
+      "severity": "blocking",
+      "principle": "Arrow function syntax (() => or (x) =>) is prohibited. All functions must be declared using the function keyword with explicit names. Arrow functions encourage anonymous functions and make stack traces less readable. Named function declarations improve debugging, make code self-documenting, and encourage thoughtful naming of all functions including callbacks and closures.",
+      "keywords": ["arrow", "=>", "lambda", "anonymous", "function-expression"],
+      "tags": ["syntax", "naming", "readability"]
+    },
+    {
+      "rule_id": "syntax-002-no-abbreviations",
+      "category": "syntax",
+      "severity": "warning",
+      "principle": "Write full, descriptive names for all identifiers. Avoid abbreviations except for a whitelist of standard terms (id, html, url, uri, api, ast, ir, dsl). Code should read like plain English. Abbreviations save a few characters but cost significant comprehension time for readers. Full names make code self-documenting and reduce cognitive load.",
+      "keywords": ["abbreviation", "naming", "identifier", "variable-name", "function-name"],
+      "tags": ["naming", "readability", "maintainability"]
+    },
+    {
+      "rule_id": "syntax-003-plain-english-names",
+      "category": "syntax",
+      "severity": "warning",
+      "principle": "Names must be readable as natural language. Use complete words and phrases that clearly express intent. Avoid cryptic, overly terse, or clever names. Good names answer what the thing is, what it does, or why it exists. Code is read far more often than written, so optimize for reader comprehension over writer convenience.",
+      "keywords": ["naming", "readability", "clarity", "intent", "self-documenting"],
+      "tags": ["naming", "readability", "code-quality"]
+    },
+    {
+      "rule_id": "syntax-004-curried-function-naming",
+      "category": "syntax",
+      "severity": "advisory",
+      "principle": "Inner functions in curried style should include captured parameters in their names. This makes closure behavior explicit and improves stack traces. For example, a curried add function should have an inner function named addToAugend that captures the augend parameter. This naming convention documents data flow and makes partial application clear.",
+      "keywords": ["currying", "closure", "partial-application", "naming", "inner-function"],
+      "tags": ["naming", "currying", "readability"]
+    }
+  ],
+  "formatting_rules": [
+    {
+      "rule_id": "format-001-character-encoding",
+      "category": "formatting",
+      "severity": "blocking",
+      "principle": "All source files must use UTF-8 character encoding without BOM (Byte Order Mark). UTF-8 is the universal standard for text encoding, ensuring compatibility across all platforms and tools. Consistent encoding prevents character corruption and ensures code can be read and edited anywhere.",
+      "keywords": ["encoding", "UTF-8", "charset", "unicode", "BOM"],
+      "tags": ["formatting", "encoding", "compatibility"]
+    },
+    {
+      "rule_id": "format-002-line-endings",
+      "category": "formatting",
+      "severity": "blocking",
+      "principle": "All source files must use LF (Line Feed, \\n) line endings, not CRLF (\\r\\n) or CR (\\r). LF is the Unix standard and ensures consistent behavior across platforms. Mixed line endings cause diff noise, merge conflicts, and can break shell scripts. Git should be configured to normalize line endings on commit.",
+      "keywords": ["line-endings", "LF", "CRLF", "newline", "EOL"],
+      "tags": ["formatting", "line-endings", "compatibility"]
+    },
+    {
+      "rule_id": "format-003-indentation",
+      "category": "formatting",
+      "severity": "blocking",
+      "principle": "Code files must use tabs for indentation with a visual width of 2 spaces. Tabs allow developers to choose their preferred visual width while maintaining consistent logical structure. Markdown and YAML files use 2 spaces for indentation. Never mix tabs and spaces within a file. Consistent indentation is essential for readability and prevents syntax errors in indentation-sensitive contexts.",
+      "keywords": ["indentation", "tabs", "spaces", "indent-style", "whitespace"],
+      "tags": ["formatting", "indentation", "readability"]
+    },
+    {
+      "rule_id": "format-004-line-length",
+      "category": "formatting",
+      "severity": "warning",
+      "principle": "Code lines should not exceed 80 characters. This limit ensures code is readable in split-screen editors, code review tools, and terminals. Long lines require horizontal scrolling which breaks reading flow. Break long lines at natural boundaries (after operators, before parameters) and use proper indentation for continuations. Markdown and YAML files have no line length limit.",
+      "keywords": ["line-length", "max-line-length", "wrapping", "80-characters"],
+      "tags": ["formatting", "readability", "line-length"]
+    },
+    {
+      "rule_id": "format-005-final-newline",
+      "category": "formatting",
+      "severity": "warning",
+      "principle": "All files must end with a final newline character. POSIX defines a text file as ending with a newline. Missing final newlines can cause issues with shell scripts, diff tools, and concatenation operations. Most editors can be configured to automatically insert final newlines.",
+      "keywords": ["final-newline", "EOF", "end-of-file", "newline"],
+      "tags": ["formatting", "compatibility", "standards"]
+    },
+    {
+      "rule_id": "format-006-trailing-whitespace",
+      "category": "formatting",
+      "severity": "warning",
+      "principle": "Trailing whitespace must be trimmed from all lines except in markdown files where it has semantic meaning (two spaces for line breaks). Trailing whitespace creates diff noise, wastes space, and can cause issues with some tools. Configure editors to automatically trim trailing whitespace on save.",
+      "keywords": ["trailing-whitespace", "whitespace", "trim", "spaces"],
+      "tags": ["formatting", "whitespace", "cleanliness"]
+    }
+  ],
+  "typescript_rules": [
+    {
+      "rule_id": "ts-001-discriminated-unions",
+      "category": "typescript",
+      "severity": "blocking",
+      "principle": "Use discriminated unions (tagged unions) with a _tag field for all variant types. The tag must be a string literal type that uniquely identifies each variant. This enables exhaustive pattern matching via switch statements and ensures type safety when handling different cases. Discriminated unions are TypeScript's equivalent of Haskell's sum types and are essential for type-safe error handling and state machines.",
+      "keywords": ["discriminated-union", "tagged-union", "sum-type", "variant", "_tag", "ADT"],
+      "tags": ["type-safety", "algebraic-data-types", "pattern-matching"]
+    },
+    {
+      "rule_id": "ts-002-branded-types",
+      "category": "typescript",
+      "severity": "warning",
+      "principle": "Use branded types (phantom types) to create nominal typing for semantically distinct values that share the same structural type. Brands prevent accidental mixing of values like UserId and Email which are both strings but have different meanings. Branded types have zero runtime cost and provide compile-time safety. Implement smart constructors that validate and return Result/Validation, and unsafe constructors for trusted sources.",
+      "keywords": ["branded-types", "newtype", "phantom-type", "nominal-typing", "smart-constructor"],
+      "tags": ["type-safety", "domain-modeling", "validation"]
+    },
+    {
+      "rule_id": "ts-003-explicit-annotations",
+      "category": "typescript",
+      "severity": "warning",
+      "principle": "Always annotate function parameters and return types explicitly. Do not rely on type inference for public APIs. Explicit annotations serve as documentation, catch errors at function boundaries, and make refactoring safer. They also improve IDE support and make code more maintainable. Type inference is acceptable for local variables and private implementation details.",
+      "keywords": ["type-annotation", "explicit-types", "type-inference", "function-signature"],
+      "tags": ["type-safety", "documentation", "maintainability"]
+    },
+    {
+      "rule_id": "ts-004-readonly-types",
+      "category": "typescript",
+      "severity": "blocking",
+      "principle": "Use Readonly<T> for object types and ReadonlyArray<T> for arrays to enforce immutability at the type level. Readonly types prevent accidental mutations and make immutability guarantees explicit in function signatures. This catches mutation bugs at compile time rather than runtime. Use readonly modifier for object properties and prefer ReadonlyArray over T[] in all function signatures.",
+      "keywords": ["readonly", "ReadonlyArray", "Readonly", "immutability", "const"],
+      "tags": ["immutability", "type-safety", "functional-programming"]
+    },
+    {
+      "rule_id": "ts-005-type-level-programming",
+      "category": "typescript",
+      "severity": "advisory",
+      "principle": "Leverage TypeScript's type system for compile-time guarantees. Use mapped types, conditional types, template literal types, and type-level constraints to encode invariants in types rather than runtime checks. Type-level programming catches errors at compile time, provides better IDE support, and documents constraints in the type system. However, balance type complexity with readability.",
+      "keywords": ["mapped-types", "conditional-types", "template-literal-types", "type-constraints"],
+      "tags": ["type-safety", "advanced-types", "compile-time-checking"]
+    }
+  ]
+}

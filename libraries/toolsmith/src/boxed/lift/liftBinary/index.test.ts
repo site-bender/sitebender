@@ -13,7 +13,6 @@ import isInvalid from "../../../monads/validation/isInvalid/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
-
 import liftBinary from "./index.ts"
 
 const add = (a: number) => (b: number) => a + b
@@ -122,11 +121,14 @@ Deno.test("liftBinary - Validation wins rule", async (t) => {
 		assertEquals(validationGetOrElse(0)(result), 15)
 	})
 
-	await t.step("Result.Error + Validation → Validation (converts Error to Valid)", () => {
-		const result = liftedAdd(error("ignored"))(success(10))
+	await t.step(
+		"Result.Error + Validation → Validation (converts Error to Valid)",
+		() => {
+			const result = liftedAdd(error("ignored"))(success(10))
 
-		assert(isValidation(result), "Expected Validation type")
-	})
+			assert(isValidation(result), "Expected Validation type")
+		},
+	)
 })
 
 Deno.test("liftBinary - currying preserved", () => {

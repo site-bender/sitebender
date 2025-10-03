@@ -6,7 +6,6 @@ import validationGetOrElse from "../getOrElse/index.ts"
 import isInvalid from "../isInvalid/index.ts"
 import isValid from "../isValid/index.ts"
 import success from "../success/index.ts"
-
 import map3 from "./index.ts"
 
 const clamp = (min: number) => (max: number) => (value: number): number => {

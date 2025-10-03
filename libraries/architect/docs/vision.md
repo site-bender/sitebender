@@ -19,25 +19,25 @@ Write mathematical expressions, validations, and computations using beautiful, r
 ```tsx
 // Complex financial calculation
 <Add>
-  <Multiply>
-    <FromElement selector="#principal" />
-    <Compound>
-      <Base>
-        <Add>
-          <Value>1</Value>
-          <FromElement selector="#rate" />
-        </Add>
-      </Base>
-      <Exponent>
-        <FromElement selector="#years" />
-      </Exponent>
-    </Compound>
-  </Multiply>
-  <FutureValue>
-    <FromElement selector="#annuity" />
-    <FromElement selector="#rate" />
-    <FromElement selector="#years" />
-  </FutureValue>
+	<Multiply>
+		<FromElement selector="#principal" />
+		<Compound>
+			<Base>
+				<Add>
+					<Value>1</Value>
+					<FromElement selector="#rate" />
+				</Add>
+			</Base>
+			<Exponent>
+				<FromElement selector="#years" />
+			</Exponent>
+		</Compound>
+	</Multiply>
+	<FutureValue>
+		<FromElement selector="#annuity" />
+		<FromElement selector="#rate" />
+		<FromElement selector="#years" />
+	</FutureValue>
 </Add>
 ```
 
@@ -74,7 +74,7 @@ Instead of duplicating math functions, Architect leverages **Toolsmith's compreh
 ### Function Categories Available as JSX Components
 
 - **Mathematics** (45+ functions): `<Add>`, `<Fibonacci>`, `<BinomialCoefficient>`
-- **Trigonometry** (14 functions): `<Sine>`, `<ArcTangent>`, `<HyperbolicCosine>`  
+- **Trigonometry** (14 functions): `<Sine>`, `<ArcTangent>`, `<HyperbolicCosine>`
 - **Statistics** (9 functions): `<Correlation>`, `<StandardDeviation>`, `<ZScore>`
 - **Finance** (9 functions): `<NetPresentValue>`, `<InternalRateOfReturn>`, `<FutureValue>`
 - **Physics** (7 functions): `<Momentum>`, `<KineticEnergy>`, `<Acceleration>`
@@ -92,8 +92,12 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 
 ```tsx
 <Divide>
-  <Left><FromElement selector="#numerator" /></Left>
-  <Right><FromElement selector="#denominator" /></Right>
+	<Left>
+		<FromElement selector="#numerator" />
+	</Left>
+	<Right>
+		<FromElement selector="#denominator" />
+	</Right>
 </Divide>
 // Returns: Result<Error[], number> with division-by-zero handling
 ```
@@ -127,17 +131,20 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 **Comprehensive data sources** as computation inputs:
 
 ### Static/Constant Values
+
 ```tsx
-<Value>42</Value>                    // Hard-coded constants
+<Value>42</Value> // Hard-coded constants
 ```
 
-### DOM Integration  
+### DOM Integration
+
 ```tsx
 <FromElement selector="#price" />           // Form inputs, displays
 <FromDataAttribute element="#config" key="rate" />  // Data attributes
 ```
 
 ### External Data Sources
+
 ```tsx
 <FromApi endpoint="/api/exchange-rate" />   // REST APIs
 <FromQueryString key="user-id" />           // URL parameters  
@@ -148,8 +155,9 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 ```
 
 ### Function Arguments
+
 ```tsx
-<FromArgument />                     // Value being validated/processed
+<FromArgument /> // Value being validated/processed
 ```
 
 ## Optimization Engine: Substitution & Partial Evaluation
@@ -157,6 +165,7 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 **Compiler-level optimizations** for maximum performance:
 
 ### Constant Folding
+
 ```tsx
 // Original expression
 <Add>
@@ -176,11 +185,12 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 ```
 
 ### Static IO Pre-evaluation
+
 ```tsx
 // Query string values are static per session
 <Multiply>
-  <FromQueryString key="tax-rate" />     // Pre-fetched: 0.08
-  <FromElement selector="#price" />      // Dynamic user input
+	<FromQueryString key="tax-rate" /> // Pre-fetched: 0.08
+	<FromElement selector="#price" /> // Dynamic user input
 </Multiply>
 
 // Becomes optimized runtime function equivalent to:
@@ -190,7 +200,7 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 ### Multi-Stage Optimization Strategy
 
 1. **Pure Computation Folding**: Collapse nested mathematical operations
-2. **Static IO Identification**: Mark query strings, URL parameters as cacheable  
+2. **Static IO Identification**: Mark query strings, URL parameters as cacheable
 3. **Eager Evaluation**: Pre-fetch static values when marked eager
 4. **Function Composition**: Generate optimized runtime functions
 5. **Dual Storage**: Keep original (debugging) and optimized (performance) versions
@@ -200,6 +210,7 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 **Monadic composition** provides robust error management:
 
 ### Context-Driven Error Strategy Defaults
+
 - **`<Calculation>` components**: Default to **Result monad** (short-circuit on first error)
   - Mathematical operations fail fast when they can't proceed
   - Financial calculations stop immediately on invalid inputs
@@ -208,6 +219,7 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
   - Data quality reports every issue found
 
 ### Override Options
+
 ```tsx
 {/* Semantic defaults */}
 <Calculation>                    {/* Uses Result (short-circuit) */}
@@ -229,6 +241,7 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 ```
 
 ### Evaluation Strategy
+
 - **Lazy evaluation by default**: Safe, efficient, handles infinite calculations
 - **Optional eager evaluation**: Pre-load static data for optimization
 
@@ -251,20 +264,29 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 
 ```tsx
 <Validation>
-  <And>
-    <GreaterThanOrEqualTo>
-      <Left><FromArgument /></Left>
-      <Right><Value>18</Value></Right>
-    </GreaterThanOrEqualTo>
-    <LessThan>
-      <Left><FromArgument /></Left>  
-      <Right><Value>100</Value></Right>
-    </LessThan>
-  </And>
+	<And>
+		<GreaterThanOrEqualTo>
+			<Left>
+				<FromArgument />
+			</Left>
+			<Right>
+				<Value>18</Value>
+			</Right>
+		</GreaterThanOrEqualTo>
+		<LessThan>
+			<Left>
+				<FromArgument />
+			</Left>
+			<Right>
+				<Value>100</Value>
+			</Right>
+		</LessThan>
+	</And>
 </Validation>
 ```
 
 **Stores as:**
+
 - **JSON**: Traditional databases, APIs
 - **YAML**: Configuration files, human-readable storage
 - **TOML**: Configuration with comments
@@ -273,18 +295,21 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 ## Revolutionary Advantages
 
 ### For Developers
+
 - **Readable Syntax**: JSX matches mental models of mathematical expressions
 - **No Cognitive Load**: Full words, not abbreviations (`<GreaterThanOrEqualTo>` not `<Gte>`)
 - **Universal Functions**: 851+ operations across every domain
 - **Type Safety**: Full compile-time checking with runtime validation
 
-### For Applications  
+### For Applications
+
 - **Data-Driven Logic**: Modify computations by changing data, not code
 - **Performance Optimized**: JIT-level substitution and constant folding
 - **Universal Execution**: Same logic works client/server/database
 - **Audit Trails**: Full computation history queryable as data
 
 ### For Organizations
+
 - **Non-Developer Modification**: Domain experts can modify business logic
 - **A/B Testing**: Swap computational logic by changing data
 - **Compliance**: Mathematical operations auditable and reproducible
@@ -293,59 +318,81 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 ## Use Cases
 
 ### Financial Applications
+
 ```tsx
 <NetPresentValue>
-  <CashFlows><FromApi endpoint="/api/projections" /></CashFlows>
-  <DiscountRate><FromElement selector="#rate" /></DiscountRate>
+	<CashFlows>
+		<FromApi endpoint="/api/projections" />
+	</CashFlows>
+	<DiscountRate>
+		<FromElement selector="#rate" />
+	</DiscountRate>
 </NetPresentValue>
 ```
 
-### Scientific Computing  
+### Scientific Computing
+
 ```tsx
 <Correlation>
-  <Left><FromApi endpoint="/api/dataset-a" /></Left>
-  <Right><FromApi endpoint="/api/dataset-b" /></Right>
+	<Left>
+		<FromApi endpoint="/api/dataset-a" />
+	</Left>
+	<Right>
+		<FromApi endpoint="/api/dataset-b" />
+	</Right>
 </Correlation>
 ```
 
 ### Form Validation
+
 ```tsx
 <And>
-  <IsEmail><FromArgument /></IsEmail>
-  <Not>
-    <IsInBlacklist>
-      <Value><FromArgument /></Value>
-      <Blacklist><FromApi endpoint="/api/blocked-domains" /></Blacklist>
-    </IsInBlacklist>
-  </Not>
+	<IsEmail>
+		<FromArgument />
+	</IsEmail>
+	<Not>
+		<IsInBlacklist>
+			<Value>
+				<FromArgument />
+			</Value>
+			<Blacklist>
+				<FromApi endpoint="/api/blocked-domains" />
+			</Blacklist>
+		</IsInBlacklist>
+	</Not>
 </And>
 ```
 
 ### Neural Network Activations
+
 ```tsx
 <Softmax>
-  <FromApi endpoint="/api/model/logits" />
+	<FromApi endpoint="/api/model/logits" />
 </Softmax>
 ```
 
 ## Implementation Architecture
 
 ### Phase 1: JSX Compilation
+
 - Custom `createElement` function intercepts JSX compilation
-- Generate AST with semantic role assignment  
+- Generate AST with semantic role assignment
 - Convert to intermediate representation (IR)
 
 ### Phase 2: Optimization Engine
+
 - Identify pure vs IO operations
 - Perform constant folding and substitution
 - Generate optimized execution plans
 
 ### Phase 3: Storage Layer
+
 - Serialize IR to chosen format (JSON/YAML/Turtle)
 - Store in databases, triple stores, or file systems
 - Version control for computational logic
 
-### Phase 4: Runtime Execution  
+### Phase 4: Runtime Execution
+
 - Dynamically import required Toolsmith lifted functions
 - Compose optimized function chains
 - Execute with full monadic error handling

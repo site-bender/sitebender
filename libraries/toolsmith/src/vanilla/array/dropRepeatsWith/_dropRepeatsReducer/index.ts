@@ -1,7 +1,7 @@
 import not from "../../../logic/not/index.ts"
-import nth from "../../nth/index.ts"
 import isEmpty from "../../isEmpty/index.ts"
 import last from "../../last/index.ts"
+import nth from "../../nth/index.ts"
 
 //++ Reducer for dropping consecutive duplicates (private, not curried for use in reduce)
 export default function _dropRepeatsReducer<T>(

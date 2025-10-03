@@ -9,5 +9,4 @@ const liftA2 = <A, B, R>(
 	fb: ReadonlyArray<B>,
 ): Array<R> => fa.flatMap((a) => fb.map((b) => fn(a, b)))
 
-
 export default liftA2

@@ -1,6 +1,6 @@
 import {
-	assertEquals,
 	assertAlmostEquals,
+	assertEquals,
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import fc from "https://esm.sh/fast-check@3.15.0"
 
@@ -55,7 +55,7 @@ Deno.test("leakyRectifiedLinearUnit", async (t) => {
 	await t.step("handles negative alpha", () => {
 		const leakyRelu = leakyRectifiedLinearUnit(-0.1)
 		assertEquals(leakyRelu(5), 5)
-		assertAlmostEquals(leakyRelu(-10), 1, 1e-10)  // -10 * -0.1 = 1
+		assertAlmostEquals(leakyRelu(-10), 1, 1e-10) // -10 * -0.1 = 1
 	})
 
 	await t.step("handles null and undefined", () => {
@@ -90,9 +90,9 @@ Deno.test("leakyRectifiedLinearUnit", async (t) => {
 
 				// Should approach 0 from both sides
 				return Math.abs(leftLimit - 0) < 1e-8 &&
-				       Math.abs(rightLimit - 0) < 1e-8 &&
-				       atZero === 0
-			})
+					Math.abs(rightLimit - 0) < 1e-8 &&
+					atZero === 0
+			}),
 		)
 	})
 
@@ -109,8 +109,8 @@ Deno.test("leakyRectifiedLinearUnit", async (t) => {
 						return leakyRelu(x1) <= leakyRelu(x2)
 					}
 					return true
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -126,8 +126,8 @@ Deno.test("leakyRectifiedLinearUnit", async (t) => {
 
 					// Both NaN or both equal
 					return (isNaN(result1) && isNaN(result2)) || result1 === result2
-				}
-			)
+				},
+			),
 		)
 	})
 })

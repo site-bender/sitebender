@@ -7,7 +7,7 @@ We are **fully committed** to the Hedgehog-style integrated shrinking approach, 
 ### Why Hedgehog Over QuickCheck
 
 1. **Integrated Shrinking**: Generators carry their shrinking logic with them
-2. **Automatic Composition**: When you compose generators, shrinking composes automatically  
+2. **Automatic Composition**: When you compose generators, shrinking composes automatically
 3. **Can't Forget Shrinking**: It's part of the generator, not a separate concern
 4. **Lazy Shrinking**: Uses tree structure for more efficient shrinking
 5. **Better Shrinking**: Generator knows how values were constructed
@@ -16,9 +16,9 @@ We are **fully committed** to the Hedgehog-style integrated shrinking approach, 
 
 ```typescript
 type Generator<T> = {
-  readonly next: (seed: Seed) => GeneratorResult<T>
-  readonly shrink: (value: T) => ShrinkTree<T>  // INTEGRATED, not separate
-  readonly parse?: (input: unknown) => Result<ParseError, T>
+	readonly next: (seed: Seed) => GeneratorResult<T>
+	readonly shrink: (value: T) => ShrinkTree<T> // INTEGRATED, not separate
+	readonly parse?: (input: unknown) => Result<ParseError, T>
 }
 ```
 
