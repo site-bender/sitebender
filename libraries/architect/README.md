@@ -35,68 +35,68 @@ JSX → IR → JSON/YAML/Turtle → Storage → Retrieval → DOM + Behaviors
 ### Example: Complex Validation
 
 ```jsx
-import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx"
-import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx"
-import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx"
-import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx"
-import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx"
-import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx"
-import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx"
-import Data from "@sitebender/architect/components/data/Data/index.tsx"
-import From from "@sitebender/architect/components/injectors/From/index.tsx"
-import And from "@sitebender/architect/components/logical/And/index.tsx"
-import Or from "@sitebender/architect/components/logical/Or/index.tsx"
-import Validation from "@sitebender/architect/components/validation/Validation/index.tsx"
+import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx";
+import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx";
+import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx";
+import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx";
+import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx";
+import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx";
+import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx";
+import Data from "@sitebender/architect/components/data/Data/index.tsx";
+import From from "@sitebender/architect/components/injectors/From/index.tsx";
+import And from "@sitebender/architect/components/logical/And/index.tsx";
+import Or from "@sitebender/architect/components/logical/Or/index.tsx";
+import Validation from "@sitebender/architect/components/validation/Validation/index.tsx";
 
 // Declarative validation that becomes data
 // Value must be: an integer && ((value >= 6 && value < 12) || (value > 20 && value <= 42))
 <Data name="age" type="Integer">
-	<Validation>
-		<And>
-			<IsInteger>
-				<From.Argument />
-			</IsInteger>
-			<Or>
-				<And>
-					<IsLessThan>
-						<Referent>
-							<From.Argument />
-						</Referent>
-						<Comparand>
-							<From.Constant>12</From.Constant>
-						</Comparand>
-					</IsLessThan>
-					<IsGreaterThanOrEqual>
-						<Referent>
-							<From.Argument />
-						</Referent>
-						<Comparand>
-							<From.Constant>6</From.Constant>
-						</Comparand>
-					</IsGreaterThanOrEqual>
-				</And>
-				<And>
-					<IsLessThanOrEqual>
-						<Referent>
-							<From.Argument />
-						</Referent>
-						<Comparand>
-							<From.Constant>42</From.Constant>
-						</Comparand>
-					</IsLessThanOrEqual>
-					<IsGreaterThan>
-						<Referent>
-							<From.Argument />
-						</Referent>
-						<Comparand>
-							<From.Constant>20</From.Constant>
-						</Comparand>
-					</IsGreaterThan>
-				</And>
-			</Or>
-		</And>
-	</Validation>
-</Data>
+  <Validation>
+    <And>
+      <IsInteger>
+        <From.Argument />
+      </IsInteger>
+      <Or>
+        <And>
+          <IsLessThan>
+            <Referent>
+              <From.Argument />
+            </Referent>
+            <Comparand>
+              <From.Constant>12</From.Constant>
+            </Comparand>
+          </IsLessThan>
+          <IsGreaterThanOrEqual>
+            <Referent>
+              <From.Argument />
+            </Referent>
+            <Comparand>
+              <From.Constant>6</From.Constant>
+            </Comparand>
+          </IsGreaterThanOrEqual>
+        </And>
+        <And>
+          <IsLessThanOrEqual>
+            <Referent>
+              <From.Argument />
+            </Referent>
+            <Comparand>
+              <From.Constant>42</From.Constant>
+            </Comparand>
+          </IsLessThanOrEqual>
+          <IsGreaterThan>
+            <Referent>
+              <From.Argument />
+            </Referent>
+            <Comparand>
+              <From.Constant>20</From.Constant>
+            </Comparand>
+          </IsGreaterThan>
+        </And>
+      </Or>
+    </And>
+  </Validation>
+</Data>;
 ```
 
 This JSX compiles to a data structure that:
@@ -109,38 +109,38 @@ This JSX compiles to a data structure that:
 ### Example: Reactive Calculations
 
 ```jsx
-import Input from "@sitebender/architect/components/forms/Input/index.tsx"
-import Display from "@sitebender/architect/components/display/Display/index.tsx"
-import Add from "@sitebender/architect/components/operators/Add/index.tsx"
-import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx"
-import From from "@sitebender/architect/components/injectors/From/index.tsx"
+import Input from "@sitebender/architect/components/forms/Input/index.tsx";
+import Display from "@sitebender/architect/components/display/Display/index.tsx";
+import Add from "@sitebender/architect/components/operators/Add/index.tsx";
+import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx";
+import From from "@sitebender/architect/components/injectors/From/index.tsx";
 
 <>
-	<Input id="price" type="number" />
-	<Input id="quantity" type="number" />
-	<Input id="taxRate" type="number" value="0.08" />
+  <Input id="price" type="number" />
+  <Input id="quantity" type="number" />
+  <Input id="taxRate" type="number" value="0.08" />
 
-	<Display id="subtotal">
-		<Multiply>
-			<From.Element selector="#price" />
-			<From.Element selector="#quantity" />
-		</Multiply>
-	</Display>
+  <Display id="subtotal">
+    <Multiply>
+      <From.Element selector="#price" />
+      <From.Element selector="#quantity" />
+    </Multiply>
+  </Display>
 
-	<Display id="tax">
-		<Multiply>
-			<From.Element selector="#subtotal" />
-			<From.Element selector="#taxRate" />
-		</Multiply>
-	</Display>
+  <Display id="tax">
+    <Multiply>
+      <From.Element selector="#subtotal" />
+      <From.Element selector="#taxRate" />
+    </Multiply>
+  </Display>
 
-	<Display id="total">
-		<Add>
-			<From.Element selector="#subtotal" />
-			<From.Element selector="#tax" />
-		</Add>
-	</Display>
-</>
+  <Display id="total">
+    <Add>
+      <From.Element selector="#subtotal" />
+      <From.Element selector="#tax" />
+    </Add>
+  </Display>
+</>;
 ```
 
 Changes cascade automatically. Update price or quantity, and subtotal, tax, and total all recalculate.
@@ -192,12 +192,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <IsLessThan>
-	<Referent>
-		<From.Argument />
-	</Referent>
-	<Comparand>
-		<From.Constant>100</From.Constant>
-	</Comparand>
+  <Referent>
+    <From.Argument />
+  </Referent>
+  <Comparand>
+    <From.Constant>100</From.Constant>
+  </Comparand>
 </IsLessThan>
 ```
 
@@ -208,12 +208,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <Matches>
-	<Referent>
-		<From.Element selector="#email" />
-	</Referent>
-	<Comparand>
-		<From.Constant>^[^@]+@[^@]+$</From.Constant>
-	</Comparand>
+  <Referent>
+    <From.Element selector="#email" />
+  </Referent>
+  <Comparand>
+    <From.Constant>^[^@]+@[^@]+$</From.Constant>
+  </Comparand>
 </Matches>
 ```
 
@@ -224,12 +224,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <IsBeforeDate>
-	<Referent>
-		<From.Argument />
-	</Referent>
-	<Comparand>
-		<From.Constant>2024-12-31</From.Constant>
-	</Comparand>
+  <Referent>
+    <From.Argument />
+  </Referent>
+  <Comparand>
+    <From.Constant>2024-12-31</From.Constant>
+  </Comparand>
 </IsBeforeDate>
 ```
 
@@ -241,12 +241,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <InSet>
-	<Referent>
-		<From.Argument />
-	</Referent>
-	<Comparand>
-		<From.Constant>["admin", "editor", "viewer"]</From.Constant>
-	</Comparand>
+  <Referent>
+    <From.Argument />
+  </Referent>
+  <Comparand>
+    <From.Constant>["admin", "editor", "viewer"]</From.Constant>
+  </Comparand>
 </InSet>
 ```
 
@@ -262,6 +262,14 @@ Combine comparators into complex conditions:
 - `<Not>` - Inverts the condition
 - `<Xor>` - Exclusive or
 - `<Implies>` - Logical implication
+
+**Note**: These logical operators are general-purpose and used across multiple contexts:
+
+- **Validation** - Complex validation rules (shown above)
+- **Locks** - Authentication/authorization logic (see [Lock System](../steward/docs/locks.md))
+- **Conditional Rendering** - Show/hide UI based on conditions (future)
+
+See [Syntax Status](../../docs/syntax-status.md) for canonical vs proposed usage.
 
 ### Formatters
 
@@ -283,15 +291,15 @@ Control visibility and presentation:
 ```jsx
 // Example: Show content only if user is admin
 <ShowIf>
-	<IsEqualTo>
-		<Referent>
-			<From.Element selector="#userRole" />
-		</Referent>
-		<Comparand>
-			<From.Constant>admin</From.Constant>
-		</Comparand>
-	</IsEqualTo>
-	<div>Admin Controls Here</div>
+  <IsEqualTo>
+    <Referent>
+      <From.Element selector="#userRole" />
+    </Referent>
+    <Comparand>
+      <From.Constant>admin</From.Constant>
+    </Comparand>
+  </IsEqualTo>
+  <div>Admin Controls Here</div>
 </ShowIf>
 ```
 
@@ -319,11 +327,11 @@ Architect/Pagewright uses data types instead:
 ```jsx
 // ✅ Data-driven approach - system picks widgets
 <Form schema="User">
-	<ChooseOneField name="role" type="String" /> // Becomes radio OR select
-	<BooleanField name="active" /> // Becomes checkbox OR toggle
-	<MemberField name="country" of="CountryEnum" />{" "}
-	// Becomes select OR autocomplete
-	<StringField name="description" type="Text" /> // Becomes input OR textarea
+  <ChooseOneField name="role" type="String" /> // Becomes radio OR select
+  <BooleanField name="active" /> // Becomes checkbox OR toggle
+  <MemberField name="country" of="CountryEnum" /> // Becomes select OR
+  autocomplete
+  <StringField name="description" type="Text" /> // Becomes input OR textarea
 </Form>
 ```
 
@@ -350,10 +358,10 @@ Architect/Pagewright uses data types instead:
    ```jsx
    // Given a database schema or triple store shape:
    <Form entity="Customer" include={["name", "email", "tier", "active"]}>
-   	// Automatically generates: // - StringField for name (required from NOT
-   	NULL) // - StringField for email (with email validation from SHACL) // -
-   	MemberField for tier (enum from database) // - BooleanField for active
-   	(with default from schema)
+     // Automatically generates: // - StringField for name (required from NOT
+     NULL) // - StringField for email (with email validation from SHACL) // -
+     MemberField for tier (enum from database) // - BooleanField for active
+     (with default from schema)
    </Form>
    ```
 
@@ -403,9 +411,9 @@ Architect/Pagewright uses data types instead:
 ```jsx
 // Configure widget selection thresholds
 <Config>
-	<From.Constant name="RADIO_MAX_ITEMS">6</From.Constant>
-	<From.Constant name="TEXTAREA_MIN_LENGTH">200</From.Constant>
-	<From.Constant name="SLIDER_FOR_BOUNDED_NUMBERS">true</From.Constant>
+  <From.Constant name="RADIO_MAX_ITEMS">6</From.Constant>
+  <From.Constant name="TEXTAREA_MIN_LENGTH">200</From.Constant>
+  <From.Constant name="SLIDER_FOR_BOUNDED_NUMBERS">true</From.Constant>
 </Config>
 ```
 
@@ -416,12 +424,12 @@ Architect/Pagewright uses data types instead:
 ```jsx
 // A designer or product manager writes:
 <CustomerForm>
-	<Section title="Basic Info">
-		<Fields include={["name", "company", "email"]} />
-	</Section>
-	<Section title="Preferences">
-		<Fields include={["tier", "notifications", "language"]} />
-	</Section>
+  <Section title="Basic Info">
+    <Fields include={["name", "company", "email"]} />
+  </Section>
+  <Section title="Preferences">
+    <Fields include={["tier", "notifications", "language"]} />
+  </Section>
 </CustomerForm>
 
 // The system knows from the schema:
@@ -464,15 +472,15 @@ Architect attaches behaviors as properties on DOM elements:
 
 ```javascript
 // After rendering, elements have these properties:
-element.__sbCalculate // Async calculation function
-element.__sbValidate // Async validation function
-element.__sbFormat // Async formatting function
+element.__sbCalculate; // Async calculation function
+element.__sbValidate; // Async validation function
+element.__sbFormat; // Async formatting function
 
 // Global registries track dependencies:
-document.__sbCalculators // Set of element IDs with calculations
-document.__sbCalculations // Map of selector to dependent element IDs
-document.__sbFormatters // Set of element IDs with formatters
-document.__sbValidators // Set of element IDs with validators
+document.__sbCalculators; // Set of element IDs with calculations
+document.__sbCalculations; // Map of selector to dependent element IDs
+document.__sbFormatters; // Set of element IDs with formatters
+document.__sbValidators; // Set of element IDs with validators
 ```
 
 ## Data Persistence
@@ -481,25 +489,25 @@ document.__sbValidators // Set of element IDs with validators
 
 ```json
 {
-	"_tag": "Validation",
-	"type": "logical",
-	"children": [
-		{
-			"_tag": "And",
-			"type": "logical",
-			"operands": [
-				{
-					"_tag": "IsInteger",
-					"type": "comparator"
-				},
-				{
-					"_tag": "IsGreaterThan",
-					"type": "comparator",
-					"value": 0
-				}
-			]
-		}
-	]
+  "_tag": "Validation",
+  "type": "logical",
+  "children": [
+    {
+      "_tag": "And",
+      "type": "logical",
+      "operands": [
+        {
+          "_tag": "IsInteger",
+          "type": "comparator"
+        },
+        {
+          "_tag": "IsGreaterThan",
+          "type": "comparator",
+          "value": 0
+        }
+      ]
+    }
+  ]
 }
 ```
 
@@ -531,50 +539,50 @@ document.__sbValidators // Set of element IDs with validators
 ## Server-Side Rendering
 
 ```typescript
-import render from "@sitebender/architect/rendering/ssr/render/index.ts"
+import render from "@sitebender/architect/rendering/ssr/render/index.ts";
 
 // Fetch UI definition from database
-const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'")
+const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'");
 
 // Render to HTML with embedded behaviors
 const html = await render(uiConfig, {
-	embedBehaviors: true,
-	includeHydration: true,
-})
+  embedBehaviors: true,
+  includeHydration: true,
+});
 ```
 
 ## Client-Side Hydration
 
 ```typescript
-import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts"
+import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts";
 
 // Find all elements with embedded configurations
-const elements = document.querySelectorAll("[data-architect]")
+const elements = document.querySelectorAll("[data-architect]");
 
 function hydrateElement(el) {
-	const config = JSON.parse(el.dataset.architect)
+  const config = JSON.parse(el.dataset.architect);
 
-	hydrate(el, config)
+  hydrate(el, config);
 }
 
-elements.forEach(hydrateElement)
+elements.forEach(hydrateElement);
 ```
 
 ## Integration with Triple Stores
 
 ```typescript
-import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts"
-import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts"
-import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts"
+import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts";
+import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts";
+import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts";
 
 // Convert UI to RDF triples
-const triples = toRDF(uiConfig)
+const triples = toRDF(uiConfig);
 
 // Store in triple store
-await tripleStore.insert(triples)
+await tripleStore.insert(triples);
 
 // Validate data against generated SHACL
-const validation = await validateSHACL(data, uiConfig)
+const validation = await validateSHACL(data, uiConfig);
 
 // Query UI components
 const query = `
@@ -583,8 +591,8 @@ const query = `
     ?component arch:hasValidation ?validation .
     ?component rdf:type ?type .
   }
-`
-const components = await tripleStore.query(query)
+`;
+const components = await tripleStore.query(query);
 ```
 
 ## Test Scenarios as Data
@@ -600,28 +608,28 @@ Test scenarios are JSX components compiled to IR:
 
 ```tsx
 <TestScenario name="Form validation cascade">
-	<Setup>
-		<LoadSchema from="./schemas/user.shacl" />
-	</Setup>
+  <Setup>
+    <LoadSchema from="./schemas/user.shacl" />
+  </Setup>
 
-	<Render>
-		<Input id="age" type="number">
-			<Validation>
-				<IsInteger />
-				<IsGreaterThan value={0} />
-				<IsLessThan value={120} />
-			</Validation>
-		</Input>
-	</Render>
+  <Render>
+    <Input id="age" type="number">
+      <Validation>
+        <IsInteger />
+        <IsGreaterThan value={0} />
+        <IsLessThan value={120} />
+      </Validation>
+    </Input>
+  </Render>
 
-	<Actions>
-		<SimulateInput target="#age" value="150" />
-	</Actions>
+  <Actions>
+    <SimulateInput target="#age" value="150" />
+  </Actions>
 
-	<Assertions>
-		<ValidationState target="#age" is="invalid" />
-		<ErrorMessage contains="must be less than 120" />
-	</Assertions>
+  <Assertions>
+    <ValidationState target="#age" is="invalid" />
+    <ErrorMessage contains="must be less than 120" />
+  </Assertions>
 </TestScenario>
 ```
 
@@ -698,31 +706,31 @@ npm install @sitebender/architect
 ### Simple Example
 
 ```tsx
-import Display from "@sitebender/architect/components/display/Display/index.tsx"
-import Input from "@sitebender/architect/components/forms/Input/index.tsx"
-import From from "@sitebender/architect/components/injectors/From/index.tsx"
-import Add from "@sitebender/architect/components/operators/Add/index.tsx"
-import render from "@sitebender/architect/rendering/render/index.ts"
+import Display from "@sitebender/architect/components/display/Display/index.tsx";
+import Input from "@sitebender/architect/components/forms/Input/index.tsx";
+import From from "@sitebender/architect/components/injectors/From/index.tsx";
+import Add from "@sitebender/architect/components/operators/Add/index.tsx";
+import render from "@sitebender/architect/rendering/render/index.ts";
 
 function Calculator() {
-	return (
-		<div>
-			<Input id="a" type="number" />
-			<span>+</span>
-			<Input id="b" type="number" />
-			<span>=</span>
-			<Display>
-				<Add>
-					<From.Element selector="#a" />
-					<From.Element selector="#b" />
-				</Add>
-			</Display>
-		</div>
-	)
+  return (
+    <div>
+      <Input id="a" type="number" />
+      <span>+</span>
+      <Input id="b" type="number" />
+      <span>=</span>
+      <Display>
+        <Add>
+          <From.Element selector="#a" />
+          <From.Element selector="#b" />
+        </Add>
+      </Display>
+    </div>
+  );
 }
 
 // Render to DOM
-render(<Calculator />, document.getElementById("root"))
+render(<Calculator />, document.getElementById("root"));
 ```
 
 ## Advanced Topics
@@ -733,15 +741,15 @@ Define your own operators that compose with existing ones:
 
 ```tsx
 function computeFactorial(n) {
-	return n <= 1 ? 1 : n * computeFactorial(n - 1)
+  return n <= 1 ? 1 : n * computeFactorial(n - 1);
 }
 
 function Factorial({ children }) {
-	return (
-		<CustomOperator name="factorial" compute={computeFactorial}>
-			{children}
-		</CustomOperator>
-	)
+  return (
+    <CustomOperator name="factorial" compute={computeFactorial}>
+      {children}
+    </CustomOperator>
+  );
 }
 ```
 
@@ -751,13 +759,13 @@ Create injectors for any data source:
 
 ```tsx
 function FromGraphQL({ query, variables }) {
-	async function fetchGraphQL() {
-		const result = await graphqlClient.query({ query, variables })
+  async function fetchGraphQL() {
+    const result = await graphqlClient.query({ query, variables });
 
-		return result.data
-	}
+    return result.data;
+  }
 
-	return <CustomInjector name="graphql" fetch={fetchGraphQL} />
+  return <CustomInjector name="graphql" fetch={fetchGraphQL} />;
 }
 ```
 
@@ -767,29 +775,29 @@ Combine multiple behaviors on a single element:
 
 ```tsx
 <Input id="email">
-	<Validation>
-		<And>
-			<Matches>
-				<Referent>
-					<From.Argument />
-				</Referent>
-				<Comparand>
-					<From.Constant>^[^@]+@[^@]+\.[^@]+$</From.Constant>
-				</Comparand>
-			</Matches>
-			<IsUniqueEmail>
-				<From.Argument />
-			</IsUniqueEmail>
-		</And>
-	</Validation>
-	<Format>
-		<As.LowerCase />
-	</Format>
-	<Calculation>
-		<TrimWhitespace>
-			<From.Argument />
-		</TrimWhitespace>
-	</Calculation>
+  <Validation>
+    <And>
+      <Matches>
+        <Referent>
+          <From.Argument />
+        </Referent>
+        <Comparand>
+          <From.Constant>^[^@]+@[^@]+\.[^@]+$</From.Constant>
+        </Comparand>
+      </Matches>
+      <IsUniqueEmail>
+        <From.Argument />
+      </IsUniqueEmail>
+    </And>
+  </Validation>
+  <Format>
+    <As.LowerCase />
+  </Format>
+  <Calculation>
+    <TrimWhitespace>
+      <From.Argument />
+    </TrimWhitespace>
+  </Calculation>
 </Input>
 ```
 
@@ -831,29 +839,41 @@ Transform complex conditional logic into intuitive visual workflow components:
       <Shape type="diamond" color="orange" />
       <Label>Ready to Deploy?</Label>
     </VisualProperties>
-    
+
     <Condition>
       <And>
         <IsEqualTo>
-          <Referent><From.Warden selector="violations" /></Referent>
-          <Comparand><From.Constant>0</From.Constant></Comparand>
+          <Referent>
+            <From.Warden selector="violations" />
+          </Referent>
+          <Comparand>
+            <From.Constant>0</From.Constant>
+          </Comparand>
         </IsEqualTo>
         <IsGreaterThan>
-          <Referent><From.Auditor selector="coverage" /></Referent>
-          <Comparand><From.Constant>95</From.Constant></Comparand>
+          <Referent>
+            <From.Auditor selector="coverage" />
+          </Referent>
+          <Comparand>
+            <From.Constant>95</From.Constant>
+          </Comparand>
         </IsGreaterThan>
         <IsEqualTo>
-          <Referent><From.Agent selector="networkHealth" /></Referent>
-          <Comparand><From.Constant>"healthy"</From.Constant></Comparand>
+          <Referent>
+            <From.Agent selector="networkHealth" />
+          </Referent>
+          <Comparand>
+            <From.Constant>"healthy"</From.Constant>
+          </Comparand>
         </IsEqualTo>
       </And>
     </Condition>
-    
+
     <WhenTrue>
       <Connection to="production-deployment" color="green" />
       <WorkflowTrigger name="production-deployment" />
     </WhenTrue>
-    
+
     <WhenFalse>
       <SwitchDisplay>
         <Case condition="wardenViolations > 0">
@@ -874,14 +894,14 @@ Transform complex conditional logic into intuitive visual workflow components:
         </Default>
       </SwitchDisplay>
     </WhenFalse>
-    
+
     <ReactiveUpdates>
       <OnChange selector="warden.violations">
         <UpdateCondition />
         <TriggerRevaluation />
         <HighlightChange color="red" duration="PT2S" />
       </OnChange>
-      
+
       <OnChange selector="auditor.coverage">
         <UpdateMetrics />
         <CheckDeploymentReadiness />
@@ -889,14 +909,14 @@ Transform complex conditional logic into intuitive visual workflow components:
       </OnChange>
     </ReactiveUpdates>
   </DecisionNode>
-  
+
   <ConditionEvaluator>
     <RealTimeDisplay>
       <ShowCurrentValues />
       <HighlightActiveConditions />
       <DisplayEvaluationPath />
     </RealTimeDisplay>
-    
+
     <DebuggingTools>
       <StepThroughEvaluation />
       <ShowIntermediateResults />
@@ -917,7 +937,7 @@ Create reactive data processing pipelines with visual flow control:
     <Process with="arborist.parseFiles" />
     <Output to="parsed-files" />
     <ReactsTo changes="file-system" />
-    
+
     <ConditionalProcessing>
       <When condition="fileCount > 100">
         <Parallelize workers={4} />
@@ -927,10 +947,10 @@ Create reactive data processing pipelines with visual flow control:
       </When>
     </ConditionalProcessing>
   </Stage>
-  
+
   <Stage name="quality-checks" position={[300, 200]}>
     <Input from="parsed-files" />
-    
+
     <ParallelBranches>
       <Branch name="warden-validation">
         <Process with="warden.validate" output="violations" />
@@ -946,7 +966,7 @@ Create reactive data processing pipelines with visual flow control:
           </Else>
         </ConditionalFlow>
       </Branch>
-      
+
       <Branch name="test-generation">
         <Process with="auditor.testGeneration" output="tests" />
         <ConditionalFlow>
@@ -955,41 +975,41 @@ Create reactive data processing pipelines with visual flow control:
           </If>
         </ConditionalFlow>
       </Branch>
-      
+
       <Branch name="documentation">
         <Process with="envoy.documentation" output="docs" />
       </Branch>
     </ParallelBranches>
-    
+
     <ReactsTo changes="code-structure" />
   </Stage>
-  
+
   <Stage name="deployment-decision" position={[500, 200]}>
     <Input from="violations, tests, docs" />
-    
+
     <DecisionMatrix>
       <Rule priority={1} when="violations.length === 0 && tests.coverage > 90">
         <Action>deploy-to-staging</Action>
         <Visual color="green" />
       </Rule>
-      
+
       <Rule priority={2} when="violations.some(v => v.severity === 'critical')">
         <Action>block-deployment</Action>
         <Notify channels={["alerts", "team-lead"]} />
         <Visual color="red" />
       </Rule>
-      
+
       <Rule priority={3} when="tests.coverage < 50">
         <Action>require-more-tests</Action>
         <Visual color="yellow" />
       </Rule>
-      
+
       <Default>
         <Action>queue-for-review</Action>
         <Visual color="gray" />
       </Default>
     </DecisionMatrix>
-    
+
     <ReactsTo changes="quality-metrics" />
   </Stage>
 </ReactiveWorkflowPipeline>
@@ -1009,26 +1029,26 @@ Workflows that adapt their behavior based on runtime conditions:
       <TimeOfDay current="business-hours" />
       <ErrorRate current="0.02%" threshold="1%" />
     </ContextAwareness>
-    
+
     <AdaptationRules>
       <Rule condition="systemLoad > 'moderate'">
         <ReduceParallelism factor={0.5} />
         <IncreaseTimeout factor={1.5} />
         <EnableCaching aggressively={true} />
       </Rule>
-      
+
       <Rule condition="networkLatency > 200">
         <BatchOperations size={50} />
         <EnableCompression algorithm="lz4" />
         <ReduceNetworkCalls />
       </Rule>
-      
+
       <Rule condition="errorRate > 0.5%">
         <IncreaseRetries attempts={5} />
         <EnableCircuitBreaker />
         <AlertOperations />
       </Rule>
-      
+
       <Rule condition="timeOfDay === 'off-hours'">
         <EnableMaintenanceTasks />
         <AllowLongRunningOperations />
@@ -1036,14 +1056,14 @@ Workflows that adapt their behavior based on runtime conditions:
       </Rule>
     </AdaptationRules>
   </WorkflowController>
-  
+
   <VisualAdaptation>
     <ShowAdaptations>
       <HighlightChangedBehaviors />
       <DisplayAdaptationReasons />
       <ShowPerformanceImpact />
     </ShowAdaptations>
-    
+
     <AdaptationHistory>
       <TrackAdaptations over="PT24H" />
       <AnalyzeEffectiveness />
@@ -1061,7 +1081,7 @@ Transform data through conditional processing workflows:
 <ConditionalDataPipeline>
   <DataSource name="user-events">
     <Input from="operator.events" filter="user.*" />
-    
+
     <ConditionalTransformation>
       <When condition="event.type === 'purchase'">
         <Transform>
@@ -1072,7 +1092,7 @@ Transform data through conditional processing workflows:
         </Transform>
         <Output to="purchase-analytics" />
       </When>
-      
+
       <When condition="event.type === 'navigation'">
         <Transform>
           <ExtractNavigationData />
@@ -1081,7 +1101,7 @@ Transform data through conditional processing workflows:
         </Transform>
         <Output to="user-behavior-analytics" />
       </When>
-      
+
       <When condition="event.type === 'error'">
         <Transform>
           <ExtractErrorDetails />
@@ -1091,7 +1111,7 @@ Transform data through conditional processing workflows:
         <Output to="error-tracking" />
         <TriggerAlert when="error.severity === 'critical'" />
       </When>
-      
+
       <Default>
         <Transform>
           <BasicEventProcessing />
@@ -1100,19 +1120,19 @@ Transform data through conditional processing workflows:
       </Default>
     </ConditionalTransformation>
   </DataSource>
-  
+
   <ConditionalAggregation>
     <Aggregate data="purchase-analytics">
       <If condition="timeWindow === 'real-time'">
         <SlidingWindow size="PT5M" />
         <UpdateFrequency interval="PT30S" />
       </If>
-      
+
       <ElseIf condition="timeWindow === 'batch'">
         <TumblingWindow size="PT1H" />
         <UpdateFrequency interval="PT1H" />
       </ElseIf>
-      
+
       <Metrics>
         <Sum field="revenue" />
         <Count field="transactions" />
@@ -1134,42 +1154,58 @@ Complex gating logic with multiple conditions and approval workflows:
       <TechnicalGate>
         <Condition name="tests-pass" weight={0.3}>
           <IsEqualTo>
-            <Referent><From.Auditor selector="testResults.passed" /></Referent>
-            <Comparand><From.Auditor selector="testResults.total" /></Comparand>
+            <Referent>
+              <From.Auditor selector="testResults.passed" />
+            </Referent>
+            <Comparand>
+              <From.Auditor selector="testResults.total" />
+            </Comparand>
           </IsEqualTo>
         </Condition>
-        
+
         <Condition name="no-critical-violations" weight={0.3}>
           <IsEqualTo>
-            <Referent><From.Warden selector="criticalViolations" /></Referent>
-            <Comparand><From.Constant>0</From.Constant></Comparand>
+            <Referent>
+              <From.Warden selector="criticalViolations" />
+            </Referent>
+            <Comparand>
+              <From.Constant>0</From.Constant>
+            </Comparand>
           </IsEqualTo>
         </Condition>
-        
+
         <Condition name="performance-acceptable" weight={0.2}>
           <IsLessThan>
-            <Referent><From.Metrics selector="p99Latency" /></Referent>
-            <Comparand><From.Constant>500</From.Constant></Comparand>
+            <Referent>
+              <From.Metrics selector="p99Latency" />
+            </Referent>
+            <Comparand>
+              <From.Constant>500</From.Constant>
+            </Comparand>
           </IsLessThan>
         </Condition>
-        
+
         <Condition name="security-scan-clean" weight={0.2}>
           <IsEqualTo>
-            <Referent><From.Security selector="vulnerabilities.high" /></Referent>
-            <Comparand><From.Constant>0</From.Constant></Comparand>
+            <Referent>
+              <From.Security selector="vulnerabilities.high" />
+            </Referent>
+            <Comparand>
+              <From.Constant>0</From.Constant>
+            </Comparand>
           </IsEqualTo>
         </Condition>
       </TechnicalGate>
-      
+
       <BusinessGate>
         <Condition name="product-approval">
           <HasApproval from="product-manager" within="PT24H" />
         </Condition>
-        
+
         <Condition name="qa-signoff">
           <HasApproval from="qa-lead" within="PT24H" />
         </Condition>
-        
+
         <Condition name="business-hours">
           <And>
             <IsAfterTime time="09:00" />
@@ -1179,27 +1215,27 @@ Complex gating logic with multiple conditions and approval workflows:
         </Condition>
       </BusinessGate>
     </RequiredConditions>
-    
+
     <GateVisualization>
       <ProgressIndicator>
         <TechnicalProgress value="85%" color="green" />
         <BusinessProgress value="67%" color="yellow" />
         <OverallProgress value="76%" />
       </ProgressIndicator>
-      
+
       <ConditionStatus>
         <ShowMet conditions={["tests-pass", "no-critical-violations"]} />
         <ShowPending conditions={["product-approval"]} />
         <ShowFailed conditions={[]} />
       </ConditionStatus>
     </GateVisualization>
-    
+
     <OnGateOpen>
       <TriggerWorkflow name="production-deployment" />
       <NotifyStakeholders />
       <LogDeployment />
     </OnGateOpen>
-    
+
     <OnGateBlocked>
       <ShowBlockingConditions />
       <SuggestActions />
@@ -1223,7 +1259,7 @@ Monitor and visualize condition states in real-time:
         <Trend direction="stable" />
         <LastUpdated>2s ago</LastUpdated>
       </ConditionCard>
-      
+
       <ConditionCard name="test-coverage">
         <CurrentValue>94.2%</CurrentValue>
         <Status color="red">FAIL</Status>
@@ -1231,7 +1267,7 @@ Monitor and visualize condition states in real-time:
         <LastUpdated>1m ago</LastUpdated>
         <RequiredValue>95%</RequiredValue>
       </ConditionCard>
-      
+
       <ConditionCard name="network-health">
         <CurrentValue>healthy</CurrentValue>
         <Status color="green">PASS</Status>
@@ -1240,27 +1276,27 @@ Monitor and visualize condition states in real-time:
       </ConditionCard>
     </ConditionGrid>
   </RealTimeConditions>
-  
+
   <ConditionalAlerts>
     <AlertRule condition="testCoverage < 95" severity="warning">
       <Message>Test coverage below threshold</Message>
       <Action>Suggest test generation</Action>
       <Escalation after="PT15M" to="team-lead" />
     </AlertRule>
-    
+
     <AlertRule condition="wardenViolations > 0" severity="error">
       <Message>Code quality violations detected</Message>
       <Action>Block deployment</Action>
       <Escalation immediate={true} to="development-team" />
     </AlertRule>
   </ConditionalAlerts>
-  
+
   <HistoricalTrends>
     <TimeSeriesChart>
       <Metric name="condition-success-rate" timeRange="PT24H" />
       <Metric name="average-resolution-time" timeRange="PT24H" />
     </TimeSeriesChart>
-    
+
     <PatternAnalysis>
       <IdentifyRecurringIssues />
       <PredictFailureProbability />

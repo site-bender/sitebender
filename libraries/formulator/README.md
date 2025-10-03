@@ -131,6 +131,115 @@ const formula = decompile(visualFormula);
 
 ## Formula Syntax
 
+### Notation Styles
+
+Formulator supports three mathematical notation styles for maximum flexibility:
+
+#### Infix Notation (Default)
+
+Standard mathematical notation with operators between operands:
+
+```typescript
+parseFormula("a + b * c", variables);
+// Evaluates as: a + (b * c) due to precedence
+```
+
+#### Prefix Notation (Polish Notation)
+
+Operators appear before their operands, eliminating the need for precedence rules or parentheses:
+
+```typescript
+parseFormula("+ a * b c", variables, { notation: "prefix" });
+// Equivalent to: a + (b * c)
+
+parseFormula("* + a b c", variables, { notation: "prefix" });
+// Equivalent to: (a + b) * c
+```
+
+**Benefits**:
+
+- No operator precedence ambiguity
+- No parentheses needed
+- Natural for Lisp-style DSLs
+- Efficient recursive evaluation
+
+#### Postfix Notation (Reverse Polish Notation)
+
+Operators appear after their operands, ideal for stack-based evaluation:
+
+```typescript
+parseFormula("a b c * +", variables, { notation: "postfix" });
+// Equivalent to: a + (b * c)
+
+parseFormula("a b + c *", variables, { notation: "postfix" });
+// Equivalent to: (a + b) * c
+```
+
+**Benefits**:
+
+- Trivial stack-based evaluation
+- No operator precedence needed
+- No parentheses required
+- Common in calculators (HP, PostScript)
+
+#### Notation Comparison
+
+| Expression      | Infix               | Prefix          | Postfix         |
+| --------------- | ------------------- | --------------- | --------------- |
+| Simple addition | `a + b`             | `+ a b`         | `a b +`         |
+| With precedence | `a + b * c`         | `+ a * b c`     | `a b c * +`     |
+| Parenthesized   | `(a + b) * c`       | `* + a b c`     | `a b + c *`     |
+| Complex         | `(a + b) * (c - d)` | `* + a b - c d` | `a b + c d - *` |
+| Three operators | `a + b * c - d`     | `- + a * b c d` | `a b c * + d -` |
+
+### Bidirectional Notation Conversion
+
+Convert between notations seamlessly:
+
+```typescript
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
+import decompile from "@sitebender/formulator/decompile/index.ts";
+
+// Parse prefix notation
+const ir = parseFormula("* + a b c", variables, { notation: "prefix" });
+
+// Decompile to infix (default)
+const infix = decompile(ir.value);
+// Result: "(a + b) * c"
+
+// Decompile to postfix
+const postfix = decompile(ir.value, { notation: "postfix" });
+// Result: "a b + c *"
+
+// Decompile to prefix
+const prefix = decompile(ir.value, { notation: "prefix" });
+// Result: "* + a b c"
+```
+
+### Practical Use Cases
+
+**Infix** - Human-readable formulas:
+
+```typescript
+<Calculation formula="(price * quantity) * (1 - discount)" />
+```
+
+**Prefix** - Lisp-style DSLs and function composition:
+
+```typescript
+parseFormula("+ (* price quantity) (- 100 discount)", vars, {
+  notation: "prefix",
+});
+```
+
+**Postfix** - Stack-based calculators and evaluation engines:
+
+```typescript
+parseFormula("price quantity * 100 discount - *", vars, {
+  notation: "postfix",
+});
+```
+
 ### Smart Symbol Recognition
 
 Formulator automatically converts typed names to proper mathematical symbols. No need to know keyboard shortcuts!
