@@ -18,13 +18,13 @@ export default function gaussianErrorLinearUnit(
 						(multiply(GELU_SCALING_FACTOR) as (n: number) => number)(
 							(add(x) as (n: number) => number)(
 								(multiply(GELU_COEFFICIENT) as (n: number) => number)(
-									cube(x) as number
-								)
-							)
-						)
-					)
-				)
-			)
+									cube(x) as number,
+								),
+							),
+						),
+					),
+				),
+			),
 		)
 	}
 

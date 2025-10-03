@@ -1,3 +1,7 @@
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
+import err from "@sitebender/toolsmith/monads/result/error/index.ts"
+
 import type {
 	Generator,
 	GeneratorResult,
@@ -5,14 +9,12 @@ import type {
 	Seed,
 	ShrinkTree,
 } from "../../../types/index.ts"
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
-import err from "@sitebender/toolsmith/monads/result/error/index.ts"
-import _generateRecordProperties from "./_generateRecordProperties/index.ts"
-import _shrinkRecordProperties from "./_shrinkRecordProperties/index.ts"
-import _checkMissingKeys from "./_checkMissingKeys/index.ts"
 import _checkExtraKeys from "./_checkExtraKeys/index.ts"
+import _checkMissingKeys from "./_checkMissingKeys/index.ts"
+import _generateRecordProperties from "./_generateRecordProperties/index.ts"
 import _parseRecordProperties from "./_parseRecordProperties/index.ts"
+import _shrinkRecordProperties from "./_shrinkRecordProperties/index.ts"
 
 type RecordGenerators<T extends Record<string, unknown>> = {
 	readonly [K in keyof T]: Generator<T[K]>

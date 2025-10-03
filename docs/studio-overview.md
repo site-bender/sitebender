@@ -97,19 +97,26 @@ Global registries track dependencies:
 - IPFS/Solid pod persistence
 - Conflict visualization components
 
-**Operator** - Event system as triples
+**Operator** - CQRS event sourcing as triples
 
-- Events stored as RDF triples
-- Multi-layer transport (local/broadcast/network/distributed)
+- Events stored as RDF triples, queryable via SPARQL
+- CQRS pattern: commands produce events, queries are nullipotent
+- Cryptographic ordering: hash chains + vector clocks (no blockchain)
+- Multi-layer transport escalation (DOM → BroadcastChannel → WebSocket → WebRTC → libp2p)
+- Event-driven workflow orchestration (visual n8n-style designer)
 - Homomorphic processing (compute on encrypted events)
-- Perfect replay from event log
+- Perfect replay and time-travel from immutable event log
 
-**Custodian** - State management
+**Custodian** - Progressive state management
 
-- Continuation-based state machines
-- URL-as-state philosophy
-- Form-based mutations
-- Time-travel debugging
+- Works without JavaScript, enhances with it (Lynx to modern browsers)
+- URL-as-state: complete UI state in query parameters
+- Cryptographic continuations for resumable multi-step workflows
+- Visual state machine designer (n8n-style with Operator integration)
+- Generator-based state machines for memory-efficient workflows
+- State Monad for pure functional state threading
+- Event sourcing integration: state derived from Operator events
+- Form-based mutations with idempotent operations
 
 ### Intelligence Layer
 
@@ -153,12 +160,18 @@ Global registries track dependencies:
 
 ### Tooling Layer
 
-**Quartermaster** - Application scaffolding
+**Quartermaster** - Voice-guided application generator
 
-- 18 blueprint templates
-- Import map generation
-- Warden/Steward pre-wired
-- Zero configuration
+- Voice-first interface for conversational app generation
+- HTTPS dev server with mkcert integration (production-quality from day one)
+- Real-time collaborative blueprint editing (via Agent CRDTs)
+- Visual configuration wizard (web-based, works in any browser)
+- Sketch-to-app: upload wireframes, generate working applications
+- 18+ blueprint templates (minimal, blog, dashboard, e-commerce, etc.)
+- Time-travel configuration history (every decision tracked)
+- Blueprint marketplace with cryptographic signing
+- Import map generation and Warden/Steward pre-wired
+- Math constant ports (31415=π, 27182=e, 16180=φ)
 
 ## Declarative Testing
 

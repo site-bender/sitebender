@@ -26,5 +26,4 @@ const slidingWithStep =
 
 export default slidingWithStep
 
-
 //!! This is not curried.

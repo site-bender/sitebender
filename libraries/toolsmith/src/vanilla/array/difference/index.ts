@@ -1,7 +1,7 @@
 import not from "../../logic/not/index.ts"
 import isArray from "../../validation/isArray/index.ts"
-import isEmpty from "../isEmpty/index.ts"
 import filter from "../filter/index.ts"
+import isEmpty from "../isEmpty/index.ts"
 import toSet from "../toSet/index.ts"
 
 //++ Set difference between arrays

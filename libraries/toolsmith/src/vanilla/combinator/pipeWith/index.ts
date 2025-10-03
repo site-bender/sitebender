@@ -6,5 +6,4 @@ const pipeWith = <T, R>(
 (input: T): R =>
 	fns.reduce((acc, fn) => composer(fn, acc), input as unknown) as R
 
-
 export default pipeWith
