@@ -172,21 +172,21 @@ Generated applications include complete visual workflow editing infrastructure:
 
 ```json
 {
-  "name": "my-workflow-app",
-  "blueprint": "workflow-designer",
-  "features": {
-    "visual_editor": {
-      "canvas": "agent-crdt-collaboration",
-      "node_palette": "operator-triggers-actions",
-      "state_visualization": "custodian-reactive",
-      "validation": "warden-contracts"
-    },
-    "execution_engine": {
-      "orchestrator": "operator-distributed",
-      "monitoring": "envoy-realtime",
-      "security": "sentinel-isolation"
-    }
-  }
+	"name": "my-workflow-app",
+	"blueprint": "workflow-designer",
+	"features": {
+		"visual_editor": {
+			"canvas": "agent-crdt-collaboration",
+			"node_palette": "operator-triggers-actions",
+			"state_visualization": "custodian-reactive",
+			"validation": "warden-contracts"
+		},
+		"execution_engine": {
+			"orchestrator": "operator-distributed",
+			"monitoring": "envoy-realtime",
+			"security": "sentinel-isolation"
+		}
+	}
 }
 ```
 

@@ -1,8 +1,11 @@
 # Formulator Implementation Plan
+
 ## Boxed Functions Required for Formulator Lexer/Tokenizer
 
 ### Summary
+
 **17 functions needed**, broken down as:
+
 - ✅ **11 vanilla functions already exist** (compose, drop, has, head, identity, length, pipe, slice, tail, take, test)
 - ❌ **6 vanilla functions need to be created** (charCodeAt, charAt, lookup, validateWith, fromGenerator, toArray)
 - ❌ **17 boxed functions need to be created** (all 17)
@@ -38,9 +41,11 @@ For EACH function, implement ONE AT A TIME:
 ---
 
 ## Phase 1: Essential for Lexer (Priority 1)
+
 **These 5 enable the basic lexer to work**
 
 ### 1. identity
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/combinator/identity/index.ts`
 - **Arity:** 1 (unary)
 - **Lift:** `liftUnary`
@@ -51,6 +56,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 2. charCodeAt
+
 - **Status:** ❌ Vanilla needs creation
 - **Arity:** 2 (curried: index → str → result)
 - **Lift:** `liftBinary`
@@ -64,6 +70,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 3. charAt
+
 - **Status:** ❌ Vanilla needs creation
 - **Arity:** 2 (curried: index → str → result)
 - **Lift:** `liftBinary`
@@ -77,6 +84,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 4. lookup
+
 - **Status:** ❌ Vanilla needs creation
 - **Arity:** 2 (curried: key → obj → result)
 - **Lift:** `liftBinary`
@@ -90,6 +98,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 5. pipe
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/combinator/pipe/index.ts`
 - **Arity:** VARIABLE (takes multiple functions)
 - **Lift:** ⚠️ SPECIAL CASE - may not need lifting or needs custom implementation
@@ -105,6 +114,7 @@ For EACH function, implement ONE AT A TIME:
 ## Phase 2: Supporting Utilities (Priority 2)
 
 ### 6. slice
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/string/slice/index.ts`
 - **Arity:** 3 (curried: start → end → str → result)
 - **Lift:** `liftTernary`
@@ -115,6 +125,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 7. stringLength
+
 - **Status:** ✅ Vanilla exists as `length` at `src/vanilla/string/length/index.ts`
 - **Arity:** 1 (unary)
 - **Lift:** `liftUnary`
@@ -126,6 +137,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 8. has
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/object/has/index.ts`
 - **Arity:** 2 (curried: key → obj → boolean)
 - **Lift:** `liftBinary`
@@ -136,6 +148,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 9. compose
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/combinator/compose/index.ts`
 - **Arity:** VARIABLE (takes multiple functions)
 - **Lift:** ⚠️ SPECIAL CASE - like pipe, may not need lifting
@@ -150,6 +163,7 @@ For EACH function, implement ONE AT A TIME:
 ## Phase 3: Error Handling (Priority 3)
 
 ### 10. validateWith
+
 - **Status:** ❌ Vanilla needs creation
 - **Arity:** 2 or 3? (curried: predicate → errorMsg → value → validation)
 - **Lift:** `liftBinary` or `liftTernary`
@@ -166,6 +180,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 11. test
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/string/test/index.ts`
 - **Arity:** 2 (curried: pattern → str → boolean)
 - **Lift:** `liftBinary`
@@ -180,6 +195,7 @@ For EACH function, implement ONE AT A TIME:
 ## Phase 4: Array Operations (Priority 4)
 
 ### 12. head
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/array/head/index.ts`
 - **Arity:** 1 (unary)
 - **Lift:** `liftUnary`
@@ -192,6 +208,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 13. tail
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/array/tail/index.ts`
 - **Arity:** 1 (unary)
 - **Lift:** `liftUnary`
@@ -204,6 +221,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 14. take
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/array/take/index.ts`
 - **Arity:** 2 (curried: n → arr → result)
 - **Lift:** `liftBinary`
@@ -215,6 +233,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 15. drop
+
 - **Status:** ✅ Vanilla exists at `src/vanilla/array/drop/index.ts`
 - **Arity:** 2 (curried: n → arr → result)
 - **Lift:** `liftBinary`
@@ -230,6 +249,7 @@ For EACH function, implement ONE AT A TIME:
 ## Phase 5: Generator Support (Priority 5 - Deferred)
 
 ### 16. fromGenerator
+
 - **Status:** ❌ Vanilla needs creation
 - **Arity:** 1 (unary)
 - **Lift:** `liftUnary`
@@ -241,6 +261,7 @@ For EACH function, implement ONE AT A TIME:
   ```
 
 ### 17. toArray
+
 - **Status:** ❌ Vanilla needs creation
 - **Arity:** 1 (unary)
 - **Lift:** `liftUnary`
@@ -258,6 +279,7 @@ For EACH function, implement ONE AT A TIME:
 Implement **ONE FUNCTION AT A TIME** in this order:
 
 ### Phase 1 (enables lexer):
+
 1. ✅ Fix all lift helpers (COMPLETED)
 2. `identity` (boxed only)
 3. `charCodeAt` (vanilla + boxed)
@@ -266,22 +288,26 @@ Implement **ONE FUNCTION AT A TIME** in this order:
 6. `pipe` (boxed only - investigate vanilla first)
 
 ### Phase 2 (supporting utilities):
+
 7. `slice` (boxed only)
 8. `length`/`stringLength` (boxed only)
 9. `has` (boxed only)
 10. `compose` (boxed only)
 
 ### Phase 3 (error handling):
+
 11. `validateWith` (vanilla + boxed)
 12. `test` (boxed only)
 
 ### Phase 4 (array operations):
+
 13. `head` (boxed only)
 14. `tail` (boxed only)
 15. `take` (boxed only)
 16. `drop` (boxed only)
 
 ### Phase 5 (deferred - generators):
+
 17. `fromGenerator` (vanilla + boxed)
 18. `toArray` (vanilla + boxed)
 

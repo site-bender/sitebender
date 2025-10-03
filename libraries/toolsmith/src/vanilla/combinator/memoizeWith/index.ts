@@ -23,5 +23,4 @@ const memoizeWith = <T extends ReadonlyArray<any>, R>(
 	return memoized
 }
 
-
 export default memoizeWith

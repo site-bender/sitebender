@@ -49,22 +49,22 @@ Parse and compile mathematical expressions with full support for:
 #### MathMl Display (Declarative JSX)
 
 ```tsx
-import MathMlDisplay from "@sitebender/pagewright/scientific/MathMlDisplay/index.tsx";
+import MathMlDisplay from "@sitebender/pagewright/scientific/MathMlDisplay/index.tsx"
 
-<MathMlDisplay formula="(a + b)² = a² + 2ab + b²" />;
+<MathMlDisplay formula="(a + b)² = a² + 2ab + b²" />
 // Component generates proper MathMl with <math>, <mrow>, <msup>, etc.
 ```
 
 #### Architect IR
 
 ```typescript
-import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
 
 const result = parseFormula("(price * quantity) * (1 + taxRate)", {
-  price: { tag: "FromElement", source: "#price" },
-  quantity: { tag: "FromElement", source: "#quantity" },
-  taxRate: { tag: "FromConstant", value: 0.08 },
-});
+	price: { tag: "FromElement", source: "#price" },
+	quantity: { tag: "FromElement", source: "#quantity" },
+	taxRate: { tag: "FromConstant", value: 0.08 },
+})
 // Generates Architect operator configuration for reactive calculations
 ```
 
@@ -91,41 +91,41 @@ const ir = parseFormula(formula, {
 ### Bidirectional Conversion
 
 ```typescript
-import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
-import decompile from "@sitebender/formulator/decompile/index.ts";
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
+import decompile from "@sitebender/formulator/decompile/index.ts"
 
 // Start with a formula string
-const original = "(a + b) * c";
+const original = "(a + b) * c"
 
 // Parse to Architect IR
-const ir = parseFormula(original, variables);
+const ir = parseFormula(original, variables)
 
 // Convert back to formula string
-const decompiled = decompile(ir.value);
+const decompiled = decompile(ir.value)
 // Result: "(a + b) * c"
 
 // Perfect round-trip preservation
-assert(parseFormula(decompiled, variables) === ir);
+assert(parseFormula(decompiled, variables) === ir)
 ```
 
 ### Visual Formula Builder Integration
 
 ```tsx
-import decompile from "@sitebender/formulator/decompile/index.ts";
+import decompile from "@sitebender/formulator/decompile/index.ts"
 
 // User builds formula visually in Architect JSX
 const visualFormula = (
-  <Multiply>
-    <Add>
-      <From.Element source="#baseSalary" />
-      <From.Element source="#bonus" />
-    </Add>
-    <From.Constant name="taxRate">1.1</From.Constant>
-  </Multiply>
-);
+	<Multiply>
+		<Add>
+			<From.Element source="#baseSalary" />
+			<From.Element source="#bonus" />
+		</Add>
+		<From.Constant name="taxRate">1.1</From.Constant>
+	</Multiply>
+)
 
 // Show them the mathematical notation
-const formula = decompile(visualFormula);
+const formula = decompile(visualFormula)
 // Result: "(baseSalary + bonus) * taxRate"
 ```
 
@@ -195,16 +195,16 @@ Formulator intelligently infers types from context:
 ```typescript
 // All Integer inputs → Integer output
 parseFormula("a + b", {
-  a: { tag: "Constant", datatype: "Integer", value: 5 },
-  b: { tag: "Constant", datatype: "Integer", value: 3 },
-});
+	a: { tag: "Constant", datatype: "Integer", value: 5 },
+	b: { tag: "Constant", datatype: "Integer", value: 3 },
+})
 // Result type: Integer
 
 // Mixed numeric types → Number (most general)
 parseFormula("x * y", {
-  x: { tag: "Constant", datatype: "Integer", value: 5 },
-  y: { tag: "Constant", datatype: "Float", value: 3.14 },
-});
+	x: { tag: "Constant", datatype: "Integer", value: 5 },
+	y: { tag: "Constant", datatype: "Float", value: 3.14 },
+})
 // Result type: Number
 ```
 
@@ -275,10 +275,10 @@ import Validation from "@sitebender/architect/components/Validation/index.tsx"
 Formulator works seamlessly with Pagewright's scientific display components using fully declarative JSX:
 
 ```tsx
-import MathMlDisplay from "@sitebender/pagewright/scientific/MathMlDisplay/index.tsx";
+import MathMlDisplay from "@sitebender/pagewright/scientific/MathMlDisplay/index.tsx"
 
 // Mathematical formulas with proper semantic markup
-<MathMlDisplay formula="E = mc²" />;
+<MathMlDisplay formula="E = mc²" />
 ```
 
 These components provide:
@@ -318,18 +318,18 @@ Formulator uses property-based testing to ensure correctness:
 ```typescript
 // Property: Parsing and decompiling are inverse operations
 property("round-trip preservation", arbitrary.formula(), (formula) => {
-  const ir = parseFormula(formula, vars);
-  const decompiled = decompile(ir);
-  const reparsed = parseFormula(decompiled, vars);
-  return deepEqual(ir, reparsed);
-});
+	const ir = parseFormula(formula, vars)
+	const decompiled = decompile(ir)
+	const reparsed = parseFormula(decompiled, vars)
+	return deepEqual(ir, reparsed)
+})
 
 // Property: Operator precedence is preserved
 property("precedence preservation", arbitrary.expression(), (expr) => {
-  const withParens = addAllParentheses(expr);
-  const withoutParens = removeUnnecessaryParentheses(expr);
-  return evaluate(withParens) === evaluate(withoutParens);
-});
+	const withParens = addAllParentheses(expr)
+	const withoutParens = removeUnnecessaryParentheses(expr)
+	return evaluate(withParens) === evaluate(withoutParens)
+})
 ```
 
 ## Contributing

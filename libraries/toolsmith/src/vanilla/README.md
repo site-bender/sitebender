@@ -21,31 +21,31 @@ This convention enables the boxed (monadic) versions of these functions to autom
 ```typescript
 // ✅ CORRECT - Returns null on error
 export default function add(addend: number) {
-  if (!isFinite(addend)) {
-    return null  // Error condition
-  }
-  return function addToAugend(augend: number): number | null {
-    if (!isFinite(augend)) {
-      return null  // Error condition
-    }
-    return augend + addend  // Success
-  }
+	if (!isFinite(addend)) {
+		return null // Error condition
+	}
+	return function addToAugend(augend: number): number | null {
+		if (!isFinite(augend)) {
+			return null // Error condition
+		}
+		return augend + addend // Success
+	}
 }
 
 // ❌ WRONG - Never return undefined
 export default function bad(x: number) {
-  if (x < 0) {
-    return undefined  // WRONG! Use null instead
-  }
-  return x * 2
+	if (x < 0) {
+		return undefined // WRONG! Use null instead
+	}
+	return x * 2
 }
 
 // ❌ WRONG - Never throw errors
 export default function alsoBad(x: number) {
-  if (x < 0) {
-    throw new Error("Negative number")  // WRONG! Return null instead
-  }
-  return x * 2
+	if (x < 0) {
+		throw new Error("Negative number") // WRONG! Return null instead
+	}
+	return x * 2
 }
 ```
 
@@ -58,7 +58,9 @@ When a vanilla function can error, its return type should include `| null`:
 export default function sqrt(n: number): number | null
 
 // Curried function that can error at any stage
-export default function divide(divisor: number): ((dividend: number) => number | null) | null
+export default function divide(
+	divisor: number,
+): ((dividend: number) => number | null) | null
 ```
 
 ### Benefits
@@ -72,6 +74,7 @@ export default function divide(divisor: number): ((dividend: number) => number |
 ## Boxed Versions
 
 Every vanilla function has a corresponding "boxed" version in `../boxed` that:
+
 - Wraps the vanilla function with a lift function
 - Automatically converts `null` returns to `Error` Results or `Failure` Validations
 - Enables monadic composition and error handling

@@ -1,13 +1,13 @@
 import {
 	assert,
+	assertAlmostEquals,
 	assertEquals,
-	assertAlmostEquals
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "https://esm.sh/fast-check@3.15.0"
 
-import softmax from "./index.ts"
-import _shiftAndExp from "./_shiftAndExp/index.ts"
 import _normalize from "./_normalize/index.ts"
+import _shiftAndExp from "./_shiftAndExp/index.ts"
+import softmax from "./index.ts"
 
 //++ Tests for softmax activation function (multi-class probability distribution)
 Deno.test("softmax", async (t) => {
@@ -28,9 +28,9 @@ Deno.test("softmax", async (t) => {
 		const result = softmax([0, 0, 0])
 
 		// All values should be equal
-		assertAlmostEquals(result[0], 1/3, 1e-10)
-		assertAlmostEquals(result[1], 1/3, 1e-10)
-		assertAlmostEquals(result[2], 1/3, 1e-10)
+		assertAlmostEquals(result[0], 1 / 3, 1e-10)
+		assertAlmostEquals(result[1], 1 / 3, 1e-10)
+		assertAlmostEquals(result[2], 1 / 3, 1e-10)
 
 		// Check sum equals 1
 		const sum = result.reduce((acc, val) => acc + val, 0)
@@ -82,7 +82,7 @@ Deno.test("softmax", async (t) => {
 		const result = softmax([1000, 1001, 999])
 
 		// Should still produce valid probabilities
-		assert(result.every(x => x >= 0 && x <= 1))
+		assert(result.every((x) => x >= 0 && x <= 1))
 
 		// Sum should be 1
 		const sum = result.reduce((acc, val) => acc + val, 0)
@@ -96,32 +96,41 @@ Deno.test("softmax", async (t) => {
 	await t.step("sum always equals 1", () => {
 		fc.assert(
 			fc.property(
-				fc.array(fc.float({ min: -100, max: 100, noNaN: true }), { minLength: 2, maxLength: 10 }),
+				fc.array(fc.float({ min: -100, max: 100, noNaN: true }), {
+					minLength: 2,
+					maxLength: 10,
+				}),
 				(values) => {
 					const result = softmax(values)
 					const sum = result.reduce((acc, val) => acc + val, 0)
 					return Math.abs(sum - 1) < 1e-10
-				}
-			)
+				},
+			),
 		)
 	})
 
 	await t.step("all outputs are in [0, 1]", () => {
 		fc.assert(
 			fc.property(
-				fc.array(fc.float({ min: -100, max: 100, noNaN: true }), { minLength: 1, maxLength: 10 }),
+				fc.array(fc.float({ min: -100, max: 100, noNaN: true }), {
+					minLength: 1,
+					maxLength: 10,
+				}),
 				(values) => {
 					const result = softmax(values)
-					return result.every(x => x >= 0 && x <= 1)
-				}
-			)
+					return result.every((x) => x >= 0 && x <= 1)
+				},
+			),
 		)
 	})
 
 	await t.step("preserves order", () => {
 		fc.assert(
 			fc.property(
-				fc.array(fc.float({ min: -50, max: 50, noNaN: true }), { minLength: 2, maxLength: 10 }),
+				fc.array(fc.float({ min: -50, max: 50, noNaN: true }), {
+					minLength: 2,
+					maxLength: 10,
+				}),
 				(values) => {
 					const result = softmax(values)
 
@@ -137,8 +146,8 @@ Deno.test("softmax", async (t) => {
 						}
 					}
 					return true
-				}
-			)
+				},
+			),
 		)
 	})
 })
@@ -169,10 +178,10 @@ Deno.test("_shiftAndExp", async (t) => {
 	await t.step("provides numerical stability", () => {
 		// Large positive shift prevents overflow
 		const shifter = _shiftAndExp(1000)
-		const result = shifter(1000)  // e^(1000-1000) = e^0 = 1
+		const result = shifter(1000) // e^(1000-1000) = e^0 = 1
 		assertEquals(result, 1)
 
-		const result2 = shifter(999)  // e^(999-1000) = e^(-1)
+		const result2 = shifter(999) // e^(999-1000) = e^(-1)
 		assertAlmostEquals(result2, Math.exp(-1), 1e-10)
 	})
 
@@ -181,15 +190,15 @@ Deno.test("_shiftAndExp", async (t) => {
 			fc.property(
 				fc.tuple(
 					fc.double({ min: -100, max: 100, noNaN: true }),
-					fc.double({ min: -100, max: 100, noNaN: true })
+					fc.double({ min: -100, max: 100, noNaN: true }),
 				),
 				([maxValue, x]) => {
 					const shifter = _shiftAndExp(maxValue)
 					const result1 = shifter(x)
 					const result2 = shifter(x)
 					assertEquals(result1, result2)
-				}
-			)
+				},
+			),
 		)
 	})
 })
@@ -229,7 +238,10 @@ Deno.test("_normalize", async (t) => {
 			fc.property(
 				fc.tuple(
 					fc.double({ min: 0.1, max: 1000, noNaN: true }),
-					fc.array(fc.double({ min: 0.001, max: 100, noNaN: true }), { minLength: 2, maxLength: 10 })
+					fc.array(fc.double({ min: 0.001, max: 100, noNaN: true }), {
+						minLength: 2,
+						maxLength: 10,
+					}),
 				),
 				([sum, values]) => {
 					const normalizer = _normalize(sum)
@@ -242,11 +254,15 @@ Deno.test("_normalize", async (t) => {
 							const normalizedRatio = normalized[i] / normalized[i + 1]
 							// Use relative tolerance for floating point comparison
 							const tolerance = Math.abs(originalRatio) * 1e-10
-							assertAlmostEquals(originalRatio, normalizedRatio, Math.max(tolerance, 1e-10))
+							assertAlmostEquals(
+								originalRatio,
+								normalizedRatio,
+								Math.max(tolerance, 1e-10),
+							)
 						}
 					}
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -255,15 +271,15 @@ Deno.test("_normalize", async (t) => {
 			fc.property(
 				fc.tuple(
 					fc.double({ min: 0.1, max: 1000, noNaN: true }),
-					fc.double({ min: 0, max: 100, noNaN: true })
+					fc.double({ min: 0, max: 100, noNaN: true }),
 				),
 				([sum, value]) => {
 					const normalizer = _normalize(sum)
 					const result1 = normalizer(value)
 					const result2 = normalizer(value)
 					assertEquals(result1, result2)
-				}
-			)
+				},
+			),
 		)
 	})
 })

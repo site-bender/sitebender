@@ -1,8 +1,10 @@
-import { assertEquals } from "@std/assert"
-import { describe, it } from "@std/testing/bdd"
-import type { Generator, ParseError, Seed } from "../../../../types/index.ts"
 import err from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import { assertEquals } from "@std/assert"
+import { describe, it } from "@std/testing/bdd"
+
+import type { Generator, ParseError, Seed } from "../../../../types/index.ts"
+
 import _tryParsers from "./index.ts"
 
 describe("_tryParsers", function () {

@@ -13,7 +13,6 @@ import isInvalid from "../../../monads/validation/isInvalid/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
-
 import liftUnary from "./index.ts"
 
 const double = (x: number): number => x * 2
@@ -232,7 +231,9 @@ Deno.test("liftUnary - with different function types", async (t) => {
 	})
 
 	await t.step("object transformation", () => {
-		const addAge = (person: { name: string }): { name: string; age: number } => ({
+		const addAge = (
+			person: { name: string },
+		): { name: string; age: number } => ({
 			...person,
 			age: 30,
 		})

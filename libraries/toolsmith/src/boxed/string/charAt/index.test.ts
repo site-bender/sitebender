@@ -13,7 +13,6 @@ import isInvalid from "../../../monads/validation/isInvalid/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
-
 import charAt from "./index.ts"
 
 Deno.test("charAt - plain values default to Result", () => {

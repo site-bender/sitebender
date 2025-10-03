@@ -11,6 +11,7 @@ Pagewright is a **semantic authoring language** that compiles to perfect HTML. W
 Users should never need HTML element wrappers. Instead of `<Header>` or `<Footer>`, use semantic components like `<Masthead>`, `<Colophon>`, `<EndMatter>`, `<Bibliography>`, `<References>`, `<Appendix>`, `<Glossary>`, `<Index>`.
 
 **Context-aware compilation** determines the correct HTML structure:
+
 - `<Heading>` in `<Article>` becomes `<h1>`
 - `<Heading>` in `<Section>` becomes `<h2>` (or deeper based on nesting)
 - `<Line>` in `<Poem>` becomes poetry markup
@@ -262,6 +263,7 @@ The compiler analyzes the entire component tree to determine correct HTML struct
 ```
 
 Context determines structure:
+
 - `<Title>` in `<Article>` `<Heading>` → `<h1>`
 - `<Title>` in `<Section>` `<Heading>` → `<h2>` (or deeper based on nesting)
 - `<Line>` in `<Poem>` → poetry-specific markup
@@ -285,6 +287,7 @@ Unknown attributes are automatically prefixed with `data-x-` and preserved:
 ```
 
 Benefits:
+
 - **Nothing is lost** - All user intent preserved
 - **CSS integration** - `[data-x-custom-id="my-essay"]` selectors work
 - **JavaScript access** - `element.dataset.xCustomId` available
@@ -316,6 +319,7 @@ Invalid nested elements are replaced with safe alternatives while preserving con
 ```
 
 Replacement logic:
+
 - Invalid interactive in heading → `<span>` (safest)
 - Invalid block in inline → `<span>`
 - Invalid inline in block → `<div>`
@@ -385,40 +389,42 @@ This approach ensures:
 Instead of thinking in HTML elements, think in semantic concepts:
 
 ### **Document Structure**
+
 ```tsx
 <Essay>
-  <Heading>
-    <Title>The Future of Web Development</Title>
-    <Subtitle>A Revolutionary Approach</Subtitle>
-    <ByLine>
-      <Author>The Architect</Author>
-      <PublicationDate>2024-12-30</PublicationDate>
-    </ByLine>
-  </Heading>
-  
-  <Abstract>
-    This essay explores how semantic authoring transforms web development...
-  </Abstract>
-  
-  <Section>
-    <Heading>
-      <Title>The Problem with Current Frameworks</Title>
-    </Heading>
-    <Paragraph>Most frameworks force developers to think in HTML...</Paragraph>
-  </Section>
-  
-  <EndMatter>
-    <References>
-      <Citation>Smith, J. (2024). Semantic Web Principles.</Citation>
-    </References>
-    <Notes>
-      <Note id="1">This approach was inspired by...</Note>
-    </Notes>
-  </EndMatter>
+	<Heading>
+		<Title>The Future of Web Development</Title>
+		<Subtitle>A Revolutionary Approach</Subtitle>
+		<ByLine>
+			<Author>The Architect</Author>
+			<PublicationDate>2024-12-30</PublicationDate>
+		</ByLine>
+	</Heading>
+
+	<Abstract>
+		This essay explores how semantic authoring transforms web development...
+	</Abstract>
+
+	<Section>
+		<Heading>
+			<Title>The Problem with Current Frameworks</Title>
+		</Heading>
+		<Paragraph>Most frameworks force developers to think in HTML...</Paragraph>
+	</Section>
+
+	<EndMatter>
+		<References>
+			<Citation>Smith, J. (2024). Semantic Web Principles.</Citation>
+		</References>
+		<Notes>
+			<Note id="1">This approach was inspired by...</Note>
+		</Notes>
+	</EndMatter>
 </Essay>
 ```
 
 ### **Creative Content**
+
 ```tsx
 <Poem>
   <Heading>
@@ -456,6 +462,7 @@ Instead of thinking in HTML elements, think in semantic concepts:
 ```
 
 ### **Interactive Content**
+
 ```tsx
 <Dialogue>
   <Speaker name="Hamlet">
@@ -590,6 +597,7 @@ Think in terms of what things ARE, not their implementation:
 ```
 
 Each generates appropriate structure based on context:
+
 - **As top-level route**: Full page with html/head/body wrapper
 - **As nested component**: Appropriate section/article/div element
 - **Schema.org metadata**: Automatic based on semantic type

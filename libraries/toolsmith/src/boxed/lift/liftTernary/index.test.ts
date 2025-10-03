@@ -13,7 +13,6 @@ import isInvalid from "../../../monads/validation/isInvalid/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
-
 import liftTernary from "./index.ts"
 
 const clamp = (min: number) => (max: number) => (value: number): number => {
@@ -43,7 +42,7 @@ Deno.test("liftTernary - Result monad behavior", async (t) => {
 		const result = liftedClamp(ok(0))(ok(10))(ok(5))
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), 5)
 	})
 
@@ -106,14 +105,17 @@ Deno.test("liftTernary - Validation monad behavior", async (t) => {
 		assert(isInvalid(result))
 	})
 
-	await t.step("Invalid + Invalid + Valid → Invalid (errors accumulate)", () => {
-		const result = liftedClamp(failure(["error 1"]))(failure(["error 2"]))(
-			success(5),
-		)
+	await t.step(
+		"Invalid + Invalid + Valid → Invalid (errors accumulate)",
+		() => {
+			const result = liftedClamp(failure(["error 1"]))(failure(["error 2"]))(
+				success(5),
+			)
 
-		assert(isValidation(result), "Expected Validation type")
-		assert(isInvalid(result))
-	})
+			assert(isValidation(result), "Expected Validation type")
+			assert(isInvalid(result))
+		},
+	)
 
 	await t.step("All Invalid → Invalid (all errors accumulate)", () => {
 		const result = liftedClamp(failure(["error 1"]))(failure(["error 2"]))(
@@ -190,7 +192,7 @@ Deno.test("liftTernary - property: clamps within bounds", () => {
 				const result = liftedClamp(min)(max)(value)
 
 				assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+				assert(isOk(result))
 
 				const clamped = resultGetOrElse(0)(result)
 
@@ -206,7 +208,7 @@ Deno.test("liftTernary - edge cases", async (t) => {
 		const result = liftedClamp(0)(10)(-5)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), 0)
 	})
 
@@ -214,7 +216,7 @@ Deno.test("liftTernary - edge cases", async (t) => {
 		const result = liftedClamp(0)(10)(15)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), 10)
 	})
 
@@ -222,7 +224,7 @@ Deno.test("liftTernary - edge cases", async (t) => {
 		const result = liftedClamp(0)(10)(5)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), 5)
 	})
 
@@ -230,7 +232,7 @@ Deno.test("liftTernary - edge cases", async (t) => {
 		const result = liftedClamp(0)(10)(0)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), 0)
 	})
 
@@ -238,7 +240,7 @@ Deno.test("liftTernary - edge cases", async (t) => {
 		const result = liftedClamp(0)(10)(10)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), 10)
 	})
 
@@ -246,7 +248,7 @@ Deno.test("liftTernary - edge cases", async (t) => {
 		const result = liftedClamp(-10)(-5)(-7)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), -7)
 	})
 })
@@ -260,7 +262,7 @@ Deno.test("liftTernary - with different function types", async (t) => {
 		const result = liftedSelect("yes")("no")(true)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse("")(result), "yes")
 	})
 
@@ -275,7 +277,7 @@ Deno.test("liftTernary - with different function types", async (t) => {
 		const result = liftedMakePoint(1)(2)(3)
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse({ x: 0, y: 0, z: 0 })(result), {
 			x: 1,
 			y: 2,
