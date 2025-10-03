@@ -1,6 +1,5 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
-import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
 import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
@@ -60,7 +59,6 @@ export default function parseExpression(tokens: Array<Result<string, Token>>) {
 			}
 
 			const operator = operatorResult.value
-			const operatorPosition = currentPosition
 			currentPosition = increment(currentPosition)
 
 			const isRightAssociative = RIGHT_ASSOCIATIVE.has(operator)

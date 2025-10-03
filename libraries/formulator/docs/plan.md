@@ -4,7 +4,7 @@
 
 ## Implementation Status
 
-**Current Phase**: 🚧 **Phase 3 - Parser** (AST construction) - READY TO START
+**Current Phase**: ✅ **Phase 4 - Compiler** - COMPLETE
 
 **Completed:**
 
@@ -28,24 +28,32 @@
   - 42 passing tests (unit + property-based + integration)
   - See `src/tokenizer/README.md` for details
 
-**Critical Fixes Applied (Before Phase 3):**
-- ✅ Renamed `checkTwoCharOperator` → `checkTwoCharacterOperator` (no abbreviations)
-- ✅ Fixed inner function naming: descriptive names, not generic
-- ✅ Converted all `undefined` returns to Result monads
-- ✅ Applied positive-first logic throughout (no negative conditionals)
-- ✅ Integrated Toolsmith functions: `lt`, `increment`, `length` (no raw operators)
-- ✅ Updated property names: `character`, `characterClass`, `_tag`
-- ✅ All 98 tests passing, linter clean, type check passing
+- ✅ **Phase 3: Parser** (AST construction with infix notation) - COMPLETE
+  - Pratt parser with operator precedence climbing
+  - Binary operators with correct precedence
+  - Unary operators (prefix negation, postfix factorial)
+  - Function calls with multiple arguments
+  - Grouped expressions (parentheses)
+  - Result monad error handling throughout
+  - All Toolsmith functions properly integrated
+  - 22 passing tests (unit + integration)
 
-**Next Phase**: 🚧 **Phase 3 - Parser** (AST construction) - READY TO START
+- ✅ **Phase 4: Compiler** (Enriched AST + metadata) - COMPLETE
+  - Type inference (datatype annotations on AST nodes)
+  - Semantic operator naming (plus → add, minus → subtract, etc.)
+  - Metadata collection (variables, constants, functions)
+  - Mathematical constant recognition (π, e, τ, φ)
+  - Structure preservation (no flattening for reversibility)
+  - Uniform `left`/`right` structure for all binary operators (semantic accessors deferred to Architect)
+  - 17 passing tests (unit + integration)
 
-**Total Tests Passing**: 98 (56 lexer + 42 tokenizer)
+**Next Phase**: 📋 **Phase 5 - Polish/RPN Notation Support** - PLANNED (see below)
+
+**Note for Architect Integration**: Binary operators use uniform `left`/`right` fields for simplicity. Architect should provide semantic accessor functions that return `Result` monads (e.g., `getMinuend`/`getSubtrahend` for subtract, `getAugend`/`getAddend` for add, `getDividend`/`getDivisor` for divide, `getMultiplicand`/`getMultiplier` for multiply, `getBase`/`getExponent` for power). See "Semantic Accessors for Architect" section below.
+
+**Total Tests Passing**: 137 (56 lexer + 42 tokenizer + 22 parser + 17 compiler)
 **Linter**: ✅ All files passing
-**Type Check**: ✅ All files passing
-
-**Implementation Guides:**
-- **Start here:** `docs/context-for-phase3.md` - Critical rules and patterns from Phases 1 & 2
-- **Then read:** `docs/prompt.md` - Detailed Phase 3 implementation guide
+**Type Check**: ✅ All files passing (Temporal errors are in Toolsmith, not Formulator)
 
 ---
 
@@ -1172,6 +1180,689 @@ const enriched = map(
 
 ---
 
+---
+
+## Phase 5: Polish/RPN Notation Support (PLANNED)
+
+### Purpose
+
+Extend the parser to support **Polish notation (prefix)** and **Reverse Polish notation (postfix)** in addition to the current infix notation. This provides flexibility for users who prefer alternative mathematical notations.
+
+### Notation Types
+
+**Infix (current)**: `a + b`
+- Operators between operands
+- Requires precedence rules
+- Needs parentheses for grouping
+
+**Prefix (Polish)**: `+ a b`
+- Operators before operands
+- No precedence needed (structure is explicit)
+- No parentheses needed
+
+**Postfix (RPN)**: `a b +`
+- Operators after operands
+- No precedence needed (structure is explicit)
+- No parentheses needed
+- Stack-based evaluation
+
+### Architecture
+
+**Shared Components:**
+- ✅ **Lexer** - Character classification is notation-agnostic
+- ✅ **Tokenizer** - Token recognition is notation-agnostic
+- ✅ **Compiler** - AST enrichment is notation-agnostic
+
+**Notation-Specific Components:**
+- ❌ **Parser** - Requires three different implementations:
+  - `parseInfix` - Current Pratt parser (already implemented)
+  - `parsePrefix` - Recursive descent parser (new)
+  - `parsePostfix` - Stack-based parser (new)
+
+### Auto-Detection Strategy
+
+**No explicit notation parameter needed!** The parser will auto-detect notation based on token patterns.
+
+**Detection Algorithm:**
+
+```typescript
+//++ Detects notation from token stream pattern
+function detectNotation(tokens: Array<Token>): Notation {
+  if (tokens.length === 0) {
+    return "infix" // default
+  }
+
+  const firstToken = tokens[0]
+  const lastToken = tokens[tokens.length - 1]
+
+  // Postfix: last token is an operator
+  if (isOperator(lastToken.type)) {
+    return "postfix"
+  }
+
+  // Prefix: first token is an operator
+  if (isOperator(firstToken.type)) {
+    return "prefix"
+  }
+
+  // Infix: operators between operands (default)
+  return "infix"
+}
+```
+
+**Why This Works:**
+
+1. **Unary operators handled by tokenizer**:
+   - `-3` tokenizes as single number token (negative literal)
+   - `- 3` tokenizes as operator token + number token
+   - This spacing rule eliminates ambiguity
+
+2. **Deterministic patterns**:
+   - Postfix formulas ALWAYS end with operator: `a b +`, `2 3 4 + *`
+   - Prefix formulas ALWAYS start with operator: `+ a b`, `* + a b c`
+   - Infix formulas have operators between operands: `a + b`, `(2 + 3) * 4`
+
+3. **Single-operand edge case**:
+   - Formula `42` is valid in all notations
+   - Produces identical AST regardless
+   - No ambiguity in practice
+
+### Implementation Plan
+
+#### 1. Parser Dispatcher (Update `src/parser/index.ts`)
+
+```typescript
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+import type { Token } from "../tokenizer/types/index.ts"
+import type { AstNode } from "./types/index.ts"
+
+import parseInfix from "./parseInfix/index.ts"
+import parsePrefix from "./parsePrefix/index.ts"
+import parsePostfix from "./parsePostfix/index.ts"
+import detectNotation from "./detectNotation/index.ts"
+
+//++ Parses formula with automatic notation detection (curried)
+export default function parser(formula: string): Result<string, AstNode> {
+  const tokenizerResult = tokenizer(formula)
+
+  if (tokenizerResult._tag === "Error") {
+    return tokenizerResult
+  }
+
+  const tokens = Array.from(tokenizerResult.value)
+    .filter(result => result._tag === "Ok")
+    .map(result => result.value)
+
+  const notation = detectNotation(tokens)
+
+  // Dispatch to appropriate parser
+  if (notation === "prefix") {
+    return parsePrefix(tokens)(0)
+  }
+
+  if (notation === "postfix") {
+    return parsePostfix(tokens)
+  }
+
+  // Default: infix
+  return parseInfix(tokens)(0)
+}
+```
+
+#### 2. Prefix Parser (New: `src/parser/parsePrefix/index.ts`)
+
+**Algorithm**: Recursive descent (simpler than infix!)
+
+```typescript
+//++ Parses prefix (Polish) notation: + a b
+export default function parsePrefix(tokens: Array<Result<string, Token>>) {
+  return function parsePrefixWithPosition(
+    position: number
+  ): Result<string, [AstNode, number]> {
+    if (gte(length(tokens))(position)) {
+      return error(`Unexpected end of input at position ${position}`)
+    }
+
+    const tokenResult = tokens[position]
+
+    if (tokenResult._tag === "Error") {
+      return tokenResult
+    }
+
+    const token = tokenResult.value
+
+    // Operand: number or identifier
+    if (token.type === "number") {
+      const node: AstNode = Object.freeze({
+        _tag: "numberLiteral",
+        value: Number.parseFloat(token.value),
+        position: token.position,
+      })
+      return ok([node, increment(position)])
+    }
+
+    if (token.type === "identifier") {
+      const node: AstNode = Object.freeze({
+        _tag: "variable",
+        name: token.value,
+        position: token.position,
+      })
+      return ok([node, increment(position)])
+    }
+
+    // Binary operator: parse operator, then two operands
+    const operatorResult = tokenTypeToBinaryOperator(token.type)
+
+    if (operatorResult._tag === "Ok") {
+      const operator = operatorResult.value
+      const nextPosition = increment(position)
+
+      // Recursively parse left operand
+      const leftResult = parsePrefix(tokens)(nextPosition)
+
+      if (leftResult._tag === "Error") {
+        return leftResult
+      }
+
+      const [left, positionAfterLeft] = leftResult.value
+
+      // Recursively parse right operand
+      const rightResult = parsePrefix(tokens)(positionAfterLeft)
+
+      if (rightResult._tag === "Error") {
+        return rightResult
+      }
+
+      const [right, finalPosition] = rightResult.value
+
+      const node: AstNode = Object.freeze({
+        _tag: "binaryOperator",
+        operator,
+        left,
+        right,
+        position: token.position,
+      })
+
+      return ok([node, finalPosition])
+    }
+
+    // Unary operator: parse operator, then one operand
+    const unaryResult = tokenTypeToUnaryOperator(token.type)
+
+    if (unaryResult._tag === "Ok") {
+      const operator = unaryResult.value
+      const operandResult = parsePrefix(tokens)(increment(position))
+
+      if (operandResult._tag === "Error") {
+        return operandResult
+      }
+
+      const [operand, finalPosition] = operandResult.value
+
+      const node: AstNode = Object.freeze({
+        _tag: "unaryOperator",
+        operator,
+        operand,
+        position: token.position,
+      })
+
+      return ok([node, finalPosition])
+    }
+
+    return error(`Unexpected token '${token.value}' at position ${position}`)
+  }
+}
+```
+
+#### 3. Postfix Parser (New: `src/parser/parsePostfix/index.ts`)
+
+**Algorithm**: Stack-based (even simpler!)
+
+```typescript
+//++ Parses postfix (RPN) notation: a b +
+export default function parsePostfix(
+  tokens: Array<Result<string, Token>>
+): Result<string, AstNode> {
+  const stack: Array<AstNode> = []
+  let position = 0
+
+  /*++ [EXCEPTION]
+   | While loop permitted for stack-based RPN parsing.
+   | This is the standard algorithm for postfix evaluation.
+   | Remains pure: same tokens always produce same AST.
+   */
+  while (lt(length(tokens))(position)) {
+    const tokenResult = tokens[position]
+
+    if (tokenResult._tag === "Error") {
+      return tokenResult
+    }
+
+    const token = tokenResult.value
+
+    // Operand: push to stack
+    if (token.type === "number") {
+      const node: AstNode = Object.freeze({
+        _tag: "numberLiteral",
+        value: Number.parseFloat(token.value),
+        position: token.position,
+      })
+      stack.push(node)
+      position = increment(position)
+      continue
+    }
+
+    if (token.type === "identifier") {
+      const node: AstNode = Object.freeze({
+        _tag: "variable",
+        name: token.value,
+        position: token.position,
+      })
+      stack.push(node)
+      position = increment(position)
+      continue
+    }
+
+    // Binary operator: pop two operands
+    const operatorResult = tokenTypeToBinaryOperator(token.type)
+
+    if (operatorResult._tag === "Ok") {
+      if (lt(length(stack))(2)) {
+        return error(`Insufficient operands for operator '${token.value}' at position ${token.position}`)
+      }
+
+      const right = stack.pop()!
+      const left = stack.pop()!
+
+      const node: AstNode = Object.freeze({
+        _tag: "binaryOperator",
+        operator: operatorResult.value,
+        left,
+        right,
+        position: token.position,
+      })
+
+      stack.push(node)
+      position = increment(position)
+      continue
+    }
+
+    // Unary operator: pop one operand
+    const unaryResult = tokenTypeToUnaryOperator(token.type)
+
+    if (unaryResult._tag === "Ok") {
+      if (lt(length(stack))(1)) {
+        return error(`Insufficient operands for operator '${token.value}' at position ${token.position}`)
+      }
+
+      const operand = stack.pop()!
+
+      const node: AstNode = Object.freeze({
+        _tag: "unaryOperator",
+        operator: unaryResult.value,
+        operand,
+        position: token.position,
+      })
+
+      stack.push(node)
+      position = increment(position)
+      continue
+    }
+
+    return error(`Unexpected token '${token.value}' at position ${token.position}`)
+  }
+
+  if (isEqual(length(stack))(1)) {
+    return ok(stack[0])
+  }
+
+  if (lt(1)(length(stack))) {
+    return error(`Multiple expressions found (stack has ${length(stack)} items)`)
+  }
+
+  return error("Empty expression")
+}
+```
+
+#### 4. Notation Detection (New: `src/parser/detectNotation/index.ts`)
+
+```typescript
+import type { Token } from "../../tokenizer/types/index.ts"
+
+export type Notation = "infix" | "prefix" | "postfix"
+
+//++ Detects notation from token pattern (first/last token analysis)
+export default function detectNotation(tokens: Array<Token>): Notation {
+  if (isEqual(length(tokens))(0)) {
+    return "infix" // default for empty
+  }
+
+  const firstToken = tokens[0]
+  const lastToken = tokens[length(tokens) - 1]
+
+  // Check if token is an operator (not operand)
+  const isOperatorToken = (token: Token): boolean => {
+    return token.type === "plus" ||
+           token.type === "minus" ||
+           token.type === "multiply" ||
+           token.type === "divide" ||
+           token.type === "power"
+    // Add more operators as needed
+  }
+
+  // Postfix: last token is operator
+  if (isOperatorToken(lastToken)) {
+    return "postfix"
+  }
+
+  // Prefix: first token is operator
+  if (isOperatorToken(firstToken)) {
+    return "prefix"
+  }
+
+  // Default: infix
+  return "infix"
+}
+```
+
+### Testing Strategy
+
+**Test Cases for Each Notation:**
+
+```typescript
+// Infix tests (already exist)
+"2 + 3"           → { _tag: "binaryOperator", operator: "add", ... }
+"a * b + c"       → precedence preserved
+"(a + b) * c"     → grouping preserved
+
+// Prefix tests (new)
+"+ 2 3"           → { _tag: "binaryOperator", operator: "add", ... }
+"* + a b c"       → nested structure
+"- 5"             → unary negation
+
+// Postfix tests (new)
+"2 3 +"           → { _tag: "binaryOperator", operator: "add", ... }
+"a b + c *"       → nested structure
+"5 -"             → unary negation
+
+// Auto-detection tests (new)
+detectNotation(tokens("2 + 3"))   → "infix"
+detectNotation(tokens("+ 2 3"))   → "prefix"
+detectNotation(tokens("2 3 +"))   → "postfix"
+detectNotation(tokens("42"))      → "infix" (default)
+```
+
+**Round-trip Testing:**
+
+```typescript
+// Verify all notations produce same AST
+const infixAST = parser("a + b")
+const prefixAST = parser("+ a b")
+const postfixAST = parser("a b +")
+
+// All should produce identical structure (positions differ)
+assertEquals(infixAST.value._tag, prefixAST.value._tag)
+assertEquals(infixAST.value.operator, prefixAST.value.operator)
+// etc.
+```
+
+### Benefits
+
+1. **No API complexity** - Single `parser(formula)` signature
+2. **User choice** - Users can write formulas in their preferred notation
+3. **Simpler notation** - Polish/RPN require no parentheses or precedence
+4. **Same output** - All notations produce identical AST structure
+5. **Shared infrastructure** - Reuses lexer, tokenizer, and compiler
+
+### Implementation Checklist
+
+- [ ] Implement `detectNotation` with token pattern analysis
+- [ ] Implement `parsePrefix` with recursive descent
+- [ ] Implement `parsePostfix` with stack-based algorithm
+- [ ] Update parser dispatcher to auto-detect and route
+- [ ] Add helper: `tokenTypeToBinaryOperator` shared across parsers
+- [ ] Add helper: `tokenTypeToUnaryOperator` shared across parsers
+- [ ] Add helper: `isOperatorToken` for detection
+- [ ] Write unit tests for prefix parser (15+ tests)
+- [ ] Write unit tests for postfix parser (15+ tests)
+- [ ] Write unit tests for notation detection (10+ tests)
+- [ ] Write integration tests for round-trip equivalence
+- [ ] Update demo script to show all three notations
+- [ ] Add documentation with examples
+
+**Estimated effort**: ~200 lines of production code, ~300 lines of tests
+
+---
+
+## Semantic Accessors for Architect
+
+### Purpose
+
+Formulator maintains a **uniform structure** for binary operators using `left` and `right` fields. This simplifies internal implementation and allows consistent traversal patterns. However, **Architect** (the AST consumer) benefits from **semantic terminology** for clarity and correctness.
+
+### Design Decision
+
+**Formulator**: Keep uniform structure
+```typescript
+type BinaryOperatorNode = {
+  _tag: "binaryOperator"
+  operator: BinaryOperation
+  left: EnrichedAstNode    // uniform for all operators
+  right: EnrichedAstNode   // uniform for all operators
+  position: number
+  datatype: Datatype
+}
+```
+
+**Architect**: Provide semantic accessor functions that return `Result` monads
+
+### Accessor Functions to Implement in Architect
+
+All accessors follow this pattern:
+1. Validate node is `binaryOperator`
+2. Validate operator matches expected type
+3. Return appropriate operand wrapped in `Result`
+
+#### Addition Accessors
+
+```typescript
+// @sitebender/architect/src/ast/accessors/getAugend/index.ts
+//++ Extracts the augend (left operand) from an add operation
+export default function getAugend(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "add") {
+    return error(`Expected add operator, got ${node.operator}`)
+  }
+  return ok(node.left)
+}
+
+// @sitebender/architect/src/ast/accessors/getAddend/index.ts
+//++ Extracts the addend (right operand) from an add operation
+export default function getAddend(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "add") {
+    return error(`Expected add operator, got ${node.operator}`)
+  }
+  return ok(node.right)
+}
+```
+
+#### Subtraction Accessors
+
+```typescript
+// @sitebender/architect/src/ast/accessors/getMinuend/index.ts
+//++ Extracts the minuend (left operand) from a subtract operation
+export default function getMinuend(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "subtract") {
+    return error(`Expected subtract operator, got ${node.operator}`)
+  }
+  return ok(node.left)
+}
+
+// @sitebender/architect/src/ast/accessors/getSubtrahend/index.ts
+//++ Extracts the subtrahend (right operand) from a subtract operation
+export default function getSubtrahend(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "subtract") {
+    return error(`Expected subtract operator, got ${node.operator}`)
+  }
+  return ok(node.right)
+}
+```
+
+#### Multiplication Accessors
+
+```typescript
+// @sitebender/architect/src/ast/accessors/getMultiplicand/index.ts
+//++ Extracts the multiplicand (left operand) from a multiply operation
+export default function getMultiplicand(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "multiply") {
+    return error(`Expected multiply operator, got ${node.operator}`)
+  }
+  return ok(node.left)
+}
+
+// @sitebender/architect/src/ast/accessors/getMultiplier/index.ts
+//++ Extracts the multiplier (right operand) from a multiply operation
+export default function getMultiplier(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "multiply") {
+    return error(`Expected multiply operator, got ${node.operator}`)
+  }
+  return ok(node.right)
+}
+```
+
+#### Division Accessors
+
+```typescript
+// @sitebender/architect/src/ast/accessors/getDividend/index.ts
+//++ Extracts the dividend (left operand) from a divide operation
+export default function getDividend(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "divide") {
+    return error(`Expected divide operator, got ${node.operator}`)
+  }
+  return ok(node.left)
+}
+
+// @sitebender/architect/src/ast/accessors/getDivisor/index.ts
+//++ Extracts the divisor (right operand) from a divide operation
+export default function getDivisor(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "divide") {
+    return error(`Expected divide operator, got ${node.operator}`)
+  }
+  return ok(node.right)
+}
+```
+
+#### Exponentiation Accessors
+
+```typescript
+// @sitebender/architect/src/ast/accessors/getBase/index.ts
+//++ Extracts the base (left operand) from a power operation
+export default function getBase(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "power") {
+    return error(`Expected power operator, got ${node.operator}`)
+  }
+  return ok(node.left)
+}
+
+// @sitebender/architect/src/ast/accessors/getExponent/index.ts
+//++ Extracts the exponent (right operand) from a power operation
+export default function getExponent(
+  node: EnrichedAstNode
+): Result<string, EnrichedAstNode> {
+  if (node._tag !== "binaryOperator") {
+    return error(`Expected binaryOperator, got ${node._tag}`)
+  }
+  if (node.operator !== "power") {
+    return error(`Expected power operator, got ${node.operator}`)
+  }
+  return ok(node.right)
+}
+```
+
+### Usage Example in Architect
+
+```typescript
+import subtract from "@sitebender/toolsmith/vanilla/math/subtract/index.ts"
+import getMinuend from "./ast/accessors/getMinuend/index.ts"
+import getSubtrahend from "./ast/accessors/getSubtrahend/index.ts"
+import map2 from "@sitebender/toolsmith/monads/result/map2/index.ts"
+
+//++ Compiles subtract AST node to executable function
+function compileSubtract(node: EnrichedAstNode) {
+  const minuendResult = getMinuend(node)
+  const subtrahendResult = getSubtrahend(node)
+
+  return map2(
+    (minuend) => (subtrahend) =>
+      subtract(compile(minuend))(compile(subtrahend))
+  )(minuendResult)(subtrahendResult)
+}
+```
+
+### Benefits
+
+1. **Separation of concerns**: Formulator stays simple, Architect gets semantic clarity
+2. **Type safety**: Result monad catches incorrect operator access
+3. **Readability**: `getMinuend(node)` is clearer than `node.left` when operator is subtract
+4. **No redundancy**: No duplicate fields in AST structure
+5. **Clean architecture**: Each library handles its own concerns
+
+### Complete Accessor List
+
+| Operation       | Left Operand Accessor | Right Operand Accessor |
+|----------------|----------------------|------------------------|
+| Addition       | `getAugend()`        | `getAddend()`         |
+| Subtraction    | `getMinuend()`       | `getSubtrahend()`     |
+| Multiplication | `getMultiplicand()`  | `getMultiplier()`     |
+| Division       | `getDividend()`      | `getDivisor()`        |
+| Exponentiation | `getBase()`          | `getExponent()`       |
+
+---
+
 ## Future Enhancements
 
 ### Chemical Formula Support (Possible Future Extension)
@@ -1196,15 +1887,3 @@ const enriched = map(
 - Token interning for common identifiers
 - Memoization of symbol mappings
 - Streaming compilation (tokenize → parse → compile in one pass)
-
----
-
-**Status**: Planning phase complete, awaiting Toolsmith boxed monads for implementation
-
-**Next Steps**:
-
-1. Complete Toolsmith Result/Validation monads
-2. Implement lexer with generators
-3. Implement tokenizer with generators
-4. Add comprehensive property-based tests
-5. Implement parser with Validation accumulation
