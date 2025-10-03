@@ -1,0 +1,210 @@
+{
+  "metadata": {
+    "phase": "2.2",
+    "encoding_type": "pattern",
+    "created": "2025-10-03T05:14:19Z",
+    "description": "Compliant code pattern templates for all rule categories to be embedded and stored in Qdrant"
+  },
+  "constitutional_rules": [
+    {
+      "rule_id": "const-001-no-classes",
+      "category": "constitutional",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Module with pure functions\n\n// types.ts\ntype User = Readonly<{\n  id: UserId\n  name: string\n  email: EmailAddress\n}>\n\n// createUser.ts\nfunction createUser(id: UserId) {\n  return function createUserWithId(name: string) {\n    return function createUserWithIdAndName(email: EmailAddress): User {\n      return {\n        id,\n        name,\n        email\n      }\n    }\n  }\n}\n\n// updateUser.ts\nfunction updateUser(user: User) {\n  return function updateUserWithUser(updates: Partial<User>): User {\n    return { ...user, ...updates }\n  }\n}\n\n// Usage\nconst user = createUser(userId)(\"Alice\")(emailAddress)\nconst updated = updateUser(user)({ name: \"Alice Smith\" })",
+      "keywords": ["module", "pure-function", "export", "function-declaration"],
+      "tags": ["code-organization", "functional-programming", "modules"]
+    },
+    {
+      "rule_id": "const-002-no-mutations",
+      "category": "constitutional",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Immutable operations\n\n// Immutable object update\nfunction updateUserName(user: Readonly<User>) {\n  return function updateUserNameWithUser(name: string): Readonly<User> {\n    return { ...user, name }\n  }\n}\n\n// Immutable array operations\nfunction addItem<T>(array: ReadonlyArray<T>) {\n  return function addItemToArray(item: T): ReadonlyArray<T> {\n    return [...array, item]\n  }\n}\n\nfunction removeItem<T>(array: ReadonlyArray<T>) {\n  return function removeItemFromArray(index: number): ReadonlyArray<T> {\n    return [...array.slice(0, index), ...array.slice(index + 1)]\n  }\n}\n\nfunction updateItem<T>(array: ReadonlyArray<T>) {\n  return function updateItemInArray(index: number) {\n    return function updateItemInArrayAtIndex(item: T): ReadonlyArray<T> {\n      return array.map(function mapItem(current, i) {\n        return i === index ? item : current\n      })\n    }\n  }\n}\n\n// All variables const\nconst original = [1, 2, 3]\nconst withFour = addItem(original)(4)\nconst withoutFirst = removeItem(original)(0)",
+      "keywords": ["const", "readonly", "spread", "immutable-update"],
+      "tags": ["immutability", "data-structures", "functional-programming"]
+    },
+    {
+      "rule_id": "const-003-no-loops",
+      "category": "constitutional",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Functional iteration\n\n// Transform with map\nfunction doubleNumbers(numbers: ReadonlyArray<number>): ReadonlyArray<number> {\n  return numbers.map(function doubleNumber(n: number): number {\n    return n * 2\n  })\n}\n\n// Filter with filter\nfunction getEvenNumbers(numbers: ReadonlyArray<number>): ReadonlyArray<number> {\n  return numbers.filter(function isEven(n: number): boolean {\n    return n % 2 === 0\n  })\n}\n\n// Accumulate with reduce\nfunction sumNumbers(numbers: ReadonlyArray<number>): number {\n  return numbers.reduce(function addNumber(sum: number, n: number): number {\n    return sum + n\n  }, 0)\n}\n\n// Complex transformation with composition\nfunction processNumbers(numbers: ReadonlyArray<number>): number {\n  return pipe(\n    numbers,\n    filter(isEven),\n    map(double),\n    reduce(add, 0)\n  )\n}\n\n// Recursion for custom iteration\nfunction factorial(n: number): number {\n  return n <= 1 ? 1 : n * factorial(n - 1)\n}",
+      "keywords": ["map", "filter", "reduce", "recursion", "functional-iteration"],
+      "tags": ["iteration", "functional-programming", "array-methods"]
+    },
+    {
+      "rule_id": "const-004-no-exceptions",
+      "category": "constitutional",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Error as value with Result\n\ntype DbError = { _tag: 'DbError', message: string }\ntype ValidationError = { _tag: 'ValidationError', field: string, message: string }\n\n// Sync operation returning Result\nfunction parseUserId(input: string): Result<UserId, ValidationError> {\n  if (isEmpty(input)) {\n    return error({\n      _tag: 'ValidationError',\n      field: 'userId',\n      message: 'User ID cannot be empty'\n    })\n  }\n  return ok(input as UserId)\n}\n\n// Async operation returning Promise<Result>\nfunction fetchUser(id: UserId): Promise<Result<User, DbError>> {\n  return fetch(`/api/users/${unwrapUserId(id)}`)\n    .then(function handleResponse(response) {\n      return response.ok\n        ? response.json().then(ok)\n        : error({ _tag: 'DbError', message: `HTTP ${response.status}` })\n    })\n    .catch(function handleError(err) {\n      return error({\n        _tag: 'DbError',\n        message: err instanceof Error ? err.message : 'Unknown error'\n      })\n    })\n}\n\n// Validation with error accumulation\nfunction validateUser(data: unknown): Validation<User, ValidationError> {\n  const errors: Array<ValidationError> = []\n  \n  if (!hasProperty('name')(data) || isEmpty(data.name)) {\n    errors.push({ _tag: 'ValidationError', field: 'name', message: 'Name required' })\n  }\n  \n  if (!hasProperty('email')(data) || !isValidEmail(data.email)) {\n    errors.push({ _tag: 'ValidationError', field: 'email', message: 'Valid email required' })\n  }\n  \n  return isEmpty(errors)\n    ? success(data as User)\n    : failure(errors)\n}",
+      "keywords": ["Result", "Validation", "error-as-value", "Promise<Result>"],
+      "tags": ["error-handling", "functional-programming", "type-safety"]
+    }
+  ],
+  "functional_programming_rules": [
+    {
+      "rule_id": "fp-001-pure-functions",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Pure functions\n\n// Pure: same input always gives same output\nfunction add(a: number) {\n  return function addToA(b: number): number {\n    return a + b\n  }\n}\n\n// Pure: no side effects, returns new value\nfunction updateUserEmail(user: Readonly<User>) {\n  return function updateUserEmailWithUser(email: EmailAddress): Readonly<User> {\n    return { ...user, email }\n  }\n}\n\n// Pure: no external dependencies\nfunction calculateTotal(items: ReadonlyArray<number>): number {\n  return items.reduce(function sumItem(total: number, item: number): number {\n    return total + item\n  }, 0)\n}\n\n// Pure composition\nfunction processData(data: ReadonlyArray<number>): number {\n  return pipe(\n    data,\n    map(double),\n    filter(isPositive),\n    reduce(add, 0)\n  )\n}",
+      "keywords": ["pure", "deterministic", "no-side-effects", "referential-transparency"],
+      "tags": ["purity", "functional-programming", "testability"]
+    },
+    {
+      "rule_id": "fp-002-immutability",
+      "category": "functional_programming",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Immutable data structures\n\n// Readonly types\ntype User = Readonly<{\n  id: UserId\n  name: string\n  email: EmailAddress\n  roles: ReadonlyArray<Role>\n}>\n\n// Immutable update patterns\nfunction updateUser(user: User) {\n  return function updateUserWithUser(updates: Partial<User>): User {\n    return { ...user, ...updates }\n  }\n}\n\nfunction addRole(user: User) {\n  return function addRoleToUser(role: Role): User {\n    return {\n      ...user,\n      roles: [...user.roles, role]\n    }\n  }\n}\n\nfunction removeRole(user: User) {\n  return function removeRoleFromUser(roleId: RoleId): User {\n    return {\n      ...user,\n      roles: user.roles.filter(function keepRole(role: Role): boolean {\n        return role.id !== roleId\n      })\n    }\n  }\n}\n\n// Nested immutable updates\nfunction updateUserAddress(user: User) {\n  return function updateUserAddressWithUser(street: string): User {\n    return {\n      ...user,\n      address: {\n        ...user.address,\n        street\n      }\n    }\n  }\n}",
+      "keywords": ["Readonly", "ReadonlyArray", "spread", "immutable-update"],
+      "tags": ["immutability", "type-safety", "data-structures"]
+    },
+    {
+      "rule_id": "fp-003-total-functions",
+      "category": "functional_programming",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: Total functions with explicit types\n\n// Maybe for optional values\ntype Maybe<T> = \n  | { _tag: 'just', value: T }\n  | { _tag: 'nothing' }\n\nfunction findUser(users: ReadonlyArray<User>) {\n  return function findUserInUsers(id: UserId): Maybe<User> {\n    const found = users.find(function matchesId(user: User): boolean {\n      return user.id === id\n    })\n    return found ? just(found) : nothing()\n  }\n}\n\n// Result for operations that can fail\nfunction parseNumber(input: string): Result<number, ParseError> {\n  const num = Number(input)\n  return isNaN(num)\n    ? error({ _tag: 'ParseError', message: 'Invalid number' })\n    : ok(num)\n}\n\n// Validation for accumulating errors\nfunction validateForm(data: FormData): Validation<ValidForm, ValidationError> {\n  const nameResult = validateName(data.name)\n  const emailResult = validateEmail(data.email)\n  const ageResult = validateAge(data.age)\n  \n  return combineValidations({\n    name: nameResult,\n    email: emailResult,\n    age: ageResult\n  })\n}\n\n// Handle all cases explicitly\nfunction getUserName(maybeUser: Maybe<User>): string {\n  return matchMaybe(\n    function handleJust(user: User): string {\n      return user.name\n    },\n    function handleNothing(): string {\n      return 'Anonymous'\n    }\n  )(maybeUser)\n}",
+      "keywords": ["Maybe", "Result", "Validation", "total", "exhaustive"],
+      "tags": ["totality", "type-safety", "error-handling"]
+    },
+    {
+      "rule_id": "fp-004-function-composition",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "pattern": "// ✓ CORRECT: Function composition\n\n// Simple composition with pipe (left-to-right)\nfunction processUser(user: User): string {\n  return pipe(\n    user,\n    getUserEmail,\n    normalizeEmail,\n    formatForDisplay\n  )\n}\n\n// Composition with compose (right-to-left)\nconst processUserName = compose(\n  formatForDisplay,\n  normalizeEmail,\n  getUserEmail\n)\n\n// Building complex from simple\nfunction double(n: number): number {\n  return n * 2\n}\n\nfunction increment(n: number): number {\n  return n + 1\n}\n\nfunction square(n: number): number {\n  return n * n\n}\n\nconst doubleIncrementSquare = compose(\n  square,\n  increment,\n  double\n)\n\n// Curried functions for composition\nfunction map<A, B>(f: (a: A) => B) {\n  return function mapWithF(array: ReadonlyArray<A>): ReadonlyArray<B> {\n    return array.map(f)\n  }\n}\n\nfunction filter<A>(predicate: (a: A) => boolean) {\n  return function filterWithPredicate(array: ReadonlyArray<A>): ReadonlyArray<A> {\n    return array.filter(predicate)\n  }\n}\n\nconst processNumbers = compose(\n  reduce(add, 0),\n  map(double),\n  filter(isEven)\n)",
+      "keywords": ["pipe", "compose", "composition", "currying"],
+      "tags": ["composition", "functional-programming", "code-organization"]
+    },
+    {
+      "rule_id": "fp-005-higher-order-functions",
+      "category": "functional_programming",
+      "severity": "advisory",
+      "pattern": "// ✓ CORRECT: Higher-order functions\n\n// Function taking function as parameter\nfunction map<A, B>(f: (a: A) => B) {\n  return function mapWithF(array: ReadonlyArray<A>): ReadonlyArray<B> {\n    return array.map(f)\n  }\n}\n\n// Function returning function\nfunction greaterThan(threshold: number) {\n  return function isGreaterThanThreshold(value: number): boolean {\n    return value > threshold\n  }\n}\n\n// Combining HOFs\nfunction filterMap<A, B>(predicate: (a: A) => boolean) {\n  return function filterMapWithPredicate(f: (a: A) => B) {\n    return function filterMapWithPredicateAndF(array: ReadonlyArray<A>): ReadonlyArray<B> {\n      return array.filter(predicate).map(f)\n    }\n  }\n}\n\n// Practical example\nconst getAdultNames = filterMap(\n  function isAdult(user: User): boolean {\n    return user.age >= 18\n  }\n)(\n  function getName(user: User): string {\n    return user.name\n  }\n)\n\n// Partial application\nconst isPositive = greaterThan(0)\nconst isAdult = greaterThan(17)\n\nconst positiveNumbers = numbers.filter(isPositive)\nconst adults = users.filter(function filterAdult(user: User): boolean {\n  return isAdult(user.age)\n})",
+      "keywords": ["higher-order", "HOF", "function-parameter", "function-return"],
+      "tags": ["higher-order-functions", "functional-programming", "abstraction"]
+    }
+  ],
+  "syntax_rules": [
+    {
+      "rule_id": "syntax-001-no-arrow-functions",
+      "category": "syntax",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Named function declarations\n\n// Simple function\nfunction add(a: number, b: number): number {\n  return a + b\n}\n\n// Curried function with named inner functions\nfunction multiply(factor: number) {\n  return function multiplyByFactor(value: number): number {\n    return value * factor\n  }\n}\n\n// Callback with named function\nconst doubled = numbers.map(function doubleNumber(n: number): number {\n  return n * 2\n})\n\n// Higher-order function\nfunction map<A, B>(f: (a: A) => B) {\n  return function mapWithF(array: ReadonlyArray<A>): ReadonlyArray<B> {\n    return array.map(f)\n  }\n}\n\n// Event handler\nbutton.addEventListener('click', function handleClick(event: Event): void {\n  console.log('Button clicked')\n})\n\n// Promise chain\nfetchUser(userId)\n  .then(function handleUserResult(result: Result<User, Error>) {\n    return matchResult(\n      function handleSuccess(user: User) {\n        return user.name\n      },\n      function handleError(error: Error) {\n        return 'Unknown'\n      }\n    )(result)\n  })",
+      "keywords": ["function", "named-function", "function-declaration"],
+      "tags": ["syntax", "naming", "readability"]
+    },
+    {
+      "rule_id": "syntax-002-no-abbreviations",
+      "category": "syntax",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: Full descriptive names\n\n// Good: Full words\nfunction calculateUserAccountBalance(user: User): number {\n  return user.transactions.reduce(\n    function sumTransactionAmount(total: number, transaction: Transaction): number {\n      return total + transaction.amount\n    },\n    0\n  )\n}\n\n// Good: Clear intent\nfunction isUserEmailAddressVerified(user: User): boolean {\n  return user.emailVerified === true\n}\n\n// Good: Descriptive variable names\nconst userAccountBalance = calculateUserAccountBalance(currentUser)\nconst isEmailVerified = isUserEmailAddressVerified(currentUser)\n\n// Acceptable abbreviations (whitelist)\nconst userId: UserId = user.id\nconst apiEndpoint: string = 'https://api.example.com'\nconst htmlContent: string = '<div>Hello</div>'\nconst requestUrl: string = 'https://example.com'\n\n// Good: Domain-specific terms\nconst abstractSyntaxTree: AST = parseCode(source)\nconst intermediateRepresentation: IR = compile(ast)\nconst domainSpecificLanguage: DSL = parseDSL(input)",
+      "keywords": ["full-names", "descriptive", "no-abbreviations"],
+      "tags": ["naming", "readability", "maintainability"]
+    },
+    {
+      "rule_id": "syntax-003-plain-english-names",
+      "category": "syntax",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: Plain English names\n\n// Reads like English\nfunction getUserByEmailAddress(email: EmailAddress): Promise<Result<User, DbError>> {\n  return findUserInDatabaseByEmail(email)\n}\n\nfunction isUserAccountActive(user: User): boolean {\n  return user.status === 'active' && user.deletedAt === null\n}\n\nfunction calculateTotalPriceWithTax(items: ReadonlyArray<Item>) {\n  return function calculateTotalPriceWithTaxForItems(taxRate: number): number {\n    const subtotal = items.reduce(\n      function sumItemPrice(total: number, item: Item): number {\n        return total + item.price\n      },\n      0\n    )\n    return subtotal * (1 + taxRate)\n  }\n}\n\n// Clear intent from name\nfunction sendWelcomeEmailToNewUser(user: User): Promise<Result<void, EmailError>> {\n  return composeWelcomeEmail(user)\n    .then(sendEmail)\n}\n\nfunction hasUserCompletedOnboarding(user: User): boolean {\n  return user.onboardingSteps.every(function isStepCompleted(step: OnboardingStep): boolean {\n    return step.completed === true\n  })\n}",
+      "keywords": ["plain-english", "readable", "clear-intent"],
+      "tags": ["naming", "readability", "code-quality"]
+    },
+    {
+      "rule_id": "syntax-004-curried-function-naming",
+      "category": "syntax",
+      "severity": "advisory",
+      "pattern": "// ✓ CORRECT: Curried function naming with captured parameters\n\n// Inner function includes captured parameter name\nfunction add(augend: number) {\n  return function addToAugend(addend: number): number {\n    return augend + addend\n  }\n}\n\nfunction multiply(multiplicand: number) {\n  return function multiplyByMultiplicand(multiplier: number): number {\n    return multiplicand * multiplier\n  }\n}\n\n// Multiple levels of currying\nfunction createUser(id: UserId) {\n  return function createUserWithId(name: string) {\n    return function createUserWithIdAndName(email: EmailAddress): User {\n      return { id, name, email }\n    }\n  }\n}\n\n// Practical example\nfunction filterByProperty<T, K extends keyof T>(property: K) {\n  return function filterByPropertyKey(value: T[K]) {\n    return function filterByPropertyKeyAndValue(array: ReadonlyArray<T>): ReadonlyArray<T> {\n      return array.filter(function matchesPropertyValue(item: T): boolean {\n        return item[property] === value\n      })\n    }\n  }\n}\n\nconst filterByStatus = filterByProperty<User, 'status'>('status')\nconst filterByActiveStatus = filterByStatus('active')\nconst activeUsers = filterByActiveStatus(allUsers)",
+      "keywords": ["currying", "closure", "naming", "captured-parameters"],
+      "tags": ["naming", "currying", "readability"]
+    }
+  ],
+  "formatting_rules": [
+    {
+      "rule_id": "format-001-character-encoding",
+      "category": "formatting",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: UTF-8 encoding without BOM\n\n// .editorconfig\n[*]\ncharset = utf-8\n\n// VSCode settings.json\n{\n  \"files.encoding\": \"utf8\",\n  \"files.autoGuessEncoding\": false\n}\n\n// Git attributes\n* text=auto eol=lf\n*.ts text eol=lf charset=utf-8\n*.json text eol=lf charset=utf-8\n\n// All source files use UTF-8\n// Supports international characters\nconst greeting: string = \"Hello, 世界! 🌍\"\nconst userName: string = \"José García\"\nconst emoji: string = \"✓ ✗ ⚠️\"",
+      "keywords": ["UTF-8", "encoding", "charset"],
+      "tags": ["formatting", "encoding", "compatibility"]
+    },
+    {
+      "rule_id": "format-002-line-endings",
+      "category": "formatting",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: LF (Unix) line endings\n\n// .editorconfig\n[*]\nend_of_line = lf\ninsert_final_newline = true\n\n// .gitattributes\n* text=auto eol=lf\n*.ts text eol=lf\n*.json text eol=lf\n*.md text eol=lf\n\n// Git config\ngit config --global core.autocrlf input\n\n// All files use \\n (LF) not \\r\\n (CRLF)\n// Consistent across Windows, Mac, Linux",
+      "keywords": ["LF", "line-endings", "eol"],
+      "tags": ["formatting", "line-endings", "compatibility"]
+    },
+    {
+      "rule_id": "format-003-indentation",
+      "category": "formatting",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Tabs for code, spaces for markdown/YAML\n\n// .editorconfig\n[*.ts]\nindent_style = tab\nindent_size = 2\n\n[*.md]\nindent_style = space\nindent_size = 2\n\n[*.{yml,yaml}]\nindent_style = space\nindent_size = 2\n\n// TypeScript file (tabs)\nfunction calculateTotal(items: ReadonlyArray<Item>): number {\n\treturn items.reduce(\n\t\tfunction sumItemPrice(total: number, item: Item): number {\n\t\t\treturn total + item.price\n\t\t},\n\t\t0\n\t)\n}\n\n// YAML file (spaces)\nname: Build\non:\n  push:\n    branches:\n      - main\njobs:\n  build:\n    runs-on: ubuntu-latest",
+      "keywords": ["tabs", "spaces", "indentation"],
+      "tags": ["formatting", "indentation", "readability"]
+    },
+    {
+      "rule_id": "format-004-line-length",
+      "category": "formatting",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: Lines ≤ 80 characters\n\n// .editorconfig\n[*.ts]\nmax_line_length = 80\n\n// Break long lines naturally\nfunction createUserWithValidation(\n\tid: UserId,\n\tname: string,\n\temail: EmailAddress\n): Result<User, ValidationError> {\n\treturn validateUserData({ id, name, email })\n}\n\n// Break long function calls\nconst result = pipe(\n\tdata,\n\tvalidateInput,\n\ttransformData,\n\tformatOutput\n)\n\n// Break long type definitions\ntype User = Readonly<{\n\tid: UserId\n\tname: string\n\temail: EmailAddress\n\tcreatedAt: Date\n\tupdatedAt: Date\n}>\n\n// Break long strings\nconst message =\n\t'This is a long message that ' +\n\t'spans multiple lines to stay ' +\n\t'within the 80 character limit'",
+      "keywords": ["line-length", "80-characters", "wrapping"],
+      "tags": ["formatting", "readability", "line-length"]
+    },
+    {
+      "rule_id": "format-005-final-newline",
+      "category": "formatting",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: File ends with newline\n\n// .editorconfig\n[*]\ninsert_final_newline = true\n\n// VSCode settings.json\n{\n  \"files.insertFinalNewline\": true\n}\n\n// Every file ends with \\n\n// example.ts\nfunction hello(): string {\n\treturn 'Hello, World!'\n}\n\nexport default hello\n// ← Final newline here (line 6)",
+      "keywords": ["final-newline", "EOF", "newline"],
+      "tags": ["formatting", "compatibility", "standards"]
+    },
+    {
+      "rule_id": "format-006-trailing-whitespace",
+      "category": "formatting",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: No trailing whitespace (except markdown)\n\n// .editorconfig\n[*]\ntrim_trailing_whitespace = true\n\n[*.md]\ntrim_trailing_whitespace = false\n\n// VSCode settings.json\n{\n  \"files.trimTrailingWhitespace\": true,\n  \"[markdown]\": {\n    \"files.trimTrailingWhitespace\": false\n  }\n}\n\n// No spaces at end of lines\nfunction add(a: number, b: number): number {\n\treturn a + b\n}// ← No trailing spaces\n\n// Markdown preserves trailing spaces for line breaks\n// This is a line with two trailing spaces  \n// This creates a line break in markdown",
+      "keywords": ["trailing-whitespace", "trim", "whitespace"],
+      "tags": ["formatting", "whitespace", "cleanliness"]
+    }
+  ],
+  "typescript_rules": [
+    {
+      "rule_id": "ts-001-discriminated-unions",
+      "category": "typescript",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Discriminated unions with _tag\n\n// Result type\ntype Result<T, E> =\n\t| { _tag: 'ok', value: T }\n\t| { _tag: 'error', error: E }\n\n// Validation type\ntype Validation<T, E> =\n\t| { _tag: 'success', value: T }\n\t| { _tag: 'failure', errors: ReadonlyArray<E> }\n\n// Maybe type\ntype Maybe<T> =\n\t| { _tag: 'just', value: T }\n\t| { _tag: 'nothing' }\n\n// Custom domain type\ntype PaymentStatus =\n\t| { _tag: 'pending', orderId: OrderId }\n\t| { _tag: 'processing', transactionId: TransactionId }\n\t| { _tag: 'completed', receiptId: ReceiptId }\n\t| { _tag: 'failed', error: PaymentError }\n\n// Exhaustive pattern matching\nfunction handlePaymentStatus(status: PaymentStatus): string {\n\tswitch (status._tag) {\n\t\tcase 'pending':\n\t\t\treturn `Order ${status.orderId} is pending`\n\t\tcase 'processing':\n\t\t\treturn `Transaction ${status.transactionId} processing`\n\t\tcase 'completed':\n\t\t\treturn `Receipt ${status.receiptId} available`\n\t\tcase 'failed':\n\t\t\treturn `Payment failed: ${status.error}`\n\t}\n}",
+      "keywords": ["discriminated-union", "_tag", "ADT", "pattern-matching"],
+      "tags": ["type-safety", "algebraic-data-types", "pattern-matching"]
+    },
+    {
+      "rule_id": "ts-002-branded-types",
+      "category": "typescript",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: Branded types with smart constructors\n\n// Brand definition\ntype UserId = string & { readonly __brand: 'UserId' }\ntype EmailAddress = string & { readonly __brand: 'EmailAddress' }\ntype PositiveNumber = number & { readonly __brand: 'PositiveNumber' }\n\n// Smart constructor (validates)\nfunction userId(str: string): Result<UserId, ValidationError> {\n\tif (isEmpty(str)) {\n\t\treturn error({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'userId',\n\t\t\tmessage: 'User ID cannot be empty'\n\t\t})\n\t}\n\treturn ok(str as UserId)\n}\n\n// Unsafe constructor (for trusted sources)\nfunction unsafeUserId(str: string): UserId {\n\treturn str as UserId\n}\n\n// Unwrap to raw value\nfunction unwrapUserId(id: UserId): string {\n\treturn id as string\n}\n\n// Usage\nconst idResult = userId('user123')\nconst id = matchResult(\n\tfunction handleOk(id: UserId) {\n\t\treturn id\n\t},\n\tfunction handleError(err: ValidationError) {\n\t\tthrow new Error(err.message)\n\t}\n)(idResult)\n\n// From database (already validated)\nconst dbId = unsafeUserId(row.id)\n\n// To API (extract raw value)\nfetch(`/api/users/${unwrapUserId(id)}`)",
+      "keywords": ["branded-types", "newtype", "smart-constructor", "validation"],
+      "tags": ["type-safety", "domain-modeling", "validation"]
+    },
+    {
+      "rule_id": "ts-003-explicit-annotations",
+      "category": "typescript",
+      "severity": "warning",
+      "pattern": "// ✓ CORRECT: Explicit type annotations\n\n// Function parameters and return type\nfunction calculateTotal(\n\titems: ReadonlyArray<Item>,\n\ttaxRate: number\n): number {\n\tconst subtotal = items.reduce(\n\t\tfunction sumItemPrice(total: number, item: Item): number {\n\t\t\treturn total + item.price\n\t\t},\n\t\t0\n\t)\n\treturn subtotal * (1 + taxRate)\n}\n\n// Curried function with all annotations\nfunction map<A, B>(f: (a: A) => B) {\n\treturn function mapWithF(\n\t\tarray: ReadonlyArray<A>\n\t): ReadonlyArray<B> {\n\t\treturn array.map(f)\n\t}\n}\n\n// Type aliases for complex types\ntype UserData = Readonly<{\n\tid: UserId\n\tname: string\n\temail: EmailAddress\n}>\n\nfunction createUser(data: UserData): Result<User, ValidationError> {\n\treturn validateUserData(data)\n}\n\n// Async functions\nasync function fetchUser(\n\tid: UserId\n): Promise<Result<User, DbError>> {\n\treturn fetch(`/api/users/${unwrapUserId(id)}`)\n\t\t.then(function handleResponse(r) {\n\t\t\treturn r.ok ? r.json().then(ok) : error(dbError)\n\t\t})\n}",
+      "keywords": ["type-annotation", "explicit-types", "function-signature"],
+      "tags": ["type-safety", "documentation", "maintainability"]
+    },
+    {
+      "rule_id": "ts-004-readonly-types",
+      "category": "typescript",
+      "severity": "blocking",
+      "pattern": "// ✓ CORRECT: Readonly types everywhere\n\n// Readonly object types\ntype User = Readonly<{\n\tid: UserId\n\tname: string\n\temail: EmailAddress\n\troles: ReadonlyArray<Role>\n}>\n\n// ReadonlyArray for arrays\nfunction processUsers(\n\tusers: ReadonlyArray<User>\n): ReadonlyArray<string> {\n\treturn users.map(function getUserName(user: User): string {\n\t\treturn user.name\n\t})\n}\n\n// Readonly parameters\nfunction updateUser(\n\tuser: Readonly<User>,\n\tupdates: Readonly<Partial<User>>\n): Readonly<User> {\n\treturn { ...user, ...updates }\n}\n\n// Nested readonly\ntype Config = Readonly<{\n\tdatabase: Readonly<{\n\t\thost: string\n\t\tport: number\n\t\tcredentials: Readonly<{\n\t\t\tusername: string\n\t\t\tpassword: string\n\t\t}>\n\t}>\n\tapi: Readonly<{\n\t\tendpoint: string\n\t\ttimeout: number\n\t}>\n}>\n\n// Readonly in generics\nfunction first<T>(\n\tarray: ReadonlyArray<T>\n): Maybe<T> {\n\treturn array.length > 0\n\t\t? just(array[0])\n\t\t: nothing()\n}",
+      "keywords": ["Readonly", "ReadonlyArray", "immutability"],
+      "tags": ["immutability", "type-safety", "functional-programming"]
+    },
+    {
+      "rule_id": "ts-005-type-level-programming",
+      "category": "typescript",
+      "severity": "advisory",
+      "pattern": "// ✓ CORRECT: Type-level programming\n\n// Mapped types\ntype Optional<T> = {\n\t[K in keyof T]?: T[K]\n}\n\ntype DeepReadonly<T> = {\n\treadonly [K in keyof T]: T[K] extends object\n\t\t? DeepReadonly<T[K]>\n\t\t: T[K]\n}\n\n// Conditional types\ntype Unwrap<T> = T extends Promise<infer U> ? U : T\ntype ArrayElement<T> = T extends ReadonlyArray<infer E> ? E : never\n\n// Template literal types\ntype EventName = `on${Capitalize<string>}`\ntype HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'\ntype ApiRoute = `/${string}`\n\n// Type constraints\nfunction getProperty<T, K extends keyof T>(\n\tobj: T,\n\tkey: K\n): T[K] {\n\treturn obj[key]\n}\n\n// Utility types\ntype NonNullableFields<T> = {\n\t[K in keyof T]: NonNullable<T[K]>\n}\n\ntype RequiredFields<T, K extends keyof T> = T & {\n\t[P in K]-?: T[P]\n}\n\n// Practical example\ntype ApiResponse<T> = Result<T, ApiError>\ntype AsyncApiCall<T> = () => Promise<ApiResponse<T>>\n\nfunction callApi<T>(\n\tapiFn: AsyncApiCall<T>\n): Promise<Result<T, ApiError>> {\n\treturn apiFn()\n}",
+      "keywords": ["mapped-types", "conditional-types", "template-literals", "generics"],
+      "tags": ["type-safety", "advanced-types", "compile-time-checking"]
+    }
+  ]
+}
