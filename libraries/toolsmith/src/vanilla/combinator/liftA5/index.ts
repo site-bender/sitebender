@@ -23,5 +23,4 @@ const liftA5 = <A, B, C, D, E, R>(
 		)
 	)
 
-
 export default liftA5

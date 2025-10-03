@@ -1057,63 +1057,95 @@ Multiple architects, developers, and operators can simultaneously design and mod
 
 ```tsx
 <CollaborativeWorkflowEditor>
-  <Participants>
-    <User id="system-architect" cursor={{ x: 245, y: 130 }}
-          color="blue" role="architect" />
-    <User id="lead-developer" selection={["node-warden-1"]}
-          color="green" role="developer" />
-    <User id="site-reliability" editing="connection-props"
-          color="red" role="sre" />
-    <User id="security-engineer" annotation="security-review"
-          color="purple" role="security" />
-  </Participants>
-  
-  <SharedCanvas>
-    <WorkflowNodes>
-      <Node id="warden" position={[300, 200]} owner="system-architect" />
-      <Node id="steward" position={[500, 200]} owner="lead-developer" />
-      <Node id="sentinel" position={[400, 100]} owner="security-engineer" />
-    </WorkflowNodes>
-    
-    <Connections>
-      <Connection from="warden" to="steward" owner="system-architect" />
-      <Connection from="sentinel" to="warden" owner="security-engineer" />
-    </Connections>
-    
-    <Annotations>
-      <Comment position={[350, 150]} author="site-reliability">
-        Need monitoring alerts on this connection
-      </Comment>
-      <Highlight region="security-boundary" author="security-engineer" />
-    </Annotations>
-  </SharedCanvas>
-  
-  <ConflictResolution>
-    <OperationalTransform for="node-positions" />
-    <LastWriteWins for="node-properties" />
-    <MergeStrategies for="connections" />
-    <ConsensusRequired for="critical-changes" threshold={0.6} />
-  </ConflictResolution>
-  
-  <ChangeHistory>
-    <Operation type="add-node" user="system-architect" timestamp="2024-01-15T10:30:00Z">
-      <Node type="custodian" position={[300, 400]} />
-    </Operation>
-    <Operation type="edit-connection" user="lead-developer" timestamp="2024-01-15T10:31:15Z">
-      <Connection from="warden" to="custodian"
-                  property="retry-policy" value="exponential" />
-    </Operation>
-    <Operation type="add-annotation" user="site-reliability" timestamp="2024-01-15T10:32:30Z">
-      <Comment>This needs load balancing</Comment>
-    </Operation>
-  </ChangeHistory>
-  
-  <RealTimeSync>
-    <VectorClocks />
-    <ConflictDetection />
-    <AutomaticMerge />
-    <PeerAwareness />
-  </RealTimeSync>
+	<Participants>
+		<User
+			id="system-architect"
+			cursor={{ x: 245, y: 130 }}
+			color="blue"
+			role="architect"
+		/>
+		<User
+			id="lead-developer"
+			selection={["node-warden-1"]}
+			color="green"
+			role="developer"
+		/>
+		<User
+			id="site-reliability"
+			editing="connection-props"
+			color="red"
+			role="sre"
+		/>
+		<User
+			id="security-engineer"
+			annotation="security-review"
+			color="purple"
+			role="security"
+		/>
+	</Participants>
+
+	<SharedCanvas>
+		<WorkflowNodes>
+			<Node id="warden" position={[300, 200]} owner="system-architect" />
+			<Node id="steward" position={[500, 200]} owner="lead-developer" />
+			<Node id="sentinel" position={[400, 100]} owner="security-engineer" />
+		</WorkflowNodes>
+
+		<Connections>
+			<Connection from="warden" to="steward" owner="system-architect" />
+			<Connection from="sentinel" to="warden" owner="security-engineer" />
+		</Connections>
+
+		<Annotations>
+			<Comment position={[350, 150]} author="site-reliability">
+				Need monitoring alerts on this connection
+			</Comment>
+			<Highlight region="security-boundary" author="security-engineer" />
+		</Annotations>
+	</SharedCanvas>
+
+	<ConflictResolution>
+		<OperationalTransform for="node-positions" />
+		<LastWriteWins for="node-properties" />
+		<MergeStrategies for="connections" />
+		<ConsensusRequired for="critical-changes" threshold={0.6} />
+	</ConflictResolution>
+
+	<ChangeHistory>
+		<Operation
+			type="add-node"
+			user="system-architect"
+			timestamp="2024-01-15T10:30:00Z"
+		>
+			<Node type="custodian" position={[300, 400]} />
+		</Operation>
+		<Operation
+			type="edit-connection"
+			user="lead-developer"
+			timestamp="2024-01-15T10:31:15Z"
+		>
+			<Connection
+				from="warden"
+				to="custodian"
+				property="retry-policy"
+				value="exponential"
+			/>
+		</Operation>
+		<Operation
+			type="add-annotation"
+			user="site-reliability"
+			timestamp="2024-01-15T10:32:30Z"
+		>
+			<Comment>This needs load balancing</Comment>
+		</Operation>
+	</ChangeHistory>
+
+	<RealTimeSync>
+		<VectorClocks />
+		<ConflictDetection />
+		<AutomaticMerge />
+		<PeerAwareness />
+	</RealTimeSync>
 </CollaborativeWorkflowEditor>
 ```
 
@@ -1123,47 +1155,51 @@ Workflows are stored as distributed CRDTs, enabling seamless collaboration acros
 
 ```tsx
 <DistributedWorkflowState>
-  <CrdtWorkflow id="ci-cd-pipeline">
-    <OrMap>
-      <Field name="stages" type="ORSet">
-        <Item id="parse" type="LWWRegister">
-          <Properties>
-            <Property name="executor" value="arborist" />
-            <Property name="timeout" value="PT2M" />
-            <Property name="parallelism" value="4" />
-          </Properties>
-        </Item>
-        
-        <Item id="validate" type="LWWRegister">
-          <Properties>
-            <Property name="executor" value="warden" />
-            <Property name="dependsOn" value="parse" />
-            <Property name="retryPolicy" value="exponential" />
-          </Properties>
-        </Item>
-      </Field>
-      
-      <Field name="connections" type="ORSet">
-        <Connection from="parse" to="validate" type="data-flow" />
-        <Connection from="validate" to="deploy" type="conditional"
-                    condition="violations.length === 0" />
-      </Field>
-      
-      <Field name="metadata" type="LWWRegister">
-        <Property name="owner" value="team-alpha" />
-        <Property name="created" value="2024-01-15T10:00:00Z" />
-        <Property name="lastModified" value="2024-01-15T14:30:00Z" />
-        <Property name="version" value="1.2.3" />
-      </Field>
-    </OrMap>
-  </CrdtWorkflow>
-  
-  <SyncStrategy>
-    <StateBasedSync interval={5000} />
-    <DeltaSync for="large-workflows" />
-    <ConflictResolution strategy="semantic-merge" />
-    <CompactionPolicy after="P1D" />
-  </SyncStrategy>
+	<CrdtWorkflow id="ci-cd-pipeline">
+		<OrMap>
+			<Field name="stages" type="ORSet">
+				<Item id="parse" type="LWWRegister">
+					<Properties>
+						<Property name="executor" value="arborist" />
+						<Property name="timeout" value="PT2M" />
+						<Property name="parallelism" value="4" />
+					</Properties>
+				</Item>
+
+				<Item id="validate" type="LWWRegister">
+					<Properties>
+						<Property name="executor" value="warden" />
+						<Property name="dependsOn" value="parse" />
+						<Property name="retryPolicy" value="exponential" />
+					</Properties>
+				</Item>
+			</Field>
+
+			<Field name="connections" type="ORSet">
+				<Connection from="parse" to="validate" type="data-flow" />
+				<Connection
+					from="validate"
+					to="deploy"
+					type="conditional"
+					condition="violations.length === 0"
+				/>
+			</Field>
+
+			<Field name="metadata" type="LWWRegister">
+				<Property name="owner" value="team-alpha" />
+				<Property name="created" value="2024-01-15T10:00:00Z" />
+				<Property name="lastModified" value="2024-01-15T14:30:00Z" />
+				<Property name="version" value="1.2.3" />
+			</Field>
+		</OrMap>
+	</CrdtWorkflow>
+
+	<SyncStrategy>
+		<StateBasedSync interval={5000} />
+		<DeltaSync for="large-workflows" />
+		<ConflictResolution strategy="semantic-merge" />
+		<CompactionPolicy after="P1D" />
+	</SyncStrategy>
 </DistributedWorkflowState>
 ```
 
@@ -1173,42 +1209,42 @@ Teams across different locations can collaborate on the same workflow in real-ti
 
 ```tsx
 <MultiSiteCollaboration>
-  <Sites>
-    <Site location="san-francisco" users={3} latency="15ms" />
-    <Site location="london" users={2} latency="145ms" />
-    <Site location="tokyo" users={1} latency="180ms" />
-  </Sites>
-  
-  <NetworkOptimization>
-    <RegionalHubs>
-      <Hub region="us-west" peers={["san-francisco"]} />
-      <Hub region="eu-west" peers={["london"]} />
-      <Hub region="asia-pacific" peers={["tokyo"]} />
-    </RegionalHubs>
-    
-    <SyncOptimization>
-      <LocalFirst priority="user-interactions" />
-      <BatchUpdates interval="PT100MS" />
-      <CompressionAlgorithm>lz4</CompressionAlgorithm>
-      <DeltaSync for="bandwidth-optimization" />
-    </SyncOptimization>
-  </NetworkOptimization>
-  
-  <ConflictVisualization>
-    <ShowDivergence>
-      <HighlightConflicts color="red" />
-      <ShowVectorClocks />
-      <DisplayMergeStrategy />
-    </ShowDivergence>
-    
-    <MergeVisualization>
-      <AnimateMerge duration={500} />
-      <ShowResolution>
-        <ExplainMergeDecision />
-        <HighlightWinner color="green" />
-      </ShowResolution>
-    </MergeVisualization>
-  </ConflictVisualization>
+	<Sites>
+		<Site location="san-francisco" users={3} latency="15ms" />
+		<Site location="london" users={2} latency="145ms" />
+		<Site location="tokyo" users={1} latency="180ms" />
+	</Sites>
+
+	<NetworkOptimization>
+		<RegionalHubs>
+			<Hub region="us-west" peers={["san-francisco"]} />
+			<Hub region="eu-west" peers={["london"]} />
+			<Hub region="asia-pacific" peers={["tokyo"]} />
+		</RegionalHubs>
+
+		<SyncOptimization>
+			<LocalFirst priority="user-interactions" />
+			<BatchUpdates interval="PT100MS" />
+			<CompressionAlgorithm>lz4</CompressionAlgorithm>
+			<DeltaSync for="bandwidth-optimization" />
+		</SyncOptimization>
+	</NetworkOptimization>
+
+	<ConflictVisualization>
+		<ShowDivergence>
+			<HighlightConflicts color="red" />
+			<ShowVectorClocks />
+			<DisplayMergeStrategy />
+		</ShowDivergence>
+
+		<MergeVisualization>
+			<AnimateMerge duration={500} />
+			<ShowResolution>
+				<ExplainMergeDecision />
+				<HighlightWinner color="green" />
+			</ShowResolution>
+		</MergeVisualization>
+	</ConflictVisualization>
 </MultiSiteCollaboration>
 ```
 
@@ -1218,42 +1254,46 @@ Git-like version control for workflow configurations with distributed branching:
 
 ```tsx
 <WorkflowVersionControl>
-  <Branches>
-    <Branch name="main" head="workflow-v1.2.3" protected={true} />
-    <Branch name="feature/security-hardening"
-            head="workflow-v1.3.0-beta.1"
-            basedOn="main" />
-    <Branch name="experiment/performance-optimization"
-            head="workflow-v1.2.4-alpha.1"
-            basedOn="main" />
-  </Branches>
-  
-  <MergeRequests>
-    <MergeRequest from="feature/security-hardening" to="main">
-      <Changes>
-        <Added>sentinel-security-scan stage</Added>
-        <Modified>deployment stage - added security gates</Modified>
-        <Removed>deprecated vulnerability-check</Removed>
-      </Changes>
-      
-      <Reviews>
-        <Reviewer role="security-engineer" status="approved" />
-        <Reviewer role="system-architect" status="changes-requested" />
-      </Reviews>
-      
-      <AutomatedChecks>
-        <WorkflowValidation status="passed" />
-        <PerformanceTest status="running" />
-        <SecurityAudit status="passed" />
-      </AutomatedChecks>
-    </MergeRequest>
-  </MergeRequests>
-  
-  <ConflictResolution>
-    <ThreeWayMerge base="main" theirs="feature-branch" ours="main" />
-    <SemanticMerge for="workflow-logic" />
-    <ManualResolution for="complex-conflicts" />
-  </ConflictResolution>
+	<Branches>
+		<Branch name="main" head="workflow-v1.2.3" protected={true} />
+		<Branch
+			name="feature/security-hardening"
+			head="workflow-v1.3.0-beta.1"
+			basedOn="main"
+		/>
+		<Branch
+			name="experiment/performance-optimization"
+			head="workflow-v1.2.4-alpha.1"
+			basedOn="main"
+		/>
+	</Branches>
+
+	<MergeRequests>
+		<MergeRequest from="feature/security-hardening" to="main">
+			<Changes>
+				<Added>sentinel-security-scan stage</Added>
+				<Modified>deployment stage - added security gates</Modified>
+				<Removed>deprecated vulnerability-check</Removed>
+			</Changes>
+
+			<Reviews>
+				<Reviewer role="security-engineer" status="approved" />
+				<Reviewer role="system-architect" status="changes-requested" />
+			</Reviews>
+
+			<AutomatedChecks>
+				<WorkflowValidation status="passed" />
+				<PerformanceTest status="running" />
+				<SecurityAudit status="passed" />
+			</AutomatedChecks>
+		</MergeRequest>
+	</MergeRequests>
+
+	<ConflictResolution>
+		<ThreeWayMerge base="main" theirs="feature-branch" ours="main" />
+		<SemanticMerge for="workflow-logic" />
+		<ManualResolution for="complex-conflicts" />
+	</ConflictResolution>
 </WorkflowVersionControl>
 ```
 
@@ -1263,43 +1303,43 @@ Continue working on workflows even when disconnected, with automatic synchroniza
 
 ```tsx
 <OfflineCollaboration>
-  <LocalWorkspace>
-    <OfflineCapabilities>
-      <LocalStorage for="workflow-state" />
-      <OperationQueue for="pending-changes" />
-      <ConflictDetection on="reconnect" />
-    </OfflineCapabilities>
-    
-    <OfflineOperations>
-      <AddNode allowed={true} />
-      <ModifyProperties allowed={true} />
-      <DeleteNode allowed={false} reason="requires-consensus" />
-      <CreateConnection allowed={true} />
-    </OfflineOperations>
-  </LocalWorkspace>
-  
-  <ReconnectionStrategy>
-    <OnReconnect>
-      <SyncPendingOperations />
-      <ResolveConflicts strategy="user-guided" />
-      <ValidateWorkflowIntegrity />
-      <NotifyPeers about="reconnection" />
-    </OnReconnect>
-    
-    <ConflictResolution>
-      <AutoResolvable>
-        <NonOverlappingChanges />
-        <ComplementaryModifications />
-        <SemanticMerges />
-      </AutoResolvable>
-      
-      <RequireUserInput>
-        <OverlappingModifications />
-        <ConflictingDeletions />
-        <InconsistentStates />
-      </RequireUserInput>
-    </ConflictResolution>
-  </ReconnectionStrategy>
+	<LocalWorkspace>
+		<OfflineCapabilities>
+			<LocalStorage for="workflow-state" />
+			<OperationQueue for="pending-changes" />
+			<ConflictDetection on="reconnect" />
+		</OfflineCapabilities>
+
+		<OfflineOperations>
+			<AddNode allowed={true} />
+			<ModifyProperties allowed={true} />
+			<DeleteNode allowed={false} reason="requires-consensus" />
+			<CreateConnection allowed={true} />
+		</OfflineOperations>
+	</LocalWorkspace>
+
+	<ReconnectionStrategy>
+		<OnReconnect>
+			<SyncPendingOperations />
+			<ResolveConflicts strategy="user-guided" />
+			<ValidateWorkflowIntegrity />
+			<NotifyPeers about="reconnection" />
+		</OnReconnect>
+
+		<ConflictResolution>
+			<AutoResolvable>
+				<NonOverlappingChanges />
+				<ComplementaryModifications />
+				<SemanticMerges />
+			</AutoResolvable>
+
+			<RequireUserInput>
+				<OverlappingModifications />
+				<ConflictingDeletions />
+				<InconsistentStates />
+			</RequireUserInput>
+		</ConflictResolution>
+	</ReconnectionStrategy>
 </OfflineCollaboration>
 ```
 
@@ -1309,50 +1349,53 @@ Coordinate workflow deployments across distributed infrastructure:
 
 ```tsx
 <DistributedDeployment>
-  <DeploymentTopology>
-    <Regions>
-      <Region name="us-east" capabilities={["arborist", "warden", "envoy"]} />
-      <Region name="eu-west" capabilities={["agent", "operator", "custodian"]} />
-      <Region name="asia-pacific" capabilities={["auditor", "quarrier"]} />
-    </Regions>
-    
-    <LoadBalancing>
-      <Strategy type="geo-proximity" />
-      <FailoverChain>
-        <Primary region="us-east" />
-        <Secondary region="eu-west" />
-        <Tertiary region="asia-pacific" />
-      </FailoverChain>
-    </LoadBalancing>
-  </DeploymentTopology>
-  
-  <WorkflowReplication>
-    <ReplicationStrategy>
-      <CriticalWorkflows replicas={3} distribution="all-regions" />
-      <StandardWorkflows replicas={2} distribution="primary-secondary" />
-      <ExperimentalWorkflows replicas={1} distribution="single-region" />
-    </ReplicationStrategy>
-    
-    <ConsistencyModel>
-      <EventualConsistency for="metrics-collection" />
-      <StrongConsistency for="deployment-gates" />
-      <CausalConsistency for="workflow-execution" />
-    </ConsistencyModel>
-  </WorkflowReplication>
-  
-  <HealthChecking>
-    <WorkflowHealth>
-      <HeartbeatInterval>PT30S</HeartbeatInterval>
-      <HealthEndpoint>/health/workflow/{id}</HealthEndpoint>
-      <FailoverTime>PT5S</FailoverTime>
-    </WorkflowHealth>
-    
-    <SplitBrainPrevention>
-      <ConsensusAlgorithm>raft</ConsensusAlgorithm>
-      <QuorumSize>majority</QuorumSize>
-      <LeaderElection automatic={true} />
-    </SplitBrainPrevention>
-  </HealthChecking>
+	<DeploymentTopology>
+		<Regions>
+			<Region name="us-east" capabilities={["arborist", "warden", "envoy"]} />
+			<Region
+				name="eu-west"
+				capabilities={["agent", "operator", "custodian"]}
+			/>
+			<Region name="asia-pacific" capabilities={["auditor", "quarrier"]} />
+		</Regions>
+
+		<LoadBalancing>
+			<Strategy type="geo-proximity" />
+			<FailoverChain>
+				<Primary region="us-east" />
+				<Secondary region="eu-west" />
+				<Tertiary region="asia-pacific" />
+			</FailoverChain>
+		</LoadBalancing>
+	</DeploymentTopology>
+
+	<WorkflowReplication>
+		<ReplicationStrategy>
+			<CriticalWorkflows replicas={3} distribution="all-regions" />
+			<StandardWorkflows replicas={2} distribution="primary-secondary" />
+			<ExperimentalWorkflows replicas={1} distribution="single-region" />
+		</ReplicationStrategy>
+
+		<ConsistencyModel>
+			<EventualConsistency for="metrics-collection" />
+			<StrongConsistency for="deployment-gates" />
+			<CausalConsistency for="workflow-execution" />
+		</ConsistencyModel>
+	</WorkflowReplication>
+
+	<HealthChecking>
+		<WorkflowHealth>
+			<HeartbeatInterval>PT30S</HeartbeatInterval>
+			<HealthEndpoint>/health/workflow/{id}</HealthEndpoint>
+			<FailoverTime>PT5S</FailoverTime>
+		</WorkflowHealth>
+
+		<SplitBrainPrevention>
+			<ConsensusAlgorithm>raft</ConsensusAlgorithm>
+			<QuorumSize>majority</QuorumSize>
+			<LeaderElection automatic={true} />
+		</SplitBrainPrevention>
+	</HealthChecking>
 </DistributedDeployment>
 ```
 
@@ -1362,43 +1405,43 @@ Debug workflows collaboratively with shared debugging sessions:
 
 ```tsx
 <CollaborativeDebugging>
-  <SharedDebuggingSession>
-    <Participants>
-      <Debugger id="lead-dev" permissions="full" />
-      <Observer id="junior-dev" permissions="read-only" />
-      <Observer id="product-manager" permissions="read-only" />
-    </Participants>
-    
-    <SharedState>
-      <Breakpoints syncAcrossUsers={true} />
-      <WatchExpressions shared={true} />
-      <ExecutionPointer visible="all-participants" />
-      <VariableInspection collaborative={true} />
-    </SharedState>
-    
-    <Communication>
-      <VoiceChannel integrated={true} />
-      <ChatOverlay />
-      <ScreenAnnotations />
-      <CursorSharing />
-    </Communication>
-  </SharedDebuggingSession>
-  
-  <DistributedTracing>
-    <TraceVisualization>
-      <MultiRegionTrace />
-      <ServiceMap interactive={true} />
-      <LatencyHeatmap />
-      <ErrorPropagation />
-    </TraceVisualization>
-    
-    <CollaborativeAnalysis>
-      <SharedBookmarks />
-      <AnnotatedTraces />
-      <HypothesisTracking />
-      <ResolutionDocumentation />
-    </CollaborativeAnalysis>
-  </DistributedTracing>
+	<SharedDebuggingSession>
+		<Participants>
+			<Debugger id="lead-dev" permissions="full" />
+			<Observer id="junior-dev" permissions="read-only" />
+			<Observer id="product-manager" permissions="read-only" />
+		</Participants>
+
+		<SharedState>
+			<Breakpoints syncAcrossUsers={true} />
+			<WatchExpressions shared={true} />
+			<ExecutionPointer visible="all-participants" />
+			<VariableInspection collaborative={true} />
+		</SharedState>
+
+		<Communication>
+			<VoiceChannel integrated={true} />
+			<ChatOverlay />
+			<ScreenAnnotations />
+			<CursorSharing />
+		</Communication>
+	</SharedDebuggingSession>
+
+	<DistributedTracing>
+		<TraceVisualization>
+			<MultiRegionTrace />
+			<ServiceMap interactive={true} />
+			<LatencyHeatmap />
+			<ErrorPropagation />
+		</TraceVisualization>
+
+		<CollaborativeAnalysis>
+			<SharedBookmarks />
+			<AnnotatedTraces />
+			<HypothesisTracking />
+			<ResolutionDocumentation />
+		</CollaborativeAnalysis>
+	</DistributedTracing>
 </CollaborativeDebugging>
 ```
 

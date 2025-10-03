@@ -1,300 +1,1447 @@
-# Quartermaster
+# Quartermaster: Application Generator & Orchestrator
 
-Studio application generator CLI using declarative blueprints. Provisions complete application skeletons with import-map wiring and pre-wired Warden/Steward/axe tasks.
+> **Voice-guided, collaborative application scaffolding with production-quality development infrastructure from day one**
+
+Quartermaster is Studio's intelligent application generator that creates complete, production-ready applications from declarative blueprints. Unlike traditional scaffolding tools that copy templates, Quartermaster understands Studio's architecture and generates properly wired applications with governance, testing, accessibility, HTTPS development server, and time-travel debugging built in from the start.
 
 ## Philosophy
 
-Quartermaster is Studio's scaffolding system that generates applications from declarative JSON blueprints rather than templates. Unlike traditional generators that copy files, Quartermaster understands the Studio architecture and generates properly wired applications with all governance, testing, and accessibility infrastructure in place from day one.
+**Applications as data, generated through conversation.**
 
-## Core Concepts
+Quartermaster bridges the gap between intent and implementation:
 
-### Blueprint-Driven Generation
+- **You describe** what you're building (voice or GUI)
+- **AI guides** you through configuration decisions
+- **Quartermaster generates** complete Studio applications
+- **Blueprints live** in triple stores as structured data
+- **Time-travel tracks** every decision for perfect auditability
 
-Applications are defined as data, not templates:
+This is not just code generation—it's **application orchestration**. Quartermaster is itself a Studio application that generates Studio applications, embodying the "code as data" philosophy at every level.
 
-```json
-{
-	"name": "my-app",
-	"type": "application",
-	"libraries": ["architect", "pagewright", "custodian"],
-	"features": {
-		"authentication": "sentinel",
-		"state": "custodian",
-		"testing": "declarative"
-	}
-}
-```
+## Target Audience
 
-### Zero-Configuration Wiring
+Quartermaster democratizes application development for:
 
-Quartermaster automatically:
+- **Designers** - Build interactive prototypes that become production apps
+- **UX Engineers** - Convert wireframes directly to working applications
+- **Hobbyists** - Create sophisticated apps without deep technical knowledge
+- **Small Business Owners** - Launch web applications without hiring developers
+- **Bloggers & Content Creators** - Publish with semantic markup and accessibility
+- **Architects** - Prototype distributed systems with real infrastructure
 
-- Generates import maps with correct library paths
-- Wires Warden contracts for architectural enforcement
-- Configures Steward for style normalization
-- Sets up axe accessibility testing
-- Creates declarative test harnesses
+**Greenfield projects only**. Quartermaster is for building the future, not migrating the past.
 
-### Application Types
+## Core Features
 
-Pre-defined blueprints for common patterns:
+### 1. Voice-Controlled Setup
 
-#### Core Scaffolds
-
-- **minimal**: Bare-bones Studio app with Architect + Pagewright
-- **workshop**: Interactive development environment with IR visualization
-- **athenaeum**: Documentation site powered by Envoy
-
-#### Common Application Scaffolds
-
-- **blog**: Markdown → JSX → Static site with RSS, categories, and search
-- **dashboard**: Real-time metrics visualization with Operator events and charts
-- **collaborative-doc**: CRDT-based editor with Agent for multi-user editing
-- **data-explorer**: SPARQL query interface over triple store with visual results
-- **form-builder**: Schema → Pagewright forms with validation and persistence
-- **event-debugger**: Operator event flow visualizer with filters and replay
-- **api-gateway**: Declarative routing with Sentinel authentication and rate limiting
-- **knowledge-base**: Envoy-powered documentation site with HATEOAS navigation
-
-#### Specialized Scaffolds
-
-- **e-commerce**: Product catalog, cart, checkout with distributed state
-- **social-feed**: P2P social network with CRDTs and decentralized identity
-- **project-manager**: Tasks, boards, timelines with real-time collaboration
-- **analytics-platform**: Event aggregation, metrics, and visualizations
-- **content-cms**: Triple store-backed CMS with version control
-- **iot-dashboard**: Sensor data collection and real-time monitoring
-- **chat-app**: End-to-end encrypted messaging with Agent
-- **wiki**: Collaborative knowledge management with version history
-
-## Usage
+Describe your application naturally, and Quartermaster guides you through configuration:
 
 ```bash
-# Generate from blueprint
-deno run -A quartermaster new my-app --blueprint=minimal
+# Start voice-guided generation
+qm new --voice
 
-# Dry run to preview generation
-deno run -A quartermaster new my-app --blueprint=workshop --dry-run
+# AI conversation:
+AI: "What would you like to build?"
+You: "A blog with real-time comments and authentication"
+AI: "I'll set up a blog blueprint with Sentinel authentication and
+     Operator for real-time updates. Should comments be editable?"
+You: "Yes, and I want markdown support"
+AI: "Great! Adding markdown processing and edit capabilities..."
+```
 
-# Custom blueprint
-deno run -A quartermaster new my-app --blueprint=./custom.json
+Voice interface includes:
+
+- Natural language blueprint configuration
+- Context-aware suggestions from Envoy knowledge graph
+- Educational explanations of architectural choices
+- Accessibility for developers with visual impairments
+- Hands-free workflow for designers working in visual tools
+
+**Why voice-first?** The immediate future of development is conversational. Quartermaster makes expertise accessible through dialogue, not documentation.
+
+### 2. Multi-Modal Interface
+
+Choose your preferred interaction style:
+
+#### Voice Interface (Primary)
+
+- Conversational blueprint configuration
+- AI-guided decision making
+- Hands-free operation
+- Natural language intent capture
+
+#### Visual GUI (Web-First)
+
+- Browser-based configuration wizard
+- Feature checkboxes and configuration forms
+- Live preview of generated structure
+- Sketch-to-app: Draw wireframes, generate blueprints
+
+#### CLI (Direct)
+
+- Command-line blueprint generation
+- Scriptable and automatable
+- Perfect for CI/CD integration
+- Power-user efficiency
+
+#### Collaborative Mode
+
+- Real-time multi-user blueprint editing
+- Agent CRDTs for conflict-free collaboration
+- Team discusses and configures together
+- Decision history tracked in triple store
+
+**Why multi-modal?** Different tasks need different interfaces. Design discussions benefit from voice and sketches. Production deployment needs CLI. All modes work with the same underlying blueprint data.
+
+### 3. HTTPS Development Server
+
+Production-quality development environment from first run:
+
+```bash
+qm new my-app --blueprint=minimal
+
+# Quartermaster automatically:
+# 1. Checks for mkcert installation
+# 2. Guides installation if needed (one-time setup)
+# 3. Generates local SSL certificates
+# 4. Starts HTTPS server on port 31415 (π)
+# 5. Opens browser to https://localhost:31415
+
+✓ Certificates generated
+✓ Server running on https://localhost:31415
+✓ File watching active - changes trigger hot reload
+✓ AI assistant available at /assistant
+```
+
+**Port Selection Philosophy**: Quartermaster tries math constants in order:
+
+- `31415` - π (pi)
+- `27182` - e (Euler's number)
+- `16180` - φ (golden ratio)
+- `14142` - √2 (Pythagoras' constant)
+- `26180` - φ² (golden ratio squared)
+- Falls back to random available port if all taken
+
+**Why HTTPS by default?**
+
+- Service Workers require HTTPS (even in dev)
+- WebAuthn and modern APIs expect secure contexts
+- Matches production environment exactly
+- No surprises when deploying
+- Forces best practices from day one
+
+#### mkcert Integration
+
+First-time setup is guided and explained:
+
+```
+┌─────────────────────────────────────────────────────┐
+│  HTTPS Development Setup                            │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  Quartermaster uses HTTPS for development to        │
+│  match production environments and enable modern    │
+│  web APIs (Service Workers, WebAuthn, etc.)         │
+│                                                     │
+│  This requires a one-time certificate setup using   │
+│  mkcert, which creates a local certificate          │
+│  authority trusted by your system.                  │
+│                                                     │
+│  What happens:                                      │
+│  1. Install mkcert via your package manager         │
+│  2. Run 'mkcert -install' to trust the CA           │
+│  3. Generate certificate for localhost              │
+│                                                     │
+│  Your password is needed to add the certificate     │
+│  authority to your system's trust store (step 2).   │
+│                                                     │
+│  Alternative: Skip and run these commands yourself  │
+│                                                     │
+│  [Continue with Guided Setup]  [Manual Setup]       │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+Quartermaster detects your OS and package manager, provides exact commands, and explains each step. You maintain full control.
+
+### 4. Time-Travel Configuration
+
+Every decision is tracked in the triple store:
+
+```bash
+# View configuration history
+qm history
+
+# Output:
+# 2024-01-15 14:30:22 - Added Architect library
+#   Reason: Enable reactive calculations
+#   Suggested by: AI (user approved)
+#
+# 2024-01-15 14:31:45 - Added Sentinel authentication
+#   Reason: User requested login capability
+#   Configuration: OAuth2 + WebAuthn
+#
+# 2024-01-15 14:35:12 - Removed Custodian
+#   Reason: User decided state is simple enough for Architect
+#   Suggested by: User
+
+# Branch and explore alternatives
+qm branch what-if-custodian
+qm replay --from=14:31:45 --change="add custodian"
+
+# Compare configurations
+qm compare main what-if-custodian
+```
+
+Time-travel features:
+
+- **Complete audit trail** - Every blueprint decision recorded
+- **Why explanations** - AI captured reasoning for each choice
+- **Branch and compare** - Explore alternative configurations
+- **Replay with changes** - "What if I had chosen differently?"
+- **Team coordination** - See who decided what and why
+- **Learning tool** - Understand past decisions when revisiting code
+
+**Why time-travel?** Code as data enables complete history. Understanding past decisions is critical for maintenance and learning.
+
+### 5. Sketch-to-App
+
+Draw wireframes, get working applications:
+
+```bash
+# Launch sketch interface
+qm new my-app --sketch
+
+# Or from GUI: drag image files into wizard
+# Or from CLI with image path:
+qm new my-app --from-sketch=./wireframe.png
+```
+
+Sketch-to-app workflow:
+
+1. **Draw wireframes** (paper, Figma, Excalidraw, etc.)
+2. **Upload to Quartermaster** (drag-drop or file path)
+3. **AI analyzes layout** - Identifies components, navigation, data flow
+4. **Suggests blueprint** - Maps wireframe to Pagewright components
+5. **You refine** - Approve, modify, or regenerate
+6. **Generate app** - Complete Studio application from design
+
+Recognized elements:
+
+- **Navigation patterns** → Routing structure
+- **Form fields** → Architect calculations + validation
+- **Lists and grids** → Data iteration components
+- **Buttons and actions** → Event handlers
+- **Text hierarchy** → Semantic HTML structure
+- **Relationships between screens** → Application flow
+
+**Why sketch-to-app?** Designers think visually. Bridge the design-to-code gap by accepting design artifacts as input.
+
+### 6. Real-Time Collaboration
+
+Configure applications together with distributed teams:
+
+```bash
+# Start collaborative session
+qm new my-app --collaborate
+
+# Share session link with team
+# https://qm.studio/session/abc-123-def
+
+# Features:
+# - Live cursor tracking
+# - Real-time blueprint updates
+# - Voice chat integrated
+# - Decision consensus voting
+# - Role-based permissions
+```
+
+Collaboration features:
+
+- **CRDT-based editing** (Agent) - Conflict-free concurrent changes
+- **Presence awareness** - See who's viewing/editing what
+- **Voice coordination** - Team voice chat for discussion
+- **Decision voting** - Consensus on major architectural choices
+- **Role permissions** - Control who can modify what
+- **Session replay** - Review team discussions later
+
+**Why collaborative?** Applications are built by teams. Configuration should be too.
+
+### 7. Blueprint Marketplace
+
+Share and discover community blueprints:
+
+```bash
+# Browse marketplace
+qm marketplace
+
+# Search for specific patterns
+qm marketplace search "e-commerce"
+
+# Install community blueprint
+qm marketplace install @community/shopify-alternative
+
+# Publish your own (cryptographically signed)
+qm marketplace publish ./my-blueprint.json
+```
+
+Marketplace features:
+
+- **Cryptographic signing** (Warden) - Verify blueprint authenticity
+- **Community ratings** - Quality and usefulness metrics
+- **Usage statistics** - See popular patterns
+- **Version tracking** - Blueprint evolution over time
+- **Dependency resolution** - Automatic library compatibility
+- **Security scanning** - Warden contract validation
+
+**Why marketplace?** Best practices emerge from community. Share patterns that work.
+
+## Architecture
+
+### Quartermaster is a Studio Application
+
+Quartermaster itself is built with Studio:
+
+- **GUI**: Pagewright components for wizard interface
+- **State**: Custodian manages configuration flow
+- **Persistence**: Blueprints stored in triple store (Turtle format)
+- **Validation**: Warden enforces blueprint contracts
+- **AI Integration**: Claude API for guided setup
+- **Collaboration**: Agent CRDTs for multi-user editing
+- **Observability**: Envoy visualizes blueprint decisions
+- **Voice**: Web Speech API + Claude for natural language
+
+**Dogfooding at its finest**: Every Studio improvement makes Quartermaster better.
+
+### Blueprint Data Flow
+
+```
+Voice/GUI/Sketch Input
+        ↓
+   AI Processing (Claude + Envoy knowledge graph)
+        ↓
+   Blueprint IR (intermediate representation)
+        ↓
+   Turtle RDF triples → Triple store
+        ↓
+   Validation (Warden contracts)
+        ↓
+   Generation (File system + import maps)
+        ↓
+   Studio Application (with dev server)
+```
+
+### Generated Application Structure
+
+```
+my-app/
+├── .sitebender/              # Autogenerated (NEVER edit)
+│   ├── certs/               # SSL certificates for HTTPS dev server
+│   │   ├── localhost-key.pem
+│   │   └── localhost.pem
+│   ├── contracts/           # Warden cryptographic contracts
+│   │   ├── privacy.json
+│   │   └── imports.json
+│   ├── tests/               # Auditor/Quarrier/Arborist tests & proofs
+│   │   ├── properties/
+│   │   └── proofs/
+│   ├── blueprints/          # Quartermaster config history (RDF triples)
+│   │   ├── initial.ttl
+│   │   └── history/
+│   └── scripts/             # Build scripts, enforcement
+│       ├── build.ts
+│       └── enforce.ts
+│
+├── modules/                  # ALL application modules
+│   ├── index.tsx            # <Sitebender> - root "module of modules"
+│   ├── HomePage/
+│   │   └── index.tsx       # Route "/" - promoted to full page
+│   ├── AboutPage/
+│   │   └── index.tsx       # Route "/about" - promoted to full page
+│   ├── ContactPage/
+│   │   ├── index.tsx       # Route "/contact" - promoted to full page
+│   │   └── ContactForm/
+│   │       └── index.tsx   # Nested - only ContactPage uses it
+│   ├── BlogPage/
+│   │   ├── index.tsx       # Route "/blog" - promoted to full page
+│   │   ├── PostList/
+│   │   │   └── index.tsx
+│   │   └── PostDetail/
+│   │       └── index.tsx
+│   └── SharedComponent/     # At LCA - used by multiple modules
+│       └── index.tsx
+│
+├── auth/                     # Auth components (Sentinel wrappers)
+│   ├── Locked/
+│   │   └── index.tsx       # Wraps <Sentinel> with app config
+│   ├── Key/
+│   │   └── index.tsx
+│   ├── Keys/
+│   │   └── index.ts        # KEYS constant (named export)
+│   └── config/
+│       └── WebAuthn/
+│           └── index.tsx
+│
+├── ledger/                   # Custodian state machines
+│   ├── CheckoutWizard/
+│   │   └── index.tsx
+│   └── UserPreferences/
+│       └── index.tsx
+│
+├── events/                   # Operator pub/sub configurations
+│   ├── Analytics/
+│   │   └── index.tsx
+│   └── Notifications/
+│       └── index.tsx
+│
+├── connections/              # Agent P2P/CRDT/DID configurations
+│   └── RealtimeCollab/
+│       └── index.tsx
+│
+├── assets/                   # Static resources
+│   ├── images/
+│   │   ├── logo.svg
+│   │   └── hero.jpg
+│   ├── fonts/
+│   │   └── inter-var.woff2
+│   └── styles/              # Global styles (if not inline)
+│       └── base.css
+│
+├── dist/                     # Build output (gitignored)
+│   ├── index.html
+│   └── assets/
+│
+├── deno.jsonc               # Deno config, tasks, compiler options
+├── import_map.json          # Import map for library aliases
+└── README.md                # Generated project documentation
+```
+
+**See [docs/folder-hierarchy.md](docs/folder-hierarchy.md) for detailed folder structure documentation and design rationale.**
+
+## Application Blueprints
+
+### Core Scaffolds
+
+**minimal** - Bare-bones Studio application
+
+- Libraries: Architect, Pagewright
+- Use case: Learning, simple sites
+- Generated: Basic routing, single page
+- Dev server: HTTPS on port 31415
+
+**workshop** - Interactive development environment
+
+- Libraries: Architect, Pagewright, Envoy
+- Use case: Exploring IR, debugging Studio apps
+- Generated: Visual IR inspector, live editing
+- Features: Code graph visualization, time-travel debugging
+
+**athenaeum** - Documentation site
+
+- Libraries: Pagewright, Envoy
+- Use case: Library documentation, knowledge bases
+- Generated: HATEOAS navigation, semantic search
+- Features: Markdown processing, syntax highlighting
+
+### Common Application Scaffolds
+
+**blog** - Content publishing platform
+
+- Markdown → JSX → Static HTML
+- RSS feed generation
+- Categories, tags, search
+- Comments with Operator real-time updates
+- SEO optimization, semantic markup
+
+**dashboard** - Metrics visualization
+
+- Real-time charts with Operator events
+- Customizable widgets
+- Data source connectors
+- Alert thresholds
+- Export capabilities
+
+**collaborative-doc** - Shared document editor
+
+- CRDT-based (Agent) editing
+- Multi-user cursors
+- Change tracking
+- Comment threads
+- Version history
+
+**data-explorer** - SPARQL query interface
+
+- Triple store browser
+- Visual query builder
+- Results as tables/graphs/JSON
+- Export to various formats
+- Query templates
+
+**form-builder** - Dynamic form generator
+
+- Schema → Pagewright forms
+- Architect calculations + validation
+- Multi-step workflows
+- Conditional fields
+- Persistence options
+
+**event-debugger** - Operator event visualizer
+
+- Event flow graphs
+- Filter and search events
+- Time-travel replay
+- Event payload inspection
+- Performance profiling
+
+**api-gateway** - Declarative routing
+
+- Sentinel authentication
+- Rate limiting
+- Request/response transformation
+- Logging and monitoring
+- OpenAPI documentation
+
+**knowledge-base** - Searchable documentation
+
+- Envoy-powered
+- HATEOAS navigation
+- Full-text search
+- Relationship graphs
+- Auto-generated indexes
+
+### Specialized Scaffolds
+
+**e-commerce** - Online store
+
+- Product catalog with semantic data
+- Shopping cart (distributed state)
+- Checkout flow with validation
+- Inventory management
+- Order tracking
+
+**social-feed** - P2P social network
+
+- CRDTs for distributed posts
+- Decentralized identity (DIDs)
+- End-to-end encryption
+- Content moderation tools
+- Federation support
+
+**project-manager** - Task coordination
+
+- Kanban boards
+- Gantt timelines
+- Real-time collaboration
+- Resource allocation
+- Reporting dashboards
+
+**analytics-platform** - Event aggregation
+
+- Data ingestion pipelines
+- Metrics computation
+- Visualization library
+- Alerting rules
+- Funnel analysis
+
+**content-cms** - Content management
+
+- Triple store backend
+- Version control (Git-like)
+- Multi-language support
+- Media library
+- Preview/publish workflow
+
+**iot-dashboard** - Sensor monitoring
+
+- Real-time data streams
+- Device management
+- Alert rules
+- Historical analysis
+- Control panels
+
+**chat-app** - Messaging platform
+
+- End-to-end encryption (Agent)
+- Real-time delivery (Operator)
+- File sharing
+- Group conversations
+- Message search
+
+**wiki** - Collaborative knowledge
+
+- Version history
+- Link graphs
+- Full-text search
+- Access control
+- Export formats
+
+### Workflow Application Scaffolds
+
+**workflow-designer** - Visual workflow editor
+
+- Drag-and-drop canvas (Agent CRDTs)
+- Node palette (Operator triggers/actions)
+- Live preview (Custodian state)
+- Contract validation (Warden)
+- Collaborative editing
+
+**automation-platform** - Multi-tenant automation
+
+- Sentinel user isolation
+- Operator event processing
+- Envoy monitoring dashboard
+- Distributed execution (Agent)
+- Template library
+
+**data-pipeline-builder** - ETL workflows
+
+- Extract, Transform, Load nodes
+- Real-time data flow visualization
+- Performance monitoring
+- Auditor data quality contracts
+- Schedule orchestration
+
+**ci-cd-orchestrator** - DevOps pipelines
+
+- Git integration
+- Docker orchestration
+- Test automation
+- Deployment workflows
+- Notification integrations
+
+**marketing-automation** - Customer journeys
+
+- Email campaign workflows
+- Customer segmentation
+- A/B testing
+- Analytics integration
+- Conversion tracking
+
+**business-process-modeler** - Enterprise workflows
+
+- Approval processes
+- Document automation
+- Enterprise system integration
+- Compliance tracking
+- Audit trail generation
+
+**iot-automation** - Device workflows
+
+- Sensor data pipelines
+- Device control rules
+- Real-time monitoring
+- Edge computing distribution
+- Alert automation
+
+## Usage Examples
+
+### Voice-Guided Generation
+
+```bash
+# Start with voice
+qm new --voice
+
+# Conversation flow:
+You: "I want to build a blog"
+AI: "Great! A blog blueprint includes markdown processing and RSS.
+     Do you need user authentication?"
+You: "Yes, for commenting"
+AI: "I'll add Sentinel authentication. OAuth2, WebAuthn, or both?"
+You: "WebAuthn"
+AI: "Perfect. Should comments update in real-time?"
+You: "Yes"
+AI: "Adding Operator for real-time events. Generating blueprint..."
+
+✓ Blueprint: blog + sentinel + operator
+✓ Validation: Warden contracts passed
+✓ Generation: 24 files created
+✓ HTTPS server: https://localhost:31415
+✓ Time-travel: Configuration logged to triple store
+```
+
+### GUI-Based Generation
+
+```bash
+# Launch visual wizard
+qm new --gui
+
+# Opens browser to configuration interface:
+# 1. Application name and type
+# 2. Library selection (checkboxes)
+# 3. Feature configuration (forms)
+# 4. Live preview (file structure)
+# 5. Generate (with history)
+```
+
+### CLI Direct Generation
+
+```bash
+# Generate from preset blueprint
+qm new my-blog --blueprint=blog
+
+# Customize with flags
+qm new my-shop --blueprint=e-commerce --auth=sentinel --database=turso
+
+# From custom blueprint file
+qm new my-app --blueprint=./custom-blueprint.json
+
+# Dry run to preview
+qm new my-app --blueprint=minimal --dry-run
+```
+
+### Sketch-Based Generation
+
+```bash
+# From wireframe image
+qm new my-app --from-sketch=./wireframe.png
+
+# AI analyzes and suggests:
+# "I see a navigation bar, sidebar, and content area.
+#  This looks like a dashboard. Suggested blueprint: dashboard
+#  Detected: 3 chart widgets, real-time data indicators
+#  Libraries: Architect (reactive), Operator (real-time)
+#  Proceed with generation? [yes/no/modify]"
+```
+
+### Collaborative Generation
+
+```bash
+# Start collaborative session
+qm new team-project --collaborate
+
+# Share session URL with team
+Session: https://qm.studio/session/xyz-789
+AI: "3 team members joined. Ready to configure."
+
+# Team discusses via voice, makes decisions together
+# Blueprint updates in real-time for all participants
+# Final blueprint reflects team consensus
+```
+
+### Feature Addition to Existing App
+
+```bash
+# Add authentication to existing app
+cd my-app
+qm add feature sentinel-auth
+
+# AI guides configuration:
+AI: "I'll add Sentinel authentication.
+     Current app has Architect and Pagewright.
+     Integration points needed:
+     - Login route
+     - Protected routes wrapper
+     - Session management
+     Proceed? [yes/customize]"
+
+# Add real-time collaboration
+qm add feature agent-crdt
+
+# Add workflow automation
+qm add feature workflow-designer
+```
+
+## Development Server Features
+
+### Hot Reload
+
+File changes trigger automatic browser refresh:
+
+```bash
+✓ Server watching: src/**/*.{ts,tsx}
+✓ Change detected: src/main.tsx
+✓ Rebuild: 45ms
+✓ Browser refreshed
+```
+
+### AI Assistant Integration
+
+Access AI help directly from dev server:
+
+```
+https://localhost:31415/assistant
+
+# AI has full context:
+# - Application blueprint
+# - Envoy code graph
+# - Configuration history
+# - Studio documentation
+
+Ask: "How do I add validation to this form?"
+AI: "I see you're using Architect. Here's how to add validation..."
+```
+
+### Envoy Visualization
+
+Development dashboard at `/_envoy`:
+
+- Code structure graph
+- Component relationships
+- Event flow visualization
+- Performance metrics
+- Warden contract status
+- Test coverage
+- Time-travel debugging interface
+
+### Error Reporting
+
+Friendly, contextual error messages:
+
+```
+┌─────────────────────────────────────────────────────┐
+│  Warden Contract Violation                          │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  File: src/components/Form/_internal.tsx            │
+│  Issue: Private import from outside component       │
+│                                                     │
+│  You imported:                                      │
+│    import helper from "../OtherComponent/_helper"   │
+│                                                     │
+│  Why this failed:                                   │
+│    Underscore-prefixed files are private.           │
+│    They cannot be imported from outside their       │
+│    containing directory.                            │
+│                                                     │
+│  How to fix:                                        │
+│    1. Move _helper to shared location, or           │
+│    2. Export through OtherComponent's index.ts      │
+│                                                     │
+│  Learn more: https://localhost:31415/_envoy/privacy │
+│                                                     │
+└─────────────────────────────────────────────────────┘
 ```
 
 ## Blueprint Schema
 
-Blueprints define:
+Blueprints are structured data in Turtle (RDF) format, stored in triple stores:
 
-- Library dependencies and versions
-- Directory structure
-- Import map configuration
-- Warden contract rules
-- Steward style rules
-- Test configuration
-- Build pipelines
+```turtle
+@prefix qm: <http://sitebender.io/quartermaster#> .
+@prefix app: <http://sitebender.io/application#> .
+
+<#my-blog> a qm:Application ;
+  qm:name "my-blog" ;
+  qm:type qm:Blog ;
+  qm:libraries (
+    app:Architect
+    app:Pagewright
+    app:Sentinel
+    app:Operator
+  ) ;
+  qm:features [
+    qm:authentication [
+      qm:provider qm:WebAuthn ;
+      qm:sessionDuration "7d"
+    ] ;
+    qm:realtime [
+      qm:transport qm:WebSocket ;
+      qm:fallback qm:SSE
+    ]
+  ] ;
+  qm:devServer [
+    qm:protocol "https" ;
+    qm:preferredPort 31415 ;
+    qm:hotReload true
+  ] ;
+  qm:generatedAt "2024-01-15T14:35:12Z" ;
+  qm:generatedBy "claude-sonnet-4.5" ;
+  qm:configurationHistory <#history-1> .
+```
+
+Configuration history as triples:
+
+```turtle
+<#history-1> a qm:ConfigurationEvent ;
+  qm:timestamp "2024-01-15T14:30:22Z" ;
+  qm:action qm:AddLibrary ;
+  qm:target app:Architect ;
+  qm:reason "Enable reactive calculations" ;
+  qm:suggestedBy qm:AI ;
+  qm:approvedBy <#user-1> ;
+  qm:next <#history-2> .
+
+<#history-2> a qm:ConfigurationEvent ;
+  qm:timestamp "2024-01-15T14:31:45Z" ;
+  qm:action qm:AddFeature ;
+  qm:target qm:Authentication ;
+  qm:configuration [
+    qm:provider qm:WebAuthn
+  ] ;
+  qm:reason "User requested login capability" ;
+  qm:suggestedBy <#user-1> ;
+  qm:next <#history-3> .
+```
+
+This enables:
+
+- SPARQL queries over configuration history
+- Time-travel to any decision point
+- Understanding why choices were made
+- Branching and comparing alternatives
+- Team collaboration with full context
 
 ## Integration with Studio Libraries
 
-Quartermaster understands the relationships between Studio libraries and ensures proper:
+Quartermaster understands Studio's architecture:
 
-- Import boundaries (no circular dependencies)
-- Contract enforcement (Warden rules)
-- Testing setup (declarative components)
-- Documentation generation (Envoy integration)
+### Warden Integration
 
-## Declarative Testing Integration
+- Generates contracts automatically
+- Validates blueprint against architecture rules
+- Enforces import boundaries
+- Cryptographically signs generated code
 
-Generated applications include declarative testing infrastructure:
+### Steward Integration
 
-- TestHarness components pre-configured
-- Mock data triple stores
-- IO interception wiring (Agent)
-- Contract verification setup (Auditor)
+- Applies style normalization on generation
+- Sets up autofix on save
+- Configures deterministic formatting
 
-## Visual Workflow Blueprint Templates
+### Auditor Integration
 
-Quartermaster now includes comprehensive blueprint templates for visual workflow-enabled applications, bringing n8n-style visual development to the entire Studio ecosystem.
+- Generates property-based test scaffolds
+- Sets up formal verification contracts
+- Creates test data generators
 
-### Workflow-Enabled Application Scaffolds
+### Envoy Integration
 
-Pre-built blueprints that include complete visual workflow infrastructure:
+- Wires documentation generation
+- Configures code graph visualization
+- Sets up observability dashboard
 
-#### Core Workflow Templates
+### Agent Integration
 
-- **workflow-designer**: Visual node-based workflow editor with real-time collaboration
-  - Drag-and-drop canvas powered by Agent's CRDT collaboration
-  - Built-in node palette with Operator triggers and actions
-  - Live preview with Custodian state visualization
-  - Warden contract validation for workflow logic
+- Configures CRDT data structures
+- Sets up P2P networking
+- Enables distributed collaboration
 
-- **automation-platform**: Multi-tenant workflow automation system
-  - Sentinel-powered user isolation and permissions
-  - Operator-based event processing and triggers
-  - Envoy dashboard for workflow monitoring and analytics
-  - Distributed execution with Agent coordination
+### Operator Integration
 
-- **data-pipeline-builder**: Visual ETL and data processing workflows
-  - Extract, Transform, Load node components
-  - Real-time data flow visualization
-  - Performance monitoring and optimization
-  - Auditor-verified data quality contracts
+- Wires event pub/sub
+- Configures transport layers
+- Sets up event persistence
 
-#### Industry-Specific Workflow Blueprints
+### Sentinel Integration
 
-- **ci-cd-orchestrator**: DevOps pipeline designer
-  - Git integration with automated triggers
-  - Docker container orchestration nodes
-  - Testing and deployment workflow templates
-  - Slack/Teams notification integrations
+- Generates authentication flows
+- Configures authorization policies (locks and keys)
+- Sets up zero-knowledge proofs
 
-- **marketing-automation**: Customer journey workflow builder
-  - Email campaign automation templates
-  - Customer segmentation and targeting
-  - A/B testing workflow patterns
-  - Analytics and conversion tracking
+**Lock System**: Quartermaster generates the `auth/` folder structure with lock configurations. See [Lock Documentation](../steward/docs/locks.md) for details on `<Locked>`, `<Key>`, `<And>`, `<Or>` components and the KEYS constant.
 
-- **business-process-modeler**: Enterprise workflow management
-  - Approval workflow templates
-  - Document processing automation
-  - Integration with enterprise systems
-  - Compliance and audit trail generation
+### Custodian Integration
 
-- **iot-automation**: Internet of Things workflow platform
-  - Sensor data processing pipelines
-  - Device control and automation rules
-  - Real-time monitoring and alerting
-  - Edge computing workflow distribution
+- Generates state machines
+- Configures state persistence
+- Sets up time-travel state
 
-### Workflow Blueprint Features
+## Blueprint Marketplace
 
-#### Visual Editor Scaffolding
-
-Generated applications include complete visual workflow editing infrastructure:
-
-```json
-{
-  "name": "my-workflow-app",
-  "blueprint": "workflow-designer",
-  "features": {
-    "visual_editor": {
-      "canvas": "agent-crdt-collaboration",
-      "node_palette": "operator-triggers-actions",
-      "state_visualization": "custodian-reactive",
-      "validation": "warden-contracts"
-    },
-    "execution_engine": {
-      "orchestrator": "operator-distributed",
-      "monitoring": "envoy-realtime",
-      "security": "sentinel-isolation"
-    }
-  }
-}
-```
-
-#### Pre-Configured Node Libraries
-
-Blueprints include comprehensive node libraries:
-
-- **Trigger Nodes**: HTTP webhooks, file watchers, scheduled tasks, database changes
-- **Action Nodes**: API calls, file operations, data transformations, notifications
-- **Logic Nodes**: Conditionals, loops, switches, aggregations
-- **Integration Nodes**: Database connectors, cloud services, third-party APIs
-
-#### Workflow Orchestration Templates
-
-Ready-to-use workflow patterns for common scenarios:
-
-- **Event-Driven Architecture**: Microservice communication patterns
-- **Batch Processing**: Large-scale data processing workflows
-- **Real-Time Streaming**: Live data analysis and transformation
-- **Human-in-the-Loop**: Approval and review processes
-- **Error Handling**: Retry policies and failure recovery
-- **Monitoring & Alerting**: System health and performance tracking
-
-### Integration with Visual Workflow Ecosystem
-
-#### Seamless Library Integration
-
-Generated workflow applications leverage the entire Studio ecosystem:
-
-- **Envoy**: Real-time workflow execution dashboards and analytics
-- **Operator**: Event-driven workflow triggers and distributed execution
-- **Agent**: Collaborative workflow editing with real-time synchronization
-- **Custodian**: Visual state machine design and execution monitoring
-- **Architect**: Conditional workflow logic and reactive data pipelines
-- **Warden**: Cryptographic workflow validation and contract enforcement
-- **Sentinel**: Zero-knowledge authentication and authorization workflows
-
-#### Progressive Enhancement
-
-Workflow applications support multiple interaction modes:
-
-- **CLI Mode**: Text-based workflow definition and execution
-- **Web Interface**: Browser-based visual workflow editor
-- **3D Visualization**: Immersive workflow design and monitoring
-- **API Integration**: Programmatic workflow creation and management
-
-### Advanced Workflow Capabilities
-
-#### Collaborative Development
-
-Multi-user workflow development environment:
+### Publishing Blueprints
 
 ```bash
-# Generate collaborative workflow platform
-deno run -A quartermaster new workflow-team --blueprint=workflow-designer
+# Publish to marketplace
+cd my-custom-blueprint
+qm marketplace publish
 
-# Features auto-configured:
-# - Real-time collaborative editing (Agent CRDTs)
-# - Conflict-free workflow merging
-# - Version control with branch/merge workflows
-# - Live cursor tracking and user awareness
+# Prompts:
+# - Name: "restaurant-pos"
+# - Description: "Point-of-sale system for restaurants"
+# - Category: "specialized"
+# - License: "MIT"
+# - Keywords: ["pos", "restaurant", "payments"]
+
+# Quartermaster:
+# 1. Validates blueprint (Warden contracts)
+# 2. Generates cryptographic signature
+# 3. Creates listing in marketplace triple store
+# 4. Publishes to IPFS (content-addressed)
+# 5. Indexes in marketplace search
 ```
 
-#### Distributed Execution
+### Discovering Blueprints
 
-Scalable workflow execution infrastructure:
+```bash
+# Browse by category
+qm marketplace browse --category=e-commerce
 
-- **Horizontal Scaling**: Automatic workflow distribution across nodes
-- **Fault Tolerance**: Automatic retry and recovery mechanisms
-- **Load Balancing**: Intelligent workflow scheduling and resource allocation
-- **Edge Computing**: Workflow execution at network edge locations
+# Search by keywords
+qm marketplace search "real-time collaboration"
 
-#### Security & Compliance
+# View details
+qm marketplace info @community/restaurant-pos
 
-Enterprise-grade security features:
+# Output:
+# Name: restaurant-pos
+# Author: @chef-dev
+# Rating: 4.8/5 (127 reviews)
+# Downloads: 3,421
+# Libraries: Architect, Pagewright, Sentinel, Operator
+# Features: Table management, order processing, kitchen display,
+#           payment integration, inventory tracking
+# Last Updated: 2024-01-10
+# Warden Status: ✓ Validated
+# Signature: 0x4f2a...9c8e (verified)
+```
 
-- **Zero-Knowledge Authentication**: Privacy-preserving user verification
-- **Encrypted Workflow Storage**: Client-side encryption of sensitive workflows
-- **Audit Trail Generation**: Comprehensive logging and compliance reporting
-- **Role-Based Access Control**: Granular permissions and workflow isolation
+### Installing Community Blueprints
 
-### Why Workflow Blueprints Transform Development
+```bash
+# Install blueprint
+qm marketplace install @community/restaurant-pos
 
-#### Accelerated Time-to-Market
+# Quartermaster:
+# 1. Verifies cryptographic signature
+# 2. Checks Warden contracts
+# 3. Resolves dependencies
+# 4. Downloads from IPFS
+# 5. Ready for generation
 
-Pre-configured workflow infrastructure eliminates months of setup:
+# Generate from marketplace blueprint
+qm new my-restaurant --blueprint=@community/restaurant-pos
+```
 
-- Complete visual editing environment ready in minutes
-- Production-ready security and scalability built-in
-- Comprehensive monitoring and analytics pre-configured
-- Industry-standard integration patterns included
+### Blueprint Ratings
 
-#### Democratized Automation
+```bash
+# Rate after using
+qm marketplace rate @community/restaurant-pos --stars=5 \
+  --review="Perfect for my use case. Well documented."
 
-Visual workflow tools enable non-programmers to create sophisticated automation:
+# Report issues
+qm marketplace report @community/restaurant-pos \
+  --issue="Warden contract violation in v2.1.3"
+```
 
-- Drag-and-drop interface removes coding barriers
-- Pre-built node libraries cover common use cases
-- Template library provides proven workflow patterns
-- Collaborative editing enables domain expert participation
+## Editor Integration
 
-#### Maintainable Complexity
+### VSCode Extension
 
-Visual representation makes complex workflows understandable:
+Install from VSCode marketplace:
 
-- Graph-based visualization shows data flow clearly
-- Modular design enables easy modification and testing
-- Version control tracks workflow evolution over time
-- Documentation generation creates automatic workflow guides
+```bash
+code --install-extension sitebender.quartermaster
+```
 
-The integration of workflow blueprints with Quartermaster transforms Studio from a development framework into a comprehensive visual automation platform, enabling teams to build sophisticated workflow applications with the same ease as traditional web applications.
+Features:
+
+- **Command Palette**: `Quartermaster: New Application`
+- **Sidebar Panel**: Blueprint wizard interface
+- **Status Bar**: Dev server status, port, Warden violations
+- **WebView**: Embedded GUI for configuration
+- **AI Chat**: Integrated assistant in sidebar
+- **Time-Travel Panel**: Configuration history browser
+
+### Zed Integration
+
+Install Quartermaster extension:
+
+```bash
+zed --install-extension quartermaster
+```
+
+Features:
+
+- **Command Mode**: `qm:new`, `qm:add`, `qm:history`
+- **Split View**: Configuration GUI alongside code
+- **Collaboration**: Shared editing sessions
+- **Voice Commands**: Hands-free blueprint configuration
+
+### Web Interface (Standalone)
+
+Launch without any editor:
+
+```bash
+qm gui
+# Opens https://localhost:31415/quartermaster
+```
+
+Browser-based GUI includes all features:
+
+- Voice-guided setup
+- Visual wizard
+- Sketch upload
+- Collaborative sessions
+- Marketplace browser
+- Time-travel visualization
+
+**Why web-first?** Universal accessibility. Works everywhere: editors, browsers, mobile devices. The web as universal VM.
+
+## Configuration Examples
+
+### Minimal Blog
+
+```bash
+qm new my-blog --voice
+
+You: "Simple blog with markdown"
+AI: "Generating minimal blog..."
+
+# Result:
+Libraries: Pagewright (content), Architect (routing)
+Features: Markdown processing, RSS feed, semantic markup
+Dev Server: https://localhost:31415
+Files: 12 created
+```
+
+### Real-Time Dashboard
+
+```bash
+qm new metrics-dash --blueprint=dashboard
+
+AI: "Dashboard blueprint selected. Configuration options:
+
+Data sources:
+  1. WebSocket streams
+  2. HTTP polling
+  3. Operator events (recommended)
+
+Choose: 3
+
+Chart types:
+  □ Line charts
+  □ Bar charts
+  □ Pie charts
+  ☑ Real-time gauges
+
+Customization:
+  Widget library: Standard
+  Update frequency: 1s
+  Data retention: 24h
+
+Generating..."
+
+# Result:
+Libraries: Architect, Pagewright, Operator
+Features: Real-time charts, data streaming, alerts
+Dev Server: https://localhost:31415
+Files: 28 created
+```
+
+### Collaborative Editor
+
+```bash
+qm new team-docs --blueprint=collaborative-doc --collaborate
+
+# Starts multi-user session
+AI: "Collaborative document editor. Session started.
+     Share URL: https://qm.studio/session/abc-123
+
+     Waiting for team members...
+
+     ✓ alice@example.com joined
+     ✓ bob@example.com joined
+
+     Team ready. Configure together..."
+
+# Team voice chat + GUI configuration
+# Real-time consensus on architectural choices
+# Generated with full collaboration history
+
+# Result:
+Libraries: Architect, Pagewright, Agent (CRDTs)
+Features: Multi-cursor editing, change tracking, comments
+Dev Server: https://localhost:31415
+Collaborators: 3
+Files: 35 created
+```
+
+## Design Decisions
+
+### Why Voice-First?
+
+**Decision**: Make voice the primary interface, GUI secondary  
+**Rationale**:
+
+- Natural for non-technical users
+- Accessible for visual impairments
+- Faster than clicking through forms
+- Captures intent, not just configuration
+- AI guides expertise through conversation
+
+**Alternative Considered**: GUI-first with voice optional  
+**Why Voice Primary**: Immediate future is conversational interfaces. Voice enables expertise sharing through dialogue.
+
+### Why HTTPS by Default?
+
+**Decision**: Generate SSL certificates, run HTTPS dev server  
+**Rationale**:
+
+- Service Workers require secure context
+- WebAuthn only works on HTTPS
+- Modern APIs expect TLS
+- Matches production exactly
+- Forces best practices early
+
+**Alternative Considered**: HTTP with optional HTTPS  
+**Why HTTPS Always**: No surprises in production. Development should mirror deployment.
+
+### Why Triple Store for Blueprints?
+
+**Decision**: Store blueprints as RDF triples in semantic database  
+**Rationale**:
+
+- SPARQL queries over configuration
+- Semantic relationships captured
+- Time-travel through history
+- Links to documentation (Envoy)
+- Enables reasoning about architecture
+
+**Alternative Considered**: JSON files  
+**Why Triples**: Relationships and history are first-class. JSON is flat.
+
+### Why Greenfield Only?
+
+**Decision**: No migration tooling for legacy frameworks  
+**Rationale**:
+
+- Target audience is non-developers building new things
+- Migration is complex, framework-specific
+- Community can add if needed
+- Focus effort on excellent greenfield experience
+
+**Alternative Considered**: React/Vue/Angular migration wizards  
+**Why Greenfield**: Building the future, not patching the past. Our audience doesn't have legacy codebases.
+
+### Why Math Constant Ports?
+
+**Decision**: Prefer 31415 (π), 27182 (e), 16180 (φ) for dev server  
+**Rationale**:
+
+- Delightful detail
+- Memorable
+- Unlikely to conflict
+- Shows attention to craft
+
+**Alternative Considered**: Random high port  
+**Why Math**: Joy matters. Small touches make tools feel crafted with care.
+
+### Why Web-First GUI?
+
+**Decision**: Build configuration GUI as web app, embed in editors  
+**Rationale**:
+
+- Universal platform (browsers, VSCode webviews, Zed)
+- Single codebase for all editors
+- Dogfoods Studio (GUI built with Studio)
+- Mobile-accessible if needed
+- Web as universal VM philosophy
+
+**Alternative Considered**: Native GUI per editor  
+**Why Web**: Write once, run everywhere. The web's original promise.
+
+### Why Collaborative by Default?
+
+**Decision**: Real-time collaboration built into architecture  
+**Rationale**:
+
+- Applications are built by teams
+- Configuration should be collaborative
+- Captures decision consensus
+- Enables remote work
+- CRDT architecture makes it natural
+
+**Alternative Considered**: Single-user with manual merging  
+**Why Collaborative**: Studio is distributed by default. Quartermaster should be too.
+
+### Why Sketch-to-App?
+
+**Decision**: Accept wireframes/sketches as input to generation  
+**Rationale**:
+
+- Designers think visually
+- Bridge design-to-code gap
+- Faster iteration from mockup to prototype
+- Non-developers use visual tools
+
+**Alternative Considered**: Code-only configuration  
+**Why Sketch**: Meet users where they are. Designers start with drawings.
+
+## Performance Characteristics
+
+### Blueprint Generation
+
+- Small apps (minimal): < 100ms
+- Medium apps (blog): < 500ms
+- Large apps (e-commerce): < 2s
+- Includes: Validation, file generation, import maps, contracts
+
+### Dev Server Startup
+
+- Certificate check: < 50ms
+- SSL setup: < 100ms
+- Server start: < 200ms
+- Total: < 500ms to first request
+
+### Hot Reload
+
+- File change detection: < 10ms
+- Rebuild (incremental): 20-200ms depending on change
+- Browser refresh: < 50ms
+- Total: < 300ms change-to-visible
+
+### Voice Processing
+
+- Speech-to-text: 100-500ms (depends on provider)
+- AI processing: 500-2000ms (depends on complexity)
+- Blueprint update: < 50ms
+- Total: 1-3s per voice interaction
+
+### Collaborative Sync
+
+- CRDT merge: < 10ms
+- Network propagation: 50-200ms (depends on connection)
+- UI update: < 16ms (60fps)
+- Total: < 300ms change visible to all participants
+
+## Error Handling
+
+Quartermaster provides clear, actionable error messages:
+
+### Missing Dependencies
+
+```
+┌─────────────────────────────────────────────────────┐
+│  Missing Dependency: mkcert                         │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  Quartermaster needs mkcert to generate SSL         │
+│  certificates for HTTPS development.                │
+│                                                     │
+│  Install for your system:                           │
+│                                                     │
+│  macOS (Homebrew):                                  │
+│    brew install mkcert                              │
+│                                                     │
+│  Linux (Arch):                                      │
+│    sudo pacman -S mkcert                            │
+│                                                     │
+│  Linux (other):                                     │
+│    curl -L https://github.com/FiloSottile/mkcert/   │
+│         releases/download/v1.4.4/mkcert-v1.4.4-     │
+│         linux-amd64 -o mkcert                       │
+│    chmod +x mkcert                                  │
+│    sudo mv mkcert /usr/local/bin/                   │
+│                                                     │
+│  After installing, run: qm new my-app               │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+### Port Conflicts
+
+```
+Port 31415 (π) is already in use.
+Trying 27182 (e)... in use.
+Trying 16180 (φ)... in use.
+Trying 14142 (√2)... available!
+
+✓ Server running on https://localhost:14142
+```
+
+### Blueprint Validation
+
+```
+┌─────────────────────────────────────────────────────┐
+│  Blueprint Validation Failed                        │
+├─────────────────────────────────────────────────────┤
+│                                                     │
+│  Issue: Circular dependency detected                │
+│                                                     │
+│  Your blueprint includes:                           │
+│    - custodian (requires toolsmith)                 │
+│    - workflow-engine (requires custodian)           │
+│    - toolsmith (requires workflow-engine) ← CYCLE   │
+│                                                     │
+│  Studio libraries cannot have circular              │
+│  dependencies (enforced by Warden).                 │
+│                                                     │
+│  Suggestion: Remove workflow-engine, or             │
+│              use operator for workflow instead      │
+│                                                     │
+│  Learn more: https://localhost:31415/_envoy/warden  │
+│                                                     │
+└─────────────────────────────────────────────────────┘
+```
+
+### Voice Recognition Errors
+
+```
+AI: "I didn't quite catch that. I heard:
+     'I want to build a flog with authentication'
+
+     Did you mean:
+     1. blog with authentication
+     2. fog computing application
+     3. Something else (please repeat)
+
+     Choose 1-3 or speak again:"
+```
+
+## Testing Quartermaster
+
+Quartermaster includes comprehensive self-tests:
+
+```bash
+# Run full test suite
+deno task test
+
+# Test specific components
+deno task test:blueprint-validation
+deno task test:voice-interface
+deno task test:collaborative-session
+deno task test:marketplace
+
+# Integration tests
+deno task test:integration
+
+# Property-based tests (via Quarrier)
+deno task test:properties
+```
+
+Generated applications include test infrastructure:
+
+```typescript
+// tests/blueprint-validation.test.ts
+import { assertEquals } from "@std/assert";
+import validateBlueprint from "../src/validateBlueprint/index.ts";
+
+Deno.test("Blueprint validation accepts valid minimal blueprint", () => {
+  const blueprint = {
+    name: "test-app",
+    libraries: ["architect", "pagewright"],
+  };
+
+  const result = validateBlueprint(blueprint);
+  assertEquals(result.ok, true);
+});
+```
+
+## Contributing
+
+Quartermaster follows Studio's functional programming principles:
+
+1. **Pure functions only** - No mutations, no side effects
+2. **One function per file** - Located in folder with function name
+3. **Envoy documentation** - Every exported function has //++ comment
+4. **100% test coverage** - No exceptions
+5. **Property-based tests** - For all validation logic
+6. **Type safety** - Full TypeScript, no `any`
+
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for details.
+
+## License
+
+[MIT](../../LICENSE)
+
+## See Also
+
+- [Warden](../warden/README.md) - Architectural governance
+- [Steward](../steward/README.md) - Style enforcement
+- [Envoy](../envoy/README.md) - Documentation and observability
+- [Agent](../agent/README.md) - Distributed collaboration
+- [Operator](../operator/README.md) - Event-driven architecture
+- [Custodian](../custodian/README.md) - State management
+- [Sentinel](../sentinel/README.md) - Authentication & authorization

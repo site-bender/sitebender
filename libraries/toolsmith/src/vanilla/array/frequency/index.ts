@@ -6,5 +6,4 @@ const frequency = <T>(array: Array<T>): Map<T, number> => {
 	}, new Map<T, number>())
 }
 
-
 export default frequency

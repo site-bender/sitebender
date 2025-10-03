@@ -4,5 +4,4 @@ const juxt = <T extends ReadonlyArray<unknown>, R>(
 ) =>
 (...args: T): Array<R> => fns.map((fn) => fn(...args))
 
-
 export default juxt

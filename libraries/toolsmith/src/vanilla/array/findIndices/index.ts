@@ -1,5 +1,5 @@
-import concatTo from "../concatTo/index.ts"
 import isArray from "../../validation/isArray/index.ts"
+import concatTo from "../concatTo/index.ts"
 import reduce from "../reduce/index.ts"
 
 //++ Finds all indices of matching elements
