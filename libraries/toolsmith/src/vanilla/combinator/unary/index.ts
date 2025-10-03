@@ -3,5 +3,4 @@ const unary =
 	<T, R>(fn: (arg: T, ...rest: ReadonlyArray<unknown>) => R) => (arg: T): R =>
 		fn(arg)
 
-
 export default unary

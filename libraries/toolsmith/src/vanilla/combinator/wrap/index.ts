@@ -6,5 +6,4 @@ const wrap = <T extends ReadonlyArray<any>, R>(
 ) =>
 (...args: T): R => wrapper(fn, ...args)
 
-
 export default wrap

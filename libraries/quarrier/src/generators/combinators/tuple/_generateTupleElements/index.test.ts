@@ -1,8 +1,8 @@
 import { assertEquals } from "https://deno.land/std@0.224.0/assert/mod.ts"
 
 import createSeed from "../../../../random/createSeed/index.ts"
-import integer from "../../../primitives/integer/index.ts"
 import boolean from "../../../primitives/boolean/index.ts"
+import integer from "../../../primitives/integer/index.ts"
 import _generateTupleElements from "./index.ts"
 
 Deno.test("_generateTupleElements: generates empty tuple for no generators", () => {

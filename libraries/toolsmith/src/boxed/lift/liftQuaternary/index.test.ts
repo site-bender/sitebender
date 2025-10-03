@@ -13,11 +13,11 @@ import isInvalid from "../../../monads/validation/isInvalid/index.ts"
 import isValid from "../../../monads/validation/isValid/index.ts"
 import isValidation from "../../../monads/validation/isValidation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
-
 import liftQuaternary from "./index.ts"
 
-const sumFour = (a: number) => (b: number) => (c: number) => (d: number): number =>
-	a + b + c + d
+const sumFour =
+	(a: number) => (b: number) => (c: number) => (d: number): number =>
+		a + b + c + d
 
 const liftedSumFour = liftQuaternary(sumFour)
 
@@ -34,7 +34,7 @@ Deno.test("liftQuaternary - Result monad behavior", async (t) => {
 		const result = liftedSumFour(ok(1))(ok(2))(ok(3))(ok(4))
 
 		assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+		assert(isOk(result))
 		assertEquals(resultGetOrElse(0)(result), 10)
 	})
 
@@ -142,7 +142,7 @@ Deno.test("liftQuaternary - property: applies function correctly", () => {
 				const result = liftedSumFour(a)(b)(c)(d)
 
 				assert(isResult(result), "Expected Result type")
-	assert(isOk(result))
+				assert(isOk(result))
 				assertEquals(resultGetOrElse(0)(result), a + b + c + d)
 			},
 		),

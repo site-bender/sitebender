@@ -1,12 +1,14 @@
-import test from "node:test"
 import assert from "node:assert/strict"
-import _shrinkWithAlternatives from "./index.ts"
+import test from "node:test"
+
 import type {
 	Generator,
 	GeneratorResult,
 	ShrinkTree,
 } from "../../../../types/index.ts"
 import type { Seed } from "../../../../types/index.ts"
+
+import _shrinkWithAlternatives from "./index.ts"
 
 function createMockGenerator<T>(
 	value: T,

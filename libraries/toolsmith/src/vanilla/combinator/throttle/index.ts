@@ -50,5 +50,4 @@ const throttle = <T extends ReadonlyArray<unknown>, R>(
 	return throttled
 }
 
-
 export default throttle

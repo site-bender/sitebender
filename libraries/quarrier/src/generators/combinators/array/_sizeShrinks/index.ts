@@ -1,4 +1,5 @@
 import type { Generator, ShrinkTree } from "../../../../types/index.ts"
+
 import array from "../index.ts"
 
 type ArrayOptions = {
