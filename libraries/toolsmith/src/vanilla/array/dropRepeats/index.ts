@@ -1,5 +1,5 @@
-import isNotEmpty from "../isNotEmpty/index.ts"
 import isEqual from "../../validation/isEqual/index.ts"
+import isNotEmpty from "../isNotEmpty/index.ts"
 import length from "../length/index.ts"
 import reduce from "../reduce/index.ts"
 import _dropRepeatsReducer from "./_dropRepeatsReducer/index.ts"

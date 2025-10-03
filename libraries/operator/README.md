@@ -421,56 +421,56 @@ Transform system events into workflow executions with declarative trigger compon
 
 ```tsx
 <WorkflowTriggers>
-  {/* Git change triggers */}
-  <On event="git.push">
-    <Filter>
-      <Branch matches="main" />
-      <HasFiles pattern="src/**/*.ts" />
-    </Filter>
-    <Trigger workflow="ci-pipeline" />
-    <NotifyPeers via="agent.broadcast" />
-  </On>
+	{/* Git change triggers */}
+	<On event="git.push">
+		<Filter>
+			<Branch matches="main" />
+			<HasFiles pattern="src/**/*.ts" />
+		</Filter>
+		<Trigger workflow="ci-pipeline" />
+		<NotifyPeers via="agent.broadcast" />
+	</On>
 
-  {/* Warden violations */}
-  <On event="warden.violation">
-    <Classify severity={violation.level} />
-    <When condition="severity >= 'error'">
-      <BlockDeployment reason="architectural-violation" />
-      <NotifyTeam channel="alerts" priority="high" />
-    </When>
-    <When condition="severity === 'warn'">
-      <QueueWorkflow name="steward-autofix" />
-    </When>
-  </On>
+	{/* Warden violations */}
+	<On event="warden.violation">
+		<Classify severity={violation.level} />
+		<When condition="severity >= 'error'">
+			<BlockDeployment reason="architectural-violation" />
+			<NotifyTeam channel="alerts" priority="high" />
+		</When>
+		<When condition="severity === 'warn'">
+			<QueueWorkflow name="steward-autofix" />
+		</When>
+	</On>
 
-  {/* Performance thresholds */}
-  <On event="performance.degradation">
-    <Measure baseline="last7days" />
-    <When condition="p99 > baseline * 1.2">
-      <TriggerWorkflow name="performance-investigation" />
-      <ScaleResources target="compute" factor={1.5} />
-    </When>
-  </On>
+	{/* Performance thresholds */}
+	<On event="performance.degradation">
+		<Measure baseline="last7days" />
+		<When condition="p99 > baseline * 1.2">
+			<TriggerWorkflow name="performance-investigation" />
+			<ScaleResources target="compute" factor={1.5} />
+		</When>
+	</On>
 
-  {/* Developer experience events */}
-  <On event="developer.frustration" rating="😟">
-    <AnalyzeContext window="PT15M" />
-    <SuggestImprovements category="tooling" />
-    <TrackResolution workflow="dev-experience-fix" />
-  </On>
+	{/* Developer experience events */}
+	<On event="developer.frustration" rating="😟">
+		<AnalyzeContext window="PT15M" />
+		<SuggestImprovements category="tooling" />
+		<TrackResolution workflow="dev-experience-fix" />
+	</On>
 
-  {/* External API events */}
-  <On event="webhook.received">
-    <ValidatePayload schema="github-webhook" />
-    <AuthenticateSource />
-    <RouteToWorkflow based="payload.action" />
-  </On>
+	{/* External API events */}
+	<On event="webhook.received">
+		<ValidatePayload schema="github-webhook" />
+		<AuthenticateSource />
+		<RouteToWorkflow based="payload.action" />
+	</On>
 
-  {/* Scheduled triggers */}
-  <On schedule="0 2 * * *" timezone="UTC">
-    <TriggerWorkflow name="daily-health-check" />
-    <CleanupResources olderThan="P30D" />
-  </On>
+	{/* Scheduled triggers */}
+	<On schedule="0 2 * * *" timezone="UTC">
+		<TriggerWorkflow name="daily-health-check" />
+		<CleanupResources olderThan="P30D" />
+	</On>
 </WorkflowTriggers>
 ```
 
@@ -480,50 +480,50 @@ Coordinate complex, multi-stage workflows across distributed systems:
 
 ```tsx
 <DistributedWorkflow id="code-quality-pipeline">
-  <Phases>
-    <Phase name="parse" executor="arborist">
-      <Input type="source-files" />
-      <Output type="ast-data" />
-      <Parallelization maxConcurrency={4} />
-      <Timeout>PT3M</Timeout>
-    </Phase>
-    
-    <Phase name="validate" executor="warden">
-      <Input type="ast-data" />
-      <Output type="violations" />
-      <DependsOn phase="parse" />
-      <RetryPolicy attempts={2} backoff="linear" />
-    </Phase>
-    
-    <Phase name="test-generation" executor="auditor">
-      <Input type="ast-data" />
-      <Output type="test-results" />
-      <Parallel with="validate" />
-      <ResourceLimits memory="2GB" cpu="4 cores" />
-    </Phase>
-    
-    <Phase name="documentation" executor="envoy">
-      <Input type="ast-data" />
-      <Input type="test-results" />
-      <Output type="documentation" />
-      <DependsOn phase="test-generation" />
-      <CacheStrategy key="source-hash" ttl="PT1H" />
-    </Phase>
-  </Phases>
-  
-  <ErrorHandling>
-    <OnFailure phase="parse" retry={3} backoff="exponential" />
-    <OnFailure phase="validate" escalate="human-review" />
-    <OnTimeout after="PT10M" cancel="gracefully" />
-    <OnCancel cleanup="intermediate-artifacts" />
-  </ErrorHandling>
-  
-  <Monitoring>
-    <PhaseMetrics />
-    <ResourceUsage />
-    <DurationTracking />
-    <ErrorRates />
-  </Monitoring>
+	<Phases>
+		<Phase name="parse" executor="arborist">
+			<Input type="source-files" />
+			<Output type="ast-data" />
+			<Parallelization maxConcurrency={4} />
+			<Timeout>PT3M</Timeout>
+		</Phase>
+
+		<Phase name="validate" executor="warden">
+			<Input type="ast-data" />
+			<Output type="violations" />
+			<DependsOn phase="parse" />
+			<RetryPolicy attempts={2} backoff="linear" />
+		</Phase>
+
+		<Phase name="test-generation" executor="auditor">
+			<Input type="ast-data" />
+			<Output type="test-results" />
+			<Parallel with="validate" />
+			<ResourceLimits memory="2GB" cpu="4 cores" />
+		</Phase>
+
+		<Phase name="documentation" executor="envoy">
+			<Input type="ast-data" />
+			<Input type="test-results" />
+			<Output type="documentation" />
+			<DependsOn phase="test-generation" />
+			<CacheStrategy key="source-hash" ttl="PT1H" />
+		</Phase>
+	</Phases>
+
+	<ErrorHandling>
+		<OnFailure phase="parse" retry={3} backoff="exponential" />
+		<OnFailure phase="validate" escalate="human-review" />
+		<OnTimeout after="PT10M" cancel="gracefully" />
+		<OnCancel cleanup="intermediate-artifacts" />
+	</ErrorHandling>
+
+	<Monitoring>
+		<PhaseMetrics />
+		<ResourceUsage />
+		<DurationTracking />
+		<ErrorRates />
+	</Monitoring>
 </DistributedWorkflow>
 ```
 
@@ -533,44 +533,44 @@ Process events as they flow through the system with reactive transformations:
 
 ```tsx
 <EventProcessingPipeline>
-  <Stream name="git-events">
-    <Subscribe to="git.*" />
-    <Transform>
-      <ExtractMetadata fields={["author", "files", "branch"]} />
-      <EnrichWithContext from="user-profile" />
-      <ClassifyImpact based="file-importance" />
-    </Transform>
-    <Buffer size={100} flushInterval="PT5S" />
-  </Stream>
-  
-  <Stream name="performance-events">
-    <Subscribe to="metrics.*" />
-    <Window type="sliding" size="PT5M" slide="PT30S" />
-    <Aggregate>
-      <Average field="latency" />
-      <Percentile field="response-time" values={[50, 90, 99]} />
-      <Count field="errors" />
-    </Aggregate>
-    <Detect>
-      <Anomaly field="latency" threshold="3-sigma" />
-      <Trend field="error-rate" direction="increasing" />
-    </Detect>
-  </Stream>
-  
-  <Stream name="workflow-events">
-    <Subscribe to="workflow.*" />
-    <Fork>
-      <Left>
-        <Filter condition="event.type === 'completed'" />
-        <UpdateMetrics category="workflow-performance" />
-      </Left>
-      <Right>
-        <Filter condition="event.type === 'failed'" />
-        <TriggerIncidentResponse />
-        <NotifyOnCall />
-      </Right>
-    </Fork>
-  </Stream>
+	<Stream name="git-events">
+		<Subscribe to="git.*" />
+		<Transform>
+			<ExtractMetadata fields={["author", "files", "branch"]} />
+			<EnrichWithContext from="user-profile" />
+			<ClassifyImpact based="file-importance" />
+		</Transform>
+		<Buffer size={100} flushInterval="PT5S" />
+	</Stream>
+
+	<Stream name="performance-events">
+		<Subscribe to="metrics.*" />
+		<Window type="sliding" size="PT5M" slide="PT30S" />
+		<Aggregate>
+			<Average field="latency" />
+			<Percentile field="response-time" values={[50, 90, 99]} />
+			<Count field="errors" />
+		</Aggregate>
+		<Detect>
+			<Anomaly field="latency" threshold="3-sigma" />
+			<Trend field="error-rate" direction="increasing" />
+		</Detect>
+	</Stream>
+
+	<Stream name="workflow-events">
+		<Subscribe to="workflow.*" />
+		<Fork>
+			<Left>
+				<Filter condition="event.type === 'completed'" />
+				<UpdateMetrics category="workflow-performance" />
+			</Left>
+			<Right>
+				<Filter condition="event.type === 'failed'" />
+				<TriggerIncidentResponse />
+				<NotifyOnCall />
+			</Right>
+		</Fork>
+	</Stream>
 </EventProcessingPipeline>
 ```
 
@@ -580,40 +580,40 @@ Maintain workflow execution state with automatic persistence and recovery:
 
 ```tsx
 <WorkflowStateManager>
-  <PersistenceStrategy>
-    <Checkpoints>
-      <AutoSave interval="PT30S" />
-      <StateSnapshot on="phase-completion" />
-      <IncrementalBackup on="significant-change" />
-    </Checkpoints>
-    
-    <Storage>
-      <TripleStore for="metadata" />
-      <LocalStorage for="intermediate-results" />
-      <DistributedCache for="shared-state" />
-    </Storage>
-  </PersistenceStrategy>
-  
-  <RecoveryPolicies>
-    <OnCrash>
-      <RestoreFromLastCheckpoint />
-      <ReplayMissedEvents since="last-checkpoint" />
-      <ValidateStateConsistency />
-      <ResumeExecution from="safe-point" />
-    </OnCrash>
-    
-    <OnNetworkPartition>
-      <QueueOperations locally={true} />
-      <ConflictResolutionOnReconnect strategy="crdt-merge" />
-      <StateReconciliation with="distributed-peers" />
-    </OnNetworkPartition>
-    
-    <OnResourceExhaustion>
-      <PauseNonCriticalWorkflows />
-      <ScaleResources if="auto-scaling-enabled" />
-      <SpillOverToDistributedNodes />
-    </OnResourceExhaustion>
-  </RecoveryPolicies>
+	<PersistenceStrategy>
+		<Checkpoints>
+			<AutoSave interval="PT30S" />
+			<StateSnapshot on="phase-completion" />
+			<IncrementalBackup on="significant-change" />
+		</Checkpoints>
+
+		<Storage>
+			<TripleStore for="metadata" />
+			<LocalStorage for="intermediate-results" />
+			<DistributedCache for="shared-state" />
+		</Storage>
+	</PersistenceStrategy>
+
+	<RecoveryPolicies>
+		<OnCrash>
+			<RestoreFromLastCheckpoint />
+			<ReplayMissedEvents since="last-checkpoint" />
+			<ValidateStateConsistency />
+			<ResumeExecution from="safe-point" />
+		</OnCrash>
+
+		<OnNetworkPartition>
+			<QueueOperations locally={true} />
+			<ConflictResolutionOnReconnect strategy="crdt-merge" />
+			<StateReconciliation with="distributed-peers" />
+		</OnNetworkPartition>
+
+		<OnResourceExhaustion>
+			<PauseNonCriticalWorkflows />
+			<ScaleResources if="auto-scaling-enabled" />
+			<SpillOverToDistributedNodes />
+		</OnResourceExhaustion>
+	</RecoveryPolicies>
 </WorkflowStateManager>
 ```
 
@@ -623,50 +623,50 @@ Connect external systems through standardized event interfaces:
 
 ```tsx
 <ExternalIntegrations>
-  <GitHubIntegration>
-    <Webhooks>
-      <On event="push" />
-      <On event="pull_request" />
-      <On event="release" />
-    </Webhooks>
-    
-    <EventTransformation>
-      <Normalize payload="github-format" to="sitebender-format" />
-      <ExtractRelevantData fields={["repository", "commit", "author"]} />
-      <ValidateIntegrity signature="x-hub-signature" />
-    </EventTransformation>
-  </GitHubIntegration>
-  
-  <SlackIntegration>
-    <Commands>
-      <Command name="deploy" workflow="production-deployment" />
-      <Command name="rollback" workflow="emergency-rollback" />
-      <Command name="status" query="system-health" />
-    </Commands>
-    
-    <Notifications>
-      <WorkflowStarted channel="deployments" />
-      <WorkflowCompleted channel="deployments" />
-      <WorkflowFailed channel="alerts" />
-    </Notifications>
-  </SlackIntegration>
-  
-  <MonitoringIntegration>
-    <AlertManager>
-      <Subscribe to="alerts.*" />
-      <Route>
-        <Critical to="pager-duty" />
-        <Warning to="team-slack" />
-        <Info to="monitoring-dashboard" />
-      </Route>
-    </AlertManager>
-    
-    <MetricsCollection>
-      <Publish to="prometheus" interval="PT15S" />
-      <Publish to="datadog" interval="PT30S" />
-      <Publish to="grafana" format="json" />
-    </MetricsCollection>
-  </MonitoringIntegration>
+	<GitHubIntegration>
+		<Webhooks>
+			<On event="push" />
+			<On event="pull_request" />
+			<On event="release" />
+		</Webhooks>
+
+		<EventTransformation>
+			<Normalize payload="github-format" to="sitebender-format" />
+			<ExtractRelevantData fields={["repository", "commit", "author"]} />
+			<ValidateIntegrity signature="x-hub-signature" />
+		</EventTransformation>
+	</GitHubIntegration>
+
+	<SlackIntegration>
+		<Commands>
+			<Command name="deploy" workflow="production-deployment" />
+			<Command name="rollback" workflow="emergency-rollback" />
+			<Command name="status" query="system-health" />
+		</Commands>
+
+		<Notifications>
+			<WorkflowStarted channel="deployments" />
+			<WorkflowCompleted channel="deployments" />
+			<WorkflowFailed channel="alerts" />
+		</Notifications>
+	</SlackIntegration>
+
+	<MonitoringIntegration>
+		<AlertManager>
+			<Subscribe to="alerts.*" />
+			<Route>
+				<Critical to="pager-duty" />
+				<Warning to="team-slack" />
+				<Info to="monitoring-dashboard" />
+			</Route>
+		</AlertManager>
+
+		<MetricsCollection>
+			<Publish to="prometheus" interval="PT15S" />
+			<Publish to="datadog" interval="PT30S" />
+			<Publish to="grafana" format="json" />
+		</MetricsCollection>
+	</MonitoringIntegration>
 </ExternalIntegrations>
 ```
 
@@ -676,41 +676,56 @@ Build complex workflows from composable, reusable components:
 
 ```tsx
 <WorkflowLibrary>
-  <WorkflowTemplate name="secure-deployment">
-    <Parameters>
-      <Parameter name="environment" type="string" enum={["staging", "production"]} />
-      <Parameter name="approvalRequired" type="boolean" default={true} />
-      <Parameter name="rollbackWindow" type="duration" default="PT15M" />
-    </Parameters>
-    
-    <Stages>
-      <Stage name="security-scan" />
-      <Stage name="approval-gate" if="${approvalRequired}" />
-      <Stage name="deployment" />
-      <Stage name="smoke-tests" />
-      <Stage name="monitoring" duration="${rollbackWindow}" />
-    </Stages>
-  </WorkflowTemplate>
-  
-  <WorkflowTemplate name="data-processing">
-    <Parameters>
-      <Parameter name="inputSource" type="url" required={true} />
-      <Parameter name="outputFormat" type="string" enum={["json", "csv", "parquet"]} />
-      <Parameter name="batchSize" type="integer" default={1000} />
-    </Parameters>
-    
-    <Processing>
-      <Extract from="${inputSource}" />
-      <Transform using="custom-logic" />
-      <Load to="data-warehouse" format="${outputFormat}" batchSize="${batchSize}" />
-    </Processing>
-  </WorkflowTemplate>
-  
-  <WorkflowComposition>
-    <Use template="secure-deployment" environment="production" />
-    <Use template="data-processing" outputFormat="parquet" />
-    <Connect output="data-processing.result" input="secure-deployment.artifact" />
-  </WorkflowComposition>
+	<WorkflowTemplate name="secure-deployment">
+		<Parameters>
+			<Parameter
+				name="environment"
+				type="string"
+				enum={["staging", "production"]}
+			/>
+			<Parameter name="approvalRequired" type="boolean" default={true} />
+			<Parameter name="rollbackWindow" type="duration" default="PT15M" />
+		</Parameters>
+
+		<Stages>
+			<Stage name="security-scan" />
+			<Stage name="approval-gate" if="${approvalRequired}" />
+			<Stage name="deployment" />
+			<Stage name="smoke-tests" />
+			<Stage name="monitoring" duration="${rollbackWindow}" />
+		</Stages>
+	</WorkflowTemplate>
+
+	<WorkflowTemplate name="data-processing">
+		<Parameters>
+			<Parameter name="inputSource" type="url" required={true} />
+			<Parameter
+				name="outputFormat"
+				type="string"
+				enum={["json", "csv", "parquet"]}
+			/>
+			<Parameter name="batchSize" type="integer" default={1000} />
+		</Parameters>
+
+		<Processing>
+			<Extract from="${inputSource}" />
+			<Transform using="custom-logic" />
+			<Load
+				to="data-warehouse"
+				format="${outputFormat}"
+				batchSize="${batchSize}"
+			/>
+		</Processing>
+	</WorkflowTemplate>
+
+	<WorkflowComposition>
+		<Use template="secure-deployment" environment="production" />
+		<Use template="data-processing" outputFormat="parquet" />
+		<Connect
+			output="data-processing.result"
+			input="secure-deployment.artifact"
+		/>
+	</WorkflowComposition>
 </WorkflowLibrary>
 ```
 
@@ -719,31 +734,33 @@ Build complex workflows from composable, reusable components:
 Operator's workflow engine is designed for high-performance, distributed execution:
 
 #### Event Processing Performance
+
 - **Local events**: < 1μs latency
 - **Distributed events**: < 10ms latency (same region)
 - **Workflow triggers**: < 5ms cold start
 - **Throughput**: 1M+ events/second (local), 100K+ events/second (distributed)
 
 #### Scalability Features
+
 ```tsx
 <ScalabilityFeatures>
-  <HorizontalScaling>
-    <AutoScale based="queue-depth" />
-    <LoadBalancing algorithm="consistent-hashing" />
-    <NodeDiscovery via="agent.peers" />
-  </HorizontalScaling>
-  
-  <ResourceManagement>
-    <ResourcePools cpu="4-16 cores" memory="2-32GB" />
-    <QueueManagement backpressure="adaptive" />
-    <CircuitBreakers for="external-services" />
-  </ResourceManagement>
-  
-  <OptimizationStrategies>
-    <EventBatching size="dynamic" />
-    <ResultCaching ttl="intelligent" />
-    <DeadLetterQueues for="failed-events" />
-  </OptimizationStrategies>
+	<HorizontalScaling>
+		<AutoScale based="queue-depth" />
+		<LoadBalancing algorithm="consistent-hashing" />
+		<NodeDiscovery via="agent.peers" />
+	</HorizontalScaling>
+
+	<ResourceManagement>
+		<ResourcePools cpu="4-16 cores" memory="2-32GB" />
+		<QueueManagement backpressure="adaptive" />
+		<CircuitBreakers for="external-services" />
+	</ResourceManagement>
+
+	<OptimizationStrategies>
+		<EventBatching size="dynamic" />
+		<ResultCaching ttl="intelligent" />
+		<DeadLetterQueues for="failed-events" />
+	</OptimizationStrategies>
 </ScalabilityFeatures>
 ```
 

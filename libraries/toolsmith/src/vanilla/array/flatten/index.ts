@@ -14,5 +14,4 @@ const flatten = <T, D extends number = 1>(
 	return array.flat(depth) as Array<T extends ReadonlyArray<infer U> ? U : T>
 }
 
-
 export default flatten

@@ -8,5 +8,4 @@ const liftUnary = <A, R>(
 	return fa.map(fn)
 }
 
-
 export default liftUnary

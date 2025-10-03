@@ -5,5 +5,4 @@ export default function first<T>(array: Array<T>): T | null {
 	return head(array)
 }
 
-
 //>> [RELATED] [head](../head/index.ts)

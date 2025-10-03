@@ -1,8 +1,10 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
+import err from "@sitebender/toolsmith/monads/result/error/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+
 import type { GeneratorError, Seed } from "../../types/index.ts"
 
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import err from "@sitebender/toolsmith/monads/result/error/index.ts"
 import _nextUint32 from "../_nextUint32/index.ts"
 
 //++ Generates an unbiased integer in [min, max] range

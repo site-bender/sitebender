@@ -6,7 +6,6 @@ import resultGetOrElse from "../getOrElse/index.ts"
 import isError from "../isError/index.ts"
 import isOk from "../isOk/index.ts"
 import ok from "../ok/index.ts"
-
 import map3 from "./index.ts"
 
 const clamp = (min: number) => (max: number) => (value: number): number => {

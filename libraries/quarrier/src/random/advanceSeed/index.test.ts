@@ -4,9 +4,9 @@ import {
 } from "https://deno.land/std@0.213.0/assert/mod.ts"
 import * as fc from "https://esm.sh/fast-check@3.15.0"
 
-import advanceSeed from "./index.ts"
-import createSeed from "../createSeed/index.ts"
 import _nextUint32 from "../_nextUint32/index.ts"
+import createSeed from "../createSeed/index.ts"
+import advanceSeed from "./index.ts"
 
 Deno.test("advanceSeed", async (t) => {
 	await t.step("advances seed to next state", () => {

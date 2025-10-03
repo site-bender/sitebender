@@ -16,19 +16,19 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"(price * quantity) * (1 + tax_rate)",
 			{
 				price: {
-					tag: "FromElement" as const,
+					_tag: "FromElement" as const,
 					type: "injector" as const,
 					datatype: "Float" as const,
 					source: "#price-input",
 				},
 				quantity: {
-					tag: "FromElement" as const,
+					_tag: "FromElement" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					source: "#qty-input",
 				},
 				"tax_rate": {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Float" as const,
 					value: 0.08,
@@ -41,31 +41,31 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"(a / b) + (c / d) - e^2",
 			{
 				a: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					value: 99,
 				},
 				b: {
-					tag: "FromElement" as const,
+					_tag: "FromElement" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					source: "#divisor",
 				},
 				c: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					value: 44,
 				},
 				d: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					value: 2,
 				},
 				e: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					value: 3,
@@ -78,13 +78,13 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"-x + y",
 			{
 				x: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Number" as const,
 					value: 10,
 				},
 				y: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Number" as const,
 					value: 20,
@@ -97,7 +97,7 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"a + b",
 			{
 				a: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Number" as const,
 					value: 5,
@@ -117,13 +117,13 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"int1 + int2",
 			{
 				int1: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					value: 10,
 				},
 				int2: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					value: 20,
@@ -137,13 +137,13 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"intVal + floatVal",
 			{
 				intVal: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					value: 10,
 				},
 				floatVal: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Float" as const,
 					value: 3.14,
@@ -156,19 +156,19 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"age >= 18 ? adult_price : child_price",
 			{
 				age: {
-					tag: "FromElement" as const,
+					_tag: "FromElement" as const,
 					type: "injector" as const,
 					datatype: "Integer" as const,
 					source: "#age-input",
 				},
 				adult_price: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Number" as const,
 					value: 25.00,
 				},
 				child_price: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Number" as const,
 					value: 15.00,
@@ -181,7 +181,7 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"score >= 90 ? 4 : score >= 80 ? 3 : score >= 70 ? 2 : 1",
 			{
 				score: {
-					tag: "FromElement" as const,
+					_tag: "FromElement" as const,
 					type: "injector" as const,
 					datatype: "Number" as const,
 					source: "#score-input",
@@ -195,13 +195,13 @@ export default function getDemoCases(): ReadonlyArray<DemoResult> {
 			"(subtotal > 100) ? (subtotal * 0.9) : (subtotal + shipping)",
 			{
 				subtotal: {
-					tag: "FromElement" as const,
+					_tag: "FromElement" as const,
 					type: "injector" as const,
 					datatype: "Float" as const,
 					source: "#subtotal",
 				},
 				shipping: {
-					tag: "Constant" as const,
+					_tag: "Constant" as const,
 					type: "injector" as const,
 					datatype: "Float" as const,
 					value: 9.99,
