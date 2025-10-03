@@ -29,20 +29,20 @@ Property testing is fundamentally about transformation pipelines:
 ```typescript
 //++ Generator protocol for pure, deterministic value generation
 export type Generator<T> = {
-  readonly next: (seed: Seed) => GeneratorResult<T>;
-  readonly shrink: (value: T) => ShrinkTree<T>;
-  readonly parse?: (input: unknown) => Result<T, ParseError>;
-};
+	readonly next: (seed: Seed) => GeneratorResult<T>
+	readonly shrink: (value: T) => ShrinkTree<T>
+	readonly parse?: (input: unknown) => Result<T, ParseError>
+}
 
 //++ Pipeline stage that transforms generators
-export type Stage<A, B> = (gen: Generator<A>) => Generator<B>;
+export type Stage<A, B> = (gen: Generator<A>) => Generator<B>
 
 //++ Compose stages into pipelines
 const pipeline = pipe(
-  map((x) => x * 2),
-  filter((x) => x > 0),
-  shrinkToward(0),
-);
+	map((x) => x * 2),
+	filter((x) => x > 0),
+	shrinkToward(0),
+)
 ```
 
 This gives us:
@@ -58,17 +58,17 @@ This gives us:
 ```typescript
 //++ Effect descriptor for property testing
 export type Effect<T> =
-  | { readonly tag: "Pure"; readonly value: T }
-  | { readonly tag: "Async"; readonly computation: () => Promise<T> }
-  | { readonly tag: "IO"; readonly action: () => T }
-  | { readonly tag: "Random"; readonly generator: Generator<T> };
+	| { readonly tag: "Pure"; readonly value: T }
+	| { readonly tag: "Async"; readonly computation: () => Promise<T> }
+	| { readonly tag: "IO"; readonly action: () => T }
+	| { readonly tag: "Random"; readonly generator: Generator<T> }
 
 //++ Properties return effects, not promises
 export type Property<Args> = {
-  readonly name: string;
-  readonly generators: Generators<Args>;
-  readonly predicate: (args: Args) => Effect<boolean>;
-};
+	readonly name: string
+	readonly generators: Generators<Args>
+	readonly predicate: (args: Args) => Effect<boolean>
+}
 ```
 
 ### 2. Bidirectional Generators
@@ -77,15 +77,17 @@ Generators that can parse enable powerful patterns:
 
 ```typescript
 const email: Generator<string> = {
-  next: (seed) => generateValidEmail(seed),
-  shrink: (email) => shrinkEmail(email),
-  parse: (input) => validateEmail(input), // Same validation logic!
-};
+	next: (seed) => generateValidEmail(seed),
+	shrink: (email) => shrinkEmail(email),
+	parse: (input) => validateEmail(input), // Same validation logic!
+}
 
 // Automatic round-trip property
-const emailRoundTrip = createProperty("email round-trips", [email], ([e]) =>
-  Effect.Pure(email.parse!(e).isOk),
-);
+const emailRoundTrip = createProperty(
+	"email round-trips",
+	[email],
+	([e]) => Effect.Pure(email.parse!(e).isOk),
+)
 ```
 
 ### 3. Proof-Carrying Properties
@@ -94,15 +96,15 @@ Properties carry formal proofs of correctness:
 
 ```typescript
 export type PropertyProof<Args> = {
-  readonly generators_deterministic: ProofOf<"deterministic", Args>;
-  readonly shrink_terminates: ProofOf<"terminating", Args>;
-  readonly shrink_sound: ProofOf<"sound", Args>;
-};
+	readonly generators_deterministic: ProofOf<"deterministic", Args>
+	readonly shrink_terminates: ProofOf<"terminating", Args>
+	readonly shrink_sound: ProofOf<"sound", Args>
+}
 
 export type ProvenProperty<Args> = {
-  readonly property: Property<Args>;
-  readonly proof: PropertyProof<Args>;
-};
+	readonly property: Property<Args>
+	readonly proof: PropertyProof<Args>
+}
 ```
 
 ### 4. Metamorphic Testing
@@ -111,13 +113,13 @@ Properties that transform into other properties:
 
 ```typescript
 const sortMetamorphic: Metamorphic<[number[]], [number[]]> = {
-  source: sortProperty,
-  derive: (prop) => [
-    idempotenceProperty(prop), // Sorting twice = sorting once
-    involutionProperty(prop), // reverse(sort(reverse(x))) = sort(x)
-    lengthPreservingProperty(prop), // length unchanged
-  ],
-};
+	source: sortProperty,
+	derive: (prop) => [
+		idempotenceProperty(prop), // Sorting twice = sorting once
+		involutionProperty(prop), // reverse(sort(reverse(x))) = sort(x)
+		lengthPreservingProperty(prop), // length unchanged
+	],
+}
 ```
 
 ### 5. Resumable Shrinking
@@ -126,13 +128,13 @@ Shrink operations can be paused and resumed:
 
 ```typescript
 export type ShrinkState<T> = {
-  readonly tree: ShrinkTree<T>;
-  readonly path: ReadonlyArray<number>; // Breadcrumb trail
-  readonly visited: Set<string>; // Dedup via hashing
-};
+	readonly tree: ShrinkTree<T>
+	readonly path: ReadonlyArray<number> // Breadcrumb trail
+	readonly visited: Set<string> // Dedup via hashing
+}
 
 // Can pause, save, and resume shrinking across sessions
-const session = resumeShrinking(state, predicate);
+const session = resumeShrinking(state, predicate)
 ```
 
 ## Why Quarrier Wins
@@ -164,18 +166,18 @@ const session = resumeShrinking(state, predicate);
 ### Property Testing
 
 ```typescript
-import { createProperty, checkProperty } from "@sitebender/quarrier";
-import { integer } from "@sitebender/quarrier/generators";
+import { checkProperty, createProperty } from "@sitebender/quarrier"
+import { integer } from "@sitebender/quarrier/generators"
 
 // Mathematical law as property
 const commutative = createProperty(
-  "addition commutes",
-  [integer(-100, 100), integer(-100, 100)],
-  ([a, b]) => Effect.Pure(a + b === b + a),
-);
+	"addition commutes",
+	[integer(-100, 100), integer(-100, 100)],
+	([a, b]) => Effect.Pure(a + b === b + a),
+)
 
 // Check with automatic shrinking
-const result = await checkProperty(commutative, { runs: 1000 });
+const result = await checkProperty(commutative, { runs: 1000 })
 // If fails: minimal counterexample like [0, 1] not [847, -923]
 ```
 
@@ -184,21 +186,21 @@ const result = await checkProperty(commutative, { runs: 1000 });
 ```typescript
 // One generator, two directions
 const phoneNumber = createBidirectional({
-  generate: (seed) => generatePhone(seed),
-  parse: (input) => validatePhone(input),
-  shrink: (phone) => simplifyPhone(phone),
-});
+	generate: (seed) => generatePhone(seed),
+	parse: (input) => validatePhone(input),
+	shrink: (phone) => simplifyPhone(phone),
+})
 
 // Automatic round-trip property
 const phoneRoundTrip = createProperty(
-  "phone formats round-trip",
-  [phoneNumber],
-  ([p]) => {
-    const formatted = format(p);
-    const parsed = phoneNumber.parse!(formatted);
-    return Effect.Pure(parsed.isOk && normalize(parsed.value) === normalize(p));
-  },
-);
+	"phone formats round-trip",
+	[phoneNumber],
+	([p]) => {
+		const formatted = format(p)
+		const parsed = phoneNumber.parse!(formatted)
+		return Effect.Pure(parsed.isOk && normalize(parsed.value) === normalize(p))
+	},
+)
 ```
 
 ### Metamorphic Testing
@@ -206,14 +208,14 @@ const phoneRoundTrip = createProperty(
 ```typescript
 // Derive related properties automatically
 const encryptionMeta = createMetamorphic(encryptProperty, {
-  deriveInverse: true, // decrypt(encrypt(x)) = x
-  deriveIdempotent: false, // encrypt not idempotent
-  deriveCommutative: false, // order matters
-  deriveDistributive: true, // distributes over concatenation
-});
+	deriveInverse: true, // decrypt(encrypt(x)) = x
+	deriveIdempotent: false, // encrypt not idempotent
+	deriveCommutative: false, // order matters
+	deriveDistributive: true, // distributes over concatenation
+})
 
 // Generates and checks all derived properties
-const results = await checkMetamorphic(encryptionMeta);
+const results = await checkMetamorphic(encryptionMeta)
 ```
 
 ## Architecture

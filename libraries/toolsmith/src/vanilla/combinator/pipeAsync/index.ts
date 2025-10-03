@@ -8,5 +8,4 @@ const pipeAsync = <T, R = unknown>(
 		Promise.resolve(input as unknown),
 	) as Promise<R>
 
-
 export default pipeAsync

@@ -25,7 +25,9 @@ export default function map4<A, B, C, D, E, F>(
 							if (isOk(resultC)) {
 								if (isOk(resultD)) {
 									return ok(
-										fn(resultA.value)(resultB.value)(resultC.value)(resultD.value),
+										fn(resultA.value)(resultB.value)(resultC.value)(
+											resultD.value,
+										),
 									)
 								}
 

@@ -12,5 +12,4 @@ const liftA3 = <A, B, C, R>(
 	fc: ReadonlyArray<C>,
 ): Array<R> => fa.flatMap((a) => fb.flatMap((b) => fc.map((c) => fn(a, b, c))))
 
-
 export default liftA3

@@ -1,4 +1,8 @@
-import { assert, assertEquals, assertAlmostEquals } from "https://deno.land/std@0.218.0/assert/mod.ts"
+import {
+	assert,
+	assertAlmostEquals,
+	assertEquals,
+} from "https://deno.land/std@0.218.0/assert/mod.ts"
 import * as fc from "https://esm.sh/fast-check@3.15.0"
 
 import gaussianErrorLinearUnit from "./index.ts"
@@ -39,7 +43,7 @@ Deno.test("gaussianErrorLinearUnit", async (t) => {
 			fc.property(
 				fc.tuple(
 					fc.double({ min: -100, max: 100, noNaN: true }),
-					fc.double({ min: -100, max: 100, noNaN: true })
+					fc.double({ min: -100, max: 100, noNaN: true }),
 				),
 				([a, b]) => {
 					if (a < b) {
@@ -48,8 +52,8 @@ Deno.test("gaussianErrorLinearUnit", async (t) => {
 						// Account for floating point precision issues
 						assert(resultA <= resultB + 1e-10)
 					}
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -61,8 +65,8 @@ Deno.test("gaussianErrorLinearUnit", async (t) => {
 					const result = gaussianErrorLinearUnit(x)
 					assert(result <= x)
 					assert(result >= 0)
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -73,15 +77,21 @@ Deno.test("gaussianErrorLinearUnit", async (t) => {
 				(x) => {
 					const result = gaussianErrorLinearUnit(x)
 					if (x > 1e-10) {
-						assert(result > -1e-10, `Expected positive result for x=${x}, got ${result}`)
+						assert(
+							result > -1e-10,
+							`Expected positive result for x=${x}, got ${result}`,
+						)
 					} else if (x < -1e-10) {
-						assert(result < 1e-10, `Expected negative result for x=${x}, got ${result}`)
+						assert(
+							result < 1e-10,
+							`Expected negative result for x=${x}, got ${result}`,
+						)
 					} else {
 						// Near zero, result should be very small
 						assertAlmostEquals(result, 0, 1e-8)
 					}
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -96,8 +106,8 @@ Deno.test("gaussianErrorLinearUnit", async (t) => {
 					if (Math.abs(x) < 0.5) {
 						assertAlmostEquals(result, x * 0.5, 0.2)
 					}
-				}
-			)
+				},
+			),
 		)
 	})
 
@@ -120,8 +130,8 @@ Deno.test("gaussianErrorLinearUnit", async (t) => {
 					const result1 = gaussianErrorLinearUnit(x)
 					const result2 = gaussianErrorLinearUnit(x)
 					assertEquals(result1, result2)
-				}
-			)
+				},
+			),
 		)
 	})
 })

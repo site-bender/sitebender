@@ -1,5 +1,5 @@
-import hasOwn from "../hasOwn/index.ts"
 import isNotNullish from "../../validation/isNotNullish/index.ts"
+import hasOwn from "../hasOwn/index.ts"
 
 //++ Returns the value at the given key in an object, or null if not found
 export default function lookup<K extends PropertyKey>(key: K) {

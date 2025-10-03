@@ -57,7 +57,7 @@ Describes what ANY code element does.
 ```typescript
 //++ Converts a string to uppercase
 export default function toUpperCase(str: string): string {
-  return str.toUpperCase();
+	return str.toUpperCase()
 }
 ```
 
@@ -65,10 +65,10 @@ export default function toUpperCase(str: string): string {
 
 ```typescript
 //++ Primary brand color for all UI components
-export const PRIMARY_COLOR = "#007ACC";
+export const PRIMARY_COLOR = "#007ACC"
 
 //++ Dark mode background color
-export const DARK_BACKGROUND = "#20232A";
+export const DARK_BACKGROUND = "#20232A"
 ```
 
 **Types/Interfaces:**
@@ -76,9 +76,9 @@ export const DARK_BACKGROUND = "#20232A";
 ```typescript
 //++ User authentication token with expiry
 export interface AuthToken {
-  token: string;
-  expires: Date;
-  refreshToken?: string;
+	token: string
+	expires: Date
+	refreshToken?: string
 }
 ```
 
@@ -97,9 +97,9 @@ export interface AuthToken {
  | Returns an array of objects with column headers as keys.
  */
 export default function parseCsv(
-  content: string,
+	content: string,
 ): Array<Record<string, string>> {
-  // implementation
+	// implementation
 }
 ```
 
@@ -110,13 +110,13 @@ Groups related code elements with shared documentation.
 ```typescript
 //++ [GROUP] Authentication Constants
 //++ JWT signing algorithm
-export const JWT_ALGORITHM = "HS256";
+export const JWT_ALGORITHM = "HS256"
 
 //++ Token expiry time in seconds
-export const TOKEN_EXPIRY = 3600;
+export const TOKEN_EXPIRY = 3600
 
 //++ Refresh token expiry (7 days)
-export const REFRESH_EXPIRY = 604800;
+export const REFRESH_EXPIRY = 604800
 //++ [END]
 ```
 
@@ -126,18 +126,18 @@ export const REFRESH_EXPIRY = 604800;
 //++ [GROUP] Color System
 //++ [GROUP] Brand Colors
 //++ Primary interactive color
-export const PRIMARY = "#007ACC";
+export const PRIMARY = "#007ACC"
 
 //++ Secondary brand color
-export const SECONDARY = "#20232A";
+export const SECONDARY = "#20232A"
 //++ [END]
 
 //++ [GROUP] Semantic Colors
 //++ Success state color
-export const SUCCESS = "#10B981";
+export const SUCCESS = "#10B981"
 
 //++ Error state color
-export const ERROR = "#EF4444";
+export const ERROR = "#EF4444"
 //++ [END]
 //++ [END]
 ```
@@ -367,15 +367,15 @@ Marks critical problems that MUST be fixed. These block releases!
 ## 📋 Complete Example (With Proper Spacing)
 
 ````typescript
-import { AstNode } from "../types/index.ts";
+import { AstNode } from "../types/index.ts"
 
 //!! [INCOMPLETE] Generator function support not implemented
 
 //++ [GROUP] Associativity Detection
 //++ Detects if a function exhibits associative behavior
 export function isAssociative(node: AstNode): boolean {
-  //-- [OPTIMIZATION] This recursion should probably be a loop
-  return hasBinaryAssociativeOperator(node) || hasAssociativeMethodCall(node);
+	//-- [OPTIMIZATION] This recursion should probably be a loop
+	return hasBinaryAssociativeOperator(node) || hasAssociativeMethodCall(node)
 }
 
 /*??
@@ -394,7 +394,7 @@ export function isAssociative(node: AstNode): boolean {
 
 //++ Helper to check for associative operators
 function hasBinaryAssociativeOperator(node: AstNode): boolean {
-  // implementation
+	// implementation
 }
 
 //++ [END] // End of Associativity Detection group
@@ -402,7 +402,7 @@ function hasBinaryAssociativeOperator(node: AstNode): boolean {
 //++ [GROUP] Commutativity Detection
 //++ Detects if a function exhibits commutative behavior
 export function isCommutative(node: AstNode): boolean {
-  // implementation
+	// implementation
 }
 
 //++ [END]
@@ -427,7 +427,7 @@ All comment content supports:
 - **Lists**: `* bullet`, `- dash`, `1. numbered`
 - **Links**: `[text](url)`
 - **Images**: `![alt text](path/to/image.png)` or `![diagram](https://example.com/diagram.svg)`
-- **Code**: `` `inline` `` and ` ```blocks``` `
+- **Code**: `` `inline` `` and `` ```blocks``` ``
 - **Emphasis**: `**bold**`, `*italic*`, `~~strikethrough~~`
 - **Tables**, blockquotes, and more!
 
@@ -449,12 +449,14 @@ All comment content supports:
 ### Automated-First Approach
 
 **PREFER**: Let the system generate documentation automatically
+
 - Quarrier generates comprehensive examples from property-based tests
 - Auditor discovers gotchas through formal verification and edge case detection
 - Envoy analyzes pros/cons from complexity, performance, and mathematical properties
 - Function descriptions often derivable from names, types, and algorithm structure
 
 **USE MANUAL COMMENTS ONLY FOR**:
+
 - Business context machines cannot infer
 - Design decisions and rationale
 - Critical issues requiring human judgment
@@ -464,6 +466,7 @@ All comment content supports:
 ### When You Do Comment
 
 #### DO:
+
 - ✅ Use `//++` sparingly - only when function purpose isn't clear from name/signature
 - ✅ Group related constants/types with `[GROUP]...[END]` when logical grouping isn't obvious
 - ✅ Add `[MODULE]` documentation for business context
@@ -473,6 +476,7 @@ All comment content supports:
 - ✅ Use pipe `|` for block comment margins (avoids markdown conflicts)
 
 #### DON'T:
+
 - ❌ Add examples manually - let Quarrier generate comprehensive test-based examples
 - ❌ Document gotchas manually - let Auditor discover them through formal verification
 - ❌ List pros/cons manually - let Envoy analyze and measure them
@@ -633,9 +637,9 @@ export function toUpper(str: string): string {
 ```typescript
 //++ [GROUP] Color constants
 //++ Primary brand color
-export const PRIMARY = "#007ACC";
+export const PRIMARY = "#007ACC"
 //++ Secondary color
-export const SECONDARY = "#666";
+export const SECONDARY = "#666"
 //++ [END]
 ```
 
@@ -644,7 +648,7 @@ export const SECONDARY = "#666";
 ```typescript
 //++ Adds two numbers together
 export function add(a: number, b: number): number {
-  return a + b;
+	return a + b
 }
 //?? [EXAMPLE] add(2, 3) // 5
 //?? [GOTCHA] May return NaN with invalid input
@@ -731,18 +735,18 @@ Each documentation page represents a **navigable state** with hypermedia control
 
 ```json
 {
-  "_links": {
-    "self": "/functions/parseSourceFile",
-    "module": "/modules/arborist",
-    "calls": ["/functions/createCompiler", "/functions/readFile"],
-    "calledBy": ["/functions/analyze", "/functions/lint"],
-    "implements": "/types/arborist",
-    "next": "/functions/extractFunctions",
-    "tests": ["/tests/parseSourceFile.test.ts"],
-    "source": "/src/parseSourceFile/index.ts",
-    "author": "/authors/guybeford",
-    "lastModified": "2025-09-10T14:30:00Z"
-  }
+	"_links": {
+		"self": "/functions/parseSourceFile",
+		"module": "/modules/arborist",
+		"calls": ["/functions/createCompiler", "/functions/readFile"],
+		"calledBy": ["/functions/analyze", "/functions/lint"],
+		"implements": "/types/arborist",
+		"next": "/functions/extractFunctions",
+		"tests": ["/tests/parseSourceFile.test.ts"],
+		"source": "/src/parseSourceFile/index.ts",
+		"author": "/authors/guybeford",
+		"lastModified": "2025-09-10T14:30:00Z"
+	}
 }
 ```
 

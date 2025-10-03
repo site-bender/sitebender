@@ -27,7 +27,7 @@
 	},
 
 	"compilerOptions": {
-		"lib": ["deno.window", "esnext"],
+		"lib": ["deno.window", "deno.unstable", "esnext"],
 		"types": []
 	}
 }

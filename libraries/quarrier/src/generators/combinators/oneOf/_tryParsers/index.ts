@@ -1,6 +1,8 @@
-import type { Generator, ParseError } from "../../../../types/index.ts"
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
 import err from "@sitebender/toolsmith/monads/result/error/index.ts"
+
+import type { Generator, ParseError } from "../../../../types/index.ts"
 
 export default function _tryParsers<T>(
 	generators: ReadonlyArray<Generator<T>>,

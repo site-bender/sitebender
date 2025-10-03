@@ -22,5 +22,4 @@ const groupBy = <T, K extends string | number>(
 	}, Object.create(null))
 }
 
-
 export default groupBy

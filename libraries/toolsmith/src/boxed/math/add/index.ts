@@ -3,6 +3,8 @@ import liftBinary from "../../lift/liftBinary/index.ts"
 
 //++ Boxed version of add that works with Result/Validation monads
 //++ Defaults to Result for plain values, Validation if any input is Validation
-const add = liftBinary(vanillaAdd as (a: number) => ((b: number) => number | null) | null)
+const add = liftBinary(
+	vanillaAdd as (a: number) => ((b: number) => number | null) | null,
+)
 
 export default add
