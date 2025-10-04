@@ -55,33 +55,63 @@
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
       }
     },
-    "documentation_rules": {
+    "typescript_rules": {
       "command": "mcp-server-qdrant",
       "args": [],
       "env": {
         "QDRANT_URL": "http://localhost:6333",
         "QDRANT_API_KEY": "local-development-key",
-        "COLLECTION_NAME": "documentation_rules",
+        "COLLECTION_NAME": "typescript_rules",
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
       }
     },
-    "testing_rules": {
+    "toolsmith_rules": {
       "command": "mcp-server-qdrant",
       "args": [],
       "env": {
         "QDRANT_URL": "http://localhost:6333",
         "QDRANT_API_KEY": "local-development-key",
-        "COLLECTION_NAME": "testing_rules",
+        "COLLECTION_NAME": "toolsmith_rules",
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
       }
     },
-    "workflow_rules": {
+    "jsx_rules": {
       "command": "mcp-server-qdrant",
       "args": [],
       "env": {
         "QDRANT_URL": "http://localhost:6333",
         "QDRANT_API_KEY": "local-development-key",
-        "COLLECTION_NAME": "workflow_rules",
+        "COLLECTION_NAME": "jsx_rules",
+        "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
+      }
+    },
+    "accessibility_rules": {
+      "command": "mcp-server-qdrant",
+      "args": [],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_API_KEY": "local-development-key",
+        "COLLECTION_NAME": "accessibility_rules",
+        "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
+      }
+    },
+    "operator_substitutions": {
+      "command": "mcp-server-qdrant",
+      "args": [],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_API_KEY": "local-development-key",
+        "COLLECTION_NAME": "operator_substitutions",
+        "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
+      }
+    },
+    "content_rules": {
+      "command": "mcp-server-qdrant",
+      "args": [],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_API_KEY": "local-development-key",
+        "COLLECTION_NAME": "content_rules",
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
       }
     }
