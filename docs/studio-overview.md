@@ -68,7 +68,7 @@ Global registries track dependencies:
 
 **Pagewright** - Semantic HTML components
 
-- Every HTML/SVG/MathML/ChemML element typed
+- Every HTML/SVG/MathML element typed
 - W3C/WHATWG standards enforced at compile time
 - Accessibility built into every component
 - Progressive enhancement by default
@@ -82,10 +82,29 @@ Global registries track dependencies:
 
 **Formulator** - Expression compilation
 
-- Math/chemical formulas ↔ Architect IR
+- Math formulas ↔ Architect IR
 - Bidirectional transformation
-- MathML/ChemML generation
+- MathML generation
 - Perfect isomorphism
+
+**Linguist** - Internationalization as data
+
+- Translations stored as RDF triples
+- Type-safe translation keys (compile-time verification)
+- ICU MessageFormat (plurals, gender, variables)
+- Standard Intl wrapper (dates, numbers, currency)
+- Locale detection and fallback chains
+- RTL support for Pagewright components
+
+**Exchequer** - Commerce primitives as data
+
+- Products, orders, carts, payments as RDF triples
+- Payment provider abstraction (Stripe, PayPal, Square)
+- Pure price calculations with exact decimal arithmetic
+- Multi-currency support via Intl
+- Inventory management (FIFO/LIFO, multi-warehouse)
+- Tax and shipping calculation hooks
+- Subscription and digital product models
 
 ### Distribution Layer
 
@@ -120,13 +139,22 @@ Global registries track dependencies:
 
 ### Intelligence Layer
 
+**Pathfinder** - Data discovery and semantic search
+
+- SPARQL query building and optimization
+- Vector similarity search (Qdrant integration)
+- Ontology inference (RDFS/OWL reasoning)
+- Observability indexing (Prometheus/logs/traces → triples)
+- Hybrid search (graph + vector fusion)
+- Low-level query execution (Agent handles distribution)
+
 **Envoy** - Living documentation
 
 - Code becomes knowledge graph
 - SPARQL queries over codebase
 - Five-smiley developer experience (😱😟😐😊🤩)
 - Performance aggregation from production
-- Comment markers: `//++`, `//??`, `//--`, `//!!`, `//>>`
+- Comment markers: `//++` (descriptions only, use sparingly)
 
 **Auditor** - Mathematical verification
 
@@ -137,9 +165,9 @@ Global registries track dependencies:
 
 **Arborist** - Fast AST parsing
 
-- SWC via deno_ast (50x faster than TypeScript)
+- SWC via @swc/wasm-web (20-50x faster than TypeScript)
 - Syntax-level analysis for all tools
-- The ONLY library with external dependency
+- The ONLY library allowed to parse (Warden enforced)
 - Future: optional semantic analysis
 
 ### Security Layer
