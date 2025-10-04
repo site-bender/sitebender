@@ -55,6 +55,8 @@ Your entire application—including all behaviors, validations, and tests—exis
 - **Pagewright** - Semantic HTML components. Every element typed. Accessibility enforced.
 - **Architect** - Reactive rendering without VDOM. Behaviors attached as DOM properties.
 - **Formulator** - Bidirectional formula parser. Math ↔ IR ↔ MathML. Perfect isomorphism.
+- **Linguist** - Internationalization as triples. Type-safe translations. ICU MessageFormat.
+- **Exchequer** - Commerce primitives as data. Products, orders, payments. Multi-currency.
 
 #### Distribution Layer
 
@@ -64,9 +66,10 @@ Your entire application—including all behaviors, validations, and tests—exis
 
 #### Intelligence Layer
 
+- **Pathfinder** - Data discovery & semantic search. SPARQL optimization. Vector search. Ontology inference.
 - **Envoy** - Living documentation. Code intelligence. Five-smiley developer experience.
 - **Auditor** - Mathematical proof generation. Property testing. 100% coverage.
-- **Arborist** - SWC-powered parsing. 50x faster than TypeScript compiler.
+- **Arborist** - SWC-powered parsing. 20-50x faster than TypeScript compiler.
 
 #### Security Layer
 
