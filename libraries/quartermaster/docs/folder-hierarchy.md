@@ -85,6 +85,17 @@ my-app/
 │   └── SharedComponent/     # At LCA - used by multiple modules
 │       └── index.tsx
 │
+├── data/                     # Concept definitions (schema/ontology)
+│   ├── Person/
+│   │   └── index.tsx        # Person concept with properties/shapes
+│   ├── Organization/
+│   │   └── index.tsx
+│   └── concepts/            # Primitive concepts (reusable types)
+│       ├── EmailAddress/
+│       │   └── index.tsx
+│       └── PhoneNumber/
+│           └── index.tsx
+│
 ├── auth/                     # Auth components (Sentinel wrappers)
 │   ├── Locked/
 │   │   └── index.tsx       # Wraps <Sentinel> with app config
@@ -212,6 +223,76 @@ modules/
 ```
 
 **Rationale**: "modules" not "pages" because they're multi-purpose. Context determines rendering.
+
+---
+
+### `data/` - Concept Definitions (Schema/Ontology)
+
+**Purpose**: Domain data model as living ontology stored in triple store.
+
+**Contains**:
+
+- **Concept definitions** - Domain entities with properties, shapes, and relationships
+- **Primitive concepts** - Reusable datatypes (EmailAddress, PhoneNumber, etc.)
+- **SHACL shapes** - Validation rules embedded in concept definitions
+- **Compiles to**: RDF triples, SHACL constraints, database schemas
+
+**Example**:
+
+```tsx
+// data/Person/index.tsx
+export default function Person() {
+  return (
+    <Concept name="Person">
+      <Property name="email">
+        <EmailAddress />  {/* References primitive concept */}
+      </Property>
+      <Property name="age">
+        <PositiveInteger />
+      </Property>
+      <HasOne name="worksFor">
+        <Organization />
+      </HasOne>
+    </Concept>
+  );
+}
+
+// data/concepts/EmailAddress/index.tsx
+export default function EmailAddress() {
+  return (
+    <Concept name="EmailAddress" type="string">
+      <Shape>
+        <And>
+          <Is.String />
+          <Matches pattern="^.+@.+$" />
+          <MinLength value={5} />
+          <MaxLength value={150} />
+        </And>
+      </Shape>
+    </Concept>
+  );
+}
+```
+
+**Forms Auto-Generate from Concepts**:
+
+```tsx
+// Fully automatic - queries triple store for Person concept
+<Form concept="Person" type="create" />
+
+// With layout control
+<Form concept="Person">
+  <Hidden>
+    <Feature name="id" />
+  </Hidden>
+  <Group name="personal">
+    <Feature name="email" help="Custom help text" />
+    <Feature name="age" />
+  </Group>
+</Form>
+```
+
+**Rationale**: Concepts are the single source of truth. Forms, validation, database constraints, and tests all derive from concept definitions.
 
 ---
 
