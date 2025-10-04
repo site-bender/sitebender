@@ -192,12 +192,25 @@ governance_and_warden:
 
 dependencies_policy:
   zero_dependencies: true
-  exception:
-    library: "arborist"
-    depends_on: "deno_ast (SWC parser)"
+  enforcement: "Warden cryptographically validates whitelist (contracts/dependencies.yaml)"
+  exceptions:
+    arborist: "npm:@swc/wasm-web (AST parsing, 20-50x faster than TypeScript compiler)"
+    pathfinder:
+      - "npm:oxigraph (triple store, SPARQL 1.1, embeddable, production-ready)"
+      - "npm:@qdrant/qdrant-js (vector search, semantic similarity)"
+      - "npm:prom-client (Prometheus metrics ingestion)"
+    agent:
+      - "npm:libp2p (P2P networking, industry standard)"
+      - "npm:@ipld/dag-cbor (content-addressed data structures)"
+      - "npm:@noble/hashes (audited cryptographic primitives)"
+    auditor: "npm:z3-solver (SMT theorem prover for formal verification)"
+    sentinel:
+      - "npm:@noble/ciphers (audited symmetric encryption)"
+      - "npm:@web5/dids (W3C DID standard, official TBD implementation)"
   notes:
     - "Testing and server-side infra may use dependencies as needed"
-    - "deno_ast provides syntax-only parsing via SWC, delivering 20-50x performance improvements"
+    - "Application code (applications/*) unrestricted - governance is for libraries only"
+    - "NO UNAPPROVED DEPENDENCIES - architect (human) approval required first"
 
 performance_benchmarks:
   arborist:
@@ -274,6 +287,7 @@ libraries:
       element_substitution: "Line in Poem vs Line in Address vs Line in Dialogue - context determines output"
       user_friendly_props: "url instead of href, semantic prop names instead of HTML implementation details"
     status: "advanced (more complete than typical alpha)"
+    note: "ChemML support removed - limited adoption, not core to Studio vision"
   - current: "@sitebender/architect"
     studio_name: "Architect"
     purpose: "Reactive core and render pipeline (JSX -> IR -> formats -> DOM); no VDOM"
@@ -282,6 +296,41 @@ libraries:
     studio_name: "Formulator"
     purpose: "Expression parser to/from Architect IR; proper precedence; variables/functions"
     status: "independent; can proceed in parallel"
+  - current: "@sitebender/linguist"
+    studio_name: "Linguist"
+    purpose: "Internationalization as declarative data; translations as triples; type-safe keys with ICU MessageFormat"
+    status: "planning phase"
+    features:
+      - "Translations stored as RDF triples (queryable via Pathfinder)"
+      - "Type-safe translation keys (compile-time verification)"
+      - "ICU MessageFormat support (plurals, gender, variables)"
+      - "Standard Intl wrapper (dates, numbers, currency via Deno native API)"
+      - "Locale detection from headers, geo, user preferences"
+      - "Fallback chains (en-US → en → default)"
+      - "RTL support (dir attribute for Pagewright components)"
+      - "Declarative API (<Translate key=\"welcome\" />)"
+  - current: "@sitebender/exchequer"
+    studio_name: "Exchequer"
+    purpose: "Commerce primitives as declarative data; products, orders, payments as triples"
+    status: "planning phase"
+    features:
+      - "Products, orders, carts, payments as RDF triples (queryable via Pathfinder)"
+      - "Payment provider abstraction (Stripe, PayPal, Square, extensible)"
+      - "Pure price calculations with exact decimal arithmetic (no floating point errors)"
+      - "Multi-currency support via Deno native Intl API"
+      - "Inventory management (FIFO/LIFO strategies, multi-warehouse)"
+      - "Tax and shipping calculation hooks (Avalara, TaxJar, Shippo, EasyPost)"
+      - "Digital products (license key generation, time-limited downloads)"
+      - "Subscription billing model (state machine definition for Custodian)"
+      - "Order lifecycle (draft → paid → fulfilled → completed)"
+      - "Type-safe schemas for all commerce entities"
+    integration:
+      custodian: "Order state machines and subscription workflows"
+      operator: "Real-time inventory updates, abandoned cart events"
+      agent: "Distributed cart sync across peers"
+      pathfinder: "Product search and order analytics via SPARQL"
+      sentinel: "Payment authorization policies"
+      envoy: "Revenue dashboards and analytics visualization"
   - current: "@sitebender/operator"
     studio_name: "Operator"
     purpose: "CQRS event sourcing with events as RDF triples; multi-layer transport escalation; event-driven workflow orchestration"
@@ -302,16 +351,40 @@ libraries:
     studio_name: "Agent"
     purpose: "Distributed/hybrid adapters (CRDTs, DID/VC, IPFS, Solid); offline-first"
     status: "independent; can proceed in parallel"
+  - current: "@sitebender/pathfinder"
+    studio_name: "Pathfinder"
+    purpose: "Data discovery, semantic search, and ontology inference - finding paths through knowledge"
+    features:
+      sparql_builder: "Type-safe SPARQL query construction and optimization"
+      vector_search: "Qdrant integration for semantic similarity (hybrid graph + vector)"
+      ontology_inference: "RDFS/OWL reasoning makes implicit knowledge explicit"
+      observability_indexing: "Prometheus metrics, logs, traces converted to queryable triples"
+      hybrid_search: "Combine SPARQL precision with vector semantic ranking"
+      query_federation: "Low-level execution (Agent coordinates distribution)"
+    dependencies:
+      - "oxigraph: Triple store with SPARQL 1.1, embeddable, distributed-ready via Turso"
+      - "@qdrant/qdrant-js: Vector similarity search, production-proven"
+      - "prom-client: Prometheus metrics ingestion"
+    triple_store_architecture:
+      development: "Oxigraph + local SQLite file"
+      production: "Oxigraph + Turso (distributed SQLite with edge replicas)"
+      migration_path: "Zero API changes (Turso is transparent backend swap)"
+    integration:
+      agent: "Provides federated query routing, result aggregation (Pathfinder does execution)"
+      operator: "Events stored as triples via Pathfinder"
+      custodian: "State derived from Operator events via Pathfinder queries"
+      envoy: "Visualizes observability data indexed by Pathfinder"
+    status: "planning phase (dependencies on Warden enforcement first)"
   - current: "@sitebender/envoy"
     studio_name: "Envoy"
     purpose: "Revolutionary documentation and observability platform - living knowledge graph with visual workflow dashboard"
     automated_documentation_philosophy: "Most documentation generated automatically - manual comments only for what machines cannot derive"
     comment_syntax:
-      description: "//++ (use sparingly - only when purpose unclear from name/signature)"
-      help_examples: "//??  (discouraged - let Quarrier generate examples, Auditor find gotchas, Envoy analyze pros/cons)"
-      tech_debt: "//-- with specific remediation plans"
-      critical: "//!! blocking problems requiring human judgment"
-      links: "//>> semantic connections to external resources"
+      description: "//++ ONLY required comment - use sparingly when purpose unclear from name/signature"
+      deprecated_markers: "//??  (discouraged - Quarrier generates examples, Auditor finds gotchas)"
+      tech_debt: "//-- with specific remediation plans (optional)"
+      critical: "//!! blocking problems requiring human judgment (optional)"
+      links: "//>> semantic connections to external resources (optional)"
     automated_capabilities:
       examples: "Quarrier generates comprehensive examples from property-based tests"
       gotchas: "Auditor discovers edge cases through formal verification"
@@ -323,6 +396,7 @@ libraries:
       - "Critical issues requiring human judgment"
       - "External references and links"
       - "Tech debt with specific remediation plans"
+    note: "Pre-alpha: No legacy bloat, no anticipatory comments until Envoy automation ready"
     features:
       visual_workflow_dashboard: "n8n-style workflow canvas powered by semantic triple store"
       advanced_debugging:
@@ -374,11 +448,12 @@ libraries:
     status: "dependent on Quarrier + Arborist readiness"
   - current: "@sitebender/arborist"
     studio_name: "Arborist"
-    purpose: "TS/JSX parsing using deno_ast (SWC internally); THE ONLY library allowed to parse - all others use Arborist output"
-    depends_on: "deno_ast (ONLY external dependency allowed in entire ecosystem)"
+    purpose: "TS/JSX parsing using @swc/wasm-web; THE ONLY library allowed to parse - all others use Arborist output"
+    depends_on: "npm:@swc/wasm-web (SWC parser compiled to WASM)"
     status: "independent; can proceed in parallel"
-    performance: "20-50x performance improvement"
-    architectural_role: "Central parsing hub - Warden enforces parsing boundaries"
+    performance: "20-50x performance improvement over TypeScript compiler"
+    architectural_role: "Central parsing hub - Warden enforces parsing boundaries (no other library may parse)"
+    note: "Changed from deno_ast to @swc/wasm-web (SWC directly available, deno_ast not on npm)"
   - current: "@sitebender/quarrier"
     studio_name: "Quarrier"
     purpose: "Revolutionary property-based testing through compositional pipelines - zero dependencies, zero classes"
@@ -678,18 +753,21 @@ cross_library_dependencies:
   pagewright: ["toolsmith/"]
   architect: ["toolsmith/", "pagewright"]
   formulator: ["architect (IR spec)"]
-  operator: ["toolsmith/"]
-  agent: []
-  envoy: ["arborist (CRITICAL: ALL AST data - Warden enforced)"]
+  operator: ["toolsmith/", "pathfinder (event storage as triples)"]
+  custodian: ["pathfinder (state derivation via queries)"]
+  agent: ["pathfinder (federated query coordination)"]
+  pathfinder: ["oxigraph, @qdrant/qdrant-js, prom-client (see contracts/dependencies.yaml)"]
+  envoy: ["arborist (CRITICAL: ALL AST data - Warden enforced)", "pathfinder (observability visualization)"]
   auditor:
     [
       "arborist (CRITICAL: ALL parsing operations), quarrier (ALL test data generation)",
     ]
-  arborist: ["deno_ast (ONLY external dependency allowed in entire ecosystem)"]
+  arborist: ["npm:@swc/wasm-web (ONLY parsing library allowed - Warden enforced)"]
   quarrier: ["arborist (type information only)"]
   warden: ["everyone depends on Warden for governance"]
   steward: ["arborist"]
   quartermaster: ["toolsmith/", "warden"]
+  sentinel: ["pathfinder (policies as triples)"]
 
 architectural_boundaries:
   parsing_centralization: "Arborist provides all TypeScript/JSX parsing. Other libraries consume Arborist's structured outputs."
@@ -792,9 +870,10 @@ system_capabilities:
 
   distributed_architecture:
     gun_inspired: "Pure functional version of GUN.js CRDT algorithm"
-    sqlite_virtual_tables: "SQLite virtual tables for triple store over distributed SQLite (Cloudflare D1/Turso)"
+    triple_store_distribution: "Oxigraph + Turso (distributed SQLite with global edge replicas)"
+    sqlite_benefits: "Battle-tested (every iOS/Android device), terabyte-scale (max 281TB), single-writer addressed by Turso"
     did_vc: "Every triple as a verifiable credential with DIDs"
-    blockchain_witness: "Periodic anchoring of triple store hash to blockchain for immutable history"
+    blockchain_witness: "FUTURE RESEARCH: Periodic anchoring of triple store hash to blockchain for immutable history"
     crdt_native: "Each triple is a CRDT for automatic conflict resolution"
 
   ai_enhancements:
