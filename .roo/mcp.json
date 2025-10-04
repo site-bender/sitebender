@@ -54,5 +54,36 @@
         "COLLECTION_NAME": "formatting_rules",
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
       }
+    },
+    "documentation_rules": {
+      "command": "mcp-server-qdrant",
+      "args": [],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_API_KEY": "local-development-key",
+        "COLLECTION_NAME": "documentation_rules",
+        "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
+      }
+    },
+    "testing_rules": {
+      "command": "mcp-server-qdrant",
+      "args": [],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_API_KEY": "local-development-key",
+        "COLLECTION_NAME": "testing_rules",
+        "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
+      }
+    },
+    "workflow_rules": {
+      "command": "mcp-server-qdrant",
+      "args": [],
+      "env": {
+        "QDRANT_URL": "http://localhost:6333",
+        "QDRANT_API_KEY": "local-development-key",
+        "COLLECTION_NAME": "workflow_rules",
+        "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
+      }
     }
+	}
 }
