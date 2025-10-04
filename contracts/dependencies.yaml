@@ -1,0 +1,271 @@
+# Studio Dependency Whitelist
+#
+# This contract defines which libraries are allowed to use external dependencies.
+# Warden enforces this whitelist cryptographically - NO EXCEPTIONS.
+#
+# Philosophy: Zero runtime dependencies keeps the codebase simple, auditable, and AI-safe.
+# External dependencies create surface area for supply chain attacks, version conflicts,
+# and architectural drift. We allow dependencies ONLY when:
+# 1. Building the functionality ourselves would be irresponsible (parsers, crypto, databases)
+# 2. The dependency is battle-tested and industry-standard
+# 3. The dependency provides order-of-magnitude performance improvements
+#
+# Testing/infrastructure dependencies (Deno standard library, dev tools) are NOT restricted.
+
+allowed_dependencies:
+  # ============================================================================
+  # PARSING
+  # ============================================================================
+
+  arborist:
+    - dependency: "npm:@swc/wasm-web@^1.13.20"
+      rationale: >
+        AST parsing for TypeScript/JSX. SWC provides 20-50x performance improvement
+        over TypeScript compiler. Arborist is the ONLY library allowed to parse -
+        all other libraries consume Arborist's structured output (Warden enforced).
+      alternatives_considered:
+        - "TypeScript compiler: Too slow (20-50x slower)"
+        - "Babel: JavaScript ecosystem, not Deno-native"
+        - "Custom parser: Irresponsible - parsing is hard, security-critical"
+      security_considerations:
+        - "SWC is Rust-based, compiled to WASM (memory-safe)"
+        - "Wide adoption (used by Next.js, Parcel, Deno)"
+        - "Active maintenance by Vercel"
+
+  # ============================================================================
+  # DATA STORAGE & QUERYING
+  # ============================================================================
+
+  pathfinder:
+    - dependency: "npm:oxigraph@^0.4"
+      rationale: >
+        Triple store with SPARQL 1.1 support. Oxigraph is production-ready (used by
+        Wikidata and enterprise systems), embeddable (no separate server), and
+        distributed-ready (SQLite backend enables Turso integration for edge replicas).
+        Writing a triple store from scratch would take years and introduce bugs.
+      alternatives_considered:
+        - "Apache Jena Fuseki: Requires JVM, not embeddable, heavyweight"
+        - "RDFLib (Python): Wrong ecosystem, not Deno-compatible"
+        - "Custom triple store: Irresponsible - SPARQL compliance is complex"
+      production_path:
+        development: "Oxigraph + local SQLite file"
+        production: "Oxigraph + Turso (distributed SQLite with global edge replicas)"
+        api_changes: "ZERO (Turso is transparent SQLite backend swap)"
+      security_considerations:
+        - "Rust-based (memory-safe)"
+        - "MIT licensed (permissive, auditable)"
+        - "Active development, responsive maintainers"
+
+    - dependency: "npm:@qdrant/qdrant-js@^1.11"
+      rationale: >
+        Vector similarity search for semantic queries. Qdrant is purpose-built for
+        vector search (not retrofitted onto relational DB), production-proven (used
+        by major AI platforms), and provides sub-millisecond query performance.
+        Pathfinder uses Qdrant directly but exposes abstract API to prevent type
+        leakage into rest of Studio.
+      alternatives_considered:
+        - "pgvector: Requires PostgreSQL, slower than dedicated vector DB"
+        - "Milvus: Heavier, more complex deployment"
+        - "Custom vector search: Irresponsible - HNSW indexing is complex, perf-critical"
+      security_considerations:
+        - "Rust-based (memory-safe)"
+        - "Apache 2.0 licensed"
+        - "Industry-standard for vector search"
+
+    - dependency: "npm:prom-client@^15.1"
+      rationale: >
+        Prometheus metrics ingestion for observability. Converts Prometheus time-series
+        data into RDF triples for semantic querying. Official Prometheus client library,
+        widely used and battle-tested.
+      alternatives_considered:
+        - "Custom Prometheus parser: Brittle, metrics format is complex"
+        - "Direct HTTP scraping: Reinventing the wheel, no metric validation"
+      security_considerations:
+        - "Official Prometheus project"
+        - "Apache 2.0 licensed"
+        - "Minimal dependencies"
+
+  # ============================================================================
+  # DISTRIBUTED SYSTEMS
+  # ============================================================================
+
+  agent:
+    - dependency: "npm:libp2p@^1.10"
+      rationale: >
+        P2P networking for distributed applications. libp2p is the industry-standard
+        P2P stack (used by IPFS, Filecoin, Ethereum 2.0). Writing P2P networking from
+        scratch would be irresponsible - NAT traversal, DHT, gossipsub are complex.
+      alternatives_considered:
+        - "WebRTC only: Requires signaling server, not truly P2P"
+        - "Custom P2P: Irresponsible - security-critical, protocol design is hard"
+      security_considerations:
+        - "Battle-tested (powers major blockchain networks)"
+        - "MIT/Apache dual-licensed"
+        - "Active Protocol Labs maintenance"
+
+    - dependency: "npm:@ipld/dag-cbor@^9.2"
+      rationale: >
+        Content-addressed data structures for distributed triple storage. IPLD provides
+        canonical serialization and content addressing (CIDs). Used by IPFS ecosystem.
+      alternatives_considered:
+        - "Plain JSON + SHA256: No canonical serialization (key order matters)"
+        - "Custom DAG format: Reinventing the wheel, no ecosystem compatibility"
+      security_considerations:
+        - "Part of IPFS ecosystem"
+        - "MIT/Apache dual-licensed"
+        - "Deterministic serialization (no ambiguity)"
+
+    - dependency: "npm:@noble/hashes@^1.5"
+      rationale: >
+        Cryptographic primitives for DIDs, verifiable credentials, CRDT hashing.
+        @noble/hashes is audited, minimal (no dependencies), and used by major wallets.
+        Rolling our own crypto is NEVER acceptable.
+      alternatives_considered:
+        - "Web Crypto API: Limited algorithm support, not available in all runtimes"
+        - "Custom crypto: NEVER ACCEPTABLE - security-critical"
+      security_considerations:
+        - "Audited by multiple security firms"
+        - "MIT licensed"
+        - "Zero dependencies (reduces attack surface)"
+        - "Used by MetaMask, Ledger, major wallets"
+
+  # ============================================================================
+  # FORMAL VERIFICATION
+  # ============================================================================
+
+  auditor:
+    - dependency: "npm:z3-solver@^4.13"
+      rationale: >
+        SMT theorem prover for formal verification. Z3 enables mathematical proofs
+        of correctness (not just testing). Used by Microsoft, NASA, academia for
+        critical systems verification. Writing a theorem prover is PhD-level work.
+      alternatives_considered:
+        - "CVC5: Less mature JavaScript bindings"
+        - "Custom SMT solver: Irresponsible - decades of research, security-critical"
+      security_considerations:
+        - "Developed by Microsoft Research"
+        - "MIT licensed"
+        - "Used in safety-critical aerospace systems"
+
+  # ============================================================================
+  # AUTHENTICATION & SECURITY
+  # ============================================================================
+
+  sentinel:
+    - dependency: "npm:@noble/ciphers@^1.0"
+      rationale: >
+        Symmetric encryption for session tokens, encrypted state. Same @noble family
+        as @noble/hashes - audited, minimal, zero dependencies. Never roll your own crypto.
+      alternatives_considered:
+        - "Web Crypto API: Limited availability, not all algorithms"
+        - "Custom crypto: NEVER ACCEPTABLE"
+      security_considerations:
+        - "Audited cryptography"
+        - "MIT licensed"
+        - "Zero dependencies"
+
+    - dependency: "npm:@web5/dids@^1.1"
+      rationale: >
+        Decentralized identifiers (DIDs) for distributed authentication. Official
+        Web5/TBD implementation, W3C standard compliant. DIDs are complex specs
+        (multiple methods, key types, resolution protocols).
+      alternatives_considered:
+        - "Custom DID implementation: Spec compliance is complex, security-critical"
+      security_considerations:
+        - "Official TBD/Block (formerly Square) implementation"
+        - "Apache 2.0 licensed"
+        - "W3C standard compliant"
+
+# ============================================================================
+# ENFORCEMENT
+# ============================================================================
+
+enforcement:
+  tool: "warden"
+  policy: "Any dependency not in this whitelist MUST be rejected with clear error message"
+  violation_handling:
+    pr_branch: "warn"
+    main_branch: "block"
+
+  error_message_template: |
+    ❌ DEPENDENCY VIOLATION
+
+    Library: {library}
+    Attempted dependency: {dependency}
+
+    This dependency is not in the approved whitelist (contracts/dependencies.yaml).
+
+    Studio enforces zero runtime dependencies except for:
+    - Battle-tested infrastructure (parsers, databases, crypto)
+    - Security-critical functionality (never roll your own crypto)
+    - Order-of-magnitude performance improvements
+
+    To add a dependency:
+    1. Propose in GitHub discussion with justification
+    2. Demonstrate alternatives were considered
+    3. Document security considerations
+    4. Get architect approval
+    5. Update contracts/dependencies.yaml
+    6. Regenerate Warden contracts
+
+# ============================================================================
+# TESTING & DEVELOPMENT DEPENDENCIES
+# ============================================================================
+
+unrestricted_scopes:
+  - "Deno standard library (jsr:@std/*)"
+  - "Development tools (@std/testing, @std/assert)"
+  - "Infrastructure (Prometheus exporters, Grafana, Docker)"
+  - "Build tools (esbuild, terser - if needed for bundling)"
+  - "Documentation generators (Envoy internal dependencies)"
+
+notes:
+  - "Application code (applications/*) can use any dependencies - governance is for libraries only"
+  - "Infrastructure (ops/, infrastructure/) can use any dependencies for deployment"
+  - "Test fixtures may use mock servers (MSW), test databases (in-memory triple stores)"
+  - "Import maps manage local development - not restricted by this policy"
+
+# ============================================================================
+# MAINTENANCE
+# ============================================================================
+
+maintenance:
+  review_cadence: "Quarterly (every 3 months)"
+  review_triggers:
+    - "Major version updates of allowed dependencies"
+    - "Security advisories for dependencies"
+    - "New library additions to Studio"
+
+  deprecation_policy: >
+    If a dependency is removed from whitelist, libraries have 3 months to migrate
+    or justify re-inclusion. Deprecated dependencies remain in whitelist with
+    "deprecated: true" flag and sunset date.
+
+# ============================================================================
+# RATIONALE
+# ============================================================================
+
+philosophy: |
+  "The best dependency is no dependency."
+
+  Every external dependency is:
+  - A potential supply chain attack vector
+  - A maintenance burden (version updates, breaking changes)
+  - A source of architectural drift (abstractions leak)
+  - A cognitive load (developers must understand external code)
+
+  We allow dependencies ONLY when the alternative is worse:
+  - Security-critical (crypto, parsing, databases)
+  - Performance-critical (20-50x speedups justify complexity)
+  - Specification-critical (standards compliance is complex)
+
+  We do NOT allow dependencies for:
+  - Convenience ("left-pad" syndrome)
+  - "Enterprise" ORMs that promise database-swapping (never happens)
+  - Frameworks that dictate architecture (React, Angular, Vue)
+  - Utility libraries that we can implement better (lodash, underscore)
+
+  This whitelist is AI-enforced (Warden) because humans rationalize.
+  "Just this once" becomes "everywhere" becomes "legacy hell."
+
+  NO TECH DEBT. NO SHORTCUTS. NO EXCEPTIONS.
