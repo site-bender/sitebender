@@ -299,29 +299,34 @@ the RAG system for retrieval during AI-assisted development.
   - [x] Verify counts and sampling
 
 ### Phase 4: Retrieval Pipeline Development
-- [x] Step 4.1: Implement multi-collection search
-  - [x] Create search function with collection routing
-  - [x] Implement relevance scoring across collections
-  - [x] Add filtering by metadata (category, severity)
-  - [x] Optimize search parameters (limit, score threshold)
+- [~] Step 4.1: Implement multi-collection search (PROTOTYPE ONLY)
+  - [x] Create search function with collection routing (basic)
+  - [ ] Implement semantic search with query embeddings
+  - [ ] Implement real relevance scoring (currently hardcoded)
+  - [x] Add filtering by metadata (category, severity) (basic)
+  - [ ] Optimize search parameters with testing
 
-- [x] Step 4.2: Implement context assembly
-  - [x] Design context template structure
-  - [x] Implement deduplication logic
-  - [x] Add relevance ranking
-  - [x] Create context formatting for AI consumption
+- [~] Step 4.2: Implement context assembly (PROTOTYPE ONLY)
+  - [x] Design context template structure (basic)
+  - [ ] Implement proper deduplication logic
+  - [ ] Add sophisticated relevance ranking
+  - [x] Create context formatting for AI consumption (basic)
 
-- [x] Step 4.3: Implement query understanding
-  - [x] Classify query intent (check, fix, explain, example)
-  - [x] Extract rule categories from query
-  - [x] Determine optimal encoding types to retrieve
-  - [x] Route to appropriate collections
+- [~] Step 4.3: Implement query understanding (PROTOTYPE ONLY)
+  - [x] Classify query intent (check, fix, explain, example) (basic keyword matching)
+  - [ ] Extract rule categories from query (advanced)
+  - [x] Determine optimal encoding types to retrieve (basic)
+  - [x] Route to appropriate collections (basic)
 
-- [x] Step 4.4: Implement result synthesis
-  - [x] Combine results from multiple encoding types
-  - [x] Prioritize based on query intent
-  - [x] Format for clear AI comprehension
-  - [x] Add citations/references to source rules
+- [~] Step 4.4: Implement result synthesis (PROTOTYPE ONLY)
+  - [x] Combine results from multiple encoding types (basic)
+  - [x] Prioritize based on query intent (basic)
+  - [x] Format for clear AI comprehension (basic)
+  - [ ] Add citations/references to source rules
+  - [ ] Add confidence scoring
+  - [ ] Add error handling
+  - [ ] Add caching
+  - [ ] Add tests
 
 ### Phase 5: Integration with Steward
 - [ ] Step 5.1: Integrate with `steward check`
@@ -397,23 +402,31 @@ the RAG system for retrieval during AI-assisted development.
 ## Progress Tracking
 
 ### Current Phase
-**Phase 3: Vector Database Setup - COMPLETE**
-- All 5 collections created and configured
-- All 360 embeddings upserted across 6 encoding types
-- Schema designed with proper metadata fields
-- HNSW indexing configured (Cosine distance, 384 dimensions)
-- Batch upsert implemented with error handling
-- Verification tests passing
-- Next: Begin Phase 4 - Retrieval Pipeline Development
+**Phase 4: Retrieval Pipeline Development - PROTOTYPE COMPLETE, PRODUCTION INCOMPLETE**
+
+**What's Done (Phases 1-3)**: ✅
+- Phase 1: Rule Extraction - COMPLETE (24 rules, 5 categories)
+- Phase 2: 6-Way Encoding - COMPLETE (360 embeddings)
+- Phase 3: Vector Database - COMPLETE (5 collections in Qdrant, MCP working)
+
+**What's In Progress (Phase 4)**: ⚠️
+- Basic prototype exists ([`scripts/rag/retrieval_pipeline.py`](../scripts/rag/retrieval_pipeline.py))
+- All 4 steps have code but at prototype level only
+- Missing: semantic search, query embeddings, real scoring, tests, error handling
+
+**See**: [`docs/RAG_IMPLEMENTATION_AUDIT.md`](RAG_IMPLEMENTATION_AUDIT.md) for detailed gap analysis
 
 ### Last Updated
-2025-10-03T07:06:00Z
+2025-10-04T03:31:00Z
 
-### Next Steps
-1. Implement multi-collection search with relevance scoring
-2. Implement context assembly with deduplication
-3. Implement query understanding (intent classification)
-4. Implement result synthesis from multiple encoding types
+### Next Steps (Phase 4 Production)
+1. **Critical**: Implement semantic search with query embeddings
+2. **Critical**: Add real relevance scoring (not hardcoded)
+3. **Critical**: Implement error handling
+4. **Critical**: Write tests for retrieval pipeline
+5. **Important**: Implement proper deduplication logic
+6. **Important**: Add citations and confidence scoring
+7. **Nice-to-have**: Add caching and monitoring
 
 ### Notes/Blockers
 - Embedding model: all-MiniLM-L6-v2 (384 dimensions) ✓

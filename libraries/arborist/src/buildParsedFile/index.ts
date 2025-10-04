@@ -1,18 +1,18 @@
 // @sitebender/arborist/src/buildParsedFile
-// Builds a ParsedFile from source code
-
-//-- [TODO] Day 2: Accept AST Module instead of source string
-//-- For Day 1, using minimal implementation to unblock testing
+// Builds a ParsedFile from SWC AST
 
 import type { ParsedFile } from "../types/index.ts"
 
-//++ Builds a ParsedFile from source code
-//++ This is a curried function: (source) => (filePath) => ParsedFile
-//-- [TODO] Day 2: Parse AST and extract all information
-export default function buildParsedFile(_source: string) {
-	return function buildParsedFileWithSource(filePath: string): ParsedFile {
+// SWC AST Module type - using unknown since npm types aren't available at compile time
+// Will be properly typed when we implement extraction functions
+type SwcModule = unknown
+
+//++ Builds a ParsedFile from SWC AST Module
+//++ This is a curried function: (ast) => (filePath) => ParsedFile
+export default function buildParsedFile(_ast: SwcModule) {
+	return function buildParsedFileWithAST(filePath: string): ParsedFile {
 		// TODO(@guy): Day 2+ - Implement extraction functions
-		// - extractFunctions (Day 2)
+		// - extractFunctions (Day 2) - IN PROGRESS
 		// - extractImports (Day 3)
 		// - extractExports (Day 3)
 		// - extractComments (Day 4)
@@ -21,9 +21,10 @@ export default function buildParsedFile(_source: string) {
 		// - detectViolations (Day 5)
 
 		// For now, return a minimal ParsedFile structure
+		// Will populate with extracted data as we implement extraction functions
 		return {
 			filePath,
-			functions: [],
+			functions: [], // TODO(@guy): extractFunctions(_ast)
 			types: [],
 			constants: [],
 			imports: [],
