@@ -2,6 +2,13 @@
 
 Based on analysis of all 18 Studio library READMEs, this document captures the distinct JSX paradigms and patterns discovered, along with recommended jsx_rules to be created.
 
+## ⚠️ IMPORTANT DISCLAIMER
+
+**Component names, props, and structures shown throughout this document are hypothetical examples only. Actual component APIs are to be determined during library development and are subject to change.**
+
+This document serves as a conceptual framework for JSX patterns and rules, not as canonical component specifications. All component examples should be treated as illustrative patterns rather than final API definitions.</search>
+</search_and_replace>
+
 ## Library-by-Library Analysis
 
 ### 1. Agent - Distributed Systems JSX
@@ -21,10 +28,10 @@ Based on analysis of all 18 Studio library READMEs, this document captures the d
 </DistributedCounter>
 
 <CollaborativeText id="document">
-  <RGA>
+  <Rga>
     <ShowCursors for={["user1", "user2"]} />
     <ShowPresence />
-  </RGA>
+  </Rga>
 </CollaborativeText>
 ```
 
@@ -40,7 +47,7 @@ Based on analysis of all 18 Studio library READMEs, this document captures the d
 
 **Key Patterns**:
 - Mathematical operations: `<Add>`, `<Multiply>`, `<IsGreaterThan>`
-- Data injection: `<From.Element>`, `<From.Api>`, `<From.Argument>`
+- Data injection: `<FromElement>`, `<FromApi>`, `<FromArgument>`
 - Logical operations: `<And>`, `<Or>`, `<Not>`
 - Display/validation: `<Display>`, `<ShowIf>`, `<Validation>`
 - Form data types: `<ChooseOneField>`, `<BooleanField>`
@@ -59,7 +66,7 @@ Based on analysis of all 18 Studio library READMEs, this document captures the d
     <IsInteger><From.Argument /></IsInteger>
     <IsGreaterThan>
       <Referent><From.Argument /></Referent>
-      <Comparand><From.Constant>0</From.Constant></Comparand>
+      <Comparand><Value>0</Value></Comparand>
     </IsGreaterThan>
   </And>
 </Validation>
@@ -238,7 +245,7 @@ Based on analysis of all 18 Studio library READMEs, this document captures the d
 
 **Key Patterns**:
 - Translations: `<Translation>`, `<Translate>`
-- Locale management: `<LocaleProvider>`, `<DetectFrom.AcceptLanguageHeader>`
+- Locale management: `<LocaleProvider>`, `<DetectFromAcceptLanguageHeader>`
 - Formatting: `<FormatDate>`, `<FormatNumber>`, `<FormatRelativeTime>`
 - Collaborative translation: `<TranslationWorkspace>`, `<CollaborativeEdit>`
 
@@ -249,7 +256,7 @@ Based on analysis of all 18 Studio library READMEs, this document captures the d
 </Translation>
 
 <LocaleProvider>
-  <DetectFrom.AcceptLanguageHeader />
+  <DetectFromAcceptLanguageHeader />
   <FallbackTo locale="en" />
 </LocaleProvider>
 ```
@@ -295,7 +302,7 @@ const decompiled = decompile(ir.value)
 - AI safety constraints: `<AIWorkflowSafety>`, `<GenerationConstraints>`, `<ForbiddenPatterns>`
 - Real-time monitoring: `<WorkflowMonitoring>`, `<ContractCompliance>`, `<ViolationDetection>`
 - Architectural governance: `<ArchitecturalGovernance>`, `<DesignPatterns>`, `<QualityGates>`
-- Compliance validation: `<ComplianceValidation>`, `<RegulatoryFrameworks>`, `<GDPR>`, `<SOX>`, `<HIPAA>`
+- Compliance validation: `<ComplianceValidation>`, `<RegulatoryFrameworks>`, `<Gpdr>`, `<SOX>`, `<Hipaa>`
 - Change management: `<WorkflowChangeManagement>`, `<ApprovalWorkflows>`, `<RollbackCapability>`
 - Cryptographic verification: `<CryptographicVerification>`, `<WorkflowSignature>`, `<IntegrityHash>`
 
@@ -314,7 +321,7 @@ const decompiled = decompile(ir.value)
     </AllowedConnections>
     
     <ComplianceRequirements>
-      <GDPR dataRetention="P2Y" anonymization="required" />
+      <Gpdr dataRetention="P2Y" anonymization="required" />
       <SOX auditTrail="complete" approvalRequired={true} />
     </ComplianceRequirements>
   </WorkflowContract>
@@ -363,27 +370,6 @@ Toolsmith doesn't introduce JSX patterns itself but provides the foundational fu
 - **Universal foundation**: Used by ALL other @sitebender libraries as their functional programming base
 - **Performance philosophy**: Functional purity with documented exceptions for performance-critical operations
 - **Type safety**: Strong TypeScript types with branded types and effect tracking
-
-**Example** (showing the functional API Toolsmith provides, not JSX):
-```typescript
-// Functional API for pure utilities:
-import { map } from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import { pipe } from "@sitebender/toolsmith/vanilla/combinators/pipe/index.ts"
-import { Box } from "@sitebender/toolsmith/boxed/index.ts"
-
-// Vanilla API (performance-optimized)
-const processItems = pipe(
-  map((item: Item) => ({ ...item, processed: true })),
-  filter((item: ProcessedItem) => item.isValid),
-  reduce((acc: number, item: ProcessedItem) => acc + item.value, 0)
-)
-
-// Boxed API (monadic safety)
-const safeProcess = Box.of(rawData)
-  .map(validateInput)
-  .flatMap(processBusinessLogic)
-  .fold(handleError, handleSuccess)
-```
 
 **Integration with JSX Libraries**:
 - **All Libraries**: Provides the functional programming foundation for every Studio library
@@ -1103,7 +1089,7 @@ Mathematical operation components must have consistent structure with clear oper
 // Good: Clear mathematical structure
 <IsGreaterThan>
   <Referent><From.Element selector="#age" /></Referent>
-  <Comparand><From.Constant>18</From.Constant></Comparand>
+  <Comparand><Value>18</Value></Comparand>
 </IsGreaterThan>
 
 // Bad: Unclear operand roles
@@ -1129,7 +1115,7 @@ Components that accept formula strings must validate mathematical syntax and var
 ```
 
 #### 7. JSX_MATH_003 - Data Injection Patterns
-Data injection components (`<From.Element>`, `<From.Api>`, etc.) must specify clear data sources and handle loading/error states consistently.
+Data injection components (`<FromElement>`, `<FromApi>`, etc.) must specify clear data sources and handle loading/error states consistently.
 
 **Why it matters**: Ensures reactive data flows are predictable and debuggable across complex application states.
 
@@ -1158,8 +1144,8 @@ Conditional rendering components must have explicit condition and consequence co
 <ShowIf>
   <Condition>
     <IsGreaterThan>
-      <Referent><From.Element selector="#score" /></Referent>
-      <Comparand><From.Constant>80</From.Constant></Comparand>
+      <Referent><FromElement selector="#score" /></Referent>
+      <Comparand><Value>80</Value></Comparand>
     </IsGreaterThan>
   </Condition>
   <Consequence>
@@ -1220,27 +1206,29 @@ Components that generate Schema.org markup must use proper microdata patterns an
 ```
 
 #### 11. JSX_SEMANTIC_003 - Progressive Enhancement Attributes
-Use `data-enhance` attributes consistently across semantic components. Enhancement behavior must be additive, not replacing base functionality.
+Components must use props that compile to `data-enhance` HTML output attributes for progressive enhancement. Props control enhancement behavior, not HTML attributes directly. Enhancement behavior must be additive, not replacing base functionality.
 
-**Why it matters**: Ensures semantic HTML works perfectly without JavaScript while providing rich interactions when available.
+**Why it matters**: Ensures semantic HTML works perfectly without JavaScript while providing rich interactions when available. Clarifies that `data-enhance` is HTML output, not JSX props.
 
 **Example**:
 ```tsx
-// Good: Progressive enhancement
-<Article data-enhance="reading-progress">
+// Good: Props that generate progressive enhancement HTML attributes
+<Article readingProgress={true}> {/* Outputs: data-enhance="reading-progress" */}
   <Heading><Title>Long Article</Title></Heading>
-  <Section data-enhance="lazy-load">
+  <Section lazyLoad={true}> {/* Outputs: data-enhance="lazy-load" */}
     <Paragraph>Content...</Paragraph>
   </Section>
 </Article>
 
-// Bad: JavaScript-dependent functionality
-<Article requiresJs onScrollProgress={updateProgress}>
+// Bad: JavaScript-dependent functionality or direct HTML attributes
+<Article data-enhance="reading-progress" onScrollProgress={updateProgress}>
   <LazySection loader={<Spinner />}>
     <Paragraph>Content...</Paragraph>
   </LazySection>
 </Article>
 ```
+
+**Note**: Actual prop names (like `readingProgress`, `lazyLoad`) are not finalized. This example shows the concept of props compiling to `data-enhance` HTML attributes.
 
 ### Distributed Systems JSX (Agent)
 
@@ -1257,7 +1245,7 @@ CRDT components must specify unique identifiers, merge strategies, and synchroni
   mergeStrategy="lww" 
   syncPolicy="immediate"
 >
-  <SyncWith.Peers maxPeers={5} />
+  <SyncWithPeers maxPeers={5} />
   <ConflictResolution strategy="automatic" />
 </DistributedCounter>
 
@@ -1278,7 +1266,7 @@ Distributed components must properly handle identity verification and capability
     <DidKey key="did:key:z6Mk..." />
     <Capabilities read write />
   </Identity>
-  <RGA showCursors={true} />
+  <Rga showCursors={true} />
 </CollaborativeText>
 
 // Bad: Unsafe identity patterns
@@ -1300,8 +1288,8 @@ Collaborative components must define clear ownership, permission, and conflict r
     <Viewer can="read" />
   </Permissions>
   <OfflineStrategy>
-    <Queue.Changes />
-    <Sync.OnReconnect />
+    <QueueChanges />
+    <SyncOnReconnect />
   </OfflineStrategy>
 </CollaborativeWorkflow>
 
@@ -1537,8 +1525,8 @@ Product components must maintain referential integrity, support variant relation
   <Variant name="size" options={["S", "M", "L"]} affects="inventory" />
   <BasePrice currency="USD">29.99</BasePrice>
   <Inventory>
-    <Track.Quantity />
-    <Reserve.OnAddToCart />
+    <TrackQuantity />
+    <ReserveOnAddToCart />
   </Inventory>
 </Product>
 
@@ -1606,7 +1594,7 @@ Locale providers must handle locale detection, fallback chains, and regional var
 ```tsx
 // Good: Robust locale management
 <LocaleProvider>
-  <DetectFrom.AcceptLanguageHeader />
+  <DetectFromAcceptLanguageHeader />
   <DetectFrom.UserPreference />
   <FallbackChain locales={["en-US", "en", "es"]} />
   <DateFormat calendar="gregorian" />
@@ -1656,8 +1644,8 @@ Workflow governance components must define cryptographically verifiable contract
       <Component name="warden-validation" mandatory={true} />
     </RequiredComponents>
     <ComplianceRequirements>
-      <GDPR dataRetention="P2Y" anonymization="required" />
-      <SOX auditTrail="complete" approvalRequired={true} />
+      <Gpdr dataRetention="P2Y" anonymization="required" />
+      <Sox auditTrail="complete" approvalRequired={true} />
     </ComplianceRequirements>
   </WorkflowContract>
   <CryptographicVerification>
@@ -1681,7 +1669,7 @@ AI workflow safety components must define explicit forbidden patterns, required 
 **Example**:
 ```tsx
 // Good: Explicit AI safety constraints
-<AIWorkflowSafety>
+<AiWorkflowSafety>
   <GenerationConstraints>
     <ForbiddenPatterns>
       <Pattern name="direct-database-access" reason="security" />
@@ -1700,7 +1688,7 @@ AI workflow safety components must define explicit forbidden patterns, required 
       <ComplianceChecking />
     </PreValidation>
   </ValidationPipeline>
-</AIWorkflowSafety>
+</AiWorkflowSafety>
 
 // Bad: Implicit AI safety assumptions
 <AIGuard
@@ -1719,7 +1707,7 @@ Compliance validation components must support multiple regulatory frameworks wit
 // Good: Standards-based compliance validation
 <ComplianceValidation>
   <RegulatoryFrameworks>
-    <GDPR>
+    <Gpdr>
       <DataProcessingLawfulness>
         <ConsentManagement required={true} />
         <DataMinimization enforced={true} />
@@ -1729,20 +1717,20 @@ Compliance validation components must support multiple regulatory frameworks wit
         <EncryptionAtRest required={true} />
         <AccessControls granular={true} />
       </TechnicalMeasures>
-    </GDPR>
-    <HIPAA>
+    </Gpdr>
+    <Hipaa>
       <TechnicalSafeguards>
         <AccessControl unique="user-identification" />
         <AuditControls />
         <Integrity />
       </TechnicalSafeguards>
-    </HIPAA>
+    </Hipaa>
   </RegulatoryFrameworks>
 </ComplianceValidation>
 
 // Bad: Generic compliance checking
 <ComplianceChecker
-  frameworks={["GDPR", "HIPAA"]}
+  frameworks={["GPDR", "HIPAA"]}
   rules={complianceRules}
 />
 ```
@@ -1929,11 +1917,11 @@ Developer tool components must support multiple interaction modes (voice, GUI, C
 // Good: Multi-modal interface support
 <QuartermasterInterface>
   <VoiceGuidedSetup>
-    <AIAssistant provider="claude" fallback="text" />
+    <AiAssistant provider="claude" fallback="text" />
     <ConversationalConfig accessible={true} />
   </VoiceGuidedSetup>
-  <GUIWizard fallback="voice" />
-  <CLIInterface scriptable={true} />
+  <GuiWizard fallback="voice" />
+  <CliInterface scriptable={true} />
 </QuartermasterInterface>
 
 // Bad: Single-mode interface
@@ -1956,7 +1944,7 @@ Collaborative development components must handle real-time editing, conflict res
     </Participants>
   </TeamConfiguration>
   <RealTimeEditing>
-    <CRDTSync strategy="operational-transform" />
+    <CrdtSync strategy="operational-transform" />
     <ConflictResolution automatic={true} fallback="manual" />
   </RealTimeEditing>
 </CollaborativeSession>
