@@ -1,0 +1,197 @@
+[
+  {
+    "rule_id": "TS_ADT_001",
+    "category": "algebraic-data-types",
+    "priority": 10,
+    "reason": "Discriminated unions provide type-safe variant types with exhaustive pattern matching, eliminating null/undefined errors and enabling robust error handling",
+    "consequences": "Using null/undefined or boolean flags leads to runtime errors, non-exhaustive handling, and loss of type safety",
+    "philosophy": "Discriminated Unions for Safe Variants - tagged unions with _tag field enable exhaustive pattern matching and type-safe handling of variant types",
+    "examples": {
+      "correct": "type Result<T, E> =\n  | { _tag: \"success\"; value: T }\n  | { _tag: \"failure\"; error: E };\n\nfunction handleResult<T, E>(result: Result<T, E>): string {\n  switch (result._tag) {\n    case \"success\":\n      return `Success: ${result.value}`;\n    case \"failure\":\n      return `Error: ${result.error}`;\n  }\n}",
+      "anti_pattern": "type Result<T> = {\n  success: boolean;\n  value?: T;\n  error?: Error;\n};\n\n// Non-exhaustive, type-unsafe handling\nif (result.success) {\n  console.log(result.value); // Could be undefined\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_BRT_002",
+    "category": "brand-types",
+    "priority": 9,
+    "reason": "Branded types prevent mixing semantically different values that share the same structural type, providing compile-time safety without runtime cost",
+    "consequences": "Using raw primitives allows accidental mixing of different domain concepts, leading to semantic errors that pass type checking",
+    "philosophy": "Branded Types with __brand - intersection types with unique brands create nominal typing for domain concepts while maintaining zero runtime overhead",
+    "examples": {
+      "correct": "type UserId = string & { readonly __brand: 'UserId' };\ntype Email = string & { readonly __brand: 'Email' };\n\nfunction getUser(id: UserId): User {\n  // Type system ensures id is specifically a UserId\n  return findUserById(id);\n}",
+      "anti_pattern": "function getUser(id: string): User {\n  // Accepts any string - email, postId, etc.\n  return findUserById(id);\n}\n\n// This compiles but is semantically wrong:\ngetUser(emailAddress); // Should be UserId, not Email"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_TYP_003",
+    "category": "type-safety",
+    "priority": 9,
+    "reason": "Explicit type annotations provide clear contracts, improve code readability, and catch type errors early in development",
+    "consequences": "Relying on type inference for public APIs creates unclear contracts and makes refactoring dangerous",
+    "philosophy": "Explicit Type Annotations - always annotate function parameters and return types to create clear, self-documenting contracts",
+    "examples": {
+      "correct": "function processUser(\n  user: Readonly<User>,\n  options: Readonly<ProcessOptions>\n): Result<ProcessedUser, ProcessError> {\n  return processUserWithOptions(user, options);\n}",
+      "anti_pattern": "function processUser(user, options) {\n  // No type information - unclear what types are expected\n  return processUserWithOptions(user, options);\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_IMM_004",
+    "category": "immutability",
+    "priority": 9,
+    "reason": "Readonly types enforce immutability at the type level, preventing accidental mutations and supporting functional programming patterns",
+    "consequences": "Mutable types allow accidental mutations that break immutability guarantees and cause hard-to-debug side effects",
+    "philosophy": "Readonly Types for Immutability - use Readonly<T> and ReadonlyArray<T> to encode immutability constraints in the type system",
+    "examples": {
+      "correct": "function updateUser(\n  user: Readonly<User>,\n  updates: Readonly<Partial<User>>\n): Readonly<User> {\n  return { ...user, ...updates };\n}\n\nfunction mapUsers(\n  users: ReadonlyArray<User>\n): ReadonlyArray<ProcessedUser> {\n  return users.map(processUser);\n}",
+      "anti_pattern": "function updateUser(\n  user: User,\n  updates: Partial<User>\n): User {\n  // Allows mutations - breaks immutability\n  user.name = updates.name;\n  return user;\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_ADV_005",
+    "category": "type-level-programming",
+    "priority": 8,
+    "reason": "Type-level programming encodes constraints and relationships in the type system, providing compile-time guarantees and reducing runtime errors",
+    "consequences": "Runtime-only constraints allow invalid states to compile and fail at runtime, reducing system reliability",
+    "philosophy": "Type-Level Programming - leverage mapped types, conditional types, and template literals to encode constraints and computations in the type system",
+    "examples": {
+      "correct": "type NonEmptyArray<T> = readonly [T, ...T[]];\n\ntype EventName<T extends string> = `on${Capitalize<T>}`;\n\ntype RequiredKeys<T> = {\n  [K in keyof T]-?: {} extends Pick<T, K> ? never : K;\n}[keyof T];",
+      "anti_pattern": "// Runtime-only validation\nfunction processNonEmpty<T>(arr: T[]): T[] {\n  if (arr.length === 0) {\n    throw new Error('Array cannot be empty');\n  }\n  return arr;\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_ARR_006",
+    "category": "array-syntax",
+    "priority": 7,
+    "reason": "Array<T> syntax is more explicit and consistent with generic type patterns, improving readability especially for complex nested types",
+    "consequences": "T[] syntax becomes unclear with complex types and doesn't consistently follow generic type conventions",
+    "philosophy": "Array<T> Syntax Consistency - use Array<T> and ReadonlyArray<T> for consistency with generic patterns and clarity with complex types",
+    "examples": {
+      "correct": "function processUsers(\n  users: ReadonlyArray<User>,\n  processors: ReadonlyArray<(user: User) => ProcessedUser>\n): ReadonlyArray<ProcessedUser> {\n  return users.map(processors[0]);\n}",
+      "anti_pattern": "function processUsers(\n  users: User[],\n  processors: ((user: User) => ProcessedUser)[]\n): ProcessedUser[] {\n  // Harder to read with complex types\n  return users.map(processors[0]);\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_ANY_007",
+    "category": "type-safety",
+    "priority": 10,
+    "reason": "The any type completely disables TypeScript's type checking, eliminating the benefits of static typing and making code unsafe",
+    "consequences": "Using any allows runtime errors that TypeScript could prevent and eliminates intellisense and refactoring safety",
+    "philosophy": "Any Type Prohibition - never use any; use PrimitiveValue, Serializable, Value, or specific type definitions for known shapes",
+    "examples": {
+      "correct": "import { Value, Serializable, PrimitiveValue } from '@sitebender/toolsmith';\n\nfunction processApiResponse(response: Value): Result<ProcessedData, ApiError> {\n  if (isApiResponse(response)) {\n    return success(processValidResponse(response));\n  }\n  return failure({ _tag: 'ApiError', message: 'Invalid response' });\n}",
+      "anti_pattern": "function processApiResponse(response: any): any {\n  // Type checking disabled - runtime errors possible\n  return response.data.items.map(item => item.value);\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_UNK_008",
+    "category": "type-safety",
+    "priority": 10,
+    "reason": "NEVER use TypeScript's built-in unknown type - it is prohibited. Always use Toolsmith's PrimitiveValue, Serializable, Value, or Unknown types instead which provide better semantic meaning and type safety",
+    "consequences": "Using unknown violates type safety principles, reduces code clarity, and conflicts with our type system design that knows what types we're working with",
+    "philosophy": "Toolsmith Type Usage - TypeScript has limited basic types, and the Toolsmith types provide better semantic meaning. We know what our types are, so use PrimitiveValue, Serializable, Value, or Unknown from Toolsmith",
+    "examples": {
+      "correct": "import { Value, Serializable, PrimitiveValue, Unknown } from '@sitebender/toolsmith';\n\nfunction isUser(value: Value): value is User {\n  return typeof value === 'object' &&\n    value !== null &&\n    'id' in value &&\n    'name' in value;\n}\n\nfunction processUnknownData(data: Unknown): Result<User, ValidationError> {\n  return isUser(data) \n    ? success(data)\n    : failure({ _tag: 'ValidationError', message: 'Not a valid user' });\n}\n\nfunction handlePrimitive(value: PrimitiveValue): string {\n  return String(value);\n}\n\nfunction serializeData(data: Serializable): string {\n  return JSON.stringify(data);\n}",
+      "anti_pattern": "function processUnknownData(data: unknown): User {\n  // PROHIBITED: Never use TypeScript's unknown type\n  return data as User;\n}\n\nfunction handleValue(value: unknown): string {\n  // PROHIBITED: unknown type not allowed\n  return String(value);\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_BRT_009",
+    "category": "brand-types",
+    "priority": 8,
+    "reason": "Smart constructors validate input and return Result types, ensuring branded types are always valid and providing clear error handling",
+    "consequences": "Direct casting to branded types skips validation and allows invalid values to be treated as valid",
+    "philosophy": "Smart Constructor Pattern - validate input and return Result<BrandedType, Error> to ensure branded types are always valid",
+    "examples": {
+      "correct": "function userId(str: string): Result<UserId, ValidationError> {\n  if (isNotEmpty(str) && str.length <= 50 && /^[a-zA-Z0-9_-]+$/.test(str)) {\n    return success(str as UserId);\n  }\n  return failure({\n    _tag: 'ValidationError',\n    field: 'userId',\n    message: 'UserId must be 1-50 alphanumeric characters'\n  });\n}",
+      "anti_pattern": "function userId(str: string): UserId {\n  // No validation - allows invalid userIds\n  return str as UserId;\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_BRT_010",
+    "category": "brand-types",
+    "priority": 8,
+    "reason": "Unsafe constructors make the escape hatch explicit and should only be used for trusted data where validation already occurred",
+    "consequences": "Implicit casting hides the fact that validation is being skipped, making it unclear when values might be invalid",
+    "philosophy": "Unsafe Constructor Naming - prefix with 'unsafe' to make validation bypass explicit and document trusted data sources",
+    "examples": {
+      "correct": "function unsafeUserId(str: string): UserId {\n  return str as UserId;\n}\n\n// Usage: Reading from database where validation already occurred\nconst user = await db.query('SELECT id FROM users WHERE id = ?', [validId]);\nconst userId = unsafeUserId(user.id); // Database constraint ensures validity",
+      "anti_pattern": "function createUserId(str: string): UserId {\n  return str as UserId;\n}\n\n// Unclear that validation is being skipped\nconst userId = createUserId(userInput); // Could be invalid"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_BRT_011",
+    "category": "brand-types",
+    "priority": 7,
+    "reason": "Unwrap functions provide a clear, named way to extract raw values from branded types for external APIs and serialization",
+    "consequences": "Direct casting makes it unclear when and why branded types are being converted back to raw values",
+    "philosophy": "Unwrap Function Pattern - provide named unwrap functions to make extraction of raw values explicit and searchable",
+    "examples": {
+      "correct": "function unwrapUserId(id: UserId): string {\n  return id as string;\n}\n\n// Usage: Passing to external API\nconst response = await fetch(`/api/users/${unwrapUserId(userId)}`);\nconst dbQuery = 'SELECT * FROM users WHERE id = ?';\nconst result = await db.query(dbQuery, [unwrapUserId(userId)]);",
+      "anti_pattern": "// Direct casting - unclear intent\nconst response = await fetch(`/api/users/${userId as string}`);\nconst result = await db.query('SELECT * FROM users WHERE id = ?', [userId as string]);"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_FUN_012",
+    "category": "function-composition",
+    "priority": 8,
+    "reason": "Proper function composition types enable type-safe pipeline operations and make complex transformations more readable and maintainable",
+    "consequences": "Improper composition types lead to type errors and make it difficult to build reusable, composable functions",
+    "philosophy": "Function Composition Types - design types to support currying, piping, and composition patterns for functional programming",
+    "examples": {
+      "correct": "type Unary<A, B> = (a: A) => B;\ntype Binary<A, B, C> = (a: A) => (b: B) => C;\n\nfunction pipe<A, B, C>(\n  f: Unary<A, B>\n): (g: Unary<B, C>) => Unary<A, C> {\n  return function pipeWithF(g: Unary<B, C>): Unary<A, C> {\n    return function pipedFunction(a: A): C {\n      return g(f(a));\n    }\n  }\n}",
+      "anti_pattern": "// Non-curried, non-composable types\nfunction pipe<A, B, C>(f: (a: A) => B, g: (b: B) => C, a: A): C {\n  return g(f(a));\n}\n\n// Hard to compose and reuse\nconst result = pipe(parseUser, validateUser, userData);"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_ERR_013",
+    "category": "error-handling",
+    "priority": 9,
+    "reason": "Proper error type design with discriminated unions provides type-safe error handling without exceptions and clear error categorization",
+    "consequences": "Using exceptions or untyped errors leads to unhandled errors, unclear error contracts, and runtime crashes",
+    "philosophy": "Error Type Design - use discriminated unions for error types with specific error categories and structured error information",
+    "examples": {
+      "correct": "type ValidationError = {\n  _tag: 'ValidationError';\n  field: string;\n  message: string;\n};\n\ntype NetworkError = {\n  _tag: 'NetworkError';\n  status: number;\n  message: string;\n};\n\ntype AppError = ValidationError | NetworkError;\n\nfunction handleError(error: AppError): string {\n  switch (error._tag) {\n    case 'ValidationError':\n      return `Validation failed for ${error.field}: ${error.message}`;\n    case 'NetworkError':\n      return `Network error ${error.status}: ${error.message}`;\n  }\n}",
+      "anti_pattern": "function processData(data: unknown): User {\n  if (!data) {\n    throw new Error('No data'); // Untyped exception\n  }\n  // More unhandled exceptions possible\n  return data as User;\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_GEN_014",
+    "category": "generics",
+    "priority": 8,
+    "reason": "Generic constraints ensure type parameters meet specific requirements, providing compile-time safety while maintaining flexibility",
+    "consequences": "Unconstrained generics allow invalid type combinations and reduce type safety in generic functions",
+    "philosophy": "Generic Constraints - use extends clauses to constrain type parameters and ensure they have required properties or behaviors",
+    "examples": {
+      "correct": "interface HasId {\n  id: string;\n}\n\nfunction updateEntity<T extends HasId>(\n  entity: Readonly<T>,\n  updates: Readonly<Partial<Omit<T, 'id'>>>\n): Readonly<T> {\n  return { ...entity, ...updates };\n}\n\nfunction processStringifiable<T extends { toString(): string }>(\n  value: T\n): string {\n  return `Processed: ${value.toString()}`;\n}",
+      "anti_pattern": "function updateEntity<T>(\n  entity: T,\n  updates: Partial<T>\n): T {\n  // No guarantee T has an 'id' property\n  return { ...entity, ...updates, id: entity.id }; // Type error possible\n}\n\nfunction processStringifiable<T>(value: T): string {\n  // No guarantee T has toString method\n  return `Processed: ${value.toString()}`; // Type error possible\n}"
+    },
+    "applies_to": [".ts", ".tsx"]
+  },
+  {
+    "rule_id": "TS_NOM_015",
+    "category": "nominal-typing",
+    "priority": 8,
+    "reason": "Nominal typing support through branded types and proper type design creates stronger type safety and clearer domain modeling",
+    "consequences": "Relying only on structural typing allows semantically different types with same structure to be used interchangeably",
+    "philosophy": "Nominal Typing Support - combine branded types, smart constructors, and proper abstractions to achieve nominal typing benefits in TypeScript's structural system",
+    "examples": {
+      "correct": "type UserId = string & { readonly __brand: 'UserId' };\ntype PostId = string & { readonly __brand: 'PostId' };\ntype CommentId = string & { readonly __brand: 'CommentId' };\n\n// These are now nominally different despite same structure\nfunction getUser(id: UserId): Promise<User> { ... }\nfunction getPost(id: PostId): Promise<Post> { ... }\nfunction getComment(id: CommentId): Promise<Comment> { ... }\n\n// Type error: PostId is not assignable to UserId\n// getUser(postId); // Prevented by nominal typing",
+      "anti_pattern": "type UserId = string;\ntype PostId = string;\ntype CommentId = string;\n\nfunction getUser(id: UserId): Promise<User> { ... }\nfunction getPost(id: PostId): Promise<Post> { ... }\n\n// This compiles but is semantically wrong:\ngetUser(postId); // postId used where userId expected"
+    },
+    "applies_to": [".ts", ".tsx"]
+  }
+]
