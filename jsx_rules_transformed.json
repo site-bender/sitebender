@@ -1,0 +1,119 @@
+[
+  {
+    "rule_id": "JSX_UNIVERSAL_002",
+    "category": "universal",
+    "priority": 9,
+    "reason": "Ensures accessibility, performance, and reliability across all network conditions while maintaining the full interactive experience when possible",
+    "consequences": "Client-only functionality breaks accessibility and fails without JavaScript",
+    "philosophy": "Progressive Enhancement Integration - components work without JavaScript and enhance when available",
+    "examples": {
+      "correct": "<Form data-enhance=\"realtime-validation\">\n  <Input name=\"email\" type=\"email\" required />\n  <Button type=\"submit\">Submit</Button>\n</Form>",
+      "anti_pattern": "<Form onSubmit={handleSubmit}>\n  <ValidatedInput name=\"email\" validator={emailValidator} />\n</Form>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_UNIVERSAL_003",
+    "category": "universal",
+    "priority": 9,
+    "reason": "Enables complex applications from simple building blocks while maintaining predictable behavior and testability across all Studio libraries",
+    "consequences": "Monolithic components become unmaintainable and untestable",
+    "philosophy": "Component Composition Guidelines - favor composition over inheritance, small focused composable components",
+    "examples": {
+      "correct": "<StateMachine name=\"checkout\">\n  <State name=\"cart\">\n    <Transition on=\"proceed\" to=\"payment\" />\n  </State>\n  <State name=\"payment\">\n    <Authentication required />\n    <Transition on=\"complete\" to=\"confirmation\" />\n  </State>\n</StateMachine>",
+      "anti_pattern": "<CheckoutWorkflow \n  authProvider=\"oauth\" \n  paymentGateway=\"stripe\" \n  states={checkoutConfig} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_UNIVERSAL_005",
+    "category": "universal",
+    "priority": 10,
+    "reason": "Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design",
+    "consequences": "Treating Studio JSX like React leads to imperative patterns that break data-first architecture",
+    "philosophy": "JSX is Not React - Studio JSX compiles to data structures, not virtual DOM. Components are data configurations, not stateful objects",
+    "examples": {
+      "correct": "<Authentication>\n  <OAuthTwo provider=\"github\" />\n  <WebAuthn fallback />\n</Authentication>",
+      "anti_pattern": "const [auth, setAuth] = useState()\nreturn <AuthProvider value={auth}>{children}</AuthProvider>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_MATH_001",
+    "category": "math",
+    "priority": 8,
+    "reason": "Ensures mathematical expressions are readable, debuggable, and can be reliably converted between JSX and formula notation",
+    "consequences": "Unclear operand roles make mathematical expressions unreadable and error-prone",
+    "philosophy": "Mathematical Component Structure - consistent structure with clear operand identification using semantic child components",
+    "examples": {
+      "correct": "<IsGreaterThan>\n  <Referent><From.Element selector=\"#age\" /></Referent>\n  <Comparand><Value>18</Value></Comparand>\n</IsGreaterThan>",
+      "anti_pattern": "<IsGreaterThan left=\"#age\" right=\"18\" />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_MATH_002",
+    "category": "math",
+    "priority": 8,
+    "reason": "Prevents runtime errors and provides better development experience when working with mathematical expressions. Monadic patterns ensure safe composition",
+    "consequences": "Unvalidated formulas cause runtime errors and unsafe composition breaks mathematical operations",
+    "philosophy": "Formula Validation with Monads - validate mathematical syntax and variable references using monadic patterns for safe composition",
+    "examples": {
+      "correct": "<MathMlDisplay \n  formula=\"E = mc²\" \n  variables={[\"E\", \"m\", \"c\"]}\n  onError={handleFormulaError}\n/>",
+      "anti_pattern": "<MathMlDisplay formula={userInput} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_MATH_003",
+    "category": "math",
+    "priority": 8,
+    "reason": "Ensures reactive data flows are predictable and debuggable across complex application states",
+    "consequences": "Unclear data dependencies make reactive systems unpredictable and hard to debug",
+    "philosophy": "Data Injection Patterns - clear data sources with consistent loading/error state handling",
+    "examples": {
+      "correct": "<Display id=\"total\">\n  <Add>\n    <From.Element selector=\"#subtotal\" fallback=\"0\" />\n    <From.Api endpoint=\"/tax-rate\" cache=\"5m\" fallback=\"0.08\" />\n  </Add>\n</Display>",
+      "anti_pattern": "<Display id=\"total\" formula=\"subtotal + taxRate\" />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_REACTIVE_001",
+    "category": "reactive",
+    "priority": 8,
+    "reason": "Makes conditional logic explicit and debuggable, especially important when conditions involve complex mathematical expressions",
+    "consequences": "Implicit boolean coercion makes conditional logic hard to debug and understand",
+    "philosophy": "Conditional Rendering Structure - explicit condition and consequence components without implicit boolean coercion",
+    "examples": {
+      "correct": "<ShowIf>\n  <Condition>\n    <IsGreaterThan>\n      <Referent><FromElement selector=\"#score\" /></Referent>\n      <Comparand><Value>80</Value></Comparand>\n    </IsGreaterThan>\n  </Condition>\n  <Consequence>\n    <Display>Excellent work!</Display>\n  </Consequence>\n</ShowIf>",
+      "anti_pattern": "<ShowIf condition=\"score > 80\">Excellent work!</ShowIf>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_SEMANTIC_002",
+    "category": "semantic",
+    "priority": 8,
+    "reason": "Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Pagewright components",
+    "consequences": "Manual microdata conflicts with semantic structure and breaks Schema.org integration",
+    "philosophy": "Schema.org Component Patterns - proper microdata patterns with semantic consistency",
+    "examples": {
+      "correct": "<Recipe>\n  <Title>Chocolate Chip Cookies</Title>\n  <Author>Jane Chef</Author>\n  <Ingredient quantity=\"2 cups\">flour</Ingredient>\n  <Instructions step=\"1\">Mix dry ingredients...</Instructions>\n</Recipe>",
+      "anti_pattern": "<div itemScope itemType=\"https://schema.org/Recipe\">\n  <Recipe>\n    <span itemProp=\"name\">Cookies</span>\n  </Recipe>\n</div>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_SEMANTIC_003",
+    "category": "semantic",
+    "priority": 8,
+    "reason": "Ensures semantic HTML works perfectly without JavaScript while providing rich interactions when available. Clarifies that data-enhance is HTML output, not JSX props",
+    "consequences": "JavaScript-dependent functionality or direct HTML attributes break progressive enhancement",
+    "philosophy": "Progressive Enhancement and Data Attributes - props compile to data-enhance HTML attributes, enhancement behavior is additive",
+    "examples": {
+      "correct": "<Article readingProgress={true}>\n  <Heading><Title>Long Article</Title></Heading>\n  <Section lazyLoad={true}>\n    <Paragraph>Content...</Paragraph>\n  </Section>\n</Article>",
+      "anti_pattern": "<Article data-enhance=\"reading-progress\" onScrollProgress={updateProgress}>\n  <LazySection loader={<Spinner />}>\n    <Paragraph>Content...</Paragraph>\n  </LazySection>\n</Article>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  }
+]
