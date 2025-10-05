@@ -1,0 +1,379 @@
+[
+  {
+    "rule_id": "JSX_UNIVERSAL_001",
+    "category": "universal",
+    "priority": 10,
+    "reason": "Ensures all components can be serialized, stored as RDF triples, and reconstructed deterministically. Enables the core Studio principle that 'everything is data.'",
+    "consequences": "Components become tightly coupled to imperative behavior and cannot be serialized or stored as data structures",
+    "philosophy": "Data-as-Configuration Principle - components configured through declarative data structures rather than imperative code",
+    "examples": {
+      "correct": "<Authentication>\n  <OAuthTwo provider=\"github\" scopes={[\"read:user\"]} />\n</Authentication>",
+      "anti_pattern": "<Authentication onMount={() => setupOAuth(\"github\")} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_UNIVERSAL_004",
+    "category": "universal",
+    "priority": 9,
+    "reason": "Enables complex applications that span multiple domains (authentication + commerce + i18n) while maintaining coherent development experience",
+    "consequences": "Conflicting integration patterns make cross-library composition fragile and development experience inconsistent",
+    "philosophy": "Cross-Library Integration Patterns - consistent naming conventions, data formats, and event patterns across all libraries",
+    "examples": {
+      "correct": "<LocaleProvider>\n  <Authentication>\n    <Cart>\n      <Product sku=\"widget-001\">\n        <Translation key=\"product.name\" />\n      </Product>\n    </Cart>\n  </Authentication>\n</LocaleProvider>",
+      "anti_pattern": "<I18nWrapper locale={currentLocale}>\n  <AuthGuard token={authToken}>\n    <CommerceProvider config={commerceConfig}>\n      {/* Inconsistent prop names and patterns */}\n    </CommerceProvider>\n  </AuthGuard>\n</I18nWrapper>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_SEMANTIC_001",
+    "category": "semantic",
+    "priority": 8,
+    "reason": "Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Pagewright's context-aware compilation",
+    "consequences": "Improper semantic structure breaks accessibility, SEO, and context-aware compilation features",
+    "philosophy": "Context-Aware Component Usage - semantic components used in appropriate contexts with proper nesting",
+    "examples": {
+      "correct": "<Article>\n  <Heading><Title>Main Article</Title></Heading>\n  <Section>\n    <Heading><Title>Section Title</Title></Heading>\n    <Paragraph>Content...</Paragraph>\n  </Section>\n</Article>",
+      "anti_pattern": "<div>\n  <Heading level={3}><Title>Main Article</Title></Heading>\n  <Heading level={1}><Title>Section Title</Title></Heading>\n</div>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_DISTRIBUTED_001",
+    "category": "distributed",
+    "priority": 8,
+    "reason": "Ensures distributed components maintain consistency across network partitions and concurrent edits in collaborative environments",
+    "consequences": "Missing distributed state configuration breaks consistency and collaborative features in network partitions",
+    "philosophy": "CRDT Component Configuration - unique identifiers, merge strategies, and synchronization policies for distributed state",
+    "examples": {
+      "correct": "<DistributedCounter \n  id=\"shared-counter-123\" \n  mergeStrategy=\"lww\" \n  syncPolicy=\"immediate\"\n>\n  <SyncWithPeers maxPeers={5} />\n  <ConflictResolution strategy=\"automatic\" />\n</DistributedCounter>",
+      "anti_pattern": "<Counter value={count} onChange={setCount} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_DISTRIBUTED_002",
+    "category": "distributed",
+    "priority": 8,
+    "reason": "Ensures secure collaboration and proper attribution in distributed systems while maintaining user privacy and data integrity",
+    "consequences": "Unsafe identity patterns compromise security and break attribution in distributed collaborative systems",
+    "philosophy": "Identity and Authentication Patterns - proper identity verification and capability delegation with cryptographic identifiers",
+    "examples": {
+      "correct": "<CollaborativeText id=\"doc-456\">\n  <Identity>\n    <DidKey key=\"did:key:z6Mk...\" />\n    <Capabilities read write />\n  </Identity>\n  <Rga showCursors={true} />\n</CollaborativeText>",
+      "anti_pattern": "<CollaborativeText userId=\"john123\" allowEdit={true} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_DISTRIBUTED_003",
+    "category": "distributed",
+    "priority": 8,
+    "reason": "Ensures collaborative features work reliably across network conditions while maintaining data consistency and user experience",
+    "consequences": "Fragile collaborative patterns fail during network issues and provide poor user experience",
+    "philosophy": "Collaborative Workflow Structure - clear ownership, permission, and conflict resolution patterns with graceful degradation",
+    "examples": {
+      "correct": "<CollaborativeWorkflow id=\"design-session\">\n  <Permissions>\n    <Owner can=\"admin\" />\n    <Collaborator can=\"edit comment\" />\n    <Viewer can=\"read\" />\n  </Permissions>\n  <OfflineStrategy>\n    <QueueChanges />\n    <SyncOnReconnect />\n  </OfflineStrategy>\n</CollaborativeWorkflow>",
+      "anti_pattern": "<SharedWorkspace \n  owner=\"alice\" \n  collaborators={[\"bob\", \"charlie\"]} \n  requiresConnection={true} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_EVENTS_001",
+    "category": "events",
+    "priority": 8,
+    "reason": "Ensures event-driven architectures are debuggable, auditable, and can be replayed or analyzed using RDF tools",
+    "consequences": "Opaque event handling makes debugging impossible and breaks audit trail capabilities",
+    "philosophy": "Event Component Structure - triple pattern (subject-predicate-object) with referential transparency and serializable events",
+    "examples": {
+      "correct": "<Button>\n  <Publishes \n    event=\"user:clicked:save-button\" \n    payload={documentId}\n    timestamp=\"auto\" \n  />\n  Save Document\n</Button>",
+      "anti_pattern": "<Button onClick={() => saveDocument(doc.id)}>\n  Save Document  \n</Button>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_EVENTS_002",
+    "category": "events",
+    "priority": 8,
+    "reason": "Ensures reliable event delivery across different deployment scenarios while maintaining performance and consistency",
+    "consequences": "Implicit transport assumptions cause events to fail in different deployment environments",
+    "philosophy": "Transport Layer Configuration - explicit transport mechanisms, retry policies, and failure handling for reliable event delivery",
+    "examples": {
+      "correct": "<Channel id=\"user-actions\" transport=\"websocket\" scope=\"session\">\n  <RetryPolicy attempts={3} backoff=\"exponential\" />\n  <Persistence strategy=\"memory\" maxEvents={1000} />\n</Channel>",
+      "anti_pattern": "<EventBus events={userEvents} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_EVENTS_003",
+    "category": "events",
+    "priority": 8,
+    "reason": "Ensures complex business processes are reliable, auditable, and can recover gracefully from failures",
+    "consequences": "Implicit workflow coupling makes business processes brittle and impossible to debug or recover",
+    "philosophy": "Workflow Orchestration Patterns - composable and recoverable event-driven workflows with explicit state machines",
+    "examples": {
+      "correct": "<Workflow name=\"order-processing\">\n  <On event=\"order:created\">\n    <TriggerWorkflow name=\"validate-payment\" />\n  </On>\n  <On event=\"payment:confirmed\">\n    <Pipe>\n      <TriggerWorkflow name=\"reserve-inventory\" />\n      <TriggerWorkflow name=\"send-confirmation\" />\n    </Pipe>\n  </On>\n</Workflow>",
+      "anti_pattern": "<OrderProcessor \n  onOrderCreated={validatePayment}\n  onPaymentConfirmed={[reserveInventory, sendConfirmation]} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_SECURITY_001",
+    "category": "security",
+    "priority": 9,
+    "reason": "Ensures secure and flexible authentication while maintaining user experience across different authentication scenarios",
+    "consequences": "Insecure authentication patterns expose secrets and provide poor fallback experience",
+    "philosophy": "Authentication Provider Patterns - multiple providers, graceful fallbacks, and clear success/failure states without hardcoded secrets",
+    "examples": {
+      "correct": "<Authentication>\n  <OAuthTwo \n    provider=\"github\" \n    clientIdFrom=\"env:GITHUB_CLIENT_ID\"\n    scopes={[\"read:user\"]} \n  />\n  <WebAuthn fallback />\n  <OnFailure><Redirect to=\"/login\" /></OnFailure>\n</Authentication>",
+      "anti_pattern": "<Authentication \n  githubClientSecret=\"abc123...\" \n  providers={[\"github\"]} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_SECURITY_002",
+    "category": "security",
+    "priority": 9,
+    "reason": "Ensures access control is auditable, testable, and maintainable while preventing privilege escalation vulnerabilities",
+    "consequences": "Opaque authorization logic makes security vulnerabilities impossible to detect or audit",
+    "philosophy": "Authorization Policy Structure - declarative policy definitions with clear resource and action specifications",
+    "examples": {
+      "correct": "<Authorization>\n  <Rbac>\n    <Role name=\"editor\">\n      <Permission action=\"read\" resource=\"articles:*\" />\n      <Permission action=\"write\" resource=\"articles:own\" />\n    </Role>\n    <Role name=\"admin\" inherits=\"editor\">\n      <Permission action=\"*\" resource=\"articles:*\" />\n    </Role>\n  </Rbac>\n</Authorization>",
+      "anti_pattern": "<ProtectedRoute \n  allowedRoles={[\"admin\", \"editor\"]} \n  checkPermission={(user, resource) => checkAccess(user, resource)} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_SECURITY_003",
+    "category": "security",
+    "priority": 9,
+    "reason": "Ensures cryptographic operations are secure, auditable, and follow current best practices while avoiding common cryptographic pitfalls",
+    "consequences": "Unsafe cryptographic patterns expose systems to security vulnerabilities and compliance violations",
+    "philosophy": "Cryptographic Component Requirements - well-established algorithms, proper key management, and clear security properties with audit trails",
+    "examples": {
+      "correct": "<ZeroKnowledge>\n  <Proof \n    algorithm=\"zk-SNARK\" \n    statement=\"age >= 18\" \n    without={[\"name\", \"birthdate\"]} \n  />\n  <Verify circuit=\"age-verification-v2.circom\" />\n</ZeroKnowledge>",
+      "anti_pattern": "<Encryption algorithm=\"custom\" key={userPassword} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_STATE_001",
+    "category": "state",
+    "priority": 8,
+    "reason": "Ensures application state is predictable, debuggable, and can be visualized or restored from audit logs",
+    "consequences": "Implicit state management makes application behavior unpredictable and impossible to debug or audit",
+    "philosophy": "State Machine Component Design - explicit states, transitions, and guards with deterministic and auditable state changes",
+    "examples": {
+      "correct": "<StateMachine name=\"document-lifecycle\">\n  <State name=\"draft\">\n    <Transition \n      on=\"publish\" \n      to=\"published\" \n      guard={hasRequiredFields} \n    />\n  </State>\n  <State name=\"published\">\n    <Transition on=\"archive\" to=\"archived\" />\n    <Transition on=\"edit\" to=\"draft\" />\n  </State>\n</StateMachine>",
+      "anti_pattern": "<DocumentEditor \n  status={docStatus} \n  onStatusChange={setDocStatus} \n  rules={statusRules} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_STATE_002",
+    "category": "state",
+    "priority": 7,
+    "reason": "Ensures visual workflows are accessible, collaborative, and maintain consistency between visual and logical representations",
+    "consequences": "Inaccessible visual workflows exclude users and break consistency between visual and logical state representations",
+    "philosophy": "Visual Workflow Canvas Structure - coordinate systems, collaborative editing, and accessibility features for workflow navigation",
+    "examples": {
+      "correct": "<StateMachineWorkflowCanvas>\n  <State \n    name=\"initial\" \n    position={[100, 200]} \n    ariaLabel=\"Initial state at coordinates 100, 200\"\n  >\n    <Transitions>\n      <Transition \n        to=\"processing\" \n        event=\"start\" \n        path=\"curved\"\n        ariaLabel=\"Transition to processing on start event\" \n      />\n    </Transitions>\n  </State>\n  <Grid visible={true} snapTo={25} />\n</StateMachineWorkflowCanvas>",
+      "anti_pattern": "<WorkflowCanvas>\n  <Node id=\"1\" x={100} y={200} />\n  <Edge from=\"1\" to=\"2\" />\n</WorkflowCanvas>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_COMMERCE_001",
+    "category": "commerce",
+    "priority": 7,
+    "reason": "Ensures commerce components accurately represent business relationships while maintaining data consistency across complex product catalogs",
+    "consequences": "Flat product structure breaks referential integrity and makes complex product relationships unmanageable",
+    "philosophy": "Product Component Modeling - referential integrity, variant relationships, and inventory tracking with semantic business domain names",
+    "examples": {
+      "correct": "<Product sku=\"WIDGET-001\" name=\"Deluxe Widget\">\n  <Variant name=\"color\" options={[\"red\", \"blue\"]} affects=\"price\" />\n  <Variant name=\"size\" options={[\"S\", \"M\", \"L\"]} affects=\"inventory\" />\n  <BasePrice currency=\"USD\">29.99</BasePrice>\n  <Inventory>\n    <TrackQuantity />\n    <ReserveOnAddToCart />\n  </Inventory>\n</Product>",
+      "anti_pattern": "<Product \n  sku=\"WIDGET-001\" \n  variants={[{color: \"red\", size: \"S\", price: 29.99}]} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_COMMERCE_002",
+    "category": "commerce",
+    "priority": 8,
+    "reason": "Prevents financial calculation errors and ensures compliance with currency regulations while maintaining audit trails for financial operations",
+    "consequences": "Unsafe financial calculations cause monetary errors and compliance violations in financial operations",
+    "philosophy": "Financial Calculation Accuracy - proper decimal arithmetic and currency handling with specified currency and precision requirements",
+    "examples": {
+      "correct": "<PriceCalculation>\n  <BasePrice currency=\"USD\" precision={2}>29.99</BasePrice>\n  <Tax rate={0.0875} rounding=\"half-up\" />\n  <Discount type=\"percentage\" value={10} />\n  <Total currency=\"USD\" precision={2} />\n</PriceCalculation>",
+      "anti_pattern": "<PriceCalculation \n  price={29.99} \n  tax={0.0875} \n  discount={0.1} \n  total={calculateTotal(29.99, 0.0875, 0.1)} \n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_I18N_001",
+    "category": "i18n",
+    "priority": 7,
+    "reason": "Ensures translations are maintainable, type-safe, and support complex linguistic features while enabling automated translation workflows",
+    "consequences": "Unsafe translation patterns break type safety and make complex linguistic features like pluralization impossible",
+    "philosophy": "Translation Component Structure - structured keys, interpolation support, and correct pluralization handling with type safety",
+    "examples": {
+      "correct": "<Translation \n  key=\"user.greeting.welcome\" \n  params={{name: userName, count: itemCount}}\n  plural=\"count\"\n>\n  <Zero>Welcome back!</Zero>\n  <One>Welcome back, {name}! You have {count} item.</One>\n  <Other>Welcome back, {name}! You have {count} items.</Other>\n</Translation>",
+      "anti_pattern": "<Translation key=\"welcome\" values={[userName, itemCount]} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_I18N_002",
+    "category": "i18n",
+    "priority": 7,
+    "reason": "Ensures proper internationalization across different deployment scenarios while maintaining user experience and cultural sensitivity",
+    "consequences": "Simplistic locale handling breaks internationalization in complex deployment scenarios and different cultural contexts",
+    "philosophy": "Locale Management Patterns - locale detection, fallback chains, and regional variations with support for static and dynamic locale switching",
+    "examples": {
+      "correct": "<LocaleProvider>\n  <DetectFromAcceptLanguageHeader />\n  <DetectFrom.UserPreference />\n  <FallbackChain locales={[\"en-US\", \"en\", \"es\"]} />\n  <DateFormat calendar=\"gregorian\" />\n  <NumberFormat currency=\"USD\" />\n</LocaleProvider>",
+      "anti_pattern": "<LocaleProvider locale=\"en\" fallback=\"en\" />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_GOVERNANCE_001",
+    "category": "governance",
+    "priority": 10,
+    "reason": "Ensures architectural governance is unbreakable and provides cryptographic proof of compliance for critical business workflows",
+    "consequences": "Unverifiable governance configuration allows violations to go undetected and makes compliance impossible to prove",
+    "philosophy": "Cryptographic Contract Structure - cryptographically verifiable contracts with clear requirements, compliance frameworks, and verification mechanisms",
+    "examples": {
+      "correct": "<WorkflowGovernance>\n  <WorkflowContract id=\"ci-cd-pipeline\">\n    <RequiredComponents>\n      <Component name=\"security-scan\" mandatory={true} />\n      <Component name=\"warden-validation\" mandatory={true} />\n    </RequiredComponents>\n    <ComplianceRequirements>\n      <Gpdr dataRetention=\"P2Y\" anonymization=\"required\" />\n      <Sox auditTrail=\"complete\" approvalRequired={true} />\n    </ComplianceRequirements>\n  </WorkflowContract>\n  <CryptographicVerification>\n    <WorkflowSignature algorithm=\"Ed25519\" />\n    <IntegrityHash algorithm=\"SHA-256\" />\n  </CryptographicVerification>\n</WorkflowGovernance>",
+      "anti_pattern": "<WorkflowConfig\n  requirements={[\"security-scan\", \"validation\"]}\n  compliance={complianceRules}\n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_GOVERNANCE_002",
+    "category": "governance",
+    "priority": 10,
+    "reason": "Prevents AI assistants from generating insecure or non-compliant workflows while maintaining development velocity",
+    "consequences": "Implicit AI safety assumptions allow dangerous workflow generation that bypasses security and compliance requirements",
+    "philosophy": "AI Safety Constraint Patterns - explicit forbidden patterns, required components, and validation pipelines for AI-generated workflows",
+    "examples": {
+      "correct": "<AiWorkflowSafety>\n  <GenerationConstraints>\n    <ForbiddenPatterns>\n      <Pattern name=\"direct-database-access\" reason=\"security\" />\n      <Pattern name=\"bypass-authentication\" reason=\"security\" />\n      <Pattern name=\"unencrypted-transmission\" reason=\"compliance\" />\n    </ForbiddenPatterns>\n    <RequiredComponents>\n      <Component name=\"input-validation\" />\n      <Component name=\"error-handling\" />\n      <Component name=\"audit-logging\" />\n    </RequiredComponents>\n  </GenerationConstraints>\n  <ValidationPipeline>\n    <PreValidation>\n      <SecurityScanning />\n      <ComplianceChecking />\n    </PreValidation>\n  </ValidationPipeline>\n</AiWorkflowSafety>",
+      "anti_pattern": "<AIGuard\n  blockedPatterns={dangerousPatterns}\n  requiredFeatures={[\"validation\", \"logging\"]}\n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_GOVERNANCE_003",
+    "category": "governance",
+    "priority": 9,
+    "reason": "Ensures workflows meet regulatory requirements across different jurisdictions while providing automated compliance verification",
+    "consequences": "Generic compliance checking fails to meet specific regulatory requirements and makes automated verification impossible",
+    "philosophy": "Compliance Framework Integration - multiple regulatory frameworks with specific technical and procedural requirements using standard compliance identifiers",
+    "examples": {
+      "correct": "<ComplianceValidation>\n  <RegulatoryFrameworks>\n    <Gpdr>\n      <DataProcessingLawfulness>\n        <ConsentManagement required={true} />\n        <DataMinimization enforced={true} />\n        <RightToErasure implemented={true} />\n      </DataProcessingLawfulness>\n      <TechnicalMeasures>\n        <EncryptionAtRest required={true} />\n        <AccessControls granular={true} />\n      </TechnicalMeasures>\n    </Gpdr>\n    <Hipaa>\n      <TechnicalSafeguards>\n        <AccessControl unique=\"user-identification\" />\n        <AuditControls />\n        <Integrity />\n      </TechnicalSafeguards>\n    </Hipaa>\n  </RegulatoryFrameworks>\n</ComplianceValidation>",
+      "anti_pattern": "<ComplianceChecker\n  frameworks={[\"GPDR\", \"HIPAA\"]}\n  rules={complianceRules}\n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_GOVERNANCE_004",
+    "category": "governance",
+    "priority": 9,
+    "reason": "Ensures workflow governance is enforced continuously and violations are detected and responded to immediately",
+    "consequences": "Basic monitoring without response capabilities allows violations to persist and cause system damage",
+    "philosophy": "Real-Time Monitoring Patterns - real-time violation detection, automatic response capabilities, and comprehensive audit trails with appropriate violation responses",
+    "examples": {
+      "correct": "<WorkflowMonitoring>\n  <ContractCompliance>\n    <RealTimeValidation>\n      <CheckBounds continuously={true} />\n      <ValidateConnections on=\"execution\" />\n      <VerifyPermissions before=\"sensitive-operations\" />\n    </RealTimeValidation>\n    <ViolationDetection>\n      <UnauthorizedConnections severity=\"critical\" />\n      <SecurityBoundaryBreach severity=\"critical\" />\n      <ResourceLimitExceeded severity=\"warning\" />\n    </ViolationDetection>\n    <AutomaticResponse>\n      <OnCriticalViolation>\n        <HaltExecution immediately={true} />\n        <NotifySecurityTeam />\n        <IsolateWorkflow />\n      </OnCriticalViolation>\n    </AutomaticResponse>\n  </ContractCompliance>\n</WorkflowMonitoring>",
+      "anti_pattern": "<Monitor\n  checkCompliance={true}\n  alertOnViolation={true}\n  logLevel=\"info\"\n/>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_OBSERVABILITY_001",
+    "category": "observability",
+    "priority": 7,
+    "reason": "Ensures observability dashboards provide accurate, timely information while remaining accessible to all team members",
+    "consequences": "Unstructured dashboards without proper metrics provide misleading information and exclude team members",
+    "philosophy": "Dashboard Component Structure - proper data flow, real-time updates, and accessibility with specified units, ranges, and update frequencies",
+    "examples": {
+      "correct": "<EnvoyWorkflowDashboard>\n  <WorkflowCanvas>\n    <LibraryNode id=\"warden\" type=\"governance\" status=\"active\">\n      <RealTimeMetrics updateInterval=\"1s\">\n        <ValidationTime unit=\"ms\" range=\"0-5000\">2300</ValidationTime>\n        <ViolationCount>0</ViolationCount>\n        <DeveloperSatisfaction>😊</DeveloperSatisfaction>\n      </RealTimeMetrics>\n    </LibraryNode>\n  </WorkflowCanvas>\n</EnvoyWorkflowDashboard>",
+      "anti_pattern": "<Dashboard>\n  <Node id=\"warden\" status=\"ok\" />\n  <Metric>2.3s</Metric>\n</Dashboard>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_OBSERVABILITY_002",
+    "category": "observability",
+    "priority": 7,
+    "reason": "Ensures performance monitoring provides actionable insights while handling the complexities of distributed systems and intermittent data",
+    "consequences": "Simplistic performance monitoring fails in distributed systems and provides misleading insights without proper data handling",
+    "philosophy": "Performance Monitoring Patterns - data aggregation from multiple sources, graceful missing data handling, and historical context for current metrics",
+    "examples": {
+      "correct": "<BenchmarkAggregator>\n  <CollectFrom>\n    <ProductionDeployments />\n    <DevelopmentEnvironments />\n    <TestRuns />\n  </CollectFrom>\n  <Metrics>\n    <Latency percentiles={[50, 90, 99, 99.9]} />\n    <Throughput window=\"1m\" />\n    <MemoryUsage peak={true} average={true} />\n  </Metrics>\n  <HandleMissingData strategy=\"interpolate\" maxGap=\"5m\" />\n  <StoreTo tripleStore=\"benchmarks\" retention=\"30d\" />\n</BenchmarkAggregator>",
+      "anti_pattern": "<PerformanceMonitor metrics={[\"latency\", \"throughput\"]} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_OBSERVABILITY_003",
+    "category": "observability",
+    "priority": 7,
+    "reason": "Ensures visual workflows remain synchronized with their underlying data while supporting real-time collaboration",
+    "consequences": "Visual-only workflows without semantic meaning break synchronization and make collaboration impossible",
+    "philosophy": "Visual Workflow Integration - semantic consistency between visual representation and data model with collaborative editing support",
+    "examples": {
+      "correct": "<WorkflowCanvas>\n  <LibraryNode\n    id=\"validation\"\n    semanticType=\"governance.validation\"\n    position={[200, 300]}\n    ariaLabel=\"Validation node at position 200, 300\"\n  >\n    <Inputs>\n      <Port name=\"codebase\" type=\"file[]\" required={true} />\n    </Inputs>\n    <Outputs>\n      <Port name=\"violations\" type=\"violation[]\" />\n    </Outputs>\n  </LibraryNode>\n  <Connection\n    from=\"validation.violations\"\n    to=\"autofix.input\"\n    semanticType=\"error-recovery\"\n    bidirectional={false}\n  />\n</WorkflowCanvas>",
+      "anti_pattern": "<Canvas>\n  <Box id=\"1\" x={200} y={300}>Validation</Box>\n  <Line from=\"1\" to=\"2\" />\n</Canvas>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_OBSERVABILITY_004",
+    "category": "observability",
+    "priority": 7,
+    "reason": "Ensures developer experience feedback is actionable and can drive systematic improvements to development workflows",
+    "consequences": "Generic feedback without context provides no actionable insights and fails to improve development workflows",
+    "philosophy": "Developer Feedback Integration - contextual prompts, structured data collection, and trend analysis with performance metrics correlation",
+    "examples": {
+      "correct": "<WorkflowFeedback>\n  <DeveloperSatisfaction>\n    <FeedbackPrompt\n      trigger=\"workflow-completion\"\n      context={{\n        executionTime: \"3.2s\",\n        errorCount: 0,\n        workflowType: \"ci-pipeline\"\n      }}\n    >\n      How was your experience with this CI pipeline execution?\n      <Emojis>😱 😟 😐 😊 🤩</Emojis>\n      <OptionalComment placeholder=\"What could be improved?\" />\n    </FeedbackPrompt>\n    <CorrelationTracking>\n      <TrackMetrics>\n        <ExecutionTime />\n        <ErrorFrequency />\n        <CognitiveBurden />\n      </TrackMetrics>\n    </CorrelationTracking>\n  </DeveloperSatisfaction>\n</WorkflowFeedback>",
+      "anti_pattern": "<FeedbackWidget>\n  <RatingScale min={1} max={5} />\n  <CommentBox />\n</FeedbackWidget>"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_DEVTOOLS_001",
+    "category": "devtools",
+    "priority": 7,
+    "reason": "Ensures development tooling is accessible and usable across different workflows while maintaining consistent behavior",
+    "consequences": "Single-mode interfaces exclude users and create inconsistent development experiences across different workflows",
+    "philosophy": "Multi-Modal Interface Patterns - multiple interaction modes (voice, GUI, CLI, collaborative) with consistent data models across all modes",
+    "examples": {
+      "correct": "<QuartermasterInterface>\n  <VoiceGuidedSetup>\n    <AiAssistant provider=\"claude\" fallback=\"text\" />\n    <ConversationalConfig accessible={true} />\n  </VoiceGuidedSetup>\n  <GuiWizard fallback=\"voice\" />\n  <CliInterface scriptable={true} />\n</QuartermasterInterface>",
+      "anti_pattern": "<ConfigWizard mode=\"gui\" />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_DEVTOOLS_002",
+    "category": "devtools",
+    "priority": 7,
+    "reason": "Ensures collaborative development features work reliably across distributed teams while maintaining project integrity",
+    "consequences": "Unstructured collaboration leads to conflicts and breaks project integrity in distributed team environments",
+    "philosophy": "Collaborative Development Patterns - real-time editing, conflict resolution, and team coordination with proper permission management",
+    "examples": {
+      "correct": "<CollaborativeSession id=\"team-project\">\n  <TeamConfiguration>\n    <Participants>\n      <Developer role=\"lead\" permissions={[\"admin\", \"edit\", \"approve\"]} />\n      <Designer role=\"ux\" permissions={[\"edit\", \"comment\"]} />\n    </Participants>\n  </TeamConfiguration>\n  <RealTimeEditing>\n    <CrdtSync strategy=\"operational-transform\" />\n    <ConflictResolution automatic={true} fallback=\"manual\" />\n  </RealTimeEditing>\n</CollaborativeSession>",
+      "anti_pattern": "<SharedEditor users={teamMembers} allowEdit={true} />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  },
+  {
+    "rule_id": "JSX_DEVTOOLS_003",
+    "category": "devtools",
+    "priority": 7,
+    "reason": "Ensures shared blueprints are secure, verified, and properly versioned while enabling community collaboration",
+    "consequences": "Unsecured blueprint sharing exposes security vulnerabilities and breaks trust in community collaboration",
+    "philosophy": "Blueprint Validation and Marketplace - cryptographic signing, security scanning, and version management for community sharing",
+    "examples": {
+      "correct": "<BlueprintMarketplace>\n  <CommunityBlueprints>\n    <CryptographicSigning algorithm=\"Ed25519\" required={true} />\n    <WardenValidation automatic={true} />\n    <SecurityScanning depth=\"deep\" />\n  </CommunityBlueprints>\n  <Publishing>\n    <MetadataValidation schema=\"blueprint-v2\" />\n    <VersionControl semantic={true} />\n  </Publishing>\n</BlueprintMarketplace>",
+      "anti_pattern": "<BlueprintShare community={true} validation=\"optional\" />"
+    },
+    "applies_to": [".tsx", ".jsx"]
+  }
+]
