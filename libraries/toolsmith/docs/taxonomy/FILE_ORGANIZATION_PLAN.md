@@ -71,10 +71,16 @@ Each domain gets its own folder under `docs/taxonomy/`. Large domains (>25 funct
 - `map/MAP_OPERATIONS.md` (~21 functions) - mapKeys, mapValues, merge, filter, partition, etc.
 
 ### Domain 13: Math (57 functions)
-**Files**: 3
-- `math/MATH_ARITHMETIC.md` (~20 functions) - add, subtract, multiply, divide, power, root, etc.
-- `math/MATH_ROUNDING.md` (~15 functions) - round, floor, ceiling, truncate, etc.
-- `math/MATH_OPERATIONS.md` (~22 functions) - max, min, clamp, abs, sign, factorial, etc.
+**Files**: 9
+- `math/arithmetic/MATH_ARITHMETIC.md` (15 functions) - add, subtract, multiply, divide, power, roots, exponential, logarithm, modulo, increment, decrement
+- `math/rounding/MATH_ROUNDING.md` (7 functions) - round, floor, ceiling, truncate, clamp, absoluteValue, sign
+- `math/aggregation/MATH_AGGREGATION.md` (9 functions) - sum, product, average, mean, median, mode, geometricMean, harmonicMean, rootMeanSquare
+- `math/integer/MATH_INTEGER.md` (11 functions) - factorial, gcd, lcm, divisors, isPrime, primeFactorization, totient, digitSum, binomialCoefficient, combinations, permutations
+- `math/sequence/MATH_SEQUENCE.md` (1 function) - fibonacci
+- `math/comparison/MATH_COMPARISON.md` (6 functions) - max, min, maxBy, minBy, clamp, inRange
+- `math/modular/MATH_MODULAR.md` (1 function) - modularExponentiation
+- `math/random/MATH_RANDOM.md` (2 functions) - random, randomInteger
+- `math/solver/MATH_SOLVER.md` (1 function) - quadratic
 
 ### Domain 14: Matrix (10 functions)
 **Files**: 1
@@ -152,7 +158,7 @@ Each domain gets its own folder under `docs/taxonomy/`. Large domains (>25 funct
 | Lens | 5 | 1 | 5 |
 | Logic | 13 | 1 | 13 |
 | Map | 41 | 2 | 21 |
-| Math | 57 | 3 | 19 |
+| Math | 57 | 9 | 6 |
 | Matrix | 10 | 1 | 10 |
 | Object | 60 | 3 | 20 |
 | Physics | 8 | 1 | 8 |
@@ -164,7 +170,7 @@ Each domain gets its own folder under `docs/taxonomy/`. Large domains (>25 funct
 | Trigonometry | 19 | 1 | 19 |
 | Tuple | 13 | 1 | 13 |
 | Validation | 124 | 6 | 21 |
-| **TOTAL** | **786** | **48** | **~16** |
+| **TOTAL** | **786** | **54** | **~15** |
 
 ---
 
@@ -206,9 +212,24 @@ libraries/toolsmith/docs/taxonomy/
 │   ├── MAP_CREATION.md
 │   └── MAP_OPERATIONS.md
 ├── math/
-│   ├── MATH_ARITHMETIC.md
-│   ├── MATH_ROUNDING.md
-│   └── MATH_OPERATIONS.md
+│   ├── arithmetic/
+│   │   └── MATH_ARITHMETIC.md
+│   ├── rounding/
+│   │   └── MATH_ROUNDING.md
+│   ├── aggregation/
+│   │   └── MATH_AGGREGATION.md
+│   ├── integer/
+│   │   └── MATH_INTEGER.md
+│   ├── sequence/
+│   │   └── MATH_SEQUENCE.md
+│   ├── comparison/
+│   │   └── MATH_COMPARISON.md
+│   ├── modular/
+│   │   └── MATH_MODULAR.md
+│   ├── random/
+│   │   └── MATH_RANDOM.md
+│   └── solver/
+│       └── MATH_SOLVER.md
 ├── matrix/
 │   └── MATRIX_FUNCTIONS.md
 ├── object/

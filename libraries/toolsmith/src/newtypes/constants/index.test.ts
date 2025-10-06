@@ -1,11 +1,11 @@
 import { assertEquals } from "@std/assert"
 
 import {
-	EXACT_EIGHT_DECIMALS_SCALE,
-	EXACT_FOUR_DECIMALS_SCALE,
-	EXACT_ONE_DECIMAL_SCALE,
-	EXACT_THREE_DECIMALS_SCALE,
-	EXACT_TWO_DECIMALS_SCALE,
+	EIGHT_DECIMAL_PLACES_SCALE,
+	FOUR_DECIMAL_PLACES_SCALE,
+	ONE_DECIMAL_PLACE_SCALE,
+	THREE_DECIMAL_PLACES_SCALE,
+	TWO_DECIMAL_PLACES_SCALE,
 	MAX_SAFE_INTEGER,
 	MIN_SAFE_INTEGER,
 	PERCENT_MAX,
@@ -23,24 +23,24 @@ Deno.test("MIN_SAFE_INTEGER matches JavaScript constant", () => {
 	assertEquals(MIN_SAFE_INTEGER, -9007199254740991)
 })
 
-Deno.test("EXACT_TWO_DECIMALS_SCALE is 2 decimal places", () => {
-	assertEquals(EXACT_TWO_DECIMALS_SCALE, 2)
+Deno.test("TWO_DECIMAL_PLACES_SCALE is 2 decimal places", () => {
+	assertEquals(TWO_DECIMAL_PLACES_SCALE, 2)
 })
 
-Deno.test("EXACT_ONE_DECIMAL_SCALE is 1 decimal place", () => {
-	assertEquals(EXACT_ONE_DECIMAL_SCALE, 1)
+Deno.test("ONE_DECIMAL_PLACE_SCALE is 1 decimal place", () => {
+	assertEquals(ONE_DECIMAL_PLACE_SCALE, 1)
 })
 
-Deno.test("EXACT_THREE_DECIMALS_SCALE is 3 decimal places", () => {
-	assertEquals(EXACT_THREE_DECIMALS_SCALE, 3)
+Deno.test("THREE_DECIMAL_PLACES_SCALE is 3 decimal places", () => {
+	assertEquals(THREE_DECIMAL_PLACES_SCALE, 3)
 })
 
-Deno.test("EXACT_FOUR_DECIMALS_SCALE is 4 decimal places", () => {
-	assertEquals(EXACT_FOUR_DECIMALS_SCALE, 4)
+Deno.test("FOUR_DECIMAL_PLACES_SCALE is 4 decimal places", () => {
+	assertEquals(FOUR_DECIMAL_PLACES_SCALE, 4)
 })
 
-Deno.test("EXACT_EIGHT_DECIMALS_SCALE is 8 decimal places", () => {
-	assertEquals(EXACT_EIGHT_DECIMALS_SCALE, 8)
+Deno.test("EIGHT_DECIMAL_PLACES_SCALE is 8 decimal places", () => {
+	assertEquals(EIGHT_DECIMAL_PLACES_SCALE, 8)
 })
 
 Deno.test("PERCENT_MIN is 0 (0%)", () => {
