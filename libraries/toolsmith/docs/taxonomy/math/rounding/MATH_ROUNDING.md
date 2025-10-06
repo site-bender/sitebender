@@ -15,53 +15,47 @@
 - **Current**: `(n: number | null | undefined) => number`
 - **Returns**: NaN on invalid input
 - **Description**: Rounds to nearest integer; away-from-zero at .5; returns NaN on invalid input
-- **Target**: `(n: number | null | undefined) => Result<MathError, number>`
+- **Target**: `(n: number) => Result<MathError, number>`
 
 #### floor
 - **Current**: `(n: number | null | undefined) => number`
 - **Returns**: NaN on invalid input
 - **Description**: [INFERRED] Rounds down to nearest integer (towards negative infinity); returns NaN on invalid input
-- **Target**: `(n: number | null | undefined) => Result<MathError, number>`
+- **Target**: `(n: number) => Result<MathError, number>`
 
 #### ceiling
 - **Current**: `(n: number | null | undefined) => number`
 - **Returns**: NaN on invalid input
 - **Description**: [INFERRED] Rounds up to nearest integer (towards positive infinity); returns NaN on invalid input
-- **Target**: `(n: number | null | undefined) => Result<MathError, number>`
+- **Target**: `(n: number) => Result<MathError, number>`
 
 #### truncate
 - **Current**: `(n: number | null | undefined) => number`
 - **Returns**: NaN on invalid input
 - **Description**: [INFERRED] Removes fractional part (rounds towards zero); returns NaN on invalid input
-- **Target**: `(n: number | null | undefined) => Result<MathError, number>`
+- **Target**: `(n: number) => Result<MathError, number>`
 
-### Value Constraint and Adjustment
+### Value Constraint
 
 #### clamp
 - **Current**: `(min: number | null | undefined) => (max: number | null | undefined) => (value: number | null | undefined) => number`
 - **Returns**: NaN on invalid input or min > max
 - **Description**: Constrains a number between min and max; returns NaN on invalid input
-- **Target**: `(min: number | null | undefined) => (max: number | null | undefined) => (value: number | null | undefined) => Result<MathError, number>`
+- **Target**: `(min: number) => (max: number) => (value: number) => Result<MathError, number>`
 
-#### modulo (we need a proper `remainder`, too, and modulo should really be modulo, not remainder)
-- **Current**: `(divisor: number | null | undefined) => (dividend: number | null | undefined) => number`
-- **Returns**: NaN on invalid input, division by zero, or infinite dividend
-- **Description**: True mathematical modulo; adjusts remainder sign; returns NaN on invalid input
-- **Target**: `(divisor: number | null | undefined) => (dividend: number | null | undefined) => Result<MathError, number>`
-
-### Sign and Magnitude Operations
+### Sign and Magnitude
 
 #### absoluteValue
 - **Current**: `(n: number | null | undefined) => number`
 - **Returns**: NaN on invalid input
 - **Description**: Returns the absolute value of a number; returns NaN on invalid input
-- **Target**: `(n: number | null | undefined) => Result<MathError, number>`
+- **Target**: `(n: number) => Result<MathError, number>`
 
-#### sign
+#### sign (maybe `getSign`?)
 - **Current**: `(n: number | null | undefined) => number`
 - **Returns**: NaN on invalid input; otherwise -1, 0, or 1
 - **Description**: [INFERRED] Returns the sign of a number (-1 for negative, 0 for zero, 1 for positive); returns NaN on invalid input
-- **Target**: `(n: number | null | undefined) => Result<MathError, number>`
+- **Target**: `(n: number) => Result<MathError, number>`
 
 ---
 
@@ -71,7 +65,7 @@ Rounding and precision functions will be converted to Result-returning functions
 
 1. Return `ok(value)` when computation succeeds with valid input
 2. Return `error(MathError)` when computation fails, with descriptive error messages
-3. Maintain currying for multi-parameter functions (clamp, modulo)
+3. Maintain currying for multi-parameter functions (clamp)
 4. Preserve type safety while adding error context
 5. Eliminate NaN return values in favor of explicit error types
 
@@ -84,7 +78,6 @@ All functions use arrow syntax and need refactoring to named functions:
 - **ceiling** (arrow function)
 - **truncate** (named function with arrow syntax)
 - **clamp** (arrow function)
-- **modulo** (arrow function)
 - **absoluteValue** (arrow function)
 - **sign** (arrow function)
 
@@ -114,19 +107,6 @@ All functions use arrow syntax and need refactoring to named functions:
 - Implementation: `if (value < min) return min; if (value > max) return max; return value`
 - Examples: `clamp(0)(10)(5) → 5`, `clamp(0)(10)(15) → 10`, `clamp(0)(10)(-5) → 0`
 
-### Modulo vs Remainder
-
-#### modulo
-- Implements **true mathematical modulo**, not JavaScript's `%` (remainder) operator
-- Adjusts sign to match divisor (returns non-negative for positive divisor)
-- JavaScript `%`: `-5 % 3 = -2`
-- Mathematical modulo: `modulo(3)(-5) = 1`
-- Special cases:
-  - Division by zero returns NaN
-  - Infinite dividend returns NaN
-  - Infinite divisor returns dividend unchanged
-- Formula: `remainder = dividend % divisor; if signs differ, result = remainder + divisor`
-
 ### Sign and Magnitude
 
 #### absoluteValue
@@ -145,8 +125,7 @@ All functions use arrow syntax and need refactoring to named functions:
 
 All functions return NaN on error, which will be replaced with Result error values:
 - Type errors (null, undefined, non-number inputs)
-- Invalid operations (clamp with min > max, modulo by zero)
-- Special value errors (infinite values in modulo)
+- Invalid operations (clamp with min > max)
 
 ---
 
@@ -160,8 +139,6 @@ When migrating to Result type, errors should be categorized:
 
 ### MathError (new type needed)
 - Invalid range errors (clamp with min > max)
-- Division by zero (modulo)
-- Infinite value errors (modulo with infinite dividend)
 - Domain errors (if any special restrictions apply)
 
 ---
@@ -178,8 +155,8 @@ Rounding functions have minimal dependencies outside the math domain:
 ## Related Functions
 
 ### In Other Categories
-- **negate** (in MATH_OPERATIONS.md) - returns `-n`, related to sign operations
-- **inRange** (in MATH_OPERATIONS.md) - checks if value in [start, end), related to clamp
+- **negate** (in MATH_ARITHMETIC.md) - returns `-n`, related to sign operations
+- **inRange** (in MATH_COMPARISON.md) - checks if value in [start, end), related to clamp
 
 ### Potential New Functions
 Consider adding these rounding functions in monadic implementation:
@@ -188,4 +165,11 @@ Consider adding these rounding functions in monadic implementation:
 - **roundToNearest** - round to nearest multiple of N
 - **roundTowardsZero** - alias for truncate (clearer name)
 - **roundAwayFromZero** - opposite of truncate
-- **remainder** - JavaScript's `%` operator (distinct from modulo)
+
+---
+
+## Note on Modulo
+
+The `modulo` function was previously included in rounding documentation but has been moved to **MATH_ARITHMETIC.md** as it is fundamentally an arithmetic operation rather than a rounding/precision operation. A separate **remainder** function (JavaScript's `%` operator) should also be added to arithmetic functions, as it is distinct from mathematical modulo.
+
+Note from original file: "modulo (we need a proper `remainder`, too, and modulo should really be modulo, not remainder)"
