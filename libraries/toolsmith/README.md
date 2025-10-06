@@ -23,15 +23,15 @@ JavaScript's primitive types are too permissive. Toolsmith provides branded type
 
 ```typescript
 import integer from "@sitebender/toolsmith/newtypes/integer/index.ts"
-import exactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/index.ts"
-import approximateDecimal from "@sitebender/toolsmith/newtypes/approximateDecimal/index.ts"
+import twoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/index.ts"
+import realNumber from "@sitebender/toolsmith/newtypes/realNumber/index.ts"
 
 const age = integer(42)              // Result<ValidationError, Integer>
-const price = exactTwoDecimals(19.99) // Result<ValidationError, ExactTwoDecimals>
-const pi = approximateDecimal(3.14159) // Result<ValidationError, ApproximateDecimal>
+const price = twoDecimalPlaces(19.99) // Result<ValidationError, TwoDecimalPlaces>
+const pi = realNumber(3.14159) // Result<ValidationError, RealNumber>
 
-// Type error: can't mix Integer with ExactTwoDecimals
-function processPrice(p: ExactTwoDecimals): void { }
+// Type error: can't mix Integer with TwoDecimalPlaces
+function processPrice(p: TwoDecimalPlaces): void { }
 if (age.isOk) {
 	processPrice(age.value)  // TypeScript ERROR ✅
 }
@@ -40,12 +40,12 @@ if (age.isOk) {
 **Numeric Types:**
 - `Integer` - Safe integers within JavaScript's safe range
 - `BigInteger` - Arbitrary precision integers
-- `ApproximateDecimal` - Floating-point (makes imprecision explicit)
-- `ExactOneDecimal` - One decimal place (e.g., 19.9)
-- `ExactTwoDecimals` - Two decimal places (e.g., 19.99)
-- `ExactThreeDecimals` - Three decimal places (e.g., 19.999)
-- `ExactFourDecimals` - Four decimal places (e.g., 19.9999)
-- `ExactEightDecimals` - Eight decimal places (e.g., cryptocurrencies)
+- `RealNumber` - Floating-point (makes imprecision explicit)
+- `OneDecimalPlace` - One decimal place (e.g., 19.9)
+- `TwoDecimalPlaces` - Two decimal places (e.g., 19.99)
+- `ThreeDecimalPlaces` - Three decimal places (e.g., 19.999)
+- `FourDecimalPlaces` - Four decimal places (e.g., 19.9999)
+- `EightDecimalPlaces` - Eight decimal places (e.g., cryptocurrencies)
 - `Percent` - 0-1 range with four decimal precision
 
 #### String Types
@@ -149,14 +149,14 @@ if (items.isOk) {
 Exact decimal types use scaled integer arithmetic to avoid floating-point errors:
 
 ```typescript
-import addExactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/addExactTwoDecimals/index.ts"
-import exactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/index.ts"
+import addToTwoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/addToTwoDecimalPlaces/index.ts"
+import twoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/index.ts"
 
-const price1 = exactTwoDecimals(19.99)
-const price2 = exactTwoDecimals(5.01)
+const price1 = twoDecimalPlaces(19.99)
+const price2 = twoDecimalPlaces(5.01)
 
 if (price1.isOk && price2.isOk) {
-	const total = addExactTwoDecimals(price1.value)(price2.value)
+	const total = addToTwoDecimalPlaces(price1.value)(price2.value)
 	// Result: exactly 25.00, not 25.000000000000004
 }
 ```
@@ -363,24 +363,24 @@ const calculate = pipe(
 
 ```typescript
 import integer from "@sitebender/toolsmith/newtypes/integer/index.ts"
-import exactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/index.ts"
-import addExactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/addExactTwoDecimals/index.ts"
+import twoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/index.ts"
+import addToTwoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/addToTwoDecimalPlaces/index.ts"
 
 // Create branded values
 const quantity = integer(5)
-const price = exactTwoDecimals(19.99)
-const tax = exactTwoDecimals(1.60)
+const price = twoDecimalPlaces(19.99)
+const tax = twoDecimalPlaces(1.60)
 
 // Type-safe arithmetic
 if (price.isOk && tax.isOk) {
-	const total = addExactTwoDecimals(price.value)(tax.value)
+	const total = addToTwoDecimalPlaces(price.value)(tax.value)
 	if (total.isOk) {
 		console.log(total.value)  // Exactly 21.59
 	}
 }
 
 // Validation errors are helpful
-const invalid = exactTwoDecimals(19.999)
+const invalid = twoDecimalPlaces(19.999)
 if (invalid.isError) {
 	console.log(invalid.error.suggestion)
 	// "Round to 2 decimal places (e.g., 19.99 instead of 19.999)"
