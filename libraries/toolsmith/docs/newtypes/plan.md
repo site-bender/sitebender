@@ -4,6 +4,8 @@
 **Last Updated**: 2025-10-06
 **Total Files**: 144 (73 implementation + 71 tests)
 
+**CRITICAL**: A phase is NOT complete until this plan file is updated with checkboxes marked [x]. Always update the plan immediately after completing a phase.
+
 ## Overview
 
 Implementing branded numeric types with comprehensive error system following "help, don't scold" philosophy.
@@ -70,54 +72,54 @@ See [error-system.md](./error-system.md) for complete error design.
 ### Phase 3: BigInteger (8 files: 4 impl + 4 tests)
 
 #### 3.1 Private Predicate
-- [ ] 3.1.1 Create `newtypes/bigInteger/_isBigInteger/index.test.ts`
-- [ ] 3.1.2 Create `newtypes/bigInteger/_isBigInteger/index.ts`
-- [ ] 3.1.3 Run tests
+- [x] 3.1.1 Create `newtypes/bigInteger/_isBigInteger/index.test.ts`
+- [x] 3.1.2 Create `newtypes/bigInteger/_isBigInteger/index.ts`
+- [x] 3.1.3 Run tests
 
 #### 3.2 Unsafe Constructor
-- [ ] 3.2.1 Create `newtypes/bigInteger/unsafeBigInteger/index.test.ts`
-- [ ] 3.2.2 Create `newtypes/bigInteger/unsafeBigInteger/index.ts`
-- [ ] 3.2.3 Run tests
+- [x] 3.2.1 Create `newtypes/bigInteger/unsafeBigInteger/index.test.ts`
+- [x] 3.2.2 Create `newtypes/bigInteger/unsafeBigInteger/index.ts`
+- [x] 3.2.3 Run tests
 
 #### 3.3 Unwrap
-- [ ] 3.3.1 Create `newtypes/bigInteger/unwrapBigInteger/index.test.ts`
-- [ ] 3.3.2 Create `newtypes/bigInteger/unwrapBigInteger/index.ts`
-- [ ] 3.3.3 Run tests
+- [x] 3.3.1 Create `newtypes/bigInteger/unwrapBigInteger/index.test.ts`
+- [x] 3.3.2 Create `newtypes/bigInteger/unwrapBigInteger/index.ts`
+- [x] 3.3.3 Run tests
 
 #### 3.4 Smart Constructor
-- [ ] 3.4.1 Create `newtypes/bigInteger/index.test.ts`
-- [ ] 3.4.2 Create `newtypes/bigInteger/index.ts`
-- [ ] 3.4.3 Run tests
+- [x] 3.4.1 Create `newtypes/bigInteger/index.test.ts`
+- [x] 3.4.2 Create `newtypes/bigInteger/index.ts`
+- [x] 3.4.3 Run tests
 
 #### 3.5 Phase Complete
-- [ ] 3.5.1 Run all bigInteger tests: `deno test newtypes/bigInteger/`
-- [ ] 3.5.2 **STOP FOR REVIEW**
+- [x] 3.5.1 Run all bigInteger tests: `deno test newtypes/bigInteger/`
+- [x] 3.5.2 **STOP FOR REVIEW**
 
 ### Phase 4: Float (8 files: 4 impl + 4 tests)
 
 #### 4.1 Private Predicate
-- [ ] 4.1.1 Create `newtypes/float/_isFloat/index.test.ts`
-- [ ] 4.1.2 Create `newtypes/float/_isFloat/index.ts`
-- [ ] 4.1.3 Run tests
+- [x] 4.1.1 Create `newtypes/float/_isFloat/index.test.ts`
+- [x] 4.1.2 Create `newtypes/float/_isFloat/index.ts`
+- [x] 4.1.3 Run tests
 
 #### 4.2 Unsafe Constructor
-- [ ] 4.2.1 Create `newtypes/float/unsafeFloat/index.test.ts`
-- [ ] 4.2.2 Create `newtypes/float/unsafeFloat/index.ts`
-- [ ] 4.2.3 Run tests
+- [x] 4.2.1 Create `newtypes/float/unsafeFloat/index.test.ts`
+- [x] 4.2.2 Create `newtypes/float/unsafeFloat/index.ts`
+- [x] 4.2.3 Run tests
 
 #### 4.3 Unwrap
-- [ ] 4.3.1 Create `newtypes/float/unwrapFloat/index.test.ts`
-- [ ] 4.3.2 Create `newtypes/float/unwrapFloat/index.ts`
-- [ ] 4.3.3 Run tests
+- [x] 4.3.1 Create `newtypes/float/unwrapFloat/index.test.ts`
+- [x] 4.3.2 Create `newtypes/float/unwrapFloat/index.ts`
+- [x] 4.3.3 Run tests
 
 #### 4.4 Smart Constructor
-- [ ] 4.4.1 Create `newtypes/float/index.test.ts`
-- [ ] 4.4.2 Create `newtypes/float/index.ts`
-- [ ] 4.4.3 Run tests
+- [x] 4.4.1 Create `newtypes/float/index.test.ts`
+- [x] 4.4.2 Create `newtypes/float/index.ts`
+- [x] 4.4.3 Run tests
 
 #### 4.5 Phase Complete
-- [ ] 4.5.1 Run all float tests: `deno test newtypes/float/`
-- [ ] 4.5.2 **STOP FOR REVIEW**
+- [x] 4.5.1 Run all float tests: `deno test newtypes/float/`
+- [x] 4.5.2 **STOP FOR REVIEW**
 
 ### Phase 5: Currency (16 files: 8 impl + 8 tests)
 
