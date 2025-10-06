@@ -26,7 +26,7 @@ This layering makes a strong claim: every Pagewright component must function wit
 
 ## Standards Enforcement Through Types
 
-Pagewright provides typed wrappers for HTML, SVG, MathML, and ChemML elements that enforce W3C/WHATWG standards at compile time. Invalid HTML becomes a TypeScript error before it reaches the browser.
+Pagewright provides typed wrappers for HTML, SVG, MathML, and SSML elements that enforce W3C/WHATWG standards at compile time. Invalid HTML becomes a TypeScript error before it reaches the browser.
 
 The mechanism works through automatic substitution. When you write lowercase elements in JSX, the build process replaces them with typed components:
 
