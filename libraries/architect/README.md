@@ -43,7 +43,8 @@ import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLe
 import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx";
 import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx";
 import Data from "@sitebender/architect/components/data/Data/index.tsx";
-import From from "@sitebender/architect/components/injectors/From/index.tsx";
+import FromArgument from "@sitebender/architect/components/injectors/FromArgument/index.tsx";
+import Value from "@sitebender/architect/components/injectors/Value/index.tsx";
 import And from "@sitebender/architect/components/logical/And/index.tsx";
 import Or from "@sitebender/architect/components/logical/Or/index.tsx";
 import Validation from "@sitebender/architect/components/validation/Validation/index.tsx";
@@ -54,42 +55,42 @@ import Validation from "@sitebender/architect/components/validation/Validation/i
   <Validation>
     <And>
       <IsInteger>
-        <From.Argument />
+        <FromArgument />
       </IsInteger>
       <Or>
         <And>
           <IsLessThan>
             <Referent>
-              <From.Argument />
+              <FromArgument />
             </Referent>
             <Comparand>
-              <From.Constant>12</From.Constant>
+              <Value>12</Value>
             </Comparand>
           </IsLessThan>
           <IsGreaterThanOrEqual>
             <Referent>
-              <From.Argument />
+              <FromArgument />
             </Referent>
             <Comparand>
-              <From.Constant>6</From.Constant>
+              <Value>6</Value>
             </Comparand>
           </IsGreaterThanOrEqual>
         </And>
         <And>
           <IsLessThanOrEqual>
             <Referent>
-              <From.Argument />
+              <FromArgument />
             </Referent>
             <Comparand>
-              <From.Constant>42</From.Constant>
+              <Value>42</Value>
             </Comparand>
           </IsLessThanOrEqual>
           <IsGreaterThan>
             <Referent>
-              <From.Argument />
+              <FromArgument />
             </Referent>
             <Comparand>
-              <From.Constant>20</From.Constant>
+              <Value>20</Value>
             </Comparand>
           </IsGreaterThan>
         </And>
@@ -113,7 +114,7 @@ import Input from "@sitebender/architect/components/forms/Input/index.tsx";
 import Display from "@sitebender/architect/components/display/Display/index.tsx";
 import Add from "@sitebender/architect/components/operators/Add/index.tsx";
 import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx";
-import From from "@sitebender/architect/components/injectors/From/index.tsx";
+import FromElement from "@sitebender/architect/components/injectors/FromElement/index.tsx";
 
 <>
   <Input id="price" type="number" />
@@ -122,22 +123,22 @@ import From from "@sitebender/architect/components/injectors/From/index.tsx";
 
   <Display id="subtotal">
     <Multiply>
-      <From.Element selector="#price" />
-      <From.Element selector="#quantity" />
+      <FromElement selector="#price" />
+      <FromElement selector="#quantity" />
     </Multiply>
   </Display>
 
   <Display id="tax">
     <Multiply>
-      <From.Element selector="#subtotal" />
-      <From.Element selector="#taxRate" />
+      <FromElement selector="#subtotal" />
+      <FromElement selector="#taxRate" />
     </Multiply>
   </Display>
 
   <Display id="total">
     <Add>
-      <From.Element selector="#subtotal" />
-      <From.Element selector="#tax" />
+      <FromElement selector="#subtotal" />
+      <FromElement selector="#tax" />
     </Add>
   </Display>
 </>;
@@ -151,14 +152,14 @@ Changes cascade automatically. Update price or quantity, and subtotal, tax, and 
 
 Data sources that inject values into calculations:
 
-- `<From.Constant>42</From.Constant>` - Hard-coded values
-- `<From.Element selector="#input" />` - DOM element values
-- `<From.Argument />` - Gets the value being validated/calculated from the calling function
-- `<From.QueryString param="id" />` - URL parameters
-- `<From.LocalStorage key="user" />` - Browser storage
-- `<From.SessionStorage key="temp" />` - Session storage
-- `<From.Api endpoint="/api/data" />` - API responses
-- `<From.LookupTable table={...} key="..." />` - Data lookups
+- `<Value>42</Value>` - Hard-coded values
+- `<FromElement selector="#input" />` - DOM element values
+- `<FromArgument />` - Gets the value being validated/calculated from the calling function
+- `<FromQueryString param="id" />` - URL parameters
+- `<FromLocalStorage key="user" />` - Browser storage
+- `<FromSessionStorage key="temp" />` - Session storage
+- `<FromApi endpoint="/api/data" />` - API responses
+- `<FromLookupTable table={...} key="..." />` - Data lookups
 
 ### Operators (Branch Nodes)
 
@@ -193,10 +194,10 @@ Boolean-returning comparison operations. All comparators take injectors as child
 ```jsx
 <IsLessThan>
   <Referent>
-    <From.Argument />
+    <FromArgument />
   </Referent>
   <Comparand>
-    <From.Constant>100</From.Constant>
+    <Value>100</Value>
   </Comparand>
 </IsLessThan>
 ```
@@ -209,10 +210,10 @@ Boolean-returning comparison operations. All comparators take injectors as child
 ```jsx
 <Matches>
   <Referent>
-    <From.Element selector="#email" />
+    <FromElement selector="#email" />
   </Referent>
   <Comparand>
-    <From.Constant>^[^@]+@[^@]+$</From.Constant>
+    <Value>^[^@]+@[^@]+$</Value>
   </Comparand>
 </Matches>
 ```
@@ -225,10 +226,10 @@ Boolean-returning comparison operations. All comparators take injectors as child
 ```jsx
 <IsBeforeDate>
   <Referent>
-    <From.Argument />
+    <FromArgument />
   </Referent>
   <Comparand>
-    <From.Constant>2024-12-31</From.Constant>
+    <Value>2024-12-31</Value>
   </Comparand>
 </IsBeforeDate>
 ```
@@ -242,10 +243,10 @@ Boolean-returning comparison operations. All comparators take injectors as child
 ```jsx
 <InSet>
   <Referent>
-    <From.Argument />
+    <FromArgument />
   </Referent>
   <Comparand>
-    <From.Constant>["admin", "editor", "viewer"]</From.Constant>
+    <Value>["admin", "editor", "viewer"]</Value>
   </Comparand>
 </InSet>
 ```
@@ -273,16 +274,16 @@ See [Syntax Status](../../docs/syntax-status.md) for canonical vs proposed usage
 
 ### Formatters
 
-Transform values for display using the `As` namespace:
+Transform values for display:
 
-- `<As.Date format="YYYY-MM-DD" />`
-- `<As.MonetaryAmount currency="USD" />`
-- `<As.Percentage decimals={2} />`
-- `<As.PhoneNumber country="US" />`
-- `<As.Markdown />`
-- `<As.LowerCase />`
-- `<As.UpperCase />`
-- `<As.TitleCase />`
+- `<AsDate format="YYYY-MM-DD" />`
+- `<AsMonetaryAmount currency="USD" />`
+- `<AsPercentage decimals={2} />`
+- `<AsPhoneNumber country="US" />`
+- `<AsMarkdown />`
+- `<AsLowerCase />`
+- `<AsUpperCase />`
+- `<AsTitleCase />`
 
 ### Display Components
 
@@ -293,10 +294,10 @@ Control visibility and presentation:
 <ShowIf>
   <IsEqualTo>
     <Referent>
-      <From.Element selector="#userRole" />
+      <FromElement selector="#userRole" />
     </Referent>
     <Comparand>
-      <From.Constant>admin</From.Constant>
+      <Value>admin</Value>
     </Comparand>
   </IsEqualTo>
   <div>Admin Controls Here</div>
@@ -411,9 +412,9 @@ Architect/Pagewright uses data types instead:
 ```jsx
 // Configure widget selection thresholds
 <Config>
-  <From.Constant name="RADIO_MAX_ITEMS">6</From.Constant>
-  <From.Constant name="TEXTAREA_MIN_LENGTH">200</From.Constant>
-  <From.Constant name="SLIDER_FOR_BOUNDED_NUMBERS">true</From.Constant>
+  <Value name="RADIO_MAX_ITEMS">6</Value>
+  <Value name="TEXTAREA_MIN_LENGTH">200</Value>
+  <Value name="SLIDER_FOR_BOUNDED_NUMBERS">true</Value>
 </Config>
 ```
 
@@ -721,8 +722,8 @@ function Calculator() {
       <span>=</span>
       <Display>
         <Add>
-          <From.Element selector="#a" />
-          <From.Element selector="#b" />
+          <FromElement selector="#a" />
+          <FromElement selector="#b" />
         </Add>
       </Display>
     </div>
@@ -779,23 +780,23 @@ Combine multiple behaviors on a single element:
     <And>
       <Matches>
         <Referent>
-          <From.Argument />
+          <FromArgument />
         </Referent>
         <Comparand>
-          <From.Constant>^[^@]+@[^@]+\.[^@]+$</From.Constant>
+          <Value>^[^@]+@[^@]+\.[^@]+$</Value>
         </Comparand>
       </Matches>
       <IsUniqueEmail>
-        <From.Argument />
+        <FromArgument />
       </IsUniqueEmail>
     </And>
   </Validation>
   <Format>
-    <As.LowerCase />
+    <AsLowerCase />
   </Format>
   <Calculation>
     <TrimWhitespace>
-      <From.Argument />
+      <FromArgument />
     </TrimWhitespace>
   </Calculation>
 </Input>
@@ -844,10 +845,10 @@ Transform complex conditional logic into intuitive visual workflow components:
 			<And>
 				<IsEqualTo>
 					<Referent>
-						<From.Warden selector="violations" />
+						<FromWarden selector="violations" />
 					</Referent>
 					<Comparand>
-						<From.Constant>0</From.Constant>
+						<Value>0</Value>
 					</Comparand>
 				</IsEqualTo>
 				<IsGreaterThan>
@@ -855,7 +856,7 @@ Transform complex conditional logic into intuitive visual workflow components:
 						<From.Auditor selector="coverage" />
 					</Referent>
 					<Comparand>
-						<From.Constant>95</From.Constant>
+						<Value>95</Value>
 					</Comparand>
 				</IsGreaterThan>
 				<IsEqualTo>
@@ -863,7 +864,7 @@ Transform complex conditional logic into intuitive visual workflow components:
 						<From.Agent selector="networkHealth" />
 					</Referent>
 					<Comparand>
-						<From.Constant>"healthy"</From.Constant>
+						<Value>"healthy"</Value>
 					</Comparand>
 				</IsEqualTo>
 			</And>
@@ -1166,10 +1167,10 @@ Complex gating logic with multiple conditions and approval workflows:
 				<Condition name="no-critical-violations" weight={0.3}>
 					<IsEqualTo>
 						<Referent>
-							<From.Warden selector="criticalViolations" />
+							<FromWarden selector="criticalViolations" />
 						</Referent>
 						<Comparand>
-							<From.Constant>0</From.Constant>
+							<Value>0</Value>
 						</Comparand>
 					</IsEqualTo>
 				</Condition>
@@ -1180,7 +1181,7 @@ Complex gating logic with multiple conditions and approval workflows:
 							<From.Metrics selector="p99Latency" />
 						</Referent>
 						<Comparand>
-							<From.Constant>500</From.Constant>
+							<Value>500</Value>
 						</Comparand>
 					</IsLessThan>
 				</Condition>
@@ -1191,7 +1192,7 @@ Complex gating logic with multiple conditions and approval workflows:
 							<From.Security selector="vulnerabilities.high" />
 						</Referent>
 						<Comparand>
-							<From.Constant>0</From.Constant>
+							<Value>0</Value>
 						</Comparand>
 					</IsEqualTo>
 				</Condition>
