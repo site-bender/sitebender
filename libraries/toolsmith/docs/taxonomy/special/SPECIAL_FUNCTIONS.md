@@ -21,13 +21,13 @@
 - **Description**: Calculates binomial coefficient "n choose k"; uses factorial or iterative method; returns NaN for invalid inputs or when k > n
 - **Target**: `(n: number) => (k: number) => Result<MathError, number>`
 
-### erf
+### erf (should be `errorFunction` with alias)
 - **Current**: `(x: number | null | undefined) => number`
 - **Returns**: number (NaN on invalid input)
 - **Description**: Calculates error function using numerical approximation; returns value in [-1, 1]; returns NaN on invalid input
 - **Target**: `(x: number) => Result<MathError, number>`
 
-### erfc
+### erfc (should be `complementaryErrorFunction` with alias)
 - **Current**: `(x: number | null | undefined) => number`
 - **Returns**: number (NaN on invalid input)
 - **Description**: Calculates complementary error function: erfc(x) = 1 - erf(x); returns NaN on invalid input
