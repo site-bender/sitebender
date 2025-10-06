@@ -48,7 +48,7 @@ export default function CharacterName({
 		</Element>
 	)
 
-	// Wrap with Person component if defineing
+	// Wrap with Person component if defining
 	if (define && characterId) {
 		return (
 			<Person
