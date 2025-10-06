@@ -124,24 +124,24 @@ See [error-system.md](./error-system.md) for complete error design.
 ### Phase 5: Currency (16 files: 8 impl + 8 tests)
 
 #### 5.1 Private Predicate
-- [ ] 5.1.1 Create `newtypes/currency/_isCurrency/index.test.ts`
-- [ ] 5.1.2 Create `newtypes/currency/_isCurrency/index.ts`
-- [ ] 5.1.3 Run tests
+- [x] 5.1.1 Create `newtypes/currency/_isCurrency/index.test.ts`
+- [x] 5.1.2 Create `newtypes/currency/_isCurrency/index.ts`
+- [x] 5.1.3 Run tests
 
 #### 5.2 Unsafe Constructor
-- [ ] 5.2.1 Create `newtypes/currency/unsafeCurrency/index.test.ts`
-- [ ] 5.2.2 Create `newtypes/currency/unsafeCurrency/index.ts`
-- [ ] 5.2.3 Run tests
+- [x] 5.2.1 Create `newtypes/currency/unsafeCurrency/index.test.ts`
+- [x] 5.2.2 Create `newtypes/currency/unsafeCurrency/index.ts`
+- [x] 5.2.3 Run tests
 
 #### 5.3 Unwrap
-- [ ] 5.3.1 Create `newtypes/currency/unwrapCurrency/index.test.ts`
-- [ ] 5.3.2 Create `newtypes/currency/unwrapCurrency/index.ts`
-- [ ] 5.3.3 Run tests
+- [x] 5.3.1 Create `newtypes/currency/unwrapCurrency/index.test.ts`
+- [x] 5.3.2 Create `newtypes/currency/unwrapCurrency/index.ts`
+- [x] 5.3.3 Run tests
 
 #### 5.4 Smart Constructor
-- [ ] 5.4.1 Create `newtypes/currency/index.test.ts`
-- [ ] 5.4.2 Create `newtypes/currency/index.ts`
-- [ ] 5.4.3 Run tests
+- [x] 5.4.1 Create `newtypes/currency/index.test.ts`
+- [x] 5.4.2 Create `newtypes/currency/index.ts`
+- [x] 5.4.3 Run tests
 
 #### 5.5 Addition
 - [ ] 5.5.1 Create `newtypes/currency/addCurrency/index.test.ts`
@@ -170,24 +170,24 @@ See [error-system.md](./error-system.md) for complete error design.
 ### Phase 6: Decimal0 (16 files: 8 impl + 8 tests)
 
 #### 6.1 Private Predicate
-- [ ] 6.1.1 Create `newtypes/decimal0/_isDecimal0/index.test.ts`
-- [ ] 6.1.2 Create `newtypes/decimal0/_isDecimal0/index.ts`
-- [ ] 6.1.3 Run tests
+- [x] 6.1.1 Create `newtypes/decimal0/_isDecimal0/index.test.ts`
+- [x] 6.1.2 Create `newtypes/decimal0/_isDecimal0/index.ts`
+- [x] 6.1.3 Run tests
 
 #### 6.2 Unsafe Constructor
-- [ ] 6.2.1 Create `newtypes/decimal0/unsafeDecimal0/index.test.ts`
-- [ ] 6.2.2 Create `newtypes/decimal0/unsafeDecimal0/index.ts`
-- [ ] 6.2.3 Run tests
+- [x] 6.2.1 Create `newtypes/decimal0/unsafeDecimal0/index.test.ts`
+- [x] 6.2.2 Create `newtypes/decimal0/unsafeDecimal0/index.ts`
+- [x] 6.2.3 Run tests
 
 #### 6.3 Unwrap
-- [ ] 6.3.1 Create `newtypes/decimal0/unwrapDecimal0/index.test.ts`
-- [ ] 6.3.2 Create `newtypes/decimal0/unwrapDecimal0/index.ts`
-- [ ] 6.3.3 Run tests
+- [x] 6.3.1 Create `newtypes/decimal0/unwrapDecimal0/index.test.ts`
+- [x] 6.3.2 Create `newtypes/decimal0/unwrapDecimal0/index.ts`
+- [x] 6.3.3 Run tests
 
 #### 6.4 Smart Constructor
-- [ ] 6.4.1 Create `newtypes/decimal0/index.test.ts`
-- [ ] 6.4.2 Create `newtypes/decimal0/index.ts`
-- [ ] 6.4.3 Run tests
+- [x] 6.4.1 Create `newtypes/decimal0/index.test.ts`
+- [x] 6.4.2 Create `newtypes/decimal0/index.ts`
+- [x] 6.4.3 Run tests
 
 #### 6.5 Addition
 - [ ] 6.5.1 Create `newtypes/decimal0/addDecimal0/index.test.ts`
