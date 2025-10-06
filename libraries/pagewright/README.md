@@ -8,7 +8,7 @@ This approach inverts the usual relationship between authoring and output. Inste
 
 Most web frameworks make you think in HTML elements. You compose divs and spans and sections, manually applying classes and ARIA attributes, carefully structuring your markup to satisfy both browsers and assistive technologies.
 
-Pagewright takes a different approach. You write in terms of semantic meaning—`<Essay>`, `<Recipe>`, `<Dialogue>`—and the compiler generates appropriate HTML. The same `<Heading>` component becomes `<h1>` in one context and `<h2>` in another, depending on nesting depth. `<Line>` in a `<Poem>` generates different markup than `<Line>` in an `<Address>`.
+Pagewright takes a different approach. You write in terms of semantic meaning — `<Essay>`, `<Recipe>`, `<Dialogue>` — and the compiler generates appropriate HTML. The same `<Heading>` component becomes `<h1>` in one context and `<h2>` in another, depending on nesting depth. `<Line>` in a `<Poem>` generates different markup than `<Line>` in an `<Address>`.
 
 This is context-aware compilation. The compiler analyzes your component tree and determines correct HTML structure automatically.
 
@@ -16,9 +16,9 @@ This is context-aware compilation. The compiler analyzes your component tree and
 
 Pagewright follows progressive enhancement as a design principle, not just a pattern. Three distinct layers compose the experience:
 
-**Layer 1: Semantic HTML.** Everything works without JavaScript. Forms submit. Links navigate. Tables display data. This layer targets maximum compatibility—Lynx, Mosaic, screen readers, reading modes, anything that understands HTML.
+**Layer 1: Semantic HTML.** Everything works without JavaScript. Forms submit. Links navigate. Tables display data. This layer targets maximum compatibility — Lynx, Mosaic, screen readers, reading modes, anything that understands HTML.
 
-**Layer 2: CSS Styling.** Visual enhancements via CSS3 with graceful degradation. Custom properties enable theming. Layout uses modern techniques like Grid and Flexbox with fallbacks. This layer makes things beautiful without breaking functionality.
+**Layer 2: CSS Styling.** Visual enhancements via CSS3 with graceful degradation. Custom properties enable theming. Layout uses modern techniques like Grid and Flexbox with fallbacks. This layer makes things beautiful without breaking functionality. `@supports` and feature queries ensure older browsers get a solid experience.
 
 **Layer 3: JavaScript Enhancement.** Optional interactivity, never required for core functionality. Form validation, smooth scrolling, AJAX submissions—all opt-in through `data-enhance` attributes. Without JavaScript, the HTML still works.
 
@@ -26,25 +26,25 @@ This layering makes a strong claim: every Pagewright component must function wit
 
 ## Standards Enforcement Through Types
 
-Pagewright provides typed wrappers for HTML, SVG, MathML, and SSML elements that enforce W3C/WHATWG standards at compile time. Invalid HTML becomes a TypeScript error before it reaches the browser.
+Pagewright provides typed wrappers for HTML, SVG, MathML, MusicXML, RSS/Atom, and SSML elements that enforce W3C/WHATWG standards at compile time. Invalid HTML becomes a TypeScript error before it reaches the browser.
 
 The mechanism works through automatic substitution. When you write lowercase elements in JSX, the build process replaces them with typed components:
 
 ```tsx
 // You write:
-<a href="/page" invalidAttr="oops">
+<a href="/page" badAttribute="oops">
   <a href="/nested">Nested link</a>
 </a>
 
 // Build converts to typed components:
 import A from "@sitebender/pagewright/html/interactive/A/index.tsx"
 
-<A href="/page" invalidAttr="oops">  // TypeScript ERROR: invalidAttr doesn't exist
+<A href="/page" badAttribute="oops">  // TypeScript ERROR: badAttribute doesn't exist
   <A href="/nested">Nested link</A>  // TypeScript ERROR: A cannot contain A
 </A>
 ```
 
-This enforcement extends beyond attributes to content models and nesting rules. MathML's `<mfrac>` must have exactly two children—TypeScript enforces this. SVG elements can't contain HTML `<div>` elements—TypeScript catches it. ARIA roles must match their elements—TypeScript validates this.
+This enforcement extends beyond attributes to content models and nesting rules. MathML's `<mfrac>` must have exactly two children — TypeScript enforces this. SVG elements can't contain HTML `<div>` elements — TypeScript catches it. ARIA roles must match their elements — TypeScript validates this.
 
 You can import typed elements explicitly for immediate IDE feedback, or let the build process handle substitution automatically. Either way, invalid HTML doesn't make it to production.
 
@@ -52,12 +52,14 @@ You can import typed elements explicitly for immediate IDE feedback, or let the 
 
 Following HTML's philosophy of "be liberal in what you accept," Pagewright handles unknown attributes and invalid nesting gracefully while preserving user intent.
 
-**Unknown attributes** get prefixed with `data-x-` and preserved:
+**Unknown attributes** get prefixed with `data-x-` and preserved. This permits users to include custom data attributes easily:
 
 ```tsx
 <Essay customId="my-essay" trackingCode="analytics-123">
   <Title>My Great Essay</Title>
 </Essay>
+
+`customId` and `trackingCode` are not props of `<Essay>`, so they get transformed:
 
 // Becomes:
 <article class="essay"
@@ -127,7 +129,7 @@ This pattern extends across the component vocabulary. `<Line>` in `<Poem>` gener
 
 ## Route-Based Page Promotion
 
-Any component becomes a full page when it serves as the top-level component in a route. This mechanism—page promotion—eliminates the need for page wrapper components.
+Any component becomes a full page when it serves as the top-level component in a route. This mechanism — page promotion — eliminates the need for page wrapper components.
 
 ```tsx
 // In pages/contact/index.tsx:
@@ -164,11 +166,11 @@ Any component becomes a full page when it serves as the top-level component in a
 
 The same `<Contact>` component nested within another component renders as a section, not a full page. Context determines promotion.
 
-Even minimal components get page treatment when top-level:
+Even minimal components get page treatment when top-level (although this example is extreme):
 
 ```tsx
 // In pages/simple/index.tsx:
-<Strong>Just emphasized text</Strong>
+<CharacterName>Scrooge</CharacterName>
 
 // Becomes:
 <html>
@@ -177,7 +179,7 @@ Even minimal components get page treatment when top-level:
   </head>
   <body>
     <main>
-      <strong>Just emphasized text</strong>
+      <span class="character-name">Scrooge</span>
     </main>
   </body>
 </html>
@@ -213,6 +215,8 @@ Temporal components use the JavaScript Temporal API for precise date/time handli
 
 Each form component is not just an input element—it's a complete field including label, input, help text, error messages, validation feedback, and accessibility attributes. You get the whole field, properly composed, in one component.
 
+However, when used with the Architect library, these components gain reactive capabilities—declarative validation, conditional display, state management—without losing their semantic HTML foundation. More importantly, they can be determined automatically from JSON Schema definitions, enabling **dynamic form generation**.
+
 ## Type Safety Without Runtime Cost
 
 The typed element wrappers enforce standards at compile time with zero runtime overhead. The validation happens during development—TypeScript catches invalid attributes, improper nesting, content model violations—but the compiled output contains only standard HTML.
@@ -227,7 +231,7 @@ The element organization mirrors specifications:
 
 **MathML elements** (`src/mathml/`) divide into presentation, layout, scripts, spacing, and semantic categories.
 
-**ChemML, MusicXML, RSS/Atom, and SSML** elements follow similar categorical organization based on their respective specifications.
+**MusicXML, RSS/Atom, and SSML** elements follow similar categorical organization based on their respective specifications.
 
 ## Progressive Enhancement Pattern
 
