@@ -39,8 +39,6 @@ export type Serializable =
 	| Temporal.ZonedDateTime
 	| Temporal.Instant
 	| Temporal.Duration
-	| Temporal.Calendar
-	| Temporal.TimeZone
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type Value =
