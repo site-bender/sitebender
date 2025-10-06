@@ -40,10 +40,7 @@ type NonEmptyArray<T> = Array<T> & { readonly __brand: "NonEmptyArray" }
 
 ### 2. Precision-Focused Naming
 
-**Old Approach** (implementation-focused):
-- `Float`, `Currency`, `Decimal0`, `Decimal1`, `Decimal3`, `Decimal4`, `Decimal8`, `Percentage`
-
-**New Approach** (precision-focused):
+**Approach** (precision-focused):
 - `RealNumber` - Floating-point (what it actually is)
 - `TwoDecimalPlaces` - Precision guarantee, not money-specific
 - `OneDecimalPlace`, `ThreeDecimalPlaces`, `FourDecimalPlaces`, `EightDecimalPlaces` - Clear precision
@@ -54,18 +51,9 @@ type NonEmptyArray<T> = Array<T> & { readonly __brand: "NonEmptyArray" }
 
 ### 3. Monadic Error Handling
 
-**Old Approach**: Functions throw exceptions or return `null`/`undefined`
-
-**New Approach**: All functions return `Result<ValidationError, T>` and are curried
+All functions return `Result<ValidationError, T>` and are curried.
 
 ```typescript
-// Old (throws)
-function divide(a: number, b: number): number {
-	if (b === 0) throw new Error("Division by zero")
-	return a / b
-}
-
-// New (monadic, curried, using helper functions)
 export default function divide(
 	dividend: number,
 ): (divisor: number) => Result<ValidationError, number> {
@@ -235,7 +223,7 @@ export default function twoDecimalPlaces(
 ): Result<ValidationError, TwoDecimalPlaces> {
 	if (!Number.isFinite(value)) {
 		return error({
-			code: "EXACT_TWO_DECIMALS_NOT_FINITE",
+			code: "TWO_DECIMAL_PLACES_NOT_FINITE",
 			field: "value",
 			messages: ["System needs a finite number for exact two decimal representation"],
 			received: value,
@@ -250,7 +238,7 @@ export default function twoDecimalPlaces(
 
 	if (Math.abs(value - reconstructed) > Number.EPSILON) {
 		return error({
-			code: "EXACT_TWO_DECIMALS_PRECISION_EXCEEDED",
+			code: "TWO_DECIMAL_PLACES_PRECISION_EXCEEDED",
 			field: "value",
 			messages: ["System can only represent numbers with up to 2 decimal places"],
 			received: value,
@@ -286,17 +274,6 @@ export default function addToTwoDecimalPlaces(
 ```
 
 ## Monadic Function Migration Pattern
-
-### Old Vanilla Function
-
-```typescript
-// vanilla/math/add/index.ts
-export default function add(a: number, b: number): number {
-  return a + b
-}
-```
-
-### New Monadic Function
 
 ```typescript
 // math/add/index.ts
