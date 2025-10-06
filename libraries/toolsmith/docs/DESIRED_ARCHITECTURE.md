@@ -23,8 +23,8 @@ Toolsmith is undergoing a fundamental architectural transformation from a mixed 
 ```typescript
 // Numeric types
 type Integer = number & { readonly __brand: "Integer" }
-type ApproximateDecimal = number & { readonly __brand: "ApproximateDecimal" }
-type ExactTwoDecimals = number & { readonly __brand: "ExactTwoDecimals" }
+type RealNumber = number & { readonly __brand: "RealNumber" }
+type TwoDecimalPlaces = number & { readonly __brand: "TwoDecimalPlaces" }
 
 // String types
 type EmailAddress = string & { readonly __brand: "EmailAddress" }
@@ -44,9 +44,9 @@ type NonEmptyArray<T> = Array<T> & { readonly __brand: "NonEmptyArray" }
 - `Float`, `Currency`, `Decimal0`, `Decimal1`, `Decimal3`, `Decimal4`, `Decimal8`, `Percentage`
 
 **New Approach** (precision-focused):
-- `ApproximateDecimal` - Makes floating-point imprecision explicit
-- `ExactTwoDecimals` - Precision guarantee, not money-specific
-- `ExactOneDecimal`, `ExactThreeDecimals`, `ExactFourDecimals`, `ExactEightDecimals` - Clear precision
+- `RealNumber` - Floating-point (what it actually is)
+- `TwoDecimalPlaces` - Precision guarantee, not money-specific
+- `OneDecimalPlace`, `ThreeDecimalPlaces`, `FourDecimalPlaces`, `EightDecimalPlaces` - Clear precision
 - `Percent` - Simpler, clearer
 - `Integer`, `BigInteger` - Unchanged (already clear)
 
@@ -96,33 +96,33 @@ export default function divide(
 **Solution**: Store exact decimals as scaled integers (Haskell approach):
 
 ```typescript
-// ExactTwoDecimals: 19.99 stored as 1999 (scaled by 100)
-export default function addExactTwoDecimals(
-	augend: ExactTwoDecimals,
-): (addend: ExactTwoDecimals) => Result<ValidationError, ExactTwoDecimals> {
+// TwoDecimalPlaces: 19.99 stored as 1999 (scaled by 100)
+export default function addToTwoDecimalPlaces(
+	augend: TwoDecimalPlaces,
+): (addend: TwoDecimalPlaces) => Result<ValidationError, TwoDecimalPlaces> {
 	return function addToAugend(
-		addend: ExactTwoDecimals,
-	): Result<ValidationError, ExactTwoDecimals> {
+		addend: TwoDecimalPlaces,
+	): Result<ValidationError, TwoDecimalPlaces> {
 		const SCALE_FACTOR = 100
-		const augendRaw = unwrapExactTwoDecimals(augend)
-		const addendRaw = unwrapExactTwoDecimals(addend)
+		const augendRaw = unwrapTwoDecimalPlaces(augend)
+		const addendRaw = unwrapTwoDecimalPlaces(addend)
 
 		const augendScaled = Math.round(augendRaw * SCALE_FACTOR)
 		const addendScaled = Math.round(addendRaw * SCALE_FACTOR)
 		const resultScaled = augendScaled + addendScaled
 		const resultRaw = resultScaled / SCALE_FACTOR
 
-		return exactTwoDecimals(resultRaw)
+		return twoDecimalPlaces(resultRaw)
 	}
 }
 ```
 
 **Scale Factors**:
-- `ExactOneDecimal`: 10
-- `ExactTwoDecimals`: 100
-- `ExactThreeDecimals`: 1000
-- `ExactFourDecimals`: 10000
-- `ExactEightDecimals`: 100000000
+- `OneDecimalPlace`: 10
+- `TwoDecimalPlaces`: 100
+- `ThreeDecimalPlaces`: 1000
+- `FourDecimalPlaces`: 10000
+- `EightDecimalPlaces`: 100000000
 
 ## Directory Structure Transformation
 
@@ -142,11 +142,11 @@ src/
 └── newtypes/         # NEW: Branded types (IN PROGRESS)
     ├── integer/
     ├── bigInteger/
-    ├── approximateDecimal/
-    ├── exactTwoDecimals/
-    ├── exactOneDecimal/
-    ├── exactThreeDecimals/
-    ├── exactFourDecimals/
+    ├── realNumber/
+    ├── twoDecimalPlaces/
+    ├── oneDecimalPlace/
+    ├── threeDecimalPlaces/
+    ├── fourDecimalPlaces/
     └── constants/
 ```
 
@@ -164,12 +164,12 @@ src/
 │   ├── [Numeric Types]/
 │   │   ├── integer/
 │   │   ├── bigInteger/
-│   │   ├── approximateDecimal/
-│   │   ├── exactOneDecimal/
-│   │   ├── exactTwoDecimals/
-│   │   ├── exactThreeDecimals/
-│   │   ├── exactFourDecimals/
-│   │   ├── exactEightDecimals/
+│   │   ├── realNumber/
+│   │   ├── oneDecimalPlace/
+│   │   ├── twoDecimalPlaces/
+│   │   ├── threeDecimalPlaces/
+│   │   ├── fourDecimalPlaces/
+│   │   ├── eightDecimalPlaces/
 │   │   └── percent/
 │   ├── [String Types]/
 │   │   ├── emailAddress/
@@ -226,13 +226,13 @@ newtypes/[typeName]/
     └── index.test.ts
 ```
 
-### Example: ExactTwoDecimals
+### Example: TwoDecimalPlaces
 
 ```typescript
 // Smart constructor (validates) - uses ok() and error() helpers
-export default function exactTwoDecimals(
+export default function twoDecimalPlaces(
 	value: number,
-): Result<ValidationError, ExactTwoDecimals> {
+): Result<ValidationError, TwoDecimalPlaces> {
 	if (!Number.isFinite(value)) {
 		return error({
 			code: "EXACT_TWO_DECIMALS_NOT_FINITE",
@@ -261,26 +261,26 @@ export default function exactTwoDecimals(
 		})
 	}
 
-	return ok(unsafeExactTwoDecimals(value))
+	return ok(unsafeTwoDecimalPlaces(value))
 }
 
 // Arithmetic (curried, monadic) - in separate file
-export default function addExactTwoDecimals(
-	augend: ExactTwoDecimals,
-): (addend: ExactTwoDecimals) => Result<ValidationError, ExactTwoDecimals> {
+export default function addToTwoDecimalPlaces(
+	augend: TwoDecimalPlaces,
+): (addend: TwoDecimalPlaces) => Result<ValidationError, TwoDecimalPlaces> {
 	return function addToAugend(
-		addend: ExactTwoDecimals,
-	): Result<ValidationError, ExactTwoDecimals> {
+		addend: TwoDecimalPlaces,
+	): Result<ValidationError, TwoDecimalPlaces> {
 		const SCALE_FACTOR = 100
-		const augendRaw = unwrapExactTwoDecimals(augend)
-		const addendRaw = unwrapExactTwoDecimals(addend)
+		const augendRaw = unwrapTwoDecimalPlaces(augend)
+		const addendRaw = unwrapTwoDecimalPlaces(addend)
 
 		const augendScaled = Math.round(augendRaw * SCALE_FACTOR)
 		const addendScaled = Math.round(addendRaw * SCALE_FACTOR)
 		const resultScaled = augendScaled + addendScaled
 		const resultRaw = resultScaled / SCALE_FACTOR
 
-		return exactTwoDecimals(resultRaw)
+		return twoDecimalPlaces(resultRaw)
 	}
 }
 ```
@@ -364,25 +364,25 @@ interface ValidationError {
 **Numeric Branded Types (7 types)**:
 - `Integer` - Safe integers within JavaScript's safe range
 - `BigInteger` - Arbitrary precision integers
-- `ApproximateDecimal` - Floating-point with explicit imprecision warning
-- `ExactTwoDecimals` - Two decimal places (e.g., currency)
-- `ExactOneDecimal` - One decimal place
-- `ExactThreeDecimals` - Three decimal places
-- `ExactFourDecimals` - Four decimal places
+- `RealNumber` - Floating-point (makes imprecision explicit)
+- `TwoDecimalPlaces` - Two decimal places (e.g., monetary amounts)
+- `OneDecimalPlace` - One decimal place
+- `ThreeDecimalPlaces` - Three decimal places
+- `FourDecimalPlaces` - Four decimal places
 
 **Arithmetic Operations**:
 - All 4 operations (add, subtract, multiply, divide) for:
-  - `ExactTwoDecimals`
-  - `ExactOneDecimal`
-  - `ExactThreeDecimals`
-  - `ExactFourDecimals`
+  - `TwoDecimalPlaces`
+  - `OneDecimalPlace`
+  - `ThreeDecimalPlaces`
+  - `FourDecimalPlaces`
 
 **Test Coverage**: 384+ tests passing
 
 ### 🚧 In Progress
 
 **Numeric Branded Types**:
-- `ExactEightDecimals` - Eight decimal places (for cryptocurrencies)
+- `EightDecimalPlaces` - Eight decimal places (for cryptocurrencies)
 - `Percent` - 0-1 range with 4 decimal precision
 
 ### ⏸️ Not Started
