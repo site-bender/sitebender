@@ -10,7 +10,7 @@ import unwrapExactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecim
 export default function multiplyExactTwoDecimals(
 	multiplicand: ExactTwoDecimals,
 ): (multiplier: ExactTwoDecimals) => Result<ValidationError, ExactTwoDecimals> {
-	return function multiplyByMultiplier(
+	return function multiplyWithMultiplicand(
 		multiplier: ExactTwoDecimals,
 	): Result<ValidationError, ExactTwoDecimals> {
 		const SCALE_FACTOR = 100

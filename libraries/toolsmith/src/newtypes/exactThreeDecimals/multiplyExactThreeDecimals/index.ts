@@ -10,7 +10,7 @@ import unwrapExactThreeDecimals from "@sitebender/toolsmith/newtypes/exactThreeD
 export default function multiplyExactThreeDecimals(
 	multiplicand: ExactThreeDecimals,
 ): (multiplier: ExactThreeDecimals) => Result<ValidationError, ExactThreeDecimals> {
-	return function multiplyByMultiplier(
+	return function multiplyWithMultiplicand(
 		multiplier: ExactThreeDecimals,
 	): Result<ValidationError, ExactThreeDecimals> {
 		const SCALE_FACTOR = 1000

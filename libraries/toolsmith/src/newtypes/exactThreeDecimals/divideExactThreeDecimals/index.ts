@@ -10,7 +10,7 @@ import unwrapExactThreeDecimals from "@sitebender/toolsmith/newtypes/exactThreeD
 export default function divideExactThreeDecimals(
 	dividend: ExactThreeDecimals,
 ): (divisor: ExactThreeDecimals) => Result<ValidationError, ExactThreeDecimals> {
-	return function divideByDivisor(
+	return function divideWithDividend(
 		divisor: ExactThreeDecimals,
 	): Result<ValidationError, ExactThreeDecimals> {
 		const SCALE_FACTOR = 1000

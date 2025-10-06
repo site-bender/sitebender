@@ -10,7 +10,7 @@ import unwrapExactOneDecimal from "@sitebender/toolsmith/newtypes/exactOneDecima
 export default function multiplyExactOneDecimal(
 	multiplicand: ExactOneDecimal,
 ): (multiplier: ExactOneDecimal) => Result<ValidationError, ExactOneDecimal> {
-	return function multiplyByMultiplier(
+	return function multiplyWithMultiplicand(
 		multiplier: ExactOneDecimal,
 	): Result<ValidationError, ExactOneDecimal> {
 		const SCALE_FACTOR = 10

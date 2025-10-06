@@ -10,7 +10,7 @@ import unwrapExactOneDecimal from "@sitebender/toolsmith/newtypes/exactOneDecima
 export default function divideExactOneDecimal(
 	dividend: ExactOneDecimal,
 ): (divisor: ExactOneDecimal) => Result<ValidationError, ExactOneDecimal> {
-	return function divideByDivisor(
+	return function divideWithDividend(
 		divisor: ExactOneDecimal,
 	): Result<ValidationError, ExactOneDecimal> {
 		const SCALE_FACTOR = 10

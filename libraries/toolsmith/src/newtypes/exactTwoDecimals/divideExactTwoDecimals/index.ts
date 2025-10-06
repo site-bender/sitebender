@@ -10,7 +10,7 @@ import unwrapExactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecim
 export default function divideExactTwoDecimals(
 	dividend: ExactTwoDecimals,
 ): (divisor: ExactTwoDecimals) => Result<ValidationError, ExactTwoDecimals> {
-	return function divideByDivisor(
+	return function divideWithDividend(
 		divisor: ExactTwoDecimals,
 	): Result<ValidationError, ExactTwoDecimals> {
 		const SCALE_FACTOR = 100
