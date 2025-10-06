@@ -1,0 +1,446 @@
+# Newtypes Implementation Checklist
+
+**Purpose**: Track implementation progress for all branded types (newtypes) in Toolsmith.
+**Last Updated**: 2025-10-07
+
+## Implementation Batches
+
+Newtypes are implemented in small, focused batches to maintain quality and ensure all tests pass before moving forward.
+
+---
+
+## Batch 1: Numeric Types (COMPLETED ✅)
+
+### ✅ Integer
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `integer()`
+- [x] Unsafe constructor `unsafeInteger()`
+- [x] Unwrap function `unwrapInteger()`
+- [x] Type predicate `_isInteger()`
+- [x] All tests passing
+
+### ✅ BigInteger
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `bigInteger()`
+- [x] Unsafe constructor `unsafeBigInteger()`
+- [x] Unwrap function `unwrapBigInteger()`
+- [x] Type predicate `_isBigInteger()`
+- [x] All tests passing
+
+### ✅ RealNumber
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `realNumber()`
+- [x] Unsafe constructor `unsafeRealNumber()`
+- [x] Unwrap function `unwrapRealNumber()`
+- [x] Type predicate `_isRealNumber()`
+- [x] All tests passing
+
+### ✅ OneDecimalPlace
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `oneDecimalPlace()`
+- [x] Unsafe constructor `unsafeOneDecimalPlace()`
+- [x] Unwrap function `unwrapOneDecimalPlace()`
+- [x] Type predicate `_isOneDecimalPlace()`
+- [x] Arithmetic: `addOneDecimalPlace()`
+- [x] Arithmetic: `subtractOneDecimalPlace()`
+- [x] Arithmetic: `multiplyOneDecimalPlace()`
+- [x] Arithmetic: `divideOneDecimalPlace()`
+- [x] All tests passing
+
+### ✅ TwoDecimalPlaces
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `twoDecimalPlaces()`
+- [x] Unsafe constructor `unsafeTwoDecimalPlaces()`
+- [x] Unwrap function `unwrapTwoDecimalPlaces()`
+- [x] Type predicate `_isTwoDecimalPlaces()`
+- [x] Arithmetic: `addTwoDecimalPlaces()`
+- [x] Arithmetic: `subtractTwoDecimalPlaces()`
+- [x] Arithmetic: `multiplyTwoDecimalPlaces()`
+- [x] Arithmetic: `divideTwoDecimalPlaces()`
+- [x] All tests passing
+
+### ✅ ThreeDecimalPlaces
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `threeDecimalPlaces()`
+- [x] Unsafe constructor `unsafeThreeDecimalPlaces()`
+- [x] Unwrap function `unwrapThreeDecimalPlaces()`
+- [x] Type predicate `_isThreeDecimalPlaces()`
+- [x] Arithmetic: `addThreeDecimalPlaces()`
+- [x] Arithmetic: `subtractThreeDecimalPlaces()`
+- [x] Arithmetic: `multiplyThreeDecimalPlaces()`
+- [x] Arithmetic: `divideThreeDecimalPlaces()`
+- [x] All tests passing
+
+### ✅ FourDecimalPlaces
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `fourDecimalPlaces()`
+- [x] Unsafe constructor `unsafeFourDecimalPlaces()`
+- [x] Unwrap function `unwrapFourDecimalPlaces()`
+- [x] Type predicate `_isFourDecimalPlaces()`
+- [x] Arithmetic: `addFourDecimalPlaces()`
+- [x] Arithmetic: `subtractFourDecimalPlaces()`
+- [x] Arithmetic: `multiplyFourDecimalPlaces()`
+- [x] Arithmetic: `divideFourDecimalPlaces()`
+- [x] All tests passing
+
+---
+
+## Batch 2: Remaining Numeric Types (COMPLETED ✅)
+
+### ✅ EightDecimalPlaces
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `eightDecimalPlaces()`
+- [x] Unsafe constructor `unsafeEightDecimalPlaces()`
+- [x] Unwrap function `unwrapEightDecimalPlaces()`
+- [x] Type predicate `_isEightDecimalPlaces()`
+- [x] Arithmetic: `addEightDecimalPlaces()`
+- [x] Arithmetic: `subtractEightDecimalPlaces()`
+- [x] Arithmetic: `multiplyEightDecimalPlaces()`
+- [x] Arithmetic: `divideEightDecimalPlaces()`
+- [x] All tests passing (81 tests)
+- [x] Constants: `EIGHT_DECIMAL_PLACES_SCALE = 100000000`
+
+**Notes**: Used for cryptocurrencies with high precision (e.g., Bitcoin's satoshis)
+
+### ✅ Percent
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `percent()` (validates 0-1 range)
+- [x] Unsafe constructor `unsafePercent()`
+- [x] Unwrap function `unwrapPercent()`
+- [x] Type predicate `_isPercent()`
+- [x] Arithmetic: `addPercent()`
+- [x] Arithmetic: `subtractPercent()`
+- [x] Arithmetic: `multiplyPercent()`
+- [x] Arithmetic: `dividePercent()`
+- [x] Utility: `percentOf()` (applies percent to value)
+- [x] All tests passing (96 tests)
+- [x] Constants: `PERCENT_MIN = 0`, `PERCENT_MAX = 1`, `PERCENT_SCALE = 10000`
+
+**Notes**: Represents percentages as 0-1 (0% to 100%) with 4 decimal precision
+
+---
+
+## Batch 3: String Types - Web/Network (NOT STARTED)
+
+### ⏸️ EmailAddress
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `emailAddress()` (validates RFC 5322)
+- [ ] Unsafe constructor `unsafeEmailAddress()`
+- [ ] Unwrap function `unwrapEmailAddress()`
+- [ ] Type predicate `_isEmailAddress()`
+- [ ] All tests passing
+
+**Validation**: Basic RFC 5322 email validation (local@domain format)
+
+### ⏸️ Url
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `url()` (validates URL with protocol)
+- [ ] Unsafe constructor `unsafeUrl()`
+- [ ] Unwrap function `unwrapUrl()`
+- [ ] Type predicate `_isUrl()`
+- [ ] All tests passing
+
+**Validation**: Must have protocol (http://, https://, etc.) and valid domain
+
+### ⏸️ Uri
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `uri()` (validates URI syntax)
+- [ ] Unsafe constructor `unsafeUri()`
+- [ ] Unwrap function `unwrapUri()`
+- [ ] Type predicate `_isUri()`
+- [ ] All tests passing
+
+**Validation**: RFC 3986 URI syntax (scheme:path, may be relative)
+
+### ⏸️ Iri
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `iri()` (validates IRI syntax)
+- [ ] Unsafe constructor `unsafeIri()`
+- [ ] Unwrap function `unwrapIri()`
+- [ ] Type predicate `_isIri()`
+- [ ] All tests passing
+
+**Validation**: RFC 3987 IRI syntax (internationalized URI)
+
+### ⏸️ Ipv4Address
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `ipv4Address()` (validates IPv4)
+- [ ] Unsafe constructor `unsafeIpv4Address()`
+- [ ] Unwrap function `unwrapIpv4Address()`
+- [ ] Type predicate `_isIpv4Address()`
+- [ ] All tests passing
+
+**Validation**: 4 octets (0-255), dot-separated (e.g., 192.168.1.1)
+
+### ⏸️ Ipv6Address
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `ipv6Address()` (validates IPv6)
+- [ ] Unsafe constructor `unsafeIpv6Address()`
+- [ ] Unwrap function `unwrapIpv6Address()`
+- [ ] Type predicate `_isIpv6Address()`
+- [ ] All tests passing
+
+**Validation**: 8 groups of 4 hex digits, colon-separated (supports :: compression)
+
+### ⏸️ Domain
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `domain()` (validates domain name)
+- [ ] Unsafe constructor `unsafeDomain()`
+- [ ] Unwrap function `unwrapDomain()`
+- [ ] Type predicate `_isDomain()`
+- [ ] All tests passing
+
+**Validation**: Valid domain name (e.g., example.com, sub.example.co.uk)
+
+### ⏸️ Hostname
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `hostname()` (validates hostname)
+- [ ] Unsafe constructor `unsafeHostname()`
+- [ ] Unwrap function `unwrapHostname()`
+- [ ] Type predicate `_isHostname()`
+- [ ] All tests passing
+
+**Validation**: Valid hostname (domain or localhost)
+
+---
+
+## Batch 4: String Types - Identifiers (NOT STARTED)
+
+### ⏸️ Uuid
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `uuid()` (validates UUID format)
+- [ ] Unsafe constructor `unsafeUuid()`
+- [ ] Unwrap function `unwrapUuid()`
+- [ ] Type predicate `_isUuid()`
+- [ ] All tests passing
+
+**Validation**: UUID v4 format (8-4-4-4-12 hex with hyphens)
+
+### ⏸️ Isbn10
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `isbn10()` (validates ISBN-10)
+- [ ] Unsafe constructor `unsafeIsbn10()`
+- [ ] Unwrap function `unwrapIsbn10()`
+- [ ] Type predicate `_isIsbn10()`
+- [ ] All tests passing
+
+**Validation**: 10 digits with valid check digit
+
+### ⏸️ Isbn13
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `isbn13()` (validates ISBN-13)
+- [ ] Unsafe constructor `unsafeIsbn13()`
+- [ ] Unwrap function `unwrapIsbn13()`
+- [ ] Type predicate `_isIsbn13()`
+- [ ] All tests passing
+
+**Validation**: 13 digits with valid check digit (EAN-13)
+
+---
+
+## Batch 5: String Types - Geographic/Financial (NOT STARTED)
+
+### ⏸️ PostalCode
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `postalCode()` (validates basic format)
+- [ ] Unsafe constructor `unsafePostalCode()`
+- [ ] Unwrap function `unwrapPostalCode()`
+- [ ] Type predicate `_isPostalCode()`
+- [ ] All tests passing
+
+**Validation**: Alphanumeric with optional spaces/hyphens (generic, not country-specific)
+
+### ⏸️ PhoneNumber
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `phoneNumber()` (validates E.164 format)
+- [ ] Unsafe constructor `unsafePhoneNumber()`
+- [ ] Unwrap function `unwrapPhoneNumber()`
+- [ ] Type predicate `_isPhoneNumber()`
+- [ ] All tests passing
+
+**Validation**: E.164 format (+1234567890, 7-15 digits after +)
+
+### ⏸️ CountryCode
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `countryCode()` (validates ISO 3166-1 alpha-2)
+- [ ] Unsafe constructor `unsafeCountryCode()`
+- [ ] Unwrap function `unwrapCountryCode()`
+- [ ] Type predicate `_isCountryCode()`
+- [ ] All tests passing
+
+**Validation**: 2-letter uppercase ISO country code (US, GB, FR, etc.)
+
+### ⏸️ LanguageCode
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `languageCode()` (validates ISO 639-1)
+- [ ] Unsafe constructor `unsafeLanguageCode()`
+- [ ] Unwrap function `unwrapLanguageCode()`
+- [ ] Type predicate `_isLanguageCode()`
+- [ ] All tests passing
+
+**Validation**: 2-letter lowercase ISO language code (en, fr, de, etc.)
+
+### ⏸️ CurrencyCode
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `currencyCode()` (validates ISO 4217)
+- [ ] Unsafe constructor `unsafeCurrencyCode()`
+- [ ] Unwrap function `unwrapCurrencyCode()`
+- [ ] Type predicate `_isCurrencyCode()`
+- [ ] All tests passing
+
+**Validation**: 3-letter uppercase ISO currency code (USD, EUR, GBP, etc.)
+
+### ⏸️ CreditCardNumber
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `creditCardNumber()` (validates Luhn algorithm)
+- [ ] Unsafe constructor `unsafeCreditCardNumber()`
+- [ ] Unwrap function `unwrapCreditCardNumber()`
+- [ ] Type predicate `_isCreditCardNumber()`
+- [ ] All tests passing
+
+**Validation**: 13-19 digits passing Luhn check (no hyphens/spaces)
+
+---
+
+## Batch 6: String Types - Basic/Encoding (NOT STARTED)
+
+### ⏸️ NonEmptyString
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `nonEmptyString()` (validates non-empty)
+- [ ] Unsafe constructor `unsafeNonEmptyString()`
+- [ ] Unwrap function `unwrapNonEmptyString()`
+- [ ] Type predicate `_isNonEmptyString()`
+- [ ] All tests passing
+
+**Validation**: String with length > 0 (after trimming optional)
+
+### ⏸️ Char
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `char()` (validates single character)
+- [ ] Unsafe constructor `unsafeChar()`
+- [ ] Unwrap function `unwrapChar()`
+- [ ] Type predicate `_isChar()`
+- [ ] All tests passing
+
+**Validation**: Exactly 1 character (single Unicode code point)
+
+### ⏸️ Base58
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `base58()` (validates Base58 encoding)
+- [ ] Unsafe constructor `unsafeBase58()`
+- [ ] Unwrap function `unwrapBase58()`
+- [ ] Type predicate `_isBase58()`
+- [ ] All tests passing
+
+**Validation**: Base58 alphabet (Bitcoin/IPFS style, no 0OIl)
+
+---
+
+## Batch 7: Color Types (NOT STARTED)
+
+### ⏸️ HexColor
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `hexColor()` (validates #RGB or #RRGGBB)
+- [ ] Unsafe constructor `unsafeHexColor()`
+- [ ] Unwrap function `unwrapHexColor()`
+- [ ] Type predicate `_isHexColor()`
+- [ ] All tests passing
+
+**Validation**: #RGB or #RRGGBB format (3 or 6 hex digits)
+
+### ⏸️ OklchColor
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `oklchColor()` (validates oklch() CSS format)
+- [ ] Unsafe constructor `unsafeOklchColor()`
+- [ ] Unwrap function `unwrapOklchColor()`
+- [ ] Type predicate `_isOklchColor()`
+- [ ] All tests passing
+
+**Validation**: oklch(L C H) or oklch(L C H / A) format
+
+### ⏸️ P3Color
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `p3Color()` (validates color(display-p3 ...) format)
+- [ ] Unsafe constructor `unsafeP3Color()`
+- [ ] Unwrap function `unwrapP3Color()`
+- [ ] Type predicate `_isP3Color()`
+- [ ] All tests passing
+
+**Validation**: color(display-p3 R G B) or color(display-p3 R G B / A) format
+
+---
+
+## Batch 8: Collection Types (NOT STARTED)
+
+### ⏸️ NonEmptyArray<T>
+- [ ] Type definition in `types/branded/index.ts`
+- [ ] Smart constructor `nonEmptyArray<T>()` (validates length > 0)
+- [ ] Unsafe constructor `unsafeNonEmptyArray<T>()`
+- [ ] Unwrap function `unwrapNonEmptyArray<T>()`
+- [ ] Type predicate `_isNonEmptyArray<T>()`
+- [ ] Utility: `headNonEmptyArray<T>()` (get first element safely)
+- [ ] Utility: `tailNonEmptyArray<T>()` (get rest as regular array)
+- [ ] All tests passing
+
+**Validation**: Array with at least one element
+
+---
+
+## Implementation Template
+
+For each new type, follow this structure:
+
+```
+newtypes/[typeName]/
+├── _is[TypeName]/
+│   ├── index.ts       # Private predicate: (value: primitive) => value is TypeName
+│   └── index.test.ts  # Test valid/invalid cases
+├── unsafe[TypeName]/
+│   ├── index.ts       # Unsafe constructor: (value: primitive) => TypeName
+│   └── index.test.ts  # Test branding works (no validation)
+├── unwrap[TypeName]/
+│   ├── index.ts       # Extract raw value: (value: TypeName) => primitive
+│   └── index.test.ts  # Test unwrapping works
+├── index.ts           # Smart constructor: (value: primitive) => Result<ValidationError, TypeName>
+└── index.test.ts      # Test validation with helpful errors
+```
+
+**Additional for numeric types with arithmetic:**
+```
+├── add[TypeName]/
+│   ├── index.ts       # Curried addition with scaled integer arithmetic
+│   └── index.test.ts
+├── subtract[TypeName]/
+│   ├── index.ts       # Curried subtraction with scaled integer arithmetic
+│   └── index.test.ts
+├── multiply[TypeName]/
+│   ├── index.ts       # Curried multiplication with scaled integer arithmetic
+│   └── index.test.ts
+└── divide[TypeName]/
+    ├── index.ts       # Curried division with scaled integer arithmetic
+    └── index.test.ts
+```
+
+---
+
+## Verification Checklist (After Each Batch)
+
+After completing each batch, verify:
+
+- [ ] All new types added to `types/branded/index.ts`
+- [ ] All constants added to `newtypes/constants/index.ts` (if applicable)
+- [ ] All tests passing: `deno test src/newtypes/ --quiet`
+- [ ] No old naming remnants: `grep -r "OldName" src/ docs/`
+- [ ] Documentation updated in `docs/DESIRED_ARCHITECTURE.md`
+- [ ] This checklist updated with completion status
+
+---
+
+## Notes
+
+- **Never implement more than one batch at a time** - ensures quality and makes debugging easier
+- **Always run full test suite** after each type completion
+- **Update this checklist** immediately after completing each item
+- **All functions must be curried** and return `Result<ValidationError, T>`
+- **All error messages must be system-centric** ("System needs..." not "Invalid...")
+- **All ValidationErrors must include actionable suggestions**
