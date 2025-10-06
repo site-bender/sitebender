@@ -1,520 +1,595 @@
-# @sitebender/toolsmith
+# Toolsmith: Pure Functional Utility Library
 
-> **Pure functional programming utilities - The foundational toolkit for building robust, composable applications**
+Toolsmith is a comprehensive functional programming library providing type-safe, composable utilities for TypeScript and JavaScript. Built on monadic error handling and branded types, Toolsmith eliminates exceptions and runtime type errors through compile-time guarantees.
 
-Toolsmith is a comprehensive functional programming library providing performance-optimized utilities, monadic types, and composable building blocks for the @sitebender ecosystem. It offers two complementary APIs: **vanilla** functions for performance-critical paths and **boxed** functions for safe, monadic composition.
+## Core Philosophy
 
-## Philosophy
+**No exceptions. No runtime type errors. Pure functions only.**
 
-**Functions as data. Composition as power. Purity as guarantee.**
+Every function in Toolsmith:
+- Returns `Result<ValidationError, T>` instead of throwing exceptions
+- Is fully curried for composition and partial application
+- Has zero side effects (pure functions)
+- Provides helpful, actionable error messages
+- Works identically on client and server
 
-Toolsmith embraces strict functional programming principles while acknowledging performance realities. Every utility is:
+## Key Features
 
-- **Pure** - No side effects, deterministic outputs
-- **Curried** - All functions support partial application
-- **Composable** - Designed to work together seamlessly
-- **Type-safe** - Comprehensive TypeScript coverage
-- **Performance-aware** - Documented exceptions where speed matters
+### Branded Types
 
-## Core Architecture
+JavaScript's primitive types are too permissive. Toolsmith provides branded types with compile-time safety and zero runtime overhead:
 
-### Dual API Design: Vanilla & Boxed
-
-Toolsmith provides **two versions** of every function:
-
-#### Vanilla Functions (`/vanilla/*`)
-
-**Performance-first, null-returning functions for internal use and hot paths**
-
-- Return `null` for error conditions (never `undefined`)
-- Direct value returns for maximum performance
-- May use imperative patterns (documented with `[EXCEPTION]` comments)
-- Intended for internal utilities and performance-critical code
+#### Numeric Types
 
 ```typescript
-// Vanilla: Fast, null on error
-import add from "@sitebender/toolsmith/vanilla/math/add/index.ts"
+import integer from "@sitebender/toolsmith/newtypes/integer/index.ts"
+import exactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/index.ts"
+import approximateDecimal from "@sitebender/toolsmith/newtypes/approximateDecimal/index.ts"
 
-const result = add(5)(10)  // 15
-const error = add(NaN)(10) // null
+const age = integer(42)              // Result<ValidationError, Integer>
+const price = exactTwoDecimals(19.99) // Result<ValidationError, ExactTwoDecimals>
+const pi = approximateDecimal(3.14159) // Result<ValidationError, ApproximateDecimal>
+
+// Type error: can't mix Integer with ExactTwoDecimals
+function processPrice(p: ExactTwoDecimals): void { }
+if (age.isOk) {
+	processPrice(age.value)  // TypeScript ERROR ✅
+}
 ```
 
-#### Boxed Functions (`/boxed/*`)
+**Numeric Types:**
+- `Integer` - Safe integers within JavaScript's safe range
+- `BigInteger` - Arbitrary precision integers
+- `ApproximateDecimal` - Floating-point (makes imprecision explicit)
+- `ExactOneDecimal` - One decimal place (e.g., 19.9)
+- `ExactTwoDecimals` - Two decimal places (e.g., 19.99)
+- `ExactThreeDecimals` - Three decimal places (e.g., 19.999)
+- `ExactFourDecimals` - Four decimal places (e.g., 19.9999)
+- `ExactEightDecimals` - Eight decimal places (e.g., cryptocurrencies)
+- `Percent` - 0-1 range with four decimal precision
 
-**Monadic wrappers for safe, composable application code**
+#### String Types
 
-- Return `Result` or `Validation` monads
-- Automatic error handling and propagation
-- "Validation wins" - any Validation input produces Validation output
-- Public API for application consumption
+Validated string formats with compile-time guarantees:
 
 ```typescript
-// Boxed: Safe, wrapped in Result/Validation
-import add from "@sitebender/toolsmith/boxed/math/add/index.ts"
-import { ok, error } from "@sitebender/toolsmith/monads/result/index.ts"
+import emailAddress from "@sitebender/toolsmith/newtypes/emailAddress/index.ts"
+import url from "@sitebender/toolsmith/newtypes/url/index.ts"
 
-const result = add(ok(5))(ok(10))     // Ok(15)
-const err = add(error("bad"))(ok(10)) // Error("bad")
-const plain = add(5)(10)              // Ok(15) - plain values default to Result
+const email = emailAddress("user@example.com")
+const link = url("https://example.com")
+
+// Type error: can't use EmailAddress where Url is expected
+function navigate(destination: Url): void { }
+if (email.isOk) {
+	navigate(email.value)  // TypeScript ERROR ✅
+}
 ```
 
-### Lift System
+**Network/Web Types:**
+- `EmailAddress` - RFC 5322 compliant email addresses
+- `Url` - Valid URL with protocol
+- `Uri` - URI (broader than URL)
+- `Iri` - Internationalized Resource Identifier
+- `IPv4Address` - IPv4 format (e.g., 192.168.1.1)
+- `IPv6Address` - IPv6 format
+- `Domain` - Valid domain name
+- `Hostname` - Valid hostname
 
-Boxed functions are created by "lifting" vanilla functions with specialized helpers:
+**Identifier Types:**
+- `Uuid` - UUID v4/v5 format
+- `Isbn10` - ISBN-10 with checksum validation
+- `Isbn13` - ISBN-13 with checksum validation
+- `Issn` - ISSN format
+- `Doi` - Digital Object Identifier
+- `Orcid` - ORCID researcher ID
+
+**Geographic Types:**
+- `PostalCode` - Country-specific postal codes
+- `PhoneNumber` - E.164 international format
+- `CountryCode` - ISO 3166-1 alpha-2/alpha-3
+- `LanguageCode` - BCP 47 language tags
+- `CurrencyCode` - ISO 4217 currency codes
+
+**Financial Types:**
+- `CreditCardNumber` - Luhn algorithm validated
+- `Iban` - International Bank Account Number
+- `Swift` - SWIFT/BIC code
+
+**Temporal Types:**
+- `Iso8601Date` - ISO 8601 date string
+- `Iso8601DateTime` - ISO 8601 datetime string
+- `Rfc3339` - RFC 3339 timestamp
+
+**Other String Types:**
+- `Char` - Single character (length === 1)
+- `NonEmptyString` - String with length > 0
+- `Base58` - Base58 encoding (for shortened UUIDs)
+- `Base64` - Base64 encoding
+- `JsonString` - Valid JSON string
+
+#### Color Types
+
+Modern CSS color formats with validation:
 
 ```typescript
-// liftUnary - for single-argument functions
-import liftUnary from "@sitebender/toolsmith/boxed/lift/liftUnary/index.ts"
-import vanillaNegate from "@sitebender/toolsmith/vanilla/math/negate/index.ts"
+import hexColor from "@sitebender/toolsmith/newtypes/hexColor/index.ts"
+import oklchColor from "@sitebender/toolsmith/newtypes/oklchColor/index.ts"
+import p3Color from "@sitebender/toolsmith/newtypes/p3Color/index.ts"
 
-const negate = liftUnary(vanillaNegate)
-
-// liftBinary - for two-argument curried functions
-import liftBinary from "@sitebender/toolsmith/boxed/lift/liftBinary/index.ts"
-import vanillaAdd from "@sitebender/toolsmith/vanilla/math/add/index.ts"
-
-const add = liftBinary(vanillaAdd)
+const hex = hexColor("#FF5733")
+const oklch = oklchColor("oklch(0.5 0.2 180)")
+const p3 = p3Color("color(display-p3 1 0.5 0)")
 ```
 
-## Library Categories
+**Color Types:**
+- `HexColor` - #RGB or #RRGGBB format
+- `OklchColor` - oklch() CSS color format
+- `P3Color` - color(display-p3 ...) format
 
-### Array Operations (130+ functions)
+#### Collection Types
 
-Comprehensive array manipulation with functional patterns:
+Type-safe collections with guarantees:
 
 ```typescript
-// Core operations
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import nonEmptyArray from "@sitebender/toolsmith/newtypes/nonEmptyArray/index.ts"
 
-// Advanced operations
-import partition from "@sitebender/toolsmith/vanilla/array/partition/index.ts"
-import groupBy from "@sitebender/toolsmith/vanilla/array/groupBy/index.ts"
-import cartesianProduct from "@sitebender/toolsmith/vanilla/array/cartesianProduct/index.ts"
-import permutations from "@sitebender/toolsmith/vanilla/array/permutations/index.ts"
-
-// Utilities
-import head from "@sitebender/toolsmith/vanilla/array/head/index.ts"
-import tail from "@sitebender/toolsmith/vanilla/array/tail/index.ts"
-import chunk from "@sitebender/toolsmith/vanilla/array/chunk/index.ts"
-import flatten from "@sitebender/toolsmith/vanilla/array/flatten/index.ts"
+const items = nonEmptyArray([1, 2, 3])
+if (items.isOk) {
+	// Guaranteed to have at least one element
+	const first = items.value[0]  // Safe access
+}
 ```
 
-### String Manipulation (70+ functions)
+**Collection Types:**
+- `NonEmptyArray<T>` - Array guaranteed to have at least one element
 
-Complete string processing toolkit:
+### Exact Decimal Arithmetic
+
+Exact decimal types use scaled integer arithmetic to avoid floating-point errors:
 
 ```typescript
-import charAt from "@sitebender/toolsmith/vanilla/string/charAt/index.ts"
-import concat from "@sitebender/toolsmith/vanilla/string/concat/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
+import addExactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/addExactTwoDecimals/index.ts"
+import exactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/index.ts"
+
+const price1 = exactTwoDecimals(19.99)
+const price2 = exactTwoDecimals(5.01)
+
+if (price1.isOk && price2.isOk) {
+	const total = addExactTwoDecimals(price1.value)(price2.value)
+	// Result: exactly 25.00, not 25.000000000000004
+}
 ```
 
-### Mathematical Operations (50+ functions)
+**Arithmetic Operations** (for all exact decimal types):
+- `add[Type]` - Addition with precision preservation
+- `subtract[Type]` - Subtraction with precision preservation
+- `multiply[Type]` - Multiplication with precision preservation
+- `divide[Type]` - Division with precision preservation
 
-Numeric computations with type-specific optimizations:
+### Monadic Error Handling
+
+All functions return `Result<ValidationError, T>` with helpful, system-centric error messages:
 
 ```typescript
-// Basic arithmetic
-import add from "@sitebender/toolsmith/vanilla/math/add/index.ts"
-import subtract from "@sitebender/toolsmith/vanilla/math/subtract/index.ts"
-import multiply from "@sitebender/toolsmith/vanilla/math/multiply/index.ts"
-import divide from "@sitebender/toolsmith/vanilla/math/divide/index.ts"
+import divide from "@sitebender/toolsmith/math/divide/index.ts"
 
-// Advanced operations
-import clamp from "@sitebender/toolsmith/vanilla/math/clamp/index.ts"
-import modulo from "@sitebender/toolsmith/vanilla/math/modulo/index.ts"
-import power from "@sitebender/toolsmith/vanilla/math/power/index.ts"
-import sqrt from "@sitebender/toolsmith/vanilla/math/sqrt/index.ts"
+const result = divide(10)(0)
+
+if (result.isError) {
+	console.log(result.error)
+	// {
+	//   code: "DIVISION_BY_ZERO",
+	//   field: "divisor",
+	//   messages: ["System cannot divide by zero"],
+	//   received: 0,
+	//   expected: "Non-zero number",
+	//   suggestion: "Provide a non-zero divisor",
+	//   severity: "requirement"
+	// }
+}
 ```
 
-**Math Type Optimization**: Four type-specific implementations (integer, bigint, float, precision) with identical signatures but optimized internals.
+**Error Philosophy:**
+- System-centric: "System needs..." not "You provided invalid..."
+- Actionable: Always includes suggestion for how to fix
+- Type-safe: Uses `Serializable` types, never `unknown` or `any`
+- i18n ready: Integrates with Linguist for translations
 
-### Object Utilities (60+ functions)
+### Curried Functions
 
-Immutable object operations:
-
-```typescript
-import get from "@sitebender/toolsmith/vanilla/object/get/index.ts"
-import set from "@sitebender/toolsmith/vanilla/object/set/index.ts"
-import merge from "@sitebender/toolsmith/vanilla/object/merge/index.ts"
-import omit from "@sitebender/toolsmith/vanilla/object/omit/index.ts"
-import pick from "@sitebender/toolsmith/vanilla/object/pick/index.ts"
-import keys from "@sitebender/toolsmith/vanilla/object/keys/index.ts"
-import values from "@sitebender/toolsmith/vanilla/object/values/index.ts"
-```
-
-### Combinators (45+ functions)
-
-Function composition and transformation:
+All functions are curried for composition and partial application:
 
 ```typescript
+import add from "@sitebender/toolsmith/math/add/index.ts"
+import multiply from "@sitebender/toolsmith/math/multiply/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
+
+// Partial application
+const add5 = add(5)
+const double = multiply(2)
+
 // Composition
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
-import compose from "@sitebender/toolsmith/vanilla/combinator/compose/index.ts"
+const add5ThenDouble = pipe(add5, double)
 
-// Function modification
-import curry from "@sitebender/toolsmith/vanilla/combinator/curry/index.ts"
-import partial from "@sitebender/toolsmith/vanilla/combinator/partial/index.ts"
-import memoize from "@sitebender/toolsmith/vanilla/combinator/memoize/index.ts"
-import debounce from "@sitebender/toolsmith/vanilla/combinator/debounce/index.ts"
-import throttle from "@sitebender/toolsmith/vanilla/combinator/throttle/index.ts"
-
-// Advanced patterns
-import converge from "@sitebender/toolsmith/vanilla/combinator/converge/index.ts"
-import juxt from "@sitebender/toolsmith/vanilla/combinator/juxt/index.ts"
-import tryCatch from "@sitebender/toolsmith/vanilla/combinator/tryCatch/index.ts"
+const result = add5ThenDouble(10)  // Result: 30
 ```
 
-### Validation & Predicates (120+ functions)
-
-Type checking and validation:
-
+**Currying Pattern:**
 ```typescript
-// Type guards
-import isString from "@sitebender/toolsmith/vanilla/validation/isString/index.ts"
-import isNumber from "@sitebender/toolsmith/vanilla/validation/isNumber/index.ts"
-import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
-import isObject from "@sitebender/toolsmith/vanilla/validation/isObject/index.ts"
-
-// Complex validators
-import isEmpty from "@sitebender/toolsmith/vanilla/validation/isEmpty/index.ts"
-import isEmail from "@sitebender/toolsmith/vanilla/validation/isEmail/index.ts"
-import isUrl from "@sitebender/toolsmith/vanilla/validation/isUrl/index.ts"
-```
-
-### Monads
-
-Comprehensive monadic types for safe composition:
-
-#### Result Monad
-
-**Fail-fast error handling with rich error types**
-
-```typescript
-import { ok, error } from "@sitebender/toolsmith/monads/result/index.ts"
-import map from "@sitebender/toolsmith/monads/result/map/index.ts"
-import chain from "@sitebender/toolsmith/monads/result/chain/index.ts"
-import fold from "@sitebender/toolsmith/monads/result/fold/index.ts"
-
-const divide = (divisor: number) => (dividend: number) =>
-	divisor === 0 ? error("Division by zero") : ok(dividend / divisor)
-
-const result = pipe(
-	ok(10),
-	chain(divide(2)),  // Ok(5)
-	map(x => x * 2)    // Ok(10)
-)
-
-fold((n) => `Success: ${n}`)((e) => `Error: ${e}`)(result) // "Success: 10"
-```
-
-#### Validation Monad
-
-**Error accumulation for forms and multi-field validation**
-
-```typescript
-import { success, failure } from "@sitebender/toolsmith/monads/validation/index.ts"
-import validateAll from "@sitebender/toolsmith/monads/validation/validateAll/index.ts"
-import createValidator from "@sitebender/toolsmith/monads/validation/createValidator/index.ts"
-
-const isAdult = createValidator((age: number) => age >= 18)(
-	(age) => ({ field: "age", messages: [`${age} is too young`] })
-)
-
-const hasValidEmail = createValidator((email: string) => /@/.test(email))(
-	(email) => ({ field: "email", messages: [`${email} is invalid`] })
-)
-
-// Accumulates all errors
-const result = validateAll([isAdult, hasValidEmail])({ age: 15, email: "bad" })
-// Invalid([{ field: "age", messages: ["15 is too young"] }, { field: "email", ... }])
-```
-
-#### Other Monads
-
-- **Maybe** - Optional values without null/undefined
-- **Either** - Binary choice with left/right values
-- **IO** - Lazy, deferred side effects
-- **Task** - Asynchronous operations
-- **State** - Stateful computations
-- **Reader** - Environment dependency injection
-- **Writer** - Computation with logging
-
-### Additional Categories
-
-- **Temporal** (80+ functions) - Date/time operations using TC39 Temporal API
-- **Logic** (15+ functions) - Boolean logic and conditional operations
-- **Set & Map** (40+ functions) - Immutable collection operations
-- **Tuple** (15+ functions) - Fixed-size array utilities
-- **Statistics** (15+ functions) - Mean, median, variance, standard deviation
-- **Finance** (12+ functions) - NPV, IRR, compound interest, amortization
-- **Geometry** (10+ functions) - Vector math, distance calculations
-- **Trigonometry** (20+ functions) - Trig functions and conversions
-- **Physics** (10+ functions) - Velocity, acceleration, force calculations
-- **Interpolation** (8+ functions) - Linear, cubic, bezier interpolation
-- **Matrix** (12+ functions) - Matrix operations and transformations
-- **Async** (10+ functions) - Promise utilities and async patterns
-- **Activation** (9+ functions) - Neural network activation functions
-- **Conversion** (9+ functions) - Type conversion and parsing
-
-### Cryptography
-
-Secure hashing utilities:
-
-```typescript
-import hashHex from "@sitebender/toolsmith/crypto/hashHex/index.ts"
-
-const hash = await hashHex("SHA-256")("data to hash") // Returns hex string
-```
-
-### Testing Utilities
-
-Development and debugging helpers:
-
-```typescript
-import inspect from "@sitebender/toolsmith/testing/inspect/index.ts"
-import trace from "@sitebender/toolsmith/testing/trace/index.ts"
-```
-
-### Random Number Generation
-
-Cryptographically secure and seedable random utilities:
-
-```typescript
-import randomInt from "@sitebender/toolsmith/random/randomInt/index.ts"
-import randomFloat from "@sitebender/toolsmith/random/randomFloat/index.ts"
-import shuffle from "@sitebender/toolsmith/random/shuffle/index.ts"
-```
-
-## Type System
-
-Toolsmith uses precise type definitions instead of `any` or `unknown`:
-
-```typescript
-// From @sitebender/toolsmith/types/index.ts
-
-// Primitive values
-type PrimitiveValue = string | number | boolean | null | bigint | symbol
-
-// Serializable data (for storage/transmission)
-type Serializable =
-	| PrimitiveValue
-	| Array<Serializable>
-	| { [key: string]: Serializable }
-	| Date | RegExp | Error | Temporal.*
-	// ... includes all standard serializable types
-
-// All JavaScript values
-type Value =
-	| Serializable
-	| Function
-	| WeakMap<object, Value>
-	| WeakSet<object>
-	| Promise<Value>
-```
-
-**Usage guidelines:**
-- **`PrimitiveValue`** - Functions handling only primitives
-- **`Serializable`** - Data to be stored, transmitted, or serialized
-- **`Value`** - Validators, predicates, functions handling ANY value
-
-**Note**: `undefined` is intentionally excluded - use optional parameters (`value?: Value`)
-
-## Performance Philosophy
-
-Toolsmith balances functional purity with real-world performance needs:
-
-### Performance Exceptions
-
-Internal utilities may use imperative patterns when justified:
-
-```typescript
-// [EXCEPTION] Using .push() for O(1) amortized performance in hot path
-function buildArray<T>(items: Iterable<T>): Array<T> {
-	const result: Array<T> = []
-	for (const item of items) {
-		result.push(item) // Imperative for performance
-	}
-	return result
-}
-```
-
-### Generator Functions
-
-Special permissions for lazy evaluation:
-
-```typescript
-// [GENERATOR_EXCEPTION] Let binding and loops for iteration control
-function* range(start: number, end: number) {
-	let current = start
-	while (current <= end) {
-		yield current++
+// Inner function name captures outer parameter
+export default function add(
+	augend: number,
+): (addend: number) => Result<ValidationError, number> {
+	return function addToAugend(  // Name shows 'augend' is captured
+		addend: number,
+	): Result<ValidationError, number> {
+		// Implementation
 	}
 }
 ```
 
-### Documentation Standards
+## Function Domains
 
-All performance exceptions documented with Envoy comments:
+Toolsmith organizes functions by domain, not by implementation:
 
-- `[EXCEPTION]` - Breaking FP rules for performance
-- `[OPTIMIZATION]` - Performance-focused techniques
-- `[GENERATOR_EXCEPTION]` - Generator-specific patterns
-- `[PERFORMANCE_OVER_IDEOLOGY]` - Justified trade-offs
-- `[MATH_TYPE_OPTIMIZATION]` - Type-specific math optimizations
+### Math (`src/math/`)
+Mathematical operations on plain `number` types:
+- Basic: modulo, power, root
+- Rounding: round, floor, ceiling, truncate
+- Sign: absoluteValue, sign, negate
+- Comparison: max, min, clamp
+- Statistical: sum, product, average, median, mode
+- Advanced: factorial, fibonacci, gcd, lcm
+- Logarithms: log, log10, log2, naturalLog
+- Exponentials: exp, exponent
 
-## Architectural Principles
+### Validation (`src/validation/`)
+Type checking and validation functions:
+- Type checks: isString, isNumber, isBoolean, isArray, isObject
+- String validation: isEmail, isUrl, isUuid, isIpAddress, isPhoneNumber
+- Number validation: isInteger, isPositive, isNegative, isInRange
+- Array validation: isNonEmpty, hasLength, allMatch, someMatch
+- Object validation: hasProperty, hasProperties, matchesShape
+- Date validation: isDate, isBeforeDate, isAfterDate, isInDateRange
+- Custom validators: matches (regex), satisfies (predicate)
 
-### No Barrel Files
+### Logic (`src/logic/`)
+Boolean operations and predicates:
+- Boolean: and, or, not, xor, implies, iff
+- Predicates: all, any, none, exactly
+- Conditional: ifThenElse, when, unless, cond
+- Comparison: equals, notEquals, deepEquals
+- Type guards: isType, hasType, matchesType
 
-Direct imports only - no re-exports:
+### String (`src/string/`)
+String manipulation and formatting:
+- Case: toUpperCase, toLowerCase, toTitleCase, toCamelCase, toSnakeCase
+- Trimming: trim, trimStart, trimEnd, trimAll
+- Padding: padStart, padEnd, padBoth
+- Splitting: split, splitAt, splitOn, words, lines
+- Joining: join, concat, intercalate
+- Searching: contains, startsWith, endsWith, indexOf, lastIndexOf
+- Replacing: replace, replaceAll, replaceAt
+- Substring: substring, slice, take, drop
+- Formatting: format, template, interpolate
+- Parsing: parseInt, parseFloat, parseJson
 
-```typescript
-// ✅ Correct - direct tree import
-import add from "@sitebender/toolsmith/vanilla/math/add/index.ts"
+### Array (`src/array/`)
+Array manipulation and transformation:
+- Creation: range, repeat, replicate, generate
+- Access: head, tail, last, init, nth, at
+- Modification: append, prepend, insert, remove, update
+- Transformation: map, filter, reduce, scan, fold
+- Combination: zip, zipWith, unzip, concat, flatten
+- Partitioning: partition, splitAt, splitWhen, chunk, group
+- Sorting: sort, sortBy, sortWith, reverse
+- Searching: find, findIndex, findLast, indexOf, includes
+- Aggregation: sum, product, maximum, minimum, average
+- Set operations: union, intersection, difference
+- Uniqueness: unique, uniqueBy, deduplicate
 
-// ❌ Wrong - barrel file (doesn't exist)
-import { add } from "@sitebender/toolsmith/vanilla/math/index.ts"
+### Activation (`src/activation/`)
+Neural network activation functions:
+- sigmoid, tanh, relu, leakyRelu, elu, selu
+- softmax, softplus, softsign
+- swish, mish, gelu
+- binary, step, identity
+- Derivatives for each function
+
+### Other Domains
+- `async/` - Promise utilities and async composition
+- `combinator/` - Function combinators (pipe, compose, curry)
+- `conversion/` - Type conversions and coercion
+- `crypto/` - Cryptographic utilities
+- `finance/` - Financial calculations
+- `geometry/` - Geometric calculations
+- `hash/` - Hashing functions
+- `interpolation/` - Interpolation algorithms
+- `lens/` - Functional lenses for immutable updates
+- `map/` - Map utilities
+- `matrix/` - Matrix operations
+- `object/` - Object utilities
+- `physics/` - Physics calculations
+- `random/` - Random number generation
+- `set/` - Set operations
+- `special/` - Special mathematical functions
+- `state/` - State management utilities
+- `statistics/` - Statistical functions
+- `temporal/` - Date and time utilities
+- `trigonometry/` - Trigonometric functions
+- `tuple/` - Tuple utilities
+
+## Installation
+
+```bash
+# Using Deno (recommended)
+deno add @sitebender/toolsmith
+
+# Using npm
+npm install @sitebender/toolsmith
 ```
-
-### One Function Per File
-
-Each function lives in its own folder:
-
-```
-toolsmith/
-└── src/
-    └── vanilla/
-        └── math/
-            └── add/
-                └── index.ts  (exports one function: add)
-```
-
-### Naming Conventions
-
-- **No abbreviations** - Use full words (except standard acronyms)
-- **camelCase** - All function and variable names
-- **Named functions only** - No arrow functions for exports
-- **Semantic inner function names** - `addToAugend`, `divideByDivisor`
-
-### Error Handling
-
-**Vanilla functions:**
-- Return `null` for errors (NEVER `undefined`)
-- Never throw exceptions
-
-**Boxed functions:**
-- Automatically convert `null` to `Error` Result or `Failure` Validation
-- Compose safely with other monadic operations
 
 ## Usage Examples
 
-### Basic Composition
+### Basic Math with Error Handling
 
 ```typescript
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import add from "@sitebender/toolsmith/vanilla/math/add/index.ts"
+import add from "@sitebender/toolsmith/math/add/index.ts"
+import divide from "@sitebender/toolsmith/math/divide/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
 
-const sumOfSquaredEvens = pipe(
+// Simple addition
+const sum = add(5)(3)
+if (sum.isOk) {
+	console.log(sum.value)  // 8
+}
+
+// Division with error handling
+const quotient = divide(10)(0)
+if (quotient.isError) {
+	console.log(quotient.error.suggestion)  // "Provide a non-zero divisor"
+}
+
+// Composition
+const calculate = pipe(
+	add(10),
+	multiply(2),
+	divide(4)
+)
+```
+
+### Branded Types for Type Safety
+
+```typescript
+import integer from "@sitebender/toolsmith/newtypes/integer/index.ts"
+import exactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/index.ts"
+import addExactTwoDecimals from "@sitebender/toolsmith/newtypes/exactTwoDecimals/addExactTwoDecimals/index.ts"
+
+// Create branded values
+const quantity = integer(5)
+const price = exactTwoDecimals(19.99)
+const tax = exactTwoDecimals(1.60)
+
+// Type-safe arithmetic
+if (price.isOk && tax.isOk) {
+	const total = addExactTwoDecimals(price.value)(tax.value)
+	if (total.isOk) {
+		console.log(total.value)  // Exactly 21.59
+	}
+}
+
+// Validation errors are helpful
+const invalid = exactTwoDecimals(19.999)
+if (invalid.isError) {
+	console.log(invalid.error.suggestion)
+	// "Round to 2 decimal places (e.g., 19.99 instead of 19.999)"
+}
+```
+
+### String Validation
+
+```typescript
+import isEmail from "@sitebender/toolsmith/validation/isEmail/index.ts"
+import toLowerCase from "@sitebender/toolsmith/string/toLowerCase/index.ts"
+
+const email = "USER@EXAMPLE.COM"
+const normalized = toLowerCase(email)
+
+if (normalized.isOk) {
+	const validated = isEmail(normalized.value)
+	if (validated.isOk) {
+		console.log(validated.value)  // "user@example.com"
+	}
+}
+```
+
+### Array Operations
+
+```typescript
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import sum from "@sitebender/toolsmith/array/sum/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
+
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+const sumOfEvenSquares = pipe(
 	filter((n: number) => n % 2 === 0),
 	map((n: number) => n * n),
-	reduce(add)(0)
-)
+	sum
+)(numbers)
 
-sumOfSquaredEvens([1, 2, 3, 4, 5]) // 20 (4 + 16)
+if (sumOfEvenSquares.isOk) {
+	console.log(sumOfEvenSquares.value)  // 220
+}
 ```
 
-### Monadic Pipeline
+## Architecture Principles
+
+### One Function Per File
+Every function lives in its own folder with `index.ts` and `index.test.ts`:
+
+```
+src/math/add/
+├── index.ts       # Implementation
+└── index.test.ts  # Tests
+```
+
+**Benefits:**
+- Clear dependencies
+- Automatic cleanup when deleting features
+- No orphan code
+- Extreme modularity
+
+### No Re-exports
+Import functions directly from their source:
 
 ```typescript
-import pipe from "@sitebender/toolsmith/boxed/combinator/pipe/index.ts"
-import add from "@sitebender/toolsmith/boxed/math/add/index.ts"
-import multiply from "@sitebender/toolsmith/boxed/math/multiply/index.ts"
-import { ok } from "@sitebender/toolsmith/monads/result/index.ts"
+// ✅ Correct - explicit source
+import add from "@sitebender/toolsmith/math/add/index.ts"
 
-const result = pipe(
-	ok(10),
-	add(5),      // Ok(15)
-	multiply(2)  // Ok(30)
-)
+// ❌ Wrong - obscures source
+import { add } from "@sitebender/toolsmith/math"
 ```
 
-### Validation Accumulation
+### Lowest Common Ancestor
+Helper functions live at the lowest node where all consumers branch:
+
+```
+userAuth/
+├── _hashPassword/     # Used by login AND register
+├── login/
+│   └── _validateCredentials/  # Only login uses this
+└── register/
+    └── _checkUsername/        # Only register uses this
+```
+
+## Error Handling
+
+### ValidationError Structure
 
 ```typescript
-import validateAll from "@sitebender/toolsmith/monads/validation/validateAll/index.ts"
-import createValidator from "@sitebender/toolsmith/monads/validation/createValidator/index.ts"
-
-const validators = [
-	createValidator(isPositive)(toError("Must be positive")),
-	createValidator(isEven)(toError("Must be even")),
-	createValidator(isLessThan(100))(toError("Must be < 100"))
-]
-
-const result = validateAll(validators)(42) // Valid(42)
-const errors = validateAll(validators)(-5) // Invalid([...all errors])
+interface ValidationError {
+	code: string                    // Machine-readable error code
+	field: string                   // Field/parameter that failed
+	messages: Array<string>         // Human-readable messages
+	received: Serializable          // What was actually provided
+	expected: string                // What system needs
+	suggestion: string              // Actionable fix
+	constraints?: Record<string, Serializable>  // Machine-readable limits
+	severity: "info" | "notice" | "requirement"
+	context?: Record<string, Serializable>
+}
 ```
 
-## Integration with @sitebender
+### Result Type
 
-Toolsmith is the **foundational library** for the entire @sitebender ecosystem:
-
-- **Zero dependencies** - Pure Deno/TypeScript implementation
-- **Universal utilities** - Used by all other @sitebender libraries
-- **Functional foundation** - Establishes FP patterns across codebase
-- **Type safety** - Comprehensive TypeScript definitions
-
-## Development
-
-```bash
-# Run tests
-deno task test
-
-# Format code
-deno task fmt
-
-# Lint code
-deno task lint
-
-# Check functional programming compliance
-deno task fp:check
-
-# Check dependency boundaries
-deno task contracts:check
+```typescript
+type Result<E, T> = 
+	| { isOk: true; value: T }
+	| { isError: true; error: E }
 ```
 
-## Contributing Guidelines
+**Helper Functions:**
+```typescript
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 
-When adding new functions:
+// Create success
+return ok(42)
 
-1. **Create vanilla version first** in `/vanilla/category/functionName/`
-2. **Return `null` for errors** (never `undefined` or throw)
-3. **Document performance exceptions** with appropriate Envoy comments
-4. **Create boxed version** using appropriate lift helper
-5. **Write tests** co-located with implementation
-6. **Follow naming conventions** - full words, camelCase, named functions
-7. **One function per file** - no barrel files
+// Create error
+return error({
+	code: "INVALID_INPUT",
+	field: "value",
+	messages: ["System needs a positive number"],
+	received: -5,
+	expected: "Positive number",
+	suggestion: "Provide a number greater than zero",
+	severity: "requirement",
+})
+```
 
-## Status
+## TypeScript Configuration
 
-**Production Ready** - Comprehensive implementation with:
+```json
+{
+	"compilerOptions": {
+		"strict": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext"
+	}
+}
+```
 
-- ✅ 800+ pure functions across all categories
-- ✅ Dual API (vanilla/boxed) architecture
-- ✅ Complete monadic type system
-- ✅ Extensive test coverage
-- ✅ Performance-optimized implementations
-- ✅ Full TypeScript support
-- ✅ Zero external dependencies
+## Testing
+
+Every function has comprehensive tests covering:
+- Happy path (valid inputs)
+- Error cases (invalid inputs)
+- Edge cases (boundary conditions)
+- Currying (partial application)
+- Error message structure
+
+```typescript
+// Example test structure
+import { assertEquals } from "@std/assert"
+
+import add from "./index.ts"
+
+Deno.test("add - happy path", () => {
+	const result = add(2)(3)
+
+	assertEquals(result.isOk, true)
+	if (result.isOk) {
+		assertEquals(result.value, 5)
+	}
+})
+
+Deno.test("add - currying works", () => {
+	const add5 = add(5)
+	const result = add5(3)
+
+	assertEquals(result.isOk, true)
+	if (result.isOk) {
+		assertEquals(result.value, 8)
+	}
+})
+```
+
+## Integration with Other Libraries
+
+Toolsmith provides the functional foundation for the entire @sitebender ecosystem:
+
+- **Architect** - Uses branded types for type-safe calculations and validation
+- **Pagewright** - Uses validation functions for form handling
+- **Warden** - Uses validation for architectural governance
+- **Auditor** - Uses math functions for test data generation
+- **Linguist** - Uses string functions for text processing
+
+## Performance
+
+- **Zero runtime overhead** - Branded types are compile-time only
+- **No exceptions** - Error handling via values is faster than try/catch
+- **Tree-shakeable** - One function per file enables optimal bundling
+- **Lazy evaluation** - Functions compose without intermediate allocations
+- **Pure functions** - Enable aggressive optimization and memoization
+
+## Contributing
+
+Contributions welcome! Please ensure:
+- All functions are curried
+- All functions return `Result<ValidationError, T>`
+- No exceptions thrown
+- Comprehensive tests included
+- Error messages are helpful and system-centric
+- One function per file
+
+See [CONTRIBUTING.md](../../CONTRIBUTING.md) for detailed guidelines.
 
 ## License
 
-MIT - Because foundational tools should be available to everyone.
+[MIT](../../LICENSE)
