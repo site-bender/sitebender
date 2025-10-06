@@ -7,26 +7,23 @@ export type Integer = Brand<number, "Integer">
 //++ Arbitrary precision integer using bigint primitive
 export type BigInteger = Brand<bigint, "BigInteger">
 
-//++ Finite floating point number (excludes Infinity, -Infinity, NaN)
-export type Float = Brand<number, "Float">
+//++ Finite floating point number with variable decimal places - WARNING: subject to floating point imprecision
+export type ApproximateDecimal = Brand<number, "ApproximateDecimal">
 
-//++ Monetary amount with exactly 2 decimal places
-export type Currency = Brand<number, "Currency">
+//++ Exact decimal number with exactly 2 decimal places - commonly used for monetary amounts
+export type ExactTwoDecimals = Brand<number, "ExactTwoDecimals">
 
-//++ Whole number with 0 decimal places (integer stored as number)
-export type Decimal0 = Brand<number, "Decimal0">
+//++ Exact decimal number with exactly 1 decimal place
+export type ExactOneDecimal = Brand<number, "ExactOneDecimal">
 
-//++ Decimal number with at most 1 decimal place
-export type Decimal1 = Brand<number, "Decimal1">
+//++ Exact decimal number with exactly 3 decimal places
+export type ExactThreeDecimals = Brand<number, "ExactThreeDecimals">
 
-//++ Decimal number with at most 3 decimal places
-export type Decimal3 = Brand<number, "Decimal3">
+//++ Exact decimal number with exactly 4 decimal places
+export type ExactFourDecimals = Brand<number, "ExactFourDecimals">
 
-//++ Decimal number with at most 4 decimal places
-export type Decimal4 = Brand<number, "Decimal4">
-
-//++ Decimal number with at most 8 decimal places
-export type Decimal8 = Brand<number, "Decimal8">
+//++ Exact decimal number with exactly 8 decimal places
+export type ExactEightDecimals = Brand<number, "ExactEightDecimals">
 
 //++ Percentage value between 0 and 1 (0% to 100%) with at most 4 decimal places
-export type Percentage = Brand<number, "Percentage">
+export type Percent = Brand<number, "Percent">
