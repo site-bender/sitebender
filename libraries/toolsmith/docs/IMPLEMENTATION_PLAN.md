@@ -15,29 +15,29 @@ This plan covers three major work streams:
 
 ## Work Stream 1: Complete Branded Types
 
-### ExactEightDecimals (Phase 10)
+### EightDecimalPlaces (Phase 10)
 
-**Location**: `src/newtypes/exactEightDecimals/`
+**Location**: `src/newtypes/eightDecimalPlaces/`
 
 #### Core Functions
-- [ ] Create `_isExactEightDecimals/index.ts` + test
-- [ ] Create `unsafeExactEightDecimals/index.ts` + test
-- [ ] Create `unwrapExactEightDecimals/index.ts` + test
+- [ ] Create `_isEightDecimalPlaces/index.ts` + test
+- [ ] Create `unsafeEightDecimalPlaces/index.ts` + test
+- [ ] Create `unwrapEightDecimalPlaces/index.ts` + test
 - [ ] Create `index.ts` (smart constructor) + test
 
 #### Arithmetic Operations
-- [ ] Create `addExactEightDecimals/index.ts` + test (SCALE_FACTOR: 100000000)
-- [ ] Create `subtractExactEightDecimals/index.ts` + test
-- [ ] Create `multiplyExactEightDecimals/index.ts` + test
-- [ ] Create `divideExactEightDecimals/index.ts` + test
+- [ ] Create `addToEightDecimalPlaces/index.ts` + test (SCALE_FACTOR: 100000000)
+- [ ] Create `subtractToEightDecimalPlaces/index.ts` + test
+- [ ] Create `multiplyToEightDecimalPlaces/index.ts` + test
+- [ ] Create `divideToEightDecimalPlaces/index.ts` + test
 
 #### Constants
-- [ ] Add `EXACT_EIGHT_DECIMALS_SCALE = 8` to `constants/index.ts`
+- [ ] Add `EIGHT_DECIMAL_PLACES_SCALE = 8` to `constants/index.ts`
 - [ ] Update `constants/index.test.ts`
 
 #### Error Codes
-- [ ] `EXACT_EIGHT_DECIMALS_NOT_FINITE`
-- [ ] `EXACT_EIGHT_DECIMALS_PRECISION_EXCEEDED`
+- [ ] `EIGHT_DECIMAL_PLACES_NOT_FINITE`
+- [ ] `EIGHT_DECIMAL_PLACES_PRECISION_EXCEEDED`
 
 **Files**: 8 implementation + 8 tests = 16 files
 **Estimated Time**: 2-3 hours
@@ -462,7 +462,7 @@ This plan covers three major work streams:
 **Location**: `src/math/` (new folder)
 **Source**: `src/vanilla/math/`
 
-**IMPORTANT**: The branded type arithmetic functions (add/subtract/multiply/divide for ExactTwoDecimals, ExactOneDecimal, ExactThreeDecimals, ExactFourDecimals, ExactEightDecimals, Percent) are ALREADY IMPLEMENTED in `src/newtypes/`. DO NOT recreate them. This section is for general-purpose math functions that work on plain `number` types.
+**IMPORTANT**: The branded type arithmetic functions (add/subtract/multiply/divide for TwoDecimalPlaces, OneDecimalPlace, ThreeDecimalPlaces, FourDecimalPlaces, EightDecimalPlaces, Percent) are ALREADY IMPLEMENTED in `src/newtypes/`. DO NOT recreate them. This section is for general-purpose math functions that work on plain `number` types.
 
 **Functions to Migrate** (~100 functions):
 - [ ] Modulo, power, root (add/subtract/multiply/divide are in newtypes/)
@@ -763,12 +763,12 @@ Deno.test("add - currying works", () => {
 ### Numeric Branded Types
 - [x] Integer (4 files)
 - [x] BigInteger (4 files)
-- [x] ApproximateDecimal (4 files)
-- [x] ExactTwoDecimals (8 files: 4 core + 4 arithmetic)
-- [x] ExactOneDecimal (8 files: 4 core + 4 arithmetic)
-- [x] ExactThreeDecimals (8 files: 4 core + 4 arithmetic)
-- [x] ExactFourDecimals (8 files: 4 core + 4 arithmetic)
-- [ ] ExactEightDecimals (8 files: 4 core + 4 arithmetic)
+- [x] RealNumber (4 files)
+- [x] TwoDecimalPlaces (8 files: 4 core + 4 arithmetic)
+- [x] OneDecimalPlace (8 files: 4 core + 4 arithmetic)
+- [x] ThreeDecimalPlaces (8 files: 4 core + 4 arithmetic)
+- [x] FourDecimalPlaces (8 files: 4 core + 4 arithmetic)
+- [ ] EightDecimalPlaces (8 files: 4 core + 4 arithmetic)
 - [ ] Percent (6 files: 4 core + 2 arithmetic)
 
 **Numeric Total**: 52/68 files complete (76%)
