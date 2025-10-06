@@ -206,24 +206,24 @@ See [error-system.md](./error-system.md) for complete error design.
 - [x] 7.4.3 Run tests
 
 #### 7.5 Addition
-- [ ] 7.5.1 Create `newtypes/exactOneDecimal/addExactOneDecimal/index.test.ts`
-- [ ] 7.5.2 Create `newtypes/exactOneDecimal/addExactOneDecimal/index.ts`
-- [ ] 7.5.3 Run tests
+- [x] 7.5.1 Create `newtypes/exactOneDecimal/addExactOneDecimal/index.test.ts`
+- [x] 7.5.2 Create `newtypes/exactOneDecimal/addExactOneDecimal/index.ts`
+- [x] 7.5.3 Run tests
 
 #### 7.6 Subtraction
-- [ ] 7.6.1 Create `newtypes/exactOneDecimal/subtractExactOneDecimal/index.test.ts`
-- [ ] 7.6.2 Create `newtypes/exactOneDecimal/subtractExactOneDecimal/index.ts`
-- [ ] 7.6.3 Run tests
+- [x] 7.6.1 Create `newtypes/exactOneDecimal/subtractExactOneDecimal/index.test.ts`
+- [x] 7.6.2 Create `newtypes/exactOneDecimal/subtractExactOneDecimal/index.ts`
+- [x] 7.6.3 Run tests
 
 #### 7.7 Multiplication
-- [ ] 7.7.1 Create `newtypes/exactOneDecimal/multiplyExactOneDecimal/index.test.ts`
-- [ ] 7.7.2 Create `newtypes/exactOneDecimal/multiplyExactOneDecimal/index.ts`
-- [ ] 7.7.3 Run tests
+- [x] 7.7.1 Create `newtypes/exactOneDecimal/multiplyExactOneDecimal/index.test.ts`
+- [x] 7.7.2 Create `newtypes/exactOneDecimal/multiplyExactOneDecimal/index.ts`
+- [x] 7.7.3 Run tests
 
 #### 7.8 Division
-- [ ] 7.8.1 Create `newtypes/exactOneDecimal/divideExactOneDecimal/index.test.ts`
-- [ ] 7.8.2 Create `newtypes/exactOneDecimal/divideExactOneDecimal/index.ts`
-- [ ] 7.8.3 Run tests
+- [x] 7.8.1 Create `newtypes/exactOneDecimal/divideExactOneDecimal/index.test.ts`
+- [x] 7.8.2 Create `newtypes/exactOneDecimal/divideExactOneDecimal/index.ts`
+- [x] 7.8.3 Run tests
 
 #### 7.9 Phase Complete
 - [ ] 7.9.1 Run all tests: `deno test newtypes/exactOneDecimal/`
@@ -252,24 +252,24 @@ See [error-system.md](./error-system.md) for complete error design.
 - [x] 8.4.3 Run tests
 
 #### 8.5 Addition
-- [ ] 8.5.1 Create `newtypes/exactThreeDecimals/addExactThreeDecimals/index.test.ts`
-- [ ] 8.5.2 Create `newtypes/exactThreeDecimals/addExactThreeDecimals/index.ts`
-- [ ] 8.5.3 Run tests
+- [x] 8.5.1 Create `newtypes/exactThreeDecimals/addExactThreeDecimals/index.test.ts`
+- [x] 8.5.2 Create `newtypes/exactThreeDecimals/addExactThreeDecimals/index.ts`
+- [x] 8.5.3 Run tests
 
 #### 8.6 Subtraction
-- [ ] 8.6.1 Create `newtypes/exactThreeDecimals/subtractExactThreeDecimals/index.test.ts`
-- [ ] 8.6.2 Create `newtypes/exactThreeDecimals/subtractExactThreeDecimals/index.ts`
-- [ ] 8.6.3 Run tests
+- [x] 8.6.1 Create `newtypes/exactThreeDecimals/subtractExactThreeDecimals/index.test.ts`
+- [x] 8.6.2 Create `newtypes/exactThreeDecimals/subtractExactThreeDecimals/index.ts`
+- [x] 8.6.3 Run tests
 
 #### 8.7 Multiplication
-- [ ] 8.7.1 Create `newtypes/exactThreeDecimals/multiplyExactThreeDecimals/index.test.ts`
-- [ ] 8.7.2 Create `newtypes/exactThreeDecimals/multiplyExactThreeDecimals/index.ts`
-- [ ] 8.7.3 Run tests
+- [x] 8.7.1 Create `newtypes/exactThreeDecimals/multiplyExactThreeDecimals/index.test.ts`
+- [x] 8.7.2 Create `newtypes/exactThreeDecimals/multiplyExactThreeDecimals/index.ts`
+- [x] 8.7.3 Run tests
 
 #### 8.8 Division
-- [ ] 8.8.1 Create `newtypes/exactThreeDecimals/divideExactThreeDecimals/index.test.ts`
-- [ ] 8.8.2 Create `newtypes/exactThreeDecimals/divideExactThreeDecimals/index.ts`
-- [ ] 8.8.3 Run tests
+- [x] 8.8.1 Create `newtypes/exactThreeDecimals/divideExactThreeDecimals/index.test.ts`
+- [x] 8.8.2 Create `newtypes/exactThreeDecimals/divideExactThreeDecimals/index.ts`
+- [x] 8.8.3 Run tests
 
 #### 8.9 Phase Complete
 - [ ] 8.9.1 Run all tests: `deno test newtypes/exactThreeDecimals/`
