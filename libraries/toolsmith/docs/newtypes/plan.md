@@ -1,7 +1,7 @@
 # Newtypes Implementation Plan
 
-**Status**: In Progress - RENAMING IN PROGRESS
-**Last Updated**: 2025-10-06
+**Status**: In Progress - IMPLEMENTING ARITHMETIC OPERATIONS
+**Last Updated**: 2025-10-06 16:45
 **Total Files**: 128 (64 implementation + 64 tests) - Reduced from 144 after removing Decimal0
 
 **CRITICAL**: A phase is NOT complete until this plan file is updated with checkboxes marked [x]. Always update the plan immediately after completing a phase.
@@ -158,78 +158,32 @@ See [error-system.md](./error-system.md) for complete error design.
 - [x] 5.4.3 Run tests
 
 #### 5.5 Addition
-- [ ] 5.5.1 Create `newtypes/exactTwoDecimals/addExactTwoDecimals/index.test.ts`
-- [ ] 5.5.2 Create `newtypes/exactTwoDecimals/addExactTwoDecimals/index.ts`
-- [ ] 5.5.3 Run tests
+- [x] 5.5.1 Create `newtypes/exactTwoDecimals/addExactTwoDecimals/index.test.ts`
+- [x] 5.5.2 Create `newtypes/exactTwoDecimals/addExactTwoDecimals/index.ts`
+- [x] 5.5.3 Run tests
 
 #### 5.6 Subtraction
-- [ ] 5.6.1 Create `newtypes/exactTwoDecimals/subtractExactTwoDecimals/index.test.ts`
-- [ ] 5.6.2 Create `newtypes/exactTwoDecimals/subtractExactTwoDecimals/index.ts`
-- [ ] 5.6.3 Run tests
+- [x] 5.6.1 Create `newtypes/exactTwoDecimals/subtractExactTwoDecimals/index.test.ts`
+- [x] 5.6.2 Create `newtypes/exactTwoDecimals/subtractExactTwoDecimals/index.ts`
+- [x] 5.6.3 Run tests
 
 #### 5.7 Multiplication
-- [ ] 5.7.1 Create `newtypes/exactTwoDecimals/multiplyExactTwoDecimals/index.test.ts`
-- [ ] 5.7.2 Create `newtypes/exactTwoDecimals/multiplyExactTwoDecimals/index.ts`
-- [ ] 5.7.3 Run tests
+- [x] 5.7.1 Create `newtypes/exactTwoDecimals/multiplyExactTwoDecimals/index.test.ts`
+- [x] 5.7.2 Create `newtypes/exactTwoDecimals/multiplyExactTwoDecimals/index.ts`
+- [x] 5.7.3 Run tests
 
 #### 5.8 Division
-- [ ] 5.8.1 Create `newtypes/exactTwoDecimals/divideExactTwoDecimals/index.test.ts`
-- [ ] 5.8.2 Create `newtypes/exactTwoDecimals/divideExactTwoDecimals/index.ts`
-- [ ] 5.8.3 Run tests
+- [x] 5.8.1 Create `newtypes/exactTwoDecimals/divideExactTwoDecimals/index.test.ts`
+- [x] 5.8.2 Create `newtypes/exactTwoDecimals/divideExactTwoDecimals/index.ts`
+- [x] 5.8.3 Run tests
 
 #### 5.9 Phase Complete
-- [ ] 5.9.1 Run all tests: `deno test newtypes/exactTwoDecimals/`
-- [ ] 5.9.2 **STOP FOR REVIEW**
+- [x] 5.9.1 Run all tests: `deno test newtypes/exactTwoDecimals/`
+- [x] 5.9.2 **STOP FOR REVIEW**
 
 ### Phase 6: REMOVED - Decimal0 was redundant with Integer
 
 ### Phase 7: ExactOneDecimal (16 files: 8 impl + 8 tests) - RENAMED from Decimal1
-
-#### 7.1 Private Predicate
-- [x] 7.1.1 Rename `newtypes/decimal1/` → `newtypes/exactOneDecimal/`
-- [x] 7.1.2 Update `_isDecimal1` → `_isExactOneDecimal`
-- [x] 7.1.3 Run tests
-
-#### 7.2 Unsafe Constructor
-- [x] 7.2.1 Update `unsafeDecimal1` → `unsafeExactOneDecimal`
-- [x] 7.2.2 Update tests
-- [x] 7.2.3 Run tests
-
-#### 7.3 Unwrap
-- [x] 7.3.1 Update `unwrapDecimal1` → `unwrapExactOneDecimal`
-- [x] 7.3.2 Update tests
-- [x] 7.3.3 Run tests
-
-#### 7.4 Smart Constructor
-- [x] 7.4.1 Update `decimal1()` → `exactOneDecimal()`
-- [x] 7.4.2 Update error codes: `DECIMAL1_*` → `EXACT_ONE_DECIMAL_*`
-- [x] 7.4.3 Run tests
-
-#### 7.5 Addition
-- [ ] 7.5.1 Create `newtypes/exactOneDecimal/addExactOneDecimal/index.test.ts`
-- [ ] 7.5.2 Create `newtypes/exactOneDecimal/addExactOneDecimal/index.ts`
-- [ ] 7.5.3 Run tests
-
-#### 7.6 Subtraction
-- [ ] 7.6.1 Create `newtypes/exactOneDecimal/subtractExactOneDecimal/index.test.ts`
-- [ ] 7.6.2 Create `newtypes/exactOneDecimal/subtractExactOneDecimal/index.ts`
-- [ ] 7.6.3 Run tests
-
-#### 7.7 Multiplication
-- [ ] 7.7.1 Create `newtypes/exactOneDecimal/multiplyExactOneDecimal/index.test.ts`
-- [ ] 7.7.2 Create `newtypes/exactOneDecimal/multiplyExactOneDecimal/index.ts`
-- [ ] 7.7.3 Run tests
-
-#### 7.8 Division
-- [ ] 7.8.1 Create `newtypes/exactOneDecimal/divideExactOneDecimal/index.test.ts`
-- [ ] 7.8.2 Create `newtypes/exactOneDecimal/divideExactOneDecimal/index.ts`
-- [ ] 7.8.3 Run tests
-
-#### 7.9 Phase Complete
-- [ ] 7.9.1 Run all tests: `deno test newtypes/exactOneDecimal/`
-- [ ] 7.9.2 **STOP FOR REVIEW**
-
-### Phase 8: ExactThreeDecimals (16 files: 8 impl + 8 tests) - RENAMED from Decimal3
 
 #### 7.1 Private Predicate
 - [x] 7.1.1 Rename `newtypes/decimal1/` → `newtypes/exactOneDecimal/`
@@ -449,17 +403,17 @@ See [error-system.md](./error-system.md) for complete error design.
 - [ ] 11.7.1 Run all tests: `deno test newtypes/percent/`
 - [ ] 11.7.2 **STOP FOR REVIEW**
 
-### Phase R: Renaming Existing Implementation
+### Phase R: Renaming Existing Implementation ✅ COMPLETED
 
-- [ ] R.1 Update `types/branded/index.ts` with new type names
-- [ ] R.2 Rename `float/` → `approximateDecimal/` and update all files
-- [ ] R.3 Rename `currency/` → `exactTwoDecimals/` and update all files
-- [ ] R.4 Delete `decimal0/` folder (redundant with Integer)
-- [ ] R.5 Rename `decimal1/` → `exactOneDecimal/` and update all files
-- [ ] R.6 Rename `decimal3/` → `exactThreeDecimals/` and update all files
-- [ ] R.7 Update constants in `newtypes/constants/index.ts`
-- [ ] R.8 Run all tests to verify renaming
-- [ ] R.9 **STOP FOR REVIEW**
+- [x] R.1 Update `types/branded/index.ts` with new type names
+- [x] R.2 Rename `float/` → `approximateDecimal/` and update all files
+- [x] R.3 Rename `currency/` → `exactTwoDecimals/` and update all files
+- [x] R.4 Delete `decimal0/` folder (redundant with Integer)
+- [x] R.5 Rename `decimal1/` → `exactOneDecimal/` and update all files
+- [x] R.6 Rename `decimal3/` → `exactThreeDecimals/` and update all files
+- [x] R.7 Update constants in `newtypes/constants/index.ts`
+- [x] R.8 Run all tests to verify renaming (214 tests passed)
+- [x] R.9 **RENAMING COMPLETE - Ready for next phase**
 
 ### Final Phase: Documentation Updates & Verification
 
