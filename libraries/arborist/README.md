@@ -2,7 +2,7 @@
 
 Arborist is a parsing library for TypeScript and JSX. When you need to understand the structure of source code—the functions it contains, where comments appear, what modules it imports—you use Arborist. It returns this information as structured data, leaving interpretation to other libraries.
 
-The library uses SWC through deno_ast as its parser backend. This choice matters because SWC provides syntax-level parsing twenty to fifty times faster than the TypeScript compiler. For most tasks in the Sitebender ecosystem, syntax-level information proves sufficient.
+The library uses **SWC via @swc/wasm-web** as its parser backend. This choice matters because SWC provides syntax-level parsing twenty to fifty times faster than the TypeScript compiler. For most tasks in the Sitebender ecosystem, syntax-level information proves sufficient.
 
 ## The Core Responsibility
 
@@ -14,163 +14,327 @@ This pattern—one library owning parser integration, other libraries consuming 
 
 ## The API Surface
 
-The library exposes six primary functions, each with a focused responsibility.
+The library exposes a focused API built around monadic error handling using Result and Validation types from Toolsmith.
 
-### parseSourceFile
+### parseFile
 
-This function takes a file path and source text, returning a ParsedModule. The ParsedModule contains the SWC program (the parsed AST), the comment collection from deno_ast, a SourceText instance for mapping character positions to line and column numbers, the detected MediaType, and the original file path.
+This function takes a file path, reads it, and parses the source using SWC WASM. It returns a Result monad—either Ok with a ParsedAST, or Error with a detailed ParseError.
 
-You'll typically call this function first, then pass its result to the extraction functions that follow.
+```typescript
+function parseFile(
+	filePath: string,
+): Promise<Result<ParseError, ParsedAST>>
+```
+
+**Why Result?** File I/O and parsing are fail-fast operations. If the file doesn't exist or contains invalid syntax, we can't continue. Result signals this immediately.
+
+**ParseError includes:**
+- Error kind (FileNotFound, InvalidSyntax, ReadPermission, SwcInitializationFailed)
+- File path
+- Line and column numbers (for syntax errors)
+- Helpful suggestions for fixing the issue
+- Stack trace preservation
+
+You'll typically call this function first, then pass its successful result to extraction functions.
+
+### buildParsedFile
+
+Given a ParsedAST and file path, this function runs all extraction operations and returns a complete ParsedFile. It returns a Validation monad—either Success with a ParsedFile, or Failure with accumulated errors from all extractors.
+
+```typescript
+function buildParsedFile(
+	ast: ParsedAST,
+) {
+	return function buildFromAST(
+		filePath: string,
+	): Validation<ExtractionError, ParsedFile>
+}
+```
+
+**Why Validation?** Extraction operations are independent. If function extraction fails, comment extraction might still work. Validation accumulates ALL errors so you see every issue at once, while still enabling partial success.
 
 ### extractFunctions
 
-Given a parsed module, this function walks the AST and discovers all function declarations and function expressions. It returns an array of FunctionNodeIR structures.
+Given a ParsedAST, this function walks the AST and discovers all function declarations and function expressions. It returns a Validation monad with an array of ParsedFunction structures.
 
-Each FunctionNodeIR captures the function's name, its character span in the source file, flags indicating whether it's async or a generator or an arrow function, an array of parameter information including names and type annotations captured as text, the return type annotation as text if present, and any type parameters with their constraints.
+```typescript
+function extractFunctions(
+	ast: ParsedAST,
+): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>
+```
 
-The key insight here: type information comes from parsing the source text, not from semantic analysis. If the source says `function add(a: number, b: number): number`, we capture "number" as text. We don't verify that the function actually returns a number.
+Each ParsedFunction captures:
+- Function name
+- Character span in source file
+- Position (line and column)
+- Modifiers (isExported, isDefault, isAsync, isGenerator, isArrow)
+- Parameters with names, types (as text), optional flags, default values
+- Return type (as text)
+- Type parameters with constraints
+- Body analysis (hasReturn, hasThrow, hasAwait, hasTryCatch, hasLoops, cyclomaticComplexity)
+
+The key insight: type information comes from parsing the source text, not from semantic analysis. If the source says `function add(a: number, b: number): number`, we capture "number" as text. We don't verify that the function actually returns a number.
 
 ### extractComments
 
-This function extracts all comments from the parsed module, returning an array of RawComment structures. Each RawComment includes the comment kind (line or block), the text with comment markers stripped, the full text preserving the original markers, absolute character positions for start and end, line and column numbers, and optionally a node ID linking the comment to a nearby function.
+This function extracts all comments from the parsed AST, returning a Validation monad with an array of ParsedComment structures.
 
-Arborist does not interpret comment syntax. When it sees `//++ Validates email format`, it extracts the text and position but makes no judgment about what `//++` means. That interpretation belongs to Envoy.
+```typescript
+function extractComments(
+	ast: ParsedAST,
+): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>>
+```
+
+Each ParsedComment includes:
+- Comment kind (line or block)
+- Text content
+- Position (line and column)
+- Character span
+- Optional Envoy marker detection (//++, //--, //!!, //??, //>>)
+- Associated node reference (if comment is near a function)
+
+Arborist detects Envoy marker syntax but does not interpret it. When it sees `//++ Validates email format`, it extracts the text and identifies the marker, but makes no judgment about what that means. Interpretation belongs to Envoy.
 
 ### extractImports
 
-This function enumerates import statements, returning an array of ImportIR structures. Each ImportIR records the import specifier (the path being imported from), the import kind (named, default, or namespace), an array mapping imported names to local names, and the character span.
-
-The function handles all standard import patterns:
+This function enumerates import statements, returning a Validation monad with an array of ParsedImport structures.
 
 ```typescript
-import foo from "./foo.ts"                    // default
-import { bar } from "./bar.ts"                // named
-import * as baz from "./baz.ts"               // namespace
-import { original as renamed } from "./x.ts"  // renamed import
+function extractImports(
+	ast: ParsedAST,
+): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>>
 ```
 
-### analyzeBranches
+Each ParsedImport records:
+- Import specifier (the path being imported from)
+- Import kind (named, default, namespace, type)
+- Bindings array mapping imported names to local names
+- Character span
+- Position
 
-This function walks the AST looking for conditional execution paths. It returns an array of BranchInfo structures describing if statements, ternary expressions, logical operators that short-circuit (`&&`, `||`, `??`), switch statements, and try-catch blocks.
+The function handles all standard import patterns including renamed imports and type-only imports.
 
-Auditor consumes this information to understand which code paths exist and whether tests have exercised them.
+### extractExports
 
-### extractSignature
+This function enumerates export statements, returning a Validation monad with an array of ParsedExport structures.
 
-Given a FunctionNodeIR from extractFunctions, this function distills it to just its signature—the shape it presents to callers. Parameter names and types, return type, type parameters. This proves useful when you need to document or test a function without caring about its implementation.
+```typescript
+function extractExports(
+	ast: ParsedAST,
+): Validation<ExportExtractionError, ReadonlyArray<ParsedExport>>
+```
+
+Each ParsedExport records:
+- Export name
+- Export kind (default, named, reexport)
+- Type flag (isType for type-only exports)
+- Source specifier (for re-exports)
+- Character span
+- Position
+
+### extractTypes
+
+This function extracts type aliases and interfaces, returning a Validation monad with an array of ParsedType structures.
+
+```typescript
+function extractTypes(
+	ast: ParsedAST,
+): Validation<TypeExtractionError, ReadonlyArray<ParsedType>>
+```
+
+Each ParsedType includes:
+- Type name
+- Definition (as text)
+- Export flag
+- Character span
+- Position
+
+### extractConstants
+
+This function extracts const declarations, returning a Validation monad with an array of ParsedConstant structures.
+
+```typescript
+function extractConstants(
+	ast: ParsedAST,
+): Validation<ConstantExtractionError, ReadonlyArray<ParsedConstant>>
+```
+
+Each ParsedConstant captures:
+- Constant name
+- Type annotation (as text)
+- Value (as text, if simple literal)
+- Export flag
+- Character span
+- Position
+
+### detectViolations
+
+This function analyzes the AST for constitutional rule violations, returning a Validation monad with ViolationInfo.
+
+```typescript
+function detectViolations(
+	ast: ParsedAST,
+): Validation<ViolationDetectionError, ViolationInfo>
+```
+
+ViolationInfo includes:
+- Arrow functions (positions of all violations)
+- Classes (positions)
+- Throw statements (positions)
+- Try-catch blocks (positions)
+- Loops (positions)
+- Mutations (positions)
+
+## Error Handling
+
+Arborist uses Toolsmith's rich error system with ArchitectError as the foundation. Every error includes:
+
+- Operation name
+- Arguments passed
+- Clear message
+- Error code
+- Severity level
+- Helpful suggestions (not scolding)
+- Failed argument tracking
+- Context preservation
+- Stack traces
+
+See `docs/error-handling.md` for complete documentation of error patterns.
 
 ## The Data Structures
 
-### ParsedModule
+### ParsedAST
 
 ```typescript
-type ParsedModule = {
-  program: SwcModule
-  comments: CommentCollection
-  sourceText: SourceText
-  mediaType: MediaType
-  specifier: string
-}
+type ParsedAST = Readonly<{
+	module: unknown // SWC Module type
+	sourceText: string
+	filePath: string
+}>
 ```
 
-This structure holds everything parseSourceFile produces. The other extraction functions take pieces of this structure as parameters.
+This structure holds everything parseFile produces. The extraction functions take this as their parameter.
 
-### FunctionNodeIR
+### ParsedFunction
 
 ```typescript
-type FunctionNodeIR = {
-  name: string
-  span: { start: number; end: number }
-  isAsync: boolean
-  isGenerator: boolean
-  isArrow: boolean
-  params: Array<{
-    name: string
-    optional: boolean
-    typeText?: string
-    span: { start: number; end: number }
-  }>
-  returnTypeText?: string
-  typeParams?: Array<{
-    name: string
-    constraintText?: string
-    defaultText?: string
-  }>
-}
+type ParsedFunction = Readonly<{
+	name: string
+	position: Position
+	span: Span
+	parameters: ReadonlyArray<Parameter>
+	returnType: string
+	typeParameters: ReadonlyArray<TypeParameter>
+	modifiers: FunctionModifiers
+	body: FunctionBody
+}>
 ```
 
-Note that type information appears as optional text fields. This reflects reality: not all functions have type annotations in their source.
+Type information appears as text fields captured directly from source annotations.
 
-### RawComment
+### ParsedComment
 
 ```typescript
-type RawComment = {
-  kind: "line" | "block"
-  text: string
-  fullText: string
-  start: number
-  end: number
-  line: number
-  column: number
-  nodeId?: string
-}
+type ParsedComment = Readonly<{
+	text: string
+	position: Position
+	span: Span
+	kind: "line" | "block"
+	envoyMarker?: EnvoyMarker
+	associatedNode?: string
+}>
 ```
 
-The distinction between `text` and `fullText` matters. The text field contains the comment content with markers removed. The fullText field preserves the original `//` or `/* */` markers. Both prove useful for different purposes.
+The envoyMarker field contains detected markers (++, --, !!, ??, >>) but no interpretation. That's Envoy's responsibility.
 
-### ImportIR
+### ParsedImport
 
 ```typescript
-type ImportIR = {
-  specifier: string
-  kind: "named" | "default" | "namespace"
-  names: Array<{
-    imported: string
-    local: string
-  }>
-  span: { start: number; end: number }
-}
+type ParsedImport = Readonly<{
+	specifier: string
+	position: Position
+	span: Span
+	kind: "default" | "named" | "namespace" | "type"
+	imports: ReadonlyArray<ImportBinding>
+}>
 ```
 
-For default and namespace imports, the names array contains a single entry. For named imports, it contains one entry per imported name.
+For default and namespace imports, the imports array contains a single entry. For named imports, it contains one entry per imported name.
 
-### BranchInfo
+### ParsedExport
 
 ```typescript
-type BranchInfo = {
-  kind: "if" | "ternary" | "logical" | "switch" | "try"
-  span: { start: number; end: number }
-  consequent?: { start: number; end: number }
-  alternate?: { start: number; end: number }
-}
+type ParsedExport = Readonly<{
+	name: string
+	position: Position
+	span: Span
+	kind: "default" | "named" | "reexport"
+	isType: boolean
+	source?: string
+}>
 ```
 
-The optional consequent and alternate spans capture the "then" and "else" paths when they exist. Not all branch types have both.
+### ViolationInfo
+
+```typescript
+type ViolationInfo = Readonly<{
+	hasArrowFunctions: boolean
+	arrowFunctions: ReadonlyArray<Position>
+	hasClasses: boolean
+	classes: ReadonlyArray<Position>
+	hasThrowStatements: boolean
+	throwStatements: ReadonlyArray<Position>
+	hasTryCatch: boolean
+	tryCatchBlocks: ReadonlyArray<Position>
+	hasLoops: boolean
+	loops: ReadonlyArray<Position>
+	hasMutations: boolean
+	mutations: ReadonlyArray<Position>
+}>
+```
 
 ## Typical Usage
 
 Here's how you'd use these functions together:
 
 ```typescript
-import parseSourceFile from "@sitebender/arborist/parseSourceFile/index.ts"
-import extractFunctions from "@sitebender/arborist/extractFunctions/index.ts"
-import extractComments from "@sitebender/arborist/extractComments/index.ts"
+import parseFile from "@sitebender/arborist/parseFile"
+import buildParsedFile from "@sitebender/arborist/buildParsedFile"
+import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
+import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
 
-const specifier = "/path/to/module.ts"
-const source = await Deno.readTextFile(specifier)
+const filePath = "/path/to/module.ts"
 
-const parsed = parseSourceFile(specifier, source)
-const comments = extractComments(parsed)
-const functions = extractFunctions(parsed.program, parsed.sourceText)
+const result = await parseFile(filePath)
+
+const output = foldResult(
+	function handleParseError(err) {
+		console.error("Parse failed:", err.message)
+		if (err.suggestion) console.log("Tip:", err.suggestion)
+		return null
+	},
+)(function handleParsedAST(ast) {
+	const validation = buildParsedFile(ast)(filePath)
+
+	return foldValidation(
+		function handleExtractionErrors(errors) {
+			errors.forEach(e => console.warn(e.message))
+			// Partial success possible: some features may have extracted
+			return null
+		},
+	)(function handleSuccess(parsed) {
+		return parsed
+	})(validation)
+})(result)
 ```
 
-You parse once, then extract whatever structural information you need.
+You parse once, then extract whatever structural information you need. Errors are values that guide you to solutions.
 
 ## Consumer Integration
 
 Three libraries currently consume Arborist's outputs.
 
-**Envoy** generates documentation by extracting comments and functions, interpreting the comment markers (`//++` for descriptions, `//??` for examples), and formatting API documentation. It never parses TypeScript directly.
+**Envoy** generates documentation by extracting comments and functions, interpreting the comment markers, and formatting API documentation. It never parses TypeScript directly.
 
 **Auditor** analyzes test coverage by extracting branches and comparing them against coverage data from test runs. It uses function signatures for test generation. It never parses TypeScript directly.
 
@@ -180,14 +344,15 @@ This pattern ensures we parse each file exactly once. Three consumers, one parse
 
 ## The Dependency Choice
 
-Arborist depends on deno_ast version 0.34.4. This is the only external dependency in the entire Sitebender ecosystem—a constraint we enforce deliberately.
+Arborist depends on **@swc/wasm-web version 1.13.20**. This is the only external dependency in the entire Sitebender ecosystem—a constraint we enforce deliberately.
 
-Why deno_ast? Because it exposes SWC, the Rust-based parser that Deno itself uses internally. This gives us several advantages:
+Why @swc/wasm-web? Because it exposes SWC, the Rust-based parser that Deno uses internally, compiled to WebAssembly. This gives us several advantages:
 
 - **Performance**: SWC parses twenty to fifty times faster than the TypeScript compiler
-- **Alignment**: We use exactly the same parser Deno uses
-- **Purity**: Pure ESM with no Node.js or npm dependencies
+- **Alignment**: We use the same parser Deno uses
+- **Purity**: Pure ESM with no Node.js or npm dependencies beyond the WASM module
 - **Precision**: Excellent span tracking for all AST nodes
+- **Compatibility**: Works in any JavaScript runtime that supports WASM
 
 The version pinning ensures reproducibility. We know exactly what parser behavior to expect.
 
@@ -203,11 +368,19 @@ These measurements remain consistent because we're doing only syntax-level parsi
 
 When you need to parse an entire codebase, these differences compound. Parsing that might take minutes with the TypeScript compiler completes in seconds with SWC.
 
-## Caching Strategy
+## Error Accumulation Strategy
 
-Arborist implements content-addressed caching using SHA-256 hashes of source text. The same source text always produces the same hash, which serves as the cache key. Change one character, get a different hash, trigger a new parse.
+Arborist uses two monadic strategies for error handling:
 
-For batch operations, Arborist provides a parseMany function that processes multiple files through Promise.all, parsing them in parallel.
+**Result** for fail-fast operations:
+- File I/O (can't continue without file)
+- Syntax parsing (can't extract from broken AST)
+
+**Validation** for error-accumulating operations:
+- Feature extraction (partial success is valuable)
+- Multiple independent extractions (see ALL issues at once)
+
+This means when extraction fails for functions but succeeds for comments, you get a Failure with error details AND the successfully extracted comments. Maximum information, minimum surprise.
 
 ## File Type Support
 
@@ -223,6 +396,8 @@ Five principles guide Arborist's design:
 
 **Pure Functions.** No mutations. No side effects. Every function takes inputs and returns outputs deterministically. This makes the library predictable and testable.
 
+**Monadic Errors.** No exceptions. All errors are values. Result for fail-fast, Validation for error accumulation. Helpful suggestions, not scolding.
+
 **Direct Exports.** No barrel files. Each function lives in its own directory with its own index.ts. You import exactly what you need, nothing more.
 
 **Single Responsibility.** Parse and extract. Don't interpret. Don't analyze. Don't generate. Other libraries handle those concerns.
@@ -231,7 +406,7 @@ Five principles guide Arborist's design:
 
 Understanding what Arborist doesn't do proves as important as understanding what it does.
 
-**Arborist provides:** Fast syntax-level parsing, precise span tracking, comment extraction with positions, import enumeration, branch discovery, function metadata.
+**Arborist provides:** Fast syntax-level parsing, precise span tracking, comment extraction with positions, import enumeration, export enumeration, violation detection, function metadata.
 
 **Arborist does not provide:** Semantic type analysis, type inference, symbol resolution, cross-file analysis, comment interpretation, documentation generation, test generation.
 
@@ -239,9 +414,9 @@ When libraries respect these boundaries, the system as a whole becomes easier to
 
 ## The Contract
 
-Only Arborist imports deno_ast. This rule has no exceptions.
+Only Arborist imports SWC WASM. This rule has no exceptions.
 
-When Arborist changed its internal implementation—switching from the TypeScript compiler to SWC—consumers noticed only improved performance. The API remained stable. The data structures remained consistent. This stability represents the contract's promise: internal changes don't break external dependencies.
+When Arborist changes its internal implementation, consumers notice only improved performance or new features. The API remains stable. The data structures remain consistent. This stability represents the contract's promise: internal changes don't break external dependencies.
 
 ## Future Direction: Semantic Analysis
 
@@ -253,7 +428,17 @@ This two-phase approach—fast syntax parsing by default, optional semantic enri
 
 ## Testing Strategy
 
-Tests verify that Arborist correctly discovers functions (names, spans, flags), extracts type text from annotations, preserves comment positions (line, column, character offset), enumerates imports with accurate specifiers and names, and identifies branches.
+Tests verify that Arborist correctly:
+- Parses valid TypeScript/JSX to ParsedAST
+- Returns appropriate errors for invalid input
+- Discovers functions with accurate metadata
+- Extracts type text from annotations
+- Preserves comment positions
+- Detects Envoy markers without interpreting them
+- Enumerates imports with accurate specifiers and names
+- Identifies violations
+- Accumulates errors properly in Validation returns
+- Includes helpful suggestions in all errors
 
 When tests pass, the contract holds. When a test fails, we've broken something that consumers depend on.
 
