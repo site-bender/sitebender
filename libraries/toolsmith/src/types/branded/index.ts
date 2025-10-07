@@ -45,3 +45,6 @@ export type Ipv4Address = Brand<string, "Ipv4Address">
 
 //++ IPv6 address following RFC 4291 with canonical normalization per RFC 5952
 export type Ipv6Address = Brand<string, "Ipv6Address">
+
+//++ Domain name following RFC 1034/1035 with IDN support per RFC 5890
+export type Domain = Brand<string, "Domain">
