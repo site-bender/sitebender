@@ -1,0 +1,1 @@
+# Operator - Event Sourcing
