@@ -27,3 +27,15 @@ export type EightDecimalPlaces = Brand<number, "EightDecimalPlaces">
 
 //++ Percentage value between 0 and 1 (0% to 100%) with at most 4 decimal places
 export type Percent = Brand<number, "Percent">
+
+//++ Email address conforming to RFC 5321 (SMTP) + RFC 6531 (internationalization)
+export type EmailAddress = Brand<string, "EmailAddress">
+
+//++ Uniform Resource Locator with protocol and valid domain (no IP addresses)
+export type Url = Brand<string, "Url">
+
+//++ Uniform Resource Identifier following RFC 3986 (more permissive than Url)
+export type Uri = Brand<string, "Uri">
+
+//++ Internationalized Resource Identifier following RFC 3987 (Unicode version of URI)
+export type Iri = Brand<string, "Iri">
