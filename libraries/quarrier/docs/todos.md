@@ -1,421 +1,272 @@
 # Quarrier Implementation Todos
 
-## Core Philosophy
+**Status:** Planning Phase - DO NOT IMPLEMENT YET
+**Last Updated:** 2025-01-07
 
-Build a pure functional property-based testing library with:
+## CRITICAL: Implementation Blocked
 
-- Pipeline-based architecture
-- Lazy shrink trees from day one
-- Effects as values (not IO monads)
-- Bidirectional generators (parse + generate)
-- Proof-carrying properties
-- Metamorphic testing capabilities
-- Zero external dependencies
+**Quarrier implementation CANNOT start until:**
 
-## Milestone 0: Clean Slate
+1. ✅ **Arborist is complete** - Phase 1 done, API finalized
+2. ⏳ **Toolsmith monadic utilities complete** - In progress (fold, map, map2, map3, success, failure, ok, error)
+3. ⏳ **Toolsmith branded types complete** - In progress (smart constructors, validation)
+4. ⏳ **Toolsmith array utilities complete** - In progress (map, filter, reduce)
 
-### Clear existing implementation
+**Why Blocked:**
+- Quarrier's entire architecture depends on Result/Validation monads from Toolsmith
+- All error handling uses Toolsmith's error creation utilities
+- All array operations use Toolsmith's functional utilities (NO native methods)
+- Domain types will use Toolsmith's branded type system
 
-- [x] Archive current src to src.old for reference
-- [x] Create new folder structure per proposal
-- [x] Set up types/index.ts with core types
-- [x] Establish import conventions
+**When to Start:**
+- Wait for architect's explicit approval
+- Verify Toolsmith exports are stable
+- Confirm Arborist API is finalized
 
-**Definition of Done**: Empty folder structure ready, old code archived
-**Status**: COMPLETE (2024-01-28)
-**Next**: Implement PRNG foundation
+## Implementation Phases
 
-## Milestone 1: Algebraic Foundations
+See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 
-### Core Types
+### Phase 1: PRNG Foundation
 
-- [x] Generator protocol (next, shrink, parse?)
-- [x] GeneratorResult with size awareness
-- [x] ShrinkTree lazy implementation
-- [x] Effect ADT (Pure, Async, IO, Random)
-- [x] Pipeline Stage types
-- [x] Seed type with dual state
-      **Status**: COMPLETE - All in types/index.ts
+**Dependencies:** Toolsmith monads ready
 
-### PRNG Implementation
+- [ ] Implement createSeed with Result monad
+- [ ] Implement advanceSeed (pure function)
+- [ ] Implement splitSeed for independence
+- [ ] Implement _nextUint32 (internal)
+- [ ] Implement _nextFloat53 (internal)
+- [ ] Implement _boundedInt without bias
+- [ ] Write comprehensive PRNG tests
 
-- [ ] PCG XSH RR 32 or SplitMix32 algorithm
-- [ ] createSeed with validation **IN PROGRESS**
-- [ ] nextUint32 pure function
-- [ ] nextFloat53 for [0,1) range
-- [ ] splitSeed for independence
-- [ ] advanceSeed for sequential advance
-- [ ] boundedInt without bias
+### Phase 2: Core Generators
 
-### Pipeline Composition
+**Dependencies:** Phase 1 complete
 
-- [ ] pipe function for stage composition
-- [ ] identity stage
-- [ ] kleisli composition for dependent generation
+- [ ] Implement boolean generator with shrinking
+- [ ] Implement integer generator with shrinking
+- [ ] Implement string generator with shrinking
+- [ ] Write generator tests
 
-### Effect System
+### Phase 3: Generator Combinators
 
-- [ ] Effect type hierarchy
-- [ ] interpret function for boundary
-- [ ] Effect combinators (map, chain, all)
+**Dependencies:** Phase 2 complete
 
-**Definition of Done**: Can compose generators through pipelines, PRNG is deterministic and splittable, effects are values
+- [ ] Implement array combinator
+- [ ] Implement tuple combinator
+- [ ] Implement record combinator
+- [ ] Implement oneOf combinator
+- [ ] Write combinator tests
 
-## Milestone 2: Core Generators
+### Phase 4: Pipeline Composition
 
-### Primitive Generators
+**Dependencies:** Phase 3 complete
 
-- [ ] boolean generator with shrinking
-- [ ] integer generator with boundedInt
-- [ ] float generator with precision control
-- [ ] string generator with char sets
-- [ ] bigint generator
-- [ ] date generator
+- [ ] Implement pipe for stage composition
+- [ ] Implement identity stage
+- [ ] Implement kleisli composition
+- [ ] Implement map stage
+- [ ] Implement filter stage
+- [ ] Implement chain stage
+- [ ] Write composition tests
 
-### Shrinking Strategies
+### Phase 5: Shrink Trees
 
-- [ ] Integer shrinking (halve toward zero)
-- [ ] String shrinking (length first)
-- [ ] Boolean shrinking (true → false)
-- [ ] Float shrinking (toward integers)
+**Dependencies:** Phase 4 complete
 
-### Basic Combinators
+- [ ] Implement ShrinkTree creation
+- [ ] Implement unfold for lazy trees
+- [ ] Implement DFS search
+- [ ] Implement resumable shrinking
+- [ ] Implement shrinking strategies
+- [ ] Write shrinking tests
 
-- [ ] map combinator
-- [ ] filter combinator with retry
-- [ ] chain for dependent generation
-- [ ] constant generator
-- [ ] constantFrom for enums
-- [ ] oneOf for unions
+### Phase 6: Effect System
 
-**Definition of Done**: All primitives generate and shrink correctly, combinators compose cleanly
+**Dependencies:** Phase 5 complete
 
-## Milestone 3: Composite Generators
+- [ ] Implement Effect ADT
+- [ ] Implement effect interpreter
+- [ ] Implement effect combinators
+- [ ] Write effect tests
 
-### Structure Generators
+### Phase 7: Property Engine
 
-- [ ] arrayOf with size control
-- [ ] tuple for fixed arrays
-- [ ] record for objects
-- [ ] unionOf with branch switching
-- [ ] maybeOf (no null/undefined)
-- [ ] fix for recursive structures
+**Dependencies:** Phase 6 complete
 
-### Advanced Combinators
+- [ ] Implement createProperty
+- [ ] Implement createProvenProperty with proof validation
+- [ ] Implement checkProperty with shrinking
+- [ ] Implement proof validation
+- [ ] Write property tests
 
-- [ ] sized for size-aware generation
-- [ ] scaleSize for size transformation
-- [ ] frequency for weighted choice
-- [ ] suchThat as filter alias
+### Phase 8: Metamorphic Testing
 
-### Bidirectional Features
+**Dependencies:** Phase 7 complete
 
-- [ ] parse method on generators
-- [ ] Round-trip properties
-- [ ] Validation through parsing
+- [ ] Implement deriveMetamorphic
+- [ ] Implement idempotence derivation
+- [ ] Implement involution derivation
+- [ ] Implement length-preserving derivation
+- [ ] Write metamorphic tests
 
-**Definition of Done**: Can generate complex nested structures with proper shrinking
+### Phase 9: Arborist Integration
 
-## Milestone 4: Property Engine
+**Dependencies:** Phase 8 complete
 
-### Property Creation
+- [ ] Implement fromTypeInfo for type-driven generation
+- [ ] Handle all ParsedType variants
+- [ ] Write integration tests with Arborist
 
-- [ ] createProperty with normalization
-- [ ] Property type with Effect predicate
-- [ ] normalizePredicate helper
-- [ ] PropertyProof types
+### Phase 10: Bidirectional Generators
 
-### Test Runner
+**Dependencies:** Phase 9 complete
 
-- [ ] checkProperty main runner
-- [ ] Size progression (sqrt default)
-- [ ] Deterministic seed threading
-- [ ] Effect interpretation at boundary
+- [ ] Implement parse methods for generators
+- [ ] Implement round-trip properties
+- [ ] Implement validation reuse
+- [ ] Write bidirectional tests
 
-### Shrink Search
+### Phase 11: Fake Data Generators
 
-- [ ] DFS with trampoline
-- [ ] Resumable shrink state
-- [ ] Step/time budgets
-- [ ] Minimal counterexample finding
-- [ ] Optional IDDFS mode
+**Dependencies:** Phase 10 complete
 
-### Reporting
+- [ ] Implement person generators
+- [ ] Implement internet data generators
+- [ ] Implement identifier generators
+- [ ] Write fake data tests
 
-- [ ] Pure data structures for results
-- [ ] Coverage collection
-- [ ] Duration tracking
-- [ ] Formatted output helpers
+### Phase 12: Semantic Web Support
 
-**Definition of Done**: Can run properties with shrinking and get minimal counterexamples
+**Dependencies:** Phase 11 complete
 
-## Milestone 5: Proof & Metamorphic Features
+- [ ] Implement RDF triple generators
+- [ ] Implement ontology generators
+- [ ] Implement SPARQL testing
+- [ ] Write semantic web tests
 
-### Proof-Carrying Properties
+### Phase 13: Envoy Integration
 
-- [ ] ProofOf type system
-- [ ] Determinism proofs
-- [ ] Termination proofs
-- [ ] Soundness proofs
-- [ ] Proof verification
+**Dependencies:** Phase 12 complete, Envoy ready
 
-### Metamorphic Testing
+- [ ] Implement example generation for Envoy
+- [ ] Implement property documentation
+- [ ] Coordinate integration API
+- [ ] Write Envoy integration tests
 
-- [ ] Metamorphic type
-- [ ] Property derivation
-- [ ] Idempotence properties
-- [ ] Involution properties
-- [ ] Length-preserving properties
+### Phase 14: Integration and Testing
 
-### Law Builders
+**Dependencies:** All phases complete
 
-- [ ] Functor laws
-- [ ] Monad laws
-- [ ] Monoid laws
-- [ ] Custom law builders
+- [ ] Wire all components together
+- [ ] Comprehensive integration tests
+- [ ] Self-testing (test generators with themselves)
+- [ ] Performance benchmarking
+- [ ] Constitutional compliance verification
+- [ ] Update deno.json exports
+- [ ] Final documentation review
 
-**Definition of Done**: Properties carry proofs, can derive related properties automatically
+## Constitutional Rules Compliance
 
-## Milestone 6: Integration Layer
+**Every function MUST:**
+- ✅ Be curried (data last)
+- ✅ Use `function` keyword (NO arrows except type signatures)
+- ✅ Return new data (NO mutations except PRNG state encapsulation)
+- ✅ Use `const`, `Readonly`, `ReadonlyArray`
+- ✅ Use Toolsmith array utilities (NO native map/filter/reduce)
+- ✅ Return Result/Validation (NO exceptions except I/O boundaries)
+- ✅ Live in own directory with index.ts
+- ✅ Export exactly ONE function as default on same line
 
-### Arborist Integration
+**PRNG Exception:** PRNG state may be mutated internally but MUST be encapsulated. External API is pure (seed in, new seed out).
 
-- [ ] fromTypeInfo entry point
-- [ ] Primitive type mapping
-- [ ] Array type handling
-- [ ] Object type handling
-- [ ] Union type handling
-- [ ] Error reporting with paths
+## Zero Dependencies Policy
 
-### Toolsmith Reuse
+**NON-NEGOTIABLE:** Quarrier has ZERO external dependencies except Toolsmith and Arborist.
 
-- [ ] Standardize Result imports
-- [ ] Use array utilities
-- [ ] Use functional helpers
-- [ ] No reinvention policy
+**Why:**
+- External dependencies = maintaining THEIR code (all of it)
+- External dependencies = can't fix THEIR bugs (PR hell)
+- External dependencies = inherit THEIR tech debt
+- External dependencies = MASSIVE attack surface
+- Building our own = COMPLETE control, IMMEDIATE fixes, ZERO attack surface
 
-**Definition of Done**: Can generate arbitraries from TypeScript types
+**What We Build:**
+- ✅ PRNG algorithms
+- ✅ Shrinking algorithms
+- ✅ Generator combinators
+- ✅ All fake data generators
 
-## Milestone 7: Advanced Features
+**What We Don't Reinvent:**
+- ❌ TypeScript language
+- ❌ Triple stores (use Apache Jena Fuseki)
+- ❌ Databases
 
-### Statistical Testing
+**This is about CONTROL and SAFETY.**
 
-- [ ] Distribution properties
-- [ ] Hypothesis testing
-- [ ] Bayesian inference
-- [ ] Coverage metrics
+## Versioning Policy
 
-### Performance
+**Current Version:** 0.0.1 (pre-production)
 
-- [ ] Parallel property checking
-- [ ] Distributed shrinking
-- [ ] Memory-efficient trees
-- [ ] Benchmark suite
+**During 0.x development:**
+- NO migration paths
+- NO backwards compatibility
+- NO deprecation warnings
+- When design changes: DELETE old, ADD new, UPDATE all docs completely
+- Build it RIGHT the FIRST TIME
 
-### Debugging
+**After 1.0:** Standard SemVer applies.
 
-- [ ] Shrink path visualization
-- [ ] Replay from seed
-- [ ] Step-through shrinking
-- [ ] Property traces
+## Issue Resolution Protocol
 
-**Definition of Done**: Advanced testing patterns work efficiently
+**NO issue trackers. NO tickets. NO backlog.**
 
-## Milestone 8: Fake Data Layer
+**Process:**
+1. Hit a problem → Check IMPLEMENTATION_PLAN.md first
+2. Still stuck → Present to architect with:
+   - Minimal reproduction
+   - Error with full context
+   - Proposed solution(s)
+3. Architect approves
+4. Fix immediately
+5. Update docs
+6. Move on
 
-### Person Generators
+**Speed is the advantage.** No coordination overhead, no waiting.
 
-- [ ] Names (first, last, full)
-- [ ] Emails with domains
-- [ ] Phone numbers by region
-- [ ] Addresses with validation
+## Performance Targets
 
-### Internet Data
+- PRNG operations: <1μs per call
+- Simple generation: <10μs per value
+- Complex generation: <100μs per value
+- Shrinking: <1s for typical counterexamples
+- Property checking: <1s for 100 runs
 
-- [ ] URLs with protocols
-- [ ] IP addresses (v4/v6)
-- [ ] User agents
-- [ ] MAC addresses
+## Success Criteria
 
-### Commerce Data
+**Phase 1 Complete:**
+- ✅ PRNG is deterministic and fast
+- ✅ Seeds are splittable and independent
+- ✅ All errors use Result monad with suggestions
 
-- [ ] Products with categories
-- [ ] Prices with currency
-- [ ] SKUs with patterns
-- [ ] Credit card numbers (valid)
+**Phase 7 Complete:**
+- ✅ Properties check correctly
+- ✅ Shrinking finds minimal counterexamples
+- ✅ Proof-carrying properties validate
 
-### Identifiers
+**Phase 13 Complete:**
+- ✅ Envoy receives high-quality examples
+- ✅ Integration with Arborist works seamlessly
+- ✅ Type-driven generation functional
 
-- [ ] UUIDs (v4, v7)
-- [ ] ISBNs with check digits
-- [ ] Barcodes (EAN, UPC)
-- [ ] Social security formats
-
-**Definition of Done**: Realistic fake data generation with proper formats
-
-## Milestone 9: Semantic Web Features
-
-### RDF Generation
-
-- [ ] URI/IRI generators
-- [ ] Triple generation
-- [ ] Literal values with types
-- [ ] Blank nodes
-
-### Ontology Support
-
-- [ ] OWL class generation
-- [ ] Property generation
-- [ ] Restriction generation
-- [ ] Axiom generation
-
-### Knowledge Graphs
-
-- [ ] Graph structure generation
-- [ ] Hub detection
-- [ ] Community structure
-- [ ] Scale-free networks
-
-### Format Serializers
-
-- [ ] Turtle serialization
-- [ ] N-Triples format
-- [ ] JSON-LD output
-- [ ] RDF/XML generation
-
-### Domain Ontologies
-
-- [ ] FOAF person networks
-- [ ] Dublin Core metadata
-- [ ] Schema.org entities
-- [ ] Custom domain support
-
-### SPARQL Testing
-
-- [ ] Query generation
-- [ ] Result validation
-- [ ] Query properties
-- [ ] Fuseki integration
-
-**Definition of Done**: Can generate and test semantic web data at scale
-
-## Milestone 10: Documentation & Examples
-
-### API Documentation
-
-- [ ] Envoy comments on all exports
-- [ ] Usage examples per function
-- [ ] Gotchas and edge cases
-- [ ] Performance notes
-
-### Tutorials
-
-- [ ] Getting started guide
-- [ ] Property testing basics
-- [ ] Shrinking explained
-- [ ] Custom generators
-- [ ] Integration patterns
-
-### Examples
-
-- [ ] Common properties
-- [ ] Domain modeling
-- [ ] Round-trip testing
-- [ ] Metamorphic patterns
-- [ ] Performance testing
-
-**Definition of Done**: Fully documented with clear examples
-
-## Milestone 11: Self-Testing
-
-### Property Tests
-
-- [ ] Test generators with themselves
-- [ ] Shrinking properties
-- [ ] Combinator laws
-- [ ] PRNG properties
-
-### Integration Tests
-
-- [ ] End-to-end scenarios
-- [ ] Arborist round-trips
-- [ ] Performance benchmarks
-- [ ] Memory profiling
-
-**Definition of Done**: Library tests itself comprehensively
-
-## Future Extensions (ASAP)
-
-### Cloud Features
-
-- [ ] Cloud-based generation
-- [ ] Distributed property runs
-- [ ] Result aggregation
-- [ ] Real-time monitoring
-
-### Formal Methods
-
-- [ ] SMT solver integration
-- [ ] Symbolic execution
-- [ ] Model checking hooks
-- [ ] Proof extraction
-
-### AI Integration
-
-- [ ] ML-guided shrinking
-- [ ] Pattern learning
-- [ ] Anomaly detection
-- [ ] Test synthesis
-
-## Implementation Notes
-
-### Order of Attack
-
-1. Start with clean slate and core types
-2. Build PRNG and basic generators
-3. Add shrinking immediately (not deferred)
-4. Property engine with effects
-5. Integration points
-6. Advanced features
-7. Documentation throughout
-
-### Key Principles
-
-- One function per file
-- Named exports only
-- No classes ever
-- No mutation (except PRNG state)
-- Result monad everywhere
-- Direct imports (no barrels)
-- Envoy comments mandatory
-
-### Review Points
-
-Stop for review after:
-
-- PRNG implementation
-- First 3 generators
-- Shrink tree implementation
-- Property runner
-- Arborist integration
-- Each major milestone
-
-## Success Metrics
-
-- Zero external dependencies achieved
-- All properties deterministic
-- Shrinking finds true minimal cases
-- Performance competitive with fast-check
-- Integration seamless with ecosystem
-- Documentation comprehensive
-
-## Current Status
-
-**Phase**: Pre-implementation
-**Next Step**: Archive current code, create folder structure
-**Blocker**: None
-**Timeline**: Rapid iteration, review-driven
+**Final Completion:**
+- ✅ All phases implemented
+- ✅ Zero external dependencies maintained
+- ✅ Performance targets met
+- ✅ 100% test coverage
+- ✅ Constitutional compliance verified
+- ✅ Documentation complete
 
 ---
 
-_"The pipeline paradigm delivers everything immediately through compositional simplicity."_
+**This is a PLANNING document. Implementation starts only after architect approval.**
