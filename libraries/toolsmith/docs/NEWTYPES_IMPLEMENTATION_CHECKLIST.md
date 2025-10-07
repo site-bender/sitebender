@@ -187,15 +187,16 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 
 **Validation**: RFC 3987 IRI syntax (internationalized URI) - full Unicode support except scheme
 
-### ⏸️ Ipv4Address
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `ipv4Address()` (validates IPv4)
-- [ ] Unsafe constructor `unsafeIpv4Address()`
-- [ ] Unwrap function `unwrapIpv4Address()`
-- [ ] Type predicate `_isIpv4Address()`
-- [ ] All tests passing
+### ✅ Ipv4Address
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `ipv4Address()` (validates IPv4)
+- [x] Unsafe constructor `unsafeIpv4Address()`
+- [x] Unwrap function `unwrapIpv4Address()`
+- [x] Type predicate `_isIpv4Address()`
+- [x] All tests passing (25 tests)
 
-**Validation**: 4 octets (0-255), dot-separated (e.g., 192.168.1.1)
+**Validation**: 4 octets (0-255), dot-separated, no leading zeros (e.g., 192.168.1.1)
+**Location**: `newtypes/webTypes/ipv4Address/`
 
 ### ⏸️ Ipv6Address
 - [ ] Type definition in `types/branded/index.ts`
