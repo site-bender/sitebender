@@ -1,0 +1,47 @@
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+import type { ValidationError } from "@sitebender/toolsmith/types/ValidationError/index.ts"
+
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
+import isDefined from "@sitebender/toolsmith/validation/isDefined/index.ts"
+
+//++ Finds the first element matching a predicate
+//++ Returns Result with found element or error if not found or invalid input
+export default function find<T>(predicate: (item: T) => boolean) {
+	return function findWithPredicate(
+		array: ReadonlyArray<T>,
+	): Result<ValidationError, T> {
+		// Validate input is array
+		if (isArray(array)) {
+			const element = array.find(predicate)
+
+			// Happy path: element found
+			if (isDefined(element)) {
+				return ok(element)
+			}
+
+			// Sad path: element not found
+			return error({
+				code: "FIND_ELEMENT_NOT_FOUND",
+				field: "array",
+				messages: ["System could not find an element matching the predicate"],
+				received: array,
+				expected: "Array with at least one matching element",
+				suggestion: "Ensure the array contains an element that satisfies the predicate",
+				severity: "requirement",
+			})
+		}
+
+		// Sad path: not an array
+		return error({
+			code: "FIND_INVALID_INPUT",
+			field: "array",
+			messages: ["System needs an array to search"],
+			received: array,
+			expected: "Array",
+			suggestion: "Provide an array value",
+			severity: "requirement",
+		})
+	}
+}

@@ -8,6 +8,7 @@ export default function getOrElse<T>(defaultValue: T) {
 		if (isOk(result)) {
 			return result.value
 		}
+
 		return defaultValue
 	}
 }
