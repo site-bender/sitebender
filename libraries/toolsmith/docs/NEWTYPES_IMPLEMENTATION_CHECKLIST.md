@@ -120,47 +120,72 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 
 ---
 
-## Batch 3: String Types - Web/Network (NOT STARTED)
+## Batch 3: String Types - Web/Network (COMPLETED ✅)
 
-### ⏸️ EmailAddress
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `emailAddress()` (validates RFC 5322)
-- [ ] Unsafe constructor `unsafeEmailAddress()`
-- [ ] Unwrap function `unwrapEmailAddress()`
-- [ ] Type predicate `_isEmailAddress()`
-- [ ] All tests passing
+**Note**: Batch 3 implementation included restructuring newtypes into `webTypes/` subfolder per the lowest common ancestor rule.
 
-**Validation**: Basic RFC 5322 email validation (local@domain format)
+### ✅ EmailAddress
+- [x] Type definition in `types/branded/index.ts`
+- [x] Moved to `newtypes/webTypes/emailAddress/`
+- [x] Smart constructor `emailAddress()` (validates RFC 5321 + RFC 6531)
+- [x] Unsafe constructor `unsafeEmailAddress()`
+- [x] Unwrap function `unwrapEmailAddress()`
+- [x] Type predicate `_isEmailAddress()`
+- [x] Helper: `_normalizeEmail()` (NFC + toLowerCase)
+- [x] Helper: `_validateLocalPart()` (Unicode-aware with combining marks)
+- [x] Helper: `_validateDomain()` (IDN support with combining marks, emailAddress-specific)
+- [x] Constants: EMAIL_ADDRESS_MAX_LENGTH, EMAIL_ADDRESS_LOCAL_MAX_LENGTH, EMAIL_ADDRESS_DOMAIN_MAX_LENGTH, EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH
+- [x] All tests passing (121 tests)
 
-### ⏸️ Url
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `url()` (validates URL with protocol)
-- [ ] Unsafe constructor `unsafeUrl()`
-- [ ] Unwrap function `unwrapUrl()`
-- [ ] Type predicate `_isUrl()`
-- [ ] All tests passing
+**Validation**: RFC 5321 (SMTP) + RFC 6531 (internationalization) - full Unicode support including combining marks (\p{M}) for scripts like Hindi
 
-**Validation**: Must have protocol (http://, https://, etc.) and valid domain
+### ✅ Url
+- [x] Type definition in `types/branded/index.ts`
+- [x] Moved to `newtypes/webTypes/url/`
+- [x] Smart constructor `url()` (validates URL with protocol and domain)
+- [x] Unsafe constructor `unsafeUrl()`
+- [x] Unwrap function `unwrapUrl()`
+- [x] Type predicate `_isUrl()`
+- [x] Helper: `_normalizeUrl()` (NFC + toLowerCase for protocol/domain, preserves path/query/fragment case)
+- [x] Helper: `_validateProtocol()` (supports http, https, ftp, ftps, sftp, ws, wss, ssh, git, svn, rtsp, rtmp, gopher, ldap, ldaps)
+- [x] Shared helpers moved to `newtypes/webTypes/_validateDomain/`, `_validatePort/`, `_validatePath/`, `_validateQuery/`, `_validateFragment/`
+- [x] Constants: URL_MAX_LENGTH (2048), URL_DOMAIN_MAX_LENGTH, URL_DOMAIN_LABEL_MAX_LENGTH, URL_PORT_MIN, URL_PORT_MAX
+- [x] All tests passing (215 tests)
 
-### ⏸️ Uri
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `uri()` (validates URI syntax)
-- [ ] Unsafe constructor `unsafeUri()`
-- [ ] Unwrap function `unwrapUri()`
-- [ ] Type predicate `_isUri()`
-- [ ] All tests passing
+**Validation**: RFC 3986 with restrictions - requires protocol:// and valid domain (no IP addresses), supports internationalized domains, full Unicode paths/query/fragment
 
-**Validation**: RFC 3986 URI syntax (scheme:path, may be relative)
+### ✅ Uri
+- [x] Type definition in `types/branded/index.ts`
+- [x] Location: `newtypes/webTypes/uri/`
+- [x] Smart constructor `uri()` (validates URI syntax per RFC 3986)
+- [x] Unsafe constructor `unsafeUri()`
+- [x] Unwrap function `unwrapUri()`
+- [x] Type predicate `_isUri()`
+- [x] Helper: `_validateScheme()` (accepts any valid RFC 3986 scheme)
+- [x] Helper: `_validateAuthority()` (supports domain, IPv4, IPv6, userinfo, port)
+- [x] Helper: `_normalizeUri()` (NFC + toLowerCase for scheme/domain, preserves path/query/fragment)
+- [x] Reuses shared helpers: `_validateDomain/`, `_validatePort/`, `_validatePath/`, `_validateQuery/`, `_validateFragment/`
+- [x] Constants: URI_MAX_LENGTH (2048), URI_SCHEME_MAX_LENGTH (64)
+- [x] All tests passing (67 tests total: 21 scheme, 17 authority, 29 main)
 
-### ⏸️ Iri
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `iri()` (validates IRI syntax)
-- [ ] Unsafe constructor `unsafeIri()`
-- [ ] Unwrap function `unwrapIri()`
-- [ ] Type predicate `_isIri()`
-- [ ] All tests passing
+**Validation**: RFC 3986 URI syntax - accepts any valid scheme (http, mailto, urn, data, file, tel, etc.), optional authority with domain/IPv4/IPv6 support, relative or absolute paths
 
-**Validation**: RFC 3987 IRI syntax (internationalized URI)
+### ✅ Iri
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `iri()` (validates IRI syntax)
+- [x] Unsafe constructor `unsafeIri()`
+- [x] Unwrap function `unwrapIri()`
+- [x] Type predicate `_isIri()`
+- [x] Helper: `_validateIriScheme()` (validates scheme per RFC 3987)
+- [x] Helper: `_validateIriAuthority()` (validates Unicode authority)
+- [x] Helper: `_validateIriPath()` (validates Unicode path)
+- [x] Helper: `_validateIriQuery()` (validates Unicode query)
+- [x] Helper: `_validateIriFragment()` (validates Unicode fragment)
+- [x] Helper: `_normalizeIri()` (NFC normalization + lowercase scheme)
+- [x] Constants: IRI_MAX_LENGTH (8192), IRI_SCHEME_MAX_LENGTH (64)
+- [x] All tests passing (151 tests)
+
+**Validation**: RFC 3987 IRI syntax (internationalized URI) - full Unicode support except scheme
 
 ### ⏸️ Ipv4Address
 - [ ] Type definition in `types/branded/index.ts`

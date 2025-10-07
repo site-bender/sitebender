@@ -1,441 +1,381 @@
-# EXACT Arborist API Output for Envoy
+# Envoy API Examples
 
-These are the **EXACT** data structures Envoy receives from Arborist. No strings, no regex - real TypeScript AST nodes and structured data.
+**Status:** Planning Phase - Examples show intended usage after Toolsmith dependencies are ready
 
-## Example 1: Simple Pure Function
+Exact usage patterns for Envoy consuming Arborist output using Toolsmith monads.
 
-**Source Code:**
+## Example 1: Basic Documentation Generation
+
+**Source File:**
 
 ```typescript
-//++ Validates an email address using regex pattern matching
+//++ Validates email address using regex pattern matching
 export default function validateEmail(email: string): boolean {
-	const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-	return pattern.test(email)
+  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  
+  return pattern.test(email)
 }
+
 //?? [EXAMPLE] validateEmail("test@example.com") // true
 //?? [EXAMPLE] validateEmail("invalid-email") // false
 //?? [GOTCHA] Does not validate against disposable email providers
 ```
 
-**Arborist Output:**
+**Arborist Output (ParsedFile):**
 
 ```typescript
-// What extractFunctions returns
 {
-  functions: [
-    {
-      node: typescript.FunctionDeclaration, // REAL TypeScript AST node
-      signature: {
-        name: "validateEmail",
-        filePath: "/path/to/file.ts",
-        parameters: [
-          {
-            name: "email",
-            type: {
-              raw: "string",
-              kind: "primitive"
-            },
-            isOptional: false,
-            isRest: false,
-            defaultValue: undefined
-          }
-        ],
-        returnType: {
-          raw: "boolean", 
-          kind: "primitive"
-        },
-        generics: [],
-        isAsync: false,
-        isGenerator: false,
-        isCurried: false,
-        isPure: true,        // No side effects
-        isExported: true,    // Has export keyword
-        isDefault: true      // Has default keyword
-      },
-      metadata: {
-        hasThrowStatements: false,
-        hasAwaitExpressions: false,
-        hasGlobalAccess: false,
-        cyclomaticComplexity: 1,
-        hasReturnStatements: true
-      }
+  filePath: "/src/validateEmail/index.ts",
+  functions: [{
+    name: "validateEmail",
+    position: { line: 2, column: 0 },
+    span: { start: 73, end: 215 },
+    parameters: [{
+      name: "email",
+      type: "string",
+      optional: false,
+      defaultValue: undefined
+    }],
+    returnType: "boolean",
+    typeParameters: [],
+    modifiers: {
+      isExported: true,
+      isDefault: true,
+      isAsync: false,
+      isGenerator: false,
+      isArrow: false
+    },
+    body: {
+      hasReturn: true,
+      hasThrow: false,
+      hasAwait: false,
+      hasTryCatch: false,
+      hasLoops: false,
+      cyclomaticComplexity: 1
     }
-  ],
+  }],
   comments: [
     {
+      text: "Validates email address using regex pattern matching",
+      position: { line: 1, column: 0 },
+      span: { start: 0, end: 58 },
       kind: "line",
-      text: "Validates an email address using regex pattern matching",
-      fullText: "//++ Validates an email address using regex pattern matching", 
-      type: "description",
-      position: "before"
+      envoyMarker: { marker: "++" },
+      associatedNode: "validateEmail"
     },
     {
-      kind: "line",
       text: "[EXAMPLE] validateEmail(\"test@example.com\") // true",
-      fullText: "//?? [EXAMPLE] validateEmail(\"test@example.com\") // true",
-      type: "example", 
-      position: "after"
+      position: { line: 7, column: 0 },
+      span: { start: 217, end: 274 },
+      kind: "line",
+      envoyMarker: { marker: "??" }
     },
     {
-      kind: "line",
       text: "[EXAMPLE] validateEmail(\"invalid-email\") // false",
-      fullText: "//?? [EXAMPLE] validateEmail(\"invalid-email\") // false",
-      type: "example",
-      position: "after"
+      position: { line: 8, column: 0 },
+      span: { start: 276, end: 331 },
+      kind: "line",
+      envoyMarker: { marker: "??" }
     },
     {
-      kind: "line",
       text: "[GOTCHA] Does not validate against disposable email providers",
-      fullText: "//?? [GOTCHA] Does not validate against disposable email providers",
-      type: "gotcha",
-      position: "after"
+      position: { line: 9, column: 0 },
+      span: { start: 333, end: 400 },
+      kind: "line",
+      envoyMarker: { marker: "??" }
+    }
+  ],
+  imports: [],
+  exports: [],
+  types: [],
+  constants: [],
+  violations: {
+    hasArrowFunctions: false,
+    arrowFunctions: [],
+    hasClasses: false,
+    classes: [],
+    hasThrowStatements: false,
+    throwStatements: [],
+    hasTryCatch: false,
+    tryCatchBlocks: [],
+    hasLoops: false,
+    loops: [],
+    hasMutations: false,
+    mutations: []
+  }
+}
+```
+
+**Envoy Processing:**
+
+```typescript
+import parseFile from "@sitebender/arborist/parseFile"
+import buildParsedFile from "@sitebender/arborist/buildParsedFile"
+import interpretComments from "@sitebender/envoy/interpretComments"
+import generateDocumentation from "@sitebender/envoy/generateDocumentation"
+import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
+import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
+
+const result = await parseFile("/src/validateEmail/index.ts")
+
+const doc = foldResult(
+  function handleParseError(err) {
+    console.error(err.message)
+    return null
+  }
+)(function handleAST(ast) {
+  const validation = buildParsedFile(ast)("/src/validateEmail/index.ts")
+
+  return foldValidation(
+    function handleExtractionErrors(errors) {
+      console.warn("Some extractions failed:", errors.length)
+      return null
+    }
+  )(function handleParsedFile(parsed) {
+    const docResult = generateDocumentation(parsed)({
+      format: "markdown",
+      includeExamples: true
+    })
+
+    return foldResult(
+      function handleDocError(err) {
+        console.error(err.message)
+        return null
+      }
+    )(function handleSuccess(documentation) {
+      return documentation
+    })(docResult)
+  })(validation)
+})(result)
+```
+
+**Envoy Output (Documentation):**
+
+```markdown
+# validateEmail
+
+Validates email address using regex pattern matching
+
+## Signature
+
+```typescript
+function validateEmail(email: string): boolean
+```
+
+## Parameters
+
+- `email: string` - Email address to validate
+
+## Returns
+
+`boolean` - True if email is valid, false otherwise
+
+## Properties
+
+- ✨ Pure function (no side effects)
+- ⚡ O(1) complexity
+- 🛡️ No exceptions thrown
+- 📊 Cyclomatic complexity: 1
+
+## Examples
+
+```typescript
+validateEmail("test@example.com") // true
+validateEmail("invalid-email") // false
+```
+
+## Gotchas
+
+⚠️ Does not validate against disposable email providers
+
+## Related
+
+- [Email Validation Best Practices](./docs/email.md)
+```
+
+## Example 2: Comment Interpretation with Errors
+
+**Arborist Output (with malformed comment):**
+
+```typescript
+{
+  comments: [
+    {
+      text: "Validates email addresses",
+      envoyMarker: { marker: "++" },
+      associatedNode: "validateEmail"
+    },
+    {
+      text: "EXAMPLE validateEmail('test@example.com')", // Missing brackets
+      envoyMarker: { marker: "??" },
+      associatedNode: undefined
+    },
+    {
+      text: "Unknown marker test",
+      envoyMarker: { marker: "@@" }, // Invalid marker
+      associatedNode: undefined
     }
   ]
 }
 ```
 
-## Example 2: Async Function with Error Handling
-
-**Source Code:**
+**Envoy Processing:**
 
 ```typescript
-//++ Fetches user data from API with error handling
-export async function fetchUser(id: number): Promise<User | null> {
-	try {
-		const response = await fetch(`/api/users/${id}`)
-		if (!response.ok) {
-			throw new Error(`HTTP ${response.status}`)
-		}
-		return await response.json()
-	} catch (error) {
-		console.error("Failed to fetch user:", error)
-		return null
-	}
-}
-//?? [EXAMPLE] const user = await fetchUser(123)
-//?? [PRO] Returns null on error instead of throwing
+const interpretedV = interpretComments(parsed.comments)
+
+foldValidation(
+  function handleErrors(errors) {
+    // Validation accumulates ALL errors
+    errors.forEach(err => {
+      console.warn(err.message)
+      if (err.suggestion) console.log("💡", err.suggestion)
+    })
+    // Return partial success - valid comments still processed
+    return []
+  }
+)(function handleSuccess(interpreted) {
+  return interpreted
+})(interpretedV)
 ```
 
-**Arborist Output:**
+**Envoy Errors:**
 
 ```typescript
 {
-  node: typescript.FunctionDeclaration, // REAL TypeScript AST node
-  signature: {
-    name: "fetchUser",
-    filePath: "/path/to/file.ts", 
-    parameters: [
-      {
-        name: "id",
-        type: {
-          raw: "number",
-          kind: "primitive"
-        },
-        isOptional: false,
-        isRest: false,
-        defaultValue: undefined
-      }
-    ],
-    returnType: {
-      raw: "Promise<User | null>",
-      kind: "object"     // Promise is an object type
+  _tag: "Failure",
+  errors: [
+    {
+      name: "interpretCommentsError",
+      operation: "interpretComments",
+      message: "interpretComments: Missing category brackets in help comment at line 8",
+      code: "PARSE_ERROR",
+      severity: "warning",
+      kind: "MalformedCategory",
+      comment: { text: "EXAMPLE validateEmail('test@example.com')", ... },
+      suggestion: "Help comments need category brackets. Use: //?? [EXAMPLE] validateEmail('test@example.com')"
     },
-    generics: [],
-    isAsync: true,       // Has async keyword
-    isGenerator: false,
-    isCurried: false,
-    isPure: false,       // Has console.error (side effect)
-    isExported: true,
-    isDefault: false
-  },
-  metadata: {
-    hasThrowStatements: true,    // throw new Error
-    hasAwaitExpressions: true,   // await fetch, await response.json  
-    hasGlobalAccess: true,       // console.error, fetch
-    cyclomaticComplexity: 3,     // if + try/catch
-    hasReturnStatements: true
+    {
+      name: "interpretCommentsError",
+      operation: "interpretComments",
+      message: "interpretComments: Unknown marker '@@' at line 10",
+      code: "PARSE_ERROR",
+      severity: "warning",
+      kind: "UnknownMarker",
+      comment: { text: "Unknown marker test", ... },
+      suggestion: "Valid Envoy markers are: //++, //??, //--, //!!, //>>. Did you mean //++?"
+    }
+  ]
+}
+```
+
+## Example 3: Full Pipeline with Error Accumulation
+
+**Usage Pattern:**
+
+```typescript
+import parseFile from "@sitebender/arborist/parseFile"
+import buildParsedFile from "@sitebender/arborist/buildParsedFile"
+import interpretComments from "@sitebender/envoy/interpretComments"
+import buildKnowledgeGraph from "@sitebender/envoy/buildKnowledgeGraph"
+import generateDocumentation from "@sitebender/envoy/generateDocumentation"
+import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
+import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
+import { map2 } from "@sitebender/toolsmith/monads/validation/map2"
+
+const result = await parseFile("/src/module.ts")
+
+const output = foldResult(
+  function handleParseError(err) {
+    console.error("Parse failed:", err.message)
+    if (err.suggestion) console.log("💡", err.suggestion)
+    return null
   }
-}
-```
+)(function handleAST(ast) {
+  const validation = buildParsedFile(ast)("/src/module.ts")
 
-## Example 3: Generic Curried Function
+  return foldValidation(
+    function handleExtractionErrors(errors) {
+      console.warn(`Extraction completed with ${errors.length} error(s)`)
+      errors.forEach(e => {
+        console.warn(`- ${e.message}`)
+        if (e.suggestion) console.warn(`  💡 ${e.suggestion}`)
+      })
+      return null
+    }
+  )(function handleParsedFile(parsed) {
+    // Process comments and build graph in parallel
+    const commentsV = interpretComments(parsed.comments)
+    const graphV = buildKnowledgeGraph(parsed)
 
-**Source Code:**
-
-```typescript
-//++ Creates a curried function for adding numbers
-function createAdder<T extends number>(base: T): (value: T) => T {
-	return function addToBase(value: T): T {
-		return (base + value) as T
-	}
-}
-//?? [EXAMPLE] const add5 = createAdder(5)
-//?? [EXAMPLE] add5(10) // 15
-```
-
-**Arborist Output:**
-
-```typescript
-{
-  node: typescript.FunctionDeclaration, // REAL TypeScript AST node
-  signature: {
-    name: "createAdder",
-    filePath: "/path/to/file.ts",
-    parameters: [
-      {
-        name: "base", 
-        type: {
-          raw: "T",
-          kind: "generic"
-        },
-        isOptional: false,
-        isRest: false,
-        defaultValue: undefined
+    // Combine validations - accumulates ALL errors
+    const combined = map2(
+      function combine(interpreted, graph) {
+        return { interpreted, graph }
       }
-    ],
-    returnType: {
-      raw: "(value: T) => T",
-      kind: "function"     // Returns a function
-    },
-    generics: [
-      {
-        name: "T",
-        constraint: "number",  // T extends number
-        default: undefined
+    )(commentsV)(graphV)
+
+    return foldValidation(
+      function handleProcessingErrors(errors) {
+        console.warn("Processing errors:", errors.length)
+        errors.forEach(e => console.warn(e.message))
+        return null
       }
-    ],
-    isAsync: false,
-    isGenerator: false,
-    isCurried: true,        // Returns a function
-    isPure: true,           // No side effects
-    isExported: false,
-    isDefault: false
-  },
-  metadata: {
-    hasThrowStatements: false,
-    hasAwaitExpressions: false,
-    hasGlobalAccess: false,
-    cyclomaticComplexity: 1,
-    hasReturnStatements: true
-  }
-}
+    )(function handleProcessed({ interpreted, graph }) {
+      // Generate documentation
+      const docResult = generateDocumentation(parsed)({
+        format: "markdown",
+        includeExamples: true,
+        includeGraph: true
+      })
+
+      return foldResult(
+        function handleDocError(err) {
+          console.error(err.message)
+          return null
+        }
+      )(function handleSuccess(doc) {
+        return { doc, graph }
+      })(docResult)
+    })(combined)
+  })(validation)
+})(result)
 ```
 
-## Example 4: Generator Function
+## Key Points for Envoy
 
-**Source Code:**
+1. **Syntax-Level Data** - All type information is textual, not semantic
+2. **Precise Spans** - Exact character positions for all elements
+3. **Comment Structure** - Raw comments with Envoy markers detected, Envoy interprets
+4. **Body Analysis** - Cyclomatic complexity and pattern flags from Arborist
+5. **Monadic Errors** - Result for parse, Validation for extraction/interpretation
+6. **Helpful Suggestions** - All errors include actionable guidance
+7. **Partial Success** - Validation allows some operations to succeed while others fail
 
-```typescript
-//++ Generates sequential IDs starting from 1
-export function* generateIds(): Generator<number, void, unknown> {
-	let id = 1
-	while (true) {
-		yield id++
-	}
-}
-//?? [EXAMPLE] const idGen = generateIds()
-//?? [EXAMPLE] idGen.next().value // 1
-```
+**Envoy receives from Arborist:**
+- Function metadata (name, flags, spans, positions)
+- Parameter and return type text
+- Generic type parameter text
+- Raw comments with Envoy markers detected (not interpreted)
+- Body analysis for complexity metrics
+- Constitutional violation data
+- Helpful error messages when issues occur
 
-**Arborist Output:**
+**Envoy does NOT receive:**
+- SWC AST nodes (opaque ParsedAST)
+- Semantic type information
+- Inferred types
+- Symbol tables
+- Cross-file references
 
-```typescript
-{
-  node: typescript.FunctionDeclaration, // REAL TypeScript AST node
-  signature: {
-    name: "generateIds",
-    filePath: "/path/to/file.ts",
-    parameters: [],        // No parameters
-    returnType: {
-      raw: "Generator<number, void, unknown>",
-      kind: "object"      // Generator is an object type
-    },
-    generics: [],
-    isAsync: false,
-    isGenerator: true,     // Has * (asterisk token)
-    isCurried: false,
-    isPure: false,         // Stateful (id++)
-    isExported: true,
-    isDefault: false
-  },
-  metadata: {
-    hasThrowStatements: false,
-    hasAwaitExpressions: false, 
-    hasGlobalAccess: false,
-    cyclomaticComplexity: 2,    // while loop
-    hasReturnStatements: false  // Uses yield, not return
-  }
-}
-```
+**Envoy provides:**
+- Interpreted comment semantics
+- Generated documentation (multiple formats)
+- Knowledge graphs (RDF triples)
+- HATEOAS navigation
+- Developer experience metrics
+- Real-time dashboards
 
-## Example 5: Complex Arrow Function with Generics
+---
 
-**Source Code:**
-
-```typescript
-//++ Processes array of items with transformation
-const processItems = async <T, U>(
-	items: readonly T[],
-	transform: (item: T) => Promise<U>,
-): Promise<U[]> => {
-	const results: U[] = []
-	for (const item of items) {
-		try {
-			const transformed = await transform(item)
-			results.push(transformed)
-		} catch (error) {
-			// Skip failed transformations
-			continue
-		}
-	}
-	return results
-}
-//?? [EXAMPLE] const numbers = await processItems([1,2,3], async x => x * 2)
-```
-
-**Arborist Output:**
-
-```typescript
-{
-  node: typescript.ArrowFunction, // REAL TypeScript AST node (arrow function)
-  signature: {
-    name: "processItems",
-    filePath: "/path/to/file.ts",
-    parameters: [
-      {
-        name: "items",
-        type: {
-          raw: "readonly T[]",
-          kind: "array"
-        },
-        isOptional: false,
-        isRest: false,
-        defaultValue: undefined
-      },
-      {
-        name: "transform", 
-        type: {
-          raw: "(item: T) => Promise<U>",
-          kind: "function"
-        },
-        isOptional: false,
-        isRest: false,
-        defaultValue: undefined
-      }
-    ],
-    returnType: {
-      raw: "Promise<U[]>",
-      kind: "object"        // Promise is object type
-    },
-    generics: [
-      {
-        name: "T",
-        constraint: undefined,
-        default: undefined
-      },
-      {
-        name: "U", 
-        constraint: undefined,
-        default: undefined
-      }
-    ],
-    isAsync: true,         // async arrow function
-    isGenerator: false,
-    isCurried: false,
-    isPure: false,         // Mutates results array
-    isExported: false,     // const, not exported
-    isDefault: false
-  },
-  metadata: {
-    hasThrowStatements: false,
-    hasAwaitExpressions: true,    // await transform(item)
-    hasGlobalAccess: false,
-    cyclomaticComplexity: 3,      // for loop + try/catch
-    hasReturnStatements: true
-  }
-}
-```
-
-## Example 6: Type Guard Function
-
-**Source Code:**
-
-```typescript
-//++ Simple utility for checking if value exists
-const isDefined = <T>(value: T | undefined | null): value is T => {
-	return value !== undefined && value !== null
-}
-//?? [EXAMPLE] isDefined(null) // false
-//?? [EXAMPLE] isDefined("hello") // true
-```
-
-**Arborist Output:**
-
-```typescript
-{
-  node: typescript.ArrowFunction, // REAL TypeScript AST node
-  signature: {
-    name: "isDefined",
-    filePath: "/path/to/file.ts",
-    parameters: [
-      {
-        name: "value",
-        type: {
-          raw: "T | undefined | null", 
-          kind: "union"       // Union type
-        },
-        isOptional: false,
-        isRest: false,
-        defaultValue: undefined
-      }
-    ],
-    returnType: {
-      raw: "value is T",    // Type predicate
-      kind: "primitive"     // Resolves to boolean
-    },
-    generics: [
-      {
-        name: "T",
-        constraint: undefined,
-        default: undefined
-      }
-    ],
-    isAsync: false,
-    isGenerator: false,
-    isCurried: false,
-    isPure: true,          // No side effects
-    isExported: false,
-    isDefault: false
-  },
-  metadata: {
-    hasThrowStatements: false,
-    hasAwaitExpressions: false,
-    hasGlobalAccess: false,
-    cyclomaticComplexity: 1,     // Simple boolean logic
-    hasReturnStatements: true
-  }
-}
-```
-
-## Key Points for Envoy:
-
-1. **REAL TypeScript Nodes**: `node` property contains actual `typescript.Node` objects
-2. **Structured Data**: No string parsing needed - everything is pre-parsed
-3. **Rich Type Information**: `TypeInfo` objects with `raw` text and `kind` enum
-4. **Pre-computed Analysis**: `metadata` provides fast-path for complexity/purity
-5. **Comment Structure**: Parsed comments with types (description, example, gotcha, pro)
-6. **Complete Signatures**: All function properties extracted and categorized
-
-**Envoy should NEVER:**
-
-- Parse strings with regex
-- Re-analyze TypeScript AST
-- Ignore the metadata fast-paths
-- Reconstruct what Arborist already provides
-
-**Envoy should ALWAYS:**
-
-- Use the `node` property for TypeScript AST operations
-- Use `signature` for documentation generation
-- Use `metadata` for fast-path optimizations
-- Use `comments` for Envoy-specific documentation features
+**Remember:** Arborist detects, Envoy interprets. Clean separation of concerns.
