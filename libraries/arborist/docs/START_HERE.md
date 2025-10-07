@@ -126,14 +126,14 @@ git diff libraries/arborist/docs/START_HERE.md
 **Result<E, T>** - Fail-fast for sequential operations
 ```typescript
 // I/O operations, parse errors
-parseFile(filePath: string): Promise<Result<ParseError, ParsedAST>>
+parseFile(filePath: string): Promise<Result<ParseError, ParsedAst>>
 ```
 
 **Validation<E, T>** - Error accumulation for parallel/tree operations
 ```typescript
 // Extract multiple features, accumulate ALL errors
-buildParsedFile(ast: ParsedAST)(filePath: string): Validation<ExtractionError, ParsedFile>
-extractFunctions(ast: ParsedAST): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>
+buildParsedFile(ast: ParsedAst)(filePath: string): Validation<ExtractionError, ParsedFile>
+extractFunctions(ast: ParsedAst): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>
 ```
 
 **Why This Approach:**
@@ -169,15 +169,15 @@ extractFunctions(ast: ParsedAST): Validation<FunctionExtractionError, ReadonlyAr
 //++ This is the ONLY I/O operation in the library
 export default function parseFile(
 	filePath: string,
-): Promise<Result<ParseError, ParsedAST>>
+): Promise<Result<ParseError, ParsedAst>>
 
 //++ Builds ParsedFile from SWC AST
 //++ Returns Validation to accumulate extraction errors from all features
 //++ Extracts: functions, imports, exports, comments, types, constants, violations
 export default function buildParsedFile(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ) {
-	return function buildFromAST(
+	return function buildFromAst(
 		filePath: string,
 	): Validation<ExtractionError, ParsedFile>
 }
@@ -185,31 +185,31 @@ export default function buildParsedFile(
 //++ Individual extraction functions (for granular usage)
 
 export default function extractFunctions(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>
 
 export default function extractComments(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>>
 
 export default function extractImports(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>>
 
 export default function extractExports(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ExportExtractionError, ReadonlyArray<ParsedExport>>
 
 export default function extractTypes(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<TypeExtractionError, ReadonlyArray<ParsedType>>
 
 export default function extractConstants(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ConstantExtractionError, ReadonlyArray<ParsedConstant>>
 
 export default function detectViolations(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ViolationDetectionError, ViolationInfo>
 ```
 
@@ -225,7 +225,7 @@ export type ParseError = ArchitectError<"parseFile", [string]> & {
 	readonly column?: number
 }
 
-export type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAST]> & {
+export type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAst]> & {
 	readonly kind: "UnknownNodeType" | "MissingIdentifier" | "InvalidParameterStructure"
 	readonly nodeType?: string
 	readonly span?: Span
@@ -268,57 +268,57 @@ const fnErr = pipe(
 
 ### Phase 2: Type System Updates
 
-- [ ] Update `src/types/index.ts`
-  - [ ] Add ParsedAST type (SWC Module wrapper)
-  - [ ] Add comprehensive error types using ArchitectError
-  - [ ] Verify all types use Readonly, ReadonlyArray
-  - [ ] Verify constitutional compliance
-- [ ] Create `src/types/errors/index.ts`
-  - [ ] ParseError with kind discriminants
-  - [ ] ExtractionError union type
-  - [ ] FunctionExtractionError
-  - [ ] CommentExtractionError
-  - [ ] ImportExtractionError
-  - [ ] ExportExtractionError
-  - [ ] TypeExtractionError
-  - [ ] ConstantExtractionError
-  - [ ] ViolationDetectionError
-- [ ] Update `src/types/index.test.ts`
-  - [ ] Add tests for new error types
-  - [ ] Add type guard tests
+- [x] Update `src/types/index.ts`
+  - [x] Add ParsedAst type (SWC Module wrapper)
+  - [x] Add comprehensive error types using ArchitectError
+  - [x] Verify all types use Readonly, ReadonlyArray
+  - [x] Verify constitutional compliance
+- [x] Create `src/types/errors/index.ts`
+  - [x] ParseError with kind discriminants
+  - [x] ExtractionError union type
+  - [x] FunctionExtractionError
+  - [x] CommentExtractionError
+  - [x] ImportExtractionError
+  - [x] ExportExtractionError
+  - [x] TypeExtractionError
+  - [x] ConstantExtractionError
+  - [x] ViolationDetectionError
+- [x] Update `src/types/index.test.ts`
+  - [x] Add tests for new error types
+  - [x] Add type guard tests
 
 ### Phase 3: Core API Implementation
 
 - [ ] Refactor `src/parseFile/index.ts`
-  - [ ] Change return to `Promise<Result<ParseError, ParsedAST>>`
+  - [ ] Change return to `Promise<Result<ParseError, ParsedAst>>`
   - [ ] Keep SWC WASM initialization
-  - [ ] Return ParsedAST instead of ParsedFile
+  - [ ] Return ParsedAst instead of ParsedFile
   - [ ] Use Toolsmith error creation
   - [ ] Add helpful suggestions to all errors
   - [ ] Write tests for all error cases
 - [ ] Refactor `src/buildParsedFile/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<ExtractionError, ParsedFile>`
   - [ ] Call all extraction functions
   - [ ] Accumulate errors using Toolsmith validation combinators
   - [ ] Support partial success (empty arrays for failed extractions)
   - [ ] Write integration tests
 - [ ] Implement `src/extractFunctions/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>`
   - [ ] Integrate existing `extractFunctionDetails` logic
   - [ ] Accumulate errors per function
   - [ ] Continue extraction on individual failures
   - [ ] Write comprehensive tests
 - [ ] Implement `src/extractComments/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<CommentExtractionError, ReadonlyArray<ParsedComment>>`
   - [ ] Extract raw comments without interpretation
   - [ ] Detect Envoy markers (++, --, !!, ??, >>)
   - [ ] Associate comments with nearby nodes
   - [ ] Write tests for all marker types
 - [ ] Implement `src/extractImports/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<ImportExtractionError, ReadonlyArray<ParsedImport>>`
   - [ ] Handle named imports
   - [ ] Handle default imports
@@ -327,7 +327,7 @@ const fnErr = pipe(
   - [ ] Capture import bindings
   - [ ] Write tests for all import patterns
 - [ ] Implement `src/extractExports/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<ExportExtractionError, ReadonlyArray<ParsedExport>>`
   - [ ] Handle named exports
   - [ ] Handle default exports
@@ -335,21 +335,21 @@ const fnErr = pipe(
   - [ ] Track source for re-exports
   - [ ] Write tests for all export patterns
 - [ ] Implement `src/extractTypes/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<TypeExtractionError, ReadonlyArray<ParsedType>>`
   - [ ] Extract type aliases
   - [ ] Extract interfaces
   - [ ] Capture definition as text
   - [ ] Write tests
 - [ ] Implement `src/extractConstants/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<ConstantExtractionError, ReadonlyArray<ParsedConstant>>`
   - [ ] Extract const declarations
   - [ ] Capture type annotations
   - [ ] Capture value as text
   - [ ] Write tests
 - [ ] Implement `src/detectViolations/index.ts`
-  - [ ] Accept ParsedAST parameter
+  - [ ] Accept ParsedAst parameter
   - [ ] Return `Validation<ViolationDetectionError, ViolationInfo>`
   - [ ] Detect arrow functions with positions
   - [ ] Detect classes with positions
@@ -445,7 +445,7 @@ Invalid node
 **Test Coverage Required:**
 
 1. **parseFile**
-   - Valid TypeScript → Ok(ParsedAST)
+   - Valid TypeScript → Ok(ParsedAst)
    - Invalid syntax → Error with line/column
    - Missing file → Error with suggestion
    - Permission denied → Error with helpful message
@@ -482,7 +482,7 @@ const output = foldResult(
 		if (err.suggestion) console.log("Tip:", err.suggestion)
 		return null
 	},
-)(function handleParsedAST(ast) {
+)(function handleParsedAst(ast) {
 	const validation = buildParsedFile(ast)("./src/module.ts")
 
 	return foldValidation(
@@ -580,8 +580,8 @@ A: Run Deno with `--allow-read` flag or specify directory: `--allow-read=./libra
 
 ### Type Errors
 
-**Q: "ParsedAST is not defined"**
-A: Import from types: `import type { ParsedAST } from "@sitebender/arborist/types"`
+**Q: "ParsedAst is not defined"**
+A: Import from types: `import type { ParsedAst } from "@sitebender/arborist/types"`
 
 **Q: "Property 'module' does not exist on type 'unknown'"**
 A: Don't access `ast.module` directly. Use extraction functions: `extractFunctions(ast)`, `extractComments(ast)`, etc.
@@ -638,10 +638,10 @@ A: Check `contracts/boundaries.json` for allowed dependencies. Arborist can only
 **Q: Tests fail with "Cannot find module"**
 A: Ensure `deno.jsonc` imports are configured and `deno task test` is used (not raw `deno test`).
 
-**Q: How to mock ParsedAST for tests?**
+**Q: How to mock ParsedAst for tests?**
 A: Create fixtures:
 ```typescript
-const mockAST: ParsedAST = {
+const mockAst: ParsedAst = {
   module: mockSwcModule,
   sourceText: "export function test() {}",
   filePath: "/test/fixture.ts"

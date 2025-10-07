@@ -18,12 +18,12 @@ The library exposes a focused API built around monadic error handling using Resu
 
 ### parseFile
 
-This function takes a file path, reads it, and parses the source using SWC WASM. It returns a Result monad—either Ok with a ParsedAST, or Error with a detailed ParseError.
+This function takes a file path, reads it, and parses the source using SWC WASM. It returns a Result monad—either Ok with a ParsedAst, or Error with a detailed ParseError.
 
 ```typescript
 function parseFile(
 	filePath: string,
-): Promise<Result<ParseError, ParsedAST>>
+): Promise<Result<ParseError, ParsedAst>>
 ```
 
 **Why Result?** File I/O and parsing are fail-fast operations. If the file doesn't exist or contains invalid syntax, we can't continue. Result signals this immediately.
@@ -39,13 +39,13 @@ You'll typically call this function first, then pass its successful result to ex
 
 ### buildParsedFile
 
-Given a ParsedAST and file path, this function runs all extraction operations and returns a complete ParsedFile. It returns a Validation monad—either Success with a ParsedFile, or Failure with accumulated errors from all extractors.
+Given a ParsedAst and file path, this function runs all extraction operations and returns a complete ParsedFile. It returns a Validation monad—either Success with a ParsedFile, or Failure with accumulated errors from all extractors.
 
 ```typescript
 function buildParsedFile(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ) {
-	return function buildFromAST(
+	return function buildFromAst(
 		filePath: string,
 	): Validation<ExtractionError, ParsedFile>
 }
@@ -55,11 +55,11 @@ function buildParsedFile(
 
 ### extractFunctions
 
-Given a ParsedAST, this function walks the AST and discovers all function declarations and function expressions. It returns a Validation monad with an array of ParsedFunction structures.
+Given a ParsedAst, this function walks the AST and discovers all function declarations and function expressions. It returns a Validation monad with an array of ParsedFunction structures.
 
 ```typescript
 function extractFunctions(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>
 ```
 
@@ -81,7 +81,7 @@ This function extracts all comments from the parsed AST, returning a Validation 
 
 ```typescript
 function extractComments(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>>
 ```
 
