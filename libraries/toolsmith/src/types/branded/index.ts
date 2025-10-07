@@ -51,3 +51,6 @@ export type Domain = Brand<string, "Domain">
 
 //++ Hostname - valid domain name, localhost, or IP address (IPv4 or IPv6)
 export type Hostname = Brand<string, "Hostname">
+
+//++ Universally Unique Identifier following RFC 4122 (8-4-4-4-12 format)
+export type Uuid = Brand<string, "Uuid">

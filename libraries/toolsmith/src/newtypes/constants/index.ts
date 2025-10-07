@@ -72,3 +72,18 @@ export const DOMAIN_MAX_LENGTH = 253
 
 //++ Maximum length for each domain label per RFC 1035
 export const DOMAIN_LABEL_MAX_LENGTH = 63
+
+//++ UUID total length including hyphens per RFC 4122
+export const UUID_LENGTH = 36
+
+//++ UUID hyphen positions (0-indexed)
+export const UUID_HYPHEN_POSITIONS = [8, 13, 18, 23] as const
+
+//++ UUID segment definitions for validation
+export const UUID_SEGMENTS = [
+	{ start: 0, end: 8, length: 8, name: "first" },
+	{ start: 9, end: 13, length: 4, name: "second" },
+	{ start: 14, end: 18, length: 4, name: "third" },
+	{ start: 19, end: 23, length: 4, name: "fourth" },
+	{ start: 24, end: 36, length: 12, name: "fifth" },
+] as const
