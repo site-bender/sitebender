@@ -1,150 +1,245 @@
 # Auditor Implementation Todos
 
+**Status:** Planning Phase - DO NOT IMPLEMENT YET
+**Last Updated:** 2025-01-07
+
+## CRITICAL: Implementation Blocked
+
+**Auditor implementation CANNOT start until:**
+
+1. ✅ **Arborist is complete** - Phase 1 done, API finalized
+2. ⏳ **Toolsmith monadic utilities complete** - In progress (fold, map, map2, map3, success, failure, ok, error)
+3. ⏳ **Toolsmith branded types complete** - In progress (smart constructors, validation)
+4. ⏳ **Toolsmith array utilities complete** - In progress (map, filter, reduce)
+5. ⏳ **Quarrier is complete** - Blocked on Toolsmith, provides generators
+
+**Why Blocked:**
+- Auditor's entire architecture depends on Result/Validation monads from Toolsmith
+- All error handling uses Toolsmith's error creation utilities
+- All array operations use Toolsmith's functional utilities (NO native methods)
+- Domain types will use Toolsmith's branded type system
+- Test data generation depends on Quarrier's generators
+
+**When to Start:**
+- Wait for architect's explicit approval
+- Verify Toolsmith exports are stable
+- Confirm Arborist API is finalized
+- Confirm Quarrier generators are available
+
 ## Core Mission: Formal Verification, Not Just Testing
 
 Auditor proves code correct mathematically, not just by example.
 
-## NEW: Mock Contract Verification
+**Primary Goal:** Use Z3 theorem prover to mathematically verify properties
+**Secondary Goal:** Generate comprehensive tests when formal verification isn't possible
 
-### Contract Validation Components
+## Implementation Phases
 
-- [ ] `<ContractVerification>` - Main verification orchestrator
-- [ ] `<ValidateRequest>` - Verify requests match schema
-- [ ] `<ValidateResponse>` - Verify responses match schema
-- [ ] `<ProveInvariants>` - Prove mocks maintain invariants
-- [ ] `<DetectDrift>` - Find contract violations
+See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 
-### Mock Coverage Analysis
+### Phase 1: Z3 Integration Foundation
 
-- [ ] `<MockCoverage>` - Track which mocks were used
-- [ ] `<UnhandledRequests>` - Find unmocked requests
-- [ ] `<UnusedMocks>` - Find mocks that weren't hit
-- [ ] `<CoverageReport>` - Generate coverage metrics
+**Dependencies:** Toolsmith monads ready
 
-### Contract Generation from Mocks
+- [ ] Research Z3 WASM bindings
+- [ ] Implement Z3 initialization
+- [ ] Implement IR to Z3 translation
+- [ ] Implement Z3 solver wrapper
+- [ ] Write Z3 integration tests
 
-- [ ] Generate OpenAPI from recorded traffic
-- [ ] Generate SHACL from observed data
-- [ ] Generate GraphQL schemas from queries
-- [ ] Generate property tests from patterns
+### Phase 2: Property Provers
 
-### Invariant Verification
+**Dependencies:** Phase 1 complete
 
-- [ ] Prove response totals match sum of items
-- [ ] Prove discounts never make prices negative
-- [ ] Prove authentication tokens are valid
-- [ ] Prove rate limits are respected
-- [ ] Prove state transitions are valid
+- [ ] Implement determinism prover
+- [ ] Implement totality prover
+- [ ] Implement bounds prover
+- [ ] Implement termination prover
+- [ ] Implement invariant prover
+- [ ] Write prover tests
 
-### Diff Generation
+### Phase 3: Mathematical Property Detection
 
-- [ ] Expected vs actual request/response diff
-- [ ] Schema evolution tracking
-- [ ] Breaking change detection
-- [ ] Compatibility analysis
+**Dependencies:** Phase 2 complete, Arborist ready
 
-## Phase 1: Z3 Integration (Highest Priority)
+- [ ] Implement property detection from ParsedFunction
+- [ ] Detect purity using Arborist metadata
+- [ ] Prove commutativity using Z3
+- [ ] Prove associativity using Z3
+- [ ] Prove idempotence using Z3
+- [ ] Write detection tests
 
-### Basic Z3 Infrastructure
+### Phase 4: Counterexample Generation
 
-- [ ] Add Z3 WASM bindings
-- [ ] Create IR to Z3 translator
-- [ ] Implement SMT solver wrapper
-- [ ] Add proof certificate generation
+**Dependencies:** Phase 3 complete
 
-### Property Provers
-
-- [ ] Determinism prover
-- [ ] Totality prover
-- [ ] Bounds prover
-- [ ] Termination prover
-- [ ] Invariant prover
-
-### Counterexample Generation
-
-- [ ] Convert Z3 models to test inputs
-- [ ] Generate minimal failing cases
-- [ ] Create regression tests from failures
+- [ ] Extract counterexamples from Z3 models
+- [ ] Generate regression tests from counterexamples
 - [ ] Explain failures in plain English
+- [ ] Write counterexample tests
 
-## Phase 2: IR Analysis Enhancement
+### Phase 5: Property-Based Testing (Fallback)
 
-### Direct IR Verification
+**Dependencies:** Phase 4 complete, Quarrier ready
 
-- [ ] Work with Architect's IR format
-- [ ] Skip AST when IR available
-- [ ] Verify IR transformations
-- [ ] Prove optimizations safe
+- [ ] Generate property tests using Quarrier
+- [ ] Integrate with Quarrier's checkProperty
+- [ ] Leverage Quarrier's shrinking
+- [ ] Write property test generation tests
 
-### Complexity Analysis
+### Phase 6: Test Suite Generation
 
-- [ ] Prove Big-O bounds
-- [ ] Detect exponential algorithms
-- [ ] Find performance bottlenecks
-- [ ] Suggest optimizations
+**Dependencies:** Phase 5 complete
 
-## Phase 3: Property-Based Testing (Fallback)
+- [ ] Generate unit tests
+- [ ] Generate property tests
+- [ ] Generate edge case tests
+- [ ] Generate branch coverage tests
+- [ ] Write test suite generation tests
 
-### When Formal Verification Isn't Possible
+### Phase 7: Coverage Validation
 
-- [ ] Generate property tests for unverifiable code
-- [ ] Use Quarrier for input generation
-- [ ] Shrink counterexamples
-- [ ] Statistical confidence metrics
+**Dependencies:** Phase 6 complete
 
-### Integration with Quarrier
+- [ ] Implement coverage validation (100% or explicit ignores)
+- [ ] Parse LCOV reports
+- [ ] Identify coverage gaps
+- [ ] Suggest additional tests
+- [ ] Write coverage validation tests
 
-- [ ] Use Quarrier's generators
-- [ ] Leverage shrinking algorithms
-- [ ] Share property definitions
-- [ ] Coordinate test execution
+### Phase 8: Test File Writing
 
-## Phase 4: Test Generation (Legacy Support)
+**Dependencies:** Phase 7 complete
 
-### For Code That Can't Be Proven
+- [ ] Generate test file content
+- [ ] Write to filesystem
+- [ ] Format with deno fmt
+- [ ] Write file writing tests
 
-- [ ] Generate unit tests from properties
-- [ ] Create integration tests from scenarios
-- [ ] Build regression tests from bugs
-- [ ] Produce documentation tests
+### Phase 9: Envoy Integration
 
-### Coverage Completion
+**Dependencies:** Phase 8 complete, Envoy ready
 
-- [ ] Identify uncovered branches
-- [ ] Generate inputs for coverage
-- [ ] Create edge case tests
-- [ ] Fill verification gaps
+- [ ] Format verification results for Envoy
+- [ ] Provide mathematical property data
+- [ ] Provide proof results
+- [ ] Provide gotchas from counterexamples
+- [ ] Write Envoy integration tests
 
-## Success Metrics
+### Phase 10: Integration and Testing
 
-- [ ] 100% of pure functions formally verified
-- [ ] All mocks contract-verified
-- [ ] Zero false positives in verification
-- [ ] < 1s verification time for typical functions
-- [ ] Counterexamples for all failures
+**Dependencies:** All phases complete
 
-## Integration Points
+- [ ] Wire all components together
+- [ ] Comprehensive integration tests
+- [ ] Self-testing (use Auditor to test Auditor)
+- [ ] Performance benchmarking
+- [ ] Constitutional compliance verification
+- [ ] Update deno.json exports
+- [ ] Final documentation review
 
-### With Agent
+## Constitutional Rules Compliance
 
-- Verify IO interception correctness
-- Prove distributed algorithms
-- Validate CRDT properties
+**Every function MUST:**
+- ✅ Be curried (data last)
+- ✅ Use `function` keyword (NO arrows except type signatures)
+- ✅ Return new data (NO mutations)
+- ✅ Use `const`, `Readonly`, `ReadonlyArray`
+- ✅ Use Toolsmith array utilities (NO native map/filter/reduce)
+- ✅ Return Result/Validation (NO exceptions except I/O boundaries)
+- ✅ Live in own directory with index.ts
+- ✅ Export exactly ONE function as default on same line
 
-### With Architect
+## Versioning Policy
 
-- Verify IR transformations
-- Prove calculation correctness
-- Validate validation logic
+**Current Version:** 0.0.1 (pre-production)
 
-### With Warden
+**During 0.x development:**
+- NO migration paths
+- NO backwards compatibility
+- NO deprecation warnings
+- When design changes: DELETE old, ADD new, UPDATE all docs completely
+- Build it RIGHT the FIRST TIME
 
-- Verify contract compliance
-- Prove privacy boundaries
-- Validate governance rules
+**After 1.0:** Standard SemVer applies.
+
+## Issue Resolution Protocol
+
+**NO issue trackers. NO tickets. NO backlog.**
+
+**Process:**
+1. Hit a problem → Check IMPLEMENTATION_PLAN.md first
+2. Still stuck → Present to architect with:
+   - Minimal reproduction
+   - Error with full context
+   - Proposed solution(s)
+3. Architect approves
+4. Fix immediately
+5. Update docs
+6. Move on
+
+**Speed is the advantage.** No coordination overhead, no waiting.
+
+## Performance Targets
+
+- Z3 proof (simple): <100ms
+- Z3 proof (complex): <1s
+- Property detection: <50ms per function
+- Test generation: <100ms per function
+- Coverage validation: <50ms per file
+
+## Success Criteria
+
+**Phase 2 Complete:**
+- ✅ Can prove simple properties with Z3
+- ✅ Generates counterexamples for failures
+- ✅ All errors use Result monad with suggestions
+
+**Phase 3 Complete:**
+- ✅ Detects mathematical properties correctly
+- ✅ Proves properties using Z3
+- ✅ Integrates with Arborist metadata
+
+**Phase 9 Complete:**
+- ✅ Envoy receives high-quality verification data
+- ✅ Mathematical properties documented
+- ✅ Gotchas from counterexamples included
+
+**Final Completion:**
+- ✅ All phases implemented
+- ✅ Formal verification working
+- ✅ Test generation working
+- ✅ 100% coverage achieved
+- ✅ Performance targets met
+- ✅ Constitutional compliance verified
+- ✅ Documentation complete
+
+## Integration with Ecosystem
+
+### With Arborist
+- Receives ParsedFile with all metadata
+- Uses ParsedFunction for analysis
+- Uses body analysis (hasThrow, hasAwait, cyclomaticComplexity)
+- Never parses TypeScript directly
+
+### With Quarrier
+- Uses generators for test data
+- Leverages property-based testing
+- Shares property definitions
+- Uses shrinking for minimal counterexamples
 
 ### With Envoy
+- Provides mathematical property data
+- Provides proof results
+- Provides gotchas from counterexamples
+- Provides verification coverage metrics
+- Envoy documents these in generated docs
 
-- Generate verification reports
-- Visualize proof trees
-- Track verification coverage
+### With Agent (Future)
+- Verifies distributed algorithm correctness
+- Proves CRDT properties
+- Validates consensus mechanisms
+
+---
+
+**This is a PLANNING document. Implementation starts only after architect approval.**
