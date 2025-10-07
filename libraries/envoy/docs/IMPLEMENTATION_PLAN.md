@@ -1,8 +1,8 @@
 # Envoy Implementation Plan - START HERE
 
-**Last Updated:** 2025-01-07
-**Status:** Planning Phase - DO NOT IMPLEMENT YET
-**AI Instructions:** Read this ENTIRE document before writing ANY code.
+**Last Updated:** 2025-01-07  
+**Status:** Planning Phase - DO NOT IMPLEMENT YET  
+**AI Instructions:** Read this ENTIRE document before writing ANY code.  
 
 ## CRITICAL: Implementation Blocked Until Dependencies Ready
 
@@ -500,6 +500,146 @@ const docErr = pipe(
   - [ ] Smooth transitions
   - [ ] Keyboard shortcuts
   - [ ] Write tests
+
+### Phase 7: Ecosystem Integration
+
+- [ ] Implement GitHub CI/CD integration
+  - [ ] GitHub Actions workflow for doc generation
+  - [ ] Automatic doc deployment on push
+  - [ ] PR comments with documentation diffs
+  - [ ] Breaking change detection in PRs
+  - [ ] Performance regression alerts
+  - [ ] Write CI/CD integration tests
+- [ ] Coordinate with VSCode extension (`plugins/vscode`)
+  - [ ] Real-time metrics in editor sidebar
+  - [ ] Inline documentation preview on hover
+  - [ ] SPARQL query panel in editor
+  - [ ] Five-smiley feedback widget
+  - [ ] Jump to definition via knowledge graph
+  - [ ] Write VSCode extension integration tests
+- [ ] Coordinate with Zed extension (`plugins/zed`)
+  - [ ] Similar features to VSCode
+  - [ ] Platform-specific optimizations
+  - [ ] Write Zed extension integration tests
+- [ ] Integrate with Mission Control web interface (`applications/mission-control`)
+  - [ ] Workflow canvas showing Envoy as library node
+  - [ ] Real-time dashboard embedding in Mission Control
+  - [ ] Bidirectional sync (editor ↔ web interface)
+  - [ ] Unified metrics across all interfaces
+  - [ ] Write Mission Control integration tests
+- [ ] Coordinate with Agent library for collaboration
+  - [ ] Distributed documentation editing via CRDTs
+  - [ ] Real-time collaborative comment writing
+  - [ ] Presence indicators for multi-user editing
+  - [ ] Conflict resolution for documentation changes
+  - [ ] Offline-first documentation workflow
+  - [ ] Write Agent collaboration tests
+
+### Phase 8: Diff-Based Documentation
+
+- [ ] Implement semantic diff analysis
+  - [ ] Detect breaking changes in function signatures
+  - [ ] Identify new/removed/modified functions
+  - [ ] Track comment changes vs code changes
+  - [ ] Generate change summaries
+  - [ ] Calculate API compatibility scores
+  - [ ] Write diff analysis tests
+- [ ] Implement migration guide generation
+  - [ ] Auto-generate from API diffs
+  - [ ] Suggest code transformations
+  - [ ] Provide before/after examples
+  - [ ] Link to related changes
+  - [ ] Generate migration checklists
+  - [ ] Write migration guide tests
+- [ ] Implement breaking change detection
+  - [ ] Analyze signature changes (parameters, return types)
+  - [ ] Find affected consumers via knowledge graph
+  - [ ] Calculate impact radius
+  - [ ] Generate warnings with severity levels
+  - [ ] Suggest deprecation strategies
+  - [ ] Write breaking change tests
+- [ ] Implement changelog generation
+  - [ ] Generate from git commits + code diffs
+  - [ ] Categorize changes (features, fixes, breaking)
+  - [ ] Link to documentation updates
+  - [ ] Include migration notes
+  - [ ] Write changelog tests
+
+### Phase 9: Documentation Quality Metrics
+
+- [ ] Implement completeness scoring
+  - [ ] Calculate % of exports with //++ descriptions
+  - [ ] Identify undocumented public functions
+  - [ ] Track documentation coverage trends over time
+  - [ ] Generate coverage reports by module
+  - [ ] Set coverage thresholds and alerts
+  - [ ] Write completeness tests
+- [ ] Implement staleness detection
+  - [ ] Compare code change dates vs comment dates (via git)
+  - [ ] Detect comments that haven't been updated
+  - [ ] Flag functions with old descriptions
+  - [ ] Suggest review candidates
+  - [ ] Track staleness metrics
+  - [ ] Write staleness tests
+- [ ] Implement consistency checking
+  - [ ] Detect comments contradicting code
+  - [ ] Find mismatched parameter descriptions
+  - [ ] Identify incorrect return type documentation
+  - [ ] Flag suspicious discrepancies
+  - [ ] Generate consistency reports
+  - [ ] Write consistency tests
+- [ ] Implement readability metrics
+  - [ ] Calculate Flesch-Kincaid scores for comments
+  - [ ] Detect overly complex language
+  - [ ] Suggest simplifications
+  - [ ] Track readability trends
+  - [ ] Set readability standards
+  - [ ] Write readability tests
+- [ ] Implement documentation health dashboard
+  - [ ] Overall quality score
+  - [ ] Completeness, staleness, consistency, readability
+  - [ ] Trends over time
+  - [ ] Per-module breakdowns
+  - [ ] Write dashboard tests
+
+### Phase 10: Collaborative Documentation
+
+- [ ] Implement inline suggestion system
+  - [ ] Allow developers to suggest better descriptions
+  - [ ] Review and approval workflow
+  - [ ] Track suggestion quality and acceptance rate
+  - [ ] Integrate with Agent for distributed suggestions
+  - [ ] Notification system for reviewers
+  - [ ] Write suggestion tests
+- [ ] Implement community examples
+  - [ ] Users contribute usage examples
+  - [ ] Voting system for best examples
+  - [ ] Moderation and quality control
+  - [ ] Integration with Quarrier's generated examples
+  - [ ] Deduplication of similar examples
+  - [ ] Write community example tests
+- [ ] Implement translation support
+  - [ ] Multi-language documentation generation
+  - [ ] Translation workflow and tooling
+  - [ ] Quality assurance for translations
+  - [ ] Fallback to English for missing translations
+  - [ ] Language-specific formatting rules
+  - [ ] Write translation tests
+- [ ] Implement review workflow
+  - [ ] Approve/reject documentation changes
+  - [ ] Track review history in knowledge graph
+  - [ ] Reviewer assignment based on expertise
+  - [ ] Consensus requirements for critical changes
+  - [ ] Integration with git workflow
+  - [ ] Write review workflow tests
+- [ ] Implement collaborative editing via Agent
+  - [ ] CRDT-based comment editing
+  - [ ] Real-time presence indicators
+  - [ ] Conflict-free collaborative writing
+  - [ ] Offline-first documentation workflow
+  - [ ] Write collaborative editing tests
+
+### Phase 11: Integration and Testing
 
 ### Phase 7: Integration and Testing
 
