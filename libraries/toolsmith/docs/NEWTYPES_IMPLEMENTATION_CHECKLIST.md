@@ -226,16 +226,21 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: RFC 4291 IPv6 format - 8 groups of 4 hex digits, supports :: compression, IPv4 embedding preserved
 **Location**: `newtypes/webTypes/ipv6Address/`
 
-### ⏸️ Domain
+### ✅ Domain
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `domain()` (validates domain name)
-- [ ] Unsafe constructor `unsafeDomain()`
-- [ ] Unwrap function `unwrapDomain()`
-- [ ] Type predicate `_isDomain()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `domain()` (validates domain name)
+- [x] Unsafe constructor `unsafeDomain()`
+- [x] Unwrap function `unwrapDomain()`
+- [x] Type predicate `_isDomain()`
+- [x] Helper: `_validateDomainStructure()` (validates overall structure)
+- [x] Helper: `_validateDomainLabel()` (validates individual label)
+- [x] Shared helper: `_normalize()` (NFC + toLowerCase, used by email and domain)
+- [x] Constants: DOMAIN_MAX_LENGTH, DOMAIN_LABEL_MAX_LENGTH
+- [x] All tests passing (111 tests)
 
-**Validation**: Valid domain name (e.g., example.com, sub.example.co.uk)
+**Validation**: RFC 1034/1035 with RFC 1123 updates + RFC 5890 (IDN) - full Unicode support with Punycode conflict detection
+**Location**: `newtypes/webTypes/domain/`
 
 ### ⏸️ Hostname
 
