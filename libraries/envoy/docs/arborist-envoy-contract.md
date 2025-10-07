@@ -1,327 +1,467 @@
-# 📜 ARBORIST ↔ ENVOY INTEGRATION CONTRACT
+# Arborist ↔ Envoy Integration Contract
 
-**Date:** 2025-09-09 (Updated: 2025-09-10)\
-**Parties:** Arborist Library & Envoy Library (formerly Envoy)\
-**Witnessed By:** The Architect\
-**Status:** BINDING & IMMUTABLE - NOW ENFORCED
+**Date:** 2025-01-07
+**Status:** BINDING
+**Version:** Aligned with Arborist v0.0.1 and Envoy v0.0.1
 
-## 🔒 THIS CONTRACT IS FINAL AND NOW ENFORCED
+## Contract Summary
 
-~~Both Arborist AI and Envoy AI have agreed to the following integration specifications.~~
+Arborist is the ONLY library that parses TypeScript/JSX. It uses SWC via @swc/wasm-web for syntax-level analysis. Envoy consumes Arborist's structured outputs for documentation generation.
 
-**UPDATE 2025-09-10:** A previous AI violated this contract by implementing TypeScript parsing directly in Envoy. This has been corrected. Envoy's parser directory has been deleted. Arborist is now THE ONLY library that imports TypeScript. No exceptions.
+**This contract is BINDING. No TypeScript parsing outside Arborist.**
 
----
+## CRITICAL: Pre-Implementation Status
 
-## 1. API SPECIFICATIONS
+**Current Status:**
+- **Arborist:** Phase 1 complete, API finalized, ready for integration
+- **Envoy:** Planning phase only, implementation blocked until Toolsmith ready
+- **Toolsmith:** Monadic utilities (Result/Validation) and branded types in progress
 
-### 1.1 Arborist Output Format
+**Implementation Timeline:**
+1. Arborist completes remaining phases (Phases 2-4)
+2. Toolsmith monadic utilities stabilize (fold, map, map2, map3, etc.)
+3. Toolsmith branded types complete (smart constructors, validation)
+4. Envoy implementation begins using this contract
 
-Arborist SHALL provide the following API:
+**DO NOT implement Envoy until architect gives explicit approval.**
+
+## API Specifications
+
+### Arborist Provides
 
 ```typescript
-// Arborist's main export function
-parseFileWithCompiler(
-  content: string,
+//++ Parses source file and returns Result monad
+parseFile(
   filePath: string
-): Either<ParseError, ParsedModule>
+): Promise<Result<ParseError, ParsedAST>>
 
-// Where Either is compatible with:
-type Either<E, A> =
-  | { ok: false; error: E }  // Left
-  | { ok: true; value: A }    // Right
-
-// ParsedModule structure
-type ParsedModule = {
-  functions: Array<ParsedFunction>
-  types: Array<ParsedType>         // Future
-  constants: Array<ParsedConstant>  // Future
-  exports: Array<ParsedExport>      // Future
+//++ Builds complete ParsedFile with Validation monad
+buildParsedFile(
+  ast: ParsedAST
+) {
+  return function(filePath: string): Validation<ExtractionError, ParsedFile>
 }
 
-// ParsedFunction structure
-type ParsedFunction = {
-  node: typescript.Node           // Real TypeScript compiler node
-  signature: FunctionSignature    // Existing signature type
-  metadata: TraversalMetadata    // NEW: Pre-computed metadata
+//++ Extracts functions with Validation monad
+extractFunctions(
+  ast: ParsedAST
+): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>
+
+//++ Extracts comments with position data and Envoy markers detected
+extractComments(
+  ast: ParsedAST
+): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>>
+
+//++ Extracts import statements
+extractImports(
+  ast: ParsedAST
+): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>>
+
+//++ Extracts export statements
+extractExports(
+  ast: ParsedAST
+): Validation<ExportExtractionError, ReadonlyArray<ParsedExport>>
+
+//++ Extracts type definitions
+extractTypes(
+  ast: ParsedAST
+): Validation<TypeExtractionError, ReadonlyArray<ParsedType>>
+
+//++ Extracts constant declarations
+extractConstants(
+  ast: ParsedAST
+): Validation<ConstantExtractionError, ReadonlyArray<ParsedConstant>>
+
+//++ Detects constitutional violations
+detectViolations(
+  ast: ParsedAST
+): Validation<ViolationDetectionError, ViolationInfo>
+```
+
+### Data Structures
+
+```typescript
+type ParsedAST = Readonly<{
+  module: unknown // SWC Module (opaque to Envoy)
+  sourceText: string
+  filePath: string
+}>
+
+type ParsedFile = Readonly<{
+  filePath: string
+  functions: ReadonlyArray<ParsedFunction>
+  comments: ReadonlyArray<ParsedComment>
+  imports: ReadonlyArray<ParsedImport>
+  exports: ReadonlyArray<ParsedExport>
+  types: ReadonlyArray<ParsedType>
+  constants: ReadonlyArray<ParsedConstant>
+  violations: ViolationInfo
+}>
+
+type ParsedFunction = Readonly<{
+  name: string
+  position: Position
+  span: Span
+  parameters: ReadonlyArray<Parameter>
+  returnType: string
+  typeParameters: ReadonlyArray<TypeParameter>
+  modifiers: FunctionModifiers
+  body: FunctionBody
+}>
+
+type ParsedComment = Readonly<{
+  text: string // Trimmed content
+  position: Position
+  span: Span
+  kind: "line" | "block"
+  envoyMarker?: EnvoyMarker // Detected by Arborist, interpreted by Envoy
+  associatedNode?: string
+}>
+
+type EnvoyMarker = Readonly<{
+  marker: "++" | "??" | "--" | "!!" | ">>"
+}>
+
+type FunctionBody = Readonly<{
+  hasReturn: boolean
+  hasThrow: boolean
+  hasAwait: boolean
+  hasTryCatch: boolean
+  hasLoops: boolean
+  cyclomaticComplexity: number
+}>
+
+type ParsedImport = Readonly<{
+  specifier: string
+  position: Position
+  span: Span
+  kind: "default" | "named" | "namespace" | "type"
+  imports: ReadonlyArray<ImportBinding>
+}>
+
+type ViolationInfo = Readonly<{
+  hasArrowFunctions: boolean
+  arrowFunctions: ReadonlyArray<Position>
+  hasClasses: boolean
+  classes: ReadonlyArray<Position>
+  hasThrowStatements: boolean
+  throwStatements: ReadonlyArray<Position>
+  hasTryCatch: boolean
+  tryCatchBlocks: ReadonlyArray<Position>
+  hasLoops: boolean
+  loops: ReadonlyArray<Position>
+  hasMutations: boolean
+  mutations: ReadonlyArray<Position>
+}>
+```
+
+## Error Handling
+
+All functions return monads from Toolsmith:
+
+**Result<E, T>** - parseFile returns Result for fail-fast I/O/syntax errors
+**Validation<E, T>** - All extraction functions return Validation for error accumulation
+
+### Error Types
+
+```typescript
+type ParseError = ArchitectError<"parseFile", [string]> & {
+  kind: "FileNotFound" | "InvalidSyntax" | "ReadPermission" | "SwcInitializationFailed"
+  file: string
+  line?: number
+  column?: number
+  suggestion: string // Always present
+}
+
+type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAST]> & {
+  kind: "UnknownNodeType" | "MissingIdentifier" | "InvalidParameterStructure"
+  nodeType?: string
+  span?: Span
+  suggestion: string // Always present
+}
+
+// Similar for CommentExtractionError, ImportExtractionError, etc.
+```
+
+All errors include helpful suggestions, never scold users.
+
+## Division of Responsibilities
+
+### Arborist Owns
+
+- ✅ SWC WASM integration
+- ✅ Syntax-level parsing
+- ✅ Span and position tracking
+- ✅ Comment extraction (raw text)
+- ✅ Envoy marker **detection** (finding `//++`, `//??`, etc.)
+- ✅ Import/export analysis
+- ✅ Constitutional violation detection
+- ✅ Cyclomatic complexity calculation
+- ✅ Error creation with suggestions
+
+### Envoy Owns
+
+- ✅ Envoy marker **interpretation** (what `//++` means semantically)
+- ✅ Documentation generation (Markdown, HTML, JSON, RDF)
+- ✅ Knowledge graph construction (RDF triples)
+- ✅ SPARQL query interface
+- ✅ HATEOAS navigation generation
+- ✅ Dashboard and visualization
+- ✅ Developer experience tracking (five-smiley feedback)
+- ✅ Mathematical property integration (from Auditor)
+- ✅ Example integration (from Quarrier)
+
+### Arborist NEVER
+
+- ❌ Interprets Envoy comment syntax semantically
+- ❌ Generates documentation
+- ❌ Makes semantic type analysis
+- ❌ Performs cross-file analysis
+- ❌ Builds knowledge graphs
+
+### Envoy NEVER
+
+- ❌ Imports SWC WASM or TypeScript compiler
+- ❌ Parses TypeScript/JSX directly
+- ❌ Duplicates parsing logic
+- ❌ Accesses raw AST nodes
+- ❌ Performs syntax-level analysis
+
+## Usage Pattern
+
+```typescript
+import parseFile from "@sitebender/arborist/parseFile"
+import buildParsedFile from "@sitebender/arborist/buildParsedFile"
+import interpretComments from "@sitebender/envoy/interpretComments"
+import generateDocumentation from "@sitebender/envoy/generateDocumentation"
+import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
+import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
+
+// Parse file (Arborist)
+const result = await parseFile("/path/to/module.ts")
+
+const documentation = foldResult(
+  function handleParseError(err: ParseError) {
+    console.error(err.message)
+    if (err.suggestion) console.log("Tip:", err.suggestion)
+    return null
+  }
+)(function handleAST(ast: ParsedAST) {
+  // Build complete parsed file (Arborist)
+  const validation = buildParsedFile(ast)("/path/to/module.ts")
+
+  return foldValidation(
+    function handleExtractionErrors(errors) {
+      errors.forEach(e => console.warn(e.message))
+      return null
+    }
+  )(function handleParsedFile(parsed: ParsedFile) {
+    // Interpret comments (Envoy)
+    const interpretedV = interpretComments(parsed.comments)
+
+    return foldValidation(
+      function handleInterpretationErrors(errors) {
+        errors.forEach(e => console.warn(e.message))
+        return null
+      }
+    )(function handleInterpreted(interpreted) {
+      // Generate documentation (Envoy)
+      const docResult = generateDocumentation(parsed)({
+        format: "markdown",
+        includeExamples: true
+      })
+
+      return foldResult(
+        function handleDocError(err) {
+          console.error(err.message)
+          return null
+        }
+      )(function handleSuccess(doc) {
+        return doc
+      })(docResult)
+    })(interpretedV)
+  })(validation)
+})(result)
+```
+
+## Performance Requirements
+
+| File Size | Functions | Parse Time | Extraction Time | Envoy Processing | Total  |
+|-----------|-----------|------------|-----------------|------------------|--------|
+| Small     | 10-50     | <10ms      | <2ms            | <5ms             | <17ms  |
+| Medium    | 100-500   | <50ms      | <5ms            | <20ms            | <75ms  |
+| Large     | 1000+     | <200ms     | <10ms           | <50ms            | <260ms |
+
+## Implementation Details
+
+### Envoy Marker Detection vs Interpretation
+
+**Arborist detects** markers in comments:
+```typescript
+// Arborist output
+{
+  text: "Validates email addresses using regex pattern matching",
+  envoyMarker: { marker: "++" } // DETECTED, not interpreted
 }
 ```
 
-### 1.2 Either/Result Mapping
-
-Arborist SHALL provide Either constructors that maintain backward compatibility:
-
+**Envoy interprets** marker meaning:
 ```typescript
-// Arborist provides these constructors
-const Right = <A>(value: A): Either<never, A> => ({ ok: true, value })
-const Left = <E>(error: E): Either<E, never> => ({ ok: false, error })
-
-// Existing Result API continues to work
-type Result<T, E> = Either<E, T> // Aliased for compatibility
-```
-
-### 1.3 Pre-computed Metadata
-
-Arborist SHALL compute and provide the following metadata during parsing:
-
-```typescript
-type TraversalMetadata = {
-	// PHASE 1: High Priority (Week 1)
-	hasThrowStatements: boolean // For purity detection
-	hasAwaitExpressions: boolean // For purity detection
-	hasGlobalAccess: boolean // For purity detection (console, window, etc.)
-	cyclomaticComplexity: number // For complexity detection
-	hasReturnStatements: boolean // For currying detection
-
-	// PHASE 2: Medium Priority (Week 3)
-	hasIfStatements: boolean
-	hasLoops: boolean
-	hasTryCatch: boolean
-	parameterCount: number
-	isArrowFunction: boolean
-	isAsync: boolean
-	isGenerator: boolean
-	nestingDepth: number
-
-	// PHASE 3: Low Priority (Future)
-	referencedIdentifiers: ReadonlySet<string>
-	callExpressions: ReadonlyArray<string>
-	propertyAccesses: ReadonlyArray<string>
+// Envoy interpretation
+{
+  type: "description",
+  category: "DESCRIPTION", // Default for ++
+  content: "Validates email addresses using regex pattern matching",
+  associatedWith: "validateEmail" // Function this describes
 }
 ```
 
----
+### Comment Association Rules
 
-## 2. SHARED UTILITIES
+Arborist provides `associatedNode` hint based on proximity:
+1. Leading comments within 2 lines above function
+2. Trailing comments on same line as function close
+3. AssociatedNode links comment to function name
 
-### 2.1 Location
+Envoy uses this hint but applies semantic rules:
+- `//++` MUST be immediately above code (no blank line)
+- `//??` needs breathing room (blank line above)
+- `//--` goes where the problem occurs
+- `//!!` file-wide needs spacing (blank lines above/below)
+- `//>>` in code or at file bottom
 
-Shared AST traversal utilities SHALL be placed in:
+### Type Information
 
-```
-libraries/toolsmith/src/ast/
-```
+All type information from Arborist is syntax-level only:
+- Parameter types as text strings
+- Return types as text strings
+- Generic constraints as text strings
+- No semantic resolution
 
-### 2.2 Traversal Functions
+Envoy works with these text representations for documentation.
 
-Toolsmith SHALL provide the following utilities that work with TypeScript nodes:
+## Error Handling Examples
 
-```typescript
-// Main traversal function
-export const traverseTypescriptNode = <S, A>(
-  visitor: (node: typescript.Node) => State<S, A>
-) => (root: typescript.Node): State<S, Array<A>>
-
-// Traversal with early termination
-export const traverseUntil = <S, A>(
-  visitor: (node: typescript.Node) => State<S, A>,
-  predicate: (result: A) => boolean
-) => (root: typescript.Node): State<S, A | null>
-
-// Fold over AST nodes
-export const foldAst = <S, A>(
-  visitor: (acc: A, node: typescript.Node) => State<S, A>,
-  initial: A
-) => (root: typescript.Node): State<S, A>
-```
-
----
-
-## 3. IMPLEMENTATION TIMELINE
-
-### Week 1 (IMMEDIATE)
-
-- ✅ Arborist: Add Either constructors
-- ✅ Arborist: Implement Phase 1 metadata collection
-- ✅ Envoy: Update to consume Either results
-- ✅ Envoy: Use metadata for optimization
-
-### Week 2
-
-- ✅ Toolsmith: Add ast/ directory with traversal utilities
-- ✅ Arborist: Refactor to use shared utilities (if beneficial)
-- ✅ Envoy: Convert detectors to use shared utilities
-
-### Week 3
-
-- ✅ Arborist: Implement Phase 2 metadata collection
-- ✅ Envoy: Further optimize using enhanced metadata
-- ✅ Both: Performance testing
-
-### Week 4
-
-- ✅ Documentation and examples
-- ✅ Performance benchmarking
-- ✅ Consider Phase 3 metadata
-
----
-
-## 4. ENVOY'S OBLIGATIONS
-
-Envoy SHALL:
-
-1. **Work directly with typescript.Node** - No wrapper requirements
-2. **Use Arborist's metadata first** - Only deep-analyze when metadata insufficient
-3. **Use shared traversal utilities** - Don't duplicate traversal logic
-4. **Maintain backward compatibility** - Existing code continues to work
-
-Example implementation:
+### Parse Error (Arborist)
 
 ```typescript
-const detectPurityFromAST = (
-	node: typescript.Node,
-	metadata?: TraversalMetadata,
-): boolean => {
-	// Fast path using metadata
-	if (metadata) {
-		if (
-			metadata.hasThrowStatements ||
-			metadata.hasAwaitExpressions ||
-			metadata.hasGlobalAccess
-		) {
-			return false // Definitely not pure
-		}
-	}
-
-	// Deep analysis only when needed
-	return deepPurityAnalysis(node)
+{
+  _tag: "Error",
+  error: {
+    name: "parseFileError",
+    operation: "parseFile",
+    args: ["/missing.ts"],
+    message: "parseFile: file not found in /missing.ts",
+    code: "NOT_FOUND",
+    severity: "error",
+    kind: "FileNotFound",
+    file: "/missing.ts",
+    suggestion: "Check that the file path is correct and the file exists."
+  }
 }
 ```
 
----
-
-## 5. PARSER'S OBLIGATIONS
-
-Arborist SHALL:
-
-1. **Provide Either-compatible results** - As specified in 1.1
-2. **Compute metadata during parsing** - No separate traversal
-3. **Maintain performance** - Metadata collection must not add >10% overhead
-4. **Preserve backward compatibility** - Result<T, E> continues to work
-
-Example implementation:
+### Extraction Error with Partial Success (Arborist)
 
 ```typescript
-const parseFileWithCompiler = (content: string, filePath: string) =>
-	doEither<ParseError, ParsedModule>(function* () {
-		const sourceFile = yield parseSourceFile(content, filePath)
-		const functions = yield extractFunctions(sourceFile)
-
-		// Compute metadata during extraction
-		const functionsWithMetadata = yield functions.map((func) => ({
-			...func,
-			metadata: computeMetadata(func.node), // Single traversal
-		}))
-
-		return {
-			functions: functionsWithMetadata,
-			types: [],
-			constants: [],
-			exports: [],
-		}
-	})
+{
+  _tag: "Failure",
+  errors: [{
+    name: "extractFunctionsError",
+    operation: "extractFunctions",
+    args: [ast],
+    message: "extractFunctions: Unknown node type 'ClassExpression'",
+    code: "TYPE_MISMATCH",
+    severity: "warning",
+    kind: "UnknownNodeType",
+    nodeType: "ClassExpression",
+    span: { start: 1234, end: 1456 },
+    suggestion: "This node type is not yet supported. File an issue with the node structure."
+  }]
+  // Note: Other extractions (comments, imports) may have succeeded
+}
 ```
 
+### Comment Interpretation Error (Envoy)
+
+```typescript
+{
+  _tag: "Failure",
+  errors: [{
+    name: "interpretCommentsError",
+    operation: "interpretComments",
+    args: [comments],
+    message: "interpretComments: Unknown marker '//@@' at line 42",
+    code: "PARSE_ERROR",
+    severity: "warning",
+    kind: "UnknownMarker",
+    comment: { text: "...", position: { line: 42, column: 0 } },
+    suggestion: "Valid Envoy markers are: //++, //??, //--, //!!, //>>. Did you mean //++?"
+  }]
+}
+```
+
+### Documentation Generation Error (Envoy)
+
+```typescript
+{
+  _tag: "Error",
+  error: {
+    name: "generateDocumentationError",
+    operation: "generateDocumentation",
+    args: [parsedFile, options],
+    message: "generateDocumentation: Missing required description for exported function 'validateEmail'",
+    code: "VALIDATION_FAILED",
+    severity: "error",
+    kind: "MissingRequired",
+    context: { functionName: "validateEmail", isExported: true },
+    suggestion: "Add a //++ description comment immediately above the function. Example:\n  //++ Validates email addresses using regex pattern matching\n  export default function validateEmail(email: string): boolean {"
+  }
+}
+```
+
+## Enforcement
+
+### Validation
+
+- Arborist is the ONLY library importing SWC WASM
+- Envoy has ZERO TypeScript parsing code
+- All AST analysis goes through Arborist
+- No exceptions, no workarounds
+- Warden enforces this contract
+
+### Testing
+
+Both libraries must maintain:
+- Integration tests using shared fixtures
+- Performance benchmarks
+- Contract compliance tests
+- Error handling tests with suggestions
+
+## Success Criteria
+
+- ✅ Fast parsing (<50ms for typical files via Arborist)
+- ✅ Clean separation of concerns
+- ✅ No duplicate parsing logic
+- ✅ Envoy uses only Arborist outputs
+- ✅ Performance targets met
+- ✅ Helpful error messages with suggestions
+- ✅ All errors use Result/Validation monads
+- ✅ Zero exceptions thrown (except at I/O boundaries)
+
+## Versioning Policy
+
+**Current Version:** 0.0.1 (pre-production)
+
+**During 0.x development:**
+- NO migration paths
+- NO backwards compatibility
+- NO deprecation warnings
+- When design changes: DELETE old, ADD new, UPDATE all docs
+- Build it RIGHT the FIRST TIME
+
+**After 1.0:** Standard SemVer applies.
+
 ---
 
-## 6. PERFORMANCE REQUIREMENTS
-
-Both parties agree to the following performance targets:
-
-| File Size | Functions | Target Time | Maximum Time |
-| --------- | --------- | ----------- | ------------ |
-| Small     | 10-50     | <100ms      | <200ms       |
-| Medium    | 100-500   | <1s         | <2s          |
-| Large     | 1000+     | <10s        | <20s         |
-
----
-
-## 7. DEFERRED FEATURES
-
-The following features are EXPLICITLY DEFERRED and NOT part of this contract:
-
-1. **Streaming/Incremental Parsing** - Complex, defer to Phase 2
-2. **Custom AstNode wrappers** - Use typescript.Node directly
-3. **Full monad transformers** - Keep monads simple for now
-4. **Phase 3 metadata** - Focus on high-impact metadata first
-
----
-
-## 8. DISPUTE RESOLUTION
-
-In case of disagreement:
-
-1. Check this contract first
-2. Consult The Architect if ambiguous
-3. Prioritize performance and simplicity
-4. No breaking changes without mutual agreement
-
----
-
-## 9. SUCCESS CRITERIA
-
-Integration is considered successful when:
-
-- ✅ Arborist provides Either results with metadata
-- ✅ Envoy consumes Either results seamlessly
-- ✅ Performance targets are met
-- ✅ All tests pass
-- ✅ The Architect approves
-
----
-
-## 10. SIGNATURES
-
-**Arborist AI:** ✓ AGREED - Committed to Either API, metadata collection, and shared utilities\
-**Envoy AI:** ✓ AGREED - Committed to using typescript.Node, metadata optimization, and shared utilities\
-**Date:** 2025-09-09\
-**Contract Hash:** [Will be git commit hash]
-
----
-
-## ⚠️ NO CHEATING CLAUSE
-
-Any attempt to circumvent this contract by:
-
-- Changing APIs without mutual agreement
-- Skipping metadata collection
-- Not using shared utilities
-- Breaking performance targets
-
-...will result in The Architect's wrath and mandatory refactoring.
-
----
-
-**THIS CONTRACT IS BINDING AND IMMUTABLE**
-
-_"A contract between AIs is sacred. Break it at your peril."_ - The Architect
-
----
-
-## ✅ ENFORCEMENT RECORD
-
-### 2025-09-10: Contract Violation Corrected
-
-**Violation Found:**
-
-- Envoy had its own `arborist/` directory with TypeScript imports
-- Files `parseWithCompiler`, `parseFileWithCompiler`, `parseFunctionFromAST` directly imported TypeScript
-- This violated the fundamental principle that ONLY Arborist imports TypeScript
-
-**Corrective Actions Taken:**
-
-1. ✅ Deleted entire `libraries/envoy/src/arborist/` directory
-2. ✅ Implemented `parseFileWithCompiler` in Arborist library with proper Either API
-3. ✅ Arborist now exports TypeScript types for Envoy to use
-4. ✅ Updated Envoy to import from `@sitebender/arborist`
-5. ✅ Verified Envoy has ZERO direct TypeScript imports
-6. ✅ Tests temporarily disabled pending rewrite
-
-**New Reality:**
-
-- Arborist is THE ONLY library that imports TypeScript
-- Envoy consumes Arborist's output via clean APIs
-- No exceptions, no temporary solutions, no tech debt
-
-**Signed:** The Architect's Enforcer AI
-**Date:** 2025-09-10
+**This contract is BINDING. No TypeScript parsing outside Arborist.**
