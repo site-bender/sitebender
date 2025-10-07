@@ -242,31 +242,47 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: RFC 1034/1035 with RFC 1123 updates + RFC 5890 (IDN) - full Unicode support with Punycode conflict detection
 **Location**: `newtypes/webTypes/domain/`
 
-### ⏸️ Hostname
+### ✅ Hostname
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `hostname()` (validates hostname)
-- [ ] Unsafe constructor `unsafeHostname()`
-- [ ] Unwrap function `unwrapHostname()`
-- [ ] Type predicate `_isHostname()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `hostname()` (validates hostname)
+- [x] Unsafe constructor `unsafeHostname()`
+- [x] Unwrap function `unwrapHostname()`
+- [x] Type predicate `_isHostname()`
+- [x] All tests passing (62 tests)
 
-**Validation**: Valid hostname (domain or localhost)
+**Validation**: Valid hostname - domain name, localhost, IPv4 address, or IPv6 address
+**Location**: `newtypes/webTypes/hostname/`
+**Notes**:
+- Checks IPv4/IPv6 before domain to avoid accepting malformed IP addresses as domains
+- Normalizes localhost to lowercase using `toLocaleLowerCase()`
+- Normalizes domains to canonical form (NFC + toLowerCase)
+- Normalizes IPv6 addresses to canonical form per RFC 5952
+- IPv4 addresses preserved as-is
+- All-numeric domains like "192.168.1.256" are accepted (valid domains, not IP addresses)
 
 ---
 
-## Batch 4: String Types - Identifiers (NOT STARTED)
+## Batch 4: String Types - Identifiers (IN PROGRESS)
 
-### ⏸️ Uuid
+### ✅ Uuid
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `uuid()` (validates UUID format)
-- [ ] Unsafe constructor `unsafeUuid()`
-- [ ] Unwrap function `unwrapUuid()`
-- [ ] Type predicate `_isUuid()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `uuid()` (validates RFC 4122 format, normalizes to lowercase)
+- [x] Unsafe constructor `unsafeUuid()`
+- [x] Unwrap function `unwrapUuid()`
+- [x] Type predicate `_isUuid()`
+- [x] Helper: `_validateUuidFormat()` (validates 8-4-4-4-12 structure)
+- [x] Helper: `_normalizeUuid()` (converts to canonical lowercase form)
+- [x] All tests passing (92 tests)
 
-**Validation**: UUID v4 format (8-4-4-4-12 hex with hyphens)
+**Validation**: RFC 4122 UUID format (8-4-4-4-12 hexadecimal with hyphens) - accepts all versions (v1, v4, v5, etc.)
+**Location**: `newtypes/stringTypes/uuid/`
+**Notes**:
+- Case-insensitive input, normalized to lowercase using `toLocaleLowerCase()`
+- Accepts all UUID versions (v1, v4, v5, nil UUID)
+- Strict format validation (exactly 36 characters with hyphens at positions 8, 13, 18, 23)
+- No support for Microsoft GUID format (with braces) or URN prefix
 
 ### ⏸️ Isbn10
 
