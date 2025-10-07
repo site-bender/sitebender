@@ -1,6 +1,6 @@
 # Arborist API Output for Envoy
 
-Exact data structures Envoy receives from Arborist using SWC-based parsing.
+Exact data structures Envoy receives from Arborist using SWC WASM parsing.
 
 ## Example 1: Simple Pure Function
 
@@ -25,58 +25,63 @@ export default function validateEmail(email: string): boolean {
 {
 	function: {
 		name: "validateEmail",
+		position: { line: 2, column: 0 },
 		span: { start: 73, end: 215 },
-		isAsync: false,
-		isGenerator: false,
-		isArrow: false,
-		params: [
+		parameters: [
 			{
 				name: "email",
+				type: "string",
 				optional: false,
-				typeText: "string",
-				span: { start: 104, end: 117 }
+				defaultValue: undefined
 			}
 		],
-		returnTypeText: "boolean",
-		typeParams: []
+		returnType: "boolean",
+		typeParameters: [],
+		modifiers: {
+			isExported: true,
+			isDefault: true,
+			isAsync: false,
+			isGenerator: false,
+			isArrow: false
+		},
+		body: {
+			hasReturn: true,
+			hasThrow: false,
+			hasAwait: false,
+			hasTryCatch: false,
+			hasLoops: false,
+			cyclomaticComplexity: 1
+		}
 	},
 	comments: [
 		{
-			kind: "line",
 			text: "Validates email address using regex pattern matching",
-			fullText: "//++ Validates email address using regex pattern matching",
-			start: 0,
-			end: 58,
-			line: 1,
-			column: 1,
-			nodeId: "validateEmail"
+			position: { line: 1, column: 0 },
+			span: { start: 0, end: 58 },
+			kind: "line",
+			envoyMarker: { marker: "++" },
+			associatedNode: "validateEmail"
 		},
 		{
-			kind: "line",
 			text: "[EXAMPLE] validateEmail(\"test@example.com\") // true",
-			fullText: "//?? [EXAMPLE] validateEmail(\"test@example.com\") // true",
-			start: 217,
-			end: 274,
-			line: 7,
-			column: 1
+			position: { line: 7, column: 0 },
+			span: { start: 217, end: 274 },
+			kind: "line",
+			envoyMarker: { marker: "??" }
 		},
 		{
-			kind: "line",
 			text: "[EXAMPLE] validateEmail(\"invalid-email\") // false",
-			fullText: "//?? [EXAMPLE] validateEmail(\"invalid-email\") // false",
-			start: 276,
-			end: 331,
-			line: 8,
-			column: 1
+			position: { line: 8, column: 0 },
+			span: { start: 276, end: 331 },
+			kind: "line",
+			envoyMarker: { marker: "??" }
 		},
 		{
-			kind: "line",
 			text: "[GOTCHA] Does not validate against disposable email providers",
-			fullText: "//?? [GOTCHA] Does not validate against disposable email providers",
-			start: 333,
-			end: 400,
-			line: 9,
-			column: 1
+			position: { line: 9, column: 0 },
+			span: { start: 333, end: 400 },
+			kind: "line",
+			envoyMarker: { marker: "??" }
 		}
 	]
 }
@@ -114,32 +119,34 @@ export async function fetchUser(id: number): Promise<User | null> {
 {
 	function: {
 		name: "fetchUser",
+		position: { line: 2, column: 0 },
 		span: { start: 52, end: 334 },
-		isAsync: true,
-		isGenerator: false,
-		isArrow: false,
-		params: [
+		parameters: [
 			{
 				name: "id",
+				type: "number",
 				optional: false,
-				typeText: "number",
-				span: { start: 84, end: 94 }
+				defaultValue: undefined
 			}
 		],
-		returnTypeText: "Promise<User | null>",
-		typeParams: []
-	},
-	branches: [
-		{
-			kind: "if",
-			span: { start: 183, end: 234 },
-			consequent: { start: 203, end: 234 }
+		returnType: "Promise<User | null>",
+		typeParameters: [],
+		modifiers: {
+			isExported: true,
+			isDefault: false,
+			isAsync: true,
+			isGenerator: false,
+			isArrow: false
 		},
-		{
-			kind: "try",
-			span: { start: 122, end: 332 }
+		body: {
+			hasReturn: true,
+			hasThrow: true,
+			hasAwait: true,
+			hasTryCatch: true,
+			hasLoops: false,
+			cyclomaticComplexity: 2
 		}
-	]
+	}
 }
 ```
 
@@ -165,26 +172,39 @@ export function createAdder<T extends number>(base: T): (value: T) => T {
 {
 	function: {
 		name: "createAdder",
+		position: { line: 2, column: 0 },
 		span: { start: 49, end: 179 },
-		isAsync: false,
-		isGenerator: false,
-		isArrow: false,
-		params: [
+		parameters: [
 			{
 				name: "base",
+				type: "T",
 				optional: false,
-				typeText: "T",
-				span: { start: 96, end: 103 }
+				defaultValue: undefined
 			}
 		],
-		returnTypeText: "(value: T) => T",
-		typeParams: [
+		returnType: "(value: T) => T",
+		typeParameters: [
 			{
 				name: "T",
-				constraintText: "number",
-				defaultText: undefined
+				constraint: "number",
+				default: undefined
 			}
-		]
+		],
+		modifiers: {
+			isExported: true,
+			isDefault: false,
+			isAsync: false,
+			isGenerator: false,
+			isArrow: false
+		},
+		body: {
+			hasReturn: true,
+			hasThrow: false,
+			hasAwait: false,
+			hasTryCatch: false,
+			hasLoops: false,
+			cyclomaticComplexity: 1
+		}
 	}
 }
 ```
@@ -213,104 +233,37 @@ export function* generateIds(): Generator<number, void, unknown> {
 {
 	function: {
 		name: "generateIds",
+		position: { line: 2, column: 0 },
 		span: { start: 46, end: 149 },
-		isAsync: false,
-		isGenerator: true,
-		isArrow: false,
-		params: [],
-		returnTypeText: "Generator<number, void, unknown>",
-		typeParams: []
-	},
-	branches: [
-		{
-			kind: "logical",
-			span: { start: 131, end: 135 }
-		}
-	]
-}
-```
-
-## Example 5: Arrow Function with Generics
-
-**Source:**
-
-```typescript
-//++ Processes array items with transformation
-export const processItems = async <T, U>(
-	items: ReadonlyArray<T>,
-	transform: (item: T) => Promise<U>,
-): Promise<Array<U>> => {
-	const results: Array<U> = []
-
-	for (const item of items) {
-		try {
-			const transformed = await transform(item)
-			results.push(transformed)
-		} catch (error) {
-			continue
+		parameters: [],
+		returnType: "Generator<number, void, unknown>",
+		typeParameters: [],
+		modifiers: {
+			isExported: true,
+			isDefault: false,
+			isAsync: false,
+			isGenerator: true,
+			isArrow: false
+		},
+		body: {
+			hasReturn: false,
+			hasThrow: false,
+			hasAwait: false,
+			hasTryCatch: false,
+			hasLoops: true,
+			cyclomaticComplexity: 2
 		}
 	}
-
-	return results
-}
-
-//?? [EXAMPLE] const numbers = await processItems([1, 2, 3], async (x) => x * 2)
-```
-
-**Arborist Output:**
-
-```typescript
-{
-	function: {
-		name: "processItems",
-		span: { start: 47, end: 356 },
-		isAsync: true,
-		isGenerator: false,
-		isArrow: true,
-		params: [
-			{
-				name: "items",
-				optional: false,
-				typeText: "ReadonlyArray<T>",
-				span: { start: 90, end: 113 }
-			},
-			{
-				name: "transform",
-				optional: false,
-				typeText: "(item: T) => Promise<U>",
-				span: { start: 116, end: 150 }
-			}
-		],
-		returnTypeText: "Promise<Array<U>>",
-		typeParams: [
-			{
-				name: "T",
-				constraintText: undefined,
-				defaultText: undefined
-			},
-			{
-				name: "U",
-				constraintText: undefined,
-				defaultText: undefined
-			}
-		]
-	},
-	branches: [
-		{
-			kind: "try",
-			span: { start: 236, end: 324 }
-		}
-	]
 }
 ```
 
-## Example 6: Type Guard Function
+## Example 5: Type Guard Function
 
 **Source:**
 
 ```typescript
 //++ Checks if value is defined (not null or undefined)
-export const isDefined = <T>(value: T | undefined | null): value is T => {
+export function isDefined<T>(value: T | undefined | null): value is T {
 	return value !== undefined && value !== null
 }
 
@@ -324,33 +277,94 @@ export const isDefined = <T>(value: T | undefined | null): value is T => {
 {
 	function: {
 		name: "isDefined",
+		position: { line: 2, column: 0 },
 		span: { start: 56, end: 177 },
-		isAsync: false,
-		isGenerator: false,
-		isArrow: true,
-		params: [
+		parameters: [
 			{
 				name: "value",
+				type: "T | undefined | null",
 				optional: false,
-				typeText: "T | undefined | null",
-				span: { start: 82, end: 110 }
+				defaultValue: undefined
 			}
 		],
-		returnTypeText: "value is T",
-		typeParams: [
+		returnType: "value is T",
+		typeParameters: [
 			{
 				name: "T",
-				constraintText: undefined,
-				defaultText: undefined
+				constraint: undefined,
+				default: undefined
+			}
+		],
+		modifiers: {
+			isExported: true,
+			isDefault: false,
+			isAsync: false,
+			isGenerator: false,
+			isArrow: false
+		},
+		body: {
+			hasReturn: true,
+			hasThrow: false,
+			hasAwait: false,
+			hasTryCatch: false,
+			hasLoops: false,
+			cyclomaticComplexity: 1
+		}
+	}
+}
+```
+
+## Error Handling Example
+
+**Parse Error:**
+
+```typescript
+const result = await parseFile("/missing/file.ts")
+
+// Result structure
+{
+	_tag: "Error",
+	error: {
+		name: "parseFileError",
+		operation: "parseFile",
+		args: ["/missing/file.ts"],
+		message: "parseFile: file not found in /missing/file.ts",
+		code: "NOT_FOUND",
+		severity: "error",
+		kind: "FileNotFound",
+		file: "/missing/file.ts",
+		suggestion: "Check that the file path is correct and the file exists. Run 'ls -la /missing/' to verify."
+	}
+}
+```
+
+**Extraction Error with Partial Success:**
+
+```typescript
+const result = await parseFile("/src/module.ts")
+
+if (result._tag === "Ok") {
+	const validation = buildParsedFile(result.value)("/src/module.ts")
+
+	// If some extractions fail
+	{
+		_tag: "Failure",
+		errors: [
+			{
+				name: "extractFunctionsError",
+				operation: "extractFunctions",
+				message: "extractFunctions: Unknown node type 'ClassExpression' at position 1234",
+				code: "TYPE_MISMATCH",
+				severity: "warning",
+				kind: "UnknownNodeType",
+				nodeType: "ClassExpression",
+				span: { start: 1234, end: 1456 },
+				suggestion: "This AST node type is not yet supported. Please file an issue with the node structure."
 			}
 		]
-	},
-	branches: [
-		{
-			kind: "logical",
-			span: { start: 135, end: 175 }
-		}
-	]
+		// Note: Other extractions (comments, imports) may have succeeded
+		// Check individual extraction functions for partial data
+	}
 }
 ```
 
@@ -358,21 +372,21 @@ export const isDefined = <T>(value: T | undefined | null): value is T => {
 
 1. **Syntax-Level Data** - All type information is textual, not semantic
 2. **Precise Spans** - Exact character positions for all elements
-3. **Comment Structure** - Raw comments with positions, no interpretation
-4. **Branch Analysis** - Conditional paths for complexity metrics
-5. **No TypeScript AST** - Pure SWC structures via deno_ast
+3. **Comment Structure** - Raw comments with positions, Envoy interprets markers
+4. **Body Analysis** - Cyclomatic complexity and pattern flags for metrics
+5. **Monadic Errors** - Result for parse, Validation for extraction
+6. **Helpful Suggestions** - All errors include actionable guidance
 
 **Envoy receives:**
-
-- Function metadata (name, flags, spans)
+- Function metadata (name, flags, spans, positions)
 - Parameter and return type text
 - Generic type parameter text
-- Raw comments with positions
-- Branch information for complexity
+- Raw comments with Envoy markers detected
+- Body analysis for complexity metrics
+- Helpful error messages when issues occur
 
 **Envoy does NOT receive:**
-
-- TypeScript compiler nodes
+- SWC AST nodes
 - Semantic type information
 - Inferred types
 - Symbol tables
