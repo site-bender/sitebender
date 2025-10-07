@@ -4,7 +4,7 @@ import type { Integer } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import _isInteger from "@sitebender/toolsmith/newtypes/integer/_isInteger/index.ts"
+import _isInteger from "./_isInteger/index.ts"
 import {
 	MAX_SAFE_INTEGER,
 	MIN_SAFE_INTEGER,
@@ -13,7 +13,7 @@ import {
 //++ Smart constructor that validates and creates an Integer - returns Result with helpful error on failure
 export default function integer(n: number): Result<ValidationError, Integer> {
 	if (_isInteger(n)) {
-		return ok(n)
+		return ok(n as Integer)
 	}
 
 	return error({
