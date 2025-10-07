@@ -42,3 +42,6 @@ export type Iri = Brand<string, "Iri">
 
 //++ IPv4 address in dotted decimal notation (4 octets 0-255)
 export type Ipv4Address = Brand<string, "Ipv4Address">
+
+//++ IPv6 address following RFC 4291 with canonical normalization per RFC 5952
+export type Ipv6Address = Brand<string, "Ipv6Address">
