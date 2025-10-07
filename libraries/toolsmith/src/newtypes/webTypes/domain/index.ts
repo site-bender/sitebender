@@ -20,11 +20,27 @@ export default function domain(
 	}
 
 	const labels = value.split(".")
-	for (const label of labels) {
-		const labelResult = _validateDomainLabel(label)
-		if (labelResult._tag === "Error") {
-			return labelResult
-		}
+	const labelError = labels.reduce(
+		function validateLabel(
+			acc: Result<ValidationError, string>,
+			label: string,
+		): Result<ValidationError, string> {
+			if (acc._tag === "Error") {
+				return acc
+			}
+
+			const labelResult = _validateDomainLabel(label)
+			if (labelResult._tag === "Error") {
+				return labelResult
+			}
+
+			return acc
+		},
+		ok(value) as Result<ValidationError, string>,
+	)
+
+	if (labelError._tag === "Error") {
+		return labelError
 	}
 
 	const normalized = _normalize(value)
