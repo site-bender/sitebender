@@ -27,3 +27,42 @@ export const PERCENT_MAX = 1
 
 //++ Number of decimal places for Percent type
 export const PERCENT_SCALE = 4
+
+//++ Maximum length for complete email address
+export const EMAIL_ADDRESS_MAX_LENGTH = 254
+
+//++ Maximum length for email local part (before @)
+export const EMAIL_ADDRESS_LOCAL_MAX_LENGTH = 64
+
+//++ Maximum length for email domain part (after @)
+export const EMAIL_ADDRESS_DOMAIN_MAX_LENGTH = 253
+
+//++ Maximum length for each domain label
+export const EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH = 63
+
+//++ Maximum length for complete URL (browser standard)
+export const URL_MAX_LENGTH = 2048
+
+//++ Maximum length for complete URI (same as URL)
+export const URI_MAX_LENGTH = 2048
+
+//++ Maximum length for URI scheme
+export const URI_SCHEME_MAX_LENGTH = 64
+
+//++ Maximum length for URL domain part
+export const URL_DOMAIN_MAX_LENGTH = 253
+
+//++ Maximum length for each URL domain label
+export const URL_DOMAIN_LABEL_MAX_LENGTH = 63
+
+//++ Minimum valid port number
+export const URL_PORT_MIN = 1
+
+//++ Maximum valid port number
+export const URL_PORT_MAX = 65535
+
+//++ Maximum length for complete IRI (larger than URI due to Unicode)
+export const IRI_MAX_LENGTH = 8192
+
+//++ Maximum length for IRI scheme
+export const IRI_SCHEME_MAX_LENGTH = 64
