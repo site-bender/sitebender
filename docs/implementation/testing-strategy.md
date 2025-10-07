@@ -1,0 +1,1 @@
+# Sitebender Studio - Testing Strategy
