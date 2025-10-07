@@ -34,7 +34,7 @@ interface Error<E> {
 //++ Parses file - fails fast on I/O or syntax errors
 export default async function parseFile(
 	filePath: string,
-): Promise<Result<ParseError, ParsedAST>> {
+): Promise<Result<ParseError, ParsedAst>> {
 	// If file read fails, return immediately
 	// If parse fails, return immediately
 	// Can't extract from missing/broken file
@@ -70,7 +70,7 @@ interface Failure<E> {
 ```typescript
 //++ Extracts functions - accumulates all extraction errors
 export default function extractFunctions(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>> {
 	// Function 1 fails → accumulate error, continue
 	// Function 2 succeeds → accumulate result
@@ -167,40 +167,40 @@ export type ParseError = ArchitectError<"parseFile", [string]> & {
 ### Extraction Errors
 
 ```typescript
-export type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAST]> & {
+export type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAst]> & {
 	readonly kind: "UnknownNodeType" | "MissingIdentifier" | "InvalidParameterStructure"
 	readonly nodeType?: string
 	readonly span?: Span
 }
 
-export type CommentExtractionError = ArchitectError<"extractComments", [ParsedAST]> & {
+export type CommentExtractionError = ArchitectError<"extractComments", [ParsedAst]> & {
 	readonly kind: "MalformedComment" | "InvalidPosition"
 	readonly span?: Span
 }
 
-export type ImportExtractionError = ArchitectError<"extractImports", [ParsedAST]> & {
+export type ImportExtractionError = ArchitectError<"extractImports", [ParsedAst]> & {
 	readonly kind: "InvalidSpecifier" | "UnknownImportKind"
 	readonly specifier?: string
 	readonly span?: Span
 }
 
-export type ExportExtractionError = ArchitectError<"extractExports", [ParsedAST]> & {
+export type ExportExtractionError = ArchitectError<"exportExports", [ParsedAst]> & {
 	readonly kind: "InvalidExportName" | "UnknownExportKind"
 	readonly exportName?: string
 	readonly span?: Span
 }
 
-export type TypeExtractionError = ArchitectError<"extractTypes", [ParsedAST]> & {
+export type TypeExtractionError = ArchitectError<"extractTypes", [ParsedAst]> & {
 	readonly kind: "UnknownTypeKind" | "MissingTypeName"
 	readonly span?: Span
 }
 
-export type ConstantExtractionError = ArchitectError<"extractConstants", [ParsedAST]> & {
+export type ConstantExtractionError = ArchitectError<"extractConstants", [ParsedAst]> & {
 	readonly kind: "NotConstant" | "MissingValue"
 	readonly span?: Span
 }
 
-export type ViolationDetectionError = ArchitectError<"detectViolations", [ParsedAST]> & {
+export type ViolationDetectionError = ArchitectError<"detectViolations", [ParsedAst]> & {
 	readonly kind: "TraversalFailed"
 	readonly nodeType?: string
 }
@@ -368,7 +368,7 @@ try {
 When using Validation for extraction, support partial success:
 
 ```typescript
-export default function buildParsedFile(ast: ParsedAST) {
+export default function buildParsedFile(ast: ParsedAst) {
 	return function buildFromAST(filePath: string): Validation<ExtractionError, ParsedFile> {
 		const functionsV = extractFunctions(ast)
 		const commentsV = extractComments(ast)
@@ -426,7 +426,7 @@ const output = foldResult(
 		}
 		return null
 	},
-)(function handleParsedAST(ast: ParsedAST) {
+)(function handleParsedAst(ast: ParsedAst) {
 	const validation = buildParsedFile(ast)("./src/module.ts")
 
 	return foldValidation(
@@ -460,7 +460,7 @@ import { fold as foldV } from "@sitebender/toolsmith/monads/validation/fold"
 
 const result = await parseFile("./src/module.ts")
 
-fold(handleParseError)(function(ast: ParsedAST) {
+fold(handleParseError)(function(ast: ParsedAst) {
 	// Only extract what we need
 	const functionsV = extractFunctions(ast)
 
@@ -481,7 +481,7 @@ fold(handleParseError)(function(ast: ParsedAST) {
 ```typescript
 const result = await parseFile("./src/module.ts")
 
-fold(handleParseError)(function(ast: ParsedAST) {
+fold(handleParseError)(function(ast: ParsedAst) {
 	const functionsV = extractFunctions(ast)
 	const commentsV = extractComments(ast)
 	const violationsV = detectViolations(ast)

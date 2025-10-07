@@ -38,7 +38,7 @@ See `error-handling.md` for complete documentation.
 //++ Returns Result monad for fail-fast error handling
 export default async function parseFile(
 	filePath: string,
-): Promise<Result<ParseError, ParsedAST>> {
+): Promise<Result<ParseError, ParsedAst>> {
 	try {
 		// Ensure SWC WASM is initialized
 		await ensureSwcInitialized()
@@ -80,7 +80,7 @@ All errors include helpful suggestions.
 //++ Discovers all functions in SWC module
 //++ Returns Validation to accumulate extraction errors
 export default function extractFunctions(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>> {
 	// Collect all function nodes from AST
 	const functionNodes = collectNodes(ast.module, isFunctionNode)
@@ -168,7 +168,7 @@ function extractFunctionMetadata(
 //++ Extracts all comments with position data
 //++ Detects Envoy markers but does not interpret them
 export default function extractComments(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>> {
 	// SWC provides comments as part of the parsing result
 	// We need to traverse and extract them with position info
@@ -213,7 +213,7 @@ export default function extractComments(
 ```typescript
 //++ Extracts all import statements
 export default function extractImports(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>> {
 	const importNodes = collectNodes(ast.module, isImportNode)
 
@@ -264,7 +264,7 @@ export default function extractImports(
 ```typescript
 //++ Analyzes code for constitutional violations
 export default function detectViolations(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ViolationDetectionError, ViolationInfo> {
 	const violations: ViolationInfo = {
 		hasArrowFunctions: false,
@@ -407,7 +407,7 @@ function createFileNotFoundError(filePath: string) {
 }
 
 // Extraction error with failed argument context
-function createUnknownNodeError(nodeType: string, ast: ParsedAST) {
+function createUnknownNodeError(nodeType: string, ast: ParsedAst) {
 	return pipe(
 		fromTemplate("typeMismatch")("extractFunctions")([ast])(
 			"FunctionDeclaration or FunctionExpression",
