@@ -4,11 +4,18 @@
 import { assert } from "jsr:@std/assert@1.0.14"
 
 import type {
+	CommentExtractionError,
+	ConstantExtractionError,
 	EnvoyMarker,
+	ExportExtractionError,
+	ExtractionError,
 	FunctionBody,
+	FunctionExtractionError,
 	FunctionModifiers,
 	ImportBinding,
+	ImportExtractionError,
 	Parameter,
+	ParsedAst,
 	ParsedComment as _ParsedComment,
 	ParsedConstant as _ParsedConstant,
 	ParsedExport as _ParsedExport,
@@ -19,7 +26,9 @@ import type {
 	ParseError,
 	Position,
 	Span,
+	TypeExtractionError,
 	TypeParameter,
+	ViolationDetectionError,
 	ViolationInfo,
 } from "./index.ts"
 
@@ -220,15 +229,123 @@ Deno.test("types - ParsedFile uses ReadonlyArray for all collections", () => {
 	file.functions.push({} as ParsedFunction)
 })
 
-Deno.test("types - ParseError has correct structure", () => {
+Deno.test("types - ParsedAst type structure", () => {
+	// Create a mock ParsedAst (we can't create a real Module without parsing)
+	const ast: ParsedAst = {
+		module: {} as unknown,
+		sourceText: "export function test() {}",
+		filePath: "/test/fixture.ts",
+	} as ParsedAst
+
+	assert(ast.sourceText === "export function test() {}")
+	assert(ast.filePath === "/test/fixture.ts")
+
+	// @ts-expect-error: Cannot assign to 'sourceText' because it is a read-only property
+	ast.sourceText = "changed"
+})
+
+Deno.test("types - ParseError extends ArchitectError", () => {
+	// ParseError should have ArchitectError fields plus specific fields
 	const error: ParseError = {
-		_tag: "ParseError",
-		message: "test error",
-		file: "test.ts",
-		line: 1,
-		column: 1,
+		name: "parseFileError",
+		operation: "parseFile",
+		args: ["/test/file.ts"],
+		message: "parseFile: file not found",
+		code: "NOT_FOUND",
+		severity: "error",
+		kind: "FileNotFound",
+		file: "/test/file.ts",
+		line: 42,
+		column: 15,
+		suggestion: "Check that the file exists",
 	}
 
-	assert(error._tag === "ParseError")
-	assert(error.message === "test error")
+	assert(error.name === "parseFileError")
+	assert(error.operation === "parseFile")
+	assert(error.kind === "FileNotFound")
+	assert(error.file === "/test/file.ts")
+})
+
+Deno.test("types - ParseError kind discriminants", () => {
+	const error1: ParseError = {
+		name: "parseFileError",
+		operation: "parseFile",
+		args: ["/test.ts"],
+		message: "test",
+		code: "NOT_FOUND",
+		severity: "error",
+		kind: "FileNotFound",
+		file: "/test.ts",
+	}
+
+	const error2: ParseError = {
+		name: "parseFileError",
+		operation: "parseFile",
+		args: ["/test.ts"],
+		message: "test",
+		code: "PARSE_ERROR",
+		severity: "error",
+		kind: "InvalidSyntax",
+		file: "/test.ts",
+		line: 10,
+		column: 5,
+	}
+
+	assert(error1.kind === "FileNotFound")
+	assert(error2.kind === "InvalidSyntax")
+})
+
+Deno.test("types - FunctionExtractionError structure", () => {
+	const error: FunctionExtractionError = {
+		name: "extractFunctionsError",
+		operation: "extractFunctions",
+		args: [],
+		message: "Unknown node type",
+		code: "TYPE_MISMATCH",
+		severity: "warning",
+		kind: "UnknownNodeType",
+		nodeType: "ClassExpression",
+		span: { start: 100, end: 200 },
+	}
+
+	assert(error.kind === "UnknownNodeType")
+	assert(error.nodeType === "ClassExpression")
+})
+
+Deno.test("types - ExtractionError union type", () => {
+	const functionError: ExtractionError = {
+		name: "extractFunctionsError",
+		operation: "extractFunctions",
+		args: [],
+		message: "test",
+		code: "TYPE_MISMATCH",
+		severity: "warning",
+		kind: "UnknownNodeType",
+	}
+
+	const commentError: ExtractionError = {
+		name: "extractCommentsError",
+		operation: "extractComments",
+		args: [],
+		message: "test",
+		code: "VALIDATION_FAILED",
+		severity: "warning",
+		kind: "MalformedComment",
+	}
+
+	assert(functionError.operation === "extractFunctions")
+	assert(commentError.operation === "extractComments")
+})
+
+Deno.test("types - All extraction error types exported", () => {
+	// Verify all error types can be imported and have correct structure
+	const _func: FunctionExtractionError = {} as FunctionExtractionError
+	const _comment: CommentExtractionError = {} as CommentExtractionError
+	const _import: ImportExtractionError = {} as ImportExtractionError
+	const _export: ExportExtractionError = {} as ExportExtractionError
+	const _type: TypeExtractionError = {} as TypeExtractionError
+	const _const: ConstantExtractionError = {} as ConstantExtractionError
+	const _violation: ViolationDetectionError = {} as ViolationDetectionError
+
+	assert(true) // TypeScript compilation success is the test
 })

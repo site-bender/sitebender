@@ -2,6 +2,16 @@
 // Core type definitions for Arborist AST parsing
 // All types copied from contract.ts and made available for internal use
 
+import type { Module } from "npm:@swc/wasm-web@1.13.20"
+
+//++ Wrapper around SWC Module with source metadata
+//++ This is the primary AST type returned by parseFile
+export type ParsedAst = Readonly<{
+	module: Module
+	sourceText: string
+	filePath: string
+}>
+
 //++ Position in source file (1-based line and column numbers)
 export type Position = Readonly<{
 	line: number
@@ -151,11 +161,15 @@ export type ParsedFile = Readonly<{
 	violations: ViolationInfo
 }>
 
-//++ Parse error information
-export type ParseError = Readonly<{
-	_tag: "ParseError"
-	message: string
-	file: string
-	line?: number
-	column?: number
-}>
+//++ Export all error types from errors/index.ts
+export type {
+	CommentExtractionError,
+	ConstantExtractionError,
+	ExportExtractionError,
+	ExtractionError,
+	FunctionExtractionError,
+	ImportExtractionError,
+	ParseError,
+	TypeExtractionError,
+	ViolationDetectionError,
+} from "./errors/index.ts"
