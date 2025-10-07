@@ -66,3 +66,9 @@ export const IRI_MAX_LENGTH = 8192
 
 //++ Maximum length for IRI scheme
 export const IRI_SCHEME_MAX_LENGTH = 64
+
+//++ Maximum length for standalone domain name per RFC 1035
+export const DOMAIN_MAX_LENGTH = 253
+
+//++ Maximum length for each domain label per RFC 1035
+export const DOMAIN_LABEL_MAX_LENGTH = 63
