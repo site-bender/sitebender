@@ -12,6 +12,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ## Batch 1: Numeric Types (COMPLETED ✅)
 
 ### ✅ Integer
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `integer()`
 - [x] Unsafe constructor `unsafeInteger()`
@@ -20,6 +21,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] All tests passing
 
 ### ✅ BigInteger
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `bigInteger()`
 - [x] Unsafe constructor `unsafeBigInteger()`
@@ -28,6 +30,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] All tests passing
 
 ### ✅ RealNumber
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `realNumber()`
 - [x] Unsafe constructor `unsafeRealNumber()`
@@ -36,6 +39,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] All tests passing
 
 ### ✅ OneDecimalPlace
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `oneDecimalPlace()`
 - [x] Unsafe constructor `unsafeOneDecimalPlace()`
@@ -48,6 +52,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] All tests passing
 
 ### ✅ TwoDecimalPlaces
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `twoDecimalPlaces()`
 - [x] Unsafe constructor `unsafeTwoDecimalPlaces()`
@@ -60,6 +65,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] All tests passing
 
 ### ✅ ThreeDecimalPlaces
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `threeDecimalPlaces()`
 - [x] Unsafe constructor `unsafeThreeDecimalPlaces()`
@@ -72,6 +78,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] All tests passing
 
 ### ✅ FourDecimalPlaces
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `fourDecimalPlaces()`
 - [x] Unsafe constructor `unsafeFourDecimalPlaces()`
@@ -88,6 +95,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ## Batch 2: Remaining Numeric Types (COMPLETED ✅)
 
 ### ✅ EightDecimalPlaces
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `eightDecimalPlaces()`
 - [x] Unsafe constructor `unsafeEightDecimalPlaces()`
@@ -103,6 +111,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Notes**: Used for cryptocurrencies with high precision (e.g., Bitcoin's satoshis)
 
 ### ✅ Percent
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `percent()` (validates 0-1 range)
 - [x] Unsafe constructor `unsafePercent()`
@@ -125,6 +134,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Note**: Batch 3 implementation included restructuring newtypes into `webTypes/` subfolder per the lowest common ancestor rule.
 
 ### ✅ EmailAddress
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Moved to `newtypes/webTypes/emailAddress/`
 - [x] Smart constructor `emailAddress()` (validates RFC 5321 + RFC 6531)
@@ -140,6 +150,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: RFC 5321 (SMTP) + RFC 6531 (internationalization) - full Unicode support including combining marks (\p{M}) for scripts like Hindi
 
 ### ✅ Url
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Moved to `newtypes/webTypes/url/`
 - [x] Smart constructor `url()` (validates URL with protocol and domain)
@@ -155,6 +166,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: RFC 3986 with restrictions - requires protocol:// and valid domain (no IP addresses), supports internationalized domains, full Unicode paths/query/fragment
 
 ### ✅ Uri
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Location: `newtypes/webTypes/uri/`
 - [x] Smart constructor `uri()` (validates URI syntax per RFC 3986)
@@ -171,6 +183,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: RFC 3986 URI syntax - accepts any valid scheme (http, mailto, urn, data, file, tel, etc.), optional authority with domain/IPv4/IPv6 support, relative or absolute paths
 
 ### ✅ Iri
+
 - [x] Type definition in `types/branded/index.ts`
 - [x] Smart constructor `iri()` (validates IRI syntax)
 - [x] Unsafe constructor `unsafeIri()`
@@ -187,27 +200,34 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 
 **Validation**: RFC 3987 IRI syntax (internationalized URI) - full Unicode support except scheme
 
-### ⏸️ Ipv4Address
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `ipv4Address()` (validates IPv4)
-- [ ] Unsafe constructor `unsafeIpv4Address()`
-- [ ] Unwrap function `unwrapIpv4Address()`
-- [ ] Type predicate `_isIpv4Address()`
-- [ ] All tests passing
+### ✅ Ipv4Address
 
-**Validation**: 4 octets (0-255), dot-separated (e.g., 192.168.1.1)
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `ipv4Address()` (validates IPv4)
+- [x] Unsafe constructor `unsafeIpv4Address()`
+- [x] Unwrap function `unwrapIpv4Address()`
+- [x] Type predicate `_isIpv4Address()`
+- [x] All tests passing (25 tests)
 
-### ⏸️ Ipv6Address
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `ipv6Address()` (validates IPv6)
-- [ ] Unsafe constructor `unsafeIpv6Address()`
-- [ ] Unwrap function `unwrapIpv6Address()`
-- [ ] Type predicate `_isIpv6Address()`
-- [ ] All tests passing
+**Validation**: 4 octets (0-255), dot-separated, no leading zeros (e.g., 192.168.1.1)
+**Location**: `newtypes/webTypes/ipv4Address/`
 
-**Validation**: 8 groups of 4 hex digits, colon-separated (supports :: compression)
+### ✅ Ipv6Address
+
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `ipv6Address()` (validates RFC 4291, normalizes per RFC 5952)
+- [x] Unsafe constructor `unsafeIpv6Address()`
+- [x] Unwrap function `unwrapIpv6Address()`
+- [x] Type predicate `_isIpv6Address()`
+- [x] Helper: `_parseIpv6Address()` (parses and validates IPv6 structure)
+- [x] Helper: `_normalizeIpv6Address()` (canonical form with :: compression)
+- [x] All tests passing (107 tests)
+
+**Validation**: RFC 4291 IPv6 format - 8 groups of 4 hex digits, supports :: compression, IPv4 embedding preserved
+**Location**: `newtypes/webTypes/ipv6Address/`
 
 ### ⏸️ Domain
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `domain()` (validates domain name)
 - [ ] Unsafe constructor `unsafeDomain()`
@@ -218,6 +238,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: Valid domain name (e.g., example.com, sub.example.co.uk)
 
 ### ⏸️ Hostname
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `hostname()` (validates hostname)
 - [ ] Unsafe constructor `unsafeHostname()`
@@ -232,6 +253,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ## Batch 4: String Types - Identifiers (NOT STARTED)
 
 ### ⏸️ Uuid
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `uuid()` (validates UUID format)
 - [ ] Unsafe constructor `unsafeUuid()`
@@ -242,6 +264,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: UUID v4 format (8-4-4-4-12 hex with hyphens)
 
 ### ⏸️ Isbn10
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `isbn10()` (validates ISBN-10)
 - [ ] Unsafe constructor `unsafeIsbn10()`
@@ -252,6 +275,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: 10 digits with valid check digit
 
 ### ⏸️ Isbn13
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `isbn13()` (validates ISBN-13)
 - [ ] Unsafe constructor `unsafeIsbn13()`
@@ -266,6 +290,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ## Batch 5: String Types - Geographic/Financial (NOT STARTED)
 
 ### ⏸️ PostalCode
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `postalCode()` (validates basic format)
 - [ ] Unsafe constructor `unsafePostalCode()`
@@ -276,6 +301,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: Alphanumeric with optional spaces/hyphens (generic, not country-specific)
 
 ### ⏸️ PhoneNumber
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `phoneNumber()` (validates E.164 format)
 - [ ] Unsafe constructor `unsafePhoneNumber()`
@@ -286,6 +312,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: E.164 format (+1234567890, 7-15 digits after +)
 
 ### ⏸️ CountryCode
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `countryCode()` (validates ISO 3166-1 alpha-2)
 - [ ] Unsafe constructor `unsafeCountryCode()`
@@ -296,6 +323,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: 2-letter uppercase ISO country code (US, GB, FR, etc.)
 
 ### ⏸️ LanguageCode
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `languageCode()` (validates ISO 639-1)
 - [ ] Unsafe constructor `unsafeLanguageCode()`
@@ -306,6 +334,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: 2-letter lowercase ISO language code (en, fr, de, etc.)
 
 ### ⏸️ CurrencyCode
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `currencyCode()` (validates ISO 4217)
 - [ ] Unsafe constructor `unsafeCurrencyCode()`
@@ -316,6 +345,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: 3-letter uppercase ISO currency code (USD, EUR, GBP, etc.)
 
 ### ⏸️ CreditCardNumber
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `creditCardNumber()` (validates Luhn algorithm)
 - [ ] Unsafe constructor `unsafeCreditCardNumber()`
@@ -330,6 +360,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ## Batch 6: String Types - Basic/Encoding (NOT STARTED)
 
 ### ⏸️ NonEmptyString
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `nonEmptyString()` (validates non-empty)
 - [ ] Unsafe constructor `unsafeNonEmptyString()`
@@ -340,6 +371,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: String with length > 0 (after trimming optional)
 
 ### ⏸️ Char
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `char()` (validates single character)
 - [ ] Unsafe constructor `unsafeChar()`
@@ -350,6 +382,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: Exactly 1 character (single Unicode code point)
 
 ### ⏸️ Base58
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `base58()` (validates Base58 encoding)
 - [ ] Unsafe constructor `unsafeBase58()`
@@ -364,6 +397,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ## Batch 7: Color Types (NOT STARTED)
 
 ### ⏸️ HexColor
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `hexColor()` (validates #RGB or #RRGGBB)
 - [ ] Unsafe constructor `unsafeHexColor()`
@@ -374,6 +408,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: #RGB or #RRGGBB format (3 or 6 hex digits)
 
 ### ⏸️ OklchColor
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `oklchColor()` (validates oklch() CSS format)
 - [ ] Unsafe constructor `unsafeOklchColor()`
@@ -384,6 +419,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: oklch(L C H) or oklch(L C H / A) format
 
 ### ⏸️ P3Color
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `p3Color()` (validates color(display-p3 ...) format)
 - [ ] Unsafe constructor `unsafeP3Color()`
@@ -398,6 +434,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ## Batch 8: Collection Types (NOT STARTED)
 
 ### ⏸️ NonEmptyArray<T>
+
 - [ ] Type definition in `types/branded/index.ts`
 - [ ] Smart constructor `nonEmptyArray<T>()` (validates length > 0)
 - [ ] Unsafe constructor `unsafeNonEmptyArray<T>()`
@@ -431,6 +468,7 @@ newtypes/[typeName]/
 ```
 
 **Additional for numeric types with arithmetic:**
+
 ```
 ├── add[TypeName]/
 │   ├── index.ts       # Curried addition with scaled integer arithmetic
