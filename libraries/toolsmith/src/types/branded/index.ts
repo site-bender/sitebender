@@ -48,3 +48,6 @@ export type Ipv6Address = Brand<string, "Ipv6Address">
 
 //++ Domain name following RFC 1034/1035 with IDN support per RFC 5890
 export type Domain = Brand<string, "Domain">
+
+//++ Hostname - valid domain name, localhost, or IP address (IPv4 or IPv6)
+export type Hostname = Brand<string, "Hostname">
