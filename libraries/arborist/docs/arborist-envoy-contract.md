@@ -15,40 +15,40 @@ Arborist is the ONLY library that parses TypeScript/JSX. It uses SWC via @swc/wa
 //++ Parses source file and returns Result monad
 parseFile(
 	filePath: string,
-): Promise<Result<ParseError, ParsedAST>>
+): Promise<Result<ParseError, ParsedAst>>
 
 //++ Builds complete ParsedFile with Validation monad
 buildParsedFile(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ) {
 	return function(filePath: string): Validation<ExtractionError, ParsedFile>
 }
 
 //++ Extracts functions with Validation monad
 extractFunctions(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>>
 
 //++ Extracts comments with position data
 extractComments(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>>
 
 //++ Extracts import statements
 extractImports(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>>
 
 //++ Extracts export statements
 extractExports(
-	ast: ParsedAST,
+	ast: ParsedAst,
 ): Validation<ExportExtractionError, ReadonlyArray<ParsedExport>>
 ```
 
 ### Data Structures
 
 ```typescript
-type ParsedAST = Readonly<{
+type ParsedAst = Readonly<{
 	module: unknown // SWC Module
 	sourceText: string
 	filePath: string
@@ -100,7 +100,7 @@ type ParseError = ArchitectError<"parseFile", [string]> & {
 	column?: number
 }
 
-type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAST]> & {
+type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAst]> & {
 	kind: "UnknownNodeType" | "MissingIdentifier" | "InvalidParameterStructure"
 	nodeType?: string
 	span?: Span
@@ -164,7 +164,7 @@ const documentation = foldResult(
 		if (err.suggestion) console.log(err.suggestion)
 		return null
 	},
-)(function handleAST(ast: ParsedAST) {
+)(function handleAst(ast: ParsedAst) {
 	// Extract what Envoy needs
 	const functionsV = extractFunctions(ast)
 	const commentsV = extractComments(ast)
