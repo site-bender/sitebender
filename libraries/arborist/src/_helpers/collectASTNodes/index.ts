@@ -2,7 +2,6 @@
 // Collects all nodes from an AST into a flat array
 
 import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import values from "@sitebender/toolsmith/vanilla/object/values/index.ts"
 
 //++ Collects all AST nodes into a flat ReadonlyArray
 //++ Uses recursion to traverse the tree without loops
@@ -40,7 +39,7 @@ export default function collectASTNodes(node: unknown): ReadonlyArray<unknown> {
 			}
 			return acc
 		},
-	)([] as ReadonlyArray<unknown>)(values(nodeObj))
+	)([] as ReadonlyArray<unknown>)(Object.values(nodeObj))
 
 	return [...currentNode, ...childNodes]
 }

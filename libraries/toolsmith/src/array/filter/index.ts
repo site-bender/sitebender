@@ -3,7 +3,7 @@ import type { ValidationError } from "@sitebender/toolsmith/types/ValidationErro
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
+import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
 
 //++ Filters array elements that satisfy predicate
 //++ Returns Result with filtered array or error if input is invalid
