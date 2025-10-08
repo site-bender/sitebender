@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/_helpers/collectASTNodes
 // Collects all nodes from an AST into a flat array
 
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 
 //++ Collects all AST nodes into a flat ReadonlyArray
 //++ Uses recursion to traverse the tree without loops
