@@ -1,5 +1,3 @@
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-
 export interface Ok<T> {
 	readonly _tag: "Ok"
 	readonly value: T
