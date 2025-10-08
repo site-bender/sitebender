@@ -3,8 +3,7 @@ import type { ValidationError } from "@sitebender/toolsmith/types/ValidationErro
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
-import isDefined from "@sitebender/toolsmith/validation/isDefined/index.ts"
+import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
 
 //++ Finds the first element matching a predicate
 //++ Returns Result with found element or error if not found or invalid input
@@ -14,11 +13,13 @@ export default function find<T>(predicate: (item: T) => boolean) {
 	): Result<ValidationError, T> {
 		// Validate input is array
 		if (isArray(array)) {
-			const element = array.find(predicate)
+			// Use findIndex to determine if element was actually found
+			// This correctly handles finding undefined values
+			const index = array.findIndex(predicate)
 
-			// Happy path: element found
-			if (isDefined(element)) {
-				return ok(element)
+			// Happy path: element found (index !== -1)
+			if (index !== -1) {
+				return ok(array[index] as T)
 			}
 
 			// Sad path: element not found
@@ -28,7 +29,8 @@ export default function find<T>(predicate: (item: T) => boolean) {
 				messages: ["System could not find an element matching the predicate"],
 				received: array,
 				expected: "Array with at least one matching element",
-				suggestion: "Ensure the array contains an element that satisfies the predicate",
+				suggestion:
+					"Ensure the array contains an element that satisfies the predicate",
 				severity: "requirement",
 			})
 		}
