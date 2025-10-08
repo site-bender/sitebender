@@ -177,7 +177,7 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ### Phase 2.1: Registry Core Functions (CC)
 
-- [ ] Create `libraries/architect/src/calculation/registry/createRegistry.ts`
+- [x] Create `libraries/architect/src/calculation/registry/createRegistry.ts`
   - Implement function returning empty Registry
   - Add `//++` comment: "Creates an empty component registry"
   - Export function

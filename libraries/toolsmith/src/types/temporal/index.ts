@@ -1,13 +1,9 @@
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PlainDateLike = {
 	year: number
 	month: number
 	day: number
 }
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PlainTimeLike = {
 	hour?: number
 	minute?: number
@@ -17,7 +13,6 @@ export type PlainTimeLike = {
 	nanosecond?: number
 }
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PlainDateTimeLike = {
 	year: number
 	month: number
@@ -30,7 +25,6 @@ export type PlainDateTimeLike = {
 	nanosecond?: number
 }
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DateInput =
 	| string // ISO date string (YYYY-MM-DD)
 	| Date // JavaScript Date object
@@ -39,7 +33,6 @@ export type DateInput =
 	| Temporal.ZonedDateTime // Extract date part
 	| PlainDateLike // Object with year/month/day
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type TimeInput =
 	| string // ISO time string (HH:MM:SS)
 	| Date // Extract time in local timezone
@@ -48,7 +41,6 @@ export type TimeInput =
 	| Temporal.ZonedDateTime // Extract time part
 	| PlainTimeLike // Object with time fields
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type DateTimeInput =
 	| string // ISO datetime string (YYYY-MM-DDTHH:MM:SS)
 	| Date // JavaScript Date in local timezone
@@ -58,7 +50,6 @@ export type DateTimeInput =
 	| Temporal.ZonedDateTime // Remove timezone info
 	| PlainDateTimeLike // Object with date and time fields
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type InstantInput =
 	| string // ISO instant string with Z suffix
 	| number // Epoch milliseconds

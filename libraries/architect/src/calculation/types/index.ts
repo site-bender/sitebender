@@ -1,4 +1,4 @@
-import type { Validation } from "@sitebender/toolsmith/types/Validation/index.ts"
+import type { Validation } from "~libraries/toolsmith/src/types/validation"
 import type { ValidationError } from "@sitebender/toolsmith/types/ValidationError/index.ts"
 
 //++ Base AST node type - all calculation nodes extend this
