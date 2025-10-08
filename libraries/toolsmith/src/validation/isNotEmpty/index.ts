@@ -1,4 +1,4 @@
-import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
+import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
 
 //++ Checks if an array is not empty (has at least one element)
 //++ Simplified version for Architect PoC - handles arrays only
