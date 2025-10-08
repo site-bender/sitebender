@@ -1,13 +1,9 @@
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-
 // ============================================================================
 // Base Value Types
 // ============================================================================
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type PrimitiveValue = string | number | boolean | null | bigint | symbol
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type Serializable =
 	| PrimitiveValue
 	| Array<Serializable>
@@ -40,7 +36,6 @@ export type Serializable =
 	| Temporal.Instant
 	| Temporal.Duration
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type Value =
 	| Serializable
 	| Function
@@ -48,29 +43,11 @@ export type Value =
 	| WeakSet<object>
 	| Promise<Value>
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type SerializableValue = Serializable
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type Unknown = Value
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-export type NumericDatatype = "Number" | "Float" | "Integer" | "Precision"
-export type StringDatatype = "String"
-export type BooleanDatatype = "Boolean"
-export type TemporalDatatype =
-	| "Date"
-	| "Time"
-	| "DateTime"
-	| "Duration"
-	| "Instant"
-export type ComplexDatatype = "Json" | "Array" | "Map" | "Set" | "Object"
 
-export type Datatype =
-	| NumericDatatype
-	| StringDatatype
-	| BooleanDatatype
-	| TemporalDatatype
-	| ComplexDatatype
+//++ Array type that guarantees at least one element
+export type NonEmptyArray<T> = readonly [T, ...Array<T>]

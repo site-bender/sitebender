@@ -1,5 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { ValidationError } from "../../types/ValidationError/index.ts"
+import type { ValidationError } from "../../types/validation/index.ts"
 
 import ok from "../../monads/result/ok/index.ts"
 import error from "../../monads/result/error/index.ts"
