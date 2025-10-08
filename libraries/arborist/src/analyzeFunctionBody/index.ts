@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/analyzeFunctionBody
 // Analyzes function body to detect patterns and calculate complexity
 
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 
 import type { FunctionBody } from "../types/index.ts"
 import collectASTNodes from "../_helpers/collectASTNodes/index.ts"

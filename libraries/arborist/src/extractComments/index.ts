@@ -1,11 +1,11 @@
 // @sitebender/arborist/src/extractComments
 // Extracts all comments from source text using Validation monad for error accumulation
 
-import type { Validation } from "@sitebender/toolsmith/types/Validation/index.ts"
+import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 
 import type {
 	EnvoyMarker,

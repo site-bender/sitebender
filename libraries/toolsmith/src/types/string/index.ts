@@ -1,15 +1,10 @@
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type ReplacerFunction = (
 	substring: string,
 	...args: Array<string | number>
 ) => string
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CaseConverter = (s: string) => string
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 export type CaseType =
 	| "camel" // camelCase - firstName
 	| "kebab" // kebab-case - first-name

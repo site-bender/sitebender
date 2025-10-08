@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/detectViolations
 // Detects constitutional rule violations in TypeScript/JSX AST
 
-import type { Validation } from "@sitebender/toolsmith/types/Validation/index.ts"
+import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
 import type { ModuleItem } from "npm:@swc/wasm-web@1.13.20"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
