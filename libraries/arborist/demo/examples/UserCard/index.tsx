@@ -1,31 +1,23 @@
-//++ Renders a user card with name, email, and active status
-//++ Takes props as configuration data
-//++ Returns JSX element representing the user card
+// @sitebender/arborist/demo/examples/UserCard
+//++ Example JSX component demonstrating proper component structure
 
-type UserCardProps = Readonly<{
+import type { ComponentChildren } from "@sitebender/codewright/types"
+
+export type UserCardProps = Readonly<{
 	name: string
 	email: string
-	isActive: boolean
-	children?: ReadonlyArray<unknown>
+	children?: ComponentChildren
 }>
 
+//++ Renders a user card component
 export default function UserCard(props: UserCardProps) {
-	return function renderUserCard() {
-		const statusClass = props.isActive ? "active" : "inactive"
-
+	return function renderUserCard(): JSX.Element {
 		return (
-			<article className="user-card">
-				<header className="user-card-header">
-					<h2>{props.name}</h2>
-					<span className={`status ${statusClass}`}>
-						{props.isActive ? "Active" : "Inactive"}
-					</span>
-				</header>
-				<section className="user-card-body">
-					<p className="user-email">{props.email}</p>
-					{props.children}
-				</section>
-			</article>
+			<div class="user-card">
+				<h2>{props.name}</h2>
+				<p>{props.email}</p>
+				{props.children}
+			</div>
 		)
 	}
 }
