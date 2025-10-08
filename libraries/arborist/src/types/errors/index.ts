@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/types/errors
-// Error type definitions using Toolsmith ArchitectError pattern
+// Error type definitions using Architect ArchitectError pattern
 
-import type { ArchitectError } from "@sitebender/toolsmith/types/error/index.ts"
+import type { ArchitectError } from "@sitebender/architect/errors/types/ArchitectError.ts"
 
 import type { Span } from "../index.ts"
 

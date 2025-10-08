@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/buildParsedFile
 // Builds a ParsedFile from SWC AST using Validation monad for error accumulation
 
-import type { Validation } from "@sitebender/toolsmith/types/Validation/index.ts"
+import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
 
 import map2 from "@sitebender/toolsmith/monads/validation/map2/index.ts"
 import map3 from "@sitebender/toolsmith/monads/validation/map3/index.ts"
