@@ -1,78 +1,94 @@
 // @sitebender/arborist/src/parseFile/index.test.ts
 // Tests for parseFile function
 
-import { assert, assertEquals } from "jsr:@std/assert@1.0.14"
+import { assert, assertEquals, assertExists } from "jsr:@std/assert@1.0.14"
 import * as fc from "npm:fast-check@3.23.1"
 
 import isOk from "@sitebender/toolsmith/monads/result/isOk/index.ts"
 import isError from "@sitebender/toolsmith/monads/result/isError/index.ts"
-import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
-import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
+import fold from "@sitebender/toolsmith/monads/result/fold/index.ts"
 
-import type { ParsedFile } from "../types/index.ts"
+import type { ParsedAst, ParseError } from "../types/index.ts"
 import parseFile from "./index.ts"
 
-//++ Creates an empty ParsedFile for use as default value
-function createEmptyParsedFile(): ParsedFile {
-	return {
-		filePath: "",
-		functions: [],
-		types: [],
-		constants: [],
-		imports: [],
-		exports: [],
-		comments: [],
-		violations: {
-			hasArrowFunctions: false,
-			arrowFunctions: [],
-			hasClasses: false,
-			classes: [],
-			hasThrowStatements: false,
-			throwStatements: [],
-			hasTryCatch: false,
-			tryCatchBlocks: [],
-			hasLoops: false,
-			loops: [],
-			hasMutations: false,
-			mutations: [],
-		},
-	}
-}
+Deno.test({
+	name: "parseFile - parses valid TypeScript file → Ok(ParsedAst)",
+	sanitizeResources: false, // SWC WASM initialization creates global resources
+	sanitizeOps: false, // SWC WASM async ops may span tests
+	async fn() {
+		const result = await parseFile(
+			"src/parseFile/test-fixtures/valid.ts",
+		)
 
-Deno.test("parseFile - parses valid TypeScript file", async () => {
-	const result = await parseFile(
-		"src/parseFile/test-fixtures/valid.ts",
-	)
+		assert(isOk(result), "Expected Ok result for valid TypeScript file")
 
-	assert(isOk(result), "Expected Ok result")
+		const ast = fold<ParseError, ParsedAst | null>(
+			function handleError(_err) {
+				return null
+			},
+		)(function handleSuccess(parsedAst: ParsedAst) {
+			return parsedAst
+		})(result)
 
-	const parsedFile = getOrElse(createEmptyParsedFile())(result)
-
-	assertEquals(
-		parsedFile.filePath,
-		"src/parseFile/test-fixtures/valid.ts",
-	)
-	// Day 1: No extraction yet, just verify structure
-	assertEquals(parsedFile.functions.length, 0)
+		assertExists(ast, "AST should exist")
+		assertEquals(
+			ast.filePath,
+			"src/parseFile/test-fixtures/valid.ts",
+			"File path should match input",
+		)
+		assertExists(ast.module, "Should have SWC module")
+		assertExists(ast.sourceText, "Should have source text")
+		assertEquals(
+			typeof ast.sourceText,
+			"string",
+			"Source text should be string",
+		)
+	},
 })
 
-Deno.test("parseFile - returns error for non-existent file", async () => {
-	const result = await parseFile("does-not-exist.ts")
-
-	assert(isError(result), "Expected Error result")
-})
-
-Deno.test("parseFile - returns error for invalid syntax", async () => {
+Deno.test("parseFile - invalid syntax → Error with InvalidSyntax kind", async () => {
 	const result = await parseFile(
 		"src/parseFile/test-fixtures/invalid-syntax.ts",
 	)
 
-	// Day 1: No actual parsing yet, so invalid syntax won't be detected
-	// This test will properly fail once we integrate deno_ast in Day 2
-	assert(isOk(result) || isError(result), "Should return Result")
+	assert(isError(result), "Expected Error result for invalid syntax")
+
+	const err = fold<ParseError, ParseError | null>(
+		function handleError(error: ParseError) {
+			return error
+		},
+	)(function handleSuccess(_ast: ParsedAst) {
+		return null
+	})(result)
+
+	assertExists(err, "Error should exist")
+	assertEquals(err.kind, "InvalidSyntax", "Should be InvalidSyntax kind")
+	assertEquals(err.operation, "parseFile", "Should be parseFile operation")
+	assertExists(err.message, "Should have error message")
+	assertExists(err.suggestion, "Should have helpful suggestion")
 })
 
-Deno.test("parseFile - property: always returns Result", () => {
+Deno.test("parseFile - missing file → Error with FileNotFound kind + suggestion", async () => {
+	const result = await parseFile("does-not-exist.ts")
+
+	assert(isError(result), "Expected Error result for missing file")
+
+	const err = fold<ParseError, ParseError | null>(
+		function handleError(error: ParseError) {
+			return error
+		},
+	)(function handleSuccess(_ast: ParsedAst) {
+		return null
+	})(result)
+
+	assertExists(err, "Error should exist")
+	assertEquals(err.kind, "FileNotFound", "Should be FileNotFound kind")
+	assertEquals(err.file, "does-not-exist.ts", "Should reference correct file")
+	assertExists(err.message, "Should have error message")
+	assertExists(err.suggestion, "Should have helpful suggestion")
+})
+
+Deno.test("parseFile - property: always returns Result, never throws", () => {
 	fc.assert(
 		fc.asyncProperty(fc.string(), async (path) => {
 			const result = await parseFile(path)
@@ -97,30 +113,55 @@ Deno.test("parseFile - property: same file gives same result (pure)", async () =
 	assertEquals(isOk(result1), isOk(result2))
 
 	if (isOk(result1) && isOk(result2)) {
-		const file1 = getOrElse(createEmptyParsedFile())(result1)
-		const file2 = getOrElse(createEmptyParsedFile())(result2)
+		const ast1 = fold<ParseError, ParsedAst | null>(
+			function handleError(_err) {
+				return null
+			},
+		)(function handleSuccess(ast: ParsedAst) {
+			return ast
+		})(result1)
 
-		assertEquals(file1.filePath, file2.filePath)
-		assertEquals(file1.functions.length, file2.functions.length)
+		const ast2 = fold<ParseError, ParsedAst | null>(
+			function handleError(_err) {
+				return null
+			},
+		)(function handleSuccess(ast: ParsedAst) {
+			return ast
+		})(result2)
+
+		assertExists(ast1, "First AST should exist")
+		assertExists(ast2, "Second AST should exist")
+		assertEquals(ast1.filePath, ast2.filePath, "File paths should match")
+		assertEquals(
+			ast1.sourceText,
+			ast2.sourceText,
+			"Source text should match",
+		)
 	}
 })
 
-Deno.test("parseFile - returns immutable ParsedFile", async () => {
+Deno.test("parseFile - returns immutable ParsedAst", async () => {
 	const result = await parseFile(
 		"src/parseFile/test-fixtures/valid.ts",
 	)
 
 	assert(isOk(result), "Should parse successfully")
 
-	const file = getOrElse(createEmptyParsedFile())(result)
+	const ast = fold<ParseError, ParsedAst | null>(
+		function handleError(_err) {
+			return null
+		},
+	)(function handleSuccess(parsedAst: ParsedAst) {
+		return parsedAst
+	})(result)
 
-	// Verify immutability - ReadonlyArray is still an array at runtime
-	// but TypeScript enforces immutability at compile time
-	assert(isArray(file.functions), "Functions should be an array")
-	assert(typeof file.filePath === "string", "Should have filePath")
+	assertExists(ast, "AST should exist")
+	assert(typeof ast.filePath === "string", "Should have filePath")
+	assert(typeof ast.sourceText === "string", "Should have sourceText")
+	assertExists(ast.module, "Should have module")
 
 	// The real immutability test is at compile time via TypeScript
 	// These would fail to compile:
-	// file.functions.push({}) // Error: Property 'push' does not exist
-	// file.filePath = "x"     // Error: Cannot assign to read-only property
+	// ast.filePath = "x"      // Error: Cannot assign to read-only property
+	// ast.sourceText = "y"    // Error: Cannot assign to read-only property
 })
