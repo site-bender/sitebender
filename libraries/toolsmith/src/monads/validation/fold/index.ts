@@ -1,5 +1,5 @@
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type { Validation } from "../../../types/Validation/index.ts"
+import type { Validation } from "../../../types/validation/index.ts"
 
 //++ Folds a validation to a single value by handling both cases
 export default function fold<A, B>(onValid: (value: A) => B) {

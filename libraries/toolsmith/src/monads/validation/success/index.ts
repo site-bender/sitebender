@@ -1,4 +1,4 @@
-import type { Valid, Validation } from "../../../types/Validation/index.ts"
+import type { Valid, Validation } from "../../../types/validation/index.ts"
 
 //++ Creates a Success validation representing a successful value
 export default function success<A>(value: A): Validation<never, A> {

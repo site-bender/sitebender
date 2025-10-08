@@ -19,11 +19,11 @@
 // @sitebender/arborist/src/extractTypes
 // Extracts all type aliases and interfaces from a ParsedAst using Validation monad for error accumulation
 
-import type { Validation } from "@sitebender/toolsmith/types/Validation/index.ts"
+import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import type { ParsedAst, ParsedType, Position, Span } from "../types/index.ts"
 import type { TypeExtractionError } from "../types/errors/index.ts"
