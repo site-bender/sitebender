@@ -1,5 +1,5 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/ValidationError/index.ts"
+import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
 import type { Domain } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"

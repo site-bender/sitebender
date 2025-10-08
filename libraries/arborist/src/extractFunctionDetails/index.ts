@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/extractFunctionDetails
 // Extracts detailed information from a function AST node
 
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import type {
 	Parameter,

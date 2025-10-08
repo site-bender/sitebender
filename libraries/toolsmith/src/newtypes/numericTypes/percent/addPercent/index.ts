@@ -1,5 +1,5 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/ValidationError/index.ts"
+import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
 import type { Percent } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import percent from "@sitebender/toolsmith/newtypes/percent/index.ts"
