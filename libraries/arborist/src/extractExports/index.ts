@@ -4,9 +4,9 @@
 import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import type { ParsedAst, ParsedExport, Position, Span } from "../types/index.ts"
 import type { ExportExtractionError } from "../types/errors/index.ts"

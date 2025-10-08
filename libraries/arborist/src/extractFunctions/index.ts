@@ -4,8 +4,8 @@
 import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import type { ParsedAst, ParsedFunction } from "../types/index.ts"
 import type { FunctionExtractionError } from "../types/errors/index.ts"
