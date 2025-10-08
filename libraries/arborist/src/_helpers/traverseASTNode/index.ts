@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/_helpers/traverseASTNode
 // Recursively traverses an AST node and calls a visitor function on each node
 
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import values from "@sitebender/toolsmith/vanilla/object/values/index.ts"
 
 //++ Traverses an AST node recursively without loops
