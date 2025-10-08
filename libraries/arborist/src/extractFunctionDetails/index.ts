@@ -30,7 +30,9 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 		: nodeObj
 
 	// Extract function name
-	const identifier = actualNode.identifier as Record<string, unknown> | undefined
+	const identifier = actualNode.identifier as
+		| Record<string, unknown>
+		| undefined
 	const name = identifier?.value as string || "anonymous"
 
 	// Extract position from actual function node
@@ -78,7 +80,9 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 	)(params)
 
 	// Extract return type
-	const returnTypeAnn = actualNode.returnType as Record<string, unknown> | undefined
+	const returnTypeAnn = actualNode.returnType as
+		| Record<string, unknown>
+		| undefined
 	const returnTypeAnnotation = returnTypeAnn?.typeAnnotation as
 		| Record<string, unknown>
 		| undefined
@@ -90,7 +94,9 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 
 	// Extract type parameters using Toolsmith map
 	// SWC uses 'typeParameters.parameters' not 'typeParams.params'
-	const typeParams = actualNode.typeParameters as Record<string, unknown> | undefined
+	const typeParams = actualNode.typeParameters as
+		| Record<string, unknown>
+		| undefined
 	const typeParamsList = typeParams?.parameters as Array<unknown> || []
 	const typeParameters: ReadonlyArray<TypeParameter> = map(
 		function mapTypeParameter(tp: unknown): TypeParameter {

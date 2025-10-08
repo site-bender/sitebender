@@ -4,6 +4,13 @@
 	"exports": {
 		"./parseFile": "./src/parseFile/index.ts",
 		"./buildParsedFile": "./src/buildParsedFile/index.ts",
+		"./extractFunctions": "./src/extractFunctions/index.ts",
+		"./extractComments": "./src/extractComments/index.ts",
+		"./extractImports": "./src/extractImports/index.ts",
+		"./extractExports": "./src/extractExports/index.ts",
+		"./extractTypes": "./src/extractTypes/index.ts",
+		"./extractConstants": "./src/extractConstants/index.ts",
+		"./detectViolations": "./src/detectViolations/index.ts",
 		"./types": "./src/types/index.ts"
 	},
 	"tasks": {
