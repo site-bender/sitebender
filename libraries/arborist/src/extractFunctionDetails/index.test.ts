@@ -9,9 +9,9 @@ import find from "@sitebender/toolsmith/vanilla/array/find/index.ts"
 import extractFunctionDetails from "./index.ts"
 
 // Initialize SWC once at module load (immutable promise)
-const swcInitPromise = initSwc()
+const swcInitPromise: Promise<void> = initSwc().then(() => undefined)
 
-async function ensureSwcInitialized(): Promise<void> {
+function ensureSwcInitialized(): Promise<void> {
 	return swcInitPromise
 }
 
@@ -40,16 +40,21 @@ async function getFunctionNode(source: string): Promise<unknown> {
 	)(astBody)
 }
 
-Deno.test("extractFunctionDetails - extracts simple function name", async () => {
-	const node = await getFunctionNode(`
+Deno.test({
+	name: "extractFunctionDetails - extracts simple function name",
+	sanitizeResources: false,
+	sanitizeOps: false,
+	async fn() {
+		const node = await getFunctionNode(`
 		function add(a: number, b: number): number {
 			return a + b
 		}
 	`)
 
-	const result = extractFunctionDetails(node)
+		const result = extractFunctionDetails(node)
 
-	assertEquals(result.name, "add")
+		assertEquals(result.name, "add")
+	},
 })
 
 Deno.test("extractFunctionDetails - extracts parameters", async () => {
