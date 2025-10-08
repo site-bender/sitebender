@@ -1,0 +1,22 @@
+import type { ArchitectError } from "../types/ArchitectError.ts"
+import type { Value } from "@sitebender/toolsmith/types/index.ts"
+
+//++ Adds failed argument information to an error with index and optional name
+export default function withFailedArg(index: number) {
+	return function withArgumentName(name?: string) {
+		return function enrichError<
+			TOp extends string,
+			TArgs extends ReadonlyArray<Value>,
+		>(
+			error: ArchitectError<TOp, TArgs>,
+		): ArchitectError<TOp, TArgs> {
+			return {
+				...error,
+				failedIndex: index,
+				context: name
+					? { ...(error.context ?? {}), argName: name }
+					: error.context,
+			}
+		}
+	}
+}
