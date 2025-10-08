@@ -1,24 +1,25 @@
 import type { Value } from "../../../types/index.ts"
 
-import all from "@sitebender/toolsmith/vanilla/array/all/index.ts"
-import includes from "@sitebender/toolsmith/vanilla/array/includes/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import and from "@sitebender/toolsmith/vanilla/logic/and/index.ts"
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
-import or from "@sitebender/toolsmith/vanilla/logic/or/index.ts"
-import keys from "@sitebender/toolsmith/vanilla/object/keys/index.ts"
-import allPass from "@sitebender/toolsmith/vanilla/validation/allPass/index.ts"
-import anyPass from "@sitebender/toolsmith/vanilla/validation/anyPass/index.ts"
-import is from "@sitebender/toolsmith/vanilla/validation/is/index.ts"
-import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
-import isDate from "@sitebender/toolsmith/vanilla/validation/isDate/index.ts"
-import isNaN from "@sitebender/toolsmith/vanilla/validation/isNaN/index.ts"
+import all from "@sitebender/toolsmith/array/all/index.ts"
+import includes from "@sitebender/toolsmith/array/includes/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
+import keys from "@sitebender/toolsmith/object/keys/index.ts"
+import allPass from "@sitebender/toolsmith/validation/allPass/index.ts"
+import anyPass from "@sitebender/toolsmith/validation/anyPass/index.ts"
+import is from "@sitebender/toolsmith/validation/is/index.ts"
+import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
+import isDate from "@sitebender/toolsmith/validation/isDate/index.ts"
+import isNaN from "@sitebender/toolsmith/validation/isNaN/index.ts"
 import isNull from "../../isNull/index.ts"
 import isNumber from "../../isNumber/index.ts"
-import isObject from "@sitebender/toolsmith/vanilla/validation/isObject/index.ts"
-import isRegExp from "@sitebender/toolsmith/vanilla/validation/isRegExp/index.ts"
-import isUndefined from "@sitebender/toolsmith/vanilla/validation/isUndefined/index.ts"
-import isUnequal from "@sitebender/toolsmith/vanilla/validation/isUnequal/index.ts"
+import isObject from "@sitebender/toolsmith/validation/isObject/index.ts"
+import isRegExp from "@sitebender/toolsmith/validation/isRegExp/index.ts"
+import isUndefined from "@sitebender/toolsmith/validation/isUndefined/index.ts"
+import isUnequal from "@sitebender/toolsmith/validation/isUnequal/index.ts"
+import isOk from "../../../monads/result/isOk/index.ts"
 
 //++ Private helper function for deep equality comparison
 export default function _deepEquals(
@@ -68,19 +69,34 @@ export default function _deepEquals(
 
 	// Handle RegExp
 	if (and(isRegExp(x))(isRegExp(y))) {
-		return and(is((x as RegExp).source)((y as RegExp).source))(
-			is((x as RegExp).flags)((y as RegExp).flags),
-		)
+		const sourceMatch = is((x as RegExp).source)((y as RegExp).source)
+		const flagsMatch = is((x as RegExp).flags)((y as RegExp).flags)
+		return Boolean(and(sourceMatch)(flagsMatch))
 	}
 
 	// Handle Arrays
 	if (and(isArray(x))(isArray(y))) {
-		if (isUnequal(length(x as Array<Value>))(length(y as Array<Value>))) {
+		const xLength = length(x as Array<Value>)
+		const yLength = length(y as Array<Value>)
+
+		// Both lengths must be Ok for comparison
+		if (not(and(isOk(xLength))(isOk(yLength)))) {
 			return false
 		}
-		return all((val: Value, i: number) =>
+
+		// TypeScript now knows both are Ok
+		if (isOk(xLength) && isOk(yLength)) {
+			if (isUnequal(xLength.value)(yLength.value)) {
+				return false
+			}
+		}
+
+		const allResult = all((val: Value, i: number): boolean =>
 			_deepEquals(val, (y as Array<Value>)[i], seen)
 		)(x as Array<Value>)
+
+		// Return false if all() returned an error, otherwise return the boolean value
+		return isOk(allResult) ? allResult.value : false
 	}
 
 	// Only compare plain objects (not arrays)
@@ -91,15 +107,44 @@ export default function _deepEquals(
 	// Handle regular objects
 	const xObj = x as Record<string, unknown>
 	const yObj = y as Record<string, unknown>
-	const keysX = keys(xObj)
-	const keysY = keys(yObj)
+	const keysXResult = keys(xObj)
+	const keysYResult = keys(yObj)
 
-	if (isUnequal(length(keysX))(length(keysY))) {
+	// Both keys() must succeed
+	if (not(and(isOk(keysXResult))(isOk(keysYResult)))) {
 		return false
 	}
 
+	// TypeScript now knows both are Ok
+	if (not(and(isOk(keysXResult))(isOk(keysYResult)))) {
+		return false
+	}
+
+	const keysX = keysXResult.value
+	const keysY = keysYResult.value
+
+	const xKeysLength = length(keysX)
+	const yKeysLength = length(keysY)
+
+	// Both lengths must be Ok
+	if (not(and(isOk(xKeysLength))(isOk(yKeysLength)))) {
+		return false
+	}
+
+	// TypeScript now knows both are Ok
+	if (isOk(xKeysLength) && isOk(yKeysLength)) {
+		if (isUnequal(xKeysLength.value)(yKeysLength.value)) {
+			return false
+		}
+	}
+
 	// Check if all keys exist and values are equal
-	return all((key: string) =>
-		and(includes(key)(keysY))(_deepEquals(xObj[key], yObj[key], seen))
-	)(keysX)
+	const allResult = all((key: string): boolean => {
+		const includesResult = includes(key)(keysY)
+		const keyIncluded = isOk(includesResult) ? includesResult.value : false
+		return and(keyIncluded)(_deepEquals(xObj[key], yObj[key], seen))
+	})(keysX)
+
+	// Return false if all() returned an error, otherwise return the boolean value
+	return isOk(allResult) ? allResult.value : false
 }
