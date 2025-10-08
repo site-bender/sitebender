@@ -1,7 +1,7 @@
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 //++ Structured validation error following "help, don't scold" philosophy - explains system limitations with actionable guidance
-type ValidationError = {
+export type ValidationError = {
 	// Machine identification
 	code: string
 	field: string
