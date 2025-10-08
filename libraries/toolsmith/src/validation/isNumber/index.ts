@@ -1,6 +1,6 @@
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
+import not from "../../logic/not/index.ts"
 
-//++ Type guard that checks if a value is a JavaScript number primitive (excludes NaN)
+//++ Type guard that checks if a value is a JavaScript number primitive (excludes NaN and Infinity)
 export default function isNumber(value: unknown): value is number {
-	return typeof value === "number" && not(Number.isNaN(value))
+	return typeof value === "number" && not(Number.isNaN(value)) && Number.isFinite(value)
 }
