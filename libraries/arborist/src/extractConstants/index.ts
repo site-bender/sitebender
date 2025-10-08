@@ -19,7 +19,7 @@
 // @sitebender/arborist/src/extractConstants
 // Extracts all const declarations from a ParsedAst using Validation monad for error accumulation
 
-import type { Validation } from "@sitebender/toolsmith/types/Validation/index.ts"
+import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
