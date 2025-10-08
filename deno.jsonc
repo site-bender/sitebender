@@ -117,6 +117,7 @@
 		"build": "deno task --cwd applications/mission-control build",
 		"build:full": "deno task --cwd applications/mission-control build:full",
 		"demo:agent": "deno task --cwd libraries/agent demo",
+		"demo:arborist": "deno run --allow-read libraries/arborist/demo/index.ts",
 
 		// === Playground shortcuts (workspace-level) ===
 		"the-workshop:dev": "deno task --cwd applications/the-workshop dev",
