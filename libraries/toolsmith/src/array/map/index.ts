@@ -3,7 +3,7 @@ import type { ValidationError } from "@sitebender/toolsmith/types/ValidationErro
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import isArray from "@sitebender/toolsmith/vanilla/validation/isArray/index.ts"
+import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
 
 //++ Transforms each array element using a function
 //++ Returns Result with transformed array or error if input is invalid
