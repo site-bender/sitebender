@@ -4,7 +4,7 @@
 import { assertEquals } from "jsr:@std/assert@1.0.14"
 import initSwc, { parse } from "npm:@swc/wasm-web@1.13.20"
 
-import find from "@sitebender/toolsmith/vanilla/array/find/index.ts"
+import find from "@sitebender/toolsmith/array/find/index.ts"
 
 import extractFunctionDetails from "./index.ts"
 

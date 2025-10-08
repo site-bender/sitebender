@@ -1,4 +1,4 @@
-import type { Validation } from "../../../types/Validation/index.ts"
+import type { Validation } from "../../../types/validation/index.ts"
 
 import isValid from "../isValid/index.ts"
 import success from "../success/index.ts"
