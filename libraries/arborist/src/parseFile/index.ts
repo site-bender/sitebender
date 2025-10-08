@@ -5,8 +5,8 @@ import { parse } from "npm:@swc/wasm-web@1.13.20"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import createError from "@sitebender/toolsmith/error/createError/index.ts"
-import withSuggestion from "@sitebender/toolsmith/error/withSuggestion/index.ts"
+import createError from "@sitebender/architect/errors/createError/index.ts"
+import withSuggestion from "@sitebender/architect/errors/withSuggestion/index.ts"
 
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ParsedAst, ParseError } from "../types/index.ts"

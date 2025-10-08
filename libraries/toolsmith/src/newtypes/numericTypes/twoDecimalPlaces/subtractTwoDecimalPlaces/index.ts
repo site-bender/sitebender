@@ -1,5 +1,5 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/ValidationError/index.ts"
+import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
 import type { TwoDecimalPlaces } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import twoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/index.ts"

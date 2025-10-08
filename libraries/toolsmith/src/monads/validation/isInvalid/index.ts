@@ -1,4 +1,4 @@
-import type { Failure, Validation } from "../../../types/Validation/index.ts"
+import type { Failure, Validation } from "../../../types/validation/index.ts"
 
 //++ Checks if a validation is a failure
 export default function isInvalid<E, A>(

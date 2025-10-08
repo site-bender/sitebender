@@ -1,4 +1,4 @@
-import type { Validation } from "../../../types/Validation/index.ts"
+import type { Validation } from "../../../types/validation/index.ts"
 
 //++ Type guard that checks if a value is a Validation monad
 export default function isValidation<E, A>(

@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert"
 
-import type { Validation } from "../../../types/Validation/index.ts"
+import type { Validation } from "../../../types/validation/index.ts"
 import type ValidationError from "../../../types/ValidationError/index.ts"
 
 import invalid from "../invalid/index.ts"
