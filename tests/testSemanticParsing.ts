@@ -5,7 +5,9 @@ async function testSemanticParsing() {
 	try {
 		console.log("Testing parseFileWithSemantics with valid test file...")
 
-		const validResult = await parseFileWithSemantics("./_semanticTest/index.tsx")
+		const validResult = await parseFileWithSemantics("./tests/_semanticTest/index.tsx")
+
+		console.log("Valid result:", JSON.stringify(validResult, null, 2))
 
 		if (validResult && validResult._tag === "Ok") {
 			console.log("✅ Valid file parsing successful!")
@@ -20,7 +22,7 @@ async function testSemanticParsing() {
 
 		console.log("\nTesting parseFileWithSemantics with invalid test file...")
 
-		const invalidResult = await parseFileWithSemantics("./_invalidTest/index.ts")
+		const invalidResult = await parseFileWithSemantics("./tests/_invalidTest/index.ts")
 
 		if (invalidResult && invalidResult._tag === "Error") {
 			console.log("✅ Invalid file correctly rejected!")

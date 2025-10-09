@@ -9,7 +9,9 @@ import unwrapThreeDecimalPlaces from "@sitebender/toolsmith/newtypes/threeDecima
 //++ Returns Result with error if the result cannot be represented as ThreeDecimalPlaces
 export default function multiplyThreeDecimalPlaces(
 	multiplicand: ThreeDecimalPlaces,
-): (multiplier: ThreeDecimalPlaces) => Result<ValidationError, ThreeDecimalPlaces> {
+): (
+	multiplier: ThreeDecimalPlaces,
+) => Result<ValidationError, ThreeDecimalPlaces> {
 	return function multiplyWithMultiplicand(
 		multiplier: ThreeDecimalPlaces,
 	): Result<ValidationError, ThreeDecimalPlaces> {

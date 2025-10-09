@@ -18,11 +18,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ## Phases
 
 ### Phase 1: Core Event Model & Local Transport
+
 **Goal**: RDF triple-based events with local DOM pub/sub
 
 #### Milestones
 
 **M1.1: Event Triple Schema**
+
 - Define RDF schema for events in Turtle format
 - Subject-predicate-object model for all events
 - Timestamp representation (Temporal.Instant as triple)
@@ -31,6 +33,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Validation functions (pure, curried)
 
 **M1.2: Local Event Transport**
+
 - Custom DOM events with WeakMap registry
 - Event dispatch (pure function)
 - Event subscription (returns cleanup function)
@@ -39,6 +42,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Transport interface for layer abstraction
 
 **M1.3: Triple Store Integration**
+
 - Events persisted to triple store on publish
 - SPARQL query interface for event history
 - Event replay from triple store
@@ -46,6 +50,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Temporal queries (events in time range)
 
 **M1.4: CQRS Primitives**
+
 - Command type definitions (produce events)
 - Event type definitions (immutable facts)
 - Query type definitions (nullipotent reads)
@@ -53,6 +58,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Event validation (Warden contracts)
 
 **M1.5: Declarative TSX Components**
+
 - `<Channel>` component for scoping
 - `<Publishes>` component for event emission
 - `<Subscribes>` component for event handling
@@ -61,6 +67,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Component validation and type safety
 
 #### Definition of Done
+
 - ✓ Events stored as RDF triples in triple store
 - ✓ Local pub/sub working via DOM events
 - ✓ SPARQL queries retrieve event history
@@ -72,6 +79,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Zero dependencies (pure TypeScript)
 
 #### Deliverables
+
 - Event triple schema documentation
 - Local transport implementation
 - Triple store persistence layer
@@ -82,11 +90,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 2: Cryptographic Event Ordering
+
 **Goal**: Hash chains, vector clocks, and cryptographic signatures for tamper-proof event logs
 
 #### Milestones
 
 **M2.1: Hash Chain Implementation**
+
 - SHA-256 hashing via Web Crypto API
 - Git-like hash chains (each event references previous)
 - Merkle tree for efficient verification
@@ -94,6 +104,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Chain validation functions
 
 **M2.2: Vector Clock Integration**
+
 - Vector clock data structure (Map<NodeId, number>)
 - Clock increment on event creation
 - Clock merge on event receipt
@@ -101,6 +112,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Lamport timestamp fallback for total order
 
 **M2.3: Cryptographic Signatures**
+
 - Ed25519 key pair generation
 - Event signing with private key
 - Signature verification with public key
@@ -108,6 +120,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Replay attack prevention (nonce)
 
 **M2.4: Event Verification**
+
 - Hash integrity checking
 - Signature validation
 - Causal consistency verification
@@ -115,6 +128,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Verification result as triple
 
 **M2.5: Zero-Knowledge Proofs**
+
 - ZK proof generation for event properties
 - Proof verification without revealing data
 - Selective disclosure (reveal only necessary data)
@@ -122,6 +136,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Integration with Warden for access control
 
 #### Definition of Done
+
 - ✓ All events include hash of previous event
 - ✓ Vector clocks enable causal ordering
 - ✓ Events cryptographically signed with Ed25519
@@ -133,6 +148,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ No blockchain dependency (pure hash chains)
 
 #### Deliverables
+
 - Hash chain implementation
 - Vector clock library
 - Signature generation/verification
@@ -143,11 +159,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 3: Cross-Tab & Network Transport
+
 **Goal**: BroadcastChannel for same-origin, WebSocket/WebRTC for cross-device
 
 #### Milestones
 
 **M3.1: BroadcastChannel Transport**
+
 - BroadcastChannel API wrapper
 - LocalStorage fallback for older browsers
 - Same-origin event synchronization
@@ -155,6 +173,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Tab lifecycle management
 
 **M3.2: WebSocket Transport**
+
 - WebSocket client implementation
 - Connection lifecycle (connect, reconnect, close)
 - Binary message format (efficient encoding)
@@ -162,6 +181,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Server-side event routing
 
 **M3.3: WebRTC Transport**
+
 - Peer-to-peer WebRTC data channels
 - STUN/TURN server configuration
 - ICE candidate exchange
@@ -169,6 +189,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - NAT traversal
 
 **M3.4: WebTransport (HTTP/3)**
+
 - WebTransport API integration
 - QUIC protocol benefits (multiplexing, 0-RTT)
 - Stream prioritization
@@ -176,6 +197,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Graceful fallback to WebSocket
 
 **M3.5: Transport Escalation**
+
 - Automatic transport selection based on scope
 - Fallback chain: WebTransport → WebRTC → WebSocket
 - Transport capabilities detection
@@ -183,6 +205,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Latency measurement per transport
 
 #### Definition of Done
+
 - ✓ BroadcastChannel syncs events across tabs
 - ✓ WebSocket connects to server and exchanges events
 - ✓ WebRTC enables P2P event exchange
@@ -194,6 +217,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Performance metrics per transport
 
 #### Deliverables
+
 - BroadcastChannel implementation
 - WebSocket client/server
 - WebRTC peer connection manager
@@ -204,11 +228,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 4: Distributed P2P with Agent Integration
+
 **Goal**: libp2p pubsub for global event distribution
 
 #### Milestones
 
 **M4.1: Agent CRDT Integration**
+
 - Event log as CRDT (Append-Only Log)
 - Conflict-free merge semantics
 - Agent peer discovery
@@ -216,6 +242,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Eventual consistency guarantees
 
 **M4.2: libp2p Pubsub**
+
 - libp2p node initialization
 - GossipSub protocol implementation
 - Topic subscription management
@@ -223,6 +250,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - DHT-based peer discovery
 
 **M4.3: IPFS Content Addressing**
+
 - Events addressed by content hash (CID)
 - IPFS pinning for archival
 - Content retrieval by CID
@@ -230,6 +258,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Distributed content availability
 
 **M4.4: Peer Authorization**
+
 - Capability-based access control (Warden)
 - DID-based peer authentication
 - Permission propagation
@@ -237,6 +266,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Trust levels (verified, unverified, blocked)
 
 **M4.5: Network Partitioning**
+
 - Partition detection via vector clock divergence
 - Offline event queueing
 - Partition healing (CRDT merge)
@@ -244,6 +274,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Split-brain prevention
 
 #### Definition of Done
+
 - ✓ Events propagate via libp2p GossipSub
 - ✓ Peers discovered via DHT
 - ✓ CRDT merge prevents conflicts
@@ -255,6 +286,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Tested with 100+ concurrent peers
 
 #### Deliverables
+
 - libp2p integration
 - CRDT event log
 - IPFS storage layer
@@ -265,11 +297,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 5: Event Sourcing & Time Travel
+
 **Goal**: Complete event log with replay, projections, and snapshots
 
 #### Milestones
 
 **M5.1: Event Log Persistence**
+
 - Append-only event log in triple store
 - Efficient range queries (by time, by entity)
 - Log compaction strategies
@@ -277,6 +311,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Log integrity verification
 
 **M5.2: Event Replay**
+
 - Replay from arbitrary point in time
 - Replay with filtering (specific entity, event type)
 - Replay speed control (1x, 10x, max)
@@ -284,6 +319,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Replay validation (verify same state)
 
 **M5.3: Projections & Aggregates**
+
 - Event → State projection functions
 - Aggregate state computation (fold over events)
 - Materialized views (cached projections)
@@ -291,6 +327,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Incremental projection updates
 
 **M5.4: Event Snapshots**
+
 - Periodic state snapshots (not every event)
 - Snapshot validation (hash of events)
 - Snapshot-based replay acceleration
@@ -298,6 +335,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Blockchain for snapshot consensus (optional)
 
 **M5.5: Time-Travel Debugging**
+
 - Visual event timeline in Envoy
 - Jump to any point in history
 - Diff between time points
@@ -305,6 +343,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Event source tracking
 
 #### Definition of Done
+
 - ✓ All events persisted to append-only log
 - ✓ Replay from any timestamp functional
 - ✓ Projections derive current state from events
@@ -316,6 +355,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Performance: 1M+ events/second replay
 
 #### Deliverables
+
 - Event log implementation
 - Replay engine
 - Projection system
@@ -326,11 +366,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 6: Workflow Orchestration
+
 **Goal**: Event-driven workflows with visual design and distributed execution
 
 #### Milestones
 
 **M6.1: Workflow Trigger System**
+
 - Declarative trigger components (`<On event="...">`)
 - Pattern-based event matching
 - Conditional triggers (guards)
@@ -338,6 +380,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Trigger priority and ordering
 
 **M6.2: Workflow Phases**
+
 - Phase definition (name, executor, dependencies)
 - DAG-based phase ordering
 - Parallel phase execution
@@ -345,6 +388,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Phase state persistence
 
 **M6.3: Distributed Execution**
+
 - Phase executor selection (based on capabilities)
 - Work distribution across nodes
 - Result aggregation
@@ -352,6 +396,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Resource allocation
 
 **M6.4: Workflow State Management**
+
 - Workflow state as events
 - State checkpointing
 - Workflow recovery after crash
@@ -359,6 +404,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - State visualization
 
 **M6.5: External Integration**
+
 - Webhook event reception
 - API polling → events
 - Scheduled triggers (cron-like)
@@ -366,6 +412,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Integration templates (GitHub, Slack, etc.)
 
 #### Definition of Done
+
 - ✓ Workflows triggered by events
 - ✓ Multi-phase workflows execute in order
 - ✓ Parallel phases execute concurrently
@@ -377,6 +424,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ 10+ integration templates
 
 #### Deliverables
+
 - Trigger system
 - Workflow execution engine
 - Distributed coordinator
@@ -387,11 +435,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 7: Advanced Event Processing
+
 **Goal**: Windowing, aggregation, and stream processing
 
 #### Milestones
 
 **M7.1: Event Windows**
+
 - Tumbling windows (fixed size)
 - Sliding windows (overlapping)
 - Session windows (activity-based)
@@ -399,6 +449,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Window state management
 
 **M7.2: Event Aggregation**
+
 - Aggregate functions (sum, avg, count, min, max)
 - Percentile computation (p50, p90, p99)
 - Custom aggregation functions
@@ -406,6 +457,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Aggregate snapshots
 
 **M7.3: Stream Transformations**
+
 - Map (transform each event)
 - Filter (conditional inclusion)
 - FlatMap (one-to-many transformation)
@@ -413,6 +465,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Fork (fan-out to multiple consumers)
 
 **M7.4: Complex Event Processing**
+
 - Event pattern detection (sequence, conjunction)
 - Temporal patterns (within time window)
 - Negation (absence of event)
@@ -420,6 +473,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Pattern matching library
 
 **M7.5: Anomaly Detection**
+
 - Statistical anomaly detection (z-score, IQR)
 - Trend detection (increasing, decreasing)
 - Threshold alerts
@@ -427,6 +481,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - False positive reduction
 
 #### Definition of Done
+
 - ✓ Windowing functions operational
 - ✓ Aggregations compute correctly
 - ✓ Stream transformations functional
@@ -437,6 +492,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Property-based tests for correctness
 
 #### Deliverables
+
 - Windowing implementation
 - Aggregation functions
 - Stream transformation library
@@ -447,11 +503,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 8: Performance & Optimization
+
 **Goal**: 1M+ events/second throughput with low latency
 
 #### Milestones
 
 **M8.1: Event Batching**
+
 - Automatic batching of events
 - Batch size tuning (dynamic)
 - Batch compression
@@ -459,6 +517,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Batch retry on failure
 
 **M8.2: Event Deduplication**
+
 - UUID-based deduplication
 - Bloom filters for probabilistic dedup
 - Dedup window management
@@ -466,6 +525,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Idempotency guarantees
 
 **M8.3: Backpressure Handling**
+
 - Queue depth monitoring
 - Flow control (slow down producers)
 - Consumer scaling (add workers)
@@ -473,6 +533,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Graceful degradation
 
 **M8.4: Caching & Memoization**
+
 - Projection caching
 - Query result caching
 - Cache invalidation strategies
@@ -480,6 +541,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - LRU cache implementation
 
 **M8.5: WebAssembly Acceleration**
+
 - WASM modules for crypto operations
 - WASM for event routing
 - WASM for compression
@@ -487,6 +549,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Fallback to JS for compatibility
 
 #### Definition of Done
+
 - ✓ 1M+ events/second throughput (local)
 - ✓ 100K+ events/second (distributed)
 - ✓ < 1ms latency (p99, local)
@@ -498,6 +561,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Benchmarks documented
 
 #### Deliverables
+
 - Batching implementation
 - Deduplication system
 - Backpressure mechanism
@@ -508,11 +572,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 9: Security & Privacy
+
 **Goal**: Encryption, selective disclosure, and privacy-preserving analytics
 
 #### Milestones
 
 **M9.1: End-to-End Encryption**
+
 - NaCl box encryption (libsodium-wasm)
 - Per-event encryption
 - Key exchange (Diffie-Hellman)
@@ -520,6 +586,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Encrypted event routing
 
 **M9.2: Selective Disclosure**
+
 - Encrypt different fields with different keys
 - Partial event decryption
 - Least-privilege access
@@ -527,6 +594,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Disclosure policies
 
 **M9.3: Ring Signatures**
+
 - Anonymous event publishing
 - Group membership proofs
 - Signature verification
@@ -534,6 +602,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Ring size optimization
 
 **M9.4: Differential Privacy**
+
 - Laplacian noise addition
 - Privacy budget tracking
 - Epsilon/delta tuning
@@ -541,6 +610,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Privacy-utility tradeoff
 
 **M9.5: Homomorphic Encryption**
+
 - Homomorphic sum computation
 - Encrypted aggregate functions
 - Computation without decryption
@@ -548,6 +618,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Performance considerations
 
 #### Definition of Done
+
 - ✓ Events encrypted end-to-end
 - ✓ Selective field disclosure functional
 - ✓ Ring signatures enable anonymity
@@ -558,6 +629,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Warden integration for access control
 
 #### Deliverables
+
 - Encryption system
 - Selective disclosure implementation
 - Ring signature library
@@ -568,11 +640,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 10: Observability & Monitoring
+
 **Goal**: Complete event visibility via Envoy
 
 #### Milestones
 
 **M10.1: Event Metrics**
+
 - Event rate (events/second)
 - Event size distribution
 - Latency percentiles (p50, p90, p99)
@@ -580,6 +654,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Transport-specific metrics
 
 **M10.2: Event Tracing**
+
 - Distributed tracing (trace ID)
 - Causal chain visualization
 - Latency breakdown by transport
@@ -587,6 +662,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Trace sampling
 
 **M10.3: Event Dashboards**
+
 - Real-time event flow visualization
 - Event type distribution
 - Throughput graphs
@@ -594,6 +670,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Alert status
 
 **M10.4: Event Debugging**
+
 - Event inspector (view event details)
 - Event breakpoints (pause on event)
 - Event filtering (by type, entity, time)
@@ -601,6 +678,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Causal chain traversal
 
 **M10.5: SPARQL Query Interface**
+
 - Query builder UI
 - Saved queries
 - Query performance metrics
@@ -608,6 +686,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Query templates
 
 #### Definition of Done
+
 - ✓ Metrics exposed via Envoy
 - ✓ Distributed tracing functional
 - ✓ Dashboards show real-time data
@@ -618,6 +697,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Alerting functional
 
 #### Deliverables
+
 - Metrics collection system
 - Tracing implementation
 - Dashboard UI
@@ -628,11 +708,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 11: Server-Side Support
+
 **Goal**: Identical TSX components work server-side with Deno
 
 #### Milestones
 
 **M11.1: Server Components**
+
 - TSX components compile for Deno
 - Server-side event emission
 - Server-side subscriptions
@@ -640,6 +722,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Component portability
 
 **M11.2: Server Transports**
+
 - WebSocket server implementation
 - WebTransport server
 - HTTP/2 server-sent events
@@ -647,6 +730,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Transport selection based on client
 
 **M11.3: Event Persistence**
+
 - Server-side triple store
 - Durable event log
 - Replication across servers
@@ -654,6 +738,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Log compaction
 
 **M11.4: Multi-Tenant Support**
+
 - Tenant isolation
 - Per-tenant event logs
 - Resource quotas
@@ -661,6 +746,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Billing integration
 
 **M11.5: Horizontal Scaling**
+
 - Load balancing across servers
 - Consistent hashing for routing
 - Event replication for HA
@@ -668,6 +754,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Split-brain prevention
 
 #### Definition of Done
+
 - ✓ TSX components work identically server-side
 - ✓ Server transports functional
 - ✓ Events persisted durably
@@ -678,6 +765,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Performance matches client-side
 
 #### Deliverables
+
 - Server component runtime
 - Server transport implementations
 - Persistence layer
@@ -688,11 +776,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 12: Integration & Ecosystem
+
 **Goal**: Seamless integration with all Studio libraries
 
 #### Milestones
 
 **M12.1: Architect Integration**
+
 - Events trigger Architect calculations
 - Reactive DOM updates on events
 - Calculation results as events
@@ -700,6 +790,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - No VDOM overhead
 
 **M12.2: Custodian Integration**
+
 - State machine transitions as events
 - Events drive state changes
 - State snapshots as events
@@ -707,6 +798,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Form submissions produce events
 
 **M12.3: Agent Integration**
+
 - CRDT operations as events
 - Event-based synchronization
 - Conflict resolution via events
@@ -714,6 +806,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Peer discovery events
 
 **M12.4: Warden Integration**
+
 - Events validate against contracts
 - Contract violations as events
 - Capability checks on event subscription
@@ -721,6 +814,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Cryptographic event signatures
 
 **M12.5: Sentinel Integration**
+
 - Authentication events
 - Authorization checks on event access
 - Session events (login, logout)
@@ -728,6 +822,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - DID-based event signing
 
 #### Definition of Done
+
 - ✓ All Studio libraries emit/consume events
 - ✓ Event-driven architecture across Studio
 - ✓ No tight coupling between libraries
@@ -737,6 +832,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Integration tests pass
 
 #### Deliverables
+
 - Integration documentation
 - Example applications
 - Integration test suite
@@ -746,11 +842,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 13: Documentation & Developer Experience
+
 **Goal**: Comprehensive documentation and excellent DX
 
 #### Milestones
 
 **M13.1: API Documentation**
+
 - Envoy-generated API docs
 - TSX component reference
 - Function signatures
@@ -758,6 +856,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Property descriptions
 
 **M13.2: Tutorials & Guides**
+
 - Getting started guide
 - Event modeling tutorial
 - CQRS pattern guide
@@ -765,6 +864,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Distributed system patterns
 
 **M13.3: Migration Guides**
+
 - From traditional pub/sub
 - From EventEmitter
 - From Redux (event sourcing)
@@ -772,6 +872,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Breaking change documentation
 
 **M13.4: Performance Tuning**
+
 - Benchmarking guide
 - Optimization techniques
 - Profiling tools
@@ -779,6 +880,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Scaling strategies
 
 **M13.5: Troubleshooting**
+
 - Common errors and solutions
 - Debugging techniques
 - Logging best practices
@@ -786,6 +888,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Support resources
 
 #### Definition of Done
+
 - ✓ API documentation complete
 - ✓ 10+ tutorials published
 - ✓ Migration guides for common tools
@@ -796,6 +899,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Code samples compileable
 
 #### Deliverables
+
 - Complete API reference
 - Tutorial library
 - Migration guides
@@ -806,11 +910,13 @@ This plan outlines the implementation of Operator from foundational event semant
 ---
 
 ### Phase 14: Production Hardening & Release
+
 **Goal**: Battle-tested, production-ready release
 
 #### Milestones
 
 **M14.1: Chaos Testing**
+
 - Network partition simulation
 - Server crashes during events
 - Concurrent event storms
@@ -818,6 +924,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Resource exhaustion scenarios
 
 **M14.2: Performance Validation**
+
 - Sustained load testing (24+ hours)
 - Memory leak detection
 - CPU profiling under load
@@ -825,6 +932,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Throughput limits
 
 **M14.3: Security Audit**
+
 - External security review
 - Penetration testing
 - Cryptographic implementation review
@@ -832,6 +940,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Remediation of findings
 
 **M14.4: Compatibility Testing**
+
 - Browser compatibility (Chrome, Firefox, Safari)
 - Deno version compatibility
 - Node.js compatibility (if supported)
@@ -839,6 +948,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Mobile browser testing
 
 **M14.5: Release Preparation**
+
 - Semantic versioning
 - Changelog generation
 - Release notes
@@ -846,6 +956,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Upgrade path documentation
 
 #### Definition of Done
+
 - ✓ Chaos tests pass
 - ✓ Performance targets met
 - ✓ Security audit passed
@@ -856,6 +967,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ v1.0.0 released
 
 #### Deliverables
+
 - Chaos test suite
 - Performance test results
 - Security audit report
@@ -868,6 +980,7 @@ This plan outlines the implementation of Operator from foundational event semant
 ## Success Metrics
 
 ### Functional
+
 - ✓ Events stored as RDF triples
 - ✓ SPARQL queries retrieve event history
 - ✓ CQRS pattern enforced
@@ -876,6 +989,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Workflow orchestration functional
 
 ### Performance
+
 - ✓ 1M+ events/second (local)
 - ✓ 100K+ events/second (network)
 - ✓ < 1ms latency (p99, local)
@@ -884,6 +998,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ < 1s failover time
 
 ### Quality
+
 - ✓ 100% test coverage
 - ✓ Property-based tests for invariants
 - ✓ Zero known security vulnerabilities
@@ -891,6 +1006,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - ✓ Examples for common patterns
 
 ### Ecosystem
+
 - ✓ Integrates with all Studio libraries
 - ✓ Used by Quartermaster workflows
 - ✓ Used by Custodian state machines
@@ -931,6 +1047,7 @@ This plan outlines the implementation of Operator from foundational event semant
 ## Dependencies
 
 ### Internal Studio Libraries
+
 - **Toolsmith**: Curried functions, functional utilities (array, logic, etc.)
 - **Warden**: Event validation contracts, capability-based access control
 - **Sentinel**: DID-based authentication, authorization for event access
@@ -939,6 +1056,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - **Custodian**: State machine integration, workflow state management
 
 ### External Dependencies
+
 - **Deno**: Runtime (standard library for crypto, file I/O)
 - **Web Crypto API**: Cryptographic operations (SHA-256, Ed25519)
 - **Temporal**: Timestamp representation
@@ -947,6 +1065,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - **libp2p**: P2P networking (optional, for distributed mode)
 
 ### Optional Enhancements
+
 - **IPFS**: Content addressing for events
 - **Blockchain**: Snapshot consensus (community-driven)
 - **ML libraries**: Anomaly detection (future phase)
@@ -970,6 +1089,7 @@ This plan outlines the implementation of Operator from foundational event semant
 ## Post-v1.0 Roadmap
 
 ### Future Enhancements
+
 - Machine learning-based anomaly detection
 - GraphQL interface for event queries
 - Event schema evolution tools
@@ -979,6 +1099,7 @@ This plan outlines the implementation of Operator from foundational event semant
 - Event marketplace (community event schemas)
 
 ### Community Contributions
+
 - Additional integration templates
 - Language bindings (Python, Rust, etc.)
 - Blockchain snapshot implementation

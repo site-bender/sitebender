@@ -15,11 +15,15 @@ Each domain gets its own folder under `docs/taxonomy/`. Large domains (>25 funct
 ## Domain-by-Domain File Plan
 
 ### Domain 1: Activation (9 functions)
+
 **Files**: 1
+
 - `activation/ACTIVATION_FUNCTIONS.md` (9 functions)
 
 ### Domain 2: Array (131 functions)
+
 **Files**: 6
+
 - `array/ARRAY_CREATION.md` (~20 functions) - range, repeat, from, fill, of, etc.
 - `array/ARRAY_ACCESS.md` (~20 functions) - head, tail, last, init, nth, at, slice, etc.
 - `array/ARRAY_TRANSFORMATION.md` (~25 functions) - map, filter, reduce, flatMap, flatten, scan, etc.
@@ -28,50 +32,72 @@ Each domain gets its own folder under `docs/taxonomy/`. Large domains (>25 funct
 - `array/ARRAY_OPERATIONS.md` (~21 functions) - sort, reverse, unique, union, intersection, difference, etc.
 
 ### Domain 3: Async (10 functions)
+
 **Files**: 1
+
 - `async/ASYNC_FUNCTIONS.md` (10 functions)
 
 ### Domain 4: Combinator (49 functions)
+
 **Files**: 3
+
 - `combinator/COMBINATOR_COMPOSITION.md` (~20 functions) - compose, pipe, composeAsync, pipeAsync, etc.
 - `combinator/COMBINATOR_CURRY.md` (~15 functions) - curry, curryN, partial, partialRight, arity, etc.
 - `combinator/COMBINATOR_UTILITIES.md` (~14 functions) - bind, flip, tap, memoize, debounce, throttle, etc.
 
 ### Domain 5: Conversion (9 functions)
+
 **Files**: 1
+
 - `conversion/CONVERSION_FUNCTIONS.md` (9 functions)
 
 ### Domain 6: Finance (12 functions)
+
 **Files**: 1
+
 - `finance/FINANCE_FUNCTIONS.md` (12 functions)
 
 ### Domain 7: Geometry (10 functions)
+
 **Files**: 1
+
 - `geometry/GEOMETRY_FUNCTIONS.md` (10 functions)
 
 ### Domain 8: Hash (1 function)
+
 **Files**: 1
+
 - `hash/HASH_FUNCTIONS.md` (1 function)
 
 ### Domain 9: Interpolation (7 functions)
+
 **Files**: 1
+
 - `interpolation/INTERPOLATION_FUNCTIONS.md` (7 functions)
 
 ### Domain 10: Lens (5 functions)
+
 **Files**: 1
+
 - `lens/LENS_FUNCTIONS.md` (5 functions)
 
 ### Domain 11: Logic (13 functions)
+
 **Files**: 1
+
 - `logic/LOGIC_FUNCTIONS.md` (13 functions)
 
 ### Domain 12: Map (41 functions)
+
 **Files**: 2
+
 - `map/MAP_CREATION.md` (~20 functions) - fromArray, fromEntries, fromObject, etc.
 - `map/MAP_OPERATIONS.md` (~21 functions) - mapKeys, mapValues, merge, filter, partition, etc.
 
 ### Domain 13: Math (57 functions)
+
 **Files**: 9
+
 - `math/arithmetic/MATH_ARITHMETIC.md` (15 functions) - add, subtract, multiply, divide, power, roots, exponential, logarithm, modulo, increment, decrement
 - `math/rounding/MATH_ROUNDING.md` (7 functions) - round, floor, ceiling, truncate, clamp, absoluteValue, sign
 - `math/aggregation/MATH_AGGREGATION.md` (9 functions) - sum, product, average, mean, median, mode, geometricMean, harmonicMean, rootMeanSquare
@@ -83,56 +109,78 @@ Each domain gets its own folder under `docs/taxonomy/`. Large domains (>25 funct
 - `math/solver/MATH_SOLVER.md` (1 function) - quadratic
 
 ### Domain 14: Matrix (10 functions)
+
 **Files**: 1
+
 - `matrix/MATRIX_FUNCTIONS.md` (10 functions)
 
 ### Domain 15: Object (60 functions)
+
 **Files**: 3
+
 - `object/OBJECT_ACCESS.md` (~20 functions) - keys, values, entries, get, has, etc.
 - `object/OBJECT_TRANSFORMATION.md` (~20 functions) - map, filter, merge, pick, omit, etc.
 - `object/OBJECT_UTILITIES.md` (~20 functions) - clone, freeze, seal, assign, etc.
 
 ### Domain 16: Physics (8 functions)
+
 **Files**: 1
+
 - `physics/PHYSICS_FUNCTIONS.md` (8 functions)
 
 ### Domain 17: Set (27 functions)
+
 **Files**: 2
+
 - `set/SET_CREATION.md` (~15 functions) - fromArray, fromIterable, singleton, etc.
 - `set/SET_OPERATIONS.md` (~12 functions) - union, intersection, difference, symmetricDifference, etc.
 
 ### Domain 18: Special (8 functions)
+
 **Files**: 1
+
 - `special/SPECIAL_FUNCTIONS.md` (8 functions)
 
 ### Domain 19: Statistics (13 functions)
+
 **Files**: 1
+
 - `statistics/STATISTICS_FUNCTIONS.md` (13 functions)
 
 ### Domain 20: String (71 functions)
+
 **Files**: 4
+
 - `string/STRING_CASE.md` (~15 functions) - toUpperCase, toLowerCase, capitalize, camelCase, etc.
 - `string/STRING_TESTING.md` (~20 functions) - contains, startsWith, endsWith, isEmpty, isBlank, etc.
 - `string/STRING_MANIPULATION.md` (~20 functions) - replace, replaceAll, trim, pad, slice, etc.
 - `string/STRING_UTILITIES.md` (~16 functions) - split, join, repeat, reverse, etc.
 
 ### Domain 21: Temporal (79 functions)
+
 **Files**: 4
+
 - `temporal/TEMPORAL_CREATION.md` (~20 functions) - now, fromTimestamp, fromString, etc.
 - `temporal/TEMPORAL_MANIPULATION.md` (~20 functions) - addHours, addDays, addMonths, etc.
 - `temporal/TEMPORAL_COMPARISON.md` (~20 functions) - isAfter, isBefore, isSame, isWithin, etc.
 - `temporal/TEMPORAL_FORMATTING.md` (~19 functions) - format, toISOString, toLocaleString, etc.
 
 ### Domain 22: Trigonometry (19 functions)
+
 **Files**: 1
+
 - `trigonometry/TRIGONOMETRY_FUNCTIONS.md` (19 functions)
 
 ### Domain 23: Tuple (13 functions)
+
 **Files**: 1
+
 - `tuple/TUPLE_FUNCTIONS.md` (13 functions)
 
 ### Domain 24: Validation (124 functions)
+
 **Files**: 6
+
 - `validation/VALIDATION_TYPE_GUARDS.md` (~20 functions) - isString, isNumber, isBoolean, etc.
 - `validation/VALIDATION_NUMERIC.md` (~20 functions) - isInteger, isFinite, isPositive, etc.
 - `validation/VALIDATION_STRING.md` (~25 functions) - isEmail, isUrl, isUuid, isIpv4, etc.
@@ -144,33 +192,33 @@ Each domain gets its own folder under `docs/taxonomy/`. Large domains (>25 funct
 
 ## File Organization Summary
 
-| Domain | Functions | Files | Avg Functions/File |
-|--------|-----------|-------|-------------------|
-| Activation | 9 | 1 | 9 |
-| Array | 131 | 6 | 22 |
-| Async | 10 | 1 | 10 |
-| Combinator | 49 | 3 | 16 |
-| Conversion | 9 | 1 | 9 |
-| Finance | 12 | 1 | 12 |
-| Geometry | 10 | 1 | 10 |
-| Hash | 1 | 1 | 1 |
-| Interpolation | 7 | 1 | 7 |
-| Lens | 5 | 1 | 5 |
-| Logic | 13 | 1 | 13 |
-| Map | 41 | 2 | 21 |
-| Math | 57 | 9 | 6 |
-| Matrix | 10 | 1 | 10 |
-| Object | 60 | 3 | 20 |
-| Physics | 8 | 1 | 8 |
-| Set | 27 | 2 | 14 |
-| Special | 8 | 1 | 8 |
-| Statistics | 13 | 1 | 13 |
-| String | 71 | 4 | 18 |
-| Temporal | 79 | 4 | 20 |
-| Trigonometry | 19 | 1 | 19 |
-| Tuple | 13 | 1 | 13 |
-| Validation | 124 | 6 | 21 |
-| **TOTAL** | **786** | **54** | **~15** |
+| Domain        | Functions | Files  | Avg Functions/File |
+| ------------- | --------- | ------ | ------------------ |
+| Activation    | 9         | 1      | 9                  |
+| Array         | 131       | 6      | 22                 |
+| Async         | 10        | 1      | 10                 |
+| Combinator    | 49        | 3      | 16                 |
+| Conversion    | 9         | 1      | 9                  |
+| Finance       | 12        | 1      | 12                 |
+| Geometry      | 10        | 1      | 10                 |
+| Hash          | 1         | 1      | 1                  |
+| Interpolation | 7         | 1      | 7                  |
+| Lens          | 5         | 1      | 5                  |
+| Logic         | 13        | 1      | 13                 |
+| Map           | 41        | 2      | 21                 |
+| Math          | 57        | 9      | 6                  |
+| Matrix        | 10        | 1      | 10                 |
+| Object        | 60        | 3      | 20                 |
+| Physics       | 8         | 1      | 8                  |
+| Set           | 27        | 2      | 14                 |
+| Special       | 8         | 1      | 8                  |
+| Statistics    | 13        | 1      | 13                 |
+| String        | 71        | 4      | 18                 |
+| Temporal      | 79        | 4      | 20                 |
+| Trigonometry  | 19        | 1      | 19                 |
+| Tuple         | 13        | 1      | 13                 |
+| Validation    | 124       | 6      | 21                 |
+| **TOTAL**     | **786**   | **54** | **~15**            |
 
 ---
 
@@ -286,6 +334,7 @@ Each file follows this structure:
 ## Function List
 
 ### functionName
+
 - **Current**: `(param: Type) => ReturnType`
 - **Returns**: Description of return behavior (null/NaN/throw/value)
 - **Description**: [From //++ Envoy comment or [INFERRED]]
@@ -317,6 +366,7 @@ Each file follows this structure:
 ---
 
 **Priority Order** (based on dependency):
+
 1. Validation (foundation for all branded types)
 2. Math (needed by many domains)
 3. String (widely used)

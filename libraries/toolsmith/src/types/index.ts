@@ -47,7 +47,5 @@ export type SerializableValue = Serializable
 
 export type Unknown = Value
 
-
-
 //++ Array type that guarantees at least one element
 export type NonEmptyArray<T> = readonly [T, ...Array<T>]

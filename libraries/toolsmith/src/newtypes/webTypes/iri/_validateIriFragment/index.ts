@@ -38,7 +38,8 @@ export default function _validateIriFragment(
 			],
 			received: fragment,
 			expected: "Fragment without bidi format characters",
-			suggestion: "Remove bidi format characters (U+200E, U+200F, U+202A..U+202E)",
+			suggestion:
+				"Remove bidi format characters (U+200E, U+200F, U+202A..U+202E)",
 			severity: "requirement",
 		})
 	}
