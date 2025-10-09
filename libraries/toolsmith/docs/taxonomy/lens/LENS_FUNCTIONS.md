@@ -10,30 +10,35 @@
 ## Function List
 
 ### composeLens
+
 - **Current**: `<S, A, B>(first: Lens<S, A>, second: Lens<A, B>) => Lens<S, B>`
 - **Returns**: Lens<S, B>
 - **Description**: Composes two lenses to create a lens that focuses deeper into a structure; combines get operations sequentially and set operations in reverse; enables functional property access composition
 - **Target**: Same signature (lenses are already functional constructs)
 
 ### lensEq (should be `lensEquals`)
+
 - **Current**: `<S, A>(lens: Lens<S, A>) => (value: A) => (subject: S) => boolean`
 - **Returns**: Curried function returning boolean
 - **Description**: Creates a predicate that checks if the value extracted by a lens equals a specific value using strict equality (===)
 - **Target**: `<S, A>(lens: Lens<S, A>) => (value: A) => (subject: S) => Result<ValidationError, S>`
 
 ### lensGte (should be `lensGreaterThanOrEqual` with alias)
+
 - **Current**: `<S, A>(lens: Lens<S, A>) => (value: A) => (subject: S) => boolean`
 - **Returns**: Curried function returning boolean
 - **Description**: Creates a predicate that checks if the value extracted by a lens is greater than or equal to a specific value (>=)
 - **Target**: `<S, A>(lens: Lens<S, A>) => (value: A) => (subject: S) => Result<ValidationError, S>`
 
 ### lensLte (should be `lensLessThanOrEqual` with alias)
+
 - **Current**: `<S, A>(lens: Lens<S, A>) => (value: A) => (subject: S) => boolean`
 - **Returns**: Curried function returning boolean
 - **Description**: Creates a predicate that checks if the value extracted by a lens is less than or equal to a specific value (<=)
 - **Target**: `<S, A>(lens: Lens<S, A>) => (value: A) => (subject: S) => Result<ValidationError, S>`
 
 ### lensSatisfies
+
 - **Current**: `<S, A>(lens: Lens<S, A>) => (predicate: (value: A) => boolean) => (subject: S) => boolean`
 - **Returns**: Curried function returning boolean
 - **Description**: Creates a predicate that checks if the value extracted by a lens satisfies an arbitrary predicate function
@@ -55,10 +60,11 @@ Lens functions are already highly functional constructs. The monadic migration w
 ### Lens Type Definition
 
 Lenses follow the functional programming pattern with `get` and `set` operations:
+
 ```typescript
 type Lens<S, A> = {
-  get: (s: S) => A
-  set: (a: A) => (s: S) => S
+	get: (s: S) => A
+	set: (a: A) => (s: S) => S
 }
 ```
 
@@ -67,6 +73,7 @@ This type is defined in `src/vanilla/object/lens/index.ts`.
 ### Arrow Function Syntax
 
 All functions use arrow syntax and need refactoring to named functions:
+
 - **composeLens** (arrow function)
 - **lensEq** (arrow function)
 - **lensGte** (arrow function)
@@ -76,9 +83,11 @@ All functions use arrow syntax and need refactoring to named functions:
 ### Function Categories
 
 #### Lens Combinators
+
 - **composeLens**: Pure lens composition (should remain as-is)
 
 #### Lens-Based Predicates (Validation)
+
 - **lensEq**: Equality check
 - **lensGte**: Greater-than-or-equal check
 - **lensLte**: Less-than-or-equal check
@@ -89,10 +98,12 @@ All functions use arrow syntax and need refactoring to named functions:
 ## Implementation Dependencies
 
 ### Type Dependencies
+
 - All functions depend on `Lens<S, A>` type from `object/lens`
 - Should maintain this dependency
 
 ### No External Function Dependencies
+
 - Lens functions are self-contained
 - Use only type composition and JavaScript operators
 
@@ -103,6 +114,7 @@ All functions use arrow syntax and need refactoring to named functions:
 ### Missing Standard Lens Functions
 
 Consider implementing these during migration:
+
 - **lensGt**: Greater-than comparison
 - **lensLt**: Less-than comparison
 - **lensNotEq**: Not-equal comparison
@@ -116,6 +128,7 @@ Consider implementing these during migration:
 ### Lens Laws
 
 Proper lenses should obey three laws:
+
 1. **GetPut**: `set(get(s))(s) === s`
 2. **PutGet**: `get(set(a)(s)) === a`
 3. **PutPut**: `set(a2)(set(a1)(s)) === set(a2)(s)`
@@ -125,6 +138,7 @@ Ensure these laws hold during migration.
 ### Testing Considerations
 
 When migrating, ensure tests for:
+
 - Lens composition (multiple levels deep)
 - Comparison operators with edge values
 - Predicate satisfaction with various functions

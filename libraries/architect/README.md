@@ -35,69 +35,69 @@ JSX → IR → JSON/YAML/Turtle → Storage → Retrieval → DOM + Behaviors
 ### Example: Complex Validation
 
 ```jsx
-import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx";
-import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx";
-import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx";
-import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx";
-import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx";
-import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx";
-import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx";
-import Data from "@sitebender/architect/components/data/Data/index.tsx";
-import FromArgument from "@sitebender/architect/components/injectors/FromArgument/index.tsx";
-import Value from "@sitebender/architect/components/injectors/Value/index.tsx";
-import And from "@sitebender/architect/components/logical/And/index.tsx";
-import Or from "@sitebender/architect/components/logical/Or/index.tsx";
-import Validation from "@sitebender/architect/components/validation/Validation/index.tsx";
+import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx"
+import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx"
+import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx"
+import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx"
+import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx"
+import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx"
+import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx"
+import Data from "@sitebender/architect/components/data/Data/index.tsx"
+import FromArgument from "@sitebender/architect/components/injectors/FromArgument/index.tsx"
+import Value from "@sitebender/architect/components/injectors/Value/index.tsx"
+import And from "@sitebender/architect/components/logical/And/index.tsx"
+import Or from "@sitebender/architect/components/logical/Or/index.tsx"
+import Validation from "@sitebender/architect/components/validation/Validation/index.tsx"
 
 // Declarative validation that becomes data
 // Value must be: an integer && ((value >= 6 && value < 12) || (value > 20 && value <= 42))
 <Data name="age" type="Integer">
-  <Validation>
-    <And>
-      <IsInteger>
-        <FromArgument />
-      </IsInteger>
-      <Or>
-        <And>
-          <IsLessThan>
-            <Referent>
-              <FromArgument />
-            </Referent>
-            <Comparand>
-              <Value>12</Value>
-            </Comparand>
-          </IsLessThan>
-          <IsGreaterThanOrEqual>
-            <Referent>
-              <FromArgument />
-            </Referent>
-            <Comparand>
-              <Value>6</Value>
-            </Comparand>
-          </IsGreaterThanOrEqual>
-        </And>
-        <And>
-          <IsLessThanOrEqual>
-            <Referent>
-              <FromArgument />
-            </Referent>
-            <Comparand>
-              <Value>42</Value>
-            </Comparand>
-          </IsLessThanOrEqual>
-          <IsGreaterThan>
-            <Referent>
-              <FromArgument />
-            </Referent>
-            <Comparand>
-              <Value>20</Value>
-            </Comparand>
-          </IsGreaterThan>
-        </And>
-      </Or>
-    </And>
-  </Validation>
-</Data>;
+	<Validation>
+		<And>
+			<IsInteger>
+				<FromArgument />
+			</IsInteger>
+			<Or>
+				<And>
+					<IsLessThan>
+						<Referent>
+							<FromArgument />
+						</Referent>
+						<Comparand>
+							<Value>12</Value>
+						</Comparand>
+					</IsLessThan>
+					<IsGreaterThanOrEqual>
+						<Referent>
+							<FromArgument />
+						</Referent>
+						<Comparand>
+							<Value>6</Value>
+						</Comparand>
+					</IsGreaterThanOrEqual>
+				</And>
+				<And>
+					<IsLessThanOrEqual>
+						<Referent>
+							<FromArgument />
+						</Referent>
+						<Comparand>
+							<Value>42</Value>
+						</Comparand>
+					</IsLessThanOrEqual>
+					<IsGreaterThan>
+						<Referent>
+							<FromArgument />
+						</Referent>
+						<Comparand>
+							<Value>20</Value>
+						</Comparand>
+					</IsGreaterThan>
+				</And>
+			</Or>
+		</And>
+	</Validation>
+</Data>
 ```
 
 This JSX compiles to a data structure that:
@@ -110,38 +110,38 @@ This JSX compiles to a data structure that:
 ### Example: Reactive Calculations
 
 ```jsx
-import Input from "@sitebender/architect/components/forms/Input/index.tsx";
-import Display from "@sitebender/architect/components/display/Display/index.tsx";
-import Add from "@sitebender/architect/components/operators/Add/index.tsx";
-import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx";
-import FromElement from "@sitebender/architect/components/injectors/FromElement/index.tsx";
+import Input from "@sitebender/architect/components/forms/Input/index.tsx"
+import Display from "@sitebender/architect/components/display/Display/index.tsx"
+import Add from "@sitebender/architect/components/operators/Add/index.tsx"
+import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx"
+import FromElement from "@sitebender/architect/components/injectors/FromElement/index.tsx"
 
 <>
-  <Input id="price" type="number" />
-  <Input id="quantity" type="number" />
-  <Input id="taxRate" type="number" value="0.08" />
+	<Input id="price" type="number" />
+	<Input id="quantity" type="number" />
+	<Input id="taxRate" type="number" value="0.08" />
 
-  <Display id="subtotal">
-    <Multiply>
-      <FromElement selector="#price" />
-      <FromElement selector="#quantity" />
-    </Multiply>
-  </Display>
+	<Display id="subtotal">
+		<Multiply>
+			<FromElement selector="#price" />
+			<FromElement selector="#quantity" />
+		</Multiply>
+	</Display>
 
-  <Display id="tax">
-    <Multiply>
-      <FromElement selector="#subtotal" />
-      <FromElement selector="#taxRate" />
-    </Multiply>
-  </Display>
+	<Display id="tax">
+		<Multiply>
+			<FromElement selector="#subtotal" />
+			<FromElement selector="#taxRate" />
+		</Multiply>
+	</Display>
 
-  <Display id="total">
-    <Add>
-      <FromElement selector="#subtotal" />
-      <FromElement selector="#tax" />
-    </Add>
-  </Display>
-</>;
+	<Display id="total">
+		<Add>
+			<FromElement selector="#subtotal" />
+			<FromElement selector="#tax" />
+		</Add>
+	</Display>
+</>
 ```
 
 Changes cascade automatically. Update price or quantity, and subtotal, tax, and total all recalculate.
@@ -193,12 +193,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <IsLessThan>
-  <Referent>
-    <FromArgument />
-  </Referent>
-  <Comparand>
-    <Value>100</Value>
-  </Comparand>
+	<Referent>
+		<FromArgument />
+	</Referent>
+	<Comparand>
+		<Value>100</Value>
+	</Comparand>
 </IsLessThan>
 ```
 
@@ -209,12 +209,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <Matches>
-  <Referent>
-    <FromElement selector="#email" />
-  </Referent>
-  <Comparand>
-    <Value>^[^@]+@[^@]+$</Value>
-  </Comparand>
+	<Referent>
+		<FromElement selector="#email" />
+	</Referent>
+	<Comparand>
+		<Value>^[^@]+@[^@]+$</Value>
+	</Comparand>
 </Matches>
 ```
 
@@ -225,12 +225,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <IsBeforeDate>
-  <Referent>
-    <FromArgument />
-  </Referent>
-  <Comparand>
-    <Value>2024-12-31</Value>
-  </Comparand>
+	<Referent>
+		<FromArgument />
+	</Referent>
+	<Comparand>
+		<Value>2024-12-31</Value>
+	</Comparand>
 </IsBeforeDate>
 ```
 
@@ -242,12 +242,12 @@ Boolean-returning comparison operations. All comparators take injectors as child
 
 ```jsx
 <InSet>
-  <Referent>
-    <FromArgument />
-  </Referent>
-  <Comparand>
-    <Value>["admin", "editor", "viewer"]</Value>
-  </Comparand>
+	<Referent>
+		<FromArgument />
+	</Referent>
+	<Comparand>
+		<Value>["admin", "editor", "viewer"]</Value>
+	</Comparand>
 </InSet>
 ```
 
@@ -292,15 +292,15 @@ Control visibility and presentation:
 ```jsx
 // Example: Show content only if user is admin
 <ShowIf>
-  <IsEqualTo>
-    <Referent>
-      <FromElement selector="#userRole" />
-    </Referent>
-    <Comparand>
-      <Value>admin</Value>
-    </Comparand>
-  </IsEqualTo>
-  <div>Admin Controls Here</div>
+	<IsEqualTo>
+		<Referent>
+			<FromElement selector="#userRole" />
+		</Referent>
+		<Comparand>
+			<Value>admin</Value>
+		</Comparand>
+	</IsEqualTo>
+	<div>Admin Controls Here</div>
 </ShowIf>
 ```
 
@@ -328,11 +328,11 @@ Architect/Pagewright uses data types instead:
 ```jsx
 // ✅ Data-driven approach - system picks widgets
 <Form schema="User">
-  <ChooseOneField name="role" type="String" /> // Becomes radio OR select
-  <BooleanField name="active" /> // Becomes checkbox OR toggle
-  <MemberField name="country" of="CountryEnum" /> // Becomes select OR
-  autocomplete
-  <StringField name="description" type="Text" /> // Becomes input OR textarea
+	<ChooseOneField name="role" type="String" /> // Becomes radio OR select
+	<BooleanField name="active" /> // Becomes checkbox OR toggle
+	<MemberField name="country" of="CountryEnum" />{" "}
+	// Becomes select OR autocomplete
+	<StringField name="description" type="Text" /> // Becomes input OR textarea
 </Form>
 ```
 
@@ -359,10 +359,10 @@ Architect/Pagewright uses data types instead:
    ```jsx
    // Given a database schema or triple store shape:
    <Form entity="Customer" include={["name", "email", "tier", "active"]}>
-     // Automatically generates: // - StringField for name (required from NOT
-     NULL) // - StringField for email (with email validation from SHACL) // -
-     MemberField for tier (enum from database) // - BooleanField for active
-     (with default from schema)
+   	// Automatically generates: // - StringField for name (required from NOT
+   	NULL) // - StringField for email (with email validation from SHACL) // -
+   	MemberField for tier (enum from database) // - BooleanField for active
+   	(with default from schema)
    </Form>
    ```
 
@@ -412,9 +412,9 @@ Architect/Pagewright uses data types instead:
 ```jsx
 // Configure widget selection thresholds
 <Config>
-  <Value name="RADIO_MAX_ITEMS">6</Value>
-  <Value name="TEXTAREA_MIN_LENGTH">200</Value>
-  <Value name="SLIDER_FOR_BOUNDED_NUMBERS">true</Value>
+	<Value name="RADIO_MAX_ITEMS">6</Value>
+	<Value name="TEXTAREA_MIN_LENGTH">200</Value>
+	<Value name="SLIDER_FOR_BOUNDED_NUMBERS">true</Value>
 </Config>
 ```
 
@@ -425,12 +425,12 @@ Architect/Pagewright uses data types instead:
 ```jsx
 // A designer or product manager writes:
 <CustomerForm>
-  <Section title="Basic Info">
-    <Fields include={["name", "company", "email"]} />
-  </Section>
-  <Section title="Preferences">
-    <Fields include={["tier", "notifications", "language"]} />
-  </Section>
+	<Section title="Basic Info">
+		<Fields include={["name", "company", "email"]} />
+	</Section>
+	<Section title="Preferences">
+		<Fields include={["tier", "notifications", "language"]} />
+	</Section>
 </CustomerForm>
 
 // The system knows from the schema:
@@ -473,15 +473,15 @@ Architect attaches behaviors as properties on DOM elements:
 
 ```javascript
 // After rendering, elements have these properties:
-element.__sbCalculate; // Async calculation function
-element.__sbValidate; // Async validation function
-element.__sbFormat; // Async formatting function
+element.__sbCalculate // Async calculation function
+element.__sbValidate // Async validation function
+element.__sbFormat // Async formatting function
 
 // Global registries track dependencies:
-document.__sbCalculators; // Set of element IDs with calculations
-document.__sbCalculations; // Map of selector to dependent element IDs
-document.__sbFormatters; // Set of element IDs with formatters
-document.__sbValidators; // Set of element IDs with validators
+document.__sbCalculators // Set of element IDs with calculations
+document.__sbCalculations // Map of selector to dependent element IDs
+document.__sbFormatters // Set of element IDs with formatters
+document.__sbValidators // Set of element IDs with validators
 ```
 
 ## Data Persistence
@@ -490,25 +490,25 @@ document.__sbValidators; // Set of element IDs with validators
 
 ```json
 {
-  "_tag": "Validation",
-  "type": "logical",
-  "children": [
-    {
-      "_tag": "And",
-      "type": "logical",
-      "operands": [
-        {
-          "_tag": "IsInteger",
-          "type": "comparator"
-        },
-        {
-          "_tag": "IsGreaterThan",
-          "type": "comparator",
-          "value": 0
-        }
-      ]
-    }
-  ]
+	"_tag": "Validation",
+	"type": "logical",
+	"children": [
+		{
+			"_tag": "And",
+			"type": "logical",
+			"operands": [
+				{
+					"_tag": "IsInteger",
+					"type": "comparator"
+				},
+				{
+					"_tag": "IsGreaterThan",
+					"type": "comparator",
+					"value": 0
+				}
+			]
+		}
+	]
 }
 ```
 
@@ -540,50 +540,50 @@ document.__sbValidators; // Set of element IDs with validators
 ## Server-Side Rendering
 
 ```typescript
-import render from "@sitebender/architect/rendering/ssr/render/index.ts";
+import render from "@sitebender/architect/rendering/ssr/render/index.ts"
 
 // Fetch UI definition from database
-const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'");
+const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'")
 
 // Render to HTML with embedded behaviors
 const html = await render(uiConfig, {
-  embedBehaviors: true,
-  includeHydration: true,
-});
+	embedBehaviors: true,
+	includeHydration: true,
+})
 ```
 
 ## Client-Side Hydration
 
 ```typescript
-import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts";
+import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts"
 
 // Find all elements with embedded configurations
-const elements = document.querySelectorAll("[data-architect]");
+const elements = document.querySelectorAll("[data-architect]")
 
 function hydrateElement(el) {
-  const config = JSON.parse(el.dataset.architect);
+	const config = JSON.parse(el.dataset.architect)
 
-  hydrate(el, config);
+	hydrate(el, config)
 }
 
-elements.forEach(hydrateElement);
+elements.forEach(hydrateElement)
 ```
 
 ## Integration with Triple Stores
 
 ```typescript
-import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts";
-import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts";
-import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts";
+import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts"
+import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts"
+import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts"
 
 // Convert UI to RDF triples
-const triples = toRDF(uiConfig);
+const triples = toRDF(uiConfig)
 
 // Store in triple store
-await tripleStore.insert(triples);
+await tripleStore.insert(triples)
 
 // Validate data against generated SHACL
-const validation = await validateSHACL(data, uiConfig);
+const validation = await validateSHACL(data, uiConfig)
 
 // Query UI components
 const query = `
@@ -592,8 +592,8 @@ const query = `
     ?component arch:hasValidation ?validation .
     ?component rdf:type ?type .
   }
-`;
-const components = await tripleStore.query(query);
+`
+const components = await tripleStore.query(query)
 ```
 
 ## Test Scenarios as Data
@@ -609,28 +609,28 @@ Test scenarios are JSX components compiled to IR:
 
 ```tsx
 <TestScenario name="Form validation cascade">
-  <Setup>
-    <LoadSchema from="./schemas/user.shacl" />
-  </Setup>
+	<Setup>
+		<LoadSchema from="./schemas/user.shacl" />
+	</Setup>
 
-  <Render>
-    <Input id="age" type="number">
-      <Validation>
-        <IsInteger />
-        <IsGreaterThan value={0} />
-        <IsLessThan value={120} />
-      </Validation>
-    </Input>
-  </Render>
+	<Render>
+		<Input id="age" type="number">
+			<Validation>
+				<IsInteger />
+				<IsGreaterThan value={0} />
+				<IsLessThan value={120} />
+			</Validation>
+		</Input>
+	</Render>
 
-  <Actions>
-    <SimulateInput target="#age" value="150" />
-  </Actions>
+	<Actions>
+		<SimulateInput target="#age" value="150" />
+	</Actions>
 
-  <Assertions>
-    <ValidationState target="#age" is="invalid" />
-    <ErrorMessage contains="must be less than 120" />
-  </Assertions>
+	<Assertions>
+		<ValidationState target="#age" is="invalid" />
+		<ErrorMessage contains="must be less than 120" />
+	</Assertions>
 </TestScenario>
 ```
 
@@ -707,31 +707,31 @@ npm install @sitebender/architect
 ### Simple Example
 
 ```tsx
-import Display from "@sitebender/architect/components/display/Display/index.tsx";
-import Input from "@sitebender/architect/components/forms/Input/index.tsx";
-import From from "@sitebender/architect/components/injectors/From/index.tsx";
-import Add from "@sitebender/architect/components/operators/Add/index.tsx";
-import render from "@sitebender/architect/rendering/render/index.ts";
+import Display from "@sitebender/architect/components/display/Display/index.tsx"
+import Input from "@sitebender/architect/components/forms/Input/index.tsx"
+import From from "@sitebender/architect/components/injectors/From/index.tsx"
+import Add from "@sitebender/architect/components/operators/Add/index.tsx"
+import render from "@sitebender/architect/rendering/render/index.ts"
 
 function Calculator() {
-  return (
-    <div>
-      <Input id="a" type="number" />
-      <span>+</span>
-      <Input id="b" type="number" />
-      <span>=</span>
-      <Display>
-        <Add>
-          <FromElement selector="#a" />
-          <FromElement selector="#b" />
-        </Add>
-      </Display>
-    </div>
-  );
+	return (
+		<div>
+			<Input id="a" type="number" />
+			<span>+</span>
+			<Input id="b" type="number" />
+			<span>=</span>
+			<Display>
+				<Add>
+					<FromElement selector="#a" />
+					<FromElement selector="#b" />
+				</Add>
+			</Display>
+		</div>
+	)
 }
 
 // Render to DOM
-render(<Calculator />, document.getElementById("root"));
+render(<Calculator />, document.getElementById("root"))
 ```
 
 ## Advanced Topics
@@ -742,15 +742,15 @@ Define your own operators that compose with existing ones:
 
 ```tsx
 function computeFactorial(n) {
-  return n <= 1 ? 1 : n * computeFactorial(n - 1);
+	return n <= 1 ? 1 : n * computeFactorial(n - 1)
 }
 
 function Factorial({ children }) {
-  return (
-    <CustomOperator name="factorial" compute={computeFactorial}>
-      {children}
-    </CustomOperator>
-  );
+	return (
+		<CustomOperator name="factorial" compute={computeFactorial}>
+			{children}
+		</CustomOperator>
+	)
 }
 ```
 
@@ -760,13 +760,13 @@ Create injectors for any data source:
 
 ```tsx
 function FromGraphQL({ query, variables }) {
-  async function fetchGraphQL() {
-    const result = await graphqlClient.query({ query, variables });
+	async function fetchGraphQL() {
+		const result = await graphqlClient.query({ query, variables })
 
-    return result.data;
-  }
+		return result.data
+	}
 
-  return <CustomInjector name="graphql" fetch={fetchGraphQL} />;
+	return <CustomInjector name="graphql" fetch={fetchGraphQL} />
 }
 ```
 
@@ -776,29 +776,29 @@ Combine multiple behaviors on a single element:
 
 ```tsx
 <Input id="email">
-  <Validation>
-    <And>
-      <Matches>
-        <Referent>
-          <FromArgument />
-        </Referent>
-        <Comparand>
-          <Value>^[^@]+@[^@]+\.[^@]+$</Value>
-        </Comparand>
-      </Matches>
-      <IsUniqueEmail>
-        <FromArgument />
-      </IsUniqueEmail>
-    </And>
-  </Validation>
-  <Format>
-    <AsLowerCase />
-  </Format>
-  <Calculation>
-    <TrimWhitespace>
-      <FromArgument />
-    </TrimWhitespace>
-  </Calculation>
+	<Validation>
+		<And>
+			<Matches>
+				<Referent>
+					<FromArgument />
+				</Referent>
+				<Comparand>
+					<Value>^[^@]+@[^@]+\.[^@]+$</Value>
+				</Comparand>
+			</Matches>
+			<IsUniqueEmail>
+				<FromArgument />
+			</IsUniqueEmail>
+		</And>
+	</Validation>
+	<Format>
+		<AsLowerCase />
+	</Format>
+	<Calculation>
+		<TrimWhitespace>
+			<FromArgument />
+		</TrimWhitespace>
+	</Calculation>
 </Input>
 ```
 

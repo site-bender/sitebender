@@ -35,7 +35,12 @@ export type Datatype =
 // ============================================================================
 
 //++ Semantic names for binary operations (used by Toolsmith)
-export type BinaryOperation = "add" | "subtract" | "multiply" | "divide" | "power"
+export type BinaryOperation =
+	| "add"
+	| "subtract"
+	| "multiply"
+	| "divide"
+	| "power"
 
 //++ Semantic names for unary operations (used by Toolsmith)
 export type UnaryOperation = "negate" | "factorial"

@@ -5,7 +5,6 @@ import find from "./index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isError from "../../monads/result/isError/index.ts"
 
-
 Deno.test("find", async function findTests(t) {
 	await t.step(
 		"finds first matching element",

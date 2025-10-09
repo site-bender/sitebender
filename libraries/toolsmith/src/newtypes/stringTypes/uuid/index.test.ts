@@ -10,7 +10,10 @@ describe("uuid", () => {
 			const result = uuid("550e8400-e29b-41d4-a716-446655440000")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "550e8400-e29b-41d4-a716-446655440000")
+				assertEquals(
+					unwrapUuid(result.value),
+					"550e8400-e29b-41d4-a716-446655440000",
+				)
 			}
 		})
 
@@ -18,7 +21,10 @@ describe("uuid", () => {
 			const result = uuid("550E8400-E29B-41D4-A716-446655440000")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "550e8400-e29b-41d4-a716-446655440000")
+				assertEquals(
+					unwrapUuid(result.value),
+					"550e8400-e29b-41d4-a716-446655440000",
+				)
 			}
 		})
 
@@ -26,7 +32,10 @@ describe("uuid", () => {
 			const result = uuid("550e8400-E29B-41d4-A716-446655440000")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "550e8400-e29b-41d4-a716-446655440000")
+				assertEquals(
+					unwrapUuid(result.value),
+					"550e8400-e29b-41d4-a716-446655440000",
+				)
 			}
 		})
 
@@ -34,7 +43,10 @@ describe("uuid", () => {
 			const result = uuid("00000000-0000-0000-0000-000000000000")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "00000000-0000-0000-0000-000000000000")
+				assertEquals(
+					unwrapUuid(result.value),
+					"00000000-0000-0000-0000-000000000000",
+				)
 			}
 		})
 
@@ -42,7 +54,10 @@ describe("uuid", () => {
 			const result = uuid("ffffffff-ffff-ffff-ffff-ffffffffffff")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "ffffffff-ffff-ffff-ffff-ffffffffffff")
+				assertEquals(
+					unwrapUuid(result.value),
+					"ffffffff-ffff-ffff-ffff-ffffffffffff",
+				)
 			}
 		})
 
@@ -50,7 +65,10 @@ describe("uuid", () => {
 			const result = uuid("FFFFFFFF-FFFF-FFFF-FFFF-FFFFFFFFFFFF")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "ffffffff-ffff-ffff-ffff-ffffffffffff")
+				assertEquals(
+					unwrapUuid(result.value),
+					"ffffffff-ffff-ffff-ffff-ffffffffffff",
+				)
 			}
 		})
 
@@ -58,7 +76,10 @@ describe("uuid", () => {
 			const result = uuid("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "6ba7b810-9dad-11d1-80b4-00c04fd430c8")
+				assertEquals(
+					unwrapUuid(result.value),
+					"6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+				)
 			}
 		})
 
@@ -66,7 +87,10 @@ describe("uuid", () => {
 			const result = uuid("886313e1-3b8a-5372-9b90-0c9aee199e5d")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "886313e1-3b8a-5372-9b90-0c9aee199e5d")
+				assertEquals(
+					unwrapUuid(result.value),
+					"886313e1-3b8a-5372-9b90-0c9aee199e5d",
+				)
 			}
 		})
 
@@ -74,7 +98,10 @@ describe("uuid", () => {
 			const result = uuid("12345678-1234-5678-1234-567812345678")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "12345678-1234-5678-1234-567812345678")
+				assertEquals(
+					unwrapUuid(result.value),
+					"12345678-1234-5678-1234-567812345678",
+				)
 			}
 		})
 
@@ -82,7 +109,10 @@ describe("uuid", () => {
 			const result = uuid("a1b2c3d4-e5f6-7890-abcd-ef1234567890")
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
-				assertEquals(unwrapUuid(result.value), "a1b2c3d4-e5f6-7890-abcd-ef1234567890")
+				assertEquals(
+					unwrapUuid(result.value),
+					"a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+				)
 			}
 		})
 	})

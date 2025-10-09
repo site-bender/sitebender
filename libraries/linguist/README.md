@@ -31,7 +31,7 @@ Stored as RDF triples. Queryable via SPARQL. Distributed via CRDTs. Versioned au
 <Translate key="welcome.message" name={user.name} />
 
 // Autocomplete for all translation keys
-t('welcome.message', { name: 'Alice' })
+t("welcome.message", { name: "Alice" })
 ```
 
 No runtime errors. No missing keys. Just correctness.
@@ -80,10 +80,10 @@ Wraps Deno's native `Intl` API. Zero dependencies. Full standards compliance.
 
 ```tsx
 <LocaleProvider>
-  <DetectFrom.AcceptLanguageHeader />
-  <DetectFrom.UserPreferences />
-  <DetectFrom.GeoIP />
-  <FallbackTo locale="en" />
+	<DetectFrom.AcceptLanguageHeader />
+	<DetectFrom.UserPreferences />
+	<DetectFrom.GeoIP />
+	<FallbackTo locale="en" />
 </LocaleProvider>
 ```
 
@@ -96,14 +96,14 @@ en-US → en → default
 zh-Hans-CN → zh-Hans → zh → default
 ```
 
-Automatic resolution. No missing translations. Always displays *something*.
+Automatic resolution. No missing translations. Always displays _something_.
 
 ### RTL Support
 
 ```tsx
 <Article locale="ar-SA">
-  {/* Automatically gets dir="rtl" */}
-  <Paragraph>النص العربي</Paragraph>
+	{/* Automatically gets dir="rtl" */}
+	<Paragraph>النص العربي</Paragraph>
 </Article>
 ```
 
@@ -156,18 +156,18 @@ Keys extracted from triple store. TypeScript definitions generated automatically
 
 ```tsx
 <Translate
-  key="welcome.message"
-  name={user.name}
-  locale="fr-FR"  // Optional, uses context if omitted
+	key="welcome.message"
+	name={user.name}
+	locale="fr-FR" // Optional, uses context if omitted
 />
 ```
 
 ### Functional API
 
 ```typescript
-import { translate } from '@sitebender/linguist/translate/index.ts'
+import { translate } from "@sitebender/linguist/translate/index.ts"
 
-const message = translate('welcome.message')({ name: 'Alice' })
+const message = translate("welcome.message")({ name: "Alice" })
 // Returns Either<Error[], string>
 ```
 
@@ -207,8 +207,12 @@ All measurements from production. No synthetic benchmarks.
 
 ```tsx
 <Article locale="ja-JP">
-  <Title><Translate key="article.title" /></Title>
-  <Paragraph><Translate key="article.body" /></Paragraph>
+	<Title>
+		<Translate key="article.title" />
+	</Title>
+	<Paragraph>
+		<Translate key="article.body" />
+	</Paragraph>
 </Article>
 ```
 
@@ -234,11 +238,11 @@ Query translation coverage. Find missing translations. Semantic search for simil
 
 ```tsx
 <TranslationWorkspace key="welcome.message">
-  <CollaborativeEdit>
-    <Translator id="alice" locale="es-ES" />
-    <Translator id="bob" locale="fr-FR" />
-  </CollaborativeEdit>
-  <ConflictResolution strategy="LWW" />
+	<CollaborativeEdit>
+		<Translator id="alice" locale="es-ES" />
+		<Translator id="bob" locale="fr-FR" />
+	</CollaborativeEdit>
+	<ConflictResolution strategy="LWW" />
 </TranslationWorkspace>
 ```
 
@@ -246,7 +250,7 @@ CRDTs for simultaneous editing. No special translation infrastructure.
 
 ## Philosophy
 
-Linguist doesn't reinvent i18n. It makes it *data*.
+Linguist doesn't reinvent i18n. It makes it _data_.
 
 - **Translations are triples** - Not strings in JSON files
 - **Type safety is guaranteed** - Not hoped for

@@ -4,13 +4,13 @@
  * Calculates confidence scores for rule retrievals and handles low-confidence cases.
  */
 
-import type { Rule } from './rule_mapper.ts'
+import type { Rule } from "./rule_mapper.ts"
 
-export type Relevance = 'high' | 'medium' | 'low'
+export type Relevance = "high" | "medium" | "low"
 
 export type ScoredRule = {
 	rule: Rule
-	confidence: number  // 0.0 - 1.0
+	confidence: number // 0.0 - 1.0
 	relevance: Relevance
 }
 
@@ -30,7 +30,7 @@ export function calculateConfidence(rule: Rule, query: string): number {
 	const matches = queryWords.filter(
 		function isWordInContent(word: string): boolean {
 			return contentWords.includes(word)
-		}
+		},
 	)
 	score += (matches.length / queryWords.length) * 0.4
 
@@ -48,12 +48,12 @@ export function calculateConfidence(rule: Rule, query: string): number {
 	}
 
 	// Philosophy/reason match (10% weight)
-	const philosophyLower = rule.metadata.philosophy?.toLowerCase() || ''
-	const reasonLower = rule.metadata.reason?.toLowerCase() || ''
+	const philosophyLower = rule.metadata.philosophy?.toLowerCase() || ""
+	const reasonLower = rule.metadata.reason?.toLowerCase() || ""
 	const hasPhilosophyMatch = queryWords.some(
 		function isInPhilosophy(word: string): boolean {
 			return philosophyLower.includes(word) || reasonLower.includes(word)
-		}
+		},
 	)
 	if (hasPhilosophyMatch) {
 		score += 0.1
@@ -67,12 +67,12 @@ export function calculateConfidence(rule: Rule, query: string): number {
  */
 export function categorizeRelevance(confidence: number): Relevance {
 	if (confidence >= 0.85) {
-		return 'high'
+		return "high"
 	}
 	if (confidence >= 0.65) {
-		return 'medium'
+		return "medium"
 	}
-	return 'low'
+	return "low"
 }
 
 /**
@@ -80,7 +80,7 @@ export function categorizeRelevance(confidence: number): Relevance {
  */
 export function scoreRules(
 	rules: ReadonlyArray<Rule>,
-	query: string
+	query: string,
 ): ReadonlyArray<ScoredRule> {
 	return rules.map(
 		function scoreRule(rule: Rule): ScoredRule {
@@ -88,7 +88,7 @@ export function scoreRules(
 			const relevance = categorizeRelevance(confidence)
 
 			return { rule, confidence, relevance }
-		}
+		},
 	)
 }
 
@@ -97,12 +97,12 @@ export function scoreRules(
  */
 export function filterByConfidence(
 	scoredRules: ReadonlyArray<ScoredRule>,
-	minConfidence: number
+	minConfidence: number,
 ): ReadonlyArray<ScoredRule> {
 	return scoredRules.filter(
 		function meetsThreshold(sr: ScoredRule): boolean {
 			return sr.confidence >= minConfidence
-		}
+		},
 	)
 }
 
@@ -110,12 +110,12 @@ export function filterByConfidence(
  * Sorts rules by confidence score (highest first).
  */
 export function sortByConfidence(
-	scoredRules: ReadonlyArray<ScoredRule>
+	scoredRules: ReadonlyArray<ScoredRule>,
 ): ReadonlyArray<ScoredRule> {
 	return [...scoredRules].sort(
 		function compareConfidence(a: ScoredRule, b: ScoredRule): number {
 			return b.confidence - a.confidence
-		}
+		},
 	)
 }
 
@@ -123,11 +123,11 @@ export function sortByConfidence(
  * Gets high confidence rules (>0.85).
  */
 export function getHighConfidenceRules(
-	scoredRules: ReadonlyArray<ScoredRule>
+	scoredRules: ReadonlyArray<ScoredRule>,
 ): ReadonlyArray<Rule> {
 	return scoredRules
 		.filter(function isHighConfidence(sr: ScoredRule): boolean {
-			return sr.relevance === 'high'
+			return sr.relevance === "high"
 		})
 		.map(function extractRule(sr: ScoredRule): Rule {
 			return sr.rule
@@ -138,11 +138,11 @@ export function getHighConfidenceRules(
  * Gets medium confidence rules (0.65-0.85).
  */
 export function getMediumConfidenceRules(
-	scoredRules: ReadonlyArray<ScoredRule>
+	scoredRules: ReadonlyArray<ScoredRule>,
 ): ReadonlyArray<Rule> {
 	return scoredRules
 		.filter(function isMediumConfidence(sr: ScoredRule): boolean {
-			return sr.relevance === 'medium'
+			return sr.relevance === "medium"
 		})
 		.map(function extractRule(sr: ScoredRule): Rule {
 			return sr.rule
@@ -154,7 +154,7 @@ export function getMediumConfidenceRules(
  */
 export function handleLowConfidence(
 	scoredRules: ReadonlyArray<ScoredRule>,
-	originalQuery: string
+	originalQuery: string,
 ): {
 	shouldExpand: boolean
 	suggestions: ReadonlyArray<string>
@@ -178,7 +178,7 @@ export function handleLowConfidence(
 			`${originalQuery} patterns`,
 			`${originalQuery} examples`,
 			`${originalQuery} best practices`,
-			`how to ${originalQuery}`
-		]
+			`how to ${originalQuery}`,
+		],
 	}
 }
