@@ -286,7 +286,8 @@ Deno.test("emailAddress: accepts domain label exactly 63 chars", function () {
 
 Deno.test("emailAddress: rejects total length over 254 chars", function () {
 	const local = "a".repeat(64)
-	const domain = "b".repeat(63) + "." + "c".repeat(63) + "." + "d".repeat(63) + ".com"
+	const domain = "b".repeat(63) + "." + "c".repeat(63) + "." + "d".repeat(63) +
+		".com"
 	const longEmail = local + "@" + domain
 	const result = emailAddress(longEmail)
 
@@ -309,7 +310,9 @@ Deno.test("emailAddress: rejects underscore in domain", function () {
 })
 
 Deno.test("emailAddress: accepts complex valid email", function () {
-	const result = emailAddress("first.last+tag_name-123@sub.example-domain.co.uk")
+	const result = emailAddress(
+		"first.last+tag_name-123@sub.example-domain.co.uk",
+	)
 
 	assert(isOk(result))
 })

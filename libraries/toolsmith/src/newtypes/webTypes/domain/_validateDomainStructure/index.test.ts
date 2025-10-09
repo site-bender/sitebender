@@ -29,7 +29,8 @@ Deno.test("_validateDomainStructure - accepts internationalized domain", functio
 })
 
 Deno.test("_validateDomainStructure - accepts maximum length domain (253 chars)", function () {
-	const longDomain = "a".repeat(63) + "." + "b".repeat(63) + "." + "c".repeat(63) + "." + "d".repeat(58) + ".co"
+	const longDomain = "a".repeat(63) + "." + "b".repeat(63) + "." +
+		"c".repeat(63) + "." + "d".repeat(58) + ".co"
 	const result = _validateDomainStructure(longDomain)
 
 	assertEquals(result._tag, "Ok")

@@ -11,9 +11,9 @@ Exact usage patterns for Envoy consuming Arborist output using Toolsmith monads.
 ```typescript
 //++ Validates email address using regex pattern matching
 export default function validateEmail(email: string): boolean {
-  const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  
-  return pattern.test(email)
+	const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+	return pattern.test(email)
 }
 
 //?? [EXAMPLE] validateEmail("test@example.com") // true
@@ -119,39 +119,39 @@ import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/
 const result = await parseFile("/src/validateEmail/index.ts")
 
 const doc = foldResult(
-  function handleParseError(err) {
-    console.error(err.message)
-    return null
-  }
+	function handleParseError(err) {
+		console.error(err.message)
+		return null
+	},
 )(function handleAST(ast) {
-  const validation = buildParsedFile(ast)("/src/validateEmail/index.ts")
+	const validation = buildParsedFile(ast)("/src/validateEmail/index.ts")
 
-  return foldValidation(
-    function handleExtractionErrors(errors) {
-      console.warn("Some extractions failed:", errors.length)
-      return null
-    }
-  )(function handleParsedFile(parsed) {
-    const docResult = generateDocumentation(parsed)({
-      format: "markdown",
-      includeExamples: true
-    })
+	return foldValidation(
+		function handleExtractionErrors(errors) {
+			console.warn("Some extractions failed:", errors.length)
+			return null
+		},
+	)(function handleParsedFile(parsed) {
+		const docResult = generateDocumentation(parsed)({
+			format: "markdown",
+			includeExamples: true,
+		})
 
-    return foldResult(
-      function handleDocError(err) {
-        console.error(err.message)
-        return null
-      }
-    )(function handleSuccess(documentation) {
-      return documentation
-    })(docResult)
-  })(validation)
+		return foldResult(
+			function handleDocError(err) {
+				console.error(err.message)
+				return null
+			},
+		)(function handleSuccess(documentation) {
+			return documentation
+		})(docResult)
+	})(validation)
 })(result)
 ```
 
 **Envoy Output (Documentation):**
 
-```markdown
+````markdown
 # validateEmail
 
 Validates email address using regex pattern matching
@@ -161,6 +161,7 @@ Validates email address using regex pattern matching
 ```typescript
 function validateEmail(email: string): boolean
 ```
+````
 
 ## Parameters
 
@@ -191,8 +192,8 @@ validateEmail("invalid-email") // false
 ## Related
 
 - [Email Validation Best Practices](./docs/email.md)
-```
 
+````
 ## Example 2: Comment Interpretation with Errors
 
 **Arborist Output (with malformed comment):**
@@ -217,7 +218,7 @@ validateEmail("invalid-email") // false
     }
   ]
 }
-```
+````
 
 **Envoy Processing:**
 
@@ -225,17 +226,17 @@ validateEmail("invalid-email") // false
 const interpretedV = interpretComments(parsed.comments)
 
 foldValidation(
-  function handleErrors(errors) {
-    // Validation accumulates ALL errors
-    errors.forEach(err => {
-      console.warn(err.message)
-      if (err.suggestion) console.log("💡", err.suggestion)
-    })
-    // Return partial success - valid comments still processed
-    return []
-  }
+	function handleErrors(errors) {
+		// Validation accumulates ALL errors
+		errors.forEach((err) => {
+			console.warn(err.message)
+			if (err.suggestion) console.log("💡", err.suggestion)
+		})
+		// Return partial success - valid comments still processed
+		return []
+	},
 )(function handleSuccess(interpreted) {
-  return interpreted
+	return interpreted
 })(interpretedV)
 ```
 
@@ -286,59 +287,59 @@ import { map2 } from "@sitebender/toolsmith/monads/validation/map2"
 const result = await parseFile("/src/module.ts")
 
 const output = foldResult(
-  function handleParseError(err) {
-    console.error("Parse failed:", err.message)
-    if (err.suggestion) console.log("💡", err.suggestion)
-    return null
-  }
+	function handleParseError(err) {
+		console.error("Parse failed:", err.message)
+		if (err.suggestion) console.log("💡", err.suggestion)
+		return null
+	},
 )(function handleAST(ast) {
-  const validation = buildParsedFile(ast)("/src/module.ts")
+	const validation = buildParsedFile(ast)("/src/module.ts")
 
-  return foldValidation(
-    function handleExtractionErrors(errors) {
-      console.warn(`Extraction completed with ${errors.length} error(s)`)
-      errors.forEach(e => {
-        console.warn(`- ${e.message}`)
-        if (e.suggestion) console.warn(`  💡 ${e.suggestion}`)
-      })
-      return null
-    }
-  )(function handleParsedFile(parsed) {
-    // Process comments and build graph in parallel
-    const commentsV = interpretComments(parsed.comments)
-    const graphV = buildKnowledgeGraph(parsed)
+	return foldValidation(
+		function handleExtractionErrors(errors) {
+			console.warn(`Extraction completed with ${errors.length} error(s)`)
+			errors.forEach((e) => {
+				console.warn(`- ${e.message}`)
+				if (e.suggestion) console.warn(`  💡 ${e.suggestion}`)
+			})
+			return null
+		},
+	)(function handleParsedFile(parsed) {
+		// Process comments and build graph in parallel
+		const commentsV = interpretComments(parsed.comments)
+		const graphV = buildKnowledgeGraph(parsed)
 
-    // Combine validations - accumulates ALL errors
-    const combined = map2(
-      function combine(interpreted, graph) {
-        return { interpreted, graph }
-      }
-    )(commentsV)(graphV)
+		// Combine validations - accumulates ALL errors
+		const combined = map2(
+			function combine(interpreted, graph) {
+				return { interpreted, graph }
+			},
+		)(commentsV)(graphV)
 
-    return foldValidation(
-      function handleProcessingErrors(errors) {
-        console.warn("Processing errors:", errors.length)
-        errors.forEach(e => console.warn(e.message))
-        return null
-      }
-    )(function handleProcessed({ interpreted, graph }) {
-      // Generate documentation
-      const docResult = generateDocumentation(parsed)({
-        format: "markdown",
-        includeExamples: true,
-        includeGraph: true
-      })
+		return foldValidation(
+			function handleProcessingErrors(errors) {
+				console.warn("Processing errors:", errors.length)
+				errors.forEach((e) => console.warn(e.message))
+				return null
+			},
+		)(function handleProcessed({ interpreted, graph }) {
+			// Generate documentation
+			const docResult = generateDocumentation(parsed)({
+				format: "markdown",
+				includeExamples: true,
+				includeGraph: true,
+			})
 
-      return foldResult(
-        function handleDocError(err) {
-          console.error(err.message)
-          return null
-        }
-      )(function handleSuccess(doc) {
-        return { doc, graph }
-      })(docResult)
-    })(combined)
-  })(validation)
+			return foldResult(
+				function handleDocError(err) {
+					console.error(err.message)
+					return null
+				},
+			)(function handleSuccess(doc) {
+				return { doc, graph }
+			})(docResult)
+		})(combined)
+	})(validation)
 })(result)
 ```
 
@@ -353,6 +354,7 @@ const output = foldResult(
 7. **Partial Success** - Validation allows some operations to succeed while others fail
 
 **Envoy receives from Arborist:**
+
 - Function metadata (name, flags, spans, positions)
 - Parameter and return type text
 - Generic type parameter text
@@ -362,6 +364,7 @@ const output = foldResult(
 - Helpful error messages when issues occur
 
 **Envoy does NOT receive:**
+
 - SWC AST nodes (opaque ParsedAST)
 - Semantic type information
 - Inferred types
@@ -369,6 +372,7 @@ const output = foldResult(
 - Cross-file references
 
 **Envoy provides:**
+
 - Interpreted comment semantics
 - Generated documentation (multiple formats)
 - Knowledge graphs (RDF triples)

@@ -59,14 +59,17 @@ Deno.test("addThreeDecimalPlaces", async (t) => {
 		assertEquals(result.value, 15)
 	})
 
-	await t.step("handles precision edge case (result stays within 3 decimals)", () => {
-		const augend = 10.111 as ThreeDecimalPlaces
-		const addend = 5.222 as ThreeDecimalPlaces
-		const result = addThreeDecimalPlaces(augend)(addend)
+	await t.step(
+		"handles precision edge case (result stays within 3 decimals)",
+		() => {
+			const augend = 10.111 as ThreeDecimalPlaces
+			const addend = 5.222 as ThreeDecimalPlaces
+			const result = addThreeDecimalPlaces(augend)(addend)
 
-		assert(isOk(result))
-		assertEquals(result.value, 15.333)
-	})
+			assert(isOk(result))
+			assertEquals(result.value, 15.333)
+		},
+	)
 
 	await t.step("handles very small values", () => {
 		const augend = 0.001 as ThreeDecimalPlaces

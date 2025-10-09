@@ -25,7 +25,9 @@ export default function _checkHyphen(uuid: string) {
 					],
 					received: uuid,
 					expected: `Hyphen at position ${pos + 1}`,
-					suggestion: `Expected '-' at position ${pos + 1}, found '${uuid[pos]}'`,
+					suggestion: `Expected '-' at position ${pos + 1}, found '${
+						uuid[pos]
+					}'`,
 					severity: "requirement",
 				})
 			}

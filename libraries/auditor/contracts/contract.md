@@ -13,12 +13,14 @@ Auditor is a formal verification and test generation system that mathematically 
 ## CRITICAL: Pre-Implementation Status
 
 **Current Status:**
+
 - **Auditor:** Planning phase only, implementation blocked until dependencies ready
 - **Toolsmith:** Monadic utilities (Result/Validation) and branded types in progress
 - **Arborist:** Phase 1 complete, API finalized, ready for integration
 - **Quarrier:** Planning phase, blocked on Toolsmith
 
 **Implementation Timeline:**
+
 1. Toolsmith monadic utilities stabilize
 2. Toolsmith branded types complete
 3. Toolsmith array utilities complete
@@ -73,40 +75,40 @@ formatVerificationResults(
 
 ```typescript
 type ProofResult = Readonly<{
-  proved: boolean
-  property: PropertySpec
-  certificate?: ProofCertificate
-  counterexample?: Counterexample
-  duration: number
+	proved: boolean
+	property: PropertySpec
+	certificate?: ProofCertificate
+	counterexample?: Counterexample
+	duration: number
 }>
 
 type MathematicalProperty =
-  | Readonly<{ kind: "purity", evidence: string }>
-  | Readonly<{ kind: "commutativity", evidence: string }>
-  | Readonly<{ kind: "associativity", evidence: string }>
-  | Readonly<{ kind: "idempotence", evidence: string }>
-  | Readonly<{ kind: "distributivity", evidence: string }>
+	| Readonly<{ kind: "purity"; evidence: string }>
+	| Readonly<{ kind: "commutativity"; evidence: string }>
+	| Readonly<{ kind: "associativity"; evidence: string }>
+	| Readonly<{ kind: "idempotence"; evidence: string }>
+	| Readonly<{ kind: "distributivity"; evidence: string }>
 
 type TestSuite = Readonly<{
-  filePath: string
-  unitTests: ReadonlyArray<TestCase>
-  propertyTests: ReadonlyArray<PropertyTest>
-  edgeCaseTests: ReadonlyArray<TestCase>
-  branchTests: ReadonlyArray<TestCase>
-  coverage: CoverageMetrics
+	filePath: string
+	unitTests: ReadonlyArray<TestCase>
+	propertyTests: ReadonlyArray<PropertyTest>
+	edgeCaseTests: ReadonlyArray<TestCase>
+	branchTests: ReadonlyArray<TestCase>
+	coverage: CoverageMetrics
 }>
 
 type Counterexample = Readonly<{
-  inputs: ReadonlyArray<unknown>
-  output: unknown
-  explanation: string
+	inputs: ReadonlyArray<unknown>
+	output: unknown
+	explanation: string
 }>
 
 type EnvoyVerificationData = Readonly<{
-  properties: ReadonlyArray<MathematicalProperty>
-  proofs: ReadonlyArray<ProofResult>
-  gotchas: ReadonlyArray<string>
-  examples: ReadonlyArray<TestCase>
+	properties: ReadonlyArray<MathematicalProperty>
+	proofs: ReadonlyArray<ProofResult>
+	gotchas: ReadonlyArray<string>
+	examples: ReadonlyArray<TestCase>
 }>
 ```
 
@@ -121,35 +123,41 @@ All functions return monads from Toolsmith:
 
 ```typescript
 type TranslationError = ArchitectError<"translateToZ3", [IrNode]> & {
-  kind: "UnsupportedNode" | "InvalidStructure" | "TypeMismatch"
-  node: IrNode
-  suggestion: string
+	kind: "UnsupportedNode" | "InvalidStructure" | "TypeMismatch"
+	node: IrNode
+	suggestion: string
 }
 
 type ProofError = ArchitectError<"proveProperty", [IrNode, PropertySpec]> & {
-  kind: "ProofFailed" | "Timeout" | "Z3Error" | "InvalidProperty"
-  counterexample?: Z3Model
-  suggestion: string
+	kind: "ProofFailed" | "Timeout" | "Z3Error" | "InvalidProperty"
+	counterexample?: Z3Model
+	suggestion: string
 }
 
-type PropertyDetectionError = ArchitectError<"detectMathematicalProperties", [ParsedFunction]> & {
-  kind: "AnalysisFailed" | "AmbiguousProperty" | "InsufficientData"
-  functionName: string
-  suggestion: string
-}
+type PropertyDetectionError =
+	& ArchitectError<"detectMathematicalProperties", [ParsedFunction]>
+	& {
+		kind: "AnalysisFailed" | "AmbiguousProperty" | "InsufficientData"
+		functionName: string
+		suggestion: string
+	}
 
-type TestGenerationError = ArchitectError<"generateTestSuite", [ParsedFile, TestGenerationOptions]> & {
-  kind: "NoFunctions" | "GenerationFailed" | "InvalidOptions"
-  context?: Record<string, unknown>
-  suggestion: string
-}
+type TestGenerationError =
+	& ArchitectError<"generateTestSuite", [ParsedFile, TestGenerationOptions]>
+	& {
+		kind: "NoFunctions" | "GenerationFailed" | "InvalidOptions"
+		context?: Record<string, unknown>
+		suggestion: string
+	}
 
-type CoverageError = ArchitectError<"validateCoverage", [TestSuite, CoverageReport]> & {
-  kind: "IncompleteCoverage" | "MissingTests" | "InvalidReport"
-  uncoveredLines?: ReadonlyArray<number>
-  uncoveredBranches?: ReadonlyArray<string>
-  suggestion: string
-}
+type CoverageError =
+	& ArchitectError<"validateCoverage", [TestSuite, CoverageReport]>
+	& {
+		kind: "IncompleteCoverage" | "MissingTests" | "InvalidReport"
+		uncoveredLines?: ReadonlyArray<number>
+		uncoveredBranches?: ReadonlyArray<string>
+		suggestion: string
+	}
 ```
 
 All errors include helpful suggestions, never scold users.
@@ -207,63 +215,61 @@ import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/
 const result = await parseFile("/src/module.ts")
 
 const output = foldResult(
-  function handleParseError(err) {
-    console.error(err.message)
-    return null
-  }
+	function handleParseError(err) {
+		console.error(err.message)
+		return null
+	},
 )(function handleAST(ast) {
-  const validation = buildParsedFile(ast)("/src/module.ts")
+	const validation = buildParsedFile(ast)("/src/module.ts")
 
-  return foldValidation(
-    function handleExtractionErrors(errors) {
-      console.warn("Some extractions failed")
-      return null
-    }
-  )(function handleParsedFile(parsed) {
-    // Detect properties (Auditor)
-    const propertiesV = detectMathematicalProperties(parsed.functions[0])
+	return foldValidation(
+		function handleExtractionErrors(errors) {
+			console.warn("Some extractions failed")
+			return null
+		},
+	)(function handleParsedFile(parsed) {
+		// Detect properties (Auditor)
+		const propertiesV = detectMathematicalProperties(parsed.functions[0])
 
-    return foldValidation(
-      function handleDetectionErrors(errors) {
-        console.warn("Property detection errors:", errors.length)
-        return null
-      }
-    )(async function handleProperties(properties) {
-      // Prove properties using Z3
-      const proofResults = await Promise.all(
-        properties.map(prop => 
-          proveProperty(parsed.functions[0])(prop)
-        )
-      )
+		return foldValidation(
+			function handleDetectionErrors(errors) {
+				console.warn("Property detection errors:", errors.length)
+				return null
+			},
+		)(async function handleProperties(properties) {
+			// Prove properties using Z3
+			const proofResults = await Promise.all(
+				properties.map((prop) => proveProperty(parsed.functions[0])(prop)),
+			)
 
-      // Generate test suite
-      const testSuiteV = generateTestSuite(parsed)({
-        includePropertyTests: true,
-        targetCoverage: 100
-      })
+			// Generate test suite
+			const testSuiteV = generateTestSuite(parsed)({
+				includePropertyTests: true,
+				targetCoverage: 100,
+			})
 
-      return foldValidation(
-        function handleTestGenErrors(errors) {
-          console.warn("Test generation errors:", errors.length)
-          return null
-        }
-      )(function handleTestSuite(testSuite) {
-        return { properties, proofResults, testSuite }
-      })(testSuiteV)
-    })(propertiesV)
-  })(validation)
+			return foldValidation(
+				function handleTestGenErrors(errors) {
+					console.warn("Test generation errors:", errors.length)
+					return null
+				},
+			)(function handleTestSuite(testSuite) {
+				return { properties, proofResults, testSuite }
+			})(testSuiteV)
+		})(propertiesV)
+	})(validation)
 })(result)
 ```
 
 ## Performance Requirements
 
-| Operation | Target | Maximum |
-|-----------|--------|---------|
-| Z3 proof (simple) | <100ms | <1s |
-| Z3 proof (complex) | <1s | <10s |
-| Property detection | <50ms | <200ms |
-| Test generation | <100ms | <500ms |
-| Coverage validation | <50ms | <200ms |
+| Operation           | Target | Maximum |
+| ------------------- | ------ | ------- |
+| Z3 proof (simple)   | <100ms | <1s     |
+| Z3 proof (complex)  | <1s    | <10s    |
+| Property detection  | <50ms  | <200ms  |
+| Test generation     | <100ms | <500ms  |
+| Coverage validation | <50ms  | <200ms  |
 
 ## Enforcement
 
@@ -278,6 +284,7 @@ const output = foldResult(
 ### Testing
 
 Auditor must maintain:
+
 - Self-testing (use Auditor to test Auditor)
 - Integration tests with Arborist
 - Integration tests with Quarrier
@@ -302,6 +309,7 @@ Auditor must maintain:
 **Current Version:** 0.0.1 (pre-production)
 
 **During 0.x development:**
+
 - NO migration paths
 - NO backwards compatibility
 - NO deprecation warnings

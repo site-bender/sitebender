@@ -165,14 +165,16 @@ Deno.test("domain - accepts single character domain", function () {
 })
 
 Deno.test("domain - accepts maximum length label (63 chars)", function () {
-	const maxLabel = "a123456789012345678901234567890123456789012345678901234567890bc"
+	const maxLabel =
+		"a123456789012345678901234567890123456789012345678901234567890bc"
 	const result = domain(`${maxLabel}.com`)
 
 	assertEquals(result._tag, "Ok")
 })
 
 Deno.test("domain - accepts maximum length domain (253 chars)", function () {
-	const longDomain = "a".repeat(63) + "." + "b".repeat(63) + "." + "c".repeat(63) + "." + "d".repeat(58) + ".co"
+	const longDomain = "a".repeat(63) + "." + "b".repeat(63) + "." +
+		"c".repeat(63) + "." + "d".repeat(58) + ".co"
 	const result = domain(longDomain)
 
 	assertEquals(result._tag, "Ok")

@@ -7,17 +7,20 @@ Creation functions instantiate new Temporal objects from various sources or conv
 ### now
 
 **Current Signature:**
+
 ```typescript
 function now(): Temporal.Instant
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Now.instant()`
 
 **Description:**
 Returns the current UTC instant in time.
 
 **Target Monadic Signature:**
+
 ```typescript
 function now(
 	context: IOContext
@@ -29,17 +32,20 @@ function now(
 ### today
 
 **Current Signature:**
+
 ```typescript
 function today(): Temporal.PlainDate
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Now.plainDateISO()`
 
 **Description:**
 Returns today's date in the ISO calendar system.
 
 **Target Monadic Signature:**
+
 ```typescript
 function today(
 	context: IOContext
@@ -51,10 +57,12 @@ function today(
 ### fromISO
 
 **Current Signature:**
+
 ```typescript
 function fromISO(
-	isoString: string | null | undefined
-): Temporal.PlainDate
+	isoString: string | null | undefined,
+):
+	| Temporal.PlainDate
 	| Temporal.PlainTime
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
@@ -65,6 +73,7 @@ function fromISO(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Duration.from()`
 - `Temporal.PlainTime.from()`
 - `Temporal.PlainYearMonth.from()`
@@ -77,6 +86,7 @@ function fromISO(
 Parses an ISO 8601 string and returns the appropriate Temporal type based on format detection (duration, time, date, datetime, zoned datetime, or instant).
 
 **Target Monadic Signature:**
+
 ```typescript
 function fromISO(
 	isoString: string
@@ -97,10 +107,12 @@ function fromISO(
 ### parse
 
 **Current Signature:**
+
 ```typescript
 function parse(
-	dateString: string | null | undefined
-): Temporal.PlainDate
+	dateString: string | null | undefined,
+):
+	| Temporal.PlainDate
 	| Temporal.PlainTime
 	| Temporal.PlainDateTime
 	| Temporal.ZonedDateTime
@@ -111,6 +123,7 @@ function parse(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Instant.from()`
 - `Temporal.ZonedDateTime.from()`
 - `Temporal.PlainDateTime.from()`
@@ -123,6 +136,7 @@ function parse(
 Flexible date/time parser that handles multiple formats including US (MM/DD/YYYY), European (DD-MM-YYYY), ISO formats, and time-only strings.
 
 **Target Monadic Signature:**
+
 ```typescript
 function parse(
 	dateString: string
@@ -143,19 +157,22 @@ function parse(
 ### parseTime
 
 **Current Signature:**
+
 ```typescript
 function parseTime(
-	timeString: string | null | undefined
+	timeString: string | null | undefined,
 ): Temporal.PlainTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.PlainTime.from()`
 
 **Description:**
 Parses time strings supporting 12-hour AM/PM format and 24-hour format with flexible separators (: or .).
 
 **Target Monadic Signature:**
+
 ```typescript
 function parseTime(
 	timeString: string
@@ -169,6 +186,7 @@ function parseTime(
 ### toPlainDate
 
 **Current Signature:**
+
 ```typescript
 function toPlainDate(
 	timeZone?: string
@@ -185,6 +203,7 @@ function toPlainDate(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.toPlainDate()`
 - `temporal.withTimeZone(timeZone)`
 - `temporal.toZonedDateTimeISO(tz)`
@@ -197,6 +216,7 @@ function toPlainDate(
 Converts various Temporal types to PlainDate, optionally using a specified timezone for conversions.
 
 **Target Monadic Signature:**
+
 ```typescript
 function toPlainDate(
 	timeZone: Option<string>
@@ -215,19 +235,22 @@ function toPlainDate(
 ### toPlainTime
 
 **Current Signature:**
+
 ```typescript
 function toPlainTime(
-	temporal: Temporal.PlainTime
+	temporal:
+		| Temporal.PlainTime
 		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
 		| Temporal.Duration
 		| string
 		| null
-		| undefined
+		| undefined,
 ): Temporal.PlainTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.toPlainTime()`
 - `duration.total({ unit: "nanoseconds" })`
 - `Temporal.PlainTime.from()`
@@ -238,13 +261,15 @@ function toPlainTime(
 Converts various Temporal types to PlainTime. For Duration, wraps at 24 hours.
 
 **Target Monadic Signature:**
+
 ```typescript
 function toPlainTime(
-	temporal: Temporal.PlainTime
+	temporal:
+		| Temporal.PlainTime
 		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
 		| Temporal.Duration
-		| string
+		| string,
 ): Result<Temporal.PlainTime, ConversionError>
 ```
 
@@ -253,20 +278,23 @@ function toPlainTime(
 ### toPlainDateTime
 
 **Current Signature:**
+
 ```typescript
 function toPlainDateTime(
-	temporal: Temporal.PlainDateTime
+	temporal:
+		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
 		| Temporal.PlainDate
 		| Temporal.PlainTime
 		| Temporal.Instant
 		| string
 		| null
-		| undefined
+		| undefined,
 ): Temporal.PlainDateTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.toPlainDateTime()`
 - `date.toPlainDateTime(time)`
 - `Temporal.PlainTime.from("00:00:00")`
@@ -281,14 +309,16 @@ function toPlainDateTime(
 Converts various Temporal types to PlainDateTime. Uses midnight for PlainDate, reference date (1970-01-01) for PlainTime, and system timezone for Instant.
 
 **Target Monadic Signature:**
+
 ```typescript
 function toPlainDateTime(
-	temporal: Temporal.PlainDateTime
+	temporal:
+		| Temporal.PlainDateTime
 		| Temporal.ZonedDateTime
 		| Temporal.PlainDate
 		| Temporal.PlainTime
 		| Temporal.Instant
-		| string
+		| string,
 ): Result<Temporal.PlainDateTime, ConversionError>
 ```
 
@@ -297,6 +327,7 @@ function toPlainDateTime(
 ### toZonedDateTime
 
 **Current Signature:**
+
 ```typescript
 function toZonedDateTime(
 	disambiguation: "compatible" | "earlier" | "later" | "reject" = "compatible"
@@ -314,6 +345,7 @@ function toZonedDateTime(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Now.zonedDateTimeISO(timeZone)`
 - `temporal.withTimeZone(timeZone)`
 - `temporal.toZonedDateTime(timeZone, { disambiguation })`
@@ -329,6 +361,7 @@ function toZonedDateTime(
 Converts PlainDateTime to ZonedDateTime with specified timezone and disambiguation strategy for handling DST transitions.
 
 **Target Monadic Signature:**
+
 ```typescript
 function toZonedDateTime(
 	disambiguation: Disambiguation
@@ -353,33 +386,39 @@ type TimeZone = string
 ### duration
 
 **Current Signature:**
+
 ```typescript
 function duration(
-	units: {
-		years?: number
-		months?: number
-		weeks?: number
-		days?: number
-		hours?: number
-		minutes?: number
-		seconds?: number
-		milliseconds?: number
-		microseconds?: number
-		nanoseconds?: number
-	} | null | undefined
+	units:
+		| {
+			years?: number
+			months?: number
+			weeks?: number
+			days?: number
+			hours?: number
+			minutes?: number
+			seconds?: number
+			milliseconds?: number
+			microseconds?: number
+			nanoseconds?: number
+		}
+		| null
+		| undefined,
 ): Temporal.Duration | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Duration.from(units)`
 
 **Description:**
 Creates a Duration from a units object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function duration(
-	units: DurationUnits
+	units: DurationUnits,
 ): Result<Temporal.Duration, ValidationError>
 
 type DurationUnits = {
@@ -401,22 +440,25 @@ type DurationUnits = {
 ### durationToMinutes
 
 **Current Signature:**
+
 ```typescript
 function durationToMinutes(
-	duration: Temporal.Duration | null | undefined
+	duration: Temporal.Duration | null | undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `duration.total({ unit: "seconds" })`
 
 **Description:**
 Converts a Duration to total minutes as a number.
 
 **Target Monadic Signature:**
+
 ```typescript
 function durationToMinutes(
-	duration: Temporal.Duration
+	duration: Temporal.Duration,
 ): Result<number, ConversionError>
 ```
 
@@ -425,22 +467,25 @@ function durationToMinutes(
 ### durationToSeconds
 
 **Current Signature:**
+
 ```typescript
 function durationToSeconds(
-	duration: Temporal.Duration | null | undefined
+	duration: Temporal.Duration | null | undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `duration.total({ unit: "seconds" })`
 
 **Description:**
 Converts a Duration to total seconds as a number.
 
 **Target Monadic Signature:**
+
 ```typescript
 function durationToSeconds(
-	duration: Temporal.Duration
+	duration: Temporal.Duration,
 ): Result<number, ConversionError>
 ```
 
@@ -449,6 +494,7 @@ function durationToSeconds(
 ### totalDuration
 
 **Current Signature:**
+
 ```typescript
 function totalDuration(
 	unit: Temporal.DateTimeUnit | string
@@ -458,12 +504,14 @@ function totalDuration(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `duration.total({ unit: unit as Temporal.DateTimeUnit })`
 
 **Description:**
 Converts a Duration to a total value in the specified unit (years, months, weeks, days, hours, minutes, seconds, milliseconds, microseconds, or nanoseconds).
 
 **Target Monadic Signature:**
+
 ```typescript
 function totalDuration(
 	unit: DateTimeUnit
@@ -491,6 +539,7 @@ type DateTimeUnit =
 ### dateRange
 
 **Current Signature:**
+
 ```typescript
 function dateRange(
 	start: Temporal.PlainDate | null | undefined
@@ -502,6 +551,7 @@ function dateRange(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Duration.from({ days: 1 })`
 - `Temporal.PlainDate.compare(start, end)`
 - `current.add(duration)`
@@ -510,6 +560,7 @@ function dateRange(
 Generates an array of PlainDate values from start to end (inclusive) with the specified step duration.
 
 **Target Monadic Signature:**
+
 ```typescript
 function dateRange(
 	start: Temporal.PlainDate

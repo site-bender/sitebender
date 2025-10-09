@@ -1152,7 +1152,7 @@ Files: 35 created
 
 ### Why Voice-First?
 
-**Decision**: Make voice the primary interface, GUI secondary  
+**Decision**: Make voice the primary interface, GUI secondary\
 **Rationale**:
 
 - Natural for non-technical users
@@ -1161,12 +1161,12 @@ Files: 35 created
 - Captures intent, not just configuration
 - AI guides expertise through conversation
 
-**Alternative Considered**: GUI-first with voice optional  
+**Alternative Considered**: GUI-first with voice optional\
 **Why Voice Primary**: Immediate future is conversational interfaces. Voice enables expertise sharing through dialogue.
 
 ### Why HTTPS by Default?
 
-**Decision**: Generate SSL certificates, run HTTPS dev server  
+**Decision**: Generate SSL certificates, run HTTPS dev server\
 **Rationale**:
 
 - Service Workers require secure context
@@ -1175,12 +1175,12 @@ Files: 35 created
 - Matches production exactly
 - Forces best practices early
 
-**Alternative Considered**: HTTP with optional HTTPS  
+**Alternative Considered**: HTTP with optional HTTPS\
 **Why HTTPS Always**: No surprises in production. Development should mirror deployment.
 
 ### Why Triple Store for Blueprints?
 
-**Decision**: Store blueprints as RDF triples in semantic database  
+**Decision**: Store blueprints as RDF triples in semantic database\
 **Rationale**:
 
 - SPARQL queries over configuration
@@ -1189,12 +1189,12 @@ Files: 35 created
 - Links to documentation (Envoy)
 - Enables reasoning about architecture
 
-**Alternative Considered**: JSON files  
+**Alternative Considered**: JSON files\
 **Why Triples**: Relationships and history are first-class. JSON is flat.
 
 ### Why Greenfield Only?
 
-**Decision**: No migration tooling for legacy frameworks  
+**Decision**: No migration tooling for legacy frameworks\
 **Rationale**:
 
 - Target audience is non-developers building new things
@@ -1202,12 +1202,12 @@ Files: 35 created
 - Community can add if needed
 - Focus effort on excellent greenfield experience
 
-**Alternative Considered**: React/Vue/Angular migration wizards  
+**Alternative Considered**: React/Vue/Angular migration wizards\
 **Why Greenfield**: Building the future, not patching the past. Our audience doesn't have legacy codebases.
 
 ### Why Math Constant Ports?
 
-**Decision**: Prefer 31415 (π), 27182 (e), 16180 (φ) for dev server  
+**Decision**: Prefer 31415 (π), 27182 (e), 16180 (φ) for dev server\
 **Rationale**:
 
 - Delightful detail
@@ -1215,12 +1215,12 @@ Files: 35 created
 - Unlikely to conflict
 - Shows attention to craft
 
-**Alternative Considered**: Random high port  
+**Alternative Considered**: Random high port\
 **Why Math**: Joy matters. Small touches make tools feel crafted with care.
 
 ### Why Web-First GUI?
 
-**Decision**: Build configuration GUI as web app, embed in editors  
+**Decision**: Build configuration GUI as web app, embed in editors\
 **Rationale**:
 
 - Universal platform (browsers, VSCode webviews, Zed)
@@ -1229,12 +1229,12 @@ Files: 35 created
 - Mobile-accessible if needed
 - Web as universal VM philosophy
 
-**Alternative Considered**: Native GUI per editor  
+**Alternative Considered**: Native GUI per editor\
 **Why Web**: Write once, run everywhere. The web's original promise.
 
 ### Why Collaborative by Default?
 
-**Decision**: Real-time collaboration built into architecture  
+**Decision**: Real-time collaboration built into architecture\
 **Rationale**:
 
 - Applications are built by teams
@@ -1243,12 +1243,12 @@ Files: 35 created
 - Enables remote work
 - CRDT architecture makes it natural
 
-**Alternative Considered**: Single-user with manual merging  
+**Alternative Considered**: Single-user with manual merging\
 **Why Collaborative**: Studio is distributed by default. Quartermaster should be too.
 
 ### Why Sketch-to-App?
 
-**Decision**: Accept wireframes/sketches as input to generation  
+**Decision**: Accept wireframes/sketches as input to generation\
 **Rationale**:
 
 - Designers think visually
@@ -1256,7 +1256,7 @@ Files: 35 created
 - Faster iteration from mockup to prototype
 - Non-developers use visual tools
 
-**Alternative Considered**: Code-only configuration  
+**Alternative Considered**: Code-only configuration\
 **Why Sketch**: Meet users where they are. Designers start with drawings.
 
 ## Performance Characteristics
@@ -1405,18 +1405,18 @@ Generated applications include test infrastructure:
 
 ```typescript
 // tests/blueprint-validation.test.ts
-import { assertEquals } from "@std/assert";
-import validateBlueprint from "../src/validateBlueprint/index.ts";
+import { assertEquals } from "@std/assert"
+import validateBlueprint from "../src/validateBlueprint/index.ts"
 
 Deno.test("Blueprint validation accepts valid minimal blueprint", () => {
-  const blueprint = {
-    name: "test-app",
-    libraries: ["architect", "pagewright"],
-  };
+	const blueprint = {
+		name: "test-app",
+		libraries: ["architect", "pagewright"],
+	}
 
-  const result = validateBlueprint(blueprint);
-  assertEquals(result.ok, true);
-});
+	const result = validateBlueprint(blueprint)
+	assertEquals(result.ok, true)
+})
 ```
 
 ## Contributing

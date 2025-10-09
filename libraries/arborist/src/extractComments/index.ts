@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/extractComments
 // Extracts all comments from source text using Validation monad for error accumulation
 
-import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
+import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"

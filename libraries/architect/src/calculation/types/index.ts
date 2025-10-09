@@ -21,16 +21,20 @@ export type AsyncThunk<T> = {
 }
 
 //++ Operation node - represents operations like Add, Multiply
-export type OperationNode = AstNode & Readonly<{
-	operation: string
-	children: ReadonlyArray<AstNode>
-}>
+export type OperationNode =
+	& AstNode
+	& Readonly<{
+		operation: string
+		children: ReadonlyArray<AstNode>
+	}>
 
 //++ Data source node - fetches data asynchronously
-export type DataSourceNode = AstNode & Readonly<{
-	source: string
-	config: DataSourceConfig
-}>
+export type DataSourceNode =
+	& AstNode
+	& Readonly<{
+		source: string
+		config: DataSourceConfig
+	}>
 
 //++ Configuration for data sources
 export type DataSourceConfig = Readonly<{
