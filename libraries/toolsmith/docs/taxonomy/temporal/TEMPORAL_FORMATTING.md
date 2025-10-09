@@ -7,6 +7,7 @@ Formatting functions extract information from Temporal objects or convert them t
 ### format
 
 **Current Signature:**
+
 ```typescript
 function format(
 	locale: string = "en-US"
@@ -22,6 +23,7 @@ type FormatOptions = Intl.DateTimeFormatOptions & {
 ```
 
 **TC39 Temporal API Usage:**
+
 - Converts Temporal objects to Date for Intl formatting
 - `new Date(temporal.epochMilliseconds)` (for Instant/ZonedDateTime)
 - `new Date(year, month - 1, day)` (for PlainDate)
@@ -32,6 +34,7 @@ type FormatOptions = Intl.DateTimeFormatOptions & {
 Formats Temporal objects using Intl.DateTimeFormat with locale and options support. Converts Temporal types to Date objects for formatting.
 
 **Target Monadic Signature:**
+
 ```typescript
 function format(
 	locale: Locale
@@ -56,22 +59,25 @@ type FormatOptions = Intl.DateTimeFormatOptions & {
 ### formatDuration
 
 **Current Signature:**
+
 ```typescript
 function formatDuration(
-	duration: Temporal.Duration | null | undefined
+	duration: Temporal.Duration | null | undefined,
 ): string
 ```
 
 **TC39 Temporal API Usage:**
+
 - Accesses duration components: `years`, `months`, `weeks`, `days`, `hours`, `minutes`, `seconds`, `milliseconds`, `microseconds`, `nanoseconds`
 
 **Description:**
 Formats a Duration into a human-readable string showing all non-zero components (e.g., "2 years, 3 months, 5 days, 4 hours").
 
 **Target Monadic Signature:**
+
 ```typescript
 function formatDuration(
-	duration: Temporal.Duration
+	duration: Temporal.Duration,
 ): Result<string, FormatError>
 ```
 
@@ -80,9 +86,11 @@ function formatDuration(
 ### toISO
 
 **Current Signature:**
+
 ```typescript
 function toISO(
-	temporal: Temporal.PlainDate
+	temporal:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainTime
 		| Temporal.ZonedDateTime
@@ -91,27 +99,30 @@ function toISO(
 		| Temporal.PlainMonthDay
 		| Temporal.Duration
 		| null
-		| undefined
+		| undefined,
 ): string | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.toString()`
 
 **Description:**
 Converts any Temporal type to its ISO 8601 string representation using the built-in toString() method.
 
 **Target Monadic Signature:**
+
 ```typescript
 function toISO(
-	temporal: Temporal.PlainDate
+	temporal:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainTime
 		| Temporal.ZonedDateTime
 		| Temporal.Instant
 		| Temporal.PlainYearMonth
 		| Temporal.PlainMonthDay
-		| Temporal.Duration
+		| Temporal.Duration,
 ): Result<string, SerializationError>
 ```
 
@@ -120,22 +131,25 @@ function toISO(
 ### serializeZonedDateTime
 
 **Current Signature:**
+
 ```typescript
 function serializeZonedDateTime(
-	zonedDateTime: Temporal.ZonedDateTime | null | undefined
+	zonedDateTime: Temporal.ZonedDateTime | null | undefined,
 ): string | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `zonedDateTime.toString()`
 
 **Description:**
 Serializes a ZonedDateTime to its ISO 8601 string representation with timezone information.
 
 **Target Monadic Signature:**
+
 ```typescript
 function serializeZonedDateTime(
-	zonedDateTime: Temporal.ZonedDateTime
+	zonedDateTime: Temporal.ZonedDateTime,
 ): Result<string, SerializationError>
 ```
 
@@ -146,30 +160,35 @@ function serializeZonedDateTime(
 ### getYear
 
 **Current Signature:**
+
 ```typescript
 function getYear(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.year`
 
 **Description:**
 Extracts the year component from a Temporal date object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getYear(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): Result<number, ExtractionError>
 ```
 
@@ -178,32 +197,37 @@ function getYear(
 ### getMonth
 
 **Current Signature:**
+
 ```typescript
 function getMonth(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.PlainMonthDay
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.month`
 
 **Description:**
 Extracts the month component (1-12) from a Temporal date object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getMonth(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.PlainMonthDay
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): Result<MonthNumber, ExtractionError>
 
 type MonthNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
@@ -214,30 +238,35 @@ type MonthNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 ### getDay
 
 **Current Signature:**
+
 ```typescript
 function getDay(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainMonthDay
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.day`
 
 **Description:**
 Extracts the day of month component (1-31) from a Temporal date object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getDay(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainMonthDay
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): Result<DayNumber, ExtractionError>
 
 type DayNumber = number // 1-31
@@ -248,22 +277,30 @@ type DayNumber = number // 1-31
 ### getHour
 
 **Current Signature:**
+
 ```typescript
 function getHour(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	time:
+		| Temporal.PlainTime
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.hour`
 
 **Description:**
 Extracts the hour component (0-23) from a Temporal time object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getHour(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<HourNumber, ExtractionError>
 
 type HourNumber = number // 0-23
@@ -274,22 +311,30 @@ type HourNumber = number // 0-23
 ### getMinute
 
 **Current Signature:**
+
 ```typescript
 function getMinute(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	time:
+		| Temporal.PlainTime
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.minute`
 
 **Description:**
 Extracts the minute component (0-59) from a Temporal time object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getMinute(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<MinuteNumber, ExtractionError>
 
 type MinuteNumber = number // 0-59
@@ -300,22 +345,30 @@ type MinuteNumber = number // 0-59
 ### getSecond
 
 **Current Signature:**
+
 ```typescript
 function getSecond(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	time:
+		| Temporal.PlainTime
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.second`
 
 **Description:**
 Extracts the second component (0-59) from a Temporal time object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getSecond(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<SecondNumber, ExtractionError>
 
 type SecondNumber = number // 0-59
@@ -326,22 +379,30 @@ type SecondNumber = number // 0-59
 ### getMillisecond
 
 **Current Signature:**
+
 ```typescript
 function getMillisecond(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	time:
+		| Temporal.PlainTime
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.millisecond`
 
 **Description:**
 Extracts the millisecond component (0-999) from a Temporal time object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getMillisecond(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<MillisecondNumber, ExtractionError>
 
 type MillisecondNumber = number // 0-999
@@ -352,22 +413,30 @@ type MillisecondNumber = number // 0-999
 ### getNanosecond
 
 **Current Signature:**
+
 ```typescript
 function getNanosecond(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	time:
+		| Temporal.PlainTime
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.nanosecond`
 
 **Description:**
 Extracts the nanosecond component (0-999) from a Temporal time object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getNanosecond(
-	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	time: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<NanosecondNumber, ExtractionError>
 
 type NanosecondNumber = number // 0-999
@@ -380,22 +449,30 @@ type NanosecondNumber = number // 0-999
 ### getDayOfWeek
 
 **Current Signature:**
+
 ```typescript
 function getDayOfWeek(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.dayOfWeek`
 
 **Description:**
 Gets the ISO day of week (1=Monday, 7=Sunday) for a date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getDayOfWeek(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<WeekDay, ExtractionError>
 
 type WeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7
@@ -406,22 +483,30 @@ type WeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7
 ### getDayOfYear
 
 **Current Signature:**
+
 ```typescript
 function getDayOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.dayOfYear`
 
 **Description:**
 Gets the day of year (1-366) for a date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getDayOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<DayOfYear, ExtractionError>
 
 type DayOfYear = number // 1-366
@@ -432,22 +517,30 @@ type DayOfYear = number // 1-366
 ### getWeekOfYear
 
 **Current Signature:**
+
 ```typescript
 function getWeekOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.weekOfYear`
 
 **Description:**
 Gets the ISO week number (1-53) for a date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getWeekOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<WeekNumber, ExtractionError>
 
 type WeekNumber = number // 1-53
@@ -458,22 +551,30 @@ type WeekNumber = number // 1-53
 ### getWeekday
 
 **Current Signature:**
+
 ```typescript
 function getWeekday(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.dayOfWeek`
 
 **Description:**
 Alias for getDayOfWeek. Gets the ISO day of week (1=Monday, 7=Sunday).
 
 **Target Monadic Signature:**
+
 ```typescript
 function getWeekday(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<WeekDay, ExtractionError>
 ```
 
@@ -482,18 +583,21 @@ function getWeekday(
 ### getQuarter
 
 **Current Signature:**
+
 ```typescript
 function getQuarter(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.month`
 - Calculation: `Math.ceil(month / 3)`
 
@@ -501,12 +605,14 @@ function getQuarter(
 Calculates the quarter (1-4) for a date based on its month.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getQuarter(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): Result<Quarter, ExtractionError>
 
 type Quarter = 1 | 2 | 3 | 4
@@ -517,30 +623,35 @@ type Quarter = 1 | 2 | 3 | 4
 ### getDaysInMonth
 
 **Current Signature:**
+
 ```typescript
 function getDaysInMonth(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.daysInMonth`
 
 **Description:**
 Gets the number of days (28-31) in the month of the given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getDaysInMonth(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): Result<DaysInMonth, ExtractionError>
 
 type DaysInMonth = 28 | 29 | 30 | 31
@@ -551,30 +662,35 @@ type DaysInMonth = 28 | 29 | 30 | 31
 ### getDaysInYear
 
 **Current Signature:**
+
 ```typescript
 function getDaysInYear(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): number | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.daysInYear`
 
 **Description:**
 Gets the number of days (365 or 366) in the year of the given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getDaysInYear(
-	date: Temporal.PlainDate
+	date:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): Result<DaysInYear, ExtractionError>
 
 type DaysInYear = 365 | 366
@@ -587,32 +703,37 @@ type DaysInYear = 365 | 366
 ### getCalendar
 
 **Current Signature:**
+
 ```typescript
 function getCalendar(
-	temporal: Temporal.PlainDate
+	temporal:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.PlainMonthDay
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): string | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.calendarId`
 
 **Description:**
 Gets the calendar system identifier (e.g., "iso8601", "hebrew", "islamic") for a Temporal object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getCalendar(
-	temporal: Temporal.PlainDate
+	temporal:
+		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.PlainMonthDay
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): Result<CalendarId, ExtractionError>
 
 type CalendarId = string
@@ -623,22 +744,25 @@ type CalendarId = string
 ### getTimeZone
 
 **Current Signature:**
+
 ```typescript
 function getTimeZone(
-	temporal: Temporal.ZonedDateTime | null | undefined
+	temporal: Temporal.ZonedDateTime | null | undefined,
 ): string | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.timeZoneId`
 
 **Description:**
 Gets the timezone identifier (e.g., "America/New_York", "UTC") for a ZonedDateTime.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getTimeZone(
-	temporal: Temporal.ZonedDateTime
+	temporal: Temporal.ZonedDateTime,
 ): Result<TimeZoneId, ExtractionError>
 
 type TimeZoneId = string
@@ -649,6 +773,7 @@ type TimeZoneId = string
 ### getOffsetTransitions
 
 **Current Signature:**
+
 ```typescript
 function getOffsetTransitions(
 	timeZone: string
@@ -660,6 +785,7 @@ function getOffsetTransitions(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.PlainDateTime.from()`
 - `Temporal.ZonedDateTime.from()`
 - `zdt.offset`
@@ -669,6 +795,7 @@ function getOffsetTransitions(
 Finds all timezone offset transitions (DST changes) within a year range for a given timezone.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getOffsetTransitions(
 	timeZone: TimeZone
@@ -691,6 +818,7 @@ type OffsetTransition = {
 ### getNextOccurrence
 
 **Current Signature:**
+
 ```typescript
 function getNextOccurrence(
 	targetTime: Temporal.PlainTime
@@ -700,6 +828,7 @@ function getNextOccurrence(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `referenceDateTime.with({ hour, minute, second, millisecond: 0, microsecond: 0, nanosecond: 0 })`
 - `referenceDateTime.add({ days: 1 })`
 - `targetDateTime.compare(referenceDateTime)`
@@ -708,6 +837,7 @@ function getNextOccurrence(
 Finds the next occurrence of a specific time from a reference datetime. If the time is later today, returns today; otherwise returns tomorrow.
 
 **Target Monadic Signature:**
+
 ```typescript
 function getNextOccurrence(
 	targetTime: Temporal.PlainTime

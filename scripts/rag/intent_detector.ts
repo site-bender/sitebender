@@ -6,11 +6,11 @@
  */
 
 export type IntentAction =
-	| 'create'
-	| 'modify'
-	| 'fix'
-	| 'explain'
-	| 'example'
+	| "create"
+	| "modify"
+	| "fix"
+	| "explain"
+	| "example"
 
 export type Intent = {
 	action: IntentAction
@@ -26,15 +26,15 @@ export default function detectIntent(message: string): Intent {
 	const lower = message.toLowerCase()
 
 	// Detect action (order matters - more specific first)
-	let action: IntentAction = 'create'
+	let action: IntentAction = "create"
 	if (lower.match(/example|show|demonstrate|sample/)) {
-		action = 'example'
+		action = "example"
 	} else if (lower.match(/fix|repair|correct|debug/)) {
-		action = 'fix'
+		action = "fix"
 	} else if (lower.match(/modify|change|update|refactor|improve/)) {
-		action = 'modify'
+		action = "modify"
 	} else if (lower.match(/explain|why|how|what|understand|clarify/)) {
-		action = 'explain'
+		action = "explain"
 	}
 
 	// Extract subject
@@ -54,21 +54,21 @@ function extractSubject(message: string): string {
 
 	// Common subjects in order of specificity
 	const subjects = [
-		'component',
-		'function',
-		'type',
-		'interface',
-		'test',
-		'error',
-		'validation',
-		'async',
-		'file',
-		'api',
-		'data',
-		'state',
-		'form',
-		'button',
-		'input'
+		"component",
+		"function",
+		"type",
+		"interface",
+		"test",
+		"error",
+		"validation",
+		"async",
+		"file",
+		"api",
+		"data",
+		"state",
+		"form",
+		"button",
+		"input",
 	]
 
 	for (const subject of subjects) {
@@ -77,7 +77,7 @@ function extractSubject(message: string): string {
 		}
 	}
 
-	return 'general'
+	return "general"
 }
 
 /**
@@ -89,14 +89,30 @@ function extractContextKeywords(message: string): ReadonlyArray<string> {
 
 	// Technical keywords
 	const technicalTerms = [
-		'async', 'await', 'promise',
-		'error', 'exception', 'result',
-		'type', 'interface', 'branded',
-		'test', 'spec', 'mock',
-		'validate', 'check', 'verify',
-		'component', 'props', 'render',
-		'file', 'read', 'write',
-		'api', 'fetch', 'request'
+		"async",
+		"await",
+		"promise",
+		"error",
+		"exception",
+		"result",
+		"type",
+		"interface",
+		"branded",
+		"test",
+		"spec",
+		"mock",
+		"validate",
+		"check",
+		"verify",
+		"component",
+		"props",
+		"render",
+		"file",
+		"read",
+		"write",
+		"api",
+		"fetch",
+		"request",
 	]
 
 	for (const term of technicalTerms) {
@@ -111,29 +127,31 @@ function extractContextKeywords(message: string): ReadonlyArray<string> {
 /**
  * Determines which encoding types to retrieve based on intent.
  */
-export function getEncodingTypesForIntent(intent: Intent): ReadonlyArray<string> {
+export function getEncodingTypesForIntent(
+	intent: Intent,
+): ReadonlyArray<string> {
 	switch (intent.action) {
-		case 'create':
+		case "create":
 			// Get patterns and examples for creating new code
-			return ['pattern', 'example']
+			return ["pattern", "example"]
 
-		case 'modify':
+		case "modify":
 			// Get patterns and principles for modifying existing code
-			return ['pattern', 'principle']
+			return ["pattern", "principle"]
 
-		case 'fix':
+		case "fix":
 			// Get anti-patterns and correct patterns for fixing issues
-			return ['antipattern', 'pattern', 'counterexample']
+			return ["antipattern", "pattern", "counterexample"]
 
-		case 'explain':
+		case "explain":
 			// Get principles and examples for explaining concepts
-			return ['principle', 'example']
+			return ["principle", "example"]
 
-		case 'example':
+		case "example":
 			// Get examples and counter-examples for showing how to do things
-			return ['example', 'counterexample']
+			return ["example", "counterexample"]
 
 		default:
-			return ['pattern', 'example']
+			return ["pattern", "example"]
 	}
 }

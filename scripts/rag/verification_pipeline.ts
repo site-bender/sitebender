@@ -7,8 +7,8 @@
 
 import detectViolations, {
 	formatViolationReport,
-	type Violation
-} from './violation_detector.ts'
+	type Violation,
+} from "./violation_detector.ts"
 
 export type VerificationResult =
 	| { valid: true; code: string }
@@ -29,20 +29,20 @@ export default function verifyGeneratedCode(code: string): VerificationResult {
 	// Check if all violations are critical
 	const criticalViolations = violations.filter(
 		function isCritical(v: Violation): boolean {
-			return v.type === 'CRITICAL'
-		}
+			return v.type === "CRITICAL"
+		},
 	)
 
 	if (criticalViolations.length > 0) {
 		return {
 			valid: false,
 			violations: criticalViolations,
-			code
+			code,
 		}
 	}
 
 	// Only warnings - allow but log
-	console.warn('Code has warnings:', violations)
+	console.warn("Code has warnings:", violations)
 	return { valid: true, code }
 }
 
@@ -52,7 +52,7 @@ export default function verifyGeneratedCode(code: string): VerificationResult {
  */
 export function formatVerificationResult(result: VerificationResult): string {
 	if (result.valid) {
-		return '✅ Code passes verification'
+		return "✅ Code passes verification"
 	}
 
 	const report = formatViolationReport(result.violations)

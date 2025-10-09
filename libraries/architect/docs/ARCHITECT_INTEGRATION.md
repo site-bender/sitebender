@@ -31,7 +31,7 @@ Architect's JSX doesn't render UI—it defines **behavior composition trees** th
 
 1. **Branch Nodes = Operations**: Every non-leaf node is an operation
    - Can be n-ary: `<Add>` with 3+ children
-   - Can be binary: `<Divide>` with exactly 2 children  
+   - Can be binary: `<Divide>` with exactly 2 children
    - Can be unary: `<Negate>`, `<Square>` with 1 child
 
 2. **Leaf Nodes = Injectors**: Every leaf node MUST be an injector that provides a value
@@ -47,39 +47,45 @@ Architect's JSX doesn't render UI—it defines **behavior composition trees** th
 ### Component Categories
 
 **Injectors** (leaf nodes):
+
 - Data sources that inject values into calculations
 - Examples: `<Value>`, `<FromElement>`, `<FromArgument>`, `<FromApi>`
 
 **Operators** (branch nodes):
+
 - Mathematical operations that combine child values
 - Examples: `<Add>`, `<Subtract>`, `<Multiply>`, `<Divide>`, `<Power>`, `<Root>`
 
 **Comparators** (branch nodes, return boolean):
+
 - Comparison operations
 - Use `<Referent>` and `<Comparand>` wrappers to handle XML's unordered children
 - Examples: `<IsLessThan>`, `<IsGreaterThan>`, `<IsEqualTo>`, `<Matches>`
 
 **Logical Operators** (branch nodes, combine booleans):
+
 - Combine comparators into complex conditions
 - Examples: `<And>`, `<Or>`, `<Not>`, `<Xor>`, `<Implies>`
 
 ## Example: Calculation Tree
 
 ```jsx
-<Multiply>                          // Branch: Operation
-  <Multiplicand>
-    <Add>                             // Branch: Operation
-      <Augend>
-        <FromElement selector="#a" />   // Leaf: Injector
-      </Augend>
-      <Addend>
-        <FromElement selector="#b" />   // Leaf: Injector
-      </Addend>
-    </Add>
-  </Multiplicand>
-  <Multiplier>
-    <Value>2</Value>                  // Leaf: Injector (constant)
-  </Multiplier>
+<Multiply>
+	// Branch: Operation
+	<Multiplicand>
+		<Add>
+			// Branch: Operation
+			<Augend>
+				<FromElement selector="#a" /> // Leaf: Injector
+			</Augend>
+			<Addend>
+				<FromElement selector="#b" /> // Leaf: Injector
+			</Addend>
+		</Add>
+	</Multiplicand>
+	<Multiplier>
+		<Value>2</Value> // Leaf: Injector (constant)
+	</Multiplier>
 </Multiply>
 ```
 
@@ -91,25 +97,26 @@ When compiled, this becomes a data structure (JSON/Turtle) that can be stored an
 
 ```jsx
 <Validation>
-  <And>
-    <IsInteger>
-      <FromArgument />
-    </IsInteger>
-    <IsGreaterThan>
-      <Referent>
-        <FromArgument />
-      </Referent>
-      <Comparand>
-        <Value>0</Value>
-      </Comparand>
-    </IsGreaterThan>
-  </And>
+	<And>
+		<IsInteger>
+			<FromArgument />
+		</IsInteger>
+		<IsGreaterThan>
+			<Referent>
+				<FromArgument />
+			</Referent>
+			<Comparand>
+				<Value>0</Value>
+			</Comparand>
+		</IsGreaterThan>
+	</And>
 </Validation>
 ```
 
 This represents: `isInteger(value) && value > 0`
 
 The same tree structure can:
+
 - Validate on client (JavaScript)
 - Validate on server (Deno)
 - Generate SHACL constraints for triple stores
@@ -127,25 +134,27 @@ The composition system (composeOperators) does something like this:
 ### Example Flow
 
 Given this JSX:
+
 ```jsx
 <Multiply>
-  <Multiplicand>
-    <Add>
-      <Augend>
-        <FromElement selector="#a" />
-      </Augend>
-      <Addend>
-        <FromElement selector="#b" />
-      </Addend>
-    </Add>
-  </Multiplicand>
-  <Multiplier>
-    <Value>2</Value>
-  </Multiplier>
+	<Multiplicand>
+		<Add>
+			<Augend>
+				<FromElement selector="#a" />
+			</Augend>
+			<Addend>
+				<FromElement selector="#b" />
+			</Addend>
+		</Add>
+	</Multiplicand>
+	<Multiplier>
+		<Value>2</Value>
+	</Multiplier>
 </Multiply>
 ```
 
 The composition creates:
+
 ```javascript
 multiply(
   multiplicand: 
@@ -160,6 +169,7 @@ multiply(
 ```
 
 Which produces a function that when called:
+
 1. Executes the curried multiply function
 2. Which executes the add function
 3. Which executes the two injector functions to get the values from elements with IDs `a` and `b`, then adds them
@@ -171,15 +181,15 @@ After rendering, Architect attaches composed functions as properties on DOM elem
 
 ```javascript
 // Properties attached to elements:
-element.__sbCalculate  // Async calculation function
-element.__sbValidate   // Async validation function
-element.__sbFormat     // Async formatting function
+element.__sbCalculate // Async calculation function
+element.__sbValidate // Async validation function
+element.__sbFormat // Async formatting function
 
 // Global registries track dependencies:
-document.__sbCalculators   // Set of element IDs with calculations
-document.__sbCalculations  // Map of selector to dependent element IDs
-document.__sbFormatters    // Set of element IDs with formatters
-document.__sbValidators    // Set of element IDs with validators
+document.__sbCalculators // Set of element IDs with calculations
+document.__sbCalculations // Map of selector to dependent element IDs
+document.__sbFormatters // Set of element IDs with formatters
+document.__sbValidators // Set of element IDs with validators
 ```
 
 Progressive enhancement scripts can then use these attached functions to add interactivity when JavaScript is available.
@@ -201,6 +211,7 @@ Progressive enhancement scripts can then use these attached functions to add int
 ## Relationship to Toolsmith
 
 Architect's operators and comparators will use Toolsmith's:
+
 - **Branded types** for type-safe calculations
 - **Monadic functions** for error handling
 - **Curried functions** for composition

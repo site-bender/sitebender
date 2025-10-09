@@ -7,11 +7,15 @@ import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
 
 import type { Token } from "../../tokenizer/types/index.ts"
 import type { AstNode } from "../types/index.ts"
-import parsePrimary, { setExpressionParser as setPrimaryExpressionParser } from "../parsePrimary/index.ts"
+import parsePrimary, {
+	setExpressionParser as setPrimaryExpressionParser,
+} from "../parsePrimary/index.ts"
 import parseFunctionCall, {
 	setExpressionParser as setFunctionCallExpressionParser,
 } from "../parseFunctionCall/index.ts"
-import parseUnaryOperator, { setPrimaryParser } from "../parseUnaryOperator/index.ts"
+import parseUnaryOperator, {
+	setPrimaryParser,
+} from "../parseUnaryOperator/index.ts"
 import { RIGHT_ASSOCIATIVE } from "../constants/index.ts"
 import getPrecedence from "./_getPrecedence/index.ts"
 import tokenTypeToBinaryOperator from "./_tokenTypeToBinaryOperator/index.ts"
@@ -62,9 +66,14 @@ export default function parseExpression(tokens: Array<Result<string, Token>>) {
 			currentPosition = increment(currentPosition)
 
 			const isRightAssociative = RIGHT_ASSOCIATIVE.has(operator)
-			const nextPrecedence = isRightAssociative ? precedence : increment(precedence)
+			const nextPrecedence = isRightAssociative
+				? precedence
+				: increment(precedence)
 
-			const rightResult = parseExpression(tokens)(currentPosition, nextPrecedence)
+			const rightResult = parseExpression(tokens)(
+				currentPosition,
+				nextPrecedence,
+			)
 
 			if (rightResult._tag === "Error") {
 				return rightResult

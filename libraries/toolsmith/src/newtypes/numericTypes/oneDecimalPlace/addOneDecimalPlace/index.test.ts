@@ -59,14 +59,17 @@ Deno.test("addOneDecimalPlace", async (t) => {
 		assertEquals(result.value, 15)
 	})
 
-	await t.step("handles precision edge case (result stays within 1 decimal)", () => {
-		const augend = 10.1 as OneDecimalPlace
-		const addend = 5.2 as OneDecimalPlace
-		const result = addOneDecimalPlace(augend)(addend)
+	await t.step(
+		"handles precision edge case (result stays within 1 decimal)",
+		() => {
+			const augend = 10.1 as OneDecimalPlace
+			const addend = 5.2 as OneDecimalPlace
+			const result = addOneDecimalPlace(augend)(addend)
 
-		assert(isOk(result))
-		assertEquals(result.value, 15.3)
-	})
+			assert(isOk(result))
+			assertEquals(result.value, 15.3)
+		},
+	)
 
 	await t.step("handles very small values", () => {
 		const augend = 0.1 as OneDecimalPlace

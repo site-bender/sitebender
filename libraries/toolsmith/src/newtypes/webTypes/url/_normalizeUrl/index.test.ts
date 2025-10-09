@@ -75,8 +75,14 @@ Deno.test("_normalizeUrl: handles internationalized domain names", function () {
 })
 
 Deno.test("_normalizeUrl: handles URLs with ports", function () {
-	assertEquals(_normalizeUrl("HTTP://EXAMPLE.COM:8080"), "http://example.com:8080")
-	assertEquals(_normalizeUrl("https://Example.com:443"), "https://example.com:443")
+	assertEquals(
+		_normalizeUrl("HTTP://EXAMPLE.COM:8080"),
+		"http://example.com:8080",
+	)
+	assertEquals(
+		_normalizeUrl("https://Example.com:443"),
+		"https://example.com:443",
+	)
 })
 
 Deno.test("_normalizeUrl: handles URLs without paths", function () {

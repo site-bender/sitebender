@@ -7,6 +7,7 @@ Comparison functions evaluate relationships between Temporal objects, returning 
 ### compare
 
 **Current Signature:**
+
 ```typescript
 function compare<T extends { compare(other: T): number }>(
 	first: T | null | undefined
@@ -16,12 +17,14 @@ function compare<T extends { compare(other: T): number }>(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `first.compare(second)`
 
 **Description:**
 Compares two Temporal objects using their built-in compare method. Returns negative if first < second, zero if equal, positive if first > second.
 
 **Target Monadic Signature:**
+
 ```typescript
 function compare<T extends Comparable<T>>(
 	first: T
@@ -41,6 +44,7 @@ type Ordering = -1 | 0 | 1
 ### equals
 
 **Current Signature:**
+
 ```typescript
 function equals<T extends { equals(other: T): boolean }>(
 	first: T | null | undefined
@@ -50,12 +54,14 @@ function equals<T extends { equals(other: T): boolean }>(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `first.equals(second)`
 
 **Description:**
 Checks if two Temporal objects are equal using their built-in equals method.
 
 **Target Monadic Signature:**
+
 ```typescript
 function equals<T extends Equatable<T>>(
 	first: T
@@ -75,6 +81,7 @@ type Equatable<T> = {
 ### diffDays
 
 **Current Signature:**
+
 ```typescript
 function diffDays(
 	from: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined
@@ -84,6 +91,7 @@ function diffDays(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `from.toPlainDate()` (for PlainDateTime)
 - `toDate.since(fromDate, { largestUnit: "days" })`
 - `duration.days`
@@ -92,6 +100,7 @@ function diffDays(
 Calculates the difference in days between two dates. Converts PlainDateTime to PlainDate before comparison.
 
 **Target Monadic Signature:**
+
 ```typescript
 function diffDays(
 	from: Temporal.PlainDate | Temporal.PlainDateTime
@@ -105,6 +114,7 @@ function diffDays(
 ### diffHours
 
 **Current Signature:**
+
 ```typescript
 function diffHours(
 	from: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
@@ -114,6 +124,7 @@ function diffHours(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `to.since(from, { largestUnit: "hours" })`
 - Manual nanosecond calculation for PlainTime
 
@@ -121,6 +132,7 @@ function diffHours(
 Calculates the difference in hours (as decimal number) between two times or datetimes.
 
 **Target Monadic Signature:**
+
 ```typescript
 function diffHours(
 	from: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
@@ -134,6 +146,7 @@ function diffHours(
 ### diffMinutes
 
 **Current Signature:**
+
 ```typescript
 function diffMinutes(
 	from: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
@@ -143,6 +156,7 @@ function diffMinutes(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `to.since(from, { largestUnit: "minutes" })`
 - Manual nanosecond calculation for PlainTime
 
@@ -150,6 +164,7 @@ function diffMinutes(
 Calculates the difference in minutes (as decimal number) between two times or datetimes.
 
 **Target Monadic Signature:**
+
 ```typescript
 function diffMinutes(
 	from: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
@@ -163,6 +178,7 @@ function diffMinutes(
 ### diffSeconds
 
 **Current Signature:**
+
 ```typescript
 function diffSeconds(
 	from: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
@@ -172,6 +188,7 @@ function diffSeconds(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `to.since(from, { largestUnit: "seconds" })`
 - Manual nanosecond calculation for PlainTime
 
@@ -179,6 +196,7 @@ function diffSeconds(
 Calculates the difference in seconds (as decimal number) between two times or datetimes.
 
 **Target Monadic Signature:**
+
 ```typescript
 function diffSeconds(
 	from: Temporal.PlainTime | Temporal.PlainDateTime | Temporal.ZonedDateTime
@@ -192,6 +210,7 @@ function diffSeconds(
 ### diffMonths
 
 **Current Signature:**
+
 ```typescript
 function diffMonths(
 	from: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainYearMonth | null | undefined
@@ -201,6 +220,7 @@ function diffMonths(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `to.since(from, { largestUnit: "months" })`
 - `duration.months`
 
@@ -208,6 +228,7 @@ function diffMonths(
 Calculates the difference in months between two dates.
 
 **Target Monadic Signature:**
+
 ```typescript
 function diffMonths(
 	from: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainYearMonth
@@ -221,6 +242,7 @@ function diffMonths(
 ### diffYears
 
 **Current Signature:**
+
 ```typescript
 function diffYears(
 	from: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainYearMonth | null | undefined
@@ -230,6 +252,7 @@ function diffYears(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `to.since(from, { largestUnit: "years" })`
 - `duration.years`
 
@@ -237,6 +260,7 @@ function diffYears(
 Calculates the difference in years between two dates.
 
 **Target Monadic Signature:**
+
 ```typescript
 function diffYears(
 	from: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.PlainYearMonth
@@ -252,6 +276,7 @@ function diffYears(
 ### since
 
 **Current Signature:**
+
 ```typescript
 function since(
 	reference: Temporal.PlainDate
@@ -273,6 +298,7 @@ function since(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `reference.until(current)`
 - `Temporal.Duration.from({ seconds: 0 })` (for negative durations)
 - Special PlainTime handling for day wrapping
@@ -281,6 +307,7 @@ function since(
 Calculates the duration from reference to current. Returns zero duration if reference is in the future. For PlainTime, handles day wrapping.
 
 **Target Monadic Signature:**
+
 ```typescript
 function since(
 	reference: Temporal.PlainDate
@@ -302,6 +329,7 @@ function since(
 ### until
 
 **Current Signature:**
+
 ```typescript
 function until(
 	target: Temporal.PlainDate
@@ -323,6 +351,7 @@ function until(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `current.until(target)`
 - Special PlainTime handling for day wrapping
 
@@ -330,6 +359,7 @@ function until(
 Calculates the duration from current to target. For PlainTime, handles day wrapping when target is earlier than current.
 
 **Target Monadic Signature:**
+
 ```typescript
 function until(
 	target: Temporal.PlainDate
@@ -353,19 +383,22 @@ function until(
 ### isLeapYear
 
 **Current Signature:**
+
 ```typescript
 function isLeapYear(
-	yearOrDate: number
+	yearOrDate:
+		| number
 		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
 		| Temporal.ZonedDateTime
 		| null
-		| undefined
+		| undefined,
 ): boolean
 ```
 
 **TC39 Temporal API Usage:**
+
 - `yearOrDate.daysInYear === 366` (for Temporal objects)
 - Leap year calculation algorithm for number input
 
@@ -373,13 +406,15 @@ function isLeapYear(
 Checks if a year is a leap year. Accepts either a year number or a Temporal date object.
 
 **Target Monadic Signature:**
+
 ```typescript
 function isLeapYear(
-	yearOrDate: number
+	yearOrDate:
+		| number
 		| Temporal.PlainDate
 		| Temporal.PlainDateTime
 		| Temporal.PlainYearMonth
-		| Temporal.ZonedDateTime
+		| Temporal.ZonedDateTime,
 ): boolean
 ```
 
@@ -388,22 +423,30 @@ function isLeapYear(
 ### isWeekday
 
 **Current Signature:**
+
 ```typescript
 function isWeekday(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): boolean
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.dayOfWeek`
 
 **Description:**
 Checks if a date falls on a weekday (Monday-Friday, dayOfWeek 1-5).
 
 **Target Monadic Signature:**
+
 ```typescript
 function isWeekday(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): boolean
 ```
 
@@ -412,22 +455,30 @@ function isWeekday(
 ### isWeekend
 
 **Current Signature:**
+
 ```typescript
 function isWeekend(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): boolean
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.dayOfWeek`
 
 **Description:**
 Checks if a date falls on a weekend (Saturday-Sunday, dayOfWeek 6-7).
 
 **Target Monadic Signature:**
+
 ```typescript
 function isWeekend(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): boolean
 ```
 
@@ -438,6 +489,7 @@ function isWeekend(
 ### sortByAbsoluteTime
 
 **Current Signature:**
+
 ```typescript
 function sortByAbsoluteTime(
 	timeZone: string = "UTC"
@@ -448,6 +500,7 @@ function sortByAbsoluteTime(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `a.toInstant()` (for ZonedDateTime)
 - `a.toZonedDateTime(timeZone).toInstant()` (for PlainDateTime)
 - `Temporal.Instant.compare(instantA, instantB)`
@@ -456,6 +509,7 @@ function sortByAbsoluteTime(
 Comparator function for sorting temporal values by absolute time (converted to Instant). Null values sort to end.
 
 **Target Monadic Signature:**
+
 ```typescript
 function sortByAbsoluteTime(
 	timeZone: TimeZone

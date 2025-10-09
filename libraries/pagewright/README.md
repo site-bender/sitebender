@@ -269,16 +269,16 @@ For reactive functionality—form validation, conditional display, state managem
 
 The JSX syntax may look familiar, but Pagewright differs fundamentally from React:
 
-| React | Pagewright |
-|-------|-----------|
-| Client-side rendering | Build-time HTML generation |
-| Virtual DOM | Direct HTML output |
-| useState, useEffect | No hooks (not applicable) |
-| onClick handlers | data-enhance attributes |
-| Controlled components | Native HTML form behavior |
-| Permissive JSX | Typed HTML with standards enforcement |
-| Any attribute on any element | Only valid W3C/WHATWG attributes |
-| No nesting validation | Enforces proper content models |
+| React                        | Pagewright                            |
+| ---------------------------- | ------------------------------------- |
+| Client-side rendering        | Build-time HTML generation            |
+| Virtual DOM                  | Direct HTML output                    |
+| useState, useEffect          | No hooks (not applicable)             |
+| onClick handlers             | data-enhance attributes               |
+| Controlled components        | Native HTML form behavior             |
+| Permissive JSX               | Typed HTML with standards enforcement |
+| Any attribute on any element | Only valid W3C/WHATWG attributes      |
+| No nesting validation        | Enforces proper content models        |
 
 These differences aren't limitations—they're constraints that enable different capabilities. No virtual DOM means no runtime overhead. No hooks means no mental model for dependency arrays and re-renders. Native form behavior means forms work without JavaScript.
 
@@ -313,12 +313,12 @@ The TypeScript configuration requires specific settings:
 
 ```json
 {
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "@sitebender/pagewright",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext"
-  }
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "@sitebender/pagewright",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext"
+	}
 }
 ```
 

@@ -5,7 +5,6 @@ import join from "./index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isError from "../../monads/result/isError/index.ts"
 
-
 Deno.test("join", async function joinTests(t) {
 	await t.step(
 		"joins array elements with separator",

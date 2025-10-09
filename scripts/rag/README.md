@@ -113,16 +113,20 @@ for result in results:
 Main entry point for rule retrieval.
 
 **Parameters:**
+
 - `query` (str): Natural language question about coding rules
 - `verbose` (bool): Print debug information (default: False)
 
 **Returns:**
+
 - `str`: Formatted string with relevant rules and examples
 
 **Raises:**
+
 - Returns error message string (does not raise exceptions)
 
 **Example:**
+
 ```python
 result = retrieve_rules("Can I use arrow functions?")
 print(result)
@@ -133,12 +137,15 @@ print(result)
 Classifies the intent of a user query.
 
 **Parameters:**
+
 - `query` (str): User's natural language query
 
 **Returns:**
+
 - `QueryIntent`: One of CHECK, FIX, EXPLAIN, EXAMPLE, VIOLATION
 
 **Query Intent Types:**
+
 - `CHECK`: "Can I use X?", "Is it ok to...?"
 - `FIX`: "How to fix X?", "Repair this..."
 - `EXPLAIN`: "What is X?", "Why...?"
@@ -146,6 +153,7 @@ Classifies the intent of a user query.
 - `VIOLATION`: Detected code violation (future use)
 
 **Example:**
+
 ```python
 intent = classify_query_intent("Can I use classes?")
 assert intent == QueryIntent.CHECK
@@ -156,16 +164,20 @@ assert intent == QueryIntent.CHECK
 Generates embedding vector for user query.
 
 **Parameters:**
+
 - `query` (str): User's natural language query
 
 **Returns:**
+
 - `List[float]`: 384-dimensional embedding vector
 
 **Raises:**
+
 - `ValidationError`: If query is empty
 - `EmbeddingError`: If embedding generation fails
 
 **Example:**
+
 ```python
 embedding = generate_query_embedding("What is a pure function?")
 assert len(embedding) == 384
@@ -176,19 +188,23 @@ assert len(embedding) == 384
 Searches a collection using vector similarity.
 
 **Parameters:**
+
 - `collection_name` (str): Name of Qdrant collection
 - `query_embedding` (List[float]): Query vector (384 dimensions)
 - `limit` (int): Maximum results to return (default: 10)
 - `score_threshold` (float): Minimum cosine similarity score (default: 0.7)
 
 **Returns:**
+
 - `List[SearchResult]`: Search results sorted by score
 
 **Raises:**
+
 - `QdrantConnectionError`: If Qdrant API fails
 - `ValidationError`: If parameters are invalid
 
 **Example:**
+
 ```python
 embedding = generate_query_embedding("Can I use classes?")
 results = search_collection_semantic(
@@ -206,6 +222,7 @@ results = search_collection_semantic(
 Represents a single search result.
 
 **Attributes:**
+
 - `rule_id` (str): Unique rule identifier
 - `encoding_type` (str): Type of encoding (principle, pattern, example, antipattern)
 - `category` (str): Rule category
@@ -219,6 +236,7 @@ Represents a single search result.
 Configuration for search strategy.
 
 **Attributes:**
+
 - `collections` (List[str]): Collections to search
 - `encoding_types` (List[str]): Encoding types to include
 - `limit` (int): Maximum results
@@ -241,6 +259,7 @@ RetrievalError (base)
 - `EMBEDDING_MODEL`: Model name (default: `sentence-transformers/all-MiniLM-L6-v2`)
 
 **Example:**
+
 ```bash
 export QDRANT_URL="http://qdrant.example.com:6333"
 export EMBEDDING_MODEL="sentence-transformers/all-MiniLM-L6-v2"
@@ -251,12 +270,12 @@ python3 retrieval_pipeline.py "Can I use classes?"
 
 The pipeline automatically configures search strategy based on query intent:
 
-| Intent | Encoding Types | Score Threshold | Use Case |
-|--------|---------------|-----------------|----------|
-| CHECK | principle, antipattern | 0.65 | Permission checks |
-| FIX | pattern, example | 0.70 | Error resolution |
-| EXPLAIN | principle, example | 0.65 | Understanding concepts |
-| EXAMPLE | example, pattern | 0.70 | Code samples |
+| Intent  | Encoding Types         | Score Threshold | Use Case               |
+| ------- | ---------------------- | --------------- | ---------------------- |
+| CHECK   | principle, antipattern | 0.65            | Permission checks      |
+| FIX     | pattern, example       | 0.70            | Error resolution       |
+| EXPLAIN | principle, example     | 0.65            | Understanding concepts |
+| EXAMPLE | example, pattern       | 0.70            | Code samples           |
 
 ## Testing
 
@@ -284,6 +303,7 @@ pytest test_retrieval_pipeline.py -v -m integration
 Current test coverage: **>80%**
 
 **Covered Areas:**
+
 - ✅ Query intent classification
 - ✅ Embedding generation
 - ✅ Search parameter validation
@@ -423,6 +443,7 @@ RELEVANT RULES:
 **Cause:** Qdrant is not running or wrong URL
 
 **Solution:**
+
 ```bash
 # Check if Qdrant is running
 curl http://localhost:6333/collections
@@ -439,6 +460,7 @@ export QDRANT_URL="http://your-qdrant-server:6333"
 **Cause:** Dependencies not installed
 
 **Solution:**
+
 ```bash
 pip install -r requirements.txt
 ```
@@ -448,6 +470,7 @@ pip install -r requirements.txt
 **Cause:** Query too specific or score threshold too high
 
 **Solution:**
+
 - Rephrase query to be more general
 - Lower score threshold in code
 - Check if collections are populated
@@ -457,6 +480,7 @@ pip install -r requirements.txt
 **Cause:** Integration tests require running Qdrant
 
 **Solution:**
+
 ```bash
 # Skip integration tests
 pytest -m "not integration"
@@ -531,6 +555,7 @@ Part of the Arborist AI project.
 ## Support
 
 For issues or questions:
+
 1. Check troubleshooting section above
 2. Review test cases for usage examples
 3. Examine error messages (they're designed to be helpful)
@@ -538,6 +563,6 @@ For issues or questions:
 
 ---
 
-**Last Updated**: 2025-10-04  
-**Version**: Phase 4A Complete  
+**Last Updated**: 2025-10-04\
+**Version**: Phase 4A Complete\
 **Status**: Production Ready ✅

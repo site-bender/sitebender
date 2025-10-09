@@ -35,7 +35,10 @@ tokens.forEach((token, i) => {
 			token.position.toString().padStart(3)
 		} ` +
 			`char='${charDisplay}' (U+${
-				token.character.charCodeAt(0).toString(16).toUpperCase().padStart(4, "0")
+				token.character.charCodeAt(0).toString(16).toUpperCase().padStart(
+					4,
+					"0",
+				)
 			}) ` +
 			`→ ${classInfo}`,
 	)

@@ -1,572 +1,591 @@
-# Arborist SWC WASM Implementation
-
-## Architecture
-
-Arborist uses **SWC via @swc/wasm-web** for all parsing operations. SWC is a Rust-based parser compiled to WebAssembly, providing exceptional performance in JavaScript runtimes.
-
-This provides:
-- 20-50x faster parsing than TypeScript compiler
-- Perfect alignment with Deno's internal parser
-- Zero Node.js dependencies (pure WASM)
-- Precise span tracking for all AST nodes
-- Runtime portability (works anywhere WASM runs)
-
-## Parser Backend
-
-```typescript
-import { parse } from "npm:@swc/wasm-web@1.13.20"
-import initSwc from "npm:@swc/wasm-web@1.13.20"
-```
-
-The WASM module must be initialized before parsing. Arborist handles this transparently.
-
-## Error Handling with Monads
-
-All Arborist functions use monadic error handling:
-
-**Result<E, T>** - Fail-fast for I/O and parse errors
-**Validation<E, T>** - Accumulate errors for extraction operations
-
-See `error-handling.md` for complete documentation.
-
-## Core Functions
-
-### parseFile
-
-```typescript
-//++ Parses TypeScript/JSX source using SWC WASM
-//++ Returns Result monad for fail-fast error handling
-export default async function parseFile(
-	filePath: string,
-): Promise<Result<ParseError, ParsedAst>> {
-	try {
-		// Ensure SWC WASM is initialized
-		await ensureSwcInitialized()
-
-		// Read file (only I/O operation)
-		const source = await Deno.readTextFile(filePath)
-
-		// Parse with SWC
-		const module = await parse(source, {
-			syntax: "typescript",
-			tsx: filePath.endsWith(".tsx"),
-			decorators: false,
-			dynamicImport: true,
-		})
-
-		return ok({
-			module,
-			sourceText: source,
-			filePath,
-		})
-	} catch (cause) {
-		// Convert exception to Result at I/O boundary
-		return error(createParseError(filePath)(cause))
-	}
-}
-```
-
-**Error Handling:**
-- File not found → `ParseError` with `FileNotFound` kind
-- Permission denied → `ParseError` with `ReadPermission` kind
-- Invalid syntax → `ParseError` with `InvalidSyntax` kind + line/column
-- SWC init failed → `ParseError` with `SwcInitializationFailed` kind
-
-All errors include helpful suggestions.
-
-### extractFunctions
-
-```typescript
-//++ Discovers all functions in SWC module
-//++ Returns Validation to accumulate extraction errors
-export default function extractFunctions(
-	ast: ParsedAst,
-): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>> {
-	// Collect all function nodes from AST
-	const functionNodes = collectNodes(ast.module, isFunctionNode)
-
-	// Extract metadata from each node, accumulating errors
-	return map(extractFunctionMetadata)(functionNodes)
-}
-
-function extractFunctionMetadata(
-	node: unknown,
-): Validation<FunctionExtractionError, ParsedFunction> {
-	const nodeObj = node as Record<string, unknown>
-
-	// Handle export wrappers
-	const isExportWrapper = nodeObj.type === "ExportDeclaration"
-	const isDefaultExportWrapper = nodeObj.type === "ExportDefaultDeclaration"
-
-	const actualNode = (isExportWrapper || isDefaultExportWrapper)
-		? (nodeObj.declaration || nodeObj.decl) as Record<string, unknown>
-		: nodeObj
-
-	// Extract function name
-	const identifier = actualNode.identifier as Record<string, unknown> | undefined
-	const name = identifier?.value as string
-
-	if (!name) {
-		return failure([createError("extractFunctions")(
-			"Missing function identifier",
-			"MissingIdentifier",
-			{ nodeType: actualNode.type as string }
-		)])
-	}
-
-	// Extract position from span
-	const span = actualNode.span as Record<string, unknown> | undefined
-	const position: Position = {
-		line: (span?.start as number) || 0,
-		column: (span?.ctxt as number) || 0,
-	}
-
-	// Extract span info
-	const spanInfo: Span = {
-		start: (span?.start as number) || 0,
-		end: (span?.end as number) || 0,
-	}
-
-	// Extract parameters using Toolsmith map
-	const params = actualNode.params as Array<unknown> || []
-	const parameters = map(extractParameter)(params)
-
-	// Extract return type
-	const returnType = extractReturnType(actualNode)
-
-	// Extract type parameters
-	const typeParameters = extractTypeParameters(actualNode)
-
-	// Detect modifiers
-	const modifiers: FunctionModifiers = {
-		isExported: isExportWrapper || isDefaultExportWrapper,
-		isDefault: isDefaultExportWrapper,
-		isAsync: actualNode.async as boolean || false,
-		isGenerator: actualNode.generator as boolean || false,
-		isArrow: actualNode.type === "ArrowFunctionExpression",
-	}
-
-	// Analyze function body
-	const body = analyzeFunctionBody(actualNode.body)
-
-	return success({
-		name,
-		position,
-		span: spanInfo,
-		parameters,
-		returnType,
-		typeParameters,
-		modifiers,
-		body,
-	})
-}
-```
-
-### extractComments
-
-```typescript
-//++ Extracts all comments with position data
-//++ Detects Envoy markers but does not interpret them
-export default function extractComments(
-	ast: ParsedAst,
-): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>> {
-	// SWC provides comments as part of the parsing result
-	// We need to traverse and extract them with position info
-
-	const commentNodes = collectNodes(ast.module, isCommentNode)
-
-	return map(function extractComment(node: unknown): Validation<CommentExtractionError, ParsedComment> {
-		const commentObj = node as Record<string, unknown>
-
-		const kind = commentObj.kind === "Block" ? "block" : "line"
-		const fullText = commentObj.text as string
-
-		// Extract text without markers
-		const text = stripCommentMarkers(fullText)
-
-		// Detect Envoy marker
-		const envoyMarker = detectEnvoyMarker(text)
-
-		// Extract position
-		const span = commentObj.span as Record<string, unknown>
-		const position: Position = {
-			line: span.start as number,
-			column: span.ctxt as number,
-		}
-
-		return success({
-			text,
-			position,
-			span: {
-				start: span.start as number,
-				end: span.end as number,
-			},
-			kind,
-			envoyMarker,
-		})
-	})(commentNodes)
-}
-```
-
-### extractImports
-
-```typescript
-//++ Extracts all import statements
-export default function extractImports(
-	ast: ParsedAst,
-): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>> {
-	const importNodes = collectNodes(ast.module, isImportNode)
-
-	return map(function extractImport(node: unknown): Validation<ImportExtractionError, ParsedImport> {
-		const importObj = node as Record<string, unknown>
-
-		// Extract specifier
-		const source = importObj.source as Record<string, unknown>
-		const specifier = source.value as string
-
-		if (!specifier) {
-			return failure([createError("extractImports")(
-				"Missing import specifier",
-				"InvalidSpecifier",
-				{}
-			)])
-		}
-
-		// Determine import kind
-		const kind = getImportKind(importObj)
-
-		// Extract import bindings
-		const imports = extractImportBindings(importObj)
-
-		// Extract position
-		const span = importObj.span as Record<string, unknown>
-		const position: Position = {
-			line: span.start as number,
-			column: span.ctxt as number,
-		}
-
-		return success({
-			specifier,
-			position,
-			span: {
-				start: span.start as number,
-				end: span.end as number,
-			},
-			kind,
-			imports,
-		})
-	})(importNodes)
-}
-```
-
-### detectViolations
-
-```typescript
-//++ Analyzes code for constitutional violations
-export default function detectViolations(
-	ast: ParsedAst,
-): Validation<ViolationDetectionError, ViolationInfo> {
-	const violations: ViolationInfo = {
-		hasArrowFunctions: false,
-		arrowFunctions: [],
-		hasClasses: false,
-		classes: [],
-		hasThrowStatements: false,
-		throwStatements: [],
-		hasTryCatch: false,
-		tryCatchBlocks: [],
-		hasLoops: false,
-		loops: [],
-		hasMutations: false,
-		mutations: [],
-	}
-
-	// Traverse AST looking for violations
-	traverseAST(ast.module, function detectViolation(node: unknown) {
-		const nodeObj = node as Record<string, unknown>
-		const nodeType = nodeObj.type as string
-
-		const span = nodeObj.span as Record<string, unknown> | undefined
-		if (!span) return
-
-		const position: Position = {
-			line: span.start as number,
-			column: span.ctxt as number,
-		}
-
-		switch (nodeType) {
-			case "ArrowFunctionExpression":
-				violations.hasArrowFunctions = true
-				violations.arrowFunctions = [...violations.arrowFunctions, position]
-				break
-
-			case "ClassDeclaration":
-			case "ClassExpression":
-				violations.hasClasses = true
-				violations.classes = [...violations.classes, position]
-				break
-
-			case "ThrowStatement":
-				violations.hasThrowStatements = true
-				violations.throwStatements = [...violations.throwStatements, position]
-				break
-
-			case "TryStatement":
-				violations.hasTryCatch = true
-				violations.tryCatchBlocks = [...violations.tryCatchBlocks, position]
-				break
-
-			case "ForStatement":
-			case "ForInStatement":
-			case "ForOfStatement":
-			case "WhileStatement":
-			case "DoWhileStatement":
-				violations.hasLoops = true
-				violations.loops = [...violations.loops, position]
-				break
-
-			case "AssignmentExpression":
-			case "UpdateExpression":
-				violations.hasMutations = true
-				violations.mutations = [...violations.mutations, position]
-				break
-		}
-	})
-
-	return success(violations)
-}
-```
-
-## SWC Module Type Detection
-
-```typescript
-//++ Maps file extensions to SWC syntax options
-function getSwcOptions(filePath: string) {
-	const ext = filePath.slice(filePath.lastIndexOf("."))
-
-	switch (ext) {
-		case ".ts":
-			return { syntax: "typescript" as const, tsx: false }
-		case ".tsx":
-			return { syntax: "typescript" as const, tsx: true }
-		case ".js":
-			return { syntax: "ecmascript" as const, jsx: false }
-		case ".jsx":
-			return { syntax: "ecmascript" as const, jsx: true }
-		case ".mts":
-			return { syntax: "typescript" as const, tsx: false }
-		case ".cts":
-			return { syntax: "typescript" as const, tsx: false }
-		case ".mjs":
-			return { syntax: "ecmascript" as const, jsx: false }
-		case ".cjs":
-			return { syntax: "ecmascript" as const, jsx: false }
-		default:
-			// Default to TypeScript
-			return { syntax: "typescript" as const, tsx: false }
-	}
-}
-```
-
-## WASM Initialization
-
-```typescript
-//++ Ensures SWC WASM module is initialized before use
-//++ Idempotent: safe to call multiple times
-//++ Uses const and promise caching to avoid mutations
-
-import initSwc from "npm:@swc/wasm-web@1.13.20"
-
-// Create initialization promise once at module load
-const initializationPromise: Promise<void> = initSwc().then(() => undefined)
-
-export default async function ensureSwcInitialized(): Promise<void> {
-	return initializationPromise
-}
-```
-
-## Creating Helpful Errors
-
-All errors follow Toolsmith patterns:
-
-```typescript
-import fromTemplate from "@sitebender/toolsmith/error/fromTemplate"
-import withSuggestion from "@sitebender/toolsmith/error/withSuggestion"
-import withFailedArg from "@sitebender/toolsmith/error/withFailedArg"
-import { pipe } from "@sitebender/toolsmith/functional/pipe"
-
-// Parse error with suggestion
-function createFileNotFoundError(filePath: string) {
-	return pipe(
-		fromTemplate("notFound")("parseFile")([filePath])(
-			"file",
-			filePath
-		),
-		withSuggestion(`Check that the file exists and path is correct. Run 'ls -la ${dirname(filePath)}' to verify.`)
-	)
-}
-
-// Extraction error with failed argument context
-function createUnknownNodeError(nodeType: string, ast: ParsedAst) {
-	return pipe(
-		fromTemplate("typeMismatch")("extractFunctions")([ast])(
-			"FunctionDeclaration or FunctionExpression",
-			nodeType
-		),
-		withFailedArg(0)("ast"),
-		withSuggestion(`This AST node type '${nodeType}' is not yet supported. Please file an issue with the node structure at github.com/sitebender/arborist.`)
-	)
-}
-```
-
-## Design Decisions
-
-### Why SWC WASM?
-
-1. **Speed** - Orders of magnitude faster than TypeScript compiler
-2. **Alignment** - Same parser Deno uses internally
-3. **Simplicity** - Syntax-only parsing is sufficient for 95% of use cases
-4. **Purity** - No Node.js dependencies, pure WASM
-5. **Portability** - Runs in any JS runtime with WASM support
-
-### Trade-offs
-
-**Gains:**
-- Blazing fast parsing (<10ms for most files)
-- Perfect Deno compatibility
-- Simpler mental model (syntax only)
-- Smaller memory footprint
-- Better error messages (no semantic confusion)
-
-**Limitations:**
-- No semantic type analysis (plan to add as optional phase)
-- No type inference
-- No cross-file symbol resolution
-- Type information is textual only
-
-### Future: Optional Semantic Analysis
-
-Semantic type analysis will be added as a separate, optional phase:
-
-```typescript
-//++ Future: Enriches syntax data with semantic types
-//++ Completely optional - only invoked when semantic info needed
-//++ Does not affect fast syntax-only path
-export default async function enrichWithTypes(
-	parsed: ParsedFile,
-	options?: TypeCheckOptions,
-): Promise<Validation<SemanticAnalysisError, EnrichedParsedFile>> {
-	// Use TypeScript compiler for semantic analysis
-	// Augment ParsedFunction with inferred types
-	// Add symbol resolution
-	// Preserve all syntax-level data
-}
-```
-
-This two-phase approach ensures:
-- Fast path remains fast (no regression)
-- Semantic analysis available when needed
-- Clean separation of concerns
-- Progressive enhancement
-
-## Testing
-
-```typescript
-Deno.test("parseFile extracts functions with Result monad", async () => {
-	const source = `
-		export function greet(name: string): string {
-			return "Hello, " + name
-		}
-	`
-
-	const result = await parseFile("test.ts")
-
-	assertEquals(result._tag, "Ok")
-	if (result._tag === "Ok") {
-		const validation = extractFunctions(result.value)
-
-		assertEquals(validation._tag, "Success")
-		if (validation._tag === "Success") {
-			const functions = validation.value
-			assertEquals(functions.length, 1)
-			assertEquals(functions[0].name, "greet")
-			assertEquals(functions[0].parameters[0].name, "name")
-			assertEquals(functions[0].parameters[0].type, "string")
-			assertEquals(functions[0].returnType, "string")
-		}
-	}
-})
-
-Deno.test("parseFile returns Error for missing file with helpful suggestion", async () => {
-	const result = await parseFile("/nonexistent/file.ts")
-
-	assertEquals(result._tag, "Error")
-	if (result._tag === "Error") {
-		assertEquals(result.error.kind, "FileNotFound")
-		assert(result.error.suggestion !== undefined)
-		assert(result.error.suggestion.includes("Check that the file exists"))
-	}
-})
-
-Deno.test("extractComments detects Envoy markers", () => {
-	const ast = createMockAST(`
-		//++ Test function
-		//-- Need to refactor this
-		export function test(): void {}
-	`)
-
-	const validation = extractComments(ast)
-
-	assertEquals(validation._tag, "Success")
-	if (validation._tag === "Success") {
-		const comments = validation.value
-		assertEquals(comments.length, 2)
-
-		assertEquals(comments[0].envoyMarker?.marker, "++")
-		assertEquals(comments[0].text, "Test function")
-
-		assertEquals(comments[1].envoyMarker?.marker, "--")
-		assertEquals(comments[1].text, "Need to refactor this")
-	}
-})
-
-Deno.test("detectViolations finds arrow functions and classes", () => {
-	const ast = createMockAST(`
-		const add = (a, b) => a + b  // Arrow function violation
-		class User {}  // Class violation
-	`)
-
-	const validation = detectViolations(ast)
-
-	assertEquals(validation._tag, "Success")
-	if (validation._tag === "Success") {
-		const violations = validation.value
-		assertEquals(violations.hasArrowFunctions, true)
-		assertEquals(violations.arrowFunctions.length, 1)
-		assertEquals(violations.hasClasses, true)
-		assertEquals(violations.classes.length, 1)
-	}
-})
-```
-
-## Performance Benchmarks
-
-Actual measurements using SWC WASM:
-
-| File Size | Functions | Parse Time | Extraction Time | Total |
-|-----------|-----------|------------|-----------------|-------|
-| 5 KB      | 10        | 3ms        | 1ms             | 4ms   |
-| 50 KB     | 100       | 18ms       | 4ms             | 22ms  |
-| 200 KB    | 500       | 42ms       | 8ms             | 50ms  |
-| 1 MB      | 1000      | 156ms      | 15ms            | 171ms |
-
-Compare to TypeScript compiler:
-- 5 KB file: ~150ms (38x slower)
-- 50 KB file: ~800ms (36x slower)
-- 200 KB file: ~2100ms (42x slower)
-
-SWC WASM delivers consistently on the 20-50x performance improvement promise.
-
----
-
-**This is the actual implementation. No deno_ast. Only SWC WASM.**
+ibraries/arborist/docs/swc.md</path>
+<content lines="1-572">
+1 | # Arborist SWC WASM Implementation
+2 |
+3 | **BROKEN STATE**: This document describes the CLAIMED implementation. In reality, Arborist parses with SWC but all extraction functions return empty arrays. No actual AST traversal or data extraction occurs.
+4 |
+5 | ## Architecture
+6 |
+7 | Arborist uses **SWC via @swc/wasm-web** for all parsing operations. SWC is a Rust-based parser compiled to WebAssembly, providing exceptional performance in JavaScript runtimes.
+8 |
+9 | This provides:
+10 | - 20-50x faster parsing than TypeScript compiler
+11 | - Perfect alignment with Deno's internal parser
+12 | - Zero Node.js dependencies (pure WASM)
+13 | - Precise span tracking for all AST nodes
+14 | - Runtime portability (works anywhere WASM runs)
+15 |
+16 | **BROKEN:** Parsing works, but extraction doesn't. SWC AST is parsed but never traversed.
+17 |
+18 | ## Error Handling with Monads
+19 |
+20 | All Arborist functions use monadic error handling:
+21 |
+22 | **Result<E, T>** - Fail-fast for I/O and parse errors
+23 | **Validation<E, T>** - Accumulate errors for extraction operations
+24 |
+25 | See `error-handling.md` for complete documentation.
+26 |
+27 | **BROKEN:** Extraction never fails because extraction never happens. Always returns Success with empty arrays.
+28 |
+29 | ## Core Functions
+30 |
+31 | ### parseFile
+32 |
+33 | `typescript
+  34 | //++ Parses TypeScript/JSX source using SWC WASM
+  35 | //++ Returns Result monad for fail-fast I/O and parse errors
+  36 | export default async function parseFile(
+  37 | 	filePath: string,
+  38 | ): Promise<Result<ParseError, ParsedAst>> {
+  39 | 	try {
+  40 | 		// Ensure SWC WASM is initialized
+  41 | 		await ensureSwcInitialized()
+  42 | 
+  43 | 		// Read file (only I/O operation)
+  44 | 		const source = await Deno.readTextFile(filePath)
+  45 | 
+  46 | 		// Parse with SWC
+  47 | 		const module = await parse(source, {
+  48 | 			syntax: "typescript",
+  49 | 			tsx: filePath.endsWith(".tsx"),
+  50 | 			decorators: false,
+  51 | 			dynamicImport: true,
+  52 | 		})
+  53 | 
+  54 | 		return ok({
+  55 | 			module,
+  56 | 			sourceText: source,
+  57 | 			filePath,
+  58 | 		})
+  59 | 	} catch (cause) {
+  60 | 		// Convert exception to Result at I/O boundary
+  61 | 		return error(createParseError(filePath)(cause))
+  62 | 	}
+  63 | }
+  64 |`
+65 |
+66 | **Error Handling:**
+67 | - File not found → `ParseError` with `FileNotFound` kind
+68 | - Permission denied → `ParseError` with `ReadPermission` kind
+69 | - Invalid syntax → `ParseError` with `InvalidSyntax` kind + line/column
+70 | - SWC init failed → `ParseError` with `SwcInitializationFailed` kind
+71 |
+72 | All errors include helpful suggestions.
+73 |
+74 | **WORKS:** Parse errors work correctly.
+75 |
+76 | ### extractFunctions
+77 |
+78 | `typescript
+  79 | //++ Discovers all functions in SWC module
+  80 | //++ Returns Validation to accumulate extraction errors
+  81 | export default function extractFunctions(
+  82 | 	ast: ParsedAst,
+  83 | ): Validation<FunctionExtractionError, ReadonlyArray<ParsedFunction>> {
+  84 | 	// Collect all function nodes from AST
+  85 | 	const functionNodes = collectNodes(ast.module, isFunctionNode)
+  86 | 
+  87 | 	// Extract metadata from each node, accumulating errors
+  88 | 	return map(extractFunctionMetadata)(functionNodes)
+  89 | }
+  90 | 
+  91 | function extractFunctionMetadata(
+  92 | 	node: unknown,
+  93 | ): Validation<FunctionExtractionError, ParsedFunction> {
+  94 | 	const nodeObj = node as Record<string, unknown>
+  95 | 
+  96 | 	// Handle export wrappers
+  97 | 	const isExportWrapper = nodeObj.type === "ExportDeclaration"
+  98 | 	const isDefaultExportWrapper = nodeObj.type === "ExportDefaultDeclaration"
+  99 | 
+  100 | 	const actualNode = (isExportWrapper || isDefaultExportWrapper)
+  101 | 		? (nodeObj.declaration || nodeObj.decl) as Record<string, unknown>
+  102 | 		: nodeObj
+  103 | 
+  104 | 	// Extract function name
+  105 | 	const identifier = actualNode.identifier as Record<string, unknown> | undefined
+  106 | 	const name = identifier?.value as string
+  107 | 
+  108 | 	if (!name) {
+  109 | 		return failure([createError("extractFunctions")(
+  110 | 			"Missing function identifier",
+  111 | 			"MissingIdentifier",
+  112 | 			{ nodeType: actualNode.type as string }
+  113 | 		)])
+  114 | 	}
+  115 | 
+  116 | 	// Extract position from span
+  117 | 	const span = actualNode.span as Record<string, unknown> | undefined
+  118 | 	const position: Position = {
+  119 | 		line: (span?.start as number) || 0,
+  120 | 		column: (span?.ctxt as number) || 0,
+  121 | 	}
+  122 | 
+  123 | 	// Extract span info
+  124 | 	const spanInfo: Span = {
+  125 | 		start: (span?.start as number) || 0,
+  126 | 		end: (span?.end as number) || 0,
+  127 | 	}
+  128 | 
+  129 | 	// Extract parameters using Toolsmith map
+  130 | 	const params = actualNode.params as Array<unknown> || []
+  131 | 	const parameters = map(extractParameter)(params)
+  132 | 
+  133 | 	// Extract return type
+  134 | 	const returnType = extractReturnType(actualNode)
+  135 | 
+  136 | 	// Extract type parameters
+  137 | 	const typeParameters = extractTypeParameters(actualNode)
+  138 | 
+  139 | 	// Detect modifiers
+  140 | 	const modifiers: FunctionModifiers = {
+  141 | 		isExported: isExportWrapper || isDefaultExportWrapper,
+  142 | 		isDefault: isDefaultExportWrapper,
+  143 | 		isAsync: actualNode.async as boolean || false,
+  144 | 		isGenerator: actualNode.generator as boolean || false,
+  145 | 		isArrow: actualNode.type === "ArrowFunctionExpression",
+  146 | 	}
+  147 | 
+  148 | 	// Analyze function body
+  149 | 	const body = analyzeFunctionBody(actualNode.body)
+  150 | 
+  151 | 	return success({
+  152 | 		name,
+  153 | 		position,
+  154 | 		span: spanInfo,
+  155 | 		parameters,
+  156 | 		returnType,
+  157 | 		typeParameters,
+  158 | 		modifiers,
+  159 | 		body,
+  160 | 	})
+  161 | }
+  162 |`
+163 |
+164 | **BROKEN:** This code exists but doesn't run. extractFunctions returns empty array without traversing AST.
+165 |
+166 | ### extractComments
+167 |
+168 | `typescript
+  169 | //++ Extracts all comments with position data
+  170 | //++ Detects Envoy markers but does not interpret them
+  171 | export default function extractComments(
+  172 | 	ast: ParsedAst,
+  173 | ): Validation<CommentExtractionError, ReadonlyArray<ParsedComment>> {
+  174 | 	// SWC provides comments as part of the parsing result
+  175 | 	// We need to traverse and extract them with position info
+  176 | 
+  177 | 	const commentNodes = collectNodes(ast.module, isCommentNode)
+  178 | 
+  179 | 	return map(function extractComment(node: unknown): Validation<CommentExtractionError, ParsedComment> {
+  180 | 		const commentObj = node as Record<string, unknown>
+  181 | 
+  182 | 		const kind = commentObj.kind === "Block" ? "block" : "line"
+  183 | 		const fullText = commentObj.text as string
+  184 | 
+  185 | 		// Extract text without markers
+  186 | 		const text = stripCommentMarkers(fullText)
+  187 | 
+  188 | 		// Detect Envoy marker
+  189 | 		const envoyMarker = detectEnvoyMarker(text)
+  190 | 
+  191 | 		// Extract position
+  192 | 		const span = commentObj.span as Record<string, unknown>
+  193 | 		const position: Position = {
+  194 | 			line: span.start as number,
+  195 | 			column: span.ctxt as number,
+  196 | 		}
+  197 | 
+  198 | 	return success({
+  199 | 			text,
+  200 | 			position,
+  201 | 			span: {
+  202 | 				start: span.start as number,
+  203 | 				end: span.end as number,
+  204 | 			},
+  205 | 			kind,
+  206 | 			envoyMarker,
+  207 | 		})
+  208 | 	})(commentNodes)
+  209 | }
+  210 |`
+211 |
+212 | **BROKEN:** This code exists but doesn't run. extractComments returns empty array.
+213 |
+214 | ### extractImports
+215 |
+216 | `typescript
+  217 | //++ Extracts all import statements
+  218 | export default function extractImports(
+  219 | 	ast: ParsedAst,
+  220 | ): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>> {
+  221 | 	const importNodes = collectNodes(ast.module, isImportNode)
+  222 | 
+  223 | 	return map(function extractImport(node: unknown): Validation<ImportExtractionError, ParsedImport> {
+  224 | 		const importObj = node as Record<string, unknown>
+  225 | 
+  226 | 		// Extract specifier
+  227 | 		const source = importObj.source as Record<string, unknown>
+  228 | 		const specifier = source.value as string
+  229 | 
+  230 | 		if (!specifier) {
+  231 | 			return failure([createError("extractImports")(
+  232 | 				"Missing import specifier",
+  233 | 				"InvalidSpecifier",
+  234 | 				{}
+  235 | 			)])
+  236 | 		}
+  237 | 
+  238 | 		// Determine import kind
+  239 | 		const kind = getImportKind(importObj)
+  240 | 
+  241 | 		// Extract import bindings
+  242 | 		const imports = extractImportBindings(importObj)
+  243 | 
+  244 | 		// Extract position
+  245 | 		const span = importObj.span as Record<string, unknown>
+  246 | 	const position: Position = {
+  247 | 			line: span.start as number,
+  248 | 			column: span.ctxt as number,
+  249 | 		}
+  250 | 
+  251 | 		return success({
+  252 | 			specifier,
+  253 | 			position,
+  254 | 			span: {
+  255 | 				start: span.start as number,
+  256 | 				end: span.end as number,
+  257 | 			},
+  258 | 			kind,
+  259 | 			imports,
+  260 | 		})
+  261 | 	})(importNodes)
+  262 | }
+  263 |`
+264 |
+265 | **BROKEN:** This code exists but doesn't run. extractImports returns empty array.
+266 |
+267 | ### detectViolations
+268 |
+269 | `typescript
+  270 | //++ Analyzes code for constitutional violations
+  271 | export default function detectViolations(
+  272 | 	ast: ParsedAst,
+  273 | ): Validation<ViolationDetectionError, ViolationInfo> {
+  274 | 	const violations: ViolationInfo = {
+  275 | 		hasArrowFunctions: false,
+  276 | 		arrowFunctions: [],
+  277 | 		hasClasses: false,
+  278 | 		classes: [],
+  279 | 		hasThrowStatements: false,
+  280 | 		throwStatements: [],
+  281 | 		hasTryCatch: false,
+  282 | 		tryCatchBlocks: [],
+  283 | 		hasLoops: false,
+  284 | 		loops: [],
+  285 | 		hasMutations: false,
+  286 | 		mutations: [],
+  287 | 	}
+  288 | 
+  289 | 	// Traverse AST looking for violations
+  290 | 	traverseAST(ast.module, function detectViolation(node: unknown) {
+  291 | 		const nodeObj = node as Record<string, unknown>
+  292 | 		const nodeType = nodeObj.type as string
+  293 | 
+  294 | 		const span = nodeObj.span as Record<string, unknown> | undefined
+  295 | 		if (!span) return
+  296 | 
+  297 | 		const position: Position = {
+  298 | 			line: span.start as number,
+  299 | 			column: span.ctxt as number,
+  300 | 		}
+  301 | 
+  302 | 		switch (nodeType) {
+  303 | 			case "ArrowFunctionExpression":
+  304 | 				violations.hasArrowFunctions = true
+  305 | 				violations.arrowFunctions = [...violations.arrowFunctions, position]
+  306 | 				break
+  307 | 
+  308 | 			case "ClassDeclaration":
+  309 | 			case "ClassExpression":
+  310 | 				violations.hasClasses = true
+  311 | 				violations.classes = [...violations.classes, position]
+  312 | 				break
+  313 | 
+  314 | 			case "ThrowStatement":
+  315 | 				violations.hasThrowStatements = true
+  316 | 				violations.throwStatements = [...violations.throwStatements, position]
+  317 | 				break
+  318 | 
+  319 | 			case "TryStatement":
+  320 | 				violations.hasTryCatch = true
+  321 | 				violations.tryCatchBlocks = [...violations.tryCatchBlocks, position]
+  322 | 				break
+  323 | 
+  324 | 			case "ForStatement":
+  325 | 			case "ForInStatement":
+  326 | 			case "ForOfStatement":
+  327 | 			case "WhileStatement":
+  328 | 			case "DoWhileStatement":
+  329 | 				violations.hasLoops = true
+  330 | 				violations.loops = [...violations.loops, position]
+  331 | 				break
+  332 | 
+  333 | 			case "AssignmentExpression":
+  334 | 			case "UpdateExpression":
+  335 | 				violations.hasMutations = true
+  336 | 				violations.mutations = [...violations.mutations, position]
+  337 | 				break
+  338 | 		}
+  339 | 	})
+  340 | 
+  341 | 	return success(violations)
+  342 | }
+  343 |`
+344 |
+345 | **BROKEN:** This code exists but doesn't run. detectViolations returns empty violation data.
+346 |
+347 | ## SWC Module Type Detection
+348 |
+349 | `typescript
+  350 | //++ Maps file extensions to SWC syntax options
+  351 | function getSwcOptions(filePath: string) {
+  352 | 	const ext = filePath.slice(filePath.lastIndexOf("."))
+  353 | 
+  354 | 	switch (ext) {
+  355 | 		case ".ts":
+  356 | 			return { syntax: "typescript" as const, tsx: false }
+  357 | 		case ".tsx":
+  358 | 			return { syntax: "typescript" as const, tsx: true }
+  359 | 		case ".js":
+  360 | 			return { syntax: "ecmascript" as const, jsx: false }
+  361 | 		case ".jsx":
+  362 | 			return { syntax: "ecmascript" as const, jsx: true }
+  363 | 		case ".mts":
+  364 | 			return { syntax: "typescript" as const, tsx: false }
+  365 | 		case ".cts":
+  366 | 			return { syntax: "typescript" as const, tsx: false }
+  367 | 		case ".mjs":
+  368 | 			return { syntax: "ecmascript" as const, jsx: false }
+  369 | 		case ".cjs":
+  370 | 			return { syntax: "ecmascript" as const, jsx: false }
+  371 | 		default:
+  372 | 			// Default to TypeScript
+  373 | 			return { syntax: "typescript" as const, tsx: false }
+  374 | 	}
+  375 | }
+  376 |`
+377 |
+378 | ## WASM Initialization
+379 |
+380 | `typescript
+  381 | //++ Ensures SWC WASM module is initialized before use
+  382 | //++ Idempotent: safe to call multiple times
+  383 | //++ Uses const and promise caching to avoid mutations
+  384 | 
+  385 | import initSwc from "npm:@swc/wasm-web@1.13.20"
+  386 | 
+  387 | // Create initialization promise once at module load
+  388 | const initializationPromise: Promise<void> = initSwc().then(() => undefined)
+  389 | 
+  390 | export default async function ensureSwcInitialized(): Promise<void> {
+  391 | 	return initializationPromise
+  392 | }
+  393 |`
+394 |
+395 | ## Creating Helpful Errors
+396 |
+397 | All errors follow Toolsmith patterns:
+398 |
+399 | ``typescript
+  400 | import fromTemplate from "@sitebender/toolsmith/error/fromTemplate"
+  401 | import withSuggestion from "@sitebender/toolsmith/error/withSuggestion"
+  402 | import withFailedArg from "@sitebender/toolsmith/error/withFailedArg"
+  403 | import { pipe } from "@sitebender/toolsmith/functional/pipe"
+  404 | 
+  405 | // Parse error with suggestion
+  406 | function createFileNotFoundError(filePath: string) {
+  407 | 	return pipe(
+  408 | 		fromTemplate("notFound")("parseFile")([filePath])(
+  409 | 			"file",
+  410 | 			filePath
+  411 | 		),
+  412 | 		withSuggestion(`Check that the file exists and path is correct. Run 'ls -la ${dirname(filePath)}' to verify.`)
+  413 | 	)
+  414 | }
+  415 | 
+  416 | // Extraction error with failed argument context
+  417 | function createUnknownNodeError(nodeType: string, ast: ParsedAst) {
+  418 | 	return pipe(
+  419 | 		fromTemplate("typeMismatch")("extractFunctions")([ast])(
+  420 | 			"FunctionDeclaration or FunctionExpression",
+  421 | 			nodeType
+  422 | 		),
+  423 | 		withFailedArg(0)("ast"),
+  424 | 		withSuggestion(`This AST node type '${nodeType}' is not yet supported. Please file an issue with the node structure at github.com/sitebender/arborist.`)
+  425 | 	)
+  426 | }
+  427 |``
+428 |
+429 | **BROKEN:** Error creation functions exist but are never called because extraction doesn't happen.
+430 |
+431 | ## Design Decisions
+432 |
+433 | ### Why SWC WASM?
+434 |
+435 | 1. **Speed** - Orders of magnitude faster than TypeScript compiler
+436 | 2. **Alignment** - Same parser Deno uses internally
+437 | 3. **Simplicity** - Syntax-only parsing is sufficient for 95% of use cases
+438 | 4. **Purity** - No Node.js dependencies, pure WASM
+439 | 5. **Portability** - Runs in any JS runtime with WASM support
+440 |
+441 | ### Trade-offs
+442 |
+443 | **Gains:**
+444 | - Blazing fast parsing (<10ms for most files)
+445 | - Perfect Deno compatibility
+446 | - Simpler mental model (syntax only)
+447 | - Smaller memory footprint
+448 | - Better error messages (no semantic confusion)
+449 |
+450 | **Limitations:**
+451 | - No semantic type analysis (plan to add as optional phase)
+452 | - No type inference
+453 | - No cross-file symbol resolution
+454 | - Type information is textual only
+455 |
+456 | **BROKEN:** No extraction happens, so limitations are irrelevant.
+457 |
+458 | ### Future: Optional Semantic Analysis
+459 |
+460 | Semantic type analysis will be added as a separate, optional phase:
+461 |
+462 | `typescript
+  463 | //++ Future: Enriches syntax data with semantic types
+  464 | //++ Completely optional - only invoked when semantic info needed
+  465 | //++ Does not affect fast syntax-only path
+  466 | export default async function enrichWithTypes(
+  467 | 	parsed: ParsedFile,
+  468 | 	options?: TypeCheckOptions,
+  469 | ): Promise<Validation<SemanticAnalysisError, EnrichedParsedFile>> {
+  470 | 	// Use TypeScript compiler for semantic analysis
+  471 | 	// Augment ParsedFunction with inferred types
+  472 | 	// Add symbol resolution
+  473 | 	// Preserve all syntax-level data
+  474 | }
+  475 |`
+476 |
+477 | This two-phase approach ensures:
+478 | - Fast path remains fast (no regression)
+479 | - Semantic analysis available when needed
+480 | - Clean separation of concerns
+481 | - Progressive enhancement
+482 |
+483 | **BROKEN:** No semantic analysis implemented. This is vaporware.
+484 |
+485 | ## Testing
+486 |
+487 | ``typescript
+  488 | Deno.test("parseFile extracts functions with Result monad", async () => {
+  489 | 	const source = `
+  490 | 		export function greet(name: string): string {
+  491 | 			return "Hello, " + name
+  492 | 		}
+  493 | 	`
+  494 | 
+  495 | 	const result = await parseFile("test.ts")
+  496 | 
+  497 | 	assertEquals(result._tag, "Ok")
+  498 | 	if (result._tag === "Ok") {
+  499 | 		const validation = extractFunctions(result.value)
+  500 | 
+  501 | 		assertEquals(validation._tag, "Success")
+  502 | 		if (validation._tag === "Success") {
+  503 | 			const functions = validation.value
+  504 | 			assertEquals(functions.length, 1)
+  505 | 			assertEquals(functions[0].name, "greet")
+  506 | 			assertEquals(functions[0].parameters[0].name, "name")
+  507 | 			assertEquals(functions[0].parameters[0].type, "string")
+  508 | 			assertEquals(functions[0].returnType, "string")
+  509 | 		}
+  510 | 	}
+  511 | })
+  512 | 
+  513 | Deno.test("parseFile returns Error for missing file with helpful suggestion", async () => {
+  514 | 	const result = await parseFile("/nonexistent/file.ts")
+  515 | 
+  516 | 	assertEquals(result._tag, "Error")
+  517 | 	if (result._tag === "Error") {
+  518 | 		assertEquals(result.error.kind, "FileNotFound")
+  519 | 		assert(result.error.suggestion !== undefined)
+  520 | 		assert(result.error.suggestion.includes("Check that the file exists"))
+  521 | 	}
+  522 | })
+  523 | 
+  524 | Deno.test("extractComments detects Envoy markers", () => {
+  525 | 	const ast = createMockAST(`
+  526 | 		//++ Test function
+  527 | 		//-- Need to refactor this
+  528 | 		export function test(): void {}
+  529 | 	`)
+  530 | 
+  531 | 	const validation = extractComments(ast)
+  532 | 
+  533 | 	assertEquals(validation._tag, "Success")
+  534 | 	if (validation._tag === "Success") {
+  535 | 		const comments = validation.value
+  536 | 		assertEquals(comments.length, 2)
+  537 | 
+  538 | 		assertEquals(comments[0].envoyMarker?.marker, "++")
+  539 | 		assertEquals(comments[0].text, "Test function")
+  540 | 
+  541 | 		assertEquals(comments[1].envoyMarker?.marker, "--")
+  542 | 		assertEquals(comments[1].text, "Need to refactor this")
+  543 | 	}
+  544 | })
+  545 | 
+  546 | Deno.test("detectViolations finds arrow functions and classes", () => {
+  547 | 	const ast = createMockAST(`
+  548 | 		const add = (a, b) => a + b  // Arrow function violation
+  549 | 		class User {}  // Class violation
+  550 | 	`)
+  551 | 
+  552 | 	const validation = detectViolations(ast)
+  553 | 
+  554 | 	assertEquals(validation._tag, "Success")
+  555 | 	if (validation._tag === "Success") {
+  556 | 		const violations = validation.value
+  557 | 		assertEquals(violations.hasArrowFunctions, true)
+  558 | 		assertEquals(violations.arrowFunctions.length, 1)
+  559 | 		assertEquals(violations.hasClasses, true)
+  560 | 		assertEquals(violations.classes.length, 1)
+  561 | 	}
+  562 | })
+  563 |``
+564 |
+565 | **BROKEN:** Tests pass because they expect empty arrays. No actual functionality tested.
+566 |
+567 | ## Performance Benchmarks
+568 |
+569 | Actual measurements using SWC WASM:
+570 |
+571 | | File Size | Functions | Parse Time | Extraction Time | Total |
+572 | |-----------|-----------|------------|-----------------|-------|
+573 | | 5 KB | 10 | 3ms | 1ms | 4ms |
+574 | | 50 KB | 100 | 18ms | 4ms | 22ms |
+575 | | 200 KB | 500 | 42ms | 8ms | 50ms |
+576 | | 1 MB | 1000 | 156ms | 15ms | 171ms |
+577 |
+578 | Compare to TypeScript compiler:
+579 | - 5 KB file: ~150ms (38x slower)
+580 | - 50 KB file: ~800ms (36x slower)
+581 | - 200 KB file: ~2100ms (42x slower)
+582 |
+583 | SWC WASM delivers consistently on the 20-50x performance improvement promise.
+584 |
+585 | **BROKEN:** Performance irrelevant when extraction doesn't work.
+586 |
+587 | ---
+588 |
+589 | **This document described LIES. Arborist parses but doesn't extract. It is completely broken.**
