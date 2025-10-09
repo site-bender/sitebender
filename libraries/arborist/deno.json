@@ -2,7 +2,7 @@
 	"name": "@sitebender/arborist",
 	"version": "0.1.0",
 	"imports": {
-		"deno_ast": "https://deno.land/x/deno_ast@0.25.0/mod.ts"
+		"deno_ast": "https://deno.land/x/deno_ast@0.50.3/mod.ts"
 	},
 	"exports": {
 		"./parseFile": "./src/api/parseFile/index.ts",
@@ -23,9 +23,12 @@
 		"test": "deno test --allow-read src/",
 		"test:cov": "deno test --allow-read --coverage=coverage src/ && deno coverage coverage",
 		"lint": "deno lint src/",
-		"typecheck": "deno check src/types/index.ts src/types/index.test.ts src/parseFile/index.ts src/parseFile/index.test.ts src/parseFile/test-fixtures/valid.ts src/buildParsedFile/index.ts src/buildParsedFile/index.test.ts src/_helpers/traverseAST/index.ts",
+		"typecheck": "deno check src/types/index.ts src/types/index.test.ts src/parseFile/index.ts src/parseFile/index.test.ts src/parseFile/test-fixtures/valid.ts src/buildParsedFile/index.ts src/buildParsedFile/index.test.ts",
 		"fmt": "deno fmt src/",
-		"demo": "deno run --allow-read demo/index.ts"
+		"demo": "deno run --allow-read demo/index.ts",
+		"build:wasm": "deno run --allow-run --allow-read src/parsers/denoAst/wasm/build.ts",
+		"build:wasm:prod": "deno run --allow-run --allow-read src/parsers/denoAst/wasm/build.ts prod",
+		"clean:wasm": "deno run --allow-run --allow-read src/parsers/denoAst/wasm/build.ts clean"
 	},
 	"lint": {
 		"rules": {

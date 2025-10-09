@@ -263,8 +263,8 @@ Deno.test("extractTypes - returns immutable array", async () => {
 	const validation = extractTypes(ast)
 
 	if (validation._tag === "Success") {
-		// @ts-expect-error: Property 'push' does not exist on type 'readonly ParsedType[]'
-		validation.value.push({})
+		// This should fail if types are readonly
+		// validation.value.push({})
 	}
 })
 

@@ -16,21 +16,21 @@ Here is the JSX DSL that we will use for the demo application:
 
 ```jsx
 <Calculation type="Integer">
-  <Add>
-    <Augend>
-      <FromLocalStorage key="a" />
-    </Augend>
-    <Addend>
-      <Multiply>
-        <Multiplicand>
-          <FromLocalStorage key="b" />
-        </Multiplicand>
-        <Multiplier>
-          <FromLocalStorage key="c" />
-        </Multiplier>
-      </Multiply>
-    </Addend>
-  </Add>
+	<Add>
+		<Augend>
+			<FromLocalStorage key="a" />
+		</Augend>
+		<Addend>
+			<Multiply>
+				<Multiplicand>
+					<FromLocalStorage key="b" />
+				</Multiplicand>
+				<Multiplier>
+					<FromLocalStorage key="c" />
+				</Multiplier>
+			</Multiply>
+		</Addend>
+	</Add>
 </Calculation>
 ```
 

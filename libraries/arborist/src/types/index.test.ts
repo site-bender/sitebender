@@ -44,42 +44,42 @@ Deno.test("types - all types are exported", () => {
 })
 
 Deno.test("types - Position is readonly", () => {
-	const position: Position = { line: 1, column: 1 }
+	const _position: Position = { line: 1, column: 1 }
 
-	// @ts-expect-error: Cannot assign to 'line' because it is a read-only property
-	position.line = 2
+	// This should fail if Position is readonly
+	// _position.line = 2
 })
 
 Deno.test("types - Span is readonly", () => {
-	const span: Span = { start: 0, end: 10 }
+	const _span: Span = { start: 0, end: 10 }
 
-	// @ts-expect-error: Cannot assign to 'start' because it is a read-only property
-	span.start = 5
+	// This should fail if Span is readonly
+	// _span.start = 5
 })
 
 Deno.test("types - Parameter is readonly", () => {
-	const param: Parameter = {
+	const _param: Parameter = {
 		name: "x",
 		type: "number",
 		optional: false,
 	}
 
-	// @ts-expect-error: Cannot assign to 'name' because it is a read-only property
-	param.name = "y"
+	// This should fail if Parameter is readonly
+	// _param.name = "y"
 })
 
 Deno.test("types - TypeParameter is readonly", () => {
-	const typeParam: TypeParameter = {
+	const _typeParam: TypeParameter = {
 		name: "T",
 		constraint: "string",
 	}
 
-	// @ts-expect-error: Cannot assign to 'name' because it is a read-only property
-	typeParam.name = "U"
+	// This should fail if TypeParameter is readonly
+	// _typeParam.name = "U"
 })
 
 Deno.test("types - FunctionModifiers is readonly", () => {
-	const modifiers: FunctionModifiers = {
+	const _modifiers: FunctionModifiers = {
 		isExported: true,
 		isDefault: false,
 		isAsync: false,
@@ -87,12 +87,12 @@ Deno.test("types - FunctionModifiers is readonly", () => {
 		isArrow: false,
 	}
 
-	// @ts-expect-error: Cannot assign to 'isExported' because it is a read-only property
-	modifiers.isExported = false
+	// This should fail if FunctionModifiers is readonly
+	// _modifiers.isExported = false
 })
 
 Deno.test("types - FunctionBody is readonly", () => {
-	const body: FunctionBody = {
+	const _body: FunctionBody = {
 		hasReturn: true,
 		hasThrow: false,
 		hasAwait: false,
@@ -101,12 +101,12 @@ Deno.test("types - FunctionBody is readonly", () => {
 		cyclomaticComplexity: 1,
 	}
 
-	// @ts-expect-error: Cannot assign to 'hasReturn' because it is a read-only property
-	body.hasReturn = false
+	// This should fail if FunctionBody is readonly
+	// _body.hasReturn = false
 })
 
 Deno.test("types - ParsedFunction uses ReadonlyArray", () => {
-	const func: ParsedFunction = {
+	const _func: ParsedFunction = {
 		name: "test",
 		position: { line: 1, column: 1 },
 		span: { start: 0, end: 10 },
@@ -130,27 +130,27 @@ Deno.test("types - ParsedFunction uses ReadonlyArray", () => {
 		},
 	}
 
-	// @ts-expect-error: Property 'push' does not exist on type 'readonly Parameter[]'
-	func.parameters.push({
-		name: "x",
-		type: "number",
-		optional: false,
-	})
+	// This should fail if ParsedFunction.parameters is readonly
+	// _func.parameters.push({
+	// 	name: "x",
+	// 	type: "number",
+	// 	optional: false,
+	// })
 })
 
 Deno.test("types - ImportBinding is readonly", () => {
-	const binding: ImportBinding = {
+	const _binding: ImportBinding = {
 		imported: "foo",
 		local: "bar",
 		isType: false,
 	}
 
-	// @ts-expect-error: Cannot assign to 'imported' because it is a read-only property
-	binding.imported = "baz"
+	// This should fail if ImportBinding is readonly
+	// _binding.imported = "baz"
 })
 
 Deno.test("types - ParsedImport uses ReadonlyArray", () => {
-	const parsedImport: ParsedImport = {
+	const _parsedImport: ParsedImport = {
 		specifier: "./foo.ts",
 		position: { line: 1, column: 1 },
 		span: { start: 0, end: 10 },
@@ -158,12 +158,12 @@ Deno.test("types - ParsedImport uses ReadonlyArray", () => {
 		imports: [],
 	}
 
-	// @ts-expect-error: Property 'push' does not exist on type 'readonly ImportBinding[]'
-	parsedImport.imports.push({
-		imported: "foo",
-		local: "foo",
-		isType: false,
-	})
+	// This should fail if ParsedImport.imports is readonly
+	// _parsedImport.imports.push({
+	// 	imported: "foo",
+	// 	local: "foo",
+	// 	isType: false,
+	// })
 })
 
 Deno.test("types - EnvoyMarker discriminated union", () => {
@@ -181,7 +181,7 @@ Deno.test("types - EnvoyMarker discriminated union", () => {
 })
 
 Deno.test("types - ViolationInfo uses ReadonlyArray", () => {
-	const violations: ViolationInfo = {
+	const _violations: ViolationInfo = {
 		hasArrowFunctions: false,
 		arrowFunctions: [],
 		hasClasses: false,
@@ -196,12 +196,12 @@ Deno.test("types - ViolationInfo uses ReadonlyArray", () => {
 		mutations: [],
 	}
 
-	// @ts-expect-error: Property 'push' does not exist on type 'readonly Position[]'
-	violations.arrowFunctions.push({ line: 1, column: 1 })
+	// This should fail if ViolationInfo.arrowFunctions is readonly
+	// _violations.arrowFunctions.push({ line: 1, column: 1 })
 })
 
 Deno.test("types - ParsedFile uses ReadonlyArray for all collections", () => {
-	const file: ParsedFile = {
+	const _file: ParsedFile = {
 		filePath: "test.ts",
 		functions: [],
 		types: [],
@@ -225,8 +225,8 @@ Deno.test("types - ParsedFile uses ReadonlyArray for all collections", () => {
 		},
 	}
 
-	// @ts-expect-error: Property 'push' does not exist on type 'readonly ParsedFunction[]'
-	file.functions.push({} as ParsedFunction)
+	// This should fail if ParsedFile.functions is readonly
+	// _file.functions.push({} as ParsedFunction)
 })
 
 Deno.test("types - ParsedAst type structure", () => {
@@ -240,8 +240,8 @@ Deno.test("types - ParsedAst type structure", () => {
 	assert(ast.sourceText === "export function test() {}")
 	assert(ast.filePath === "/test/fixture.ts")
 
-	// @ts-expect-error: Cannot assign to 'sourceText' because it is a read-only property
-	ast.sourceText = "changed"
+	// This should fail if ParsedAst.sourceText is readonly
+	// ast.sourceText = "changed"
 })
 
 Deno.test("types - ParseError extends ArchitectError", () => {

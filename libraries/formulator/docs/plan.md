@@ -1191,16 +1191,19 @@ Extend the parser to support **Polish notation (prefix)** and **Reverse Polish n
 ### Notation Types
 
 **Infix (current)**: `a + b`
+
 - Operators between operands
 - Requires precedence rules
 - Needs parentheses for grouping
 
 **Prefix (Polish)**: `+ a b`
+
 - Operators before operands
 - No precedence needed (structure is explicit)
 - No parentheses needed
 
 **Postfix (RPN)**: `a b +`
+
 - Operators after operands
 - No precedence needed (structure is explicit)
 - No parentheses needed
@@ -1209,11 +1212,13 @@ Extend the parser to support **Polish notation (prefix)** and **Reverse Polish n
 ### Architecture
 
 **Shared Components:**
+
 - ✅ **Lexer** - Character classification is notation-agnostic
 - ✅ **Tokenizer** - Token recognition is notation-agnostic
 - ✅ **Compiler** - AST enrichment is notation-agnostic
 
 **Notation-Specific Components:**
+
 - ❌ **Parser** - Requires three different implementations:
   - `parseInfix` - Current Pratt parser (already implemented)
   - `parsePrefix` - Recursive descent parser (new)
@@ -1228,25 +1233,25 @@ Extend the parser to support **Polish notation (prefix)** and **Reverse Polish n
 ```typescript
 //++ Detects notation from token stream pattern
 function detectNotation(tokens: Array<Token>): Notation {
-  if (tokens.length === 0) {
-    return "infix" // default
-  }
+	if (tokens.length === 0) {
+		return "infix" // default
+	}
 
-  const firstToken = tokens[0]
-  const lastToken = tokens[tokens.length - 1]
+	const firstToken = tokens[0]
+	const lastToken = tokens[tokens.length - 1]
 
-  // Postfix: last token is an operator
-  if (isOperator(lastToken.type)) {
-    return "postfix"
-  }
+	// Postfix: last token is an operator
+	if (isOperator(lastToken.type)) {
+		return "postfix"
+	}
 
-  // Prefix: first token is an operator
-  if (isOperator(firstToken.type)) {
-    return "prefix"
-  }
+	// Prefix: first token is an operator
+	if (isOperator(firstToken.type)) {
+		return "prefix"
+	}
 
-  // Infix: operators between operands (default)
-  return "infix"
+	// Infix: operators between operands (default)
+	return "infix"
 }
 ```
 
@@ -1283,29 +1288,29 @@ import detectNotation from "./detectNotation/index.ts"
 
 //++ Parses formula with automatic notation detection (curried)
 export default function parser(formula: string): Result<string, AstNode> {
-  const tokenizerResult = tokenizer(formula)
+	const tokenizerResult = tokenizer(formula)
 
-  if (tokenizerResult._tag === "Error") {
-    return tokenizerResult
-  }
+	if (tokenizerResult._tag === "Error") {
+		return tokenizerResult
+	}
 
-  const tokens = Array.from(tokenizerResult.value)
-    .filter(result => result._tag === "Ok")
-    .map(result => result.value)
+	const tokens = Array.from(tokenizerResult.value)
+		.filter((result) => result._tag === "Ok")
+		.map((result) => result.value)
 
-  const notation = detectNotation(tokens)
+	const notation = detectNotation(tokens)
 
-  // Dispatch to appropriate parser
-  if (notation === "prefix") {
-    return parsePrefix(tokens)(0)
-  }
+	// Dispatch to appropriate parser
+	if (notation === "prefix") {
+		return parsePrefix(tokens)(0)
+	}
 
-  if (notation === "postfix") {
-    return parsePostfix(tokens)
-  }
+	if (notation === "postfix") {
+		return parsePostfix(tokens)
+	}
 
-  // Default: infix
-  return parseInfix(tokens)(0)
+	// Default: infix
+	return parseInfix(tokens)(0)
 }
 ```
 
@@ -1316,101 +1321,101 @@ export default function parser(formula: string): Result<string, AstNode> {
 ```typescript
 //++ Parses prefix (Polish) notation: + a b
 export default function parsePrefix(tokens: Array<Result<string, Token>>) {
-  return function parsePrefixWithPosition(
-    position: number
-  ): Result<string, [AstNode, number]> {
-    if (gte(length(tokens))(position)) {
-      return error(`Unexpected end of input at position ${position}`)
-    }
+	return function parsePrefixWithPosition(
+		position: number,
+	): Result<string, [AstNode, number]> {
+		if (gte(length(tokens))(position)) {
+			return error(`Unexpected end of input at position ${position}`)
+		}
 
-    const tokenResult = tokens[position]
+		const tokenResult = tokens[position]
 
-    if (tokenResult._tag === "Error") {
-      return tokenResult
-    }
+		if (tokenResult._tag === "Error") {
+			return tokenResult
+		}
 
-    const token = tokenResult.value
+		const token = tokenResult.value
 
-    // Operand: number or identifier
-    if (token.type === "number") {
-      const node: AstNode = Object.freeze({
-        _tag: "numberLiteral",
-        value: Number.parseFloat(token.value),
-        position: token.position,
-      })
-      return ok([node, increment(position)])
-    }
+		// Operand: number or identifier
+		if (token.type === "number") {
+			const node: AstNode = Object.freeze({
+				_tag: "numberLiteral",
+				value: Number.parseFloat(token.value),
+				position: token.position,
+			})
+			return ok([node, increment(position)])
+		}
 
-    if (token.type === "identifier") {
-      const node: AstNode = Object.freeze({
-        _tag: "variable",
-        name: token.value,
-        position: token.position,
-      })
-      return ok([node, increment(position)])
-    }
+		if (token.type === "identifier") {
+			const node: AstNode = Object.freeze({
+				_tag: "variable",
+				name: token.value,
+				position: token.position,
+			})
+			return ok([node, increment(position)])
+		}
 
-    // Binary operator: parse operator, then two operands
-    const operatorResult = tokenTypeToBinaryOperator(token.type)
+		// Binary operator: parse operator, then two operands
+		const operatorResult = tokenTypeToBinaryOperator(token.type)
 
-    if (operatorResult._tag === "Ok") {
-      const operator = operatorResult.value
-      const nextPosition = increment(position)
+		if (operatorResult._tag === "Ok") {
+			const operator = operatorResult.value
+			const nextPosition = increment(position)
 
-      // Recursively parse left operand
-      const leftResult = parsePrefix(tokens)(nextPosition)
+			// Recursively parse left operand
+			const leftResult = parsePrefix(tokens)(nextPosition)
 
-      if (leftResult._tag === "Error") {
-        return leftResult
-      }
+			if (leftResult._tag === "Error") {
+				return leftResult
+			}
 
-      const [left, positionAfterLeft] = leftResult.value
+			const [left, positionAfterLeft] = leftResult.value
 
-      // Recursively parse right operand
-      const rightResult = parsePrefix(tokens)(positionAfterLeft)
+			// Recursively parse right operand
+			const rightResult = parsePrefix(tokens)(positionAfterLeft)
 
-      if (rightResult._tag === "Error") {
-        return rightResult
-      }
+			if (rightResult._tag === "Error") {
+				return rightResult
+			}
 
-      const [right, finalPosition] = rightResult.value
+			const [right, finalPosition] = rightResult.value
 
-      const node: AstNode = Object.freeze({
-        _tag: "binaryOperator",
-        operator,
-        left,
-        right,
-        position: token.position,
-      })
+			const node: AstNode = Object.freeze({
+				_tag: "binaryOperator",
+				operator,
+				left,
+				right,
+				position: token.position,
+			})
 
-      return ok([node, finalPosition])
-    }
+			return ok([node, finalPosition])
+		}
 
-    // Unary operator: parse operator, then one operand
-    const unaryResult = tokenTypeToUnaryOperator(token.type)
+		// Unary operator: parse operator, then one operand
+		const unaryResult = tokenTypeToUnaryOperator(token.type)
 
-    if (unaryResult._tag === "Ok") {
-      const operator = unaryResult.value
-      const operandResult = parsePrefix(tokens)(increment(position))
+		if (unaryResult._tag === "Ok") {
+			const operator = unaryResult.value
+			const operandResult = parsePrefix(tokens)(increment(position))
 
-      if (operandResult._tag === "Error") {
-        return operandResult
-      }
+			if (operandResult._tag === "Error") {
+				return operandResult
+			}
 
-      const [operand, finalPosition] = operandResult.value
+			const [operand, finalPosition] = operandResult.value
 
-      const node: AstNode = Object.freeze({
-        _tag: "unaryOperator",
-        operator,
-        operand,
-        position: token.position,
-      })
+			const node: AstNode = Object.freeze({
+				_tag: "unaryOperator",
+				operator,
+				operand,
+				position: token.position,
+			})
 
-      return ok([node, finalPosition])
-    }
+			return ok([node, finalPosition])
+		}
 
-    return error(`Unexpected token '${token.value}' at position ${position}`)
-  }
+		return error(`Unexpected token '${token.value}' at position ${position}`)
+	}
 }
 ```
 
@@ -1421,106 +1426,114 @@ export default function parsePrefix(tokens: Array<Result<string, Token>>) {
 ```typescript
 //++ Parses postfix (RPN) notation: a b +
 export default function parsePostfix(
-  tokens: Array<Result<string, Token>>
+	tokens: Array<Result<string, Token>>,
 ): Result<string, AstNode> {
-  const stack: Array<AstNode> = []
-  let position = 0
+	const stack: Array<AstNode> = []
+	let position = 0
 
-  /*++ [EXCEPTION]
+	/*++ [EXCEPTION]
    | While loop permitted for stack-based RPN parsing.
    | This is the standard algorithm for postfix evaluation.
    | Remains pure: same tokens always produce same AST.
    */
-  while (lt(length(tokens))(position)) {
-    const tokenResult = tokens[position]
+	while (lt(length(tokens))(position)) {
+		const tokenResult = tokens[position]
 
-    if (tokenResult._tag === "Error") {
-      return tokenResult
-    }
+		if (tokenResult._tag === "Error") {
+			return tokenResult
+		}
 
-    const token = tokenResult.value
+		const token = tokenResult.value
 
-    // Operand: push to stack
-    if (token.type === "number") {
-      const node: AstNode = Object.freeze({
-        _tag: "numberLiteral",
-        value: Number.parseFloat(token.value),
-        position: token.position,
-      })
-      stack.push(node)
-      position = increment(position)
-      continue
-    }
+		// Operand: push to stack
+		if (token.type === "number") {
+			const node: AstNode = Object.freeze({
+				_tag: "numberLiteral",
+				value: Number.parseFloat(token.value),
+				position: token.position,
+			})
+			stack.push(node)
+			position = increment(position)
+			continue
+		}
 
-    if (token.type === "identifier") {
-      const node: AstNode = Object.freeze({
-        _tag: "variable",
-        name: token.value,
-        position: token.position,
-      })
-      stack.push(node)
-      position = increment(position)
-      continue
-    }
+		if (token.type === "identifier") {
+			const node: AstNode = Object.freeze({
+				_tag: "variable",
+				name: token.value,
+				position: token.position,
+			})
+			stack.push(node)
+			position = increment(position)
+			continue
+		}
 
-    // Binary operator: pop two operands
-    const operatorResult = tokenTypeToBinaryOperator(token.type)
+		// Binary operator: pop two operands
+		const operatorResult = tokenTypeToBinaryOperator(token.type)
 
-    if (operatorResult._tag === "Ok") {
-      if (lt(length(stack))(2)) {
-        return error(`Insufficient operands for operator '${token.value}' at position ${token.position}`)
-      }
+		if (operatorResult._tag === "Ok") {
+			if (lt(length(stack))(2)) {
+				return error(
+					`Insufficient operands for operator '${token.value}' at position ${token.position}`,
+				)
+			}
 
-      const right = stack.pop()!
-      const left = stack.pop()!
+			const right = stack.pop()!
+			const left = stack.pop()!
 
-      const node: AstNode = Object.freeze({
-        _tag: "binaryOperator",
-        operator: operatorResult.value,
-        left,
-        right,
-        position: token.position,
-      })
+			const node: AstNode = Object.freeze({
+				_tag: "binaryOperator",
+				operator: operatorResult.value,
+				left,
+				right,
+				position: token.position,
+			})
 
-      stack.push(node)
-      position = increment(position)
-      continue
-    }
+			stack.push(node)
+			position = increment(position)
+			continue
+		}
 
-    // Unary operator: pop one operand
-    const unaryResult = tokenTypeToUnaryOperator(token.type)
+		// Unary operator: pop one operand
+		const unaryResult = tokenTypeToUnaryOperator(token.type)
 
-    if (unaryResult._tag === "Ok") {
-      if (lt(length(stack))(1)) {
-        return error(`Insufficient operands for operator '${token.value}' at position ${token.position}`)
-      }
+		if (unaryResult._tag === "Ok") {
+			if (lt(length(stack))(1)) {
+				return error(
+					`Insufficient operands for operator '${token.value}' at position ${token.position}`,
+				)
+			}
 
-      const operand = stack.pop()!
+			const operand = stack.pop()!
 
-      const node: AstNode = Object.freeze({
-        _tag: "unaryOperator",
-        operator: unaryResult.value,
-        operand,
-        position: token.position,
-      })
+			const node: AstNode = Object.freeze({
+				_tag: "unaryOperator",
+				operator: unaryResult.value,
+				operand,
+				position: token.position,
+			})
 
-      stack.push(node)
-      position = increment(position)
-      continue
-    }
+			stack.push(node)
+			position = increment(position)
+			continue
+		}
 
-    return error(`Unexpected token '${token.value}' at position ${token.position}`)
-  }
+		return error(
+			`Unexpected token '${token.value}' at position ${token.position}`,
+		)
+	}
 
-  if (isEqual(length(stack))(1)) {
-    return ok(stack[0])
-  }
+	if (isEqual(length(stack))(1)) {
+		return ok(stack[0])
+	}
 
-  if (lt(1)(length(stack))) {
-    return error(`Multiple expressions found (stack has ${length(stack)} items)`)
-  }
+	if (lt(1)(length(stack))) {
+		return error(
+			`Multiple expressions found (stack has ${length(stack)} items)`,
+		)
+	}
 
-  return error("Empty expression")
+	return error("Empty expression")
 }
 ```
 
@@ -1533,35 +1546,35 @@ export type Notation = "infix" | "prefix" | "postfix"
 
 //++ Detects notation from token pattern (first/last token analysis)
 export default function detectNotation(tokens: Array<Token>): Notation {
-  if (isEqual(length(tokens))(0)) {
-    return "infix" // default for empty
-  }
+	if (isEqual(length(tokens))(0)) {
+		return "infix" // default for empty
+	}
 
-  const firstToken = tokens[0]
-  const lastToken = tokens[length(tokens) - 1]
+	const firstToken = tokens[0]
+	const lastToken = tokens[length(tokens) - 1]
 
-  // Check if token is an operator (not operand)
-  const isOperatorToken = (token: Token): boolean => {
-    return token.type === "plus" ||
-           token.type === "minus" ||
-           token.type === "multiply" ||
-           token.type === "divide" ||
-           token.type === "power"
-    // Add more operators as needed
-  }
+	// Check if token is an operator (not operand)
+	const isOperatorToken = (token: Token): boolean => {
+		return token.type === "plus" ||
+			token.type === "minus" ||
+			token.type === "multiply" ||
+			token.type === "divide" ||
+			token.type === "power"
+		// Add more operators as needed
+	}
 
-  // Postfix: last token is operator
-  if (isOperatorToken(lastToken)) {
-    return "postfix"
-  }
+	// Postfix: last token is operator
+	if (isOperatorToken(lastToken)) {
+		return "postfix"
+	}
 
-  // Prefix: first token is operator
-  if (isOperatorToken(firstToken)) {
-    return "prefix"
-  }
+	// Prefix: first token is operator
+	if (isOperatorToken(firstToken)) {
+		return "prefix"
+	}
 
-  // Default: infix
-  return "infix"
+	// Default: infix
+	return "infix"
 }
 ```
 
@@ -1643,14 +1656,15 @@ Formulator maintains a **uniform structure** for binary operators using `left` a
 ### Design Decision
 
 **Formulator**: Keep uniform structure
+
 ```typescript
 type BinaryOperatorNode = {
-  _tag: "binaryOperator"
-  operator: BinaryOperation
-  left: EnrichedAstNode    // uniform for all operators
-  right: EnrichedAstNode   // uniform for all operators
-  position: number
-  datatype: Datatype
+	_tag: "binaryOperator"
+	operator: BinaryOperation
+	left: EnrichedAstNode // uniform for all operators
+	right: EnrichedAstNode // uniform for all operators
+	position: number
+	datatype: Datatype
 }
 ```
 
@@ -1659,6 +1673,7 @@ type BinaryOperatorNode = {
 ### Accessor Functions to Implement in Architect
 
 All accessors follow this pattern:
+
 1. Validate node is `binaryOperator`
 2. Validate operator matches expected type
 3. Return appropriate operand wrapped in `Result`
@@ -1669,29 +1684,29 @@ All accessors follow this pattern:
 // @sitebender/architect/src/ast/accessors/getAugend/index.ts
 //++ Extracts the augend (left operand) from an add operation
 export default function getAugend(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "add") {
-    return error(`Expected add operator, got ${node.operator}`)
-  }
-  return ok(node.left)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "add") {
+		return error(`Expected add operator, got ${node.operator}`)
+	}
+	return ok(node.left)
 }
 
 // @sitebender/architect/src/ast/accessors/getAddend/index.ts
 //++ Extracts the addend (right operand) from an add operation
 export default function getAddend(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "add") {
-    return error(`Expected add operator, got ${node.operator}`)
-  }
-  return ok(node.right)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "add") {
+		return error(`Expected add operator, got ${node.operator}`)
+	}
+	return ok(node.right)
 }
 ```
 
@@ -1701,29 +1716,29 @@ export default function getAddend(
 // @sitebender/architect/src/ast/accessors/getMinuend/index.ts
 //++ Extracts the minuend (left operand) from a subtract operation
 export default function getMinuend(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "subtract") {
-    return error(`Expected subtract operator, got ${node.operator}`)
-  }
-  return ok(node.left)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "subtract") {
+		return error(`Expected subtract operator, got ${node.operator}`)
+	}
+	return ok(node.left)
 }
 
 // @sitebender/architect/src/ast/accessors/getSubtrahend/index.ts
 //++ Extracts the subtrahend (right operand) from a subtract operation
 export default function getSubtrahend(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "subtract") {
-    return error(`Expected subtract operator, got ${node.operator}`)
-  }
-  return ok(node.right)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "subtract") {
+		return error(`Expected subtract operator, got ${node.operator}`)
+	}
+	return ok(node.right)
 }
 ```
 
@@ -1733,29 +1748,29 @@ export default function getSubtrahend(
 // @sitebender/architect/src/ast/accessors/getMultiplicand/index.ts
 //++ Extracts the multiplicand (left operand) from a multiply operation
 export default function getMultiplicand(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "multiply") {
-    return error(`Expected multiply operator, got ${node.operator}`)
-  }
-  return ok(node.left)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "multiply") {
+		return error(`Expected multiply operator, got ${node.operator}`)
+	}
+	return ok(node.left)
 }
 
 // @sitebender/architect/src/ast/accessors/getMultiplier/index.ts
 //++ Extracts the multiplier (right operand) from a multiply operation
 export default function getMultiplier(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "multiply") {
-    return error(`Expected multiply operator, got ${node.operator}`)
-  }
-  return ok(node.right)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "multiply") {
+		return error(`Expected multiply operator, got ${node.operator}`)
+	}
+	return ok(node.right)
 }
 ```
 
@@ -1765,29 +1780,29 @@ export default function getMultiplier(
 // @sitebender/architect/src/ast/accessors/getDividend/index.ts
 //++ Extracts the dividend (left operand) from a divide operation
 export default function getDividend(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "divide") {
-    return error(`Expected divide operator, got ${node.operator}`)
-  }
-  return ok(node.left)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "divide") {
+		return error(`Expected divide operator, got ${node.operator}`)
+	}
+	return ok(node.left)
 }
 
 // @sitebender/architect/src/ast/accessors/getDivisor/index.ts
 //++ Extracts the divisor (right operand) from a divide operation
 export default function getDivisor(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "divide") {
-    return error(`Expected divide operator, got ${node.operator}`)
-  }
-  return ok(node.right)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "divide") {
+		return error(`Expected divide operator, got ${node.operator}`)
+	}
+	return ok(node.right)
 }
 ```
 
@@ -1797,29 +1812,29 @@ export default function getDivisor(
 // @sitebender/architect/src/ast/accessors/getBase/index.ts
 //++ Extracts the base (left operand) from a power operation
 export default function getBase(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "power") {
-    return error(`Expected power operator, got ${node.operator}`)
-  }
-  return ok(node.left)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "power") {
+		return error(`Expected power operator, got ${node.operator}`)
+	}
+	return ok(node.left)
 }
 
 // @sitebender/architect/src/ast/accessors/getExponent/index.ts
 //++ Extracts the exponent (right operand) from a power operation
 export default function getExponent(
-  node: EnrichedAstNode
+	node: EnrichedAstNode,
 ): Result<string, EnrichedAstNode> {
-  if (node._tag !== "binaryOperator") {
-    return error(`Expected binaryOperator, got ${node._tag}`)
-  }
-  if (node.operator !== "power") {
-    return error(`Expected power operator, got ${node.operator}`)
-  }
-  return ok(node.right)
+	if (node._tag !== "binaryOperator") {
+		return error(`Expected binaryOperator, got ${node._tag}`)
+	}
+	if (node.operator !== "power") {
+		return error(`Expected power operator, got ${node.operator}`)
+	}
+	return ok(node.right)
 }
 ```
 
@@ -1833,13 +1848,13 @@ import map2 from "@sitebender/toolsmith/monads/result/map2/index.ts"
 
 //++ Compiles subtract AST node to executable function
 function compileSubtract(node: EnrichedAstNode) {
-  const minuendResult = getMinuend(node)
-  const subtrahendResult = getSubtrahend(node)
+	const minuendResult = getMinuend(node)
+	const subtrahendResult = getSubtrahend(node)
 
-  return map2(
-    (minuend) => (subtrahend) =>
-      subtract(compile(minuend))(compile(subtrahend))
-  )(minuendResult)(subtrahendResult)
+	return map2(
+		(minuend) => (subtrahend) =>
+			subtract(compile(minuend))(compile(subtrahend)),
+	)(minuendResult)(subtrahendResult)
 }
 ```
 
@@ -1853,13 +1868,13 @@ function compileSubtract(node: EnrichedAstNode) {
 
 ### Complete Accessor List
 
-| Operation       | Left Operand Accessor | Right Operand Accessor |
-|----------------|----------------------|------------------------|
-| Addition       | `getAugend()`        | `getAddend()`         |
-| Subtraction    | `getMinuend()`       | `getSubtrahend()`     |
-| Multiplication | `getMultiplicand()`  | `getMultiplier()`     |
-| Division       | `getDividend()`      | `getDivisor()`        |
-| Exponentiation | `getBase()`          | `getExponent()`       |
+| Operation      | Left Operand Accessor | Right Operand Accessor |
+| -------------- | --------------------- | ---------------------- |
+| Addition       | `getAugend()`         | `getAddend()`          |
+| Subtraction    | `getMinuend()`        | `getSubtrahend()`      |
+| Multiplication | `getMultiplicand()`   | `getMultiplier()`      |
+| Division       | `getDividend()`       | `getDivisor()`         |
+| Exponentiation | `getBase()`           | `getExponent()`        |
 
 ---
 

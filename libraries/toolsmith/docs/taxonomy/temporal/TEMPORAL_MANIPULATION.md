@@ -7,6 +7,7 @@ Manipulation functions modify or transform existing Temporal objects, returning 
 ### addDays
 
 **Current Signature:**
+
 ```typescript
 function addDays(
 	days: number
@@ -16,12 +17,14 @@ function addDays(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.add({ days })`
 
 **Description:**
 Adds a specified number of days to a PlainDate or PlainDateTime.
 
 **Target Monadic Signature:**
+
 ```typescript
 function addDays(
 	days: number
@@ -35,6 +38,7 @@ function addDays(
 ### addHours
 
 **Current Signature:**
+
 ```typescript
 function addHours(
 	hours: number
@@ -44,12 +48,14 @@ function addHours(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.add({ hours })`
 
 **Description:**
 Adds a specified number of hours to a PlainTime, PlainDateTime, or ZonedDateTime.
 
 **Target Monadic Signature:**
+
 ```typescript
 function addHours(
 	hours: number
@@ -63,6 +69,7 @@ function addHours(
 ### addMinutes
 
 **Current Signature:**
+
 ```typescript
 function addMinutes(
 	minutes: number
@@ -72,12 +79,14 @@ function addMinutes(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.add({ minutes })`
 
 **Description:**
 Adds a specified number of minutes to a PlainTime, PlainDateTime, or ZonedDateTime.
 
 **Target Monadic Signature:**
+
 ```typescript
 function addMinutes(
 	minutes: number
@@ -91,6 +100,7 @@ function addMinutes(
 ### addSeconds
 
 **Current Signature:**
+
 ```typescript
 function addSeconds(
 	seconds: number
@@ -100,12 +110,14 @@ function addSeconds(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.add({ seconds })`
 
 **Description:**
 Adds a specified number of seconds to a PlainTime, PlainDateTime, or ZonedDateTime.
 
 **Target Monadic Signature:**
+
 ```typescript
 function addSeconds(
 	seconds: number
@@ -119,6 +131,7 @@ function addSeconds(
 ### addMonths
 
 **Current Signature:**
+
 ```typescript
 function addMonths(
 	months: number
@@ -128,12 +141,14 @@ function addMonths(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.add({ months })`
 
 **Description:**
 Adds a specified number of months to a PlainDate, PlainDateTime, or PlainYearMonth.
 
 **Target Monadic Signature:**
+
 ```typescript
 function addMonths(
 	months: number
@@ -147,6 +162,7 @@ function addMonths(
 ### addYears
 
 **Current Signature:**
+
 ```typescript
 function addYears(
 	years: number
@@ -156,12 +172,14 @@ function addYears(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.add({ years })`
 
 **Description:**
 Adds a specified number of years to a PlainDate, PlainDateTime, or PlainYearMonth.
 
 **Target Monadic Signature:**
+
 ```typescript
 function addYears(
 	years: number
@@ -175,6 +193,7 @@ function addYears(
 ### addDuration
 
 **Current Signature:**
+
 ```typescript
 function addDuration(
 	duration: Temporal.Duration | null | undefined
@@ -197,12 +216,14 @@ function addDuration(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.add(duration)`
 
 **Description:**
 Adds a Duration to various Temporal types.
 
 **Target Monadic Signature:**
+
 ```typescript
 function addDuration(
 	duration: Temporal.Duration
@@ -229,6 +250,7 @@ function addDuration(
 ### subtractDuration
 
 **Current Signature:**
+
 ```typescript
 function subtractDuration(
 	duration: Temporal.Duration | null | undefined
@@ -249,6 +271,7 @@ function subtractDuration(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `temporal.subtract(duration)`
 - `refDate.toPlainDateTime(temporal)` (for PlainTime)
 - `result.toPlainTime()` (for PlainTime)
@@ -257,6 +280,7 @@ function subtractDuration(
 Subtracts a Duration from various Temporal types. For PlainTime, uses a reference date for calculation.
 
 **Target Monadic Signature:**
+
 ```typescript
 function subtractDuration(
 	duration: Temporal.Duration
@@ -283,6 +307,7 @@ function subtractDuration(
 ### setDay
 
 **Current Signature:**
+
 ```typescript
 function setDay(
 	day: number
@@ -292,12 +317,14 @@ function setDay(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.with({ day }, { overflow: "constrain" })`
 
 **Description:**
 Sets the day component of a date, using constrain overflow mode to handle invalid days gracefully.
 
 **Target Monadic Signature:**
+
 ```typescript
 function setDay(
 	day: PositiveInteger
@@ -311,6 +338,7 @@ function setDay(
 ### setMonth
 
 **Current Signature:**
+
 ```typescript
 function setMonth(
 	month: number
@@ -320,12 +348,14 @@ function setMonth(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.with({ month }, { overflow: "constrain" })`
 
 **Description:**
 Sets the month component (1-12) of a date, using constrain overflow mode to handle day overflow.
 
 **Target Monadic Signature:**
+
 ```typescript
 function setMonth(
 	month: MonthNumber
@@ -341,6 +371,7 @@ type MonthNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
 ### setYear
 
 **Current Signature:**
+
 ```typescript
 function setYear(
 	year: number
@@ -350,12 +381,14 @@ function setYear(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.with({ year }, { overflow: "constrain" })`
 
 **Description:**
 Sets the year component of a date (range: -271821 to 275760), using constrain overflow mode to handle Feb 29 in non-leap years.
 
 **Target Monadic Signature:**
+
 ```typescript
 function setYear(
 	year: TemporalYear
@@ -371,6 +404,7 @@ type TemporalYear = number // -271821 to 275760
 ### setHour
 
 **Current Signature:**
+
 ```typescript
 function setHour(
 	hour: number
@@ -380,12 +414,14 @@ function setHour(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.with({ hour })`
 
 **Description:**
 Sets the hour component (0-23) of a time.
 
 **Target Monadic Signature:**
+
 ```typescript
 function setHour(
 	hour: HourNumber
@@ -401,6 +437,7 @@ type HourNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14
 ### setMinute
 
 **Current Signature:**
+
 ```typescript
 function setMinute(
 	minute: number
@@ -410,12 +447,14 @@ function setMinute(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.with({ minute })`
 
 **Description:**
 Sets the minute component (0-59) of a time.
 
 **Target Monadic Signature:**
+
 ```typescript
 function setMinute(
 	minute: MinuteNumber
@@ -431,6 +470,7 @@ type MinuteNumber = number // 0-59
 ### setSecond
 
 **Current Signature:**
+
 ```typescript
 function setSecond(
 	second: number
@@ -440,12 +480,14 @@ function setSecond(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `time.with({ second })`
 
 **Description:**
 Sets the second component (0-59) of a time.
 
 **Target Monadic Signature:**
+
 ```typescript
 function setSecond(
 	second: SecondNumber
@@ -463,6 +505,7 @@ type SecondNumber = number // 0-59
 ### adjustTime
 
 **Current Signature:**
+
 ```typescript
 function adjustTime(
 	timeAdjustment: {
@@ -479,12 +522,14 @@ function adjustTime(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `datetime.with(withArgs)`
 
 **Description:**
 Adjusts multiple time components of a PlainDateTime simultaneously, only modifying specified fields.
 
 **Target Monadic Signature:**
+
 ```typescript
 function adjustTime(
 	timeAdjustment: TimeAdjustment
@@ -507,6 +552,7 @@ type TimeAdjustment = {
 ### clampDate
 
 **Current Signature:**
+
 ```typescript
 function clampDate<T extends { compare(other: T): number }>(
 	min: T | null | undefined
@@ -518,6 +564,7 @@ function clampDate<T extends { compare(other: T): number }>(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.compare(min)`
 - `date.compare(max)`
 
@@ -525,6 +572,7 @@ function clampDate<T extends { compare(other: T): number }>(
 Clamps a date value between minimum and maximum bounds.
 
 **Target Monadic Signature:**
+
 ```typescript
 function clampDate<T extends Comparable<T>>(
 	min: T
@@ -544,6 +592,7 @@ type Comparable<T> = {
 ### round
 
 **Current Signature:**
+
 ```typescript
 function round(
 	unit: "hour" | "minute" | "second" | "millisecond" | "microsecond" | "nanosecond" | "day"
@@ -553,12 +602,14 @@ function round(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `datetime.round({ smallestUnit: u, roundingMode: "halfExpand" })`
 
 **Description:**
 Rounds a time or datetime to the specified unit using half-expand rounding mode. PlainTime does not support 'day' unit.
 
 **Target Monadic Signature:**
+
 ```typescript
 function round(
 	unit: RoundingUnit
@@ -576,13 +627,20 @@ type RoundingUnit = "hour" | "minute" | "second" | "millisecond" | "microsecond"
 ### startOfDay
 
 **Current Signature:**
+
 ```typescript
 function startOfDay(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))`
 - `date.with({ hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0, nanosecond: 0 })`
 
@@ -590,9 +648,10 @@ function startOfDay(
 Returns the start of day (midnight 00:00:00.000000000) for a given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function startOfDay(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<Temporal.PlainDateTime | Temporal.ZonedDateTime, ConversionError>
 ```
 
@@ -601,13 +660,15 @@ function startOfDay(
 ### endOfDay
 
 **Current Signature:**
+
 ```typescript
 function endOfDay(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined
+	date: Temporal.PlainDate | Temporal.PlainDateTime | null | undefined,
 ): Temporal.PlainDateTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.toPlainDate()`
 - `Temporal.PlainTime.from({ hour: 23, minute: 59, second: 59, millisecond: 999, microsecond: 999, nanosecond: 999 })`
 - `plainDate.toPlainDateTime(endTime)`
@@ -616,9 +677,10 @@ function endOfDay(
 Returns the end of day (23:59:59.999999999) for a given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function endOfDay(
-	date: Temporal.PlainDate | Temporal.PlainDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime,
 ): Result<Temporal.PlainDateTime, ConversionError>
 ```
 
@@ -627,6 +689,7 @@ function endOfDay(
 ### startOfWeek
 
 **Current Signature:**
+
 ```typescript
 function startOfWeek(
 	weekStartDay: number = 1
@@ -636,6 +699,7 @@ function startOfWeek(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.dayOfWeek`
 - `date.subtract({ days: daysToSubtract })`
 - `startDate.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))`
@@ -645,6 +709,7 @@ function startOfWeek(
 Returns the start of the week (midnight) for a given date, with configurable week start day (1=Monday, 7=Sunday).
 
 **Target Monadic Signature:**
+
 ```typescript
 function startOfWeek(
 	weekStartDay: WeekDay
@@ -660,6 +725,7 @@ type WeekDay = 1 | 2 | 3 | 4 | 5 | 6 | 7
 ### endOfWeek
 
 **Current Signature:**
+
 ```typescript
 function endOfWeek(
 	weekStartDay: number = 1
@@ -669,6 +735,7 @@ function endOfWeek(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.dayOfWeek`
 - `date.add({ days: daysToAdd })`
 - `endDate.toPlainDateTime(endTime)`
@@ -678,6 +745,7 @@ function endOfWeek(
 Returns the end of the week (23:59:59.999999999) for a given date, with configurable week start day.
 
 **Target Monadic Signature:**
+
 ```typescript
 function endOfWeek(
 	weekStartDay: WeekDay
@@ -691,13 +759,20 @@ function endOfWeek(
 ### startOfMonth
 
 **Current Signature:**
+
 ```typescript
 function startOfMonth(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.with({ day: 1 })`
 - `firstOfMonth.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))`
 - `date.with({ day: 1, hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0, nanosecond: 0 })`
@@ -706,9 +781,10 @@ function startOfMonth(
 Returns the start of the month (first day at midnight) for a given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function startOfMonth(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<Temporal.PlainDateTime | Temporal.ZonedDateTime, ConversionError>
 ```
 
@@ -717,13 +793,20 @@ function startOfMonth(
 ### endOfMonth
 
 **Current Signature:**
+
 ```typescript
 function endOfMonth(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.daysInMonth`
 - `date.with({ day: lastDay })`
 - `lastDayOfMonth.toPlainDateTime(endTime)`
@@ -733,9 +816,10 @@ function endOfMonth(
 Returns the end of the month (last day at 23:59:59.999999999) for a given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function endOfMonth(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<Temporal.PlainDateTime | Temporal.ZonedDateTime, ConversionError>
 ```
 
@@ -744,13 +828,20 @@ function endOfMonth(
 ### startOfYear
 
 **Current Signature:**
+
 ```typescript
 function startOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.with({ month: 1, day: 1 })`
 - `firstOfYear.toPlainDateTime(Temporal.PlainTime.from("00:00:00"))`
 - `date.with({ month: 1, day: 1, hour: 0, minute: 0, second: 0, millisecond: 0, microsecond: 0, nanosecond: 0 })`
@@ -759,9 +850,10 @@ function startOfYear(
 Returns the start of the year (January 1 at midnight) for a given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function startOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<Temporal.PlainDateTime | Temporal.ZonedDateTime, ConversionError>
 ```
 
@@ -770,13 +862,20 @@ function startOfYear(
 ### endOfYear
 
 **Current Signature:**
+
 ```typescript
 function endOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime | null | undefined
+	date:
+		| Temporal.PlainDate
+		| Temporal.PlainDateTime
+		| Temporal.ZonedDateTime
+		| null
+		| undefined,
 ): Temporal.PlainDateTime | Temporal.ZonedDateTime | null
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.with({ month: 12, day: 31 })`
 - `lastOfYear.toPlainDateTime(endTime)`
 - `date.with({ month: 12, day: 31, hour: 23, minute: 59, second: 59, millisecond: 999, microsecond: 999, nanosecond: 999 })`
@@ -785,9 +884,10 @@ function endOfYear(
 Returns the end of the year (December 31 at 23:59:59.999999999) for a given date.
 
 **Target Monadic Signature:**
+
 ```typescript
 function endOfYear(
-	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime
+	date: Temporal.PlainDate | Temporal.PlainDateTime | Temporal.ZonedDateTime,
 ): Result<Temporal.PlainDateTime | Temporal.ZonedDateTime, ConversionError>
 ```
 
@@ -798,6 +898,7 @@ function endOfYear(
 ### withTimeZone
 
 **Current Signature:**
+
 ```typescript
 function withTimeZone(
 	timeZone: string
@@ -807,6 +908,7 @@ function withTimeZone(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.Now.zonedDateTimeISO(timeZone)` (for validation)
 - `temporal.withTimeZone(timeZone)`
 - `temporal.toZonedDateTime(timeZone)`
@@ -816,6 +918,7 @@ function withTimeZone(
 Converts a temporal value to a ZonedDateTime in the specified timezone.
 
 **Target Monadic Signature:**
+
 ```typescript
 function withTimeZone(
 	timeZone: TimeZone
@@ -831,6 +934,7 @@ type TimeZone = string
 ### withCalendar
 
 **Current Signature:**
+
 ```typescript
 function withCalendar(
 	calendar: string
@@ -849,6 +953,7 @@ function withCalendar(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `Temporal.PlainDate.from({ year: 2000, month: 1, day: 1, calendar })` (for validation)
 - `temporal.withCalendar(calendar)`
 
@@ -856,6 +961,7 @@ function withCalendar(
 Changes the calendar system of a temporal value (e.g., from 'iso8601' to 'hebrew', 'islamic', etc.).
 
 **Target Monadic Signature:**
+
 ```typescript
 function withCalendar(
 	calendar: CalendarSystem
@@ -880,6 +986,7 @@ type CalendarSystem = string
 ### withTime
 
 **Current Signature:**
+
 ```typescript
 function withTime(
 	time: Temporal.PlainTime | string | null | undefined
@@ -889,6 +996,7 @@ function withTime(
 ```
 
 **TC39 Temporal API Usage:**
+
 - `date.toPlainDateTime(time)`
 - `Temporal.PlainTime.from("00:00:00")` (default)
 - `Temporal.PlainTime.from(time)`
@@ -897,6 +1005,7 @@ function withTime(
 Combines a PlainDate with a PlainTime to create a PlainDateTime. Defaults to midnight if time is null.
 
 **Target Monadic Signature:**
+
 ```typescript
 function withTime(
 	time: Option<Temporal.PlainTime | string>
