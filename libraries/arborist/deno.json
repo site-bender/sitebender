@@ -1,23 +1,29 @@
 {
 	"name": "@sitebender/arborist",
 	"version": "0.1.0",
+	"imports": {
+		"deno_ast": "https://deno.land/x/deno_ast@0.25.0/mod.ts"
+	},
 	"exports": {
-		"./parseFile": "./src/parseFile/index.ts",
-		"./buildParsedFile": "./src/buildParsedFile/index.ts",
-		"./extractFunctions": "./src/extractFunctions/index.ts",
-		"./extractComments": "./src/extractComments/index.ts",
-		"./extractImports": "./src/extractImports/index.ts",
-		"./extractExports": "./src/extractExports/index.ts",
-		"./extractTypes": "./src/extractTypes/index.ts",
-		"./extractConstants": "./src/extractConstants/index.ts",
-		"./detectViolations": "./src/detectViolations/index.ts",
+		"./parseFile": "./src/api/parseFile/index.ts",
+		"./parseFileWithSemantics": "./src/api/parseFileWithSemantics/index.ts",
+		"./parseFileWithSwc": "./src/api/parseFileWithSwc/index.ts",
+		"./buildParsedFile": "./src/api/buildParsedFile/index.ts",
+		"./buildSemanticFile": "./src/api/buildSemanticFile/index.ts",
+		"./extractFunctions": "./src/extractors/extractFunctions/index.ts",
+		"./extractComments": "./src/extractors/extractComments/index.ts",
+		"./extractImports": "./src/extractors/extractImports/index.ts",
+		"./extractExports": "./src/extractors/extractExports/index.ts",
+		"./extractTypes": "./src/extractors/extractTypes/index.ts",
+		"./extractConstants": "./src/extractors/extractConstants/index.ts",
+		"./detectViolations": "./src/extractors/detectViolations/index.ts",
 		"./types": "./src/types/index.ts"
 	},
 	"tasks": {
 		"test": "deno test --allow-read src/",
 		"test:cov": "deno test --allow-read --coverage=coverage src/ && deno coverage coverage",
 		"lint": "deno lint src/",
-		"typecheck": "deno check src/types/index.ts src/types/index.test.ts src/parseFile/index.ts src/parseFile/index.test.ts src/parseFile/_ensureSwcInitialized/index.ts src/parseFile/_ensureSwcInitialized/index.test.ts src/parseFile/test-fixtures/valid.ts src/buildParsedFile/index.ts src/buildParsedFile/index.test.ts src/analyzeFunctionBody/index.ts src/analyzeFunctionBody/_collectAstNodes/index.ts src/analyzeFunctionBody/_collectAstNodes/index.test.ts src/detectViolations/index.ts",
+		"typecheck": "deno check src/types/index.ts src/types/index.test.ts src/parseFile/index.ts src/parseFile/index.test.ts src/parseFile/test-fixtures/valid.ts src/buildParsedFile/index.ts src/buildParsedFile/index.test.ts src/_helpers/traverseAST/index.ts",
 		"fmt": "deno fmt src/",
 		"demo": "deno run --allow-read demo/index.ts"
 	},
