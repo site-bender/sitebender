@@ -109,7 +109,10 @@ Deno.test("eightDecimalPlaces rejects Infinity with helpful error", () => {
 	assertEquals(result.error.code, "EIGHT_DECIMAL_PLACES_NOT_FINITE")
 	assertEquals(result.error.field, "eightDecimalPlaces")
 	assertEquals(result.error.received, Infinity)
-	assertEquals(result.error.expected, "Finite number with at most 8 decimal places")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 8 decimal places",
+	)
 	assert(result.error.suggestion.includes("finite"))
 	assertEquals(result.error.severity, "requirement")
 })
@@ -129,5 +132,8 @@ Deno.test("eightDecimalPlaces rejects NaN with helpful error", () => {
 	assertEquals(result.error.code, "EIGHT_DECIMAL_PLACES_NOT_FINITE")
 	assertEquals(result.error.field, "eightDecimalPlaces")
 	assert(Number.isNaN(result.error.received))
-	assertEquals(result.error.expected, "Finite number with at most 8 decimal places")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 8 decimal places",
+	)
 })

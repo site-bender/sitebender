@@ -19,6 +19,7 @@ This document specifies how Architect's JSX-based behavior composition system wi
 ### Typed Components
 
 All operations use typed component names that directly map to Toolsmith functions:
+
 - `<AddToTwoDecimalPlaces>` → `addToTwoDecimalPlaces`
 - `<SubtractIntegers>` → `subtractIntegers`
 - `<MultiplyRealNumbers>` → `multiplyRealNumbers`
@@ -26,6 +27,7 @@ All operations use typed component names that directly map to Toolsmith function
 ### Numeric Operations
 
 **Binary form (all numeric operations):**
+
 ```tsx
 <AddToTwoDecimalPlaces>
   <Augend>
@@ -47,6 +49,7 @@ All operations use typed component names that directly map to Toolsmith function
 ```
 
 **N-ary form (commutative numeric only: Add, Multiply):**
+
 ```tsx
 <AddToTwoDecimalPlaces>
   <Addends>
@@ -71,24 +74,24 @@ Logical operations (`And`, `Or`, `Xor`) only accept array form:
 
 ```tsx
 <And>
-  <Predicates>
-    <IsGreaterThan>
-      <Referent>
-        <FromElement selector="#age" />
-      </Referent>
-      <Comparand>
-        <Value>18</Value>
-      </Comparand>
-    </IsGreaterThan>
-    <IsLessThan>
-      <Referent>
-        <FromElement selector="#age" />
-      </Referent>
-      <Comparand>
-        <Value>65</Value>
-      </Comparand>
-    </IsLessThan>
-  </Predicates>
+	<Predicates>
+		<IsGreaterThan>
+			<Referent>
+				<FromElement selector="#age" />
+			</Referent>
+			<Comparand>
+				<Value>18</Value>
+			</Comparand>
+		</IsGreaterThan>
+		<IsLessThan>
+			<Referent>
+				<FromElement selector="#age" />
+			</Referent>
+			<Comparand>
+				<Value>65</Value>
+			</Comparand>
+		</IsLessThan>
+	</Predicates>
 </And>
 ```
 
@@ -98,18 +101,19 @@ Set operations (`Union`, `Intersection`) only accept binary form:
 
 ```tsx
 <Union>
-  <SetA>
-    <FromElement selector="#tags1" />
-  </SetA>
-  <SetB>
-    <FromElement selector="#tags2" />
-  </SetB>
+	<SetA>
+		<FromElement selector="#tags1" />
+	</SetA>
+	<SetB>
+		<FromElement selector="#tags2" />
+	</SetB>
 </Union>
 ```
 
 ## Internal Representation (IR)
 
 ### Binary Numeric Operation
+
 ```typescript
 {
   tag: "AddToTwoDecimalPlaces",
@@ -122,6 +126,7 @@ Set operations (`Union`, `Intersection`) only accept binary form:
 ```
 
 ### N-ary Numeric Operation
+
 ```typescript
 {
   tag: "AddToTwoDecimalPlaces",
@@ -135,6 +140,7 @@ Set operations (`Union`, `Intersection`) only accept binary form:
 ```
 
 ### Logical Operation
+
 ```typescript
 {
   tag: "And",
@@ -152,41 +158,41 @@ The `composeOperators` function handles different operation types:
 
 ```typescript
 function composeOperators(ir) {
-  const { tag, operands } = ir
-  const operatorFn = await import(`@sitebender/toolsmith/${getPath(tag)}`)
-  const operandThunks = operands.map(op => composeInjector(op))
-  
-  return (arg, localValues) => {
-    const values = operandThunks.map(thunk => thunk(arg, localValues))
-    
-    // Logical operations (and, or, xor) - pass array directly
-    if (tag === 'And' || tag === 'Or' || tag === 'Xor') {
-      return operatorFn.default(values) // Array<boolean> → Result<ValidationError, boolean>
-    }
-    
-    // Set operations (union, intersection) - binary curry
-    if (tag === 'Union' || tag === 'Intersection') {
-      const fn = operatorFn.default(values[0])
-      return fn(values[1]) // Result<ValidationError, Set<T>>
-    }
-    
-    // Numeric operations
-    if (values.length === 2) {
-      // Binary curry
-      const fn = operatorFn.default(values[0])
-      return fn(values[1]) // Result<ValidationError, T>
-    } else {
-      // N-ary (commutative only: Add, Multiply)
-      return operatorFn.default(values) // Array<T> → Result<ValidationError, T>
-    }
-  }
+	const { tag, operands } = ir
+	const operatorFn = await import(`@sitebender/toolsmith/${getPath(tag)}`)
+	const operandThunks = operands.map((op) => composeInjector(op))
+
+	return (arg, localValues) => {
+		const values = operandThunks.map((thunk) => thunk(arg, localValues))
+
+		// Logical operations (and, or, xor) - pass array directly
+		if (tag === "And" || tag === "Or" || tag === "Xor") {
+			return operatorFn.default(values) // Array<boolean> → Result<ValidationError, boolean>
+		}
+
+		// Set operations (union, intersection) - binary curry
+		if (tag === "Union" || tag === "Intersection") {
+			const fn = operatorFn.default(values[0])
+			return fn(values[1]) // Result<ValidationError, Set<T>>
+		}
+
+		// Numeric operations
+		if (values.length === 2) {
+			// Binary curry
+			const fn = operatorFn.default(values[0])
+			return fn(values[1]) // Result<ValidationError, T>
+		} else {
+			// N-ary (commutative only: Add, Multiply)
+			return operatorFn.default(values) // Array<T> → Result<ValidationError, T>
+		}
+	}
 }
 
 function getPath(tag) {
-  // "AddToTwoDecimalPlaces" -> "newtypes/twoDecimalPlaces/addToTwoDecimalPlaces"
-  // "SubtractIntegers" -> "newtypes/integer/subtractIntegers"
-  // "And" -> "logic/and"
-  // "Union" -> "set/union"
+	// "AddToTwoDecimalPlaces" -> "newtypes/twoDecimalPlaces/addToTwoDecimalPlaces"
+	// "SubtractIntegers" -> "newtypes/integer/subtractIntegers"
+	// "And" -> "logic/and"
+	// "Union" -> "set/union"
 }
 ```
 
@@ -199,56 +205,56 @@ Only **commutative numeric operations** need array overload:
 ```typescript
 // addToTwoDecimalPlaces/index.ts
 export default function addToTwoDecimalPlaces(
-  augend: TwoDecimalPlaces | Array<TwoDecimalPlaces>,
-): 
-  | ((addend: TwoDecimalPlaces) => Result<ValidationError, TwoDecimalPlaces>)
-  | Result<ValidationError, TwoDecimalPlaces> 
-{
-  // Array case
-  if (Array.isArray(augend)) {
-    if (augend.length === 0) {
-      return error({
-        code: "EMPTY_ARRAY",
-        field: "augend",
-        messages: ["System needs at least one value to add"],
-        received: augend,
-        expected: "Non-empty array of TwoDecimalPlaces",
-        suggestion: "Provide at least one TwoDecimalPlaces value",
-        severity: "requirement",
-      })
-    }
-    
-    if (augend.length === 1) {
-      return ok(augend[0])
-    }
-    
-    // Reduce with error propagation
-    let accumulator = augend[0]
-    for (let i = 1; i < augend.length; i++) {
-      const result = addToTwoDecimalPlaces(accumulator)(augend[i])
-      if (result.isError) return result
-      accumulator = result.value
-    }
-    return ok(accumulator)
-  }
-  
-  // Binary curry
-  return function addToAugend(addend: TwoDecimalPlaces) {
-    const SCALE_FACTOR = 100
-    const augendRaw = unwrapTwoDecimalPlaces(augend)
-    const addendRaw = unwrapTwoDecimalPlaces(addend)
-    
-    const augendScaled = Math.round(augendRaw * SCALE_FACTOR)
-    const addendScaled = Math.round(addendRaw * SCALE_FACTOR)
-    const resultScaled = augendScaled + addendScaled
-    const resultRaw = resultScaled / SCALE_FACTOR
-    
-    return twoDecimalPlaces(resultRaw)
-  }
+	augend: TwoDecimalPlaces | Array<TwoDecimalPlaces>,
+):
+	| ((addend: TwoDecimalPlaces) => Result<ValidationError, TwoDecimalPlaces>)
+	| Result<ValidationError, TwoDecimalPlaces> {
+	// Array case
+	if (Array.isArray(augend)) {
+		if (augend.length === 0) {
+			return error({
+				code: "EMPTY_ARRAY",
+				field: "augend",
+				messages: ["System needs at least one value to add"],
+				received: augend,
+				expected: "Non-empty array of TwoDecimalPlaces",
+				suggestion: "Provide at least one TwoDecimalPlaces value",
+				severity: "requirement",
+			})
+		}
+
+		if (augend.length === 1) {
+			return ok(augend[0])
+		}
+
+		// Reduce with error propagation
+		let accumulator = augend[0]
+		for (let i = 1; i < augend.length; i++) {
+			const result = addToTwoDecimalPlaces(accumulator)(augend[i])
+			if (result.isError) return result
+			accumulator = result.value
+		}
+		return ok(accumulator)
+	}
+
+	// Binary curry
+	return function addToAugend(addend: TwoDecimalPlaces) {
+		const SCALE_FACTOR = 100
+		const augendRaw = unwrapTwoDecimalPlaces(augend)
+		const addendRaw = unwrapTwoDecimalPlaces(addend)
+
+		const augendScaled = Math.round(augendRaw * SCALE_FACTOR)
+		const addendScaled = Math.round(addendRaw * SCALE_FACTOR)
+		const resultScaled = augendScaled + addendScaled
+		const resultRaw = resultScaled / SCALE_FACTOR
+
+		return twoDecimalPlaces(resultRaw)
+	}
 }
 ```
 
 **Functions needing array overload (~14 total):**
+
 - Per branded type (7 types): `addIntegers`, `addToTwoDecimalPlaces`, `addToOneDecimalPlace`, `addToThreeDecimalPlaces`, `addToFourDecimalPlaces`, `addToEightDecimalPlaces`, `addRealNumbers`
 - Per branded type (7 types): `multiplyIntegers`, `multiplyToTwoDecimalPlaces`, etc.
 
@@ -259,11 +265,11 @@ export default function addToTwoDecimalPlaces(
 ```typescript
 // subtractToTwoDecimalPlaces/index.ts
 export default function subtractToTwoDecimalPlaces(
-  minuend: TwoDecimalPlaces,
+	minuend: TwoDecimalPlaces,
 ): (subtrahend: TwoDecimalPlaces) => Result<ValidationError, TwoDecimalPlaces> {
-  return function subtractFromMinuend(subtrahend: TwoDecimalPlaces) {
-    // ... implementation
-  }
+	return function subtractFromMinuend(subtrahend: TwoDecimalPlaces) {
+		// ... implementation
+	}
 }
 ```
 
@@ -274,21 +280,21 @@ export default function subtractToTwoDecimalPlaces(
 ```typescript
 // and/index.ts
 export default function and(
-  predicates: Array<boolean>
+	predicates: Array<boolean>,
 ): Result<ValidationError, boolean> {
-  if (predicates.length === 0) {
-    return error({
-      code: "EMPTY_ARRAY",
-      field: "predicates",
-      messages: ["System needs at least one predicate to evaluate"],
-      received: predicates,
-      expected: "Non-empty array of boolean values",
-      suggestion: "Provide at least one boolean predicate",
-      severity: "requirement",
-    })
-  }
-  
-  return ok(predicates.every(p => p))
+	if (predicates.length === 0) {
+		return error({
+			code: "EMPTY_ARRAY",
+			field: "predicates",
+			messages: ["System needs at least one predicate to evaluate"],
+			received: predicates,
+			expected: "Non-empty array of boolean values",
+			suggestion: "Provide at least one boolean predicate",
+			severity: "requirement",
+		})
+	}
+
+	return ok(predicates.every((p) => p))
 }
 ```
 
@@ -299,11 +305,11 @@ export default function and(
 ```typescript
 // union/index.ts
 export default function union<T>(
-  setA: Set<T>
+	setA: Set<T>,
 ): (setB: Set<T>) => Result<ValidationError, Set<T>> {
-  return function unionWithSetA(setB: Set<T>) {
-    return ok(new Set([...setA, ...setB]))
-  }
+	return function unionWithSetA(setB: Set<T>) {
+		return ok(new Set([...setA, ...setB]))
+	}
 }
 ```
 
@@ -314,6 +320,7 @@ export default function union<T>(
 All four execution contexts work identically:
 
 ### Server-Side Eager (SSR)
+
 ```typescript
 const calculationFn = composeOperators(irTree)
 const result = calculationFn(null, {}) // Execute immediately
@@ -322,6 +329,7 @@ const result = calculationFn(null, {}) // Execute immediately
 ```
 
 ### Server-Side Lazy (Deferred)
+
 ```typescript
 const calculationFn = composeOperators(irTree)
 element.__sbCalculate = calculationFn // Attach to element
@@ -329,20 +337,22 @@ element.__sbCalculate = calculationFn // Attach to element
 ```
 
 ### Client-Side Eager (Progressive Enhancement)
+
 ```typescript
 const result = element.__sbCalculate(null, {})
 if (result.isError) {
-  displayError(result.error.messages[0])
+	displayError(result.error.messages[0])
 } else {
-  displayValue(result.value)
+	displayValue(result.value)
 }
 ```
 
 ### Client-Side Lazy (Event-Driven)
+
 ```typescript
-element.addEventListener('input', () => {
-  const result = element.__sbCalculate(null, {})
-  updateDOM(result)
+element.addEventListener("input", () => {
+	const result = element.__sbCalculate(null, {})
+	updateDOM(result)
 })
 ```
 
@@ -350,39 +360,39 @@ element.addEventListener('input', () => {
 
 ```tsx
 <Calculation>
-  <And>
-    <Predicates>
-      <IsGreaterThan>
-        <Referent>
-          <MultiplyToTwoDecimalPlaces>
-            <Multiplicand>
-              <AddToTwoDecimalPlaces>
-                <Addends>
-                  <FromElement selector="#price1" />
-                  <FromElement selector="#price2" />
-                  <FromElement selector="#price3" />
-                </Addends>
-              </AddToTwoDecimalPlaces>
-            </Multiplicand>
-            <Multiplier>
-              <Value>1.1</Value>
-            </Multiplier>
-          </MultiplyToTwoDecimalPlaces>
-        </Referent>
-        <Comparand>
-          <Value>100.00</Value>
-        </Comparand>
-      </IsGreaterThan>
-      <IsLessThan>
-        <Referent>
-          <FromElement selector="#quantity" />
-        </Referent>
-        <Comparand>
-          <Value>10</Value>
-        </Comparand>
-      </IsLessThan>
-    </Predicates>
-  </And>
+	<And>
+		<Predicates>
+			<IsGreaterThan>
+				<Referent>
+					<MultiplyToTwoDecimalPlaces>
+						<Multiplicand>
+							<AddToTwoDecimalPlaces>
+								<Addends>
+									<FromElement selector="#price1" />
+									<FromElement selector="#price2" />
+									<FromElement selector="#price3" />
+								</Addends>
+							</AddToTwoDecimalPlaces>
+						</Multiplicand>
+						<Multiplier>
+							<Value>1.1</Value>
+						</Multiplier>
+					</MultiplyToTwoDecimalPlaces>
+				</Referent>
+				<Comparand>
+					<Value>100.00</Value>
+				</Comparand>
+			</IsGreaterThan>
+			<IsLessThan>
+				<Referent>
+					<FromElement selector="#quantity" />
+				</Referent>
+				<Comparand>
+					<Value>10</Value>
+				</Comparand>
+			</IsLessThan>
+		</Predicates>
+	</And>
 </Calculation>
 ```
 
@@ -392,12 +402,12 @@ element.addEventListener('input', () => {
 
 ## Summary
 
-| Operation Type | Form | Overload Needed | Example |
-|---------------|------|-----------------|---------|
-| Numeric Commutative | Binary or N-ary | ✅ Yes | `addToTwoDecimalPlaces`, `multiplyIntegers` |
-| Numeric Non-Commutative | Binary only | ❌ No | `subtractToTwoDecimalPlaces`, `divideIntegers` |
-| Logical | Array only | ❌ No | `and`, `or`, `xor` |
-| Set | Binary only | ❌ No | `union`, `intersection` |
+| Operation Type          | Form            | Overload Needed | Example                                        |
+| ----------------------- | --------------- | --------------- | ---------------------------------------------- |
+| Numeric Commutative     | Binary or N-ary | ✅ Yes          | `addToTwoDecimalPlaces`, `multiplyIntegers`    |
+| Numeric Non-Commutative | Binary only     | ❌ No           | `subtractToTwoDecimalPlaces`, `divideIntegers` |
+| Logical                 | Array only      | ❌ No           | `and`, `or`, `xor`                             |
+| Set                     | Binary only     | ❌ No           | `union`, `intersection`                        |
 
 **Total functions needing array overload:** ~14 (2 operations × 7 numeric types)
 

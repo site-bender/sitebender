@@ -18,6 +18,7 @@
    **RIGHT**: ALWAYS mark checklist items [x] complete AND update documentation to reflect current state
 
 **Remember:**
+
 - Functions: ONE per file in `functionName/index.ts` (default export)
 - Types: MULTIPLE per file in `types/index.ts` (named exports)
 - Components: ONE per file in `ComponentName/index.tsx` (default export)
@@ -31,6 +32,7 @@
 This checklist breaks down the implementation of the Architect calculation DSL into manageable phases. Each phase is designed to be under 100k tokens and can be completed independently.
 
 **Token Budget Guidelines:**
+
 - **1M** = Complex tasks requiring Architect mode (Claude Sonnet 4.5, 1M tokens)
 - **CC** = Standard tasks for Code mode (Claude Code Sonnet 4.5, 200k tokens)
 
@@ -41,6 +43,7 @@ This checklist breaks down the implementation of the Architect calculation DSL i
 All implementations MUST follow these constitutional rules. Violations will be rejected.
 
 ### File Structure Rules
+
 - **ONE function per file** - No exceptions (except currying)
 - **File always named `index.ts`** in folder matching function name (camelCase)
 - **Function name MUST match folder name** exactly
@@ -48,6 +51,7 @@ All implementations MUST follow these constitutional rules. Violations will be r
 - **Helper functions** go in `_helperName/index.ts` subfolders at LOWEST COMMON ANCESTOR
 
 ### Function Rules
+
 - **NEVER use arrow functions** - Always `function` keyword with explicit `return`
 - **ALL functions MUST be curried** - Multiple parameters = nested functions
 - **Named functions only** - Every function has a meaningful name
@@ -55,13 +59,15 @@ All implementations MUST follow these constitutional rules. Violations will be r
 - **Inner curried functions** named after what they CARRY, not their parameter
   - Example: `function add(augend) { return function addToAugend(addend) { ... } }`
 
-### Comment Rules  
+### Comment Rules
+
 - **NO JSDoc** - Use `//++` comment markers instead
 - **One `//++` comment** immediately above each export
 - **Comment describes WHAT** the function does, not how
 - **Keep comments concise** - One line preferred, two max
 
 ### Naming Rules
+
 - **Functions**: camelCase (`processData`, `validateEmail`)
 - **Components**: PascalCase (`UserCard`, `DataTable`)
 - **Constants**: SCREAMING_SNAKE_CASE (`MAX_RETRIES`, `API_TIMEOUT`)
@@ -70,6 +76,7 @@ All implementations MUST follow these constitutional rules. Violations will be r
 - **Initialisms**: Sentence case (`innerHtml` not `innerHTML`, `AstNode` not `ASTNode`)
 
 ### Functional Programming Rules
+
 - **NO classes** - Pure functions only
 - **NO mutations** - All data immutable, use `Readonly<>` and `ReadonlyArray<>`
 - **NO loops** - Use `map`, `filter`, `reduce`, `unfold` from Toolsmith
@@ -77,6 +84,7 @@ All implementations MUST follow these constitutional rules. Violations will be r
 - **Return types**: `Result<Error, T>` for fail-fast, `Validation<ValidationError, T>` for error accumulation
 
 ### Code Style Rules
+
 - **NO semicolons** - ASI works perfectly
 - **Tabs for indentation** in `.ts`/`.tsx` files
 - **80 character line limit** for code
@@ -95,14 +103,19 @@ import type { Integer } from "@sitebender/toolsmith/types/branded/index.ts"
 import integer from "@sitebender/toolsmith/newtypes/numericTypes/integer/index.ts"
 
 //++ Creates async thunk that returns a constant Integer value
-export default function createFromConstantThunk(value: number): AsyncThunk<Integer> {
-	return async function returnConstantWithValue(): Promise<Validation<ValidationError, Integer>> {
+export default function createFromConstantThunk(
+	value: number,
+): AsyncThunk<Integer> {
+	return async function returnConstantWithValue(): Promise<
+		Validation<ValidationError, Integer>
+	> {
 		return integer(value)
 	}
 }
 ```
 
 **Note the structure:**
+
 1. Type imports first (with `type` keyword)
 2. Value imports second
 3. Blank line between import groups
@@ -116,8 +129,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 1: Type System Foundation
 
-**Estimated Tokens**: ~30k  
-**Dependencies**: None  
+**Estimated Tokens**: ~30k\
+**Dependencies**: None\
 **Goal**: Establish all TypeScript type definitions
 
 ### Phase 1.1: Core AST Types (CC)
@@ -171,8 +184,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 2: Component Registry System
 
-**Estimated Tokens**: ~40k  
-**Dependencies**: Milestone 1  
+**Estimated Tokens**: ~40k\
+**Dependencies**: Milestone 1\
 **Goal**: Implement pure functional registry for component schemas
 
 ### Phase 2.1: Registry Core Functions (CC)
@@ -262,8 +275,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 3: Data Source Implementations
 
-**Estimated Tokens**: ~35k  
-**Dependencies**: Milestone 1  
+**Estimated Tokens**: ~35k\
+**Dependencies**: Milestone 1\
 **Goal**: Implement async thunk creators for data sources
 
 ### Phase 3.1: LocalStorage Data Source (CC)
@@ -292,8 +305,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 4: Operation Implementations
 
-**Estimated Tokens**: ~35k  
-**Dependencies**: Milestone 1, Milestone 3  
+**Estimated Tokens**: ~35k\
+**Dependencies**: Milestone 1, Milestone 3\
 **Goal**: Implement async thunk creators for arithmetic operations
 
 ### Phase 4.1: Addition Operation (CC)
@@ -322,8 +335,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 5: Parser (JSX → IR)
 
-**Estimated Tokens**: ~80k  
-**Dependencies**: Milestone 1, Milestone 2  
+**Estimated Tokens**: ~80k\
+**Dependencies**: Milestone 1, Milestone 2\
 **Goal**: Parse JSX DSL to intermediate representation
 
 ### Phase 5.1: JSX Extraction Helper (1M)
@@ -371,8 +384,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 6: Transformer (IR → Typed AST)
 
-**Estimated Tokens**: ~75k  
-**Dependencies**: Milestone 5  
+**Estimated Tokens**: ~75k\
+**Dependencies**: Milestone 5\
 **Goal**: Transform IR to strongly-typed AST
 
 ### Phase 6.1: AST Node Creator Helper (CC)
@@ -415,8 +428,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 7: Compiler (AST → Executable Thunk)
 
-**Estimated Tokens**: ~90k  
-**Dependencies**: Milestone 4, Milestone 6  
+**Estimated Tokens**: ~90k\
+**Dependencies**: Milestone 4, Milestone 6\
 **Goal**: Compile AST to executable async thunk with optimizations
 
 ### Phase 7.1: AST Traversal Helper (CC)
@@ -480,8 +493,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 8: Pagewright Integration
 
-**Estimated Tokens**: ~15k  
-**Dependencies**: Milestone 7  
+**Estimated Tokens**: ~15k\
+**Dependencies**: Milestone 7\
 **Goal**: Integrate compiled thunks with Pagewright
 
 ### Phase 8.1: DOM Attachment (CC)
@@ -497,8 +510,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 9: End-to-End Integration & Testing
 
-**Estimated Tokens**: ~60k  
-**Dependencies**: All previous milestones  
+**Estimated Tokens**: ~60k\
+**Dependencies**: All previous milestones\
 **Goal**: Create working demo and comprehensive tests
 
 ### Phase 9.1: Registry Initialization (CC)
@@ -555,8 +568,8 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ## Milestone 10: Documentation & Polish
 
-**Estimated Tokens**: ~30k  
-**Dependencies**: Milestone 9  
+**Estimated Tokens**: ~30k\
+**Dependencies**: Milestone 9\
 **Goal**: Complete documentation and examples
 
 ### Phase 10.1: API Documentation (CC)
@@ -586,19 +599,19 @@ export default function createFromConstantThunk(value: number): AsyncThunk<Integ
 
 ### Token Budget by Milestone
 
-| Milestone | Estimated Tokens | Complexity |
-|-----------|-----------------|------------|
-| 1. Type System | ~30k | CC |
-| 2. Registry | ~40k | CC |
-| 3. Data Sources | ~35k | CC |
-| 4. Operations | ~35k | CC |
-| 5. Parser | ~80k | 1M |
-| 6. Transformer | ~75k | 1M |
-| 7. Compiler | ~90k | 1M |
-| 8. Integration | ~15k | CC |
-| 9. Testing | ~60k | 1M |
-| 10. Documentation | ~30k | CC |
-| **Total** | **~490k** | Mixed |
+| Milestone         | Estimated Tokens | Complexity |
+| ----------------- | ---------------- | ---------- |
+| 1. Type System    | ~30k             | CC         |
+| 2. Registry       | ~40k             | CC         |
+| 3. Data Sources   | ~35k             | CC         |
+| 4. Operations     | ~35k             | CC         |
+| 5. Parser         | ~80k             | 1M         |
+| 6. Transformer    | ~75k             | 1M         |
+| 7. Compiler       | ~90k             | 1M         |
+| 8. Integration    | ~15k             | CC         |
+| 9. Testing        | ~60k             | 1M         |
+| 10. Documentation | ~30k             | CC         |
+| **Total**         | **~490k**        | Mixed      |
 
 ### Task Distribution
 

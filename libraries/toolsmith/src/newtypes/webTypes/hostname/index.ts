@@ -25,7 +25,8 @@ export default function hostname(
 			messages: ["The system needs a hostname."],
 			received: value,
 			expected: "Non-empty hostname (domain, localhost, or IP address)",
-			suggestion: "Provide a hostname like 'example.com', 'localhost', or '192.168.1.1'",
+			suggestion:
+				"Provide a hostname like 'example.com', 'localhost', or '192.168.1.1'",
 			severity: "requirement",
 		})
 	}
@@ -59,7 +60,8 @@ export default function hostname(
 		],
 		received: value,
 		expected: "Valid domain name, 'localhost', IPv4 address, or IPv6 address",
-		suggestion: "Provide a hostname like 'example.com', 'localhost', '192.168.1.1', or '2001:db8::1'",
+		suggestion:
+			"Provide a hostname like 'example.com', 'localhost', '192.168.1.1', or '2001:db8::1'",
 		severity: "requirement",
 	})
 }

@@ -9,7 +9,9 @@ import unwrapThreeDecimalPlaces from "@sitebender/toolsmith/newtypes/threeDecima
 //++ Returns Result with error if the result cannot be represented as ThreeDecimalPlaces
 export default function subtractThreeDecimalPlaces(
 	minuend: ThreeDecimalPlaces,
-): (subtrahend: ThreeDecimalPlaces) => Result<ValidationError, ThreeDecimalPlaces> {
+): (
+	subtrahend: ThreeDecimalPlaces,
+) => Result<ValidationError, ThreeDecimalPlaces> {
 	return function subtractFromMinuend(
 		subtrahend: ThreeDecimalPlaces,
 	): Result<ValidationError, ThreeDecimalPlaces> {

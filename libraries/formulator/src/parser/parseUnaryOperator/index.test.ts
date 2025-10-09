@@ -24,7 +24,11 @@ Deno.test("parseUnaryOperator - parses negation (prefix minus)", () => {
 			}
 
 			return ok([
-				Object.freeze({ _tag: "numberLiteral" as const, value: 0, position: 0 }),
+				Object.freeze({
+					_tag: "numberLiteral" as const,
+					value: 0,
+					position: 0,
+				}),
 				position,
 			])
 		}
@@ -68,7 +72,11 @@ Deno.test("parseUnaryOperator - parses factorial (postfix exclamation)", () => {
 			}
 
 			return ok([
-				Object.freeze({ _tag: "numberLiteral" as const, value: 0, position: 0 }),
+				Object.freeze({
+					_tag: "numberLiteral" as const,
+					value: 0,
+					position: 0,
+				}),
 				position,
 			])
 		}
@@ -112,7 +120,11 @@ Deno.test("parseUnaryOperator - returns primary when no unary operator", () => {
 			}
 
 			return ok([
-				Object.freeze({ _tag: "numberLiteral" as const, value: 0, position: 0 }),
+				Object.freeze({
+					_tag: "numberLiteral" as const,
+					value: 0,
+					position: 0,
+				}),
 				position,
 			])
 		}

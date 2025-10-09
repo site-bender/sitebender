@@ -9,7 +9,9 @@ import unwrapThreeDecimalPlaces from "@sitebender/toolsmith/newtypes/threeDecima
 //++ Returns Result with error if divisor is zero or result cannot be represented as ThreeDecimalPlaces
 export default function divideThreeDecimalPlaces(
 	dividend: ThreeDecimalPlaces,
-): (divisor: ThreeDecimalPlaces) => Result<ValidationError, ThreeDecimalPlaces> {
+): (
+	divisor: ThreeDecimalPlaces,
+) => Result<ValidationError, ThreeDecimalPlaces> {
 	return function divideWithDividend(
 		divisor: ThreeDecimalPlaces,
 	): Result<ValidationError, ThreeDecimalPlaces> {

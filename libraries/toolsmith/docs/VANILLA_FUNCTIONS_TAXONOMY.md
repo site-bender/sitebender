@@ -21,12 +21,14 @@ This is a **complete catalog** of every function in `src/vanilla/` that needs to
 **~200 of ~1,025 functions documented (~20% complete)**
 
 Completed domains:
+
 - ✅ Activation (10/10 functions)
 - ✅ Async (10/10 functions)
 - ✅ Combinator (35/35 functions)
 - ✅ Hash (1/1 function)
 
 Partially documented:
+
 - 🔄 Array (30/150 functions) - NEEDS 120 MORE
 - 🔄 Logic (10/50 functions) - NEEDS 40 MORE
 - 🔄 Math (20/100 functions) - NEEDS 80 MORE
@@ -36,6 +38,7 @@ Partially documented:
 - 🔄 Geometry (3/30 functions) - NEEDS 27 MORE
 
 Not started (NEEDS ALL):
+
 - ⏸️ Conversion (0/40 functions)
 - ⏸️ Interpolation (0/15 functions)
 - ⏸️ Lens (0/20 functions)
@@ -86,12 +89,14 @@ Not started (NEEDS ALL):
 ### Why This Matters
 
 This taxonomy is the **authoritative source** for:
+
 - Understanding what needs to be migrated
 - Designing the monadic equivalents
 - Tracking migration progress
 - Ensuring nothing is missed
 
 Without a complete taxonomy, we cannot:
+
 - Know if migration is complete
 - Verify all functions have been converted
 - Delete the `vanilla/` folder safely
@@ -106,12 +111,12 @@ Without a complete taxonomy, we cannot:
 **Purpose**: Complete list of all functions in `src/vanilla/` with signatures for migration planning
 
 > **Note**: This document catalogs EXISTING vanilla functions. These will be migrated to monadic equivalents following the patterns in COMPLETE_IMPLEMENTATION_PLAN.md
-
 ---
 
 ## How to Read This Document
 
 Each function entry shows:
+
 1. **Function name** and location
 2. **Current signature** (vanilla, may return null/NaN/throw)
 3. **Parameters** with types
@@ -126,6 +131,7 @@ Each function entry shows:
 **ZERO functions have been migrated to monadic equivalents yet.**
 
 All functions currently exist in `src/vanilla/` and will be migrated to:
+
 - `src/activation/` (10 functions to migrate)
 - `src/array/` (150 functions to migrate)
 - `src/async/` (10 functions to migrate)
@@ -136,7 +142,8 @@ The folders `src/activation/`, `src/array/`, `src/async/`, etc. DO NOT EXIST YET
 
 ---
 
-**Current Status**: 
+**Current Status**:
+
 - Branded types plan: ✅ Complete (308 files across 11 phases)
 - Function taxonomy: 🔄 20% complete (~200 of ~1,025 functions cataloged)
 - Next: Continue cataloging remaining 14 domains
