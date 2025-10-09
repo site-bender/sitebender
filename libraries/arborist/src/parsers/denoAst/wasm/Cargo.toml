@@ -6,6 +6,13 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib"]
 
+[profile.release]
+opt-level = "z"     # Optimize for size
+lto = true          # Enable Link Time Optimization
+codegen-units = 1   # Better optimization, slower compile
+strip = true        # Strip symbols
+panic = "abort"     # Smaller panic handler
+
 [dependencies]
 deno_ast = { version = "0.50.3", features = ["view", "transpiling", "typescript", "visit"] }
 swc_ecma_visit = "15.0"
