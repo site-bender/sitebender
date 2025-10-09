@@ -1,43 +1,43 @@
-//++ Fetches user data from an API endpoint
-//++ Demonstrates async function with Result monad error handling
-//>> https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+// @sitebender/arborist/demo/examples/fetchUser
+//++ Example async function demonstrating proper error handling
 
-import type { Result } from "../types/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 
-type User = Readonly<{
-	id: string
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+
+export type User = Readonly<{
+	id: number
 	name: string
 	email: string
 }>
 
-type FetchError = Readonly<{
+export type FetchError = Readonly<{
 	_tag: "FetchError"
-	status: number
 	message: string
+	code: string
 }>
 
-//++ Fetches user by ID from API
-//++ Returns Result monad with User or FetchError
-export default async function fetchUser(userId: string) {
-	return async function fetchUserById(): Promise<Result<User, FetchError>> {
+//++ Fetches a user by ID using Result monad for error handling
+//++ No try/catch - uses Result type instead
+export default function fetchUser(userId: number) {
+	return async function fetchUserById(): Promise<Result<FetchError, User>> {
 		const response = await fetch(`https://api.example.com/users/${userId}`)
 
 		if (!response.ok) {
-			return {
-				_tag: "failure",
-				error: {
-					_tag: "FetchError",
-					status: response.status,
-					message: `Failed to fetch user ${userId}`,
-				},
-			}
+			return error({
+				_tag: "FetchError" as const,
+				message: `Failed to fetch user ${userId}`,
+				code: response.status.toString(),
+			})
 		}
 
 		const data = await response.json()
 
-		return {
-			_tag: "success",
-			value: data as User,
-		}
+		return ok({
+			id: data.id,
+			name: data.name,
+			email: data.email,
+		})
 	}
 }

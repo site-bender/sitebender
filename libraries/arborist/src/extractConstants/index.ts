@@ -24,6 +24,7 @@ import type { Validation } from "~libraries/toolsmith/src/types/validation/index
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import type {
 	ParsedAst,
@@ -72,14 +73,20 @@ export default function extractConstants(
 		},
 	)(moduleBody)
 
+	const constNodesArray = getOrElse([] as ReadonlyArray<unknown>)(constNodes)
+
 	// Extract details from each const node
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractConstantDetails never fails (returns ParsedConstant directly)
-	const constants = map(
+	const constantsResult = map(
 		function extractDetails(node: unknown): ParsedConstant {
 			return extractConstantDetails(node)(ast.sourceText)
 		},
-	)(constNodes)
+	)(constNodesArray)
+
+	const constants = getOrElse([] as ReadonlyArray<ParsedConstant>)(
+		constantsResult,
+	)
 
 	// Return success with extracted constants
 	// When error handling is added, this will accumulate errors from failed extractions
