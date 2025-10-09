@@ -5,7 +5,7 @@
  * before code generation.
  */
 
-import type { TaskType } from './task_detector.ts'
+import type { TaskType } from "./task_detector.ts"
 
 export type RuleSet = {
 	server: string
@@ -34,76 +34,81 @@ export type Rule = {
  * Maps task types to the MCP servers and queries that should be used
  * to retrieve relevant rules.
  */
-export const TASK_TO_RULES: Readonly<Record<TaskType, ReadonlyArray<RuleSet>>> = {
-	'error-handling': [
-		{
-			server: 'functional_programming_rules',
-			queries: ['Result monad', 'Validation monad', 'error handling']
-		},
-		{
-			server: 'typescript_rules',
-			queries: ['discriminated unions', 'error types']
-		}
-	],
-	'type-definition': [
-		{
-			server: 'typescript_rules',
-			queries: ['branded types', 'discriminated unions', 'type-level programming']
-		},
-		{
-			server: 'syntax_rules',
-			queries: ['naming conventions', 'type naming']
-		}
-	],
-	'testing': [
-		{
-			server: 'functional_programming_rules',
-			queries: ['pure functions', 'property testing']
-		}
-	],
-	'async-operation': [
-		{
-			server: 'functional_programming_rules',
-			queries: ['Promise Result', 'async error handling']
-		},
-		{
-			server: 'typescript_rules',
-			queries: ['async types']
-		}
-	],
-	'validation': [
-		{
-			server: 'functional_programming_rules',
-			queries: ['Validation monad', 'smart constructors']
-		}
-	],
-	'file-operation': [
-		{
-			server: 'functional_programming_rules',
-			queries: ['IO boundaries', 'effect runners']
-		}
-	],
-	'component': [
-		{
-			server: 'jsx_rules',
-			queries: ['component design', 'data-as-configuration']
-		},
-		{
-			server: 'accessibility_rules',
-			queries: ['semantic components', 'progressive enhancement']
-		}
-	],
-	'general': [
-		{
-			server: 'syntax_rules',
-			queries: ['naming', 'function declarations']
-		},
-		{
-			server: 'formatting_rules',
-			queries: ['code style']
-		}
-	]
-}
+export const TASK_TO_RULES: Readonly<Record<TaskType, ReadonlyArray<RuleSet>>> =
+	{
+		"error-handling": [
+			{
+				server: "functional_programming_rules",
+				queries: ["Result monad", "Validation monad", "error handling"],
+			},
+			{
+				server: "typescript_rules",
+				queries: ["discriminated unions", "error types"],
+			},
+		],
+		"type-definition": [
+			{
+				server: "typescript_rules",
+				queries: [
+					"branded types",
+					"discriminated unions",
+					"type-level programming",
+				],
+			},
+			{
+				server: "syntax_rules",
+				queries: ["naming conventions", "type naming"],
+			},
+		],
+		"testing": [
+			{
+				server: "functional_programming_rules",
+				queries: ["pure functions", "property testing"],
+			},
+		],
+		"async-operation": [
+			{
+				server: "functional_programming_rules",
+				queries: ["Promise Result", "async error handling"],
+			},
+			{
+				server: "typescript_rules",
+				queries: ["async types"],
+			},
+		],
+		"validation": [
+			{
+				server: "functional_programming_rules",
+				queries: ["Validation monad", "smart constructors"],
+			},
+		],
+		"file-operation": [
+			{
+				server: "functional_programming_rules",
+				queries: ["IO boundaries", "effect runners"],
+			},
+		],
+		"component": [
+			{
+				server: "jsx_rules",
+				queries: ["component design", "data-as-configuration"],
+			},
+			{
+				server: "accessibility_rules",
+				queries: ["semantic components", "progressive enhancement"],
+			},
+		],
+		"general": [
+			{
+				server: "syntax_rules",
+				queries: ["naming", "function declarations"],
+			},
+			{
+				server: "formatting_rules",
+				queries: ["code style"],
+			},
+		],
+	}
 
 /**
  * Gets the rule sets that should be queried for a given task type.
@@ -118,13 +123,13 @@ export function getRuleSetsForTask(taskType: TaskType): ReadonlyArray<RuleSet> {
  */
 export function formatRulesForContext(rules: ReadonlyArray<Rule>): string {
 	if (rules.length === 0) {
-		return 'No specific rules retrieved.'
+		return "No specific rules retrieved."
 	}
 
 	const rulesByCategory = rules.reduce(
 		function groupByCategory(
 			acc: Record<string, Array<Rule>>,
-			rule: Rule
+			rule: Rule,
 		): Record<string, Array<Rule>> {
 			const category = rule.metadata.category
 
@@ -136,7 +141,7 @@ export function formatRulesForContext(rules: ReadonlyArray<Rule>): string {
 
 			return acc
 		},
-		{} as Record<string, Array<Rule>>
+		{} as Record<string, Array<Rule>>,
 	)
 
 	const sections = Object.entries(rulesByCategory).map(
@@ -146,23 +151,23 @@ export function formatRulesForContext(rules: ReadonlyArray<Rule>): string {
 					const examples = rule.metadata.examples
 					const exampleText = examples?.correct
 						? `\n   ✅ Correct: ${examples.correct}`
-						: ''
+						: ""
 					const wrongText = examples?.wrong || examples?.anti_pattern
 						? `\n   ❌ Wrong: ${examples.wrong || examples.anti_pattern}`
-						: ''
+						: ""
 
 					return `
 - ${rule.content}
   Reason: ${rule.metadata.reason}
   ${exampleText}${wrongText}`
-				}
-			).join('\n')
+				},
+			).join("\n")
 
 			return `
 ### ${category.toUpperCase()}
 ${rulesText}`
-		}
-	).join('\n')
+		},
+	).join("\n")
 
 	return sections
 }
@@ -170,7 +175,9 @@ ${rulesText}`
 /**
  * Deduplicates rules by rule_id, keeping the first occurrence.
  */
-export function deduplicateRules(rules: ReadonlyArray<Rule>): ReadonlyArray<Rule> {
+export function deduplicateRules(
+	rules: ReadonlyArray<Rule>,
+): ReadonlyArray<Rule> {
 	const seen = new Set<string>()
 	const unique: Array<Rule> = []
 

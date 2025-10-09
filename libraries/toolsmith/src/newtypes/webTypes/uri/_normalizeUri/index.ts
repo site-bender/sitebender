@@ -48,9 +48,7 @@ export default function _normalizeUri(uri: string): string {
 			normalizedAuthority = userinfo + "@" + host + port
 		} else {
 			const colonIndex = authority.lastIndexOf(":")
-			let host = colonIndex !== -1
-				? authority.slice(0, colonIndex)
-				: authority
+			let host = colonIndex !== -1 ? authority.slice(0, colonIndex) : authority
 			const port = colonIndex !== -1 ? authority.slice(colonIndex) : ""
 
 			if (!host.startsWith("[")) {

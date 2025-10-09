@@ -13,11 +13,13 @@ Quarrier is a pure functional property-based testing library using pipeline comp
 ## CRITICAL: Pre-Implementation Status
 
 **Current Status:**
+
 - **Quarrier:** Planning phase only, implementation blocked until Toolsmith ready
 - **Toolsmith:** Monadic utilities (Result/Validation) and branded types in progress
 - **Arborist:** Phase 1 complete, API finalized, ready for integration
 
 **Implementation Timeline:**
+
 1. Toolsmith monadic utilities stabilize (fold, map, map2, map3, etc.)
 2. Toolsmith branded types complete (smart constructors, validation)
 3. Toolsmith array utilities complete (map, filter, reduce)
@@ -73,65 +75,65 @@ deriveMetamorphic<A, B>(
 
 ```typescript
 type Seed = Readonly<{
-  state: number
-  stream: number
+	state: number
+	stream: number
 }>
 
 type Generator<T> = Readonly<{
-  next: (seed: Seed) => GeneratorResult<T>
-  shrink: (value: T) => ShrinkTree<T>
-  parse?: (input: unknown) => Result<ParseError, T>
+	next: (seed: Seed) => GeneratorResult<T>
+	shrink: (value: T) => ShrinkTree<T>
+	parse?: (input: unknown) => Result<ParseError, T>
 }>
 
 type GeneratorResult<T> = Readonly<{
-  value: T
-  nextSeed: Seed
-  size: number
+	value: T
+	nextSeed: Seed
+	size: number
 }>
 
 type ShrinkTree<T> = Readonly<{
-  value: T
-  children: () => ReadonlyArray<ShrinkTree<T>>
+	value: T
+	children: () => ReadonlyArray<ShrinkTree<T>>
 }>
 
 type Property<Args extends ReadonlyArray<unknown>> = Readonly<{
-  name: string
-  generators: Readonly<{ [K in keyof Args]: Generator<Args[K]> }>
-  predicate: (args: Args) => Effect<boolean>
+	name: string
+	generators: Readonly<{ [K in keyof Args]: Generator<Args[K]> }>
+	predicate: (args: Args) => Effect<boolean>
 }>
 
 type Effect<T> =
-  | Readonly<{ tag: "Pure", value: T }>
-  | Readonly<{ tag: "Async", computation: () => Promise<T> }>
-  | Readonly<{ tag: "IO", action: () => T }>
-  | Readonly<{ tag: "Random", generator: Generator<T> }>
+	| Readonly<{ tag: "Pure"; value: T }>
+	| Readonly<{ tag: "Async"; computation: () => Promise<T> }>
+	| Readonly<{ tag: "IO"; action: () => T }>
+	| Readonly<{ tag: "Random"; generator: Generator<T> }>
 
 type PropertyResult =
-  | Readonly<{
-      tag: "success"
-      runs: number
-      seed: Seed
-      duration?: number
-    }>
-  | Readonly<{
-      tag: "failure"
-      counterexample: ReadonlyArray<unknown>
-      minimal: ReadonlyArray<unknown>
-      shrinks: number
-      seed: Seed
-      duration?: number
-      error?: unknown
-    }>
+	| Readonly<{
+		tag: "success"
+		runs: number
+		seed: Seed
+		duration?: number
+	}>
+	| Readonly<{
+		tag: "failure"
+		counterexample: ReadonlyArray<unknown>
+		minimal: ReadonlyArray<unknown>
+		shrinks: number
+		seed: Seed
+		duration?: number
+		error?: unknown
+	}>
 
 type ProvenProperty<Args extends ReadonlyArray<unknown>> = Readonly<{
-  property: Property<Args>
-  proof: PropertyProof<Args>
+	property: Property<Args>
+	proof: PropertyProof<Args>
 }>
 
 type PropertyProof<Args extends ReadonlyArray<unknown>> = Readonly<{
-  generators_deterministic: ProofOf<"deterministic", Args>
-  shrink_terminates: ProofOf<"terminating", Args>
-  shrink_sound: ProofOf<"sound", Args>
+	generators_deterministic: ProofOf<"deterministic", Args>
+	shrink_terminates: ProofOf<"terminating", Args>
+	shrink_sound: ProofOf<"sound", Args>
 }>
 ```
 
@@ -146,29 +148,31 @@ All functions return monads from Toolsmith:
 
 ```typescript
 type SeedError = ArchitectError<"createSeed", [number]> & {
-  kind: "InvalidValue" | "OutOfRange"
-  value: number
-  suggestion: string
+	kind: "InvalidValue" | "OutOfRange"
+	value: number
+	suggestion: string
 }
 
 type BoundsError = ArchitectError<"boundedInt", [number, number, Seed]> & {
-  kind: "InvalidBounds" | "MinGreaterThanMax"
-  min: number
-  max: number
-  suggestion: string
+	kind: "InvalidBounds" | "MinGreaterThanMax"
+	min: number
+	max: number
+	suggestion: string
 }
 
-type GenerationError = ArchitectError<"generate", [Generator<unknown>, Seed]> & {
-  kind: "FilterExhausted" | "RecursionLimit" | "InvalidSize"
-  attempts?: number
-  depth?: number
-  suggestion: string
-}
+type GenerationError =
+	& ArchitectError<"generate", [Generator<unknown>, Seed]>
+	& {
+		kind: "FilterExhausted" | "RecursionLimit" | "InvalidSize"
+		attempts?: number
+		depth?: number
+		suggestion: string
+	}
 
 type TypeSynthesisError = ArchitectError<"fromTypeInfo", [ParsedType]> & {
-  kind: "UnsupportedType" | "InvalidConstraints" | "CircularReference"
-  typeInfo: ParsedType
-  suggestion: string
+	kind: "UnsupportedType" | "InvalidConstraints" | "CircularReference"
+	typeInfo: ParsedType
+	suggestion: string
 }
 ```
 
@@ -228,33 +232,33 @@ import { fold } from "@sitebender/toolsmith/monads/result/fold"
 const seedResult = createSeed(42)
 
 const result = fold(
-  function handleSeedError(err) {
-    console.error(err.message)
-    if (err.suggestion) console.log("💡", err.suggestion)
-    return null
-  }
+	function handleSeedError(err) {
+		console.error(err.message)
+		if (err.suggestion) console.log("💡", err.suggestion)
+		return null
+	},
 )(function handleSeed(seed) {
-  // Create property
-  const addCommutative = {
-    name: "addition commutes",
-    generators: [integer(-100)(100), integer(-100)(100)],
-    predicate: ([a, b]) => ({ tag: "Pure", value: a + b === b + a })
-  }
+	// Create property
+	const addCommutative = {
+		name: "addition commutes",
+		generators: [integer(-100)(100), integer(-100)(100)],
+		predicate: ([a, b]) => ({ tag: "Pure", value: a + b === b + a }),
+	}
 
-  // Check property
-  return checkProperty(addCommutative)({ runs: 1000, seed })
+	// Check property
+	return checkProperty(addCommutative)({ runs: 1000, seed })
 })(seedResult)
 ```
 
 ## Performance Requirements
 
-| Operation | Target | Maximum |
-|-----------|--------|---------|
-| PRNG call | <1μs | <10μs |
-| Simple generation | <10μs | <100μs |
-| Complex generation | <100μs | <1ms |
-| Shrinking | <1s | <10s |
-| Property check (100 runs) | <1s | <5s |
+| Operation                 | Target | Maximum |
+| ------------------------- | ------ | ------- |
+| PRNG call                 | <1μs   | <10μs   |
+| Simple generation         | <10μs  | <100μs  |
+| Complex generation        | <100μs | <1ms    |
+| Shrinking                 | <1s    | <10s    |
+| Property check (100 runs) | <1s    | <5s     |
 
 ## Enforcement
 
@@ -269,6 +273,7 @@ const result = fold(
 ### Testing
 
 Quarrier must maintain:
+
 - Self-testing (test generators with themselves)
 - Integration tests with Arborist
 - Integration tests with Envoy
@@ -291,6 +296,7 @@ Quarrier must maintain:
 **Current Version:** 0.0.1 (pre-production)
 
 **During 0.x development:**
+
 - NO migration paths
 - NO backwards compatibility
 - NO deprecation warnings

@@ -59,7 +59,8 @@ Deno.test("_validateDomainLabel - accepts label with combining marks (Hindi)", f
 })
 
 Deno.test("_validateDomainLabel - accepts maximum length label (63 chars)", function () {
-	const maxLabel = "a123456789012345678901234567890123456789012345678901234567890bc"
+	const maxLabel =
+		"a123456789012345678901234567890123456789012345678901234567890bc"
 	const result = _validateDomainLabel(maxLabel)
 
 	assertEquals(result._tag, "Ok")
@@ -89,7 +90,8 @@ Deno.test("_validateDomainLabel - rejects empty label", function () {
 })
 
 Deno.test("_validateDomainLabel - rejects label too long (> 63 chars)", function () {
-	const tooLong = "a123456789012345678901234567890123456789012345678901234567890123"
+	const tooLong =
+		"a123456789012345678901234567890123456789012345678901234567890123"
 	const result = _validateDomainLabel(tooLong)
 
 	assertEquals(result._tag, "Error")

@@ -13,11 +13,13 @@ Arborist is the ONLY library that parses TypeScript/JSX. It uses SWC via @swc/wa
 ## CRITICAL: Pre-Implementation Status
 
 **Current Status:**
+
 - **Arborist:** Phase 1 complete, API finalized, ready for integration
 - **Envoy:** Planning phase only, implementation blocked until Toolsmith ready
 - **Toolsmith:** Monadic utilities (Result/Validation) and branded types in progress
 
 **Implementation Timeline:**
+
 1. Arborist completes remaining phases (Phases 2-4)
 2. Toolsmith monadic utilities stabilize (fold, map, map2, map3, etc.)
 3. Toolsmith branded types complete (smart constructors, validation)
@@ -82,76 +84,76 @@ detectViolations(
 
 ```typescript
 type ParsedAST = Readonly<{
-  module: unknown // SWC Module (opaque to Envoy)
-  sourceText: string
-  filePath: string
+	module: unknown // SWC Module (opaque to Envoy)
+	sourceText: string
+	filePath: string
 }>
 
 type ParsedFile = Readonly<{
-  filePath: string
-  functions: ReadonlyArray<ParsedFunction>
-  comments: ReadonlyArray<ParsedComment>
-  imports: ReadonlyArray<ParsedImport>
-  exports: ReadonlyArray<ParsedExport>
-  types: ReadonlyArray<ParsedType>
-  constants: ReadonlyArray<ParsedConstant>
-  violations: ViolationInfo
+	filePath: string
+	functions: ReadonlyArray<ParsedFunction>
+	comments: ReadonlyArray<ParsedComment>
+	imports: ReadonlyArray<ParsedImport>
+	exports: ReadonlyArray<ParsedExport>
+	types: ReadonlyArray<ParsedType>
+	constants: ReadonlyArray<ParsedConstant>
+	violations: ViolationInfo
 }>
 
 type ParsedFunction = Readonly<{
-  name: string
-  position: Position
-  span: Span
-  parameters: ReadonlyArray<Parameter>
-  returnType: string
-  typeParameters: ReadonlyArray<TypeParameter>
-  modifiers: FunctionModifiers
-  body: FunctionBody
+	name: string
+	position: Position
+	span: Span
+	parameters: ReadonlyArray<Parameter>
+	returnType: string
+	typeParameters: ReadonlyArray<TypeParameter>
+	modifiers: FunctionModifiers
+	body: FunctionBody
 }>
 
 type ParsedComment = Readonly<{
-  text: string // Trimmed content
-  position: Position
-  span: Span
-  kind: "line" | "block"
-  envoyMarker?: EnvoyMarker // Detected by Arborist, interpreted by Envoy
-  associatedNode?: string
+	text: string // Trimmed content
+	position: Position
+	span: Span
+	kind: "line" | "block"
+	envoyMarker?: EnvoyMarker // Detected by Arborist, interpreted by Envoy
+	associatedNode?: string
 }>
 
 type EnvoyMarker = Readonly<{
-  marker: "++" | "??" | "--" | "!!" | ">>"
+	marker: "++" | "??" | "--" | "!!" | ">>"
 }>
 
 type FunctionBody = Readonly<{
-  hasReturn: boolean
-  hasThrow: boolean
-  hasAwait: boolean
-  hasTryCatch: boolean
-  hasLoops: boolean
-  cyclomaticComplexity: number
+	hasReturn: boolean
+	hasThrow: boolean
+	hasAwait: boolean
+	hasTryCatch: boolean
+	hasLoops: boolean
+	cyclomaticComplexity: number
 }>
 
 type ParsedImport = Readonly<{
-  specifier: string
-  position: Position
-  span: Span
-  kind: "default" | "named" | "namespace" | "type"
-  imports: ReadonlyArray<ImportBinding>
+	specifier: string
+	position: Position
+	span: Span
+	kind: "default" | "named" | "namespace" | "type"
+	imports: ReadonlyArray<ImportBinding>
 }>
 
 type ViolationInfo = Readonly<{
-  hasArrowFunctions: boolean
-  arrowFunctions: ReadonlyArray<Position>
-  hasClasses: boolean
-  classes: ReadonlyArray<Position>
-  hasThrowStatements: boolean
-  throwStatements: ReadonlyArray<Position>
-  hasTryCatch: boolean
-  tryCatchBlocks: ReadonlyArray<Position>
-  hasLoops: boolean
-  loops: ReadonlyArray<Position>
-  hasMutations: boolean
-  mutations: ReadonlyArray<Position>
+	hasArrowFunctions: boolean
+	arrowFunctions: ReadonlyArray<Position>
+	hasClasses: boolean
+	classes: ReadonlyArray<Position>
+	hasThrowStatements: boolean
+	throwStatements: ReadonlyArray<Position>
+	hasTryCatch: boolean
+	tryCatchBlocks: ReadonlyArray<Position>
+	hasLoops: boolean
+	loops: ReadonlyArray<Position>
+	hasMutations: boolean
+	mutations: ReadonlyArray<Position>
 }>
 ```
 
@@ -166,19 +168,25 @@ All functions return monads from Toolsmith:
 
 ```typescript
 type ParseError = ArchitectError<"parseFile", [string]> & {
-  kind: "FileNotFound" | "InvalidSyntax" | "ReadPermission" | "SwcInitializationFailed"
-  file: string
-  line?: number
-  column?: number
-  suggestion: string // Always present
+	kind:
+		| "FileNotFound"
+		| "InvalidSyntax"
+		| "ReadPermission"
+		| "SwcInitializationFailed"
+	file: string
+	line?: number
+	column?: number
+	suggestion: string // Always present
 }
 
-type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAST]> & {
-  kind: "UnknownNodeType" | "MissingIdentifier" | "InvalidParameterStructure"
-  nodeType?: string
-  span?: Span
-  suggestion: string // Always present
-}
+type FunctionExtractionError =
+	& ArchitectError<"extractFunctions", [ParsedAST]>
+	& {
+		kind: "UnknownNodeType" | "MissingIdentifier" | "InvalidParameterStructure"
+		nodeType?: string
+		span?: Span
+		suggestion: string // Always present
+	}
 
 // Similar for CommentExtractionError, ImportExtractionError, etc.
 ```
@@ -241,53 +249,53 @@ import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/
 const result = await parseFile("/path/to/module.ts")
 
 const documentation = foldResult(
-  function handleParseError(err: ParseError) {
-    console.error(err.message)
-    if (err.suggestion) console.log("Tip:", err.suggestion)
-    return null
-  }
+	function handleParseError(err: ParseError) {
+		console.error(err.message)
+		if (err.suggestion) console.log("Tip:", err.suggestion)
+		return null
+	},
 )(function handleAST(ast: ParsedAST) {
-  // Build complete parsed file (Arborist)
-  const validation = buildParsedFile(ast)("/path/to/module.ts")
+	// Build complete parsed file (Arborist)
+	const validation = buildParsedFile(ast)("/path/to/module.ts")
 
-  return foldValidation(
-    function handleExtractionErrors(errors) {
-      errors.forEach(e => console.warn(e.message))
-      return null
-    }
-  )(function handleParsedFile(parsed: ParsedFile) {
-    // Interpret comments (Envoy)
-    const interpretedV = interpretComments(parsed.comments)
+	return foldValidation(
+		function handleExtractionErrors(errors) {
+			errors.forEach((e) => console.warn(e.message))
+			return null
+		},
+	)(function handleParsedFile(parsed: ParsedFile) {
+		// Interpret comments (Envoy)
+		const interpretedV = interpretComments(parsed.comments)
 
-    return foldValidation(
-      function handleInterpretationErrors(errors) {
-        errors.forEach(e => console.warn(e.message))
-        return null
-      }
-    )(function handleInterpreted(interpreted) {
-      // Generate documentation (Envoy)
-      const docResult = generateDocumentation(parsed)({
-        format: "markdown",
-        includeExamples: true
-      })
+		return foldValidation(
+			function handleInterpretationErrors(errors) {
+				errors.forEach((e) => console.warn(e.message))
+				return null
+			},
+		)(function handleInterpreted(interpreted) {
+			// Generate documentation (Envoy)
+			const docResult = generateDocumentation(parsed)({
+				format: "markdown",
+				includeExamples: true,
+			})
 
-      return foldResult(
-        function handleDocError(err) {
-          console.error(err.message)
-          return null
-        }
-      )(function handleSuccess(doc) {
-        return doc
-      })(docResult)
-    })(interpretedV)
-  })(validation)
+			return foldResult(
+				function handleDocError(err) {
+					console.error(err.message)
+					return null
+				},
+			)(function handleSuccess(doc) {
+				return doc
+			})(docResult)
+		})(interpretedV)
+	})(validation)
 })(result)
 ```
 
 ## Performance Requirements
 
 | File Size | Functions | Parse Time | Extraction Time | Envoy Processing | Total  |
-|-----------|-----------|------------|-----------------|------------------|--------|
+| --------- | --------- | ---------- | --------------- | ---------------- | ------ |
 | Small     | 10-50     | <10ms      | <2ms            | <5ms             | <17ms  |
 | Medium    | 100-500   | <50ms      | <5ms            | <20ms            | <75ms  |
 | Large     | 1000+     | <200ms     | <10ms           | <50ms            | <260ms |
@@ -297,6 +305,7 @@ const documentation = foldResult(
 ### Envoy Marker Detection vs Interpretation
 
 **Arborist detects** markers in comments:
+
 ```typescript
 // Arborist output
 {
@@ -306,6 +315,7 @@ const documentation = foldResult(
 ```
 
 **Envoy interprets** marker meaning:
+
 ```typescript
 // Envoy interpretation
 {
@@ -319,11 +329,13 @@ const documentation = foldResult(
 ### Comment Association Rules
 
 Arborist provides `associatedNode` hint based on proximity:
+
 1. Leading comments within 2 lines above function
 2. Trailing comments on same line as function close
 3. AssociatedNode links comment to function name
 
 Envoy uses this hint but applies semantic rules:
+
 - `//++` MUST be immediately above code (no blank line)
 - `//??` needs breathing room (blank line above)
 - `//--` goes where the problem occurs
@@ -333,6 +345,7 @@ Envoy uses this hint but applies semantic rules:
 ### Type Information
 
 All type information from Arborist is syntax-level only:
+
 - Parameter types as text strings
 - Return types as text strings
 - Generic constraints as text strings
@@ -433,6 +446,7 @@ Envoy works with these text representations for documentation.
 ### Testing
 
 Both libraries must maintain:
+
 - Integration tests using shared fixtures
 - Performance benchmarks
 - Contract compliance tests
@@ -454,6 +468,7 @@ Both libraries must maintain:
 **Current Version:** 0.0.1 (pre-production)
 
 **During 0.x development:**
+
 - NO migration paths
 - NO backwards compatibility
 - NO deprecation warnings

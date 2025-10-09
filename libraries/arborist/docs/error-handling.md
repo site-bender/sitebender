@@ -9,27 +9,30 @@
 Use **Result** for sequential operations where failure prevents continuation:
 
 **Use Cases:**
+
 - File I/O (can't continue without file)
 - Parse errors (can't extract from broken AST)
 - Validation that requires all-or-nothing
 - Sequential dependencies
 
 **Type:**
+
 ```typescript
 type Result<E, T> = Ok<T> | Error<E>
 
-interface Ok<T> {
+type Ok<T> = {
 	readonly _tag: "Ok"
 	readonly value: T
 }
 
-interface Error<E> {
+type Error<E> = {
 	readonly _tag: "Error"
 	readonly error: E
 }
 ```
 
 **Example:**
+
 ```typescript
 //++ Parses file - fails fast on I/O or syntax errors
 export default async function parseFile(
@@ -46,27 +49,30 @@ export default async function parseFile(
 Use **Validation** for parallel/tree operations where partial success is valuable:
 
 **Use Cases:**
+
 - Extracting multiple independent features
 - Validating multiple fields
 - Processing tree structures
 - Accumulating diagnostics
 
 **Type:**
+
 ```typescript
 type Validation<E, T> = Success<T> | Failure<E>
 
-interface Success<T> {
+type Success<T> = {
 	readonly _tag: "Success"
 	readonly value: T
 }
 
-interface Failure<E> {
+type Failure<E> = {
 	readonly _tag: "Failure"
 	readonly errors: readonly [E, ...Array<E>] // NonEmptyArray
 }
 ```
 
 **Example:**
+
 ```typescript
 //++ Extracts functions - accumulates all extraction errors
 export default function extractFunctions(
@@ -86,7 +92,7 @@ export default function extractFunctions(
 All Arborist errors extend `ArchitectError`:
 
 ```typescript
-interface ArchitectError<
+type ArchitectError<
 	TOp extends string = string,
 	TArgs extends ReadonlyArray<Value> = ReadonlyArray<Value>,
 > {
@@ -113,7 +119,11 @@ interface ArchitectError<
 
 ```typescript
 export type ParseError = ArchitectError<"parseFile", [string]> & {
-	readonly kind: "FileNotFound" | "InvalidSyntax" | "ReadPermission" | "SwcInitializationFailed"
+	readonly kind:
+		| "FileNotFound"
+		| "InvalidSyntax"
+		| "ReadPermission"
+		| "SwcInitializationFailed"
 	readonly file: string
 	readonly line?: number
 	readonly column?: number
@@ -121,6 +131,7 @@ export type ParseError = ArchitectError<"parseFile", [string]> & {
 ```
 
 **Error Codes:**
+
 - `NOT_FOUND` - File doesn't exist
 - `PERMISSION_DENIED` - Can't read file
 - `PARSE_ERROR` - Invalid TypeScript/JSX syntax
@@ -167,43 +178,60 @@ export type ParseError = ArchitectError<"parseFile", [string]> & {
 ### Extraction Errors
 
 ```typescript
-export type FunctionExtractionError = ArchitectError<"extractFunctions", [ParsedAst]> & {
-	readonly kind: "UnknownNodeType" | "MissingIdentifier" | "InvalidParameterStructure"
-	readonly nodeType?: string
-	readonly span?: Span
-}
+export type FunctionExtractionError =
+	& ArchitectError<"extractFunctions", [ParsedAst]>
+	& {
+		readonly kind:
+			| "UnknownNodeType"
+			| "MissingIdentifier"
+			| "InvalidParameterStructure"
+		readonly nodeType?: string
+		readonly span?: Span
+	}
 
-export type CommentExtractionError = ArchitectError<"extractComments", [ParsedAst]> & {
-	readonly kind: "MalformedComment" | "InvalidPosition"
-	readonly span?: Span
-}
+export type CommentExtractionError =
+	& ArchitectError<"extractComments", [ParsedAst]>
+	& {
+		readonly kind: "MalformedComment" | "InvalidPosition"
+		readonly span?: Span
+	}
 
-export type ImportExtractionError = ArchitectError<"extractImports", [ParsedAst]> & {
-	readonly kind: "InvalidSpecifier" | "UnknownImportKind"
-	readonly specifier?: string
-	readonly span?: Span
-}
+export type ImportExtractionError =
+	& ArchitectError<"extractImports", [ParsedAst]>
+	& {
+		readonly kind: "InvalidSpecifier" | "UnknownImportKind"
+		readonly specifier?: string
+		readonly span?: Span
+	}
 
-export type ExportExtractionError = ArchitectError<"exportExports", [ParsedAst]> & {
-	readonly kind: "InvalidExportName" | "UnknownExportKind"
-	readonly exportName?: string
-	readonly span?: Span
-}
+export type ExportExtractionError =
+	& ArchitectError<"exportExports", [ParsedAst]>
+	& {
+		readonly kind: "InvalidExportName" | "UnknownExportKind"
+		readonly exportName?: string
+		readonly span?: Span
+	}
 
-export type TypeExtractionError = ArchitectError<"extractTypes", [ParsedAst]> & {
-	readonly kind: "UnknownTypeKind" | "MissingTypeName"
-	readonly span?: Span
-}
+export type TypeExtractionError =
+	& ArchitectError<"extractTypes", [ParsedAst]>
+	& {
+		readonly kind: "UnknownTypeKind" | "MissingTypeName"
+		readonly span?: Span
+	}
 
-export type ConstantExtractionError = ArchitectError<"extractConstants", [ParsedAst]> & {
-	readonly kind: "NotConstant" | "MissingValue"
-	readonly span?: Span
-}
+export type ConstantExtractionError =
+	& ArchitectError<"extractConstants", [ParsedAst]>
+	& {
+		readonly kind: "NotConstant" | "MissingValue"
+		readonly span?: Span
+	}
 
-export type ViolationDetectionError = ArchitectError<"detectViolations", [ParsedAst]> & {
-	readonly kind: "TraversalFailed"
-	readonly nodeType?: string
-}
+export type ViolationDetectionError =
+	& ArchitectError<"detectViolations", [ParsedAst]>
+	& {
+		readonly kind: "TraversalFailed"
+		readonly nodeType?: string
+	}
 
 // Union of all extraction errors
 export type ExtractionError =
@@ -226,7 +254,7 @@ import fromTemplate from "@sitebender/toolsmith/error/fromTemplate"
 // Parse error
 const err = fromTemplate("parseError")("parseFile")([filePath])(
 	"TypeScript source",
-	source.slice(0, 50)
+	source.slice(0, 50),
 )
 // Returns: "parseFile: Could not parse TypeScript source from \"export function...\""
 ```
@@ -238,8 +266,13 @@ import withSuggestion from "@sitebender/toolsmith/error/withSuggestion"
 import { pipe } from "@sitebender/toolsmith/functional/pipe"
 
 const err = pipe(
-	fromTemplate("parseError")("parseFile")([filePath])("TypeScript source", source),
-	withSuggestion("Check that the file contains valid TypeScript. Run `deno check` to see detailed errors.")
+	fromTemplate("parseError")("parseFile")([filePath])(
+		"TypeScript source",
+		source,
+	),
+	withSuggestion(
+		"Check that the file contains valid TypeScript. Run `deno check` to see detailed errors.",
+	),
 )
 ```
 
@@ -251,10 +284,12 @@ import withFailedArg from "@sitebender/toolsmith/error/withFailedArg"
 const err = pipe(
 	fromTemplate("typeMismatch")("extractFunctions")([ast])(
 		"FunctionDeclaration",
-		actualNodeType
+		actualNodeType,
 	),
 	withFailedArg(0)("ast"),
-	withSuggestion("This AST node type is not yet supported. Please file an issue with the node structure.")
+	withSuggestion(
+		"This AST node type is not yet supported. Please file an issue with the node structure.",
+	),
 )
 ```
 
@@ -268,10 +303,10 @@ try {
 } catch (cause) {
 	return error(pipe(
 		createError("parseFile")([filePath])(
-			`Failed to read file: ${filePath}`
+			`Failed to read file: ${filePath}`,
 		)("NOT_FOUND"),
 		withCause(cause as Error),
-		withSuggestion("Verify the file exists and you have read permissions.")
+		withSuggestion("Verify the file exists and you have read permissions."),
 	))
 }
 ```
@@ -281,6 +316,7 @@ try {
 ### DO:
 
 **Provide Context**
+
 ```typescript
 // Good
 "extractFunctions: Unknown node type 'ClassExpression' at span 1234-1456"
@@ -290,6 +326,7 @@ try {
 ```
 
 **Suggest Solutions**
+
 ```typescript
 // Good
 "Suggestion: This node type is not supported. Consider refactoring to use function declarations instead of class expressions."
@@ -299,6 +336,7 @@ try {
 ```
 
 **Include Locations**
+
 ```typescript
 // Good
 {
@@ -315,6 +353,7 @@ try {
 ```
 
 **Preserve Technical Details**
+
 ```typescript
 // Good
 {
@@ -333,6 +372,7 @@ try {
 ### DON'T:
 
 **Scold Users**
+
 ```typescript
 // Bad
 "You provided an invalid file path"
@@ -342,6 +382,7 @@ try {
 ```
 
 **Be Vague**
+
 ```typescript
 // Bad
 "Something went wrong"
@@ -351,6 +392,7 @@ try {
 ```
 
 **Hide Stack Traces**
+
 ```typescript
 // Bad
 { message: "Error" }
@@ -369,7 +411,9 @@ When using Validation for extraction, support partial success:
 
 ```typescript
 export default function buildParsedFile(ast: ParsedAst) {
-	return function buildFromAST(filePath: string): Validation<ExtractionError, ParsedFile> {
+	return function buildFromAST(
+		filePath: string,
+	): Validation<ExtractionError, ParsedFile> {
 		const functionsV = extractFunctions(ast)
 		const commentsV = extractComments(ast)
 		const importsV = extractImports(ast)
@@ -386,6 +430,7 @@ export default function buildParsedFile(ast: ParsedAst) {
 ```
 
 **Result:**
+
 ```typescript
 // All succeed
 Success({
@@ -432,7 +477,7 @@ const output = foldResult(
 	return foldValidation(
 		function handleExtractionErrors(errors: ReadonlyArray<ExtractionError>) {
 			console.warn(`Extraction completed with ${errors.length} error(s):`)
-			errors.forEach(e => {
+			errors.forEach((e) => {
 				console.warn(`- ${e.message}`)
 				if (e.suggestion) console.warn(`  💡 ${e.suggestion}`)
 			})
@@ -460,17 +505,17 @@ import { fold as foldV } from "@sitebender/toolsmith/monads/validation/fold"
 
 const result = await parseFile("./src/module.ts")
 
-fold(handleParseError)(function(ast: ParsedAst) {
+fold(handleParseError)(function (ast: ParsedAst) {
 	// Only extract what we need
 	const functionsV = extractFunctions(ast)
 
 	return foldV(
 		function handleFunctionErrors(errors) {
 			// Log errors but continue
-			errors.forEach(e => console.warn(e.message))
+			errors.forEach((e) => console.warn(e.message))
 			return []
 		},
-	)(function(functions) {
+	)(function (functions) {
 		return functions
 	})(functionsV)
 })(result)
@@ -481,7 +526,7 @@ fold(handleParseError)(function(ast: ParsedAst) {
 ```typescript
 const result = await parseFile("./src/module.ts")
 
-fold(handleParseError)(function(ast: ParsedAst) {
+fold(handleParseError)(function (ast: ParsedAst) {
 	const functionsV = extractFunctions(ast)
 	const commentsV = extractComments(ast)
 	const violationsV = detectViolations(ast)
@@ -502,7 +547,7 @@ fold(handleParseError)(function(ast: ParsedAst) {
 			const byOperation = groupBy((e: ExtractionError) => e.operation)(errors)
 			Object.entries(byOperation).forEach(([op, errs]) => {
 				console.log(`\n${op}: ${errs.length} issue(s)`)
-				errs.forEach(e => {
+				errs.forEach((e) => {
 					console.log(`  - ${e.message}`)
 					if (e.suggestion) console.log(`    💡 ${e.suggestion}`)
 				})
@@ -537,7 +582,7 @@ Deno.test("extractFunctions accumulates errors for invalid nodes", () => {
 	assertEquals(validation._tag, "Failure")
 	if (validation._tag === "Failure") {
 		assert(validation.errors.length > 0)
-		validation.errors.forEach(err => {
+		validation.errors.forEach((err) => {
 			assertEquals(err.operation, "extractFunctions")
 			assert(err.message.length > 0)
 			assert(err.suggestion !== undefined, "Should include helpful suggestion")

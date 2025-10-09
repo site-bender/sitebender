@@ -1,0 +1,19 @@
+[package]
+name = "arborist-deno-ast-wasm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+deno_ast = { version = "0.50.3", features = ["view", "transpiling", "typescript", "visit"] }
+swc_ecma_visit = "15.0"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde-wasm-bindgen = "0.6"
+js-sys = "0.3"
+console_error_panic_hook = "0.1"
+url = "2.5"

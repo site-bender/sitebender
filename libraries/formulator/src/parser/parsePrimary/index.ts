@@ -11,7 +11,10 @@ import type { AstNode } from "../types/index.ts"
 
 type ExpressionParser = (
 	tokens: Array<Result<string, Token>>,
-) => (position: number, minPrecedence?: number) => Result<string, [AstNode, number]>
+) => (
+	position: number,
+	minPrecedence?: number,
+) => Result<string, [AstNode, number]>
 
 let parseExpression: ExpressionParser | null = null
 
@@ -56,7 +59,10 @@ export default function parsePrimary(tokens: Array<Result<string, Token>>) {
 						return error("Expression parser not initialized")
 					}
 
-					const expressionResult = parseExpression(tokens)(increment(position), 0)
+					const expressionResult = parseExpression(tokens)(
+						increment(position),
+						0,
+					)
 
 					if (expressionResult._tag === "Error") {
 						return expressionResult

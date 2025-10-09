@@ -41,8 +41,7 @@ export default function uri(
 			messages: ["The system limits URIs to 2048 characters."],
 			received: normalized,
 			expected: "URI with at most 2048 characters",
-			suggestion:
-				`Shorten the URI (currently ${normalized.length} characters)`,
+			suggestion: `Shorten the URI (currently ${normalized.length} characters)`,
 			constraints: { maxLength: URI_MAX_LENGTH },
 			severity: "requirement",
 		})

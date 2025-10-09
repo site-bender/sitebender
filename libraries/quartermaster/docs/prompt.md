@@ -96,6 +96,7 @@ my-app/
 ### Import/Export Pattern (Guy's Rules)
 
 **WRONG**:
+
 ```tsx
 // auth/index.tsx - NO barrel files!
 export { default as Locked } from "./Locked/index.tsx"
@@ -103,23 +104,24 @@ export { KEYS } from "./Keys/index.ts"
 ```
 
 **RIGHT**:
+
 ```tsx
 // modules/AdminDashboard/index.tsx
-import Locked from "../../auth/Locked/index.tsx"      // Default import
-import Key from "../../auth/Key/index.tsx"            // Default import
-import { KEYS } from "../../auth/Keys/index.ts"       // Named - it's a const
+import Locked from "../../auth/Locked/index.tsx" // Default import
+import Key from "../../auth/Key/index.tsx" // Default import
+import { KEYS } from "../../auth/Keys/index.ts" // Named - it's a const
 import And from "@sitebender/architect/logical/And/index.tsx"
 
 export default function AdminDashboard() {
-  return (
-    <Locked>
-      <And>
-        <Key>{KEYS.admin}</Key>
-        <Key>{KEYS.verified}</Key>
-      </And>
-      <Route path="/admin" page={<AdminPanel />} />
-    </Locked>
-  )
+	return (
+		<Locked>
+			<And>
+				<Key>{KEYS.admin}</Key>
+				<Key>{KEYS.verified}</Key>
+			</And>
+			<Route path="/admin" page={<AdminPanel />} />
+		</Locked>
+	)
 }
 ```
 
@@ -168,6 +170,7 @@ export default function AdminDashboard() {
 ## Remember
 
 Guy has excellent reasons for these rules:
+
 - **index.ts only**: Clean imports, no naming confusion
 - **Names on folders**: Easy to move/delete entire modules
 - **No barrels**: Clear dependencies, better tree-shaking

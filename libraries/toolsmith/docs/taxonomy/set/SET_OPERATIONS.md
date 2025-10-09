@@ -10,84 +10,98 @@
 ## Function List
 
 ### add
+
 - **Current**: `(element: T) => (set: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with element added; creates singleton Set if input is null/undefined/non-Set)
 - **Description**: [REFACTOR] Adds an element to a Set immutably by creating new Set from original and adding element
 - **Target**: `(element: T) => (set: Set<T>) => Result<SetError, Set<T>>`
 
 ### delete (exported as deleteElement — do we need a `del` alias?)
+
 - **Current**: `(element: T) => (set: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with element removed; returns empty Set if input is null/undefined/non-Set)
 - **Description**: [REFACTOR] Deletes an element from a Set immutably by creating new Set from original and deleting element; named deleteElement because delete is reserved keyword
 - **Target**: `(element: T) => (set: Set<T>) => Result<SetError, Set<T>>`
 
 ### has
+
 - **Current**: `(element: T) => (set: Set<T> | null | undefined) => boolean`
 - **Returns**: boolean (false if input is null/undefined/non-Set)
 - **Description**: [REFACTOR] Checks if a Set contains a specific element; returns false for invalid input
 - **Target**: `(element: T) => (set: Set<T>) => Result<SetError, boolean>`
 
 ### union
+
 - **Current**: `(set2: Set<T> | null | undefined) => (set1: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set containing all unique elements from both sets)
 - **Description**: [REFACTOR] Returns union of two Sets; uses native Set.union if available (ES2025), otherwise uses spread operator; handles null/undefined gracefully
 - **Target**: `(set2: Set<T>) => (set1: Set<T>) => Result<SetError, Set<T>>`
 
 ### unionWith
+
 - **Current**: `(equals: (a: T, b: T) => boolean) => (set2: Set<T> | null | undefined) => (set1: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with custom equality comparison)
 - **Description**: [REFACTOR] Returns union using custom equality function; filters set2 elements that don't equal any in set1
 - **Target**: `(equals: (a: T, b: T) => boolean) => (set2: Set<T>) => (set1: Set<T>) => Result<SetError, Set<T>>`
 
 ### intersection
+
 - **Current**: `(set2: Set<T> | null | undefined) => (set1: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set containing only common elements)
 - **Description**: [REFACTOR] Returns intersection of two Sets; uses native Set.intersection if available (ES2025), otherwise iterates over smaller set for efficiency
 - **Target**: `(set2: Set<T>) => (set1: Set<T>) => Result<SetError, Set<T>>`
 
 ### intersectionWith
+
 - **Current**: `(comparator: (a: T, b: T) => boolean) => (set2: Set<T> | null | undefined) => (set1: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with custom equality comparison)
 - **Description**: [REFACTOR] Returns intersection using custom comparator; filters set1 elements that match any in set2 via comparator
 - **Target**: `(comparator: (a: T, b: T) => boolean) => (set2: Set<T>) => (set1: Set<T>) => Result<SetError, Set<T>>`
 
 ### difference
+
 - **Current**: `(subtrahend: Set<T> | null | undefined) => (minuend: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with elements in minuend but not in subtrahend)
 - **Description**: [REFACTOR] Returns set difference (minuend - subtrahend); uses native Set.difference if available (ES2025), otherwise filters elements not in subtrahend
 - **Target**: `(subtrahend: Set<T>) => (minuend: Set<T>) => Result<SetError, Set<T>>`
 
 ### differenceWith
+
 - **Current**: `(comparator: (a: T, b: T) => boolean) => (subtrahend: Set<T> | null | undefined) => (minuend: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with custom equality comparison)
 - **Description**: [REFACTOR] Returns set difference using custom comparator; filters minuend elements that don't match any in subtrahend via comparator
 - **Target**: `(comparator: (a: T, b: T) => boolean) => (subtrahend: Set<T>) => (minuend: Set<T>) => Result<SetError, Set<T>>`
 
 ### symmetricDifference
+
 - **Current**: `(setB: Set<T> | null | undefined) => (setA: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with elements in either set but not both)
 - **Description**: [REFACTOR] Returns symmetric difference (elements in A or B but not both); uses native Set.symmetricDifference if available (ES2025), otherwise combines filtered arrays
 - **Target**: `(setB: Set<T>) => (setA: Set<T>) => Result<SetError, Set<T>>`
 
 ### symmetricDifferenceWith
+
 - **Current**: `(equals: (a: T, b: T) => boolean) => (set2: Set<T> | null | undefined) => (set1: Set<T> | null | undefined) => Set<T>`
 - **Returns**: Set<T> (new Set with custom equality comparison)
 - **Description**: [REFACTOR] Returns symmetric difference using custom equality; combines elements unique to each set based on custom comparator
 - **Target**: `(equals: (a: T, b: T) => boolean) => (set2: Set<T>) => (set1: Set<T>) => Result<SetError, Set<T>>`
 
 ### isSubsetOf
+
 - **Current**: `(superset: Set<T> | null | undefined) => (subset: Set<T> | null | undefined) => boolean`
 - **Returns**: boolean (true if every element in subset exists in superset)
 - **Description**: [REFACTOR] Checks if subset is a subset of superset; empty set is subset of any set; uses native Set.isSubsetOf if available (ES2025); includes size optimization
 - **Target**: `(superset: Set<T>) => (subset: Set<T>) => Result<SetError, boolean>`
 
 ### isSupersetOf
+
 - **Current**: `(subset: Set<T> | null | undefined) => (superset: Set<T> | null | undefined) => boolean`
 - **Returns**: boolean (true if superset contains all elements in subset)
 - **Description**: [REFACTOR] Checks if superset is a superset of subset; any set is superset of empty set; uses native Set.isSupersetOf if available (ES2025); includes size optimization
 - **Target**: `(subset: Set<T>) => (superset: Set<T>) => Result<SetError, boolean>`
 
 ### isDisjointFrom
+
 - **Current**: `(set2: Set<T> | null | undefined) => (set1: Set<T> | null | undefined) => boolean`
 - **Returns**: boolean (true if sets have no common elements)
 - **Description**: [REFACTOR] Checks if two sets are disjoint (no common elements); empty sets are disjoint from everything; uses native Set.isDisjointFrom if available (ES2025); optimizes by checking smaller set against larger
@@ -112,11 +126,13 @@ Set operation functions will be converted to Result-returning functions that pro
 ### Return Value Patterns
 
 #### Element Manipulation Functions
+
 - **add**: Returns new Set with element added; creates singleton if input invalid
 - **delete**: Returns new Set with element removed; returns empty Set if input invalid
 - **has**: Returns boolean indicating element presence
 
 #### Set Combination Functions
+
 - **union**: Combines all unique elements from both sets
 - **unionWith**: Union with custom equality function
 - **intersection**: Returns only common elements
@@ -127,6 +143,7 @@ Set operation functions will be converted to Result-returning functions that pro
 - **symmetricDifferenceWith**: Symmetric difference with custom equality
 
 #### Set Relationship Functions
+
 - **isSubsetOf**: Checks subset relationship
 - **isSupersetOf**: Checks superset relationship
 - **isDisjointFrom**: Checks if sets have no common elements
@@ -134,6 +151,7 @@ Set operation functions will be converted to Result-returning functions that pro
 ### ES2025 Native Set Methods
 
 Several functions use progressive enhancement with ES2025 Set methods:
+
 - **union**: Uses native `Set.prototype.union` if available
 - **intersection**: Uses native `Set.prototype.intersection` if available
 - **difference**: Uses native `Set.prototype.difference` if available
@@ -149,15 +167,19 @@ All functions include feature detection and fallback implementations for compati
 Functions handle null/undefined/non-Set inputs gracefully:
 
 #### add
+
 - Creates singleton Set if input is null/undefined/non-Set
 
 #### delete
+
 - Returns empty Set if input is null/undefined/non-Set
 
 #### has
+
 - Returns false if input is null/undefined/non-Set
 
 #### Binary Operations (union, intersection, difference, symmetricDifference)
+
 - If both inputs invalid: return empty Set
 - If one input invalid: return copy of valid input (or empty Set based on operation semantics)
 - Empty sets handled specially:
@@ -167,6 +189,7 @@ Functions handle null/undefined/non-Set inputs gracefully:
   - **symmetricDifference**: Returns copy of non-empty set
 
 #### Relationship Checks (isSubsetOf, isSupersetOf, isDisjointFrom)
+
 - **isSubsetOf**: Empty set is subset of any set; non-empty set cannot be subset of null
 - **isSupersetOf**: Any set is superset of empty set; null cannot be superset of non-empty set
 - **isDisjointFrom**: Empty sets are disjoint from everything
@@ -174,6 +197,7 @@ Functions handle null/undefined/non-Set inputs gracefully:
 ### Arrow Function Syntax
 
 Several functions use arrow syntax and need refactoring to named functions:
+
 - **add** (uses named arrow)
 - **delete/deleteElement** (uses named arrow)
 - **has** (uses named arrow)
@@ -192,6 +216,7 @@ Several functions use arrow syntax and need refactoring to named functions:
 ### Functional Purity
 
 All functions maintain immutability:
+
 - **add**: Creates new Set via constructor, then uses native add (which mutates the new Set before returning)
 - **delete**: Creates new Set via constructor, then uses native delete (which mutates the new Set before returning)
 - **union**: Uses native method or spread operator `new Set([...set1, ...set2])`
@@ -204,38 +229,45 @@ All functions maintain immutability:
 ### Complex Validation Logic
 
 #### add
+
 - Validates input is Set instance
 - Returns singleton Set with element if input invalid
 - Creates new Set from original before adding element (immutability)
 
 #### delete
+
 - Validates input is Set instance
 - Returns empty Set if input invalid
 - Creates new Set from original before deleting element (immutability)
 
 #### union
+
 - Handles both sets being invalid: returns empty Set
 - Handles one set being invalid: returns copy of valid set
 - Feature detection for ES2025 native method
 - Fallback uses spread operator for efficiency
 
 #### intersection
+
 - Returns empty Set if either set is invalid or empty
 - Feature detection for ES2025 native method
 - Fallback iterates over smaller set for efficiency optimization
 
 #### difference
+
 - Returns empty Set if minuend is invalid
 - Returns copy of minuend if subtrahend is invalid or empty
 - Feature detection for ES2025 native method
 - Fallback filters minuend elements not in subtrahend
 
 #### symmetricDifference
+
 - Treats invalid sets as empty sets
 - Feature detection for ES2025 native method
 - Fallback builds two filtered arrays (onlyInA, onlyInB) and combines
 
 #### isSubsetOf
+
 - Empty set is always subset (returns true)
 - Non-empty set cannot be subset of null/invalid (returns false)
 - Size optimization: subset cannot be larger than superset
@@ -243,6 +275,7 @@ All functions maintain immutability:
 - Fallback uses every() to check all subset elements in superset
 
 #### isSupersetOf
+
 - Any set is superset of empty set (returns true)
 - Null/invalid cannot be superset of non-empty set (returns false)
 - Size optimization: superset must be at least as large as subset
@@ -250,6 +283,7 @@ All functions maintain immutability:
 - Fallback uses every() to check all subset elements in superset
 
 #### isDisjointFrom
+
 - Empty sets are disjoint from everything (returns true)
 - Feature detection for ES2025 native method
 - Fallback optimizes by checking smaller set against larger
@@ -258,12 +292,14 @@ All functions maintain immutability:
 ### Custom Comparator Functions
 
 Four functions accept custom equality/comparator functions:
+
 - **unionWith**: `equals: (a: T, b: T) => boolean`
 - **intersectionWith**: `comparator: (a: T, b: T) => boolean`
 - **differenceWith**: `comparator: (a: T, b: T) => boolean`
 - **symmetricDifferenceWith**: `equals: (a: T, b: T) => boolean`
 
 These use pure functional patterns:
+
 - Convert Sets to arrays
 - Use filter/some combinations to apply custom comparison
 - Build new Set from filtered results
@@ -272,12 +308,14 @@ These use pure functional patterns:
 ### Performance Optimizations
 
 #### intersection
+
 - Iterates over smaller set for efficiency:
   ```typescript
   const [smaller, larger] = set1.size <= set2.size ? [set1, set2] : [set2, set1]
   ```
 
 #### isDisjointFrom
+
 - Checks smaller set against larger for efficiency:
   ```typescript
   const [smaller, larger] = set1.size <= set2.size ? [set1, set2] : [set2, set1]
@@ -285,6 +323,7 @@ These use pure functional patterns:
   ```
 
 #### Size optimizations
+
 - **isSubsetOf**: Early return false if subset.size > superset.size
 - **isSupersetOf**: Early return false if superset.size < subset.size
 
@@ -295,10 +334,12 @@ These use pure functional patterns:
 When planning migration, consider these dependency chains:
 
 ### Validation Dependencies
+
 - Most functions depend on `isNullish` from validation
 - All functions validate Set instances with `instanceof Set` check
 
 ### Array Operation Dependencies
+
 - **With variants** use `Array.from` and array methods (filter, some, every)
 - **symmetricDifference** uses `Array.from` and filter
 - **isSubsetOf** uses `Array.from` and every
@@ -306,7 +347,9 @@ When planning migration, consider these dependency chains:
 - **isDisjointFrom** uses `Array.from` and some
 
 ### Native Set Method Dependencies
+
 Seven functions use ES2025 Set methods with fallbacks:
+
 - Feature detection pattern: `"method" in Set.prototype && typeof set.method === "function"`
 - All maintain functional fallback implementations
 
@@ -317,6 +360,7 @@ Seven functions use ES2025 Set methods with fallbacks:
 ### Parameter Naming Conventions
 
 Functions use mathematical naming for clarity:
+
 - **difference**: Uses `minuend` and `subtrahend` (minuend - subtrahend)
 - **union/intersection**: Use descriptive names like `set1`, `set2`, `setA`, `setB`
 - **Custom comparator variants**: Use `equals`, `comparator` for comparison functions
@@ -329,6 +373,7 @@ Functions use mathematical naming for clarity:
 ### Missing Standard Set Operations
 
 Consider implementing these during migration:
+
 - **cartesianProduct**: Cartesian product of two sets
 - **powerSet**: Set of all subsets
 - **complement**: Set complement (requires universe set)
@@ -340,6 +385,7 @@ Consider implementing these during migration:
 ### With Variants Pattern
 
 Four functions have "With" variants that accept custom comparators:
+
 - Base version uses JavaScript's default equality (===)
 - "With" version accepts custom equality/comparator function
 - Enables custom object comparison for complex types
@@ -349,6 +395,7 @@ This pattern should be preserved in monadic versions.
 ### ES2025 Set Methods
 
 Functions leverage new Set methods when available:
+
 - `Set.prototype.union`
 - `Set.prototype.intersection`
 - `Set.prototype.difference`
@@ -362,6 +409,7 @@ All include feature detection and maintain compatibility with older JavaScript e
 ### Testing Considerations
 
 When migrating, ensure comprehensive tests for:
+
 - Null/undefined inputs (all functions)
 - Non-Set inputs (all functions)
 - Empty Sets (special case handling)

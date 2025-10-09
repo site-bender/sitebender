@@ -1,8 +1,8 @@
 # Envoy Implementation Plan - START HERE
 
-**Last Updated:** 2025-01-07  
-**Status:** Planning Phase - DO NOT IMPLEMENT YET  
-**AI Instructions:** Read this ENTIRE document before writing ANY code.  
+**Last Updated:** 2025-01-07\
+**Status:** Planning Phase - DO NOT IMPLEMENT YET\
+**AI Instructions:** Read this ENTIRE document before writing ANY code.
 
 ## CRITICAL: Implementation Blocked Until Dependencies Ready
 
@@ -13,6 +13,7 @@
 3. ⏳ **Toolsmith branded types are complete** - Currently in progress
 
 **Why This Matters:**
+
 - Envoy's entire architecture depends on Result/Validation monads from Toolsmith
 - All error handling uses Toolsmith's error creation utilities
 - All array operations use Toolsmith's functional utilities (map, filter, reduce)
@@ -20,11 +21,13 @@
 - Starting before these are ready means rewriting everything later
 
 **Current Status:**
+
 - Arborist: ~95% complete (Phase 1 done, ready for Envoy integration)
 - Toolsmith monads: In progress (fold, map, map2, map3, success, failure, ok, error)
 - Toolsmith branded types: In progress (smart constructors, validation)
 
 **When to Start:**
+
 - Wait for architect's explicit approval
 - Verify Toolsmith exports are stable
 - Confirm Arborist API is finalized
@@ -39,6 +42,7 @@ Envoy is a **documentation and project intelligence platform** that transforms c
 **Core Principle:** Arborist parses, Envoy documents. Clean separation of concerns.
 
 **What It Does:**
+
 - Interprets Envoy comment markers (`//++`, `//??`, `//--`, `//!!`, `//>>`)
 - Generates documentation in multiple formats (Markdown, HTML, JSON, RDF)
 - Builds queryable knowledge graphs (RDF triples + SPARQL)
@@ -49,6 +53,7 @@ Envoy is a **documentation and project intelligence platform** that transforms c
 - Integrates examples from Quarrier
 
 **What It Does NOT Do:**
+
 - Parse TypeScript/JSX (that's Arborist's job)
 - Use TypeScript compiler or SWC directly
 - Generate tests (that's Quarrier's job)
@@ -60,6 +65,7 @@ Envoy is a **documentation and project intelligence platform** that transforms c
 **Current Version:** 0.0.1 (pre-production)
 
 **Development Philosophy:**
+
 - NO semantic versioning until version 1.0 production deployment
 - NO migration paths, NO legacy support, NO backwards compatibility during 0.x
 - NO deprecation warnings, NO aliasing "old ways"
@@ -68,6 +74,7 @@ Envoy is a **documentation and project intelligence platform** that transforms c
 - After 1.0 deployment: proper SemVer versioning begins
 
 **Instructions for AIs:**
+
 - DO NOT ask about migration paths during 0.x development
 - DO NOT suggest deprecation strategies or backwards compatibility
 - DO NOT preserve "legacy" anything
@@ -82,6 +89,7 @@ Envoy is a **documentation and project intelligence platform** that transforms c
 **The Iron Rule:** A task is NOT complete until its checklist item is checked `[x]` in this document.
 
 **Atomic Commit Unit:**
+
 ```
 Implementation + Tests + Checklist Update = ONE commit
 ```
@@ -94,6 +102,7 @@ Implementation + Tests + Checklist Update = ONE commit
 4. Commit all three together with descriptive message
 
 **Verification Before Commit:**
+
 ```bash
 # Check which items should be marked complete
 git diff libraries/envoy/docs/IMPLEMENTATION_PLAN.md
@@ -103,6 +112,7 @@ git diff libraries/envoy/docs/IMPLEMENTATION_PLAN.md
 ```
 
 **AI Instructions (BINDING):**
+
 - When completing a task, you MUST update the corresponding checklist in the SAME response
 - Never mark a task complete without checking the corresponding checklist box `[x]`
 - If no matching checklist item exists, add it to the appropriate phase
@@ -110,11 +120,13 @@ git diff libraries/envoy/docs/IMPLEMENTATION_PLAN.md
 - The checklist update and code change must be in the same commit
 
 **Human Instructions:**
+
 - Before committing completed work, verify `git diff` shows both code AND checklist changes
 - If checklist doesn't reflect reality, fix it before committing
 - Checklist is source of truth for implementation progress
 
 **Why This Matters:**
+
 - Checklists ARE documentation
 - Future sessions need accurate progress tracking
 - Prevents duplicate work
@@ -130,14 +142,15 @@ git diff libraries/envoy/docs/IMPLEMENTATION_PLAN.md
 **Envoy uses Toolsmith's monadic utilities and branded types.**
 
 **Required Toolsmith Imports:**
+
 ```typescript
 // Monadic utilities (currently being implemented)
 import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
 import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
 import { map } from "@sitebender/toolsmith/monads/validation/map"
 import { map2, map3 } from "@sitebender/toolsmith/monads/validation/map2"
-import { success, failure } from "@sitebender/toolsmith/monads/validation"
-import { ok, error } from "@sitebender/toolsmith/monads/result"
+import { failure, success } from "@sitebender/toolsmith/monads/validation"
+import { error, ok } from "@sitebender/toolsmith/monads/result"
 
 // Error creation utilities
 import fromTemplate from "@sitebender/toolsmith/error/fromTemplate"
@@ -156,6 +169,7 @@ import reduce from "@sitebender/toolsmith/array/reduce"
 ```
 
 **Branded Types (in progress):**
+
 ```typescript
 // Envoy will use branded types for domain concepts
 type CommentId = string & { readonly __brand: "CommentId" }
@@ -164,8 +178,8 @@ type DocumentationId = string & { readonly __brand: "DocumentationId" }
 
 // Smart constructors validate and return Result
 function commentId(str: string): Result<CommentIdError, CommentId> {
-  // Validation logic
-  return ok(str as CommentId)
+	// Validation logic
+	return ok(str as CommentId)
 }
 ```
 
@@ -176,6 +190,7 @@ function commentId(str: string): Result<CommentIdError, CommentId> {
 **Envoy receives ALL AST data from Arborist. NEVER parses TypeScript directly.**
 
 **Allowed:**
+
 ```typescript
 import parseFile from "@sitebender/arborist/parseFile"
 import buildParsedFile from "@sitebender/arborist/buildParsedFile"
@@ -189,6 +204,7 @@ import detectViolations from "@sitebender/arborist/detectViolations"
 ```
 
 **FORBIDDEN (Warden will block):**
+
 ```typescript
 // NEVER import these in Envoy
 import { parse } from "npm:@swc/wasm-web"
@@ -199,6 +215,7 @@ import { parseModule } from "deno_ast"
 ### 2. Error Handling: Result and Validation Monads
 
 **Use Toolsmith error system.** Study these files:
+
 - `@sitebender/toolsmith/error/createError/index.ts`
 - `@sitebender/toolsmith/error/withSuggestion/index.ts`
 - `@sitebender/toolsmith/error/withFailedArg/index.ts`
@@ -206,6 +223,7 @@ import { parseModule } from "deno_ast"
 - `@sitebender/toolsmith/types/error/index.ts`
 
 **Error Philosophy:**
+
 - Rich metadata (operation, args, code, severity)
 - Helpful suggestions (NOT scolding)
 - Failed argument tracking
@@ -215,20 +233,23 @@ import { parseModule } from "deno_ast"
 **Monad Strategy:**
 
 **Result<E, T>** - Fail-fast for sequential operations
+
 ```typescript
 // I/O operations, external API calls
 function readConfigFile(path: string): Promise<Result<ConfigError, Config>>
 ```
 
 **Validation<E, T>** - Error accumulation for parallel/tree operations
+
 ```typescript
 // Processing multiple independent items, accumulate ALL errors
 function interpretComments(
-  comments: ReadonlyArray<ParsedComment>
+	comments: ReadonlyArray<ParsedComment>,
 ): Validation<CommentError, ReadonlyArray<InterpretedComment>>
 ```
 
 **Why This Approach:**
+
 - I/O errors: fail immediately (can't continue without data)
 - External API errors: fail immediately (can't proceed)
 - Comment interpretation: accumulate all (partial success valuable)
@@ -237,6 +258,7 @@ function interpretComments(
 ### 3. Type System
 
 **Type families** (implemented in `src/types/index.ts`):
+
 - `InterpretedComment` - Envoy marker with semantic meaning
 - `Documentation` - Complete documentation output
 - `KnowledgeGraph` - RDF triple structure
@@ -245,6 +267,7 @@ function interpretComments(
 - `DashboardMetrics` - Real-time observability data
 
 **Structure:**
+
 - Use `Readonly` and `ReadonlyArray` everywhere
 - Group related fields in nested objects
 - Include position and span information from Arborist
@@ -309,22 +332,26 @@ export default function querySPARQL(
 **Base Error Pattern (from Toolsmith):**
 
 ```typescript
-export type CommentInterpretationError = ArchitectError<
-  "interpretComments",
-  [ReadonlyArray<ParsedComment>]
-> & {
-  readonly kind: "UnknownMarker" | "MalformedCategory" | "InvalidSyntax"
-  readonly comment: ParsedComment
-  readonly suggestion: string
-}
+export type CommentInterpretationError =
+	& ArchitectError<
+		"interpretComments",
+		[ReadonlyArray<ParsedComment>]
+	>
+	& {
+		readonly kind: "UnknownMarker" | "MalformedCategory" | "InvalidSyntax"
+		readonly comment: ParsedComment
+		readonly suggestion: string
+	}
 
-export type DocumentationError = ArchitectError<
-  "generateDocumentation",
-  [ParsedFile, DocumentationOptions]
-> & {
-  readonly kind: "MissingRequired" | "InvalidFormat" | "GenerationFailed"
-  readonly context?: Record<string, unknown>
-}
+export type DocumentationError =
+	& ArchitectError<
+		"generateDocumentation",
+		[ParsedFile, DocumentationOptions]
+	>
+	& {
+		readonly kind: "MissingRequired" | "InvalidFormat" | "GenerationFailed"
+		readonly context?: Record<string, unknown>
+	}
 
 // Similar for other error types
 ```
@@ -339,25 +366,28 @@ import { pipe } from "@sitebender/toolsmith/functional/pipe"
 
 // Example: Comment interpretation error with helpful suggestion
 const err = pipe(
-  fromTemplate("parseError")("interpretComments")([comments])(
-    "Envoy comment marker",
-    comment.text
-  ),
-  withSuggestion(
-    "Check that the comment uses valid Envoy syntax. Valid markers are: //++, //??, //--, //!!, //>>"
-  )
+	fromTemplate("parseError")("interpretComments")([comments])(
+		"Envoy comment marker",
+		comment.text,
+	),
+	withSuggestion(
+		"Check that the comment uses valid Envoy syntax. Valid markers are: //++, //??, //--, //!!, //>>",
+	),
 )
 
 // Example: Documentation error with failed argument context
 const docErr = pipe(
-  fromTemplate("operationFailed")("generateDocumentation")([parsedFile, options])(
-    "documentation generation",
-    "missing required description"
-  ),
-  withFailedArg(0)("parsedFile"),
-  withSuggestion(
-    "Add a //++ description comment above the exported function"
-  )
+	fromTemplate("operationFailed")("generateDocumentation")([
+		parsedFile,
+		options,
+	])(
+		"documentation generation",
+		"missing required description",
+	),
+	withFailedArg(0)("parsedFile"),
+	withSuggestion(
+		"Add a //++ description comment above the exported function",
+	),
 )
 ```
 
@@ -674,6 +704,7 @@ const docErr = pipe(
 ## Constitutional Rules Compliance
 
 **Every function MUST:**
+
 - ✅ Be curried (data last)
 - ✅ Use `function` keyword (NO arrows except type signatures)
 - ✅ Return new data (NO mutations)
@@ -684,18 +715,19 @@ const docErr = pipe(
 - ✅ Export exactly ONE function as default on same line
 
 **Example of correct function structure:**
+
 ```typescript
 //++ Interprets Envoy comment markers from raw comments
 export default function interpretComments(
-  comments: ReadonlyArray<ParsedComment>
+	comments: ReadonlyArray<ParsedComment>,
 ) {
-  return function interpretFromComments(
-    options: InterpretationOptions
-  ): Validation<CommentInterpretationError, ReadonlyArray<InterpretedComment>> {
-    // Implementation using Toolsmith map/filter/reduce
-    // NO loops, NO mutations, NO exceptions
-    // Return Validation for error accumulation
-  }
+	return function interpretFromComments(
+		options: InterpretationOptions,
+	): Validation<CommentInterpretationError, ReadonlyArray<InterpretedComment>> {
+		// Implementation using Toolsmith map/filter/reduce
+		// NO loops, NO mutations, NO exceptions
+		// Return Validation for error accumulation
+	}
 }
 ```
 
@@ -704,6 +736,7 @@ export default function interpretComments(
 ## Error Message Guidelines
 
 **DO:**
+
 - Provide context: operation, arguments, what failed
 - Suggest fixes: "Try X" or "Check Y"
 - Include locations: file, line, column, span
@@ -711,6 +744,7 @@ export default function interpretComments(
 - Use severity appropriately: warning/error/critical
 
 **DON'T:**
+
 - Scold the user
 - Use vague messages: "Error occurred"
 - Hide technical details
@@ -720,17 +754,20 @@ export default function interpretComments(
 **Examples:**
 
 **Good:**
+
 ```
 interpretComments: Unknown marker "//@@" at line 42
 Suggestion: Valid Envoy markers are: //++, //??, //--, //!!, //>>. Did you mean //++?
 ```
 
 **Bad:**
+
 ```
 Error: Invalid marker
 ```
 
 **Good:**
+
 ```
 generateDocumentation: Missing required description for exported function "validateEmail"
 Suggestion: Add a //++ description comment immediately above the function. Example:
@@ -739,6 +776,7 @@ Suggestion: Add a //++ description comment immediately above the function. Examp
 ```
 
 **Bad:**
+
 ```
 Missing description
 ```
@@ -772,6 +810,7 @@ Missing description
 ## Usage Examples
 
 **Full Pipeline:**
+
 ```typescript
 import parseFile from "@sitebender/arborist/parseFile"
 import buildParsedFile from "@sitebender/arborist/buildParsedFile"
@@ -782,38 +821,39 @@ import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/
 const result = await parseFile("./src/module.ts")
 
 const output = foldResult(
-  function handleParseError(err) {
-    console.error(err.message)
-    if (err.suggestion) console.log("Tip:", err.suggestion)
-    return null
-  }
+	function handleParseError(err) {
+		console.error(err.message)
+		if (err.suggestion) console.log("Tip:", err.suggestion)
+		return null
+	},
 )(function handleParsedAST(ast) {
-  const validation = buildParsedFile(ast)("./src/module.ts")
+	const validation = buildParsedFile(ast)("./src/module.ts")
 
-  return foldValidation(
-    function handleExtractionErrors(errors) {
-      errors.forEach(e => console.warn(e.message))
-      return null
-    }
-  )(function handleParsedFile(parsed) {
-    const docResult = generateDocumentation(parsed)({
-      format: "markdown",
-      includeExamples: true
-    })
+	return foldValidation(
+		function handleExtractionErrors(errors) {
+			errors.forEach((e) => console.warn(e.message))
+			return null
+		},
+	)(function handleParsedFile(parsed) {
+		const docResult = generateDocumentation(parsed)({
+			format: "markdown",
+			includeExamples: true,
+		})
 
-    return foldResult(
-      function handleDocError(err) {
-        console.error(err.message)
-        return null
-      }
-    )(function handleSuccess(doc) {
-      return doc
-    })(docResult)
-  })(validation)
+		return foldResult(
+			function handleDocError(err) {
+				console.error(err.message)
+				return null
+			},
+		)(function handleSuccess(doc) {
+			return doc
+		})(docResult)
+	})(validation)
 })(result)
 ```
 
 **Granular Usage:**
+
 ```typescript
 import parseFile from "@sitebender/arborist/parseFile"
 import extractComments from "@sitebender/arborist/extractComments"
@@ -823,32 +863,33 @@ import { fold as foldV } from "@sitebender/toolsmith/monads/validation/fold"
 
 const result = await parseFile("./src/module.ts")
 
-fold(handleError)(function(ast) {
-  const commentsV = extractComments(ast)
+fold(handleError)(function (ast) {
+	const commentsV = extractComments(ast)
 
-  return foldV(
-    function handleExtractionErrors(errors) {
-      console.warn("Some comments failed extraction")
-      return []
-    }
-  )(function(comments) {
-    const interpretedV = interpretComments(comments)
+	return foldV(
+		function handleExtractionErrors(errors) {
+			console.warn("Some comments failed extraction")
+			return []
+		},
+	)(function (comments) {
+		const interpretedV = interpretComments(comments)
 
-    return foldV(
-      function handleInterpretationErrors(errors) {
-        errors.forEach(e => console.warn(e.message))
-        return []
-      }
-    )(function(interpreted) {
-      return interpreted
-    })(interpretedV)
-  })(commentsV)
+		return foldV(
+			function handleInterpretationErrors(errors) {
+				errors.forEach((e) => console.warn(e.message))
+				return []
+			},
+		)(function (interpreted) {
+			return interpreted
+		})(interpretedV)
+	})(commentsV)
 })(result)
 ```
 
 ## Performance Requirements
 
 Target performance:
+
 - Comment interpretation: <5ms per file
 - Documentation generation: <50ms per file
 - Knowledge graph construction: <100ms for 100 functions
@@ -860,6 +901,7 @@ Target performance:
 **There are NO issue trackers. NO tickets. NO backlog.**
 
 **Process:**
+
 1. Hit a problem → Check this document first
 2. Still stuck → Present the problem to architect with:
    - Minimal reproduction code
@@ -873,6 +915,7 @@ Target performance:
 **Speed is the advantage.** No coordination overhead, no approval chains, no waiting. Architect decides, AI implements, done.
 
 **If the problem reveals a design flaw:**
+
 - Propose design change
 - Get architect approval
 - Delete old approach completely

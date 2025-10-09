@@ -290,6 +290,7 @@
 ```
 
 **Why no flattening?**
+
 - Enables round-trip: AST → Formula → AST
 - Enables MathML generation with proper grouping
 - Architect can optimize later if needed

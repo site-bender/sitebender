@@ -1,0 +1,35 @@
+import type { ParsedImport, Position, Span, ImportBinding } from "../types/index.ts"
+import extractSpan from "../_extractSpan/index.ts"
+import extractPosition from "../_extractPosition/index.ts"
+import extractKindAndBindings from "../_extractKindAndBindings/index.ts"
+
+//++ Extract details from a single import declaration node
+//++ Returns ParsedImport with position, span, kind, specifier, and bindings
+export default function extractImportDetails(node: unknown): ParsedImport {
+	const importNode = node as Record<string, unknown>
+
+	// Extract specifier (the module path being imported from)
+	const specifierNode = importNode.source as Record<string, unknown>
+	const specifier = specifierNode.value as string
+
+	// Extract span information
+	const span = extractSpan(importNode)
+
+	// Extract position from span using the source text
+	const position = extractPosition(span)
+
+	// Extract import kind and bindings
+	const specifiers = (importNode.specifiers as ReadonlyArray<unknown>) || []
+	const isTypeOnly = (importNode.typeOnly as boolean) || false
+
+	// Determine kind and extract bindings
+	const { kind, imports } = extractKindAndBindings(specifiers)(isTypeOnly)
+
+	return {
+		specifier,
+		position,
+		span,
+		kind,
+		imports,
+	}
+}

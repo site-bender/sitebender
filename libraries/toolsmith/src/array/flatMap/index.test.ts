@@ -7,7 +7,9 @@ import isError from "../../monads/result/isError/index.ts"
 Deno.test("flatMap", async function (t) {
 	await t.step("returns Ok with flattened mapped array", function () {
 		const array = [1, 2, 3]
-		const duplicateElements = function (element: number): ReadonlyArray<number> {
+		const duplicateElements = function (
+			element: number,
+		): ReadonlyArray<number> {
 			return [element, element]
 		}
 		const result = flatMap(duplicateElements)(array)
@@ -20,7 +22,9 @@ Deno.test("flatMap", async function (t) {
 
 	await t.step("returns Ok with empty array when input is empty", function () {
 		const array: ReadonlyArray<number> = []
-		const duplicateElements = function (element: number): ReadonlyArray<number> {
+		const duplicateElements = function (
+			element: number,
+		): ReadonlyArray<number> {
 			return [element, element]
 		}
 		const result = flatMap(duplicateElements)(array)
@@ -93,7 +97,9 @@ Deno.test("flatMap", async function (t) {
 	)
 
 	await t.step("returns Error when input is null", function () {
-		const duplicateElements = function (element: number): ReadonlyArray<number> {
+		const duplicateElements = function (
+			element: number,
+		): ReadonlyArray<number> {
 			return [element, element]
 		}
 		const result = flatMap(duplicateElements)(
@@ -109,7 +115,9 @@ Deno.test("flatMap", async function (t) {
 	})
 
 	await t.step("returns Error when input is undefined", function () {
-		const duplicateElements = function (element: number): ReadonlyArray<number> {
+		const duplicateElements = function (
+			element: number,
+		): ReadonlyArray<number> {
 			return [element, element]
 		}
 		const result = flatMap(duplicateElements)(
@@ -120,7 +128,9 @@ Deno.test("flatMap", async function (t) {
 	})
 
 	await t.step("returns Error when input is a string", function () {
-		const duplicateElements = function (element: number): ReadonlyArray<number> {
+		const duplicateElements = function (
+			element: number,
+		): ReadonlyArray<number> {
 			return [element, element]
 		}
 		const result = flatMap(duplicateElements)(
@@ -131,7 +141,9 @@ Deno.test("flatMap", async function (t) {
 	})
 
 	await t.step("returns Error when input is a number", function () {
-		const duplicateElements = function (element: number): ReadonlyArray<number> {
+		const duplicateElements = function (
+			element: number,
+		): ReadonlyArray<number> {
 			return [element, element]
 		}
 		const result = flatMap(duplicateElements)(
@@ -142,7 +154,9 @@ Deno.test("flatMap", async function (t) {
 	})
 
 	await t.step("returns Error when input is an object", function () {
-		const duplicateElements = function (element: number): ReadonlyArray<number> {
+		const duplicateElements = function (
+			element: number,
+		): ReadonlyArray<number> {
 			return [element, element]
 		}
 		const result = flatMap(duplicateElements)(
