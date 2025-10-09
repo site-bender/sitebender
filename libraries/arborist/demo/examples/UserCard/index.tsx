@@ -1,7 +1,7 @@
 // @sitebender/arborist/demo/examples/UserCard
 //++ Example JSX component demonstrating proper component structure
 
-import type { ComponentChildren } from "@sitebender/codewright/types"
+import type { ComponentChildren } from "@sitebender/codewright/types/index.ts"
 
 export type UserCardProps = Readonly<{
 	name: string
@@ -13,11 +13,11 @@ export type UserCardProps = Readonly<{
 export default function UserCard(props: UserCardProps) {
 	return function renderUserCard(): JSX.Element {
 		return (
-			<div class="user-card">
+			<Add class="user-card">
 				<h2>{props.name}</h2>
 				<p>{props.email}</p>
 				{props.children}
-			</div>
+			</Add>
 		)
 	}
 }

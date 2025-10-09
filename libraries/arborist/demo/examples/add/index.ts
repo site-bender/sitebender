@@ -3,7 +3,7 @@
 
 //++ Adds two numbers together using currying
 //++ This demonstrates proper functional programming style
-export default function add(augend: number) {
+export default function add(augend: number): (a: number) => number {
 	return function addToAugend(addend: number): number {
 		return augend + addend
 	}
