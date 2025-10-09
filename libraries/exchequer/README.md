@@ -14,16 +14,20 @@ Every product is a triple. Every order is queryable. Every price calculation is 
 
 ```tsx
 <Product
-  sku="WIDGET-001"
-  name="Deluxe Widget"
-  price={{ amount: 2999, currency: "USD" }}
-  tax={{ calculator: "avalara", category: "tangible" }}
-  inventory={{ strategy: "FIFO", warehouse: "US-WEST" }}
+	sku="WIDGET-001"
+	name="Deluxe Widget"
+	price={{ amount: 2999, currency: "USD" }}
+	tax={{ calculator: "avalara", category: "tangible" }}
+	inventory={{ strategy: "FIFO", warehouse: "US-WEST" }}
 >
-  <Variant name="Color" options={["Red", "Blue", "Green"]} />
-  <Variant name="Size" options={["S", "M", "L", "XL"]} />
-  <Media type="image" url="/images/widget-001.jpg" />
-  <Media type="image" url="/images/widget-001-red.jpg" variant={{ Color: "Red" }} />
+	<Variant name="Color" options={["Red", "Blue", "Green"]} />
+	<Variant name="Size" options={["S", "M", "L", "XL"]} />
+	<Media type="image" url="/images/widget-001.jpg" />
+	<Media
+		type="image"
+		url="/images/widget-001-red.jpg"
+		variant={{ Color: "Red" }}
+	/>
 </Product>
 ```
 
@@ -33,11 +37,15 @@ Stored as RDF triples. Queryable via SPARQL. Versioned automatically. Distribute
 
 ```tsx
 <Cart id="user-123">
-  <Item product="WIDGET-001" variant={{ Color: "Red", Size: "M" }} quantity={2} />
-  <Item product="GIZMO-500" quantity={1} />
-  <ApplyDiscount code="SAVE10" />
-  <CalculateTax provider="avalara" />
-  <CalculateShipping provider="shippo" to={shippingAddress} />
+	<Item
+		product="WIDGET-001"
+		variant={{ Color: "Red", Size: "M" }}
+		quantity={2}
+	/>
+	<Item product="GIZMO-500" quantity={1} />
+	<ApplyDiscount code="SAVE10" />
+	<CalculateTax provider="avalara" />
+	<CalculateShipping provider="shippo" to={shippingAddress} />
 </Cart>
 ```
 
@@ -47,13 +55,18 @@ Cart is data. State managed by Custodian. Calculations are pure functions. No mu
 
 ```tsx
 <Order id="ORD-456" status="paid">
-  <Customer id="user-123" />
-  <Items>
-    <LineItem product="WIDGET-001" variant={{ Color: "Red", Size: "M" }} quantity={2} price={2999} />
-  </Items>
-  <Payment provider="stripe" method="card" amount={6397} />
-  <Shipping address={shippingAddress} carrier="usps" tracking="9400..." />
-  <Fulfillment warehouse="US-WEST" status="shipped" />
+	<Customer id="user-123" />
+	<Items>
+		<LineItem
+			product="WIDGET-001"
+			variant={{ Color: "Red", Size: "M" }}
+			quantity={2}
+			price={2999}
+		/>
+	</Items>
+	<Payment provider="stripe" method="card" amount={6397} />
+	<Shipping address={shippingAddress} carrier="usps" tracking="9400..." />
+	<Fulfillment warehouse="US-WEST" status="shipped" />
 </Order>
 ```
 
@@ -83,12 +96,12 @@ Unified data model across providers. Adapters for Stripe, PayPal, Square, etc. A
 
 ```tsx
 <PriceCalculation>
-  <BasePrice amount={2999} currency="USD" />
-  <Quantity value={2} />
-  <Discount type="percentage" value={10} />
-  <Tax calculator="avalara" rate={0.0725} />
-  <Shipping calculator="shippo" cost={895} />
-  {/* Result: (2999 × 2 × 0.9) + (5398 × 0.0725) + 895 = 6684 */}
+	<BasePrice amount={2999} currency="USD" />
+	<Quantity value={2} />
+	<Discount type="percentage" value={10} />
+	<Tax calculator="avalara" rate={0.0725} />
+	<Shipping calculator="shippo" cost={895} />
+	{/* Result: (2999 × 2 × 0.9) + (5398 × 0.0725) + 895 = 6684 */}
 </PriceCalculation>
 ```
 
@@ -153,11 +166,11 @@ License key generation. Time-limited downloads. Automatic delivery on payment co
 
 ```tsx
 <Subscription id="SUB-001" status="active">
-  <Customer id="user-456" />
-  <Product sku="SAAS-MONTHLY" />
-  <BillingCycle interval="month" count={1} />
-  <NextBilling date="2025-02-15" />
-  <Payment provider="stripe" method="card" />
+	<Customer id="user-456" />
+	<Product sku="SAAS-MONTHLY" />
+	<BillingCycle interval="month" count={1} />
+	<NextBilling date="2025-02-15" />
+	<Payment provider="stripe" method="card" />
 </Subscription>
 ```
 
@@ -208,7 +221,7 @@ Exchequer provides **primitives**. Other libraries provide **capabilities**:
 
 ```tsx
 <Subscribe to="inventory.changed">
-  {(event) => <UpdateDisplay sku={event.sku} quantity={event.quantity} />}
+	{(event) => <UpdateDisplay sku={event.sku} quantity={event.quantity} />}
 </Subscribe>
 ```
 
@@ -218,7 +231,7 @@ Operator emits events. Agent syncs across peers. Exchequer just defines the data
 
 ```tsx
 <OnEvent type="cart.abandoned" after="1 hour">
-  <SendEmail template="abandoned-cart-recovery" to={customer.email} />
+	<SendEmail template="abandoned-cart-recovery" to={customer.email} />
 </OnEvent>
 ```
 
@@ -228,10 +241,10 @@ Operator handles timing. Exchequer defines what "abandoned" means (data rules).
 
 ```tsx
 <StateMachine name="OrderLifecycle">
-  <State name="draft" on="payment_submitted" goto="pending_payment" />
-  <State name="pending_payment" on="payment_succeeded" goto="paid" />
-  <State name="paid" on="fulfillment_started" goto="fulfilling" />
-  <State name="fulfilling" on="shipment_created" goto="fulfilled" />
+	<State name="draft" on="payment_submitted" goto="pending_payment" />
+	<State name="pending_payment" on="payment_succeeded" goto="paid" />
+	<State name="paid" on="fulfillment_started" goto="fulfilling" />
+	<State name="fulfilling" on="shipment_created" goto="fulfilled" />
 </StateMachine>
 ```
 
@@ -257,10 +270,10 @@ Pathfinder queries. Exchequer provides the schema.
 
 ```tsx
 <AuthorizationPolicy>
-  <RequireRole role="customer" />
-  <RequireValidPaymentMethod />
-  <RequireInventoryAvailable />
-  <Then allow="payment.submit" />
+	<RequireRole role="customer" />
+	<RequireValidPaymentMethod />
+	<RequireInventoryAvailable />
+	<Then allow="payment.submit" />
 </AuthorizationPolicy>
 ```
 
@@ -290,9 +303,9 @@ Envoy visualizes. Exchequer provides the data.
 
 ```tsx
 <Payment provider="stripe">
-  <Method type="card" token="tok_visa" />
-  <Amount currency="USD" value={6397} />
-  <Capture />
+	<Method type="card" token="tok_visa" />
+	<Amount currency="USD" value={6397} />
+	<Capture />
 </Payment>
 ```
 
@@ -302,9 +315,9 @@ Supports: cards, ACH, Alipay, Apple Pay, Google Pay.
 
 ```tsx
 <Payment provider="paypal">
-  <Method type="paypal" />
-  <Amount currency="EUR" value={5899} />
-  <Authorize />
+	<Method type="paypal" />
+	<Amount currency="EUR" value={5899} />
+	<Authorize />
 </Payment>
 ```
 
@@ -314,9 +327,9 @@ Supports: PayPal accounts, credit cards via PayPal.
 
 ```tsx
 <Payment provider="square">
-  <Method type="card" nonce="cnon_..." />
-  <Amount currency="USD" value={4500} />
-  <Capture />
+	<Method type="card" nonce="cnon_..." />
+	<Amount currency="USD" value={4500} />
+	<Capture />
 </Payment>
 ```
 
@@ -327,9 +340,9 @@ Supports: cards, Apple Pay, Google Pay, gift cards.
 ```tsx
 // Custom provider adapter
 export const customProvider = createPaymentProvider({
-  authorize: async (payment) => { /* implementation */ },
-  capture: async (payment) => { /* implementation */ },
-  refund: async (payment) => { /* implementation */ },
+	authorize: async (payment) => {/* implementation */},
+	capture: async (payment) => {/* implementation */},
+	refund: async (payment) => {/* implementation */},
 })
 ```
 
@@ -371,9 +384,9 @@ Compile-time verification. No invalid products in production.
 
 ```typescript
 // NO floating point errors
-const subtotal = multiply(price)(quantity)  // 2999 × 2 = 5998
-const discounted = multiply(subtotal)(0.9)  // 5998 × 0.9 = 5398.2
-const tax = multiply(discounted)(0.0725)    // 5398.2 × 0.0725 = 391.37
+const subtotal = multiply(price)(quantity) // 2999 × 2 = 5998
+const discounted = multiply(subtotal)(0.9) // 5998 × 0.9 = 5398.2
+const tax = multiply(discounted)(0.0725) // 5398.2 × 0.0725 = 391.37
 const total = add(add(discounted)(tax))(895) // 5398.2 + 391.37 + 895 = 6684.57
 
 // Uses exact decimal representation, NOT IEEE 754 floats
@@ -394,19 +407,24 @@ All measurements from production. No synthetic benchmarks.
 ## Type Safety
 
 ```typescript
-import type { Product, Order, Cart, Payment } from '@sitebender/exchequer/types/index.ts'
+import type {
+	Cart,
+	Order,
+	Payment,
+	Product,
+} from "@sitebender/exchequer/types/index.ts"
 
 // Full autocomplete + compile-time verification
 const product: Product = {
-  sku: "WIDGET-001",
-  name: "Deluxe Widget",
-  price: { amount: 2999, currency: "USD" },
-  // Missing 'inventory' → compile error
+	sku: "WIDGET-001",
+	name: "Deluxe Widget",
+	price: { amount: 2999, currency: "USD" },
+	// Missing 'inventory' → compile error
 }
 
 // Payment provider types
-type StripePayment = Payment<'stripe'>
-type PayPalPayment = Payment<'paypal'>
+type StripePayment = Payment<"stripe">
+type PayPalPayment = Payment<"paypal">
 ```
 
 Every entity typed. Every calculation verified. Zero runtime errors.
@@ -445,42 +463,42 @@ Those are either application features or capabilities that emerge from Studio's 
 ```tsx
 // Complete checkout flow
 function CheckoutFlow() {
-  return (
-    <StateMachine name="Checkout">
-      <State name="cart">
-        <Cart id={user.id}>
-          <Item product="WIDGET-001" quantity={2} />
-          <CalculateTax provider="avalara" />
-          <CalculateShipping provider="shippo" />
-        </Cart>
-        <On event="proceed" goto="payment" />
-      </State>
+	return (
+		<StateMachine name="Checkout">
+			<State name="cart">
+				<Cart id={user.id}>
+					<Item product="WIDGET-001" quantity={2} />
+					<CalculateTax provider="avalara" />
+					<CalculateShipping provider="shippo" />
+				</Cart>
+				<On event="proceed" goto="payment" />
+			</State>
 
-      <State name="payment">
-        <Payment provider="stripe">
-          <Method type="card" />
-          <Amount value={cart.total} />
-          <OnSuccess goto="confirmation" />
-          <OnFailure goto="payment_failed" />
-        </Payment>
-      </State>
+			<State name="payment">
+				<Payment provider="stripe">
+					<Method type="card" />
+					<Amount value={cart.total} />
+					<OnSuccess goto="confirmation" />
+					<OnFailure goto="payment_failed" />
+				</Payment>
+			</State>
 
-      <State name="confirmation">
-        <Order status="paid">
-          <Items from={cart} />
-          <Payment confirmed={true} />
-          <Fulfillment warehouse="US-WEST" />
-        </Order>
-        <SendEmail template="order-confirmation" />
-        <EmitEvent type="order.created" />
-      </State>
+			<State name="confirmation">
+				<Order status="paid">
+					<Items from={cart} />
+					<Payment confirmed={true} />
+					<Fulfillment warehouse="US-WEST" />
+				</Order>
+				<SendEmail template="order-confirmation" />
+				<EmitEvent type="order.created" />
+			</State>
 
-      <State name="payment_failed">
-        <DisplayError message="Payment failed. Please try again." />
-        <On event="retry" goto="payment" />
-      </State>
-    </StateMachine>
-  );
+			<State name="payment_failed">
+				<DisplayError message="Payment failed. Please try again." />
+				<On event="retry" goto="payment" />
+			</State>
+		</StateMachine>
+	)
 }
 ```
 

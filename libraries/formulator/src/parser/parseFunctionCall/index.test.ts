@@ -12,10 +12,15 @@ import parseFunctionCall, { setExpressionParser } from "./index.ts"
 
 Deno.test("parseFunctionCall - parses function with single argument", () => {
 	const mockExpressionParser = (tokens: Array<Result<string, Token>>) => {
-		return (position: number, _minPrecedence?: number): Result<string, [AstNode, number]> => {
+		return (
+			position: number,
+			_minPrecedence?: number,
+		): Result<string, [AstNode, number]> => {
 			const tokenResult = tokens[position]
 
-			if (tokenResult._tag === "Ok" && tokenResult.value.type === "identifier") {
+			if (
+				tokenResult._tag === "Ok" && tokenResult.value.type === "identifier"
+			) {
 				const astNode: AstNode = Object.freeze({
 					_tag: "variable",
 					name: tokenResult.value.value,
@@ -56,7 +61,10 @@ Deno.test("parseFunctionCall - parses function with single argument", () => {
 
 Deno.test("parseFunctionCall - parses function with multiple arguments", () => {
 	const mockExpressionParser = (tokens: Array<Result<string, Token>>) => {
-		return (position: number, _minPrecedence?: number): Result<string, [AstNode, number]> => {
+		return (
+			position: number,
+			_minPrecedence?: number,
+		): Result<string, [AstNode, number]> => {
 			const tokenResult = tokens[position]
 
 			if (tokenResult._tag === "Ok" && tokenResult.value.type === "number") {
@@ -115,10 +123,15 @@ Deno.test("parseFunctionCall - returns error when missing opening parenthesis", 
 
 Deno.test("parseFunctionCall - returns error when missing closing parenthesis", () => {
 	const mockExpressionParser = (tokens: Array<Result<string, Token>>) => {
-		return (position: number, _minPrecedence?: number): Result<string, [AstNode, number]> => {
+		return (
+			position: number,
+			_minPrecedence?: number,
+		): Result<string, [AstNode, number]> => {
 			const tokenResult = tokens[position]
 
-			if (tokenResult._tag === "Ok" && tokenResult.value.type === "identifier") {
+			if (
+				tokenResult._tag === "Ok" && tokenResult.value.type === "identifier"
+			) {
 				const astNode: AstNode = Object.freeze({
 					_tag: "variable",
 					name: tokenResult.value.value,

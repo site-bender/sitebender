@@ -59,14 +59,17 @@ Deno.test("addFourDecimalPlaces", async (t) => {
 		assertEquals(result.value, 15)
 	})
 
-	await t.step("handles precision edge case (result stays within 4 decimals)", () => {
-		const augend = 10.1111 as FourDecimalPlaces
-		const addend = 5.2222 as FourDecimalPlaces
-		const result = addFourDecimalPlaces(augend)(addend)
+	await t.step(
+		"handles precision edge case (result stays within 4 decimals)",
+		() => {
+			const augend = 10.1111 as FourDecimalPlaces
+			const addend = 5.2222 as FourDecimalPlaces
+			const result = addFourDecimalPlaces(augend)(addend)
 
-		assert(isOk(result))
-		assertEquals(result.value, 15.3333)
-	})
+			assert(isOk(result))
+			assertEquals(result.value, 15.3333)
+		},
+	)
 
 	await t.step("handles very small values", () => {
 		const augend = 0.0001 as FourDecimalPlaces

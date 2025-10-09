@@ -19,7 +19,7 @@
 // @sitebender/arborist/src/extractConstants
 // Extracts all const declarations from a ParsedAst using Validation monad for error accumulation
 
-import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
+import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
@@ -33,10 +33,8 @@ import type {
 	Span,
 } from "../types/index.ts"
 import type { ConstantExtractionError } from "../types/errors/index.ts"
-import {
-	serializeExpression,
-	serializeTypeAnnotation,
-} from "../utils/serializeAstNode.ts"
+import _serializeExpression from "./_serializeExpression/index.ts"
+import _serializeTypeAnnotation from "../_serializeTypeAnnotation/index.ts"
 
 //++ Extracts all const declarations from a ParsedAst
 //++ Returns Validation to accumulate extraction errors per constant
@@ -182,7 +180,7 @@ function extractTypeAnnotation(
 
 	// Use the type annotation serializer to convert AST to string
 	const typeAnnotationNode = typeAnn.typeAnnotation
-	return serializeTypeAnnotation(typeAnnotationNode)
+	return _serializeTypeAnnotation(typeAnnotationNode)
 }
 
 //++ Extract value from declarator by serializing the AST node
@@ -197,5 +195,5 @@ function extractValue(
 	}
 
 	// Serialize the expression AST node directly instead of using span-based extraction
-	return serializeExpression(init)
+	return _serializeExpression(init)
 }

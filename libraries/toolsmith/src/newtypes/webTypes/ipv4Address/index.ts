@@ -63,7 +63,9 @@ export default function ipv4Address(
 				],
 				received: value,
 				expected: "Octet without leading zeros",
-				suggestion: `Remove leading zero from '${part}' (use ${Number.parseInt(part, 10)})`,
+				suggestion: `Remove leading zero from '${part}' (use ${
+					Number.parseInt(part, 10)
+				})`,
 				severity: "requirement",
 			})
 		}

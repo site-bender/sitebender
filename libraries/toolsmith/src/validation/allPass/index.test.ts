@@ -7,9 +7,15 @@ Deno.test("allPass", async function allPassTests(t) {
 	await t.step(
 		"returns true when all predicates pass",
 		function returnsTrueWhenAllPass() {
-			const isEven = function (n: number): boolean { return n % 2 === 0 }
-			const isPositive = function (n: number): boolean { return n > 0 }
-			const lessThan100 = function (n: number): boolean { return n < 100 }
+			const isEven = function (n: number): boolean {
+				return n % 2 === 0
+			}
+			const isPositive = function (n: number): boolean {
+				return n > 0
+			}
+			const lessThan100 = function (n: number): boolean {
+				return n < 100
+			}
 
 			const allPredicates = allPass([isEven, isPositive, lessThan100])
 			assertEquals(allPredicates(42), true)
@@ -19,9 +25,15 @@ Deno.test("allPass", async function allPassTests(t) {
 	await t.step(
 		"returns false when any predicate fails",
 		function returnsFalseWhenAnyFails() {
-			const isEven = function (n: number): boolean { return n % 2 === 0 }
-			const isPositive = function (n: number): boolean { return n > 0 }
-			const lessThan100 = function (n: number): boolean { return n < 100 }
+			const isEven = function (n: number): boolean {
+				return n % 2 === 0
+			}
+			const isPositive = function (n: number): boolean {
+				return n > 0
+			}
+			const lessThan100 = function (n: number): boolean {
+				return n < 100
+			}
 
 			const allPredicates = allPass([isEven, isPositive, lessThan100])
 			assertEquals(allPredicates(43), false) // odd number
@@ -41,7 +53,9 @@ Deno.test("allPass", async function allPassTests(t) {
 	await t.step(
 		"returns true with single passing predicate",
 		function returnsTrueWithSinglePassing() {
-			const isEven = function (n: number): boolean { return n % 2 === 0 }
+			const isEven = function (n: number): boolean {
+				return n % 2 === 0
+			}
 			const allPredicates = allPass([isEven])
 			assertEquals(allPredicates(42), true)
 		},
@@ -50,7 +64,9 @@ Deno.test("allPass", async function allPassTests(t) {
 	await t.step(
 		"returns false with single failing predicate",
 		function returnsFalseWithSingleFailing() {
-			const isEven = function (n: number): boolean { return n % 2 === 0 }
+			const isEven = function (n: number): boolean {
+				return n % 2 === 0
+			}
 			const allPredicates = allPass([isEven])
 			assertEquals(allPredicates(43), false)
 		},
@@ -59,8 +75,12 @@ Deno.test("allPass", async function allPassTests(t) {
 	await t.step(
 		"is curried",
 		function isCurried() {
-			const isEven = function (n: number): boolean { return n % 2 === 0 }
-			const isPositive = function (n: number): boolean { return n > 0 }
+			const isEven = function (n: number): boolean {
+				return n % 2 === 0
+			}
+			const isPositive = function (n: number): boolean {
+				return n > 0
+			}
 
 			const checkEvenAndPositive = allPass([isEven, isPositive])
 			assertEquals(checkEvenAndPositive(42), true)
@@ -81,7 +101,11 @@ Deno.test("allPass", async function allPassTests(t) {
 				return true
 			}
 
-			const allPredicates = allPass([incrementAndPass, incrementAndFail, incrementAndPass])
+			const allPredicates = allPass([
+				incrementAndPass,
+				incrementAndFail,
+				incrementAndPass,
+			])
 			allPredicates(0)
 
 			// Should call first two predicates, then stop

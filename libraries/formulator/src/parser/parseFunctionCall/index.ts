@@ -11,7 +11,10 @@ import type { AstNode } from "../types/index.ts"
 
 type ExpressionParser = (
 	tokens: Array<Result<string, Token>>,
-) => (position: number, minPrecedence?: number) => Result<string, [AstNode, number]>
+) => (
+	position: number,
+	minPrecedence?: number,
+) => Result<string, [AstNode, number]>
 
 let parseExpression: ExpressionParser | null = null
 
@@ -21,7 +24,9 @@ export function setExpressionParser(parser: ExpressionParser): void {
 }
 
 //++ Parses function call from token stream (curried, data-last)
-export default function parseFunctionCall(tokens: Array<Result<string, Token>>) {
+export default function parseFunctionCall(
+	tokens: Array<Result<string, Token>>,
+) {
 	return function parseFunctionCallWithPosition(
 		position: number,
 	): Result<string, [AstNode, number]> {
@@ -77,7 +82,10 @@ export default function parseFunctionCall(tokens: Array<Result<string, Token>>) 
 								 | **Purity guarantee**: Deterministic and side-effect free.
 								 */
 								while (lt(length(tokens))(currentPosition)) {
-									const argumentResult = parseExpression(tokens)(currentPosition, 0)
+									const argumentResult = parseExpression(tokens)(
+										currentPosition,
+										0,
+									)
 
 									if (argumentResult._tag === "Error") {
 										return argumentResult
@@ -122,7 +130,9 @@ export default function parseFunctionCall(tokens: Array<Result<string, Token>>) 
 									)
 								}
 
-								return error(`Unexpected end of input while parsing function arguments`)
+								return error(
+									`Unexpected end of input while parsing function arguments`,
+								)
 							}
 
 							return error(

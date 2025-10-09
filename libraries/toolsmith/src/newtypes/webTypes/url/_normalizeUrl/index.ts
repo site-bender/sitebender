@@ -16,7 +16,9 @@ export default function _normalizeUrl(urlString: string): string {
 	const domainPart = pathStartIndex === -1
 		? afterProtocol
 		: afterProtocol.slice(0, pathStartIndex)
-	const pathPart = pathStartIndex === -1 ? "" : afterProtocol.slice(pathStartIndex)
+	const pathPart = pathStartIndex === -1
+		? ""
+		: afterProtocol.slice(pathStartIndex)
 
 	const normalizedDomain = domainPart.toLocaleLowerCase()
 

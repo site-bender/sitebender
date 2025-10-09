@@ -9,7 +9,9 @@ import unwrapFourDecimalPlaces from "@sitebender/toolsmith/newtypes/fourDecimalP
 //++ Returns Result with error if the result cannot be represented as FourDecimalPlaces
 export default function subtractFourDecimalPlaces(
 	minuend: FourDecimalPlaces,
-): (subtrahend: FourDecimalPlaces) => Result<ValidationError, FourDecimalPlaces> {
+): (
+	subtrahend: FourDecimalPlaces,
+) => Result<ValidationError, FourDecimalPlaces> {
 	return function subtractFromMinuend(
 		subtrahend: FourDecimalPlaces,
 	): Result<ValidationError, FourDecimalPlaces> {

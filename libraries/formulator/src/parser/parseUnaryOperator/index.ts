@@ -21,7 +21,9 @@ export function setPrimaryParser(parser: PrimaryParser): void {
 }
 
 //++ Parses unary operator expression from token stream (curried, data-last)
-export default function parseUnaryOperator(tokens: Array<Result<string, Token>>) {
+export default function parseUnaryOperator(
+	tokens: Array<Result<string, Token>>,
+) {
 	return function parseUnaryOperatorWithPosition(
 		position: number,
 	): Result<string, [AstNode, number]> {
