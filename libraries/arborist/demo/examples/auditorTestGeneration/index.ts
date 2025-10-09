@@ -34,7 +34,9 @@ export async function generateTests(filePath: string) {
 		edgeCases: "Would identify boundary conditions",
 		mockData: "Would create type-safe mock objects",
 		invariants: "Would check mathematical properties",
-		coverage: `Would aim for ${semanticInfo.complexity.cyclomatic > 5 ? 'high' : 'standard'} coverage`,
+		coverage: `Would aim for ${
+			semanticInfo.complexity.cyclomatic > 5 ? "high" : "standard"
+		} coverage`,
 	}
 
 	return {

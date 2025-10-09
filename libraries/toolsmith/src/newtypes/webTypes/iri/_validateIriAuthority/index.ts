@@ -41,7 +41,9 @@ export default function _validateIriAuthority(
 		remainingAuthority = remainingAuthority.slice(atIndex + 1)
 
 		// Validate userinfo: Unicode allowed, but not @, [, ]
-		if (userinfo.includes("@") || userinfo.includes("[") || userinfo.includes("]")) {
+		if (
+			userinfo.includes("@") || userinfo.includes("[") || userinfo.includes("]")
+		) {
 			return error({
 				code: "IRI_AUTHORITY_INVALID_USERINFO",
 				field: "iri.authority.userinfo",

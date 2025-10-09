@@ -100,7 +100,10 @@ Deno.test("ipv4Address provides actionable suggestions in errors", function () {
 	const result = ipv4Address("192.168.001.1")
 	assertEquals(result._tag, "Error")
 	if (result._tag === "Error") {
-		assertEquals(result.error.suggestion, "Remove leading zero from '001' (use 1)")
+		assertEquals(
+			result.error.suggestion,
+			"Remove leading zero from '001' (use 1)",
+		)
 	}
 })
 

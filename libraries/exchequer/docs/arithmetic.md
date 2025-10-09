@@ -51,14 +51,14 @@ For values exceeding `Number.MAX_SAFE_INTEGER`:
 ## Usage in Exchequer
 
 ```typescript
-import { add } from '@sitebender/toolsmith/vanilla/precision/add/index.ts'
-import { multiply } from '@sitebender/toolsmith/vanilla/precision/multiply/index.ts'
+import { add } from "@sitebender/toolsmith/vanilla/precision/add/index.ts"
+import { multiply } from "@sitebender/toolsmith/vanilla/precision/multiply/index.ts"
 
 // Price calculation with exact decimal arithmetic
-const subtotal = multiply(price)(quantity)        // 2999 × 2 = 5998
-const discounted = multiply(subtotal)(0.9)        // 5998 × 0.9 = 5398.2
-const withTax = multiply(discounted)(1.0725)      // 5398.2 × 1.0725 = 5789.77
-const total = add(withTax)(shipping)              // 5789.77 + 895 = 6684.77
+const subtotal = multiply(price)(quantity) // 2999 × 2 = 5998
+const discounted = multiply(subtotal)(0.9) // 5998 × 0.9 = 5398.2
+const withTax = multiply(discounted)(1.0725) // 5398.2 × 1.0725 = 5789.77
+const total = add(withTax)(shipping) // 5789.77 + 895 = 6684.77
 
 // No floating point errors like 6684.769999999999
 ```
@@ -74,6 +74,7 @@ JavaScript's standard arithmetic uses IEEE 754 floating point, which has roundin
 ```
 
 Exchequer requires **exact** calculations for:
+
 - Price calculations
 - Tax calculations
 - Discount calculations

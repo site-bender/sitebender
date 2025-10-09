@@ -12,12 +12,14 @@
 ### Random Number Generation
 
 #### random
+
 - **Current**: `(min: number | null | undefined) => (max: number | null | undefined) => number`
 - **Returns**: NaN on invalid input or min >= max
 - **Description**: Generates a random float in [min, max); returns NaN on invalid range
 - **Target**: `(min: number) => (max: number) => Result<MathError, number>`
 
 #### randomInteger
+
 - **Current**: `(min: number | null | undefined) => (max: number | null | undefined) => number`
 - **Returns**: NaN on invalid input, non-integers, or min >= max
 - **Description**: [INFERRED] Generates a random integer in [min, max); returns NaN on invalid range
@@ -41,12 +43,14 @@ Random number generation functions will be converted to Result-returning functio
 ### Arrow Function Syntax
 
 Both functions use arrow syntax and need refactoring to named functions:
+
 - **random** (arrow function)
 - **randomInteger** (arrow function)
 
 ### Impurity Notice
 
 **IMPORTANT**: These functions are **impure** by nature:
+
 - Same input produces different outputs (non-deterministic)
 - Side effect: reads from global PRNG state (Math.random())
 - Cannot be memoized
@@ -57,6 +61,7 @@ Both functions use arrow syntax and need refactoring to named functions:
 ### Random Number Generation Details
 
 #### random
+
 - Generates random **floating-point** number in **[min, max)** range
 - Range is **half-open**: includes min, excludes max
 - Uses `Math.random()` as source of randomness
@@ -68,6 +73,7 @@ Both functions use arrow syntax and need refactoring to named functions:
   - `random(-5)(5)` → -5.0 to 4.999... (not 5.0)
 
 #### randomInteger
+
 - Generates random **integer** in **[min, max)** range
 - Range is **half-open**: includes min, excludes max
 - Requires integer inputs (validates with `Number.isInteger`)
@@ -82,6 +88,7 @@ Both functions use arrow syntax and need refactoring to named functions:
 ### Range Constraints
 
 Both functions require:
+
 - `min < max` (strict inequality)
 - `min >= max` returns NaN (error in monadic version)
 - Equal bounds (min = max) is invalid (empty range)
@@ -92,12 +99,14 @@ Both functions require:
 ### Input Validation
 
 #### random
+
 - Validates both min and max are numbers (not null/undefined)
 - Validates both are finite (not NaN or Infinity)
 - Validates min < max
 - No integer constraint
 
 #### randomInteger
+
 - All validations from random
 - **Additionally** validates both min and max are integers
 - Non-integer inputs return NaN
@@ -107,6 +116,7 @@ Both functions require:
 ## Implementation Dependencies
 
 Random functions have minimal dependencies:
+
 - Depend on **isNullish** from validation
 - **randomInteger** depends on **Number.isInteger** for validation
 - **randomInteger** uses **Math.floor** (could use floor from MATH_ROUNDING.md)
@@ -119,10 +129,12 @@ Random functions have minimal dependencies:
 When migrating to Result type, errors should be categorized:
 
 ### ValidationError
+
 - Type errors (not a number, null/undefined)
 - Integer validation errors (randomInteger with non-integer inputs)
 
 ### MathError (new type needed)
+
 - Invalid range errors (min >= max)
 - Empty range errors (min = max)
 
@@ -131,6 +143,7 @@ When migrating to Result type, errors should be categorized:
 ## Related Functions
 
 ### In Other Categories
+
 - **floor** (in MATH_ROUNDING.md) - used internally by randomInteger
 - **inRange** (in MATH_COMPARISON.md) - could validate random result
 
@@ -139,6 +152,7 @@ When migrating to Result type, errors should be categorized:
 Consider adding these random number generation functions in monadic implementation:
 
 #### Distribution Functions
+
 - **randomNormal** - normal (Gaussian) distribution with mean and stddev
 - **randomExponential** - exponential distribution with lambda
 - **randomPoisson** - Poisson distribution with lambda
@@ -146,6 +160,7 @@ Consider adding these random number generation functions in monadic implementati
 - **randomUniform** - alias for random (explicit distribution name)
 
 #### Sampling Functions
+
 - **randomChoice** - select random element from array
 - **randomSample** - select n random elements from array (without replacement)
 - **randomSampleWithReplacement** - select n random elements (with replacement)
@@ -153,15 +168,18 @@ Consider adding these random number generation functions in monadic implementati
 - **randomWeighted** - random selection with weighted probabilities
 
 #### Range Variants
+
 - **randomInclusive** - [min, max] range (includes both endpoints)
 - **randomExclusive** - (min, max) range (excludes both endpoints)
 - **randomIntegerInclusive** - [min, max] range for integers
 
 #### Seeded Random
+
 - **createSeededRandom** - deterministic PRNG with seed (for testing)
 - **randomWithSeed** - generate random number from seeded generator
 
 #### Cryptographic
+
 - **randomSecure** - cryptographically secure random (uses crypto.getRandomValues)
 - **randomUuid** - generate random UUID v4
 
@@ -174,6 +192,7 @@ Consider adding these random number generation functions in monadic implementati
 When migrating, ensure comprehensive tests for:
 
 ### Range Validation
+
 - Valid ranges: min < max
 - Invalid ranges: min >= max
 - Edge cases: min = max (empty range)
@@ -181,11 +200,13 @@ When migrating, ensure comprehensive tests for:
 - Zero-crossing ranges: random(-5)(5)
 
 ### Integer Validation (randomInteger)
+
 - Integer inputs: randomInteger(0)(10)
 - Non-integer inputs: randomInteger(0.5)(10.5) (should error)
 - Float min with int max: randomInteger(0.1)(10) (should error)
 
 ### Invalid Inputs
+
 - null/undefined
 - NaN
 - Infinity/-Infinity
@@ -195,24 +216,28 @@ When migrating, ensure comprehensive tests for:
 **Statistical tests** (run many iterations, check properties):
 
 #### Uniformity
+
 - Generate 10,000 samples
 - Verify distribution is roughly uniform (chi-squared test)
 - All bins should have similar counts
 
 #### Range Compliance
+
 - Verify all values satisfy `min <= value < max`
 - Verify no values equal max (exclusive upper bound)
 - Verify some values equal min (inclusive lower bound)
 
 #### Integer Compliance (randomInteger)
+
 - Verify all values are integers
 - Verify entire range [min, max) is covered given enough samples
 
 ### Example Test Structure
+
 ```typescript
 // Uniformity test
 const samples = Array.from({ length: 10000 }, () => random(0)(10))
-const inRange = samples.every(x => x >= 0 && x < 10)
+const inRange = samples.every((x) => x >= 0 && x < 10)
 assert(inRange, "All samples in [0, 10)")
 
 // Coverage test (randomInteger)
@@ -230,6 +255,7 @@ assert(!seen.has(5), "Should never see 5 (exclusive)")
 ### Purity and Side Effects
 
 Random functions violate **referential transparency**:
+
 - Same arguments can produce different results
 - Cannot be memoized
 - Cannot be reasoned about algebraically
@@ -237,6 +263,7 @@ Random functions violate **referential transparency**:
 ### Integration with Effect Systems
 
 In monadic implementation, consider:
+
 - **Effect type**: `Effect<Random, MathError, number>`
 - **Reader monad**: Pass RNG as context
 - **State monad**: Thread RNG state through computations
@@ -245,6 +272,7 @@ In monadic implementation, consider:
 ### Testability
 
 For testing code that uses random functions:
+
 - **Dependency injection**: Pass RNG as parameter
 - **Seeded RNG**: Use deterministic PRNG with known seed
 - **Property-based testing**: Test properties that hold for any random value
@@ -253,31 +281,33 @@ For testing code that uses random functions:
 ### Alternative Designs
 
 #### Pure Random (Explicit State Threading)
+
 ```typescript
 type RandomState = { seed: number }
 type RandomResult<T> = [T, RandomState]
 
 function random(min: number) {
-  return function randomMax(max: number) {
-    return function randomWithState(state: RandomState): RandomResult<number> {
-      const [value, nextState] = nextRandom(state)
-      return [min + value * (max - min), nextState]
-    }
-  }
+	return function randomMax(max: number) {
+		return function randomWithState(state: RandomState): RandomResult<number> {
+			const [value, nextState] = nextRandom(state)
+			return [min + value * (max - min), nextState]
+		}
+	}
 }
 ```
 
 #### Effect-based Random
+
 ```typescript
 type RandomEffect<T> = Effect<RandomService, MathError, T>
 
 function random(min: number) {
-  return function randomMax(max: number): RandomEffect<number> {
-    return effect.flatMap(
-      effect.service<RandomService>(),
-      rng => rng.random(min, max)
-    )
-  }
+	return function randomMax(max: number): RandomEffect<number> {
+		return effect.flatMap(
+			effect.service<RandomService>(),
+			(rng) => rng.random(min, max),
+		)
+	}
 }
 ```
 
@@ -290,6 +320,7 @@ function random(min: number) {
 ### Math.random() Limitations
 
 `Math.random()` is **NOT cryptographically secure**:
+
 - Predictable (can guess future values from past values)
 - Not suitable for:
   - Cryptographic keys
@@ -300,14 +331,15 @@ function random(min: number) {
 ### Secure Alternative
 
 For security-sensitive applications, use `crypto.getRandomValues()`:
+
 ```typescript
 function randomSecure(min: number) {
-  return function randomSecureMax(max: number): number {
-    const range = max - min
-    const bytes = new Uint32Array(1)
-    crypto.getRandomValues(bytes)
-    return min + (bytes[0] / (0xFFFFFFFF + 1)) * range
-  }
+	return function randomSecureMax(max: number): number {
+		const range = max - min
+		const bytes = new Uint32Array(1)
+		crypto.getRandomValues(bytes)
+		return min + (bytes[0] / (0xFFFFFFFF + 1)) * range
+	}
 }
 ```
 

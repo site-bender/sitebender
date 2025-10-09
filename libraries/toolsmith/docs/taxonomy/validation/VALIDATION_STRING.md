@@ -10,6 +10,7 @@
 ## Function List
 
 ### isEmail (should be `isEmailAddress` — an email is an electronic message)
+
 - **Current**: `(options?: EmailOptions) => (value: unknown) => boolean`
 - **Options**: `{ requireTLD?: boolean, allowDisplayName?: boolean, strict?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -17,6 +18,7 @@
 - **Target**: `(options?: EmailOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isUrl
+
 - **Current**: `(options?: UrlOptions) => (value: unknown) => boolean`
 - **Options**: `{ protocols?: Array<string>, allowedDomains?: Array<string>, requireDomain?: string, requirePath?: boolean, disallowLocalhost?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -24,6 +26,7 @@
 - **Target**: `(options?: UrlOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isUuid
+
 - **Current**: `(options?: UuidOptions) => (value: unknown) => boolean`
 - **Options**: `{ version?: 1 | 2 | 3 | 4 | 5, versions?: Array<1 | 2 | 3 | 4 | 5>, allowNil?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -31,18 +34,21 @@
 - **Target**: `(options?: UuidOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isIpv4
+
 - **Current**: `(value: unknown) => () => boolean`
 - **Returns**: Curried function returning boolean
 - **Description**: Validates IPv4 addresses in dotted-decimal notation
 - **Target**: `(value: unknown) => Result<ValidationError, string>`
 
 ### isIpv6
+
 - **Current**: `(value: unknown) => boolean`
 - **Returns**: Boolean
 - **Description**: [INFERRED] Validates IPv6 addresses including zone identifiers and IPv4-mapped addresses
 - **Target**: `(value: unknown) => Result<ValidationError, string>`
 
 ### isHexColor (aren't these all in VALIDATION_CUSTOM also? Should have all color types, e.g., `isOklch`)
+
 - **Current**: `(options?: HexColorOptions) => (value: unknown) => boolean`
 - **Options**: `{ requireHash?: boolean, format?: '3-digit' | '4-digit' | '6-digit' | '8-digit' | 'with-alpha' | 'no-alpha' }`
 - **Returns**: Curried function returning boolean
@@ -50,6 +56,7 @@
 - **Target**: `(options?: HexColorOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isAlpha (confusing — maybe `isAlphabetic`? Alpha is a Greek letter)
+
 - **Current**: `(options?: AlphaOptions) => (value: unknown) => boolean`
 - **Options**: `{ allowSpaces?: boolean, allowHyphens?: boolean, allowApostrophes?: boolean, unicode?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -57,6 +64,7 @@
 - **Target**: `(options?: AlphaOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isAlphanumeric
+
 - **Current**: `(options?: AlphanumericOptions) => (value: unknown) => boolean`
 - **Options**: `{ allowSpaces?: boolean, allowHyphens?: boolean, allowUnderscores?: boolean, unicode?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -64,6 +72,7 @@
 - **Target**: `(options?: AlphanumericOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isBase64 (and `isBase58` — what about `isBinary`, `isOctal`, `isHexadecimal`?)
+
 - **Current**: `(options?: Base64Options) => (value?: Value) => boolean`
 - **Options**: `{ urlSafe?: boolean, allowUnpadded?: boolean, strict?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -71,12 +80,14 @@
 - **Target**: `(options?: Base64Options) => (value: unknown) => Result<ValidationError, string>`
 
 ### isBlank
+
 - **Current**: `(str: string | null | undefined) => boolean`
 - **Returns**: Boolean
 - **Description**: Checks if a string is empty or contains only whitespace
 - **Target**: `(value: unknown) => Result<ValidationError, string>`
 
 ### isEmpty
+
 - **Current**: `(value: unknown) => boolean`
 - **Returns**: Boolean
 - **Description**: Checks if a value is empty based on its type (null, undefined, empty string/array/object/Map/Set)
@@ -84,6 +95,7 @@
 - **Note**: Polymorphic - handles multiple types, returns never when empty
 
 ### isJSON
+
 - **Current**: `(options?: JSONOptions) => (value: unknown) => boolean`
 - **Options**: `{ type?: 'object' | 'array' | 'string' | 'number' | 'boolean' | 'null' }`
 - **Returns**: Curried function returning boolean
@@ -91,6 +103,7 @@
 - **Target**: `(options?: JSONOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isIsbn (split into `isIsbn10` and `isIsbn13` (or all three?))
+
 - **Current**: `(options?: IsbnOptions) => (value: unknown) => boolean`
 - **Options**: `{ version?: 10 | 13 }`
 - **Returns**: Curried function returning boolean
@@ -98,6 +111,7 @@
 - **Target**: `(options?: IsbnOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isCreditCard
+
 - **Current**: `(options?: CreditCardOptions) => (value: unknown) => boolean`
 - **Options**: `{ cardType?: string }`
 - **Returns**: Curried function returning boolean
@@ -105,12 +119,14 @@
 - **Target**: `(options?: CreditCardOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isIban
+
 - **Current**: `(value: unknown) => () => boolean`
 - **Returns**: Curried function returning boolean
 - **Description**: Validates International Bank Account Numbers (IBAN) per ISO 13616
 - **Target**: `(value: unknown) => Result<ValidationError, string>`
 
 ### isPhone (should be `isPhoneNumber` — a phone is a piece of equipment)
+
 - **Current**: `(options?: PhoneOptions) => (value: unknown) => boolean`
 - **Options**: `{ country?: string, strict?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -118,6 +134,7 @@
 - **Target**: `(options?: PhoneOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isPostalCode (also have the more specific `isZipCode` and `isZipPlusFour`?)
+
 - **Current**: `(options?: PostalCodeOptions) => (value: unknown) => boolean`
 - **Options**: `{ country?: string }`
 - **Returns**: Curried function returning boolean
@@ -125,12 +142,14 @@
 - **Target**: `(options?: PostalCodeOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isNonEmptyString
+
 - **Current**: `(value: unknown) => value is string`
 - **Returns**: Type guard boolean
 - **Description**: Type guard that checks if a value is a non-empty string primitive
 - **Target**: `(value: unknown) => Result<ValidationError, string>`
 
 ### isNumeric
+
 - **Current**: `(options?: NumericOptions) => (value: unknown) => boolean`
 - **Options**: `{ allowNegative?: boolean, allowDecimal?: boolean, allowScientific?: boolean }`
 - **Returns**: Curried function returning boolean
@@ -138,6 +157,7 @@
 - **Target**: `(options?: NumericOptions) => (value: unknown) => Result<ValidationError, string>`
 
 ### isString
+
 - **Current**: `(value: unknown) => value is string`
 - **Returns**: Type guard boolean
 - **Description**: Type guard that checks if a value is a string primitive (not String object)
@@ -160,6 +180,7 @@ String validators will be converted to Result-returning validators that provide 
 ## Special Considerations
 
 ### Arrow Function Refactoring Required
+
 - **isUuid** - Uses arrow function syntax, needs refactoring to named functions
 - **isIpv6** - Uses arrow function syntax, needs refactoring to named functions
 - **isIsbn** - Uses arrow function syntax with nested helper functions
@@ -167,16 +188,19 @@ String validators will be converted to Result-returning validators that provide 
 - **isNumeric** - Uses arrow function syntax, needs refactoring to named functions
 
 ### Currying Inconsistencies
+
 - **isIpv4** - Has unusual currying pattern `(value) => () => boolean`, should be `(value) => boolean`
 - **isIban** - Has unusual currying pattern `(value) => () => boolean`, should be `(value) => boolean`
 - **isBlank** - Not curried, takes `string | null | undefined` directly
 
 ### Type Safety Issues
+
 - **isBlank** - Accepts `string | null | undefined` instead of `unknown`, should be normalized
 - **isBase64** - Uses `Value` type instead of `unknown`, should be normalized
 - **isNonEmptyString** - Returns type guard but should return Result in monadic form
 
 ### Complex Validators with Dependencies
+
 - **isEmail** - Complex RFC 5322 validation with multiple constraint checks
 - **isUrl** - Uses WHATWG URL API with try/catch (needs Result conversion)
 - **isUuid** - Supports multiple UUID versions and nil UUID
@@ -187,22 +211,26 @@ String validators will be converted to Result-returning validators that provide 
 - **isPostalCode** - Country-specific validation patterns (20+ countries)
 
 ### Empty/Blank Distinction
+
 - **isEmpty** - Polymorphic, checks various collection types for emptiness
 - **isBlank** - String-specific, checks for whitespace-only strings
 - **isNonEmptyString** - Combines string type check with emptiness check
 
 ### Format Validators
+
 - **isBase64** - Supports URL-safe encoding and padding options
 - **isHexColor** - Supports multiple hex color formats (3/4/6/8 digit, with/without alpha)
 - **isJSON** - Can validate specific JSON value types
 
 ### International Standards
+
 - **isEmail** - RFC 5322 compliance
 - **isIban** - ISO 13616 compliance
 - **isPhone** - ITU-T E.164 compliance for international format
 - **isUuid** - RFC 4122 compliance
 
 ### Character Set Validators
+
 - **isAlpha** - Supports Unicode character ranges
 - **isAlphanumeric** - Supports Unicode character ranges
 - Both support flexible character inclusion (spaces, hyphens, apostrophes, underscores)
@@ -218,6 +246,7 @@ Most string validators follow these patterns:
 3. **Type guard**: `(value) => value is string` - for TypeScript type narrowing
 
 All will convert to Result-returning validators:
+
 - Options-based: `(options) => (value) => Result<ValidationError, string>`
 - Direct: `(value) => Result<ValidationError, string>`
 - Type guards become Result validators with proper error messages

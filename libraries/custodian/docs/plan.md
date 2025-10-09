@@ -19,11 +19,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ## Phases
 
 ### Phase 1: URL-as-State Foundation
+
 **Goal**: Complete UI state encoded in URLs with stateless server rendering
 
 #### Milestones
 
 **M1.1: URL State Model**
+
 - Define URL structure for UI state (query params, fragments)
 - State serialization functions (pure, curried)
 - State deserialization functions
@@ -31,6 +33,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - URL validation and sanitization
 
 **M1.2: Server-Side Rendering**
+
 - Read state from URL query parameters
 - Render appropriate UI for current state
 - No client-side state required
@@ -38,6 +41,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Semantic HTML only (no JavaScript)
 
 **M1.3: Form-Based State Mutations**
+
 - Forms as state transition mechanisms
 - HTTP POST/PUT/DELETE methods
 - Server processes form → new state → new URL
@@ -45,6 +49,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Redirect to new URL after mutation
 
 **M1.4: Idempotent Operations**
+
 - UUID-based operation IDs
 - Server-generated UUIDs in forms
 - Idempotency key checking
@@ -52,6 +57,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Operation result caching
 
 **M1.5: Client-Side URL Updates**
+
 - JavaScript intercepts link clicks
 - Update URL via pushState
 - Re-render without page load
@@ -59,6 +65,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - History API integration
 
 #### Definition of Done
+
 - ✓ All UI state in URL query params
 - ✓ Server renders from URL state
 - ✓ Works perfectly in Lynx (no JavaScript)
@@ -69,6 +76,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Zero client-side state duplication
 
 #### Deliverables
+
 - URL state schema documentation
 - State serialization library
 - Server-side rendering integration
@@ -79,11 +87,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 2: Cryptographic Continuations
+
 **Goal**: Resumable multi-step workflows with tamper-proof continuation tokens
 
 #### Milestones
 
 **M2.1: Continuation Data Model**
+
 - Continuation structure (step, data, remaining steps)
 - Rollback chain (previous continuation)
 - Expiration timestamp
@@ -91,6 +101,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - TypeScript types for Continuation IR
 
 **M2.2: Cryptographic Signing**
+
 - Ed25519 signing of continuations
 - HMAC for symmetric key scenarios
 - Signature verification
@@ -98,6 +109,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Tamper detection
 
 **M2.3: Continuation Serialization**
+
 - Base64 encoding for URLs
 - JSON serialization of continuation data
 - Compression for large continuations
@@ -105,6 +117,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - URL-safe encoding
 
 **M2.4: Resumable Workflows**
+
 - Multi-step form wizards
 - Save-for-later functionality
 - Bookmark mid-workflow and resume
@@ -112,6 +125,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Graceful degradation (expired continuations)
 
 **M2.5: Privacy-Aware Continuations**
+
 - Public data (goes in URL)
 - Private data (server-side only)
 - Proof of validity without exposure
@@ -119,6 +133,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Selective disclosure
 
 #### Definition of Done
+
 - ✓ Continuations cryptographically signed
 - ✓ Tamper detection functional
 - ✓ Multi-step forms resumable from bookmark
@@ -129,6 +144,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Security audit on continuation implementation
 
 #### Deliverables
+
 - Continuation data model
 - Signing/verification library
 - Serialization utilities
@@ -139,11 +155,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 3: State Machine Primitives
+
 **Goal**: Pure functional state machines with declarative definitions
 
 #### Milestones
 
 **M3.1: State Machine Model**
+
 - Discriminated unions for states
 - Event type definitions
 - Transition functions (pure)
@@ -151,6 +169,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Action lists per transition
 
 **M3.2: State Machine Execution**
+
 - Current state tracking
 - Event processing
 - Transition validation
@@ -158,6 +177,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Action execution
 
 **M3.3: State Machine as Data**
+
 - State machines as RDF triples
 - SPARQL queries over state machines
 - State machine serialization (Turtle/JSON/YAML)
@@ -165,6 +185,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - State machine composition
 
 **M3.4: Server-Side State Machines**
+
 - Form submissions as state machine events
 - Server computes next state
 - Redirect to URL with new state
@@ -172,6 +193,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Stateless HTTP semantics
 
 **M3.5: Client-Side Enhancement**
+
 - JavaScript intercepts form submissions
 - Local state machine execution
 - Optimistic state transitions
@@ -179,6 +201,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Conflict resolution
 
 #### Definition of Done
+
 - ✓ State machines defined as discriminated unions
 - ✓ Transitions are pure functions
 - ✓ State machines stored as RDF triples
@@ -189,6 +212,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Property-based tests for state machine invariants
 
 #### Deliverables
+
 - State machine data model
 - Execution engine
 - Triple store integration
@@ -199,11 +223,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 4: Event Sourcing Integration
+
 **Goal**: State machines emit events to Operator, state derived from event history
 
 #### Milestones
 
 **M4.1: State Transitions as Events**
+
 - Every state transition produces event
 - Events published to Operator
 - Event payload includes (from state, to state, event trigger)
@@ -211,6 +237,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - SPARQL queries over state history
 
 **M4.2: State from Event Replay**
+
 - Current state derived by folding events
 - Replay from any point in history
 - Time-travel debugging
@@ -218,6 +245,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Idempotent event application
 
 **M4.3: CQRS Pattern**
+
 - Commands (form submissions) produce events
 - Events update state machines
 - Queries are nullipotent (pure reads)
@@ -225,6 +253,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Event audit trail
 
 **M4.4: Event Snapshots**
+
 - Periodic state snapshots
 - Snapshot validation (hash of events)
 - Replay from snapshot + subsequent events
@@ -232,6 +261,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Performance optimization
 
 **M4.5: Distributed State Machines**
+
 - State machine events via Operator P2P
 - CRDT-based state convergence (via Agent)
 - Conflict-free state synchronization
@@ -239,6 +269,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Eventual consistency
 
 #### Definition of Done
+
 - ✓ All state transitions produce events
 - ✓ Events published to Operator triple store
 - ✓ Current state derived from event replay
@@ -249,6 +280,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Property-based tests for event sourcing invariants
 
 #### Deliverables
+
 - Event emission integration
 - Event replay engine
 - CQRS utilities
@@ -259,11 +291,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 5: Generator-Based State Machines
+
 **Goal**: Resumable state machines using generator functions
 
 #### Milestones
 
 **M5.1: Generator State Machine Model**
+
 - Generator functions for state transitions
 - Yield points as state checkpoints
 - Resumable execution via `next()`
@@ -271,6 +305,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Generator composition
 
 **M5.2: Generator Continuation**
+
 - Serialize generator state
 - Resume from serialized checkpoint
 - Continuation token includes generator state
@@ -278,6 +313,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Long-running workflows
 
 **M5.3: Generator Error Handling**
+
 - Try/catch within generators
 - Error state transitions
 - Rollback on error
@@ -285,6 +321,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Error recovery workflows
 
 **M5.4: Generator Performance**
+
 - Lazy evaluation of states
 - Only compute next state when needed
 - Memory-efficient for large state spaces
@@ -292,6 +329,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Backpressure handling
 
 **M5.5: Generator Testing**
+
 - Property-based tests for generators
 - Generator state snapshot testing
 - Resumption testing
@@ -299,6 +337,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Performance benchmarks
 
 #### Definition of Done
+
 - ✓ State machines can use generators
 - ✓ Generator state serializable
 - ✓ Resumption from continuation works
@@ -309,6 +348,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Documentation on generator patterns
 
 #### Deliverables
+
 - Generator state machine implementation
 - Continuation serialization for generators
 - Error handling utilities
@@ -319,11 +359,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 6: Visual State Machine Designer
+
 **Goal**: n8n-style visual workflow designer for state machines
 
 #### Milestones
 
 **M6.1: Canvas & Node System**
+
 - Drag-and-drop canvas (HTML5 Canvas or SVG)
 - State nodes (draggable, connectable)
 - Transition edges (Bezier curves)
@@ -331,6 +373,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Grid snapping and alignment
 
 **M6.2: State Node Configuration**
+
 - Visual property editing
 - Form field configuration
 - Action definitions
@@ -338,6 +381,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Metadata (labels, colors, icons)
 
 **M6.3: Transition Configuration**
+
 - Event triggers
 - Guard conditions (visual expression builder)
 - Action lists
@@ -345,6 +389,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Visual path styling (color, thickness, dashed)
 
 **M6.4: Validation & Analysis**
+
 - Deadlock detection
 - Unreachable state detection
 - Infinite loop prevention
@@ -352,6 +397,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Visual error indicators
 
 **M6.5: Code Generation**
+
 - State machine → TypeScript code
 - RDF triple generation
 - YAML/JSON export
@@ -359,6 +405,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Bidirectional sync
 
 #### Definition of Done
+
 - ✓ Visual designer functional
 - ✓ Drag-and-drop state creation
 - ✓ Transition drawing with Bezier curves
@@ -369,6 +416,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Designer built with Pagewright
 
 #### Deliverables
+
 - Visual designer application
 - Canvas rendering engine
 - Node/edge configuration UI
@@ -379,11 +427,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 7: Real-Time State Execution Visualization
+
 **Goal**: Watch state machines execute in real-time with visual feedback
 
 #### Milestones
 
 **M7.1: Execution Highlighting**
+
 - Active state pulsing/highlighting
 - Transition animations
 - State history breadcrumb trail
@@ -391,6 +441,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Time-in-state display
 
 **M7.2: Data Flow Visualization**
+
 - Show data moving through transitions
 - Input/output displays
 - Variable values at each state
@@ -398,6 +449,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Event payload display
 
 **M7.3: Execution Metrics**
+
 - State duration tracking
 - Transition count
 - Error count
@@ -405,6 +457,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Performance metrics (latency per state)
 
 **M7.4: Debugging Tools**
+
 - State breakpoints
 - Step-through execution
 - Variable inspection
@@ -412,6 +465,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Causal chain visualization
 
 **M7.5: Multi-Instance Visualization**
+
 - Show multiple state machine instances
 - Instance filtering (by entity, status)
 - Aggregate statistics
@@ -419,6 +473,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Flow diagrams (common paths)
 
 #### Definition of Done
+
 - ✓ Active states highlighted in real-time
 - ✓ Transition animations smooth
 - ✓ Data flow visible
@@ -429,6 +484,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Performance (60fps animations)
 
 #### Deliverables
+
 - Execution visualization engine
 - Animation system
 - Metrics dashboard
@@ -439,11 +495,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 8: Collaborative State Machine Design
+
 **Goal**: Real-time multi-user state machine editing
 
 #### Milestones
 
 **M8.1: CRDT-Based Canvas**
+
 - State machines as CRDTs (via Agent)
 - Conflict-free collaborative editing
 - Real-time node position sync
@@ -451,6 +509,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Offline editing support
 
 **M8.2: Presence & Cursors**
+
 - Show collaborator cursors
 - User color coding
 - Active selection indicators
@@ -458,6 +517,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Idle/active status
 
 **M8.3: Voice Integration**
+
 - Voice chat during collaboration
 - Voice commands for editing ("add state", "connect to", etc.)
 - AI-assisted state machine design
@@ -465,6 +525,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Context-aware suggestions
 
 **M8.4: Permission System**
+
 - Role-based editing permissions (Warden)
 - Read-only vs edit access
 - State-level permissions
@@ -472,6 +533,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Audit trail of changes
 
 **M8.5: Session Management**
+
 - Collaborative session creation
 - Session links (shareable URLs)
 - Session replay
@@ -479,6 +541,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Session recovery after disconnect
 
 #### Definition of Done
+
 - ✓ Multiple users edit simultaneously
 - ✓ CRDT prevents conflicts
 - ✓ Cursor/presence visible
@@ -489,6 +552,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Collaboration via Operator events
 
 #### Deliverables
+
 - CRDT canvas implementation
 - Presence system
 - Voice integration
@@ -499,11 +563,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 9: Workflow State Recovery
+
 **Goal**: Automatic recovery from crashes, network partitions, and failures
 
 #### Milestones
 
 **M9.1: Checkpoint Strategy**
+
 - Auto-save intervals (configurable)
 - State snapshots on transitions
 - Incremental state updates
@@ -511,6 +577,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Checkpoint pruning
 
 **M9.2: Crash Recovery**
+
 - Restore from last checkpoint
 - Replay missed events
 - Validate state consistency
@@ -518,6 +585,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Recovery UI (show recovery progress)
 
 **M9.3: Network Partition Handling**
+
 - Offline state queue
 - Partition detection
 - CRDT merge on reconnection
@@ -525,6 +593,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Visual partition indicators
 
 **M9.4: Failure Modes**
+
 - Timeout handling
 - Resource exhaustion (memory, storage)
 - Invalid state detection
@@ -532,6 +601,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Compensation workflows
 
 **M9.5: Recovery Testing**
+
 - Chaos testing (random crashes)
 - Network partition simulation
 - Concurrent state mutations
@@ -539,6 +609,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Recovery time measurement
 
 #### Definition of Done
+
 - ✓ State survives crashes
 - ✓ Recovery from checkpoint functional
 - ✓ Network partitions heal gracefully
@@ -549,6 +620,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Property-based tests for recovery invariants
 
 #### Deliverables
+
 - Checkpoint implementation
 - Recovery engine
 - Partition handling
@@ -559,11 +631,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 10: State Machine Analytics
+
 **Goal**: Performance analysis and optimization insights
 
 #### Milestones
 
 **M10.1: Flow Analytics**
+
 - State utilization heatmaps
 - Transition frequency
 - Bottleneck detection
@@ -571,6 +645,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Abandonment points
 
 **M10.2: User Journey Analysis**
+
 - Path visualization (user flows)
 - Conversion funnels
 - Drop-off analysis
@@ -578,6 +653,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Cohort analysis
 
 **M10.3: Performance Optimization**
+
 - Slow state detection
 - Optimization suggestions
 - A/B testing alternate flows
@@ -585,6 +661,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - State coalescing
 
 **M10.4: Predictive Analytics**
+
 - Next-state prediction (ML-based)
 - Abandonment risk detection
 - Completion time estimation
@@ -592,6 +669,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Anomaly detection
 
 **M10.5: Analytics Dashboard**
+
 - Real-time metrics visualization
 - Historical trend analysis
 - Custom metric queries (SPARQL)
@@ -599,6 +677,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Alert configuration
 
 #### Definition of Done
+
 - ✓ Heatmaps show state utilization
 - ✓ Bottlenecks identified automatically
 - ✓ User journeys visualized
@@ -609,6 +688,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ All metrics queryable via SPARQL
 
 #### Deliverables
+
 - Analytics engine
 - Flow analysis tools
 - User journey visualizer
@@ -619,11 +699,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 11: Workflow Integration
+
 **Goal**: State machines integrate with Operator workflows
 
 #### Milestones
 
 **M11.1: State Machine as Workflow**
+
 - State machines as workflow phases
 - Embedded state machines in workflows
 - State callbacks (on enter, on exit)
@@ -631,6 +713,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Nested state machines
 
 **M11.2: Cross-Workflow Communication**
+
 - State machine events trigger workflows
 - Workflow events trigger state transitions
 - Event-based orchestration
@@ -638,6 +721,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Workflow blocking based on state
 
 **M11.3: Distributed Workflow State**
+
 - State machines distributed across nodes (Agent)
 - Phase execution on different executors
 - State synchronization via Operator
@@ -645,6 +729,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Consensus on state transitions
 
 **M11.4: External System Integration**
+
 - State machine events to webhooks
 - External events trigger transitions
 - API polling → state machine events
@@ -652,6 +737,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Scheduled state transitions (cron-like)
 
 **M11.5: Workflow Templates**
+
 - Common workflow patterns
 - State machine libraries
 - Template marketplace
@@ -659,6 +745,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Template customization
 
 #### Definition of Done
+
 - ✓ State machines embed in workflows
 - ✓ Cross-workflow events functional
 - ✓ Distributed state machines work
@@ -669,6 +756,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Documentation for integration patterns
 
 #### Deliverables
+
 - Workflow integration layer
 - Event routing system
 - Distributed state implementation
@@ -679,11 +767,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 12: State Monad Integration
+
 **Goal**: State monad for threading state through computations
 
 #### Milestones
 
 **M12.1: State Monad Implementation**
+
 - State monad data structure
 - `bind` and `return` operations
 - `get`, `put`, `modify` primitives
@@ -691,6 +781,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Type-safe state threading
 
 **M12.2: State Monad Composition**
+
 - Compose state transformations
 - Sequential state operations
 - Parallel state operations (where safe)
@@ -698,6 +789,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Monad transformer stack
 
 **M12.3: State Machine with Monad**
+
 - State transitions as monadic computations
 - Thread state through transition chain
 - Pure state transformations
@@ -705,6 +797,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Referential transparency
 
 **M12.4: Performance Optimization**
+
 - Lazy evaluation of monadic chain
 - Memoization of state computations
 - Batching state updates
@@ -712,6 +805,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Benchmarking vs direct style
 
 **M12.5: Testing & Documentation**
+
 - Property-based tests for monad laws
 - Monadic state machine examples
 - Tutorial on State monad usage
@@ -719,6 +813,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Best practices guide
 
 #### Definition of Done
+
 - ✓ State monad implemented
 - ✓ Monad laws verified (property tests)
 - ✓ State machines can use monads
@@ -729,6 +824,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Integration with existing state machines
 
 #### Deliverables
+
 - State monad implementation
 - Composition utilities
 - State machine integration
@@ -739,11 +835,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 13: Integration & Ecosystem
+
 **Goal**: Seamless integration with all Studio libraries
 
 #### Milestones
 
 **M13.1: Architect Integration**
+
 - State changes trigger Architect calculations
 - Form values reactive to state
 - Calculation results update state
@@ -751,6 +849,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - No VDOM overhead
 
 **M13.2: Operator Integration**
+
 - State transitions produce events
 - Events trigger state transitions
 - Event-driven state machines
@@ -758,6 +857,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - CQRS pattern enforcement
 
 **M13.3: Agent Integration**
+
 - State machines as CRDTs
 - Distributed state convergence
 - Conflict-free state sync
@@ -765,6 +865,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Offline-first state management
 
 **M13.4: Warden Integration**
+
 - State transition validation (contracts)
 - State machine contract enforcement
 - Capability-based state access
@@ -772,6 +873,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Audit trail via events
 
 **M13.5: Sentinel Integration**
+
 - Authentication-gated states
 - Authorization checks per transition
 - User-specific state machines
@@ -779,6 +881,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - DID-based state signing
 
 #### Definition of Done
+
 - ✓ All Studio libraries integrate
 - ✓ State-driven architecture works
 - ✓ No tight coupling
@@ -788,6 +891,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Integration tests pass
 
 #### Deliverables
+
 - Integration documentation
 - Example applications
 - Integration test suite
@@ -797,11 +901,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 14: Documentation & Developer Experience
+
 **Goal**: Comprehensive documentation and excellent DX
 
 #### Milestones
 
 **M14.1: API Documentation**
+
 - Envoy-generated API docs
 - TSX component reference
 - Function signatures
@@ -809,6 +915,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - State machine patterns
 
 **M14.2: Tutorials & Guides**
+
 - Getting started guide
 - State machine tutorial
 - Continuation patterns
@@ -816,6 +923,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Visual designer guide
 
 **M14.3: Migration Guides**
+
 - From client-side state (Redux, MobX)
 - From server-side frameworks
 - From traditional routing
@@ -823,6 +931,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Breaking change documentation
 
 **M14.4: Pattern Library**
+
 - Common state machine patterns
 - Form wizard patterns
 - Multi-step checkout
@@ -830,6 +939,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Onboarding flows
 
 **M14.5: Troubleshooting**
+
 - Common errors and solutions
 - Debugging techniques
 - State machine visualization tips
@@ -837,6 +947,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Support resources
 
 #### Definition of Done
+
 - ✓ API documentation complete
 - ✓ 10+ tutorials published
 - ✓ Migration guides available
@@ -847,6 +958,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Code samples compileable
 
 #### Deliverables
+
 - Complete API reference
 - Tutorial library
 - Migration guides
@@ -857,11 +969,13 @@ This plan outlines the implementation of Custodian from foundational web princip
 ---
 
 ### Phase 15: Production Hardening & Release
+
 **Goal**: Battle-tested, production-ready release
 
 #### Milestones
 
 **M15.1: Chaos Testing**
+
 - Random state mutations
 - Continuation corruption scenarios
 - Network partitions during workflows
@@ -869,6 +983,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Resource exhaustion
 
 **M15.2: Performance Validation**
+
 - Sustained load testing (24+ hours)
 - Memory leak detection
 - State transition latency (< 1ms)
@@ -876,6 +991,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Visualization performance (60fps)
 
 **M15.3: Security Audit**
+
 - Continuation signing review
 - Cryptographic implementation audit
 - XSS/CSRF prevention verification
@@ -883,6 +999,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Penetration testing
 
 **M15.4: Compatibility Testing**
+
 - Browser compatibility (including Lynx)
 - Works without JavaScript
 - Progressive enhancement verified
@@ -890,6 +1007,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Mobile browser testing
 
 **M15.5: Release Preparation**
+
 - Semantic versioning
 - Changelog generation
 - Release notes
@@ -897,6 +1015,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Upgrade path documentation
 
 #### Definition of Done
+
 - ✓ Chaos tests pass
 - ✓ Performance targets met
 - ✓ Security audit passed
@@ -907,6 +1026,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ v1.0.0 released
 
 #### Deliverables
+
 - Chaos test suite
 - Performance test results
 - Security audit report
@@ -919,6 +1039,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 ## Success Metrics
 
 ### Functional
+
 - ✓ State machines work without JavaScript
 - ✓ Continuations cryptographically secure
 - ✓ Event sourcing via Operator
@@ -927,6 +1048,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Distributed state synchronizes
 
 ### Performance
+
 - ✓ < 1ms state transition latency
 - ✓ < 100ms continuation signing
 - ✓ 60fps visual animations
@@ -935,6 +1057,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Zero data loss
 
 ### Quality
+
 - ✓ 100% test coverage
 - ✓ Property-based tests for invariants
 - ✓ Security audit passed
@@ -942,6 +1065,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Examples for common patterns
 
 ### Ecosystem
+
 - ✓ Integrates with all Studio libraries
 - ✓ Used by Quartermaster workflows
 - ✓ Used by Operator state machines
@@ -982,6 +1106,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 ## Dependencies
 
 ### Internal Studio Libraries
+
 - **Toolsmith**: Curried functions, functional utilities (Either, Maybe, etc.)
 - **Operator**: Event emission, CQRS, event sourcing integration
 - **Agent**: CRDT state machines, distributed synchronization
@@ -991,6 +1116,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - **Envoy**: Documentation generation, analytics dashboard
 
 ### External Dependencies
+
 - **Deno**: Runtime (standard library for crypto, HTTP)
 - **Web Crypto API**: Continuation signing (Ed25519)
 - **Temporal**: Timestamp representation
@@ -998,6 +1124,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - **HTML5 Canvas/SVG**: Visual designer rendering
 
 ### Optional Enhancements
+
 - **ML libraries**: Predictive analytics (future phase)
 - **Graph databases**: State machine relationship queries
 - **Blockchain**: Snapshot consensus (community-driven)
@@ -1021,6 +1148,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 ## Post-v1.0 Roadmap
 
 ### Future Enhancements
+
 - Machine learning-based state prediction
 - GraphQL interface for state queries
 - State machine schema evolution tools
@@ -1030,6 +1158,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - IDE integrations (VSCode, Zed state machine plugins)
 
 ### Community Contributions
+
 - Additional workflow templates
 - State machine patterns library
 - Visual designer themes
