@@ -69,7 +69,9 @@ describe("_validateUuidFormat", () => {
 		})
 
 		it("rejects too long (37 chars)", () => {
-			const result = _validateUuidFormat("550e8400-e29b-41d4-a716-4466554400000")
+			const result = _validateUuidFormat(
+				"550e8400-e29b-41d4-a716-4466554400000",
+			)
 			assertEquals(result._tag, "Error")
 			if (result._tag === "Error") {
 				assertEquals(result.error.code, "UUID_INVALID_LENGTH")
@@ -104,7 +106,9 @@ describe("_validateUuidFormat", () => {
 		})
 
 		it("rejects double hyphen", () => {
-			const result = _validateUuidFormat("550e8400-e29b--41d4-a716-446655440000")
+			const result = _validateUuidFormat(
+				"550e8400-e29b--41d4-a716-446655440000",
+			)
 			assertEquals(result._tag, "Error")
 			if (result._tag === "Error") {
 				// This is 37 chars, so length check catches it first

@@ -134,3 +134,4 @@ AI_STATUS.md
 
 # Rust build artifacts
 **/target/
+Cargo.lock

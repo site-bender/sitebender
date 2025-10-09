@@ -16,33 +16,33 @@ This index provides links to detailed catalogs of all vanilla functions in `src/
 
 ## Quick Navigation
 
-| Domain | Functions | Files | Status |
-|--------|-----------|-------|--------|
-| [Activation](#activation) | 9 | 1 | ✅ Complete |
-| [Array](#array) | 131 | 6 | ✅ Complete |
-| [Async](#async) | 10 | 1 | ✅ Complete |
-| [Combinator](#combinator) | 49 | 3 | ✅ Complete |
-| [Conversion](#conversion) | 9 | 1 | ✅ Complete |
-| [Finance](#finance) | 12 | 1 | ✅ Complete |
-| [Geometry](#geometry) | 10 | 1 | ✅ Complete |
-| [Hash](#hash) | 1 | 1 | ✅ Complete |
-| [Interpolation](#interpolation) | 7 | 1 | ✅ Complete |
-| [Lens](#lens) | 5 | 1 | ✅ Complete |
-| [Logic](#logic) | 13 | 1 | ✅ Complete |
-| [Map](#map) | 41 | 2 | ✅ Complete |
-| [Math](#math) | 57 | 3 | ✅ Complete |
-| [Matrix](#matrix) | 10 | 1 | ✅ Complete |
-| [Object](#object) | 60 | 3 | ✅ Complete |
-| [Physics](#physics) | 8 | 1 | ✅ Complete |
-| [Set](#set) | 27 | 2 | ✅ Complete |
-| [Special](#special) | 8 | 1 | ✅ Complete |
-| [Statistics](#statistics) | 13 | 1 | ✅ Complete |
-| [String](#string) | 71 | 4 | ✅ Complete |
-| [Temporal](#temporal) | 79 | 4 | ✅ Complete |
-| [Trigonometry](#trigonometry) | 19 | 1 | ✅ Complete |
-| [Tuple](#tuple) | 13 | 1 | ✅ Complete |
-| [Validation](#validation) | 124 | 6 | ✅ Complete |
-| **TOTAL** | **786** | **48** | **✅ Complete** |
+| Domain                          | Functions | Files  | Status          |
+| ------------------------------- | --------- | ------ | --------------- |
+| [Activation](#activation)       | 9         | 1      | ✅ Complete     |
+| [Array](#array)                 | 131       | 6      | ✅ Complete     |
+| [Async](#async)                 | 10        | 1      | ✅ Complete     |
+| [Combinator](#combinator)       | 49        | 3      | ✅ Complete     |
+| [Conversion](#conversion)       | 9         | 1      | ✅ Complete     |
+| [Finance](#finance)             | 12        | 1      | ✅ Complete     |
+| [Geometry](#geometry)           | 10        | 1      | ✅ Complete     |
+| [Hash](#hash)                   | 1         | 1      | ✅ Complete     |
+| [Interpolation](#interpolation) | 7         | 1      | ✅ Complete     |
+| [Lens](#lens)                   | 5         | 1      | ✅ Complete     |
+| [Logic](#logic)                 | 13        | 1      | ✅ Complete     |
+| [Map](#map)                     | 41        | 2      | ✅ Complete     |
+| [Math](#math)                   | 57        | 3      | ✅ Complete     |
+| [Matrix](#matrix)               | 10        | 1      | ✅ Complete     |
+| [Object](#object)               | 60        | 3      | ✅ Complete     |
+| [Physics](#physics)             | 8         | 1      | ✅ Complete     |
+| [Set](#set)                     | 27        | 2      | ✅ Complete     |
+| [Special](#special)             | 8         | 1      | ✅ Complete     |
+| [Statistics](#statistics)       | 13        | 1      | ✅ Complete     |
+| [String](#string)               | 71        | 4      | ✅ Complete     |
+| [Temporal](#temporal)           | 79        | 4      | ✅ Complete     |
+| [Trigonometry](#trigonometry)   | 19        | 1      | ✅ Complete     |
+| [Tuple](#tuple)                 | 13        | 1      | ✅ Complete     |
+| [Validation](#validation)       | 124       | 6      | ✅ Complete     |
+| **TOTAL**                       | **786**   | **48** | **✅ Complete** |
 
 ---
 
@@ -369,6 +369,7 @@ Type guards, validators, and predicates for runtime type checking.
 ### Documentation Includes
 
 For each function:
+
 - **Current Signature**: Exact vanilla implementation signature
 - **Return Behavior**: What it returns (null, NaN, empty array, throws, etc.)
 - **Description**: From //++ Envoy comments or inferred from implementation
@@ -379,12 +380,14 @@ For each function:
 ### Key Insights
 
 **Constitutional Rule Violations Found**:
+
 - Arrow functions: ~300+ functions need refactoring to named functions
 - Try/catch usage: ~20 functions need Result monad conversion
 - Loops: ~50 functions need functional rewrites
 - Mutations: ~15 functions have mutable operations
 
 **Return Patterns**:
+
 - Null/undefined: ~200 functions
 - NaN: ~80 math/numeric functions
 - Empty array/object: ~100 collection functions
@@ -392,6 +395,7 @@ For each function:
 - Boolean: ~150 predicates/validators
 
 **Target Patterns**:
+
 - `Result<ValidationError, T>` for validators
 - `Result<MathError, number>` for math operations
 - `Result<ArrayError, Array<T>>` for array operations

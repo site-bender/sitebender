@@ -10,6 +10,7 @@
 ## Function List
 
 ### and
+
 - **Current**: `(p1: (value: T) => value is A) => (p2: (value: A) => value is B) => (value: T) => value is B` OR `(p1: (value: T) => boolean) => (p2: (value: T) => boolean) => (value: T) => boolean` OR `(a: unknown) => (b: unknown) => boolean`
 - **Returns**: boolean OR type-guarded predicate
 - **Description**: Logical AND with dual mode: 1) Value mode: and(a)(b) returns Boolean(a) && Boolean(b); 2) Predicate mode (same-value): and(p1)(p2)(v) applies both predicates to v, preserving TypeScript narrowing when both are type guards
@@ -17,6 +18,7 @@
 - **Target**: `(p1: Predicate<T>) => (p2: Predicate<T>) => Predicate<T>` OR `(a: unknown) => (b: unknown) => Result<LogicError, boolean>`
 
 ### or
+
 - **Current**: `(p1: (value: T) => value is A) => (p2: (value: A) => value is B) => (value: T) => value is A | B` OR `(p1: (value: T) => boolean) => (p2: (value: T) => boolean) => (value: T) => boolean` OR `(a: unknown) => (b: unknown) => boolean`
 - **Returns**: boolean OR type-guarded predicate
 - **Description**: Logical OR with dual mode: 1) Value mode: or(a)(b) returns Boolean(a) || Boolean(b); 2) Predicate mode (same-value): or(p1)(p2)(v) applies either predicate to v, preserving TypeScript narrowing when both are type guards
@@ -24,12 +26,14 @@
 - **Target**: `(p1: Predicate<T>) => (p2: Predicate<T>) => Predicate<T>` OR `(a: unknown) => (b: unknown) => Result<LogicError, boolean>`
 
 ### not
+
 - **Current**: `(value: Value) => boolean`
 - **Returns**: boolean
 - **Description**: Performs logical NOT operation on a value
 - **Target**: `(value: Value) => Result<LogicError, boolean>`
 
 ### xor
+
 - **Current**: `(a: unknown) => (b: unknown) => boolean`
 - **Returns**: boolean
 - **Description**: [NEEDS //++ COMMENT] Exclusive OR operation: returns true if exactly one operand is truthy
@@ -37,6 +41,7 @@
 - **Target**: `(a: unknown) => (b: unknown) => Result<LogicError, boolean>`
 
 ### implies
+
 - **Current**: `(antecedent: unknown) => (consequent: unknown) => boolean`
 - **Returns**: boolean
 - **Description**: [NEEDS //++ COMMENT] Logical implication: returns !antecedent || Boolean(consequent)
@@ -44,6 +49,7 @@
 - **Target**: `(antecedent: unknown) => (consequent: unknown) => Result<LogicError, boolean>`
 
 ### nand
+
 - **Current**: `(a: unknown) => (b: unknown) => boolean`
 - **Returns**: boolean
 - **Description**: [NEEDS //++ COMMENT] Logical NAND (NOT AND): returns !(Boolean(a) && Boolean(b))
@@ -51,6 +57,7 @@
 - **Target**: `(a: unknown) => (b: unknown) => Result<LogicError, boolean>`
 
 ### nor
+
 - **Current**: `(a: unknown) => (b: unknown) => boolean`
 - **Returns**: boolean
 - **Description**: [NEEDS //++ COMMENT] Logical NOR (NOT OR): returns !(Boolean(a) || Boolean(b))
@@ -58,6 +65,7 @@
 - **Target**: `(a: unknown) => (b: unknown) => Result<LogicError, boolean>`
 
 ### iff (also, `ifAndOnlyIf` with alias)
+
 - **Current**: `(a: unknown) => (b: unknown) => boolean`
 - **Returns**: boolean
 - **Description**: [NEEDS //++ COMMENT] Logical biconditional (if and only if): returns Boolean(a) === Boolean(b)
@@ -65,6 +73,7 @@
 - **Target**: `(a: unknown) => (b: unknown) => Result<LogicError, boolean>`
 
 ### cond (prefer `condition`)
+
 - **Current**: `(pairs: Array<[(value: T) => unknown, (value: T) => R]>) => (value: T) => R | null`
 - **Returns**: R | null
 - **Description**: [NEEDS //++ COMMENT] Pattern matching: evaluates predicate-transformer pairs, returning the result of the first matching transformer or null
@@ -72,6 +81,7 @@
 - **Target**: `(pairs: Array<[Predicate<T>, (value: T) => R]>) => (value: T) => Result<LogicError, R>`
 
 ### defaultTo
+
 - **Current**: `(defaultValue: T) => (value: T | null | undefined) => T`
 - **Returns**: T
 - **Description**: [NEEDS //++ COMMENT] Returns value if not null/undefined, otherwise returns defaultValue
@@ -79,6 +89,7 @@
 - **Target**: `(defaultValue: T) => (value: T | null | undefined) => T`
 
 ### ifElse (isn't this a ternary?)
+
 - **Current**: `(predicate: (value: T) => unknown) => (onTrue: (value: T) => R) => (onFalse: (value: T) => R) => (value: T) => R`
 - **Returns**: R
 - **Description**: [NEEDS //++ COMMENT] Conditional branching: applies onTrue if predicate succeeds, otherwise applies onFalse
@@ -86,6 +97,7 @@
 - **Target**: `(predicate: Predicate<T>) => (onTrue: (value: T) => R) => (onFalse: (value: T) => R) => (value: T) => R`
 
 ### unless
+
 - **Current**: `(predicate: (value: T) => unknown) => (fn: (value: T) => T) => (value: T) => T`
 - **Returns**: T
 - **Description**: [NEEDS //++ COMMENT] Conditionally applies fn to value only if predicate returns falsy
@@ -93,6 +105,7 @@
 - **Target**: `(predicate: Predicate<T>) => (fn: (value: T) => T) => (value: T) => T`
 
 ### when
+
 - **Current**: `(predicate: (value: T) => unknown) => (fn: (value: T) => T) => (value: T) => T`
 - **Returns**: T
 - **Description**: [NEEDS //++ COMMENT] Conditionally applies fn to value only if predicate returns truthy
@@ -106,6 +119,7 @@
 Logic functions have diverse migration patterns depending on their purpose:
 
 ### Boolean Operations (and, or, not, xor, nand, nor, iff, implies)
+
 These functions will be converted to Result-returning functions when used in value mode. The monadic versions will:
 
 1. Return `ok(boolean)` when operation succeeds
@@ -114,6 +128,7 @@ These functions will be converted to Result-returning functions when used in val
 4. Preserve type guard support for `and` and `or` in predicate mode
 
 ### Control Flow Operations (ifElse, when, unless, cond)
+
 These higher-order functions control execution flow and should remain pure:
 
 1. **ifElse**, **when**, **unless**: Remain unchanged as they are already pure control flow abstractions
@@ -121,6 +136,7 @@ These higher-order functions control execution flow and should remain pure:
 3. All maintain referential transparency and composability
 
 ### Utility Operations (defaultTo)
+
 The **defaultTo** function is already safe and pure, handling null/undefined explicitly:
 
 1. No monadic wrapping needed - already handles nullish values correctly
@@ -134,6 +150,7 @@ The **defaultTo** function is already safe and pure, handling null/undefined exp
 ### Dual-Mode Functions
 
 #### and
+
 - **Value mode**: `and(true)(false)` returns `false`
 - **Predicate mode**: `and(isString)(isNotEmpty)(value)` returns a type-guarded boolean
 - Implementation detects mode via `typeof a === "function" && typeof b === "function"`
@@ -142,6 +159,7 @@ The **defaultTo** function is already safe and pure, handling null/undefined exp
 - Should maintain both modes in monadic version
 
 #### or
+
 - **Value mode**: `or(false)(true)` returns `true`
 - **Predicate mode**: `or(isString)(isNumber)(value)` returns a type-guarded boolean
 - Implementation detects mode via `typeof a === "function" && typeof b === "function"`
@@ -152,6 +170,7 @@ The **defaultTo** function is already safe and pure, handling null/undefined exp
 ### Arrow Function Syntax
 
 Most functions use arrow syntax and need refactoring to named functions:
+
 - **xor** (arrow function)
 - **implies** (arrow function)
 - **nand** (arrow function)
@@ -166,6 +185,7 @@ Most functions use arrow syntax and need refactoring to named functions:
 ### Missing Documentation
 
 Many functions lack //++ description comments:
+
 - **xor**: Needs description of exclusive OR behavior
 - **implies**: Needs description of logical implication
 - **nand**: Needs description of NOT AND operation
@@ -180,6 +200,7 @@ Many functions lack //++ description comments:
 ### Complex Implementations
 
 #### and (dual mode)
+
 - Checks if both parameters are functions to determine mode
 - **Value mode**: Converts both to boolean and applies logical AND
 - **Predicate mode**: Creates a new predicate that applies both predicates sequentially
@@ -187,6 +208,7 @@ Many functions lack //++ description comments:
 - Implementation uses nested conditionals for short-circuit evaluation
 
 #### or (dual mode)
+
 - Checks if both parameters are functions to determine mode
 - **Value mode**: Converts both to boolean and applies logical OR
 - **Predicate mode**: Creates a new predicate that tries first predicate, then second
@@ -194,6 +216,7 @@ Many functions lack //++ description comments:
 - Implementation uses nested conditionals for short-circuit evaluation
 
 #### cond
+
 - Takes array of [predicate, transformer] pairs
 - Uses `Array.prototype.find` to locate first matching predicate
 - Returns result of corresponding transformer or `null`
@@ -209,6 +232,7 @@ type Predicate<T> = (value: T) => boolean
 ```
 
 Functions that should use predicates:
+
 - **and** (predicate mode)
 - **or** (predicate mode)
 - **cond** (first element of pairs)
@@ -219,11 +243,13 @@ Functions that should use predicates:
 ### Null Handling
 
 #### cond
+
 - Returns `null` when no predicate matches
 - This is an explicit "no match" condition, not an error
 - In monadic form, should return `error({ _tag: 'NoMatchError', ... })`
 
 #### defaultTo
+
 - Explicitly handles `null | undefined` in type signature
 - Uses nullish coalescing operator (`??`)
 - Returns defaultValue for `null` or `undefined`
@@ -232,13 +258,17 @@ Functions that should use predicates:
 ### Type Guard Support
 
 #### and
+
 Three overloads provide type narrowing:
+
 1. Type guard overload: `(T => value is A) => (A => value is B) => (T => value is B)`
 2. Boolean overload: `(T => boolean) => (T => boolean) => (T => boolean)`
 3. Value overload: `(unknown) => (unknown) => boolean`
 
 #### or
+
 Three overloads provide type narrowing:
+
 1. Type guard overload: `(T => value is A) => (A => value is B) => (T => value is A | B)`
 2. Boolean overload: `(T => boolean) => (T => boolean) => (T => boolean)`
 3. Value overload: `(unknown) => (unknown) => boolean`
@@ -250,14 +280,18 @@ Three overloads provide type narrowing:
 When planning migration, consider these dependency chains:
 
 ### Type Dependencies
+
 - **not** depends on `Value` type from `types/index.ts`
 - All predicate-based functions should use `Predicate<T>` type (to be defined)
 
 ### Array Operation Dependencies
+
 - **cond** uses `Array.prototype.find` - should migrate to functional `find`
 
 ### Refactoring Requirements
+
 Functions needing conversion from arrow to named functions:
+
 - **xor**, **implies**, **nand**, **nor**, **iff** (simple binary operators)
 - **cond** (uses array method, needs functional alternative)
 - **defaultTo** (simple utility)
@@ -270,6 +304,7 @@ Functions needing conversion from arrow to named functions:
 ### Logical Completeness
 
 The library provides a complete set of binary logical operators:
+
 - **and**: Conjunction (∧)
 - **or**: Disjunction (∨)
 - **not**: Negation (¬)
@@ -284,6 +319,7 @@ This covers all common logical operations from propositional logic.
 ### Control Flow Combinators
 
 The control flow functions provide functional alternatives to imperative constructs:
+
 - **ifElse**: Functional ternary operator
 - **when**: Functional if statement (do something if true)
 - **unless**: Inverse of when (do something if false)
@@ -296,6 +332,7 @@ The control flow functions provide functional alternatives to imperative constru
 ### Missing Standard Logic Functions
 
 Consider implementing these during migration:
+
 - **both**: Alias for `and` in predicate mode (already covered by `and`)
 - **either**: Alias for `or` in predicate mode (already covered by `or`)
 - **allPass**: Generalized `and` that takes array of predicates
@@ -309,6 +346,7 @@ Consider implementing these during migration:
 ### Testing Considerations
 
 When migrating, ensure comprehensive tests for:
+
 - Truthy/falsy edge cases (0, '', false, null, undefined, NaN)
 - Type guard narrowing in `and` and `or`
 - Short-circuit evaluation in `and` and `or`

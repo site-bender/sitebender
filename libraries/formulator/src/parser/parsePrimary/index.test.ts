@@ -86,7 +86,10 @@ Deno.test("parsePrimary - parses variable token", () => {
 
 Deno.test("parsePrimary - parses grouped expression", () => {
 	const mockExpressionParser = (tokens: Array<Result<string, Token>>) => {
-		return (position: number, _minPrecedence?: number): Result<string, [AstNode, number]> => {
+		return (
+			position: number,
+			_minPrecedence?: number,
+		): Result<string, [AstNode, number]> => {
 			const tokenResult = tokens[position]
 
 			if (tokenResult._tag === "Ok" && tokenResult.value.type === "number") {

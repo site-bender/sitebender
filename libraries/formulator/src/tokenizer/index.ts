@@ -113,7 +113,8 @@ export default function* tokenizer(
 			characterClass._tag === "plus" || characterClass._tag === "minus" ||
 			characterClass._tag === "multiply" || characterClass._tag === "divide" ||
 			characterClass._tag === "power" || characterClass._tag === "lessThan" ||
-			characterClass._tag === "greaterThan" || characterClass._tag === "exclamation"
+			characterClass._tag === "greaterThan" ||
+			characterClass._tag === "exclamation"
 		) {
 			const result = parseOperator(lexerToken)
 			yield result
@@ -122,7 +123,10 @@ export default function* tokenizer(
 		}
 
 		// Handle punctuation
-		if (characterClass._tag === "leftParen" || characterClass._tag === "rightParen") {
+		if (
+			characterClass._tag === "leftParen" ||
+			characterClass._tag === "rightParen"
+		) {
 			const result = parsePunctuation(lexerToken)
 			yield result
 			position++

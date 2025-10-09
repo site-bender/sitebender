@@ -1,7 +1,7 @@
 # Architect Library - Calculation DSL Implementation Plan (Pure FP)
 
-> **Status**: Architectural Blueprint for PoC  
-> **Created**: 2025-01-07  
+> **Status**: Architectural Blueprint for PoC\
+> **Created**: 2025-01-07\
 > **Purpose**: Complete implementation plan for JSX-based calculation DSL using pure functional programming
 
 ## Overview
@@ -151,16 +151,20 @@ export type AsyncThunk<T> = {
 }
 
 //++ Operation node - represents operations like Add, Multiply
-export type OperationNode = AstNode & Readonly<{
-	operation: string
-	children: ReadonlyArray<AstNode>
-}>
+export type OperationNode =
+	& AstNode
+	& Readonly<{
+		operation: string
+		children: ReadonlyArray<AstNode>
+	}>
 
 //++ Data source node - fetches data asynchronously
-export type DataSourceNode = AstNode & Readonly<{
-	source: string
-	config: DataSourceConfig
-}>
+export type DataSourceNode =
+	& AstNode
+	& Readonly<{
+		source: string
+		config: DataSourceConfig
+	}>
 
 //++ Configuration for data sources
 export type DataSourceConfig = Readonly<{
@@ -214,7 +218,7 @@ import type { Registry } from "../types/index.ts"
 //++ Creates an empty component registry
 export default function createRegistry(): Registry {
 	return {
-		schemas: new Map()
+		schemas: new Map(),
 	}
 }
 ```
@@ -231,7 +235,7 @@ import type { Registry } from "../types/index.ts"
 export default function registerSchema(schema: ComponentSchema) {
 	return function withRegistry(registry: Registry): Registry {
 		return {
-			schemas: new Map([...registry.schemas, [schema.name, schema]])
+			schemas: new Map([...registry.schemas, [schema.name, schema]]),
 		}
 	}
 }
@@ -247,7 +251,9 @@ import type { Registry } from "../types/index.ts"
 
 //++ Gets a component schema from the registry
 export default function getSchema(name: string) {
-	return function fromRegistry(registry: Registry): ComponentSchema | undefined {
+	return function fromRegistry(
+		registry: Registry,
+	): ComponentSchema | undefined {
 		return registry.schemas.get(name)
 	}
 }
@@ -272,19 +278,19 @@ import join from "@sitebender/toolsmith/array/join/index.ts"
 //++ Validates that a component exists in the registry
 export default function validateComponent(name: string) {
 	return function inRegistry(
-		registry: Registry
+		registry: Registry,
 	): Validation<ValidationError, ComponentSchema> {
 		const schema = getSchema(name)(registry)
-		
+
 		// Happy path first
 		if (isDefined(schema)) {
 			return success(schema)
 		}
-		
+
 		// Sad path: component not found
 		const allNames = Array.from(registry.schemas.keys())
 		const namesList = join(", ")(allNames)
-		
+
 		return failure([{
 			code: "UNKNOWN_COMPONENT",
 			field: "component",
@@ -292,7 +298,7 @@ export default function validateComponent(name: string) {
 			received: name,
 			expected: `One of: ${namesList}`,
 			suggestion: "Check component name spelling or register the component",
-			severity: "requirement"
+			severity: "requirement",
 		}])
 	}
 }
@@ -317,17 +323,17 @@ export default function addSchema(): ComponentSchema {
 		children: {
 			type: "exact",
 			count: 2,
-			names: ["Augend", "Addend"]
+			names: ["Augend", "Addend"],
 		},
 		attributes: {
 			required: [],
 			optional: [],
-			types: {}
+			types: {},
 		},
 		returnType: "Integer",
 		validate: function validateAddNode(node: unknown) {
 			return success(undefined)
-		}
+		},
 	}
 }
 ```
@@ -349,17 +355,17 @@ export default function multiplySchema(): ComponentSchema {
 		children: {
 			type: "exact",
 			count: 2,
-			names: ["Multiplicand", "Multiplier"]
+			names: ["Multiplicand", "Multiplier"],
 		},
 		attributes: {
 			required: [],
 			optional: [],
-			types: {}
+			types: {},
 		},
 		returnType: "Integer",
 		validate: function validateMultiplyNode(node: unknown) {
 			return success(undefined)
-		}
+		},
 	}
 }
 ```
@@ -379,19 +385,19 @@ export default function fromLocalStorageSchema(): ComponentSchema {
 		name: "FromLocalStorage",
 		category: "DataSource",
 		children: {
-			type: "none"
+			type: "none",
 		},
 		attributes: {
 			required: ["key"],
 			optional: [],
 			types: {
-				key: "string"
-			}
+				key: "string",
+			},
 		},
 		returnType: "Integer",
 		validate: function validateFromLocalStorageNode(node: unknown) {
 			return success(undefined)
-		}
+		},
 	}
 }
 ```
@@ -415,25 +421,29 @@ import isNumber from "@sitebender/toolsmith/validation/isNumber/index.ts"
 import parseJson from "@sitebender/toolsmith/conversion/parseJson/index.ts"
 
 //++ Creates async thunk that fetches Integer from localStorage
-export default function createFromLocalStorageThunk(key: string): AsyncThunk<Integer> {
-	return async function fetchFromLocalStorageWithKey(): Promise<Validation<ValidationError, Integer>> {
+export default function createFromLocalStorageThunk(
+	key: string,
+): AsyncThunk<Integer> {
+	return async function fetchFromLocalStorageWithKey(): Promise<
+		Validation<ValidationError, Integer>
+	> {
 		// [IO] This function performs side effects (localStorage access)
-		
+
 		const raw = localStorage.getItem(key)
-		
+
 		// Happy path first: key exists and is not null
 		if (isNull(raw) === false) {
 			// Parse JSON
 			const parseResult = parseJson(raw)
-			
+
 			if (parseResult._tag === "Ok") {
 				const parsed = parseResult.value
-				
+
 				// Validate as number
 				if (isNumber(parsed)) {
 					return integer(parsed)
 				}
-				
+
 				// Sad path: not a number
 				return failure([{
 					code: "LOCALSTORAGE_INVALID_TYPE",
@@ -442,10 +452,10 @@ export default function createFromLocalStorageThunk(key: string): AsyncThunk<Int
 					received: parsed,
 					expected: "number",
 					suggestion: "Store a number value in localStorage",
-					severity: "requirement"
+					severity: "requirement",
 				}])
 			}
-			
+
 			// Sad path: invalid JSON
 			return failure([{
 				code: "LOCALSTORAGE_INVALID_JSON",
@@ -454,10 +464,10 @@ export default function createFromLocalStorageThunk(key: string): AsyncThunk<Int
 				received: raw,
 				expected: "Valid JSON string",
 				suggestion: "Ensure the value is properly JSON-encoded",
-				severity: "requirement"
+				severity: "requirement",
 			}])
 		}
-		
+
 		// Sad path: key not found
 		return failure([{
 			code: "LOCALSTORAGE_KEY_NOT_FOUND",
@@ -465,8 +475,9 @@ export default function createFromLocalStorageThunk(key: string): AsyncThunk<Int
 			messages: [`Key "${key}" not found in localStorage`],
 			received: null,
 			expected: "JSON string containing a number",
-			suggestion: `Set localStorage.setItem("${key}", "42") before using this calculation`,
-			severity: "requirement"
+			suggestion:
+				`Set localStorage.setItem("${key}", "42") before using this calculation`,
+			severity: "requirement",
 		}])
 	}
 }
@@ -485,8 +496,12 @@ import type { ValidationError } from "@sitebender/toolsmith/types/ValidationErro
 import integer from "@sitebender/toolsmith/newtypes/numericTypes/integer/index.ts"
 
 //++ Creates async thunk that returns a constant Integer value
-export default function createFromConstantThunk(value: number): AsyncThunk<Integer> {
-	return async function returnConstantWithValue(): Promise<Validation<ValidationError, Integer>> {
+export default function createFromConstantThunk(
+	value: number,
+): AsyncThunk<Integer> {
+	return async function returnConstantWithValue(): Promise<
+		Validation<ValidationError, Integer>
+	> {
 		return integer(value)
 	}
 }
@@ -509,15 +524,17 @@ import chain from "@sitebender/toolsmith/monads/validation/chain/index.ts"
 
 //++ Creates async thunk that adds two Integers
 export default function createAddThunk(
-	augendThunk: AsyncThunk<Integer>
+	augendThunk: AsyncThunk<Integer>,
 ) {
 	return function withAugend(
-		addendThunk: AsyncThunk<Integer>
+		addendThunk: AsyncThunk<Integer>,
 	): AsyncThunk<Integer> {
-		return async function executeAddition(): Promise<Validation<ValidationError, Integer>> {
+		return async function executeAddition(): Promise<
+			Validation<ValidationError, Integer>
+		> {
 			const augendValidation = await augendThunk()
 			const addendValidation = await addendThunk()
-			
+
 			return chain(function applyAddition(augend: Integer) {
 				return chain(function addToAugend(addend: Integer) {
 					return addInteger(augend)(addend)
@@ -543,15 +560,17 @@ import chain from "@sitebender/toolsmith/monads/validation/chain/index.ts"
 
 //++ Creates async thunk that multiplies two Integers
 export default function createMultiplyThunk(
-	multiplicandThunk: AsyncThunk<Integer>
+	multiplicandThunk: AsyncThunk<Integer>,
 ) {
 	return function withMultiplicand(
-		multiplierThunk: AsyncThunk<Integer>
+		multiplierThunk: AsyncThunk<Integer>,
 	): AsyncThunk<Integer> {
-		return async function executeMultiplication(): Promise<Validation<ValidationError, Integer>> {
+		return async function executeMultiplication(): Promise<
+			Validation<ValidationError, Integer>
+		> {
 			const multiplicandValidation = await multiplicandThunk()
 			const multiplierValidation = await multiplierThunk()
-			
+
 			return chain(function applyMultiplication(multiplicand: Integer) {
 				return chain(function multiplyByMultiplier(multiplier: Integer) {
 					return multiplyInteger(multiplicand)(multiplier)
@@ -576,7 +595,9 @@ import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Identifies all data source nodes in AST for parallel fetching
-export default function identifyParallelFetches(ast: AstNode): ReadonlyArray<DataSourceNode> {
+export default function identifyParallelFetches(
+	ast: AstNode,
+): ReadonlyArray<DataSourceNode> {
 	// TODO: Implement tree traversal using reduce
 	return []
 }
@@ -595,7 +616,7 @@ import combineValidations from "@sitebender/toolsmith/monads/validation/combineV
 
 //++ Executes all data source fetches in parallel
 export default function executeParallelFetches(
-	sources: ReadonlyArray<DataSourceNode>
+	sources: ReadonlyArray<DataSourceNode>,
 ) {
 	return async function fetchAll(): Promise<
 		Validation<ValidationError, ReadonlyMap<string, unknown>>
@@ -621,10 +642,12 @@ import executeParallelFetches from "../executeParallelFetches/index.ts"
 
 //++ Compiles AST to executable async thunk
 export default function compileToThunk<T>(ast: AstNode): AsyncThunk<T> {
-	return async function executeCalculation(): Promise<Validation<ValidationError, T>> {
+	return async function executeCalculation(): Promise<
+		Validation<ValidationError, T>
+	> {
 		const dataSources = identifyParallelFetches(ast)
 		const fetchResults = await executeParallelFetches(dataSources)()
-		
+
 		// TODO: Apply operations bottom-up using fetched values
 		throw new Error("Not implemented")
 	}
@@ -644,7 +667,7 @@ import type { AsyncThunk } from "../../../calculation/types/index.ts"
 //++ [IO] This function performs side effects (DOM manipulation)
 export default function attachCalculation<T>(thunk: AsyncThunk<T>) {
 	return function toElement(element: HTMLElement): void {
-		(element as any).__sbCalculate = thunk
+		;(element as any).__sbCalculate = thunk
 	}
 }
 ```
@@ -677,12 +700,14 @@ The following Toolsmith functions are referenced but may need implementation:
 ### Plain English Code Examples
 
 Instead of:
+
 ```typescript
 if (array.length > 0)  // ❌ Not plain English
 if (x === y)           // ❌ Operator
 ```
 
 Use:
+
 ```typescript
 if (isNotEmpty(array))  // ✅ Plain English
 if (isEqual(x)(y))      // ✅ Named function
@@ -694,19 +719,20 @@ Always structure functions with success case first, error cases last:
 
 ```typescript
 export default function doSomething(value: string) {
-  // Happy path: value is valid
-  if (isValid(value)) {
-    return success(processValue(value))
-  }
-  
-  // Sad path: value is invalid
-  return failure([createError(value)])
+	// Happy path: value is valid
+	if (isValid(value)) {
+		return success(processValue(value))
+	}
+
+	// Sad path: value is invalid
+	return failure([createError(value)])
 }
 ```
 
 ## Success Criteria
 
 ### Functional Requirements
+
 - ✅ Parse JSX DSL to executable thunks
 - ✅ Support Add and Multiply operations
 - ✅ Support FromLocalStorage and FromConstant data sources
@@ -716,6 +742,7 @@ export default function doSomething(value: string) {
 - ✅ Integration with Pagewright via __sbCalculate property
 
 ### Non-Functional Requirements
+
 - ✅ Parse-time validation of component structure
 - ✅ Helpful error messages following "help, don't scold" philosophy
 - ✅ Zero mutations (pure functional)

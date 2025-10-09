@@ -30,7 +30,9 @@ export default function percent(
 		return error({
 			code: "PERCENT_BELOW_MINIMUM",
 			field: "percent",
-			messages: ["The system needs a percentage in the range 0-1 (0% to 100%)."],
+			messages: [
+				"The system needs a percentage in the range 0-1 (0% to 100%).",
+			],
 			received: n,
 			expected: "Number between 0 and 1",
 			suggestion:
@@ -44,7 +46,9 @@ export default function percent(
 		return error({
 			code: "PERCENT_ABOVE_MAXIMUM",
 			field: "percent",
-			messages: ["The system needs a percentage in the range 0-1 (0% to 100%)."],
+			messages: [
+				"The system needs a percentage in the range 0-1 (0% to 100%).",
+			],
 			received: n,
 			expected: "Number between 0 and 1",
 			suggestion:
