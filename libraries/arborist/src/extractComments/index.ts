@@ -6,6 +6,7 @@ import type { Validation } from "~libraries/toolsmith/src/types/validation/index
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import type {
 	EnvoyMarker,
@@ -144,30 +145,42 @@ export default function extractComments(
 	)(blockMatches)
 
 	// Combine and sort by position
-	const allComments = [...lineComments, ...blockComments]
-	const sortedComments = reduce(
-		function insertSorted(
-			acc: ReadonlyArray<ParsedComment>,
-			comment: ParsedComment,
-		): ReadonlyArray<ParsedComment> {
-			// Find insertion point to maintain sort order by start position
-			const insertIndex = acc.findIndex(
-				function isAfter(c: ParsedComment): boolean {
-					return c.span.start > comment.span.start
-				},
-			)
+	const lineCommentsArray = getOrElse([] as ReadonlyArray<ParsedComment>)(
+		lineComments,
+	)
+	const blockCommentsArray = getOrElse([] as ReadonlyArray<ParsedComment>)(
+		blockComments,
+	)
+	const allComments = [...lineCommentsArray, ...blockCommentsArray]
 
-			if (insertIndex === -1) {
-				return [...acc, comment]
+	const sortedCommentsResult = reduce(
+		function insertSorted(accumulator: ReadonlyArray<ParsedComment>) {
+			return function insertSortedWithAccumulator(
+				comment: ParsedComment,
+			): ReadonlyArray<ParsedComment> {
+				// Find insertion point to maintain sort order by start position
+				const insertIndex = accumulator.findIndex(
+					function isAfter(c: ParsedComment): boolean {
+						return c.span.start > comment.span.start
+					},
+				)
+
+				if (insertIndex === -1) {
+					return [...accumulator, comment]
+				}
+
+				return [
+					...accumulator.slice(0, insertIndex),
+					comment,
+					...accumulator.slice(insertIndex),
+				]
 			}
-
-			return [
-				...acc.slice(0, insertIndex),
-				comment,
-				...acc.slice(insertIndex),
-			]
 		},
 	)([] as ReadonlyArray<ParsedComment>)(allComments)
+
+	const sortedComments = getOrElse([] as ReadonlyArray<ParsedComment>)(
+		sortedCommentsResult,
+	)
 
 	return success(sortedComments)
 }
