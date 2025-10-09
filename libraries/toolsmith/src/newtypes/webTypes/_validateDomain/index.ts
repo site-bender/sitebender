@@ -3,6 +3,8 @@ import type { ValidationError } from "@sitebender/toolsmith/types/validation/ind
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import isError from "@sitebender/toolsmith/monads/result/isError/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import {
 	URL_DOMAIN_LABEL_MAX_LENGTH,
 	URL_DOMAIN_MAX_LENGTH,
@@ -118,69 +120,95 @@ export default function _validateDomain(
 
 	const labels = domain.split(".")
 
-	for (const label of labels) {
-		if (label.length > URL_DOMAIN_LABEL_MAX_LENGTH) {
-			return error({
-				code: "URL_DOMAIN_LABEL_TOO_LONG",
-				field: "url.domain",
-				messages: [
-					"The system limits each domain label to 63 characters.",
-				],
-				received: label,
-				expected: "Label with at most 63 characters",
-				suggestion:
-					`Shorten the domain label '${label}' (currently ${label.length} characters)`,
-				constraints: {
-					maxLabelLength: URL_DOMAIN_LABEL_MAX_LENGTH,
-				},
-				severity: "requirement",
-			})
-		}
+	const validateLabel = function (
+		acc: Result<ValidationError, string>,
+	) {
+		return function validateLabelWithAcc(
+			label: string,
+		): Result<ValidationError, string> {
+			//++ Short-circuit if already found an error
+			if (isError(acc)) {
+				return acc
+			}
 
-		if (label.startsWith("-")) {
-			return error({
-				code: "URL_DOMAIN_LABEL_LEADING_HYPHEN",
-				field: "url.domain",
-				messages: [
-					"The system does not allow domain labels to start with hyphen.",
-				],
-				received: label,
-				expected: "Label without leading hyphen",
-				suggestion: `Remove leading hyphen from '${label}'`,
-				severity: "requirement",
-			})
-		}
+			//++ Validate label length
+			if (label.length > URL_DOMAIN_LABEL_MAX_LENGTH) {
+				return error({
+					code: "URL_DOMAIN_LABEL_TOO_LONG",
+					field: "url.domain",
+					messages: [
+						"The system limits each domain label to 63 characters.",
+					],
+					received: label,
+					expected: "Label with at most 63 characters",
+					suggestion:
+						`Shorten the domain label '${label}' (currently ${label.length} characters)`,
+					constraints: {
+						maxLabelLength: URL_DOMAIN_LABEL_MAX_LENGTH,
+					},
+					severity: "requirement",
+				})
+			}
 
-		if (label.endsWith("-")) {
-			return error({
-				code: "URL_DOMAIN_LABEL_TRAILING_HYPHEN",
-				field: "url.domain",
-				messages: [
-					"The system does not allow domain labels to end with hyphen.",
-				],
-				received: label,
-				expected: "Label without trailing hyphen",
-				suggestion: `Remove trailing hyphen from '${label}'`,
-				severity: "requirement",
-			})
-		}
+			//++ Validate no leading hyphen
+			if (label.startsWith("-")) {
+				return error({
+					code: "URL_DOMAIN_LABEL_LEADING_HYPHEN",
+					field: "url.domain",
+					messages: [
+						"The system does not allow domain labels to start with hyphen.",
+					],
+					received: label,
+					expected: "Label without leading hyphen",
+					suggestion: `Remove leading hyphen from '${label}'`,
+					severity: "requirement",
+				})
+			}
 
-		const validLabelRegex = /^[\p{L}\p{N}\p{M}\-]+$/u
+			//++ Validate no trailing hyphen
+			if (label.endsWith("-")) {
+				return error({
+					code: "URL_DOMAIN_LABEL_TRAILING_HYPHEN",
+					field: "url.domain",
+					messages: [
+						"The system does not allow domain labels to end with hyphen.",
+					],
+					received: label,
+					expected: "Label without trailing hyphen",
+					suggestion: `Remove trailing hyphen from '${label}'`,
+					severity: "requirement",
+				})
+			}
 
-		if (!validLabelRegex.test(label)) {
-			return error({
-				code: "URL_DOMAIN_INVALID_CHARACTER",
-				field: "url.domain",
-				messages: [
-					"The system only allows Unicode letters, numbers, and hyphens in domain labels.",
-				],
-				received: label,
-				expected: "Unicode letters, numbers, and hyphens",
-				suggestion: `Remove invalid characters from label '${label}'`,
-				severity: "requirement",
-			})
+			//++ Validate only allowed characters
+			const validLabelRegex = /^[\p{L}\p{N}\p{M}\-]+$/u
+
+			if (!validLabelRegex.test(label)) {
+				return error({
+					code: "URL_DOMAIN_INVALID_CHARACTER",
+					field: "url.domain",
+					messages: [
+						"The system only allows Unicode letters, numbers, and hyphens in domain labels.",
+					],
+					received: label,
+					expected: "Unicode letters, numbers, and hyphens",
+					suggestion: `Remove invalid characters from label '${label}'`,
+					severity: "requirement",
+				})
+			}
+
+			//++ Label is valid, continue with ok
+			return ok(domain)
 		}
 	}
 
-	return ok(domain)
+	const labelValidationResult = reduce(validateLabel)(ok(domain))(labels)
+
+	//++ reduce returns Result<ValidationError, Result<ValidationError, string>>
+	//++ Need to unwrap the nested Result
+	if (isError(labelValidationResult)) {
+		return error(labelValidationResult.error)
+	}
+
+	return labelValidationResult.value
 }
