@@ -23,7 +23,8 @@ export default function _validateUuidFormat(
 			messages: ["The system needs a UUID."],
 			received: uuid,
 			expected: "Non-empty UUID in format xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-			suggestion: "Provide a valid UUID like '550e8400-e29b-41d4-a716-446655440000'",
+			suggestion:
+				"Provide a valid UUID like '550e8400-e29b-41d4-a716-446655440000'",
 			severity: "requirement",
 		})
 	}
@@ -35,7 +36,8 @@ export default function _validateUuidFormat(
 			messages: ["The system needs a UUID with exactly 36 characters."],
 			received: uuid,
 			expected: "String with exactly 36 characters (8-4-4-4-12 with hyphens)",
-			suggestion: `UUID must be ${UUID_LENGTH} characters (received ${uuid.length})`,
+			suggestion:
+				`UUID must be ${UUID_LENGTH} characters (received ${uuid.length})`,
 			constraints: { length: UUID_LENGTH },
 			severity: "requirement",
 		})

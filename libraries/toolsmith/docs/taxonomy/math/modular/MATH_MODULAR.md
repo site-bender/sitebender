@@ -12,6 +12,7 @@
 ### Modular Exponentiation
 
 #### modularExponentiation
+
 - **Current**: `(base: number | null | undefined) => (exponent: number | null | undefined) => (modulus: number | null | undefined) => number`
 - **Returns**: NaN on invalid input, negative exponent, or non-positive modulus
 - **Description**: [INFERRED] Calculates (base^exponent) mod modulus efficiently using binary exponentiation; returns NaN on invalid input
@@ -35,17 +36,20 @@ Modular arithmetic functions will be converted to Result-returning functions tha
 ### Arrow Function Syntax
 
 The function uses arrow syntax and needs refactoring to named function:
+
 - **modularExponentiation** (arrow function)
 
 ### Algorithm Details
 
 #### modularExponentiation
+
 - Calculates (base^exponent) mod modulus
 - Uses **binary exponentiation** algorithm (also called "exponentiation by squaring")
 - Time complexity: O(log exponent)
 - Space complexity: O(log exponent) due to recursion
 
 **Algorithm**: Binary exponentiation (recursive)
+
 ```
 modPow(b, e, m):
   if e = 0: return 1 mod m
@@ -57,6 +61,7 @@ modPow(b, e, m):
 ```
 
 **Example**: Calculate 3^13 mod 7
+
 - 3^13 mod 7 = 3 × (3^12 mod 7)
 - 3^12 mod 7 = (3^6 mod 7)^2
 - 3^6 mod 7 = (3^3 mod 7)^2
@@ -67,6 +72,7 @@ modPow(b, e, m):
 ### Negative Base Handling
 
 The implementation normalizes negative bases:
+
 - Converts negative base to positive equivalent in modular arithmetic
 - Formula: `base = ((base % modulus) + modulus) % modulus`
 - Example: -5 mod 7 = 2, so (-5)^n mod 7 = 2^n mod 7
@@ -74,6 +80,7 @@ The implementation normalizes negative bases:
 ### Input Constraints
 
 Requires:
+
 - All inputs are numbers (not null/undefined)
 - All inputs are finite
 - All inputs are integers
@@ -84,6 +91,7 @@ Requires:
 ### Error Conditions
 
 Returns NaN for:
+
 - null/undefined input
 - Non-number input
 - Non-integer input
@@ -93,6 +101,7 @@ Returns NaN for:
 ### Recursive Implementation
 
 The current implementation uses:
+
 - Recursive helper function `binaryPower`
 - Already functional style internally
 - No loops or mutation in the core algorithm
@@ -103,6 +112,7 @@ The current implementation uses:
 ## Implementation Dependencies
 
 Modular arithmetic functions have minimal dependencies:
+
 - Depends on **isNullish** from validation
 - Depends on **Number.isInteger** for validation
 - No dependencies on other math functions
@@ -115,9 +125,11 @@ Modular arithmetic functions have minimal dependencies:
 When migrating to Result type, errors should be categorized:
 
 ### ValidationError
+
 - Type errors (not a number, null/undefined, not an integer)
 
 ### MathError (new type needed)
+
 - Domain errors:
   - Negative exponent
   - Non-positive modulus (modulus ≤ 0)
@@ -127,6 +139,7 @@ When migrating to Result type, errors should be categorized:
 ## Related Functions
 
 ### In Other Categories
+
 - **modulo** (in MATH_ARITHMETIC.md) - basic modular arithmetic operation
 - **power** (in MATH_ARITHMETIC.md) - exponentiation without modulus
 - **gcd** (in MATH_INTEGER.md) - related number theory function
@@ -137,6 +150,7 @@ When migrating to Result type, errors should be categorized:
 Consider adding these modular arithmetic functions in monadic implementation:
 
 #### Modular Operations
+
 - **modularAddition** - (a + b) mod m
 - **modularSubtraction** - (a - b) mod m
 - **modularMultiplication** - (a × b) mod m
@@ -144,12 +158,14 @@ Consider adding these modular arithmetic functions in monadic implementation:
 - **modularDivision** - (a / b) mod m = (a × modularInverse(b)) mod m
 
 #### Advanced Modular Functions
+
 - **discreteLogarithm** - find x such that b^x mod m = a (inverse of modular exponentiation)
 - **chineseRemainderTheorem** - solve system of modular equations
 - **jacobiSymbol** - number theory function used in primality testing
 - **tonelliShanks** - modular square root algorithm
 
 #### Cryptographic Primitives
+
 - **modularExponentiationWithModulus** - variant that takes modulus as first parameter
 - **montgomeryMultiplication** - optimized modular multiplication for cryptography
 
@@ -181,21 +197,25 @@ Modular exponentiation is fundamental to:
 When migrating, ensure comprehensive tests for:
 
 ### Small Values
+
 - Base cases: 0^0 mod m, a^0 mod m (should be 1), 0^n mod m (should be 0 for n > 0)
 - Small exponents: a^1 mod m, a^2 mod m
 - Small modulus: m = 2, m = 3, m = 7
 
 ### Large Values
+
 - Large exponents: 2^1000 mod 1000000007
 - Large base: 999999^999 mod 1000000007
 - Verify no overflow occurs
 
 ### Negative Base
+
 - Negative base with odd exponent: (-3)^5 mod 7
 - Negative base with even exponent: (-3)^4 mod 7
 - Verify normalization works correctly
 
 ### Edge Cases
+
 - Exponent = 0 (should always return 1 mod m)
 - Base = 0 (should return 0 for exponent > 0)
 - Base = 1 (should always return 1)
@@ -203,6 +223,7 @@ When migrating, ensure comprehensive tests for:
 - Base > modulus (should reduce before computation)
 
 ### Error Cases
+
 - Negative exponent
 - Zero modulus
 - Negative modulus
@@ -210,6 +231,7 @@ When migrating, ensure comprehensive tests for:
 - null/undefined inputs
 
 ### Algorithm Correctness
+
 - Compare with naive exponentiation for small values
 - Verify (a^b mod m) = ((a mod m)^b mod m)
 - Verify (a^(b+c) mod m) = ((a^b mod m) × (a^c mod m)) mod m
@@ -219,17 +241,20 @@ When migrating, ensure comprehensive tests for:
 ## Performance Considerations
 
 ### Current Implementation
+
 - O(log n) time complexity (efficient)
 - O(log n) space complexity (recursion depth)
 - No overflow protection beyond JavaScript's number precision
 
 ### Potential Optimizations
+
 - **Iterative version**: O(1) space complexity
 - **Montgomery reduction**: Faster for repeated operations with same modulus
 - **BigInt support**: Handle arbitrarily large integers (would require different implementation)
 - **Memoization**: Cache results for repeated (base, exponent, modulus) triples (not pure)
 
 ### Overflow Concerns
+
 - JavaScript numbers are 64-bit floats
 - Safe integer range: -(2^53 - 1) to (2^53 - 1)
 - Intermediate calculations (squaring, multiplication) may overflow

@@ -13,12 +13,14 @@
 4. ⏳ **Toolsmith array utilities complete** - In progress (map, filter, reduce)
 
 **Why Blocked:**
+
 - Quarrier's entire architecture depends on Result/Validation monads from Toolsmith
 - All error handling uses Toolsmith's error creation utilities
 - All array operations use Toolsmith's functional utilities (NO native methods)
 - Domain types will use Toolsmith's branded type system
 
 **When to Start:**
+
 - Wait for architect's explicit approval
 - Verify Toolsmith exports are stable
 - Confirm Arborist API is finalized
@@ -169,6 +171,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 ## Constitutional Rules Compliance
 
 **Every function MUST:**
+
 - ✅ Be curried (data last)
 - ✅ Use `function` keyword (NO arrows except type signatures)
 - ✅ Return new data (NO mutations except PRNG state encapsulation)
@@ -185,6 +188,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 **NON-NEGOTIABLE:** Quarrier has ZERO external dependencies except Toolsmith and Arborist.
 
 **Why:**
+
 - External dependencies = maintaining THEIR code (all of it)
 - External dependencies = can't fix THEIR bugs (PR hell)
 - External dependencies = inherit THEIR tech debt
@@ -192,12 +196,14 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 - Building our own = COMPLETE control, IMMEDIATE fixes, ZERO attack surface
 
 **What We Build:**
+
 - ✅ PRNG algorithms
 - ✅ Shrinking algorithms
 - ✅ Generator combinators
 - ✅ All fake data generators
 
 **What We Don't Reinvent:**
+
 - ❌ TypeScript language
 - ❌ Triple stores (use Apache Jena Fuseki)
 - ❌ Databases
@@ -209,6 +215,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 **Current Version:** 0.0.1 (pre-production)
 
 **During 0.x development:**
+
 - NO migration paths
 - NO backwards compatibility
 - NO deprecation warnings
@@ -222,6 +229,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 **NO issue trackers. NO tickets. NO backlog.**
 
 **Process:**
+
 1. Hit a problem → Check IMPLEMENTATION_PLAN.md first
 2. Still stuck → Present to architect with:
    - Minimal reproduction
@@ -245,21 +253,25 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 ## Success Criteria
 
 **Phase 1 Complete:**
+
 - ✅ PRNG is deterministic and fast
 - ✅ Seeds are splittable and independent
 - ✅ All errors use Result monad with suggestions
 
 **Phase 7 Complete:**
+
 - ✅ Properties check correctly
 - ✅ Shrinking finds minimal counterexamples
 - ✅ Proof-carrying properties validate
 
 **Phase 13 Complete:**
+
 - ✅ Envoy receives high-quality examples
 - ✅ Integration with Arborist works seamlessly
 - ✅ Type-driven generation functional
 
 **Final Completion:**
+
 - ✅ All phases implemented
 - ✅ Zero external dependencies maintained
 - ✅ Performance targets met
