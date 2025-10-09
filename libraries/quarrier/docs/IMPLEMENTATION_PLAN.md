@@ -14,6 +14,7 @@
 4. ⏳ **Toolsmith array utilities are complete** - map, filter, reduce needed
 
 **Why This Matters:**
+
 - Quarrier's entire architecture depends on Result/Validation monads from Toolsmith
 - All error handling uses Toolsmith's error creation utilities
 - All array operations use Toolsmith's functional utilities (NO native methods)
@@ -21,12 +22,14 @@
 - Starting before these are ready means rewriting everything later
 
 **Current Status:**
+
 - Arborist: ~95% complete (Phase 1 done, ready for integration)
 - Toolsmith monads: In progress (fold, map, map2, map3, success, failure, ok, error)
 - Toolsmith branded types: In progress (smart constructors, validation)
 - Toolsmith arrays: In progress (map, filter, reduce, etc.)
 
 **When to Start:**
+
 - Wait for architect's explicit approval
 - Verify Toolsmith exports are stable
 - Confirm Arborist API is finalized
@@ -41,6 +44,7 @@ Quarrier is a **pure functional property-based testing library** using a **pipel
 **Core Principle:** Testing as transformation pipelines: `Seed → Generate → Test → Shrink → Report`
 
 **What It Does:**
+
 - Generates arbitrary values for property-based testing
 - Provides bidirectional generators (generate AND parse)
 - Implements lazy shrink trees for minimal counterexamples
@@ -51,6 +55,7 @@ Quarrier is a **pure functional property-based testing library** using a **pipel
 - Supports semantic web testing (RDF triples, SPARQL)
 
 **What It Does NOT Do:**
+
 - Parse TypeScript/JSX (that's Arborist's job)
 - Run tests (that's Auditor's job)
 - Generate documentation (that's Envoy's job)
@@ -61,6 +66,7 @@ Quarrier is a **pure functional property-based testing library** using a **pipel
 **Current Version:** 0.0.1 (pre-production)
 
 **Development Philosophy:**
+
 - NO semantic versioning until version 1.0 production deployment
 - NO migration paths, NO legacy support, NO backwards compatibility during 0.x
 - NO deprecation warnings, NO aliasing "old ways"
@@ -69,6 +75,7 @@ Quarrier is a **pure functional property-based testing library** using a **pipel
 - After 1.0 deployment: proper SemVer versioning begins
 
 **Instructions for AIs:**
+
 - DO NOT ask about migration paths during 0.x development
 - DO NOT suggest deprecation strategies or backwards compatibility
 - DO NOT preserve "legacy" anything
@@ -83,6 +90,7 @@ Quarrier is a **pure functional property-based testing library** using a **pipel
 **The Iron Rule:** A task is NOT complete until its checklist item is checked `[x]` in this document.
 
 **Atomic Commit Unit:**
+
 ```
 Implementation + Tests + Checklist Update = ONE commit
 ```
@@ -95,6 +103,7 @@ Implementation + Tests + Checklist Update = ONE commit
 4. Commit all three together with descriptive message
 
 **Verification Before Commit:**
+
 ```bash
 # Check which items should be marked complete
 git diff libraries/quarrier/docs/IMPLEMENTATION_PLAN.md
@@ -104,6 +113,7 @@ git diff libraries/quarrier/docs/IMPLEMENTATION_PLAN.md
 ```
 
 **AI Instructions (BINDING):**
+
 - When completing a task, you MUST update the corresponding checklist in the SAME response
 - Never mark a task complete without checking the corresponding checklist box `[x]`
 - If no matching checklist item exists, add it to the appropriate phase
@@ -111,11 +121,13 @@ git diff libraries/quarrier/docs/IMPLEMENTATION_PLAN.md
 - The checklist update and code change must be in the same commit
 
 **Human Instructions:**
+
 - Before committing completed work, verify `git diff` shows both code AND checklist changes
 - If checklist doesn't reflect reality, fix it before committing
 - Checklist is source of truth for implementation progress
 
 **Why This Matters:**
+
 - Checklists ARE documentation
 - Future sessions need accurate progress tracking
 - Prevents duplicate work
@@ -131,6 +143,7 @@ git diff libraries/quarrier/docs/IMPLEMENTATION_PLAN.md
 **Quarrier has ZERO external dependencies except Toolsmith and Arborist.**
 
 **Why This Is Correct:**
+
 - External dependencies = maintaining THEIR code (all of it)
 - External dependencies = can't fix THEIR bugs (PR hell)
 - External dependencies = inherit THEIR tech debt
@@ -138,6 +151,7 @@ git diff libraries/quarrier/docs/IMPLEMENTATION_PLAN.md
 - Building our own = COMPLETE control, IMMEDIATE fixes, ZERO attack surface
 
 **What We Build Ourselves:**
+
 - ✅ PRNG (PCG XSH RR or SplitMix32)
 - ✅ Shrinking algorithms (halving, chunk removal, etc.)
 - ✅ Generator combinators (map, filter, chain)
@@ -146,6 +160,7 @@ git diff libraries/quarrier/docs/IMPLEMENTATION_PLAN.md
 - ✅ All fake data generators
 
 **What We Don't Reinvent:**
+
 - ❌ TypeScript (use the language)
 - ❌ Triple stores (use Apache Jena Fuseki)
 - ❌ Databases (use what exists)
@@ -157,14 +172,15 @@ git diff libraries/quarrier/docs/IMPLEMENTATION_PLAN.md
 **Quarrier uses Toolsmith's monadic utilities, branded types, and array utilities.**
 
 **Required Toolsmith Imports:**
+
 ```typescript
 // Monadic utilities (currently being implemented)
 import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
 import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
 import { map } from "@sitebender/toolsmith/monads/validation/map"
 import { map2, map3 } from "@sitebender/toolsmith/monads/validation/map2"
-import { success, failure } from "@sitebender/toolsmith/monads/validation"
-import { ok, error } from "@sitebender/toolsmith/monads/result"
+import { failure, success } from "@sitebender/toolsmith/monads/validation"
+import { error, ok } from "@sitebender/toolsmith/monads/result"
 
 // Error creation utilities
 import fromTemplate from "@sitebender/toolsmith/error/fromTemplate"
@@ -183,6 +199,7 @@ import reduce from "@sitebender/toolsmith/array/reduce"
 ```
 
 **Branded Types (in progress):**
+
 ```typescript
 // Quarrier will use branded types for domain concepts
 type Seed = number & { readonly __brand: "Seed" }
@@ -191,8 +208,8 @@ type PropertyId = string & { readonly __brand: "PropertyId" }
 
 // Smart constructors validate and return Result
 function seed(value: number): Result<SeedError, Seed> {
-  // Validation logic
-  return ok(value as Seed)
+	// Validation logic
+	return ok(value as Seed)
 }
 ```
 
@@ -203,6 +220,7 @@ function seed(value: number): Result<SeedError, Seed> {
 **Quarrier receives type information from Arborist for type-driven generator synthesis.**
 
 **Allowed:**
+
 ```typescript
 import type { ParsedType } from "@sitebender/arborist/types"
 import type { ParsedFunction } from "@sitebender/arborist/types"
@@ -210,26 +228,28 @@ import extractTypes from "@sitebender/arborist/extractTypes"
 ```
 
 **Usage Pattern:**
+
 ```typescript
 // Get type information from Arborist
 const result = await parseFile("./src/module.ts")
 
-fold(handleError)(function(ast) {
-  const typesV = extractTypes(ast)
+fold(handleError)(function (ast) {
+	const typesV = extractTypes(ast)
 
-  return foldV(
-    handleErrors
-  )(function(types) {
-    // Generate arbitraries from types
-    const generators = map(fromTypeInfo)(types)
-    return generators
-  })(typesV)
+	return foldV(
+		handleErrors,
+	)(function (types) {
+		// Generate arbitraries from types
+		const generators = map(fromTypeInfo)(types)
+		return generators
+	})(typesV)
 })(result)
 ```
 
 ### 4. Error Handling: Result and Validation Monads
 
 **Use Toolsmith error system.** Study these files:
+
 - `@sitebender/toolsmith/error/createError/index.ts`
 - `@sitebender/toolsmith/error/withSuggestion/index.ts`
 - `@sitebender/toolsmith/error/withFailedArg/index.ts`
@@ -237,6 +257,7 @@ fold(handleError)(function(ast) {
 - `@sitebender/toolsmith/types/error/index.ts`
 
 **Error Philosophy:**
+
 - Rich metadata (operation, args, code, severity)
 - Helpful suggestions (NOT scolding)
 - Failed argument tracking
@@ -246,12 +267,14 @@ fold(handleError)(function(ast) {
 **Monad Strategy:**
 
 **Result<E, T>** - Fail-fast for sequential operations
+
 ```typescript
 // Seed creation, I/O operations
 function createSeed(value: number): Result<SeedError, Seed>
 ```
 
 **Validation<E, T>** - Error accumulation for parallel/tree operations
+
 ```typescript
 // Generating multiple values, accumulate ALL errors
 function generateValues<T>(
@@ -264,6 +287,7 @@ function generateValues<T>(
 ```
 
 **Why This Approach:**
+
 - Seed creation errors: fail immediately (can't continue without valid seed)
 - Generation errors: accumulate all (partial success valuable)
 - Example: Value 1 fails but Values 2-5 work → return all successes + all errors
@@ -275,24 +299,26 @@ function generateValues<T>(
 **Communication:** Non-developers understand pipelines (water pipes, assembly lines, data pipelines). "Monad" is academic jargon that creates cognitive barriers.
 
 **Technical Reality:** Pipelines ARE function composition. The Generator type with `next` and `shrink` IS effectively a monad. But we call it "pipeline" because:
+
 - ✅ Clearer mental model for non-FP developers
 - ✅ Emphasizes data flow (Seed → Value → Shrunk Value)
 - ✅ Reduces cognitive load for managers, architects, junior devs
 - ✅ Still mathematically sound (composition is associative)
 
 **Example:**
+
 ```typescript
 // Pipeline terminology (clear)
 const userGen = pipe(
-  generateBasicUser,
-  addFriends,
-  validateComplete
+	generateBasicUser,
+	addFriends,
+	validateComplete,
 )
 
 // Monad terminology (confusing to non-FP devs)
 const userGen = generateBasicUser
-  .flatMap(addFriends)
-  .flatMap(validateComplete)
+	.flatMap(addFriends)
+	.flatMap(validateComplete)
 ```
 
 Both are the same operation, but "pipeline" communicates better.
@@ -305,15 +331,15 @@ Proof witnesses are compile-time documentation of invariants that force correctn
 
 ```typescript
 type PropertyProof<Args> = {
-  readonly generators_deterministic: ProofOf<"deterministic", Args>
-  readonly shrink_terminates: ProofOf<"terminating", Args>
-  readonly shrink_sound: ProofOf<"sound", Args>
+	readonly generators_deterministic: ProofOf<"deterministic", Args>
+	readonly shrink_terminates: ProofOf<"terminating", Args>
+	readonly shrink_sound: ProofOf<"sound", Args>
 }
 
 type ProofOf<Kind, Subject> = {
-  readonly kind: Kind
-  readonly subject: Subject
-  readonly evidence: unknown  // String explanation or formal proof
+	readonly kind: Kind
+	readonly subject: Subject
+	readonly evidence: unknown // String explanation or formal proof
 }
 ```
 
@@ -338,28 +364,29 @@ type ProofOf<Kind, Subject> = {
 **For Non-Developers:** Explain as "safety certificates" - like structural engineering certificates for buildings. The proof certifies the test is mathematically sound.
 
 **Example:**
+
 ```typescript
 const addCommutative = createProvenProperty({
-  name: "addition commutes",
-  generators: [integer(), integer()],
-  predicate: ([a, b]) => Effect.Pure(a + b === b + a),
-  proof: {
-    generators_deterministic: {
-      kind: "deterministic",
-      subject: [integer(), integer()],
-      evidence: "PCG PRNG with fixed seed produces same sequence"
-    },
-    shrink_terminates: {
-      kind: "terminating",
-      subject: [integer(), integer()],
-      evidence: "Integer shrinking halves toward zero, guaranteed termination"
-    },
-    shrink_sound: {
-      kind: "sound",
-      subject: [integer(), integer()],
-      evidence: "Shrunk integers are still integers in valid range"
-    }
-  }
+	name: "addition commutes",
+	generators: [integer(), integer()],
+	predicate: ([a, b]) => Effect.Pure(a + b === b + a),
+	proof: {
+		generators_deterministic: {
+			kind: "deterministic",
+			subject: [integer(), integer()],
+			evidence: "PCG PRNG with fixed seed produces same sequence",
+		},
+		shrink_terminates: {
+			kind: "terminating",
+			subject: [integer(), integer()],
+			evidence: "Integer shrinking halves toward zero, guaranteed termination",
+		},
+		shrink_sound: {
+			kind: "sound",
+			subject: [integer(), integer()],
+			evidence: "Shrunk integers are still integers in valid range",
+		},
+	},
 })
 ```
 
@@ -374,19 +401,20 @@ const addCommutative = createProvenProperty({
 ```typescript
 // Integrated (Hedgehog/Quarrier) - shrinking is part of generator
 type Generator<T> = {
-  next: (seed: Seed) => GeneratorResult<T>
-  shrink: (value: T) => ShrinkTree<T>  // INTEGRATED
-  parse?: (input: unknown) => Result<ParseError, T>
+	next: (seed: Seed) => GeneratorResult<T>
+	shrink: (value: T) => ShrinkTree<T> // INTEGRATED
+	parse?: (input: unknown) => Result<ParseError, T>
 }
 
 // Separated (QuickCheck) - easy to forget shrinking
 type Arbitrary<T> = {
-  generate: () => T
+	generate: () => T
 }
-function shrink<T>(value: T): Array<T>  // SEPARATE, can forget
+function shrink<T>(value: T): Array<T> // SEPARATE, can forget
 ```
 
 **Benefits:**
+
 - ✅ Can't forget to implement shrinking
 - ✅ Shrinking composes automatically when generators compose
 - ✅ Generator knows how values were constructed
@@ -469,41 +497,54 @@ export default function deriveMetamorphic<
 
 ```typescript
 export type SeedError = ArchitectError<"createSeed", [number]> & {
-  readonly kind: "InvalidValue" | "OutOfRange"
-  readonly value: number
-  readonly suggestion: string
+	readonly kind: "InvalidValue" | "OutOfRange"
+	readonly value: number
+	readonly suggestion: string
 }
 
-export type BoundsError = ArchitectError<"boundedInt", [number, number, Seed]> & {
-  readonly kind: "InvalidBounds" | "MinGreaterThanMax"
-  readonly min: number
-  readonly max: number
-  readonly suggestion: string
-}
+export type BoundsError =
+	& ArchitectError<"boundedInt", [number, number, Seed]>
+	& {
+		readonly kind: "InvalidBounds" | "MinGreaterThanMax"
+		readonly min: number
+		readonly max: number
+		readonly suggestion: string
+	}
 
-export type GenerationError = ArchitectError<"generate", [Generator<unknown>, Seed]> & {
-  readonly kind: "FilterExhausted" | "RecursionLimit" | "InvalidSize"
-  readonly attempts?: number
-  readonly depth?: number
-  readonly suggestion: string
-}
+export type GenerationError =
+	& ArchitectError<"generate", [Generator<unknown>, Seed]>
+	& {
+		readonly kind: "FilterExhausted" | "RecursionLimit" | "InvalidSize"
+		readonly attempts?: number
+		readonly depth?: number
+		readonly suggestion: string
+	}
 
-export type TypeSynthesisError = ArchitectError<"fromTypeInfo", [ParsedType]> & {
-  readonly kind: "UnsupportedType" | "InvalidConstraints" | "CircularReference"
-  readonly typeInfo: ParsedType
-  readonly suggestion: string
-}
+export type TypeSynthesisError =
+	& ArchitectError<"fromTypeInfo", [ParsedType]>
+	& {
+		readonly kind:
+			| "UnsupportedType"
+			| "InvalidConstraints"
+			| "CircularReference"
+		readonly typeInfo: ParsedType
+		readonly suggestion: string
+	}
 
-export type CheckError = ArchitectError<"checkProperty", [Property<unknown[]>, CheckOptions]> & {
-  readonly kind: "InvalidOptions" | "GenerationFailed" | "ShrinkingFailed"
-  readonly suggestion: string
-}
+export type CheckError =
+	& ArchitectError<"checkProperty", [Property<unknown[]>, CheckOptions]>
+	& {
+		readonly kind: "InvalidOptions" | "GenerationFailed" | "ShrinkingFailed"
+		readonly suggestion: string
+	}
 
-export type ProofError = ArchitectError<"createProvenProperty", [PropertySpec<unknown[]>]> & {
-  readonly kind: "InvalidProof" | "MissingEvidence" | "InconsistentProof"
-  readonly proofKind?: string
-  readonly suggestion: string
-}
+export type ProofError =
+	& ArchitectError<"createProvenProperty", [PropertySpec<unknown[]>]>
+	& {
+		readonly kind: "InvalidProof" | "MissingEvidence" | "InconsistentProof"
+		readonly proofKind?: string
+		readonly suggestion: string
+	}
 ```
 
 **Creating Errors:**
@@ -516,25 +557,25 @@ import { pipe } from "@sitebender/toolsmith/functional/pipe"
 
 // Example: Seed creation error
 const err = pipe(
-  fromTemplate("outOfRange")("createSeed")([value])(
-    "seed value",
-    value
-  ),
-  withSuggestion(
-    "Seed must be a positive integer. Use Math.abs(Math.floor(value)) to ensure validity."
-  )
+	fromTemplate("outOfRange")("createSeed")([value])(
+		"seed value",
+		value,
+	),
+	withSuggestion(
+		"Seed must be a positive integer. Use Math.abs(Math.floor(value)) to ensure validity.",
+	),
 )
 
 // Example: Type synthesis error
 const typeErr = pipe(
-  fromTemplate("operationFailed")("fromTypeInfo")([typeInfo])(
-    "generator synthesis",
-    typeInfo.kind
-  ),
-  withFailedArg(0)("typeInfo"),
-  withSuggestion(
-    "This type is not yet supported for automatic generation. Supported types: primitive, array, object, union. Consider creating a custom generator."
-  )
+	fromTemplate("operationFailed")("fromTypeInfo")([typeInfo])(
+		"generator synthesis",
+		typeInfo.kind,
+	),
+	withFailedArg(0)("typeInfo"),
+	withSuggestion(
+		"This type is not yet supported for automatic generation. Supported types: primitive, array, object, union. Consider creating a custom generator.",
+	),
 )
 ```
 
@@ -870,6 +911,7 @@ const typeErr = pipe(
 ## Constitutional Rules Compliance
 
 **Every function MUST:**
+
 - ✅ Be curried (data last)
 - ✅ Use `function` keyword (NO arrows except type signatures)
 - ✅ Return new data (NO mutations except PRNG state)
@@ -882,36 +924,38 @@ const typeErr = pipe(
 **PRNG Exception:** PRNG state may be mutated internally but MUST be encapsulated. External API is pure (seed in, new seed out).
 
 **Example of correct function structure:**
+
 ```typescript
 //++ Generates bounded integer without modulo bias
 export default function boundedInt(min: number) {
-  return function boundedIntWithMin(max: number) {
-    return function boundedIntWithMinAndMax(
-      seed: Seed
-    ): Result<BoundsError, GeneratorResult<number>> {
-      // Validation
-      if (min > max) {
-        return error(createBoundsError(min, max))
-      }
+	return function boundedIntWithMin(max: number) {
+		return function boundedIntWithMinAndMax(
+			seed: Seed,
+		): Result<BoundsError, GeneratorResult<number>> {
+			// Validation
+			if (min > max) {
+				return error(createBoundsError(min, max))
+			}
 
-      // Generation using Toolsmith utilities
-      const result = _nextUint32(seed)
-      const range = max - min + 1
-      const value = min + (result.value % range)
+			// Generation using Toolsmith utilities
+			const result = _nextUint32(seed)
+			const range = max - min + 1
+			const value = min + (result.value % range)
 
-      return ok({
-        value,
-        nextSeed: result.nextSeed,
-        size: Math.abs(value)
-      })
-    }
-  }
+			return ok({
+				value,
+				nextSeed: result.nextSeed,
+				size: Math.abs(value),
+			})
+		}
+	}
 }
 ```
 
 ## Error Message Guidelines
 
 **DO:**
+
 - Provide context: operation, arguments, what failed
 - Suggest fixes: "Try X" or "Check Y"
 - Include locations when relevant
@@ -919,6 +963,7 @@ export default function boundedInt(min: number) {
 - Use severity appropriately: warning/error/critical
 
 **DON'T:**
+
 - Scold the user
 - Use vague messages: "Error occurred"
 - Hide technical details
@@ -928,23 +973,27 @@ export default function boundedInt(min: number) {
 **Examples:**
 
 **Good:**
+
 ```
 createSeed: Value -42 is out of valid range
 Suggestion: Seed must be a positive integer. Use Math.abs(Math.floor(value)) to ensure validity.
 ```
 
 **Bad:**
+
 ```
 Error: Invalid seed
 ```
 
 **Good:**
+
 ```
 fromTypeInfo: Type "ClassDeclaration" not supported for generator synthesis
 Suggestion: Quarrier generates values for data types, not classes. Consider using an interface or type alias instead. Supported types: primitive, array, object, union, intersection.
 ```
 
 **Bad:**
+
 ```
 Unsupported type
 ```
@@ -980,6 +1029,7 @@ Unsupported type
 ## Performance Requirements
 
 Target performance:
+
 - PRNG operations: <1μs per call
 - Simple generation: <10μs per value
 - Complex generation: <100μs per value
@@ -991,6 +1041,7 @@ Target performance:
 **There are NO issue trackers. NO tickets. NO backlog.**
 
 **Process:**
+
 1. Hit a problem → Check this document first
 2. Still stuck → Present the problem to architect with:
    - Minimal reproduction code
@@ -1004,6 +1055,7 @@ Target performance:
 **Speed is the advantage.** No coordination overhead, no approval chains, no waiting. Architect decides, AI implements, done.
 
 **If the problem reveals a design flaw:**
+
 - Propose design change
 - Get architect approval
 - Delete old approach completely
@@ -1014,22 +1066,26 @@ Target performance:
 ## Integration with Ecosystem
 
 ### With Arborist
+
 - Receives ParsedType for type-driven generation
 - Uses syntax-level type information only
 - No semantic analysis
 
 ### With Auditor
+
 - Provides test data for property verification
 - Receives property specifications from code analysis
 - Coordinates on mathematical property testing
 
 ### With Envoy
+
 - Provides examples for documentation
 - Examples are real property test cases
 - Minimal and comprehensive examples
 - Shrinking examples for edge cases
 
 ### With Agent
+
 - Distributed property testing (future)
 - Collaborative test design (future)
 - Shared test results via CRDTs (future)

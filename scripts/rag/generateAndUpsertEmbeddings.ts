@@ -57,7 +57,7 @@ async function ensureCollection(collectionName: string): Promise<void> {
 		const exists = collections.collections.some(
 			function checkCollectionName(c) {
 				return c.name === collectionName
-			}
+			},
 		)
 
 		if (exists) {
@@ -101,7 +101,9 @@ async function upsertPrinciples(): Promise<void> {
 			continue
 		}
 
-		console.log(`\nProcessing ${category} (${(rules as Array<unknown>).length} rules)...`)
+		console.log(
+			`\nProcessing ${category} (${(rules as Array<unknown>).length} rules)...`,
+		)
 
 		// Ensure collection exists
 		await ensureCollection(collectionName)
@@ -136,7 +138,9 @@ async function upsertPrinciples(): Promise<void> {
 			points,
 		})
 
-		console.log(`✓ Upserted ${points.length} principle embeddings to ${collectionName}`)
+		console.log(
+			`✓ Upserted ${points.length} principle embeddings to ${collectionName}`,
+		)
 	}
 }
 
@@ -161,7 +165,11 @@ async function upsertPatterns(): Promise<void> {
 			continue
 		}
 
-		console.log(`\nProcessing ${category} patterns (${(rules as Array<unknown>).length} rules)...`)
+		console.log(
+			`\nProcessing ${category} patterns (${
+				(rules as Array<unknown>).length
+			} rules)...`,
+		)
 
 		// Generate embeddings and upsert
 		const points = []
@@ -193,7 +201,9 @@ async function upsertPatterns(): Promise<void> {
 			points,
 		})
 
-		console.log(`✓ Upserted ${points.length} pattern embeddings to ${collectionName}`)
+		console.log(
+			`✓ Upserted ${points.length} pattern embeddings to ${collectionName}`,
+		)
 	}
 }
 
@@ -202,7 +212,7 @@ async function upsertPatterns(): Promise<void> {
  */
 async function main(): Promise<void> {
 	console.log("RAG Phase 2: Generating and Upserting Embeddings")
-	console.log("=" .repeat(50))
+	console.log("=".repeat(50))
 
 	try {
 		// Test Qdrant connection
@@ -220,9 +230,10 @@ async function main(): Promise<void> {
 		console.log("✓ All embeddings generated and upserted successfully!")
 		console.log("\nNext steps:")
 		console.log("1. Verify collections: curl http://localhost:6333/collections")
-		console.log("2. Test search: mcp__qdrant__qdrant-find(\"constitutional_rules\", \"classes\")")
+		console.log(
+			'2. Test search: mcp__qdrant__qdrant-find("constitutional_rules", "classes")',
+		)
 		console.log("3. Continue with Phase 2.3: Query phrase embeddings")
-
 	} catch (error) {
 		console.error("\n❌ Error:", error)
 		Deno.exit(1)

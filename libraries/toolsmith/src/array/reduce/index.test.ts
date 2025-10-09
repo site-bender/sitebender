@@ -5,7 +5,6 @@ import reduce from "./index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isError from "../../monads/result/isError/index.ts"
 
-
 Deno.test("reduce", async function reduceTests(t) {
 	await t.step(
 		"sums numbers with curried reducer",

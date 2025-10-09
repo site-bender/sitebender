@@ -2,7 +2,7 @@
 
 > 🟢 **CANONICAL SYNTAX** - Finalized 2025-10-02
 
-**Status**: Production-ready, stable API  
+**Status**: Production-ready, stable API\
 **See Also**: [Syntax Status](../../../docs/syntax-status.md) for all canonical vs proposed syntax
 
 ---
@@ -61,8 +61,8 @@ Logical AND - user must have ALL keys.
 
 ```tsx
 <And>
-  <Key>{KEYS.admin}</Key>
-  <Key>{KEYS.accounting}</Key>
+	<Key>{KEYS.admin}</Key>
+	<Key>{KEYS.accounting}</Key>
 </And>
 ```
 
@@ -76,8 +76,8 @@ Logical OR - user must have ANY key.
 
 ```tsx
 <Or>
-  <Key>{KEYS.admin}</Key>
-  <Key>{KEYS.editor}</Key>
+	<Key>{KEYS.admin}</Key>
+	<Key>{KEYS.editor}</Key>
 </Or>
 ```
 
@@ -91,7 +91,7 @@ Logical NOT - user must NOT have the key.
 
 ```tsx
 <Not>
-  <Key>{KEYS.banned}</Key>
+	<Key>{KEYS.banned}</Key>
 </Not>
 ```
 
@@ -104,31 +104,31 @@ Keys are defined centrally in `.sitebender/auth/keys.ts`:
 ```typescript
 // .sitebender/auth/keys.ts
 export const KEYS = {
-  user: "USER",
-  admin: "ADMIN",
-  accounting: "ACCOUNTING",
-  editor: "EDITOR",
-  verified: "VERIFIED",
-  superuser: "SUPERUSER",
-} as const;
+	user: "USER",
+	admin: "ADMIN",
+	accounting: "ACCOUNTING",
+	editor: "EDITOR",
+	verified: "VERIFIED",
+	superuser: "SUPERUSER",
+} as const
 ```
 
 **Type Safety**:
 
 ```typescript
-type KeyName = (typeof KEYS)[keyof typeof KEYS];
+type KeyName = (typeof KEYS)[keyof typeof KEYS]
 // "USER" | "ADMIN" | "ACCOUNTING" | ...
 ```
 
 **Usage in Modules**:
 
 ```tsx
-import { KEYS } from "../../.sitebender/auth/keys";
+import { KEYS } from "../../.sitebender/auth/keys"
 
 <Locked>
-  <Key>{KEYS.admin}</Key>
-  <Route path="/admin" page={<Admin />} />
-</Locked>;
+	<Key>{KEYS.admin}</Key>
+	<Route path="/admin" page={<Admin />} />
+</Locked>
 ```
 
 **Integration with Steward**:
@@ -188,8 +188,8 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <Key>{KEYS.admin}</Key>
-  <Route path="/admin" page={<Admin />} />
+	<Key>{KEYS.admin}</Key>
+	<Route path="/admin" page={<Admin />} />
 </Locked>
 ```
 
@@ -201,11 +201,11 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <Or>
-    <Key>{KEYS.admin}</Key>
-    <Key>{KEYS.editor}</Key>
-  </Or>
-  <Route path="/edit" page={<Editor />} />
+	<Or>
+		<Key>{KEYS.admin}</Key>
+		<Key>{KEYS.editor}</Key>
+	</Or>
+	<Route path="/edit" page={<Editor />} />
 </Locked>
 ```
 
@@ -217,11 +217,11 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <And>
-    <Key>{KEYS.admin}</Key>
-    <Key>{KEYS.accounting}</Key>
-  </And>
-  <Route path="/financials" page={<Financials />} />
+	<And>
+		<Key>{KEYS.admin}</Key>
+		<Key>{KEYS.accounting}</Key>
+	</And>
+	<Route path="/financials" page={<Financials />} />
 </Locked>
 ```
 
@@ -233,14 +233,14 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <Or>
-    <Key>{KEYS.admin}</Key>
-    <And>
-      <Key>{KEYS.editor}</Key>
-      <Key>{KEYS.verified}</Key>
-    </And>
-  </Or>
-  <Route path="/publish" page={<Publish />} />
+	<Or>
+		<Key>{KEYS.admin}</Key>
+		<And>
+			<Key>{KEYS.editor}</Key>
+			<Key>{KEYS.verified}</Key>
+		</And>
+	</Or>
+	<Route path="/publish" page={<Publish />} />
 </Locked>
 ```
 
@@ -254,13 +254,13 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <Key>{KEYS.user}</Key>
-  <Route path="/profile" page={<Profile />} />
+	<Key>{KEYS.user}</Key>
+	<Route path="/profile" page={<Profile />} />
 
-  <Locked>
-    <Key>{KEYS.admin}</Key>
-    <Route path="/admin-profile" page={<AdminProfile />} />
-  </Locked>
+	<Locked>
+		<Key>{KEYS.admin}</Key>
+		<Route path="/admin-profile" page={<AdminProfile />} />
+	</Locked>
 </Locked>
 ```
 
@@ -279,9 +279,9 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <Key>{KEYS.admin}</Key>
-  <Key>{KEYS.accounting}</Key>
-  <Route path="/audit" page={<Audit />} />
+	<Key>{KEYS.admin}</Key>
+	<Key>{KEYS.accounting}</Key>
+	<Route path="/audit" page={<Audit />} />
 </Locked>
 ```
 
@@ -291,11 +291,11 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <And>
-    <Key>{KEYS.admin}</Key>
-    <Key>{KEYS.accounting}</Key>
-  </And>
-  <Route path="/audit" page={<Audit />} />
+	<And>
+		<Key>{KEYS.admin}</Key>
+		<Key>{KEYS.accounting}</Key>
+	</And>
+	<Route path="/audit" page={<Audit />} />
 </Locked>
 ```
 
@@ -313,11 +313,11 @@ auth:SUPERUSER a auth:Role ;
 
 ```tsx
 <Locked>
-  <Key>{KEYS.user}</Key>
-  <Locked>
-    <Key>{KEYS.admin}</Key>
-    <Route path="/admin-settings" page={<AdminSettings />} />
-  </Locked>
+	<Key>{KEYS.user}</Key>
+	<Locked>
+		<Key>{KEYS.admin}</Key>
+		<Route path="/admin-settings" page={<AdminSettings />} />
+	</Locked>
 </Locked>
 ```
 
@@ -328,11 +328,11 @@ auth:SUPERUSER a auth:Role ;
 ```typescript
 // Steward defines role hierarchy
 const roleHierarchy = {
-  SUPERUSER: ["ADMIN", "EDITOR", "USER"],
-  ADMIN: ["EDITOR", "USER"],
-  EDITOR: ["USER"],
-  USER: [],
-};
+	SUPERUSER: ["ADMIN", "EDITOR", "USER"],
+	ADMIN: ["EDITOR", "USER"],
+	EDITOR: ["USER"],
+	USER: [],
+}
 ```
 
 **At authentication**:
@@ -352,53 +352,53 @@ const roleHierarchy = {
 
 ```tsx
 // modules/Blog/index.tsx
-import { KEYS } from "../../.sitebender/auth/keys";
+import { KEYS } from "../../.sitebender/auth/keys"
 
 export default (
-  <Module>
-    {/* Public routes - no lock */}
-    <Route path="/" page={<Index />} />
-    <Route path="/:slug" page={<Post />} />
+	<Module>
+		{/* Public routes - no lock */}
+		<Route path="/" page={<Index />} />
+		<Route path="/:slug" page={<Post />} />
 
-    {/* User-only routes */}
-    <Locked>
-      <Key>{KEYS.user}</Key>
-      <Route path="/profile" page={<Profile />} />
-      <Route path="/drafts" page={<Drafts />} />
-    </Locked>
+		{/* User-only routes */}
+		<Locked>
+			<Key>{KEYS.user}</Key>
+			<Route path="/profile" page={<Profile />} />
+			<Route path="/drafts" page={<Drafts />} />
+		</Locked>
 
-    {/* Editor OR Admin can create/edit */}
-    <Locked>
-      <Or>
-        <Key>{KEYS.admin}</Key>
-        <Key>{KEYS.editor}</Key>
-      </Or>
-      <Route path="/new" page={<NewPost />} />
-      <Route path="/edit/:id" page={<EditPost />} />
-    </Locked>
+		{/* Editor OR Admin can create/edit */}
+		<Locked>
+			<Or>
+				<Key>{KEYS.admin}</Key>
+				<Key>{KEYS.editor}</Key>
+			</Or>
+			<Route path="/new" page={<NewPost />} />
+			<Route path="/edit/:id" page={<EditPost />} />
+		</Locked>
 
-    {/* Admin AND Accounting see financials */}
-    <Locked>
-      <And>
-        <Key>{KEYS.admin}</Key>
-        <Key>{KEYS.accounting}</Key>
-      </And>
-      <Route path="/revenue" page={<Revenue />} />
-    </Locked>
+		{/* Admin AND Accounting see financials */}
+		<Locked>
+			<And>
+				<Key>{KEYS.admin}</Key>
+				<Key>{KEYS.accounting}</Key>
+			</And>
+			<Route path="/revenue" page={<Revenue />} />
+		</Locked>
 
-    {/* Admin only - settings */}
-    <Locked>
-      <Key>{KEYS.admin}</Key>
-      <Route path="/settings" page={<Settings />} />
+		{/* Admin only - settings */}
+		<Locked>
+			<Key>{KEYS.admin}</Key>
+			<Route path="/settings" page={<Settings />} />
 
-      {/* Nested lock - requires Admin AND Superuser */}
-      <Locked>
-        <Key>{KEYS.superuser}</Key>
-        <Route path="/danger-zone" page={<DangerZone />} />
-      </Locked>
-    </Locked>
-  </Module>
-);
+			{/* Nested lock - requires Admin AND Superuser */}
+			<Locked>
+				<Key>{KEYS.superuser}</Key>
+				<Route path="/danger-zone" page={<DangerZone />} />
+			</Locked>
+		</Locked>
+	</Module>
+)
 ```
 
 ---
@@ -411,14 +411,14 @@ When JSX → IR compilation happens, locks become boolean expression trees:
 
 ```tsx
 <Locked>
-  <Or>
-    <Key>{KEYS.admin}</Key>
-    <And>
-      <Key>{KEYS.editor}</Key>
-      <Key>{KEYS.verified}</Key>
-    </And>
-  </Or>
-  <Route path="/publish" page={<Publish />} />
+	<Or>
+		<Key>{KEYS.admin}</Key>
+		<And>
+			<Key>{KEYS.editor}</Key>
+			<Key>{KEYS.verified}</Key>
+		</And>
+	</Or>
+	<Route path="/publish" page={<Publish />} />
 </Locked>
 ```
 
@@ -426,26 +426,26 @@ When JSX → IR compilation happens, locks become boolean expression trees:
 
 ```json
 {
-  "type": "locked",
-  "condition": {
-    "type": "or",
-    "children": [
-      { "type": "key", "value": "ADMIN" },
-      {
-        "type": "and",
-        "children": [
-          { "type": "key", "value": "EDITOR" },
-          { "type": "key", "value": "VERIFIED" }
-        ]
-      }
-    ]
-  },
-  "routes": [
-    {
-      "path": "/publish",
-      "page": "Publish"
-    }
-  ]
+	"type": "locked",
+	"condition": {
+		"type": "or",
+		"children": [
+			{ "type": "key", "value": "ADMIN" },
+			{
+				"type": "and",
+				"children": [
+					{ "type": "key", "value": "EDITOR" },
+					{ "type": "key", "value": "VERIFIED" }
+				]
+			}
+		]
+	},
+	"routes": [
+		{
+			"path": "/publish",
+			"page": "Publish"
+		}
+	]
 }
 ```
 
@@ -453,19 +453,19 @@ When JSX → IR compilation happens, locks become boolean expression trees:
 
 ```typescript
 function evaluateCondition(condition, userKeys: Set<string>): boolean {
-  switch (condition.type) {
-    case "key":
-      return userKeys.has(condition.value);
+	switch (condition.type) {
+		case "key":
+			return userKeys.has(condition.value)
 
-    case "and":
-      return condition.children.every((c) => evaluateCondition(c, userKeys));
+		case "and":
+			return condition.children.every((c) => evaluateCondition(c, userKeys))
 
-    case "or":
-      return condition.children.some((c) => evaluateCondition(c, userKeys));
+		case "or":
+			return condition.children.some((c) => evaluateCondition(c, userKeys))
 
-    case "not":
-      return !evaluateCondition(condition.children[0], userKeys);
-  }
+		case "not":
+			return !evaluateCondition(condition.children[0], userKeys)
+	}
 }
 ```
 
@@ -479,9 +479,9 @@ function evaluateCondition(condition, userKeys: Set<string>): boolean {
 
 ```tsx
 <Auth required>
-  <Gate roles={["ADMIN", "ACCOUNTING"]}>
-    <Route path="/financials" page={<Financials />} />
-  </Gate>
+	<Gate roles={["ADMIN", "ACCOUNTING"]}>
+		<Route path="/financials" page={<Financials />} />
+	</Gate>
 </Auth>
 ```
 
@@ -496,11 +496,11 @@ function evaluateCondition(condition, userKeys: Set<string>): boolean {
 
 ```tsx
 <Locked>
-  <And>
-    <Key>{KEYS.admin}</Key>
-    <Key>{KEYS.accounting}</Key>
-  </And>
-  <Route path="/financials" page={<Financials />} />
+	<And>
+		<Key>{KEYS.admin}</Key>
+		<Key>{KEYS.accounting}</Key>
+	</And>
+	<Route path="/financials" page={<Financials />} />
 </Locked>
 ```
 
@@ -523,14 +523,14 @@ They work in **multiple contexts**:
 
 ```tsx
 <Validation>
-  <And>
-    <IsInteger>
-      <From.Argument />
-    </IsInteger>
-    <IsGreaterThan value={0}>
-      <From.Argument />
-    </IsGreaterThan>
-  </And>
+	<And>
+		<IsInteger>
+			<From.Argument />
+		</IsInteger>
+		<IsGreaterThan value={0}>
+			<From.Argument />
+		</IsGreaterThan>
+	</And>
 </Validation>
 ```
 
@@ -538,11 +538,11 @@ They work in **multiple contexts**:
 
 ```tsx
 <Locked>
-  <And>
-    <Key>{KEYS.admin}</Key>
-    <Key>{KEYS.verified}</Key>
-  </And>
-  <Route path="/publish" page={<Publish />} />
+	<And>
+		<Key>{KEYS.admin}</Key>
+		<Key>{KEYS.verified}</Key>
+	</And>
+	<Route path="/publish" page={<Publish />} />
 </Locked>
 ```
 
@@ -550,11 +550,11 @@ They work in **multiple contexts**:
 
 ```tsx
 <ShowIf>
-  <Or>
-    <IsDesktop />
-    <IsTablet />
-  </Or>
-  <SidebarNavigation />
+	<Or>
+		<IsDesktop />
+		<IsTablet />
+	</Or>
+	<SidebarNavigation />
 </ShowIf>
 ```
 
@@ -622,11 +622,11 @@ Keys should be:
 
 ```tsx
 <Locked>
-  <And>
-    <Key>{KEYS.admin}</Key>
-    <TimeWindow start="09:00" end="17:00" timezone="UTC" />
-  </And>
-  <Route path="/admin" page={<Admin />} />
+	<And>
+		<Key>{KEYS.admin}</Key>
+		<TimeWindow start="09:00" end="17:00" timezone="UTC" />
+	</And>
+	<Route path="/admin" page={<Admin />} />
 </Locked>
 ```
 
@@ -636,11 +636,11 @@ Keys should be:
 
 ```tsx
 <Locked>
-  <And>
-    <Key>{KEYS.editor}</Key>
-    <IpWhitelist ranges={["10.0.0.0/8"]} />
-  </And>
-  <Route path="/edit" page={<Editor />} />
+	<And>
+		<Key>{KEYS.editor}</Key>
+		<IpWhitelist ranges={["10.0.0.0/8"]} />
+	</And>
+	<Route path="/edit" page={<Editor />} />
 </Locked>
 ```
 
@@ -650,11 +650,11 @@ Keys should be:
 
 ```tsx
 <Locked>
-  <And>
-    <Key>{KEYS.admin}</Key>
-    <MfaRequired methods={["totp", "webauthn"]} />
-  </And>
-  <Route path="/danger-zone" page={<DangerZone />} />
+	<And>
+		<Key>{KEYS.admin}</Key>
+		<MfaRequired methods={["totp", "webauthn"]} />
+	</And>
+	<Route path="/danger-zone" page={<DangerZone />} />
 </Locked>
 ```
 
@@ -668,130 +668,130 @@ Keys should be:
 
 ```typescript
 // tests/locks/evaluate.test.ts
-import { assertEquals } from "@std/assert";
-import evaluateCondition from "../src/evaluateCondition/index.ts";
+import { assertEquals } from "@std/assert"
+import evaluateCondition from "../src/evaluateCondition/index.ts"
 
 Deno.test("Single key - user has it", () => {
-  const condition = { type: "key", value: "ADMIN" };
-  const userKeys = new Set(["ADMIN", "USER"]);
+	const condition = { type: "key", value: "ADMIN" }
+	const userKeys = new Set(["ADMIN", "USER"])
 
-  assertEquals(evaluateCondition(condition, userKeys), true);
-});
+	assertEquals(evaluateCondition(condition, userKeys), true)
+})
 
 Deno.test("Single key - user lacks it", () => {
-  const condition = { type: "key", value: "ADMIN" };
-  const userKeys = new Set(["USER"]);
+	const condition = { type: "key", value: "ADMIN" }
+	const userKeys = new Set(["USER"])
 
-  assertEquals(evaluateCondition(condition, userKeys), false);
-});
+	assertEquals(evaluateCondition(condition, userKeys), false)
+})
 
 Deno.test("AND - user has both", () => {
-  const condition = {
-    type: "and",
-    children: [
-      { type: "key", value: "ADMIN" },
-      { type: "key", value: "ACCOUNTING" },
-    ],
-  };
-  const userKeys = new Set(["ADMIN", "ACCOUNTING", "USER"]);
+	const condition = {
+		type: "and",
+		children: [
+			{ type: "key", value: "ADMIN" },
+			{ type: "key", value: "ACCOUNTING" },
+		],
+	}
+	const userKeys = new Set(["ADMIN", "ACCOUNTING", "USER"])
 
-  assertEquals(evaluateCondition(condition, userKeys), true);
-});
+	assertEquals(evaluateCondition(condition, userKeys), true)
+})
 
 Deno.test("AND - user lacks one", () => {
-  const condition = {
-    type: "and",
-    children: [
-      { type: "key", value: "ADMIN" },
-      { type: "key", value: "ACCOUNTING" },
-    ],
-  };
-  const userKeys = new Set(["ADMIN", "USER"]);
+	const condition = {
+		type: "and",
+		children: [
+			{ type: "key", value: "ADMIN" },
+			{ type: "key", value: "ACCOUNTING" },
+		],
+	}
+	const userKeys = new Set(["ADMIN", "USER"])
 
-  assertEquals(evaluateCondition(condition, userKeys), false);
-});
+	assertEquals(evaluateCondition(condition, userKeys), false)
+})
 
 Deno.test("OR - user has one", () => {
-  const condition = {
-    type: "or",
-    children: [
-      { type: "key", value: "ADMIN" },
-      { type: "key", value: "EDITOR" },
-    ],
-  };
-  const userKeys = new Set(["EDITOR", "USER"]);
+	const condition = {
+		type: "or",
+		children: [
+			{ type: "key", value: "ADMIN" },
+			{ type: "key", value: "EDITOR" },
+		],
+	}
+	const userKeys = new Set(["EDITOR", "USER"])
 
-  assertEquals(evaluateCondition(condition, userKeys), true);
-});
+	assertEquals(evaluateCondition(condition, userKeys), true)
+})
 
 Deno.test("Complex nested - ADMIN or (EDITOR and VERIFIED)", () => {
-  const condition = {
-    type: "or",
-    children: [
-      { type: "key", value: "ADMIN" },
-      {
-        type: "and",
-        children: [
-          { type: "key", value: "EDITOR" },
-          { type: "key", value: "VERIFIED" },
-        ],
-      },
-    ],
-  };
+	const condition = {
+		type: "or",
+		children: [
+			{ type: "key", value: "ADMIN" },
+			{
+				type: "and",
+				children: [
+					{ type: "key", value: "EDITOR" },
+					{ type: "key", value: "VERIFIED" },
+				],
+			},
+		],
+	}
 
-  // User is verified editor
-  assertEquals(
-    evaluateCondition(condition, new Set(["EDITOR", "VERIFIED"])),
-    true,
-  );
+	// User is verified editor
+	assertEquals(
+		evaluateCondition(condition, new Set(["EDITOR", "VERIFIED"])),
+		true,
+	)
 
-  // User is unverified editor
-  assertEquals(evaluateCondition(condition, new Set(["EDITOR"])), false);
+	// User is unverified editor
+	assertEquals(evaluateCondition(condition, new Set(["EDITOR"])), false)
 
-  // User is admin
-  assertEquals(evaluateCondition(condition, new Set(["ADMIN"])), true);
-});
+	// User is admin
+	assertEquals(evaluateCondition(condition, new Set(["ADMIN"])), true)
+})
 ```
 
 ### Integration Tests
 
 ```typescript
 // tests/locks/routing.test.ts
-import { assertEquals } from "@std/assert";
-import { render } from "../src/render/index.ts";
+import { assertEquals } from "@std/assert"
+import { render } from "../src/render/index.ts"
 
 Deno.test("Locked route redirects unauthenticated user", async () => {
-  const app = (
-    <Locked>
-      <Key>{KEYS.admin}</Key>
-      <Route path="/admin" page={<Admin />} />
-    </Locked>
-  );
+	const app = (
+		<Locked>
+			<Key>{KEYS.admin}</Key>
+			<Route path="/admin" page={<Admin />} />
+		</Locked>
+	)
 
-  const response = await render(app, {
-    path: "/admin",
-    userKeys: new Set() // Not authenticated
-  });
+	const response = await render(app, {
+		path: "/admin",
+		userKeys: new Set(), // Not authenticated
+	})
 
-  assertEquals(response.status, 302);
-  assertEquals(response.headers.get("Location"), "/login");
-});
+	assertEquals(response.status, 302)
+	assertEquals(response.headers.get("Location"), "/login")
+})
 
 Deno.test("Locked route allows user with key", async () => {
-  const app = (
-    <Locked>
-      <Key>{KEYS.admin}</Key>
-      <Route path="/admin" page={<Admin />} />
-    </Locked>
-  );
+	const app = (
+		<Locked>
+			<Key>{KEYS.admin}</Key>
+			<Route path="/admin" page={<Admin />} />
+		</Locked>
+	)
 
-  const response = await render(app, {
-    path: "/admin",
-    userKeys: new Set(["ADMIN", "USER"])
-  });
+	const response = await render(app, {
+		path: "/admin",
+		userKeys: new Set(["ADMIN", "USER"]),
+	})
 
-  assertEquals(response.status, 200);
-});
+	assertEquals(response.status, 200)
+})
 ```
 
 ---
@@ -816,8 +816,8 @@ Deno.test("Locked route allows user with key", async () => {
 
 ```tsx
 <Locked>
-  <Key>{KEYS.admin}</Key>
-  <AdminDashboard />
+	<Key>{KEYS.admin}</Key>
+	<AdminDashboard />
 </Locked>
 ```
 
@@ -826,11 +826,11 @@ Deno.test("Locked route allows user with key", async () => {
 **A**: Steward provides authentication context. Access via:
 
 ```tsx
-import { useAuth } from "@sitebender/steward/auth";
+import { useAuth } from "@sitebender/steward/auth"
 
 function MyComponent() {
-  const { keys } = useAuth();
-  // keys is Set<string>
+	const { keys } = useAuth()
+	// keys is Set<string>
 }
 ```
 
@@ -840,12 +840,12 @@ function MyComponent() {
 
 ```tsx
 <Calculation>
-  <And>
-    <From.Auth selector="keys" has="ADMIN" />
-    <IsGreaterThan value={1000}>
-      <From.Element selector="#amount" />
-    </IsGreaterThan>
-  </And>
+	<And>
+		<From.Auth selector="keys" has="ADMIN" />
+		<IsGreaterThan value={1000}>
+			<From.Element selector="#amount" />
+		</IsGreaterThan>
+	</And>
 </Calculation>
 ```
 
@@ -864,5 +864,5 @@ function MyComponent() {
 
 ---
 
-**Last Updated**: 2025-10-02  
+**Last Updated**: 2025-10-02\
 **Status**: 🟢 CANONICAL - Production Ready

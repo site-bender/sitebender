@@ -68,7 +68,10 @@ Deno.test("threeDecimalPlaces rejects Infinity with helpful error", () => {
 	assertEquals(result.error.code, "THREE_DECIMAL_PLACES_NOT_FINITE")
 	assertEquals(result.error.field, "threeDecimalPlaces")
 	assertEquals(result.error.received, Infinity)
-	assertEquals(result.error.expected, "Finite number with at most 3 decimal places")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 3 decimal places",
+	)
 	assert(result.error.suggestion.includes("finite"))
 	assertEquals(result.error.severity, "requirement")
 })
@@ -80,7 +83,10 @@ Deno.test("threeDecimalPlaces rejects -Infinity with helpful error", () => {
 	assertEquals(result.error.code, "THREE_DECIMAL_PLACES_NOT_FINITE")
 	assertEquals(result.error.field, "threeDecimalPlaces")
 	assertEquals(result.error.received, -Infinity)
-	assertEquals(result.error.expected, "Finite number with at most 3 decimal places")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 3 decimal places",
+	)
 })
 
 Deno.test("threeDecimalPlaces rejects NaN with helpful error", () => {
@@ -90,7 +96,10 @@ Deno.test("threeDecimalPlaces rejects NaN with helpful error", () => {
 	assertEquals(result.error.code, "THREE_DECIMAL_PLACES_NOT_FINITE")
 	assertEquals(result.error.field, "threeDecimalPlaces")
 	assert(Number.isNaN(result.error.received))
-	assertEquals(result.error.expected, "Finite number with at most 3 decimal places")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 3 decimal places",
+	)
 })
 
 Deno.test("threeDecimalPlaces rejects 4 decimal places with helpful error", () => {

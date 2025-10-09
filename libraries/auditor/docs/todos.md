@@ -14,6 +14,7 @@
 5. ⏳ **Quarrier is complete** - Blocked on Toolsmith, provides generators
 
 **Why Blocked:**
+
 - Auditor's entire architecture depends on Result/Validation monads from Toolsmith
 - All error handling uses Toolsmith's error creation utilities
 - All array operations use Toolsmith's functional utilities (NO native methods)
@@ -21,6 +22,7 @@
 - Test data generation depends on Quarrier's generators
 
 **When to Start:**
+
 - Wait for architect's explicit approval
 - Verify Toolsmith exports are stable
 - Confirm Arborist API is finalized
@@ -141,6 +143,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 ## Constitutional Rules Compliance
 
 **Every function MUST:**
+
 - ✅ Be curried (data last)
 - ✅ Use `function` keyword (NO arrows except type signatures)
 - ✅ Return new data (NO mutations)
@@ -155,6 +158,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 **Current Version:** 0.0.1 (pre-production)
 
 **During 0.x development:**
+
 - NO migration paths
 - NO backwards compatibility
 - NO deprecation warnings
@@ -168,6 +172,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 **NO issue trackers. NO tickets. NO backlog.**
 
 **Process:**
+
 1. Hit a problem → Check IMPLEMENTATION_PLAN.md first
 2. Still stuck → Present to architect with:
    - Minimal reproduction
@@ -191,21 +196,25 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 ## Success Criteria
 
 **Phase 2 Complete:**
+
 - ✅ Can prove simple properties with Z3
 - ✅ Generates counterexamples for failures
 - ✅ All errors use Result monad with suggestions
 
 **Phase 3 Complete:**
+
 - ✅ Detects mathematical properties correctly
 - ✅ Proves properties using Z3
 - ✅ Integrates with Arborist metadata
 
 **Phase 9 Complete:**
+
 - ✅ Envoy receives high-quality verification data
 - ✅ Mathematical properties documented
 - ✅ Gotchas from counterexamples included
 
 **Final Completion:**
+
 - ✅ All phases implemented
 - ✅ Formal verification working
 - ✅ Test generation working
@@ -217,18 +226,21 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 ## Integration with Ecosystem
 
 ### With Arborist
+
 - Receives ParsedFile with all metadata
 - Uses ParsedFunction for analysis
 - Uses body analysis (hasThrow, hasAwait, cyclomaticComplexity)
 - Never parses TypeScript directly
 
 ### With Quarrier
+
 - Uses generators for test data
 - Leverages property-based testing
 - Shares property definitions
 - Uses shrinking for minimal counterexamples
 
 ### With Envoy
+
 - Provides mathematical property data
 - Provides proof results
 - Provides gotchas from counterexamples
@@ -236,6 +248,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 - Envoy documents these in generated docs
 
 ### With Agent (Future)
+
 - Verifies distributed algorithm correctness
 - Proves CRDT properties
 - Validates consensus mechanisms

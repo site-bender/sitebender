@@ -3,8 +3,14 @@
 
 import parseFileWithSwc from "../../../src/api/parseFileWithSwc/index.ts"
 
+// Sample user type for demo
+type User = {
+	processed?: boolean
+	[key: string]: unknown
+}
+
 //++ Sample function that might have constitutional violations
-export default function processUserData(user: any) {
+export default function processUserData(user: User) {
 	// This function has potential violations:
 	// - Uses 'any' type (not specific)
 	// - Might have mutations if implemented poorly
@@ -46,10 +52,12 @@ export async function checkConstitutionalRules(filePath: string) {
 		imports: "Would check for barrel imports",
 	}
 
-	const hasViolations = Object.values(violations).some(v => v !== "none")
+	const hasViolations = Object.values(violations).some((v) => v !== "none")
 
 	return {
 		error: null,
-		violations: hasViolations ? violations : "No constitutional violations detected",
+		violations: hasViolations
+			? violations
+			: "No constitutional violations detected",
 	}
 }

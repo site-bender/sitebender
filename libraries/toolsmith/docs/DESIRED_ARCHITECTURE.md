@@ -7,6 +7,7 @@
 ## Executive Summary
 
 Toolsmith is undergoing a fundamental architectural transformation from a mixed imperative/functional library to a pure functional library with:
+
 1. **Branded types** (numeric and string) for compile-time type safety
 2. **Monadic functions** returning `Result<ValidationError, T>` instead of throwing exceptions
 3. **Elimination of legacy code** (`vanilla/` and `boxed/` folders)
@@ -41,6 +42,7 @@ type NonEmptyArray<T> = Array<T> & { readonly __brand: "NonEmptyArray" }
 ### 2. Precision-Focused Naming
 
 **Approach** (precision-focused):
+
 - `RealNumber` - Floating-point (what it actually is)
 - `TwoDecimalPlaces` - Precision guarantee, not money-specific
 - `OneDecimalPlace`, `ThreeDecimalPlaces`, `FourDecimalPlaces`, `EightDecimalPlaces` - Clear precision
@@ -106,6 +108,7 @@ export default function addToTwoDecimalPlaces(
 ```
 
 **Scale Factors**:
+
 - `OneDecimalPlace`: 10
 - `TwoDecimalPlaces`: 100
 - `ThreeDecimalPlaces`: 1000
@@ -225,7 +228,9 @@ export default function twoDecimalPlaces(
 		return error({
 			code: "TWO_DECIMAL_PLACES_NOT_FINITE",
 			field: "value",
-			messages: ["System needs a finite number for exact two decimal representation"],
+			messages: [
+				"System needs a finite number for exact two decimal representation",
+			],
 			received: value,
 			expected: "Finite number",
 			suggestion: "Provide a finite number like 19.99 or 10.5",
@@ -240,7 +245,9 @@ export default function twoDecimalPlaces(
 		return error({
 			code: "TWO_DECIMAL_PLACES_PRECISION_EXCEEDED",
 			field: "value",
-			messages: ["System can only represent numbers with up to 2 decimal places"],
+			messages: [
+				"System can only represent numbers with up to 2 decimal places",
+			],
 			received: value,
 			expected: "Number with at most 2 decimal places",
 			suggestion: "Round to 2 decimal places (e.g., 19.99 instead of 19.999)",
@@ -316,19 +323,20 @@ All errors follow this structure (defined in `types/ValidationError/index.ts`):
 
 ```typescript
 interface ValidationError {
-	code: string                    // Machine-readable error code
-	field: string                   // Field/parameter that failed
-	messages: Array<string>         // Human-readable messages (system-centric)
-	received: Serializable          // What was actually provided
-	expected: string                // What system needs (simple string)
-	suggestion: string              // Actionable fix
-	constraints?: Record<string, Serializable>  // Optional machine-readable limits
+	code: string // Machine-readable error code
+	field: string // Field/parameter that failed
+	messages: Array<string> // Human-readable messages (system-centric)
+	received: Serializable // What was actually provided
+	expected: string // What system needs (simple string)
+	suggestion: string // Actionable fix
+	constraints?: Record<string, Serializable> // Optional machine-readable limits
 	severity: "info" | "notice" | "requirement"
 	context?: Record<string, Serializable>
 }
 ```
 
 **Key Principles**:
+
 - **System-centric**: "System needs..." not "You provided invalid..."
 - **Actionable**: Always include suggestion for how to fix
 - **Type-safe**: Use `Serializable`, never `unknown` or `any`
@@ -339,6 +347,7 @@ interface ValidationError {
 ### ✅ Completed
 
 **Numeric Branded Types (7 types)**:
+
 - `Integer` - Safe integers within JavaScript's safe range
 - `BigInteger` - Arbitrary precision integers
 - `RealNumber` - Floating-point (makes imprecision explicit)
@@ -348,6 +357,7 @@ interface ValidationError {
 - `FourDecimalPlaces` - Four decimal places
 
 **Arithmetic Operations**:
+
 - All 4 operations (add, subtract, multiply, divide) for:
   - `TwoDecimalPlaces`
   - `OneDecimalPlace`
@@ -359,12 +369,14 @@ interface ValidationError {
 ### 🚧 In Progress
 
 **Numeric Branded Types**:
+
 - `EightDecimalPlaces` - Eight decimal places (for cryptocurrencies)
 - `Percent` - 0-1 range with 4 decimal precision
 
 ### ⏸️ Not Started
 
 **String Branded Types** (~20 types):
+
 - Network/Web: `EmailAddress`, `Url`, `Uri`, `Iri`, `IPv4Address`, `IPv6Address`, `Domain`, `Hostname`
 - Identifiers: `Uuid`, `Isbn10`, `Isbn13`, `Issn`, `Doi`, `Orcid`
 - Geographic: `PostalCode`, `PhoneNumber`, `CountryCode`, `LanguageCode`, `CurrencyCode`
@@ -373,14 +385,17 @@ interface ValidationError {
 - Other: `Char`, `NonEmptyString`, `Base58`, `Base64`, `JsonString`
 
 **Color Branded Types** (3 types):
+
 - `HexColor` - #RGB or #RRGGBB format
 - `OklchColor` - oklch() CSS color format
 - `P3Color` - color(display-p3 ...) format
 
 **Collection Branded Types** (1 type):
+
 - `NonEmptyArray<T>` - Array guaranteed to have at least one element
 
 **Monadic Function Migration**:
+
 - 800+ functions in `vanilla/` need to be rewritten as monadic functions
 - Organized by domain: activation, array, logic, math, string, validation, etc.
 - Each function needs:
@@ -390,6 +405,7 @@ interface ValidationError {
   - Comprehensive tests
 
 **Legacy Removal**:
+
 - Delete `vanilla/` folder after migration complete
 - Delete `boxed/` folder (no longer needed)
 

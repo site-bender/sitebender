@@ -29,8 +29,7 @@ export default function _validateDomainStructure(
 			messages: ["The system limits domains to 253 characters."],
 			received: domain,
 			expected: "String with at most 253 characters",
-			suggestion:
-				`Shorten the domain (currently ${domain.length} characters)`,
+			suggestion: `Shorten the domain (currently ${domain.length} characters)`,
 			constraints: { maxLength: DOMAIN_MAX_LENGTH },
 			severity: "requirement",
 		})

@@ -1,84 +1,61 @@
 // @sitebender/arborist/src/parsers/denoAst/parseFile
-// Semantic parsing using mock implementation for testing
-
-// Note: deno_ast module not available, using mock implementation for Phase 1.7 testing
+// Semantic parsing using deno_ast WASM
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import createError from "@sitebender/architect/errors/createError/index.ts"
 import withSuggestion from "@sitebender/architect/errors/withSuggestion/index.ts"
+import { initWasm, parseWithSemantics } from "./wasm/index.ts"
 
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ParseError } from "../../types/index.ts"
-import type { SemanticAst, SemanticInfo } from "../../types/semantics/index.ts"
+import type { SemanticAst } from "../../types/semantics/index.ts"
 
-// Mock semantic info for testing
-function createMockSemanticInfo(sourceText: string): SemanticInfo {
-  return {
-    inferredTypes: new Map(),
-    purity: {
-      isPure: true,
-      reasons: ["Mock implementation - assuming pure"],
-      sideEffects: [],
-    },
-    complexity: {
-      cyclomatic: 1,
-      cognitive: 1,
-      halstead: {
-        volume: 10,
-        difficulty: 5,
-        effort: 50,
-      },
-    },
-    mathematicalProperties: {},
-    symbolTable: new Map(),
-    diagnostics: [],
-    typeDependencies: new Map(),
-  }
+// WASM initialization state
+let wasmInitialized = false
+
+//++ Initialize WASM module if not already done
+async function ensureWasmInitialized(wasmPath: string) {
+	if (!wasmInitialized) {
+		await initWasm()(wasmPath)
+		wasmInitialized = true
+	}
 }
 
-//++ Parse file with full semantic analysis (mock implementation for testing)
+//++ Parse file with full semantic analysis using deno_ast WASM
 export default async function parseFileWithSemantics(
-  filePath: string
+	filePath: string,
 ): Promise<Result<ParseError, SemanticAst>> {
-  try {
-    const sourceText = await Deno.readTextFile(filePath)
+	try {
+		// Ensure WASM is initialized
+		await ensureWasmInitialized(
+			"./libraries/arborist/src/parsers/denoAst/wasm/pkg/arborist_deno_ast_wasm_bg.wasm",
+		)
 
-    // Basic syntax validation - check for balanced braces
-    const openBraces = (sourceText.match(/\{/g) || []).length
-    const closeBraces = (sourceText.match(/\}/g) || []).length
-    if (openBraces !== closeBraces) {
-      throw new Error("Unbalanced braces")
-    }
+		// Read the source file
+		const sourceText = await Deno.readTextFile(filePath)
 
-    const mockAst = { type: "Program", body: [] } // Mock AST
-    const semanticInfo = createMockSemanticInfo(sourceText)
+		// Parse with WASM
+		const wasmResult = await parseWithSemantics(sourceText, filePath)
 
-    const semanticAst: SemanticAst = {
-      module: mockAst,
-      sourceText,
-      filePath,
-      semanticInfo,
-    }
+		return ok(wasmResult)
+	} catch (err) {
+		const _message = err instanceof Error ? err.message : String(err)
 
-    return ok(semanticAst)
-  } catch (err) {
-    const message = err instanceof Error ? err.message : String(err)
+		const baseError = createError("parseFile")([filePath] as [string])(
+			`parseFileWithSemantics: Failed to parse "${filePath}" with semantic analysis`,
+		)("OPERATION_FAILED")
 
-    const baseError = createError("parseFile")([filePath] as [string])(
-      `parseFileWithSemantics: Failed to parse "${filePath}" with semantic analysis`,
-    )("OPERATION_FAILED")
+		const enrichedError = withSuggestion(
+			`Ensure the file contains valid TypeScript syntax and WASM module is properly built.`,
+		)(baseError)
 
-    const enrichedError = withSuggestion(
-      `Ensure the file contains valid TypeScript syntax. Mock parser detected syntax error.`,
-    )(baseError)
+		const parseError: ParseError = {
+			...enrichedError,
+			kind: "InvalidSyntax" as const,
+			file: filePath,
+		}
 
-    const parseError: ParseError = {
-      ...enrichedError,
-      kind: "InvalidSyntax" as const,
-      file: filePath,
-    }
-
-    return error(parseError)
-  }
+		return error(parseError)
+	}
 }

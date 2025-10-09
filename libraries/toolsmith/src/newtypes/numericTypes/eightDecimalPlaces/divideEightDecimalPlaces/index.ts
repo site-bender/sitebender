@@ -10,7 +10,9 @@ import unwrapEightDecimalPlaces from "@sitebender/toolsmith/newtypes/eightDecima
 //++ Returns Result with error if divisor is zero or result cannot be represented with 8 decimal places
 export default function divideEightDecimalPlaces(
 	dividend: EightDecimalPlaces,
-): (divisor: EightDecimalPlaces) => Result<ValidationError, EightDecimalPlaces> {
+): (
+	divisor: EightDecimalPlaces,
+) => Result<ValidationError, EightDecimalPlaces> {
 	return function divideByDivisor(
 		divisor: EightDecimalPlaces,
 	): Result<ValidationError, EightDecimalPlaces> {

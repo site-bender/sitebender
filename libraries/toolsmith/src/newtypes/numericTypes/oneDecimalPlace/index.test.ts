@@ -54,7 +54,10 @@ Deno.test("oneDecimalPlace rejects Infinity with helpful error", () => {
 	assertEquals(result.error.code, "ONE_DECIMAL_PLACE_NOT_FINITE")
 	assertEquals(result.error.field, "oneDecimalPlace")
 	assertEquals(result.error.received, Infinity)
-	assertEquals(result.error.expected, "Finite number with at most 1 decimal place")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 1 decimal place",
+	)
 	assert(result.error.suggestion.includes("finite"))
 	assertEquals(result.error.severity, "requirement")
 })
@@ -66,7 +69,10 @@ Deno.test("oneDecimalPlace rejects -Infinity with helpful error", () => {
 	assertEquals(result.error.code, "ONE_DECIMAL_PLACE_NOT_FINITE")
 	assertEquals(result.error.field, "oneDecimalPlace")
 	assertEquals(result.error.received, -Infinity)
-	assertEquals(result.error.expected, "Finite number with at most 1 decimal place")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 1 decimal place",
+	)
 })
 
 Deno.test("oneDecimalPlace rejects NaN with helpful error", () => {
@@ -76,7 +82,10 @@ Deno.test("oneDecimalPlace rejects NaN with helpful error", () => {
 	assertEquals(result.error.code, "ONE_DECIMAL_PLACE_NOT_FINITE")
 	assertEquals(result.error.field, "oneDecimalPlace")
 	assert(Number.isNaN(result.error.received))
-	assertEquals(result.error.expected, "Finite number with at most 1 decimal place")
+	assertEquals(
+		result.error.expected,
+		"Finite number with at most 1 decimal place",
+	)
 })
 
 Deno.test("oneDecimalPlace rejects 2 decimal places with helpful error", () => {

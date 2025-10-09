@@ -28,27 +28,30 @@ Deno.test("_normalizeIri normalizes scheme to lowercase", async function (t) {
 	})
 })
 
-Deno.test("_normalizeIri preserves case of non-scheme components", async function (t) {
-	await t.step("preserves authority case", function () {
-		const result = _normalizeIri("http://Example.COM")
-		assertEquals(result, "http://Example.COM")
-	})
+Deno.test(
+	"_normalizeIri preserves case of non-scheme components",
+	async function (t) {
+		await t.step("preserves authority case", function () {
+			const result = _normalizeIri("http://Example.COM")
+			assertEquals(result, "http://Example.COM")
+		})
 
-	await t.step("preserves path case", function () {
-		const result = _normalizeIri("http://example.com/Path/To/Resource")
-		assertEquals(result, "http://example.com/Path/To/Resource")
-	})
+		await t.step("preserves path case", function () {
+			const result = _normalizeIri("http://example.com/Path/To/Resource")
+			assertEquals(result, "http://example.com/Path/To/Resource")
+		})
 
-	await t.step("preserves query case", function () {
-		const result = _normalizeIri("http://example.com?Key=Value")
-		assertEquals(result, "http://example.com?Key=Value")
-	})
+		await t.step("preserves query case", function () {
+			const result = _normalizeIri("http://example.com?Key=Value")
+			assertEquals(result, "http://example.com?Key=Value")
+		})
 
-	await t.step("preserves fragment case", function () {
-		const result = _normalizeIri("http://example.com#Section")
-		assertEquals(result, "http://example.com#Section")
-	})
-})
+		await t.step("preserves fragment case", function () {
+			const result = _normalizeIri("http://example.com#Section")
+			assertEquals(result, "http://example.com#Section")
+		})
+	},
+)
 
 Deno.test("_normalizeIri applies NFC normalization", async function (t) {
 	await t.step("normalizes decomposed café to precomposed", function () {
