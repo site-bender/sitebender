@@ -30,8 +30,7 @@ export default function _validateIriScheme(
 			messages: ["The system limits IRI scheme to 64 characters."],
 			received: scheme,
 			expected: "Scheme with at most 64 characters",
-			suggestion:
-				`Shorten the scheme (currently ${scheme.length} characters)`,
+			suggestion: `Shorten the scheme (currently ${scheme.length} characters)`,
 			constraints: { maxLength: IRI_SCHEME_MAX_LENGTH },
 			severity: "requirement",
 		})

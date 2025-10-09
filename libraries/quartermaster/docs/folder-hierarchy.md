@@ -173,24 +173,24 @@ my-app/
 
 ```tsx
 // modules/index.tsx
-import checkoutWizard from "../ledger/CheckoutWizard/index.tsx";
-import analytics from "../events/Analytics/index.tsx";
-import authConfig from "../auth/config/WebAuthn/index.tsx";
+import checkoutWizard from "../ledger/CheckoutWizard/index.tsx"
+import analytics from "../events/Analytics/index.tsx"
+import authConfig from "../auth/config/WebAuthn/index.tsx"
 
 export default function Sitebender() {
-  return (
-    <Sitebender auth={authConfig}>
-      <Ledger>{checkoutWizard}</Ledger>
-      <Events>{analytics}</Events>
+	return (
+		<Sitebender auth={authConfig}>
+			<Ledger>{checkoutWizard}</Ledger>
+			<Events>{analytics}</Events>
 
-      {/* Application routes - modules get promoted to pages */}
-      <Routes>
-        <Route path="/" page={<HomePage />} />
-        <Route path="/about" page={<AboutPage />} />
-        <Route path="/contact" page={<ContactPage />} />
-      </Routes>
-    </Sitebender>
-  );
+			{/* Application routes - modules get promoted to pages */}
+			<Routes>
+				<Route path="/" page={<HomePage />} />
+				<Route path="/about" page={<AboutPage />} />
+				<Route path="/contact" page={<ContactPage />} />
+			</Routes>
+		</Sitebender>
+	)
 }
 ```
 
@@ -242,35 +242,35 @@ modules/
 ```tsx
 // data/Person/index.tsx
 export default function Person() {
-  return (
-    <Concept name="Person">
-      <Property name="email">
-        <EmailAddress />  {/* References primitive concept */}
-      </Property>
-      <Property name="age">
-        <PositiveInteger />
-      </Property>
-      <HasOne name="worksFor">
-        <Organization />
-      </HasOne>
-    </Concept>
-  );
+	return (
+		<Concept name="Person">
+			<Property name="email">
+				<EmailAddress /> {/* References primitive concept */}
+			</Property>
+			<Property name="age">
+				<PositiveInteger />
+			</Property>
+			<HasOne name="worksFor">
+				<Organization />
+			</HasOne>
+		</Concept>
+	)
 }
 
 // data/concepts/EmailAddress/index.tsx
 export default function EmailAddress() {
-  return (
-    <Concept name="EmailAddress" type="string">
-      <Shape>
-        <And>
-          <Is.String />
-          <Matches pattern="^.+@.+$" />
-          <MinLength value={5} />
-          <MaxLength value={150} />
-        </And>
-      </Shape>
-    </Concept>
-  );
+	return (
+		<Concept name="EmailAddress" type="string">
+			<Shape>
+				<And>
+					<Is.String />
+					<Matches pattern="^.+@.+$" />
+					<MinLength value={5} />
+					<MaxLength value={150} />
+				</And>
+			</Shape>
+		</Concept>
+	)
 }
 ```
 
@@ -311,11 +311,11 @@ export default function EmailAddress() {
 
 ```tsx
 // auth/Locked/index.tsx
-import Sentinel from "@sitebender/sentinel/Sentinel/index.tsx";
-import webAuthnConfig from "../config/WebAuthn/index.tsx";
+import Sentinel from "@sitebender/sentinel/Sentinel/index.tsx"
+import webAuthnConfig from "../config/WebAuthn/index.tsx"
 
 export default function Locked({ children }) {
-  return <Sentinel config={webAuthnConfig}>{children}</Sentinel>;
+	return <Sentinel config={webAuthnConfig}>{children}</Sentinel>
 }
 ```
 
@@ -323,17 +323,17 @@ export default function Locked({ children }) {
 
 ```tsx
 // modules/AdminDashboard/index.tsx
-import Locked from "../../auth/Locked/index.tsx";
-import Key from "../../auth/Key/index.tsx";
-import { KEYS } from "../../auth/Keys/index.ts";
+import Locked from "../../auth/Locked/index.tsx"
+import Key from "../../auth/Key/index.tsx"
+import { KEYS } from "../../auth/Keys/index.ts"
 
 export default function AdminDashboard() {
-  return (
-    <Locked>
-      <Key>{KEYS.admin}</Key>
-      <Route path="/admin" page={<AdminPanel />} />
-    </Locked>
-  );
+	return (
+		<Locked>
+			<Key>{KEYS.admin}</Key>
+			<Route path="/admin" page={<AdminPanel />} />
+		</Locked>
+	)
 }
 ```
 
@@ -357,29 +357,29 @@ export default function AdminDashboard() {
 ```tsx
 // ledger/CheckoutWizard/index.tsx
 export default {
-  id: "checkout",
-  initial: "cart",
-  states: {
-    cart: {
-      on: { PROCEED: "shipping" },
-    },
-    shipping: {
-      on: {
-        PROCEED: "payment",
-        BACK: "cart",
-      },
-    },
-    payment: {
-      on: {
-        PROCEED: "confirmation",
-        BACK: "shipping",
-      },
-    },
-    confirmation: {
-      type: "final",
-    },
-  },
-};
+	id: "checkout",
+	initial: "cart",
+	states: {
+		cart: {
+			on: { PROCEED: "shipping" },
+		},
+		shipping: {
+			on: {
+				PROCEED: "payment",
+				BACK: "cart",
+			},
+		},
+		payment: {
+			on: {
+				PROCEED: "confirmation",
+				BACK: "shipping",
+			},
+		},
+		confirmation: {
+			type: "final",
+		},
+	},
+}
 ```
 
 **Rationale**: "ledger" evokes bookkeeping/accounting (state tracking). More semantic than "state".
@@ -400,13 +400,13 @@ export default {
 ```tsx
 // events/Analytics/index.tsx
 export default {
-  channel: "analytics",
-  scope: "network",
-  events: [
-    { type: "page-view", schema: "PageViewEvent" },
-    { type: "user-action", schema: "UserActionEvent" },
-  ],
-};
+	channel: "analytics",
+	scope: "network",
+	events: [
+		{ type: "page-view", schema: "PageViewEvent" },
+		{ type: "user-action", schema: "UserActionEvent" },
+	],
+}
 ```
 
 **Rationale**: Clear purpose (event messaging) without technical jargon.
@@ -427,12 +427,12 @@ export default {
 ```tsx
 // connections/RealtimeCollab/index.tsx
 export default {
-  type: "crdt",
-  dataStructure: "yjs",
-  transport: "webrtc",
-  fallback: "websocket",
-  peers: "auto-discover",
-};
+	type: "crdt",
+	dataStructure: "yjs",
+	transport: "webrtc",
+	fallback: "websocket",
+	peers: "auto-discover",
+}
 ```
 
 **Rationale**: User-friendly term (connecting to devices/users/services) vs technical "distributed"/"P2P".
@@ -629,12 +629,12 @@ modules/
 ```tsx
 // modules/ServicesPage/index.tsx
 export default function ServicesPage() {
-  return (
-    <Route path="/services" page={<Self />}>
-      <Heading>Our Services</Heading>
-      <ServicesList />
-    </Route>
-  );
+	return (
+		<Route path="/services" page={<Self />}>
+			<Heading>Our Services</Heading>
+			<ServicesList />
+		</Route>
+	)
 }
 ```
 
@@ -882,5 +882,5 @@ This creates a structure that is:
 
 ---
 
-**Last Updated**: 2025-10-02  
+**Last Updated**: 2025-10-02\
 **Status**: 🟢 CANONICAL - Production Ready

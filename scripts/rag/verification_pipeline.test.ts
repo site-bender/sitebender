@@ -5,7 +5,7 @@
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import verifyGeneratedCode, {
 	formatVerificationResult,
-	shouldBlockCode
+	shouldBlockCode,
 } from "./verification_pipeline.ts"
 
 Deno.test("verifyGeneratedCode - passes clean code", function testPassCleanCode() {
@@ -30,7 +30,7 @@ class UserService {
 	assertEquals(result.valid, false)
 	if (!result.valid) {
 		assertEquals(result.violations.length > 0, true)
-		assertEquals(result.violations[0].rule, 'no-classes')
+		assertEquals(result.violations[0].rule, "no-classes")
 	}
 })
 
@@ -69,10 +69,10 @@ Deno.test("verifyGeneratedCode - fails code with arrow functions", function test
 })
 
 Deno.test("formatVerificationResult - formats valid result", function testFormatValid() {
-	const result = { valid: true as const, code: 'test' }
+	const result = { valid: true as const, code: "test" }
 	const formatted = formatVerificationResult(result)
-	assertEquals(formatted.includes('✅'), true)
-	assertEquals(formatted.includes('passes'), true)
+	assertEquals(formatted.includes("✅"), true)
+	assertEquals(formatted.includes("passes"), true)
 })
 
 Deno.test("formatVerificationResult - formats invalid result", function testFormatInvalid() {
@@ -80,9 +80,9 @@ Deno.test("formatVerificationResult - formats invalid result", function testForm
 	const result = verifyGeneratedCode(code)
 	const formatted = formatVerificationResult(result)
 
-	assertEquals(formatted.includes('🚫'), true)
-	assertEquals(formatted.includes('CRITICAL VIOLATIONS'), true)
-	assertEquals(formatted.includes('regenerate'), true)
+	assertEquals(formatted.includes("🚫"), true)
+	assertEquals(formatted.includes("CRITICAL VIOLATIONS"), true)
+	assertEquals(formatted.includes("regenerate"), true)
 })
 
 Deno.test("shouldBlockCode - blocks invalid code", function testShouldBlock() {

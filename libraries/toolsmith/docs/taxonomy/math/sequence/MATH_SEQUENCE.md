@@ -12,6 +12,7 @@
 ### Integer Sequences
 
 #### fibonacci
+
 - **Current**: `(n: number | null | undefined) => number`
 - **Returns**: NaN on invalid input, negative numbers, or n > 78
 - **Description**: [INFERRED] Calculates the nth Fibonacci number; limited to n ≤ 78 to avoid exceeding MAX_SAFE_INTEGER; returns NaN on invalid input
@@ -34,21 +35,25 @@ Sequence functions will be converted to Result-returning functions that provide 
 ### Arrow Function Syntax
 
 The function uses arrow syntax and needs refactoring to named function:
+
 - **fibonacci** (arrow function)
 
 ### Loop Usage
 
 Function uses loops that need refactoring to functional equivalents:
+
 - **fibonacci**: Uses for loop for iterative calculation (lines 36-40)
 
 ### Mutation Usage
 
 Function uses mutable variables (let) that need refactoring:
+
 - **fibonacci**: Uses let prev and let curr
 
 ### Fibonacci Algorithm Details
 
 #### fibonacci
+
 - Calculates the nth number in the Fibonacci sequence: 0, 1, 1, 2, 3, 5, 8, 13, 21, ...
 - Base cases: F(0) = 0, F(1) = 1
 - Recurrence: F(n) = F(n-1) + F(n-2)
@@ -60,6 +65,7 @@ Function uses mutable variables (let) that need refactoring:
 ### Integer Validation
 
 Requires:
+
 - Input is a number (not null/undefined)
 - Input is finite
 - Input is an integer (using `Number.isInteger`)
@@ -69,6 +75,7 @@ Requires:
 ### Error Conditions
 
 Returns NaN for:
+
 - null/undefined input
 - Non-number input
 - Non-integer input
@@ -80,6 +87,7 @@ Returns NaN for:
 ## Implementation Dependencies
 
 Sequence functions have minimal dependencies:
+
 - Depends on **isNullish** from validation
 - Depends on **Number.isInteger** for validation
 - No dependencies on other math functions
@@ -91,9 +99,11 @@ Sequence functions have minimal dependencies:
 When migrating to Result type, errors should be categorized:
 
 ### ValidationError
+
 - Type errors (not a number, null/undefined, not an integer)
 
 ### MathError (new type needed)
+
 - Domain errors:
   - Negative input
 - Overflow errors:
@@ -104,12 +114,14 @@ When migrating to Result type, errors should be categorized:
 ## Related Functions
 
 ### In Other Categories
+
 - **factorial** (in MATH_INTEGER.md) - similar iterative integer computation
 - **totient** (in MATH_INTEGER.md) - number theory function
 
 ### Potential New Functions
 
 Consider adding these sequence functions in monadic implementation:
+
 - **lucas** - Lucas numbers (similar to Fibonacci: L(n) = L(n-1) + L(n-2), L(0) = 2, L(1) = 1)
 - **triangular** - Triangular numbers (T(n) = n(n+1)/2)
 - **square** - Perfect squares (already exists as operation in MATH_ARITHMETIC.md)
@@ -123,6 +135,7 @@ Consider adding these sequence functions in monadic implementation:
 ## Algorithm Optimization Notes
 
 ### Current Implementation
+
 - Iterative with O(n) time complexity
 - O(1) space complexity (two variables)
 - Avoids recursion overhead
@@ -131,12 +144,14 @@ Consider adding these sequence functions in monadic implementation:
 ### Alternative Approaches
 
 #### Matrix Exponentiation
+
 - Uses matrix multiplication: [[F(n+1), F(n)], [F(n), F(n-1)]] = [[1,1],[1,0]]^n
 - O(log n) time complexity
 - Could compute larger Fibonacci numbers with BigInt
 - More complex implementation
 
 #### Closed-Form (Binet's Formula)
+
 - φ = (1 + √5) / 2 (golden ratio)
 - F(n) = (φ^n - (-φ)^(-n)) / √5
 - O(1) time complexity
@@ -144,6 +159,7 @@ Consider adding these sequence functions in monadic implementation:
 - Not suitable for exact integer computation
 
 #### Memoization
+
 - Cache previously computed values
 - O(n) time on first call, O(1) for cached values
 - Requires state management (not pure)
@@ -156,6 +172,7 @@ Consider adding these sequence functions in monadic implementation:
 ## Testing Considerations
 
 When migrating, ensure comprehensive tests for:
+
 - Base cases: F(0) = 0, F(1) = 1
 - Small values: F(2) = 1, F(3) = 2, F(4) = 3, F(5) = 5
 - Boundary: F(78) = 8,670,007,398,507,948,738 (maximum safe value)

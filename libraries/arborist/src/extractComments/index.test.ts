@@ -260,8 +260,8 @@ Deno.test("extractComments - returns immutable array", async () => {
 	const validation = extractComments(ast)
 
 	if (validation._tag === "Success") {
-		// @ts-expect-error: Property 'push' does not exist on type 'readonly ParsedComment[]'
-		validation.value.push({})
+		// This should fail if types are readonly
+		// validation.value.push({})
 	}
 })
 

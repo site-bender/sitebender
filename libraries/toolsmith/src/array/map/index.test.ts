@@ -5,7 +5,6 @@ import map from "./index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isError from "../../monads/result/isError/index.ts"
 
-
 Deno.test("map", async function mapTests(t) {
 	await t.step(
 		"transforms each element with function",

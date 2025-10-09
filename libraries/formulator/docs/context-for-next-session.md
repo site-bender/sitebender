@@ -37,6 +37,7 @@ const next = increment(position)
 ```
 
 **Common Toolsmith functions:**
+
 - `lt(b)(a)` - less than (a < b)
 - `lte(b)(a)` - less than or equal
 - `gt(b)(a)` - greater than (a > b)
@@ -53,13 +54,13 @@ const next = increment(position)
 ```typescript
 // ❌ WRONG:
 if (tokenResult._tag !== "Ok") {
-  return tokenResult
+	return tokenResult
 }
 const token = tokenResult.value
 
 // ✅ CORRECT:
 if (tokenResult._tag === "Error") {
-  return tokenResult
+	return tokenResult
 }
 const token = tokenResult.value
 
@@ -68,7 +69,7 @@ if (!isValid(x)) return error("invalid")
 
 // ✅ CORRECT:
 if (isValid(x)) {
-  // handle valid case
+	// handle valid case
 }
 return error("invalid")
 ```
@@ -95,16 +96,16 @@ import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 
 // ❌ WRONG:
 function parse(input: string): AstNode | undefined {
-  if (!input) return undefined
-  throw new Error("Invalid")
+	if (!input) return undefined
+	throw new Error("Invalid")
 }
 
 // ✅ CORRECT:
 function parse(input: string): Result<string, AstNode> {
-  if (isValid(input)) {
-    return ok(astNode)
-  }
-  return error("Invalid input")
+	if (isValid(input)) {
+		return ok(astNode)
+	}
+	return error("Invalid input")
 }
 ```
 
@@ -118,9 +119,9 @@ function parse(input: string): Result<string, AstNode> {
 ```typescript
 // ✅ CORRECT:
 type Token = {
-  _tag: "token"
-  character: string
-  characterClass: CharacterClass
+	_tag: "token"
+	character: string
+	characterClass: CharacterClass
 }
 ```
 
@@ -132,9 +133,9 @@ function parseNumber(input: string, position: number): Result
 
 // ✅ CORRECT:
 function parseNumber(input: string) {
-  return function parseNumberAtPosition(position: number): Result {
-    // implementation
-  }
+	return function parseNumberAtPosition(position: number): Result {
+		// implementation
+	}
 }
 
 // Usage:
@@ -151,7 +152,7 @@ JSONData
 XMLParser
 
 // ✅ CORRECT:
-AstNode  // converts to ast-node in kebab-case
+AstNode // converts to ast-node in kebab-case
 JsonData // converts to json-data
 XmlParser // converts to xml-parser
 ```
@@ -165,6 +166,7 @@ XmlParser // converts to xml-parser
 Current implementation supports **infix notation only**: `a + b`, `(2 + 3) * 4`
 
 **Future Phase 5** (planned but not implemented):
+
 - Prefix (Polish): `+ a b`, `* + 2 3 4`
 - Postfix (RPN): `a b +`, `2 3 + 4 *`
 - Auto-detection based on first/last token
@@ -197,6 +199,7 @@ Current implementation supports **infix notation only**: `a + b`, `(2 + 3) * 4`
 ```
 
 **Reason**: Must preserve exact tree structure for:
+
 - Reversibility (AST → Formula → AST round-trip)
 - MathML generation
 - Architect handles optimization later
@@ -223,6 +226,7 @@ Mathematical constants (π, e, τ, φ) are preserved as variables in the AST.
 ```
 
 **Metadata tracks it separately:**
+
 ```typescript
 {
   variables: Map { },  // π is NOT a variable
@@ -239,12 +243,12 @@ Mathematical constants (π, e, τ, φ) are preserved as variables in the AST.
 Parser tokens use symbols, compiler maps to semantic names:
 
 | Token      | Compiler Operator Name |
-|-----------|----------------------|
-| `plus`    | `add`               |
-| `minus`   | `subtract`          |
-| `multiply`| `multiply`          |
-| `divide`  | `divide`            |
-| `power`   | `power`             |
+| ---------- | ---------------------- |
+| `plus`     | `add`                  |
+| `minus`    | `subtract`             |
+| `multiply` | `multiply`             |
+| `divide`   | `divide`               |
+| `power`    | `power`                |
 
 ### 5. Uniform Binary Operator Structure
 
@@ -252,12 +256,12 @@ All binary operators use `left` and `right` fields:
 
 ```typescript
 type EnrichedBinaryOperatorNode = {
-  _tag: "binaryOperator"
-  operator: BinaryOperation  // "add" | "subtract" | "multiply" | "divide" | "power"
-  left: EnrichedAstNode      // UNIFORM field name
-  right: EnrichedAstNode     // UNIFORM field name
-  position: number
-  datatype: Datatype
+	_tag: "binaryOperator"
+	operator: BinaryOperation // "add" | "subtract" | "multiply" | "divide" | "power"
+	left: EnrichedAstNode // UNIFORM field name
+	right: EnrichedAstNode // UNIFORM field name
+	position: number
+	datatype: Datatype
 }
 ```
 
@@ -312,18 +316,18 @@ Lexer and tokenizer use **generators** (TypeScript's lazy lists):
 
 ```typescript
 export function* lexer(input: string): Generator<LexerToken> {
-  let position = 0
+	let position = 0
 
-  /*++ [EXCEPTION]
+	/*++ [EXCEPTION]
    | While loop inside generator is permitted for performance.
    | Generators ARE the Haskell lazy list equivalent.
    | This remains pure: same input always yields same sequence.
    */
-  while (position < input.length) {
-    // ...
-    yield token
-    position = increment(position)
-  }
+	while (position < input.length) {
+		// ...
+		yield token
+		position = increment(position)
+	}
 }
 ```
 
@@ -336,11 +340,11 @@ The infix parser uses **operator precedence climbing** (Pratt parser):
 ```typescript
 // Precedence levels:
 const PRECEDENCE = {
-  plus: 1,
-  minus: 1,
-  multiply: 2,
-  divide: 2,
-  power: 3,  // right-associative
+	plus: 1,
+	minus: 1,
+	multiply: 2,
+	divide: 2,
+	power: 3, // right-associative
 }
 ```
 
@@ -350,6 +354,7 @@ const PRECEDENCE = {
 **Postfix unary**: `x!` (factorial)
 
 **Important spacing rule**:
+
 - `-3` → tokenizes as single number token `{type: "number", value: "-3"}`
 - `- 3` → tokenizes as operator + number: `{type: "minus"}`, `{type: "number", value: "3"}`
 
@@ -363,16 +368,17 @@ All tests use Deno's built-in test framework:
 import { assertEquals } from "@std/assert"
 
 Deno.test("parser - parses simple addition", () => {
-  const result = parser("2 + 3")
+	const result = parser("2 + 3")
 
-  assertEquals(result._tag, "Ok")
-  if (result._tag === "Ok") {
-    assertEquals(result.value._tag, "binaryOperator")
-  }
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value._tag, "binaryOperator")
+	}
 })
 ```
 
 **Run tests:**
+
 ```bash
 deno test --unstable-temporal --no-check src/
 ```
@@ -382,11 +388,13 @@ deno test --unstable-temporal --no-check src/
 ## Demo Scripts
 
 **Test all phases:**
+
 ```bash
 ./test-all-phases.ts "your formula here"
 ```
 
 **Individual phases:**
+
 ```bash
 ./test-lexer.ts "2 + 3"
 ./test-tokenizer.ts "2 + 3"
@@ -395,6 +403,7 @@ deno test --unstable-temporal --no-check src/
 ```
 
 **Default formulas** (if no argument provided):
+
 - `test-all-phases.ts`: `"sin(π / 2) + cos(x)"`
 - `test-compiler.ts`: `"(a - b) / (c + d + e) * f"`
 - Others: `"2 + 3"`
@@ -404,6 +413,7 @@ deno test --unstable-temporal --no-check src/
 **Planned but not yet implemented**: Polish/RPN notation support
 
 See `docs/plan.md` section "Phase 5: Polish/RPN Notation Support" for complete implementation plan including:
+
 - Auto-detection algorithm
 - Prefix parser (recursive descent)
 - Postfix parser (stack-based)
@@ -414,48 +424,57 @@ See `docs/plan.md` section "Phase 5: Polish/RPN Notation Support" for complete i
 ## Common Pitfalls to Avoid
 
 ### ❌ Don't use raw operators
+
 ```typescript
 if (x < y)  // NO! Use lt(y)(x)
 ```
 
 ### ❌ Don't use negative conditionals first
+
 ```typescript
 if (result._tag !== "Ok")  // NO! Check "Error" first
 ```
 
 ### ❌ Don't abbreviate
+
 ```typescript
-parseExpr  // NO! Use parseExpression
+parseExpr // NO! Use parseExpression
 ```
 
 ### ❌ Don't return undefined/null
+
 ```typescript
-return undefined  // NO! Use error("message")
+return undefined // NO! Use error("message")
 ```
 
 ### ❌ Don't throw exceptions
+
 ```typescript
-throw new Error()  // NO! Use error("message")
+throw new Error() // NO! Use error("message")
 ```
 
 ### ❌ Don't use capitalized initialisms
+
 ```typescript
-ASTNode  // NO! Use AstNode
+ASTNode // NO! Use AstNode
 ```
 
 ### ❌ Don't flatten operators
+
 ```typescript
 // NO! Keep binary tree structure
 { operator: "add", operands: [a, b, c] }
 ```
 
 ### ❌ Don't substitute constants
+
 ```typescript
 // NO! Keep π as variable
 { _tag: "numberLiteral", value: 3.14159 }
 ```
 
 ### ❌ Don't freeze tuples
+
 ```typescript
 // NO! Only freeze objects
 return ok(Object.freeze([left, right]))
@@ -495,6 +514,7 @@ If you need to understand how something works:
 **Formulator is COMPLETE for infix notation.**
 
 You can:
+
 - ✅ Lex any mathematical formula (character classification)
 - ✅ Tokenize to semantic tokens (numbers, identifiers, operators)
 - ✅ Parse infix formulas with correct precedence
