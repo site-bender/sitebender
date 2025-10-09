@@ -17,6 +17,7 @@ The complete catalog of all vanilla functions in `src/vanilla/` has been success
 ### 1. File Organization ✅
 
 Created a systematic file structure:
+
 - 24 domain folders under `docs/taxonomy/`
 - 48 taxonomy files (15-25 functions each)
 - Master index file linking all domains
@@ -25,6 +26,7 @@ Created a systematic file structure:
 ### 2. Complete Function Catalog ✅
 
 **786 functions documented** with:
+
 - Current vanilla signatures
 - Return behaviors (null/NaN/throw/value patterns)
 - Descriptions from //++ Envoy comments (or inferred)
@@ -35,33 +37,33 @@ Created a systematic file structure:
 
 ### 3. Domain Breakdown ✅
 
-| Domain | Functions | Files | Key Categories |
-|--------|-----------|-------|----------------|
-| **Validation** | 124 | 6 | Type guards, numeric, string, collection, date, custom |
-| **Array** | 131 | 6 | Creation, access, transformation, combination, partitioning, operations |
-| **Temporal** | 79 | 4 | Creation, manipulation, comparison, formatting |
-| **String** | 71 | 4 | Case, testing, manipulation, utilities |
-| **Object** | 60 | 3 | Access, transformation, utilities |
-| **Math** | 57 | 3 | Arithmetic, rounding, operations |
-| **Combinator** | 49 | 3 | Composition, curry, utilities |
-| **Map** | 41 | 2 | Creation, operations |
-| **Set** | 27 | 2 | Creation, operations |
-| **Trigonometry** | 19 | 1 | Trig functions, conversions |
-| **Statistics** | 13 | 1 | Measures, distributions |
-| **Tuple** | 13 | 1 | Constructors, accessors, transformers |
-| **Logic** | 13 | 1 | Boolean operators, control flow |
-| **Finance** | 12 | 1 | NPV, IRR, amortization |
-| **Async** | 10 | 1 | Promise utilities |
-| **Geometry** | 10 | 1 | Vectors, distances |
-| **Matrix** | 10 | 1 | Linear algebra |
-| **Activation** | 9 | 1 | Neural network functions |
-| **Conversion** | 9 | 1 | Type casting |
-| **Physics** | 8 | 1 | Mechanics formulas |
-| **Special** | 8 | 1 | Gamma, beta, erf |
-| **Interpolation** | 7 | 1 | Smooth transitions |
-| **Lens** | 5 | 1 | Functional optics |
-| **Hash** | 1 | 1 | Cryptographic hashing |
-| **TOTAL** | **786** | **48** | **24 domains** |
+| Domain            | Functions | Files  | Key Categories                                                          |
+| ----------------- | --------- | ------ | ----------------------------------------------------------------------- |
+| **Validation**    | 124       | 6      | Type guards, numeric, string, collection, date, custom                  |
+| **Array**         | 131       | 6      | Creation, access, transformation, combination, partitioning, operations |
+| **Temporal**      | 79        | 4      | Creation, manipulation, comparison, formatting                          |
+| **String**        | 71        | 4      | Case, testing, manipulation, utilities                                  |
+| **Object**        | 60        | 3      | Access, transformation, utilities                                       |
+| **Math**          | 57        | 3      | Arithmetic, rounding, operations                                        |
+| **Combinator**    | 49        | 3      | Composition, curry, utilities                                           |
+| **Map**           | 41        | 2      | Creation, operations                                                    |
+| **Set**           | 27        | 2      | Creation, operations                                                    |
+| **Trigonometry**  | 19        | 1      | Trig functions, conversions                                             |
+| **Statistics**    | 13        | 1      | Measures, distributions                                                 |
+| **Tuple**         | 13        | 1      | Constructors, accessors, transformers                                   |
+| **Logic**         | 13        | 1      | Boolean operators, control flow                                         |
+| **Finance**       | 12        | 1      | NPV, IRR, amortization                                                  |
+| **Async**         | 10        | 1      | Promise utilities                                                       |
+| **Geometry**      | 10        | 1      | Vectors, distances                                                      |
+| **Matrix**        | 10        | 1      | Linear algebra                                                          |
+| **Activation**    | 9         | 1      | Neural network functions                                                |
+| **Conversion**    | 9         | 1      | Type casting                                                            |
+| **Physics**       | 8         | 1      | Mechanics formulas                                                      |
+| **Special**       | 8         | 1      | Gamma, beta, erf                                                        |
+| **Interpolation** | 7         | 1      | Smooth transitions                                                      |
+| **Lens**          | 5         | 1      | Functional optics                                                       |
+| **Hash**          | 1         | 1      | Cryptographic hashing                                                   |
+| **TOTAL**         | **786**   | **48** | **24 domains**                                                          |
 
 ---
 
@@ -90,6 +92,7 @@ Created a systematic file structure:
 ### Return Patterns Identified
 
 **Current Vanilla Patterns**:
+
 - **Null/undefined returns**: ~200 functions → migrate to `Option<T>` or `Result<E, T>`
 - **NaN returns**: ~80 math functions → migrate to `Result<MathError, number>`
 - **Empty array/object**: ~100 functions → decide on `[]` vs `error(EmptyArrayError)`
@@ -97,6 +100,7 @@ Created a systematic file structure:
 - **Boolean returns**: ~150 validators → migrate to `Result<ValidationError, T>` (type narrowing)
 
 **Target Monadic Patterns**:
+
 - `Result<ValidationError, T>` - Validators (124 functions)
 - `Result<MathError, number>` - Math operations (57 functions)
 - `Result<ArrayError, Array<T>>` - Array operations (131 functions)
@@ -109,6 +113,7 @@ Created a systematic file structure:
 **Functions with inferred descriptions**: ~250 functions marked `[INFERRED]`
 
 These need proper //++ Envoy comments added to source code:
+
 - String domain: Most functions
 - Object domain: Many functions
 - Array domain: Some functions
@@ -117,6 +122,7 @@ These need proper //++ Envoy comments added to source code:
 ### Dependencies Mapped
 
 **Cross-domain dependencies identified**:
+
 - Validation → used by all domains for input checking
 - Math → used by Statistics, Physics, Geometry, Finance
 - Array → used by Statistics, String (words/lines), Combinator
@@ -125,6 +131,7 @@ These need proper //++ Envoy comments added to source code:
 ### Aliases Found
 
 **Duplicate implementations to consolidate**:
+
 - Array: `head`/`first`, `nub`/`unique`
 - Math: `average`/`mean`
 - Map: `fromArray`/`fromEntries`, `merge`/`union`
@@ -138,6 +145,7 @@ These need proper //++ Envoy comments added to source code:
 ### Format Consistency
 
 All 48 files follow the same structure:
+
 1. **Header**: Domain, location, count, status, date
 2. **Function List**: Each function with current/target signatures
 3. **Migration Notes**: Comprehensive guidance
@@ -148,6 +156,7 @@ All 48 files follow the same structure:
 ### Information Completeness
 
 Each function entry includes:
+
 - ✅ Function name and location
 - ✅ Current signature (vanilla)
 - ✅ Return behavior
@@ -162,12 +171,14 @@ Each function entry includes:
 ## Files Created
 
 ### Master Files (2)
+
 1. `VANILLA_FUNCTIONS_TAXONOMY_INDEX.md` - Master index with links to all domains
 2. `taxonomy/FILE_ORGANIZATION_PLAN.md` - Organizational strategy and rationale
 
 ### Domain Taxonomy Files (48)
 
 **Validation** (6 files):
+
 - `validation/VALIDATION_TYPE_GUARDS.md`
 - `validation/VALIDATION_NUMERIC.md`
 - `validation/VALIDATION_STRING.md`
@@ -176,6 +187,7 @@ Each function entry includes:
 - `validation/VALIDATION_CUSTOM.md`
 
 **Array** (6 files):
+
 - `array/ARRAY_CREATION.md`
 - `array/ARRAY_ACCESS.md`
 - `array/ARRAY_TRANSFORMATION.md`
@@ -184,41 +196,49 @@ Each function entry includes:
 - `array/ARRAY_OPERATIONS.md`
 
 **Temporal** (4 files):
+
 - `temporal/TEMPORAL_CREATION.md`
 - `temporal/TEMPORAL_MANIPULATION.md`
 - `temporal/TEMPORAL_COMPARISON.md`
 - `temporal/TEMPORAL_FORMATTING.md`
 
 **String** (4 files):
+
 - `string/STRING_CASE.md`
 - `string/STRING_TESTING.md`
 - `string/STRING_MANIPULATION.md`
 - `string/STRING_UTILITIES.md`
 
 **Math** (3 files):
+
 - `math/MATH_ARITHMETIC.md`
 - `math/MATH_ROUNDING.md`
 - `math/MATH_OPERATIONS.md`
 
 **Combinator** (3 files):
+
 - `combinator/COMBINATOR_COMPOSITION.md`
 - `combinator/COMBINATOR_CURRY.md`
 - `combinator/COMBINATOR_UTILITIES.md`
 
 **Object** (3 files):
+
 - `object/OBJECT_ACCESS.md`
 - `object/OBJECT_TRANSFORMATION.md`
 - `object/OBJECT_UTILITIES.md`
 
 **Map** (2 files):
+
 - `map/MAP_CREATION.md`
 - `map/MAP_OPERATIONS.md`
 
 **Set** (2 files):
+
 - `set/SET_CREATION.md`
 - `set/SET_OPERATIONS.md`
 
 **Single-File Domains** (17 files):
+
 - `activation/ACTIVATION_FUNCTIONS.md`
 - `async/ASYNC_FUNCTIONS.md`
 - `conversion/CONVERSION_FUNCTIONS.md`
@@ -244,6 +264,7 @@ Each function entry includes:
 ### 1. Migration Planning
 
 The taxonomy provides:
+
 - Complete inventory of what needs migrating
 - Current signatures for comparison
 - Target signatures for implementation
@@ -253,6 +274,7 @@ The taxonomy provides:
 ### 2. Architect Integration
 
 The taxonomy enables:
+
 - Automated migration template generation
 - Dependency graph construction
 - Progress tracking (0/786 → 786/786)
@@ -262,6 +284,7 @@ The taxonomy enables:
 ### 3. Code Quality
 
 The taxonomy documents:
+
 - Constitutional rule violations to fix
 - Missing documentation to add
 - Aliases to consolidate
@@ -271,6 +294,7 @@ The taxonomy documents:
 ### 4. Knowledge Transfer
 
 The taxonomy ensures:
+
 - No function is forgotten
 - Behavior is documented
 - Intent is preserved
@@ -284,6 +308,7 @@ The taxonomy ensures:
 Based on dependencies and foundational importance:
 
 ### Phase 1: Foundation (182 functions)
+
 1. **Validation** (124) - Required by all domains for input validation
 2. **Logic** (13) - Required for predicate composition
 3. **Tuple** (13) - Simple, no dependencies
@@ -294,11 +319,13 @@ Based on dependencies and foundational importance:
 8. **Special** (8) - Math functions
 
 ### Phase 2: Core Utilities (157 functions)
+
 9. **Math** (57) - Used by Stats, Physics, Finance, Geometry
 10. **String** (71) - Widely used
 11. **Combinator** (49) - Function utilities
 
 ### Phase 3: Data Structures (326 functions)
+
 12. **Array** (131) - Used by Statistics, Object
 13. **Object** (60) - Widely used
 14. **Map** (41) - Collection utilities
@@ -307,6 +334,7 @@ Based on dependencies and foundational importance:
 17. **Temporal** (79) - Date/time (large, standalone)
 
 ### Phase 4: Domain-Specific (121 functions)
+
 18. **Statistics** (13) - Depends on Math, Array
 19. **Finance** (12) - Depends on Math
 20. **Geometry** (10) - Depends on Math

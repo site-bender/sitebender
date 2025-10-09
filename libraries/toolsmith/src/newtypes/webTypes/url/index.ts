@@ -39,8 +39,7 @@ export default function url(urlString: string): Result<ValidationError, Url> {
 			messages: ["The system limits URLs to 2048 characters."],
 			received: normalized,
 			expected: "URL with at most 2048 characters",
-			suggestion:
-				`Shorten the URL (currently ${normalized.length} characters)`,
+			suggestion: `Shorten the URL (currently ${normalized.length} characters)`,
 			constraints: { maxLength: URL_MAX_LENGTH },
 			severity: "requirement",
 		})

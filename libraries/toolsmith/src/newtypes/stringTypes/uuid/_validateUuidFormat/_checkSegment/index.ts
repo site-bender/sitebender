@@ -27,8 +27,10 @@ export default function _checkSegment(uuid: string) {
 						`The system needs the ${segment.name} segment to have ${segment.length} characters.`,
 					],
 					received: uuid,
-					expected: `${segment.length} hexadecimal digits in ${segment.name} segment`,
-					suggestion: `Segment has ${part.length} characters, expected ${segment.length}`,
+					expected:
+						`${segment.length} hexadecimal digits in ${segment.name} segment`,
+					suggestion:
+						`Segment has ${part.length} characters, expected ${segment.length}`,
 					constraints: { expectedLength: segment.length },
 					severity: "requirement",
 				})

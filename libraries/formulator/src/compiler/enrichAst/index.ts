@@ -35,5 +35,7 @@ export default function enrichAstNode(node: AstNode): EnrichedAstNode {
 	}
 
 	const _exhaustive: never = node
-	throw new Error(`Unknown node type: ${(_exhaustive as { _tag: string })._tag}`)
+	throw new Error(
+		`Unknown node type: ${(_exhaustive as { _tag: string })._tag}`,
+	)
 }

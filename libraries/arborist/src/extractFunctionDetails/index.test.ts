@@ -5,6 +5,7 @@ import { assertEquals } from "jsr:@std/assert@1.0.14"
 import initSwc, { parse } from "npm:@swc/wasm-web@1.13.20"
 
 import find from "@sitebender/toolsmith/array/find/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import extractFunctionDetails from "./index.ts"
 
@@ -28,7 +29,7 @@ async function getFunctionNode(source: string): Promise<unknown> {
 
 	// Use Toolsmith find instead of OOP method
 	// Look for FunctionDeclaration, ExportDeclaration, or ExportDefaultDeclaration
-	return find(
+	const result = find(
 		function isFunctionOrExport(node: unknown): boolean {
 			const nodeObj = node as Record<string, unknown>
 			const nodeType = nodeObj.type as string
@@ -38,6 +39,9 @@ async function getFunctionNode(source: string): Promise<unknown> {
 				nodeType === "ExportDefaultDeclaration"
 		},
 	)(astBody)
+
+	// Extract the actual node from the Result
+	return getOrElse(null as unknown)(result)
 }
 
 Deno.test({

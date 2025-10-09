@@ -3,7 +3,9 @@
  */
 
 import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
-import detectViolations, { formatViolationReport } from "./violation_detector.ts"
+import detectViolations, {
+	formatViolationReport,
+} from "./violation_detector.ts"
 
 Deno.test("detectViolations - detects classes", function testDetectClasses() {
 	const code = `
@@ -13,14 +15,14 @@ class UserService {
 `
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-classes')
+	assertEquals(violations[0].rule, "no-classes")
 })
 
 Deno.test("detectViolations - detects arrow functions", function testDetectArrowFunctions() {
 	const code = `const add = (a, b) => a + b`
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-arrow-functions')
+	assertEquals(violations[0].rule, "no-arrow-functions")
 })
 
 Deno.test("detectViolations - detects for loops", function testDetectForLoops() {
@@ -32,8 +34,10 @@ for (let i = 0; i < 10; i++) {
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
 	assertEquals(
-		violations.some(function checkRule(v) { return v.rule === 'no-loops' }),
-		true
+		violations.some(function checkRule(v) {
+			return v.rule === "no-loops"
+		}),
+		true,
 	)
 })
 
@@ -45,7 +49,7 @@ while (condition) {
 `
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-loops')
+	assertEquals(violations[0].rule, "no-loops")
 })
 
 Deno.test("detectViolations - detects try-catch", function testDetectTryCatch() {
@@ -58,35 +62,35 @@ try {
 `
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-exceptions')
+	assertEquals(violations[0].rule, "no-exceptions")
 })
 
 Deno.test("detectViolations - detects throw", function testDetectThrow() {
 	const code = `throw new Error("Something went wrong")`
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-exceptions')
+	assertEquals(violations[0].rule, "no-exceptions")
 })
 
 Deno.test("detectViolations - detects array.push", function testDetectArrayPush() {
 	const code = `array.push(item)`
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-mutations')
+	assertEquals(violations[0].rule, "no-mutations")
 })
 
 Deno.test("detectViolations - detects array.pop", function testDetectArrayPop() {
 	const code = `array.pop()`
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-mutations')
+	assertEquals(violations[0].rule, "no-mutations")
 })
 
 Deno.test("detectViolations - detects let", function testDetectLet() {
 	const code = `let count = 0`
 	const violations = detectViolations(code)
 	assertEquals(violations.length > 0, true)
-	assertEquals(violations[0].rule, 'no-mutations')
+	assertEquals(violations[0].rule, "no-mutations")
 })
 
 Deno.test("detectViolations - skips comments", function testSkipComments() {
@@ -140,7 +144,7 @@ Deno.test("formatViolationReport - formats violations", function testFormatRepor
 	const violations = detectViolations(code)
 	const report = formatViolationReport(violations)
 
-	assertEquals(report.includes('VIOLATION'), true)
-	assertEquals(report.includes('no-classes'), true)
-	assertEquals(report.includes('Suggestion'), true)
+	assertEquals(report.includes("VIOLATION"), true)
+	assertEquals(report.includes("no-classes"), true)
+	assertEquals(report.includes("Suggestion"), true)
 })
