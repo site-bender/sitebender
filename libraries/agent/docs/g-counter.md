@@ -31,6 +31,7 @@ When peers sync, they take the **maximum** value for each peer's entry.
 ### Why It Works
 
 **No conflicts are possible** because:
+
 - Each peer only modifies their own entry
 - Merge operation (max) is commutative, associative, and idempotent
 - Order of operations doesn't matter
@@ -62,26 +63,31 @@ Both:  {"alice": 5, "bob": 5}  // total: 10
 ## The Gotchas
 
 ### 1. **Grow-Only Limitation**
+
 - ❌ **Cannot decrement** - it's in the name!
 - ❌ **Cannot reset** - counters only go up
 - ✅ Use PN-Counter (Positive-Negative) if you need decrements
 
 ### 2. **Memory Growth**
+
 - Each new peer adds an entry **forever**
 - If peer "temp-xyz-123" increments once and disconnects, that entry stays
 - **Mitigation**: Garbage collection strategies (discussed later)
 
 ### 3. **Identity Management**
+
 - **Must have stable peer IDs** - if peer changes ID, old counter is orphaned
 - Peer ID collision = data corruption
 - **Best practice**: Use DID or cryptographic identities
 
 ### 4. **Tombstone Problem**
+
 - Old peer entries accumulate
 - "Zombie" peers that never reconnect still take space
 - **Solution**: Prune entries older than X days with no activity
 
 ### 5. **Not Causally Consistent**
+
 - Two peers can see different values at the same time
 - Eventually consistent, not immediately
 - **Example**: Alice sees 8, Bob sees 10, both are "correct" given their view
@@ -92,15 +98,15 @@ Both:  {"alice": 5, "bob": 5}  // total: 10
 
 ```jsx
 <GCounter id="pageViews" nodeId={userId}>
-  <InitialValue>0</InitialValue>
-  
-  <SyncWith protocol="state-based" interval={5000}>
-    <AllPeers />
-  </SyncWith>
-  
-  <PersistTo>
-    <LocalStorage key="pageViews" />
-  </PersistTo>
+	<InitialValue>0</InitialValue>
+
+	<SyncWith protocol="state-based" interval={5000}>
+		<AllPeers />
+	</SyncWith>
+
+	<PersistTo>
+		<LocalStorage key="pageViews" />
+	</PersistTo>
 </GCounter>
 ```
 
@@ -155,50 +161,50 @@ Transform AST into a normalized IR using Schema.org-like linked data vocabulary:
 
 ```json
 {
-  "@context": {
-    "@vocab": "https://sitebender.io/ontology/agent#",
-    "schema": "https://schema.org/",
-    "crdt": "https://sitebender.io/ontology/crdt#",
-    "sync": "https://sitebender.io/ontology/sync#",
-    "persist": "https://sitebender.io/ontology/persist#"
-  },
-  "@type": "crdt:GCounter",
-  "@id": "urn:uuid:pageViews",
-  
-  "schema:identifier": "pageViews",
-  "crdt:nodeId": { 
-    "@type": "schema:PropertyValue",
-    "schema:propertyID": "runtime-binding",
-    "schema:value": "userId" 
-  },
-  
-  "crdt:initialValue": {
-    "@type": "schema:Number",
-    "@value": 0
-  },
-  
-  "crdt:initialState": {
-    "@type": "crdt:GCounterState",
-    "crdt:entries": {}
-  },
-  
-  "sync:protocol": {
-    "@type": "sync:StateBasedProtocol",
-    "sync:interval": {
-      "@type": "schema:Duration",
-      "@value": "PT5S"
-    },
-    "sync:peerSelection": {
-      "@type": "sync:AllPeers",
-      "sync:discoveryMode": "automatic"
-    }
-  },
-  
-  "persist:storage": {
-    "@type": "persist:LocalStorageAdapter",
-    "schema:identifier": "pageViews",
-    "persist:serialization": "application/json"
-  }
+	"@context": {
+		"@vocab": "https://sitebender.io/ontology/agent#",
+		"schema": "https://schema.org/",
+		"crdt": "https://sitebender.io/ontology/crdt#",
+		"sync": "https://sitebender.io/ontology/sync#",
+		"persist": "https://sitebender.io/ontology/persist#"
+	},
+	"@type": "crdt:GCounter",
+	"@id": "urn:uuid:pageViews",
+
+	"schema:identifier": "pageViews",
+	"crdt:nodeId": {
+		"@type": "schema:PropertyValue",
+		"schema:propertyID": "runtime-binding",
+		"schema:value": "userId"
+	},
+
+	"crdt:initialValue": {
+		"@type": "schema:Number",
+		"@value": 0
+	},
+
+	"crdt:initialState": {
+		"@type": "crdt:GCounterState",
+		"crdt:entries": {}
+	},
+
+	"sync:protocol": {
+		"@type": "sync:StateBasedProtocol",
+		"sync:interval": {
+			"@type": "schema:Duration",
+			"@value": "PT5S"
+		},
+		"sync:peerSelection": {
+			"@type": "sync:AllPeers",
+			"sync:discoveryMode": "automatic"
+		}
+	},
+
+	"persist:storage": {
+		"@type": "persist:LocalStorageAdapter",
+		"schema:identifier": "pageViews",
+		"persist:serialization": "application/json"
+	}
 }
 ```
 
@@ -248,21 +254,21 @@ Store in triple store for querying, reasoning, and distribution:
 
 ```json
 {
-  "id": "pageViews",
-  "type": "GCounter",
-  "nodeId": "${userId}",
-  "config": {
-    "initialValue": 0,
-    "sync": {
-      "protocol": "state-based",
-      "interval": 5000,
-      "peers": "all"
-    },
-    "persistence": {
-      "type": "localStorage",
-      "key": "pageViews"
-    }
-  }
+	"id": "pageViews",
+	"type": "GCounter",
+	"nodeId": "${userId}",
+	"config": {
+		"initialValue": 0,
+		"sync": {
+			"protocol": "state-based",
+			"interval": 5000,
+			"peers": "all"
+		},
+		"persistence": {
+			"type": "localStorage",
+			"key": "pageViews"
+		}
+	}
 }
 ```
 
@@ -311,95 +317,102 @@ All functions are curried, named using `function` keyword, and use functional ut
 
 ```typescript
 // filepath: /libraries/agent/crdt/gcounter/core.ts
-import { entries, keys, values, reduce, fromEntries, filter } from "@sitebender/toolsmith/functional/object"
+import {
+	entries,
+	filter,
+	fromEntries,
+	keys,
+	reduce,
+	values,
+} from "@sitebender/toolsmith/functional/object"
 import { max } from "@sitebender/toolsmith/functional/math"
 import { pipe } from "@sitebender/toolsmith/functional/composition"
 
 // Types
 export type GCounterState = {
-  readonly entries: Record<string, number>
+	readonly entries: Record<string, number>
 }
 
-export type GCounterOperation = 
-  | { type: "increment", nodeId: string, amount: number }
-  | { type: "merge", otherState: GCounterState }
+export type GCounterOperation =
+	| { type: "increment"; nodeId: string; amount: number }
+	| { type: "merge"; otherState: GCounterState }
 
 // Pure function: Increment a node's counter
 export function increment(nodeId: string) {
-  return function incrementWithNode(amount: number) {
-    return function incrementWithAmount(state: GCounterState): GCounterState {
-      const currentValue = state.entries[nodeId] ?? 0
-      return {
-        entries: {
-          ...state.entries,
-          [nodeId]: currentValue + amount
-        }
-      }
-    }
-  }
+	return function incrementWithNode(amount: number) {
+		return function incrementWithAmount(state: GCounterState): GCounterState {
+			const currentValue = state.entries[nodeId] ?? 0
+			return {
+				entries: {
+					...state.entries,
+					[nodeId]: currentValue + amount,
+				},
+			}
+		}
+	}
 }
 
 // Pure function: Get total value by summing all entries
 export function getValue(state: GCounterState): number {
-  return pipe(
-    values,
-    reduce((sum: number) => (val: number) => sum + val)(0)
-  )(state.entries)
+	return pipe(
+		values,
+		reduce((sum: number) => (val: number) => sum + val)(0),
+	)(state.entries)
 }
 
 // Pure function: Merge two G-Counter states (take max for each node)
 export function merge(otherState: GCounterState) {
-  return function mergeWithOther(state: GCounterState): GCounterState {
-    const allNodeIds = new Set([
-      ...keys(state.entries),
-      ...keys(otherState.entries)
-    ])
+	return function mergeWithOther(state: GCounterState): GCounterState {
+		const allNodeIds = new Set([
+			...keys(state.entries),
+			...keys(otherState.entries),
+		])
 
-    const mergedEntries = reduce(
-      (acc: Record<string, number>) => (nodeId: string) => ({
-        ...acc,
-        [nodeId]: max(
-          state.entries[nodeId] ?? 0,
-          otherState.entries[nodeId] ?? 0
-        )
-      })
-    )({})(Array.from(allNodeIds))
+		const mergedEntries = reduce(
+			(acc: Record<string, number>) => (nodeId: string) => ({
+				...acc,
+				[nodeId]: max(
+					state.entries[nodeId] ?? 0,
+					otherState.entries[nodeId] ?? 0,
+				),
+			}),
+		)({})(Array.from(allNodeIds))
 
-    return { entries: mergedEntries }
-  }
+		return { entries: mergedEntries }
+	}
 }
 
 // Pure function: Compact state by removing inactive nodes
 export function compact(activeNodes: Set<string>) {
-  return function compactWithActiveNodes(state: GCounterState): GCounterState {
-    return {
-      entries: pipe(
-        entries,
-        filter(([nodeId]: [string, number]) => activeNodes.has(nodeId)),
-        fromEntries
-      )(state.entries)
-    }
-  }
+	return function compactWithActiveNodes(state: GCounterState): GCounterState {
+		return {
+			entries: pipe(
+				entries,
+				filter(([nodeId]: [string, number]) => activeNodes.has(nodeId)),
+				fromEntries,
+			)(state.entries),
+		}
+	}
 }
 
 // Pure function: Check if state is empty
 export function isEmpty(state: GCounterState): boolean {
-  return isEmpty(state.entries)
+	return isEmpty(state.entries)
 }
 
 // Pure function: Get node count
 export function getNodeCount(state: GCounterState): number {
-  return pipe(
-    keys,
-    length
-  )(state.entries)
+	return pipe(
+		keys,
+		length,
+	)(state.entries)
 }
 
 // Pure function: Get value for specific node
 export function getNodeValue(nodeId: string) {
-  return function getValueForNode(state: GCounterState): number {
-    return state.entries[nodeId] ?? 0
-  }
+	return function getValueForNode(state: GCounterState): number {
+		return state.entries[nodeId] ?? 0
+	}
 }
 ```
 
@@ -407,60 +420,72 @@ export function getNodeValue(nodeId: string) {
 
 ```typescript
 // filepath: /libraries/agent/crdt/gcounter/safe.ts
-import { Result, ok, err } from "@sitebender/toolsmith/functional/result"
-import { Validation, valid, invalid } from "@sitebender/toolsmith/functional/validation"
+import { err, ok, Result } from "@sitebender/toolsmith/functional/result"
+import {
+	invalid,
+	valid,
+	Validation,
+} from "@sitebender/toolsmith/functional/validation"
 import { pipe } from "@sitebender/toolsmith/functional/composition"
 import * as Core from "./core.ts"
 
 // Validate increment operation
 export function validateIncrement(nodeId: string) {
-  return function validateIncrementWithNode(amount: number): Validation<number> {
-    if (amount <= 0) {
-      return invalid(["G-Counter can only increment by positive amounts"])
-    }
-    if (!nodeId || nodeId.trim() === "") {
-      return invalid(["Node ID cannot be empty"])
-    }
-    return valid(amount)
-  }
+	return function validateIncrementWithNode(
+		amount: number,
+	): Validation<number> {
+		if (amount <= 0) {
+			return invalid(["G-Counter can only increment by positive amounts"])
+		}
+		if (!nodeId || nodeId.trim() === "") {
+			return invalid(["Node ID cannot be empty"])
+		}
+		return valid(amount)
+	}
 }
 
 // Safe increment returning Result
 export function safeIncrement(nodeId: string) {
-  return function safeIncrementWithNode(amount: number) {
-    return function safeIncrementWithAmount(state: Core.GCounterState): Result<Core.GCounterState> {
-      const validation = validateIncrement(nodeId)(amount)
-      
-      if (validation.type === "invalid") {
-        return err(validation.errors.join("; "))
-      }
-      
-      return ok(Core.increment(nodeId)(amount)(state))
-    }
-  }
+	return function safeIncrementWithNode(amount: number) {
+		return function safeIncrementWithAmount(
+			state: Core.GCounterState,
+		): Result<Core.GCounterState> {
+			const validation = validateIncrement(nodeId)(amount)
+
+			if (validation.type === "invalid") {
+				return err(validation.errors.join("; "))
+			}
+
+			return ok(Core.increment(nodeId)(amount)(state))
+		}
+	}
 }
 
 // Safe merge with validation
 export function safeMerge(otherState: Core.GCounterState) {
-  return function safeMergeWithOther(state: Core.GCounterState): Result<Core.GCounterState> {
-    // Validate both states have the expected structure
-    if (!otherState.entries || typeof otherState.entries !== "object") {
-      return err("Invalid state structure for merge")
-    }
-    
-    return ok(Core.merge(otherState)(state))
-  }
+	return function safeMergeWithOther(
+		state: Core.GCounterState,
+	): Result<Core.GCounterState> {
+		// Validate both states have the expected structure
+		if (!otherState.entries || typeof otherState.entries !== "object") {
+			return err("Invalid state structure for merge")
+		}
+
+		return ok(Core.merge(otherState)(state))
+	}
 }
 
 // Validate and compact
 export function safeCompact(activeNodes: Set<string>) {
-  return function safeCompactWithActiveNodes(state: Core.GCounterState): Result<Core.GCounterState> {
-    if (activeNodes.size === 0) {
-      return err("Cannot compact with empty active nodes set")
-    }
-    
-    return ok(Core.compact(activeNodes)(state))
-  }
+	return function safeCompactWithActiveNodes(
+		state: Core.GCounterState,
+	): Result<Core.GCounterState> {
+		if (activeNodes.size === 0) {
+			return err("Cannot compact with empty active nodes set")
+		}
+
+		return ok(Core.compact(activeNodes)(state))
+	}
 }
 ```
 
@@ -468,75 +493,75 @@ export function safeCompact(activeNodes: Set<string>) {
 
 ```typescript
 // filepath: /libraries/agent/runtime/crdt-factory.ts
-import { pipe, compose } from "@sitebender/toolsmith/functional/composition"
-import { ok, err, map, chain } from "@sitebender/toolsmith/functional/result"
+import { compose, pipe } from "@sitebender/toolsmith/functional/composition"
+import { chain, err, map, ok } from "@sitebender/toolsmith/functional/result"
 import * as GCounter from "../crdt/gcounter/safe.ts"
 
 export function createGCounterFromConfig(config: CrdtConfiguration) {
-  const nodeId = resolveBinding(config.identity.nodeId)
-  const initialState = config.initialization.initialState
-  
-  return {
-    // Current state (immutable)
-    state: initialState,
-    
-    // Pure increment operation (returns Result)
-    increment: function increment(amount: number) {
-      return GCounter.safeIncrement(nodeId)(amount)(this.state)
-    },
-    
-    // Pure getValue (always succeeds)
-    value: function value() {
-      return GCounter.Core.getValue(this.state)
-    },
-    
-    // Pure merge operation (returns Result)
-    merge: function merge(otherState: GCounter.Core.GCounterState) {
-      return GCounter.safeMerge(otherState)(this.state)
-    },
-    
-    // Pure compact operation (returns Result)
-    compact: function compact(activeNodes: Set<string>) {
-      return GCounter.safeCompact(activeNodes)(this.state)
-    },
-    
-    // Effects separated (return functions that perform side effects)
-    effects: {
-      sync: createSyncEffect(config.synchronization),
-      persist: createPersistEffect(config.persistence)
-    }
-  }
+	const nodeId = resolveBinding(config.identity.nodeId)
+	const initialState = config.initialization.initialState
+
+	return {
+		// Current state (immutable)
+		state: initialState,
+
+		// Pure increment operation (returns Result)
+		increment: function increment(amount: number) {
+			return GCounter.safeIncrement(nodeId)(amount)(this.state)
+		},
+
+		// Pure getValue (always succeeds)
+		value: function value() {
+			return GCounter.Core.getValue(this.state)
+		},
+
+		// Pure merge operation (returns Result)
+		merge: function merge(otherState: GCounter.Core.GCounterState) {
+			return GCounter.safeMerge(otherState)(this.state)
+		},
+
+		// Pure compact operation (returns Result)
+		compact: function compact(activeNodes: Set<string>) {
+			return GCounter.safeCompact(activeNodes)(this.state)
+		},
+
+		// Effects separated (return functions that perform side effects)
+		effects: {
+			sync: createSyncEffect(config.synchronization),
+			persist: createPersistEffect(config.persistence),
+		},
+	}
 }
 
 // Helper to resolve runtime bindings
 function resolveBinding(binding: any): string {
-  if (binding["@type"] === "RuntimeBinding") {
-    return runtime.get(binding.source)
-  }
-  return binding
+	if (binding["@type"] === "RuntimeBinding") {
+		return runtime.get(binding.source)
+	}
+	return binding
 }
 
 // Create sync effect (returns function that performs sync)
 function createSyncEffect(syncConfig: any) {
-  return function sync(state: GCounter.Core.GCounterState) {
-    // Returns a function that performs the actual sync side effect
-    return function performSync() {
-      // Actual sync logic here
-      const peers = discoverPeers(syncConfig)
-      return broadcastState(state)(peers)
-    }
-  }
+	return function sync(state: GCounter.Core.GCounterState) {
+		// Returns a function that performs the actual sync side effect
+		return function performSync() {
+			// Actual sync logic here
+			const peers = discoverPeers(syncConfig)
+			return broadcastState(state)(peers)
+		}
+	}
 }
 
 // Create persist effect (returns function that performs persistence)
 function createPersistEffect(persistConfig: any) {
-  return function persist(state: GCounter.Core.GCounterState) {
-    // Returns a function that performs the actual persist side effect
-    return function performPersist() {
-      // Actual persistence logic here
-      return saveToStorage(persistConfig)(state)
-    }
-  }
+	return function persist(state: GCounter.Core.GCounterState) {
+		// Returns a function that performs the actual persist side effect
+		return function performPersist() {
+			// Actual persistence logic here
+			return saveToStorage(persistConfig)(state)
+		}
+	}
 }
 ```
 
@@ -546,27 +571,27 @@ function createPersistEffect(persistConfig: any) {
 
 ```jsx
 <GCounter id="likes" nodeId={currentUser.did}>
-  <InitialValue>0</InitialValue>
-  
-  <SyncStrategy>
-    <When condition="online">
-      <StateBasedSync interval={3000} />
-    </When>
-    <When condition="offline">
-      <QueueOperations />
-    </When>
-  </SyncStrategy>
-  
-  <GarbageCollection>
-    <RemoveEntriesOlderThan days={30} />
-    <KeepMinimumPeers count={5} />
-    <OnlyIfInactive duration="P7D" />
-  </GarbageCollection>
-  
-  <PersistTo>
-    <IndexedDB database="counters" store="gcounters" />
-    <IPFS pin={true} />
-  </PersistTo>
+	<InitialValue>0</InitialValue>
+
+	<SyncStrategy>
+		<When condition="online">
+			<StateBasedSync interval={3000} />
+		</When>
+		<When condition="offline">
+			<QueueOperations />
+		</When>
+	</SyncStrategy>
+
+	<GarbageCollection>
+		<RemoveEntriesOlderThan days={30} />
+		<KeepMinimumPeers count={5} />
+		<OnlyIfInactive duration="P7D" />
+	</GarbageCollection>
+
+	<PersistTo>
+		<IndexedDB database="counters" store="gcounters" />
+		<IPFS pin={true} />
+	</PersistTo>
 </GCounter>
 ```
 
@@ -574,28 +599,28 @@ function createPersistEffect(persistConfig: any) {
 
 ```jsx
 <GCounter id="votes">
-  <InitialValue>0</InitialValue>
-  
-  <VerifyPeerIdentity>
-    <RequireSignature algorithm="ed25519" />
-    <CheckCertificate chain={trustedCerts} />
-  </VerifyPeerIdentity>
-  
-  <DetectAnomalies>
-    <When>
-      <PeerIncrementRate exceeds={100} per="minute" />
-    </When>
-    <Action>
-      <QuarantinePeer />
-      <NotifyAdmin />
-    </Action>
-  </DetectAnomalies>
-  
-  <OnMerge>
-    <ValidateMonotonic />
-    <CheckForSplitBrain />
-    <LogMergeEvents to="audit-log" />
-  </OnMerge>
+	<InitialValue>0</InitialValue>
+
+	<VerifyPeerIdentity>
+		<RequireSignature algorithm="ed25519" />
+		<CheckCertificate chain={trustedCerts} />
+	</VerifyPeerIdentity>
+
+	<DetectAnomalies>
+		<When>
+			<PeerIncrementRate exceeds={100} per="minute" />
+		</When>
+		<Action>
+			<QuarantinePeer />
+			<NotifyAdmin />
+		</Action>
+	</DetectAnomalies>
+
+	<OnMerge>
+		<ValidateMonotonic />
+		<CheckForSplitBrain />
+		<LogMergeEvents to="audit-log" />
+	</OnMerge>
 </GCounter>
 ```
 
@@ -603,24 +628,24 @@ function createPersistEffect(persistConfig: any) {
 
 ```jsx
 <GCounter id="globalPageViews">
-  <Topology>
-    <Regions>
-      <Region name="us-east" peers={usEastPeers} />
-      <Region name="eu-west" peers={euWestPeers} />
-      <Region name="asia" peers={asiaPeers} />
-    </Regions>
-    
-    <HierarchicalSync>
-      <Level type="intra-region" interval={1000} />
-      <Level type="inter-region" interval={10000} />
-    </HierarchicalSync>
-  </Topology>
-  
-  <Optimization>
-    <CompressMerges algorithm="delta-encoding" />
-    <BatchUpdates size={10} />
-    <OnlyShareChanges />
-  </Optimization>
+	<Topology>
+		<Regions>
+			<Region name="us-east" peers={usEastPeers} />
+			<Region name="eu-west" peers={euWestPeers} />
+			<Region name="asia" peers={asiaPeers} />
+		</Regions>
+
+		<HierarchicalSync>
+			<Level type="intra-region" interval={1000} />
+			<Level type="inter-region" interval={10000} />
+		</HierarchicalSync>
+	</Topology>
+
+	<Optimization>
+		<CompressMerges algorithm="delta-encoding" />
+		<BatchUpdates size={10} />
+		<OnlyShareChanges />
+	</Optimization>
 </GCounter>
 ```
 

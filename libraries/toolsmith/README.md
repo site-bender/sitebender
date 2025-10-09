@@ -7,6 +7,7 @@ Toolsmith is a comprehensive functional programming library providing type-safe,
 **No exceptions. No runtime type errors. Pure functions only.**
 
 Every function in Toolsmith:
+
 - Returns `Result<ValidationError, T>` instead of throwing exceptions
 - Is fully curried for composition and partial application
 - Has zero side effects (pure functions)
@@ -26,18 +27,19 @@ import integer from "@sitebender/toolsmith/newtypes/integer/index.ts"
 import twoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/index.ts"
 import realNumber from "@sitebender/toolsmith/newtypes/realNumber/index.ts"
 
-const age = integer(42)              // Result<ValidationError, Integer>
+const age = integer(42) // Result<ValidationError, Integer>
 const price = twoDecimalPlaces(19.99) // Result<ValidationError, TwoDecimalPlaces>
 const pi = realNumber(3.14159) // Result<ValidationError, RealNumber>
 
 // Type error: can't mix Integer with TwoDecimalPlaces
-function processPrice(p: TwoDecimalPlaces): void { }
+function processPrice(p: TwoDecimalPlaces): void {}
 if (age.isOk) {
-	processPrice(age.value)  // TypeScript ERROR ✅
+	processPrice(age.value) // TypeScript ERROR ✅
 }
 ```
 
 **Numeric Types:**
+
 - `Integer` - Safe integers within JavaScript's safe range
 - `BigInteger` - Arbitrary precision integers
 - `RealNumber` - Floating-point (makes imprecision explicit)
@@ -60,13 +62,14 @@ const email = emailAddress("user@example.com")
 const link = url("https://example.com")
 
 // Type error: can't use EmailAddress where Url is expected
-function navigate(destination: Url): void { }
+function navigate(destination: Url): void {}
 if (email.isOk) {
-	navigate(email.value)  // TypeScript ERROR ✅
+	navigate(email.value) // TypeScript ERROR ✅
 }
 ```
 
 **Network/Web Types:**
+
 - `EmailAddress` - RFC 5322 compliant email addresses
 - `Url` - Valid URL with protocol
 - `Uri` - URI (broader than URL)
@@ -77,6 +80,7 @@ if (email.isOk) {
 - `Hostname` - Valid hostname
 
 **Identifier Types:**
+
 - `Uuid` - UUID v4/v5 format
 - `Isbn10` - ISBN-10 with checksum validation
 - `Isbn13` - ISBN-13 with checksum validation
@@ -85,6 +89,7 @@ if (email.isOk) {
 - `Orcid` - ORCID researcher ID
 
 **Geographic Types:**
+
 - `PostalCode` - Country-specific postal codes
 - `PhoneNumber` - E.164 international format
 - `CountryCode` - ISO 3166-1 alpha-2/alpha-3
@@ -92,16 +97,19 @@ if (email.isOk) {
 - `CurrencyCode` - ISO 4217 currency codes
 
 **Financial Types:**
+
 - `CreditCardNumber` - Luhn algorithm validated
 - `Iban` - International Bank Account Number
 - `Swift` - SWIFT/BIC code
 
 **Temporal Types:**
+
 - `Iso8601Date` - ISO 8601 date string
 - `Iso8601DateTime` - ISO 8601 datetime string
 - `Rfc3339` - RFC 3339 timestamp
 
 **Other String Types:**
+
 - `Char` - Single character (length === 1)
 - `NonEmptyString` - String with length > 0
 - `Base58` - Base58 encoding (for shortened UUIDs)
@@ -123,6 +131,7 @@ const p3 = p3Color("color(display-p3 1 0.5 0)")
 ```
 
 **Color Types:**
+
 - `HexColor` - #RGB or #RRGGBB format
 - `OklchColor` - oklch() CSS color format
 - `P3Color` - color(display-p3 ...) format
@@ -137,11 +146,12 @@ import nonEmptyArray from "@sitebender/toolsmith/newtypes/nonEmptyArray/index.ts
 const items = nonEmptyArray([1, 2, 3])
 if (items.isOk) {
 	// Guaranteed to have at least one element
-	const first = items.value[0]  // Safe access
+	const first = items.value[0] // Safe access
 }
 ```
 
 **Collection Types:**
+
 - `NonEmptyArray<T>` - Array guaranteed to have at least one element
 
 ### Exact Decimal Arithmetic
@@ -162,6 +172,7 @@ if (price1.isOk && price2.isOk) {
 ```
 
 **Arithmetic Operations** (for all exact decimal types):
+
 - `add[Type]` - Addition with precision preservation
 - `subtract[Type]` - Subtraction with precision preservation
 - `multiply[Type]` - Multiplication with precision preservation
@@ -191,6 +202,7 @@ if (result.isError) {
 ```
 
 **Error Philosophy:**
+
 - System-centric: "System needs..." not "You provided invalid..."
 - Actionable: Always includes suggestion for how to fix
 - Type-safe: Uses `Serializable` types, never `unknown` or `any`
@@ -212,16 +224,17 @@ const double = multiply(2)
 // Composition
 const add5ThenDouble = pipe(add5, double)
 
-const result = add5ThenDouble(10)  // Result: 30
+const result = add5ThenDouble(10) // Result: 30
 ```
 
 **Currying Pattern:**
+
 ```typescript
 // Inner function name captures outer parameter
 export default function add(
 	augend: number,
 ): (addend: number) => Result<ValidationError, number> {
-	return function addToAugend(  // Name shows 'augend' is captured
+	return function addToAugend( // Name shows 'augend' is captured
 		addend: number,
 	): Result<ValidationError, number> {
 		// Implementation
@@ -234,7 +247,9 @@ export default function add(
 Toolsmith organizes functions by domain, not by implementation:
 
 ### Math (`src/math/`)
+
 Mathematical operations on plain `number` types:
+
 - Basic: modulo, power, root
 - Rounding: round, floor, ceiling, truncate
 - Sign: absoluteValue, sign, negate
@@ -245,7 +260,9 @@ Mathematical operations on plain `number` types:
 - Exponentials: exp, exponent
 
 ### Validation (`src/validation/`)
+
 Type checking and validation functions:
+
 - Type checks: isString, isNumber, isBoolean, isArray, isObject
 - String validation: isEmail, isUrl, isUuid, isIpAddress, isPhoneNumber
 - Number validation: isInteger, isPositive, isNegative, isInRange
@@ -255,7 +272,9 @@ Type checking and validation functions:
 - Custom validators: matches (regex), satisfies (predicate)
 
 ### Logic (`src/logic/`)
+
 Boolean operations and predicates:
+
 - Boolean: and, or, not, xor, implies, iff
 - Predicates: all, any, none, exactly
 - Conditional: ifThenElse, when, unless, cond
@@ -263,7 +282,9 @@ Boolean operations and predicates:
 - Type guards: isType, hasType, matchesType
 
 ### String (`src/string/`)
+
 String manipulation and formatting:
+
 - Case: toUpperCase, toLowerCase, toTitleCase, toCamelCase, toSnakeCase
 - Trimming: trim, trimStart, trimEnd, trimAll
 - Padding: padStart, padEnd, padBoth
@@ -276,7 +297,9 @@ String manipulation and formatting:
 - Parsing: parseInt, parseFloat, parseJson
 
 ### Array (`src/array/`)
+
 Array manipulation and transformation:
+
 - Creation: range, repeat, replicate, generate
 - Access: head, tail, last, init, nth, at
 - Modification: append, prepend, insert, remove, update
@@ -290,7 +313,9 @@ Array manipulation and transformation:
 - Uniqueness: unique, uniqueBy, deduplicate
 
 ### Activation (`src/activation/`)
+
 Neural network activation functions:
+
 - sigmoid, tanh, relu, leakyRelu, elu, selu
 - softmax, softplus, softsign
 - swish, mish, gelu
@@ -298,6 +323,7 @@ Neural network activation functions:
 - Derivatives for each function
 
 ### Other Domains
+
 - `async/` - Promise utilities and async composition
 - `combinator/` - Function combinators (pipe, compose, curry)
 - `conversion/` - Type conversions and coercion
@@ -342,20 +368,20 @@ import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
 // Simple addition
 const sum = add(5)(3)
 if (sum.isOk) {
-	console.log(sum.value)  // 8
+	console.log(sum.value) // 8
 }
 
 // Division with error handling
 const quotient = divide(10)(0)
 if (quotient.isError) {
-	console.log(quotient.error.suggestion)  // "Provide a non-zero divisor"
+	console.log(quotient.error.suggestion) // "Provide a non-zero divisor"
 }
 
 // Composition
 const calculate = pipe(
 	add(10),
 	multiply(2),
-	divide(4)
+	divide(4),
 )
 ```
 
@@ -375,7 +401,7 @@ const tax = twoDecimalPlaces(1.60)
 if (price.isOk && tax.isOk) {
 	const total = addToTwoDecimalPlaces(price.value)(tax.value)
 	if (total.isOk) {
-		console.log(total.value)  // Exactly 21.59
+		console.log(total.value) // Exactly 21.59
 	}
 }
 
@@ -399,7 +425,7 @@ const normalized = toLowerCase(email)
 if (normalized.isOk) {
 	const validated = isEmail(normalized.value)
 	if (validated.isOk) {
-		console.log(validated.value)  // "user@example.com"
+		console.log(validated.value) // "user@example.com"
 	}
 }
 ```
@@ -417,17 +443,18 @@ const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 const sumOfEvenSquares = pipe(
 	filter((n: number) => n % 2 === 0),
 	map((n: number) => n * n),
-	sum
+	sum,
 )(numbers)
 
 if (sumOfEvenSquares.isOk) {
-	console.log(sumOfEvenSquares.value)  // 220
+	console.log(sumOfEvenSquares.value) // 220
 }
 ```
 
 ## Architecture Principles
 
 ### One Function Per File
+
 Every function lives in its own folder with `index.ts` and `index.test.ts`:
 
 ```
@@ -437,12 +464,14 @@ src/math/add/
 ```
 
 **Benefits:**
+
 - Clear dependencies
 - Automatic cleanup when deleting features
 - No orphan code
 - Extreme modularity
 
 ### No Re-exports
+
 Import functions directly from their source:
 
 ```typescript
@@ -454,6 +483,7 @@ import { add } from "@sitebender/toolsmith/math"
 ```
 
 ### Lowest Common Ancestor
+
 Helper functions live at the lowest node where all consumers branch:
 
 ```
@@ -471,13 +501,13 @@ userAuth/
 
 ```typescript
 interface ValidationError {
-	code: string                    // Machine-readable error code
-	field: string                   // Field/parameter that failed
-	messages: Array<string>         // Human-readable messages
-	received: Serializable          // What was actually provided
-	expected: string                // What system needs
-	suggestion: string              // Actionable fix
-	constraints?: Record<string, Serializable>  // Machine-readable limits
+	code: string // Machine-readable error code
+	field: string // Field/parameter that failed
+	messages: Array<string> // Human-readable messages
+	received: Serializable // What was actually provided
+	expected: string // What system needs
+	suggestion: string // Actionable fix
+	constraints?: Record<string, Serializable> // Machine-readable limits
 	severity: "info" | "notice" | "requirement"
 	context?: Record<string, Serializable>
 }
@@ -486,12 +516,13 @@ interface ValidationError {
 ### Result Type
 
 ```typescript
-type Result<E, T> = 
+type Result<E, T> =
 	| { isOk: true; value: T }
 	| { isError: true; error: E }
 ```
 
 **Helper Functions:**
+
 ```typescript
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
@@ -528,6 +559,7 @@ return error({
 ## Testing
 
 Every function has comprehensive tests covering:
+
 - Happy path (valid inputs)
 - Error cases (invalid inputs)
 - Edge cases (boundary conditions)
@@ -581,6 +613,7 @@ Toolsmith provides the functional foundation for the entire @sitebender ecosyste
 ## Contributing
 
 Contributions welcome! Please ensure:
+
 - All functions are curried
 - All functions return `Result<ValidationError, T>`
 - No exceptions thrown

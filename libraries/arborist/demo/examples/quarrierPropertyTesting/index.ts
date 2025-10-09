@@ -35,7 +35,9 @@ export async function generatePropertyTests(filePath: string) {
 		associative: "Would detect associative property",
 		idempotent: "Would detect idempotent property",
 		inverse: "Would detect inverse functions",
-		complexity: `O(${semanticInfo.complexity.cyclomatic > 1 ? 'exponential' : 'constant'}) complexity detected`,
+		complexity: `O(${
+			semanticInfo.complexity.cyclomatic > 1 ? "exponential" : "constant"
+		}) complexity detected`,
 		dataTypes: "Would generate constrained random data",
 		shrinking: "Would create smart test case shrinking",
 		edgeCases: "Would identify boundary conditions",

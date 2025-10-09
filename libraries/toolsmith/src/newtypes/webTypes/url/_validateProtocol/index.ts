@@ -64,8 +64,7 @@ export default function _validateProtocol(
 			],
 			received: protocol,
 			expected: `One of: ${Array.from(ALLOWED_PROTOCOLS).join(", ")}`,
-			suggestion:
-				"Use a supported protocol like http, https, ftp, ws, or ssh",
+			suggestion: "Use a supported protocol like http, https, ftp, ws, or ssh",
 			severity: "requirement",
 		})
 	}

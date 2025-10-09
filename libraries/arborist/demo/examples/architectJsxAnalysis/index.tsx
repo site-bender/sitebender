@@ -10,7 +10,7 @@ export default function ProductCard(props: { name: string; price: number }) {
 			<div className="product-card">
 				<h3>{props.name}</h3>
 				<span className="price">${props.price}</span>
-				<button>Add to Cart</button>
+				<button type="button">Add to Cart</button>
 			</div>
 		)
 	}

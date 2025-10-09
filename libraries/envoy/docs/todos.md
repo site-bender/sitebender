@@ -12,12 +12,14 @@
 3. ⏳ **Toolsmith branded types complete** - In progress (smart constructors, validation)
 
 **Why Blocked:**
+
 - Envoy's entire architecture depends on Result/Validation monads from Toolsmith
 - All error handling uses Toolsmith's error creation utilities
 - All array operations use Toolsmith's functional utilities
 - Domain types will use Toolsmith's branded type system
 
 **When to Start:**
+
 - Wait for architect's explicit approval
 - Verify Toolsmith exports are stable
 - Confirm Arborist API is finalized
@@ -116,6 +118,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 ## Constitutional Rules Compliance
 
 **Every function MUST:**
+
 - ✅ Be curried (data last)
 - ✅ Use `function` keyword (NO arrows except type signatures)
 - ✅ Return new data (NO mutations)
@@ -130,6 +133,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 **Current Version:** 0.0.1 (pre-production)
 
 **During 0.x development:**
+
 - NO migration paths
 - NO backwards compatibility
 - NO deprecation warnings
@@ -143,6 +147,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 **NO issue trackers. NO tickets. NO backlog.**
 
 **Process:**
+
 1. Hit a problem → Check IMPLEMENTATION_PLAN.md first
 2. Still stuck → Present to architect with:
    - Minimal reproduction
@@ -166,22 +171,26 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
 ## Success Criteria
 
 **Phase 1 Complete:**
+
 - ✅ Interprets all Envoy comment markers correctly
 - ✅ Uses Result/Validation monads properly
 - ✅ All errors include helpful suggestions
 - ✅ Zero TypeScript compiler imports
 
 **Phase 3 Complete:**
+
 - ✅ Knowledge graph queryable via SPARQL
 - ✅ RDF triples generated correctly
 - ✅ HATEOAS navigation working
 
 **Phase 6 Complete:**
+
 - ✅ Real-time dashboard operational
 - ✅ Five-smiley feedback system working
 - ✅ Collaborative features functional
 
 **Final Completion:**
+
 - ✅ All phases implemented
 - ✅ Progressive enhancement verified (works in Lynx)
 - ✅ Performance targets met

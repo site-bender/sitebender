@@ -15,6 +15,7 @@
 5. ⏳ **Quarrier is complete** - Provides generators for test data
 
 **Why This Matters:**
+
 - Auditor's entire architecture depends on Result/Validation monads from Toolsmith
 - All error handling uses Toolsmith's error creation utilities
 - All array operations use Toolsmith's functional utilities (NO native methods)
@@ -24,6 +25,7 @@
 - Starting before these are ready means rewriting everything later
 
 **Current Status:**
+
 - Arborist: ~95% complete (Phase 1 done, ready for integration)
 - Toolsmith monads: In progress (fold, map, map2, map3, success, failure, ok, error)
 - Toolsmith branded types: In progress (smart constructors, validation)
@@ -31,6 +33,7 @@
 - Quarrier: Planning phase (blocked on Toolsmith)
 
 **When to Start:**
+
 - Wait for architect's explicit approval
 - Verify Toolsmith exports are stable
 - Confirm Arborist API is finalized
@@ -46,6 +49,7 @@ Auditor is a **formal verification and test generation system** that mathematica
 **Core Principle:** We don't test code. We prove it correct.
 
 **What It Does:**
+
 - Proves mathematical correctness using Z3 theorem prover
 - Verifies properties hold for ALL inputs (not just test cases)
 - Generates counterexamples when properties fail
@@ -58,6 +62,7 @@ Auditor is a **formal verification and test generation system** that mathematica
 - Provides verification results to Envoy for documentation
 
 **What It Does NOT Do:**
+
 - Parse TypeScript/JSX (that's Arborist's job)
 - Use TypeScript compiler or SWC directly
 - Generate documentation (that's Envoy's job)
@@ -69,6 +74,7 @@ Auditor is a **formal verification and test generation system** that mathematica
 **Current Version:** 0.0.1 (pre-production)
 
 **Development Philosophy:**
+
 - NO semantic versioning until version 1.0 production deployment
 - NO migration paths, NO legacy support, NO backwards compatibility during 0.x
 - NO deprecation warnings, NO aliasing "old ways"
@@ -77,6 +83,7 @@ Auditor is a **formal verification and test generation system** that mathematica
 - After 1.0 deployment: proper SemVer versioning begins
 
 **Instructions for AIs:**
+
 - DO NOT ask about migration paths during 0.x development
 - DO NOT suggest deprecation strategies or backwards compatibility
 - DO NOT preserve "legacy" anything
@@ -91,6 +98,7 @@ Auditor is a **formal verification and test generation system** that mathematica
 **The Iron Rule:** A task is NOT complete until its checklist item is checked `[x]` in this document.
 
 **Atomic Commit Unit:**
+
 ```
 Implementation + Tests + Checklist Update = ONE commit
 ```
@@ -103,6 +111,7 @@ Implementation + Tests + Checklist Update = ONE commit
 4. Commit all three together with descriptive message
 
 **Verification Before Commit:**
+
 ```bash
 # Check which items should be marked complete
 git diff libraries/auditor/docs/IMPLEMENTATION_PLAN.md
@@ -112,6 +121,7 @@ git diff libraries/auditor/docs/IMPLEMENTATION_PLAN.md
 ```
 
 **AI Instructions (BINDING):**
+
 - When completing a task, you MUST update the corresponding checklist in the SAME response
 - Never mark a task complete without checking the corresponding checklist box `[x]`
 - If no matching checklist item exists, add it to the appropriate phase
@@ -119,11 +129,13 @@ git diff libraries/auditor/docs/IMPLEMENTATION_PLAN.md
 - The checklist update and code change must be in the same commit
 
 **Human Instructions:**
+
 - Before committing completed work, verify `git diff` shows both code AND checklist changes
 - If checklist doesn't reflect reality, fix it before committing
 - Checklist is source of truth for implementation progress
 
 **Why This Matters:**
+
 - Checklists ARE documentation
 - Future sessions need accurate progress tracking
 - Prevents duplicate work
@@ -139,14 +151,15 @@ git diff libraries/auditor/docs/IMPLEMENTATION_PLAN.md
 **Auditor uses Toolsmith's monadic utilities, branded types, and array utilities.**
 
 **Required Toolsmith Imports:**
+
 ```typescript
 // Monadic utilities (currently being implemented)
 import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
 import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
 import { map } from "@sitebender/toolsmith/monads/validation/map"
 import { map2, map3 } from "@sitebender/toolsmith/monads/validation/map2"
-import { success, failure } from "@sitebender/toolsmith/monads/validation"
-import { ok, error } from "@sitebender/toolsmith/monads/result"
+import { failure, success } from "@sitebender/toolsmith/monads/validation"
+import { error, ok } from "@sitebender/toolsmith/monads/result"
 
 // Error creation utilities
 import fromTemplate from "@sitebender/toolsmith/error/fromTemplate"
@@ -165,6 +178,7 @@ import reduce from "@sitebender/toolsmith/array/reduce"
 ```
 
 **Branded Types (in progress):**
+
 ```typescript
 // Auditor will use branded types for domain concepts
 type TestId = string & { readonly __brand: "TestId" }
@@ -173,8 +187,8 @@ type ProofId = string & { readonly __brand: "ProofId" }
 
 // Smart constructors validate and return Result
 function testId(str: string): Result<TestIdError, TestId> {
-  // Validation logic
-  return ok(str as TestId)
+	// Validation logic
+	return ok(str as TestId)
 }
 ```
 
@@ -185,6 +199,7 @@ function testId(str: string): Result<TestIdError, TestId> {
 **Auditor receives ALL AST data from Arborist. NEVER parses TypeScript directly.**
 
 **Allowed:**
+
 ```typescript
 import parseFile from "@sitebender/arborist/parseFile"
 import buildParsedFile from "@sitebender/arborist/buildParsedFile"
@@ -195,6 +210,7 @@ import detectViolations from "@sitebender/arborist/detectViolations"
 ```
 
 **FORBIDDEN (Warden will block):**
+
 ```typescript
 // NEVER import these in Auditor
 import { parse } from "npm:@swc/wasm-web"
@@ -207,6 +223,7 @@ import { parseModule } from "deno_ast"
 **Auditor uses Quarrier's generators for all test data generation.**
 
 **Allowed:**
+
 ```typescript
 import createSeed from "@sitebender/quarrier/random/createSeed"
 import integer from "@sitebender/quarrier/generators/primitives/integer"
@@ -217,22 +234,24 @@ import fromTypeInfo from "@sitebender/quarrier/fromTypeInfo"
 ```
 
 **Usage Pattern:**
+
 ```typescript
 // Generate test inputs using Quarrier
 const seedResult = createSeed(42)
 
-fold(handleError)(function(seed) {
-  const intGen = integer(-100)(100)
-  const result = intGen.next(seed)
-  
-  // Use generated value in test
-  return result.value
+fold(handleError)(function (seed) {
+	const intGen = integer(-100)(100)
+	const result = intGen.next(seed)
+
+	// Use generated value in test
+	return result.value
 })(seedResult)
 ```
 
 ### 4. Error Handling: Result and Validation Monads
 
 **Use Toolsmith error system.** Study these files:
+
 - `@sitebender/toolsmith/error/createError/index.ts`
 - `@sitebender/toolsmith/error/withSuggestion/index.ts`
 - `@sitebender/toolsmith/error/withFailedArg/index.ts`
@@ -240,6 +259,7 @@ fold(handleError)(function(seed) {
 - `@sitebender/toolsmith/types/error/index.ts`
 
 **Error Philosophy:**
+
 - Rich metadata (operation, args, code, severity)
 - Helpful suggestions (NOT scolding)
 - Failed argument tracking
@@ -249,6 +269,7 @@ fold(handleError)(function(seed) {
 **Monad Strategy:**
 
 **Result<E, T>** - Fail-fast for sequential operations
+
 ```typescript
 // I/O operations, proof generation
 function proveProperty(
@@ -261,14 +282,16 @@ function proveProperty(
 ```
 
 **Validation<E, T>** - Error accumulation for parallel/tree operations
+
 ```typescript
 // Generating multiple tests, accumulate ALL errors
 function generateTests(
-  functions: ReadonlyArray<ParsedFunction>
+	functions: ReadonlyArray<ParsedFunction>,
 ): Validation<TestGenerationError, ReadonlyArray<TestCase>>
 ```
 
 **Why This Approach:**
+
 - Proof generation errors: fail immediately (can't continue without valid proof)
 - Test generation errors: accumulate all (partial success valuable)
 - Example: Test 1 fails but Tests 2-5 work → return all successes + all errors
@@ -280,26 +303,29 @@ function generateTests(
 **The Paradigm Shift:**
 
 Traditional testing:
+
 ```typescript
 // Hope these examples cover all cases
 test("age validator", () => {
-  expect(validate(25)).toBe(true)
-  expect(validate(-1)).toBe(false)
-  // Did we miss edge cases? 🤷
+	expect(validate(25)).toBe(true)
+	expect(validate(-1)).toBe(false)
+	// Did we miss edge cases? 🤷
 })
 ```
 
 Formal verification:
+
 ```typescript
 // PROVE it works for ALL possible inputs
 proveProperty(validateAge, {
-  type: "soundness",
-  description: "Never accepts invalid ages"
+	type: "soundness",
+	description: "Never accepts invalid ages",
 })
 // If proof fails, get exact counterexample
 ```
 
 **What We Prove:**
+
 - ✅ Determinism (same input → same output)
 - ✅ Totality (defined for all inputs)
 - ✅ Bounds (output stays within range)
@@ -308,6 +334,7 @@ proveProperty(validateAge, {
 - ✅ Mathematical laws (associativity, commutativity, etc.)
 
 **When Formal Verification Isn't Possible:**
+
 - Fall back to property-based testing (via Quarrier)
 - Generate comprehensive test suites
 - Achieve 100% coverage systematically
@@ -382,35 +409,43 @@ export default function formatVerificationResults(
 
 ```typescript
 export type TranslationError = ArchitectError<"translateToZ3", [IrNode]> & {
-  readonly kind: "UnsupportedNode" | "InvalidStructure" | "TypeMismatch"
-  readonly node: IrNode
-  readonly suggestion: string
+	readonly kind: "UnsupportedNode" | "InvalidStructure" | "TypeMismatch"
+	readonly node: IrNode
+	readonly suggestion: string
 }
 
-export type ProofError = ArchitectError<"proveProperty", [IrNode, PropertySpec]> & {
-  readonly kind: "ProofFailed" | "Timeout" | "Z3Error" | "InvalidProperty"
-  readonly counterexample?: Z3Model
-  readonly suggestion: string
-}
+export type ProofError =
+	& ArchitectError<"proveProperty", [IrNode, PropertySpec]>
+	& {
+		readonly kind: "ProofFailed" | "Timeout" | "Z3Error" | "InvalidProperty"
+		readonly counterexample?: Z3Model
+		readonly suggestion: string
+	}
 
-export type PropertyDetectionError = ArchitectError<"detectMathematicalProperties", [ParsedFunction]> & {
-  readonly kind: "AnalysisFailed" | "AmbiguousProperty" | "InsufficientData"
-  readonly functionName: string
-  readonly suggestion: string
-}
+export type PropertyDetectionError =
+	& ArchitectError<"detectMathematicalProperties", [ParsedFunction]>
+	& {
+		readonly kind: "AnalysisFailed" | "AmbiguousProperty" | "InsufficientData"
+		readonly functionName: string
+		readonly suggestion: string
+	}
 
-export type TestGenerationError = ArchitectError<"generateTestSuite", [ParsedFile, TestGenerationOptions]> & {
-  readonly kind: "NoFunctions" | "GenerationFailed" | "InvalidOptions"
-  readonly context?: Record<string, unknown>
-  readonly suggestion: string
-}
+export type TestGenerationError =
+	& ArchitectError<"generateTestSuite", [ParsedFile, TestGenerationOptions]>
+	& {
+		readonly kind: "NoFunctions" | "GenerationFailed" | "InvalidOptions"
+		readonly context?: Record<string, unknown>
+		readonly suggestion: string
+	}
 
-export type CoverageError = ArchitectError<"validateCoverage", [TestSuite, CoverageReport]> & {
-  readonly kind: "IncompleteCoverage" | "MissingTests" | "InvalidReport"
-  readonly uncoveredLines?: ReadonlyArray<number>
-  readonly uncoveredBranches?: ReadonlyArray<string>
-  readonly suggestion: string
-}
+export type CoverageError =
+	& ArchitectError<"validateCoverage", [TestSuite, CoverageReport]>
+	& {
+		readonly kind: "IncompleteCoverage" | "MissingTests" | "InvalidReport"
+		readonly uncoveredLines?: ReadonlyArray<number>
+		readonly uncoveredBranches?: ReadonlyArray<string>
+		readonly suggestion: string
+	}
 ```
 
 **Creating Errors:**
@@ -423,24 +458,29 @@ import { pipe } from "@sitebender/toolsmith/functional/pipe"
 
 // Example: Translation error
 const err = pipe(
-  fromTemplate("operationFailed")("translateToZ3")([irNode])(
-    "Z3 translation",
-    irNode.type
-  ),
-  withSuggestion(
-    "This IR node type is not yet supported for formal verification. Supported types: IsGreaterThan, IsLessThan, And, Or, Not. Consider using property-based testing instead."
-  )
+	fromTemplate("operationFailed")("translateToZ3")([irNode])(
+		"Z3 translation",
+		irNode.type,
+	),
+	withSuggestion(
+		"This IR node type is not yet supported for formal verification. Supported types: IsGreaterThan, IsLessThan, And, Or, Not. Consider using property-based testing instead.",
+	),
 )
 
 // Example: Coverage error with specific guidance
 const covErr = pipe(
-  fromTemplate("validationFailed")("validateCoverage")([testSuite, coverageReport])(
-    "coverage validation",
-    `${coverageReport.percentage}%`
-  ),
-  withSuggestion(
-    `Coverage is ${coverageReport.percentage}%, target is 100%. Uncovered lines: ${uncoveredLines.join(", ")}. Add tests for these lines or use deno-coverage-ignore with REASON.`
-  )
+	fromTemplate("validationFailed")("validateCoverage")([
+		testSuite,
+		coverageReport,
+	])(
+		"coverage validation",
+		`${coverageReport.percentage}%`,
+	),
+	withSuggestion(
+		`Coverage is ${coverageReport.percentage}%, target is 100%. Uncovered lines: ${
+			uncoveredLines.join(", ")
+		}. Add tests for these lines or use deno-coverage-ignore with REASON.`,
+	),
 )
 ```
 
@@ -595,6 +635,7 @@ const covErr = pipe(
   - [ ] Return `Promise<Result<WriteError, void>>`
   - [ ] Generate test file content
   - [ ] Write to filesystem
+
 ### Phase 11: Proof Optimization & Caching
 
 - [ ] Implement `src/cache/proofCache/index.ts`
@@ -730,14 +771,15 @@ const covErr = pipe(
   - [ ] Write optimization tests
 
 **Parallel Z3 Strategy:**
+
 ```typescript
 // Verify 100 functions in parallel with 10 workers
 const functions = await extractFunctions(library)
 
 const proofs = await verifyInParallel(functions)({
-  workers: 10,
-  timeoutPerFunction: 30000,  // 30s per function
-  totalTimeout: 300000         // 5min total
+	workers: 10,
+	timeoutPerFunction: 30000, // 30s per function
+	totalTimeout: 300000, // 5min total
 })
 
 // Each worker gets 30s, but total wall time is ~30s (not 3000s)
@@ -776,8 +818,8 @@ const proofs = await verifyInParallel(functions)({
 
 ### Phase 17: Integration and Testing
 
-  - [ ] Format with deno fmt
-  - [ ] Write tests
+- [ ] Format with deno fmt
+- [ ] Write tests
 - [ ] Implement test formatting
   - [ ] Generate imports
   - [ ] Generate test groups
@@ -838,6 +880,7 @@ const proofs = await verifyInParallel(functions)({
 ## Constitutional Rules Compliance
 
 **Every function MUST:**
+
 - ✅ Be curried (data last)
 - ✅ Use `function` keyword (NO arrows except type signatures)
 - ✅ Return new data (NO mutations)
@@ -848,16 +891,17 @@ const proofs = await verifyInParallel(functions)({
 - ✅ Export exactly ONE function as default on same line
 
 **Example of correct function structure:**
+
 ```typescript
 //++ Proves property about computation using Z3
 export default function proveProperty(computation: IrNode) {
-  return function proveWithComputation(
-    property: PropertySpec
-  ): Promise<Result<ProofError, ProofResult>> {
-    // Implementation using Toolsmith utilities
-    // NO loops, NO mutations, NO exceptions
-    // Return Result for proof errors
-  }
+	return function proveWithComputation(
+		property: PropertySpec,
+	): Promise<Result<ProofError, ProofResult>> {
+		// Implementation using Toolsmith utilities
+		// NO loops, NO mutations, NO exceptions
+		// Return Result for proof errors
+	}
 }
 ```
 
@@ -866,6 +910,7 @@ export default function proveProperty(computation: IrNode) {
 ## Error Message Guidelines
 
 **DO:**
+
 - Provide context: operation, arguments, what failed
 - Suggest fixes: "Try X" or "Check Y"
 - Include locations: file, line, column
@@ -873,6 +918,7 @@ export default function proveProperty(computation: IrNode) {
 - Use severity appropriately: warning/error/critical
 
 **DON'T:**
+
 - Scold the user
 - Use vague messages: "Error occurred"
 - Hide technical details
@@ -882,6 +928,7 @@ export default function proveProperty(computation: IrNode) {
 **Examples:**
 
 **Good:**
+
 ```
 proveProperty: Property "commutativity" failed for function "subtract"
 Counterexample: subtract(5, 3) = 2, but subtract(3, 5) = -2
@@ -889,11 +936,13 @@ Suggestion: Subtraction is not commutative. This is expected behavior. Remove th
 ```
 
 **Bad:**
+
 ```
 Error: Property failed
 ```
 
 **Good:**
+
 ```
 validateCoverage: Coverage is 87%, target is 100%
 Uncovered lines: 42, 57, 89
@@ -902,6 +951,7 @@ Suggestion: Add tests for these lines or use deno-coverage-ignore with REASON if
 ```
 
 **Bad:**
+
 ```
 Coverage incomplete
 ```
@@ -935,6 +985,7 @@ Coverage incomplete
 ## Performance Requirements
 
 Target performance:
+
 - Z3 proof (simple): <100ms
 - Z3 proof (complex): <1s
 - Property detection: <50ms per function
@@ -946,6 +997,7 @@ Target performance:
 **There are NO issue trackers. NO tickets. NO backlog.**
 
 **Process:**
+
 1. Hit a problem → Check this document first
 2. Still stuck → Present the problem to architect with:
    - Minimal reproduction code
@@ -959,6 +1011,7 @@ Target performance:
 **Speed is the advantage.** No coordination overhead, no approval chains, no waiting. Architect decides, AI implements, done.
 
 **If the problem reveals a design flaw:**
+
 - Propose design change
 - Get architect approval
 - Delete old approach completely
@@ -969,24 +1022,28 @@ Target performance:
 ## Integration with Ecosystem
 
 ### With Arborist
+
 - Receives ParsedFile with all metadata
 - Uses ParsedFunction for analysis
 - Uses body analysis (hasThrow, hasAwait, etc.)
 - Never parses TypeScript directly
 
 ### With Quarrier
+
 - Uses generators for test data
 - Leverages property-based testing
 - Shares property definitions
 - Uses shrinking for minimal counterexamples
 
 ### With Envoy
+
 - Provides mathematical property data
 - Provides proof results
 - Provides gotchas from counterexamples
 - Provides verification coverage metrics
 
 ### With Agent
+
 - Verifies distributed algorithm correctness (future)
 - Proves CRDT properties (future)
 - Validates consensus mechanisms (future)

@@ -84,7 +84,8 @@ export default function _validateDomainLabel(
 		}
 	}
 
-	const validLabelRegex = /^[\p{L}\p{N}][\p{L}\p{N}\p{M}\-]*[\p{L}\p{N}]$|^[\p{L}\p{N}]$/u
+	const validLabelRegex =
+		/^[\p{L}\p{N}][\p{L}\p{N}\p{M}\-]*[\p{L}\p{N}]$|^[\p{L}\p{N}]$/u
 
 	if (!validLabelRegex.test(label)) {
 		return error({

@@ -25,11 +25,13 @@ export const BINARY_OPERATOR_TO_OPERATION: Record<
 })
 
 //++ Maps parser unary operators to semantic operation names
-export const UNARY_OPERATOR_TO_OPERATION: Record<UnaryOperator, UnaryOperation> =
-	Object.freeze({
-		negate: "negate",
-		factorial: "factorial",
-	})
+export const UNARY_OPERATOR_TO_OPERATION: Record<
+	UnaryOperator,
+	UnaryOperation
+> = Object.freeze({
+	negate: "negate",
+	factorial: "factorial",
+})
 
 // ============================================================================
 // Mathematical Constants
