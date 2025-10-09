@@ -6,6 +6,7 @@ import type { Validation } from "~libraries/toolsmith/src/types/validation/index
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import type {
 	ImportBinding,
@@ -35,15 +36,19 @@ export default function extractImports(
 		},
 	)(moduleBody)
 
+	const importNodesArray = getOrElse([] as ReadonlyArray<unknown>)(importNodes)
+
 	// Extract details from each import node
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractImportDetails never fails (returns ParsedImport directly)
 	// Future: wrap extractImportDetails to return Validation and use validateAll
-	const imports = map(
+	const importsResult = map(
 		function extractDetails(node: unknown): ParsedImport {
 			return extractImportDetails(node)
 		},
-	)(importNodes)
+	)(importNodesArray)
+
+	const imports = getOrElse([] as ReadonlyArray<ParsedImport>)(importsResult)
 
 	// Return success with extracted imports
 	// When error handling is added, this will accumulate errors from failed extractions
@@ -176,7 +181,9 @@ function extractNamedBindings(
 	return function extractWithTypeFlag(
 		isTypeOnly: boolean,
 	): ReadonlyArray<ImportBinding> {
-		return map(function extractBinding(spec: unknown): ImportBinding {
+		const bindingsResult = map(function extractBinding(
+			spec: unknown,
+		): ImportBinding {
 			const specObj = spec as Record<string, unknown>
 			const specType = specObj.type as string
 
@@ -211,6 +218,7 @@ function extractNamedBindings(
 				isType: isTypeOnly,
 			}
 		})(specifiers)
+		return getOrElse([] as ReadonlyArray<ImportBinding>)(bindingsResult)
 	}
 }
 
