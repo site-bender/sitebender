@@ -254,6 +254,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: Valid hostname - domain name, localhost, IPv4 address, or IPv6 address
 **Location**: `newtypes/webTypes/hostname/`
 **Notes**:
+
 - Checks IPv4/IPv6 before domain to avoid accepting malformed IP addresses as domains
 - Normalizes localhost to lowercase using `toLocaleLowerCase()`
 - Normalizes domains to canonical form (NFC + toLowerCase)
@@ -279,6 +280,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 **Validation**: RFC 4122 UUID format (8-4-4-4-12 hexadecimal with hyphens) - accepts all versions (v1, v4, v5, etc.)
 **Location**: `newtypes/stringTypes/uuid/`
 **Notes**:
+
 - Case-insensitive input, normalized to lowercase using `toLocaleLowerCase()`
 - Accepts all UUID versions (v1, v4, v5, nil UUID)
 - Strict format validation (exactly 36 characters with hyphens at positions 8, 13, 18, 23)

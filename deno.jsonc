@@ -159,8 +159,6 @@
 			// Ensure pagewright' JSX globals are visible during workspace checks
 			"./libraries/pagewright/types/globals.d.ts",
 			"./libraries/pagewright/types/JSX/jsx-runtime.d.ts",
-			"./libraries/architect/src/rendering/types/globals.d.ts",
-			"./libraries/toolsmith/src/types/shims/temporal-compat.d.ts"
 		],
 		"strict": true,
 		"checkJs": false,
@@ -187,6 +185,7 @@
 		"~tests/": "./applications/mission-control/tests/",
 		"~types/": "./applications/mission-control/src/types/",
 		"~scripts/": "./scripts/",
+		"~libraries/toolsmith/": "./libraries/toolsmith/src/",
 		// Std lib and testing libs for workspace type-checks
 		"@std/expect": "jsr:@std/expect@^1.0.17",
 		"@std/assert": "jsr:@std/assert@^1.0.14",

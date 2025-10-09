@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/extractFunctions
 // Extracts all functions from a ParsedAst using Validation monad for error accumulation
 
-import type { Validation } from "~libraries/toolsmith/src/types/validation/index.ts"
+import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
@@ -11,7 +11,8 @@ import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import type { ParsedAst, ParsedFunction } from "../types/index.ts"
 import type { FunctionExtractionError } from "../types/errors/index.ts"
 
-import extractFunctionDetails from "../extractFunctionDetails/index.ts"
+import _isFunctionOrExportedFunction from "../_isFunctionOrExportedFunction/index.ts"
+import _extractDetails from "../_extractDetails/index.ts"
 
 //++ Extracts all functions from a ParsedAst
 //++ Returns Validation to accumulate extraction errors per function
@@ -24,33 +25,7 @@ export default function extractFunctions(
 	const moduleBody = ast.module.body as ReadonlyArray<unknown>
 
 	// Filter for function declarations and export declarations that wrap functions
-	const functionNodes = filter(
-		function isFunctionOrExportedFunction(node: unknown): boolean {
-			const nodeObj = node as Record<string, unknown>
-			const nodeType = nodeObj.type as string
-
-			// Direct function declarations
-			if (nodeType === "FunctionDeclaration") {
-				return true
-			}
-
-			// Export declarations that might wrap functions
-			if (nodeType === "ExportDeclaration") {
-				const decl = nodeObj.declaration as Record<string, unknown> | undefined
-				return decl?.type === "FunctionDeclaration"
-			}
-
-			// Default export declarations that might wrap functions
-			// Note: SWC uses FunctionExpression for "export default function name()"
-			if (nodeType === "ExportDefaultDeclaration") {
-				const decl = nodeObj.decl as Record<string, unknown> | undefined
-				return decl?.type === "FunctionDeclaration" ||
-					decl?.type === "FunctionExpression"
-			}
-
-			return false
-		},
-	)(moduleBody as unknown[])
+	const functionNodes = filter(_isFunctionOrExportedFunction)(moduleBody as unknown[])
 
 	const functionNodesArray = getOrElse([] as ReadonlyArray<unknown>)(
 		functionNodes,
@@ -60,11 +35,7 @@ export default function extractFunctions(
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractFunctionDetails never fails (returns ParsedFunction directly)
 	// Future: wrap extractFunctionDetails to return Validation and use validateAll
-	const functionsResult = map(
-		function extractDetails(node: unknown): ParsedFunction {
-			return extractFunctionDetails(node)
-		},
-	)(functionNodesArray)
+	const functionsResult = map(_extractDetails)(functionNodesArray)
 
 	const functions = getOrElse([] as ReadonlyArray<ParsedFunction>)(
 		functionsResult,

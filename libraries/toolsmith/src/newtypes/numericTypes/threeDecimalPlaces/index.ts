@@ -7,12 +7,16 @@ import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import _isThreeDecimalPlaces from "@sitebender/toolsmith/newtypes/threeDecimalPlaces/_isThreeDecimalPlaces/index.ts"
 
 //++ Smart constructor that validates and creates a ThreeDecimalPlaces - returns Result with helpful error on failure
-export default function threeDecimalPlaces(n: number): Result<ValidationError, ThreeDecimalPlaces> {
+export default function threeDecimalPlaces(
+	n: number,
+): Result<ValidationError, ThreeDecimalPlaces> {
 	if (!Number.isFinite(n)) {
 		return error({
 			code: "THREE_DECIMAL_PLACES_NOT_FINITE",
 			field: "threeDecimalPlaces",
-			messages: ["The system needs a finite number with at most 3 decimal places."],
+			messages: [
+				"The system needs a finite number with at most 3 decimal places.",
+			],
 			received: n,
 			expected: "Finite number with at most 3 decimal places",
 			suggestion:

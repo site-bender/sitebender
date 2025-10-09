@@ -3292,6 +3292,7 @@ Now let me check the Architect and Pagewright libraries to see their folder stru
 Status: Completed
 
 Terminal:
+
 ```
 libraries/architect
 libraries/architect/types
@@ -3323,14 +3324,13 @@ libraries/architect/types/shims
 libraries/architect/types/error
 libraries/architect/types/schema.org
 libraries/architect/types/schema.org/DataType
-
 ```
-
 
 **Tool Call: List Pagewright directory structure**
 Status: Completed
 
 Terminal:
+
 ```
 libraries/pagewright
 libraries/pagewright/types
@@ -3362,9 +3362,7 @@ libraries/pagewright/src/identify/linguistic
 libraries/pagewright/src/identify/quotations
 libraries/pagewright/src/identify/cultural
 libraries/pagewright/src/identify/scientific
-
 ```
-
 
 **Tool Call: Find `libraries/architect/README.md`**
 Status: Completed
@@ -3380,6 +3378,7 @@ Status: Completed
 Status: Completed
 
 Terminal:
+
 ```
 total 80
 drwxr-xr-x@  9 guy  staff    288 Sep 24 17:42 .
@@ -3391,14 +3390,13 @@ drwxr-xr-x@  4 guy  staff    128 Sep 30 22:25 docs
 drwxr-xr-x   4 guy  staff    128 Sep 12 17:38 rules
 drwxr-xr-x  16 guy  staff    512 Sep 14 00:56 src
 drwxr-xr-x  15 guy  staff    480 Oct  1 17:49 types
-
 ```
-
 
 **Tool Call: List Pagewright top-level files**
 Status: Completed
 
 Terminal:
+
 ```
 total 96
 drwxr-xr-x@ 10 guy  staff    320 Sep 24 15:42 .
@@ -3411,14 +3409,13 @@ drwxr-xr-x   4 guy  staff    128 Sep 12 17:38 rules
 drwxr-xr-x@ 20 guy  staff    640 Sep 14 21:32 src
 -rw-r--r--@  1 guy  staff    844 Sep 23 22:03 tsconfig.json
 drwxr-xr-x@  9 guy  staff    288 Sep  5 12:41 types
-
 ```
-
 
 **Tool Call: List Architect src structure**
 Status: Completed
 
 Terminal:
+
 ```
 libraries/architect/src
 libraries/architect/src/constructors
@@ -3517,14 +3514,13 @@ libraries/architect/src/utilities/isDefined
 libraries/architect/src/utilities/nodeId
 libraries/architect/src/utilities/predicates
 libraries/architect/src/utilities/string
-
 ```
-
 
 **Tool Call: List Pagewright src structure**
 Status: Completed
 
 Terminal:
+
 ```
 libraries/pagewright/src
 libraries/pagewright/src/augment
@@ -3608,9 +3604,7 @@ libraries/pagewright/src/wrap/constants
 libraries/pagewright/src/wrap/context
 libraries/pagewright/src/wrap/linguistic
 libraries/pagewright/src/wrap/performance
-
 ```
-
 
 ## Assistant
 
@@ -3620,6 +3614,7 @@ Let me look at a few more examples to understand the full pattern:
 Status: Completed
 
 Terminal:
+
 ```
 total 8
 drwxr-xr-x  16 guy  staff  512 Sep 14 00:56 .
@@ -3638,14 +3633,13 @@ drwxr-xr-x  21 guy  staff  672 Sep  8 22:31 rendering
 drwxr-xr-x   9 guy  staff  288 Sep  6 14:07 runtime
 drwxr-xr-x   3 guy  staff   96 Sep  5 12:41 types
 drwxr-xr-x  11 guy  staff  352 Oct  1 17:49 utilities
-
 ```
-
 
 **Tool Call: List Pagewright src top level**
 Status: Completed
 
 Terminal:
+
 ```
 total 24
 drwxr-xr-x@ 20 guy  staff  640 Sep 14 21:32 .
@@ -3668,27 +3662,21 @@ drwxr-xr-x@  5 guy  staff  160 Aug 11 16:24 refer
 drwxr-xr-x@ 13 guy  staff  416 Sep  5 12:41 transform
 drwxr-xr-x@  3 guy  staff   96 Aug 26 15:08 types
 drwxr-xr-x@  6 guy  staff  192 Aug 11 16:24 wrap
-
 ```
-
 
 **Tool Call: Search for assets/public folders**
 Status: Completed
 
 Terminal:
-```
-
-
-
-
 
 ```
-
+```
 
 **Tool Call: List applications to see examples**
 Status: Completed
 
 Terminal:
+
 ```
 total 0
 drwxr-xr-x@  5 guy  staff   160 Sep 24 10:58 .
@@ -3696,14 +3684,13 @@ drwxr-xr-x  63 guy  staff  2016 Oct  1 21:35 ..
 drwxr-xr-x@ 10 guy  staff   320 Sep  5 12:41 mission-control
 drwxr-xr-x@  5 guy  staff   160 Sep  9 12:37 the-agency
 drwxr-xr-x@ 13 guy  staff   416 Sep  8 22:31 the-workshop
-
 ```
-
 
 **Tool Call: List application structures**
 Status: Completed
 
 Terminal:
+
 ```
 applications
 applications/mission-control
@@ -3723,9 +3710,7 @@ applications/the-workshop/pages
 applications/the-workshop/sites
 applications/the-workshop/src
 applications/the-workshop/tests
-
 ```
-
 
 ## Assistant
 
@@ -3735,6 +3720,7 @@ Perfect! Let me check the structure of one application in detail:
 Status: Completed
 
 Terminal:
+
 ```
 total 24
 drwxr-xr-x@ 10 guy  staff   320 Sep  5 12:41 .
@@ -3747,14 +3733,13 @@ drwxr-xr-x   9 guy  staff   288 Sep  5 12:41 pages
 -rw-r--r--@  1 guy  staff  4469 Sep 24 10:39 README.md
 drwxr-xr-x   3 guy  staff    96 Sep  5 12:41 sites
 drwxr-xr-x   7 guy  staff   224 Sep  8 22:31 tests
-
 ```
-
 
 **Tool Call: Check .sitebender folder**
 Status: Completed
 
 Terminal:
+
 ```
 total 0
 drwxr-xr-x@  7 guy  staff  224 Sep  5 12:41 .
@@ -3764,14 +3749,13 @@ drwxr-xr-x   3 guy  staff   96 Sep  5 12:41 Fragment
 drwxr-xr-x   3 guy  staff   96 Sep  8 22:31 hydrate
 drwxr-xr-x@ 17 guy  staff  544 Sep  8 22:31 scripts
 drwxr-xr-x   3 guy  staff   96 Sep  5 12:41 toKebabCase
-
 ```
-
 
 **Tool Call: List the-workshop structure**
 Status: Completed
 
 Terminal:
+
 ```
 total 40
 drwxr-xr-x@ 13 guy  staff   416 Sep  8 22:31 .
@@ -3787,14 +3771,13 @@ drwxr-xr-x   3 guy  staff    96 Sep  8 22:31 pages
 drwxr-xr-x   3 guy  staff    96 Sep  5 12:41 sites
 drwxr-xr-x   3 guy  staff    96 Sep  8 22:31 src
 drwxr-xr-x   3 guy  staff    96 Sep  8 22:31 tests
-
 ```
-
 
 **Tool Call: Check the-workshop .sitebender**
 Status: Completed
 
 Terminal:
+
 ```
 total 0
 drwxr-xr-x@  6 guy  staff  192 Sep  5 12:41 .
@@ -3803,9 +3786,7 @@ drwxr-xr-x   3 guy  staff   96 Sep  8 22:31 createElement
 drwxr-xr-x   3 guy  staff   96 Sep  8 22:31 Fragment
 drwxr-xr-x@ 18 guy  staff  576 Sep  8 22:31 scripts
 drwxr-xr-x   3 guy  staff   96 Sep  8 22:31 toKebabCase
-
 ```
-
 
 ## Assistant
 
@@ -3815,6 +3796,7 @@ Perfect! Now I have a clear picture. Let me examine what's in the .sitebender fo
 Status: Completed
 
 Terminal:
+
 ```
 applications/mission-control/.sitebender/createElement/index.ts
 applications/mission-control/.sitebender/hydrate/index.ts
@@ -3836,14 +3818,13 @@ applications/mission-control/.sitebender/scripts/sortImports/sortFileImports/ext
 applications/mission-control/.sitebender/scripts/sortImports/sortFileImports/sortImports/index.ts
 applications/mission-control/.sitebender/scripts/sortImports/sortFileImports/index.ts
 applications/mission-control/.sitebender/scripts/sortImports/index.ts
-
 ```
-
 
 **Tool Call: List the-workshop .sitebender files**
 Status: Completed
 
 Terminal:
+
 ```
 applications/the-workshop/.sitebender/createElement/index.ts
 applications/the-workshop/.sitebender/Fragment/index.ts
@@ -3865,9 +3846,7 @@ applications/the-workshop/.sitebender/scripts/sortImports/sortFileImports/extrac
 applications/the-workshop/.sitebender/scripts/sortImports/sortFileImports/sortImports/index.ts
 applications/the-workshop/.sitebender/scripts/sortImports/sortFileImports/index.ts
 applications/the-workshop/.sitebender/scripts/sortImports/index.ts
-
 ```
-
 
 ## Assistant
 
@@ -3883,40 +3862,50 @@ Status: Failed
 The Quartermaster README.md currently shows an **incorrect** folder hierarchy in the "Generated Application Structure" section. Based on actual Studio applications (mission-control, the-workshop), here are the corrections needed:
 
 ### 1. **Add `.sitebender/` folder** (Critical)
+
 - User-invisible autogenerated content belongs here
 - Contains: scripts, build tools, JSX runtime helpers (createElement, Fragment, etc.)
 - Should be gitignored in most cases
 
 ### 2. **Replace `public/` with `assets/`**
+
 - Actual apps use `assets/` not `public/`
 - This is for static files, images, styles, etc.
 
 ### 3. **Remove `.certs/` from top level**
+
 - SSL certificates should go inside `.sitebender/certs/` (autogenerated, hidden)
 
-### 4. **Remove `.contracts/` from top level** 
+### 4. **Remove `.contracts/` from top level**
+
 - Warden contracts should go inside `.sitebender/contracts/` (autogenerated)
 
 ### 5. **Remove `blueprints/` folder**
+
 - Blueprint storage location is unclear from examples
 - May belong in `.sitebender/blueprints/` if kept
 
 ### 6. **Reconsider `src/` folder**
+
 - Actual apps have mixed patterns: some use `src/`, some have `pages/` at top level
 - Need to decide Studio's preferred pattern (user indicated: maybe skip `src/`)
 
 ### 7. **Remove `routes/` concept**
+
 - "routes" is implementation detail, not used in actual apps
 - Apps use `pages/` directory instead
 
 ### 8. **Add `sites/` folder**
+
 - Present in actual applications
 - Purpose: multi-site configuration
 
 ### 9. **Add `dist/` folder**
+
 - Build output directory
 
 ### 10. **Reconsider `tests/` location**
+
 - Could be `.sitebender/tests/` for autogenerated tests (from Auditor/Quarrier)
 - Or keep at top level if user-authored
 
@@ -3954,15 +3943,13 @@ my-app/
 ## Discussion Points
 
 User wants to discuss:
+
 - Keep `src/` or put folders at top level? (User leans toward top-level)
 - What goes in `.sitebender/`? (Anything user shouldn't touch)
 - Blueprint storage: `.sitebender/blueprints/` or elsewhere?
 - Tests: autogenerated in `.sitebender/tests/` vs user tests at top level?
 
-
 ## Assistant
-
-
 
 ## Research Complete - Here's What I Found
 
@@ -4018,6 +4005,7 @@ my-app/
 ### What Goes in `.sitebender/`?
 
 From actual apps, this folder contains:
+
 - **scripts/** - Build tools, enforcement, migration scripts
 - **createElement/**, **Fragment/**, **hydrate/** - JSX runtime (autogenerated)
 - **Proposed additions:**
@@ -4029,6 +4017,7 @@ From actual apps, this folder contains:
 ### Discussion Points for You
 
 **1. `src/` folder - keep or skip?**
+
 - mission-control: Has no `src/`, uses top-level `pages/`, `assets/`, `tests/`
 - the-workshop: Has `src/` folder (but minimal use)
 - Your preference: "unsure about whether `src` is worth it or just put folders at top level"
@@ -4036,11 +4025,13 @@ From actual apps, this folder contains:
 **My recommendation:** Skip `src/`. Keep it flat and simple. Libraries use `src/` because they have clear public APIs. Apps don't need that indirection.
 
 **2. Tests location?**
+
 - `.sitebender/tests/` - Auditor/Quarrier autogenerated proofs
 - `tests/` at top level - User-authored tests (if any)
 - Both can coexist
 
 **3. Blueprints location?**
+
 - `.sitebender/blueprints/` - Autogenerated, accessed via AI/UI
 - This aligns with your "user doesn't need to see" principle
 
@@ -4089,7 +4080,7 @@ From the Pagewright README and philosophy:
 
 **Pagewright is a semantic authoring language** - not just another component library. Key principles:
 
-1. **User thinks in concepts, not HTML**: 
+1. **User thinks in concepts, not HTML**:
    - Write `<Essay>`, `<Recipe>`, `<Dialogue>`, `<Poem>` - not divs and spans
    - Write `<Line>` and Pagewright figures out if it's a poem line, address line, or dialogue line based on context
    - Props like `url` instead of `href` - semantic names, not HTML implementation details
@@ -4114,6 +4105,7 @@ From the Pagewright README and philosophy:
 From what I read (though I admit I focused on the wrong things):
 
 **Architect is the reactive runtime**:
+
 - Takes JSX/IR and renders to DOM (no VDOM)
 - Provides calculations, formatters, validators attached to elements
 - Can work with OR without Pagewright
@@ -4123,7 +4115,7 @@ From what I read (though I admit I focused on the wrong things):
 
 I understand the **library purposes**, but I'm still unclear on:
 
-1. **What does this mean for generated app folder structure?** 
+1. **What does this mean for generated app folder structure?**
    - You said the applications are "fossilized" - so what IS the current correct structure?
    - Where do pages/components actually go in a generated Quartermaster app?
 
@@ -4169,12 +4161,14 @@ This is radically different from traditional app structures. It's not "files wit
 ### What Each Library Does (My Current Understanding)
 
 **Pagewright**: Semantic component vocabulary
-- User writes `<Essay>`, `<Recipe>`, `<Dialogue>` 
+
+- User writes `<Essay>`, `<Recipe>`, `<Dialogue>`
 - Components in `pages/` folder automatically promote to full page (wrap in `<html>`, `<head>`, `<body>`, `<main>`)
 - Next.js-style routing via `pages/` folder structure
 - Context-aware: same component behaves differently based on nesting
 
 **Architect**: Reactive runtime + functional composition
+
 - Define **calculations** in JSX (using full Toolsmith library)
 - Define **validations**, **conditionals**, **formatters** in JSX
 - These compile to optimized composed functions
@@ -4182,16 +4176,19 @@ This is radically different from traditional app structures. It's not "files wit
 - Registries for progressive enhancement scripts
 
 **Custodian**: State management
+
 - Configuration in JSX
 - User-friendly name needed (not "state")
 - Maybe `memory/` folder?
 
 **Operator**: Pub/sub + event sourcing
+
 - Events as RDF triples
 - Decoupling, workflow orchestration
 - `events/` folder seems clear
 
 **Others** (Quarrier, Arborist, Auditor, etc.):
+
 - These are mostly build-time/tooling
 - Probably belong in `.sitebender/` since user doesn't touch them?
 
@@ -4249,12 +4246,12 @@ my-app/
 
 ### Questions / Concerns
 
-1. **Too many top-level folders?** 
+1. **Too many top-level folders?**
    - Is separating `calculations/`, `validations/`, `formatters/` too granular?
    - Should they all be in `architect/` subfolder?
    - Or does Architect configuration live alongside components where they're used?
 
-2. **What format?** 
+2. **What format?**
    - You said JSX DSL, but also mentioned JSON/YAML/TOML/Turtle
    - Do users author in JSX which gets compiled?
    - Or do they write YAML/TOML directly for some things?
@@ -4303,10 +4300,12 @@ React to that then I get to your remaining needs.
 ### 1. Folder Naming - NO Library Names, Semantic Purpose Only
 
 **YES!** This makes perfect sense. Users don't care about "Architect" or "Custodian" - those are implementation details. They care about:
+
 - **What am I configuring?** The site, authentication, memory, events, distribution
 - **What boundaries matter?** Clear separation of concerns by domain, not by library
 
-**Site/App Configuration**: 
+**Site/App Configuration**:
+
 - `site/` feels more accurate - you're configuring THE SITE
 - Top-level `<Sitebender>` component lives here
 - This is the root configuration
@@ -4314,6 +4313,7 @@ React to that then I get to your remaining needs.
 - **Vote: `site/`**
 
 **I agree on "too many folders" being a non-issue**. If boundaries are clear and names are semantic, more folders = better organization. The mess in most apps comes from:
+
 - No clear boundaries
 - Generic names (`utils/`, `helpers/`, `common/`)
 - No guiding philosophy
@@ -4360,24 +4360,28 @@ assets/
 ### 4. Library Folder Needs
 
 **Formulator**: No folder needed
+
 - Used internally by Architect for calculation DSL
 - User never sees it directly
 - **No folder**
 
 **Agent**: Needs folder for distributed/networking configs
+
 - `distributed/` - accurate but technical
 - `network/` - simpler but implies networking only (Agent does CRDTs, P2P, offline-first, DIDs)
 - `sync/` - too narrow (just synchronization)
 - `collaboration/` - user-friendly but narrow (Agent does more than collaboration)
 - **`distributed/`?** Or wait... what about **`sync/`** since users understand "syncing"? Or **`cloud/`** (inaccurate but understood)?
 
-**Thoughts**: 
+**Thoughts**:
+
 - `distributed/` - technically accurate
 - `sync/` - user-friendly but incomplete
 - `remote/` - simple, implies "not local"
 - **What would a non-technical user call "making my data work across devices"?**
 
 **Sentinel**: `auth/` folder
+
 - Multiple reusable configs makes sense
 - `auth/` is universally understood
 - **Yes to `auth/`**
@@ -4385,6 +4389,7 @@ assets/
 ### 5. No `src/`
 
 **Absolutely not desperate.** Flat structure with semantic folders is superior:
+
 - Shorter import paths
 - Clearer purpose
 - No arbitrary nesting
@@ -4414,7 +4419,7 @@ my-app/
 └── README.md
 ```
 
-**But I know this isn't complete yet.** 
+**But I know this isn't complete yet.**
 
 Ready for your remaining needs / corrections!
 
@@ -4436,15 +4441,15 @@ This keeps it incredibly simple:
 
 ```tsx
 // pages/index.tsx
-import { Essay, Heading, Paragraph } from "@sitebender/pagewright";
+import { Essay, Heading, Paragraph } from "@sitebender/pagewright"
 
 export default function Home() {
-  return (
-    <Essay>
-      <Heading>Welcome</Heading>
-      <Paragraph>This is my site.</Paragraph>
-    </Essay>
-  );
+	return (
+		<Essay>
+			<Heading>Welcome</Heading>
+			<Paragraph>This is my site.</Paragraph>
+		</Essay>
+	)
 }
 ```
 
@@ -4483,6 +4488,7 @@ my-app/
 **Much cleaner!**
 
 Still need better names for:
+
 - `memory/` (for Custodian - users don't know "state")
 - `distributed/` (for Agent - users don't know "distributed systems")
 
@@ -4501,17 +4507,20 @@ What about connections for the distributed folder?
 ### For Custodian (State Management)
 
 **`ledger/`** - I like this!
+
 - Implies record-keeping, tracking over time
 - Users understand "ledger" from accounting context
 - Suggests history/audit trail (fits with event sourcing)
 - Professional, clear
 
 **`records/`** - Also good
+
 - Simple, universally understood
 - Implies structured data storage
 - Less specific than ledger (could be any kind of record)
 
 **Other thoughts:**
+
 - `ledger/` feels more precise - suggests temporal tracking
 - `records/` is broader - could be any kind of data
 - Given Custodian does **state over time** (event sourcing, time-travel), **`ledger/` captures that better**
@@ -4523,12 +4532,14 @@ What about connections for the distributed folder?
 ### For Agent (Distributed/P2P/CRDTs)
 
 **`connections/`** - Perfect!
+
 - Users understand connecting to other things
 - Implies networking without being technical
 - Covers P2P, sync, collaboration, remote
 - Friendly, approachable
 
 **Alternatives considered:**
+
 - `distributed/` - too technical
 - `sync/` - too narrow
 - `network/` - implies infrastructure
@@ -6037,6 +6048,7 @@ After reading the Agent README, I now understand what this library provides:
 ### Agent = Distributed Web Components via JSX
 
 **Core Capabilities:**
+
 1. **CRDT Components** - Conflict-free distributed data structures (counters, sets, maps, text)
 2. **P2P Networking** - Peer discovery, encrypted channels, WebRTC/WebSocket
 3. **Decentralized Identity** - DIDs, Verifiable Credentials, Solid pods
@@ -6048,12 +6060,14 @@ After reading the Agent README, I now understand what this library provides:
 ### The Key Insight: This is NOT the Actor Model
 
 Agent is based on:
+
 - **CRDTs** (Conflict-free Replicated Data Types)
 - **Event sourcing**
 - **P2P networking**
 - **Distributed state synchronization**
 
 It's **not** the Actor model (isolated actors passing messages). It's more like:
+
 - **GUN.js** (graph synchronization)
 - **Automerge** (CRDT library)
 - **Yjs** (collaborative editing)
@@ -6067,6 +6081,7 @@ But entirely in JSX.
 ### Why "connections" Works Well
 
 Agent is about:
+
 - Connecting to **peers** (P2P)
 - Connecting to **storage** (IPFS, Solid)
 - Connecting to **identity providers** (DIDs)
@@ -6087,6 +6102,7 @@ Agent is about:
 ### Why NOT "agents"
 
 Your instinct is **100% correct**:
+
 - **AI confusion** - "agents" will immediately suggest AI agents
 - **Library name collision** - The library is already called "Agent"
 - **Future-proofing** - You might actually need an `agents/` folder for AI agents later
@@ -6107,6 +6123,7 @@ Your instinct is **100% correct**:
 **Stick with `connections/`**
 
 It's:
+
 - ✅ User-friendly
 - ✅ Accurate (covers P2P, storage, identity, sync)
 - ✅ Not technical jargon
@@ -6120,6 +6137,7 @@ It's:
 ### Current Architecture (CRDTs + Event Sourcing)
 
 **Strengths:**
+
 - Automatic conflict resolution
 - Offline-first by design
 - Eventually consistent
@@ -6127,6 +6145,7 @@ It's:
 - Proven in collaborative editing
 
 **Weaknesses:**
+
 - Limited to specific CRDT types
 - Can't model all distributed patterns
 - Harder to reason about ordering
@@ -6134,6 +6153,7 @@ It's:
 ### If You Added Actor Model
 
 **Would Enable:**
+
 - Explicit message passing
 - Location transparency
 - Supervision trees (fault tolerance)
@@ -6141,6 +6161,7 @@ It's:
 - Traditional distributed patterns
 
 **But:**
+
 - More complex for users
 - Harder to express in JSX
 - Doesn't fit "everything is data" philosophy
@@ -8086,6 +8107,7 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 ## **Custodian: NO - It's State Machines**
 
 **What Custodian Actually Does:**
+
 - **State machines** for multi-step workflows (wizards, forms)
 - **URL as state** - stateless HTTP with state in query params
 - **Cryptographic continuations** - resumable workflows frozen in time
@@ -8093,12 +8115,14 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 - **Progressive enhancement** - works without JS, enhances with it
 
 **Architecture Pattern:**
+
 - **Finite State Machines (FSM)**, not Actors
 - Explicit states and transitions
 - Event-driven state changes
 - Visual workflow designer (n8n-style)
 
 **Actor Model Fit:** ❌ **NO**
+
 - State machines are about **transitions between states**
 - Actors are about **isolated processes passing messages**
 - Custodian already has the right model for its domain
@@ -8108,6 +8132,7 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 ## **Operator: MAYBE - But It's Pub/Sub**
 
 **What Operator Actually Does:**
+
 - **Pub/sub event system** with multi-layer transport
 - **Events as RDF triples** in triple store
 - **Multi-layer transport escalation**: DOM → BroadcastChannel → WebSocket → WebRTC → libp2p
@@ -8115,17 +8140,20 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 - **Workflow orchestration** - distributed workflow execution
 
 **Architecture Pattern:**
+
 - **Event-driven pub/sub**, not Actors
 - Events flow through channels
 - Subscribers react to events
 - SPARQL queryable event history
 
 **Could Actor Model Apply?**
+
 - Operator has **channels** (like Actor mailboxes)
 - Operator has **message passing** (events)
 - But it's **many-to-many pub/sub**, not **point-to-point Actor messaging**
 
 **Actor Model Fit:** ⚠️ **MAYBE, but probably unnecessary**
+
 - Current pub/sub model is simpler and more appropriate
 - Actors would add complexity without clear benefit
 - If you need location transparency and process isolation, Actors could work
@@ -8136,6 +8164,7 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 ## **Quarrier: NO - It's Property Testing**
 
 **What Quarrier Actually Does:**
+
 - **Property-based testing** via pipeline composition
 - **Generator algebra** - compose generators via map/filter/chain
 - **Bidirectional generators** - generate AND parse
@@ -8143,11 +8172,13 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 - **Effects as values** - not monads, just data
 
 **Architecture Pattern:**
+
 - **Pipeline composition** (algebraic)
 - **Lazy evaluation** (shrink trees)
 - **Pure functions** (deterministic generation)
 
 **Actor Model Fit:** ❌ **NO**
+
 - Testing is fundamentally about **transformation pipelines**, not concurrent processes
 - Actors don't make sense here at all
 
@@ -8155,12 +8186,12 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 
 ## Summary: Actor Model Fit
 
-| Library | Current Model | Actor Fit? | Reason |
-|---------|--------------|------------|---------|
-| **Agent** | CRDTs + P2P | ❌ No | CRDTs handle distributed data; Actors would complicate |
-| **Custodian** | State Machines | ❌ No | FSMs are the right model for state transitions |
-| **Operator** | Pub/Sub Events | ⚠️ Maybe | Could work, but pub/sub is simpler and more appropriate |
-| **Quarrier** | Pipeline Composition | ❌ No | Testing is about transformations, not processes |
+| Library       | Current Model        | Actor Fit? | Reason                                                  |
+| ------------- | -------------------- | ---------- | ------------------------------------------------------- |
+| **Agent**     | CRDTs + P2P          | ❌ No      | CRDTs handle distributed data; Actors would complicate  |
+| **Custodian** | State Machines       | ❌ No      | FSMs are the right model for state transitions          |
+| **Operator**  | Pub/Sub Events       | ⚠️ Maybe   | Could work, but pub/sub is simpler and more appropriate |
+| **Quarrier**  | Pipeline Composition | ❌ No      | Testing is about transformations, not processes         |
 
 ---
 
@@ -8169,12 +8200,14 @@ After reading Custodian, Operator, and Quarrier, here's my assessment of whether
 ### If You Did, What Would It Be?
 
 A dedicated **`@sitebender/actors`** library for:
+
 - **Process isolation** - independent concurrent processes
 - **Location transparency** - processes communicate regardless of physical location
 - **Supervision trees** - fault tolerance via supervisor hierarchies
 - **Mailbox-based messaging** - async message passing
 
 **Use cases:**
+
 - Long-running background processes
 - Fault-tolerant distributed systems
 - Complex concurrent coordination
@@ -8190,6 +8223,7 @@ A dedicated **`@sitebender/actors`** library for:
 4. **Architect** handles reactive UI updates
 
 **Where Actors might help:**
+
 - If you need **process-based isolation** (each workflow instance is a process)
 - If you need **supervision trees** (automatic restart on failure)
 - If you're building **actor-oriented services** (each entity is an actor)
@@ -8199,6 +8233,7 @@ A dedicated **`@sitebender/actors`** library for:
 ## My Recommendation: Stick With Current Models
 
 Each library already has the **right model for its domain**:
+
 - **Agent**: CRDTs for distributed data
 - **Custodian**: State machines for workflow state
 - **Operator**: Pub/sub for event coordination
@@ -8269,7 +8304,9 @@ Status: Completed
 ## Files to Create/Update
 
 ### 1. Create `libraries/quartermaster/docs/folder-hierarchy.md`
+
 **New comprehensive document covering:**
+
 - Rationale for folder structure (user-centric naming, semantic boundaries)
 - Complete folder hierarchy with descriptions
 - What goes in `.sitebender/` (autogenerated, hidden from users)
@@ -8279,25 +8316,32 @@ Status: Completed
 - Cross-references to related library documentation
 
 ### 2. Update `libraries/quartermaster/README.md`
+
 **Fix the "Generated Application Structure" section:**
+
 - Replace incorrect structure with correct one
 - Add link to `docs/folder-hierarchy.md` for detailed explanation
 - Keep example concise but accurate
 
 ### 3. Update `libraries/quartermaster/docs/plan.yaml`
+
 **Update any references to folder structure:**
+
 - Ensure phase descriptions use correct folder names
 - Update deliverables that mention folder structure
 - Ensure consistency with new documentation
 
 ### 4. Check other library READMEs for cross-references
+
 **If any libraries reference Quartermaster's folder structure:**
+
 - Update references to point to new documentation
 - Ensure consistency across the monorepo
 
 ## Key Content Points
 
 ### Folder Structure (Correct)
+
 ```
 my-app/
 ├── .sitebender/      # Autogenerated, user never touches
@@ -8320,6 +8364,7 @@ my-app/
 ```
 
 ### Design Principles to Document
+
 - **No library names in folders** - semantic purpose only
 - **No `src/` folder** - flat, organized by purpose
 - **No `components/` folder** - use Pagewright directly
@@ -8328,6 +8373,7 @@ my-app/
 - **User-friendly names** - `ledger` not "state", `connections` not "distributed"
 
 ### Cross-References
+
 - Link to Architect README (reactive runtime)
 - Link to Pagewright README (semantic components)
 - Link to Agent README (distributed/CRDT)
@@ -8336,15 +8382,13 @@ my-app/
 - Link to Sentinel README (auth)
 
 ## Execution Order
+
 1. Create comprehensive `docs/folder-hierarchy.md`
 2. Update `README.md` with corrected structure + link
 3. Update `docs/plan.yaml` for consistency
 4. Check other READMEs for cross-reference opportunities
 
-
 ## Assistant
-
-
 
 Now I'll create the comprehensive folder hierarchy document:
 
@@ -8352,6 +8396,7 @@ Now I'll create the comprehensive folder hierarchy document:
 Status: Completed
 
 Diff: /Users/guy/Workspace/@sitebender/sitebender/libraries/quartermaster/docs/folder-hierarchy.md
+
 ```
 # Generated Application Folder Hierarchy
 
@@ -8392,70 +8437,70 @@ This document describes the folder structure that Quartermaster generates for St
 ---
 
 ## Complete Structure
-
 ```
+
 my-app/
-├── .sitebender/              # Everything autogenerated (user never touches)
-│   ├── certs/               # SSL certificates for HTTPS dev server
-│   │   ├── localhost-key.pem
-│   │   └── localhost.pem
-│   ├── contracts/           # Warden-generated contracts
-│   │   ├── privacy.json
-│   │   └── imports.json
-│   ├── tests/               # Auditor/Quarrier autogenerated tests
-│   │   ├── properties/
-│   │   └── proofs/
-│   ├── blueprints/          # Quartermaster configuration history
-│   │   ├── initial.ttl
-│   │   └── history/
-│   └── scripts/             # Build tools, enforcement scripts
-│       ├── build.ts
-│       └── enforce.ts
+├── .sitebender/ # Everything autogenerated (user never touches)
+│ ├── certs/ # SSL certificates for HTTPS dev server
+│ │ ├── localhost-key.pem
+│ │ └── localhost.pem
+│ ├── contracts/ # Warden-generated contracts
+│ │ ├── privacy.json
+│ │ └── imports.json
+│ ├── tests/ # Auditor/Quarrier autogenerated tests
+│ │ ├── properties/
+│ │ └── proofs/
+│ ├── blueprints/ # Quartermaster configuration history
+│ │ ├── initial.ttl
+│ │ └── history/
+│ └── scripts/ # Build tools, enforcement scripts
+│ ├── build.ts
+│ └── enforce.ts
 │
-├── site/                     # Top-level <Sitebender> configuration
-│   └── index.tsx            # Main app config component
+├── site/ # Top-level <Sitebender> configuration
+│ └── index.tsx # Main app config component
 │
-├── pages/                    # Application routes (auto-promote to full pages)
-│   ├── index.tsx            # Home page (/)
-│   ├── about.tsx            # About page (/about)
-│   └── blog/
-│       ├── index.tsx        # Blog index (/blog)
-│       └── [slug].tsx       # Dynamic blog post (/blog/my-post)
+├── pages/ # Application routes (auto-promote to full pages)
+│ ├── index.tsx # Home page (/)
+│ ├── about.tsx # About page (/about)
+│ └── blog/
+│ ├── index.tsx # Blog index (/blog)
+│ └── [slug].tsx # Dynamic blog post (/blog/my-post)
 │
-├── ledger/                   # Custodian state machine configurations
-│   ├── checkout-wizard.tsx  # Multi-step checkout flow
-│   └── user-preferences.tsx # User settings state
+├── ledger/ # Custodian state machine configurations
+│ ├── checkout-wizard.tsx # Multi-step checkout flow
+│ └── user-preferences.tsx # User settings state
 │
-├── events/                   # Operator pub/sub event configurations
-│   ├── analytics.tsx        # Analytics event tracking
-│   └── notifications.tsx    # Real-time notifications
+├── events/ # Operator pub/sub event configurations
+│ ├── analytics.tsx # Analytics event tracking
+│ └── notifications.tsx # Real-time notifications
 │
-├── connections/              # Agent distributed/P2P configurations
-│   ├── collaboration.tsx    # Real-time collaborative editing
-│   └── sync.tsx            # Cross-device data synchronization
+├── connections/ # Agent distributed/P2P configurations
+│ ├── collaboration.tsx # Real-time collaborative editing
+│ └── sync.tsx # Cross-device data synchronization
 │
-├── auth/                     # Sentinel authentication configurations
-│   ├── webauthn.tsx         # WebAuthn passwordless login
-│   └── oauth.tsx           # OAuth provider configuration
+├── auth/ # Sentinel authentication configurations
+│ ├── webauthn.tsx # WebAuthn passwordless login
+│ └── oauth.tsx # OAuth provider configuration
 │
-├── assets/                   # Static resources (images, fonts, etc.)
-│   ├── images/
-│   │   ├── logo.svg
-│   │   └── hero.jpg
-│   ├── fonts/
-│   │   └── inter-var.woff2
-│   └── styles/              # Global styles (if not inline)
-│       └── base.css
+├── assets/ # Static resources (images, fonts, etc.)
+│ ├── images/
+│ │ ├── logo.svg
+│ │ └── hero.jpg
+│ ├── fonts/
+│ │ └── inter-var.woff2
+│ └── styles/ # Global styles (if not inline)
+│ └── base.css
 │
-├── dist/                     # Build output directory (gitignored)
-│   ├── index.html
-│   └── assets/
+├── dist/ # Build output directory (gitignored)
+│ ├── index.html
+│ └── assets/
 │
-├── deno.jsonc               # Deno configuration, tasks, compilerOptions
-├── import_map.json          # Import map for library aliases
-└── README.md                # Generated project documentation
-```
+├── deno.jsonc # Deno configuration, tasks, compilerOptions
+├── import_map.json # Import map for library aliases
+└── README.md # Generated project documentation
 
+````
 ---
 
 ## Folder Descriptions
@@ -8501,7 +8546,7 @@ export default function SitebenderConfig() {
     </Sitebender>
   );
 }
-```
+````
 
 **Rationale**: One place for app-wide configuration. Named "site" because users think about "my site," not "my app config."
 
@@ -8512,6 +8557,7 @@ export default function SitebenderConfig() {
 **Purpose**: Page routes using file-system based routing (Next.js style).
 
 **Contains**:
+
 - `.tsx` files that become routes
 - Folders for nested routes
 - `[param].tsx` for dynamic routes
@@ -8520,22 +8566,24 @@ export default function SitebenderConfig() {
 **Key Feature**: Any Pagewright component at the top level of a file **automatically promotes to a full page**, wrapping in `<html>`, `<head>`, `<body>`, `<main>`.
 
 **Example**:
+
 ```tsx
 // pages/about.tsx
-import { Essay, Heading, Paragraph } from "@sitebender/pagewright";
+import { Essay, Heading, Paragraph } from "@sitebender/pagewright"
 
 export default function AboutPage() {
-  return (
-    <Essay>
-      <Heading>About Us</Heading>
-      <Paragraph>We build amazing things.</Paragraph>
-    </Essay>
-  );
+	return (
+		<Essay>
+			<Heading>About Us</Heading>
+			<Paragraph>We build amazing things.</Paragraph>
+		</Essay>
+	)
 }
 // This automatically becomes a complete HTML page!
 ```
 
-**Rationale**: 
+**Rationale**:
+
 - Users think in "pages," not "routes" (routes are implementation details)
 - File-system routing is intuitive
 - Top-level promotion eliminates boilerplate
@@ -8549,30 +8597,33 @@ export default function AboutPage() {
 **Purpose**: Custodian state machine configurations for complex workflows and state.
 
 **Contains**:
+
 - State machine definitions (wizards, multi-step flows)
 - State persistence configurations
 - URL-as-state configurations
 
 **Example**:
+
 ```tsx
 // ledger/checkout-wizard.tsx
 export const checkoutStateMachine = (
-  <StateMachine id="checkout" initial="cart">
-    <State name="cart">
-      <Transition to="shipping" event="proceed" />
-    </State>
-    <State name="shipping">
-      <Transition to="payment" event="proceed" />
-      <Transition to="cart" event="back" />
-    </State>
-    <State name="payment">
-      <Transition to="confirmation" event="submit" />
-    </State>
-  </StateMachine>
-);
+	<StateMachine id="checkout" initial="cart">
+		<State name="cart">
+			<Transition to="shipping" event="proceed" />
+		</State>
+		<State name="shipping">
+			<Transition to="payment" event="proceed" />
+			<Transition to="cart" event="back" />
+		</State>
+		<State name="payment">
+			<Transition to="confirmation" event="submit" />
+		</State>
+	</StateMachine>
+)
 ```
 
-**Rationale**: 
+**Rationale**:
+
 - "Ledger" suggests record-keeping, tracking over time (vs. abstract "state")
 - Accessible to non-developers
 - Fits Custodian's event-sourcing model
@@ -8584,21 +8635,23 @@ export const checkoutStateMachine = (
 **Purpose**: Operator event pub/sub configurations, event sourcing, workflow triggers.
 
 **Contains**:
+
 - Event channel definitions
 - Pub/sub subscriptions
 - Event transformations
 - Workflow triggers
 
 **Example**:
+
 ```tsx
 // events/analytics.tsx
 export const analyticsEvents = (
-  <Channel id="analytics" scope="network">
-    <Publishes event="page-view" />
-    <Publishes event="user-action" />
-    <Subscribes to="analytics:*" then={<SendToBackend />} />
-  </Channel>
-);
+	<Channel id="analytics" scope="network">
+		<Publishes event="page-view" />
+		<Publishes event="user-action" />
+		<Subscribes to="analytics:*" then={<SendToBackend />} />
+	</Channel>
+)
 ```
 
 **Rationale**: "Events" is universally understood (button events, calendar events, etc.). Clear and familiar.
@@ -8610,6 +8663,7 @@ export const analyticsEvents = (
 **Purpose**: Agent configurations for distributed systems, P2P networking, CRDTs, synchronization.
 
 **Contains**:
+
 - CRDT configurations
 - P2P peer discovery
 - Solid/IPFS/DID integrations
@@ -8617,20 +8671,22 @@ export const analyticsEvents = (
 - Encryption configurations
 
 **Example**:
+
 ```tsx
 // connections/collaboration.tsx
 export const realtimeCollaboration = (
-  <DistributedState id="document">
-    <OrMap>
-      <Field name="text" type="RGA" />
-      <Field name="cursors" type="ORSet" />
-    </OrMap>
-    <SyncWith.Peers interval={1000} />
-  </DistributedState>
-);
+	<DistributedState id="document">
+		<OrMap>
+			<Field name="text" type="RGA" />
+			<Field name="cursors" type="ORSet" />
+		</OrMap>
+		<SyncWith.Peers interval={1000} />
+	</DistributedState>
+)
 ```
 
-**Rationale**: 
+**Rationale**:
+
 - "Connections" captures P2P, sync, remote storage, identity
 - User-friendly (connecting to other devices/users/services)
 - Avoids technical jargon ("distributed," "CRDT," "P2P")
@@ -8643,20 +8699,22 @@ export const realtimeCollaboration = (
 **Purpose**: Sentinel authentication and authorization configurations.
 
 **Contains**:
+
 - Auth provider configurations (OAuth, WebAuthn, DID)
 - Permission policies
 - Session management
 - Zero-knowledge proof configurations
 
 **Example**:
+
 ```tsx
 // auth/webauthn.tsx
 export const passwordlessAuth = (
-  <SentinelAuth>
-    <WebAuthn rpId="myapp.com" />
-    <SessionDuration>7d</SessionDuration>
-  </SentinelAuth>
-);
+	<SentinelAuth>
+		<WebAuthn rpId="myapp.com" />
+		<SessionDuration>7d</SessionDuration>
+	</SentinelAuth>
+)
 ```
 
 **Rationale**: "Auth" is universally understood shorthand for authentication. Simple and clear.
@@ -8668,6 +8726,7 @@ export const passwordlessAuth = (
 **Purpose**: Static files like images, fonts, videos, global styles.
 
 **Contains**:
+
 - `images/` - Image files
 - `fonts/` - Font files
 - `videos/` - Video files
@@ -8675,7 +8734,8 @@ export const passwordlessAuth = (
 - `icons/` - Icon files
 - Any other static resources
 
-**Rationale**: 
+**Rationale**:
+
 - "Assets" is clear and widely used
 - "Public" is confusing (pages are public too)
 - "Static" is technical jargon
@@ -8688,6 +8748,7 @@ export const passwordlessAuth = (
 **Purpose**: Generated build artifacts for deployment.
 
 **Contains**:
+
 - Compiled JavaScript
 - Optimized HTML
 - Processed assets
@@ -8704,6 +8765,7 @@ export const passwordlessAuth = (
 **Decision**: Don't wrap everything in a `src/` folder.
 
 **Rationale**:
+
 - Libraries need `src/` because they have a clear public API boundary
 - Applications don't need that distinction
 - Shorter import paths
@@ -8719,25 +8781,27 @@ export const passwordlessAuth = (
 **Decision**: No custom component folder. Import from Pagewright directly.
 
 **Rationale**:
+
 - Pagewright provides a comprehensive semantic vocabulary
 - Goal: users **never write raw HTML** or custom low-level components
 - Users compose Pagewright components in `pages/`
 - If Pagewright doesn't have what you need, that's a Pagewright feature request, not an app-level component
 
 **Example**:
+
 ```tsx
 // pages/index.tsx
-import { Essay, Heading, Paragraph, Link } from "@sitebender/pagewright";
+import { Essay, Heading, Link, Paragraph } from "@sitebender/pagewright"
 
 export default function HomePage() {
-  return (
-    <Essay>
-      <Heading>Welcome</Heading>
-      <Paragraph>
-        Read our <Link url="/blog">blog</Link>.
-      </Paragraph>
-    </Essay>
-  );
+	return (
+		<Essay>
+			<Heading>Welcome</Heading>
+			<Paragraph>
+				Read our <Link url="/blog">blog</Link>.
+			</Paragraph>
+		</Essay>
+	)
 }
 // No custom components needed!
 ```
@@ -8749,6 +8813,7 @@ export default function HomePage() {
 **Decision**: Use `pages/`, not `routes/`.
 
 **Rationale**:
+
 - "Routes" is an implementation detail (URL routing)
 - "Pages" is what users think about (website pages)
 - File-system routing makes the mapping obvious
@@ -8761,6 +8826,7 @@ export default function HomePage() {
 **Decision**: Use `ledger/` for Custodian configurations.
 
 **Rationale**:
+
 - "State" is programmer jargon
 - "Ledger" suggests record-keeping, tracking over time
 - Fits Custodian's event-sourcing philosophy
@@ -8775,13 +8841,15 @@ export default function HomePage() {
 **Decision**: Use `connections/` for Agent configurations.
 
 **Rationale**:
+
 - "Distributed" is too technical
 - "Agents" conflicts with AI agents (and we might add an `agents/` folder for AI later)
 - "Connections" captures: P2P, sync, remote storage, identity, collaboration
 - User-friendly: "connecting to other devices/users/services"
 - Accurate for Agent's capabilities without technical jargon
 
-**Alternatives considered**: 
+**Alternatives considered**:
+
 - `distributed/` - too technical
 - `network/` - implies infrastructure
 - `sync/` - too narrow (Agent does more than sync)
@@ -8795,6 +8863,7 @@ export default function HomePage() {
 **Decision**: All autogenerated, user-invisible content goes in `.sitebender/`.
 
 **Rationale**:
+
 - Clear boundary: user-authored vs machine-generated
 - Users work with JSX, not build infrastructure
 - Reduces clutter in project root
@@ -8802,6 +8871,7 @@ export default function HomePage() {
 - Consistent with "hidden files" convention (leading dot)
 
 **What goes in `.sitebender/`**:
+
 - SSL certificates (generated by Quartermaster)
 - Warden contracts (autogenerated)
 - Tests (Auditor/Quarrier generated)
@@ -8809,6 +8879,7 @@ export default function HomePage() {
 - Build scripts (tooling)
 
 **What stays at top level**:
+
 - User-authored folders (`pages/`, `auth/`, etc.)
 - Config files users might edit (`deno.jsonc`, `import_map.json`)
 
@@ -8817,30 +8888,39 @@ export default function HomePage() {
 ## What Goes Where
 
 ### "I want to add a new page"
+
 → **`pages/`** - Create a `.tsx` file with Pagewright components
 
 ### "I want to add authentication"
+
 → **`auth/`** - Configure Sentinel with OAuth/WebAuthn/DID
 
 ### "I want multi-step checkout"
+
 → **`ledger/`** - Define Custodian state machine
 
 ### "I want real-time notifications"
+
 → **`events/`** - Configure Operator pub/sub channel
 
 ### "I want collaborative editing"
+
 → **`connections/`** - Set up Agent CRDTs and peer sync
 
 ### "I want to add an image"
+
 → **`assets/images/`** - Drop the file in, reference in JSX
 
 ### "I want to configure the whole app"
+
 → **`site/`** - Edit the `<Sitebender>` component
 
 ### "I want to customize the build"
+
 → **`.sitebender/scripts/`** - Probably shouldn't, but that's where it goes
 
 ### "I want to add tests"
+
 → **Don't!** Auditor and Quarrier generate them in `.sitebender/tests/`
 
 ---
@@ -8997,8 +9077,6 @@ This structure scales from simple static sites to complex distributed applicatio
 **Everything is JSX. Everything is data. Everything has its place.**
 
 ```
-
-
 ## Assistant
 
 
@@ -9007,8 +9085,8 @@ Now I'll update the README to fix the "Generated Application Structure" section:
 
 **Tool Call: Read /Users/guy/Workspace/@sitebender/sitebender/libraries/quartermaster/README.md (336 - 385)**
 Status: Completed
+```
 
-````
 ### Generated Application Structure
 
 ```
@@ -9060,10 +9138,9 @@ my-app/
 
 ### Common Application Scaffolds
 
-
 <file-read-info>Read lines 335-51. </file-read-info>
-````
 
+````
 **Tool Call: Edit `/Users/guy/Workspace/@sitebender/sitebender/libraries/quartermaster/README.md`**
 Status: Completed
 
@@ -9181,8 +9258,8 @@ Interesting! There's a `docs/application-folder-hierarchy.md` and `docs/quarterm
 
 **Tool Call: Read /Users/guy/Workspace/@sitebender/sitebender/docs/application-folder-hierarchy.md (1 - 50)**
 Status: Completed
-
 ````
+
 # Sitebender Application Folder Hierarchy
 
 > **Status**: Initial architectural specification
@@ -9213,6 +9290,7 @@ my-sitebender-app/
 ## Detailed Folder Descriptions
 
 ### `.sitebender/` - Hidden Configuration
+
 - Library configuration files
 - Build settings and compilation options
 - Development vs production settings
@@ -9220,6 +9298,7 @@ my-sitebender-app/
 - **Not touched by end users** - managed by Quartermaster
 
 ### `pages/` - Pagewright Components
+
 - All HTML-rendering components
 - Page layouts and templates
 - Navigation structures
@@ -9227,17 +9306,16 @@ my-sitebender-app/
 - **Compiles to**: Semantic HTML with progressive enhancement hooks
 
 **Structure:**
+
 ```
 pages/
 ├── index.tsx              # Home page
 ├── About/
 │   └── index.tsx
 ├── Contact/
-````
+```
 
 ## Assistant
-
-
 
 I found a top-level `docs/application-folder-hierarchy.md` that appears to be an older specification. Let me check if it conflicts with our new documentation:
 
@@ -9542,8 +9620,6 @@ This hierarchy enables the "everything is JSX configuration" philosophy while ma
 
 ## Assistant
 
-
-
 This is an older document with a **significantly different structure**. It has `data/`, `behaviors/`, `memory/`, `distributed/`, `proofs/`, and `contracts/` at the top level - which conflicts with our new user-centric naming (`ledger/`, `connections/`, `events/`, etc.).
 
 Let me check the git history or modification date to see which is more recent:
@@ -9552,20 +9628,14 @@ Let me check the git history or modification date to see which is more recent:
 Status: Completed
 
 Terminal:
+
 ```
 -rw-r--r--@ 1 guy  staff  9495 Sep 29 21:47 /Users/guy/Workspace/@sitebender/sitebender/docs/application-folder-hierarchy.md
-
-
-
-
 ```
-
 
 ## Assistant
 
-
-
-This document is from September 29, so it's relatively recent. However, based on our conversation, the user has clearly rejected this structure in favor of the user-centric naming we just documented. 
+This document is from September 29, so it's relatively recent. However, based on our conversation, the user has clearly rejected this structure in favor of the user-centric naming we just documented.
 
 Let me add a note to the top of this file indicating it's superseded, and point to the new authoritative document:
 
@@ -9573,6 +9643,7 @@ Let me add a note to the top of this file indicating it's superseded, and point 
 Status: Completed
 
 Diff: /Users/guy/Workspace/@sitebender/sitebender/docs/application-folder-hierarchy.md
+
 ```
 # Sitebender Application Folder Hierarchy
 
@@ -9606,10 +9677,7 @@ See the [current documentation](../libraries/quartermaster/docs/folder-hierarchy
 ## Original Specification (For Historical Reference)
 ```
 
-
 ## Assistant
-
-
 
 Perfect! All tasks completed. Let me create a summary of what was accomplished:
 
@@ -9622,6 +9690,7 @@ I've successfully updated the Quartermaster documentation to reflect the correct
 ### ✅ Files Created
 
 **`libraries/quartermaster/docs/folder-hierarchy.md`** - Comprehensive new document covering:
+
 - Complete folder structure with the correct naming
 - Design philosophy (user-centric, semantic boundaries)
 - Detailed descriptions of each folder
@@ -9634,12 +9703,14 @@ I've successfully updated the Quartermaster documentation to reflect the correct
 ### ✅ Files Updated
 
 **`libraries/quartermaster/README.md`**
+
 - Fixed "Generated Application Structure" section
-- Replaced incorrect structure (`.certs/`, `.contracts/`, `src/routes/`, `public/`, `components/`) 
+- Replaced incorrect structure (`.certs/`, `.contracts/`, `src/routes/`, `public/`, `components/`)
 - Added correct structure (`.sitebender/`, `site/`, `pages/`, `ledger/`, `events/`, `connections/`, `auth/`, `assets/`)
 - Added link to detailed `docs/folder-hierarchy.md`
 
 **`docs/application-folder-hierarchy.md`**
+
 - Added prominent warning that document is superseded
 - Added historical note explaining the evolution from library-named folders to user-centric naming
 - Provided mapping of old → new folder names
@@ -9665,6 +9736,7 @@ The new folder hierarchy reflects these principles:
 6. **Semantic clarity** - `pages/` not `routes/`, `assets/` not `public/`
 
 The folder structure we agreed on:
+
 ```
 my-app/
 ├── .sitebender/    # Autogenerated (certs, contracts, tests, blueprints, scripts)
@@ -9684,7 +9756,7 @@ All documentation is now consistent and points to the authoritative source in Qu
 
 We never actually discussed the site and pages folders.
 
-Sitebender creates mostly web applications (but Appbender doesn't have the same ring, although I've considered it). So does the folder need to be named app instead? (I know you just updated everything, but this will be a quickie if we change it.) 
+Sitebender creates mostly web applications (but Appbender doesn't have the same ring, although I've considered it). So does the folder need to be named app instead? (I know you just updated everything, but this will be a quickie if we change it.)
 
 One big discussion around pages is this: Is this really the best way to build a site-wide (app-wide) navigation system? One option would be to call the folder "blocks" or "regions" (although the latter implies not entire documents). Then have a single configuration file that configures the app paths (why does this feel like 2001 and XML again?). But then you see the entire site in one spot. We can use JSX and do things like wrap nested parts in an <Auth> component or a <Role> component with the role or roles defined (who can see it, use it). So this could integrate with the Auth system (steward, right).
 
@@ -9710,6 +9782,7 @@ You're touching on fundamental architectural decisions. Let me think through thi
 **But**: Sitebender builds **both**. A blog is a site. A dashboard is an app. A collaborative editor is an app. An e-commerce store is... both?
 
 **My take**: Stick with `site/` because:
+
 1. The library is called **Sitebender** (branding consistency)
 2. "Site" is more approachable than "app" (less intimidating)
 3. Even "apps" are hosted sites with URLs
@@ -9724,6 +9797,7 @@ This is the **real** design decision. Two paradigms:
 ### Option A: File-System Routing (`pages/` folder)
 
 **How it works**:
+
 ```
 pages/
 ├── index.tsx           → /
@@ -9737,6 +9811,7 @@ pages/
 ```
 
 **Pros**:
+
 - ✅ Intuitive: file paths = URL paths
 - ✅ No routing config to maintain
 - ✅ Co-location: page code lives with its route
@@ -9744,6 +9819,7 @@ pages/
 - ✅ Scales: hierarchy mirrors site structure
 
 **Cons**:
+
 - ❌ Scattered: can't see entire site structure at a glance
 - ❌ Auth/roles: harder to see who can access what
 - ❌ Refactoring: moving files changes URLs (breaks links)
@@ -9754,6 +9830,7 @@ pages/
 ### Option B: Centralized Routing Config
 
 **How it works**:
+
 ```tsx
 // site/routing.tsx (or wherever)
 export default (
@@ -9777,6 +9854,7 @@ export default (
 ```
 
 **Components live in**:
+
 ```
 blocks/  (or regions/, or views/, or screens/)
 ├── HomePage.tsx
@@ -9788,6 +9866,7 @@ blocks/  (or regions/, or views/, or screens/)
 ```
 
 **Pros**:
+
 - ✅ **Visibility**: Entire site structure in one file
 - ✅ **Auth integration**: Wrap routes in `<Auth>`, `<Role>`, etc.
 - ✅ **Flexibility**: Routes don't dictate file structure
@@ -9796,6 +9875,7 @@ blocks/  (or regions/, or views/, or screens/)
 - ✅ **Nested layouts**: Explicit layout composition
 
 **Cons**:
+
 - ❌ **Indirection**: File location != URL (harder to find things)
 - ❌ **Single file bottleneck**: Everyone edits routing config (merge conflicts)
 - ❌ **Duplication**: Import + declare route for every page
@@ -9813,29 +9893,30 @@ What if we **blend** them?
 ```tsx
 // site/routing.tsx
 export default (
-  <Routing>
-    {/* File-system routes auto-discovered from pages/ */}
-    <FileSystemRoutes from="pages/" />
-    
-    {/* But we can wrap sections for auth */}
-    <Auth required>
-      <FileSystemRoutes from="pages/dashboard/" />
-    </Auth>
-    
-    <Role requires={["admin"]}>
-      <FileSystemRoutes from="pages/admin/" />
-    </Role>
-    
-    {/* And override specific routes */}
-    <Route path="/special" component={<SpecialPage />} />
-    
-    {/* Or virtualize complex paths */}
-    <Route path="/u/:userId/:tab?" component={<UserProfile />} />
-  </Routing>
-);
+	<Routing>
+		{/* File-system routes auto-discovered from pages/ */}
+		<FileSystemRoutes from="pages/" />
+
+		{/* But we can wrap sections for auth */}
+		<Auth required>
+			<FileSystemRoutes from="pages/dashboard/" />
+		</Auth>
+
+		<Role requires={["admin"]}>
+			<FileSystemRoutes from="pages/admin/" />
+		</Role>
+
+		{/* And override specific routes */}
+		<Route path="/special" component={<SpecialPage />} />
+
+		{/* Or virtualize complex paths */}
+		<Route path="/u/:userId/:tab?" component={<UserProfile />} />
+	</Routing>
+)
 ```
 
 **This gives you**:
+
 - File-system routing for simple cases (most pages)
 - Centralized auth/role wrapping
 - Virtualized URLs where needed
@@ -9850,6 +9931,7 @@ export default (
 You mentioned: **Custodian stores state in URLs, maybe in path segments if virtualized.**
 
 **Example**:
+
 ```
 /dashboard?tab=settings&accordion=2&sort=date
 ```
@@ -9871,6 +9953,7 @@ If `/dashboard/settings` is a route, but `/dashboard/settings/accordion-2` is **
 **OR**: Everything after `/dashboard` is state managed by the Dashboard component itself?
 
 This feels like **Custodian and Routing need to integrate tightly**. The routing system needs to know:
+
 - These segments = navigation (routes)
 - These segments = state (Custodian)
 
@@ -9881,6 +9964,7 @@ This feels like **Custodian and Routing need to integrate tightly**. The routing
 If we go centralized routing with a `blocks/` folder, **how do we organize hundreds of blocks?**
 
 **Option 1: Flat with prefixes**
+
 ```
 blocks/
 ├── HomePage.tsx
@@ -9890,9 +9974,11 @@ blocks/
 ├── BlogPost.tsx
 ├── AdminPanel.tsx
 ```
+
 ❌ Gets messy fast
 
 **Option 2: Mimic site hierarchy anyway**
+
 ```
 blocks/
 ├── home/
@@ -9906,9 +9992,11 @@ blocks/
 └── admin/
     └── panel.tsx
 ```
+
 **But then**: This is identical to file-system routing! Why have a separate routing config?
 
 **Option 3: By feature/domain**
+
 ```
 blocks/
 ├── marketing/
@@ -9925,6 +10013,7 @@ blocks/
 └── admin/
     └── Panel.tsx
 ```
+
 ✅ Groups by feature, not URL structure
 ✅ Better for large teams (feature ownership)
 ❌ But requires centralized routing to map features → URLs
@@ -9936,21 +10025,23 @@ blocks/
 ### Phase 1: File-System Routing (Keep `pages/`)
 
 **For Quartermaster v1**:
+
 - Use `pages/` with file-system routing (proven, simple)
 - Auto-promote top-level components to full HTML pages
 - Custodian state goes in query strings (simple parsing)
 
 **Auth integration**:
+
 ```tsx
 // pages/dashboard/index.tsx
-import { Auth } from "@sitebender/sentinel";
+import { Auth } from "@sitebender/sentinel"
 
 export default function DashboardPage() {
-  return (
-    <Auth required>
-      <Dashboard>...</Dashboard>
-    </Auth>
-  );
+	return (
+		<Auth required>
+			<Dashboard>...</Dashboard>
+		</Auth>
+	)
 }
 ```
 
@@ -9959,6 +10050,7 @@ Auth wraps the component, not the route. Simple. Works.
 ### Phase 2: Centralized Routing (Future)
 
 **When complexity demands it**:
+
 - Add `site/routing.tsx` for advanced routing
 - Keep `pages/` for backwards compatibility
 - Routing config can override file-system routes
@@ -10010,12 +10102,14 @@ If we eventually add centralized routing, what do we call the folders?
 ## My Gut Take
 
 **Start with `pages/` and file-system routing.** It's:
+
 - Simple for users
 - Proven pattern
 - Easy to explain
 - Covers 90% of use cases
 
 **Add centralized routing later** when:
+
 - Users complain about auth visibility
 - Complex nested layouts become common
 - Virtual URLs are actually needed (not theoretical)
@@ -10066,23 +10160,23 @@ Based on everything you've built:
 ```tsx
 // site/routing.tsx
 export default (
-  <Routing>
-    <Route path="/" page={<Home />} />
-    <Route path="/about" page={<About />} />
-    
-    <Auth required>
-      <Route path="/dashboard" page={<Dashboard />}>
-        <Route path="settings" page={<Settings />} />
-      </Route>
-    </Auth>
-    
-    <Role requires={["admin", "editor"]}>
-      <Route path="/admin" page={<AdminPanel />} />
-    </Role>
-    
-    <Route path="/blog/:slug" page={<BlogPost />} />
-  </Routing>
-);
+	<Routing>
+		<Route path="/" page={<Home />} />
+		<Route path="/about" page={<About />} />
+
+		<Auth required>
+			<Route path="/dashboard" page={<Dashboard />}>
+				<Route path="settings" page={<Settings />} />
+			</Route>
+		</Auth>
+
+		<Role requires={["admin", "editor"]}>
+			<Route path="/admin" page={<AdminPanel />} />
+		</Role>
+
+		<Route path="/blog/:slug" page={<BlogPost />} />
+	</Routing>
+)
 ```
 
 **Why this is right**:
@@ -10101,16 +10195,19 @@ export default (
 I think **`modules/`** is better than `blocks/`:
 
 **modules/** suggests:
+
 - Self-contained units of functionality
 - Can be pages OR sections (context-dependent)
 - Reusable, composable
 - Domain-focused organization
 
 **blocks/** suggests:
+
 - Generic chunks
 - Less semantic
 
 **Other considered**:
+
 - `views/` - Too MVC, implies presentation layer only
 - `screens/` - Too mobile-app
 - `components/` - NO (we rejected this)
@@ -10149,6 +10246,7 @@ modules/
 ```
 
 **Why domain-based**:
+
 - Clear ownership (teams can own domains)
 - Doesn't duplicate URL structure (that's in routing config)
 - Groups related functionality
@@ -10181,13 +10279,14 @@ With centralized routing, Custodian can know route boundaries:
 
 ```tsx
 <Route path="/dashboard" page={<Dashboard />}>
-  {/* Everything after /dashboard is managed by Dashboard component */}
-  {/* Could be state: /dashboard/settings/tab=profile */}
-  {/* Or sub-routes: <Route path="settings" page={...} /> */}
+	{/* Everything after /dashboard is managed by Dashboard component */}
+	{/* Could be state: /dashboard/settings/tab=profile */}
+	{/* Or sub-routes: <Route path="settings" page={...} /> */}
 </Route>
 ```
 
 The routing config defines:
+
 - Which path segments are routes (explicit `<Route>`)
 - Which are state (handled by Custodian in that component)
 
@@ -10200,23 +10299,27 @@ The routing config defines:
 Where does `routing.tsx` live?
 
 **Option 1**: `site/routing.tsx`
+
 - Co-located with other site-wide config
 - Clear it's app-level
 
 **Option 2**: Top-level `routing.tsx`
+
 - High visibility
 - Separate concern from general config
 
 **Option 3**: `site/index.tsx` embeds routing
+
 ```tsx
 // site/index.tsx
 export default (
-  <Sitebender>
-    <Metadata>...</Metadata>
-    <Routing>...</Routing>
-  </Sitebender>
-);
+	<Sitebender>
+		<Metadata>...</Metadata>
+		<Routing>...</Routing>
+	</Sitebender>
+)
 ```
+
 - One config to rule them all
 - Routing is part of site config
 
@@ -10257,22 +10360,26 @@ my-app/
 ## Objections Handled
 
 **"One file gets huge!"**
+
 - Split routing into sections, import them
+
 ```tsx
 <Routing>
-  <MarketingRoutes />
-  <UserRoutes />
-  <BlogRoutes />
-  <AdminRoutes />
+	<MarketingRoutes />
+	<UserRoutes />
+	<BlogRoutes />
+	<AdminRoutes />
 </Routing>
 ```
 
 **"Indirection is confusing!"**
+
 - It's explicit over implicit
 - Grep for component name, see where it's routed
 - Better than guessing URL from file path
 
 **"Merge conflicts on routing config!"**
+
 - So does `import_map.json`
 - So does `deno.jsonc`
 - Split into sections if needed
@@ -10298,6 +10405,7 @@ Thoughts?
 ## This Is Brilliant - Modules Own Their Routes
 
 You're right - this is **much more modular**. Each module becomes a **self-contained subtree** that can be:
+
 - Moved
 - Deleted
 - Duplicated
@@ -10338,46 +10446,46 @@ modules/
 ```tsx
 // modules/blog/routes.tsx
 export default (
-  <Routes>
-    <Route path="/" page={<Index />} />
-    <Route path="/:slug" page={<Post />} />
-    <Route path="/new" page={<Editor />}>
-      <Auth required />
-    </Route>
-  </Routes>
-);
+	<Routes>
+		<Route path="/" page={<Index />} />
+		<Route path="/:slug" page={<Post />} />
+		<Route path="/new" page={<Editor />}>
+			<Auth required />
+		</Route>
+	</Routes>
+)
 ```
 
 **Site mounts modules at specific paths**:
 
 ```tsx
 // site/index.tsx
-import marketingRoutes from "~/modules/marketing/routes.tsx";
-import blogRoutes from "~/modules/blog/routes.tsx";
-import dashboardRoutes from "~/modules/user-dashboard/routes.tsx";
-import adminRoutes from "~/modules/admin/routes.tsx";
+import marketingRoutes from "~/modules/marketing/routes.tsx"
+import blogRoutes from "~/modules/blog/routes.tsx"
+import dashboardRoutes from "~/modules/user-dashboard/routes.tsx"
+import adminRoutes from "~/modules/admin/routes.tsx"
 
 export default (
-  <Sitebender>
-    <Routing>
-      {/* Mount marketing at root */}
-      <Mount at="/" routes={marketingRoutes} />
-      
-      {/* Mount blog at /blog */}
-      <Mount at="/blog" routes={blogRoutes} />
-      
-      {/* Mount dashboard with auth */}
-      <Auth required>
-        <Mount at="/dashboard" routes={dashboardRoutes} />
-      </Auth>
-      
-      {/* Mount admin with role check */}
-      <Role requires={["admin"]}>
-        <Mount at="/admin" routes={adminRoutes} />
-      </Role>
-    </Routing>
-  </Sitebender>
-);
+	<Sitebender>
+		<Routing>
+			{/* Mount marketing at root */}
+			<Mount at="/" routes={marketingRoutes} />
+
+			{/* Mount blog at /blog */}
+			<Mount at="/blog" routes={blogRoutes} />
+
+			{/* Mount dashboard with auth */}
+			<Auth required>
+				<Mount at="/dashboard" routes={dashboardRoutes} />
+			</Auth>
+
+			{/* Mount admin with role check */}
+			<Role requires={["admin"]}>
+				<Mount at="/admin" routes={adminRoutes} />
+			</Role>
+		</Routing>
+	</Sitebender>
+)
 ```
 
 ---
@@ -10406,6 +10514,7 @@ If you mount `blogRoutes` at two different paths:
 ```
 
 You get the **entire blog subtree** at both locations:
+
 - `/blog/` → blog index
 - `/blog/:slug` → blog post
 - `/news/` → same blog index
@@ -10420,15 +10529,13 @@ You get the **entire blog subtree** at both locations:
 ```tsx
 // modules/blog/routes.tsx
 export default function BlogRoutes({ showEditor = false }) {
-  return (
-    <Routes>
-      <Route path="/" page={<Index />} />
-      <Route path="/:slug" page={<Post />} />
-      {showEditor && (
-        <Route path="/new" page={<Editor />} />
-      )}
-    </Routes>
-  );
+	return (
+		<Routes>
+			<Route path="/" page={<Index />} />
+			<Route path="/:slug" page={<Post />} />
+			{showEditor && <Route path="/new" page={<Editor />} />}
+		</Routes>
+	)
 }
 
 // site/index.tsx
@@ -10455,6 +10562,7 @@ You can't see **all routes in one file** anymore. They're distributed across mod
 5. **Living documentation** - Envoy shows actual routes, always current
 
 **Example Envoy view**:
+
 ```
 Routes:
 ├── / → marketing/Home.tsx
@@ -10474,6 +10582,7 @@ Routes:
 ```
 
 **This is BETTER than a centralized file** because:
+
 - It's visual
 - It shows auth/roles
 - It's interactive (click to navigate, see dependencies)
@@ -10488,20 +10597,21 @@ Auth happens at the **mount level**, not inside the module:
 ```tsx
 // site/index.tsx
 <Auth required>
-  <Mount at="/dashboard" routes={dashboardRoutes} />
+	<Mount at="/dashboard" routes={dashboardRoutes} />
 </Auth>
 ```
 
 **Not in the module itself**:
+
 ```tsx
 // modules/user-dashboard/routes.tsx
 // NO auth here - it's applied at mount point
 export default (
-  <Routes>
-    <Route path="/" page={<Dashboard />} />
-    <Route path="/settings" page={<Settings />} />
-  </Routes>
-);
+	<Routes>
+		<Route path="/" page={<Dashboard />} />
+		<Route path="/settings" page={<Settings />} />
+	</Routes>
+)
 ```
 
 **Is this a compromise?**
@@ -10514,24 +10624,26 @@ export default (
 ```tsx
 // modules/user-dashboard/routes.tsx
 export const requirements = {
-  auth: "required",
-  role: null,
-};
+	auth: "required",
+	role: null,
+}
 
 export default (
-  <Routes>
-    <Route path="/" page={<Dashboard />} />
-    <Route path="/settings" page={<Settings />} />
-  </Routes>
-);
+	<Routes>
+		<Route path="/" page={<Dashboard />} />
+		<Route path="/settings" page={<Settings />} />
+	</Routes>
+)
 ```
 
 ```tsx
 // site/index.tsx
-import dashboardRoutes, { requirements as dashRequirements } from "~/modules/user-dashboard/routes.tsx";
+import dashboardRoutes, {
+	requirements as dashRequirements,
+} from "~/modules/user-dashboard/routes.tsx"
 
 <Auth required={dashRequirements.auth}>
-  <Mount at="/dashboard" routes={dashboardRoutes} />
+	<Mount at="/dashboard" routes={dashboardRoutes} />
 </Auth>
 ```
 
@@ -10563,19 +10675,20 @@ modules/my-feature/
 ```
 
 **Module exports**:
+
 ```tsx
 // routes.tsx
 export const requirements = {
-  auth: "required",
-  role: null,
-};
+	auth: "required",
+	role: null,
+}
 
 export default (
-  <Routes>
-    <Route path="/" page={<Index />} />
-    <Route path="/detail/:id" page={<Detail />} />
-  </Routes>
-);
+	<Routes>
+		<Route path="/" page={<Index />} />
+		<Route path="/detail/:id" page={<Detail />} />
+	</Routes>
+)
 ```
 
 ---
@@ -10584,30 +10697,31 @@ export default (
 
 ```tsx
 // site/index.tsx
-import marketingRoutes from "~/modules/marketing/routes.tsx";
-import blogRoutes from "~/modules/blog/routes.tsx";
-import dashboardRoutes from "~/modules/user-dashboard/routes.tsx";
-import adminRoutes from "~/modules/admin/routes.tsx";
+import marketingRoutes from "~/modules/marketing/routes.tsx"
+import blogRoutes from "~/modules/blog/routes.tsx"
+import dashboardRoutes from "~/modules/user-dashboard/routes.tsx"
+import adminRoutes from "~/modules/admin/routes.tsx"
 
 export default (
-  <Sitebender>
-    <Metadata>
-      <Title>My Application</Title>
-    </Metadata>
-    
-    <Routing>
-      <Mount at="/" routes={marketingRoutes} />
-      <Mount at="/blog" routes={blogRoutes} />
-      <Mount at="/dashboard" routes={dashboardRoutes} enforce="requirements" />
-      <Mount at="/admin" routes={adminRoutes} enforce="requirements" />
-    </Routing>
-  </Sitebender>
-);
+	<Sitebender>
+		<Metadata>
+			<Title>My Application</Title>
+		</Metadata>
+
+		<Routing>
+			<Mount at="/" routes={marketingRoutes} />
+			<Mount at="/blog" routes={blogRoutes} />
+			<Mount at="/dashboard" routes={dashboardRoutes} enforce="requirements" />
+			<Mount at="/admin" routes={adminRoutes} enforce="requirements" />
+		</Routing>
+	</Sitebender>
+)
 ```
 
 **Clear, simple, high-level.**
 
 You see:
+
 - What modules exist
 - Where they're mounted
 - Basic structure
@@ -10624,16 +10738,16 @@ Can modules mount other modules?
 
 ```tsx
 // modules/admin/routes.tsx
-import usersModule from "~/modules/admin-users/routes.tsx";
-import analyticsModule from "~/modules/admin-analytics/routes.tsx";
+import usersModule from "~/modules/admin-users/routes.tsx"
+import analyticsModule from "~/modules/admin-analytics/routes.tsx"
 
 export default (
-  <Routes>
-    <Route path="/" page={<Panel />} />
-    <Mount at="/users" routes={usersModule} />
-    <Mount at="/analytics" routes={analyticsModule} />
-  </Routes>
-);
+	<Routes>
+		<Route path="/" page={<Panel />} />
+		<Mount at="/users" routes={usersModule} />
+		<Mount at="/analytics" routes={analyticsModule} />
+	</Routes>
+)
 ```
 
 **Result**: Admin module composes smaller modules. Full tree modularity.
@@ -10644,14 +10758,14 @@ Modules can import from each other:
 
 ```tsx
 // modules/user-dashboard/Settings.tsx
-import Header from "~/modules/shared/Header.tsx";
+import Header from "~/modules/shared/Header.tsx"
 
 export default (
-  <Essay>
-    <Header />
-    <SettingsForm />
-  </Essay>
-);
+	<Essay>
+		<Header />
+		<SettingsForm />
+	</Essay>
+)
 ```
 
 But **routes stay independent** - only components are shared.
@@ -10679,6 +10793,7 @@ import dashboardRoutes from "@community/user-dashboard/routes.tsx";
 **This is the right architecture.**
 
 ### Pros
+
 ✅ Modules are truly independent, portable units
 ✅ Delete module = delete everything (routes, components, state)
 ✅ Team ownership is clear
@@ -10687,6 +10802,7 @@ import dashboardRoutes from "@community/user-dashboard/routes.tsx";
 ✅ Envoy provides centralized visibility when needed
 
 ### Cons (Manageable)
+
 ⚠️ No single-file view of all routes (but Envoy solves this)
 ⚠️ Auth/roles at mount point (but modules can declare requirements)
 ⚠️ Reusing module = reusing whole subtree (but parameterization helps)
@@ -10728,28 +10844,28 @@ Sound good?
 Not this:
 
 ```tsx
-  <Routes>
-    <Route path="/" page={<Index />} />
-    <Route path="/:slug" page={<Post />} />
-    <Route path="/new" page={<Editor />}>
-      <Auth required />
-    </Route>
-  </Routes>
+<Routes>
+	<Route path="/" page={<Index />} />
+	<Route path="/:slug" page={<Post />} />
+	<Route path="/new" page={<Editor />}>
+		<Auth required />
+	</Route>
+</Routes>
 ```
 
 This:
 
 ```tsx
-  <Routes>
-    <Route path="/" page={<Index />} />
-    <Route path="/:slug" page={<Post />} />
-    <Auth>
-	    <Route path="/new" page={<Editor />} />
-			<Gate keys={["ADMIN"]}>
-		    <Route path="/new" page={<Editor />} />
-			</Gate>
-    </Auth>
-  </Routes>
+<Routes>
+	<Route path="/" page={<Index />} />
+	<Route path="/:slug" page={<Post />} />
+	<Auth>
+		<Route path="/new" page={<Editor />} />
+		<Gate keys={["ADMIN"]}>
+			<Route path="/new" page={<Editor />} />
+		</Gate>
+	</Auth>
+</Routes>
 ```
 
 Not sure on naming, but nesting routes **inside** the Auth and the Authz seems best. Also, when we auth not be required? If not required, why use an Auth component at all?
@@ -10769,4 +10885,3 @@ This is way better than parameterization, I think.
 2. Yes!
 
 3. Auth/Role mapping occurs wherever you need it, above or inside a module (can consider one inside a module as "mounting" a submodule. So no on "mount". But we don't need it because we're not trying to reuse modules (just parts of them, such as state). Your idea just complicates things. Am I wrong? What am I missing. Maybe we need to talk about this more. You made a big deal about it. I'll stop there to chat, cover remaining items later.
-

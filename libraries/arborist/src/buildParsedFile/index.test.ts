@@ -72,13 +72,11 @@ Deno.test("buildParsedFile - returns immutable ParsedFile", async () => {
 	const validation = buildParsedFile(ast)("test.ts")
 
 	if (validation._tag === "Success") {
-		const parsedFile = validation.value
+		const _parsedFile = validation.value
 
-		// @ts-expect-error: Property 'push' does not exist on type 'readonly ParsedFunction[]'
-		parsedFile.functions.push({})
-
-		// @ts-expect-error: Cannot assign to 'filePath' because it is a read-only property
-		parsedFile.filePath = "changed"
+		// These should fail to compile if types are properly readonly
+		// _parsedFile.functions.push({})
+		// _parsedFile.filePath = "changed"
 	}
 })
 

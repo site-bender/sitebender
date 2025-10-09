@@ -140,7 +140,7 @@ Formulator supports three mathematical notation styles for maximum flexibility:
 Standard mathematical notation with operators between operands:
 
 ```typescript
-parseFormula("a + b * c", variables);
+parseFormula("a + b * c", variables)
 // Evaluates as: a + (b * c) due to precedence
 ```
 
@@ -149,10 +149,10 @@ parseFormula("a + b * c", variables);
 Operators appear before their operands, eliminating the need for precedence rules or parentheses:
 
 ```typescript
-parseFormula("+ a * b c", variables, { notation: "prefix" });
+parseFormula("+ a * b c", variables, { notation: "prefix" })
 // Equivalent to: a + (b * c)
 
-parseFormula("* + a b c", variables, { notation: "prefix" });
+parseFormula("* + a b c", variables, { notation: "prefix" })
 // Equivalent to: (a + b) * c
 ```
 
@@ -168,10 +168,10 @@ parseFormula("* + a b c", variables, { notation: "prefix" });
 Operators appear after their operands, ideal for stack-based evaluation:
 
 ```typescript
-parseFormula("a b c * +", variables, { notation: "postfix" });
+parseFormula("a b c * +", variables, { notation: "postfix" })
 // Equivalent to: a + (b * c)
 
-parseFormula("a b + c *", variables, { notation: "postfix" });
+parseFormula("a b + c *", variables, { notation: "postfix" })
 // Equivalent to: (a + b) * c
 ```
 
@@ -197,22 +197,22 @@ parseFormula("a b + c *", variables, { notation: "postfix" });
 Convert between notations seamlessly:
 
 ```typescript
-import parseFormula from "@sitebender/formulator/parseFormula/index.ts";
-import decompile from "@sitebender/formulator/decompile/index.ts";
+import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
+import decompile from "@sitebender/formulator/decompile/index.ts"
 
 // Parse prefix notation
-const ir = parseFormula("* + a b c", variables, { notation: "prefix" });
+const ir = parseFormula("* + a b c", variables, { notation: "prefix" })
 
 // Decompile to infix (default)
-const infix = decompile(ir.value);
+const infix = decompile(ir.value)
 // Result: "(a + b) * c"
 
 // Decompile to postfix
-const postfix = decompile(ir.value, { notation: "postfix" });
+const postfix = decompile(ir.value, { notation: "postfix" })
 // Result: "a b + c *"
 
 // Decompile to prefix
-const prefix = decompile(ir.value, { notation: "prefix" });
+const prefix = decompile(ir.value, { notation: "prefix" })
 // Result: "* + a b c"
 ```
 
@@ -228,16 +228,16 @@ const prefix = decompile(ir.value, { notation: "prefix" });
 
 ```typescript
 parseFormula("+ (* price quantity) (- 100 discount)", vars, {
-  notation: "prefix",
-});
+	notation: "prefix",
+})
 ```
 
 **Postfix** - Stack-based calculators and evaluation engines:
 
 ```typescript
 parseFormula("price quantity * 100 discount - *", vars, {
-  notation: "postfix",
-});
+	notation: "postfix",
+})
 ```
 
 ### Smart Symbol Recognition
