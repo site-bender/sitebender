@@ -11,7 +11,7 @@ import withSuggestion from "@sitebender/architect/errors/withSuggestion/index.ts
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ParsedAst, ParseError } from "../types/index.ts"
 
-import ensureSwcInitialized from "../_helpers/ensureSwcInitialized/index.ts"
+import _ensureSwcInitialized from "./_ensureSwcInitialized/index.ts"
 
 //++ Parse a TypeScript file and return SWC AST with metadata
 //++ This is the ONLY function that performs I/O (file reading)
@@ -21,7 +21,7 @@ export default async function parseFile(
 ): Promise<Result<ParseError, ParsedAst>> {
 	try {
 		// Ensure SWC is initialized
-		await ensureSwcInitialized()
+		await _ensureSwcInitialized()
 
 		// Read file (only I/O operation - acceptable use of try-catch at boundary)
 		const source = await Deno.readTextFile(filePath)
