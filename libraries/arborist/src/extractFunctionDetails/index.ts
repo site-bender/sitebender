@@ -2,6 +2,7 @@
 // Extracts detailed information from a function AST node
 
 import map from "@sitebender/toolsmith/array/map/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import type {
 	Parameter,
@@ -50,7 +51,7 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 
 	// Extract parameters using Toolsmith map
 	const params = actualNode.params as Array<unknown> || []
-	const parameters: ReadonlyArray<Parameter> = map(
+	const parametersResult = map(
 		function mapParameter(param: unknown): Parameter {
 			const paramObj = param as Record<string, unknown>
 			const pat = paramObj.pat as Record<string, unknown>
@@ -79,6 +80,8 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 		},
 	)(params)
 
+	const parameters = getOrElse([] as ReadonlyArray<Parameter>)(parametersResult)
+
 	// Extract return type
 	const returnTypeAnn = actualNode.returnType as
 		| Record<string, unknown>
@@ -98,7 +101,7 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 		| Record<string, unknown>
 		| undefined
 	const typeParamsList = typeParams?.parameters as Array<unknown> || []
-	const typeParameters: ReadonlyArray<TypeParameter> = map(
+	const typeParametersResult = map(
 		function mapTypeParameter(tp: unknown): TypeParameter {
 			const tpObj = tp as Record<string, unknown>
 			// Type parameter name is in name.value
@@ -112,6 +115,10 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 			}
 		},
 	)(typeParamsList)
+
+	const typeParameters = getOrElse([] as ReadonlyArray<TypeParameter>)(
+		typeParametersResult,
+	)
 
 	// Detect modifiers
 	const isAsync = actualNode.async as boolean || false
