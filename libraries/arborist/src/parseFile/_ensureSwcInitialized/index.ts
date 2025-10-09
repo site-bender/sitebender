@@ -1,4 +1,4 @@
-// @sitebender/arborist/src/_helpers/ensureSwcInitialized
+// @sitebender/arborist/src/parseFile/_ensureSwcInitialized
 // Ensures SWC WASM is initialized before use
 
 import initSwc from "npm:@swc/wasm-web@1.13.20"
@@ -12,6 +12,6 @@ const initializationPromise: Promise<void> = initSwc().then(() => undefined)
 //++ Returns a Promise that resolves when initialization is complete
 //++ All calls return the same promise (idempotent, no mutations)
 //++ Uses const with promise caching to avoid let/var
-export default function ensureSwcInitialized(): Promise<void> {
+export default function _ensureSwcInitialized(): Promise<void> {
 	return initializationPromise
 }

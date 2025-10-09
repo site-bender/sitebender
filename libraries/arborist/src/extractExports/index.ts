@@ -7,6 +7,7 @@ import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import type { ParsedAst, ParsedExport, Position, Span } from "../types/index.ts"
 import type { ExportExtractionError } from "../types/errors/index.ts"
@@ -34,15 +35,19 @@ export default function extractExports(
 		},
 	)(moduleBody)
 
+	const exportNodesArray = getOrElse([] as ReadonlyArray<unknown>)(exportNodes)
+
 	// Extract details from each export node
 	// flatMap because some nodes (like export lists) produce multiple exports
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractExportDetails never fails (returns ParsedExport array directly)
-	const exports = flatMap(
+	const exportsResult = flatMap(
 		function extractDetails(node: unknown): ReadonlyArray<ParsedExport> {
 			return extractExportDetails(node)
 		},
-	)(exportNodes)
+	)(exportNodesArray)
+
+	const exports = getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
 
 	// Return success with extracted exports
 	// When error handling is added, this will accumulate errors from failed extractions
@@ -237,7 +242,9 @@ function extractVariableExports(
 		return function withSpan(span: Span): ReadonlyArray<ParsedExport> {
 			const declarations = decl.declarations as ReadonlyArray<unknown>
 
-			return map(function extractVar(varDecl: unknown): ParsedExport {
+			const exportsResult = map(function extractVar(
+				varDecl: unknown,
+			): ParsedExport {
 				const varDeclObj = varDecl as Record<string, unknown>
 				const id = varDeclObj.id as Record<string, unknown>
 				const name = id.value as string
@@ -250,6 +257,7 @@ function extractVariableExports(
 					isType: false,
 				}
 			})(declarations)
+			return getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
 		}
 	}
 }
@@ -268,7 +276,9 @@ function extractNamedOrReExport(
 			// If there's a source, this is a re-export
 			const kind = sourceValue ? "reexport" : "named"
 
-			return map(function extractSpecifier(spec: unknown): ParsedExport {
+			const exportsResult = map(function extractSpecifier(
+				spec: unknown,
+			): ParsedExport {
 				const specObj = spec as Record<string, unknown>
 
 				// Extract the exported name (what consumers will import)
@@ -289,6 +299,7 @@ function extractNamedOrReExport(
 					source: sourceValue,
 				}
 			})(specifiers)
+			return getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
 		}
 	}
 }
