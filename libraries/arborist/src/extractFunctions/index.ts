@@ -6,6 +6,7 @@ import type { Validation } from "~libraries/toolsmith/src/types/validation/index
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import type { ParsedAst, ParsedFunction } from "../types/index.ts"
 import type { FunctionExtractionError } from "../types/errors/index.ts"
@@ -51,15 +52,23 @@ export default function extractFunctions(
 		},
 	)(moduleBody as unknown[])
 
+	const functionNodesArray = getOrElse([] as ReadonlyArray<unknown>)(
+		functionNodes,
+	)
+
 	// Extract details from each function node
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractFunctionDetails never fails (returns ParsedFunction directly)
 	// Future: wrap extractFunctionDetails to return Validation and use validateAll
-	const functions = map(
+	const functionsResult = map(
 		function extractDetails(node: unknown): ParsedFunction {
 			return extractFunctionDetails(node)
 		},
-	)(functionNodes)
+	)(functionNodesArray)
+
+	const functions = getOrElse([] as ReadonlyArray<ParsedFunction>)(
+		functionsResult,
+	)
 
 	// Return success with extracted functions
 	// When error handling is added, this will accumulate errors from failed extractions

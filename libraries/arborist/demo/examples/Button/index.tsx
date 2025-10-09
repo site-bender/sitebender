@@ -1,20 +1,21 @@
-//++ Generic button component with variants
-//++ Follows semantic component usage patterns
-//++ Returns configured button element
+// @sitebender/arborist/demo/examples/Button
+//++ Example button component
 
-type ButtonProps = Readonly<{
+export type ButtonProps = Readonly<{
 	label: string
-	variant: "primary" | "secondary" | "danger"
+	onClick: () => void
 	disabled?: boolean
 }>
 
+//++ Renders a button component
 export default function Button(props: ButtonProps) {
-	return function renderButton() {
-		const className = `button button-${props.variant}`
-		const isDisabled = props.disabled ?? false
-
+	return function renderButton(): JSX.Element {
 		return (
-			<button className={className} disabled={isDisabled} type="button">
+			<button
+				onClick={props.onClick}
+				disabled={props.disabled}
+				type="button"
+			>
 				{props.label}
 			</button>
 		)
