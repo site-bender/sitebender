@@ -17,8 +17,9 @@
 		"test": "deno test --allow-read src/",
 		"test:cov": "deno test --allow-read --coverage=coverage src/ && deno coverage coverage",
 		"lint": "deno lint src/",
-		"typecheck": "deno check src/types/index.ts src/types/index.test.ts src/parseFile/index.ts src/parseFile/index.test.ts src/parseFile/test-fixtures/valid.ts src/buildParsedFile/index.ts src/buildParsedFile/index.test.ts src/_helpers/traverseAST/index.ts",
-		"fmt": "deno fmt src/"
+		"typecheck": "deno check src/types/index.ts src/types/index.test.ts src/parseFile/index.ts src/parseFile/index.test.ts src/parseFile/_ensureSwcInitialized/index.ts src/parseFile/_ensureSwcInitialized/index.test.ts src/parseFile/test-fixtures/valid.ts src/buildParsedFile/index.ts src/buildParsedFile/index.test.ts src/analyzeFunctionBody/index.ts src/analyzeFunctionBody/_collectAstNodes/index.ts src/analyzeFunctionBody/_collectAstNodes/index.test.ts src/detectViolations/index.ts",
+		"fmt": "deno fmt src/",
+		"demo": "deno run --allow-read demo/index.ts"
 	},
 	"lint": {
 		"rules": {

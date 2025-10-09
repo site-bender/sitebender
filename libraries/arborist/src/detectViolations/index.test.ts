@@ -6,11 +6,11 @@ import { parse } from "npm:@swc/wasm-web@1.13.20"
 import fold from "@sitebender/toolsmith/monads/validation/fold/index.ts"
 
 import type { ParsedAst, ViolationInfo } from "../types/index.ts"
-import ensureSwcInitialized from "../_helpers/ensureSwcInitialized/index.ts"
+import _ensureSwcInitialized from "../parseFile/_ensureSwcInitialized/index.ts"
 import detectViolations from "./index.ts"
 
 async function createParsedAst(sourceText: string): Promise<ParsedAst> {
-	await ensureSwcInitialized()
+	await _ensureSwcInitialized()
 
 	const module = await parse(sourceText, {
 		syntax: "typescript",
