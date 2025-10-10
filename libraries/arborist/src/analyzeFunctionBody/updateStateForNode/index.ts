@@ -2,6 +2,7 @@
 // Updates analysis state based on AST node type
 
 import type { FunctionBody } from "../../types/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Updates analysis state based on node type (pure function)
 //++ Returns new state with updated flags and complexity
@@ -13,32 +14,32 @@ export default function updateStateForNode(
 		const nodeType = nodeObj.type as string
 
 		// Detect return statements
-		if (nodeType === "ReturnStatement") {
+		if (isEqual(nodeType)("ReturnStatement")) {
 			return { ...state, hasReturn: true }
 		}
 
 		// Detect throw statements
-		if (nodeType === "ThrowStatement") {
+		if (isEqual(nodeType)("ThrowStatement")) {
 			return { ...state, hasThrow: true }
 		}
 
 		// Detect await expressions
-		if (nodeType === "AwaitExpression") {
+		if (isEqual(nodeType)("AwaitExpression")) {
 			return { ...state, hasAwait: true }
 		}
 
 		// Detect try-catch blocks
-		if (nodeType === "TryStatement") {
+		if (isEqual(nodeType)("TryStatement")) {
 			return { ...state, hasTryCatch: true }
 		}
 
 		// Detect loops
 		if (
-			nodeType === "ForStatement" ||
-			nodeType === "ForInStatement" ||
-			nodeType === "ForOfStatement" ||
-			nodeType === "WhileStatement" ||
-			nodeType === "DoWhileStatement"
+			isEqual(nodeType)("ForStatement") ||
+			isEqual(nodeType)("ForInStatement") ||
+			isEqual(nodeType)("ForOfStatement") ||
+			isEqual(nodeType)("WhileStatement") ||
+			isEqual(nodeType)("DoWhileStatement")
 		) {
 			return {
 				...state,
@@ -48,7 +49,7 @@ export default function updateStateForNode(
 		}
 
 		// Detect conditional statements (increase complexity)
-		if (nodeType === "IfStatement") {
+		if (isEqual(nodeType)("IfStatement")) {
 			return {
 				...state,
 				cyclomaticComplexity: state.cyclomaticComplexity + 1,
@@ -56,7 +57,7 @@ export default function updateStateForNode(
 		}
 
 		// Detect conditional expressions (ternary)
-		if (nodeType === "ConditionalExpression") {
+		if (isEqual(nodeType)("ConditionalExpression")) {
 			return {
 				...state,
 				cyclomaticComplexity: state.cyclomaticComplexity + 1,
@@ -64,9 +65,9 @@ export default function updateStateForNode(
 		}
 
 		// Detect logical operators (&&, ||)
-		if (nodeType === "LogicalExpression") {
+		if (isEqual(nodeType)("LogicalExpression")) {
 			const operator = nodeObj.operator as string
-			if (operator === "&&" || operator === "||") {
+			if (isEqual(operator)("&&") || isEqual(operator)("||")) {
 				return {
 					...state,
 					cyclomaticComplexity: state.cyclomaticComplexity + 1,
@@ -75,7 +76,7 @@ export default function updateStateForNode(
 		}
 
 		// Detect switch cases
-		if (nodeType === "SwitchCase") {
+		if (isEqual(nodeType)("SwitchCase")) {
 			return {
 				...state,
 				cyclomaticComplexity: state.cyclomaticComplexity + 1,

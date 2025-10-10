@@ -1,6 +1,7 @@
 import type { ImportBinding } from "../types/index.ts"
 import extractNamedBindings from "../_extractNamedBindings/index.ts"
 import extractLocalName from "../_extractLocalName/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Extract import kind and bindings from specifiers
 export default function extractKindAndBindings(
@@ -13,7 +14,7 @@ export default function extractKindAndBindings(
 		imports: ReadonlyArray<ImportBinding>
 	}> {
 		// Side-effect import: import "./foo.ts"
-		if (specifiers.length === 0) {
+		if (isEqual(specifiers.length)(0)) {
 			return {
 				kind: isTypeOnly ? "type" : "named",
 				imports: [],
@@ -34,8 +35,8 @@ export default function extractKindAndBindings(
 
 		// Namespace import: import * as foo from "./foo.ts"
 		if (
-			firstType === "ImportStarAsSpecifier" ||
-			firstType === "ImportNamespaceSpecifier"
+			isEqual(firstType)("ImportStarAsSpecifier") ||
+			isEqual(firstType)("ImportNamespaceSpecifier")
 		) {
 			const local = extractLocalName(firstSpec)
 			return {
@@ -49,7 +50,7 @@ export default function extractKindAndBindings(
 		}
 
 		// Default import only: import foo from "./foo.ts"
-		if (firstType === "ImportDefaultSpecifier" && specifiers.length === 1) {
+		if (isEqual(firstType)("ImportDefaultSpecifier") && isEqual(specifiers.length)(1)) {
 			const local = extractLocalName(firstSpec)
 			return {
 				kind: "default",

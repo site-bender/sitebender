@@ -3,6 +3,7 @@ import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import extractImportedName from "../_extractImportedName/index.ts"
 import extractLocalName from "../_extractLocalName/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Extract bindings from named import specifiers
 export default function extractNamedBindings(
@@ -18,7 +19,7 @@ export default function extractNamedBindings(
 			const specType = specObj.type as string
 
 			// Default specifier in mixed import: import foo, { bar } from "./baz.ts"
-			if (specType === "ImportDefaultSpecifier") {
+			if (isEqual(specType)("ImportDefaultSpecifier")) {
 				const local = extractLocalName(specObj)
 				return {
 					imported: "default",
@@ -29,7 +30,7 @@ export default function extractNamedBindings(
 
 			// Named specifier: import { foo } from "./bar.ts"
 			// Named specifier with alias: import { foo as bar } from "./baz.ts"
-			if (specType === "ImportSpecifier") {
+			if (isEqual(specType)("ImportSpecifier")) {
 				const imported = extractImportedName(specObj)
 				const local = extractLocalName(specObj)
 				const isSpecTypeOnly = (specObj.isTypeOnly as boolean) || isTypeOnly
