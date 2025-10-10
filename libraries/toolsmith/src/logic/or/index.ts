@@ -1,27 +1,12 @@
 //++ Logical OR with dual mode:
 //++ 1) Value mode: or(a)(b) → Boolean(a) || Boolean(b)
-//++ 2) Predicate mode: or(p1)(p2)(v) applies either predicate to v,
-//++    preserving TypeScript narrowing when both are type guards.
-export default function or<T, A extends T>(
-	p1: (value: T) => value is A,
-): <B extends T>(
-	p2: (value: T) => value is B,
-) => (value: T) => value is A | B
-
-export default function or<T>(
-	p1: (value: T) => boolean,
-): (p2: (value: T) => boolean) => (value: T) => boolean
-
-export default function or(
-	a: unknown,
-): (b: unknown) => unknown
-
+//++ 2) Predicate mode: or(p1)(p2)(v) applies either predicate to v
 export default function or(
 	a: unknown,
 ) {
 	return function orWithA(
 		b: unknown,
-	): unknown {
+	): ((value: unknown) => boolean) | unknown {
 		// Happy path: Predicate mode - both arguments are functions
 		if (typeof a === "function" && typeof b === "function") {
 			const p1 = a as (v: unknown) => boolean
@@ -46,7 +31,7 @@ export default function or(
 			}
 		}
 
-		// Happy path: Value mode - return logical OR of truthiness
-		return Boolean(a) || Boolean(b)
+		// Happy path: Value mode - return logical OR (first truthy value)
+		return a || b
 	}
 }

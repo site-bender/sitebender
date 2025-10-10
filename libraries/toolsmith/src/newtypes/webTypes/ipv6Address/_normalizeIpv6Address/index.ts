@@ -17,34 +17,32 @@ export default function _normalizeIpv6Address(
 	})
 
 	// Find longest run of consecutive zeros to compress (minimum 2 zeros)
-	let longestStart = -1
-	let longestLength = 0
-	let currentStart = -1
-	let currentLength = 0
+	const findLongestZeroRun = function (groups: ReadonlyArray<number>): [number, number] {
+		const result = groups.reduce(
+			function (acc: readonly [number, number, number, number], group: number, index: number) {
+				const [longestStart, longestLength, currentStart, currentLength] = acc
 
-	for (let i = 0; i < groupsToNormalize.length; i++) {
-		if (groupsToNormalize[i] === 0) {
-			if (currentStart === -1) {
-				currentStart = i
-				currentLength = 1
-			} else {
-				currentLength++
-			}
-		} else {
-			if (currentLength > longestLength) {
-				longestStart = currentStart
-				longestLength = currentLength
-			}
-			currentStart = -1
-			currentLength = 0
-		}
+				if (group === 0) {
+					const newCurrentStart = currentStart === -1 ? index : currentStart
+					const newCurrentLength = currentLength + 1
+					return [longestStart, longestLength, newCurrentStart, newCurrentLength] as const
+				}
+
+				const newLongestStart = currentLength > longestLength ? currentStart : longestStart
+				const newLongestLength = currentLength > longestLength ? currentLength : longestLength
+				return [newLongestStart, newLongestLength, -1, 0] as const
+			},
+			[-1, 0, -1, 0] as const,
+		)
+
+		// Check final run
+		const [longestStart, longestLength, currentStart, currentLength] = result
+		return currentLength > longestLength
+			? [currentStart, currentLength]
+			: [longestStart, longestLength]
 	}
 
-	// Check final run
-	if (currentLength > longestLength) {
-		longestStart = currentStart
-		longestLength = currentLength
-	}
+	const [longestStart, longestLength] = findLongestZeroRun(groupsToNormalize)
 
 	// Only compress if run is 2 or more (compressing single 0 is not beneficial)
 	if (longestLength < 2) {
@@ -55,52 +53,35 @@ export default function _normalizeIpv6Address(
 		return hexGroups.join(":")
 	}
 
-	// Build compressed form
-	const parts: Array<string> = []
-
-	if (longestStart === 0) {
-		// Compression at start
-		if (longestStart + longestLength === hexGroups.length) {
-			// All zeros compressed - special case for ::
-			if (ipv4Suffix) {
-				return `::${ipv4Suffix}`
+	// Build compressed form using functional constructs
+	const buildParts = function (start: number, length: number): ReadonlyArray<string> {
+		if (start === 0) {
+			// Compression at start
+			if (start + length === hexGroups.length) {
+				// All zeros compressed - special case for ::
+				return ipv4Suffix ? [`::${ipv4Suffix}`] : ["::"]
 			}
-			return "::"
+			const remaining = hexGroups.slice(start + length)
+			const withCompression = ["", ""].concat(remaining)
+			return ipv4Suffix ? withCompression.concat(ipv4Suffix) : withCompression
 		}
-		parts.push("")
-		parts.push("")
-		for (let i = longestStart + longestLength; i < hexGroups.length; i++) {
-			parts.push(hexGroups[i])
+
+		if (start + length === hexGroups.length) {
+			// Compression at end (before IPv4 if present)
+			const before = hexGroups.slice(0, start)
+			if (ipv4Suffix) {
+				// Compression ends right before IPv4 - need ::
+				return before.concat("", ipv4Suffix)
+			}
+			return before.concat("", "")
 		}
-		if (ipv4Suffix) {
-			parts.push(ipv4Suffix)
-		}
-	} else if (longestStart + longestLength === hexGroups.length) {
-		// Compression at end (before IPv4 if present)
-		for (let i = 0; i < longestStart; i++) {
-			parts.push(hexGroups[i])
-		}
-		if (ipv4Suffix) {
-			// Compression ends right before IPv4 - need ::
-			parts.push("")
-			parts.push(ipv4Suffix)
-		} else {
-			parts.push("")
-			parts.push("")
-		}
-	} else {
+
 		// Compression in middle
-		for (let i = 0; i < longestStart; i++) {
-			parts.push(hexGroups[i])
-		}
-		parts.push("")
-		for (let i = longestStart + longestLength; i < hexGroups.length; i++) {
-			parts.push(hexGroups[i])
-		}
-		if (ipv4Suffix) {
-			parts.push(ipv4Suffix)
-		}
+		const before = hexGroups.slice(0, start)
+		const after = hexGroups.slice(start + length)
+		const middle = before.concat("").concat(after)
+		return ipv4Suffix ? middle.concat(ipv4Suffix) : middle
 	}
 
-	return parts.join(":")
+	return buildParts(longestStart, longestLength).join(":")
 }
