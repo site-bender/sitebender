@@ -2,6 +2,7 @@
 // Extracts all export statements from a ParsedAst using Validation monad for error accumulation
 
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
@@ -34,7 +35,7 @@ export default function extractExports(
 				isEqual(nodeType)("ExportNamedDeclaration") ||
 				isEqual(nodeType)("ExportAllDeclaration")
 		},
-	)(moduleBody)
+	)(moduleBody as ReadonlyArray<Serializable>)
 
 	const exportNodesArray = getOrElse([] as ReadonlyArray<unknown>)(exportNodes)
 
@@ -46,7 +47,7 @@ export default function extractExports(
 		function extractDetails(node: unknown): ReadonlyArray<ParsedExport> {
 			return extractExportDetails(node)
 		},
-	)(exportNodesArray)
+	)(exportNodesArray as ReadonlyArray<Serializable>)
 
 	const exports = getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
 
@@ -257,7 +258,7 @@ function extractVariableExports(
 					kind: "named",
 					isType: false,
 				}
-			})(declarations)
+			})(declarations as ReadonlyArray<Serializable>)
 			return getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
 		}
 	}
@@ -299,7 +300,7 @@ function extractNamedOrReExport(
 					isType: isSpecTypeOnly,
 					source: sourceValue,
 				}
-			})(specifiers)
+			})(specifiers as ReadonlyArray<Serializable>)
 			return getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
 		}
 	}

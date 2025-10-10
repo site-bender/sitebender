@@ -20,6 +20,7 @@
 // Extracts all const declarations from a ParsedAst using Validation monad for error accumulation
 
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
@@ -70,7 +71,7 @@ export default function extractConstants(
 
 			return false
 		},
-	)(moduleBody)
+	)(moduleBody as ReadonlyArray<Serializable>)
 
 	const constNodesArray = getOrElse([] as ReadonlyArray<unknown>)(constNodes)
 
@@ -81,7 +82,7 @@ export default function extractConstants(
 		function extractDetails(node: unknown): ParsedConstant {
 			return extractConstantDetails(node)(ast.sourceText)
 		},
-	)(constNodesArray)
+	)(constNodesArray as ReadonlyArray<Serializable>)
 
 	const constants = getOrElse([] as ReadonlyArray<ParsedConstant>)(
 		constantsResult,

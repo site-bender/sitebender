@@ -6,6 +6,7 @@ import initSwc, { parse } from "npm:@swc/wasm-web@1.13.20"
 
 import find from "@sitebender/toolsmith/array/find/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import extractFunctionDetails from "./index.ts"
 
@@ -38,7 +39,7 @@ async function getFunctionNode(source: string): Promise<unknown> {
 				nodeType === "ExportDeclaration" ||
 				nodeType === "ExportDefaultDeclaration"
 		},
-	)(astBody)
+	)(astBody as ReadonlyArray<Serializable>)
 
 	// Extract the actual node from the Result
 	return getOrElse(null as unknown)(result)

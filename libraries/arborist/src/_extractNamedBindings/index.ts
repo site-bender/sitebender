@@ -1,4 +1,5 @@
 import type { ImportBinding } from "../types/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import extractImportedName from "../_extractImportedName/index.ts"
@@ -48,7 +49,7 @@ export default function extractNamedBindings(
 				local: "unknown",
 				isType: isTypeOnly,
 			}
-		})(specifiers)
+		})(specifiers as ReadonlyArray<Serializable>)
 		return getOrElse([] as ReadonlyArray<ImportBinding>)(bindingsResult)
 	}
 }

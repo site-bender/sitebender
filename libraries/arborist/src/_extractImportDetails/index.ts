@@ -1,4 +1,4 @@
-import type { ParsedImport, Position, Span, ImportBinding } from "../types/index.ts"
+import type { ParsedImport } from "../types/index.ts"
 import extractSpan from "../_extractSpan/index.ts"
 import extractPosition from "../_extractPosition/index.ts"
 import extractKindAndBindings from "../_extractKindAndBindings/index.ts"
