@@ -2,6 +2,7 @@ import type { ParsedType, Position, Span } from "../types/index.ts"
 import extractSpan from "../_extractSpan/index.ts"
 import extractPosition from "../_extractPosition/index.ts"
 import extractDefinition from "../_extractDefinition/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Extract details from a single type declaration node
 //++ Returns ParsedType with name, position, span, definition, and export status
@@ -15,7 +16,7 @@ export default function extractTypeDetails(
 		const nodeType = typeNode.type as string
 
 		// Check if this is an export declaration wrapping a type
-		const isExported = nodeType === "ExportDeclaration"
+		const isExported = isEqual(nodeType)("ExportDeclaration")
 		const actualTypeNode = isExported
 			? (typeNode.declaration as Record<string, unknown>)
 			: typeNode

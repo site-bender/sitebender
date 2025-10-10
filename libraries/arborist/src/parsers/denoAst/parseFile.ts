@@ -11,15 +11,9 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ParseError } from "../../types/index.ts"
 import type { SemanticAst } from "../../types/semantics/index.ts"
 
-// WASM initialization state
-let wasmInitialized = false
-
-//++ Initialize WASM module if not already done
+//++ Initialize WASM module
 async function ensureWasmInitialized(wasmPath: string) {
-	if (!wasmInitialized) {
-		await initWasm()(wasmPath)
-		wasmInitialized = true
-	}
+	await initWasm()(wasmPath)
 }
 
 //++ Parse file with full semantic analysis using deno_ast WASM
