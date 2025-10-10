@@ -2,8 +2,8 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
 import type { FourDecimalPlaces } from "@sitebender/toolsmith/types/branded/index.ts"
 
-import fourDecimalPlaces from "@sitebender/toolsmith/newtypes/fourDecimalPlaces/index.ts"
-import unwrapFourDecimalPlaces from "@sitebender/toolsmith/newtypes/fourDecimalPlaces/unwrapFourDecimalPlaces/index.ts"
+import fourDecimalPlaces from "@sitebender/toolsmith/newtypes/numericTypes/fourDecimalPlaces/index.ts"
+import unwrapFourDecimalPlaces from "@sitebender/toolsmith/newtypes/numericTypes/fourDecimalPlaces/unwrapFourDecimalPlaces/index.ts"
 
 //++ Divides two FourDecimalPlaces values using scaled integer arithmetic to avoid floating point errors
 //++ Returns Result with error if divisor is zero or result cannot be represented as FourDecimalPlaces

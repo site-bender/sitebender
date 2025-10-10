@@ -7,6 +7,7 @@ import * as fc from "npm:fast-check@3.23.1"
 import isOk from "@sitebender/toolsmith/monads/result/isOk/index.ts"
 import isError from "@sitebender/toolsmith/monads/result/isError/index.ts"
 import fold from "@sitebender/toolsmith/monads/result/fold/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 import type { ParsedAst, ParseError } from "../types/index.ts"
 import parseFile from "./index.ts"
@@ -32,17 +33,13 @@ Deno.test({
 
 		assertExists(ast, "AST should exist")
 		assertEquals(
-			ast.filePath,
+			ast!.filePath,
 			"src/parseFile/test-fixtures/valid.ts",
 			"File path should match input",
 		)
-		assertExists(ast.module, "Should have SWC module")
-		assertExists(ast.sourceText, "Should have source text")
-		assertEquals(
-			typeof ast.sourceText,
-			"string",
-			"Source text should be string",
-		)
+		assertExists(ast!.module, "Should have SWC module")
+		assertExists(ast!.sourceText, "Should have source text")
+		assert(isEqual(typeof ast!.sourceText)("string"), "Source text should be string")
 	},
 })
 
@@ -180,9 +177,9 @@ Deno.test({
 		})(result)
 
 		assertExists(ast, "AST should exist")
-		assert(typeof ast.filePath === "string", "Should have filePath")
-		assert(typeof ast.sourceText === "string", "Should have sourceText")
-		assertExists(ast.module, "Should have module")
+		assert(isEqual(typeof ast!.filePath)("string"), "Should have filePath")
+		assert(isEqual(typeof ast!.sourceText)("string"), "Should have sourceText")
+		assertExists(ast!.module, "Should have module")
 
 		// The real immutability test is at compile time via TypeScript
 		// These would fail to compile:
