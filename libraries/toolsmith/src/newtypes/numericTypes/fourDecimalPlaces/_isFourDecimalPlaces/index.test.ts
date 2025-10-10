@@ -2,31 +2,7 @@ import { assertEquals } from "@std/assert"
 
 import _isFourDecimalPlaces from "./index.ts"
 
-Deno.test("_isFourDecimalPlaces accepts valid number with 4 decimal places", () => {
-	const result = _isFourDecimalPlaces(19.9999)
-
-	assertEquals(result, true)
-})
-
-Deno.test("_isFourDecimalPlaces accepts number with 3 decimal places", () => {
-	const result = _isFourDecimalPlaces(10.543)
-
-	assertEquals(result, true)
-})
-
-Deno.test("_isFourDecimalPlaces accepts number with 2 decimal places", () => {
-	const result = _isFourDecimalPlaces(10.54)
-
-	assertEquals(result, true)
-})
-
-Deno.test("_isFourDecimalPlaces accepts number with 1 decimal place", () => {
-	const result = _isFourDecimalPlaces(10.5)
-
-	assertEquals(result, true)
-})
-
-Deno.test("_isFourDecimalPlaces accepts whole numbers", () => {
+Deno.test("_isFourDecimalPlaces accepts whole number", () => {
 	const result = _isFourDecimalPlaces(100)
 
 	assertEquals(result, true)
@@ -38,14 +14,44 @@ Deno.test("_isFourDecimalPlaces accepts zero", () => {
 	assertEquals(result, true)
 })
 
-Deno.test("_isFourDecimalPlaces accepts negative numbers", () => {
-	const result = _isFourDecimalPlaces(-50.2525)
+Deno.test("_isFourDecimalPlaces accepts negative whole number", () => {
+	const result = _isFourDecimalPlaces(-50)
 
 	assertEquals(result, true)
 })
 
-Deno.test("_isFourDecimalPlaces accepts small amounts", () => {
-	const result = _isFourDecimalPlaces(0.0001)
+Deno.test("_isFourDecimalPlaces accepts number with 1 decimal place", () => {
+	const result = _isFourDecimalPlaces(10.5)
+
+	assertEquals(result, true)
+})
+
+Deno.test("_isFourDecimalPlaces accepts number with 2 decimal places", () => {
+	const result = _isFourDecimalPlaces(19.99)
+
+	assertEquals(result, true)
+})
+
+Deno.test("_isFourDecimalPlaces accepts number with 3 decimal places", () => {
+	const result = _isFourDecimalPlaces(123.456)
+
+	assertEquals(result, true)
+})
+
+Deno.test("_isFourDecimalPlaces accepts number with 4 decimal places", () => {
+	const result = _isFourDecimalPlaces(123.4567)
+
+	assertEquals(result, true)
+})
+
+Deno.test("_isFourDecimalPlaces accepts negative number with 4 decimal places", () => {
+	const result = _isFourDecimalPlaces(-99.9999)
+
+	assertEquals(result, true)
+})
+
+Deno.test("_isFourDecimalPlaces accepts small decimal with 4 places", () => {
+	const result = _isFourDecimalPlaces(0.1234)
 
 	assertEquals(result, true)
 })
@@ -68,19 +74,19 @@ Deno.test("_isFourDecimalPlaces rejects NaN", () => {
 	assertEquals(result, false)
 })
 
-Deno.test("_isFourDecimalPlaces rejects numbers with 5 decimal places", () => {
-	const result = _isFourDecimalPlaces(19.99999)
+Deno.test("_isFourDecimalPlaces rejects number with 5 decimal places", () => {
+	const result = _isFourDecimalPlaces(1.23456)
 
 	assertEquals(result, false)
 })
 
-Deno.test("_isFourDecimalPlaces rejects numbers with 6 decimal places", () => {
-	const result = _isFourDecimalPlaces(10.123456)
+Deno.test("_isFourDecimalPlaces rejects number with 6 decimal places", () => {
+	const result = _isFourDecimalPlaces(12.345678)
 
 	assertEquals(result, false)
 })
 
-Deno.test("_isFourDecimalPlaces rejects numbers with many decimal places", () => {
+Deno.test("_isFourDecimalPlaces rejects number with many decimal places", () => {
 	const result = _isFourDecimalPlaces(3.141592653589793)
 
 	assertEquals(result, false)

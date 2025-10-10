@@ -20,6 +20,7 @@ import isRegExp from "@sitebender/toolsmith/validation/isRegExp/index.ts"
 import isUndefined from "@sitebender/toolsmith/validation/isUndefined/index.ts"
 import isUnequal from "@sitebender/toolsmith/validation/isUnequal/index.ts"
 import isOk from "../../../monads/result/isOk/index.ts"
+import isError from "../../../monads/result/isError/index.ts"
 
 //++ Private helper function for deep equality comparison
 export default function _deepEquals(
@@ -111,12 +112,7 @@ export default function _deepEquals(
 	const keysYResult = keys(yObj)
 
 	// Both keys() must succeed
-	if (not(and(isOk(keysXResult))(isOk(keysYResult)))) {
-		return false
-	}
-
-	// TypeScript now knows both are Ok
-	if (not(and(isOk(keysXResult))(isOk(keysYResult)))) {
+	if (isError(keysXResult) || isError(keysYResult)) {
 		return false
 	}
 
@@ -142,7 +138,7 @@ export default function _deepEquals(
 	const allResult = all((key: string): boolean => {
 		const includesResult = includes(key)(keysY)
 		const keyIncluded = isOk(includesResult) ? includesResult.value : false
-		return and(keyIncluded)(_deepEquals(xObj[key], yObj[key], seen))
+		return keyIncluded && _deepEquals(xObj[key], yObj[key], seen)
 	})(keysX)
 
 	// Return false if all() returned an error, otherwise return the boolean value

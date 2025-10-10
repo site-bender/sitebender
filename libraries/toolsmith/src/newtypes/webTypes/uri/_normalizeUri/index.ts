@@ -16,47 +16,42 @@ export default function _normalizeUri(uri: string): string {
 
 	if (afterScheme.startsWith("//")) {
 		const authorityStart = 2
-		let authorityEnd = afterScheme.length
-		for (let i = authorityStart; i < afterScheme.length; i++) {
-			const char = afterScheme[i]
-			if (char === "/" || char === "?" || char === "#") {
-				authorityEnd = i
-				break
-			}
-		}
+		const authorityEnd = (() => {
+			const slashIdx = afterScheme.indexOf("/", authorityStart)
+			const questionIdx = afterScheme.indexOf("?", authorityStart)
+			const hashIdx = afterScheme.indexOf("#", authorityStart)
+			const validIndices = [slashIdx, questionIdx, hashIdx].filter(idx => idx !== -1)
+			return validIndices.length === 0 ? afterScheme.length : Math.min(...validIndices)
+		})()
 
 		const authority = afterScheme.slice(authorityStart, authorityEnd)
 		const rest = afterScheme.slice(authorityEnd)
 
-		let normalizedAuthority = authority
+		const normalizedAuthority = (() => {
+			const atIndex = authority.lastIndexOf("@")
+			if (atIndex !== -1) {
+				const userinfo = authority.slice(0, atIndex)
+				const hostAndPort = authority.slice(atIndex + 1)
 
-		const atIndex = authority.lastIndexOf("@")
-		if (atIndex !== -1) {
-			const userinfo = authority.slice(0, atIndex)
-			const hostAndPort = authority.slice(atIndex + 1)
+				const colonIndex = hostAndPort.lastIndexOf(":")
+				const host = colonIndex !== -1
+					? hostAndPort.slice(0, colonIndex)
+					: hostAndPort
+				const port = colonIndex !== -1 ? hostAndPort.slice(colonIndex) : ""
 
-			const colonIndex = hostAndPort.lastIndexOf(":")
-			let host = colonIndex !== -1
-				? hostAndPort.slice(0, colonIndex)
-				: hostAndPort
-			const port = colonIndex !== -1 ? hostAndPort.slice(colonIndex) : ""
+				const normalizedHost = !host.startsWith("[") ? host.toLocaleLowerCase() : host
 
-			if (!host.startsWith("[")) {
-				host = host.toLocaleLowerCase()
+				return userinfo + "@" + normalizedHost + port
+			} else {
+				const colonIndex = authority.lastIndexOf(":")
+				const host = colonIndex !== -1 ? authority.slice(0, colonIndex) : authority
+				const port = colonIndex !== -1 ? authority.slice(colonIndex) : ""
+
+				const normalizedHost = !host.startsWith("[") ? host.toLocaleLowerCase() : host
+
+				return normalizedHost + port
 			}
-
-			normalizedAuthority = userinfo + "@" + host + port
-		} else {
-			const colonIndex = authority.lastIndexOf(":")
-			let host = colonIndex !== -1 ? authority.slice(0, colonIndex) : authority
-			const port = colonIndex !== -1 ? authority.slice(colonIndex) : ""
-
-			if (!host.startsWith("[")) {
-				host = host.toLocaleLowerCase()
-			}
-
-			normalizedAuthority = host + port
-		}
+		})()
 
 		return scheme + "://" + normalizedAuthority + rest
 	}

@@ -11,8 +11,8 @@ import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import type { ParsedAst, ParsedFunction } from "../types/index.ts"
 import type { FunctionExtractionError } from "../types/errors/index.ts"
 
-import _isFunctionOrExportedFunction from "../_isFunctionOrExportedFunction/index.ts"
-import _extractDetails from "../_extractDetails/index.ts"
+import _isFunctionOrExportedFunction from "./_isFunctionOrExportedFunction/index.ts"
+import _extractDetails from "./_extractDetails/index.ts"
 
 //++ Extracts all functions from a ParsedAst
 //++ Returns Validation to accumulate extraction errors per function
