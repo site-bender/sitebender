@@ -1,5 +1,6 @@
 import type { Domain } from "@sitebender/toolsmith/types/branded/index.ts"
 
+import all from "@sitebender/toolsmith/array/all/index.ts"
 import _validateDomainStructure from "@sitebender/toolsmith/newtypes/webTypes/domain/_validateDomainStructure/index.ts"
 import _validateDomainLabel from "@sitebender/toolsmith/newtypes/webTypes/domain/_validateDomainLabel/index.ts"
 
@@ -11,12 +12,6 @@ export default function _isDomain(value: string): value is Domain {
 	}
 
 	const labels = value.split(".")
-	for (const label of labels) {
-		const labelResult = _validateDomainLabel(label)
-		if (labelResult._tag === "Error") {
-			return false
-		}
-	}
-
-	return true
+	const allLabelsValid = all((label: string) => _validateDomainLabel(label)._tag !== "Error")(labels)
+	return allLabelsValid._tag === "Ok" ? allLabelsValid.value : false
 }

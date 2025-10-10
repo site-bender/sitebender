@@ -1,6 +1,8 @@
 // @sitebender/arborist/src/parsers/denoAst/wasm/build.ts
 // Build script for compiling Rust WASM bindings
 
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+
 //++ Build the WASM package using wasm-pack
 async function buildWasm() {
 	console.log("Building WASM package (development mode)...")
@@ -78,7 +80,7 @@ async function cleanWasm() {
 async function main() {
 	const args = Deno.args
 
-	if (args.length === 0) {
+	if (isEqual(args.length)(0)) {
 		await buildWasm()
 	} else {
 		const command = args[0]

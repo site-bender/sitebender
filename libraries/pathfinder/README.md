@@ -4,15 +4,18 @@
 
 ## What Pathfinder Is
 
-Pathfinder is Studio's data intelligence layer—the bridge between raw triples and actionable knowledge. It provides SPARQL query optimization, vector-powered semantic search, ontology-based inference, and observability data indexing. Every query, every search, every inference flows through Pathfinder.
+Pathfinder is Studio's **data infrastructure layer**—the single source of truth for triple store access and semantic search. It owns the connection to Oxigraph (RDF triple store) and Qdrant (vector database), providing the foundation for all data persistence and querying across Sitebender Studio.
 
 **Core responsibilities:**
 
-- SPARQL query building and optimization (type-safe, composable)
-- Vector similarity search via Qdrant integration
-- Ontology inference (RDFS/OWL reasoning makes implicit knowledge explicit)
-- Observability ingestion (Prometheus metrics, logs, traces → searchable triples)
-- Low-level query execution (Agent handles distribution, Pathfinder handles execution)
+- **Triple store ownership** - Manages the single Oxigraph connection that all libraries use
+- **SPARQL execution** - Low-level query execution engine (type-safe, composable)
+- **Data persistence** - Provides `insertTriples()`, `deleteTriples()`, `updateTriples()` for all libraries
+- **Vector similarity search** - Qdrant integration for semantic search
+- **Ontology inference** - RDFS/OWL reasoning makes implicit knowledge explicit
+- **Observability ingestion** - Prometheus metrics, logs, traces → searchable triples
+
+**Critical architectural role:** All libraries that need to persist or query RDF triples depend on Pathfinder. This ensures a single database connection, consistent transaction handling, and no duplication of storage logic.
 
 ## Philosophy
 
@@ -213,10 +216,20 @@ prom-client: "^15.0" # Prometheus metrics ingestion (observability)
 
 ## Integration with Other Libraries
 
+**Dependency Model:** Pathfinder is foundational infrastructure. Libraries depend on Pathfinder for all triple store access:
+
+```
+Toolsmith (Foundation - zero dependencies)
+    ↓
+Pathfinder (Infrastructure - owns Oxigraph/Qdrant connections)
+    ↓
+Agent, Operator, Sentinel, Custodian, Envoy (all depend on Pathfinder)
+```
+
 ### Agent (Distribution)
 
-**Pathfinder provides:** Low-level query execution
-**Agent provides:** Federated query routing, result aggregation
+**Pathfinder provides:** Low-level query execution on each node
+**Agent provides:** Federated query routing, peer discovery, result aggregation
 
 ```typescript
 // Without Agent (local only):
@@ -228,23 +241,27 @@ const results = await executeQuery("SELECT * WHERE { ?s ?p ?o }")(
 // With Agent (automatic distribution):
 import { query } from "@sitebender/agent/query/index.ts"
 const results = await query("SELECT * WHERE { ?s ?p ?o }")
-// Agent discovers peers, routes via Pathfinder, merges with CRDTs
+// Agent discovers peers, routes to Pathfinder on each node, merges with CRDTs
 ```
 
 ### Operator (Event Sourcing)
 
-**Operator stores events as triples via Pathfinder:**
+**Pathfinder provides:** Triple persistence and SPARQL queries
+**Operator provides:** Event sourcing abstraction, pub-sub logic
 
 ```typescript
 import { storeEvent } from "@sitebender/operator/storeEvent/index.ts"
+import { insertTriples } from "@sitebender/pathfinder/insertTriples/index.ts"
 
+// Operator uses Pathfinder to persist events as triples:
 await storeEvent({
 	type: "UserLoggedIn",
 	userId: "user-123",
 	timestamp: Date.now(),
 })
+// Internally calls: insertTriples(eventToTriples(event))
 
-// Query event history:
+// Query event history via Pathfinder:
 import { executeQuery } from "@sitebender/pathfinder/executeQuery/index.ts"
 const loginEvents = await executeQuery(`
   SELECT * WHERE {
@@ -256,9 +273,36 @@ const loginEvents = await executeQuery(`
 `)(localTripleStore)
 ```
 
+### Sentinel (Security)
+
+**Pathfinder provides:** Triple persistence for session state and auth policies
+**Sentinel provides:** Cryptographic primitives, Signal Protocol, auth/authz
+
+```typescript
+import { sessionToTriples } from "@sitebender/sentinel/signal/sessionToTriples/index.ts"
+import { insertTriples } from "@sitebender/pathfinder/insertTriples/index.ts"
+
+// Sentinel serializes Signal session to triples:
+const sessionTriples = sessionToTriples(signalSession)
+
+// Pathfinder persists them:
+await insertTriples(sessionTriples)
+
+// Later, retrieve and reconstruct:
+import { executeQuery } from "@sitebender/pathfinder/executeQuery/index.ts"
+import { tripledToSession } from "@sitebender/sentinel/signal/tripledToSession/index.ts"
+
+const triples = await executeQuery(`
+  SELECT * WHERE { ?s ?p ?o . FILTER(?s = <session:abc123>) }
+`)(localTripleStore)
+
+const session = tripledToSession(triples)
+```
+
 ### Custodian (State Management)
 
-**Custodian derives state from Operator events via Pathfinder queries:**
+**Pathfinder provides:** SPARQL queries over event history
+**Custodian provides:** State derivation, continuations, time-travel
 
 ```typescript
 import { deriveState } from "@sitebender/custodian/deriveState/index.ts"
@@ -279,7 +323,8 @@ const currentState = await deriveState({
 
 ### Envoy (Observability)
 
-**Envoy visualizes data indexed by Pathfinder:**
+**Pathfinder provides:** Observability ingestion and storage
+**Envoy provides:** Visualizations, dashboards, 5-smiley feedback
 
 ```typescript
 // Pathfinder ingests observability data:

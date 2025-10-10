@@ -1,11 +1,16 @@
 {
 	"name": "@sitebender/warden",
-	"version": "0.0.1",
-	"exports": "mod.ts",
+	"version": "0.1.0",
+	"exports": "./mod.ts",
 	"tasks": {
-		"test": "deno test --allow-net --allow-read --allow-write src/",
-		"fmt": "deno fmt",
+		"test": "deno test --allow-read --allow-write src/",
 		"lint": "deno lint",
-		"enforce": "deno run --allow-net --allow-read --allow-write ../../scripts/warden/enforce.ts"
+		"fmt": "deno fmt",
+		"check": "deno check src/**/*.ts",
+		"enforce": "deno run --allow-read --allow-write src/enforce/enforce/index.ts"
+	},
+	"imports": {
+		"@sitebender/toolsmith/": "../toolsmith/src/",
+		"@sitebender/arborist/": "../arborist/src/"
 	}
 }

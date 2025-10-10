@@ -1,14 +1,21 @@
-//++ Check if a function path indicates privacy (contains underscore)
-import {
-	MATCH_DEEP_NESTED_PRIVATE_FUNCTION,
-	MATCH_NESTED_PRIVATE_FUNCTION,
-	MATCH_PRIVATE_FUNCTION_NAME,
-} from "../../constants/index.ts"
+//++ Check if a file path represents a private function (underscore-prefixed folder)
+//++
+//++ A function is considered private if its path contains a folder starting with underscore (_)
+//++ Examples:
+//++   - src/foo/_bar/index.ts → true (private)
+//++   - src/foo/bar/index.ts → false (public)
+//++   - src/_shared/index.ts → true (private)
+//++
+//++ This is a pure function with no side effects
 
-export default function isPrivateFunction(path: string) {
-	return function () {
-		return MATCH_PRIVATE_FUNCTION_NAME.test(path) ||
-			MATCH_NESTED_PRIVATE_FUNCTION.test(path) ||
-			MATCH_DEEP_NESTED_PRIVATE_FUNCTION.test(path)
-	}
+export default function isPrivateFunction(filePath: string): boolean {
+	// Split path into segments
+	const segments = filePath.split("/")
+
+	// Check if any segment (folder) starts with underscore
+	return segments.some(
+		function checkSegmentIsPrivate(segment: string): boolean {
+			return segment.startsWith("_") && segment.length > 1
+		},
+	)
 }
