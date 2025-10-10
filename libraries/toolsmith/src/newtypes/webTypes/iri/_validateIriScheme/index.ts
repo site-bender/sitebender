@@ -38,6 +38,7 @@ export default function _validateIriScheme(
 
 	// Check for Unicode (not allowed in scheme)
 	// biome-ignore lint: escape needed
+	// deno-lint-ignore no-control-regex
 	if (/[^\x00-\x7F]/.test(scheme)) {
 		return error({
 			code: "IRI_SCHEME_CONTAINS_UNICODE",

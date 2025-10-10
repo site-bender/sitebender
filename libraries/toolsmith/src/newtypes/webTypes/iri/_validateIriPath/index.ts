@@ -16,6 +16,7 @@ export default function _validateIriPath(
 
 	// Check for control characters (U+0000..U+001F, U+007F..U+009F)
 	// biome-ignore lint: escape needed
+	// deno-lint-ignore no-control-regex
 	if (/[\x00-\x1F\x7F-\x9F]/.test(path)) {
 		return error({
 			code: "IRI_PATH_CONTAINS_CONTROL_CHARS",

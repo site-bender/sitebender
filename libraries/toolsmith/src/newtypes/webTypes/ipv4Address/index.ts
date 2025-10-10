@@ -2,6 +2,7 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
 import type { Ipv4Address } from "@sitebender/toolsmith/types/branded/index.ts"
 
+import all from "@sitebender/toolsmith/array/all/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import unsafeIpv4Address from "@sitebender/toolsmith/newtypes/webTypes/ipv4Address/unsafeIpv4Address/index.ts"
@@ -39,14 +40,31 @@ export default function ipv4Address(
 		})
 	}
 
-	for (let i = 0; i < parts.length; i++) {
-		const part = parts[i]
+	const isValidPart = (part: string): boolean => {
+		if (part.length === 0) return false
+		if (part.length > 1 && part.startsWith("0")) return false
+		const num = Number.parseInt(part, 10)
+		if (Number.isNaN(num)) return false
+		if (num < 0 || num > 255) return false
+		if (part !== String(num)) return false
+		return true
+	}
+
+	const allPartsValidResult = all(isValidPart)(parts)
+	if (allPartsValidResult._tag === "Error") {
+		return allPartsValidResult
+	}
+
+	if (!allPartsValidResult.value) {
+		// Find the first invalid part
+		const invalidIndex = parts.findIndex(part => !isValidPart(part))
+		const part = parts[invalidIndex]
 
 		if (part.length === 0) {
 			return error({
 				code: "IPV4_ADDRESS_EMPTY_OCTET",
-				field: `ipv4Address.octet${i + 1}`,
-				messages: [`The system needs a value for octet ${i + 1}.`],
+				field: `ipv4Address.octet${invalidIndex + 1}`,
+				messages: [`The system needs a value for octet ${invalidIndex + 1}.`],
 				received: value,
 				expected: "Non-empty octet value 0-255",
 				suggestion: "Provide a value for each octet",
@@ -57,9 +75,9 @@ export default function ipv4Address(
 		if (part.length > 1 && part.startsWith("0")) {
 			return error({
 				code: "IPV4_ADDRESS_LEADING_ZERO",
-				field: `ipv4Address.octet${i + 1}`,
+				field: `ipv4Address.octet${invalidIndex + 1}`,
 				messages: [
-					`The system does not allow leading zeros in octet ${i + 1}.`,
+					`The system does not allow leading zeros in octet ${invalidIndex + 1}.`,
 				],
 				received: value,
 				expected: "Octet without leading zeros",
@@ -75,13 +93,13 @@ export default function ipv4Address(
 		if (Number.isNaN(num)) {
 			return error({
 				code: "IPV4_ADDRESS_INVALID_OCTET",
-				field: `ipv4Address.octet${i + 1}`,
+				field: `ipv4Address.octet${invalidIndex + 1}`,
 				messages: [
-					`The system needs octet ${i + 1} to be a number.`,
+					`The system needs octet ${invalidIndex + 1} to be a number.`,
 				],
 				received: value,
 				expected: "Numeric octet value 0-255",
-				suggestion: `Octet ${i + 1} ('${part}') must be a valid number`,
+				suggestion: `Octet ${invalidIndex + 1} ('${part}') must be a valid number`,
 				severity: "requirement",
 			})
 		}
@@ -89,13 +107,13 @@ export default function ipv4Address(
 		if (num < 0 || num > 255) {
 			return error({
 				code: "IPV4_ADDRESS_OCTET_OUT_OF_RANGE",
-				field: `ipv4Address.octet${i + 1}`,
+				field: `ipv4Address.octet${invalidIndex + 1}`,
 				messages: [
-					`The system needs octet ${i + 1} to be between 0 and 255.`,
+					`The system needs octet ${invalidIndex + 1} to be between 0 and 255.`,
 				],
 				received: value,
 				expected: "Octet value 0-255",
-				suggestion: `Octet ${i + 1} (${num}) is out of range`,
+				suggestion: `Octet ${invalidIndex + 1} (${num}) is out of range`,
 				constraints: {
 					min: 0,
 					max: 255,
@@ -107,13 +125,13 @@ export default function ipv4Address(
 		if (part !== String(num)) {
 			return error({
 				code: "IPV4_ADDRESS_INVALID_OCTET",
-				field: `ipv4Address.octet${i + 1}`,
+				field: `ipv4Address.octet${invalidIndex + 1}`,
 				messages: [
-					`The system needs octet ${i + 1} to be a valid number.`,
+					`The system needs octet ${invalidIndex + 1} to be a valid number.`,
 				],
 				received: value,
 				expected: "Valid numeric octet",
-				suggestion: `Octet ${i + 1} ('${part}') contains invalid characters`,
+				suggestion: `Octet ${invalidIndex + 1} ('${part}') contains invalid characters`,
 				severity: "requirement",
 			})
 		}
