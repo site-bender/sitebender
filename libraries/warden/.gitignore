@@ -1,0 +1,23 @@
+# Warden cache directory
+.warden-cache/
+
+# Deno cache
+.deno/
+
+# Test coverage
+coverage/
+
+# Build artifacts
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

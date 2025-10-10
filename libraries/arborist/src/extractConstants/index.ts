@@ -25,6 +25,7 @@ import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 import type {
 	ParsedAst,
@@ -53,17 +54,17 @@ export default function extractConstants(
 			const nodeType = nodeObj.type as string
 
 			// Direct const declarations
-			if (nodeType === "VariableDeclaration") {
+			if (isEqual(nodeType)("VariableDeclaration")) {
 				const kind = nodeObj.kind as string
-				return kind === "const"
+				return isEqual(kind)("const")
 			}
 
 			// Export declarations that wrap const
-			if (nodeType === "ExportDeclaration") {
+			if (isEqual(nodeType)("ExportDeclaration")) {
 				const decl = nodeObj.declaration as Record<string, unknown> | undefined
-				if (decl?.type === "VariableDeclaration") {
+				if (decl && isEqual(decl.type)("VariableDeclaration")) {
 					const kind = decl.kind as string
-					return kind === "const"
+					return isEqual(kind)("const")
 				}
 			}
 
@@ -104,7 +105,7 @@ function extractConstantDetails(
 		const nodeType = constNode.type as string
 
 		// Check if this is an export declaration wrapping a const
-		const isExported = nodeType === "ExportDeclaration"
+		const isExported = isEqual(nodeType)("ExportDeclaration")
 		const actualConstNode = isExported
 			? (constNode.declaration as Record<string, unknown>)
 			: constNode

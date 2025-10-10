@@ -1,43 +1,49 @@
-import length from "../../../../toolsmith/src/vanilla/array/length/index.ts"
-import equals from "../../../../toolsmith/src/vanilla/validation/equals/index.ts"
-import { PRIVATE_FUNCTION_PREFIX } from "../../constants/index.ts"
-import getParentDirectory from "../getParentDirectory/index.ts"
-//++ Validate that imports follow privacy rules
-import isPrivateFunction from "../isPrivateFunction/index.ts"
+//++ Validate privacy rules for a given root path
+//++
+//++ This is the main orchestrator function for privacy validation.
+//++ It coordinates the entire validation pipeline:
+//++ 1. Build import graph from root directory
+//++ 2. Find privacy violations in the graph
+//++ 3. Return ValidationResult with success status and violations
+//++
+//++ This is an async function (IO boundary): validatePrivacy(rootPath) => Promise<ValidationResult>
+//++
+//++ Examples:
+//++   validatePrivacy("src/privacy")
+//++   => { success: true, violations: [], filesChecked: 5, executionTime: 50, phase: "block" }
+//++
+//++   validatePrivacy("src/with/violations")
+//++   => { success: false, violations: [...], filesChecked: 10, executionTime: 100, phase: "block" }
 
-export default function validatePrivacy(filePath: string) {
-	return function (usageMap: Map<string, string[]>) {
-		return async function () {
-			// For Phase 1.1, implement basic privacy validation
-			// Check if there are any obvious privacy violations in the file structure
+import buildGraph from "../../importGraph/buildGraph/index.ts"
+import findViolations from "../findViolations/index.ts"
+import type { ValidationResult } from "../../types/index.ts"
 
-			try {
-				// Get all files that are being imported
-				const importedFiles = Array.from(usageMap.keys())
+//++ [IO] This function performs side effects (file system access)
+export default function validatePrivacy(
+	rootPath: string,
+): Promise<ValidationResult> {
+	const startTime = performance.now()
 
-				// Check for privacy violations
-				let violationCount = 0
+	return buildGraph(rootPath).then(function analyzeGraph(importGraph) {
+		// Find all privacy violations in the graph
+		const violations = findViolations(importGraph)
 
-				for (const importedFile of importedFiles) {
-					// Check if the imported file is a private function
-					const isPrivate = await isPrivateFunction(importedFile)()
+		// Calculate metrics
+		const endTime = performance.now()
+		const executionTime = endTime - startTime
+		const filesChecked = importGraph.size
+		const success = violations.length === 0
 
-					if (isPrivate) {
-						// For Phase 1.1, flag all private function imports as potential violations
-						// In a full implementation, this would check against the usage map
-						violationCount++
-					}
-				}
-
-				// If there are privacy violations, return false
-				const hasViolations = !equals(0)(violationCount)
-
-				return !hasViolations
-			} catch (error) {
-				// If there's an error during validation, assume it's valid for now
-				// In a full implementation, this would log the error
-				return true
-			}
+		// Build result
+		const result: ValidationResult = {
+			success,
+			violations,
+			filesChecked,
+			executionTime,
+			phase: "block",
 		}
-	}
+
+		return result
+	})
 }

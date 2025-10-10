@@ -1,6 +1,7 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
 
+import all from "@sitebender/toolsmith/array/all/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import {
@@ -92,24 +93,29 @@ export default function _validateDomain(
 
 	const labels = domain.split(".")
 
+	const lengthCheck = all((label: string) => label.length <= EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH)(labels)
+	if (lengthCheck._tag === "Error") {
+		return lengthCheck
+	} else if (!lengthCheck.value) {
+		const invalidLabel = labels.find(label => label.length > EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH)!
+		return error({
+			code: "EMAIL_ADDRESS_DOMAIN_LABEL_TOO_LONG",
+			field: "emailAddress.domain",
+			messages: [
+				"The system limits each domain label to 63 characters.",
+			],
+			received: invalidLabel,
+			expected: "Label with at most 63 characters",
+			suggestion:
+				`Shorten the domain label '${invalidLabel}' (currently ${invalidLabel.length} characters)`,
+			constraints: {
+				maxLabelLength: EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH,
+			},
+			severity: "requirement",
+		})
+	}
+
 	for (const label of labels) {
-		if (label.length > EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH) {
-			return error({
-				code: "EMAIL_ADDRESS_DOMAIN_LABEL_TOO_LONG",
-				field: "emailAddress.domain",
-				messages: [
-					"The system limits each domain label to 63 characters.",
-				],
-				received: label,
-				expected: "Label with at most 63 characters",
-				suggestion:
-					`Shorten the domain label '${label}' (currently ${label.length} characters)`,
-				constraints: {
-					maxLabelLength: EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH,
-				},
-				severity: "requirement",
-			})
-		}
 
 		if (label.startsWith("-")) {
 			return error({

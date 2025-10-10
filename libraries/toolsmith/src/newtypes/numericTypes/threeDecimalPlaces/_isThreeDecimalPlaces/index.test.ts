@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "@std/assert"
+import { assertEquals } from "@std/assert"
 
 import _isThreeDecimalPlaces from "./index.ts"
 

@@ -1,4 +1,5 @@
 import _serializePattern from "../../_serializePattern/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Serialize an AST expression node to its string representation
 //++ Handles literals, objects, arrays, function calls, and complex expressions
@@ -22,7 +23,7 @@ export default function _serializeExpression(node: unknown): string | undefined 
 		case "NullLiteral":
 			return "null"
 		case "Identifier":
-			if (nodeObj.value === "undefined") {
+			if (isEqual(nodeObj.value)("undefined")) {
 				return "undefined"
 			}
 			return nodeObj.value as string
@@ -31,16 +32,14 @@ export default function _serializeExpression(node: unknown): string | undefined 
 		case "TemplateLiteral": {
 			const quasis = nodeObj.quasis as Array<Record<string, unknown>>
 			const expressions = nodeObj.expressions as Array<unknown>
-			let result = "`"
-			for (let i = 0; i < quasis.length; i++) {
-				const quasi = quasis[i]
+			const result = quasis.reduce((acc: string, quasi: Record<string, unknown>, i: number) => {
 				const cooked = (quasi.cooked as string) ?? ""
-				result += cooked
+				acc += cooked
 				if (i < expressions.length) {
-					result += "${" + (_serializeExpression(expressions[i]) ?? "") + "}"
+					acc += "${" + (_serializeExpression(expressions[i]) ?? "") + "}"
 				}
-			}
-			result += "`"
+				return acc
+			}, "`") + "`"
 			return result
 		}
 
@@ -49,7 +48,7 @@ export default function _serializeExpression(node: unknown): string | undefined 
 			const properties = nodeObj.properties as Array<Record<string, unknown>>
 			const serializedProps = properties.map((prop) => {
 				const propType = prop.type as string
-				if (propType === "KeyValueProperty") {
+				if (isEqual(propType)("KeyValueProperty")) {
 					const key = _serializeExpression(prop.key)
 					const value = _serializeExpression(prop.value)
 					return `${key}: ${value}`
