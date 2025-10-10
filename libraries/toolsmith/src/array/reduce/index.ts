@@ -29,7 +29,7 @@ export default function reduce<T, U>(
 				code: "REDUCE_INVALID_INPUT",
 				field: "array",
 				messages: ["System needs an array to reduce"],
-				received: array,
+				received: array as never,
 				expected: "Array",
 				suggestion: "Provide an array value",
 				severity: "requirement",

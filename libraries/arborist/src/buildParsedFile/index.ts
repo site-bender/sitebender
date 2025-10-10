@@ -27,6 +27,10 @@ import extractFunctions from "../extractFunctions/index.ts"
 import extractImports from "../extractImports/index.ts"
 import extractTypes from "../extractTypes/index.ts"
 
+import _combineGroup1 from "./_combineGroup1/index.ts"
+import _combineGroup2 from "./_combineGroup2/index.ts"
+import _combineAll from "./_combineAll/index.ts"
+
 //++ Builds a ParsedFile from SWC AST
 //++ Returns Validation to accumulate extraction errors from all features
 //++ Extracts: functions, imports, exports, comments, types, constants, violations
@@ -58,19 +62,7 @@ export default function buildParsedFile(ast: ParsedAst) {
 				comments: ReadonlyArray<ParsedComment>
 			},
 			ExtractionError
-		>(
-			function combineGroup1(functions: ReadonlyArray<ParsedFunction>) {
-				return function withImports(imports: ReadonlyArray<ParsedImport>) {
-					return function withExports(exports: ReadonlyArray<ParsedExport>) {
-						return function withComments(
-							comments: ReadonlyArray<ParsedComment>,
-						) {
-							return { functions, imports, exports, comments }
-						}
-					}
-				}
-			},
-		)(functionsV)(importsV)(exportsV)(commentsV)
+		>(_combineGroup1)(functionsV)(importsV)(exportsV)(commentsV)
 
 		// Second group: types, constants, violations (map3)
 		const group2V = map3<
@@ -83,17 +75,7 @@ export default function buildParsedFile(ast: ParsedAst) {
 				violations: ViolationInfo
 			},
 			ExtractionError
-		>(
-			function combineGroup2(types: ReadonlyArray<ParsedType>) {
-				return function withConstants(
-					constants: ReadonlyArray<ParsedConstant>,
-				) {
-					return function withViolations(violations: ViolationInfo) {
-						return { types, constants, violations }
-					}
-				}
-			},
-		)(typesV)(constantsV)(violationsV)
+		>(_combineGroup2)(typesV)(constantsV)(violationsV)
 
 		// Combine both groups (map2)
 		return map2<
@@ -110,25 +92,6 @@ export default function buildParsedFile(ast: ParsedAst) {
 			},
 			ParsedFile,
 			ExtractionError
-		>(
-			function combineAll(group1: {
-				functions: ReadonlyArray<ParsedFunction>
-				imports: ReadonlyArray<ParsedImport>
-				exports: ReadonlyArray<ParsedExport>
-				comments: ReadonlyArray<ParsedComment>
-			}) {
-				return function withGroup2(group2: {
-					types: ReadonlyArray<ParsedType>
-					constants: ReadonlyArray<ParsedConstant>
-					violations: ViolationInfo
-				}): ParsedFile {
-					return {
-						filePath,
-						...group1,
-						...group2,
-					}
-				}
-			},
-		)(group1V)(group2V)
+		>(_combineAll(filePath))(group1V)(group2V)
 	}
 }
