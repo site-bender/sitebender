@@ -66,7 +66,7 @@ Your entire application—including all behaviors, validations, and tests—exis
 
 #### Intelligence Layer
 
-- **Pathfinder** - Data discovery & semantic search. SPARQL optimization. Vector search. Ontology inference.
+- **Pathfinder** - **Triple store infrastructure**. Owns Oxigraph connection. SPARQL execution. Vector search. All libraries depend on Pathfinder for data persistence.
 - **Envoy** - Living documentation. Code intelligence. Five-smiley developer experience.
 - **Auditor** - Mathematical proof generation. Property testing. 100% coverage.
 - **Arborist** - SWC-powered parsing. 20-50x faster than TypeScript compiler.

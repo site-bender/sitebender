@@ -1,29 +1,34 @@
 {
 	"version": "1.0.0",
-	"lastUpdated": "2025-09-21",
+	"lastUpdated": "2025-01-10",
 	"library": "warden",
-	"purpose": "Cryptographically Enforced Architectural Governance",
+	"purpose": "Cryptographically enforced architectural governance. Validates privacy boundaries, enforces contracts via SHA-256 hashes, and ensures architectural integrity through graduated enforcement.",
 	"api": {
 		"exports": [
 			{
 				"name": "enforce",
-				"signature": "(config: WardenConfig, phase?: EnforcementPhase) => Promise<EnforcementResult>",
-				"description": "Main enforcement orchestrator"
+				"signature": "(config: WardenConfig) => Promise<ValidationResult>",
+				"description": "Main enforcement function - validates privacy rules and contracts for configured targets"
+			},
+			{
+				"name": "validatePrivacy",
+				"signature": "(rootPath: string) => Promise<ValidationResult>",
+				"description": "Validate underscore privacy rules for a codebase"
+			},
+			{
+				"name": "validateContract",
+				"signature": "(contractPath: string) => (implementationPath: string) => Promise<ValidationResult>",
+				"description": "Validate implementation against cryptographic contract"
+			},
+			{
+				"name": "generateContract",
+				"signature": "(libraryPath: string) => Promise<Contract>",
+				"description": "Generate cryptographic contract from library implementation"
 			},
 			{
 				"name": "hashArtifact",
 				"signature": "(data: unknown) => Promise<string>",
-				"description": "Generate SHA-256 hash of data using canonical JSON"
-			},
-			{
-				"name": "validatePrivacy",
-				"signature": "(importPath: string, fromFile: string) => Promise<boolean>",
-				"description": "Validate that imports follow privacy rules"
-			},
-			{
-				"name": "validateContract",
-				"signature": "(contractPath: string, implementationPath: string) => Promise<ValidationResult>",
-				"description": "Validate contract JSON schema against implementation"
+				"description": "Generate SHA-256 hash of architectural artifact"
 			}
 		],
 		"types": [
@@ -31,53 +36,151 @@
 				"name": "WardenConfig",
 				"description": "Configuration for Warden enforcement",
 				"fields": [
-					"targets",
-					"phase",
-					"privacyRules",
-					"contractPaths",
-					"performance",
-					"reporting"
+					"targets: ReadonlyArray<string>",
+					"phase: EnforcementPhase",
+					"privacyRules?: ReadonlyArray<PrivacyRule>",
+					"contractPaths?: ReadonlyArray<string>",
+					"performance?: { maxExecutionTime: number, parallelProcessing: boolean }",
+					"reporting?: { format: 'json' | 'markdown' | 'console', outputPath?: string }"
 				]
 			},
 			{
-				"name": "EnforcementPhase",
-				"description": "Graduated enforcement phases",
-				"fields": ["pending", "warn", "block"]
+				"name": "ValidationResult",
+				"description": "Result of validation enforcement",
+				"fields": [
+					"success: boolean",
+					"violations: ReadonlyArray<PrivacyViolation>",
+					"filesChecked: number",
+					"executionTime: number",
+					"phase: EnforcementPhase"
+				]
 			},
 			{
-				"name": "EnforcementResult",
-				"description": "Result of enforcement validation",
-				"fields": ["decision", "violations", "performance"]
+				"name": "Contract",
+				"description": "Cryptographic contract defining library architecture",
+				"fields": [
+					"version: string",
+					"lastUpdated: string",
+					"library: string",
+					"purpose: string",
+					"api: { exports, types }",
+					"privacy: { publicFunctions, privateFunctions, enforcement, rules }",
+					"implementation?: { allowed, forbidden }"
+				]
 			}
 		]
 	},
 	"privacy": {
-		"publicFunctions": ["src/*/index.ts"],
+		"publicFunctions": [
+			"src/enforce/enforce",
+			"src/privacy/validatePrivacy",
+			"src/contracts/validateContract",
+			"src/contracts/generateContract",
+			"src/hash/hashArtifact"
+		],
 		"privateFunctions": [
-			"src/*/_*/index.ts",
-			"src/*/*/_*/index.ts",
-			"src/*/*/_*/*/_*/index.ts"
+			"All functions in folders prefixed with underscore (_)",
+			"Examples: src/privacy/_findViolations, src/importGraph/_parseImports, src/_shared/*"
 		],
 		"enforcement": "strict",
 		"rules": {
-			"nesting": "Helpers nest in the folder of the function that uses them",
-			"noUtils": "No generic 'utils' or 'helpers' folders - use descriptive names",
-			"noAbbreviations": "Function names must be full words, not abbreviations",
-			"lowestCommonAncestor": "If used by multiple functions, place in lowest common ancestor folder",
-			"srcLevelAllowed": "Private functions CAN be at src level - but only if src is the lowest common ancestor"
+			"nesting": "Private functions (underscore prefix) can only be imported from parent scope or siblings",
+			"noUtils": "No generic 'utils' or 'helpers' folders - use descriptive names at lowest common ancestor",
+			"noAbbreviations": "Full words in function and folder names (e.g., 'parse' not 'prs', 'validate' not 'val')",
+			"lowestCommonAncestor": "Shared private functions placed at lowest common ancestor of all consumers"
 		}
+	},
+	"responsibilities": {
+		"owns": [
+			"Privacy boundary validation (underscore rules)",
+			"Cryptographic contract generation and validation",
+			"SHA-256 hash computation for artifacts",
+			"Import graph construction and analysis",
+			"Graduated enforcement (pending/warn/block)",
+			"Violation detection and reporting"
+		],
+		"consumes": [
+			"Arborist's AST parsing for import extraction",
+			"Toolsmith's functional utilities (map, filter, reduce)",
+			"Toolsmith's hashHex for SHA-256 hashing",
+			"File system access for reading source files"
+		],
+		"forbidden": [
+			"Parsing TypeScript/JSX directly (must use Arborist)",
+			"Using TypeScript compiler API",
+			"Using ts-morph",
+			"Modifying source files (read-only validation)",
+			"Network requests",
+			"Executing arbitrary code"
+		]
 	},
 	"implementation": {
 		"allowed": [
-			"Import from @sitebender/toolsmith",
-			"Pure functions only",
-			"Cryptographic operations"
+			"Import from @sitebender/arborist/ (AST parsing)",
+			"Import from @sitebender/toolsmith/ (functional utilities)",
+			"Read source files for validation",
+			"Generate JSON contracts",
+			"Compute SHA-256 hashes"
 		],
 		"forbidden": [
-			"Side effects",
-			"Mutable state",
-			"Network calls",
-			"File system access"
+			"Import TypeScript compiler",
+			"Import ts-morph",
+			"Write to source files",
+			"Execute shell commands",
+			"Make network requests",
+			"Use eval or Function constructor"
 		]
+	},
+	"input": {
+		"requirements": [
+			"Must validate config structure before processing",
+			"Must handle missing or malformed contracts gracefully",
+			"Must not mutate input data (all data immutable)",
+			"Must validate file paths exist before processing"
+		],
+		"validation": {
+			"compile-time": [
+				"TypeScript enforces WardenConfig type",
+				"Cannot import from forbidden paths",
+				"All functions properly curried"
+			],
+			"runtime": [
+				"Config validation before enforcement",
+				"File path validation",
+				"Contract schema validation",
+				"Hash verification"
+			],
+			"test-time": [
+				"No forbidden imports",
+				"No TypeScript direct parsing",
+				"Zero false positives on Sitebender codebase",
+				"< 5 second execution time target"
+			]
+		}
+	},
+	"dependencies": {
+		"allowed": ["arborist", "toolsmith"],
+		"forbidden": [
+			"auditor",
+			"envoy",
+			"pagewright",
+			"architect",
+			"formulator",
+			"agent",
+			"sentinel",
+			"steward",
+			"quartermaster"
+		]
+	},
+	"goals": {
+		"accuracy": "Zero false positives on privacy violations",
+		"performance": "< 5 seconds full validation on Sitebender codebase",
+		"enforcement": "Graduated phases (pending → warn → block)",
+		"integrity": "Cryptographic verification of architectural contracts"
+	},
+	"versioning": {
+		"strategy": "semver",
+		"breaking-changes": "Major version bump required for API changes",
+		"deprecation": "One minor version warning before removal"
 	}
 }
