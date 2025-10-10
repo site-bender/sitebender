@@ -7,6 +7,7 @@ import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 import type {
 	ParsedAst,
@@ -31,7 +32,7 @@ export default function extractImports(
 		function isImportDeclaration(node: unknown): boolean {
 			const nodeObj = node as Record<string, unknown>
 			const nodeType = nodeObj.type as string
-			return nodeType === "ImportDeclaration"
+			return isEqual(nodeType)("ImportDeclaration")
 		},
 	)(moduleBody)
 

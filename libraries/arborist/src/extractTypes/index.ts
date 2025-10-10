@@ -22,6 +22,7 @@
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
@@ -50,17 +51,17 @@ export default function extractTypes(
 
 			// Direct type declarations
 			if (
-				nodeType === "TsTypeAliasDeclaration" ||
-				nodeType === "TsInterfaceDeclaration"
+				isEqual(nodeType)("TsTypeAliasDeclaration") ||
+				isEqual(nodeType)("TsInterfaceDeclaration")
 			) {
 				return true
 			}
 
 			// Export declarations that wrap types
-			if (nodeType === "ExportDeclaration") {
+			if (isEqual(nodeType)("ExportDeclaration")) {
 				const decl = nodeObj.declaration as Record<string, unknown> | undefined
-				return decl?.type === "TsTypeAliasDeclaration" ||
-					decl?.type === "TsInterfaceDeclaration"
+				return decl && isEqual(decl.type)("TsTypeAliasDeclaration") ||
+					decl && isEqual(decl.type)("TsInterfaceDeclaration")
 			}
 
 			return false
