@@ -1,0 +1,83 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-09-21",
+	"library": "warden",
+	"purpose": "Cryptographically Enforced Architectural Governance",
+	"api": {
+		"exports": [
+			{
+				"name": "enforce",
+				"signature": "(config: WardenConfig, phase?: EnforcementPhase) => Promise<EnforcementResult>",
+				"description": "Main enforcement orchestrator"
+			},
+			{
+				"name": "hashArtifact",
+				"signature": "(data: unknown) => Promise<string>",
+				"description": "Generate SHA-256 hash of data using canonical JSON"
+			},
+			{
+				"name": "validatePrivacy",
+				"signature": "(importPath: string, fromFile: string) => Promise<boolean>",
+				"description": "Validate that imports follow privacy rules"
+			},
+			{
+				"name": "validateContract",
+				"signature": "(contractPath: string, implementationPath: string) => Promise<ValidationResult>",
+				"description": "Validate contract JSON schema against implementation"
+			}
+		],
+		"types": [
+			{
+				"name": "WardenConfig",
+				"description": "Configuration for Warden enforcement",
+				"fields": [
+					"targets",
+					"phase",
+					"privacyRules",
+					"contractPaths",
+					"performance",
+					"reporting"
+				]
+			},
+			{
+				"name": "EnforcementPhase",
+				"description": "Graduated enforcement phases",
+				"fields": ["pending", "warn", "block"]
+			},
+			{
+				"name": "EnforcementResult",
+				"description": "Result of enforcement validation",
+				"fields": ["decision", "violations", "performance"]
+			}
+		]
+	},
+	"privacy": {
+		"publicFunctions": ["src/*/index.ts"],
+		"privateFunctions": [
+			"src/*/_*/index.ts",
+			"src/*/*/_*/index.ts",
+			"src/*/*/_*/*/_*/index.ts"
+		],
+		"enforcement": "strict",
+		"rules": {
+			"nesting": "Helpers nest in the folder of the function that uses them",
+			"noUtils": "No generic 'utils' or 'helpers' folders - use descriptive names",
+			"noAbbreviations": "Function names must be full words, not abbreviations",
+			"lowestCommonAncestor": "If used by multiple functions, place in lowest common ancestor folder",
+			"srcLevelAllowed": "Private functions CAN be at src level - but only if src is the lowest common ancestor"
+		}
+	},
+	"implementation": {
+		"allowed": [
+			"Import from @sitebender/toolsmith",
+			"Pure functions only",
+			"Cryptographic operations"
+		],
+		"forbidden": [
+			"Side effects",
+			"Mutable state",
+			"Network calls",
+			"File system access"
+		]
+	}
+}

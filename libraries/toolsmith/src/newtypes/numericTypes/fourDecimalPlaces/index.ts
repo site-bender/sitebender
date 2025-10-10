@@ -4,7 +4,7 @@ import type { FourDecimalPlaces } from "@sitebender/toolsmith/types/branded/inde
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import _isFourDecimalPlaces from "@sitebender/toolsmith/newtypes/fourDecimalPlaces/_isFourDecimalPlaces/index.ts"
+import _isFourDecimalPlaces from "@sitebender/toolsmith/newtypes/numericTypes/fourDecimalPlaces/_isFourDecimalPlaces/index.ts"
 
 //++ Smart constructor that validates and creates an FourDecimalPlaces value - returns Result with helpful error on failure
 export default function fourDecimalPlaces(

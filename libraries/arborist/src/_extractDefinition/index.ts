@@ -1,6 +1,7 @@
 import _serializeTypeAnnotation from "../_serializeTypeAnnotation/index.ts"
 import serializeTypeParameters from "../_serializeTypeParameters/index.ts"
 import serializeExtendsClause from "../_serializeExtendsClause/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Extract type definition by serializing the AST node
 //++ This avoids the SWC WASM span offset accumulation bug
@@ -12,7 +13,7 @@ export default function extractDefinition(
 	const name = (node.id as Record<string, unknown>).value as string
 
 	// Build the definition string based on node type
-	if (nodeType === "TsTypeAliasDeclaration") {
+	if (isEqual(nodeType)("TsTypeAliasDeclaration")) {
 		// Type alias: type Name = Definition
 		const typeAnnotation = node.typeAnnotation
 		const serializedType = _serializeTypeAnnotation(typeAnnotation)
@@ -21,13 +22,13 @@ export default function extractDefinition(
 		return `${exportPrefix}type ${name}${typeParams} = ${serializedType}`
 	}
 
-	if (nodeType === "TsInterfaceDeclaration") {
+	if (isEqual(nodeType)("TsInterfaceDeclaration")) {
 		// Interface: interface Name { ... }
 		const body = node.body as Record<string, unknown>
 		const members = body.body as Array<Record<string, unknown>>
 		const serializedMembers = members.map((member) => {
 			const memberType = member.type as string
-			if (memberType === "TsPropertySignature") {
+			if (isEqual(memberType)("TsPropertySignature")) {
 				const key = member.key as Record<string, unknown>
 				const keyName = key.value as string
 				const typeAnn = member.typeAnnotation as
@@ -42,7 +43,7 @@ export default function extractDefinition(
 				}
 				return keyName
 			}
-			if (memberType === "TsMethodSignature") {
+			if (isEqual(memberType)("TsMethodSignature")) {
 				const key = member.key as Record<string, unknown>
 				const keyName = key.value as string
 				const params = member.params as Array<Record<string, unknown>>

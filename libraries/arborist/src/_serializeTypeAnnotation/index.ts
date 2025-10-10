@@ -1,5 +1,7 @@
 //++ Serialize a TypeScript type annotation to string
 //++ Handles primitive types, object types, union types, generics, etc.
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+
 export default function _serializeTypeAnnotation(node: unknown): string {
 	if (!node) {
 		return "unknown"
@@ -66,7 +68,7 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 			const members = nodeObj.members as Array<Record<string, unknown>>
 			const serialized = members.map((member) => {
 				const memberType = member.type as string
-				if (memberType === "TsPropertySignature") {
+				if (isEqual(memberType)("TsPropertySignature")) {
 					const key = member.key as Record<string, unknown>
 					const keyName = key.value as string
 					const typeAnn = member.typeAnnotation as
@@ -111,13 +113,13 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 		case "TsLiteralType": {
 			const literal = nodeObj.literal as Record<string, unknown>
 			const litType = literal.type as string
-			if (litType === "StringLiteral") {
+			if (isEqual(litType)("StringLiteral")) {
 				return `"${literal.value}"`
 			}
-			if (litType === "NumericLiteral") {
+			if (isEqual(litType)("NumericLiteral")) {
 				return String(literal.value)
 			}
-			if (litType === "BooleanLiteral") {
+			if (isEqual(litType)("BooleanLiteral")) {
 				return String(literal.value)
 			}
 			return "unknown"

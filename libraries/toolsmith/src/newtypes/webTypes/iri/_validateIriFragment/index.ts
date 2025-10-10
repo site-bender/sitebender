@@ -16,6 +16,7 @@ export default function _validateIriFragment(
 
 	// Check for control characters
 	// biome-ignore lint: escape needed
+	// deno-lint-ignore no-control-regex
 	if (/[\x00-\x1F\x7F-\x9F]/.test(fragment)) {
 		return error({
 			code: "IRI_FRAGMENT_CONTAINS_CONTROL_CHARS",
