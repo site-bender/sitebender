@@ -8,6 +8,7 @@ import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 import type { ParsedAst, ParsedExport, Position, Span } from "../types/index.ts"
 import type { ExportExtractionError } from "../types/errors/index.ts"
@@ -27,11 +28,11 @@ export default function extractExports(
 		function isExportDeclaration(node: unknown): boolean {
 			const nodeObj = node as Record<string, unknown>
 			const nodeType = nodeObj.type as string
-			return nodeType === "ExportDeclaration" ||
-				nodeType === "ExportDefaultDeclaration" ||
-				nodeType === "ExportDefaultExpression" ||
-				nodeType === "ExportNamedDeclaration" ||
-				nodeType === "ExportAllDeclaration"
+			return isEqual(nodeType)("ExportDeclaration") ||
+				isEqual(nodeType)("ExportDefaultDeclaration") ||
+				isEqual(nodeType)("ExportDefaultExpression") ||
+				isEqual(nodeType)("ExportNamedDeclaration") ||
+				isEqual(nodeType)("ExportAllDeclaration")
 		},
 	)(moduleBody)
 
@@ -68,23 +69,23 @@ function extractExportDetails(node: unknown): ReadonlyArray<ParsedExport> {
 	const position = extractPosition(span)
 
 	// Handle different export node types
-	if (nodeType === "ExportDefaultDeclaration") {
+	if (isEqual(nodeType)("ExportDefaultDeclaration")) {
 		return extractDefaultExport(exportNode)(position)(span)
 	}
 
-	if (nodeType === "ExportDefaultExpression") {
+	if (isEqual(nodeType)("ExportDefaultExpression")) {
 		return extractDefaultExport(exportNode)(position)(span)
 	}
 
-	if (nodeType === "ExportDeclaration") {
+	if (isEqual(nodeType)("ExportDeclaration")) {
 		return extractNamedExport(exportNode)(position)(span)
 	}
 
-	if (nodeType === "ExportNamedDeclaration") {
+	if (isEqual(nodeType)("ExportNamedDeclaration")) {
 		return extractNamedOrReExport(exportNode)(position)(span)
 	}
 
-	if (nodeType === "ExportAllDeclaration") {
+	if (isEqual(nodeType)("ExportAllDeclaration")) {
 		return extractReExportAll(exportNode)(position)(span)
 	}
 
@@ -133,13 +134,13 @@ function extractDefaultExport(
 			}
 
 			const declType = decl.type as string
-			const isType = declType === "TsTypeAliasDeclaration" ||
-				declType === "TsInterfaceDeclaration"
+			const isType = isEqual(declType)("TsTypeAliasDeclaration") ||
+				isEqual(declType)("TsInterfaceDeclaration")
 
 			// Extract name from declaration if available
 			let name = "default"
 			if (
-				declType === "FunctionDeclaration" || declType === "FunctionExpression"
+				isEqual(declType)("FunctionDeclaration") || isEqual(declType)("FunctionExpression")
 			) {
 				const ident = decl.identifier as Record<string, unknown> | undefined
 				if (ident) {
@@ -173,7 +174,7 @@ function extractNamedExport(
 			const declType = decl.type as string
 
 			// Function declaration
-			if (declType === "FunctionDeclaration") {
+			if (isEqual(declType)("FunctionDeclaration")) {
 				const ident = decl.identifier as Record<string, unknown>
 				const name = ident.value as string
 				return [{
@@ -186,12 +187,12 @@ function extractNamedExport(
 			}
 
 			// Variable declaration (const, let, var)
-			if (declType === "VariableDeclaration") {
+			if (isEqual(declType)("VariableDeclaration")) {
 				return extractVariableExports(decl)(position)(span)
 			}
 
 			// Type alias
-			if (declType === "TsTypeAliasDeclaration") {
+			if (isEqual(declType)("TsTypeAliasDeclaration")) {
 				const ident = decl.id as Record<string, unknown>
 				const name = ident.value as string
 				return [{
@@ -204,7 +205,7 @@ function extractNamedExport(
 			}
 
 			// Interface
-			if (declType === "TsInterfaceDeclaration") {
+			if (isEqual(declType)("TsInterfaceDeclaration")) {
 				const ident = decl.id as Record<string, unknown>
 				const name = ident.value as string
 				return [{
@@ -217,7 +218,7 @@ function extractNamedExport(
 			}
 
 			// Enum
-			if (declType === "TsEnumDeclaration") {
+			if (isEqual(declType)("TsEnumDeclaration")) {
 				const ident = decl.id as Record<string, unknown>
 				const name = ident.value as string
 				return [{
