@@ -1,4 +1,5 @@
 import _serializeTypeAnnotation from "../_serializeTypeAnnotation/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Serialize extends clause for interfaces
 export default function serializeExtendsClause(
@@ -9,7 +10,7 @@ export default function serializeExtendsClause(
 	}
 
 	const extendsArray = extendsClause as Array<Record<string, unknown>>
-	if (extendsArray.length === 0) {
+	if (isEqual(extendsArray.length)(0)) {
 		return ""
 	}
 

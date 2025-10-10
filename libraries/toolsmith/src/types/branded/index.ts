@@ -54,3 +54,9 @@ export type Hostname = Brand<string, "Hostname">
 
 //++ Universally Unique Identifier following RFC 4122 (8-4-4-4-12 format)
 export type Uuid = Brand<string, "Uuid">
+
+//++ International Standard Book Number (10-digit format) with valid checksum
+export type Isbn10 = Brand<string, "Isbn10">
+
+//++ International Standard Book Number (13-digit format) with valid checksum
+export type Isbn13 = Brand<string, "Isbn13">

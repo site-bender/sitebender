@@ -1,4 +1,5 @@
 import _serializeTypeAnnotation from "../_serializeTypeAnnotation/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 //++ Serialize type parameters (generics) if present
 export default function serializeTypeParameters(
@@ -10,11 +11,11 @@ export default function serializeTypeParameters(
 
 	const typeParamsObj = typeParams as Record<string, unknown>
 	const params = typeParamsObj.params as Array<Record<string, unknown>>
-	if (!params || params.length === 0) {
+	if (!params || isEqual(params.length)(0)) {
 		return ""
 	}
 
-	const serialized = params.map((param) => {
+	function serializeTypeParameter(param: Record<string, unknown>): string {
 		const name = (param.name as Record<string, unknown>).value as string
 		const constraint = param.constraint
 			? ` extends ${_serializeTypeAnnotation(param.constraint)}`
@@ -23,7 +24,9 @@ export default function serializeTypeParameters(
 			? ` = ${_serializeTypeAnnotation(param.default)}`
 			: ""
 		return `${name}${constraint}${defaultType}`
-	}).join(", ")
+	}
+
+	const serialized = params.map(serializeTypeParameter).join(", ")
 
 	return `<${serialized}>`
 }

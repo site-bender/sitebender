@@ -129,7 +129,9 @@ Applications work offline by default, sync when connected:
 
 ## The 18 Libraries
 
-Sitebender consists of 18 libraries organized into 6 architectural layers:
+Sitebender consists of 18 libraries organized into 6 architectural layers.
+
+**Critical Infrastructure Note:** Pathfinder (Intelligence Layer) serves as foundational infrastructure despite its layer classification. All libraries that need to persist or query RDF triples depend on Pathfinder for triple store access. This ensures a single Oxigraph connection across the entire system.
 
 ### Foundation Layer (Infrastructure)
 
@@ -183,9 +185,9 @@ URL-as-state (complete UI state in query parameters). **Cryptographic continuati
 
 ### Intelligence Layer (Search/Analysis/Verification)
 
-#### **[Pathfinder](../libraries/pathfinder.md)** - Data discovery & semantic search
+#### **[Pathfinder](../libraries/pathfinder.md)** - Triple store infrastructure & semantic search
 
-Type-safe SPARQL query building. **Hybrid search** - combines SPARQL's precise graph traversal with vector embeddings' semantic similarity. **Ontology inference** (RDFS/OWL reasoning makes implicit knowledge explicit). **Observability as triples** - Prometheus metrics, logs, traces become queryable knowledge. **Query-as-data** - store queries as triples, query your queries. **Oxigraph + Qdrant** architecture (production-proven, 281TB max, sub-millisecond vector search).
+**The single source of truth for all triple store access.** Owns the Oxigraph (RDF) and Qdrant (vector) connections. Every library that needs to persist or query data depends on Pathfinder—ensuring single database connection, consistent transactions, zero duplication. Provides `insertTriples()`, `executeQuery()`, and SPARQL execution. **Hybrid search** - combines SPARQL's precise graph traversal with vector embeddings' semantic similarity. **Ontology inference** (RDFS/OWL reasoning makes implicit knowledge explicit). **Observability as triples** - Prometheus metrics, logs, traces become queryable knowledge. **Query-as-data** - store queries as triples, query your queries. **Oxigraph + Qdrant** architecture (production-proven, 281TB max, sub-millisecond vector search).
 
 #### **[Envoy](../libraries/envoy.md)** - Living documentation and observability
 
