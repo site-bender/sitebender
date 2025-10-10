@@ -1,0 +1,11 @@
+{
+	"name": "@sitebender/warden",
+	"version": "0.0.1",
+	"exports": "mod.ts",
+	"tasks": {
+		"test": "deno test --allow-net --allow-read --allow-write src/",
+		"fmt": "deno fmt",
+		"lint": "deno lint",
+		"enforce": "deno run --allow-net --allow-read --allow-write ../../scripts/warden/enforce.ts"
+	}
+}
