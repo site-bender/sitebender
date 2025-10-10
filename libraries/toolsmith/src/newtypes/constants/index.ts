@@ -87,3 +87,63 @@ export const UUID_SEGMENTS = [
 	{ start: 19, end: 23, length: 4, name: "fourth" },
 	{ start: 24, end: 36, length: 12, name: "fifth" },
 ] as const
+
+//++ IPv4 octet maximum value (0-255)
+export const IPV4_OCTET_MAX = 255
+
+//++ Number of octets in IPv4 address
+export const IPV4_OCTETS_COUNT = 4
+
+//++ Number of groups in IPv6 address
+export const IPV6_GROUPS_COUNT = 8
+
+//++ Number of IPv6 groups when IPv4 is embedded
+export const IPV6_GROUPS_WITH_IPV4_COUNT = 6
+
+//++ Maximum hexadecimal digits per IPv6 group
+export const IPV6_GROUP_HEX_DIGITS_MAX = 4
+
+//++ Maximum value for IPv6 group (0x0000-0xFFFF)
+export const IPV6_GROUP_VALUE_MAX = 0xffff
+
+//++ Base for hexadecimal number parsing
+export const HEX_BASE = 16
+
+//++ Base for decimal number parsing
+export const DECIMAL_BASE = 10
+
+//++ Number of bits in a byte
+export const BYTE_BITS = 8
+
+//++ Length of ISBN-10 string (10 characters)
+export const ISBN10_LENGTH = 10
+
+//++ Valid characters for ISBN-10 (digits 0-9 and X for check digit)
+export const ISBN10_VALID_CHARS = "0123456789X"
+
+//++ Position of check digit in ISBN-10 (0-indexed, last character)
+export const ISBN10_CHECK_DIGIT_POSITION = 9
+
+//++ Weights for ISBN-10 checksum calculation (positions 1-10)
+export const ISBN10_WEIGHTS = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1] as const
+
+//++ Modulus for ISBN-10 checksum calculation
+export const ISBN10_CHECKSUM_MODULUS = 11
+
+//++ Length of ISBN-13 string (13 characters)
+export const ISBN13_LENGTH = 13
+
+//++ Valid characters for ISBN-13 (digits 0-9)
+export const ISBN13_VALID_CHARS = "0123456789"
+
+//++ Position of check digit in ISBN-13 (0-indexed, last character)
+export const ISBN13_CHECK_DIGIT_POSITION = 12
+
+//++ Weights for ISBN-13 checksum calculation (positions 1-13, alternating 1,3)
+export const ISBN13_WEIGHTS = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1] as const
+
+//++ Modulus for ISBN-13 checksum calculation
+export const ISBN13_CHECKSUM_MODULUS = 10
+
+//++ Valid ISBN-13 prefixes (978 and 979)
+export const ISBN13_VALID_PREFIXES = ["978", "979"] as const
