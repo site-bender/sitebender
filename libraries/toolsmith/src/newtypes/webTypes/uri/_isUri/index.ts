@@ -25,56 +25,48 @@ export default function _isUri(value: string): value is Uri {
 	}
 
 	const afterScheme = value.slice(colonIndex + 1)
-	let authority = ""
-	let path = ""
-	let query = ""
-	let fragment = ""
-	let remaining = afterScheme
+	const hasAuthority = afterScheme.startsWith("//")
+	const remainingAfterAuthPrefix = hasAuthority ? afterScheme.slice(2) : afterScheme
+	const authorityEnd = hasAuthority ? (() => {
+		const slashIdx = remainingAfterAuthPrefix.indexOf("/")
+		const questionIdx = remainingAfterAuthPrefix.indexOf("?")
+		const hashIdx = remainingAfterAuthPrefix.indexOf("#")
+		const validIndices = [slashIdx, questionIdx, hashIdx].filter(idx => idx !== -1)
+		return validIndices.length === 0 ? remainingAfterAuthPrefix.length : Math.min(...validIndices)
+	})() : 0
+	const authority = hasAuthority ? remainingAfterAuthPrefix.slice(0, authorityEnd) : ""
+	const remainingAfterAuthority = hasAuthority ? remainingAfterAuthPrefix.slice(authorityEnd) : afterScheme
 
-	if (remaining.startsWith("//")) {
-		remaining = remaining.slice(2)
-
-		let authorityEnd = remaining.length
-		for (let i = 0; i < remaining.length; i++) {
-			const char = remaining[i]
-			if (char === "/" || char === "?" || char === "#") {
-				authorityEnd = i
-				break
-			}
-		}
-
-		authority = remaining.slice(0, authorityEnd)
-		remaining = remaining.slice(authorityEnd)
-
+	if (hasAuthority) {
 		const authorityResult = _validateAuthority(authority)
 		if (authorityResult._tag === "Error") {
 			return false
 		}
 	}
 
-	const hashIndex = remaining.indexOf("#")
-	if (hashIndex !== -1) {
-		fragment = remaining.slice(hashIndex + 1)
-		remaining = remaining.slice(0, hashIndex)
+	const hashIndex = remainingAfterAuthority.indexOf("#")
+	const fragment = hashIndex !== -1 ? remainingAfterAuthority.slice(hashIndex + 1) : ""
+	const remainingAfterFragment = hashIndex !== -1 ? remainingAfterAuthority.slice(0, hashIndex) : remainingAfterAuthority
 
+	if (hashIndex !== -1) {
 		const fragmentResult = _validateFragment(fragment)
 		if (fragmentResult._tag === "Error") {
 			return false
 		}
 	}
 
-	const questionIndex = remaining.indexOf("?")
-	if (questionIndex !== -1) {
-		query = remaining.slice(questionIndex + 1)
-		remaining = remaining.slice(0, questionIndex)
+	const questionIndex = remainingAfterFragment.indexOf("?")
+	const query = questionIndex !== -1 ? remainingAfterFragment.slice(questionIndex + 1) : ""
+	const remainingAfterQuery = questionIndex !== -1 ? remainingAfterFragment.slice(0, questionIndex) : remainingAfterFragment
 
+	if (questionIndex !== -1) {
 		const queryResult = _validateQuery(query)
 		if (queryResult._tag === "Error") {
 			return false
 		}
 	}
 
-	path = remaining
+	const path = remainingAfterQuery
 
 	if (path.length > 0) {
 		if (authority.length === 0 && path.startsWith("//")) {

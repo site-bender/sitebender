@@ -1,6 +1,7 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
 
+import all from "@sitebender/toolsmith/array/all/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import _validatePort from "@sitebender/toolsmith/newtypes/webTypes/_validatePort/index.ts"
@@ -17,6 +18,7 @@ export default function _validateIriAuthority(
 
 	// Check for control characters
 	// biome-ignore lint: escape needed
+	// deno-lint-ignore no-control-regex
 	if (/[\x00-\x1F\x7F-\x9F]/.test(authority)) {
 		return error({
 			code: "IRI_AUTHORITY_CONTAINS_CONTROL_CHARS",
@@ -147,37 +149,44 @@ export default function _validateIriAuthority(
 	} else if (/^\d+\.\d+\.\d+\.\d+$/.test(host)) {
 		// IPv4: basic syntax validation
 		const octets = host.split(".")
-		for (const octet of octets) {
+		const rangeResult = all((octet: string) => {
 			const num = Number.parseInt(octet, 10)
-			if (Number.isNaN(num) || num < 0 || num > 255) {
-				return error({
-					code: "IRI_AUTHORITY_IPV4_INVALID",
-					field: "iri.authority.host",
-					messages: [
-						"The system requires valid IPv4 address (octets 0-255).",
-					],
-					received: host,
-					expected: "Four octets 0-255",
-					suggestion:
-						"Use valid IPv4 syntax. For full validation, use Ipv4Address type.",
-					severity: "requirement",
-				})
-			}
-			// Check for leading zeros
-			if (octet.length > 1 && octet.startsWith("0")) {
-				return error({
-					code: "IRI_AUTHORITY_IPV4_INVALID",
-					field: "iri.authority.host",
-					messages: [
-						"The system does not allow leading zeros in IPv4 octets.",
-					],
-					received: host,
-					expected: "Octets without leading zeros",
-					suggestion:
-						"Remove leading zeros (use 192.168.1.1 not 192.168.001.001)",
-					severity: "requirement",
-				})
-			}
+			return num >= 0 && num <= 255
+		})(octets)
+		if (rangeResult._tag === "Error") {
+			return rangeResult
+		}
+		if (!rangeResult.value) {
+			return error({
+				code: "IRI_AUTHORITY_IPV4_INVALID",
+				field: "iri.authority.host",
+				messages: [
+					"The system requires valid IPv4 address (octets 0-255).",
+				],
+				received: host,
+				expected: "Four octets 0-255",
+				suggestion:
+					"Use valid IPv4 syntax. For full validation, use Ipv4Address type.",
+				severity: "requirement",
+			})
+		}
+		const leadingZeroResult = all((octet: string) => !(octet.length > 1 && octet.startsWith("0")))(octets)
+		if (leadingZeroResult._tag === "Error") {
+			return leadingZeroResult
+		}
+		if (!leadingZeroResult.value) {
+			return error({
+				code: "IRI_AUTHORITY_IPV4_INVALID",
+				field: "iri.authority.host",
+				messages: [
+					"The system does not allow leading zeros in IPv4 octets.",
+				],
+				received: host,
+				expected: "Octets without leading zeros",
+				suggestion:
+					"Remove leading zeros (use 192.168.1.1 not 192.168.001.001)",
+				severity: "requirement",
+			})
 		}
 	} else {
 		// Domain name with Unicode allowed
