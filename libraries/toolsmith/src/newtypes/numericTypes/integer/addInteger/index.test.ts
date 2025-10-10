@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "@std/assert"
+import { assertEquals } from "@std/assert"
 import type { Integer } from "@sitebender/toolsmith/types/branded/index.ts"
 import isError from "@sitebender/toolsmith/monads/result/isError/index.ts"
 import isOk from "@sitebender/toolsmith/monads/result/isOk/index.ts"

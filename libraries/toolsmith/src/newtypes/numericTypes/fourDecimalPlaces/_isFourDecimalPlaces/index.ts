@@ -1,11 +1,7 @@
-import type { FourDecimalPlaces } from "@sitebender/toolsmith/types/branded/index.ts"
-
 import { FOUR_DECIMAL_PLACES_SCALE } from "@sitebender/toolsmith/newtypes/constants/index.ts"
 
-//++ Private predicate that checks if a number has at most 4 decimal places
-export default function _isFourDecimalPlaces(
-	n: number,
-): n is FourDecimalPlaces {
+//++ Private predicate that checks if a number is a valid FourDecimalPlaces value (finite number with at most 4 decimal places)
+export default function _isFourDecimalPlaces(n: number): boolean {
 	if (!Number.isFinite(n)) {
 		return false
 	}

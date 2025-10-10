@@ -1,15 +1,20 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { ParsedIpv6 } from "@sitebender/toolsmith/newtypes/types/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import _isIpv4Address from "@sitebender/toolsmith/newtypes/webTypes/ipv4Address/_isIpv4Address/index.ts"
+import {
+	IPV6_GROUPS_COUNT,
+	IPV6_GROUPS_WITH_IPV4_COUNT,
+	IPV6_GROUP_HEX_DIGITS_MAX,
+	IPV6_GROUP_VALUE_MAX,
+	HEX_BASE,
+	DECIMAL_BASE,
+	BYTE_BITS,
+} from "@sitebender/toolsmith/newtypes/constants/index.ts"
 
-//++ Result of parsing IPv6 address - groups as 8 numbers plus optional IPv4 suffix to preserve
-export type ParsedIpv6 = {
-	readonly groups: ReadonlyArray<number>
-	readonly ipv4Suffix?: string
-}
 
 //++ Parses IPv6 address into array of 8 groups (as numbers 0x0000-0xFFFF)
 //++ Handles :: compression and IPv4 embedding
@@ -123,58 +128,67 @@ export default function _parseIpv6Address(
 
 		// Convert IPv4 to two 16-bit groups
 		const ipv4Octets = ipv4Part.split(".").map(function (octet) {
-			return Number.parseInt(octet, 10)
+			return Number.parseInt(octet, DECIMAL_BASE)
 		})
-		const ipv4Group1 = (ipv4Octets[0] << 8) | ipv4Octets[1]
-		const ipv4Group2 = (ipv4Octets[2] << 8) | ipv4Octets[3]
+		const ipv4Group1 = (ipv4Octets[0] << BYTE_BITS) | ipv4Octets[1]
+		const ipv4Group2 = (ipv4Octets[2] << BYTE_BITS) | ipv4Octets[3]
 
 		// Parse IPv6 part (before IPv4)
 		const ipv6Part = address.slice(0, lastColon + 1)
 		const parts = ipv6Part.split(":")
 
-		// Remove empty strings from split (part of :: compression)
-		const groups: Array<number> = []
+		// Remove empty strings from split (part of :: compression) and validate
+		const nonEmptyParts = parts.filter(function (part) {
+			return part !== ""
+		})
 
-		for (const part of parts) {
-			if (part === "") {
-				// Empty part indicates :: compression - skip it
-				continue
-			}
+		// Validate each part using functional approach
+		const validationError = nonEmptyParts.reduce(
+			function (acc: Result<ValidationError, ParsedIpv6> | null, part: string) {
+				if (acc !== null) return acc
 
-			if (part.length > 4) {
-				return error({
-					code: "IPV6_ADDRESS_GROUP_TOO_LONG",
-					field: "ipv6Address",
-					messages: ["The system limits groups to 4 hexadecimal digits."],
-					received: address,
-					expected: "1-4 hex digits per group",
-					suggestion: `Group '${part}' has ${part.length} digits (max 4)`,
-					severity: "requirement",
-				})
-			}
+				if (part.length > IPV6_GROUP_HEX_DIGITS_MAX) {
+					return error({
+						code: "IPV6_ADDRESS_GROUP_TOO_LONG",
+						field: "ipv6Address",
+						messages: ["The system limits groups to 4 hexadecimal digits."],
+						received: address,
+						expected: "1-4 hex digits per group",
+						suggestion: `Group '${part}' has ${part.length} digits (max 4)`,
+						severity: "requirement",
+					})
+				}
 
-			const value = Number.parseInt(part, 16)
+				const value = Number.parseInt(part, HEX_BASE)
 
-			if (Number.isNaN(value) || value < 0 || value > 0xffff) {
-				return error({
-					code: "IPV6_ADDRESS_INVALID_GROUP",
-					field: "ipv6Address",
-					messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
-					received: address,
-					expected: "Hex digits 0000-ffff",
-					suggestion: `Group '${part}' is invalid`,
-					severity: "requirement",
-				})
-			}
+				if (Number.isNaN(value) || value < 0 || value > IPV6_GROUP_VALUE_MAX) {
+					return error({
+						code: "IPV6_ADDRESS_INVALID_GROUP",
+						field: "ipv6Address",
+						messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
+						received: address,
+						expected: "Hex digits 0000-ffff",
+						suggestion: `Group '${part}' is invalid`,
+						severity: "requirement",
+					})
+				}
 
-			groups.push(value)
-		}
+				return null
+			},
+			null as Result<ValidationError, ParsedIpv6> | null,
+		)
+
+		if (validationError) return validationError
+
+		const groups = nonEmptyParts.map(function (part) {
+			return Number.parseInt(part, 16)
+		})
 
 		// With IPv4 embedding, we should have 6 IPv6 groups + 2 from IPv4 = 8 total
 		const hasCompression = address.includes("::")
 
 		if (hasCompression) {
-			const zerosNeeded = 6 - groups.length
+			const zerosNeeded = IPV6_GROUPS_WITH_IPV4_COUNT - groups.length
 			if (zerosNeeded < 0) {
 				return error({
 					code: "IPV6_ADDRESS_TOO_MANY_GROUPS_WITH_IPV4",
@@ -190,52 +204,41 @@ export default function _parseIpv6Address(
 			}
 
 			// Expand :: compression
-			const finalGroups: Array<number> = []
-
-			// Find position of ::
 			const compressionIndex = ipv6Part.indexOf("::")
 
-			if (compressionIndex === 0) {
-				// :: at start
-				for (let i = 0; i < zerosNeeded; i++) {
-					finalGroups.push(0)
+			const finalGroups = function (): ReadonlyArray<number> {
+				if (compressionIndex === 0) {
+					// :: at start
+					const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
+					return zeros.concat(groups).concat(ipv4Group1, ipv4Group2)
 				}
-				for (const group of groups) {
-					finalGroups.push(group)
+
+				if (compressionIndex === ipv6Part.length - 2) {
+					// :: at end (before final :)
+					return groups.concat(
+						Array.from({ length: zerosNeeded }, function () { return 0 }),
+						ipv4Group1,
+						ipv4Group2,
+					)
 				}
-			} else if (compressionIndex === ipv6Part.length - 2) {
-				// :: at end (before final :)
-				for (const group of groups) {
-					finalGroups.push(group)
-				}
-				for (let i = 0; i < zerosNeeded; i++) {
-					finalGroups.push(0)
-				}
-			} else {
+
 				// :: in middle
 				const beforeCompression =
 					ipv6Part.slice(0, compressionIndex).split(":").filter(function (s) {
 						return s.length > 0
 					}).length
 
-				for (let i = 0; i < beforeCompression; i++) {
-					finalGroups.push(groups[i])
-				}
-				for (let i = 0; i < zerosNeeded; i++) {
-					finalGroups.push(0)
-				}
-				for (let i = beforeCompression; i < groups.length; i++) {
-					finalGroups.push(groups[i])
-				}
-			}
+				const before = groups.slice(0, beforeCompression)
+				const after = groups.slice(beforeCompression)
+				const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
 
-			finalGroups.push(ipv4Group1)
-			finalGroups.push(ipv4Group2)
+				return before.concat(zeros).concat(after).concat(ipv4Group1, ipv4Group2)
+			}()
 
 			return ok({ groups: finalGroups, ipv4Suffix: ipv4Part })
 		}
 
-		if (groups.length !== 6) {
+		if (groups.length !== IPV6_GROUPS_WITH_IPV4_COUNT) {
 			return error({
 				code: "IPV6_ADDRESS_TOO_MANY_GROUPS_WITH_IPV4",
 				field: "ipv6Address",
@@ -249,10 +252,9 @@ export default function _parseIpv6Address(
 			})
 		}
 
-		groups.push(ipv4Group1)
-		groups.push(ipv4Group2)
+		const finalGroups = groups.concat(ipv4Group1, ipv4Group2)
 
-		return ok({ groups, ipv4Suffix: ipv4Part })
+		return ok({ groups: finalGroups, ipv4Suffix: ipv4Part })
 	}
 
 	// Pure IPv6 (no IPv4 embedding)
@@ -261,43 +263,53 @@ export default function _parseIpv6Address(
 	if (hasCompression) {
 		// Split and parse groups
 		const parts = address.split(":")
-		const groups: Array<number> = []
+		const nonEmptyParts = parts.filter(function (part) {
+			return part !== ""
+		})
 
-		for (const part of parts) {
-			if (part === "") {
-				continue
-			}
+		// Validate each part
+		const validationError = nonEmptyParts.reduce(
+			function (acc: Result<ValidationError, ParsedIpv6> | null, part: string) {
+				if (acc !== null) return acc
 
-			if (part.length > 4) {
-				return error({
-					code: "IPV6_ADDRESS_GROUP_TOO_LONG",
-					field: "ipv6Address",
-					messages: ["The system limits groups to 4 hexadecimal digits."],
-					received: address,
-					expected: "1-4 hex digits per group",
-					suggestion: `Group '${part}' has ${part.length} digits (max 4)`,
-					severity: "requirement",
-				})
-			}
+				if (part.length > IPV6_GROUP_HEX_DIGITS_MAX) {
+					return error({
+						code: "IPV6_ADDRESS_GROUP_TOO_LONG",
+						field: "ipv6Address",
+						messages: ["The system limits groups to 4 hexadecimal digits."],
+						received: address,
+						expected: "1-4 hex digits per group",
+						suggestion: `Group '${part}' has ${part.length} digits (max 4)`,
+						severity: "requirement",
+					})
+				}
 
-			const value = Number.parseInt(part, 16)
+				const value = Number.parseInt(part, HEX_BASE)
 
-			if (Number.isNaN(value) || value < 0 || value > 0xffff) {
-				return error({
-					code: "IPV6_ADDRESS_INVALID_GROUP",
-					field: "ipv6Address",
-					messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
-					received: address,
-					expected: "Hex digits 0000-ffff",
-					suggestion: `Group '${part}' is invalid`,
-					severity: "requirement",
-				})
-			}
+				if (Number.isNaN(value) || value < 0 || value > IPV6_GROUP_VALUE_MAX) {
+					return error({
+						code: "IPV6_ADDRESS_INVALID_GROUP",
+						field: "ipv6Address",
+						messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
+						received: address,
+						expected: "Hex digits 0000-ffff",
+						suggestion: `Group '${part}' is invalid`,
+						severity: "requirement",
+					})
+				}
 
-			groups.push(value)
-		}
+				return null
+			},
+			null as Result<ValidationError, ParsedIpv6> | null,
+		)
 
-		const zerosNeeded = 8 - groups.length
+		if (validationError) return validationError
+
+		const groups = nonEmptyParts.map(function (part) {
+			return Number.parseInt(part, HEX_BASE)
+		})
+
+		const zerosNeeded = IPV6_GROUPS_COUNT - groups.length
 
 		if (zerosNeeded < 0) {
 			return error({
@@ -313,42 +325,34 @@ export default function _parseIpv6Address(
 		}
 
 		// Expand :: compression
-		const finalGroups: Array<number> = []
 		const compressionIndex = address.indexOf("::")
 
-		if (compressionIndex === 0) {
-			// :: at start
-			for (let i = 0; i < zerosNeeded; i++) {
-				finalGroups.push(0)
+		const finalGroups = function (): ReadonlyArray<number> {
+			if (compressionIndex === 0) {
+				// :: at start
+				const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
+				return zeros.concat(groups)
 			}
-			for (const group of groups) {
-				finalGroups.push(group)
+
+			if (compressionIndex === address.length - 2) {
+				// :: at end
+				return groups.concat(
+					Array.from({ length: zerosNeeded }, function () { return 0 }),
+				)
 			}
-		} else if (compressionIndex === address.length - 2) {
-			// :: at end
-			for (const group of groups) {
-				finalGroups.push(group)
-			}
-			for (let i = 0; i < zerosNeeded; i++) {
-				finalGroups.push(0)
-			}
-		} else {
+
 			// :: in middle
 			const beforeCompression =
 				address.slice(0, compressionIndex).split(":").filter(function (s) {
 					return s.length > 0
 				}).length
 
-			for (let i = 0; i < beforeCompression; i++) {
-				finalGroups.push(groups[i])
-			}
-			for (let i = 0; i < zerosNeeded; i++) {
-				finalGroups.push(0)
-			}
-			for (let i = beforeCompression; i < groups.length; i++) {
-				finalGroups.push(groups[i])
-			}
-		}
+			const before = groups.slice(0, beforeCompression)
+			const after = groups.slice(beforeCompression)
+			const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
+
+			return before.concat(zeros).concat(after)
+		}()
 
 		return ok({ groups: finalGroups })
 	}
@@ -356,8 +360,8 @@ export default function _parseIpv6Address(
 	// No compression - must have exactly 8 groups
 	const parts = address.split(":")
 
-	if (parts.length !== 8) {
-		if (parts.length < 8) {
+	if (parts.length !== IPV6_GROUPS_COUNT) {
+		if (parts.length < IPV6_GROUPS_COUNT) {
 			return error({
 				code: "IPV6_ADDRESS_TOO_FEW_GROUPS",
 				field: "ipv6Address",
@@ -380,49 +384,59 @@ export default function _parseIpv6Address(
 		})
 	}
 
-	const groups: Array<number> = []
+	// Validate each part
+	const validationError = parts.reduce(
+		function (acc: Result<ValidationError, ParsedIpv6> | null, part: string, _index: number) {
+			if (acc !== null) return acc
 
-	for (const part of parts) {
-		if (part.length === 0) {
-			return error({
-				code: "IPV6_ADDRESS_EMPTY_GROUP",
-				field: "ipv6Address",
-				messages: ["The system does not allow empty groups."],
-				received: address,
-				expected: "Groups with hex digits",
-				suggestion: "Use :: for zero compression",
-				severity: "requirement",
-			})
-		}
+			if (part.length === 0) {
+				return error({
+					code: "IPV6_ADDRESS_EMPTY_GROUP",
+					field: "ipv6Address",
+					messages: ["The system does not allow empty groups."],
+					received: address,
+					expected: "Groups with hex digits",
+					suggestion: "Use :: for zero compression",
+					severity: "requirement",
+				})
+			}
 
-		if (part.length > 4) {
-			return error({
-				code: "IPV6_ADDRESS_GROUP_TOO_LONG",
-				field: "ipv6Address",
-				messages: ["The system limits groups to 4 hexadecimal digits."],
-				received: address,
-				expected: "1-4 hex digits per group",
-				suggestion: `Group '${part}' has ${part.length} digits (max 4)`,
-				severity: "requirement",
-			})
-		}
+			if (part.length > IPV6_GROUP_HEX_DIGITS_MAX) {
+				return error({
+					code: "IPV6_ADDRESS_GROUP_TOO_LONG",
+					field: "ipv6Address",
+					messages: ["The system limits groups to 4 hexadecimal digits."],
+					received: address,
+					expected: "1-4 hex digits per group",
+					suggestion: `Group '${part}' has ${part.length} digits (max 4)`,
+					severity: "requirement",
+				})
+			}
 
-		const value = Number.parseInt(part, 16)
+			const value = Number.parseInt(part, HEX_BASE)
 
-		if (Number.isNaN(value) || value < 0 || value > 0xffff) {
-			return error({
-				code: "IPV6_ADDRESS_INVALID_GROUP",
-				field: "ipv6Address",
-				messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
-				received: address,
-				expected: "Hex digits 0000-ffff",
-				suggestion: `Group '${part}' is invalid`,
-				severity: "requirement",
-			})
-		}
+			if (Number.isNaN(value) || value < 0 || value > IPV6_GROUP_VALUE_MAX) {
+				return error({
+					code: "IPV6_ADDRESS_INVALID_GROUP",
+					field: "ipv6Address",
+					messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
+					received: address,
+					expected: "Hex digits 0000-ffff",
+					suggestion: `Group '${part}' is invalid`,
+					severity: "requirement",
+				})
+			}
 
-		groups.push(value)
-	}
+			return null
+		},
+		null as Result<ValidationError, ParsedIpv6> | null,
+	)
+
+	if (validationError) return validationError
+
+	const groups = parts.map(function (part) {
+		return Number.parseInt(part, 16)
+	})
 
 	return ok({ groups })
 }
