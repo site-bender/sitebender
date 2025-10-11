@@ -7,6 +7,8 @@ import { default as initSwc, parse } from "npm:@swc/wasm-web@1.13.20"
 import type { ParsedAst } from "../types/index.ts"
 
 import extractConstants from "./index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 // Initialize SWC WASM once for all tests
 // NOTE: We no longer need to reinitialize per test because we've fixed the
@@ -64,7 +66,7 @@ Deno.test("extractConstants - Success with simple const", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "FOO")
 		assertEquals(validation.value[0].isExported, false)
 		assertEquals(validation.value[0].value, "42")
@@ -80,7 +82,7 @@ Deno.test("extractConstants - Success with exported const", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "API_URL")
 		assertEquals(validation.value[0].isExported, true)
 		assertEquals(validation.value[0].value, '"https://example.com"')
@@ -96,7 +98,7 @@ Deno.test("extractConstants - Success with type annotation", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "PORT")
 		assertEquals(validation.value[0].type, "number")
 		assertEquals(validation.value[0].value, "3000")
@@ -112,7 +114,7 @@ Deno.test("extractConstants - Success with string const", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "APP_NAME")
 		assertEquals(validation.value[0].value, '"Arborist"')
 	}
@@ -127,7 +129,7 @@ Deno.test("extractConstants - Success with boolean const", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "DEBUG")
 		assertEquals(validation.value[0].value, "true")
 	}
@@ -142,7 +144,7 @@ Deno.test("extractConstants - Success with object literal", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "CONFIG")
 		assert(validation.value[0].value?.includes("port"))
 		assert(validation.value[0].value?.includes("3000"))
@@ -158,7 +160,7 @@ Deno.test("extractConstants - Success with array literal", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "COLORS")
 		assert(validation.value[0].value?.includes("red"))
 	}
@@ -173,7 +175,7 @@ Deno.test("extractConstants - Success with computed value", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "COMPUTED")
 		assertEquals(validation.value[0].value, "10 * 20")
 	}
@@ -186,7 +188,7 @@ Deno.test("extractConstants - Success with template literal", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "MESSAGE")
 		assert(validation.value[0].value?.includes("Hello"))
 	}
@@ -203,7 +205,7 @@ Deno.test("extractConstants - Success with multiple constants", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 3)
+		assertEquals(getOrElse(0)(length(validation.value)), 3)
 		assertEquals(validation.value[0].name, "FOO")
 		assertEquals(validation.value[0].isExported, false)
 		assertEquals(validation.value[1].name, "BAR")
@@ -223,7 +225,7 @@ Deno.test("extractConstants - Success with empty array for no constants", async 
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 0)
+		assertEquals(getOrElse(0)(length(validation.value)), 0)
 	}
 })
 
@@ -238,7 +240,7 @@ Deno.test("extractConstants - ignores let and var declarations", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "IMMUTABLE")
 	}
 })
@@ -252,7 +254,7 @@ Deno.test("extractConstants - Success with readonly array type", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "ITEMS")
 		assert(validation.value[0].value?.includes("a"))
 	}
@@ -267,7 +269,7 @@ Deno.test("extractConstants - Success with function call value", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "RESULT")
 		assertEquals(validation.value[0].value, "doSomething()")
 	}
@@ -282,7 +284,7 @@ Deno.test("extractConstants - Success with null value", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "NULLABLE")
 		assertEquals(validation.value[0].value, "null")
 	}
@@ -297,7 +299,7 @@ Deno.test("extractConstants - Success with undefined value", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].name, "UNDEF")
 		assertEquals(validation.value[0].value, "undefined")
 	}

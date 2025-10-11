@@ -7,6 +7,7 @@ import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import createError from "@sitebender/architect/errors/createError/index.ts"
 import withSuggestion from "@sitebender/architect/errors/withSuggestion/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ParsedAst, ParseError } from "../types/index.ts"
@@ -47,7 +48,7 @@ export default async function parseFile(
 		const message = err instanceof Error ? err.message : String(err)
 
 		// Determine error kind based on error message/type
-		if (message.includes("No such file") || message.includes("NotFound")) {
+		if (or(message.includes("No such file"))(message.includes("NotFound")) as boolean) {
 			const baseError = createError("parseFile")([filePath] as [string])(
 				`parseFile: File not found in ${filePath}`,
 			)("NOT_FOUND")
@@ -66,8 +67,7 @@ export default async function parseFile(
 		}
 
 		if (
-			message.includes("permission") ||
-			message.includes("PermissionDenied")
+			or(message.includes("permission"))(message.includes("PermissionDenied")) as boolean
 		) {
 			const baseError = createError("parseFile")([filePath] as [string])(
 				`parseFile failed: Permission denied reading file "${filePath}"`,
@@ -86,7 +86,7 @@ export default async function parseFile(
 			return error(parseError)
 		}
 
-		if (message.includes("Unexpected") || message.includes("Expected")) {
+		if (or(message.includes("Unexpected"))(message.includes("Expected")) as boolean) {
 			// Parse syntax error - try to extract line/column if available
 			const lineMatch = message.match(/line (\d+)/)
 			const colMatch = message.match(/column (\d+)/)
