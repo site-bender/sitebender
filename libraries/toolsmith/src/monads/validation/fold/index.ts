@@ -1,4 +1,4 @@
-import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
+import type { NonEmptyArray } from "../../../../src/types/index.ts"
 import type { Validation } from "../../../types/validation/index.ts"
 
 //++ Folds a validation to a single value by handling both cases

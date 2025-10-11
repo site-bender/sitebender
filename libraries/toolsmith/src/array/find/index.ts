@@ -1,5 +1,6 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
@@ -7,7 +8,7 @@ import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
 
 //++ Finds the first element matching a predicate
 //++ Returns Result with found element or error if not found or invalid input
-export default function find<T>(predicate: (item: T) => boolean) {
+export default function find<T extends Serializable>(predicate: (item: T) => boolean) {
 	return function findWithPredicate(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, T> {
