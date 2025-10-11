@@ -8,6 +8,7 @@ import type {
 import { parse_with_semantics } from "../pkg/arborist_deno_ast_wasm.js"
 
 import _convertWasmSemanticInfo from "../_convertWasmSemanticInfo/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 // Types for WASM interop
 type WasmSemanticInfo = {
@@ -58,9 +59,9 @@ export default async function parseWithSemantics(
 
 		// Convert WASM result to our SemanticAst type
 		const semanticAst: SemanticAst = {
-			module: wasmResult.module || {},
-			sourceText: wasmResult["source_text"] || sourceText,
-			filePath: wasmResult["file_path"] || filePath,
+			module: or(wasmResult.module)({}),
+			sourceText: or(wasmResult["source_text"])(sourceText) as string,
+			filePath: or(wasmResult["file_path"])(filePath) as string,
 			semanticInfo: _convertWasmSemanticInfo(wasmResult["semantic_info"]),
 		}
 

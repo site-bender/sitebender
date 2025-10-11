@@ -27,6 +27,7 @@ import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
 import type {
 	ParsedAst,
@@ -176,12 +177,12 @@ function extractTypeAnnotation(
 	const id = declarator.id as Record<string, unknown>
 	const typeAnn = id.typeAnnotation as Record<string, unknown> | undefined
 
-	if (!typeAnn) {
+	if (not(typeAnn)) {
 		return "unknown"
 	}
 
 	// Use the type annotation serializer to convert AST to string
-	const typeAnnotationNode = typeAnn.typeAnnotation
+	const typeAnnotationNode = (typeAnn as Record<string, unknown>).typeAnnotation
 	return _serializeTypeAnnotation(typeAnnotationNode)
 }
 
@@ -192,7 +193,7 @@ function extractValue(
 ): string | undefined {
 	const init = declarator.init as Record<string, unknown> | undefined
 
-	if (!init) {
+	if (not(init)) {
 		return undefined
 	}
 

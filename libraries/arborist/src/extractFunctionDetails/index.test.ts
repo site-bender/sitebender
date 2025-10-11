@@ -7,6 +7,7 @@ import initSwc, { parse } from "npm:@swc/wasm-web@1.13.20"
 import find from "@sitebender/toolsmith/array/find/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
 
 import extractFunctionDetails from "./index.ts"
 
@@ -71,7 +72,7 @@ Deno.test("extractFunctionDetails - extracts parameters", async () => {
 
 	const result = extractFunctionDetails(node)
 
-	assertEquals(result.parameters.length, 2)
+	assertEquals(getOrElse(0)(length(result.parameters)), 2)
 	assertEquals(result.parameters[0].name, "a")
 	assertEquals(result.parameters[0].type, "number")
 	assertEquals(result.parameters[0].optional, false)
@@ -88,7 +89,7 @@ Deno.test("extractFunctionDetails - extracts optional parameter", async () => {
 
 	const result = extractFunctionDetails(node)
 
-	assertEquals(result.parameters.length, 2)
+	assertEquals(getOrElse(0)(length(result.parameters)), 2)
 	assertEquals(result.parameters[1].optional, true)
 })
 
@@ -217,7 +218,7 @@ Deno.test("extractFunctionDetails - handles function with no parameters", async 
 
 	const result = extractFunctionDetails(node)
 
-	assertEquals(result.parameters.length, 0)
+	assertEquals(getOrElse(0)(length(result.parameters)), 0)
 })
 
 Deno.test("extractFunctionDetails - handles function with type parameters", async () => {
@@ -229,6 +230,6 @@ Deno.test("extractFunctionDetails - handles function with type parameters", asyn
 
 	const result = extractFunctionDetails(node)
 
-	assertEquals(result.typeParameters.length, 1)
+	assertEquals(getOrElse(0)(length(result.typeParameters)), 1)
 	assertEquals(result.typeParameters[0].name, "T")
 })

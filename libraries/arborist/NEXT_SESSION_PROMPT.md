@@ -1,8 +1,8 @@
 # Arborist - Next Session Start Here
 
-**Last Updated**: 2025-10-10  
-**Status**: Substantially Complete (188/188 tests passing)  
-**Current Work**: Batch 0 - Fix TypeScript errors and lint warnings
+**Last Updated**: 2025-10-10
+**Status**: Substantially Complete (188/188 tests passing)
+**Current Work**: Batch 6 & 7 Discovery Complete - Ready for implementation
 
 ## Quick Context
 
@@ -16,97 +16,63 @@ Arborist is a TypeScript/JSX parsing library using SWC WASM for syntax parsing. 
 - **All 188 tests passing** (with `--no-check` flag)
 - **Core functionality**: Parse, extract, analyze - all working
 - **Batches 1-4 complete**: Infrastructure, arrow removal, loop removal, === replacement
+- **Batch 5 complete**: || operator replacement (6 files, 50 instances)
+- **Batch 6 discovery complete**: .length operator found (19 files, 108 instances)
+- **Batch 7 discovery complete**: ! operator found (18 files, 23 instances)
 - **Constitutional compliance**: Curried functions, no classes, no loops, no mutations
 - **Documentation**: README.md (aspirational end state - DON'T TOUCH)
 
 ### 🔧 What Needs Fixing (Your Job)
 
-**Batch 0 - CRITICAL** (Must do first):
-1. Fix 6 TypeScript errors (see fix_plan.md section 0.1-0.3)
-2. Remove 8 unused imports (see fix_plan.md section 0.5)
+**Batch 6 & 7 - READY FOR IMPLEMENTATION**:
+1. Replace `.length` operators with `length()` calls (19 files, 108 instances)
+2. Replace `!` operators with `not()` calls (18 files, 23 instances)
 
-**Batch 5+ - IN PROGRESS**:
-3. Continue operator substitutions (`||`, `.length`, `!`, `&&`, etc.)
+**Batch 8+ - PENDING**:
+3. Continue with `&&`, `!==`, and comparison operators
 
 ## The Work Queue
 
 Complete these batches IN ORDER. DO NOT SKIP BATCH 0.
 
-### Batch 0: Fix TypeScript Errors (START HERE)
+### Batch 6 & 7: Operator Substitutions (START HERE)
 
-**Priority**: CRITICAL  
-**Goal**: Make `deno task test` work WITHOUT `--no-check`
+**Priority**: HIGH
+**Goal**: Replace `.length` and `!` operators with Toolsmith function calls
 
-#### Task 0.1: Fix Toolsmith Import Path
+#### Batch 6: .length → length()
+- **Files**: 19 files, 108 instances
+- **Import**: `import length from "@sitebender/toolsmith/array/length/index.ts"`
+- **Pattern**: `arr.length` → `length(arr)`
+- **Comparisons**: `arr.length > 0` → `gt(0)(length(arr))`
 
-**File**: `libraries/toolsmith/src/monads/validation/fold/index.ts:1`
+#### Batch 7: ! → not()
+- **Files**: 18 files, 23 instances
+- **Import**: `import not from "@sitebender/toolsmith/logic/not/index.ts"`
+- **Pattern**: `!condition` → `not(condition)`
+- **Double negation**: `!!value` → `not(not(value))`
 
-**Change**:
-```typescript
-// FROM THIS:
-import type { NonEmptyArray } from "../../types/NonEmptyArray/index.ts"
+### Implementation Process
 
-// TO THIS:
-import type { NonEmptyArray } from "../../types/index.ts"
-```
+1. **Work in groups of 5-10 files** to avoid overwhelming changes
+2. **Add Toolsmith imports** at the top of each file
+3. **Replace operators** with function calls
+4. **Test after each file**: `deno lint <file>` and `deno check <file>`
+5. **Run full test suite** after each batch: `deno task test`
+6. **Update fix_plan.md** checklists as you complete files
 
-The NonEmptyArray type exists in `toolsmith/src/types/index.ts` at line 51, NOT in a separate directory.
-
-#### Task 0.2: Fix Boolean Logic in extractTypes
-
-**File**: `libraries/arborist/src/extractTypes/index.ts:63`
-
-**Change**:
-```typescript
-// FROM THIS:
-return decl && isEqual(decl.type)("TsTypeAliasDeclaration") ||
-    decl && isEqual(decl.type)("TsInterfaceDeclaration")
-
-// TO THIS:
-return (decl && isEqual(decl.type)("TsTypeAliasDeclaration")) ||
-    (decl && isEqual(decl.type)("TsInterfaceDeclaration"))
-```
-
-Add parentheses to fix precedence and prevent undefined return value.
-
-#### Task 0.3: Fix Toolsmith ValidationError Types
-
-**Files**: 
-- `toolsmith/src/array/filter/index.ts:23`
-- `toolsmith/src/array/find/index.ts:26,39`  
-- `toolsmith/src/array/map/index.ts:23`
-
-**Problem**: ValidationError type doesn't accept readonly arrays.
-
-**Note**: This is a Toolsmith library issue. You may need to ask the architect for the proper fix. These errors don't prevent execution but block clean compilation.
-
-### Batch 0.5: Remove Unused Imports (TRIVIAL)
-
-**Rule**: REMOVE unused imports completely. Do NOT prefix with underscore.
-
-**Files to fix**:
-
-1. `src/_extractTypeDetails/index.ts:1` - Remove `Position, Span`
-2. `src/_extractImportDetails/index.ts:1` - Remove `Position, Span, ImportBinding`
-3. `src/parsers/denoAst/wasm/parseWithSemantics/index.ts:4` - Remove `SemanticInfo`
-4. `src/extractComments/extractComments/index.ts:15-18` - Remove `EnvoyMarker, Position`
-
-**Just delete the unused import names from the import statements.**
-
-### Batch 0 Verification
-
-After completing Batch 0, verify:
+### Verification After Each Batch
 
 ```bash
 cd libraries/arborist
 
 # These should all succeed:
+deno task test               # All 188 tests must pass
 deno check src/              # No TypeScript errors
-deno lint src/               # No lint warnings  
-deno task test               # Should work WITHOUT --no-check now
+deno lint src/               # No lint warnings
 ```
 
-If all three pass, Batch 0 is complete. Update fix_plan.md and move to Batch 5.
+If all pass, mark the batch complete in fix_plan.md.
 
 ## Batch 5+: Operator Substitutions
 
@@ -228,13 +194,14 @@ libraries/toolsmith/src/
 When you start your session:
 
 - [ ] Read this entire document
-- [ ] Read `fix_plan.md` sections 0 through 0.5
-- [ ] Run `deno task test --no-check` to verify tests pass
-- [ ] Start with Batch 0.1 (fix Toolsmith import)
-- [ ] Move through Batch 0 in order
-- [ ] Verify with `deno check` and `deno lint`
+- [ ] Read `fix_plan.md` sections 6 and 7
+- [ ] Run `deno task test` to verify tests pass
+- [ ] Start with Batch 6 (.length replacements)
+- [ ] Work in groups of 5-10 files
+- [ ] Add Toolsmith imports and replace operators
+- [ ] Test after each file and batch
 - [ ] Update fix_plan.md as you complete items
-- [ ] Move to Batch 5 only after Batch 0 is complete
+- [ ] Move to Batch 7 after Batch 6 is complete
 
 ## Getting Help
 
@@ -250,15 +217,15 @@ If you encounter issues:
 
 You're done when:
 
-- [ ] All 6 TypeScript errors fixed (Batch 0.1-0.3)
-- [ ] All 8 lint warnings fixed (Batch 0.5)
-- [ ] `deno task test` passes WITHOUT `--no-check`
+- [ ] Batch 6 complete (.length operators replaced in 19 files)
+- [ ] Batch 7 complete (! operators replaced in 18 files)
+- [ ] `deno task test` passes (all 188 tests)
 - [ ] `deno check src/` reports zero errors
 - [ ] `deno lint src/` reports zero warnings
-- [ ] All 188 tests still passing
+- [ ] All tests still passing
 - [ ] fix_plan.md updated with your progress
 
-After Batch 0, continue with Batch 5+ using same verification approach.
+After Batch 7, continue with Batch 8+ using same verification approach.
 
 ---
 
@@ -266,4 +233,4 @@ After Batch 0, continue with Batch 5+ using same verification approach.
 
 **Key Document**: `src/fix_plan.md` - Read it, follow it, update it.
 
-**Next Action**: Complete Batch 0 (fix TypeScript errors and lint warnings).
+**Next Action**: Complete Batch 6 & 7 (operator substitutions).

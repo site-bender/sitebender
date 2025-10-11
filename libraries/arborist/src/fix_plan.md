@@ -162,17 +162,17 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 
 **Goal**: Replace all `||` operators with `or(a)(b)` calls
 
-**Status**: 1/14 files completed (extractFunctionDetails done in previous session)
+**Status**: 6/6 files completed ✅
 
 **Rule**: Replace `a || b` with `or(a)(b)` using Toolsmith's `or` function
 
 ### Checklist
 
 #### Discovery
-- [ ] Run `search_files` with pattern `\|\|` in `libraries/arborist/src/*.ts`
-- [ ] List all files containing `||` operator
-- [ ] Count total instances
-- [ ] Update this checklist with file list
+- [x] Run `search_files` with pattern `\|\|` in `libraries/arborist/src/*.ts`
+- [x] List all files containing `||` operator
+- [x] Count total instances (50 total, 6 files need changes)
+- [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
 - [ ] For each file with `||`:
@@ -184,11 +184,12 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - [ ] Mark file complete in this checklist
 
 #### Files to Process
-(Add files discovered during Discovery phase)
-- [ ] File 1: [filename]
-- [ ] File 2: [filename]
-- [ ] File 3: [filename]
-- [ ] ... (add as discovered)
+- [x] _extractNamedBindings/index.ts (1 instance)
+- [x] _extractImportDetails/index.ts (2 instances)
+- [x] extractExports/index.ts (3 instances)
+- [x] parseFile/index.ts (3 instances)
+- [x] parsers/denoAst/wasm/parseWithSemantics/index.ts (3 instances)
+- [x] parsers/denoAst/wasm/_convertWasmSemanticInfo/index.ts (24 instances)
 
 ### Batch 5 Completion Criteria
 
@@ -215,17 +216,17 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 
 **Goal**: Replace all `.length` usage with `length(arr)` calls
 
-**Status**: NOT STARTED
+**Status**: Discovery Complete (19 files, 108 instances found)
 
 **Rule**: Replace `arr.length` with `length(arr)` using Toolsmith's `length` function
 
 ### Checklist
 
 #### Discovery
-- [ ] Run `search_files` with pattern `\.length` in `libraries/arborist/src/*.ts`
-- [ ] List all files containing `.length`
-- [ ] Count total instances
-- [ ] Update this checklist with file list
+- [x] Run `search_files` with pattern `\.length` in `libraries/arborist/src/*.ts`
+- [x] List all files containing `.length` (19 files, 108 total instances)
+- [x] Count total instances (108)
+- [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
 - [ ] For each file with `.length`:
@@ -239,9 +240,25 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 
 #### Files to Process
 (Add files discovered during Discovery phase)
-- [ ] File 1: [filename]
-- [ ] File 2: [filename]
-- [ ] ... (add as discovered)
+- [x] extractConstants/_serializeExpression/index.ts (1 instance)
+- [x] extractConstants/index.test.ts (13 instances)
+- [x] extractConstants/multiFileParsing.test.ts (3 instances)
+- [x] extractFunctionDetails/index.test.ts (4 instances)
+- [x] extractComments/extractComments/index.ts (2 instances)
+- [ ] analyzeFunctionBody/_collectAstNodes/index.test.ts (5 instances)
+- [ ] extractComments/index.test.ts (13 instances)
+- [ ] _extractKindAndBindings/index.ts (2 instances)
+- [ ] _serializeTypeParameters/index.ts (1 instance)
+- [ ] _serializeExtendsClause/index.ts (1 instance)
+- [ ] extractComments/_calculatePosition/index.ts (2 instances)
+- [ ] extractExports/index.test.ts (13 instances)
+- [ ] extractImports/index.test.ts (13 instances)
+- [ ] parsers/denoAst/wasm/build.ts (1 instance)
+- [ ] detectViolations/index.test.ts (13 instances)
+- [ ] buildParsedFile/index.test.ts (4 instances)
+- [ ] detectViolations/detectViolations/index.ts (6 instances)
+- [ ] extractFunctions/index.test.ts (8 instances)
+- [ ] extractTypes/index.test.ts (13 instances)
 
 ### Batch 6 Completion Criteria
 
@@ -267,17 +284,17 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 
 **Goal**: Replace all `!` usage with `not(condition)` calls
 
-**Status**: NOT STARTED
+**Status**: Discovery Complete (18 files, 23 instances found)
 
 **Rule**: Replace `!condition` with `not(condition)` using Toolsmith's `not` function
 
 ### Checklist
 
 #### Discovery
-- [ ] Run `search_files` with pattern `!(?![=])` in `libraries/arborist/src/*.ts`
-- [ ] List all files containing `!` operator (excluding `!==`)
-- [ ] Count total instances
-- [ ] Update this checklist with file list
+- [x] Run `search_files` with pattern `!(?![=])` in `libraries/arborist/src/*.ts`
+- [x] List all files containing `!` operator (excluding `!==`) (18 files, 23 total instances)
+- [x] Count total instances (23)
+- [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
 - [ ] For each file with `!`:
@@ -290,9 +307,25 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 
 #### Files to Process
 (Add files discovered during Discovery phase)
-- [ ] File 1: [filename]
-- [ ] File 2: [filename]
-- [ ] ... (add as discovered)
+- [x] extractConstants/index.ts (2 instances)
+- [ ] extractConstants/index.test.ts (1 instance)
+- [ ] extractConstants/multiFileParsing.test.ts (1 instance)
+- [ ] extractConstants/_serializeExpression/index.ts (2 instances)
+- [ ] _serializePattern/index.ts (1 instance)
+- [ ] analyzeFunctionBody/index.test.ts (1 instance)
+- [ ] extractComments/index.test.ts (1 instance)
+- [ ] _serializeTypeAnnotation/index.ts (1 instance)
+- [ ] extractExports/index.ts (2 instances)
+- [ ] extractExports/index.test.ts (1 instance)
+- [ ] _serializeExtendsClause/index.ts (1 instance)
+- [ ] _serializeTypeParameters/index.ts (1 instance)
+- [ ] detectViolations/_collectAllNodes/index.ts (1 instance)
+- [ ] detectViolations/_checkNodeForViolations/index.ts (3 instances)
+- [ ] buildParsedFile/index.test.ts (1 instance)
+- [ ] extractImports/index.test.ts (1 instance)
+- [ ] extractFunctions/index.test.ts (1 instance)
+- [ ] extractTypes/index.test.ts (1 instance)
+- [ ] extractTypes/index.ts (1 instance - !! double negation)
 
 ### Batch 7 Completion Criteria
 
@@ -543,9 +576,9 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 
 **Project is 100% complete when ALL of the following are true:**
 
-- [ ] Batch 0 complete (TypeScript errors fixed)
-- [ ] Batch 0.5 complete (Lint warnings fixed)
-- [ ] Batch 5 complete (|| replaced)
+- [x] Batch 0 complete (TypeScript errors fixed)
+- [x] Batch 0.5 complete (Lint warnings fixed)
+- [x] Batch 5 complete (|| replaced)
 - [ ] Batch 6 complete (.length replaced)
 - [ ] Batch 7 complete (! replaced)
 - [ ] Batch 8 complete (&& replaced)
