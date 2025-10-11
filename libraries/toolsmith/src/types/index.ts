@@ -7,6 +7,7 @@ export type PrimitiveValue = string | number | boolean | null | bigint | symbol
 export type Serializable =
 	| PrimitiveValue
 	| Array<Serializable>
+	| ReadonlyArray<Serializable>
 	| { [key: string]: Serializable }
 	| Date
 	| RegExp
