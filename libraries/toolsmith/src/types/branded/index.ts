@@ -60,3 +60,9 @@ export type Isbn10 = Brand<string, "Isbn10">
 
 //++ International Standard Book Number (13-digit format) with valid checksum
 export type Isbn13 = Brand<string, "Isbn13">
+
+//++ United States Postal Service ZIP code (5-digit or 9-digit with hyphen)
+export type PostalCode = Brand<string, "PostalCode">
+
+//++ United States phone number (10 digits with various formatting)
+export type PhoneNumber = Brand<string, "PhoneNumber">

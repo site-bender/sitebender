@@ -37,7 +37,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - Read state from URL query parameters
 - Render appropriate UI for current state
 - No client-side state required
-- Works in Lynx/Mosaic (text browsers)
+- Works in Lynx/IE11 (text browsers)
 - Semantic HTML only (no JavaScript)
 
 **M1.3: Form-Based State Mutations**

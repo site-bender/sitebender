@@ -8,6 +8,8 @@ import { default as initSwc, parse } from "npm:@swc/wasm-web@1.13.20"
 import type { ParsedAst } from "../types/index.ts"
 
 import extractConstants from "./index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 // Initialize SWC WASM once for all tests
 let swcInitPromise: Promise<unknown> | null = null
@@ -50,7 +52,7 @@ Deno.test("extractConstants - multi-file parsing without SWC reinitialization", 
 	const validation1 = extractConstants(ast1)
 	assertEquals(validation1._tag, "Success")
 	if (validation1._tag === "Success") {
-		assertEquals(validation1.value.length, 2)
+		assertEquals(getOrElse(0)(length(validation1.value)), 2)
 		assertEquals(validation1.value[0].name, "FIRST_VALUE")
 		assertEquals(validation1.value[0].value, "42")
 		assertEquals(validation1.value[1].name, "FIRST_STRING")
@@ -66,7 +68,7 @@ Deno.test("extractConstants - multi-file parsing without SWC reinitialization", 
 	const validation2 = extractConstants(ast2)
 	assertEquals(validation2._tag, "Success")
 	if (validation2._tag === "Success") {
-		assertEquals(validation2.value.length, 2)
+		assertEquals(getOrElse(0)(length(validation2.value)), 2)
 		assertEquals(validation2.value[0].name, "SECOND_VALUE")
 		assertEquals(validation2.value[0].value, "100")
 		assertEquals(validation2.value[1].name, "SECOND_STRING")
@@ -83,7 +85,7 @@ Deno.test("extractConstants - multi-file parsing without SWC reinitialization", 
 	const validation3 = extractConstants(ast3)
 	assertEquals(validation3._tag, "Success")
 	if (validation3._tag === "Success") {
-		assertEquals(validation3.value.length, 3)
+		assertEquals(getOrElse(0)(length(validation3.value)), 3)
 		assertEquals(validation3.value[0].name, "CONFIG")
 		assertEquals(
 			validation3.value[0].value,
