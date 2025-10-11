@@ -20,12 +20,14 @@
 // Extracts all const declarations from a ParsedAst using Validation monad for error accumulation
 
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
 import type {
 	ParsedAst,
@@ -70,7 +72,7 @@ export default function extractConstants(
 
 			return false
 		},
-	)(moduleBody)
+	)(moduleBody as ReadonlyArray<Serializable>)
 
 	const constNodesArray = getOrElse([] as ReadonlyArray<unknown>)(constNodes)
 
@@ -81,7 +83,7 @@ export default function extractConstants(
 		function extractDetails(node: unknown): ParsedConstant {
 			return extractConstantDetails(node)(ast.sourceText)
 		},
-	)(constNodesArray)
+	)(constNodesArray as ReadonlyArray<Serializable>)
 
 	const constants = getOrElse([] as ReadonlyArray<ParsedConstant>)(
 		constantsResult,
@@ -175,12 +177,12 @@ function extractTypeAnnotation(
 	const id = declarator.id as Record<string, unknown>
 	const typeAnn = id.typeAnnotation as Record<string, unknown> | undefined
 
-	if (!typeAnn) {
+	if (not(typeAnn)) {
 		return "unknown"
 	}
 
 	// Use the type annotation serializer to convert AST to string
-	const typeAnnotationNode = typeAnn.typeAnnotation
+	const typeAnnotationNode = (typeAnn as Record<string, unknown>).typeAnnotation
 	return _serializeTypeAnnotation(typeAnnotationNode)
 }
 
@@ -191,7 +193,7 @@ function extractValue(
 ): string | undefined {
 	const init = declarator.init as Record<string, unknown> | undefined
 
-	if (!init) {
+	if (not(init)) {
 		return undefined
 	}
 
