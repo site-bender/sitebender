@@ -1,9 +1,11 @@
 import type { ImportBinding } from "../types/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import extractImportedName from "../_extractImportedName/index.ts"
 import extractLocalName from "../_extractLocalName/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 //++ Extract bindings from named import specifiers
 export default function extractNamedBindings(
@@ -33,7 +35,7 @@ export default function extractNamedBindings(
 			if (isEqual(specType)("ImportSpecifier")) {
 				const imported = extractImportedName(specObj)
 				const local = extractLocalName(specObj)
-				const isSpecTypeOnly = (specObj.isTypeOnly as boolean) || isTypeOnly
+				const isSpecTypeOnly = or(specObj.isTypeOnly as boolean)(isTypeOnly) as boolean
 
 				return {
 					imported,
@@ -48,7 +50,7 @@ export default function extractNamedBindings(
 				local: "unknown",
 				isType: isTypeOnly,
 			}
-		})(specifiers)
+		})(specifiers as ReadonlyArray<Serializable>)
 		return getOrElse([] as ReadonlyArray<ImportBinding>)(bindingsResult)
 	}
 }
