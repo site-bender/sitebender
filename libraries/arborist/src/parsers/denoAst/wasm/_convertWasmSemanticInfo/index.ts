@@ -4,6 +4,7 @@ import type {
 	SymbolInfo,
 } from "../../../../types/semantics/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 // Types for WASM interop
 type WasmSemanticInfo = {
@@ -37,7 +38,7 @@ type WasmSemanticInfo = {
 export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): SemanticInfo {
 	// Convert symbol table entries to proper SymbolInfo types
 	const symbolTable = new Map<string, SymbolInfo>()
-	for (const [key, value] of Object.entries(wasmInfo["symbol_table"] || {})) {
+	for (const [key, value] of Object.entries(or(wasmInfo["symbol_table"])({}) as Record<string, unknown>)) {
 		if (value && isEqual(typeof value)("object")) {
 			const symbol = value as {
 				name?: string
@@ -60,44 +61,44 @@ export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): Sem
 				}>
 			}
 			symbolTable.set(key, {
-				name: symbol.name || key,
-				kind: (symbol.kind || "variable") as SymbolInfo["kind"],
-				type: symbol.symbol_type || "unknown",
-				isExported: symbol.is_exported || false,
+				name: or(symbol.name)(key) as string,
+				kind: (or(symbol.kind)("variable") as string) as SymbolInfo["kind"],
+				type: or(symbol.symbol_type)("unknown") as string,
+				isExported: or(symbol.is_exported)(false) as boolean,
 				definition: symbol.definition
 					? {
-						file: symbol.definition.file || "",
-						line: symbol.definition.line || 0,
-						column: symbol.definition.column || 0,
-						start: symbol.definition.start || 0,
-						end: symbol.definition.end || 0,
+						file: or(symbol.definition.file)("") as string,
+						line: or(symbol.definition.line)(0) as number,
+						column: or(symbol.definition.column)(0) as number,
+						start: or(symbol.definition.start)(0) as number,
+						end: or(symbol.definition.end)(0) as number,
 					}
 					: undefined,
-				references: (symbol.references || []).map((ref) => ({
-					file: ref.file || "",
-					line: ref.line || 0,
-					column: ref.column || 0,
-					start: ref.start || 0,
-					end: ref.end || 0,
+				references: (or(symbol.references)([]) as unknown[]).map((ref) => ({
+					file: or((ref as Record<string, unknown>).file)("") as string,
+					line: or((ref as Record<string, unknown>).line)(0) as number,
+					column: or((ref as Record<string, unknown>).column)(0) as number,
+					start: or((ref as Record<string, unknown>).start)(0) as number,
+					end: or((ref as Record<string, unknown>).end)(0) as number,
 				})),
 			})
 		}
 	}
 
 	return {
-		inferredTypes: new Map(Object.entries(wasmInfo["inferred_types"] || {})),
+		inferredTypes: new Map(Object.entries(or(wasmInfo["inferred_types"])({}) as Record<string, unknown>).map(([k, v]) => [k, String(v)])),
 		purity: {
-			isPure: wasmInfo.purity?.["is_pure"] || false,
-			reasons: wasmInfo.purity?.reasons || [],
-			sideEffects: wasmInfo.purity?.["side_effects"] || [],
+			isPure: or(wasmInfo.purity?.["is_pure"])(false) as boolean,
+			reasons: or(wasmInfo.purity?.reasons)([]) as string[],
+			sideEffects: or(wasmInfo.purity?.["side_effects"])([]) as string[],
 		},
 		complexity: {
-			cyclomatic: wasmInfo.complexity?.cyclomatic || 1,
-			cognitive: wasmInfo.complexity?.cognitive || 1,
+			cyclomatic: or(wasmInfo.complexity?.cyclomatic)(1) as number,
+			cognitive: or(wasmInfo.complexity?.cognitive)(1) as number,
 			halstead: {
-				volume: wasmInfo.complexity?.halstead?.volume || 0,
-				difficulty: wasmInfo.complexity?.halstead?.difficulty || 0,
-				effort: wasmInfo.complexity?.halstead?.effort || 0,
+				volume: or(wasmInfo.complexity?.halstead?.volume)(0) as number,
+				difficulty: or(wasmInfo.complexity?.halstead?.difficulty)(0) as number,
+				effort: or(wasmInfo.complexity?.halstead?.effort)(0) as number,
 			},
 		},
 		mathematicalProperties: {
@@ -108,9 +109,9 @@ export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): Sem
 			invertible: wasmInfo["mathematical_properties"]?.invertible,
 		},
 		symbolTable,
-		diagnostics: (wasmInfo.diagnostics || []) as readonly unknown[],
+		diagnostics: (or(wasmInfo.diagnostics)([]) as unknown[]) as readonly unknown[],
 		typeDependencies: new Map(
-			Object.entries(wasmInfo["type_dependencies"] || {}).map((
+			Object.entries(or(wasmInfo["type_dependencies"])({}) as Record<string, unknown>).map((
 				[k, v],
 			) => [k, v as readonly string[]]),
 		),

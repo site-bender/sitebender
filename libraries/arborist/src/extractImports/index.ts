@@ -2,6 +2,7 @@
 // Extracts all import statements from a ParsedAst using Validation monad for error accumulation
 
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
@@ -34,7 +35,7 @@ export default function extractImports(
 			const nodeType = nodeObj.type as string
 			return isEqual(nodeType)("ImportDeclaration")
 		},
-	)(moduleBody)
+	)(moduleBody as ReadonlyArray<Serializable>)
 
 	const importNodesArray = getOrElse([] as ReadonlyArray<unknown>)(importNodes)
 
@@ -46,7 +47,7 @@ export default function extractImports(
 		function extractDetails(node: unknown): ParsedImport {
 			return extractImportDetails(node)
 		},
-	)(importNodesArray)
+	)(importNodesArray as ReadonlyArray<Serializable>)
 
 	const imports = getOrElse([] as ReadonlyArray<ParsedImport>)(importsResult)
 

@@ -12,10 +12,8 @@ import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 import type {
-	EnvoyMarker,
 	ParsedAst,
 	ParsedComment,
-	Position,
 	Span,
 } from "../../types/index.ts"
 import type { CommentExtractionError } from "../../types/errors/index.ts"

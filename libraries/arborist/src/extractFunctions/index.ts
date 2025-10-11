@@ -2,6 +2,7 @@
 // Extracts all functions from a ParsedAst using Validation monad for error accumulation
 
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
@@ -25,7 +26,7 @@ export default function extractFunctions(
 	const moduleBody = ast.module.body as ReadonlyArray<unknown>
 
 	// Filter for function declarations and export declarations that wrap functions
-	const functionNodes = filter(_isFunctionOrExportedFunction)(moduleBody as unknown[])
+	const functionNodes = filter(_isFunctionOrExportedFunction)(moduleBody as ReadonlyArray<Serializable>)
 
 	const functionNodesArray = getOrElse([] as ReadonlyArray<unknown>)(
 		functionNodes,
@@ -35,7 +36,7 @@ export default function extractFunctions(
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractFunctionDetails never fails (returns ParsedFunction directly)
 	// Future: wrap extractFunctionDetails to return Validation and use validateAll
-	const functionsResult = map(_extractDetails)(functionNodesArray)
+	const functionsResult = map(_extractDetails)(functionNodesArray as ReadonlyArray<Serializable>)
 
 	const functions = getOrElse([] as ReadonlyArray<ParsedFunction>)(
 		functionsResult,

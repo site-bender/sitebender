@@ -239,7 +239,7 @@ performance_benchmarks:
 browser_support:
   philosophy: "EVERYTHING WORKS EVERYWHERE - progressive enhancement"
   layers:
-    layer_1: "Pure HTML (Lynx/Mosaic/Netscape 1.0 compatible)"
+    layer_1: "Pure HTML (Lynx/IE11 compatible)"
     layer_2: "CSS enhancement (graphical browsers)"
     layer_3: "JavaScript enhancement (modern features)"
   minimum_requirements:
@@ -358,7 +358,7 @@ libraries:
         - "Error message quality tracking"
         - "Onboarding speed measurement"
       progressive_enhancement:
-        - "Layer 1: Pure HTML (Lynx/Mosaic compatible)"
+        - "Layer 1: Pure HTML (Lynx/IE11 compatible)"
         - "Layer 2: CSS enhancement"
         - "Layer 3: Modern JavaScript features"
       real_time_updates:
@@ -4093,7 +4093,7 @@ From the Pagewright README and philosophy:
 3. **Standalone capability**:
    - Can be used WITHOUT Architect
    - Just renders to static HTML or SSR
-   - Progressive enhancement: works in Lynx/Mosaic, enhances with CSS, enhances further with JS
+   - Progressive enhancement: works in Lynx/IE11, enhances with CSS, enhances further with JS
 
 4. **Comprehensive vocabulary**:
    - Components for every conceivable use case
@@ -6243,7 +6243,7 @@ Custodian rejects the modern antipattern of duplicating server state on the clie
 
 Every interaction works identically with or without JavaScript:
 
-- **Lynx/Mosaic**: Form submission → server processes → new page
+- **Lynx/IE11**: Form submission → server processes → new page
 - **Modern browser (no JS)**: Same as above
 - **Modern browser (JS)**: Form submission → preventDefault → local state update → background sync
 
@@ -6589,7 +6589,7 @@ export function queueOperation(operation: Operation): Promise<void> {
 
 ## Benefits
 
-- **Universal**: Works in Lynx, Mosaic, or modern browsers
+- **Universal**: Works in Lynx, IE11, or modern browsers
 - **Resumable**: Bookmark and resume complex workflows
 - **Shareable**: URL contains complete UI state
 - **Offline-capable**: Queue operations, sync when connected
