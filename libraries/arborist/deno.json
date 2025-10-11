@@ -30,6 +30,9 @@
 		"build:wasm:prod": "deno run --allow-run --allow-read src/parsers/denoAst/wasm/build.ts prod",
 		"clean:wasm": "deno run --allow-run --allow-read src/parsers/denoAst/wasm/build.ts clean"
 	},
+	"exclude": [
+		"src/parseFile/test-fixtures/invalid-syntax.ts"
+	],
 	"lint": {
 		"rules": {
 			"tags": ["recommended"]

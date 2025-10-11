@@ -17,6 +17,27 @@ volumes:
   authentik_templates: {}
 
 services:
+  # WebTransport Server - HTTP/3 + WebTransport dev server
+  webtransport:
+    build:
+      context: ./webtransport
+      dockerfile: Dockerfile
+    container_name: webtransport-server
+    restart: unless-stopped
+    volumes:
+      - ../libraries/quartermaster/dist:/app/dist:ro  # Static files to serve
+      - ./ops/certs:/certs:ro  # mkcert certificates
+    ports:
+      - "4433:4433/udp"  # QUIC uses UDP
+    networks:
+      - monitoring
+    healthcheck:
+      test: ["CMD", "nc", "-vz", "-u", "localhost", "4433"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
   # Qdrant - Vector Database for MCP servers
   qdrant:
     image: qdrant/qdrant:latest
@@ -347,9 +368,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "443:443/udp"  # HTTP/3 requires UDP
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ./ops/certs:/certs:ro
+      - ../libraries/quartermaster/dist:/app/dist:ro  # Static files for app.localhost
     depends_on:
       - grafana
       - prometheus

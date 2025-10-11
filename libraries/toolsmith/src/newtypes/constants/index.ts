@@ -147,3 +147,60 @@ export const ISBN13_CHECKSUM_MODULUS = 10
 
 //++ Valid ISBN-13 prefixes (978 and 979)
 export const ISBN13_VALID_PREFIXES = ["978", "979"] as const
+
+//++ Length of 5-digit US ZIP code
+export const POSTAL_CODE_ZIP5_LENGTH = 5
+
+//++ Length of 9-digit US ZIP code (ZIP+4)
+export const POSTAL_CODE_ZIP9_LENGTH = 9
+
+//++ Length of 10-digit US ZIP code with hyphen (ZIP+4 format)
+export const POSTAL_CODE_ZIP10_LENGTH = 10
+
+//++ Valid characters for US ZIP codes (digits 0-9)
+export const POSTAL_CODE_VALID_CHARS = "0123456789"
+
+//++ Position of hyphen in ZIP+4 format (after 5 digits)
+export const POSTAL_CODE_HYPHEN_POSITION = 5
+
+//++ Length of US phone number (10 digits)
+export const PHONE_NUMBER_LENGTH = 10
+
+//++ Length of US phone number with parentheses and hyphen: (123) 456-7890
+export const PHONE_NUMBER_PARENTHESES_LENGTH = 14
+
+//++ Length of US phone number with hyphens: 123-456-7890
+export const PHONE_NUMBER_HYPHENATED_LENGTH = 12
+
+//++ Length of US phone number with +1 prefix: +1-123-456-7890
+export const PHONE_NUMBER_INTERNATIONAL_LENGTH = 15
+
+//++ Valid characters for US phone numbers (digits 0-9)
+export const PHONE_NUMBER_VALID_CHARS = "0123456789"
+
+//++ Position of opening parenthesis in (123) format
+export const PHONE_NUMBER_OPEN_PAREN_POSITION = 0
+
+//++ Position of closing parenthesis in (123) format
+export const PHONE_NUMBER_CLOSE_PAREN_POSITION = 4
+
+//++ Position of space after closing parenthesis
+export const PHONE_NUMBER_SPACE_POSITION = 5
+
+//++ Position of hyphen in (123) 456-7890 format
+export const PHONE_NUMBER_PARENTHESES_HYPHEN_POSITION = 9
+
+//++ Position of first hyphen in 123-456-7890 format
+export const PHONE_NUMBER_FIRST_HYPHEN_POSITION = 3
+
+//++ Position of second hyphen in 123-456-7890 format
+export const PHONE_NUMBER_SECOND_HYPHEN_POSITION = 7
+
+//++ Position of first hyphen in +1-123-456-7890 format
+export const PHONE_NUMBER_INTERNATIONAL_FIRST_HYPHEN_POSITION = 2
+
+//++ Position of second hyphen in +1-123-456-7890 format
+export const PHONE_NUMBER_INTERNATIONAL_SECOND_HYPHEN_POSITION = 6
+
+//++ Position of third hyphen in +1-123-456-7890 format
+export const PHONE_NUMBER_INTERNATIONAL_THIRD_HYPHEN_POSITION = 10
