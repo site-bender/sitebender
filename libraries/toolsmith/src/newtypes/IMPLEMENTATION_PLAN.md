@@ -688,7 +688,13 @@ After completing all batches, verify:
 - [x] **Batch 1 Complete:** FourDecimalPlaces predicate fixed - all tests passing
 - [x] **Batch 2 Complete:** ISBN-10 Type - Core Functions implemented
 - [x] **Batch 3 Complete:** ISBN-10 Type - Constructors implemented
-- [ ] **Batch 4-47:** Remaining 44 batches pending
+- [x] **Batch 4 Complete:** ISBN-10 Type - Smart Constructor & Tests implemented
+- [x] **Batch 5 Complete:** ISBN-13 unwrap and unsafe functions
+- [x] **Batch 6 Complete:** ISBN-10 formatters
+- [ ] **Batch 7:** ISBN-13 formatters
+- [x] **Batch 8 Complete:** Postal Code Type - Core Functions implemented
+- [x] **Batch 9 Complete:** PhoneNumber core functions
+- [ ] **Batch 10-47:** Remaining 39 batches pending
 
 ## Risk Mitigation
 

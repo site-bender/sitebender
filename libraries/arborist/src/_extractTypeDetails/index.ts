@@ -1,4 +1,4 @@
-import type { ParsedType, Position, Span } from "../types/index.ts"
+import type { ParsedType } from "../types/index.ts"
 import extractSpan from "../_extractSpan/index.ts"
 import extractPosition from "../_extractPosition/index.ts"
 import extractDefinition from "../_extractDefinition/index.ts"
