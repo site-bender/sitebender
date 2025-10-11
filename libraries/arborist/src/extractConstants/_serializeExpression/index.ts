@@ -1,5 +1,7 @@
 import _serializePattern from "../../_serializePattern/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 //++ Serialize an AST expression node to its string representation
 //++ Handles literals, objects, arrays, function calls, and complex expressions
@@ -35,7 +37,7 @@ export default function _serializeExpression(node: unknown): string | undefined 
 			const result = quasis.reduce((acc: string, quasi: Record<string, unknown>, i: number) => {
 				const cooked = (quasi.cooked as string) ?? ""
 				acc += cooked
-				if (i < expressions.length) {
+				if (i < getOrElse(0)(length(expressions))) {
 					acc += "${" + (_serializeExpression(expressions[i]) ?? "") + "}"
 				}
 				return acc

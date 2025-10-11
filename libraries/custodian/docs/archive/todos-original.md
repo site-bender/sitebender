@@ -6,7 +6,7 @@ A state management library that works without JavaScript, enhances progressively
 
 ## Core Principles
 
-1. **No JavaScript Required**: Everything must work in Lynx/Mosaic
+1. **No JavaScript Required**: Everything must work in Lynx/IE11
 2. **Idempotent Operations**: UUID-based operations prevent duplication
 3. **URL as State**: Complete UI state encoded in URLs
 4. **Secure Continuations**: Signed, time-bound tokens for workflows

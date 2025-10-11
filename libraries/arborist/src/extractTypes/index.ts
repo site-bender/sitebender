@@ -20,6 +20,7 @@
 // Extracts all type aliases and interfaces from a ParsedAst using Validation monad for error accumulation
 
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
@@ -45,28 +46,28 @@ export default function extractTypes(
 
 	// Filter for type declarations (both standalone and exported)
 	const typeNodes = filter(
-		function isTypeDeclaration(node: unknown): boolean {
-			const nodeObj = node as Record<string, unknown>
-			const nodeType = nodeObj.type as string
+	  function isTypeDeclaration(node: unknown): boolean {
+	    const nodeObj = node as Record<string, unknown>
+	    const nodeType = nodeObj.type as string
 
-			// Direct type declarations
-			if (
-				isEqual(nodeType)("TsTypeAliasDeclaration") ||
-				isEqual(nodeType)("TsInterfaceDeclaration")
-			) {
-				return true
-			}
+	    // Direct type declarations
+	    if (
+	      isEqual(nodeType)("TsTypeAliasDeclaration") ||
+	      isEqual(nodeType)("TsInterfaceDeclaration")
+	    ) {
+	      return true
+	    }
 
-			// Export declarations that wrap types
-			if (isEqual(nodeType)("ExportDeclaration")) {
-				const decl = nodeObj.declaration as Record<string, unknown> | undefined
-				return decl && isEqual(decl.type)("TsTypeAliasDeclaration") ||
-					decl && isEqual(decl.type)("TsInterfaceDeclaration")
-			}
+	    // Export declarations that wrap types
+	    if (isEqual(nodeType)("ExportDeclaration")) {
+	      const decl = nodeObj.declaration as Record<string, unknown> | undefined
+	      return !!((decl && typeof decl.type === "string" && isEqual(decl.type)("TsTypeAliasDeclaration")) ||
+	        (decl && typeof decl.type === "string" && isEqual(decl.type)("TsInterfaceDeclaration")))
+	    }
 
-			return false
-		},
-	)(moduleBody)
+	    return false
+	  },
+	)(moduleBody as ReadonlyArray<Serializable>)
 
 	const typeNodesArray = getOrElse([] as ReadonlyArray<unknown>)(typeNodes)
 
@@ -74,10 +75,10 @@ export default function extractTypes(
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractTypeDetails never fails (returns ParsedType directly)
 	const typesResult = map(
-		function extractDetails(node: unknown): ParsedType {
-			return extractTypeDetails(node)(ast.sourceText)
-		},
-	)(typeNodesArray)
+	  function extractDetails(node: unknown): ParsedType {
+	    return extractTypeDetails(node)(ast.sourceText)
+	  },
+	)(typeNodesArray as ReadonlyArray<Serializable>)
 
 	const types = getOrElse([] as ReadonlyArray<ParsedType>)(typesResult)
 
