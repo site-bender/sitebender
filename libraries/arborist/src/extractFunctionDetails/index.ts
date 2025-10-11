@@ -5,6 +5,7 @@ import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import type {
 	Parameter,
@@ -80,7 +81,7 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 				defaultValue: undefined,
 			}
 		},
-	)(params)
+	)(params as ReadonlyArray<Serializable>)
 
 	const parameters = getOrElse([] as ReadonlyArray<Parameter>)(parametersResult)
 
@@ -116,7 +117,7 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 				default: undefined,
 			}
 		},
-	)(typeParamsList)
+	)(typeParamsList as ReadonlyArray<Serializable>)
 
 	const typeParameters = getOrElse([] as ReadonlyArray<TypeParameter>)(
 		typeParametersResult,

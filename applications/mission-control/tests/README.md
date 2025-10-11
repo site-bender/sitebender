@@ -12,7 +12,7 @@
 
 We test the documentation app as users experience it across three progressive enhancement layers:
 
-1. **No JavaScript** - Must work on Lynx, Mosaic, IE6
+1. **No JavaScript** - Must work on Lynx, IE11, IE6
 2. **No CSS** - Must be usable with semantic HTML only
 3. **Full enhancement** - Modern browsers with all features
 
