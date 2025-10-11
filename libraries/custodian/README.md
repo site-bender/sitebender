@@ -8,7 +8,7 @@ Custodian rejects the modern antipattern of duplicating server state on the clie
 
 Every interaction works identically with or without JavaScript:
 
-- **Lynx/Mosaic**: Form submission → server processes → new page
+- **Lynx/IE11**: Form submission → server processes → new page
 - **Modern browser (no JS)**: Same as above
 - **Modern browser (JS)**: Form submission → preventDefault → local state update → background sync
 
@@ -239,7 +239,21 @@ export function toSparqlUpdate(operation: Operation): string {
 
 ## API
 
-### Core Functions
+### Declarative JSX Components (Primary API)
+
+Custodian is designed to be used **declaratively via JSX components**. See the extensive [Visual State Machine Workflow System](#visual-state-machine-workflow-system) section above for detailed examples of the component-based API.
+
+Users interact with Custodian through components like:
+- `<StateMachineWorkflowCanvas>` - Main workflow canvas
+- `<StateMachineDesigner>` - State machine designer
+- `<State>` - Individual state definitions
+- `<Transition>` - State transitions
+- `<CollaborativeStateMachineDesign>` - Real-time collaboration
+- And many more (see Visual Workflow section)
+
+### Functional API (Advanced/Internal)
+
+For advanced use cases or internal implementation, Custodian also exposes functional primitives:
 
 ```typescript
 //++ Creates a Custodian instance
@@ -275,6 +289,8 @@ export function transition<S, E>(
 	event: E,
 ): Either<SecurityError, SecureState<S>>
 ```
+
+**Note**: Most users should use the declarative JSX API. The functional API is for advanced customization, library integration, or when building custom tooling.
 
 ### Configuration
 
@@ -354,7 +370,7 @@ export function queueOperation(operation: Operation): Promise<void> {
 
 ## Benefits
 
-- **Universal**: Works in Lynx, Mosaic, or modern browsers
+- **Universal**: Works in Lynx, IE11, or modern browsers
 - **Resumable**: Bookmark and resume complex workflows
 - **Shareable**: URL contains complete UI state
 - **Offline-capable**: Queue operations, sync when connected
@@ -797,3 +813,87 @@ State isn't something to be "managed" - it's something to be transformed through
 With the addition of visual state machine workflows, Custodian bridges the gap between the web's stateless foundation and modern application complexity - providing the tools to design, visualize, and manage complex state flows while never abandoning the web's core principles.
 
 The future of web development isn't more complexity - it's rediscovering the elegant simplicity that was there all along, enhanced with the tools to handle complexity when truly necessary.
+
+---
+
+## Development Plan
+
+Custodian is being developed in two distinct phases: MVP (minimum viable product) and post-MVP enhancements.
+
+### MVP: Core Functionality (Phases 1-5)
+
+**Timeline**: 2-3 months | **Tasks**: ~100 tasks
+
+The MVP delivers the essential features that make Custodian valuable:
+
+- ✅ **Phase 1: Foundation** - Core types and contracts
+- ✅ **Phase 2: No-JS Implementation** - Server-side state management working in Lynx
+- ✅ **Phase 3: Continuations** - Resumable workflows with cryptographic security
+- ✅ **Phase 4: State Machines** - Declarative state transitions
+- ✅ **Phase 5: Progressive Enhancement** - JavaScript layer maintaining identical behavior
+
+**Goal**: Working state management in text browsers, enhanced in modern browsers. State machines with secure continuations. No visual designer, no collaboration, no analytics.
+
+**Success Criteria**:
+- Works without JavaScript in all browsers (including Lynx)
+- All UI state encoded in URLs
+- Idempotent operations prevent duplicates
+- Continuations cryptographically secure
+- Progressive enhancement seamless
+- 100% test coverage with property tests
+
+**👉 For detailed MVP tasks**, see [`MASTER_PLAN.md`](MASTER_PLAN.md)
+
+### Post-MVP: Advanced Features (Phases 6-15)
+
+**Timeline**: ~23 months (AFTER MVP validation) | **Tasks**: ~299 tasks
+
+Post-MVP phases add visual tooling, collaboration, analytics, and production features:
+
+- **Phase 6**: Visual State Machine Designer (n8n-style drag-and-drop)
+- **Phase 7**: Real-Time State Execution Visualization
+- **Phase 8**: Collaborative State Machine Design
+- **Phase 9**: Workflow State Recovery
+- **Phase 10**: State Machine Analytics
+- **Phase 11**: Workflow Integration
+- **Phase 12**: State Monad Integration
+- **Phase 13**: Integration & Ecosystem
+- **Phase 14**: Documentation & Developer Experience
+- **Phase 15**: Production Hardening & Release
+
+**⚠️ Important**: Post-MVP work begins **only after**:
+- MVP running in production for 3-6 months
+- Real user validation
+- 99.9% uptime achieved
+- Positive user feedback
+- Technical debt addressed
+
+**👉 For complete post-MVP details**, see [`POST_MVP_ROADMAP.md`](POST_MVP_ROADMAP.md)
+
+### Contributing
+
+**For Contributors**:
+1. Start with [`PLANNING_GUIDE.md`](PLANNING_GUIDE.md) to understand the document structure
+2. Review [`MASTER_PLAN.md`](MASTER_PLAN.md) for current tasks and progress
+3. Follow test-driven development strictly
+4. Update progress as you complete tasks
+
+**Development Principles**:
+- Test-first, always (TDD throughout)
+- Pure functions only (no classes, no mutations)
+- One function per file with tests alongside
+- Query MCP servers for Studio rules before coding
+- Property tests prove invariants
+
+**Archived Planning**:
+- Original comprehensive plans archived in `docs/archive/`
+- Refer to archives for historical context only
+- Active development follows MASTER_PLAN.md
+
+### Current Status
+
+**Phase**: Phase 1 - Foundation (Not Started)
+**Progress**: 0/168 MVP tasks complete (0%)
+**Next**: Write tests for Operation type validation
+
+See [`MASTER_PLAN.md`](MASTER_PLAN.md) for the complete implementation plan and current task details.
