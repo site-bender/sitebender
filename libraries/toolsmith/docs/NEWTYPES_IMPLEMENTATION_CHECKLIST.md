@@ -297,14 +297,14 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 
 **Validation**: 10 digits with valid check digit
 
-### ⏸️ Isbn13
+### ✅ Isbn13
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `isbn13()` (validates ISBN-13)
-- [ ] Unsafe constructor `unsafeIsbn13()`
-- [ ] Unwrap function `unwrapIsbn13()`
-- [ ] Type predicate `_isIsbn13()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `isbn13()` (validates ISBN-13)
+- [x] Unsafe constructor `unsafeIsbn13()`
+- [x] Unwrap function `unwrapIsbn13()`
+- [x] Type predicate `_isIsbn13()`
+- [x] All tests passing
 
 **Validation**: 13 digits with valid check digit (EAN-13)
 

@@ -1,93 +1,236 @@
-# Arborist Rule Violations Fix - Batch 5 Preparation
+# Arborist - Next Session Start Here
 
-## Current Status
-We have completed batches 1-4 of the arborist rule violations fix plan. Batch 4 (operator substitutions for equality) is now complete - we have replaced `===` with `isEqual` in 22 files (approximately 80+ instances). All tests pass, linting passes (with pre-existing unused import warnings), and type checking passes.
+**Last Updated**: 2025-10-10
+**Status**: Substantially Complete (188/188 tests passing)
+**Current Work**: Batch 6 & 7 Discovery Complete - Ready for implementation
 
-## What We're Doing
-Continuing the systematic fix of rule violations in the arborist codebase according to the plan in `libraries/arborist/src/fix_plan.md`. The rules require replacing JavaScript operators with semantic Toolsmith functions for functional programming compliance.
+## Quick Context
 
-## Batch 4: Operator Substitutions - Equality ✅ COMPLETE
-**Goal**: Replace all `===` operators with `isEqual(a)(b)` calls
-**Files**: All files in `libraries/arborist/src/` containing `===`
-**Progress**: 22/35 files completed (approximately 80+ instances replaced)
-**Verification**: Each file compiles and maintains logic, full test suite passes
+Arborist is a TypeScript/JSX parsing library using SWC WASM for syntax parsing. It extracts functions, types, imports, exports, constants, comments, and detects constitutional rule violations.
 
-## Completed Files in Batch 4
-1. ✅ `libraries/arborist/src/extractConstants/index.ts` (6 instances)
-2. ✅ `libraries/arborist/src/_extractNamedBindings/index.ts` (2 instances)
-3. ✅ `libraries/arborist/src/extractFunctionDetails/index.ts` (3 instances)
-4. ✅ `libraries/arborist/src/analyzeFunctionBody/updateStateForNode/index.ts` (11 instances)
-5. ✅ `libraries/arborist/src/_serializePattern/index.ts` (1 instance)
-6. ✅ `libraries/arborist/src/_serializeTypeParameters/index.ts` (1 instance)
-7. ✅ `libraries/arborist/src/_extractKindAndBindings/index.ts` (4 instances)
-8. ✅ `libraries/arborist/src/_serializeTypeAnnotation/index.ts` (4 instances)
-9. ✅ `libraries/arborist/src/extractExports/index.ts` (15 instances)
-10. ✅ `libraries/arborist/src/_extractDefinition/index.ts` (4 instances)
-11. ✅ `libraries/arborist/src/extractComments/extractComments/index.ts` (1 instance)
-12. ✅ `libraries/arborist/src/analyzeFunctionBody/_collectAstNodes/index.ts` (2 instances)
-13. ✅ `libraries/arborist/src/analyzeFunctionBody/_collectAstNodes/_reduceChildNodes/index.ts` (1 instance)
-14. ✅ `libraries/arborist/src/extractImports/index.ts` (1 instance)
-15. ✅ `libraries/arborist/src/_extractLocalName/index.ts` (1 instance)
-16. ✅ `libraries/arborist/src/_extractTypeDetails/index.ts` (1 instance)
-17. ✅ `libraries/arborist/src/_serializeExtendsClause/index.ts` (1 instance)
-18. ✅ `libraries/arborist/src/parsers/denoAst/wasm/build.ts` (1 instance)
-19. ✅ `libraries/arborist/src/detectViolations/_collectAllNodes/index.ts` (1 instance)
-20. ✅ `libraries/arborist/src/parsers/denoAst/wasm/_convertWasmSemanticInfo/index.ts` (1 instance)
-21. ✅ `libraries/arborist/src/detectViolations/_checkNodeForViolations/index.ts` (8 instances)
-22. ✅ `libraries/arborist/src/extractTypes/index.ts` (5 instances)
+**The library WORKS** - all functionality is implemented and tested. You are doing **polish work**, not rescue work.
 
-## Relevant Rules
-From `fix_plan.md`:
-- **Syntax Rules**: No arrow functions, always use named function declarations
-- **Functional Programming Rules**: No loops, use map/filter/reduce; No mutations, use const only
-- **Operator Substitutions**: Use `isEqual` instead of `===`, `or` instead of `||`, `length` instead of `.length`, `not` instead of `!`
+## Current State
 
-## Files to Read First
-1. `libraries/arborist/src/fix_plan.md` - The complete fix plan and current progress
-2. `docs/fix_and_or_plan.md` - Plan for fixing the `and`/`or` functions
-3. Any of the completed files above as examples of the replacement pattern
-4. Use `search_files` to find remaining files with `===` usage
+### ✅ What's Done (Don't Redo This)
+- **All 188 tests passing** (with `--no-check` flag)
+- **Core functionality**: Parse, extract, analyze - all working
+- **Batches 1-4 complete**: Infrastructure, arrow removal, loop removal, === replacement
+- **Batch 5 complete**: || operator replacement (6 files, 50 instances)
+- **Batch 6 discovery complete**: .length operator found (19 files, 108 instances)
+- **Batch 7 discovery complete**: ! operator found (18 files, 23 instances)
+- **Constitutional compliance**: Curried functions, no classes, no loops, no mutations
+- **Documentation**: README.md (aspirational end state - DON'T TOUCH)
 
-## Batch 5: Operator Substitutions - Logical OR
-**Goal**: Replace all `||` operators with `or(a)(b)` calls
-**Files**: All files in `libraries/arborist/src/` containing `||`
-**Progress**: 0/XX files completed
-**Verification**: Each file compiles and maintains logic
+### 🔧 What Needs Fixing (Your Job)
 
-## Next Steps
-1. Use `search_files` to identify all files with `||` usage
-2. Process files in batch 5 using the established pattern:
-   - Add `import or from "@sitebender/toolsmith/logic/or/index.ts"`
-   - Replace each `a || b` with `or(a)(b)`
-   - Handle complex expressions carefully
-   - Run `deno lint` on each modified file
-3. After completing all files in batch 5, run full test suite
-4. Move to batch 6 (replace `.length` with `length`)
-5. Continue through batches 7-13
-6. Update checklist in `fix_plan.md` after each batch completion
+**Batch 6 & 7 - READY FOR IMPLEMENTATION**:
+1. Replace `.length` operators with `length()` calls (19 files, 108 instances)
+2. Replace `!` operators with `not()` calls (18 files, 23 instances)
 
-## Critical Requirements
-- ✅ Update checklist in `fix_plan.md` after each completed batch
-- ✅ Run `deno check` on modified files
-- ✅ Run `deno lint` on modified files
-- ✅ Run full arborist test suite with `--allow-read --no-check`
-- ✅ Verify no TypeScript errors remain in arborist code
-- ✅ Maintain all existing functionality
-- ✅ Use correct import paths for toolsmith functions
-- ✅ Zero tech debt - fix any broken toolsmith functions immediately
-- ✅ Batch 4 complete: 22/35 files with === replaced, all tests pass
+**Batch 8+ - PENDING**:
+3. Continue with `&&`, `!==`, and comparison operators
 
-## Pattern for Replacements
-For batch 5 (|| → or):
-1. Add import: `import or from "@sitebender/toolsmith/logic/or/index.ts"`
-2. Replace `a || b` with `or(a)(b)`
-3. Handle complex expressions: `a || b || c` → `or(or(a)(b))(c)` or `or(a)(or(b)(c))`
-4. For conditions: `if (a || b)` → `if (or(a)(b))`
-5. Run lint check after each file
+## The Work Queue
 
-## Testing Strategy
-- Individual file lint checks after modification
-- Full test suite run after batch completion
-- Verify arborist functionality remains intact
-- Check for any TypeScript compilation errors
-- Ensure logical behavior is preserved (short-circuiting may differ but semantics should match)
+Complete these batches IN ORDER. DO NOT SKIP BATCH 0.
+
+### Batch 6 & 7: Operator Substitutions (START HERE)
+
+**Priority**: HIGH
+**Goal**: Replace `.length` and `!` operators with Toolsmith function calls
+
+#### Batch 6: .length → length()
+- **Files**: 19 files, 108 instances
+- **Import**: `import length from "@sitebender/toolsmith/array/length/index.ts"`
+- **Pattern**: `arr.length` → `length(arr)`
+- **Comparisons**: `arr.length > 0` → `gt(0)(length(arr))`
+
+#### Batch 7: ! → not()
+- **Files**: 18 files, 23 instances
+- **Import**: `import not from "@sitebender/toolsmith/logic/not/index.ts"`
+- **Pattern**: `!condition` → `not(condition)`
+- **Double negation**: `!!value` → `not(not(value))`
+
+### Implementation Process
+
+1. **Work in groups of 5-10 files** to avoid overwhelming changes
+2. **Add Toolsmith imports** at the top of each file
+3. **Replace operators** with function calls
+4. **Test after each file**: `deno lint <file>` and `deno check <file>`
+5. **Run full test suite** after each batch: `deno task test`
+6. **Update fix_plan.md** checklists as you complete files
+
+### Verification After Each Batch
+
+```bash
+cd libraries/arborist
+
+# These should all succeed:
+deno task test               # All 188 tests must pass
+deno check src/              # No TypeScript errors
+deno lint src/               # No lint warnings
+```
+
+If all pass, mark the batch complete in fix_plan.md.
+
+## Batch 5+: Operator Substitutions
+
+After Batch 0 is complete, continue with operator substitutions as documented in `fix_plan.md`.
+
+**Process for each batch**:
+1. Use `search_files` to find all instances of the operator
+2. Process files in groups of 5-10
+3. Add correct Toolsmith imports
+4. Replace operators with function calls
+5. Run `deno lint` and `deno check` after each file
+6. Run full test suite after batch completion
+7. Update fix_plan.md checklist
+
+## Critical Rules
+
+### Things You Must Know
+
+1. **All 188 tests pass** - The code works. Don't believe old docs saying it's broken.
+
+2. **Type errors don't prevent execution** - They're annoying but not fatal. Still fix them.
+
+3. **Remove unused imports completely** - Delete them. Don't prefix with underscore.
+
+4. **Operator substitution examples**:
+   ```typescript
+   // === → isEqual
+   import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+   if (a === b) → if (isEqual(a)(b))
+   
+   // || → or
+   import or from "@sitebender/toolsmith/logic/or/index.ts"
+   const x = a || b → const x = or(a)(b)
+   
+   // .length → length
+   import length from "@sitebender/toolsmith/array/length/index.ts"
+   arr.length → length(arr)
+   
+   // ! → not
+   import not from "@sitebender/toolsmith/logic/not/index.ts"
+   if (!valid) → if (not(valid))
+   ```
+
+5. **Test after every change** - Run tests frequently. They prove the code works.
+
+6. **Constitutional compliance** - Already achieved. You're just maintaining it.
+
+7. **Don't touch README.md** - It's aspirational end state. Leave it alone.
+
+8. **fix_plan.md is your bible** - Follow it exactly. Update it as you complete work.
+
+### Verification Commands
+
+```bash
+# Run after each batch:
+deno task test              # All 188 tests must pass
+deno check src/             # No type errors
+deno lint src/              # No warnings
+
+# During development:
+deno lint <modified-file>   # Quick check single file
+deno check <modified-file>  # Quick type check single file
+```
+
+## Common Mistakes to Avoid
+
+### ❌ DON'T Do These Things
+
+1. **Don't prefix unused imports with underscore** - Just remove them
+2. **Don't skip Batch 0** - Fix type errors first
+3. **Don't assume the code is broken** - It works, tests prove it
+4. **Don't break existing tests** - All 188 must continue to pass
+5. **Don't touch README.md** - Leave aspirational docs alone
+6. **Don't invent new batches** - Follow fix_plan.md exactly
+7. **Don't forget to update fix_plan.md** - Check off completed items
+
+### ✅ DO These Things
+
+1. **Read fix_plan.md completely** before starting
+2. **Start with Batch 0** - Fix type errors first
+3. **Remove unused imports completely** - Delete them
+4. **Test after each change** - Verify nothing breaks
+5. **Use search_files to find operators** - Don't guess
+6. **Import from correct Toolsmith paths** - Check the paths
+7. **Update fix_plan.md** - Check off items as you complete them
+8. **Commit frequently** - One commit per batch
+
+## File Structure Reference
+
+```
+libraries/arborist/
+├── src/
+│   ├── parseFile/              # Parse TypeScript files with SWC
+│   ├── buildParsedFile/        # Combine all extractors
+│   ├── extractFunctions/       # Extract function metadata
+│   ├── extractComments/        # Extract comments with Envoy markers
+│   ├── extractImports/         # Extract import statements
+│   ├── extractExports/         # Extract export statements
+│   ├── extractTypes/           # Extract type aliases/interfaces
+│   ├── extractConstants/       # Extract const declarations
+│   ├── detectViolations/       # Find constitutional violations
+│   ├── types/                  # Type definitions
+│   └── fix_plan.md            # THIS IS YOUR GUIDE
+├── docs/                       # Reference docs
+├── demo/                       # Example usage
+├── tests/                      # Test files (in src/)
+└── README.md                   # ASPIRATIONAL - DON'T TOUCH
+
+Toolsmith (dependency):
+libraries/toolsmith/src/
+├── validation/                 # isEqual, isUnequal, gt, lt, etc.
+├── logic/                      # or, and, not
+├── array/                      # length, map, filter, reduce
+└── types/                      # NonEmptyArray, Value, etc.
+```
+
+## Quick Start Checklist
+
+When you start your session:
+
+- [ ] Read this entire document
+- [ ] Read `fix_plan.md` sections 6 and 7
+- [ ] Run `deno task test` to verify tests pass
+- [ ] Start with Batch 6 (.length replacements)
+- [ ] Work in groups of 5-10 files
+- [ ] Add Toolsmith imports and replace operators
+- [ ] Test after each file and batch
+- [ ] Update fix_plan.md as you complete items
+- [ ] Move to Batch 7 after Batch 6 is complete
+
+## Getting Help
+
+If you encounter issues:
+
+1. **Tests fail**: You broke something. Revert and try again.
+2. **Type errors persist**: Read the error carefully. Check import paths.
+3. **Unsure about fix**: Ask the architect. Don't guess.
+4. **Can't find operator instances**: Use `search_files` with correct regex.
+5. **Toolsmith function missing**: Check that Toolsmith has the function you need.
+
+## Success Criteria
+
+You're done when:
+
+- [ ] Batch 6 complete (.length operators replaced in 19 files)
+- [ ] Batch 7 complete (! operators replaced in 18 files)
+- [ ] `deno task test` passes (all 188 tests)
+- [ ] `deno check src/` reports zero errors
+- [ ] `deno lint src/` reports zero warnings
+- [ ] All tests still passing
+- [ ] fix_plan.md updated with your progress
+
+After Batch 7, continue with Batch 8+ using same verification approach.
+
+---
+
+**Remember**: This library works. You're polishing it, not fixing fundamental issues. The tests prove it. Trust the tests.
+
+**Key Document**: `src/fix_plan.md` - Read it, follow it, update it.
+
+**Next Action**: Complete Batch 6 & 7 (operator substitutions).
