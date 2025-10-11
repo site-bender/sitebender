@@ -53,7 +53,7 @@ custodian_implementation_plan:
             - "Read state from URL query parameters"
             - "Render appropriate UI for current state"
             - "No client-side state required"
-            - "Works in Lynx/Mosaic (text browsers)"
+            - "Works in Lynx/IE11 (text browsers)"
             - "Semantic HTML only (no JavaScript)"
 
         - id: "M1.3"

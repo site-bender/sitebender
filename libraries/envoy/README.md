@@ -745,7 +745,7 @@ Integration with Warden for architectural debugging:
 
 ### Progressive Enhancement Layers
 
-#### Layer 1: Pure HTML (Lynx/Mosaic/Netscape 1.0)
+#### Layer 1: Pure HTML (Lynx/IE11)
 
 - ✅ Full documentation readable as plain HTML
 - ✅ Dashboard data in semantic HTML tables
