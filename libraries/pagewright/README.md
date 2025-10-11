@@ -16,7 +16,7 @@ This is context-aware compilation. The compiler analyzes your component tree and
 
 Pagewright follows progressive enhancement as a design principle, not just a pattern. Three distinct layers compose the experience:
 
-**Layer 1: Semantic HTML.** Everything works without JavaScript. Forms submit. Links navigate. Tables display data. This layer targets maximum compatibility — Lynx, Mosaic, screen readers, reading modes, anything that understands HTML.
+**Layer 1: Semantic HTML.** Everything works without JavaScript. Forms submit. Links navigate. Tables display data. This layer targets maximum compatibility — Lynx, IE11, screen readers, reading modes, anything that understands HTML.
 
 **Layer 2: CSS Styling.** Visual enhancements via CSS3 with graceful degradation. Custom properties enable theming. Layout uses modern techniques like Grid and Flexbox with fallbacks. This layer makes things beautiful without breaking functionality. `@supports` and feature queries ensure older browsers get a solid experience.
 
