@@ -4,7 +4,7 @@
 
 This document outlines the systematic plan to fix all remaining issues in the `libraries/arborist/src` codebase. The library is **substantially complete and functional** (188/188 tests passing), but needs final polish to achieve zero-error state.
 
-**Current Status**: Batches 1-4, 8-10 COMPLETE. Batches 5-7, 11-13 and critical fixes IN PROGRESS.
+**Current Status**: Batches 1-10 COMPLETE. Batches 11-13 and critical fixes IN PROGRESS.
 
 ## CRITICAL: Task Completion Rules
 
@@ -245,33 +245,33 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] extractConstants/multiFileParsing.test.ts (3 instances)
 - [x] extractFunctionDetails/index.test.ts (4 instances)
 - [x] extractComments/extractComments/index.ts (2 instances)
-- [ ] analyzeFunctionBody/_collectAstNodes/index.test.ts (5 instances)
-- [ ] extractComments/index.test.ts (13 instances)
-- [ ] _extractKindAndBindings/index.ts (2 instances)
-- [ ] _serializeTypeParameters/index.ts (1 instance)
-- [ ] _serializeExtendsClause/index.ts (1 instance)
-- [ ] extractComments/_calculatePosition/index.ts (2 instances)
-- [ ] extractExports/index.test.ts (13 instances)
-- [ ] extractImports/index.test.ts (13 instances)
-- [ ] parsers/denoAst/wasm/build.ts (1 instance)
-- [ ] detectViolations/index.test.ts (13 instances)
-- [ ] buildParsedFile/index.test.ts (4 instances)
-- [ ] detectViolations/detectViolations/index.ts (6 instances)
-- [ ] extractFunctions/index.test.ts (8 instances)
-- [ ] extractTypes/index.test.ts (13 instances)
+- [x] analyzeFunctionBody/_collectAstNodes/index.test.ts (5 instances)
+- [x] extractComments/index.test.ts (13 instances)
+- [x] _extractKindAndBindings/index.ts (2 instances)
+- [x] _serializeTypeParameters/index.ts (1 instance)
+- [x] _serializeExtendsClause/index.ts (1 instance)
+- [x] extractComments/_calculatePosition/index.ts (2 instances)
+- [x] extractExports/index.test.ts (13 instances)
+- [x] extractImports/index.test.ts (13 instances)
+- [x] parsers/denoAst/wasm/build.ts (1 instance)
+- [x] detectViolations/index.test.ts (13 instances)
+- [x] buildParsedFile/index.test.ts (4 instances)
+- [x] detectViolations/detectViolations/index.ts (6 instances)
+- [x] extractFunctions/index.test.ts (8 instances)
+- [x] extractTypes/index.test.ts (13 instances)
 
 ### Batch 6 Completion Criteria
 
 **Check ALL before marking batch complete:**
 
-- [ ] ALL `.length` usages replaced in ALL files
+- [x] ALL `.length` usages replaced in ALL files
 - [x] Correct Toolsmith imports added (length, gt, lt, etc.)
 - [x] `deno lint libraries/arborist/src/` reports 0 errors
 - [x] `deno check libraries/arborist/src/` succeeds
 - [x] `deno task test` runs and all 188 tests pass
 - [x] No new TypeScript errors introduced
 - [x] This checklist updated with [x] for all items
-- [ ] Changes committed to git
+- [x] Changes committed to git
 
 **Rules for this Batch:**
 - Use `length` from `@sitebender/toolsmith/array/length/index.ts`
@@ -308,36 +308,36 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 #### Files to Process
 (Add files discovered during Discovery phase)
 - [x] extractConstants/index.ts (2 instances)
-- [ ] extractConstants/index.test.ts (1 instance)
-- [ ] extractConstants/multiFileParsing.test.ts (1 instance)
-- [ ] extractConstants/_serializeExpression/index.ts (2 instances)
-- [ ] _serializePattern/index.ts (1 instance)
-- [ ] analyzeFunctionBody/index.test.ts (1 instance)
-- [ ] extractComments/index.test.ts (1 instance)
-- [ ] _serializeTypeAnnotation/index.ts (1 instance)
-- [ ] extractExports/index.ts (2 instances)
-- [ ] extractExports/index.test.ts (1 instance)
-- [ ] _serializeExtendsClause/index.ts (1 instance)
-- [ ] _serializeTypeParameters/index.ts (1 instance)
+- [x] extractConstants/index.test.ts (1 instance)
+- [x] extractConstants/multiFileParsing.test.ts (1 instance)
+- [x] extractConstants/_serializeExpression/index.ts (2 instances)
+- [x] _serializePattern/index.ts (1 instance)
+- [x] analyzeFunctionBody/index.test.ts (1 instance)
+- [x] extractComments/index.test.ts (1 instance)
+- [x] _serializeTypeAnnotation/index.ts (1 instance)
+- [x] extractExports/index.ts (2 instances)
+- [x] extractExports/index.test.ts (1 instance)
+- [x] _serializeExtendsClause/index.ts (1 instance)
+- [x] _serializeTypeParameters/index.ts (1 instance)
 - [x] detectViolations/_collectAllNodes/index.ts (1 instance)
-- [ ] detectViolations/_checkNodeForViolations/index.ts (3 instances)
+- [x] detectViolations/_checkNodeForViolations/index.ts (3 instances)
 - [x] buildParsedFile/index.test.ts (1 instance)
-- [ ] extractImports/index.test.ts (1 instance)
-- [ ] extractFunctions/index.test.ts (1 instance)
-- [ ] extractTypes/index.test.ts (1 instance)
-- [ ] extractTypes/index.ts (1 instance - !! double negation)
+- [x] extractImports/index.test.ts (1 instance)
+- [x] extractFunctions/index.test.ts (1 instance)
+- [x] extractTypes/index.test.ts (1 instance)
+- [x] extractTypes/index.ts (1 instance - !! double negation)
 
 ### Batch 7 Completion Criteria
 
 **Check ALL before marking batch complete:**
 
-- [ ] ALL `!` operators replaced in ALL files
-- [ ] Correct Toolsmith import added to each file
-- [ ] `deno lint libraries/arborist/src/` reports 0 errors
-- [ ] `deno check libraries/arborist/src/` succeeds
-- [ ] `deno task test` runs and all 188 tests pass
-- [ ] No new TypeScript errors introduced
-- [ ] This checklist updated with [x] for all items
+- [x] ALL `!` operators replaced in ALL files
+- [x] Correct Toolsmith import added to each file
+- [x] `deno lint libraries/arborist/src/` reports 0 errors
+- [x] `deno check libraries/arborist/src/` succeeds
+- [x] `deno task test` runs and all 188 tests pass
+- [x] No new TypeScript errors introduced
+- [x] This checklist updated with [x] for all items
 - [x] Changes committed to git
 
 **Rules for this Batch:**
@@ -584,8 +584,8 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Batch 0 complete (TypeScript errors fixed)
 - [x] Batch 0.5 complete (Lint warnings fixed)
 - [x] Batch 5 complete (|| replaced)
-- [ ] Batch 6 complete (.length replaced)
-- [ ] Batch 7 complete (! replaced)
+- [x] Batch 6 complete (.length replaced)
+- [x] Batch 7 complete (! replaced)
 - [x] Batch 8 complete (&& replaced)
 - [x] Batch 9 complete (!== replaced)
 - [x] Batch 10 complete (comparisons replaced)
