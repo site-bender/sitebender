@@ -5,6 +5,7 @@ import type {
 } from "../../../../types/semantics/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 // Types for WASM interop
 type WasmSemanticInfo = {
@@ -39,7 +40,7 @@ export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): Sem
 	// Convert symbol table entries to proper SymbolInfo types
 	const symbolTable = new Map<string, SymbolInfo>()
 	for (const [key, value] of Object.entries(or(wasmInfo["symbol_table"])({}) as Record<string, unknown>)) {
-		if (value && isEqual(typeof value)("object")) {
+		if (and(value)(isEqual(typeof value)("object"))) {
 			const symbol = value as {
 				name?: string
 				kind?: string

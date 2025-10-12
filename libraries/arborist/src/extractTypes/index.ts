@@ -27,6 +27,7 @@ import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 import type { ParsedAst, ParsedType } from "../types/index.ts"
 import type { TypeExtractionError } from "../types/errors/index.ts"
@@ -61,8 +62,8 @@ export default function extractTypes(
 	    // Export declarations that wrap types
 	    if (isEqual(nodeType)("ExportDeclaration")) {
 	      const decl = nodeObj.declaration as Record<string, unknown> | undefined
-	      return !!((decl && typeof decl.type === "string" && isEqual(decl.type)("TsTypeAliasDeclaration")) ||
-	        (decl && typeof decl.type === "string" && isEqual(decl.type)("TsInterfaceDeclaration")))
+	      return !!((and(and(decl)(typeof decl!.type === "string"))(isEqual(decl!.type)("TsTypeAliasDeclaration"))) ||
+	        (and(and(decl)(typeof decl!.type === "string"))(isEqual(decl!.type)("TsInterfaceDeclaration"))))
 	    }
 
 	    return false

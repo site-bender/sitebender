@@ -1,5 +1,7 @@
 import _serializeTypeAnnotation from "../_serializeTypeAnnotation/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 //++ Serialize extends clause for interfaces
 export default function serializeExtendsClause(
@@ -10,7 +12,7 @@ export default function serializeExtendsClause(
 	}
 
 	const extendsArray = extendsClause as Array<Record<string, unknown>>
-	if (isEqual(extendsArray.length)(0)) {
+	if (isEqual(getOrElse(0)(length(extendsArray)))(0)) {
 		return ""
 	}
 
