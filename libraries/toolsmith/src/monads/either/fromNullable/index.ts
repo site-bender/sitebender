@@ -1,6 +1,6 @@
 import type { Either } from "../../../types/fp/either/index.ts"
 
-import isNullish from "../../../vanilla/validation/isNullish/index.ts"
+import isNullish from "../../../validation/isNullish/index.ts"
 import left from "../left/index.ts"
 import right from "../right/index.ts"
 

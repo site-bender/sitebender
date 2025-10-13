@@ -25,17 +25,17 @@
 
 // Uses Deno namespace; script is intended to run with Deno permissions
 
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import includes from "@sitebender/toolsmith/vanilla/array/includes/index.ts"
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
-import indexOf from "@sitebender/toolsmith/vanilla/string/indexOf/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import includes from "@sitebender/toolsmith/array/includes/index.ts"
+import join from "@sitebender/toolsmith/array/join/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import endsWith from "@sitebender/toolsmith/string/endsWith/index.ts"
+import indexOf from "@sitebender/toolsmith/string/indexOf/index.ts"
+import replace from "@sitebender/toolsmith/string/replace/index.ts"
+import slice from "@sitebender/toolsmith/string/slice/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
+import startsWith from "@sitebender/toolsmith/string/startsWith/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 const ROOT: string = Deno.cwd()
 const TARGET_DIRS = [

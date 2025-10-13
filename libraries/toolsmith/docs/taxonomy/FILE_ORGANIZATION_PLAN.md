@@ -325,7 +325,7 @@ Each file follows this structure:
 ```markdown
 # [Domain] - [Category] Functions
 
-**Location**: `src/vanilla/[domain]/`
+**Location**: `src/[domain]/`
 **Functions**: [count]
 **Status**: [Cataloged/In Progress]
 

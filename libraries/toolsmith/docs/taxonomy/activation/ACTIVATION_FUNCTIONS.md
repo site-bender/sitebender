@@ -1,6 +1,6 @@
 # Activation Functions
 
-**Location**: `src/vanilla/activation/`
+**Location**: `src/activation/`
 **Functions**: 7 (plus 2 aliases)
 **Status**: Cataloged
 **Created**: 2025-10-07
@@ -238,14 +238,14 @@ Several functions require type assertions due to overloaded math operations:
 - **Current**: `(sumExp: number) => (val: number) => number`
 - **Description**: Private helper to normalize values by sum for probability distribution
 - **Formula**: `normalized(x) = x / sum`
-- **Location**: `src/vanilla/activation/softmax/_normalize/index.ts`
+- **Location**: `src/activation/softmax/_normalize/index.ts`
 
 #### _shiftAndExp (softmax helper)
 
 - **Current**: `(maxValue: number) => (n: number) => number`
 - **Description**: Private helper to apply exponential with max shift for numerical stability
 - **Formula**: `shifted(x) = e^(x - max)`
-- **Location**: `src/vanilla/activation/softmax/_shiftAndExp/index.ts`
+- **Location**: `src/activation/softmax/_shiftAndExp/index.ts`
 
 ---
 
@@ -432,7 +432,7 @@ All functions handle zero without special cases:
 
 ### GELU Constants
 
-Defined in `src/vanilla/activation/gaussianErrorLinearUnit/constants/index.ts`:
+Defined in `src/activation/gaussianErrorLinearUnit/constants/index.ts`:
 
 #### GELU_SCALING_FACTOR
 

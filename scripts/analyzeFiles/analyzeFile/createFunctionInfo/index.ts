@@ -1,7 +1,7 @@
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
+import slice from "@sitebender/toolsmith/string/slice/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
 
 import type { FileFunction } from "../../types/index.ts"
 

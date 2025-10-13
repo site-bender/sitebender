@@ -2,9 +2,9 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
+import increment from "@sitebender/toolsmith/math/increment/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import lt from "@sitebender/toolsmith/validation/lt/index.ts"
 
 import type { Token } from "../../tokenizer/types/index.ts"
 import type { AstNode } from "../types/index.ts"

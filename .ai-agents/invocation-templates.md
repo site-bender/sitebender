@@ -16,28 +16,28 @@ Target folder: [FOLDER-PATH]
 ```
 Read prompt in .ai-agents/prompts/named-functions.md and do exactly what it says, no more, no less. Report back when done.
 
-Target folder: libraries/toolsmith/src/vanilla/array
+Target folder: libraries/toolsmith/src/array
 ```
 
 ### Fix Export Patterns Agent  
 ```
 Read prompt in .ai-agents/prompts/fix-export-patterns.md and do exactly what it says, no more, no less. Report back when done.
 
-Target folder: libraries/toolsmith/src/vanilla/conversion
+Target folder: libraries/toolsmith/src/conversion
 ```
 
 ### Extract Helper Functions Agent
 ```
 Read prompt in .ai-agents/prompts/extract-helper-functions.md and do exactly what it says, no more, no less. Report back when done.
 
-Target folder: libraries/toolsmith/src/vanilla/array
+Target folder: libraries/toolsmith/src/array
 ```
 
 ### OOP to FP Methods Agent
 ```
 Read prompt in .ai-agents/prompts/oop-to-fp-methods.md and do exactly what it says, no more, no less. Report back when done.
 
-Target folder: libraries/toolsmith/src/vanilla/string
+Target folder: libraries/toolsmith/src/string
 ```
 
 ## Quick Copy-Paste Template

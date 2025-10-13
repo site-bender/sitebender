@@ -1,6 +1,6 @@
 # Math - Rounding and Precision Functions
 
-**Location**: `src/vanilla/math/`
+**Location**: `src/math/`
 **Functions**: 8
 **Status**: Cataloged
 **Created**: 2025-10-07

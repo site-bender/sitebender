@@ -1,12 +1,12 @@
 import filter from "@sitebender/toolsmith/lifted/filter/index.ts"
 import map from "@sitebender/toolsmith/lifted/map/index.ts"
 import pipe from "@sitebender/toolsmith/pipe/index.ts"
-import arrayIsNotEmpty from "@sitebender/toolsmith/vanilla/array/isNotEmpty/index.ts"
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
-import isNotEmpty from "@sitebender/toolsmith/vanilla/string/isNotEmpty/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
-import isNotNullish from "@sitebender/toolsmith/vanilla/validation/isNotNullish/index.ts"
+import arrayIsNotEmpty from "@sitebender/toolsmith/array/isNotEmpty/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
+import isNotEmpty from "@sitebender/toolsmith/string/isNotEmpty/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
+import isNotNullish from "@sitebender/toolsmith/validation/isNotNullish/index.ts"
 
 import type { ImportSpec } from "../types/index.ts"
 

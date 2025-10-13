@@ -1,5 +1,5 @@
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
 
 import type { Violation } from "../../../../types/enforcement/Violation.ts"
 
