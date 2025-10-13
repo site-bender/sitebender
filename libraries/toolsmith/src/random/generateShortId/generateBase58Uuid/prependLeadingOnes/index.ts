@@ -1,5 +1,5 @@
-import map from "../../../../vanilla/array/map/index.ts"
-import takeWhile from "../../../../vanilla/array/takeWhile/index.ts"
+import map from "../../../../array/map/index.ts"
+import takeWhile from "../../../../array/takeWhile/index.ts"
 import { BASE58_ALPHABET } from "../constants/index.ts"
 
 //++ Prepends '1' characters for leading zero bytes in Base58 encoding

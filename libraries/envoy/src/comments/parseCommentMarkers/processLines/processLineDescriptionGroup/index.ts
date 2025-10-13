@@ -1,7 +1,7 @@
 import type { Acc } from "../../types/index.ts"
 
-import map from "../../../../../../toolsmith/src/vanilla/array/map/index.ts"
-import slice from "../../../../../../toolsmith/src/vanilla/array/slice/index.ts"
+import map from "../../../../../../toolsmith/src/array/map/index.ts"
+import slice from "../../../../../../toolsmith/src/array/slice/index.ts"
 import consumeContiguous from "../../consumeContiguous/index.ts"
 
 //++ Handle leading group of //++ lines capturing first as description

@@ -1,5 +1,5 @@
 /// <reference lib="deno.ns" />
-import includes from "@sitebender/toolsmith/vanilla/array/includes/index.ts"
+import includes from "@sitebender/toolsmith/array/includes/index.ts"
 
 import printHelp from "./_printHelp/index.ts"
 

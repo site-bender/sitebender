@@ -1,6 +1,6 @@
 # Matrix Functions
 
-**Location**: `src/vanilla/matrix/`
+**Location**: `src/matrix/`
 **Functions**: 10
 **Status**: Cataloged
 **Created**: 2025-10-07

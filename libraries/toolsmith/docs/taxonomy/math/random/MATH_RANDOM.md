@@ -1,6 +1,6 @@
 # Math - Random Number Generation Functions
 
-**Location**: `src/vanilla/math/`
+**Location**: `src/math/`
 **Functions**: 2
 **Status**: Cataloged
 **Created**: 2025-10-07

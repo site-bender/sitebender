@@ -15,6 +15,8 @@ import or from "@sitebender/toolsmith/logic/or/index.ts"
 import type { ParsedAst, ParsedExport, Position, Span } from "../types/index.ts"
 import type { ExportExtractionError } from "../types/errors/index.ts"
 
+import _extractDefaultExportName from "./_extractDefaultExportName/index.ts"
+
 //++ Extracts all export statements from a ParsedAst
 //++ Returns Validation to accumulate extraction errors per export
 //++ Continues extraction on individual failures to gather all valid exports
@@ -23,6 +25,7 @@ export default function extractExports(
 	ast: ParsedAst,
 ): Validation<ExportExtractionError, ReadonlyArray<ParsedExport>> {
 	// Get the module body (top-level statements)
+	//-- SWC AST types are too complex for direct casting - requires double cast via unknown
 	const moduleBody = ast.module.body as unknown as Array<unknown>
 
 	// Filter for export declarations
@@ -140,15 +143,7 @@ function extractDefaultExport(
 				isEqual(declType)("TsInterfaceDeclaration")
 
 			// Extract name from declaration if available
-			let name = "default"
-			if (
-				isEqual(declType)("FunctionDeclaration") || isEqual(declType)("FunctionExpression")
-			) {
-				const ident = decl.identifier as Record<string, unknown> | undefined
-				if (ident) {
-					name = ident.value as string
-				}
-			}
+			const name = _extractDefaultExportName(decl)
 
 			return [{
 				name,
@@ -271,10 +266,10 @@ function extractNamedOrReExport(
 ) {
 	return function withPosition(position: Position) {
 		return function withSpan(span: Span): ReadonlyArray<ParsedExport> {
-			const specifiers = or(node.specifiers as ReadonlyArray<unknown>)([]) as ReadonlyArray<unknown>
+			const specifiers = or(node.specifiers as ReadonlyArray<unknown>)([])
 			const source = node.source as Record<string, unknown> | undefined
 			const sourceValue = source ? source.value as string : undefined
-			const isTypeOnly = or(node.typeOnly as boolean)(false) as boolean
+			const isTypeOnly = or(node.typeOnly as boolean)(false)
 
 			// If there's a source, this is a re-export
 			const kind = sourceValue ? "reexport" : "named"
@@ -291,7 +286,7 @@ function extractNamedOrReExport(
 					: (specObj.orig as Record<string, unknown>)?.value as string
 
 				// Check if this specific specifier is type-only
-				const isSpecTypeOnly = or(specObj.isTypeOnly as boolean)(isTypeOnly) as boolean
+				const isSpecTypeOnly = or(specObj.isTypeOnly as boolean)(isTypeOnly)
 
 				return {
 					name,

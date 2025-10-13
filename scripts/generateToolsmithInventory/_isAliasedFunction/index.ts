@@ -1,4 +1,4 @@
-import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
+import includes from "@sitebender/toolsmith/string/includes/index.ts"
 
 /**
  * Check if content represents an aliased function (re-export)

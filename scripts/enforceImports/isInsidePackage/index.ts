@@ -1,4 +1,4 @@
-import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
+import includes from "@sitebender/toolsmith/string/includes/index.ts"
 
 //++ Checks if a file path is inside a specific package directory
 export default function isInsidePackage(
