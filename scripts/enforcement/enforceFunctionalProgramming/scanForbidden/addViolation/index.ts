@@ -1,4 +1,4 @@
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 import type { Violation } from "../../../../../types/enforcement/Violation.ts"
 

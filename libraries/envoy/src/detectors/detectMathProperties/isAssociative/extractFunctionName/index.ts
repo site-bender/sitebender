@@ -1,4 +1,4 @@
-import reduce from "../../../../../../toolsmith/src/vanilla/array/reduce/index.ts"
+import reduce from "../../../../../../toolsmith/src/array/reduce/index.ts"
 import { FUNCTION_NAME_PATTERNS } from "../constants/index.ts"
 
 //++ Extracts the function name from source code

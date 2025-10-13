@@ -1,10 +1,10 @@
 // Forbid React-style prop names in our framework-free codebase.
 // Exposed as a default-exported function and also runnable via CLI.
 
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 import {
 	DEFAULT_NO_REACT_GLOBS,

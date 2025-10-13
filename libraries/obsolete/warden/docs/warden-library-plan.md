@@ -334,19 +334,19 @@ type WardenConfig = {
 
 ### For Validation (Phase 1.2)
 
-- `libraries/toolsmith/src/vanilla/validation/equals/index.ts` ✅ Already used
-- `libraries/toolsmith/src/vanilla/array/length/index.ts` ✅ Already used
-- `libraries/toolsmith/src/vanilla/validation/isEmpty/index.ts`
-- `libraries/toolsmith/src/vanilla/validation/isString/index.ts`
-- `libraries/toolsmith/src/vanilla/validation/isDefined/index.ts`
+- `libraries/toolsmith/src/validation/equals/index.ts` ✅ Already used
+- `libraries/toolsmith/src/array/length/index.ts` ✅ Already used
+- `libraries/toolsmith/src/validation/isEmpty/index.ts`
+- `libraries/toolsmith/src/validation/isString/index.ts`
+- `libraries/toolsmith/src/validation/isDefined/index.ts`
 
 ### For File/String Operations (Phase 1.2)
 
-- `libraries/toolsmith/src/vanilla/string/startsWith/index.ts`
-- `libraries/toolsmith/src/vanilla/string/endsWith/index.ts`
-- `libraries/toolsmith/src/vanilla/string/contains/index.ts`
-- `libraries/toolsmith/src/vanilla/array/filter/index.ts`
-- `libraries/toolsmith/src/vanilla/array/map/index.ts`
+- `libraries/toolsmith/src/string/startsWith/index.ts`
+- `libraries/toolsmith/src/string/endsWith/index.ts`
+- `libraries/toolsmith/src/string/contains/index.ts`
+- `libraries/toolsmith/src/array/filter/index.ts`
+- `libraries/toolsmith/src/array/map/index.ts`
 
 ## Migration Strategy
 

@@ -1,6 +1,6 @@
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import join from "@sitebender/toolsmith/array/join/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 
 import type { ComponentModule, IRNode, SerializedExpr } from "../types/index.ts"
 

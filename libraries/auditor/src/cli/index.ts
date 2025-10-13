@@ -9,7 +9,7 @@ import { TypeKind } from "../types/index.ts"
 const TOOLSMITH_SIGNATURES: Record<string, FunctionSignature> = {
 	"array/map": {
 		name: "map",
-		path: "libraries/toolsmith/src/vanilla/array/map/index.ts",
+		path: "libraries/toolsmith/src/array/map/index.ts",
 		parameters: [
 			{
 				name: "fn",
@@ -51,7 +51,7 @@ const TOOLSMITH_SIGNATURES: Record<string, FunctionSignature> = {
 
 	"array/filter": {
 		name: "filter",
-		path: "libraries/toolsmith/src/vanilla/array/filter/index.ts",
+		path: "libraries/toolsmith/src/array/filter/index.ts",
 		parameters: [
 			{
 				name: "predicate",
@@ -92,7 +92,7 @@ const TOOLSMITH_SIGNATURES: Record<string, FunctionSignature> = {
 
 	"math/add": {
 		name: "add",
-		path: "libraries/toolsmith/src/vanilla/math/add/index.ts",
+		path: "libraries/toolsmith/src/math/add/index.ts",
 		parameters: [
 			{
 				name: "a",

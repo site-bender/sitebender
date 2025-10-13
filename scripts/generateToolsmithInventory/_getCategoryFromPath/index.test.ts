@@ -3,7 +3,7 @@ import { assertEquals } from "https://deno.land/std@0.208.0/assert/mod.ts"
 import _getCategoryFromPath from "./index.ts"
 
 Deno.test("_getCategoryFromPath - returns category name from vanilla path", () => {
-	const path = "libraries/toolsmith/src/vanilla/array/map/index.ts"
+	const path = "libraries/toolsmith/src/array/map/index.ts"
 	const result = _getCategoryFromPath(path)
 	assertEquals(result, "array")
 })
@@ -11,21 +11,21 @@ Deno.test("_getCategoryFromPath - returns category name from vanilla path", () =
 Deno.test("_getCategoryFromPath - returns category for different categories", () => {
 	assertEquals(
 		_getCategoryFromPath(
-			"libraries/toolsmith/src/vanilla/string/split/index.ts",
+			"libraries/toolsmith/src/string/split/index.ts",
 		),
 		"string",
 	)
 	assertEquals(
-		_getCategoryFromPath("libraries/toolsmith/src/vanilla/math/add/index.ts"),
+		_getCategoryFromPath("libraries/toolsmith/src/math/add/index.ts"),
 		"math",
 	)
 	assertEquals(
-		_getCategoryFromPath("libraries/toolsmith/src/vanilla/logic/and/index.ts"),
+		_getCategoryFromPath("libraries/toolsmith/src/logic/and/index.ts"),
 		"logic",
 	)
 	assertEquals(
 		_getCategoryFromPath(
-			"libraries/toolsmith/src/vanilla/validation/isNil/index.ts",
+			"libraries/toolsmith/src/validation/isNil/index.ts",
 		),
 		"validation",
 	)
@@ -33,7 +33,7 @@ Deno.test("_getCategoryFromPath - returns category for different categories", ()
 
 Deno.test("_getCategoryFromPath - handles nested subfolders", () => {
 	const path =
-		"libraries/toolsmith/src/vanilla/array/nested/deep/function/index.ts"
+		"libraries/toolsmith/src/array/nested/deep/function/index.ts"
 	const result = _getCategoryFromPath(path)
 	assertEquals(result, "array")
 })
@@ -52,11 +52,11 @@ Deno.test("_getCategoryFromPath - returns 'other' for non-toolsmith paths", () =
 
 Deno.test("_getCategoryFromPath - handles vanilla at different positions", () => {
 	assertEquals(
-		_getCategoryFromPath("some/other/path/vanilla/category/function/index.ts"),
+		_getCategoryFromPath("some/other/path/category/function/index.ts"),
 		"category",
 	)
 	assertEquals(
-		_getCategoryFromPath("vanilla/direct/function/index.ts"),
+		_getCategoryFromPath("direct/function/index.ts"),
 		"direct",
 	)
 })

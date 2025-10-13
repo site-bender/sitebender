@@ -1,4 +1,4 @@
-import some from "@sitebender/toolsmith/vanilla/array/some/index.ts"
+import some from "@sitebender/toolsmith/array/some/index.ts"
 
 import checkExtension from "./checkExtension/index.ts"
 

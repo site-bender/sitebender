@@ -1,6 +1,6 @@
 # Array - Operations Functions
 
-**Location**: `src/vanilla/array/`
+**Location**: `src/array/`
 **Functions**: 21
 **Status**: Cataloged
 **Created**: 2025-10-07

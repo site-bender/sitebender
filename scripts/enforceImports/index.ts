@@ -1,7 +1,7 @@
-import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
-import isEmpty from "@sitebender/toolsmith/vanilla/array/isEmpty/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
+import isEmpty from "@sitebender/toolsmith/array/isEmpty/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import { DEFAULT_ALIAS_SCOPES } from "../constants/index.ts"
 import flattenViolationArrays from "./flattenViolationArrays/index.ts"

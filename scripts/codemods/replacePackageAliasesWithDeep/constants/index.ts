@@ -1,4 +1,4 @@
-import replaceAll from "@sitebender/toolsmith/vanilla/string/replaceAll/index.ts"
+import replaceAll from "@sitebender/toolsmith/string/replaceAll/index.ts"
 
 //++ [GROUP] Constants for replace-package-aliases-with-deep codemod
 

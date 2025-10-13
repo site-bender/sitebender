@@ -332,10 +332,10 @@ Quick reference guide for all coding rules organized by collection.
 ### Math Operators
 
 **SUBSTITUTE_ADD_INTEGER_CORRECTED_001** - Use `add()` for integers
-- Path: @sitebender/toolsmith/vanilla/math/integer/add/index.ts
+- Path: @sitebender/toolsmith/math/integer/add/index.ts
 
 **SUBSTITUTE_ADD_FLOAT_001** - Use `add()` for floats
-- Path: @sitebender/toolsmith/vanilla/math/float/add/index.ts
+- Path: @sitebender/toolsmith/math/float/add/index.ts
 
 **SUBSTITUTE_SUBTRACT_001** - Use `subtract()` instead of `-`
 - Type-specific paths: integer/bigint/float/precision

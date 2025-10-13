@@ -2,9 +2,9 @@
 
 import type { ValidationResult } from "../../types/enforcement.ts"
 
-import filter from "../../../../toolsmith/src/vanilla/array/filter/index.ts"
-import flatMap from "../../../../toolsmith/src/vanilla/array/flatMap/index.ts"
-import map from "../../../../toolsmith/src/vanilla/array/map/index.ts"
+import filter from "../../../../toolsmith/src/array/filter/index.ts"
+import flatMap from "../../../../toolsmith/src/array/flatMap/index.ts"
+import map from "../../../../toolsmith/src/array/map/index.ts"
 import loadBoundaries from "./loadBoundaries/index.ts"
 
 export default function validateImport(

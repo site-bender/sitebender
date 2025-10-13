@@ -1,9 +1,9 @@
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
-import keys from "@sitebender/toolsmith/vanilla/object/keys/index.ts"
-import values from "@sitebender/toolsmith/vanilla/object/values/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import slice from "@sitebender/toolsmith/array/slice/index.ts"
+import keys from "@sitebender/toolsmith/object/keys/index.ts"
+import values from "@sitebender/toolsmith/object/values/index.ts"
 import { stringify } from "jsr:@std/yaml@1.0.0"
 
 import type { ToolsmithInventory } from "./types/index.ts"
@@ -14,7 +14,7 @@ import _sumCategoryCounts from "./_sumCategoryCounts/index.ts"
 import { OUTPUT_PATH, TOOLSMITH_ROOT } from "./constants/index.ts"
 
 /*++
- | Scans libraries/toolsmith/src/vanilla/ and generates a comprehensive inventory
+ | Scans libraries/toolsmith/src/ and generates a comprehensive inventory
  | of all functions for use by AI transformation agents.
  */
 async function generateToolsmithInventory(): Promise<void> {

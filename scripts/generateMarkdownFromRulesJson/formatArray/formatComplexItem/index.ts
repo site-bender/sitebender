@@ -1,6 +1,6 @@
 import type { JsonValue } from "../../types/index.ts"
 
-import concat from "../../../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
+import concat from "../../../../libraries/toolsmith/src/string/concat/index.ts"
 
 //++ Formats a complex array item with index numbering
 export default function formatComplexItem(

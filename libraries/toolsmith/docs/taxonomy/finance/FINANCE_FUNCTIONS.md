@@ -1,6 +1,6 @@
 # Finance Functions
 
-**Location**: `src/vanilla/finance/`
+**Location**: `src/finance/`
 **Functions**: 12
 **Status**: Cataloged
 **Created**: 2025-10-07

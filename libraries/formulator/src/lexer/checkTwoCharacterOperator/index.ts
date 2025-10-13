@@ -1,9 +1,9 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
-import length from "@sitebender/toolsmith/vanilla/string/length/index.ts"
-import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
+import increment from "@sitebender/toolsmith/math/increment/index.ts"
+import length from "@sitebender/toolsmith/string/length/index.ts"
+import lt from "@sitebender/toolsmith/validation/lt/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 
 import { TWO_CHARACTER_OPERATOR_MAP } from "../constants/index.ts"

@@ -38,17 +38,17 @@ export default async function runDemo() {
 	const testTargets = [
 		{
 			path:
-				`${projectRoot}/libraries/toolsmith/src/vanilla/string/trimStart/index.ts`,
+				`${projectRoot}/libraries/toolsmith/src/string/trimStart/index.ts`,
 			description: "Simple string function",
 		},
 		{
 			path:
-				`${projectRoot}/libraries/toolsmith/src/vanilla/array/head/index.ts`,
+				`${projectRoot}/libraries/toolsmith/src/array/head/index.ts`,
 			description: "Array function with edge cases",
 		},
 		{
 			path:
-				`${projectRoot}/libraries/toolsmith/src/vanilla/combinator/compose/index.ts`,
+				`${projectRoot}/libraries/toolsmith/src/combinator/compose/index.ts`,
 			description: "Higher-order function (compose)",
 		},
 	]

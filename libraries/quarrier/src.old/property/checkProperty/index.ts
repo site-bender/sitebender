@@ -1,6 +1,6 @@
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import range from "@sitebender/toolsmith/vanilla/array/range/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import range from "@sitebender/toolsmith/array/range/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 
 import type {
 	Configuration,
