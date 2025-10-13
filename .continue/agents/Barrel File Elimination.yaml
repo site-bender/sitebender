@@ -40,7 +40,7 @@ prompts:
 
       **✅ ALLOWED: Single-Function Aliases** (one import, one export)
       ```typescript
-      // libraries/toolsmith/src/vanilla/array/contains/index.ts - PRESERVE
+      // libraries/toolsmith/src/array/contains/index.ts - PRESERVE
       export { default } from '../includes/index.js'
       ```
 
@@ -53,11 +53,11 @@ prompts:
       2. **Update Imports**
          ```typescript
          // BEFORE (using barrel)
-         import { map, filter } from 'libraries/toolsmith/src/vanilla/array'
+         import { map, filter } from 'libraries/toolsmith/src/array'
 
          // AFTER (deep imports)
-         import filter from 'libraries/toolsmith/src/vanilla/array/filter'
-         import map from 'libraries/toolsmith/src/vanilla/array/map'
+         import filter from 'libraries/toolsmith/src/array/filter'
+         import map from 'libraries/toolsmith/src/array/map'
          ```
 
       3. **Delete Barrel Files**

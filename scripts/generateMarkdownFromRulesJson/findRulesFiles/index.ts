@@ -1,9 +1,9 @@
 import type { RulesFile } from "../types/index.ts"
 
-import filter from "../../../libraries/toolsmith/src/vanilla/array/filter/index.ts"
-import map from "../../../libraries/toolsmith/src/vanilla/array/map/index.ts"
-import pipe from "../../../libraries/toolsmith/src/vanilla/combinator/pipe/index.ts"
-import isNotNullish from "../../../libraries/toolsmith/src/vanilla/validation/isNotNullish/index.ts"
+import filter from "../../../libraries/toolsmith/src/array/filter/index.ts"
+import map from "../../../libraries/toolsmith/src/array/map/index.ts"
+import pipe from "../../../libraries/toolsmith/src/combinator/pipe/index.ts"
+import isNotNullish from "../../../libraries/toolsmith/src/validation/isNotNullish/index.ts"
 import { RULES_FILE_LOCATIONS } from "../constants/index.ts"
 import toRulesFile from "./toRulesFile/index.ts"
 

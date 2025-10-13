@@ -1,4 +1,4 @@
-import concat from "@sitebender/toolsmith/vanilla/array/concat/index.ts"
+import concat from "@sitebender/toolsmith/array/concat/index.ts"
 
 import type { Violation } from "../../../../../types/enforcement/Violation.ts"
 

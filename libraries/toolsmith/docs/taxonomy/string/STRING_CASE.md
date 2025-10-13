@@ -1,6 +1,6 @@
 # String - Case Conversion Functions
 
-**Location**: `src/vanilla/string/toCase/` and `src/vanilla/string/`
+**Location**: `src/string/toCase/` and `src/string/`
 **Functions**: 14
 **Status**: Cataloged
 **Created**: 2025-10-07

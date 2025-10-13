@@ -1,8 +1,8 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/string/slice/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
+import slice from "@sitebender/toolsmith/string/slice/index.ts"
+import startsWith from "@sitebender/toolsmith/string/startsWith/index.ts"
 
 //++ Parses root directories from command-line arguments
 export default function parseRoots(args: Array<string>): Array<string> {

@@ -7,6 +7,8 @@ import { default as initSwc, parse } from "npm:@swc/wasm-web@1.13.20"
 import type { ParsedAst } from "../types/index.ts"
 
 import extractComments from "./index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 // Initialize SWC WASM once for all tests
 let swcInitPromise: Promise<void> | null = null
@@ -57,7 +59,7 @@ Deno.test("extractComments - Success with single line comment", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].text, " This is a line comment")
 		assertEquals(validation.value[0].kind, "line")
 	}
@@ -75,7 +77,7 @@ Deno.test("extractComments - Success with block comment", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].kind, "block")
 		assert(validation.value[0].text.includes("Multi-line block comment"))
 	}
@@ -97,7 +99,7 @@ Deno.test("extractComments - Success with multiple comments", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 3)
+		assertEquals(getOrElse(0)(length(validation.value)), 3)
 		assertEquals(validation.value[0].kind, "line")
 		assertEquals(validation.value[1].kind, "line")
 		assertEquals(validation.value[2].kind, "block")
@@ -115,7 +117,7 @@ Deno.test("extractComments - Success with empty array for no comments", async ()
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 0)
+		assertEquals(getOrElse(0)(length(validation.value)), 0)
 	}
 })
 
@@ -129,7 +131,7 @@ Deno.test("extractComments - detects Envoy marker ++", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].envoyMarker?.marker, "++")
 		if (validation.value[0].envoyMarker?.marker === "++") {
 			assertEquals(
@@ -150,7 +152,7 @@ Deno.test("extractComments - detects Envoy marker --", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].envoyMarker?.marker, "--")
 		if (validation.value[0].envoyMarker?.marker === "--") {
 			assertEquals(
@@ -171,7 +173,7 @@ Deno.test("extractComments - detects Envoy marker !!", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].envoyMarker?.marker, "!!")
 		if (validation.value[0].envoyMarker?.marker === "!!") {
 			assertEquals(
@@ -192,7 +194,7 @@ Deno.test("extractComments - detects Envoy marker ??", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].envoyMarker?.marker, "??")
 		if (validation.value[0].envoyMarker?.marker === "??") {
 			assertEquals(
@@ -213,7 +215,7 @@ Deno.test("extractComments - detects Envoy marker >>", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].envoyMarker?.marker, ">>")
 		if (validation.value[0].envoyMarker?.marker === ">>") {
 			assertEquals(
@@ -234,7 +236,7 @@ Deno.test("extractComments - no Envoy marker for regular comments", async () => 
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].envoyMarker, undefined)
 	}
 })
@@ -247,7 +249,7 @@ function test() {}`)
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(typeof validation.value[0].position.line, "number")
 		assertEquals(typeof validation.value[0].position.column, "number")
 		assertEquals(typeof validation.value[0].span.start, "number")
@@ -274,7 +276,7 @@ Deno.test("extractComments - handles inline comments", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].text, " inline comment")
 	}
 })
@@ -292,7 +294,7 @@ Deno.test("extractComments - handles JSDoc-style comments", async () => {
 
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
-		assertEquals(validation.value.length, 1)
+		assertEquals(getOrElse(0)(length(validation.value)), 1)
 		assertEquals(validation.value[0].kind, "block")
 		assert(validation.value[0].text.includes("JSDoc comment"))
 	}

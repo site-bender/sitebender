@@ -66,8 +66,8 @@ const result = numbers.reduce((sum, n) => sum + n, 0);
 const doubled = values.map((x) => x * 2);
 
 // AFTER: Use toolsmith math functions
-import add from "libraries/toolsmith/src/vanilla/math/add/index.ts";
-import multiply from "libraries/toolsmith/src/vanilla/math/multiply/index.ts";
+import add from "libraries/toolsmith/src/math/add/index.ts";
+import multiply from "libraries/toolsmith/src/math/multiply/index.ts";
 
 const addValues = add; // Direct reference to curried toolsmith function
 const result = numbers.reduce(add)(0); // Curried usage
@@ -85,15 +85,15 @@ const hasProperty = obj && obj.hasOwnProperty("key");
 const isPositive = n > 0 && Number.isFinite(n);
 
 // AFTER: Use toolsmith validation functions and composition
-import isString from "libraries/toolsmith/src/vanilla/validation/isString/index.ts";
-import isNumber from "libraries/toolsmith/src/vanilla/validation/isNumber/index.ts";
-import allPass from "libraries/toolsmith/src/vanilla/validation/allPass/index.ts";
-import isNotNull from "libraries/toolsmith/src/vanilla/validation/isNotNull/index.ts";
-import isNotUndefined from "libraries/toolsmith/src/vanilla/validation/isNotUndefined/index.ts";
-import isObject from "libraries/toolsmith/src/vanilla/validation/isObject/index.ts";
-import hasProperty from "libraries/toolsmith/src/vanilla/validation/hasProperty/index.ts";
-import isPositive from "libraries/toolsmith/src/vanilla/validation/isPositive/index.ts";
-import isFinite from "libraries/toolsmith/src/vanilla/validation/isFinite/index.ts";
+import isString from "libraries/toolsmith/src/validation/isString/index.ts";
+import isNumber from "libraries/toolsmith/src/validation/isNumber/index.ts";
+import allPass from "libraries/toolsmith/src/validation/allPass/index.ts";
+import isNotNull from "libraries/toolsmith/src/validation/isNotNull/index.ts";
+import isNotUndefined from "libraries/toolsmith/src/validation/isNotUndefined/index.ts";
+import isObject from "libraries/toolsmith/src/validation/isObject/index.ts";
+import hasProperty from "libraries/toolsmith/src/validation/hasProperty/index.ts";
+import isPositive from "libraries/toolsmith/src/validation/isPositive/index.ts";
+import isFinite from "libraries/toolsmith/src/validation/isFinite/index.ts";
 
 const stringValues = items.filter(isString);
 const numbers = values.filter(allPass([isNumber, isFinite]));
@@ -120,23 +120,23 @@ if (radix < 2 || radix > 36 || !isInteger(radix)) { ... }
 return someValue || "default"
 
 // AFTER: Use toolsmith logical and comparison functions
-import isEqual from "libraries/toolsmith/src/vanilla/validation/isEqual/index.ts"
-import isNotNull from "libraries/toolsmith/src/vanilla/validation/isNotNull/index.ts"
-import allPass from "libraries/toolsmith/src/vanilla/validation/allPass/index.ts"
-import anyPass from "libraries/toolsmith/src/vanilla/validation/anyPass/index.ts"
-import gt from "libraries/toolsmith/src/vanilla/validation/gt/index.ts"
-import lt from "libraries/toolsmith/src/vanilla/validation/lt/index.ts"
-import gte from "libraries/toolsmith/src/vanilla/validation/gte/index.ts"
-import lte from "libraries/toolsmith/src/vanilla/validation/lte/index.ts"
-import isUndefined from "libraries/toolsmith/src/vanilla/validation/isUndefined/index.ts"
-import defaultTo from "libraries/toolsmith/src/vanilla/logic/defaultTo/index.ts"
-import isInfinite from "libraries/toolsmith/src/vanilla/validation/isInfinite/index.ts"
-import isNegativeInfinity from "libraries/toolsmith/src/vanilla/validation/isNegativeInfinity/index.ts"
-import isZero from "libraries/toolsmith/src/vanilla/validation/isZero/index.ts"
-import or from "libraries/toolsmith/src/vanilla/logic/or/index.ts"
-import and from "libraries/toolsmith/src/vanilla/logic/and/index.ts"
-import not from "libraries/toolsmith/src/vanilla/logic/not/index.ts"
-import isNullish from "libraries/toolsmith/src/vanilla/validation/isNullish/index.ts"
+import isEqual from "libraries/toolsmith/src/validation/isEqual/index.ts"
+import isNotNull from "libraries/toolsmith/src/validation/isNotNull/index.ts"
+import allPass from "libraries/toolsmith/src/validation/allPass/index.ts"
+import anyPass from "libraries/toolsmith/src/validation/anyPass/index.ts"
+import gt from "libraries/toolsmith/src/validation/gt/index.ts"
+import lt from "libraries/toolsmith/src/validation/lt/index.ts"
+import gte from "libraries/toolsmith/src/validation/gte/index.ts"
+import lte from "libraries/toolsmith/src/validation/lte/index.ts"
+import isUndefined from "libraries/toolsmith/src/validation/isUndefined/index.ts"
+import defaultTo from "libraries/toolsmith/src/logic/defaultTo/index.ts"
+import isInfinite from "libraries/toolsmith/src/validation/isInfinite/index.ts"
+import isNegativeInfinity from "libraries/toolsmith/src/validation/isNegativeInfinity/index.ts"
+import isZero from "libraries/toolsmith/src/validation/isZero/index.ts"
+import or from "libraries/toolsmith/src/logic/or/index.ts"
+import and from "libraries/toolsmith/src/logic/and/index.ts"
+import not from "libraries/toolsmith/src/logic/not/index.ts"
+import isNullish from "libraries/toolsmith/src/validation/isNullish/index.ts"
 
 if (allPass([isEqual(y)(x), isNotNull])(z)) { ... }
 if (anyPass([gt(a)(b), lt(c)(d)])(someValue)) { ... }
@@ -161,9 +161,9 @@ const firstItems = arrays.map((arr) => arr[0]);
 const restItems = arrays.map((arr) => arr.slice(1));
 
 // AFTER: Use toolsmith array functions
-import isNotEmpty from "libraries/toolsmith/src/vanilla/array/isNotEmpty/index.ts";
-import head from "libraries/toolsmith/src/vanilla/array/head/index.ts";
-import tail from "libraries/toolsmith/src/vanilla/array/tail/index.ts";
+import isNotEmpty from "libraries/toolsmith/src/array/isNotEmpty/index.ts";
+import head from "libraries/toolsmith/src/array/head/index.ts";
+import tail from "libraries/toolsmith/src/array/tail/index.ts";
 
 const nonEmpty = arrays.filter(isNotEmpty);
 const firstItems = arrays.map(head);
@@ -178,8 +178,8 @@ const lowercase = strings.map((s) => s.toLowerCase());
 const trimmed = inputs.map((input) => input.trim());
 
 // AFTER: Use toolsmith string functions
-import toLowercase from "libraries/toolsmith/src/vanilla/string/toLowercase/index.ts";
-import trim from "libraries/toolsmith/src/vanilla/string/trim/index.ts";
+import toLowercase from "libraries/toolsmith/src/string/toLowercase/index.ts";
+import trim from "libraries/toolsmith/src/string/trim/index.ts";
 
 const lowercase = strings.map(toLowercase);
 const trimmed = inputs.map(trim);
@@ -353,7 +353,7 @@ if (Object.is(value, -0)) { ... }
 return array.findIndex((x) => Object.is(x, item))
 
 // CORRECT - Use curried is function
-import is from "libraries/toolsmith/src/vanilla/validation/is/index.ts"
+import is from "libraries/toolsmith/src/validation/is/index.ts"
 
 if (is(-0)(value)) { ... }
 return array.findIndex(is(item))

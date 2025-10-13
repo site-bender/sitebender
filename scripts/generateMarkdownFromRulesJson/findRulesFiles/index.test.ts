@@ -2,7 +2,7 @@ import { assertEquals } from "@std/assert"
 
 import type { RulesFile } from "../types/index.ts"
 
-import map from "../../../libraries/toolsmith/src/vanilla/array/map/index.ts"
+import map from "../../../libraries/toolsmith/src/array/map/index.ts"
 import findRulesFiles from "./index.ts"
 
 function checkFileStructure(file: RulesFile): void {

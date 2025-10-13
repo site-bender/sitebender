@@ -1,4 +1,4 @@
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 
 import hasDefaultAndName from "../hasDefaultAndName/index.ts"
 

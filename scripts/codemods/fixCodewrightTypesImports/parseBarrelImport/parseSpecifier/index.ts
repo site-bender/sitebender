@@ -1,4 +1,4 @@
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
 import type { ImportSpec } from "../../types/index.ts"
 

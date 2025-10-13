@@ -2,7 +2,7 @@ import { assert, assertEquals } from "@std/assert"
 
 import type { Result } from "../../../types/fp/result/index.ts"
 
-import toUpper from "../../../vanilla/string/toCase/toUpper/index.ts"
+import toUpper from "../../../string/toCase/toUpper/index.ts"
 import error from "../error/index.ts"
 import fold from "../fold/index.ts"
 import isError from "../isError/index.ts"

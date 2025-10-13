@@ -1,5 +1,5 @@
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
-import has from "@sitebender/toolsmith/vanilla/set/has/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
+import has from "@sitebender/toolsmith/set/has/index.ts"
 
 //++ Checks if a directory should be processed based on exclusion list
 export default function shouldProcessDirectory(

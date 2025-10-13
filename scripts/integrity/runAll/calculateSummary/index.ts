@@ -1,6 +1,6 @@
 import type { ScriptResult, Summary } from "../../types/index.ts"
 
-import reduce from "../../../../libraries/toolsmith/src/vanilla/array/reduce/index.ts"
+import reduce from "../../../../libraries/toolsmith/src/array/reduce/index.ts"
 
 //++ Calculate summary from script results
 export function calculateSummary(

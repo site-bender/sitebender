@@ -1,4 +1,4 @@
-import escapeRegExp from "@sitebender/toolsmith/vanilla/string/escapeRegExp/index.ts"
+import escapeRegExp from "@sitebender/toolsmith/string/escapeRegExp/index.ts"
 
 /**
  * Create a RegExp pattern to match const arrow function for a given function name
