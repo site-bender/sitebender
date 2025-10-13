@@ -26,6 +26,7 @@ export default function extractImports(
 	ast: ParsedAst,
 ): Validation<ImportExtractionError, ReadonlyArray<ParsedImport>> {
 	// Get the module body (top-level statements)
+	//-- SWC AST types are too complex for direct casting - requires double cast via unknown
 	const moduleBody = ast.module.body as unknown as Array<unknown>
 
 	// Filter for import declarations
