@@ -2,7 +2,7 @@ import type { Result } from "@sitebender/toolsmith/monads/types/fp/result/index.
 
 import err from "@sitebender/toolsmith/monads/result/err/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
 import type { GeneratorError, Seed } from "../../types/index.ts"
 

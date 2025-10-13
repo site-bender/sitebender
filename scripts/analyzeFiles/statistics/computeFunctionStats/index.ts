@@ -1,8 +1,8 @@
-import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import sort from "@sitebender/toolsmith/vanilla/array/sort/index.ts"
+import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import sort from "@sitebender/toolsmith/array/sort/index.ts"
 
 import type { FunctionStats, PerFileAnalysis } from "../../types/index.ts"
 

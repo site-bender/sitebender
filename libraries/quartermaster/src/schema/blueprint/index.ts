@@ -34,6 +34,39 @@ export type OutputsSpec = {
 	appPath: string
 }
 
+export type DevServerMode = "docker" | "deno" | "both"
+
+export type DevServerConfig = {
+	enabled: boolean
+	mode?: DevServerMode
+	http3Port?: number
+	http2Port?: number
+	hotReload?: boolean
+}
+
+export type LibraryRequirement = "required" | "optional" | "excluded"
+
+export type SitebenderLibraries = {
+	pagewright?: LibraryRequirement
+	toolsmith?: LibraryRequirement
+	architect?: LibraryRequirement
+	formulator?: LibraryRequirement
+	linguist?: LibraryRequirement
+	exchequer?: LibraryRequirement
+	agent?: LibraryRequirement
+	operator?: LibraryRequirement
+	custodian?: LibraryRequirement
+	pathfinder?: LibraryRequirement
+	envoy?: LibraryRequirement
+	auditor?: LibraryRequirement
+	arborist?: LibraryRequirement
+	sentinel?: LibraryRequirement
+	quarrier?: LibraryRequirement
+	quartermaster?: LibraryRequirement
+	steward?: LibraryRequirement
+	warden?: LibraryRequirement
+}
+
 export type Blueprint = {
 	id: string
 	name: string
@@ -48,4 +81,6 @@ export type Blueprint = {
 	postScaffoldMessages?: string[]
 	seed?: SeedSpec
 	variants?: VariantToggles
+	devServer?: DevServerConfig
+	libraries?: SitebenderLibraries
 }

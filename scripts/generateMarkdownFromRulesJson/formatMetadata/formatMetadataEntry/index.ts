@@ -1,9 +1,9 @@
 import type { JsonValue } from "../../types/index.ts"
 
-import pipe from "../../../../libraries/toolsmith/src/vanilla/combinator/pipe/index.ts"
-import concat from "../../../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
-import concatTo from "../../../../libraries/toolsmith/src/vanilla/string/concatTo/index.ts"
-import isArray from "../../../../libraries/toolsmith/src/vanilla/validation/isArray/index.ts"
+import pipe from "../../../../libraries/toolsmith/src/combinator/pipe/index.ts"
+import concat from "../../../../libraries/toolsmith/src/string/concat/index.ts"
+import concatTo from "../../../../libraries/toolsmith/src/string/concatTo/index.ts"
+import isArray from "../../../../libraries/toolsmith/src/validation/isArray/index.ts"
 import formatJsonValue from "../../formatJsonValue/index.ts"
 import formatKey from "../../formatKey/index.ts"
 

@@ -1,6 +1,6 @@
 # Object - Utility Functions
 
-**Location**: `src/vanilla/object/`
+**Location**: `src/object/`
 **Functions**: 15
 **Status**: Cataloged
 **Created**: 2025-10-07

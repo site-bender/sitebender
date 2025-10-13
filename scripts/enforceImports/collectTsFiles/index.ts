@@ -1,6 +1,6 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import entryToFullPath from "./entryToFullPath/index.ts"
 import identity from "./identity/index.ts"

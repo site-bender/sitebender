@@ -8,7 +8,7 @@
 
 ## Mission Accomplished
 
-The complete catalog of all vanilla functions in `src/vanilla/` has been successfully documented. This taxonomy serves as the authoritative source for understanding what needs to be migrated to monadic equivalents.
+The complete catalog of all vanilla functions in `src/` has been successfully documented. This taxonomy serves as the authoritative source for understanding what needs to be migrated to monadic equivalents.
 
 ---
 
@@ -379,7 +379,7 @@ Based on dependencies and foundational importance:
 ### Cleanup Phase
 
 7. **Remove Legacy Code**
-   - Delete `src/vanilla/` folder
+   - Delete `src/` folder
    - Delete `src/boxed/` folder
    - Update all imports
    - Final verification

@@ -1,7 +1,7 @@
 //++ Validate contract against implementation
 import schemaValidator from "../_schemaValidator/index.ts"
-import filter from "../../../../toolsmith/src/vanilla/array/filter/index.ts"
-import isEmpty from "../../../../toolsmith/src/vanilla/array/isEmpty/index.ts"
+import filter from "../../../../toolsmith/src/array/filter/index.ts"
+import isEmpty from "../../../../toolsmith/src/array/isEmpty/index.ts"
 
 //++ Curried validation function that accepts contract path and returns validation result
 export default function validateContract(contractPath: string) {

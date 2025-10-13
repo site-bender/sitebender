@@ -1,6 +1,6 @@
 # Geometry Functions
 
-**Location**: `src/vanilla/geometry/`
+**Location**: `src/geometry/`
 **Functions**: 10
 **Status**: Cataloged
 **Created**: 2025-10-07

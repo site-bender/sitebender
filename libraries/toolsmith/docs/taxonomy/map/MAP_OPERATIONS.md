@@ -1,6 +1,6 @@
 # Map - Operation Functions
 
-**Location**: `src/vanilla/map/`
+**Location**: `src/map/`
 **Functions**: 36
 **Status**: Cataloged
 **Created**: 2025-10-07

@@ -2,6 +2,7 @@
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 export default function _collectAllNodes(node: unknown): ReadonlyArray<unknown> {
 	if (!node || typeof node !== "object") {
@@ -34,7 +35,7 @@ export default function _collectAllNodes(node: unknown): ReadonlyArray<unknown> 
 						},
 					)(accumulator)(value)
 					return getOrElse(accumulator)(arrayResult)
-				} else if (value && isEqual(typeof value)("object")) {
+				} else if (and(value)(isEqual(typeof value)("object"))) {
 					return [...accumulator, ..._collectAllNodes(value)]
 				}
 				return accumulator

@@ -1,6 +1,6 @@
 # Trigonometry Functions
 
-**Location**: `src/vanilla/trigonometry/`
+**Location**: `src/trigonometry/`
 **Functions**: 19
 **Status**: Cataloged
 **Created**: 2025-10-07

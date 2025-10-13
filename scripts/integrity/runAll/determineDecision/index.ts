@@ -1,6 +1,6 @@
 import type { Decision, ScriptResult } from "../../types/index.ts"
 
-import some from "../../../../libraries/toolsmith/src/vanilla/array/some/index.ts"
+import some from "../../../../libraries/toolsmith/src/array/some/index.ts"
 
 //++ Determine overall decision based on script results
 export function determineDecision(
