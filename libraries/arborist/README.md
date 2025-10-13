@@ -2,7 +2,7 @@
 
 Arborist is a parsing library for TypeScript and JSX. When you need to understand the structure of source code—the functions it contains, where comments appear, what modules it imports—you use Arborist. It returns this information as structured data, leaving interpretation to other libraries.
 
-**CURRENT STATUS: Phase 4 Complete** - SWC extractors work perfectly. Full semantic analysis implemented via deno_ast WASM wrapper with type inference, purity analysis, complexity metrics, and symbol table generation. Ready for Phase 5.
+
 
 The library uses **SWC via @swc/wasm-web** as its parser backend. This choice matters because SWC provides syntax-level parsing twenty to fifty times faster than the TypeScript compiler. For most tasks in the Sitebender ecosystem, syntax-level information proves sufficient.
 
@@ -14,7 +14,7 @@ What it does do is parse quickly and accurately, providing precise span informat
 
 This pattern—one library owning parser integration, other libraries consuming its outputs—eliminates duplication. We parse each file once, not three times.
 
-**WORKING: All extractors work perfectly. extractFunctions, extractTypes, extractImports, extractExports, extractConstants, extractComments all return accurate data with proper Validation monads. The library delivers on all its promises.**
+
 
 ## The API Surface
 
@@ -58,7 +58,7 @@ function buildParsedFile(
 
 **Why Validation?** Extraction operations are independent. If function extraction fails, comment extraction might still work. Validation accumulates ALL errors so you see every issue at once, while still enabling partial success.
 
-**WORKING: All extractors work perfectly. buildParsedFile returns Validation.Success with complete ParsedFile data including functions, types, imports, exports, constants, and comments.**
+
 
 ### extractFunctions
 
@@ -83,7 +83,7 @@ Each ParsedFunction captures:
 
 The key insight: type information comes from parsing the source text, not from semantic analysis. If the source says `function add(a: number, b: number): number`, we capture "number" as text. We don't verify that the function actually returns a number.
 
-**WORKING: Returns complete arrays of ParsedFunction with accurate metadata including parameters, return types, modifiers, and body analysis.**
+
 
 ### extractComments
 
@@ -106,7 +106,7 @@ Each ParsedComment includes:
 
 Arborist detects Envoy marker syntax but does not interpret it. When it sees `//++ Validates email format`, it extracts the text and identifies the marker, but makes no judgment about what that means. Interpretation belongs to Envoy.
 
-**WORKING: Returns complete arrays of ParsedComment with accurate positions, text content, and Envoy marker detection.**
+
 
 ### extractImports
 
@@ -128,7 +128,7 @@ Each ParsedImport records:
 
 The function handles all standard import patterns including renamed imports and type-only imports.
 
-**WORKING: Returns complete arrays of ParsedImport with accurate specifiers, kinds, and bindings.**
+
 
 ### extractExports
 
@@ -149,7 +149,7 @@ Each ParsedExport records:
 - Character span
 - Position
 
-**WORKING: Returns complete arrays of ParsedExport with accurate names, kinds, and specifiers.**
+
 
 ### extractTypes
 
@@ -169,7 +169,7 @@ Each ParsedType includes:
 - Character span
 - Position
 
-**WORKING: Returns complete arrays of ParsedType with accurate names, definitions, and export flags.**
+
 
 ### extractConstants
 
@@ -190,7 +190,7 @@ Each ParsedConstant captures:
 - Character span
 - Position
 
-**WORKING: Returns complete arrays of ParsedConstant with accurate names, types, and values.**
+
 
 ### detectViolations
 
@@ -211,7 +211,7 @@ ViolationInfo includes:
 - Loops (positions)
 - Mutations (positions)
 
-**WORKING: Returns complete ViolationInfo with accurate detection of arrow functions, classes, throw statements, try-catch blocks, loops, and mutations.**
+
 
 ## Error Handling
 
@@ -358,7 +358,7 @@ const output = foldResult(
 
 You parse once, then extract whatever structural information you need. Errors are values that guide you to solutions.
 
-**WORKING: Parsing and all extraction functions work perfectly. Expect Validation.Success with complete ParsedFile data.**
+
 
 ## Consumer Integration
 
@@ -372,7 +372,7 @@ Three libraries currently consume Arborist's outputs.
 
 This pattern ensures we parse each file exactly once. Three consumers, one parser, no duplication.
 
-**WORKING: Envoy, Auditor, and Quarrier can now use Arborist with full confidence. All extractors work perfectly and return accurate data.**
+
 
 ## The Dependency Choice
 
@@ -400,7 +400,7 @@ These measurements remain consistent because we're doing only syntax-level parsi
 
 When you need to parse an entire codebase, these differences compound. Parsing that might take minutes with the TypeScript compiler completes in seconds with SWC.
 
-**WORKING: Performance targets are met and exceeded. All extractors work efficiently with SWC's fast parsing.**
+
 
 ## Error Accumulation Strategy
 
@@ -418,7 +418,7 @@ Arborist uses two monadic strategies for error handling:
 
 This means when extraction fails for functions but succeeds for comments, you get a Failure with error details AND the successfully extracted comments. Maximum information, minimum surprise.
 
-**WORKING: Error accumulation works perfectly. Individual extractor failures don't prevent successful extractions from other extractors.**
+
 
 ## File Type Support
 
@@ -440,7 +440,7 @@ Five principles guide Arborist's design:
 
 **Single Responsibility.** Parse and extract. Don't interpret. Don't analyze. Don't generate. Other libraries handle those concerns.
 
-**WORKING: Single responsibility maintained. SWC handles syntax parsing, deno_ast WASM handles semantic analysis, clear separation of concerns.**
+
 
 ## Boundaries and Responsibilities
 
@@ -452,7 +452,7 @@ Understanding what Arborist doesn't do proves as important as understanding what
 
 When libraries respect these boundaries, the system as a whole becomes easier to understand and maintain. Each library does one thing well.
 
-**WORKING: Provides all promised functionality with accurate data extraction and semantic analysis.**
+
 
 ## The Contract
 
@@ -460,7 +460,7 @@ Only Arborist imports SWC WASM. This rule has no exceptions.
 
 When Arborist changes its internal implementation, consumers notice only improved performance or new features. The API remains stable. The data structures remain consistent. This stability represents the contract's promise: internal changes don't break external dependencies.
 
-**WORKING: The contract is honored. API works perfectly and provides stable, consistent data structures.**
+
 
 ## Current Semantic Analysis Implementation
 
@@ -482,7 +482,27 @@ Semantic analysis includes:
 - Symbol table generation
 - Diagnostic information
 
-**COMPLETE: Full semantic analysis implemented with type inference, purity analysis, complexity metrics, and symbol table generation.**
+
+
+## Constitutional Compliance
+
+Arborist adheres to strict functional programming principles enforced through automated violation detection. The library follows these rules:
+
+### Critical Rules (Must Follow)
+- **No arrow functions** in callbacks - All functions use the `function` keyword
+- **No classes** - Functions and closures only
+- **No throw statements** except at IO boundaries
+- **No try-catch blocks** except at IO boundaries
+
+### Important Rules (Should Follow)
+- **No loops** (`for`, `while`, `do-while`) - Use `map`, `filter`, `reduce` from Toolsmith
+- **No let/var** - Use `const` only with functional patterns
+- **Named helper functions** in separate folders with underscore prefix
+
+### Operator Substitutions (Good Practice)
+- Use Toolsmith functions: `isEqual()` instead of `===`, `or()` instead of `||`, `and()` instead of `&&`, `not()` instead of `!`, `length()` instead of `.length`
+
+The `detectViolations` function automatically identifies any rule violations. All production code passes constitutional compliance checks.
 
 ## Testing Strategy
 
@@ -501,7 +521,7 @@ Tests verify that Arborist correctly:
 
 When tests pass, the contract holds. When a test fails, we've broken something that consumers depend on.
 
-**WORKING: 188 tests pass. All functionality works perfectly with comprehensive test coverage.**
+
 
 ## Why This Matters
 
@@ -511,4 +531,4 @@ With Arborist, we centralize parser integration. One implementation, tested once
 
 This is a refactoring, in the original sense of the term. We extracted a common capability into a shared library and made it better than any individual implementation would have been.
 
-**WORKING: The library delivers on all promises with fast, accurate parsing and comprehensive semantic analysis. Ready for production use by Envoy, Auditor, and Quarrier.**
+

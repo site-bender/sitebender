@@ -48,7 +48,7 @@ export default async function parseFile(
 		const message = err instanceof Error ? err.message : String(err)
 
 		// Determine error kind based on error message/type
-		if (or(message.includes("No such file"))(message.includes("NotFound")) as boolean) {
+		if (or(message.includes("No such file"))(message.includes("NotFound"))) {
 			const baseError = createError("parseFile")([filePath] as [string])(
 				`parseFile: File not found in ${filePath}`,
 			)("NOT_FOUND")
@@ -67,7 +67,7 @@ export default async function parseFile(
 		}
 
 		if (
-			or(message.includes("permission"))(message.includes("PermissionDenied")) as boolean
+			or(message.includes("permission"))(message.includes("PermissionDenied"))
 		) {
 			const baseError = createError("parseFile")([filePath] as [string])(
 				`parseFile failed: Permission denied reading file "${filePath}"`,
@@ -86,7 +86,7 @@ export default async function parseFile(
 			return error(parseError)
 		}
 
-		if (or(message.includes("Unexpected"))(message.includes("Expected")) as boolean) {
+		if (or(message.includes("Unexpected"))(message.includes("Expected"))) {
 			// Parse syntax error - try to extract line/column if available
 			const lineMatch = message.match(/line (\d+)/)
 			const colMatch = message.match(/column (\d+)/)

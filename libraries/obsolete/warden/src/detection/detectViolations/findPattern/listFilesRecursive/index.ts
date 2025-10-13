@@ -1,4 +1,4 @@
-import reduce from "../../../../../../../../../toolsmith/src/vanilla/array/reduce/index.ts"
+import reduce from "../../../../../../../../../toolsmith/src/array/reduce/index.ts"
 import collectFolderEntries from "./collectFolderEntries/index.ts"
 import concatArrays from "./concatArrays/index.ts"
 import createFolderEntryExpander from "./createFolderEntryExpander/index.ts"

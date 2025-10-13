@@ -10,6 +10,7 @@ import map from "@sitebender/toolsmith/array/map/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
 
 import type {
 	ParsedAst,
@@ -20,6 +21,7 @@ import type { CommentExtractionError } from "../../types/errors/index.ts"
 
 import _detectEnvoyMarker from "../_detectEnvoyMarker/index.ts"
 import _calculatePosition from "../_calculatePosition/index.ts"
+import _findInsertIndex from "./_findInsertIndex/index.ts"
 
 //++ Pattern to match line comments (// ...)
 const LINE_COMMENT_PATTERN = /\/\/(.*)$/gm
@@ -43,7 +45,7 @@ export default function extractComments(
 			const position = _calculatePosition(sourceText, offset)
 			const span: Span = {
 				start: offset,
-				end: offset + fullMatch.length,
+				end: offset + getOrElse(0)(length([...fullMatch])),
 			}
 
 			const envoyMarker = _detectEnvoyMarker(commentText)
@@ -71,7 +73,7 @@ export default function extractComments(
 			const position = _calculatePosition(sourceText, offset)
 			const span: Span = {
 				start: offset,
-				end: offset + fullMatch.length,
+				end: offset + getOrElse(0)(length([...fullMatch])),
 			}
 
 			const envoyMarker = _detectEnvoyMarker(commentText)
@@ -101,11 +103,7 @@ export default function extractComments(
 				comment: ParsedComment,
 			): ReadonlyArray<ParsedComment> {
 				// Find insertion point to maintain sort order by start position
-				const insertIndex = accumulator.findIndex(
-					function isAfter(c: ParsedComment): boolean {
-						return c.span.start > comment.span.start
-					},
-				)
+				const insertIndex = _findInsertIndex(accumulator, comment)
 
 				if (isEqual(insertIndex)(-1)) {
 					return [...accumulator, comment]

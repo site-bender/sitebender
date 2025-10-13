@@ -1,10 +1,16 @@
 //++ Convert WASM semantic info to our TypeScript types
 import type {
+	Diagnostic,
 	SemanticInfo,
-	SymbolInfo,
 } from "../../../../types/semantics/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import _convertReference from "./_convertReference/index.ts"
+import _convertInferredType from "./_convertInferredType/index.ts"
+import _convertDiagnostic from "./_convertDiagnostic/index.ts"
+import _convertDependency from "./_convertDependency/index.ts"
+import _buildSymbolTable from "./_buildSymbolTable/index.ts"
 
 // Types for WASM interop
 type WasmSemanticInfo = {
@@ -37,56 +43,10 @@ type WasmSemanticInfo = {
 
 export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): SemanticInfo {
 	// Convert symbol table entries to proper SymbolInfo types
-	const symbolTable = new Map<string, SymbolInfo>()
-	for (const [key, value] of Object.entries(or(wasmInfo["symbol_table"])({}) as Record<string, unknown>)) {
-		if (value && isEqual(typeof value)("object")) {
-			const symbol = value as {
-				name?: string
-				kind?: string
-				symbol_type?: string
-				is_exported?: boolean
-				definition?: {
-					file?: string
-					line?: number
-					column?: number
-					start?: number
-					end?: number
-				}
-				references?: Array<{
-					file?: string
-					line?: number
-					column?: number
-					start?: number
-					end?: number
-				}>
-			}
-			symbolTable.set(key, {
-				name: or(symbol.name)(key) as string,
-				kind: (or(symbol.kind)("variable") as string) as SymbolInfo["kind"],
-				type: or(symbol.symbol_type)("unknown") as string,
-				isExported: or(symbol.is_exported)(false) as boolean,
-				definition: symbol.definition
-					? {
-						file: or(symbol.definition.file)("") as string,
-						line: or(symbol.definition.line)(0) as number,
-						column: or(symbol.definition.column)(0) as number,
-						start: or(symbol.definition.start)(0) as number,
-						end: or(symbol.definition.end)(0) as number,
-					}
-					: undefined,
-				references: (or(symbol.references)([]) as unknown[]).map((ref) => ({
-					file: or((ref as Record<string, unknown>).file)("") as string,
-					line: or((ref as Record<string, unknown>).line)(0) as number,
-					column: or((ref as Record<string, unknown>).column)(0) as number,
-					start: or((ref as Record<string, unknown>).start)(0) as number,
-					end: or((ref as Record<string, unknown>).end)(0) as number,
-				})),
-			})
-		}
-	}
+	const symbolTable = _buildSymbolTable(or(wasmInfo["symbol_table"])({}) as Record<string, unknown>)
 
 	return {
-		inferredTypes: new Map(Object.entries(or(wasmInfo["inferred_types"])({}) as Record<string, unknown>).map(([k, v]) => [k, String(v)])),
+		inferredTypes: new Map(getOrElse([] as ReadonlyArray<[string, string]>)(map(_convertInferredType)(Object.entries(or(wasmInfo["inferred_types"])({}) as Record<string, unknown>)))),
 		purity: {
 			isPure: or(wasmInfo.purity?.["is_pure"])(false) as boolean,
 			reasons: or(wasmInfo.purity?.reasons)([]) as string[],
@@ -109,11 +69,9 @@ export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): Sem
 			invertible: wasmInfo["mathematical_properties"]?.invertible,
 		},
 		symbolTable,
-		diagnostics: (or(wasmInfo.diagnostics)([]) as unknown[]) as readonly unknown[],
+		diagnostics: getOrElse([] as ReadonlyArray<Diagnostic>)(map(_convertDiagnostic)(or(wasmInfo.diagnostics)([]) as unknown[])),
 		typeDependencies: new Map(
-			Object.entries(or(wasmInfo["type_dependencies"])({}) as Record<string, unknown>).map((
-				[k, v],
-			) => [k, v as readonly string[]]),
+			getOrElse([] as ReadonlyArray<[string, readonly string[]]>)(map(_convertDependency)(Object.entries(or(wasmInfo["type_dependencies"])({}) as Record<string, unknown>))),
 		),
 	}
 }

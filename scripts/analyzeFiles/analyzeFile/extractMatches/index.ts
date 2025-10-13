@@ -1,4 +1,4 @@
-import unfold from "@sitebender/toolsmith/vanilla/array/unfold/index.ts"
+import unfold from "@sitebender/toolsmith/array/unfold/index.ts"
 
 //++ Regex match state for unfold
 type RegexState = { regex: RegExp; str: string }

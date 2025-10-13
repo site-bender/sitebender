@@ -10,7 +10,7 @@ Toolsmith is undergoing a fundamental architectural transformation from a mixed 
 
 1. **Branded types** (numeric and string) for compile-time type safety
 2. **Monadic functions** returning `Result<ValidationError, T>` instead of throwing exceptions
-3. **Elimination of legacy code** (`vanilla/` and `boxed/` folders)
+3. **Elimination of legacy code** (`` and `boxed/` folders)
 4. **Reorganized structure** with functions directly under `src/` by domain
 
 ## Core Architectural Principles
@@ -121,7 +121,7 @@ export default function addToTwoDecimalPlaces(
 
 ```
 src/
-├── vanilla/          # 800+ imperative functions (TO BE REMOVED)
+├──           # 800+ imperative functions (TO BE REMOVED)
 │   ├── activation/
 │   ├── array/
 │   ├── logic/
@@ -396,7 +396,7 @@ interface ValidationError {
 
 **Monadic Function Migration**:
 
-- 800+ functions in `vanilla/` need to be rewritten as monadic functions
+- 800+ functions in `` need to be rewritten as monadic functions
 - Organized by domain: activation, array, logic, math, string, validation, etc.
 - Each function needs:
   - Curried signature
@@ -406,7 +406,7 @@ interface ValidationError {
 
 **Legacy Removal**:
 
-- Delete `vanilla/` folder after migration complete
+- Delete `` folder after migration complete
 - Delete `boxed/` folder (no longer needed)
 
 ## Success Criteria
@@ -418,7 +418,7 @@ interface ValidationError {
 5. ✅ All functions return `Result<ValidationError, T>`
 6. ✅ Zero exceptions thrown (all errors as values)
 7. ✅ All 800+ vanilla functions migrated to monadic equivalents
-8. ✅ `vanilla/` and `boxed/` folders deleted
+8. ✅ `` and `boxed/` folders deleted
 9. ✅ Full test coverage maintained
 10. ✅ Documentation updated
 

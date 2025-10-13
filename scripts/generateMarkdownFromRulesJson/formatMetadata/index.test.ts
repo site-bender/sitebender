@@ -2,7 +2,7 @@ import { assertEquals } from "@std/assert"
 
 import type { JsonValue } from "../types/index.ts"
 
-import includes from "../../../libraries/toolsmith/src/vanilla/string/contains/index.ts"
+import includes from "../../../libraries/toolsmith/src/string/contains/index.ts"
 import formatMetadata from "./index.ts"
 
 //++ Tests for formatMetadata

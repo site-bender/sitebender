@@ -1,6 +1,6 @@
 #!/usr/bin/env -S deno run --allow-all
 
-import findIndex from "@sitebender/toolsmith/vanilla/array/findIndex/index.ts"
+import findIndex from "@sitebender/toolsmith/array/findIndex/index.ts"
 
 import createServer from "../index.ts"
 

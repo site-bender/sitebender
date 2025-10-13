@@ -1,9 +1,9 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import isNotEmpty from "@sitebender/toolsmith/vanilla/array/isNotEmpty/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import values from "@sitebender/toolsmith/vanilla/map/values/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import isNotEmpty from "@sitebender/toolsmith/array/isNotEmpty/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import values from "@sitebender/toolsmith/map/values/index.ts"
 
 import type {
 	AnalysisOptions,

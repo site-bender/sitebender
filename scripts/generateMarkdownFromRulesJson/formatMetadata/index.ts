@@ -1,9 +1,9 @@
 import type { JsonValue } from "../types/index.ts"
 
-import join from "../../../libraries/toolsmith/src/vanilla/array/join/index.ts"
-import map from "../../../libraries/toolsmith/src/vanilla/array/map/index.ts"
-import pipe from "../../../libraries/toolsmith/src/vanilla/combinator/pipe/index.ts"
-import concatTo from "../../../libraries/toolsmith/src/vanilla/string/concatTo/index.ts"
+import join from "../../../libraries/toolsmith/src/array/join/index.ts"
+import map from "../../../libraries/toolsmith/src/array/map/index.ts"
+import pipe from "../../../libraries/toolsmith/src/combinator/pipe/index.ts"
+import concatTo from "../../../libraries/toolsmith/src/string/concatTo/index.ts"
 import formatMetadataEntry from "./formatMetadataEntry/index.ts"
 
 //++ Formats metadata entries into a markdown block

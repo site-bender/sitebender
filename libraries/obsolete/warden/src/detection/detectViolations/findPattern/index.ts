@@ -1,5 +1,5 @@
-import map from "../../../../../../../../toolsmith/src/vanilla/array/map/index.ts"
-import reduce from "../../../../../../../../toolsmith/src/vanilla/array/reduce/index.ts"
+import map from "../../../../../../../../toolsmith/src/array/map/index.ts"
+import reduce from "../../../../../../../../toolsmith/src/array/reduce/index.ts"
 import buildFindMatchesForPattern from "./buildFindMatchesForPattern/index.ts"
 import concatMatchArrays from "./concatMatchArrays/index.ts"
 import listFilesRecursive from "./listFilesRecursive/index.ts"

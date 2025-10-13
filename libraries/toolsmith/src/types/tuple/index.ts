@@ -9,6 +9,13 @@ export type Pair<T, U> = [T, U]
 export type Triple<T, U, V> = [T, U, V]
 
 // ============================================================================
+// Non-Empty Array Type
+// ============================================================================
+
+//++ Array type that guarantees at least one element
+export type NonEmptyArray<T> = readonly [T, ...Array<T>]
+
+// ============================================================================
 // Type-level Extraction Utilities
 // ============================================================================
 

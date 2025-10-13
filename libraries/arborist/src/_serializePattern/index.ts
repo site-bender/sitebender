@@ -1,5 +1,7 @@
 //++ Serialize a pattern node (used in function parameters, destructuring)
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import _serializeProperty from "./_serializeProperty/index.ts"
 
 export default function _serializePattern(node: unknown): string {
 	if (!node) {
@@ -23,14 +25,9 @@ export default function _serializePattern(node: unknown): string {
 		}
 		case "ObjectPattern": {
 			const properties = nodeObj.properties as Array<Record<string, unknown>>
-			const serialized = properties.map((prop) => {
-				if (isEqual(prop.type)("KeyValuePatternProperty")) {
-					const key = _serializePattern(prop.key)
-					const value = _serializePattern(prop.value)
-					return `${key}: ${value}`
-				}
-				return ""
-			}).filter(Boolean).join(", ")
+			const serializedPropsResult = map(_serializeProperty)(properties)
+			const serializedProps = getOrElse([] as ReadonlyArray<string>)(serializedPropsResult)
+			const serialized = serializedProps.filter(Boolean).join(", ")
 			return `{ ${serialized} }`
 		}
 		default:

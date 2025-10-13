@@ -1,6 +1,6 @@
 # Interpolation Functions
 
-**Location**: `src/vanilla/interpolation/`
+**Location**: `src/interpolation/`
 **Functions**: 7
 **Status**: Cataloged
 **Created**: 2025-10-07

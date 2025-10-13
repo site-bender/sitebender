@@ -1,9 +1,9 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
-import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import increment from "@sitebender/toolsmith/math/increment/index.ts"
+import lt from "@sitebender/toolsmith/validation/lt/index.ts"
 
 import type { Token } from "./types/index.ts"
 

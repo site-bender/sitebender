@@ -1,6 +1,6 @@
 # Array - Partitioning Functions
 
-**Location**: `src/vanilla/array/`
+**Location**: `src/array/`
 **Functions**: 25
 **Status**: Cataloged
 **Created**: 2025-10-07
