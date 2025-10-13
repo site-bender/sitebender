@@ -1,22 +1,24 @@
-import { _includesFlag } from "../_includesFlag/index.ts"
+import includes from "../../../toolsmith/src/array/includes/index.ts"
+import runIO from "../../../toolsmith/src/monads/io/runIO/index.ts"
 /// <reference lib="deno.ns" />
 /// <reference lib="deno.window" />
 //++ Quartermaster CLI: dry-run (help-only stub; no writes)
-import { _printHelp } from "../_printHelp/index.ts"
+import _printHelp from "../_printHelp/index.ts"
 
 //++ Exposed entry for quartermaster:dry-run
-export function quartermasterDryRun(args?: string[]): void {
+export default function dryRun(args?: string[]): void {
 	const argv = args ?? Deno.args
 	if (argv.length === 0) {
-		_printHelp()
+		runIO(_printHelp())
 		return
 	}
-	if (_includesFlag(argv, "--help")) {
-		_printHelp()
+	const helpResult = includes("--help")(argv)
+	if (helpResult._tag === "Ok" && (helpResult as any).value) {
+		runIO(_printHelp())
 		return
 	}
 	// Stub phase: only help is available
-	_printHelp()
+	runIO(_printHelp())
 }
 
 if (import.meta.main) {

@@ -1,4 +1,4 @@
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
+import replace from "@sitebender/toolsmith/string/replace/index.ts"
 import { relative } from "https://deno.land/std@0.208.0/path/mod.ts"
 
 import { MATCH_TS_EXTENSION } from "../../constants/index.ts"

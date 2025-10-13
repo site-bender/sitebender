@@ -1,4 +1,4 @@
-import isNullish from "../../vanilla/validation/isNullish/index.ts"
+import isNullish from "../../validation/isNullish/index.ts"
 
 //++ Generates a random floating-point number between min and max
 export default function randomFloat(

@@ -1,6 +1,6 @@
 # Generate Toolsmith Inventory
 
-Automatically generates a comprehensive inventory of all functions in `libraries/toolsmith/src/vanilla/` for use by AI agents during code transformation. The inventory is output in YAML format to `docs/toolsmith-inventory.yaml`.
+Automatically generates a comprehensive inventory of all functions in `libraries/toolsmith/src/` for use by AI agents during code transformation. The inventory is output in YAML format to `docs/toolsmith-inventory.yaml`.
 
 ## Purpose
 
@@ -65,7 +65,7 @@ This codebase follows strict functional programming principles. **These rules ap
 - **NO imperative loops** - No `for`, `while`, `do-while`. Use recursion, `map`, `filter`, `reduce`, etc.
 - **NO JavaScript OOP methods** - Don't use `string.split()`, `array.indexOf()`, etc.
 - **NO any types** - Never use `any`. Use proper types like `Value` or `Serializable` from toolsmith
-- **USE toolsmith functions** - Import from `@sitebender/toolsmith/vanilla/` for all operations
+- **USE toolsmith functions** - Import from `@sitebender/toolsmith/` for all operations
 - Pure functions only - no side effects in the logic (console logging for errors is acceptable)
 
 ### Constants and Patterns
@@ -76,7 +76,7 @@ This codebase follows strict functional programming principles. **These rules ap
 
 ### Imports
 
-- Use `@sitebender/toolsmith/vanilla/` for all toolsmith imports (not relative paths)
+- Use `@sitebender/toolsmith/` for all toolsmith imports (not relative paths)
 - Use the `getRelativePath` helper for generating relative imports between local files
 - Import types separately using the `type` keyword
 
@@ -115,7 +115,7 @@ export default function myFunction(param: string) {
 }
 
 // ✅ CORRECT - Use toolsmith functions
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
 const parts = split("/")(filePath)
 
 // ✅ CORRECT - RegExp in constants

@@ -1,5 +1,5 @@
-import some from "../../../../../../toolsmith/src/vanilla/array/some/index.ts"
-import test from "../../../../../../toolsmith/src/vanilla/string/test/index.ts"
+import some from "../../../../../../toolsmith/src/array/some/index.ts"
+import test from "../../../../../../toolsmith/src/string/test/index.ts"
 
 //++ Checks if source matches any of the provided patterns
 export default function hasAnyPattern(patterns: ReadonlyArray<RegExp>) {

@@ -1,8 +1,8 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import isEqual from "@sitebender/toolsmith/vanilla/validation/isEqual/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 import tokenizer from "../tokenizer/index.ts"
 

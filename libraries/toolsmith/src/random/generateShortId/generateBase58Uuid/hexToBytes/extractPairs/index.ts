@@ -1,4 +1,4 @@
-import unfold from "../../../../../vanilla/array/unfold/index.ts"
+import unfold from "../../../../../array/unfold/index.ts"
 
 //++ Splits a hex string into pairs of characters
 export default function extractPairs(hex: string): Array<string> {

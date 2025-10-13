@@ -1,6 +1,6 @@
 # Set - Creation and Transformation Functions
 
-**Location**: `src/vanilla/set/`
+**Location**: `src/set/`
 **Functions**: 12
 **Status**: Cataloged
 **Created**: 2025-10-07

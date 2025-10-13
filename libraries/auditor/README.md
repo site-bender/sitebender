@@ -200,7 +200,7 @@ import { generateTests } from "@sitebender/auditor"
 
 // Generate tests for a toolsmith function
 const testSuite = await generateTests(
-	"libraries/toolsmith/src/vanilla/array/map/index.ts",
+	"libraries/toolsmith/src/array/map/index.ts",
 	{
 		includePropertyTests: true,
 		includeBenchmarks: true,

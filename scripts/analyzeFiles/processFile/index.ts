@@ -1,8 +1,8 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import join from "@sitebender/toolsmith/array/join/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import slice from "@sitebender/toolsmith/array/slice/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
 
 import type {
 	FileFunction,

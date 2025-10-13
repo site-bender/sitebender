@@ -1,7 +1,7 @@
-import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import includes from "@sitebender/toolsmith/vanilla/string/includes/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
+import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import includes from "@sitebender/toolsmith/string/includes/index.ts"
+import startsWith from "@sitebender/toolsmith/string/startsWith/index.ts"
 
 import type { AliasViolation } from "../../types/index.ts"
 
