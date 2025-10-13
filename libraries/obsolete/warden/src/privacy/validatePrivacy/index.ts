@@ -1,5 +1,5 @@
-import length from "../../../../toolsmith/src/vanilla/array/length/index.ts"
-import equals from "../../../../toolsmith/src/vanilla/validation/equals/index.ts"
+import length from "../../../../toolsmith/src/array/length/index.ts"
+import equals from "../../../../toolsmith/src/validation/equals/index.ts"
 import { PRIVATE_FUNCTION_PREFIX } from "../../constants/index.ts"
 import getParentDirectory from "../getParentDirectory/index.ts"
 //++ Validate that imports follow privacy rules

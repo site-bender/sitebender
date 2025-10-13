@@ -53,7 +53,7 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 	}
 
 	// Extract parameters using Toolsmith map
-	const params = or(actualNode.params as Array<unknown>)([]) as Array<unknown>
+	const params = or(actualNode.params as Array<unknown>)([])
 	const parametersResult = map(
 		function mapParameter(param: unknown): Parameter {
 			const paramObj = param as Record<string, unknown>

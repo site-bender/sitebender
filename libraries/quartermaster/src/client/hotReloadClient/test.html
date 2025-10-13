@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Hot Reload Client Test - HTTP/3 + WebSocket Fallback</title>
+		<style>
+			body {
+				font-family: system-ui, -apple-system, sans-serif;
+				max-width: 1000px;
+				margin: 2rem auto;
+				padding: 0 1rem;
+				line-height: 1.6;
+			}
+			.status {
+				padding: 1rem;
+				border-radius: 0.5rem;
+				margin-bottom: 1rem;
+				font-weight: 500;
+			}
+			.status.http3-sse {
+				background-color: #d1ecf1;
+				color: #0c5460;
+				border: 1px solid #bee5eb;
+			}
+			.status.http2-websocket {
+				background-color: #fff3cd;
+				color: #856404;
+				border: 1px solid #ffeaa7;
+			}
+			.status.none {
+				background-color: #f8d7da;
+				color: #721c24;
+				border: 1px solid #f5c6cb;
+			}
+			.metrics {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 1rem;
+				margin-bottom: 1rem;
+			}
+			.metric {
+				background-color: #f8f9fa;
+				border: 1px solid #dee2e6;
+				border-radius: 0.5rem;
+				padding: 1rem;
+			}
+			.metric-label {
+				font-size: 0.875rem;
+				color: #6c757d;
+				margin-bottom: 0.25rem;
+			}
+			.metric-value {
+				font-size: 1.5rem;
+				font-weight: 600;
+				color: #212529;
+			}
+			.log {
+				background-color: #f8f9fa;
+				border: 1px solid #dee2e6;
+				border-radius: 0.5rem;
+				padding: 1rem;
+				max-height: 400px;
+				overflow-y: auto;
+				font-family: "Monaco", "Menlo", monospace;
+				font-size: 0.875rem;
+			}
+			.log-entry {
+				margin-bottom: 0.25rem;
+				word-break: break-all;
+			}
+			.log-entry.info {
+				color: #0c5460;
+			}
+			.log-entry.error {
+				color: #721c24;
+				font-weight: 500;
+			}
+			.log-entry.fallback {
+				color: #856404;
+				font-weight: 600;
+				background-color: #fff3cd;
+				padding: 0.25rem;
+				border-radius: 0.25rem;
+			}
+			button {
+				background-color: #007bff;
+				color: white;
+				border: none;
+				padding: 0.5rem 1rem;
+				border-radius: 0.25rem;
+				cursor: pointer;
+				font-size: 1rem;
+				margin-right: 0.5rem;
+				margin-bottom: 0.5rem;
+			}
+			button:hover {
+				background-color: #0056b3;
+			}
+			button.danger {
+				background-color: #dc3545;
+			}
+			button.danger:hover {
+				background-color: #c82333;
+			}
+			button.warning {
+				background-color: #ffc107;
+				color: #212529;
+			}
+			button.warning:hover {
+				background-color: #e0a800;
+			}
+			.controls {
+				margin-bottom: 1rem;
+			}
+			h1 {
+				color: #212529;
+			}
+			h2 {
+				color: #495057;
+				margin-top: 2rem;
+			}
+			code {
+				background-color: #f8f9fa;
+				padding: 0.2rem 0.4rem;
+				border-radius: 0.25rem;
+				font-family: "Monaco", "Menlo", monospace;
+			}
+			.badge {
+				display: inline-block;
+				padding: 0.25rem 0.5rem;
+				border-radius: 0.25rem;
+				font-size: 0.875rem;
+				font-weight: 500;
+				margin-left: 0.5rem;
+			}
+			.badge.http3 {
+				background-color: #d1ecf1;
+				color: #0c5460;
+			}
+			.badge.http2 {
+				background-color: #fff3cd;
+				color: #856404;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>
+			Hot Reload Client Test <span class="badge http3">HTTP/3</span> + <span
+				class="badge http2"
+			>HTTP/2 Fallback</span>
+		</h1>
+
+		<div id="status" class="status none">
+			Connection: <span id="status-text">Connecting...</span>
+		</div>
+
+		<div class="metrics">
+			<div class="metric">
+				<div class="metric-label">Connection Type</div>
+				<div class="metric-value" id="metric-type">none</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Attempts</div>
+				<div class="metric-value" id="metric-attempts">0</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Successful</div>
+				<div class="metric-value" id="metric-success">0</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Failed</div>
+				<div class="metric-value" id="metric-failed">0</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Fallbacks</div>
+				<div class="metric-value" id="metric-fallbacks">0</div>
+			</div>
+			<div class="metric">
+				<div class="metric-label">Reload Events</div>
+				<div class="metric-value" id="metric-reloads">0</div>
+			</div>
+		</div>
+
+		<div class="controls">
+			<button id="disconnect-btn">Disconnect</button>
+			<button id="reconnect-btn">Reconnect</button>
+			<button id="metrics-btn">Show Metrics</button>
+			<button id="clear-log-btn">Clear Log</button>
+			<button id="test-reload-btn" class="danger">Test Reload</button>
+			<button id="force-fallback-btn" class="warning">Force Fallback</button>
+		</div>
+
+		<h2>Instructions</h2>
+		<ol>
+			<li>
+				<strong>Test HTTP/3 + SSE (Primary):</strong>
+				<ul>
+					<li>
+						Ensure Quinn server is running: <code>docker-compose up
+							dev-server</code>
+					</li>
+					<li>Connection should succeed via HTTP/3 + SSE</li>
+					<li>Status will show <span class="badge http3">http3-sse</span></li>
+				</ul>
+			</li>
+			<li>
+				<strong>Test Fallback to HTTP/2 + WebSocket:</strong>
+				<ul>
+					<li>
+						Stop Quinn server: <code>docker-compose stop dev-server</code>
+					</li>
+					<li>
+						Ensure Caddy is running: <code>docker-compose up
+							caddy-fallback</code>
+					</li>
+					<li>Click "Force Fallback" or wait 3 seconds</li>
+					<li>
+						Status will show <span class="badge http2">http2-websocket</span>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<strong>Test Hot Reload:</strong>
+				<ul>
+					<li>Modify a file in <code>/app/dist</code></li>
+					<li>Page should reload automatically</li>
+					<li>Check reload count in metrics</li>
+				</ul>
+			</li>
+		</ol>
+
+		<h2>Connection Log</h2>
+		<div id="log" class="log">
+			<div class="log-entry info">Initializing hot reload client...</div>
+		</div>
+
+		<h2>Technical Details</h2>
+		<ul>
+			<li>
+				<strong>Primary Path:</strong> HTTP/3 + SSE at <code
+				>https://localhost:4433/events</code>
+			</li>
+			<li>
+				<strong>Fallback Path:</strong> HTTP/2 + WebSocket at <code
+				>wss://localhost:8443/ws</code>
+			</li>
+			<li><strong>Connection Timeout:</strong> 3 seconds</li>
+			<li><strong>Reconnection:</strong> Exponential backoff (1s to 30s)</li>
+			<li><strong>Browser Support:</strong> 99.9% (all modern browsers)</li>
+		</ul>
+
+		<script type="module">
+			import { initHotReload } from "./index.ts"
+
+			const statusEl = document.getElementById("status")
+			const statusTextEl = document.getElementById("status-text")
+			const logEl = document.getElementById("log")
+			const disconnectBtn = document.getElementById("disconnect-btn")
+			const reconnectBtn = document.getElementById("reconnect-btn")
+			const metricsBtn = document.getElementById("metrics-btn")
+			const clearLogBtn = document.getElementById("clear-log-btn")
+			const testReloadBtn = document.getElementById("test-reload-btn")
+			const forceFallbackBtn = document.getElementById(
+				"force-fallback-btn",
+			)
+
+			// Metric elements
+			const metricType = document.getElementById("metric-type")
+			const metricAttempts = document.getElementById("metric-attempts")
+			const metricSuccess = document.getElementById("metric-success")
+			const metricFailed = document.getElementById("metric-failed")
+			const metricFallbacks = document.getElementById(
+				"metric-fallbacks",
+			)
+			const metricReloads = document.getElementById("metric-reloads")
+
+			let client = null
+
+			function addLog(message, type = "info") {
+				const entry = document.createElement("div")
+				entry.className = `log-entry ${type}`
+				entry.textContent = `[${
+					new Date().toLocaleTimeString()
+				}] ${message}`
+				logEl.appendChild(entry)
+				logEl.scrollTop = logEl.scrollHeight
+			}
+
+			function updateStatus(connectionType) {
+				statusEl.className = `status ${connectionType}`
+
+				const labels = {
+					"http3-sse": "Connected via HTTP/3 + SSE",
+					"http2-websocket": "Connected via HTTP/2 + WebSocket",
+					"none": "Disconnected",
+				}
+
+				statusTextEl.textContent = labels[connectionType] ||
+					connectionType
+			}
+
+			function updateMetrics() {
+				if (!client) return
+
+				const metrics = client.getMetrics()
+				metricType.textContent = metrics.connectionType
+				metricAttempts.textContent = metrics.attempts
+				metricSuccess.textContent = metrics.successfulConnections
+				metricFailed.textContent = metrics.failedConnections
+				metricFallbacks.textContent = metrics.fallbacks
+				metricReloads.textContent = metrics.reloadEventsReceived
+			}
+
+			function connect() {
+				if (client) {
+					client.disconnect()
+				}
+
+				client = initHotReload({
+					sseEndpoint: "https://localhost:4433/events",
+					wsEndpoint: "wss://localhost:8443/ws",
+					debug: true,
+					connectionTimeout: 3000,
+					onConnect: (type) => {
+						updateStatus(type)
+						addLog(`Connected via ${type}`, "info")
+						updateMetrics()
+					},
+					onDisconnect: (type, error) => {
+						updateStatus("none")
+						if (error) {
+							addLog(`Disconnected from ${type}: ${error}`, "error")
+						} else {
+							addLog(`Disconnected from ${type}`, "error")
+						}
+						updateMetrics()
+					},
+					onFallback: (from, to, reason) => {
+						addLog(
+							`⚠️ Fallback: ${from} → ${to} (${reason})`,
+							"fallback",
+						)
+						updateMetrics()
+					},
+					onReload: () => {
+						addLog(
+							"🔄 Reload event received - reloading page...",
+							"info",
+						)
+						updateMetrics()
+						// Delay to show the log message
+						setTimeout(() => window.location.reload(), 500)
+					},
+				})
+
+				updateMetrics()
+			}
+
+			// Button handlers
+			disconnectBtn.addEventListener("click", () => {
+				addLog("Manual disconnect requested", "info")
+				if (client) {
+					client.disconnect()
+					updateStatus("none")
+					updateMetrics()
+				}
+			})
+
+			reconnectBtn.addEventListener("click", () => {
+				addLog("Manual reconnect requested", "info")
+				updateStatus("none")
+				connect()
+			})
+
+			metricsBtn.addEventListener("click", () => {
+				if (client) {
+					const metrics = client.getMetrics()
+					addLog(`Metrics: ${JSON.stringify(metrics, null, 2)}`, "info")
+				}
+			})
+
+			clearLogBtn.addEventListener("click", () => {
+				logEl.innerHTML = ""
+			})
+
+			testReloadBtn.addEventListener("click", () => {
+				if (confirm("This will reload the page. Continue?")) {
+					addLog("Test reload triggered", "info")
+					setTimeout(() => window.location.reload(), 500)
+				}
+			})
+
+			forceFallbackBtn.addEventListener("click", () => {
+				addLog("Forcing fallback to WebSocket...", "info")
+				if (client) {
+					client.disconnect()
+				}
+				// Reconnect with only WebSocket endpoint
+				client = initHotReload({
+					sseEndpoint: "https://invalid-endpoint:9999/events", // Force failure
+					wsEndpoint: "wss://localhost:8443/ws",
+					debug: true,
+					connectionTimeout: 1000, // Shorter timeout for demo
+					onConnect: (type) => {
+						updateStatus(type)
+						addLog(`Connected via ${type}`, "info")
+						updateMetrics()
+					},
+					onDisconnect: (type, error) => {
+						updateStatus("none")
+						updateMetrics()
+					},
+					onFallback: (from, to, reason) => {
+						addLog(
+							`⚠️ Fallback: ${from} → ${to} (${reason})`,
+							"fallback",
+						)
+						updateMetrics()
+					},
+					onReload: () => {
+						addLog(
+							"🔄 Reload event received - reloading page...",
+							"info",
+						)
+						updateMetrics()
+						setTimeout(() => window.location.reload(), 500)
+					},
+				})
+			})
+
+			// Initial connection
+			addLog(
+				"Attempting connection (HTTP/3 first, HTTP/2 fallback)...",
+				"info",
+			)
+			connect()
+
+			// Update metrics every second
+			setInterval(updateMetrics, 1000)
+		</script>
+	</body>
+</html>

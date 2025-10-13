@@ -1,4 +1,4 @@
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 import { expect } from "@std/expect"
 
 import runAliasGuards from "../../enforceImports/aliasGuards/index.ts"

@@ -1,6 +1,6 @@
 # Tuple Functions
 
-**Location**: `src/vanilla/tuple/`
+**Location**: `src/tuple/`
 **Functions**: 13
 **Status**: Cataloged
 **Created**: 2025-10-07

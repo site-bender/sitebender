@@ -1,6 +1,6 @@
 # Combinator - Curry & Application Functions
 
-**Location**: `src/vanilla/combinator/`
+**Location**: `src/combinator/`
 **Functions**: 15
 **Status**: Cataloged
 **Created**: 2025-10-07

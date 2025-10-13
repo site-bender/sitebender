@@ -1,12 +1,12 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
-import sort from "@sitebender/toolsmith/vanilla/array/sort/index.ts"
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import slice from "@sitebender/toolsmith/array/slice/index.ts"
+import sort from "@sitebender/toolsmith/array/sort/index.ts"
+import endsWith from "@sitebender/toolsmith/string/endsWith/index.ts"
+import replace from "@sitebender/toolsmith/string/replace/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
+import startsWith from "@sitebender/toolsmith/string/startsWith/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 /**
  * Report all deno-coverage-ignore markers across the repo, grouped by package/app.
  * Default export is provided; script also runnable via CLI.

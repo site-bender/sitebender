@@ -28,6 +28,7 @@ import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 import not from "@sitebender/toolsmith/logic/not/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 import type {
 	ParsedAst,
@@ -64,8 +65,8 @@ export default function extractConstants(
 			// Export declarations that wrap const
 			if (isEqual(nodeType)("ExportDeclaration")) {
 				const decl = nodeObj.declaration as Record<string, unknown> | undefined
-				if (decl && isEqual(decl.type)("VariableDeclaration")) {
-					const kind = decl.kind as string
+				if (and(decl)(isEqual(decl!.type)("VariableDeclaration"))) {
+					const kind = decl!.kind as string
 					return isEqual(kind)("const")
 				}
 			}

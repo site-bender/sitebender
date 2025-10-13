@@ -4,6 +4,7 @@
 
 Quartermaster is Studio's intelligent application generator that creates complete, production-ready applications from declarative blueprints. Unlike traditional scaffolding tools that copy templates, Quartermaster understands Studio's architecture and generates properly wired applications with governance, testing, accessibility, HTTPS development server, and time-travel debugging built in from the start.
 
+
 ## Philosophy
 
 **Applications as data, generated through conversation.**
@@ -437,7 +438,7 @@ my-app/
 - Generated: Visual IR inspector, live editing
 - Features: Code graph visualization, time-travel debugging
 
-**athenaeum** - Documentation site
+**mission-control** - Documentation site
 
 - Libraries: Pagewright, Envoy
 - Use case: Library documentation, knowledge bases
@@ -818,60 +819,60 @@ Friendly, contextual error messages:
 Blueprints are structured data in Turtle (RDF) format, stored in triple stores:
 
 ```turtle
-@prefix qm: <http://sitebender.io/quartermaster#> .
+@prefix bend: <http://sitebender.io/quartermaster#> .
 @prefix app: <http://sitebender.io/application#> .
 
-<#my-blog> a qm:Application ;
-  qm:name "my-blog" ;
-  qm:type qm:Blog ;
-  qm:libraries (
+<#my-blog> a bend:Application ;
+  bend:name "my-blog" ;
+  bend:type bend:Blog ;
+  bend:libraries (
     app:Architect
     app:Pagewright
     app:Sentinel
     app:Operator
   ) ;
-  qm:features [
-    qm:authentication [
-      qm:provider qm:WebAuthn ;
-      qm:sessionDuration "7d"
+  bend:features [
+    bend:authentication [
+      bend:provider bend:WebAuthn ;
+      bend:sessionDuration "7d"
     ] ;
-    qm:realtime [
-      qm:transport qm:WebSocket ;
-      qm:fallback qm:SSE
+    bend:realtime [
+      bend:transport bend:WebSocket ;
+      bend:fallback bend:SSE
     ]
   ] ;
-  qm:devServer [
-    qm:protocol "https" ;
-    qm:preferredPort 31415 ;
-    qm:hotReload true
+  bend:devServer [
+    bend:protocol "https" ;
+    bend:preferredPort 31415 ;
+    bend:hotReload true
   ] ;
-  qm:generatedAt "2024-01-15T14:35:12Z" ;
-  qm:generatedBy "claude-sonnet-4.5" ;
-  qm:configurationHistory <#history-1> .
+  bend:generatedAt "2024-01-15T14:35:12Z" ;
+  bend:generatedBy "claude-sonnet-4.5" ;
+  bend:configurationHistory <#history-1> .
 ```
 
 Configuration history as triples:
 
 ```turtle
-<#history-1> a qm:ConfigurationEvent ;
-  qm:timestamp "2024-01-15T14:30:22Z" ;
-  qm:action qm:AddLibrary ;
-  qm:target app:Architect ;
-  qm:reason "Enable reactive calculations" ;
-  qm:suggestedBy qm:AI ;
-  qm:approvedBy <#user-1> ;
-  qm:next <#history-2> .
+<#history-1> a bend:ConfigurationEvent ;
+  bend:timestamp "2024-01-15T14:30:22Z" ;
+  bend:action bend:AddLibrary ;
+  bend:target app:Architect ;
+  bend:reason "Enable reactive calculations" ;
+  bend:suggestedBy bend:AI ;
+  bend:approvedBy <#user-1> ;
+  bend:next <#history-2> .
 
-<#history-2> a qm:ConfigurationEvent ;
-  qm:timestamp "2024-01-15T14:31:45Z" ;
-  qm:action qm:AddFeature ;
-  qm:target qm:Authentication ;
-  qm:configuration [
-    qm:provider qm:WebAuthn
+<#history-2> a bend:ConfigurationEvent ;
+  bend:timestamp "2024-01-15T14:31:45Z" ;
+  bend:action bend:AddFeature ;
+  bend:target bend:Authentication ;
+  bend:configuration [
+    bend:provider bend:WebAuthn
   ] ;
-  qm:reason "User requested login capability" ;
-  qm:suggestedBy <#user-1> ;
-  qm:next <#history-3> .
+  bend:reason "User requested login capability" ;
+  bend:suggestedBy <#user-1> ;
+  bend:next <#history-3> .
 ```
 
 This enables:
@@ -1044,7 +1045,7 @@ zed --install-extension quartermaster
 
 Features:
 
-- **Command Mode**: `qm:new`, `qm:add`, `qm:history`
+- **Command Mode**: `bend:new`, `bend:add`, `bend:history`
 - **Split View**: Configuration GUI alongside code
 - **Collaboration**: Shared editing sessions
 - **Voice Commands**: Hands-free blueprint configuration

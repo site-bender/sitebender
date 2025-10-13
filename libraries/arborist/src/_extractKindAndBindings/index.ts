@@ -2,6 +2,9 @@ import type { ImportBinding } from "../types/index.ts"
 import extractNamedBindings from "../_extractNamedBindings/index.ts"
 import extractLocalName from "../_extractLocalName/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 //++ Extract import kind and bindings from specifiers
 export default function extractKindAndBindings(
@@ -14,7 +17,7 @@ export default function extractKindAndBindings(
 		imports: ReadonlyArray<ImportBinding>
 	}> {
 		// Side-effect import: import "./foo.ts"
-		if (isEqual(specifiers.length)(0)) {
+		if (isEqual(getOrElse(0)(length(specifiers)))(0)) {
 			return {
 				kind: isTypeOnly ? "type" : "named",
 				imports: [],
@@ -50,7 +53,7 @@ export default function extractKindAndBindings(
 		}
 
 		// Default import only: import foo from "./foo.ts"
-		if (isEqual(firstType)("ImportDefaultSpecifier") && isEqual(specifiers.length)(1)) {
+		if (and(isEqual(firstType)("ImportDefaultSpecifier"))(isEqual(getOrElse(0)(length(specifiers)))(1))) {
 			const local = extractLocalName(firstSpec)
 			return {
 				kind: "default",

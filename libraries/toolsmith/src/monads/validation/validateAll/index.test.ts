@@ -3,7 +3,7 @@ import { assertEquals } from "@std/assert"
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type ValidationError from "../../../types/ValidationError/index.ts"
 
-import reduce from "../../../vanilla/array/reduce/index.ts"
+import reduce from "../../../array/reduce/index.ts"
 import invalid from "../invalid/index.ts"
 import valid from "../valid/index.ts"
 import accumulateErrors from "./accumulateErrors/index.ts"

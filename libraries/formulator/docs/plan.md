@@ -1841,7 +1841,7 @@ export default function getExponent(
 ### Usage Example in Architect
 
 ```typescript
-import subtract from "@sitebender/toolsmith/vanilla/math/subtract/index.ts"
+import subtract from "@sitebender/toolsmith/math/subtract/index.ts"
 import getMinuend from "./ast/accessors/getMinuend/index.ts"
 import getSubtrahend from "./ast/accessors/getSubtrahend/index.ts"
 import map2 from "@sitebender/toolsmith/monads/result/map2/index.ts"

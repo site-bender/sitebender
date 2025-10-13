@@ -1,5 +1,5 @@
-import some from "../../../../../../toolsmith/src/vanilla/array/some/index.ts"
-import test from "../../../../../../toolsmith/src/vanilla/string/test/index.ts"
+import some from "../../../../../../toolsmith/src/array/some/index.ts"
+import test from "../../../../../../toolsmith/src/string/test/index.ts"
 import {
 	BINARY_FUNCTION_PATTERN,
 	COMMUTATIVE_OPERATIONS,
