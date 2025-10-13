@@ -1,5 +1,5 @@
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import keys from "@sitebender/toolsmith/vanilla/object/keys/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import keys from "@sitebender/toolsmith/object/keys/index.ts"
 
 import type { FunctionInfo } from "../types/index.ts"
 

@@ -1,5 +1,5 @@
-import has from "@sitebender/toolsmith/vanilla/set/has/index.ts"
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
+import has from "@sitebender/toolsmith/set/has/index.ts"
+import endsWith from "@sitebender/toolsmith/string/endsWith/index.ts"
 
 import { FP_ALLOWLIST } from "../../../constants/index.ts"
 

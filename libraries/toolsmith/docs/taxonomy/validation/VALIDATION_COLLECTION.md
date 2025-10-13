@@ -1,6 +1,6 @@
 # Validation - Collection & Predicate Functions
 
-**Location**: `src/vanilla/validation/`
+**Location**: `src/validation/`
 **Functions**: 22
 **Status**: Cataloged
 **Created**: 2025-10-07

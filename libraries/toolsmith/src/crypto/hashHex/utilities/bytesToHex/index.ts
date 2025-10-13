@@ -1,5 +1,5 @@
-import join from "../../../../vanilla/array/join/index.ts"
-import map from "../../../../vanilla/array/map/index.ts"
+import join from "../../../../array/join/index.ts"
+import map from "../../../../array/map/index.ts"
 
 //++ Converts a Uint8Array to hexadecimal string representation
 

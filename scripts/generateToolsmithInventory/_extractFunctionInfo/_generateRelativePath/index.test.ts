@@ -9,9 +9,9 @@ Deno.test("_generateRelativePath - generates relative path from current director
 
 Deno.test("_generateRelativePath - handles nested paths", () => {
 	const result = _generateRelativePath(
-		"libraries/toolsmith/src/vanilla/array/map/index.ts",
+		"libraries/toolsmith/src/array/map/index.ts",
 	)
-	assertEquals(result, "libraries/toolsmith/src/vanilla/array/map/index.ts")
+	assertEquals(result, "libraries/toolsmith/src/array/map/index.ts")
 })
 
 Deno.test("_generateRelativePath - handles single level path", () => {

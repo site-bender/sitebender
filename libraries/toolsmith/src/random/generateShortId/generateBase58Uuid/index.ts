@@ -1,4 +1,4 @@
-import pipe from "../../../vanilla/combinator/pipe/index.ts"
+import pipe from "../../../combinator/pipe/index.ts"
 import encodeToBase58 from "./encodeToBase58/index.ts"
 import hexToBytes from "./hexToBytes/index.ts"
 import stripHyphens from "./stripHyphens/index.ts"

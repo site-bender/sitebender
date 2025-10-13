@@ -8,7 +8,7 @@ This document is **INCOMPLETE**. You must finish cataloging ALL ~1,025 vanilla f
 
 ### What This File Is
 
-This is a **complete catalog** of every function in `src/vanilla/` that needs to be migrated to monadic equivalents. Each function entry must show:
+This is a **complete catalog** of every function in `src/` that needs to be migrated to monadic equivalents. Each function entry must show:
 
 1. **Function name** and file location
 2. **Current signature** (the vanilla version that exists now)
@@ -55,7 +55,7 @@ Not started (NEEDS ALL):
 
 ### How to Complete This Task
 
-1. **For each domain folder** in `src/vanilla/`:
+1. **For each domain folder** in `src/`:
    - List all function folders (use `list_files` with recursive)
    - Read the `index.ts` file for each function
    - Extract the function signature and //++ comment
@@ -82,7 +82,7 @@ Not started (NEEDS ALL):
    - Update the completion table as you go
 
 5. **Don't stop until ALL ~1,025 functions are documented**
-   - Every function in `src/vanilla/` must have an entry
+   - Every function in `src/` must have an entry
    - No exceptions, no shortcuts
    - This is the foundation for the entire migration
 
@@ -99,7 +99,7 @@ Without a complete taxonomy, we cannot:
 
 - Know if migration is complete
 - Verify all functions have been converted
-- Delete the `vanilla/` folder safely
+- Delete the `` folder safely
 
 **DO NOT MARK THIS TASK COMPLETE UNTIL ALL ~1,025 FUNCTIONS ARE CATALOGED.**
 
@@ -108,7 +108,7 @@ Without a complete taxonomy, we cannot:
 
 **Status**: Comprehensive Function Catalog
 **Created**: 2025-10-06
-**Purpose**: Complete list of all functions in `src/vanilla/` with signatures for migration planning
+**Purpose**: Complete list of all functions in `src/` with signatures for migration planning
 
 > **Note**: This document catalogs EXISTING vanilla functions. These will be migrated to monadic equivalents following the patterns in COMPLETE_IMPLEMENTATION_PLAN.md
 ---
@@ -130,7 +130,7 @@ Each function entry shows:
 
 **ZERO functions have been migrated to monadic equivalents yet.**
 
-All functions currently exist in `src/vanilla/` and will be migrated to:
+All functions currently exist in `src/` and will be migrated to:
 
 - `src/activation/` (10 functions to migrate)
 - `src/array/` (150 functions to migrate)

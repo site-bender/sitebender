@@ -7,10 +7,10 @@ import type {
 
 import validateImports from "../_validateImports/index.ts"
 import validateStructure from "../_validateStructure/index.ts"
-import flatten from "../../../../toolsmith/src/vanilla/array/flatten/index.ts"
-import isEmpty from "../../../../toolsmith/src/vanilla/array/isEmpty/index.ts"
-import map from "../../../../toolsmith/src/vanilla/array/map/index.ts"
-import parallel from "../../../../toolsmith/src/vanilla/async/parallel/index.ts"
+import flatten from "../../../../toolsmith/src/array/flatten/index.ts"
+import isEmpty from "../../../../toolsmith/src/array/isEmpty/index.ts"
+import map from "../../../../toolsmith/src/array/map/index.ts"
+import parallel from "../../../../toolsmith/src/async/parallel/index.ts"
 import validateContract from "../../contracts/validateContract/index.ts"
 import validatePrivacy from "../../privacy/validatePrivacy/index.ts"
 

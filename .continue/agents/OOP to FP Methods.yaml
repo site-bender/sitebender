@@ -70,7 +70,7 @@ prompts:
 
       **IMPORT REQUIREMENTS:**
       - Import toolsmith functions from exact paths (always default exports)
-      - Use deep imports: `import reduce from 'libraries/toolsmith/src/vanilla/array/reduce'`
+      - Use deep imports: `import reduce from 'libraries/toolsmith/src/array/reduce'`
       - Follow import order rules (external types, internal types, external named, etc.)
 
       **CONSTANTS:**

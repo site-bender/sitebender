@@ -1,8 +1,8 @@
-import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+import at from "@sitebender/toolsmith/array/at/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import slice from "@sitebender/toolsmith/array/slice/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
 
 import type { FunctionInfo, ProcessResult } from "../types/index.ts"
 

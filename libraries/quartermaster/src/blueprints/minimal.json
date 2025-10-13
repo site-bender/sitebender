@@ -1,13 +1,90 @@
 {
 	"id": "minimal",
 	"name": "minimal-app",
-	"description": "Pagewright-only minimal app skeleton (placeholder)",
+	"description": "Minimal Pagewright application with hot reload",
 	"outputs": {
-		"appPath": "./applications/minimal-app"
+		"appPath": "./{{APP_NAME}}"
 	},
-	"files": [],
+	"files": [
+		{
+			"targetPath": "index.html",
+			"mode": "template",
+			"sourcePath": "common/index.html"
+		},
+		{
+			"targetPath": "deno.json",
+			"mode": "template",
+			"sourcePath": "common/deno.json"
+		},
+		{
+			"targetPath": "README.md",
+			"mode": "template",
+			"sourcePath": "common/README.md"
+		},
+		{
+			"targetPath": "server.ts",
+			"mode": "copy",
+			"sourcePath": "common/server/index.ts",
+			"executable": true
+		},
+		{
+			"targetPath": "hot-reload-client/index.ts",
+			"mode": "copy",
+			"sourcePath": "common/hot-reload-client/index.ts"
+		},
+		{
+			"targetPath": "hot-reload-client/test.html",
+			"mode": "copy",
+			"sourcePath": "common/hot-reload-client/test.html"
+		},
+		{
+			"targetPath": "hot-reload-client/README.md",
+			"mode": "copy",
+			"sourcePath": "common/hot-reload-client/README.md"
+		},
+		{
+			"targetPath": ".sitebender/docker-compose.yml",
+			"mode": "template",
+			"sourcePath": "docker-infra/.sitebender/docker-compose.yml"
+		},
+		{
+			"targetPath": ".sitebender/README.md",
+			"mode": "copy",
+			"sourcePath": "docker-infra/.sitebender/README.md"
+		},
+		{
+			"targetPath": ".sitebender/ops/setup-certs.sh",
+			"mode": "copy",
+			"sourcePath": "docker-infra/.sitebender/ops/setup-certs.sh",
+			"executable": true
+		}
+	],
+	"devServer": {
+		"enabled": true,
+		"mode": "both",
+		"http3Port": 4433,
+		"http2Port": 8443,
+		"hotReload": true
+	},
+	"libraries": {
+		"pagewright": "required",
+		"toolsmith": "required"
+	},
 	"postScaffoldMessages": [
-		"Stub blueprint: metadata and target path only. No templates yet."
+		"",
+		"✅ Minimal app generated successfully!",
+		"",
+		"Next steps:",
+		"  cd {{APP_NAME}}",
+		"  deno task dev",
+		"",
+		"Or with Docker (requires mkcert setup):",
+		"  cd {{APP_NAME}}/.sitebender/ops && ./setup-certs.sh",
+		"  cd {{APP_NAME}} && deno task dev:docker",
+		"",
+		"⚠️  NOTE: Import maps are stubbed. You'll need to add Sitebender library imports manually.",
+		"    See README.md for details.",
+		""
 	],
 	"variants": {
 		"architect": false,

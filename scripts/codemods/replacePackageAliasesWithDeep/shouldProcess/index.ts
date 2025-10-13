@@ -1,4 +1,4 @@
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
+import endsWith from "@sitebender/toolsmith/string/endsWith/index.ts"
 
 //++ Determines if a file should be processed based on its extension
 export default function shouldProcess(path: string): boolean {

@@ -17,12 +17,12 @@ volumes:
   authentik_templates: {}
 
 services:
-  # WebTransport Server - HTTP/3 + WebTransport dev server
-  webtransport:
+  # Quinn HTTP/3 Dev Server - HTTP/3 + SSE for hot reload
+  dev-server:
     build:
-      context: ./webtransport
+      context: ./dev-server
       dockerfile: Dockerfile
-    container_name: webtransport-server
+    container_name: dev-server
     restart: unless-stopped
     volumes:
       - ../libraries/quartermaster/dist:/app/dist:ro  # Static files to serve
@@ -37,6 +37,29 @@ services:
       timeout: 10s
       retries: 3
       start_period: 40s
+
+  # Caddy HTTP/2 Fallback - HTTP/2 + WebSocket fallback for browsers without HTTP/3
+  caddy-fallback:
+    build:
+      context: ./caddy
+      dockerfile: Dockerfile
+    container_name: caddy-fallback
+    restart: unless-stopped
+    volumes:
+      - ../libraries/quartermaster/dist:/app/dist:ro  # Static files to serve
+      - ./ops/certs:/certs:ro  # mkcert certificates
+    ports:
+      - "8443:8443"  # HTTPS on TCP
+    networks:
+      - monitoring
+    depends_on:
+      - dev-server
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--no-check-certificate", "https://localhost:8443/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
   # Qdrant - Vector Database for MCP servers
   qdrant:

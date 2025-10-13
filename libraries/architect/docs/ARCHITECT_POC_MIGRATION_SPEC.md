@@ -6,7 +6,7 @@
 
 ## Overview
 
-This document specifies the migration of 13 functions from `vanilla/` to their new monadic form in the proper domain folders. All functions will be:
+This document specifies the migration of 13 functions from `` to their new monadic form in the proper domain folders. All functions will be:
 
 - **Curried** - One parameter per function
 - **Monadic** - Return `Result<ValidationError, T>` or `Validation<ValidationError, T>`
@@ -20,7 +20,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 1. filter
 
-- **Source**: `src/vanilla/array/filter/index.ts`
+- **Source**: `src/array/filter/index.ts`
 - **Target**: `src/array/filter/index.ts`
 - **Current Signature**: `(predicate: (item: T) => boolean) => (array: Array<T>) => Array<T>`
 - **Target Signature**: `(predicate: (item: T) => boolean) => (array: ReadonlyArray<T>) => Result<ValidationError, ReadonlyArray<T>>`
@@ -28,7 +28,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 2. map
 
-- **Source**: `src/vanilla/array/map/index.ts`
+- **Source**: `src/array/map/index.ts`
 - **Target**: `src/array/map/index.ts`
 - **Current Signature**: `(fn: (item: T) => U) => (array: Array<T>) => Array<U>`
 - **Target Signature**: `(fn: (item: T) => U) => (array: ReadonlyArray<T>) => Result<ValidationError, ReadonlyArray<U>>`
@@ -36,7 +36,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 3. reduce
 
-- **Source**: `src/vanilla/array/reduce/index.ts`
+- **Source**: `src/array/reduce/index.ts`
 - **Target**: `src/array/reduce/index.ts`
 - **Current Signature**: `(fn: (acc: U, item: T) => U) => (init: U) => (array: Array<T>) => U`
 - **Target Signature**: `(fn: (acc: U) => (item: T) => U) => (init: U) => (array: ReadonlyArray<T>) => Result<ValidationError, U>`
@@ -44,7 +44,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 4. find
 
-- **Source**: `src/vanilla/array/find/index.ts`
+- **Source**: `src/array/find/index.ts`
 - **Target**: `src/array/find/index.ts`
 - **Current Signature**: `(predicate: (item: T) => boolean) => (array: Array<T>) => T | null`
 - **Target Signature**: `(predicate: (item: T) => boolean) => (array: ReadonlyArray<T>) => Result<ValidationError, T>`
@@ -52,7 +52,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 5. join
 
-- **Source**: `src/vanilla/array/join/index.ts`
+- **Source**: `src/array/join/index.ts`
 - **Target**: `src/array/join/index.ts`
 - **Current Signature**: `(separator: string) => (array: Array<T>) => string`
 - **Target Signature**: `(separator: string) => (array: ReadonlyArray<T>) => Result<ValidationError, string>`
@@ -62,7 +62,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 6. isDefined
 
-- **Source**: `src/vanilla/validation/isDefined/index.ts`
+- **Source**: `src/validation/isDefined/index.ts`
 - **Target**: `src/validation/isDefined/index.ts`
 - **Current Signature**: `(value: T | null | undefined) => value is T`
 - **Target Signature**: Same (type guards don't need Result wrapping)
@@ -70,7 +70,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 7. isNull
 
-- **Source**: `src/vanilla/validation/isNull/index.ts`
+- **Source**: `src/validation/isNull/index.ts`
 - **Target**: `src/validation/isNull/index.ts`
 - **Current Signature**: `(value: unknown) => value is null`
 - **Target Signature**: Same
@@ -78,7 +78,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 8. isNumber
 
-- **Source**: `src/vanilla/validation/isNumber/index.ts`
+- **Source**: `src/validation/isNumber/index.ts`
 - **Target**: `src/validation/isNumber/index.ts`
 - **Current Signature**: `(value: unknown) => value is number`
 - **Target Signature**: Same
@@ -86,7 +86,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 9. isEqual
 
-- **Source**: `src/vanilla/validation/isEqual/index.ts`
+- **Source**: `src/validation/isEqual/index.ts`
 - **Target**: `src/validation/isEqual/index.ts`
 - **Current Signature**: `(a: T) => (b: U) => boolean`
 - **Target Signature**: Same
@@ -94,7 +94,7 @@ This document specifies the migration of 13 functions from `vanilla/` to their n
 
 #### 10. isNotEmpty
 
-- **Source**: `src/vanilla/validation/isNotEmpty/index.ts`
+- **Source**: `src/validation/isNotEmpty/index.ts`
 - **Target**: `src/validation/isNotEmpty/index.ts`
 - **Current Signature**: `(value: unknown) => boolean`
 - **Target Signature**: Same

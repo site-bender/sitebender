@@ -1,6 +1,6 @@
 # Physics Functions
 
-**Location**: `src/vanilla/physics/`
+**Location**: `src/physics/`
 **Functions**: 8
 **Status**: Cataloged
 **Created**: 2025-10-07

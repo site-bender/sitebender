@@ -1,4 +1,4 @@
-import test from "../../../../../../toolsmith/src/vanilla/string/test/index.ts"
+import test from "../../../../../../toolsmith/src/string/test/index.ts"
 import {
 	ASSOCIATIVE_OPERATIONS,
 	BINARY_FUNCTION_PATTERN,
