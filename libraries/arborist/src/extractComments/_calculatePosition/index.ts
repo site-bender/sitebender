@@ -8,7 +8,9 @@ export default function calculatePosition(sourceText: string, offset: number): P
 	const beforeOffset = sourceText.slice(0, offset)
 	const lines = beforeOffset.split("\n")
 	const line = getOrElse(0)(length(lines))
-	const column = lines[getOrElse(0)(length(lines)) - 1].length
+	const lastLineIndex = getOrElse(0)(length(lines)) - 1
+	const lastLine = lines[lastLineIndex]
+	const column = getOrElse(0)(length([...lastLine]))
 
 	return {
 		line,

@@ -28,6 +28,7 @@ import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import and from "@sitebender/toolsmith/logic/and/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 import type { ParsedAst, ParsedType } from "../types/index.ts"
 import type { TypeExtractionError } from "../types/errors/index.ts"
@@ -53,8 +54,7 @@ export default function extractTypes(
 
 	    // Direct type declarations
 	    if (
-	      isEqual(nodeType)("TsTypeAliasDeclaration") ||
-	      isEqual(nodeType)("TsInterfaceDeclaration")
+	      or(isEqual(nodeType)("TsTypeAliasDeclaration"))(isEqual(nodeType)("TsInterfaceDeclaration")) as boolean
 	    ) {
 	      return true
 	    }
@@ -62,8 +62,10 @@ export default function extractTypes(
 	    // Export declarations that wrap types
 	    if (isEqual(nodeType)("ExportDeclaration")) {
 	      const decl = nodeObj.declaration as Record<string, unknown> | undefined
-	      return !!((and(and(decl)(typeof decl!.type === "string"))(isEqual(decl!.type)("TsTypeAliasDeclaration"))) ||
-	        (and(and(decl)(typeof decl!.type === "string"))(isEqual(decl!.type)("TsInterfaceDeclaration"))))
+	      if (and(decl)(typeof (decl as Record<string, unknown>).type === "string")) {
+	        const declType = (decl as Record<string, unknown>).type as string
+	        return or(isEqual(declType)("TsTypeAliasDeclaration"))(isEqual(declType)("TsInterfaceDeclaration"))
+	      }
 	    }
 
 	    return false

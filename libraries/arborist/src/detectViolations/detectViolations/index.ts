@@ -23,6 +23,7 @@ import type { ViolationDetectionError } from "../../types/errors/index.ts"
 import _createInitialState from "../_createInitialState/index.ts"
 import _checkNodeForViolations from "../_checkNodeForViolations/index.ts"
 import _collectAllNodes from "../_collectAllNodes/index.ts"
+import _hasItems from "./_hasItems/index.ts"
 
 export default function detectViolations(
 	ast: ParsedAst,
@@ -52,17 +53,17 @@ export default function detectViolations(
 	const finalState = getOrElse(_createInitialState())(finalStateResult)
 
 	const violationInfo: ViolationInfo = {
-		hasArrowFunctions: finalState.arrowFunctions.length > 0,
+		hasArrowFunctions: _hasItems(finalState.arrowFunctions),
 		arrowFunctions: finalState.arrowFunctions,
-		hasClasses: finalState.classes.length > 0,
+		hasClasses: _hasItems(finalState.classes),
 		classes: finalState.classes,
-		hasThrowStatements: finalState.throwStatements.length > 0,
+		hasThrowStatements: _hasItems(finalState.throwStatements),
 		throwStatements: finalState.throwStatements,
-		hasTryCatch: finalState.tryCatchBlocks.length > 0,
+		hasTryCatch: _hasItems(finalState.tryCatchBlocks),
 		tryCatchBlocks: finalState.tryCatchBlocks,
-		hasLoops: finalState.loops.length > 0,
+		hasLoops: _hasItems(finalState.loops),
 		loops: finalState.loops,
-		hasMutations: finalState.mutations.length > 0,
+		hasMutations: _hasItems(finalState.mutations),
 		mutations: finalState.mutations,
 	}
 

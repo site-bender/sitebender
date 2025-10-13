@@ -1,6 +1,11 @@
 //++ Serialize a TypeScript type annotation to string
 //++ Handles primitive types, object types, union types, generics, etc.
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
+import _filterNonEmpty from "./_filterNonEmpty/index.ts"
 
 export default function _serializeTypeAnnotation(node: unknown): string {
 	if (!node) {
@@ -26,10 +31,9 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 				| undefined
 			if (typeParams) {
 				const params = typeParams.params as Array<unknown>
-				const serializedParams = params.map(_serializeTypeAnnotation).join(
-					", ",
-				)
-				return `${name}<${serializedParams}>`
+				const serializedParamsResult = map(_serializeTypeAnnotation)(params as ReadonlyArray<Serializable>)
+				const serializedParams = getOrElse([] as ReadonlyArray<string>)(serializedParamsResult)
+				return `${name}<${serializedParams.join(", ")}>`
 			}
 			return name
 		}
@@ -37,15 +41,17 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 		// Union types (A | B | C)
 		case "TsUnionType": {
 			const types = nodeObj.types as Array<unknown>
-			const serialized = types.map(_serializeTypeAnnotation).join(" | ")
-			return serialized
+			const serializedResult = map(_serializeTypeAnnotation)(types as ReadonlyArray<Serializable>)
+			const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			return serialized.join(" | ")
 		}
 
 		// Intersection types (A & B & C)
 		case "TsIntersectionType": {
 			const types = nodeObj.types as Array<unknown>
-			const serialized = types.map(_serializeTypeAnnotation).join(" & ")
-			return serialized
+			const serializedResult = map(_serializeTypeAnnotation)(types as ReadonlyArray<Serializable>)
+			const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			return serialized.join(" & ")
 		}
 
 		// Array types (T[])
@@ -57,56 +63,70 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 		// Tuple types ([string, number])
 		case "TsTupleType": {
 			const elemTypes = nodeObj.elemTypes as Array<Record<string, unknown>>
-			const serialized = elemTypes.map((elem) =>
-				_serializeTypeAnnotation(elem.ty)
-			).join(", ")
-			return `[${serialized}]`
+			const serializedResult = map(
+				function serializeElemType(elem: Serializable): string {
+					const elemObj = elem as Record<string, unknown>
+					return _serializeTypeAnnotation(elemObj.ty)
+				}
+			)(elemTypes as ReadonlyArray<Serializable>)
+			const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			return `[${serialized.join(", ")}]`
 		}
 
 		// Object types ({ key: value })
 		case "TsTypeLiteral": {
 			const members = nodeObj.members as Array<Record<string, unknown>>
-			const serialized = members.map((member) => {
-				const memberType = member.type as string
-				if (isEqual(memberType)("TsPropertySignature")) {
-					const key = member.key as Record<string, unknown>
-					const keyName = key.value as string
-					const typeAnn = member.typeAnnotation as
-						| Record<string, unknown>
-						| undefined
-					if (typeAnn) {
-						const type = _serializeTypeAnnotation(
-							typeAnn.typeAnnotation,
-						)
-						const optional = member.optional as boolean
-						return `${keyName}${optional ? "?" : ""}: ${type}`
+			const serializedResult = map(
+				function serializeMember(member: Serializable): string {
+					const memberObj = member as Record<string, unknown>
+					const memberType = memberObj.type as string
+					if (isEqual(memberType)("TsPropertySignature")) {
+						const key = memberObj.key as Record<string, unknown>
+						const keyName = key.value as string
+						const typeAnn = memberObj.typeAnnotation as
+							| Record<string, unknown>
+							| undefined
+						if (typeAnn) {
+							const type = _serializeTypeAnnotation(
+								typeAnn.typeAnnotation,
+							)
+							const optional = memberObj.optional as boolean
+							return `${keyName}${optional ? "?" : ""}: ${type}`
+						}
+						return keyName
 					}
-					return keyName
+					return ""
 				}
-				return ""
-			}).filter(Boolean).join("; ")
-			return `{ ${serialized} }`
+			)(members as ReadonlyArray<Serializable>)
+			const serializedArray = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			const filteredResult = filter(_filterNonEmpty)(serializedArray)
+			const filtered = getOrElse([] as ReadonlyArray<string>)(filteredResult)
+			return `{ ${filtered.join("; ")} }`
 		}
 
 		// Function types ((arg: T) => R)
 		case "TsFunctionType": {
 			const params = nodeObj.params as Array<Record<string, unknown>>
-			const serializedParams = params.map((param) => {
-				const pat = param.pat as Record<string, unknown>
-				const name = pat.value as string
-				const typeAnn = param.typeAnnotation as
-					| Record<string, unknown>
-					| undefined
-				if (typeAnn) {
-					const type = _serializeTypeAnnotation(typeAnn.typeAnnotation)
-					return `${name}: ${type}`
+			const serializedParamsResult = map(
+				function serializeParam(param: Serializable): string {
+					const paramObj = param as Record<string, unknown>
+					const pat = paramObj.pat as Record<string, unknown>
+					const name = pat.value as string
+					const typeAnn = paramObj.typeAnnotation as
+						| Record<string, unknown>
+						| undefined
+					if (typeAnn) {
+						const type = _serializeTypeAnnotation(typeAnn.typeAnnotation)
+						return `${name}: ${type}`
+					}
+					return name
 				}
-				return name
-			}).join(", ")
+			)(params as ReadonlyArray<Serializable>)
+			const serializedParams = getOrElse([] as ReadonlyArray<string>)(serializedParamsResult)
 			const returnType = _serializeTypeAnnotation(
 				nodeObj.typeAnnotation,
 			)
-			return `(${serializedParams}) => ${returnType}`
+			return `(${serializedParams.join(", ")}) => ${returnType}`
 		}
 
 		// Literal types ("literal", 42, true)
