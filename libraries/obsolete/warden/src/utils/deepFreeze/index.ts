@@ -1,6 +1,6 @@
 //++ Recursively freezes an object and all its properties to ensure immutability
 
-import map from "../../../../../../../toolsmith/src/vanilla/array/map/index.ts"
+import map from "../../../../../../../toolsmith/src/array/map/index.ts"
 import createPropertyFreezer from "./createPropertyFreezer/index.ts"
 
 export default function deepFreeze<T>(obj: T): T {

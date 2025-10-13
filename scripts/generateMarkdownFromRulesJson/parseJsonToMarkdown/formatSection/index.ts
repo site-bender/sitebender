@@ -1,7 +1,7 @@
 import type { JsonValue } from "../../types/index.ts"
 
-import concat from "../../../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
-import repeat from "../../../../libraries/toolsmith/src/vanilla/string/repeat/index.ts"
+import concat from "../../../../libraries/toolsmith/src/string/concat/index.ts"
+import repeat from "../../../../libraries/toolsmith/src/string/repeat/index.ts"
 import formatJsonValue from "../../formatJsonValue/index.ts"
 import formatKey from "../../formatKey/index.ts"
 

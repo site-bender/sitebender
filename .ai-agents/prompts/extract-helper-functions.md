@@ -224,7 +224,7 @@ function isEmpty(arr: unknown[]): boolean {
 }
 
 // WARNING: Do not extract if equivalent already exists in toolsmith!
-// Search libraries/toolsmith/src/vanilla/ for existing implementations:
+// Search libraries/toolsmith/src/ for existing implementations:
 // - Math operations: add, subtract, multiply, divide, etc.
 // - Validation: isString, isNumber, isArray, etc.
 // - Array utilities: isEmpty, head, tail, map, filter, etc.

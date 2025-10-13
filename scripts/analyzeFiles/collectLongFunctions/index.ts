@@ -1,5 +1,5 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import type { FileFunction, PerFileAnalysis } from "../types/index.ts"
 

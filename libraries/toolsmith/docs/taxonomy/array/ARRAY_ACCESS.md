@@ -1,6 +1,6 @@
 # Array - Access Functions
 
-**Location**: `src/vanilla/array/`
+**Location**: `src/array/`
 **Functions**: 22
 **Status**: Cataloged
 **Created**: 2025-10-07

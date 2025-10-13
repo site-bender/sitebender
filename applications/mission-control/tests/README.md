@@ -282,7 +282,7 @@ test.describe("Code the-workshop behaviors", () => {
 		// Type code
 		await page.click(".monaco-editor")
 		await page.keyboard.type(`
-      import map from "@sitebender/toolsmith/vanilla/array/map"
+      import map from "@sitebender/toolsmith/array/map"
       
       const double = map((x: number) => x * 2)
       console.log(double([1, 2, 3, 4]))
@@ -318,8 +318,8 @@ test.describe("Code the-workshop behaviors", () => {
 			{
 				lib: "toolsmith",
 				code: `
-          import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe"
-          import map from "@sitebender/toolsmith/vanilla/array/map"
+          import pipe from "@sitebender/toolsmith/combinator/pipe"
+          import map from "@sitebender/toolsmith/array/map"
           
           const result = pipe([map(x => x * 2)])([1, 2, 3])
           console.log(result)

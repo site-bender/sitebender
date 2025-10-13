@@ -290,7 +290,7 @@ fc.oneof(fc.string(), fc.integer())  // Union types
 const mockAdd = jest.fn(() => 5)  // NO!
 
 // RIGHT - Use the real function
-import add from "@sitebender/toolsmith/vanilla/math/add/index.ts"
+import add from "@sitebender/toolsmith/math/add/index.ts"
 
 const result = add(2)(3)  // YES!
 ```
@@ -381,7 +381,7 @@ Test the composition, not the individual parts (if parts are already tested):
 ```typescript
 import { assertEquals } from "jsr:@std/assert"
 
-import compose from "@sitebender/toolsmith/vanilla/function/compose/index.ts"
+import compose from "@sitebender/toolsmith/function/compose/index.ts"
 import double from "./double/index.ts"
 import add from "./add/index.ts"
 
@@ -411,7 +411,7 @@ const content = await Deno.readTextFile(path)
 
 Here's a complete test file from Toolsmith that follows all these rules:
 
-See: `libraries/toolsmith/src/boxed/lift/liftUnary/index.test.ts`
+See: `libraries/toolsmith/src/lift/liftUnary/index.test.ts`
 
 Key features:
 - ✅ Uses Deno.test and t.step
@@ -464,4 +464,4 @@ Until then, write good tests, but don't over-invest. The goal is confidence that
 
 - fast-check docs: https://fast-check.dev/
 - Deno test docs: https://docs.deno.com/runtime/fundamentals/testing/
-- Example tests: `libraries/toolsmith/src/boxed/lift/*/index.test.ts`
+- Example tests: `libraries/toolsmith/src/lift/*/index.test.ts`

@@ -1,6 +1,6 @@
-import pipe from "../../../../libraries/toolsmith/src/vanilla/combinator/pipe/index.ts"
-import concat from "../../../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
-import concatTo from "../../../../libraries/toolsmith/src/vanilla/string/concatTo/index.ts"
+import pipe from "../../../../libraries/toolsmith/src/combinator/pipe/index.ts"
+import concat from "../../../../libraries/toolsmith/src/string/concat/index.ts"
+import concatTo from "../../../../libraries/toolsmith/src/string/concatTo/index.ts"
 import formatKey from "../../formatKey/index.ts"
 
 //++ Formats a key-value pair as an HTML description list entry

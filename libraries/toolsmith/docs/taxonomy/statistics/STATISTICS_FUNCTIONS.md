@@ -1,6 +1,6 @@
 # Statistics Functions
 
-**Location**: `src/vanilla/statistics/`
+**Location**: `src/statistics/`
 **Functions**: 13
 **Status**: Cataloged
 **Created**: 2025-10-07

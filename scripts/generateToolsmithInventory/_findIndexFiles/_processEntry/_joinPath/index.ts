@@ -1,11 +1,11 @@
-import and from "@sitebender/toolsmith/vanilla/logic/and/index.ts"
-import or from "@sitebender/toolsmith/vanilla/logic/or/index.ts"
-import concat from "@sitebender/toolsmith/vanilla/string/concat/index.ts"
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
-import length from "@sitebender/toolsmith/vanilla/string/length/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import substring from "@sitebender/toolsmith/vanilla/string/substring/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
+import concat from "@sitebender/toolsmith/string/concat/index.ts"
+import endsWith from "@sitebender/toolsmith/string/endsWith/index.ts"
+import length from "@sitebender/toolsmith/string/length/index.ts"
+import replace from "@sitebender/toolsmith/string/replace/index.ts"
+import startsWith from "@sitebender/toolsmith/string/startsWith/index.ts"
+import substring from "@sitebender/toolsmith/string/substring/index.ts"
 
 /**
  * Join path segments with forward slash, normalizing multiple slashes to single slash

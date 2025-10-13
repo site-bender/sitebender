@@ -1,4 +1,4 @@
-import endsWith from "@sitebender/toolsmith/vanilla/string/endsWith/index.ts"
+import endsWith from "@sitebender/toolsmith/string/endsWith/index.ts"
 
 //++ Checks if a directory entry is a TypeScript or TSX file
 export default function isTypeScriptFile(entry: Deno.DirEntry): boolean {

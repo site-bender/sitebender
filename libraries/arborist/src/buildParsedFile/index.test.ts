@@ -5,6 +5,7 @@ import { assert, assertEquals } from "jsr:@std/assert@1.0.14"
 import { default as initSwc, parse } from "npm:@swc/wasm-web@1.13.20"
 
 import type { ParsedAst } from "../types/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 import buildParsedFile from "./index.ts"
 
@@ -116,9 +117,9 @@ Deno.test("buildParsedFile - is deterministic (pure function)", async () => {
 
 	// Same input should give same output
 	assertEquals(result1._tag, result2._tag)
-	if (result1._tag === "Success" && result2._tag === "Success") {
-		assertEquals(result1.value.filePath, result2.value.filePath)
-		assertEquals(result1.value.functions.length, result2.value.functions.length)
+	if (and(result1._tag === "Success")(result2._tag === "Success")) {
+		assertEquals((result1 as unknown as { value: { filePath: string; functions: readonly unknown[] } }).value.filePath, (result2 as unknown as { value: { filePath: string; functions: readonly unknown[] } }).value.filePath)
+		assertEquals((result1 as unknown as { value: { filePath: string; functions: readonly unknown[] } }).value.functions.length, (result2 as unknown as { value: { filePath: string; functions: readonly unknown[] } }).value.functions.length)
 	}
 })
 
