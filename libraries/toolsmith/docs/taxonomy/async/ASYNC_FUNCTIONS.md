@@ -1,6 +1,6 @@
 # Async - Asynchronous Control Flow Functions
 
-**Location**: `src/vanilla/async/`
+**Location**: `src/async/`
 **Functions**: 10
 **Status**: Cataloged
 **Created**: 2025-10-07

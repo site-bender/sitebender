@@ -1,7 +1,7 @@
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 import stripCommentsAndStrings from "../stripCommentsAndStrings/index.ts"
 

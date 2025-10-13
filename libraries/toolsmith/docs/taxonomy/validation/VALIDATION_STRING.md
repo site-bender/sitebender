@@ -1,6 +1,6 @@
 # Validation - String Validation Functions
 
-**Location**: `src/vanilla/validation/`
+**Location**: `src/validation/`
 **Functions**: 20
 **Status**: Cataloged
 **Created**: 2025-10-07

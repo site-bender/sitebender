@@ -2,8 +2,8 @@
 
 import type { ContractViolation } from "../../types/enforcement.ts"
 
-import flatMap from "../../../../toolsmith/src/vanilla/array/flatMap/index.ts"
-import map from "../../../../toolsmith/src/vanilla/array/map/index.ts"
+import flatMap from "../../../../toolsmith/src/array/flatMap/index.ts"
+import map from "../../../../toolsmith/src/array/map/index.ts"
 import findPattern from "./findPattern/index.ts"
 import getForbiddenPatterns from "./getForbiddenPatterns/index.ts"
 

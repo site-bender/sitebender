@@ -16,7 +16,7 @@ Deno.test("_isAliasedFunction - identifies re-export with relative path", () => 
 
 Deno.test("_isAliasedFunction - identifies re-export with package import", () => {
 	const content =
-		`export { default } from "@sitebender/toolsmith/vanilla/array/map"`
+		`export { default } from "@sitebender/toolsmith/array/map"`
 	const result = _isAliasedFunction(content)
 	assertEquals(result, true)
 })

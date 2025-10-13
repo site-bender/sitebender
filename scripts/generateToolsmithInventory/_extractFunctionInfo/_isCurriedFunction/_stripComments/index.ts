@@ -1,8 +1,8 @@
-import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import chars from "@sitebender/toolsmith/vanilla/string/chars/index.ts"
+import at from "@sitebender/toolsmith/array/at/index.ts"
+import join from "@sitebender/toolsmith/array/join/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import chars from "@sitebender/toolsmith/string/chars/index.ts"
 
 /**
  * Remove single-line and multi-line comments from content while preserving strings

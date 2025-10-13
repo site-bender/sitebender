@@ -31,7 +31,7 @@ export { test } from "./sibling"
 	await t.step("rewrites deep library paths", async function testDeepPaths() {
 		const filePath = path.join(testDir, "component.ts")
 		const content = `
-import { map } from "libraries/toolsmith/src/vanilla/array/map"
+import { map } from "libraries/toolsmith/src/array/map"
 import type { Component } from "libraries/pagewright/types"
 `
 		await Deno.writeTextFile(filePath, content)
@@ -152,7 +152,7 @@ import {
 	map,
 	filter,
 	reduce
-} from "libraries/toolsmith/src/vanilla/array"
+} from "libraries/toolsmith/src/array"
 `
 		await Deno.writeTextFile(filePath, content)
 

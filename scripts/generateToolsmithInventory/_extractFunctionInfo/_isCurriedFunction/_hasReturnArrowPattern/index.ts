@@ -1,4 +1,4 @@
-import test from "@sitebender/toolsmith/vanilla/string/test/index.ts"
+import test from "@sitebender/toolsmith/string/test/index.ts"
 
 /**
  * Check if content has a return statement that returns an arrow function

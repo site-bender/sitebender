@@ -1,6 +1,6 @@
 # Math - Modular Arithmetic Functions
 
-**Location**: `src/vanilla/math/`
+**Location**: `src/math/`
 **Functions**: 1
 **Status**: Cataloged
 **Created**: 2025-10-07

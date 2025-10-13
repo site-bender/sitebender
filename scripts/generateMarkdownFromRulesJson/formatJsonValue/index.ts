@@ -1,10 +1,10 @@
 import type { JsonObject, JsonValue } from "../types/index.ts"
 
-import isArray from "../../../libraries/toolsmith/src/vanilla/validation/isArray/index.ts"
-import isBoolean from "../../../libraries/toolsmith/src/vanilla/validation/isBoolean/index.ts"
-import isNull from "../../../libraries/toolsmith/src/vanilla/validation/isNull/index.ts"
-import isNumber from "../../../libraries/toolsmith/src/vanilla/validation/isNumber/index.ts"
-import isString from "../../../libraries/toolsmith/src/vanilla/validation/isString/index.ts"
+import isArray from "../../../libraries/toolsmith/src/validation/isArray/index.ts"
+import isBoolean from "../../../libraries/toolsmith/src/validation/isBoolean/index.ts"
+import isNull from "../../../libraries/toolsmith/src/validation/isNull/index.ts"
+import isNumber from "../../../libraries/toolsmith/src/validation/isNumber/index.ts"
+import isString from "../../../libraries/toolsmith/src/validation/isString/index.ts"
 import formatArray from "../formatArray/index.ts"
 import formatObject from "../formatObject/index.ts"
 
