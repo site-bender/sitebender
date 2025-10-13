@@ -6,7 +6,7 @@ Exchequer needs **exact decimal arithmetic** for currency calculations to avoid 
 
 ## Required from Toolsmith
 
-### Precision Arithmetic (`vanilla/precision/`)
+### Precision Arithmetic (`precision/`)
 
 Exact decimal arithmetic that avoids floating point rounding errors:
 
@@ -19,7 +19,7 @@ Exact decimal arithmetic that avoids floating point rounding errors:
 
 **Vanilla pattern:** Returns `number | null` (null on error, no exceptions).
 
-### Corresponding Boxed Versions (`boxed/precision/`)
+### Corresponding Boxed Versions (`precision/`)
 
 Monadic wrappers using lift functions:
 
@@ -32,7 +32,7 @@ Monadic wrappers using lift functions:
 
 ## Additional Arithmetic Types (Future)
 
-### Integer Arithmetic (`vanilla/integer/`, `boxed/integer/`)
+### Integer Arithmetic (`integer/`, `integer/`)
 
 For quantities, counts, indices where only whole numbers are valid:
 
@@ -40,7 +40,7 @@ For quantities, counts, indices where only whole numbers are valid:
 - Returns `number | null` in vanilla version
 - Useful for item quantities, inventory counts
 
-### BigInt Arithmetic (`vanilla/bigint/`, `boxed/bigint/`)
+### BigInt Arithmetic (`bigint/`, `bigint/`)
 
 For values exceeding `Number.MAX_SAFE_INTEGER`:
 
@@ -51,8 +51,8 @@ For values exceeding `Number.MAX_SAFE_INTEGER`:
 ## Usage in Exchequer
 
 ```typescript
-import { add } from "@sitebender/toolsmith/vanilla/precision/add/index.ts"
-import { multiply } from "@sitebender/toolsmith/vanilla/precision/multiply/index.ts"
+import { add } from "@sitebender/toolsmith/precision/add/index.ts"
+import { multiply } from "@sitebender/toolsmith/precision/multiply/index.ts"
 
 // Price calculation with exact decimal arithmetic
 const subtotal = multiply(price)(quantity) // 2999 × 2 = 5998
@@ -93,4 +93,4 @@ Exchequer requires **exact** calculations for:
 
 **Pending:** Toolsmith precision arithmetic implementation.
 
-Once Toolsmith provides `vanilla/precision/` and `boxed/precision/`, Exchequer can compose them for all currency calculations.
+Once Toolsmith provides `precision/` and `precision/`, Exchequer can compose them for all currency calculations.

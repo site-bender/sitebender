@@ -1,6 +1,6 @@
 # Validation - Type Guard Functions
 
-**Location**: `src/vanilla/validation/`
+**Location**: `src/validation/`
 **Functions**: 24
 **Status**: Cataloged
 **Created**: 2025-10-07

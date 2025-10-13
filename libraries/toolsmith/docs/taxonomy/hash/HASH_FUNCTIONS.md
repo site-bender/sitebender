@@ -1,6 +1,6 @@
 # Hash Functions
 
-**Location**: `src/vanilla/hash/`
+**Location**: `src/hash/`
 **Functions**: 1
 **Status**: Cataloged
 **Created**: 2025-10-07
@@ -77,7 +77,7 @@ All three input types are handled by the underlying algorithm implementation.
 
 #### SHA-256 Implementation
 
-- Located at: `src/vanilla/hash/hashHex/algorithms/sha256/`
+- Located at: `src/hash/hashHex/algorithms/sha256/`
 - Internal function: `sha256HexInternal`
 - Components:
   - Constants (K values, initial hash values)
@@ -147,7 +147,7 @@ When planning migration, consider these dependency chains:
 
 ### Type Dependencies
 
-- **HashAlgorithm** type from `src/vanilla/hash/hashHex/types/`
+- **HashAlgorithm** type from `src/hash/hashHex/types/`
 - Currently only "sha256" literal type
 - Should expand as more algorithms added
 

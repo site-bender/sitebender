@@ -1,5 +1,5 @@
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 import type { Violation } from "../../../../../types/enforcement/Violation.ts"
 

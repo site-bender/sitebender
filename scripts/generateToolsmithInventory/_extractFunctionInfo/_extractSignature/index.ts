@@ -1,12 +1,12 @@
-import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
-import head from "@sitebender/toolsmith/vanilla/array/head/index.ts"
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
-import indexOf from "@sitebender/toolsmith/vanilla/string/indexOf/index.ts"
-import length from "@sitebender/toolsmith/vanilla/string/length/index.ts"
-import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import substring from "@sitebender/toolsmith/vanilla/string/substring/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import at from "@sitebender/toolsmith/array/at/index.ts"
+import head from "@sitebender/toolsmith/array/head/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
+import indexOf from "@sitebender/toolsmith/string/indexOf/index.ts"
+import length from "@sitebender/toolsmith/string/length/index.ts"
+import match from "@sitebender/toolsmith/string/match/index.ts"
+import replace from "@sitebender/toolsmith/string/replace/index.ts"
+import substring from "@sitebender/toolsmith/string/substring/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 import {
 	MATCH_EXPORT_DEFAULT_FUNCTION_START,

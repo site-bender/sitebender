@@ -1,4 +1,4 @@
-import test from "../../../../../../toolsmith/src/vanilla/string/test/index.ts"
+import test from "../../../../../../toolsmith/src/string/test/index.ts"
 import {
 	APPLY_OPERATION_PATTERNS,
 	COMBINE_OPERATION_PATTERNS,

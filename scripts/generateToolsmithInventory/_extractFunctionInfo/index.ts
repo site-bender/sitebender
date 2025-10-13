@@ -1,4 +1,4 @@
-import isNullish from "@sitebender/toolsmith/vanilla/validation/isNullish/index.ts"
+import isNullish from "@sitebender/toolsmith/validation/isNullish/index.ts"
 
 import type { FunctionInfo } from "../types/index.ts"
 

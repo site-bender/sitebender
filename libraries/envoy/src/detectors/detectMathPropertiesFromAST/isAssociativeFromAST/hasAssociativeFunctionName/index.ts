@@ -1,7 +1,7 @@
 import type { AstNode } from "../../types/index.ts"
 
-import some from "../../../../../../toolsmith/src/vanilla/array/some/index.ts"
-import contains from "../../../../../../toolsmith/src/vanilla/string/contains/index.ts"
+import some from "../../../../../../toolsmith/src/array/some/index.ts"
+import contains from "../../../../../../toolsmith/src/string/contains/index.ts"
 import {
 	ASSOCIATIVE_FUNCTION_NAMES,
 	FUNCTION_DECLARATION_PATTERNS,

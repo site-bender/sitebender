@@ -1,6 +1,6 @@
 # Map - Creation Functions
 
-**Location**: `src/vanilla/map/`
+**Location**: `src/map/`
 **Functions**: 5
 **Status**: Cataloged
 **Created**: 2025-10-07

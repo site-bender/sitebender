@@ -6,7 +6,7 @@
 
 ## Overview
 
-Successfully migrated 13 functions from Toolsmith's legacy `vanilla/` folder to the new monadic architecture. All functions now follow strict FP principles: curried, pure, immutable, returning Result/Validation monads.
+Successfully migrated 13 functions from Toolsmith's legacy `` folder to the new monadic architecture. All functions now follow strict FP principles: curried, pure, immutable, returning Result/Validation monads.
 
 ## Completed Migrations
 
@@ -122,8 +122,8 @@ libraries/toolsmith/src/
 ### Before (Legacy)
 
 ```typescript
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import isDefined from "@sitebender/toolsmith/vanilla/validation/isDefined/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import isDefined from "@sitebender/toolsmith/validation/isDefined/index.ts"
 import addInteger from "@sitebender/toolsmith/newtypes/numericTypes/integer/addInteger/index.ts"
 ```
 
@@ -233,7 +233,7 @@ All migrated functions comply with constitutional rules:
 2. Begin implementing Architect's calculation DSL using these functions
 3. Create tests for all migrated functions
 4. Eventually migrate remaining 773 vanilla functions
-5. Delete `vanilla/` and `boxed/` folders after full migration
+5. Delete `` and `` folders after full migration
 
 ## Files Created
 

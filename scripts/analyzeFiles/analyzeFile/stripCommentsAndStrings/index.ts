@@ -1,6 +1,6 @@
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
+import join from "@sitebender/toolsmith/array/join/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
 
 //++ Strips comments and string contents from source code while preserving structure
 export default function stripCommentsAndStrings(text: string): string {
