@@ -1,6 +1,6 @@
 # String - Utility Functions
 
-**Location**: `src/vanilla/string/`
+**Location**: `src/string/`
 **Functions**: 16
 **Status**: Cataloged
 **Created**: 2025-10-07

@@ -1,4 +1,4 @@
-import includes from "../../../libraries/toolsmith/src/vanilla/array/includes/index.ts"
+import includes from "../../../libraries/toolsmith/src/array/includes/index.ts"
 import { METADATA_KEYS } from "../constants/index.ts"
 
 //++ Checks if a key is a metadata key

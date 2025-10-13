@@ -8,6 +8,7 @@ import isOk from "@sitebender/toolsmith/monads/result/isOk/index.ts"
 import isError from "@sitebender/toolsmith/monads/result/isError/index.ts"
 import fold from "@sitebender/toolsmith/monads/result/fold/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 import type { ParsedAst, ParseError } from "../types/index.ts"
 import parseFile from "./index.ts"
@@ -128,7 +129,7 @@ Deno.test({
 		// Same input should give same output (referential transparency)
 		assertEquals(isOk(result1), isOk(result2))
 
-		if (isOk(result1) && isOk(result2)) {
+		if (and(isOk(result1))(isOk(result2))) {
 			const ast1 = fold<ParseError, ParsedAst | null>(
 				function handleError(_err) {
 					return null

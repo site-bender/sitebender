@@ -1,4 +1,4 @@
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
 
 import type { PerFileAnalysis } from "../types/index.ts"
 

@@ -1,6 +1,6 @@
-import not from "@sitebender/toolsmith/vanilla/logic/not/index.ts"
-import startsWith from "@sitebender/toolsmith/vanilla/string/startsWith/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
+import startsWith from "@sitebender/toolsmith/string/startsWith/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 export type AssignFinding = { index: number; text: string }
 

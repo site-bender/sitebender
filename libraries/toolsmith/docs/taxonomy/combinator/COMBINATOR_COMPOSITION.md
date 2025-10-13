@@ -1,6 +1,6 @@
 # Combinator - Composition Functions
 
-**Location**: `src/vanilla/combinator/`
+**Location**: `src/combinator/`
 **Functions**: 20
 **Status**: Cataloged
 **Created**: 2025-10-07

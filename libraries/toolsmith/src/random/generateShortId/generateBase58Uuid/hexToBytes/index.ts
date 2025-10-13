@@ -1,4 +1,4 @@
-import map from "../../../../vanilla/array/map/index.ts"
+import map from "../../../../array/map/index.ts"
 import extractPairs from "./extractPairs/index.ts"
 import parsePair from "./parsePair/index.ts"
 

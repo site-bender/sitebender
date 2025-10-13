@@ -1,6 +1,6 @@
 import type { RulesFile } from "../types/index.ts"
 
-import concat from "../../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
+import concat from "../../../libraries/toolsmith/src/string/concat/index.ts"
 import processRulesFile from "../processRulesFile/index.ts"
 
 //++ Processes a rules file with error handling and logging

@@ -1,6 +1,6 @@
 # Math - Arithmetic Functions
 
-**Location**: `src/vanilla/math/`
+**Location**: `src/math/`
 **Functions**: 15
 **Status**: Cataloged
 **Created**: 2025-10-07
@@ -218,7 +218,7 @@ Several functions use arrow syntax and need refactoring to named functions:
 
 ### Mathematical Constants
 
-Several functions reference constants from `src/vanilla/math/constants/`:
+Several functions reference constants from `src/math/constants/`:
 
 - **add** uses `ADDITIVE_IDENTITY` (0)
 - **multiply** uses `MULTIPLICATIVE_IDENTITY` (1)

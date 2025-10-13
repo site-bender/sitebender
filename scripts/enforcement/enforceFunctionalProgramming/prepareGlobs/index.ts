@@ -1,5 +1,5 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
 
 import isNotPedanticFlag from "../isNotPedanticFlag/index.ts"
 import isPedantic from "../isPedantic/index.ts"

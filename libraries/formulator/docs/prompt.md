@@ -56,7 +56,7 @@
 
 - **`libraries/formulator/README.md`** - High-level project overview
 - **`libraries/warden/README.md`** - Architectural governance rules
-- **`libraries/toolsmith/src/boxed/EXAMPLES.md`** - Boxed function examples
+- **`libraries/toolsmith/src/EXAMPLES.md`** - Boxed function examples
 
 ---
 

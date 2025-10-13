@@ -1,7 +1,7 @@
 import type { Match } from "../types/index.ts"
 
-import filter from "../../../../../../toolsmith/src/vanilla/array/filter/index.ts"
-import map from "../../../../../../toolsmith/src/vanilla/array/map/index.ts"
+import filter from "../../../../../../toolsmith/src/array/filter/index.ts"
+import map from "../../../../../../toolsmith/src/array/map/index.ts"
 import isSearchableFile from "../isSearchableFile/index.ts"
 import isNonNullMatch from "./isNonNullMatch/index.ts"
 import toMatchOrNull from "./toMatchOrNull/index.ts"
