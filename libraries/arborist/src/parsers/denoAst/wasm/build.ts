@@ -2,6 +2,8 @@
 // Build script for compiling Rust WASM bindings
 
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 //++ Build the WASM package using wasm-pack
 async function buildWasm() {
@@ -80,7 +82,7 @@ async function cleanWasm() {
 async function main() {
 	const args = Deno.args
 
-	if (isEqual(args.length)(0)) {
+	if (isEqual(getOrElse(0)(length(args)))(0)) {
 		await buildWasm()
 	} else {
 		const command = args[0]
