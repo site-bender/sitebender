@@ -1,6 +1,6 @@
 # Validation - Date/Temporal Functions
 
-**Location**: `src/vanilla/validation/`
+**Location**: `src/validation/`
 **Functions**: 28
 **Status**: Cataloged
 **Created**: 2025-10-07

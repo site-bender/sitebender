@@ -21,9 +21,9 @@ if (position + 1 < input.length) {  // ❌ Raw operators
 **RIGHT:**
 
 ```typescript
-import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
-import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
-import length from "@sitebender/toolsmith/vanilla/string/length/index.ts"
+import lt from "@sitebender/toolsmith/validation/lt/index.ts"
+import increment from "@sitebender/toolsmith/math/increment/index.ts"
+import length from "@sitebender/toolsmith/string/length/index.ts"
 
 if (lt(length(input))(increment(position))) {  // ✅ Toolsmith functions
 ```
@@ -38,7 +38,7 @@ if (lt(length(input))(increment(position))) {  // ✅ Toolsmith functions
 - `decrement(n)`: Subtracts 1 from number
 - `length(str/arr)`: Get length of string or array
 
-**Location:** `@sitebender/toolsmith/vanilla/`
+**Location:** `@sitebender/toolsmith/`
 
 ### Rule 2: POSITIVE-FIRST LOGIC
 
@@ -224,9 +224,9 @@ export default function checkTwoCharacterOperator(input: string) {
 **Standard pattern:**
 
 ```typescript
-import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
-import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
-import length from "@sitebender/toolsmith/vanilla/string/length/index.ts"
+import lt from "@sitebender/toolsmith/validation/lt/index.ts"
+import increment from "@sitebender/toolsmith/math/increment/index.ts"
+import length from "@sitebender/toolsmith/string/length/index.ts"
 
 // For "position + 1 < input.length"
 if (lt(length(input))(increment(position))) {
@@ -414,9 +414,9 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
+import increment from "@sitebender/toolsmith/math/increment/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import lt from "@sitebender/toolsmith/validation/lt/index.ts"
 
 import type { Token } from "../tokenizer/types/index.ts"
 import type { ASTNode } from "./types/index.ts"
@@ -475,9 +475,9 @@ export default function parsePrimaryExpression(
 
 ## 🎓 Key Learnings from Phases 1 & 2
 
-### Learning 1: `lt` is in `vanilla/validation/`, not boxed
+### Learning 1: `lt` is in `validation/`, not boxed
 
-**Location:** `@sitebender/toolsmith/vanilla/validation/lt/index.ts`
+**Location:** `@sitebender/toolsmith/validation/lt/index.ts`
 
 **NOT:** A boxed function (those are still in development)
 

@@ -1,12 +1,12 @@
 import type { JsonValue } from "../types/index.ts"
 
-import all from "../../../libraries/toolsmith/src/vanilla/array/all/index.ts"
-import join from "../../../libraries/toolsmith/src/vanilla/array/join/index.ts"
-import map from "../../../libraries/toolsmith/src/vanilla/array/map/index.ts"
-import concat from "../../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
-import repeat from "../../../libraries/toolsmith/src/vanilla/string/repeat/index.ts"
-import isEmpty from "../../../libraries/toolsmith/src/vanilla/validation/isEmpty/index.ts"
-import isString from "../../../libraries/toolsmith/src/vanilla/validation/isString/index.ts"
+import all from "../../../libraries/toolsmith/src/array/all/index.ts"
+import join from "../../../libraries/toolsmith/src/array/join/index.ts"
+import map from "../../../libraries/toolsmith/src/array/map/index.ts"
+import concat from "../../../libraries/toolsmith/src/string/concat/index.ts"
+import repeat from "../../../libraries/toolsmith/src/string/repeat/index.ts"
+import isEmpty from "../../../libraries/toolsmith/src/validation/isEmpty/index.ts"
+import isString from "../../../libraries/toolsmith/src/validation/isString/index.ts"
 import formatComplexItem from "./formatComplexItem/index.ts"
 
 //++ Formats a JSON array into markdown

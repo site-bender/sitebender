@@ -1,6 +1,6 @@
 # String - Testing & Predicate Functions
 
-**Location**: `src/vanilla/string/`
+**Location**: `src/string/`
 **Functions**: 15
 **Status**: Cataloged
 **Created**: 2025-10-07

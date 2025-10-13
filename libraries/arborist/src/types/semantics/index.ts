@@ -1,8 +1,15 @@
 // @sitebender/arborist/src/types/semantic
 // Semantic analysis types for deno_ast integration
 
-import type { Diagnostic } from "deno_ast"
 import type { ParsedFile } from "../index.ts"
+
+//++ Diagnostic type for semantic analysis (placeholder until deno_ast integration)
+export type Diagnostic = Readonly<{
+	message: string
+	severity: "error" | "warning" | "info"
+	start: number
+	end: number
+}>
 
 //++ Symbol information from semantic analysis
 export type SymbolInfo = Readonly<{

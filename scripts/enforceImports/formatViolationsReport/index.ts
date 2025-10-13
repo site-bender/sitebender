@@ -1,6 +1,6 @@
-import join from "@sitebender/toolsmith/vanilla/array/join/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import join from "@sitebender/toolsmith/array/join/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import type { AliasViolation } from "../../types/index.ts"
 

@@ -1,5 +1,5 @@
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
+import replace from "@sitebender/toolsmith/string/replace/index.ts"
 
 //++ Remove comments and string/template literals for safer scanning
 export default function stripCommentsAndStrings(input: string): string {

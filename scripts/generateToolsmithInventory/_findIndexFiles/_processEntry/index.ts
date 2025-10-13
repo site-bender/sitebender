@@ -1,4 +1,4 @@
-import equals from "@sitebender/toolsmith/vanilla/validation/equals/index.ts"
+import equals from "@sitebender/toolsmith/validation/equals/index.ts"
 
 import _joinPath from "./_joinPath/index.ts"
 

@@ -1,4 +1,4 @@
-import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
+import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
 
 import type { Violation } from "../../types/index.ts"
 

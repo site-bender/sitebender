@@ -1,4 +1,4 @@
-import find from "../../../../toolsmith/src/vanilla/array/find/index.ts"
+import find from "../../../../toolsmith/src/array/find/index.ts"
 
 type Comment = {
 	kind: "line" | "block"

@@ -1,7 +1,12 @@
 import _serializePattern from "../../_serializePattern/index.ts"
 import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
-import length from "@sitebender/toolsmith/array/length/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
+import _reduceTemplatePart from "./_reduceTemplatePart/index.ts"
+import _serializeObjectProperty from "./_serializeObjectProperty/index.ts"
+import _serializeArrayElement from "./_serializeArrayElement/index.ts"
+import _serializeCallArgument from "./_serializeCallArgument/index.ts"
 
 //++ Serialize an AST expression node to its string representation
 //++ Handles literals, objects, arrays, function calls, and complex expressions
@@ -34,49 +39,27 @@ export default function _serializeExpression(node: unknown): string | undefined 
 		case "TemplateLiteral": {
 			const quasis = nodeObj.quasis as Array<Record<string, unknown>>
 			const expressions = nodeObj.expressions as Array<unknown>
-			const result = quasis.reduce((acc: string, quasi: Record<string, unknown>, i: number) => {
-				const cooked = (quasi.cooked as string) ?? ""
-				acc += cooked
-				if (i < getOrElse(0)(length(expressions))) {
-					acc += "${" + (_serializeExpression(expressions[i]) ?? "") + "}"
-				}
-				return acc
-			}, "`") + "`"
+			const result = quasis.reduce(_reduceTemplatePart(expressions), "`") + "`"
 			return result
 		}
 
 		// Object literals
-		case "ObjectExpression": {
-			const properties = nodeObj.properties as Array<Record<string, unknown>>
-			const serializedProps = properties.map((prop) => {
-				const propType = prop.type as string
-				if (isEqual(propType)("KeyValueProperty")) {
-					const key = _serializeExpression(prop.key)
-					const value = _serializeExpression(prop.value)
-					return `${key}: ${value}`
+				case "ObjectExpression": {
+					const properties = nodeObj.properties as Array<Record<string, unknown>>
+					const serializedPropsResult = map(_serializeObjectProperty)(properties)
+					const serializedProps = getOrElse([] as ReadonlyArray<string>)(serializedPropsResult).filter(Boolean)
+					return `{ ${serializedProps.join(", ")} }`
 				}
-				return ""
-			}).filter(Boolean)
-			return `{ ${serializedProps.join(", ")} }`
-		}
 
 		// Array literals
-		case "ArrayExpression": {
-			const elements = nodeObj.elements as Array<
-				Record<string, unknown> | null
-			>
-			const serializedElements = elements.map((elem) => {
-				if (!elem) {
-					return ""
+				case "ArrayExpression": {
+					const elements = nodeObj.elements as Array<
+						Record<string, unknown> | null
+					>
+					const serializedElementsResult = map(_serializeArrayElement)(elements)
+					const serializedElements = getOrElse([] as ReadonlyArray<string>)(serializedElementsResult).filter(Boolean)
+					return `[${serializedElements.join(", ")}]`
 				}
-				// Handle ExpressionStatement wrapper
-				if (elem.expression) {
-					return _serializeExpression(elem.expression)
-				}
-				return _serializeExpression(elem)
-			}).filter(Boolean)
-			return `[${serializedElements.join(", ")}]`
-		}
 
 		// Binary expressions (e.g., 10 * 20)
 		case "BinaryExpression": {
@@ -94,17 +77,13 @@ export default function _serializeExpression(node: unknown): string | undefined 
 		}
 
 		// Call expressions (e.g., doSomething())
-		case "CallExpression": {
-			const callee = _serializeExpression(nodeObj.callee)
-			const args = nodeObj.arguments as Array<Record<string, unknown>>
-			const serializedArgs = args.map((arg) => {
-				if (arg.expression) {
-					return _serializeExpression(arg.expression)
+				case "CallExpression": {
+					const callee = _serializeExpression(nodeObj.callee)
+					const args = nodeObj.arguments as Array<Record<string, unknown>>
+					const serializedArgsResult = map(_serializeCallArgument)(args)
+					const serializedArgs = getOrElse([] as ReadonlyArray<string>)(serializedArgsResult)
+					return `${callee}(${serializedArgs.join(", ")})`
 				}
-				return _serializeExpression(arg)
-			})
-			return `${callee}(${serializedArgs.join(", ")})`
-		}
 
 		// Member expressions (e.g., obj.prop)
 		case "MemberExpression": {
@@ -120,16 +99,16 @@ export default function _serializeExpression(node: unknown): string | undefined 
 		// Arrow functions
 		case "ArrowFunctionExpression": {
 			const params = nodeObj.params as Array<Record<string, unknown>>
-			const serializedParams = params.map((param) => _serializePattern(param))
-				.join(", ")
+			const serializedParamsResult = map(_serializePattern)(params as Serializable[])
+			const serializedParams = getOrElse([] as ReadonlyArray<string>)(serializedParamsResult).join(", ")
 			return `(${serializedParams}) => ...`
 		}
 
 		// Function expressions
 		case "FunctionExpression": {
 			const params = nodeObj.params as Array<Record<string, unknown>>
-			const serializedParams = params.map((param) => _serializePattern(param))
-				.join(", ")
+			const serializedParamsResult = map(_serializePattern)(params as Serializable[])
+			const serializedParams = getOrElse([] as ReadonlyArray<string>)(serializedParamsResult).join(", ")
 			return `function(${serializedParams}) { ... }`
 		}
 

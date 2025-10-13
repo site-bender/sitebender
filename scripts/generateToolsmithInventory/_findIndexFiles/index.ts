@@ -1,6 +1,6 @@
-import flatten from "@sitebender/toolsmith/vanilla/array/flatten/index.ts"
-import fromAsync from "@sitebender/toolsmith/vanilla/array/fromAsync/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
+import flatten from "@sitebender/toolsmith/array/flatten/index.ts"
+import fromAsync from "@sitebender/toolsmith/array/fromAsync/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 
 import _processEntry from "./_processEntry/index.ts"
 

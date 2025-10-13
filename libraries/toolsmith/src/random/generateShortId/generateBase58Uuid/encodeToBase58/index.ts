@@ -1,4 +1,4 @@
-import join from "../../../../vanilla/array/join/index.ts"
+import join from "../../../../array/join/index.ts"
 import bigIntToBase58 from "../bigIntToBase58/index.ts"
 import bytesToBigInt from "../bytesToBigInt/index.ts"
 import prependLeadingOnes from "../prependLeadingOnes/index.ts"

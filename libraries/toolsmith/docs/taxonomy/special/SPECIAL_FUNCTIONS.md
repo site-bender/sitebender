@@ -1,6 +1,6 @@
 # Special Mathematical Functions
 
-**Location**: `src/vanilla/special/`
+**Location**: `src/special/`
 **Functions**: 8
 **Status**: Cataloged
 **Created**: 2025-10-07
