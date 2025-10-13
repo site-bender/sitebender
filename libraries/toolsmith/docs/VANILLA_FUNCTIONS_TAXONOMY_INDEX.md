@@ -8,7 +8,7 @@
 
 ## Overview
 
-This index provides links to detailed catalogs of all vanilla functions in `src/vanilla/`. Each domain has been documented in separate files with complete signatures, descriptions, and migration targets.
+This index provides links to detailed catalogs of all vanilla functions in `src/`. Each domain has been documented in separate files with complete signatures, descriptions, and migration targets.
 
 **Total Functions Cataloged**: 786 across 24 domains in 48 files
 
@@ -410,7 +410,7 @@ For each function:
 2. ⏭️ **Design Branded Types** - Create 308 branded type files (11 phases)
 3. ⏭️ **Create Migration Templates** - One template per function category
 4. ⏭️ **Execute Migration** - Domain by domain, following priority order
-5. ⏭️ **Remove Legacy Code** - Delete vanilla/ folder when complete
+5. ⏭️ **Remove Legacy Code** - Delete  folder when complete
 
 ---
 

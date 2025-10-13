@@ -1,6 +1,6 @@
 # Logic Functions
 
-**Location**: `src/vanilla/logic/`
+**Location**: `src/logic/`
 **Functions**: 13
 **Status**: Cataloged
 **Created**: 2025-10-07

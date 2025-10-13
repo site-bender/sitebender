@@ -1,0 +1,48 @@
+networks:
+  app:
+    driver: bridge
+
+services:
+  # Quinn HTTP/3 Dev Server - HTTP/3 + SSE for hot reload
+  dev-server:
+    build:
+      context: ./dev-server
+      dockerfile: Dockerfile
+    container_name: {{APP_NAME}}-dev-server
+    restart: unless-stopped
+    volumes:
+      - ../dist:/app/dist:ro  # Static files to serve
+      - ./ops/certs:/certs:ro  # mkcert certificates
+    ports:
+      - "4433:4433/udp"  # QUIC uses UDP
+    networks:
+      - app
+    healthcheck:
+      test: ["CMD", "nc", "-vz", "-u", "localhost", "4433"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Caddy HTTP/2 Fallback - HTTP/2 + WebSocket fallback for browsers without HTTP/3
+  caddy-fallback:
+    build:
+      context: ./caddy
+      dockerfile: Dockerfile
+    container_name: {{APP_NAME}}-caddy-fallback
+    restart: unless-stopped
+    volumes:
+      - ../dist:/app/dist:ro  # Static files to serve
+      - ./ops/certs:/certs:ro  # mkcert certificates
+    ports:
+      - "8443:8443"  # HTTPS on TCP
+    networks:
+      - app
+    depends_on:
+      - dev-server
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--no-check-certificate", "https://localhost:8443/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

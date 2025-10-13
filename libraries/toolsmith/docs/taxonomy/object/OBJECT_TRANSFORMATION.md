@@ -1,6 +1,6 @@
 # Object - Transformation Functions
 
-**Location**: `src/vanilla/object/`
+**Location**: `src/object/`
 **Functions**: 23
 **Status**: Cataloged
 **Created**: 2025-10-07

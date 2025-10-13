@@ -1,6 +1,6 @@
 # Combinator - Utility Functions
 
-**Location**: `src/vanilla/combinator/`
+**Location**: `src/combinator/`
 **Functions**: 14
 **Status**: Cataloged
 **Created**: 2025-10-07

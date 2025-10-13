@@ -1,6 +1,6 @@
 # Lens Functions
 
-**Location**: `src/vanilla/lens/`
+**Location**: `src/lens/`
 **Functions**: 5
 **Status**: Cataloged
 **Created**: 2025-10-07
@@ -68,7 +68,7 @@ type Lens<S, A> = {
 }
 ```
 
-This type is defined in `src/vanilla/object/lens/index.ts`.
+This type is defined in `src/object/lens/index.ts`.
 
 ### Arrow Function Syntax
 

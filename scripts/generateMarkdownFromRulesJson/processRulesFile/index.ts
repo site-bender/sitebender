@@ -1,7 +1,7 @@
 import type { RulesFile } from "../types/index.ts"
 
-import concat from "../../../libraries/toolsmith/src/vanilla/string/concat/index.ts"
-import replace from "../../../libraries/toolsmith/src/vanilla/string/replace/index.ts"
+import concat from "../../../libraries/toolsmith/src/string/concat/index.ts"
+import replace from "../../../libraries/toolsmith/src/string/replace/index.ts"
 import determineDocumentTitle from "../determineDocumentTitle/index.ts"
 import parseJsonToMarkdown from "../parseJsonToMarkdown/index.ts"
 

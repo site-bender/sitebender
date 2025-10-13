@@ -1,6 +1,6 @@
 # Math - Comparison and Ordering Functions
 
-**Location**: `src/vanilla/math/`
+**Location**: `src/math/`
 **Functions**: 6
 **Status**: Cataloged
 **Created**: 2025-10-07

@@ -43,7 +43,7 @@ Deno.test("_processFiles - processes empty file list", async () => {
 
 Deno.test("_processFiles - processes a valid function file", async () => {
 	const filePath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/array/map/index.ts",
+		"libraries/toolsmith/src/array/map/index.ts",
 		`export default function map<T, U>(mapper: (item: T) => U) {
 			return function withArray(array: T[]): U[] {
 				return array.map(mapper)
@@ -64,7 +64,7 @@ Deno.test("_processFiles - processes a valid function file", async () => {
 
 Deno.test("_processFiles - processes multiple function files", async () => {
 	const mapPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/array/map/index.ts",
+		"libraries/toolsmith/src/array/map/index.ts",
 		`export default function map<T, U>(mapper: (item: T) => U) {
 			return function withArray(array: T[]): U[] {
 				return array.map(mapper)
@@ -73,7 +73,7 @@ Deno.test("_processFiles - processes multiple function files", async () => {
 	)
 
 	const filterPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/array/filter/index.ts",
+		"libraries/toolsmith/src/array/filter/index.ts",
 		`export default function filter<T>(predicate: (item: T) => boolean) {
 			return function withArray(array: T[]): T[] {
 				return array.filter(predicate)
@@ -82,7 +82,7 @@ Deno.test("_processFiles - processes multiple function files", async () => {
 	)
 
 	const splitPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/string/split/index.ts",
+		"libraries/toolsmith/src/string/split/index.ts",
 		`export default function split(separator: string) {
 			return function withString(str: string): string[] {
 				return str.split(separator)
@@ -103,7 +103,7 @@ Deno.test("_processFiles - processes multiple function files", async () => {
 
 Deno.test("_processFiles - identifies aliased functions", async () => {
 	const aliasPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/math/std/index.ts",
+		"libraries/toolsmith/src/math/std/index.ts",
 		`export { default } from "../standardDeviation/index.ts"`,
 	)
 
@@ -118,13 +118,13 @@ Deno.test("_processFiles - identifies aliased functions", async () => {
 
 Deno.test("_processFiles - identifies type/constant files", async () => {
 	const typePath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/types/index.ts",
+		"libraries/toolsmith/src/types/index.ts",
 		`export type Value = string | number | boolean | null | undefined
 		export type Serializable = Value | Value[] | { [key: string]: Serializable }`,
 	)
 
 	const constantPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/constants/index.ts",
+		"libraries/toolsmith/src/constants/index.ts",
 		`export const PI = 3.14159
 		export const E = 2.71828`,
 	)
@@ -149,7 +149,7 @@ Deno.test("_processFiles - handles non-existent files", async () => {
 
 Deno.test("_processFiles - processes files with no export default", async () => {
 	const namedExportPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/utility/helpers/index.ts",
+		"libraries/toolsmith/src/utility/helpers/index.ts",
 		`export function helper1() { return 1 }
 		export function helper2() { return 2 }`,
 	)
@@ -163,7 +163,7 @@ Deno.test("_processFiles - processes files with no export default", async () => 
 
 Deno.test("_processFiles - processes non-curried functions", async () => {
 	const identityPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/utility/identity/index.ts",
+		"libraries/toolsmith/src/utility/identity/index.ts",
 		`export default function identity<T>(value: T): T {
 			return value
 		}`,
@@ -179,24 +179,24 @@ Deno.test("_processFiles - processes non-curried functions", async () => {
 
 Deno.test("_processFiles - handles mixed file types", async () => {
 	const functionPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/array/head/index.ts",
+		"libraries/toolsmith/src/array/head/index.ts",
 		`export default function head<T>(array: T[]): T | undefined {
 			return array[0]
 		}`,
 	)
 
 	const aliasPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/array/first/index.ts",
+		"libraries/toolsmith/src/array/first/index.ts",
 		`export { default } from "../head/index.ts"`,
 	)
 
 	const typePath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/types/index.ts",
+		"libraries/toolsmith/src/types/index.ts",
 		`export type Predicate<T> = (value: T) => boolean`,
 	)
 
 	const invalidPath = await createTestFile(
-		"libraries/toolsmith/src/vanilla/broken/invalid/index.ts",
+		"libraries/toolsmith/src/broken/invalid/index.ts",
 		`const broken = syntax error here`,
 	)
 
@@ -221,7 +221,7 @@ Deno.test("_processFiles - processes large batches correctly", async () => {
 
 	for (let i = 0; i < 25; i++) {
 		const path = await createTestFile(
-			`libraries/toolsmith/src/vanilla/test/func${i}/index.ts`,
+			`libraries/toolsmith/src/test/func${i}/index.ts`,
 			`export default function func${i}(x: number): number {
 				return x + ${i}
 			}`,

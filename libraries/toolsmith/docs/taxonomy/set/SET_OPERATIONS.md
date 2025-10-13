@@ -1,6 +1,6 @@
 # Set - Operation Functions
 
-**Location**: `src/vanilla/set/`
+**Location**: `src/set/`
 **Functions**: 15
 **Status**: Cataloged
 **Created**: 2025-10-07

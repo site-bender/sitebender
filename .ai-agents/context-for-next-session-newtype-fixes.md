@@ -123,7 +123,7 @@ grep -r "\.map(" libraries/toolsmith/src/newtypes --include="*.ts" | grep -v ".t
 
 - [x] Query MCP servers for loop alternatives and immutability patterns
 - [x] Add [EXCEPTION] comments to primitive type guards (isError, isOk, etc.)
-- [ ] Clean up obsolete vanilla/boxed rules from Qdrant MCP servers
+- [ ] Clean up obsolete boxed rules from Qdrant MCP servers
 - [x] Fix _validateDomain/index.ts - replace for loop with reduce
 - [ ] Fix _isIpv4Address/index.ts - replace for loop with functional validation
 - [ ] Fix _parseIpv6Address/index.ts - replace loops and .push() with functional approach (COMPLEX - 4+ loops)

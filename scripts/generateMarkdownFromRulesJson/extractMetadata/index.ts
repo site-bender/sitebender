@@ -1,7 +1,7 @@
 import type { JsonObject, JsonValue } from "../types/index.ts"
 
-import filter from "../../../libraries/toolsmith/src/vanilla/array/filter/index.ts"
-import entries from "../../../libraries/toolsmith/src/vanilla/object/entries/index.ts"
+import filter from "../../../libraries/toolsmith/src/array/filter/index.ts"
+import entries from "../../../libraries/toolsmith/src/object/entries/index.ts"
 import isMetadataKey from "../isMetadataKey/index.ts"
 
 //++ Extracts metadata fields from a JSON object

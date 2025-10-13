@@ -1,6 +1,6 @@
 # Validation - Numeric Functions
 
-**Location**: `src/vanilla/validation/`
+**Location**: `src/validation/`
 **Functions**: 21
 **Status**: Cataloged
 **Created**: 2025-10-07

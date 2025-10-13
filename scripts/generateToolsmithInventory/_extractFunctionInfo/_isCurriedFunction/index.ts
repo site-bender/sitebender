@@ -1,7 +1,7 @@
-import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
-import escapeRegExp from "@sitebender/toolsmith/vanilla/string/escapeRegExp/index.ts"
-import match from "@sitebender/toolsmith/vanilla/string/match/index.ts"
+import at from "@sitebender/toolsmith/array/at/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import escapeRegExp from "@sitebender/toolsmith/string/escapeRegExp/index.ts"
+import match from "@sitebender/toolsmith/string/match/index.ts"
 
 import _extractFunctionName from "../_extractFunctionName/index.ts"
 import _countParameters from "./_countParameters/index.ts"

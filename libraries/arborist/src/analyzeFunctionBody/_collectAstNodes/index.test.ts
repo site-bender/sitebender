@@ -3,6 +3,8 @@
 
 import { assertEquals } from "jsr:@std/assert@1"
 import _collectAstNodes from "./index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 Deno.test("_collectAstNodes returns empty array for null", () => {
 	const result = _collectAstNodes(null)
@@ -23,7 +25,7 @@ Deno.test("_collectAstNodes returns empty array for primitive values", () => {
 Deno.test("_collectAstNodes collects single object node", () => {
 	const node = { type: "Identifier", name: "foo" }
 	const result = _collectAstNodes(node)
-	assertEquals(result.length, 1)
+	assertEquals(getOrElse(0)(length(result)), 1)
 	assertEquals(result[0], node)
 })
 
@@ -33,7 +35,7 @@ Deno.test("_collectAstNodes collects nested object nodes", () => {
 	const result = _collectAstNodes(parent)
 
 	// Should include parent and child
-	assertEquals(result.length >= 2, true)
+	assertEquals(getOrElse(0)(length(result)) >= 2, true)
 	assertEquals(result[0], parent)
 })
 
@@ -44,7 +46,7 @@ Deno.test("_collectAstNodes collects nodes from arrays", () => {
 	const result = _collectAstNodes(parent)
 
 	// Should include parent and both children
-	assertEquals(result.length >= 3, true)
+	assertEquals(getOrElse(0)(length(result)) >= 3, true)
 })
 
 Deno.test("_collectAstNodes handles deeply nested structures", () => {
@@ -71,7 +73,7 @@ Deno.test("_collectAstNodes handles deeply nested structures", () => {
 	const result = _collectAstNodes(deepNode)
 
 	// Should collect all nodes in the tree
-	assertEquals(result.length >= 6, true)
+	assertEquals(getOrElse(0)(length(result)) >= 6, true)
 })
 
 Deno.test("_collectAstNodes returns ReadonlyArray", () => {

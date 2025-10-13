@@ -6,93 +6,93 @@ mappings:
   # Array methods
   - jsMethod: ".length"
     toolsmithFunction: "length"
-    path: "libraries/toolsmith/src/vanilla/array/length"
+    path: "libraries/toolsmith/src/array/length"
     usage: "length(array)"
 
   - jsMethod: ".reduce"
     toolsmithFunction: "reduce"
-    path: "libraries/toolsmith/src/vanilla/array/reduce"
+    path: "libraries/toolsmith/src/array/reduce"
     usage: "reduce(fn)(initial)(array)"
 
   - jsMethod: ".map"
     toolsmithFunction: "map"
-    path: "libraries/toolsmith/src/vanilla/array/map"
+    path: "libraries/toolsmith/src/array/map"
     usage: "map(fn)(array)"
 
   - jsMethod: ".filter"
     toolsmithFunction: "filter"
-    path: "libraries/toolsmith/src/vanilla/array/filter"
+    path: "libraries/toolsmith/src/array/filter"
     usage: "filter(predicate)(array)"
 
   - jsMethod: ".find"
     toolsmithFunction: "find"
-    path: "libraries/toolsmith/src/vanilla/array/find"
+    path: "libraries/toolsmith/src/array/find"
     usage: "find(predicate)(array)"
 
   - jsMethod: ".sort"
     toolsmithFunction: "sort"
-    path: "libraries/toolsmith/src/vanilla/array/sort"
+    path: "libraries/toolsmith/src/array/sort"
     usage: "sort(compareFn)(array)"
 
   - jsMethod: ".reverse"
     toolsmithFunction: "reverse"
-    path: "libraries/toolsmith/src/vanilla/array/reverse"
+    path: "libraries/toolsmith/src/array/reverse"
     usage: "reverse(array)"
 
   - jsMethod: ".slice"
     toolsmithFunction: "slice"
-    path: "libraries/toolsmith/src/vanilla/array/slice"
+    path: "libraries/toolsmith/src/array/slice"
     usage: "slice(start)(end)(array)"
 
   - jsMethod: ".concat"
     toolsmithFunction: "concat"
-    path: "libraries/toolsmith/src/vanilla/array/concat"
+    path: "libraries/toolsmith/src/array/concat"
     usage: "concat(array1)(array2)"
 
   - jsMethod: ".includes"
     toolsmithFunction: "includes"
-    path: "libraries/toolsmith/src/vanilla/array/includes"
+    path: "libraries/toolsmith/src/array/includes"
     usage: "includes(item)(array)"
 
   # String methods
   - jsMethod: ".split"
     toolsmithFunction: "split"
-    path: "libraries/toolsmith/src/vanilla/string/split"
+    path: "libraries/toolsmith/src/string/split"
     usage: "split(delimiter)(string)"
 
   - jsMethod: ".join"
     toolsmithFunction: "join"
-    path: "libraries/toolsmith/src/vanilla/string/join"
+    path: "libraries/toolsmith/src/string/join"
     usage: "join(delimiter)(array)"
 
   - jsMethod: ".toLowerCase()"
     toolsmithFunction: "toLower"
-    path: "libraries/toolsmith/src/vanilla/string/toCase/toLower"
+    path: "libraries/toolsmith/src/string/toCase/toLower"
     usage: "toLower(string)"
 
   - jsMethod: ".toUpperCase()"
     toolsmithFunction: "toUpper"
-    path: "libraries/toolsmith/src/vanilla/string/toCase/toUpper"
+    path: "libraries/toolsmith/src/string/toCase/toUpper"
     usage: "toUpper(string)"
 
   - jsMethod: ".trim()"
     toolsmithFunction: "trim"
-    path: "libraries/toolsmith/src/vanilla/string/trim"
+    path: "libraries/toolsmith/src/string/trim"
     usage: "trim(string)"
 
   - jsMethod: ".replace"
     toolsmithFunction: "replace"
-    path: "libraries/toolsmith/src/vanilla/string/replace"
+    path: "libraries/toolsmith/src/string/replace"
     usage: "replace(search)(replacement)(string)"
 
   - jsMethod: ".substring"
     toolsmithFunction: "substring"
-    path: "libraries/toolsmith/src/vanilla/string/substring"
+    path: "libraries/toolsmith/src/string/substring"
     usage: "substring(start)(end)(string)"
 
   - jsMethod: ".charAt"
     toolsmithFunction: "charAt"
-    path: "libraries/toolsmith/src/vanilla/string/charAt"
+    path: "libraries/toolsmith/src/string/charAt"
     usage: "charAt(index)(string)"
 
 # Common magic number constants

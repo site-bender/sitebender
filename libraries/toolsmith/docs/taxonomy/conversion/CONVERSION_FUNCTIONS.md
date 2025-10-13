@@ -1,6 +1,6 @@
 # Conversion Functions
 
-**Location**: `src/vanilla/conversion/`
+**Location**: `src/conversion/`
 **Functions**: 14 (10 exported + 4 internal helpers)
 **Status**: Cataloged
 **Created**: 2025-10-07
@@ -85,7 +85,7 @@
 
 ## Internal Helper Functions
 
-These functions are used internally by castValue and are located in `src/vanilla/conversion/castValue/`:
+These functions are used internally by castValue and are located in `src/conversion/castValue/`:
 
 ### toBoolean
 
@@ -285,8 +285,8 @@ For monadic migration, suggested order:
 
 ## Notes
 
-- All conversion functions are located in `/src/vanilla/conversion/`
-- Internal helpers (toBoolean, toFloat, toInteger, toString) are in `/src/vanilla/conversion/castValue/`
+- All conversion functions are located in `/src/conversion/`
+- Internal helpers (toBoolean, toFloat, toInteger, toString) are in `/src/conversion/castValue/`
 - Most functions have `[REFACTOR]` comments indicating need for description updates
 - Several functions violate constitutional rules (exceptions, regex) and need refactoring
 - Consistent pattern of returning null for failures should be replaced with Result monads
