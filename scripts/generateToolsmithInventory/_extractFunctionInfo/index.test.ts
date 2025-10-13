@@ -24,11 +24,11 @@ Deno.test("_extractFunctionInfo - extracts curried function info", () => {
 		}
 	}`
 	const result = _extractFunctionInfo(content)(
-		"libraries/toolsmith/src/vanilla/array/map/index.ts",
+		"libraries/toolsmith/src/array/map/index.ts",
 	)
 	const expected: FunctionInfo = {
 		signature: "function map<T, U>(fn: (item: T) => U) ",
-		path: "libraries/toolsmith/src/vanilla/array/map/index.ts",
+		path: "libraries/toolsmith/src/array/map/index.ts",
 		curried: true,
 	}
 	assertEquals(result, expected)

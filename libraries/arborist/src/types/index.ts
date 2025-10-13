@@ -133,6 +133,33 @@ export type ParsedConstant = Readonly<{
 	isExported: boolean
 }>
 
+//++ Parsed class with all metadata
+export type ParsedClass = Readonly<{
+	name: string
+	position: Position
+	span: Span
+	isExported: boolean
+	isDefault: boolean
+	isAbstract: boolean
+	extends: string | undefined  // Parent class name
+	implements: ReadonlyArray<string>  // Interface names
+	members: ReadonlyArray<ClassMember>
+}>
+
+//++ Class member information
+export type ClassMember = Readonly<{
+	type: "constructor" | "method" | "property" | "getter" | "setter"
+	name: string
+	position: Position
+	span: Span
+	isStatic: boolean
+	isPrivate: boolean
+	isProtected: boolean
+	isAsync: boolean  // For methods
+	parameters: ReadonlyArray<Parameter>  // For methods/constructor
+	returnType: string | undefined  // For methods
+}>
+
 //++ Violation detection results
 export type ViolationInfo = Readonly<{
 	hasArrowFunctions: boolean
@@ -158,11 +185,13 @@ export type ParsedFile = Readonly<{
 	imports: ReadonlyArray<ParsedImport>
 	exports: ReadonlyArray<ParsedExport>
 	comments: ReadonlyArray<ParsedComment>
+	classes: ReadonlyArray<ParsedClass>
 	violations: ViolationInfo
 }>
 
 //++ Export all error types from errors/index.ts
 export type {
+	ClassExtractionError,
 	CommentExtractionError,
 	ConstantExtractionError,
 	ExportExtractionError,

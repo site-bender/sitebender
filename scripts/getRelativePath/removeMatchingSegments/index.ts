@@ -1,6 +1,6 @@
-import at from "@sitebender/toolsmith/vanilla/array/at/index.ts"
-import slice from "@sitebender/toolsmith/vanilla/array/slice/index.ts"
-import isEqual from "@sitebender/toolsmith/vanilla/validation/isEqual/index.ts"
+import at from "@sitebender/toolsmith/array/at/index.ts"
+import slice from "@sitebender/toolsmith/array/slice/index.ts"
+import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
 
 import type { Paths } from "../index.ts"
 

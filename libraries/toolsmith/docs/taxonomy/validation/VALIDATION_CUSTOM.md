@@ -1,6 +1,6 @@
 # Validation - Custom/Specialized Validators
 
-**Location**: `src/vanilla/validation/`
+**Location**: `src/validation/`
 **Functions**: 14
 **Status**: Cataloged
 **Created**: 2025-10-07

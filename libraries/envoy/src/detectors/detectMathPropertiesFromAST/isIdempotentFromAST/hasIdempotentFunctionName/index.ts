@@ -1,8 +1,8 @@
 import type { AstNode } from "../../types/index.ts"
 
-import some from "../../../../../../toolsmith/src/vanilla/array/some/index.ts"
-import contains from "../../../../../../toolsmith/src/vanilla/string/contains/index.ts"
-import toLower from "../../../../../../toolsmith/src/vanilla/string/toCase/toLower/index.ts"
+import some from "../../../../../../toolsmith/src/array/some/index.ts"
+import contains from "../../../../../../toolsmith/src/string/contains/index.ts"
+import toLower from "../../../../../../toolsmith/src/string/toCase/toLower/index.ts"
 import { IDEMPOTENT_FUNCTION_NAMES } from "../constants/index.ts"
 
 //++ Checks if function name suggests idempotent operation

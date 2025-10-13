@@ -1,7 +1,7 @@
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
 import type { Validation } from "../../../types/validation/index.ts"
 
-import map from "../../../vanilla/array/map/index.ts"
+import map from "../../../array/map/index.ts"
 
 //++ Maps a function over the errors in an Invalid, preserving Valid state
 export default function mapErrors<E, F>(fn: (error: E) => F) {

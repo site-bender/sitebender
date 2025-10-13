@@ -1,6 +1,6 @@
-import flatMap from "@sitebender/toolsmith/vanilla/array/flatMap/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
+import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 
 import type { ImportInfo } from "../../../types/index.ts"
 

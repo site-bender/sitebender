@@ -26,10 +26,10 @@ if (x >= y)
 const next = position + 1
 
 // ✅ CORRECT:
-import lt from "@sitebender/toolsmith/vanilla/validation/lt/index.ts"
-import gte from "@sitebender/toolsmith/vanilla/validation/gte/index.ts"
-import increment from "@sitebender/toolsmith/vanilla/math/increment/index.ts"
-import length from "@sitebender/toolsmith/vanilla/array/length/index.ts"
+import lt from "@sitebender/toolsmith/validation/lt/index.ts"
+import gte from "@sitebender/toolsmith/validation/gte/index.ts"
+import increment from "@sitebender/toolsmith/math/increment/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
 
 if (lt(length(tokens))(position))
 if (gte(y)(x))

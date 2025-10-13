@@ -1,12 +1,12 @@
-import filter from "@sitebender/toolsmith/vanilla/array/filter/index.ts"
-import includes from "@sitebender/toolsmith/vanilla/array/includes/index.ts"
-import map from "@sitebender/toolsmith/vanilla/array/map/index.ts"
-import reduce from "@sitebender/toolsmith/vanilla/array/reduce/index.ts"
-import pipe from "@sitebender/toolsmith/vanilla/combinator/pipe/index.ts"
-import isNotEmpty from "@sitebender/toolsmith/vanilla/string/isNotEmpty/index.ts"
-import replace from "@sitebender/toolsmith/vanilla/string/replace/index.ts"
-import split from "@sitebender/toolsmith/vanilla/string/split/index.ts"
-import trim from "@sitebender/toolsmith/vanilla/string/trim/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import includes from "@sitebender/toolsmith/array/includes/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import pipe from "@sitebender/toolsmith/combinator/pipe/index.ts"
+import isNotEmpty from "@sitebender/toolsmith/string/isNotEmpty/index.ts"
+import replace from "@sitebender/toolsmith/string/replace/index.ts"
+import split from "@sitebender/toolsmith/string/split/index.ts"
+import trim from "@sitebender/toolsmith/string/trim/index.ts"
 
 //++ Expand simple shell globs by delegating to bash ls -1 pattern
 export default async function iterateFiles(

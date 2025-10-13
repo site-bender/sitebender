@@ -1,6 +1,6 @@
 import type { RulesFile } from "../../types/index.ts"
 
-import replace from "../../../../libraries/toolsmith/src/vanilla/string/replace/index.ts"
+import replace from "../../../../libraries/toolsmith/src/string/replace/index.ts"
 
 //++ Converts a location string to a RulesFile object if the file exists
 export default function toRulesFile(

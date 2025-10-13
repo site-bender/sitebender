@@ -4,9 +4,9 @@ import type {
 	ContractGraph,
 } from "../types/index.ts"
 
-import flatMap from "../../../../libraries/toolsmith/src/vanilla/array/flatMap/index.ts"
-import map from "../../../../libraries/toolsmith/src/vanilla/array/map/index.ts"
-import sort from "../../../../libraries/toolsmith/src/vanilla/array/sort/index.ts"
+import flatMap from "../../../../libraries/toolsmith/src/array/flatMap/index.ts"
+import map from "../../../../libraries/toolsmith/src/array/map/index.ts"
+import sort from "../../../../libraries/toolsmith/src/array/sort/index.ts"
 
 //++ Extracts contract dependency graph from boundaries configuration
 
