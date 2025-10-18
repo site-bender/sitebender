@@ -1,0 +1,622 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "07cbebab-325e-4056-a2ea-28519eaa6103",
+        "payload": {
+          "document": "Instead of * operator for math, use multiply function from Toolsmith (path depends on data type: integer/bigint/float/precision)",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_MULTIPLY_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "*",
+            "substitute": "multiply",
+            "data_type": "varies",
+            "reason": "multiply function is semantic, composable, and type-specific",
+            "import_paths": {
+              "integer": "@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts",
+              "bigint": "@sitebender/toolsmith/vanilla/math/bigint/multiply/index.ts",
+              "float": "@sitebender/toolsmith/vanilla/math/float/multiply/index.ts",
+              "precision": "@sitebender/toolsmith/vanilla/math/precision/multiply/index.ts"
+            },
+            "examples": {
+              "wrong": "const product = a * b",
+              "right": "const product = multiply(a)(b)"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "1150cb4d-3a9e-4071-aecc-ddc7663c2c4a",
+        "payload": {
+          "document": "Instead of <= operator, use lte (lessThanOrEqual) function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_LTE_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "<=",
+            "substitute": "lte",
+            "alias": "lessThanOrEqual",
+            "reason": "lte reads like English and is null-safe",
+            "import": "@sitebender/toolsmith/vanilla/validation/lte/index.ts",
+            "examples": {
+              "wrong": "if (age <= 65)",
+              "right": "if (lte(65)(age))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "23b28061-fd86-402a-8e9b-b1df71e85068",
+        "payload": {
+          "document": "Instead of + operator for bigints, use add function from @sitebender/toolsmith/vanilla/math/bigint/add/index.ts",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_ADD_BIGINT_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "+",
+            "substitute": "add",
+            "data_type": "bigint",
+            "reason": "add function provides consistent interface for bigint math operations",
+            "import": "@sitebender/toolsmith/vanilla/math/bigint/add/index.ts",
+            "examples": {
+              "wrong": "const result = a + b",
+              "right": "import add from '@sitebender/toolsmith/vanilla/math/bigint/add/index.ts'; const result = add(a)(b)"
+            },
+            "context": "Use for large integer operations that exceed Number.MAX_SAFE_INTEGER",
+            "note": "Same function name 'add' - path determines bigint type",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "34c4e400-989a-4efd-bb3f-8dade7bc7ab7",
+        "payload": {
+          "document": "Instead of .length property, use length function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_LENGTH_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": ".length",
+            "substitute": "length",
+            "reason": "length(arr) is functional and null-safe, avoiding property access",
+            "import": "@sitebender/toolsmith/vanilla/validation/length/index.ts",
+            "examples": {
+              "wrong": "if (arr.length > 0)",
+              "right": "if (isNotEmpty(arr))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "47fa0f9e-59ea-4f08-b932-6f0182a31115",
+        "payload": {
+          "document": "Instead of array.reduce() method, use reduce function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_REDUCE_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": ".reduce()",
+            "substitute": "reduce",
+            "reason": "reduce function is curried, composable, and follows functional programming principles",
+            "import": "@sitebender/toolsmith/vanilla/array/reduce/index.ts",
+            "examples": {
+              "wrong": "const sum = numbers.reduce((acc, n) => acc + n, 0)",
+              "right": "import reduce from '@sitebender/toolsmith/vanilla/array/reduce/index.ts'; const sum = reduce(add)(0)(numbers)"
+            },
+            "note": "Wraps native .reduce() for performance but provides functional interface",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "5027564f-7536-47cf-9635-0cec1ed109ba",
+        "payload": {
+          "document": "Instead of || operator, use or function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_OR_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "||",
+            "substitute": "or",
+            "reason": "or reads like English and handles null/undefined safely",
+            "import": "@sitebender/toolsmith/vanilla/validation/or/index.ts",
+            "examples": {
+              "wrong": "const value = input || defaultValue",
+              "right": "const value = or(input)(defaultValue)"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "50963e21-86e7-48c6-903f-2c44349867d3",
+        "payload": {
+          "document": "Instead of >= operator, use gte (greaterThanOrEqual) function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_GTE_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": ">=",
+            "substitute": "gte",
+            "alias": "greaterThanOrEqual",
+            "reason": "gte reads like English and is null-safe",
+            "import": "@sitebender/toolsmith/vanilla/validation/gte/index.ts",
+            "examples": {
+              "wrong": "if (age >= 18)",
+              "right": "if (gte(18)(age))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "50bd27e4-a9e6-4818-9052-3cb80de1387e",
+        "payload": {
+          "document": "Instead of array.includes() method, use includes (or contains alias) function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_INCLUDES_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": ".includes()",
+            "substitute": "includes",
+            "alias": "contains",
+            "reason": "includes is curried, composable, and null-safe",
+            "import": "@sitebender/toolsmith/vanilla/array/includes/index.ts",
+            "examples": {
+              "wrong": "if (numbers.includes(5))",
+              "right": "if (includes(5)(numbers))"
+            },
+            "note": "Can be aliased as 'contains' for better readability",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "50dc8305-41d3-4080-95b4-a4480bc08f1a",
+        "payload": {
+          "document": "Instead of + operator for money/precision, use add function from @sitebender/toolsmith/vanilla/math/precision/add/index.ts",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_ADD_PRECISION_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "+",
+            "substitute": "add",
+            "data_type": "precision",
+            "reason": "add function handles decimal precision correctly for financial calculations",
+            "import": "@sitebender/toolsmith/vanilla/math/precision/add/index.ts",
+            "examples": {
+              "wrong": "const total = price + tax // loses precision",
+              "right": "import add from '@sitebender/toolsmith/vanilla/math/precision/add/index.ts'; const total = add(price)(tax)"
+            },
+            "context": "Use for money, financial calculations, or precision-sensitive math",
+            "note": "Same function name 'add' - path determines precision type",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "51ae28af-5e1d-47ac-bb74-86c1a6c71fcd",
+        "payload": {
+          "document": "Instead of + operator for integers, use add function from @sitebender/toolsmith/vanilla/math/integer/add/index.ts",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_ADD_INTEGER_CORRECTED_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "+",
+            "substitute": "add",
+            "data_type": "integer",
+            "reason": "add function handles integer math correctly and is composable",
+            "import": "@sitebender/toolsmith/vanilla/math/integer/add/index.ts",
+            "examples": {
+              "wrong": "const result = a + b",
+              "right": "import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'; const result = add(a)(b)"
+            },
+            "context": "Use for integer math operations",
+            "note": "All math functions named 'add' - path determines type",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "6d62a2cd-f56e-47e5-b9a6-a0231016c884",
+        "payload": {
+          "document": "Instead of array.filter() method, use filter function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_FILTER_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": ".filter()",
+            "substitute": "filter",
+            "reason": "filter function is curried, composable, and follows functional programming principles",
+            "import": "@sitebender/toolsmith/vanilla/array/filter/index.ts",
+            "examples": {
+              "wrong": "const evens = numbers.filter(x => x % 2 === 0)",
+              "right": "import filter from '@sitebender/toolsmith/vanilla/array/filter/index.ts'; const evens = filter(isEven)(numbers)"
+            },
+            "note": "Wraps native .filter() for performance but provides functional interface",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "7571b6a6-519c-4f60-ba75-71c262f7459d",
+        "payload": {
+          "document": "Instead of - operator for math, use subtract function from Toolsmith (path depends on data type: integer/bigint/float/precision)",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_SUBTRACT_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "-",
+            "substitute": "subtract",
+            "data_type": "varies",
+            "reason": "subtract function is semantic, composable, and type-specific",
+            "import_paths": {
+              "integer": "@sitebender/toolsmith/vanilla/math/integer/subtract/index.ts",
+              "bigint": "@sitebender/toolsmith/vanilla/math/bigint/subtract/index.ts",
+              "float": "@sitebender/toolsmith/vanilla/math/float/subtract/index.ts",
+              "precision": "@sitebender/toolsmith/vanilla/math/precision/subtract/index.ts"
+            },
+            "examples": {
+              "wrong": "const difference = a - b",
+              "right": "const difference = subtract(b)(a)"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "7e9d593e-14ee-4eeb-9ad5-94725a02a1df",
+        "payload": {
+          "document": "Instead of && operator, use and function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_AND_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "&&",
+            "substitute": "and",
+            "reason": "and reads like English and handles null/undefined safely",
+            "import": "@sitebender/toolsmith/vanilla/validation/and/index.ts",
+            "examples": {
+              "wrong": "if (isValid && isComplete)",
+              "right": "if (and(isValid)(isComplete))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "81e4a863-e932-424c-8de5-1a7eaf77bac1",
+        "payload": {
+          "document": "Instead of ! operator, use not function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_NOT_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": "!",
+            "substitute": "not",
+            "reason": "! is easy to miss visually. not() is explicit and reads like English",
+            "import": "@sitebender/toolsmith/vanilla/validation/not/index.ts",
+            "examples": {
+              "wrong": "if (!isValid)",
+              "right": "if (not(isValid))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "835d820e-7bc3-41be-abb3-a7729e21e9bb",
+        "payload": {
+          "document": "Instead of < operator, use lt (lessThan) function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_LT_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "<",
+            "substitute": "lt",
+            "alias": "lessThan",
+            "reason": "lt reads like English and is null-safe",
+            "import": "@sitebender/toolsmith/vanilla/validation/lt/index.ts",
+            "examples": {
+              "wrong": "if (age < 18)",
+              "right": "if (lt(18)(age))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "867c57b9-a1fa-4bb0-8021-95e39db6658a",
+        "payload": {
+          "document": "Instead of > operator, use gt (greaterThan) function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_GT_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": ">",
+            "substitute": "gt",
+            "alias": "greaterThan",
+            "reason": "gt reads like English and is null-safe",
+            "import": "@sitebender/toolsmith/vanilla/validation/gt/index.ts",
+            "examples": {
+              "wrong": "if (score > 100)",
+              "right": "if (gt(100)(score))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "8a70b922-5d17-4375-b01e-aff3157de603",
+        "payload": {
+          "document": "Instead of !== operator, use isUnequal function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_NOT_STRICT_EQUAL_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": "!==",
+            "substitute": "isUnequal",
+            "reason": "isUnequal is semantic, null-safe, and reads like English",
+            "import": "@sitebender/toolsmith/vanilla/validation/isUnequal/index.ts",
+            "examples": {
+              "wrong": "if (a !== b)",
+              "right": "if (isUnequal(a)(b))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "977b188b-f1f8-4fd2-8445-fc865c39b159",
+        "payload": {
+          "document": "Instead of + operator for integers, use addInteger function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_ADD_INTEGER_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "+",
+            "substitute": "addInteger",
+            "data_type": "integer",
+            "reason": "addInteger is semantic, handles integer-specific logic, and is composable",
+            "import": "@sitebender/toolsmith/vanilla/math/addInteger/index.ts",
+            "examples": {
+              "wrong": "const result = a + b",
+              "right": "const result = addInteger(a)(b)"
+            },
+            "context": "Use for integer math operations",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "9909c160-f430-433d-8711-d84eaca00023",
+        "payload": {
+          "document": "Instead of array.map() method, use map function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_MAP_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": ".map()",
+            "substitute": "map",
+            "reason": "map function is curried, composable, and follows functional programming principles",
+            "import": "@sitebender/toolsmith/vanilla/array/map/index.ts",
+            "examples": {
+              "wrong": "const doubled = numbers.map(x => x * 2)",
+              "right": "import map from '@sitebender/toolsmith/vanilla/array/map/index.ts'; const doubled = map(double)(numbers)"
+            },
+            "note": "Wraps native .map() for performance but provides functional interface",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "ab0c2a8c-94b7-4559-a90a-07ad547e73fa",
+        "payload": {
+          "document": "Instead of === operator, use isEqual function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_STRICT_EQUAL_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": "===",
+            "substitute": "isEqual",
+            "reason": "isEqual is semantic, null-safe, and reads like English",
+            "import": "@sitebender/toolsmith/vanilla/validation/isEqual/index.ts",
+            "examples": {
+              "wrong": "if (a === b)",
+              "right": "if (isEqual(a)(b))"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "c80e0195-aca8-4828-b600-94133bdbf0ff",
+        "payload": {
+          "document": "Instead of array.push() method, use append function from Toolsmith or spread operator for immutability",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_PUSH_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": ".push()",
+            "substitute": "append",
+            "reason": "append returns new array maintaining immutability, .push() mutates original",
+            "import": "@sitebender/toolsmith/vanilla/array/append/index.ts",
+            "examples": {
+              "wrong": "arr.push(newItem); return arr",
+              "right": "return append(newItem)(arr)"
+            },
+            "alternative": "return [...arr, newItem]",
+            "note": ".push() only allowed in Toolsmith internals on new arrays that will be returned",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "ccdaf611-6378-4a9b-af7b-ac640724a617",
+        "payload": {
+          "document": "Instead of arr.length > 0, use isNotEmpty function from Toolsmith",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_IS_NOT_EMPTY_001",
+            "category": "operator_substitution",
+            "priority": 10,
+            "replaces": "arr.length > 0",
+            "substitute": "isNotEmpty",
+            "reason": "isNotEmpty is semantic, checks isArray first, and returns null for non-arrays",
+            "import": "@sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts",
+            "examples": {
+              "wrong": "if (arr.length > 0)",
+              "right": "if (isNotEmpty(arr))"
+            },
+            "note": "Handles type checking automatically - no need for isArray(arr) && arr.length > 0",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "d91e1c56-d8f0-4029-86b6-e44862a4f87e",
+        "payload": {
+          "document": "Instead of + operator for floats, use add function from @sitebender/toolsmith/vanilla/math/float/add/index.ts",
+          "metadata": {
+            "rule_id": "SUBSTITUTE_ADD_FLOAT_001",
+            "category": "operator_substitution",
+            "priority": 9,
+            "replaces": "+",
+            "substitute": "add",
+            "data_type": "float",
+            "reason": "add function provides consistent interface for floating point math",
+            "import": "@sitebender/toolsmith/vanilla/math/float/add/index.ts",
+            "examples": {
+              "wrong": "const result = a + b",
+              "right": "import add from '@sitebender/toolsmith/vanilla/math/float/add/index.ts'; const result = add(a)(b)"
+            },
+            "context": "Use for regular floating point numbers",
+            "note": "Same function name 'add' - path determines float type",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001292833
+}

@@ -1,0 +1,450 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "048713d9-b7de-4aa4-a771-2d9ac29688e4",
+        "payload": {
+          "document": "Use TABS for indentation in TypeScript, TSX, JavaScript, JSX, and JSON files. Use 2 SPACES for indentation in Markdown, Python, YAML, and TOML files.",
+          "metadata": {
+            "rule_id": "STYLE_INDENT_001",
+            "category": "formatting",
+            "priority": 9,
+            "reason": "TABS let end users determine indentation width (accessibility). 2-SPACE for clarity without deep nesting.",
+            "consequences": "Mixed indentation causes git diff noise, editor conflicts, and readability issues",
+            "scope": {
+              "tabs": [
+                ".ts",
+                ".tsx",
+                ".js",
+                ".jsx",
+                ".json"
+              ],
+              "spaces": [
+                ".md",
+                ".py",
+                ".yaml",
+                ".yml",
+                ".toml"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "053375f8-26b0-4cfb-98ee-c110e744dc43",
+        "payload": {
+          "document": "HTML attributes ordered alphabetically, all values quoted with double quotes, self-closing JSX style with space before />, stack attributes if 3+ or exceeds 80 chars with closing > aligned under opening <",
+          "metadata": {
+            "rule_id": "HTML_FORMATTING_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "Alphabetical ordering makes attributes easy to find, consistent quoting prevents errors",
+            "consequences": "Random attribute order and inconsistent quoting increases cognitive load",
+            "philosophy": "Minimize cognitive load through consistent ordering and visibility",
+            "applies_to": [
+              ".html",
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "25ad7b2d-0cd0-452d-b93a-85a521076b68",
+        "payload": {
+          "document": "Blank line before return statements",
+          "metadata": {
+            "rule_id": "PROXIMITY_RETURN_SPACING_001",
+            "category": "formatting",
+            "priority": 7,
+            "reason": "Return is the conclusion - deserves visual emphasis",
+            "consequences": "Return buried in code is easy to miss",
+            "philosophy": "PROXIMITY - the exit point needs emphasis",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "2fb16e59-b2a0-458c-bcf6-022679735171",
+        "payload": {
+          "document": "Stack arrays and objects with more than 3 items/properties vertically",
+          "metadata": {
+            "rule_id": "STYLE_STACKING_001",
+            "category": "formatting",
+            "priority": 7,
+            "reason": "Vertical stacking enables scanning and comparison",
+            "consequences": "Long horizontal lists are impossible to scan",
+            "philosophy": "ALIGNMENT - vertical structure mirrors list structure",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "3051fde9-c295-4268-8092-98405e430a40",
+        "payload": {
+          "document": "All files must end with a single newline character",
+          "metadata": {
+            "rule_id": "STYLE_FINAL_NEWLINE_001",
+            "category": "formatting",
+            "priority": 7,
+            "reason": "POSIX compliance and safe file concatenation",
+            "consequences": "Missing final newline causes git warnings and concatenation issues",
+            "applies_to": [
+              "*"
+            ]
+          }
+        }
+      },
+      {
+        "id": "4e945058-7546-4034-902a-7f95dac20838",
+        "payload": {
+          "document": "All files named index.(ext), function/component names on folders. One function or component per file. Helper functions in sibling folders at LOWEST COMMON ANCESTOR. Group related files in same folder: index.ts, index.test.ts, index.css, index.yaml",
+          "metadata": {
+            "rule_id": "FILE_NAMING_001",
+            "category": "formatting",
+            "priority": 10,
+            "reason": "Consistent naming eliminates cognitive load of figuring out file names. Grouping keeps related files together.",
+            "consequences": "Inconsistent file naming creates navigation nightmares",
+            "philosophy": "Minimize cognitive load through absolute consistency",
+            "applies_to": [
+              "*"
+            ]
+          }
+        }
+      },
+      {
+        "id": "519bcae2-2af3-46e6-aeb4-428069aa6778",
+        "payload": {
+          "document": "Blank line above AND below any multi-line statement",
+          "metadata": {
+            "rule_id": "PROXIMITY_MULTILINE_SPACING_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "Multi-line statements are complex units - need visual breathing room",
+            "consequences": "Complex structures cramped against simple ones are hard to parse",
+            "philosophy": "PROXIMITY - complex units need space to be seen as units",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "580e9779-163e-4f24-a75f-e65f428fd95a",
+        "payload": {
+          "document": "Spaces around ALL operators - they are separate entities",
+          "metadata": {
+            "rule_id": "STYLE_OPERATOR_SPACING_001",
+            "category": "formatting",
+            "priority": 9,
+            "reason": "x, +, and y are THREE different things - spacing makes this clear",
+            "consequences": "x+y requires parsing. x + y is instantly clear",
+            "philosophy": "WHITESPACE as separator - each space reduces cognitive load",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "71bfe345-e912-4b2b-8fe6-e361e1a310e3",
+        "payload": {
+          "document": "Maximum line length is 80 characters for code files, no limit for Markdown and YAML",
+          "metadata": {
+            "rule_id": "STYLE_LINE_LENGTH_001",
+            "category": "formatting",
+            "priority": 7,
+            "reason": "80 chars allows 4 files side-by-side, readable on phones",
+            "consequences": "Long lines are hard to read and review",
+            "scope": {
+              "max_80": [
+                ".ts",
+                ".tsx",
+                ".js",
+                ".jsx",
+                ".json",
+                ".py"
+              ],
+              "no_limit": [
+                ".md",
+                ".yml",
+                ".yaml"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "78246661-988c-44c1-b134-3cbc6c015348",
+        "payload": {
+          "document": "CSS properties ordered alphabetically, multi-line format, blank line between selector groups, space after colon, modern properties preferred with @supports fallbacks",
+          "metadata": {
+            "rule_id": "CSS_FORMATTING_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "Alphabetical ordering makes properties easy to find, modern properties with fallbacks ensure compatibility",
+            "consequences": "Random property order increases cognitive load",
+            "philosophy": "Minimize cognitive load through consistent ordering",
+            "applies_to": [
+              ".css"
+            ]
+          }
+        }
+      },
+      {
+        "id": "8a6a52ea-9208-43de-87ad-3f8f055a5374",
+        "payload": {
+          "document": "Imports in specific order with single blank lines between each group: 1) type external, 2) type internal, 3) named external, 4) const external, 5) default external, 6) named internal, 7) const internal, 8) default internal",
+          "metadata": {
+            "rule_id": "IMPORT_ORDER_001",
+            "category": "formatting",
+            "priority": 9,
+            "reason": "Consistent order = instant recognition. Types before values shows structure before implementation",
+            "consequences": "Random imports = cognitive load finding dependencies",
+            "philosophy": "REPETITION - same order everywhere",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "8a80a3bc-fa13-4c26-8314-fd358f3e414b",
+        "payload": {
+          "document": "ALWAYS trailing commas in multi-line structures, NEVER in single-line",
+          "metadata": {
+            "rule_id": "STYLE_TRAILING_COMMA_001",
+            "category": "formatting",
+            "priority": 7,
+            "reason": "Easier to add/reorder items, cleaner git diffs",
+            "consequences": "Missing trailing comma = merge conflicts when adding items",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx",
+              ".json"
+            ]
+          }
+        }
+      },
+      {
+        "id": "8c337b66-a476-4174-a9c2-5dfe6c425826",
+        "payload": {
+          "document": "All files must use LF (Unix-style) line endings, not CRLF",
+          "metadata": {
+            "rule_id": "STYLE_EOL_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "LF has widest compatibility",
+            "consequences": "CRLF causes git diff noise and cross-platform issues",
+            "applies_to": [
+              "*"
+            ]
+          }
+        }
+      },
+      {
+        "id": "a0392af6-ae4b-485e-ad34-10b92a9a73ab",
+        "payload": {
+          "document": "Use DOUBLE quotes for strings, not single quotes",
+          "metadata": {
+            "rule_id": "STYLE_QUOTES_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "Double quotes easier to see, avoiding missed end quotes",
+            "consequences": "Single quotes are too easy to miss with human eyes",
+            "philosophy": "Visibility prevents errors",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx",
+              ".json",
+              ".css",
+              ".html"
+            ]
+          }
+        }
+      },
+      {
+        "id": "ad62fd27-f2b7-400f-a7a4-238f8e440792",
+        "payload": {
+          "document": "All files must use UTF-8 character encoding",
+          "metadata": {
+            "rule_id": "STYLE_CHARSET_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "UTF-8 is THE standard for text encoding",
+            "consequences": "Other encodings cause character corruption and compatibility issues",
+            "applies_to": [
+              "*"
+            ]
+          }
+        }
+      },
+      {
+        "id": "c89b10f7-00c5-47c1-ad09-322997008f57",
+        "payload": {
+          "document": "Trim trailing whitespace in all files EXCEPT Markdown",
+          "metadata": {
+            "rule_id": "STYLE_TRAILING_WS_001",
+            "category": "formatting",
+            "priority": 7,
+            "reason": "Trailing whitespace pollutes version control (except Markdown line breaks)",
+            "consequences": "Unnecessary whitespace creates git diff noise",
+            "scope": {
+              "trim": [
+                ".ts",
+                ".tsx",
+                ".js",
+                ".jsx",
+                ".json",
+                ".py",
+                ".yml",
+                ".yaml"
+              ],
+              "preserve": [
+                ".md"
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": "c8b3c419-365c-4960-bc71-5144bab0bb34",
+        "payload": {
+          "document": "Markdown: use # for headings with blank line below, blank line above lists and preceding paragraphs, prefer inline links [text](url), use ```lang for code fencing with language specification",
+          "metadata": {
+            "rule_id": "MARKDOWN_FORMATTING_001",
+            "category": "formatting",
+            "priority": 7,
+            "reason": "Consistent markdown structure improves readability, blank lines create logical separation",
+            "consequences": "Inconsistent markdown formatting reduces comprehension",
+            "philosophy": "Minimize cognitive load through consistent structure",
+            "applies_to": [
+              ".md"
+            ]
+          }
+        }
+      },
+      {
+        "id": "ccefb255-9e76-41fc-b1d8-64c9b902571b",
+        "payload": {
+          "document": "NEVER more than one blank line in a row",
+          "metadata": {
+            "rule_id": "PROXIMITY_ONE_BLANK_MAX_001",
+            "category": "formatting",
+            "priority": 9,
+            "reason": "One blank line is a separator. Two is wasted space",
+            "consequences": "Multiple blanks break visual flow and waste screen space",
+            "philosophy": "PROXIMITY - one separator is enough",
+            "applies_to": [
+              "*"
+            ]
+          }
+        }
+      },
+      {
+        "id": "dc11e079-3304-4ea4-88dc-d7d6f4c9f2fe",
+        "payload": {
+          "document": "NO semicolons at the end of statements in TypeScript/JavaScript",
+          "metadata": {
+            "rule_id": "STYLE_SEMICOLON_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "ASI works perfectly. Semicolons are visual noise. Vertical code is clear.",
+            "consequences": "Semicolons add visual noise and are unnecessary in modern JS/TS",
+            "philosophy": "If the language doesn't need it, don't add it",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "dd7ad43e-48d6-4f3a-97c3-954e3ca8329e",
+        "payload": {
+          "document": "Use Array<T> not T[] for array types",
+          "metadata": {
+            "rule_id": "STYLE_ARRAY_TYPE_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "Brackets [] are hard to see, Array<> is obvious. Reduces cognitive load.",
+            "consequences": "T[] requires mental parsing, easy to miss the brackets",
+            "philosophy": "CONTRAST - make different things visually different",
+            "applies_to": [
+              ".ts",
+              ".tsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "f0c165a0-bfc6-441b-bf22-7f892653b080",
+        "payload": {
+          "document": "NO blank lines at the start or end of blocks",
+          "metadata": {
+            "rule_id": "PROXIMITY_NO_BLOCK_EDGES_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "Block boundaries are already visual separators - extra space is redundant",
+            "consequences": "Wasted vertical space, broken visual grouping",
+            "philosophy": "PROXIMITY - block contents belong together",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "f6b98d88-2182-4dfb-b340-8d6d97aff7bb",
+        "payload": {
+          "document": "Group like single-line statements together, then separate groups from different statement types with blank lines",
+          "metadata": {
+            "rule_id": "PROXIMITY_STATEMENT_TYPES_001",
+            "category": "formatting",
+            "priority": 8,
+            "reason": "Different statement types = different purposes. Visual separation mirrors logical separation",
+            "consequences": "Mixed statement types blur logical boundaries",
+            "philosophy": "PROXIMITY - group like with like, separate unlike",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001177959
+}

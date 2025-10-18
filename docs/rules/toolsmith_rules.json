@@ -1,0 +1,173 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "0fe864dc-937c-4180-9f9b-04969f641394",
+        "payload": {
+          "document": "TOOLSMITH_PERF_001: Performance Exception Permissions - Array.push() and loops are permitted in Toolsmith library functions when performance is critical. Internal utility functions may use imperative patterns for optimization, specifically: (1) .push() operations on newly created arrays for building results, (2) for/while loops in performance-critical sections, (3) let bindings for iteration variables in generators. These exceptions are ONLY allowed in internal Toolsmith utilities, not in application-level code. All such exceptions must be documented with [EXCEPTION] or [OPTIMIZATION] Envoy comments explaining the performance rationale. Example: `// [EXCEPTION] Using .push() for O(1) amortized performance in hot path`",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_001",
+            "category": "toolsmith",
+            "priority": 8,
+            "scope": "internal_utilities",
+            "type": "performance_exception",
+            "documentation_required": true,
+            "examples": [
+              "// [EXCEPTION] Using .push() for O(1) amortized performance",
+              "// [OPTIMIZATION] Loop-based iteration for hot path performance"
+            ]
+          }
+        }
+      },
+      {
+        "id": "1412c7d5-4a9c-4918-8da9-353a09e3acbc",
+        "payload": {
+          "document": "TOOLSMITH_PERF_006: Math Type Implementation Guidelines - Toolsmith library implements four math types (integer, bigint, float, precision) with same function names but different internal optimization paths for maximum performance. Implementation patterns: (1) Type-specific optimizations allowed with [MATH_TYPE_OPTIMIZATION] comments, (2) Direct numeric operations for integer/float types bypass generic number handling, (3) BigInt-specific algorithms may use different computational approaches, (4) Precision types may employ specialized decimal arithmetic libraries. Path structure: /math/integer/, /math/bigint/, /math/float/, /math/precision/ with identical function signatures but optimized implementations. Performance exceptions permitted: native arithmetic operators, type-specific algorithms, optimized comparison functions. All type-specific optimizations must document performance benefit and maintain mathematical correctness across all four type implementations.",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_006",
+            "category": "toolsmith",
+            "priority": 8,
+            "scope": "math_types",
+            "type": "type_optimization",
+            "math_types": [
+              "integer",
+              "bigint",
+              "float",
+              "precision"
+            ],
+            "path_structure": "/math/{type}/",
+            "comment_format": "[MATH_TYPE_OPTIMIZATION]",
+            "permitted_optimizations": [
+              "native_arithmetic",
+              "type_specific_algorithms",
+              "optimized_comparisons"
+            ],
+            "requirements": [
+              "performance_benefit",
+              "mathematical_correctness",
+              "consistent_signatures"
+            ],
+            "examples": [
+              "// [MATH_TYPE_OPTIMIZATION] Integer: Direct + operator vs generic add() for 10x performance",
+              "// [MATH_TYPE_OPTIMIZATION] Precision: Using decimal.js library for accurate floating point math"
+            ]
+          }
+        }
+      },
+      {
+        "id": "366f4dbb-e56d-401b-b39b-7200b9a15bae",
+        "payload": {
+          "document": "TOOLSMITH_PERF_003: Vanilla vs Boxed Function Guidelines - Toolsmith library provides two function variants: vanilla functions for internal performance-critical use, and boxed functions for application consumption. Vanilla functions: (1) Return null for error conditions to avoid Result/Validation overhead, (2) Use direct values and primitive returns for maximum performance, (3) May employ performance exceptions documented with Envoy comments, (4) Located in /vanilla/* paths for internal use only. Boxed functions: (1) Return Result or Validation monads for proper error handling, (2) Compose with other monadic operations safely, (3) Follow strict functional programming patterns, (4) Located in standard paths for public API consumption. Choose vanilla for hot paths and internal utilities, boxed for application-facing APIs and composable operations.",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_003",
+            "category": "toolsmith",
+            "priority": 8,
+            "scope": "function_architecture",
+            "type": "api_design",
+            "vanilla_characteristics": [
+              "null_returns",
+              "primitive_values",
+              "performance_exceptions",
+              "internal_use"
+            ],
+            "boxed_characteristics": [
+              "monadic_returns",
+              "composable",
+              "strict_fp",
+              "public_api"
+            ],
+            "examples": [
+              "// Vanilla: const add = (a, b) => typeof a !== 'number' ? null : a + b",
+              "// Boxed: const add = (a, b) => isNumber(a) && isNumber(b) ? Success(a + b) : Failure('Invalid input')"
+            ]
+          }
+        }
+      },
+      {
+        "id": "53aea13d-f78b-459f-b173-d17d04183f81",
+        "payload": {
+          "document": "TOOLSMITH_PERF_002: Exception Documentation Standards - All performance exceptions in Toolsmith library must be documented using specific Envoy comment formats. Use [EXCEPTION] for breaking functional programming principles due to performance needs, and [OPTIMIZATION] for performance-focused implementations that maintain functional patterns. Format: `// [EXCEPTION] Reason: specific justification for breaking FP rules` or `// [OPTIMIZATION] Reason: performance technique being used`. Documentation must include: (1) Clear rationale for the exception, (2) Performance benefit being achieved, (3) Scope limitation (internal only), (4) Alternative approaches considered. These comments enable tracking performance exceptions across the codebase and ensure they remain justified and documented.",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_002",
+            "category": "toolsmith",
+            "priority": 9,
+            "scope": "documentation",
+            "type": "exception_documentation",
+            "comment_formats": [
+              "[EXCEPTION]",
+              "[OPTIMIZATION]"
+            ],
+            "required_fields": [
+              "rationale",
+              "performance_benefit",
+              "scope",
+              "alternatives"
+            ],
+            "examples": [
+              "// [EXCEPTION] Reason: Using mutable array.push() for O(1) vs O(n) functional concat",
+              "// [OPTIMIZATION] Reason: Direct property access instead of lens traversal for hot path"
+            ]
+          }
+        }
+      },
+      {
+        "id": "67a192cc-5ef2-4f31-bc3a-5812176dae98",
+        "payload": {
+          "document": "TOOLSMITH_PERF_004: Generator Function Development Permissions - Generator functions in Toolsmith library are granted special exceptions to functional programming constraints due to their unique nature and lack of Haskell equivalent. Permitted patterns in generators: (1) let bindings for iteration state management, (2) while/for loops for iteration control, (3) Mutable counters and accumulators within generator scope, (4) Imperative yield logic for performance-critical streaming operations. Rationale: Generators provide lazy evaluation and memory efficiency impossible with pure functional approaches in TypeScript. All imperative patterns must be contained within the generator function scope and documented with [GENERATOR_EXCEPTION] comments. Generator implementations should still prefer functional approaches where performance allows, but performance wins when justified.",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_004",
+            "category": "toolsmith",
+            "priority": 7,
+            "scope": "generator_functions",
+            "type": "generator_exceptions",
+            "permitted_patterns": [
+              "let_bindings",
+              "loops",
+              "mutable_counters",
+              "imperative_yield"
+            ],
+            "comment_format": "[GENERATOR_EXCEPTION]",
+            "rationale": "no_haskell_equivalent",
+            "examples": [
+              "function* range(start, end) { // [GENERATOR_EXCEPTION] Let binding for iteration\n  let current = start;\n  while (current <= end) yield current++;\n}",
+              "function* fibonacci() { // [GENERATOR_EXCEPTION] Mutable accumulators for performance\n  let [a, b] = [0, 1];\n  while (true) { yield a; [a, b] = [b, a + b]; }\n}"
+            ]
+          }
+        }
+      },
+      {
+        "id": "beb90a03-5812-493b-b057-10fa2c9266f9",
+        "payload": {
+          "document": "TOOLSMITH_PERF_005: Performance vs Ideology Trade-offs - In Toolsmith library development, performance considerations override strict functional programming ideology when justified and documented. Performance wins in these scenarios: (1) Hot path operations where functional approaches create measurable overhead, (2) Memory-intensive operations where immutable patterns cause excessive allocation, (3) Iteration-heavy algorithms where functional composition creates call stack issues, (4) Type system boundaries where monadic wrapping adds significant runtime cost. Decision criteria: Profile first, measure impact, document rationale, contain scope to internal utilities only. All performance-over-ideology decisions must include [PERFORMANCE_OVER_IDEOLOGY] comments with benchmark data or clear performance reasoning. Application-level code maintains strict functional patterns - these exceptions apply only to internal Toolsmith utilities.",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_005",
+            "category": "performance",
+            "priority": 9,
+            "scope": "internal_utilities",
+            "type": "performance_trade_offs",
+            "performance_scenarios": [
+              "hot_path",
+              "memory_intensive",
+              "iteration_heavy",
+              "type_boundaries"
+            ],
+            "decision_process": [
+              "profile_first",
+              "measure_impact",
+              "document_rationale",
+              "contain_scope"
+            ],
+            "comment_format": "[PERFORMANCE_OVER_IDEOLOGY]",
+            "examples": [
+              "// [PERFORMANCE_OVER_IDEOLOGY] Direct array mutation 50x faster than functional concat in 10M element test",
+              "// [PERFORMANCE_OVER_IDEOLOGY] Avoiding Result wrapper reduces memory allocation by 60% in tight loop"
+            ]
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001007625
+}

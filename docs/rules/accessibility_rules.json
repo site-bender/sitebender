@@ -1,0 +1,279 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "167e4714-2191-45a6-8056-7368a280833d",
+        "payload": {
+          "document": "Progressive enhancement required: HTML must work in Lynx, CSS enhances layout, JS adds behavior. Use proper forms, anchor IDs, rel attributes",
+          "metadata": {
+            "rule_id": "A11Y_PROGRESSIVE_ENHANCEMENT_001",
+            "category": "accessibility",
+            "reason": "Stateless WWW principles ensure universal access. Works for everyone, enhanced for capable browsers",
+            "consequences": "JS-required interfaces exclude users with disabilities or older technology",
+            "philosophy": "Universal access through progressive enhancement - old stateless web first",
+            "examples": {
+              "html_layer": "POST/GET forms, anchor links, proper rel attributes",
+              "css_layer": "@supports queries, legacy-first with fallbacks",
+              "js_layer": "Operator events, enhanced validation, live regions"
+            },
+            "context": {
+              "libraries": [
+                "pagewright"
+              ],
+              "usage": "component_development"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "3f534ef8-75c4-46d2-a395-7aeb6cc0c77b",
+        "payload": {
+          "document": "Color Independence Requirements: Information must be available without color dependency. Requires Architect approval for visual design decisions. Support color-blind users with high contrast integration through CSS theming system",
+          "metadata": {
+            "rule_id": "A11Y_COLOR_INDEPENDENCE_001",
+            "category": "accessibility",
+            "reason": "Color-blind users and high contrast mode users cannot rely on color alone for information. Visual design affects accessibility standards",
+            "consequences": "Color-only information excludes users with color blindness or contrast sensitivity",
+            "philosophy": "Information must be perceivable through multiple channels, not just color",
+            "design_integration": "Requires Architect approval for visual design decisions - AIs handle semantics, humans handle visual design",
+            "technical_implementation": "CSS custom properties for theming, @supports queries for high contrast modes",
+            "pagewright_context": "CSS theming system integrates with progressive enhancement - legacy-first with fallbacks",
+            "examples": {
+              "correct": "Error state: red border + icon + error text message",
+              "wrong": "Error state: only red border color",
+              "css_integration": "Uses CSS custom properties for theme-aware color schemes",
+              "high_contrast": "@supports (prefers-contrast: high) for enhanced contrast modes"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx",
+              ".css"
+            ]
+          }
+        }
+      },
+      {
+        "id": "4a0a03b7-187d-4e00-977f-46f6501fccc7",
+        "payload": {
+          "document": "Get Architect approval for visual design decisions. AIs focus on semantics and structure, not colors, fonts, or visual styling",
+          "metadata": {
+            "rule_id": "A11Y_ARCHITECT_APPROVAL_001",
+            "category": "accessibility",
+            "reason": "Visual design affects accessibility (contrast, readability). Design decisions should be intentional, not AI-generated",
+            "consequences": "AI-chosen colors and fonts may violate accessibility standards or brand guidelines",
+            "philosophy": "Separate concerns - AIs handle semantics, humans handle visual design",
+            "examples": {
+              "ai_responsibility": "Component structure, ARIA, semantic meaning",
+              "architect_responsibility": "Color schemes, typography, visual hierarchy"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx",
+              ".css"
+            ]
+          }
+        }
+      },
+      {
+        "id": "5012b017-c259-4d6a-a0c2-89975cf2a74b",
+        "payload": {
+          "document": "Use plain language content with Linguist library. Apply Strunk & White principles: clear, concise, descriptive labels and help text",
+          "metadata": {
+            "rule_id": "A11Y_PLAIN_LANGUAGE_001",
+            "category": "accessibility",
+            "reason": "Clear language reduces cognitive load for all users, especially those with cognitive disabilities",
+            "consequences": "Complex or jargon-heavy content excludes users and creates confusion",
+            "philosophy": "Communication should be clear and accessible to everyone",
+            "examples": {
+              "good": "Email address, Phone number, Choose your preferred contact method",
+              "bad": "E-mail addr, Ph. #, Select optimal communication vector"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "5ba64a75-9c7a-43cb-b08f-1e64cdedefc8",
+        "payload": {
+          "document": "Make accessibility required props non-optional. Build accessibility INTO components so end users cannot skip it",
+          "metadata": {
+            "rule_id": "A11Y_REQUIRED_PROPS_001",
+            "category": "accessibility",
+            "reason": "Accessibility should be impossible to forget or skip. Required props ensure proper content. Components that permit bad accessibility are broken.",
+            "consequences": "Optional accessibility props get skipped, creating inaccessible interfaces",
+            "philosophy": "BUILD-IN accessibility so end users can't mess it up",
+            "examples": {
+              "correct": "label: string (required), helpText?: string (optional)",
+              "wrong": "label?: string (optional - allows unlabeled fields)"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "6d5127ca-aab4-4999-9f79-cf9e54ee955d",
+        "payload": {
+          "document": "CSS Enhancement with @supports Requirements: Progressive CSS enhancement using feature detection. Use @supports queries over browser detection with legacy-first approach. Base styles work everywhere, enhancements layer on top",
+          "metadata": {
+            "rule_id": "A11Y_CSS_SUPPORTS_001",
+            "category": "accessibility",
+            "reason": "@supports queries ensure graceful degradation and progressive enhancement. Legacy browsers get working base styles",
+            "consequences": "Browser detection breaks and excludes users. Missing fallbacks create inaccessible interfaces on older technology",
+            "philosophy": "Base styles work everywhere, enhancements layer on top through feature detection",
+            "technical_implementation": "@supports queries for CSS features, legacy-first CSS with fallbacks, CSS custom properties",
+            "pagewright_context": "Integrates with existing progressive enhancement patterns - HTML works in Lynx, CSS enhances layout",
+            "progressive_stack": "HTML layer (universal access) → CSS layer (@supports enhancements) → JS layer (operator events)",
+            "examples": {
+              "correct": "@supports (display: grid) { .layout { display: grid; } } /* fallback: display: block */",
+              "wrong": "if (browser === 'Chrome') { /* grid styles */ }",
+              "feature_detection": "@supports (color-scheme: dark) for theme support",
+              "legacy_first": "Base styles work without @supports, enhanced styles layer on"
+            },
+            "applies_to": [
+              ".css",
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "8836c333-51b6-4661-a3c8-3ff6d4787906",
+        "payload": {
+          "document": "Use semantic Pagewright components exclusively, never raw HTML elements. End users work in plain English semantics, not HTML widgets",
+          "metadata": {
+            "rule_id": "A11Y_SEMANTIC_COMPONENTS_001",
+            "category": "accessibility",
+            "reason": "Pagewright enforces accessibility automatically. Raw HTML bypasses built-in protections",
+            "consequences": "Raw HTML elements lose accessibility guards, semantic meaning, and type safety",
+            "philosophy": "BUILD-IN accessibility so end users can't mess it up",
+            "context": {
+              "libraries": [
+                "pagewright"
+              ],
+              "usage": "component_development"
+            },
+            "examples": {
+              "correct": "<PhoneNumberField />, <EmailAddressField />, <ChooseOneField />",
+              "wrong": "<input type=\"tel\">, <input type=\"email\">, <select>"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "a95254bc-f252-48dc-afda-44c97babb8d0",
+        "payload": {
+          "document": "Keyboard Navigation Built into Components: Component-level keyboard navigation integration with tab order, focus management, and visible focus indicators. Navigation handled automatically by Pagewright components with logical keyboard flow",
+          "metadata": {
+            "rule_id": "A11Y_KEYBOARD_NAVIGATION_001",
+            "category": "accessibility",
+            "reason": "Keyboard-only users must be able to navigate and operate all interface elements. Focus management prevents users from getting trapped",
+            "consequences": "Poor keyboard navigation excludes users who cannot use pointing devices",
+            "philosophy": "Logical keyboard flow through forms and interfaces, handled automatically by components",
+            "technical_implementation": "Tab order management, focus indicators, escape key handling, arrow key navigation",
+            "pagewright_context": "Navigation handled automatically by Pagewright components - focus management built into semantic components",
+            "ux_principles": "Logical tab order, visible focus indicators, predictable navigation patterns",
+            "examples": {
+              "tab_order": "Sequential tab through form fields, skip links for main content",
+              "focus_management": "Modal dialogs trap focus, focus returns to trigger element on close",
+              "visible_focus": "High contrast focus indicators, not just browser defaults",
+              "component_integration": "ChooseOneField handles arrow key navigation between radio buttons automatically"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "cb06bed5-e340-44a6-a969-7e7291569c39",
+        "payload": {
+          "document": "ARIA Usage Guidelines: NO ARIA is better than BAD ARIA. Use ARIA only when Pagewright's built-in semantic components are insufficient. End users never see ARIA directly - AI component builders use ARIA internally but hide complexity from end users through semantic props mapping",
+          "metadata": {
+            "rule_id": "A11Y_ARIA_GUIDELINES_001",
+            "category": "accessibility",
+            "reason": "End users never see ARIA directly. Incorrect ARIA makes accessibility worse than no ARIA. Pagewright's semantic components handle most accessibility automatically",
+            "consequences": "Bad ARIA confuses screen readers and breaks accessibility more than missing ARIA",
+            "philosophy": "NO ARIA better than BAD ARIA - Pagewright semantics first, ARIA only when insufficient",
+            "integration": "AI component builders use ARIA internally but map to semantic props like 'use' instead of 'role'",
+            "pagewright_context": "Semantic UI DSL with purpose-based components like PhoneNumberField, ChooseOneField that auto-handle accessibility",
+            "examples": {
+              "correct": "Use semantic Pagewright components with built-in accessibility",
+              "when_aria_needed": "Live regions for dynamic content, custom controls where no semantic Pagewright equivalent exists",
+              "hide_from_users": "Map ARIA attributes to semantic props - 'use' instead of 'role', 'purpose' instead of 'aria-label'"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "f4c06ee7-19a6-4ccf-940b-1fd3850536e5",
+        "payload": {
+          "document": "Auto-select appropriate widgets with user-configurable thresholds. Example: ChooseOneField uses radio buttons up to RADIO_THRESHOLD (default 6), then select box",
+          "metadata": {
+            "rule_id": "A11Y_AUTO_WIDGET_SELECTION_001",
+            "category": "accessibility",
+            "reason": "Automatic widget selection optimizes UX while allowing customization for specific needs",
+            "consequences": "Wrong widget choices create poor user experience (radio with 20 options, select with 2 options)",
+            "philosophy": "Smart defaults with user control",
+            "examples": {
+              "implementation": "const RADIO_THRESHOLD = 6; optional prop radioThreshold?: number",
+              "logic": "options.length <= (radioThreshold ?? RADIO_THRESHOLD) ? RadioGroup : SelectBox"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "ff2c5157-4b3a-42db-a49f-5ae78ed5eda1",
+        "payload": {
+          "document": "Screen Reader Support Considerations: Non-visual user support through semantic markup, live regions for dynamic content, and sufficient context provision. Screen reader navigation via Pagewright's semantic components with HTML-first approach",
+          "metadata": {
+            "rule_id": "A11Y_SCREEN_READER_001",
+            "category": "accessibility",
+            "reason": "Screen reader users need semantic structure and context to understand and navigate interfaces effectively",
+            "consequences": "Poor semantic markup and missing context make interfaces unusable for screen reader users",
+            "philosophy": "Progressive enhancement - semantic HTML works with screen readers, enhanced with live regions",
+            "technical_implementation": "Live regions for dynamic content updates, proper heading hierarchy, descriptive labels",
+            "pagewright_context": "Screen reader navigation via Pagewright's semantic components - PhoneNumberField, EmailAddressField provide built-in context",
+            "progressive_integration": "Works with existing HTML-first approach - proper forms, anchor IDs, semantic elements",
+            "examples": {
+              "live_regions": "aria-live='polite' for form validation messages, 'assertive' for urgent updates",
+              "context_provision": "Descriptive labels that make sense when heard alone",
+              "semantic_navigation": "Proper heading hierarchy (h1, h2, h3) for screen reader navigation",
+              "component_integration": "EmailAddressField announces 'Email address input' automatically via semantic props"
+            },
+            "applies_to": [
+              ".tsx",
+              ".jsx"
+            ]
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001382625
+}

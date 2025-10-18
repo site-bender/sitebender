@@ -1,0 +1,344 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "083c564d-ffd8-4c97-9ccc-e3e096f3df62",
+        "payload": {
+          "document": "All data structures must be immutable. Use const, ReadonlyArray<T>, Readonly<T>. Use freeze/deepFreeze via Toolsmith for runtime immutability",
+          "metadata": {
+            "rule_id": "FP_IMMUTABILITY_001",
+            "category": "functional_programming",
+            "priority": 10,
+            "reason": "Immutability eliminates entire classes of bugs related to unexpected state changes, makes code easier to reason about",
+            "consequences": "Mutable state creates race conditions, debugging nightmares, and lost data",
+            "philosophy": "Data flows through transformations, it doesn't mutate",
+            "examples": {
+              "correct": "const newArr = [...oldArr, newItem]; const frozen = freeze(obj)",
+              "wrong": "arr.push(newItem); obj.property = newValue"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "355fb178-b477-43f6-9246-4932332420bc",
+        "payload": {
+          "document": "Application libraries must use Toolsmith boxed functions and return monads",
+          "metadata": {
+            "rule_id": "FP_APPLICATION_USE_BOXED_001",
+            "category": "functional_programming",
+            "priority": 10,
+            "reason": "Boxed functions provide monadic error handling and composability for application code",
+            "consequences": "Using vanilla functions in applications loses error accumulation and monadic composition",
+            "philosophy": "Application code should be monadic, Toolsmith internals can be optimized",
+            "context": {
+              "libraries": [
+                "pagewright",
+                "architect",
+                "operator",
+                "custodian"
+              ],
+              "usage": "application_development"
+            },
+            "examples": {
+              "correct": "import validateEmail from '@sitebender/toolsmith/boxed/validation/validateEmail/index.ts'",
+              "wrong": "import validateEmail from '@sitebender/toolsmith/vanilla/validation/validateEmail/index.ts'"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "4f60fa8e-baf0-4912-83d6-71b045f4b568",
+        "payload": {
+          "document": "Return Result<T,E> for sequential fail-fast operations or Validation<T,E> for parallel error accumulation. Prefer these over Maybe<T> for error handling",
+          "metadata": {
+            "rule_id": "FP_MONADIC_RETURNS_001",
+            "category": "functional_programming",
+            "priority": 10,
+            "reason": "Result provides fail-fast sequential processing, Validation accumulates all errors for comprehensive feedback",
+            "consequences": "Using Maybe for errors loses important error information",
+            "philosophy": "Error handling should be explicit and contextually appropriate",
+            "examples": {
+              "result": "validateUser(data) // stops at first validation error",
+              "validation": "validateForm(fields) // collects all field errors"
+            },
+            "note": "Maybe<T> acceptable for optional values, but usually we expect to handle errors",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "75628776-5832-4de2-a9c0-ac1fd09b913c",
+        "payload": {
+          "document": "Toolsmith may use performance exceptions with [EXCEPTION] or [OPTIMIZATION] Envoy comments when ideology conflicts with performance requirements",
+          "metadata": {
+            "rule_id": "FP_TOOLSMITH_EXCEPTIONS_001",
+            "category": "functional_programming",
+            "priority": 9,
+            "reason": "Toolsmith is the foundation library - performance optimizations justify pragmatic exceptions to pure FP rules",
+            "consequences": "Performance bottlenecks in Toolsmith affect all dependent libraries",
+            "philosophy": "Pragmatic performance over ideological purity when building foundations",
+            "context": {
+              "libraries": [
+                "toolsmith"
+              ],
+              "usage": "performance_critical"
+            },
+            "examples": {
+              "exception": "//++ [EXCEPTION] Using .push() on new array for performance",
+              "optimization": "//++ [OPTIMIZATION] Loop approved for O(n) vs O(n²) functional approach"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "7877595b-0b56-4b53-b374-4a6aeeb5ed12",
+        "payload": {
+          "document": "Build complex operations by composing simple, focused functions. Use pipe for left-to-right composition, compose for right-to-left",
+          "metadata": {
+            "rule_id": "FP_COMPOSITION_001",
+            "category": "functional_programming",
+            "priority": 9,
+            "reason": "Composition enables building sophisticated behavior from simple, well-tested building blocks",
+            "consequences": "Monolithic functions are hard to test, understand, and reuse",
+            "philosophy": "Complex behavior emerges from simple function composition",
+            "examples": {
+              "correct": "pipe(numbers, filter(isEven), map(double), reduce(add, 0))",
+              "wrong": "function processNumbers(nums) { /* complex monolithic implementation */ }"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "94e83cbb-f744-41e1-b57c-db6216ca3bc0",
+        "payload": {
+          "document": "Write TypeScript, to the extent possible, as if you were writing Haskell",
+          "metadata": {
+            "rule_id": "RULE_FUNDAMENTAL_001",
+            "category": "functional_programming",
+            "priority": 10,
+            "reason": "Haskell is the most beautiful language ever written. FP is proven better for reduced cognitive load, fewer bugs, and better parallel processing",
+            "consequences": "Writing imperative/OOP style creates massive technical debt and blocks progress for weeks",
+            "philosophy": "Functional programming is not opinion - it's mathematically superior",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "96bb2884-447e-470b-b454-70d3abd0ecfa",
+        "payload": {
+          "document": "NO MAGIC NUMBERS. All non-obvious numbers must be named constants with descriptive names in SCREAMING_SNAKE_CASE",
+          "metadata": {
+            "rule_id": "FP_NO_MAGIC_NUMBERS_001",
+            "category": "functional_programming",
+            "priority": 9,
+            "reason": "Magic numbers are meaningless. Named constants explain WHY that value exists",
+            "consequences": "Magic numbers create mystery meat code that's impossible to understand or maintain",
+            "philosophy": "Every number should have semantic meaning",
+            "examples": {
+              "magic_numbers": "if (retries > 3) { ... } setTimeout(callback, 5000)",
+              "named_constants": "const MAX_RETRIES = 3; const POLLING_INTERVAL_MS = 5000; const ADDITIVE_IDENTITY = 0; const MULTIPLICATIVE_IDENTITY = 1"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "c43a6943-2e84-42d3-ac76-d84bbb8804e0",
+        "payload": {
+          "document": "Generator functions may use let/loops internally for performance - no Haskell equivalent exists",
+          "metadata": {
+            "rule_id": "FP_GENERATOR_EXCEPTIONS_001",
+            "category": "functional_programming",
+            "priority": 8,
+            "reason": "Generators have no functional equivalent in Haskell. Performance and memory efficiency require imperative implementation",
+            "consequences": "Forcing functional patterns on generators creates performance bottlenecks and memory issues",
+            "philosophy": "When language features have no functional equivalent, pragmatic implementation is acceptable",
+            "examples": {
+              "correct": "function* generateSequence() { let i = 0; while (i < limit) { yield i++ } }",
+              "context": "Internal let/while acceptable in generators only"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "c7b4ea5f-c387-4737-9cda-d010c58ef908",
+        "payload": {
+          "document": "Single Responsibility Principle applies to modules, components, functions, types, and constants - each does ONE thing (Occam's Razor)",
+          "metadata": {
+            "rule_id": "FP_SINGLE_RESPONSIBILITY_001",
+            "category": "functional_programming",
+            "priority": 10,
+            "reason": "Things that do multiple things are impossible to test, reuse, or understand. Simplicity reduces cognitive load",
+            "consequences": "Multi-responsibility code becomes tangled spaghetti that breaks when you change anything",
+            "philosophy": "Do not needlessly complicate things - Occam's Razor in action",
+            "examples": {
+              "correct": "validateUser() only validates, saveUser() only saves, then compose them",
+              "wrong": "processUser() that validates AND transforms AND saves - too many responsibilities"
+            },
+            "scope": [
+              "modules",
+              "components",
+              "functions",
+              "types",
+              "constants"
+            ],
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "c814a938-c890-4f4f-b863-a57a38455773",
+        "payload": {
+          "document": "Functions must be pure except for isolated I/O operations - same inputs produce same outputs, no side effects",
+          "metadata": {
+            "rule_id": "FP_PURE_EXCEPT_IO_001",
+            "category": "functional_programming",
+            "priority": 10,
+            "reason": "Purity enables equational reasoning, makes testing trivial, and allows safe memoization and parallelization",
+            "consequences": "Impure functions create unpredictable behavior and testing nightmares",
+            "philosophy": "Pure functions are mathematical - predictable and composable",
+            "exception": "I/O operations isolated to specific boundary functions",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "d6a1ed0a-a8ff-4851-928f-1b6a3563e8fc",
+        "payload": {
+          "document": "Vanilla functions for internal use where inputs are carefully guarded and monadic error handling not needed",
+          "metadata": {
+            "rule_id": "FP_VANILLA_INTERNAL_001",
+            "category": "functional_programming",
+            "priority": 8,
+            "reason": "Vanilla functions are more performant when inputs are guaranteed valid and error collection unnecessary",
+            "consequences": "Using boxed functions internally adds unnecessary overhead",
+            "philosophy": "Right tool for the right job - vanilla for trusted internal use, boxed for applications",
+            "context": {
+              "libraries": [
+                "toolsmith"
+              ],
+              "usage": "internal_implementation"
+            },
+            "examples": {
+              "correct": "Internal helper that processes validated data can use vanilla functions",
+              "wrong": "Public API should always use boxed functions"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "f3ad0439-77ce-4ea4-878d-ba7584121cc0",
+        "payload": {
+          "document": "Use Either<L,R> for branching paths (left/right, this/that) with no implication that one is better than the other. Not for error handling",
+          "metadata": {
+            "rule_id": "FP_EITHER_BRANCHING_001",
+            "category": "functional_programming",
+            "priority": 8,
+            "reason": "Either represents choice between two valid options, unlike Result which implies success/failure",
+            "consequences": "Conflating Either with error handling misses its true purpose as a branching construct",
+            "philosophy": "Either is for paths, Result is for outcomes",
+            "examples": {
+              "correct": "Either<DatabaseResult, CacheResult> - both are valid data sources",
+              "wrong": "Either<User, Error> - use Result<User, Error> instead"
+            },
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      },
+      {
+        "id": "f7eac462-17b9-4a4a-945c-b00f48a76351",
+        "payload": {
+          "document": "Use generators for streaming data, lazy evaluation, state machines, and custom iteration where memory efficiency matters. Unlike Haskell's default laziness, be selective - use lazy only where it provides real benefits",
+          "metadata": {
+            "rule_id": "FP_GENERATOR_USAGE_001",
+            "category": "functional_programming",
+            "priority": 8,
+            "reason": "Generators provide memory-efficient lazy evaluation for large data sets, infinite sequences, and expensive computations",
+            "consequences": "Eager evaluation can cause memory issues with large data or unnecessary computation",
+            "philosophy": "Selective laziness - use where it matters, not everywhere like Haskell",
+            "examples": {
+              "good_uses": "CSV file streaming, API pagination, infinite sequences, search with early termination, file system traversal",
+              "avoid": "Simple transformations, small data sets, debugging-sensitive code"
+            },
+            "context": "Lexing/parsing in formulator, large data processing, infinite mathematical sequences",
+            "applies_to": [
+              ".ts",
+              ".tsx",
+              ".js",
+              ".jsx"
+            ]
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001141292
+}
