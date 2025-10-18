@@ -7,47 +7,47 @@ import isError from "../../monads/result/isError/index.ts"
 
 Deno.test("reduce", async function reduceTests(t) {
 	await t.step(
-		"sums numbers with curried reducer",
+		"sums numbers with two-parameter reducer",
 		function sumsNumbers() {
-			const add = function (acc: number) {
-				return function addToAcc(item: number): number {
-					return acc + item
-				}
+			function add(accumulator: number, item: number): number {
+				return accumulator + item
 			}
 			const result = reduce(add)(0)([1, 2, 3, 4, 5])
 
 			assertEquals(isOk(result), true)
-			assertEquals(result.value, 15)
+			if (isOk(result)) {
+				assertEquals(result.value, 15)
+			}
 		},
 	)
 
 	await t.step(
 		"handles empty arrays",
 		function handlesEmptyArrays() {
-			const add = function (acc: number) {
-				return function addToAcc(item: number): number {
-					return acc + item
-				}
+			function add(accumulator: number, item: number): number {
+				return accumulator + item
 			}
 			const result = reduce(add)(10)([])
 
 			assertEquals(isOk(result), true)
-			assertEquals(result.value, 10) // Returns initial value
+			if (isOk(result)) {
+				assertEquals(result.value, 10) // Returns initial value
+			}
 		},
 	)
 
 	await t.step(
 		"concatenates strings",
 		function concatenatesStrings() {
-			const concat = function (acc: string) {
-				return function concatWithAcc(item: string): string {
-					return acc + item
-				}
+			function concat(accumulator: string, item: string): string {
+				return accumulator + item
 			}
 			const result = reduce(concat)("")(["Hello", " ", "World"])
 
 			assertEquals(isOk(result), true)
-			assertEquals(result.value, "Hello World")
+			if (isOk(result)) {
+				assertEquals(result.value, "Hello World")
+			}
 		},
 	)
 
@@ -55,40 +55,38 @@ Deno.test("reduce", async function reduceTests(t) {
 		"builds objects",
 		function buildsObjects() {
 			type Acc = { readonly [key: string]: number }
-			const addToObj = function (acc: Acc) {
-				return function addItemToObj(item: string): Acc {
-					return { ...acc, [item]: item.length }
-				}
+			function addToObj(accumulator: Acc, item: string): Acc {
+				return { ...accumulator, [item]: item.length }
 			}
 			const result = reduce(addToObj)({} as Acc)(["a", "bb", "ccc"])
 
 			assertEquals(isOk(result), true)
-			assertEquals(result.value, { a: 1, bb: 2, ccc: 3 })
+			if (isOk(result)) {
+				assertEquals(result.value, { a: 1, bb: 2, ccc: 3 })
+			}
 		},
 	)
 
 	await t.step(
 		"multiplies numbers",
 		function multipliesNumbers() {
-			const multiply = function (acc: number) {
-				return function multiplyWithAcc(item: number): number {
-					return acc * item
-				}
+			function multiply(accumulator: number, item: number): number {
+				return accumulator * item
 			}
 			const result = reduce(multiply)(1)([2, 3, 4])
 
 			assertEquals(isOk(result), true)
-			assertEquals(result.value, 24)
+			if (isOk(result)) {
+				assertEquals(result.value, 24)
+			}
 		},
 	)
 
 	await t.step(
 		"returns error for non-array input",
 		function returnsErrorForNonArray() {
-			const add = function (acc: number) {
-				return function addToAcc(item: number): number {
-					return acc + item
-				}
+			function add(accumulator: number, item: number): number {
+				return accumulator + item
 			}
 			const result = reduce(add)(0)(null as unknown as ReadonlyArray<number>)
 
@@ -103,15 +101,15 @@ Deno.test("reduce", async function reduceTests(t) {
 	await t.step(
 		"transforms types during reduction",
 		function transformsTypes() {
-			const sumLengths = function (acc: number) {
-				return function addLength(item: string): number {
-					return acc + item.length
-				}
+			function sumLengths(accumulator: number, item: string): number {
+				return accumulator + item.length
 			}
 			const result = reduce(sumLengths)(0)(["hello", "world"])
 
 			assertEquals(isOk(result), true)
-			assertEquals(result.value, 10)
+			if (isOk(result)) {
+				assertEquals(result.value, 10)
+			}
 		},
 	)
 })
@@ -121,18 +119,18 @@ Deno.test("reduce - property: sum is commutative", function sumProperty() {
 		fc.property(
 			fc.array(fc.integer()),
 			function propertySum(arr) {
-				const add = function (acc: number) {
-					return function addToAcc(item: number): number {
-						return acc + item
-					}
+				function add(accumulator: number, item: number): number {
+					return accumulator + item
 				}
 				const result = reduce(add)(0)(arr)
 
 				assertEquals(isOk(result), true)
-				const sum = arr.reduce(function (acc, item) {
-					return acc + item
-				}, 0)
-				assertEquals(result.value, sum)
+				if (isOk(result)) {
+					const sum = arr.reduce(function (accumulator, item) {
+						return accumulator + item
+					}, 0)
+					assertEquals(result.value, sum)
+				}
 			},
 		),
 	)
@@ -143,15 +141,15 @@ Deno.test("reduce - property: empty array returns initial", function emptyArrayP
 		fc.property(
 			fc.integer(),
 			function propertyEmptyArray(initial) {
-				const add = function (acc: number) {
-					return function addToAcc(item: number): number {
-						return acc + item
-					}
+				function add(accumulator: number, item: number): number {
+					return accumulator + item
 				}
 				const result = reduce(add)(initial)([])
 
 				assertEquals(isOk(result), true)
-				assertEquals(result.value, initial)
+				if (isOk(result)) {
+					assertEquals(result.value, initial)
+				}
 			},
 		),
 	)
