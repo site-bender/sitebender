@@ -4,858 +4,741 @@
       {
         "id": "02947378-17c4-4911-aef5-63b8a0e72dfe",
         "payload": {
-          "document": "JSX_I18N_002 - Locale Management Patterns: Locale providers must handle locale detection, fallback chains, and regional variations correctly. Support both static and dynamic locale switching. This ensures proper internationalization across different deployment scenarios while maintaining user experience and cultural sensitivity.",
+          "description": "Locale providers must handle locale detection, fallback chains, and regional variations correctly. Support both static and dynamic locale switching.",
           "metadata": {
             "rule_id": "JSX_I18N_002",
-            "category": "i18n",
-            "priority": 7,
-            "reason": "Ensures proper internationalization across different deployment scenarios while maintaining user experience and cultural sensitivity",
-            "consequences": "Simplistic locale handling breaks internationalization in complex deployment scenarios and different cultural contexts",
-            "philosophy": "Locale Management Patterns - locale detection, fallback chains, and regional variations with support for static and dynamic locale switching",
-            "examples": {
-              "correct": "<LocaleProvider>\n  <DetectFromAcceptLanguageHeader />\n  <DetectFrom.UserPreference />\n  <FallbackChain locales={[\"en-US\", \"en\", \"es\"]} />\n  <DateFormat calendar=\"gregorian\" />\n  <NumberFormat currency=\"USD\" />\n</LocaleProvider>",
-              "anti_pattern": "<LocaleProvider locale=\"en\" fallback=\"en\" />"
+            "keywords": ["jsx", "i18n", "locale", "internationalization", "fallback", "regional", "detection", "dynamic-switching", "cultural-sensitivity"],
+            "rationale": "Ensures proper internationalization across different deployment scenarios while maintaining user experience and cultural sensitivity. Simplistic locale handling breaks internationalization in complex deployment scenarios and different cultural contexts. Comprehensive locale management with detection, fallback chains, and regional variations supports both static and dynamic locale switching for global applications.",
+            "prohibited": {
+              "code": "<LocaleProvider locale=\"en\" fallback=\"en\" />",
+              "reasoning": "Hardcoded locale without detection, no fallback chain, no regional variation support, no dynamic switching capability"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<LocaleProvider>\n\t<DetectFromAcceptLanguageHeader />\n\t<DetectFrom.UserPreference />\n\t<FallbackChain locales={[\"en-US\", \"en\", \"es\"]} />\n\t<DateFormat calendar=\"gregorian\" />\n\t<NumberFormat currency=\"USD\" />\n</LocaleProvider>",
+              "scope": "All locale provider components requiring detection, fallback chains, regional variations, and dynamic switching"
+            }
           }
         }
       },
       {
         "id": "043510db-31db-4a67-a98d-fa81cd460891",
         "payload": {
-          "document": "Data Injection Patterns - data injection components must specify clear data sources and handle loading/error states consistently. FromElement, FromApi components need fallback strategies.",
+          "description": "Data injection components must specify clear data sources and handle loading/error states consistently. FromElement, FromApi components need fallback strategies.",
           "metadata": {
             "rule_id": "JSX_MATH_003",
-            "category": "math",
-            "priority": 8,
-            "reason": "Ensures reactive data flows are predictable and debuggable across complex application states",
-            "consequences": "Unclear data dependencies make reactive systems unpredictable and hard to debug",
-            "philosophy": "Data Injection Patterns - clear data sources with consistent loading/error state handling",
-            "examples": {
-              "correct": "<Display id=\"total\">\n  <Add>\n    <From.Element selector=\"#subtotal\" fallback=\"0\" />\n    <From.Api endpoint=\"/tax-rate\" cache=\"5m\" fallback=\"0.08\" />\n  </Add>\n</Display>",
-              "anti_pattern": "<Display id=\"total\" formula=\"subtotal + taxRate\" />"
+            "keywords": ["jsx", "data-injection", "reactive", "data-sources", "loading-states", "error-handling", "fallback", "predictable"],
+            "rationale": "Ensures reactive data flows are predictable and debuggable across complex application states. Unclear data dependencies make reactive systems unpredictable and hard to debug. Clear data sources with consistent loading/error state handling and fallback strategies enable reliable reactive architectures.",
+            "prohibited": {
+              "code": "<Display id=\"total\" formula=\"subtotal + taxRate\" />",
+              "reasoning": "Implicit data sources, no loading/error states, no fallback strategy, unpredictable reactive behavior"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Display id=\"total\">\n\t<Add>\n\t\t<From.Element selector=\"#subtotal\" fallback=\"0\" />\n\t\t<From.Api endpoint=\"/tax-rate\" cache=\"5m\" fallback=\"0.08\" />\n\t</Add>\n</Display>",
+              "scope": "All data injection components with external dependencies requiring explicit sources, loading/error states, and fallback strategies"
+            }
           }
         }
       },
       {
         "id": "08ff109e-2c5c-4ec5-8d61-f14e851c87b0",
         "payload": {
-          "document": "JSX_DEVTOOLS_002 - Collaborative Development Patterns: Collaborative development components must handle real-time editing, conflict resolution, and team coordination with proper permission management. This ensures collaborative development features work reliably across distributed teams while maintaining project integrity.",
+          "description": "Collaborative development components must handle real-time editing, conflict resolution, and team coordination with proper permission management.",
           "metadata": {
             "rule_id": "JSX_DEVTOOLS_002",
-            "category": "devtools",
-            "priority": 7,
-            "reason": "Ensures collaborative development features work reliably across distributed teams while maintaining project integrity",
-            "consequences": "Unstructured collaboration leads to conflicts and breaks project integrity in distributed team environments",
-            "philosophy": "Collaborative Development Patterns - real-time editing, conflict resolution, and team coordination with proper permission management",
-            "examples": {
-              "correct": "<CollaborativeSession id=\"team-project\">\n  <TeamConfiguration>\n    <Participants>\n      <Developer role=\"lead\" permissions={[\"admin\", \"edit\", \"approve\"]} />\n      <Designer role=\"ux\" permissions={[\"edit\", \"comment\"]} />\n    </Participants>\n  </TeamConfiguration>\n  <RealTimeEditing>\n    <CrdtSync strategy=\"operational-transform\" />\n    <ConflictResolution automatic={true} fallback=\"manual\" />\n  </RealTimeEditing>\n</CollaborativeSession>",
-              "anti_pattern": "<SharedEditor users={teamMembers} allowEdit={true} />"
+            "keywords": ["jsx", "devtools", "collaboration", "real-time", "conflict-resolution", "permissions", "team-coordination", "distributed"],
+            "rationale": "Ensures collaborative development features work reliably across distributed teams while maintaining project integrity. Unstructured collaboration leads to conflicts and breaks project integrity in distributed team environments. Real-time editing, conflict resolution, and team coordination with proper permission management enables reliable distributed collaboration.",
+            "prohibited": {
+              "code": "<SharedEditor users={teamMembers} allowEdit={true} />",
+              "reasoning": "No real-time editing support, no conflict resolution, no permission management, no team coordination, fragile in distributed environments"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<CollaborativeSession id=\"team-project\">\n\t<TeamConfiguration>\n\t\t<Participants>\n\t\t\t<Developer role=\"lead\" permissions={[\"admin\", \"edit\", \"approve\"]} />\n\t\t\t<Designer role=\"ux\" permissions={[\"edit\", \"comment\"]} />\n\t\t</Participants>\n\t</TeamConfiguration>\n\t<RealTimeEditing>\n\t\t<CrdtSync strategy=\"operational-transform\" />\n\t\t<ConflictResolution automatic={true} fallback=\"manual\" />\n\t</RealTimeEditing>\n</CollaborativeSession>",
+              "scope": "All collaborative development components requiring real-time editing, conflict resolution, team coordination, and permission management"
+            }
           }
         }
       },
       {
         "id": "0928aa8a-6dc5-40ba-b7d1-bf8862d2678f",
         "payload": {
-          "document": "JSX_OBSERVABILITY_001 - Dashboard Component Structure: Dashboard components must maintain proper data flow, real-time updates, and accessibility. All metrics must specify units, ranges, and update frequencies. This ensures observability dashboards provide accurate, timely information while remaining accessible to all team members.",
+          "description": "Dashboard components must maintain proper data flow, real-time updates, and accessibility. All metrics must specify units, ranges, and update frequencies.",
           "metadata": {
             "rule_id": "JSX_OBSERVABILITY_001",
-            "category": "observability",
-            "priority": 7,
-            "reason": "Ensures observability dashboards provide accurate, timely information while remaining accessible to all team members",
-            "consequences": "Unstructured dashboards without proper metrics provide misleading information and exclude team members",
-            "philosophy": "Dashboard Component Structure - proper data flow, real-time updates, and accessibility with specified units, ranges, and update frequencies",
-            "examples": {
-              "correct": "<EnvoyWorkflowDashboard>\n  <WorkflowCanvas>\n    <LibraryNode id=\"warden\" type=\"governance\" status=\"active\">\n      <RealTimeMetrics updateInterval=\"1s\">\n        <ValidationTime unit=\"ms\" range=\"0-5000\">2300</ValidationTime>\n        <ViolationCount>0</ViolationCount>\n        <DeveloperSatisfaction>😊</DeveloperSatisfaction>\n      </RealTimeMetrics>\n    </LibraryNode>\n  </WorkflowCanvas>\n</EnvoyWorkflowDashboard>",
-              "anti_pattern": "<Dashboard>\n  <Node id=\"warden\" status=\"ok\" />\n  <Metric>2.3s</Metric>\n</Dashboard>"
+            "keywords": ["jsx", "observability", "dashboard", "metrics", "real-time", "accessibility", "units", "data-flow"],
+            "rationale": "Ensures observability dashboards provide accurate, timely information while remaining accessible to all team members. Unstructured dashboards without proper metrics provide misleading information and exclude team members. Proper data flow, real-time updates, and accessibility with specified units, ranges, and update frequencies create reliable observability.",
+            "prohibited": {
+              "code": "<Dashboard>\n\t<Node id=\"warden\" status=\"ok\" />\n\t<Metric>2.3s</Metric>\n</Dashboard>",
+              "reasoning": "No data flow specification, no real-time updates, no accessibility, metrics missing units/ranges/update frequencies"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<EnvoyWorkflowDashboard>\n\t<WorkflowCanvas>\n\t\t<LibraryNode id=\"warden\" type=\"governance\" status=\"active\">\n\t\t\t<RealTimeMetrics updateInterval=\"1s\">\n\t\t\t\t<ValidationTime unit=\"ms\" range=\"0-5000\">2300</ValidationTime>\n\t\t\t\t<ViolationCount>0</ViolationCount>\n\t\t\t\t<DeveloperSatisfaction>😊</DeveloperSatisfaction>\n\t\t\t</RealTimeMetrics>\n\t\t</LibraryNode>\n\t</WorkflowCanvas>\n</EnvoyWorkflowDashboard>",
+              "scope": "All dashboard components requiring real-time metrics with proper units, ranges, update frequencies, and accessibility"
+            }
           }
         }
       },
       {
         "id": "1ae7ea2b-2696-4fa4-adf7-1a5d7a93d761",
         "payload": {
-          "document": "Component Composition Guidelines - favor composition over inheritance. Components should be small, focused, and composable. Use children patterns and declarative nesting for flexible composition.",
+          "description": "Favor composition over inheritance. Components should be small, focused, and composable. Use children patterns and declarative nesting for flexible composition.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_003",
-            "category": "universal",
-            "priority": 9,
-            "reason": "Enables complex applications from simple building blocks while maintaining predictable behavior and testability across all Studio libraries",
-            "consequences": "Monolithic components become unmaintainable and untestable",
-            "philosophy": "Component Composition Guidelines - favor composition over inheritance, small focused composable components",
-            "examples": {
-              "correct": "<StateMachine name=\"checkout\">\n  <State name=\"cart\">\n    <Transition on=\"proceed\" to=\"payment\" />\n  </State>\n  <State name=\"payment\">\n    <Authentication required />\n    <Transition on=\"complete\" to=\"confirmation\" />\n  </State>\n</StateMachine>",
-              "anti_pattern": "<CheckoutWorkflow \n  authProvider=\"oauth\" \n  paymentGateway=\"stripe\" \n  states={checkoutConfig} \n/>"
+            "keywords": ["jsx", "composition", "inheritance", "children", "declarative", "nesting", "small-components", "focused", "building-blocks"],
+            "rationale": "Enables complex applications from simple building blocks while maintaining predictable behavior and testability across all Studio libraries. Monolithic components become unmaintainable and untestable. Small, focused, composable components with children patterns and declarative nesting create flexible, maintainable architectures.",
+            "prohibited": {
+              "code": "<CheckoutWorkflow \n\tauthProvider=\"oauth\" \n\tpaymentGateway=\"stripe\" \n\tstates={checkoutConfig} \n/>",
+              "reasoning": "Monolithic component configuration, no composition, complex implicit behavior, untestable, unmaintainable"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<StateMachine name=\"checkout\">\n\t<State name=\"cart\">\n\t\t<Transition on=\"proceed\" to=\"payment\" />\n\t</State>\n\t<State name=\"payment\">\n\t\t<Authentication required />\n\t\t<Transition on=\"complete\" to=\"confirmation\" />\n\t</State>\n</StateMachine>",
+              "scope": "All component designs - favor small, focused, composable components with children patterns and declarative nesting"
+            }
           }
         }
       },
       {
         "id": "1e13d71f-33e1-47e5-bcff-30125a76503c",
         "payload": {
-          "document": "JSX_EVENTS_002 - Transport Layer Configuration: Event components must specify transport mechanisms, retry policies, and failure handling. Support both local and distributed event delivery. This ensures reliable event delivery across different deployment scenarios while maintaining performance and consistency.",
+          "description": "Event components must specify transport mechanisms, retry policies, and failure handling. Support both local and distributed event delivery.",
           "metadata": {
             "rule_id": "JSX_EVENTS_002",
-            "category": "events",
-            "priority": 8,
-            "reason": "Ensures reliable event delivery across different deployment scenarios while maintaining performance and consistency",
-            "consequences": "Implicit transport assumptions cause events to fail in different deployment environments",
-            "philosophy": "Transport Layer Configuration - explicit transport mechanisms, retry policies, and failure handling for reliable event delivery",
-            "examples": {
-              "correct": "<Channel id=\"user-actions\" transport=\"websocket\" scope=\"session\">\n  <RetryPolicy attempts={3} backoff=\"exponential\" />\n  <Persistence strategy=\"memory\" maxEvents={1000} />\n</Channel>",
-              "anti_pattern": "<EventBus events={userEvents} />"
+            "keywords": ["jsx", "events", "transport", "retry", "failure-handling", "distributed", "local", "reliable-delivery"],
+            "rationale": "Ensures reliable event delivery across different deployment scenarios while maintaining performance and consistency. Implicit transport assumptions cause events to fail in different deployment environments. Explicit transport mechanisms, retry policies, and failure handling enable reliable event delivery.",
+            "prohibited": {
+              "code": "<EventBus events={userEvents} />",
+              "reasoning": "No transport specification, no retry policy, no failure handling, implicit assumptions break in different deployments"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Channel id=\"user-actions\" transport=\"websocket\" scope=\"session\">\n\t<RetryPolicy attempts={3} backoff=\"exponential\" />\n\t<Persistence strategy=\"memory\" maxEvents={1000} />\n</Channel>",
+              "scope": "All event components requiring transport specification, retry policies, failure handling, and deployment flexibility"
+            }
           }
         }
       },
       {
         "id": "1fe6342a-be8c-4825-836a-69ebf5bc66d9",
         "payload": {
-          "document": "JSX_SEMANTIC_001 - Context-Aware Component Usage: Semantic components must be used in appropriate contexts. Heading components must be properly nested, Article components must contain meaningful content structures. This ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Pagewright's context-aware compilation.",
+          "description": "Semantic components must be used in appropriate contexts. Heading components must be properly nested, Article components must contain meaningful content structures.",
           "metadata": {
             "rule_id": "JSX_SEMANTIC_001",
-            "category": "semantic",
-            "priority": 8,
-            "reason": "Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Pagewright's context-aware compilation",
-            "consequences": "Improper semantic structure breaks accessibility, SEO, and context-aware compilation features",
-            "philosophy": "Context-Aware Component Usage - semantic components used in appropriate contexts with proper nesting",
-            "examples": {
-              "correct": "<Article>\n  <Heading><Title>Main Article</Title></Heading>\n  <Section>\n    <Heading><Title>Section Title</Title></Heading>\n    <Paragraph>Content...</Paragraph>\n  </Section>\n</Article>",
-              "anti_pattern": "<div>\n  <Heading level={3}><Title>Main Article</Title></Heading>\n  <Heading level={1}><Title>Section Title</Title></Heading>\n</div>"
+            "keywords": ["jsx", "semantic", "accessibility", "seo", "context-aware", "heading", "nesting", "pagewright", "html-structure"],
+            "rationale": "Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Pagewright's context-aware compilation. Improper semantic structure breaks accessibility, SEO, and context-aware compilation features. Context-aware component usage with proper nesting creates valid, accessible semantic HTML.",
+            "prohibited": {
+              "code": "<div>\n\t<Heading level={3}><Title>Main Article</Title></Heading>\n\t<Heading level={1}><Title>Section Title</Title></Heading>\n</div>",
+              "reasoning": "Improper semantic structure, incorrect heading nesting, breaks accessibility and SEO, invalid context usage"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Article>\n\t<Heading><Title>Main Article</Title></Heading>\n\t<Section>\n\t\t<Heading><Title>Section Title</Title></Heading>\n\t\t<Paragraph>Content...</Paragraph>\n\t</Section>\n</Article>",
+              "scope": "All semantic components requiring context-aware usage with proper nesting for accessibility and SEO"
+            }
           }
         }
       },
       {
         "id": "2400a018-5f51-4be5-a545-cf8c6393ccc5",
         "payload": {
-          "document": "JSX_GOVERNANCE_003 - Compliance Framework Integration: Compliance validation components must support multiple regulatory frameworks with specific technical and procedural requirements. Use standard compliance identifiers and requirements. This ensures workflows meet regulatory requirements across different jurisdictions while providing automated compliance verification.",
+          "description": "Compliance validation components must support multiple regulatory frameworks with specific technical and procedural requirements. Use standard compliance identifiers.",
           "metadata": {
             "rule_id": "JSX_GOVERNANCE_003",
-            "category": "governance",
-            "priority": 9,
-            "reason": "Ensures workflows meet regulatory requirements across different jurisdictions while providing automated compliance verification",
-            "consequences": "Generic compliance checking fails to meet specific regulatory requirements and makes automated verification impossible",
-            "philosophy": "Compliance Framework Integration - multiple regulatory frameworks with specific technical and procedural requirements using standard compliance identifiers",
-            "examples": {
-              "correct": "<ComplianceValidation>\n  <RegulatoryFrameworks>\n    <Gpdr>\n      <DataProcessingLawfulness>\n        <ConsentManagement required={true} />\n        <DataMinimization enforced={true} />\n        <RightToErasure implemented={true} />\n      </DataProcessingLawfulness>\n      <TechnicalMeasures>\n        <EncryptionAtRest required={true} />\n        <AccessControls granular={true} />\n      </TechnicalMeasures>\n    </Gpdr>\n    <Hipaa>\n      <TechnicalSafeguards>\n        <AccessControl unique=\"user-identification\" />\n        <AuditControls />\n        <Integrity />\n      </TechnicalSafeguards>\n    </Hipaa>\n  </RegulatoryFrameworks>\n</ComplianceValidation>",
-              "anti_pattern": "<ComplianceChecker\n  frameworks={[\"GPDR\", \"HIPAA\"]}\n  rules={complianceRules}\n/>"
+            "keywords": ["jsx", "governance", "compliance", "regulatory", "gdpr", "hipaa", "frameworks", "validation", "automated"],
+            "rationale": "Ensures workflows meet regulatory requirements across different jurisdictions while providing automated compliance verification. Generic compliance checking fails to meet specific regulatory requirements and makes automated verification impossible. Multiple regulatory frameworks with specific technical and procedural requirements using standard identifiers enable automated compliance.",
+            "prohibited": {
+              "code": "<ComplianceChecker\n\tframeworks={[\"GPDR\", \"HIPAA\"]}\n\trules={complianceRules}\n/>",
+              "reasoning": "Generic compliance checking, no specific framework support, no technical requirements, no automated verification"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<ComplianceValidation>\n\t<RegulatoryFrameworks>\n\t\t<Gpdr>\n\t\t\t<DataProcessingLawfulness>\n\t\t\t\t<ConsentManagement required={true} />\n\t\t\t\t<DataMinimization enforced={true} />\n\t\t\t\t<RightToErasure implemented={true} />\n\t\t\t</DataProcessingLawfulness>\n\t\t\t<TechnicalMeasures>\n\t\t\t\t<EncryptionAtRest required={true} />\n\t\t\t\t<AccessControls granular={true} />\n\t\t\t</TechnicalMeasures>\n\t\t</Gpdr>\n\t\t<Hipaa>\n\t\t\t<TechnicalSafeguards>\n\t\t\t\t<AccessControl unique=\"user-identification\" />\n\t\t\t\t<AuditControls />\n\t\t\t\t<Integrity />\n\t\t\t</TechnicalSafeguards>\n\t\t</Hipaa>\n\t</RegulatoryFrameworks>\n</ComplianceValidation>",
+              "scope": "All compliance components requiring multiple regulatory frameworks with specific technical/procedural requirements and automated verification"
+            }
           }
         }
       },
       {
         "id": "29de5130-d2ec-4acc-907a-b57733451af4",
         "payload": {
-          "document": "JSX_DISTRIBUTED_003 - Collaborative Workflow Structure: Collaborative components must define clear ownership, permission, and conflict resolution patterns. Support graceful degradation when peers are offline. This ensures collaborative features work reliably across network conditions while maintaining data consistency and user experience.",
+          "description": "Collaborative components must define clear ownership, permission, and conflict resolution patterns. Support graceful degradation when peers are offline.",
           "metadata": {
             "rule_id": "JSX_DISTRIBUTED_003",
-            "category": "distributed",
-            "priority": 8,
-            "reason": "Ensures collaborative features work reliably across network conditions while maintaining data consistency and user experience",
-            "consequences": "Fragile collaborative patterns fail during network issues and provide poor user experience",
-            "philosophy": "Collaborative Workflow Structure - clear ownership, permission, and conflict resolution patterns with graceful degradation",
-            "examples": {
-              "correct": "<CollaborativeWorkflow id=\"design-session\">\n  <Permissions>\n    <Owner can=\"admin\" />\n    <Collaborator can=\"edit comment\" />\n    <Viewer can=\"read\" />\n  </Permissions>\n  <OfflineStrategy>\n    <QueueChanges />\n    <SyncOnReconnect />\n  </OfflineStrategy>\n</CollaborativeWorkflow>",
-              "anti_pattern": "<SharedWorkspace \n  owner=\"alice\" \n  collaborators={[\"bob\", \"charlie\"]} \n  requiresConnection={true} \n/>"
+            "keywords": ["jsx", "distributed", "collaboration", "ownership", "permissions", "conflict-resolution", "offline", "graceful-degradation"],
+            "rationale": "Ensures collaborative features work reliably across network conditions while maintaining data consistency and user experience. Fragile collaborative patterns fail during network issues and provide poor user experience. Clear ownership, permission, and conflict resolution patterns with graceful degradation enable reliable collaboration.",
+            "prohibited": {
+              "code": "<SharedWorkspace \n\towner=\"alice\" \n\tcollaborators={[\"bob\", \"charlie\"]} \n\trequiresConnection={true} \n/>",
+              "reasoning": "No clear ownership model, no permission granularity, no conflict resolution, no offline support, fails during network issues"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<CollaborativeWorkflow id=\"design-session\">\n\t<Permissions>\n\t\t<Owner can=\"admin\" />\n\t\t<Collaborator can=\"edit comment\" />\n\t\t<Viewer can=\"read\" />\n\t</Permissions>\n\t<OfflineStrategy>\n\t\t<QueueChanges />\n\t\t<SyncOnReconnect />\n\t</OfflineStrategy>\n</CollaborativeWorkflow>",
+              "scope": "All collaborative components requiring ownership, permissions, conflict resolution, and graceful offline degradation"
+            }
           }
         }
       },
       {
         "id": "3d4aa3c0-7bcc-44a0-aab6-d103c578f980",
         "payload": {
-          "document": "JSX_UNIVERSAL_001 - Data-as-Configuration Principle: Components must be configured through declarative data structures rather than imperative code. All component behavior should be derivable from props and composition patterns. This ensures all components can be serialized, stored as RDF triples, and reconstructed deterministically, enabling the core Studio principle that 'everything is data.'",
+          "description": "Components must be configured through declarative data structures rather than imperative code. All component behavior should be derivable from props and composition patterns.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_001",
-            "category": "universal",
-            "priority": 10,
-            "reason": "Ensures all components can be serialized, stored as RDF triples, and reconstructed deterministically. Enables the core Studio principle that 'everything is data.'",
-            "consequences": "Components become tightly coupled to imperative behavior and cannot be serialized or stored as data structures",
-            "philosophy": "Data-as-Configuration Principle - components configured through declarative data structures rather than imperative code",
-            "examples": {
-              "correct": "<Authentication>\n  <OAuthTwo provider=\"github\" scopes={[\"read:user\"]} />\n</Authentication>",
-              "anti_pattern": "<Authentication onMount={() => setupOAuth(\"github\")} />"
+            "keywords": ["jsx", "data-as-configuration", "declarative", "serializable", "rdf", "triples", "deterministic", "pagewright", "studio"],
+            "rationale": "Ensures all components can be serialized, stored as RDF triples, and reconstructed deterministically. Enables the core Studio principle that 'everything is data.' Components configured through imperative code become tightly coupled to behavior and cannot be serialized or stored as data structures.",
+            "prohibited": {
+              "code": "<Authentication onMount={() => setupOAuth(\"github\")} />",
+              "reasoning": "Imperative callback, not serializable, cannot be stored as RDF triples, breaks data-as-configuration principle"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Authentication>\n\t<OAuthTwo provider=\"github\" scopes={[\"read:user\"]} />\n</Authentication>",
+              "scope": "All components - must be configurable through declarative data structures, serializable, reconstructible from RDF triples"
+            }
           }
         }
       },
       {
         "id": "494a3ebc-37d9-498e-8e2f-699a02d9ae2c",
         "payload": {
-          "document": "JSX_I18N_001 - Translation Component Structure: Translation components must use structured keys, support interpolation, and handle pluralization correctly. Maintain type safety for translation keys and parameters. This ensures translations are maintainable, type-safe, and support complex linguistic features while enabling automated translation workflows.",
+          "description": "Translation components must use structured keys, support interpolation, and handle pluralization correctly. Maintain type safety for translation keys and parameters.",
           "metadata": {
             "rule_id": "JSX_I18N_001",
-            "category": "i18n",
-            "priority": 7,
-            "reason": "Ensures translations are maintainable, type-safe, and support complex linguistic features while enabling automated translation workflows",
-            "consequences": "Unsafe translation patterns break type safety and make complex linguistic features like pluralization impossible",
-            "philosophy": "Translation Component Structure - structured keys, interpolation support, and correct pluralization handling with type safety",
-            "examples": {
-              "correct": "<Translation \n  key=\"user.greeting.welcome\" \n  params={{name: userName, count: itemCount}}\n  plural=\"count\"\n>\n  <Zero>Welcome back!</Zero>\n  <One>Welcome back, {name}! You have {count} item.</One>\n  <Other>Welcome back, {name}! You have {count} items.</Other>\n</Translation>",
-              "anti_pattern": "<Translation key=\"welcome\" values={[userName, itemCount]} />"
+            "keywords": ["jsx", "i18n", "translation", "interpolation", "pluralization", "type-safety", "structured-keys", "linguistic"],
+            "rationale": "Ensures translations are maintainable, type-safe, and support complex linguistic features while enabling automated translation workflows. Unsafe translation patterns break type safety and make complex linguistic features like pluralization impossible. Structured keys, interpolation support, and correct pluralization handling with type safety enable robust internationalization.",
+            "prohibited": {
+              "code": "<Translation key=\"welcome\" values={[userName, itemCount]} />",
+              "reasoning": "Unsafe value array, no type safety, no pluralization support, no interpolation structure, breaks maintainability"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Translation \n\tkey=\"user.greeting.welcome\" \n\tparams={{name: userName, count: itemCount}}\n\tplural=\"count\"\n>\n\t<Zero>Welcome back!</Zero>\n\t<One>Welcome back, {name}! You have {count} item.</One>\n\t<Other>Welcome back, {name}! You have {count} items.</Other>\n</Translation>",
+              "scope": "All translation components requiring structured keys, interpolation, pluralization, and type safety"
+            }
           }
         }
       },
       {
         "id": "5d12583d-61ec-47e0-8d60-cfcf670890f5",
         "payload": {
-          "document": "JSX_STATE_002 - Visual Workflow Canvas Structure: Visual workflow components must maintain coordinate systems, support collaborative editing, and provide accessibility features for workflow navigation. This ensures visual workflows are accessible, collaborative, and maintain consistency between visual and logical representations.",
+          "description": "Visual workflow components must maintain coordinate systems, support collaborative editing, and provide accessibility features for workflow navigation.",
           "metadata": {
             "rule_id": "JSX_STATE_002",
-            "category": "state",
-            "priority": 7,
-            "reason": "Ensures visual workflows are accessible, collaborative, and maintain consistency between visual and logical representations",
-            "consequences": "Inaccessible visual workflows exclude users and break consistency between visual and logical state representations",
-            "philosophy": "Visual Workflow Canvas Structure - coordinate systems, collaborative editing, and accessibility features for workflow navigation",
-            "examples": {
-              "correct": "<StateMachineWorkflowCanvas>\n  <State \n    name=\"initial\" \n    position={[100, 200]} \n    ariaLabel=\"Initial state at coordinates 100, 200\"\n  >\n    <Transitions>\n      <Transition \n        to=\"processing\" \n        event=\"start\" \n        path=\"curved\"\n        ariaLabel=\"Transition to processing on start event\" \n      />\n    </Transitions>\n  </State>\n  <Grid visible={true} snapTo={25} />\n</StateMachineWorkflowCanvas>",
-              "anti_pattern": "<WorkflowCanvas>\n  <Node id=\"1\" x={100} y={200} />\n  <Edge from=\"1\" to=\"2\" />\n</WorkflowCanvas>"
+            "keywords": ["jsx", "state", "visual-workflow", "coordinates", "collaboration", "accessibility", "navigation", "consistency"],
+            "rationale": "Ensures visual workflows are accessible, collaborative, and maintain consistency between visual and logical representations. Inaccessible visual workflows exclude users and break consistency between visual and logical state representations. Coordinate systems, collaborative editing, and accessibility features enable inclusive visual workflows.",
+            "prohibited": {
+              "code": "<WorkflowCanvas>\n\t<Node id=\"1\" x={100} y={200} />\n\t<Edge from=\"1\" to=\"2\" />\n</WorkflowCanvas>",
+              "reasoning": "No coordinate system, no collaborative support, no accessibility features, no semantic consistency with state"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<StateMachineWorkflowCanvas>\n\t<State \n\t\tname=\"initial\" \n\t\tposition={[100, 200]} \n\t\tariaLabel=\"Initial state at coordinates 100, 200\"\n\t>\n\t\t<Transitions>\n\t\t\t<Transition \n\t\t\t\tto=\"processing\" \n\t\t\t\tevent=\"start\" \n\t\t\t\tpath=\"curved\"\n\t\t\t\tariaLabel=\"Transition to processing on start event\" \n\t\t\t/>\n\t\t</Transitions>\n\t</State>\n\t<Grid visible={true} snapTo={25} />\n</StateMachineWorkflowCanvas>",
+              "scope": "All visual workflow components requiring coordinate systems, collaborative editing, accessibility, and visual-logical consistency"
+            }
           }
         }
       },
       {
         "id": "6282f594-a4bd-4617-a7aa-991331180cfb",
         "payload": {
-          "document": "Mathematical Component Structure - mathematical operation components must have consistent structure with clear operand identification. Use semantic child components like Referent and Comparand.",
+          "description": "Mathematical operation components must have consistent structure with clear operand identification. Use semantic child components like Referent and Comparand.",
           "metadata": {
             "rule_id": "JSX_MATH_001",
-            "category": "math",
-            "priority": 8,
-            "reason": "Ensures mathematical expressions are readable, debuggable, and can be reliably converted between JSX and formula notation",
-            "consequences": "Unclear operand roles make mathematical expressions unreadable and error-prone",
-            "philosophy": "Mathematical Component Structure - consistent structure with clear operand identification using semantic child components",
-            "examples": {
-              "correct": "<IsGreaterThan>\n  <Referent><From.Element selector=\"#age\" /></Referent>\n  <Comparand><Value>18</Value></Comparand>\n</IsGreaterThan>",
-              "anti_pattern": "<IsGreaterThan left=\"#age\" right=\"18\" />"
+            "keywords": ["jsx", "math", "operations", "operands", "semantic", "referent", "comparand", "readable", "formula"],
+            "rationale": "Ensures mathematical expressions are readable, debuggable, and can be reliably converted between JSX and formula notation. Unclear operand roles make mathematical expressions unreadable and error-prone. Consistent structure with clear operand identification using semantic child components creates maintainable mathematical expressions.",
+            "prohibited": {
+              "code": "<IsGreaterThan left=\"#age\" right=\"18\" />",
+              "reasoning": "Unclear operand roles, left/right not semantically meaningful, hard to read, error-prone"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<IsGreaterThan>\n\t<Referent><From.Element selector=\"#age\" /></Referent>\n\t<Comparand><Value>18</Value></Comparand>\n</IsGreaterThan>",
+              "scope": "All mathematical operation components requiring clear operand identification with semantic child components"
+            }
           }
         }
       },
       {
         "id": "6317add2-d5cd-4a17-ae17-db3ab58bfdf2",
         "payload": {
-          "document": "JSX_STATE_001 - State Machine Component Design: State machine components must define explicit states, transitions, and guards. All state changes must be deterministic and auditable. This ensures application state is predictable, debuggable, and can be visualized or restored from audit logs.",
+          "description": "State machine components must define explicit states, transitions, and guards. All state changes must be deterministic and auditable.",
           "metadata": {
             "rule_id": "JSX_STATE_001",
-            "category": "state",
-            "priority": 8,
-            "reason": "Ensures application state is predictable, debuggable, and can be visualized or restored from audit logs",
-            "consequences": "Implicit state management makes application behavior unpredictable and impossible to debug or audit",
-            "philosophy": "State Machine Component Design - explicit states, transitions, and guards with deterministic and auditable state changes",
-            "examples": {
-              "correct": "<StateMachine name=\"document-lifecycle\">\n  <State name=\"draft\">\n    <Transition \n      on=\"publish\" \n      to=\"published\" \n      guard={hasRequiredFields} \n    />\n  </State>\n  <State name=\"published\">\n    <Transition on=\"archive\" to=\"archived\" />\n    <Transition on=\"edit\" to=\"draft\" />\n  </State>\n</StateMachine>",
-              "anti_pattern": "<DocumentEditor \n  status={docStatus} \n  onStatusChange={setDocStatus} \n  rules={statusRules} \n/>"
+            "keywords": ["jsx", "state-machine", "states", "transitions", "guards", "deterministic", "auditable", "predictable"],
+            "rationale": "Ensures application state is predictable, debuggable, and can be visualized or restored from audit logs. Implicit state management makes application behavior unpredictable and impossible to debug or audit. Explicit states, transitions, and guards with deterministic and auditable state changes create reliable state management.",
+            "prohibited": {
+              "code": "<DocumentEditor \n\tstatus={docStatus} \n\tonStatusChange={setDocStatus} \n\trules={statusRules} \n/>",
+              "reasoning": "Implicit state management, no explicit states/transitions, unpredictable behavior, not auditable, impossible to debug"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<StateMachine name=\"document-lifecycle\">\n\t<State name=\"draft\">\n\t\t<Transition \n\t\t\ton=\"publish\" \n\t\t\tto=\"published\" \n\t\t\tguard={hasRequiredFields} \n\t\t/>\n\t</State>\n\t<State name=\"published\">\n\t\t<Transition on=\"archive\" to=\"archived\" />\n\t\t<Transition on=\"edit\" to=\"draft\" />\n\t</State>\n</StateMachine>",
+              "scope": "All state machine components requiring explicit states, transitions, guards, deterministic changes, and auditability"
+            }
           }
         }
       },
       {
         "id": "67a4c0fc-fc5d-4dad-9af0-e2532349fe99",
         "payload": {
-          "document": "JSX is Not React - Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design.",
+          "description": "Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_005",
-            "category": "universal",
-            "priority": 10,
-            "reason": "Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design",
-            "consequences": "Treating Studio JSX like React leads to imperative patterns that break data-first architecture",
-            "philosophy": "JSX is Not React - Studio JSX compiles to data structures, not virtual DOM. Components are data configurations, not stateful objects",
-            "examples": {
-              "correct": "<Authentication>\n  <OAuthTwo provider=\"github\" />\n  <WebAuthn fallback />\n</Authentication>",
-              "anti_pattern": "const [auth, setAuth] = useState()\nreturn <AuthProvider value={auth}>{children}</AuthProvider>"
+            "keywords": ["jsx", "not-react", "studio", "data-driven", "dsl", "domain-specific", "data-structures", "pagewright"],
+            "rationale": "Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design. Treating Studio JSX like React leads to imperative patterns that break data-first architecture. Studio JSX compiles to data structures, not virtual DOM - components are data configurations, not stateful objects.",
+            "prohibited": {
+              "code": "const [auth, setAuth] = useState()\nreturn <AuthProvider value={auth}>{children}</AuthProvider>",
+              "reasoning": "React patterns, stateful objects, imperative hooks, virtual DOM assumptions, breaks data-first architecture"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Authentication>\n\t<OAuthTwo provider=\"github\" />\n\t<WebAuthn fallback />\n</Authentication>",
+              "scope": "All component designs - Studio JSX compiles to data structures, not React virtual DOM"
+            }
           }
         }
       },
       {
         "id": "67efd9c2-4ca3-4cf0-be1e-131512006c25",
         "payload": {
-          "document": "JSX_DISTRIBUTED_002 - Identity and Authentication Patterns: Distributed components must properly handle identity verification and capability delegation. Use cryptographic identifiers consistently. This ensures secure collaboration and proper attribution in distributed systems while maintaining user privacy and data integrity.",
+          "description": "Distributed components must properly handle identity verification and capability delegation. Use cryptographic identifiers consistently.",
           "metadata": {
             "rule_id": "JSX_DISTRIBUTED_002",
-            "category": "distributed",
-            "priority": 8,
-            "reason": "Ensures secure collaboration and proper attribution in distributed systems while maintaining user privacy and data integrity",
-            "consequences": "Unsafe identity patterns compromise security and break attribution in distributed collaborative systems",
-            "philosophy": "Identity and Authentication Patterns - proper identity verification and capability delegation with cryptographic identifiers",
-            "examples": {
-              "correct": "<CollaborativeText id=\"doc-456\">\n  <Identity>\n    <DidKey key=\"did:key:z6Mk...\" />\n    <Capabilities read write />\n  </Identity>\n  <Rga showCursors={true} />\n</CollaborativeText>",
-              "anti_pattern": "<CollaborativeText userId=\"john123\" allowEdit={true} />"
+            "keywords": ["jsx", "distributed", "identity", "authentication", "cryptographic", "capability", "delegation", "security", "did"],
+            "rationale": "Ensures secure collaboration and proper attribution in distributed systems while maintaining user privacy and data integrity. Unsafe identity patterns compromise security and break attribution in distributed collaborative systems. Proper identity verification and capability delegation with cryptographic identifiers enable secure distributed collaboration.",
+            "prohibited": {
+              "code": "<CollaborativeText userId=\"john123\" allowEdit={true} />",
+              "reasoning": "Unsafe identity pattern, no cryptographic verification, no capability delegation, compromises security and attribution"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<CollaborativeText id=\"doc-456\">\n\t<Identity>\n\t\t<DidKey key=\"did:key:z6Mk...\" />\n\t\t<Capabilities read write />\n\t</Identity>\n\t<Rga showCursors={true} />\n</CollaborativeText>",
+              "scope": "All distributed components requiring identity verification, capability delegation, and cryptographic identifiers"
+            }
           }
         }
       },
       {
         "id": "6c720f08-c6b7-4410-8931-a3c2a87cb2be",
         "payload": {
-          "document": "Formula Validation with Monads - components that accept formula strings must validate mathematical syntax and variable references. Provide clear error messages for invalid formulas using monadic patterns for safe composition.",
+          "description": "Components that accept formula strings must validate mathematical syntax and variable references. Provide clear error messages for invalid formulas using monadic patterns.",
           "metadata": {
             "rule_id": "JSX_MATH_002",
-            "category": "math",
-            "priority": 8,
-            "reason": "Prevents runtime errors and provides better development experience when working with mathematical expressions. Monadic patterns ensure safe composition",
-            "consequences": "Unvalidated formulas cause runtime errors and unsafe composition breaks mathematical operations",
-            "philosophy": "Formula Validation with Monads - validate mathematical syntax and variable references using monadic patterns for safe composition",
-            "examples": {
-              "correct": "<MathMlDisplay \n  formula=\"E = mc²\" \n  variables={[\"E\", \"m\", \"c\"]}\n  onError={handleFormulaError}\n/>",
-              "anti_pattern": "<MathMlDisplay formula={userInput} />"
+            "keywords": ["jsx", "math", "formula", "validation", "monads", "safe-composition", "error-handling", "syntax"],
+            "rationale": "Prevents runtime errors and provides better development experience when working with mathematical expressions. Monadic patterns ensure safe composition. Unvalidated formulas cause runtime errors and unsafe composition breaks mathematical operations. Formula validation with monadic patterns creates safe, composable mathematical expressions.",
+            "prohibited": {
+              "code": "<MathMlDisplay formula={userInput} />",
+              "reasoning": "No validation, runtime errors possible, no error handling, unsafe composition, poor development experience"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<MathMlDisplay \n\tformula=\"E = mc²\" \n\tvariables={[\"E\", \"m\", \"c\"]}\n\tonError={handleFormulaError}\n/>",
+              "scope": "All components accepting formula strings - must validate syntax, variable references, provide error messages, use monadic patterns"
+            }
           }
         }
       },
       {
         "id": "6d4add14-ce5d-4b1a-9e31-17e634bbc316",
         "payload": {
-          "document": "JSX_UNIVERSAL_004 - Cross-Library Integration Patterns: Components from different libraries must integrate seamlessly. Use consistent naming conventions, data formats, and event patterns across all libraries. This enables complex applications that span multiple domains (authentication + commerce + i18n) while maintaining coherent development experience.",
+          "description": "Components from different libraries must integrate seamlessly. Use consistent naming conventions, data formats, and event patterns across all libraries.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_004",
-            "category": "universal",
-            "priority": 9,
-            "reason": "Enables complex applications that span multiple domains (authentication + commerce + i18n) while maintaining coherent development experience",
-            "consequences": "Conflicting integration patterns make cross-library composition fragile and development experience inconsistent",
-            "philosophy": "Cross-Library Integration Patterns - consistent naming conventions, data formats, and event patterns across all libraries",
-            "examples": {
-              "correct": "<LocaleProvider>\n  <Authentication>\n    <Cart>\n      <Product sku=\"widget-001\">\n        <Translation key=\"product.name\" />\n      </Product>\n    </Cart>\n  </Authentication>\n</LocaleProvider>",
-              "anti_pattern": "<I18nWrapper locale={currentLocale}>\n  <AuthGuard token={authToken}>\n    <CommerceProvider config={commerceConfig}>\n      {/* Inconsistent prop names and patterns */}\n    </CommerceProvider>\n  </AuthGuard>\n</I18nWrapper>"
+            "keywords": ["jsx", "cross-library", "integration", "consistency", "naming", "data-formats", "events", "composition"],
+            "rationale": "Enables complex applications that span multiple domains (authentication + commerce + i18n) while maintaining coherent development experience. Conflicting integration patterns make cross-library composition fragile and development experience inconsistent. Consistent naming conventions, data formats, and event patterns enable seamless cross-library integration.",
+            "prohibited": {
+              "code": "<I18nWrapper locale={currentLocale}>\n\t<AuthGuard token={authToken}>\n\t\t<CommerceProvider config={commerceConfig}>\n\t\t\t{/* Inconsistent prop names and patterns */}\n\t\t</CommerceProvider>\n\t</AuthGuard>\n</I18nWrapper>",
+              "reasoning": "Inconsistent naming, different data formats, conflicting patterns, fragile composition, poor development experience"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<LocaleProvider>\n\t<Authentication>\n\t\t<Cart>\n\t\t\t<Product sku=\"widget-001\">\n\t\t\t\t<Translation key=\"product.name\" />\n\t\t\t</Product>\n\t\t</Cart>\n\t</Authentication>\n</LocaleProvider>",
+              "scope": "All cross-library component integration - consistent naming, data formats, and event patterns required"
+            }
           }
         }
       },
       {
         "id": "8b4ade5e-8a30-4925-816c-eb38ffbce14b",
         "payload": {
-          "document": "Schema.org Component Patterns - components that generate Schema.org markup must use proper microdata patterns and maintain semantic consistency with HTML structure.",
+          "description": "Components that generate Schema.org markup must use proper microdata patterns and maintain semantic consistency with HTML structure.",
           "metadata": {
             "rule_id": "JSX_SEMANTIC_002",
-            "category": "semantic",
-            "priority": 8,
-            "reason": "Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Pagewright components",
-            "consequences": "Manual microdata conflicts with semantic structure and breaks Schema.org integration",
-            "philosophy": "Schema.org Component Patterns - proper microdata patterns with semantic consistency",
-            "examples": {
-              "correct": "<Recipe>\n  <Title>Chocolate Chip Cookies</Title>\n  <Author>Jane Chef</Author>\n  <Ingredient quantity=\"2 cups\">flour</Ingredient>\n  <Instructions step=\"1\">Mix dry ingredients...</Instructions>\n</Recipe>",
-              "anti_pattern": "<div itemScope itemType=\"https://schema.org/Recipe\">\n  <Recipe>\n    <span itemProp=\"name\">Cookies</span>\n  </Recipe>\n</div>"
+            "keywords": ["jsx", "schema-org", "microdata", "semantic", "structured-data", "rich-snippets", "seo", "declarative"],
+            "rationale": "Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Pagewright components. Manual microdata conflicts with semantic structure and breaks Schema.org integration. Proper microdata patterns with semantic consistency enable reliable structured data.",
+            "prohibited": {
+              "code": "<div itemScope itemType=\"https://schema.org/Recipe\">\n\t<Recipe>\n\t\t<span itemProp=\"name\">Cookies</span>\n\t</Recipe>\n</div>",
+              "reasoning": "Manual microdata conflicts with component structure, breaks semantic consistency, duplicates schema information"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Recipe>\n\t<Title>Chocolate Chip Cookies</Title>\n\t<Author>Jane Chef</Author>\n\t<Ingredient quantity=\"2 cups\">flour</Ingredient>\n\t<Instructions step=\"1\">Mix dry ingredients...</Instructions>\n</Recipe>",
+              "scope": "All components generating Schema.org markup - use semantic components that compile to proper microdata patterns"
+            }
           }
         }
       },
       {
         "id": "93a00336-e7a2-434d-b6d6-2962c99a75b1",
         "payload": {
-          "document": "JSX_SECURITY_002 - Authorization Policy Structure: Authorization components must use declarative policy definitions with clear resource and action specifications. Support policy composition and testing. This ensures access control is auditable, testable, and maintainable while preventing privilege escalation vulnerabilities.",
+          "description": "Authorization components must use declarative policy definitions with clear resource and action specifications. Support policy composition and testing.",
           "metadata": {
             "rule_id": "JSX_SECURITY_002",
-            "category": "security",
-            "priority": 9,
-            "reason": "Ensures access control is auditable, testable, and maintainable while preventing privilege escalation vulnerabilities",
-            "consequences": "Opaque authorization logic makes security vulnerabilities impossible to detect or audit",
-            "philosophy": "Authorization Policy Structure - declarative policy definitions with clear resource and action specifications",
-            "examples": {
-              "correct": "<Authorization>\n  <Rbac>\n    <Role name=\"editor\">\n      <Permission action=\"read\" resource=\"articles:*\" />\n      <Permission action=\"write\" resource=\"articles:own\" />\n    </Role>\n    <Role name=\"admin\" inherits=\"editor\">\n      <Permission action=\"*\" resource=\"articles:*\" />\n    </Role>\n  </Rbac>\n</Authorization>",
-              "anti_pattern": "<ProtectedRoute \n  allowedRoles={[\"admin\", \"editor\"]} \n  checkPermission={(user, resource) => checkAccess(user, resource)} \n/>"
+            "keywords": ["jsx", "security", "authorization", "rbac", "policies", "permissions", "resources", "auditable", "testable"],
+            "rationale": "Ensures access control is auditable, testable, and maintainable while preventing privilege escalation vulnerabilities. Opaque authorization logic makes security vulnerabilities impossible to detect or audit. Declarative policy definitions with clear resource and action specifications enable auditable, testable access control.",
+            "prohibited": {
+              "code": "<ProtectedRoute \n\tallowedRoles={[\"admin\", \"editor\"]} \n\tcheckPermission={(user, resource) => checkAccess(user, resource)} \n/>",
+              "reasoning": "Opaque authorization logic, imperative callbacks, not auditable, not testable, security vulnerabilities undetectable"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Authorization>\n\t<Rbac>\n\t\t<Role name=\"editor\">\n\t\t\t<Permission action=\"read\" resource=\"articles:*\" />\n\t\t\t<Permission action=\"write\" resource=\"articles:own\" />\n\t\t</Role>\n\t\t<Role name=\"admin\" inherits=\"editor\">\n\t\t\t<Permission action=\"*\" resource=\"articles:*\" />\n\t\t</Role>\n\t</Rbac>\n</Authorization>",
+              "scope": "All authorization components requiring declarative policies, clear resource/action specifications, composition support, testability"
+            }
           }
         }
       },
       {
         "id": "98be5db0-9573-4fde-a912-dd2492077304",
         "payload": {
-          "document": "JSX_SECURITY_003 - Cryptographic Component Requirements: Cryptographic components must use well-established algorithms, proper key management, and clear security properties. Provide audit trails for cryptographic operations. This ensures cryptographic operations are secure, auditable, and follow current best practices while avoiding common cryptographic pitfalls.",
+          "description": "Cryptographic components must use well-established algorithms, proper key management, and clear security properties. Provide audit trails for cryptographic operations.",
           "metadata": {
             "rule_id": "JSX_SECURITY_003",
-            "category": "security",
-            "priority": 9,
-            "reason": "Ensures cryptographic operations are secure, auditable, and follow current best practices while avoiding common cryptographic pitfalls",
-            "consequences": "Unsafe cryptographic patterns expose systems to security vulnerabilities and compliance violations",
-            "philosophy": "Cryptographic Component Requirements - well-established algorithms, proper key management, and clear security properties with audit trails",
-            "examples": {
-              "correct": "<ZeroKnowledge>\n  <Proof \n    algorithm=\"zk-SNARK\" \n    statement=\"age >= 18\" \n    without={[\"name\", \"birthdate\"]} \n  />\n  <Verify circuit=\"age-verification-v2.circom\" />\n</ZeroKnowledge>",
-              "anti_pattern": "<Encryption algorithm=\"custom\" key={userPassword} />"
+            "keywords": ["jsx", "security", "cryptography", "encryption", "algorithms", "key-management", "audit-trail", "zero-knowledge"],
+            "rationale": "Ensures cryptographic operations are secure, auditable, and follow current best practices while avoiding common cryptographic pitfalls. Unsafe cryptographic patterns expose systems to security vulnerabilities and compliance violations. Well-established algorithms, proper key management, and clear security properties with audit trails enable secure cryptography.",
+            "prohibited": {
+              "code": "<Encryption algorithm=\"custom\" key={userPassword} />",
+              "reasoning": "Custom algorithm, unsafe key management, no security properties, no audit trail, exposes security vulnerabilities"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<ZeroKnowledge>\n\t<Proof \n\t\talgorithm=\"zk-SNARK\" \n\t\tstatement=\"age >= 18\" \n\t\twithout={[\"name\", \"birthdate\"]} \n\t/>\n\t<Verify circuit=\"age-verification-v2.circom\" />\n</ZeroKnowledge>",
+              "scope": "All cryptographic components requiring well-established algorithms, proper key management, security properties, and audit trails"
+            }
           }
         }
       },
       {
         "id": "98e99d17-ae92-46e6-b423-b460dfd4b06d",
         "payload": {
-          "document": "JSX_OBSERVABILITY_004 - Developer Feedback Integration: Developer feedback components must provide contextual prompts, structured data collection, and trend analysis. Integrate feedback with performance metrics for correlation analysis. This ensures developer experience feedback is actionable and can drive systematic improvements to development workflows.",
+          "description": "Developer feedback components must provide contextual prompts, structured data collection, and trend analysis. Integrate feedback with performance metrics for correlation analysis.",
           "metadata": {
             "rule_id": "JSX_OBSERVABILITY_004",
-            "category": "observability",
-            "priority": 7,
-            "reason": "Ensures developer experience feedback is actionable and can drive systematic improvements to development workflows",
-            "consequences": "Generic feedback without context provides no actionable insights and fails to improve development workflows",
-            "philosophy": "Developer Feedback Integration - contextual prompts, structured data collection, and trend analysis with performance metrics correlation",
-            "examples": {
-              "correct": "<WorkflowFeedback>\n  <DeveloperSatisfaction>\n    <FeedbackPrompt\n      trigger=\"workflow-completion\"\n      context={{\n        executionTime: \"3.2s\",\n        errorCount: 0,\n        workflowType: \"ci-pipeline\"\n      }}\n    >\n      How was your experience with this CI pipeline execution?\n      <Emojis>😱 😟 😐 😊 🤩</Emojis>\n      <OptionalComment placeholder=\"What could be improved?\" />\n    </FeedbackPrompt>\n    <CorrelationTracking>\n      <TrackMetrics>\n        <ExecutionTime />\n        <ErrorFrequency />\n        <CognitiveBurden />\n      </TrackMetrics>\n    </CorrelationTracking>\n  </DeveloperSatisfaction>\n</WorkflowFeedback>",
-              "anti_pattern": "<FeedbackWidget>\n  <RatingScale min={1} max={5} />\n  <CommentBox />\n</FeedbackWidget>"
+            "keywords": ["jsx", "observability", "developer-experience", "feedback", "metrics", "correlation", "actionable", "workflow-improvement"],
+            "rationale": "Ensures developer experience feedback is actionable and can drive systematic improvements to development workflows. Generic feedback without context provides no actionable insights and fails to improve development workflows. Contextual prompts, structured data collection, and trend analysis with performance metrics correlation create actionable feedback.",
+            "prohibited": {
+              "code": "<FeedbackWidget>\n\t<RatingScale min={1} max={5} />\n\t<CommentBox />\n</FeedbackWidget>",
+              "reasoning": "Generic feedback, no context, no structured collection, no trend analysis, no metric correlation, not actionable"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<WorkflowFeedback>\n\t<DeveloperSatisfaction>\n\t\t<FeedbackPrompt\n\t\t\ttrigger=\"workflow-completion\"\n\t\t\tcontext={{\n\t\t\t\texecutionTime: \"3.2s\",\n\t\t\t\terrorCount: 0,\n\t\t\t\tworkflowType: \"ci-pipeline\"\n\t\t\t}}\n\t\t>\n\t\t\tHow was your experience with this CI pipeline execution?\n\t\t\t<Emojis>😱 😟 😐 😊 🤩</Emojis>\n\t\t\t<OptionalComment placeholder=\"What could be improved?\" />\n\t\t</FeedbackPrompt>\n\t\t<CorrelationTracking>\n\t\t\t<TrackMetrics>\n\t\t\t\t<ExecutionTime />\n\t\t\t\t<ErrorFrequency />\n\t\t\t\t<CognitiveBurden />\n\t\t\t</TrackMetrics>\n\t\t</CorrelationTracking>\n\t</DeveloperSatisfaction>\n</WorkflowFeedback>",
+              "scope": "All developer feedback components requiring contextual prompts, structured collection, trend analysis, and metric correlation"
+            }
           }
         }
       },
       {
         "id": "a034f5ff-b2a1-4dcd-87e0-5c88bbab4da3",
         "payload": {
-          "document": "JSX_GOVERNANCE_004 - Real-Time Monitoring Patterns: Workflow monitoring components must provide real-time violation detection, automatic response capabilities, and comprehensive audit trails. Support both critical and warning level violations with appropriate responses. This ensures workflow governance is enforced continuously and violations are detected and responded to immediately.",
+          "description": "Workflow monitoring components must provide real-time violation detection, automatic response capabilities, and comprehensive audit trails. Support both critical and warning level violations.",
           "metadata": {
             "rule_id": "JSX_GOVERNANCE_004",
-            "category": "governance",
-            "priority": 9,
-            "reason": "Ensures workflow governance is enforced continuously and violations are detected and responded to immediately",
-            "consequences": "Basic monitoring without response capabilities allows violations to persist and cause system damage",
-            "philosophy": "Real-Time Monitoring Patterns - real-time violation detection, automatic response capabilities, and comprehensive audit trails with appropriate violation responses",
-            "examples": {
-              "correct": "<WorkflowMonitoring>\n  <ContractCompliance>\n    <RealTimeValidation>\n      <CheckBounds continuously={true} />\n      <ValidateConnections on=\"execution\" />\n      <VerifyPermissions before=\"sensitive-operations\" />\n    </RealTimeValidation>\n    <ViolationDetection>\n      <UnauthorizedConnections severity=\"critical\" />\n      <SecurityBoundaryBreach severity=\"critical\" />\n      <ResourceLimitExceeded severity=\"warning\" />\n    </ViolationDetection>\n    <AutomaticResponse>\n      <OnCriticalViolation>\n        <HaltExecution immediately={true} />\n        <NotifySecurityTeam />\n        <IsolateWorkflow />\n      </OnCriticalViolation>\n    </AutomaticResponse>\n  </ContractCompliance>\n</WorkflowMonitoring>",
-              "anti_pattern": "<Monitor\n  checkCompliance={true}\n  alertOnViolation={true}\n  logLevel=\"info\"\n/>"
+            "keywords": ["jsx", "governance", "monitoring", "real-time", "violations", "automatic-response", "audit-trail", "compliance"],
+            "rationale": "Ensures workflow governance is enforced continuously and violations are detected and responded to immediately. Basic monitoring without response capabilities allows violations to persist and cause system damage. Real-time violation detection, automatic response capabilities, and comprehensive audit trails enable continuous governance enforcement.",
+            "prohibited": {
+              "code": "<Monitor\n\tcheckCompliance={true}\n\talertOnViolation={true}\n\tlogLevel=\"info\"\n/>",
+              "reasoning": "Basic monitoring, no real-time detection, no automatic response, violations persist, no audit trail"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<WorkflowMonitoring>\n\t<ContractCompliance>\n\t\t<RealTimeValidation>\n\t\t\t<CheckBounds continuously={true} />\n\t\t\t<ValidateConnections on=\"execution\" />\n\t\t\t<VerifyPermissions before=\"sensitive-operations\" />\n\t\t</RealTimeValidation>\n\t\t<ViolationDetection>\n\t\t\t<UnauthorizedConnections severity=\"critical\" />\n\t\t\t<SecurityBoundaryBreach severity=\"critical\" />\n\t\t\t<ResourceLimitExceeded severity=\"warning\" />\n\t\t</ViolationDetection>\n\t\t<AutomaticResponse>\n\t\t\t<OnCriticalViolation>\n\t\t\t\t<HaltExecution immediately={true} />\n\t\t\t\t<NotifySecurityTeam />\n\t\t\t\t<IsolateWorkflow />\n\t\t\t</OnCriticalViolation>\n\t\t</AutomaticResponse>\n\t</ContractCompliance>\n</WorkflowMonitoring>",
+              "scope": "All workflow monitoring components requiring real-time violation detection, automatic responses, and comprehensive audit trails"
+            }
           }
         }
       },
       {
         "id": "aa4ddea1-d13c-4105-8390-afdb0743b854",
         "payload": {
-          "document": "JSX_SECURITY_001 - Authentication Provider Patterns: Authentication components must support multiple providers, graceful fallbacks, and clear success/failure states. Avoid hardcoding secrets in components. This ensures secure and flexible authentication while maintaining user experience across different authentication scenarios.",
+          "description": "Authentication components must support multiple providers, graceful fallbacks, and clear success/failure states. Avoid hardcoding secrets in components.",
           "metadata": {
             "rule_id": "JSX_SECURITY_001",
-            "category": "security",
-            "priority": 9,
-            "reason": "Ensures secure and flexible authentication while maintaining user experience across different authentication scenarios",
-            "consequences": "Insecure authentication patterns expose secrets and provide poor fallback experience",
-            "philosophy": "Authentication Provider Patterns - multiple providers, graceful fallbacks, and clear success/failure states without hardcoded secrets",
-            "examples": {
-              "correct": "<Authentication>\n  <OAuthTwo \n    provider=\"github\" \n    clientIdFrom=\"env:GITHUB_CLIENT_ID\"\n    scopes={[\"read:user\"]} \n  />\n  <WebAuthn fallback />\n  <OnFailure><Redirect to=\"/login\" /></OnFailure>\n</Authentication>",
-              "anti_pattern": "<Authentication \n  githubClientSecret=\"abc123...\" \n  providers={[\"github\"]} \n/>"
+            "keywords": ["jsx", "security", "authentication", "oauth", "webauthn", "providers", "fallback", "secrets"],
+            "rationale": "Ensures secure and flexible authentication while maintaining user experience across different authentication scenarios. Insecure authentication patterns expose secrets and provide poor fallback experience. Multiple providers, graceful fallbacks, and clear success/failure states without hardcoded secrets enable secure, flexible authentication.",
+            "prohibited": {
+              "code": "<Authentication \n\tgithubClientSecret=\"abc123...\" \n\tproviders={[\"github\"]} \n/>",
+              "reasoning": "Hardcoded secrets, no fallback providers, no failure states, insecure, inflexible, poor user experience"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Authentication>\n\t<OAuthTwo \n\t\tprovider=\"github\" \n\t\tclientIdFrom=\"env:GITHUB_CLIENT_ID\"\n\t\tscopes={[\"read:user\"]} \n\t/>\n\t<WebAuthn fallback />\n\t<OnFailure><Redirect to=\"/login\" /></OnFailure>\n</Authentication>",
+              "scope": "All authentication components requiring multiple providers, graceful fallbacks, success/failure states, no hardcoded secrets"
+            }
           }
         }
       },
       {
         "id": "b6034565-a893-4411-aabe-d9b5f996a9be",
         "payload": {
-          "document": "JSX_EVENTS_003 - Workflow Orchestration Patterns: Event-driven workflows must be composable and recoverable. Use explicit state machines for complex orchestration patterns. This ensures complex business processes are reliable, auditable, and can recover gracefully from failures.",
+          "description": "Event-driven workflows must be composable and recoverable. Use explicit state machines for complex orchestration patterns.",
           "metadata": {
             "rule_id": "JSX_EVENTS_003",
-            "category": "events",
-            "priority": 8,
-            "reason": "Ensures complex business processes are reliable, auditable, and can recover gracefully from failures",
-            "consequences": "Implicit workflow coupling makes business processes brittle and impossible to debug or recover",
-            "philosophy": "Workflow Orchestration Patterns - composable and recoverable event-driven workflows with explicit state machines",
-            "examples": {
-              "correct": "<Workflow name=\"order-processing\">\n  <On event=\"order:created\">\n    <TriggerWorkflow name=\"validate-payment\" />\n  </On>\n  <On event=\"payment:confirmed\">\n    <Pipe>\n      <TriggerWorkflow name=\"reserve-inventory\" />\n      <TriggerWorkflow name=\"send-confirmation\" />\n    </Pipe>\n  </On>\n</Workflow>",
-              "anti_pattern": "<OrderProcessor \n  onOrderCreated={validatePayment}\n  onPaymentConfirmed={[reserveInventory, sendConfirmation]} \n/>"
+            "keywords": ["jsx", "events", "workflow", "orchestration", "composable", "recoverable", "state-machine", "business-process"],
+            "rationale": "Ensures complex business processes are reliable, auditable, and can recover gracefully from failures. Implicit workflow coupling makes business processes brittle and impossible to debug or recover. Composable and recoverable event-driven workflows with explicit state machines enable reliable business processes.",
+            "prohibited": {
+              "code": "<OrderProcessor \n\tonOrderCreated={validatePayment}\n\tonPaymentConfirmed={[reserveInventory, sendConfirmation]} \n/>",
+              "reasoning": "Implicit workflow coupling, imperative callbacks, not composable, not recoverable, brittle business process"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Workflow name=\"order-processing\">\n\t<On event=\"order:created\">\n\t\t<TriggerWorkflow name=\"validate-payment\" />\n\t</On>\n\t<On event=\"payment:confirmed\">\n\t\t<Pipe>\n\t\t\t<TriggerWorkflow name=\"reserve-inventory\" />\n\t\t\t<TriggerWorkflow name=\"send-confirmation\" />\n\t\t</Pipe>\n\t</On>\n</Workflow>",
+              "scope": "All event-driven workflows requiring composability, recoverability, and explicit state machine orchestration"
+            }
           }
         }
       },
       {
         "id": "bc372ef7-8187-4b26-8812-b1cdd2b0a197",
         "payload": {
-          "document": "JSX_GOVERNANCE_002 - AI Safety Constraint Patterns: AI workflow safety components must define explicit forbidden patterns, required components, and validation pipelines. All AI-generated workflows must be validated against these constraints. This prevents AI assistants from generating insecure or non-compliant workflows while maintaining development velocity.",
+          "description": "AI workflow safety components must define explicit forbidden patterns, required components, and validation pipelines. All AI-generated workflows must be validated.",
           "metadata": {
             "rule_id": "JSX_GOVERNANCE_002",
-            "category": "governance",
-            "priority": 10,
-            "reason": "Prevents AI assistants from generating insecure or non-compliant workflows while maintaining development velocity",
-            "consequences": "Implicit AI safety assumptions allow dangerous workflow generation that bypasses security and compliance requirements",
-            "philosophy": "AI Safety Constraint Patterns - explicit forbidden patterns, required components, and validation pipelines for AI-generated workflows",
-            "examples": {
-              "correct": "<AiWorkflowSafety>\n  <GenerationConstraints>\n    <ForbiddenPatterns>\n      <Pattern name=\"direct-database-access\" reason=\"security\" />\n      <Pattern name=\"bypass-authentication\" reason=\"security\" />\n      <Pattern name=\"unencrypted-transmission\" reason=\"compliance\" />\n    </ForbiddenPatterns>\n    <RequiredComponents>\n      <Component name=\"input-validation\" />\n      <Component name=\"error-handling\" />\n      <Component name=\"audit-logging\" />\n    </RequiredComponents>\n  </GenerationConstraints>\n  <ValidationPipeline>\n    <PreValidation>\n      <SecurityScanning />\n      <ComplianceChecking />\n    </PreValidation>\n  </ValidationPipeline>\n</AiWorkflowSafety>",
-              "anti_pattern": "<AIGuard\n  blockedPatterns={dangerousPatterns}\n  requiredFeatures={[\"validation\", \"logging\"]}\n/>"
+            "keywords": ["jsx", "governance", "ai-safety", "constraints", "validation", "forbidden-patterns", "required-components", "security"],
+            "rationale": "Prevents AI assistants from generating insecure or non-compliant workflows while maintaining development velocity. Implicit AI safety assumptions allow dangerous workflow generation that bypasses security and compliance requirements. Explicit forbidden patterns, required components, and validation pipelines prevent unsafe AI-generated workflows.",
+            "prohibited": {
+              "code": "<AIGuard\n\tblockedPatterns={dangerousPatterns}\n\trequiredFeatures={[\"validation\", \"logging\"]}\n/>",
+              "reasoning": "Implicit safety assumptions, generic pattern blocking, no validation pipeline, allows dangerous AI-generated workflows"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<AiWorkflowSafety>\n\t<GenerationConstraints>\n\t\t<ForbiddenPatterns>\n\t\t\t<Pattern name=\"direct-database-access\" reason=\"security\" />\n\t\t\t<Pattern name=\"bypass-authentication\" reason=\"security\" />\n\t\t\t<Pattern name=\"unencrypted-transmission\" reason=\"compliance\" />\n\t\t</ForbiddenPatterns>\n\t\t<RequiredComponents>\n\t\t\t<Component name=\"input-validation\" />\n\t\t\t<Component name=\"error-handling\" />\n\t\t\t<Component name=\"audit-logging\" />\n\t\t</RequiredComponents>\n\t</GenerationConstraints>\n\t<ValidationPipeline>\n\t\t<PreValidation>\n\t\t\t<SecurityScanning />\n\t\t\t<ComplianceChecking />\n\t\t</PreValidation>\n\t</ValidationPipeline>\n</AiWorkflowSafety>",
+              "scope": "All AI workflow safety components requiring explicit forbidden patterns, required components, and validation pipelines"
+            }
           }
         }
       },
       {
         "id": "bfceff8e-1861-42fb-9935-64d17afef6a8",
         "payload": {
-          "document": "JSX_UNIVERSAL_006: Standard HTML Attributes - Use `for` instead of `htmlFor` and `class` instead of `className` since Studio's JSX compiles to vanilla HTML, not React components. Studio JSX doesn't have JavaScript reserved word conflicts like React does.",
+          "description": "Use for instead of htmlFor and class instead of className since Studio's JSX compiles to vanilla HTML, not React components.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_006",
-            "category": "universal",
-            "priority": 9,
-            "reason": "Studio JSX doesn't have JavaScript reserved word conflicts like React does, so standard HTML attributes should be used for clarity and consistency with the final HTML output",
-            "consequences": "Using React-style props like htmlFor and className creates unnecessary abstraction and confusion since Studio JSX compiles to vanilla HTML where for and class are the natural attributes",
-            "philosophy": "Standard HTML Attributes - Studio JSX compiles to vanilla HTML, not React components, so use standard HTML attributes that match the final output",
-            "examples": {
-              "correct": "<Label for=\"email-input\">Email Address</Label>\n<Input id=\"email-input\" class=\"form-control\" type=\"email\" />",
-              "anti_pattern": "<Label htmlFor=\"email-input\">Email Address</Label>\n<Input id=\"email-input\" className=\"form-control\" type=\"email\" />"
+            "keywords": ["jsx", "html-attributes", "for", "class", "not-react", "vanilla-html", "studio", "standard"],
+            "rationale": "Studio JSX doesn't have JavaScript reserved word conflicts like React does, so standard HTML attributes should be used for clarity and consistency with the final HTML output. Using React-style props like htmlFor and className creates unnecessary abstraction and confusion since Studio JSX compiles to vanilla HTML where for and class are the natural attributes.",
+            "prohibited": {
+              "code": "<Label htmlFor=\"email-input\">Email Address</Label>\n<Input id=\"email-input\" className=\"form-control\" type=\"email\" />",
+              "reasoning": "React-style attributes, unnecessary abstraction, inconsistent with vanilla HTML output, confusing"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Label for=\"email-input\">Email Address</Label>\n<Input id=\"email-input\" class=\"form-control\" type=\"email\" />",
+              "scope": "All JSX components - use standard HTML attributes (for, class) not React attributes (htmlFor, className)"
+            }
           }
         }
       },
       {
         "id": "c73a6a9c-eac6-45ce-9678-f415be35f62a",
         "payload": {
-          "document": "JSX_GOVERNANCE_001 - Cryptographic Contract Structure: Workflow governance components must define cryptographically verifiable contracts with clear requirements, compliance frameworks, and verification mechanisms. All contracts must be deterministic and auditable. This ensures architectural governance is unbreakable and provides cryptographic proof of compliance for critical business workflows.",
+          "description": "Workflow governance components must define cryptographically verifiable contracts with clear requirements, compliance frameworks, and verification mechanisms. All contracts must be deterministic and auditable.",
           "metadata": {
             "rule_id": "JSX_GOVERNANCE_001",
-            "category": "governance",
-            "priority": 10,
-            "reason": "Ensures architectural governance is unbreakable and provides cryptographic proof of compliance for critical business workflows",
-            "consequences": "Unverifiable governance configuration allows violations to go undetected and makes compliance impossible to prove",
-            "philosophy": "Cryptographic Contract Structure - cryptographically verifiable contracts with clear requirements, compliance frameworks, and verification mechanisms",
-            "examples": {
-              "correct": "<WorkflowGovernance>\n  <WorkflowContract id=\"ci-cd-pipeline\">\n    <RequiredComponents>\n      <Component name=\"security-scan\" mandatory={true} />\n      <Component name=\"warden-validation\" mandatory={true} />\n    </RequiredComponents>\n    <ComplianceRequirements>\n      <Gpdr dataRetention=\"P2Y\" anonymization=\"required\" />\n      <Sox auditTrail=\"complete\" approvalRequired={true} />\n    </ComplianceRequirements>\n  </WorkflowContract>\n  <CryptographicVerification>\n    <WorkflowSignature algorithm=\"Ed25519\" />\n    <IntegrityHash algorithm=\"SHA-256\" />\n  </CryptographicVerification>\n</WorkflowGovernance>",
-              "anti_pattern": "<WorkflowConfig\n  requirements={[\"security-scan\", \"validation\"]}\n  compliance={complianceRules}\n/>"
+            "keywords": ["jsx", "governance", "cryptographic", "contracts", "verification", "compliance", "deterministic", "auditable"],
+            "rationale": "Ensures architectural governance is unbreakable and provides cryptographic proof of compliance for critical business workflows. Unverifiable governance configuration allows violations to go undetected and makes compliance impossible to prove. Cryptographically verifiable contracts with clear requirements, compliance frameworks, and verification mechanisms enable unbreakable governance.",
+            "prohibited": {
+              "code": "<WorkflowConfig\n\trequirements={[\"security-scan\", \"validation\"]}\n\tcompliance={complianceRules}\n/>",
+              "reasoning": "Unverifiable configuration, no cryptographic proof, violations undetectable, compliance impossible to prove"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<WorkflowGovernance>\n\t<WorkflowContract id=\"ci-cd-pipeline\">\n\t\t<RequiredComponents>\n\t\t\t<Component name=\"security-scan\" mandatory={true} />\n\t\t\t<Component name=\"warden-validation\" mandatory={true} />\n\t\t</RequiredComponents>\n\t\t<ComplianceRequirements>\n\t\t\t<Gpdr dataRetention=\"P2Y\" anonymization=\"required\" />\n\t\t\t<Sox auditTrail=\"complete\" approvalRequired={true} />\n\t\t</ComplianceRequirements>\n\t</WorkflowContract>\n\t<CryptographicVerification>\n\t\t<WorkflowSignature algorithm=\"Ed25519\" />\n\t\t<IntegrityHash algorithm=\"SHA-256\" />\n\t</CryptographicVerification>\n</WorkflowGovernance>",
+              "scope": "All workflow governance components requiring cryptographic verification, deterministic contracts, and compliance proof"
+            }
           }
         }
       },
       {
         "id": "c8f776ca-4c33-419d-a894-55ad24d8138a",
         "payload": {
-          "document": "JSX_OBSERVABILITY_002 - Performance Monitoring Patterns: Performance monitoring components must aggregate data from multiple sources, handle missing data gracefully, and provide historical context for current metrics. This ensures performance monitoring provides actionable insights while handling the complexities of distributed systems and intermittent data.",
+          "description": "Performance monitoring components must aggregate data from multiple sources, handle missing data gracefully, and provide historical context for current metrics.",
           "metadata": {
             "rule_id": "JSX_OBSERVABILITY_002",
-            "category": "observability",
-            "priority": 7,
-            "reason": "Ensures performance monitoring provides actionable insights while handling the complexities of distributed systems and intermittent data",
-            "consequences": "Simplistic performance monitoring fails in distributed systems and provides misleading insights without proper data handling",
-            "philosophy": "Performance Monitoring Patterns - data aggregation from multiple sources, graceful missing data handling, and historical context for current metrics",
-            "examples": {
-              "correct": "<BenchmarkAggregator>\n  <CollectFrom>\n    <ProductionDeployments />\n    <DevelopmentEnvironments />\n    <TestRuns />\n  </CollectFrom>\n  <Metrics>\n    <Latency percentiles={[50, 90, 99, 99.9]} />\n    <Throughput window=\"1m\" />\n    <MemoryUsage peak={true} average={true} />\n  </Metrics>\n  <HandleMissingData strategy=\"interpolate\" maxGap=\"5m\" />\n  <StoreTo tripleStore=\"benchmarks\" retention=\"30d\" />\n</BenchmarkAggregator>",
-              "anti_pattern": "<PerformanceMonitor metrics={[\"latency\", \"throughput\"]} />"
+            "keywords": ["jsx", "observability", "performance", "monitoring", "aggregation", "missing-data", "historical-context", "distributed"],
+            "rationale": "Ensures performance monitoring provides actionable insights while handling the complexities of distributed systems and intermittent data. Simplistic performance monitoring fails in distributed systems and provides misleading insights without proper data handling. Data aggregation from multiple sources, graceful missing data handling, and historical context enable reliable performance monitoring.",
+            "prohibited": {
+              "code": "<PerformanceMonitor metrics={[\"latency\", \"throughput\"]} />",
+              "reasoning": "Simplistic monitoring, no multi-source aggregation, no missing data handling, no historical context, misleading in distributed systems"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<BenchmarkAggregator>\n\t<CollectFrom>\n\t\t<ProductionDeployments />\n\t\t<DevelopmentEnvironments />\n\t\t<TestRuns />\n\t</CollectFrom>\n\t<Metrics>\n\t\t<Latency percentiles={[50, 90, 99, 99.9]} />\n\t\t<Throughput window=\"1m\" />\n\t\t<MemoryUsage peak={true} average={true} />\n\t</Metrics>\n\t<HandleMissingData strategy=\"interpolate\" maxGap=\"5m\" />\n\t<StoreTo tripleStore=\"benchmarks\" retention=\"30d\" />\n</BenchmarkAggregator>",
+              "scope": "All performance monitoring components requiring multi-source aggregation, missing data handling, and historical context"
+            }
           }
         }
       },
       {
         "id": "ce119fe7-cc6a-468d-ba05-a139d82ec64b",
         "payload": {
-          "document": "JSX_EVENTS_001 - Event Component Structure: Event components must follow the triple pattern (subject-predicate-object) and maintain referential transparency. All events must be serializable. This ensures event-driven architectures are debuggable, auditable, and can be replayed or analyzed using RDF tools.",
+          "description": "Event components must follow the triple pattern (subject-predicate-object) and maintain referential transparency. All events must be serializable.",
           "metadata": {
             "rule_id": "JSX_EVENTS_001",
-            "category": "events",
-            "priority": 8,
-            "reason": "Ensures event-driven architectures are debuggable, auditable, and can be replayed or analyzed using RDF tools",
-            "consequences": "Opaque event handling makes debugging impossible and breaks audit trail capabilities",
-            "philosophy": "Event Component Structure - triple pattern (subject-predicate-object) with referential transparency and serializable events",
-            "examples": {
-              "correct": "<Button>\n  <Publishes \n    event=\"user:clicked:save-button\" \n    payload={documentId}\n    timestamp=\"auto\" \n  />\n  Save Document\n</Button>",
-              "anti_pattern": "<Button onClick={() => saveDocument(doc.id)}>\n  Save Document  \n</Button>"
+            "keywords": ["jsx", "events", "triple-pattern", "subject-predicate-object", "referential-transparency", "serializable", "rdf", "auditable"],
+            "rationale": "Ensures event-driven architectures are debuggable, auditable, and can be replayed or analyzed using RDF tools. Opaque event handling makes debugging impossible and breaks audit trail capabilities. Triple pattern (subject-predicate-object) with referential transparency and serializable events enable debuggable, auditable event architectures.",
+            "prohibited": {
+              "code": "<Button onClick={() => saveDocument(doc.id)}>\n\tSave Document  \n</Button>",
+              "reasoning": "Opaque event handling, imperative callback, not serializable, no triple pattern, debugging impossible, no audit trail"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Button>\n\t<Publishes \n\t\tevent=\"user:clicked:save-button\" \n\t\tpayload={documentId}\n\t\ttimestamp=\"auto\" \n\t/>\n\tSave Document\n</Button>",
+              "scope": "All event components requiring triple pattern, referential transparency, serializability, and audit trails"
+            }
           }
         }
       },
       {
         "id": "ce645094-524a-402d-bfa8-acc77d462425",
         "payload": {
-          "document": "Conditional Rendering Structure - conditional rendering components must have explicit condition and consequence components. Avoid implicit boolean coercion.",
+          "description": "Conditional rendering components must have explicit condition and consequence components. Avoid implicit boolean coercion.",
           "metadata": {
             "rule_id": "JSX_REACTIVE_001",
-            "category": "reactive",
-            "priority": 8,
-            "reason": "Makes conditional logic explicit and debuggable, especially important when conditions involve complex mathematical expressions",
-            "consequences": "Implicit boolean coercion makes conditional logic hard to debug and understand",
-            "philosophy": "Conditional Rendering Structure - explicit condition and consequence components without implicit boolean coercion",
-            "examples": {
-              "correct": "<ShowIf>\n  <Condition>\n    <IsGreaterThan>\n      <Referent><FromElement selector=\"#score\" /></Referent>\n      <Comparand><Value>80</Value></Comparand>\n    </IsGreaterThan>\n  </Condition>\n  <Consequence>\n    <Display>Excellent work!</Display>\n  </Consequence>\n</ShowIf>",
-              "anti_pattern": "<ShowIf condition=\"score > 80\">Excellent work!</ShowIf>"
+            "keywords": ["jsx", "reactive", "conditional", "rendering", "explicit", "boolean-coercion", "debuggable", "mathematical"],
+            "rationale": "Makes conditional logic explicit and debuggable, especially important when conditions involve complex mathematical expressions. Implicit boolean coercion makes conditional logic hard to debug and understand. Explicit condition and consequence components without implicit boolean coercion create clear, debuggable reactive logic.",
+            "prohibited": {
+              "code": "<ShowIf condition=\"score > 80\">Excellent work!</ShowIf>",
+              "reasoning": "Implicit boolean coercion, string formula not validated, hard to debug, unclear condition structure"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<ShowIf>\n\t<Condition>\n\t\t<IsGreaterThan>\n\t\t\t<Referent><FromElement selector=\"#score\" /></Referent>\n\t\t\t<Comparand><Value>80</Value></Comparand>\n\t\t</IsGreaterThan>\n\t</Condition>\n\t<Consequence>\n\t\t<Display>Excellent work!</Display>\n\t</Consequence>\n</ShowIf>",
+              "scope": "All conditional rendering components requiring explicit condition and consequence components without implicit coercion"
+            }
           }
         }
       },
       {
         "id": "cfec798f-5047-4a0b-933f-2012a0ddec5e",
         "payload": {
-          "document": "JSX_OBSERVABILITY_003 - Visual Workflow Integration: Visual workflow components must maintain semantic consistency between visual representation and data model. Support collaborative editing with proper conflict resolution. This ensures visual workflows remain synchronized with their underlying data while supporting real-time collaboration.",
+          "description": "Visual workflow components must maintain semantic consistency between visual representation and data model. Support collaborative editing with proper conflict resolution.",
           "metadata": {
             "rule_id": "JSX_OBSERVABILITY_003",
-            "category": "observability",
-            "priority": 7,
-            "reason": "Ensures visual workflows remain synchronized with their underlying data while supporting real-time collaboration",
-            "consequences": "Visual-only workflows without semantic meaning break synchronization and make collaboration impossible",
-            "philosophy": "Visual Workflow Integration - semantic consistency between visual representation and data model with collaborative editing support",
-            "examples": {
-              "correct": "<WorkflowCanvas>\n  <LibraryNode\n    id=\"validation\"\n    semanticType=\"governance.validation\"\n    position={[200, 300]}\n    ariaLabel=\"Validation node at position 200, 300\"\n  >\n    <Inputs>\n      <Port name=\"codebase\" type=\"file[]\" required={true} />\n    </Inputs>\n    <Outputs>\n      <Port name=\"violations\" type=\"violation[]\" />\n    </Outputs>\n  </LibraryNode>\n  <Connection\n    from=\"validation.violations\"\n    to=\"autofix.input\"\n    semanticType=\"error-recovery\"\n    bidirectional={false}\n  />\n</WorkflowCanvas>",
-              "anti_pattern": "<Canvas>\n  <Box id=\"1\" x={200} y={300}>Validation</Box>\n  <Line from=\"1\" to=\"2\" />\n</Canvas>"
+            "keywords": ["jsx", "observability", "visual-workflow", "semantic-consistency", "data-model", "collaboration", "conflict-resolution", "synchronization"],
+            "rationale": "Ensures visual workflows remain synchronized with their underlying data while supporting real-time collaboration. Visual-only workflows without semantic meaning break synchronization and make collaboration impossible. Semantic consistency between visual representation and data model with collaborative editing support enables reliable visual workflows.",
+            "prohibited": {
+              "code": "<Canvas>\n\t<Box id=\"1\" x={200} y={300}>Validation</Box>\n\t<Line from=\"1\" to=\"2\" />\n</Canvas>",
+              "reasoning": "Visual-only representation, no semantic data model, no collaboration support, synchronization impossible"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<WorkflowCanvas>\n\t<LibraryNode\n\t\tid=\"validation\"\n\t\tsemanticType=\"governance.validation\"\n\t\tposition={[200, 300]}\n\t\tariaLabel=\"Validation node at position 200, 300\"\n\t>\n\t\t<Inputs>\n\t\t\t<Port name=\"codebase\" type=\"file[]\" required={true} />\n\t\t</Inputs>\n\t\t<Outputs>\n\t\t\t<Port name=\"violations\" type=\"violation[]\" />\n\t\t</Outputs>\n\t</LibraryNode>\n\t<Connection\n\t\tfrom=\"validation.violations\"\n\t\tto=\"autofix.input\"\n\t\tsemanticType=\"error-recovery\"\n\t\tbidirectional={false}\n\t/>\n</WorkflowCanvas>",
+              "scope": "All visual workflow components requiring semantic consistency, data model synchronization, and collaborative editing"
+            }
           }
         }
       },
       {
         "id": "da425a6f-169d-4deb-b91d-55dc2ce781e1",
         "payload": {
-          "document": "JSX_DEVTOOLS_001 - Multi-Modal Interface Patterns: Developer tool components must support multiple interaction modes (voice, GUI, CLI, collaborative) with consistent data models across all modes. This ensures development tooling is accessible and usable across different workflows while maintaining consistent behavior.",
+          "description": "Developer tool components must support multiple interaction modes (voice, GUI, CLI, collaborative) with consistent data models across all modes.",
           "metadata": {
             "rule_id": "JSX_DEVTOOLS_001",
-            "category": "devtools",
-            "priority": 7,
-            "reason": "Ensures development tooling is accessible and usable across different workflows while maintaining consistent behavior",
-            "consequences": "Single-mode interfaces exclude users and create inconsistent development experiences across different workflows",
-            "philosophy": "Multi-Modal Interface Patterns - multiple interaction modes (voice, GUI, CLI, collaborative) with consistent data models across all modes",
-            "examples": {
-              "correct": "<QuartermasterInterface>\n  <VoiceGuidedSetup>\n    <AiAssistant provider=\"claude\" fallback=\"text\" />\n    <ConversationalConfig accessible={true} />\n  </VoiceGuidedSetup>\n  <GuiWizard fallback=\"voice\" />\n  <CliInterface scriptable={true} />\n</QuartermasterInterface>",
-              "anti_pattern": "<ConfigWizard mode=\"gui\" />"
+            "keywords": ["jsx", "devtools", "multi-modal", "voice", "gui", "cli", "collaborative", "accessibility", "consistent"],
+            "rationale": "Ensures development tooling is accessible and usable across different workflows while maintaining consistent behavior. Single-mode interfaces exclude users and create inconsistent development experiences across different workflows. Multiple interaction modes (voice, GUI, CLI, collaborative) with consistent data models enable accessible, versatile development tools.",
+            "prohibited": {
+              "code": "<ConfigWizard mode=\"gui\" />",
+              "reasoning": "Single-mode interface, excludes users, inconsistent across workflows, not accessible, limited usability"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<QuartermasterInterface>\n\t<VoiceGuidedSetup>\n\t\t<AiAssistant provider=\"claude\" fallback=\"text\" />\n\t\t<ConversationalConfig accessible={true} />\n\t</VoiceGuidedSetup>\n\t<GuiWizard fallback=\"voice\" />\n\t<CliInterface scriptable={true} />\n</QuartermasterInterface>",
+              "scope": "All developer tool components requiring multi-modal interaction with consistent data models across voice, GUI, CLI, collaborative modes"
+            }
           }
         }
       },
       {
         "id": "e34add80-2ad5-4d66-8ea6-638754bc32c9",
         "payload": {
-          "document": "JSX_DISTRIBUTED_001 - CRDT Component Configuration: CRDT components must specify unique identifiers, merge strategies, and synchronization policies. All distributed state changes must be commutative and idempotent. This ensures distributed components maintain consistency across network partitions and concurrent edits in collaborative environments.",
+          "description": "CRDT components must specify unique identifiers, merge strategies, and synchronization policies. All distributed state changes must be commutative and idempotent.",
           "metadata": {
             "rule_id": "JSX_DISTRIBUTED_001",
-            "category": "distributed",
-            "priority": 8,
-            "reason": "Ensures distributed components maintain consistency across network partitions and concurrent edits in collaborative environments",
-            "consequences": "Missing distributed state configuration breaks consistency and collaborative features in network partitions",
-            "philosophy": "CRDT Component Configuration - unique identifiers, merge strategies, and synchronization policies for distributed state",
-            "examples": {
-              "correct": "<DistributedCounter \n  id=\"shared-counter-123\" \n  mergeStrategy=\"lww\" \n  syncPolicy=\"immediate\"\n>\n  <SyncWithPeers maxPeers={5} />\n  <ConflictResolution strategy=\"automatic\" />\n</DistributedCounter>",
-              "anti_pattern": "<Counter value={count} onChange={setCount} />"
+            "keywords": ["jsx", "distributed", "crdt", "merge-strategies", "synchronization", "consistency", "network-partitions", "collaborative"],
+            "rationale": "Ensures distributed components maintain consistency across network partitions and concurrent edits in collaborative environments. Missing distributed state configuration breaks consistency and collaborative features in network partitions. Unique identifiers, merge strategies, and synchronization policies for distributed state enable reliable CRDTs.",
+            "prohibited": {
+              "code": "<Counter value={count} onChange={setCount} />",
+              "reasoning": "No distributed state support, no merge strategy, no synchronization policy, breaks in network partitions"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<DistributedCounter \n\tid=\"shared-counter-123\" \n\tmergeStrategy=\"lww\" \n\tsyncPolicy=\"immediate\"\n>\n\t<SyncWithPeers maxPeers={5} />\n\t<ConflictResolution strategy=\"automatic\" />\n</DistributedCounter>",
+              "scope": "All CRDT components requiring unique identifiers, merge strategies, synchronization policies, and consistency guarantees"
+            }
           }
         }
       },
       {
         "id": "ea76927b-3efe-4292-a9cf-294a5126f2a1",
         "payload": {
-          "document": "JSX_COMMERCE_001 - Product Component Modeling: Product components must maintain referential integrity, support variant relationships, and handle inventory tracking. Use semantic component names that reflect business domain. This ensures commerce components accurately represent business relationships while maintaining data consistency across complex product catalogs.",
+          "description": "Product components must maintain referential integrity, support variant relationships, and handle inventory tracking. Use semantic component names that reflect business domain.",
           "metadata": {
             "rule_id": "JSX_COMMERCE_001",
-            "category": "commerce",
-            "priority": 7,
-            "reason": "Ensures commerce components accurately represent business relationships while maintaining data consistency across complex product catalogs",
-            "consequences": "Flat product structure breaks referential integrity and makes complex product relationships unmanageable",
-            "philosophy": "Product Component Modeling - referential integrity, variant relationships, and inventory tracking with semantic business domain names",
-            "examples": {
-              "correct": "<Product sku=\"WIDGET-001\" name=\"Deluxe Widget\">\n  <Variant name=\"color\" options={[\"red\", \"blue\"]} affects=\"price\" />\n  <Variant name=\"size\" options={[\"S\", \"M\", \"L\"]} affects=\"inventory\" />\n  <BasePrice currency=\"USD\">29.99</BasePrice>\n  <Inventory>\n    <TrackQuantity />\n    <ReserveOnAddToCart />\n  </Inventory>\n</Product>",
-              "anti_pattern": "<Product \n  sku=\"WIDGET-001\" \n  variants={[{color: \"red\", size: \"S\", price: 29.99}]} \n/>"
+            "keywords": ["jsx", "commerce", "product", "variants", "inventory", "referential-integrity", "business-domain", "catalog"],
+            "rationale": "Ensures commerce components accurately represent business relationships while maintaining data consistency across complex product catalogs. Flat product structure breaks referential integrity and makes complex product relationships unmanageable. Referential integrity, variant relationships, and inventory tracking with semantic business domain names enable accurate commerce modeling.",
+            "prohibited": {
+              "code": "<Product \n\tsku=\"WIDGET-001\" \n\tvariants={[{color: \"red\", size: \"S\", price: 29.99}]} \n/>",
+              "reasoning": "Flat structure, no referential integrity, no variant relationships, no inventory tracking, unmanageable product catalog"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Product sku=\"WIDGET-001\" name=\"Deluxe Widget\">\n\t<Variant name=\"color\" options={[\"red\", \"blue\"]} affects=\"price\" />\n\t<Variant name=\"size\" options={[\"S\", \"M\", \"L\"]} affects=\"inventory\" />\n\t<BasePrice currency=\"USD\">29.99</BasePrice>\n\t<Inventory>\n\t\t<TrackQuantity />\n\t\t<ReserveOnAddToCart />\n\t</Inventory>\n</Product>",
+              "scope": "All product components requiring referential integrity, variant relationships, inventory tracking, and semantic business domain names"
+            }
           }
         }
       },
       {
         "id": "ed4c1547-2464-4ac2-a3b3-8e23f30968d8",
         "payload": {
-          "document": "Progressive Enhancement Integration - components must work without JavaScript and enhance progressively when client-side functionality is available. Use data-enhance attributes for enhancement hints.",
+          "description": "Components must work without JavaScript and enhance progressively when client-side functionality is available. Use data-enhance attributes for enhancement hints.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_002",
-            "category": "universal",
-            "priority": 9,
-            "reason": "Ensures accessibility, performance, and reliability across all network conditions while maintaining the full interactive experience when possible",
-            "consequences": "Client-only functionality breaks accessibility and fails without JavaScript",
-            "philosophy": "Progressive Enhancement Integration - components work without JavaScript and enhance when available",
-            "examples": {
-              "correct": "<Form data-enhance=\"realtime-validation\">\n  <Input name=\"email\" type=\"email\" required />\n  <Button type=\"submit\">Submit</Button>\n</Form>",
-              "anti_pattern": "<Form onSubmit={handleSubmit}>\n  <ValidatedInput name=\"email\" validator={emailValidator} />\n</Form>"
+            "keywords": ["jsx", "progressive-enhancement", "no-javascript", "accessibility", "performance", "reliability", "data-enhance"],
+            "rationale": "Ensures accessibility, performance, and reliability across all network conditions while maintaining the full interactive experience when possible. Client-only functionality breaks accessibility and fails without JavaScript. Components that work without JavaScript and enhance when available create reliable, accessible experiences.",
+            "prohibited": {
+              "code": "<Form onSubmit={handleSubmit}>\n\t<ValidatedInput name=\"email\" validator={emailValidator} />\n</Form>",
+              "reasoning": "Client-only functionality, requires JavaScript, breaks accessibility, fails without JavaScript"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Form data-enhance=\"realtime-validation\">\n\t<Input name=\"email\" type=\"email\" required />\n\t<Button type=\"submit\">Submit</Button>\n</Form>",
+              "scope": "All components - must work without JavaScript, enhance progressively with data-enhance attributes"
+            }
           }
         }
       },
       {
         "id": "edf8e45b-689e-4f5f-ae1b-3770214bda7c",
         "payload": {
-          "document": "Progressive Enhancement and Data Attributes - components must use props that compile to data-enhance HTML output attributes for progressive enhancement. Props control enhancement behavior, not HTML attributes directly. Enhancement behavior must be additive, not replacing base functionality.",
+          "description": "Components must use props that compile to data-enhance HTML output attributes for progressive enhancement. Props control enhancement behavior, not HTML attributes directly. Enhancement behavior must be additive, not replacing base functionality.",
           "metadata": {
             "rule_id": "JSX_SEMANTIC_003",
-            "category": "semantic",
-            "priority": 8,
-            "reason": "Ensures semantic HTML works perfectly without JavaScript while providing rich interactions when available. Clarifies that data-enhance is HTML output, not JSX props",
-            "consequences": "JavaScript-dependent functionality or direct HTML attributes break progressive enhancement",
-            "philosophy": "Progressive Enhancement and Data Attributes - props compile to data-enhance HTML attributes, enhancement behavior is additive",
-            "examples": {
-              "correct": "<Article readingProgress={true}>\n  <Heading><Title>Long Article</Title></Heading>\n  <Section lazyLoad={true}>\n    <Paragraph>Content...</Paragraph>\n  </Section>\n</Article>",
-              "anti_pattern": "<Article data-enhance=\"reading-progress\" onScrollProgress={updateProgress}>\n  <LazySection loader={<Spinner />}>\n    <Paragraph>Content...</Paragraph>\n  </LazySection>\n</Article>"
+            "keywords": ["jsx", "semantic", "progressive-enhancement", "data-enhance", "props", "html-output", "additive", "no-javascript"],
+            "rationale": "Ensures semantic HTML works perfectly without JavaScript while providing rich interactions when available. Clarifies that data-enhance is HTML output, not JSX props. JavaScript-dependent functionality or direct HTML attributes break progressive enhancement. Props that compile to data-enhance HTML attributes with additive enhancement behavior create reliable progressive experiences.",
+            "prohibited": {
+              "code": "<Article data-enhance=\"reading-progress\" onScrollProgress={updateProgress}>\n\t<LazySection loader={<Spinner />}>\n\t\t<Paragraph>Content...</Paragraph>\n\t</LazySection>\n</Article>",
+              "reasoning": "JavaScript-dependent functionality, direct HTML attributes, replacing base functionality, breaks progressive enhancement"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<Article readingProgress={true}>\n\t<Heading><Title>Long Article</Title></Heading>\n\t<Section lazyLoad={true}>\n\t\t<Paragraph>Content...</Paragraph>\n\t</Section>\n</Article>",
+              "scope": "All components with enhancement features - props compile to data-enhance HTML attributes, enhancement is additive"
+            }
           }
         }
       },
       {
         "id": "ee8fe9b6-6103-47c1-88eb-e4dca02b1283",
         "payload": {
-          "document": "JSX_DEVTOOLS_003 - Blueprint Validation and Marketplace: Blueprint components must enforce cryptographic signing, security scanning, and version management for community sharing. This ensures shared blueprints are secure, verified, and properly versioned while enabling community collaboration.",
+          "description": "Blueprint components must enforce cryptographic signing, security scanning, and version management for community sharing.",
           "metadata": {
             "rule_id": "JSX_DEVTOOLS_003",
-            "category": "devtools",
-            "priority": 7,
-            "reason": "Ensures shared blueprints are secure, verified, and properly versioned while enabling community collaboration",
-            "consequences": "Unsecured blueprint sharing exposes security vulnerabilities and breaks trust in community collaboration",
-            "philosophy": "Blueprint Validation and Marketplace - cryptographic signing, security scanning, and version management for community sharing",
-            "examples": {
-              "correct": "<BlueprintMarketplace>\n  <CommunityBlueprints>\n    <CryptographicSigning algorithm=\"Ed25519\" required={true} />\n    <WardenValidation automatic={true} />\n    <SecurityScanning depth=\"deep\" />\n  </CommunityBlueprints>\n  <Publishing>\n    <MetadataValidation schema=\"blueprint-v2\" />\n    <VersionControl semantic={true} />\n  </Publishing>\n</BlueprintMarketplace>",
-              "anti_pattern": "<BlueprintShare community={true} validation=\"optional\" />"
+            "keywords": ["jsx", "devtools", "blueprints", "marketplace", "cryptographic-signing", "security-scanning", "version-management", "community"],
+            "rationale": "Ensures shared blueprints are secure, verified, and properly versioned while enabling community collaboration. Unsecured blueprint sharing exposes security vulnerabilities and breaks trust in community collaboration. Cryptographic signing, security scanning, and version management enable secure blueprint sharing.",
+            "prohibited": {
+              "code": "<BlueprintShare community={true} validation=\"optional\" />",
+              "reasoning": "Unsecured sharing, no cryptographic signing, no security scanning, no version management, exposes vulnerabilities"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<BlueprintMarketplace>\n\t<CommunityBlueprints>\n\t\t<CryptographicSigning algorithm=\"Ed25519\" required={true} />\n\t\t<WardenValidation automatic={true} />\n\t\t<SecurityScanning depth=\"deep\" />\n\t</CommunityBlueprints>\n\t<Publishing>\n\t\t<MetadataValidation schema=\"blueprint-v2\" />\n\t\t<VersionControl semantic={true} />\n\t</Publishing>\n</BlueprintMarketplace>",
+              "scope": "All blueprint marketplace components requiring cryptographic signing, security scanning, and version management"
+            }
           }
         }
       },
       {
         "id": "fd4516a6-0f8b-4ba2-ac9f-e9260aea7d47",
         "payload": {
-          "document": "JSX_COMMERCE_002 - Financial Calculation Accuracy: Financial calculations must use proper decimal arithmetic and currency handling. All monetary amounts must specify currency and precision requirements. This prevents financial calculation errors and ensures compliance with currency regulations while maintaining audit trails for financial operations.",
+          "description": "Financial calculations must use proper decimal arithmetic and currency handling. All monetary amounts must specify currency and precision requirements.",
           "metadata": {
             "rule_id": "JSX_COMMERCE_002",
-            "category": "commerce",
-            "priority": 8,
-            "reason": "Prevents financial calculation errors and ensures compliance with currency regulations while maintaining audit trails for financial operations",
-            "consequences": "Unsafe financial calculations cause monetary errors and compliance violations in financial operations",
-            "philosophy": "Financial Calculation Accuracy - proper decimal arithmetic and currency handling with specified currency and precision requirements",
-            "examples": {
-              "correct": "<PriceCalculation>\n  <BasePrice currency=\"USD\" precision={2}>29.99</BasePrice>\n  <Tax rate={0.0875} rounding=\"half-up\" />\n  <Discount type=\"percentage\" value={10} />\n  <Total currency=\"USD\" precision={2} />\n</PriceCalculation>",
-              "anti_pattern": "<PriceCalculation \n  price={29.99} \n  tax={0.0875} \n  discount={0.1} \n  total={calculateTotal(29.99, 0.0875, 0.1)} \n/>"
+            "keywords": ["jsx", "commerce", "financial", "decimal-arithmetic", "currency", "precision", "audit-trail", "compliance"],
+            "rationale": "Prevents financial calculation errors and ensures compliance with currency regulations while maintaining audit trails for financial operations. Unsafe financial calculations cause monetary errors and compliance violations in financial operations. Proper decimal arithmetic and currency handling with specified currency and precision requirements prevent financial errors.",
+            "prohibited": {
+              "code": "<PriceCalculation \n\tprice={29.99} \n\ttax={0.0875} \n\tdiscount={0.1} \n\ttotal={calculateTotal(29.99, 0.0875, 0.1)} \n/>",
+              "reasoning": "Unsafe decimal arithmetic, no currency specification, no precision control, causes monetary errors, compliance violations"
             },
-            "applies_to": [
-              ".tsx",
-              ".jsx"
-            ]
+            "required": {
+              "code": "<PriceCalculation>\n\t<BasePrice currency=\"USD\" precision={2}>29.99</BasePrice>\n\t<Tax rate={0.0875} rounding=\"half-up\" />\n\t<Discount type=\"percentage\" value={10} />\n\t<Total currency=\"USD\" precision={2} />\n</PriceCalculation>",
+              "scope": "All financial calculation components requiring decimal arithmetic, currency specification, precision control, and audit trails"
+            }
           }
         }
       }

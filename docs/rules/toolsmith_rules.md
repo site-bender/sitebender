@@ -1,131 +1,339 @@
 # Toolsmith Rules
 
-## Performance Exception Permissions
+## Array.push() and loops permitted in Toolsmith internal utilities
 
-- **Description**: TOOLSMITH_PERF_001: Performance Exception Permissions - Array.push() and loops are permitted in Toolsmith library functions when performance is critical. Internal utility functions may use imperative patterns for optimization, specifically: (1) .push() operations on newly created arrays for building results, (2) for/while loops in performance-critical sections, (3) let bindings for iteration variables in generators. These exceptions are ONLY allowed in internal Toolsmith utilities, not in application-level code. All such exceptions must be documented with [EXCEPTION] or [OPTIMIZATION] Envoy comments explaining the performance rationale. Example: `// [EXCEPTION] Using .push() for O(1) amortized performance in hot path`
 - **Rule ID**: TOOLSMITH_PERF_001
-- **Category**: toolsmith
-- **Priority**: 8
-- **Scope**: internal_utilities
-- **Type**: performance_exception
-- **Documentation Required**: true
-- **Examples**:
-  1. // [EXCEPTION] Using .push() for O(1) amortized performance
-  2. // [OPTIMIZATION] Loop-based iteration for hot path performance
+- **Description**: Array.push() and loops permitted in Toolsmith internal utilities when performance critical, with mandatory [EXCEPTION] documentation
+- **Keywords**: toolsmith, performance, exceptions, push, loops, mutation, optimization, internal, hot-path
+- **Rationale**: Internal Toolsmith utilities require maximum performance. Imperative patterns permitted when justified and properly documented. ONLY in internal Toolsmith code, NEVER in application-level code.
 
-## Math Type Implementation Guidelines
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using mutations without documentation:
+function map<T, U>(items: Array<T>, fn: (item: T) => U): Array<U> {
+	const result: Array<U> = []
+	for (let i = 0; i < items.length; i++) {
+		result.push(fn(items[i]))
+	}
+	return result
+}
 
-- **Description**: TOOLSMITH_PERF_006: Math Type Implementation Guidelines - Toolsmith library implements four math types (integer, bigint, float, precision) with same function names but different internal optimization paths for maximum performance. Implementation patterns: (1) Type-specific optimizations allowed with [MATH_TYPE_OPTIMIZATION] comments, (2) Direct numeric operations for integer/float types bypass generic number handling, (3) BigInt-specific algorithms may use different computational approaches, (4) Precision types may employ specialized decimal arithmetic libraries. Path structure: /math/integer/, /math/bigint/, /math/float/, /math/precision/ with identical function signatures but optimized implementations. Performance exceptions permitted: native arithmetic operators, type-specific algorithms, optimized comparison functions. All type-specific optimizations must document performance benefit and maintain mathematical correctness across all four type implementations.
+// Problems:
+// - No [EXCEPTION] comment
+// - No performance justification
+// - Violates FP without documentation
+```
+
+*Reasoning*: Performance exceptions must be explicitly documented with rationale
+
+**Required:**
+```ts
+// ✅ REQUIRED - Properly documented exception:
+// [EXCEPTION] Using .push() for O(1) amortized vs O(n) functional concat in hot path
+function _internalMap<T, U>(
+	items: ReadonlyArray<T>,
+	fn: (item: T) => U
+): Array<U> {
+	const result: Array<U> = []
+
+	for (let i = 0; i < items.length; i++) {
+		result.push(fn(items[i]))
+	}
+
+	return result
+}
+```
+
+*Scope*: Internal Toolsmith utilities only - NEVER in pagewright, architect, operator, custodian, or application code
+
+## Four math types with type-specific optimizations
+
 - **Rule ID**: TOOLSMITH_PERF_006
-- **Category**: toolsmith
-- **Priority**: 8
-- **Scope**: math_types
-- **Type**: type_optimization
-- **Math Types**:
-  1. integer
-  2. bigint
-  3. float
-  4. precision
-- **Path Structure**: /math/{type}/
-- **Comment Format**: [MATH_TYPE_OPTIMIZATION]
-- **Permitted Optimizations**:
-  1. native_arithmetic
-  2. type_specific_algorithms
-  3. optimized_comparisons
-- **Requirements**:
-  1. performance_benefit
-  2. mathematical_correctness
-  3. consistent_signatures
-- **Examples**:
-  1. // [MATH_TYPE_OPTIMIZATION] Integer: Direct + operator vs generic add() for 10x performance
-  2. // [MATH_TYPE_OPTIMIZATION] Precision: Using decimal.js library for accurate floating point math
+- **Description**: Four math types (integer, bigint, float, precision) with identical signatures but type-specific optimizations for performance
+- **Keywords**: toolsmith, math, types, optimization, integer, bigint, float, precision, performance
+- **Rationale**: Different numeric types require different optimization strategies. Type-specific implementations provide maximum performance while maintaining mathematical correctness and consistent API across all four types.
 
-## Vanilla vs Boxed Function Guidelines
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Generic implementation without type-specific optimization:
+export default function add(augend: number) {
+	return function addToAugend(addend: number): number {
+		// Generic approach - same for all types
+		return augend + addend
+	}
+}
 
-- **Description**: TOOLSMITH_PERF_003: Vanilla vs Boxed Function Guidelines - Toolsmith library provides two function variants: vanilla functions for internal performance-critical use, and boxed functions for application consumption. Vanilla functions: (1) Return null for error conditions to avoid Result/Validation overhead, (2) Use direct values and primitive returns for maximum performance, (3) May employ performance exceptions documented with Envoy comments, (4) Located in /vanilla/* paths for internal use only. Boxed functions: (1) Return Result or Validation monads for proper error handling, (2) Compose with other monadic operations safely, (3) Follow strict functional programming patterns, (4) Located in standard paths for public API consumption. Choose vanilla for hot paths and internal utilities, boxed for application-facing APIs and composable operations.
+// Problems:
+// - No type-specific optimization
+// - Misses performance opportunities
+// - No [MATH_TYPE_OPTIMIZATION] comment
+```
+
+*Reasoning*: Each math type should leverage its specific performance characteristics
+
+**Required:**
+```ts
+// ✅ REQUIRED - Type-specific optimization:
+// Path: /math/integer/add/index.ts
+// [MATH_TYPE_OPTIMIZATION] Integer: Direct + operator for native performance
+export default function add(augend: number) {
+	return function addToAugend(addend: number): number {
+		return augend + addend
+	}
+}
+
+// Path: /math/precision/add/index.ts
+// [MATH_TYPE_OPTIMIZATION] Precision: Using decimal.js for accurate floating point
+import Decimal from 'decimal.js'
+
+export default function add(augend: Decimal) {
+	return function addToAugend(addend: Decimal): Decimal {
+		return augend.plus(addend)
+	}
+}
+```
+
+*Scope*: Path structure: /math/{integer|bigint|float|precision}/ - identical signatures, optimized implementations
+
+## Vanilla vs Boxed functions
+
 - **Rule ID**: TOOLSMITH_PERF_003
-- **Category**: toolsmith
-- **Priority**: 8
-- **Scope**: function_architecture
-- **Type**: api_design
-- **Vanilla Characteristics**:
-  1. null_returns
-  2. primitive_values
-  3. performance_exceptions
-  4. internal_use
-- **Boxed Characteristics**:
-  1. monadic_returns
-  2. composable
-  3. strict_fp
-  4. public_api
-- **Examples**:
-  1. // Vanilla: const add = (a, b) => typeof a !== 'number' ? null : a + b
-  2. // Boxed: const add = (a, b) => isNumber(a) && isNumber(b) ? Success(a + b) : Failure('Invalid input')
+- **Description**: Vanilla functions (performance, null returns) vs Boxed functions (monadic, composable) - choose based on internal vs public API
+- **Keywords**: toolsmith, vanilla, boxed, performance, monads, api-design, result, validation
+- **Rationale**: Vanilla functions maximize performance for internal hot paths by avoiding monadic overhead. Boxed functions provide safe composition for application code. Both serve different purposes.
 
-## Exception Documentation Standards
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using boxed in internal hot path:
+// Path: /toolsmith/internal/_fastMap/index.ts
+import { map } from '@sitebender/toolsmith/boxed/array/map'
+import { success } from '@sitebender/toolsmith/monads/result'
 
-- **Description**: TOOLSMITH_PERF_002: Exception Documentation Standards - All performance exceptions in Toolsmith library must be documented using specific Envoy comment formats. Use [EXCEPTION] for breaking functional programming principles due to performance needs, and [OPTIMIZATION] for performance-focused implementations that maintain functional patterns. Format: `// [EXCEPTION] Reason: specific justification for breaking FP rules` or `// [OPTIMIZATION] Reason: performance technique being used`. Documentation must include: (1) Clear rationale for the exception, (2) Performance benefit being achieved, (3) Scope limitation (internal only), (4) Alternative approaches considered. These comments enable tracking performance exceptions across the codebase and ensure they remain justified and documented.
+function _fastMap<T, U>(
+	items: ReadonlyArray<T>,
+	fn: (item: T) => U
+): Result<Array<U>, Error> {
+	// Unnecessary Result wrapper in internal code
+	return map(fn)(items)
+}
+
+// Problems:
+// - Monadic overhead in hot path
+// - Result wrapper not needed internally
+// - Should use vanilla for performance
+```
+
+*Reasoning*: Internal utilities should use vanilla for performance; boxed for public APIs
+
+**Required:**
+```ts
+// ✅ REQUIRED - Vanilla for internal, boxed for public:
+
+// Internal utility (vanilla):
+// Path: /toolsmith/vanilla/array/_internalMap/index.ts
+export default function _internalMap<T, U>(
+	items: ReadonlyArray<T>,
+	fn: (item: T) => U
+): Array<U> | null {
+	if (!items || !fn) return null
+	return items.map(fn)
+}
+
+// Public API (boxed):
+// Path: /toolsmith/boxed/array/map/index.ts
+import type { Result } from '@sitebender/toolsmith/types'
+import { success, failure } from '@sitebender/toolsmith/monads/result'
+
+export default function map<T, U>(fn: (item: T) => U) {
+	return function mapWithFn(
+		items: ReadonlyArray<T>
+	): Result<Array<U>, Error> {
+		if (!items) return failure(new Error('Invalid array'))
+		return success(items.map(fn))
+	}
+}
+```
+
+*Scope*: Vanilla in /vanilla/* for internal use; boxed in standard paths for public API
+
+## Exception documentation with Envoy comments
+
 - **Rule ID**: TOOLSMITH_PERF_002
-- **Category**: toolsmith
-- **Priority**: 9
-- **Scope**: documentation
-- **Type**: exception_documentation
-- **Comment Formats**:
-  1. [EXCEPTION]
-  2. [OPTIMIZATION]
-- **Required Fields**:
-  1. rationale
-  2. performance_benefit
-  3. scope
-  4. alternatives
-- **Examples**:
-  1. // [EXCEPTION] Reason: Using mutable array.push() for O(1) vs O(n) functional concat
-  2. // [OPTIMIZATION] Reason: Direct property access instead of lens traversal for hot path
+- **Description**: All performance exceptions must be documented with [EXCEPTION] or [OPTIMIZATION] Envoy comments explaining rationale
+- **Keywords**: toolsmith, documentation, exceptions, optimization, envoy, comments, rationale
+- **Rationale**: Performance exceptions must be tracked and justified. Envoy comments enable searching for all exceptions, ensure they remain justified, and document why functional principles were violated.
 
-## Generator Function Development Permissions
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Exception without documentation:
+function _buildArray<T>(items: ReadonlyArray<T>): Array<T> {
+	const result: Array<T> = []
 
-- **Description**: TOOLSMITH_PERF_004: Generator Function Development Permissions - Generator functions in Toolsmith library are granted special exceptions to functional programming constraints due to their unique nature and lack of Haskell equivalent. Permitted patterns in generators: (1) let bindings for iteration state management, (2) while/for loops for iteration control, (3) Mutable counters and accumulators within generator scope, (4) Imperative yield logic for performance-critical streaming operations. Rationale: Generators provide lazy evaluation and memory efficiency impossible with pure functional approaches in TypeScript. All imperative patterns must be contained within the generator function scope and documented with [GENERATOR_EXCEPTION] comments. Generator implementations should still prefer functional approaches where performance allows, but performance wins when justified.
+	// Using mutation but no comment explaining why
+	for (const item of items) {
+		result.push(item)
+	}
+
+	return result
+}
+
+// Problems:
+// - Mutation without [EXCEPTION] comment
+// - No performance rationale
+// - Can't track why FP was violated
+// - Future developers won't know if still needed
+```
+
+*Reasoning*: Every FP violation must be documented to track and justify exceptions
+
+**Required:**
+```ts
+// ✅ REQUIRED - Proper exception documentation:
+
+// Format 1: [EXCEPTION] for breaking FP principles
+// [EXCEPTION] Using .push() for O(1) amortized vs O(n) functional concat
+function _buildArray<T>(items: ReadonlyArray<T>): Array<T> {
+	const result: Array<T> = []
+
+	for (const item of items) {
+		result.push(item)
+	}
+
+	return result
+}
+
+// Format 2: [OPTIMIZATION] for performance techniques
+// [OPTIMIZATION] Direct property access instead of lens for 10x speedup in hot path
+function _getValue<T>(obj: Record<string, T>, key: string): T | null {
+	return obj[key] ?? null
+}
+
+// Required fields:
+// 1. Clear rationale
+// 2. Performance benefit
+// 3. Scope (internal only)
+// 4. Why alternatives insufficient
+```
+
+*Scope*: All Toolsmith internal utilities with FP violations
+
+## Generator function exceptions
+
 - **Rule ID**: TOOLSMITH_PERF_004
-- **Category**: toolsmith
-- **Priority**: 7
-- **Scope**: generator_functions
-- **Type**: generator_exceptions
-- **Permitted Patterns**:
-  1. let_bindings
-  2. loops
-  3. mutable_counters
-  4. imperative_yield
-- **Comment Format**: [GENERATOR_EXCEPTION]
-- **Rationale**: no_haskell_equivalent
-- **Examples**:
-  1. function* range(start, end) { // [GENERATOR_EXCEPTION] Let binding for iteration
-  let current = start;
-  while (current <= end) yield current++;
-}
-  2. function* fibonacci() { // [GENERATOR_EXCEPTION] Mutable accumulators for performance
-  let [a, b] = [0, 1];
-  while (true) { yield a; [a, b] = [b, a + b]; }
+- **Description**: Generator functions granted exceptions for let bindings, loops, and mutable state due to lack of functional equivalent
+- **Keywords**: toolsmith, generators, lazy-evaluation, exceptions, let, loops, mutation, yield, streaming
+- **Rationale**: Generators provide lazy evaluation and memory efficiency impossible with pure functional approaches in TypeScript. No Haskell equivalent exists. Imperative patterns acceptable within generator scope when documented.
+
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Generator without [GENERATOR_EXCEPTION] comment:
+function* range(start: number, end: number) {
+	// Using let and loops but no documentation
+	let current = start
+
+	while (current <= end) {
+		yield current
+		current++
+	}
 }
 
-## Performance vs Ideology Trade-offs
+// Problems:
+// - No [GENERATOR_EXCEPTION] comment
+// - Imperative patterns undocumented
+// - Unclear why functional approach insufficient
+```
 
-- **Description**: TOOLSMITH_PERF_005: Performance vs Ideology Trade-offs - In Toolsmith library development, performance considerations override strict functional programming ideology when justified and documented. Performance wins in these scenarios: (1) Hot path operations where functional approaches create measurable overhead, (2) Memory-intensive operations where immutable patterns cause excessive allocation, (3) Iteration-heavy algorithms where functional composition creates call stack issues, (4) Type system boundaries where monadic wrapping adds significant runtime cost. Decision criteria: Profile first, measure impact, document rationale, contain scope to internal utilities only. All performance-over-ideology decisions must include [PERFORMANCE_OVER_IDEOLOGY] comments with benchmark data or clear performance reasoning. Application-level code maintains strict functional patterns - these exceptions apply only to internal Toolsmith utilities.
+*Reasoning*: Generator exceptions must be documented even though they're generally permitted
+
+**Required:**
+```ts
+// ✅ REQUIRED - Documented generator exceptions:
+
+// [GENERATOR_EXCEPTION] Let binding and loop for memory-efficient iteration
+function* range(start: number, end: number) {
+	let current = start
+
+	while (current <= end) {
+		yield current
+		current++
+	}
+}
+
+// [GENERATOR_EXCEPTION] Mutable accumulators for infinite lazy sequence
+function* fibonacci() {
+	let [a, b] = [0, 1]
+
+	while (true) {
+		yield a
+		;[a, b] = [b, a + b]
+	}
+}
+
+// Permitted patterns:
+// - let bindings for iteration state
+// - while/for loops for control flow
+// - Mutable counters within scope
+// - Imperative yield logic
+```
+
+*Scope*: All generator functions in Toolsmith - imperative patterns must stay within generator scope
+
+## Performance over ideology trade-offs
+
 - **Rule ID**: TOOLSMITH_PERF_005
-- **Category**: performance
-- **Priority**: 9
-- **Scope**: internal_utilities
-- **Type**: performance_trade_offs
-- **Performance Scenarios**:
-  1. hot_path
-  2. memory_intensive
-  3. iteration_heavy
-  4. type_boundaries
-- **Decision Process**:
-  1. profile_first
-  2. measure_impact
-  3. document_rationale
-  4. contain_scope
-- **Comment Format**: [PERFORMANCE_OVER_IDEOLOGY]
-- **Examples**:
-  1. // [PERFORMANCE_OVER_IDEOLOGY] Direct array mutation 50x faster than functional concat in 10M element test
-  2. // [PERFORMANCE_OVER_IDEOLOGY] Avoiding Result wrapper reduces memory allocation by 60% in tight loop
+- **Description**: Performance wins over ideology when profiled, measured, documented, and scoped to Toolsmith internal utilities only
+- **Keywords**: toolsmith, performance, ideology, trade-offs, profiling, optimization, hot-path, benchmarking
+- **Rationale**: Toolsmith is the foundation library - performance bottlenecks here affect all dependent code. When profiling shows significant gains, pragmatic exceptions to FP are acceptable if properly justified and scoped.
+
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Breaking FP without measurement:
+// "I think this will be faster"
+function _processItems<T>(items: Array<T>): void {
+	// Mutating in place "for performance"
+	for (let i = 0; i < items.length; i++) {
+		items[i] = transform(items[i])
+	}
+}
+
+// Problems:
+// - No profiling done
+// - No benchmark data
+// - No [PERFORMANCE_OVER_IDEOLOGY] comment
+// - Premature optimization
+// - No functional alternative considered
+```
+
+*Reasoning*: Profile first, measure impact, then decide. Never break FP based on assumptions.
+
+**Required:**
+```ts
+// ✅ REQUIRED - Measured performance decision:
+
+// Decision process:
+// 1. Profile first - identified bottleneck
+// 2. Measure impact - benchmarked alternatives
+// 3. Document rationale - explain tradeoff
+// 4. Contain scope - internal only
+
+// [PERFORMANCE_OVER_IDEOLOGY] Direct array mutation 50x faster than
+// functional concat in benchmark with 10M elements. Hot path in
+// map/filter/reduce operations. Functional approach: 2.3s, imperative: 0.046s
+function _internalFlatMap<T, U>(
+	items: ReadonlyArray<T>,
+	fn: (item: T) => ReadonlyArray<U>
+): Array<U> {
+	const result: Array<U> = []
+
+	for (let i = 0; i < items.length; i++) {
+		const mapped = fn(items[i])
+		for (let j = 0; j < mapped.length; j++) {
+			result.push(mapped[j])
+		}
+	}
+
+	return result
+}
+```
+
+*Scope*: ONLY internal Toolsmith utilities - application code remains strictly functional

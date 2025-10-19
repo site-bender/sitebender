@@ -222,7 +222,6 @@
 - **Description**: All functions must be curried: function add(augend: number) { return function addToAugend(addend: number): number { return augend + addend } }
 - **Rule ID**: PATTERN_CURRYING_001
 - **Category**: constitutional
-- **Priority**: 10
 - **Reason**: Currying enables partial application and composition, inner function name captures outer parameter
 - **Consequences**: Non-curried functions can't be easily composed or partially applied
 - **Philosophy**: All functions should be composable building blocks
@@ -236,7 +235,6 @@
 - **Description**: Folder hierarchy PRECISELY matches code hierarchy. Embrace the folders!
 - **Rule ID**: FILE_HIERARCHY_001
 - **Category**: constitutional
-- **Priority**: 9
 - **Reason**: See entire app structure at a glance. Collapse what you don't care about. Related files stay together
 - **Consequences**: Flat structures or multi-function files create navigation nightmares
 - **Philosophy**: Folders are free. Use them liberally. They're not going extinct
@@ -250,7 +248,6 @@
 - **Description**: ALWAYS import AS DEFAULT directly from the function or component file. Use @sitebender aliases, never relative paths
 - **Rule ID**: IMPORT_DEFAULT_DIRECT_001
 - **Category**: constitutional
-- **Priority**: 9
 - **Reason**: Clearest and simplest. Shows exact dependency. Enables vigorous tree shaking. Aliases prevent breakage when moving modules
 - **Consequences**: Named imports and relative paths create ambiguity, bloat, and breakage when refactoring
 - **Philosophy**: Explicit direct dependencies with move-safe aliases

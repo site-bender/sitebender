@@ -1,474 +1,1175 @@
 # Operator Substitutions
 
-## Instead of * Operator for Math, Use Multiply Function from Toolsmith
+## Use multiply function instead of * operator - semantic, composable, type-specific math operation
 
-- **Description**: Instead of * operator for math, use multiply function from Toolsmith (path depends on data type: integer/bigint/float/precision)
 - **Rule ID**: SUBSTITUTE_MULTIPLY_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: *
-- **Substitute**: multiply
-- **Data Type**: varies
-- **Reason**: multiply function is semantic, composable, and type-specific
-- **Import Paths**:
-  - Integer: @sitebender/toolsmith/vanilla/math/integer/multiply/index.ts
-  - Bigint: @sitebender/toolsmith/vanilla/math/bigint/multiply/index.ts
-  - Float: @sitebender/toolsmith/vanilla/math/float/multiply/index.ts
-  - Precision: @sitebender/toolsmith/vanilla/math/precision/multiply/index.ts
-- **Examples**:
-  - Wrong: const product = a * b
-  - Right: const product = multiply(a)(b)
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use multiply function instead of * operator - semantic, composable, type-specific math operation
+- **Keywords**: multiply, operator, math, multiplication, *, functional, composable, curried, type-specific, integer, bigint, float, precision
+- **Rationale**: The multiply function is semantic (reads like English), composable (curried for partial application), and type-specific (optimized for integer/bigint/float/precision). The * operator lacks these benefits, doesn't compose well in functional pipelines, and provides no type-specific optimizations.
 
-## Instead of <= Operator, Use Lte Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using * operator:
+const product = a * b
+const scaled = value * 2.5
+const area = width * height
 
-- **Description**: Instead of <= operator, use lte (lessThanOrEqual) function from Toolsmith
+// Problems:
+// - Not composable in functional pipelines
+// - No type-specific optimization
+// - Doesn't read semantically
+// - Can't be partially applied
+// - No currying for composition
+```
+
+*Reasoning*: Operators don't compose in functional pipelines and lack semantic clarity and type-specific optimizations
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using multiply function:
+import multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'
+
+const product = multiply(a)(b)
+const scaled = multiply(2.5)(value)
+const area = multiply(width)(height)
+
+// Why correct:
+// - Curried for composition
+// - Type-specific optimization
+// - Reads semantically
+// - Partially applicable: const double = multiply(2)
+// - Composes in pipelines: pipe(multiply(2), multiply(3))(value)
+```
+
+*Scope*: Type-specific paths:
+- integer: @sitebender/toolsmith/vanilla/math/integer/multiply/index.ts
+- bigint: @sitebender/toolsmith/vanilla/math/bigint/multiply/index.ts
+- float: @sitebender/toolsmith/vanilla/math/float/multiply/index.ts
+- precision: @sitebender/toolsmith/vanilla/math/precision/multiply/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use lte (lessThanOrEqual) function instead of <= operator - semantic, null-safe comparison
+
 - **Rule ID**: SUBSTITUTE_LTE_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: <=
-- **Substitute**: lte
-- **Alias**: lessThanOrEqual
-- **Reason**: lte reads like English and is null-safe
-- **Import**: @sitebender/toolsmith/vanilla/validation/lte/index.ts
-- **Examples**:
-  - Wrong: if (age <= 65)
-  - Right: if (lte(65)(age))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use lte (lessThanOrEqual) function instead of <= operator - semantic, null-safe comparison
+- **Keywords**: lte, lessThanOrEqual, operator, comparison, <=, functional, validation, null-safe, curried
+- **Rationale**: The lte function reads like English ('less than or equal'), is null-safe (handles undefined/null gracefully), and is curried for partial application. The <= operator can throw on null/undefined and doesn't compose well.
 
-## Instead of + Operator for Bigints, Use Add Function
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using <= operator:
+if (age <= 65) {
+	return 'Senior discount'
+}
 
-- **Description**: Instead of + operator for bigints, use add function from @sitebender/toolsmith/vanilla/math/bigint/add/index.ts
+const isEligible = age <= 18
+const inRange = value <= maxValue
+
+// Problems:
+// - Not null-safe - crashes on null/undefined
+// - Not composable
+// - Doesn't read semantically
+// - Can't be partially applied
+```
+
+*Reasoning*: Comparison operators aren't null-safe and don't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using lte function:
+import lte from '@sitebender/toolsmith/vanilla/validation/lte/index.ts'
+
+if (lte(65)(age)) {
+	return 'Senior discount'
+}
+
+const isEligible = lte(18)(age)
+const inRange = lte(maxValue)(value)
+
+// Why correct:
+// - Null-safe: returns null for null/undefined
+// - Reads semantically: 'less than or equal'
+// - Curried: const lessThan18 = lte(18)
+// - Composable in validation pipelines
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/lte/index.ts
+Alias: lessThanOrEqual
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use add function for bigint addition instead of + operator - consistent interface for large integer operations
+
 - **Rule ID**: SUBSTITUTE_ADD_BIGINT_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: +
-- **Substitute**: add
-- **Data Type**: bigint
-- **Reason**: add function provides consistent interface for bigint math operations
-- **Import**: @sitebender/toolsmith/vanilla/math/bigint/add/index.ts
-- **Examples**:
-  - Wrong: const result = a + b
-  - Right: import add from '@sitebender/toolsmith/vanilla/math/bigint/add/index.ts'; const result = add(a)(b)
-- **Context**: Use for large integer operations that exceed Number.MAX_SAFE_INTEGER
-- **Note**: Same function name 'add' - path determines bigint type
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use add function for bigint addition instead of + operator - consistent interface for large integer operations
+- **Keywords**: add, bigint, operator, math, +, addition, large-integers, functional, composable, type-specific
+- **Rationale**: The add function provides a consistent, curried interface for bigint math operations. Bigints require special handling for operations exceeding Number.MAX_SAFE_INTEGER. The + operator works but doesn't provide composability or type-specific optimizations.
 
-## Instead of .length Property, Use Length Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using + operator for bigints:
+const result = a + b
+const total = 9007199254740991n + 1n
+const sum = bigIntValue + anotherBigInt
 
-- **Description**: Instead of .length property, use length function from Toolsmith
+// Problems:
+// - Not composable
+// - No type-specific optimization
+// - Doesn't signal bigint-specific operation
+// - Can't be partially applied
+```
+
+*Reasoning*: Operators don't compose and don't signal type-specific bigint operations
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using add function for bigints:
+import add from '@sitebender/toolsmith/vanilla/math/bigint/add/index.ts'
+
+const result = add(a)(b)
+const total = add(9007199254740991n)(1n)
+const sum = add(bigIntValue)(anotherBigInt)
+
+// Why correct:
+// - Curried for composition
+// - Type-specific bigint optimization
+// - Clearly signals bigint operation
+// - Partially applicable: const addOne = add(1n)
+// - Use for operations exceeding Number.MAX_SAFE_INTEGER
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/math/bigint/add/index.ts
+Context: Use for large integer operations that exceed Number.MAX_SAFE_INTEGER
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use length function instead of .length property - functional, null-safe alternative to property access
+
 - **Rule ID**: SUBSTITUTE_LENGTH_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: .length
-- **Substitute**: length
-- **Reason**: length(arr) is functional and null-safe, avoiding property access
-- **Import**: @sitebender/toolsmith/vanilla/validation/length/index.ts
-- **Examples**:
-  - Wrong: if (arr.length > 0)
-  - Right: if (isNotEmpty(arr))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use length function instead of .length property - functional, null-safe alternative to property access
+- **Keywords**: length, property, array, validation, null-safe, functional, isEmpty, isNotEmpty
+- **Rationale**: The length function is null-safe (returns null for non-arrays) and functional (no property access). Direct property access (.length) can throw on null/undefined. Better: use isNotEmpty/isEmpty for semantic clarity.
 
-## Instead of array.reduce() Method, Use Reduce Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using .length property:
+if (arr.length > 0) {
+	processItems(arr)
+}
 
-- **Description**: Instead of array.reduce() method, use reduce function from Toolsmith
+const count = items.length
+const hasItems = array.length !== 0
+
+// Problems:
+// - Not null-safe - crashes on null/undefined
+// - Property access (not functional)
+// - Not semantic (what does length > 0 mean?)
+// - Better alternatives exist (isNotEmpty)
+```
+
+*Reasoning*: Property access isn't null-safe and isn't as semantic as dedicated validation functions
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using isNotEmpty/length functions:
+import isNotEmpty from '@sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts'
+import length from '@sitebender/toolsmith/vanilla/validation/length/index.ts'
+
+// Preferred - semantic:
+if (isNotEmpty(arr)) {
+	processItems(arr)
+}
+
+// Alternative - when you need actual count:
+const count = length(items) // returns null for non-arrays
+
+// Why correct:
+// - Null-safe: handles null/undefined gracefully
+// - Semantic: isNotEmpty reads like English
+// - Functional: no property access
+// - Type-safe: checks isArray first
+```
+
+*Scope*: Import paths:
+- length: @sitebender/toolsmith/vanilla/validation/length/index.ts
+- isNotEmpty: @sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use reduce function instead of .reduce() method - curried, composable, functional alternative to array method
+
 - **Rule ID**: SUBSTITUTE_REDUCE_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: .reduce()
-- **Substitute**: reduce
-- **Reason**: reduce function is curried, composable, and follows functional programming principles
-- **Import**: @sitebender/toolsmith/vanilla/array/reduce/index.ts
-- **Examples**:
-  - Wrong: const sum = numbers.reduce((acc, n) => acc + n, 0)
-  - Right: import reduce from '@sitebender/toolsmith/vanilla/array/reduce/index.ts'; const sum = reduce(add)(0)(numbers)
-- **Note**: Wraps native .reduce() for performance but provides functional interface
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use reduce function instead of .reduce() method - curried, composable, functional alternative to array method
+- **Keywords**: reduce, array, method, functional, composable, curried, fold, aggregate
+- **Rationale**: The reduce function is curried (enables partial application), composable (works in pipelines), and follows functional programming principles. Array.reduce() method requires the array first, preventing composition. Toolsmith wraps native reduce for performance.
 
-## Instead of || Operator, Use Or Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using .reduce() method:
+const sum = numbers.reduce((acc, n) => acc + n, 0)
+const product = values.reduce((acc, v) => acc * v, 1)
+const concatenated = arrays.reduce((acc, arr) => acc.concat(arr), [])
 
-- **Description**: Instead of || operator, use or function from Toolsmith
+// Problems:
+// - Not curried (can't partially apply)
+// - Not composable (array-first)
+// - Requires arrow function syntax
+// - Doesn't follow FP principles
+```
+
+*Reasoning*: Array methods aren't curried and don't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using reduce function:
+import reduce from '@sitebender/toolsmith/vanilla/array/reduce/index.ts'
+import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'
+import multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'
+
+const sum = reduce(add)(0)(numbers)
+const product = reduce(multiply)(1)(values)
+
+// Partially applied:
+const sumArray = reduce(add)(0)
+const total = sumArray(numbers)
+
+// Why correct:
+// - Curried for composition: reduce(fn)(init)
+// - Composable in pipelines
+// - No arrow functions needed
+// - Wraps native .reduce() for performance
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/array/reduce/index.ts
+Note: Wraps native .reduce() for performance but provides functional interface
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use or function instead of || operator - semantic, null-safe logical OR
+
 - **Rule ID**: SUBSTITUTE_OR_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: ||
-- **Substitute**: or
-- **Reason**: or reads like English and handles null/undefined safely
-- **Import**: @sitebender/toolsmith/vanilla/validation/or/index.ts
-- **Examples**:
-  - Wrong: const value = input || defaultValue
-  - Right: const value = or(input)(defaultValue)
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use or function instead of || operator - semantic, null-safe logical OR
+- **Keywords**: or, operator, logic, ||, functional, validation, null-safe, default-value
+- **Rationale**: The or function reads like English, handles null/undefined safely, and is curried for composition. The || operator has confusing truthiness behavior (0, '', false all trigger default) and doesn't compose well.
 
-## Instead of >= Operator, Use Gte Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using || operator:
+const value = input || defaultValue
+const name = user.name || 'Anonymous'
+const result = a || b || c
 
-- **Description**: Instead of >= operator, use gte (greaterThanOrEqual) function from Toolsmith
+// Problems:
+// - Confusing truthiness: 0 || 10 returns 10 (unexpected)
+// - Not composable
+// - Doesn't read semantically
+// - Treats 0, '', false as falsy (often wrong)
+```
+
+*Reasoning*: The || operator has confusing truthiness behavior and doesn't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using or function:
+import or from '@sitebender/toolsmith/vanilla/validation/or/index.ts'
+
+const value = or(input)(defaultValue)
+const name = or(user.name)('Anonymous')
+
+// For multiple values:
+const result = or(or(a)(b))(c)
+
+// Why correct:
+// - Handles null/undefined explicitly
+// - Reads semantically: 'or'
+// - Curried for composition
+// - Predictable behavior with 0, '', false
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/or/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use gte (greaterThanOrEqual) function instead of >= operator - semantic, null-safe comparison
+
 - **Rule ID**: SUBSTITUTE_GTE_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: >=
-- **Substitute**: gte
-- **Alias**: greaterThanOrEqual
-- **Reason**: gte reads like English and is null-safe
-- **Import**: @sitebender/toolsmith/vanilla/validation/gte/index.ts
-- **Examples**:
-  - Wrong: if (age >= 18)
-  - Right: if (gte(18)(age))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use gte (greaterThanOrEqual) function instead of >= operator - semantic, null-safe comparison
+- **Keywords**: gte, greaterThanOrEqual, operator, comparison, >=, functional, validation, null-safe, curried
+- **Rationale**: The gte function reads like English ('greater than or equal'), is null-safe (handles undefined/null gracefully), and is curried for partial application. The >= operator can throw on null/undefined and doesn't compose well.
 
-## Instead of array.includes() Method, Use Includes Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using >= operator:
+if (age >= 18) {
+	return 'Adult'
+}
 
-- **Description**: Instead of array.includes() method, use includes (or contains alias) function from Toolsmith
+const isEligible = score >= 70
+const meetsMinimum = value >= minValue
+
+// Problems:
+// - Not null-safe - crashes on null/undefined
+// - Not composable
+// - Doesn't read semantically
+// - Can't be partially applied
+```
+
+*Reasoning*: Comparison operators aren't null-safe and don't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using gte function:
+import gte from '@sitebender/toolsmith/vanilla/validation/gte/index.ts'
+
+if (gte(18)(age)) {
+	return 'Adult'
+}
+
+const isEligible = gte(70)(score)
+const meetsMinimum = gte(minValue)(value)
+
+// Why correct:
+// - Null-safe: returns null for null/undefined
+// - Reads semantically: 'greater than or equal'
+// - Curried: const atLeast18 = gte(18)
+// - Composable in validation pipelines
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/gte/index.ts
+Alias: greaterThanOrEqual
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use includes (or contains alias) function instead of .includes() method - curried, composable, null-safe membership test
+
 - **Rule ID**: SUBSTITUTE_INCLUDES_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: .includes()
-- **Substitute**: includes
-- **Alias**: contains
-- **Reason**: includes is curried, composable, and null-safe
-- **Import**: @sitebender/toolsmith/vanilla/array/includes/index.ts
-- **Examples**:
-  - Wrong: if (numbers.includes(5))
-  - Right: if (includes(5)(numbers))
-- **Note**: Can be aliased as 'contains' for better readability
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use includes (or contains alias) function instead of .includes() method - curried, composable, null-safe membership test
+- **Keywords**: includes, contains, array, membership, method, functional, validation, null-safe, curried
+- **Rationale**: The includes function is curried (enables partial application), composable (works in pipelines), and null-safe (handles null arrays). Array.includes() method requires the array first, preventing composition. Can be aliased as 'contains' for better readability.
 
-## Instead of + Operator for Money/Precision, Use Add Function
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using .includes() method:
+if (numbers.includes(5)) {
+	return 'Found'
+}
 
-- **Description**: Instead of + operator for money/precision, use add function from @sitebender/toolsmith/vanilla/math/precision/add/index.ts
+const hasItem = array.includes(searchValue)
+const isValid = validValues.includes(input)
+
+// Problems:
+// - Not curried (can't partially apply)
+// - Not composable (array-first)
+// - Not null-safe
+// - Doesn't follow FP principles
+```
+
+*Reasoning*: Array methods aren't curried, null-safe, or composable in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using includes function:
+import includes from '@sitebender/toolsmith/vanilla/array/includes/index.ts'
+
+if (includes(5)(numbers)) {
+	return 'Found'
+}
+
+const hasItem = includes(searchValue)(array)
+const isValid = includes(input)(validValues)
+
+// Partially applied (great for composition):
+const hasValue5 = includes(5)
+const found = hasValue5(numbers)
+
+// Can alias as 'contains' for readability:
+import contains from '@sitebender/toolsmith/vanilla/array/includes/index.ts'
+if (contains(5)(numbers)) { /* ... */ }
+
+// Why correct:
+// - Curried for composition
+// - Null-safe
+// - Partially applicable
+// - Reads semantically
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/array/includes/index.ts
+Alias: Can be imported as 'contains' for better readability
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use add function for precision math instead of + operator - accurate decimal arithmetic for financial calculations
+
 - **Rule ID**: SUBSTITUTE_ADD_PRECISION_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: +
-- **Substitute**: add
-- **Data Type**: precision
-- **Reason**: add function handles decimal precision correctly for financial calculations
-- **Import**: @sitebender/toolsmith/vanilla/math/precision/add/index.ts
-- **Examples**:
-  - Wrong: const total = price + tax // loses precision
-  - Right: import add from '@sitebender/toolsmith/vanilla/math/precision/add/index.ts'; const total = add(price)(tax)
-- **Context**: Use for money, financial calculations, or precision-sensitive math
-- **Note**: Same function name 'add' - path determines precision type
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use add function for precision math instead of + operator - accurate decimal arithmetic for financial calculations
+- **Keywords**: add, precision, money, financial, decimal, operator, math, +, addition, accuracy
+- **Rationale**: The add function handles decimal precision correctly for financial calculations, avoiding floating-point errors. The + operator loses precision (0.1 + 0.2 !== 0.3). Critical for money, prices, and precision-sensitive math.
 
-## Instead of + Operator for Integers, Use Add Function (Corrected)
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using + operator for money/precision:
+const total = price + tax // loses precision
+const balance = 0.1 + 0.2 // returns 0.30000000000000004
+const sum = amount1 + amount2 // floating point errors
 
-- **Description**: Instead of + operator for integers, use add function from @sitebender/toolsmith/vanilla/math/integer/add/index.ts
+// Problems:
+// - Loses decimal precision
+// - Floating point errors (0.1 + 0.2 !== 0.3)
+// - Unacceptable for financial calculations
+// - Not composable
+```
+
+*Reasoning*: The + operator causes floating-point precision errors that are unacceptable for money and financial calculations
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using add function for precision:
+import add from '@sitebender/toolsmith/vanilla/math/precision/add/index.ts'
+
+const total = add(price)(tax) // maintains precision
+const balance = add(0.1)(0.2) // correctly returns 0.3
+const sum = add(amount1)(amount2) // accurate decimal math
+
+// Why correct:
+// - Handles decimal precision correctly
+// - No floating-point errors
+// - Safe for money and financial calculations
+// - Curried for composition
+// - Uses decimal.js or similar for accuracy
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/math/precision/add/index.ts
+Context: Use for money, financial calculations, or precision-sensitive math
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use add function for integer addition instead of + operator - composable, type-specific integer math
+
 - **Rule ID**: SUBSTITUTE_ADD_INTEGER_CORRECTED_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: +
-- **Substitute**: add
-- **Data Type**: integer
-- **Reason**: add function handles integer math correctly and is composable
-- **Import**: @sitebender/toolsmith/vanilla/math/integer/add/index.ts
-- **Examples**:
-  - Wrong: const result = a + b
-  - Right: import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'; const result = add(a)(b)
-- **Context**: Use for integer math operations
-- **Note**: All math functions named 'add' - path determines type
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use add function for integer addition instead of + operator - composable, type-specific integer math
+- **Keywords**: add, integer, operator, math, +, addition, functional, composable, type-specific
+- **Rationale**: The add function provides type-specific optimization for integer math and is composable through currying. All math functions are named 'add' - the import path determines the type (integer/bigint/float/precision).
 
-## Instead of array.filter() Method, Use Filter Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using + operator for integers:
+const result = a + b
+const total = count + 1
+const sum = x + y + z
 
-- **Description**: Instead of array.filter() method, use filter function from Toolsmith
+// Problems:
+// - Not composable
+// - No type-specific optimization
+// - Can't be partially applied
+// - Doesn't signal integer operation
+```
+
+*Reasoning*: Operators don't compose and don't provide type-specific optimizations for integer math
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using add function for integers:
+import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'
+
+const result = add(a)(b)
+const total = add(count)(1)
+const sum = add(add(x)(y))(z)
+
+// Partially applied:
+const increment = add(1)
+const nextValue = increment(count)
+
+// Why correct:
+// - Curried for composition
+// - Type-specific integer optimization
+// - Partially applicable
+// - Composes in pipelines
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/math/integer/add/index.ts
+Context: Use for integer math operations
+Note: All math functions named 'add' - path determines type
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use filter function instead of .filter() method - curried, composable, functional alternative to array method
+
 - **Rule ID**: SUBSTITUTE_FILTER_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: .filter()
-- **Substitute**: filter
-- **Reason**: filter function is curried, composable, and follows functional programming principles
-- **Import**: @sitebender/toolsmith/vanilla/array/filter/index.ts
-- **Examples**:
-  - Wrong: const evens = numbers.filter(x => x % 2 === 0)
-  - Right: import filter from '@sitebender/toolsmith/vanilla/array/filter/index.ts'; const evens = filter(isEven)(numbers)
-- **Note**: Wraps native .filter() for performance but provides functional interface
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use filter function instead of .filter() method - curried, composable, functional alternative to array method
+- **Keywords**: filter, array, method, functional, composable, curried, predicate, selection
+- **Rationale**: The filter function is curried (enables partial application), composable (works in pipelines), and follows functional programming principles. Array.filter() method requires the array first, preventing composition. Toolsmith wraps native filter for performance.
 
-## Instead of - Operator for Math, Use Subtract Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using .filter() method:
+const evens = numbers.filter(x => x % 2 === 0)
+const adults = users.filter(u => u.age >= 18)
+const valid = items.filter(item => isValid(item))
 
-- **Description**: Instead of - operator for math, use subtract function from Toolsmith (path depends on data type: integer/bigint/float/precision)
+// Problems:
+// - Not curried (can't partially apply)
+// - Not composable (array-first)
+// - Requires arrow function syntax
+// - Doesn't follow FP principles
+```
+
+*Reasoning*: Array methods aren't curried and don't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using filter function:
+import filter from '@sitebender/toolsmith/vanilla/array/filter/index.ts'
+import isEven from '@sitebender/toolsmith/vanilla/validation/isEven/index.ts'
+import gte from '@sitebender/toolsmith/vanilla/validation/gte/index.ts'
+
+const evens = filter(isEven)(numbers)
+const adults = filter(user => gte(18)(user.age))(users)
+const valid = filter(isValid)(items)
+
+// Partially applied:
+const filterEvens = filter(isEven)
+const evenNumbers = filterEvens(numbers)
+
+// Why correct:
+// - Curried for composition
+// - Composable in pipelines
+// - Named predicate functions (no arrows)
+// - Wraps native .filter() for performance
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/array/filter/index.ts
+Note: Wraps native .filter() for performance but provides functional interface
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use subtract function instead of - operator - semantic, composable, type-specific math operation
+
 - **Rule ID**: SUBSTITUTE_SUBTRACT_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: -
-- **Substitute**: subtract
-- **Data Type**: varies
-- **Reason**: subtract function is semantic, composable, and type-specific
-- **Import Paths**:
-  - Integer: @sitebender/toolsmith/vanilla/math/integer/subtract/index.ts
-  - Bigint: @sitebender/toolsmith/vanilla/math/bigint/subtract/index.ts
-  - Float: @sitebender/toolsmith/vanilla/math/float/subtract/index.ts
-  - Precision: @sitebender/toolsmith/vanilla/math/precision/subtract/index.ts
-- **Examples**:
-  - Wrong: const difference = a - b
-  - Right: const difference = subtract(b)(a)
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use subtract function instead of - operator - semantic, composable, type-specific math operation
+- **Keywords**: subtract, operator, math, subtraction, -, functional, composable, curried, type-specific, integer, bigint, float, precision
+- **Rationale**: The subtract function is semantic (reads like English), composable (curried for partial application), and type-specific (optimized for integer/bigint/float/precision). The - operator lacks these benefits and doesn't compose well in functional pipelines.
 
-## Instead of && Operator, Use And Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using - operator:
+const difference = a - b
+const remaining = total - used
+const delta = current - previous
 
-- **Description**: Instead of && operator, use and function from Toolsmith
+// Problems:
+// - Not composable in functional pipelines
+// - No type-specific optimization
+// - Doesn't read semantically
+// - Can't be partially applied
+// - No currying for composition
+```
+
+*Reasoning*: Operators don't compose in functional pipelines and lack semantic clarity and type-specific optimizations
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using subtract function:
+import subtract from '@sitebender/toolsmith/vanilla/math/integer/subtract/index.ts'
+
+const difference = subtract(b)(a)
+const remaining = subtract(used)(total)
+const delta = subtract(previous)(current)
+
+// Note: subtract is curried as subtract(subtrahend)(minuend)
+// This reads: "subtract b from a"
+
+// Partially applied:
+const subtract10 = subtract(10)
+const result = subtract10(50) // 50 - 10 = 40
+
+// Why correct:
+// - Curried for composition
+// - Type-specific optimization
+// - Reads semantically: "subtract b from a"
+// - Partially applicable
+```
+
+*Scope*: Type-specific paths:
+- integer: @sitebender/toolsmith/vanilla/math/integer/subtract/index.ts
+- bigint: @sitebender/toolsmith/vanilla/math/bigint/subtract/index.ts
+- float: @sitebender/toolsmith/vanilla/math/float/subtract/index.ts
+- precision: @sitebender/toolsmith/vanilla/math/precision/subtract/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use and function instead of && operator - semantic, null-safe logical AND
+
 - **Rule ID**: SUBSTITUTE_AND_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: &&
-- **Substitute**: and
-- **Reason**: and reads like English and handles null/undefined safely
-- **Import**: @sitebender/toolsmith/vanilla/validation/and/index.ts
-- **Examples**:
-  - Wrong: if (isValid && isComplete)
-  - Right: if (and(isValid)(isComplete))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use and function instead of && operator - semantic, null-safe logical AND
+- **Keywords**: and, operator, logic, &&, functional, validation, null-safe, conjunction
+- **Rationale**: The and function reads like English, handles null/undefined safely, and is curried for composition. The && operator has short-circuit behavior that can be confusing and doesn't compose well in functional pipelines.
 
-## Instead of ! Operator, Use Not Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using && operator:
+if (isValid && isComplete) {
+	process()
+}
 
-- **Description**: Instead of ! operator, use not function from Toolsmith
+const canProceed = hasPermission && isAuthenticated
+const result = a && b && c
+
+// Problems:
+// - Not composable
+// - Doesn't read semantically
+// - Short-circuit behavior can be confusing
+// - Not null-safe
+```
+
+*Reasoning*: The && operator doesn't compose in functional pipelines and has confusing short-circuit semantics
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using and function:
+import and from '@sitebender/toolsmith/vanilla/validation/and/index.ts'
+
+if (and(isValid)(isComplete)) {
+	process()
+}
+
+const canProceed = and(hasPermission)(isAuthenticated)
+
+// For multiple values:
+const result = and(and(a)(b))(c)
+
+// Why correct:
+// - Reads semantically: 'and'
+// - Handles null/undefined safely
+// - Curried for composition
+// - Explicit conjunction logic
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/and/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use not function instead of ! operator - explicit, semantic negation that's visually clear
+
 - **Rule ID**: SUBSTITUTE_NOT_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: !
-- **Substitute**: not
-- **Reason**: ! is easy to miss visually. not() is explicit and reads like English
-- **Import**: @sitebender/toolsmith/vanilla/validation/not/index.ts
-- **Examples**:
-  - Wrong: if (!isValid)
-  - Right: if (not(isValid))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use not function instead of ! operator - explicit, semantic negation that's visually clear
+- **Keywords**: not, negation, operator, !, functional, validation, logic, semantic
+- **Rationale**: The ! operator is easy to miss visually (especially in complex conditions) and doesn't read semantically. The not() function is explicit, reads like English, and is much more visible in code.
 
-## Instead of < Operator, Use Lt Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using ! operator:
+if (!isValid) {
+	return error('Invalid')
+}
 
-- **Description**: Instead of < operator, use lt (lessThan) function from Toolsmith
+const isInvalid = !isComplete
+const shouldSkip = !hasPermission
+
+// Problems:
+// - Easy to miss visually (! is tiny)
+// - Doesn't read semantically
+// - Gets lost in complex conditions
+// - Not composable
+```
+
+*Reasoning*: The ! operator is visually subtle and easy to miss in code, especially in complex conditions
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using not function:
+import not from '@sitebender/toolsmith/vanilla/validation/not/index.ts'
+
+if (not(isValid)) {
+	return error('Invalid')
+}
+
+const isInvalid = not(isComplete)
+const shouldSkip = not(hasPermission)
+
+// Why correct:
+// - Explicit and visually clear
+// - Reads like English: 'not valid'
+// - Easy to spot in code reviews
+// - Composable in functional pipelines
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/not/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use lt (lessThan) function instead of < operator - semantic, null-safe comparison
+
 - **Rule ID**: SUBSTITUTE_LT_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: <
-- **Substitute**: lt
-- **Alias**: lessThan
-- **Reason**: lt reads like English and is null-safe
-- **Import**: @sitebender/toolsmith/vanilla/validation/lt/index.ts
-- **Examples**:
-  - Wrong: if (age < 18)
-  - Right: if (lt(18)(age))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use lt (lessThan) function instead of < operator - semantic, null-safe comparison
+- **Keywords**: lt, lessThan, operator, comparison, <, functional, validation, null-safe, curried
+- **Rationale**: The lt function reads like English ('less than'), is null-safe (handles undefined/null gracefully), and is curried for partial application. The < operator can throw on null/undefined and doesn't compose well.
 
-## Instead of > Operator, Use Gt Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using < operator:
+if (age < 18) {
+	return 'Minor'
+}
 
-- **Description**: Instead of > operator, use gt (greaterThan) function from Toolsmith
+const isTooYoung = age < 21
+const belowThreshold = value < maxValue
+
+// Problems:
+// - Not null-safe - crashes on null/undefined
+// - Not composable
+// - Doesn't read semantically
+// - Can't be partially applied
+```
+
+*Reasoning*: Comparison operators aren't null-safe and don't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using lt function:
+import lt from '@sitebender/toolsmith/vanilla/validation/lt/index.ts'
+
+if (lt(18)(age)) {
+	return 'Minor'
+}
+
+const isTooYoung = lt(21)(age)
+const belowThreshold = lt(maxValue)(value)
+
+// Why correct:
+// - Null-safe: returns null for null/undefined
+// - Reads semantically: 'less than'
+// - Curried: const lessThan18 = lt(18)
+// - Composable in validation pipelines
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/lt/index.ts
+Alias: lessThan
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use gt (greaterThan) function instead of > operator - semantic, null-safe comparison
+
 - **Rule ID**: SUBSTITUTE_GT_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: >
-- **Substitute**: gt
-- **Alias**: greaterThan
-- **Reason**: gt reads like English and is null-safe
-- **Import**: @sitebender/toolsmith/vanilla/validation/gt/index.ts
-- **Examples**:
-  - Wrong: if (score > 100)
-  - Right: if (gt(100)(score))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use gt (greaterThan) function instead of > operator - semantic, null-safe comparison
+- **Keywords**: gt, greaterThan, operator, comparison, >, functional, validation, null-safe, curried
+- **Rationale**: The gt function reads like English ('greater than'), is null-safe (handles undefined/null gracefully), and is curried for partial application. The > operator can throw on null/undefined and doesn't compose well.
 
-## Instead of !== Operator, Use IsUnequal Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using > operator:
+if (score > 100) {
+	return 'Bonus points'
+}
 
-- **Description**: Instead of !== operator, use isUnequal function from Toolsmith
+const isPassing = grade > 60
+const exceedsLimit = value > maxValue
+
+// Problems:
+// - Not null-safe - crashes on null/undefined
+// - Not composable
+// - Doesn't read semantically
+// - Can't be partially applied
+```
+
+*Reasoning*: Comparison operators aren't null-safe and don't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using gt function:
+import gt from '@sitebender/toolsmith/vanilla/validation/gt/index.ts'
+
+if (gt(100)(score)) {
+	return 'Bonus points'
+}
+
+const isPassing = gt(60)(grade)
+const exceedsLimit = gt(maxValue)(value)
+
+// Why correct:
+// - Null-safe: returns null for null/undefined
+// - Reads semantically: 'greater than'
+// - Curried: const greaterThan100 = gt(100)
+// - Composable in validation pipelines
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/gt/index.ts
+Alias: greaterThan
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use isUnequal function instead of !== operator - semantic, null-safe inequality check
+
 - **Rule ID**: SUBSTITUTE_NOT_STRICT_EQUAL_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: !==
-- **Substitute**: isUnequal
-- **Reason**: isUnequal is semantic, null-safe, and reads like English
-- **Import**: @sitebender/toolsmith/vanilla/validation/isUnequal/index.ts
-- **Examples**:
-  - Wrong: if (a !== b)
-  - Right: if (isUnequal(a)(b))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use isUnequal function instead of !== operator - semantic, null-safe inequality check
+- **Keywords**: isUnequal, inequality, operator, !==, comparison, functional, validation, null-safe
+- **Rationale**: The isUnequal function is semantic (reads like English), null-safe (handles undefined/null gracefully), and is curried for composition. The !== operator is symbolic, not null-safe, and doesn't compose well.
 
-## Instead of + Operator for Integers, Use AddInteger Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using !== operator:
+if (a !== b) {
+	return 'Different'
+}
 
-- **Description**: Instead of + operator for integers, use addInteger function from Toolsmith
+const isDifferent = value !== expected
+const hasChanged = current !== previous
+
+// Problems:
+// - Not null-safe
+// - Doesn't read semantically
+// - Not composable
+// - Can't be partially applied
+```
+
+*Reasoning*: Comparison operators aren't null-safe, semantic, or composable in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using isUnequal function:
+import isUnequal from '@sitebender/toolsmith/vanilla/validation/isUnequal/index.ts'
+
+if (isUnequal(a)(b)) {
+	return 'Different'
+}
+
+const isDifferent = isUnequal(value)(expected)
+const hasChanged = isUnequal(current)(previous)
+
+// Why correct:
+// - Null-safe: handles null/undefined gracefully
+// - Reads semantically: 'is unequal'
+// - Curried for composition
+// - Partially applicable: const notEqualTo5 = isUnequal(5)
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/isUnequal/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use add function from correct path for integer addition - deprecated addInteger path replaced by integer/add
+
 - **Rule ID**: SUBSTITUTE_ADD_INTEGER_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: +
-- **Substitute**: addInteger
-- **Data Type**: integer
-- **Reason**: addInteger is semantic, handles integer-specific logic, and is composable
-- **Import**: @sitebender/toolsmith/vanilla/math/addInteger/index.ts
-- **Examples**:
-  - Wrong: const result = a + b
-  - Right: const result = addInteger(a)(b)
-- **Context**: Use for integer math operations
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use add function from correct path for integer addition - deprecated addInteger path replaced by integer/add
+- **Keywords**: add, addInteger, deprecated, integer, operator, math, +, path, migration
+- **Rationale**: This rule documents the old addInteger path which is now deprecated. Use the correct path @sitebender/toolsmith/vanilla/math/integer/add/index.ts instead. All math functions are now organized by type (integer/bigint/float/precision) with the same function name.
 
-## Instead of array.map() Method, Use Map Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using old addInteger path:
+import addInteger from '@sitebender/toolsmith/vanilla/math/addInteger/index.ts'
 
-- **Description**: Instead of array.map() method, use map function from Toolsmith
+const result = addInteger(a)(b)
+
+// Also prohibited - using + operator:
+const sum = a + b
+
+// Problems:
+// - Old path structure (deprecated)
+// - Should use integer/add instead
+// - Operator doesn't compose
+```
+
+*Reasoning*: Old addInteger path is deprecated - use type-organized path structure instead
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using correct integer/add path:
+import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'
+
+const result = add(a)(b)
+
+// Why correct:
+// - Correct path structure: /math/integer/add/
+// - Consistent with bigint/float/precision
+// - All math functions named 'add' - path determines type
+// - Curried and composable
+```
+
+*Scope*: Correct import path: @sitebender/toolsmith/vanilla/math/integer/add/index.ts
+Deprecated path: @sitebender/toolsmith/vanilla/math/addInteger/index.ts
+Context: Use for integer math operations
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use map function instead of .map() method - curried, composable, functional alternative to array method
+
 - **Rule ID**: SUBSTITUTE_MAP_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: .map()
-- **Substitute**: map
-- **Reason**: map function is curried, composable, and follows functional programming principles
-- **Import**: @sitebender/toolsmith/vanilla/array/map/index.ts
-- **Examples**:
-  - Wrong: const doubled = numbers.map(x => x * 2)
-  - Right: import map from '@sitebender/toolsmith/vanilla/array/map/index.ts'; const doubled = map(double)(numbers)
-- **Note**: Wraps native .map() for performance but provides functional interface
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use map function instead of .map() method - curried, composable, functional alternative to array method
+- **Keywords**: map, array, method, functional, composable, curried, transformation, functor
+- **Rationale**: The map function is curried (enables partial application), composable (works in pipelines), and follows functional programming principles. Array.map() method requires the array first, preventing composition. Toolsmith wraps native map for performance.
 
-## Instead of === Operator, Use IsEqual Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using .map() method:
+const doubled = numbers.map(x => x * 2)
+const names = users.map(u => u.name)
+const transformed = items.map(item => transform(item))
 
-- **Description**: Instead of === operator, use isEqual function from Toolsmith
+// Problems:
+// - Not curried (can't partially apply)
+// - Not composable (array-first)
+// - Requires arrow function syntax
+// - Doesn't follow FP principles
+```
+
+*Reasoning*: Array methods aren't curried and don't compose in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using map function:
+import map from '@sitebender/toolsmith/vanilla/array/map/index.ts'
+import multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'
+
+const double = multiply(2)
+const doubled = map(double)(numbers)
+
+const getName = (user: User) => user.name
+const names = map(getName)(users)
+
+const transformed = map(transform)(items)
+
+// Partially applied:
+const mapDouble = map(double)
+const result = mapDouble(numbers)
+
+// Why correct:
+// - Curried for composition
+// - Composable in pipelines
+// - Named transformation functions
+// - Wraps native .map() for performance
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/array/map/index.ts
+Note: Wraps native .map() for performance but provides functional interface
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use isEqual function instead of === operator - semantic, null-safe equality check
+
 - **Rule ID**: SUBSTITUTE_STRICT_EQUAL_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: ===
-- **Substitute**: isEqual
-- **Reason**: isEqual is semantic, null-safe, and reads like English
-- **Import**: @sitebender/toolsmith/vanilla/validation/isEqual/index.ts
-- **Examples**:
-  - Wrong: if (a === b)
-  - Right: if (isEqual(a)(b))
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use isEqual function instead of === operator - semantic, null-safe equality check
+- **Keywords**: isEqual, equality, operator, ===, comparison, functional, validation, null-safe
+- **Rationale**: The isEqual function is semantic (reads like English), null-safe (handles undefined/null gracefully), and is curried for composition. The === operator is symbolic, not null-safe, and doesn't compose well.
 
-## Instead of array.push() Method, Use Append Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using === operator:
+if (a === b) {
+	return 'Same'
+}
 
-- **Description**: Instead of array.push() method, use append function from Toolsmith or spread operator for immutability
+const isSame = value === expected
+const matches = current === previous
+
+// Problems:
+// - Not null-safe
+// - Doesn't read semantically
+// - Not composable
+// - Can't be partially applied
+```
+
+*Reasoning*: Comparison operators aren't null-safe, semantic, or composable in functional pipelines
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using isEqual function:
+import isEqual from '@sitebender/toolsmith/vanilla/validation/isEqual/index.ts'
+
+if (isEqual(a)(b)) {
+	return 'Same'
+}
+
+const isSame = isEqual(value)(expected)
+const matches = isEqual(current)(previous)
+
+// Why correct:
+// - Null-safe: handles null/undefined gracefully
+// - Reads semantically: 'is equal'
+// - Curried for composition
+// - Partially applicable: const equalTo5 = isEqual(5)
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/isEqual/index.ts
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use append function or spread operator instead of .push() method - maintain immutability by returning new array
+
 - **Rule ID**: SUBSTITUTE_PUSH_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: .push()
-- **Substitute**: append
-- **Reason**: append returns new array maintaining immutability, .push() mutates original
-- **Import**: @sitebender/toolsmith/vanilla/array/append/index.ts
-- **Examples**:
-  - Wrong: arr.push(newItem); return arr
-  - Right: return append(newItem)(arr)
-- **Alternative**: return [...arr, newItem]
-- **Note**: .push() only allowed in Toolsmith internals on new arrays that will be returned
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use append function or spread operator instead of .push() method - maintain immutability by returning new array
+- **Keywords**: append, push, array, mutation, immutability, spread, functional, add-item
+- **Rationale**: The append function returns a new array maintaining immutability, while .push() mutates the original array. Mutation violates functional programming principles. Alternative: spread operator [...arr, item]. Note: .push() only allowed in Toolsmith internals on new arrays.
 
-## Instead of arr.length > 0, Use IsNotEmpty Function from Toolsmith
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using .push() method:
+arr.push(newItem)
+return arr
 
-- **Description**: Instead of arr.length > 0, use isNotEmpty function from Toolsmith
+const result = items.push(value)
+numbers.push(1, 2, 3)
+
+// Problems:
+// - Mutates original array
+// - Violates immutability
+// - Side effects
+// - Not functional
+```
+
+*Reasoning*: Array.push() mutates the original array, violating immutability and functional programming principles
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using append function or spread:
+import append from '@sitebender/toolsmith/vanilla/array/append/index.ts'
+
+// Option 1: append function (curried, composable)
+const newArr = append(newItem)(arr)
+
+// Option 2: spread operator (direct)
+const newArr = [...arr, newItem]
+
+// Multiple items:
+const newArr = [...arr, item1, item2, item3]
+
+// Why correct:
+// - Returns new array (immutable)
+// - Original array unchanged
+// - No side effects
+// - Functional approach
+
+// Note: .push() only allowed in Toolsmith internals
+// on newly created arrays that will be returned
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/array/append/index.ts
+Alternative: spread operator [...arr, item]
+Note: .push() only allowed in Toolsmith internals on new arrays
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use isNotEmpty function instead of arr.length > 0 - semantic, type-safe array emptiness check
+
 - **Rule ID**: SUBSTITUTE_IS_NOT_EMPTY_001
-- **Category**: operator_substitution
-- **Priority**: 10
-- **Replaces**: arr.length > 0
-- **Substitute**: isNotEmpty
-- **Reason**: isNotEmpty is semantic, checks isArray first, and returns null for non-arrays
-- **Import**: @sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts
-- **Examples**:
-  - Wrong: if (arr.length > 0)
-  - Right: if (isNotEmpty(arr))
-- **Note**: Handles type checking automatically - no need for isArray(arr) && arr.length > 0
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use isNotEmpty function instead of arr.length > 0 - semantic, type-safe array emptiness check
+- **Keywords**: isNotEmpty, length, array, validation, empty, semantic, type-safe, null-safe
+- **Rationale**: The isNotEmpty function is semantic (reads like English), checks isArray first (type-safe), and returns null for non-arrays. The pattern arr.length > 0 requires manual type checking and can crash on non-arrays. isNotEmpty handles all edge cases automatically.
 
-## Instead of + Operator for Floats, Use Add Function
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using arr.length > 0:
+if (arr.length > 0) {
+	processItems(arr)
+}
 
-- **Description**: Instead of + operator for floats, use add function from @sitebender/toolsmith/vanilla/math/float/add/index.ts
+const hasItems = array.length > 0
+const notEmpty = items.length !== 0
+
+// Also bad - manual type checking:
+if (isArray(arr) && arr.length > 0) {
+	process(arr)
+}
+
+// Problems:
+// - Not semantic (what does length > 0 mean?)
+// - No type checking (crashes on non-arrays)
+// - Verbose when type checking added
+// - Property access (not functional)
+```
+
+*Reasoning*: Using .length > 0 requires manual type checking and isn't as semantic as isNotEmpty
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using isNotEmpty function:
+import isNotEmpty from '@sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts'
+
+if (isNotEmpty(arr)) {
+	processItems(arr)
+}
+
+const hasItems = isNotEmpty(array)
+const notEmpty = isNotEmpty(items)
+
+// Why correct:
+// - Semantic: reads like English
+// - Type-safe: checks isArray first
+// - Null-safe: returns null for non-arrays
+// - No manual type checking needed
+// - Handles all edge cases automatically
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts
+Note: Automatically handles type checking - no need for isArray(arr) && arr.length > 0
+Applies to: .ts, .tsx, .js, .jsx
+
+---
+
+## Use add function for float addition instead of + operator - consistent interface for floating-point math
+
 - **Rule ID**: SUBSTITUTE_ADD_FLOAT_001
-- **Category**: operator_substitution
-- **Priority**: 9
-- **Replaces**: +
-- **Substitute**: add
-- **Data Type**: float
-- **Reason**: add function provides consistent interface for floating point math
-- **Import**: @sitebender/toolsmith/vanilla/math/float/add/index.ts
-- **Examples**:
-  - Wrong: const result = a + b
-  - Right: import add from '@sitebender/toolsmith/vanilla/math/float/add/index.ts'; const result = add(a)(b)
-- **Context**: Use for regular floating point numbers
-- **Note**: Same function name 'add' - path determines float type
-- **Applies To**:
-  1. .ts
-  2. .tsx
-  3. .js
-  4. .jsx
+- **Description**: Use add function for float addition instead of + operator - consistent interface for floating-point math
+- **Keywords**: add, float, operator, math, +, addition, floating-point, functional, composable, type-specific
+- **Rationale**: The add function provides a consistent, curried interface for floating-point math operations. While the + operator works for floats, the function approach is composable and follows the type-specific pattern. All math functions are named 'add' - the import path determines the type.
+
+**Prohibited:**
+```ts
+// ❌ PROHIBITED - Using + operator for floats:
+const result = a + b
+const total = 1.5 + 2.3
+const sum = floatValue + anotherFloat
+
+// Problems:
+// - Not composable
+// - No type-specific optimization
+// - Doesn't signal float-specific operation
+// - Can't be partially applied
+```
+
+*Reasoning*: Operators don't compose and don't provide type-specific optimizations for float math
+
+**Required:**
+```ts
+// ✅ REQUIRED - Using add function for floats:
+import add from '@sitebender/toolsmith/vanilla/math/float/add/index.ts'
+
+const result = add(a)(b)
+const total = add(1.5)(2.3)
+const sum = add(floatValue)(anotherFloat)
+
+// Why correct:
+// - Curried for composition
+// - Type-specific float optimization
+// - Clearly signals float operation
+// - Partially applicable: const addHalf = add(0.5)
+// - Consistent interface across all math types
+```
+
+*Scope*: Import path: @sitebender/toolsmith/vanilla/math/float/add/index.ts
+Context: Use for regular floating point numbers
+Note: Same function name 'add' - path determines float type
+Applies to: .ts, .tsx, .js, .jsx
+
+---
