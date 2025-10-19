@@ -8,8 +8,8 @@ export default function _error(
 	return function errorWithConfiguration(
 		...args: ReadonlyArray<unknown>
 	): IO<void> {
-		return () => {
-			if ((configuration as any).debug) {
+		return function executeError(): void {
+			if (configuration.debug) {
 				console.error("[Hot Reload]", ...args)
 			}
 		}

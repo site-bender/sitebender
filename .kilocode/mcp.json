@@ -63,7 +63,9 @@
         "QDRANT_API_KEY": "local-development-key",
         "COLLECTION_NAME": "typescript_rules",
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
-      }
+      },
+      "disabled": false,
+      "alwaysAllow": []
     },
     "toolsmith_rules": {
       "command": "mcp-server-qdrant",
@@ -115,5 +117,5 @@
         "EMBEDDING_MODEL": "sentence-transformers/all-MiniLM-L6-v2"
       }
     }
-	}
+  }
 }

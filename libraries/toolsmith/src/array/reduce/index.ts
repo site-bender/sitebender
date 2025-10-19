@@ -5,10 +5,10 @@ import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
 
-//++ Reduces array to a single value using a curried reducer function
+//++ Reduces array to a single value using a two-parameter reducer function
 //++ Returns Result with reduced value or error if input is invalid
 export default function reduce<T, U>(
-	fn: (acc: U) => (item: T) => U,
+	fn: (accumulator: U, item: T) => U,
 ) {
 	return function reduceWithFunction(
 		initial: U,
@@ -18,9 +18,7 @@ export default function reduce<T, U>(
 		): Result<ValidationError, U> {
 			// Happy path: valid array
 			if (isArray(array)) {
-				// Convert curried fn to uncurried for native reduce
-				const uncurriedFn = (acc: U, item: T): U => fn(acc)(item)
-				const reduced = array.reduce(uncurriedFn, initial)
+				const reduced = array.reduce(fn, initial)
 				return ok(reduced)
 			}
 
