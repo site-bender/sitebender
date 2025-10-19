@@ -8,6 +8,7 @@
 		"quartermaster:dry-run": "deno run -A --config ../../deno.dev.jsonc src/dryRun/index.ts"
 	},
 	"imports": {
+		"@std/": "https://deno.land/std@0.220.0/",
 		// Dev-only alias to local Toolsmith; aligns with repo import-map policy
 		"@sitebender/toolsmith/": "../toolsmith/src/",
 		"@sitebender/quartermaster": "./src/",

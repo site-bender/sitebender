@@ -1,0 +1,123 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "0fe864dc-937c-4180-9f9b-04969f641394",
+        "payload": {
+          "description": "Array.push() and loops permitted in Toolsmith internal utilities when performance critical, with mandatory [EXCEPTION] documentation",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_001",
+            "keywords": ["toolsmith", "performance", "exceptions", "push", "loops", "mutation", "optimization", "internal", "hot-path"],
+            "rationale": "Internal Toolsmith utilities require maximum performance. Imperative patterns permitted when justified and properly documented. ONLY in internal Toolsmith code, NEVER in application-level code.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using mutations without documentation:\nfunction map<T, U>(items: Array<T>, fn: (item: T) => U): Array<U> {\n\tconst result: Array<U> = []\n\tfor (let i = 0; i < items.length; i++) {\n\t\tresult.push(fn(items[i]))\n\t}\n\treturn result\n}\n\n// Problems:\n// - No [EXCEPTION] comment\n// - No performance justification\n// - Violates FP without documentation",
+              "reasoning": "Performance exceptions must be explicitly documented with rationale"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Properly documented exception:\n// [EXCEPTION] Using .push() for O(1) amortized vs O(n) functional concat in hot path\nfunction _internalMap<T, U>(\n\titems: ReadonlyArray<T>,\n\tfn: (item: T) => U\n): Array<U> {\n\tconst result: Array<U> = []\n\t\n\tfor (let i = 0; i < items.length; i++) {\n\t\tresult.push(fn(items[i]))\n\t}\n\t\n\treturn result\n}",
+              "scope": "Internal Toolsmith utilities only - NEVER in pagewright, architect, operator, custodian, or application code"
+            }
+          }
+        }
+      },
+      {
+        "id": "1412c7d5-4a9c-4918-8da9-353a09e3acbc",
+        "payload": {
+          "description": "Four math types (integer, bigint, float, precision) with identical signatures but type-specific optimizations for performance",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_006",
+            "keywords": ["toolsmith", "math", "types", "optimization", "integer", "bigint", "float", "precision", "performance"],
+            "rationale": "Different numeric types require different optimization strategies. Type-specific implementations provide maximum performance while maintaining mathematical correctness and consistent API across all four types.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Generic implementation without type-specific optimization:\nexport default function add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\t// Generic approach - same for all types\n\t\treturn augend + addend\n\t}\n}\n\n// Problems:\n// - No type-specific optimization\n// - Misses performance opportunities\n// - No [MATH_TYPE_OPTIMIZATION] comment",
+              "reasoning": "Each math type should leverage its specific performance characteristics"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Type-specific optimization:\n// Path: /math/integer/add/index.ts\n// [MATH_TYPE_OPTIMIZATION] Integer: Direct + operator for native performance\nexport default function add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n\n// Path: /math/precision/add/index.ts  \n// [MATH_TYPE_OPTIMIZATION] Precision: Using decimal.js for accurate floating point\nimport Decimal from 'decimal.js'\n\nexport default function add(augend: Decimal) {\n\treturn function addToAugend(addend: Decimal): Decimal {\n\t\treturn augend.plus(addend)\n\t}\n}",
+              "scope": "Path structure: /math/{integer|bigint|float|precision}/ - identical signatures, optimized implementations"
+            }
+          }
+        }
+      },
+      {
+        "id": "366f4dbb-e56d-401b-b39b-7200b9a15bae",
+        "payload": {
+          "description": "Vanilla functions (performance, null returns) vs Boxed functions (monadic, composable) - choose based on internal vs public API",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_003",
+            "keywords": ["toolsmith", "vanilla", "boxed", "performance", "monads", "api-design", "result", "validation"],
+            "rationale": "Vanilla functions maximize performance for internal hot paths by avoiding monadic overhead. Boxed functions provide safe composition for application code. Both serve different purposes.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using boxed in internal hot path:\n// Path: /toolsmith/internal/_fastMap/index.ts\nimport { map } from '@sitebender/toolsmith/boxed/array/map'\nimport { success } from '@sitebender/toolsmith/monads/result'\n\nfunction _fastMap<T, U>(\n\titems: ReadonlyArray<T>,\n\tfn: (item: T) => U\n): Result<Array<U>, Error> {\n\t// Unnecessary Result wrapper in internal code\n\treturn map(fn)(items)\n}\n\n// Problems:\n// - Monadic overhead in hot path\n// - Result wrapper not needed internally\n// - Should use vanilla for performance",
+              "reasoning": "Internal utilities should use vanilla for performance; boxed for public APIs"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Vanilla for internal, boxed for public:\n\n// Internal utility (vanilla):\n// Path: /toolsmith/vanilla/array/_internalMap/index.ts\nexport default function _internalMap<T, U>(\n\titems: ReadonlyArray<T>,\n\tfn: (item: T) => U\n): Array<U> | null {\n\tif (!items || !fn) return null\n\treturn items.map(fn)\n}\n\n// Public API (boxed):\n// Path: /toolsmith/boxed/array/map/index.ts\nimport type { Result } from '@sitebender/toolsmith/types'\nimport { success, failure } from '@sitebender/toolsmith/monads/result'\n\nexport default function map<T, U>(fn: (item: T) => U) {\n\treturn function mapWithFn(\n\t\titems: ReadonlyArray<T>\n\t): Result<Array<U>, Error> {\n\t\tif (!items) return failure(new Error('Invalid array'))\n\t\treturn success(items.map(fn))\n\t}\n}",
+              "scope": "Vanilla in /vanilla/* for internal use; boxed in standard paths for public API"
+            }
+          }
+        }
+      },
+      {
+        "id": "53aea13d-f78b-459f-b173-d17d04183f81",
+        "payload": {
+          "description": "All performance exceptions must be documented with [EXCEPTION] or [OPTIMIZATION] Envoy comments explaining rationale",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_002",
+            "keywords": ["toolsmith", "documentation", "exceptions", "optimization", "envoy", "comments", "rationale"],
+            "rationale": "Performance exceptions must be tracked and justified. Envoy comments enable searching for all exceptions, ensure they remain justified, and document why functional principles were violated.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Exception without documentation:\nfunction _buildArray<T>(items: ReadonlyArray<T>): Array<T> {\n\tconst result: Array<T> = []\n\t\n\t// Using mutation but no comment explaining why\n\tfor (const item of items) {\n\t\tresult.push(item)\n\t}\n\t\n\treturn result\n}\n\n// Problems:\n// - Mutation without [EXCEPTION] comment\n// - No performance rationale\n// - Can't track why FP was violated\n// - Future developers won't know if still needed",
+              "reasoning": "Every FP violation must be documented to track and justify exceptions"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Proper exception documentation:\n\n// Format 1: [EXCEPTION] for breaking FP principles\n// [EXCEPTION] Using .push() for O(1) amortized vs O(n) functional concat\nfunction _buildArray<T>(items: ReadonlyArray<T>): Array<T> {\n\tconst result: Array<T> = []\n\t\n\tfor (const item of items) {\n\t\tresult.push(item)\n\t}\n\t\n\treturn result\n}\n\n// Format 2: [OPTIMIZATION] for performance techniques\n// [OPTIMIZATION] Direct property access instead of lens for 10x speedup in hot path\nfunction _getValue<T>(obj: Record<string, T>, key: string): T | null {\n\treturn obj[key] ?? null\n}\n\n// Required fields:\n// 1. Clear rationale\n// 2. Performance benefit\n// 3. Scope (internal only)\n// 4. Why alternatives insufficient",
+              "scope": "All Toolsmith internal utilities with FP violations"
+            }
+          }
+        }
+      },
+      {
+        "id": "67a192cc-5ef2-4f31-bc3a-5812176dae98",
+        "payload": {
+          "description": "Generator functions granted exceptions for let bindings, loops, and mutable state due to lack of functional equivalent",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_004",
+            "keywords": ["toolsmith", "generators", "lazy-evaluation", "exceptions", "let", "loops", "mutation", "yield", "streaming"],
+            "rationale": "Generators provide lazy evaluation and memory efficiency impossible with pure functional approaches in TypeScript. No Haskell equivalent exists. Imperative patterns acceptable within generator scope when documented.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Generator without [GENERATOR_EXCEPTION] comment:\nfunction* range(start: number, end: number) {\n\t// Using let and loops but no documentation\n\tlet current = start\n\t\n\twhile (current <= end) {\n\t\tyield current\n\t\tcurrent++\n\t}\n}\n\n// Problems:\n// - No [GENERATOR_EXCEPTION] comment\n// - Imperative patterns undocumented\n// - Unclear why functional approach insufficient",
+              "reasoning": "Generator exceptions must be documented even though they're generally permitted"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Documented generator exceptions:\n\n// [GENERATOR_EXCEPTION] Let binding and loop for memory-efficient iteration\nfunction* range(start: number, end: number) {\n\tlet current = start\n\t\n\twhile (current <= end) {\n\t\tyield current\n\t\tcurrent++\n\t}\n}\n\n// [GENERATOR_EXCEPTION] Mutable accumulators for infinite lazy sequence\nfunction* fibonacci() {\n\tlet [a, b] = [0, 1]\n\t\n\twhile (true) {\n\t\tyield a\n\t\t;[a, b] = [b, a + b]\n\t}\n}\n\n// Permitted patterns:\n// - let bindings for iteration state\n// - while/for loops for control flow\n// - Mutable counters within scope\n// - Imperative yield logic",
+              "scope": "All generator functions in Toolsmith - imperative patterns must stay within generator scope"
+            }
+          }
+        }
+      },
+      {
+        "id": "beb90a03-5812-493b-b057-10fa2c9266f9",
+        "payload": {
+          "description": "Performance wins over ideology when profiled, measured, documented, and scoped to Toolsmith internal utilities only",
+          "metadata": {
+            "rule_id": "TOOLSMITH_PERF_005",
+            "keywords": ["toolsmith", "performance", "ideology", "trade-offs", "profiling", "optimization", "hot-path", "benchmarking"],
+            "rationale": "Toolsmith is the foundation library - performance bottlenecks here affect all dependent code. When profiling shows significant gains, pragmatic exceptions to FP are acceptable if properly justified and scoped.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Breaking FP without measurement:\n// \"I think this will be faster\"\nfunction _processItems<T>(items: Array<T>): void {\n\t// Mutating in place \"for performance\"\n\tfor (let i = 0; i < items.length; i++) {\n\t\titems[i] = transform(items[i])\n\t}\n}\n\n// Problems:\n// - No profiling done\n// - No benchmark data\n// - No [PERFORMANCE_OVER_IDEOLOGY] comment\n// - Premature optimization\n// - No functional alternative considered",
+              "reasoning": "Profile first, measure impact, then decide. Never break FP based on assumptions."
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Measured performance decision:\n\n// Decision process:\n// 1. Profile first - identified bottleneck\n// 2. Measure impact - benchmarked alternatives\n// 3. Document rationale - explain tradeoff\n// 4. Contain scope - internal only\n\n// [PERFORMANCE_OVER_IDEOLOGY] Direct array mutation 50x faster than\n// functional concat in benchmark with 10M elements. Hot path in\n// map/filter/reduce operations. Functional approach: 2.3s, imperative: 0.046s\nfunction _internalFlatMap<T, U>(\n\titems: ReadonlyArray<T>,\n\tfn: (item: T) => ReadonlyArray<U>\n): Array<U> {\n\tconst result: Array<U> = []\n\t\n\tfor (let i = 0; i < items.length; i++) {\n\t\tconst mapped = fn(items[i])\n\t\tfor (let j = 0; j < mapped.length; j++) {\n\t\t\tresult.push(mapped[j])\n\t\t}\n\t}\n\t\n\treturn result\n}",
+              "scope": "ONLY internal Toolsmith utilities - application code remains strictly functional"
+            }
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001
+}
