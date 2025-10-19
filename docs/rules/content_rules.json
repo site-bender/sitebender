@@ -1,0 +1,598 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "07e42879-31b0-4c9d-9f9b-69befb653f68",
+        "payload": {
+          "description": "Reserve 'while' for temporal relationships (things happening simultaneously) and use 'although', 'though', or 'whereas' for contrasts or concessions. This distinction creates clearer logical relationships.",
+          "metadata": {
+            "rule_id": "STRUNK_WHILE_ALTHOUGH_001",
+            "keywords": ["strunk-white", "conjunctions", "while", "although", "temporal", "concession", "clarity", "logical-relationships", "grammar", "word-choice"],
+            "rationale": "Precise word choice clarifies the logical relationship between clauses, helping readers understand whether you're indicating time, contrast, or concession. Using 'while' for contrast can momentarily confuse readers about timing versus logical relationships, slowing comprehension and weakening argument structure. Each word should carry precise semantic meaning—using the right conjunction helps readers follow your logical flow effortlessly.",
+            "prohibited": {
+              "code": "While I understand your concern, I disagree.\n\nThe system works while being inefficient.\n\nWhile the code compiles, it has bugs.",
+              "reasoning": "These use 'while' to express contrast or concession rather than temporal relationships, creating confusion about whether events are simultaneous or contrasting"
+            },
+            "required": {
+              "code": "Although I understand your concern, I disagree.\n\nThe system works, although inefficiently.\n\nThough the code compiles, it has bugs.",
+              "scope": "All written content: component text, documentation, essays, user interfaces"
+            }
+          }
+        }
+      },
+      {
+        "id": "0e4f8a05-e412-49cf-b24f-7c463ec56d5b",
+        "payload": {
+          "description": "Instead of using 'and/or', choose either 'and' or 'or' based on the intended meaning, or rewrite the sentence to be clearer. The slash construction is often imprecise and can confuse readers about what relationships actually exist.",
+          "metadata": {
+            "rule_id": "STRUNK_AVOID_AND_OR_001",
+            "keywords": ["strunk-white", "clarity", "precision", "ambiguity", "conjunctions", "and-or", "word-choice", "technical-writing", "plain-language"],
+            "rationale": "The 'and/or' construction is imprecise and forces readers to interpret multiple possible meanings simultaneously, reducing clarity in professional communication. Using 'and/or' creates ambiguity about whether options are exclusive, inclusive, or both. This can lead to misunderstandings, especially in technical specifications or user instructions. Clear writing makes definitive statements about relationships between concepts rather than forcing readers to interpret multiple possibilities.",
+            "prohibited": {
+              "code": "Users can edit and/or delete records.\n\nSubmit via email and/or fax.\n\nChoose one and/or more options.",
+              "reasoning": "The 'and/or' construction leaves readers uncertain about whether options are mutually exclusive, both required, or any combination is acceptable"
+            },
+            "required": {
+              "code": "Users can edit or delete records.\n\nSubmit via email or fax.\n\nChoose one or more options.",
+              "scope": "All written content: component text, documentation, essays, user interfaces"
+            }
+          }
+        }
+      },
+      {
+        "id": "12260c95-10a1-49b9-92bb-8d572b0fe742",
+        "payload": {
+          "description": "For plural nouns ending in 's', add only an apostrophe ('employees' benefits'). For plural nouns not ending in 's', add apostrophe and 's' ('children's toys', 'people's opinions'). This maintains clear ownership relationships.",
+          "metadata": {
+            "rule_id": "STRUNK_POSSESSIVE_PLURAL_001",
+            "keywords": ["grammar", "possessives", "punctuation", "apostrophes", "plural-nouns", "ownership", "clarity", "professional-writing"],
+            "rationale": "Correct possessive formation prevents confusion about ownership and maintains professional writing standards, especially important in business and technical contexts. Incorrect possessive forms can confuse readers about ownership relationships and appear unprofessional, potentially undermining credibility in formal documents. Precise punctuation serves as visual grammar that clarifies relationships between entities—correct possessives remove ambiguity about ownership.",
+            "prohibited": {
+              "code": "employee's benefits (when referring to multiple employees)\n\nchildrens' toys\n\npeoples' opinions\n\nusers's data",
+              "reasoning": "These forms incorrectly apply possessive rules, creating confusion about whether singular or plural ownership is intended"
+            },
+            "required": {
+              "code": "employees' benefits\n\nchildren's toys\n\npeople's opinions\n\nusers' data",
+              "scope": "All written content: component text, documentation, essays, user interfaces"
+            }
+          }
+        }
+      },
+      {
+        "id": "21072314-e151-4aeb-a00f-e6cc0e9ab832",
+        "payload": {
+          "description": "Strong words carry meaning better than modified weak words. Choose precise nouns and verbs over weak base words with adjective and adverb modifiers.",
+          "metadata": {
+            "rule_id": "STRUNK_NOUNS_VERBS_001",
+            "keywords": ["strunk-white", "word-choice", "nouns", "verbs", "adjectives", "adverbs", "clarity", "conciseness", "strong-writing"],
+            "rationale": "Nouns and verbs carry the core meaning. Adjectives and adverbs often compensate for weak word choices. Over-reliance on modifiers creates wordy, weak writing. Choose strong base words over weak words with modifiers.",
+            "prohibited": {
+              "code": "walked very quickly\n\nextremely important\n\nreally good",
+              "reasoning": "These examples use weak base words ('walked', 'important', 'good') propped up by modifiers instead of choosing stronger, more precise single words"
+            },
+            "required": {
+              "code": "rushed\n\ncritical\n\nexcellent",
+              "scope": "All written content: component text, documentation, essays, user interfaces"
+            }
+          }
+        }
+      },
+      {
+        "id": "2396c548-3617-4bba-a6d4-1fd860e6428b",
+        "payload": {
+          "description": "Tell what IS, not what ISN'T. State reality in positive terms rather than describing what something is not.",
+          "metadata": {
+            "rule_id": "STRUNK_POSITIVE_FORM_001",
+            "keywords": ["strunk-white", "positive-form", "clarity", "directness", "negative-constructions", "plain-language", "readability"],
+            "rationale": "Positive statements are clearer and more direct. Easier to understand what actually happens. Negative forms require mental processing to understand the actual situation. Direct communication means stating reality clearly.",
+            "prohibited": {
+              "code": "He was not very often on time.\n\nThe report is not available.\n\nThis feature is not supported.",
+              "reasoning": "These negative constructions force readers to mentally process the negation to understand the actual state, adding unnecessary cognitive load"
+            },
+            "required": {
+              "code": "He usually came late.\n\nThe report is unavailable.\n\nThis feature is unsupported.",
+              "scope": "All written content: component text, documentation, essays, user interfaces"
+            }
+          }
+        }
+      },
+      {
+        "id": "2951850a-df95-4ba6-8fa8-f494619296da",
+        "payload": {
+          "description": "Use em dashes (—) for parenthetical breaks, interruptions, or to set off explanatory material. Use hyphens (-) for compound words, prefixes, and line breaks. En dashes (–) are for ranges and connections between equal elements.",
+          "metadata": {
+            "rule_id": "STRUNK_DASH_HYPHEN_001",
+            "keywords": ["punctuation", "dashes", "hyphens", "em-dash", "en-dash", "typography", "clarity", "visual-grammar", "professional-writing"],
+            "rationale": "Proper dash and hyphen usage creates clear visual distinctions between different types of breaks and connections, improving readability and professional appearance. Incorrect dash/hyphen usage creates visual inconsistency and can confuse readers about the relationship between ideas. Overuse of hyphens where dashes belong weakens the prose. Different punctuation marks serve specific semantic purposes—using them correctly helps readers understand the precise relationship between concepts.",
+            "prohibited": {
+              "code": "The API - which handles authentication - was updated\n\ntwenty-five to thirty users (should use en dash for range)\n\nThe server crashed-we lost all data (should use em dash with proper spacing)",
+              "reasoning": "These examples use the wrong type of dash for the semantic purpose, creating visual inconsistency and potential confusion about relationships"
+            },
+            "required": {
+              "code": "The API—which handles authentication—was updated\n\ntwenty-five to thirty users (or: 25–30 users with en dash)\n\nThe server crashed—we lost all data",
+              "scope": "All written content: component text, documentation, essays, user interfaces"
+            }
+          }
+        }
+      },
+      {
+        "id": "2a66eeb8-533d-42c6-a386-18a4cb39d7c0",
+        "payload": {
+          "description": "Ask 'Who is the intended audience?' if unclear. Generally Sitebender users are not developers—avoid technical jargon unless clearly addressing experts. Match content to audience knowledge and needs.",
+          "metadata": {
+            "rule_id": "AUDIENCE_AWARENESS_001",
+            "keywords": ["audience", "plain-language", "accessibility", "jargon", "user-centered", "clarity", "technical-writing", "user-experience"],
+            "rationale": "Content must match audience knowledge and needs. Technical language excludes non-technical users. Wrong audience level creates confusion, exclusion, or condescension. Write for the reader, not the writer.",
+            "prohibited": {
+              "code": "Configure the RESTful API endpoint parameters.\n\nModify the JSON payload schema.\n\nAdjust the CORS headers in the middleware.",
+              "reasoning": "These examples use technical jargon that excludes Sitebender's target audience of designers, hobbyists, and laypersons who are not enterprise developers"
+            },
+            "required": {
+              "code": "Set up your connection settings.\n\nChange the data structure.\n\nUpdate the security options.",
+              "scope": "Default audience: Sitebender end users (designers, hobbyists, laypersons) not enterprise developers. Adjust language complexity based on specific audience."
+            }
+          }
+        }
+      },
+      {
+        "id": "2c9d70d1-3ecc-451e-835d-9528ea40958f",
+        "payload": {
+          "description": "Use semicolon to separate independent clauses not joined by conjunction. Avoid comma splices which create run-on sentences.",
+          "metadata": {
+            "rule_id": "STRUNK_SEMICOLON_001",
+            "keywords": ["grammar", "punctuation", "semicolons", "comma-splice", "independent-clauses", "sentence-structure", "run-on-sentences"],
+            "rationale": "Comma splice is grammatically incorrect and creates run-on sentences. Comma splices confuse readers about sentence boundaries and relationships. Proper punctuation supports clear meaning.",
+            "prohibited": {
+              "code": "The server crashed, all data was lost.\n\nShe studied hard, the test was still difficult.",
+              "reasoning": "These comma splices join independent clauses with only a comma, creating grammatically incorrect run-on sentences that confuse boundaries"
+            },
+            "required": {
+              "code": "The server crashed; all data was lost.\n\nShe studied hard, but the test was still difficult.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Use semicolon for independent clauses, or add conjunction with comma."
+            }
+          }
+        }
+      },
+      {
+        "id": "4645a396-79ef-4699-b7af-806aec8d5e29",
+        "payload": {
+          "description": "Enclose parenthetic expressions between commas to signal that information is supplementary, not essential to the main statement.",
+          "metadata": {
+            "rule_id": "STRUNK_PARENTHETIC_001",
+            "keywords": ["punctuation", "commas", "parenthetic-expressions", "non-restrictive-clauses", "grammar", "information-hierarchy"],
+            "rationale": "Commas signal that information is supplementary, not essential to the main statement. Missing commas make it unclear what information is essential versus supplementary. Punctuation should clarify meaning and information hierarchy.",
+            "prohibited": {
+              "code": "The manager who started last month called a meeting.\n\nMy brother an engineer designed the bridge.",
+              "reasoning": "Without commas, these sentences suggest the information is restrictive (essential for identifying which manager or brother), when it should be parenthetical"
+            },
+            "required": {
+              "code": "The manager, who started last month, called a meeting.\n\nMy brother, an engineer, designed the bridge.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Use commas to set off non-restrictive (parenthetical) information."
+            }
+          }
+        }
+      },
+      {
+        "id": "4d7d76a1-8acd-449e-a0e3-caed770de019",
+        "payload": {
+          "description": "Make the paragraph the unit of composition. Begin each paragraph with a topic sentence that states the main idea. Each paragraph should advance one main idea.",
+          "metadata": {
+            "rule_id": "STRUNK_PARAGRAPH_UNITY_001",
+            "keywords": ["strunk-white", "paragraph-structure", "topic-sentences", "unity", "organization", "clarity", "composition", "readability"],
+            "rationale": "Paragraphs with clear topic sentences help readers follow the argument and understand structure. Paragraphs without clear focus confuse readers about the main point. Each paragraph should advance one main idea.",
+            "prohibited": {
+              "code": "Pagewright has many features. Components are accessible. We also have good performance. Users like the interface.",
+              "reasoning": "This unfocused paragraph jumps between multiple unrelated ideas without a clear topic sentence or unified theme"
+            },
+            "required": {
+              "code": "Pagewright components ensure accessibility. Every component includes proper ARIA labels, keyboard navigation, and semantic structure.",
+              "scope": "Longer written content: documentation, essays. Each paragraph should have one clear topic introduced by a topic sentence."
+            }
+          }
+        }
+      },
+      {
+        "id": "55556fad-96e9-435b-b0bb-a1e689b31fad",
+        "payload": {
+          "description": "In American English, periods and commas always go inside quotation marks, regardless of whether they are part of the quoted material. This applies to both direct quotes and when referring to titles or specific terms.",
+          "metadata": {
+            "rule_id": "STRUNK_QUOTATION_MARKS_001",
+            "keywords": ["punctuation", "quotation-marks", "quotes", "periods", "commas", "american-english", "typography", "conventions"],
+            "rationale": "Consistent quotation mark placement follows established American English conventions and maintains professional appearance in documentation and user interfaces. Incorrect quotation mark placement appears unprofessional and can confuse readers about what is being quoted. In technical documentation, this inconsistency undermines credibility. Typographical conventions serve as shared standards that allow readers to focus on content rather than being distracted by formatting inconsistencies.",
+            "prohibited": {
+              "code": "He said \"Hello world\". The function is called \"getData\".\n\nThe error message was \"File not found\"; please check the path.\n\nClick the \"Save\" button, then close the dialog.",
+              "reasoning": "These examples place periods and commas outside quotation marks, violating American English conventions and creating visual inconsistency"
+            },
+            "required": {
+              "code": "He said \"Hello world.\" The function is called \"getData.\"\n\nThe error message was \"File not found;\" please check the path.\n\nClick the \"Save\" button, then close the dialog.",
+              "scope": "All written content following American English conventions: component text, documentation, essays, user interfaces"
+            }
+          }
+        }
+      },
+      {
+        "id": "699977ea-e621-4fa0-8053-9d586eb23e55",
+        "payload": {
+          "description": "Use active voice to show who does what. Active voice is direct, clear, and assigns responsibility.",
+          "metadata": {
+            "rule_id": "STRUNK_ACTIVE_VOICE_001",
+            "keywords": ["strunk-white", "active-voice", "passive-voice", "clarity", "directness", "agency", "responsibility", "strong-writing"],
+            "rationale": "Active voice is direct, clear, and assigns responsibility. Shows who does what. Passive voice obscures agency and creates wordy, weak sentences. Direct communication means showing who acts.",
+            "prohibited": {
+              "code": "Mistakes were made.\n\nThe system was updated.\n\nErrors will be reported.",
+              "reasoning": "These passive constructions obscure who performs the actions, removing agency and creating weaker, wordier sentences"
+            },
+            "required": {
+              "code": "We made mistakes.\n\nEngineers updated the system.\n\nThe app will report errors.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Use active voice except when the actor is truly unknown or unimportant."
+            }
+          }
+        }
+      },
+      {
+        "id": "89a22153-f8f6-4b92-87ed-5302ee2df8d9",
+        "payload": {
+          "description": "Delete phrases like 'the fact that', 'in order to', 'for the purpose of'. Every word should earn its place.",
+          "metadata": {
+            "rule_id": "STRUNK_OMIT_NEEDLESS_001",
+            "keywords": ["strunk-white", "conciseness", "brevity", "clarity", "wordiness", "economy", "precision", "editing"],
+            "rationale": "Every word should earn its place. Extra words dilute meaning and waste reader's time. Verbose writing obscures meaning and tests reader patience. Clarity through economy—no gratuitous words.",
+            "prohibited": {
+              "code": "The fact that she was late is due to the reason that traffic was bad.",
+              "reasoning": "This verbose construction uses many unnecessary words ('the fact that', 'is due to the reason that') that obscure the simple underlying meaning"
+            },
+            "required": {
+              "code": "She was late because of traffic.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Eliminate needless words and phrases that don't add meaning."
+            }
+          }
+        }
+      },
+      {
+        "id": "99c630a8-8c75-4b25-808b-1fd1b460240b",
+        "payload": {
+          "description": "Form possessive singular by adding 's: James's, Mars's, the witness's. This applies to all singular nouns.",
+          "metadata": {
+            "rule_id": "STRUNK_POSSESSIVE_001",
+            "keywords": ["grammar", "possessives", "singular-nouns", "apostrophes", "punctuation", "consistency", "style"],
+            "rationale": "Consistent possessive formation eliminates confusion and follows standard English rules. Inconsistent possessives (James' vs James's) create style inconsistency. Consistency in grammar supports clear communication.",
+            "prohibited": {
+              "code": "James' book\n\nMars' surface\n\nthe witness' testimony",
+              "reasoning": "These forms omit the 's' after the apostrophe, creating inconsistency with standard possessive formation rules"
+            },
+            "required": {
+              "code": "James's book\n\nMars's surface\n\nthe witness's testimony",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Always add 's for singular possessives."
+            }
+          }
+        }
+      },
+      {
+        "id": "a8b6c140-c0da-47bb-b09c-bf4dcb5cec44",
+        "payload": {
+          "description": "Write at 8th grade reading level maximum for Sitebender content. Use simple sentences and common words unless technical precision requires complexity.",
+          "metadata": {
+            "rule_id": "PLAIN_LANGUAGE_LEVEL_001",
+            "keywords": ["plain-language", "readability", "accessibility", "grade-level", "clarity", "simplicity", "user-centered", "cognitive-load"],
+            "rationale": "8th grade level ensures accessibility for most readers while maintaining precision. Complex language excludes users and increases cognitive load. Universal understanding through clear communication. Sitebender targets designers, hobbyists, and laypersons—not enterprise developers.",
+            "prohibited": {
+              "code": "Utilize this functionality to accomplish your objective.",
+              "reasoning": "This unnecessarily complex phrasing uses formal words ('utilize', 'functionality', 'accomplish', 'objective') that increase reading difficulty without adding meaning"
+            },
+            "required": {
+              "code": "Use this feature to reach your goal.",
+              "scope": "All Sitebender content: component text, documentation, essays, user interfaces. Target 8th grade reading level maximum."
+            }
+          }
+        }
+      },
+      {
+        "id": "aff5f131-3bfa-4635-82f0-7c6288cbca81",
+        "payload": {
+          "description": "Express coordinate ideas in similar form. Use parallel construction in series and comparisons. Similar ideas deserve similar expression.",
+          "metadata": {
+            "rule_id": "STRUNK_PARALLEL_CONSTRUCTION_001",
+            "keywords": ["strunk-white", "parallel-structure", "grammar", "parallelism", "series", "consistency", "rhythm", "clarity"],
+            "rationale": "Parallel structure makes relationships clear and creates rhythm that aids comprehension. Mixed constructions confuse readers about relationships between ideas. Similar ideas deserve similar expression.",
+            "prohibited": {
+              "code": "The system is fast, reliable, and has good security.",
+              "reasoning": "This mixes adjectives ('fast', 'reliable') with a verb phrase ('has good security'), breaking parallel structure and creating awkward rhythm"
+            },
+            "required": {
+              "code": "The system is fast, reliable, and secure.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Maintain parallel grammatical structure for coordinate ideas."
+            }
+          }
+        }
+      },
+      {
+        "id": "b1907839-e23f-4121-9f3e-77b341b10c1b",
+        "payload": {
+          "description": "Use definite, specific, concrete language. Choose precise words over vague abstractions.",
+          "metadata": {
+            "rule_id": "STRUNK_CONCRETE_LANGUAGE_001",
+            "keywords": ["strunk-white", "concrete-language", "specificity", "precision", "clarity", "vagueness", "word-choice", "imagery"],
+            "rationale": "Concrete words create clear mental images. Vague language forces readers to guess meaning. Abstract language creates confusion and misunderstanding. Precision in language creates precision in thought.",
+            "prohibited": {
+              "code": "A period of unfavorable weather\n\nA considerable amount of\n\nAt this point in time",
+              "reasoning": "These vague, abstract phrases force readers to interpret what is meant instead of providing clear, concrete information"
+            },
+            "required": {
+              "code": "Rain\n\nMuch\n\nNow",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Choose concrete, specific words over vague abstractions."
+            }
+          }
+        }
+      },
+      {
+        "id": "b384506b-600d-4ebf-bbb5-9a8d44e2aa17",
+        "payload": {
+          "description": "Use serial comma before 'and' in series: 'A, B, and C' not 'A, B and C'. Clarity over brevity—one character prevents misunderstanding.",
+          "metadata": {
+            "rule_id": "STRUNK_SERIAL_COMMA_001",
+            "keywords": ["punctuation", "serial-comma", "oxford-comma", "clarity", "lists", "ambiguity", "grammar"],
+            "rationale": "Serial comma prevents ambiguity and misreading. Eliminates confusion about grouping. Missing serial comma can create unintended associations or unclear meaning. Clarity over brevity—one character prevents misunderstanding.",
+            "prohibited": {
+              "code": "I invited my parents, Einstein and Tesla.",
+              "reasoning": "Without the serial comma, this appears to say that the parents ARE Einstein and Tesla, rather than three separate parties being invited"
+            },
+            "required": {
+              "code": "I invited my parents, Einstein, and Tesla.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Always use serial comma before final 'and' in series."
+            }
+          }
+        }
+      },
+      {
+        "id": "b6c919d9-8ad7-4853-b960-67c727062d78",
+        "payload": {
+          "description": "Avoid beginning sentences with 'there is/are'. Lead with the actual subject or a more direct statement. This creates stronger, more engaging prose that gets to the point quickly.",
+          "metadata": {
+            "rule_id": "STRUNK_AVOID_THERE_ARE_001",
+            "keywords": ["strunk-white", "expletive-constructions", "directness", "strong-writing", "sentence-openings", "clarity", "conciseness"],
+            "rationale": "Eliminating 'there is/are' openings creates more direct, engaging prose by putting the real subject first and reducing unnecessary words. Overusing 'there is/are' constructions creates weak, wordy prose that delays getting to the main point, potentially losing reader attention and reducing impact. Strong writing leads with meaningful subjects and active constructions rather than delaying the real content with filler words.",
+            "prohibited": {
+              "code": "There are several bugs in the code.\n\nThere is a problem with the server.\n\nThere are three options available.",
+              "reasoning": "These expletive constructions delay the real subject with filler words, creating weaker, wordier openings"
+            },
+            "required": {
+              "code": "Several bugs exist in the code.\n\nThe server has a problem.\n\nThree options are available.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Lead with the actual subject instead of 'there is/are'."
+            }
+          }
+        }
+      },
+      {
+        "id": "b7b27198-1cb8-4857-a509-fe4d957bdb45",
+        "payload": {
+          "description": "Place emphatic words at the end of sentences. The end position receives natural emphasis in English—important words should go there.",
+          "metadata": {
+            "rule_id": "STRUNK_EMPHATIC_END_001",
+            "keywords": ["strunk-white", "emphasis", "sentence-structure", "word-order", "rhetoric", "impact", "clarity"],
+            "rationale": "The end position receives natural emphasis in English. Important words should go there. Burying important words in the middle weakens impact and clarity. Sentence structure should support meaning and emphasis.",
+            "prohibited": {
+              "code": "Socialism is a good thing, I suppose.\n\nThe server crashed, unfortunately.",
+              "reasoning": "These sentences bury the qualifying or important information at the end as an afterthought, weakening the main assertion"
+            },
+            "required": {
+              "code": "I suppose socialism is a good thing.\n\nUnfortunately, the server crashed.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Place emphatic or important words in positions of natural emphasis."
+            }
+          }
+        }
+      },
+      {
+        "id": "c099ec45-6d7f-4bdf-abdd-5fdfe495900d",
+        "payload": {
+          "description": "Maintain verb tense consistency throughout passages. Once you establish a tense for describing events or procedures, maintain that tense throughout the section unless there's a clear logical reason to shift.",
+          "metadata": {
+            "rule_id": "STRUNK_TENSE_CONSISTENCY_001",
+            "keywords": ["grammar", "verb-tense", "consistency", "procedural-writing", "technical-documentation", "clarity", "flow"],
+            "rationale": "Consistent verb tense creates smooth reading flow and prevents confusion about when actions occur. In technical documentation, tense shifts can make procedures unclear. Inconsistent tense creates jarring reading experiences and can confuse users about the sequence or timing of actions, especially in instructional content. Consistent grammatical patterns allow readers to focus on content meaning rather than being distracted by structural inconsistencies.",
+            "prohibited": {
+              "code": "First, open the file. Then you will save it. Next, we closed the application.\n\nThe user clicks the button and then selected an option.\n\nConfigure the settings, then you have tested the connection.",
+              "reasoning": "These examples shift verb tenses inconsistently, creating confusion about the timing and sequence of actions"
+            },
+            "required": {
+              "code": "First, open the file. Then save it. Next, close the application.\n\nThe user clicks the button and then selects an option.\n\nConfigure the settings, then test the connection.",
+              "scope": "All written content, especially procedural: component text, documentation, essays, user interfaces. Maintain consistent tense within sections."
+            }
+          }
+        }
+      },
+      {
+        "id": "c86c0f8b-623b-47c4-a105-3c7d81a0dfe7",
+        "payload": {
+          "description": "Keep related words together. Place modifiers near what they modify. Word order should reflect logical relationships.",
+          "metadata": {
+            "rule_id": "STRUNK_RELATED_WORDS_001",
+            "keywords": ["strunk-white", "word-order", "modifiers", "clarity", "grammar", "misplaced-modifiers", "proximity"],
+            "rationale": "Separated related words create confusion about what modifies what. Misplaced words can completely change meaning or create ambiguity. Word order should reflect logical relationships.",
+            "prohibited": {
+              "code": "He only found two coins.\n\nShe almost ate everything.",
+              "reasoning": "The modifiers 'only' and 'almost' are placed too far from the words they modify, creating potential ambiguity about meaning"
+            },
+            "required": {
+              "code": "He found only two coins.\n\nShe ate almost everything.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Place modifiers immediately adjacent to what they modify."
+            }
+          }
+        }
+      },
+      {
+        "id": "c9a3e93e-ea39-41e7-a06c-3e738be31300",
+        "payload": {
+          "description": "Use 'that' for restrictive clauses, 'which' for non-restrictive clauses. The distinction clarifies whether information is essential or supplementary.",
+          "metadata": {
+            "rule_id": "STRUNK_THAT_WHICH_001",
+            "keywords": ["grammar", "that-which", "restrictive-clauses", "non-restrictive-clauses", "clarity", "precision", "relative-pronouns"],
+            "rationale": "That/which distinction clarifies whether information is essential or supplementary. Wrong usage creates ambiguity about what information is critical. Grammar should clarify meaning, not obscure it.",
+            "prohibited": {
+              "code": "The report which was filed yesterday needs review (when identifying specific report).\n\nThe car, that is red, is mine (when adding supplementary detail).",
+              "reasoning": "Using 'which' for restrictive clauses or 'that' for non-restrictive clauses confuses whether the information is essential for identification"
+            },
+            "required": {
+              "code": "The report that was filed yesterday needs review (restrictive—identifies specific report).\n\nThe report, which was filed yesterday, needs review (non-restrictive—adds supplementary info).",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Use 'that' for essential info, 'which' (with commas) for supplementary."
+            }
+          }
+        }
+      },
+      {
+        "id": "c9d06d38-b016-45de-b8f4-852942f51ada",
+        "payload": {
+          "description": "No gratuitous anything (Occam's Razor correctly understood). If two solutions solve the problem equally, choose the simpler. Every element must justify its existence by supporting the goal.",
+          "metadata": {
+            "rule_id": "OCCAMS_RAZOR_001",
+            "keywords": ["occams-razor", "simplicity", "necessity", "parsimony", "purpose", "minimalism", "clarity", "efficiency"],
+            "rationale": "Entities should not be multiplied without necessity. Complexity should serve purpose, not ego. Gratuitous elements waste cognitive resources and obscure core purpose. Every word, sentence, paragraph, feature must have a purpose that supports the objective.",
+            "prohibited": {
+              "code": "Unnecessary adjectives, redundant explanations, decorative but meaningless elements, features added for completeness rather than user needs.",
+              "reasoning": "Elements that exist without serving the core purpose waste reader attention and cognitive resources while obscuring the main goal"
+            },
+            "required": {
+              "code": "Every element chosen because it advances understanding or serves the user's needs. Each word, sentence, feature, and design choice must justify its existence by supporting the goal.",
+              "scope": "All aspects of creation: content, design, code, features. Apply Occam's Razor to eliminate gratuitous complexity."
+            }
+          }
+        }
+      },
+      {
+        "id": "dc2f03c5-258f-4848-a09d-7d42bb8ed048",
+        "payload": {
+          "description": "When starting a sentence with introductory words, phrases, or clauses, place a comma after them to separate them from the main clause. This helps readers identify where the introduction ends and the main sentence begins.",
+          "metadata": {
+            "rule_id": "STRUNK_INTRODUCTORY_COMMA_001",
+            "keywords": ["punctuation", "commas", "introductory-elements", "sentence-structure", "clarity", "visual-grammar", "readability"],
+            "rationale": "Introductory commas provide essential visual breaks that help readers parse sentence structure correctly and understand the relationship between introductory elements and main clauses. Without introductory commas, readers may misparse sentences, leading to confusion about meaning and awkward reading rhythm. This is particularly problematic in technical documentation where precision is crucial. Clear punctuation serves as visual syntax that guides readers through complex ideas, mirroring how code uses indentation and brackets to show structure.",
+            "prohibited": {
+              "code": "After the meeting we discussed the results.\n\nIn the morning the server crashed.\n\nBecause of the error users couldn't login.",
+              "reasoning": "Without commas, readers must work harder to identify where the introductory element ends and the main clause begins"
+            },
+            "required": {
+              "code": "After the meeting, we discussed the results.\n\nIn the morning, the server crashed.\n\nBecause of the error, users couldn't login.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Use comma after introductory elements."
+            }
+          }
+        }
+      },
+      {
+        "id": "e6c17da4-b0c7-4cc0-8b02-b6f12df5d88a",
+        "payload": {
+          "description": "In formal writing, treat 'data' as plural ('data are', 'these data show'), not singular. Use 'datum' for the singular form when referring to a single piece of information, though 'data point' is also acceptable in modern usage.",
+          "metadata": {
+            "rule_id": "STRUNK_DATA_PLURAL_001",
+            "keywords": ["grammar", "data", "plural", "singular", "technical-writing", "formal-writing", "precision", "style"],
+            "rationale": "Proper treatment of 'data' as plural maintains formal writing standards and demonstrates attention to linguistic precision, which is especially important in technical and scientific contexts. Using 'data is' instead of 'data are' can appear informal or imprecise in professional documentation, potentially undermining credibility in technical contexts. Linguistic precision in technical writing mirrors the precision expected in code—both reflect attention to detail and professional standards.",
+            "prohibited": {
+              "code": "The data is stored in the database.\n\nThis data shows clear trends.\n\nData is being processed.",
+              "reasoning": "Treating 'data' as singular ('data is') violates formal writing conventions and appears imprecise in technical contexts"
+            },
+            "required": {
+              "code": "The data are stored in the database.\n\nThese data show clear trends.\n\nData are being processed.",
+              "scope": "Formal and technical writing: component text, documentation, essays, user interfaces. Treat 'data' as plural in professional contexts."
+            }
+          }
+        }
+      },
+      {
+        "id": "e7f437f0-c6ec-4280-909f-835e743bdd9e",
+        "payload": {
+          "description": "Use 'fewer' when you can count individual items ('fewer errors', 'fewer users'). Use 'less' for quantities that cannot be counted individually ('less time', 'less memory', 'less complexity').",
+          "metadata": {
+            "rule_id": "STRUNK_FEWER_LESS_001",
+            "keywords": ["grammar", "fewer", "less", "countable", "uncountable", "mass-nouns", "count-nouns", "precision", "usage"],
+            "rationale": "The fewer/less distinction reflects logical differences between countable and uncountable quantities, maintaining precision in technical and professional communication. Using 'less' with countable nouns sounds informal and can distract readers from your content, potentially undermining professional credibility in formal documents. Language precision mirrors the logical distinctions that matter in programming—different types of quantities deserve different grammatical treatment.",
+            "prohibited": {
+              "code": "less bugs\n\nless features\n\nless options\n\nless iterations",
+              "reasoning": "Using 'less' with countable nouns violates grammatical precision and sounds informal in professional writing"
+            },
+            "required": {
+              "code": "fewer bugs\n\nfewer features\n\nfewer options\n\nfewer iterations",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Use 'fewer' for countable, 'less' for uncountable quantities."
+            }
+          }
+        }
+      },
+      {
+        "id": "e826f808-68c6-43a6-b2d9-dc30518c421d",
+        "payload": {
+          "description": "Murder your darlings—cut beautiful prose that doesn't serve the purpose. Personal attachment to clever writing shouldn't override clarity and goal.",
+          "metadata": {
+            "rule_id": "MURDER_DARLINGS_001",
+            "keywords": ["editing", "revision", "clarity", "purpose", "conciseness", "kill-your-darlings", "arthur-quiller-couch", "writing-craft"],
+            "rationale": "Beautiful but purposeless content distracts from the main goal. Every sentence must earn its place. Keeping irrelevant beautiful content confuses readers and obscures purpose. Purpose over personal attachment—serve the reader's needs. (Origin: Sir Arthur Quiller-Couch—when writing doesn't serve the story, cut it regardless of beauty.)",
+            "prohibited": {
+              "code": "Elaborate metaphor that sounds clever but confuses the point.\n\nLengthy poetic description that distracts from the core message.\n\nClever wordplay that obscures rather than illuminates.",
+              "reasoning": "Writing that exists for its own beauty rather than to serve the reader's needs should be cut, no matter how attached you are to it"
+            },
+            "required": {
+              "code": "Direct statement of the concept.\n\nClear explanation that serves the reader's understanding.\n\nPrecise language that advances the goal.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Ruthlessly cut content that doesn't serve the purpose."
+            }
+          }
+        }
+      },
+      {
+        "id": "f360d20d-9989-4d3e-bddd-9319557f76db",
+        "payload": {
+          "description": "Avoid qualifiers like 'rather', 'very', 'pretty', 'quite'. Use definite language or choose stronger words. Strong words stand alone.",
+          "metadata": {
+            "rule_id": "STRUNK_AVOID_QUALIFIERS_001",
+            "keywords": ["strunk-white", "qualifiers", "hedging", "definiteness", "precision", "strong-writing", "word-choice", "clarity"],
+            "rationale": "Qualifiers weaken statements and add vagueness. Strong words stand alone. Qualifiers make writing tentative and unconvincing. Confidence in expression—say what you mean clearly.",
+            "prohibited": {
+              "code": "rather difficult\n\nvery important\n\npretty good\n\nquite sure",
+              "reasoning": "Qualifiers weaken the base words and make statements tentative instead of definite and clear"
+            },
+            "required": {
+              "code": "difficult\n\ncrucial\n\nexcellent\n\ncertain",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Choose strong definite words over weak words with qualifiers."
+            }
+          }
+        }
+      },
+      {
+        "id": "fe68741f-033c-4154-8eb4-be5fa448a3a7",
+        "payload": {
+          "description": "Vary sentence structure. Connect related ideas with subordination and coordination. Avoid monotonous succession of loose sentences.",
+          "metadata": {
+            "rule_id": "STRUNK_SENTENCE_VARIETY_001",
+            "keywords": ["strunk-white", "sentence-variety", "rhythm", "flow", "subordination", "coordination", "style", "readability"],
+            "rationale": "Monotonous sentence patterns create boring, choppy prose. Variety creates flow and emphasizes relationships. All simple sentences create choppy, elementary writing style. Sentence structure should support meaning and create readable rhythm.",
+            "prohibited": {
+              "code": "The user clicked submit. The form validated. The data was saved. A confirmation appeared.",
+              "reasoning": "This series of simple sentences creates choppy, monotonous prose that fails to show relationships between ideas"
+            },
+            "required": {
+              "code": "When the user clicked submit, the form validated and saved the data, then displayed a confirmation.",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Vary sentence structure to create flow and show relationships."
+            }
+          }
+        }
+      },
+      {
+        "id": "ffb82bc3-828f-4e0b-bee6-225a51bb8d54",
+        "payload": {
+          "description": "While the traditional rule against split infinitives has relaxed in modern usage, generally avoid splitting infinitives unless it creates more natural, clearer expression. When an adverb fits naturally between 'to' and the verb, splitting may be acceptable.",
+          "metadata": {
+            "rule_id": "STRUNK_SPLIT_INFINITIVES_001",
+            "keywords": ["grammar", "split-infinitives", "infinitives", "adverbs", "style", "naturalness", "formality"],
+            "rationale": "Thoughtful handling of infinitives maintains smooth prose flow while allowing for natural expression. Extreme adherence can create awkward phrasing, but unnecessary splits can sound casual. Awkward infinitive handling can make prose sound either overly stiff or too casual. In professional documentation, this affects perceived credibility and readability. Grammar rules should serve clarity and naturalness—rigid adherence that harms comprehension defeats the purpose of good writing.",
+            "prohibited": {
+              "code": "To really understand the concept\n\nTo carefully review each item\n\nTo boldly go where no one has gone",
+              "reasoning": "These split infinitives can be avoided without creating awkward phrasing, maintaining a more formal professional tone"
+            },
+            "required": {
+              "code": "To understand the concept thoroughly\n\nTo review each item carefully\n\nTo go boldly where no one has gone",
+              "scope": "All written content: component text, documentation, essays, user interfaces. Avoid split infinitives when possible without awkwardness."
+            }
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.002772084
+}
