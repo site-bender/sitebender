@@ -1,100 +1,39 @@
 
-import type {
-	HotReloadConfig,
-	HotReloadState,
-	HotReloadClient,
-	ConnectionType,
-	ConnectionMetrics,
-} from "./types/index.ts"
+import type { HotReloadConfig, HotReloadConnection } from "./types/index.ts"
+import type { IO } from "@sitebender/toolsmith/types/fp/io"
 import { DEFAULT_CONFIG } from "./constants/index.ts"
 
-import runIO from "@sitebender/toolsmith/monads/io/runIO"
-import log from "./_log/index.ts"
-import error from "./_error/index.ts"
-import isConnected from "./isConnected/index.ts"
-import getConnectionType from "./getConnectionType/index.ts"
-import getMetrics from "./getMetrics/index.ts"
-import connectionStateMachine from "./_connectionStateMachine/index.ts"
-import setupSSEListeners from "./_setupSSEListeners/index.ts"
-import setupWebSocketListeners from "./_setupWebSocketListeners/index.ts"
-function _hotReloadClient(config: HotReloadConfig = {}) {
-	return function initHotReloadWithConfig(): HotReloadClient {
+import io from "@sitebender/toolsmith/monads/io/io"
+import map from "@sitebender/toolsmith/monads/io/map"
+import _log from "./_log/index.ts"
+import _error from "./_error/index.ts"
+import _connectionStateMachine from "./_connectionStateMachine/index.ts"
+import _startConnection from "./_startConnection/index.ts"
+
+//++ Creates a hot reload connection with deferred initialization
+// [IO] This function performs side effects
+export default function _hotReloadClient(config: HotReloadConfig = {}) {
+	return function initHotReloadWithConfig(): IO<HotReloadConnection> {
 		const configuration: Required<HotReloadConfig> = {
 			...DEFAULT_CONFIG,
 			...config,
 		}
 
-		const logFunction = log(configuration)
+		const logFunction = _log(configuration)
 
-		const errorFunction = error(configuration)
+		const errorFunction = _error(configuration)
 
-		// Create the generator state machine
-		const stateMachine = connectionStateMachine(configuration)(logFunction)(
+		// Create the generator state machine - this IS the connection
+		const connection = _connectionStateMachine(configuration)(logFunction)(
 			errorFunction,
 		)
 
-		// Get initial state
-		let currentState: HotReloadState = stateMachine.next().value as HotReloadState
+		// Initialize the generator (first .next() yields initial state)
+		connection.next()
 
-		// Function to send events to the state machine
-		function sendEvent(event: {
-			type: string
-			error?: Event
-			data?: string
-			reason?: string
-		}) {
-			return function sendEventWithEvent(): void {
-				const result = stateMachine.next(event as never)
-				if (!result.done) {
-					currentState = result.value
-
-					// Handle side effects based on new state
-					if (
-						currentState.eventSource !== null && event.type === "connect_sse"
-					) {
-						runIO(setupSSEListeners(currentState.eventSource)(sendEvent)())
-					}
-
-					if (
-						currentState.webSocket !== null &&
-						event.type === "connect_websocket"
-					) {
-						runIO(setupWebSocketListeners(currentState.webSocket)(sendEvent)())
-					}
-				}
-			}
-		}
-
-		// Start initial connection
-		sendEvent({ type: "connect_sse" })()
-
-		// Public API
-		const disconnect = function disconnect(): void {
-			sendEvent({ type: "disconnect" })()
-		}
-
-		const isConnectedCheck = function isConnectedCheck(): boolean {
-			return isConnected(currentState.eventSource)(currentState.webSocket)
-		}
-
-		const getConnectionTypeValue =
-			function getConnectionTypeValue(): ConnectionType {
-				return getConnectionType(currentState.currentConnectionType)()
-			}
-
-		const getMetricsValue = function getMetricsValue(): ConnectionMetrics {
-			return getMetrics(currentState.metrics)()
-		}
-
-		return {
-			disconnect,
-			isConnected: isConnectedCheck,
-			getConnectionType: getConnectionTypeValue,
-			getMetrics: getMetricsValue,
-		}
+		// Start the connection (send initial connect event)
+		return map(_startConnection(connection))(io(connection))
 	}
 }
 
 // Auto-initialization removed - should be handled by consumer
-
-export default _hotReloadClient
