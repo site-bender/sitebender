@@ -1,30 +1,15 @@
 export type ConnectionType = "http3-sse" | "http2-websocket" | "none"
 
-export interface HotReloadConfig {
+export type HotReloadConfig = {
 	wsEndpoint?: string
 	sseEndpoint?: string
 	debug?: boolean
 	connectionTimeout?: number
 	maxReconnectDelay?: number
 	initialReconnectDelay?: number
-	onReload?: () => void
-	onConnect?: (type: ConnectionType) => void
-	onDisconnect?: () => void
-	onFallback?: (
-		from: ConnectionType,
-		to: ConnectionType,
-		reason: string,
-	) => void
 }
 
-export interface HotReloadClient {
-	disconnect: () => void
-	isConnected: () => boolean
-	getConnectionType: () => ConnectionType
-	getMetrics: () => ConnectionMetrics
-}
-
-export interface ConnectionMetrics {
+export type ConnectionMetrics = {
 	attempts: number
 	failedConnections: number
 	lastConnectionTime: number | null
@@ -46,6 +31,12 @@ export type HotReloadState = {
 	readonly connectionTimeoutId: number | null
 	readonly reconnectTimeout: number | null
 }
+
+export type HotReloadConnection = Generator<
+	HotReloadState,
+	void,
+	ConnectionEvent | undefined
+>
 
 export type EventSourceCreationError = {
 	readonly _tag: "EventSourceCreationError"

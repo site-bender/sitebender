@@ -1,3 +1,5 @@
+import type { HotReloadConfig } from "../types/index.ts"
+
 export const DEFAULT_SSE_ENDPOINT = "https://localhost:4433/events"
 
 export const DEFAULT_WEBSOCKET_ENDPOINT = "wss://localhost:8443/ws"
@@ -22,8 +24,6 @@ export const INITIAL_FAILED_CONNECTIONS = 0
 
 export const INITIAL_FALLBACKS = 0
 
-import type { HotReloadConfig } from "../types/index.ts"
-
 export const INITIAL_RELOAD_EVENTS = 0
 
 export const DEFAULT_CONFIG: Required<HotReloadConfig> = {
@@ -33,10 +33,4 @@ export const DEFAULT_CONFIG: Required<HotReloadConfig> = {
 	connectionTimeout: CONNECTION_TIMEOUT_MS,
 	maxReconnectDelay: MAX_RECONNECT_DELAY_MS,
 	initialReconnectDelay: INITIAL_RECONNECT_DELAY_MS,
-	onReload: function reloadWindow() {
-		return window.location.reload()
-	},
-	onConnect: function handleConnect() {},
-	onDisconnect: function handleDisconnect() {},
-	onFallback: function handleFallback() {},
 }
