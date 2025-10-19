@@ -1,7 +1,7 @@
 
 //++ Tests for validateBlueprint function
 
-import { assertEquals } from "https://deno.land/std@0.220.0/assert/mod.ts"
+import { assertEquals } from "@std/assert"
 import validateBlueprint from "./index.ts"
 import type { Blueprint } from "../../schema/blueprint/index.ts"
 
