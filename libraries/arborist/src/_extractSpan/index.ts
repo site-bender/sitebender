@@ -1,10 +1,10 @@
-import type { Span } from "../types/index.ts"
+import type { Span, SwcSpan } from "../types/index.ts"
 
-//++ Extract span from import node
-export default function extractSpan(node: Record<string, unknown>): Span {
-	const spanObj = node.span as Record<string, number> | undefined
+//++ Extract span from AST node
+//++ Nodes may have optional span property with start/end byte offsets
+export default function _extractSpan(node: Readonly<{ span?: SwcSpan }>): Span {
 	return {
-		start: spanObj?.start ?? 0,
-		end: spanObj?.end ?? 0,
+		start: node.span?.start ?? 0,
+		end: node.span?.end ?? 0,
 	}
 }
