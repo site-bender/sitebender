@@ -1,0 +1,25 @@
+//++ Constants for _printHelp function
+
+export const HELP_MESSAGE = [
+	"Quartermaster (Studio app generator)",
+	"",
+	"Usage:",
+	"  deno run -A --config ../../deno.dev.jsonc libraries/quartermaster/src/new/index.ts --help",
+	"  deno run -A --config ../../deno.dev.jsonc libraries/quartermaster/src/new/index.ts --template <mission-control|workshop|minimal> [--with architect] [--with envoy] [--dry-run] [--name <app-name>] [--out <path>]",
+	"",
+	"  deno run -A --config ../../deno.dev.jsonc libraries/quartermaster/src/dryRun/index.ts --help",
+	"  deno run -A --config ../../deno.dev.jsonc libraries/quartermaster/src/dryRun/index.ts --plan ./plan.json",
+	"",
+	"Flags:",
+	"  --help               Show this help and exit",
+	"  --template           Blueprint id: mission-control | workshop | minimal",
+	"  --with architect     Toggle Architect stack for 'new'",
+	"  --with envoy         Toggle Envoy stack for 'new'",
+	"  --dry-run            Compile and print a plan (no writes)",
+	"  --name               App name",
+	"  --out                Output path (default: ./<name>)",
+	"",
+	"Notes:",
+	"  - Stubs phase: 'new' and 'dry-run' only validate and print help/plan. No writes.",
+	"  - Import maps: dev -> local src; prod -> published libraries.",
+].join("\n")
