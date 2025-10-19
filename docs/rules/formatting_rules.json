@@ -1,0 +1,427 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "048713d9-b7de-4aa4-a771-2d9ac29688e4",
+        "payload": {
+          "description": "Use TABS for indentation in TypeScript, TSX, JavaScript, JSX, and JSON files. Use 2 SPACES for indentation in Markdown, Python, YAML, and TOML files.",
+          "metadata": {
+            "rule_id": "STYLE_INDENT_001",
+            "keywords": ["tabs", "indentation", "formatting", "spaces", "accessibility", "code-style", "consistency", "editor-config"],
+            "rationale": "TABS let end users determine indentation width (accessibility). 2-SPACE for clarity without deep nesting. Mixed indentation causes git diff noise, editor conflicts, and readability issues.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Mixed indentation:\nfunction example() {\n  const x = 1  // 2 spaces\n\tconst y = 2  // 1 tab\n    const z = 3  // 4 spaces\n}\n\n// Problems:\n// - Inconsistent indentation style\n// - Git diff noise on reformatting\n// - Editor conflicts between team members\n// - Impossible to scan visually",
+              "reasoning": "Mixed indentation creates visual inconsistency, version control noise, and accessibility barriers"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Consistent TABS for TypeScript:\nfunction example() {\n\tconst x = 1\n\tconst y = 2\n\tconst z = 3\n}\n\n// ✅ REQUIRED - 2 SPACES for Markdown:\n## Heading\n\n  - List item\n  - Another item\n\n// Why correct:\n// - Consistent within file type\n// - User-configurable tab width\n// - Clean git diffs",
+              "scope": "TABS: .ts, .tsx, .js, .jsx, .json; SPACES: .md, .py, .yaml, .yml, .toml"
+            }
+          }
+        }
+      },
+      {
+        "id": "053375f8-26b0-4cfb-98ee-c110e744dc43",
+        "payload": {
+          "description": "HTML attributes ordered alphabetically, all values quoted with double quotes, self-closing JSX style with space before />, stack attributes if 3+ or exceeds 80 chars with closing > aligned under opening <",
+          "metadata": {
+            "rule_id": "HTML_FORMATTING_001",
+            "keywords": ["html", "attributes", "alphabetical", "ordering", "quoting", "jsx", "formatting", "readability", "consistency"],
+            "rationale": "Alphabetical ordering makes attributes easy to find, consistent quoting prevents errors. Minimize cognitive load through consistent ordering and visibility. Random attribute order and inconsistent quoting increases cognitive load.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Random attribute order, inconsistent quoting:\n<input\n\tvalue={name}\n\ttype='text'\n\tonChange={handleChange}\n\tid=\"name-input\"\n\tclassName='form-control' />\n\n// Problems:\n// - Non-alphabetical order (value, type, onChange, id, className)\n// - Mixed quotes (single and double)\n// - Impossible to quickly find specific attribute\n// - Inconsistent style across codebase",
+              "reasoning": "Random ordering and inconsistent quoting force developers to scan entire attribute list to find what they need"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Alphabetical order, consistent quoting:\n<input\n\tclassName=\"form-control\"\n\tid=\"name-input\"\n\tonChange={handleChange}\n\ttype=\"text\"\n\tvalue={name}\n/>\n\n// ✅ REQUIRED - Stack if 3+ attributes or exceeds 80 chars:\n<button\n\taria-label=\"Submit form\"\n\tclassName=\"btn btn-primary\"\n\tonClick={handleSubmit}\n\ttype=\"submit\"\n>\n\tSubmit\n</button>\n\n// Why correct:\n// - Alphabetical: className, id, onChange, type, value\n// - All double quotes\n// - Easy to find any attribute\n// - Closing > aligned under opening <",
+              "scope": ".html, .tsx, .jsx files - applies to all HTML and JSX elements"
+            }
+          }
+        }
+      },
+      {
+        "id": "25ad7b2d-0cd0-452d-b93a-85a521076b68",
+        "payload": {
+          "description": "Blank line before return statements",
+          "metadata": {
+            "rule_id": "PROXIMITY_RETURN_SPACING_001",
+            "keywords": ["return", "spacing", "blank-line", "proximity", "visual-emphasis", "readability", "exit-point", "formatting"],
+            "rationale": "Return is the conclusion - deserves visual emphasis. Return buried in code is easy to miss. PROXIMITY - the exit point needs emphasis.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - No blank line before return:\nfunction calculateTotal(items: ReadonlyArray<Item>): number {\n\tconst subtotal = sum(items.map(getPrice))\n\tconst tax = subtotal * TAX_RATE\n\tconst total = subtotal + tax\n\treturn total\n}\n\n// Problems:\n// - Return statement buried in code\n// - No visual emphasis on exit point\n// - Easy to miss when scanning\n// - Logic and conclusion not separated",
+              "reasoning": "Return statements without visual separation blend into surrounding code, making control flow harder to follow"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Blank line before return:\nfunction calculateTotal(items: ReadonlyArray<Item>): number {\n\tconst subtotal = sum(items.map(getPrice))\n\tconst tax = subtotal * TAX_RATE\n\tconst total = subtotal + tax\n\n\treturn total\n}\n\n// Why correct:\n// - Blank line emphasizes exit point\n// - Clear visual separation between logic and conclusion\n// - Easy to spot when scanning function\n// - Matches reader's mental model",
+              "scope": ".ts, .tsx, .js, .jsx files - all function return statements"
+            }
+          }
+        }
+      },
+      {
+        "id": "2fb16e59-b2a0-458c-bcf6-022679735171",
+        "payload": {
+          "description": "Stack arrays and objects with more than 3 items/properties vertically",
+          "metadata": {
+            "rule_id": "STYLE_STACKING_001",
+            "keywords": ["stacking", "arrays", "objects", "vertical", "alignment", "readability", "formatting", "scanning"],
+            "rationale": "Vertical stacking enables scanning and comparison. Long horizontal lists are impossible to scan. ALIGNMENT - vertical structure mirrors list structure.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Horizontal layout for 4+ items:\nconst colors = [\"red\", \"green\", \"blue\", \"yellow\", \"orange\", \"purple\"]\n\nconst config = { name: \"app\", version: \"1.0\", author: \"team\", license: \"MIT\" }\n\n// Problems:\n// - Exceeds 80 character line limit\n// - Impossible to scan items\n// - Can't easily compare values\n// - Difficult to add/remove items cleanly",
+              "reasoning": "Horizontal lists force horizontal eye movement and make it impossible to see structure at a glance"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Vertical stacking for 4+ items:\nconst colors = [\n\t\"blue\",\n\t\"green\",\n\t\"orange\",\n\t\"purple\",\n\t\"red\",\n\t\"yellow\",\n]\n\nconst config = {\n\tauthor: \"team\",\n\tlicense: \"MIT\",\n\tname: \"app\",\n\tversion: \"1.0\",\n}\n\n// ✅ ACCEPTABLE - Horizontal for 3 or fewer:\nconst rgb = [\"red\", \"green\", \"blue\"]\n\n// Why correct:\n// - Easy to scan vertically\n// - Can compare values\n// - Clean git diffs when adding/removing\n// - Alphabetical order visible",
+              "scope": ".ts, .tsx, .js, .jsx files - arrays and objects with 4+ items/properties"
+            }
+          }
+        }
+      },
+      {
+        "id": "3051fde9-c295-4268-8092-98405e430a40",
+        "payload": {
+          "description": "All files must end with a single newline character",
+          "metadata": {
+            "rule_id": "STYLE_FINAL_NEWLINE_001",
+            "keywords": ["newline", "final-newline", "posix", "file-ending", "concatenation", "git", "formatting", "standards"],
+            "rationale": "POSIX compliance and safe file concatenation. Missing final newline causes git warnings and concatenation issues.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - No final newline:\nfunction example() {\n\treturn \"hello\"\n}[EOF with no newline]\n\n// Problems:\n// - Git shows \"No newline at end of file\" warning\n// - File concatenation breaks\n// - Violates POSIX text file standard\n// - Editor inconsistencies",
+              "reasoning": "Files without final newline violate POSIX standards and cause tooling issues"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Single final newline:\nfunction example() {\n\treturn \"hello\"\n}\n[Single newline before EOF]\n\n// Why correct:\n// - POSIX compliant\n// - Clean git diffs\n// - Safe file concatenation\n// - Consistent across all files\n// - No editor warnings",
+              "scope": "All files - * (universal requirement)"
+            }
+          }
+        }
+      },
+      {
+        "id": "4e945058-7546-4034-902a-7f95dac20838",
+        "payload": {
+          "description": "All files named index.(ext), function/component names on folders. One function or component per file. Helper functions in sibling folders at LOWEST COMMON ANCESTOR. Group related files in same folder: index.ts, index.test.ts, index.css, index.yaml",
+          "metadata": {
+            "rule_id": "FILE_NAMING_001",
+            "keywords": ["file-naming", "index", "folder-structure", "organization", "single-responsibility", "consistency", "lowest-common-ancestor", "grouping"],
+            "rationale": "Consistent naming eliminates cognitive load of figuring out file names. Grouping keeps related files together. Inconsistent file naming creates navigation nightmares. Minimize cognitive load through absolute consistency.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Inconsistent file naming:\nsrc/\n\tutils/\n\t\tvalidateUser.ts       // Named after function\n\t\thelpers.ts            // Generic name\n\t\tformatDate.tsx        // Wrong extension\n\tvalidation/\n\t\tuser.ts              // Unclear what it exports\n\t\tuser-test.ts         // Inconsistent test naming\n\n// Problems:\n// - Mixed naming conventions\n// - Can't predict file paths\n// - Helper functions not at common ancestor\n// - Related files scattered",
+              "reasoning": "Inconsistent naming forces developers to remember arbitrary file names and search for related files"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Consistent index-based naming:\nsrc/\n\tvalidateUser/\n\t\tindex.ts           // Exports validateUser function\n\t\tindex.test.ts      // Tests for validateUser\n\t\t_checkEmail/       // Helper at common ancestor\n\t\t\tindex.ts\n\t\t_checkPassword/\n\t\t\tindex.ts\n\tformatDate/\n\t\tindex.ts           // Exports formatDate function\n\t\tindex.test.ts\n\t\tindex.yaml         // Configuration\n\n// Why correct:\n// - Folder name = function name\n// - All files named index.(ext)\n// - Related files grouped together\n// - Helpers at lowest common ancestor\n// - Zero cognitive load for navigation",
+              "scope": "All files - consistent index.(ext) naming throughout codebase"
+            }
+          }
+        }
+      },
+      {
+        "id": "519bcae2-2af3-46e6-aeb4-428069aa6778",
+        "payload": {
+          "description": "Blank line above AND below any multi-line statement",
+          "metadata": {
+            "rule_id": "PROXIMITY_MULTILINE_SPACING_001",
+            "keywords": ["multi-line", "spacing", "blank-lines", "proximity", "visual-grouping", "readability", "formatting", "breathing-room"],
+            "rationale": "Multi-line statements are complex units - need visual breathing room. Complex structures cramped against simple ones are hard to parse. PROXIMITY - complex units need space to be seen as units.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Multi-line cramped with single-line:\nfunction process(data: Data): Result<Output, Error> {\n\tconst validated = validate(data)\n\tconst transformed = pipe(\n\t\tdata,\n\t\tnormalize,\n\t\tvalidate,\n\t\ttransform,\n\t)\n\tconst output = format(transformed)\n\treturn success(output)\n}\n\n// Problems:\n// - Multi-line pipe blends with single-line statements\n// - No visual separation of complex unit\n// - Hard to see where pipe starts/ends\n// - Reduced readability",
+              "reasoning": "Multi-line statements without spacing don't stand out as distinct logical units"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Blank lines around multi-line:\nfunction process(data: Data): Result<Output, Error> {\n\tconst validated = validate(data)\n\n\tconst transformed = pipe(\n\t\tdata,\n\t\tnormalize,\n\t\tvalidate,\n\t\ttransform,\n\t)\n\n\tconst output = format(transformed)\n\n\treturn success(output)\n}\n\n// Why correct:\n// - Multi-line pipe visually separated\n// - Complex unit stands out\n// - Easy to see logical grouping\n// - Return gets emphasis too",
+              "scope": ".ts, .tsx, .js, .jsx files - all multi-line statements"
+            }
+          }
+        }
+      },
+      {
+        "id": "580e9779-163e-4f24-a75f-e65f428fd95a",
+        "payload": {
+          "description": "Spaces around ALL operators - they are separate entities",
+          "metadata": {
+            "rule_id": "STYLE_OPERATOR_SPACING_001",
+            "keywords": ["operators", "spacing", "whitespace", "readability", "parsing", "cognitive-load", "formatting", "clarity"],
+            "rationale": "x, +, and y are THREE different things - spacing makes this clear. x+y requires parsing. x + y is instantly clear. WHITESPACE as separator - each space reduces cognitive load.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - No spaces around operators:\nconst total=subtotal+tax\nconst isValid=age>=18&&hasPermission\nconst result=a*b+c/d\n\n// Problems:\n// - Requires mental parsing to identify parts\n// - Operators blend with operands\n// - Hard to distinguish precedence\n// - Increased cognitive load",
+              "reasoning": "Operators without spacing create visual blobs that require conscious parsing effort"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Spaces around all operators:\nconst total = subtotal + tax\nconst isValid = age >= 18 && hasPermission\nconst result = a * b + c / d\n\n// Why correct:\n// - Each token visually separated\n// - Operators clearly distinct from operands\n// - Precedence easier to see\n// - Instant comprehension",
+              "scope": ".ts, .tsx, .js, .jsx files - all operators (=, +, -, *, /, &&, ||, etc.)"
+            }
+          }
+        }
+      },
+      {
+        "id": "71bfe345-e912-4b2b-8fe6-e361e1a310e3",
+        "payload": {
+          "description": "Maximum line length is 80 characters for code files, no limit for Markdown and YAML",
+          "metadata": {
+            "rule_id": "STYLE_LINE_LENGTH_001",
+            "keywords": ["line-length", "80-characters", "readability", "mobile", "side-by-side", "formatting", "wrapping"],
+            "rationale": "80 chars allows 4 files side-by-side, readable on phones. Long lines are hard to read and review.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Lines exceeding 80 characters:\nconst message = `This is a very long string that exceeds the 80 character limit and makes code hard to read`\n\nfunction processUserDataAndValidateInputAndReturnFormattedResult(user: User, options: Options): Result {\n\treturn success(data)\n}\n\n// Problems:\n// - Can't view 2+ files side-by-side\n// - Requires horizontal scrolling\n// - Poor mobile/small screen experience\n// - Difficult code review",
+              "reasoning": "Long lines reduce readability and prevent efficient multi-file workflows"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Lines within 80 characters:\nconst message = (\n\t`This is a long string split ` +\n\t`across multiple lines to stay ` +\n\t`within 80 character limit`\n)\n\nfunction processUserData(\n\tuser: User,\n\toptions: Options,\n): Result<FormattedData, Error> {\n\treturn success(data)\n}\n\n// Why correct:\n// - 4 files side-by-side on 4K monitor\n// - No horizontal scrolling\n// - Readable on mobile devices\n// - Clean code review diffs",
+              "scope": "80 chars: .ts, .tsx, .js, .jsx, .json, .py; No limit: .md, .yml, .yaml"
+            }
+          }
+        }
+      },
+      {
+        "id": "78246661-988c-44c1-b134-3cbc6c015348",
+        "payload": {
+          "description": "CSS properties ordered alphabetically, multi-line format, blank line between selector groups, space after colon, modern properties preferred with @supports fallbacks",
+          "metadata": {
+            "rule_id": "CSS_FORMATTING_001",
+            "keywords": ["css", "properties", "alphabetical", "ordering", "formatting", "modern-css", "fallbacks", "supports", "readability"],
+            "rationale": "Alphabetical ordering makes properties easy to find, modern properties with fallbacks ensure compatibility. Random property order increases cognitive load. Minimize cognitive load through consistent ordering.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Random property order, no fallbacks:\n.button {\n\tpadding: 1rem;\n\tbackground: blue;\n\tcolor: white;\n\tborder-radius: 4px;\n\tfont-size: 1rem;\n\tdisplay: flex;\n}\n.link { color: blue; text-decoration: none; }\n\n// Problems:\n// - Non-alphabetical order\n// - Single-line format hard to scan\n// - No blank line between selectors\n// - No space after colon inconsistent\n// - Missing modern property fallbacks",
+              "reasoning": "Random ordering forces scanning entire property list to find specific properties"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Alphabetical, multi-line, fallbacks:\n.button {\n\tbackground: blue;\n\tborder-radius: 4px;\n\tcolor: white;\n\tdisplay: flex;\n\tfont-size: 1rem;\n\tpadding: 1rem;\n}\n\n.link {\n\tcolor: blue;\n\ttext-decoration: none;\n}\n\n@supports (display: grid) {\n\t.container {\n\t\tdisplay: grid;\n\t}\n}\n\n// Why correct:\n// - Alphabetical: background, border, color, display\n// - Multi-line for easy scanning\n// - Blank lines between selector groups\n// - Modern properties with @supports\n// - Consistent spacing",
+              "scope": ".css files - all CSS selectors and properties"
+            }
+          }
+        }
+      },
+      {
+        "id": "8a6a52ea-9208-43de-87ad-3f8f055a5374",
+        "payload": {
+          "description": "Imports in specific order with single blank lines between each group: 1) type external, 2) type internal, 3) named external, 4) const external, 5) default external, 6) named internal, 7) const internal, 8) default internal",
+          "metadata": {
+            "rule_id": "IMPORT_ORDER_001",
+            "keywords": ["imports", "ordering", "types", "external", "internal", "organization", "dependencies", "formatting", "consistency"],
+            "rationale": "Consistent order = instant recognition. Types before values shows structure before implementation. Random imports = cognitive load finding dependencies. REPETITION - same order everywhere.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Random import order:\nimport React from 'react'\nimport type { User } from './types'\nimport { useState } from 'react'\nimport type { Config } from '@/config'\nimport { processUser } from '@/utils'\nimport type { Result } from 'effect'\n\n// Problems:\n// - Mixed external and internal\n// - Types scattered throughout\n// - Default, named, type imports mixed\n// - No visual grouping\n// - Cognitive load finding imports",
+              "reasoning": "Random import order forces scanning entire import block to understand dependencies"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Consistent import order:\n// 1. Type external\nimport type { Result } from 'effect'\n\n// 2. Type internal\nimport type { Config } from '@/config'\nimport type { User } from './types'\n\n// 3. Named external\nimport { useState } from 'react'\n\n// 4. Default external\nimport React from 'react'\n\n// 5. Named internal\nimport { processUser } from '@/utils'\n\n// Why correct:\n// - Types before values\n// - External before internal\n// - Named/const before default\n// - Blank lines between groups\n// - Instant visual grouping",
+              "scope": ".ts, .tsx, .js, .jsx files - all import statements"
+            }
+          }
+        }
+      },
+      {
+        "id": "8a80a3bc-fa13-4c26-8314-fd358f3e414b",
+        "payload": {
+          "description": "ALWAYS trailing commas in multi-line structures, NEVER in single-line",
+          "metadata": {
+            "rule_id": "STYLE_TRAILING_COMMA_001",
+            "keywords": ["trailing-commas", "multi-line", "git-diff", "formatting", "consistency", "arrays", "objects"],
+            "rationale": "Easier to add/reorder items, cleaner git diffs. Missing trailing comma = merge conflicts when adding items.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - No trailing comma in multi-line:\nconst colors = [\n\t\"red\",\n\t\"green\",\n\t\"blue\" // No comma - problem when adding\n]\n\nconst config = {\n\tname: \"app\",\n\tversion: \"1.0\" // No comma\n}\n\n// ❌ PROHIBITED - Trailing comma in single-line:\nconst rgb = [\"red\", \"green\", \"blue\",]\n\n// Problems:\n// - Adding item requires changing two lines\n// - Git diff shows unnecessary line change\n// - Merge conflicts more likely\n// - Inconsistent formatting",
+              "reasoning": "Missing trailing commas in multi-line create dirty git diffs; trailing commas in single-line are noise"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Trailing comma in multi-line:\nconst colors = [\n\t\"red\",\n\t\"green\",\n\t\"blue\", // Trailing comma\n]\n\nconst config = {\n\tname: \"app\",\n\tversion: \"1.0\", // Trailing comma\n}\n\n// ✅ REQUIRED - No trailing comma in single-line:\nconst rgb = [\"red\", \"green\", \"blue\"]\n\n// Why correct:\n// - Adding item only changes one line\n// - Clean git diffs\n// - Easier reordering\n// - Fewer merge conflicts",
+              "scope": ".ts, .tsx, .js, .jsx, .json files - all arrays, objects, function parameters"
+            }
+          }
+        }
+      },
+      {
+        "id": "8c337b66-a476-4174-a9c2-5dfe6c425826",
+        "payload": {
+          "description": "All files must use LF (Unix-style) line endings, not CRLF",
+          "metadata": {
+            "rule_id": "STYLE_EOL_001",
+            "keywords": ["line-endings", "lf", "crlf", "unix", "cross-platform", "git", "formatting", "consistency"],
+            "rationale": "LF has widest compatibility. CRLF causes git diff noise and cross-platform issues.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - CRLF (Windows-style) line endings:\nfunction example() {\\r\\n\n\treturn \"hello\"\\r\\n\n}\\r\\n\n\n// Problems:\n// - Git shows ^M characters on Unix\n// - Line ending inconsistency in repo\n// - Unnecessary git diff noise\n// - Cross-platform collaboration issues\n// - Larger file sizes",
+              "reasoning": "CRLF line endings cause cross-platform compatibility issues and pollute version control"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - LF (Unix-style) line endings:\nfunction example() {\\n\n\treturn \"hello\"\\n\n}\\n\n\n// Why correct:\n// - Universal compatibility\n// - Clean git diffs\n// - Consistent across platforms\n// - Smaller file sizes\n// - Industry standard",
+              "scope": "All files - * (universal requirement)"
+            }
+          }
+        }
+      },
+      {
+        "id": "a0392af6-ae4b-485e-ad34-10b92a9a73ab",
+        "payload": {
+          "description": "Use DOUBLE quotes for strings, not single quotes",
+          "metadata": {
+            "rule_id": "STYLE_QUOTES_001",
+            "keywords": ["quotes", "double-quotes", "strings", "visibility", "formatting", "consistency", "readability"],
+            "rationale": "Double quotes easier to see, avoiding missed end quotes. Single quotes are too easy to miss with human eyes. Visibility prevents errors.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Single quotes:\nconst name = 'John'\nconst message = 'Hello, world!'\nconst html = '<div class='container'></div>'\n\n// Problems:\n// - Single quotes harder to see\n// - Easy to miss opening/closing quotes\n// - Nested quotes require escaping\n// - Inconsistent with JSON standard\n// - Higher error rate",
+              "reasoning": "Single quotes have lower visual contrast and are easier to miss, leading to syntax errors"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Double quotes:\nconst name = \"John\"\nconst message = \"Hello, world!\"\nconst html = \"<div class='container'></div>\"\n\n// ✅ REQUIRED - Template literals for interpolation:\nconst greeting = `Hello, ${name}!`\n\n// Why correct:\n// - Higher visual contrast\n// - Easier to spot missing quotes\n// - Consistent with JSON\n// - Better readability\n// - Fewer syntax errors",
+              "scope": ".ts, .tsx, .js, .jsx, .json, .css, .html files - all string literals"
+            }
+          }
+        }
+      },
+      {
+        "id": "ad62fd27-f2b7-400f-a7a4-238f8e440792",
+        "payload": {
+          "description": "All files must use UTF-8 character encoding",
+          "metadata": {
+            "rule_id": "STYLE_CHARSET_001",
+            "keywords": ["utf-8", "encoding", "character-set", "unicode", "internationalization", "i18n", "formatting", "standards"],
+            "rationale": "UTF-8 is THE standard for text encoding. Other encodings cause character corruption and compatibility issues.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Non-UTF-8 encoding (ASCII, ISO-8859-1, Windows-1252):\n// File saved with ISO-8859-1:\nconst greeting = \"Héllo Wörld\" // Displays as \"H├®llo W├╢rld\"\n\n// File saved with Windows-1252:\nconst price = \"€99\" // Displays as \"Γé¼99\"\n\n// Problems:\n// - Character corruption\n// - Breaks internationalization\n// - Cross-platform issues\n// - Database encoding mismatches\n// - Display rendering errors",
+              "reasoning": "Non-UTF-8 encodings corrupt characters and break international text support"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - UTF-8 encoding:\n// File saved with UTF-8:\nconst greeting = \"Héllo Wörld\" // Displays correctly\nconst price = \"€99\" // Displays correctly\nconst emoji = \"🎉\" // Displays correctly\nconst chinese = \"你好世界\" // Displays correctly\n\n// Why correct:\n// - Universal character support\n// - No corruption\n// - Internationalization ready\n// - Cross-platform compatible\n// - Industry standard",
+              "scope": "All files - * (universal requirement)"
+            }
+          }
+        }
+      },
+      {
+        "id": "c89b10f7-00c5-47c1-ad09-322997008f57",
+        "payload": {
+          "description": "Trim trailing whitespace in all files EXCEPT Markdown",
+          "metadata": {
+            "rule_id": "STYLE_TRAILING_WS_001",
+            "keywords": ["trailing-whitespace", "whitespace", "trimming", "git-diff", "formatting", "markdown", "line-breaks"],
+            "rationale": "Trailing whitespace pollutes version control (except Markdown line breaks). Unnecessary whitespace creates git diff noise.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Trailing whitespace in code files:\nfunction example() {[SPACE][SPACE]\n\tconst x = 1[SPACE]\n\treturn x[TAB][SPACE]\n}[SPACE][SPACE][SPACE]\n\n// Problems:\n// - Invisible characters in git diffs\n// - Unnecessary changes in version control\n// - Editor warnings\n// - Inconsistent formatting\n// - Wasted bytes",
+              "reasoning": "Trailing whitespace creates invisible git diff noise and editor warnings without adding value"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - No trailing whitespace:\nfunction example() {\n\tconst x = 1\n\treturn x\n}\n\n// ✅ EXCEPTION - Markdown preserves trailing spaces for line breaks:\nThis is a line with two trailing spaces  \nThis creates a line break in Markdown\n\n// Why correct:\n// - Clean git diffs\n// - No editor warnings\n// - Consistent formatting\n// - Exception for Markdown semantic meaning",
+              "scope": "TRIM: .ts, .tsx, .js, .jsx, .json, .py, .yml, .yaml; PRESERVE: .md"
+            }
+          }
+        }
+      },
+      {
+        "id": "c8b3c419-365c-4960-bc71-5144bab0bb34",
+        "payload": {
+          "description": "Markdown: use # for headings with blank line below, blank line above lists and preceding paragraphs, prefer inline links [text](url), use ```lang for code fencing with language specification",
+          "metadata": {
+            "rule_id": "MARKDOWN_FORMATTING_001",
+            "keywords": ["markdown", "headings", "lists", "links", "code-blocks", "formatting", "spacing", "readability"],
+            "rationale": "Consistent markdown structure improves readability, blank lines create logical separation. Inconsistent markdown formatting reduces comprehension. Minimize cognitive load through consistent structure.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Inconsistent Markdown formatting:\n## Heading\nImmediate text without spacing\n- List without blank line above\n- Another item\nMore text\n\nSee [this link][1]\n\n```\nCode without language\n```\n\n[1]: https://example.com\n\n// Problems:\n// - No blank line after heading\n// - No blank line before list\n// - Reference-style links harder to read inline\n// - Code blocks without language spec\n// - Reduced readability",
+              "reasoning": "Inconsistent spacing and formatting in Markdown creates visual confusion and reduces comprehension"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Consistent Markdown formatting:\n## Heading\n\nText content with blank line above.\n\n- List with blank line above\n- Another item\n\nMore text with blank line above.\n\nSee [this link](https://example.com) inline.\n\n```typescript\nfunction example() {\n\treturn \"Code with language spec\"\n}\n```\n\n// Why correct:\n// - Blank lines create visual separation\n// - Inline links easier to read\n// - Code blocks specify language for syntax highlighting\n// - Consistent structure throughout",
+              "scope": ".md files - all Markdown content"
+            }
+          }
+        }
+      },
+      {
+        "id": "ccefb255-9e76-41fc-b1d8-64c9b902571b",
+        "payload": {
+          "description": "NEVER more than one blank line in a row",
+          "metadata": {
+            "rule_id": "PROXIMITY_ONE_BLANK_MAX_001",
+            "keywords": ["blank-lines", "spacing", "proximity", "formatting", "vertical-space", "consistency", "readability"],
+            "rationale": "One blank line is a separator. Two is wasted space. Multiple blanks break visual flow and waste screen space. PROXIMITY - one separator is enough.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Multiple consecutive blank lines:\nfunction example() {\n\tconst x = 1\n\n\n\n\tconst y = 2\n\n\n\treturn x + y\n}\n\n// Problems:\n// - Wasted vertical screen space\n// - Broken visual flow\n// - No additional semantic meaning\n// - Inconsistent separation\n// - Forces unnecessary scrolling",
+              "reasoning": "Multiple blank lines waste screen space without adding semantic value or improving readability"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Maximum one blank line:\nfunction example() {\n\tconst x = 1\n\n\tconst y = 2\n\n\treturn x + y\n}\n\n// Why correct:\n// - Efficient use of vertical space\n// - Clear visual separation\n// - One blank = one semantic break\n// - Consistent throughout codebase\n// - Less scrolling needed",
+              "scope": "All files - * (universal requirement)"
+            }
+          }
+        }
+      },
+      {
+        "id": "dc11e079-3304-4ea4-88dc-d7d6f4c9f2fe",
+        "payload": {
+          "description": "NO semicolons at the end of statements in TypeScript/JavaScript",
+          "metadata": {
+            "rule_id": "STYLE_SEMICOLON_001",
+            "keywords": ["semicolons", "asi", "automatic-semicolon-insertion", "formatting", "visual-noise", "modern-javascript"],
+            "rationale": "ASI works perfectly. Semicolons are visual noise. Vertical code is clear. Semicolons add visual noise and are unnecessary in modern JS/TS. If the language doesn't need it, don't add it.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Semicolons at end of statements:\nconst x = 1;\nconst y = 2;\n\nfunction example() {\n\tconst result = x + y;\n\treturn result;\n}\n\nconst obj = {\n\tname: \"test\",\n\tvalue: 42,\n};\n\n// Problems:\n// - Visual noise at end of every line\n// - Unnecessary with ASI\n// - Inconsistent with modern JavaScript style\n// - More characters to type/read\n// - No semantic benefit",
+              "reasoning": "Semicolons add visual clutter without providing value in modern JavaScript/TypeScript with ASI"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - No semicolons:\nconst x = 1\nconst y = 2\n\nfunction example() {\n\tconst result = x + y\n\treturn result\n}\n\nconst obj = {\n\tname: \"test\",\n\tvalue: 42,\n}\n\n// Why correct:\n// - Cleaner visual appearance\n// - ASI handles statement termination\n// - Modern JavaScript/TypeScript style\n// - Less visual noise\n// - Easier to read",
+              "scope": ".ts, .tsx, .js, .jsx files - all statements"
+            }
+          }
+        }
+      },
+      {
+        "id": "dd7ad43e-48d6-4f3a-97c3-954e3ca8329e",
+        "payload": {
+          "description": "Use Array<T> not T[] for array types",
+          "metadata": {
+            "rule_id": "STYLE_ARRAY_TYPE_001",
+            "keywords": ["array-types", "generics", "typescript", "visibility", "formatting", "contrast", "readability"],
+            "rationale": "Brackets [] are hard to see, Array<> is obvious. Reduces cognitive load. T[] requires mental parsing, easy to miss the brackets. CONTRAST - make different things visually different.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - T[] bracket syntax:\ntype Users = User[]\ntype Matrix = number[][]\ntype Optional = (string | null)[]\n\nfunction process(items: Item[]): Result[] {\n\treturn items.map(transform)\n}\n\n// Problems:\n// - Brackets easy to miss\n// - Nested arrays hard to parse: number[][]\n// - Low visual contrast\n// - Requires careful reading\n// - Inconsistent with other generics",
+              "reasoning": "Bracket syntax is visually subtle and easily missed, especially in complex types"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Array<T> generic syntax:\ntype Users = Array<User>\ntype Matrix = Array<Array<number>>\ntype Optional = Array<string | null>\n\nfunction process(\n\titems: Array<Item>,\n): Array<Result> {\n\treturn items.map(transform)\n}\n\n// Why correct:\n// - High visual contrast\n// - Obvious array type\n// - Nested arrays clear: Array<Array<number>>\n// - Consistent with Map<K,V>, Set<T>, etc.\n// - Easier to spot in code review",
+              "scope": ".ts, .tsx files - all array type declarations"
+            }
+          }
+        }
+      },
+      {
+        "id": "f0c165a0-bfc6-441b-bf22-7f892653b080",
+        "payload": {
+          "description": "NO blank lines at the start or end of blocks",
+          "metadata": {
+            "rule_id": "PROXIMITY_NO_BLOCK_EDGES_001",
+            "keywords": ["blank-lines", "blocks", "proximity", "formatting", "spacing", "visual-grouping", "boundaries"],
+            "rationale": "Block boundaries are already visual separators - extra space is redundant. Wasted vertical space, broken visual grouping. PROXIMITY - block contents belong together.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Blank lines at block edges:\nfunction example() {\n\n\tconst x = 1\n\tconst y = 2\n\n}\n\nif (condition) {\n\n\tdoSomething()\n\n}\n\n// Problems:\n// - Wasted vertical space\n// - Block boundaries already clear\n// - Breaks visual grouping\n// - Unnecessary scrolling\n// - Inconsistent density",
+              "reasoning": "Blank lines at block edges waste space since braces already provide visual separation"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - No blank lines at block edges:\nfunction example() {\n\tconst x = 1\n\tconst y = 2\n}\n\nif (condition) {\n\tdoSomething()\n}\n\n// ✅ REQUIRED - Blank lines between logical groups WITHIN block:\nfunction process() {\n\tconst data = fetch()\n\n\tconst validated = validate(data)\n\tconst transformed = transform(validated)\n\n\treturn transformed\n}\n\n// Why correct:\n// - Efficient use of vertical space\n// - Block contents visually grouped\n// - Braces provide boundary separation\n// - Internal spacing for logical groups only",
+              "scope": ".ts, .tsx, .js, .jsx files - all block statements (functions, if, loops, etc.)"
+            }
+          }
+        }
+      },
+      {
+        "id": "f6b98d88-2182-4dfb-b340-8d6d97aff7bb",
+        "payload": {
+          "description": "Group like single-line statements together, then separate groups from different statement types with blank lines",
+          "metadata": {
+            "rule_id": "PROXIMITY_STATEMENT_TYPES_001",
+            "keywords": ["statement-grouping", "proximity", "blank-lines", "formatting", "visual-separation", "logical-grouping", "readability"],
+            "rationale": "Different statement types = different purposes. Visual separation mirrors logical separation. Mixed statement types blur logical boundaries. PROXIMITY - group like with like, separate unlike.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Mixed statement types without separation:\nfunction process() {\n\tconst x = 1\n\tif (x > 0) {\n\t\tconsole.log(x)\n\t}\n\tconst y = 2\n\tconst z = 3\n\tfor (const item of items) {\n\t\tprocess(item)\n\t}\n\tconst result = x + y + z\n}\n\n// Problems:\n// - Declarations mixed with control flow\n// - No visual grouping of similar statements\n// - Logical boundaries unclear\n// - Hard to scan and understand flow\n// - Increased cognitive load",
+              "reasoning": "Mixing statement types without separation obscures logical structure and makes code harder to scan"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Group like statements, separate groups:\nfunction process() {\n\tconst x = 1\n\tconst y = 2\n\tconst z = 3\n\n\tif (x > 0) {\n\t\tconsole.log(x)\n\t}\n\n\tfor (const item of items) {\n\t\tprocess(item)\n\t}\n\n\tconst result = x + y + z\n\n\treturn result\n}\n\n// Why correct:\n// - All const declarations grouped together\n// - Control flow (if) separated\n// - Loops separated\n// - Return emphasized\n// - Visual structure mirrors logical structure",
+              "scope": ".ts, .tsx, .js, .jsx files - all function bodies and block statements"
+            }
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001177959
+}

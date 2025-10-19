@@ -4,6 +4,112 @@
 
 import type { Module } from "npm:@swc/wasm-web@1.13.20"
 
+//++ ============================================================================
+//++ SWC AST Node Types
+//++ ============================================================================
+//++ These types represent the structure of AST nodes returned by SWC parser
+//++ SWC is a Rust-based parser compiled to WASM that doesn't export TS types
+//++ We define them here based on the actual runtime structure
+
+//++ Base identifier type used throughout AST
+export type SwcIdentifier = Readonly<{
+	value: string
+}>
+
+//++ SWC span in AST nodes
+export type SwcSpan = Readonly<{
+	start: number
+	end: number
+}>
+
+//++ Type annotation wrapper (contains the actual type node)
+export type SwcTypeAnnotation = Readonly<{
+	typeAnnotation: unknown
+}>
+
+//++ TypeScript property signature in interface/type literal
+export type TsPropertySignature = Readonly<{
+	type: "TsPropertySignature"
+	key: SwcIdentifier
+	typeAnnotation?: SwcTypeAnnotation
+	optional: boolean
+	readonly: boolean
+}>
+
+//++ TypeScript method signature in interface
+export type TsMethodSignature = Readonly<{
+	type: "TsMethodSignature"
+	key: SwcIdentifier
+	params: ReadonlyArray<SwcFnParam>
+	typeAnnotation?: SwcTypeAnnotation
+}>
+
+//++ Union of all TypeScript type element kinds
+export type TsTypeElement = TsPropertySignature | TsMethodSignature
+
+//++ Function/method parameter
+export type SwcFnParam = Readonly<{
+	pat: SwcIdentifier
+	typeAnnotation?: SwcTypeAnnotation
+}>
+
+//++ Type parameter (generic parameter)
+export type TsTypeParameter = Readonly<{
+	name: SwcIdentifier
+	constraint?: unknown
+	default?: unknown
+}>
+
+//++ Type parameters declaration (generics wrapper)
+export type TsTypeParamDecl = Readonly<{
+	params: ReadonlyArray<TsTypeParameter>
+}>
+
+//++ Interface body (contains members)
+export type TsInterfaceBody = Readonly<{
+	body: ReadonlyArray<TsTypeElement>
+}>
+
+//++ Interface extends expression
+export type TsExpressionWithTypeArguments = Readonly<{
+	expression: SwcIdentifier
+	typeParams?: Readonly<{
+		params: ReadonlyArray<unknown>
+	}>
+}>
+
+//++ TypeScript interface declaration
+export type TsInterfaceDeclaration = Readonly<{
+	type: "TsInterfaceDeclaration"
+	id: SwcIdentifier
+	body: TsInterfaceBody
+	typeParams?: TsTypeParamDecl
+	extends?: ReadonlyArray<TsExpressionWithTypeArguments>
+	span?: SwcSpan
+}>
+
+//++ TypeScript type alias declaration
+export type TsTypeAliasDeclaration = Readonly<{
+	type: "TsTypeAliasDeclaration"
+	id: SwcIdentifier
+	typeAnnotation: unknown
+	typeParams?: TsTypeParamDecl
+	span?: SwcSpan
+}>
+
+//++ Union of all type declaration nodes
+export type TsTypeDeclaration = TsInterfaceDeclaration | TsTypeAliasDeclaration
+
+//++ Export declaration wrapper (wraps exported types)
+export type ExportDeclaration = Readonly<{
+	type: "ExportDeclaration"
+	declaration: TsTypeDeclaration
+	span?: SwcSpan
+}>
+
+//++ Union of type declaration or export wrapper
+export type TypeDeclarationNode = TsTypeDeclaration | ExportDeclaration
+
 //++ Wrapper around SWC Module with source metadata
 //++ This is the primary AST type returned by parseFile
 export type ParsedAst = Readonly<{
