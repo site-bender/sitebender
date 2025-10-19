@@ -6,8 +6,8 @@ export default function _log(
 	configuration: Readonly<Required<HotReloadConfig>>,
 ) {
 	return function logWithConfiguration(...args: ReadonlyArray<unknown>): IO<void> {
-		return () => {
-			if ((configuration as any).debug) {
+		return function executeLog(): void {
+			if (configuration.debug) {
 				console.log("[Hot Reload]", ...args)
 			}
 		}
