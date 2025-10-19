@@ -1,0 +1,370 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "144ca584-a472-48e7-ad53-0fbf1a753bad",
+        "payload": {
+          "description": "No re-exports except function aliases for better naming - transparent dependencies only",
+          "metadata": {
+            "rule_id": "IMPORT_NO_REEXPORT_001",
+            "keywords": ["re-exports", "barrel-files", "tree-shaking", "imports", "aliases", "dependencies", "transparency"],
+            "rationale": "Re-exports obscure the true source, break tree shaking, and create dependency tangles. Bundle bloat, circular dependencies, unclear import origins. Exception: function aliases for better naming only (e.g., aliasing 'includes' to 'contains'). Transparent dependencies - know exactly where code comes from.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Re-exporting modules:\n// File: utils/index.ts\nexport * from './string'\nexport * from './array'\nexport * from './object'\n\n// File: components/index.ts\nexport { Button } from './Button'\nexport { Card } from './Card'\nexport { Modal } from './Modal'\n\n// Problems:\n// - Obscures true source of code\n// - Breaks tree shaking\n// - Creates circular dependency risks\n// - Import origin unclear\n// - Bundle bloat",
+              "reasoning": "Re-exports create opaque dependency chains and prevent effective tree shaking"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Direct imports from source:\n// Import directly from the actual file\nimport Button from '@sitebender/pagewright/interact/buttons/Button/index.tsx'\nimport Card from '@sitebender/pagewright/display/Card/index.tsx'\n\n// EXCEPTION: Function aliases for better naming\n// File: contains/index.ts\nexport { default as contains } from '../includes/index.ts'\n\n// Usage:\nimport contains from '@sitebender/toolsmith/vanilla/string/contains/index.ts'\n// This just aliases 'includes' to 'contains' for better semantics\n\n// Benefits:\n// - Clear dependency chain\n// - Effective tree shaking\n// - No circular dependency risks\n// - Import origin explicit",
+              "scope": "All imports - direct from source, function aliases only exception"
+            }
+          }
+        }
+      },
+      {
+        "id": "14d023d2-932f-4d3d-9f1f-67aedf8a6d11",
+        "payload": {
+          "description": "Co-locate all related files by feature, not by type - organize for delete safety",
+          "metadata": {
+            "rule_id": "COLOCATION_OVER_TYPE_001",
+            "keywords": ["co-location", "feature-organization", "delete-safety", "folder-structure", "modularity", "feature-based"],
+            "rationale": "Things that change together should live together. Delete safety - remove a feature and everything goes with it. Type-based folders (styles/, api/, utils/) create hidden dependencies and orphan code. Feature-based organization over type-based organization.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Type-based organization:\nproject/\n\tcomponents/\n\t\tUserCard.tsx\n\t\tProductList.tsx\n\tstyles/\n\t\tUserCard.css\n\t\tProductList.css\n\tapi/\n\t\tuserApi.ts\n\t\tproductApi.ts\n\tscripts/\n\t\tuserCardEnhancement.js\n\t\tproductListEnhancement.js\n\n// Problems:\n// - Related files scattered across folders\n// - Deleting UserCard requires changes in 4 locations\n// - Hidden dependencies between type folders\n// - Orphan code accumulates\n// - Hard to move features",
+              "reasoning": "Type-based organization scatters related code and prevents clean feature deletion"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Feature-based organization:\nproject/\n\tUserCard/\n\t\tindex.tsx        // Component\n\t\tindex.css        // Styles\n\t\tindex.ts         // Enhancement script\n\t\t_fetchUser/      // Helper function\n\t\t\tindex.ts\n\tProductList/\n\t\tindex.tsx        // Component\n\t\tindex.css        // Styles\n\t\tindex.ts         // Enhancement script\n\t\t_fetchProducts/  // Helper function\n\t\t\tindex.ts\n\n// Benefits:\n// - All UserCard files in one place\n// - Delete UserCard folder → feature gone completely\n// - No orphan code\n// - Easy to move or refactor\n// - Clear feature boundaries\n\n// EXCEPTION: Global styles can live at root\nproject/\n\tglobal.css       // OK - truly global styles",
+              "scope": "All files - organize by feature, co-locate CSS/scripts/API calls with components that use them"
+            }
+          }
+        }
+      },
+      {
+        "id": "1645984c-7fa8-43f6-a828-84cd66d32a91",
+        "payload": {
+          "description": "ANTI-PATTERN: Using classes and OOP patterns - use pure functions and modules instead",
+          "metadata": {
+            "rule_id": "ANTI_OOP_001",
+            "keywords": ["classes", "oop", "anti-pattern", "pure-functions", "functional-programming", "stateful", "composition"],
+            "rationale": "OOP is the opposite of functional programming. Classes create stateful nightmares. Classes = mutable state = bugs = unmaintainable code. Pure functions only. Composition over inheritance.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Classes and OOP:\nclass UserService {\n\tprivate users: Array<User> = []\n\t\n\taddUser(user: User): void {\n\t\tthis.users.push(user)  // Mutation!\n\t}\n\t\n\tgetUser(id: string): User | undefined {\n\t\treturn this.users.find(u => u.id === id)\n\t}\n\t\n\tremoveUser(id: string): void {\n\t\tthis.users = this.users.filter(u => u.id !== id)\n\t}\n}\n\nconst service = new UserService()\nservice.addUser({ id: '1', name: 'Alice' })\n\n// Problems:\n// - Mutable state (this.users)\n// - Hidden state changes\n// - Hard to test\n// - Not composable\n// - Race conditions with async\n// - Violates FP principles",
+              "reasoning": "Classes introduce mutable state and hidden dependencies, violating functional programming principles"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Pure functions with modules:\n// File: addUser/index.ts\nexport default function addUser(user: User) {\n\treturn function addUserToUsers(\n\t\tusers: ReadonlyArray<User>\n\t): Array<User> {\n\t\treturn [...users, user]  // Immutable\n\t}\n}\n\n// File: getUser/index.ts\nexport default function getUser(id: string) {\n\treturn function getUserFromUsers(\n\t\tusers: ReadonlyArray<User>\n\t): User | undefined {\n\t\treturn users.find(u => u.id === id)\n\t}\n}\n\n// File: removeUser/index.ts\nexport default function removeUser(id: string) {\n\treturn function removeUserFromUsers(\n\t\tusers: ReadonlyArray<User>\n\t): Array<User> {\n\t\treturn users.filter(u => u.id !== id)\n\t}\n}\n\n// Usage:\nconst users: ReadonlyArray<User> = []\nconst updatedUsers = addUser({ id: '1', name: 'Alice' })(users)\n\n// Benefits:\n// - Pure functions\n// - Immutable data\n// - Composable\n// - Easy to test\n// - No hidden state",
+              "scope": "All code - pure functions only, no classes or OOP patterns"
+            }
+          }
+        }
+      },
+      {
+        "id": "1733792a-740f-465c-aace-d15da318d598",
+        "payload": {
+          "description": "ANTI-PATTERN: Type-based organization (utilities/, styles/, api/) - organize by feature instead",
+          "metadata": {
+            "rule_id": "ANTI_TYPE_ORGANIZATION_001",
+            "keywords": ["type-organization", "anti-pattern", "feature-cohesion", "folder-structure", "utilities", "delete-safety"],
+            "rationale": "Type-based organization breaks co-location and creates hidden dependencies. Moving or deleting features becomes nightmare - related files scattered across type folders. Feature cohesion over type segregation.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Type-based folder structure:\nproject/\n\tstyles/\n\t\tUserCard.css\n\t\tProductCard.css\n\tcomponents/\n\t\tUserCard.tsx\n\t\tProductCard.tsx\n\tutils/\n\t\tuserHelpers.ts\n\t\tproductHelpers.ts\n\tapi/\n\t\tuserApi.ts\n\t\tproductApi.ts\n\n// To delete UserCard:\n// 1. Find and delete styles/UserCard.css\n// 2. Find and delete components/UserCard.tsx\n// 3. Find and delete utils/userHelpers.ts (if only UserCard uses it)\n// 4. Find and delete api/userApi.ts (if only UserCard uses it)\n// 5. Search for orphaned dependencies\n\n// Problems:\n// - Scattered files\n// - Hidden dependencies\n// - Orphan code\n// - Refactoring nightmare",
+              "reasoning": "Type segregation scatters related code across folders, breaking feature cohesion"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Feature-based folder structure:\nproject/\n\tUserCard/\n\t\tindex.tsx           // Component\n\t\tindex.css           // Styles\n\t\t_fetchUser/         // API call\n\t\t\tindex.ts\n\t\t_formatUserData/    // Helper\n\t\t\tindex.ts\n\tProductCard/\n\t\tindex.tsx           // Component\n\t\tindex.css           // Styles  \n\t\t_fetchProduct/      // API call\n\t\t\tindex.ts\n\t\t_formatProductData/ // Helper\n\t\t\tindex.ts\n\n// To delete UserCard:\n// rm -rf UserCard/  ← Done!\n\n// Benefits:\n// - All related files together\n// - One-command deletion\n// - No orphan code\n// - Clear dependencies\n// - Easy refactoring",
+              "scope": "All folders - organize by feature, avoid utilities/, styles/, api/ type folders"
+            }
+          }
+        }
+      },
+      {
+        "id": "23f2a76e-0b2b-41f0-9554-5ece9665e4b6",
+        "payload": {
+          "description": "NO BARREL FILES - use aliases for short imports, not re-exports",
+          "metadata": {
+            "rule_id": "IMPORT_NO_BARREL_001",
+            "keywords": ["barrel-files", "index-exports", "tree-shaking", "circular-dependencies", "aliases", "imports"],
+            "rationale": "Barrel files destroy tree shaking, create circular dependency nightmares, and obscure import paths. Aliases solve the same problem without the downsides. Barrel files bloat bundles, cause circular references, and make debugging imports hell. Explicit imports with aliases, not hidden re-exports.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Barrel file (index.ts that re-exports):\n// File: components/index.ts\nexport { Button } from './Button'\nexport { Card } from './Card'\nexport { Modal } from './Modal'\nexport { Input } from './Input'\n\n// Usage:\nimport { Button, Card } from '../components'\n\n// Problems:\n// - Destroys tree shaking (imports entire barrel)\n// - Circular dependency risks\n// - Import path obscured\n// - Bundle bloat\n// - Debugging nightmare\n// - Can't see true dependencies",
+              "reasoning": "Barrel files prevent tree shaking and create circular dependency risks"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Direct imports with aliases:\n// File: Button/index.tsx\nexport default function Button(props: ButtonProps): JSX.Element {\n\treturn <button {...props} />\n}\n\n// File: Card/index.tsx  \nexport default function Card(props: CardProps): JSX.Element {\n\treturn <div className=\"card\">{props.children}</div>\n}\n\n// Usage with aliases:\nimport Button from '@sitebender/pagewright/interact/buttons/Button/index.tsx'\nimport Card from '@sitebender/pagewright/display/Card/index.tsx'\n\n// Benefits:\n// - Perfect tree shaking\n// - No circular dependencies\n// - Clear import origin\n// - Minimal bundle size\n// - Easy debugging\n// - Move-safe (aliases don't break on refactor)\n\n// deno.jsonc configures aliases:\n// \"imports\": {\n//   \"@sitebender/pagewright/\": \"./packages/pagewright/\"\n// }",
+              "scope": "All imports - no barrel files ever, use direct imports with aliases"
+            }
+          }
+        }
+      },
+      {
+        "id": "479a5262-9118-4a9f-a547-29ae5251ea9e",
+        "payload": {
+          "description": "NEVER use Web Components - they violate progressive enhancement and require JavaScript",
+          "metadata": {
+            "rule_id": "FP_NO_WEB_COMPONENTS_001",
+            "keywords": ["web-components", "progressive-enhancement", "shadow-dom", "custom-elements", "javascript-required", "accessibility"],
+            "rationale": "Web Components violate progressive enhancement - they're dead without JS. Shadow DOM is a catastrophe. Users without JS get NOTHING. Violates our core philosophy. HTML should work without JavaScript.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Web Components:\nclass UserCard extends HTMLElement {\n\tconnectedCallback() {\n\t\tconst shadow = this.attachShadow({ mode: 'open' })\n\t\tshadow.innerHTML = `\n\t\t\t<style>\n\t\t\t\t.card { border: 1px solid #ccc; }\n\t\t\t</style>\n\t\t\t<div class=\"card\">\n\t\t\t\t<slot></slot>\n\t\t\t</div>\n\t\t`\n\t}\n}\n\ncustomElements.define('user-card', UserCard)\n\n// HTML:\n// <user-card>Content</user-card>\n\n// Problems:\n// - Completely broken without JS\n// - Shadow DOM breaks accessibility\n// - No progressive enhancement\n// - Users with JS disabled see NOTHING\n// - Violates stateless WWW principles",
+              "reasoning": "Web Components require JavaScript to render, violating progressive enhancement principles"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Progressive enhancement:\n// HTML works first (server-rendered or static)\n<article class=\"user-card\">\n\t<h2>User Name</h2>\n\t<p>User bio goes here</p>\n\t<a href=\"/user/profile\">View Profile</a>\n</article>\n\n// CSS enhances layout\n.user-card {\n\tdisplay: block;  /* Fallback */\n}\n\n@supports (display: grid) {\n\t.user-card {\n\t\tdisplay: grid;\n\t\tgrid-template-columns: auto 1fr;\n\t}\n}\n\n// JS adds behavior (optional enhancement)\n// File: UserCard/index.ts\nexport default function enhanceUserCard(element: HTMLElement): void {\n\telement.addEventListener('click', (e) => {\n\t\t// Enhanced interaction\n\t})\n}\n\n// Progressive stack:\n// 1. HTML works in Lynx\n// 2. CSS enhances layout\n// 3. JS adds behavior (optional)",
+              "scope": "All components - use standard HTML with progressive enhancement, never Web Components"
+            }
+          }
+        }
+      },
+      {
+        "id": "54cbd40a-0afa-46d6-8637-de8182c84dc5",
+        "payload": {
+          "description": "ONE function per file - helper functions go in nested folders at lowest common ancestor",
+          "metadata": {
+            "rule_id": "FUNC_ONE_PER_FILE_001",
+            "keywords": ["one-function-per-file", "modularity", "delete-safety", "helpers", "lowest-common-ancestor", "file-structure"],
+            "rationale": "Extreme modularity. Clear dependencies. Automatic cleanup when deleting features. Multiple functions per file create hidden dependencies and leave orphan code. Delete safety - remove a feature and all its helpers disappear with it.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Multiple functions in one file:\n// File: utils.ts\nexport function validateEmail(email: string): boolean {\n\treturn /^[^@]+@[^@]+$/.test(email)\n}\n\nexport function validatePhone(phone: string): boolean {\n\treturn /^\\d{10}$/.test(phone)\n}\n\nexport function formatDate(date: Date): string {\n\treturn date.toISOString().split('T')[0]\n}\n\nexport function parseDate(str: string): Date {\n\treturn new Date(str)\n}\n\n// Problems:\n// - Can't delete validateEmail without affecting file\n// - Hidden dependencies between functions\n// - Unclear which code uses which function\n// - Accumulates orphan code\n// - Poor modularity",
+              "reasoning": "Multiple functions per file create coupling and prevent clean deletion"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - One function per file:\n// File: validateEmail/index.ts\nexport default function validateEmail(email: string): boolean {\n\treturn /^[^@]+@[^@]+$/.test(email)\n}\n\n// File: validatePhone/index.ts\nexport default function validatePhone(phone: string): boolean {\n\treturn /^\\d{10}$/.test(phone)\n}\n\n// File: formatDate/index.ts\nexport default function formatDate(date: Date): string {\n\treturn date.toISOString().split('T')[0]\n}\n\n// File: parseDate/index.ts\nexport default function parseDate(str: string): Date {\n\treturn new Date(str)\n}\n\n// Benefits:\n// - Delete validateEmail/ → gone completely\n// - Clear dependencies\n// - No orphan code\n// - Extreme modularity\n\n// EXCEPTION: Curried inner functions\n// File: add/index.ts\nexport default function add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n// Inner function is part of currying, not a separate function",
+              "scope": "All files - one function per file, helpers in nested folders, curried inner functions OK"
+            }
+          }
+        }
+      },
+      {
+        "id": "664d5620-bc17-4e91-91d5-15824b067ed1",
+        "payload": {
+          "description": "Export default on the same line as function declaration - explicit and immediate",
+          "metadata": {
+            "rule_id": "FUNC_EXPORT_001",
+            "keywords": ["export-default", "function-declaration", "exports", "clarity", "immediate-export"],
+            "rationale": "Single clear export point. No hunting for export statements. Separate export statements create confusion about what's exported. Explicit and immediate - see the export at the function definition.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Separate export statement:\n// File: calculateTotal/index.ts\nfunction calculateTotal(items: ReadonlyArray<Item>): number {\n\treturn items.reduce((sum, item) => sum + item.price, 0)\n}\n\n// Export at bottom (have to scroll to find it)\nexport default calculateTotal\n\n// OR even worse:\nconst calculateTotal = (items: Array<Item>): number => {\n\treturn items.reduce((sum, item) => sum + item.price, 0)\n}\n\nexport default calculateTotal\n\n// Problems:\n// - Export separated from definition\n// - Have to scroll to see what's exported\n// - Confusion about export point\n// - Not immediately clear this is exported",
+              "reasoning": "Separate export statements hide the export point and create confusion"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Export on same line:\n// File: calculateTotal/index.ts\nexport default function calculateTotal(\n\titems: ReadonlyArray<Item>\n): number {\n\treturn items.reduce((sum, item) => sum + item.price, 0)\n}\n\n// Curried version:\nexport default function calculateTotal(items: ReadonlyArray<Item>) {\n\treturn function withTax(taxRate: number): number {\n\t\tconst total = items.reduce((sum, item) => sum + item.price, 0)\n\t\treturn total * (1 + taxRate)\n\t}\n}\n\n// Benefits:\n// - Export immediately visible\n// - Single line to check\n// - Clear intent\n// - No scrolling needed\n// - Matches function declaration",
+              "scope": "All function exports - export default on same line as function declaration"
+            }
+          }
+        }
+      },
+      {
+        "id": "6d576540-d552-483f-8a1b-ade6e01012f9",
+        "payload": {
+          "description": "Use pubsub (Operator library) for complete module decoupling - modules communicate via events",
+          "metadata": {
+            "rule_id": "PUBSUB_DECOUPLING_001",
+            "keywords": ["pubsub", "decoupling", "operator", "events", "module-independence", "loose-coupling"],
+            "rationale": "Complete module independence. Move or delete modules without breaking dependencies. Direct coupling creates brittle dependencies that break when refactoring. Modules communicate via events, not direct calls.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Direct coupling between modules:\n// File: UserModule/createUser/index.ts\nimport handleNewUser from '../../NotificationModule/handleNewUser/index.ts'\nimport logUserCreation from '../../LoggingModule/logUserCreation/index.ts'\nimport updateAnalytics from '../../AnalyticsModule/updateAnalytics/index.ts'\n\nexport default function createUser(userData: UserData) {\n\treturn async function executeCreateUser(): Promise<User> {\n\t\tconst user = await saveUser(userData)\n\t\t\n\t\t// Direct coupling to other modules\n\t\thandleNewUser(user)\n\t\tlogUserCreation(user)\n\t\tupdateAnalytics('user.created', user)\n\t\t\n\t\treturn user\n\t}\n}\n\n// Problems:\n// - Can't delete NotificationModule without breaking UserModule\n// - Can't move modules independently\n// - Brittle dependencies\n// - Tight coupling\n// - Hard to test in isolation",
+              "reasoning": "Direct module coupling prevents independent refactoring and deletion"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Pubsub decoupling with Operator:\n// File: UserModule/createUser/index.ts\nimport { emit } from '@sitebender/operator/pubsub/emit/index.ts'\n\nexport default function createUser(userData: UserData) {\n\treturn async function executeCreateUser(): Promise<User> {\n\t\tconst user = await saveUser(userData)\n\t\t\n\t\t// Emit event - no direct coupling\n\t\temit('user.created', user)\n\t\t\n\t\treturn user\n\t}\n}\n\n// File: NotificationModule/index.ts\nimport { subscribe } from '@sitebender/operator/pubsub/subscribe/index.ts'\nimport handleNewUser from './handleNewUser/index.ts'\n\nsubscribe('user.created', handleNewUser)\n\n// File: LoggingModule/index.ts\nimport { subscribe } from '@sitebender/operator/pubsub/subscribe/index.ts'\nimport logUserCreation from './logUserCreation/index.ts'\n\nsubscribe('user.created', logUserCreation)\n\n// Benefits:\n// - Modules completely independent\n// - Delete NotificationModule → no breaks\n// - Move modules freely\n// - Easy to test in isolation\n// - Loose coupling",
+              "scope": "All module communication - use Operator pubsub for cross-module events"
+            }
+          }
+        }
+      },
+      {
+        "id": "8e735570-8450-4e3b-ac80-fa94da69dcbd",
+        "payload": {
+          "description": "ANTI-PATTERN: Multiple functions in one file - violates modularity and creates orphan code",
+          "metadata": {
+            "rule_id": "ANTI_MULTIPLE_FUNCTIONS_001",
+            "keywords": ["multiple-functions", "anti-pattern", "modularity", "orphan-code", "one-function-per-file"],
+            "rationale": "Violates modularity, creates hidden dependencies, leaves orphan code when refactoring. Can't delete individual functions cleanly. Related code scattered in same file. One function = one file = one purpose.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Multiple functions in utils.ts:\n// File: utils.ts\nexport function add(a: number, b: number): number {\n\treturn a + b\n}\n\nexport function subtract(a: number, b: number): number {\n\treturn a - b\n}\n\nexport function multiply(a: number, b: number): number {\n\treturn a * b\n}\n\nexport function divide(a: number, b: number): number {\n\treturn a / b\n}\n\n// Usage in ComponentA:\nimport { add, subtract } from './utils'\n\n// Usage in ComponentB:\nimport { multiply } from './utils'\n\n// Problems:\n// - Can't delete add() without affecting file\n// - ComponentA and ComponentB share same file\n// - Unclear which component uses which function\n// - Orphan code accumulates\n// - Bundle includes unused functions",
+              "reasoning": "Multiple functions per file prevent clean deletion and create hidden coupling"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - One function per file in separate folders:\n// File: add/index.ts\nexport default function add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n\n// File: subtract/index.ts\nexport default function subtract(minuend: number) {\n\treturn function subtractFromMinuend(subtrahend: number): number {\n\t\treturn minuend - subtrahend\n\t}\n}\n\n// File: multiply/index.ts\nexport default function multiply(multiplicand: number) {\n\treturn function multiplyByMultiplier(multiplier: number): number {\n\t\treturn multiplicand * multiplier\n\t}\n}\n\n// Usage:\nimport add from '@sitebender/toolsmith/vanilla/number/add/index.ts'\nimport subtract from '@sitebender/toolsmith/vanilla/number/subtract/index.ts'\n\n// Benefits:\n// - Delete add/ → completely gone\n// - Clear dependencies\n// - Perfect tree shaking\n// - No orphan code",
+              "scope": "All files - one function per file, no exceptions except curried inner functions"
+            }
+          }
+        }
+      },
+      {
+        "id": "9284b64f-01c7-4a1a-8431-3b00ebe875a4",
+        "payload": {
+          "description": "Single-use types below function code, multi-use types in separate files - important code first",
+          "metadata": {
+            "rule_id": "TYPE_PLACEMENT_001",
+            "keywords": ["type-placement", "types", "organization", "readability", "single-use", "multi-use"],
+            "rationale": "Keeps function/component at top of file for immediate visibility. Co-location for single-use types. Scrolling past type definitions to find the actual code. Important code first, supporting types below. Exception: Props types go ABOVE components for visibility.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Types obscuring function:\n// File: processData/index.ts\ntype InputData = {\n\tid: string\n\tvalue: number\n\ttimestamp: Date\n}\n\ntype ProcessedData = {\n\tid: string\n\tvalue: number\n\ttimestamp: Date\n\tprocessed: boolean\n}\n\ntype ValidationResult = {\n\tvalid: boolean\n\terrors: Array<string>\n}\n\n// Scroll down to find the actual function...\nexport default function processData(\n\tdata: InputData\n): ProcessedData {\n\t// Function implementation\n\treturn { ...data, processed: true }\n}\n\n// Problems:\n// - Function hidden below types\n// - Have to scroll to see what file does\n// - Types first = wrong priority",
+              "reasoning": "Types above code hide the important function and require scrolling"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Function first, types below:\n// File: processData/index.ts\nexport default function processData(\n\tdata: InputData\n): ProcessedData {\n\t// Function implementation visible immediately\n\treturn { ...data, processed: true }\n}\n\n// Supporting types below\ntype InputData = {\n\tid: string\n\tvalue: number\n\ttimestamp: Date\n}\n\ntype ProcessedData = {\n\tid: string\n\tvalue: number\n\ttimestamp: Date\n\tprocessed: boolean\n}\n\n// EXCEPTION: Component Props go ABOVE component\n// File: UserCard/index.tsx\ntype UserCardProps = {\n\tname: string\n\temail: string\n\tavatar?: string\n}\n\nexport default function UserCard(props: UserCardProps): JSX.Element {\n\treturn <div>{props.name}</div>\n}\n\n// Multi-use types in separate files:\n// File: User/index.ts (type definition)\nexport type User = {\n\tid: string\n\tname: string\n\temail: string\n}",
+              "scope": "All files - function/component first, single-use types below (except component Props above)"
+            }
+          }
+        }
+      },
+      {
+        "id": "93848890-e8d0-489a-a11c-583992020318",
+        "payload": {
+          "description": "ALL CODE FILES ARE CALLED index.ts(x) - folder name is the identifier, file is always index.ts(x)",
+          "metadata": {
+            "rule_id": "FILE_NAMING_INDEX_001",
+            "keywords": ["file-naming", "index", "folder-structure", "consistency", "constitutional", "naming-convention"],
+            "rationale": "Consistent file naming eliminates cognitive load and prevents naming conflicts. Inconsistent file naming creates navigation nightmares and violates the folder-as-namespace principle. One file per folder = one purpose per folder = clear mental model. CONSTITUTIONAL RULE - no exceptions except mod.ts (Envoy comments only, no code).",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Named files:\nproject/\n\tprocessData.ts          // WRONG\n\tprocessData/\n\t\tprocessData.ts        // WRONG\n\tuserHelpers.ts          // WRONG\n\tvalidateEmail.ts        // WRONG\n\tcomponents/\n\t\tButton.tsx            // WRONG\n\t\tCard.tsx              // WRONG\n\n// Problems:\n// - Inconsistent naming\n// - Folder vs file name confusion\n// - Cognitive load deciding names\n// - Violates folder-as-namespace\n// - Naming conflicts possible",
+              "reasoning": "Named files create inconsistency and cognitive load"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - All files named index.ts(x):\nproject/\n\tprocessData/\n\t\tindex.ts              // Function processData\n\t\tmod.ts                // Envoy comments only\n\tvalidateEmail/\n\t\tindex.ts              // Function validateEmail\n\tButton/\n\t\tindex.tsx             // Component Button\n\t\tindex.css             // Button styles\n\tCard/\n\t\tindex.tsx             // Component Card\n\t\tindex.css             // Card styles\n\n// File contents:\n// File: processData/index.ts\nexport default function processData(data: Data): Result {\n\t// Implementation\n}\n\n// Benefits:\n// - Zero cognitive load on file names\n// - Folder name IS the namespace\n// - Consistent everywhere\n// - No naming conflicts\n// - Clear mental model\n\n// EXCEPTION: mod.ts contains ONLY Envoy comments:\n// File: processData/mod.ts\n// [ENVOY] This function processes user data for validation\n// [PURPOSE] Transform raw input into validated data structure",
+              "scope": "ALL code files - index.ts(x) only, folder name is identifier (mod.ts exception for Envoy comments)"
+            }
+          }
+        }
+      },
+      {
+        "id": "b207700f-a519-45e3-b514-7ee0725df155",
+        "payload": {
+          "description": "ANTI-PATTERN: Making assumptions instead of asking for clarification when uncertain",
+          "metadata": {
+            "rule_id": "ANTI_ASSUMPTION_001",
+            "keywords": ["assumptions", "anti-pattern", "clarification", "questions", "communication", "requirements"],
+            "rationale": "Assumptions create messes that take weeks to fix. Wrong assumptions = broken code = wasted time = lost trust. Better to ask 10 questions than make 1 wrong assumption.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Assuming without asking:\n// User request: \"Add validation to the form\"\n\n// AI assumes without asking:\nexport default function validateForm(data: FormData): boolean {\n\t// Assuming user wants:\n\t// - Email validation\n\t// - Phone validation  \n\t// - Required field checks\n\t// - Length limits\n\t// - Format validation\n\t\n\tconst emailValid = /^[^@]+@[^@]+$/.test(data.email)\n\tconst phoneValid = /^\\d{10}$/.test(data.phone)\n\t\n\treturn emailValid && phoneValid\n}\n\n// Problems:\n// - User wanted different validation rules\n// - Assumed email/phone format\n// - Didn't ask about error handling\n// - Wasted time on wrong implementation\n// - Have to rewrite everything",
+              "reasoning": "Assumptions lead to wrong implementations that waste time and lose trust"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Ask for clarification:\n// User request: \"Add validation to the form\"\n\n// AI responds with questions:\n/*\nBefore I implement validation, I need clarification:\n\n1. Which fields need validation?\n2. What validation rules for each field?\n   - Email: Format only, or also check domain?\n   - Phone: International format or US only?\n3. How should errors be displayed?\n   - Inline below fields?\n   - Summary at top?\n   - Toast notifications?\n4. When should validation run?\n   - On blur (field loses focus)?\n   - On submit?\n   - On every keystroke?\n5. Should validation be blocking?\n   - Prevent submit with errors?\n   - Allow submit with warnings?\n\nPlease clarify so I can implement exactly what you need.\n*/\n\n// After clarification:\nexport default function validateForm(data: FormData): ValidationResult {\n\t// Implement based on actual requirements\n}",
+              "scope": "All development - ask questions when requirements unclear, never assume"
+            }
+          }
+        }
+      },
+      {
+        "id": "d52ec5bb-b75e-4f68-8d72-495c9b523d33",
+        "payload": {
+          "description": "Function name ALWAYS matches folder name (camelCase) - file is ALWAYS index.ts",
+          "metadata": {
+            "rule_id": "FUNC_FILE_STRUCTURE_001",
+            "keywords": ["naming-convention", "folder-name", "function-name", "consistency", "camelCase", "file-structure"],
+            "rationale": "Consistent structure reduces cognitive load. Always know where to find a function. Inconsistent naming creates navigation nightmares. Absolute consistency eliminates decision fatigue.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Mismatched names:\n// Folder: process-data/ (kebab-case)\n// File: process-data/index.ts\nexport default function processData() { }  // Name doesn't match folder\n\n// OR\n// Folder: processData/ (camelCase)\n// File: processData/processData.ts  // Wrong filename\nexport default function processData() { }\n\n// OR\n// Folder: ProcessData/ (PascalCase)\n// File: ProcessData/index.ts\nexport default function processData() { }  // Wrong folder case\n\n// Problems:\n// - Inconsistent naming\n// - Hard to find functions\n// - Cognitive load on case conversion\n// - Navigation nightmare",
+              "reasoning": "Mismatched names create confusion and navigation difficulty"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Matched names:\n// Folder: processData/           (camelCase)\n// File: processData/index.ts      (always index.ts)\nexport default function processData(data: Data): Result {\n\t// Implementation\n}\n\n// Folder: validateEmail/          (camelCase)\n// File: validateEmail/index.ts    (always index.ts)\nexport default function validateEmail(email: string): boolean {\n\t// Implementation\n}\n\n// Folder: UserCard/               (PascalCase for components)\n// File: UserCard/index.tsx        (always index.tsx)\nexport default function UserCard(props: UserCardProps): JSX.Element {\n\t// Implementation\n}\n\n// Pattern:\n// functionName/index.ts → function functionName\n// ComponentName/index.tsx → function ComponentName\n\n// Benefits:\n// - Zero ambiguity\n// - Instant navigation\n// - Consistent everywhere\n// - No decision fatigue",
+              "scope": "All functions/components - folder name matches function name (camelCase), file is index.ts(x)"
+            }
+          }
+        }
+      },
+      {
+        "id": "d58ded34-9724-4c26-9631-3a72a9d92fc5",
+        "payload": {
+          "description": "ANTI-PATTERN: Non-curried functions with multiple parameters - prevents composition",
+          "metadata": {
+            "rule_id": "ANTI_NON_CURRIED_001",
+            "keywords": ["currying", "anti-pattern", "composition", "partial-application", "functional-programming"],
+            "rationale": "All Sitebender functions must be curried for composition and partial application. Multi-parameter functions can't be composed or partially applied. Functions are building blocks - they must be composable.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Non-curried multi-parameter function:\nexport default function add(a: number, b: number): number {\n\treturn a + b\n}\n\n// Usage:\nconst result = add(2, 3)  // 5\n\n// Problems:\n// - Can't partially apply\n// - Can't compose with pipe/compose\n// - Not a building block\n\n// Can't do this:\nconst add5 = add(5)  // ERROR: missing parameter b\nconst numbers = [1, 2, 3]\nconst results = numbers.map(add5)  // Can't do this\n\n// Can't compose:\nconst addThenDouble = pipe(\n\tadd,  // ERROR: needs 2 params\n\tdouble\n)",
+              "reasoning": "Non-curried functions prevent partial application and composition"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Curried function:\nexport default function add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n\n// Usage:\nconst result = add(2)(3)  // 5\n\n// Partial application:\nconst add5 = add(5)\nconst numbers = [1, 2, 3]\nconst results = numbers.map(add5)  // [6, 7, 8]\n\n// Composition:\nimport { pipe } from '@sitebender/toolsmith/vanilla/function/pipe/index.ts'\nimport double from '@sitebender/toolsmith/vanilla/number/double/index.ts'\n\nconst add5ThenDouble = pipe(\n\tadd(5),\n\tdouble\n)\n\nadd5ThenDouble(3)  // (3 + 5) * 2 = 16\n\n// Benefits:\n// - Partial application\n// - Easy composition\n// - Reusable building blocks\n// - Inner function name documents outer param",
+              "scope": "All Sitebender functions - must be curried, no multi-parameter functions"
+            }
+          }
+        }
+      },
+      {
+        "id": "e4882916-d587-4e5c-900e-aa304c11b129",
+        "payload": {
+          "description": "Place functions at lowest common ancestor - automatic cleanup and clear ownership",
+          "metadata": {
+            "rule_id": "LOWEST_COMMON_ANCESTOR_001",
+            "keywords": ["lowest-common-ancestor", "lca", "folder-placement", "delete-safety", "modularity", "helper-functions"],
+            "rationale": "Automatic cleanup - delete a feature and all its helpers go with it. No orphan code. Clear ownership. Functions at wrong level create hidden dependencies and accumulate as tech debt. Modular architecture - things that change together live together.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Function placed too high:\nproject/\n\tutils/                    // Too high!\n\t\thashPassword/\n\t\t\tindex.ts\n\tuserAuth/\n\t\tlogin/\n\t\t\tindex.ts           // Uses hashPassword\n\t\tregister/\n\t\t\tindex.ts           // Uses hashPassword\n\t\tresetPassword/\n\t\t\tindex.ts           // Uses hashPassword\n\tadminAuth/                 // Doesn't use hashPassword\n\t\tadminLogin/\n\t\t\tindex.ts\n\n// Problem:\n// - hashPassword in utils/ (too high)\n// - Only userAuth/ uses it\n// - Delete userAuth/ → hashPassword orphaned\n// - Unclear ownership",
+              "reasoning": "Functions placed too high create orphan code when features are deleted"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Function at lowest common ancestor:\nproject/\n\tuserAuth/                         // LCA for login/register/resetPassword\n\t\t_hashPassword/                  // Underscore = internal helper\n\t\t\tindex.ts\n\t\tlogin/\n\t\t\tindex.ts                      // Uses _hashPassword\n\t\t\t_validateCredentials/         // Only login uses\n\t\t\t\tindex.ts\n\t\tregister/\n\t\t\tindex.ts                      // Uses _hashPassword\n\t\t\t_checkEmailExists/            // Only register uses\n\t\t\t\tindex.ts\n\t\tresetPassword/\n\t\t\tindex.ts                      // Uses _hashPassword\n\t\t\t_sendResetEmail/              // Only resetPassword uses\n\t\t\t\tindex.ts\n\tadminAuth/\n\t\tadminLogin/\n\t\t\tindex.ts\n\n// Benefits:\n// - Delete userAuth/ → _hashPassword goes with it\n// - Clear ownership\n// - No orphan code\n// - Helpers close to consumers\n\n// Rule: Place at lowest node where ALL consumers branch\n// login/register/resetPassword all branch from userAuth/\n// → _hashPassword goes in userAuth/",
+              "scope": "All helper functions - place at lowest common ancestor, use underscore prefix for internal helpers"
+            }
+          }
+        }
+      },
+      {
+        "id": "f8695c47-a417-493f-a3d9-3557cf87608e",
+        "payload": {
+          "description": "All functions must be curried - inner function name captures outer parameter for clarity",
+          "metadata": {
+            "rule_id": "PATTERN_CURRYING_001",
+            "keywords": ["currying", "composition", "partial-application", "function-naming", "inner-function"],
+            "rationale": "Currying enables partial application and composition. Inner function name captures outer parameter for self-documenting code. Non-curried functions can't be easily composed or partially applied. All functions should be composable building blocks.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Arrow function, not curried:\nconst add = (a: number, b: number): number => a + b\n\n// OR\nconst add = (a: number) => (b: number): number => a + b\n\n// Problems:\n// - Arrow function syntax (wrong)\n// - No inner function name\n// - Doesn't document outer param\n// - Less readable\n\n// Can't tell what 'a' represents:\nconst result = add(5)(3)  // What is 5? What is 3?",
+              "reasoning": "Arrow functions and unnamed inner functions lack clarity and violate syntax rules"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Named function with descriptive currying:\nexport default function add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n\n// Inner function name documents outer param:\n// \"addToAugend\" tells you the first param is the augend\n// \"addend\" is clearly the value being added\n\n// Usage is self-documenting:\nconst add5 = add(5)        // add(augend)\nconst result = add5(3)     // addToAugend(addend)\n\n// More examples:\nexport default function subtract(minuend: number) {\n\treturn function subtractFromMinuend(subtrahend: number): number {\n\t\treturn minuend - subtrahend\n\t}\n}\n\nexport default function divide(dividend: number) {\n\treturn function divideByDivisor(divisor: number): number {\n\t\treturn dividend / divisor\n\t}\n}\n\n// Benefits:\n// - Self-documenting\n// - Clear parameter roles\n// - Composable\n// - Partially applicable",
+              "scope": "All functions - must be curried with named inner function that documents outer parameter"
+            }
+          }
+        }
+      },
+      {
+        "id": "fb6c0432-ca3d-4763-a920-e760a5ac9455",
+        "payload": {
+          "description": "Folder hierarchy precisely matches code hierarchy - embrace deep nesting for clarity",
+          "metadata": {
+            "rule_id": "FILE_HIERARCHY_001",
+            "keywords": ["folder-hierarchy", "nesting", "modularity", "file-structure", "navigation", "collapsible"],
+            "rationale": "See entire app structure at a glance. Collapse what you don't care about. Related files stay together. Flat structures or multi-function files create navigation nightmares. Folders are free. Use them liberally. They're not going extinct.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Flat structure with multi-function files:\nproject/\n\tutils.ts              // 20 functions in one file\n\thelpers.ts            // 15 functions in one file\n\tvalidators.ts         // 10 functions in one file\n\n// File: utils.ts (500 lines)\nexport function validateEmail() { }\nexport function validatePhone() { }\nexport function formatDate() { }\nexport function parseDate() { }\nexport function hashPassword() { }\n// ... 15 more functions\n\n// Problems:\n// - Can't see structure\n// - Can't collapse unrelated code\n// - Navigation nightmare\n// - Scrolling through huge files\n// - Unclear dependencies",
+              "reasoning": "Flat structures hide code organization and prevent collapsing unrelated code"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Deep hierarchy matching code structure:\nproject/\n\tprocessUser/\n\t\tindex.ts\n\t\t_validateUser/\n\t\t\tindex.ts\n\t\t\t_validateEmail/\n\t\t\t\tindex.ts\n\t\t\t_validatePhone/\n\t\t\t\tindex.ts\n\t\t_normalizeEmail/\n\t\t\tindex.ts\n\t\t_hashPassword/\n\t\t\tindex.ts\n\tformatDate/\n\t\tindex.ts\n\t\t_parseDate/\n\t\t\tindex.ts\n\n// In IDE with folder collapsing:\nproject/\n\t▶ processUser/           // Collapse when not working on it\n\t▼ formatDate/            // Expand when working on it\n\t\tindex.ts\n\t\t▶ _parseDate/\n\n// Benefits:\n// - See structure at a glance\n// - Collapse unrelated code\n// - Clear dependencies (folder nesting)\n// - Easy navigation\n// - Related files together\n\n// Rule: Hierarchy shows dependencies\n// _validateEmail inside _validateUser → dependency clear\n// _hashPassword at processUser level → used by multiple",
+              "scope": "All folders - deep hierarchy matching code structure, collapse what you don't need"
+            }
+          }
+        }
+      },
+      {
+        "id": "fc59579f-9a2f-4cb8-804f-376b65f9395f",
+        "payload": {
+          "description": "Always import as default directly from function file using @sitebender aliases, never relative paths",
+          "metadata": {
+            "rule_id": "IMPORT_DEFAULT_DIRECT_001",
+            "keywords": ["imports", "default-import", "aliases", "direct-imports", "tree-shaking", "move-safe"],
+            "rationale": "Clearest and simplest. Shows exact dependency. Enables vigorous tree shaking. Aliases prevent breakage when moving modules. Named imports and relative paths create ambiguity, bloat, and breakage when refactoring. Explicit direct dependencies with move-safe aliases.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Named imports from barrel files:\nimport { sum, average, max } from '@sitebender/toolsmith'\n\n// Problems:\n// - Imports from barrel file\n// - Prevents tree shaking\n// - Unclear which file contains sum\n// - Bundle bloat\n\n// ❌ PROHIBITED - Relative paths:\nimport sum from '../../../utils/array/sum'\nimport average from '../../helpers/average'\n\n// Problems:\n// - Breaks when moving files\n// - Fragile refactoring\n// - Hard to read (counting ../..)\n// - No consistent import pattern\n\n// ❌ PROHIBITED - Named exports:\n// File: sum/index.ts\nexport function sum(arr: Array<number>): number { }\n\n// Import:\nimport { sum } from '@sitebender/toolsmith/sum/index.ts'\n\n// Problems:\n// - Named export/import\n// - Less clear\n// - Can't rename easily",
+              "reasoning": "Named imports, barrel files, and relative paths prevent tree shaking and break during refactoring"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Default import with alias:\n// File: sum/index.ts\nexport default function sum(\n\tarray: ReadonlyArray<number>\n): number {\n\treturn array.reduce((acc, n) => acc + n, 0)\n}\n\n// Import:\nimport sum from '@sitebender/toolsmith/vanilla/array/sum/index.ts'\nimport average from '@sitebender/toolsmith/vanilla/array/average/index.ts'\nimport max from '@sitebender/toolsmith/vanilla/array/max/index.ts'\n\n// Benefits:\n// - Exact file path visible\n// - Perfect tree shaking\n// - Move-safe (aliases in deno.jsonc)\n// - Clear dependencies\n// - Consistent pattern\n\n// Alias configuration in deno.jsonc:\n// \"imports\": {\n//   \"@sitebender/toolsmith/\": \"./packages/toolsmith/\",\n//   \"@sitebender/pagewright/\": \"./packages/pagewright/\"\n// }\n\n// Move files freely - aliases don't break:\n// Move sum/index.ts → stats/sum/index.ts\n// Alias still works: @sitebender/toolsmith/stats/sum/index.ts",
+              "scope": "All imports - default import from exact file path using @sitebender aliases"
+            }
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001
+}
