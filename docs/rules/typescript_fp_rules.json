@@ -1,0 +1,864 @@
+{
+  "result": {
+    "points": [
+      {
+        "id": "083c564d-ffd8-4c97-9ccc-e3e096f3df62",
+        "payload": {
+          "description": "All data structures must be immutable. Use const, ReadonlyArray<T>, Readonly<T>. Use freeze/deepFreeze via Toolsmith for runtime immutability",
+          "metadata": {
+            "rule_id": "FP_IMMUTABILITY_001",
+            "keywords": ["immutability", "functional-programming", "typescript", "readonly", "const", "freeze", "deepfreeze", "pure-functions", "data-structures", "mutations"],
+            "rationale": "Immutability eliminates entire classes of bugs related to unexpected state changes and makes code easier to reason about. Data flows through transformations rather than mutating in place. This prevents race conditions, debugging nightmares, and lost data that occur with mutable state.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Mutable operations:\nconst arr = [1, 2, 3]\narr.push(4) // Mutation\n\nconst obj = { name: 'John' }\nobj.property = 'newValue' // Direct mutation\n\nlet items = ['a', 'b']\nitems = items.concat('c') // let allows reassignment",
+              "reasoning": "Mutations create unpredictable behavior, race conditions, and make debugging extremely difficult"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Immutable patterns:\nimport { freeze, deepFreeze } from '@sitebender/toolsmith'\n\nconst oldArr: ReadonlyArray<number> = [1, 2, 3]\nconst newArr = [...oldArr, 4] // Spread creates new array\n\nconst oldObj: Readonly<{ name: string }> = { name: 'John' }\nconst newObj = { ...oldObj, property: 'newValue' } // New object\n\n// Runtime immutability enforcement:\nconst config = freeze({ apiUrl: 'https://api.example.com' })\nconst deepConfig = deepFreeze({ nested: { data: [1, 2, 3] } })",
+              "scope": "All TypeScript/JavaScript code - no exceptions"
+            }
+          }
+        }
+      },
+      {
+        "id": "355fb178-b477-43f6-9246-4932332420bc",
+        "payload": {
+          "description": "Application libraries must use Toolsmith boxed functions and return monads",
+          "metadata": {
+            "rule_id": "FP_APPLICATION_USE_BOXED_001",
+            "keywords": ["toolsmith", "boxed-functions", "monads", "application-code", "result", "validation", "composability", "error-handling", "pagewright", "architect"],
+            "rationale": "Boxed functions provide monadic error handling and composability for application code. Using vanilla functions in applications loses error accumulation and monadic composition capabilities. Application code should be monadic while Toolsmith internals can be optimized with vanilla implementations.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using vanilla in application code:\n// In pagewright/architect/operator/custodian:\nimport validateEmail from '@sitebender/toolsmith/vanilla/validation/validateEmail/index.ts'\n\nfunction processUser(email: string): User | null {\n\t// Loses monadic composition\n\tconst validated = validateEmail(email)\n\tif (!validated) return null\n\t// ...\n}",
+              "reasoning": "Vanilla functions don't provide monadic error handling needed in application code"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Boxed functions in applications:\nimport validateEmail from '@sitebender/toolsmith/boxed/validation/validateEmail/index.ts'\nimport type { Result } from '@sitebender/toolsmith/types'\n\nfunction processUser(email: string): Result<User, ValidationError> {\n\treturn pipe(\n\t\temail,\n\t\tvalidateEmail,\n\t\tmap(createUser),\n\t\tmap(enrichUserData)\n\t)\n}",
+              "scope": "Required in pagewright, architect, operator, custodian - all application libraries"
+            }
+          }
+        }
+      },
+      {
+        "id": "4f60fa8e-baf0-4912-83d6-71b045f4b568",
+        "payload": {
+          "description": "Return Result<T,E> for sequential fail-fast operations or Validation<T,E> for parallel error accumulation. Prefer these over Maybe<T> for error handling",
+          "metadata": {
+            "rule_id": "FP_MONADIC_RETURNS_001",
+            "keywords": ["monads", "result", "validation", "error-handling", "functional-programming", "fail-fast", "error-accumulation", "maybe", "typescript"],
+            "rationale": "Result provides fail-fast sequential processing while Validation accumulates all errors for comprehensive feedback. Using Maybe for errors loses important error information. Error handling should be explicit and contextually appropriate - Result for sequential validation, Validation for parallel form validation.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using Maybe for error handling:\nimport type { Maybe } from '@sitebender/toolsmith/types'\n\nfunction validateUser(data: unknown): Maybe<User> {\n\t// Lost error information - why did it fail?\n\tif (!isValid(data)) return nothing()\n\treturn just(data as User)\n}",
+              "reasoning": "Maybe loses error context - caller doesn't know why validation failed"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Result for fail-fast, Validation for accumulation:\nimport type { Result, Validation } from '@sitebender/toolsmith/types'\n\n// Result: Stop at first error\nfunction validateUser(data: unknown): Result<User, ValidationError> {\n\treturn pipe(\n\t\tdata,\n\t\tvalidateEmail, // Stops here if invalid\n\t\tchain(validateAge),\n\t\tchain(validateName)\n\t)\n}\n\n// Validation: Collect all errors\nfunction validateForm(fields: FormData): Validation<User, Array<ValidationError>> {\n\treturn applicative(\n\t\tcreateUser,\n\t\tvalidateEmail(fields.email), // All run in parallel\n\t\tvalidateAge(fields.age),\n\t\tvalidateName(fields.name)\n\t) // Returns all errors if any fail\n}",
+              "scope": "All error handling - use Result for fail-fast, Validation for error collection"
+            }
+          }
+        }
+      },
+      {
+        "id": "75628776-5832-4de2-a9c0-ac1fd09b913c",
+        "payload": {
+          "description": "Toolsmith may use performance exceptions with [EXCEPTION] or [OPTIMIZATION] Envoy comments when ideology conflicts with performance requirements",
+          "metadata": {
+            "rule_id": "FP_TOOLSMITH_EXCEPTIONS_001",
+            "keywords": ["toolsmith", "performance", "exceptions", "optimization", "pragmatic", "foundation-library", "hot-path", "benchmarking", "documentation"],
+            "rationale": "Toolsmith is the foundation library - performance optimizations justify pragmatic exceptions to pure FP rules. Performance bottlenecks in Toolsmith affect all dependent libraries. Pragmatic performance over ideological purity when building foundations, but exceptions must be documented.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Exception without documentation:\n// In Toolsmith internal code:\nfunction _fastMap<T, U>(items: Array<T>, fn: (item: T) => U): Array<U> {\n\tconst result: Array<U> = []\n\tfor (let i = 0; i < items.length; i++) {\n\t\tresult.push(fn(items[i])) // No [EXCEPTION] comment\n\t}\n\treturn result\n}",
+              "reasoning": "Performance exceptions must be documented to track and justify FP violations"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Documented exceptions:\n// [EXCEPTION] Using .push() for O(1) amortized vs O(n) functional concat in hot path\nfunction _fastMap<T, U>(items: ReadonlyArray<T>, fn: (item: T) => U): Array<U> {\n\tconst result: Array<U> = []\n\tfor (let i = 0; i < items.length; i++) {\n\t\tresult.push(fn(items[i]))\n\t}\n\treturn result\n}\n\n// [OPTIMIZATION] Loop approved for O(n) vs O(n²) functional approach\nfunction _findIndex<T>(arr: ReadonlyArray<T>, pred: (item: T) => boolean): number {\n\tfor (let i = 0; i < arr.length; i++) {\n\t\tif (pred(arr[i])) return i\n\t}\n\treturn -1\n}",
+              "scope": "ONLY in Toolsmith internal utilities - NEVER in application code"
+            }
+          }
+        }
+      },
+      {
+        "id": "7877595b-0b56-4b53-b374-4a6aeeb5ed12",
+        "payload": {
+          "description": "Build complex operations by composing simple, focused functions. Use pipe for left-to-right composition, compose for right-to-left",
+          "metadata": {
+            "rule_id": "FP_COMPOSITION_001",
+            "keywords": ["composition", "functional-programming", "pipe", "compose", "modularity", "reusability", "testing", "building-blocks", "currying"],
+            "rationale": "Composition enables building sophisticated behavior from simple, well-tested building blocks. Each function does one thing well, making testing trivial and reuse natural. Monolithic functions are hard to test, understand, and reuse. Complex behavior emerges from simple function composition.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Monolithic function:\nfunction processNumbers(nums: Array<number>): number {\n\tconst result = []\n\tfor (const n of nums) {\n\t\tif (n % 2 === 0) { // Manual filtering\n\t\t\tconst doubled = n * 2 // Manual mapping\n\t\t\tresult.push(doubled)\n\t\t}\n\t}\n\t// Manual reduction\n\tlet sum = 0\n\tfor (const r of result) {\n\t\tsum += r\n\t}\n\treturn sum\n}",
+              "reasoning": "Monolithic implementation is hard to test, understand, and reuse individual pieces"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Composed from simple functions:\nimport { pipe, filter, map, reduce } from '@sitebender/toolsmith'\nimport { isEven, double, add } from './utilities'\n\nconst numbers: ReadonlyArray<number> = [1, 2, 3, 4, 5]\n\nconst result = pipe(\n\tnumbers,\n\tfilter(isEven),        // [2, 4]\n\tmap(double),           // [4, 8]\n\treduce(add)(0)         // 12\n)\n\n// Each function is simple, testable, reusable:\n// - isEven can be tested independently\n// - double can be reused elsewhere\n// - add is a general utility\n// - Composition is declarative and readable",
+              "scope": "All complex operations - compose simple functions instead of writing monoliths"
+            }
+          }
+        }
+      },
+      {
+        "id": "94e83cbb-f744-41e1-b57c-db6216ca3bc0",
+        "payload": {
+          "description": "Write TypeScript, to the extent possible, as if you were writing Haskell",
+          "metadata": {
+            "rule_id": "RULE_FUNDAMENTAL_001",
+            "keywords": ["haskell", "functional-programming", "typescript", "pure-functions", "immutability", "type-safety", "monads", "algebraic-data-types", "philosophy"],
+            "rationale": "Haskell is the most beautiful language ever written. FP is proven better for reduced cognitive load, fewer bugs, and better parallel processing. Functional programming is not opinion - it's mathematically superior. Writing imperative/OOP style creates massive technical debt and blocks progress for weeks.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Imperative/OOP style:\nclass UserService {\n\tprivate users: Array<User> = []\n\t\n\taddUser(user: User): void {\n\t\tthis.users.push(user) // Mutation\n\t}\n\t\n\tgetActiveUsers(): Array<User> {\n\t\tconst active = []\n\t\tfor (const user of this.users) { // Imperative loop\n\t\t\tif (user.active) {\n\t\t\t\tactive.push(user)\n\t\t\t}\n\t\t}\n\t\treturn active\n\t}\n}",
+              "reasoning": "OOP and imperative patterns create technical debt and violate FP principles"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Haskell-inspired TypeScript:\nimport { pipe, filter, map } from '@sitebender/toolsmith'\nimport type { User } from './types'\n\n// Pure function that returns new state\nfunction addUser(users: ReadonlyArray<User>) {\n\treturn function addUserToUsers(user: User): ReadonlyArray<User> {\n\t\treturn [...users, user]\n\t}\n}\n\n// Pure, composable functions\nconst isActive = (user: User): boolean => user.active\n\nfunction getActiveUsers(\n\tusers: ReadonlyArray<User>\n): ReadonlyArray<User> {\n\treturn filter(isActive)(users)\n}\n\n// Think in transformations, not mutations\n// Think in types, not objects\n// Think in composition, not inheritance",
+              "scope": "All TypeScript code - approach problems functionally, not imperatively"
+            }
+          }
+        }
+      },
+      {
+        "id": "96bb2884-447e-470b-b454-70d3abd0ecfa",
+        "payload": {
+          "description": "NO MAGIC NUMBERS. All non-obvious numbers must be named constants with descriptive names in SCREAMING_SNAKE_CASE",
+          "metadata": {
+            "rule_id": "FP_NO_MAGIC_NUMBERS_001",
+            "keywords": ["magic-numbers", "constants", "readability", "maintainability", "semantic-meaning", "screaming-snake-case", "self-documenting", "clarity"],
+            "rationale": "Magic numbers are meaningless and create mystery meat code that's impossible to understand or maintain. Named constants explain WHY that value exists. Every number should have semantic meaning - whether it's a mathematical identity, a business rule, or a configuration value.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Magic numbers:\nfunction retry(operation: () => Promise<void>) {\n\tif (attempts > 3) { // What is 3?\n\t\tthrow new Error('Failed')\n\t}\n}\n\nsetTimeout(callback, 5000) // Why 5000?\n\nconst result = items.slice(0, 10) // Why 10?",
+              "reasoning": "Magic numbers provide no context about their purpose or origin"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Named constants:\nconst MAX_RETRY_ATTEMPTS = 3\nconst POLLING_INTERVAL_MS = 5000\nconst DEFAULT_PAGE_SIZE = 10\nconst ADDITIVE_IDENTITY = 0\nconst MULTIPLICATIVE_IDENTITY = 1\nconst HTTP_OK = 200\nconst MIN_PASSWORD_LENGTH = 8\n\nfunction retry(operation: () => Promise<void>) {\n\tif (attempts > MAX_RETRY_ATTEMPTS) {\n\t\tthrow new Error('Failed')\n\t}\n}\n\nsetTimeout(callback, POLLING_INTERVAL_MS)\n\nconst result = items.slice(0, DEFAULT_PAGE_SIZE)\n\n// Mathematical identities are obvious:\nconst sum = reduce(add)(ADDITIVE_IDENTITY)(numbers)\nconst product = reduce(multiply)(MULTIPLICATIVE_IDENTITY)(numbers)",
+              "scope": "All code - every non-obvious number must be a named constant"
+            }
+          }
+        }
+      },
+      {
+        "id": "c43a6943-2e84-42d3-ac76-d84bbb8804e0",
+        "payload": {
+          "description": "Generator functions may use let/loops internally for performance - no Haskell equivalent exists",
+          "metadata": {
+            "rule_id": "FP_GENERATOR_EXCEPTIONS_001",
+            "keywords": ["generators", "lazy-evaluation", "exceptions", "let", "loops", "performance", "memory-efficiency", "pragmatic", "streaming"],
+            "rationale": "Generators have no functional equivalent in Haskell. Performance and memory efficiency require imperative implementation. When language features have no functional equivalent, pragmatic implementation is acceptable. Forcing functional patterns on generators creates performance bottlenecks and memory issues.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Forcing functional style on generators:\nfunction* range(start: number, end: number) {\n\t// This is awkward and defeats the purpose\n\tconst sequence = Array.from({ length: end - start + 1 }, (_, i) => start + i)\n\tfor (const n of sequence) {\n\t\tyield n\n\t}\n}",
+              "reasoning": "Functional approaches defeat the memory efficiency that generators provide"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Pragmatic generator implementation:\nfunction* range(start: number, end: number) {\n\tlet current = start\n\t\n\twhile (current <= end) {\n\t\tyield current\n\t\tcurrent++\n\t}\n}\n\nfunction* fibonacci() {\n\tlet [a, b] = [0, 1]\n\t\n\twhile (true) {\n\t\tyield a\n\t\t;[a, b] = [b, a + b]\n\t}\n}\n\n// Generators enable lazy evaluation:\nconst first10Fibs = take(10)(fibonacci())\n\n// Permitted in generators:\n// - let bindings for iteration state\n// - while/for loops\n// - Mutable counters within scope",
+              "scope": "Generator functions only - imperative patterns must stay within generator scope"
+            }
+          }
+        }
+      },
+      {
+        "id": "c7b4ea5f-c387-4737-9cda-d010c58ef908",
+        "payload": {
+          "description": "Single Responsibility Principle applies to modules, components, functions, types, and constants - each does ONE thing (Occam's Razor)",
+          "metadata": {
+            "rule_id": "FP_SINGLE_RESPONSIBILITY_001",
+            "keywords": ["single-responsibility", "srp", "occams-razor", "simplicity", "modularity", "testing", "reusability", "cognitive-load", "composability"],
+            "rationale": "Things that do multiple things are impossible to test, reuse, or understand. Simplicity reduces cognitive load. Multi-responsibility code becomes tangled spaghetti that breaks when you change anything. Do not needlessly complicate things - Occam's Razor in action.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Multiple responsibilities:\nfunction processUser(data: unknown): Promise<void> {\n\t// Validates\n\tif (!isValidEmail(data.email)) throw new Error('Invalid')\n\t\n\t// Transforms\n\tconst user = {\n\t\tname: data.name.trim().toLowerCase(),\n\t\temail: data.email.toLowerCase()\n\t}\n\t\n\t// Saves to database\n\tawait db.insert('users', user)\n\t\n\t// Sends email\n\tawait sendWelcomeEmail(user.email)\n\t\n\t// Logs\n\tconsole.log(`User created: ${user.email}`)\n}",
+              "reasoning": "Function does 5 things - impossible to test or reuse individual pieces"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Single responsibility per function:\nfunction validateUser(data: unknown): Result<ValidUser, ValidationError> {\n\t// ONLY validates\n\treturn pipe(\n\t\tdata,\n\t\tvalidateEmail,\n\t\tchain(validateName)\n\t)\n}\n\nfunction normalizeUser(user: ValidUser): NormalizedUser {\n\t// ONLY transforms\n\treturn {\n\t\tname: user.name.trim().toLowerCase(),\n\t\temail: user.email.toLowerCase()\n\t}\n}\n\nfunction saveUser(user: NormalizedUser): Promise<Result<User, DbError>> {\n\t// ONLY saves\n\treturn db.insert('users', user)\n}\n\n// Compose them:\nfunction createUser(data: unknown): Promise<Result<User, Error>> {\n\treturn pipe(\n\t\tdata,\n\t\tvalidateUser,\n\t\tmap(normalizeUser),\n\t\tchain(saveUser),\n\t\ttap(sendWelcomeEmail),\n\t\ttap(logUserCreation)\n\t)\n}",
+              "scope": "All modules, components, functions, types, constants - each does ONE thing"
+            }
+          }
+        }
+      },
+      {
+        "id": "c814a938-c890-4f4f-b863-a57a38455773",
+        "payload": {
+          "description": "Functions must be pure except for isolated I/O operations - same inputs produce same outputs, no side effects",
+          "metadata": {
+            "rule_id": "FP_PURE_EXCEPT_IO_001",
+            "keywords": ["pure-functions", "functional-programming", "side-effects", "io-boundaries", "predictability", "testing", "memoization", "parallelization", "equational-reasoning"],
+            "rationale": "Purity enables equational reasoning, makes testing trivial, and allows safe memoization and parallelization. Impure functions create unpredictable behavior and testing nightmares. Pure functions are mathematical - predictable and composable. I/O operations must be isolated to specific boundary functions.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Impure functions:\nlet counter = 0\n\nfunction addToCounter(n: number): number {\n\tcounter += n // Side effect - modifies external state\n\treturn counter\n}\n\nfunction processUser(user: User): User {\n\tconsole.log('Processing:', user.name) // Side effect - I/O\n\tuser.lastProcessed = new Date() // Mutation\n\treturn user\n}\n\nfunction getRandomUser(): User {\n\treturn users[Math.random() * users.length] // Non-deterministic\n}",
+              "reasoning": "Side effects make functions unpredictable, hard to test, and impossible to reason about"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Pure functions with isolated I/O:\n// Pure - same inputs always produce same outputs\nfunction addNumbers(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n\n// Pure - no mutations, returns new object\nfunction processUser(user: Readonly<User>): Readonly<User> {\n\treturn {\n\t\t...user,\n\t\tlastProcessed: new Date()\n\t}\n}\n\n// I/O isolated to boundary function\n// [IO] This function performs side effects\nfunction saveUserToDb(user: User): Promise<Result<User, DbError>> {\n\treturn db.insert('users', user)\n}\n\n// Pure core logic composed with I/O boundaries:\nfunction createAndSaveUser(data: unknown): Promise<Result<User, Error>> {\n\treturn pipe(\n\t\tdata,\n\t\tvalidateUser,      // Pure\n\t\tmap(normalizeUser), // Pure\n\t\tchain(saveUserToDb) // I/O boundary\n\t)\n}",
+              "scope": "All functions except explicit I/O boundaries marked with [IO] comment"
+            }
+          }
+        }
+      },
+      {
+        "id": "d6a1ed0a-a8ff-4851-928f-1b6a3563e8fc",
+        "payload": {
+          "description": "Vanilla functions for internal use where inputs are carefully guarded and monadic error handling not needed",
+          "metadata": {
+            "rule_id": "FP_VANILLA_INTERNAL_001",
+            "keywords": ["toolsmith", "vanilla-functions", "performance", "internal", "trusted-data", "optimization", "hot-path", "monads"],
+            "rationale": "Vanilla functions are more performant when inputs are guaranteed valid and error collection unnecessary. Using boxed functions internally adds unnecessary overhead. Right tool for the right job - vanilla for trusted internal use, boxed for applications.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using vanilla in public API:\n// Public API exposed to applications:\nexport function validateEmail(email: string): string | null {\n\t// Returns null on error - loses error context\n\tif (!email || !email.includes('@')) return null\n\treturn email.toLowerCase()\n}",
+              "reasoning": "Public APIs need monadic error handling to provide error context"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Vanilla for internal, boxed for public:\n\n// Internal utility (vanilla):\n// Path: /toolsmith/vanilla/string/_toLowerCase/index.ts\nfunction _toLowerCase(str: string): string | null {\n\tif (!str) return null\n\treturn str.toLowerCase()\n}\n\n// Public API (boxed):\n// Path: /toolsmith/boxed/validation/validateEmail/index.ts\nimport type { Result, ValidationError } from '@sitebender/toolsmith/types'\n\nexport default function validateEmail(\n\temail: string\n): Result<string, ValidationError> {\n\tif (!email) {\n\t\treturn failure({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'email',\n\t\t\tmessage: 'Email is required'\n\t\t})\n\t}\n\t\n\tif (!email.includes('@')) {\n\t\treturn failure({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'email',\n\t\t\tmessage: 'Email must contain @'\n\t\t})\n\t}\n\t\n\treturn success(email.toLowerCase())\n}",
+              "scope": "Vanilla in Toolsmith internals only; boxed for all public APIs"
+            }
+          }
+        }
+      },
+      {
+        "id": "f3ad0439-77ce-4ea4-878d-ba7584121cc0",
+        "payload": {
+          "description": "Use Either<L,R> for branching paths (left/right, this/that) with no implication that one is better than the other. Not for error handling",
+          "metadata": {
+            "rule_id": "FP_EITHER_BRANCHING_001",
+            "keywords": ["either", "monads", "branching", "choices", "alternatives", "result", "functional-programming", "type-safety"],
+            "rationale": "Either represents choice between two valid options, unlike Result which implies success/failure. Conflating Either with error handling misses its true purpose as a branching construct. Either is for paths, Result is for outcomes.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using Either for error handling:\nimport type { Either } from '@sitebender/toolsmith/types'\n\nfunction getUser(id: string): Either<Error, User> {\n\t// Treating left as error - use Result instead\n\tconst user = findUser(id)\n\treturn user ? right(user) : left(new Error('Not found'))\n}",
+              "reasoning": "Either is for choices, not errors. Use Result for error handling."
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Either for branching paths:\nimport type { Either, Result } from '@sitebender/toolsmith/types'\n\n// Either for two valid alternatives:\nfunction getUserData(\n\tuserId: string\n): Either<DatabaseResult, CacheResult> {\n\tconst cached = cache.get(userId)\n\tif (cached) return right(cached) // From cache\n\t\n\tconst fromDb = db.get(userId)\n\treturn left(fromDb) // From database\n}\n\n// Both sides are valid data sources\nfunction processUserData(\n\tdata: Either<DatabaseResult, CacheResult>\n): User {\n\treturn match(data)(\n\t\t(dbResult) => dbResult.user,\n\t\t(cacheResult) => cacheResult.user\n\t)\n}\n\n// For errors, use Result:\nfunction validateUser(id: string): Result<User, ValidationError> {\n\treturn isValidId(id)\n\t\t? success(getUser(id))\n\t\t: failure({ _tag: 'ValidationError', message: 'Invalid ID' })\n}",
+              "scope": "Use Either for branching between valid alternatives, Result for error handling"
+            }
+          }
+        }
+      },
+      {
+        "id": "f7eac462-17b9-4a4a-945c-b00f48a76351",
+        "payload": {
+          "description": "Use generators for streaming data, lazy evaluation, state machines, and custom iteration where memory efficiency matters. Unlike Haskell's default laziness, be selective - use lazy only where it provides real benefits",
+          "metadata": {
+            "rule_id": "FP_GENERATOR_USAGE_001",
+            "keywords": ["generators", "lazy-evaluation", "streaming", "memory-efficiency", "infinite-sequences", "performance", "iteration", "state-machines"],
+            "rationale": "Generators provide memory-efficient lazy evaluation for large data sets, infinite sequences, and expensive computations. Eager evaluation can cause memory issues with large data or unnecessary computation. Selective laziness - use where it matters, not everywhere like Haskell.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using generators where not needed:\nfunction* addOne(numbers: Array<number>) {\n\t// Small array, eager evaluation is fine\n\tfor (const n of numbers) {\n\t\tyield n + 1\n\t}\n}\n\nconst result = [...addOne([1, 2, 3])] // Defeats lazy purpose",
+              "reasoning": "Generators add complexity for small data sets where eager evaluation is sufficient"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Generators for memory efficiency:\n\n// Good: Streaming large CSV files\nfunction* readCsvLines(filePath: string) {\n\tconst stream = createReadStream(filePath)\n\tlet buffer = ''\n\t\n\tfor await (const chunk of stream) {\n\t\tbuffer += chunk\n\t\tconst lines = buffer.split('\\n')\n\t\tbuffer = lines.pop() || ''\n\t\t\n\t\tfor (const line of lines) {\n\t\t\tyield line\n\t\t}\n\t}\n}\n\n// Good: Infinite sequences\nfunction* fibonacci() {\n\tlet [a, b] = [0, 1]\n\twhile (true) {\n\t\tyield a\n\t\t;[a, b] = [b, a + b]\n\t}\n}\n\nconst first10 = take(10)(fibonacci())\n\n// Good: API pagination\nfunction* fetchAllUsers() {\n\tlet page = 1\n\twhile (true) {\n\t\tconst users = await fetchPage(page)\n\t\tif (users.length === 0) break\n\t\t\n\t\tfor (const user of users) {\n\t\t\tyield user\n\t\t}\n\t\tpage++\n\t}\n}\n\n// Avoid: Small data, simple transformations\nconst small = [1, 2, 3]\nconst doubled = map(double)(small) // Eager is fine",
+              "scope": "Use for large data, infinite sequences, streaming - not for small collections"
+            }
+          }
+        }
+      },
+      {
+        "id": "01bd4ab8-e25e-44f9-90c1-66368861a8ba",
+        "payload": {
+          "description": "Public functions use camelCase. Private functions prepend underscore: _privateFunction",
+          "metadata": {
+            "rule_id": "FUNC_NAMING_001",
+            "keywords": ["naming", "camelcase", "underscore", "private", "public", "api", "conventions", "visibility"],
+            "rationale": "Underscore immediately signals 'internal only' and prevents accidental imports. Without clear public/private distinction, internal APIs get misused creating breaking changes. Visual distinction between public interface and internal implementation.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - No visibility distinction:\nexport function processUser(user: User): User {\n\treturn normalize(transform(user))\n}\n\n// These look public but should be private:\nexport function normalize(user: User): User { ... }\nexport function transform(user: User): User { ... }",
+              "reasoning": "Internal helpers look public, leading to unintended external usage"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Clear public/private distinction:\n\n// Public API - camelCase:\nexport default function processUser(user: Readonly<User>): Readonly<User> {\n\treturn pipe(\n\t\tuser,\n\t\t_normalize,\n\t\t_transform\n\t)\n}\n\n// Private helpers - underscore prefix:\nfunction _normalize(user: Readonly<User>): Readonly<User> {\n\treturn {\n\t\t...user,\n\t\tname: user.name.trim().toLowerCase()\n\t}\n}\n\nfunction _transform(user: Readonly<User>): Readonly<User> {\n\treturn {\n\t\t...user,\n\t\tlastModified: new Date()\n\t}\n}\n\n// Only processUser is exported - internals stay internal",
+              "scope": "All functions - underscore prefix for private, camelCase for public"
+            }
+          }
+        }
+      },
+      {
+        "id": "115ba89a-4155-4088-a1f8-402c9a7fb90d",
+        "payload": {
+          "description": "NO abbreviations except: 1) Initialisms/acronyms (first letters of multiple words), 2) Approved whitelist: min, max, id, src, dest, temp, doc/docs, spec/specs, info, config, auth, demo, sync, async, ms, sec, hr, kb, mb, gb, tb",
+          "metadata": {
+            "rule_id": "NO_ABBREVIATIONS_001",
+            "keywords": ["abbreviations", "naming", "readability", "clarity", "self-documenting", "whitelist", "natural-language"],
+            "rationale": "Abbreviations create cognitive load requiring mental translation. Full words are self-documenting. Abbreviations create mystery meat code requiring decoding. Natural language coding - write code that reads like English.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Abbreviations:\nfunction calcTotal(vals: Array<number>): number {\n\treturn vals.reduce((acc, val) => acc + val, 0)\n}\n\nconst usrMsg = 'Hello'\nconst btnEl = document.querySelector('.btn')\nconst procResult = proc(data)\nconst impl = getImpl()",
+              "reasoning": "Abbreviations require mental translation and reduce code clarity"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Full words:\nfunction calculateTotal(values: ReadonlyArray<number>): number {\n\treturn reduce(add)(ADDITIVE_IDENTITY)(values)\n}\n\nconst userMessage = 'Hello'\nconst buttonElement = document.querySelector('.button')\nconst processedResult = process(data)\nconst implementation = getImplementation()\n\n// Whitelist approved:\nconst min = 0\nconst max = 100\nconst userId = '123'\nconst srcPath = './source'\nconst destPath = './destination'\nconst tempValue = 42\nconst apiConfig = { url: '...' }\nconst authToken = 'abc123'\nconst timeoutMs = 5000",
+              "scope": "All code - use full words except approved whitelist"
+            }
+          }
+        }
+      },
+      {
+        "id": "17ecbfa9-76bd-468a-b531-5a3923760786",
+        "payload": {
+          "description": "Functions are ALWAYS camelCase. Components are ALWAYS PascalCase. Constants are ALWAYS SCREAMING_SNAKE_CASE. JSON keys are ALWAYS camelCase. No exceptions",
+          "metadata": {
+            "rule_id": "CASE_CONVENTIONS_001",
+            "keywords": ["casing", "camelcase", "pascalcase", "screaming-snake-case", "naming", "conventions", "consistency", "readability"],
+            "rationale": "Consistent casing instantly identifies the type of identifier and reduces cognitive load. Mixed casing creates confusion about what's a function vs component vs constant. Visual consistency enables instant recognition.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Mixed/inconsistent casing:\nconst maxRetries = 3 // Should be SCREAMING_SNAKE_CASE\nfunction ProcessData(data: string) { ... } // Should be camelCase\nconst usercard = () => <div>...</div> // Should be PascalCase\nconst json = { first_name: 'John' } // Should be camelCase",
+              "reasoning": "Inconsistent casing makes it unclear what type of identifier you're looking at"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Consistent casing:\n\n// Constants: SCREAMING_SNAKE_CASE\nconst MAX_RETRIES = 3\nconst API_TIMEOUT_MS = 5000\nconst DEFAULT_PAGE_SIZE = 10\n\n// Functions: camelCase\nfunction processData(data: string): string {\n\treturn data.trim().toLowerCase()\n}\n\nfunction getUserInfo(id: string): User {\n\treturn findUser(id)\n}\n\n// Components: PascalCase\nfunction UserCard({ user }: Props) {\n\treturn <div>{user.name}</div>\n}\n\nfunction NavigationMenu({ items }: Props) {\n\treturn <nav>{items}</nav>\n}\n\n// JSON keys: camelCase\nconst user = {\n\tfirstName: 'John',\n\tlastName: 'Doe',\n\tisActive: true,\n\taccountBalance: 1000\n}",
+              "scope": "All code and data - no exceptions to casing rules"
+            }
+          }
+        }
+      },
+      {
+        "id": "1e2cedea-b026-4ed0-9fc9-18ed5ac8120a",
+        "payload": {
+          "description": "Arrow function syntax OK in type signatures but prefer named type aliases: type Transform = (value: number) => number is better than inline (value: number) => number",
+          "metadata": {
+            "rule_id": "TYPE_ARROW_SYNTAX_001",
+            "keywords": ["typescript", "types", "arrow-functions", "type-aliases", "function-types", "readability", "reusability"],
+            "rationale": "Type signatures can use arrow syntax, but named aliases are clearer and more reusable. Naming can be tricky for function types. Inline function types are harder to read and not reusable. Natural language coding - even types should have meaningful names when possible.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Inline function types everywhere:\nfunction process(\n\tfn: (a: number) => number,\n\tvalidator: (val: string) => boolean,\n\tmapper: (item: User) => ProcessedUser\n): (data: Array<number>) => Array<ProcessedUser> {\n\t// Hard to read, not reusable\n}",
+              "reasoning": "Inline function types reduce readability and prevent reuse"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Named type aliases:\n\n// Preferred: Named type aliases\ntype NumberTransform = (value: number) => number\ntype StringValidator = (value: string) => boolean\ntype UserMapper = (user: User) => ProcessedUser\ntype DataProcessor = (data: ReadonlyArray<number>) => ReadonlyArray<ProcessedUser>\n\nfunction process(\n\ttransform: NumberTransform,\n\tvalidator: StringValidator,\n\tmapper: UserMapper\n): DataProcessor {\n\t// Clear, reusable types\n}\n\n// Acceptable: Inline when simple and used once\nfunction map<T, U>(\n\tfn: (item: T) => U\n): (items: ReadonlyArray<T>) => ReadonlyArray<U> {\n\treturn function mapWithFn(items) {\n\t\treturn items.map(fn)\n\t}\n}",
+              "scope": "Type signatures - prefer named aliases for complex or reused function types"
+            }
+          }
+        }
+      },
+      {
+        "id": "45432b74-d608-43de-8329-92a59f1b8363",
+        "payload": {
+          "description": "Constants in SCREAMING_SNAKE_CASE, in constants/index.ts files, exported as named exports. Object keys within constants remain camelCase: COLORS.aquaBlue",
+          "metadata": {
+            "rule_id": "CONSTANTS_ORGANIZATION_001",
+            "keywords": ["constants", "screaming-snake-case", "organization", "exports", "naming", "discoverability"],
+            "rationale": "SCREAMING_SNAKE_CASE makes constants unmistakable and centralized location aids discoverability. Mixed-case constants blend in with variables. Constants should be visually distinct and organizationally grouped. Object/map keys remain camelCase even within constants.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Lowercase constants scattered around:\nconst maxRetries = 3 // Looks like variable\nconst apiConfig = { base_url: '...' } // Snake_case keys\n\n// In random files:\nconst timeout = 5000\nconst pageSize = 10",
+              "reasoning": "Lowercase constants blend with variables; scattered constants hard to find"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - SCREAMING_SNAKE_CASE in constants/index.ts:\n\n// Path: src/constants/index.ts\nexport const MAX_RETRIES = 3\nexport const API_TIMEOUT_MS = 5000\nexport const DEFAULT_PAGE_SIZE = 10\nexport const ADDITIVE_IDENTITY = 0\nexport const MULTIPLICATIVE_IDENTITY = 1\n\n// Object keys within constants remain camelCase:\nexport const API_CONFIG = {\n\tbaseUrl: 'https://api.example.com',\n\ttimeoutMs: 5000,\n\tretryAttempts: 3\n}\n\nexport const COLORS = {\n\tprimaryBlue: '#007bff',\n\tsecondaryGreen: '#28a745',\n\twarningYellow: '#ffc107'\n}\n\n// Usage:\nimport { MAX_RETRIES, API_CONFIG, COLORS } from './constants'\n\nif (attempts > MAX_RETRIES) { ... }\nconst url = API_CONFIG.baseUrl\nconst color = COLORS.primaryBlue",
+              "scope": "All constants - centralized in constants/index.ts with SCREAMING_SNAKE_CASE"
+            }
+          }
+        }
+      },
+      {
+        "id": "489c2ca9-088c-4e37-954e-e624a91d668c",
+        "payload": {
+          "description": "Initialisms and acronyms use Sentence case: innerHtml not innerHTML, AstNode not ASTNode, parseHtml not parseHTML, getApi not getAPI",
+          "metadata": {
+            "rule_id": "INITIALISM_CASE_001",
+            "keywords": ["initialisms", "acronyms", "casing", "sentence-case", "naming", "kebab-case", "snake-case", "consistency"],
+            "rationale": "Prevents garbage when converting cases: innerHtml → inner-html (clean) vs innerHTML → inner-h-t-m-l (garbage). All-caps initialisms create unreadable snake-case and kebab-case conversions. Visual consistency and clean case conversion.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - All-caps initialisms:\nconst innerHTML = element.innerHTML\nfunction parseXML(xml: string): ASTNode { ... }\nfunction getAPI(): APIResponse { ... }\ninterface DOMElement { ... }\n\n// Case conversion produces garbage:\n// innerHTML → inner-h-t-m-l (kebab)\n// parseXML → parse-x-m-l (kebab)\n// getAPI → get-a-p-i (kebab)",
+              "reasoning": "All-caps initialisms create unreadable kebab-case and snake-case conversions"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Sentence case for initialisms:\nconst innerHtml = element.innerHTML\nfunction parseXml(xml: string): AstNode { ... }\nfunction getApi(): ApiResponse { ... }\ninterface DomElement { ... }\n\n// Clean case conversions:\n// innerHtml → inner-html (clean)\n// parseXml → parse-xml (clean)\n// getApi → get-api (clean)\n\n// More examples:\nconst htmlParser = new HtmlParser()\nconst jsonData = parseJson(raw)\nconst apiClient = new ApiClient()\nconst astTransform = transformAst(tree)\nconst domManipulation = updateDom(element)",
+              "scope": "All initialisms and acronyms - use sentence case throughout"
+            }
+          }
+        }
+      },
+      {
+        "id": "4f200fc0-325d-46dd-a956-e4bf1dd51132",
+        "payload": {
+          "description": "Use semantic Toolsmith functions instead of operators and methods: isEqual not ===, length(arr) not arr.length, isNotEmpty(arr) not arr.length > 0, not(condition) instead of !condition",
+          "metadata": {
+            "rule_id": "SEMANTIC_FUNCTIONS_001",
+            "keywords": ["semantic-functions", "operators", "natural-language", "readability", "toolsmith", "null-safety", "self-documenting"],
+            "rationale": "Code reads like plain English. Toolsmith functions are null-safe and self-documenting. Operators like === and ! are cryptic and error-prone. Methods like arr.length create dependencies. Natural language coding - replace every operator with semantic equivalents.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Cryptic operators:\nif (x === y) { ... }\nif (x !== y) { ... }\nif (x >= y) { ... }\nif (!condition) { ... }\nif (arr.length > 0) { ... }\nconst len = arr.length\n\n// Problems:\n// - === is cryptic\n// - ! is easy to miss\n// - arr.length fails on null/undefined\n// - Not self-documenting",
+              "reasoning": "Operators are cryptic and error-prone; methods create null-safety issues"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Semantic Toolsmith functions:\nimport {\n\tisEqual,\n\tisNotEqual,\n\tgte,\n\tlte,\n\tnot,\n\tlength,\n\tisEmpty,\n\tisNotEmpty\n} from '@sitebender/toolsmith'\n\nif (isEqual(x)(y)) { ... }           // Reads like English\nif (isNotEqual(x)(y)) { ... }        // Clear intent\nif (gte(x)(y)) { ... }               // x >= y\nif (not(condition)) { ... }          // Explicit negation\nif (isNotEmpty(arr)) { ... }         // Null-safe, clear\nconst len = length(arr)              // Null-safe\n\n// Benefits:\n// - Reads like natural language\n// - Null-safe\n// - Self-documenting\n// - Composable\n// - Searchable",
+              "scope": "All code - replace operators and methods with semantic Toolsmith functions"
+            }
+          }
+        }
+      },
+      {
+        "id": "50e509f5-995c-40e3-97b3-4e948bbfa955",
+        "payload": {
+          "description": "Inner functions in curried functions should be named after what they CARRY (the enclosed value), not their parameter. Example: function add(augend) { return function addToAugend(addend) { return augend + addend } }",
+          "metadata": {
+            "rule_id": "FUNC_CLOSURE_NAMING_001",
+            "keywords": ["currying", "closures", "naming", "carried-values", "readability", "intent", "functional-programming"],
+            "rationale": "The parameter is visible in the signature. The carried/enclosed value is hidden - naming it makes the closure's purpose clear. Generic names like 'addY' don't communicate what value is being carried in the closure. Natural language coding - function names should express intent and captured state.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Generic closure names:\nfunction add(x: number) {\n\treturn function addY(y: number): number {\n\t\treturn x + y\n\t}\n}\n\nfunction multiply(a: number) {\n\treturn function multiplyB(b: number): number {\n\t\treturn a * b\n\t}\n}\n\n// What is x? What is 'Y'? Not clear.",
+              "reasoning": "Generic names don't communicate what value the closure carries"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Name after carried value:\n\n// Mathematical naming - augend is carried:\nfunction add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n\n// Multiplicand is carried:\nfunction multiply(multiplicand: number) {\n\treturn function multiplyByMultiplicand(multiplier: number): number {\n\t\treturn multiplicand * multiplier\n\t}\n}\n\n// Predicate is carried:\nfunction filter<T>(predicate: (item: T) => boolean) {\n\treturn function filterByPredicate(\n\t\titems: ReadonlyArray<T>\n\t): ReadonlyArray<T> {\n\t\treturn items.filter(predicate)\n\t}\n}\n\n// Transform function is carried:\nfunction map<T, U>(transform: (item: T) => U) {\n\treturn function mapWithTransform(\n\t\titems: ReadonlyArray<T>\n\t): ReadonlyArray<U> {\n\t\treturn items.map(transform)\n\t}\n}",
+              "scope": "All curried functions - name inner functions after carried/enclosed values"
+            }
+          }
+        }
+      },
+      {
+        "id": "510db60e-83db-4750-acb3-6ad8f33bc421",
+        "payload": {
+          "description": "NEVER use arrow functions. Always use named function declarations with explicit blocks and return statements",
+          "metadata": {
+            "rule_id": "FUNC_DECLARATION_001",
+            "keywords": ["arrow-functions", "function-declarations", "naming", "explicit", "stack-traces", "debugging", "readability"],
+            "rationale": "Named functions are traceable in stack traces. 'function' keyword is explicit. Forces explicit returns. Arrow functions create debugging nightmares and cognitive ambiguity. Natural language coding - functions should be named and explicit.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Arrow functions:\nconst add = (a, b) => a + b\nconst process = (data) => {\n\tconst result = transform(data)\n\treturn result\n}\n\n// Problems:\n// - Anonymous in stack traces\n// - Implicit returns can be confusing\n// - Not as explicit as 'function' keyword",
+              "reasoning": "Arrow functions create anonymous stack traces and are less explicit"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Named function declarations:\nfunction add(augend: number) {\n\treturn function addToAugend(addend: number): number {\n\t\treturn augend + addend\n\t}\n}\n\nfunction process(data: Data): ProcessedData {\n\tconst result = transform(data)\n\treturn result\n}\n\n// Benefits:\n// - Named in stack traces\n// - Explicit return statements\n// - Clear 'function' keyword\n// - Hoisted for better organization\n\n// Exception: Test files can use arrows but prefer named:\ntest('adds numbers', () => {\n\t// Acceptable in tests only\n})\n\n// Even better in tests:\ntest('adds numbers', function testAddsNumbers() {\n\t// Named for better stack traces\n})",
+              "scope": "All code - no arrow functions except test files (but still prefer named)"
+            }
+          }
+        }
+      },
+      {
+        "id": "9040eb2f-209f-4636-ad4f-acd1ba50e9f9",
+        "payload": {
+          "description": "Types in PascalCase, in types/index.ts files, exported as named exports, imported with 'type' keyword",
+          "metadata": {
+            "rule_id": "TYPE_NAMING_001",
+            "keywords": ["typescript", "types", "pascalcase", "type-imports", "naming", "organization", "tree-shaking"],
+            "rationale": "PascalCase distinguishes types from values. 'type' import prevents runtime inclusion. Without 'type' keyword, types can bloat bundles. Clear distinction between types and runtime values.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Value imports and lowercase:\nimport { User, Product } from '../types/index.ts' // No 'type'\n\ntype user = { ... } // Should be PascalCase\ntype product = { ... } // Should be PascalCase",
+              "reasoning": "Value imports can bloat bundles; lowercase types blend with values"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Type imports with PascalCase:\n\n// Path: src/types/index.ts\nexport type User = {\n\treadonly id: string\n\treadonly name: string\n\treadonly email: string\n}\n\nexport type Product = {\n\treadonly id: string\n\treadonly name: string\n\treadonly price: number\n}\n\nexport type Result<T, E> =\n\t| { readonly _tag: 'success'; readonly value: T }\n\t| { readonly _tag: 'failure'; readonly error: E }\n\n// Usage - import with 'type' keyword:\nimport type { User, Product, Result } from '../types/index.ts'\n\nfunction getUser(id: string): Result<User, Error> {\n\t// ...\n}\n\n// Benefits:\n// - Tree-shaking removes types from bundle\n// - PascalCase distinguishes from values\n// - Centralized type definitions",
+              "scope": "All TypeScript types - PascalCase, centralized, imported with 'type'"
+            }
+          }
+        }
+      },
+      {
+        "id": "a4eb7b28-5065-4980-bc87-968398bc7f94",
+        "payload": {
+          "description": "Write happy path first: if (isNotEmpty(arr)) { process } return null - NOT if (isEmpty(arr)) { return null } process",
+          "metadata": {
+            "rule_id": "HAPPY_PATH_FIRST_001",
+            "keywords": ["happy-path", "readability", "control-flow", "guard-clauses", "intent", "early-returns"],
+            "rationale": "Happy path should be the main branch, not buried in else clauses. Easier to understand the intended flow. Error-first code obscures the main purpose and creates nested logic. Natural language coding - lead with what you want to accomplish, not what might go wrong.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Error-first, nested logic:\nfunction processData(arr: Array<number>): number | null {\n\tif (arr.length === 0) {\n\t\treturn null\n\t} else {\n\t\tif (arr.length > 100) {\n\t\t\treturn null\n\t\t} else {\n\t\t\treturn arr.map(x => x * 2).reduce((a, b) => a + b, 0)\n\t\t}\n\t}\n}",
+              "reasoning": "Happy path buried in nested else clauses makes intent unclear"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Happy path first with guard clauses:\nimport { isNotEmpty, length, gte, pipe, map, reduce } from '@sitebender/toolsmith'\n\nfunction processData(\n\tarr: ReadonlyArray<number>\n): number | null {\n\t// Guard clauses first:\n\tif (isEmpty(arr)) return null\n\tif (gte(length(arr))(100)) return null\n\t\n\t// Happy path clearly visible:\n\treturn pipe(\n\t\tarr,\n\t\tmap(double),\n\t\treduce(add)(ADDITIVE_IDENTITY)\n\t)\n}\n\n// Alternative with early return:\nfunction processUser(data: unknown): User | null {\n\t// Guard: handle error case first\n\tif (!isValid(data)) return null\n\t\n\t// Happy path: main logic clearly visible\n\treturn pipe(\n\t\tdata,\n\t\tnormalize,\n\t\tenrich,\n\t\tvalidate\n\t)\n}",
+              "scope": "All functions - write guard clauses first, then happy path"
+            }
+          }
+        }
+      },
+      {
+        "id": "b6b08f9e-838f-41d8-b35a-ca0bd0b08924",
+        "payload": {
+          "description": "Extract operations for readability instead of inline: const multiplyBy7 = multiply(7); map(multiplyBy7)(numbers) - NOT map(n => n * 7)(array)",
+          "metadata": {
+            "rule_id": "EXTRACT_FOR_READABILITY_001",
+            "keywords": ["readability", "extraction", "naming", "self-documenting", "inline", "clarity", "natural-language"],
+            "rationale": "Named operations read like English. Inline operations require mental parsing. Inline operations create cognitive load and reduce code comprehension. Natural language coding - give every operation a meaningful name.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Inline anonymous operations:\nconst result = map(n => n * 7)([1, 2, 3, 4, 5])\nconst filtered = filter(x => x > 10)(numbers)\nconst users = map(u => ({ ...u, active: true }))(data)",
+              "reasoning": "Inline operations require mental parsing and aren't self-documenting"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Extract and name operations:\nimport { map, filter, multiply } from '@sitebender/toolsmith'\n\n// Extract operation and give it a name:\nconst multiplyBy7 = multiply(7)\nconst result = map(multiplyBy7)(numbers)\n\n// Named predicate:\nconst isGreaterThan10 = gte(10)\nconst filtered = filter(isGreaterThan10)(numbers)\n\n// Named transformation:\nfunction markUserActive(user: Readonly<User>): Readonly<User> {\n\treturn { ...user, active: true }\n}\nconst activeUsers = map(markUserActive)(users)\n\n// Reads like English:\nconst processedData = pipe(\n\trawData,\n\tfilter(isValid),\n\tmap(normalize),\n\tmap(enrich),\n\tfilter(isComplete)\n)",
+              "scope": "All code - extract and name operations instead of inline anonymous functions"
+            }
+          }
+        }
+      },
+      {
+        "id": "e9a795a8-4d78-4864-971a-dd4207a8b955",
+        "payload": {
+          "description": "Component props are named 'Props', exported as named export, placed ABOVE the component",
+          "metadata": {
+            "rule_id": "COMPONENT_PROPS_001",
+            "keywords": ["components", "props", "jsx", "tsx", "naming", "organization", "visibility", "typescript"],
+            "rationale": "Props are fundamental to components - deserve prime visibility. Generic name makes sense in context. Props buried below component are harder to find. Important things should be visible first.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Props below component or not exported:\nexport default function UserCard({ user, onEdit }: UserCardProps) {\n\treturn <div>{user.name}</div>\n}\n\n// Props defined elsewhere or not exported\ntype UserCardProps = {\n\tuser: User\n\tonEdit: (user: User) => void\n}",
+              "reasoning": "Props below component reduce visibility; specific names add noise"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Props named 'Props', exported, placed above:\n\n// Props first - high visibility\nexport type Props = {\n\treadonly user: Readonly<User>\n\treadonly onEdit: (user: User) => void\n}\n\n// Component below\nexport default function UserCard({ user, onEdit }: Props) {\n\treturn (\n\t\t<div>\n\t\t\t<h2>{user.name}</h2>\n\t\t\t<button onClick={() => onEdit(user)}>Edit</button>\n\t\t</div>\n\t)\n}\n\n// When importing, rename if needed:\nimport UserCard, {\n\ttype Props as UserCardProps\n} from './UserCard'\n\n// Benefits:\n// - Props immediately visible\n// - Generic name clear in context\n// - Exported for type checking\n// - Consistent across all components",
+              "scope": "All JSX/TSX components - Props above component, named 'Props', exported"
+            }
+          }
+        }
+      },
+      {
+        "id": "f07eca2e-595f-449e-831d-d664911aff5c",
+        "payload": {
+          "description": "Arrow functions OK in type signatures: (a: number) => number, but better to create named type aliases first: type NumberTransform = (value: number) => number",
+          "metadata": {
+            "rule_id": "ARROW_TYPES_CLARIFICATION_001",
+            "keywords": ["typescript", "type-signatures", "arrow-functions", "type-aliases", "readability", "reusability"],
+            "rationale": "Type signatures can use arrow syntax, but named aliases are clearer and more reusable. Inline function types are less readable than named type aliases. Natural language coding - give types meaningful names too.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Inline everywhere, hard to read:\nfunction transform(\n\tfn: (a: number) => number,\n\tvalidate: (v: string) => boolean,\n\tprocess: (data: User) => ProcessedUser\n): (items: Array<Data>) => Array<Result> {\n\t// Too many inline types\n}",
+              "reasoning": "Inline function types everywhere reduces readability"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Named type aliases preferred:\n\n// Better: Create named aliases\ntype NumberTransform = (value: number) => number\ntype StringValidator = (value: string) => boolean  \ntype UserProcessor = (user: User) => ProcessedUser\ntype DataTransform = (\n\titems: ReadonlyArray<Data>\n) => ReadonlyArray<Result>\n\nfunction transform(\n\ttransform: NumberTransform,\n\tvalidate: StringValidator,\n\tprocess: UserProcessor\n): DataTransform {\n\t// Clear, reusable types\n}\n\n// Acceptable: Simple inline when used once\nfunction map<T, U>(\n\tfn: (item: T) => U\n): (items: ReadonlyArray<T>) => ReadonlyArray<U> {\n\treturn function mapWithFn(items) {\n\t\treturn items.map(fn)\n\t}\n}",
+              "scope": "Type signatures - prefer named aliases for complex or reused types"
+            }
+          }
+        }
+      },
+      {
+        "id": "fc55e3a6-35cb-48e3-9cdb-6aa0fa517476",
+        "payload": {
+          "description": "Names must be readable as natural language. Use complete words and phrases that clearly express intent. Code should read like plain English",
+          "metadata": {
+            "rule_id": "NATURAL_LANGUAGE_NAMING_001",
+            "keywords": ["natural-language", "naming", "readability", "self-documenting", "intent", "clarity", "comprehension"],
+            "rationale": "Code is read far more often than written, so optimize for reader comprehension over writer convenience. Cryptic, overly terse, or clever names require mental translation and slow comprehension. Natural language coding - code should be self-documenting.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Cryptic, abbreviated names:\nfunction calcUsrBal(u: Usr): number { ... }\nfunction isUsrEmailVerif(u: Usr): boolean { ... }\nfunction sndWelcEmail(u: Usr): void { ... }\n\nconst usrs = getUsrs()\nconst actv = usrs.filter(u => u.actv)\nconst bal = calcBal(actv)",
+              "reasoning": "Cryptic names require mental translation and reduce comprehension"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Natural language, self-documenting:\nfunction calculateUserAccountBalance(user: User): number {\n\treturn pipe(\n\t\tuser,\n\t\tgetUserTransactions,\n\t\tmap(getTransactionAmount),\n\t\treduce(add)(ADDITIVE_IDENTITY)\n\t)\n}\n\nfunction isUserEmailAddressVerified(user: User): boolean {\n\treturn pipe(\n\t\tuser,\n\t\tgetUserEmail,\n\t\tmap(getEmailVerificationStatus),\n\t\tgetOrElse(false)\n\t)\n}\n\nfunction sendWelcomeEmailToNewUser(user: User): Promise<void> {\n\treturn pipe(\n\t\tuser,\n\t\tgenerateWelcomeEmail,\n\t\tsendEmail\n\t)\n}\n\n// Reads like English:\nconst users = getAllUsers()\nconst activeUsers = filter(isUserActive)(users)\nconst totalBalance = pipe(\n\tactiveUsers,\n\tmap(calculateUserAccountBalance),\n\treduce(add)(ADDITIVE_IDENTITY)\n)",
+              "scope": "All names - functions, variables, types, constants - must read like English"
+            }
+          }
+        }
+      },
+      {
+        "id": "03623e89-17fd-4bbf-93c7-3f3b8bd4b74a",
+        "payload": {
+          "description": "Generic constraints ensure type parameters meet specific requirements, providing compile-time safety while maintaining flexibility",
+          "metadata": {
+            "rule_id": "TS_GEN_014",
+            "keywords": ["typescript", "generics", "constraints", "type-safety", "extends", "compile-time", "flexibility"],
+            "rationale": "Generic constraints ensure type parameters meet specific requirements, providing compile-time safety while maintaining flexibility. Unconstrained generics allow invalid type combinations and reduce type safety in generic functions. Use extends clauses to constrain type parameters.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Unconstrained generics:\nfunction updateEntity<T>(entity: T, updates: Partial<T>): T {\n\t// No guarantee T has 'id' field\n\treturn { ...entity, ...updates }\n}\n\nfunction processStringifiable<T>(value: T): string {\n\t// No guarantee T has toString()\n\treturn value.toString()\n}",
+              "reasoning": "Unconstrained generics allow invalid types that may not have required properties"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Constrained generics:\ntype HasId = {\n\treadonly id: string\n}\n\nfunction updateEntity<T extends HasId>(\n\tentity: Readonly<T>\n) {\n\treturn function updateEntityWithEntity(\n\t\tupdates: Readonly<Partial<Omit<T, 'id'>>>\n\t): Readonly<T> {\n\t\treturn { ...entity, ...updates }\n\t}\n}\n\nfunction processStringifiable<T extends { toString(): string }>(\n\tvalue: T\n) {\n\treturn function processStringifiableValue(): string {\n\t\treturn `Processed: ${value.toString()}`\n\t}\n}\n\n// Type-safe at compile time:\nconst user = { id: '123', name: 'John' }\nconst updated = updateEntity(user)({ name: 'Jane' }) // ✓\nconst invalid = updateEntity(user)({ id: '456' }) // ✗ Compile error",
+              "scope": "All generic functions - constrain type parameters when they need specific properties"
+            }
+          }
+        }
+      },
+      {
+        "id": "05d0f856-b7b4-4bb9-b239-025268539f0e",
+        "payload": {
+          "description": "Proper function composition types enable type-safe pipeline operations and make complex transformations more readable and maintainable",
+          "metadata": {
+            "rule_id": "TS_FUN_012",
+            "keywords": ["typescript", "function-composition", "types", "currying", "pipe", "compose", "type-safety"],
+            "rationale": "Proper function composition types enable type-safe pipeline operations and make complex transformations more readable and maintainable. Improper composition types lead to type errors and make it difficult to build reusable, composable functions. Design types to support currying, piping, and composition patterns.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Non-composable function types:\ntype Transform = (a: any, b: any) => any // Too loose\n\nfunction process(\n\tfn1: (a: number, b: string) => number, // Not curried\n\tfn2: (x: string) => boolean\n): void {\n\t// Can't compose easily\n}",
+              "reasoning": "Non-curried, loosely-typed functions don't compose well"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Composable function types:\ntype Unary<A, B> = (a: A) => B\ntype Binary<A, B, C> = (a: A) => (b: B) => C\ntype Ternary<A, B, C, D> = (a: A) => (b: B) => (c: C) => D\n\nfunction pipe<A, B, C>(f: Unary<A, B>) {\n\treturn function pipeWithF(g: Unary<B, C>): Unary<A, C> {\n\t\treturn function pipedFunction(a: A): C {\n\t\t\treturn g(f(a))\n\t\t}\n\t}\n}\n\nfunction compose<A, B, C>(g: Unary<B, C>) {\n\treturn function composeWithG(f: Unary<A, B>): Unary<A, C> {\n\t\treturn function composedFunction(a: A): C {\n\t\t\treturn g(f(a))\n\t\t}\n\t}\n}\n\n// Type-safe composition:\nconst double: Unary<number, number> = (n) => n * 2\nconst toString: Unary<number, string> = (n) => String(n)\nconst length: Unary<string, number> = (s) => s.length\n\nconst transform = pipe(double)(pipe(toString)(length))",
+              "scope": "All function composition - use proper curried types for composability"
+            }
+          }
+        }
+      },
+      {
+        "id": "20812365-e519-4fc2-9e7d-d2f306e54e8e",
+        "payload": {
+          "description": "Readonly types enforce immutability at the type level, preventing accidental mutations and supporting functional programming patterns",
+          "metadata": {
+            "rule_id": "TS_IMM_004",
+            "keywords": ["typescript", "readonly", "immutability", "type-safety", "mutations", "functional-programming"],
+            "rationale": "Readonly types enforce immutability at the type level, preventing accidental mutations and supporting functional programming patterns. Mutable types allow accidental mutations that break immutability guarantees and cause hard-to-debug side effects. Use Readonly<T> and ReadonlyArray<T> to encode immutability constraints.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Mutable types:\nfunction updateUser(\n\tuser: User,\n\tupdates: Partial<User>\n): User {\n\tuser.name = updates.name // Mutation allowed by type\n\treturn user\n}\n\nfunction mapUsers(users: Array<User>): Array<ProcessedUser> {\n\tusers.push(newUser) // Mutation allowed\n\treturn users.map(processUser)\n}",
+              "reasoning": "Mutable types allow accidental mutations that violate immutability principles"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Readonly types:\nfunction updateUser(\n\tuser: Readonly<User>,\n\tupdates: Readonly<Partial<User>>\n): Readonly<User> {\n\t// Mutation prevented by types\n\treturn { ...user, ...updates }\n}\n\nfunction mapUsers(\n\tusers: ReadonlyArray<User>\n): ReadonlyArray<ProcessedUser> {\n\t// users.push(newUser) // Compile error\n\treturn users.map(processUser)\n}\n\n// Type definitions with readonly:\nexport type User = {\n\treadonly id: string\n\treadonly name: string\n\treadonly email: string\n}\n\nexport type Config = {\n\treadonly apiUrl: string\n\treadonly timeout: number\n\treadonly retries: number\n}",
+              "scope": "All types - use Readonly<T> and ReadonlyArray<T> to enforce immutability"
+            }
+          }
+        }
+      },
+      {
+        "id": "2e532697-9cb9-4797-80e9-f9aa338a62d7",
+        "payload": {
+          "description": "Smart constructors validate input and return Result types, ensuring branded types are always valid and providing clear error handling",
+          "metadata": {
+            "rule_id": "TS_BRT_009",
+            "keywords": ["typescript", "branded-types", "smart-constructors", "validation", "result", "type-safety"],
+            "rationale": "Smart constructors validate input and return Result types, ensuring branded types are always valid and providing clear error handling. Direct casting to branded types skips validation and allows invalid values to be treated as valid. Validate input and return Result<BrandedType, Error>.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Direct casting without validation:\ntype UserId = string & { readonly __brand: 'UserId' }\n\nfunction userId(str: string): UserId {\n\t// No validation - any string becomes UserId\n\treturn str as UserId\n}\n\nconst id = userId('') // Empty string is valid UserId?",
+              "reasoning": "Direct casting skips validation and allows invalid values"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Smart constructor with validation:\nimport type { Result, ValidationError } from '@sitebender/toolsmith/types'\nimport { isNotEmpty } from '@sitebender/toolsmith'\n\ntype UserId = string & { readonly __brand: 'UserId' }\n\nfunction userId(\n\tstr: string\n): Result<UserId, ValidationError> {\n\tif (\n\t\tisNotEmpty(str) &&\n\t\tstr.length <= 50 &&\n\t\t/^[a-zA-Z0-9_-]+$/.test(str)\n\t) {\n\t\treturn success(str as UserId)\n\t}\n\t\n\treturn failure({\n\t\t_tag: 'ValidationError',\n\t\tfield: 'userId',\n\t\tmessage: 'UserId must be 1-50 alphanumeric characters'\n\t})\n}\n\n// Usage:\nconst result = userId('user_123')\nmatch(result)(\n\t(id) => console.log('Valid:', id),\n\t(error) => console.error('Invalid:', error.message)\n)",
+              "scope": "All branded types - use smart constructors that validate and return Result"
+            }
+          }
+        }
+      },
+      {
+        "id": "47476b9e-e16d-48f2-8f2c-ed9cb675e5c8",
+        "payload": {
+          "description": "Type-level programming encodes constraints and relationships in the type system, providing compile-time guarantees and reducing runtime errors",
+          "metadata": {
+            "rule_id": "TS_ADV_005",
+            "keywords": ["typescript", "type-level-programming", "mapped-types", "conditional-types", "template-literals", "compile-time"],
+            "rationale": "Type-level programming encodes constraints and relationships in the type system, providing compile-time guarantees and reducing runtime errors. Runtime-only constraints allow invalid states to compile and fail at runtime, reducing system reliability. Leverage mapped types, conditional types, and template literals.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Runtime-only constraints:\ntype EventHandler = {\n\teventName: string // Any string allowed\n\tcallback: () => void\n}\n\nfunction handleEvent(handler: EventHandler) {\n\t// Runtime check needed\n\tif (!handler.eventName.startsWith('on')) {\n\t\tthrow new Error('Event must start with \"on\"')\n\t}\n}",
+              "reasoning": "Runtime checks allow invalid states to compile and fail at runtime"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Type-level constraints:\n\n// Non-empty array at type level:\ntype NonEmptyArray<T> = readonly [T, ...Array<T>]\n\nfunction head<T>(arr: NonEmptyArray<T>): T {\n\treturn arr[0] // Always safe - guaranteed non-empty\n}\n\n// Template literal types:\ntype EventName<T extends string> = `on${Capitalize<T>}`\n\ntype ClickEvent = EventName<'click'> // 'onClick'\ntype HoverEvent = EventName<'hover'> // 'onHover'\n\n// Required keys computed at type level:\ntype RequiredKeys<T> = {\n\t[K in keyof T]-?: {} extends Pick<T, K> ? never : K\n}[keyof T]\n\ntype User = {\n\tid: string\n\tname?: string\n\temail?: string\n}\n\ntype Required = RequiredKeys<User> // 'id'\n\n// Conditional types:\ntype IsString<T> = T extends string ? true : false\ntype Test1 = IsString<'hello'> // true\ntype Test2 = IsString<number> // false",
+              "scope": "Complex type constraints - encode in type system when possible"
+            }
+          }
+        }
+      },
+      {
+        "id": "50b8d689-f1cb-4c9c-8a7f-a21abb2dc0bc",
+        "payload": {
+          "description": "Unknown type requires explicit type checking before use, providing safety for truly unknown data while maintaining type system benefits. Use Toolsmith's Unknown type instead",
+          "metadata": {
+            "rule_id": "TS_UNK_008",
+            "keywords": ["typescript", "unknown", "toolsmith", "type-guards", "validation", "type-safety", "primitivevalue", "serializable"],
+            "rationale": "NEVER use TypeScript's built-in unknown type - use Toolsmith's PrimitiveValue, Serializable, Value, or Unknown types instead which provide better semantic meaning and type safety. Using any or skipping type validation on unknown data leads to runtime errors and eliminates type safety.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using TypeScript's unknown:\nfunction processData(data: unknown): User {\n\t// Direct usage without type guard\n\treturn data as User\n}\n\nfunction handleValue(value: unknown): string {\n\t// Using built-in unknown\n\treturn String(value)\n}",
+              "reasoning": "Built-in unknown type should never be used - use Toolsmith types"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Use Toolsmith types:\nimport {\n\ttype Value,\n\ttype Serializable,\n\ttype PrimitiveValue,\n\ttype Unknown\n} from '@sitebender/toolsmith'\n\nfunction isUser(value: Value): value is User {\n\treturn (\n\t\ttypeof value === 'object' &&\n\t\tvalue !== null &&\n\t\t'id' in value &&\n\t\t'name' in value\n\t)\n}\n\nfunction processUnknownData(\n\tdata: Unknown\n): Result<User, ValidationError> {\n\treturn isUser(data)\n\t\t? success(data)\n\t\t: failure({\n\t\t\t\t_tag: 'ValidationError',\n\t\t\t\tmessage: 'Not a valid user'\n\t\t\t})\n}\n\nfunction handlePrimitive(value: PrimitiveValue): string {\n\treturn String(value)\n}\n\nfunction serializeData(data: Serializable): string {\n\treturn JSON.stringify(data)\n}",
+              "scope": "All TypeScript - use Toolsmith types (Value, Serializable, PrimitiveValue, Unknown)"
+            }
+          }
+        }
+      },
+      {
+        "id": "5534f36a-8df4-441d-90a7-ab4cdf2d41c6",
+        "payload": {
+          "description": "Discriminated unions provide type-safe variant types with exhaustive pattern matching, eliminating null/undefined errors and enabling robust error handling",
+          "metadata": {
+            "rule_id": "TS_ADT_001",
+            "keywords": ["typescript", "discriminated-unions", "algebraic-data-types", "pattern-matching", "tag", "variants", "type-safety"],
+            "rationale": "Discriminated unions provide type-safe variant types with exhaustive pattern matching, eliminating null/undefined errors and enabling robust error handling. Using null/undefined or boolean flags leads to runtime errors, non-exhaustive handling, and loss of type safety. Use tagged unions with _tag field.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using null/undefined or booleans:\ntype Result = {\n\tvalue: any | null\n\terror: any | null\n\tisSuccess: boolean\n}\n\nfunction handleResult(result: Result): string {\n\tif (result.isSuccess) {\n\t\treturn result.value // Could be null\n\t} else {\n\t\treturn result.error // Could be null\n\t}\n}",
+              "reasoning": "Null/undefined and boolean flags don't provide exhaustive checking"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Discriminated unions with _tag:\ntype Result<T, E> =\n\t| { readonly _tag: 'success'; readonly value: T }\n\t| { readonly _tag: 'failure'; readonly error: E }\n\nfunction handleResult<T, E>(\n\tresult: Result<T, E>\n): string {\n\tswitch (result._tag) {\n\t\tcase 'success':\n\t\t\treturn `Success: ${result.value}`\n\t\tcase 'failure':\n\t\t\treturn `Error: ${result.error}`\n\t}\n\t// TypeScript ensures exhaustiveness\n}\n\n// Option/Maybe type:\ntype Option<T> =\n\t| { readonly _tag: 'some'; readonly value: T }\n\t| { readonly _tag: 'none' }\n\n// Validation type:\ntype Validation<T, E> =\n\t| { readonly _tag: 'valid'; readonly value: T }\n\t| { readonly _tag: 'invalid'; readonly errors: ReadonlyArray<E> }",
+              "scope": "All variant types - use discriminated unions with _tag field"
+            }
+          }
+        }
+      },
+      {
+        "id": "5f5f6474-c0f5-4321-a332-739f5503720f",
+        "payload": {
+          "description": "Proper error type design with discriminated unions provides type-safe error handling without exceptions and clear error categorization",
+          "metadata": {
+            "rule_id": "TS_ERR_013",
+            "keywords": ["typescript", "error-handling", "discriminated-unions", "error-types", "tag", "categorization", "type-safety"],
+            "rationale": "Proper error type design with discriminated unions provides type-safe error handling without exceptions and clear error categorization. Using exceptions or untyped errors leads to unhandled errors, unclear error contracts, and runtime crashes. Use discriminated unions for error types.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Throwing exceptions:\nfunction validateUser(data: unknown): User {\n\tif (!data) {\n\t\tthrow new Error('Invalid user')\n\t}\n\tif (!data.email) {\n\t\tthrow new Error('Email required')\n\t}\n\treturn data as User\n}\n\n// Loses type safety, unclear error types",
+              "reasoning": "Exceptions bypass type system and provide no error categorization"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Discriminated union error types:\ntype ValidationError = {\n\treadonly _tag: 'ValidationError'\n\treadonly field: string\n\treadonly message: string\n}\n\ntype NetworkError = {\n\treadonly _tag: 'NetworkError'\n\treadonly status: number\n\treadonly message: string\n}\n\ntype DatabaseError = {\n\treadonly _tag: 'DatabaseError'\n\treadonly code: string\n\treadonly message: string\n}\n\ntype AppError =\n\t| ValidationError\n\t| NetworkError\n\t| DatabaseError\n\nfunction handleError(error: AppError): string {\n\tswitch (error._tag) {\n\t\tcase 'ValidationError':\n\t\t\treturn `Validation failed for ${error.field}: ${error.message}`\n\t\tcase 'NetworkError':\n\t\t\treturn `Network error ${error.status}: ${error.message}`\n\t\tcase 'DatabaseError':\n\t\t\treturn `Database error ${error.code}: ${error.message}`\n\t}\n}\n\nfunction validateUser(\n\tdata: unknown\n): Result<User, ValidationError> {\n\tif (!data) {\n\t\treturn failure({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'user',\n\t\t\tmessage: 'User data required'\n\t\t})\n\t}\n\treturn success(data as User)\n}",
+              "scope": "All error handling - use discriminated unions, never throw exceptions"
+            }
+          }
+        }
+      },
+      {
+        "id": "8f6ecad2-e3fc-4ba9-aa5f-0a2679d88966",
+        "payload": {
+          "description": "Array<T> syntax is more explicit and consistent with generic type patterns, improving readability especially for complex nested types",
+          "metadata": {
+            "rule_id": "TS_ARR_006",
+            "keywords": ["typescript", "arrays", "syntax", "generics", "readability", "consistency", "readonly"],
+            "rationale": "Array<T> syntax is more explicit and consistent with generic type patterns, improving readability especially for complex nested types. T[] syntax becomes unclear with complex types and doesn't consistently follow generic type conventions. Use Array<T> and ReadonlyArray<T>.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - T[] syntax:\nfunction processUsers(\n\tusers: User[],\n\tprocessors: ((user: User) => ProcessedUser)[]\n): ProcessedUser[] {\n\t// Hard to read with complex types\n\treturn users.map(processors[0])\n}\n\ntype Matrix = number[][] // Unclear nesting",
+              "reasoning": "T[] syntax is inconsistent with generic patterns and unclear with nesting"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Array<T> syntax:\nfunction processUsers(\n\tusers: ReadonlyArray<User>,\n\tprocessors: ReadonlyArray<(user: User) => ProcessedUser>\n): ReadonlyArray<ProcessedUser> {\n\t// Clear, consistent with generic patterns\n\treturn users.map(processors[0])\n}\n\ntype Matrix = Array<Array<number>> // Clear nesting\ntype NestedData = ReadonlyArray<ReadonlyArray<ReadonlyArray<string>>>\n\n// Benefits:\n// - Consistent with generic type syntax\n// - Clear with complex nested types\n// - Readonly variant matches pattern\n// - More explicit and searchable",
+              "scope": "All array types - use Array<T> and ReadonlyArray<T>, never T[]"
+            }
+          }
+        }
+      },
+      {
+        "id": "9f7f16c6-0e4a-4232-987e-d342ae81b193",
+        "payload": {
+          "description": "Explicit type annotations provide clear contracts, improve code readability, and catch type errors early in development",
+          "metadata": {
+            "rule_id": "TS_TYP_003",
+            "keywords": ["typescript", "type-annotations", "explicit", "contracts", "readability", "type-safety", "parameters", "returns"],
+            "rationale": "Explicit type annotations provide clear contracts, improve code readability, and catch type errors early in development. Relying on type inference for public APIs creates unclear contracts and makes refactoring dangerous. Always annotate function parameters and return types.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Missing type annotations:\nfunction processUser(user, options) {\n\t// What types are these?\n\treturn transform(user, options)\n}\n\nfunction calculateTotal(items) {\n\t// Return type inferred but unclear\n\treturn items.reduce((sum, item) => sum + item.price, 0)\n}",
+              "reasoning": "Missing annotations create unclear contracts and reduce type safety"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Explicit type annotations:\nfunction processUser(\n\tuser: Readonly<User>,\n\toptions: Readonly<ProcessOptions>\n): Result<ProcessedUser, ProcessError> {\n\treturn processUserWithOptions(user, options)\n}\n\nfunction calculateTotal(\n\titems: ReadonlyArray<Item>\n): number {\n\treturn reduce(\n\t\t(sum: number) => (item: Item) => sum + item.price\n\t)(ADDITIVE_IDENTITY)(items)\n}\n\n// Generic functions:\nfunction map<T, U>(\n\ttransform: (item: T) => U\n): (items: ReadonlyArray<T>) => ReadonlyArray<U> {\n\treturn function mapWithTransform(\n\t\titems: ReadonlyArray<T>\n\t): ReadonlyArray<U> {\n\t\treturn items.map(transform)\n\t}\n}\n\n// Clear contracts, self-documenting",
+              "scope": "All functions - explicit type annotations for parameters and returns"
+            }
+          }
+        }
+      },
+      {
+        "id": "ad617790-5f86-4bb1-a5b2-6b1e6ddff127",
+        "payload": {
+          "description": "Unwrap functions provide a clear, named way to extract raw values from branded types for external APIs and serialization",
+          "metadata": {
+            "rule_id": "TS_BRT_011",
+            "keywords": ["typescript", "branded-types", "unwrap", "extraction", "apis", "serialization", "explicit"],
+            "rationale": "Unwrap functions provide a clear, named way to extract raw values from branded types for external APIs and serialization. Direct casting makes it unclear when and why branded types are being converted back to raw values. Provide named unwrap functions to make extraction explicit and searchable.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Direct casting:\ntype UserId = string & { readonly __brand: 'UserId' }\n\nconst userId: UserId = 'user_123' as UserId\n\n// Unclear extraction:\nconst response = await fetch(`/api/users/${userId as string}`)\nconst dbQuery = 'SELECT * FROM users WHERE id = ?'\nconst result = await db.query(dbQuery, [userId as string])",
+              "reasoning": "Direct casting makes extraction implicit and hard to track"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Named unwrap function:\ntype UserId = string & { readonly __brand: 'UserId' }\n\nfunction unwrapUserId(id: UserId): string {\n\treturn id as string\n}\n\n// Clear, searchable extraction:\nconst userId: UserId = 'user_123' as UserId\n\n// Passing to external API:\nconst response = await fetch(\n\t`/api/users/${unwrapUserId(userId)}`\n)\n\n// Database query:\nconst dbQuery = 'SELECT * FROM users WHERE id = ?'\nconst result = await db.query(\n\tdbQuery,\n\t[unwrapUserId(userId)]\n)\n\n// Serialization:\nconst json = JSON.stringify({\n\tid: unwrapUserId(userId),\n\tname: user.name\n})\n\n// Benefits:\n// - Explicit extraction\n// - Searchable\n// - Documents intent\n// - Can add logging/tracking",
+              "scope": "All branded types - provide unwrap functions for extracting raw values"
+            }
+          }
+        }
+      },
+      {
+        "id": "b98b3b4c-3964-47c5-a5de-a737a7b46b0d",
+        "payload": {
+          "description": "NEVER use TypeScript's built-in unknown type - use Toolsmith's PrimitiveValue, Serializable, Value, or Unknown types for better semantic meaning and type safety",
+          "metadata": {
+            "rule_id": "TS_TOOLSMITH_TYPES_001",
+            "keywords": ["typescript", "toolsmith", "unknown", "primitivevalue", "serializable", "value", "type-safety", "semantic"],
+            "rationale": "NEVER use TypeScript's built-in unknown type - use Toolsmith's PrimitiveValue, Serializable, Value, or Unknown types instead which provide better semantic meaning and type safety. Using unknown violates type safety principles and conflicts with our type system design. We know what our types are.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using TypeScript's unknown:\nfunction processUnknownData(data: unknown): User {\n\t// PROHIBITED: Never use TypeScript's unknown type\n\treturn data as User\n}\n\nfunction handleValue(value: unknown): string {\n\t// PROHIBITED: unknown type not allowed\n\treturn String(value)\n}",
+              "reasoning": "Built-in unknown type violates our type system design"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Use Toolsmith types:\nimport {\n\ttype Value,\n\ttype Serializable,\n\ttype PrimitiveValue,\n\ttype Unknown\n} from '@sitebender/toolsmith'\n\nfunction isUser(value: Value): value is User {\n\treturn (\n\t\ttypeof value === 'object' &&\n\t\tvalue !== null &&\n\t\t'id' in value &&\n\t\t'name' in value\n\t)\n}\n\nfunction processUnknownData(\n\tdata: Unknown\n): Result<User, ValidationError> {\n\treturn isUser(data)\n\t\t? success(data)\n\t\t: failure({\n\t\t\t\t_tag: 'ValidationError',\n\t\t\t\tmessage: 'Not a valid user'\n\t\t\t})\n}\n\nfunction handlePrimitive(value: PrimitiveValue): string {\n\treturn String(value)\n}\n\nfunction serializeData(data: Serializable): string {\n\treturn JSON.stringify(data)\n}",
+              "scope": "All code - use Toolsmith types, NEVER TypeScript's unknown"
+            }
+          }
+        }
+      },
+      {
+        "id": "c83379af-01f8-40e6-8df7-f70b138110d7",
+        "payload": {
+          "description": "The any type completely disables TypeScript's type checking, eliminating the benefits of static typing and making code unsafe. Never use any",
+          "metadata": {
+            "rule_id": "TS_ANY_007",
+            "keywords": ["typescript", "any", "type-safety", "prohibition", "unknown", "type-checking"],
+            "rationale": "The any type completely disables TypeScript's type checking, eliminating the benefits of static typing and making code unsafe. Using any allows runtime errors that TypeScript could prevent and eliminates intellisense and refactoring safety. Never use any; use Toolsmith types for truly unknown data.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using any:\nfunction processData(data: any): any {\n\t// Type checking disabled\n\treturn data.whatever.you.want\n}\n\nconst result: any = fetchData()\nresult.nonExistent() // No type error",
+              "reasoning": "any disables type checking and eliminates TypeScript's benefits"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Use proper types:\nimport { type Unknown, type Value } from '@sitebender/toolsmith'\n\nfunction isApiResponse(value: Value): value is ApiResponse {\n\treturn (\n\t\ttypeof value === 'object' &&\n\t\tvalue !== null &&\n\t\t'data' in value\n\t)\n}\n\nfunction processApiResponse(\n\tresponse: Unknown\n): Result<ProcessedData, ApiError> {\n\tif (isApiResponse(response)) {\n\t\treturn success(processValidResponse(response))\n\t}\n\t\n\treturn failure({\n\t\t_tag: 'ApiError',\n\t\tmessage: 'Invalid response'\n\t})\n}\n\n// Use proper type definitions:\ntype ApiResponse = {\n\treadonly data: unknown\n\treadonly status: number\n}\n\n// NEVER use any",
+              "scope": "All code - NEVER use any type"
+            }
+          }
+        }
+      },
+      {
+        "id": "cfab30e9-7608-49a1-8305-969a6f3ae45a",
+        "payload": {
+          "description": "Branded types prevent mixing semantically different values that share the same structural type, providing compile-time safety without runtime cost",
+          "metadata": {
+            "rule_id": "TS_BRT_002",
+            "keywords": ["typescript", "branded-types", "nominal-typing", "brand", "type-safety", "domain-modeling", "compile-time"],
+            "rationale": "Branded types prevent mixing semantically different values that share the same structural type, providing compile-time safety without runtime cost. Using raw primitives allows accidental mixing of different domain concepts, leading to semantic errors that pass type checking. Use intersection types with unique brands.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Raw primitives:\nfunction getUser(id: string): User { ... }\nfunction getPost(id: string): Post { ... }\n\nconst userId = 'user_123'\nconst postId = 'post_456'\n\n// Semantic error compiles:\nconst user = getUser(postId) // Wrong ID type\nconst post = getPost(userId) // Wrong ID type",
+              "reasoning": "Raw primitives allow mixing semantically different values"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Branded types:\ntype UserId = string & { readonly __brand: 'UserId' }\ntype PostId = string & { readonly __brand: 'PostId' }\ntype Email = string & { readonly __brand: 'Email' }\n\nfunction getUser(id: UserId): User {\n\treturn findUserById(id)\n}\n\nfunction getPost(id: PostId): Post {\n\treturn findPostById(id)\n}\n\n// Type safety at compile time:\nconst userId: UserId = 'user_123' as UserId\nconst postId: PostId = 'post_456' as PostId\n\nconst user = getUser(userId) // ✓\nconst post = getPost(postId) // ✓\n\n// Semantic errors caught:\nconst wrong1 = getUser(postId) // ✗ Compile error\nconst wrong2 = getPost(userId) // ✗ Compile error\n\n// Zero runtime cost - brands erased after compilation",
+              "scope": "All domain primitives - use branded types for semantic distinction"
+            }
+          }
+        }
+      },
+      {
+        "id": "d46e9742-aec2-45e7-b000-cb726a9071a6",
+        "payload": {
+          "description": "Nominal typing support through branded types and proper type design creates stronger type safety and clearer domain modeling",
+          "metadata": {
+            "rule_id": "TS_NOM_015",
+            "keywords": ["typescript", "nominal-typing", "branded-types", "structural-typing", "type-safety", "domain-modeling"],
+            "rationale": "Nominal typing support through branded types and proper type design creates stronger type safety and clearer domain modeling. Relying only on structural typing allows semantically different types with same structure to be used interchangeably. Combine branded types, smart constructors, and proper abstractions.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Structural typing only:\ntype UserId = string\ntype PostId = string\ntype CommentId = string\n\nfunction getUser(id: UserId): Promise<User> { ... }\nfunction getPost(id: PostId): Promise<Post> { ... }\nfunction getComment(id: CommentId): Promise<Comment> { ... }\n\n// All IDs are interchangeable:\nconst userId = 'user_123'\nconst user = await getPost(userId) // Wrong but compiles",
+              "reasoning": "Structural typing allows semantically different types to be mixed"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Nominal typing with brands:\ntype UserId = string & { readonly __brand: 'UserId' }\ntype PostId = string & { readonly __brand: 'PostId' }\ntype CommentId = string & { readonly __brand: 'CommentId' }\n\n// Smart constructors:\nfunction userId(str: string): Result<UserId, ValidationError> {\n\treturn isValidId(str)\n\t\t? success(str as UserId)\n\t\t: failure({ _tag: 'ValidationError', message: 'Invalid user ID' })\n}\n\nfunction postId(str: string): Result<PostId, ValidationError> {\n\treturn isValidId(str)\n\t\t? success(str as PostId)\n\t\t: failure({ _tag: 'ValidationError', message: 'Invalid post ID' })\n}\n\n// These are now nominally different despite same structure:\nfunction getUser(id: UserId): Promise<User> { ... }\nfunction getPost(id: PostId): Promise<Post> { ... }\nfunction getComment(id: CommentId): Promise<Comment> { ... }\n\n// Type safety:\nconst userIdResult = userId('user_123')\nconst postIdValue: PostId = 'post_456' as PostId\n\n// Semantic errors caught:\nconst wrong = await getPost(userIdValue) // ✗ Compile error",
+              "scope": "All domain types - use nominal typing through branded types"
+            }
+          }
+        }
+      },
+      {
+        "id": "dc795397-6554-4866-a7a7-612ae17ba461",
+        "payload": {
+          "description": "Always use type aliases, never use interface keyword. Interfaces are mutable, support declaration merging, and are designed for OOP patterns. Types are immutable, sealed, and align with functional programming",
+          "metadata": {
+            "rule_id": "TS_TYPE_INTERFACE_001",
+            "keywords": ["typescript", "type", "interface", "immutability", "functional-programming", "type-aliases", "sealed"],
+            "rationale": "Interfaces are mutable, support declaration merging, and are designed for OOP patterns. Types align with FP principles of immutability and sealed definitions. Using interface allows mutation, declaration merging creates hidden dependencies, and encourages OOP patterns that violate our functional architecture.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Using interface:\ninterface User {\n\tid: string\n\tname: string\n}\n\ninterface ApiResponse<T> {\n\tdata: T\n\tstatus: number\n}\n\n// Can be extended elsewhere (declaration merging):\ninterface User {\n\temail: string // Hidden extension\n}",
+              "reasoning": "Interfaces support mutation and declaration merging, violating FP principles"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Use type aliases:\ntype User = {\n\treadonly id: string\n\treadonly name: string\n}\n\ntype ApiResponse<T> = {\n\treadonly data: T\n\treadonly status: number\n}\n\n// Sealed - cannot be extended:\n// type User = { ... } // Error: duplicate\n\n// Benefits:\n// - Immutable by default with readonly\n// - Sealed - no declaration merging\n// - Aligns with FP principles\n// - Consistent with functional architecture\n\n// Exception: Only use interface with explicit\n// architect permission for specific interop requirements",
+              "scope": "All type definitions - use type, NEVER interface"
+            }
+          }
+        }
+      },
+      {
+        "id": "dfa978dd-b238-4bc9-aae6-13ed0a08218c",
+        "payload": {
+          "description": "Unsafe constructors make the escape hatch explicit and should only be used for trusted data where validation already occurred. Prefix with 'unsafe'",
+          "metadata": {
+            "rule_id": "TS_BRT_010",
+            "keywords": ["typescript", "branded-types", "unsafe", "validation", "escape-hatch", "trusted-data"],
+            "rationale": "Unsafe constructors make the escape hatch explicit and should only be used for trusted data where validation already occurred. Implicit casting hides the fact that validation is being skipped, making it unclear when values might be invalid. Prefix with 'unsafe' to make validation bypass explicit.",
+            "prohibited": {
+              "code": "// ❌ PROHIBITED - Implicit casting:\ntype UserId = string & { readonly __brand: 'UserId' }\n\nfunction createUserId(str: string): UserId {\n\t// Unclear if validation happened\n\treturn str as UserId\n}\n\n// Usage unclear:\nconst id = createUserId(dbResult.id)",
+              "reasoning": "Implicit casting hides that validation is being skipped"
+            },
+            "required": {
+              "code": "// ✅ REQUIRED - Explicit unsafe constructor:\ntype UserId = string & { readonly __brand: 'UserId' }\n\n// Unsafe constructor - explicit escape hatch:\nfunction unsafeUserId(str: string): UserId {\n\treturn str as UserId\n}\n\n// Usage - clear that validation is skipped:\n// Reading from database where validation already occurred\nconst user = await db.query(\n\t'SELECT id FROM users WHERE id = ?',\n\t[validId]\n)\nconst userId = unsafeUserId(user.id)\n// Database constraint ensures validity\n\n// Preferred: Use smart constructor when possible:\nfunction userId(str: string): Result<UserId, ValidationError> {\n\treturn isValidId(str)\n\t\t? success(str as UserId)\n\t\t: failure({ _tag: 'ValidationError', message: 'Invalid ID' })\n}\n\n// Use unsafe only for:\n// - Database results with constraints\n// - Already-validated external data\n// - Performance-critical paths\n// - Always document why",
+              "scope": "Branded types - provide unsafe constructors only when needed, always prefixed"
+            }
+          }
+        }
+      }
+    ],
+    "next_page_offset": null
+  },
+  "status": "ok",
+  "time": 0.001
+}
