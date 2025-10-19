@@ -1,6 +1,6 @@
 import type { ParsedImport } from "../types/index.ts"
-import extractSpan from "../_extractSpan/index.ts"
-import extractPosition from "../_extractPosition/index.ts"
+import _extractSpan from "../_extractSpan/index.ts"
+import _extractPosition from "../_extractPosition/index.ts"
 import extractKindAndBindings from "../_extractKindAndBindings/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
 
@@ -14,10 +14,10 @@ export default function extractImportDetails(node: unknown): ParsedImport {
 	const specifier = specifierNode.value as string
 
 	// Extract span information
-	const span = extractSpan(importNode)
+	const span = _extractSpan(importNode)
 
 	// Extract position from span using the source text
-	const position = extractPosition(span)
+	const position = _extractPosition(span)
 
 	// Extract import kind and bindings
 	const specifiers = or(importNode.specifiers as ReadonlyArray<unknown>)([]) as ReadonlyArray<unknown>

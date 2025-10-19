@@ -32,8 +32,8 @@ export default function _connectionStateMachine(
 	) {
 		return function* connectionStateMachineWithLogging(
 			errorFunction: (...args: ReadonlyArray<unknown>) => void,
-		): Generator<HotReloadState, void, ConnectionEvent> {
-			// Mutable state (permitted in generators per FP_GENERATOR_EXCEPTIONS_001)
+		): Generator<HotReloadState, void, ConnectionEvent | undefined> {
+			// [EXCEPTION] Mutable state necessary for state machine implementation
 			let currentConnectionType: "http3-sse" | "http2-websocket" | "none" =
 				"none"
 			let metrics: ConnectionMetrics = {
@@ -54,22 +54,8 @@ export default function _connectionStateMachine(
 			let connectionTimeoutId: number | null = null
 			let reconnectTimeout: number | null = null
 
-			// Initial state
-			yield {
-				currentConnectionType,
-				metrics,
-				reconnectDelay,
-				triedPrimaryPath,
-				intentionalDisconnect,
-				eventSource,
-				webSocket,
-				connectionTimeoutId,
-				reconnectTimeout,
-			}
-
-			// Event loop
-			while (true) {
-				const event: ConnectionEvent = yield {
+			function getCurrentStateSnapshot(): HotReloadState {
+				return {
 					currentConnectionType,
 					metrics,
 					reconnectDelay,
@@ -79,6 +65,19 @@ export default function _connectionStateMachine(
 					webSocket,
 					connectionTimeoutId,
 					reconnectTimeout,
+				}
+			}
+
+			// Initial state - first .next() call
+			yield getCurrentStateSnapshot()
+
+			// Event loop - processes events and yields updated state
+			while (true) {
+				const event: ConnectionEvent | undefined = yield getCurrentStateSnapshot()
+
+				// If no event provided, just return current state (read-only operation)
+				if (event === undefined) {
+					continue
 				}
 
 				switch (event.type) {
