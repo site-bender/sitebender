@@ -56,7 +56,7 @@ This plan outlines the implementation of Quartermaster from first principles to 
 
 - HTTP server (HTTPS comes in Phase 2)
 - Static file serving
-- Port detection and selection (31415, 27182, etc.)
+- Port detection and selection (25144, 31415, 27182, etc.)
 - Graceful shutdown
 
 #### Definition of Done
@@ -117,7 +117,7 @@ This plan outlines the implementation of Quartermaster from first principles to 
 
 **M2.5: Port Management**
 
-- Math constant port preferences (31415, 27182, 16180, 14142, 26180)
+- Math constant port preferences (25144, 31415, 27182, 16180, 14142, 26180)
 - Availability detection
 - Random port fallback
 - Port-in-use clear error messages
