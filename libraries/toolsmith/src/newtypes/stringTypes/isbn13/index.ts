@@ -5,14 +5,14 @@ import type { Isbn13 } from "@sitebender/toolsmith/types/branded/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import unsafeIsbn13 from "@sitebender/toolsmith/newtypes/stringTypes/isbn13/unsafeIsbn13/index.ts"
-import _isIsbn13 from "@sitebender/toolsmith/newtypes/stringTypes/isbn13/_isIsbn13/index.ts"
+import isIsbn13 from "@sitebender/toolsmith/newtypes/stringTypes/isbn13/_isIsbn13/index.ts"
 
 //++ Smart constructor that validates and creates an Isbn13 value
 //++ Validates 13-digit format with valid ISBN-13 check digit algorithm
 export default function isbn13(
 	value: string,
 ): Result<ValidationError, Isbn13> {
-	if (!_isIsbn13(value)) {
+	if (!isIsbn13(value)) {
 		return error({
 			code: "ISBN13_INVALID",
 			field: "isbn13",
