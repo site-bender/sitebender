@@ -5,14 +5,14 @@ import type { PostalCode } from "@sitebender/toolsmith/types/branded/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import unsafePostalCode from "@sitebender/toolsmith/newtypes/stringTypes/postalCode/unsafePostalCode/index.ts"
-import _isPostalCode from "@sitebender/toolsmith/newtypes/stringTypes/postalCode/_isPostalCode/index.ts"
+import isPostalCode from "@sitebender/toolsmith/newtypes/stringTypes/postalCode/_isPostalCode/index.ts"
 
 //++ Smart constructor that validates and creates a PostalCode value
 //++ Validates US ZIP code formats: 12345 or 12345-6789
 export default function postalCode(
 	value: string,
 ): Result<ValidationError, PostalCode> {
-	if (!_isPostalCode(value)) {
+	if (!isPostalCode(value)) {
 		return error({
 			code: "POSTAL_CODE_INVALID",
 			field: "postalCode",

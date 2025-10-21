@@ -1,0 +1,10 @@
+import type { Value } from "@sitebender/toolsmith/types/index.ts"
+
+import or from "@sitebender/toolsmith/logic/or/index.ts"
+import isPositiveInfinity from "@sitebender/toolsmith/validation/isPositiveInfinity/index.ts"
+import isNegativeInfinity from "@sitebender/toolsmith/validation/isNegativeInfinity/index.ts"
+
+//++ Type guard that checks if a value is Infinity (positive or negative)
+export default function isInfinite(value: Value): boolean {
+	return or(isPositiveInfinity(value))(isNegativeInfinity(value))
+}
