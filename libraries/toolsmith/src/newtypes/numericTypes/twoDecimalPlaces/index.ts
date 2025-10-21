@@ -4,7 +4,7 @@ import type { TwoDecimalPlaces } from "@sitebender/toolsmith/types/branded/index
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import _isTwoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/_isTwoDecimalPlaces/index.ts"
+import isTwoDecimalPlaces from "@sitebender/toolsmith/validation/isTwoDecimalPlaces/index.ts"
 
 //++ Smart constructor that validates and creates an TwoDecimalPlaces value - returns Result with helpful error on failure
 //++ Commonly used for monetary amounts but not limited to currency
@@ -26,7 +26,7 @@ export default function twoDecimalPlaces(
 		})
 	}
 
-	if (_isTwoDecimalPlaces(n)) {
+	if (isTwoDecimalPlaces(n)) {
 		return ok(n as TwoDecimalPlaces)
 	}
 
