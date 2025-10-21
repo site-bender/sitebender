@@ -50,3 +50,6 @@ export type Unknown = Value
 
 //++ Array type that guarantees at least one element
 export type NonEmptyArray<T> = readonly [T, ...Array<T>]
+
+export type Predicate<T> = (value: T) => boolean
+export type Predicates<T> = ReadonlyArray<Predicate<T>>
