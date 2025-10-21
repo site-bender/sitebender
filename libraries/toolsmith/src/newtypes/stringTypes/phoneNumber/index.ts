@@ -5,14 +5,14 @@ import type { PhoneNumber } from "@sitebender/toolsmith/types/branded/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import unsafePhoneNumber from "@sitebender/toolsmith/newtypes/stringTypes/phoneNumber/unsafePhoneNumber/index.ts"
-import _isPhoneNumber from "@sitebender/toolsmith/newtypes/stringTypes/phoneNumber/_isPhoneNumber/index.ts"
+import isPhoneNumber from "@sitebender/toolsmith/newtypes/stringTypes/phoneNumber/_isPhoneNumber/index.ts"
 
 //++ Smart constructor that validates and creates a PhoneNumber value
 //++ Validates US phone number formats: 1234567890, (123) 456-7890, 123-456-7890, +1-123-456-7890
 export default function phoneNumber(
 	value: string,
 ): Result<ValidationError, PhoneNumber> {
-	if (!_isPhoneNumber(value)) {
+	if (!isPhoneNumber(value)) {
 		return error({
 			code: "PHONE_NUMBER_INVALID",
 			field: "phoneNumber",

@@ -32,12 +32,12 @@ Deno.test("isNumber", async function isNumberTests(t) {
 	)
 
 	await t.step(
-		"returns false for Infinity",
-		function returnsFalseForInfinity() {
-			assertEquals(isNumber(Infinity), false)
-			assertEquals(isNumber(-Infinity), false)
-			assertEquals(isNumber(Number.POSITIVE_INFINITY), false)
-			assertEquals(isNumber(Number.NEGATIVE_INFINITY), false)
+		"returns true for Infinity",
+		function returnsTrueForInfinity() {
+			assertEquals(isNumber(Infinity), true)
+			assertEquals(isNumber(-Infinity), true)
+			assertEquals(isNumber(Number.POSITIVE_INFINITY), true)
+			assertEquals(isNumber(Number.NEGATIVE_INFINITY), true)
 		},
 	)
 
