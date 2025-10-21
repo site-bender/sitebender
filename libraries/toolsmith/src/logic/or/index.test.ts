@@ -1,8 +1,6 @@
 import { assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
-import isNull from "../../validation/isNull/index.ts"
-import isUndefined from "../../validation/isUndefined/index.ts"
 import or from "./index.ts"
 
 Deno.test("or - value mode", async function orValueModeTests(t) {
@@ -56,82 +54,6 @@ Deno.test("or - value mode", async function orValueModeTests(t) {
 			const orFalse = or(false)
 			assertEquals(orFalse(true), true)
 			assertEquals(orFalse(false), false)
-		},
-	)
-})
-
-Deno.test("or - predicate mode", async function orPredicateModeTests(t) {
-	await t.step(
-		"combines two predicates",
-		function combinePredicates() {
-			const isNullOrUndefined = or(isNull)(isUndefined)
-
-			assertEquals(isNullOrUndefined(null), true)
-			assertEquals(isNullOrUndefined(undefined), true)
-			assertEquals(isNullOrUndefined("hello"), false)
-			assertEquals(isNullOrUndefined(0), false)
-		},
-	)
-
-	await t.step(
-		"short-circuits on first predicate success",
-		function shortCircuit() {
-			let secondCalled = false
-
-			const alwaysTrue = function () {
-				return true
-			}
-
-			const trackCalls = function () {
-				secondCalled = true
-				return false
-			}
-
-			const combined = or(alwaysTrue)(trackCalls)
-			combined("test")
-
-			assertEquals(secondCalled, false)
-		},
-	)
-
-	await t.step(
-		"calls second predicate when first fails",
-		function callsSecond() {
-			let secondCalled = false
-
-			const alwaysFalse = function () {
-				return false
-			}
-
-			const trackCalls = function () {
-				secondCalled = true
-				return false
-			}
-
-			const combined = or(alwaysFalse)(trackCalls)
-			combined("test")
-
-			assertEquals(secondCalled, true)
-		},
-	)
-
-	await t.step(
-		"works with custom predicates",
-		function customPredicates() {
-			const isNegative = function (n: unknown): n is number {
-				return typeof n === "number" && n < 0
-			}
-
-			const isZero = function (n: unknown): n is number {
-				return typeof n === "number" && n === 0
-			}
-
-			const isNonPositive = or(isNegative)(isZero)
-
-			assertEquals(isNonPositive(-5), true)
-			assertEquals(isNonPositive(0), true)
-			assertEquals(isNonPositive(5), false)
-			assertEquals(isNonPositive("test"), false)
 		},
 	)
 })

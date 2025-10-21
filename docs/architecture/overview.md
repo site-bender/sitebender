@@ -215,7 +215,7 @@ OAuth2, WebAuthn, DID providers. RBAC/ABAC policies in triple store.
 
 #### **[Quartermaster](../libraries/quartermaster.md)** - Application generator
 
-**Voice-first interface** - describe apps naturally, AI guides configuration. **Sketch-to-app** - upload wireframes, get working applications. **Real-time collaborative blueprint editing** via Agent CRDTs. **HTTPS dev server with mkcert** - production-quality from day one (ports: 31415/π, 27182/e, 16180/φ). **Time-travel configuration** - complete audit trail, branch alternatives, replay decisions. **Blueprint marketplace** with cryptographic signing and community ratings. **18+ specialized templates** (blog, dashboard, e-commerce, workflow-designer, automation-platform, etc.).
+**Voice-first interface** - describe apps naturally, AI guides configuration. **Sketch-to-app** - upload wireframes, get working applications. **Real-time collaborative blueprint editing** via Agent CRDTs. **HTTPS dev server with mkcert** - production-quality from day one (ports: 25144/bend, 31415/π, 27182/e, 16180/φ). **Time-travel configuration** - complete audit trail, branch alternatives, replay decisions. **Blueprint marketplace** with cryptographic signing and community ratings. **18+ specialized templates** (blog, dashboard, e-commerce, workflow-designer, automation-platform, etc.).
 
 ## Core Principles
 
@@ -560,7 +560,7 @@ You: "Yes"
 AI: "Adding Operator for real-time events. Generating..."
 ```
 
-**Sketch-to-app** - upload wireframes, get working applications. **Time-travel configuration** - complete audit trail of every decision. **Blueprint marketplace** with cryptographic signing. **HTTPS dev server** from day one (mkcert integration, ports: 31415/π, 27182/e, 16180/φ).
+**Sketch-to-app** - upload wireframes, get working applications. **Time-travel configuration** - complete audit trail of every decision. **Blueprint marketplace** with cryptographic signing. **HTTPS dev server** from day one (mkcert integration, ports: 25144/bend, 31415/π, 27182/e, 16180/φ).
 
 ### Pipeline-Based Property Testing
 
