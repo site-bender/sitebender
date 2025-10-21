@@ -4,7 +4,7 @@ import type { ThreeDecimalPlaces } from "@sitebender/toolsmith/types/branded/ind
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import _isThreeDecimalPlaces from "@sitebender/toolsmith/newtypes/threeDecimalPlaces/_isThreeDecimalPlaces/index.ts"
+import isThreeDecimalPlaces from "@sitebender/toolsmith/validation/isThreeDecimalPlaces/index.ts"
 
 //++ Smart constructor that validates and creates a ThreeDecimalPlaces - returns Result with helpful error on failure
 export default function threeDecimalPlaces(
@@ -25,7 +25,7 @@ export default function threeDecimalPlaces(
 		})
 	}
 
-	if (_isThreeDecimalPlaces(n)) {
+	if (isThreeDecimalPlaces(n)) {
 		return ok(n as ThreeDecimalPlaces)
 	}
 

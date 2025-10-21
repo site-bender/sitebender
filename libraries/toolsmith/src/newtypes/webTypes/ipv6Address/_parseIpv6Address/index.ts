@@ -4,7 +4,7 @@ import type { ParsedIpv6 } from "@sitebender/toolsmith/newtypes/types/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import _isIpv4Address from "@sitebender/toolsmith/newtypes/webTypes/ipv4Address/_isIpv4Address/index.ts"
+import isIpv4Address from "@sitebender/toolsmith/validation/isIpv4Address/index.ts"
 import {
 	IPV6_GROUPS_COUNT,
 	IPV6_GROUPS_WITH_IPV4_COUNT,
@@ -114,7 +114,7 @@ export default function _parseIpv6Address(
 		const ipv4Part = address.slice(lastColon + 1)
 
 		// Validate IPv4 part
-		if (!_isIpv4Address(ipv4Part)) {
+		if (!isIpv4Address(ipv4Part)) {
 			return error({
 				code: "IPV6_ADDRESS_INVALID_IPV4_EMBEDDED",
 				field: "ipv6Address.ipv4",
