@@ -106,16 +106,16 @@ bend new my-app --blueprint=minimal
 # 1. Checks for mkcert installation
 # 2. Guides installation if needed (one-time setup)
 # 3. Generates local SSL certificates
-# 4. Starts HTTPS server on port 31415 (π)
-# 5. Opens browser to https://localhost:31415
+# 4. Starts HTTPS server on port 25144
+# 5. Opens browser to https://localhost:25144 (b:2, e:5, n:14, d:4)
 
 ✓ Certificates generated
-✓ Server running on https://localhost:31415
+✓ Server running on https://localhost:25144
 ✓ File watching active - changes trigger hot reload
 ✓ AI assistant available at /assistant
 ```
 
-**Port Selection Philosophy**: Quartermaster tries math constants in order:
+**Port Selection Philosophy**: If 25144 is unavailable, Quartermaster tries math constants in order:
 
 - `31415` - π (pi)
 - `27182` - e (Euler's number)
@@ -311,7 +311,7 @@ Quartermaster is itself a Studio application, demonstrating the platform's capab
 - Libraries: Architect, Pagewright
 - Use case: Learning, simple sites
 - Generated: Basic routing, single page
-- Dev server: HTTPS on port 31415
+- Dev server: HTTPS on port 25144
 
 **workshop** - Interactive development environment
 
@@ -539,7 +539,7 @@ AI: "Adding Operator for real-time events. Generating blueprint..."
 ✓ Blueprint: blog + sentinel + operator
 ✓ Validation: Warden contracts passed
 ✓ Generation: 24 files created
-✓ HTTPS server: https://localhost:31415
+✓ HTTPS server: https://localhost:25144
 ✓ Time-travel: Configuration logged to triple store
 ```
 
@@ -744,7 +744,7 @@ Launch without any editor:
 
 ```bash
 bend gui
-# Opens https://localhost:31415/quartermaster
+# Opens https://localhost:25144/quartermaster
 ```
 
 Browser-based GUI includes all features:
@@ -771,7 +771,7 @@ AI: "Generating minimal blog..."
 # Result:
 Libraries: Pagewright (content), Architect (routing)
 Features: Markdown processing, RSS feed, semantic markup
-Dev Server: https://localhost:31415
+Dev Server: https://localhost:25144
 Files: 12 created
 ```
 
@@ -805,7 +805,7 @@ Generating..."
 # Result:
 Libraries: Architect, Pagewright, Operator
 Features: Real-time charts, data streaming, alerts
-Dev Server: https://localhost:31415
+Dev Server: https://localhost:25144
 Files: 28 created
 ```
 
@@ -832,7 +832,7 @@ AI: "Collaborative document editor. Session started.
 # Result:
 Libraries: Architect, Pagewright, Agent (CRDTs)
 Features: Multi-cursor editing, change tracking, comments
-Dev Server: https://localhost:31415
+Dev Server: https://localhost:25144
 Collaborators: 3
 Files: 35 created
 ```
@@ -896,7 +896,7 @@ Files: 35 created
 
 ### Why Math Constant Ports?
 
-**Decision**: Prefer 31415 (π), 27182 (e), 16180 (φ) for dev server\
+**Decision**: Prefer 25144 (bend), 31415 (π), 27182 (e), 16180 (φ) for dev server\
 **Rationale**:
 
 - Delightful detail
@@ -1022,10 +1022,11 @@ Quartermaster provides clear, actionable error messages:
 ### Port Conflicts
 
 ```
-Port 31415 (π) is already in use.
-Trying 27182 (e)... in use.
-Trying 16180 (φ)... in use.
-Trying 14142 (√2)... available!
+Port 25144 (bend) is already in use.
+Trying 31415 (π) ... in use.
+Trying 27182 (e) ... in use.
+Trying 16180 (φ) ... in use.
+Trying 14142 (√2) ... available!
 
 ✓ Server running on https://localhost:14142
 ```
@@ -1050,7 +1051,7 @@ Trying 14142 (√2)... available!
 │  Suggestion: Remove workflow-engine, or             │
 │              use operator for workflow instead      │
 │                                                     │
-│  Learn more: https://localhost:31415/_envoy/warden  │
+│  Learn more: https://localhost:25144/_envoy/warden  │
 │                                                     │
 └─────────────────────────────────────────────────────┘
 ```

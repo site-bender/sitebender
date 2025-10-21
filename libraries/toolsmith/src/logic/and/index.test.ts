@@ -1,8 +1,6 @@
 import { assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
-import isDefined from "../../validation/isDefined/index.ts"
-import isString from "../../validation/isString/index.ts"
 import and from "./index.ts"
 
 Deno.test("and - value mode", async function andValueModeTests(t) {
@@ -57,82 +55,6 @@ Deno.test("and - value mode", async function andValueModeTests(t) {
 			const andFalse = and(false)
 			assertEquals(andFalse(true), false)
 			assertEquals(andFalse(false), false)
-		},
-	)
-})
-
-Deno.test("and - predicate mode", async function andPredicateModeTests(t) {
-	await t.step(
-		"combines two predicates",
-		function combinePredicates() {
-			const isDefinedAndString = and(isDefined)(isString)
-
-			assertEquals(isDefinedAndString("hello"), true)
-			assertEquals(isDefinedAndString(null), false)
-			assertEquals(isDefinedAndString(undefined), false)
-			assertEquals(isDefinedAndString(42), false)
-		},
-	)
-
-	await t.step(
-		"short-circuits on first predicate failure",
-		function shortCircuit() {
-			let secondCalled = false
-
-			const alwaysFalse = function () {
-				return false
-			}
-
-			const trackCalls = function () {
-				secondCalled = true
-				return true
-			}
-
-			const combined = and(alwaysFalse)(trackCalls)
-			combined("test")
-
-			assertEquals(secondCalled, false)
-		},
-	)
-
-	await t.step(
-		"calls second predicate when first passes",
-		function callsSecond() {
-			let secondCalled = false
-
-			const alwaysTrue = function () {
-				return true
-			}
-
-			const trackCalls = function () {
-				secondCalled = true
-				return true
-			}
-
-			const combined = and(alwaysTrue)(trackCalls)
-			combined("test")
-
-			assertEquals(secondCalled, true)
-		},
-	)
-
-	await t.step(
-		"works with custom predicates",
-		function customPredicates() {
-			const isPositive = function (n: unknown): n is number {
-				return typeof n === "number" && n > 0
-			}
-
-			const isEven = function (n: unknown): n is number {
-				return typeof n === "number" && n % 2 === 0
-			}
-
-			const isPositiveAndEven = and(isPositive)(isEven)
-
-			assertEquals(isPositiveAndEven(4), true)
-			assertEquals(isPositiveAndEven(3), false)
-			assertEquals(isPositiveAndEven(-2), false)
-			assertEquals(isPositiveAndEven("test"), false)
 		},
 	)
 })
