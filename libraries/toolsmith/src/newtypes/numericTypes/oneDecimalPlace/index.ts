@@ -4,7 +4,7 @@ import type { OneDecimalPlace } from "@sitebender/toolsmith/types/branded/index.
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import _isOneDecimalPlace from "@sitebender/toolsmith/newtypes/oneDecimalPlace/_isOneDecimalPlace/index.ts"
+import isOneDecimalPlace from "@sitebender/toolsmith/validation/isOneDecimalPlace/index.ts"
 
 //++ Smart constructor that validates and creates an OneDecimalPlace value - returns Result with helpful error on failure
 export default function oneDecimalPlace(
@@ -25,7 +25,7 @@ export default function oneDecimalPlace(
 		})
 	}
 
-	if (_isOneDecimalPlace(n)) {
+	if (isOneDecimalPlace(n)) {
 		return ok(n as OneDecimalPlace)
 	}
 

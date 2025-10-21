@@ -4,13 +4,13 @@ import type { BigInteger } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import _isBigInteger from "./_isBigInteger/index.ts"
+import isBigInteger from "@sitebender/toolsmith/validation/isBigInteger/index.ts"
 
 //++ Smart constructor that validates and creates a BigInteger - returns Result with helpful error on failure
 export default function bigInteger(
 	n: bigint,
 ): Result<ValidationError, BigInteger> {
-	if (_isBigInteger(n)) {
+	if (isBigInteger(n)) {
 		return ok(n as BigInteger)
 	}
 
