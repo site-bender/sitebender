@@ -1,5 +1,5 @@
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type { Validation } from "../../../types/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 
 import map from "../../../array/map/index.ts"
 import failure from "../failure/index.ts"
