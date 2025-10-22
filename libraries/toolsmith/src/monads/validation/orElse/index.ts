@@ -1,4 +1,4 @@
-import type { Validation } from "../../../types/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 
 //++ Returns the validation if Valid, otherwise returns an alternative validation
 export default function orElse<E, A>(
