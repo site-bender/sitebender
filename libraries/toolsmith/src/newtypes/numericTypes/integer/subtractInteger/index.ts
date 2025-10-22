@@ -1,5 +1,5 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/validation/index.ts"
+import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/index.ts"
 import type { Integer } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import integer from "@sitebender/toolsmith/newtypes/numericTypes/integer/index.ts"
