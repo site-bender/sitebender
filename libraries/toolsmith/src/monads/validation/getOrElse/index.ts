@@ -1,4 +1,4 @@
-import type { Validation } from "../../../types/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 
 //++ Extracts the value from a Valid or returns a default value for Invalid
 export default function getOrElse<E, A>(
