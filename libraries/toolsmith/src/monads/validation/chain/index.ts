@@ -1,4 +1,4 @@
-import type { Validation } from "../../../types/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 
 //++ Chains validation computations, short-circuiting on invalid
 export default function chain<A, E, B>(fn: (value: A) => Validation<E, B>) {
