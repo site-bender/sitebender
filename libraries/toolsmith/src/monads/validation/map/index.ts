@@ -1,4 +1,4 @@
-import type { Validation } from "../../../types/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 
 //++ Maps a function over a valid value, preserving invalid state
 export default function map<A, B>(fn: (value: A) => B) {
