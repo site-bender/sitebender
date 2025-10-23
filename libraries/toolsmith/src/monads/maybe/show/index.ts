@@ -1,6 +1,6 @@
 import type { Maybe } from "../../../types/fp/maybe/index.ts"
 
-import isNullish from "../../../validation/isNullish/index.ts"
+import isNullish from "../../../predicates/isNullish/index.ts"
 import isNothing from "../isNothing/index.ts"
 
 //++ Converts a Maybe value to its string representation for debugging
