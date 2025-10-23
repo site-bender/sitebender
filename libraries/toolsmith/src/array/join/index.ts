@@ -3,7 +3,7 @@ import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
+import isArray from "@sitebender/toolsmith/predicates/isArray/index.ts"
 
 //++ Joins array elements into a string with separator
 //++ Returns Result with joined string or error if input is invalid

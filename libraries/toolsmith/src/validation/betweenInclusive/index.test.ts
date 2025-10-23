@@ -1,6 +1,6 @@
 import type { ValidationError } from "../../types/fp/validation/index.ts"
 
-import { assert, assertEquals } from "jsr:@std/assert"
+import { assert, assertEquals } from "@std/assert"
 
 import ok from "../../monads/result/ok/index.ts"
 import success from "../../monads/validation/success/index.ts"

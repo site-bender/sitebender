@@ -1,6 +1,6 @@
 import type { Either } from "../../../types/fp/either/index.ts"
 
-import isNullish from "../../../validation/isNullish/index.ts"
+import isNullish from "../../../predicates/isNullish/index.ts"
 import isLeft from "../isLeft/index.ts"
 
 //++ Produces a best-effort string representation of an Either (debugging aid)
