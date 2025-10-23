@@ -229,7 +229,7 @@ Several functions use arrow syntax and need refactoring to named functions:
 
 #### toUpperFirst, toLowerFirst, swapCase
 
-- Depend on: `isNullish` (from `../../../validation/isNullish/index.ts`)
+- Depend on: `isNullish` (from `../../../predicates/isNullish/index.ts`)
 - **toUpperFirst** and **toLowerFirst** also check `typeof str !== "string"`
 
 #### toCase

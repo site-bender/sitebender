@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "jsr:@std/assert@1"
+import { assert, assertEquals } from "@std/assert"
 
 import _checkRangeAsValidation from "./index.ts"
 import isSuccess from "../../../monads/validation/isSuccess/index.ts"
