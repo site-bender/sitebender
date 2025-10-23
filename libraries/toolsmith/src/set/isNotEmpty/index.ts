@@ -1,4 +1,4 @@
-import isSet from "../../validation/isSet/index.ts"
+import isSet from "../../predicates/isSet/index.ts"
 
 /*++
  + Checks if a set is not empty
