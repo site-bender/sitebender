@@ -1,4 +1,4 @@
-import isArray from "../../validation/isArray/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
 
 /*++
  + Checks if an array is empty

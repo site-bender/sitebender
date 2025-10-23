@@ -1,4 +1,4 @@
-import isPlainObject from "../../validation/isPlainObject/index.ts"
+import isPlainObject from "../../predicates/isPlainObject/index.ts"
 
 /*++
  + Checks if a plain object is empty

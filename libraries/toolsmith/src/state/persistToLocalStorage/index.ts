@@ -1,6 +1,6 @@
 import type { Store, Unsubscribe } from "../types/index.ts"
 
-import isNotNull from "../../validation/isNotNull/index.ts"
+import isNotNull from "../../predicates/isNotNull/index.ts"
 
 //++ Persists store state to localStorage (browser-only, no-op on server)
 export default function persistToLocalStorage<S>(

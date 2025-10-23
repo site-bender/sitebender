@@ -1,10 +1,10 @@
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/index.ts"
-import type { RealNumber } from "@sitebender/toolsmith/types/branded/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
+import type { RealNumber } from "../../../types/branded/index.ts"
 
-import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import isRealNumber from "@sitebender/toolsmith/validation/isRealNumber/index.ts"
+import error from "../../../monads/result/error/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
+import isRealNumber from "../../../predicates/isRealNumber/index.ts"
 
 //++ Smart constructor that validates and creates a RealNumber - returns Result with helpful error on failure
 //++ WARNING: RealNumber uses floating point arithmetic and is subject to imprecision (e.g., 0.1 + 0.2 ≠ 0.3)
