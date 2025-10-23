@@ -1,4 +1,4 @@
-import isMap from "../../validation/isMap/index.ts"
+import isMap from "../../predicates/isMap/index.ts"
 
 /*++
  + Checks if a map is not empty
