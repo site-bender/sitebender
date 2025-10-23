@@ -1,6 +1,6 @@
 import type { HashInput } from "../../../types/index.ts"
 
-import isString from "../../../../../validation/isString/index.ts"
+import isString from "../../../../../predicates/isString/index.ts"
 
 //++ Normalizes various input types to Uint8Array for hashing
 

@@ -1,7 +1,7 @@
 import type { Either } from "../../../types/fp/either/index.ts"
 
 import withInspect from "../../../debug/withInspect/index.ts"
-import isNullish from "../../../validation/isNullish/index.ts"
+import isNullish from "../../../predicates/isNullish/index.ts"
 import right from "../right/index.ts"
 
 //++ Creates a Right value with enhanced debugging output (console-friendly)
