@@ -393,30 +393,6 @@ These rules govern code formatting and visual consistency.
 
 These rules enforce functional programming paradigms and patterns.
 
-### FP_VANILLA_INTERNAL_001 - Vanilla Functions for Internal Use
-
-**Priority:** 8 | **Category:** functional_programming
-
-**Rule:** Vanilla functions for internal use where inputs are carefully guarded and monadic error handling not needed
-
-**Reason:** Vanilla functions are more performant when inputs are guaranteed valid and error collection unnecessary
-
-**Consequences:** Using boxed functions internally adds unnecessary overhead
-
-**Philosophy:** Right tool for the right job - vanilla for trusted internal use, boxed for applications
-
-**Context:**
-- Libraries: toolsmith
-- Usage: internal_implementation
-
-**Examples:**
-- ✅ Correct: Internal helper that processes validated data can use vanilla functions
-- ❌ Wrong: Public API should always use boxed functions
-
-**Applies to:** .ts, .tsx, .js, .jsx
-
----
-
 ### FP_COMPOSITION_001 - Function Composition
 
 **Priority:** 9 | **Category:** functional_programming
@@ -572,30 +548,6 @@ These rules enforce functional programming paradigms and patterns.
 - Validation: `validateForm(fields) // collects all field errors`
 
 **Note:** Maybe<T> acceptable for optional values, but usually we expect to handle errors
-
-**Applies to:** .ts, .tsx, .js, .jsx
-
----
-
-### FP_APPLICATION_USE_BOXED_001 - Application Libraries Use Boxed Functions
-
-**Priority:** 10 | **Category:** functional_programming
-
-**Rule:** Application libraries must use Toolsmith boxed functions and return monads
-
-**Reason:** Boxed functions provide monadic error handling and composability for application code
-
-**Consequences:** Using vanilla functions in applications loses error accumulation and monadic composition
-
-**Philosophy:** Application code should be monadic, Toolsmith internals can be optimized
-
-**Context:**
-- Libraries: pagewright, architect, operator, custodian
-- Usage: application_development
-
-**Examples:**
-- ✅ Correct: `import validateEmail from '@sitebender/toolsmith/boxed/validation/validateEmail/index.ts'`
-- ❌ Wrong: `import validateEmail from '@sitebender/toolsmith/validation/validateEmail/index.ts'`
 
 **Applies to:** .ts, .tsx, .js, .jsx
 
@@ -1485,28 +1437,6 @@ These rules govern the Toolsmith library's internal implementation and performan
 **Comment format:** `[PERFORMANCE_OVER_IDEOLOGY]` with benchmark data or clear performance reasoning
 
 **Note:** Application-level code maintains strict functional patterns - these exceptions apply only to internal Toolsmith utilities.
-
----
-
-### TOOLSMITH_PERF_003 - Vanilla vs Boxed Function Guidelines
-
-**Priority:** 8 | **Category:** toolsmith | **Scope:** function_architecture
-
-**Rule:** Toolsmith library provides two function variants: vanilla functions for internal performance-critical use, and boxed functions for application consumption.
-
-**Vanilla functions:**
-1. Return null for error conditions to avoid Result/Validation overhead
-2. Use direct values and primitive returns for maximum performance
-3. May employ performance exceptions documented with Envoy comments
-4. Located in /* paths for internal use only
-
-**Boxed functions:**
-1. Return Result or Validation monads for proper error handling
-2. Compose with other monadic operations safely
-3. Follow strict functional programming patterns
-4. Located in standard paths for public API consumption
-
-**Choose:** vanilla for hot paths and internal utilities, boxed for application-facing APIs and composable operations.
 
 ---
 

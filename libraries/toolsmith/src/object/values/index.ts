@@ -3,8 +3,8 @@ import type { ValidationError } from "../../types/fp/validation/index.ts"
 
 import ok from "../../monads/result/ok/index.ts"
 import error from "../../monads/result/error/index.ts"
-import isObject from "../../validation/isObject/index.ts"
-import isArray from "../../validation/isArray/index.ts"
+import isObject from "../../predicates/isObject/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
 import not from "../../logic/not/index.ts"
 import and from "../../logic/and/index.ts"
 

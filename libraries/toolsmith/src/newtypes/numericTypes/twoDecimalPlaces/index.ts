@@ -1,10 +1,10 @@
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/index.ts"
-import type { TwoDecimalPlaces } from "@sitebender/toolsmith/types/branded/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
+import type { TwoDecimalPlaces } from "../../../types/branded/index.ts"
 
-import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import isTwoDecimalPlaces from "@sitebender/toolsmith/validation/isTwoDecimalPlaces/index.ts"
+import error from "../../../monads/result/error/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
+import isTwoDecimalPlaces from "../../../predicates/isTwoDecimalPlaces/index.ts"
 
 //++ Smart constructor that validates and creates an TwoDecimalPlaces value - returns Result with helpful error on failure
 //++ Commonly used for monetary amounts but not limited to currency
