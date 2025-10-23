@@ -2,10 +2,12 @@ import { assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
 import map from "./index.ts"
+import ok from "../../monads/result/ok/index.ts"
+import success from "../../monads/validation/success/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
-import isError from "../../monads/result/isError/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
-Deno.test("map", async function mapTests(t) {
+Deno.test("map - plain array", async function mapArrayTests(t) {
 	await t.step(
 		"transforms each element with function",
 		function transformsElements() {
@@ -14,8 +16,7 @@ Deno.test("map", async function mapTests(t) {
 			}
 			const result = map(double)([1, 2, 3, 4, 5])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, [2, 4, 6, 8, 10])
+			assertEquals(result, [2, 4, 6, 8, 10])
 		},
 	)
 
@@ -27,8 +28,7 @@ Deno.test("map", async function mapTests(t) {
 			}
 			const result = map(toString)([1, 2, 3])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, ["1", "2", "3"])
+			assertEquals(result, ["1", "2", "3"])
 		},
 	)
 
@@ -40,8 +40,7 @@ Deno.test("map", async function mapTests(t) {
 			}
 			const result = map(identity)([1, 2, 3, 4, 5])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value.length, 5)
+			assertEquals((result as Array<number>).length, 5)
 		},
 	)
 
@@ -52,23 +51,7 @@ Deno.test("map", async function mapTests(t) {
 				return n * 2
 			})([])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, [])
-		},
-	)
-
-	await t.step(
-		"returns error for non-array input",
-		function returnsErrorForNonArray() {
-			const result = map(function (n: number): number {
-				return n * 2
-			})(null as unknown as ReadonlyArray<number>)
-
-			assertEquals(isError(result), true)
-			if (isError(result)) {
-				assertEquals(result.error.code, "MAP_INVALID_INPUT")
-				assertEquals(result.error.field, "array")
-			}
+			assertEquals(result, [])
 		},
 	)
 
@@ -88,8 +71,7 @@ Deno.test("map", async function mapTests(t) {
 
 			const result = map(extractName)(people)
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, [
+			assertEquals(result, [
 				{ name: "Alice" },
 				{ name: "Bob" },
 			])
@@ -104,8 +86,106 @@ Deno.test("map", async function mapTests(t) {
 			}
 			const result = map(square)([1, 2, 3, 4, 5])
 
+			assertEquals(result, [1, 4, 9, 16, 25])
+		},
+	)
+})
+
+Deno.test("map - Result monad", async function mapResultTests(t) {
+	await t.step(
+		"maps over Result and returns Result",
+		function mapsOverResult() {
+			const double = function (n: number): number {
+				return n * 2
+			}
+			const result = map(double)(ok([1, 2, 3]))
+
 			assertEquals(isOk(result), true)
-			assertEquals(result.value, [1, 4, 9, 16, 25])
+			if (isOk(result)) {
+				assertEquals(result.value, [2, 4, 6])
+			}
+		},
+	)
+
+	await t.step(
+		"handles empty arrays in Result",
+		function handlesEmptyInResult() {
+			const double = function (n: number): number {
+				return n * 2
+			}
+			const result = map(double)(ok([]))
+
+			assertEquals(isOk(result), true)
+			if (isOk(result)) {
+				assertEquals(result.value, [])
+			}
+		},
+	)
+})
+
+Deno.test("map - Validation monad", async function mapValidationTests(t) {
+	await t.step(
+		"maps over Validation and returns Validation",
+		function mapsOverValidation() {
+			const double = function (n: number): number {
+				return n * 2
+			}
+			const result = map(double)(success([1, 2, 3]))
+
+			assertEquals(isSuccess(result), true)
+			if (isSuccess(result)) {
+				assertEquals(result.value, [2, 4, 6])
+			}
+		},
+	)
+
+	await t.step(
+		"handles empty arrays in Validation",
+		function handlesEmptyInValidation() {
+			const double = function (n: number): number {
+				return n * 2
+			}
+			const result = map(double)(success([]))
+
+			assertEquals(isSuccess(result), true)
+			if (isSuccess(result)) {
+				assertEquals(result.value, [])
+			}
+		},
+	)
+})
+
+Deno.test("map - invalid inputs", async function mapInvalidTests(t) {
+	await t.step(
+		"returns array unchanged when fn is not a function",
+		function returnsUnchangedForBadFn() {
+			const result = map(true as unknown as (n: number) => number)([1, 2, 3])
+
+			assertEquals(result, [1, 2, 3])
+		},
+	)
+
+	await t.step(
+		"returns input unchanged when array is not valid",
+		function returnsUnchangedForBadArray() {
+			const double = function (n: number): number {
+				return n * 2
+			}
+			const result = map(double)(false as unknown as ReadonlyArray<number>)
+
+			assertEquals(result as unknown, false)
+		},
+	)
+
+	await t.step(
+		"returns undefined unchanged",
+		function returnsUndefinedUnchanged() {
+			const double = function (arg: number): number {
+				return arg * 2
+			}
+			const result = map(double)(undefined as unknown as ReadonlyArray<number>)
+
+			assertEquals(result as unknown, undefined)
 		},
 	)
 })
@@ -119,8 +199,7 @@ Deno.test("map - property: preserves length", function lengthProperty() {
 					return n * 2
 				})(arr)
 
-				assertEquals(isOk(result), true)
-				assertEquals(result.value.length, arr.length)
+				assertEquals((result as Array<number>).length, arr.length)
 			},
 		),
 	)
@@ -140,16 +219,12 @@ Deno.test("map - property: composition", function compositionProperty() {
 
 				// map(f) . map(g) === map(f . g)
 				const doubleResult = map(double)(arr)
-				if (isOk(doubleResult)) {
-					const result1 = map(addOne)(doubleResult.value)
-					const result2 = map(function (n: number): number {
-						return addOne(double(n))
-					})(arr)
+				const result1 = map(addOne)(doubleResult as ReadonlyArray<number>)
+				const result2 = map(function (n: number): number {
+					return addOne(double(n))
+				})(arr)
 
-					if (isOk(result1) && isOk(result2)) {
-						assertEquals(result1.value, result2.value)
-					}
-				}
+				assertEquals(result1, result2)
 			},
 		),
 	)
@@ -164,8 +239,7 @@ Deno.test("map - property: identity", function identityProperty() {
 					return x
 				})(arr)
 
-				assertEquals(isOk(result), true)
-				assertEquals(result.value, arr)
+				assertEquals(result, arr)
 			},
 		),
 	)
