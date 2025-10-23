@@ -1,5 +1,5 @@
-import type { Iri } from "@sitebender/toolsmith/types/branded/index.ts"
-import isIri from "@sitebender/toolsmith/validation/isIri/index.ts"
+import type { Iri } from "../../../../types/branded/index.ts"
+import isIri from "../../../../predicates/isIri/index.ts"
 
 //++ Extracts the raw string value from an Iri branded type
 //++ Performs runtime check to ensure value is actually an Iri

@@ -4,7 +4,7 @@ import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import isArray from "@sitebender/toolsmith/validation/isArray/index.ts"
+import isArray from "@sitebender/toolsmith/predicates/isArray/index.ts"
 
 //++ Filters array elements that satisfy predicate
 //++ Returns Result with filtered array or error if input is invalid

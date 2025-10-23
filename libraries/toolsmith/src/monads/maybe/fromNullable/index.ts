@@ -1,6 +1,6 @@
 import type { Maybe } from "../../../types/fp/maybe/index.ts"
 
-import isNullish from "../../../validation/isNullish/index.ts"
+import isNullish from "../../../predicates/isNullish/index.ts"
 import just from "../just/index.ts"
 import nothing from "../nothing/index.ts"
 
