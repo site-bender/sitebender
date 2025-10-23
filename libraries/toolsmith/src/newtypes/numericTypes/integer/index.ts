@@ -1,14 +1,14 @@
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/index.ts"
-import type { Integer } from "@sitebender/toolsmith/types/branded/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
+import type { Integer } from "../../../types/branded/index.ts"
 
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import isInteger from "@sitebender/toolsmith/validation/isInteger/index.ts"
+import ok from "../../../monads/result/ok/index.ts"
+import error from "../../../monads/result/error/index.ts"
+import isInteger from "../../../predicates/isInteger/index.ts"
 import {
 	MAX_SAFE_INTEGER,
 	MIN_SAFE_INTEGER,
-} from "@sitebender/toolsmith/newtypes/constants/index.ts"
+} from "../../../newtypes/constants/index.ts"
 
 //++ Smart constructor that validates and creates an Integer - returns Result with helpful error on failure
 export default function integer(n: number): Result<ValidationError, Integer> {

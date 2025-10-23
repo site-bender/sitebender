@@ -1,10 +1,10 @@
-import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/index.ts"
-import type { ParsedIpv6 } from "@sitebender/toolsmith/newtypes/types/index.ts"
+import type { Result } from "../../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../../types/fp/validation/index.ts"
+import type { ParsedIpv6 } from "../../../../newtypes/types/index.ts"
 
-import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import isIpv4Address from "@sitebender/toolsmith/validation/isIpv4Address/index.ts"
+import error from "../../../../monads/result/error/index.ts"
+import ok from "../../../../monads/result/ok/index.ts"
+import isIpv4Address from "../../../../predicates/isIpv4Address/index.ts"
 import {
 	IPV6_GROUPS_COUNT,
 	IPV6_GROUPS_WITH_IPV4_COUNT,
@@ -13,7 +13,7 @@ import {
 	HEX_BASE,
 	DECIMAL_BASE,
 	BYTE_BITS,
-} from "@sitebender/toolsmith/newtypes/constants/index.ts"
+} from "../../../../newtypes/constants/index.ts"
 
 
 //++ Parses IPv6 address into array of 8 groups (as numbers 0x0000-0xFFFF)
