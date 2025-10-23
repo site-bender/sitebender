@@ -1,4 +1,4 @@
-import isString from "../../validation/isString/index.ts"
+import isString from "../../predicates/isString/index.ts"
 
 /*++
  + Checks if a string is not empty

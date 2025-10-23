@@ -37,16 +37,18 @@ export type Serializable =
 	| Temporal.Instant
 	| Temporal.Duration
 
+export type Func = ((...args: Array<Value>) => Value)
 export type Value =
 	| Serializable
-	| Function
+	| Func
+	| Array<Value>
 	| WeakMap<object, Value>
 	| WeakSet<object>
 	| Promise<Value>
 
 export type SerializableValue = Serializable
 
-export type Unknown = Value
+export type Anything = Value | null | undefined
 
 //++ Array type that guarantees at least one element
 export type NonEmptyArray<T> = readonly [T, ...Array<T>]

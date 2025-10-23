@@ -3,7 +3,7 @@ import type { ValidationError } from "../../types/fp/validation/index.ts"
 
 import ok from "../../monads/result/ok/index.ts"
 import error from "../../monads/result/error/index.ts"
-import isArray from "../../validation/isArray/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
 
 //++ Checks if all array elements satisfy predicate
 //++ Returns Result with boolean or error if input invalid

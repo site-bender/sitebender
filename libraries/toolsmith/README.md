@@ -416,7 +416,7 @@ if (invalid.isError) {
 ### String Validation
 
 ```typescript
-import isEmail from "@sitebender/toolsmith/validation/isEmail/index.ts"
+import isEmail from "@sitebender/toolsmith/predicates/isEmail/index.ts"
 import toLowerCase from "@sitebender/toolsmith/string/toLowerCase/index.ts"
 
 const email = "USER@EXAMPLE.COM"
