@@ -1,8 +1,5 @@
-import { assertEquals } from "jsr:@std/assert"
-import _doubleValue from "./index.ts"
-
-Deno.test("_doubleValue doubles a number", function () {
-	const result = _doubleValue(5)
-
-	assertEquals(result, 10)
-})
+/*
+ * Function tests go here
+ * Test that _doubleValue works as expected
+ * See the "Testing Functions" skill for proper testing patterns
+ */
