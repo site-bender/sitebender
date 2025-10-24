@@ -280,13 +280,23 @@ import processUser from "./processUser/index.ts"
 import { MAX_ITEMS } from "./constants/index.ts"
 ```
 
-**NO aliases except for renaming default exports:**
+**Use aliases when they improve readability and reduce cognitive load:**
 ```typescript
-// Only acceptable alias use - creating a new name for a default export:
+// Good - reduces repetition, makes intent clearer:
+import {
+	MAX_ACCOUNT_AGE_DAYS as MAX,
+	MIN_ACCOUNT_AGE_DAYS as MIN,
+} from "./constants/index.ts"
+
+return betweenInclusive(MIN)(MAX)(days) // Clear and concise
+
+// Also acceptable - renaming default exports:
 import { default as contains } from "@sitebender/toolsmith/array/includes/index.ts"
 
 export default contains
 ```
+
+Avoid aliases that obscure meaning or create ambiguity. The test is: does the alias make the code clearer to read?
 
 ## Benefits Summary
 
