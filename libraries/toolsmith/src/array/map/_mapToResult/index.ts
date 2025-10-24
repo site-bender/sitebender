@@ -1,18 +1,17 @@
 import type { Result } from "../../../types/fp/result/index.ts"
 import type { ValidationError } from "../../../types/fp/validation/index.ts"
-import type { Value } from "../../../types/index.ts"
 
 import error from "../../../monads/result/error/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 import isArray from "../../../predicates/isArray/index.ts"
 import isFunction from "../../../predicates/isFunction/index.ts"
 
-type Func<T extends Value = Value> = (arg: T, index?: number) => T
-
 //++ Private helper that maps over an array and returns a Result
-export default function _mapToResult<T extends Value>(f: Func<T>) {
-	return function _mapToResultWithFunction(array: Array<T>): Result<ValidationError, Array<T>> {
-		if (isFunction(f as Func<T>)) {
+export default function _mapToResult<T, U>(f: (arg: T, index?: number) => U) {
+	return function _mapToResultWithFunction(
+		array: ReadonlyArray<T>,
+	): Result<ValidationError, ReadonlyArray<U>> {
+		if (isFunction(f)) {
 			// Happy path: function and array are valid, map it
 			if (isArray(array)) {
 				return ok(array.map(f))
