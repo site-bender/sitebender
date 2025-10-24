@@ -1,4 +1,5 @@
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
+
 import _processItems from "./index.ts"
 
 Deno.test("_processItems doubles all values", function () {

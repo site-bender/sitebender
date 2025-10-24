@@ -1,4 +1,5 @@
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
+
 import _doubleValue from "./index.ts"
 
 Deno.test("_doubleValue doubles a number", function () {
