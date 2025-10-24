@@ -1,14 +1,14 @@
 import type { Result } from "../../types/fp/result/index.ts"
 import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
 
-import isOk from "../../monads/result/isOk/index.ts"
-import isSuccess from "../../monads/validation/isSuccess/index.ts"
-import chainResults from "../../monads/result/chain/index.ts"
-import chainValidations from "../../monads/validation/chain/index.ts"
 import _reduceArray from "./_reduceArray/index.ts"
 import _reduceToResult from "./_reduceToResult/index.ts"
 import _reduceToValidation from "./_reduceToValidation/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
 //++ Reduces array to a single value using a reducer function
 export default function reduce<T, U>(fn: (accumulator: U, item: T) => U) {
