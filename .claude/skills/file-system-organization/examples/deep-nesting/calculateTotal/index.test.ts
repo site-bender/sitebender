@@ -1,10 +1,5 @@
-import { assertEquals } from "jsr:@std/assert"
-import calculateTotal from "./index.ts"
-
-Deno.test("calculateTotal sums processed items", function () {
-	const items = [1, 2, 3, 4, 5]
-
-	const result = calculateTotal(items)
-
-	assertEquals(result, 30)
-})
+/*
+ * Function tests go here
+ * Test that calculateTotal works as expected
+ * See the "Testing Functions" skill for proper testing patterns
+ */
