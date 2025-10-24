@@ -3,7 +3,7 @@ import betweenInclusive from "@sitebender/toolsmith/validation/betweenInclusive/
 import {
 	MAX_ACCOUNT_AGE_DAYS as MAX,
 	MIN_ACCOUNT_AGE_DAYS as MIN,
-} from "../constants/index.ts"
+} from "../../constants/index.ts"
 
 //++ Private helper that checks if account age is in valid range
 export default function _isAccountAgeInRange(days: number): boolean {
