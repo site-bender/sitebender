@@ -1,15 +1,16 @@
-import type { Result } from "../../../types/fp/result/index.ts"
-import type { Success, Validation } from "../../../types/fp/validation/index.ts"
+import type { Success } from "../../../types/fp/validation/index.ts"
+
+import isObject from "../../../predicates/isObject/index.ts"
 
 //++ Type guard that checks if a Validation is Success
-export default function isSuccess<E, T>(
-	value: Result<E, T> | Validation<E, T>,
+export default function isSuccess<T = unknown>(
+	value: unknown,
 ): value is Success<T> {
 	/*++
 	 + [EXCEPTION] Uses === operator and property access to check discriminated union tag
 	 + This is a primitive type guard operation with no higher-level abstraction available
 	 */
-	return value._tag === "Success"
+	return isObject(value) && "_tag" in value && value._tag === "Success"
 }
 
 // isSuccess(ok(42))  // true
