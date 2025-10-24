@@ -1,4 +1,6 @@
+import and from "../../../logic/and/index.ts"
 import isArray from "../../../predicates/isArray/index.ts"
+import isFunction from "../../../predicates/isFunction/index.ts"
 
 //++ Private helper that reduces a plain array
 export default function _reduceArray<T, U>(
@@ -8,8 +10,8 @@ export default function _reduceArray<T, U>(
 		return function _reduceArrayWithFunctionAndInitial(
 			array: ReadonlyArray<T>,
 		): U {
-			// Happy path: valid array, reduce it
-			if (isArray<T>(array)) {
+			// Happy path: valid function and array, reduce it
+			if (and(isFunction(fn))(isArray<T>(array))) {
 				/*++
 				 + [EXCEPTION] .reduce is permitted here for performance reasons
 				 + This is the ONLY place .reduce should be used
