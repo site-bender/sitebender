@@ -1,7 +1,11 @@
 import type { Either } from "../../../types/fp/either/index.ts"
-import type { IOEither } from "../../../types/fp/io/index.ts"
+import type { IoEither } from "../../../types/fp/io/index.ts"
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-const liftEither = <E, A>(f: () => Either<E, A>): IOEither<E, A> => () => f()
-
-export default liftEither
+//++ Lifts a thunk returning Either into IoEither context (branching logic, both outcomes valid)
+export default function liftEither<L, R>(
+	thunk: () => Either<L, R>,
+): IoEither<L, R> {
+	return function liftedEitherThunk(): Either<L, R> {
+		return thunk()
+	}
+}
