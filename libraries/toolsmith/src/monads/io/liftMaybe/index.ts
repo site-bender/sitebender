@@ -1,9 +1,9 @@
-import type { IOMaybe } from "../../../types/fp/io/index.ts"
+import type { IoMaybe } from "../../../types/fp/io/index.ts"
 import type { Maybe } from "../../../types/fp/maybe/index.ts"
 
-//++ Lifts a pure function returning Maybe into IOMaybe
-export default function liftMaybe<A>(f: () => Maybe<A>): IOMaybe<A> {
-	return function runLiftedMaybe() {
-		return f()
+//++ Lifts a thunk returning Maybe into IoMaybe context
+export default function liftMaybe<A>(thunk: () => Maybe<A>): IoMaybe<A> {
+	return function liftedMaybeThunk() {
+		return thunk()
 	}
 }
