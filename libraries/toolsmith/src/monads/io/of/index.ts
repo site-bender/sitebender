@@ -1,6 +1,6 @@
 import io from "../io/index.ts"
 
-//-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
+//++ Alias for io constructor - lifts a value into IO context (same as io)
 const of = io
 
 export default of
