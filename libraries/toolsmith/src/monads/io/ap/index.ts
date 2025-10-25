@@ -1,8 +1,10 @@
-import type { IO } from "../../../types/fp/io/index.ts"
+import type { Io } from "../../../types/fp/io/index.ts"
 
-//++ Applies an IO function to an IO value (Applicative pattern)
-export default function ap<A, B>(ioF: IO<(a: A) => B>) {
-	return function applyIO(ioA: IO<A>): IO<B> {
-		return () => ioF()(ioA())
+//++ Applies an Io function to an Io value (Applicative pattern)
+export default function ap<A, B>(ioFunction: Io<(value: A) => B>) {
+	return function applyIoFunction(ioValue: Io<A>): Io<B> {
+		return function appliedIo() {
+			return ioFunction()(ioValue())
+		}
 	}
 }
