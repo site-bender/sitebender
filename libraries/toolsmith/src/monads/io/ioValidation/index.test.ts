@@ -54,7 +54,7 @@ Deno.test("ioValidation", async (t) => {
 		}
 
 		const userIo = ioValidation<ValidationError, User>(() =>
-			success({ id: 1, name: "Alice" }),
+			success({ id: 1, name: "Alice" })
 		)
 		const result = userIo()
 
@@ -77,7 +77,7 @@ Deno.test("ioValidation", async (t) => {
 				{ _tag: "ValidationError", field: "email", message: "Invalid email" },
 				{ _tag: "ValidationError", field: "age", message: "Must be positive" },
 				{ _tag: "ValidationError", field: "name", message: "Required" },
-			]),
+			])
 		)
 		const result = validationIo()
 

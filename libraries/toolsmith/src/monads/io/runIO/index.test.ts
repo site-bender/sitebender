@@ -64,7 +64,7 @@ Deno.test("runIO", async (t) => {
 
 	await t.step("can return undefined", () => {
 		const voidIO = () => {
-			const x = 1 + 1
+			const _x = 1 + 1
 		}
 		assertEquals(runIO(voidIO), undefined)
 	})
