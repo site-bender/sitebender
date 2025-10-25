@@ -1,9 +1,9 @@
-import type { IOResult } from "../../../types/fp/io/index.ts"
+import type { IoResult } from "../../../types/fp/io/index.ts"
 import type { Result } from "../../../types/fp/result/index.ts"
 
-//++ Creates an IOResult by wrapping a thunk that returns a Result
-export default function ioResult<T, E>(
+//++ Creates an IoResult by wrapping a thunk that returns a Result (fail-fast error handling)
+export default function ioResult<E, T>(
 	thunk: () => Result<E, T>,
-): IOResult<T, E> {
+): IoResult<E, T> {
 	return thunk
 }

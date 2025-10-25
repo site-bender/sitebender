@@ -1,8 +1,10 @@
-import type { IO } from "../../../types/fp/io/index.ts"
+import type { Io } from "../../../types/fp/io/index.ts"
 
-//++ Flat maps a function that returns an IO (Monad bind/flatMap)
-export default function chain<A, B>(f: (a: A) => IO<B>) {
-	return function chainIO(io: IO<A>): IO<B> {
-		return () => f(io())()
+//++ Flat maps a function that returns an Io (Monad bind/flatMap)
+export default function chain<A, B>(binder: (value: A) => Io<B>) {
+	return function chainIo(io: Io<A>): Io<B> {
+		return function chainedIo() {
+			return binder(io())()
+		}
 	}
 }
