@@ -1,15 +1,13 @@
-import type { IOEither } from "../../../types/fp/io/index.ts"
+import type { IoEither } from "../../../types/fp/io/index.ts"
 
 import right from "../../either/right/index.ts"
 
-//++ Maps a function over the Either value inside IOEither
-export default function mapIOEither<E, A, B>(f: (a: A) => B) {
-	return function mapIOEitherWithTransformFunction(
-		io: IOEither<E, A>,
-	): IOEither<E, B> {
-		return function runMappedIOEither() {
-			const either = io()
-			return either._tag === "Right" ? right(f(either.right)) : either
+//++ Maps a function over the Right value inside IoEither (branching logic, both outcomes valid)
+export default function mapIoEither<L, A, B>(mapper: (value: A) => B) {
+	return function mapOverIoEither(ioEither: IoEither<L, A>): IoEither<L, B> {
+		return function mappedIoEither() {
+			const either = ioEither()
+			return either._tag === "Right" ? right(mapper(either.right)) : either
 		}
 	}
 }
