@@ -1,9 +1,10 @@
 import type { Either } from "../../../types/fp/either/index.ts"
-import type { IOEither } from "../../../types/fp/io/index.ts"
+import type { IoEither } from "../../../types/fp/io/index.ts"
 
-//++ Creates an IOEither from a thunk returning Either (deferred error-handling computation)
-export default function ioEither<E, A>(
-	thunk: () => Either<E, A>,
-): IOEither<E, A> {
+//++ Creates an IoEither from a thunk returning Either (deferred branching computation)
+//++ NOTE: Either is for branching where BOTH outcomes are valid, NOT for error handling
+export default function ioEither<L, R>(
+	thunk: () => Either<L, R>,
+): IoEither<L, R> {
 	return thunk
 }
