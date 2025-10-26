@@ -18,8 +18,11 @@ Deno.test("chainIoValidation", async (t) => {
 	})
 
 	await t.step("short-circuits on Failure", () => {
-		const failureIo = ioValidation<string, number>(() => failure(["initial error"]))
-		const doubleIo = (x: number) => ioValidation<string, number>(() => success(x * 2))
+		const failureIo = ioValidation<string, number>(() =>
+			failure(["initial error"])
+		)
+		const doubleIo = (x: number) =>
+			ioValidation<string, number>(() => success(x * 2))
 		const result = chainIoValidation(doubleIo)(failureIo)
 		const value = result()
 		assertEquals(value._tag, "Failure")
@@ -30,7 +33,8 @@ Deno.test("chainIoValidation", async (t) => {
 
 	await t.step("propagates errors from chained function", () => {
 		const valueIo = ioValidation(() => success(10))
-		const failingIo = (_x: number) => ioValidation(() => failure(["chain error"]))
+		const failingIo = (_x: number) =>
+			ioValidation(() => failure(["chain error"]))
 		const result = chainIoValidation(failingIo)(valueIo)
 		const value = result()
 		assertEquals(value._tag, "Failure")
@@ -39,27 +43,30 @@ Deno.test("chainIoValidation", async (t) => {
 		}
 	})
 
-	await t.step("enables sequential computations with error accumulation", () => {
-		let order = ""
-		const firstIo = ioValidation(() => {
-			order += "first"
-			return success(10)
-		})
-		const secondIo = (x: number) =>
-			ioValidation(() => {
-				order += "second"
-				return success(x * 2)
+	await t.step(
+		"enables sequential computations with error accumulation",
+		() => {
+			let order = ""
+			const firstIo = ioValidation(() => {
+				order += "first"
+				return success(10)
 			})
+			const secondIo = (x: number) =>
+				ioValidation(() => {
+					order += "second"
+					return success(x * 2)
+				})
 
-		const result = chainIoValidation(secondIo)(firstIo)
-		assertEquals(order, "")
-		const value = result()
-		assertEquals(order, "firstsecond")
-		assertEquals(value._tag, "Success")
-		if (value._tag === "Success") {
-			assertEquals(value.value, 20)
-		}
-	})
+			const result = chainIoValidation(secondIo)(firstIo)
+			assertEquals(order, "")
+			const value = result()
+			assertEquals(order, "firstsecond")
+			assertEquals(value._tag, "Success")
+			if (value._tag === "Success") {
+				assertEquals(value.value, 20)
+			}
+		},
+	)
 
 	await t.step("can branch based on values", () => {
 		const valueIo = ioValidation(() => success(0.7))
@@ -81,7 +88,9 @@ Deno.test("chainIoValidation", async (t) => {
 		const addIo = (x: number) => ioValidation(() => success(x + 3))
 		const multiplyIo = (x: number) => ioValidation(() => success(x * 2))
 
-		const result = chainIoValidation(multiplyIo)(chainIoValidation(addIo)(startIo))
+		const result = chainIoValidation(multiplyIo)(
+			chainIoValidation(addIo)(startIo),
+		)
 		const value = result()
 		assertEquals(value._tag, "Success")
 		if (value._tag === "Success") {
@@ -93,7 +102,9 @@ Deno.test("chainIoValidation", async (t) => {
 		const value = 42
 		const f = (x: number) => ioValidation(() => success(x * 2))
 
-		const leftResult = chainIoValidation(f)(ioValidation(() => success(value)))()
+		const leftResult = chainIoValidation(f)(
+			ioValidation(() => success(value)),
+		)()
 		const rightResult = f(value)()
 
 		assertEquals(leftResult._tag, rightResult._tag)
@@ -105,7 +116,7 @@ Deno.test("chainIoValidation", async (t) => {
 	await t.step("satisfies right identity monad law", () => {
 		const m = ioValidation(() => success(42))
 		const resultValue = chainIoValidation((x: number) =>
-			ioValidation(() => success(x)),
+			ioValidation(() => success(x))
 		)(m)()
 		const mValue = m()
 		assertEquals(resultValue._tag, mValue._tag)
@@ -121,7 +132,7 @@ Deno.test("chainIoValidation", async (t) => {
 
 		const leftResult = chainIoValidation(g)(chainIoValidation(f)(m))()
 		const rightResult = chainIoValidation((x: number) =>
-			chainIoValidation(g)(f(x)),
+			chainIoValidation(g)(f(x))
 		)(m)()
 
 		assertEquals(leftResult._tag, rightResult._tag)
@@ -148,7 +159,7 @@ Deno.test("chainIoValidation", async (t) => {
 							field: "value",
 							message: "Must be positive",
 						},
-					]),
+					])
 				)
 
 		const result = chainIoValidation(validateIo)(valueIo)
@@ -170,7 +181,7 @@ Deno.test("chainIoValidation", async (t) => {
 			failure([
 				{ _tag: "ValidationError", field: "email", message: "Invalid email" },
 				{ _tag: "ValidationError", field: "age", message: "Must be positive" },
-			]),
+			])
 		)
 		const validateIo = (_x: number) =>
 			ioValidation<ValidationError, number>(() => success(42))
