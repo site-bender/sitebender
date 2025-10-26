@@ -1,6 +1,5 @@
-
 import type { HotReloadConfig, HotReloadConnection } from "./types/index.ts"
-import type { IO } from "@sitebender/toolsmith/types/fp/io"
+import type { Io } from "@sitebender/toolsmith/types/fp/io"
 import { DEFAULT_CONFIG } from "./constants/index.ts"
 
 import io from "@sitebender/toolsmith/monads/io/io"
@@ -13,7 +12,7 @@ import _startConnection from "./_startConnection/index.ts"
 //++ Creates a hot reload connection with deferred initialization
 // [IO] This function performs side effects
 export default function _hotReloadClient(config: HotReloadConfig = {}) {
-	return function initHotReloadWithConfig(): IO<HotReloadConnection> {
+	return function initHotReloadWithConfig(): Io<HotReloadConnection> {
 		const configuration: Required<HotReloadConfig> = {
 			...DEFAULT_CONFIG,
 			...config,

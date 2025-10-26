@@ -2,7 +2,7 @@ import { assertEquals } from "@std/assert"
 
 import io from "../io/index.ts"
 import of from "../of/index.ts"
-import runIO from "../runIO/index.ts"
+import runIo from "../runIo/index.ts"
 import chain from "./index.ts"
 
 Deno.test("chain", async (t) => {
@@ -10,7 +10,7 @@ Deno.test("chain", async (t) => {
 		const valueIO = of(21)
 		const doubleIO = (x: number) => of(x * 2)
 		const result = chain(doubleIO)(valueIO)
-		assertEquals(runIO(result), 42)
+		assertEquals(runIo(result), 42)
 	})
 
 	await t.step("flattens nested IO structures", () => {
@@ -19,7 +19,7 @@ Deno.test("chain", async (t) => {
 		const result = chain(makeNestedIO)(nestedIO)
 
 		assertEquals(typeof result, "function")
-		assertEquals(runIO(result), 15)
+		assertEquals(runIo(result), 15)
 	})
 
 	await t.step("enables sequential computations", () => {
@@ -35,7 +35,7 @@ Deno.test("chain", async (t) => {
 
 		const result = chain(secondIO)(firstIO)
 		assertEquals(order, "")
-		assertEquals(runIO(result), 20)
+		assertEquals(runIo(result), 20)
 		assertEquals(order, "firstsecond")
 	})
 
@@ -44,7 +44,7 @@ Deno.test("chain", async (t) => {
 		const branchIO = (x: number) => x > 0.5 ? io("High") : io("Low")
 
 		const result = chain(branchIO)(valueIO)
-		const value = runIO(result)
+		const value = runIo(result)
 		assertEquals(value, "High")
 	})
 
@@ -54,7 +54,7 @@ Deno.test("chain", async (t) => {
 		const multiplyIO = (x: number) => of(x * 2)
 
 		const result = chain(multiplyIO)(chain(addIO)(startIO))
-		assertEquals(runIO(result), 16)
+		assertEquals(runIo(result), 16)
 	})
 
 	await t.step("satisfies left identity monad law", () => {
@@ -64,13 +64,13 @@ Deno.test("chain", async (t) => {
 		const left = chain(f)(of(value))
 		const right = f(value)
 
-		assertEquals(runIO(left), runIO(right))
+		assertEquals(runIo(left), runIo(right))
 	})
 
 	await t.step("satisfies right identity monad law", () => {
 		const m = of(42)
 		const result = chain(of)(m)
-		assertEquals(runIO(result), runIO(m))
+		assertEquals(runIo(result), runIo(m))
 	})
 
 	await t.step("satisfies associativity monad law", () => {
@@ -81,7 +81,7 @@ Deno.test("chain", async (t) => {
 		const left = chain(g)(chain(f)(m))
 		const right = chain((x: number) => chain(g)(f(x)))(m)
 
-		assertEquals(runIO(left), runIO(right))
+		assertEquals(runIo(left), runIo(right))
 	})
 
 	await t.step("works with effectful computations", () => {
@@ -90,8 +90,8 @@ Deno.test("chain", async (t) => {
 		const doubleCountIO = (x: number) => io(x * 2)
 
 		const result = chain(doubleCountIO)(countIO)
-		assertEquals(runIO(result), 2)
-		assertEquals(runIO(result), 4)
+		assertEquals(runIo(result), 2)
+		assertEquals(runIo(result), 4)
 		assertEquals(counter, 2)
 	})
 
@@ -100,6 +100,6 @@ Deno.test("chain", async (t) => {
 		const fetchUserIO = (id: string) => of({ id, name: "Alice" })
 
 		const result = chain(fetchUserIO)(getUserIdIO)
-		assertEquals(runIO(result), { id: "user123", name: "Alice" })
+		assertEquals(runIo(result), { id: "user123", name: "Alice" })
 	})
 })
