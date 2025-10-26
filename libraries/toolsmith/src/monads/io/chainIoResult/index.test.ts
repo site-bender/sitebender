@@ -117,7 +117,9 @@ Deno.test("chainIoResult", async (t) => {
 		const g = (x: number) => ioResult(() => ok(x + 5))
 
 		const leftResult = chainIoResult(g)(chainIoResult(f)(m))()
-		const rightResult = chainIoResult((x: number) => chainIoResult(g)(f(x)))(m)()
+		const rightResult = chainIoResult((x: number) => chainIoResult(g)(f(x)))(
+			m,
+		)()
 
 		assertEquals(leftResult._tag, rightResult._tag)
 		if (leftResult._tag === "Ok" && rightResult._tag === "Ok") {
@@ -141,7 +143,7 @@ Deno.test("chainIoResult", async (t) => {
 						_tag: "ValidationError",
 						field: "value",
 						message: "Must be positive",
-					}),
+					})
 				)
 
 		const result = chainIoResult(validateIo)(valueIo)

@@ -1,5 +1,8 @@
-
-import type { HotReloadConfig, HotReloadState, ConnectionMetrics } from "../types/index.ts"
+import type {
+	ConnectionMetrics,
+	HotReloadConfig,
+	HotReloadState,
+} from "../types/index.ts"
 
 import {
 	INITIAL_ATTEMPTS,
@@ -73,7 +76,8 @@ export default function _connectionStateMachine(
 
 			// Event loop - processes events and yields updated state
 			while (true) {
-				const event: ConnectionEvent | undefined = yield getCurrentStateSnapshot()
+				const event: ConnectionEvent | undefined =
+					yield getCurrentStateSnapshot()
 
 				// If no event provided, just return current state (read-only operation)
 				if (event === undefined) {

@@ -1,12 +1,11 @@
 import type { ThreeDecimalPlaces } from "@sitebender/toolsmith/types/branded/index.ts"
-import type { Value } from "../../types/index.ts"
 
 import { THREE_DECIMAL_PLACES_SCALE } from "@sitebender/toolsmith/newtypes/constants/index.ts"
 import isFinite from "../isFinite/index.ts"
 
 //++ Type predicate that checks if a number has at most 3 decimal places
 export default function isThreeDecimalPlaces(
-	value: Value,
+	value: unknown,
 ): value is ThreeDecimalPlaces {
 	if (isFinite(value)) {
 		/*++

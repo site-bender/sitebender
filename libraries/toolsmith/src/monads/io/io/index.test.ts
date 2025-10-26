@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert"
 
-import runIO from "../runIO/index.ts"
+import runIo from "../runIo/index.ts"
 import io from "./index.ts"
 
 Deno.test("io", async (t) => {
@@ -15,36 +15,36 @@ Deno.test("io", async (t) => {
 		const stringIO = io("hello")
 		const booleanIO = io(true)
 
-		assertEquals(runIO(numberIO), 42)
-		assertEquals(runIO(stringIO), "hello")
-		assertEquals(runIO(booleanIO), true)
+		assertEquals(runIo(numberIO), 42)
+		assertEquals(runIo(stringIO), "hello")
+		assertEquals(runIo(booleanIO), true)
 	})
 
 	await t.step("creates IO from objects", () => {
 		const user = { id: 1, name: "Alice" }
 		const userIO = io(user)
-		assertEquals(runIO(userIO), user)
+		assertEquals(runIo(userIO), user)
 	})
 
 	await t.step("creates IO from arrays", () => {
 		const numbers = [1, 2, 3, 4, 5]
 		const numbersIO = io(numbers)
-		assertEquals(runIO(numbersIO), numbers)
+		assertEquals(runIo(numbersIO), numbers)
 	})
 
 	await t.step("handles null and undefined", () => {
 		const nullIO = io(null)
 		const undefinedIO = io(undefined)
 
-		assertEquals(runIO(nullIO), null)
-		assertEquals(runIO(undefinedIO), undefined)
+		assertEquals(runIo(nullIO), null)
+		assertEquals(runIo(undefinedIO), undefined)
 	})
 
 	await t.step("returns same value on multiple executions", () => {
 		const valueIO = io(42)
-		assertEquals(runIO(valueIO), 42)
-		assertEquals(runIO(valueIO), 42)
-		assertEquals(runIO(valueIO), 42)
+		assertEquals(runIo(valueIO), 42)
+		assertEquals(runIo(valueIO), 42)
+		assertEquals(runIo(valueIO), 42)
 	})
 
 	await t.step("maintains referential transparency", () => {
@@ -56,7 +56,7 @@ Deno.test("io", async (t) => {
 		assertEquals(io1, io2)
 		assertEquals(typeof io1, "function")
 		assertEquals(typeof io2, "function")
-		assertEquals(runIO(io1), value)
-		assertEquals(runIO(io2), value)
+		assertEquals(runIo(io1), value)
+		assertEquals(runIo(io2), value)
 	})
 })
