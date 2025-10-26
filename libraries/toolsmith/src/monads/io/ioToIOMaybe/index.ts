@@ -1,8 +1,10 @@
-import type { IO, IOMaybe } from "../../../types/fp/io/index.ts"
+import type { Io, IoMaybe } from "../../../types/fp/io/index.ts"
 
 import just from "../../maybe/just/index.ts"
 
-//++ Converts IO<A> to IOMaybe<A> by wrapping the value in Just
-export default function ioToIOMaybe<A>(io: IO<A>): IOMaybe<A> {
-	return () => just(io())
+//++ Converts Io<A> to IoMaybe<A> by wrapping the value in Just
+export default function ioToIoMaybe<A>(io: Io<A>): IoMaybe<A> {
+	return function ioMaybeFromIo() {
+		return just(io())
+	}
 }
