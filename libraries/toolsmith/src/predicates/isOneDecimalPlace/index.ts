@@ -1,11 +1,12 @@
 import type { OneDecimalPlace } from "@sitebender/toolsmith/types/branded/index.ts"
-import type { Value } from "../../types/index.ts"
 
 import { ONE_DECIMAL_PLACE_SCALE } from "@sitebender/toolsmith/newtypes/constants/index.ts"
 import isFinite from "../isFinite/index.ts"
 
 //++ Type predicate that checks if a number has at most 1 decimal place
-export default function isOneDecimalPlace(value: Value): value is OneDecimalPlace {
+export default function isOneDecimalPlace(
+	value: unknown,
+): value is OneDecimalPlace {
 	if (isFinite(value)) {
 		/*++
 		 + [EXCEPTION] String(), .split(), .at(), .length, and <= are permitted here because:
