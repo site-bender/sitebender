@@ -1,8 +1,7 @@
 import { assertEquals } from "@std/assert"
 
-import io from "../io/index.ts"
 import of from "../of/index.ts"
-import runIO from "../runIO/index.ts"
+import runIo from "../runIo/index.ts"
 import ap from "./index.ts"
 
 Deno.test("ap", async (t) => {
@@ -10,7 +9,7 @@ Deno.test("ap", async (t) => {
 		const functionIO = of((x: number) => x * 2)
 		const valueIO = of(21)
 		const result = ap(functionIO)(valueIO)
-		assertEquals(runIO(result), 42)
+		assertEquals(runIo(result), 42)
 	})
 
 	await t.step("works with effectful function", () => {
@@ -24,7 +23,7 @@ Deno.test("ap", async (t) => {
 		const result = ap(functionIO)(valueIO)
 		assertEquals(functionExecuted, false)
 
-		assertEquals(runIO(result), 20)
+		assertEquals(runIo(result), 20)
 		assertEquals(functionExecuted, true)
 	})
 
@@ -39,7 +38,7 @@ Deno.test("ap", async (t) => {
 		const result = ap(functionIO)(valueIO)
 		assertEquals(valueExecuted, false)
 
-		assertEquals(runIO(result), 42)
+		assertEquals(runIo(result), 42)
 		assertEquals(valueExecuted, true)
 	})
 
@@ -51,7 +50,7 @@ Deno.test("ap", async (t) => {
 		const partiallyApplied = ap(addIO)(xIO)
 		const result = ap(partiallyApplied)(yIO)
 
-		assertEquals(runIO(result), 30)
+		assertEquals(runIo(result), 30)
 	})
 
 	await t.step("executes effects in correct order", () => {
@@ -68,7 +67,7 @@ Deno.test("ap", async (t) => {
 		const result = ap(functionIO)(valueIO)
 		assertEquals(order, "")
 
-		assertEquals(runIO(result), "HELLO")
+		assertEquals(runIo(result), "HELLO")
 		assertEquals(order, "functionvalue")
 	})
 
@@ -80,8 +79,8 @@ Deno.test("ap", async (t) => {
 		const doubled = ap(multiplyIO)(value1IO)
 		const added = ap(addIO)(doubled)
 
-		assertEquals(runIO(doubled), 10)
-		assertEquals(runIO(added), 20)
+		assertEquals(runIo(doubled), 10)
+		assertEquals(runIo(added), 20)
 	})
 
 	await t.step("works with multiple parameters", () => {
@@ -94,7 +93,7 @@ Deno.test("ap", async (t) => {
 		const step2 = ap(step1)(yIO)
 		const result = ap(step2)(zIO)
 
-		assertEquals(runIO(result), 60)
+		assertEquals(runIo(result), 60)
 	})
 
 	await t.step("maintains referential transparency", () => {
@@ -102,7 +101,7 @@ Deno.test("ap", async (t) => {
 		const valueIO = of(21)
 		const resultIO = ap(functionIO)(valueIO)
 
-		assertEquals(runIO(resultIO), 42)
-		assertEquals(runIO(resultIO), 42)
+		assertEquals(runIo(resultIO), 42)
+		assertEquals(runIo(resultIO), 42)
 	})
 })
