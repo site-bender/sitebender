@@ -1,4 +1,3 @@
-
 //++ Tests for validateBlueprint function
 
 import { assertEquals } from "@std/assert"

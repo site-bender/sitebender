@@ -1,5 +1,4 @@
-
-import type { IO } from "@sitebender/toolsmith/types/fp/io"
+import type { Io } from "@sitebender/toolsmith/types/fp/io"
 
 type ConnectionEvent =
 	| { type: "websocket_open" }
@@ -12,7 +11,7 @@ export default function _setupWebSocketListeners(webSocket: WebSocket) {
 	return function setupWebSocketListenersOnWebSocket(
 		sendEvent: (event: ConnectionEvent) => void,
 	) {
-		return function setupWebSocketListenersWithEventSender(): IO<void> {
+		return function setupWebSocketListenersWithEventSender(): Io<void> {
 			return function performSetupWebSocketListeners(): void {
 				webSocket.addEventListener("open", function handleWebSocketOpen() {
 					sendEvent({ type: "websocket_open" })

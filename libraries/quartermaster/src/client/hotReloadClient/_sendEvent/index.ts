@@ -1,6 +1,6 @@
-import type { HotReloadState, ConnectionEvent } from "../types/index.ts"
-import type { IO } from "@sitebender/toolsmith/types/fp/io"
-import runIO from "@sitebender/toolsmith/monads/io/runIO"
+import type { ConnectionEvent, HotReloadState } from "../types/index.ts"
+import type { Io } from "@sitebender/toolsmith/types/fp/io"
+import runIo from "@sitebender/toolsmith/monads/io/runIo"
 
 //++ Sends events to the state machine and handles side effects (private helper)
 // [IO] This function performs side effects
@@ -18,19 +18,19 @@ export default function _sendEvent(
 				setupSSEListeners: (
 					eventSource: EventSource,
 				) => (
-					sendEvent: (event: ConnectionEvent) => IO<void>,
-				) => IO<void>,
+					sendEvent: (event: ConnectionEvent) => Io<void>,
+				) => Io<void>,
 			) {
 				return function sendEventWithSSEListeners(
 					setupWebSocketListeners: (
 						webSocket: WebSocket,
 					) => (
-						sendEvent: (event: ConnectionEvent) => IO<void>,
-					) => IO<void>,
+						sendEvent: (event: ConnectionEvent) => Io<void>,
+					) => Io<void>,
 				) {
 					return function sendEventWithWebSocketListeners(
 						event: ConnectionEvent,
-					): IO<void> {
+					): Io<void> {
 						return function executeSendEvent(): void {
 							const result = stateMachine.next(event)
 
@@ -50,7 +50,7 @@ export default function _sendEvent(
 									)(setCurrentState)(setupSSEListeners)(
 										setupWebSocketListeners,
 									)
-									runIO(
+									runIo(
 										setupSSEListeners(currentState.eventSource)(
 											sendEventRecursive,
 										)(),
@@ -66,7 +66,7 @@ export default function _sendEvent(
 									)(setCurrentState)(setupSSEListeners)(
 										setupWebSocketListeners,
 									)
-									runIO(
+									runIo(
 										setupWebSocketListeners(currentState.webSocket)(
 											sendEventRecursive,
 										)(),
