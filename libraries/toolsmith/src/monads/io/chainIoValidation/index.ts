@@ -9,7 +9,9 @@ export default function chainIoValidation<E, A, B>(
 	): IoValidation<E, B> {
 		return function chainedIoValidation() {
 			const validation = ioValidation()
-			return validation._tag === "Success" ? binder(validation.value)() : validation
+			return validation._tag === "Success"
+				? binder(validation.value)()
+				: validation
 		}
 	}
 }
