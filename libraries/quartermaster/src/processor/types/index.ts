@@ -17,10 +17,22 @@ export type ProcessResult = {
 }
 
 export type ProcessError =
-	| { readonly _tag: "ValidationError"; readonly message: string; readonly field?: string }
+	| {
+		readonly _tag: "ValidationError"
+		readonly message: string
+		readonly field?: string
+	}
 	| { readonly _tag: "FileNotFound"; readonly path: string }
-	| { readonly _tag: "PermissionDenied"; readonly path: string; readonly operation: string }
-	| { readonly _tag: "TemplateError"; readonly message: string; readonly file: string }
+	| {
+		readonly _tag: "PermissionDenied"
+		readonly path: string
+		readonly operation: string
+	}
+	| {
+		readonly _tag: "TemplateError"
+		readonly message: string
+		readonly file: string
+	}
 	| { readonly _tag: "PathTraversal"; readonly path: string }
 	| { readonly _tag: "UnknownError"; readonly error: Error }
 
