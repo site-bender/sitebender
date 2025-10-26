@@ -1,7 +1,5 @@
-import type { Value } from "../../types/index.ts"
-
 //++ Type guard that checks if a value is negative Infinity
-export default function isNegativeInfinity(value: Value): value is number {
+export default function isNegativeInfinity(value: unknown): value is number {
 	/*++
 	 + [EXCEPTION] Uses === operator to check -Infinity identity
 	 + This is a primitive identity check with no higher-level abstraction available

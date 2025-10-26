@@ -1,10 +1,11 @@
-import type { Value } from "../../types/index.ts"
-
 /*++
  + Type guard that checks if a value is a Map
  */
-export default function isMap<K extends Value = Value, V extends Value = Value>(
-	value: Value,
+export default function isMap<
+	K extends unknown = unknown,
+	V extends unknown = unknown,
+>(
+	value: unknown,
 ): value is Map<K, V> {
 	return value instanceof Map
 }
