@@ -1,5 +1,4 @@
-
-import type { IO } from "@sitebender/toolsmith/types/fp/io"
+import type { Io } from "@sitebender/toolsmith/types/fp/io"
 
 type ConnectionEvent =
 	| { type: "sse_open" }
@@ -11,7 +10,7 @@ export default function _setupSSEListeners(eventSource: EventSource) {
 	return function setupSSEListenersOnEventSource(
 		sendEvent: (event: ConnectionEvent) => void,
 	) {
-		return function setupSSEListenersWithEventSender(): IO<void> {
+		return function setupSSEListenersWithEventSender(): Io<void> {
 			return function performSetupSSEListeners(): void {
 				eventSource.addEventListener("open", function handleSSEOpen() {
 					sendEvent({ type: "sse_open" })

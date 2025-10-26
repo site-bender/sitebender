@@ -1,21 +1,25 @@
 import type { Result } from "../../types/fp/result/index.ts"
 import type { ValidationError } from "../../types/fp/validation/index.ts"
 
-import ok from "../../monads/result/ok/index.ts"
-import error from "../../monads/result/error/index.ts"
-import isObject from "../../predicates/isObject/index.ts"
-import isArray from "../../predicates/isArray/index.ts"
-import not from "../../logic/not/index.ts"
 import and from "../../logic/and/index.ts"
+import error from "../../monads/result/error/index.ts"
+import isPlainObject from "../../predicates/isPlainObject/index.ts"
+import ok from "../../monads/result/ok/index.ts"
 
 //++ Gets object values as array
 //++ Returns Result with values array or error if input invalid
 export default function values<T extends Record<string, unknown>>(
 	obj: T,
 ): Result<ValidationError, ReadonlyArray<T[keyof T]>> {
-	// Happy path: valid object (but not an array)
-	if (and(isObject(obj))(not(isArray(obj)))) {
+	// Happy path: valid plain object
+	if (and(isPlainObject(obj))) {
+		/*++
+		 + [EXCEPTION] .values is permitted here for performance reasons
+		 + This is the ONLY place .values should be used
+		 + Everywhere else, use the `values` function instead
+		 */
 		const valueArray = Object.values(obj) as ReadonlyArray<T[keyof T]>
+
 		return ok(valueArray)
 	}
 

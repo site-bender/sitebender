@@ -1,11 +1,12 @@
 import type { TwoDecimalPlaces } from "@sitebender/toolsmith/types/branded/index.ts"
-import type { Value } from "../../types/index.ts"
 
 import { TWO_DECIMAL_PLACES_SCALE } from "@sitebender/toolsmith/newtypes/constants/index.ts"
 import isFinite from "../isFinite/index.ts"
 
 //++ Type predicate that checks if a number has at most 2 decimal places
-export default function isTwoDecimalPlaces(value: Value): value is TwoDecimalPlaces {
+export default function isTwoDecimalPlaces(
+	value: unknown,
+): value is TwoDecimalPlaces {
 	if (isFinite(value)) {
 		/*++
 		 + [EXCEPTION] String(), .split(), .at(), .length, and <= are permitted here because:
