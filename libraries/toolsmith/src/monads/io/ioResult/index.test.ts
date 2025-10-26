@@ -2,7 +2,7 @@ import { assertEquals } from "@std/assert"
 
 import error from "../../result/error/index.ts"
 import ok from "../../result/ok/index.ts"
-import runIO from "../runIO/index.ts"
+import runIo from "../runIo/index.ts"
 import ioResult from "./index.ts"
 
 Deno.test("ioResult", async (t) => {
@@ -18,7 +18,7 @@ Deno.test("ioResult", async (t) => {
 
 	await t.step("creates IOResult from Ok result", () => {
 		const successIO = ioResult(() => ok("success"))
-		const result = runIO(successIO)
+		const result = runIo(successIO)
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
 			assertEquals(result.value, "success")
@@ -27,7 +27,7 @@ Deno.test("ioResult", async (t) => {
 
 	await t.step("creates IOResult from Error result", () => {
 		const failureIO = ioResult(() => error("failed"))
-		const result = runIO(failureIO)
+		const result = runIo(failureIO)
 		assertEquals(result._tag, "Error")
 		if (result._tag === "Error") {
 			assertEquals(result.error, "failed")
@@ -38,8 +38,8 @@ Deno.test("ioResult", async (t) => {
 		const computation = ioResult(() => {
 			return ok(Math.random())
 		})
-		const result1 = runIO(computation)
-		const result2 = runIO(computation)
+		const result1 = runIo(computation)
+		const result2 = runIo(computation)
 
 		// Different values because computation runs each time
 		assertEquals(result1._tag, "Ok")
@@ -50,8 +50,8 @@ Deno.test("ioResult", async (t) => {
 		type User = { readonly id: number; readonly name: string }
 		type UserError = { readonly _tag: "UserError"; readonly message: string }
 
-		const userIO = ioResult<User, UserError>(() => ok({ id: 1, name: "Alice" }))
-		const result = runIO(userIO)
+		const userIO = ioResult<UserError, User>(() => ok({ id: 1, name: "Alice" }))
+		const result = runIo(userIO)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
