@@ -1,9 +1,9 @@
-import type { AsyncIOResult } from "../../../types/fp/io/index.ts"
+import type { AsyncIoResult } from "../../../types/fp/io/index.ts"
 import type { Result } from "../../../types/fp/result/index.ts"
 
-//++ Executes an AsyncIOResult by calling the async thunk and awaiting the result
-export default function runAsyncIO<T, E>(
-	asyncIo: AsyncIOResult<T, E>,
+//++ Executes an AsyncIoResult by calling the async thunk and awaiting the result
+export default function runAsyncIo<E, T>(
+	asyncIo: AsyncIoResult<E, T>,
 ): Promise<Result<E, T>> {
 	return asyncIo()
 }

@@ -86,45 +86,48 @@ Deno.test("asyncIoValidation", async (t) => {
 		}
 	})
 
-	await t.step("handles async validation errors with accumulation", async () => {
-		type ValidationError = {
-			readonly _tag: "ValidationError"
-			readonly field: string
-			readonly message: string
-		}
+	await t.step(
+		"handles async validation errors with accumulation",
+		async () => {
+			type ValidationError = {
+				readonly _tag: "ValidationError"
+				readonly field: string
+				readonly message: string
+			}
 
-		const validateFormIo = asyncIoValidation<ValidationError, never>(
-			async () => {
-				await new Promise((resolve) => setTimeout(resolve, 10))
-				return failure([
-					{
-						_tag: "ValidationError",
-						field: "email",
-						message: "Invalid email format",
-					},
-					{
-						_tag: "ValidationError",
-						field: "password",
-						message: "Password too short",
-					},
-					{
-						_tag: "ValidationError",
-						field: "age",
-						message: "Must be 18 or older",
-					},
-				])
-			},
-		)
+			const validateFormIo = asyncIoValidation<ValidationError, never>(
+				async () => {
+					await new Promise((resolve) => setTimeout(resolve, 10))
+					return failure([
+						{
+							_tag: "ValidationError",
+							field: "email",
+							message: "Invalid email format",
+						},
+						{
+							_tag: "ValidationError",
+							field: "password",
+							message: "Password too short",
+						},
+						{
+							_tag: "ValidationError",
+							field: "age",
+							message: "Must be 18 or older",
+						},
+					])
+				},
+			)
 
-		const result = await validateFormIo()
-		assertEquals(result._tag, "Failure")
-		if (result._tag === "Failure") {
-			assertEquals(result.errors.length, 3)
-			assertEquals(result.errors[0].field, "email")
-			assertEquals(result.errors[1].field, "password")
-			assertEquals(result.errors[2].field, "age")
-		}
-	})
+			const result = await validateFormIo()
+			assertEquals(result._tag, "Failure")
+			if (result._tag === "Failure") {
+				assertEquals(result.errors.length, 3)
+				assertEquals(result.errors[0].field, "email")
+				assertEquals(result.errors[1].field, "password")
+				assertEquals(result.errors[2].field, "age")
+			}
+		},
+	)
 
 	await t.step("maintains referential transparency", () => {
 		const computation = asyncIoValidation(async () => {
