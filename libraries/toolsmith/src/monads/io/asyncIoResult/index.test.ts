@@ -3,7 +3,7 @@ import { assertEquals } from "@std/assert"
 import error from "../../result/error/index.ts"
 import ok from "../../result/ok/index.ts"
 import asyncIoResult from "./index.ts"
-import runAsyncIO from "../runAsyncIO/index.ts"
+import runAsyncIo from "../runAsyncIo/index.ts"
 
 Deno.test("asyncIoResult", async (t) => {
 	await t.step("wraps an async thunk returning Promise<Result>", async () => {
@@ -24,7 +24,7 @@ Deno.test("asyncIoResult", async (t) => {
 			await Promise.resolve()
 			return ok("success")
 		})
-		const result = await runAsyncIO(successIO)
+		const result = await runAsyncIo(successIO)
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
 			assertEquals(result.value, "success")
@@ -36,7 +36,7 @@ Deno.test("asyncIoResult", async (t) => {
 			await Promise.resolve()
 			return error("failed")
 		})
-		const result = await runAsyncIO(failureIO)
+		const result = await runAsyncIo(failureIO)
 		assertEquals(result._tag, "Error")
 		if (result._tag === "Error") {
 			assertEquals(result.error, "failed")
@@ -48,8 +48,8 @@ Deno.test("asyncIoResult", async (t) => {
 			await Promise.resolve()
 			return ok(Math.random())
 		})
-		const result1 = await runAsyncIO(computation)
-		const result2 = await runAsyncIO(computation)
+		const result1 = await runAsyncIo(computation)
+		const result2 = await runAsyncIo(computation)
 
 		// Different values because computation runs each time
 		assertEquals(result1._tag, "Ok")
@@ -60,13 +60,13 @@ Deno.test("asyncIoResult", async (t) => {
 		type User = { readonly id: number; readonly name: string }
 		type UserError = { readonly _tag: "UserError"; readonly message: string }
 
-		const fetchUserIO = asyncIoResult<User, UserError>(async () => {
+		const fetchUserIO = asyncIoResult<UserError, User>(async () => {
 			// Simulate async operation
 			await new Promise((resolve) => setTimeout(resolve, 10))
 			return ok({ id: 1, name: "Alice" })
 		})
 
-		const result = await runAsyncIO(fetchUserIO)
+		const result = await runAsyncIo(fetchUserIO)
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
 			assertEquals(result.value.id, 1)
@@ -81,7 +81,7 @@ Deno.test("asyncIoResult", async (t) => {
 			readonly code: number
 		}
 
-		const fetchFailIO = asyncIoResult<never, FetchError>(async () => {
+		const fetchFailIO = asyncIoResult<FetchError, never>(async () => {
 			await new Promise((resolve) => setTimeout(resolve, 10))
 			return error({
 				_tag: "FetchError",
@@ -90,7 +90,7 @@ Deno.test("asyncIoResult", async (t) => {
 			})
 		})
 
-		const result = await runAsyncIO(fetchFailIO)
+		const result = await runAsyncIo(fetchFailIO)
 		assertEquals(result._tag, "Error")
 		if (result._tag === "Error") {
 			assertEquals(result.error._tag, "FetchError")
