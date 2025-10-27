@@ -9,7 +9,8 @@ import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import _processChildren from "./_processChildren/index.ts"
 import _createElementConfig from "./_createElementConfig/index.ts"
 import _callComponent from "./_callComponent/index.ts"
-import _reduceAttributes from "./_reduceAttributes/index.ts"
+import _convertAttributeEntry from "./_convertAttributeEntry/index.ts"
+import _createErrorConfig from "./_createErrorConfig/index.ts"
 
 /*++
  + Creates an element configuration from JSX
@@ -57,7 +58,7 @@ export default function createElement(component: Component) {
 				 + Use reduce to build string attributes immutably
 				 */
 				const attributeEntries = entries(attributes)
-				const stringAttributesResult = reduce(_reduceAttributes)({})(
+				const stringAttributesResult = reduce(_convertAttributeEntry)({})(
 					attributeEntries,
 				)
 				const stringAttributes = getOrElse({})(stringAttributesResult)
@@ -69,17 +70,12 @@ export default function createElement(component: Component) {
 
 			/*++
 			 + Invalid component type - this shouldn't happen with proper TypeScript usage
-			 + Return error element config for graceful degradation
+			 + Return error config for graceful degradation
+			 + [EXCEPTION] typeof operator needed to describe the invalid type
 			 */
-			return {
-				_tag: "element" as const,
-				tagName: "SPAN",
-				attributes: {
-					"data-error": "Invalid component type",
-					"data-component-type": typeof component,
-				},
-				children: processedChildren,
-			}
+			return _createErrorConfig("INVALID_COMPONENT_TYPE")(
+				`Invalid component type "${typeof component}" - must be string or function`,
+			)(component)
 		}
 	}
 }
