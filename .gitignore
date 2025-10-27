@@ -135,3 +135,6 @@ AI_STATUS.md
 # Rust build artifacts
 **/target/
 Cargo.lock
+
+# Code generator temporary files
+.claude/generators/tmp/
