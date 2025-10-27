@@ -3,13 +3,16 @@ import type { Child, ElementConfig } from "../../types/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
 import isNumber from "@sitebender/toolsmith/predicates/isNumber/index.ts"
 import isArray from "@sitebender/toolsmith/predicates/isArray/index.ts"
-import isNullish from "@sitebender/toolsmith/predicates/isNullish/index.ts"
 import isObject from "@sitebender/toolsmith/predicates/isObject/index.ts"
+import isNull from "@sitebender/toolsmith/predicates/isNull/index.ts"
+import isUndefined from "@sitebender/toolsmith/predicates/isUndefined/index.ts"
+import isBoolean from "@sitebender/toolsmith/predicates/isBoolean/index.ts"
 import includes from "@sitebender/toolsmith/array/includes/index.ts"
 import getTag from "@sitebender/toolsmith/object/getTag/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
-import _createTextConfig from "../_createTextConfig/index.ts"
+import _createTextConfig from "./_createTextConfig/index.ts"
+import _createErrorConfig from "../_createErrorConfig/index.ts"
 import { ELEMENT_TYPES } from "../constants/index.ts"
 
 /*++
@@ -41,38 +44,28 @@ export default function _processChild(
 	/*++
 	 + Null → error node
 	 */
-	if (child === null) {
-		return {
-			_tag: "error" as const,
-			code: "INVALID_CHILD_NULL",
-			message: "Null child encountered - this is not a valid DOM node",
-			received: null,
-		}
+	if (isNull(child)) {
+		return _createErrorConfig("INVALID_CHILD_NULL")(
+			"Null child encountered - this is not a valid DOM node",
+		)(null)
 	}
 
 	/*++
 	 + Undefined → error node
 	 */
-	if (child === undefined) {
-		return {
-			_tag: "error" as const,
-			code: "INVALID_CHILD_UNDEFINED",
-			message: "Undefined child encountered - this is not a valid DOM node",
-			received: undefined,
-		}
+	if (isUndefined(child)) {
+		return _createErrorConfig("INVALID_CHILD_UNDEFINED")(
+			"Undefined child encountered - this is not a valid DOM node",
+		)(undefined)
 	}
 
 	/*++
 	 + Boolean → error node
 	 */
-	if (typeof child === "boolean") {
-		return {
-			_tag: "error" as const,
-			code: "INVALID_CHILD_BOOLEAN",
-			message:
-				`Boolean child (${child}) encountered - this is not a valid DOM node`,
-			received: child,
-		}
+	if (isBoolean(child)) {
+		return _createErrorConfig("INVALID_CHILD_BOOLEAN")(
+			`Boolean child (${child}) encountered - this is not a valid DOM node`,
+		)(child)
 	}
 
 	/*++
@@ -85,37 +78,34 @@ export default function _processChild(
 	/*++
 	 + Object with _tag → already processed ElementConfig
 	 + Uses getTag to access _tag property and includes to validate
+	 + includes acts as type guard, narrowing tag type if validation succeeds
 	 */
 	if (isObject(child) && "_tag" in child) {
 		const tagged = child as { _tag: string }
 		const tagResult = getTag(tagged)
 		const tag = getOrElse("")(tagResult)
-		const isValidTag = includes(ELEMENT_TYPES)(
-			tag as typeof ELEMENT_TYPES[number],
-		)
 
-		if (isValidTag) {
+		if (includes(ELEMENT_TYPES)(tag)) {
+			/*++
+			 + TypeScript now knows tag is "comment" | "element" | "error" | "text"
+			 + Safe to return as ElementConfig
+			 */
 			return child as ElementConfig
 		}
 
 		/*++
 		 + Object with invalid _tag → error node
 		 */
-		return {
-			_tag: "error" as const,
-			code: "INVALID_CHILD_TAG",
-			message: `Object with invalid _tag "${String(tagged._tag)}" encountered`,
-			received: child,
-		}
+		return _createErrorConfig("INVALID_CHILD_TAG")(
+			`Object with invalid _tag "${String(tag)}" encountered`,
+		)(child)
 	}
 
 	/*++
 	 + Invalid child type → error node
+	 + [EXCEPTION] typeof operator needed to describe the invalid type in error message
 	 */
-	return {
-		_tag: "error" as const,
-		code: "INVALID_CHILD_TYPE",
-		message: `Invalid child type "${typeof child}" encountered`,
-		received: child,
-	}
+	return _createErrorConfig("INVALID_CHILD_TYPE")(
+		`Invalid child type "${typeof child}" encountered`,
+	)(child)
 }

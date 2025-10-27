@@ -7,7 +7,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"converts string value to string attribute",
 		function convertsStringValue() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"id",
 				"test",
 			])
@@ -19,7 +19,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"converts number value to string attribute",
 		function convertsNumberValue() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"width",
 				42,
 			])
@@ -31,7 +31,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"converts boolean value to string attribute",
 		function convertsBooleanValue() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"disabled",
 				true,
 			])
@@ -43,7 +43,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"filters out null values",
 		function filtersNull() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"removed",
 				null,
 			])
@@ -55,7 +55,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"filters out undefined values",
 		function filtersUndefined() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"missing",
 				undefined,
 			])
@@ -67,10 +67,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"preserves existing accumulator",
 		function preservesAccumulator() {
-			const result = _convertAttributeEntry({ existing: "value" })([
-				"new",
-				"attr",
-			])
+			const result = _convertAttributeEntry({ existing: "value" }, ["new", "attr"])
 
 			assertEquals(result, { existing: "value", new: "attr" })
 		},
@@ -79,7 +76,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"handles empty string value",
 		function handlesEmptyString() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"title",
 				"",
 			])
@@ -91,7 +88,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"handles zero value",
 		function handlesZero() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"value",
 				0,
 			])
@@ -103,7 +100,7 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	await t.step(
 		"handles false value",
 		function handlesFalse() {
-			const result = _convertAttributeEntry({})([
+			const result = _convertAttributeEntry({}, [
 				"checked",
 				false,
 			])
@@ -113,12 +110,24 @@ Deno.test("_convertAttributeEntry", async function convertAttributeEntryTests(t)
 	)
 
 	await t.step(
-		"is properly curried",
-		function properlyCurried() {
-			const withAccumulator = _convertAttributeEntry({ base: "value" })
-			const result = withAccumulator(["key", "test"])
+		"is uncurried for use with reduce",
+		function isUncurried() {
+			/*++
+			 + [EXCEPTION] This test verifies the uncurried function signature
+			 + reduce expects: (accumulator, item) => result
+			 + _convertAttributeEntry provides this signature
+			 */
+			const entries: ReadonlyArray<readonly [string, unknown]> = [
+				["id", "test"],
+				["width", 100],
+			]
 
-			assertEquals(result, { base: "value", key: "test" })
+			const result = entries.reduce(_convertAttributeEntry, {})
+
+			assertEquals(result, {
+				id: "test",
+				width: "100",
+			})
 		},
 	)
 })
@@ -130,7 +139,7 @@ Deno.test("_convertAttributeEntry - property: always returns object", function a
 			fc.string(),
 			fc.oneof(fc.string(), fc.integer(), fc.boolean(), fc.constant(null), fc.constant(undefined)),
 			function propertyReturnsObject(acc, key, value) {
-				const result = _convertAttributeEntry(acc)([key, value])
+				const result = _convertAttributeEntry(acc, [key, value])
 				assertEquals(typeof result, "object")
 				assertEquals(Array.isArray(result), false)
 			},
@@ -144,7 +153,7 @@ Deno.test("_convertAttributeEntry - property: non-nullish values converted to st
 			fc.string(),
 			fc.oneof(fc.string(), fc.integer(), fc.boolean()),
 			function propertyConvertsToString(key, value) {
-				const result = _convertAttributeEntry({})([key, value])
+				const result = _convertAttributeEntry({}, [key, value])
 				if (key in result) {
 					assertEquals(typeof result[key], "string")
 					assertEquals(result[key], String(value))
@@ -160,7 +169,7 @@ Deno.test("_convertAttributeEntry - property: nullish values filtered", function
 			fc.string(),
 			fc.oneof(fc.constant(null), fc.constant(undefined)),
 			function propertyFiltersNullish(key, value) {
-				const result = _convertAttributeEntry({})([key, value])
+				const result = _convertAttributeEntry({}, [key, value])
 				assertEquals(result, {})
 			},
 		),
@@ -180,9 +189,29 @@ Deno.test("_convertAttributeEntry - property: preserves accumulator keys", funct
 				 */
 				if (key in acc) return
 
-				const result = _convertAttributeEntry(acc)([key, value])
+				const result = _convertAttributeEntry(acc, [key, value])
 				Object.keys(acc).forEach((accKey) => {
 					assertEquals(result[accKey], acc[accKey])
+				})
+			},
+		),
+	)
+})
+
+Deno.test("_convertAttributeEntry - property: works with Array.reduce", function worksWithReduce() {
+	fc.assert(
+		fc.property(
+			fc.array(fc.tuple(fc.string(), fc.oneof(fc.string(), fc.integer(), fc.boolean()))),
+			function propertyWorksWithReduce(entries) {
+				/*++
+				 + [EXCEPTION] Array.reduce is acceptable for testing reduce compatibility
+				 + Verify that uncurried _convertAttributeEntry works correctly as a reduce callback
+				 */
+				const result = entries.reduce(_convertAttributeEntry, {})
+
+				assertEquals(typeof result, "object")
+				entries.forEach(([key, value]) => {
+					assertEquals(result[key], String(value))
 				})
 			},
 		),
