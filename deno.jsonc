@@ -119,6 +119,9 @@
 		"demo:agent": "deno task --cwd libraries/agent demo",
 		"demo:arborist": "deno task --cwd libraries/arborist demo",
 
+		// === Code Generators ===
+		"new:function": "deno run --allow-read --allow-write .claude/skills/function-implementation/script.ts",
+
 		// === Playground shortcuts (workspace-level) ===
 		"the-workshop:dev": "deno task --cwd applications/the-workshop dev",
 		"the-workshop:build": "deno task --cwd applications/the-workshop build",

@@ -168,6 +168,31 @@ This codebase has **strict architectural, functional programming, syntax, and fo
 - **formatting_rules** - Formatting (tabs, 80 chars, UTF-8, LF endings, trailing whitespace)
 - **functional_programming_rules** - FP (pure functions, no loops, no mutations, no exceptions)
 
+### Available Skills
+
+**Project-Level Skills** (in `.claude/skills/`):
+- **abbreviations** - No abbreviations unless whitelisted; initialisms capitalize first letter only
+- **file-system-organization** - Modular architecture; one entity per folder; all files named `index.*`
+- **naming** - Naming conventions (camelCase, PascalCase, SCREAMING_SNAKE_CASE, kebab-case)
+- **operator-substitutions** - Use Toolsmith functions instead of raw operators
+- **sitebender-predicates** - Patterns for writing predicate functions
+- **function-implementation** - Structure AND implementation patterns; when to use Result; error handling; imports; constitutional rules reminder (includes generator script)
+- **type-definition** - Branded types, discriminated unions, smart constructors (includes generator scripts)
+- **error-handling** - Result/Validation monads, error type design (includes generator script)
+- **testing** - Unit tests, property-based testing, test organization (includes generator script)
+- **component** - JSX components, progressive enhancement, data-as-configuration (includes generator script)
+
+**CRITICAL:** When implementing ANY function, consult function-implementation skill for:
+- Conjunction selection (To/With/For decision tree)
+- When to return Result vs plain values
+- Error handling without exceptions
+- No loops (use map/filter/reduce)
+- No mutations, no arrow functions
+- Common imports from Toolsmith
+
+**User-Level Skills** (in `~/.claude/skills/`):
+- **writing-excellence** - Strunk & White writing principles for prose content (documentation, UI text, essays)
+
 ### Project Essence
 
 **Sitebender Studio**: Everything is data. JSX → JSON/YAML/Turtle → Triple stores → SPARQL → Direct DOM rendering. Not React.
@@ -213,3 +238,4 @@ deno task dev                     # Run dev server
 - Everything is pure, immutable, functional
 - No classes, no mutations, no loops, no barrel files, no arrow functions
 - The MCP servers contain comprehensive rules, violations, and examples
+- Always use the function-implementation skill to implement functions in this project.
