@@ -30,7 +30,7 @@ Schema (JSON shape)
   - wardenContract?: string
   - axeAllowlistSeed?: string
 - variants (optional):
-  - architect?: boolean
+  - artificer?: boolean
   - envoy?: boolean
   - (future toggles may be added)
 
@@ -49,50 +49,50 @@ Example blueprint: the‑athenaeum (Envoy docs app; placeholder)
   "postScaffoldMessages": [
     "Stub blueprint: metadata and target path only. No templates yet."
   ],
-  "variants": { "envoy": true, "architect": false }
+  "variants": { "envoy": true, "artificer": false }
 }
 ```
 
-Example blueprint: the‑workshop (Architect the-workshop; placeholder)
+Example blueprint: the‑workshop (Artificer the-workshop; placeholder)
 ```json
 {
   "id": "workshop",
   "name": "the-workshop",
-  "description": "Playground (Architect pipeline) skeleton (placeholder)",
+  "description": "Playground (Artificer pipeline) skeleton (placeholder)",
   "outputs": { "appPath": "./applications/the-workshop" },
   "files": [],
   "postScaffoldMessages": [
     "Stub blueprint: metadata and target path only. No templates yet."
   ],
-  "variants": { "architect": true, "envoy": false }
+  "variants": { "artificer": true, "envoy": false }
 }
 ```
 
-Example blueprint: minimal (Pagewright‑only; placeholder)
+Example blueprint: minimal (Architect‑only; placeholder)
 ```json
 {
   "id": "minimal",
   "name": "minimal-app",
-  "description": "Pagewright-only minimal app skeleton (placeholder)",
+  "description": "Architect-only minimal app skeleton (placeholder)",
   "outputs": { "appPath": "./applications/minimal-app" },
   "files": [],
   "postScaffoldMessages": [
     "Stub blueprint: metadata and target path only. No templates yet."
   ],
-  "variants": { "architect": false, "envoy": false }
+  "variants": { "artificer": false, "envoy": false }
 }
 ```
 
 Import‑map policy (what blueprints should encode for generated apps)
 - Dev (deno.dev.jsonc equivalent):
   - "@sitebender/toolsmith/": "./libraries/toolsmith/src/"
+  - "@sitebender/artificer/": "./libraries/artificer/src/"
   - "@sitebender/architect/": "./libraries/architect/src/"
-  - "@sitebender/pagewright/": "./libraries/pagewright/src/"
   - etc.
 - Prod (deno.prod.jsonc equivalent):
   - "@sitebender/toolsmith/": "https://deno.land/x/sitebender_toolsmith@v0.0.0/src/"
-  - "@sitebender/architect/": "https://deno.land/x/sitebender_architect@v0.0.0/src/"
-  - "@sitebender/pagewright/": "https://deno.land/x/sitebender_pagewright@v0.0.0/src/"
+  - "@sitebender/artificer/": "https://deno.land/x/sitebender_architect@v0.0.0/src/"
+  - "@sitebender/architect/": "https://deno.land/x/sitebender_pagewright@v0.0.0/src/"
   - etc.
 
 Deno tasks (generated app expectations)
@@ -116,15 +116,15 @@ Sample dry‑run plan (what quartermaster:dry‑run will print later; no writes)
     "dev": {
       "imports": {
         "@sitebender/toolsmith/": "./libraries/toolsmith/src/",
-        "@sitebender/architect/": "./libraries/architect/src/",
-        "@sitebender/pagewright/": "./libraries/pagewright/src/"
+        "@sitebender/artificer/": "./libraries/artificer/src/",
+        "@sitebender/architect/": "./libraries/architect/src/"
       }
     },
     "prod": {
       "imports": {
         "@sitebender/toolsmith/": "https://deno.land/x/sitebender_toolsmith@v0.0.0/src/",
-        "@sitebender/architect/": "https://deno.land/x/sitebender_architect@v0.0.0/src/",
-        "@sitebender/pagewright/": "https://deno.land/x/sitebender_pagewright@v0.0.0/src/"
+        "@sitebender/artificer/": "https://deno.land/x/sitebender_architect@v0.0.0/src/",
+        "@sitebender/architect/": "https://deno.land/x/sitebender_pagewright@v0.0.0/src/"
       }
     }
   },
@@ -144,7 +144,7 @@ Sample dry‑run plan (what quartermaster:dry‑run will print later; no writes)
 
 Authoring notes
 - Blueprints are static JSON files stored under libraries/quartermaster/src/blueprints/.
-- The dry‑run architect will read the blueprint and toggles, then print a deterministic plan:
+- The dry‑run artificer will read the blueprint and toggles, then print a deterministic plan:
   - Sorted file list (by targetPath), sorted object keys, stable indentation/newlines.
 - Apply mode is deferred; stubs only print help for now.
 

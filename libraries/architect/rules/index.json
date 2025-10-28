@@ -8,37 +8,43 @@
 	"commandments": [
 		{
 			"key": "progressive-enhancement",
-			"title": "Thou shalt output HTML that works without client-side JavaScript",
+			"title": "Thou shalt generate HTML that works without client-side JavaScript",
 			"details": [
-				"Architect must evaluate IR to semantic HTML",
-				"SSR/SSG output must be fully functional without client JS",
-				"Hydration adds interactivity to already-working HTML",
-				"Form actions must compile to standard HTTP methods"
+				"Components must output semantic HTML",
+				"Generated forms must use standard HTML form elements",
+				"Output must include server-side functionality patterns",
+				"No client-side-JavaScript-only components"
 			]
 		},
 		{
 			"key": "respect-accessibility",
 			"title": "Thou shalt respect accessibility",
 			"details": [
-				"Generated HTML must be WCAG 2.3 AAA compliant",
-				"Preserve ARIA attributes through compilation",
-				"Maintain semantic structure in output"
+				"WCAG 2.3 AAA or better",
+				"ARIA attributes properly applied",
+				"Screen readers are first-class citizens",
+				"Keyboard navigation for everything"
 			]
 		}
 	],
-	"architectSpecific": {
-		"irEvaluation": [
-			"IR must evaluate to HTML that functions without client-side JS",
-			"Output HTML with proper form actions and methods",
-			"Generate links with real href attributes",
-			"Server evaluation produces complete, working HTML",
-			"Hydration enhances but doesn't break existing functionality"
-		],
-		"responsiveOutput": [
-			"Generated HTML must include responsive meta viewport tag",
-			"Preserve responsive classes and attributes through compilation",
-			"Support picture elements and srcset for responsive images",
-			"Maintain CSS Grid and Flexbox properties in output"
+	"progressiveEnhancement": {
+		"componentRequirements": [
+			"Components must compile to HTML that works without client-side JS",
+			"Generated HTML must support standard form submissions",
+			"Output validation patterns that work server-side",
+			"Compile to semantic HTML with proper ARIA attributes",
+			"Interactive components must generate keyboard-navigable HTML",
+			"Client-side JavaScript enhances the generated HTML, never replaces it"
+		]
+	},
+	"responsiveDesign": {
+		"requirements": [
+			"Components must be responsive by default",
+			"Use relative units (rem, em, %, vw/vh) not fixed pixels for layout",
+			"Provide responsive prop options for different breakpoints",
+			"Support fluid typography that scales with viewport",
+			"Grid and flex layouts that reflow naturally",
+			"Never assume a fixed screen size"
 		]
 	}
 }

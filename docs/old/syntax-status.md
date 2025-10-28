@@ -72,10 +72,10 @@
 
 ## Boolean Logic Components
 
-### 🟢 CANONICAL: Architect Conditionals
+### 🟢 CANONICAL: Artificer Conditionals
 
 **Status**: Finalized (existed before lock system)  
-**Documentation**: [libraries/architect/README.md](../libraries/architect/README.md)
+**Documentation**: [libraries/artificer/README.md](../libraries/artificer/README.md)
 
 ```tsx
 // General-purpose boolean logic (used across validation, locks, conditionals)
@@ -106,10 +106,10 @@
 
 ## Conditional Rendering
 
-### 🟡 PROPOSED: ShowIf/HideIf (Architect)
+### 🟡 PROPOSED: ShowIf/HideIf (Artificer)
 
 **Status**: AI-suggested, not implemented  
-**Source**: Architect README examples  
+**Source**: Artificer README examples  
 **Needs Review**: Component naming, API design
 
 ```tsx
@@ -198,10 +198,10 @@
 
 ## Forms
 
-### 🟡 PROPOSED: Data-Driven Form Components (Architect)
+### 🟡 PROPOSED: Data-Driven Form Components (Artificer)
 
 **Status**: Philosophy documented, components not implemented  
-**Source**: Architect README
+**Source**: Artificer README
 
 ```tsx
 // PROPOSED - NOT YET CANONICAL
@@ -218,7 +218,7 @@
 **Decision Needed**:
 - Component API finalization
 - Widget selection logic
-- Integration with Pagewright form components
+- Integration with Architect form components
 
 ---
 

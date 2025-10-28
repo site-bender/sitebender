@@ -1,4 +1,4 @@
 export type {
 	default,
-	ExercisePlanType,
+	default as ExercisePlanType,
 } from "../../../../CreativeWork/ExercisePlan/index.ts"

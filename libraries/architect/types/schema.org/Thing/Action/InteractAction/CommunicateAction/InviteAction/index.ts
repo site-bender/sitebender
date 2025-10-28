@@ -4,7 +4,7 @@ import type { ActionProps } from "../../../index.ts"
 import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
 
-import EventComponent from "../../../../../../../../pagewright/src/define/Thing/Event/index.tsx"
+import EventComponent from "../../../../../../../src/define/Thing/Event/index.tsx"
 
 export type InviteActionType = "InviteAction"
 

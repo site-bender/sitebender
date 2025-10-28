@@ -332,7 +332,7 @@ Shared dictionaries for common patterns:
 
 ## Integration Points
 
-### With Architect
+### With Artificer
 
 ```turtle
 # Link events to DOM elements

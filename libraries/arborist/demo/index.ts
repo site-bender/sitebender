@@ -5,7 +5,7 @@
 async function runDemo() {
 	// Hardcode the absolute path to avoid path calculation issues
 	const EXAMPLES_DIR =
-		"/Users/guy/Workspace/@sitebender/architect-ai/libraries/arborist/demo/examples/"
+		"/Users/guy/Workspace/@sitebender/artificer-ai/libraries/arborist/demo/examples/"
 
 	console.log("═".repeat(80))
 	console.log("ARBORIST DEMO - Practical Usage Across Sitebender Libraries")
@@ -43,7 +43,7 @@ async function runDemo() {
 
 	console.log()
 
-	//++ Demonstrate Architect JSX analysis
+	//++ Demonstrate Artificer JSX analysis
 	console.log("🏗️  ARCHITECT - Reactive Component Analysis")
 	console.log("─".repeat(50))
 
@@ -174,7 +174,7 @@ async function runDemo() {
 	)
 	console.log("• 📚 Envoy uses semantic analysis for intelligent documentation")
 	console.log(
-		"• 🏗️  Architect uses fast parsing for reactive component analysis",
+		"• 🏗️  Artificer uses fast parsing for reactive component analysis",
 	)
 	console.log(
 		"• ⚖️  Warden uses structural analysis for architectural governance",

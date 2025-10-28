@@ -3,7 +3,7 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type TVSeries from "../../TVSeries/index.ts"
 import type { ClipProps } from "../index.ts"
 
-import { TVSeries as TVSeriesComponent } from "../../../../../../pagewright/index.tsx"
+import TVSeriesComponent from "../../../../../../src/define/Thing/CreativeWork/TVSeries/index.tsx"
 
 export type TVClipType = "TVClip"
 

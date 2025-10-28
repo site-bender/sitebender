@@ -7,8 +7,8 @@ import type { InteractActionProps } from "../../../index.ts"
 import type { CommunicateActionProps } from "../../index.ts"
 import type { InformActionProps } from "../index.ts"
 
-import CommentComponent from "../../../../../../../../../pagewright/src/define/Thing/CreativeWork/Comment/index.tsx"
-import RsvpResponseTypeComponent from "../../../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/RsvpResponseType/index.tsx"
+import CommentComponent from "../../../../../../../../src/define/Thing/CreativeWork/Comment/index.tsx"
+import RsvpResponseTypeComponent from "../../../../../../../../src/define/Thing/Intangible/Enumeration/RsvpResponseType/index.tsx"
 
 export type RsvpActionType = "RsvpAction"
 

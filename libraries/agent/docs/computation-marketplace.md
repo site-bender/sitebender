@@ -4,7 +4,7 @@
 
 ## Revolutionary Concept
 
-In @sitebender/studio, every behavior—validation rules, calculations, formatters, even entire applications—is data. Not code that produces data, but literally data structures (JSON/YAML/Turtle) that Architect interprets. This means computations can be:
+In @sitebender/studio, every behavior—validation rules, calculations, formatters, even entire applications—is data. Not code that produces data, but literally data structures (JSON/YAML/Turtle) that Artificer interprets. This means computations can be:
 
 - **Content-addressed** via IPFS
 - **Cryptographically verified** via Auditor proofs
@@ -498,7 +498,7 @@ import benefitsEligibility from "@marketplace/gov/benefits@official"
 ### As a Creator
 
 1. Write your computation in JSX
-2. Compile to IR with Architect
+2. Compile to IR with Artificer
 3. Generate proofs with Auditor
 4. Add semantic descriptions
 5. Publish to IPFS

@@ -98,8 +98,8 @@ Variables available for template substitution:
 | Variable | Source | Example |
 |----------|--------|---------|
 | `{{APP_NAME}}` | CLI flag or blueprint name | `my-app` |
-| `{{APP_DESCRIPTION}}` | Blueprint description | `Minimal Pagewright application` |
-| `{{LIBRARIES_LIST}}` | Generated from blueprint.libraries | `- Pagewright\n- Toolsmith` |
+| `{{APP_DESCRIPTION}}` | Blueprint description | `Minimal Architect application` |
+| `{{LIBRARIES_LIST}}` | Generated from blueprint.libraries | `- Architect\n- Toolsmith` |
 | `{{DENO_VERSION}}` | Hard-coded or detected | `1.40.0` |
 | `{{HTTP3_PORT}}` | blueprint.devServer.http3Port | `4433` |
 | `{{HTTP2_PORT}}` | blueprint.devServer.http2Port | `8443` |

@@ -5,7 +5,7 @@ import type { ArriveActionType } from "./ArriveAction/index.ts"
 import type { DepartActionType } from "./DepartAction/index.ts"
 import type { TravelActionType } from "./TravelAction/index.ts"
 
-import PlaceComponent from "../../../../../../pagewright/src/define/Thing/Place/index.tsx"
+import PlaceComponent from "../../../../../src/define/Thing/Place/index.tsx"
 
 export type MoveActionType =
 	| "MoveAction"

@@ -5,8 +5,8 @@ import type MedicalRiskFactor from "../MedicalRiskFactor/index.ts"
 import type { MedicalRiskCalculatorType } from "./MedicalRiskCalculator/index.ts"
 import type { MedicalRiskScoreType } from "./MedicalRiskScore/index.ts"
 
-import MedicalEntityComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/index.tsx"
-import MedicalRiskFactorComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalRiskFactor/index.tsx"
+import MedicalEntityComponent from "../../../../../src/define/Thing/MedicalEntity/index.tsx"
+import MedicalRiskFactorComponent from "../../../../../src/define/Thing/MedicalEntity/MedicalRiskFactor/index.tsx"
 
 export type MedicalRiskEstimatorType =
 	| "MedicalRiskEstimator"

@@ -33,7 +33,7 @@ Every Sitebender application starts with the `<Sitebender>` root component:
   </Data>
   
   <Behavior>
-    {/* Reusable reactive calculations, validations, conditionals, formatting (Architect) */}
+    {/* Reusable reactive calculations, validations, conditionals, formatting (Artificer) */}
   </Behavior>
   
   <Events>
@@ -54,9 +54,9 @@ Every Sitebender application starts with the `<Sitebender>` root component:
 </Sitebender>
 ```
 
-## Pagewright's Standards-Compliant Element Wrappers
+## Architect's Standards-Compliant Element Wrappers
 
-**Critical Architecture**: Pagewright provides wrapped versions of **ALL HTML, SVG, MathML, ChemML, and SSML elements** that enforce standards compliance and accessibility (see [Automatic Element Substitution](./automatic-element-substitution.md) for implementation details):
+**Critical Architecture**: Architect provides wrapped versions of **ALL HTML, SVG, MathML, ChemML, and SSML elements** that enforce standards compliance and accessibility (see [Automatic Element Substitution](./automatic-element-substitution.md) for implementation details):
 
 - `<a>` becomes `<A>` with proper href validation and nesting prevention
 - `<div>` becomes `<Div>` with content model enforcement
@@ -76,8 +76,8 @@ Every Sitebender application starts with the `<Sitebender>` root component:
 ### Usage Rules for All Libraries
 
 ```tsx
-// ✅ Correct - Use Pagewright's wrapped elements
-import { A, Div, P, Input } from "@sitebender/pagewright"
+// ✅ Correct - Use Architect's wrapped elements
+import { A, Div, P, Input } from "@sitebender/architect"
 
 <Div>
   <P>Welcome to our site!</P>
@@ -95,7 +95,7 @@ import { A, Div, P, Input } from "@sitebender/pagewright"
 
 ### Component Hierarchy Preference
 
-**Other libraries should prefer Pagewright's semantic components over low-level elements:**
+**Other libraries should prefer Architect's semantic components over low-level elements:**
 
 ```tsx
 // 🎯 Best - Use semantic components when available
@@ -115,7 +115,7 @@ import { A, Div, P, Input } from "@sitebender/pagewright"
   </Div>
 </Section>
 
-// ❌ Wrong - Never bypass Pagewright's element system
+// ❌ Wrong - Never bypass Architect's element system
 <section>
   <div class="custom-layout">
     <p>Some content</p>
@@ -126,11 +126,11 @@ import { A, Div, P, Input } from "@sitebender/pagewright"
 
 ## Library Ownership and Boundaries
 
-### Pagewright: `<Page>` Wrapper
+### Architect: `<Page>` Wrapper
 **Owns**: All HTML-rendering components, semantic markup, and standards-compliant element wrappers
 **Compiles to**: Pure HTML with progressive enhancement hooks
 
-**Critical Architecture**: Pagewright provides wrapped versions of ALL HTML elements (`<a>` → `<A>`, `<div>` → `<Div>`, `<p>` → `<P>`) that enforce W3C standards compliance and accessibility. **All Sitebender libraries must use these wrapped elements instead of lowercase HTML.** BUT, wherever possible, libraries should use the Pagewright components rather than the wrappers. Code semantically, not to the implementation. Tell it what, not how.
+**Critical Architecture**: Architect provides wrapped versions of ALL HTML elements (`<a>` → `<A>`, `<div>` → `<Div>`, `<p>` → `<P>`) that enforce W3C standards compliance and accessibility. **All Sitebender libraries must use these wrapped elements instead of lowercase HTML.** BUT, wherever possible, libraries should use the Architect components rather than the wrappers. Code semantically, not to the implementation. Tell it what, not how.
 
 ```tsx
 <!-- In a page route (e.g., `pages/about/index.tsx`), the top level component is promoted to a Page element -->
@@ -157,7 +157,7 @@ import { A, Div, P, Input } from "@sitebender/pagewright"
 </Article>
 ```
 
-### Architect: `<Behavior>` Wrapper
+### Artificer: `<Behavior>` Wrapper
 **Owns**: Reactive calculations, validation, formatting, display control
 **Compiles to**: Composed pure functions with lazy evaluation
 
@@ -544,7 +544,7 @@ export default function PasswordConfirmation() {
 
 Components are organized in folders matching their DSL wrapper:
 
-- **pages/** → `<Page>` components (using Pagewright wrapped elements)
+- **pages/** → `<Page>` components (using Architect wrapped elements)
 - **behaviors/** → `<Behavior>` components  
 - **data/** → `<Data>` concepts
 - **events/** → `<Events>` definitions

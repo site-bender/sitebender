@@ -431,7 +431,7 @@ custodian_implementation_plan:
         - "Validation detects deadlocks/loops"
         - "Generated code matches visual design"
         - "Bidirectional sync works"
-        - "Designer built with Pagewright"
+        - "Designer built with Architect"
 
       deliverables:
         - "Visual designer application"
@@ -855,9 +855,9 @@ custodian_implementation_plan:
       dependencies: ["phase_12"]
       milestones:
         - id: "M13.1"
-          name: "Architect Integration"
+          name: "Artificer Integration"
           tasks:
-            - "State changes trigger Architect calculations"
+            - "State changes trigger Artificer calculations"
             - "Form values reactive to state"
             - "Calculation results update state"
             - "Bidirectional data binding"
@@ -1063,7 +1063,7 @@ custodian_implementation_plan:
         purpose: "State transition validation, contracts"
       - name: "Sentinel"
         purpose: "Authentication/authorization for state access"
-      - name: "Pagewright"
+      - name: "Architect"
         purpose: "Visual designer UI components"
       - name: "Envoy"
         purpose: "Documentation generation, analytics dashboard"

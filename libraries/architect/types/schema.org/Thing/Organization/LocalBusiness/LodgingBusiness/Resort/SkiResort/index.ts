@@ -1,4 +1,4 @@
 export type {
 	default,
-	SkiResortType,
+	default as SkiResortType,
 } from "../../../SportsActivityLocation/SkiResort/index.ts"

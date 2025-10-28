@@ -4,7 +4,7 @@ import type Thing from "../../index.ts"
 import type TypeAndQuantityNode from "../../Intangible/StructuredValue/TypeAndQuantityNode/index.ts"
 import type { ProductProps } from "../index.ts"
 
-import TypeAndQuantityNodeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/TypeAndQuantityNode/index.tsx"
+import TypeAndQuantityNodeComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/TypeAndQuantityNode/index.tsx"
 
 export type ProductCollectionType = "ProductCollection"
 

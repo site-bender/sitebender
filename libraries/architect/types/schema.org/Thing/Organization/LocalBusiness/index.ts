@@ -34,7 +34,7 @@ import type { TelevisionStationType } from "./TelevisionStation/index.ts"
 import type { TouristInformationCenterType } from "./TouristInformationCenter/index.ts"
 import type { TravelAgencyType } from "./TravelAgency/index.ts"
 
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import OrganizationComponent from "../../../../../src/define/Thing/Organization/index.tsx"
 
 export type LocalBusinessType =
 	| "LocalBusiness"
