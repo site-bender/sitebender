@@ -7,10 +7,10 @@ import type OpeningHoursSpecification from "../OpeningHoursSpecification/index.t
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 import type ServicePeriod from "../ServicePeriod/index.ts"
 
-import DayOfWeekComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/DayOfWeek/index.tsx"
-import OpeningHoursSpecificationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import ServicePeriodComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ServicePeriod/index.tsx"
+import DayOfWeekComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/DayOfWeek/index.tsx"
+import OpeningHoursSpecificationComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/OpeningHoursSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import ServicePeriodComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/ServicePeriod/index.tsx"
 
 export type ShippingDeliveryTimeType = "ShippingDeliveryTime"
 

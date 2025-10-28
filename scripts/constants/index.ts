@@ -1,12 +1,12 @@
 // Shared constants for repository scripts
 
 // Alias policy paths
-export const ARCHITECT_SRC = "libraries/architect/src/"
-export const ARCHITECT_TYPES = "libraries/architect/types/"
+export const ARCHITECT_SRC = "libraries/artificer/src/"
+export const ARCHITECT_TYPES = "libraries/artificer/types/"
 export const TOOLSMITH_SRC = "libraries/toolsmith/src/"
 
 export const DEFAULT_ALIAS_SCOPES = [
-	"libraries/pagewright/src",
+	"libraries/architect/src",
 	"applications/mission-control/src",
 	"scripts",
 ]
@@ -39,9 +39,9 @@ export const FP_FORBIDDEN = [
 // Files that are explicitly allowed to violate FP guardrails (stateful adapters, etc.)
 export const FP_ALLOWLIST = new Set<string>([
 	"libraries/toolsmith/src/state/store.ts",
-	"libraries/architect/src/reactive/computed.ts",
-	"libraries/architect/src/reactive/signal.ts",
-	"libraries/architect/src/utilities/deterministicId.ts",
+	"libraries/artificer/src/reactive/computed.ts",
+	"libraries/artificer/src/reactive/signal.ts",
+	"libraries/artificer/src/utilities/deterministicId.ts",
 ])
 
 // No-React-Junk defaults

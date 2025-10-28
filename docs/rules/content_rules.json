@@ -181,11 +181,11 @@
             "keywords": ["strunk-white", "paragraph-structure", "topic-sentences", "unity", "organization", "clarity", "composition", "readability"],
             "rationale": "Paragraphs with clear topic sentences help readers follow the argument and understand structure. Paragraphs without clear focus confuse readers about the main point. Each paragraph should advance one main idea.",
             "prohibited": {
-              "code": "Pagewright has many features. Components are accessible. We also have good performance. Users like the interface.",
+              "code": "Architect has many features. Components are accessible. We also have good performance. Users like the interface.",
               "reasoning": "This unfocused paragraph jumps between multiple unrelated ideas without a clear topic sentence or unified theme"
             },
             "required": {
-              "code": "Pagewright components ensure accessibility. Every component includes proper ARIA labels, keyboard navigation, and semantic structure.",
+              "code": "Architect components ensure accessibility. Every component includes proper ARIA labels, keyboard navigation, and semantic structure.",
               "scope": "Longer written content: documentation, essays. Each paragraph should have one clear topic introduced by a topic sentence."
             }
           }

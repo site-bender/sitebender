@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/types/errors
-// Error type definitions using Architect ArchitectError pattern
+// Error type definitions using Artificer ArchitectError pattern
 
-import type { ArchitectError } from "@sitebender/architect/errors/types/ArchitectError.ts"
+import type { ArchitectError } from "@sitebender/artificer/errors/types/ArchitectError.ts"
 
 import type { Span, ParsedAst } from "../index.ts"
 

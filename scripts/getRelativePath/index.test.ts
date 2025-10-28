@@ -9,7 +9,7 @@ Deno.test("getRelativePath - basic relative path calculation", () => {
 })
 
 Deno.test("getRelativePath - same directory level", () => {
-	const result = getRelativePath("src/pagewright/index.ts")(
+	const result = getRelativePath("src/architect/index.ts")(
 		"src/utils/helpers.ts",
 	)
 
@@ -25,8 +25,8 @@ Deno.test("getRelativePath - no common ancestor", () => {
 })
 
 Deno.test("getRelativePath - same directory", () => {
-	const result = getRelativePath("src/pagewright/index.ts")(
-		"src/pagewright/Button.tsx",
+	const result = getRelativePath("src/architect/index.ts")(
+		"src/architect/Button.tsx",
 	)
 
 	assertEquals(result, "Button.tsx")
@@ -58,7 +58,7 @@ Deno.test("getRelativePath - partial common path", () => {
 })
 
 Deno.test("getRelativePath - complex nested structure", () => {
-	const result = getRelativePath("apps/web/src/pagewright/ui/Button/index.ts")(
+	const result = getRelativePath("apps/web/src/architect/ui/Button/index.ts")(
 		"libs/shared/types/api.ts",
 	)
 
@@ -66,7 +66,7 @@ Deno.test("getRelativePath - complex nested structure", () => {
 })
 
 Deno.test("getRelativePath - curried function works", () => {
-	const getRelativeFromPagewright = getRelativePath("src/pagewright/index.ts")
+	const getRelativeFromPagewright = getRelativePath("src/architect/index.ts")
 
 	assertEquals(
 		getRelativeFromPagewright("src/utils/helpers.ts"),
@@ -77,7 +77,7 @@ Deno.test("getRelativePath - curried function works", () => {
 		"../types/user.ts",
 	)
 	assertEquals(
-		getRelativeFromPagewright("src/pagewright/Button.tsx"),
+		getRelativeFromPagewright("src/architect/Button.tsx"),
 		"Button.tsx",
 	)
 })
@@ -89,7 +89,7 @@ Deno.test("getRelativePath - preserves file extensions", () => {
 })
 
 Deno.test("getRelativePath - handles non-index.ts files in from path", () => {
-	const result = getRelativePath("src/pagewright/Button.tsx")(
+	const result = getRelativePath("src/architect/Button.tsx")(
 		"src/utils/helpers.ts",
 	)
 

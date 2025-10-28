@@ -1,10 +1,10 @@
-import type { VizAdapter } from "@sitebender/pagewright/transform/viz/adapter/types.ts"
+import type { VizAdapter } from "@sitebender/architect/transform/viz/adapter/types.ts"
 
 import {
 	getVizAdapter,
 	setVizAdapter,
 	vizNoopAdapter,
-} from "@sitebender/pagewright/index.ts"
+} from "@sitebender/architect/index.ts"
 import { assertEquals } from "@std/assert"
 
 type GlobalShims = {
@@ -51,7 +51,7 @@ Deno.test("global viz adapter hook is auto-registered and used in docs hydrate",
 	g.sitebenderVizAdapter = globalAdapter
 
 	// Import hydrate entry so it executes with our fake globals
-	const modUrl = new URL("../../../src/hydrate/architect.ts", import.meta.url)
+	const modUrl = new URL("../../../src/hydrate/artificer.ts", import.meta.url)
 	await import(modUrl.href)
 
 	// The global adapter should have been auto-registered and executed

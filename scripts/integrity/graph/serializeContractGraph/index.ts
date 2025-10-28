@@ -16,4 +16,4 @@ export default function serializeContractGraph(
 //?? [EXAMPLE]
 // const boundaries = JSON.parse(await Deno.readTextFile("libraries/contracts/boundaries.json"))
 // const serialized = serializeContractGraph(boundaries)
-// console.log(serialized) // {"version":1,"libraries":["pagewright","architect",...],"edges":[...]}
+// console.log(serialized) // {"version":1,"libraries":["architect","artificer",...],"edges":[...]}

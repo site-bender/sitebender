@@ -5,9 +5,9 @@ import type ArchiveOrganization from "../../Organization/LocalBusiness/ArchiveOr
 import type Place from "../../Place/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import PostalAddressComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
-import PlaceComponent from "../../../../../../pagewright/src/define/Thing/Place/index.tsx"
-import { ArchiveOrganization as ArchiveOrganizationComponent } from "../../../../../pagewright/index.tsx"
+import PostalAddressComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
+import ArchiveOrganizationComponent from "../../../../../src/define/Thing/Organization/LocalBusiness/ArchiveOrganization/index.tsx"
+import PlaceComponent from "../../../../../src/define/Thing/Place/index.tsx"
 
 export type ArchiveComponentType = "ArchiveComponent"
 

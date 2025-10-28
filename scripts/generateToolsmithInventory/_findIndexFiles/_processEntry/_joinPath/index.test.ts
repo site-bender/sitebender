@@ -75,11 +75,11 @@ Deno.test("_joinPath - normalizes both multiple trailing and leading slashes", (
 })
 
 Deno.test("_joinPath - curried function works correctly", () => {
-	const joinToBase = _joinPath("src/pagewright")
+	const joinToBase = _joinPath("src/architect")
 
-	assertEquals(joinToBase("Button"), "src/pagewright/Button")
-	assertEquals(joinToBase("Layout"), "src/pagewright/Layout")
-	assertEquals(joinToBase("/Modal"), "src/pagewright/Modal")
+	assertEquals(joinToBase("Button"), "src/architect/Button")
+	assertEquals(joinToBase("Layout"), "src/architect/Layout")
+	assertEquals(joinToBase("/Modal"), "src/architect/Modal")
 })
 
 Deno.test("_joinPath - handles root path as base", () => {

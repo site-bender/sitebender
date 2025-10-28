@@ -1,14 +1,14 @@
-// Simple demo: a form that updates the URL query string on submit via architect
+// Simple demo: a form that updates the URL query string on submit via artificer
 export default function Demo() {
 	return (
 		<body>
-			<h1>Architect Demo</h1>
+			<h1>Artificer Demo</h1>
 			<p>Submitting this form will update the query string to ?k=v</p>
 			<form id="demo-form" data-ir-id="evt_form_submit">
 				<button type="submit">Submit</button>
 			</form>
 			{/* Minimal IR script matching the hydrate test */}
-			<script id="ir-root" type="application/architect+json">
+			<script id="ir-root" type="application/artificer+json">
 				{JSON.stringify({
 					v: "0.1.0",
 					kind: "element",
@@ -49,7 +49,7 @@ export default function Demo() {
 					],
 				})}
 			</script>
-			{/* Client-side bootstrap to hydrate using real architect runtime */}
+			{/* Client-side bootstrap to hydrate using real artificer runtime */}
 			<script type="module" src="/scripts/hydrate/adaptive.js"></script>
 		</body>
 	)
