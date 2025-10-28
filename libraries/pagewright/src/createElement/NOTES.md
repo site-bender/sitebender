@@ -1,14 +1,20 @@
 # createElement Implementation Notes
 
-## Date: 2025-10-27
+## Date: 2025-10-28 (Updated after VirtualNode refactoring)
+
+## VirtualNode Refactoring - COMPLETE
+
+**Date completed:** 2025-10-28
+
+All `ElementConfig` references replaced with `VirtualNode`. Type now lives in Toolsmith for reuse across all Sitebender libraries (Architect, Custodian, Operator, Pagewright).
 
 ## Toolsmith Enhancements Used
 
 ### 1. Property Access with getTag
 
-**✅ RESOLVED:** Property access now uses Toolsmith's `getTag` function
+**✅ COMPLETE:** Property access uses Toolsmith's `getTag` function
 
-**Current implementation in `_processChild`:**
+**Implementation in `_processChild`:**
 ```ts
 import getTag from "@sitebender/toolsmith/object/getTag/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
@@ -25,36 +31,14 @@ if (isObject(child) && "_tag" in child) {
 }
 ```
 
-**Status:** Clean implementation using Toolsmith functions. No lens implementation needed for current use case.
+### 2. flatMap Function
 
-### 2. flatMap Function Status
+**✅ COMPLETE:** flatMap fully implemented in Toolsmith with three overloads:
+- `ReadonlyArray<T> → ReadonlyArray<U>` - Plain arrays
+- `Result<Array<T>> → Result<Array<U>>` - Fail-fast monadic
+- `Validation<Array<T>> → Validation<Array<U>>` - Error accumulation monadic
 
-**Current state** (`@sitebender/toolsmith/src/array/flatMap/index.ts`):
-- Handles `ReadonlyArray<T>` input correctly
-- Returns `ReadonlyArray<U>` for array inputs
-- Works perfectly for current createElement use case
-
-**Future enhancement opportunity** (matching `map` pattern):
-```ts
-// Could add overloads like map has:
-
-// 1. Array → Array (current - works great)
-function flatMap<T, U>(fn: (element: T) => ReadonlyArray<U>)(
-  array: ReadonlyArray<T>
-): ReadonlyArray<U>
-
-// 2. Result → Result (future - fail-fast mode)
-function flatMap<T, U>(fn: (element: T) => ReadonlyArray<U>)(
-  array: Result<ValidationError, ReadonlyArray<T>>
-): Result<ValidationError, ReadonlyArray<U>>
-
-// 3. Validation → Validation (future - error accumulation mode)
-function flatMap<T, U>(fn: (element: T) => ReadonlyArray<U>)(
-  array: Validation<ValidationError, ReadonlyArray<T>>
-): Validation<ValidationError, ReadonlyArray<U>>
-```
-
-**Status:** No changes needed for createElement. Future enhancement would enable monadic error handling if needed.
+All overloads tested and working. createElement uses plain array overload.
 
 ### 3. isNotNullish Predicate
 

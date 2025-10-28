@@ -36,7 +36,6 @@
 		"jsxFactory": "createElement",
 		"jsxFragmentFactory": "Fragment",
 		"types": [
-			"./types/globals.d.ts",
 			"./types/JSX/jsx-runtime.d.ts"
 		]
 	},

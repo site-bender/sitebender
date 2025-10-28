@@ -4,7 +4,7 @@ import isPlainObject from "../isPlainObject/index.ts"
 import includes from "../../array/includes/index.ts"
 import getOrElse from "../../monads/result/getOrElse/index.ts"
 import getVirtualNodeTag from "../../object/getVirtualNodeTag/index.ts"
-import { VIRTUAL_NODE_TAGS } from "../../types/index.ts"
+import { VIRTUAL_NODE_TAGS } from "../../constants/index.ts"
 
 /*++
  + Type guard for VirtualNode
