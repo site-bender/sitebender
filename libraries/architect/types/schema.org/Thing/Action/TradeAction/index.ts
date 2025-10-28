@@ -11,7 +11,7 @@ import type { RentActionType } from "./RentAction/index.ts"
 import type { SellActionType } from "./SellAction/index.ts"
 import type { TipActionType } from "./TipAction/index.ts"
 
-import PriceSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
+import PriceSpecificationComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
 
 export type TradeActionType =
 	| "TradeAction"

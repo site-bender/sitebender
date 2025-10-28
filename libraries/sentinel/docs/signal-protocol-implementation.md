@@ -1031,7 +1031,7 @@ libraries/sentinel/docs/
 
 - **Toolsmith**: Pure FP functions, monads (Result, pipe, map, chain)
 - **Arborist**: AST parsing for JSX components
-- **Architect**: IR definition and compilation
+- **Artificer**: IR definition and compilation
 - **Auditor**: Formal verification via Z3
 - **Warden**: Cryptographic governance contracts
 - **Pathfinder**: SPARQL query building

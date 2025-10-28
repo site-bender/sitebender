@@ -293,7 +293,7 @@
 
 - Enables round-trip: AST → Formula → AST
 - Enables MathML generation with proper grouping
-- Architect can optimize later if needed
+- Artificer can optimize later if needed
 - Formulator stays pure (structure-preserving)
 
 ---

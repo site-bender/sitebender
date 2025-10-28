@@ -10,13 +10,13 @@ export const WORKSPACE_ROOT = fromFileUrl(
 //++ Types root directory for schema.org components
 export const TYPES_ROOT = resolve(
 	WORKSPACE_ROOT,
-	"libraries/pagewright/types/schema.org",
+	"libraries/architect/types/schema.org",
 )
 
 //++ Source definition root directory for components
 export const SRC_DEFINE_ROOT = resolve(
 	WORKSPACE_ROOT,
-	"libraries/pagewright/src/define",
+	"libraries/architect/src/define",
 )
 
 //++ Cache for component path lookups

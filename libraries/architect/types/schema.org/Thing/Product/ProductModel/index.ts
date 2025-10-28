@@ -2,8 +2,8 @@ import type Thing from "../../index.ts"
 import type { ProductProps } from "../index.ts"
 import type ProductGroup from "../ProductGroup/index.ts"
 
-import ProductGroupComponent from "../../../../../../pagewright/src/define/Thing/Product/ProductGroup/index.tsx"
-import ProductModelComponent from "../../../../../../pagewright/src/define/Thing/Product/ProductModel/index.tsx"
+import ProductGroupComponent from "../../../../../src/define/Thing/Product/ProductGroup/index.tsx"
+import ProductModelComponent from "../../../../../src/define/Thing/Product/ProductModel/index.tsx"
 
 export type ProductModelType = "ProductModel"
 

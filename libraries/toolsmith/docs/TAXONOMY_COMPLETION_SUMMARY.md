@@ -271,7 +271,7 @@ The taxonomy provides:
 - Dependencies for ordering migration
 - Violations for prioritizing fixes
 
-### 2. Architect Integration
+### 2. Artificer Integration
 
 The taxonomy enables:
 

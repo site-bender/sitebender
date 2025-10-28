@@ -68,7 +68,7 @@ If the properties don't hold, Auditor provides exact counterexamples showing wha
 
 ### 🔍 IR Analysis
 
-- **Direct IR verification**: Work with Architect's IR format
+- **Direct IR verification**: Work with Artificer's IR format
 - **AST analysis**: Via Arborist for TypeScript/JSX
 - **Branch coverage**: Prove all paths reachable or dead
 - **Complexity analysis**: Prove Big-O bounds
@@ -320,7 +320,7 @@ if (Deno.build.os === "windows") {
 - Accessibility validation
 - Schema.org metadata testing
 
-### Architect Testing
+### Artificer Testing
 
 - Reactive calculation verification
 - SSR/hydration testing

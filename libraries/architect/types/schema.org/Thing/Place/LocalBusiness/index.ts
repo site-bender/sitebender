@@ -1,4 +1,4 @@
 export type {
 	default,
-	LocalBusinessType,
+	default as LocalBusinessType,
 } from "../../Organization/LocalBusiness/index.ts"

@@ -94,7 +94,7 @@
     "rule_id": "JSX_SEMANTIC_002",
     "category": "semantic",
     "priority": 8,
-    "reason": "Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Pagewright components",
+    "reason": "Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Architect components",
     "consequences": "Manual microdata conflicts with semantic structure and breaks Schema.org integration",
     "philosophy": "Schema.org Component Patterns - proper microdata patterns with semantic consistency",
     "examples": {

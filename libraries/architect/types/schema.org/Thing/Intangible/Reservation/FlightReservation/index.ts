@@ -4,7 +4,7 @@ import type QualitativeValue from "../../Enumeration/QualitativeValue/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ReservationProps } from "../index.ts"
 
-import QualitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import QualitativeValueComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
 
 export type FlightReservationType = "FlightReservation"
 

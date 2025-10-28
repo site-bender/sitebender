@@ -3,7 +3,7 @@ import type Thing from "../../index.ts"
 import type BoardingPolicyType from "../../Intangible/Enumeration/BoardingPolicyType/index.ts"
 import type { OrganizationProps } from "../index.ts"
 
-import BoardingPolicyTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/BoardingPolicyType/index.tsx"
+import BoardingPolicyTypeComponent from "../../../../../src/define/Thing/Intangible/Enumeration/BoardingPolicyType/index.tsx"
 
 export type AirlineType = "Airline"
 

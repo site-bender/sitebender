@@ -59,7 +59,7 @@ A **progressive state management library** that:
 - **Accessibility**: Test with `axe` where UI involved
 
 **What to Mock**: External APIs, database writes, time operations, RNG
-**What NOT to Mock**: Toolsmith, Architect, Agent, Pagewright, any Studio internals
+**What NOT to Mock**: Toolsmith, Artificer, Agent, Architect, any Studio internals
 
 ---
 
@@ -374,7 +374,7 @@ The **minimum viable product** includes:
 
 - [ ] **T2.1.5** Implement `embedUuidInForm`
   - Pure function (returns new HTML string)
-  - Pagewright integration
+  - Architect integration
   - JSX: `<input type="hidden" name="_uuid" value={uuid} />`
   - Envoy comments
 
@@ -444,7 +444,7 @@ The **minimum viable product** includes:
   - Test: Validates UUID
   - Test: Validates required fields
   - Test: Sanitizes input
-  - Integration test: With Pagewright form
+  - Integration test: With Architect form
 
 - [ ] **T2.1.17** Implement form validation
   - Required field checking
@@ -577,7 +577,7 @@ The **minimum viable product** includes:
 - [ ] **T2.2.15** Write integration test: URL state full flow
   - Integration test: Parse → modify → merge → encode
   - Integration test: With form submission
-  - Integration test: With Architect reactivity
+  - Integration test: With Artificer reactivity
   - E2E test: Complete user interaction
 
 **Milestone 2.2 Definition of Done**:
@@ -1285,13 +1285,13 @@ The **minimum viable product** includes:
 - [ ] **T5.2.10** Write `applyOperationLocally/index.test.ts` for updates
   - Test: Operation applied to local state
   - Test: DOM updated
-  - Test: Architect behaviors triggered
+  - Test: Artificer behaviors triggered
   - Test: State machine transition
 
 - [ ] **T5.2.11** Implement `applyOperationLocally`
   - Apply operation to state
   - Compute new state
-  - Update DOM (Architect)
+  - Update DOM (Artificer)
   - Trigger state machine transition
   - Result<State, ApplicationError>
 
@@ -1308,7 +1308,7 @@ The **minimum viable product** includes:
   - Confirm or rollback
   - Update UI accordingly
 
-- [ ] **T5.2.14** Write `applyOperationLocally/index.test.ts` Architect integration
+- [ ] **T5.2.14** Write `applyOperationLocally/index.test.ts` Artificer integration
   - Integration: Trigger `__sbCalculate`
   - Integration: Trigger `__sbValidate`
   - Integration: Trigger `__sbFormat`
@@ -1541,7 +1541,7 @@ fc.property(fc.state(), fc.event(), (state, event) =>
 - **Agent**: CRDTs, distributed sync (Phase 5+)
 - **Warden**: Contracts, validation (Phases 4-5)
 - **Sentinel**: Auth/authz (Post-MVP)
-- **Pagewright**: HTML components (Phase 2+)
+- **Architect**: HTML components (Phase 2+)
 - **Pathfinder**: Triple store, SPARQL (Phase 4+)
 - **Envoy**: Documentation (Phase 8+)
 
@@ -1590,7 +1590,7 @@ libraries/custodian/
 │   │   ├── parseUIState/
 │   │   └── ...
 │   └── integrations/
-│       ├── architect/
+│       ├── artificer/
 │       ├── agent/
 │       └── ...
 └── tests/

@@ -126,7 +126,7 @@ Config file format:
 
   export default {
     name: "Button",
-    targetFolder: "libraries/pagewright/src/interact/buttons/Button",
+    targetFolder: "libraries/architect/src/interact/buttons/Button",
     tagName: "BUTTON",
     description: "Interactive button component",
     isHtmlElement: true,  // Optional: union Props with BaseProps (includes global attributes)

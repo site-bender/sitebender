@@ -4,7 +4,7 @@ Documentation for the Sitebender project.
 
 ## Authoring behaviors with Program
 
-Use the `Program` control to inline author behaviors next to your HTML. `Program` compiles its children into an Architect IR JSON script tag that the shared hydrator reads at runtime.
+Use the `Program` control to inline author behaviors next to your HTML. `Program` compiles its children into an Artificer IR JSON script tag that the shared hydrator reads at runtime.
 
 Pattern:
 
@@ -33,7 +33,7 @@ Example (from Validation):
 
 Hydration:
 
-- Include the shared client script: `<script type="module" src="/scripts/hydrate/architect.js"></script>`.
+- Include the shared client script: `<script type="module" src="/scripts/hydrate/artificer.js"></script>`.
 - The hydrator binds events and executes actions; in production, it strips `data-ir-id` attributes after hydration.
 
 ## Playground (Monaco) Design Notes
