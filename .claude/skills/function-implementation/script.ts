@@ -122,13 +122,15 @@ async function handleOldStyle(args: Array<string | number>): Promise<void> {
 	}
 
 	// Generate config from old-style args
-	const parameters = []
-	for (let i = 0; i < paramCount; i++) {
-		parameters.push({
-			name: `parameter${i + 1}`,
-			type: "T" + (i + 1),
-		})
-	}
+	const parameters = Array.from(
+		{ length: paramCount },
+		function createParameter(_unused, i) {
+			return {
+				name: `parameter${i + 1}`,
+				type: "T" + (i + 1),
+			}
+		}
+	)
 
 	const config: FunctionConfig = {
 		name: functionName,
@@ -137,7 +139,9 @@ async function handleOldStyle(args: Array<string | number>): Promise<void> {
 		returns: "ReturnType",
 		description: `Brief description of what ${functionName} does`,
 		generic: paramCount > 1
-			? parameters.map((_, i) => `T${i + 1}`).join(", ") + ", ReturnType"
+			? parameters.map(function paramToGeneric(_unused, i) {
+				return `T${i + 1}`
+			}).join(", ") + ", ReturnType"
 			: "T, ReturnType",
 	}
 

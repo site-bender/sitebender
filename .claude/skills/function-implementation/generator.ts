@@ -53,14 +53,14 @@ function validateConfig(config: FunctionConfig): void {
 		throw new Error("At least one parameter is required")
 	}
 
-	for (const param of parameters) {
+	parameters.forEach(function validateParameter(param) {
 		if (!param.name || typeof param.name !== "string") {
 			throw new Error("All parameters must have a name")
 		}
 		if (!param.type || typeof param.type !== "string") {
 			throw new Error("All parameters must have a type")
 		}
-	}
+	})
 
 	if (!returns || typeof returns !== "string") {
 		throw new Error("Return type is required")
@@ -151,31 +151,40 @@ function generateMultiParamFunction(config: FunctionConfig): string {
 	const genericPart = generic ? `<${generic}>` : ""
 	const desc = description || `Brief description of what ${name} does`
 
-	let code = `//++ ${desc}\n`
-	code += `export default function ${name}${genericPart}(${parameters[0].name}: ${parameters[0].type}) {\n`
+	const initialCode = `//++ ${desc}\n` +
+		`export default function ${name}${genericPart}(${parameters[0].name}: ${parameters[0].type}) {\n`
 
-	for (let i = 1; i < parameters.length; i++) {
-		const indent = "\t".repeat(i)
-		const param = parameters[i]
-		const accumulatedParams = parameters.slice(0, i)
-		const innerName = generateMultiParamInnerName(name, accumulatedParams, conjunction)
-		const isLast = i === parameters.length - 1
+	const bodyCode = parameters.slice(1).reduce(
+		function buildFunctionBody(acc, param, index) {
+			const i = index + 1
+			const indent = "\t".repeat(i)
+			const accumulatedParams = parameters.slice(0, i)
+			const innerName = generateMultiParamInnerName(name, accumulatedParams, conjunction)
+			const isLast = i === parameters.length - 1
 
-		if (isLast) {
-			code += `${indent}return function ${innerName}(${param.name}: ${param.type}): ${returns} {\n`
-			code += `${indent}\t// TODO: Implement function logic\n`
-			code += `${indent}\tthrow new Error("Not implemented")\n`
-			code += `${indent}}\n`
-		} else {
-			code += `${indent}return function ${innerName}(${param.name}: ${param.type}) {\n`
+			if (isLast) {
+				return acc +
+					`${indent}return function ${innerName}(${param.name}: ${param.type}): ${returns} {\n` +
+					`${indent}\t// TODO: Implement function logic\n` +
+					`${indent}\tthrow new Error("Not implemented")\n` +
+					`${indent}}\n`
+			}
+
+			return acc + `${indent}return function ${innerName}(${param.name}: ${param.type}) {\n`
+		},
+		""
+	)
+
+	const closingBraces = Array.from(
+		{ length: parameters.length - 1 },
+		function generateClosingBrace(_unused, index) {
+			const i = parameters.length - 2 - index
+			const indent = "\t".repeat(i)
+			return `${indent}}\n`
 		}
-	}
+	).join("")
 
-	// Close braces
-	for (let i = parameters.length - 2; i >= 0; i--) {
-		const indent = "\t".repeat(i)
-		code += `${indent}}\n`
-	}
+	const code = initialCode + bodyCode + closingBraces
 
 	return code
 }
@@ -203,7 +212,9 @@ function generateMultiParamInnerName(
 		return `${baseName}${conj}${capitalize(accumulatedParams[0].name)}`
 	}
 
-	const paramNames = accumulatedParams.map((p) => capitalize(p.name))
+	const paramNames = accumulatedParams.map(function capitalizeParamName(p) {
+		return capitalize(p.name)
+	})
 	const lastName = paramNames[paramNames.length - 1]
 	const previousNames = paramNames.slice(0, -1).join("And")
 
@@ -226,7 +237,7 @@ import ${name} from "./index.ts"
 Deno.test("${name} - basic functionality", () => {
 	// TODO: Write test for happy path
 	// Example:
-	// const result = ${name}(${parameters.map((p) => `/* ${p.name} */`).join(")(")})
+	// const result = ${name}(${parameters.map(function paramToComment(p) { return "/* " + p.name + " */" }).join(")(")})
 	// assertEquals(result, /* expected value */)
 	throw new Error("Test not implemented")
 })

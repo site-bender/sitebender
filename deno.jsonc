@@ -122,6 +122,8 @@
 		// === Code Generators ===
 		"new:function": "deno run --allow-read --allow-write .claude/skills/function-implementation/script.ts",
 		"new:component": "deno run --allow-read --allow-write .claude/skills/component/script.ts",
+		"new:branded": "deno run --allow-read --allow-write .claude/skills/type-definition/brandedTypeScript.ts",
+		"new:union": "deno run --allow-read --allow-write .claude/skills/type-definition/discriminatedUnionScript.ts",
 
 		// === Playground shortcuts (workspace-level) ===
 		"the-workshop:dev": "deno task --cwd applications/the-workshop dev",
