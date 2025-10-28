@@ -47,7 +47,7 @@ deno task new:union <UnionName> <variant1> <variant2> ...
 
 **Purpose:** Prevent mixing semantically different values of the same primitive type.
 
-**When:** Creating domain primitives (Email, UserId, Integer, Percent, etc.)
+**When:** Creating domain primitives (EmailAddress, Uuid, Integer, Percent, etc.)
 
 **Structure:**
 ```typescript
