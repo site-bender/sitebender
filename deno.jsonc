@@ -160,8 +160,7 @@
 		"types": [
 			"./applications/mission-control/.sitebender/scripts/types/globals.d.ts",
 			"./scripts/types/globals.d.ts",
-			// Ensure pagewright' JSX globals are visible during workspace checks
-			"./libraries/pagewright/types/globals.d.ts",
+			// Ensure pagewright' JSX types are visible during workspace checks
 			"./libraries/pagewright/types/JSX/jsx-runtime.d.ts",
 		],
 		"strict": true,
