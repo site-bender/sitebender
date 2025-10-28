@@ -12,12 +12,12 @@ import type { CarType } from "./Car/index.ts"
 import type { MotorcycleType } from "./Motorcycle/index.ts"
 import type { MotorizedBicycleType } from "./MotorizedBicycle/index.ts"
 
-import CarUsageTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/CarUsageType/index.tsx"
-import DriveWheelConfigurationValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.tsx"
-import QualitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
-import SteeringPositionValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.tsx"
-import EngineSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/EngineSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import CarUsageTypeComponent from "../../../../../src/define/Thing/Intangible/Enumeration/CarUsageType/index.tsx"
+import DriveWheelConfigurationValueComponent from "../../../../../src/define/Thing/Intangible/Enumeration/QualitativeValue/DriveWheelConfigurationValue/index.tsx"
+import QualitativeValueComponent from "../../../../../src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import SteeringPositionValueComponent from "../../../../../src/define/Thing/Intangible/Enumeration/QualitativeValue/SteeringPositionValue/index.tsx"
+import EngineSpecificationComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/EngineSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type VehicleType =
 	| "Vehicle"

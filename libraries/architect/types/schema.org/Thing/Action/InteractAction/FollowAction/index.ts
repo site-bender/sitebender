@@ -4,8 +4,8 @@ import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { InteractActionProps } from "../index.ts"
 
-import OrganizationComponent from "../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import OrganizationComponent from "../../../../../../src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../src/define/Thing/Person/index.tsx"
 
 export type FollowActionType = "FollowAction"
 

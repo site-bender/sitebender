@@ -23,9 +23,9 @@ import {
 Deno.test("constants", async function testConstants(t) {
 	await t.step("exports path constants", function testPaths() {
 		assertEquals(typeof ARCHITECT_SRC, "string")
-		assertEquals(ARCHITECT_SRC, "libraries/architect/src/")
+		assertEquals(ARCHITECT_SRC, "libraries/artificer/src/")
 		assertEquals(typeof ARCHITECT_TYPES, "string")
-		assertEquals(ARCHITECT_TYPES, "libraries/architect/types/")
+		assertEquals(ARCHITECT_TYPES, "libraries/artificer/types/")
 		assertEquals(typeof TOOLSMITH_SRC, "string")
 		assertEquals(TOOLSMITH_SRC, "libraries/toolsmith/src/")
 	})
@@ -35,7 +35,7 @@ Deno.test("constants", async function testConstants(t) {
 		assertInstanceOf(DEFAULT_ALIAS_SCOPES, Array)
 		assertEquals(DEFAULT_ALIAS_SCOPES.length > 0, true)
 		assertEquals(
-			DEFAULT_ALIAS_SCOPES.includes("libraries/pagewright/src"),
+			DEFAULT_ALIAS_SCOPES.includes("libraries/architect/src"),
 			true,
 		)
 		assertEquals(
@@ -90,7 +90,7 @@ Deno.test("constants", async function testConstants(t) {
 			true,
 		)
 		assertEquals(
-			FP_ALLOWLIST.has("libraries/architect/src/reactive/signal.ts"),
+			FP_ALLOWLIST.has("libraries/artificer/src/reactive/signal.ts"),
 			true,
 		)
 	})

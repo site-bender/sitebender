@@ -1,7 +1,7 @@
 {
 	"id": "workshop",
 	"name": "the-workshop",
-	"description": "Playground (Architect pipeline) skeleton (placeholder)",
+	"description": "Playground (Artificer pipeline) skeleton (placeholder)",
 	"outputs": {
 		"appPath": "./applications/the-workshop"
 	},
@@ -10,7 +10,7 @@
 		"Stub blueprint: metadata and target path only. No templates yet."
 	],
 	"variants": {
-		"architect": true,
+		"artificer": true,
 		"envoy": false
 	}
 }

@@ -235,7 +235,7 @@ See [`IMPLEMENTATION_PLAN.md`](./IMPLEMENTATION_PLAN.md) for complete details.
    - Minimal reproduction
    - Error with full context
    - Proposed solution(s)
-3. Architect approves
+3. Artificer approves
 4. Fix immediately
 5. Update docs
 6. Move on

@@ -6,7 +6,7 @@ import type { SocialMediaPostingProps } from "../../index.ts"
 import type BlogPosting from "../index.ts"
 import type { BlogPostingProps } from "../index.ts"
 
-import BlogPostingComponent from "../../../../../../../../../pagewright/src/define/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.tsx"
+import BlogPostingComponent from "../../../../../../../../src/define/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.tsx"
 
 export type LiveBlogPostingType = "LiveBlogPosting"
 

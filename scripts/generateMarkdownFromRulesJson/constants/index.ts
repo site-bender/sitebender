@@ -2,8 +2,8 @@
 export const RULES_FILE_LOCATIONS = [
 	"rules/index.json",
 	"applications/rules/index.json",
-	"libraries/pagewright/rules/index.json",
 	"libraries/architect/rules/index.json",
+	"libraries/artificer/rules/index.json",
 	"libraries/toolsmith/rules/index.json",
 	"libraries/quarrier/rules/index.json",
 	"libraries/auditor/rules/index.json",

@@ -75,8 +75,8 @@ Deno.test("Contract Boundaries: Auditor CAN import from Quarrier", () => {
 	assertEquals(result.errors.length, 0)
 })
 
-Deno.test("Contract Boundaries: Pagewright cannot import from Envoy", () => {
-	const result = validateImport("pagewright", "envoy", "import { doc } from '@sitebender/envoy'")
+Deno.test("Contract Boundaries: Architect cannot import from Envoy", () => {
+	const result = validateImport("architect", "envoy", "import { doc } from '@sitebender/envoy'")
 
 	assertEquals(result.valid, false)
 	assertEquals(result.errors.length > 0, true)

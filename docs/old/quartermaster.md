@@ -18,7 +18,7 @@ Status
 CLI commands (stubs)
 - quartermaster:new
   - deno run -A --config deno.dev.jsonc libraries/quartermaster/src/new/index.ts --help
-  - deno run -A --config deno.dev.jsonc libraries/quartermaster/src/new/index.ts --template <athenaeum|workshop|minimal> [--with architect] [--with envoy] [--dry-run] [--name <app-name>] [--out <path>]
+  - deno run -A --config deno.dev.jsonc libraries/quartermaster/src/new/index.ts --template <athenaeum|workshop|minimal> [--with artificer] [--with envoy] [--dry-run] [--name <app-name>] [--out <path>]
 
 - quartermaster:dry-run
   - deno run -A --config deno.dev.jsonc libraries/quartermaster/src/dryRun/index.ts --help
@@ -26,8 +26,8 @@ CLI commands (stubs)
 
 Blueprints (initial placeholders)
 - mission-control (docs app / Envoy)
-- the-workshop (playground / Architect)
-- minimal (Pagewright-only)
+- the-workshop (playground / Artificer)
+- minimal (Architect-only)
 
 Outputs: guarantees (to be implemented)
 - Import maps:
@@ -55,10 +55,10 @@ Integration with import maps
 Acceptance criteria (stubs phase)
 - deno run -A --config deno.dev.jsonc libraries/quartermaster/src/new/index.ts --help prints usage.
 - deno run -A --config deno.dev.jsonc libraries/quartermaster/src/dryRun/index.ts --help prints usage.
-- No writes; deterministic output planned for the dry-run architect (next phase).
+- No writes; deterministic output planned for the dry-run artificer (next phase).
 
 Next phases
-1) Read‑only dry‑run architect
+1) Read‑only dry‑run artificer
    - Input flags or --plan ./plan.json
    - Output a deterministic plan JSON: outputs.appPath, sorted files, importMap dev/prod, denoTasks, postScaffoldMessages, seed.
    - No writes; deterministic ordering and formatting.

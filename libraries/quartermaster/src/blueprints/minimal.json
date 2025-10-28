@@ -1,7 +1,7 @@
 {
 	"id": "minimal",
 	"name": "minimal-app",
-	"description": "Minimal Pagewright application with hot reload",
+	"description": "Minimal Architect application with hot reload",
 	"outputs": {
 		"appPath": "./{{APP_NAME}}"
 	},
@@ -67,7 +67,7 @@
 		"hotReload": true
 	},
 	"libraries": {
-		"pagewright": "required",
+		"architect": "required",
 		"toolsmith": "required"
 	},
 	"postScaffoldMessages": [
@@ -87,7 +87,7 @@
 		""
 	],
 	"variants": {
-		"architect": false,
+		"artificer": false,
 		"envoy": false
 	}
 }

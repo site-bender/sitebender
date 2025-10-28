@@ -4,7 +4,7 @@ import type GameAvailabilityEnumeration from "../../../Intangible/Enumeration/Ga
 import type { ActionProps } from "../../index.ts"
 import type { ConsumeActionProps } from "../index.ts"
 
-import GameAvailabilityEnumerationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/GameAvailabilityEnumeration/index.tsx"
+import GameAvailabilityEnumerationComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/GameAvailabilityEnumeration/index.tsx"
 
 export type PlayGameActionType = "PlayGameAction"
 

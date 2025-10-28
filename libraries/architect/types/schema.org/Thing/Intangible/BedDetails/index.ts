@@ -3,7 +3,7 @@ import type Thing from "../../index.ts"
 import type BedType from "../Enumeration/QualitativeValue/BedType/index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import BedTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
+import BedTypeComponent from "../../../../../src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
 
 export type BedDetailsType = "BedDetails"
 
