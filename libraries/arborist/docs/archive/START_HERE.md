@@ -560,8 +560,8 @@ ibraries/arborist/docs/START_HERE.md</path>
 562 |
 563 | **Forbidden consumers:**
 564 | - ❌ Toolsmith (foundational, no AST needs)
-565 | - ❌ Pagewright (JSX components, no AST needs)
-566 | - ❌ Architect (rendering, no AST needs)
+565 | - ❌ Architect (JSX components, no AST needs)
+566 | - ❌ Artificer (rendering, no AST needs)
 567 | - ❌ Any library outside the analysis domain
 568 |
 569 | **BROKEN:** Consumers cannot use Arborist because it doesn't work.
@@ -654,7 +654,7 @@ ibraries/arborist/docs/START_HERE.md</path>
 665 | ### Constitutional Violations
 666 |
 667 | **Q: Violation detection reports false positives**
-668 | A: Present the code sample to architect. Violation detection is syntax-based and should be precise. If false positive confirmed, fix detection logic immediately.
+668 | A: Present the code sample to artificer. Violation detection is syntax-based and should be precise. If false positive confirmed, fix detection logic immediately.
 669 |
 670 | **Q: How to ignore violations in generated code?**
 671 | A: Don't parse generated code. Arborist is for analyzing source you control, not compiled output.
@@ -723,23 +723,23 @@ ibraries/arborist/docs/START_HERE.md</path>
 734 | ### When You Hit a Problem
 735 |
 736 | **This is a two-person team:**
-737 | - **Architect (human):** Makes decisions, approves changes
+737 | - **Artificer (human):** Makes decisions, approves changes
 738 | - **Developer (AI):** Implements, proposes solutions
 739 |
 740 | **No issue tracking. No tickets. No backlog.**
 741 |
 742 | **Process:**
 743 | 1. Hit a problem → Check this FAQ first
-744 | 2. Still stuck → Present the problem to architect with:
+744 | 2. Still stuck → Present the problem to artificer with:
 745 | - Minimal reproduction code
 746 | - Error message with full context
 747 | - Proposed solution(s)
-748 | 3. Architect approves approach
+748 | 3. Artificer approves approach
 749 | 4. Fix immediately
 750 | 5. Update docs to reflect the fix
 751 | 6. Move on
 752 |
-753 | **Speed is the advantage.** No coordination overhead, no approval chains, no waiting. Architect decides, AI implements, done.
+753 | **Speed is the advantage.** No coordination overhead, no approval chains, no waiting. Artificer decides, AI implements, done.
 754 |
 755 | **If the problem reveals a design flaw:**
 756 | - Propose design change

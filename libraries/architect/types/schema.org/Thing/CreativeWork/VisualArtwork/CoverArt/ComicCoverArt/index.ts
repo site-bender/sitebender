@@ -1,4 +1,4 @@
 export type {
-	ComicCoverArtType,
 	default,
+	default as ComicCoverArtType,
 } from "../../../ComicStory/ComicCoverArt/index.ts"

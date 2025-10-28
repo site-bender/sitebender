@@ -7,7 +7,7 @@
           "description": "HTML must work in Lynx, CSS enhances layout, JS adds behavior through progressive enhancement",
           "metadata": {
             "rule_id": "A11Y_PROGRESSIVE_ENHANCEMENT_001",
-            "keywords": ["progressive-enhancement", "accessibility", "html-first", "lynx", "stateless", "universal-access", "forms", "anchor-links", "pagewright"],
+            "keywords": ["progressive-enhancement", "accessibility", "html-first", "lynx", "stateless", "universal-access", "forms", "anchor-links", "architect"],
             "rationale": "Stateless WWW principles ensure universal access. Works for everyone, enhanced for capable browsers. JS-required interfaces exclude users with disabilities or older technology. This embodies universal access through progressive enhancement - old stateless web first.",
             "prohibited": {
               "code": "// ❌ PROHIBITED - JavaScript-required interface:\nfunction SubmitButton(): JSX.Element {\n\treturn (\n\t\t<button\n\t\t\tonClick={(e) => {\n\t\t\t\te.preventDefault()\n\t\t\t\tfetchAPI('/submit', formData)\n\t\t\t}}\n\t\t>\n\t\t\tSubmit\n\t\t</button>\n\t)\n}\n\n// Problems:\n// - No fallback for JS-disabled browsers\n// - No HTML form action\n// - Excludes users with disabilities or older technology\n// - Breaks in Lynx and text browsers",
@@ -15,7 +15,7 @@
             },
             "required": {
               "code": "// ✅ REQUIRED - Progressive enhancement with HTML first:\n// HTML Layer: Works in Lynx\nfunction SubmitForm(): JSX.Element {\n\treturn (\n\t\t<form method=\"POST\" action=\"/submit\">\n\t\t\t<input type=\"text\" name=\"username\" required />\n\t\t\t<button type=\"submit\">Submit</button>\n\t\t</form>\n\t)\n}\n\n// CSS Layer: Enhanced layout with @supports\n// .form { display: block; } /* fallback */\n// @supports (display: grid) { .form { display: grid; } }\n\n// JS Layer: Enhanced validation via Operator events\n// Progressive: form works without JS, enhanced with JS\n// Proper rel attributes, anchor IDs for navigation",
-              "scope": "All Pagewright components - HTML works universally, CSS/JS layer enhancements on top"
+              "scope": "All Architect components - HTML works universally, CSS/JS layer enhancements on top"
             }
           }
         }
@@ -26,15 +26,15 @@
           "description": "Information must be perceivable without color dependency, using multiple channels like borders, icons, and text",
           "metadata": {
             "rule_id": "A11Y_COLOR_INDEPENDENCE_001",
-            "keywords": ["color-blindness", "accessibility", "high-contrast", "theming", "css-custom-properties", "architect-approval", "visual-design", "multi-channel"],
-            "rationale": "Color-blind users and high contrast mode users cannot rely on color alone for information. Visual design affects accessibility standards. Color-only information excludes users with color blindness or contrast sensitivity. Information must be perceivable through multiple channels, not just color. Requires Architect approval for visual design decisions - AIs handle semantics, humans handle visual design.",
+            "keywords": ["color-blindness", "accessibility", "high-contrast", "theming", "css-custom-properties", "artificer-approval", "visual-design", "multi-channel"],
+            "rationale": "Color-blind users and high contrast mode users cannot rely on color alone for information. Visual design affects accessibility standards. Color-only information excludes users with color blindness or contrast sensitivity. Information must be perceivable through multiple channels, not just color. Requires Artificer approval for visual design decisions - AIs handle semantics, humans handle visual design.",
             "prohibited": {
               "code": "// ❌ PROHIBITED - Color-only error indication:\nfunction ErrorField(): JSX.Element {\n\treturn (\n\t\t<input\n\t\t\ttype=\"text\"\n\t\t\tstyle={{ borderColor: 'red' }}\n\t\t/>\n\t)\n}\n\n// Problems:\n// - Only red border indicates error\n// - No icon or text message\n// - Invisible to color-blind users\n// - Fails in high contrast mode\n// - No CSS theming integration",
               "reasoning": "Color alone is invisible to color-blind users and fails accessibility standards"
             },
             "required": {
               "code": "// ✅ REQUIRED - Multi-channel error indication:\nfunction ErrorField({ errorMessage }: { errorMessage: string }): JSX.Element {\n\treturn (\n\t\t<div className=\"field field--error\">\n\t\t\t<input\n\t\t\t\ttype=\"text\"\n\t\t\t\taria-invalid=\"true\"\n\t\t\t\taria-describedby=\"error-msg\"\n\t\t\t/>\n\t\t\t<span className=\"error-icon\">⚠</span>\n\t\t\t<span id=\"error-msg\" className=\"error-text\">\n\t\t\t\t{errorMessage}\n\t\t\t</span>\n\t\t</div>\n\t)\n}\n\n// CSS with theming:\n// .field--error { border: 2px solid var(--color-error); }\n// @supports (prefers-contrast: high) {\n//   .field--error { border-width: 3px; }\n// }",
-              "scope": "All Pagewright components - get Architect approval for color/visual design decisions"
+              "scope": "All Architect components - get Artificer approval for color/visual design decisions"
             }
           }
         }
@@ -42,18 +42,18 @@
       {
         "id": "4a0a03b7-187d-4e00-977f-46f6501fccc7",
         "payload": {
-          "description": "Get Architect approval for visual design decisions - AIs handle semantics and structure, not colors, fonts, or styling",
+          "description": "Get Artificer approval for visual design decisions - AIs handle semantics and structure, not colors, fonts, or styling",
           "metadata": {
             "rule_id": "A11Y_ARCHITECT_APPROVAL_001",
-            "keywords": ["architect-approval", "visual-design", "accessibility", "contrast", "typography", "brand", "separation-of-concerns", "semantics"],
+            "keywords": ["artificer-approval", "visual-design", "accessibility", "contrast", "typography", "brand", "separation-of-concerns", "semantics"],
             "rationale": "Visual design affects accessibility (contrast, readability). Design decisions should be intentional, not AI-generated. AI-chosen colors and fonts may violate accessibility standards or brand guidelines. Separate concerns - AIs handle semantics, humans handle visual design.",
             "prohibited": {
-              "code": "// ❌ PROHIBITED - AI choosing visual design:\nconst THEME = {\n\tprimaryColor: '#3498db',\n\tsecondaryColor: '#2ecc71',\n\tfontFamily: 'Comic Sans MS',\n\theadingSize: '24px'\n}\n\nfunction Header(): JSX.Element {\n\treturn (\n\t\t<h1 style={{\n\t\t\tcolor: THEME.primaryColor,\n\t\t\tfontFamily: THEME.fontFamily\n\t\t}}>\n\t\t\tWelcome\n\t\t</h1>\n\t)\n}\n\n// Problems:\n// - AI chose colors without contrast check\n// - No Architect approval for visual decisions\n// - May violate brand guidelines\n// - Font choice affects readability",
-              "reasoning": "Visual design decisions require human Architect approval for accessibility and brand compliance"
+              "code": "// ❌ PROHIBITED - AI choosing visual design:\nconst THEME = {\n\tprimaryColor: '#3498db',\n\tsecondaryColor: '#2ecc71',\n\tfontFamily: 'Comic Sans MS',\n\theadingSize: '24px'\n}\n\nfunction Header(): JSX.Element {\n\treturn (\n\t\t<h1 style={{\n\t\t\tcolor: THEME.primaryColor,\n\t\t\tfontFamily: THEME.fontFamily\n\t\t}}>\n\t\t\tWelcome\n\t\t</h1>\n\t)\n}\n\n// Problems:\n// - AI chose colors without contrast check\n// - No Artificer approval for visual decisions\n// - May violate brand guidelines\n// - Font choice affects readability",
+              "reasoning": "Visual design decisions require human Artificer approval for accessibility and brand compliance"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Semantic structure, visual design deferred:\n// AI responsibility: Semantic structure\nfunction Header({ text }: { text: string }): JSX.Element {\n\treturn (\n\t\t<header className=\"site-header\">\n\t\t\t<h1 className=\"site-title\">{text}</h1>\n\t\t</header>\n\t)\n}\n\n// Architect responsibility: Visual design\n// (Architect provides CSS with approved colors, fonts, contrast ratios)\n// .site-header { /* Architect-approved styles */ }\n// .site-title {\n//   color: var(--color-heading);  /* Architect-approved */\n//   font-family: var(--font-heading);  /* Architect-approved */\n// }\n\n// AI focuses on:\n// - Component structure\n// - ARIA attributes\n// - Semantic meaning\n// - Progressive enhancement",
-              "scope": "All components - semantic structure by AI, visual design requires Architect approval"
+              "code": "// ✅ REQUIRED - Semantic structure, visual design deferred:\n// AI responsibility: Semantic structure\nfunction Header({ text }: { text: string }): JSX.Element {\n\treturn (\n\t\t<header className=\"site-header\">\n\t\t\t<h1 className=\"site-title\">{text}</h1>\n\t\t</header>\n\t)\n}\n\n// Artificer responsibility: Visual design\n// (Artificer provides CSS with approved colors, fonts, contrast ratios)\n// .site-header { /* Artificer-approved styles */ }\n// .site-title {\n//   color: var(--color-heading);  /* Artificer-approved */\n//   font-family: var(--font-heading);  /* Artificer-approved */\n// }\n\n// AI focuses on:\n// - Component structure\n// - ARIA attributes\n// - Semantic meaning\n// - Progressive enhancement",
+              "scope": "All components - semantic structure by AI, visual design requires Artificer approval"
             }
           }
         }
@@ -72,7 +72,7 @@
             },
             "required": {
               "code": "// ✅ REQUIRED - Plain language with Linguist library:\nfunction ContactForm(): JSX.Element {\n\treturn (\n\t\t<form>\n\t\t\t<label htmlFor=\"email\">Email address</label>\n\t\t\t<input type=\"email\" id=\"email\" />\n\t\t\t\n\t\t\t<label htmlFor=\"phone\">Phone number</label>\n\t\t\t<input type=\"tel\" id=\"phone\" />\n\t\t\t\n\t\t\t<label htmlFor=\"method\">\n\t\t\t\tChoose your preferred contact method\n\t\t\t</label>\n\t\t\t<select id=\"method\">\n\t\t\t\t<option>Email</option>\n\t\t\t\t<option>Phone</option>\n\t\t\t</select>\n\t\t\t\n\t\t\t<p className=\"help-text\">\n\t\t\t\tWe will use this to send you updates\n\t\t\t</p>\n\t\t</form>\n\t)\n}\n\n// Principles:\n// - Use full words, not abbreviations\n// - Clear, descriptive labels\n// - Helpful, concise text\n// - Strunk & White style",
-              "scope": "All user-facing text in Pagewright components - use Linguist library for content"
+              "scope": "All user-facing text in Architect components - use Linguist library for content"
             }
           }
         }
@@ -83,7 +83,7 @@
           "description": "Make accessibility props required, not optional - build accessibility INTO components so end users cannot skip it",
           "metadata": {
             "rule_id": "A11Y_REQUIRED_PROPS_001",
-            "keywords": ["required-props", "accessibility", "type-safety", "component-design", "build-in", "mandatory", "labels", "pagewright"],
+            "keywords": ["required-props", "accessibility", "type-safety", "component-design", "build-in", "mandatory", "labels", "architect"],
             "rationale": "Accessibility should be impossible to forget or skip. Required props ensure proper content. Components that permit bad accessibility are broken. Optional accessibility props get skipped, creating inaccessible interfaces. BUILD-IN accessibility so end users can't mess it up.",
             "prohibited": {
               "code": "// ❌ PROHIBITED - Optional accessibility props:\ntype TextFieldProps = {\n\tname: string\n\tlabel?: string  // WRONG: optional label\n\thelpText?: string\n\tariaLabel?: string  // WRONG: accessibility as opt-in\n}\n\nfunction TextField({ name, label, ariaLabel }: TextFieldProps): JSX.Element {\n\treturn (\n\t\t<div>\n\t\t\t{label && <label htmlFor={name}>{label}</label>}\n\t\t\t<input\n\t\t\t\tid={name}\n\t\t\t\tname={name}\n\t\t\t\taria-label={ariaLabel}\n\t\t\t/>\n\t\t</div>\n\t)\n}\n\n// Problems:\n// - Label is optional - allows unlabeled fields\n// - Accessibility can be skipped\n// - End users can create inaccessible forms\n// - Component permits bad accessibility",
@@ -91,7 +91,7 @@
             },
             "required": {
               "code": "// ✅ REQUIRED - Mandatory accessibility props:\ntype TextFieldProps = {\n\tname: string\n\tlabel: string  // REQUIRED: cannot skip label\n\thelpText?: string  // Optional: supplementary, not critical\n}\n\nfunction TextField({ name, label, helpText }: TextFieldProps): JSX.Element {\n\treturn (\n\t\t<div className=\"field\">\n\t\t\t<label htmlFor={name}>{label}</label>\n\t\t\t<input\n\t\t\t\tid={name}\n\t\t\t\tname={name}\n\t\t\t\taria-describedby={helpText ? `${name}-help` : undefined}\n\t\t\t/>\n\t\t\t{helpText && (\n\t\t\t\t<span id={`${name}-help`} className=\"help-text\">\n\t\t\t\t\t{helpText}\n\t\t\t\t</span>\n\t\t\t)}\n\t\t</div>\n\t)\n}\n\n// TypeScript enforces accessibility:\n// <TextField name=\"email\" />  // ERROR: missing required prop 'label'\n// <TextField name=\"email\" label=\"Email address\" />  // OK",
-              "scope": "All Pagewright components - critical accessibility props must be required"
+              "scope": "All Architect components - critical accessibility props must be required"
             }
           }
         }
@@ -110,7 +110,7 @@
             },
             "required": {
               "code": "// ✅ REQUIRED - Feature detection with @supports:\n// Legacy-first: Base styles work everywhere\n.layout {\n\tdisplay: block;  /* Fallback for all browsers */\n}\n\n// Progressive enhancement: Layer on features\n@supports (display: grid) {\n\t.layout {\n\t\tdisplay: grid;\n\t\tgrid-template-columns: repeat(3, 1fr);\n\t}\n}\n\n// High contrast support\n@supports (prefers-contrast: high) {\n\t.layout {\n\t\tborder-width: 2px;\n\t}\n}\n\n// Dark mode support  \n@supports (color-scheme: dark) {\n\t.layout {\n\t\tbackground: var(--color-bg-dark);\n\t}\n}\n\n// Progressive stack:\n// HTML layer (universal) → CSS layer (@supports) → JS layer (Operator events)",
-              "scope": "All CSS in Pagewright - base styles work universally, @supports adds enhancements"
+              "scope": "All CSS in Architect - base styles work universally, @supports adds enhancements"
             }
           }
         }
@@ -118,18 +118,18 @@
       {
         "id": "8836c333-51b6-4661-a3c8-3ff6d4787906",
         "payload": {
-          "description": "Use semantic Pagewright components exclusively, never raw HTML elements - end users work in semantics, not HTML widgets",
+          "description": "Use semantic Architect components exclusively, never raw HTML elements - end users work in semantics, not HTML widgets",
           "metadata": {
             "rule_id": "A11Y_SEMANTIC_COMPONENTS_001",
-            "keywords": ["semantic-components", "pagewright", "accessibility", "type-safety", "build-in", "raw-html", "PhoneNumberField", "EmailAddressField", "ChooseOneField"],
-            "rationale": "Pagewright enforces accessibility automatically. Raw HTML bypasses built-in protections. Raw HTML elements lose accessibility guards, semantic meaning, and type safety. BUILD-IN accessibility so end users can't mess it up.",
+            "keywords": ["semantic-components", "architect", "accessibility", "type-safety", "build-in", "raw-html", "PhoneNumberField", "EmailAddressField", "ChooseOneField"],
+            "rationale": "Architect enforces accessibility automatically. Raw HTML bypasses built-in protections. Raw HTML elements lose accessibility guards, semantic meaning, and type safety. BUILD-IN accessibility so end users can't mess it up.",
             "prohibited": {
-              "code": "// ❌ PROHIBITED - Raw HTML elements:\nfunction ContactForm(): JSX.Element {\n\treturn (\n\t\t<form>\n\t\t\t<input type=\"tel\" name=\"phone\" />\n\t\t\t<input type=\"email\" name=\"email\" />\n\t\t\t<select name=\"contact-method\">\n\t\t\t\t<option>Email</option>\n\t\t\t\t<option>Phone</option>\n\t\t\t</select>\n\t\t</form>\n\t)\n}\n\n// Problems:\n// - No labels (accessibility failure)\n// - No validation\n// - No semantic meaning\n// - Bypasses Pagewright protections\n// - End users must manually add accessibility",
-              "reasoning": "Raw HTML bypasses Pagewright's built-in accessibility, allowing broken interfaces"
+              "code": "// ❌ PROHIBITED - Raw HTML elements:\nfunction ContactForm(): JSX.Element {\n\treturn (\n\t\t<form>\n\t\t\t<input type=\"tel\" name=\"phone\" />\n\t\t\t<input type=\"email\" name=\"email\" />\n\t\t\t<select name=\"contact-method\">\n\t\t\t\t<option>Email</option>\n\t\t\t\t<option>Phone</option>\n\t\t\t</select>\n\t\t</form>\n\t)\n}\n\n// Problems:\n// - No labels (accessibility failure)\n// - No validation\n// - No semantic meaning\n// - Bypasses Architect protections\n// - End users must manually add accessibility",
+              "reasoning": "Raw HTML bypasses Architect's built-in accessibility, allowing broken interfaces"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Semantic Pagewright components:\nimport { PhoneNumberField } from '@sitebender/pagewright/fields/PhoneNumberField'\nimport { EmailAddressField } from '@sitebender/pagewright/fields/EmailAddressField'\nimport { ChooseOneField } from '@sitebender/pagewright/fields/ChooseOneField'\n\nfunction ContactForm(): JSX.Element {\n\treturn (\n\t\t<form>\n\t\t\t<PhoneNumberField\n\t\t\t\tname=\"phone\"\n\t\t\t\tlabel=\"Phone number\"  // Required prop\n\t\t\t/>\n\t\t\t\n\t\t\t<EmailAddressField\n\t\t\t\tname=\"email\"\n\t\t\t\tlabel=\"Email address\"  // Required prop\n\t\t\t/>\n\t\t\t\n\t\t\t<ChooseOneField\n\t\t\t\tname=\"contact-method\"\n\t\t\t\tlabel=\"Preferred contact method\"  // Required prop\n\t\t\t\toptions={['Email', 'Phone']}\n\t\t\t/>\n\t\t</form>\n\t)\n}\n\n// Benefits:\n// - Accessibility built-in\n// - Required props enforce labels\n// - Type-safe\n// - Semantic meaning clear",
-              "scope": "All Pagewright components - semantic components only, never raw HTML elements"
+              "code": "// ✅ REQUIRED - Semantic Architect components:\nimport { PhoneNumberField } from '@sitebender/architect/fields/PhoneNumberField'\nimport { EmailAddressField } from '@sitebender/architect/fields/EmailAddressField'\nimport { ChooseOneField } from '@sitebender/architect/fields/ChooseOneField'\n\nfunction ContactForm(): JSX.Element {\n\treturn (\n\t\t<form>\n\t\t\t<PhoneNumberField\n\t\t\t\tname=\"phone\"\n\t\t\t\tlabel=\"Phone number\"  // Required prop\n\t\t\t/>\n\t\t\t\n\t\t\t<EmailAddressField\n\t\t\t\tname=\"email\"\n\t\t\t\tlabel=\"Email address\"  // Required prop\n\t\t\t/>\n\t\t\t\n\t\t\t<ChooseOneField\n\t\t\t\tname=\"contact-method\"\n\t\t\t\tlabel=\"Preferred contact method\"  // Required prop\n\t\t\t\toptions={['Email', 'Phone']}\n\t\t\t/>\n\t\t</form>\n\t)\n}\n\n// Benefits:\n// - Accessibility built-in\n// - Required props enforce labels\n// - Type-safe\n// - Semantic meaning clear",
+              "scope": "All Architect components - semantic components only, never raw HTML elements"
             }
           }
         }
@@ -137,17 +137,17 @@
       {
         "id": "a95254bc-f252-48dc-afda-44c97babb8d0",
         "payload": {
-          "description": "Keyboard navigation handled automatically by Pagewright components with tab order, focus management, and visible indicators",
+          "description": "Keyboard navigation handled automatically by Architect components with tab order, focus management, and visible indicators",
           "metadata": {
             "rule_id": "A11Y_KEYBOARD_NAVIGATION_001",
-            "keywords": ["keyboard-navigation", "accessibility", "tab-order", "focus-management", "keyboard-only", "focus-indicators", "escape-key", "arrow-keys", "pagewright"],
+            "keywords": ["keyboard-navigation", "accessibility", "tab-order", "focus-management", "keyboard-only", "focus-indicators", "escape-key", "arrow-keys", "architect"],
             "rationale": "Keyboard-only users must be able to navigate and operate all interface elements. Focus management prevents users from getting trapped. Poor keyboard navigation excludes users who cannot use pointing devices. Logical keyboard flow through forms and interfaces, handled automatically by components.",
             "prohibited": {
               "code": "// ❌ PROHIBITED - Poor keyboard navigation:\nfunction Modal({ onClose }: { onClose: () => void }): JSX.Element {\n\treturn (\n\t\t<div className=\"modal\" onClick={onClose}>\n\t\t\t<div className=\"modal-content\">\n\t\t\t\t<h2>Modal Title</h2>\n\t\t\t\t<p>Content here</p>\n\t\t\t\t<div onClick={onClose}>Close</div>\n\t\t\t</div>\n\t\t</div>\n\t)\n}\n\n// Problems:\n// - No keyboard trap (focus escapes modal)\n// - Close div not keyboard accessible\n// - No escape key handling\n// - No focus return on close\n// - No visible focus indicators",
               "reasoning": "Poor keyboard navigation excludes users who cannot use pointing devices"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Proper keyboard navigation:\nfunction Modal({ onClose, returnFocusTo }: ModalProps): JSX.Element {\n\tuseEffect(() => {\n\t\t// Trap focus in modal\n\t\tconst trapFocus = (e: KeyboardEvent) => {\n\t\t\tif (e.key === 'Escape') onClose()\n\t\t\t// Tab cycling logic...\n\t\t}\n\t\t\n\t\tdocument.addEventListener('keydown', trapFocus)\n\t\treturn () => {\n\t\t\tdocument.removeEventListener('keydown', trapFocus)\n\t\t\t// Return focus to trigger element\n\t\t\treturnFocusTo?.focus()\n\t\t}\n\t}, [])\n\t\n\treturn (\n\t\t<div className=\"modal\" role=\"dialog\" aria-modal=\"true\">\n\t\t\t<div className=\"modal-content\">\n\t\t\t\t<h2>Modal Title</h2>\n\t\t\t\t<p>Content here</p>\n\t\t\t\t<button onClick={onClose}>Close</button>\n\t\t\t</div>\n\t\t</div>\n\t)\n}\n\n// CSS: .modal button:focus { outline: 2px solid blue; }\n// Pagewright components handle this automatically",
+              "code": "// ✅ REQUIRED - Proper keyboard navigation:\nfunction Modal({ onClose, returnFocusTo }: ModalProps): JSX.Element {\n\tuseEffect(() => {\n\t\t// Trap focus in modal\n\t\tconst trapFocus = (e: KeyboardEvent) => {\n\t\t\tif (e.key === 'Escape') onClose()\n\t\t\t// Tab cycling logic...\n\t\t}\n\t\t\n\t\tdocument.addEventListener('keydown', trapFocus)\n\t\treturn () => {\n\t\t\tdocument.removeEventListener('keydown', trapFocus)\n\t\t\t// Return focus to trigger element\n\t\t\treturnFocusTo?.focus()\n\t\t}\n\t}, [])\n\t\n\treturn (\n\t\t<div className=\"modal\" role=\"dialog\" aria-modal=\"true\">\n\t\t\t<div className=\"modal-content\">\n\t\t\t\t<h2>Modal Title</h2>\n\t\t\t\t<p>Content here</p>\n\t\t\t\t<button onClick={onClose}>Close</button>\n\t\t\t</div>\n\t\t</div>\n\t)\n}\n\n// CSS: .modal button:focus { outline: 2px solid blue; }\n// Architect components handle this automatically",
               "scope": "All interactive components - tab order, focus trapping, escape key, visible focus indicators"
             }
           }
@@ -156,18 +156,18 @@
       {
         "id": "cb06bed5-e340-44a6-a969-7e7291569c39",
         "payload": {
-          "description": "NO ARIA is better than BAD ARIA - use ARIA only when Pagewright's semantic components are insufficient",
+          "description": "NO ARIA is better than BAD ARIA - use ARIA only when Architect's semantic components are insufficient",
           "metadata": {
             "rule_id": "A11Y_ARIA_GUIDELINES_001",
-            "keywords": ["aria", "accessibility", "screen-readers", "semantic-components", "pagewright", "no-aria", "bad-aria", "semantic-props", "live-regions"],
-            "rationale": "End users never see ARIA directly. Incorrect ARIA makes accessibility worse than no ARIA. Pagewright's semantic components handle most accessibility automatically. Bad ARIA confuses screen readers and breaks accessibility more than missing ARIA. NO ARIA better than BAD ARIA - Pagewright semantics first, ARIA only when insufficient.",
+            "keywords": ["aria", "accessibility", "screen-readers", "semantic-components", "architect", "no-aria", "bad-aria", "semantic-props", "live-regions"],
+            "rationale": "End users never see ARIA directly. Incorrect ARIA makes accessibility worse than no ARIA. Architect's semantic components handle most accessibility automatically. Bad ARIA confuses screen readers and breaks accessibility more than missing ARIA. NO ARIA better than BAD ARIA - Architect semantics first, ARIA only when insufficient.",
             "prohibited": {
               "code": "// ❌ PROHIBITED - Bad ARIA usage:\nfunction SearchButton(): JSX.Element {\n\treturn (\n\t\t<button\n\t\t\trole=\"button\"  // Redundant - button has implicit role\n\t\t\taria-label=\"Search button\"  // Redundant - visible text exists\n\t\t\taria-pressed=\"false\"  // Wrong - not a toggle button\n\t\t>\n\t\t\tSearch\n\t\t</button>\n\t)\n}\n\nfunction CustomInput(): JSX.Element {\n\treturn (\n\t\t<div\n\t\t\trole=\"textbox\"  // Wrong - use <input> instead\n\t\t\taria-required=\"true\"\n\t\t>\n\t\t\t{/* contentEditable div */}\n\t\t</div>\n\t)\n}\n\n// Problems:\n// - Redundant ARIA attributes\n// - Incorrect roles\n// - Bad ARIA worse than no ARIA\n// - Should use semantic HTML/components",
               "reasoning": "Bad ARIA confuses screen readers and creates worse accessibility than missing ARIA"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Semantic components first, ARIA when needed:\n// Option 1: Use semantic Pagewright components (preferred)\nimport { SearchField } from '@sitebender/pagewright/fields/SearchField'\n\nfunction SearchBar(): JSX.Element {\n\treturn (\n\t\t<SearchField\n\t\t\tname=\"search\"\n\t\t\tlabel=\"Search\"  // Semantic prop, not aria-label\n\t\t\tuse=\"search\"    // Maps to role internally\n\t\t/>\n\t)\n}\n\n// Option 2: ARIA when no semantic component exists\nfunction LiveRegion({ message }: { message: string }): JSX.Element {\n\treturn (\n\t\t<div\n\t\t\trole=\"status\"  // Valid use - live region\n\t\t\taria-live=\"polite\"  // Valid use - announce updates\n\t\t\taria-atomic=\"true\"\n\t\t>\n\t\t\t{message}\n\t\t</div>\n\t)\n}\n\n// Pagewright semantic props:\n// - 'use' instead of 'role'\n// - 'purpose' instead of 'aria-label'\n// - Accessibility built-in, ARIA hidden from end users",
-              "scope": "All components - prefer semantic Pagewright components, use ARIA only when insufficient"
+              "code": "// ✅ REQUIRED - Semantic components first, ARIA when needed:\n// Option 1: Use semantic Architect components (preferred)\nimport { SearchField } from '@sitebender/architect/fields/SearchField'\n\nfunction SearchBar(): JSX.Element {\n\treturn (\n\t\t<SearchField\n\t\t\tname=\"search\"\n\t\t\tlabel=\"Search\"  // Semantic prop, not aria-label\n\t\t\tuse=\"search\"    // Maps to role internally\n\t\t/>\n\t)\n}\n\n// Option 2: ARIA when no semantic component exists\nfunction LiveRegion({ message }: { message: string }): JSX.Element {\n\treturn (\n\t\t<div\n\t\t\trole=\"status\"  // Valid use - live region\n\t\t\taria-live=\"polite\"  // Valid use - announce updates\n\t\t\taria-atomic=\"true\"\n\t\t>\n\t\t\t{message}\n\t\t</div>\n\t)\n}\n\n// Architect semantic props:\n// - 'use' instead of 'role'\n// - 'purpose' instead of 'aria-label'\n// - Accessibility built-in, ARIA hidden from end users",
+              "scope": "All components - prefer semantic Architect components, use ARIA only when insufficient"
             }
           }
         }
@@ -197,14 +197,14 @@
           "description": "Screen reader support through semantic markup, live regions for dynamic content, and proper heading hierarchy",
           "metadata": {
             "rule_id": "A11Y_SCREEN_READER_001",
-            "keywords": ["screen-readers", "accessibility", "semantic-markup", "live-regions", "aria-live", "headings", "non-visual", "context", "pagewright", "progressive-enhancement"],
+            "keywords": ["screen-readers", "accessibility", "semantic-markup", "live-regions", "aria-live", "headings", "non-visual", "context", "architect", "progressive-enhancement"],
             "rationale": "Screen reader users need semantic structure and context to understand and navigate interfaces effectively. Poor semantic markup and missing context make interfaces unusable for screen reader users. Progressive enhancement - semantic HTML works with screen readers, enhanced with live regions.",
             "prohibited": {
               "code": "// ❌ PROHIBITED - Poor semantic structure:\nfunction Article(): JSX.Element {\n\treturn (\n\t\t<div>\n\t\t\t<div className=\"title\">Article Title</div>\n\t\t\t<div className=\"subtitle\">Section 1</div>\n\t\t\t<div>Content here...</div>\n\t\t\t<div className=\"subtitle\">Section 2</div>\n\t\t\t<div>More content...</div>\n\t\t</div>\n\t)\n}\n\nfunction FormValidation({ error }: { error: string }): JSX.Element {\n\t// No live region - screen reader won't announce\n\treturn <div className=\"error\">{error}</div>\n}\n\n// Problems:\n// - No semantic headings (h1, h2, h3)\n// - Divs instead of semantic HTML\n// - No live regions for dynamic content\n// - Screen readers can't navigate structure",
               "reasoning": "Poor semantic structure prevents screen reader users from understanding and navigating content"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Semantic markup with live regions:\nfunction Article(): JSX.Element {\n\treturn (\n\t\t<article>\n\t\t\t<h1>Article Title</h1>\n\t\t\t\n\t\t\t<section>\n\t\t\t\t<h2>Section 1</h2>\n\t\t\t\t<p>Content here...</p>\n\t\t\t</section>\n\t\t\t\n\t\t\t<section>\n\t\t\t\t<h2>Section 2</h2>\n\t\t\t\t<p>More content...</p>\n\t\t\t</section>\n\t\t</article>\n\t)\n}\n\nfunction FormValidation({ error }: { error: string }): JSX.Element {\n\treturn (\n\t\t<div\n\t\t\trole=\"status\"\n\t\t\taria-live=\"polite\"  // Announces to screen reader\n\t\t\taria-atomic=\"true\"\n\t\t\tclassName=\"error\"\n\t\t>\n\t\t\t{error}\n\t\t</div>\n\t)\n}\n\n// Pagewright semantic components:\n// - EmailAddressField announces \"Email address input\" automatically\n// - PhoneNumberField provides built-in context\n// - Proper heading hierarchy for navigation\n// - Live regions for dynamic updates (polite/assertive)",
+              "code": "// ✅ REQUIRED - Semantic markup with live regions:\nfunction Article(): JSX.Element {\n\treturn (\n\t\t<article>\n\t\t\t<h1>Article Title</h1>\n\t\t\t\n\t\t\t<section>\n\t\t\t\t<h2>Section 1</h2>\n\t\t\t\t<p>Content here...</p>\n\t\t\t</section>\n\t\t\t\n\t\t\t<section>\n\t\t\t\t<h2>Section 2</h2>\n\t\t\t\t<p>More content...</p>\n\t\t\t</section>\n\t\t</article>\n\t)\n}\n\nfunction FormValidation({ error }: { error: string }): JSX.Element {\n\treturn (\n\t\t<div\n\t\t\trole=\"status\"\n\t\t\taria-live=\"polite\"  // Announces to screen reader\n\t\t\taria-atomic=\"true\"\n\t\t\tclassName=\"error\"\n\t\t>\n\t\t\t{error}\n\t\t</div>\n\t)\n}\n\n// Architect semantic components:\n// - EmailAddressField announces \"Email address input\" automatically\n// - PhoneNumberField provides built-in context\n// - Proper heading hierarchy for navigation\n// - Live regions for dynamic updates (polite/assertive)",
               "scope": "All content - semantic HTML first, live regions for dynamic content, proper heading hierarchy"
             }
           }

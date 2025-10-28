@@ -413,7 +413,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - ✓ Validation detects deadlocks/loops
 - ✓ Generated code matches visual design
 - ✓ Bidirectional sync works
-- ✓ Designer built with Pagewright
+- ✓ Designer built with Architect
 
 #### Deliverables
 
@@ -840,9 +840,9 @@ This plan outlines the implementation of Custodian from foundational web princip
 
 #### Milestones
 
-**M13.1: Architect Integration**
+**M13.1: Artificer Integration**
 
-- State changes trigger Architect calculations
+- State changes trigger Artificer calculations
 - Form values reactive to state
 - Calculation results update state
 - Bidirectional data binding
@@ -1112,7 +1112,7 @@ This plan outlines the implementation of Custodian from foundational web princip
 - **Agent**: CRDT state machines, distributed synchronization
 - **Warden**: State transition validation, contracts
 - **Sentinel**: Authentication/authorization for state access
-- **Pagewright**: Visual designer UI components
+- **Architect**: Visual designer UI components
 - **Envoy**: Documentation generation, analytics dashboard
 
 ### External Dependencies

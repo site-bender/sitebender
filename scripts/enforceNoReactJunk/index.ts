@@ -57,7 +57,7 @@ const RULES: Array<
 	{
 		name: "createElement-call",
 		re: /(^|[^.])\bcreateElement\s*\(/,
-		message: "Direct createElement calls are forbidden in pagewright/recipes.",
+		message: "Direct createElement calls are forbidden in architect/recipes.",
 		suggestion: "Use JSX instead.",
 	},
 ]

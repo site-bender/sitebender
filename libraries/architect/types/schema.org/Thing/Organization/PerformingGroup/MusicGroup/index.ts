@@ -7,10 +7,10 @@ import type Person from "../../../Person/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { PerformingGroupProps } from "../index.ts"
 
-import MusicAlbumComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/MusicPlaylist/MusicAlbum/index.tsx"
-import MusicRecordingComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/MusicRecording/index.tsx"
-import ItemListComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/ItemList/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import MusicAlbumComponent from "../../../../../../src/define/Thing/CreativeWork/MusicPlaylist/MusicAlbum/index.tsx"
+import MusicRecordingComponent from "../../../../../../src/define/Thing/CreativeWork/MusicRecording/index.tsx"
+import ItemListComponent from "../../../../../../src/define/Thing/Intangible/ItemList/index.tsx"
+import PersonComponent from "../../../../../../src/define/Thing/Person/index.tsx"
 
 export type MusicGroupType = "MusicGroup"
 

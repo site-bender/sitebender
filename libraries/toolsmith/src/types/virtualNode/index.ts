@@ -4,7 +4,7 @@ import { VIRTUAL_NODE_TAGS } from "../../constants/index.ts"
 
 /*++
  + VirtualNode - Universal representation of DOM nodes as data
- + Used across all Sitebender libraries (Pagewright, Architect, Custodian, Operator)
+ + Used across all Sitebender libraries (Architect, Artificer, Custodian, Operator)
  + Discriminated union with _tag field for type safety
  + Extends Serializable for compatibility with Toolsmith functions
  + Can be serialized to HTML, JSON, YAML, TOML, Turtle, RDF/OWL/SHACL

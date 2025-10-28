@@ -1,2 +1,4 @@
-export type { default } from "../../../PaymentMethod/PaymentCard/index.ts"
-export type { PaymentCardType } from "../../../PaymentMethod/PaymentCard/index.ts"
+export type {
+	default,
+	default as PaymentCardType,
+} from "../../../PaymentMethod/PaymentCard/index.ts"

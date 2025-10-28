@@ -875,7 +875,7 @@ Transform your development environment into a visual workflow canvas where libra
 		/>
 		<Connection
 			from="operator.events"
-			to="architect.reactions"
+			to="artificer.reactions"
 			type="reactive-update"
 			latency="<1ms"
 		/>
@@ -945,7 +945,7 @@ Multiple developers can collaborate on the same workflow visualization in real-t
 ```tsx
 <CollaborativeDashboard>
 	<Participants>
-		<User id="architect" cursor={{ x: 245, y: 130 }} />
+		<User id="artificer" cursor={{ x: 245, y: 130 }} />
 		<User id="developer" selection={["node-warden-1"]} />
 		<User id="sre" editing="connection-props" />
 	</Participants>
@@ -1004,7 +1004,7 @@ Unlike n8n's JSON configurations, Envoy workflows are stored as semantic RDF tri
 <workflow:ci-pipeline> a workflow:Pipeline ;
   workflow:hasStage <stage:parse>, <stage:validate>, <stage:test> ;
   workflow:triggeredBy <trigger:git-push> ;
-  workflow:owner <user:architect> ;
+  workflow:owner <user:artificer> ;
   workflow:created "2024-01-15T10:00:00Z"^^xsd:dateTime ;
   env:hasMetrics <metrics:performance> .
 

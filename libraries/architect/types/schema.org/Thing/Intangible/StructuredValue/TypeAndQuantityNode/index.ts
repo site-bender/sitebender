@@ -6,9 +6,9 @@ import type { IntangibleProps } from "../../index.ts"
 import type Service from "../../Service/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import BusinessFunctionComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/BusinessFunction/index.tsx"
-import ServiceComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Service/index.tsx"
-import ProductComponent from "../../../../../../../pagewright/src/define/Thing/Product/index.tsx"
+import BusinessFunctionComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/BusinessFunction/index.tsx"
+import ServiceComponent from "../../../../../../src/define/Thing/Intangible/Service/index.tsx"
+import ProductComponent from "../../../../../../src/define/Thing/Product/index.tsx"
 
 export type TypeAndQuantityNodeType = "TypeAndQuantityNode"
 

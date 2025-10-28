@@ -218,32 +218,32 @@ function createDistributedDataset(data: string): DistributedDataset {
 async function main() {
 	console.log("\n📊 Setting up distributed RDF architecture...")
 
-	// Create federated query architect
-	const architect = new FederatedQueryArchitect()
+	// Create federated query artificer
+	const artificer = new FederatedQueryArchitect()
 
 	// Add different sources
-	architect.addSource({
+	artificer.addSource({
 		name: "Local Cache",
 		type: "local",
 		endpoint: "memory://local",
 		available: false,
 	})
 
-	architect.addSource({
+	artificer.addSource({
 		name: "Fuseki Server",
 		type: "fuseki",
 		endpoint: "http://localhost:3030/ds/sparql",
 		available: false,
 	})
 
-	architect.addSource({
+	artificer.addSource({
 		name: "IPFS Dataset",
 		type: "ipfs",
 		endpoint: "ipfs://QmExampleDataset",
 		available: false,
 	})
 
-	architect.addSource({
+	artificer.addSource({
 		name: "Solid Pod",
 		type: "solid",
 		endpoint: "https://alice.solidcommunity.net/public/",
@@ -251,11 +251,11 @@ async function main() {
 	})
 
 	// Check what's available
-	await architect.checkAvailability()
+	await artificer.checkAvailability()
 
 	// Execute a federated query
 	const sparql = "SELECT ?s ?p ?o WHERE { ?s ?p ?o } LIMIT 10"
-	const results = await architect.executeQuery<Record<string, unknown>>(sparql)
+	const results = await artificer.executeQuery<Record<string, unknown>>(sparql)
 
 	console.log("\n📈 Query Results:")
 	for (const [source, data] of results) {
@@ -269,7 +269,7 @@ async function main() {
 	}
 
 	// Merge results
-	const merged = architect.mergeResults(results)
+	const merged = artificer.mergeResults(results)
 	console.log(
 		`\n🔀 Merged ${merged.length} unique results from ${results.size} sources`,
 	)

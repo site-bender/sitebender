@@ -781,9 +781,9 @@ This plan outlines the implementation of Operator from foundational event semant
 
 #### Milestones
 
-**M12.1: Architect Integration**
+**M12.1: Artificer Integration**
 
-- Events trigger Architect calculations
+- Events trigger Artificer calculations
 - Reactive DOM updates on events
 - Calculation results as events
 - Bidirectional data flow

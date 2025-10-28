@@ -5,8 +5,8 @@ import type Person from "../../../Person/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { SportsOrganizationProps } from "../index.ts"
 
-import GenderTypeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/GenderType/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import GenderTypeComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/GenderType/index.tsx"
+import PersonComponent from "../../../../../../src/define/Thing/Person/index.tsx"
 
 export type SportsTeamType = "SportsTeam"
 

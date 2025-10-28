@@ -44,12 +44,12 @@
 		// === Local Sitebender Libraries ===
 		"@sitebender/toolsmith": "../../libraries/toolsmith/src/",
 		"@sitebender/toolsmith/": "../../libraries/toolsmith/src/",
-		// Preferred architect aliases
-		"@sitebender/architect": "../../libraries/architect/src/",
-		"@sitebender/architect/": "../../libraries/architect/src/",
+		// Preferred artificer aliases
+		"@sitebender/artificer": "../../libraries/artificer/src/",
+		"@sitebender/artificer/": "../../libraries/artificer/src/",
 		// Repo-wide aliases (mirror root config) for cross-workspace type-checks and builds
-		"@sitebender/pagewright": "../../libraries/pagewright/src/index.ts",
-		"@sitebender/pagewright/": "../../libraries/pagewright/src/",
+		"@sitebender/architect": "../../libraries/architect/src/index.ts",
+		"@sitebender/architect/": "../../libraries/architect/src/",
 
 		// === Deno Standard Library ===
 		"@std/expect": "jsr:@std/expect@^1.0.17",

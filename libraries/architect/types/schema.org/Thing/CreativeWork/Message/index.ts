@@ -8,11 +8,11 @@ import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { EmailMessageType } from "./EmailMessage/index.ts"
 
-import CreativeWorkComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
-import AudienceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
-import ContactPointComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import CreativeWorkComponent from "../../../../../src/define/Thing/CreativeWork/index.tsx"
+import AudienceComponent from "../../../../../src/define/Thing/Intangible/Audience/index.tsx"
+import ContactPointComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import OrganizationComponent from "../../../../../src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../src/define/Thing/Person/index.tsx"
 
 export type MessageType = "Message" | EmailMessageType
 
