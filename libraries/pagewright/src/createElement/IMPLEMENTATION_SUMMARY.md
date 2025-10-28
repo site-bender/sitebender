@@ -12,17 +12,17 @@ All types use `readonly` and `ReadonlyArray` for immutability:
 
 - **Component** (`Component/index.ts`):
   - Union: function or string
-  - Functions take Props and return ElementConfig
+  - Functions take Props and return VirtualNode
 
 - **Props** (`Props/index.ts`):
   - Record with optional children
   - All keys/values readonly
 
 - **Child** (`Child/index.ts`):
-  - Union: string | number | ElementConfig | array | null | undefined | boolean
+  - Union: string | number | VirtualNode | array | null | undefined | boolean
   - Supports nested arrays for flexibility
 
-- **ElementConfig** (`ElementConfig/index.ts`):
+- **VirtualNode** (`VirtualNode/index.ts`):
   - Discriminated union with `_tag` field
   - Three variants: "element", "text", "comment"
   - All fields readonly
@@ -41,7 +41,7 @@ All helper functions follow constitutional rules:
 
 - **`_createTextConfig`** - Creates text node config from string (used by _processChild)
 - **`_createCommentConfig`** - Creates comment node config from string (not yet used)
-- **`_createElementConfig`** - Creates element config (curried: tagName → attributes → children)
+- **`_createVirtualNode`** - Creates element config (curried: tagName → attributes → children)
 - **`_createErrorConfig`** - Creates error config (curried: code → message → received)
 - **`_callComponent`** - Calls component function with props
 - **`_processChild`** - Processes single child (string→text, filter nulls, etc.)
@@ -59,7 +59,7 @@ function createElement(component: Component) {
   return function createElementWithComponent(props: Props | null) {
     return function createElementWithComponentAndProps(
       ...children: ReadonlyArray<Child>
-    ): ElementConfig
+    ): VirtualNode
   }
 }
 ```
@@ -81,19 +81,7 @@ function createElement(component: Component) {
 
 ## Known Issues & Limitations
 
-### 1. flatMap Enhancement Opportunity
-
-**Current state:**
-- Current `flatMap` in Toolsmith works correctly for our use case
-- Returns `ReadonlyArray<T>` for array inputs
-- No workaround needed in current implementation
-
-**Future enhancement:**
-- Could add Result/Validation overloads like `map` has
-- Would enable fail-fast (Result) or error accumulation (Validation) modes
-- Not currently blocking any functionality
-
-### 2. Attribute Value Conversion
+### 1. Attribute Value Conversion
 
 **Current behavior:**
 - All attribute values converted to strings with `String(value)`
@@ -109,7 +97,7 @@ function createElement(component: Component) {
 - Handle arrays (join with space for class names, etc.)
 - Validate against allowed values for specific attributes
 
-### 3. No HTML Validation
+### 2. No HTML Validation
 
 **Current behavior:**
 - createElement accepts any tagName
@@ -122,11 +110,11 @@ function createElement(component: Component) {
 - Linting can provide better error messages with full context
 
 **Future:**
-- Separate `lintElementConfig` function
+- Separate `lintVirtualNode` function
 - Validates against HTML spec
 - Returns Validation with accumulated errors
 
-### 4. No CSS/JS Tracking
+### 3. No CSS/JS Tracking
 
 **Current behavior:**
 - createElement does not track component CSS/JS dependencies
@@ -140,11 +128,11 @@ function createElement(component: Component) {
 
 **Suggested approach:**
 - Separate `collectDependencies` function
-- Traverses ElementConfig tree
+- Traverses VirtualNode tree
 - Returns array of CSS/JS paths needed
 - renderToString adds these to head
 
-### 5. No Namespace Support
+### 4. No Namespace Support
 
 **Current behavior:**
 - No `namespace` parameter
@@ -153,7 +141,7 @@ function createElement(component: Component) {
 **Future enhancement:**
 - Add optional `namespace` parameter to Props
 - Auto-detect from tagName? (e.g., "svg" → SVG namespace)
-- Pass through to `_createElementConfig`
+- Pass through to `_createVirtualNode`
 
 ## Testing Status
 
@@ -162,7 +150,7 @@ function createElement(component: Component) {
 1. **Unit tests for all helpers:**
    - ✅ `_processChild/_createTextConfig/index.test.ts` - text node creation
    - ✅ `_createCommentConfig/index.test.ts` - comment node creation
-   - ✅ `_createElementConfig/index.test.ts` - element config with uppercase
+   - ✅ `_createVirtualNode/index.test.ts` - element config with uppercase
    - ✅ `_createErrorConfig/index.test.ts` - error config creation
    - ✅ `_callComponent/index.test.ts` - component function calling
    - ✅ `_processChild/index.test.ts` - all child types (string, number, null, array, etc.)
@@ -234,58 +222,53 @@ JSX transform automatically converts to `createElement("h1")({ title })()` calls
    - Implement jsx/jsxs/Fragment
    - Handle key/ref props (if needed)
 
-2. **Fix Toolsmith flatMap**
-   - Add overloads matching map pattern
-   - Support Array, Result, Validation inputs
-   - Return same type as input
+2. **Write comprehensive tests**
+   - ✅ Unit tests for all helpers - COMPLETE
+   - ✅ Integration tests for createElement - COMPLETE
+   - ✅ Edge cases and error handling - COMPLETE
 
-3. **Write comprehensive tests**
-   - Unit tests for all helpers
-   - Integration tests for createElement
-   - Edge cases and error handling
-
-4. **Update existing components**
+3. **Update existing components**
    - Thousands of components need migration
-   - Each should return ElementConfig
+   - Each should return VirtualNode
    - May need migration script
 
 ### Short-term (For Production Readiness):
 
-5. **Implement renderToString**
-   - Traverse ElementConfig tree
+4. **Implement renderToString**
+   - Traverse VirtualNode tree
    - Generate HTML string
    - Escape content properly
    - Handle void elements (no closing tag)
 
-6. **Implement renderToDom**
+5. **Implement renderToDom**
    - Use DOM APIs (createElement, createTextNode, etc.)
    - Attach properties (for behaviors)
    - Handle namespaces (SVG, MathML)
 
-7. **Add HTML linting/validation**
+6. **Add HTML linting/validation**
    - Validate tag names
    - Validate nesting rules
    - Validate attributes
    - Return Validation with all errors
 
-8. **Implement CSS/JS dependency tracking**
+7. **Implement CSS/JS dependency tracking**
    - Decide on architecture
    - Collect dependencies during traversal
    - Generate head config with links
 
 ### Long-term (Enhancements):
 
-9. **Schema.org components**
+8. **Schema.org components**
    - ~1000 components for structured data
    - Generate JSON-LD from component tree
    - Automatic SEO metadata
 
-10. **Performance optimization**
-    - Profile createElement performance
-    - Consider vanilla Toolsmith functions for hot paths
-    - Benchmark against baseline
+9. **Performance optimization**
+   - Profile createElement performance
+   - Consider vanilla Toolsmith functions for hot paths
+   - Benchmark against baseline
 
-11. **Developer tooling**
+10. **Developer tooling**
     - VS Code extension for validation
     - Config → JSX decompiler
     - Visual tree inspector
@@ -306,7 +289,7 @@ JSX transform automatically converts to `createElement("h1")({ title })()` calls
     _createCommentConfig/
       index.ts                                  # Comment config creator (not yet used)
       index.test.ts
-    _createElementConfig/
+    _createVirtualNode/
       index.ts
       index.test.ts
     _createErrorConfig/
