@@ -9,6 +9,7 @@ export type Parameter = {
 
 export type FunctionConfig = {
 	readonly name: string
+	readonly targetFolder?: string
 	readonly conjunction?: Conjunction
 	readonly parameters: ReadonlyArray<Parameter>
 	readonly returns: string
