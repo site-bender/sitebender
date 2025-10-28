@@ -1,4 +1,4 @@
 export type {
 	default,
-	FireStationType,
+	default as FireStationType,
 } from "../../../../Place/CivicStructure/FireStation/index.ts"

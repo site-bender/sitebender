@@ -1,6 +1,6 @@
 # Automatic HTML Element Substitution System
 
-> **Purpose**: Ensure standards compliance and accessibility by automatically substituting lowercase HTML elements with Pagewright's wrapped components during compilation
+> **Purpose**: Ensure standards compliance and accessibility by automatically substituting lowercase HTML elements with Architect's wrapped components during compilation
 
 ## The Revolutionary Approach
 
@@ -110,7 +110,7 @@ function substituteElements(element) {
 ```
 
 ### 2. Runtime Validation
-Pagewright components validate their props and children, adding error attributes:
+Architect components validate their props and children, adding error attributes:
 
 ```typescript
 function A({ children, ...props }) {

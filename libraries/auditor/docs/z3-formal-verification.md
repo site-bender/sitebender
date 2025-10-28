@@ -89,7 +89,7 @@ print("Can validation accept invalid age?", solver.check())  # unsat (impossible
 
 ## Complex Example: Proving Calculation Properties
 
-Consider this calculation from Architect:
+Consider this calculation from Artificer:
 
 ```tsx
 <Display id="total">

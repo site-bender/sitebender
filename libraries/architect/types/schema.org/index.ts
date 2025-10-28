@@ -1,4 +1,4 @@
-import type { HtmlElement } from "../html/elements/document/html/index.ts"
+import type { HtmlElement } from "../JSX/index.ts"
 
 type BaseProps = {
 	_template?: string

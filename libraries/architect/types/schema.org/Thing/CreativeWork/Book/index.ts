@@ -5,8 +5,8 @@ import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type { AudiobookType } from "./Audiobook/index.ts"
 
-import BookFormatTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/BookFormatType/index.tsx"
-import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import BookFormatTypeComponent from "../../../../../src/define/Thing/Intangible/Enumeration/BookFormatType/index.tsx"
+import PersonComponent from "../../../../../src/define/Thing/Person/index.tsx"
 
 export type BookType = "Book" | AudiobookType
 

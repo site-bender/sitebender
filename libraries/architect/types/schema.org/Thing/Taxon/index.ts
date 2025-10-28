@@ -3,9 +3,9 @@ import type Thing from "../index.ts"
 import type DefinedTerm from "../Intangible/DefinedTerm/index.ts"
 import type PropertyValue from "../Intangible/StructuredValue/PropertyValue/index.ts"
 
-import DefinedTermComponent from "../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
-import PropertyValueComponent from "../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
-import TaxonComponent from "../../../../../pagewright/src/define/Thing/Taxon/index.tsx"
+import DefinedTermComponent from "../../../../src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import PropertyValueComponent from "../../../../src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
+import TaxonComponent from "../../../../src/define/Thing/Taxon/index.tsx"
 
 export type TaxonType = "Taxon"
 

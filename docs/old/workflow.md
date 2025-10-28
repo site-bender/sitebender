@@ -96,7 +96,7 @@ Envoy transforms from a documentation generator into an interactive visual dashb
                 type="error-recovery" realTime={true} />
     <Connection from="agent.networkHealth" to="envoy.monitoring"
                 type="telemetry" batchSize={100} />
-    <Connection from="operator.events" to="architect.reactions"
+    <Connection from="operator.events" to="artificer.reactions"
                 type="reactive-update" latency="<1ms" />
   </WorkflowCanvas>
 
@@ -226,7 +226,7 @@ Agent's CRDT capabilities enable real-time collaborative editing of workflows, l
 ```tsx
 <CollaborativeWorkflowEditor>
   <Participants>
-    <User id="architect" cursor={{ x: 245, y: 130 }} />
+    <User id="artificer" cursor={{ x: 245, y: 130 }} />
     <User id="developer" selection={["node-warden-1"]} />
     <User id="sre" editing="connection-props" />
   </Participants>
@@ -238,7 +238,7 @@ Agent's CRDT capabilities enable real-time collaborative editing of workflows, l
   </ConflictResolution>
   
   <ChangeHistory>
-    <Operation type="add-node" user="architect" timestamp="2024-01-15T10:30:00Z">
+    <Operation type="add-node" user="artificer" timestamp="2024-01-15T10:30:00Z">
       <Node type="custodian" position={[300, 200]} />
     </Operation>
     <Operation type="edit-connection" user="developer" timestamp="2024-01-15T10:31:15Z">
@@ -375,9 +375,9 @@ Custodian's state machines become visual workflow components with clear state tr
 </WorkflowRecovery>
 ```
 
-### 5. Architect - Conditional Workflow Components
+### 5. Artificer - Conditional Workflow Components
 
-Architect's conditional rendering components become workflow decision nodes with reactive updates.
+Artificer's conditional rendering components become workflow decision nodes with reactive updates.
 
 #### Conditional Workflow Logic
 
@@ -589,7 +589,7 @@ Sentinel's authentication and authorization components become workflow security 
 <WorkflowSecurityPolicies>
   <AuthenticationGates>
     <Gate name="workflow-editor-access">
-      <RequiredRoles>["workflow-admin", "system-architect"]</RequiredRoles>
+      <RequiredRoles>["workflow-admin", "system-artificer"]</RequiredRoles>
       <MfaRequired>true</MfaRequired>
       <SessionTimeout>PT4H</SessionTimeout>
     </Gate>
@@ -623,7 +623,7 @@ Sentinel's authentication and authorization components become workflow security 
     
     <Policy name="workflow-modification">
       <Rules>
-        <Rule action="create-workflow" requires="architect-role" />
+        <Rule action="create-workflow" requires="artificer-role" />
         <Rule action="modify-production-workflow" requires="change-approval" />
         <Rule action="delete-workflow" requires="admin-role + confirmation" />
         <Rule action="emergency-stop" requires="incident-commander" />
@@ -847,7 +847,7 @@ Unlike n8n's JSON configurations, Sitebender workflows are stored as RDF triples
 <workflow:ci-pipeline> a workflow:Pipeline ;
   workflow:hasStage <stage:parse>, <stage:validate>, <stage:test> ;
   workflow:triggeredBy <trigger:git-push> ;
-  workflow:owner <user:architect> ;
+  workflow:owner <user:artificer> ;
   workflow:created "2024-01-15T10:00:00Z"^^xsd:dateTime ;
   workflow:lastModified "2024-01-15T14:30:00Z"^^xsd:dateTime .
 
@@ -923,7 +923,7 @@ Works from CLI to full visual interface:
 - [ ] Operator event-driven triggers
 - [ ] Agent collaborative editing core
 - [ ] Custodian state machine visualization
-- [ ] Architect conditional workflow components
+- [ ] Artificer conditional workflow components
 
 ### Phase 2: Integration (Q2 2024)
 - [ ] Warden workflow validation
@@ -976,7 +976,7 @@ Works from CLI to full visual interface:
 Git Change → Operator Event → Envoy Dashboard → 
 Warden Validation → Steward Autofix → 
 Agent Distribution → Custodian State Update → 
-Architect UI Refresh
+Artificer UI Refresh
 ```
 
 ### Storage Layer

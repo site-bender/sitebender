@@ -3,13 +3,13 @@ export default function () {
 		<body>
 			<h1>Sitebender Docs</h1>
 			<p>
-				<a href="/demo/">Open architect demo</a>
+				<a href="/demo/">Open artificer demo</a>
 			</p>
 			<p>
 				<a href="/validation/">Open validation demo</a>
 			</p>
 			<p>
-				<a href="/tutorial/">Read the Architect Tutorial</a>
+				<a href="/tutorial/">Read the Artificer Tutorial</a>
 			</p>
 			<p>
 				<a href="/vision/">Vision & MVP Charter</a>

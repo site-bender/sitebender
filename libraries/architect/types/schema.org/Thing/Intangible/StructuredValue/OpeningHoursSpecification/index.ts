@@ -4,7 +4,7 @@ import type DayOfWeek from "../../Enumeration/DayOfWeek/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import DayOfWeekComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/DayOfWeek/index.tsx"
+import DayOfWeekComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/DayOfWeek/index.tsx"
 
 export type OpeningHoursSpecificationType = "OpeningHoursSpecification"
 

@@ -94,7 +94,7 @@ Deno.test("Detect Violations: Quarrier should not import any @sitebender library
 })
 
 Deno.test("Detect Violations: No library should use regex to parse TypeScript", async () => {
-	const libraries = ["envoy", "auditor", "pagewright", "architect"]
+	const libraries = ["envoy", "auditor", "architect", "artificer"]
 
 	for (const lib of libraries) {
 		try {

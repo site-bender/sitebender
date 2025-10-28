@@ -12,12 +12,12 @@ import type { MediaReviewType } from "./MediaReview/index.ts"
 import type { RecommendationType } from "./Recommendation/index.ts"
 import type { UserReviewType } from "./UserReview/index.ts"
 
-import ReviewComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/Review/index.tsx"
-import WebContentComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/WebContent/index.tsx"
-import ThingComponent from "../../../../../../pagewright/src/define/Thing/index.tsx"
-import ItemListComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ItemList/index.tsx"
-import ListItemComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ListItem/index.tsx"
-import RatingComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Rating/index.tsx"
+import ReviewComponent from "../../../../../src/define/Thing/CreativeWork/Review/index.tsx"
+import WebContentComponent from "../../../../../src/define/Thing/CreativeWork/WebContent/index.tsx"
+import ThingComponent from "../../../../../src/define/Thing/index.tsx"
+import ItemListComponent from "../../../../../src/define/Thing/Intangible/ItemList/index.tsx"
+import ListItemComponent from "../../../../../src/define/Thing/Intangible/ListItem/index.tsx"
+import RatingComponent from "../../../../../src/define/Thing/Intangible/Rating/index.tsx"
 
 export type ReviewType =
 	| "Review"

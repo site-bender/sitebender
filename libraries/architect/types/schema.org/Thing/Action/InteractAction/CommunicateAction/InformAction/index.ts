@@ -6,7 +6,7 @@ import type { CommunicateActionProps } from "../index.ts"
 import type { ConfirmActionType } from "./ConfirmAction/index.ts"
 import type { RsvpActionType } from "./RsvpAction/index.ts"
 
-import EventComponent from "../../../../../../../../pagewright/src/define/Thing/Event/index.tsx"
+import EventComponent from "../../../../../../../src/define/Thing/Event/index.tsx"
 
 export type InformActionType =
 	| "InformAction"

@@ -266,14 +266,14 @@ My brother, an engineer, designed the bridge.
 
 **Prohibited:**
 ```md
-Pagewright has many features. Components are accessible. We also have good performance. Users like the interface.
+Architect has many features. Components are accessible. We also have good performance. Users like the interface.
 ```
 
 *Reasoning*: This unfocused paragraph jumps between multiple unrelated ideas without a clear topic sentence or unified theme
 
 **Required:**
 ```md
-Pagewright components ensure accessibility. Every component includes proper ARIA labels, keyboard navigation, and semantic structure.
+Architect components ensure accessibility. Every component includes proper ARIA labels, keyboard navigation, and semantic structure.
 ```
 
 *Scope*: Longer written content: documentation, essays. Each paragraph should have one clear topic introduced by a topic sentence.
