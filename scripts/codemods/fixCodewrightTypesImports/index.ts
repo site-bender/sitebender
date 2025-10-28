@@ -1,11 +1,11 @@
 #!/usr/bin/env -S deno run -A
 /*++
- | Codemod: Replace imports from components barrel within libraries/pagewright/types/**
+ | Codemod: Replace imports from components barrel within libraries/architect/types/**
  | with concrete default imports from src/define/**.
  |
  | Strategy:
  | - For each types file, build a map of symbol -> type path from existing `import type` lines.
- | - For each line importing from any ../../…/pagewright/index.tsx, for each specifier like
+ | - For each line importing from any ../../…/architect/index.tsx, for each specifier like
  |   `{ X as XComponent }`, find the type path for X, convert …/types/schema.org/… to …/src/define/…,
  |   and switch to: `import XComponent from "<computed path>/index.tsx"`.
  | - If we can't find a type import for a symbol, try to discover the src/define path via filesystem

@@ -211,8 +211,8 @@ These rules ensure clear, accessible, and professional communication across all 
 **Philosophy:** Each paragraph should advance one main idea.
 
 **Examples:**
-- Clear: "Pagewright components ensure accessibility. Every component includes proper ARIA labels, keyboard navigation, and semantic structure."
-- Unfocused: "Pagewright has many features. Components are accessible. We also have good performance. Users like the interface."
+- Clear: "Architect components ensure accessibility. Every component includes proper ARIA labels, keyboard navigation, and semantic structure."
+- Unfocused: "Architect has many features. Components are accessible. We also have good performance. Users like the interface."
 
 **Applies to:** documentation, essays, user_interface
 

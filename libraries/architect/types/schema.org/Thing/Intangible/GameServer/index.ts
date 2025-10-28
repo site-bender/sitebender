@@ -4,8 +4,8 @@ import type Thing from "../../index.ts"
 import type GameServerStatus from "../Enumeration/StatusEnumeration/GameServerStatus/index.ts"
 import type { IntangibleProps } from "../index.ts"
 
-import GameServerStatusComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/StatusEnumeration/GameServerStatus/index.tsx"
-import { VideoGame as VideoGameComponent } from "../../../../../pagewright/index.tsx"
+import VideoGameComponent from "../../../../../src/define/Thing/CreativeWork/Game/VideoGame/index.tsx"
+import GameServerStatusComponent from "../../../../../src/define/Thing/Intangible/Enumeration/StatusEnumeration/GameServerStatus/index.tsx"
 
 export type GameServerType = "GameServer"
 

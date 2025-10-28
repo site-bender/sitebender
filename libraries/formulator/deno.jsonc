@@ -2,7 +2,7 @@
 	// Mathematical formula parser for the Calculate component
 	"name": "@sitebender/formulator",
 	"version": "0.1.0",
-	"description": "Pure TypeScript formula parser that compiles mathematical expressions to @sitebender/architect configurations.",
+	"description": "Pure TypeScript formula parser that compiles mathematical expressions to @sitebender/artificer configurations.",
 
 	// Main export point for the library
 	"exports": {

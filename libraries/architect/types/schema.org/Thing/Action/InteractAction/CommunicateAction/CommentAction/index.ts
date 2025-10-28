@@ -4,7 +4,7 @@ import type { ActionProps } from "../../../index.ts"
 import type { InteractActionProps } from "../../index.ts"
 import type { CommunicateActionProps } from "../index.ts"
 
-import CommentComponent from "../../../../../../../../pagewright/src/define/Thing/CreativeWork/Comment/index.tsx"
+import CommentComponent from "../../../../../../../src/define/Thing/CreativeWork/Comment/index.tsx"
 
 export type CommentActionType = "CommentAction"
 

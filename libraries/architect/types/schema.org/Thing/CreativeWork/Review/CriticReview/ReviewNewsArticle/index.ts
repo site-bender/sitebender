@@ -1,4 +1,4 @@
 export type {
 	default,
-	ReviewNewsArticleType,
+	default as ReviewNewsArticleType,
 } from "../../../Article/NewsArticle/ReviewNewsArticle/index.ts"

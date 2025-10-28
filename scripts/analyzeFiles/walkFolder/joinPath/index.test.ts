@@ -35,24 +35,24 @@ Deno.test("joinPath", async function testJoinPath(t) {
 	})
 
 	await t.step("handles trailing slashes", function testTrailingSlashes() {
-		const result = joinPath("src/")("pagewright")
+		const result = joinPath("src/")("architect")
 
-		assertEquals(result, "src/pagewright")
+		assertEquals(result, "src/architect")
 	})
 
 	await t.step(
 		"handles leading slash on second segment",
 		function testLeadingSlashSecond() {
-			const result = joinPath("src")("/pagewright")
+			const result = joinPath("src")("/architect")
 
-			assertEquals(result, "src/pagewright")
+			assertEquals(result, "src/architect")
 		},
 	)
 
 	await t.step("handles relative paths", function testRelativePaths() {
 		const joinToBase = joinPath("./src")
 
-		assertEquals(joinToBase("pagewright"), "./src/pagewright")
+		assertEquals(joinToBase("architect"), "./src/architect")
 		assertEquals(joinToBase("utils"), "./src/utils")
 	})
 

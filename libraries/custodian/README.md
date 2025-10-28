@@ -191,12 +191,12 @@ export function createResumptionToken(state: PrivacyAwareState): string {
 
 ## Integration
 
-### With Architect
+### With Artificer
 
-Custodian triggers Architect's reactive behaviors via DOM events:
+Custodian triggers Artificer's reactive behaviors via DOM events:
 
 ```typescript
-//++ Triggers Architect calculations after state change
+//++ Triggers Artificer calculations after state change
 function notifyArchitect(element: HTMLElement): void {
 	const event = new InputEvent("input", {
 		bubbles: true,

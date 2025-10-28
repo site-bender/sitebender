@@ -7,8 +7,8 @@ import type { CourseType } from "./Course/index.ts"
 import type { QuizType } from "./Quiz/index.ts"
 import type { SyllabusType } from "./Syllabus/index.ts"
 
-import AlignmentObjectComponent from "../../../../../../pagewright/src/define/Thing/Intangible/AlignmentObject/index.tsx"
-import DefinedTermComponent from "../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import AlignmentObjectComponent from "../../../../../src/define/Thing/Intangible/AlignmentObject/index.tsx"
+import DefinedTermComponent from "../../../../../src/define/Thing/Intangible/DefinedTerm/index.tsx"
 
 export type LearningResourceType =
 	| "LearningResource"

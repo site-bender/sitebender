@@ -1,1317 +1,365 @@
-# Architect: Data-Centric Reactive Rendering
+# Architect
 
-> **The entire application as data, authored in JSX, stored anywhere, rendered everywhere**
+Architect is a semantic authoring language that compiles to HTML. When you write Architect JSX, you describe what you're building—an essay, a recipe, a dialogue—not which HTML elements to use. The compiler determines the correct HTML structure based on context.
 
-Architect is a revolutionary rendering and behavior composition library that treats your entire application—including all JavaScript functionality—as data. Write declarative JSX, store it as JSON/YAML/Turtle in databases or triple stores, and render it anywhere with full reactivity and no virtual DOM.
+This approach inverts the usual relationship between authoring and output. Instead of thinking "I need a div with a class" you think "I'm writing an essay with sections." The system handles the translation to HTML automatically.
 
-## Core Philosophy
+## The Core Insight
 
-**Everything is data. Everything is composable. Everything is reactive.**
+Most web frameworks make you think in HTML elements. You compose divs and spans and sections, manually applying classes and ARIA attributes, carefully structuring your markup to satisfy both browsers and assistive technologies.
 
-Architect extends [Pagewright](../pagewright/README.md)'s semantic HTML components with a powerful layer of composed behaviors. While Pagewright handles HTML semantics and accessibility, Architect adds:
+Architect takes a different approach. You write in terms of semantic meaning — `<Essay>`, `<Recipe>`, `<Dialogue>` — and the compiler generates appropriate HTML. The same `<Heading>` component becomes `<h1>` in one context and `<h2>` in another, depending on nesting depth. `<Line>` in a `<Poem>` generates different markup than `<Line>` in an `<Address>`.
 
-- **Reactive calculations** that cascade through your UI
-- **Validation rules** that work identically on client and server
-- **Conditional display** logic without imperative code
-- **Data transformations** through mathematical and logical operations
-- **State management** without external libraries
-- **Event handling** through declarative composition
+This is context-aware compilation. The compiler analyzes your component tree and determines correct HTML structure automatically.
 
-All of this is achieved through a single, unified approach: **declarative JSX that compiles to data**.
+## The Three Enhancement Layers
 
-## How It Works
+Architect follows progressive enhancement as a design principle, not just a pattern. Three distinct layers compose the experience:
 
-### The Pipeline
+**Layer 1: Semantic HTML.** Everything works without JavaScript. Forms submit. Links navigate. Tables display data. This layer targets maximum compatibility — Lynx, IE11, screen readers, reading modes, anything that understands HTML.
 
-```
-JSX → IR → JSON/YAML/Turtle → Storage → Retrieval → DOM + Behaviors
-```
+**Layer 2: CSS Styling.** Visual enhancements via CSS3 with graceful degradation. Custom properties enable theming. Layout uses modern techniques like Grid and Flexbox with fallbacks. This layer makes things beautiful without breaking functionality. `@supports` and feature queries ensure older browsers get a solid experience.
 
-1. **Author in JSX** - Write your entire app using JSX components
-2. **Compile to IR** - TypeScript compiler transforms JSX to an Internal Representation
-3. **Persist as Data** - Store the IR as JSON, YAML, or RDF Turtle in any database
-4. **Retrieve and Render** - Fetch the data and render directly to DOM with attached behaviors
+**Layer 3: JavaScript Enhancement.** Optional interactivity, never required for core functionality. Form validation, smooth scrolling, AJAX submissions—all opt-in through `data-enhance` attributes. Without JavaScript, the HTML still works.
 
-### Example: Complex Validation
+This layering makes a strong claim: every Architect component must function without JavaScript. Not "works but poorly"—actually functions as intended. Enhancement improves the experience but never enables it.
 
-```jsx
-import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx"
-import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx"
-import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx"
-import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx"
-import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx"
-import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx"
-import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx"
-import Data from "@sitebender/architect/components/data/Data/index.tsx"
-import FromArgument from "@sitebender/architect/components/injectors/FromArgument/index.tsx"
-import Value from "@sitebender/architect/components/injectors/Value/index.tsx"
-import And from "@sitebender/architect/components/logical/And/index.tsx"
-import Or from "@sitebender/architect/components/logical/Or/index.tsx"
-import Validation from "@sitebender/architect/components/validation/Validation/index.tsx"
+## Standards Enforcement Through Types
 
-// Declarative validation that becomes data
-// Value must be: an integer && ((value >= 6 && value < 12) || (value > 20 && value <= 42))
-<Data name="age" type="Integer">
-	<Validation>
-		<And>
-			<IsInteger>
-				<FromArgument />
-			</IsInteger>
-			<Or>
-				<And>
-					<IsLessThan>
-						<Referent>
-							<FromArgument />
-						</Referent>
-						<Comparand>
-							<Value>12</Value>
-						</Comparand>
-					</IsLessThan>
-					<IsGreaterThanOrEqual>
-						<Referent>
-							<FromArgument />
-						</Referent>
-						<Comparand>
-							<Value>6</Value>
-						</Comparand>
-					</IsGreaterThanOrEqual>
-				</And>
-				<And>
-					<IsLessThanOrEqual>
-						<Referent>
-							<FromArgument />
-						</Referent>
-						<Comparand>
-							<Value>42</Value>
-						</Comparand>
-					</IsLessThanOrEqual>
-					<IsGreaterThan>
-						<Referent>
-							<FromArgument />
-						</Referent>
-						<Comparand>
-							<Value>20</Value>
-						</Comparand>
-					</IsGreaterThan>
-				</And>
-			</Or>
-		</And>
-	</Validation>
-</Data>
+Architect provides typed wrappers for HTML, SVG, MathML, MusicXML, RSS/Atom, and SSML elements that enforce W3C/WHATWG standards at compile time. Invalid HTML becomes a TypeScript error before it reaches the browser.
+
+The mechanism works through automatic substitution. When you write lowercase elements in JSX, the build process replaces them with typed components:
+
+```tsx
+// You write:
+<a href="/page" badAttribute="oops">
+  <a href="/nested">Nested link</a>
+</a>
+
+// Build converts to typed components:
+import A from "@sitebender/architect/html/interactive/A/index.tsx"
+
+<A href="/page" badAttribute="oops">  // TypeScript ERROR: badAttribute doesn't exist
+  <A href="/nested">Nested link</A>  // TypeScript ERROR: A cannot contain A
+</A>
 ```
 
-This JSX compiles to a data structure that:
+This enforcement extends beyond attributes to content models and nesting rules. MathML's `<mfrac>` must have exactly two children — TypeScript enforces this. SVG elements can't contain HTML `<div>` elements — TypeScript catches it. ARIA roles must match their elements — TypeScript validates this.
 
-- **Validates on the client** via composed JavaScript functions
-- **Validates on the server** using the same functions in Deno
-- **Generates SHACL constraints** for triple store validation
-- **Could generate SQL constraints** for RDBMS (future)
+You can import typed elements explicitly for immediate IDE feedback, or let the build process handle substitution automatically. Either way, invalid HTML doesn't make it to production.
 
-### Example: Reactive Calculations
+## Graceful Degradation for Unknown Constructs
 
-```jsx
-import Input from "@sitebender/architect/components/forms/Input/index.tsx"
-import Display from "@sitebender/architect/components/display/Display/index.tsx"
-import Add from "@sitebender/architect/components/operators/Add/index.tsx"
-import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx"
-import FromElement from "@sitebender/architect/components/injectors/FromElement/index.tsx"
+Following HTML's philosophy of "be liberal in what you accept," Architect handles unknown attributes and invalid nesting gracefully while preserving user intent.
 
-<>
-	<Input id="price" type="number" />
-	<Input id="quantity" type="number" />
-	<Input id="taxRate" type="number" value="0.08" />
+**Unknown attributes** get prefixed with `data-x-` and preserved. This permits users to include custom data attributes easily:
 
-	<Display id="subtotal">
-		<Multiply>
-			<FromElement selector="#price" />
-			<FromElement selector="#quantity" />
-		</Multiply>
-	</Display>
+```tsx
+<Essay customId="my-essay" trackingCode="analytics-123">
+  <Title>My Great Essay</Title>
+</Essay>
 
-	<Display id="tax">
-		<Multiply>
-			<FromElement selector="#subtotal" />
-			<FromElement selector="#taxRate" />
-		</Multiply>
-	</Display>
+`customId` and `trackingCode` are not props of `<Essay>`, so they get transformed:
 
-	<Display id="total">
-		<Add>
-			<FromElement selector="#subtotal" />
-			<FromElement selector="#tax" />
-		</Add>
-	</Display>
-</>
+// Becomes:
+<article class="essay"
+         data-x-custom-id="my-essay"
+         data-x-tracking-code="analytics-123">
+  <h1>My Great Essay</h1>
+</article>
 ```
 
-Changes cascade automatically. Update price or quantity, and subtotal, tax, and total all recalculate.
+This makes unknown attributes accessible to CSS selectors and JavaScript without breaking HTML validation.
 
-## Component Categories
+**Invalid nesting** gets replaced with safe alternatives while preserving content and marking the replacement:
 
-### Injectors (Leaf Nodes)
+```tsx
+<Heading>
+  <Button>Invalid button in heading</Button>
+</Heading>
 
-Data sources that inject values into calculations:
-
-- `<Value>42</Value>` - Hard-coded values
-- `<FromElement selector="#input" />` - DOM element values
-- `<FromArgument />` - Gets the value being validated/calculated from the calling function
-- `<FromQueryString param="id" />` - URL parameters
-- `<FromLocalStorage key="user" />` - Browser storage
-- `<FromSessionStorage key="temp" />` - Session storage
-- `<FromApi endpoint="/api/data" />` - API responses
-- `<FromLookupTable table={...} key="..." />` - Data lookups
-
-### Operators (Branch Nodes)
-
-Mathematical and logical operations:
-
-**Arithmetic:**
-
-- `<Add>`, `<Subtract>`, `<Multiply>`, `<Divide>`
-- `<Power>`, `<Root>`, `<Modulo>`
-
-**Statistical:**
-
-- `<Average>`, `<Median>`, `<Mode>`
-- `<StandardDeviation>`, `<RootMeanSquare>`
-
-**Trigonometric:**
-
-- `<Sine>`, `<Cosine>`, `<Tangent>`
-- `<ArcSine>`, `<ArcCosine>`, `<ArcTangent>`
-
-**Advanced Math:**
-
-- `<Log>`, `<NaturalLog>`, `<Exponent>`
-- `<AbsoluteValue>`, `<Sign>`, `<Round>`, `<Floor>`, `<Ceiling>`
-
-### Comparators
-
-Boolean-returning comparison operations. All comparators take injectors as children wrapped in `Referent` (left side) and `Comparand` (right side) components to handle XML's unordered children. Note: `Left` and `Right` are available as aliases for those who prefer mathematical terminology.
-
-**Numerical:**
-
-```jsx
-<IsLessThan>
-	<Referent>
-		<FromArgument />
-	</Referent>
-	<Comparand>
-		<Value>100</Value>
-	</Comparand>
-</IsLessThan>
+// Becomes:
+<h1>
+  <span data-replaces="button"
+        data-reason="Interactive elements not allowed in headings"
+        data-x-original-type="button">
+    Invalid button in heading
+  </span>
+</h1>
 ```
 
-- `<IsLessThan>`, `<IsGreaterThan>`, `<IsEqualTo>`
-- `<IsInteger>`, `<IsRealNumber>`, `<IsPrecisionNumber>`
+In development mode, these violations appear visually and in console warnings. In production, the markup stays clean but functional. Strict mode throws errors instead of recovering, when you need that level of enforcement.
 
-**String:**
+## Context-Aware Semantic Compilation
 
-```jsx
-<Matches>
-	<Referent>
-		<FromElement selector="#email" />
-	</Referent>
-	<Comparand>
-		<Value>^[^@]+@[^@]+$</Value>
-	</Comparand>
-</Matches>
+The compiler analyzes your component tree to determine correct HTML structure. The same components generate different markup depending on context:
+
+```tsx
+<Article>
+  <Heading>
+    <Title>Why Sitebender Rocks</Title>
+    <ByLine>
+      <Author>The Architect</Author>
+    </ByLine>
+  </Heading>
+  <Section>
+    <Heading>
+      <Title>Because It Does</Title>
+    </Heading>
+  </Section>
+</Article>
+
+// Compiles to:
+<article>
+  <header>
+    <h1>Why Sitebender Rocks</h1>
+    <p class="byline">
+      <span class="author">The Architect</span>
+    </p>
+  </header>
+  <section>
+    <h2>Because It Does</h2>
+  </section>
+</article>
 ```
 
-- `<Matches>`, `<DoesNotMatch>`
-- `<IsBeforeAlphabetically>`, `<IsAfterAlphabetically>`
+`<Title>` in the article's heading becomes `<h1>`. `<Title>` in a nested section becomes `<h2>`. The compiler tracks nesting depth and adjusts heading levels automatically.
 
-**Temporal:**
+This pattern extends across the component vocabulary. `<Line>` in `<Poem>` generates poetry-specific markup. `<Line>` in `<Address>` generates address formatting. `<Item>` in `<Navigation>` becomes proper navigation links. Context determines structure.
 
-```jsx
-<IsBeforeDate>
-	<Referent>
-		<FromArgument />
-	</Referent>
-	<Comparand>
-		<Value>2024-12-31</Value>
-	</Comparand>
-</IsBeforeDate>
+## Route-Based Page Promotion
+
+Any component becomes a full page when it serves as the top-level component in a route. This mechanism — page promotion — eliminates the need for page wrapper components.
+
+```tsx
+// In pages/contact/index.tsx:
+<Contact>
+  <Heading>
+    <Title>Get In Touch</Title>
+  </Heading>
+  <Form action="/api/contact" method="POST">
+    <EmailField name="email" required />
+    <TextField name="message" required />
+    <SubmitButton>Send Message</SubmitButton>
+  </Form>
+</Contact>
+
+// Automatically becomes:
+<html>
+  <head>
+    <title>Get In Touch</title>
+    <meta name="description" content="Contact us..." />
+    <!-- All site metadata -->
+  </head>
+  <body>
+    <main>
+      <section class="contact">
+        <h1>Get In Touch</h1>
+        <form action="/api/contact" method="POST">
+          <!-- Form fields -->
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
 ```
 
-- `<IsBeforeDate>`, `<IsAfterDate>`, `<IsSameDate>`
-- `<IsBeforeTime>`, `<IsAfterTime>`
-- `<IsDuration>`, `<IsInstant>`
+The same `<Contact>` component nested within another component renders as a section, not a full page. Context determines promotion.
 
-**Set Operations:**
+Even minimal components get page treatment when top-level (although this example is extreme):
 
-```jsx
-<InSet>
-	<Referent>
-		<FromArgument />
-	</Referent>
-	<Comparand>
-		<Value>["admin", "editor", "viewer"]</Value>
-	</Comparand>
-</InSet>
+```tsx
+// In pages/simple/index.tsx:
+<CharacterName>Scrooge</CharacterName>
+
+// Becomes:
+<html>
+  <head>
+    <title>Simple</title>
+  </head>
+  <body>
+    <main>
+      <span class="character-name">Scrooge</span>
+    </main>
+  </body>
+</html>
 ```
 
-- `<InSet>`, `<IsSubset>`, `<IsSuperset>`
-- `<IsDisjointSet>`, `<IsOverlappingSet>`
+This universality means you can start with a simple component and let it grow into a full page naturally, without restructuring.
 
-### Logical Operators
+## The Component Vocabulary
 
-Combine comparators into complex conditions:
+Architect provides semantic components organized by purpose rather than by HTML element. Think in terms of what things are, not how they're implemented.
 
-- `<And>` - All conditions must be true
-- `<Or>` - At least one condition must be true
-- `<Not>` - Inverts the condition
-- `<Xor>` - Exclusive or
-- `<Implies>` - Logical implication
+**Document Structure** components describe content types: `<Essay>`, `<Tutorial>`, `<Reference>`, `<Recipe>`, `<Dialogue>`, `<Interview>`. Each generates appropriate HTML structure with embedded Schema.org metadata.
 
-**Note**: These logical operators are general-purpose and used across multiple contexts:
+**Formatting** components handle text presentation: `<Code>`, `<Emphasized>`, `<Strong>`, `<Subscripted>`, `<InlineMath>`, `<ChemicalFormula>`. These map to semantic HTML elements with proper accessibility attributes.
 
-- **Validation** - Complex validation rules (shown above)
-- **Locks** - Authentication/authorization logic (see [Lock System](../steward/docs/locks.md))
-- **Conditional Rendering** - Show/hide UI based on conditions (future)
+**Navigation** components provide wayfinding: `<SiteNavigation>`, `<TableOfContents>`, `<Breadcrumb>`, `<SkipLink>`. They generate accessible navigation patterns with proper ARIA roles.
 
-See [Syntax Status](../../docs/syntax-status.md) for canonical vs proposed usage.
+**Interactive** components handle user input: `<Form>`, `<TextField>`, `<BooleanField>`, `<ChooseOneField>`. These follow a datatype-centric naming convention—components describe what they handle, not which HTML element they use.
 
-### Formatters
+**Scientific** components support technical notation: `<MathMLDisplay>`, `<ChemMLDisplay>`, `<MusicXMLDisplay>`. They compile to appropriate standards-based markup.
 
-Transform values for display:
+The complete vocabulary exceeds one thousand components, covering everything from basic HTML elements to Schema.org types. Each component compiles to semantic HTML with appropriate ARIA attributes and embedded structured data.
 
-- `<AsDate format="YYYY-MM-DD" />`
-- `<AsMonetaryAmount currency="USD" />`
-- `<AsPercentage decimals={2} />`
-- `<AsPhoneNumber country="US" />`
-- `<AsMarkdown />`
-- `<AsLowerCase />`
-- `<AsUpperCase />`
-- `<AsTitleCase />`
+## Form Components: A Datatype-Centric Approach
 
-### Display Components
+Form components take a different approach from typical libraries. Instead of wrapping HTML input types, they're named after the data they handle.
 
-Control visibility and presentation:
+**BooleanField** handles true/false values, rendering as checkbox or toggle. **TrileanField** handles true/false/null, a three-state checkbox. **TextField** handles both single-line and multi-line text, choosing `<input>` or `<textarea>` based on configuration.
 
-```jsx
-// Example: Show content only if user is admin
-<ShowIf>
-	<IsEqualTo>
-		<Referent>
-			<FromElement selector="#userRole" />
-		</Referent>
-		<Comparand>
-			<Value>admin</Value>
-		</Comparand>
-	</IsEqualTo>
-	<div>Admin Controls Here</div>
-</ShowIf>
-```
+**ChooseOneField** handles single selection from enumerated values, rendering as radio group or select. **ChooseSomeField** handles multiple selection, rendering as checkbox group or multi-select.
 
-- `<Display>` - Shows calculated values
-- `<ShowIf>` - Conditional rendering using comparators/injectors as children
-- `<HideIf>` - Inverse conditional using comparators/injectors as children
-- `<SwitchDisplay>` - Multi-branch display with nested conditions
+Temporal components use the JavaScript Temporal API for precise date/time handling while rendering as HTML5 temporal inputs: **DateInput** for dates, **TimeInput** for times, **ZonedDateTimeInput** for timezone-aware timestamps.
 
-## Revolutionary: Data-Driven Forms
+Each form component is not just an input element—it's a complete field including label, input, help text, error messages, validation feedback, and accessibility attributes. You get the whole field, properly composed, in one component.
 
-**The paradigm shift: Forms are about data types, not widgets.**
+However, when used with the Artificer library, these components gain reactive capabilities—declarative validation, conditional display, state management—without losing their semantic HTML foundation. More importantly, they can be determined automatically from JSON Schema definitions, enabling **dynamic form generation**.
 
-Traditional form libraries make developers choose widgets:
+## Type Safety Without Runtime Cost
 
-```jsx
-// ❌ Traditional approach - developer picks widgets
-<RadioGroup name="role" />
-<Checkbox name="active" />
-<Select name="country" />
-<Input type="text" name="description" />
-```
+The typed element wrappers enforce standards at compile time with zero runtime overhead. The validation happens during development—TypeScript catches invalid attributes, improper nesting, content model violations—but the compiled output contains only standard HTML.
 
-Architect/Pagewright uses data types instead:
+This separation between development-time enforcement and runtime output provides strong guarantees without performance penalties. You get the safety of type checking during development and the speed of plain HTML in production.
 
-```jsx
-// ✅ Data-driven approach - system picks widgets
-<Form schema="User">
-	<ChooseOneField name="role" type="String" /> // Becomes radio OR select
-	<BooleanField name="active" /> // Becomes checkbox OR toggle
-	<MemberField name="country" of="CountryEnum" />{" "}
-	// Becomes select OR autocomplete
-	<StringField name="description" type="Text" /> // Becomes input OR textarea
+The element organization mirrors specifications:
+
+**HTML elements** (`src/html/`) divide into metadata, sections, grouping, text, edits, embedded, tabular, forms, interactive, and scripting categories.
+
+**SVG elements** (`src/svg/`) divide into structural, shapes, text, painting, filters, animation, and metadata categories.
+
+**MathML elements** (`src/mathml/`) divide into presentation, layout, scripts, spacing, and semantic categories.
+
+**MusicXML, RSS/Atom, and SSML** elements follow similar categorical organization based on their respective specifications.
+
+## Progressive Enhancement Pattern
+
+Components support opt-in enhancement through `data-*` attributes:
+
+```tsx
+<Form action="/api/submit" data-enhance="ajax validation">
+  <!-- Form fields -->
 </Form>
+
+<a href="#section" data-enhance="smooth-scroll">Jump to section</a>
+
+<a href="/help" data-enhance="modal">Help</a>
 ```
 
-### Why This Matters
+Enhancement scripts—provided by the Artificer library or your own implementation—look for these attributes and add behavior where requested. Without JavaScript, everything still works as standard HTML.
 
-1. **Separation of Concerns**
-   - Domain experts define data shapes
-   - Designers choose presentation
-   - Developers focus on business logic
-   - System handles widget selection
+This opt-in approach makes enhancement explicit. You can see which features require JavaScript by scanning for `data-enhance` attributes. Testing the no-JavaScript experience becomes straightforward—just disable JavaScript and verify functionality remains intact.
 
-2. **Automatic Widget Selection**
+## Styling and Theming
 
-   ```jsx
-   // System decides based on data characteristics:
-   <ChooseOneField name="priority" of={["low", "medium", "high", "critical"]}>
-   // → Renders as radio buttons (4 items ≤ 6)
+Components use CSS Custom Properties for theming, with each component including its own CSS file. The build process automatically collects these stylesheets, walks up ancestor folders for shared styles, generates deduplicated `<link>` tags, and applies theme variables.
 
-   <ChooseOneField name="country" of={countriesList}>
-   // → Renders as select dropdown (200+ items > 6)
-   ```
+This approach keeps component styles colocated with component code while enabling efficient stylesheet loading and consistent theming across the application.
 
-3. **Schema-Driven Generation**
-   ```jsx
-   // Given a database schema or triple store shape:
-   <Form entity="Customer" include={["name", "email", "tier", "active"]}>
-   	// Automatically generates: // - StringField for name (required from NOT
-   	NULL) // - StringField for email (with email validation from SHACL) // -
-   	MemberField for tier (enum from database) // - BooleanField for active
-   	(with default from schema)
-   </Form>
-   ```
+## Build-Time Compilation
 
-### Field Types by Data, Not Widget
+Architect compiles JSX to HTML at build time, not runtime. No virtual DOM. No client-side reconciliation. No hydration. Just HTML generated during the build process.
 
-**Core Types:**
+This compilation model eliminates entire categories of problems. No Flash of Unstyled Content. No layout shift from hydration. No JavaScript bundle required for initial render. The browser receives HTML and displays it immediately.
 
-- **BooleanField** - True/false values (checkbox, toggle, yes/no radio)
-- **TrileanField** - True/false/null (three-state checkbox, radio trio)
-- **StringField** - Text data (input, textarea based on length hints)
-- **MemberField** - One from set (radio, select, autocomplete)
-- **SubsetField** - Multiple from set (checkboxes, multi-select, tags)
+For reactive functionality—form validation, conditional display, state management—the Artificer library extends Architect with declarative patterns that enhance the HTML without replacing it.
 
-**Numeric Types:**
+## Key Differences from React
 
-- **IntegerField** - Whole numbers (number input, slider, stepper)
-- **FloatField** - Decimals (number input with precision)
-- **PrecisionField** - Exact decimals for money (special handling)
-- **PercentageField** - 0-100 or 0-1 (with % display)
+The JSX syntax may look familiar, but Architect differs fundamentally from React:
 
-**Temporal Types:**
+| React                        | Architect                            |
+| ---------------------------- | ------------------------------------- |
+| Client-side rendering        | Build-time HTML generation            |
+| Virtual DOM                  | Direct HTML output                    |
+| useState, useEffect          | No hooks (not applicable)             |
+| onClick handlers             | data-enhance attributes               |
+| Controlled components        | Native HTML form behavior             |
+| Permissive JSX               | Typed HTML with standards enforcement |
+| Any attribute on any element | Only valid W3C/WHATWG attributes      |
+| No nesting validation        | Enforces proper content models        |
 
-- **DateField** - Dates (date picker, text input with validation)
-- **TimeField** - Times (time picker, dropdowns)
-- **DateTimeField** - Combined date and time
-- **MonthDayField** - Recurring dates like birthdays
-- **YearMonthField** - Credit card expiry, etc.
-- **DurationField** - Time spans (custom inputs)
-- **InstantField** - Precise timestamps
+These differences aren't limitations—they're constraints that enable different capabilities. No virtual DOM means no runtime overhead. No hooks means no mental model for dependency arrays and re-renders. Native form behavior means forms work without JavaScript.
 
-**Contact Types:**
+## The Philosophy in Practice
 
-- **EmailField** - Email addresses (with validation)
-- **PhoneNumberField** - Phone numbers (international format)
-- **UrlField** - Web addresses (with protocol validation)
-- **PostalCodeField** - ZIP/postal codes (country-aware)
+Architect makes several strong claims worth examining:
 
-**Structured Types:**
+**Claim: Semantic components make better interfaces than HTML elements.** When you write `<Recipe>` instead of assembling divs and sections, you express intent directly. The compiler handles structure. This separation lets you think about content, not markup.
 
-- **AddressField** - Full addresses (country-specific layout)
-- **CreditCardField** - Card numbers (with Luhn validation)
-- **ColorField** - Colors (picker, hex, rgb, hsl)
-- **GeoLocationField** - Lat/long coordinates
+**Claim: Progressive enhancement should be mandatory, not optional.** Every component must function without JavaScript. This constraint forces better architecture. The baseline experience must be solid because JavaScript isn't guaranteed.
 
-### Configuration via Constants
+**Claim: Type safety prevents entire categories of errors.** Invalid HTML becomes a compile error. This catches problems—wrong attributes, improper nesting, content model violations—before they reach production. The error messages guide you to correct usage.
 
-```jsx
-// Configure widget selection thresholds
-<Config>
-	<Value name="RADIO_MAX_ITEMS">6</Value>
-	<Value name="TEXTAREA_MIN_LENGTH">200</Value>
-	<Value name="SLIDER_FOR_BOUNDED_NUMBERS">true</Value>
-</Config>
-```
+**Claim: Build-time compilation beats runtime rendering.** Generating HTML during the build eliminates runtime overhead. No virtual DOM diffing. No hydration. Browsers receive HTML and display it immediately.
 
-### The Ultimate Goal
+These claims lead to trade-offs. You can't implement certain patterns that require client-side rendering. You need build-time compilation infrastructure. Your components can't maintain local state the way React components do.
 
-**Non-developers can build forms once the data model exists:**
+But for content-focused applications—documentation sites, blogs, marketing pages, e-commerce catalogs—these constraints enable better outcomes. Faster initial loads. Better accessibility. Clearer separation between content and presentation.
 
-```jsx
-// A designer or product manager writes:
-<CustomerForm>
-	<Section title="Basic Info">
-		<Fields include={["name", "company", "email"]} />
-	</Section>
-	<Section title="Preferences">
-		<Fields include={["tier", "notifications", "language"]} />
-	</Section>
-</CustomerForm>
+## Development Workflow
 
-// The system knows from the schema:
-// - name: required string → required text input
-// - company: optional string → optional text input
-// - email: string with email constraint → email input with validation
-// - tier: enum member → radio or select based on count
-// - notifications: boolean → checkbox
-// - language: enum member → select dropdown
-```
+A typical Architect project follows this pattern:
 
-This approach means:
+1. Write components using semantic JSX
+2. TypeScript validates against element type definitions
+3. Build process compiles JSX to HTML
+4. Generated HTML includes proper ARIA attributes and structured data
+5. CSS Custom Properties enable theming
+6. Optional enhancement scripts add JavaScript behavior where needed
 
-- **No widget bikeshedding** - System chooses optimal widgets
-- **Consistent UX** - Same data types always render similarly
-- **Accessible by default** - System ensures WCAG compliance
-- **Responsive automatically** - Widgets adapt to screen size
-- **Validation built-in** - From database constraints and SHACL
-
-### Why This Is Revolutionary
-
-Most form libraries are stuck in the 1990s mindset of "HTML forms" where developers manually map widgets to data. They're thinking about `<input type="radio">` vs `<select>` when they should be thinking about "choosing one item from a set."
-
-**The old way**: "I need a form, let me pick some HTML widgets and figure out validation"\
-**The Architect way**: "I have data types, the system knows how to collect them"
-
-This isn't just a technical improvement - it's a fundamental paradigm shift that enables:
-
-- Product managers to design forms without developers
-- Instant form generation from database schemas
-- Guaranteed data integrity at the UI layer
-- Truly responsive forms that adapt widget types to context
-- Forms that can be stored as data and modified without code changes
-
-When you finally understand this approach, you can never go back to manually crafting form widgets. It's like going from assembly language to high-level programming - a complete abstraction leap that makes the old way seem primitive.
-
-## Behavior Attachment
-
-Architect attaches behaviors as properties on DOM elements:
-
-```javascript
-// After rendering, elements have these properties:
-element.__sbCalculate // Async calculation function
-element.__sbValidate // Async validation function
-element.__sbFormat // Async formatting function
-
-// Global registries track dependencies:
-document.__sbCalculators // Set of element IDs with calculations
-document.__sbCalculations // Map of selector to dependent element IDs
-document.__sbFormatters // Set of element IDs with formatters
-document.__sbValidators // Set of element IDs with validators
-```
-
-## Data Persistence
-
-### JSON Format
+The TypeScript configuration requires specific settings:
 
 ```json
 {
-	"_tag": "Validation",
-	"type": "logical",
-	"children": [
-		{
-			"_tag": "And",
-			"type": "logical",
-			"operands": [
-				{
-					"_tag": "IsInteger",
-					"type": "comparator"
-				},
-				{
-					"_tag": "IsGreaterThan",
-					"type": "comparator",
-					"value": 0
-				}
-			]
-		}
-	]
-}
-```
-
-### RDF Turtle Format
-
-```turtle
-:validation123 a arch:Validation ;
-  arch:hasChild :and456 .
-
-:and456 a arch:And ;
-  arch:hasOperand :isInteger789, :isGreaterThan012 .
-
-:isInteger789 a arch:IsInteger .
-
-:isGreaterThan012 a arch:IsGreaterThan ;
-  arch:value 0 .
-```
-
-### SHACL Generation
-
-```turtle
-:AgeShape a sh:PropertyShape ;
-  sh:path :age ;
-  sh:datatype xsd:integer ;
-  sh:minInclusive 0 ;
-  sh:message "Age must be a positive integer" .
-```
-
-## Server-Side Rendering
-
-```typescript
-import render from "@sitebender/architect/rendering/ssr/render/index.ts"
-
-// Fetch UI definition from database
-const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'")
-
-// Render to HTML with embedded behaviors
-const html = await render(uiConfig, {
-	embedBehaviors: true,
-	includeHydration: true,
-})
-```
-
-## Client-Side Hydration
-
-```typescript
-import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts"
-
-// Find all elements with embedded configurations
-const elements = document.querySelectorAll("[data-architect]")
-
-function hydrateElement(el) {
-	const config = JSON.parse(el.dataset.architect)
-
-	hydrate(el, config)
-}
-
-elements.forEach(hydrateElement)
-```
-
-## Integration with Triple Stores
-
-```typescript
-import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts"
-import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts"
-import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts"
-
-// Convert UI to RDF triples
-const triples = toRDF(uiConfig)
-
-// Store in triple store
-await tripleStore.insert(triples)
-
-// Validate data against generated SHACL
-const validation = await validateSHACL(data, uiConfig)
-
-// Query UI components
-const query = `
-  SELECT ?component ?type
-  WHERE {
-    ?component arch:hasValidation ?validation .
-    ?component rdf:type ?type .
-  }
-`
-const components = await tripleStore.query(query)
-```
-
-## Test Scenarios as Data
-
-Test scenarios are JSX components compiled to IR:
-
-- Stored in triple store
-- Versioned with application
-- Executable via TestHarness
-- Perfect replay capability
-
-### Declarative Test Components
-
-```tsx
-<TestScenario name="Form validation cascade">
-	<Setup>
-		<LoadSchema from="./schemas/user.shacl" />
-	</Setup>
-
-	<Render>
-		<Input id="age" type="number">
-			<Validation>
-				<IsInteger />
-				<IsGreaterThan value={0} />
-				<IsLessThan value={120} />
-			</Validation>
-		</Input>
-	</Render>
-
-	<Actions>
-		<SimulateInput target="#age" value="150" />
-	</Actions>
-
-	<Assertions>
-		<ValidationState target="#age" is="invalid" />
-		<ErrorMessage contains="must be less than 120" />
-	</Assertions>
-</TestScenario>
-```
-
-### Integration with Testing Libraries
-
-- **Quarrier**: Generates test data respecting all constraints
-- **Auditor**: Proves validation logic correctness
-- **Envoy**: Documents test coverage and scenarios
-- **Operator**: Records all test events for debugging
-
-## Advantages Over Traditional Frameworks
-
-### No Build Step Required
-
-- Store UI definitions in databases
-- Modify UIs without redeployment
-- A/B test by swapping data
-
-### Universal Validation
-
-- Same validation rules everywhere
-- No duplicate validation logic
-- Database constraints from UI definitions
-
-### Complete Introspection
-
-- Entire app structure is queryable
-- Time-travel debugging via stored states
-- Audit trails of UI changes
-
-### True Progressive Enhancement
-
-- Works without JavaScript (server-rendered)
-- Behaviors enhance when JS available
-- Graceful degradation built-in
-
-### AI-Safe Architecture
-
-- All changes are data modifications
-- Warden can validate UI changes
-- No code injection vulnerabilities
-
-## Performance
-
-- **No Virtual DOM** - Direct DOM manipulation
-- **Lazy Evaluation** - Behaviors compose on first use
-- **Efficient Updates** - Dependency graph ensures minimal recalculation
-- **Streaming SSR** - Render as data arrives
-- **Edge Caching** - UI definitions cacheable as data
-
-## Getting Started
-
-```bash
-# Install
-deno add @sitebender/architect
-
-# Or use with Node (once published)
-npm install @sitebender/architect
-```
-
-### Basic Setup
-
-```typescript
-// Configure JSX
-// tsconfig.json
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "@sitebender/architect"
-  }
-}
-```
-
-### Simple Example
-
-```tsx
-import Display from "@sitebender/architect/components/display/Display/index.tsx"
-import Input from "@sitebender/architect/components/forms/Input/index.tsx"
-import From from "@sitebender/architect/components/injectors/From/index.tsx"
-import Add from "@sitebender/architect/components/operators/Add/index.tsx"
-import render from "@sitebender/architect/rendering/render/index.ts"
-
-function Calculator() {
-	return (
-		<div>
-			<Input id="a" type="number" />
-			<span>+</span>
-			<Input id="b" type="number" />
-			<span>=</span>
-			<Display>
-				<Add>
-					<FromElement selector="#a" />
-					<FromElement selector="#b" />
-				</Add>
-			</Display>
-		</div>
-	)
-}
-
-// Render to DOM
-render(<Calculator />, document.getElementById("root"))
-```
-
-## Advanced Topics
-
-### Custom Operators
-
-Define your own operators that compose with existing ones:
-
-```tsx
-function computeFactorial(n) {
-	return n <= 1 ? 1 : n * computeFactorial(n - 1)
-}
-
-function Factorial({ children }) {
-	return (
-		<CustomOperator name="factorial" compute={computeFactorial}>
-			{children}
-		</CustomOperator>
-	)
-}
-```
-
-### Custom Injectors
-
-Create injectors for any data source:
-
-```tsx
-function FromGraphQL({ query, variables }) {
-	async function fetchGraphQL() {
-		const result = await graphqlClient.query({ query, variables })
-
-		return result.data
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "@sitebender/architect",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext"
 	}
-
-	return <CustomInjector name="graphql" fetch={fetchGraphQL} />
 }
 ```
 
-### Behavior Composition
-
-Combine multiple behaviors on a single element:
+Components import directly—no barrel files:
 
 ```tsx
-<Input id="email">
-	<Validation>
-		<And>
-			<Matches>
-				<Referent>
-					<FromArgument />
-				</Referent>
-				<Comparand>
-					<Value>^[^@]+@[^@]+\.[^@]+$</Value>
-				</Comparand>
-			</Matches>
-			<IsUniqueEmail>
-				<FromArgument />
-			</IsUniqueEmail>
-		</And>
-	</Validation>
-	<Format>
-		<AsLowerCase />
-	</Format>
-	<Calculation>
-		<TrimWhitespace>
-			<FromArgument />
-		</TrimWhitespace>
-	</Calculation>
-</Input>
+import Article from "@sitebender/architect/group/document/Article/index.tsx"
+import H1 from "@sitebender/architect/html/text/H1/index.tsx"
+import Form from "@sitebender/architect/interact/forms/Form/index.tsx"
 ```
 
-## Roadmap
+Direct imports improve tree-shaking and make dependencies explicit.
 
-- ✅ Core rendering engine
-- ✅ Behavior composition system
-- ✅ Basic operators and comparators
-- ⏳ JSX to IR compiler integration
-- ⏳ JSON/YAML persistence
-- ⏳ RDF/Turtle generation
-- ⏳ SHACL constraint generation
-- ⏳ Full SSR support
-- ⏳ Client hydration
-- 🔜 SQL schema generation
-- 🔜 GraphQL schema generation
-- 🔜 OpenAPI spec generation
+## Accessibility by Default
 
-## Contributing
+Every component includes accessibility features as standard equipment, not optional extras. Proper ARIA attributes. Keyboard navigation patterns. Screen reader compatibility. Focus management. Semantic HTML structure.
 
-Architect is part of the @sitebender Studio suite. See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+This default inclusion means accessibility happens automatically unless you actively break it. The components guide you toward accessible patterns through their APIs. Getting accessibility right becomes the path of least resistance.
 
-## License
+## The Integration with Other Libraries
 
-[MIT](../../LICENSE)
+Architect handles structure and semantics. Other libraries in the Sitebender ecosystem handle complementary concerns:
 
-## Conditional Workflow Components
+**Artificer** provides reactive functionality—form validation, conditional display, state management—through declarative composition that enhances Architect's HTML.
 
-Architect's conditional rendering components become powerful workflow decision nodes, bringing n8n-style conditional logic to reactive systems with mathematical precision and semantic data storage.
+**Formulator** handles expression evaluation and calculation, enabling data-driven forms and derived values.
 
-### Visual Decision Nodes
+**Steward** manages authentication and authorization, including route protection through `<Locked>`, `<Key>`, `<And>`, and `<Or>` components.
 
-Transform complex conditional logic into intuitive visual workflow components:
+These libraries compose cleanly because Architect maintains clear boundaries. It generates HTML. Other libraries enhance that HTML or provide complementary capabilities. No overlap. No conflicts.
 
-```tsx
-<ConditionalWorkflowCanvas>
-	<DecisionNode id="deployment-readiness" position={[300, 200]}>
-		<VisualProperties>
-			<Shape type="diamond" color="orange" />
-			<Label>Ready to Deploy?</Label>
-		</VisualProperties>
+## Why This Matters
 
-		<Condition>
-			<And>
-				<IsEqualTo>
-					<Referent>
-						<FromWarden selector="violations" />
-					</Referent>
-					<Comparand>
-						<Value>0</Value>
-					</Comparand>
-				</IsEqualTo>
-				<IsGreaterThan>
-					<Referent>
-						<From.Auditor selector="coverage" />
-					</Referent>
-					<Comparand>
-						<Value>95</Value>
-					</Comparand>
-				</IsGreaterThan>
-				<IsEqualTo>
-					<Referent>
-						<From.Agent selector="networkHealth" />
-					</Referent>
-					<Comparand>
-						<Value>"healthy"</Value>
-					</Comparand>
-				</IsEqualTo>
-			</And>
-		</Condition>
+Web development frameworks have converged on a client-side rendering model. Components manage state, hooks coordinate side effects, virtual DOMs reconcile changes. This model works well for certain application types—collaborative editors, real-time dashboards, complex interactive tools.
 
-		<WhenTrue>
-			<Connection to="production-deployment" color="green" />
-			<WorkflowTrigger name="production-deployment" />
-		</WhenTrue>
+But it imposes costs on content-focused applications. Large JavaScript bundles delay initial render. Hydration creates layout shift. Progressive enhancement becomes difficult when components expect client-side rendering.
 
-		<WhenFalse>
-			<SwitchDisplay>
-				<Case condition="wardenViolations > 0">
-					<Connection to="fix-violations" color="red" />
-					<WorkflowTrigger name="fix-violations" />
-				</Case>
-				<Case condition="coverage < 95">
-					<Connection to="improve-tests" color="yellow" />
-					<WorkflowTrigger name="improve-tests" />
-				</Case>
-				<Case condition="networkHealth !== 'healthy'">
-					<Connection to="network-recovery" color="purple" />
-					<WorkflowTrigger name="network-recovery" />
-				</Case>
-				<Default>
-					<Connection to="investigate-failure" color="gray" />
-					<WorkflowTrigger name="investigate-failure" />
-				</Default>
-			</SwitchDisplay>
-		</WhenFalse>
+Architect inverts these priorities. HTML comes first. JavaScript enhances but never enables. Accessibility is default, not added. Type safety prevents errors at compile time.
 
-		<ReactiveUpdates>
-			<OnChange selector="warden.violations">
-				<UpdateCondition />
-				<TriggerRevaluation />
-				<HighlightChange color="red" duration="PT2S" />
-			</OnChange>
+This approach represents a refactoring in the original sense—extracting common patterns, clarifying responsibilities, creating clean boundaries. You write semantic components. The compiler generates accessible HTML. Enhancement scripts add progressive functionality.
 
-			<OnChange selector="auditor.coverage">
-				<UpdateMetrics />
-				<CheckDeploymentReadiness />
-				<VisualFeedback type="pulse" />
-			</OnChange>
-		</ReactiveUpdates>
-	</DecisionNode>
+The result: content-focused applications that load fast, work everywhere, and degrade gracefully when JavaScript fails or gets blocked.
 
-	<ConditionEvaluator>
-		<RealTimeDisplay>
-			<ShowCurrentValues />
-			<HighlightActiveConditions />
-			<DisplayEvaluationPath />
-		</RealTimeDisplay>
-
-		<DebuggingTools>
-			<StepThroughEvaluation />
-			<ShowIntermediateResults />
-			<ExplainDecision />
-		</DebuggingTools>
-	</ConditionEvaluator>
-</ConditionalWorkflowCanvas>
-```
-
-### Reactive Workflow Pipeline
-
-Create reactive data processing pipelines with visual flow control:
-
-```tsx
-<ReactiveWorkflowPipeline>
-	<Stage name="source-analysis" position={[100, 200]}>
-		<Input from="git.changes" />
-		<Process with="arborist.parseFiles" />
-		<Output to="parsed-files" />
-		<ReactsTo changes="file-system" />
-
-		<ConditionalProcessing>
-			<When condition="fileCount > 100">
-				<Parallelize workers={4} />
-			</When>
-			<When condition="fileCount <= 10">
-				<SequentialProcessing />
-			</When>
-		</ConditionalProcessing>
-	</Stage>
-
-	<Stage name="quality-checks" position={[300, 200]}>
-		<Input from="parsed-files" />
-
-		<ParallelBranches>
-			<Branch name="warden-validation">
-				<Process with="warden.validate" output="violations" />
-				<ConditionalFlow>
-					<If condition="violations.length === 0">
-						<Continue to="next-stage" />
-					</If>
-					<ElseIf condition="violations.some(v => v.critical)">
-						<Abort reason="critical-violations" />
-					</ElseIf>
-					<Else>
-						<Continue with="warnings" to="next-stage" />
-					</Else>
-				</ConditionalFlow>
-			</Branch>
-
-			<Branch name="test-generation">
-				<Process with="auditor.testGeneration" output="tests" />
-				<ConditionalFlow>
-					<If condition="tests.coverage >= 90">
-						<SetFlag name="high-coverage" />
-					</If>
-				</ConditionalFlow>
-			</Branch>
-
-			<Branch name="documentation">
-				<Process with="envoy.documentation" output="docs" />
-			</Branch>
-		</ParallelBranches>
-
-		<ReactsTo changes="code-structure" />
-	</Stage>
-
-	<Stage name="deployment-decision" position={[500, 200]}>
-		<Input from="violations, tests, docs" />
-
-		<DecisionMatrix>
-			<Rule priority={1} when="violations.length === 0 && tests.coverage > 90">
-				<Action>deploy-to-staging</Action>
-				<Visual color="green" />
-			</Rule>
-
-			<Rule priority={2} when="violations.some(v => v.severity === 'critical')">
-				<Action>block-deployment</Action>
-				<Notify channels={["alerts", "team-lead"]} />
-				<Visual color="red" />
-			</Rule>
-
-			<Rule priority={3} when="tests.coverage < 50">
-				<Action>require-more-tests</Action>
-				<Visual color="yellow" />
-			</Rule>
-
-			<Default>
-				<Action>queue-for-review</Action>
-				<Visual color="gray" />
-			</Default>
-		</DecisionMatrix>
-
-		<ReactsTo changes="quality-metrics" />
-	</Stage>
-</ReactiveWorkflowPipeline>
-```
-
-### Dynamic Workflow Adaptation
-
-Workflows that adapt their behavior based on runtime conditions:
-
-```tsx
-<AdaptiveWorkflow>
-	<WorkflowController>
-		<ContextAwareness>
-			<SystemLoad current="high" threshold="moderate" />
-			<NetworkConditions latency="120ms" bandwidth="good" />
-			<ResourceAvailability cpu="78%" memory="65%" disk="45%" />
-			<TimeOfDay current="business-hours" />
-			<ErrorRate current="0.02%" threshold="1%" />
-		</ContextAwareness>
-
-		<AdaptationRules>
-			<Rule condition="systemLoad > 'moderate'">
-				<ReduceParallelism factor={0.5} />
-				<IncreaseTimeout factor={1.5} />
-				<EnableCaching aggressively={true} />
-			</Rule>
-
-			<Rule condition="networkLatency > 200">
-				<BatchOperations size={50} />
-				<EnableCompression algorithm="lz4" />
-				<ReduceNetworkCalls />
-			</Rule>
-
-			<Rule condition="errorRate > 0.5%">
-				<IncreaseRetries attempts={5} />
-				<EnableCircuitBreaker />
-				<AlertOperations />
-			</Rule>
-
-			<Rule condition="timeOfDay === 'off-hours'">
-				<EnableMaintenanceTasks />
-				<AllowLongRunningOperations />
-				<ReducedMonitoring />
-			</Rule>
-		</AdaptationRules>
-	</WorkflowController>
-
-	<VisualAdaptation>
-		<ShowAdaptations>
-			<HighlightChangedBehaviors />
-			<DisplayAdaptationReasons />
-			<ShowPerformanceImpact />
-		</ShowAdaptations>
-
-		<AdaptationHistory>
-			<TrackAdaptations over="PT24H" />
-			<AnalyzeEffectiveness />
-			<SuggestOptimizations />
-		</AdaptationHistory>
-	</VisualAdaptation>
-</AdaptiveWorkflow>
-```
-
-### Conditional Data Transformations
-
-Transform data through conditional processing workflows:
-
-```tsx
-<ConditionalDataPipeline>
-	<DataSource name="user-events">
-		<Input from="operator.events" filter="user.*" />
-
-		<ConditionalTransformation>
-			<When condition="event.type === 'purchase'">
-				<Transform>
-					<ExtractPurchaseData />
-					<CalculateValue />
-					<EnrichWithUserProfile />
-					<FormatForAnalytics />
-				</Transform>
-				<Output to="purchase-analytics" />
-			</When>
-
-			<When condition="event.type === 'navigation'">
-				<Transform>
-					<ExtractNavigationData />
-					<CalculateSessionTime />
-					<DetermineUserIntent />
-				</Transform>
-				<Output to="user-behavior-analytics" />
-			</When>
-
-			<When condition="event.type === 'error'">
-				<Transform>
-					<ExtractErrorDetails />
-					<ClassifyErrorType />
-					<DetermineImpact />
-				</Transform>
-				<Output to="error-tracking" />
-				<TriggerAlert when="error.severity === 'critical'" />
-			</When>
-
-			<Default>
-				<Transform>
-					<BasicEventProcessing />
-				</Transform>
-				<Output to="general-analytics" />
-			</Default>
-		</ConditionalTransformation>
-	</DataSource>
-
-	<ConditionalAggregation>
-		<Aggregate data="purchase-analytics">
-			<If condition="timeWindow === 'real-time'">
-				<SlidingWindow size="PT5M" />
-				<UpdateFrequency interval="PT30S" />
-			</If>
-
-			<ElseIf condition="timeWindow === 'batch'">
-				<TumblingWindow size="PT1H" />
-				<UpdateFrequency interval="PT1H" />
-			</ElseIf>
-
-			<Metrics>
-				<Sum field="revenue" />
-				<Count field="transactions" />
-				<Average field="order-value" />
-			</Metrics>
-		</Aggregate>
-	</ConditionalAggregation>
-</ConditionalDataPipeline>
-```
-
-### Multi-Condition Workflow Gates
-
-Complex gating logic with multiple conditions and approval workflows:
-
-```tsx
-<MultiConditionGate>
-	<DeploymentGate name="production-release">
-		<RequiredConditions>
-			<TechnicalGate>
-				<Condition name="tests-pass" weight={0.3}>
-					<IsEqualTo>
-						<Referent>
-							<From.Auditor selector="testResults.passed" />
-						</Referent>
-						<Comparand>
-							<From.Auditor selector="testResults.total" />
-						</Comparand>
-					</IsEqualTo>
-				</Condition>
-
-				<Condition name="no-critical-violations" weight={0.3}>
-					<IsEqualTo>
-						<Referent>
-							<FromWarden selector="criticalViolations" />
-						</Referent>
-						<Comparand>
-							<Value>0</Value>
-						</Comparand>
-					</IsEqualTo>
-				</Condition>
-
-				<Condition name="performance-acceptable" weight={0.2}>
-					<IsLessThan>
-						<Referent>
-							<From.Metrics selector="p99Latency" />
-						</Referent>
-						<Comparand>
-							<Value>500</Value>
-						</Comparand>
-					</IsLessThan>
-				</Condition>
-
-				<Condition name="security-scan-clean" weight={0.2}>
-					<IsEqualTo>
-						<Referent>
-							<From.Security selector="vulnerabilities.high" />
-						</Referent>
-						<Comparand>
-							<Value>0</Value>
-						</Comparand>
-					</IsEqualTo>
-				</Condition>
-			</TechnicalGate>
-
-			<BusinessGate>
-				<Condition name="product-approval">
-					<HasApproval from="product-manager" within="PT24H" />
-				</Condition>
-
-				<Condition name="qa-signoff">
-					<HasApproval from="qa-lead" within="PT24H" />
-				</Condition>
-
-				<Condition name="business-hours">
-					<And>
-						<IsAfterTime time="09:00" />
-						<IsBeforeTime time="17:00" />
-						<IsWeekday />
-					</And>
-				</Condition>
-			</BusinessGate>
-		</RequiredConditions>
-
-		<GateVisualization>
-			<ProgressIndicator>
-				<TechnicalProgress value="85%" color="green" />
-				<BusinessProgress value="67%" color="yellow" />
-				<OverallProgress value="76%" />
-			</ProgressIndicator>
-
-			<ConditionStatus>
-				<ShowMet conditions={["tests-pass", "no-critical-violations"]} />
-				<ShowPending conditions={["product-approval"]} />
-				<ShowFailed conditions={[]} />
-			</ConditionStatus>
-		</GateVisualization>
-
-		<OnGateOpen>
-			<TriggerWorkflow name="production-deployment" />
-			<NotifyStakeholders />
-			<LogDeployment />
-		</OnGateOpen>
-
-		<OnGateBlocked>
-			<ShowBlockingConditions />
-			<SuggestActions />
-			<NotifyResponsible />
-		</OnGateBlocked>
-	</DeploymentGate>
-</MultiConditionGate>
-```
-
-### Real-Time Condition Monitoring
-
-Monitor and visualize condition states in real-time:
-
-```tsx
-<ConditionMonitoringDashboard>
-	<RealTimeConditions>
-		<ConditionGrid>
-			<ConditionCard name="warden-violations">
-				<CurrentValue>0</CurrentValue>
-				<Status color="green">PASS</Status>
-				<Trend direction="stable" />
-				<LastUpdated>2s ago</LastUpdated>
-			</ConditionCard>
-
-			<ConditionCard name="test-coverage">
-				<CurrentValue>94.2%</CurrentValue>
-				<Status color="red">FAIL</Status>
-				<Trend direction="improving" />
-				<LastUpdated>1m ago</LastUpdated>
-				<RequiredValue>95%</RequiredValue>
-			</ConditionCard>
-
-			<ConditionCard name="network-health">
-				<CurrentValue>healthy</CurrentValue>
-				<Status color="green">PASS</Status>
-				<Trend direction="stable" />
-				<LastUpdated>5s ago</LastUpdated>
-			</ConditionCard>
-		</ConditionGrid>
-	</RealTimeConditions>
-
-	<ConditionalAlerts>
-		<AlertRule condition="testCoverage < 95" severity="warning">
-			<Message>Test coverage below threshold</Message>
-			<Action>Suggest test generation</Action>
-			<Escalation after="PT15M" to="team-lead" />
-		</AlertRule>
-
-		<AlertRule condition="wardenViolations > 0" severity="error">
-			<Message>Code quality violations detected</Message>
-			<Action>Block deployment</Action>
-			<Escalation immediate={true} to="development-team" />
-		</AlertRule>
-	</ConditionalAlerts>
-
-	<HistoricalTrends>
-		<TimeSeriesChart>
-			<Metric name="condition-success-rate" timeRange="PT24H" />
-			<Metric name="average-resolution-time" timeRange="PT24H" />
-		</TimeSeriesChart>
-
-		<PatternAnalysis>
-			<IdentifyRecurringIssues />
-			<PredictFailureProbability />
-			<SuggestPreventiveMeasures />
-		</PatternAnalysis>
-	</HistoricalTrends>
-</ConditionMonitoringDashboard>
-```
-
-This transforms Architect from a reactive rendering library into a **comprehensive conditional workflow orchestration system** that provides visual, mathematical, and semantic precision to complex decision-making processes.
-
-## See Also
-
-- [Pagewright](../pagewright/README.md) - Semantic HTML components
-- [Formulator](../formulator/README.md) - Expression parser for Architect IR
-- [Agent](../agent/README.md) - Distributed data synchronization
-- [Warden](../warden/README.md) - Architectural governance
+The library works. The patterns scale. The constraints enable better outcomes.

@@ -1,4 +1,4 @@
-import Person from "~pagewright/semantics/Person/index.tsx"
+import Person from "~architect/semantics/Person/index.tsx"
 
 import { expect } from "@std/expect"
 import { describe, it } from "@std/testing/bdd"

@@ -1,19 +1,19 @@
-import SetQueryString from "@sitebender/pagewright/transform/actions/SetQueryString/index.tsx"
-import NotEmpty from "@sitebender/pagewright/transform/comparators/NotEmpty/index.tsx"
-import If from "@sitebender/pagewright/transform/control/If/index.tsx"
-import On from "@sitebender/pagewright/transform/control/On/index.tsx"
-import Program from "@sitebender/pagewright/transform/control/Program/index.tsx"
-import SetValue from "@sitebender/pagewright/transform/do/SetValue/index.tsx"
-import Constant from "@sitebender/pagewright/transform/injectors/Constant/index.tsx"
-import FromElement from "@sitebender/pagewright/transform/injectors/FromElement/index.tsx"
-import Add from "@sitebender/pagewright/transform/operators/Add/index.tsx"
+import SetQueryString from "@sitebender/architect/transform/actions/SetQueryString/index.tsx"
+import NotEmpty from "@sitebender/architect/transform/comparators/NotEmpty/index.tsx"
+import If from "@sitebender/architect/transform/control/If/index.tsx"
+import On from "@sitebender/architect/transform/control/On/index.tsx"
+import Program from "@sitebender/architect/transform/control/Program/index.tsx"
+import SetValue from "@sitebender/architect/transform/do/SetValue/index.tsx"
+import Constant from "@sitebender/architect/transform/injectors/Constant/index.tsx"
+import FromElement from "@sitebender/architect/transform/injectors/FromElement/index.tsx"
+import Add from "@sitebender/architect/transform/operators/Add/index.tsx"
 
 // compileToArchitect no longer needed directly here
 
 export default function Tutorial() {
 	return (
 		<body>
-			<h1>Architect Tutorial (JSX)</h1>
+			<h1>Artificer Tutorial (JSX)</h1>
 			<p>
 				These behaviors are authored with JSX components and hydrated on the
 				client.
@@ -25,7 +25,7 @@ export default function Tutorial() {
 				Hello, <span id="out">(none)</span>
 			</p>
 
-			<form id="profile" data-ir-id="profile" action="/ignored-by-architect">
+			<form id="profile" data-ir-id="profile" action="/ignored-by-artificer">
 				<input
 					name="favorite"
 					id="favorite"

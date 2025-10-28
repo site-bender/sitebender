@@ -52,8 +52,8 @@ Your entire application—including all behaviors, validations, and tests—exis
 
 #### Application Layer
 
-- **Pagewright** - Semantic HTML components. Every element typed. Accessibility enforced.
-- **Architect** - Reactive rendering without VDOM. Behaviors attached as DOM properties.
+- **Architect** - Semantic HTML components. Every element typed. Accessibility enforced.
+- **Artificer** - Reactive rendering without VDOM. Behaviors attached as DOM properties.
 - **Formulator** - Bidirectional formula parser. Math ↔ IR ↔ MathML. Perfect isomorphism.
 - **Linguist** - Internationalization as triples. Type-safe translations. ICU MessageFormat.
 - **Exchequer** - Commerce primitives as data. Products, orders, payments. Multi-currency.
