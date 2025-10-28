@@ -4,13 +4,13 @@ import _Html from "./index.ts"
 import _Head from "./_Head/index.ts"
 import _Body from "./_Body/index.ts"
 import _Title from "../metadata/_Title/index.ts"
-import type { ElementConfig } from "../../types/index.ts"
+import type { VirtualNode } from "../../types/index.ts"
 
 Deno.test("_Html component", async function htmlTests(t) {
 	await t.step(
 		"creates HTML element with valid head and body",
 		function createsValidStructure() {
-			const titleText: ElementConfig = { _tag: "text", content: "Test Page" }
+			const titleText: VirtualNode = { _tag: "text", content: "Test Page" }
 			const title = _Title({ children: [titleText] })
 			const head = _Head({ children: [title] })
 			const body = _Body({})
@@ -56,7 +56,7 @@ Deno.test("_Html component", async function htmlTests(t) {
 	await t.step(
 		"creates empty body if missing",
 		function createsEmptyBody() {
-			const titleText: ElementConfig = { _tag: "text", content: "Test" }
+			const titleText: VirtualNode = { _tag: "text", content: "Test" }
 			const title = _Title({ children: [titleText] })
 			const head = _Head({ children: [title] })
 
@@ -103,7 +103,7 @@ Deno.test("_Html component", async function htmlTests(t) {
 	await t.step(
 		"reorders body before head to head, body",
 		function reordersChildren() {
-			const titleText: ElementConfig = { _tag: "text", content: "Test" }
+			const titleText: VirtualNode = { _tag: "text", content: "Test" }
 			const title = _Title({ children: [titleText] })
 			const head = _Head({ children: [title] })
 			const body = _Body({})
@@ -126,9 +126,9 @@ Deno.test("_Html component", async function htmlTests(t) {
 	await t.step(
 		"moves head elements to head",
 		function movesHeadElements() {
-			const titleText: ElementConfig = { _tag: "text", content: "Test" }
+			const titleText: VirtualNode = { _tag: "text", content: "Test" }
 			const title = _Title({ children: [titleText] })
-			const link: ElementConfig = {
+			const link: VirtualNode = {
 				_tag: "element",
 				tagName: "LINK",
 				attributes: { rel: "stylesheet", href: "style.css" },
@@ -168,7 +168,7 @@ Deno.test("_Html component", async function htmlTests(t) {
 		"moves non-head elements to body > main",
 		function movesNonHeadElements() {
 			const head = _Head({})
-			const div: ElementConfig = {
+			const div: VirtualNode = {
 				_tag: "element",
 				tagName: "DIV",
 				attributes: {},
@@ -315,21 +315,21 @@ Deno.test("_Html component", async function htmlTests(t) {
 	await t.step(
 		"handles mixed valid and invalid children",
 		function handlesMixedChildren() {
-			const titleText: ElementConfig = { _tag: "text", content: "Test" }
+			const titleText: VirtualNode = { _tag: "text", content: "Test" }
 			const title = _Title({ children: [titleText] })
-			const div: ElementConfig = {
+			const div: VirtualNode = {
 				_tag: "element",
 				tagName: "DIV",
 				attributes: {},
 				children: [],
 			}
-			const link: ElementConfig = {
+			const link: VirtualNode = {
 				_tag: "element",
 				tagName: "LINK",
 				attributes: { rel: "stylesheet", href: "style.css" },
 				children: [],
 			}
-			const span: ElementConfig = {
+			const span: VirtualNode = {
 				_tag: "element",
 				tagName: "SPAN",
 				attributes: {},

@@ -2,13 +2,13 @@ import { assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
 import _flattenChild from "./index.ts"
-import type { ElementConfig } from "../../../types/index.ts"
+import type { VirtualNode } from "../../../types/index.ts"
 
 Deno.test("_flattenChild", async function flattenChildTests(t) {
 	await t.step(
-		"wraps ElementConfig in array",
-		function wrapsElementConfig() {
-			const elementConfig: ElementConfig = {
+		"wraps VirtualNode in array",
+		function wrapsVirtualNode() {
+			const elementConfig: VirtualNode = {
 				_tag: "element",
 				tagName: "DIV",
 				attributes: {},
@@ -25,7 +25,7 @@ Deno.test("_flattenChild", async function flattenChildTests(t) {
 	await t.step(
 		"wraps text config in array",
 		function wrapsTextConfig() {
-			const textConfig: ElementConfig = {
+			const textConfig: VirtualNode = {
 				_tag: "text",
 				content: "Hello",
 			}
@@ -40,7 +40,7 @@ Deno.test("_flattenChild", async function flattenChildTests(t) {
 	await t.step(
 		"wraps comment config in array",
 		function wrapsCommentConfig() {
-			const commentConfig: ElementConfig = {
+			const commentConfig: VirtualNode = {
 				_tag: "comment",
 				content: "A comment",
 			}
@@ -55,7 +55,7 @@ Deno.test("_flattenChild", async function flattenChildTests(t) {
 	await t.step(
 		"wraps error config in array",
 		function wrapsErrorConfig() {
-			const errorConfig: ElementConfig = {
+			const errorConfig: VirtualNode = {
 				_tag: "error",
 				code: "TEST_ERROR",
 				message: "Test error",
@@ -183,7 +183,7 @@ Deno.test("_flattenChild", async function flattenChildTests(t) {
 	await t.step(
 		"processes array with mixed element configs and primitives",
 		function processesMixed() {
-			const elementConfig: ElementConfig = {
+			const elementConfig: VirtualNode = {
 				_tag: "element",
 				tagName: "SPAN",
 				attributes: {},
@@ -201,7 +201,7 @@ Deno.test("_flattenChild", async function flattenChildTests(t) {
 	await t.step(
 		"preserves element configs in nested arrays",
 		function preservesInNestedArrays() {
-			const elementConfig: ElementConfig = {
+			const elementConfig: VirtualNode = {
 				_tag: "element",
 				tagName: "DIV",
 				attributes: { class: "test" },
@@ -217,7 +217,7 @@ Deno.test("_flattenChild", async function flattenChildTests(t) {
 	)
 })
 
-Deno.test("_flattenChild - property: ElementConfig always wrapped in single-item array", function wrapsConfigs() {
+Deno.test("_flattenChild - property: VirtualNode always wrapped in single-item array", function wrapsConfigs() {
 	fc.assert(
 		fc.property(
 			fc.oneof(
@@ -250,7 +250,7 @@ Deno.test("_flattenChild - property: ElementConfig always wrapped in single-item
 	)
 })
 
-Deno.test("_flattenChild - property: arrays always produce ElementConfig results", function arraysProduceConfigs() {
+Deno.test("_flattenChild - property: arrays always produce VirtualNode results", function arraysProduceConfigs() {
 	fc.assert(
 		fc.property(
 			fc.array(fc.oneof(fc.string(), fc.integer(), fc.constant(null), fc.boolean())),

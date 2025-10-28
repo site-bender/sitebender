@@ -7,28 +7,34 @@ import type { Conjunction, FunctionConfig, Parameter } from "./types.ts"
 
 //++ Main API: generates function files from configuration
 export async function generateFunction(config: FunctionConfig): Promise<void> {
-	const { name, parameters } = config
+	const { name, parameters, targetFolder } = config
 
 	// Validate configuration
 	validateConfig(config)
 
+	// Build full path: targetFolder/name or just name
+	const fullPath = targetFolder ? `${targetFolder}/${name}` : name
+
 	console.log(`Generating function: ${name} with ${parameters.length} parameter(s)...`)
+	if (targetFolder) {
+		console.log(`Target folder: ${targetFolder}`)
+	}
 
 	// Create directory
-	await Deno.mkdir(name, { recursive: true })
+	await Deno.mkdir(fullPath, { recursive: true })
 
 	// Generate index.ts
 	const functionCode = generateFunctionCode(config)
-	await Deno.writeTextFile(`${name}/index.ts`, functionCode)
+	await Deno.writeTextFile(`${fullPath}/index.ts`, functionCode)
 
 	// Generate index.test.ts
 	const testCode = generateTestCode(config)
-	await Deno.writeTextFile(`${name}/index.test.ts`, testCode)
+	await Deno.writeTextFile(`${fullPath}/index.test.ts`, testCode)
 
 	console.log("✓ Function generated successfully!")
 	console.log(`\nCreated:`)
-	console.log(`  ${name}/index.ts`)
-	console.log(`  ${name}/index.test.ts`)
+	console.log(`  ${fullPath}/index.ts`)
+	console.log(`  ${fullPath}/index.test.ts`)
 }
 
 //++ Validates the function configuration
