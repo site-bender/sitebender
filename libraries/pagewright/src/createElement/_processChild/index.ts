@@ -1,4 +1,4 @@
-import type { Child, ElementConfig } from "../../types/index.ts"
+import type { Child, VirtualNode } from "../../types/index.ts"
 
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
 import isNumber from "@sitebender/toolsmith/predicates/isNumber/index.ts"
@@ -16,7 +16,7 @@ import _createErrorConfig from "../_createErrorConfig/index.ts"
 import { ELEMENT_TYPES } from "../constants/index.ts"
 
 /*++
- + Processes a single child into ElementConfig
+ + Processes a single child into VirtualNode
  + Null, undefined, and boolean children become error nodes
  + Strings and numbers become text nodes
  + Objects with _tag are already processed configs
@@ -24,7 +24,7 @@ import { ELEMENT_TYPES } from "../constants/index.ts"
  */
 export default function _processChild(
 	child: Child,
-): ElementConfig | ReadonlyArray<Child> {
+): VirtualNode | ReadonlyArray<Child> {
 	/*++
 	 + [EXCEPTION] Type checking with typeof unavoidable
 	 + This is primitive type discrimination with no higher-level abstraction
@@ -76,7 +76,7 @@ export default function _processChild(
 	}
 
 	/*++
-	 + Object with _tag → already processed ElementConfig
+	 + Object with _tag → already processed VirtualNode
 	 + Uses getTag to access _tag property and includes to validate
 	 + includes acts as type guard, narrowing tag type if validation succeeds
 	 */
@@ -88,9 +88,9 @@ export default function _processChild(
 		if (includes(ELEMENT_TYPES)(tag)) {
 			/*++
 			 + TypeScript now knows tag is "comment" | "element" | "error" | "text"
-			 + Safe to return as ElementConfig
+			 + Safe to return as VirtualNode
 			 */
-			return child as ElementConfig
+			return child as VirtualNode
 		}
 
 		/*++

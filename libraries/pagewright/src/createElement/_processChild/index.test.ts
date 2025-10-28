@@ -118,7 +118,7 @@ Deno.test("_processChild", async function processChildTests(t) {
 
 	await t.step(
 		"returns element config as-is",
-		function returnsElementConfig() {
+		function returnsVirtualNode() {
 			const config = {
 				_tag: "element" as const,
 				tagName: "DIV",

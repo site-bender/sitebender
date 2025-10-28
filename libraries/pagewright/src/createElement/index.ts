@@ -1,4 +1,4 @@
-import type { Component, Props, Child, ElementConfig } from "../types/index.ts"
+import type { Component, Props, Child, VirtualNode } from "../types/index.ts"
 
 import isFunction from "@sitebender/toolsmith/predicates/isFunction/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
@@ -15,13 +15,13 @@ import _createErrorConfig from "./_createErrorConfig/index.ts"
 /*++
  + Creates an element configuration from JSX
  + Called by JSX transform with (component, props, ...children)
- + Returns ElementConfig for element, text, or comment nodes
+ + Returns VirtualNode for element, text, or comment nodes
  */
 export default function createElement(component: Component) {
 	return function createElementWithComponent(props: Props | null) {
 		return function createElementWithComponentAndProps(
 			...children: ReadonlyArray<Child>
-		): ElementConfig {
+		): VirtualNode {
 			/*++
 			 + [EXCEPTION] Rest parameters allowed for collecting children
 			 + [EXCEPTION] Object spread allowed for merging props (creates new object)
