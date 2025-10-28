@@ -252,7 +252,7 @@ Deno.test("_processChildren - property: all results are valid configs", function
 			fc.array(fc.oneof(fc.string(), fc.integer(), fc.constant(null), fc.boolean())),
 			function propertyAllValid(children) {
 				const result = _processChildren(children)
-				// All results should be valid ElementConfigs (text, element, comment, or error)
+				// All results should be valid VirtualNodes (text, element, comment, or error)
 				result.forEach((child) => {
 					assertEquals(
 						child._tag === "text" || child._tag === "element" || child._tag === "comment" || child._tag === "error",
