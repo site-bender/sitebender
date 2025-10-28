@@ -18,7 +18,7 @@
 		// Import from existing Sitebender libraries
 		"@sitebender/pagewright": "../../libraries/pagewright/mod.ts",
 		"@sitebender/toolsmith": "../../libraries/toolsmith/mod.ts",
-		"@sitebender/architect": "../../libraries/architect/mod.ts",
+		"@sitebender/artificer": "../../libraries/artificer/mod.ts",
 		"@sitebender/agent": "../../libraries/agent/mod.ts",
 
 		// Web3-specific dependencies - using Helia instead of deprecated IPFS

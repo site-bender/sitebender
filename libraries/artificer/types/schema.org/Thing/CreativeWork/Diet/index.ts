@@ -6,8 +6,8 @@ import type Organization from "../../Organization/index.ts"
 import type Person from "../../Person/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import OrganizationComponent from "../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type DietType = "Diet"
 

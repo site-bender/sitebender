@@ -3,5 +3,5 @@
 
 import parseFile from "../../parseFile/index.ts"
 
-//++ Parse file with fast SWC syntax-only parsing (for Architect)
+//++ Parse file with fast SWC syntax-only parsing (for Artificer)
 export default parseFile

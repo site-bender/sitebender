@@ -1,4 +1,4 @@
-# Pagewright Implementation Status
+# Architect Implementation Status
 
 **Last Updated:** 2025-10-28
 
@@ -18,7 +18,7 @@
 - `predicates/isCommentNode/` - Comment variant guard (5 tests)
 - `predicates/isErrorNode/` - Error variant guard (7 tests)
 
-**Updated in Pagewright** (`libraries/pagewright/src/`):
+**Updated in Architect** (`libraries/architect/src/`):
 - `types/index.ts` - Re-exports VirtualNode from Toolsmith
 - **164 occurrences across 30 files** - All ElementConfig → VirtualNode
 - All predicates in `_html/_Html/` - Now use Toolsmith isElementNode

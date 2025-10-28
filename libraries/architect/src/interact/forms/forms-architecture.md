@@ -81,13 +81,13 @@ as their underlying elements, enhanced with Temporal API for precise date/time h
 
 Form components share utilities with semantic components:
 
-### Calendars (`/lib/pagewright/calendars/`)
+### Calendars (`/lib/architect/calendars/`)
 
 - Calendar system support (Gregorian, Hebrew, Islamic, etc.)
 - Week numbering systems
 - Date calculations
 
-### Formatters (`/lib/pagewright/formatters/`)
+### Formatters (`/lib/architect/formatters/`)
 
 - Date/time formatting with Intl.DateTimeFormat
 - Number formatting with Intl.NumberFormat
@@ -96,14 +96,14 @@ Form components share utilities with semantic components:
 - Currency formatting
 - Unit formatting
 
-### Parsers (`/lib/pagewright/parsers/`)
+### Parsers (`/lib/architect/parsers/`)
 
 - Temporal string parsing (with bracket notation)
 - Number parsing with locale support
 - Date/time parsing
 - Duration parsing
 
-### Validators (`/lib/pagewright/forms/validators/`)
+### Validators (`/lib/architect/forms/validators/`)
 
 - Email validation
 - URL validation
@@ -183,7 +183,7 @@ Form components will support:
 
 The forms system is organized in three layers:
 
-### 1. Elements (`/lib/pagewright/forms/elements/`)
+### 1. Elements (`/lib/architect/forms/elements/`)
 
 Basic wrappers around HTML form elements that ensure accessibility and consistency:
 
@@ -192,7 +192,7 @@ Basic wrappers around HTML form elements that ensure accessibility and consisten
 - **Textarea** - Wraps `<textarea>` element
 - **Option** - Wraps `<option>` element
 
-### 2. Composites (`/lib/pagewright/forms/composites/`)
+### 2. Composites (`/lib/architect/forms/composites/`)
 
 Combinations of elements that work together:
 
@@ -200,7 +200,7 @@ Combinations of elements that work together:
 - CheckboxGroup - Multiple checkboxes as a set
 - Other multi-element patterns
 
-### 3. Fields (`/lib/pagewright/forms/fields/`)
+### 3. Fields (`/lib/architect/forms/fields/`)
 
 Complete, datatype-centric form components that developers use:
 

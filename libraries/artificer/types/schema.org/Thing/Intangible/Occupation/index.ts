@@ -9,13 +9,13 @@ import type OccupationalExperienceRequirements from "../OccupationalExperienceRe
 import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type MonetaryAmountDistribution from "../StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.ts"
 
-import EducationalOccupationalCredentialComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/EducationalOccupationalCredential/index.tsx"
-import CategoryCodeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
-import DefinedTermComponent from "../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
-import OccupationalExperienceRequirementsComponent from "../../../../../../pagewright/src/define/Thing/Intangible/OccupationalExperienceRequirements/index.tsx"
-import MonetaryAmountComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
-import MonetaryAmountDistributionComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.tsx"
-import AdministrativeAreaComponent from "../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/index.tsx"
+import EducationalOccupationalCredentialComponent from "../../../../../../architect/src/define/Thing/CreativeWork/EducationalOccupationalCredential/index.tsx"
+import CategoryCodeComponent from "../../../../../../architect/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import DefinedTermComponent from "../../../../../../architect/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import OccupationalExperienceRequirementsComponent from "../../../../../../architect/src/define/Thing/Intangible/OccupationalExperienceRequirements/index.tsx"
+import MonetaryAmountComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import MonetaryAmountDistributionComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValueDistribution/MonetaryAmountDistribution/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../architect/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type OccupationType = "Occupation"
 

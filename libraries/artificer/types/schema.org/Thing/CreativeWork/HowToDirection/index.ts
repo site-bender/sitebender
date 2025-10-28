@@ -8,10 +8,10 @@ import type Duration from "../../Intangible/Quantity/Duration/index.ts"
 import type MediaObject from "../../MediaObject/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import HowToSupplyComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ListItem/HowToItem/HowToSupply/index.tsx"
-import HowToToolComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ListItem/HowToItem/HowToTool/index.tsx"
-import DurationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import { MediaObject as MediaObjectComponent } from "../../../../../pagewright/index.tsx"
+import HowToSupplyComponent from "../../../../../../architect/src/define/Thing/Intangible/ListItem/HowToItem/HowToSupply/index.tsx"
+import HowToToolComponent from "../../../../../../architect/src/define/Thing/Intangible/ListItem/HowToItem/HowToTool/index.tsx"
+import DurationComponent from "../../../../../../architect/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import { MediaObject as MediaObjectComponent } from "../../../../../architect/index.tsx"
 
 export type HowToDirectionType = "HowToDirection"
 

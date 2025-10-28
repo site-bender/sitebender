@@ -1,7 +1,7 @@
 import type {
 	Country,
 	DialingCodeOption,
-} from "../../../../../../types/pagewright/forms/index.ts"
+} from "../../../../../../types/architect/forms/index.ts"
 
 import pipe from "../../../../../../../toolsmith/src/combinator/pipe/index.ts"
 import { COUNTRY_AND_DIALING_CODES } from "../../../../../constants/index.ts"

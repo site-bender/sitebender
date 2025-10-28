@@ -1,4 +1,4 @@
-// Architect library constants (runtime keys)
+// Artificer library constants (runtime keys)
 
 export const LEVEL_KEY = "__sbLevel"
 export const DISPLAY_KEY = "__sbDisplay"

@@ -5,8 +5,8 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { DatasetProps } from "../index.ts"
 import type { CompleteDataFeedType } from "./CompleteDataFeed/index.ts"
 
-import ThingComponent from "../../../../../../../pagewright/src/define/Thing/index.tsx"
-import DataFeedItemComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/DataFeedItem/index.tsx"
+import ThingComponent from "../../../../../../../architect/src/define/Thing/index.tsx"
+import DataFeedItemComponent from "../../../../../../../architect/src/define/Thing/Intangible/DataFeedItem/index.tsx"
 
 export type DataFeedType = "DataFeed" | CompleteDataFeedType
 

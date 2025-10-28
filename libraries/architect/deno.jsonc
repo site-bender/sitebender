@@ -23,7 +23,7 @@
 
 	"imports": {
 		// Cross-library dependencies (local references)
-		"@sitebender/architect": "../architect/src/",
+		"@sitebender/artificer": "../artificer/src/",
 		"@sitebender/toolsmith": "../toolsmith/src/",
 
 		// JSX support for this library

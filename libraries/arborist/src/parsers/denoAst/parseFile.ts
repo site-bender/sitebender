@@ -3,8 +3,8 @@
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
-import createError from "@sitebender/architect/errors/createError/index.ts"
-import withSuggestion from "@sitebender/architect/errors/withSuggestion/index.ts"
+import createError from "@sitebender/artificer/errors/createError/index.ts"
+import withSuggestion from "@sitebender/artificer/errors/withSuggestion/index.ts"
 import { initWasm, parseWithSemantics } from "./wasm/index.ts"
 
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"

@@ -6,10 +6,10 @@ import type { AnatomicalStructureProps } from "../index.ts"
 import type Nerve from "../Nerve/index.ts"
 import type Vessel from "../Vessel/index.ts"
 
-import AnatomicalStructureComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
-import MuscleComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/Muscle/index.tsx"
-import NerveComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/Nerve/index.tsx"
-import VesselComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import MuscleComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/Muscle/index.tsx"
+import NerveComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/Nerve/index.tsx"
+import VesselComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/Vessel/index.tsx"
 
 export type MuscleType = "Muscle"
 

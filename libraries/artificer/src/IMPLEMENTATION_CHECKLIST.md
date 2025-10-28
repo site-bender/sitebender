@@ -1,4 +1,4 @@
-# Architect Calculation DSL - Implementation Checklist
+# Artificer Calculation DSL - Implementation Checklist
 
 > **Status**: Ready for Implementation
 > **Created**: 2025-01-08
@@ -29,11 +29,11 @@
 
 ## Overview
 
-This checklist breaks down the implementation of the Architect calculation DSL into manageable phases. Each phase is designed to be under 100k tokens and can be completed independently.
+This checklist breaks down the implementation of the Artificer calculation DSL into manageable phases. Each phase is designed to be under 100k tokens and can be completed independently.
 
 **Token Budget Guidelines:**
 
-- **1M** = Complex tasks requiring Architect mode (Claude Sonnet 4.5, 1M tokens)
+- **1M** = Complex tasks requiring Artificer mode (Claude Sonnet 4.5, 1M tokens)
 - **CC** = Standard tasks for Code mode (Claude Code Sonnet 4.5, 200k tokens)
 
 ---
@@ -135,7 +135,7 @@ export default function createFromConstantThunk(
 
 ### Phase 1.1: Core AST Types (CC)
 
-- [x] Create `libraries/architect/src/calculation/types/index.ts` with core AST types
+- [x] Create `libraries/artificer/src/calculation/types/index.ts` with core AST types
   - Define `AstNode` base type with `id`, `type`, `sourceLocation`
   - Define `SourceLocation` type for error reporting
   - Add `//++` comment: "Base AST node type - all calculation nodes extend this"
@@ -190,23 +190,23 @@ export default function createFromConstantThunk(
 
 ### Phase 2.1: Registry Core Functions (CC)
 
-- [x] Create `libraries/architect/src/calculation/registry/createRegistry.ts`
+- [x] Create `libraries/artificer/src/calculation/registry/createRegistry.ts`
   - Implement function returning empty Registry
   - Add `//++` comment: "Creates an empty component registry"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/registerSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/registerSchema.ts`
   - Implement curried function: `schema → registry → newRegistry`
   - Use immutable Map operations
   - Add `//++` comment: "Registers a component schema in the registry"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/getSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/getSchema.ts`
   - Implement curried function: `name → registry → schema | undefined`
   - Add `//++` comment: "Gets a component schema from the registry"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/validateComponent.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/validateComponent.ts`
   - Implement curried function: `name → registry → Validation<ValidationError, ComponentSchema>`
   - Use Toolsmith's `success` and `failure` functions
   - Generate helpful error with available component names
@@ -215,7 +215,7 @@ export default function createFromConstantThunk(
 
 ### Phase 2.2: Component Schemas (CC)
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/addSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/addSchema.ts`
   - Define Add operation schema
   - Specify exact children: Augend, Addend
   - Set returnType to "Integer"
@@ -223,7 +223,7 @@ export default function createFromConstantThunk(
   - Add `//++` comment: "Schema for Add operation component"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/multiplySchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/multiplySchema.ts`
   - Define Multiply operation schema
   - Specify exact children: Multiplicand, Multiplier
   - Set returnType to "Integer"
@@ -231,31 +231,31 @@ export default function createFromConstantThunk(
   - Add `//++` comment: "Schema for Multiply operation component"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/augendSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/augendSchema.ts`
   - Define Augend container schema
   - Specify single child requirement
   - Add `//++` comment: "Schema for Augend container component"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/addendSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/addendSchema.ts`
   - Define Addend container schema
   - Specify single child requirement
   - Add `//++` comment: "Schema for Addend container component"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/multiplicandSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/multiplicandSchema.ts`
   - Define Multiplicand container schema
   - Specify single child requirement
   - Add `//++` comment: "Schema for Multiplicand container component"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/multiplierSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/multiplierSchema.ts`
   - Define Multiplier container schema
   - Specify single child requirement
   - Add `//++` comment: "Schema for Multiplier container component"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/fromLocalStorageSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/fromLocalStorageSchema.ts`
   - Define FromLocalStorage data source schema
   - Require 'key' attribute
   - No children allowed
@@ -263,7 +263,7 @@ export default function createFromConstantThunk(
   - Add `//++` comment: "Schema for FromLocalStorage data source component"
   - Export function
 
-- [ ] Create `libraries/architect/src/calculation/registry/schemas/fromConstantSchema.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/schemas/fromConstantSchema.ts`
   - Define FromConstant data source schema
   - Require 'value' attribute
   - No children allowed
@@ -281,7 +281,7 @@ export default function createFromConstantThunk(
 
 ### Phase 3.1: LocalStorage Data Source (CC)
 
-- [ ] Create `libraries/architect/src/calculation/dataSources/createFromLocalStorageThunk.ts`
+- [ ] Create `libraries/artificer/src/calculation/dataSources/createFromLocalStorageThunk.ts`
   - Implement function: `key → AsyncThunk<Integer>`
   - Use Toolsmith's `parseJson` for JSON parsing
   - Use Toolsmith's `integer` smart constructor for validation
@@ -294,7 +294,7 @@ export default function createFromConstantThunk(
 
 ### Phase 3.2: Constant Data Source (CC)
 
-- [ ] Create `libraries/architect/src/calculation/dataSources/createFromConstantThunk.ts`
+- [ ] Create `libraries/artificer/src/calculation/dataSources/createFromConstantThunk.ts`
   - Implement function: `value → AsyncThunk<Integer>`
   - Use Toolsmith's `integer` smart constructor
   - Validate at thunk creation time
@@ -311,7 +311,7 @@ export default function createFromConstantThunk(
 
 ### Phase 4.1: Addition Operation (CC)
 
-- [ ] Create `libraries/architect/src/calculation/operations/createAddThunk.ts`
+- [ ] Create `libraries/artificer/src/calculation/operations/createAddThunk.ts`
   - Implement curried function: `augendThunk → addendThunk → AsyncThunk<Integer>`
   - Execute both child thunks
   - Use Toolsmith's `chain` for sequential composition
@@ -322,7 +322,7 @@ export default function createFromConstantThunk(
 
 ### Phase 4.2: Multiplication Operation (CC)
 
-- [ ] Create `libraries/architect/src/calculation/operations/createMultiplyThunk.ts`
+- [ ] Create `libraries/artificer/src/calculation/operations/createMultiplyThunk.ts`
   - Implement curried function: `multiplicandThunk → multiplierThunk → AsyncThunk<Integer>`
   - Execute both child thunks
   - Use Toolsmith's `chain` for sequential composition
@@ -343,7 +343,7 @@ export default function createFromConstantThunk(
 
 **Complexity**: High - requires understanding Arborist AST structure
 
-- [ ] Create `libraries/architect/src/calculation/parser/_extractJsxElements/index.ts`
+- [ ] Create `libraries/artificer/src/calculation/parser/_extractJsxElements/index.ts`
   - Analyze Arborist's AST output format for JSX
   - Implement function to extract JSX elements from Arborist AST
   - Handle nested JSX structures
@@ -356,7 +356,7 @@ export default function createFromConstantThunk(
 
 **Complexity**: High - requires registry integration and validation logic
 
-- [ ] Create `libraries/architect/src/calculation/parser/validateSemantics.ts`
+- [ ] Create `libraries/artificer/src/calculation/parser/validateSemantics.ts`
   - Implement function: `jsxElements → registry → Validation<ValidationError, void>`
   - Validate component names exist in registry
   - Validate required attributes are present
@@ -370,7 +370,7 @@ export default function createFromConstantThunk(
 
 **Complexity**: High - orchestrates multiple steps
 
-- [ ] Create `libraries/architect/src/calculation/parser/parseJsxToIr.ts`
+- [ ] Create `libraries/artificer/src/calculation/parser/parseJsxToIr.ts`
   - Implement function: `jsxString → registry → Validation<ValidationError, CalculationIr>`
   - Use Arborist to parse JSX string
   - Extract JSX elements using helper
@@ -390,7 +390,7 @@ export default function createFromConstantThunk(
 
 ### Phase 6.1: AST Node Creator Helper (CC)
 
-- [ ] Create `libraries/architect/src/calculation/transformer/_createAstNode/index.ts`
+- [ ] Create `libraries/artificer/src/calculation/transformer/_createAstNode/index.ts`
   - Implement function to create typed AST nodes
   - Generate unique node IDs
   - Preserve source location information
@@ -402,7 +402,7 @@ export default function createFromConstantThunk(
 
 **Complexity**: High - requires type inference and validation
 
-- [ ] Create `libraries/architect/src/calculation/transformer/typeCheck.ts`
+- [ ] Create `libraries/artificer/src/calculation/transformer/typeCheck.ts`
   - Implement function: `irNode → registry → Validation<ValidationError, string>`
   - Infer return types from operations
   - Validate type compatibility between parent and children
@@ -415,7 +415,7 @@ export default function createFromConstantThunk(
 
 **Complexity**: High - recursive tree transformation
 
-- [ ] Create `libraries/architect/src/calculation/transformer/transformToAst.ts`
+- [ ] Create `libraries/artificer/src/calculation/transformer/transformToAst.ts`
   - Implement function: `ir → registry → Validation<ValidationError, AstNode>`
   - Recursively transform IR nodes to AST nodes
   - Perform type checking during transformation
@@ -434,7 +434,7 @@ export default function createFromConstantThunk(
 
 ### Phase 7.1: AST Traversal Helper (CC)
 
-- [ ] Create `libraries/architect/src/calculation/compiler/_traverseAst/index.ts`
+- [ ] Create `libraries/artificer/src/calculation/compiler/_traverseAst/index.ts`
   - Implement generic AST traversal function
   - Support pre-order and post-order traversal
   - Collect nodes matching predicate
@@ -443,7 +443,7 @@ export default function createFromConstantThunk(
 
 ### Phase 7.2: Parallel Fetch Identification (CC)
 
-- [ ] Create `libraries/architect/src/calculation/compiler/identifyParallelFetches.ts`
+- [ ] Create `libraries/artificer/src/calculation/compiler/identifyParallelFetches.ts`
   - Implement function: `ast → ReadonlyArray<DataSourceNode>`
   - Use traversal helper to find all DataSourceNode instances
   - Return array of data source nodes
@@ -454,7 +454,7 @@ export default function createFromConstantThunk(
 
 **Complexity**: High - requires Promise.all coordination and error handling
 
-- [ ] Create `libraries/architect/src/calculation/compiler/executeParallelFetches.ts`
+- [ ] Create `libraries/artificer/src/calculation/compiler/executeParallelFetches.ts`
   - Implement function: `sources → AsyncThunk<ReadonlyMap<string, unknown>>`
   - Create thunks for each data source
   - Execute all thunks with Promise.all
@@ -466,7 +466,7 @@ export default function createFromConstantThunk(
 
 ### Phase 7.4: Constant Folding Optimization (CC)
 
-- [ ] Create `libraries/architect/src/calculation/compiler/foldConstants.ts`
+- [ ] Create `libraries/artificer/src/calculation/compiler/foldConstants.ts`
   - Implement function: `ast → ast` (pure transformation)
   - Identify operations with all constant children
   - Evaluate at compile time
@@ -478,7 +478,7 @@ export default function createFromConstantThunk(
 
 **Complexity**: Very High - orchestrates compilation strategy
 
-- [ ] Create `libraries/architect/src/calculation/compiler/compileToThunk.ts`
+- [ ] Create `libraries/artificer/src/calculation/compiler/compileToThunk.ts`
   - Implement function: `ast → AsyncThunk<T>`
   - Identify parallel fetches
   - Execute fetches concurrently
@@ -491,19 +491,19 @@ export default function createFromConstantThunk(
 
 ---
 
-## Milestone 8: Pagewright Integration
+## Milestone 8: Architect Integration
 
 **Estimated Tokens**: ~15k\
 **Dependencies**: Milestone 7\
-**Goal**: Integrate compiled thunks with Pagewright
+**Goal**: Integrate compiled thunks with Architect
 
 ### Phase 8.1: DOM Attachment (CC)
 
-- [ ] Create `libraries/architect/src/integration/pagewright/attachCalculation.ts`
+- [ ] Create `libraries/artificer/src/integration/architect/attachCalculation.ts`
   - Implement function: `thunk → element → void`
   - Attach thunk to element's `__sbCalculate` property
   - Add `[IO]` comment marking side effects
-  - Add `//++` comment explaining Pagewright integration
+  - Add `//++` comment explaining Architect integration
   - Export function
 
 ---
@@ -516,7 +516,7 @@ export default function createFromConstantThunk(
 
 ### Phase 9.1: Registry Initialization (CC)
 
-- [ ] Create `libraries/architect/src/calculation/registry/initializeDefaultRegistry.ts`
+- [ ] Create `libraries/artificer/src/calculation/registry/initializeDefaultRegistry.ts`
   - Create function that builds registry with all schemas
   - Register Add, Multiply operations
   - Register Augend, Addend, Multiplicand, Multiplier containers
@@ -526,7 +526,7 @@ export default function createFromConstantThunk(
 
 ### Phase 9.2: Main API Entry Point (CC)
 
-- [ ] Create `libraries/architect/src/calculation/index.ts`
+- [ ] Create `libraries/artificer/src/calculation/index.ts`
   - Export main compilation pipeline function
   - Compose: parse → transform → compile
   - Provide convenient API for common use cases
@@ -615,22 +615,22 @@ export default function createFromConstantThunk(
 
 ### Task Distribution
 
-- **1M Tasks (Architect Mode)**: 8 phases requiring complex logic, orchestration, or deep integration
+- **1M Tasks (Artificer Mode)**: 8 phases requiring complex logic, orchestration, or deep integration
 - **CC Tasks (Code Mode)**: 35+ phases for straightforward implementation following clear specifications
 
 ### Critical Path
 
 1. Complete Milestones 1-4 (foundation) - Can be done in parallel by Code mode
-2. Complete Milestone 5 (parser) - Requires Architect mode
-3. Complete Milestone 6 (transformer) - Requires Architect mode
-4. Complete Milestone 7 (compiler) - Requires Architect mode
+2. Complete Milestone 5 (parser) - Requires Artificer mode
+3. Complete Milestone 6 (transformer) - Requires Artificer mode
+4. Complete Milestone 7 (compiler) - Requires Artificer mode
 5. Complete Milestones 8-10 (integration, testing, docs) - Mix of modes
 
 ### Notes
 
 - Each phase is designed to be independently testable
 - Phases within milestones can often be done in parallel
-- All 1M tasks are marked and should be done by Architect mode
+- All 1M tasks are marked and should be done by Artificer mode
 - CC tasks follow clear specifications and can be done by Code mode
 - The implementation follows strict FP principles throughout
 - All functions are curried and use Toolsmith utilities

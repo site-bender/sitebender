@@ -4,7 +4,7 @@ import type Language from "../../../Intangible/Language/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { CreateActionProps } from "../index.ts"
 
-import LanguageComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Language/index.tsx"
+import LanguageComponent from "../../../../../../../architect/src/define/Thing/Intangible/Language/index.tsx"
 
 export type WriteActionType = "WriteAction"
 

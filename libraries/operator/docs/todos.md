@@ -510,7 +510,7 @@
 
 #### Tasks
 
-- [ ] Integrate with Architect in `src/integration/architect/`
+- [ ] Integrate with Artificer in `src/integration/artificer/`
   - Event-driven DOM updates
   - Reactive pipeline integration
   - No VDOM overhead
@@ -623,6 +623,6 @@
 - Testing and verification happen continuously, not just Phase 7
 - Warden governance applied from day one
 - Envoy documentation generated throughout
-- No classes, no mutations, no loops (except with Architect approval)
+- No classes, no mutations, no loops (except with Artificer approval)
 - All code must be TSX-declarative, never imperative
 - Every line of code stays true to Studio principles

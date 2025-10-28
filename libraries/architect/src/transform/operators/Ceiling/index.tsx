@@ -1,11 +1,11 @@
 import type {
 	CeilingOperator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import CeilingConstructor from "../../../../../architect/src/constructors/operators/Ceiling/index.ts"
+import CeilingConstructor from "../../../../../artificer/src/constructors/operators/Ceiling/index.ts"
 
 export type Props = {
 	type?: "Number"

@@ -2,11 +2,11 @@ import type {
 	ComplexDatatype,
 	FromLookupInjector,
 	Value,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import FromLookupConstructor from "../../../../../architect/src/constructors/injectors/FromLookup/index.ts"
+import FromLookupConstructor from "../../../../../artificer/src/constructors/injectors/FromLookup/index.ts"
 
 export type FromLookupProps = {
 	id: string

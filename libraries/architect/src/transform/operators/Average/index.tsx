@@ -1,11 +1,11 @@
 import type {
 	AverageOperator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import AverageConstructor from "../../../../../architect/src/constructors/operators/Average/index.ts"
+import AverageConstructor from "../../../../../artificer/src/constructors/operators/Average/index.ts"
 
 export type Props = {
 	type?: "Number"

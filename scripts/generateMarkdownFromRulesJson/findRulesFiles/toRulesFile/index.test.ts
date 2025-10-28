@@ -28,24 +28,24 @@ Deno.test("toRulesFile", async (t) => {
 		() => {
 			const projectRoot = new URL("../../../..", import.meta.url).pathname
 			const result = toRulesFile(
-				"libraries/architect/rules/index.json",
+				"libraries/artificer/rules/index.json",
 				projectRoot,
 			)
 
 			if (result) {
 				assertEquals(
 					result.jsonPath,
-					`${projectRoot}/libraries/architect/rules/index.json`,
+					`${projectRoot}/libraries/artificer/rules/index.json`,
 				)
-				assertEquals(result.path, `${projectRoot}/libraries/architect/rules`)
+				assertEquals(result.path, `${projectRoot}/libraries/artificer/rules`)
 				assertEquals(
 					result.markdownPath,
-					`${projectRoot}/libraries/architect/rules/index.md`,
+					`${projectRoot}/libraries/artificer/rules/index.md`,
 				)
 			} else {
 				// If the file doesn't exist, that's a problem we want to know about
 				throw new Error(
-					"Expected libraries/architect/rules/index.json to exist",
+					"Expected libraries/artificer/rules/index.json to exist",
 				)
 			}
 		},

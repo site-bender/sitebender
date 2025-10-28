@@ -1,14 +1,14 @@
-# Architect: Data-Centric Reactive Rendering
+# Artificer: Data-Centric Reactive Rendering
 
 > **The entire application as data, authored in JSX, stored anywhere, rendered everywhere**
 
-Architect is a revolutionary rendering and behavior composition library that treats your entire application—including all JavaScript functionality—as data. Write declarative JSX, store it as JSON/YAML/Turtle in databases or triple stores, and render it anywhere with full reactivity and no virtual DOM.
+Artificer is a revolutionary rendering and behavior composition library that treats your entire application—including all JavaScript functionality—as data. Write declarative JSX, store it as JSON/YAML/Turtle in databases or triple stores, and render it anywhere with full reactivity and no virtual DOM.
 
 ## Core Philosophy
 
 **Everything is data. Everything is composable. Everything is reactive.**
 
-Architect extends [Pagewright](../pagewright/README.md)'s semantic HTML components with a powerful layer of composed behaviors. While Pagewright handles HTML semantics and accessibility, Architect adds:
+Artificer extends [Architect](../architect/README.md)'s semantic HTML components with a powerful layer of composed behaviors. While Architect handles HTML semantics and accessibility, Artificer adds:
 
 - **Reactive calculations** that cascade through your UI
 - **Validation rules** that work identically on client and server
@@ -35,19 +35,19 @@ JSX → IR → JSON/YAML/Turtle → Storage → Retrieval → DOM + Behaviors
 ### Example: Complex Validation
 
 ```jsx
-import Comparand from "@sitebender/architect/components/comparators/Comparand/index.tsx"
-import Referent from "@sitebender/architect/components/comparators/Referent/index.tsx"
-import IsGreaterThan from "@sitebender/architect/components/comparators/amount/IsGreaterThan/index.tsx"
-import IsGreaterThanOrEqual from "@sitebender/architect/components/comparators/amount/IsGreaterThanOrEqual/index.tsx"
-import IsLessThan from "@sitebender/architect/components/comparators/amount/IsLessThan/index.tsx"
-import IsLessThanOrEqual from "@sitebender/architect/components/comparators/amount/IsLessThanOrEqual/index.tsx"
-import IsInteger from "@sitebender/architect/components/comparators/numerical/IsInteger/index.tsx"
-import Data from "@sitebender/architect/components/data/Data/index.tsx"
-import FromArgument from "@sitebender/architect/components/injectors/FromArgument/index.tsx"
-import Value from "@sitebender/architect/components/injectors/Value/index.tsx"
-import And from "@sitebender/architect/components/logical/And/index.tsx"
-import Or from "@sitebender/architect/components/logical/Or/index.tsx"
-import Validation from "@sitebender/architect/components/validation/Validation/index.tsx"
+import Comparand from "@sitebender/artificer/components/comparators/Comparand/index.tsx"
+import Referent from "@sitebender/artificer/components/comparators/Referent/index.tsx"
+import IsGreaterThan from "@sitebender/artificer/components/comparators/amount/IsGreaterThan/index.tsx"
+import IsGreaterThanOrEqual from "@sitebender/artificer/components/comparators/amount/IsGreaterThanOrEqual/index.tsx"
+import IsLessThan from "@sitebender/artificer/components/comparators/amount/IsLessThan/index.tsx"
+import IsLessThanOrEqual from "@sitebender/artificer/components/comparators/amount/IsLessThanOrEqual/index.tsx"
+import IsInteger from "@sitebender/artificer/components/comparators/numerical/IsInteger/index.tsx"
+import Data from "@sitebender/artificer/components/data/Data/index.tsx"
+import FromArgument from "@sitebender/artificer/components/injectors/FromArgument/index.tsx"
+import Value from "@sitebender/artificer/components/injectors/Value/index.tsx"
+import And from "@sitebender/artificer/components/logical/And/index.tsx"
+import Or from "@sitebender/artificer/components/logical/Or/index.tsx"
+import Validation from "@sitebender/artificer/components/validation/Validation/index.tsx"
 
 // Declarative validation that becomes data
 // Value must be: an integer && ((value >= 6 && value < 12) || (value > 20 && value <= 42))
@@ -110,11 +110,11 @@ This JSX compiles to a data structure that:
 ### Example: Reactive Calculations
 
 ```jsx
-import Input from "@sitebender/architect/components/forms/Input/index.tsx"
-import Display from "@sitebender/architect/components/display/Display/index.tsx"
-import Add from "@sitebender/architect/components/operators/Add/index.tsx"
-import Multiply from "@sitebender/architect/components/operators/Multiply/index.tsx"
-import FromElement from "@sitebender/architect/components/injectors/FromElement/index.tsx"
+import Input from "@sitebender/artificer/components/forms/Input/index.tsx"
+import Display from "@sitebender/artificer/components/display/Display/index.tsx"
+import Add from "@sitebender/artificer/components/operators/Add/index.tsx"
+import Multiply from "@sitebender/artificer/components/operators/Multiply/index.tsx"
+import FromElement from "@sitebender/artificer/components/injectors/FromElement/index.tsx"
 
 <>
 	<Input id="price" type="number" />
@@ -323,7 +323,7 @@ Traditional form libraries make developers choose widgets:
 <Input type="text" name="description" />
 ```
 
-Architect/Pagewright uses data types instead:
+Artificer/Architect uses data types instead:
 
 ```jsx
 // ✅ Data-driven approach - system picks widgets
@@ -469,7 +469,7 @@ When you finally understand this approach, you can never go back to manually cra
 
 ## Behavior Attachment
 
-Architect attaches behaviors as properties on DOM elements:
+Artificer attaches behaviors as properties on DOM elements:
 
 ```javascript
 // After rendering, elements have these properties:
@@ -540,7 +540,7 @@ document.__sbValidators // Set of element IDs with validators
 ## Server-Side Rendering
 
 ```typescript
-import render from "@sitebender/architect/rendering/ssr/render/index.ts"
+import render from "@sitebender/artificer/rendering/ssr/render/index.ts"
 
 // Fetch UI definition from database
 const uiConfig = await db.query("SELECT config FROM ui WHERE page = 'home'")
@@ -555,13 +555,13 @@ const html = await render(uiConfig, {
 ## Client-Side Hydration
 
 ```typescript
-import hydrate from "@sitebender/architect/rendering/client/hydrate/index.ts"
+import hydrate from "@sitebender/artificer/rendering/client/hydrate/index.ts"
 
 // Find all elements with embedded configurations
-const elements = document.querySelectorAll("[data-architect]")
+const elements = document.querySelectorAll("[data-artificer]")
 
 function hydrateElement(el) {
-	const config = JSON.parse(el.dataset.architect)
+	const config = JSON.parse(el.dataset.artificer)
 
 	hydrate(el, config)
 }
@@ -572,9 +572,9 @@ elements.forEach(hydrateElement)
 ## Integration with Triple Stores
 
 ```typescript
-import fromRDF from "@sitebender/architect/persistence/rdf/fromRDF/index.ts"
-import toRDF from "@sitebender/architect/persistence/rdf/toRDF/index.ts"
-import validateSHACL from "@sitebender/architect/shacl/validateSHACL/index.ts"
+import fromRDF from "@sitebender/artificer/persistence/rdf/fromRDF/index.ts"
+import toRDF from "@sitebender/artificer/persistence/rdf/toRDF/index.ts"
+import validateSHACL from "@sitebender/artificer/shacl/validateSHACL/index.ts"
 
 // Convert UI to RDF triples
 const triples = toRDF(uiConfig)
@@ -685,10 +685,10 @@ Test scenarios are JSX components compiled to IR:
 
 ```bash
 # Install
-deno add @sitebender/architect
+deno add @sitebender/artificer
 
 # Or use with Node (once published)
-npm install @sitebender/architect
+npm install @sitebender/artificer
 ```
 
 ### Basic Setup
@@ -699,7 +699,7 @@ npm install @sitebender/architect
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "@sitebender/architect"
+    "jsxImportSource": "@sitebender/artificer"
   }
 }
 ```
@@ -707,11 +707,11 @@ npm install @sitebender/architect
 ### Simple Example
 
 ```tsx
-import Display from "@sitebender/architect/components/display/Display/index.tsx"
-import Input from "@sitebender/architect/components/forms/Input/index.tsx"
-import From from "@sitebender/architect/components/injectors/From/index.tsx"
-import Add from "@sitebender/architect/components/operators/Add/index.tsx"
-import render from "@sitebender/architect/rendering/render/index.ts"
+import Display from "@sitebender/artificer/components/display/Display/index.tsx"
+import Input from "@sitebender/artificer/components/forms/Input/index.tsx"
+import From from "@sitebender/artificer/components/injectors/From/index.tsx"
+import Add from "@sitebender/artificer/components/operators/Add/index.tsx"
+import render from "@sitebender/artificer/rendering/render/index.ts"
 
 function Calculator() {
 	return (
@@ -819,7 +819,7 @@ Combine multiple behaviors on a single element:
 
 ## Contributing
 
-Architect is part of the @sitebender Studio suite. See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+Artificer is part of the @sitebender Studio suite. See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
 
 ## License
 
@@ -827,7 +827,7 @@ Architect is part of the @sitebender Studio suite. See [CONTRIBUTING.md](../../C
 
 ## Conditional Workflow Components
 
-Architect's conditional rendering components become powerful workflow decision nodes, bringing n8n-style conditional logic to reactive systems with mathematical precision and semantic data storage.
+Artificer's conditional rendering components become powerful workflow decision nodes, bringing n8n-style conditional logic to reactive systems with mathematical precision and semantic data storage.
 
 ### Visual Decision Nodes
 
@@ -1307,11 +1307,11 @@ Monitor and visualize condition states in real-time:
 </ConditionMonitoringDashboard>
 ```
 
-This transforms Architect from a reactive rendering library into a **comprehensive conditional workflow orchestration system** that provides visual, mathematical, and semantic precision to complex decision-making processes.
+This transforms Artificer from a reactive rendering library into a **comprehensive conditional workflow orchestration system** that provides visual, mathematical, and semantic precision to complex decision-making processes.
 
 ## See Also
 
-- [Pagewright](../pagewright/README.md) - Semantic HTML components
-- [Formulator](../formulator/README.md) - Expression parser for Architect IR
+- [Architect](../architect/README.md) - Semantic HTML components
+- [Formulator](../formulator/README.md) - Expression parser for Artificer IR
 - [Agent](../agent/README.md) - Distributed data synchronization
 - [Warden](../warden/README.md) - Architectural governance

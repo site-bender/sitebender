@@ -1,4 +1,4 @@
-// Architect IR node types (v 0.1.0)
+// Artificer IR node types (v 0.1.0)
 
 export type Version = "0.1.0"
 

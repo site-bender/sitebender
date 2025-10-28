@@ -1,11 +1,11 @@
 import type {
 	FromSessionStorageInjector,
 	Value,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import FromSessionStorageConstructor from "../../../../../architect/src/constructors/injectors/FromSessionStorage/index.ts"
+import FromSessionStorageConstructor from "../../../../../artificer/src/constructors/injectors/FromSessionStorage/index.ts"
 
 export type FromSessionStorageProps = {
 	key: string

@@ -1,11 +1,11 @@
 import type {
 	ComparatorConfig,
 	LogicalConfig,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import OrConstructor from "../../../../../architect/src/constructors/comparators/algebraic/Or/index.ts"
+import OrConstructor from "../../../../../artificer/src/constructors/comparators/algebraic/Or/index.ts"
 
 export type OrProps = {
 	children?: JSX.Element | JSX.Element[]

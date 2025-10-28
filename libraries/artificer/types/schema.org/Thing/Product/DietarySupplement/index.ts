@@ -8,10 +8,10 @@ import type DrugLegalStatus from "../../MedicalEntity/MedicalIntangible/DrugLega
 import type { SubstanceProps } from "../../MedicalEntity/Substance/index.ts"
 import type { ProductProps } from "../index.ts"
 
-import MedicalEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/index.tsx"
-import MaximumDoseScheduleComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.tsx"
-import RecommendedDoseScheduleComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/RecommendedDoseSchedule/index.tsx"
-import DrugLegalStatusComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalIntangible/DrugLegalStatus/index.tsx"
+import MedicalEnumerationComponent from "../../../../../../architect/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/index.tsx"
+import MaximumDoseScheduleComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.tsx"
+import RecommendedDoseScheduleComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/RecommendedDoseSchedule/index.tsx"
+import DrugLegalStatusComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalIntangible/DrugLegalStatus/index.tsx"
 
 export type DietarySupplementType = "DietarySupplement"
 

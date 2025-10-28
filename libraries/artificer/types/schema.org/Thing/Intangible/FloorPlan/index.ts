@@ -12,10 +12,10 @@ import type { IntangibleProps } from "../index.ts"
 import type LocationFeatureSpecification from "../StructuredValue/PropertyValue/LocationFeatureSpecification/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-import ImageObjectComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
-import LocationFeatureSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import AccommodationComponent from "../../../../../../pagewright/src/define/Thing/Place/Accommodation/index.tsx"
+import ImageObjectComponent from "../../../../../../architect/src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+import LocationFeatureSpecificationComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import AccommodationComponent from "../../../../../../architect/src/define/Thing/Place/Accommodation/index.tsx"
 
 export type FloorPlanType = "FloorPlan"
 

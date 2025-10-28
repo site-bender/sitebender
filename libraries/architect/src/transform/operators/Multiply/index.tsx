@@ -1,11 +1,11 @@
 import type {
 	MultiplyOperator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import MultiplyConstructor from "../../../../../architect/src/constructors/operators/Multiply/index.ts"
+import MultiplyConstructor from "../../../../../artificer/src/constructors/operators/Multiply/index.ts"
 
 export type Props = {
 	type?: "Number"

@@ -3,7 +3,7 @@ import type Thing from "../../../index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { AssessActionProps } from "../index.ts"
 
-import ReviewComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/Review/index.tsx"
+import ReviewComponent from "../../../../../../../architect/src/define/Thing/CreativeWork/Review/index.tsx"
 
 export type ReviewActionType = "ReviewAction"
 

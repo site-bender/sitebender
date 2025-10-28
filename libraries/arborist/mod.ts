@@ -127,7 +127,7 @@
 //-- ### Quarrier (Property Testing)
 //-- Uses Arborist for type information and function metadata for property test generation.
 //--
-//-- ### Architect (JSX Compilation)
+//-- ### Artificer (JSX Compilation)
 //-- Uses Arborist for JSX structure analysis, component hierarchy, and data flow tracking.
 //--
 //-- ## Current Capabilities (All Implemented)
@@ -136,7 +136,7 @@
 //-- - **Semantic Analysis**: Full deno_ast WASM wrapper with type inference, purity analysis, complexity metrics
 //-- - **Dual-Mode Architecture**: Choose SWC for speed or deno_ast for semantic depth
 //-- - **Comprehensive Testing**: 188 passing tests with full coverage
-//-- - **Production Ready**: Used by Envoy, Auditor, Quarrier, and Architect
+//-- - **Production Ready**: Used by Envoy, Auditor, Quarrier, and Artificer
 //--
 //-- ## Future Enhancements
 //--
@@ -167,7 +167,7 @@
 //-- ## See Also
 //--
 //-- - [Envoy](../envoy/README.md) - Documentation intelligence (cannot use Arborist currently)
-//-- - [Architect](../architect/README.md) - JSX compilation (limited Arborist usage)
+//-- - [Artificer](../artificer/README.md) - JSX compilation (limited Arborist usage)
 //-- - [Auditor](../auditor/README.md) - Test generation (cannot use Arborist currently)
 //-- - [Quarrier](../quarrier/README.md) - Property testing (cannot use Arborist currently)
 //-- - [Toolsmith](../toolsmith/README.md) - Monadic utilities powering error handling

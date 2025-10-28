@@ -5,8 +5,8 @@ import type { CreativeWorkSeasonProps } from "../CreativeWorkSeason/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 import type TVSeries from "../TVSeries/index.ts"
 
-import CountryComponent from "../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/Country/index.tsx"
-import { TVSeries as TVSeriesComponent } from "../../../../../pagewright/index.tsx"
+import CountryComponent from "../../../../../../architect/src/define/Thing/Place/AdministrativeArea/Country/index.tsx"
+import { TVSeries as TVSeriesComponent } from "../../../../../architect/index.tsx"
 
 export type TVSeasonType = "TVSeason"
 

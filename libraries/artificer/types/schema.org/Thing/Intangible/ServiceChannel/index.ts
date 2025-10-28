@@ -8,12 +8,12 @@ import type Service from "../Service/index.ts"
 import type ContactPoint from "../StructuredValue/ContactPoint/index.ts"
 import type PostalAddress from "../StructuredValue/ContactPoint/PostalAddress/index.ts"
 
-import LanguageComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Language/index.tsx"
-import DurationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import ServiceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Service/index.tsx"
-import ContactPointComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
-import PostalAddressComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
-import PlaceComponent from "../../../../../../pagewright/src/define/Thing/Place/index.tsx"
+import LanguageComponent from "../../../../../../architect/src/define/Thing/Intangible/Language/index.tsx"
+import DurationComponent from "../../../../../../architect/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import ServiceComponent from "../../../../../../architect/src/define/Thing/Intangible/Service/index.tsx"
+import ContactPointComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import PostalAddressComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/ContactPoint/PostalAddress/index.tsx"
+import PlaceComponent from "../../../../../../architect/src/define/Thing/Place/index.tsx"
 
 export type ServiceChannelType = "ServiceChannel"
 

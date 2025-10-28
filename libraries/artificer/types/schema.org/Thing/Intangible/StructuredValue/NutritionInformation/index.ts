@@ -5,8 +5,8 @@ import type Energy from "../../Quantity/Energy/index.ts"
 import type Mass from "../../Quantity/Mass/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import EnergyComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Energy/index.tsx"
-import MassComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Mass/index.tsx"
+import EnergyComponent from "../../../../../../../architect/src/define/Thing/Intangible/Quantity/Energy/index.tsx"
+import MassComponent from "../../../../../../../architect/src/define/Thing/Intangible/Quantity/Mass/index.tsx"
 
 export type NutritionInformationType = "NutritionInformation"
 

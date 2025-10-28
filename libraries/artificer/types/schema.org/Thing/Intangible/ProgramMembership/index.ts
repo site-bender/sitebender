@@ -6,10 +6,10 @@ import type { IntangibleProps } from "../index.ts"
 import type MemberProgram from "../MemberProgram/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-import MemberProgramComponent from "../../../../../../pagewright/src/define/Thing/Intangible/MemberProgram/index.tsx"
-import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import MemberProgramComponent from "../../../../../../architect/src/define/Thing/Intangible/MemberProgram/index.tsx"
+import QuantitativeValueComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import OrganizationComponent from "../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type ProgramMembershipType = "ProgramMembership"
 

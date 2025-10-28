@@ -10,7 +10,7 @@ import type { LoanOrCreditType } from "./LoanOrCredit/index.ts"
 import type { PaymentCardType } from "./PaymentCard/index.ts"
 import type { PaymentServiceType } from "./PaymentService/index.ts"
 
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type FinancialProductType =
 	| "FinancialProduct"

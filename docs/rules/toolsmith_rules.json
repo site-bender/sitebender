@@ -15,7 +15,7 @@
             },
             "required": {
               "code": "// ✅ REQUIRED - Properly documented exception:\n// [EXCEPTION] Using .push() for O(1) amortized vs O(n) functional concat in hot path\nfunction _internalMap<T, U>(\n\titems: ReadonlyArray<T>,\n\tfn: (item: T) => U\n): Array<U> {\n\tconst result: Array<U> = []\n\t\n\tfor (let i = 0; i < items.length; i++) {\n\t\tresult.push(fn(items[i]))\n\t}\n\t\n\treturn result\n}",
-              "scope": "Internal Toolsmith utilities only - NEVER in pagewright, architect, operator, custodian, or application code"
+              "scope": "Internal Toolsmith utilities only - NEVER in architect, artificer, operator, custodian, or application code"
             }
           }
         }

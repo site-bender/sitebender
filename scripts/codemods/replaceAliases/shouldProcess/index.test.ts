@@ -7,7 +7,7 @@ Deno.test("shouldProcess", async function testShouldProcess(t) {
 	await t.step("returns true for .ts files", function testTsFiles() {
 		assertEquals(shouldProcess("file.ts"), true)
 		assertEquals(shouldProcess("/path/to/file.ts"), true)
-		assertEquals(shouldProcess("src/pagewright/Button.ts"), true)
+		assertEquals(shouldProcess("src/architect/Button.ts"), true)
 		assertEquals(shouldProcess("index.ts"), true)
 	})
 

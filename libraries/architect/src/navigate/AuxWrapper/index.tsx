@@ -1,4 +1,4 @@
-import type { MenuItem } from "../../../types/pagewright/navigation/index.ts"
+import type { MenuItem } from "../../../types/architect/navigation/index.ts"
 
 import Aux from "../Aux/index.tsx"
 

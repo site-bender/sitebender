@@ -4,11 +4,11 @@ import type {
 	Operand,
 	StringDatatype,
 	TemporalDatatype,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import AddConstructor from "../../../../../architect/src/constructors/operators/Add/index.ts"
+import AddConstructor from "../../../../../artificer/src/constructors/operators/Add/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype

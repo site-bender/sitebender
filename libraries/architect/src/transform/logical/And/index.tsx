@@ -1,11 +1,11 @@
 import type {
 	ComparatorConfig,
 	LogicalConfig,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import AndConstructor from "../../../../../architect/src/constructors/comparators/algebraic/And/index.ts"
+import AndConstructor from "../../../../../artificer/src/constructors/comparators/algebraic/And/index.ts"
 
 export type AndProps = {
 	children?: JSX.Element | JSX.Element[]

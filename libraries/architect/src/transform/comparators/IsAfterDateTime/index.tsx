@@ -1,10 +1,10 @@
 import type {
 	IsAfterDateTimeComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-import IsAfterDateTimeConstructor from "../../../../../architect/src/constructors/comparators/dateTime/IsAfterDateTime/index.ts"
+import IsAfterDateTimeConstructor from "../../../../../artificer/src/constructors/comparators/dateTime/IsAfterDateTime/index.ts"
 
 export type Props = {
 	type?: "DateTime"

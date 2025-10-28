@@ -5,8 +5,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type QuantitativeValue from "../QuantitativeValue/index.ts"
 
-import QualitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import QualitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type EngineSpecificationType = "EngineSpecification"
 

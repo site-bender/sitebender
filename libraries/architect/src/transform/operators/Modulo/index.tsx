@@ -1,11 +1,11 @@
 import type {
 	ModuloOperator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import ModuloConstructor from "../../../../../architect/src/constructors/operators/Modulo/index.ts"
+import ModuloConstructor from "../../../../../artificer/src/constructors/operators/Modulo/index.ts"
 
 export type Props = {
 	type?: "Number"

@@ -22,7 +22,7 @@ BASE_DIR=$(dirname "$MAIN_REPO")
 ALL_LIBRARIES=(
     "agent"
     "arborist"
-    "architect"
+    "artificer"
     "artificer"
     "auditor"
     "custodian"
@@ -51,7 +51,7 @@ get_library_from_branch() {
 ensure_branch() {
     local branch=$1
 
-    if git show-ref --quiet refs/heads/$branch; then
+    if git show-ref --verify --quiet refs/heads/$branch; then
         echo -e "${BLUE}Branch $branch already exists${NC}"
     else
         echo -e "${YELLOW}Creating branch $branch from main...${NC}"

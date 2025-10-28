@@ -1,11 +1,11 @@
 import type {
 	IsBeforeDateComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import IsBeforeDateConstructor from "../../../../../architect/src/constructors/comparators/date/IsBeforeDate/index.ts"
+import IsBeforeDateConstructor from "../../../../../artificer/src/constructors/comparators/date/IsBeforeDate/index.ts"
 
 export type Props = {
 	type?: "Date"

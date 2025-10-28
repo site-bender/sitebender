@@ -1,4 +1,4 @@
-import type { InputOption } from "../../../../../types/pagewright/forms/index.ts"
+import type { InputOption } from "../../../../../types/architect/forms/index.ts"
 import type { Props as HelpProps } from "../../elements/Help/index.tsx"
 import type { Props as LabelProps } from "../../elements/Label/index.tsx"
 

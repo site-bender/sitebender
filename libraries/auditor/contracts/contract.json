@@ -146,8 +146,8 @@
 		"forbidden": [
 			"envoy",
 			"toolsmith",
-			"pagewright",
 			"architect",
+			"artificer",
 			"formulator",
 			"agent"
 		]

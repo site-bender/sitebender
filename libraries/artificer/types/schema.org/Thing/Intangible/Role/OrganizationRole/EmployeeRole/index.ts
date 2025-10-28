@@ -6,8 +6,8 @@ import type PriceSpecification from "../../../StructuredValue/PriceSpecification
 import type { RoleProps } from "../../index.ts"
 import type { OrganizationRoleProps } from "../index.ts"
 
-import MonetaryAmountComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
-import PriceSpecificationComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import PriceSpecificationComponent from "../../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/PriceSpecification/index.tsx"
 
 export type EmployeeRoleType = "EmployeeRole"
 

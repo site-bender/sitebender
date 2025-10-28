@@ -11,7 +11,7 @@ A Viz adapter is a tiny object used by the mission-control/app hydration to rend
 - Install a custom adapter at app startup:
 
 ```ts
-import { setVizAdapter } from "@sitebender/pagewright"
+import { setVizAdapter } from "@sitebender/architect"
 
 setVizAdapter({
 	hydrate(root) {
@@ -27,5 +27,5 @@ setVizAdapter({
 
 ## Testing
 
-- See `libraries/pagewright/tests/unit/viz_noop_adapter.test.ts` for the noop behavior.
+- See `libraries/architect/tests/unit/viz_noop_adapter.test.ts` for the noop behavior.
 - See `mission-control/tests/unit/hydrate/registry_adapter.test.ts` for end-to-end registry preference in the docs hydrate bootstrap.

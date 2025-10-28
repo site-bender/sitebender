@@ -13,7 +13,7 @@ This document outlined the refactoring of `ElementConfig` to `VirtualNode` and m
 1. **Naming confusion**: `VirtualNode` type contains an `"element"` tag variant, causing ambiguity
 2. **Type safety gaps**: Predicates have type errors - `child: unknown` can't access properties
 3. **Missing Serializable**: VirtualNode doesn't extend Serializable, breaking Toolsmith filter
-4. **Not reusable**: Types/predicates in Pagewright can't be used by Architect, Custodian, etc.
+4. **Not reusable**: Types/predicates in Architect can't be used by Artificer, Custodian, etc.
 
 ## Solution: VirtualNode Architecture
 
@@ -265,18 +265,18 @@ export default function isElementNode(
 
 ---
 
-## Part 2: Pagewright Changes
+## Part 2: Architect Changes
 
 ### 2.1 Update Types
 
-**File:** `pagewright/src/types/index.ts`
+**File:** `architect/src/types/index.ts`
 
 ```typescript
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 /*++
  + Re-export VirtualNode from Toolsmith
- + Pagewright uses but doesn't define this type
+ + Architect uses but doesn't define this type
  */
 export type {
 	VirtualNode,
@@ -286,7 +286,7 @@ export type {
 export { VIRTUAL_NODE_TAGS } from "@sitebender/toolsmith/types/index.ts"
 
 /*++
- + Child type remains Pagewright-specific
+ + Child type remains Architect-specific
  + Defines what JSX children can be (not all libraries use JSX)
  */
 export type Child =
@@ -299,7 +299,7 @@ export type Child =
 	| boolean
 
 /*++
- + Props are Pagewright-specific for JSX
+ + Props are Architect-specific for JSX
  */
 export type Props = Readonly<{
 	children?: ReadonlyArray<Child>
@@ -314,7 +314,7 @@ export type Component = ((props: Props) => VirtualNode) | string
 
 ### 2.2 Update All Imports
 
-**Find and replace across Pagewright:**
+**Find and replace across Architect:**
 - `VirtualNode` → `VirtualNode`
 - `import type { VirtualNode }` → `import type { VirtualNode }`
 - Update all function signatures
@@ -394,9 +394,9 @@ export default function _isHeadElement(
 9. ✅ Run `deno check` - verify ZERO type errors
 10. ✅ Run tests - verify all pass
 
-### Phase 2: Pagewright (After Toolsmith Complete)
+### Phase 2: Architect (After Toolsmith Complete)
 
-1. ✅ Update `pagewright/src/types/index.ts`
+1. ✅ Update `architect/src/types/index.ts`
 2. ✅ Find/replace VirtualNode → VirtualNode across codebase
 3. ✅ Fix all predicates in `_html/_Html/` using correct pattern
 4. ✅ Update all imports to use Toolsmith functions
@@ -509,10 +509,10 @@ toolsmith/src/
         └── index.test.ts
 ```
 
-## Files to Update (Pagewright)
+## Files to Update (Architect)
 
 ```
-pagewright/src/
+architect/src/
 ├── types/index.ts (update)
 ├── createElement/ (update all references)
 ├── _html/_Html/
@@ -531,8 +531,8 @@ pagewright/src/
 
 - [ ] All Toolsmith code has ZERO type errors
 - [ ] All Toolsmith tests pass
-- [ ] All Pagewright code has ZERO type errors
-- [ ] All Pagewright tests pass
+- [ ] All Architect code has ZERO type errors
+- [ ] All Architect tests pass
 - [ ] VirtualNode is fully reusable across libraries
 - [ ] No direct property access on unknown types
 - [ ] All validation uses Result monads

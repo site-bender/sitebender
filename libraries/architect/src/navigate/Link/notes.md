@@ -29,7 +29,7 @@ External links automatically receive security defaults:
 
 - `rel="external"` - Marks as external link
 - `rel="noopener"` - Prevents tab-jacking attacks
-- `rel="nofollow"` - Prevents search architect crawling
+- `rel="nofollow"` - Prevents search artificer crawling
 
 Override props (use with caution):
 

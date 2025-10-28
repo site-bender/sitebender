@@ -4,8 +4,8 @@ import type Audience from "../../Intangible/Audience/index.ts"
 import type { PlaceProps } from "../index.ts"
 import type TouristAttraction from "../TouristAttraction/index.ts"
 
-import AudienceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
-import TouristAttractionComponent from "../../../../../../pagewright/src/define/Thing/Place/TouristAttraction/index.tsx"
+import AudienceComponent from "../../../../../../architect/src/define/Thing/Intangible/Audience/index.tsx"
+import TouristAttractionComponent from "../../../../../../architect/src/define/Thing/Place/TouristAttraction/index.tsx"
 
 export type TouristDestinationType = "TouristDestination"
 

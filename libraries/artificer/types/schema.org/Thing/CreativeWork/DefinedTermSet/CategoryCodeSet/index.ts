@@ -3,7 +3,7 @@ import type CategoryCode from "../../../Intangible/DefinedTerm/CategoryCode/inde
 import type { CreativeWorkProps } from "../../index.ts"
 import type { DefinedTermSetProps } from "../index.ts"
 
-import CategoryCodeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import CategoryCodeComponent from "../../../../../../../architect/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
 
 export type CategoryCodeSetType = "CategoryCodeSet"
 

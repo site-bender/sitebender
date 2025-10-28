@@ -2,11 +2,11 @@ import type {
 	NumericDatatype,
 	Operand,
 	SubtractOperator,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import SubtractConstructor from "../../../../../architect/src/constructors/operators/Subtract/index.ts"
+import SubtractConstructor from "../../../../../artificer/src/constructors/operators/Subtract/index.ts"
 
 export type Props = {
 	type?: NumericDatatype

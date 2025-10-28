@@ -1,4 +1,4 @@
-# Architect Library - Calculation DSL Implementation Plan (Pure FP)
+# Artificer Library - Calculation DSL Implementation Plan (Pure FP)
 
 > **Status**: Architectural Blueprint for PoC\
 > **Created**: 2025-01-07\
@@ -6,7 +6,7 @@
 
 ## Overview
 
-This document provides a comprehensive implementation plan for Architect's calculation DSL, which enables developers to write calculations as declarative JSX that compiles to executable async thunks. This implementation follows **strict functional programming principles**: no classes, no mutations, no loops, no exceptions, all functions curried, immutable data only.
+This document provides a comprehensive implementation plan for Artificer's calculation DSL, which enables developers to write calculations as declarative JSX that compiles to executable async thunks. This implementation follows **strict functional programming principles**: no classes, no mutations, no loops, no exceptions, all functions curried, immutable data only.
 
 ## Architecture Summary
 
@@ -25,13 +25,13 @@ Compiler (AST → Async Thunk)
     ↓
 Executable Function (Returns Validation<ValidationError, T>)
     ↓
-Pagewright Integration (__sbCalculate property)
+Architect Integration (__sbCalculate property)
 ```
 
 ## Folder Hierarchy
 
 ```
-libraries/architect/src/
+libraries/artificer/src/
 ├── calculation/                                      # Calculation DSL implementation
 │   ├── types/
 │   │   └── index.ts                                  # All type definitions in ONE file
@@ -113,11 +113,11 @@ libraries/architect/src/
 │           └── index.ts                              # Division (future)
 │
 ├── integration/                                      # Integration with other libraries
-│   └── pagewright/                                   # Pagewright integration
+│   └── architect/                                   # Architect integration
 │       └── attachCalculation/
 │           └── index.ts                              # Attach thunk to DOM property
 │
-└── [existing files]                                  # Existing Architect files
+└── [existing files]                                  # Existing Artificer files
     └── plan.md                                       # Current planning document
 ```
 
@@ -125,7 +125,7 @@ libraries/architect/src/
 
 ### All Types in One File
 
-**File**: `libraries/architect/src/calculation/types/index.ts`
+**File**: `libraries/artificer/src/calculation/types/index.ts`
 
 ```typescript
 import type { Validation } from "@sitebender/toolsmith/types/Validation/index.ts"
@@ -210,7 +210,7 @@ export type Registry = Readonly<{
 
 ### Create Registry
 
-**File**: `libraries/architect/src/calculation/registry/createRegistry/index.ts`
+**File**: `libraries/artificer/src/calculation/registry/createRegistry/index.ts`
 
 ```typescript
 import type { Registry } from "../types/index.ts"
@@ -225,7 +225,7 @@ export default function createRegistry(): Registry {
 
 ### Register Schema
 
-**File**: `libraries/architect/src/calculation/registry/registerSchema/index.ts`
+**File**: `libraries/artificer/src/calculation/registry/registerSchema/index.ts`
 
 ```typescript
 import type { ComponentSchema } from "../types/index.ts"
@@ -243,7 +243,7 @@ export default function registerSchema(schema: ComponentSchema) {
 
 ### Get Schema
 
-**File**: `libraries/architect/src/calculation/registry/getSchema/index.ts`
+**File**: `libraries/artificer/src/calculation/registry/getSchema/index.ts`
 
 ```typescript
 import type { ComponentSchema } from "../types/index.ts"
@@ -261,7 +261,7 @@ export default function getSchema(name: string) {
 
 ### Validate Component
 
-**File**: `libraries/architect/src/calculation/registry/validateComponent/index.ts`
+**File**: `libraries/artificer/src/calculation/registry/validateComponent/index.ts`
 
 ```typescript
 import type { ComponentSchema } from "../types/index.ts"
@@ -308,7 +308,7 @@ export default function validateComponent(name: string) {
 
 ### Add Operation Schema
 
-**File**: `libraries/architect/src/calculation/registry/schemas/addSchema/index.ts`
+**File**: `libraries/artificer/src/calculation/registry/schemas/addSchema/index.ts`
 
 ```typescript
 import type { ComponentSchema } from "../../types/index.ts"
@@ -340,7 +340,7 @@ export default function addSchema(): ComponentSchema {
 
 ### Multiply Operation Schema
 
-**File**: `libraries/architect/src/calculation/registry/schemas/multiplySchema/index.ts`
+**File**: `libraries/artificer/src/calculation/registry/schemas/multiplySchema/index.ts`
 
 ```typescript
 import type { ComponentSchema } from "../../types/index.ts"
@@ -372,7 +372,7 @@ export default function multiplySchema(): ComponentSchema {
 
 ### FromLocalStorage Schema
 
-**File**: `libraries/architect/src/calculation/registry/schemas/fromLocalStorageSchema/index.ts`
+**File**: `libraries/artificer/src/calculation/registry/schemas/fromLocalStorageSchema/index.ts`
 
 ```typescript
 import type { ComponentSchema } from "../../types/index.ts"
@@ -406,7 +406,7 @@ export default function fromLocalStorageSchema(): ComponentSchema {
 
 ### FromLocalStorage Thunk Creator
 
-**File**: `libraries/architect/src/calculation/dataSources/createFromLocalStorageThunk/index.ts`
+**File**: `libraries/artificer/src/calculation/dataSources/createFromLocalStorageThunk/index.ts`
 
 ```typescript
 import type { AsyncThunk } from "../types/index.ts"
@@ -485,7 +485,7 @@ export default function createFromLocalStorageThunk(
 
 ### FromConstant Thunk Creator
 
-**File**: `libraries/architect/src/calculation/dataSources/createFromConstantThunk/index.ts`
+**File**: `libraries/artificer/src/calculation/dataSources/createFromConstantThunk/index.ts`
 
 ```typescript
 import type { AsyncThunk } from "../types/index.ts"
@@ -511,7 +511,7 @@ export default function createFromConstantThunk(
 
 ### Add Operation Thunk Creator
 
-**File**: `libraries/architect/src/calculation/operations/createAddThunk/index.ts`
+**File**: `libraries/artificer/src/calculation/operations/createAddThunk/index.ts`
 
 ```typescript
 import type { AsyncThunk } from "../types/index.ts"
@@ -547,7 +547,7 @@ export default function createAddThunk(
 
 ### Multiply Operation Thunk Creator
 
-**File**: `libraries/architect/src/calculation/operations/createMultiplyThunk/index.ts`
+**File**: `libraries/artificer/src/calculation/operations/createMultiplyThunk/index.ts`
 
 ```typescript
 import type { AsyncThunk } from "../types/index.ts"
@@ -585,7 +585,7 @@ export default function createMultiplyThunk(
 
 ### Identify Parallel Fetches
 
-**File**: `libraries/architect/src/calculation/compiler/identifyParallelFetches/index.ts`
+**File**: `libraries/artificer/src/calculation/compiler/identifyParallelFetches/index.ts`
 
 ```typescript
 import type { AstNode } from "../types/index.ts"
@@ -605,7 +605,7 @@ export default function identifyParallelFetches(
 
 ### Execute Parallel Fetches
 
-**File**: `libraries/architect/src/calculation/compiler/executeParallelFetches/index.ts`
+**File**: `libraries/artificer/src/calculation/compiler/executeParallelFetches/index.ts`
 
 ```typescript
 import type { DataSourceNode } from "../types/index.ts"
@@ -629,7 +629,7 @@ export default function executeParallelFetches(
 
 ### Compile to Thunk
 
-**File**: `libraries/architect/src/calculation/compiler/compileToThunk/index.ts`
+**File**: `libraries/artificer/src/calculation/compiler/compileToThunk/index.ts`
 
 ```typescript
 import type { AstNode } from "../types/index.ts"
@@ -654,11 +654,11 @@ export default function compileToThunk<T>(ast: AstNode): AsyncThunk<T> {
 }
 ```
 
-## Phase 7: Integration with Pagewright
+## Phase 7: Integration with Architect
 
 ### Attach Calculation
 
-**File**: `libraries/architect/src/integration/pagewright/attachCalculation/index.ts`
+**File**: `libraries/artificer/src/integration/architect/attachCalculation/index.ts`
 
 ```typescript
 import type { AsyncThunk } from "../../../calculation/types/index.ts"
@@ -739,7 +739,7 @@ export default function doSomething(value: string) {
 - ✅ Parallel fetching of independent data sources
 - ✅ Error accumulation with rich ValidationError context
 - ✅ Type safety with branded Integer type
-- ✅ Integration with Pagewright via __sbCalculate property
+- ✅ Integration with Architect via __sbCalculate property
 
 ### Non-Functional Requirements
 

@@ -1,6 +1,6 @@
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-// Marker only; compiler maps to Architect IR
+// Marker only; compiler maps to Artificer IR
 
 export type FromElementProps = {
 	id?: string

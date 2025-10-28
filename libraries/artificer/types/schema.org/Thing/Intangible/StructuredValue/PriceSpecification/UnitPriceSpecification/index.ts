@@ -8,10 +8,10 @@ import type { StructuredValueProps } from "../../index.ts"
 import type QuantitativeValue from "../../QuantitativeValue/index.ts"
 import type { PriceSpecificationProps } from "../index.ts"
 
-import PriceComponentTypeEnumerationComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/PriceComponentTypeEnumeration/index.tsx"
-import PriceTypeEnumerationComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/PriceTypeEnumeration/index.tsx"
-import DurationComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import PriceComponentTypeEnumerationComponent from "../../../../../../../../architect/src/define/Thing/Intangible/Enumeration/PriceComponentTypeEnumeration/index.tsx"
+import PriceTypeEnumerationComponent from "../../../../../../../../architect/src/define/Thing/Intangible/Enumeration/PriceTypeEnumeration/index.tsx"
+import DurationComponent from "../../../../../../../../architect/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type UnitPriceSpecificationType = "UnitPriceSpecification"
 

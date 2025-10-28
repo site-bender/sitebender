@@ -1,4 +1,4 @@
-import type { ButtonBarPosition } from "../../../../types/pagewright/forms/index.ts"
+import type { ButtonBarPosition } from "../../../../types/architect/forms/index.ts"
 
 export type Props = JSX.HTMLAttributes<HTMLElement> & {
 	classes?: Array<string>

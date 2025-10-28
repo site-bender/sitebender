@@ -7,11 +7,11 @@ import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { TransferActionProps } from "../index.ts"
 
-import AudienceComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
-import DeliveryMethodComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
-import ContactPointComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
-import OrganizationComponent from "../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import AudienceComponent from "../../../../../../../architect/src/define/Thing/Intangible/Audience/index.tsx"
+import DeliveryMethodComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
+import ContactPointComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/ContactPoint/index.tsx"
+import OrganizationComponent from "../../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type SendActionType = "SendAction"
 

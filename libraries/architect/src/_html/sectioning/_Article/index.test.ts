@@ -1,6 +1,6 @@
 import { assert } from "@std/assert"
 import isVirtualNode from "@sitebender/toolsmith/predicates/isVirtualNode/index.ts"
-import _P from "@sitebender/pagewright/_html/flow/_P/index.ts"
+import _P from "@sitebender/architect/_html/flow/_P/index.ts"
 
 import _Article from "./index.ts"
 

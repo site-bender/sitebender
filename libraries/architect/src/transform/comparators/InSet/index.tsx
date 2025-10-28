@@ -1,10 +1,10 @@
 import type {
 	InSetComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-import InSetConstructor from "../../../../../architect/src/constructors/comparators/set/InSet/index.ts"
+import InSetConstructor from "../../../../../artificer/src/constructors/comparators/set/InSet/index.ts"
 
 export type Props = {
 	children?: JSX.Element | Array<JSX.Element>

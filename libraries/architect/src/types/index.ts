@@ -1,7 +1,7 @@
 /*++
  + Re-export VirtualNode types from Toolsmith
  + VirtualNode is the universal document tree structure used across all Sitebender libraries
- + Pagewright uses but doesn't define this type
+ + Architect uses but doesn't define this type
  */
 export type {
 	CommentNode,
@@ -14,7 +14,7 @@ export type {
 export { VIRTUAL_NODE_TAGS } from "@sitebender/toolsmith/types/index.ts"
 
 /*++
- + Child type is Pagewright-specific for JSX children
+ + Child type is Architect-specific for JSX children
  + Defines what can appear as JSX children (not all Sitebender libraries use JSX)
  + Can be string, number, VirtualNode, array of children, or nullish/boolean (converted to error nodes)
  */
@@ -28,7 +28,7 @@ export type Child =
 	| boolean
 
 /*++
- + Props are Pagewright-specific for JSX components
+ + Props are Architect-specific for JSX components
  + Keys are attribute names, values are attribute values
  + Optional children array for JSX child elements
  */
@@ -38,7 +38,7 @@ export type Props = Readonly<{
 }>
 
 /*++
- + Component type for JSX - Pagewright-specific
+ + Component type for JSX - Architect-specific
  + Can be a function that returns VirtualNode or a string (intrinsic HTML element)
  */
 export type Component =

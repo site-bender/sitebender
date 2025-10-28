@@ -6,8 +6,8 @@ import type { IntangibleProps } from "../index.ts"
 import type { AggregateRatingType } from "./AggregateRating/index.ts"
 import type { EndorsementRatingType } from "./EndorsementRating/index.ts"
 
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import OrganizationComponent from "../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type RatingType = "Rating" | EndorsementRatingType | AggregateRatingType
 

@@ -7,10 +7,10 @@ import type { IntangibleProps } from "../../index.ts"
 import type Service from "../../Service/index.ts"
 import type { StructuredValueProps } from "../index.ts"
 
-import ServiceComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Service/index.tsx"
-import OrganizationComponent from "../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
-import ProductComponent from "../../../../../../../pagewright/src/define/Thing/Product/index.tsx"
+import ServiceComponent from "../../../../../../../architect/src/define/Thing/Intangible/Service/index.tsx"
+import OrganizationComponent from "../../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../architect/src/define/Thing/Person/index.tsx"
+import ProductComponent from "../../../../../../../architect/src/define/Thing/Product/index.tsx"
 
 export type OwnershipInfoType = "OwnershipInfo"
 

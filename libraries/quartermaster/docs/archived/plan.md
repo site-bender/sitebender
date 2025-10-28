@@ -151,7 +151,7 @@ This plan outlines the implementation of Quartermaster from first principles to 
 
 **M3.1: GUI Application Structure**
 
-- Build Quartermaster GUI with Pagewright
+- Build Quartermaster GUI with Architect
 - Application routing (wizard steps)
 - State management with Custodian
 - Styling and responsive layout
@@ -199,7 +199,7 @@ This plan outlines the implementation of Quartermaster from first principles to 
 
 #### Deliverables
 
-- Pagewright-based GUI application
+- Architect-based GUI application
 - Wizard component library
 - Live preview engine
 - Validation UI components
@@ -415,9 +415,9 @@ This plan outlines the implementation of Quartermaster from first principles to 
 
 **M7.3: Component Mapping**
 
-- Visual elements → Pagewright components
+- Visual elements → Architect components
 - Layout patterns → routing structure
-- Forms → Architect calculations
+- Forms → Artificer calculations
 - Interactions → event handlers
 
 **M7.4: AI-Assisted Refinement**
