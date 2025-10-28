@@ -1,15 +1,15 @@
 ---
 name: component
-description: Patterns for creating JSX components with progressive enhancement. Covers component structure, data-as-configuration, Props types, CSS organization, and progressive enhancement. Use when creating UI components. Includes script for generating component scaffold.
+description: Patterns for creating components that return VirtualNode data structures. Covers component structure, Props types, HTML wrappers vs custom components, CSS organization, and testing. Use when creating UI components. Includes script for generating component scaffold.
 ---
 
 # Component
 
 ## Core Principle
 
-**Components are pure functions that return JSX. Everything is data.**
+**Components are pure functions that return VirtualNode data structures. Everything is data.**
 
-Components transform data (Props) into JSX. No hooks, no lifecycle methods, no state management - just pure transformation. Progressive enhancement adds interactivity at the boundary.
+Components transform Props into VirtualNode objects (not React JSX). No hooks, no lifecycle methods, no state management - just pure data transformation. JSX syntax is a declarative DSL for creating VirtualNode trees that compile to data (JSON/YAML/RDF) for storage in triple stores.
 
 ## When to Use This Skill
 
@@ -28,89 +28,269 @@ Use this skill when:
 
 **Generate component scaffold:**
 ```bash
-deno task new:component <ComponentName>
+deno task new:component <ComponentName.config.ts>
 ```
 
-This generates:
-- `ComponentName/index.tsx` - Component with Props type
-- `ComponentName/index.css` - Empty CSS file
-- `ComponentName/index.ts` - Progressive enhancement TypeScript
-- `ComponentName/index.test.tsx` - Component tests
-- Full folder structure with constants/, types/
+**Create a config file** (`.claude/generators/tmp/ComponentName.config.ts`):
+```typescript
+import type { ComponentConfig } from "../../skills/component/types.ts"
+
+export default {
+  name: "ComponentName",
+  targetFolder: "path/to/component",  // Optional
+  tagName: "TAGNAME",                 // Uppercase HTML tag
+  description: "Component description",
+  isHtmlElement: true,                // true = HTML wrapper, false = custom
+} satisfies ComponentConfig
+```
+
+**This generates:**
+- `ComponentName/index.ts` (or `_ComponentName/index.ts` if isHtmlElement: true)
+- `ComponentName/index.test.ts` - Component tests using predicates
+- `ComponentName/index.css` - Blank CSS file with comment
+
+**Config is auto-deleted** after generation (use `--keep` flag to preserve)
 
 ## Patterns
 
-[TO BE COMPLETED]
+### Pattern 1: HTML Wrapper Components (isHtmlElement: true)
 
-### Pattern 1: Simple Components
+**When:** Wrapping native HTML elements with standards enforcement and accessibility
 
-### Pattern 2: Data-Driven Components
+**Characteristics:**
+- Component name starts with underscore (`_Article`, `_Button`)
+- Folder name starts with underscore
+- Props extends BaseProps (includes children + global attributes)
+- Private - not for direct use by developers
+- Used internally by createElement to enforce HTML spec
 
-### Pattern 3: Component Composition
-
-### Pattern 4: Progressive Enhancement
-
-### Pattern 5: Component Testing
-
-## Component Structure
-
-[TO BE COMPLETED]
-
+**Example:**
 ```typescript
-export type Props = {
-  readonly fieldName: Type
-}
+import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
+import type { BaseProps } from "@sitebender/pagewright/_html/types/index.ts"
 
-export default function ComponentName(props: Props) {
-  // implementation
+export type Props =
+  & BaseProps
+  & Readonly<{
+    // Component-specific props here
+    customProp?: string
+  }>
+
+export default function _Article(props: Props): VirtualNode {
+  const children = props.children || []
+
+  return {
+    _tag: "element" as const,
+    tagName: "ARTICLE",
+    attributes: {},
+    children: children as ReadonlyArray<VirtualNode>,
+  }
 }
 ```
 
+### Pattern 2: Custom Components (isHtmlElement: false)
+
+**When:** Creating semantic components that don't directly map to HTML elements
+
+**Characteristics:**
+- Component name is PascalCase without underscore (`Button`, `DatePicker`)
+- Props is simple with children and custom props
+- Public API - developers use these
+- May compose multiple HTML wrapper components internally
+
+**Example:**
+```typescript
+import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
+
+export type Props = Readonly<{
+  children?: ReadonlyArray<unknown>
+  label?: string
+  variant?: "primary" | "secondary"
+  [key: string]: unknown
+}>
+
+export default function Button(props: Props): VirtualNode {
+  const children = props.children || []
+
+  return {
+    _tag: "element" as const,
+    tagName: "BUTTON",
+    attributes: {},
+    children: children as ReadonlyArray<VirtualNode>,
+  }
+}
+```
+
+### Pattern 3: Component Testing (Integration Tests)
+
+**Always use predicates** - never reach into objects
+
+**Use real components** for children - this is integration testing
+
+**Example:**
+```typescript
+import { assert } from "@std/assert"
+import isVirtualNode from "@sitebender/toolsmith/predicates/isVirtualNode/index.ts"
+import _P from "@sitebender/pagewright/_html/_P/index.ts"
+
+import _Article from "./index.ts"
+
+Deno.test("_Article component", async function articleTests(t) {
+  await t.step(
+    "returns a VirtualNode",
+    function returnsVirtualNode() {
+      const component = _Article({})
+
+      assert(isVirtualNode(component))
+    },
+  )
+
+  await t.step(
+    "handles children",
+    function handlesChildren() {
+      const text = { _tag: "text" as const, content: "test content" }
+      const paragraph = _P({ children: [text] })
+      const component = _Article({ children: [paragraph] })
+
+      assert(isVirtualNode(component))
+    },
+  )
+})
+```
+
+## Component Structure
+
+**All components follow this structure:**
+
+```typescript
+import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
+// Additional imports...
+
+export type Props = /* Props definition */
+
+/*++
+ + Component description
+ */
+export default function ComponentName(props: Props): VirtualNode {
+  const children = props.children || []
+
+  return {
+    _tag: "element" as const,
+    tagName: "TAGNAME",
+    attributes: {},
+    children: children as ReadonlyArray<VirtualNode>,
+  }
+}
+```
+
+**Key points:**
+- Import VirtualNode from `@sitebender/toolsmith/types/virtualNode/index.ts`
+- Export Props as named export ABOVE component
+- Use Envoy comment (`/*++ ... */`) for documentation
+- Return VirtualNode object with `_tag: "element"`
+- tagName is UPPERCASE
+- Extract children early with fallback to empty array
+
 ## Props Type Pattern
 
-[TO BE COMPLETED]
+**For HTML Wrappers (isHtmlElement: true):**
+```typescript
+import type { BaseProps } from "@sitebender/pagewright/_html/types/index.ts"
+
+export type Props =
+  & BaseProps
+  & Readonly<{
+    // Component-specific props
+  }>
+```
+
+**For Custom Components (isHtmlElement: false):**
+```typescript
+export type Props = Readonly<{
+  children?: ReadonlyArray<unknown>
+  [key: string]: unknown
+}>
+```
 
 **Always:**
 - Export Props type as named export
-- Use readonly for all fields
+- Use Readonly<{}> wrapper for all fields
 - Place Props ABOVE component (one blank line between)
 - Use PascalCase for component name
 - Use camelCase for props fields
-
-## Progressive Enhancement Pattern
-
-[TO BE COMPLETED]
+- BaseProps includes children + all global HTML attributes (id, class, lang, dir, data-\*, aria-\*, etc.)
 
 ## CSS Organization
 
-[TO BE COMPLETED]
+Each component gets an `index.css` file:
+
+```css
+/*++
+ + ComponentName component styles
+ */
+
+/* Styles here */
+```
+
+**Guidelines:**
+- Use Envoy comment format (`/*++ ... */`)
+- Scope styles to component class/tag
+- Keep styles minimal - prefer semantic HTML
+- Use CSS custom properties for theming
 
 ## Data-as-Configuration
 
-[TO BE COMPLETED]
+**Core Philosophy:** Everything is data, JSX is syntax for VirtualNode structures
 
-**Project essence:** JSX → JSON/YAML/Turtle → Triple stores → SPARQL → Direct DOM rendering. Not React.
+**Flow:**
+1. Component written as JSX (declarative DSL)
+2. Compiles to VirtualNode (data structure)
+3. Serializes to JSON/YAML/RDF/Turtle
+4. Stored in triple stores
+5. Queried with SPARQL
+6. Reasoned over with OWL
+7. Validated with SHACL
+8. Rendered to HTML/DOM
+
+**Not React:**
+- No virtual DOM diffing
+- No client-side hydration
+- No runtime reconciliation
+- Build-time compilation to data
+- HTML works without JavaScript
+- Progressive enhancement for interactivity
 
 ## Common Violations
 
-[TO BE COMPLETED]
+**Never:**
+- ❌ Return JSX.Element - components return VirtualNode
+- ❌ Use React hooks (useState, useEffect, etc.)
+- ❌ Use class components or lifecycle methods
+- ❌ Mutate props or create mutable state
+- ❌ Reach into VirtualNode objects - use predicates (isVirtualNode, isElementNode)
+- ❌ Hand-create child nodes in tests - use real components (_P, _Div, etc.)
+- ❌ Import VirtualNode from wrong path - use `@sitebender/toolsmith/types/virtualNode/index.ts`
+- ❌ Forget underscore prefix for HTML wrappers (isHtmlElement: true)
 
-**Never use:**
-- React hooks (useState, useEffect, etc.)
-- Class components
-- Lifecycle methods
-- Mutable state
-- Side effects in render
-
-**Always use:**
-- Pure function components
-- Props for all data
-- Progressive enhancement for interactivity
-- Data-driven rendering
+**Always:**
+- ✅ Return VirtualNode data structures
+- ✅ Use pure function components
+- ✅ Export Props as named export above component
+- ✅ Use predicates for type checking (never reach into objects)
+- ✅ Use integration tests with real components
+- ✅ Prepend underscore for HTML wrapper components
+- ✅ Use BaseProps for HTML wrappers, simple Props for custom components
 
 ## Examples
 
-[TO BE COMPLETED]
+See `.claude/skills/component/examples/` for generated examples:
+- `_Article/` - HTML wrapper component with BaseProps
+- `Widget/` - Custom component without BaseProps
+
+Each example includes:
+- `index.ts` - Component implementation
+- `index.test.ts` - Integration tests using predicates
+- `index.css` - Component styles
 
 ## Cross-References
 
