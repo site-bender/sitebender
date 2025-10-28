@@ -26,7 +26,7 @@ test("submit updates query string and prevents navigation", async ({ page }) => 
 		const listener = (req: Request) => {
 			try {
 				const u = new URL(req.url())
-				if (u.pathname === "/ignored-by-architect") resolve(true)
+				if (u.pathname === "/ignored-by-artificer") resolve(true)
 			} catch (_) { /* noop */ }
 		}
 		page.on("request", listener)

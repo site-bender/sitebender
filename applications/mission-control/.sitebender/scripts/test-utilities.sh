@@ -55,7 +55,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Build test command
-TEST_CMD="deno test lib/architect/utilities/"
+TEST_CMD="deno test lib/artificer/utilities/"
 TEST_CMD="$TEST_CMD --allow-read --allow-net --allow-env --allow-write"
 TEST_CMD="$TEST_CMD --no-check" # Skip type checking for now due to Temporal issues
 
@@ -69,40 +69,40 @@ fi
 
 if [ "$RUN_COVERAGE" = true ]; then
     echo -e "${YELLOW}Running tests with coverage...${NC}"
-    
+
     # Clean previous coverage
     rm -rf coverage coverage.lcov
-    
+
     # Run tests with coverage
     eval "$TEST_CMD --coverage=coverage"
-    
+
     if [ $? -eq 0 ]; then
         echo ""
         echo -e "${GREEN}Generating coverage report...${NC}"
-        
+
         # Generate text report
         deno coverage coverage
-        
+
         # Generate LCOV report for external tools
         deno coverage coverage --lcov > coverage.lcov
-        
+
         # Generate HTML report if genhtml is available
         if command -v genhtml &> /dev/null; then
             echo -e "${YELLOW}Generating HTML coverage report...${NC}"
             genhtml coverage.lcov -o coverage-html
             echo -e "${GREEN}HTML coverage report generated in coverage-html/${NC}"
         fi
-        
+
         echo ""
         echo -e "${GREEN}Coverage summary:${NC}"
         echo "=================="
         deno coverage coverage 2>/dev/null | grep -E "utilities/.*\.(ts|tsx)" | \
             awk '{
-                if ($3 == "100.0") 
+                if ($3 == "100.0")
                     printf "\033[0;32m%-50s %s%%\033[0m\n", $1, $3
-                else if ($3 >= 80) 
+                else if ($3 >= 80)
                     printf "\033[1;33m%-50s %s%%\033[0m\n", $1, $3
-                else 
+                else
                     printf "\033[0;31m%-50s %s%%\033[0m\n", $1, $3
             }'
     else

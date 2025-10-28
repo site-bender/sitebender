@@ -5,8 +5,8 @@ import type MedicalAudienceType from "../../../Intangible/Enumeration/MedicalEnu
 import type { CreativeWorkProps } from "../../index.ts"
 import type { WebPageProps } from "../index.ts"
 
-import MedicalAudienceTypeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalAudienceType/index.tsx"
-import { MedicalAudience as MedicalAudienceComponent } from "../../../../../../pagewright/index.tsx"
+import MedicalAudienceComponent from "../../../../../../src/define/Thing/Intangible/Audience/MedicalAudience/index.tsx"
+import MedicalAudienceTypeComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalAudienceType/index.tsx"
 
 export type MedicalWebPageType = "MedicalWebPage"
 

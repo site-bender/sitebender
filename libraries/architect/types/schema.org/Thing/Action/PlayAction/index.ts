@@ -5,8 +5,8 @@ import type { ActionProps } from "../index.ts"
 import type { ExerciseActionType } from "./ExerciseAction/index.ts"
 import type { PerformActionType } from "./PerformAction/index.ts"
 
-import EventComponent from "../../../../../../pagewright/src/define/Thing/Event/index.tsx"
-import AudienceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Audience/index.tsx"
+import EventComponent from "../../../../../src/define/Thing/Event/index.tsx"
+import AudienceComponent from "../../../../../src/define/Thing/Intangible/Audience/index.tsx"
 
 export type PlayActionType =
 	| "PlayAction"
