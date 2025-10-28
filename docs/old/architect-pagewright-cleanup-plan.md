@@ -1,4 +1,4 @@
-# Architect-Pagewright Component Ownership Cleanup Plan
+# Artificer-Architect Component Ownership Cleanup Plan
 
 > **Status**: Action plan to resolve blurred architectural boundaries  
 > **Priority**: High - Foundation for all other development  
@@ -6,10 +6,10 @@
 
 ## The Problem
 
-As documented in [`docs/architect-codewright-analysis.md`](docs/architect-codewright-analysis.md:145-197), the current implementation has blurred boundaries:
+As documented in [`docs/artificer-codewright-analysis.md`](docs/artificer-codewright-analysis.md:145-197), the current implementation has blurred boundaries:
 
-- **Pagewright** has `transform/` directory with Architect-like reactive components
-- **Architect** has `constructors/elements/` with HTML element constructors  
+- **Architect** has `transform/` directory with Artificer-like reactive components
+- **Artificer** has `constructors/elements/` with HTML element constructors  
 - **Overlapping functionality** creates confusion and maintenance burden
 
 ## Strategic Approach
@@ -17,14 +17,14 @@ As documented in [`docs/architect-codewright-analysis.md`](docs/architect-codewr
 ### Phase 1: Assessment & Inventory (1-2 days)
 
 #### 1.1 Component Audit
-- [ ] **Catalog Pagewright's `transform/` directory**
+- [ ] **Catalog Architect's `transform/` directory**
   - List all comparators, operators, injectors, logical components
   - Document usage patterns across codebase
   - Identify dependencies and breaking changes
 
-- [ ] **Catalog Architect's `constructors/elements/` directory**  
+- [ ] **Catalog Artificer's `constructors/elements/` directory**  
   - List all HTML element constructors
-  - Map to equivalent Pagewright components
+  - Map to equivalent Architect components
   - Identify unique functionality that needs preservation
 
 #### 1.2 Usage Analysis
@@ -34,42 +34,42 @@ As documented in [`docs/architect-codewright-analysis.md`](docs/architect-codewr
 
 ### Phase 2: Boundary Enforcement (3-5 days)
 
-#### 2.1 Move Reactive Components: Pagewright → Architect
+#### 2.1 Move Reactive Components: Architect → Artificer
 
 **Target Migrations:**
 ```
-FROM: libraries/pagewright/src/transform/comparators/*
-TO:   libraries/architect/src/components/comparators/
+FROM: libraries/architect/src/transform/comparators/*
+TO:   libraries/artificer/src/components/comparators/
 
-FROM: libraries/pagewright/src/transform/operators/*  
-TO:   libraries/architect/src/components/operators/
+FROM: libraries/architect/src/transform/operators/*  
+TO:   libraries/artificer/src/components/operators/
 
-FROM: libraries/pagewright/src/transform/injectors/*
-TO:   libraries/architect/src/components/injectors/
+FROM: libraries/architect/src/transform/injectors/*
+TO:   libraries/artificer/src/components/injectors/
 
-FROM: libraries/pagewright/src/transform/logical/*
-TO:   libraries/architect/src/components/logical/
+FROM: libraries/architect/src/transform/logical/*
+TO:   libraries/artificer/src/components/logical/
 ```
 
 **Process:**
 - [ ] **Move files with git history preservation**
 - [ ] **Update internal imports within moved components**
-- [ ] **Create temporary re-exports in Pagewright for backward compatibility**
-- [ ] **Update Architect's main exports**
+- [ ] **Create temporary re-exports in Architect for backward compatibility**
+- [ ] **Update Artificer's main exports**
 
-#### 2.2 Remove HTML Constructors: Architect → Use Pagewright
+#### 2.2 Remove HTML Constructors: Artificer → Use Architect
 
 **Target Removal:**
 ```
-REMOVE: libraries/architect/src/constructors/elements/*
-REPLACE: Import equivalent Pagewright components
+REMOVE: libraries/artificer/src/constructors/elements/*
+REPLACE: Import equivalent Architect components
 ```
 
 **Process:**
-- [ ] **Map each Architect HTML constructor to Pagewright equivalent**
-- [ ] **Update Architect components to import from Pagewright**
+- [ ] **Map each Artificer HTML constructor to Architect equivalent**
+- [ ] **Update Artificer components to import from Architect**
 - [ ] **Remove redundant HTML constructors**
-- [ ] **Update Architect's dependency on Pagewright**
+- [ ] **Update Artificer's dependency on Architect**
 
 ### Phase 3: Integration & Testing (2-3 days)
 
@@ -90,7 +90,7 @@ REPLACE: Import equivalent Pagewright components
 
 ## Detailed Component Migration Strategy
 
-### Reactive Components (Pagewright → Architect)
+### Reactive Components (Architect → Artificer)
 
 **Comparators:**
 - `And`, `Or`, `IsEqualTo`, `Matches`, `IsLessThan`, etc.
@@ -108,21 +108,21 @@ REPLACE: Import equivalent Pagewright components
 - Boolean logic operators for conditional rendering
 - **Rationale**: Display control is behavioral, not structural
 
-### HTML Constructors (Remove from Architect)
+### HTML Constructors (Remove from Artificer)
 
 **Element Constructors:**
 - `Audio`, `Select`, `Meta`, `Dialog`, form elements
-- **Replacement Strategy**: Use Pagewright's typed wrappers
-- **Rationale**: HTML structure is Pagewright's domain
+- **Replacement Strategy**: Use Architect's typed wrappers
+- **Rationale**: HTML structure is Architect's domain
 
 ## Integration Points Design
 
 ### Clean Architectural Boundaries
 
 ```tsx
-// ✅ Correct: Pagewright provides structure, Architect enhances
-import { EmailField } from "@sitebender/pagewright"
-import { Validation, Matches } from "@sitebender/architect"
+// ✅ Correct: Architect provides structure, Artificer enhances
+import { EmailField } from "@sitebender/architect"
+import { Validation, Matches } from "@sitebender/artificer"
 
 <EmailField name="email">
   <Validation>
@@ -133,10 +133,10 @@ import { Validation, Matches } from "@sitebender/architect"
 
 ### Component Communication Protocol
 
-1. **Pagewright components accept `children`** for Architect behaviors
-2. **Architect behaviors attach via DOM properties** (`__sbValidate`, `__sbCalculate`)
+1. **Architect components accept `children`** for Artificer behaviors
+2. **Artificer behaviors attach via DOM properties** (`__sbValidate`, `__sbCalculate`)
 3. **Data flows through standardized interfaces**
-4. **No reverse dependencies** (Architect imports Pagewright, never vice versa)
+4. **No reverse dependencies** (Artificer imports Architect, never vice versa)
 
 ## Risk Mitigation
 
@@ -158,7 +158,7 @@ import { Validation, Matches } from "@sitebender/architect"
 ## Success Criteria
 
 ### Architectural Clarity
-- [ ] **Clear separation**: Pagewright = structure, Architect = behavior  
+- [ ] **Clear separation**: Architect = structure, Artificer = behavior  
 - [ ] **No duplicate functionality** between libraries
 - [ ] **Single source of truth** for each concern
 

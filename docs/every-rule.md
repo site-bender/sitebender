@@ -1538,7 +1538,7 @@ These rules ensure components are accessible to all users.
 
 **Priority:** 9 | **Category:** accessibility
 
-**Rule:** Information must be available without color dependency. Requires Architect approval for visual design decisions. Support color-blind users with high contrast integration through CSS theming system
+**Rule:** Information must be available without color dependency. Requires Artificer approval for visual design decisions. Support color-blind users with high contrast integration through CSS theming system
 
 **Reason:** Color-blind users and high contrast mode users cannot rely on color alone for information. Visual design affects accessibility standards
 
@@ -1546,7 +1546,7 @@ These rules ensure components are accessible to all users.
 
 **Philosophy:** Information must be perceivable through multiple channels, not just color
 
-**Design integration:** Requires Architect approval for visual design decisions - AIs handle semantics, humans handle visual design
+**Design integration:** Requires Artificer approval for visual design decisions - AIs handle semantics, humans handle visual design
 
 **Technical implementation:** CSS custom properties for theming, @supports queries for high contrast modes
 
@@ -1563,7 +1563,7 @@ These rules ensure components are accessible to all users.
 
 **Priority:** 10 | **Category:** accessibility
 
-**Rule:** Non-visual user support through semantic markup, live regions for dynamic content, and sufficient context provision. Screen reader navigation via Pagewright's semantic components with HTML-first approach
+**Rule:** Non-visual user support through semantic markup, live regions for dynamic content, and sufficient context provision. Screen reader navigation via Architect's semantic components with HTML-first approach
 
 **Reason:** Screen reader users need semantic structure and context to understand and navigate interfaces effectively
 
@@ -1605,19 +1605,19 @@ These rules ensure components are accessible to all users.
 
 **Priority:** 10 | **Category:** accessibility
 
-**Rule:** NO ARIA is better than BAD ARIA. Use ARIA only when Pagewright's built-in semantic components are insufficient. End users never see ARIA directly - AI component builders use ARIA internally but hide complexity from end users through semantic props mapping
+**Rule:** NO ARIA is better than BAD ARIA. Use ARIA only when Architect's built-in semantic components are insufficient. End users never see ARIA directly - AI component builders use ARIA internally but hide complexity from end users through semantic props mapping
 
-**Reason:** End users never see ARIA directly. Incorrect ARIA makes accessibility worse than no ARIA. Pagewright's semantic components handle most accessibility automatically
+**Reason:** End users never see ARIA directly. Incorrect ARIA makes accessibility worse than no ARIA. Architect's semantic components handle most accessibility automatically
 
 **Consequences:** Bad ARIA confuses screen readers and breaks accessibility more than missing ARIA
 
-**Philosophy:** NO ARIA better than BAD ARIA - Pagewright semantics first, ARIA only when insufficient
+**Philosophy:** NO ARIA better than BAD ARIA - Architect semantics first, ARIA only when insufficient
 
 **Integration:** AI component builders use ARIA internally but map to semantic props like 'use' instead of 'role'
 
 **Examples:**
-- ✅ Correct: Use semantic Pagewright components with built-in accessibility
-- When ARIA needed: Live regions for dynamic content, custom controls where no semantic Pagewright equivalent exists
+- ✅ Correct: Use semantic Architect components with built-in accessibility
+- When ARIA needed: Live regions for dynamic content, custom controls where no semantic Architect equivalent exists
 - Hide from users: Map ARIA attributes to semantic props - 'use' instead of 'role', 'purpose' instead of 'aria-label'
 
 **Applies to:** .tsx, .jsx
@@ -1628,9 +1628,9 @@ These rules ensure components are accessible to all users.
 
 **Priority:** 10 | **Category:** accessibility
 
-**Rule:** NO ARIA is better than BAD ARIA. Use ARIA only when Pagewright's semantic components are insufficient. End users should never see ARIA attributes
+**Rule:** NO ARIA is better than BAD ARIA. Use ARIA only when Architect's semantic components are insufficient. End users should never see ARIA attributes
 
-**Reason:** Incorrect ARIA makes accessibility worse than no ARIA. Pagewright semantics handle most cases automatically
+**Reason:** Incorrect ARIA makes accessibility worse than no ARIA. Architect semantics handle most cases automatically
 
 **Consequences:** Bad ARIA confuses screen readers and breaks accessibility
 
@@ -1671,7 +1671,7 @@ These rules ensure components are accessible to all users.
 
 **Priority:** 10 | **Category:** accessibility
 
-**Rule:** Component-level keyboard navigation integration with tab order, focus management, and visible focus indicators. Navigation handled automatically by Pagewright components with logical keyboard flow
+**Rule:** Component-level keyboard navigation integration with tab order, focus management, and visible focus indicators. Navigation handled automatically by Architect components with logical keyboard flow
 
 **Reason:** Keyboard-only users must be able to navigate and operate all interface elements. Focus management prevents users from getting trapped
 
@@ -1694,16 +1694,16 @@ These rules ensure components are accessible to all users.
 
 **Priority:** 10 | **Category:** accessibility
 
-**Rule:** Use semantic Pagewright components exclusively, never raw HTML elements. End users work in plain English semantics, not HTML widgets
+**Rule:** Use semantic Architect components exclusively, never raw HTML elements. End users work in plain English semantics, not HTML widgets
 
-**Reason:** Pagewright enforces accessibility automatically. Raw HTML bypasses built-in protections
+**Reason:** Architect enforces accessibility automatically. Raw HTML bypasses built-in protections
 
 **Consequences:** Raw HTML elements lose accessibility guards, semantic meaning, and type safety
 
 **Philosophy:** BUILD-IN accessibility so end users can't mess it up
 
 **Context:**
-- Libraries: pagewright
+- Libraries: architect
 - Usage: component_development
 
 **Examples:**
@@ -1714,11 +1714,11 @@ These rules ensure components are accessible to all users.
 
 ---
 
-### A11Y_ARCHITECT_APPROVAL_001 - Architect Approval for Visual Design
+### A11Y_ARCHITECT_APPROVAL_001 - Artificer Approval for Visual Design
 
 **Priority:** 8 | **Category:** accessibility
 
-**Rule:** Get Architect approval for visual design decisions. AIs focus on semantics and structure, not colors, fonts, or visual styling
+**Rule:** Get Artificer approval for visual design decisions. AIs focus on semantics and structure, not colors, fonts, or visual styling
 
 **Reason:** Visual design affects accessibility (contrast, readability). Design decisions should be intentional, not AI-generated
 
@@ -1728,7 +1728,7 @@ These rules ensure components are accessible to all users.
 
 **Examples:**
 - AI responsibility: Component structure, ARIA, semantic meaning
-- Architect responsibility: Color schemes, typography, visual hierarchy
+- Artificer responsibility: Color schemes, typography, visual hierarchy
 
 **Applies to:** .tsx, .jsx, .css
 

@@ -6,7 +6,7 @@
 
 Linguist is Studio's internationalization library where translations are RDF triples, locales are declarative, and type safety is guaranteed at compile time. Write your content once, translate declaratively, and let the triple store handle everything else.
 
-Every translation is a triple. Every locale is data. Every plural form is queryable. The entire i18n layer integrates seamlessly with Pathfinder's semantic search, Agent's CRDTs for collaborative translation, and Pagewright's RTL support.
+Every translation is a triple. Every locale is data. Every plural form is queryable. The entire i18n layer integrates seamlessly with Pathfinder's semantic search, Agent's CRDTs for collaborative translation, and Architect's RTL support.
 
 ## Core Features
 
@@ -107,7 +107,7 @@ Automatic resolution. No missing translations. Always displays _something_.
 </Article>
 ```
 
-Integrates with Pagewright. Automatically sets `dir` attribute. Handles bidirectional text.
+Integrates with Architect. Automatically sets `dir` attribute. Handles bidirectional text.
 
 ## Architecture
 
@@ -203,7 +203,7 @@ All measurements from production. No synthetic benchmarks.
 
 ## Integration
 
-### With Pagewright
+### With Architect
 
 ```tsx
 <Article locale="ja-JP">

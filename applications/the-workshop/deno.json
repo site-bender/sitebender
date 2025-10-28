@@ -17,7 +17,7 @@
 		"typescript": "https://esm.sh/typescript@5.9.2",
 
 		"~scripts/": "./.sitebender/scripts/",
-		"~pagewright/": "./src/pagewright/",
+		"~architect/": "./src/architect/",
 		"~constants/": "./src/constants/",
 		"~routes/": "./pages/",
 		"~src/": "./src/",

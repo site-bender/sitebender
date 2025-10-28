@@ -1,4 +1,4 @@
 export type {
 	default,
-	HowToSectionType,
+	default as HowToSectionType,
 } from "../../../CreativeWork/HowToSection/index.ts"

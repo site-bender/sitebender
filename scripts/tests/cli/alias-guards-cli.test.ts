@@ -26,7 +26,7 @@ Deno.test("aliasGuards CLI: OK (no violations) when scanning only alias import",
 		const file = `${srcDir}/ok.ts`
 		await Deno.writeTextFile(
 			file,
-			'import x from "@sitebender/architect/rendering/index.ts"\nexport const ok = x\n',
+			'import x from "@sitebender/artificer/rendering/index.ts"\nexport const ok = x\n',
 		)
 		const res = await runDeno([
 			"run",
@@ -52,8 +52,8 @@ Deno.test("aliasGuards CLI: exits non-zero and prints hints on violations", asyn
 		await Deno.writeTextFile(
 			file,
 			[
-				"// deep architect import should be flagged",
-				'import x from "libraries/architect/src/rendering/index.ts"',
+				"// deep artificer import should be flagged",
+				'import x from "libraries/artificer/src/rendering/index.ts"',
 				"export const y = x",
 			].join("\n"),
 		)
@@ -67,8 +67,8 @@ Deno.test("aliasGuards CLI: exits non-zero and prints hints on violations", asyn
 		expect(res.stderr.includes("Alias policy violations")).toBe(true)
 		// should include a suggestion hint
 		expect(
-			res.stderr.includes("@sitebender/architect/") ||
-				res.stderr.includes("@sitebender/architect-types/") ||
+			res.stderr.includes("@sitebender/artificer/") ||
+				res.stderr.includes("@sitebender/artificer-types/") ||
 				res.stderr.includes("@sitebender/toolsmith/"),
 		).toBe(true)
 	} finally {
@@ -107,7 +107,7 @@ Deno.test("aliasGuards CLI: --quiet suppresses human output on success", async (
 		await Deno.mkdir(srcDir, { recursive: true })
 		await Deno.writeTextFile(
 			`${srcDir}/ok.ts`,
-			'import x from "@sitebender/architect/rendering/index.ts"\nexport const ok = x\n',
+			'import x from "@sitebender/artificer/rendering/index.ts"\nexport const ok = x\n',
 		)
 		const res = await runDeno([
 			"run",
