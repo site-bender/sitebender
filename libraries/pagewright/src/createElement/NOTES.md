@@ -20,7 +20,7 @@ if (isObject(child) && "_tag" in child) {
   const isValidTag = includes(ELEMENT_TYPES)(tag as typeof ELEMENT_TYPES[number])
 
   if (isValidTag) {
-    return child as ElementConfig
+    return child as VirtualNode
   }
 }
 ```
@@ -82,7 +82,7 @@ if (isNotNullish(value)) {
 - Uses `str.toLocaleUpperCase()` (locale-aware)
 - Works correctly for HTML tag names in createElement
 
-**Usage in `_createElementConfig`:**
+**Usage in `_createVirtualNode`:**
 ```ts
 import toUpper from "@sitebender/toolsmith/string/toCase/toUpper/index.ts"
 
@@ -108,7 +108,7 @@ function createElement(component: Component) {
   return function createElementWithComponent(props: Props | null) {
     return function createElementWithComponentAndProps(
       ...children: ReadonlyArray<Child>
-    ): ElementConfig {
+    ): VirtualNode {
       // Uses: component, props, children
     }
   }
@@ -187,8 +187,8 @@ const result = reduce(_convertAttributeEntry)({})(entries)
 All types implemented:
 - ✅ `Component` - function or string
 - ✅ `Props` - attributes object with optional children
-- ✅ `Child` - string | number | ElementConfig | array | null | undefined | boolean
-- ✅ `ElementConfig` - discriminated union with `_tag` (element, text, comment, error)
+- ✅ `Child` - string | number | VirtualNode | array | null | undefined | boolean
+- ✅ `VirtualNode` - discriminated union with `_tag` (element, text, comment, error)
 
 ### 2. Main createElement Function - ✅ COMPLETE
 
@@ -207,7 +207,7 @@ All implemented with underscore prefix and placed at lowest common ancestor:
 - ✅ `_processChildren` - Maps and flattens children array
 - ✅ `_processChild` - Handles single child type discrimination
 - ✅ `_flattenChild` - Recursively flattens nested arrays (in _processChildren/ subfolder)
-- ✅ `_createElementConfig` - Builds element config (triple-curried)
+- ✅ `_createVirtualNode` - Builds element config (triple-curried)
 - ✅ `_createErrorConfig` - Builds error config (triple-curried, at top level - used by createElement and _processChild)
 - ✅ `_createTextConfig` - Builds text node config (in _processChild/ subfolder)
 - ✅ `_createCommentConfig` - Builds comment node config (not yet used)
@@ -257,7 +257,7 @@ All test categories implemented:
    - Avoids global state or context threading
 
 3. **Namespace support deferred:**
-   - ElementConfig has optional `namespace` field
+   - VirtualNode has optional `namespace` field
    - Auto-detection from tagName can be added later
    - Not blocking current implementation
 
