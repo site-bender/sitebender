@@ -26,19 +26,19 @@ Deno.test("alias guards allow preferred aliases and flag deep imports", async ()
 	// We only check that any violations mention the expected guidance
 	const violations = await runAliasGuards([
 		"applications/mission-control/src",
-		"libraries/pagewright/src",
+		"libraries/architect/src",
 	])
 	if (violations.length) {
 		const hints = violations.map((v) => v.hint).join("\n")
 		expect(
-			hints.includes("@sitebender/architect/") ||
-				hints.includes("@sitebender/architect-types/") ||
+			hints.includes("@sitebender/artificer/") ||
+				hints.includes("@sitebender/artificer-types/") ||
 				hints.includes("@sitebender/toolsmith/"),
 		).toBe(true)
 	}
 })
 
-Deno.test("alias guards detect deep architect import in synthetic project", async () => {
+Deno.test("alias guards detect deep artificer import in synthetic project", async () => {
 	const dir = "scripts/.aliastest/src"
 	await Deno.mkdir(dir, { recursive: true })
 	try {
@@ -47,13 +47,13 @@ Deno.test("alias guards detect deep architect import in synthetic project", asyn
 			file,
 			[
 				"// bad deep import should be flagged",
-				'import x from "libraries/architect/src/rendering/index.ts"',
+				'import x from "libraries/artificer/src/rendering/index.ts"',
 			].join("\n"),
 		)
 		const v = await runAliasGuards(["scripts/.aliastest"])
 		// Ensure at least one violation with the expected hint
 		expect(v.length >= 1).toBe(true)
-		expect(v.map((x) => x.hint).join("\n").includes("@sitebender/architect/"))
+		expect(v.map((x) => x.hint).join("\n").includes("@sitebender/artificer/"))
 			.toBe(true)
 	} finally {
 		await Deno.remove("scripts/.aliastest", { recursive: true })
@@ -67,7 +67,7 @@ Deno.test("alias guards allow alias import without violations", async () => {
 		const file = `${dir}/ok.ts`
 		await Deno.writeTextFile(
 			file,
-			'import x from "@sitebender/architect/rendering/index.ts"\nexport const ok = x',
+			'import x from "@sitebender/artificer/rendering/index.ts"\nexport const ok = x',
 		)
 		const v = await runAliasGuards(["scripts/.aliastest2"])
 		expect(v.length).toBe(0)
@@ -76,14 +76,14 @@ Deno.test("alias guards allow alias import without violations", async () => {
 	}
 })
 
-Deno.test("deep architect import allowed when file is inside architect", async () => {
-	const dir = "scripts/.aliastest3/libraries/architect/src"
+Deno.test("deep artificer import allowed when file is inside artificer", async () => {
+	const dir = "scripts/.aliastest3/libraries/artificer/src"
 	await Deno.mkdir(dir, { recursive: true })
 	try {
 		const file = `${dir}/inside.ts`
 		await Deno.writeTextFile(
 			file,
-			'import y from "libraries/architect/src/rendering/index.ts"\nexport const y2 = y',
+			'import y from "libraries/artificer/src/rendering/index.ts"\nexport const y2 = y',
 		)
 		const v = await runAliasGuards(["scripts/.aliastest3"])
 		expect(v.length).toBe(0)
@@ -92,17 +92,17 @@ Deno.test("deep architect import allowed when file is inside architect", async (
 	}
 })
 
-Deno.test("architect types deep import suggests @architectTypes", async () => {
+Deno.test("artificer types deep import suggests @architectTypes", async () => {
 	const dir = "scripts/.aliastest4/src"
 	await Deno.mkdir(dir, { recursive: true })
 	try {
 		const file = `${dir}/bad_types.ts`
 		await Deno.writeTextFile(
 			file,
-			'import t from "libraries/architect/types/someType.ts"\nexport const t2 = t',
+			'import t from "libraries/artificer/types/someType.ts"\nexport const t2 = t',
 		)
 		const v = await runAliasGuards(["scripts/.aliastest4"])
-		expect(v.some((x) => x.hint.includes("@sitebender/architect-types/")))
+		expect(v.some((x) => x.hint.includes("@sitebender/artificer-types/")))
 			.toBe(
 				true,
 			)

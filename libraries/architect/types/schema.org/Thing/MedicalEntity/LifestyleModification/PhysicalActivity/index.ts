@@ -9,12 +9,12 @@ import type SuperficialAnatomy from "../../SuperficialAnatomy/index.ts"
 import type { LifestyleModificationProps } from "../index.ts"
 import type { ExercisePlanType } from "./ExercisePlan/index.ts"
 
-import ThingComponent from "../../../../../../../pagewright/src/define/Thing/index.tsx"
-import CategoryCodeComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
-import PhysicalActivityCategoryComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/PhysicalActivityCategory/index.tsx"
-import AnatomicalStructureComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
-import AnatomicalSystemComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
-import SuperficialAnatomyComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/SuperficialAnatomy/index.tsx"
+import ThingComponent from "../../../../../../src/define/Thing/index.tsx"
+import CategoryCodeComponent from "../../../../../../src/define/Thing/Intangible/DefinedTerm/CategoryCode/index.tsx"
+import PhysicalActivityCategoryComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/PhysicalActivityCategory/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import AnatomicalSystemComponent from "../../../../../../src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
+import SuperficialAnatomyComponent from "../../../../../../src/define/Thing/MedicalEntity/SuperficialAnatomy/index.tsx"
 
 export type PhysicalActivityType = "PhysicalActivity" | ExercisePlanType
 

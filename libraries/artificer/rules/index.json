@@ -1,0 +1,44 @@
+{
+	"version": "1.0.0",
+	"lastUpdated": "2025-01-12",
+	"author": "The Architect",
+	"scope": "libraries/artificer",
+	"description": "Rules specific to the Artificer library",
+	"inherits": "/rules/index.json",
+	"commandments": [
+		{
+			"key": "progressive-enhancement",
+			"title": "Thou shalt output HTML that works without client-side JavaScript",
+			"details": [
+				"Artificer must evaluate IR to semantic HTML",
+				"SSR/SSG output must be fully functional without client JS",
+				"Hydration adds interactivity to already-working HTML",
+				"Form actions must compile to standard HTTP methods"
+			]
+		},
+		{
+			"key": "respect-accessibility",
+			"title": "Thou shalt respect accessibility",
+			"details": [
+				"Generated HTML must be WCAG 2.3 AAA compliant",
+				"Preserve ARIA attributes through compilation",
+				"Maintain semantic structure in output"
+			]
+		}
+	],
+	"architectSpecific": {
+		"irEvaluation": [
+			"IR must evaluate to HTML that functions without client-side JS",
+			"Output HTML with proper form actions and methods",
+			"Generate links with real href attributes",
+			"Server evaluation produces complete, working HTML",
+			"Hydration enhances but doesn't break existing functionality"
+		],
+		"responsiveOutput": [
+			"Generated HTML must include responsive meta viewport tag",
+			"Preserve responsive classes and attributes through compilation",
+			"Support picture elements and srcset for responsive images",
+			"Maintain CSS Grid and Flexbox properties in output"
+		]
+	}
+}

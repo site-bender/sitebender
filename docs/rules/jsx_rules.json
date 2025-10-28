@@ -121,8 +121,8 @@
           "description": "Semantic components must be used in appropriate contexts. Heading components must be properly nested, Article components must contain meaningful content structures.",
           "metadata": {
             "rule_id": "JSX_SEMANTIC_001",
-            "keywords": ["jsx", "semantic", "accessibility", "seo", "context-aware", "heading", "nesting", "pagewright", "html-structure"],
-            "rationale": "Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Pagewright's context-aware compilation. Improper semantic structure breaks accessibility, SEO, and context-aware compilation features. Context-aware component usage with proper nesting creates valid, accessible semantic HTML.",
+            "keywords": ["jsx", "semantic", "accessibility", "seo", "context-aware", "heading", "nesting", "architect", "html-structure"],
+            "rationale": "Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Architect's context-aware compilation. Improper semantic structure breaks accessibility, SEO, and context-aware compilation features. Context-aware component usage with proper nesting creates valid, accessible semantic HTML.",
             "prohibited": {
               "code": "<div>\n\t<Heading level={3}><Title>Main Article</Title></Heading>\n\t<Heading level={1}><Title>Section Title</Title></Heading>\n</div>",
               "reasoning": "Improper semantic structure, incorrect heading nesting, breaks accessibility and SEO, invalid context usage"
@@ -178,7 +178,7 @@
           "description": "Components must be configured through declarative data structures rather than imperative code. All component behavior should be derivable from props and composition patterns.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_001",
-            "keywords": ["jsx", "data-as-configuration", "declarative", "serializable", "rdf", "triples", "deterministic", "pagewright", "studio"],
+            "keywords": ["jsx", "data-as-configuration", "declarative", "serializable", "rdf", "triples", "deterministic", "architect", "studio"],
             "rationale": "Ensures all components can be serialized, stored as RDF triples, and reconstructed deterministically. Enables the core Studio principle that 'everything is data.' Components configured through imperative code become tightly coupled to behavior and cannot be serialized or stored as data structures.",
             "prohibited": {
               "code": "<Authentication onMount={() => setupOAuth(\"github\")} />",
@@ -273,7 +273,7 @@
           "description": "Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design.",
           "metadata": {
             "rule_id": "JSX_UNIVERSAL_005",
-            "keywords": ["jsx", "not-react", "studio", "data-driven", "dsl", "domain-specific", "data-structures", "pagewright"],
+            "keywords": ["jsx", "not-react", "studio", "data-driven", "dsl", "domain-specific", "data-structures", "architect"],
             "rationale": "Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design. Treating Studio JSX like React leads to imperative patterns that break data-first architecture. Studio JSX compiles to data structures, not virtual DOM - components are data configurations, not stateful objects.",
             "prohibited": {
               "code": "const [auth, setAuth] = useState()\nreturn <AuthProvider value={auth}>{children}</AuthProvider>",
@@ -350,7 +350,7 @@
           "metadata": {
             "rule_id": "JSX_SEMANTIC_002",
             "keywords": ["jsx", "schema-org", "microdata", "semantic", "structured-data", "rich-snippets", "seo", "declarative"],
-            "rationale": "Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Pagewright components. Manual microdata conflicts with semantic structure and breaks Schema.org integration. Proper microdata patterns with semantic consistency enable reliable structured data.",
+            "rationale": "Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Architect components. Manual microdata conflicts with semantic structure and breaks Schema.org integration. Proper microdata patterns with semantic consistency enable reliable structured data.",
             "prohibited": {
               "code": "<div itemScope itemType=\"https://schema.org/Recipe\">\n\t<Recipe>\n\t\t<span itemProp=\"name\">Cookies</span>\n\t</Recipe>\n</div>",
               "reasoning": "Manual microdata conflicts with component structure, breaks semantic consistency, duplicates schema information"

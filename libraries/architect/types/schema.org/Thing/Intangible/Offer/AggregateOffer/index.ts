@@ -5,8 +5,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type Offer from "../index.ts"
 import type { OfferProps } from "../index.ts"
 
-import DemandComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Demand/index.tsx"
-import OfferComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Offer/index.tsx"
+import DemandComponent from "../../../../../../src/define/Thing/Intangible/Demand/index.tsx"
+import OfferComponent from "../../../../../../src/define/Thing/Intangible/Offer/index.tsx"
 
 export type AggregateOfferType = "AggregateOffer"
 

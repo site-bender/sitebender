@@ -513,13 +513,13 @@ function evaluateCondition(condition, userKeys: Set<string>): boolean {
 
 ---
 
-## Integration with Architect Conditionals
+## Integration with Artificer Conditionals
 
-`<And>`, `<Or>`, `<Not>` are **general-purpose** boolean components from Architect.
+`<And>`, `<Or>`, `<Not>` are **general-purpose** boolean components from Artificer.
 
 They work in **multiple contexts**:
 
-### 1. Validation (Architect)
+### 1. Validation (Artificer)
 
 ```tsx
 <Validation>
@@ -834,7 +834,7 @@ function MyComponent() {
 }
 ```
 
-### Q: Can I check keys in calculations (Architect)?
+### Q: Can I check keys in calculations (Artificer)?
 
 **A**: Yes, via injector:
 
@@ -858,7 +858,7 @@ function MyComponent() {
 ## Related Documentation
 
 - [Syntax Status](../../../docs/syntax-status.md) - All canonical vs proposed syntax
-- [Architect README](../../architect/README.md) - `<And>`, `<Or>`, `<Not>` conditionals
+- [Artificer README](../../artificer/README.md) - `<And>`, `<Or>`, `<Not>` conditionals
 - [Quartermaster Folder Hierarchy](../../quartermaster/docs/folder-hierarchy.md) - `auth/` folder structure
 - [Steward README](../README.md) - Authentication provider integration
 

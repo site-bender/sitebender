@@ -202,7 +202,7 @@ Current implementation supports **infix notation only**: `a + b`, `(2 + 3) * 4`
 
 - Reversibility (AST → Formula → AST round-trip)
 - MathML generation
-- Architect handles optimization later
+- Artificer handles optimization later
 
 ### 3. Constants as Variables (No Substitution)
 
@@ -236,7 +236,7 @@ Mathematical constants (π, e, τ, φ) are preserved as variables in the AST.
 }
 ```
 
-**Reason**: Architect handles substitution and constant folding (separation of concerns).
+**Reason**: Artificer handles substitution and constant folding (separation of concerns).
 
 ### 4. Semantic Operator Names
 
@@ -265,7 +265,7 @@ type EnrichedBinaryOperatorNode = {
 }
 ```
 
-**Semantic accessors** (augend/addend, minuend/subtrahend, etc.) will be implemented **in Architect**, not Formulator. See "Semantic Accessors for Architect" section in `docs/plan.md`.
+**Semantic accessors** (augend/addend, minuend/subtrahend, etc.) will be implemented **in Artificer**, not Formulator. See "Semantic Accessors for Artificer" section in `docs/plan.md`.
 
 ## File Structure
 

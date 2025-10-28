@@ -149,17 +149,17 @@ AST-based analysis and autofixes. No configuration, no debates.
 
 ### Application Layer (UI/Rendering)
 
-#### **[Pagewright](../libraries/pagewright.md)** - Semantic HTML component library
+#### **[Architect](../libraries/architect.md)** - Semantic HTML component library
 
 Context-aware semantic compilation. Write `<Essay>`, `<Recipe>`, `<Dialogue>`—compiler generates correct HTML structure. Every element typed. W3C/WHATWG standards enforced at compile time. Automatic element substitution preserves user intent while ensuring standards compliance.
 
-#### **[Architect](../libraries/architect.md)** - Reactive rendering engine
+#### **[Artificer](../libraries/artificer.md)** - Reactive rendering engine
 
 JSX → IR → JSON/YAML/Turtle → DOM (no virtual DOM). Entire application stored as data in databases. Behaviors attach as DOM properties. Data-driven forms: system auto-selects widgets based on data types, not manual widget choices.
 
 #### **[Formulator](../libraries/formulator.md)** - Expression/formula compiler
 
-Bidirectional formula parser. Math formulas ↔ Architect IR ↔ MathML. Perfect isomorphism (lossless transformation). **Three notation styles**: infix (standard), prefix (Polish), postfix (RPN) with seamless conversion. **Smart symbol recognition** - type `alpha` → α, `pi` → π, `integral` → ∫, `sum` → Σ. Supports 100+ mathematical symbols, Greek letters, operators, and calculus notation.
+Bidirectional formula parser. Math formulas ↔ Artificer IR ↔ MathML. Perfect isomorphism (lossless transformation). **Three notation styles**: infix (standard), prefix (Polish), postfix (RPN) with seamless conversion. **Smart symbol recognition** - type `alpha` → α, `pi` → π, `integral` → ∫, `sum` → Σ. Supports 100+ mathematical symbols, Greek letters, operators, and calculus notation.
 
 #### **[Linguist](../libraries/linguist.md)** - Internationalization as triples
 
@@ -383,7 +383,7 @@ This single line:
 
 ### Context-Aware Semantic Compilation
 
-Pagewright's compiler analyzes your component tree to determine correct HTML structure. Write semantic meaning, get correct markup:
+Architect's compiler analyzes your component tree to determine correct HTML structure. Write semantic meaning, get correct markup:
 
 ```tsx
 <Article>
@@ -412,7 +412,7 @@ The same `<Title>` component becomes `<h1>` or `<h2>` depending on nesting depth
 
 ### Automatic Element Substitution
 
-Pagewright automatically substitutes invalid HTML with standards-compliant alternatives while preserving all data. Never blame the user—if something is confusing, that's the framework's responsibility to guide kindly.
+Architect automatically substitutes invalid HTML with standards-compliant alternatives while preserving all data. Never blame the user—if something is confusing, that's the framework's responsibility to guide kindly.
 
 ```tsx
 // User writes invalid markup
@@ -539,7 +539,7 @@ Pathfinder combines SPARQL's precision with vector embeddings' semantic understa
 
 ```typescript
 const results = await hybridSearch({
-  sparql: `SELECT ?component WHERE { ?component rdf:type pagewright:Component }`,
+  sparql: `SELECT ?component WHERE { ?component rdf:type architect:Component }`,
   vector: { query: "accessible form inputs", topK: 10 },
   combine: "rerank"
 })

@@ -7,9 +7,9 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { AudioObjectProps } from "../../MediaObject/AudioObject/index.ts"
 import type { BookProps } from "../index.ts"
 
-import DurationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import DurationComponent from "../../../../../../src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import QuantitativeValueComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import PersonComponent from "../../../../../../src/define/Thing/Person/index.tsx"
 
 export type AudiobookType = "Audiobook"
 

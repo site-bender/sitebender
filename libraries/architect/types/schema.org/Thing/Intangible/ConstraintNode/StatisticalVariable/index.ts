@@ -8,12 +8,12 @@ import type { IntangibleProps } from "../../index.ts"
 import type Property from "../../Property/index.ts"
 import type { ConstraintNodeProps } from "../index.ts"
 
-import ClassComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Class/index.tsx"
-import StatisticalVariableComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/ConstraintNode/StatisticalVariable/index.tsx"
-import DefinedTermComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
-import EnumerationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/index.tsx"
-import MeasurementMethodEnumComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.tsx"
-import PropertyComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Property/index.tsx"
+import ClassComponent from "../../../../../../src/define/Thing/Intangible/Class/index.tsx"
+import StatisticalVariableComponent from "../../../../../../src/define/Thing/Intangible/ConstraintNode/StatisticalVariable/index.tsx"
+import DefinedTermComponent from "../../../../../../src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import EnumerationComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/index.tsx"
+import MeasurementMethodEnumComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.tsx"
+import PropertyComponent from "../../../../../../src/define/Thing/Intangible/Property/index.tsx"
 
 export type StatisticalVariableType = "StatisticalVariable"
 
