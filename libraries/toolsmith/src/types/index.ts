@@ -53,3 +53,17 @@ export type NonEmptyArray<T> = readonly [T, ...Array<T>]
 
 export type Predicate<T> = (value: T) => boolean
 export type Predicates<T> = ReadonlyArray<Predicate<T>>
+
+// ============================================================================
+// Virtual DOM Types
+// ============================================================================
+
+export type {
+	CommentNode,
+	ElementNode,
+	ErrorNode,
+	TextNode,
+	VirtualNode,
+	VirtualNodeTag,
+} from "./virtualNode/index.ts"
+export { VIRTUAL_NODE_TAGS } from "../constants/index.ts"

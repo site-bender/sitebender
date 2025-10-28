@@ -1,4 +1,4 @@
-import type { Child, ElementConfig } from "../../../types/index.ts"
+import type { Child, VirtualNode } from "../../../types/index.ts"
 
 import isArray from "@sitebender/toolsmith/predicates/isArray/index.ts"
 
@@ -7,12 +7,12 @@ import _processChildren from "../index.ts"
 /*++
  + Flattens a single child item
  + If item is an array, recursively process it
- + If item is ElementConfig, wrap in array
+ + If item is VirtualNode, wrap in array
  + Used by flatMap in _processChildren
  */
 export default function _flattenChild(
-	item: ElementConfig | ReadonlyArray<Child>,
-): ReadonlyArray<ElementConfig> {
+	item: VirtualNode | ReadonlyArray<Child>,
+): ReadonlyArray<VirtualNode> {
 	if (isArray(item)) {
 		/*++
 		 + Recursively process nested children
@@ -21,7 +21,7 @@ export default function _flattenChild(
 	}
 
 	/*++
-	 + item is ElementConfig at this point
+	 + item is VirtualNode at this point
 	 */
-	return [item as ElementConfig]
+	return [item as VirtualNode]
 }
