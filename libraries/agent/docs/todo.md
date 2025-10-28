@@ -4,7 +4,7 @@
 
 ## Overview
 
-Transform Agent from basic CRDT implementations to a full declarative JSX framework for distributed applications that integrates seamlessly with Architect.
+Transform Agent from basic CRDT implementations to a full declarative JSX framework for distributed applications that integrates seamlessly with Artificer.
 
 ## NEW: IO Interception & Testing Infrastructure
 
@@ -50,7 +50,7 @@ Transform Agent from basic CRDT implementations to a full declarative JSX framew
 ### Core Architecture
 
 - [ ] Design JSX-to-Agent-IR transformation pipeline
-- [ ] Create base component interfaces extending Architect patterns
+- [ ] Create base component interfaces extending Artificer patterns
 - [ ] Implement component registry for distributed behaviors
 - [ ] Add Agent-specific element properties (`__sbCRDT`, `__sbSync`, `__sbPeers`)
 - [ ] Create global registries (`document.__sbDistributed`, `document.__sbSyncGraph`)
@@ -65,7 +65,7 @@ Transform Agent from basic CRDT implementations to a full declarative JSX framew
 
 ### Integration Layer
 
-- [ ] Hook into Architect's render pipeline
+- [ ] Hook into Artificer's render pipeline
 - [ ] Add distributed behavior attachment
 - [ ] Create Agent-specific injectors (`From.CRDT`, `From.Peers`)
 - [ ] Implement reactive updates from remote changes
@@ -278,7 +278,7 @@ Transform Agent from basic CRDT implementations to a full declarative JSX framew
 ### Documentation
 
 - [ ] Component API reference
-- [ ] Integration guide with Architect
+- [ ] Integration guide with Artificer
 - [ ] Security best practices
 - [ ] Performance tuning guide
 - [ ] Migration from centralized apps
@@ -332,7 +332,7 @@ Transform Agent from basic CRDT implementations to a full declarative JSX framew
 
 ### Stream F: Integration Team
 
-**Focus:** Architect integration and JSX components
+**Focus:** Artificer integration and JSX components
 
 - Component architecture
 - Render pipeline hooks
@@ -390,8 +390,8 @@ Transform Agent from basic CRDT implementations to a full declarative JSX framew
 
 ### Integration Risks
 
-- **Architect coupling**: Clean interfaces, minimal dependencies
-- **JSX transformation**: Reuse Architect's pipeline
+- **Artificer coupling**: Clean interfaces, minimal dependencies
+- **JSX transformation**: Reuse Artificer's pipeline
 - **Type safety**: Comprehensive TypeScript definitions
 
 ### Timeline Risks

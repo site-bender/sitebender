@@ -7,16 +7,16 @@ export const WORKSPACE_ROOT = fromFileUrl(
 	new URL("../../../..", import.meta.url),
 )
 
-//++ Architect types root directory for schema.org
+//++ Artificer types root directory for schema.org
 export const TYPES_ROOT = resolve(
 	WORKSPACE_ROOT,
-	"libraries/architect/types/schema.org",
+	"libraries/artificer/types/schema.org",
 )
 
-//++ Pagewright source definition root directory
+//++ Architect source definition root directory
 export const SRC_DEFINE_ROOT = resolve(
 	WORKSPACE_ROOT,
-	"libraries/pagewright/src/define",
+	"libraries/architect/src/define",
 )
 
 //++ Cache for component path lookups

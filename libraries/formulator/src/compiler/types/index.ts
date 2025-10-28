@@ -14,7 +14,7 @@ export type {
 } from "../../parser/types/index.ts"
 
 // ============================================================================
-// Datatype System (matches Architect conventions)
+// Datatype System (matches Artificer conventions)
 // ============================================================================
 
 export type NumericDatatype = "Number" | "Float" | "Integer" | "Precision"

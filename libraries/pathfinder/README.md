@@ -43,7 +43,7 @@ import { hybridSearch } from "@sitebender/pathfinder/hybridSearch/index.ts"
 const results = await hybridSearch({
 	sparql: `
     SELECT ?component WHERE {
-      ?component rdf:type pagewright:Component ;
+      ?component rdf:type architect:Component ;
                  rdfs:label ?label .
     }
   `,
@@ -380,7 +380,7 @@ import { vectorSearch } from "@sitebender/pathfinder/vectorSearch/index.ts"
 import { embed } from "@sitebender/pathfinder/embeddings/embed/index.ts"
 
 const results = await vectorSearch({
-	collection: "pagewright-components",
+	collection: "architect-components",
 	vector: await embed("accessible navigation menu"),
 	topK: 5,
 	filter: { type: { $eq: "NavigationComponent" } }, // Qdrant metadata filter

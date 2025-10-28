@@ -903,7 +903,7 @@ If you encounter issues or need clarification:
 1. **Check existing extractors** - They provide working examples
 2. **Review fix_plan.md** - Shows what's already been completed
 3. **Check constitutional rules** - MCP server collections have details
-4. **Ask the architect** - When truly stuck
+4. **Ask the artificer** - When truly stuck
 
 ---
 

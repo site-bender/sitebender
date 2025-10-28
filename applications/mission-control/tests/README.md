@@ -91,17 +91,17 @@ test.describe("Navigation without JavaScript", () => {
 		await page.goto("/")
 
 		// Check main navigation works
-		await page.click('a[href="/pagewright"]')
-		await expect(page).toHaveURL("/pagewright")
-		await expect(page.locator("h1")).toContainText("Pagewright Library")
+		await page.click('a[href="/architect"]')
+		await expect(page).toHaveURL("/architect")
+		await expect(page.locator("h1")).toContainText("Architect Library")
 
 		// Check sub-navigation works
-		await page.click('a[href="/pagewright/forms"]')
-		await expect(page).toHaveURL("/pagewright/forms")
+		await page.click('a[href="/architect/forms"]')
+		await expect(page).toHaveURL("/architect/forms")
 
 		// Check breadcrumbs work
-		await page.click('nav[aria-label="breadcrumb"] a[href="/pagewright"]')
-		await expect(page).toHaveURL("/pagewright")
+		await page.click('nav[aria-label="breadcrumb"] a[href="/architect"]')
+		await expect(page).toHaveURL("/architect")
 
 		// Check search form submits to edge function
 		await page.fill('input[name="search"]', "Button component")
@@ -111,7 +111,7 @@ test.describe("Navigation without JavaScript", () => {
 	})
 
 	test("table of contents links work without JS", async ({ page }) => {
-		await page.goto("/pagewright/forms/validation")
+		await page.goto("/architect/forms/validation")
 
 		// All TOC links should be anchors
 		const tocLinks = page.locator('nav[aria-label="On this page"] a')
@@ -204,20 +204,20 @@ test.describe("Form submission behaviors", () => {
 })
 ```
 
-### Testing Architect Library Hydration
+### Testing Artificer Library Hydration
 
 ```typescript
-// tests/behaviors/experimenting/architect/index.ts
+// tests/behaviors/experimenting/artificer/index.ts
 import { expect, test } from "playwright-mcp"
 
-test.describe("Architect configuration hydration", () => {
+test.describe("Artificer configuration hydration", () => {
 	test("SSR renders placeholders, client hydrates with real values", async ({ page }) => {
 		// First load with JS disabled to check SSR
 		await page.setJavaScriptEnabled(false)
 		await page.goto("/examples/calculator")
 
 		// SSR should show placeholders
-		const sumElement = page.locator('[data-architect-type="operator"]').first()
+		const sumElement = page.locator('[data-artificer-type="operator"]').first()
 		await expect(sumElement).toContainText("[sum]")
 
 		// Now enable JS and reload
@@ -225,7 +225,7 @@ test.describe("Architect configuration hydration", () => {
 		await page.reload()
 
 		// Wait for hydration
-		await page.waitForSelector('[data-architect-hydrated="true"]')
+		await page.waitForSelector('[data-artificer-hydrated="true"]')
 
 		// Should now show calculated value
 		await expect(sumElement).not.toContainText("[sum]")
@@ -327,10 +327,10 @@ test.describe("Code the-workshop behaviors", () => {
 				expected: "[2, 4, 6]",
 			},
 			{
-				lib: "architect",
+				lib: "artificer",
 				code: `
-		  import Add from "@sitebender/architect/constructors/operators/Add"
-		  import Constant from "@sitebender/architect/constructors/injectors/Constant"
+		  import Add from "@sitebender/artificer/constructors/operators/Add"
+		  import Constant from "@sitebender/artificer/constructors/injectors/Constant"
           
           const config = Add()([Constant()(5), Constant()(3)])
           console.log(config)
@@ -338,9 +338,9 @@ test.describe("Code the-workshop behaviors", () => {
 				expected: 'tag: "Add"',
 			},
 			{
-				lib: "pagewright",
+				lib: "architect",
 				code: `
-          import Button from "@sitebender/pagewright/interact/buttons/Button"
+          import Button from "@sitebender/architect/interact/buttons/Button"
           
           const btn = Button({ label: "Click me", variant: "primary" })
           console.log(btn)
@@ -373,9 +373,9 @@ import { injectAxe, checkA11y } from "@axe-core/playwright"
 test.describe("WCAG 2.3 AAA Compliance", () => {
   const pages = [
     "/",
-    "/pagewright",
-    "/toolsmith",
     "/architect",
+    "/toolsmith",
+    "/artificer",
     "/examples",
     "/the-workshop",
     "/tutorials"
@@ -414,14 +414,14 @@ test.describe("WCAG 2.3 AAA Compliance", () => {
 ## Golden and Smoke Tests
 
 ### Goldens (snapshot-style)
-- No-JS SSR HTML snapshots for key pages: Home, Pagewright index, Component detail, Examples (form, conditional, JSON-LD), Playground.
+- No-JS SSR HTML snapshots for key pages: Home, Architect index, Component detail, Examples (form, conditional, JSON-LD), Playground.
 - Snapshot both the HTML and the embedded root IR script payload shape (schema version, node ids present).
 - Tolerate dynamic IDs via stable serializers or deterministic seeds.
 
 ### Smoke tests
 - Registry resolution by tag succeeds (operators, injectors, comparators) in the built app bundle.
 - SSR render returns a string without throwing for representative pages.
-- Hydrate walk runs once, attaches validators/events/calculations, and marks `[data-architect-hydrated="true"]`.
+- Hydrate walk runs once, attaches validators/events/calculations, and marks `[data-artificer-hydrated="true"]`.
 - Playground: Worker starts, executes sandboxed code, console output captured, and network is blocked by default.
 
 ## Performance & Security Budgets
@@ -492,7 +492,7 @@ test.describe("Usability without CSS", () => {
 	})
 
 	test("content structure remains clear", async ({ page }) => {
-		await page.goto("/pagewright/forms")
+		await page.goto("/architect/forms")
 
 		// Headings should create hierarchy
 		const h1 = page.locator("h1").first()
@@ -516,7 +516,7 @@ test.describe("Usability without CSS", () => {
 	})
 
 	test("tables remain readable", async ({ page }) => {
-		await page.goto("/pagewright/reference")
+		await page.goto("/architect/reference")
 
 		const table = page.locator("table").first()
 		const headers = table.locator("th")

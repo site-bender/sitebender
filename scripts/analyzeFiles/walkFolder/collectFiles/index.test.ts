@@ -10,7 +10,7 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 
 	// Create test file structure
 	await Deno.mkdir(join(testDir, "src"), { recursive: true })
-	await Deno.mkdir(join(testDir, "src/pagewright"), { recursive: true })
+	await Deno.mkdir(join(testDir, "src/architect"), { recursive: true })
 	await Deno.mkdir(join(testDir, "src/utils"), { recursive: true })
 	await Deno.mkdir(join(testDir, "node_modules"), { recursive: true })
 	await Deno.mkdir(join(testDir, ".git"), { recursive: true })
@@ -21,8 +21,8 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 	await Deno.writeTextFile(join(testDir, "src/main.ts"), "")
 	await Deno.writeTextFile(join(testDir, "src/app.tsx"), "")
 	await Deno.writeTextFile(join(testDir, "src/style.css"), "")
-	await Deno.writeTextFile(join(testDir, "src/pagewright/Button.tsx"), "")
-	await Deno.writeTextFile(join(testDir, "src/pagewright/Header.tsx"), "")
+	await Deno.writeTextFile(join(testDir, "src/architect/Button.tsx"), "")
+	await Deno.writeTextFile(join(testDir, "src/architect/Header.tsx"), "")
 	await Deno.writeTextFile(join(testDir, "src/utils/helpers.ts"), "")
 	await Deno.writeTextFile(join(testDir, "src/utils/api.js"), "")
 	await Deno.writeTextFile(join(testDir, "node_modules/lib.ts"), "")
@@ -42,8 +42,8 @@ Deno.test("collectFiles", async function testCollectFiles(t) {
 			"/index.ts",
 			"/node_modules/lib.ts",
 			"/src/app.tsx",
-			"/src/pagewright/Button.tsx",
-			"/src/pagewright/Header.tsx",
+			"/src/architect/Button.tsx",
+			"/src/architect/Header.tsx",
 			"/src/main.ts",
 			"/src/utils/helpers.ts",
 		])

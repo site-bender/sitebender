@@ -7,7 +7,7 @@
 
 ---
 
-## libraries/architect/README.md
+## libraries/artificer/README.md
 
 ### 🟡 PROPOSED: Conditional Rendering
 
@@ -56,7 +56,7 @@
 **Questions**:
 - Component API finalization needed
 - Widget selection logic (radio vs select thresholds)
-- Integration with Pagewright form components
+- Integration with Architect form components
 - Schema format (JSON Schema? SHACL? Custom?)
 
 ### 🟡 PROPOSED: Visual Workflow Components
@@ -104,7 +104,7 @@
 </StateMachineWorkflowCanvas>
 ```
 
-**Concern**: Similar to Architect workflow components - this is a visual design concept, not an implemented API.
+**Concern**: Similar to Artificer workflow components - this is a visual design concept, not an implemented API.
 
 **Questions**:
 - Is Custodian providing UI components for state machine design?
@@ -213,7 +213,7 @@ Reorganize READMEs to have:
 ### Option 3: Create "Vision" Documents
 
 Move speculative content to separate files like:
-- `libraries/architect/docs/vision.md`
+- `libraries/artificer/docs/vision.md`
 - `libraries/custodian/docs/visual-designer.md`
 
 **Pros**: Keeps READMEs focused on current API  
@@ -248,7 +248,7 @@ Move speculative content to separate files like:
 
 Files needing `🟡 PROPOSED` callouts:
 
-- `libraries/architect/README.md`
+- `libraries/artificer/README.md`
   - ShowIf/HideIf section
   - Data-driven forms section
   - Conditional workflow section (entire)
@@ -266,7 +266,7 @@ Files needing `🟡 PROPOSED` callouts:
 
 Extract speculative content to:
 
-- `libraries/architect/docs/workflow-vision.md` (workflow visualization ideas)
+- `libraries/artificer/docs/workflow-vision.md` (workflow visualization ideas)
 - `libraries/custodian/docs/visual-state-machines.md` (visual designer concepts)
 - `libraries/operator/docs/workflow-orchestration.md` (declarative workflows)
 - `libraries/envoy/docs/dashboard-vision.md` (visual dashboard UI)

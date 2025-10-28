@@ -70,7 +70,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - `toolsmith/src/array/filter/index.ts:23`
   - `toolsmith/src/array/find/index.ts:26,39`
   - `toolsmith/src/array/map/index.ts:23`
-- [x] Ask architect for proper fix approach (update ValidationError type OR use type assertions)
+- [x] Ask artificer for proper fix approach (update ValidationError type OR use type assertions)
 - [x] Implement approved solution: Updated Serializable type to include ReadonlyArray<Serializable>, added T extends Serializable constraints to array functions
 - [x] Verify: `deno check libraries/toolsmith/src/array/` succeeds
 - [x] Run: `deno task test` (all 188 tests must pass)
@@ -91,7 +91,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 **Rules for this Batch:**
 - Fix import paths to match actual file structure
 - Add parentheses for boolean expression clarity
-- Consult architect for Toolsmith library issues
+- Consult artificer for Toolsmith library issues
 - Test after each change
 - Do NOT proceed to Batch 0.5 until this is complete
 

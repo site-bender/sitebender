@@ -8,10 +8,10 @@ import type { MobileApplicationType } from "./MobileApplication/index.ts"
 import type { VideoGameType } from "./VideoGame/index.ts"
 import type { WebApplicationType } from "./WebApplication/index.ts"
 
-import DataFeedComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/Dataset/DataFeed/index.tsx"
-import CreativeWorkComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
-import ImageObjectComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
-import SoftwareApplicationComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/SoftwareApplication/index.tsx"
+import DataFeedComponent from "../../../../../src/define/Thing/CreativeWork/Dataset/DataFeed/index.tsx"
+import CreativeWorkComponent from "../../../../../src/define/Thing/CreativeWork/index.tsx"
+import ImageObjectComponent from "../../../../../src/define/Thing/CreativeWork/MediaObject/ImageObject/index.tsx"
+import SoftwareApplicationComponent from "../../../../../src/define/Thing/CreativeWork/SoftwareApplication/index.tsx"
 
 export type SoftwareApplicationType =
 	| "SoftwareApplication"

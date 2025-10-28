@@ -44,7 +44,7 @@ function _internalMap<T, U>(
 }
 ```
 
-*Scope*: Internal Toolsmith utilities only - NEVER in pagewright, architect, operator, custodian, or application code
+*Scope*: Internal Toolsmith utilities only - NEVER in architect, artificer, operator, custodian, or application code
 
 ## Four math types with type-specific optimizations
 

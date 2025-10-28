@@ -29,7 +29,7 @@ This document describes the folder structure that Quartermaster generates for St
 
 ### Principles
 
-1. **Modules all the way down** - Everything is a module (Pagewright component)
+1. **Modules all the way down** - Everything is a module (Architect component)
 2. **Routes promote modules** - Modules with `<Route>` become full HTML pages
 3. **No routes = component** - Rendered as section/article/aside based on context
 4. **Decoupled and portable** - Move a folder, everything it needs moves with it
@@ -196,7 +196,7 @@ export default function Sitebender() {
 
 **Key Concepts**:
 
-1. **Every folder is a module** (Pagewright component)
+1. **Every folder is a module** (Architect component)
 2. **Modules with `<Route>` = pages** (get `<html><head><body><main>` wrapper)
 3. **Modules without routes = components** (render as section/article/aside based on context)
 4. **Nested when used by one module** (ContactPage/ContactForm/)
@@ -525,7 +525,7 @@ modules/
 
 **Rationale**:
 
-- **Modules ARE components**: Every module is a Pagewright component
+- **Modules ARE components**: Every module is a Architect component
 - **LCA rule handles sharing**: Shared components live at their lowest common ancestor
 - **No arbitrary distinction**: What makes something a "component" vs a "module"? Nothing.
 - **Semantic organization**: Organize by feature/domain (ContactForm, CheckoutWizard), not by type
@@ -543,7 +543,7 @@ modules/
     └── index.tsx
 ```
 
-**Pagewright provides comprehensive vocabulary**: If you need a button, card, form, etc., use Pagewright's semantic components. No custom generic components folder.
+**Architect provides comprehensive vocabulary**: If you need a button, card, form, etc., use Architect's semantic components. No custom generic components folder.
 
 ---
 
@@ -789,8 +789,8 @@ my-app/
 
 ### Library Documentation
 
-- [Pagewright](../../pagewright/README.md) - Semantic HTML components
-- [Architect](../../architect/README.md) - Reactive calculations and validation
+- [Architect](../../architect/README.md) - Semantic HTML components
+- [Artificer](../../artificer/README.md) - Reactive calculations and validation
 - [Custodian](../../custodian/README.md) - State management (ledger/ configurations)
 - [Operator](../../operator/README.md) - Pub/sub events (events/ configurations)
 - [Agent](../../agent/README.md) - Distributed/P2P (connections/ configurations)
@@ -854,7 +854,7 @@ modules/
 
 - Components/modules = PascalCase (HomePage, ContactForm)
 - All files = `index.ts` or `index.tsx`
-- Don't use library names (no `architect/`, `custodian/`)
+- Don't use library names (no `artificer/`, `custodian/`)
 - Use semantic names (purpose over implementation)
 
 ---

@@ -3,7 +3,7 @@ import type Thing from "../../index.ts"
 import type DeliveryMethod from "../../Intangible/Enumeration/DeliveryMethod/index.ts"
 import type { EventProps } from "../index.ts"
 
-import DeliveryMethodComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
+import DeliveryMethodComponent from "../../../../../src/define/Thing/Intangible/Enumeration/DeliveryMethod/index.tsx"
 
 export type DeliveryEventType = "DeliveryEvent"
 

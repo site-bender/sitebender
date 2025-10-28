@@ -1,22 +1,22 @@
 #!/usr/bin/env -S deno run -A
 /*++
- | Codemod: Replace imports from the architect components barrel within libraries/architect/types/**
- | with concrete default imports from libraries/pagewright/src/define/**.
+ | Codemod: Replace imports from the artificer components barrel within libraries/artificer/types/**
+ | with concrete default imports from libraries/architect/src/define/**.
  |
  | Strategy:
- | - For each architect types file, build a map of symbol -> type path from existing `import type` lines.
- | - For each line importing from any ../../…/pagewright/index.tsx, for each specifier like
- |   `{ X as XComponent }`, find the type path for X, convert …/libraries/architect/types/schema.org/… to
- |   …/libraries/pagewright/src/define/…, and switch to: `import XComponent from "<computed>/index.tsx"`.
+ | - For each artificer types file, build a map of symbol -> type path from existing `import type` lines.
+ | - For each line importing from any ../../…/architect/index.tsx, for each specifier like
+ |   `{ X as XComponent }`, find the type path for X, convert …/libraries/artificer/types/schema.org/… to
+ |   …/libraries/architect/src/define/…, and switch to: `import XComponent from "<computed>/index.tsx"`.
  | - If we can't find a type import for a symbol, try to discover the src/define path via filesystem
- |   lookup under libraries/pagewright/src/define. If still not found or ambiguous, leave the original line and report.
+ |   lookup under libraries/architect/src/define. If still not found or ambiguous, leave the original line and report.
  */
 
 import { TYPES_ROOT } from "./constants/index.ts"
 import processFile from "./processFile/index.ts"
 import walk from "./walk/index.ts"
 
-//++ Main function to process all TypeScript files in architect types directory
+//++ Main function to process all TypeScript files in artificer types directory
 export default async function fixArchitectTypesImports(): Promise<void> {
 	const reports: string[] = []
 	let total = 0

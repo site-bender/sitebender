@@ -168,8 +168,8 @@ Every input to Envoy must:
 - ❌ auditor
 - ❌ quarrier
 - ❌ toolsmith
-- ❌ pagewright
 - ❌ architect
+- ❌ artificer
 - ❌ formulator
 - ❌ agent
 
