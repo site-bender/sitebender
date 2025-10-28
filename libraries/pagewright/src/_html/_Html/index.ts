@@ -1,4 +1,4 @@
-import type { ElementConfig } from "../../types/index.ts"
+import type { VirtualNode } from "../../types/index.ts"
 import type { BaseProps } from "../types/index.ts"
 
 import includes from "@sitebender/toolsmith/array/includes/index.ts"
@@ -35,7 +35,7 @@ type Props =
  + Ensures head comes before body
  + Moves misplaced children to appropriate locations
  */
-export default function _Html(props: Props): ElementConfig {
+export default function _Html(props: Props): VirtualNode {
 	const children = props.children || []
 
 	/*++
@@ -44,16 +44,16 @@ export default function _Html(props: Props): ElementConfig {
 	const headElementsResult = filter(_isHeadElement)(
 		children as ReadonlyArray<unknown>,
 	)
-	const headElements = getOrElse([] as ReadonlyArray<ElementConfig>)(
+	const headElements = getOrElse([] as ReadonlyArray<VirtualNode>)(
 		headElementsResult,
-	) as ReadonlyArray<ElementConfig>
+	) as ReadonlyArray<VirtualNode>
 
 	const bodyElementsResult = filter(_isBodyElement)(
 		children as ReadonlyArray<unknown>,
 	)
-	const bodyElements = getOrElse([] as ReadonlyArray<ElementConfig>)(
+	const bodyElements = getOrElse([] as ReadonlyArray<VirtualNode>)(
 		bodyElementsResult,
-	) as ReadonlyArray<ElementConfig>
+	) as ReadonlyArray<VirtualNode>
 
 	/*++
 	 + Step 2: Get orphaned children (not in HEAD or BODY wrappers)
@@ -61,9 +61,9 @@ export default function _Html(props: Props): ElementConfig {
 	const orphanedChildrenResult = filter(_isOrphanedChild)(
 		children as ReadonlyArray<unknown>,
 	)
-	const orphanedChildren = getOrElse([] as ReadonlyArray<ElementConfig>)(
+	const orphanedChildren = getOrElse([] as ReadonlyArray<VirtualNode>)(
 		orphanedChildrenResult,
-	) as ReadonlyArray<ElementConfig>
+	) as ReadonlyArray<VirtualNode>
 
 	/*++
 	 + Step 3: Separate orphaned children into head vs body content
@@ -71,16 +71,16 @@ export default function _Html(props: Props): ElementConfig {
 	const orphanedHeadElementsResult = filter(_isHeadContentElement)(
 		orphanedChildren,
 	)
-	const orphanedHeadElements = getOrElse([] as ReadonlyArray<ElementConfig>)(
+	const orphanedHeadElements = getOrElse([] as ReadonlyArray<VirtualNode>)(
 		orphanedHeadElementsResult,
-	) as ReadonlyArray<ElementConfig>
+	) as ReadonlyArray<VirtualNode>
 
 	const orphanedBodyElementsResult = filter(_isBodyContentElement)(
 		orphanedChildren,
 	)
-	const orphanedBodyElements = getOrElse([] as ReadonlyArray<ElementConfig>)(
+	const orphanedBodyElements = getOrElse([] as ReadonlyArray<VirtualNode>)(
 		orphanedBodyElementsResult,
-	) as ReadonlyArray<ElementConfig>
+	) as ReadonlyArray<VirtualNode>
 
 	/*++
 	 + Step 4: Create or use existing HEAD
@@ -106,7 +106,7 @@ export default function _Html(props: Props): ElementConfig {
 	/*++
 	 + If there are orphaned body elements, wrap them in MAIN
 	 */
-	const mainElement: ElementConfig | null = isNotEmpty(orphanedBodyElements)
+	const mainElement: VirtualNode | null = isNotEmpty(orphanedBodyElements)
 		? {
 			_tag: "element" as const,
 			tagName: "MAIN",
