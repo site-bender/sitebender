@@ -180,7 +180,7 @@ This codebase has **strict architectural, functional programming, syntax, and fo
 - **type-definition** - Branded types, discriminated unions, smart constructors (includes generator scripts)
 - **error-handling** - Result/Validation monads, error type design (includes generator script)
 - **testing** - Unit tests, property-based testing, test organization (includes generator script)
-- **component** - JSX components, progressive enhancement, data-as-configuration (includes generator script)
+- **component** - Components returning VirtualNode data structures, HTML wrappers vs custom components, Props patterns, testing with predicates (includes generator script)
 
 **CRITICAL:** When implementing ANY function, consult function-implementation skill for:
 - Conjunction selection (To/With/For decision tree)
