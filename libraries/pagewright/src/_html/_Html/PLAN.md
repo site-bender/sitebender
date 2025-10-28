@@ -2,13 +2,13 @@
 
 ## Overview
 
-This document outlines the refactoring of `ElementConfig` to `VirtualNode` and moving core functionality to Toolsmith for reuse across all Sitebender libraries.
+This document outlines the refactoring of `VirtualNode` to `VirtualNode` and moving core functionality to Toolsmith for reuse across all Sitebender libraries.
 
 ## Current Problems
 
-1. **Naming confusion**: `ElementConfig` type contains an `"element"` tag variant, causing ambiguity
+1. **Naming confusion**: `VirtualNode` type contains an `"element"` tag variant, causing ambiguity
 2. **Type safety gaps**: Predicates have type errors - `child: unknown` can't access properties
-3. **Missing Serializable**: ElementConfig doesn't extend Serializable, breaking Toolsmith filter
+3. **Missing Serializable**: VirtualNode doesn't extend Serializable, breaking Toolsmith filter
 4. **Not reusable**: Types/predicates in Pagewright can't be used by Architect, Custodian, etc.
 
 ## Solution: VirtualNode Architecture
@@ -311,8 +311,8 @@ export type Component = ((props: Props) => VirtualNode) | string
 ### 2.2 Update All Imports
 
 **Find and replace across Pagewright:**
-- `ElementConfig` → `VirtualNode`
-- `import type { ElementConfig }` → `import type { VirtualNode }`
+- `VirtualNode` → `VirtualNode`
+- `import type { VirtualNode }` → `import type { VirtualNode }`
 - Update all function signatures
 - Update all type annotations
 - Update all JSDoc comments
@@ -393,7 +393,7 @@ export default function _isHeadElement(
 ### Phase 2: Pagewright (After Toolsmith Complete)
 
 1. ✅ Update `pagewright/src/types/index.ts`
-2. ✅ Find/replace ElementConfig → VirtualNode across codebase
+2. ✅ Find/replace VirtualNode → VirtualNode across codebase
 3. ✅ Fix all predicates in `_html/_Html/` using correct pattern
 4. ✅ Update all imports to use Toolsmith functions
 5. ✅ Run `deno check` - verify ZERO type errors
@@ -518,7 +518,7 @@ pagewright/src/
 │   ├── _isOrphanedChild/index.ts (fix)
 │   ├── _isHeadContentElement/index.ts (fix)
 │   └── _isBodyContentElement/index.ts (fix)
-└── ... (all other files with ElementConfig)
+└── ... (all other files with VirtualNode)
 ```
 
 ---
