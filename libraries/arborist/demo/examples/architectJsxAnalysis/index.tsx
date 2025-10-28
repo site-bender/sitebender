@@ -1,9 +1,9 @@
-//++ Example: How Architect uses Arborist for JSX structure analysis
+//++ Example: How Artificer uses Arborist for JSX structure analysis
 //++ Shows fast parsing for component hierarchy and data flow
 
 import parseFileWithSwc from "../../../src/api/parseFileWithSwc/index.ts"
 
-//++ Sample Architect component with data flow
+//++ Sample Artificer component with data flow
 export default function ProductCard(props: { name: string; price: number }) {
 	return function renderProductCard() {
 		return (
@@ -16,7 +16,7 @@ export default function ProductCard(props: { name: string; price: number }) {
 	}
 }
 
-//++ Architect JSX analysis example
+//++ Artificer JSX analysis example
 export async function analyzeJsxStructure(filePath: string) {
 	const result = await parseFileWithSwc(filePath)
 
@@ -27,7 +27,7 @@ export async function analyzeJsxStructure(filePath: string) {
 		}
 	}
 
-	// In real Architect, this would analyze:
+	// In real Artificer, this would analyze:
 	// - JSX element hierarchy
 	// - Props data flow
 	// - Event handler attachment points

@@ -7,7 +7,7 @@
 		".vscode/**"
 	],
 	"compilerOptions": {
-		// Ensure workspace root types (docs/pagewright) don't leak into agent checks
+		// Ensure workspace root types (docs/architect) don't leak into agent checks
 		"types": []
 	},
 	"tasks": {

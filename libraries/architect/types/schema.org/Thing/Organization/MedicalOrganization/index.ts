@@ -10,7 +10,7 @@ import type { PharmacyType } from "./Pharmacy/index.ts"
 import type { PhysicianType } from "./Physician/index.ts"
 import type { VeterinaryCareType } from "./VeterinaryCare/index.ts"
 
-import { MedicalSpecialty as MedicalSpecialtyComponent } from "../../../../../pagewright/index.tsx"
+import MedicalSpecialtyComponent from "../../../../../src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalSpecialty/index.tsx"
 
 export type MedicalOrganizationType =
 	| "MedicalOrganization"

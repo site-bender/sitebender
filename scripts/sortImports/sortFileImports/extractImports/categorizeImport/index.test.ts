@@ -21,9 +21,9 @@ Deno.test("categorizeImport", async function testCategorizeImport(t) {
 	await t.step(
 		"categorizes project components imports",
 		function testComponents() {
-			assertEquals(categorizeImport("~pagewright/Button"), "components")
-			assertEquals(categorizeImport("~pagewright/forms/Input"), "components")
-			assertEquals(categorizeImport("~pagewright/layout/Header"), "components")
+			assertEquals(categorizeImport("~architect/Button"), "components")
+			assertEquals(categorizeImport("~architect/forms/Input"), "components")
+			assertEquals(categorizeImport("~architect/layout/Header"), "components")
 		},
 	)
 
@@ -83,7 +83,7 @@ Deno.test("categorizeImport", async function testCategorizeImport(t) {
 
 		// Case sensitive
 		assertEquals(categorizeImport("~Types/User"), "external") // Capital T
-		assertEquals(categorizeImport("~pagewright/Button"), "external") // All caps
+		assertEquals(categorizeImport("~architect/Button"), "external") // All caps
 	})
 
 	await t.step(
@@ -97,7 +97,7 @@ Deno.test("categorizeImport", async function testCategorizeImport(t) {
 			// Nested paths still categorize correctly
 			assertEquals(categorizeImport("~types/deep/nested/type"), "types")
 			assertEquals(
-				categorizeImport("~pagewright/very/deep/nested/component"),
+				categorizeImport("~architect/very/deep/nested/component"),
 				"components",
 			)
 		},

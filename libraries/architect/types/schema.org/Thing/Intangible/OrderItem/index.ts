@@ -7,12 +7,12 @@ import type ParcelDelivery from "../ParcelDelivery/index.ts"
 import type Service from "../Service/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-import OrderStatusComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/StatusEnumeration/OrderStatus/index.tsx"
-import OrderItemComponent from "../../../../../../pagewright/src/define/Thing/Intangible/OrderItem/index.tsx"
-import ParcelDeliveryComponent from "../../../../../../pagewright/src/define/Thing/Intangible/ParcelDelivery/index.tsx"
-import ServiceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Service/index.tsx"
-import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import ProductComponent from "../../../../../../pagewright/src/define/Thing/Product/index.tsx"
+import OrderStatusComponent from "../../../../../src/define/Thing/Intangible/Enumeration/StatusEnumeration/OrderStatus/index.tsx"
+import OrderItemComponent from "../../../../../src/define/Thing/Intangible/OrderItem/index.tsx"
+import ParcelDeliveryComponent from "../../../../../src/define/Thing/Intangible/ParcelDelivery/index.tsx"
+import ServiceComponent from "../../../../../src/define/Thing/Intangible/Service/index.tsx"
+import QuantitativeValueComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import ProductComponent from "../../../../../src/define/Thing/Product/index.tsx"
 
 export type OrderItemType = "OrderItem"
 

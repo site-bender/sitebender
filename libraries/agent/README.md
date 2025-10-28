@@ -8,7 +8,7 @@ Agent is the bridge between Sitebender's pure functional world and the decentral
 
 **Everything distributed should be as simple as everything local.**
 
-While [Architect](../architect/README.md) makes calculations and validations declarative through JSX, Agent extends this to the distributed web:
+While [Artificer](../artificer/README.md) makes calculations and validations declarative through JSX, Agent extends this to the distributed web:
 
 - **Distributed state** through CRDT components
 - **P2P networking** through connection components
@@ -406,9 +406,9 @@ Distributed queries across peers:
 </DistributedAggregate>
 ```
 
-### Integration with Architect
+### Integration with Artificer
 
-Agent components seamlessly integrate with Architect's reactive system:
+Agent components seamlessly integrate with Artificer's reactive system:
 
 #### Reactive Calculations
 
@@ -439,7 +439,7 @@ Agent components seamlessly integrate with Architect's reactive system:
 #### Conditional Sync
 
 ```jsx
-// Sync based on Architect conditions
+// Sync based on Artificer conditions
 <ConditionalSync>
 	<When>
 		<And>
@@ -876,7 +876,7 @@ deno add @sitebender/agent
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "@sitebender/architect"
+    "jsxImportSource": "@sitebender/artificer"
   }
 }
 ```
@@ -886,7 +886,7 @@ deno add @sitebender/agent
 ```tsx
 import DistributedCounter from "@sitebender/agent/components/crdt/DistributedCounter/index.ts"
 import SyncWith from "@sitebender/agent/components/sync/SyncWith/index.ts"
-import render from "@sitebender/architect/render/index.ts"
+import render from "@sitebender/artificer/render/index.ts"
 
 function App() {
 	return (
@@ -927,7 +927,7 @@ Smart defaults. It just works. Override only when needed.
 
 Start with local state. Add sync. Add encryption. Add consensus.
 
-## Why Agent + Architect Changes Everything
+## Why Agent + Artificer Changes Everything
 
 Traditional "distributed" apps:
 
@@ -938,7 +938,7 @@ Traditional "distributed" apps:
 - Complex sync logic
 - Corporate controlled
 
-Agent + Architect apps:
+Agent + Artificer apps:
 
 - No servers needed
 - No DevOps required
@@ -957,7 +957,7 @@ This isn't Web3 crypto nonsense. This is the web returning to its roots:
 - **Semantic** like the original web vision
 - **Simple** like HTML should be
 
-When you combine Agent with Architect, you get something unprecedented:
+When you combine Agent with Artificer, you get something unprecedented:
 **Full-stack distributed applications written purely in JSX**.
 
 No backend. No DevOps. No surveillance capitalism.
@@ -1059,10 +1059,10 @@ Multiple architects, developers, and operators can simultaneously design and mod
 <CollaborativeWorkflowEditor>
 	<Participants>
 		<User
-			id="system-architect"
+			id="system-artificer"
 			cursor={{ x: 245, y: 130 }}
 			color="blue"
-			role="architect"
+			role="artificer"
 		/>
 		<User
 			id="lead-developer"
@@ -1086,13 +1086,13 @@ Multiple architects, developers, and operators can simultaneously design and mod
 
 	<SharedCanvas>
 		<WorkflowNodes>
-			<Node id="warden" position={[300, 200]} owner="system-architect" />
+			<Node id="warden" position={[300, 200]} owner="system-artificer" />
 			<Node id="steward" position={[500, 200]} owner="lead-developer" />
 			<Node id="sentinel" position={[400, 100]} owner="security-engineer" />
 		</WorkflowNodes>
 
 		<Connections>
-			<Connection from="warden" to="steward" owner="system-architect" />
+			<Connection from="warden" to="steward" owner="system-artificer" />
 			<Connection from="sentinel" to="warden" owner="security-engineer" />
 		</Connections>
 
@@ -1114,7 +1114,7 @@ Multiple architects, developers, and operators can simultaneously design and mod
 	<ChangeHistory>
 		<Operation
 			type="add-node"
-			user="system-architect"
+			user="system-artificer"
 			timestamp="2024-01-15T10:30:00Z"
 		>
 			<Node type="custodian" position={[300, 400]} />
@@ -1278,7 +1278,7 @@ Git-like version control for workflow configurations with distributed branching:
 
 			<Reviews>
 				<Reviewer role="security-engineer" status="approved" />
-				<Reviewer role="system-architect" status="changes-requested" />
+				<Reviewer role="system-artificer" status="changes-requested" />
 			</Reviews>
 
 			<AutomatedChecks>
@@ -1598,8 +1598,8 @@ See [Signal Protocol Integration](../../docs/architecture/signal-protocol-integr
 
 ## See Also
 
-- [Architect](../architect/README.md) - Reactive rendering and behavior composition
-- [Pagewright](../pagewright/README.md) - Semantic HTML components
+- [Artificer](../artificer/README.md) - Reactive rendering and behavior composition
+- [Architect](../architect/README.md) - Semantic HTML components
 - [Formulator](../formulator/README.md) - Expression parser
 - [Warden](../warden/README.md) - Architectural governance
 - [Signal Protocol Integration](../../docs/architecture/signal-protocol-integration.md) - E2E encryption design

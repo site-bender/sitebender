@@ -193,7 +193,7 @@ Complete ecosystem integration:
 - Operator event sourcing
 - Pathfinder triple store
 - Sentinel authorization
-- Pagewright components
+- Architect components
 - External service adapters
 
 **Key Features**:

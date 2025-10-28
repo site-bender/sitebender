@@ -330,9 +330,9 @@ WHERE {
 
 ## Integration with Studio Libraries
 
-### Architect
+### Artificer
 
-Operator events trigger DOM updates through Architect's reactive pipeline without VDOM overhead.
+Operator events trigger DOM updates through Artificer's reactive pipeline without VDOM overhead.
 
 ### Agent
 
@@ -926,7 +926,7 @@ See the [API documentation](https://sitebender.studio/operator/api) for complete
 ## See Also
 
 - [Agent](../agent/README.md) - Distributed state and P2P networking
-- [Architect](../architect/README.md) - Reactive rendering engine
+- [Artificer](../artificer/README.md) - Reactive rendering engine
 - [Warden](../warden/README.md) - Cryptographic governance
 - [Signal Protocol Integration](../../docs/architecture/signal-protocol-integration.md) - E2E encryption design
 

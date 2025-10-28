@@ -29,22 +29,22 @@ export default function checkLineForViolations(
 
 		// Skip allowed aliases
 		if (
-			startsWith("@sitebender/architect/")(spec) ||
-			startsWith("@sitebender/architect-types/")(spec) ||
+			startsWith("@sitebender/artificer/")(spec) ||
+			startsWith("@sitebender/artificer-types/")(spec) ||
 			startsWith("@sitebender/toolsmith/")(spec)
 		) {
 			return violations
 		}
 
-		// Check architect violations
-		if (!isInsidePackage(file, "libraries/architect")) {
+		// Check artificer violations
+		if (!isInsidePackage(file, "libraries/artificer")) {
 			if (includes(ARCHITECT_SRC)(spec)) {
 				violations.push({
 					file,
 					line: lineNumber,
 					spec,
 					hint:
-						"Use @sitebender/architect/… instead of libraries/architect/src/…",
+						"Use @sitebender/artificer/… instead of libraries/artificer/src/…",
 				})
 			}
 			if (includes(ARCHITECT_TYPES)(spec)) {
@@ -53,7 +53,7 @@ export default function checkLineForViolations(
 					line: lineNumber,
 					spec,
 					hint:
-						"Use @sitebender/architect-types/… instead of libraries/architect/types/…",
+						"Use @sitebender/artificer-types/… instead of libraries/artificer/types/…",
 				})
 			}
 		}

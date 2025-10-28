@@ -1,4 +1,4 @@
 export type {
 	default,
-	MedicalAudienceType,
+	default as MedicalAudienceType,
 } from "../../MedicalAudience/index.ts"

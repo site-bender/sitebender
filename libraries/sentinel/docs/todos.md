@@ -118,7 +118,7 @@ Build authentication and authorization as declarative JSX components that compil
 ### Integration with Testing Infrastructure
 
 - [ ] Work with Agent's IO interception
-- [ ] Coordinate with Architect's TestHarness
+- [ ] Coordinate with Artificer's TestHarness
 - [ ] Integrate with Auditor's verification
 - [ ] Connect to Envoy's observability
 
@@ -153,7 +153,7 @@ Build authentication and authorization as declarative JSX components that compil
 ### With Other Libraries
 
 - [ ] Agent: Distributed auth sync
-- [ ] Architect: Render secure components
+- [ ] Artificer: Render secure components
 - [ ] Auditor: Verify auth policies
 - [ ] Custodian: Session state management
 - [ ] Warden: Enforce security boundaries
