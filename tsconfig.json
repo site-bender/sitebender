@@ -25,7 +25,7 @@
 		"strictNullChecks": true,
 		"strictPropertyInitialization": true,
 		"paths": {
-			"~pagewright/*": ["./src/pagewright/*"],
+			"~architect/*": ["./src/architect/*"],
 			"~constants/*": ["./src/constants/*"],
 			"~layouts/*": ["./src/layouts/*"],
 			"~scripts/*": ["./scripts/*"],
@@ -45,8 +45,8 @@
 			"@sitebender/agent/*": ["./libraries/agent/src/*"],
 			"@sitebender/artificer": ["./libraries/artificer/src"],
 			"@sitebender/artificer/*": ["./libraries/artificer/src/*"],
-			"@sitebender/pagewright": ["./libraries/pagewright/src"],
-			"@sitebender/pagewright/*": ["./libraries/pagewright/src/*"],
+			"@sitebender/architect": ["./libraries/architect/src"],
+			"@sitebender/architect/*": ["./libraries/architect/src/*"],
 			"@sitebender/envoy": ["./libraries/envoy/src"],
 			"@sitebender/envoy/*": ["./libraries/envoy/src/*"],
 			"@sitebender/formulator": ["./libraries/formulator/src"],
@@ -68,7 +68,7 @@
 		},
 		"target": "esnext",
 		"types": [
-			"./libraries/pagewright/types/globals.d.ts",
+			"./libraries/architect/types/globals.d.ts",
 			"./types/globals.d.ts"
 		]
 	},
