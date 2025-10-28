@@ -1,36 +1,26 @@
-import type { ElementConfig } from "../../../types/index.ts"
+import type { ElementNode } from "@sitebender/toolsmith/types/index.ts"
 
-import isPlainObject from "@sitebender/toolsmith/predicates/isPlainObject/index.ts"
-import isNotNullish from "@sitebender/toolsmith/predicates/isNotNullish/index.ts"
+import isElementNode from "@sitebender/toolsmith/predicates/isElementNode/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
-import not from "@sitebender/toolsmith/logic/not/index.ts"
 
 /*++
  + Private predicate that checks if a value is a HEAD element
  + Used to filter children and extract HEAD elements
+ + Uses Toolsmith's isElementNode for safe type narrowing
  */
 export default function _isHeadElement(
 	child: unknown,
-): child is ElementConfig {
-	if (not(isPlainObject(child))) {
+): child is ElementNode {
+	/*++
+	 + Step 1: Must be a valid VirtualNode element first
+	 */
+	if (!isElementNode(child)) {
 		return false
 	}
 
-	if (not(isNotNullish(child))) {
-		return false
-	}
-
-	if (not("_tag" in child)) {
-		return false
-	}
-
-	if (not(isEqual("element")(child._tag))) {
-		return false
-	}
-
-	if (not("tagName" in child)) {
-		return false
-	}
-
+	/*++
+	 + Step 2: Check if tagName is HEAD
+	 + Safe to access tagName because isElementNode narrowed the type
+	 */
 	return isEqual("HEAD")(child.tagName)
 }
