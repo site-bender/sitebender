@@ -1,9 +1,9 @@
-export interface Ok<T> {
+export type Ok<T> = {
 	readonly _tag: "Ok"
 	readonly value: T
 }
 
-export interface Error<E> {
+export type Error<E> = {
 	readonly _tag: "Error"
 	readonly error: E
 }

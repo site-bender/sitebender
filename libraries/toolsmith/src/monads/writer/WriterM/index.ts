@@ -1,4 +1,4 @@
-export interface Monoid<W> {
+export type Monoid<W> = {
 	readonly empty: W
 	readonly concat: (a: W, b: W) => W
 }

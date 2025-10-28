@@ -34,12 +34,12 @@ export type ValidationError = {
 }
 
 //++ Discriminated union type for validation that can accumulate errors
-export interface Success<A> {
+export type Success<A> = {
 	readonly _tag: "Success"
 	readonly value: A
 }
 
-export interface Failure<E> {
+export type Failure<E> = {
 	readonly _tag: "Failure"
 	readonly errors: readonly [E, ...Array<E>]
 }

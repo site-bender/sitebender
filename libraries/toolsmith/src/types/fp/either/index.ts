@@ -1,9 +1,9 @@
-export interface Left<E> {
+export type Left<E> = {
 	readonly _tag: "Left"
 	readonly left: E
 }
 
-export interface Right<A> {
+export type Right<A> = {
 	readonly _tag: "Right"
 	readonly right: A
 }

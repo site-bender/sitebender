@@ -1,9 +1,9 @@
-export interface Just<A> {
+export type Just<A> = {
 	readonly _tag: "Just"
 	readonly value: A
 }
 
-export interface Nothing {
+export type Nothing = {
 	readonly _tag: "Nothing"
 }
 
