@@ -201,7 +201,7 @@ If you encounter issues:
 
 1. **Tests fail**: You broke something. Revert and try again.
 2. **Type errors persist**: Read the error carefully. Check import paths.
-3. **Unsure about fix**: Ask the architect. Don't guess.
+3. **Unsure about fix**: Ask the artificer. Don't guess.
 4. **Can't find operator instances**: Use `search_files` with correct regex.
 5. **Toolsmith function missing**: Check that Toolsmith has the function you need.
 

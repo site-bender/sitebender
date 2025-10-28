@@ -1,7 +1,7 @@
 #!/usr/bin/env -S deno run --allow-read --allow-write
 /*++
  | Rewrite deep import specifiers like "libraries/toolsmith/src/..." to proper relative paths
- | within libraries/pagewright/src subdirectories (.ts and .tsx files)
+ | within libraries/architect/src subdirectories (.ts and .tsx files)
  */
 
 import { walk } from "https://deno.land/std@0.224.0/fs/walk.ts"

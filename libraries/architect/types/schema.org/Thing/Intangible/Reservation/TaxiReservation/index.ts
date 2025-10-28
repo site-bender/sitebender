@@ -5,8 +5,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type QuantitativeValue from "../../StructuredValue/QuantitativeValue/index.ts"
 import type { ReservationProps } from "../index.ts"
 
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import PlaceComponent from "../../../../../../../pagewright/src/define/Thing/Place/index.tsx"
+import QuantitativeValueComponent from "../../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import PlaceComponent from "../../../../../../src/define/Thing/Place/index.tsx"
 
 export type TaxiReservationType = "TaxiReservation"
 

@@ -3,7 +3,7 @@ import type MedicalObservationalStudyDesign from "../../../Intangible/Enumeratio
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalStudyProps } from "../index.ts"
 
-import MedicalObservationalStudyDesignComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalObservationalStudyDesign/index.tsx"
+import MedicalObservationalStudyDesignComponent from "../../../../../../src/define/Thing/Intangible/Enumeration/MedicalEnumeration/MedicalObservationalStudyDesign/index.tsx"
 
 export type MedicalObservationalStudyType = "MedicalObservationalStudy"
 

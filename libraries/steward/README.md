@@ -1,6 +1,6 @@
 # @sitebender/steward (Studio: “Steward”)
 
-Deterministic, non-configurable Studio style and structure enforcer. Steward normalizes code shape and folder layout up-front so downstream tools (Envoy, Auditor, Architect, Warden) operate on a predictable surface. It complements Warden by focusing on mechanical style/shape with safe autofixes; Warden remains the source of truth for architectural governance and cryptographic contracts.
+Deterministic, non-configurable Studio style and structure enforcer. Steward normalizes code shape and folder layout up-front so downstream tools (Envoy, Auditor, Artificer, Warden) operate on a predictable surface. It complements Warden by focusing on mechanical style/shape with safe autofixes; Warden remains the source of truth for architectural governance and cryptographic contracts.
 
 Status: alpha (spec + stubs)
 Runtime: Deno + TypeScript, pure ESM, zero runtime deps (uses Arborist/TS compiler for AST in dev tooling)

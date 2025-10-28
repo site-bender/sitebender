@@ -8,12 +8,12 @@ import type MonetaryAmount from "../StructuredValue/MonetaryAmount/index.ts"
 import type UnitPriceSpecification from "../StructuredValue/PriceSpecification/UnitPriceSpecification/index.ts"
 import type QuantitativeValue from "../StructuredValue/QuantitativeValue/index.ts"
 
-import TierBenefitEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/TierBenefitEnumeration/index.tsx"
-import MemberProgramComponent from "../../../../../../pagewright/src/define/Thing/Intangible/MemberProgram/index.tsx"
-import MonetaryAmountComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
-import UnitPriceSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
-import { CreditCard as CreditCardComponent } from "../../../../../pagewright/index.tsx"
+import TierBenefitEnumerationComponent from "../../../../../src/define/Thing/Intangible/Enumeration/TierBenefitEnumeration/index.tsx"
+import MemberProgramComponent from "../../../../../src/define/Thing/Intangible/MemberProgram/index.tsx"
+import CreditCardComponent from "../../../../../src/define/Thing/Intangible/PaymentMethod/PaymentCard/CreditCard/index.tsx"
+import MonetaryAmountComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import UnitPriceSpecificationComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type MemberProgramTierType = "MemberProgramTier"
 

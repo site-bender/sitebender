@@ -541,7 +541,7 @@ export function createSession(
 // File: ai/agent/encryption/sessionToTriples/index.ts
 
 import type { SignalSession } from "@sitebender/toolsmith/crypto/signal"
-import type { Triple } from "@sitebender/architect/types"
+import type { Triple } from "@sitebender/artificer/types"
 
 export function sessionToTriples(
   session: SignalSession

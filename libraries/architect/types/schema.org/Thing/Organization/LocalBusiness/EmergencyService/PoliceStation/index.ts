@@ -1,4 +1,4 @@
 export type {
 	default,
-	PoliceStationType,
+	default as PoliceStationType,
 } from "../../../../Place/CivicStructure/PoliceStation/index.ts"

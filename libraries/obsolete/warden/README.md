@@ -633,7 +633,7 @@ Govern changes to workflow configurations with approval processes:
 	<ApprovalWorkflows>
 		<ReviewProcess>
 			<TechnicalReview by="senior-engineer" focus="implementation" />
-			<SecurityReview by="security-architect" focus="vulnerabilities" />
+			<SecurityReview by="security-artificer" focus="vulnerabilities" />
 			<ComplianceReview by="compliance-officer" focus="regulations" />
 			<BusinessReview by="product-owner" focus="requirements" />
 		</ReviewProcess>

@@ -74,7 +74,7 @@ z3_formal_verification:
 
   integration_with_auditor:
     translation_layer:
-      input: "IR nodes from Architect"
+      input: "IR nodes from Artificer"
       process: "Convert to Z3 assertions"
       output: "Proof or counterexample"
 
@@ -229,5 +229,5 @@ z3_formal_verification:
   related_docs:
     - "docs/computation-marketplace.md"
     - "libraries/auditor/README.md"
-    - "libraries/architect/README.md"
+    - "libraries/artificer/README.md"
     - "docs/studio-overview.yaml"

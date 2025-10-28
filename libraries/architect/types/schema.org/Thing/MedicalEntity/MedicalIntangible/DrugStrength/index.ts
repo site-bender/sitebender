@@ -5,8 +5,8 @@ import type { MedicalEntityProps } from "../../index.ts"
 import type MaximumDoseSchedule from "../DoseSchedule/MaximumDoseSchedule/index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
 
-import MaximumDoseScheduleComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.tsx"
-import AdministrativeAreaComponent from "../../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/index.tsx"
+import MaximumDoseScheduleComponent from "../../../../../../src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type DrugStrengthType = "DrugStrength"
 

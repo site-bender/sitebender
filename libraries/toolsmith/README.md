@@ -596,8 +596,8 @@ Deno.test("add - currying works", () => {
 
 Toolsmith provides the functional foundation for the entire @sitebender ecosystem:
 
-- **Architect** - Uses branded types for type-safe calculations and validation
-- **Pagewright** - Uses validation functions for form handling
+- **Artificer** - Uses branded types for type-safe calculations and validation
+- **Architect** - Uses validation functions for form handling
 - **Warden** - Uses validation for architectural governance
 - **Auditor** - Uses math functions for test data generation
 - **Linguist** - Uses string functions for text processing

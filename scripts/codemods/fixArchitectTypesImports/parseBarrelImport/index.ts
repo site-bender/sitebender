@@ -36,5 +36,5 @@ export default function parseBarrelImport(line: string): ImportSpec[] | null {
 }
 
 //?? [EXAMPLE]
-// parseBarrelImport('import { Person as PersonComponent } from "../../pagewright/index.tsx"')
+// parseBarrelImport('import { Person as PersonComponent } from "../../architect/index.tsx"')
 // Returns: [{ original: "Person as PersonComponent", symbol: "Person", component: "PersonComponent" }]
