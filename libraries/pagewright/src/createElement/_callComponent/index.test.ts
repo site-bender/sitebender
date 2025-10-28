@@ -2,13 +2,13 @@ import { assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
 import _callComponent from "./index.ts"
-import type { Props, ElementConfig } from "../../types/index.ts"
+import type { Props, VirtualNode } from "../../types/index.ts"
 
 Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"calls component function with props",
 		function callsComponent() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "element",
 					tagName: "DIV",
@@ -29,7 +29,7 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"passes props to component",
 		function passesProps() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "element",
 					tagName: "DIV",
@@ -49,12 +49,12 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"handles component with children",
 		function handlesChildren() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "element",
 					tagName: "DIV",
 					attributes: {},
-					children: (props.children || []) as ReadonlyArray<ElementConfig>,
+					children: (props.children || []) as ReadonlyArray<VirtualNode>,
 				}
 			}
 
@@ -71,7 +71,7 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"is properly curried",
 		function properlyCurried() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "element",
 					tagName: "SPAN",
@@ -93,7 +93,7 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"preserves component return value",
 		function preservesReturn() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "text",
 					content: "Test content",
@@ -112,7 +112,7 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"works with comment config",
 		function worksWithComment() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "comment",
 					content: "Test comment",
@@ -131,7 +131,7 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"handles empty props",
 		function handlesEmptyProps() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "element",
 					tagName: "DIV",
@@ -149,7 +149,7 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	await t.step(
 		"handles complex props",
 		function handlesComplexProps() {
-			function testComponent(props: Props): ElementConfig {
+			function testComponent(props: Props): VirtualNode {
 				return {
 					_tag: "element",
 					tagName: "DIV",
@@ -177,12 +177,12 @@ Deno.test("_callComponent", async function callComponentTests(t) {
 	)
 })
 
-Deno.test("_callComponent - property: always returns ElementConfig", function alwaysReturnsConfig() {
+Deno.test("_callComponent - property: always returns VirtualNode", function alwaysReturnsConfig() {
 	fc.assert(
 		fc.property(
 			fc.dictionary(fc.string(), fc.string()),
 			function propertyReturnsConfig(props) {
-				function testComponent(p: Props): ElementConfig {
+				function testComponent(p: Props): VirtualNode {
 					return {
 						_tag: "element",
 						tagName: "DIV",
@@ -204,7 +204,7 @@ Deno.test("_callComponent - property: preserves all props", function preservesPr
 		fc.property(
 			fc.dictionary(fc.string(), fc.string()),
 			function propertyPreservesProps(props) {
-				function testComponent(p: Props): ElementConfig {
+				function testComponent(p: Props): VirtualNode {
 					return {
 						_tag: "element",
 						tagName: "DIV",

@@ -1,56 +1,36 @@
-import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
-
 /*++
- + Type definitions for Pagewright element configuration
- + All types use readonly for immutability
+ + Re-export VirtualNode types from Toolsmith
+ + VirtualNode is the universal document tree structure used across all Sitebender libraries
+ + Pagewright uses but doesn't define this type
  */
+export type {
+	CommentNode,
+	ElementNode,
+	ErrorNode,
+	TextNode,
+	VirtualNode,
+	VirtualNodeTag,
+} from "@sitebender/toolsmith/types/index.ts"
+export { VIRTUAL_NODE_TAGS } from "@sitebender/toolsmith/types/index.ts"
 
 /*++
- + Element configuration - discriminated union with _tag
- + Can be element, text, comment, or error node
- + Extends Serializable for use with Toolsmith functions
- */
-export type ElementConfig = Serializable &
-	(
-		| {
-				readonly _tag: "element"
-				readonly tagName: string
-				readonly attributes: Readonly<Record<string, string>>
-				readonly children: ReadonlyArray<ElementConfig>
-				readonly namespace?: string
-		  }
-		| {
-				readonly _tag: "text"
-				readonly content: string
-		  }
-		| {
-				readonly _tag: "comment"
-				readonly content: string
-		  }
-		| {
-				readonly _tag: "error"
-				readonly code: string
-				readonly message: string
-				readonly received?: unknown
-				readonly context?: string
-		  }
-	)
-
-/*++
- + Child can be string, number, ElementConfig, array of children, or nullish/boolean (converted to error nodes)
+ + Child type is Pagewright-specific for JSX children
+ + Defines what can appear as JSX children (not all Sitebender libraries use JSX)
+ + Can be string, number, VirtualNode, array of children, or nullish/boolean (converted to error nodes)
  */
 export type Child =
 	| string
 	| number
-	| ElementConfig
+	| import("@sitebender/toolsmith/types/index.ts").VirtualNode
 	| ReadonlyArray<Child>
 	| null
 	| undefined
 	| boolean
 
 /*++
- + Props are attributes plus optional children
+ + Props are Pagewright-specific for JSX components
  + Keys are attribute names, values are attribute values
+ + Optional children array for JSX child elements
  */
 export type Props = Readonly<{
 	children?: ReadonlyArray<Child>
@@ -58,6 +38,9 @@ export type Props = Readonly<{
 }>
 
 /*++
- + Component can be a function that returns ElementConfig or a string (intrinsic HTML element)
+ + Component type for JSX - Pagewright-specific
+ + Can be a function that returns VirtualNode or a string (intrinsic HTML element)
  */
-export type Component = ((props: Props) => ElementConfig) | string
+export type Component =
+	| ((props: Props) => import("@sitebender/toolsmith/types/index.ts").VirtualNode)
+	| string
