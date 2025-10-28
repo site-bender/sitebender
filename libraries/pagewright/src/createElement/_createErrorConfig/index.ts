@@ -1,4 +1,4 @@
-import type { ElementConfig } from "../../../types/index.ts"
+import type { VirtualNode } from "../../../types/index.ts"
 
 /*++
  + Creates an error node configuration
@@ -9,7 +9,7 @@ export default function _createErrorConfig(code: string) {
 	return function _createErrorConfigWithCode(message: string) {
 		return function _createErrorConfigWithCodeAndMessage(
 			received?: unknown,
-		): ElementConfig {
+		): VirtualNode {
 			return {
 				_tag: "error" as const,
 				code,

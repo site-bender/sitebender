@@ -2,7 +2,7 @@ import { assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
 import createElement from "./index.ts"
-import type { Props, ElementConfig } from "../types/index.ts"
+import type { Props, VirtualNode } from "../types/index.ts"
 
 Deno.test("createElement", async function createElementTests(t) {
 	await t.step(
@@ -126,7 +126,7 @@ Deno.test("createElement", async function createElementTests(t) {
 	await t.step(
 		"calls component function",
 		function callsComponent() {
-			function TestComponent(props: Props): ElementConfig {
+			function TestComponent(props: Props): VirtualNode {
 				return createElement("div")({ class: "test-component" })(props.children || [])
 			}
 
@@ -142,7 +142,7 @@ Deno.test("createElement", async function createElementTests(t) {
 	await t.step(
 		"passes props to component function",
 		function passesPropsToComponent() {
-			function TestComponent(props: Props): ElementConfig {
+			function TestComponent(props: Props): VirtualNode {
 				const title = props.title as string
 				return createElement("h1")(null)(title)
 			}
@@ -156,7 +156,7 @@ Deno.test("createElement", async function createElementTests(t) {
 	await t.step(
 		"passes children to component function",
 		function passesChildrenToComponent() {
-			function TestComponent(props: Props): ElementConfig {
+			function TestComponent(props: Props): VirtualNode {
 				return createElement("div")(null)(...(props.children || []))
 			}
 
@@ -237,9 +237,9 @@ Deno.test("createElement", async function createElementTests(t) {
 		function handlesInvalidComponent() {
 			const result = createElement(123 as never)(null)()
 
-			assertEquals(result._tag, "element")
-			assertEquals((result as any).tagName, "SPAN")
-			assertEquals((result as any).attributes["data-error"], "Invalid component type")
+			assertEquals(result._tag, "error")
+			assertEquals((result as any).code, "INVALID_COMPONENT_TYPE")
+			assertEquals((result as any).message.includes("number"), true)
 		},
 	)
 })
@@ -320,7 +320,7 @@ Deno.test("createElement - property: deeply nested elements", function deeplyNes
 					for (let i = 0; i < depth; i++) {
 						assertEquals(current._tag, "element")
 						if (i < depth - 1 && current._tag === "element") {
-							current = current.children[0] as ElementConfig
+							current = current.children[0] as VirtualNode
 						}
 					}
 				}

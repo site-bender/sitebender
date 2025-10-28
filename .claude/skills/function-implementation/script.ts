@@ -183,6 +183,7 @@ Config file format:
 
   export default {
     name: "add",
+    targetFolder: "src/utilities/math",  // Optional: where to create the function
     conjunction: "To",
     parameters: [
       { name: "augend", type: "number" },
