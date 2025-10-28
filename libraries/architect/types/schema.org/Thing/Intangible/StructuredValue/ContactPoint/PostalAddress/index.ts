@@ -5,7 +5,7 @@ import type { IntangibleProps } from "../../../index.ts"
 import type { StructuredValueProps } from "../../index.ts"
 import type { ContactPointProps } from "../index.ts"
 
-import CountryComponent from "../../../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/Country/index.tsx"
+import CountryComponent from "../../../../../../../src/define/Thing/Place/AdministrativeArea/Country/index.tsx"
 
 export type PostalAddressType = "PostalAddress"
 

@@ -1,4 +1,4 @@
 export type {
 	default,
-	DietarySupplementType,
+	default as DietarySupplementType,
 } from "../../../Product/DietarySupplement/index.ts"

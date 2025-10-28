@@ -3,7 +3,7 @@ import type EntertainmentBusiness from "../../../Organization/LocalBusiness/Ente
 import type { ActionProps } from "../../index.ts"
 import type { PlayActionProps } from "../index.ts"
 
-import { EntertainmentBusiness as EntertainmentBusinessComponent } from "../../../../../../pagewright/index.tsx"
+import EntertainmentBusinessComponent from "../../../../../../src/define/Thing/Organization/LocalBusiness/EntertainmentBusiness/index.tsx"
 
 export type PerformActionType = "PerformAction"
 
