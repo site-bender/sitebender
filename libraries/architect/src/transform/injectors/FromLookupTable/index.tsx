@@ -2,11 +2,11 @@ import type {
 	ComplexDatatype,
 	FromLookupTableInjector,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import FromLookupTableConstructor from "../../../../../architect/src/constructors/injectors/FromLookupTable/index.ts"
+import FromLookupTableConstructor from "../../../../../artificer/src/constructors/injectors/FromLookupTable/index.ts"
 
 export type FromLookupTableProps = {
 	tableName: string

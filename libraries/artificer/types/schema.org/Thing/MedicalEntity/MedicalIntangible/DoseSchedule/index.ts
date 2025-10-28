@@ -7,7 +7,7 @@ import type { MaximumDoseScheduleType } from "./MaximumDoseSchedule/index.ts"
 import type { RecommendedDoseScheduleType } from "./RecommendedDoseSchedule/index.ts"
 import type { ReportedDoseScheduleType } from "./ReportedDoseSchedule/index.ts"
 
-import QualitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import QualitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
 
 export type DoseScheduleType =
 	| "DoseSchedule"

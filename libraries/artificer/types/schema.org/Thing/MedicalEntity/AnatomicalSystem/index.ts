@@ -5,10 +5,10 @@ import type { MedicalEntityProps } from "../index.ts"
 import type MedicalCondition from "../MedicalCondition/index.ts"
 import type MedicalTherapy from "../MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.ts"
 
-import AnatomicalStructureComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
-import AnatomicalSystemComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
-import MedicalConditionComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
-import MedicalTherapyComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import AnatomicalSystemComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalSystem/index.tsx"
+import MedicalConditionComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
+import MedicalTherapyComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalProcedure/TherapeuticProcedure/MedicalTherapy/index.tsx"
 
 export type AnatomicalSystemType = "AnatomicalSystem"
 

@@ -11,11 +11,11 @@ import type { ImagingTestType } from "./ImagingTest/index.ts"
 import type { MedicalTestPanelType } from "./MedicalTestPanel/index.ts"
 import type { PathologyTestType } from "./PathologyTest/index.ts"
 
-import MedicalEnumerationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/index.tsx"
-import MedicalConditionComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
-import MedicalSignComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/MedicalSign/index.tsx"
-import MedicalDeviceComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalDevice/index.tsx"
-import { Drug as DrugComponent } from "../../../../../pagewright/index.tsx"
+import MedicalEnumerationComponent from "../../../../../../architect/src/define/Thing/Intangible/Enumeration/MedicalEnumeration/index.tsx"
+import MedicalConditionComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalCondition/index.tsx"
+import MedicalSignComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalCondition/MedicalSignOrSymptom/MedicalSign/index.tsx"
+import MedicalDeviceComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalDevice/index.tsx"
+import { Drug as DrugComponent } from "../../../../../architect/index.tsx"
 
 export type MedicalTestType =
 	| "MedicalTest"

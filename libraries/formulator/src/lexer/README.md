@@ -233,7 +233,7 @@ LexerToken stream → Tokenizer (Generator) → Token stream
 
 ---
 
-## Notes for Architect
+## Notes for Artificer
 
 ### Unicode Comparison Operators
 

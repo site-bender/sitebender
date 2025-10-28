@@ -4,7 +4,7 @@ import type QuantitativeValue from "../../../Intangible/StructuredValue/Quantita
 import type { PlaceProps } from "../../index.ts"
 import type { AccommodationProps } from "../index.ts"
 
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type ApartmentType = "Apartment"
 

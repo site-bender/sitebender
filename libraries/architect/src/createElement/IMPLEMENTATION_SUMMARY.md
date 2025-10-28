@@ -6,7 +6,7 @@
 
 ### 1. Type Definitions
 
-**Location:** `/libraries/pagewright/src/types/`
+**Location:** `/libraries/architect/src/types/`
 
 All types use `readonly` and `ReadonlyArray` for immutability:
 
@@ -29,7 +29,7 @@ All types use `readonly` and `ReadonlyArray` for immutability:
 
 ### 2. Helper Functions
 
-**Location:** `/libraries/pagewright/src/createElement/`
+**Location:** `/libraries/architect/src/createElement/`
 
 All helper functions follow constitutional rules:
 - Default exports with underscore prefix in name
@@ -51,7 +51,7 @@ All helper functions follow constitutional rules:
 
 ### 3. Main createElement Function
 
-**Location:** `/libraries/pagewright/src/createElement/index.ts`
+**Location:** `/libraries/architect/src/createElement/index.ts`
 
 **Signature:**
 ```ts
@@ -181,13 +181,13 @@ function createElement(component: Component) {
 {
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "@sitebender/pagewright"
+    "jsxImportSource": "@sitebender/architect"
   }
 }
 ```
 
 **JSX runtime file:**
-- Location: `/libraries/pagewright/src/jsx-runtime.ts`
+- Location: `/libraries/architect/src/jsx-runtime.ts`
 - Exports: `jsx`, `jsxs`, `Fragment`
 - These call `createElement` internally
 
@@ -197,7 +197,7 @@ function createElement(component: Component) {
 
 **Before (incorrect - doesn't exist yet):**
 ```tsx
-import { createElement } from "@sitebender/pagewright"
+import { createElement } from "@sitebender/architect"
 
 function MyComponent({ title }: { title: string }) {
   return createElement("h1")(null)(title)
@@ -276,7 +276,7 @@ JSX transform automatically converts to `createElement("h1")({ title })()` calls
 ## Files Created
 
 ```
-/libraries/pagewright/src/
+/libraries/architect/src/
   types/
     index.ts                                    # All type exports
   createElement/
@@ -357,4 +357,4 @@ The createElement function is **fully implemented, comprehensively tested, and c
 - 🔲 renderToString/renderToDom need implementation
 - 🔲 CSS/JS dependency tracking needs architecture decision
 
-The architecture is sound, follows all FP rules strictly, and provides a solid, well-tested foundation for the Pagewright library.
+The architecture is sound, follows all FP rules strictly, and provides a solid, well-tested foundation for the Architect library.

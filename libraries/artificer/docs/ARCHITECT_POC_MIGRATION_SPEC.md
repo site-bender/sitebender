@@ -1,8 +1,8 @@
-# Toolsmith Functions Migration for Architect PoC
+# Toolsmith Functions Migration for Artificer PoC
 
 > **Status**: Migration Specification\
 > **Created**: 2025-01-07\
-> **Purpose**: Detailed specification for migrating 13 Toolsmith functions needed for Architect PoC
+> **Purpose**: Detailed specification for migrating 13 Toolsmith functions needed for Artificer PoC
 
 ## Overview
 

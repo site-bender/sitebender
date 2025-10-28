@@ -3,11 +3,11 @@ import type {
 	NumericDatatype,
 	Operand,
 	TemporalDatatype,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import IsMoreThanConstructor from "../../../../../architect/src/constructors/comparators/amount/IsMoreThan/index.ts"
+import IsMoreThanConstructor from "../../../../../artificer/src/constructors/comparators/amount/IsMoreThan/index.ts"
 
 type AmountDatatype = NumericDatatype | TemporalDatatype
 

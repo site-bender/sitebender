@@ -5,8 +5,8 @@ import type MeasurementMethodEnum from "../../../Intangible/Enumeration/Measurem
 import type { MediaObjectProps } from "../../../MediaObject/index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 
-import DefinedTermComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
-import MeasurementMethodEnumComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.tsx"
+import DefinedTermComponent from "../../../../../../../architect/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import MeasurementMethodEnumComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/MeasurementMethodEnum/index.tsx"
 
 export type DataDownloadType = "DataDownload"
 

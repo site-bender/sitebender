@@ -1003,12 +1003,12 @@ Target performance:
    - Minimal reproduction code
    - Error message with full context
    - Proposed solution(s)
-3. Architect approves approach
+3. Artificer approves approach
 4. Fix immediately
 5. Update docs to reflect the fix
 6. Move on
 
-**Speed is the advantage.** No coordination overhead, no approval chains, no waiting. Architect decides, AI implements, done.
+**Speed is the advantage.** No coordination overhead, no approval chains, no waiting. Artificer decides, AI implements, done.
 
 **If the problem reveals a design flaw:**
 

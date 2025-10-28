@@ -9,11 +9,11 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type VideoObject from "../../MediaObject/VideoObject/index.ts"
 import type { CreativeWorkSeriesProps } from "../index.ts"
 
-import VideoObjectComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/MediaObject/VideoObject/index.tsx"
-import OrganizationComponent from "../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PerformingGroupComponent from "../../../../../../../pagewright/src/define/Thing/Organization/PerformingGroup/index.tsx"
-import MusicGroupComponent from "../../../../../../../pagewright/src/define/Thing/Organization/PerformingGroup/MusicGroup/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import VideoObjectComponent from "../../../../../../../architect/src/define/Thing/CreativeWork/MediaObject/VideoObject/index.tsx"
+import OrganizationComponent from "../../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PerformingGroupComponent from "../../../../../../../architect/src/define/Thing/Organization/PerformingGroup/index.tsx"
+import MusicGroupComponent from "../../../../../../../architect/src/define/Thing/Organization/PerformingGroup/MusicGroup/index.tsx"
+import PersonComponent from "../../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type MovieSeriesType = "MovieSeries"
 

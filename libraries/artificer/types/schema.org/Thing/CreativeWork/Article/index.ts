@@ -11,8 +11,8 @@ import type { ScholarlyArticleType } from "./ScholarlyArticle/index.ts"
 import type { SocialMediaPostingType } from "./SocialMediaPosting/index.ts"
 import type { TechArticleType } from "./TechArticle/index.ts"
 
-import CreativeWorkComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
-import SpeakableSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/SpeakableSpecification/index.tsx"
+import CreativeWorkComponent from "../../../../../../architect/src/define/Thing/CreativeWork/index.tsx"
+import SpeakableSpecificationComponent from "../../../../../../architect/src/define/Thing/Intangible/SpeakableSpecification/index.tsx"
 
 export type ArticleType =
 	| "Article"

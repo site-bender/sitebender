@@ -3,7 +3,7 @@ import type HealthAspectEnumeration from "../../../Intangible/Enumeration/Health
 import type { CreativeWorkProps } from "../../index.ts"
 import type { WebContentProps } from "../index.ts"
 
-import HealthAspectEnumerationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/HealthAspectEnumeration/index.tsx"
+import HealthAspectEnumerationComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/HealthAspectEnumeration/index.tsx"
 
 export type HealthTopicContentType = "HealthTopicContent"
 

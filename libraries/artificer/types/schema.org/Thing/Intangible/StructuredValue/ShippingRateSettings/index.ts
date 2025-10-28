@@ -6,10 +6,10 @@ import type { StructuredValueProps } from "../index.ts"
 import type MonetaryAmount from "../MonetaryAmount/index.ts"
 import type DeliveryChargeSpecification from "../PriceSpecification/DeliveryChargeSpecification/index.ts"
 
-import DefinedRegionComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/DefinedRegion/index.tsx"
-import MonetaryAmountComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
-import DeliveryChargeSpecificationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/DeliveryChargeSpecification/index.tsx"
-import ShippingRateSettingsComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/ShippingRateSettings/index.tsx"
+import DefinedRegionComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/DefinedRegion/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import DeliveryChargeSpecificationComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/PriceSpecification/DeliveryChargeSpecification/index.tsx"
+import ShippingRateSettingsComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/ShippingRateSettings/index.tsx"
 
 export type ShippingRateSettingsType = "ShippingRateSettings"
 

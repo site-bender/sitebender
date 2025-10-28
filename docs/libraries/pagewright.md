@@ -1,1 +1,1 @@
-# Pagewright - Semantic HTML Components
+# Architect - Semantic HTML Components

@@ -1,10 +1,10 @@
 import type {
 	IsSameTimeComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-import IsSameTimeConstructor from "../../../../../architect/src/constructors/comparators/time/IsSameTime/index.ts"
+import IsSameTimeConstructor from "../../../../../artificer/src/constructors/comparators/time/IsSameTime/index.ts"
 
 export type Props = {
 	type?: "Time"

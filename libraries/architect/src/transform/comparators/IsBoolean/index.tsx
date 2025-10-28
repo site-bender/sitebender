@@ -1,8 +1,8 @@
-import type { Operand } from "../../../../../architect/types/index.ts"
+import type { Operand } from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import IsBooleanConstructor from "../../../../../architect/src/constructors/comparators/scalar/IsBoolean/index.ts"
+import IsBooleanConstructor from "../../../../../artificer/src/constructors/comparators/scalar/IsBoolean/index.ts"
 
 export type Props = {
 	children?: JSX.Element | JSX.Element[]

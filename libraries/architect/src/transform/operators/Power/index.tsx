@@ -1,11 +1,11 @@
 import type {
 	Operand,
 	PowerOperator,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import PowerConstructor from "../../../../../architect/src/constructors/operators/Power/index.ts"
+import PowerConstructor from "../../../../../artificer/src/constructors/operators/Power/index.ts"
 
 export type Props = {
 	type?: "Number"

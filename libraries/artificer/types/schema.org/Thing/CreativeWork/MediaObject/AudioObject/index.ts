@@ -6,7 +6,7 @@ import type { CreativeWorkProps } from "../../index.ts"
 import type { AudiobookType } from "./Audiobook/index.ts"
 import type { AudioObjectSnapshotType } from "./AudioObjectSnapshot/index.ts"
 
-import { MediaObject as MediaObjectComponent } from "../../../../../../pagewright/index.tsx"
+import { MediaObject as MediaObjectComponent } from "../../../../../../architect/index.tsx"
 
 export type AudioObjectType =
 	| "AudioObject"

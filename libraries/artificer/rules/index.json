@@ -2,15 +2,15 @@
 	"version": "1.0.0",
 	"lastUpdated": "2025-01-12",
 	"author": "The Architect",
-	"scope": "libraries/architect",
-	"description": "Rules specific to the Architect library",
+	"scope": "libraries/artificer",
+	"description": "Rules specific to the Artificer library",
 	"inherits": "/rules/index.json",
 	"commandments": [
 		{
 			"key": "progressive-enhancement",
 			"title": "Thou shalt output HTML that works without client-side JavaScript",
 			"details": [
-				"Architect must evaluate IR to semantic HTML",
+				"Artificer must evaluate IR to semantic HTML",
 				"SSR/SSG output must be fully functional without client JS",
 				"Hydration adds interactivity to already-working HTML",
 				"Form actions must compile to standard HTTP methods"

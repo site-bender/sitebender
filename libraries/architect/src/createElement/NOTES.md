@@ -6,7 +6,7 @@
 
 **Date completed:** 2025-10-28
 
-All `ElementConfig` references replaced with `VirtualNode`. Type now lives in Toolsmith for reuse across all Sitebender libraries (Architect, Custodian, Operator, Pagewright).
+All `ElementConfig` references replaced with `VirtualNode`. Type now lives in Toolsmith for reuse across all Sitebender libraries (Artificer, Custodian, Operator, Architect).
 
 ## Toolsmith Enhancements Used
 
@@ -166,7 +166,7 @@ const result = reduce(_convertAttributeEntry)({})(entries)
 
 ### 1. Type Definitions - ✅ COMPLETE
 
-**Location:** `/libraries/pagewright/src/types/index.ts`
+**Location:** `/libraries/architect/src/types/index.ts`
 
 All types implemented:
 - ✅ `Component` - function or string
@@ -176,7 +176,7 @@ All types implemented:
 
 ### 2. Main createElement Function - ✅ COMPLETE
 
-**File:** `/libraries/pagewright/src/createElement/index.ts`
+**File:** `/libraries/architect/src/createElement/index.ts`
 
 All requirements met:
 - ✅ Properly curried with correct inner function names
@@ -255,7 +255,7 @@ All test categories implemented:
 
 ## Related Documentation
 
-- `/docs/pagewright-discussion.md` - Full architecture discussion
+- `/docs/architect-discussion.md` - Full architecture discussion
 - MCP constitutional_rules - File structure, one function per file
 - MCP syntax_rules - Naming conventions, currying patterns
 - MCP functional_programming_rules - Monads, immutability, composition

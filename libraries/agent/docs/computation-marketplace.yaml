@@ -15,7 +15,7 @@ computation_marketplace:
   marketplace_structure:
     publishing_flow:
       - step: "Create behavior in JSX"
-      - step: "Compile to IR via Architect"
+      - step: "Compile to IR via Artificer"
       - step: "Generate formal proofs via Auditor"
       - step: "Add semantic descriptions (SHACL/OWL2)"
       - step: "Publish to IPFS"
@@ -205,7 +205,7 @@ computation_marketplace:
   implementation_status:
     current: "Concept phase"
     dependencies:
-      - "Architect for IR generation"
+      - "Artificer for IR generation"
       - "Auditor for proof generation"
       - "Agent for P2P distribution"
       - "IPFS for content addressing"
@@ -215,5 +215,5 @@ computation_marketplace:
   related_docs:
     - "docs/z3-formal-verification.md"
     - "libraries/auditor/README.md"
-    - "libraries/architect/README.md"
+    - "libraries/artificer/README.md"
     - "libraries/agent/README.md"

@@ -23,8 +23,8 @@ const DEFAULT_SCAN_DIRS = [
 	"applications/the-workshop",
 	"applications/the-agency",
 	"libraries/agency",
+	"libraries/artificer",
 	"libraries/architect",
-	"libraries/pagewright",
 	"libraries/envoy",
 	"libraries/formulator",
 	"libraries/arborist",
@@ -221,7 +221,7 @@ if (import.meta.main) {
 		name: "coverage-report-ignored",
 		version: "1.0.0",
 		usage:
-			"coverage-report-ignored [--json] [--root <path>] [--folders a,b,c]\n\nExamples:\n  coverage-report-ignored --json\n  coverage-report-ignored --root . --folders libraries/architect,docs",
+			"coverage-report-ignored [--json] [--root <path>] [--folders a,b,c]\n\nExamples:\n  coverage-report-ignored --json\n  coverage-report-ignored --root . --folders libraries/artificer,docs",
 		booleans: ["json"],
 		aliases: { j: "json", d: "dirs", f: "folders", r: "root" },
 		onRun: async ({ flags, options }: CliRunArgs) => {

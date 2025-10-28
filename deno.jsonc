@@ -9,7 +9,7 @@
 		"./applications/the-agency",
 		"./applications/the-workshop",
 		"./libraries/agent",
-		"./libraries/architect",
+		"./libraries/artificer",
 		"./libraries/artificer",
 		"./libraries/envoy",
 		"./libraries/formulator",
@@ -50,15 +50,15 @@
 		"fp:agent": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'plugins/vscode/src/**/*.ts' 'plugins/vscode/src/**/*.tsx'",
 		"fp:docs": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'applications/mission-control/src/**/*.ts' 'applications/mission-control/src/**/*.tsx'",
 		"fp:the-workshop": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'applications/the-workshop/src/**/*.ts' 'applications/the-workshop/src/**/*.tsx'",
-		"fp:architect": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/architect/src/**/*.ts' 'libraries/architect/src/**/*.tsx'",
+		"fp:artificer": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/artificer/src/**/*.ts' 'libraries/artificer/src/**/*.tsx'",
 		"fp:artificer": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/artificer/src/**/*.ts' 'libraries/artificer/src/**/*.tsx'",
 		"fp:toolsmith": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/toolsmith/src/**/*.ts' 'libraries/toolsmith/src/**/*.tsx'",
 		"fp:pedantic": "deno run --allow-read --allow-run scripts/enforceFP/index.ts --pedantic 'libraries/*/src/**/*.ts' 'libraries/*/src/**/*.tsx'",
 
 		// === Testing ===
-		"test": "deno task test:architect && deno task test:artificer && deno task test:formulator && deno task test:toolsmith && deno task test:auditor",
-		"test:architect": "deno test --unstable-temporal --no-check 'libraries/architect/**/*.test.ts'",
-		"test:architect:strict": "deno test --unstable-temporal 'libraries/architect/**/*.test.ts'",
+		"test": "deno task test:artificer && deno task test:artificer && deno task test:formulator && deno task test:toolsmith && deno task test:auditor",
+		"test:artificer": "deno test --unstable-temporal --no-check 'libraries/artificer/**/*.test.ts'",
+		"test:artificer:strict": "deno test --unstable-temporal 'libraries/artificer/**/*.test.ts'",
 		"test:artificer": "deno test --unstable-temporal --no-check 'libraries/artificer/**/*.test.ts'",
 		"test:artificer:strict": "deno test --unstable-temporal 'libraries/artificer/**/*.test.ts'",
 		"test:formulator": "deno test --unstable-temporal --no-check 'libraries/formulator/**/*.test.ts'",
@@ -66,7 +66,7 @@
 		"test:formulator:cov": "deno test --unstable-temporal --no-check 'libraries/formulator/**/*.test.ts' --coverage=libraries/formulator/coverage && deno coverage libraries/formulator/coverage --lcov > libraries/formulator/coverage.lcov",
 		"test:toolsmith": "deno test --unstable-temporal --no-check 'libraries/toolsmith/**/*.test.ts'",
 		"test:docs:strict": "deno task --cwd applications/mission-control test:build",
-		"test:architect:cov": "deno test --unstable-temporal --no-check 'libraries/architect/**/*.test.ts' --coverage=libraries/architect/coverage && deno coverage libraries/architect/coverage --lcov > libraries/architect/coverage.lcov",
+		"test:artificer:cov": "deno test --unstable-temporal --no-check 'libraries/artificer/**/*.test.ts' --coverage=libraries/artificer/coverage && deno coverage libraries/artificer/coverage --lcov > libraries/artificer/coverage.lcov",
 		"test:artificer:cov": "deno test --unstable-temporal --no-check 'libraries/artificer/**/*.test.ts' --coverage=libraries/artificer/coverage && deno coverage libraries/artificer/coverage --lcov > libraries/artificer/coverage.lcov",
 		"test:toolsmith:cov": "deno test --unstable-temporal --no-check 'libraries/toolsmith/**/*.test.ts' --coverage=libraries/toolsmith/coverage && deno coverage libraries/toolsmith/coverage --lcov > libraries/toolsmith/coverage.lcov",
 		"test:toolsmith:strict": "deno test --unstable-temporal 'libraries/toolsmith/**/*.test.ts'",
@@ -87,16 +87,16 @@
 
 		// === Unified Coverage (delegates to per-package tasks) ===
 		"coverage:docs": "deno task --cwd applications/mission-control test:cov",
-		"coverage:architect": "deno task --cwd libraries/architect test:cov",
+		"coverage:artificer": "deno task --cwd libraries/artificer test:cov",
 		"coverage:artificer": "deno task --cwd libraries/artificer test:cov",
 		"coverage:toolsmith": "deno task --cwd libraries/toolsmith test:cov",
-		"coverage": "deno task coverage:docs && deno task coverage:architect && deno task coverage:artificer && deno task coverage:toolsmith",
+		"coverage": "deno task coverage:docs && deno task coverage:artificer && deno task coverage:artificer && deno task coverage:toolsmith",
 		"coverage:report:ignored": "deno run -A scripts/reportIgnored/index.ts",
 
 		// === Type Checking ===
-		"type-check": "deno check --unstable-temporal 'applications/mission-control/src/**/*.ts' 'applications/mission-control/src/**/*.tsx' 'scripts/**/*.ts' 'libraries/architect/src/**/*.ts' 'libraries/architect/src/**/*.tsx' 'libraries/artificer/src/**/*.ts' 'libraries/artificer/src/**/*.tsx'",
+		"type-check": "deno check --unstable-temporal 'applications/mission-control/src/**/*.ts' 'applications/mission-control/src/**/*.tsx' 'scripts/**/*.ts' 'libraries/artificer/src/**/*.ts' 'libraries/artificer/src/**/*.tsx' 'libraries/artificer/src/**/*.ts' 'libraries/artificer/src/**/*.tsx'",
 		"type-check:agent": "deno check --config plugins/vscode/deno.jsonc 'plugins/vscode/scripts/**/*.ts'",
-		"type-check:focused": "deno check --unstable-temporal libraries/architect/src/operations/comparators/compare/index.ts libraries/architect/src/operations/comparators/amount/isLessThan/index.ts libraries/architect/src/operations/comparators/amount/isMoreThan/index.ts libraries/architect/src/operations/comparators/amount/isNoLessThan/index.ts libraries/architect/src/operations/comparators/equality/isEqualTo/index.ts libraries/architect/src/operations/comparators/equality/isUnequalTo/index.ts libraries/architect/src/operations/comparators/length/isLength/index.ts libraries/architect/src/operations/comparators/length/isLongerThan/index.ts libraries/architect/src/operations/comparators/length/isShorterThan/index.ts libraries/architect/src/operations/comparators/length/isNoLongerThan/index.ts libraries/architect/src/operations/comparators/length/isNoShorterThan/index.ts libraries/architect/src/operations/comparators/length/isNotLength/index.ts libraries/architect/src/operations/comparators/length/isSameLength/index.ts",
+		"type-check:focused": "deno check --unstable-temporal libraries/artificer/src/operations/comparators/compare/index.ts libraries/artificer/src/operations/comparators/amount/isLessThan/index.ts libraries/artificer/src/operations/comparators/amount/isMoreThan/index.ts libraries/artificer/src/operations/comparators/amount/isNoLessThan/index.ts libraries/artificer/src/operations/comparators/equality/isEqualTo/index.ts libraries/artificer/src/operations/comparators/equality/isUnequalTo/index.ts libraries/artificer/src/operations/comparators/length/isLength/index.ts libraries/artificer/src/operations/comparators/length/isLongerThan/index.ts libraries/artificer/src/operations/comparators/length/isShorterThan/index.ts libraries/artificer/src/operations/comparators/length/isNoLongerThan/index.ts libraries/artificer/src/operations/comparators/length/isNoShorterThan/index.ts libraries/artificer/src/operations/comparators/length/isNotLength/index.ts libraries/artificer/src/operations/comparators/length/isSameLength/index.ts",
 		"type-check:the-workshop": "deno check --unstable-temporal --config applications/the-workshop/deno.json 'applications/the-workshop/src/**/*.ts'",
 
 		// === Import Management ===
@@ -200,8 +200,8 @@
 		// Repo-local import guardrails to avoid deep brittle paths during refactors
 		"@sitebender/agent": "./libraries/agent/src/",
 		"@sitebender/agent/": "./libraries/agent/src/",
-		"@sitebender/architect": "./libraries/architect/src/",
-		"@sitebender/architect/": "./libraries/architect/src/",
+		"@sitebender/artificer": "./libraries/artificer/src/",
+		"@sitebender/artificer/": "./libraries/artificer/src/",
 		"@sitebender/artificer": "./libraries/artificer/src/",
 		"@sitebender/artificer/": "./libraries/artificer/src/",
 		"@sitebender/envoy": "./libraries/envoy/src/",
@@ -309,7 +309,7 @@
 			"verifyAfterEvery3Edits": true,
 			"preferAliases": [
 				"@sitebender/agent",
-				"@sitebender/architect",
+				"@sitebender/artificer",
 				"@sitebender/artificer",
 				"@sitebender/envy",
 				"@sitebender/formulator",

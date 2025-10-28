@@ -1,5 +1,5 @@
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
-import type { BaseProps } from "@sitebender/pagewright/_html/types/index.ts"
+import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
 
 export type Props =
 	& BaseProps

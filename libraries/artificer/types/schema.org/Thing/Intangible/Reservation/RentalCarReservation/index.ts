@@ -4,7 +4,7 @@ import type Place from "../../../Place/index.ts"
 import type { IntangibleProps } from "../../index.ts"
 import type { ReservationProps } from "../index.ts"
 
-import PlaceComponent from "../../../../../../../pagewright/src/define/Thing/Place/index.tsx"
+import PlaceComponent from "../../../../../../../architect/src/define/Thing/Place/index.tsx"
 
 export type RentalCarReservationType = "RentalCarReservation"
 

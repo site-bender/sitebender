@@ -1,4 +1,4 @@
-import type { DialingCodeOption } from "../../../../../../../types/pagewright/forms/index.ts"
+import type { DialingCodeOption } from "../../../../../../../types/architect/forms/index.ts"
 
 export default function toDialingCodeOption(code: string): DialingCodeOption {
 	return {

@@ -3,8 +3,8 @@ import type Organization from "../../Organization/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type Offer from "../Offer/index.ts"
 
-import OfferComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Offer/index.tsx"
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import OfferComponent from "../../../../../../architect/src/define/Thing/Intangible/Offer/index.tsx"
+import OrganizationComponent from "../../../../../../architect/src/define/Thing/Organization/index.tsx"
 
 export type MediaSubscriptionType = "MediaSubscription"
 

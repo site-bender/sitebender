@@ -110,7 +110,7 @@ export { KEYS } from "./Keys/index.ts"
 import Locked from "../../auth/Locked/index.tsx" // Default import
 import Key from "../../auth/Key/index.tsx" // Default import
 import { KEYS } from "../../auth/Keys/index.ts" // Named - it's a const
-import And from "@sitebender/architect/logical/And/index.tsx"
+import And from "@sitebender/artificer/logical/And/index.tsx"
 
 export default function AdminDashboard() {
 	return (

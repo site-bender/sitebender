@@ -1,11 +1,11 @@
 import type {
 	Operand,
 	RoundOperator,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import RoundConstructor from "../../../../../architect/src/constructors/operators/Round/index.ts"
+import RoundConstructor from "../../../../../artificer/src/constructors/operators/Round/index.ts"
 
 export type Props = {
 	type?: "Number"

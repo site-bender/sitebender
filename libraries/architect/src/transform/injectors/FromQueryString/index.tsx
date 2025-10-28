@@ -2,11 +2,11 @@ import type {
 	Datatype,
 	FromQueryStringInjector,
 	Value,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import FromQueryStringConstructor from "../../../../../architect/src/constructors/injectors/FromQueryString/index.ts"
+import FromQueryStringConstructor from "../../../../../artificer/src/constructors/injectors/FromQueryString/index.ts"
 
 export type FromQueryStringProps = {
 	param: string

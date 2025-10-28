@@ -1,4 +1,4 @@
-import type { IrDocument } from "../../architect/types/ir/index.ts"
+import type { IrDocument } from "../../artificer/types/ir/index.ts"
 
 import compileToArchitectImpl from "./transform/compile/toArchitectIr.ts"
 

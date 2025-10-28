@@ -10,13 +10,13 @@ import type { StructuredValueProps } from "../index.ts"
 import type PropertyValue from "../PropertyValue/index.ts"
 import type { ObservationType } from "./Observation/index.ts"
 
-import DefinedTermComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/DefinedTerm/index.tsx"
-import EnumerationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/index.tsx"
-import MeasurementTypeEnumerationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/index.tsx"
-import QualitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
-import StructuredValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/index.tsx"
-import PropertyValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import DefinedTermComponent from "../../../../../../../architect/src/define/Thing/Intangible/DefinedTerm/index.tsx"
+import EnumerationComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/index.tsx"
+import MeasurementTypeEnumerationComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/MeasurementTypeEnumeration/index.tsx"
+import QualitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/QualitativeValue/index.tsx"
+import StructuredValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/index.tsx"
+import PropertyValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/PropertyValue/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type QuantitativeValueType = "QuantitativeValue" | ObservationType
 

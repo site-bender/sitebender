@@ -6,8 +6,8 @@ import type {
 	IrDocument,
 	Node,
 	OperatorNode,
-} from "../../../../architect/types/ir/index.ts"
-import type { DataType } from "../../../../architect/types/ir/index.ts"
+} from "../../../../artificer/types/ir/index.ts"
+import type { DataType } from "../../../../artificer/types/ir/index.ts"
 
 type MaybeVNode = unknown
 type VNode = { type?: unknown; props?: Record<string, unknown> }
@@ -72,7 +72,7 @@ const isAuthorizedMarker = (x: unknown): x is AuthorizedMarker => {
 	return k === "control:authorized"
 }
 
-// Architect constructor shapes we support
+// Artificer constructor shapes we support
 type ConstructorBase = { tag?: string; type?: string; datatype?: unknown }
 
 const asString = (v: unknown) => (typeof v === "string" ? v : String(v))
@@ -82,7 +82,7 @@ const constDatatype = (
 	? "Boolean"
 	: (typeof v === "number" ? "Float" : "String"))
 
-// Normalize component-facing datatype aliases to Architect DataType
+// Normalize component-facing datatype aliases to Artificer DataType
 const normalizeDatatype = (dt?: unknown): DataType | undefined => {
 	if (dt === undefined) return undefined
 	const s = String(dt)
@@ -367,7 +367,7 @@ function compileOperand(x: unknown): Node {
 		return compileAction(marker)
 	}
 
-	// Architect constructors (injectors/operators)
+	// Artificer constructors (injectors/operators)
 	if (isConstantCtor(x)) {
 		const datatype = normalizeDatatype(x.datatype) ?? constDatatype(x.value)
 		return {
@@ -524,7 +524,7 @@ function compileOperand(x: unknown): Node {
 		} satisfies OperatorNode
 	}
 
-	// Logical constructors (And/Or) from architect wrappers -> comparator nodes
+	// Logical constructors (And/Or) from artificer wrappers -> comparator nodes
 	if (isLogicalCtor(x)) {
 		const tag = x.tag === "And" ? "Is.And" : x.tag === "Or" ? "Is.Or" : x.tag
 		const ops = Array.isArray(x.operands) ? x.operands : []

@@ -1,10 +1,10 @@
-# Architect Vision: Next-Generation Declarative Computation Platform
+# Artificer Vision: Next-Generation Declarative Computation Platform
 
 > **Everything is data. Everything is composable. Everything is reactive.**
 
 ## Core Philosophy
 
-Architect reimagines application development by treating **entire computational logic as data**. Write declarative JSX expressions, compile them to storage-ready formats, and execute them anywhere with full type safety, error handling, and optimization.
+Artificer reimagines application development by treating **entire computational logic as data**. Write declarative JSX expressions, compile them to storage-ready formats, and execute them anywhere with full type safety, error handling, and optimization.
 
 ## The Revolutionary Pipeline
 
@@ -69,7 +69,7 @@ Retrieve data, compose optimized functions, execute with full error handling.
 
 ## Toolsmith Integration: 851+ Mathematical Operations
 
-Instead of duplicating math functions, Architect leverages **Toolsmith's comprehensive lifted monadic library**:
+Instead of duplicating math functions, Artificer leverages **Toolsmith's comprehensive lifted monadic library**:
 
 ### Function Categories Available as JSX Components
 
@@ -400,6 +400,6 @@ All operations return **Result** (short-circuit) or **Validation** (accumulating
 
 ## The Vision Realized
 
-Architect transforms application development from **imperative programming** to **declarative data composition**. Mathematical expressions, business logic, and validation rules become **queryable, modifiable data** that executes with the performance of hand-optimized code.
+Artificer transforms application development from **imperative programming** to **declarative data composition**. Mathematical expressions, business logic, and validation rules become **queryable, modifiable data** that executes with the performance of hand-optimized code.
 
 **This is the future of computational applications** - where logic is as flexible as the data it processes.

@@ -7,9 +7,9 @@ import type { PlaceProps } from "../../../index.ts"
 import type { AccommodationProps } from "../../index.ts"
 import type { RoomProps } from "../index.ts"
 
-import BedDetailsComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/BedDetails/index.tsx"
-import BedTypeComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import BedDetailsComponent from "../../../../../../../../architect/src/define/Thing/Intangible/BedDetails/index.tsx"
+import BedTypeComponent from "../../../../../../../../architect/src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type HotelRoomType = "HotelRoom"
 

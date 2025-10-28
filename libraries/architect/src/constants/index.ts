@@ -1,7 +1,7 @@
 import type {
 	CommunicationChannel,
 	PhoneType,
-} from "../../types/pagewright/forms/index.ts"
+} from "../../types/architect/forms/index.ts"
 
 //++ Human-readable labels for communication channels
 export const CHANNEL_LABELS: Record<CommunicationChannel, string> = {

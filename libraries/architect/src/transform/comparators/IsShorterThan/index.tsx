@@ -1,11 +1,11 @@
 import type {
 	IsShorterThanComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import IsShorterThanConstructor from "../../../../../architect/src/constructors/comparators/length/IsShorterThan/index.ts"
+import IsShorterThanConstructor from "../../../../../artificer/src/constructors/comparators/length/IsShorterThan/index.ts"
 
 export type Props = {
 	type?: "String" | "Array"

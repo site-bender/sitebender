@@ -1,11 +1,11 @@
 import type {
 	NegateOperator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import NegateConstructor from "../../../../../architect/src/constructors/operators/Negate/index.ts"
+import NegateConstructor from "../../../../../artificer/src/constructors/operators/Negate/index.ts"
 
 export type Props = {
 	type?: "Number"

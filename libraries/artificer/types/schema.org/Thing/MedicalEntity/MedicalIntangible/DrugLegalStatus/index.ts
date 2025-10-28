@@ -3,7 +3,7 @@ import type AdministrativeArea from "../../../Place/AdministrativeArea/index.ts"
 import type { MedicalEntityProps } from "../../index.ts"
 import type { MedicalIntangibleProps } from "../index.ts"
 
-import AdministrativeAreaComponent from "../../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/index.tsx"
+import AdministrativeAreaComponent from "../../../../../../../architect/src/define/Thing/Place/AdministrativeArea/index.tsx"
 
 export type DrugLegalStatusType = "DrugLegalStatus"
 

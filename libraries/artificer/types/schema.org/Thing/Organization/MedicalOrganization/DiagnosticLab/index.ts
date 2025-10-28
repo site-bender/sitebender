@@ -3,7 +3,7 @@ import type MedicalTest from "../../../MedicalEntity/MedicalTest/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { MedicalOrganizationProps } from "../index.ts"
 
-import MedicalTestComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalTest/index.tsx"
+import MedicalTestComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/MedicalTest/index.tsx"
 
 export type DiagnosticLabType = "DiagnosticLab"
 

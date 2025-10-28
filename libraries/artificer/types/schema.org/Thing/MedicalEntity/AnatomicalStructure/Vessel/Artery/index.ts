@@ -4,7 +4,7 @@ import type AnatomicalStructure from "../../index.ts"
 import type { AnatomicalStructureProps } from "../../index.ts"
 import type { VesselProps } from "../index.ts"
 
-import AnatomicalStructureComponent from "../../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
 
 export type ArteryType = "Artery"
 

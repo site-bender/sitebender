@@ -1,12 +1,12 @@
-# Toolsmith-Architect Integration Design
+# Toolsmith-Artificer Integration Design
 
 **Status**: Design Document
 **Created**: 2025-10-06
-**Purpose**: Define how Toolsmith's branded types and monadic functions integrate with Architect's behavior composition system
+**Purpose**: Define how Toolsmith's branded types and monadic functions integrate with Artificer's behavior composition system
 
 ## Overview
 
-This document specifies how Architect's JSX-based behavior composition system will use Toolsmith's type-safe, monadic arithmetic and logical operations. The integration must support:
+This document specifies how Artificer's JSX-based behavior composition system will use Toolsmith's type-safe, monadic arithmetic and logical operations. The integration must support:
 
 1. **Curried functions** that return thunks/IO for lazy evaluation
 2. **Branded types** for compile-time type safety
@@ -420,4 +420,4 @@ element.addEventListener("input", () => {
 - [ ] Update IR serialization to include type information
 - [ ] Add tests for all execution contexts
 - [ ] Document error handling patterns
-- [ ] Create migration guide for existing Architect code
+- [ ] Create migration guide for existing Artificer code

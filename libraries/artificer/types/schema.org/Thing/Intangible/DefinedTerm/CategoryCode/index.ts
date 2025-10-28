@@ -5,7 +5,7 @@ import type { IntangibleProps } from "../../index.ts"
 import type { DefinedTermProps } from "../index.ts"
 import type { MedicalCodeType } from "./MedicalCode/index.ts"
 
-import CategoryCodeSetComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/DefinedTermSet/CategoryCodeSet/index.tsx"
+import CategoryCodeSetComponent from "../../../../../../../architect/src/define/Thing/CreativeWork/DefinedTermSet/CategoryCodeSet/index.tsx"
 
 export type CategoryCodeType = "CategoryCode" | MedicalCodeType
 

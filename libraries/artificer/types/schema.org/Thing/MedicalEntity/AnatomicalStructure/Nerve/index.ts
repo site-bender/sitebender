@@ -6,10 +6,10 @@ import type AnatomicalStructure from "../index.ts"
 import type { AnatomicalStructureProps } from "../index.ts"
 import type Muscle from "../Muscle/index.ts"
 
-import BrainStructureComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/BrainStructure/index.tsx"
-import AnatomicalStructureComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
-import MuscleComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/AnatomicalStructure/Muscle/index.tsx"
-import SuperficialAnatomyComponent from "../../../../../../../pagewright/src/define/Thing/MedicalEntity/SuperficialAnatomy/index.tsx"
+import BrainStructureComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/BrainStructure/index.tsx"
+import AnatomicalStructureComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/index.tsx"
+import MuscleComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/AnatomicalStructure/Muscle/index.tsx"
+import SuperficialAnatomyComponent from "../../../../../../../architect/src/define/Thing/MedicalEntity/SuperficialAnatomy/index.tsx"
 
 export type NerveType = "Nerve"
 

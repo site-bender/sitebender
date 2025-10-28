@@ -4,7 +4,7 @@ import type { AddActionType } from "./AddAction/index.ts"
 import type { DeleteActionType } from "./DeleteAction/index.ts"
 import type { ReplaceActionType } from "./ReplaceAction/index.ts"
 
-import ThingComponent from "../../../../../../pagewright/src/define/Thing/index.tsx"
+import ThingComponent from "../../../../../../architect/src/define/Thing/index.tsx"
 
 export type UpdateActionType =
 	| "UpdateAction"

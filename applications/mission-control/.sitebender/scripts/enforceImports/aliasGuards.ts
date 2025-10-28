@@ -4,13 +4,13 @@
  * Policy:
  * - Outside of a package, do NOT import its internal paths directly.
  *   Use the workspace aliases instead:
- *   - libraries/architect/src/**         -> @sitebender/architect/**
- *   - libraries/architect/types/**       -> @sitebender/architect-types/**
+ *   - libraries/artificer/src/**         -> @sitebender/artificer/**
+ *   - libraries/artificer/types/**       -> @sitebender/artificer-types/**
  *   - libraries/toolsmith/src/**        -> @sitebender/toolsmith/**
  * - Within a package folder, relative imports are allowed.
  *
  * Scope (default):
- *   - libraries/pagewright/src/**
+ *   - libraries/architect/src/**
  *   - mission-control/src/**
  *   - scripts/**
  *
@@ -39,12 +39,12 @@ type Violation = {
 
 const isInside = (file: string, pkgDir: string) => file.includes(`/${pkgDir}/`)
 
-const ARCHITECT_SRC = "libraries/architect/src/"
-const ARCHITECT_TYPES = "libraries/architect/types/"
+const ARCHITECT_SRC = "libraries/artificer/src/"
+const ARCHITECT_TYPES = "libraries/artificer/types/"
 const TOOLSMITH_SRC = "libraries/toolsmith/src/"
 
 const DEFAULT_SCOPES = [
-	"libraries/pagewright/src",
+	"libraries/architect/src",
 	"mission-control/src",
 	"scripts",
 ]
@@ -66,19 +66,19 @@ for (const root of roots) {
 					const spec = m[2]
 					// Skip alias imports (desired)
 					if (
-						spec.startsWith("@sitebender/architect/") ||
-						spec.startsWith("@sitebender/architect-types/") ||
-						spec.startsWith("@sitebender/architect/") ||
-						spec.startsWith("@sitebender/architect-types/") ||
+						spec.startsWith("@sitebender/artificer/") ||
+						spec.startsWith("@sitebender/artificer-types/") ||
+						spec.startsWith("@sitebender/artificer/") ||
+						spec.startsWith("@sitebender/artificer-types/") ||
 						spec.startsWith("@sitebender/toolsmith/")
 					) {
 						continue
 					}
 
-					// If this file is NOT inside architect/, disallow deep architect paths
+					// If this file is NOT inside artificer/, disallow deep artificer paths
 					if (
-						!isInside(file, "libraries/architect") &&
-						!isInside(file, "libraries/architect")
+						!isInside(file, "libraries/artificer") &&
+						!isInside(file, "libraries/artificer")
 					) {
 						if (spec.includes(ARCHITECT_SRC)) {
 							violations.push({
@@ -86,7 +86,7 @@ for (const root of roots) {
 								line: idx + 1,
 								spec,
 								hint:
-									"Use @sitebender/architect/… instead of libraries/architect/src/…",
+									"Use @sitebender/artificer/… instead of libraries/artificer/src/…",
 							})
 						}
 						if (spec.includes(ARCHITECT_TYPES)) {
@@ -95,7 +95,7 @@ for (const root of roots) {
 								line: idx + 1,
 								spec,
 								hint:
-									"Use @sitebender/architect-types/… instead of libraries/architect/types/…",
+									"Use @sitebender/artificer-types/… instead of libraries/artificer/types/…",
 							})
 						}
 
@@ -105,7 +105,7 @@ for (const root of roots) {
 								line: idx + 1,
 								spec,
 								hint:
-									"Use @sitebender/architect/… instead of libraries/architect/src/…",
+									"Use @sitebender/artificer/… instead of libraries/artificer/src/…",
 							})
 						}
 						if (spec.includes(ARCHITECT_TYPES)) {
@@ -114,7 +114,7 @@ for (const root of roots) {
 								line: idx + 1,
 								spec,
 								hint:
-									"Use @sitebender/architect-types/… instead of libraries/architect/types/…",
+									"Use @sitebender/artificer-types/… instead of libraries/artificer/types/…",
 							})
 						}
 					}

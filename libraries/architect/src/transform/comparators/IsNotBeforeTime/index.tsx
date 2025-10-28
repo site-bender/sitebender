@@ -1,10 +1,10 @@
 import type {
 	IsNotBeforeTimeComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
-import IsNotBeforeTimeConstructor from "../../../../../architect/src/constructors/comparators/time/IsNotBeforeTime/index.ts"
+import IsNotBeforeTimeConstructor from "../../../../../artificer/src/constructors/comparators/time/IsNotBeforeTime/index.ts"
 
 export type Props = {
 	type?: "Time"

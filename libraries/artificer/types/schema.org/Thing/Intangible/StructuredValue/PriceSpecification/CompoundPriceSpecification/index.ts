@@ -6,8 +6,8 @@ import type { StructuredValueProps } from "../../index.ts"
 import type { PriceSpecificationProps } from "../index.ts"
 import type UnitPriceSpecification from "../UnitPriceSpecification/index.ts"
 
-import PriceTypeEnumerationComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/PriceTypeEnumeration/index.tsx"
-import UnitPriceSpecificationComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.tsx"
+import PriceTypeEnumerationComponent from "../../../../../../../../architect/src/define/Thing/Intangible/Enumeration/PriceTypeEnumeration/index.tsx"
+import UnitPriceSpecificationComponent from "../../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/PriceSpecification/UnitPriceSpecification/index.tsx"
 
 export type CompoundPriceSpecificationType = "CompoundPriceSpecification"
 

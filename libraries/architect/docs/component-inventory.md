@@ -1,6 +1,6 @@
-# Pagewright Component Inventory
+# Architect Component Inventory
 
-This document provides a complete inventory of all Pagewright components, organized by category and purpose.
+This document provides a complete inventory of all Architect components, organized by category and purpose.
 
 ## Document Structure Components
 

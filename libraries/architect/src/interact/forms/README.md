@@ -37,7 +37,7 @@ Local checks
 
 - Lint guard (no helper imports/calls): `deno task lint:no-react-junk`
 - Type checks (workspace): `deno task type-check`
-- Pagewright tests: `deno task test:components:strict`
+- Architect tests: `deno task test:components:strict`
 
 Recommended housekeeping
 

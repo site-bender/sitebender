@@ -2,11 +2,11 @@ import type {
 	DivideOperator,
 	NumericDatatype,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import DivideConstructor from "../../../../../architect/src/constructors/operators/Divide/index.ts"
+import DivideConstructor from "../../../../../artificer/src/constructors/operators/Divide/index.ts"
 
 export type Props = {
 	type?: NumericDatatype

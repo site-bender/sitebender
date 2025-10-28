@@ -1,11 +1,11 @@
 import type {
 	DoesNotMatchComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import DoesNotMatchConstructor from "../../../../../architect/src/constructors/comparators/matching/DoesNotMatch/index.ts"
+import DoesNotMatchConstructor from "../../../../../artificer/src/constructors/comparators/matching/DoesNotMatch/index.ts"
 
 export type Props = {
 	flags?: string

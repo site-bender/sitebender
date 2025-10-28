@@ -3,7 +3,7 @@ import type Thing from "../../index.ts"
 import type BlogPosting from "../Article/SocialMediaPosting/BlogPosting/index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import BlogPostingComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.tsx"
+import BlogPostingComponent from "../../../../../../architect/src/define/Thing/CreativeWork/Article/SocialMediaPosting/BlogPosting/index.tsx"
 
 export type BlogType = "Blog"
 

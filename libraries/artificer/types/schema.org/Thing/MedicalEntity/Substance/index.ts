@@ -5,7 +5,7 @@ import type MaximumDoseSchedule from "../MedicalIntangible/DoseSchedule/MaximumD
 import type { DietarySupplementType } from "./DietarySupplement/index.ts"
 import type { DrugType } from "./Drug/index.ts"
 
-import MaximumDoseScheduleComponent from "../../../../../../pagewright/src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.tsx"
+import MaximumDoseScheduleComponent from "../../../../../../architect/src/define/Thing/MedicalEntity/MedicalIntangible/DoseSchedule/MaximumDoseSchedule/index.tsx"
 
 export type SubstanceType = "Substance" | DietarySupplementType | DrugType
 

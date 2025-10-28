@@ -2,8 +2,8 @@
 	"version": "1.0.0",
 	"lastUpdated": "2025-01-12",
 	"author": "The Architect",
-	"scope": "libraries/pagewright",
-	"description": "Rules specific to the Pagewright library",
+	"scope": "libraries/architect",
+	"description": "Rules specific to the Architect library",
 	"inherits": "/rules/index.json",
 	"commandments": [
 		{

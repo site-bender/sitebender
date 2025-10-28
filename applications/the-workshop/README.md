@@ -120,12 +120,12 @@ Priority levels: [P0 = critical], [P1 = high], [P2 = nice-to-have]
   - Remove any direct DOM/global access in the executed code; postMessage for IO.
 
 - [P0] Align AST to IR
-  - Add `v`, `id`, `kind`, and optional `meta` fields so the visualizer mirrors architect IR.
+  - Add `v`, `id`, `kind`, and optional `meta` fields so the visualizer mirrors artificer IR.
   - Validate AST with JSON Schema before rendering; show errors inline.
 
-- [P1] Architect preview panes
-  - Add tabs: IR JSON, SSR HTML (using architect SSR renderer), and Hydrate simulation (mocked env).
-  - Provide presets that use real architect constructors (Add, Constant, When.*).
+- [P1] Artificer preview panes
+  - Add tabs: IR JSON, SSR HTML (using artificer SSR renderer), and Hydrate simulation (mocked env).
+  - Provide presets that use real artificer constructors (Add, Constant, When.*).
 
 - [P1] Deterministic IDs
   - Use toolsmith `generateShortId()` or a deterministic seed for reproducible snapshots.

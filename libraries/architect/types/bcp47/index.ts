@@ -1,5 +1,5 @@
 // BCP-47 Language Codes Union Type
-// Based on src/pagewright/metadata/BCP-47.md
+// Based on src/architect/metadata/BCP-47.md
 
 // Base language codes (without region/script)
 export type BaseLanguageCode =

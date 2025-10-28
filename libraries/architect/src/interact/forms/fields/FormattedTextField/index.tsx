@@ -1,4 +1,4 @@
-import type { CountryCode } from "../../../../../types/pagewright/formats/index.ts"
+import type { CountryCode } from "../../../../../types/architect/formats/index.ts"
 
 // ...existing code...
 import generateShortId from "../../../../helpers/generateShortId/index.ts"

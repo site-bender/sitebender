@@ -2,11 +2,11 @@ import type {
 	ComplexDatatype,
 	FromApiInjector,
 	Value,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import FromApiConstructor from "../../../../../architect/src/constructors/injectors/FromApi/index.ts"
+import FromApiConstructor from "../../../../../artificer/src/constructors/injectors/FromApi/index.ts"
 
 export type FromApiProps = {
 	endpoint: string

@@ -1,8 +1,8 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://sitebender.dev/schemas/architect/ir/v1.json",
-	"title": "@sitebender/architect IR Schema v1",
-	"description": "JSON Schema for @sitebender/architect Intermediate Representation (IR) nodes",
+	"$id": "https://sitebender.dev/schemas/artificer/ir/v1.json",
+	"title": "@sitebender/artificer IR Schema v1",
+	"description": "JSON Schema for @sitebender/artificer Intermediate Representation (IR) nodes",
 	"type": "object",
 	"definitions": {
 		"version": {

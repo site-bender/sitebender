@@ -5,8 +5,8 @@ import type { ActionProps } from "../../../index.ts"
 import type { AssessActionProps } from "../../index.ts"
 import type { ReactActionProps } from "../index.ts"
 
-import OrganizationComponent from "../../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import OrganizationComponent from "../../../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type EndorseActionType = "EndorseAction"
 

@@ -1,6 +1,6 @@
 import type { Value } from "@sitebender/toolsmith/types/index.ts"
 
-//++ Error code types for Architect operations
+//++ Error code types for Artificer operations
 export type ErrorCode =
 	| "OPERATION_FAILED"
 	| "TYPE_MISMATCH"
@@ -43,7 +43,7 @@ export type Datatype =
 	| TemporalDatatype
 	| ComplexDatatype
 
-//++ Rich error type for Architect operations with full context
+//++ Rich error type for Artificer operations with full context
 export interface ArchitectError<
 	TOp extends string = string,
 	TArgs extends ReadonlyArray<Value> = ReadonlyArray<Value>,

@@ -19,12 +19,12 @@ import type { HouseType } from "./House/index.ts"
 import type { RoomType } from "./Room/index.ts"
 import type { SuiteType } from "./Suite/index.ts"
 
-import BedDetailsComponent from "../../../../../../pagewright/src/define/Thing/Intangible/BedDetails/index.tsx"
-import BedTypeComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
-import FloorPlanComponent from "../../../../../../pagewright/src/define/Thing/Intangible/FloorPlan/index.tsx"
-import DurationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import LocationFeatureSpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
-import QuantitativeValueComponent from "../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import BedDetailsComponent from "../../../../../../architect/src/define/Thing/Intangible/BedDetails/index.tsx"
+import BedTypeComponent from "../../../../../../architect/src/define/Thing/Intangible/Enumeration/QualitativeValue/BedType/index.tsx"
+import FloorPlanComponent from "../../../../../../architect/src/define/Thing/Intangible/FloorPlan/index.tsx"
+import DurationComponent from "../../../../../../architect/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import LocationFeatureSpecificationComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/PropertyValue/LocationFeatureSpecification/index.tsx"
+import QuantitativeValueComponent from "../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type AccommodationType =
 	| "Accommodation"

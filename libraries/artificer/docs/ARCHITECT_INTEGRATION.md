@@ -1,12 +1,12 @@
-# Architect Integration Context
+# Artificer Integration Context
 
-**Purpose**: Context for understanding how Toolsmith's branded types and functions integrate with Architect's behavior composition system
+**Purpose**: Context for understanding how Toolsmith's branded types and functions integrate with Artificer's behavior composition system
 **Created**: 2025-10-06
 **Status**: Discussion Reference Document
 
-## Architect Overview
+## Artificer Overview
 
-Architect is a library that treats the entire application—including all JavaScript functionality—as data. It enables writing declarative JSX that compiles to an Internal Representation (IR), which can be stored in databases or triple stores and later retrieved to generate both HTML and executable JavaScript behaviors.
+Artificer is a library that treats the entire application—including all JavaScript functionality—as data. It enables writing declarative JSX that compiles to an Internal Representation (IR), which can be stored in databases or triple stores and later retrieved to generate both HTML and executable JavaScript behaviors.
 
 ## The Core Pipeline
 
@@ -21,11 +21,11 @@ JSX → IR → JSON/YAML/Turtle → Storage → Retrieval → HTML + Composed Fu
 5. **Retrieve** - Fetch IR from storage
 6. **Dual Rendering**:
    - **Codewright**: Generates vanilla HTML DOM
-   - **Architect**: Generates composed JavaScript functions from behavior trees
+   - **Artificer**: Generates composed JavaScript functions from behavior trees
 
 ## Behavior Trees as Data
 
-Architect's JSX doesn't render UI—it defines **behavior composition trees** that compile to executable functions.
+Artificer's JSX doesn't render UI—it defines **behavior composition trees** that compile to executable functions.
 
 ### Tree Structure Rules
 
@@ -177,7 +177,7 @@ Which produces a function that when called:
 
 ## Function Attachment to DOM
 
-After rendering, Architect attaches composed functions as properties on DOM elements:
+After rendering, Artificer attaches composed functions as properties on DOM elements:
 
 ```javascript
 // Properties attached to elements:
@@ -210,7 +210,7 @@ Progressive enhancement scripts can then use these attached functions to add int
 
 ## Relationship to Toolsmith
 
-Architect's operators and comparators will use Toolsmith's:
+Artificer's operators and comparators will use Toolsmith's:
 
 - **Branded types** for type-safe calculations
 - **Monadic functions** for error handling

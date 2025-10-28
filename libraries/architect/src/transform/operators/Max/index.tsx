@@ -4,11 +4,11 @@ import type {
 	Operand,
 	StringDatatype,
 	TemporalDatatype,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import MaxConstructor from "../../../../../architect/src/constructors/operators/Max/index.ts"
+import MaxConstructor from "../../../../../artificer/src/constructors/operators/Max/index.ts"
 
 export type Props = {
 	type?: NumericDatatype | StringDatatype | TemporalDatatype

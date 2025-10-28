@@ -3,7 +3,7 @@ import type HyperTocEntry from "../../CreativeWork/HyperTocEntry/index.ts"
 import type Thing from "../../index.ts"
 import type { ActionProps } from "../index.ts"
 
-import HyperTocEntryComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/HyperTocEntry/index.tsx"
+import HyperTocEntryComponent from "../../../../../../architect/src/define/Thing/CreativeWork/HyperTocEntry/index.tsx"
 
 export type SeekToActionType = "SeekToAction"
 

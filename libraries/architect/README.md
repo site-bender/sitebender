@@ -1,6 +1,6 @@
-# Pagewright
+# Architect
 
-Pagewright is a semantic authoring language that compiles to HTML. When you write Pagewright JSX, you describe what you're building—an essay, a recipe, a dialogue—not which HTML elements to use. The compiler determines the correct HTML structure based on context.
+Architect is a semantic authoring language that compiles to HTML. When you write Architect JSX, you describe what you're building—an essay, a recipe, a dialogue—not which HTML elements to use. The compiler determines the correct HTML structure based on context.
 
 This approach inverts the usual relationship between authoring and output. Instead of thinking "I need a div with a class" you think "I'm writing an essay with sections." The system handles the translation to HTML automatically.
 
@@ -8,13 +8,13 @@ This approach inverts the usual relationship between authoring and output. Inste
 
 Most web frameworks make you think in HTML elements. You compose divs and spans and sections, manually applying classes and ARIA attributes, carefully structuring your markup to satisfy both browsers and assistive technologies.
 
-Pagewright takes a different approach. You write in terms of semantic meaning — `<Essay>`, `<Recipe>`, `<Dialogue>` — and the compiler generates appropriate HTML. The same `<Heading>` component becomes `<h1>` in one context and `<h2>` in another, depending on nesting depth. `<Line>` in a `<Poem>` generates different markup than `<Line>` in an `<Address>`.
+Architect takes a different approach. You write in terms of semantic meaning — `<Essay>`, `<Recipe>`, `<Dialogue>` — and the compiler generates appropriate HTML. The same `<Heading>` component becomes `<h1>` in one context and `<h2>` in another, depending on nesting depth. `<Line>` in a `<Poem>` generates different markup than `<Line>` in an `<Address>`.
 
 This is context-aware compilation. The compiler analyzes your component tree and determines correct HTML structure automatically.
 
 ## The Three Enhancement Layers
 
-Pagewright follows progressive enhancement as a design principle, not just a pattern. Three distinct layers compose the experience:
+Architect follows progressive enhancement as a design principle, not just a pattern. Three distinct layers compose the experience:
 
 **Layer 1: Semantic HTML.** Everything works without JavaScript. Forms submit. Links navigate. Tables display data. This layer targets maximum compatibility — Lynx, IE11, screen readers, reading modes, anything that understands HTML.
 
@@ -22,11 +22,11 @@ Pagewright follows progressive enhancement as a design principle, not just a pat
 
 **Layer 3: JavaScript Enhancement.** Optional interactivity, never required for core functionality. Form validation, smooth scrolling, AJAX submissions—all opt-in through `data-enhance` attributes. Without JavaScript, the HTML still works.
 
-This layering makes a strong claim: every Pagewright component must function without JavaScript. Not "works but poorly"—actually functions as intended. Enhancement improves the experience but never enables it.
+This layering makes a strong claim: every Architect component must function without JavaScript. Not "works but poorly"—actually functions as intended. Enhancement improves the experience but never enables it.
 
 ## Standards Enforcement Through Types
 
-Pagewright provides typed wrappers for HTML, SVG, MathML, MusicXML, RSS/Atom, and SSML elements that enforce W3C/WHATWG standards at compile time. Invalid HTML becomes a TypeScript error before it reaches the browser.
+Architect provides typed wrappers for HTML, SVG, MathML, MusicXML, RSS/Atom, and SSML elements that enforce W3C/WHATWG standards at compile time. Invalid HTML becomes a TypeScript error before it reaches the browser.
 
 The mechanism works through automatic substitution. When you write lowercase elements in JSX, the build process replaces them with typed components:
 
@@ -37,7 +37,7 @@ The mechanism works through automatic substitution. When you write lowercase ele
 </a>
 
 // Build converts to typed components:
-import A from "@sitebender/pagewright/html/interactive/A/index.tsx"
+import A from "@sitebender/architect/html/interactive/A/index.tsx"
 
 <A href="/page" badAttribute="oops">  // TypeScript ERROR: badAttribute doesn't exist
   <A href="/nested">Nested link</A>  // TypeScript ERROR: A cannot contain A
@@ -50,7 +50,7 @@ You can import typed elements explicitly for immediate IDE feedback, or let the 
 
 ## Graceful Degradation for Unknown Constructs
 
-Following HTML's philosophy of "be liberal in what you accept," Pagewright handles unknown attributes and invalid nesting gracefully while preserving user intent.
+Following HTML's philosophy of "be liberal in what you accept," Architect handles unknown attributes and invalid nesting gracefully while preserving user intent.
 
 **Unknown attributes** get prefixed with `data-x-` and preserved. This permits users to include custom data attributes easily:
 
@@ -189,7 +189,7 @@ This universality means you can start with a simple component and let it grow in
 
 ## The Component Vocabulary
 
-Pagewright provides semantic components organized by purpose rather than by HTML element. Think in terms of what things are, not how they're implemented.
+Architect provides semantic components organized by purpose rather than by HTML element. Think in terms of what things are, not how they're implemented.
 
 **Document Structure** components describe content types: `<Essay>`, `<Tutorial>`, `<Reference>`, `<Recipe>`, `<Dialogue>`, `<Interview>`. Each generates appropriate HTML structure with embedded Schema.org metadata.
 
@@ -215,7 +215,7 @@ Temporal components use the JavaScript Temporal API for precise date/time handli
 
 Each form component is not just an input element—it's a complete field including label, input, help text, error messages, validation feedback, and accessibility attributes. You get the whole field, properly composed, in one component.
 
-However, when used with the Architect library, these components gain reactive capabilities—declarative validation, conditional display, state management—without losing their semantic HTML foundation. More importantly, they can be determined automatically from JSON Schema definitions, enabling **dynamic form generation**.
+However, when used with the Artificer library, these components gain reactive capabilities—declarative validation, conditional display, state management—without losing their semantic HTML foundation. More importantly, they can be determined automatically from JSON Schema definitions, enabling **dynamic form generation**.
 
 ## Type Safety Without Runtime Cost
 
@@ -247,7 +247,7 @@ Components support opt-in enhancement through `data-*` attributes:
 <a href="/help" data-enhance="modal">Help</a>
 ```
 
-Enhancement scripts—provided by the Architect library or your own implementation—look for these attributes and add behavior where requested. Without JavaScript, everything still works as standard HTML.
+Enhancement scripts—provided by the Artificer library or your own implementation—look for these attributes and add behavior where requested. Without JavaScript, everything still works as standard HTML.
 
 This opt-in approach makes enhancement explicit. You can see which features require JavaScript by scanning for `data-enhance` attributes. Testing the no-JavaScript experience becomes straightforward—just disable JavaScript and verify functionality remains intact.
 
@@ -259,17 +259,17 @@ This approach keeps component styles colocated with component code while enablin
 
 ## Build-Time Compilation
 
-Pagewright compiles JSX to HTML at build time, not runtime. No virtual DOM. No client-side reconciliation. No hydration. Just HTML generated during the build process.
+Architect compiles JSX to HTML at build time, not runtime. No virtual DOM. No client-side reconciliation. No hydration. Just HTML generated during the build process.
 
 This compilation model eliminates entire categories of problems. No Flash of Unstyled Content. No layout shift from hydration. No JavaScript bundle required for initial render. The browser receives HTML and displays it immediately.
 
-For reactive functionality—form validation, conditional display, state management—the Architect library extends Pagewright with declarative patterns that enhance the HTML without replacing it.
+For reactive functionality—form validation, conditional display, state management—the Artificer library extends Architect with declarative patterns that enhance the HTML without replacing it.
 
 ## Key Differences from React
 
-The JSX syntax may look familiar, but Pagewright differs fundamentally from React:
+The JSX syntax may look familiar, but Architect differs fundamentally from React:
 
-| React                        | Pagewright                            |
+| React                        | Architect                            |
 | ---------------------------- | ------------------------------------- |
 | Client-side rendering        | Build-time HTML generation            |
 | Virtual DOM                  | Direct HTML output                    |
@@ -284,7 +284,7 @@ These differences aren't limitations—they're constraints that enable different
 
 ## The Philosophy in Practice
 
-Pagewright makes several strong claims worth examining:
+Architect makes several strong claims worth examining:
 
 **Claim: Semantic components make better interfaces than HTML elements.** When you write `<Recipe>` instead of assembling divs and sections, you express intent directly. The compiler handles structure. This separation lets you think about content, not markup.
 
@@ -300,7 +300,7 @@ But for content-focused applications—documentation sites, blogs, marketing pag
 
 ## Development Workflow
 
-A typical Pagewright project follows this pattern:
+A typical Architect project follows this pattern:
 
 1. Write components using semantic JSX
 2. TypeScript validates against element type definitions
@@ -315,7 +315,7 @@ The TypeScript configuration requires specific settings:
 {
 	"compilerOptions": {
 		"jsx": "react-jsx",
-		"jsxImportSource": "@sitebender/pagewright",
+		"jsxImportSource": "@sitebender/architect",
 		"module": "NodeNext",
 		"moduleResolution": "NodeNext"
 	}
@@ -325,9 +325,9 @@ The TypeScript configuration requires specific settings:
 Components import directly—no barrel files:
 
 ```tsx
-import Article from "@sitebender/pagewright/group/document/Article/index.tsx"
-import H1 from "@sitebender/pagewright/html/text/H1/index.tsx"
-import Form from "@sitebender/pagewright/interact/forms/Form/index.tsx"
+import Article from "@sitebender/architect/group/document/Article/index.tsx"
+import H1 from "@sitebender/architect/html/text/H1/index.tsx"
+import Form from "@sitebender/architect/interact/forms/Form/index.tsx"
 ```
 
 Direct imports improve tree-shaking and make dependencies explicit.
@@ -340,15 +340,15 @@ This default inclusion means accessibility happens automatically unless you acti
 
 ## The Integration with Other Libraries
 
-Pagewright handles structure and semantics. Other libraries in the Sitebender ecosystem handle complementary concerns:
+Architect handles structure and semantics. Other libraries in the Sitebender ecosystem handle complementary concerns:
 
-**Architect** provides reactive functionality—form validation, conditional display, state management—through declarative composition that enhances Pagewright's HTML.
+**Artificer** provides reactive functionality—form validation, conditional display, state management—through declarative composition that enhances Architect's HTML.
 
 **Formulator** handles expression evaluation and calculation, enabling data-driven forms and derived values.
 
 **Steward** manages authentication and authorization, including route protection through `<Locked>`, `<Key>`, `<And>`, and `<Or>` components.
 
-These libraries compose cleanly because Pagewright maintains clear boundaries. It generates HTML. Other libraries enhance that HTML or provide complementary capabilities. No overlap. No conflicts.
+These libraries compose cleanly because Architect maintains clear boundaries. It generates HTML. Other libraries enhance that HTML or provide complementary capabilities. No overlap. No conflicts.
 
 ## Why This Matters
 
@@ -356,7 +356,7 @@ Web development frameworks have converged on a client-side rendering model. Comp
 
 But it imposes costs on content-focused applications. Large JavaScript bundles delay initial render. Hydration creates layout shift. Progressive enhancement becomes difficult when components expect client-side rendering.
 
-Pagewright inverts these priorities. HTML comes first. JavaScript enhances but never enables. Accessibility is default, not added. Type safety prevents errors at compile time.
+Architect inverts these priorities. HTML comes first. JavaScript enhances but never enables. Accessibility is default, not added. Type safety prevents errors at compile time.
 
 This approach represents a refactoring in the original sense—extracting common patterns, clarifying responsibilities, creating clean boundaries. You write semantic components. The compiler generates accessible HTML. Enhancement scripts add progressive functionality.
 

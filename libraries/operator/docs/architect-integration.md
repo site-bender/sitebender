@@ -1,24 +1,24 @@
-# Operator-Architect Integration
+# Operator-Artificer Integration
 
 ## Overview
 
-Operator integrates seamlessly with Architect's reactive pipeline, enabling event-driven DOM updates without VDOM overhead. Events flow through the same functional composition pipeline that powers calculations, formatting, and validation.
+Operator integrates seamlessly with Artificer's reactive pipeline, enabling event-driven DOM updates without VDOM overhead. Events flow through the same functional composition pipeline that powers calculations, formatting, and validation.
 
 ## Event-Driven DOM Updates
 
 ### DOM Element Event Binding
 
-When Architect renders Operator components, it attaches event handlers as properties on DOM elements:
+When Artificer renders Operator components, it attaches event handlers as properties on DOM elements:
 
 ```typescript
 //++ Attach event publisher to DOM element
-// File: src/integration/architect/attachPublisher/index.ts
+// File: src/integration/artificer/attachPublisher/index.ts
 export default function attachPublisher(
   element: HTMLElement
 ) (
   config: PublisherConfig
 ): HTMLElement {
-  // Add to Architect's property registry
+  // Add to Artificer's property registry
   element.__sbPublish = async (event: Event) => {
     const triple = {
       subject: resolveSubject(config.subject, element),
@@ -34,7 +34,7 @@ export default function attachPublisher(
     // Dispatch through transport layer
     await dispatchEvent(triple)
 
-    // Trigger Architect's reactive pipeline
+    // Trigger Artificer's reactive pipeline
     element.dispatchEvent(
       new CustomEvent("sb:published", {
         detail: triple,
@@ -56,11 +56,11 @@ export default function attachPublisher(
 
 ### Subscriber Integration with Reactive Pipeline
 
-Subscribers hook into Architect's existing calculation pipeline:
+Subscribers hook into Artificer's existing calculation pipeline:
 
 ```typescript
 //++ Attach event subscriber to DOM element
-// File: src/integration/architect/attachSubscriber/index.ts
+// File: src/integration/artificer/attachSubscriber/index.ts
 export default function attachSubscriber(
   element: HTMLElement
 ) (
@@ -85,7 +85,7 @@ export default function attachSubscriber(
       ? await config.transform(triple)
       : triple.object
 
-    // Feed into Architect's calculation pipeline
+    // Feed into Artificer's calculation pipeline
     if (existingCalculate) {
       const result = await existingCalculate(value)
 
@@ -97,7 +97,7 @@ export default function attachSubscriber(
           element.innerHTML = String(result.value)
         }
 
-        // Trigger Architect's update cascade
+        // Trigger Artificer's update cascade
         element.dispatchEvent(
           new InputEvent("input", {
             data: String(result.value),
@@ -133,7 +133,7 @@ export default function attachSubscriber(
 
 ## IR Compilation
 
-Operator components compile to Architect IR nodes:
+Operator components compile to Artificer IR nodes:
 
 ### Publisher IR Node
 
@@ -260,7 +260,7 @@ During SSR/hydration, Operator restores event bindings from data attributes:
 
 ```typescript
 //++ Hydrate Operator behaviors from DOM
-// File: src/integration/architect/hydrateOperator/index.ts
+// File: src/integration/artificer/hydrateOperator/index.ts
 export default function hydrateOperator(element: HTMLElement): void {
 	// Restore publisher
 	if (element.dataset.publisher) {
@@ -291,7 +291,7 @@ export default function hydrateOperator(element: HTMLElement): void {
 
 ## Document-Level Registries
 
-Operator extends Architect's document-level registries:
+Operator extends Artificer's document-level registries:
 
 ```typescript
 type OperatorDocumentRegistries = {
@@ -302,7 +302,7 @@ type OperatorDocumentRegistries = {
 	__sbEventLog: Array<EventTriple> // Event history for replay
 }
 
-// Extend Architect's document type
+// Extend Artificer's document type
 // Note: In pure FP, we'd pass document as parameter, not mutate global
 type OperatorDocument = Document & OperatorDocumentRegistries
 ```
@@ -315,7 +315,7 @@ Batch multiple DOM updates from rapid events:
 
 ```typescript
 //++ Batch DOM updates for performance
-// File: src/integration/architect/batchedSubscriber/index.ts
+// File: src/integration/artificer/batchedSubscriber/index.ts
 export default function batchedSubscriber(
   element: HTMLElement
 ) (
@@ -351,7 +351,7 @@ Only update DOM elements affected by events:
 
 ```typescript
 //++ Selective DOM updates based on event patterns
-// File: src/integration/architect/selectiveUpdate/index.ts
+// File: src/integration/artificer/selectiveUpdate/index.ts
 export default function selectiveUpdate(pattern: string): Set<HTMLElement> {
 	// Get only subscribers to this pattern
 	const elementIds = document.__sbSubscribers.get(pattern) ?? new Set()
@@ -364,13 +364,13 @@ export default function selectiveUpdate(pattern: string): Set<HTMLElement> {
 }
 ```
 
-## Integration with Architect Lifecycle
+## Integration with Artificer Lifecycle
 
 ### Mount Phase
 
 ```typescript
-//++ Called when Architect mounts component
-// File: src/integration/architect/lifecycle/onMount/index.ts
+//++ Called when Artificer mounts component
+// File: src/integration/artificer/lifecycle/onMount/index.ts
 export default function onMount(element: HTMLElement): void {
 	// Initialize transport if needed
 	initializeTransportForScope(element)
@@ -390,8 +390,8 @@ export default function onMount(element: HTMLElement): void {
 ### Unmount Phase
 
 ```typescript
-//++ Called when Architect unmounts component
-// File: src/integration/architect/lifecycle/onUnmount/index.ts
+//++ Called when Artificer unmounts component
+// File: src/integration/artificer/lifecycle/onUnmount/index.ts
 export default function onUnmount(element: HTMLElement): void {
 	// Clean up subscriptions
 	if (element.__sbSubscribe) {
@@ -413,7 +413,7 @@ export default function onUnmount(element: HTMLElement): void {
 
 ## Testing Integration
 
-Test event-driven behaviors using Architect's test utilities:
+Test event-driven behaviors using Artificer's test utilities:
 
 ```tsx
 <TestHarness>
@@ -447,4 +447,4 @@ Test event-driven behaviors using Architect's test utilities:
 6. **Performance**: Batching, selective updates, and requestAnimationFrame
 7. **Debugging**: All events logged and replayable through DevTools
 
-This integration makes Operator events first-class citizens in Architect's reactive architecture while maintaining pure functional principles and zero runtime dependencies.
+This integration makes Operator events first-class citizens in Artificer's reactive architecture while maintaining pure functional principles and zero runtime dependencies.

@@ -9,12 +9,12 @@ import type CreativeWork from "../../index.ts"
 import type { CreativeWorkProps } from "../../index.ts"
 import type { HowToProps } from "../index.ts"
 
-import CreativeWorkComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
-import RestrictedDietComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Enumeration/RestrictedDiet/index.tsx"
-import ItemListComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/ItemList/index.tsx"
-import DurationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
-import NutritionInformationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/NutritionInformation/index.tsx"
-import QuantitativeValueComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
+import CreativeWorkComponent from "../../../../../../../architect/src/define/Thing/CreativeWork/index.tsx"
+import RestrictedDietComponent from "../../../../../../../architect/src/define/Thing/Intangible/Enumeration/RestrictedDiet/index.tsx"
+import ItemListComponent from "../../../../../../../architect/src/define/Thing/Intangible/ItemList/index.tsx"
+import DurationComponent from "../../../../../../../architect/src/define/Thing/Intangible/Quantity/Duration/index.tsx"
+import NutritionInformationComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/NutritionInformation/index.tsx"
+import QuantitativeValueComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/QuantitativeValue/index.tsx"
 
 export type RecipeType = "Recipe"
 

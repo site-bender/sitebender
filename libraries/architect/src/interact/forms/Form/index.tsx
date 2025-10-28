@@ -1,4 +1,4 @@
-import type { FormMethod } from "../../../../types/pagewright/forms/index.ts"
+import type { FormMethod } from "../../../../types/architect/forms/index.ts"
 
 import generateShortId from "../../../helpers/generateShortId/index.ts"
 

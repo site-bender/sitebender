@@ -7,9 +7,9 @@ import type CableOrSatelliteService from "../Service/CableOrSatelliteService/ind
 import type { RadioChannelType } from "./RadioChannel/index.ts"
 import type { TelevisionChannelType } from "./TelevisionChannel/index.ts"
 
-import BroadcastFrequencySpecificationComponent from "../../../../../../pagewright/src/define/Thing/Intangible/BroadcastFrequencySpecification/index.tsx"
-import BroadcastServiceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Service/BroadcastService/index.tsx"
-import CableOrSatelliteServiceComponent from "../../../../../../pagewright/src/define/Thing/Intangible/Service/CableOrSatelliteService/index.tsx"
+import BroadcastFrequencySpecificationComponent from "../../../../../../architect/src/define/Thing/Intangible/BroadcastFrequencySpecification/index.tsx"
+import BroadcastServiceComponent from "../../../../../../architect/src/define/Thing/Intangible/Service/BroadcastService/index.tsx"
+import CableOrSatelliteServiceComponent from "../../../../../../architect/src/define/Thing/Intangible/Service/CableOrSatelliteService/index.tsx"
 
 export type BroadcastChannelType =
 	| "BroadcastChannel"

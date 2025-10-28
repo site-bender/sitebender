@@ -4,9 +4,9 @@ import type Person from "../../Person/index.ts"
 import type CreativeWork from "../index.ts"
 import type { CreativeWorkProps } from "../index.ts"
 
-import CreativeWorkComponent from "../../../../../../pagewright/src/define/Thing/CreativeWork/index.tsx"
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import CreativeWorkComponent from "../../../../../../architect/src/define/Thing/CreativeWork/index.tsx"
+import OrganizationComponent from "../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type ClaimType = "Claim"
 

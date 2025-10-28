@@ -1,4 +1,4 @@
-import type { MenuItem } from "../../../types/pagewright/navigation/index.ts"
+import type { MenuItem } from "../../../types/architect/navigation/index.ts"
 
 export type Props = JSX.MenuHTMLAttributes<HTMLMenuElement> & {
 	options?: Array<MenuItem>

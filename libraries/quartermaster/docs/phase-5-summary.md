@@ -24,9 +24,9 @@ export type DevServerConfig = {
 }
 
 export type SitebenderLibraries = {
-	pagewright?: LibraryRequirement
-	toolsmith?: LibraryRequirement
 	architect?: LibraryRequirement
+	toolsmith?: LibraryRequirement
+	artificer?: LibraryRequirement
 	// ... all 18 libraries
 }
 
@@ -92,8 +92,8 @@ templates/
 | Variable | Example | Usage |
 |----------|---------|-------|
 | `{{APP_NAME}}` | `my-app` | File paths, titles, container names |
-| `{{APP_DESCRIPTION}}` | `Minimal Pagewright app` | Meta descriptions, READMEs |
-| `{{LIBRARIES_LIST}}` | `- Pagewright\n- Toolsmith` | Documentation generation |
+| `{{APP_DESCRIPTION}}` | `Minimal Architect app` | Meta descriptions, READMEs |
+| `{{LIBRARIES_LIST}}` | `- Architect\n- Toolsmith` | Documentation generation |
 | `{{HTTP3_PORT}}` | `4433` | Docker compose, documentation |
 | `{{HTTP2_PORT}}` | `8443` | Docker compose, documentation |
 
@@ -119,7 +119,7 @@ templates/
     "hotReload": true
   },
   "libraries": {
-    "pagewright": "required",
+    "architect": "required",
     "toolsmith": "required"
   }
 }

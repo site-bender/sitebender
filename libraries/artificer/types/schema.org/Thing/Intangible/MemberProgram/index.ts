@@ -3,8 +3,8 @@ import type Organization from "../../Organization/index.ts"
 import type { IntangibleProps } from "../index.ts"
 import type MemberProgramTier from "../MemberProgramTier/index.ts"
 
-import MemberProgramTierComponent from "../../../../../../pagewright/src/define/Thing/Intangible/MemberProgramTier/index.tsx"
-import OrganizationComponent from "../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
+import MemberProgramTierComponent from "../../../../../../architect/src/define/Thing/Intangible/MemberProgramTier/index.tsx"
+import OrganizationComponent from "../../../../../../architect/src/define/Thing/Organization/index.tsx"
 
 export type MemberProgramType = "MemberProgram"
 

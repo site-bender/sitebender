@@ -1,14 +1,14 @@
-import type { FromLocalStorageInjector } from "../../../../../architect/types/index.ts"
+import type { FromLocalStorageInjector } from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import FromLocalStorageConstructor from "../../../../../architect/src/constructors/injectors/FromLocalStorage/index.ts"
+import FromLocalStorageConstructor from "../../../../../artificer/src/constructors/injectors/FromLocalStorage/index.ts"
 
 export type FromLocalStorageProps = {
 	key: string
 	type?: "String" | "Number" | "Boolean" | "Json"
 	datatype?: "String" | "Number" | "Boolean" | "Json"
-	defaultValue?: import("../../../../../architect/types/index.ts").Value
+	defaultValue?: import("../../../../../artificer/types/index.ts").Value
 }
 
 export default function FromLocalStorage({

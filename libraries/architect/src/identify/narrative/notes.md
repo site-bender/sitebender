@@ -54,7 +54,7 @@ export default function CharacterName({
 ### Current State
 
 - **Identify components**: Currently include Schema.org microdata directly (itemScope, itemType, itemProp)
-- **Enrich components**: Exist separately in `/lib/pagewright/define/` for full Schema.org support
+- **Enrich components**: Exist separately in `/lib/architect/define/` for full Schema.org support
 - **Data attributes**: Provide machine-readable metadata for AI/MCP tools
 
 ### Key Questions and Considerations
@@ -71,7 +71,7 @@ Even without microdata, identify components serve valuable purposes:
 
 #### B. Relationship with Enrich Components
 
-The `/lib/pagewright/define/` folder contains full Schema.org components like Person. We could:
+The `/lib/architect/define/` folder contains full Schema.org components like Person. We could:
 
 **Option 1: Composition Pattern (Recommended)**
 

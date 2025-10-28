@@ -1,8 +1,8 @@
-import type { FromArgumentInjector } from "../../../../../architect/types/index.ts"
+import type { FromArgumentInjector } from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import FromArgumentConstructor from "../../../../../architect/src/constructors/injectors/FromArgument/index.ts"
+import FromArgumentConstructor from "../../../../../artificer/src/constructors/injectors/FromArgument/index.ts"
 
 export type FromArgumentProps = {
 	name: string

@@ -1,11 +1,11 @@
 import type {
 	IsUnequalToComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import IsUnequalToConstructor from "../../../../../architect/src/constructors/comparators/equality/IsUnequalTo/index.ts"
+import IsUnequalToConstructor from "../../../../../artificer/src/constructors/comparators/equality/IsUnequalTo/index.ts"
 
 export type Props = {
 	type?: "Number" | "String" | "Boolean" | "Date"

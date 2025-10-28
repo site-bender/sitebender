@@ -5,8 +5,8 @@ import type { IntangibleProps } from "../../index.ts"
 import type { StructuredValueProps } from "../index.ts"
 import type PostalCodeRangeSpecification from "../PostalCodeRangeSpecification/index.ts"
 
-import PostalCodeRangeSpecificationComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/PostalCodeRangeSpecification/index.tsx"
-import CountryComponent from "../../../../../../../pagewright/src/define/Thing/Place/AdministrativeArea/Country/index.tsx"
+import PostalCodeRangeSpecificationComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/PostalCodeRangeSpecification/index.tsx"
+import CountryComponent from "../../../../../../../architect/src/define/Thing/Place/AdministrativeArea/Country/index.tsx"
 
 export type DefinedRegionType = "DefinedRegion"
 

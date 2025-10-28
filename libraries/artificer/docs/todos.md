@@ -1,10 +1,10 @@
-# Architect Implementation Todos
+# Artificer Implementation Todos
 
 This document outlines the path to achieve the vision described in the README. Tasks are organized by priority and dependencies.
 
 ## Core Philosophy: Data-Centric Architecture
 
-**CRITICAL**: Everything in Architect derives from data, not from UI widgets. The data shapes the interface, not the other way around. This is the fundamental paradigm shift that makes Architect revolutionary:
+**CRITICAL**: Everything in Artificer derives from data, not from UI widgets. The data shapes the interface, not the other way around. This is the fundamental paradigm shift that makes Artificer revolutionary:
 
 - Forms are generated from data types, not HTML widgets
 - Validation rules come from the data schema (SHACL/database constraints)
@@ -59,8 +59,8 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 
 ### Remove Legacy Code
 
-- [ ] Delete `src/constructors/elements` folder entirely (HTML elements belong in Pagewright)
-- [ ] Remove all element constructors that duplicate Pagewright functionality
+- [ ] Delete `src/constructors/elements` folder entirely (HTML elements belong in Architect)
+- [ ] Remove all element constructors that duplicate Architect functionality
 - [ ] Clean up commented console.log statements throughout codebase
 - [ ] Remove unused/incomplete stub files in `src/pending`
 
@@ -127,7 +127,7 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 
 - [ ] Create `src/persistence/toRdf.ts` for IR → RDF triples
 - [ ] Create `src/persistence/fromRdf.ts` for RDF → IR
-- [ ] Define Architect ontology at `docs/architect.owl`
+- [ ] Define Artificer ontology at `docs/artificer.owl`
 - [ ] Map IR nodes to RDF subjects
 - [ ] Map properties to RDF predicates
 - [ ] Handle nested structures as blank nodes or named graphs
@@ -330,7 +330,7 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 
 ### Immediate Dependencies
 
-- **Pagewright**: For HTML element rendering
+- **Architect**: For HTML element rendering
 - **Toolsmith**: For functional utilities
 
 ### Future Dependencies
@@ -352,9 +352,9 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 - [ ] **Non-developers can create forms using only data field names**
 - [ ] **Widget selection is 100% automatic based on data types**
 - [ ] **All UI configuration can be stored as data and retrieved**
-- [ ] Zero runtime dependencies (except Pagewright)
+- [ ] Zero runtime dependencies (except Architect)
 - [ ] Performance meets or exceeds React for similar operations
-- [ ] The-workshop can visualize and edit any Architect component
+- [ ] The-workshop can visualize and edit any Artificer component
 
 ## Notes
 
@@ -370,7 +370,7 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 2. How to handle component versioning in stored UI definitions?
 3. Should we support partial hydration or always hydrate everything?
 4. How to handle security for stored UI definitions?
-5. What's the migration path for existing Architect users?
+5. What's the migration path for existing Artificer users?
 6. Should calculations be pure or allow side effects?
 7. How to handle i18n in stored UI definitions?
 8. Should we support custom storage adapters?
@@ -397,4 +397,4 @@ Remember: **Data is the single source of truth. UI is just a view of that data.*
 - **Week 7-8**: Testing, optimization, and documentation
 - **Week 8+**: Advanced features and ecosystem integration
 
-This plan transforms Architect from a collection of useful parts into a cohesive, revolutionary system for building data-centric applications.
+This plan transforms Artificer from a collection of useful parts into a cohesive, revolutionary system for building data-centric applications.

@@ -5,7 +5,7 @@ import type MonetaryAmount from "../../../StructuredValue/MonetaryAmount/index.t
 import type { ListItemProps } from "../../index.ts"
 import type { HowToItemProps } from "../index.ts"
 
-import MonetaryAmountComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
 
 export type HowToSupplyType = "HowToSupply"
 

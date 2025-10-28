@@ -1,11 +1,11 @@
 import type {
 	IsLengthComparator,
 	Operand,
-} from "../../../../../architect/types/index.ts"
+} from "../../../../../artificer/types/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 
-import IsLengthConstructor from "../../../../../architect/src/constructors/comparators/length/IsLength/index.ts"
+import IsLengthConstructor from "../../../../../artificer/src/constructors/comparators/length/IsLength/index.ts"
 
 export type Props = {
 	// authoring accepts String|Array, but length comparator uses a numeric length under the hood

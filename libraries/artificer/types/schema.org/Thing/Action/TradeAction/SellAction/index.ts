@@ -5,9 +5,9 @@ import type Person from "../../../Person/index.ts"
 import type { ActionProps } from "../../index.ts"
 import type { TradeActionProps } from "../index.ts"
 
-import WarrantyPromiseComponent from "../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/WarrantyPromise/index.tsx"
-import OrganizationComponent from "../../../../../../../pagewright/src/define/Thing/Organization/index.tsx"
-import PersonComponent from "../../../../../../../pagewright/src/define/Thing/Person/index.tsx"
+import WarrantyPromiseComponent from "../../../../../../../architect/src/define/Thing/Intangible/StructuredValue/WarrantyPromise/index.tsx"
+import OrganizationComponent from "../../../../../../../architect/src/define/Thing/Organization/index.tsx"
+import PersonComponent from "../../../../../../../architect/src/define/Thing/Person/index.tsx"
 
 export type SellActionType = "SellAction"
 

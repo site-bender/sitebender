@@ -1,8 +1,8 @@
-# Architect PoC Migration - Completion Summary
+# Artificer PoC Migration - Completion Summary
 
 > **Status**: Migration Complete\
 > **Created**: 2025-01-07\
-> **Purpose**: Summary of Toolsmith function migrations for Architect PoC
+> **Purpose**: Summary of Toolsmith function migrations for Artificer PoC
 
 ## Overview
 
@@ -193,23 +193,23 @@ Functions organized by what they DO, not what they operate ON:
 - All array operations in `array/`
 - All validation in `validation/`
 
-## Architect Integration Ready
+## Artificer Integration Ready
 
-All functions are now ready for use in Architect's calculation DSL:
+All functions are now ready for use in Artificer's calculation DSL:
 
 ```typescript
-// In Architect's createFromLocalStorageThunk
+// In Artificer's createFromLocalStorageThunk
 import parseJson from "@sitebender/toolsmith/conversion/parseJson/index.ts"
 import isNumber from "@sitebender/toolsmith/validation/isNumber/index.ts"
 import isNull from "@sitebender/toolsmith/validation/isNull/index.ts"
 
-// In Architect's createAddThunk
+// In Artificer's createAddThunk
 import addInteger from "@sitebender/toolsmith/math/arithmetic/add/addInteger.ts"
 
-// In Architect's createMultiplyThunk
+// In Artificer's createMultiplyThunk
 import multiplyInteger from "@sitebender/toolsmith/math/arithmetic/multiply/multiplyInteger.ts"
 
-// In Architect's registry functions
+// In Artificer's registry functions
 import isDefined from "@sitebender/toolsmith/validation/isDefined/index.ts"
 import join from "@sitebender/toolsmith/array/join/index.ts"
 ```
@@ -230,7 +230,7 @@ All migrated functions comply with constitutional rules:
 ## Next Steps
 
 1. Update `IMPLEMENTATION_PLAN_FP.md` to reference new import paths ✅
-2. Begin implementing Architect's calculation DSL using these functions
+2. Begin implementing Artificer's calculation DSL using these functions
 3. Create tests for all migrated functions
 4. Eventually migrate remaining 773 vanilla functions
 5. Delete `` and `` folders after full migration
@@ -269,17 +269,17 @@ All migrated functions comply with constitutional rules:
 
 - `docs/ARCHITECT_POC_MIGRATION_SPEC.md`
 - `docs/ARCHITECT_POC_MIGRATION_COMPLETE.md` (this file)
-- Updated: `../architect/src/IMPLEMENTATION_PLAN_FP.md`
+- Updated: `../artificer/src/IMPLEMENTATION_PLAN_FP.md`
 
 ## Success Metrics
 
 - ✅ 13/13 functions migrated
 - ✅ 100% constitutional compliance
 - ✅ Zero tech debt introduced
-- ✅ All functions ready for Architect integration
+- ✅ All functions ready for Artificer integration
 - ✅ Clear, helpful error messages throughout
 - ✅ Proper domain organization
 
 **Migration Status**: COMPLETE ✅
 
-The Toolsmith library is now ready to support Architect's calculation DSL PoC.
+The Toolsmith library is now ready to support Artificer's calculation DSL PoC.

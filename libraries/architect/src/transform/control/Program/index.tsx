@@ -7,7 +7,7 @@ export type Props = {
 }
 
 export default function Program(
-	{ id = "ir-root", type = "application/architect+json", children }: Props,
+	{ id = "ir-root", type = "application/artificer+json", children }: Props,
 ) {
 	const ir = compileToArchitect(children as unknown)
 	return {
