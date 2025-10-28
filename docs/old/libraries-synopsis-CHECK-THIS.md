@@ -31,14 +31,14 @@
 
 ## Application Layer (UI/Rendering)
 
-**Pagewright** - Semantic HTML component library
+**Architect** - Semantic HTML component library
 - Every HTML/SVG/MathML element typed (ChemML removed)
 - W3C/WHATWG standards enforced at compile time
 - Accessibility built into every component
 - Progressive enhancement (works in Lynx, enhanced in Chrome)
 - Status: Advanced (more complete than typical alpha)
 
-**Architect** - Reactive rendering engine
+**Artificer** - Reactive rendering engine
 - JSX → IR → JSON/YAML/Turtle → DOM (no virtual DOM)
 - Behaviors attach as DOM properties (`__sbCalculate`, `__sbValidate`, `__sbFormat`)
 - Calculations cascade automatically through reactive graph
@@ -46,7 +46,7 @@
 - Status: Advanced (more complete than typical alpha)
 
 **Formulator** - Expression/formula compiler
-- Math formulas ↔ Architect IR (bidirectional)
+- Math formulas ↔ Artificer IR (bidirectional)
 - Perfect isomorphism (lossless transformation)
 - MathML generation (ChemML removed)
 - Proper operator precedence, variables, functions
@@ -185,7 +185,7 @@
 ### Dependencies
 - Zero runtime dependencies (except approved exceptions in contracts/dependencies.yaml)
 - Warden cryptographically enforces whitelist
-- **NO UNAPPROVED LIBRARIES - architect (human) approval required first**
+- **NO UNAPPROVED LIBRARIES - artificer (human) approval required first**
 - Application code unrestricted, governance is for libraries only
 
 ### Parsing Monopoly

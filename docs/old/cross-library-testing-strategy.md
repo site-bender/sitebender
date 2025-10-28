@@ -15,9 +15,9 @@ Every library exposes contracts that other libraries depend on. These are **cryp
 #### Implementation
 
 ```tsx
-// libraries/architect/contracts/calculation-engine.contract.tsx
+// libraries/artificer/contracts/calculation-engine.contract.tsx
 <Contract
-  library="@sitebender/architect"
+  library="@sitebender/artificer"
   provides="calculation-engine"
   version="1.0.0"
 >
@@ -44,7 +44,7 @@ Every library exposes contracts that other libraries depend on. These are **cryp
       <When>
         <ParseWith library="@sitebender/formulator" />
         <CompileToIR />
-        <ExecuteWith library="@sitebender/architect" />
+        <ExecuteWith library="@sitebender/artificer" />
       </When>
       <Then>
         <CalculationCascades />
@@ -71,7 +71,7 @@ Real workflows that exercise multiple libraries together, stored as data in the 
 // tests/integration/reactive-form-workflow.test.tsx
 <IntegrationTest
   name="Reactive Form with Live Validation"
-  libraries={["pagewright", "architect", "formulator"]}
+  libraries={["architect", "artificer", "formulator"]}
 >
   <Setup>
     <TripleStore>
@@ -238,7 +238,7 @@ Quarrier generates test data that respects all constraints:
   <DependencyOrder>
     <RequirePass library="toolsmith" before="all" />
     <RequirePass library="warden" before="all" />
-    <Parallel libraries={["pagewright", "architect", "formulator"]} />
+    <Parallel libraries={["architect", "artificer", "formulator"]} />
   </DependencyOrder>
 </TestOrchestrator>
 ```
@@ -329,11 +329,11 @@ All test execution flows through Envoy for complete observability:
 6. **Declarative**: Tests are data, not code
 7. **AI-Friendly**: LLMs can easily generate test scenarios
 
-## Example: Testing Architect + Formulator Integration
+## Example: Testing Artificer + Formulator Integration
 
 ```tsx
 <ContractTest
-  consumer="@sitebender/architect"
+  consumer="@sitebender/artificer"
   provider="@sitebender/formulator"
   contract="formula-to-ir"
 >

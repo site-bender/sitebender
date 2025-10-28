@@ -6,8 +6,8 @@ import type GeoCoordinates from "../../GeoCoordinates/index.ts"
 import type { StructuredValueProps } from "../../index.ts"
 import type { GeoShapeProps } from "../index.ts"
 
-import DistanceComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/Quantity/Distance/index.tsx"
-import GeoCoordinatesComponent from "../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/GeoCoordinates/index.tsx"
+import DistanceComponent from "../../../../../../../src/define/Thing/Intangible/Quantity/Distance/index.tsx"
+import GeoCoordinatesComponent from "../../../../../../../src/define/Thing/Intangible/StructuredValue/GeoCoordinates/index.tsx"
 
 export type GeoCircleType = "GeoCircle"
 

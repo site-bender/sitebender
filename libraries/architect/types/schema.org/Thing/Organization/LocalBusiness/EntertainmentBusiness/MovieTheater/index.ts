@@ -1,4 +1,4 @@
 export type {
 	default,
-	MovieTheaterType,
+	default as MovieTheaterType,
 } from "../../../../Place/CivicStructure/MovieTheater/index.ts"

@@ -44,12 +44,12 @@
   - Metadata collection (variables, constants, functions)
   - Mathematical constant recognition (π, e, τ, φ)
   - Structure preservation (no flattening for reversibility)
-  - Uniform `left`/`right` structure for all binary operators (semantic accessors deferred to Architect)
+  - Uniform `left`/`right` structure for all binary operators (semantic accessors deferred to Artificer)
   - 17 passing tests (unit + integration)
 
 **Next Phase**: 📋 **Phase 5 - Polish/RPN Notation Support** - PLANNED (see below)
 
-**Note for Architect Integration**: Binary operators use uniform `left`/`right` fields for simplicity. Architect should provide semantic accessor functions that return `Result` monads (e.g., `getMinuend`/`getSubtrahend` for subtract, `getAugend`/`getAddend` for add, `getDividend`/`getDivisor` for divide, `getMultiplicand`/`getMultiplier` for multiply, `getBase`/`getExponent` for power). See "Semantic Accessors for Architect" section below.
+**Note for Artificer Integration**: Binary operators use uniform `left`/`right` fields for simplicity. Artificer should provide semantic accessor functions that return `Result` monads (e.g., `getMinuend`/`getSubtrahend` for subtract, `getAugend`/`getAddend` for add, `getDividend`/`getDivisor` for divide, `getMultiplicand`/`getMultiplier` for multiply, `getBase`/`getExponent` for power). See "Semantic Accessors for Artificer" section below.
 
 **Total Tests Passing**: 137 (56 lexer + 42 tokenizer + 22 parser + 17 compiler)
 **Linter**: ✅ All files passing
@@ -1647,11 +1647,11 @@ assertEquals(infixAST.value.operator, prefixAST.value.operator)
 
 ---
 
-## Semantic Accessors for Architect
+## Semantic Accessors for Artificer
 
 ### Purpose
 
-Formulator maintains a **uniform structure** for binary operators using `left` and `right` fields. This simplifies internal implementation and allows consistent traversal patterns. However, **Architect** (the AST consumer) benefits from **semantic terminology** for clarity and correctness.
+Formulator maintains a **uniform structure** for binary operators using `left` and `right` fields. This simplifies internal implementation and allows consistent traversal patterns. However, **Artificer** (the AST consumer) benefits from **semantic terminology** for clarity and correctness.
 
 ### Design Decision
 
@@ -1668,9 +1668,9 @@ type BinaryOperatorNode = {
 }
 ```
 
-**Architect**: Provide semantic accessor functions that return `Result` monads
+**Artificer**: Provide semantic accessor functions that return `Result` monads
 
-### Accessor Functions to Implement in Architect
+### Accessor Functions to Implement in Artificer
 
 All accessors follow this pattern:
 
@@ -1681,7 +1681,7 @@ All accessors follow this pattern:
 #### Addition Accessors
 
 ```typescript
-// @sitebender/architect/src/ast/accessors/getAugend/index.ts
+// @sitebender/artificer/src/ast/accessors/getAugend/index.ts
 //++ Extracts the augend (left operand) from an add operation
 export default function getAugend(
 	node: EnrichedAstNode,
@@ -1695,7 +1695,7 @@ export default function getAugend(
 	return ok(node.left)
 }
 
-// @sitebender/architect/src/ast/accessors/getAddend/index.ts
+// @sitebender/artificer/src/ast/accessors/getAddend/index.ts
 //++ Extracts the addend (right operand) from an add operation
 export default function getAddend(
 	node: EnrichedAstNode,
@@ -1713,7 +1713,7 @@ export default function getAddend(
 #### Subtraction Accessors
 
 ```typescript
-// @sitebender/architect/src/ast/accessors/getMinuend/index.ts
+// @sitebender/artificer/src/ast/accessors/getMinuend/index.ts
 //++ Extracts the minuend (left operand) from a subtract operation
 export default function getMinuend(
 	node: EnrichedAstNode,
@@ -1727,7 +1727,7 @@ export default function getMinuend(
 	return ok(node.left)
 }
 
-// @sitebender/architect/src/ast/accessors/getSubtrahend/index.ts
+// @sitebender/artificer/src/ast/accessors/getSubtrahend/index.ts
 //++ Extracts the subtrahend (right operand) from a subtract operation
 export default function getSubtrahend(
 	node: EnrichedAstNode,
@@ -1745,7 +1745,7 @@ export default function getSubtrahend(
 #### Multiplication Accessors
 
 ```typescript
-// @sitebender/architect/src/ast/accessors/getMultiplicand/index.ts
+// @sitebender/artificer/src/ast/accessors/getMultiplicand/index.ts
 //++ Extracts the multiplicand (left operand) from a multiply operation
 export default function getMultiplicand(
 	node: EnrichedAstNode,
@@ -1759,7 +1759,7 @@ export default function getMultiplicand(
 	return ok(node.left)
 }
 
-// @sitebender/architect/src/ast/accessors/getMultiplier/index.ts
+// @sitebender/artificer/src/ast/accessors/getMultiplier/index.ts
 //++ Extracts the multiplier (right operand) from a multiply operation
 export default function getMultiplier(
 	node: EnrichedAstNode,
@@ -1777,7 +1777,7 @@ export default function getMultiplier(
 #### Division Accessors
 
 ```typescript
-// @sitebender/architect/src/ast/accessors/getDividend/index.ts
+// @sitebender/artificer/src/ast/accessors/getDividend/index.ts
 //++ Extracts the dividend (left operand) from a divide operation
 export default function getDividend(
 	node: EnrichedAstNode,
@@ -1791,7 +1791,7 @@ export default function getDividend(
 	return ok(node.left)
 }
 
-// @sitebender/architect/src/ast/accessors/getDivisor/index.ts
+// @sitebender/artificer/src/ast/accessors/getDivisor/index.ts
 //++ Extracts the divisor (right operand) from a divide operation
 export default function getDivisor(
 	node: EnrichedAstNode,
@@ -1809,7 +1809,7 @@ export default function getDivisor(
 #### Exponentiation Accessors
 
 ```typescript
-// @sitebender/architect/src/ast/accessors/getBase/index.ts
+// @sitebender/artificer/src/ast/accessors/getBase/index.ts
 //++ Extracts the base (left operand) from a power operation
 export default function getBase(
 	node: EnrichedAstNode,
@@ -1823,7 +1823,7 @@ export default function getBase(
 	return ok(node.left)
 }
 
-// @sitebender/architect/src/ast/accessors/getExponent/index.ts
+// @sitebender/artificer/src/ast/accessors/getExponent/index.ts
 //++ Extracts the exponent (right operand) from a power operation
 export default function getExponent(
 	node: EnrichedAstNode,
@@ -1838,7 +1838,7 @@ export default function getExponent(
 }
 ```
 
-### Usage Example in Architect
+### Usage Example in Artificer
 
 ```typescript
 import subtract from "@sitebender/toolsmith/math/subtract/index.ts"
@@ -1860,7 +1860,7 @@ function compileSubtract(node: EnrichedAstNode) {
 
 ### Benefits
 
-1. **Separation of concerns**: Formulator stays simple, Architect gets semantic clarity
+1. **Separation of concerns**: Formulator stays simple, Artificer gets semantic clarity
 2. **Type safety**: Result monad catches incorrect operator access
 3. **Readability**: `getMinuend(node)` is clearer than `node.left` when operator is subtract
 4. **No redundancy**: No duplicate fields in AST structure

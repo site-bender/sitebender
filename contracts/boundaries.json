@@ -29,12 +29,12 @@
 				"cannotDepend": [
 					"envoy",
 					"auditor",
-					"pagewright",
 					"architect",
+					"artificer",
 					"formulator",
 					"agent"
 				],
-				"canBeUsedBy": ["envoy", "auditor", "architect", "formulator"]
+				"canBeUsedBy": ["envoy", "auditor", "artificer", "formulator"]
 			}
 		},
 		"2": {
@@ -43,7 +43,7 @@
 			"libraries": ["envoy", "auditor"],
 			"rules": {
 				"canDepend": ["arborist", "toolsmith", "quarrier"],
-				"cannotDepend": ["pagewright", "architect", "formulator", "agent", "EACH OTHER"],
+				"cannotDepend": ["architect", "artificer", "formulator", "agent", "EACH OTHER"],
 				"canBeUsedBy": ["applications", "tools", "plugins"],
 				"specialRules": {
 					"envoy": {
@@ -76,21 +76,21 @@
 		},
 		"3": {
 			"name": "Runtime",
-			"description": "Component system and runtime architect",
-			"libraries": ["pagewright", "architect", "formulator"],
+			"description": "Component system and runtime artificer",
+			"libraries": ["architect", "artificer", "formulator"],
 			"rules": {
 				"canDepend": ["arborist", "toolsmith", "quarrier"],
 				"cannotDepend": ["envoy", "auditor", "agent"],
 				"canBeUsedBy": ["applications", "agent"],
 				"specialRules": {
-					"pagewright": {
-						"REQUIRED": ["Must compile to Architect IR format"]
-					},
 					"architect": {
-						"REQUIRED": ["Must evaluate IR from Pagewright and Formulator"]
+						"REQUIRED": ["Must compile to Artificer IR format"]
+					},
+					"artificer": {
+						"REQUIRED": ["Must evaluate IR from Architect and Formulator"]
 					},
 					"formulator": {
-						"REQUIRED": ["Must compile expressions to Architect IR"]
+						"REQUIRED": ["Must compile expressions to Artificer IR"]
 					}
 				}
 			}
@@ -100,7 +100,7 @@
 			"description": "Distributed data and agent networking",
 			"libraries": ["agent"],
 			"rules": {
-				"canDepend": ["pagewright", "architect", "toolsmith", "quarrier"],
+				"canDepend": ["architect", "artificer", "toolsmith", "quarrier"],
 				"cannotDepend": ["arborist", "envoy", "auditor", "formulator"],
 				"canBeUsedBy": ["applications"]
 			}
@@ -136,7 +136,7 @@
 				"arborist",
 				"envoy",
 				"auditor",
-				"architect",
+				"artificer",
 				"agent",
 				"applications"
 			],
@@ -149,16 +149,16 @@
 			"canBeImportedBy": [
 				"envoy",
 				"auditor",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"applications"
 			],
 			"forbiddenImports": [
 				"envoy",
 				"auditor",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"agent"
 			],
@@ -188,8 +188,8 @@
 				"typescript",
 				"@typescript/compiler",
 				"auditor",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"agent",
 				"ANY TypeScript parsing library",
@@ -215,8 +215,8 @@
 				"typescript",
 				"@typescript/compiler",
 				"envoy",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"agent"
 			],
@@ -227,29 +227,29 @@
 				"arbitraryData": "Quarrier generators ONLY"
 			}
 		},
-		"pagewright": {
-			"canImport": ["arborist", "toolsmith", "quarrier"],
-			"canBeImportedBy": ["architect", "agent", "applications"],
-			"forbiddenImports": ["envoy", "auditor", "formulator"],
-			"publicAPI": "libraries/pagewright/exports/",
-			"internalPath": "libraries/pagewright/internal/"
-		},
 		"architect": {
 			"canImport": ["arborist", "toolsmith", "quarrier"],
-			"canBeImportedBy": ["agent", "applications"],
-			"forbiddenImports": ["envoy", "auditor", "pagewright", "formulator"],
+			"canBeImportedBy": ["artificer", "agent", "applications"],
+			"forbiddenImports": ["envoy", "auditor", "formulator"],
 			"publicAPI": "libraries/architect/exports/",
 			"internalPath": "libraries/architect/internal/"
+		},
+		"artificer": {
+			"canImport": ["arborist", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["agent", "applications"],
+			"forbiddenImports": ["envoy", "auditor", "architect", "formulator"],
+			"publicAPI": "libraries/artificer/exports/",
+			"internalPath": "libraries/artificer/internal/"
 		},
 		"formulator": {
 			"canImport": ["arborist", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications"],
-			"forbiddenImports": ["envoy", "auditor", "pagewright", "architect", "agent"],
+			"forbiddenImports": ["envoy", "auditor", "architect", "artificer", "agent"],
 			"publicAPI": "libraries/formulator/exports/",
 			"internalPath": "libraries/formulator/internal/"
 		},
 		"agent": {
-			"canImport": ["pagewright", "architect", "toolsmith", "quarrier"],
+			"canImport": ["architect", "artificer", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications"],
 			"forbiddenImports": ["arborist", "envoy", "auditor", "formulator"],
 			"publicAPI": "libraries/agent/exports/",

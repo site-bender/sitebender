@@ -6,7 +6,7 @@ import type { ServiceProps } from "../../../index.ts"
 import type { FinancialProductProps } from "../../index.ts"
 import type { LoanOrCreditProps } from "../index.ts"
 
-import MonetaryAmountComponent from "../../../../../../../../../pagewright/src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
+import MonetaryAmountComponent from "../../../../../../../../src/define/Thing/Intangible/StructuredValue/MonetaryAmount/index.tsx"
 
 export type MortgageLoanType = "MortgageLoan"
 

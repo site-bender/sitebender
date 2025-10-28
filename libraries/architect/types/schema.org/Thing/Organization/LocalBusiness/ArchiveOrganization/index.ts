@@ -4,7 +4,7 @@ import type { PlaceProps } from "../../../Place/index.ts"
 import type { OrganizationProps } from "../../index.ts"
 import type { LocalBusinessProps } from "../index.ts"
 
-import ArchiveComponentComponent from "../../../../../../../pagewright/src/define/Thing/CreativeWork/ArchiveComponent/index.tsx"
+import ArchiveComponentComponent from "../../../../../../src/define/Thing/CreativeWork/ArchiveComponent/index.tsx"
 
 export type ArchiveOrganizationType = "ArchiveOrganization"
 

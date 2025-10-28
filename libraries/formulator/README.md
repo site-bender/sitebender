@@ -1,6 +1,6 @@
 # Formulator: Bidirectional Formula Parser & Compiler
 
-> **Transform mathematical formulas between human-readable notation, Architect IR, and semantic markup**
+> **Transform mathematical formulas between human-readable notation, Artificer IR, and semantic markup**
 
 ⚠️ **Status**: Under active development. Pure FP architecture planned, awaiting Toolsmith boxed function implementation. See [docs/plan.md](./docs/plan.md) for complete architecture and [docs/boxed-required.md](./docs/boxed-required.md) for prerequisites.
 
@@ -13,7 +13,7 @@ Formulator is a pure functional TypeScript library that creates perfect isomorph
 Formulator bridges the gap between how humans write formulas and how computers process them:
 
 - **Humans write**: `"E = mc²"`
-- **Architect needs**: Structured IR for reactive calculations
+- **Artificer needs**: Structured IR for reactive calculations
 - **Browsers display**: MathMl for semantic rendering
 - **Databases store**: JSON/YAML/Turtle for persistence
 
@@ -22,7 +22,7 @@ All representations are perfectly interchangeable through Formulator.
 ## The Isomorphism
 
 ```
-Formula String ←→ AST ←→ Architect IR ←→ JSX Components
+Formula String ←→ AST ←→ Artificer IR ←→ JSX Components
       ↓            ↓           ↓              ↓
    MathMl      Metadata   JSON/YAML      Semantic HTML
 ```
@@ -49,13 +49,13 @@ Parse and compile mathematical expressions with full support for:
 #### MathMl Display (Declarative JSX)
 
 ```tsx
-import MathMlDisplay from "@sitebender/pagewright/scientific/MathMlDisplay/index.tsx"
+import MathMlDisplay from "@sitebender/architect/scientific/MathMlDisplay/index.tsx"
 
 <MathMlDisplay formula="(a + b)² = a² + 2ab + b²" />
 // Component generates proper MathMl with <math>, <mrow>, <msup>, etc.
 ```
 
-#### Architect IR
+#### Artificer IR
 
 ```typescript
 import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
@@ -65,7 +65,7 @@ const result = parseFormula("(price * quantity) * (1 + taxRate)", {
 	quantity: { tag: "FromElement", source: "#quantity" },
 	taxRate: { tag: "FromConstant", value: 0.08 },
 })
-// Generates Architect operator configuration for reactive calculations
+// Generates Artificer operator configuration for reactive calculations
 ```
 
 ## Usage Examples
@@ -74,9 +74,9 @@ const result = parseFormula("(price * quantity) * (1 + taxRate)", {
 
 ```tsx
 import parseFormula from "@sitebender/formulator/parseFormula/index.ts"
-import MathMlDisplay from "@sitebender/pagewright/scientific/MathMlDisplay/index.tsx"
+import MathMlDisplay from "@sitebender/architect/scientific/MathMlDisplay/index.tsx"
 
-// Parse formula to Architect IR for reactive calculations
+// Parse formula to Artificer IR for reactive calculations
 const formula = "x = (-b ± √(b² - 4ac)) / (2a)"
 const ir = parseFormula(formula, {
   a: { tag: "FromElement", source: "#coeffA" },
@@ -97,7 +97,7 @@ import decompile from "@sitebender/formulator/decompile/index.ts"
 // Start with a formula string
 const original = "(a + b) * c"
 
-// Parse to Architect IR
+// Parse to Artificer IR
 const ir = parseFormula(original, variables)
 
 // Convert back to formula string
@@ -113,7 +113,7 @@ assert(parseFormula(decompiled, variables) === ir)
 ```tsx
 import decompile from "@sitebender/formulator/decompile/index.ts"
 
-// User builds formula visually in Architect JSX
+// User builds formula visually in Artificer JSX
 const visualFormula = (
 	<Multiply>
 		<Add>
@@ -358,13 +358,13 @@ When decompiling from IR to formula strings, Formulator uses intelligent variabl
 localStorage.price → "price3"
 ```
 
-## Integration with Architect
+## Integration with Artificer
 
-Formulator is designed as the formula layer for @sitebender/architect:
+Formulator is designed as the formula layer for @sitebender/artificer:
 
 ```tsx
-import Calculation from "@sitebender/architect/components/Calculation/index.tsx"
-import Validation from "@sitebender/architect/components/Validation/index.tsx"
+import Calculation from "@sitebender/artificer/components/Calculation/index.tsx"
+import Validation from "@sitebender/artificer/components/Validation/index.tsx"
 
 // Use formula strings instead of nested components
 <Calculation formula="(base + bonus) * (1 - taxRate)">
@@ -381,10 +381,10 @@ import Validation from "@sitebender/architect/components/Validation/index.tsx"
 
 ## MathMl Components
 
-Formulator works seamlessly with Pagewright's scientific display components using fully declarative JSX:
+Formulator works seamlessly with Architect's scientific display components using fully declarative JSX:
 
 ```tsx
-import MathMlDisplay from "@sitebender/pagewright/scientific/MathMlDisplay/index.tsx"
+import MathMlDisplay from "@sitebender/architect/scientific/MathMlDisplay/index.tsx"
 
 // Mathematical formulas with proper semantic markup
 <MathMlDisplay formula="E = mc²" />
@@ -460,6 +460,6 @@ See [CONTRIBUTING.md](../../CONTRIBUTING.md) for details.
 
 ## See Also
 
-- [Architect](../architect/README.md) - Reactive rendering with calculations
-- [Pagewright](../pagewright/README.md) - Semantic HTML components
+- [Artificer](../artificer/README.md) - Reactive rendering with calculations
+- [Architect](../architect/README.md) - Semantic HTML components
 - [Toolsmith](../toolsmith/README.md) - Functional programming utilities
