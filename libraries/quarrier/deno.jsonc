@@ -1,0 +1,52 @@
+{
+	// Quarrier library - Property-based testing and fake data generation
+	"name": "@sitebender/quarrier",
+	"version": "0.1.0",
+	"description": "Property-based testing and fake data generation utilities for generating arbitrary test data and semantic web content.",
+
+	// Main export point for the library
+	"exports": {
+		"./arbitrary/generateInteger": "./src/arbitrary/generateInteger/index.ts",
+		"./arbitrary/generateString": "./src/arbitrary/generateString/index.ts",
+		"./arbitrary/generateBoolean": "./src/arbitrary/generateBoolean/index.ts",
+		"./arbitrary/generateArray": "./src/arbitrary/generateArray/index.ts",
+		"./arbitrary/generateRecord": "./src/arbitrary/generateRecord/index.ts",
+		"./arbitrary/mapGenerator": "./src/arbitrary/mapGenerator/index.ts",
+		"./arbitrary/filterGenerator": "./src/arbitrary/filterGenerator/index.ts",
+		"./arbitrary/chainGenerators": "./src/arbitrary/chainGenerators/index.ts",
+		"./property/createProperty": "./src/property/createProperty/index.ts",
+		"./property/checkProperty": "./src/property/checkProperty/index.ts",
+		"./property/shrinkToMinimal": "./src/property/shrinkToMinimal/index.ts",
+		"./fake/generatePerson": "./src/fake/generatePerson/index.ts",
+		"./fake/generateAddress": "./src/fake/generateAddress/index.ts",
+		"./fake/generateCompany": "./src/fake/generateCompany/index.ts",
+		"./fake/semantic/generateTriple": "./src/fake/semantic/generateTriple/index.ts",
+		"./fake/semantic/generateOntology": "./src/fake/semantic/generateOntology/index.ts",
+		"./fake/semantic/generateKnowledgeGraph": "./src/fake/semantic/generateKnowledgeGraph/index.ts",
+		"./types": "./src/types/index.ts",
+		"./constants": "./src/constants/index.ts"
+	},
+
+	"tasks": {
+		// Run tests
+		"test": "deno test --unstable-temporal tests/ src/",
+		"test:watch": "deno test --unstable-temporal tests/ src/ --watch",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ src/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
+		"test:unit": "deno test --unstable-temporal tests/ src/ --filter='/^(?!.*integration).*/'",
+		"test:integration": "deno test --unstable-temporal tests/integration/",
+
+		// Code quality (inherits config from root workspace)
+		"lint": "deno lint src/",
+		"fmt": "deno fmt src/",
+		"type-check": "deno check --unstable-temporal src/**/*.ts"
+	},
+
+	// Test configuration
+	"test": {
+		"include": ["tests/", "src/**/*.test.ts"]
+	},
+	"compilerOptions": {
+		"lib": ["deno.window", "deno.unstable", "esnext"],
+		"types": []
+	}
+}
