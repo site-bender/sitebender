@@ -1,0 +1,41 @@
+{
+	// Auditor library - Test generation and code coverage analysis
+	"name": "@sitebender/auditor",
+	"version": "1.0.0",
+	"description": "Test generation and code coverage analysis utilities for monitoring system quality and generating comprehensive tests.",
+
+	// Main export point for the library
+	"exports": {
+		".": "./src/index.ts",
+		"./analyzeBranches": "./src/analyzeBranches/index.ts",
+		"./generateBenchmarks": "./src/generateBenchmarks/index.ts",
+		"./generatePropertyTests": "./src/generatePropertyTests/index.ts",
+		"./generateTests": "./src/generateTests/index.ts",
+		"./orchestrate": "./src/orchestrateTestGeneration/index.ts",
+		"./validateCoverage": "./src/validateCoverage/index.ts",
+		"./types": "./src/types/index.ts"
+	},
+
+	"tasks": {
+		// Run tests
+		"test": "deno test --unstable-temporal tests/ src/",
+		"test:watch": "deno test --unstable-temporal tests/ src/ --watch",
+		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ src/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
+		"test:unit": "deno test --unstable-temporal tests/ src/ --filter='/^(?!.*integration).*/'",
+		"test:integration": "deno test --unstable-temporal tests/integration/",
+
+		// Code quality (inherits config from root workspace)
+		"lint": "deno lint src/",
+		"fmt": "deno fmt src/",
+		"type-check": "deno check --unstable-temporal src/**/*.ts"
+	},
+
+	// Test configuration
+	"test": {
+		"include": ["tests/", "src/**/*.test.ts"]
+	},
+	"compilerOptions": {
+		"lib": ["deno.window", "deno.unstable", "esnext"],
+		"types": []
+	}
+}
