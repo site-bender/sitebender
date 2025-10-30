@@ -37,25 +37,27 @@ Deno.test(
 		)
 
 		await t.step(
-			"returns empty object for invalid enumerated value",
-			function returnsEmptyForInvalid() {
+			"returns data-§-bad-* for invalid enumerated value",
+			function returnsBadForInvalid() {
 				const validateDir = _validateEnumeratedAttribute("dir")
 				const result = validateDir({ dir: "invalid" })
 
-				assertEquals(result, {})
+				assertEquals(result, { "data-§-bad-dir": "invalid" })
 			},
 		)
 
 		await t.step(
-			"returns empty object for non-string values",
-			function returnsEmptyForNonString() {
+			"returns data-§-bad-* for non-string values",
+			function returnsBadForNonString() {
 				const validateDir = _validateEnumeratedAttribute("dir")
 
-				assertEquals(validateDir({ dir: 123 }), {})
-				assertEquals(validateDir({ dir: true }), {})
-				assertEquals(validateDir({ dir: null }), {})
-				assertEquals(validateDir({ dir: { foo: "bar" } }), {})
-				assertEquals(validateDir({ dir: ["ltr"] }), {})
+				assertEquals(validateDir({ dir: 123 }), { "data-§-bad-dir": "123" })
+				assertEquals(validateDir({ dir: true }), { "data-§-bad-dir": "true" })
+				assertEquals(validateDir({ dir: null }), { "data-§-bad-dir": "null" })
+				assertEquals(validateDir({ dir: { foo: "bar" } }), {
+					"data-§-bad-dir": "[object Object]",
+				})
+				assertEquals(validateDir({ dir: ["ltr"] }), { "data-§-bad-dir": "ltr" })
 			},
 		)
 
@@ -74,12 +76,16 @@ Deno.test(
 		)
 
 		await t.step(
-			"returns empty for value not in enumeration",
-			function returnsEmptyForNotInEnum() {
+			"returns data-§-bad-* for value not in enumeration",
+			function returnsBadForNotInEnum() {
 				const validateDraggable = _validateEnumeratedAttribute("draggable")
 
-				assertEquals(validateDraggable({ draggable: "maybe" }), {})
-				assertEquals(validateDraggable({ draggable: "1" }), {})
+				assertEquals(validateDraggable({ draggable: "maybe" }), {
+					"data-§-bad-draggable": "maybe",
+				})
+				assertEquals(validateDraggable({ draggable: "1" }), {
+					"data-§-bad-draggable": "1",
+				})
 			},
 		)
 	},
