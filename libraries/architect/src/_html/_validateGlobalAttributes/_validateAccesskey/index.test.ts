@@ -24,36 +24,56 @@ Deno.test("_validateAccesskey", async function _validateAccesskeyTests(t) {
 	)
 
 	await t.step(
-		"returns empty object for multi-character strings",
-		function returnsEmptyForMultiChar() {
-			assertEquals(_validateAccesskey({ accesskey: "ab" }), {})
-			assertEquals(_validateAccesskey({ accesskey: "test" }), {})
-			assertEquals(_validateAccesskey({ accesskey: "ABC" }), {})
+		"returns data-§-bad-accesskey for multi-character strings",
+		function returnsBadForMultiChar() {
+			assertEquals(_validateAccesskey({ accesskey: "ab" }), {
+				"data-§-bad-accesskey": "ab",
+			})
+			assertEquals(_validateAccesskey({ accesskey: "test" }), {
+				"data-§-bad-accesskey": "test",
+			})
+			assertEquals(_validateAccesskey({ accesskey: "ABC" }), {
+				"data-§-bad-accesskey": "ABC",
+			})
 		},
 	)
 
 	await t.step(
-		"returns empty object for empty string",
-		function returnsEmptyForEmptyString() {
-			assertEquals(_validateAccesskey({ accesskey: "" }), {})
+		"returns data-§-bad-accesskey for empty string",
+		function returnsBadForEmptyString() {
+			assertEquals(_validateAccesskey({ accesskey: "" }), {
+				"data-§-bad-accesskey": "",
+			})
 		},
 	)
 
 	await t.step(
-		"returns empty object for non-printable characters",
-		function returnsEmptyForNonPrintable() {
-			assertEquals(_validateAccesskey({ accesskey: "\n" }), {})
-			assertEquals(_validateAccesskey({ accesskey: "\t" }), {})
-			assertEquals(_validateAccesskey({ accesskey: "\r" }), {})
+		"returns data-§-bad-accesskey for non-printable characters",
+		function returnsBadForNonPrintable() {
+			assertEquals(_validateAccesskey({ accesskey: "\n" }), {
+				"data-§-bad-accesskey": "\n",
+			})
+			assertEquals(_validateAccesskey({ accesskey: "\t" }), {
+				"data-§-bad-accesskey": "\t",
+			})
+			assertEquals(_validateAccesskey({ accesskey: "\r" }), {
+				"data-§-bad-accesskey": "\r",
+			})
 		},
 	)
 
 	await t.step(
-		"returns empty object for non-string values",
-		function returnsEmptyForNonString() {
-			assertEquals(_validateAccesskey({ accesskey: 123 }), {})
-			assertEquals(_validateAccesskey({ accesskey: true }), {})
-			assertEquals(_validateAccesskey({ accesskey: null }), {})
+		"returns data-§-bad-accesskey for non-string values",
+		function returnsBadForNonString() {
+			assertEquals(_validateAccesskey({ accesskey: 123 }), {
+				"data-§-bad-accesskey": "123",
+			})
+			assertEquals(_validateAccesskey({ accesskey: true }), {
+				"data-§-bad-accesskey": "true",
+			})
+			assertEquals(_validateAccesskey({ accesskey: null }), {
+				"data-§-bad-accesskey": "null",
+			})
 		},
 	)
 })
