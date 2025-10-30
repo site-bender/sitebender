@@ -56,15 +56,17 @@ Deno.test(
 		)
 
 		await t.step(
-			"returns empty object for non-string values",
-			function returnsEmptyForNonString() {
+			"returns data-§-bad-* for non-string values",
+			function returnsBadForNonString() {
 				const validateId = _validateStringAttribute("id")
 
-				assertEquals(validateId({ id: 123 }), {})
-				assertEquals(validateId({ id: true }), {})
-				assertEquals(validateId({ id: null }), {})
-				assertEquals(validateId({ id: { foo: "bar" } }), {})
-				assertEquals(validateId({ id: ["test"] }), {})
+				assertEquals(validateId({ id: 123 }), { "data-§-bad-id": "123" })
+				assertEquals(validateId({ id: true }), { "data-§-bad-id": "true" })
+				assertEquals(validateId({ id: null }), { "data-§-bad-id": "null" })
+				assertEquals(validateId({ id: { foo: "bar" } }), {
+					"data-§-bad-id": "[object Object]",
+				})
+				assertEquals(validateId({ id: ["test"] }), { "data-§-bad-id": "test" })
 			},
 		)
 
