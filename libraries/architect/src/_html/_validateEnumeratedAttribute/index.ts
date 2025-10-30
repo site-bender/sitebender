@@ -20,6 +20,8 @@ export default function _validateEnumeratedAttribute(prop: string) {
 			) {
 				return { [prop]: value as string }
 			}
+
+			return { [`data-§-bad-${prop}`]: String(value) }
 		}
 
 		return {}
