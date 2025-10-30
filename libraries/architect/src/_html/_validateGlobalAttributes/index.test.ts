@@ -1,4 +1,5 @@
 import { assertEquals } from "@std/assert"
+import { assert } from "@std/assert/assert"
 
 import _validateGlobalAttributes from "./index.ts"
 
@@ -6,11 +7,13 @@ Deno.test(
 	"_validateGlobalAttributes",
 	async function validateGlobalAttributesTests(t) {
 		await t.step(
-			"returns empty object for empty props",
-			function returnsEmptyForEmptyProps() {
+			"generates id when no props provided",
+			function generatesIdWhenEmpty() {
 				const result = _validateGlobalAttributes({})
 
-				assertEquals(result, {})
+				assert("id" in result)
+				assert(typeof result.id === "string")
+				assert(result.id.startsWith("_"))
 			},
 		)
 
@@ -43,23 +46,22 @@ Deno.test(
 		)
 
 		await t.step(
-			"converts boolean attributes",
-			function convertsBooleanAttributes() {
+			"converts boolean attributes and generates id",
+			function convertsBooleanAttributesWithId() {
 				const result = _validateGlobalAttributes({
 					spellcheck: true,
 					translate: false,
 				})
 
-				assertEquals(result, {
-					spellcheck: "true",
-					translate: "no",
-				})
+				assert("id" in result)
+				assertEquals(result.spellcheck, "true")
+				assertEquals(result.translate, "no")
 			},
 		)
 
 		await t.step(
-			"omits invalid attributes",
-			function omitsInvalidAttributes() {
+			"returns bad values as data-§-bad-*",
+			function returnsBadValues() {
 				const result = _validateGlobalAttributes({
 					id: "valid-id",
 					dir: "invalid-direction",
@@ -68,21 +70,26 @@ Deno.test(
 
 				assertEquals(result, {
 					id: "valid-id",
+					"data-§-bad-dir": "invalid-direction",
 					lang: "en",
 				})
 			},
 		)
 
 		await t.step(
-			"ignores non-global attributes",
-			function ignoresNonGlobalAttributes() {
+			"converts unknown attributes to data-*",
+			function convertsUnknownAttributes() {
 				const result = _validateGlobalAttributes({
 					id: "test-id",
-					customAttribute: "should-be-ignored",
+					customAttribute: "custom-value",
 					anotherProp: 123,
 				})
 
-				assertEquals(result, { id: "test-id" })
+				assertEquals(result, {
+					id: "test-id",
+					"data-customAttribute": "custom-value",
+					"data-anotherProp": "123",
+				})
 			},
 		)
 	},
