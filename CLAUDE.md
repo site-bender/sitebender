@@ -178,8 +178,8 @@ This codebase has **strict architectural, functional programming, syntax, and fo
 - **sitebender-predicates** - Patterns for writing predicate functions
 - **function-implementation** - Structure AND implementation patterns; when to use Result; error handling; imports; constitutional rules reminder (includes generator script)
 - **type-definition** - Branded types, discriminated unions, smart constructors (includes generator scripts)
-- **error-handling** - Result/Validation monads, error type design (includes generator script)
-- **testing** - Unit tests, property-based testing, test organization (includes generator script)
+- **error-handling** - Result/Validation monads, error type design, no exceptions
+- **testing** - Unit tests, property-based testing, test organization
 - **component** - Components returning VirtualNode data structures, HTML wrappers vs custom components, Props patterns, testing with predicates (includes generator script)
 
 **CRITICAL:** When implementing ANY function, consult function-implementation skill for:
