@@ -48,6 +48,45 @@ export const HEAD_ELEMENTS = [
 export const VALID_HTML_ATTRIBUTES = ["dir", "lang", "xmlns"] as const
 
 /*++
- + Valid values for the dir attribute
+ + Valid values for global attribute enums
  */
-export const VALID_DIR_VALUES = ["auto", "ltr", "rtl"] as const
+export const ENUMERATED_ATTRIBUTE_VALUES = {
+	autocapitalize: [
+		"off",
+		"none",
+		"on",
+		"sentences",
+		"words",
+		"characters",
+	] as const,
+	contenteditable: [
+		"true",
+		"false",
+		"plaintext-only",
+		"",
+	] as const,
+	dir: ["auto", "ltr", "rtl"] as const,
+	draggable: ["true", "false"] as const,
+	enterkeyhint: [
+		"enter",
+		"done",
+		"go",
+		"next",
+		"previous",
+		"search",
+		"send",
+	] as const,
+	hidden: ["", "until-found"] as const,
+	inert: [""] as const,
+	inputmode: [
+		"none",
+		"text",
+		"decimal",
+		"numeric",
+		"tel",
+		"search",
+		"email",
+		"url",
+	] as const,
+	popover: ["", "auto", "manual"] as const,
+} as const

@@ -20,10 +20,9 @@ import _createErrorConfig from "./_createErrorConfig/index.ts"
 export default function createElement(component: Component) {
 	return function createElementWithComponent(props: Props | null) {
 		return function createElementWithComponentAndProps(
-			...children: ReadonlyArray<Child>
+			children: ReadonlyArray<Child>,
 		): VirtualNode {
 			/*++
-			 + [EXCEPTION] Rest parameters allowed for collecting children
 			 + [EXCEPTION] Object spread allowed for merging props (creates new object)
 			 */
 

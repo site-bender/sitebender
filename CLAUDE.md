@@ -45,9 +45,22 @@ These rules are ALWAYS active and cannot be violated under ANY circumstances:
 - Exception: Arrow syntax OK in type signatures only
 
 ### 8. All Functions Must Be Curried
-**Every function must be curried** for composition and partial application.
+
+**CRITICAL DEFINITION: A curried function is ANY function that takes ONLY ONE parameter. Period.**
+
+**Currying is NOT about returning functions. It is ONLY about parameter count.**
+
+- ✅ `function add(a: number): number` - **CURRIED** (1 parameter, returns number)
+- ✅ `function add(a: number) { return function(b) { ... } }` - **CURRIED** (1 parameter, returns function)
+- ❌ `function add(a: number, b: number): number` - **NOT CURRIED** (2 parameters)
+
+**If a function needs multiple values, transform it into nested functions, each taking ONE parameter.**
+
+Examples:
 - ❌ Wrong: `function add(a: number, b: number): number { return a + b }`
 - ✅ Right: `function add(augend: number) { return function addToAugend(addend: number): number { return augend + addend } }`
+
+**DO NOT turn single-parameter functions into thunks. They are already curried.**
 
 **If you violate ANY of these rules, STOP immediately and regenerate correctly.**
 
