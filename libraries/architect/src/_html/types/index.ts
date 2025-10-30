@@ -1,4 +1,5 @@
 import type { Child } from "../../types/index.ts"
+import type { PrintableCharacter } from "@sitebender/toolsmith/types/index.ts"
 
 /*++
  + Global attribute value types
@@ -45,9 +46,9 @@ export type YesNo = "yes" | "no"
  + Global HTML attributes allowed on all elements
  */
 export type GlobalAttributes = Readonly<{
-	accesskey?: string
+	accesskey?: PrintableCharacter
 	autocapitalize?: AutocapitalizeType
-	class?: string
+	class?: string | ReadonlyArray<string>
 	contenteditable?: ContenteditableType
 	dir?: DirType
 	draggable?: DraggableType
