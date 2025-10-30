@@ -12,6 +12,8 @@ export default function _validateStringAttribute(
 			if (isString(value)) {
 				return { [prop]: value as string }
 			}
+
+			return { [`data-§-bad-${prop}`]: String(value) }
 		}
 
 		return {}
