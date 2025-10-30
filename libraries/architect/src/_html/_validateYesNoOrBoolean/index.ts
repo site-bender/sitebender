@@ -19,6 +19,8 @@ export default function _validateYesNoOrBoolean(prop: string) {
 					return { [prop]: normalized }
 				}
 			}
+
+			return { [`data-§-bad-${prop}`]: String(value) }
 		}
 
 		return {}
