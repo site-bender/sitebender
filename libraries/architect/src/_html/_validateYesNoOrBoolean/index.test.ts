@@ -86,23 +86,29 @@ Deno.test(
 		)
 
 		await t.step(
-			"returns empty object for invalid string",
-			function returnsEmptyForInvalidString() {
+			"returns data-§-bad-* for invalid string",
+			function returnsBadForInvalidString() {
 				const validateTranslate = _validateYesNoOrBoolean("translate")
 				const result = validateTranslate({ translate: "invalid" })
 
-				assertEquals(result, {})
+				assertEquals(result, { "data-§-bad-translate": "invalid" })
 			},
 		)
 
 		await t.step(
-			"returns empty object for non-boolean non-string",
-			function returnsEmptyForInvalidType() {
+			"returns data-§-bad-* for non-boolean non-string",
+			function returnsBadForInvalidType() {
 				const validateTranslate = _validateYesNoOrBoolean("translate")
 
-				assertEquals(validateTranslate({ translate: 123 }), {})
-				assertEquals(validateTranslate({ translate: null }), {})
-				assertEquals(validateTranslate({ translate: { foo: "bar" } }), {})
+				assertEquals(validateTranslate({ translate: 123 }), {
+					"data-§-bad-translate": "123",
+				})
+				assertEquals(validateTranslate({ translate: null }), {
+					"data-§-bad-translate": "null",
+				})
+				assertEquals(validateTranslate({ translate: { foo: "bar" } }), {
+					"data-§-bad-translate": "[object Object]",
+				})
 			},
 		)
 

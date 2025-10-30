@@ -86,23 +86,29 @@ Deno.test(
 		)
 
 		await t.step(
-			"returns empty object for invalid string",
-			function returnsEmptyForInvalidString() {
+			"returns data-§-bad-* for invalid string",
+			function returnsBadForInvalidString() {
 				const validateSpellcheck = _validateTrueFalseOrBoolean("spellcheck")
 				const result = validateSpellcheck({ spellcheck: "invalid" })
 
-				assertEquals(result, {})
+				assertEquals(result, { "data-§-bad-spellcheck": "invalid" })
 			},
 		)
 
 		await t.step(
-			"returns empty object for non-boolean non-string",
-			function returnsEmptyForInvalidType() {
+			"returns data-§-bad-* for non-boolean non-string",
+			function returnsBadForInvalidType() {
 				const validateSpellcheck = _validateTrueFalseOrBoolean("spellcheck")
 
-				assertEquals(validateSpellcheck({ spellcheck: 123 }), {})
-				assertEquals(validateSpellcheck({ spellcheck: null }), {})
-				assertEquals(validateSpellcheck({ spellcheck: { foo: "bar" } }), {})
+				assertEquals(validateSpellcheck({ spellcheck: 123 }), {
+					"data-§-bad-spellcheck": "123",
+				})
+				assertEquals(validateSpellcheck({ spellcheck: null }), {
+					"data-§-bad-spellcheck": "null",
+				})
+				assertEquals(validateSpellcheck({ spellcheck: { foo: "bar" } }), {
+					"data-§-bad-spellcheck": "[object Object]",
+				})
 			},
 		)
 
