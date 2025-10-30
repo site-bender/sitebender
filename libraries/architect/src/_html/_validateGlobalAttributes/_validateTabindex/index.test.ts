@@ -37,11 +37,11 @@ Deno.test("_validateTabindex", async function _validateTabindexTests(t) {
 	)
 
 	await t.step(
-		"returns empty object for empty string",
-		function returnsEmptyForEmptyString() {
+		"returns data-§-bad-tabindex for empty string",
+		function returnsBadForEmptyString() {
 			const result = _validateTabindex({ tabindex: "" })
 
-			assertEquals(result, {})
+			assertEquals(result, { "data-§-bad-tabindex": "" })
 		},
 	)
 })
