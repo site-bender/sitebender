@@ -1,12 +1,14 @@
 import type { VirtualNode } from "../../types/index.ts"
 import type { BaseProps } from "../types/index.ts"
 
+import concat from "@sitebender/toolsmith/array/concat/index.ts"
 import includes from "@sitebender/toolsmith/array/includes/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import entries from "@sitebender/toolsmith/object/entries/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import isNotEmpty from "@sitebender/toolsmith/array/isNotEmpty/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import toKebab from "@sitebender/toolsmith/string/toKebab/index.ts"
 
 import _Head from "./_Head/index.ts"
 import _Body from "./_Body/index.ts"
@@ -88,7 +90,7 @@ export default function _Html(props: Props): VirtualNode {
 	const existingHead = isNotEmpty(headElements) ? headElements[0] : null
 
 	const headChildren = existingHead && existingHead._tag === "element"
-		? [...existingHead.children, ...orphanedHeadElements]
+		? concat(existingHead.children)(orphanedHeadElements)
 		: orphanedHeadElements
 
 	const head = _Head({ children: headChildren })
@@ -116,7 +118,7 @@ export default function _Html(props: Props): VirtualNode {
 		: null
 
 	const finalBodyChildren = mainElement
-		? [...bodyChildren, mainElement]
+		? concat(bodyChildren)([mainElement])
 		: bodyChildren
 
 	const body = _Body({ children: finalBodyChildren })
@@ -189,12 +191,7 @@ export default function _Html(props: Props): VirtualNode {
 		 + Invalid attribute name → convert to data-*
 		 + Convert camelCase to kebab-case
 		 */
-		const kebabKey = key.replace(
-			/[A-Z]/g,
-			function toKebab(match: string): string {
-				return `-${match.toLowerCase()}`
-			},
-		)
+		const kebabKey = toKebab(key)
 		return {
 			...accumulator,
 			[`data-${kebabKey}`]: String(value),
