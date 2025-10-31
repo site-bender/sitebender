@@ -90,7 +90,7 @@ function generateFunctionCode(config: FunctionConfig): string {
 	}
 }
 
-//++ Generates a unary function (not curried)
+//++ Generates a unary function (curried - takes one parameter)
 function generateUnaryFunction(config: FunctionConfig): string {
 	const { name, parameters, returns, description, generic } = config
 	const param = parameters[0]
@@ -226,34 +226,74 @@ function capitalize(str: string): string {
 	return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
-//++ Generates test code
+//++ Generates test code using testing skill pattern
 function generateTestCode(config: FunctionConfig): string {
 	const { name, parameters } = config
-	const paramCount = parameters.length
 
-	return `import { assertEquals, assertThrows } from "jsr:@std/assert"
+	const happyPathTests = parameters.length > 1
+		? `\t\tawait t.step("handles valid inputs", () => {
+			// TODO: Test full application
+			// const result = ${name}(${parameters.map(function paramToComment(p) { return "/* " + p.name + " */" }).join(")(")})
+			// assertEquals(result, /* expected value */)
+			throw new Error("Test not implemented")
+		})`
+		: `\t\tawait t.step("handles valid input", () => {
+			// TODO: Test with valid input
+			// const result = ${name}(/* ${parameters[0].name} */)
+			// assertEquals(result, /* expected value */)
+			throw new Error("Test not implemented")
+		})`
+
+	const partialTests = parameters.length > 1
+		? `
+
+	await t.step("partial application", async (t) => {
+		await t.step("returns a function when partially applied", () => {
+			// TODO: Test partial application
+			// const partial = ${name}(${parameters[0].name})
+			// assertEquals(typeof partial, "function")
+			throw new Error("Test not implemented")
+		})
+
+		await t.step("partial application is reusable", () => {
+			// TODO: Test reusability
+			// const partial = ${name}(${parameters[0].name})
+			// assertEquals(partial(input1), expected1)
+			// assertEquals(partial(input2), expected2)
+			throw new Error("Test not implemented")
+		})
+	})`
+		: ""
+
+	return `import { assert, assertEquals, fail } from "@std/assert"
 import ${name} from "./index.ts"
 
-Deno.test("${name} - basic functionality", () => {
-	// TODO: Write test for happy path
-	// Example:
-	// const result = ${name}(${parameters.map(function paramToComment(p) { return "/* " + p.name + " */" }).join(")(")})
-	// assertEquals(result, /* expected value */)
-	throw new Error("Test not implemented")
-})
+//++ Tests for ${name}
+Deno.test("${name}", async (t) => {
+	await t.step("happy path", async (t) => {
+${happyPathTests}
+	})${partialTests}
 
-Deno.test("${name} - edge cases", () => {
-	// TODO: Write tests for edge cases
-	// - Empty inputs
-	// - Null/undefined
-	// - Boundary values
-	throw new Error("Test not implemented")
-})
+	await t.step("edge cases", async (t) => {
+		await t.step("TODO: add edge case test", () => {
+			// TODO: Test boundary values, empty inputs, special cases
+			throw new Error("Test not implemented")
+		})
+	})
 
-Deno.test("${name} - error handling", () => {
-	// TODO: Write tests for error cases
-	// If function returns Result<T,E>, test error paths
-	throw new Error("Test not implemented")
+	await t.step("error paths", async (t) => {
+		await t.step("TODO: test error handling", () => {
+			// TODO: If function returns Result/Validation, test error cases
+			// import fold from "@sitebender/toolsmith/monads/result/fold/index.ts"
+			// const result = ${name}(invalidInput)
+			// fold<ErrorType, void>(
+			//   (error) => assertEquals(error.code, expectedCode)
+			// )(
+			//   (_value) => fail("Expected Error but got Ok")
+			// )(result)
+			throw new Error("Test not implemented")
+		})
+	})
 })
 `
 }
