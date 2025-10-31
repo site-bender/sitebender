@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
 import _Body from "./index.ts"
 
 Deno.test("_Body component", async function testBody(t) {
