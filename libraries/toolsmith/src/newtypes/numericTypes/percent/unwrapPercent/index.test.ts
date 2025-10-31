@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert"
 
-import unsafePercent from "@sitebender/toolsmith/newtypes/percent/unsafePercent/index.ts"
+import unsafePercent from "@sitebender/toolsmith/newtypes/numericTypes/percent/unsafePercent/index.ts"
 
 import unwrapPercent from "./index.ts"
 
