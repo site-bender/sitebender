@@ -184,6 +184,8 @@ This codebase has **strict architectural, functional programming, syntax, and fo
 ### Available Skills
 
 **Project-Level Skills** (in `.claude/skills/`):
+
+**Complete Skills:**
 - **abbreviations** - No abbreviations unless whitelisted; initialisms capitalize first letter only
 - **file-system-organization** - Modular architecture; one entity per folder; all files named `index.*`
 - **naming** - Naming conventions (camelCase, PascalCase, SCREAMING_SNAKE_CASE, kebab-case)
@@ -191,9 +193,22 @@ This codebase has **strict architectural, functional programming, syntax, and fo
 - **sitebender-predicates** - Patterns for writing predicate functions
 - **function-implementation** - Structure AND implementation patterns; when to use Result; error handling; imports; constitutional rules reminder (includes generator script)
 - **type-definition** - Branded types, discriminated unions, smart constructors (includes generator scripts)
-- **error-handling** - Result/Validation monads, error type design, no exceptions
-- **testing** - Unit tests, property-based testing, test organization
 - **component** - Components returning VirtualNode data structures, HTML wrappers vs custom components, Props patterns, testing with predicates (includes generator script)
+
+- **error-handling** - [COMPLETE] Result/Validation monads, error type design, no exceptions (includes generator script)
+  - Status: Complete skill with full documentation (1,341 lines)
+  - Includes: All 5 pattern sections, Result vs Validation comparison, Error Type Structure, Common Violations, Examples
+  - Includes: types.ts, generator.ts, script.ts, 5 working examples in examples/ directory
+  - Completion Date: 2025-10-31
+  - Generator: `deno task new:error` to create error types
+
+- **testing** - [COMPLETE] Unit tests, property-based testing, test organization (includes generator script)
+  - Status: Complete skill with full documentation (966 lines)
+  - Includes: All 5 pattern sections (unary, curried, higher-order, property-based, error paths), Test Organization, Assertion Patterns, Common Violations, Examples
+  - Includes: types.ts, generator.ts, script.ts, 12 working examples in examples/ directory
+  - Completion Date: 2025-10-31
+  - Generator: `deno task new:test` to create test scaffolding
+  - Integration: function-implementation generator now creates test files automatically
 
 **CRITICAL:** When implementing ANY function, consult function-implementation skill for:
 - Conjunction selection (To/With/For decision tree)
