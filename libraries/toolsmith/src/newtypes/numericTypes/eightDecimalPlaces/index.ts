@@ -4,7 +4,7 @@ import type { EightDecimalPlaces } from "@sitebender/toolsmith/types/branded/ind
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import unsafeEightDecimalPlaces from "@sitebender/toolsmith/newtypes/eightDecimalPlaces/unsafeEightDecimalPlaces/index.ts"
+import unsafeEightDecimalPlaces from "@sitebender/toolsmith/newtypes/numericTypes/eightDecimalPlaces/unsafeEightDecimalPlaces/index.ts"
 
 //++ Smart constructor that validates and creates an EightDecimalPlaces value - returns Result with helpful error on failure
 //++ Commonly used for cryptocurrency amounts (e.g., Bitcoin satoshis)

@@ -1,7 +1,16 @@
 # Newtypes Implementation Checklist
 
 **Purpose**: Track implementation progress for all branded types (newtypes) in Toolsmith.
-**Last Updated**: 2025-10-07
+**Last Updated**: 2025-10-31
+
+## Organizational Structure
+
+**IMPORTANT**: As of 2025-10-31, the codebase follows this structure:
+
+- **Newtypes folder** (`src/newtypes/`): Contains ONLY smart constructor, unsafe constructor, and unwrap function
+- **Type predicates** (`src/predicates/`): All `is*` type guard functions
+- **Arithmetic operations** (`src/math/arithmetic/`): All arithmetic functions (add, subtract, multiply, divide)
+- **Utility functions**: Go in appropriate domain folders (e.g., `percentOf` in `src/math/`)
 
 ## Implementation Batches
 
@@ -41,15 +50,15 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ### ✅ OneDecimalPlace
 
 - [x] Type definition in `types/branded/index.ts`
-- [x] Smart constructor `oneDecimalPlace()`
-- [x] Unsafe constructor `unsafeOneDecimalPlace()`
-- [x] Unwrap function `unwrapOneDecimalPlace()`
-- [x] Type predicate `_isOneDecimalPlace()`
-- [x] Arithmetic: `addOneDecimalPlace()`
-- [x] Arithmetic: `subtractOneDecimalPlace()`
-- [x] Arithmetic: `multiplyOneDecimalPlace()`
-- [x] Arithmetic: `divideOneDecimalPlace()`
-- [x] All tests passing
+- [x] Smart constructor in `newtypes/numericTypes/oneDecimalPlace/`
+- [x] Unsafe constructor in `newtypes/numericTypes/oneDecimalPlace/unsafeOneDecimalPlace/`
+- [x] Unwrap function in `newtypes/numericTypes/oneDecimalPlace/unwrapOneDecimalPlace/`
+- [x] Type predicate `isOneDecimalPlace()` in `predicates/`
+- [x] Arithmetic: `addOneDecimalPlace()` in `math/arithmetic/add/`
+- [x] Arithmetic: `subtractOneDecimalPlace()` in `math/arithmetic/subtract/`
+- [x] Arithmetic: `multiplyOneDecimalPlace()` in `math/arithmetic/multiply/`
+- [x] Arithmetic: `divideOneDecimalPlace()` in `math/arithmetic/divide/`
+- [x] All tests passing (250 tests for all numeric types)
 
 ### ✅ TwoDecimalPlaces
 
@@ -113,17 +122,17 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 ### ✅ Percent
 
 - [x] Type definition in `types/branded/index.ts`
-- [x] Smart constructor `percent()` (validates 0-1 range)
-- [x] Unsafe constructor `unsafePercent()`
-- [x] Unwrap function `unwrapPercent()`
-- [x] Type predicate `_isPercent()`
-- [x] Arithmetic: `addPercent()`
-- [x] Arithmetic: `subtractPercent()`
-- [x] Arithmetic: `multiplyPercent()`
-- [x] Arithmetic: `dividePercent()`
-- [x] Utility: `percentOf()` (applies percent to value)
-- [x] All tests passing (96 tests)
-- [x] Constants: `PERCENT_MIN = 0`, `PERCENT_MAX = 1`, `PERCENT_SCALE = 10000`
+- [x] Smart constructor in `newtypes/numericTypes/percent/`
+- [x] Unsafe constructor in `newtypes/numericTypes/percent/unsafePercent/`
+- [x] Unwrap function in `newtypes/numericTypes/percent/unwrapPercent/`
+- [x] Type predicate `isPercent()` in `predicates/`
+- [x] Arithmetic: `addPercent()` in `math/arithmetic/add/`
+- [x] Arithmetic: `subtractPercent()` in `math/arithmetic/subtract/`
+- [x] Arithmetic: `multiplyPercent()` in `math/arithmetic/multiply/`
+- [x] Arithmetic: `dividePercent()` in `math/arithmetic/divide/`
+- [x] Utility: `percentOf()` in `math/percentOf/` (applies percent to value)
+- [x] All tests passing (96 tests for percent, 14 tests for percentOf)
+- [x] Constants in `newtypes/constants/`: `PERCENT_MIN = 0`, `PERCENT_MAX = 1`, `PERCENT_SCALE = 10000`
 
 **Notes**: Represents percentages as 0-1 (0% to 100%) with 4 decimal precision
 
@@ -264,17 +273,17 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 
 ---
 
-## Batch 4: String Types - Identifiers (IN PROGRESS)
+## Batch 4: String Types - Identifiers (COMPLETED ✅)
 
 ### ✅ Uuid
 
 - [x] Type definition in `types/branded/index.ts`
-- [x] Smart constructor `uuid()` (validates RFC 4122 format, normalizes to lowercase)
-- [x] Unsafe constructor `unsafeUuid()`
-- [x] Unwrap function `unwrapUuid()`
-- [x] Type predicate `_isUuid()`
-- [x] Helper: `_validateUuidFormat()` (validates 8-4-4-4-12 structure)
-- [x] Helper: `_normalizeUuid()` (converts to canonical lowercase form)
+- [x] Smart constructor in `newtypes/stringTypes/uuid/`
+- [x] Unsafe constructor in `newtypes/stringTypes/uuid/unsafeUuid/`
+- [x] Unwrap function in `newtypes/stringTypes/uuid/unwrapUuid/`
+- [x] Type predicate `isUuid()` in `predicates/`
+- [x] Helper: `_validateUuidFormat()` in `newtypes/stringTypes/uuid/` (private)
+- [x] Helper: `_normalizeUuid()` in `newtypes/stringTypes/uuid/` (private)
 - [x] All tests passing (92 tests)
 
 **Validation**: RFC 4122 UUID format (8-4-4-4-12 hexadecimal with hyphens) - accepts all versions (v1, v4, v5, etc.)
@@ -286,97 +295,121 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - Strict format validation (exactly 36 characters with hyphens at positions 8, 13, 18, 23)
 - No support for Microsoft GUID format (with braces) or URN prefix
 
-### ⏸️ Isbn10
+### ✅ Isbn10
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `isbn10()` (validates ISBN-10)
-- [ ] Unsafe constructor `unsafeIsbn10()`
-- [ ] Unwrap function `unwrapIsbn10()`
-- [ ] Type predicate `_isIsbn10()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/isbn10/`
+- [x] Unsafe constructor in `newtypes/stringTypes/isbn10/unsafeIsbn10/`
+- [x] Unwrap function in `newtypes/stringTypes/isbn10/unwrapIsbn10/`
+- [x] Type predicate `isIsbn10()` in `predicates/`
+- [x] Utility: `formatIsbn10()` in `newtypes/stringTypes/isbn10/` (ISBN-10 formatting)
+- [x] All tests passing (3 test files)
 
 **Validation**: 10 digits with valid check digit
+**Location**: `newtypes/stringTypes/isbn10/`
 
 ### ✅ Isbn13
 
 - [x] Type definition in `types/branded/index.ts`
-- [x] Smart constructor `isbn13()` (validates ISBN-13)
-- [x] Unsafe constructor `unsafeIsbn13()`
-- [x] Unwrap function `unwrapIsbn13()`
-- [x] Type predicate `_isIsbn13()`
-- [x] All tests passing
+- [x] Smart constructor in `newtypes/stringTypes/isbn13/`
+- [x] Unsafe constructor in `newtypes/stringTypes/isbn13/unsafeIsbn13/`
+- [x] Unwrap function in `newtypes/stringTypes/isbn13/unwrapIsbn13/`
+- [x] Type predicate `isIsbn13()` in `predicates/`
+- [x] All tests passing (2 test files)
 
 **Validation**: 13 digits with valid check digit (EAN-13)
+**Location**: `newtypes/stringTypes/isbn13/`
 
 ---
 
-## Batch 5: String Types - Geographic/Financial (NOT STARTED)
+## Batch 5: String Types - Geographic/Financial (COMPLETED ✅)
 
-### ⏸️ PostalCode
+### ✅ ZipCode (US-specific)
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `postalCode()` (validates basic format)
-- [ ] Unsafe constructor `unsafePostalCode()`
-- [ ] Unwrap function `unwrapPostalCode()`
-- [ ] Type predicate `_isPostalCode()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/zipCode/`
+- [x] Unsafe constructor in `newtypes/stringTypes/zipCode/unsafeZipCode/`
+- [x] Unwrap function in `newtypes/stringTypes/zipCode/unwrapZipCode/`
+- [x] Type predicate `isZipCode()` in `predicates/`
+- [ ] All tests passing (needs tests)
 
-**Validation**: Alphanumeric with optional spaces/hyphens (generic, not country-specific)
+**Validation**: US ZIP code formats: 12345 or 12345-6789
+**Location**: `newtypes/stringTypes/zipCode/`
 
-### ⏸️ PhoneNumber
+### ✅ PostalCode (International/Generic)
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `phoneNumber()` (validates E.164 format)
-- [ ] Unsafe constructor `unsafePhoneNumber()`
-- [ ] Unwrap function `unwrapPhoneNumber()`
-- [ ] Type predicate `_isPhoneNumber()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/postalCode/`
+- [x] Unsafe constructor in `newtypes/stringTypes/postalCode/unsafePostalCode/`
+- [x] Unwrap function in `newtypes/stringTypes/postalCode/unwrapPostalCode/`
+- [ ] Type predicate `isPostalCode()` in `predicates/` (needs implementation)
+- [ ] All tests passing (needs tests)
 
-**Validation**: E.164 format (+1234567890, 7-15 digits after +)
+**Validation**: Generic international postal codes - 3-10 alphanumeric characters with optional spaces/hyphens
+**Location**: `newtypes/stringTypes/postalCode/`
+**Examples**: UK (SW1A 1AA), Canada (K1A 0B1), Germany (10115), Japan (100-0001)
 
-### ⏸️ CountryCode
+### ✅ PhoneNumber (E.164 International)
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `countryCode()` (validates ISO 3166-1 alpha-2)
-- [ ] Unsafe constructor `unsafeCountryCode()`
-- [ ] Unwrap function `unwrapCountryCode()`
-- [ ] Type predicate `_isCountryCode()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/phoneNumber/`
+- [x] Unsafe constructor in `newtypes/stringTypes/phoneNumber/unsafePhoneNumber/`
+- [x] Unwrap function in `newtypes/stringTypes/phoneNumber/unwrapPhoneNumber/`
+- [x] Type predicate `isPhoneNumber()` in `predicates/` (E.164 format)
+- [ ] All tests passing (needs tests)
 
-**Validation**: 2-letter uppercase ISO country code (US, GB, FR, etc.)
+**Validation**: E.164 format: +[country code][number] (7-17 characters total)
+**Location**: `newtypes/stringTypes/phoneNumber/`
+**Examples**: +1234567890 (US), +441234567890 (UK), +861234567890 (China)
 
-### ⏸️ LanguageCode
+### ✅ CountryCode
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `languageCode()` (validates ISO 639-1)
-- [ ] Unsafe constructor `unsafeLanguageCode()`
-- [ ] Unwrap function `unwrapLanguageCode()`
-- [ ] Type predicate `_isLanguageCode()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/countryCode/`
+- [x] Unsafe constructor in `newtypes/stringTypes/countryCode/unsafeCountryCode/`
+- [x] Unwrap function in `newtypes/stringTypes/countryCode/unwrapCountryCode/`
+- [ ] Type predicate `isCountryCode()` in `predicates/` (needs implementation)
+- [ ] All tests passing (needs tests)
 
-**Validation**: 2-letter lowercase ISO language code (en, fr, de, etc.)
+**Validation**: 2-letter uppercase ISO 3166-1 alpha-2 (US, GB, FR, etc.)
+**Location**: `newtypes/stringTypes/countryCode/`
 
-### ⏸️ CurrencyCode
+### ✅ LanguageCode
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `currencyCode()` (validates ISO 4217)
-- [ ] Unsafe constructor `unsafeCurrencyCode()`
-- [ ] Unwrap function `unwrapCurrencyCode()`
-- [ ] Type predicate `_isCurrencyCode()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/languageCode/`
+- [x] Unsafe constructor in `newtypes/stringTypes/languageCode/unsafeLanguageCode/`
+- [x] Unwrap function in `newtypes/stringTypes/languageCode/unwrapLanguageCode/`
+- [ ] Type predicate `isLanguageCode()` in `predicates/` (needs implementation)
+- [ ] All tests passing (needs tests)
 
-**Validation**: 3-letter uppercase ISO currency code (USD, EUR, GBP, etc.)
+**Validation**: 2-letter lowercase ISO 639-1 (en, fr, de, etc.)
+**Location**: `newtypes/stringTypes/languageCode/`
 
-### ⏸️ CreditCardNumber
+### ✅ CurrencyCode
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `creditCardNumber()` (validates Luhn algorithm)
-- [ ] Unsafe constructor `unsafeCreditCardNumber()`
-- [ ] Unwrap function `unwrapCreditCardNumber()`
-- [ ] Type predicate `_isCreditCardNumber()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/currencyCode/`
+- [x] Unsafe constructor in `newtypes/stringTypes/currencyCode/unsafeCurrencyCode/`
+- [x] Unwrap function in `newtypes/stringTypes/currencyCode/unwrapCurrencyCode/`
+- [ ] Type predicate `isCurrencyCode()` in `predicates/` (needs implementation)
+- [ ] All tests passing (needs tests)
 
-**Validation**: 13-19 digits passing Luhn check (no hyphens/spaces)
+**Validation**: 3-letter uppercase ISO 4217 (USD, EUR, GBP, etc.)
+**Location**: `newtypes/stringTypes/currencyCode/`
+
+### ✅ CreditCardNumber
+
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/creditCardNumber/`
+- [x] Unsafe constructor in `newtypes/stringTypes/creditCardNumber/unsafeCreditCardNumber/`
+- [x] Unwrap function in `newtypes/stringTypes/creditCardNumber/unwrapCreditCardNumber/`
+- [x] Private helper `_validateLuhn()` for Luhn algorithm
+- [ ] Type predicate `isCreditCardNumber()` in `predicates/` (needs implementation)
+- [ ] All tests passing (needs tests)
+
+**Validation**: 13-19 digits passing Luhn algorithm (spaces/hyphens removed before validation)
+**Location**: `newtypes/stringTypes/creditCardNumber/`
 
 ---
 
@@ -475,37 +508,76 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 
 For each new type, follow this structure:
 
+### Newtypes Folder Structure
+
+**Location**: `src/newtypes/[category]/[typeName]/`
+
+Contains ONLY:
+- Smart constructor (`index.ts`)
+- Unsafe constructor (`unsafe[TypeName]/`)
+- Unwrap function (`unwrap[TypeName]/`)
+- Private helper functions (prefixed with `_`)
+
 ```
-newtypes/[typeName]/
-├── _is[TypeName]/
-│   ├── index.ts       # Private predicate: (value: primitive) => value is TypeName
-│   └── index.test.ts  # Test valid/invalid cases
+newtypes/[category]/[typeName]/
 ├── unsafe[TypeName]/
 │   ├── index.ts       # Unsafe constructor: (value: primitive) => TypeName
 │   └── index.test.ts  # Test branding works (no validation)
 ├── unwrap[TypeName]/
 │   ├── index.ts       # Extract raw value: (value: TypeName) => primitive
 │   └── index.test.ts  # Test unwrapping works
+├── _helper/           # Private helpers (if needed)
+│   ├── index.ts
+│   └── index.test.ts
 ├── index.ts           # Smart constructor: (value: primitive) => Result<ValidationError, TypeName>
 └── index.test.ts      # Test validation with helpful errors
 ```
 
-**Additional for numeric types with arithmetic:**
+### Type Predicates
+
+**Location**: `src/predicates/is[TypeName]/`
 
 ```
-├── add[TypeName]/
-│   ├── index.ts       # Curried addition with scaled integer arithmetic
-│   └── index.test.ts
-├── subtract[TypeName]/
-│   ├── index.ts       # Curried subtraction with scaled integer arithmetic
-│   └── index.test.ts
-├── multiply[TypeName]/
-│   ├── index.ts       # Curried multiplication with scaled integer arithmetic
-│   └── index.test.ts
-└── divide[TypeName]/
-    ├── index.ts       # Curried division with scaled integer arithmetic
-    └── index.test.ts
+predicates/is[TypeName]/
+├── index.ts           # Type guard: (value: unknown) => value is TypeName
+└── index.test.ts      # Test type narrowing works correctly
 ```
+
+### Arithmetic Operations (Numeric Types Only)
+
+**Location**: `src/math/arithmetic/[operation]/[operationTypeName]/`
+
+```
+math/arithmetic/
+├── add/
+│   └── add[TypeName]/
+│       ├── index.ts       # Curried addition with scaled integer arithmetic
+│       └── index.test.ts
+├── subtract/
+│   └── subtract[TypeName]/
+│       ├── index.ts       # Curried subtraction
+│       └── index.test.ts
+├── multiply/
+│   └── multiply[TypeName]/
+│       ├── index.ts       # Curried multiplication
+│       └── index.test.ts
+└── divide/
+    └── divide[TypeName]/
+        ├── index.ts       # Curried division
+        └── index.test.ts
+```
+
+### Utility Functions
+
+**Location**: Appropriate domain folder (e.g., `src/math/`, `src/string/`, etc.)
+
+```
+[domain]/[utilityName]/
+├── index.ts           # Utility function specific to branded type
+└── index.test.ts
+```
+
+**Example**: `percentOf()` is in `src/math/percentOf/` (not in newtypes)
 
 ---
 

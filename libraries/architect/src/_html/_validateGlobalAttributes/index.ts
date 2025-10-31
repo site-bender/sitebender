@@ -1,3 +1,9 @@
+import entries from "@sitebender/toolsmith/object/entries/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import includes from "@sitebender/toolsmith/array/includes/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import _validateEnumeratedAttribute from "../_validateEnumeratedAttribute/index.ts"
 import _validateIdAttribute from "../_validateIdAttribute/index.ts"
 import _validateStringAttribute from "../_validateStringAttribute/index.ts"
@@ -6,18 +12,23 @@ import _validateYesNoOrBoolean from "../_validateYesNoOrBoolean/index.ts"
 import _validateAccesskey from "./_validateAccesskey/index.ts"
 import _validateClass from "./_validateClass/index.ts"
 import _validateTabindex from "./_validateTabindex/index.ts"
+import { GLOBAL_ATTRIBUTES } from "../constants/index.ts"
+
+type ValidationResult = Readonly<{
+	globalAttrs: Readonly<Record<string, string>>
+	otherAttrs: Readonly<Record<string, unknown>>
+}>
 
 /*++
  + Validates global HTML attributes from props object
- + Returns valid global attributes, bad values as data-§-bad-*, unknown attrs as data-*
+ + Returns globalAttrs (validated) and otherAttrs (remaining props)
  + ID is always present (generated if absent)
  + Invalid values: data-§-bad-${attr} (our system namespace)
- + Unknown attributes: data-${attr} (user's custom namespace)
  */
 export default function _validateGlobalAttributes(
 	props: Readonly<Record<string, unknown>>,
-): Readonly<Record<string, string>> {
-	const globals = {
+): ValidationResult {
+	const globalAttrs = {
 		..._validateAccesskey(props),
 		..._validateEnumeratedAttribute("autocapitalize")(props),
 		..._validateClass(props),
@@ -43,5 +54,33 @@ export default function _validateGlobalAttributes(
 		..._validateYesNoOrBoolean("translate")(props),
 	}
 
-	return globals
+	function isNotGlobalAttribute(entry: readonly [string, unknown]): boolean {
+		const [key] = entry
+
+		return not(includes(GLOBAL_ATTRIBUTES)(key))
+	}
+
+	function buildOtherAttrs(
+		accumulator: Readonly<Record<string, unknown>>,
+		entry: readonly [string, unknown],
+	): Readonly<Record<string, unknown>> {
+		const [key, value] = entry
+
+		return {
+			...accumulator,
+			[key]: value,
+		}
+	}
+
+	const propsEntriesResult = entries(props)
+	const propsEntries = getOrElse(
+		[] as ReadonlyArray<readonly [string, unknown]>,
+	)(propsEntriesResult)
+	const nonGlobalEntries = filter(isNotGlobalAttribute)(propsEntries)
+	const otherAttrs = reduce(buildOtherAttrs)({})(nonGlobalEntries)
+
+	return {
+		globalAttrs,
+		otherAttrs,
+	}
 }
