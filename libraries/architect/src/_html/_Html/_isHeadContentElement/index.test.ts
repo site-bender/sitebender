@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
 import _isHeadContentElement from "./index.ts"
 
 Deno.test(
