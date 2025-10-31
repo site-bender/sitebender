@@ -4,7 +4,7 @@ import type { Percent } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import unsafePercent from "@sitebender/toolsmith/newtypes/percent/unsafePercent/index.ts"
+import unsafePercent from "@sitebender/toolsmith/newtypes/numericTypes/percent/unsafePercent/index.ts"
 
 //++ Smart constructor that validates and creates a Percent value - returns Result with helpful error on failure
 //++ Validates number is in range 0-1 with at most 4 decimal places (0.0000 to 1.0000)
