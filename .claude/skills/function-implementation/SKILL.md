@@ -9,7 +9,26 @@ description: Patterns for implementing functions following Sitebender's constitu
 
 **Every function must be curried, pure, and immutable.**
 
-Functions are the fundamental building blocks of this codebase. Each function follows strict patterns: curried when multiple logical parameters are needed, named (never arrow syntax), pure (no side effects except at IO boundaries), and immutable (no mutations).
+Functions are the fundamental building blocks of this codebase. Each function follows strict patterns: curried (takes exactly one parameter), named (never arrow syntax), pure (no side effects except at IO boundaries), and immutable (no mutations).
+
+### What "Curried" Means
+
+**CRITICAL DEFINITION: A curried function is a function that takes exactly ONE parameter.**
+
+This is the definition from Haskell and lambda calculus. In Haskell, ALL functions are curried because they all take exactly one parameter.
+
+**Understanding currying:**
+- **Unary function**: Takes one parameter, returns a value → **IS CURRIED** (one parameter)
+- **Binary function**: Takes one parameter, returns a function that takes one parameter → **IS CURRIED** (one parameter)
+- **Ternary function**: Takes one parameter, returns function that returns function → **IS CURRIED** (one parameter)
+
+**Curried does NOT mean "higher-order":**
+- Curried = takes one parameter (any function with one parameter is curried)
+- Higher-order = takes/returns functions (a subset of functions)
+- A function can be curried but NOT higher-order (example: `function double(n: number): number`)
+- A function can be both curried AND higher-order (example: `function map(fn) { return function(array) { ... } }`)
+
+**All functions in this codebase are curried because they all take exactly one parameter.**
 
 ## When to Use This Skill
 
@@ -139,7 +158,7 @@ Generates boilerplate with generic parameter names (`parameter1`, `parameter2`) 
 
 ### Pattern 1: Unary Functions (Single Parameter)
 
-Functions with a single logical parameter are **NOT curried**. They take one parameter and return the result directly.
+Functions with a single logical parameter **ARE curried** (they take exactly one parameter). They are the simplest form of curried function: one parameter, direct return.
 
 **When to use:** Type guards, predicates, simple transformations, single-input operations
 
@@ -171,8 +190,8 @@ export default function isArray<T = unknown>(value: unknown): value is ReadonlyA
 ```
 
 **Key characteristics:**
-- Single parameter only
-- No currying needed
+- Single parameter only (already curried by definition)
+- Returns value directly (not a higher-order function)
 - Direct return
 - Type annotations required
 - Envoy comment (`//++`) describing purpose
@@ -595,14 +614,14 @@ export default function add(augend: number, addend: number): number {
 	return augend + addend
 }
 
-// ✅ Correct: curried
+// ✅ Correct: binary function (curried, returns higher-order function)
 export default function add(augend: number) {
 	return function addToAugend(addend: number): number {
 		return augend + addend
 	}
 }
 
-// ✅ Exception: Unary functions don't need currying
+// ✅ Correct: unary function (already curried, one parameter)
 export default function negate(n: number): number {
 	return -n
 }
@@ -684,17 +703,17 @@ export default function add(augend: number) {
 
 Examine examples in `examples/` folder and in Toolsmith library:
 
-**Unary (not curried):**
+**Unary (curried, returns value):**
 - `toolsmith/src/predicates/isArray/index.ts`
 - `toolsmith/src/logic/not/index.ts`
 - `toolsmith/src/predicates/isString/index.ts`
 
-**Binary (curried):**
+**Binary (curried, returns function):**
 - `toolsmith/src/array/map/index.ts`
 - `toolsmith/src/array/filter/index.ts`
 - `toolsmith/src/comparison/is/index.ts`
 
-**Ternary (doubly curried):**
+**Ternary (curried, returns function that returns function):**
 - `toolsmith/src/array/reduce/index.ts`
 
 **Higher-order:**
