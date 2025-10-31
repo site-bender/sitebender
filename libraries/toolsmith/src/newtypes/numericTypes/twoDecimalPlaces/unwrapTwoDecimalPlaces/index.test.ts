@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert"
 
-import unsafeTwoDecimalPlaces from "@sitebender/toolsmith/newtypes/twoDecimalPlaces/unsafeTwoDecimalPlaces/index.ts"
+import unsafeTwoDecimalPlaces from "@sitebender/toolsmith/newtypes/numericTypes/twoDecimalPlaces/unsafeTwoDecimalPlaces/index.ts"
 
 import unwrapTwoDecimalPlaces from "./index.ts"
 
