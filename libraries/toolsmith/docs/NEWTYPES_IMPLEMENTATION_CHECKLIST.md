@@ -331,7 +331,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] Unsafe constructor in `newtypes/stringTypes/zipCode/unsafeZipCode/`
 - [x] Unwrap function in `newtypes/stringTypes/zipCode/unwrapZipCode/`
 - [x] Type predicate `isZipCode()` in `predicates/`
-- [ ] All tests passing (needs tests)
+- [x] All tests passing (6 tests for smart constructor, 11 tests for predicate)
 
 **Validation**: US ZIP code formats: 12345 or 12345-6789
 **Location**: `newtypes/stringTypes/zipCode/`
@@ -342,8 +342,8 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] Smart constructor in `newtypes/stringTypes/postalCode/`
 - [x] Unsafe constructor in `newtypes/stringTypes/postalCode/unsafePostalCode/`
 - [x] Unwrap function in `newtypes/stringTypes/postalCode/unwrapPostalCode/`
-- [ ] Type predicate `isPostalCode()` in `predicates/` (needs implementation)
-- [ ] All tests passing (needs tests)
+- [x] Type predicate `isPostalCode()` in `predicates/`
+- [x] All tests passing (5 tests for smart constructor, 16 tests for predicate)
 
 **Validation**: Generic international postal codes - 3-10 alphanumeric characters with optional spaces/hyphens
 **Location**: `newtypes/stringTypes/postalCode/`
@@ -356,7 +356,7 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] Unsafe constructor in `newtypes/stringTypes/phoneNumber/unsafePhoneNumber/`
 - [x] Unwrap function in `newtypes/stringTypes/phoneNumber/unwrapPhoneNumber/`
 - [x] Type predicate `isPhoneNumber()` in `predicates/` (E.164 format)
-- [ ] All tests passing (needs tests)
+- [x] All tests passing (2 tests for smart constructor, existing tests for predicate)
 
 **Validation**: E.164 format: +[country code][number] (7-17 characters total)
 **Location**: `newtypes/stringTypes/phoneNumber/`
@@ -368,8 +368,8 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] Smart constructor in `newtypes/stringTypes/countryCode/`
 - [x] Unsafe constructor in `newtypes/stringTypes/countryCode/unsafeCountryCode/`
 - [x] Unwrap function in `newtypes/stringTypes/countryCode/unwrapCountryCode/`
-- [ ] Type predicate `isCountryCode()` in `predicates/` (needs implementation)
-- [ ] All tests passing (needs tests)
+- [x] Type predicate `isCountryCode()` in `predicates/`
+- [x] All tests passing (4 tests for smart constructor, 11 tests for predicate)
 
 **Validation**: 2-letter uppercase ISO 3166-1 alpha-2 (US, GB, FR, etc.)
 **Location**: `newtypes/stringTypes/countryCode/`
@@ -380,8 +380,8 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] Smart constructor in `newtypes/stringTypes/languageCode/`
 - [x] Unsafe constructor in `newtypes/stringTypes/languageCode/unsafeLanguageCode/`
 - [x] Unwrap function in `newtypes/stringTypes/languageCode/unwrapLanguageCode/`
-- [ ] Type predicate `isLanguageCode()` in `predicates/` (needs implementation)
-- [ ] All tests passing (needs tests)
+- [x] Type predicate `isLanguageCode()` in `predicates/`
+- [x] All tests passing (4 tests for smart constructor, 11 tests for predicate)
 
 **Validation**: 2-letter lowercase ISO 639-1 (en, fr, de, etc.)
 **Location**: `newtypes/stringTypes/languageCode/`
@@ -392,8 +392,8 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] Smart constructor in `newtypes/stringTypes/currencyCode/`
 - [x] Unsafe constructor in `newtypes/stringTypes/currencyCode/unsafeCurrencyCode/`
 - [x] Unwrap function in `newtypes/stringTypes/currencyCode/unwrapCurrencyCode/`
-- [ ] Type predicate `isCurrencyCode()` in `predicates/` (needs implementation)
-- [ ] All tests passing (needs tests)
+- [x] Type predicate `isCurrencyCode()` in `predicates/`
+- [x] All tests passing (4 tests for smart constructor, 11 tests for predicate)
 
 **Validation**: 3-letter uppercase ISO 4217 (USD, EUR, GBP, etc.)
 **Location**: `newtypes/stringTypes/currencyCode/`
@@ -405,8 +405,8 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 - [x] Unsafe constructor in `newtypes/stringTypes/creditCardNumber/unsafeCreditCardNumber/`
 - [x] Unwrap function in `newtypes/stringTypes/creditCardNumber/unwrapCreditCardNumber/`
 - [x] Private helper `_validateLuhn()` for Luhn algorithm
-- [ ] Type predicate `isCreditCardNumber()` in `predicates/` (needs implementation)
-- [ ] All tests passing (needs tests)
+- [x] Type predicate `isCreditCardNumber()` in `predicates/`
+- [x] All tests passing (5 tests for smart constructor, 12 tests for predicate)
 
 **Validation**: 13-19 digits passing Luhn algorithm (spaces/hyphens removed before validation)
 **Location**: `newtypes/stringTypes/creditCardNumber/`
