@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
 import _isOrphanedChild from "./index.ts"
 
 Deno.test("_isOrphanedChild predicate", async function testIsOrphanedChild(t) {

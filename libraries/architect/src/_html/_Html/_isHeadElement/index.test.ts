@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
 import _isHeadElement from "./index.ts"
 
 Deno.test("_isHeadElement predicate", async function testIsHeadElement(t) {
