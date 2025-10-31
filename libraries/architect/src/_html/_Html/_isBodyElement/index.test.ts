@@ -1,4 +1,4 @@
-import { assertEquals } from "jsr:@std/assert"
+import { assertEquals } from "@std/assert"
 import _isBodyElement from "./index.ts"
 
 Deno.test("_isBodyElement predicate", async function testIsBodyElement(t) {

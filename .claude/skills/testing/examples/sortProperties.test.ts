@@ -6,7 +6,9 @@ import * as fc from "npm:fast-check"
 
 //++ Function under test: sorts array in ascending order
 function sort(array: ReadonlyArray<number>): ReadonlyArray<number> {
-	return [...array].sort((a, b) => a - b)
+	return [...array].sort(function compareNumbers(a: number, b: number): number {
+		return a - b
+	})
 }
 
 //++ Property-based tests for sort
@@ -34,12 +36,13 @@ Deno.test("sort properties", async (t) => {
 		fc.assert(
 			fc.property(fc.array(fc.integer()), (arr) => {
 				const sorted = sort(arr)
-				for (let i = 0; i < sorted.length - 1; i++) {
-					if (sorted[i] > sorted[i + 1]) {
-						return false
-					}
-				}
-				return true
+				//++ Check all adjacent pairs are in order
+				const pairs = sorted.slice(0, -1).map(function createPair(value: number, index: number) {
+					return [value, sorted[index + 1]] as const
+				})
+				return pairs.every(function isOrdered([a, b]: readonly [number, number]): boolean {
+					return a <= b
+				})
 			}),
 		)
 	})
@@ -49,23 +52,31 @@ Deno.test("sort properties", async (t) => {
 			fc.property(fc.array(fc.integer()), (arr) => {
 				const sorted = sort(arr)
 
-				// Check each element in original appears in sorted
-				const originalCounts = new Map<number, number>()
-				for (const item of arr) {
-					originalCounts.set(item, (originalCounts.get(item) || 0) + 1)
-				}
+				//++ Count occurrences in original array
+				const originalCounts = arr.reduce(
+					function countOccurrences(counts: ReadonlyMap<number, number>, item: number) {
+						return new Map([...counts, [item, (counts.get(item) || 0) + 1]])
+					},
+					new Map<number, number>()
+				)
 
-				const sortedCounts = new Map<number, number>()
-				for (const item of sorted) {
-					sortedCounts.set(item, (sortedCounts.get(item) || 0) + 1)
-				}
+				//++ Count occurrences in sorted array
+				const sortedCounts = sorted.reduce(
+					function countOccurrences(counts: ReadonlyMap<number, number>, item: number) {
+						return new Map([...counts, [item, (counts.get(item) || 0) + 1]])
+					},
+					new Map<number, number>()
+				)
 
-				// Compare counts
+				//++ Compare counts - sizes must match
 				if (originalCounts.size !== sortedCounts.size) return false
-				for (const [key, count] of originalCounts) {
-					if (sortedCounts.get(key) !== count) return false
-				}
-				return true
+
+				//++ All entries must have same counts
+				return Array.from(originalCounts.entries()).every(
+					function countsMatch([key, count]: readonly [number, number]): boolean {
+						return sortedCounts.get(key) === count
+					}
+				)
 			}),
 		)
 	})
