@@ -207,8 +207,10 @@ This codebase has **strict architectural, functional programming, syntax, and fo
   - Includes: All 5 pattern sections (unary, curried, higher-order, property-based, error paths), Test Organization, Assertion Patterns, Common Violations, Examples
   - Includes: types.ts, generator.ts, script.ts, 12 working examples in examples/ directory
   - Completion Date: 2025-10-31
+  - Last Updated: 2025-10-31 (fixed constitutional violations in filter.test.ts, map.test.ts, sortProperties.test.ts)
   - Generator: `deno task new:test` to create test scaffolding
   - Integration: function-implementation generator now creates test files automatically
+  - All examples verified constitutional compliant (no loops, no arrow functions, no mutations)
 
 **CRITICAL:** When implementing ANY function, consult function-implementation skill for:
 - Conjunction selection (To/With/For decision tree)
