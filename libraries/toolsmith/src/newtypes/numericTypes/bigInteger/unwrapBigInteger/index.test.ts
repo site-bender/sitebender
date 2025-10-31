@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert"
 
-import unsafeBigInteger from "@sitebender/toolsmith/newtypes/bigInteger/unsafeBigInteger/index.ts"
+import unsafeBigInteger from "@sitebender/toolsmith/newtypes/numericTypes/bigInteger/unsafeBigInteger/index.ts"
 
 import unwrapBigInteger from "./index.ts"
 
