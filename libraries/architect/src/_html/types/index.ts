@@ -78,5 +78,7 @@ export type GlobalAttributes = Readonly<{
 export type BaseProps =
 	& Readonly<{
 		children?: ReadonlyArray<Child>
+		aria?: Readonly<Record<string, unknown>>
+		role?: string
 	}>
 	& GlobalAttributes

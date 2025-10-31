@@ -1,14 +1,15 @@
-# Vanilla Functions Taxonomy - Completion Summary
+# Toolsmith Functions Taxonomy - Completion Summary
 
-**Status**: ✅ COMPLETE
-**Completion Date**: 2025-10-07
+**Status**: 🚧 Updated 2025-10-31
+**Original Completion Date**: 2025-10-07
 **Total Functions Cataloged**: 786 across 24 domains in 48 files
+**Current Implementation**: ~118 functions (15%)
 
 ---
 
-## Mission Accomplished
+## Overview
 
-The complete catalog of all vanilla functions in `src/` has been successfully documented. This taxonomy serves as the authoritative source for understanding what needs to be migrated to monadic equivalents.
+The complete catalog of all Toolsmith functions has been documented. This taxonomy serves as the reference for implementation planning and tracking. Functions are being implemented directly in `src/` domains following constitutional rules.
 
 ---
 
@@ -27,20 +28,23 @@ Created a systematic file structure:
 
 **786 functions documented** with:
 
-- Current vanilla signatures
+- Current function signatures
 - Return behaviors (null/NaN/throw/value patterns)
 - Descriptions from //++ Envoy comments (or inferred)
-- Target monadic signatures using Result/Option
-- Migration notes and special considerations
+- Target monadic signatures using Result/Validation/Option
+- Implementation notes and special considerations
 - Implementation dependencies
-- Constitutional rule violations flagged
+- Constitutional rule compliance
 
 ### 3. Domain Breakdown ✅
 
+**Note**: Validation domain has been split into Predicates (type guards) and Validation (logic).
+
 | Domain            | Functions | Files  | Key Categories                                                          |
 | ----------------- | --------- | ------ | ----------------------------------------------------------------------- |
-| **Validation**    | 124       | 6      | Type guards, numeric, string, collection, date, custom                  |
 | **Array**         | 131       | 6      | Creation, access, transformation, combination, partitioning, operations |
+| **Predicates**    | 53        | 1      | Type guards and boolean predicates (moved from Validation)              |
+| **Validation**    | 9         | 1      | Validation logic and predicate combinators                              |
 | **Temporal**      | 79        | 4      | Creation, manipulation, comparison, formatting                          |
 | **String**        | 71        | 4      | Case, testing, manipulation, utilities                                  |
 | **Object**        | 60        | 3      | Access, transformation, utilities                                       |

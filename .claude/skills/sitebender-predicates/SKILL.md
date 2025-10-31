@@ -39,7 +39,7 @@ Functions that take exactly one parameter and perform type narrowing using TypeS
 - `examples/isError.ts` - Discriminated union (Result monad)
 
 **Key characteristics:**
-- Single parameter (not curried, as only one logical parameter needed)
+- Single parameter (already curried by definition - one parameter)
 - Return type annotation: `value is Type` or `result is SpecificBranch<T>`
 - Uses `export default function` with named function
 - No arrow functions
