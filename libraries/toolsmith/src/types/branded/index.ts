@@ -61,8 +61,23 @@ export type Isbn10 = Brand<string, "Isbn10">
 //++ International Standard Book Number (13-digit format) with valid checksum
 export type Isbn13 = Brand<string, "Isbn13">
 
-//++ United States Postal Service ZIP code (5-digit or 9-digit with hyphen)
+//++ United States Postal Service ZIP code (5-digit or 9-digit with hyphen) - US-specific
+export type ZipCode = Brand<string, "ZipCode">
+
+//++ Generic postal code for international addresses (alphanumeric, spaces, hyphens, 3-10 chars)
 export type PostalCode = Brand<string, "PostalCode">
 
 //++ United States phone number (10 digits with various formatting)
 export type PhoneNumber = Brand<string, "PhoneNumber">
+
+//++ Country code following ISO 3166-1 alpha-2 (2 uppercase letters)
+export type CountryCode = Brand<string, "CountryCode">
+
+//++ Language code following ISO 639-1 (2 lowercase letters)
+export type LanguageCode = Brand<string, "LanguageCode">
+
+//++ Currency code following ISO 4217 (3 uppercase letters)
+export type CurrencyCode = Brand<string, "CurrencyCode">
+
+//++ Credit card number (13-19 digits) validated with Luhn algorithm
+export type CreditCardNumber = Brand<string, "CreditCardNumber">

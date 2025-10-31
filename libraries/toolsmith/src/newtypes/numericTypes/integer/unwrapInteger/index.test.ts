@@ -1,6 +1,6 @@
 import { assertEquals } from "@std/assert"
 
-import unsafeInteger from "@sitebender/toolsmith/newtypes/integer/unsafeInteger/index.ts"
+import unsafeInteger from "@sitebender/toolsmith/newtypes/numericTypes/integer/unsafeInteger/index.ts"
 
 import unwrapInteger from "./index.ts"
 
