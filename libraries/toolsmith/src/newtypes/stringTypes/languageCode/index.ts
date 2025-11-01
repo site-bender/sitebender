@@ -11,6 +11,7 @@ import unsafeLanguageCode from "@sitebender/toolsmith/newtypes/stringTypes/langu
 export default function languageCode(
 	value: string,
 ): Result<ValidationError, LanguageCode> {
+	//++ [EXCEPTION] .length and !== permitted in Toolsmith for performance - provides LanguageCode validation wrapper
 	if (value.length !== 2) {
 		return error({
 			code: "LANGUAGE_CODE_INVALID_LENGTH",
@@ -23,6 +24,7 @@ export default function languageCode(
 		})
 	}
 
+	//++ [EXCEPTION] .toLocaleLowerCase(), .test(), and ! permitted in Toolsmith for performance - provides LanguageCode validation wrapper
 	const normalized = value.toLocaleLowerCase()
 	const isValid = /^[a-z]{2}$/.test(normalized)
 
