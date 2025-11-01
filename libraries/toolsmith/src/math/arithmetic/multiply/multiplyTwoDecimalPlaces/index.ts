@@ -17,6 +17,7 @@ export default function multiplyTwoDecimalPlaces(
 		const multiplicandRaw = unwrapTwoDecimalPlaces(multiplicand)
 		const multiplierRaw = unwrapTwoDecimalPlaces(multiplier)
 
+		//++ [EXCEPTION] Math.round, *, / permitted in Toolsmith for performance - provides scaled integer arithmetic
 		const multiplicandScaled = Math.round(multiplicandRaw * SCALE_FACTOR)
 		const multiplierScaled = Math.round(multiplierRaw * SCALE_FACTOR)
 		const resultScaled = multiplicandScaled * multiplierScaled
