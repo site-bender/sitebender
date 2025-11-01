@@ -18,6 +18,7 @@ import { URL_MAX_LENGTH } from "@sitebender/toolsmith/newtypes/constants/index.t
 //++ Follows RFC 3986 with restrictions (no IP addresses, requires domain)
 //++ Normalizes protocol and domain to lowercase with NFC Unicode normalization
 export default function url(urlString: string): Result<ValidationError, Url> {
+	//++ [EXCEPTION] .length and === permitted in Toolsmith for performance - provides Url validation wrapper
 	if (urlString.length === 0) {
 		return error({
 			code: "URL_EMPTY",
@@ -32,6 +33,7 @@ export default function url(urlString: string): Result<ValidationError, Url> {
 
 	const normalized = _normalizeUrl(urlString)
 
+	//++ [EXCEPTION] .length and > permitted in Toolsmith for performance - provides Url validation wrapper
 	if (normalized.length > URL_MAX_LENGTH) {
 		return error({
 			code: "URL_TOO_LONG",
@@ -45,6 +47,7 @@ export default function url(urlString: string): Result<ValidationError, Url> {
 		})
 	}
 
+	//++ [EXCEPTION] .indexOf() and === permitted in Toolsmith for performance - provides Url validation wrapper
 	const protocolEndIndex = normalized.indexOf("://")
 	if (protocolEndIndex === -1) {
 		return error({
@@ -58,6 +61,7 @@ export default function url(urlString: string): Result<ValidationError, Url> {
 		})
 	}
 
+	//++ [EXCEPTION] .slice() and + permitted in Toolsmith for performance - provides Url validation wrapper
 	const protocol = normalized.slice(0, protocolEndIndex)
 	const protocolResult = _validateProtocol(protocol)
 	if (protocolResult._tag === "Error") {
@@ -66,6 +70,7 @@ export default function url(urlString: string): Result<ValidationError, Url> {
 
 	const afterProtocol = normalized.slice(protocolEndIndex + 3)
 
+	//++ [EXCEPTION] .length and === permitted in Toolsmith for performance - provides Url validation wrapper
 	if (afterProtocol.length === 0) {
 		return error({
 			code: "URL_MISSING_DOMAIN",
@@ -78,6 +83,7 @@ export default function url(urlString: string): Result<ValidationError, Url> {
 		})
 	}
 
+	//++ [EXCEPTION] .search(), ===, .slice(), .lastIndexOf(), and + permitted in Toolsmith for performance - provides Url validation wrapper
 	const pathStartIndex = afterProtocol.search(/[/?#]/)
 	const authorityPart = pathStartIndex === -1
 		? afterProtocol
@@ -103,6 +109,7 @@ export default function url(urlString: string): Result<ValidationError, Url> {
 		return ok(unsafeUrl(normalized))
 	}
 
+	//++ [EXCEPTION] .slice(), .indexOf(), ===, !==, <, &&, and + permitted in Toolsmith for performance - provides Url validation wrapper
 	const afterAuthority = afterProtocol.slice(pathStartIndex)
 	const queryStartIndex = afterAuthority.indexOf("?")
 	const fragmentStartIndex = afterAuthority.indexOf("#")

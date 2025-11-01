@@ -9,6 +9,7 @@ import { URI_MAX_LENGTH } from "@sitebender/toolsmith/newtypes/constants/index.t
 
 //++ Type predicate that checks if a string is a valid Uri
 export default function isUri(value: string): value is Uri {
+	//++ [EXCEPTION] .length, ===, ||, >, .indexOf(), .slice(), .startsWith(), .filter(), Math.min, ..., _tag, and .test() permitted in Toolsmith for performance - provides URI validation wrapper
 	if (value.length === 0 || value.length > URI_MAX_LENGTH) {
 		return false
 	}
