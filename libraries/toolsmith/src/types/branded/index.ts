@@ -81,3 +81,24 @@ export type CurrencyCode = Brand<string, "CurrencyCode">
 
 //++ Credit card number (13-19 digits) validated with Luhn algorithm
 export type CreditCardNumber = Brand<string, "CreditCardNumber">
+
+//++ Non-empty string with at least one character after trimming
+export type NonEmptyString = Brand<string, "NonEmptyString">
+
+//++ Single Unicode character (exactly one code point)
+export type Char = Brand<string, "Char">
+
+//++ Base58-encoded string using Bitcoin/IPFS alphabet (no 0OIl characters)
+export type Base58 = Brand<string, "Base58">
+
+//++ Hexadecimal color code in #RGB or #RRGGBB format
+export type HexColor = Brand<string, "HexColor">
+
+//++ OKLCH color in oklch() CSS format with lightness, chroma, hue, optional alpha
+export type OklchColor = Brand<string, "OklchColor">
+
+//++ Display P3 color in color(display-p3 ...) CSS format
+export type P3Color = Brand<string, "P3Color">
+
+//++ Non-empty array with at least one element (tuple: first element + rest)
+export type NonEmptyArray<T> = readonly [T, ...ReadonlyArray<T>]
