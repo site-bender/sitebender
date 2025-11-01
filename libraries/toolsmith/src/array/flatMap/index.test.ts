@@ -143,63 +143,66 @@ Deno.test("flatMap - Result monad", async function flatMapResultTests(t) {
 	)
 })
 
-Deno.test("flatMap - Validation monad", async function flatMapValidationTests(t) {
-	await t.step(
-		"flatMaps over Success and returns Success",
-		function flatMapsOverSuccess() {
-			const duplicate = function (n: number): ReadonlyArray<number> {
-				return [n, n]
-			}
-			const input = success([1, 2, 3])
-			const result = flatMap(duplicate)(input)
+Deno.test(
+	"flatMap - Validation monad",
+	async function flatMapValidationTests(t) {
+		await t.step(
+			"flatMaps over Success and returns Success",
+			function flatMapsOverSuccess() {
+				const duplicate = function (n: number): ReadonlyArray<number> {
+					return [n, n]
+				}
+				const input = success([1, 2, 3])
+				const result = flatMap(duplicate)(input)
 
-			assertEquals(isSuccess(result), true)
-			if (isSuccess(result)) {
-				assertEquals(result.value, [1, 1, 2, 2, 3, 3])
-			}
-		},
-	)
+				assertEquals(isSuccess(result), true)
+				if (isSuccess(result)) {
+					assertEquals(result.value, [1, 1, 2, 2, 3, 3])
+				}
+			},
+		)
 
-	await t.step(
-		"returns Success with empty array from empty Success",
-		function returnsSuccessEmpty() {
-			const duplicate = function (n: number): ReadonlyArray<number> {
-				return [n, n]
-			}
-			const input = success<ReadonlyArray<number>>([])
-			const result = flatMap(duplicate)(input)
+		await t.step(
+			"returns Success with empty array from empty Success",
+			function returnsSuccessEmpty() {
+				const duplicate = function (n: number): ReadonlyArray<number> {
+					return [n, n]
+				}
+				const input = success<ReadonlyArray<number>>([])
+				const result = flatMap(duplicate)(input)
 
-			assertEquals(isSuccess(result), true)
-			if (isSuccess(result)) {
-				assertEquals(result.value, [])
-			}
-		},
-	)
+				assertEquals(isSuccess(result), true)
+				if (isSuccess(result)) {
+					assertEquals(result.value, [])
+				}
+			},
+		)
 
-	await t.step(
-		"passes through Failure unchanged",
-		function passesFailureThrough() {
-			const duplicate = function (n: number): ReadonlyArray<number> {
-				return [n, n]
-			}
-			const input = failure([{
-				code: "TEST_FAILURE",
-				field: "test",
-				messages: ["test failure"],
-				received: null,
-				expected: "array",
-				suggestion: "test",
-				severity: "requirement" as const,
-			}])
-			const result = flatMap(duplicate)(input)
+		await t.step(
+			"passes through Failure unchanged",
+			function passesFailureThrough() {
+				const duplicate = function (n: number): ReadonlyArray<number> {
+					return [n, n]
+				}
+				const input = failure([{
+					code: "TEST_FAILURE",
+					field: "test",
+					messages: ["test failure"],
+					received: null,
+					expected: "array",
+					suggestion: "test",
+					severity: "requirement" as const,
+				}])
+				const result = flatMap(duplicate)(input)
 
-			assertEquals(isFailure(result), true)
-			if (isFailure(result)) {
-				assertEquals(result.errors[0].code, "TEST_FAILURE")
-			}
-		},
-	)
-})
+				assertEquals(isFailure(result), true)
+				if (isFailure(result)) {
+					assertEquals(result.errors[0].code, "TEST_FAILURE")
+				}
+			},
+		)
+	},
+)
 
 Deno.test("flatMap - property tests", async function flatMapPropertyTests(t) {
 	await t.step(

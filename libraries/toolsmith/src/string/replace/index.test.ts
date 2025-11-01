@@ -11,52 +11,55 @@ import isError from "../../monads/result/isError/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import isFailure from "../../monads/validation/isFailure/index.ts"
 
-Deno.test("replace - plain string path", async function replacePlainStringTests(t) {
-	await t.step(
-		"replaces with string pattern",
-		function replacesWithStringPattern() {
-			const result = replace("world")("universe")("hello world")
+Deno.test(
+	"replace - plain string path",
+	async function replacePlainStringTests(t) {
+		await t.step(
+			"replaces with string pattern",
+			function replacesWithStringPattern() {
+				const result = replace("world")("universe")("hello world")
 
-			assertEquals(result, "hello universe")
-		},
-	)
+				assertEquals(result, "hello universe")
+			},
+		)
 
-	await t.step(
-		"replaces with RegExp pattern",
-		function replacesWithRegExpPattern() {
-			const result = replace(/world/g)("universe")("hello world")
+		await t.step(
+			"replaces with RegExp pattern",
+			function replacesWithRegExpPattern() {
+				const result = replace(/world/g)("universe")("hello world")
 
-			assertEquals(result, "hello universe")
-		},
-	)
+				assertEquals(result, "hello universe")
+			},
+		)
 
-	await t.step(
-		"removes dangerous characters",
-		function removesDangerousCharacters() {
-			const result = replace(/[<>]/g)("")("<div>hello</div>")
+		await t.step(
+			"removes dangerous characters",
+			function removesDangerousCharacters() {
+				const result = replace(/[<>]/g)("")("<div>hello</div>")
 
-			assertEquals(result, "divhello/div")
-		},
-	)
+				assertEquals(result, "divhello/div")
+			},
+		)
 
-	await t.step(
-		"replaces all occurrences with global flag",
-		function replacesAllOccurrences() {
-			const result = replace(/o/g)("0")("hello world")
+		await t.step(
+			"replaces all occurrences with global flag",
+			function replacesAllOccurrences() {
+				const result = replace(/o/g)("0")("hello world")
 
-			assertEquals(result, "hell0 w0rld")
-		},
-	)
+				assertEquals(result, "hell0 w0rld")
+			},
+		)
 
-	await t.step(
-		"handles empty string",
-		function handlesEmptyString() {
-			const result = replace("world")("universe")("")
+		await t.step(
+			"handles empty string",
+			function handlesEmptyString() {
+				const result = replace("world")("universe")("")
 
-			assertEquals(result, "")
-		},
-	)
-})
+				assertEquals(result, "")
+			},
+		)
+	},
+)
 
 Deno.test("replace - Result monad path", async function replaceResultTests(t) {
 	await t.step(

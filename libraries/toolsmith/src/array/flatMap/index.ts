@@ -1,5 +1,8 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
@@ -11,7 +14,9 @@ import _flatMapToValidation from "./_flatMapToValidation/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
 
 //++ Transforms each array element using a function that returns an array, then flattens the result
-export default function flatMap<T, U>(f: (arg: T, index?: number) => ReadonlyArray<U>) {
+export default function flatMap<T, U>(
+	f: (arg: T, index?: number) => ReadonlyArray<U>,
+) {
 	//++ [OVERLOAD] Array flatMapper: takes array, returns flatMapped array
 	function flatMapWithFunction(array: ReadonlyArray<T>): ReadonlyArray<U>
 
