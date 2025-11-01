@@ -11,6 +11,7 @@ import unsafeCountryCode from "@sitebender/toolsmith/newtypes/stringTypes/countr
 export default function countryCode(
 	value: string,
 ): Result<ValidationError, CountryCode> {
+	//++ [EXCEPTION] .length and !== permitted in Toolsmith for performance - provides CountryCode validation wrapper
 	if (value.length !== 2) {
 		return error({
 			code: "COUNTRY_CODE_INVALID_LENGTH",
@@ -23,6 +24,7 @@ export default function countryCode(
 		})
 	}
 
+	//++ [EXCEPTION] .toLocaleUpperCase(), .test(), and ! permitted in Toolsmith for performance - provides CountryCode validation wrapper
 	const normalized = value.toLocaleUpperCase()
 	const isValid = /^[A-Z]{2}$/.test(normalized)
 

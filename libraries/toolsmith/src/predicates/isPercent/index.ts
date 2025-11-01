@@ -3,6 +3,7 @@ import type { Percent } from "@sitebender/toolsmith/types/branded/index.ts"
 //++ Type predicate that checks if a number can be exactly represented as a percent
 //++ Validates number is finite, in range 0-1, and has at most 4 decimal places
 export default function isPercent(n: number): n is Percent {
+	//++ [EXCEPTION] Number.isFinite, <, >, ||, Math.round, *, /, -, Math.abs, <=, and Number.EPSILON permitted in Toolsmith for performance - provides percent validation wrapper
 	if (!Number.isFinite(n)) {
 		return false
 	}

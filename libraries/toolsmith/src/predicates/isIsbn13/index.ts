@@ -10,6 +10,7 @@ import {
 
 //++ Type predicate that checks if a string is a valid ISBN-13
 export default function isIsbn13(value: string): value is Isbn13 {
+	//++ [EXCEPTION] typeof, ===, &&, .length, .some(), .startsWith(), .split(), .reduce(), .includes(), .map(), parseInt, .slice(), %, *, +, -, and [] permitted in Toolsmith for performance - provides ISBN-13 validation wrapper
 	return (
 		typeof value === "string" &&
 		value.length === ISBN13_LENGTH &&
