@@ -11,6 +11,7 @@ import unsafeCurrencyCode from "@sitebender/toolsmith/newtypes/stringTypes/curre
 export default function currencyCode(
 	value: string,
 ): Result<ValidationError, CurrencyCode> {
+	//++ [EXCEPTION] .length and !== permitted in Toolsmith for performance - provides CurrencyCode validation wrapper
 	if (value.length !== 3) {
 		return error({
 			code: "CURRENCY_CODE_INVALID_LENGTH",
@@ -23,6 +24,7 @@ export default function currencyCode(
 		})
 	}
 
+	//++ [EXCEPTION] .toLocaleUpperCase(), .test(), and ! permitted in Toolsmith for performance - provides CurrencyCode validation wrapper
 	const normalized = value.toLocaleUpperCase()
 	const isValid = /^[A-Z]{3}$/.test(normalized)
 
