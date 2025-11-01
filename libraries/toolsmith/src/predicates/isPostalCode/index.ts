@@ -4,6 +4,7 @@ import type { PostalCode } from "@sitebender/toolsmith/types/branded/index.ts"
 //++ Validates 3-10 alphanumeric characters with optional spaces and hyphens
 //++ Works for UK (SW1A 1AA), Canada (K1A 0B1), Germany (10115), Japan (100-0001), etc.
 export default function isPostalCode(value: unknown): value is PostalCode {
+	//++ [EXCEPTION] typeof, !==, .trim(), .length, <, >, ||, and .test() permitted in Toolsmith for performance - provides postal code validation wrapper
 	if (typeof value !== "string") {
 		return false
 	}

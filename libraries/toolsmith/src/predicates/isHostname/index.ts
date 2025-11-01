@@ -6,6 +6,7 @@ import isIpv6Address from "../isIpv6Address/index.ts"
 
 //++ Type predicate that checks if a string is a valid hostname (domain, localhost, or IP address)
 export default function isHostname(value: string): value is Hostname {
+	//++ [EXCEPTION] .toLocaleLowerCase() and === permitted in Toolsmith for performance - provides hostname validation wrapper
 	const normalized = value.toLocaleLowerCase()
 
 	if (normalized === "localhost") {
