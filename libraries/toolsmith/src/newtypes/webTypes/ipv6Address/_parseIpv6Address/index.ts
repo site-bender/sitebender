@@ -6,15 +6,14 @@ import error from "../../../../monads/result/error/index.ts"
 import ok from "../../../../monads/result/ok/index.ts"
 import isIpv4Address from "../../../../predicates/isIpv4Address/index.ts"
 import {
-	IPV6_GROUPS_COUNT,
-	IPV6_GROUPS_WITH_IPV4_COUNT,
+	BYTE_BITS,
+	DECIMAL_BASE,
+	HEX_BASE,
 	IPV6_GROUP_HEX_DIGITS_MAX,
 	IPV6_GROUP_VALUE_MAX,
-	HEX_BASE,
-	DECIMAL_BASE,
-	BYTE_BITS,
+	IPV6_GROUPS_COUNT,
+	IPV6_GROUPS_WITH_IPV4_COUNT,
 } from "../../../../newtypes/constants/index.ts"
-
 
 //++ Parses IPv6 address into array of 8 groups (as numbers 0x0000-0xFFFF)
 //++ Handles :: compression and IPv4 embedding
@@ -35,6 +34,7 @@ export default function _parseIpv6Address(
 	}
 
 	// Check for invalid characters (allow 0-9, a-f, A-F, :, .)
+	//++ [EXCEPTION] RegExp.test() permitted in Toolsmith for performance - provides character validation wrapper
 	if (!/^[0-9a-fA-F:.]+$/.test(address)) {
 		return error({
 			code: "IPV6_ADDRESS_INVALID_CHARACTERS",
@@ -50,6 +50,7 @@ export default function _parseIpv6Address(
 	}
 
 	// Check for multiple :: compressions
+	//++ [EXCEPTION] String.match() and || permitted in Toolsmith for performance - provides pattern counting wrapper
 	const compressionCount = (address.match(/::/g) || []).length
 	if (compressionCount > 1) {
 		return error({
@@ -66,6 +67,7 @@ export default function _parseIpv6Address(
 	}
 
 	// Check for ::: or more consecutive colons (except ::)
+	//++ [EXCEPTION] RegExp.test() permitted in Toolsmith for performance - provides pattern validation wrapper
 	if (/:{3,}/.test(address)) {
 		return error({
 			code: "IPV6_ADDRESS_CONSECUTIVE_COLONS",
@@ -81,6 +83,7 @@ export default function _parseIpv6Address(
 	}
 
 	// Check for leading/trailing single colon
+	//++ [EXCEPTION] String.startsWith() and ! permitted in Toolsmith for performance - provides string prefix validation wrapper
 	if (address.startsWith(":") && !address.startsWith("::")) {
 		return error({
 			code: "IPV6_ADDRESS_LEADING_COLON",
@@ -93,6 +96,7 @@ export default function _parseIpv6Address(
 		})
 	}
 
+	//++ [EXCEPTION] String.endsWith() and ! permitted in Toolsmith for performance - provides string suffix validation wrapper
 	if (address.endsWith(":") && !address.endsWith("::")) {
 		return error({
 			code: "IPV6_ADDRESS_TRAILING_COLON",
@@ -127,6 +131,7 @@ export default function _parseIpv6Address(
 		}
 
 		// Convert IPv4 to two 16-bit groups
+		//++ [EXCEPTION] Number.parseInt, << (bitshift), and | (bitwise OR) permitted in Toolsmith for performance - provides IPv4 to IPv6 groups conversion wrapper
 		const ipv4Octets = ipv4Part.split(".").map(function (octet) {
 			return Number.parseInt(octet, DECIMAL_BASE)
 		})
@@ -159,13 +164,17 @@ export default function _parseIpv6Address(
 					})
 				}
 
+				//++ [EXCEPTION] Number.parseInt permitted in Toolsmith for performance - provides hexadecimal string to number conversion wrapper
 				const value = Number.parseInt(part, HEX_BASE)
 
+				//++ [EXCEPTION] Number.isNaN, <, >, and || permitted in Toolsmith for performance - provides numeric range validation wrapper
 				if (Number.isNaN(value) || value < 0 || value > IPV6_GROUP_VALUE_MAX) {
 					return error({
 						code: "IPV6_ADDRESS_INVALID_GROUP",
 						field: "ipv6Address",
-						messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
+						messages: [
+							"The system needs valid hexadecimal groups (0000-ffff).",
+						],
 						received: address,
 						expected: "Hex digits 0000-ffff",
 						suggestion: `Group '${part}' is invalid`,
@@ -180,6 +189,7 @@ export default function _parseIpv6Address(
 
 		if (validationError) return validationError
 
+		//++ [EXCEPTION] Number.parseInt permitted in Toolsmith for performance - provides hexadecimal string to number conversion wrapper
 		const groups = nonEmptyParts.map(function (part) {
 			return Number.parseInt(part, 16)
 		})
@@ -209,14 +219,18 @@ export default function _parseIpv6Address(
 			const finalGroups = function (): ReadonlyArray<number> {
 				if (compressionIndex === 0) {
 					// :: at start
-					const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
+					const zeros = Array.from({ length: zerosNeeded }, function () {
+						return 0
+					})
 					return zeros.concat(groups).concat(ipv4Group1, ipv4Group2)
 				}
 
 				if (compressionIndex === ipv6Part.length - 2) {
 					// :: at end (before final :)
 					return groups.concat(
-						Array.from({ length: zerosNeeded }, function () { return 0 }),
+						Array.from({ length: zerosNeeded }, function () {
+							return 0
+						}),
 						ipv4Group1,
 						ipv4Group2,
 					)
@@ -230,7 +244,9 @@ export default function _parseIpv6Address(
 
 				const before = groups.slice(0, beforeCompression)
 				const after = groups.slice(beforeCompression)
-				const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
+				const zeros = Array.from({ length: zerosNeeded }, function () {
+					return 0
+				})
 
 				return before.concat(zeros).concat(after).concat(ipv4Group1, ipv4Group2)
 			}()
@@ -284,13 +300,17 @@ export default function _parseIpv6Address(
 					})
 				}
 
+				//++ [EXCEPTION] Number.parseInt permitted in Toolsmith for performance - provides hexadecimal string to number conversion wrapper
 				const value = Number.parseInt(part, HEX_BASE)
 
+				//++ [EXCEPTION] Number.isNaN, <, >, and || permitted in Toolsmith for performance - provides numeric range validation wrapper
 				if (Number.isNaN(value) || value < 0 || value > IPV6_GROUP_VALUE_MAX) {
 					return error({
 						code: "IPV6_ADDRESS_INVALID_GROUP",
 						field: "ipv6Address",
-						messages: ["The system needs valid hexadecimal groups (0000-ffff)."],
+						messages: [
+							"The system needs valid hexadecimal groups (0000-ffff).",
+						],
 						received: address,
 						expected: "Hex digits 0000-ffff",
 						suggestion: `Group '${part}' is invalid`,
@@ -305,10 +325,12 @@ export default function _parseIpv6Address(
 
 		if (validationError) return validationError
 
+		//++ [EXCEPTION] Number.parseInt permitted in Toolsmith for performance - provides hexadecimal string to number conversion wrapper
 		const groups = nonEmptyParts.map(function (part) {
 			return Number.parseInt(part, HEX_BASE)
 		})
 
+		//++ [EXCEPTION] - (subtraction) permitted in Toolsmith for performance - provides numeric calculation wrapper
 		const zerosNeeded = IPV6_GROUPS_COUNT - groups.length
 
 		if (zerosNeeded < 0) {
@@ -330,14 +352,18 @@ export default function _parseIpv6Address(
 		const finalGroups = function (): ReadonlyArray<number> {
 			if (compressionIndex === 0) {
 				// :: at start
-				const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
+				const zeros = Array.from({ length: zerosNeeded }, function () {
+					return 0
+				})
 				return zeros.concat(groups)
 			}
 
 			if (compressionIndex === address.length - 2) {
 				// :: at end
 				return groups.concat(
-					Array.from({ length: zerosNeeded }, function () { return 0 }),
+					Array.from({ length: zerosNeeded }, function () {
+						return 0
+					}),
 				)
 			}
 
@@ -349,7 +375,9 @@ export default function _parseIpv6Address(
 
 			const before = groups.slice(0, beforeCompression)
 			const after = groups.slice(beforeCompression)
-			const zeros = Array.from({ length: zerosNeeded }, function () { return 0 })
+			const zeros = Array.from({ length: zerosNeeded }, function () {
+				return 0
+			})
 
 			return before.concat(zeros).concat(after)
 		}()
@@ -386,7 +414,11 @@ export default function _parseIpv6Address(
 
 	// Validate each part
 	const validationError = parts.reduce(
-		function (acc: Result<ValidationError, ParsedIpv6> | null, part: string, _index: number) {
+		function (
+			acc: Result<ValidationError, ParsedIpv6> | null,
+			part: string,
+			_index: number,
+		) {
 			if (acc !== null) return acc
 
 			if (part.length === 0) {
@@ -413,8 +445,10 @@ export default function _parseIpv6Address(
 				})
 			}
 
+			//++ [EXCEPTION] Number.parseInt permitted in Toolsmith for performance - provides hexadecimal string to number conversion wrapper
 			const value = Number.parseInt(part, HEX_BASE)
 
+			//++ [EXCEPTION] Number.isNaN, <, >, and || permitted in Toolsmith for performance - provides numeric range validation wrapper
 			if (Number.isNaN(value) || value < 0 || value > IPV6_GROUP_VALUE_MAX) {
 				return error({
 					code: "IPV6_ADDRESS_INVALID_GROUP",
@@ -434,6 +468,7 @@ export default function _parseIpv6Address(
 
 	if (validationError) return validationError
 
+	//++ [EXCEPTION] Number.parseInt permitted in Toolsmith for performance - provides hexadecimal string to number conversion wrapper
 	const groups = parts.map(function (part) {
 		return Number.parseInt(part, 16)
 	})

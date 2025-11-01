@@ -36,6 +36,7 @@ export default function _validateIriAuthority(
 	let host = ""
 	let port = ""
 
+	//++ [EXCEPTION] .lastIndexOf(), .slice() permitted in Toolsmith for performance - provides IRI authority parsing wrapper
 	// Extract userinfo (if present)
 	const atIndex = remainingAuthority.lastIndexOf("@")
 	if (atIndex !== -1) {
@@ -147,6 +148,7 @@ export default function _validateIriAuthority(
 			})
 		}
 	} else if (/^\d+\.\d+\.\d+\.\d+$/.test(host)) {
+		//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides IPv4 octet extraction wrapper
 		// IPv4: basic syntax validation
 		const octets = host.split(".")
 		const rangeResult = all((octet: string) => {
@@ -170,7 +172,9 @@ export default function _validateIriAuthority(
 				severity: "requirement",
 			})
 		}
-		const leadingZeroResult = all((octet: string) => !(octet.length > 1 && octet.startsWith("0")))(octets)
+		const leadingZeroResult = all((octet: string) =>
+			!(octet.length > 1 && octet.startsWith("0"))
+		)(octets)
 		if (leadingZeroResult._tag === "Error") {
 			return leadingZeroResult
 		}

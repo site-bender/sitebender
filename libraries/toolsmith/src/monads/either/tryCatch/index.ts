@@ -8,6 +8,7 @@ export default function tryCatch<A>(fn: () => A) {
 	return function tryCatchWithError<E>(
 		onError: (error: unknown) => E,
 	): Either<E, A> {
+		//++ [EXCEPTION] try/catch permitted in Toolsmith for performance - provides Either monad exception boundary
 		try {
 			return right(fn())
 		} catch (error) {

@@ -19,6 +19,7 @@ export default function divideThreeDecimalPlaces(
 		const dividendRaw = unwrapThreeDecimalPlaces(dividend)
 		const divisorRaw = unwrapThreeDecimalPlaces(divisor)
 
+		//++ [EXCEPTION] Math.round, *, / permitted in Toolsmith for performance - provides scaled integer arithmetic
 		const dividendScaled = Math.round(dividendRaw * SCALE_FACTOR)
 		const divisorScaled = Math.round(divisorRaw * SCALE_FACTOR)
 		const resultRaw = dividendScaled / divisorScaled

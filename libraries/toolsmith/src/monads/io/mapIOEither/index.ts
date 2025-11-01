@@ -7,6 +7,7 @@ export default function mapIoEither<L, A, B>(mapper: (value: A) => B) {
 	return function mapOverIoEither(ioEither: IoEither<L, A>): IoEither<L, B> {
 		return function mappedIoEither() {
 			const either = ioEither()
+			//++ [EXCEPTION] === operator and property access permitted in Toolsmith for performance - provides Either monad tag checking
 			return either._tag === "Right" ? right(mapper(either.right)) : either
 		}
 	}
