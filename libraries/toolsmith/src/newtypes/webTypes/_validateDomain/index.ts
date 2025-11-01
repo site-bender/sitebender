@@ -16,6 +16,7 @@ import {
 export default function _validateDomain(
 	domain: string,
 ): Result<ValidationError, string> {
+	//++ [EXCEPTION] .length and === permitted in Toolsmith for performance - provides domain validation wrapper
 	if (domain.length === 0) {
 		return error({
 			code: "URL_DOMAIN_EMPTY",
@@ -28,6 +29,7 @@ export default function _validateDomain(
 		})
 	}
 
+	//++ [EXCEPTION] .length and > permitted in Toolsmith for performance - provides domain validation wrapper
 	if (domain.length > URL_DOMAIN_MAX_LENGTH) {
 		return error({
 			code: "URL_DOMAIN_TOO_LONG",
@@ -41,6 +43,7 @@ export default function _validateDomain(
 		})
 	}
 
+	//++ [EXCEPTION] .startsWith(), .endsWith(), and || permitted in Toolsmith for performance - provides domain validation wrapper
 	if (domain.startsWith("[") || domain.endsWith("]")) {
 		return error({
 			code: "URL_DOMAIN_IP_ADDRESS_NOT_ALLOWED",
@@ -53,6 +56,7 @@ export default function _validateDomain(
 		})
 	}
 
+	//++ [EXCEPTION] .test() permitted in Toolsmith for performance - provides domain validation wrapper
 	const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/
 	if (ipv4Regex.test(domain)) {
 		return error({
@@ -66,6 +70,7 @@ export default function _validateDomain(
 		})
 	}
 
+	//++ [EXCEPTION] !, .includes(), .startsWith(), and .endsWith() permitted in Toolsmith for performance - provides domain validation wrapper
 	if (!domain.includes(".")) {
 		return error({
 			code: "URL_DOMAIN_NO_TLD",
@@ -118,6 +123,7 @@ export default function _validateDomain(
 		})
 	}
 
+	//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides domain validation wrapper
 	const labels = domain.split(".")
 
 	const validateLabel = function (
@@ -131,6 +137,7 @@ export default function _validateDomain(
 				return acc
 			}
 
+			//++ [EXCEPTION] .length, >, .startsWith(), and .endsWith() permitted in Toolsmith for performance - provides domain label validation wrapper
 			//++ Validate label length
 			if (label.length > URL_DOMAIN_LABEL_MAX_LENGTH) {
 				return error({
@@ -180,6 +187,7 @@ export default function _validateDomain(
 				})
 			}
 
+			//++ [EXCEPTION] !, .test() permitted in Toolsmith for performance - provides domain label validation wrapper
 			//++ Validate only allowed characters
 			const validLabelRegex = /^[\p{L}\p{N}\p{M}\-]+$/u
 

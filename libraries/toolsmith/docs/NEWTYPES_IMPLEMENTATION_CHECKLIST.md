@@ -413,94 +413,103 @@ Newtypes are implemented in small, focused batches to maintain quality and ensur
 
 ---
 
-## Batch 6: String Types - Basic/Encoding (NOT STARTED)
+## Batch 6: String Types - Basic/Encoding (COMPLETED ✅)
 
-### ⏸️ NonEmptyString
+### ✅ NonEmptyString
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `nonEmptyString()` (validates non-empty)
-- [ ] Unsafe constructor `unsafeNonEmptyString()`
-- [ ] Unwrap function `unwrapNonEmptyString()`
-- [ ] Type predicate `_isNonEmptyString()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/nonEmptyString/`
+- [x] Unsafe constructor in `newtypes/stringTypes/nonEmptyString/unsafeNonEmptyString/`
+- [x] Unwrap function in `newtypes/stringTypes/nonEmptyString/unwrapNonEmptyString/`
+- [x] Type predicate `isNonEmptyString()` in `predicates/`
+- [x] All tests passing (5 tests for smart constructor, 4 tests for predicate)
 
-**Validation**: String with length > 0 (after trimming optional)
+**Validation**: String with length > 0 after trimming whitespace
+**Location**: `newtypes/stringTypes/nonEmptyString/`
 
-### ⏸️ Char
+### ✅ Char
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `char()` (validates single character)
-- [ ] Unsafe constructor `unsafeChar()`
-- [ ] Unwrap function `unwrapChar()`
-- [ ] Type predicate `_isChar()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/char/`
+- [x] Unsafe constructor in `newtypes/stringTypes/char/unsafeChar/`
+- [x] Unwrap function in `newtypes/stringTypes/char/unwrapChar/`
+- [x] Type predicate `isChar()` in `predicates/`
+- [x] All tests passing (6 tests for smart constructor, 5 tests for predicate)
 
-**Validation**: Exactly 1 character (single Unicode code point)
+**Validation**: Exactly 1 Unicode character (single code point using Array.from for proper counting)
+**Location**: `newtypes/stringTypes/char/`
+**Notes**: Handles multi-byte characters like emojis correctly using Array.from
 
-### ⏸️ Base58
+### ✅ Base58
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `base58()` (validates Base58 encoding)
-- [ ] Unsafe constructor `unsafeBase58()`
-- [ ] Unwrap function `unwrapBase58()`
-- [ ] Type predicate `_isBase58()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor in `newtypes/stringTypes/base58/`
+- [x] Unsafe constructor in `newtypes/stringTypes/base58/unsafeBase58/`
+- [x] Unwrap function in `newtypes/stringTypes/base58/unwrapBase58/`
+- [x] Type predicate `isBase58()` in `predicates/`
+- [x] All tests passing (6 tests for smart constructor, 5 tests for predicate)
 
-**Validation**: Base58 alphabet (Bitcoin/IPFS style, no 0OIl)
+**Validation**: Base58 alphabet (Bitcoin/IPFS style) - excludes 0, O, I, l to avoid confusion
+**Location**: `newtypes/stringTypes/base58/`
+**Alphabet**: `123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`
 
 ---
 
-## Batch 7: Color Types (NOT STARTED)
+## Batch 7: Color Types (COMPLETED ✅)
 
-### ⏸️ HexColor
+### ✅ HexColor
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `hexColor()` (validates #RGB or #RRGGBB)
-- [ ] Unsafe constructor `unsafeHexColor()`
-- [ ] Unwrap function `unwrapHexColor()`
-- [ ] Type predicate `_isHexColor()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `hexColor()` in `newtypes/stringTypes/hexColor/`
+- [x] Unsafe constructor `unsafeHexColor()` in `newtypes/stringTypes/hexColor/unsafeHexColor/`
+- [x] Unwrap function `unwrapHexColor()` in `newtypes/stringTypes/hexColor/unwrapHexColor/`
+- [x] Type predicate `isHexColor()` in `predicates/isHexColor/`
+- [x] All tests passing (7 smart constructor + 5 predicate tests)
 
 **Validation**: #RGB or #RRGGBB format (3 or 6 hex digits)
+**Location**: `newtypes/stringTypes/hexColor/`, `predicates/isHexColor/`
 
-### ⏸️ OklchColor
+### ✅ OklchColor
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `oklchColor()` (validates oklch() CSS format)
-- [ ] Unsafe constructor `unsafeOklchColor()`
-- [ ] Unwrap function `unwrapOklchColor()`
-- [ ] Type predicate `_isOklchColor()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `oklchColor()` in `newtypes/stringTypes/oklchColor/`
+- [x] Unsafe constructor `unsafeOklchColor()` in `newtypes/stringTypes/oklchColor/unsafeOklchColor/`
+- [x] Unwrap function `unwrapOklchColor()` in `newtypes/stringTypes/oklchColor/unwrapOklchColor/`
+- [x] Type predicate `isOklchColor()` in `predicates/isOklchColor/`
+- [x] All tests passing (10 smart constructor + 7 predicate tests)
 
-**Validation**: oklch(L C H) or oklch(L C H / A) format
+**Validation**: oklch(L C H) or oklch(L C H / A) format - L: 0-1 or 0%-100%, C: ≥0, H: 0-360°, A: 0-1 optional
+**Location**: `newtypes/stringTypes/oklchColor/`, `predicates/isOklchColor/`
 
-### ⏸️ P3Color
+### ✅ P3Color
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `p3Color()` (validates color(display-p3 ...) format)
-- [ ] Unsafe constructor `unsafeP3Color()`
-- [ ] Unwrap function `unwrapP3Color()`
-- [ ] Type predicate `_isP3Color()`
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts`
+- [x] Smart constructor `p3Color()` in `newtypes/stringTypes/p3Color/`
+- [x] Unsafe constructor `unsafeP3Color()` in `newtypes/stringTypes/p3Color/unsafeP3Color/`
+- [x] Unwrap function `unwrapP3Color()` in `newtypes/stringTypes/p3Color/unwrapP3Color/`
+- [x] Type predicate `isP3Color()` in `predicates/isP3Color/`
+- [x] All tests passing (10 smart constructor + 7 predicate tests)
 
-**Validation**: color(display-p3 R G B) or color(display-p3 R G B / A) format
+**Validation**: color(display-p3 R G B) or color(display-p3 R G B / A) format - R/G/B: 0-1 or 0%-100%, A: 0-1 optional
+**Location**: `newtypes/stringTypes/p3Color/`, `predicates/isP3Color/`
 
 ---
 
-## Batch 8: Collection Types (NOT STARTED)
+## Batch 8: Collection Types (COMPLETED ✅)
 
-### ⏸️ NonEmptyArray<T>
+### ✅ NonEmptyArray<T>
 
-- [ ] Type definition in `types/branded/index.ts`
-- [ ] Smart constructor `nonEmptyArray<T>()` (validates length > 0)
-- [ ] Unsafe constructor `unsafeNonEmptyArray<T>()`
-- [ ] Unwrap function `unwrapNonEmptyArray<T>()`
-- [ ] Type predicate `_isNonEmptyArray<T>()`
-- [ ] Utility: `headNonEmptyArray<T>()` (get first element safely)
-- [ ] Utility: `tailNonEmptyArray<T>()` (get rest as regular array)
-- [ ] All tests passing
+- [x] Type definition in `types/branded/index.ts` - `readonly [T, ...ReadonlyArray<T>]` tuple pattern
+- [x] Smart constructor `nonEmptyArray<T>()` in `newtypes/types/nonEmptyArray/`
+- [x] Unsafe constructor `unsafeNonEmptyArray<T>()` in `newtypes/types/nonEmptyArray/unsafeNonEmptyArray/`
+- [x] Unwrap function `unwrapNonEmptyArray<T>()` in `newtypes/types/nonEmptyArray/unwrapNonEmptyArray/`
+- [x] Type predicate `isNonEmptyArray<T>()` in `predicates/isNonEmptyArray/`
+- [x] Utility: `headNonEmptyArray<T>()` in `utilities/array/headNonEmptyArray/` (get first element safely)
+- [x] Utility: `tailNonEmptyArray<T>()` in `utilities/array/tailNonEmptyArray/` (get rest as regular array)
+- [x] All tests passing (13 tests: 4 smart constructor + 3 predicate + 3 head + 3 tail)
 
-**Validation**: Array with at least one element
+**Validation**: Array with at least one element (guaranteed by tuple type)
+**Location**: `newtypes/types/nonEmptyArray/`, `predicates/isNonEmptyArray/`, `utilities/array/`
 
 ---
 
