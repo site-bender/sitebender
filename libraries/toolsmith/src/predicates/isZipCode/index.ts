@@ -10,6 +10,7 @@ import {
 
 //++ Type predicate that checks if a string is a valid US ZIP code
 export default function isZipCode(value: string): value is ZipCode {
+	//++ [EXCEPTION] typeof, ===, &&, ||, .length, .split(), .reduce(), .includes(), .charAt(), and .substring() permitted in Toolsmith for performance - provides ZIP code validation wrapper
 	return (
 		typeof value === "string" &&
 		function hasValidLength(): boolean {

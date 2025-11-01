@@ -3,6 +3,7 @@ import type { CountryCode } from "@sitebender/toolsmith/types/branded/index.ts"
 //++ Type predicate that checks if a string is a valid ISO 3166-1 alpha-2 country code
 //++ Validates 2 uppercase letters (US, GB, FR, DE, JP, etc.)
 export default function isCountryCode(value: unknown): value is CountryCode {
+	//++ [EXCEPTION] typeof, !==, .length, .toLocaleUpperCase(), and .test() permitted in Toolsmith for performance - provides ISO 3166-1 validation wrapper
 	if (typeof value !== "string") {
 		return false
 	}
