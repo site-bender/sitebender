@@ -44,13 +44,18 @@
 		// === Formatting and Code Quality ===
 		"fmt": "deno task fmt:repo",
 		"fmt:all": "deno task fmt:all:repo",
-		"fmt:repo": "deno task sort && deno fmt",
-		"fmt:all:repo": "deno task sort:all && deno fmt",
+		"fmt:repo": "deno task sort && deno task organize && deno fmt",
+		"fmt:all:repo": "deno task sort:all && deno task organize:all && deno fmt",
 		"fmt:check": "deno fmt --check plugins/ libraries/ scripts/",
 		"lint": "deno lint plugins/ libraries/ scripts/",
 		"lint:all": "deno lint plugins/ libraries/ scripts/",
 		"fp:check": "deno run --allow-read --allow-run scripts/enforceFP/index.ts",
 		"fp:docs": "deno run --allow-read --allow-run scripts/enforceFP/index.ts",
+
+		// === Code Organization ===
+		"organize": "deno run --allow-read --allow-write scripts/enforceOrganization/index.ts plugins/ libraries/ scripts/",
+		"organize:all": "deno run --allow-read --allow-write scripts/enforceOrganization/index.ts .",
+		"organize:check": "deno run --allow-read scripts/enforceOrganization/index.ts --check plugins/ libraries/ scripts/",
 
 		"fp:agent": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/agent/src/**/*.ts' 'libraries/agent/src/**/*.tsx'",
 		"fp:arborist": "deno run --allow-read --allow-run scripts/enforceFP/index.ts 'libraries/arborist/src/**/*.ts' 'libraries/arborist/src/**/*.tsx'",

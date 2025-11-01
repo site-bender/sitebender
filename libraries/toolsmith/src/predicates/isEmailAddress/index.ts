@@ -8,6 +8,7 @@ import { EMAIL_ADDRESS_MAX_LENGTH } from "@sitebender/toolsmith/newtypes/constan
 //++ Type predicate that checks if a string is a valid email address
 //++ Validates structure, local part, domain, and total length after normalization
 export default function isEmailAddress(email: string): email is EmailAddress {
+	//++ [EXCEPTION] .length, .indexOf(), .lastIndexOf(), .slice(), ===, !==, ||, >, and _tag permitted in Toolsmith for performance - provides email validation wrapper
 	if (email.length === 0) {
 		return false
 	}

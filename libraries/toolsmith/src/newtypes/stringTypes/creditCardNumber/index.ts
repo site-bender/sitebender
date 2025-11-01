@@ -12,9 +12,11 @@ import _validateLuhn from "@sitebender/toolsmith/newtypes/stringTypes/creditCard
 export default function creditCardNumber(
 	value: string,
 ): Result<ValidationError, CreditCardNumber> {
+	//++ [EXCEPTION] .replace() permitted in Toolsmith for performance - provides CreditCardNumber validation wrapper
 	// Remove spaces and hyphens for validation
 	const cleaned = value.replace(/[\s-]/g, "")
 
+	//++ [EXCEPTION] !, .test() permitted in Toolsmith for performance - provides CreditCardNumber validation wrapper
 	if (!/^\d+$/.test(cleaned)) {
 		return error({
 			code: "CREDIT_CARD_NUMBER_INVALID_CHARACTERS",
@@ -27,6 +29,7 @@ export default function creditCardNumber(
 		})
 	}
 
+	//++ [EXCEPTION] .length, <, >, and || permitted in Toolsmith for performance - provides CreditCardNumber validation wrapper
 	if (cleaned.length < 13 || cleaned.length > 19) {
 		return error({
 			code: "CREDIT_CARD_NUMBER_INVALID_LENGTH",
