@@ -19,6 +19,7 @@ export default function multiplyFourDecimalPlaces(
 		const multiplicandRaw = unwrapFourDecimalPlaces(multiplicand)
 		const multiplierRaw = unwrapFourDecimalPlaces(multiplier)
 
+		//++ [EXCEPTION] Math.round, *, / permitted in Toolsmith for performance - provides scaled integer arithmetic
 		const multiplicandScaled = Math.round(multiplicandRaw * SCALE_FACTOR)
 		const multiplierScaled = Math.round(multiplierRaw * SCALE_FACTOR)
 		const resultScaled = multiplicandScaled * multiplierScaled

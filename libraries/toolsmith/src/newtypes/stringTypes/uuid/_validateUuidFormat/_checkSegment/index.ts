@@ -17,6 +17,7 @@ export default function _checkSegment(uuid: string) {
 				return acc
 			}
 
+			//++ [EXCEPTION] .slice() permitted in Toolsmith for performance - provides UUID segment extraction wrapper
 			const part = uuid.slice(segment.start, segment.end)
 
 			if (part.length !== segment.length) {

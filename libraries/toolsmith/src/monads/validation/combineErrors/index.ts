@@ -11,6 +11,7 @@ export default function combineErrors(
 	return function withSecondErrors(
 		errors2: NonEmptyArray<ValidationError>,
 	): NonEmptyArray<ValidationError> {
+		//++ [EXCEPTION] Array destructuring and spread operator permitted in Toolsmith for performance - provides validation error combining
 		// We know both inputs are non-empty, so result will be non-empty
 		const [first1, ...rest1] = errors1
 		const [first2, ...rest2] = errors2
@@ -21,9 +22,11 @@ export default function combineErrors(
 			allErrors,
 		)
 
+		//++ [EXCEPTION] Object.keys() permitted in Toolsmith for performance - provides field extraction for error grouping
 		// Convert back to structured format
 		const fields = Object.keys(fieldMap)
 
+		//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides NonEmptyArray construction
 		// We know we have at least one field since we started with non-empty inputs
 		const [firstField, ...restFields] = fields
 		const firstError: ValidationError = {
@@ -31,6 +34,7 @@ export default function combineErrors(
 			messages: fieldMap[firstField],
 		}
 
+		//++ [EXCEPTION] .map() method permitted in Toolsmith for performance - provides error transformation
 		const restErrors = restFields.map(
 			function buildError(field: string): ValidationError {
 				return {

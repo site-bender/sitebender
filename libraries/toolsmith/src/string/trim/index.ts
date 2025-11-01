@@ -1,5 +1,8 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 
 import _trimString from "./_trimString/index.ts"
 import _trimToResult from "./_trimToResult/index.ts"
@@ -29,7 +32,10 @@ export default function trim(
 		| string
 		| Result<ValidationError, string>
 		| Validation<ValidationError, string>,
-): string | Result<ValidationError, string> | Validation<ValidationError, string> {
+):
+	| string
+	| Result<ValidationError, string>
+	| Validation<ValidationError, string> {
 	// Happy path: plain string
 	if (typeof input === "string") {
 		return _trimString(input)

@@ -2,6 +2,7 @@
 //++ Applies Unicode NFC normalization and lowercase conversion to protocol and domain
 //++ Preserves path, query, and fragment case
 export default function _normalizeUrl(urlString: string): string {
+	//++ [EXCEPTION] .normalize(), .indexOf(), .slice(), .toLocaleLowerCase(), .search() permitted in Toolsmith for performance - provides URL normalization wrapper
 	const nfcNormalized = urlString.normalize("NFC")
 
 	const protocolEndIndex = nfcNormalized.indexOf("://")

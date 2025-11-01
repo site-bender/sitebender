@@ -15,6 +15,7 @@ export default function all<T>(
 	): Result<ValidationError, boolean> {
 		// Happy path: valid array
 		if (isArray(array)) {
+			//++ [EXCEPTION] .every() permitted in Toolsmith for performance - provides curried all wrapper
 			const result = array.every(predicate)
 			return ok(result)
 		}
