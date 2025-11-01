@@ -4,7 +4,7 @@ import hasKey from "../../hasKey/index.ts"
 export default function _buildObject(obj: Record<string, unknown>) {
 	return function _buildObjectWithObject(
 		acc: Record<string, unknown>,
-		key: string
+		key: string,
 	): Record<string, unknown> {
 		return hasKey(obj)(key) ? acc : { ...acc, [key]: obj[key] }
 	}

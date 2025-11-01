@@ -9,6 +9,7 @@ export default function chainIoValidation<E, A, B>(
 	): IoValidation<E, B> {
 		return function chainedIoValidation() {
 			const validation = ioValidation()
+			//++ [EXCEPTION] === operator and property access permitted in Toolsmith for performance - provides Validation monad tag checking
 			return validation._tag === "Success"
 				? binder(validation.value)()
 				: validation
