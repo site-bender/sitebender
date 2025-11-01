@@ -28,6 +28,7 @@ export default function _deepEquals(
 	y: unknown,
 	seen: WeakMap<object, unknown>,
 ): boolean {
+	//++ [EXCEPTION] ===, &&, [], .has(), .get(), .set(), .getTime(), .source, .flags, and .length permitted in Toolsmith for performance - provides deep equality wrapper
 	// Handle primitive equality and same reference
 	if (is(x)(y)) {
 		return true

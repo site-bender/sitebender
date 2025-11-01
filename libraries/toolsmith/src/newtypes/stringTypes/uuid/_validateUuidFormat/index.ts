@@ -16,6 +16,7 @@ import _checkSegment from "@sitebender/toolsmith/newtypes/stringTypes/uuid/_vali
 export default function _validateUuidFormat(
 	uuid: string,
 ): Result<ValidationError, string> {
+	//++ [EXCEPTION] .length and === permitted in Toolsmith for performance - provides UUID validation wrapper
 	if (uuid.length === 0) {
 		return error({
 			code: "UUID_EMPTY",
@@ -29,6 +30,7 @@ export default function _validateUuidFormat(
 		})
 	}
 
+	//++ [EXCEPTION] .length and !== permitted in Toolsmith for performance - provides UUID validation wrapper
 	if (uuid.length !== UUID_LENGTH) {
 		return error({
 			code: "UUID_INVALID_LENGTH",
@@ -43,6 +45,7 @@ export default function _validateUuidFormat(
 		})
 	}
 
+	//++ [EXCEPTION] .reduce() permitted in Toolsmith for performance - provides UUID validation wrapper
 	const checkHyphenInUuid = _checkHyphen(uuid)
 	const hyphenError = UUID_HYPHEN_POSITIONS.reduce(
 		function checkHyphenAtPosition(
