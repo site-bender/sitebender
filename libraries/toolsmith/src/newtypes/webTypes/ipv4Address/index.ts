@@ -24,8 +24,10 @@ export default function ipv4Address(
 		})
 	}
 
+	//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides IPv4 address octet extraction wrapper
 	const parts = value.split(".")
 
+	//++ [EXCEPTION] .length permitted in Toolsmith for performance - provides IPv4 octet count validation wrapper
 	if (parts.length !== 4) {
 		return error({
 			code: "IPV4_ADDRESS_INVALID_FORMAT",
@@ -57,7 +59,8 @@ export default function ipv4Address(
 
 	if (!allPartsValidResult.value) {
 		// Find the first invalid part
-		const invalidIndex = parts.findIndex(part => !isValidPart(part))
+		//++ [EXCEPTION] .findIndex() and array indexing [] permitted in Toolsmith for performance - provides invalid octet detection wrapper
+		const invalidIndex = parts.findIndex((part) => !isValidPart(part))
 		const part = parts[invalidIndex]
 
 		if (part.length === 0) {
@@ -77,7 +80,9 @@ export default function ipv4Address(
 				code: "IPV4_ADDRESS_LEADING_ZERO",
 				field: `ipv4Address.octet${invalidIndex + 1}`,
 				messages: [
-					`The system does not allow leading zeros in octet ${invalidIndex + 1}.`,
+					`The system does not allow leading zeros in octet ${
+						invalidIndex + 1
+					}.`,
 				],
 				received: value,
 				expected: "Octet without leading zeros",
@@ -99,7 +104,9 @@ export default function ipv4Address(
 				],
 				received: value,
 				expected: "Numeric octet value 0-255",
-				suggestion: `Octet ${invalidIndex + 1} ('${part}') must be a valid number`,
+				suggestion: `Octet ${
+					invalidIndex + 1
+				} ('${part}') must be a valid number`,
 				severity: "requirement",
 			})
 		}
@@ -131,7 +138,9 @@ export default function ipv4Address(
 				],
 				received: value,
 				expected: "Valid numeric octet",
-				suggestion: `Octet ${invalidIndex + 1} ('${part}') contains invalid characters`,
+				suggestion: `Octet ${
+					invalidIndex + 1
+				} ('${part}') contains invalid characters`,
 				severity: "requirement",
 			})
 		}

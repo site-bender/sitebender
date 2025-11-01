@@ -17,6 +17,7 @@ export default function addOneDecimalPlace(
 		const augendRaw = unwrapOneDecimalPlace(augend)
 		const addendRaw = unwrapOneDecimalPlace(addend)
 
+		//++ [EXCEPTION] Math.round, *, +, / permitted in Toolsmith for performance - provides scaled integer arithmetic
 		const augendScaled = Math.round(augendRaw * SCALE_FACTOR)
 		const addendScaled = Math.round(addendRaw * SCALE_FACTOR)
 		const resultScaled = augendScaled + addendScaled

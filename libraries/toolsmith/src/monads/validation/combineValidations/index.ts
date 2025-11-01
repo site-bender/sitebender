@@ -17,7 +17,9 @@ export default function combineValidations<T>(
 		lastValidValue: undefined as T | undefined,
 	})(validations)
 
+	//++ [EXCEPTION] .length property and > operator permitted in Toolsmith for performance - provides error count checking
 	if (result.errors.length > 0) {
+		//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides NonEmptyArray construction
 		// We know errors is non-empty if length > 0
 		const [firstError, ...restErrors] = result.errors
 
@@ -26,12 +28,14 @@ export default function combineValidations<T>(
 		)
 	}
 
+	//++ [EXCEPTION] !== operator permitted in Toolsmith for performance - provides undefined checking
 	// Since we have NonEmptyArray, we must have at least one validation
 	// If no errors, at least one must be valid
 	if (result.lastValidValue !== undefined) {
 		return valid(result.lastValidValue)
 	}
 
+	//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides first element extraction
 	// Check the first validation - if it's valid, use it
 	const [firstValidation] = validations
 	if (isValid(firstValidation)) {

@@ -48,14 +48,18 @@ const toTitle = (s: string): string => {
 	if (not(s)) return s
 
 	// Handle kebab-case, snake_case, camelCase, and space-separated
+	//++ [EXCEPTION] .replace(), .trim() permitted in Toolsmith for performance - provides Title Case wrapper
 	const normalized = s
 		.replace(/([a-z])([A-Z])/g, "$1 $2") // camelCase/PascalCase
 		.replace(/[-_]+/g, " ") // kebab-case and snake_case
 		.trim()
 
+	//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides Title Case wrapper
 	const words = normalized.split(/\s+/)
+	//++ [EXCEPTION] .length and === permitted in Toolsmith for performance - provides Title Case wrapper
 	if (words.length === 0) return s
 
+	//++ [EXCEPTION] .map(), .toLowerCase(), .charAt(), .toUpperCase(), .slice(), .includes(), .join(), -, and + permitted in Toolsmith for performance - provides Title Case wrapper
 	return words
 		.map((word, index) => {
 			const lowerWord = word.toLowerCase()

@@ -1,5 +1,8 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 
 import _reduceArray from "./_reduceArray/index.ts"
 import _reduceToResult from "./_reduceToResult/index.ts"

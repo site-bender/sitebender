@@ -8,6 +8,7 @@ export default function _normalizeIpv6Address(
 	groups: ReadonlyArray<number>,
 	ipv4Suffix?: string,
 ): string {
+	//++ [EXCEPTION] .slice(), .map(), .toString(), .toLowerCase() permitted in Toolsmith for performance - provides IPv6 normalization wrapper
 	// If IPv4 suffix provided, work with first 6 groups only
 	const groupsToNormalize = ipv4Suffix ? groups.slice(0, 6) : groups
 
@@ -17,19 +18,35 @@ export default function _normalizeIpv6Address(
 	})
 
 	// Find longest run of consecutive zeros to compress (minimum 2 zeros)
-	const findLongestZeroRun = function (groups: ReadonlyArray<number>): [number, number] {
+	const findLongestZeroRun = function (
+		groups: ReadonlyArray<number>,
+	): [number, number] {
+		//++ [EXCEPTION] .reduce() and array destructuring permitted in Toolsmith for performance - provides zero run detection wrapper
 		const result = groups.reduce(
-			function (acc: readonly [number, number, number, number], group: number, index: number) {
+			function (
+				acc: readonly [number, number, number, number],
+				group: number,
+				index: number,
+			) {
 				const [longestStart, longestLength, currentStart, currentLength] = acc
 
 				if (group === 0) {
 					const newCurrentStart = currentStart === -1 ? index : currentStart
 					const newCurrentLength = currentLength + 1
-					return [longestStart, longestLength, newCurrentStart, newCurrentLength] as const
+					return [
+						longestStart,
+						longestLength,
+						newCurrentStart,
+						newCurrentLength,
+					] as const
 				}
 
-				const newLongestStart = currentLength > longestLength ? currentStart : longestStart
-				const newLongestLength = currentLength > longestLength ? currentLength : longestLength
+				const newLongestStart = currentLength > longestLength
+					? currentStart
+					: longestStart
+				const newLongestLength = currentLength > longestLength
+					? currentLength
+					: longestLength
 				return [newLongestStart, newLongestLength, -1, 0] as const
 			},
 			[-1, 0, -1, 0] as const,
@@ -46,6 +63,7 @@ export default function _normalizeIpv6Address(
 
 	// Only compress if run is 2 or more (compressing single 0 is not beneficial)
 	if (longestLength < 2) {
+		//++ [EXCEPTION] .join() permitted in Toolsmith for performance - provides IPv6 group joining wrapper
 		// No compression - join all groups
 		if (ipv4Suffix) {
 			return `${hexGroups.join(":")}:${ipv4Suffix}`
@@ -53,8 +71,12 @@ export default function _normalizeIpv6Address(
 		return hexGroups.join(":")
 	}
 
+	//++ [EXCEPTION] .slice(), .concat(), .join() permitted in Toolsmith for performance - provides IPv6 compression wrapper
 	// Build compressed form using functional constructs
-	const buildParts = function (start: number, length: number): ReadonlyArray<string> {
+	const buildParts = function (
+		start: number,
+		length: number,
+	): ReadonlyArray<string> {
 		if (start === 0) {
 			// Compression at start
 			if (start + length === hexGroups.length) {

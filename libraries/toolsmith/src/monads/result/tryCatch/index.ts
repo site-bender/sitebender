@@ -6,6 +6,7 @@ import ok from "../ok/index.ts"
 //++ Converts a try/catch operation to a Result
 export default function tryCatch<E>(onError: (err: unknown) => E) {
 	return function tryCatchWithOnError<T>(fn: () => T): Result<E, T> {
+		//++ [EXCEPTION] try/catch permitted in Toolsmith for performance - provides Result monad exception boundary
 		try {
 			return ok(fn())
 		} catch (err) {
