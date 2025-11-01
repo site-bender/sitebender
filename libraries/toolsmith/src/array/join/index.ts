@@ -13,6 +13,7 @@ export default function join<T>(separator: string) {
 	): Result<ValidationError, string> {
 		// Happy path: valid array
 		if (isArray(array)) {
+			//++ [EXCEPTION] .join() permitted in Toolsmith for performance - provides curried join wrapper
 			const joined = array.join(separator)
 			return ok(joined)
 		}

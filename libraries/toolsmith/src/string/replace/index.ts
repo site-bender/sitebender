@@ -1,5 +1,8 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 
 import _replaceString from "./_replaceString/index.ts"
 import _replaceToResult from "./_replaceToResult/index.ts"
@@ -31,7 +34,10 @@ export default function replace(pattern: RegExp | string) {
 				| string
 				| Result<ValidationError, string>
 				| Validation<ValidationError, string>,
-		): string | Result<ValidationError, string> | Validation<ValidationError, string> {
+		):
+			| string
+			| Result<ValidationError, string>
+			| Validation<ValidationError, string> {
 			// Happy path: plain string
 			if (typeof input === "string") {
 				return _replaceString(pattern)(replacement)(input)
@@ -44,7 +50,9 @@ export default function replace(pattern: RegExp | string) {
 
 			// Validation path: error accumulation monadic replacement
 			if (isSuccess<string>(input)) {
-				return chainValidations(_replaceToValidation(pattern)(replacement))(input)
+				return chainValidations(_replaceToValidation(pattern)(replacement))(
+					input,
+				)
 			}
 
 			// Fallback: pass through unchanged (handles error/failure states)

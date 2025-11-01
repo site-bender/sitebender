@@ -7,5 +7,6 @@ export default function hexToBytes(hexString: string): Uint8Array {
 	const pairs = extractPairs(hexString)
 	const bytes = map(parsePair)(pairs)
 
+	//++ [EXCEPTION] Uint8Array constructor permitted in Toolsmith for performance - provides typed array wrapper
 	return new Uint8Array(bytes)
 }

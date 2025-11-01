@@ -5,6 +5,7 @@ import stripHyphens from "./stripHyphens/index.ts"
 
 //++ Generates a Base58-encoded UUID v4
 export default function generateBase58Uuid(): string {
+	//++ [EXCEPTION] crypto.randomUUID() permitted in Toolsmith for performance - provides UUID generation wrapper
 	return pipe([
 		stripHyphens,
 		hexToBytes,
