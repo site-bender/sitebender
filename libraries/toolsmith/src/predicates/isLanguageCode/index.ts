@@ -3,6 +3,7 @@ import type { LanguageCode } from "@sitebender/toolsmith/types/branded/index.ts"
 //++ Type predicate that checks if a string is a valid ISO 639-1 language code
 //++ Validates 2 lowercase letters (en, fr, de, es, ja, etc.)
 export default function isLanguageCode(value: unknown): value is LanguageCode {
+	//++ [EXCEPTION] typeof, !==, .length, .toLocaleLowerCase(), and .test() permitted in Toolsmith for performance - provides ISO 639-1 validation wrapper
 	if (typeof value !== "string") {
 		return false
 	}

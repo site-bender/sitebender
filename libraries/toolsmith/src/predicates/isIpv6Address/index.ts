@@ -4,6 +4,7 @@ import _parseIpv6Address from "@sitebender/toolsmith/newtypes/webTypes/ipv6Addre
 
 //++ Type predicate that checks if a string is a valid IPv6 address following RFC 4291
 export default function isIpv6Address(value: string): value is Ipv6Address {
+	//++ [EXCEPTION] _tag and === permitted in Toolsmith for performance - provides IPv6 validation wrapper
 	const result = _parseIpv6Address(value)
 	return result._tag === "Ok"
 }
