@@ -56,6 +56,7 @@ export default function _validateProtocol(
 	}
 
 	if (!ALLOWED_PROTOCOLS.has(protocol)) {
+		//++ [EXCEPTION] Array.from() and .join() permitted in Toolsmith for performance - provides protocol list formatting wrapper
 		return error({
 			code: "URL_UNSUPPORTED_PROTOCOL",
 			field: "url.protocol",

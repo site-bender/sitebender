@@ -11,11 +11,14 @@ export default function parseJson(
 	jsonString: string,
 ): Result<ValidationError, unknown> {
 	// Happy path: try to parse
+	//++ [EXCEPTION] try/catch permitted in Toolsmith at IO boundary - wraps native JSON.parse exception
 	try {
+		//++ [EXCEPTION] JSON.parse() permitted in Toolsmith for performance - provides JSON parsing wrapper
 		const parsed = JSON.parse(jsonString)
 		return ok(parsed)
 	} catch (err) {
 		// Sad path: JSON is malformed
+		//++ [EXCEPTION] instanceof and String() permitted in Toolsmith for error handling - provides type-safe error message extraction
 		const errorMessage = err instanceof Error ? err.message : String(err)
 
 		return error({

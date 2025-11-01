@@ -16,6 +16,7 @@ export default function dividePercent(
 	): Result<ValidationError, Percent> {
 		const divisorRaw = unwrapPercent(divisor)
 
+		//++ [EXCEPTION] === permitted in Toolsmith for performance - provides zero check for division
 		if (divisorRaw === 0) {
 			return error({
 				code: "PERCENT_DIVISION_BY_ZERO",
@@ -31,6 +32,7 @@ export default function dividePercent(
 		const SCALE_FACTOR = 10000
 		const dividendRaw = unwrapPercent(dividend)
 
+		//++ [EXCEPTION] Math.round, *, / permitted in Toolsmith for performance - provides scaled integer arithmetic
 		const dividendScaled = Math.round(dividendRaw * SCALE_FACTOR)
 		const divisorScaled = Math.round(divisorRaw * SCALE_FACTOR)
 		const resultScaled = (dividendScaled * SCALE_FACTOR) / divisorScaled

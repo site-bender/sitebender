@@ -7,6 +7,7 @@ export default function chainIoEither<L, A, B>(
 	return function chainOverIoEither(ioEither: IoEither<L, A>): IoEither<L, B> {
 		return function chainedIoEither() {
 			const either = ioEither()
+			//++ [EXCEPTION] === operator and property access permitted in Toolsmith for performance - provides Either monad tag checking
 			return either._tag === "Right" ? binder(either.right)() : either
 		}
 	}

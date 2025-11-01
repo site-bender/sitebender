@@ -9,6 +9,7 @@ export default function fold<A, B>(onValid: (value: A) => B) {
 		return function applyFold(
 			validation: Validation<E, A>,
 		): B {
+			//++ [EXCEPTION] === operator and property access permitted in Toolsmith for performance - provides Validation monad tag checking
 			if (validation._tag === "Failure") {
 				return onInvalid(validation.errors)
 			}
