@@ -16,6 +16,7 @@ export default async function hashHexWithMetadata(
 		metadata: {
 			algorithm,
 			version: 1,
+			//++ [EXCEPTION] new Date().toISOString() permitted in Toolsmith for performance - provides timestamp wrapper
 			timestamp: new Date().toISOString(),
 		},
 	}
