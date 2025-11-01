@@ -6,6 +6,7 @@ import { BASE58_ALPHABET } from "../constants/index.ts"
 export default function bigIntToBase58(value: bigint): Array<string> {
 	function generateDigits(current: bigint): Array<string> {
 		return unfold(function nextDigit(remaining: bigint) {
+			//++ [EXCEPTION] >, %, /, Number(), [] operators permitted in Toolsmith for performance - provides BigInt to Base58 conversion wrapper
 			return remaining > 0n
 				? [BASE58_ALPHABET[Number(remaining % 58n)], remaining / 58n]
 				: null

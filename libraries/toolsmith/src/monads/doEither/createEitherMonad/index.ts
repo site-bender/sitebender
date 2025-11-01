@@ -8,6 +8,7 @@ export default function createEitherMonad<L>(): MonadDictionary<
 	return {
 		chain: function chainEither<A, B>(f: (a: A) => Either<L, B>) {
 			return function applyChain(ma: Either<L, unknown>): Either<L, unknown> {
+				//++ [EXCEPTION] === operator and property access permitted in Toolsmith for performance - provides Either monad tag checking
 				if (ma._tag === "Left") {
 					return ma
 				}

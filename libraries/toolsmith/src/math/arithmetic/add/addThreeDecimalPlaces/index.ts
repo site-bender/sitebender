@@ -17,6 +17,7 @@ export default function addThreeDecimalPlaces(
 		const augendRaw = unwrapThreeDecimalPlaces(augend)
 		const addendRaw = unwrapThreeDecimalPlaces(addend)
 
+		//++ [EXCEPTION] Math.round, *, +, / permitted in Toolsmith for performance - provides scaled integer arithmetic
 		const augendScaled = Math.round(augendRaw * SCALE_FACTOR)
 		const addendScaled = Math.round(addendRaw * SCALE_FACTOR)
 		const resultScaled = augendScaled + addendScaled

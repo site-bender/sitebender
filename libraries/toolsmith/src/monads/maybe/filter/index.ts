@@ -10,6 +10,7 @@ export default function filter<A>(predicate: (a: A) => boolean) {
 			return maybe
 		}
 
+		//++ [EXCEPTION] Type assertion and property access permitted in Toolsmith for performance - provides Maybe monad filter operation
 		return predicate((maybe as { _tag: "Just"; value: A }).value)
 			? maybe
 			: nothing()
