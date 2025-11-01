@@ -10,6 +10,7 @@ import _validateFragment from "@sitebender/toolsmith/newtypes/webTypes/_validate
 //++ Type predicate that checks if a string is a valid Url
 //++ Returns true only if all URL components pass validation
 export default function isUrl(value: string): value is Url {
+	//++ [EXCEPTION] .indexOf(), ===, .slice(), _tag, .search(), .lastIndexOf(), <, >, !==, >, and .length permitted in Toolsmith for performance - provides URL validation wrapper
 	const protocolEndIndex = value.indexOf("://")
 	if (protocolEndIndex === -1) {
 		return false

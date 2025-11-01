@@ -5,6 +5,7 @@ import { IPV4_OCTETS_COUNT, IPV4_OCTET_MAX, DECIMAL_BASE } from "@sitebender/too
 
 //++ Type predicate that checks if a string is a valid IPv4 address (4 octets 0-255, dot-separated)
 export default function isIpv4Address(value: string): value is Ipv4Address {
+	//++ [EXCEPTION] .split(), .length, !==, ===, >, .startsWith(), Number.parseInt, Number.isNaN, <, ||, String(), &&, _tag, and .value permitted in Toolsmith for performance - provides IPv4 validation wrapper
 	const parts = value.split(".")
 
 	if (parts.length !== IPV4_OCTETS_COUNT) {
