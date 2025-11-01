@@ -6,7 +6,10 @@ import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import _validateDomain from "@sitebender/toolsmith/newtypes/webTypes/_validateDomain/index.ts"
 import _validatePort from "@sitebender/toolsmith/newtypes/webTypes/_validatePort/index.ts"
-import { IPV4_OCTET_MAX, DECIMAL_BASE } from "@sitebender/toolsmith/newtypes/constants/index.ts"
+import {
+	DECIMAL_BASE,
+	IPV4_OCTET_MAX,
+} from "@sitebender/toolsmith/newtypes/constants/index.ts"
 
 //++ Validates URI authority: [userinfo@]host[:port]
 //++ Host can be domain, IPv4, or IPv6
@@ -22,6 +25,7 @@ export default function _validateAuthority(
 	let host = ""
 	let port = ""
 
+	//++ [EXCEPTION] .lastIndexOf(), .slice() permitted in Toolsmith for performance - provides URI authority parsing wrapper
 	const atIndex = remainingAuthority.lastIndexOf("@")
 	if (atIndex !== -1) {
 		userinfo = remainingAuthority.slice(0, atIndex)
@@ -123,6 +127,7 @@ export default function _validateAuthority(
 			})
 		}
 	} else if (/^\d+\.\d+\.\d+\.\d+$/.test(host)) {
+		//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides IPv4 octet extraction wrapper
 		const octets = host.split(".")
 		const rangeResult = all((octet: string) => {
 			const num = Number.parseInt(octet, DECIMAL_BASE)
@@ -145,7 +150,9 @@ export default function _validateAuthority(
 				severity: "requirement",
 			})
 		}
-		const leadingZeroResult = all((octet: string) => !(octet.length > 1 && octet.startsWith("0")))(octets)
+		const leadingZeroResult = all((octet: string) =>
+			!(octet.length > 1 && octet.startsWith("0"))
+		)(octets)
 		if (leadingZeroResult._tag === "Error") {
 			return leadingZeroResult
 		}
