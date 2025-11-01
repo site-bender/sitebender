@@ -17,6 +17,7 @@ export default function subtractTwoDecimalPlaces(
 		const minuendRaw = unwrapTwoDecimalPlaces(minuend)
 		const subtrahendRaw = unwrapTwoDecimalPlaces(subtrahend)
 
+		//++ [EXCEPTION] Math.round, *, -, / permitted in Toolsmith for performance - provides scaled integer arithmetic
 		const minuendScaled = Math.round(minuendRaw * SCALE_FACTOR)
 		const subtrahendScaled = Math.round(subtrahendRaw * SCALE_FACTOR)
 		const resultScaled = minuendScaled - subtrahendScaled

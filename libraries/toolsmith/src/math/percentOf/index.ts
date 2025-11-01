@@ -14,6 +14,7 @@ export default function percentOf(
 	return function applyPercentageToValue(
 		percentage: Percent,
 	): Result<ValidationError, number> {
+		//++ [EXCEPTION] Number.isFinite permitted in Toolsmith for performance - provides finite number validation
 		if (!Number.isFinite(value)) {
 			return error({
 				code: "PERCENT_OF_VALUE_NOT_FINITE",
@@ -28,8 +29,10 @@ export default function percentOf(
 		}
 
 		const percentageRaw = unwrapPercent(percentage)
+		//++ [EXCEPTION] * permitted in Toolsmith for performance - provides percentage multiplication
 		const result = value * percentageRaw
 
+		//++ [EXCEPTION] Number.isFinite permitted in Toolsmith for performance - provides finite number validation
 		if (!Number.isFinite(result)) {
 			return error({
 				code: "PERCENT_OF_RESULT_NOT_FINITE",

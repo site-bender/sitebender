@@ -50,6 +50,7 @@ export default function iri(
 		})
 	}
 
+	//++ [EXCEPTION] .indexOf(), .slice() permitted in Toolsmith for performance - provides IRI parsing wrapper
 	// Find scheme separator
 	const colonIndex = normalized.indexOf(":")
 	if (colonIndex === -1) {
@@ -73,6 +74,7 @@ export default function iri(
 		return schemeResult
 	}
 
+	//++ [EXCEPTION] .slice(), .indexOf(), .filter(), Math.min(), spread operator permitted in Toolsmith for performance - provides IRI component extraction wrapper
 	// Parse remaining components
 	const hasAuthority = afterScheme.startsWith("//")
 	const remainingAfterAuthPrefix = hasAuthority ? afterScheme.slice(2) : afterScheme

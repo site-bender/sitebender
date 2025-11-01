@@ -4,12 +4,14 @@ import words from "../../words/index.ts"
 const toCamel = (str: string | null | undefined): string => {
 	const wordList = words(str)
 
+	//++ [EXCEPTION] .length and === permitted in Toolsmith for performance - provides camelCase wrapper
 	if (wordList.length === 0) {
 		return ""
 	}
 
 	const [first, ...rest] = wordList
 
+	//++ [EXCEPTION] .toLowerCase(), .map(), .charAt(), .toUpperCase(), .slice(), .join(), and + permitted in Toolsmith for performance - provides camelCase wrapper
 	return [
 		first.toLowerCase(),
 		...rest.map((word) =>
