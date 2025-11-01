@@ -5,6 +5,7 @@
  */
 export default function includes(str: string) {
 	return function includesWithString(substring: string): boolean {
+		//++ [EXCEPTION] .includes() permitted in Toolsmith for performance - provides curried includes wrapper
 		return str.includes(substring)
 	}
 }
