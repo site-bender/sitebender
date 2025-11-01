@@ -15,6 +15,7 @@ export default function keys<T extends Record<string, unknown>>(
 ): Result<ValidationError, ReadonlyArray<string>> {
 	// Happy path: valid object (but not an array)
 	if (and(isObject(obj))(not(isArray(obj)))) {
+		//++ [EXCEPTION] Object.keys permitted in Toolsmith for performance - provides curried keys wrapper
 		const keyArray = Object.keys(obj)
 		return ok(keyArray)
 	}

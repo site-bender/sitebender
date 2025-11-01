@@ -13,6 +13,7 @@ import ok from "../../monads/result/ok/index.ts"
 export default function getTag<T extends { _tag: string }>(
 	obj: T,
 ): Result<ValidationError, T["_tag"]> {
+	//++ [EXCEPTION] in operator permitted in Toolsmith for performance - provides property existence check
 	if (isPlainObject(obj) && "_tag" in obj && obj._tag) {
 		return ok(obj._tag)
 	}

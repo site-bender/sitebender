@@ -2,7 +2,10 @@ import { assert, assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 import trim from "./index.ts"
 import ok from "../../monads/result/ok/index.ts"
 import error from "../../monads/result/error/index.ts"

@@ -4,10 +4,12 @@ import isNullish from "../../../validation/isNullish/index.ts"
 const toUpperFirst = (
 	str: string | null | undefined,
 ): string => {
+	//++ [EXCEPTION] .length, ===, and typeof permitted in Toolsmith for performance - provides toUpperFirst wrapper
 	if (isNullish(str) || typeof str !== "string" || str.length === 0) {
 		return ""
 	}
 
+	//++ [EXCEPTION] [], .toUpperCase(), .slice(), and + permitted in Toolsmith for performance - provides toUpperFirst wrapper
 	return str[0].toUpperCase() + str.slice(1)
 }
 

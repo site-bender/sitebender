@@ -1,5 +1,6 @@
 import type { Ok } from "../../../types/fp/result/index.ts"
 
+//++ [EXCEPTION] Symbol.for() permitted in Toolsmith for performance - provides Node.js custom inspect symbol
 const inspectSymbol = Symbol.for("nodejs.util.inspect.custom")
 
 //++ Creates an Ok result with enhanced debugging output
