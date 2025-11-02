@@ -3,33 +3,34 @@
  + Demonstrates responsive navigation with fluid design
  */
 
-/*++ Component custom properties (Tier 3 - structural only, NO colors) */
-:root {
-	--bend-navigation-padding: var(--bend-space-m);
-	--bend-navigation-gap: var(--bend-space-m);
-	--bend-navigation-link-padding-block: 12px;
-	--bend-navigation-link-padding-inline: 16px;
-	--bend-navigation-link-font-weight: 600;
-	--bend-navigation-current-border-width: 3px;
-	--bend-navigation-current-font-weight: 700;
-}
-
-/*++ Base navigation container */
+/*++ Base navigation container with Tier 3 component properties */
 .bend-navigation {
+	/* Tier 3 - component properties reference Tier 2 semantic */
+	--bend-navigation-padding: var(--padding-default);
+	--bend-navigation-gap: var(--gap-default);
+	--bend-navigation-link-padding-block: var(--padding-narrow);
+	--bend-navigation-link-padding-inline: var(--padding-default);
+	--bend-navigation-link-font-weight: var(--font-weight-semibold);
+	--bend-navigation-link-color: var(--color-text-inverse);
+	--bend-navigation-link-focus-outline-color: var(--focus-color);
+	--bend-navigation-link-focus-outline-offset: var(--focus-offset);
+	--bend-navigation-current-border-width: var(--border-width-thick);
+	--bend-navigation-current-border-color: var(--color-text-inverse);
+	--bend-navigation-current-font-weight: var(--font-weight-bold);
+	--bend-navigation-background-color: var(--color-primary);
+
 	/* IE11 fallback: horizontal list with floats */
 	overflow: hidden;
 
 	/* Box Model */
 	padding: 1rem;
 
-	/* Colors - use Tier 2 tokens directly */
+	/* Colors - IE11 fallback */
 	background-color: #007bff;
-}
 
-/*++ Modern override */
-.bend-navigation {
+	/* Modern override */
 	padding: var(--bend-navigation-padding);
-	background-color: var(--bend-color-primary);
+	background-color: var(--bend-navigation-background-color);
 }
 
 /*++ Navigation list */
@@ -77,31 +78,43 @@
 	display: block;
 
 	/* Box Model */
-	min-height: 48px;
-	padding: var(--bend-navigation-link-padding-block) var(--bend-navigation-link-padding-inline);
+	min-height: 3rem;
+	padding: 0.5rem 1rem;
 
 	/* Typography */
-	font-weight: var(--bend-navigation-link-font-weight);
+	font-weight: 600;
 	text-decoration: none;
 
-	/* Colors - use Tier 2 tokens directly */
-	color: var(--bend-color-text-inverse);
+	/* Colors - IE11 fallback */
+	color: #fff;
+
+	/* Modern override */
+	padding: var(--bend-navigation-link-padding-block) var(--bend-navigation-link-padding-inline);
+	font-weight: var(--bend-navigation-link-font-weight);
+	color: var(--bend-navigation-link-color);
 }
 
 /*++ Link hover state */
 .bend-navigation a:hover {
-	background-color: var(--bend-color-background-hover);
+	/* Could add Tier 2 token like --color-primary-hover */
+	background-color: rgba(255, 255, 255, 0.1);
 }
 
 /*++ Link focus state */
 .bend-navigation a:focus {
-	outline: 2px solid var(--bend-color-focus);
-	outline-offset: 2px;
+	outline: 0.125rem solid var(--bend-navigation-link-focus-outline-color);
+	outline-offset: var(--bend-navigation-link-focus-outline-offset);
 }
 
 /*++ Active/current link */
 .bend-navigation a[aria-current="page"] {
-	border-bottom: var(--bend-navigation-current-border-width) solid var(--bend-color-current-border);
+	/* IE11 fallback */
+	border-bottom: 0.1875rem solid #fff;
+	font-weight: 700;
+
+	/* Modern override */
+	border-bottom-width: var(--bend-navigation-current-border-width);
+	border-bottom-color: var(--bend-navigation-current-border-color);
 	font-weight: var(--bend-navigation-current-font-weight);
 }
 
@@ -124,19 +137,19 @@
 /*++ Accessibility: High contrast mode */
 @media (forced-colors: active) {
 	.bend-navigation {
-		border: 1px solid ButtonText;
+		border: 0.0625rem solid ButtonText;
 	}
 
 	.bend-navigation a {
-		border: 1px solid ButtonText;
+		border: 0.0625rem solid ButtonText;
 	}
 
 	.bend-navigation a:focus {
-		outline: 2px solid Highlight;
+		outline: 0.125rem solid Highlight;
 	}
 
 	.bend-navigation a[aria-current="page"] {
-		border: 2px solid HighlightText;
+		border: 0.125rem solid HighlightText;
 	}
 }
 

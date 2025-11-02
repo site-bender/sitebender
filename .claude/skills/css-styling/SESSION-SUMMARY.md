@@ -51,14 +51,23 @@ System is now 100% consistent.
 - **Progressive enhancement:** `@supports` for modern features
 - **Custom properties:** Use cascade (IE11 ignores `var()`, gets fallback)
 
-### Two-Level Custom Property System
-1. **Global tokens** in `themes/default/index.css`:
-   - `--bend-color-primary`, `--bend-size-4`, `--bend-space-m`
-   - Color palette, typography scale, spacing scale
-2. **Component properties** in component CSS:
-   - `--bend-h1-font-size: var(--bend-size-4, 2rem)`
-   - Reference global tokens
-   - Users can override either level
+### Three-Tier Custom Property System
+1. **Tier 1: Primitives (Specific Named Values)** in `themes/default/index.css`:
+   - Specific values with clear names: `--color-blue-600: #007bff`
+   - Clamped ranges for fluid scaling: `--space-4: clamp(1rem, 1vw + 0.75rem, 1.5rem)`
+   - **These ARE the IE11 fallback values**
+   - Change one primitive → everything using it updates
+2. **Tier 2: Semantic Design Tokens** in `themes/default/index.css`:
+   - Give MEANING to Tier 1: `--color-primary: var(--color-blue-600)`
+   - Design intent: `--padding-default: var(--space-4)`, `--font-heading: var(--font-serif-stack)`
+   - Colors, spacing, typography, opacities, borders, focus, print
+   - **Change one semantic token → all components using it update**
+3. **Tier 3: Component-Specific Properties** defined IN component CSS:
+   - Component class or `:root` block: `--bend-button-padding: var(--padding-default)`
+   - **CAN include colors** by referencing Tier 2 semantic tokens
+   - `--bend-button-background-color: var(--color-primary)`, `--bend-button-padding: var(--padding-default)`
+   - Allows per-component overrides
+   - Users can override at ANY tier level
 
 ### Accessibility (WCAG AAA)
 - **Dual contrast compliance:** APCA (modern) + WCAG 2.1 AAA (legacy)
