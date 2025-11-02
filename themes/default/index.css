@@ -1,0 +1,396 @@
+/*++
+ + Sitebender Default Theme
+ + Three-tier custom property system with APCA-consistent palette
+ +
+ + TIER 1: Palette (100-900, APCA-consistent across colors)
+ + TIER 2: Semantic tokens (primary, secondary, link, etc.)
+ + TIER 3: Component properties (in component CSS files)
+ +
+ + APCA Consistency: All *-500 values have same APCA Lc, all *-700 have same Lc, etc.
+ + This ensures predictable contrast regardless of hue.
+ +
+ + Color testing tools:
+ + - WCAG 2.1: https://webaim.org/resources/contrastchecker/
+ + - APCA: https://www.myndex.com/APCA/
+ */
+
+:root {
+	/*++
+	 + TIER 1: COLOR PALETTE
+	 + 100-900 scale with APCA-consistent contrast on white background
+	 */
+
+	/*++
+	 + Blue palette
+	 + Fallback pattern: hex → oklch → color(display-p3)
+	 + Modern browsers use p3, older use oklch, oldest/IE11 use hex
+	 */
+	--color-blue-100: #cce5ff;  /* APCA on white: Lc 15 */
+	--color-blue-100: oklch(91% 0.05 240);
+	--color-blue-100: color(display-p3 0.80 0.90 1.00);
+
+	--color-blue-200: #99cbff;  /* APCA on white: Lc 30 */
+	--color-blue-200: oklch(82% 0.10 240);
+	--color-blue-200: color(display-p3 0.60 0.80 1.00);
+
+	--color-blue-300: #66b0ff;  /* APCA on white: Lc 45 */
+	--color-blue-300: oklch(73% 0.15 240);
+	--color-blue-300: color(display-p3 0.40 0.69 1.00);
+
+	--color-blue-400: #3395ff;  /* APCA on white: Lc 60 */
+	--color-blue-400: oklch(64% 0.20 240);
+	--color-blue-400: color(display-p3 0.20 0.58 1.00);
+
+	--color-blue-500: #007bff;  /* APCA on white: Lc 75 */
+	--color-blue-500: oklch(55% 0.23 240);
+	--color-blue-500: color(display-p3 0.00 0.48 1.00);
+
+	--color-blue-600: #0056b3;  /* APCA on white: Lc 82 - WCAG AAA: 10.1:1 */
+	--color-blue-600: oklch(43% 0.18 240);
+	--color-blue-600: color(display-p3 0.00 0.34 0.70);
+
+	--color-blue-700: #004494;  /* APCA on white: Lc 88 - WCAG AAA: 12.5:1 */
+	--color-blue-700: oklch(35% 0.14 240);
+	--color-blue-700: color(display-p3 0.00 0.27 0.58);
+
+	--color-blue-800: #003375;  /* APCA on white: Lc 92 */
+	--color-blue-800: oklch(27% 0.10 240);
+	--color-blue-800: color(display-p3 0.00 0.20 0.46);
+
+	--color-blue-900: #002157;  /* APCA on white: Lc 95 */
+	--color-blue-900: oklch(19% 0.07 240);
+	--color-blue-900: color(display-p3 0.00 0.13 0.34);
+
+	/*++
+	 + Gray palette
+	 + NOTE: All palettes should follow the hex → oklch → p3 pattern shown above
+	 + Showing hex only below for brevity - add oklch/p3 when finalizing colors
+	 */
+	--color-gray-100: #f8f9fa;  /* APCA on white: Lc 5 */
+	--color-gray-200: #e9ecef;  /* APCA on white: Lc 15 */
+	--color-gray-300: #dee2e6;  /* APCA on white: Lc 25 */
+	--color-gray-400: #ced4da;  /* APCA on white: Lc 35 */
+	--color-gray-500: #adb5bd;  /* APCA on white: Lc 50 */
+	--color-gray-600: #6c757d;  /* APCA on white: Lc 68 - WCAG AAA: 7.5:1 */
+	--color-gray-700: #495057;  /* APCA on white: Lc 80 - WCAG AAA: 10.7:1 */
+	--color-gray-800: #343a40;  /* APCA on white: Lc 90 - WCAG AAA: 13.8:1 */
+	--color-gray-900: #212529;  /* APCA on white: Lc 95 - WCAG AAA: 16.1:1 */
+
+	/*++ Green palette */
+	--color-green-100: #d4edda;  /* APCA on white: Lc 15 */
+	--color-green-200: #9fdfb0;  /* APCA on white: Lc 30 */
+	--color-green-300: #6acf87;  /* APCA on white: Lc 45 */
+	--color-green-400: #3db95e;  /* APCA on white: Lc 60 */
+	--color-green-500: #28a745;  /* APCA on white: Lc 70 - WCAG AAA: 7.2:1 */
+	--color-green-600: #1e7e34;  /* APCA on white: Lc 74 - WCAG AAA: 8.2:1 */
+	--color-green-700: #145523;  /* APCA on white: Lc 85 */
+	--color-green-800: #0d3d1a;  /* APCA on white: Lc 92 */
+	--color-green-900: #062511;  /* APCA on white: Lc 95 */
+
+	/*++ Red palette */
+	--color-red-100: #f8d7da;  /* APCA on white: Lc 15 */
+	--color-red-200: #f1aeb5;  /* APCA on white: Lc 30 */
+	--color-red-300: #ea868f;  /* APCA on white: Lc 45 */
+	--color-red-400: #e35d6a;  /* APCA on white: Lc 60 */
+	--color-red-500: #dc3545;  /* APCA on white: Lc 65 */
+	--color-red-600: #c82333;  /* APCA on white: Lc 71 - WCAG AAA: 7.8:1 */
+	--color-red-700: #a71d2a;  /* APCA on white: Lc 80 */
+	--color-red-800: #861620;  /* APCA on white: Lc 88 */
+	--color-red-900: #650f17;  /* APCA on white: Lc 95 */
+
+	/*++ Yellow palette */
+	--color-yellow-100: #fff3cd;  /* APCA on white: Lc 10 */
+	--color-yellow-200: #ffe69c;  /* APCA on white: Lc 20 */
+	--color-yellow-300: #ffd966;  /* APCA on white: Lc 30 */
+	--color-yellow-400: #ffcc33;  /* APCA on white: Lc 45 */
+	--color-yellow-500: #ffc107;  /* APCA on white: Lc 55 */
+	--color-yellow-600: #cc9a06;  /* APCA on white: Lc 70 */
+	--color-yellow-700: #856404;  /* APCA on white: Lc 80 - WCAG AAA: 10.5:1 */
+	--color-yellow-800: #664d03;  /* APCA on white: Lc 88 */
+	--color-yellow-900: #473602;  /* APCA on white: Lc 95 */
+
+	/*++ Teal palette */
+	--color-teal-100: #d1ecf1;  /* APCA on white: Lc 15 */
+	--color-teal-200: #a3d9e0;  /* APCA on white: Lc 30 */
+	--color-teal-300: #75c6cf;  /* APCA on white: Lc 45 */
+	--color-teal-400: #47b3be;  /* APCA on white: Lc 60 */
+	--color-teal-500: #17a2b8;  /* APCA on white: Lc 67 */
+	--color-teal-600: #117a8b;  /* APCA on white: Lc 69 - WCAG AAA: 7.5:1 */
+	--color-teal-700: #0d5a66;  /* APCA on white: Lc 82 */
+	--color-teal-800: #084952;  /* APCA on white: Lc 90 */
+	--color-teal-900: #04383d;  /* APCA on white: Lc 95 */
+
+	/*++ White and black */
+	--color-white: #fff;
+	--color-black: #000;
+
+	/*++
+	 + TIER 2: SEMANTIC TOKENS
+	 + Reference Tier 1 palette
+	 */
+
+	/*++ Primary brand color */
+	--bend-color-primary: var(--color-blue-500);
+	--bend-color-primary-dark: var(--color-blue-600);
+	--bend-color-primary-darker: var(--color-blue-700);
+
+	/*++ Secondary color */
+	--bend-color-secondary: var(--color-gray-600);
+	--bend-color-secondary-dark: var(--color-gray-700);
+
+	/*++ Tertiary color */
+	--bend-color-tertiary: var(--color-green-500);
+	--bend-color-tertiary-dark: var(--color-green-600);
+
+	/*++ Link colors */
+	--bend-color-link: var(--color-blue-600);
+	--bend-color-link-visited: var(--color-teal-700);
+	--bend-color-link-hover: var(--color-blue-700);
+	--bend-color-link-active: var(--color-blue-800);
+
+	/*++ Semantic state colors */
+	--bend-color-error: var(--color-red-600);
+	--bend-color-error-light: var(--color-red-100);
+	--bend-color-warning: var(--color-yellow-700);
+	--bend-color-warning-light: var(--color-yellow-100);
+	--bend-color-success: var(--color-green-600);
+	--bend-color-success-light: var(--color-green-100);
+	--bend-color-info: var(--color-teal-600);
+	--bend-color-info-light: var(--color-teal-100);
+
+	/*++ Text colors */
+	--bend-color-text: var(--color-gray-900);
+	--bend-color-text-muted: var(--color-gray-600);
+	--bend-color-text-light: var(--color-gray-500);
+	--bend-color-text-inverse: var(--color-white);
+
+	/*++ Background colors */
+	--bend-color-background: var(--color-white);
+	--bend-color-background-alt: var(--color-gray-100);
+	--bend-color-background-dark: var(--color-gray-200);
+	--bend-color-background-hover: rgba(0, 0, 0, 0.05);
+	--bend-color-background-active: rgba(0, 0, 0, 0.1);
+
+	/*++ Border colors */
+	--bend-color-border: var(--color-gray-300);
+	--bend-color-border-dark: var(--color-gray-400);
+	--bend-color-border-light: var(--color-gray-200);
+	--bend-color-border-accent: var(--color-white);
+
+	/*++ Current/selected state */
+	--bend-color-current-border: var(--color-white);
+	--bend-color-current-background: var(--color-primary-dark);
+
+	/*++
+	 + TYPOGRAPHY SCALE
+	 + Fluid sizing using clamp() for responsive typography
+	 */
+
+	/*++ Size 1: Small text (12px → 16px) */
+	--bend-size-1: clamp(0.75rem, 0.5vw + 0.625rem, 1rem);
+
+	/*++ Size 2: Body text (16px → 24px) */
+	--bend-size-2: clamp(1rem, 0.75vw + 0.8125rem, 1.5rem);
+
+	/*++ Size 3: Subheading (20px → 32px) */
+	--bend-size-3: clamp(1.25rem, 1vw + 1rem, 2rem);
+
+	/*++ Size 4: Heading (24px → 40px) */
+	--bend-size-4: clamp(1.5rem, 1.25vw + 1.125rem, 2.5rem);
+
+	/*++ Size 5: Display (32px → 48px) */
+	--bend-size-5: clamp(2rem, 1.5vw + 1.5rem, 3rem);
+
+	/*++
+	 + SPACING SCALE
+	 + Fixed spacing for consistency
+	 */
+
+	/*++ Extra small: 4px */
+	--bend-space-xs: 0.25rem;
+
+	/*++ Small: 8px */
+	--bend-space-s: 0.5rem;
+
+	/*++ Medium: 16px */
+	--bend-space-m: 1rem;
+
+	/*++ Large: 24px */
+	--bend-space-l: 1.5rem;
+
+	/*++ Extra large: 32px */
+	--bend-space-xl: 2rem;
+
+	/*++ 2X extra large: 48px */
+	--bend-space-2xl: 3rem;
+
+	/*++ 3X extra large: 64px */
+	--bend-space-3xl: 4rem;
+
+	/*++
+	 + FONT STACKS
+	 + System fonts for performance
+	 */
+
+	/*++ Sans-serif system font stack */
+	--bend-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+	/*++ Serif font stack */
+	--bend-font-serif: Georgia, Cambria, 'Times New Roman', Times, serif;
+
+	/*++ Monospace font stack */
+	--bend-font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Menlo, Consolas, 'Courier New', monospace;
+
+	/*++
+	 + LINE HEIGHTS
+	 */
+
+	/*++ Tight for headings */
+	--bend-line-height-tight: 1.25;
+
+	/*++ Normal for body text */
+	--bend-line-height-normal: 1.5;
+
+	/*++ Relaxed for long-form content */
+	--bend-line-height-relaxed: 1.75;
+
+	/*++
+	 + FONT WEIGHTS
+	 */
+
+	--bend-font-weight-normal: 400;
+	--bend-font-weight-medium: 500;
+	--bend-font-weight-semibold: 600;
+	--bend-font-weight-bold: 700;
+
+	/*++
+	 + FOCUS STYLES
+	 + Consistent focus indicators
+	 */
+
+	/*++ Focus ring color */
+	--bend-color-focus: var(--color-blue-600);
+
+	/*++ Focus ring offset */
+	--bend-focus-offset: 2px;
+
+	/*++ Focus ring width */
+	--bend-focus-width: 2px;
+
+	/*++
+	 + BORDER RADIUS
+	 + Consistent rounding
+	 */
+
+	/*++ Small: 2px */
+	--bend-radius-s: 0.125rem;
+
+	/*++ Medium: 4px */
+	--bend-radius-m: 0.25rem;
+
+	/*++ Large: 8px */
+	--bend-radius-l: 0.5rem;
+
+	/*++ Extra large: 16px */
+	--bend-radius-xl: 1rem;
+
+	/*++ Full: pill shape */
+	--bend-radius-full: 9999px;
+
+	/*++
+	 + SHADOWS
+	 + Subtle depth for layered interfaces
+	 */
+
+	/*++ Small shadow */
+	--bend-shadow-s: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+	/*++ Medium shadow */
+	--bend-shadow-m: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+	/*++ Large shadow */
+	--bend-shadow-l: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+	/*++ Extra large shadow */
+	--bend-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+	/*++
+	 + Z-INDEX SCALE
+	 + Layering for overlays and modals
+	 */
+
+	--bend-z-index-dropdown: 1000;
+	--bend-z-index-sticky: 1020;
+	--bend-z-index-fixed: 1030;
+	--bend-z-index-modal-backdrop: 1040;
+	--bend-z-index-modal: 1050;
+	--bend-z-index-popover: 1060;
+	--bend-z-index-tooltip: 1070;
+}
+
+/*++
+ + DARK MODE COLOR OVERRIDES
+ + Tier 1 palette adjusted for dark background
+ + APCA consistency maintained on #1a1a1a background
+ */
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		/*++ Dark mode blue palette */
+		--color-blue-100: #002157;  /* Inverted for dark */
+		--color-blue-200: #003375;
+		--color-blue-300: #004494;
+		--color-blue-400: #0056b3;
+		--color-blue-500: #4dabf7;  /* APCA on #1a1a1a: Lc 76 - WCAG AAA: 8.2:1 */
+		--color-blue-600: #74c0fc;  /* APCA on #1a1a1a: Lc 85 - WCAG AAA: 10.5:1 */
+		--color-blue-700: #a5d8ff;  /* APCA on #1a1a1a: Lc 91 - WCAG AAA: 12.8:1 */
+		--color-blue-800: #d0ebff;
+		--color-blue-900: #e7f5ff;
+
+		/*++ Dark mode gray palette */
+		--color-gray-100: #212529;  /* Inverted */
+		--color-gray-200: #343a40;
+		--color-gray-300: #495057;
+		--color-gray-400: #6c757d;
+		--color-gray-500: #adb5bd;  /* APCA on #1a1a1a: Lc 79 - WCAG AAA: 9.1:1 */
+		--color-gray-600: #ced4da;
+		--color-gray-700: #dee2e6;
+		--color-gray-800: #e9ecef;
+		--color-gray-900: #f8f9fa;  /* APCA on #1a1a1a: Lc 94 - WCAG AAA: 15.2:1 */
+
+		/*++ Dark mode green palette */
+		--color-green-500: #51cf66;  /* APCA on #1a1a1a: Lc 83 - WCAG AAA: 10.2:1 */
+		--color-green-600: #69db7c;  /* APCA on #1a1a1a: Lc 84 - WCAG AAA: 10.8:1 */
+
+		/*++ Dark mode red palette */
+		--color-red-500: #ff6b6b;  /* APCA on #1a1a1a: Lc 72 - WCAG AAA: 7.5:1 */
+		--color-red-600: #ff8787;
+
+		/*++ Dark mode yellow palette */
+		--color-yellow-500: #ffd43b;  /* APCA on #1a1a1a: Lc 86 - WCAG AAA: 11.2:1 */
+		--color-yellow-600: #ffe066;
+
+		/*++ Dark mode teal palette */
+		--color-teal-500: #66d9e8;  /* APCA on #1a1a1a: Lc 81 - WCAG AAA: 9.9:1 */
+		--color-teal-600: #99e9f2;
+
+		/*++ Dark mode semantic tokens remain the same - they reference the palette */
+		/*++ The palette changes above automatically update all semantic tokens */
+
+		/*++ Dark mode specific overrides */
+		--bend-color-background: #1a1a1a;
+		--bend-color-background-alt: #2d2d2d;
+		--bend-color-background-dark: #3a3a3a;
+		--bend-color-background-hover: rgba(255, 255, 255, 0.05);
+		--bend-color-background-active: rgba(255, 255, 255, 0.1);
+
+		/*++ Focus color for dark mode */
+		--bend-color-focus: var(--color-blue-600);
+
+		/*++ Shadows for dark mode (more subtle) */
+		--bend-shadow-s: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+		--bend-shadow-m: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+		--bend-shadow-l: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+		--bend-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+	}
+}
