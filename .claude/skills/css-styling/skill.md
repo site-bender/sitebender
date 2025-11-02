@@ -1,6 +1,6 @@
 ---
 name: css-styling
-description: Comprehensive CSS styling patterns for Sitebender's Architect library. Covers component-scoped CSS, IE11 baseline + progressive enhancement, two-level custom property theming, WCAG AAA accessibility, fluid responsive design, print styles, and minimal animations. Use when creating or modifying component styles.
+description: Comprehensive CSS styling patterns for Sitebender's Architect library. Covers component-scoped CSS, IE11 baseline + progressive enhancement, three-tier custom property theming, WCAG AAA accessibility, fluid responsive design, print styles, and minimal animations. Use when creating or modifying component styles.
 ---
 
 # CSS Styling
@@ -106,7 +106,7 @@ The `createElement` function automatically discovers CSS files based on the comp
 
 /*++ Component custom properties */
 :root {
-	--bend-submit-button-bg: var(--bend-color-tertiary, #28a745);
+	--bend-submit-button-background-color: var(--bend-color-tertiary, #28a745);
 	--bend-submit-button-color: #fff;
 	--bend-submit-button-padding: var(--bend-space-m, 1rem);
 }
@@ -126,7 +126,7 @@ The `createElement` function automatically discovers CSS files based on the comp
 
 	/* Modern override */
 	padding: var(--bend-submit-button-padding) calc(var(--bend-submit-button-padding) * 1.5);
-	background-color: var(--bend-submit-button-bg);
+	background-color: var(--bend-submit-button-background-color);
 	color: var(--bend-submit-button-color);
 }
 
@@ -224,7 +224,7 @@ Custom properties use CSS cascade, not `@supports`:
 
 	/* Modern browsers override with this (IE11 ignores invalid var()) */
 	color: var(--bend-button-color, #000);
-	background-color: var(--bend-button-bg, #007bff);
+	background-color: var(--bend-button-background-color, #007bff);
 	padding: var(--bend-button-padding, 1rem);
 }
 ```
@@ -272,113 +272,192 @@ Custom properties use CSS cascade, not `@supports`:
 
 ---
 
-## Pattern 3: Two-Level Custom Properties
+## Pattern 3: Three-Tier Custom Properties
 
-**Rule:** Global semantic tokens + component-specific properties.
+**Rule:** Base tokens → Semantic tokens → Component structural properties.
 
-### Level 1: Global Semantic Tokens
+### Tier 1: Primitives (Specific Named Values)
 
-Define in `themes/default/index.css`:
+Specific values with clear names defined in `themes/default/index.css`. These ARE the IE11 fallback values.
 
 ```css
 :root {
-	/* Color Palette */
-	--bend-color-primary: #007bff;
-	--bend-color-secondary: #6c757d;
-	--bend-color-tertiary: #28a745;
-	--bend-color-interactive: #0056b3;
-	--bend-color-error: #dc3545;
-	--bend-color-warning: #ffc107;
-	--bend-color-success: #28a745;
-	--bend-color-text: #212529;
-	--bend-color-background: #fff;
+	/* Color primitives - Tier 1 (specific, named) */
+	--color-blue-600: #007bff;
+	--color-gray-600: #6c757d;
+	--color-green-600: #28a745;
+	--color-red-600: #dc3545;
+	--color-gray-900: #212529;
+	--color-white: #fff;
+	--color-black: #000;
 
-	/* Typography Scale (fluid) */
-	--bend-size-1: clamp(0.75rem, 0.5vw + 0.625rem, 1rem);
-	--bend-size-2: clamp(1rem, 0.75vw + 0.8125rem, 1.5rem);
-	--bend-size-3: clamp(1.25rem, 1vw + 1rem, 2rem);
-	--bend-size-4: clamp(1.5rem, 1vw + 1rem, 2rem);
-	--bend-size-5: clamp(2rem, 1.5vw + 1.5rem, 3rem);
+	/* Spacing primitives - Tier 1 (clamped for fluid scaling) */
+	--space-1: clamp(0.25rem, 0.25vw + 0.1875rem, 0.375rem);
+	--space-2: clamp(0.5rem, 0.5vw + 0.375rem, 0.75rem);
+	--space-3: clamp(0.75rem, 0.75vw + 0.5625rem, 1.125rem);
+	--space-4: clamp(1rem, 1vw + 0.75rem, 1.5rem);
+	--space-6: clamp(1.5rem, 1.5vw + 1.125rem, 2.25rem);
+	--space-8: clamp(2rem, 2vw + 1.5rem, 3rem);
 
-	/* Spacing Scale */
-	--bend-space-xs: 0.25rem;
-	--bend-space-s: 0.5rem;
-	--bend-space-m: 1rem;
-	--bend-space-l: 1.5rem;
-	--bend-space-xl: 2rem;
+	/* Font size primitives - Tier 1 (clamped for fluid scaling) */
+	--size-xs: clamp(0.75rem, 0.5vw + 0.625rem, 1rem);
+	--size-s: clamp(0.875rem, 0.625vw + 0.71875rem, 1.125rem);
+	--size-m: clamp(1rem, 0.75vw + 0.8125rem, 1.25rem);
+	--size-l: clamp(1.25rem, 1vw + 1rem, 1.75rem);
+	--size-xl: clamp(1.5rem, 1.25vw + 1.125rem, 2rem);
+	--size-2xl: clamp(2rem, 1.5vw + 1.5rem, 2.75rem);
 
-	/* Font Stacks */
-	--bend-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-	--bend-font-serif: Georgia, 'Times New Roman', serif;
-	--bend-font-mono: 'Courier New', Consolas, monospace;
-
-	/* Focus styles */
-	--bend-focus-color: #0056b3;
-	--bend-focus-offset: 2px;
+	/* Font stacks - Tier 1 */
+	--font-sans-stack: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--font-serif-stack: Georgia, 'Times New Roman', serif;
+	--font-mono-stack: 'SF Mono', Monaco, Consolas, 'Courier New', monospace;
 }
 ```
 
-**Why fluid typography?** Fluid scales using `clamp()` adapt to viewport size without breakpoints. Fallback is middle value for IE11.
+**These are specific, well-named values. Change `--space-4` → everything using it updates automatically.**
 
-### Level 2: Component-Specific Properties
+### Tier 2: Semantic Design Tokens
 
-Define in component CSS files:
+Give MEANING to Tier 1 primitives. Defined in `themes/default/index.css`:
 
 ```css
-/*++ TextField component properties */
 :root {
-	/* Reference global tokens with fallbacks */
-	--bend-text-field-bg: #fff;
-	--bend-text-field-border: var(--bend-color-secondary, #6c757d);
-	--bend-text-field-focus: var(--bend-color-interactive, #0056b3);
-	--bend-text-field-error: var(--bend-color-error, #dc3545);
-	--bend-text-field-padding: var(--bend-space-m, 1rem);
-	--bend-text-field-font: var(--bend-font-sans);
-}
+	/* Colors - Tier 2 (design intent) */
+	--color-primary: var(--color-blue-600);
+	--color-text: var(--color-gray-900);
+	--color-text-inverse: var(--color-white);
+	--color-link: var(--color-blue-600);
+	--color-link-hover: var(--color-blue-700);
+	--color-error: var(--color-red-600);
+	--color-success: var(--color-green-600);
+	--color-background: var(--color-white);
 
-.bend-text-field input[type="text"] {
-	/* IE11 fallback */
-	padding: 1rem;
-	border: 1px solid #6c757d;
-	background: #fff;
+	/* Spacing - Tier 2 (design intent) */
+	--padding-narrow: var(--space-2);
+	--padding-default: var(--space-4);
+	--padding-wide: var(--space-6);
+	--gap-tight: var(--space-2);
+	--gap-default: var(--space-4);
+	--gap-loose: var(--space-8);
+
+	/* Typography - Tier 2 (design intent) */
+	--font-body: var(--font-sans-stack);
+	--font-heading: var(--font-serif-stack);
+	--font-code: var(--font-mono-stack);
+	--font-size-body: var(--size-m);
+	--font-size-small: var(--size-s);
+	--font-size-heading: var(--size-xl);
+
+	/* Font weights - Tier 2 */
+	--font-weight-normal: 400;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+
+	/* Opacities - Tier 2 */
+	--opacity-disabled: 0.6;
+	--opacity-hover: 0.8;
+
+	/* Borders - Tier 2 */
+	--border-radius-small: 0.125rem;
+	--border-radius-default: 0.25rem;
+	--border-radius-large: 0.5rem;
+
+	/* Focus - Tier 2 */
+	--focus-color: var(--color-blue-700);
+	--focus-offset: 0.125rem;
+
+	/* Print - Tier 2 */
+	--print-text-color: var(--color-black);
+	--print-border-color: var(--color-black);
+	--print-background-color: transparent;
+}
+```
+
+**Change ONE Tier 2 token (like `--padding-default`) → ALL components using it update automatically.**
+
+### Tier 3: Component-Specific Properties
+
+Define IN THE COMPONENT CSS FILE (in component class or `:root`). These reference Tier 2 semantic tokens and allow per-component overrides.
+
+```css
+/*++ Button component */
+.bend-button {
+	/* Tier 3 - component properties reference Tier 2 semantic */
+	--bend-button-padding-block: var(--padding-default);
+	--bend-button-padding-inline: var(--padding-wide);
+	--bend-button-font-size: var(--font-size-body);
+	--bend-button-font-weight: var(--font-weight-semibold);
+	--bend-button-background-color: var(--color-primary);
+	--bend-button-color: var(--color-text-inverse);
+	--bend-button-border-radius: var(--border-radius-default);
+	--bend-button-disabled-opacity: var(--opacity-disabled);
+
+	/* IE11 fallback - great CSS with rem, NOT px */
+	padding: 0.75rem 1.5rem;
+	background-color: #007bff;
+	color: #fff;
 	font-family: system-ui, sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
+	border-radius: 0.25rem;
 
 	/* Modern override */
-	padding: var(--bend-text-field-padding);
-	border: 1px solid var(--bend-text-field-border);
-	background-color: var(--bend-text-field-bg);
-	font-family: var(--bend-text-field-font);
+	padding: var(--bend-button-padding-block) var(--bend-button-padding-inline);
+	background-color: var(--bend-button-background-color);
+	color: var(--bend-button-color);
+	font-family: var(--font-body);
+	font-size: var(--bend-button-font-size);
+	font-weight: var(--bend-button-font-weight);
+	border-radius: var(--bend-button-border-radius);
+}
+
+.bend-button:disabled {
+	opacity: 0.6;
+	opacity: var(--bend-button-disabled-opacity);
 }
 ```
+
+**Tier 3 CAN include colors** by referencing Tier 2 semantic tokens.
 
 ### Override Strategy
 
-Users can override at EITHER level:
+Users can override at ANY tier for maximum flexibility:
 
-**Override global tokens (affects all components):**
-
-```css
-:root {
-	--bend-color-primary: #ff0000;
-	--bend-space-m: 1.5rem;
-}
-```
-
-**Override component properties (affects specific component only):**
+**Override Tier 1 primitive (affects everything using it):**
 
 ```css
 :root {
-	--bend-text-field-padding: 0.75rem;
-	--bend-text-field-border: #000;
+	--space-4: clamp(1.25rem, 1.25vw + 0.9375rem, 1.875rem);  /* Wider spacing everywhere */
+	--color-blue-600: #0000ff;  /* Different blue */
 }
 ```
 
-### Why Two Levels?
+**Override Tier 2 semantic token (affects all components using that semantic):**
 
-1. **Scalability:** Prevents loading thousands of unused component properties
-2. **Centralization:** Design tokens live in one place
-3. **Granularity:** Override global or component-specific as needed
-4. **Performance:** Pages only load CSS for components they use
+```css
+:root {
+	--padding-default: var(--space-6);  /* All default padding now uses space-6 */
+	--color-primary: var(--color-green-600);  /* Primary is now green */
+	--print-text-color: #333;  /* Dark gray for print instead of black */
+}
+```
+
+**Override Tier 3 component property (affects ONLY that component):**
+
+```css
+:root {
+	--bend-button-padding-block: var(--padding-narrow);  /* Only buttons get narrow padding */
+	--bend-button-background-color: var(--color-error);  /* Only buttons use error color */
+}
+```
+
+### Why Three Tiers?
+
+1. **Cascade of changes:** Change Tier 1 → Tier 2 updates → Tier 3 updates → Components update
+2. **Flexible override points:** Override at the right level (global, semantic, or component)
+3. **Single source of truth:** `--space-4` defined once, used everywhere
+4. **Design system alignment:** Tier 2 maps to design decisions (padding-wide, color-link)
+5. **Easy theming:** Change primitives or semantics, entire site updates
 
 ---
 
@@ -510,14 +589,14 @@ Support prefers-color-scheme:
 
 ```css
 :root {
-	--bend-bg-color: #fff;
+	--bend-background-color: #fff;
 	--bend-text-color: #000;
 	--bend-border-color: #ccc;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--bend-bg-color: #1a1a1a;
+		--bend-background-color: #1a1a1a;
 		--bend-text-color: #f0f0f0;
 		--bend-border-color: #444;
 	}
@@ -530,7 +609,7 @@ Support prefers-color-scheme:
 	border: 1px solid #ccc;
 
 	/* Modern override */
-	background-color: var(--bend-bg-color);
+	background-color: var(--bend-background-color);
 	color: var(--bend-text-color);
 	border-color: var(--bend-border-color);
 }
@@ -664,7 +743,7 @@ Use standard pseudo-classes:
 	background: #0056b3;
 
 	/* Modern override */
-	background-color: var(--bend-button-hover-bg, #0056b3);
+	background-color: var(--bend-button-hover-background-color, #0056b3);
 }
 
 .bend-button:focus {
@@ -1140,12 +1219,12 @@ Prefer logical properties but always provide fallback:
 .bend-button:hover,
 .bend-button:focus,
 .bend-button:active {
-	background-color: var(--bend-button-hover-bg, #0056b3);
+	background-color: var(--bend-button-hover-background-color, #0056b3);
 }
 
 /*++ Fewer selectors but worse usability */
 .bend-button:hover {
-	background-color: var(--bend-button-hover-bg, #0056b3);
+	background-color: var(--bend-button-hover-background-color, #0056b3);
 }
 
 /*++ Choose the first one - usability wins */
