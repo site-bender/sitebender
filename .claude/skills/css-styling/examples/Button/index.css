@@ -3,18 +3,26 @@
  + Demonstrates complete button styling with all patterns
  */
 
-/*++ Component custom properties (Tier 3 - structural only, NO colors) */
-:root {
-	--bend-button-padding-block: 12px;
-	--bend-button-padding-inline: 24px;
-	--bend-button-font-size: 1rem;
-	--bend-button-font-weight: 600;
-	--bend-button-border-radius: 0.25rem;
-	--bend-button-disabled-opacity: 0.6;
-}
-
-/*++ Base button styles */
+/*++ Base button styles with Tier 3 component properties */
 .bend-button {
+	/* Tier 3 - component properties reference Tier 2 semantic */
+	--bend-button-padding-block: var(--padding-default);
+	--bend-button-padding-inline: var(--padding-wide);
+	--bend-button-font-size: var(--font-size-body);
+	--bend-button-font-weight: var(--font-weight-semibold);
+	--bend-button-font-family: var(--font-body);
+	--bend-button-background-color: var(--color-primary);
+	--bend-button-color: var(--color-text-inverse);
+	--bend-button-hover-background-color: var(--color-link-hover);
+	--bend-button-active-background-color: var(--color-link-hover);
+	--bend-button-focus-outline-color: var(--focus-color);
+	--bend-button-focus-outline-offset: var(--focus-offset);
+	--bend-button-border-radius: var(--border-radius-default);
+	--bend-button-disabled-opacity: var(--opacity-disabled);
+	--bend-button-print-background-color: var(--print-background-color);
+	--bend-button-print-border-color: var(--print-border-color);
+	--bend-button-print-color: var(--print-text-color);
+
 	/* Position */
 	position: relative;
 
@@ -24,9 +32,9 @@
 	/* Box Model */
 	border: none;
 	margin: 0;
-	min-height: 48px;
-	min-width: 48px;
-	padding: 12px 24px;
+	min-height: 3rem;
+	min-width: 3rem;
+	padding: 0.75rem 1.5rem;
 
 	/* Typography */
 	font-family: system-ui, -apple-system, sans-serif;
@@ -36,22 +44,20 @@
 	text-align: center;
 	text-decoration: none;
 
-	/* Colors - use Tier 2 semantic tokens directly */
+	/* Colors - IE11 fallback */
 	background-color: #007bff;
 	color: #fff;
 
 	/* Other */
 	cursor: pointer;
-}
 
-/*++ Modern overrides */
-.bend-button {
+	/* Modern overrides */
 	padding: var(--bend-button-padding-block) var(--bend-button-padding-inline);
-	background-color: var(--bend-color-primary);
-	color: var(--bend-color-text-inverse);
+	background-color: var(--bend-button-background-color);
+	color: var(--bend-button-color);
 	font-size: var(--bend-button-font-size);
 	font-weight: var(--bend-button-font-weight);
-	font-family: var(--bend-font-sans);
+	font-family: var(--bend-button-font-family);
 }
 
 /*++ Progressive enhancement: border-radius */
@@ -61,23 +67,27 @@
 	}
 }
 
-/*++ Interactive states - use Tier 2 tokens */
+/*++ Interactive states */
 .bend-button:hover {
-	background-color: var(--bend-color-link);
+	background-color: var(--bend-button-hover-background-color);
 }
 
 .bend-button:focus {
-	outline: 2px solid var(--bend-color-focus);
-	outline-offset: 2px;
+	outline: 0.125rem solid var(--bend-button-focus-outline-color);
+	outline-offset: var(--bend-button-focus-outline-offset);
 }
 
 .bend-button:active {
-	background-color: var(--bend-color-link-hover);
+	background-color: var(--bend-button-active-background-color);
 }
 
 .bend-button:disabled {
-	opacity: var(--bend-button-disabled-opacity);
+	/* IE11 fallback */
+	opacity: 0.6;
 	cursor: not-allowed;
+
+	/* Modern override */
+	opacity: var(--bend-button-disabled-opacity);
 }
 
 /*++ Progressive enhancement: :focus-visible */
@@ -87,8 +97,8 @@
 	}
 
 	.bend-button:focus-visible {
-		outline: 2px solid var(--bend-color-focus);
-		outline-offset: 2px;
+		outline: 0.125rem solid var(--bend-button-focus-outline-color);
+		outline-offset: var(--bend-button-focus-outline-offset);
 	}
 }
 
@@ -128,9 +138,15 @@
 /*++ Print styles */
 @media print {
 	.bend-button {
+		/* IE11 fallback */
 		background-color: transparent;
-		border: 1px solid var(--color-black);
-		color: var(--color-black);
+		border: 0.0625rem solid #000;
+		color: #000;
 		padding: 0.25rem 0.5rem;
+
+		/* Modern override - use Tier 3 component print properties */
+		background-color: var(--bend-button-print-background-color, transparent);
+		border-color: var(--bend-button-print-border-color, #000);
+		color: var(--bend-button-print-color, #000);
 	}
 }
