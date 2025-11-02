@@ -1,0 +1,136 @@
+/*++
+ + Button component example
+ + Demonstrates complete button styling with all patterns
+ */
+
+/*++ Component custom properties (Tier 3 - structural only, NO colors) */
+:root {
+	--bend-button-padding-block: 12px;
+	--bend-button-padding-inline: 24px;
+	--bend-button-font-size: 1rem;
+	--bend-button-font-weight: 600;
+	--bend-button-border-radius: 0.25rem;
+	--bend-button-disabled-opacity: 0.6;
+}
+
+/*++ Base button styles */
+.bend-button {
+	/* Position */
+	position: relative;
+
+	/* Display */
+	display: inline-block;
+
+	/* Box Model */
+	border: none;
+	margin: 0;
+	min-height: 48px;
+	min-width: 48px;
+	padding: 12px 24px;
+
+	/* Typography */
+	font-family: system-ui, -apple-system, sans-serif;
+	font-size: 1rem;
+	font-weight: 600;
+	line-height: 1.5;
+	text-align: center;
+	text-decoration: none;
+
+	/* Colors - use Tier 2 semantic tokens directly */
+	background-color: #007bff;
+	color: #fff;
+
+	/* Other */
+	cursor: pointer;
+}
+
+/*++ Modern overrides */
+.bend-button {
+	padding: var(--bend-button-padding-block) var(--bend-button-padding-inline);
+	background-color: var(--bend-color-primary);
+	color: var(--bend-color-text-inverse);
+	font-size: var(--bend-button-font-size);
+	font-weight: var(--bend-button-font-weight);
+	font-family: var(--bend-font-sans);
+}
+
+/*++ Progressive enhancement: border-radius */
+@supports (border-radius: 0.25rem) {
+	.bend-button {
+		border-radius: var(--bend-button-border-radius);
+	}
+}
+
+/*++ Interactive states - use Tier 2 tokens */
+.bend-button:hover {
+	background-color: var(--bend-color-link);
+}
+
+.bend-button:focus {
+	outline: 2px solid var(--bend-color-focus);
+	outline-offset: 2px;
+}
+
+.bend-button:active {
+	background-color: var(--bend-color-link-hover);
+}
+
+.bend-button:disabled {
+	opacity: var(--bend-button-disabled-opacity);
+	cursor: not-allowed;
+}
+
+/*++ Progressive enhancement: :focus-visible */
+@supports selector(:focus-visible) {
+	.bend-button:focus:not(:focus-visible) {
+		outline: none;
+	}
+
+	.bend-button:focus-visible {
+		outline: 2px solid var(--bend-color-focus);
+		outline-offset: 2px;
+	}
+}
+
+/*++ Transition for smooth interactions */
+@supports (transition: all 0.2s) {
+	.bend-button {
+		transition: background-color 0.2s ease, transform 0.1s ease;
+	}
+}
+
+/*++ Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	@supports (transition: all 0.2s) {
+		.bend-button {
+			transition: none;
+		}
+	}
+}
+
+/*++ Accessibility: High contrast mode */
+@media (forced-colors: active) {
+	.bend-button {
+		border: 2px solid ButtonText;
+	}
+
+	.bend-button:focus {
+		outline: 2px solid Highlight;
+		outline-offset: 2px;
+	}
+
+	.bend-button:disabled {
+		border-color: GrayText;
+		color: GrayText;
+	}
+}
+
+/*++ Print styles */
+@media print {
+	.bend-button {
+		background-color: transparent;
+		border: 1px solid var(--color-black);
+		color: var(--color-black);
+		padding: 0.25rem 0.5rem;
+	}
+}
