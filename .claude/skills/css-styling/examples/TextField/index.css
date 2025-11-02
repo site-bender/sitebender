@@ -3,22 +3,37 @@
  + Demonstrates form field styling with state management
  */
 
-/*++ Component custom properties (Tier 3 - structural only, NO colors) */
-:root {
-	--bend-text-field-padding: var(--bend-space-m);
-	--bend-text-field-font-size: 1rem;
-	--bend-text-field-label-font-weight: 600;
-	--bend-text-field-label-margin: 0.5rem;
-	--bend-text-field-help-font-size: 0.875rem;
-}
-
-/*++ Base field container */
+/*++ Base field container with Tier 3 component properties */
 .bend-text-field {
+	/* Tier 3 - component properties reference Tier 2 semantic */
+	--bend-text-field-margin-bottom: var(--margin-large);
+	--bend-text-field-padding: var(--padding-default);
+	--bend-text-field-font-size: var(--font-size-body);
+	--bend-text-field-font-family: var(--font-body);
+	--bend-text-field-label-font-weight: var(--font-weight-semibold);
+	--bend-text-field-label-margin: var(--margin-small);
+	--bend-text-field-label-color: var(--color-text);
+	--bend-text-field-help-font-size: var(--font-size-small);
+	--bend-text-field-help-color: var(--color-text-muted);
+	--bend-text-field-error-color: var(--color-error);
+	--bend-text-field-background-color: var(--color-background);
+	--bend-text-field-color: var(--color-text);
+	--bend-text-field-border-color: var(--color-text-muted);
+	--bend-text-field-focus-border-color: var(--color-link);
+	--bend-text-field-focus-outline-color: var(--focus-color);
+	--bend-text-field-focus-outline-offset: var(--focus-offset);
+	--bend-text-field-valid-border-color: var(--color-success);
+	--bend-text-field-invalid-border-color: var(--color-error);
+	--bend-text-field-disabled-background-color: var(--color-background-alt);
+	--bend-text-field-disabled-opacity: var(--opacity-disabled);
+	--bend-text-field-print-border-color: var(--print-border-color);
+
 	/* Display */
 	display: block;
 
 	/* Box Model */
-	margin-bottom: var(--bend-space-l);
+	margin-bottom: 1.5rem;
+	margin-bottom: var(--bend-text-field-margin-bottom);
 }
 
 /*++ Label styles */
@@ -27,13 +42,16 @@
 	display: block;
 
 	/* Box Model */
+	margin-bottom: 0.5rem;
 	margin-bottom: var(--bend-text-field-label-margin);
 
 	/* Typography */
+	font-weight: 600;
 	font-weight: var(--bend-text-field-label-font-weight);
 
-	/* Colors - use Tier 2 tokens */
-	color: var(--bend-color-text);
+	/* Colors */
+	color: #212529;
+	color: var(--bend-text-field-label-color);
 }
 
 /*++ Input styles */
@@ -47,9 +65,9 @@
 	display: block;
 
 	/* Box Model */
-	border: 1px solid #6c757d;
+	border: 0.0625rem solid #6c757d;
 	margin: 0;
-	min-height: 48px;
+	min-height: 3rem;
 	padding: 1rem;
 	width: 100%;
 
@@ -58,44 +76,37 @@
 	font-size: 1rem;
 	line-height: 1.5;
 
-	/* Colors */
+	/* Colors - IE11 fallback */
 	background-color: #fff;
-	color: #000;
-}
+	color: #212529;
 
-/*++ Modern overrides */
-.bend-text-field input[type="text"],
-.bend-text-field input[type="email"],
-.bend-text-field input[type="password"],
-.bend-text-field input[type="tel"],
-.bend-text-field input[type="url"],
-.bend-text-field textarea {
+	/* Modern overrides */
 	padding: var(--bend-text-field-padding);
-	border-color: var(--bend-color-secondary);
-	background-color: var(--bend-color-background);
-	color: var(--bend-color-text);
-	font-family: var(--bend-font-sans);
+	border-color: var(--bend-text-field-border-color);
+	background-color: var(--bend-text-field-background-color);
+	color: var(--bend-text-field-color);
+	font-family: var(--bend-text-field-font-family);
 	font-size: var(--bend-text-field-font-size);
 }
 
 /*++ Focus state */
 .bend-text-field input:focus,
 .bend-text-field textarea:focus {
-	border-color: var(--bend-color-link);
-	outline: 2px solid var(--bend-color-focus);
-	outline-offset: 2px;
+	border-color: var(--bend-text-field-focus-border-color);
+	outline: 0.125rem solid var(--bend-text-field-focus-outline-color);
+	outline-offset: var(--bend-text-field-focus-outline-offset);
 }
 
 /*++ Valid state (after touched) */
 .bend-text-field input[data-touched]:valid,
 .bend-text-field textarea[data-touched]:valid {
-	border-color: var(--bend-color-success);
+	border-color: var(--bend-text-field-valid-border-color);
 }
 
 /*++ Invalid state (after touched) */
 .bend-text-field input[data-touched]:invalid,
 .bend-text-field textarea[data-touched]:invalid {
-	border: 2px solid var(--bend-color-error);
+	border: 0.125rem solid var(--bend-text-field-invalid-border-color);
 }
 
 /*++ Help text */
@@ -107,23 +118,31 @@
 	margin-top: 0.25rem;
 
 	/* Typography */
+	font-size: 0.875rem;
 	font-size: var(--bend-text-field-help-font-size);
 
 	/* Colors */
-	color: var(--bend-color-text-muted);
+	color: #6c757d;
+	color: var(--bend-text-field-help-color);
 }
 
 /*++ Error message */
 .bend-text-field[data-error] .help {
-	color: var(--bend-color-error);
+	color: #dc3545;
+	color: var(--bend-text-field-error-color);
 }
 
 /*++ Disabled state */
 .bend-text-field input:disabled,
 .bend-text-field textarea:disabled {
-	background-color: var(--bend-color-background-alt);
+	/* IE11 fallback */
+	background-color: #f8f9fa;
 	cursor: not-allowed;
 	opacity: 0.6;
+
+	/* Modern override */
+	background-color: var(--bend-text-field-disabled-background-color);
+	opacity: var(--bend-text-field-disabled-opacity);
 }
 
 /*++ Progressive enhancement: border-radius */
@@ -156,12 +175,12 @@
 @media (forced-colors: active) {
 	.bend-text-field input,
 	.bend-text-field textarea {
-		border: 2px solid ButtonText;
+		border: 0.125rem solid ButtonText;
 	}
 
 	.bend-text-field input:focus,
 	.bend-text-field textarea:focus {
-		outline: 2px solid Highlight;
+		outline: 0.125rem solid Highlight;
 	}
 }
 
@@ -169,9 +188,13 @@
 @media print {
 	.bend-text-field input,
 	.bend-text-field textarea {
-		border-bottom: 1px solid var(--color-black);
+		/* IE11 fallback */
+		border-bottom: 0.0625rem solid #000;
 		border-left: none;
 		border-right: none;
 		border-top: none;
+
+		/* Modern override - use Tier 3 component print properties */
+		border-bottom-color: var(--bend-text-field-print-border-color, #000);
 	}
 }
