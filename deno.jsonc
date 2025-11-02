@@ -179,6 +179,9 @@
 		"new:component": "deno run --allow-read --allow-write .claude/skills/component/script.ts",
 		"new:branded": "deno run --allow-read --allow-write .claude/skills/type-definition/brandedTypeScript.ts",
 		"new:union": "deno run --allow-read --allow-write .claude/skills/type-definition/discriminatedUnionScript.ts",
+		"new:error": "deno run --allow-read --allow-write .claude/skills/error-handling/script.ts",
+		"new:test": "deno run --allow-read --allow-write .claude/skills/testing/script.ts",
+		"new:css": "deno run --allow-read --allow-write .claude/skills/css-styling/script.ts",
 
 		// === Hooks ===
 		"hooks:install": "deno run --allow-read --allow-run --allow-write scripts/hooks/install/index.ts",
