@@ -3,37 +3,51 @@
  + Demonstrates form field styling with state management
  */
 
-/*++ Base field container with Tier 3 component properties */
-.bend-text-field {
-	/* Tier 3 - component properties reference Tier 2 semantic */
-	--bend-text-field-margin-bottom: var(--margin-large);
-	--bend-text-field-padding: var(--padding-default);
-	--bend-text-field-font-size: var(--font-size-body);
-	--bend-text-field-font-family: var(--font-body);
-	--bend-text-field-label-font-weight: var(--font-weight-semibold);
-	--bend-text-field-label-margin: var(--margin-small);
-	--bend-text-field-label-color: var(--color-text);
-	--bend-text-field-help-font-size: var(--font-size-small);
-	--bend-text-field-help-color: var(--color-text-muted);
-	--bend-text-field-error-color: var(--color-error);
-	--bend-text-field-background-color: var(--color-background);
-	--bend-text-field-color: var(--color-text);
-	--bend-text-field-border-color: var(--color-text-muted);
+/*++ Tier 3 component properties - defined in :root for easy theming */
+:root {
+	/* Colors - SPECIFIC for easy branding */
+	--bend-text-field-label-text-color: var(--color-text);
+	--bend-text-field-input-background-color: var(--color-background);
+	--bend-text-field-input-text-color: var(--color-text);
+	--bend-text-field-input-border-color: var(--color-text-muted);
 	--bend-text-field-focus-border-color: var(--color-link);
 	--bend-text-field-focus-outline-color: var(--focus-color);
-	--bend-text-field-focus-outline-offset: var(--focus-offset);
 	--bend-text-field-valid-border-color: var(--color-success);
 	--bend-text-field-invalid-border-color: var(--color-error);
+	--bend-text-field-help-text-color: var(--color-text-muted);
+	--bend-text-field-error-text-color: var(--color-error);
 	--bend-text-field-disabled-background-color: var(--color-background-alt);
-	--bend-text-field-disabled-opacity: var(--opacity-disabled);
-	--bend-text-field-print-border-color: var(--print-border-color);
+	--bend-text-field-print-border-color: #000;
 
+	/* Shorthand properties - composite values */
+	--bend-text-field-container-margin: 0 0 1.5rem 0;
+	--bend-text-field-label-margin: 0 0 0.5rem 0;
+	--bend-text-field-label-font: 600 1rem var(--font-body);
+	--bend-text-field-input-margin: 0;
+	--bend-text-field-input-padding: 1rem;
+	--bend-text-field-input-border: 0.0625rem solid var(--bend-text-field-input-border-color);
+	--bend-text-field-input-border-radius: 0.25rem;
+	--bend-text-field-input-font: 1rem/1.5 var(--font-body);
+	--bend-text-field-focus-outline: 0.125rem solid var(--bend-text-field-focus-outline-color);
+	--bend-text-field-focus-outline-offset: 0.125rem;
+	--bend-text-field-invalid-border: 0.125rem solid var(--bend-text-field-invalid-border-color);
+	--bend-text-field-help-margin: 0.25rem 0 0 0;
+	--bend-text-field-help-font: 0.875rem/1.4 var(--font-body);
+	--bend-text-field-disabled-opacity: 0.6;
+	--bend-text-field-transition: border-color 0.2s ease;
+	--bend-text-field-print-border: none none 0.0625rem none;
+}
+
+/*++ Base field container */
+.bend-text-field {
 	/* Display */
 	display: block;
 
-	/* Box Model */
-	margin-bottom: 1.5rem;
-	margin-bottom: var(--bend-text-field-margin-bottom);
+	/* Box Model - IE11 fallback */
+	margin: 0 0 1.5rem 0;
+
+	/* Modern override */
+	margin: var(--bend-text-field-container-margin);
 }
 
 /*++ Label styles */
@@ -41,17 +55,18 @@
 	/* Display */
 	display: block;
 
-	/* Box Model */
-	margin-bottom: 0.5rem;
-	margin-bottom: var(--bend-text-field-label-margin);
+	/* Box Model - IE11 fallback */
+	margin: 0 0 0.5rem 0;
 
-	/* Typography */
+	/* Typography - IE11 fallback */
 	font-weight: 600;
-	font-weight: var(--bend-text-field-label-font-weight);
-
-	/* Colors */
+	font-size: 1rem;
 	color: #212529;
-	color: var(--bend-text-field-label-color);
+
+	/* Modern overrides */
+	margin: var(--bend-text-field-label-margin);
+	font: var(--bend-text-field-label-font);
+	color: var(--bend-text-field-label-text-color);
 }
 
 /*++ Input styles */
@@ -63,50 +78,56 @@
 .bend-text-field textarea {
 	/* Display */
 	display: block;
-
-	/* Box Model */
-	border: 0.0625rem solid #6c757d;
-	margin: 0;
-	min-height: 3rem;
-	padding: 1rem;
 	width: 100%;
 
-	/* Typography */
+	/* Box Model - IE11 fallback */
+	margin: 0;
+	padding: 1rem;
+	min-height: 3rem; /* WCAG 2.5.5 touch target */
+	border: 0.0625rem solid #6c757d;
+
+	/* Typography - IE11 fallback */
 	font-family: system-ui, sans-serif;
 	font-size: 1rem;
 	line-height: 1.5;
-
-	/* Colors - IE11 fallback */
 	background-color: #fff;
 	color: #212529;
 
 	/* Modern overrides */
-	padding: var(--bend-text-field-padding);
-	border-color: var(--bend-text-field-border-color);
-	background-color: var(--bend-text-field-background-color);
-	color: var(--bend-text-field-color);
-	font-family: var(--bend-text-field-font-family);
-	font-size: var(--bend-text-field-font-size);
+	margin: var(--bend-text-field-input-margin);
+	padding: var(--bend-text-field-input-padding);
+	border: var(--bend-text-field-input-border);
+	background-color: var(--bend-text-field-input-background-color);
+	color: var(--bend-text-field-input-text-color);
+	font: var(--bend-text-field-input-font);
+}
+
+/*++ Progressive enhancement: border-radius */
+@supports (border-radius: 0.25rem) {
+	.bend-text-field input,
+	.bend-text-field textarea {
+		border-radius: var(--bend-text-field-input-border-radius);
+	}
 }
 
 /*++ Focus state */
 .bend-text-field input:focus,
 .bend-text-field textarea:focus {
 	border-color: var(--bend-text-field-focus-border-color);
-	outline: 0.125rem solid var(--bend-text-field-focus-outline-color);
+	outline: var(--bend-text-field-focus-outline);
 	outline-offset: var(--bend-text-field-focus-outline-offset);
 }
 
-/*++ Valid state (after touched) */
+/*++ Valid state (using data attribute for explicit control) */
 .bend-text-field input[data-touched]:valid,
 .bend-text-field textarea[data-touched]:valid {
 	border-color: var(--bend-text-field-valid-border-color);
 }
 
-/*++ Invalid state (after touched) */
+/*++ Invalid state (using data attribute for explicit control) */
 .bend-text-field input[data-touched]:invalid,
 .bend-text-field textarea[data-touched]:invalid {
-	border: 0.125rem solid var(--bend-text-field-invalid-border-color);
+	border: var(--bend-text-field-invalid-border);
 }
 
 /*++ Help text */
@@ -114,22 +135,23 @@
 	/* Display */
 	display: block;
 
-	/* Box Model */
-	margin-top: 0.25rem;
+	/* Box Model - IE11 fallback */
+	margin: 0.25rem 0 0 0;
 
-	/* Typography */
+	/* Typography - IE11 fallback */
 	font-size: 0.875rem;
-	font-size: var(--bend-text-field-help-font-size);
-
-	/* Colors */
+	line-height: 1.4;
 	color: #6c757d;
-	color: var(--bend-text-field-help-color);
+
+	/* Modern overrides */
+	margin: var(--bend-text-field-help-margin);
+	font: var(--bend-text-field-help-font);
+	color: var(--bend-text-field-help-text-color);
 }
 
-/*++ Error message */
+/*++ Error message (using data attribute for state management) */
 .bend-text-field[data-error] .help {
-	color: #dc3545;
-	color: var(--bend-text-field-error-color);
+	color: var(--bend-text-field-error-text-color);
 }
 
 /*++ Disabled state */
@@ -145,23 +167,15 @@
 	opacity: var(--bend-text-field-disabled-opacity);
 }
 
-/*++ Progressive enhancement: border-radius */
-@supports (border-radius: 0.25rem) {
-	.bend-text-field input,
-	.bend-text-field textarea {
-		border-radius: 0.25rem;
-	}
-}
-
 /*++ Transition for smooth focus */
 @supports (transition: all 0.2s) {
 	.bend-text-field input,
 	.bend-text-field textarea {
-		transition: border-color 0.2s ease;
+		transition: var(--bend-text-field-transition);
 	}
 }
 
-/*++ Accessibility: Reduced motion */
+/*++ Accessibility: Reduced motion (WCAG 2.3.3) */
 @media (prefers-reduced-motion: reduce) {
 	@supports (transition: all 0.2s) {
 		.bend-text-field input,
@@ -188,13 +202,11 @@
 @media print {
 	.bend-text-field input,
 	.bend-text-field textarea {
-		/* IE11 fallback */
+		/* IE11 fallback - bottom border only for print */
+		border: none;
 		border-bottom: 0.0625rem solid #000;
-		border-left: none;
-		border-right: none;
-		border-top: none;
 
-		/* Modern override - use Tier 3 component print properties */
-		border-bottom-color: var(--bend-text-field-print-border-color, #000);
+		/* Modern override */
+		border-bottom-color: var(--bend-text-field-print-border-color);
 	}
 }
