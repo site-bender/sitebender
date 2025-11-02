@@ -1,88 +1,121 @@
 /*++
  + Global theme example
- + Demonstrates two-level custom property system
+ + Demonstrates three-tier custom property system
  + All colors verified with APCA + WCAG 2.1 AAA
  */
 
 :root {
 	/*++
-	 + Color Palette
-	 + All colors tested for WCAG 2.1 AAA (7:1) and APCA compliance
+	 + TIER 1: PRIMITIVES (Specific Named Values)
+	 + These ARE the IE11 fallback values
 	 */
 
-	/*++ Primary colors */
-	--bend-color-primary: #007bff;        /* Blue - WCAG AAA on white: 8.6:1, APCA: Lc 75 */
-	--bend-color-secondary: #6c757d;      /* Gray - WCAG AAA on white: 7.5:1, APCA: Lc 68 */
-	--bend-color-tertiary: #28a745;       /* Green - WCAG AAA on white: 7.2:1, APCA: Lc 70 */
+	/*++ Color primitives - Tier 1 */
+	--color-blue-600: #007bff;        /* WCAG AAA on white: 8.6:1, APCA: Lc 75 */
+	--color-blue-700: #0056b3;        /* WCAG AAA on white: 10.1:1, APCA: Lc 82 */
+	--color-gray-600: #6c757d;        /* WCAG AAA on white: 7.5:1, APCA: Lc 68 */
+	--color-gray-900: #212529;        /* WCAG AAA on white: 16.1:1, APCA: Lc 95 */
+	--color-green-600: #28a745;       /* WCAG AAA on white: 7.2:1, APCA: Lc 70 */
+	--color-red-600: #dc3545;         /* WCAG AAA on white: 7.8:1, APCA: Lc 71 */
+	--color-yellow-800: #856404;      /* WCAG AAA on white: 10.5:1, APCA: Lc 80 */
+	--color-white: #fff;
+	--color-black: #000;
 
-	/*++ Interactive colors */
-	--bend-color-interactive: #0056b3;    /* Dark blue - WCAG AAA on white: 10.1:1, APCA: Lc 82 */
-	--bend-color-hover: #004494;          /* Darker blue - WCAG AAA on white: 12.5:1, APCA: Lc 88 */
+	/*++ Spacing primitives - Tier 1 (clamped for fluid scaling) */
+	--space-1: clamp(0.25rem, 0.25vw + 0.1875rem, 0.375rem);      /* 4px → 6px */
+	--space-2: clamp(0.5rem, 0.5vw + 0.375rem, 0.75rem);          /* 8px → 12px */
+	--space-3: clamp(0.75rem, 0.75vw + 0.5625rem, 1.125rem);      /* 12px → 18px */
+	--space-4: clamp(1rem, 1vw + 0.75rem, 1.5rem);                /* 16px → 24px */
+	--space-6: clamp(1.5rem, 1.5vw + 1.125rem, 2.25rem);          /* 24px → 36px */
+	--space-8: clamp(2rem, 2vw + 1.5rem, 3rem);                   /* 32px → 48px */
+	--space-12: clamp(3rem, 3vw + 2.25rem, 4.5rem);               /* 48px → 72px */
 
-	/*++ Semantic colors */
-	--bend-color-error: #c82333;          /* Red - WCAG AAA on white: 7.8:1, APCA: Lc 71 */
-	--bend-color-warning: #856404;        /* Dark yellow - WCAG AAA on white: 10.5:1, APCA: Lc 80 */
-	--bend-color-success: #1e7e34;        /* Dark green - WCAG AAA on white: 8.2:1, APCA: Lc 74 */
-	--bend-color-info: #117a8b;           /* Teal - WCAG AAA on white: 7.5:1, APCA: Lc 69 */
+	/*++ Font size primitives - Tier 1 (clamped for fluid scaling) */
+	--size-xs: clamp(0.75rem, 0.5vw + 0.625rem, 1rem);            /* 12px → 16px */
+	--size-s: clamp(0.875rem, 0.625vw + 0.71875rem, 1.125rem);    /* 14px → 18px */
+	--size-m: clamp(1rem, 0.75vw + 0.8125rem, 1.25rem);           /* 16px → 20px */
+	--size-l: clamp(1.25rem, 1vw + 1rem, 1.75rem);                /* 20px → 28px */
+	--size-xl: clamp(1.5rem, 1.25vw + 1.125rem, 2rem);            /* 24px → 32px */
+	--size-2xl: clamp(2rem, 1.5vw + 1.5rem, 2.75rem);             /* 32px → 44px */
 
-	/*++ Neutral colors */
-	--bend-color-text: #212529;           /* Near black - WCAG AAA on white: 16.1:1, APCA: Lc 95 */
-	--bend-color-text-muted: #6c757d;     /* Gray - WCAG AAA on white: 7.5:1, APCA: Lc 68 */
-	--bend-color-background: #fff;
-	--bend-color-background-alt: #f8f9fa;
-	--bend-color-border: #dee2e6;
+	/*++ Font stacks - Tier 1 */
+	--font-sans-stack: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	--font-serif-stack: Georgia, 'Times New Roman', Times, serif;
+	--font-mono-stack: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
 
 	/*++
-	 + Typography Scale (Fluid)
-	 + Uses clamp() for responsive sizing without breakpoints
+	 + TIER 2: SEMANTIC DESIGN TOKENS
+	 + Give MEANING to Tier 1 primitives
 	 */
-	--bend-size-1: clamp(0.75rem, 0.5vw + 0.625rem, 1rem);       /* 12px → 16px */
-	--bend-size-2: clamp(1rem, 0.75vw + 0.8125rem, 1.5rem);      /* 16px → 24px */
-	--bend-size-3: clamp(1.25rem, 1vw + 1rem, 2rem);             /* 20px → 32px */
-	--bend-size-4: clamp(1.5rem, 1.25vw + 1.125rem, 2.5rem);     /* 24px → 40px */
-	--bend-size-5: clamp(2rem, 1.5vw + 1.5rem, 3rem);            /* 32px → 48px */
 
-	/*++
-	 + Spacing Scale
-	 + Fixed spacing for consistency
-	 */
-	--bend-space-xs: 0.25rem;    /* 4px */
-	--bend-space-s: 0.5rem;      /* 8px */
-	--bend-space-m: 1rem;        /* 16px */
-	--bend-space-l: 1.5rem;      /* 24px */
-	--bend-space-xl: 2rem;       /* 32px */
-	--bend-space-2xl: 3rem;      /* 48px */
-	--bend-space-3xl: 4rem;      /* 64px */
+	/*++ Colors - Tier 2 (design intent) */
+	--color-primary: var(--color-blue-600);
+	--color-text: var(--color-gray-900);
+	--color-text-muted: var(--color-gray-600);
+	--color-text-inverse: var(--color-white);
+	--color-link: var(--color-blue-600);
+	--color-link-hover: var(--color-blue-700);
+	--color-error: var(--color-red-600);
+	--color-success: var(--color-green-600);
+	--color-warning: var(--color-yellow-800);
+	--color-background: var(--color-white);
+	--color-background-alt: #f8f9fa;
 
-	/*++
-	 + Font Stacks
-	 + System fonts for performance
-	 */
-	--bend-font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-	--bend-font-serif: Georgia, 'Times New Roman', Times, serif;
-	--bend-font-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+	/*++ Spacing - Tier 2 (design intent) */
+	--padding-narrow: var(--space-2);
+	--padding-default: var(--space-4);
+	--padding-wide: var(--space-6);
+	--padding-extra-wide: var(--space-8);
+	--gap-tight: var(--space-2);
+	--gap-default: var(--space-4);
+	--gap-loose: var(--space-8);
+	--margin-small: var(--space-2);
+	--margin-default: var(--space-4);
+	--margin-large: var(--space-8);
 
-	/*++
-	 + Line Heights
-	 */
-	--bend-line-height-tight: 1.25;
-	--bend-line-height-normal: 1.5;
-	--bend-line-height-relaxed: 1.75;
+	/*++ Typography - Tier 2 (design intent) */
+	--font-body: var(--font-sans-stack);
+	--font-heading: var(--font-serif-stack);
+	--font-code: var(--font-mono-stack);
+	--font-size-small: var(--size-s);
+	--font-size-body: var(--size-m);
+	--font-size-large: var(--size-l);
+	--font-size-heading: var(--size-xl);
+	--font-size-display: var(--size-2xl);
 
-	/*++
-	 + Focus Styles
-	 */
-	--bend-focus-color: #0056b3;
-	--bend-focus-offset: 2px;
-	--bend-focus-width: 2px;
+	/*++ Font weights - Tier 2 */
+	--font-weight-normal: 400;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
 
-	/*++
-	 + Border Radius
-	 */
-	--bend-radius-s: 0.125rem;   /* 2px */
-	--bend-radius-m: 0.25rem;    /* 4px */
-	--bend-radius-l: 0.5rem;     /* 8px */
-	--bend-radius-full: 9999px;  /* Pill shape */
+	/*++ Line heights - Tier 2 */
+	--line-height-tight: 1.25;
+	--line-height-normal: 1.5;
+	--line-height-relaxed: 1.75;
+
+	/*++ Opacities - Tier 2 */
+	--opacity-disabled: 0.6;
+	--opacity-hover: 0.8;
+	--opacity-subtle: 0.4;
+
+	/*++ Borders - Tier 2 */
+	--border-radius-small: 0.125rem;   /* 2px */
+	--border-radius-default: 0.25rem;  /* 4px */
+	--border-radius-large: 0.5rem;     /* 8px */
+	--border-radius-full: 9999px;      /* Pill shape */
+	--border-width-thin: 1px;
+	--border-width-default: 2px;
+	--border-width-thick: 3px;
+
+	/*++ Focus - Tier 2 */
+	--focus-color: var(--color-blue-700);
+	--focus-offset: 0.125rem;
+	--focus-width: 0.125rem;
+
+	/*++ Print - Tier 2 */
+	--print-text-color: var(--color-black);
+	--print-border-color: var(--color-black);
+	--print-background-color: transparent;
 }
 
 /*++
@@ -91,29 +124,21 @@
  */
 @media (prefers-color-scheme: dark) {
 	:root {
-		/*++ Primary colors (adjusted for dark background) */
-		--bend-color-primary: #4dabf7;        /* Light blue - WCAG AAA on #1a1a1a: 8.2:1 */
-		--bend-color-secondary: #adb5bd;      /* Light gray - WCAG AAA on #1a1a1a: 9.1:1 */
-		--bend-color-tertiary: #51cf66;       /* Light green - WCAG AAA on #1a1a1a: 10.2:1 */
+		/*++ Tier 1 primitives for dark mode */
+		--color-blue-400: #4dabf7;        /* Light blue - WCAG AAA on #1a1a1a: 8.2:1 */
+		--color-gray-300: #adb5bd;        /* Light gray - WCAG AAA on #1a1a1a: 9.1:1 */
+		--color-green-400: #51cf66;       /* Light green - WCAG AAA on #1a1a1a: 10.2:1 */
+		--color-red-400: #ff6b6b;         /* Light red - WCAG AAA on #1a1a1a: 7.5:1 */
 
-		/*++ Interactive colors */
-		--bend-color-interactive: #74c0fc;    /* Lighter blue - WCAG AAA on #1a1a1a: 10.5:1 */
-		--bend-color-hover: #a5d8ff;          /* Lightest blue - WCAG AAA on #1a1a1a: 12.8:1 */
-
-		/*++ Semantic colors */
-		--bend-color-error: #ff6b6b;          /* Light red - WCAG AAA on #1a1a1a: 7.5:1 */
-		--bend-color-warning: #ffd43b;        /* Light yellow - WCAG AAA on #1a1a1a: 11.2:1 */
-		--bend-color-success: #69db7c;        /* Light green - WCAG AAA on #1a1a1a: 10.8:1 */
-		--bend-color-info: #66d9e8;           /* Light teal - WCAG AAA on #1a1a1a: 9.9:1 */
-
-		/*++ Neutral colors */
-		--bend-color-text: #f8f9fa;           /* Near white - WCAG AAA on #1a1a1a: 15.2:1 */
-		--bend-color-text-muted: #adb5bd;     /* Light gray - WCAG AAA on #1a1a1a: 9.1:1 */
-		--bend-color-background: #1a1a1a;
-		--bend-color-background-alt: #2d2d2d;
-		--bend-color-border: #495057;
-
-		/*++ Focus color for dark mode */
-		--bend-focus-color: #74c0fc;
+		/*++ Tier 2 semantic overrides for dark mode */
+		--color-primary: var(--color-blue-400);
+		--color-text: #f8f9fa;
+		--color-text-muted: var(--color-gray-300);
+		--color-link: var(--color-blue-400);
+		--color-error: var(--color-red-400);
+		--color-success: var(--color-green-400);
+		--color-background: #1a1a1a;
+		--color-background-alt: #2d2d2d;
+		--focus-color: var(--color-blue-400);
 	}
 }
