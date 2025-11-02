@@ -62,12 +62,13 @@ System is now 100% consistent.
    - Design intent: `--padding-default: var(--space-4)`, `--font-heading: var(--font-serif-stack)`
    - Colors, spacing, typography, opacities, borders, focus, print
    - **Change one semantic token → all components using it update**
-3. **Tier 3: Component-Specific Properties** defined IN component CSS:
-   - Component class or `:root` block: `--bend-button-padding: var(--padding-default)`
-   - **CAN include colors** by referencing Tier 2 semantic tokens
-   - `--bend-button-background-color: var(--color-primary)`, `--bend-button-padding: var(--padding-default)`
-   - Allows per-component overrides
-   - Users can override at ANY tier level
+3. **Tier 3: Component-Specific Properties** defined in `:root` IN component CSS file:
+   - Defined in `:root` block within component's own CSS file (e.g., `Button/index.css`)
+   - Colors are SPECIFIC: `--bend-button-background-color`, `--bend-button-text-color`, `--bend-button-border-color`
+   - Spacing/sizing uses SHORTHAND: `--bend-button-padding: 0.75rem 1.5rem`, `--bend-button-font: 600 1rem var(--font-body)`
+   - Composites reference color properties: `--bend-button-border: 0 solid var(--bend-button-border-color)`
+   - Users override from THEIR `:root` (loads after component CSS, wins by source order)
+   - Three override strategies: `:root` (recommended), class selector, or ID selector
 
 ### Accessibility (WCAG AAA)
 - **Dual contrast compliance:** APCA (modern) + WCAG 2.1 AAA (legacy)
@@ -107,7 +108,7 @@ System is now 100% consistent.
 
 1. **Component CSS Structure** - File organization, cascade order, naming
 2. **IE11 Baseline + Progressive Enhancement** - 2010 CSS + `@supports`
-3. **Two-Level Custom Properties** - Global tokens + component properties
+3. **Three-Tier Custom Properties** - Global tokens + component properties
 4. **Accessibility** - WCAG AAA (APCA + WCAG 2.1), focus, touch targets, reduced motion
 5. **Responsive/Fluid Design** - Avoid breakpoints, fluid typography, exceptions allowed
 6. **State Management** - Pseudo-classes, data attributes
