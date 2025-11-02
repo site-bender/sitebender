@@ -11,32 +11,52 @@
 	 */
 
 	/*++ Color primitives - Tier 1 */
-	--color-blue-600: #007bff;        /* WCAG AAA on white: 8.6:1, APCA: Lc 75 */
-	--color-blue-700: #0056b3;        /* WCAG AAA on white: 10.1:1, APCA: Lc 82 */
-	--color-gray-600: #6c757d;        /* WCAG AAA on white: 7.5:1, APCA: Lc 68 */
-	--color-gray-900: #212529;        /* WCAG AAA on white: 16.1:1, APCA: Lc 95 */
-	--color-green-600: #28a745;       /* WCAG AAA on white: 7.2:1, APCA: Lc 70 */
-	--color-red-600: #dc3545;         /* WCAG AAA on white: 7.8:1, APCA: Lc 71 */
-	--color-yellow-800: #856404;      /* WCAG AAA on white: 10.5:1, APCA: Lc 80 */
+	--color-blue-600: #007bff;
+	/* WCAG AAA on white: 8.6:1, APCA: Lc 75 */
+	--color-blue-700: #0056b3;
+	/* WCAG AAA on white: 10.1:1, APCA: Lc 82 */
+	--color-gray-600: #6c757d;
+	/* WCAG AAA on white: 7.5:1, APCA: Lc 68 */
+	--color-gray-900: #212529;
+	/* WCAG AAA on white: 16.1:1, APCA: Lc 95 */
+	--color-green-600: #28a745;
+	/* WCAG AAA on white: 7.2:1, APCA: Lc 70 */
+	--color-red-600: #dc3545;
+	/* WCAG AAA on white: 7.8:1, APCA: Lc 71 */
+	--color-yellow-800: #856404;
+	/* WCAG AAA on white: 10.5:1, APCA: Lc 80 */
 	--color-white: #fff;
 	--color-black: #000;
 
 	/*++ Spacing primitives - Tier 1 (clamped for fluid scaling) */
-	--space-1: clamp(0.25rem, 0.25vw + 0.1875rem, 0.375rem);      /* 4px → 6px */
-	--space-2: clamp(0.5rem, 0.5vw + 0.375rem, 0.75rem);          /* 8px → 12px */
-	--space-3: clamp(0.75rem, 0.75vw + 0.5625rem, 1.125rem);      /* 12px → 18px */
-	--space-4: clamp(1rem, 1vw + 0.75rem, 1.5rem);                /* 16px → 24px */
-	--space-6: clamp(1.5rem, 1.5vw + 1.125rem, 2.25rem);          /* 24px → 36px */
-	--space-8: clamp(2rem, 2vw + 1.5rem, 3rem);                   /* 32px → 48px */
-	--space-12: clamp(3rem, 3vw + 2.25rem, 4.5rem);               /* 48px → 72px */
+	--space-1: clamp(0.25rem, 0.25vw + 0.1875rem, 0.375rem);
+	/* 4px → 6px */
+	--space-2: clamp(0.5rem, 0.5vw + 0.375rem, 0.75rem);
+	/* 8px → 12px */
+	--space-3: clamp(0.75rem, 0.75vw + 0.5625rem, 1.125rem);
+	/* 12px → 18px */
+	--space-4: clamp(1rem, 1vw + 0.75rem, 1.5rem);
+	/* 16px → 24px */
+	--space-6: clamp(1.5rem, 1.5vw + 1.125rem, 2.25rem);
+	/* 24px → 36px */
+	--space-8: clamp(2rem, 2vw + 1.5rem, 3rem);
+	/* 32px → 48px */
+	--space-12: clamp(3rem, 3vw + 2.25rem, 4.5rem);
+	/* 48px → 72px */
 
 	/*++ Font size primitives - Tier 1 (clamped for fluid scaling) */
-	--size-xs: clamp(0.75rem, 0.5vw + 0.625rem, 1rem);            /* 12px → 16px */
-	--size-s: clamp(0.875rem, 0.625vw + 0.71875rem, 1.125rem);    /* 14px → 18px */
-	--size-m: clamp(1rem, 0.75vw + 0.8125rem, 1.25rem);           /* 16px → 20px */
-	--size-l: clamp(1.25rem, 1vw + 1rem, 1.75rem);                /* 20px → 28px */
-	--size-xl: clamp(1.5rem, 1.25vw + 1.125rem, 2rem);            /* 24px → 32px */
-	--size-2xl: clamp(2rem, 1.5vw + 1.5rem, 2.75rem);             /* 32px → 44px */
+	--size-xs: clamp(0.75rem, 0.5vw + 0.625rem, 1rem);
+	/* 12px → 16px */
+	--size-s: clamp(0.875rem, 0.625vw + 0.71875rem, 1.125rem);
+	/* 14px → 18px */
+	--size-m: clamp(1rem, 0.75vw + 0.8125rem, 1.25rem);
+	/* 16px → 20px */
+	--size-l: clamp(1.25rem, 1vw + 1rem, 1.75rem);
+	/* 20px → 28px */
+	--size-xl: clamp(1.5rem, 1.25vw + 1.125rem, 2rem);
+	/* 24px → 32px */
+	--size-2xl: clamp(2rem, 1.5vw + 1.5rem, 2.75rem);
+	/* 32px → 44px */
 
 	/*++ Font stacks - Tier 1 */
 	--font-sans-stack: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -94,15 +114,19 @@
 	--line-height-relaxed: 1.75;
 
 	/*++ Opacities - Tier 2 */
-	--opacity-disabled: 0.6;
+	--opacity-when-disabled: 0.6;
 	--opacity-hover: 0.8;
 	--opacity-subtle: 0.4;
 
 	/*++ Borders - Tier 2 */
-	--border-radius-small: 0.125rem;   /* 2px */
-	--border-radius-default: 0.25rem;  /* 4px */
-	--border-radius-large: 0.5rem;     /* 8px */
-	--border-radius-full: 9999px;      /* Pill shape */
+	--border-radius-small: 0.125rem;
+	/* 2px */
+	--border-radius-default: 0.25rem;
+	/* 4px */
+	--border-radius-large: 0.5rem;
+	/* 8px */
+	--border-radius-full: 9999px;
+	/* Pill shape */
 	--border-width-thin: 1px;
 	--border-width-default: 2px;
 	--border-width-thick: 3px;
@@ -119,16 +143,61 @@
 }
 
 /*++
+ + TIER 3: COMPONENT PROPERTIES (User Override Examples)
+ + Component Tier 3 properties are defined in component CSS files
+ + Users can override them here in their theme file
+ + Three override strategies available (in order of specificity):
+ */
+
+/*++
+ + STRATEGY 1: Override Tier 3 from :root (RECOMMENDED)
+ + Same specificity as component definitions, wins by source order
+ + User's theme loads AFTER component CSS, so these win
+ */
+:root {
+	/*++ Example: Override specific button colors only */
+	/* --bend-button-background-color: purple; */
+	/* --bend-button-text-color: white; */
+
+	/*++ Example: Override entire button padding */
+	/* --bend-button-padding: 2rem 3rem; */
+
+	/*++ Example: Override navigation gap for tighter spacing */
+	/* --bend-navigation-gap: 0.5rem; */
+}
+
+/*++
+ + STRATEGY 2: Override with class selector (HIGHER SPECIFICITY)
+ + Use when :root override doesn't work due to loading order
+ */
+/* .bend-button {
+	--bend-button-background-color: purple;
+} */
+
+/*++
+ + STRATEGY 3: Override with ID selector (HIGHEST SPECIFICITY)
+ + Use to customize a single instance of a component
+ */
+/* #submit-button {
+	--bend-button-background-color: green;
+	--bend-button-padding: 1.5rem 2.5rem;
+} */
+
+/*++
  + Dark mode color overrides
  + Tested for WCAG 2.1 AAA (7:1) on dark background
  */
 @media (prefers-color-scheme: dark) {
 	:root {
 		/*++ Tier 1 primitives for dark mode */
-		--color-blue-400: #4dabf7;        /* Light blue - WCAG AAA on #1a1a1a: 8.2:1 */
-		--color-gray-300: #adb5bd;        /* Light gray - WCAG AAA on #1a1a1a: 9.1:1 */
-		--color-green-400: #51cf66;       /* Light green - WCAG AAA on #1a1a1a: 10.2:1 */
-		--color-red-400: #ff6b6b;         /* Light red - WCAG AAA on #1a1a1a: 7.5:1 */
+		--color-blue-400: #4dabf7;
+		/* Light blue - WCAG AAA on #1a1a1a: 8.2:1 */
+		--color-gray-300: #adb5bd;
+		/* Light gray - WCAG AAA on #1a1a1a: 9.1:1 */
+		--color-green-400: #51cf66;
+		/* Light green - WCAG AAA on #1a1a1a: 10.2:1 */
+		--color-red-400: #ff6b6b;
+		/* Light red - WCAG AAA on #1a1a1a: 7.5:1 */
 
 		/*++ Tier 2 semantic overrides for dark mode */
 		--color-primary: var(--color-blue-400);
@@ -140,5 +209,9 @@
 		--color-background: #1a1a1a;
 		--color-background-alt: #2d2d2d;
 		--focus-color: var(--color-blue-400);
+
+		/*++ Example: Override Tier 3 component properties in dark mode */
+		/* --bend-button-background-color: var(--color-blue-400); */
+		/* --bend-navigation-background-color: #2d2d2d; */
 	}
 }
