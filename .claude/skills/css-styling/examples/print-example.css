@@ -1,0 +1,241 @@
+/*++
+ + Global print stylesheet example
+ + Remove web chrome, optimize typography, expand links
+ */
+
+@media print {
+	/*++
+	 + Remove web chrome
+	 + Hide navigation, headers, footers, and interactive elements
+	 */
+	nav,
+	.bend-navigation,
+	.bend-header,
+	.bend-footer,
+	.bend-sidebar,
+	.bend-skip-links,
+	.bend-breadcrumb,
+	.bend-search,
+	button,
+	.bend-button {
+		display: none !important;
+	}
+
+	/*++
+	 + Reset page styles
+	 + Optimize for print output
+	 */
+	* {
+		background: transparent !important;
+		color: #000 !important;
+		box-shadow: none !important;
+		text-shadow: none !important;
+	}
+
+	body {
+		font-family: Georgia, 'Times New Roman', serif;
+		font-size: 12pt;
+		line-height: 1.5;
+		margin: 0.5in;
+	}
+
+	/*++
+	 + Typography for print
+	 + Use serif fonts and point sizes
+	 */
+	h1 {
+		font-size: 18pt;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+	}
+
+	h2 {
+		font-size: 16pt;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+	}
+
+	h3 {
+		font-size: 14pt;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+	}
+
+	h4, h5, h6 {
+		font-size: 12pt;
+		page-break-after: avoid;
+		page-break-inside: avoid;
+	}
+
+	/*++
+	 + Expand links with URLs
+	 + Show href attribute value after link text
+	 */
+	a[href]::after {
+		content: " (" attr(href) ")";
+		font-size: 0.9em;
+		font-style: italic;
+		color: #666 !important;
+	}
+
+	/*++
+	 + Expand links with rel attribute
+	 + Show both rel and href
+	 */
+	a[href][rel]::after {
+		content: " (" attr(rel) ": " attr(href) ")";
+	}
+
+	/*++
+	 + Don't expand certain link types
+	 + Fragment links, javascript: links, and tel: links
+	 */
+	a[href^="#"]::after,
+	a[href^="javascript:"]::after,
+	a[href^="tel:"]::after,
+	a[href^="mailto:"]::after {
+		content: "";
+	}
+
+	/*++
+	 + Map common rel values to plain English
+	 */
+	a[rel="external"]::after {
+		content: " (external link: " attr(href) ")";
+	}
+
+	a[rel="nofollow"]::after {
+		content: " (nofollow: " attr(href) ")";
+	}
+
+	a[rel="author"]::after {
+		content: " (author: " attr(href) ")";
+	}
+
+	a[rel="license"]::after {
+		content: " (license: " attr(href) ")";
+	}
+
+	a[rel="help"]::after {
+		content: " (help: " attr(href) ")";
+	}
+
+	a[rel="bookmark"]::after {
+		content: " (bookmark: " attr(href) ")";
+	}
+
+	a[rel="tag"]::after {
+		content: " (tag: " attr(href) ")";
+	}
+
+	/*++
+	 + Ensure links are underlined
+	 */
+	a {
+		text-decoration: underline !important;
+	}
+
+	/*++
+	 + Page break control
+	 + Prevent orphans and widows
+	 */
+	p, blockquote, pre, ul, ol, dl, table, figure {
+		page-break-inside: avoid;
+	}
+
+	blockquote, pre, figure {
+		border: 1px solid #999;
+		padding: 0.5em;
+		page-break-inside: avoid;
+	}
+
+	/*++
+	 + Table styles for print
+	 */
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th, td {
+		border: 1px solid #999;
+		padding: 0.25em;
+		text-align: left;
+	}
+
+	thead {
+		display: table-header-group;
+	}
+
+	tr {
+		page-break-inside: avoid;
+	}
+
+	/*++
+	 + Image handling
+	 + Show image URLs and optimize sizing
+	 */
+	img {
+		max-width: 100% !important;
+		page-break-inside: avoid;
+	}
+
+	img::after {
+		content: " (image: " attr(src) ")";
+		display: block;
+		font-size: 0.8em;
+		font-style: italic;
+		color: #666 !important;
+	}
+
+	/*++
+	 + Show abbreviation expansions
+	 */
+	abbr[title]::after {
+		content: " (" attr(title) ")";
+		font-size: 0.9em;
+		font-style: italic;
+	}
+
+	/*++
+	 + Code blocks
+	 */
+	pre, code {
+		font-family: 'Courier New', Courier, monospace;
+		font-size: 10pt;
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+
+	pre {
+		padding: 0.5em;
+		white-space: pre-wrap;
+		word-wrap: break-word;
+	}
+
+	/*++
+	 + Quote attribution
+	 */
+	blockquote {
+		font-style: italic;
+	}
+
+	blockquote cite::before {
+		content: "— ";
+	}
+}
+
+/*++
+ + User override example
+ + Place this in user stylesheet to keep web chrome
+ */
+
+/*
+@media print {
+	.bend-navigation,
+	.bend-header,
+	.bend-footer {
+		display: block !important;
+	}
+}
+*/
