@@ -31,7 +31,7 @@ Examples:
 
 Generated CSS includes:
   - Component base styles with IE11 fallback
-  - Custom properties (two-level system)
+  - Custom properties (three-tier system)
   - Accessibility features (focus states, touch targets, reduced motion)
   - Print media query section
   - Envoy comments
@@ -122,7 +122,7 @@ Generated CSS for ${config.componentName}
 
 Features included:
   ✅ IE11 baseline + progressive enhancement
-  ✅ Two-level custom properties
+  ✅ Three-tier custom properties
   ${config.includeAccessibility ? "✅" : "❌"} Accessibility features
   ${config.includeResponsive ? "✅" : "❌"} Responsive styles
   ${config.includePrint ? "✅" : "❌"} Print styles
