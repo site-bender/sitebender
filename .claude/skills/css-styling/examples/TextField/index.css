@@ -1,0 +1,177 @@
+/*++
+ + TextField component example
+ + Demonstrates form field styling with state management
+ */
+
+/*++ Component custom properties (Tier 3 - structural only, NO colors) */
+:root {
+	--bend-text-field-padding: var(--bend-space-m);
+	--bend-text-field-font-size: 1rem;
+	--bend-text-field-label-font-weight: 600;
+	--bend-text-field-label-margin: 0.5rem;
+	--bend-text-field-help-font-size: 0.875rem;
+}
+
+/*++ Base field container */
+.bend-text-field {
+	/* Display */
+	display: block;
+
+	/* Box Model */
+	margin-bottom: var(--bend-space-l);
+}
+
+/*++ Label styles */
+.bend-text-field label {
+	/* Display */
+	display: block;
+
+	/* Box Model */
+	margin-bottom: var(--bend-text-field-label-margin);
+
+	/* Typography */
+	font-weight: var(--bend-text-field-label-font-weight);
+
+	/* Colors - use Tier 2 tokens */
+	color: var(--bend-color-text);
+}
+
+/*++ Input styles */
+.bend-text-field input[type="text"],
+.bend-text-field input[type="email"],
+.bend-text-field input[type="password"],
+.bend-text-field input[type="tel"],
+.bend-text-field input[type="url"],
+.bend-text-field textarea {
+	/* Display */
+	display: block;
+
+	/* Box Model */
+	border: 1px solid #6c757d;
+	margin: 0;
+	min-height: 48px;
+	padding: 1rem;
+	width: 100%;
+
+	/* Typography */
+	font-family: system-ui, sans-serif;
+	font-size: 1rem;
+	line-height: 1.5;
+
+	/* Colors */
+	background-color: #fff;
+	color: #000;
+}
+
+/*++ Modern overrides */
+.bend-text-field input[type="text"],
+.bend-text-field input[type="email"],
+.bend-text-field input[type="password"],
+.bend-text-field input[type="tel"],
+.bend-text-field input[type="url"],
+.bend-text-field textarea {
+	padding: var(--bend-text-field-padding);
+	border-color: var(--bend-color-secondary);
+	background-color: var(--bend-color-background);
+	color: var(--bend-color-text);
+	font-family: var(--bend-font-sans);
+	font-size: var(--bend-text-field-font-size);
+}
+
+/*++ Focus state */
+.bend-text-field input:focus,
+.bend-text-field textarea:focus {
+	border-color: var(--bend-color-link);
+	outline: 2px solid var(--bend-color-focus);
+	outline-offset: 2px;
+}
+
+/*++ Valid state (after touched) */
+.bend-text-field input[data-touched]:valid,
+.bend-text-field textarea[data-touched]:valid {
+	border-color: var(--bend-color-success);
+}
+
+/*++ Invalid state (after touched) */
+.bend-text-field input[data-touched]:invalid,
+.bend-text-field textarea[data-touched]:invalid {
+	border: 2px solid var(--bend-color-error);
+}
+
+/*++ Help text */
+.bend-text-field .help {
+	/* Display */
+	display: block;
+
+	/* Box Model */
+	margin-top: 0.25rem;
+
+	/* Typography */
+	font-size: var(--bend-text-field-help-font-size);
+
+	/* Colors */
+	color: var(--bend-color-text-muted);
+}
+
+/*++ Error message */
+.bend-text-field[data-error] .help {
+	color: var(--bend-color-error);
+}
+
+/*++ Disabled state */
+.bend-text-field input:disabled,
+.bend-text-field textarea:disabled {
+	background-color: var(--bend-color-background-alt);
+	cursor: not-allowed;
+	opacity: 0.6;
+}
+
+/*++ Progressive enhancement: border-radius */
+@supports (border-radius: 0.25rem) {
+	.bend-text-field input,
+	.bend-text-field textarea {
+		border-radius: 0.25rem;
+	}
+}
+
+/*++ Transition for smooth focus */
+@supports (transition: all 0.2s) {
+	.bend-text-field input,
+	.bend-text-field textarea {
+		transition: border-color 0.2s ease;
+	}
+}
+
+/*++ Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	@supports (transition: all 0.2s) {
+		.bend-text-field input,
+		.bend-text-field textarea {
+			transition: none;
+		}
+	}
+}
+
+/*++ Accessibility: High contrast mode */
+@media (forced-colors: active) {
+	.bend-text-field input,
+	.bend-text-field textarea {
+		border: 2px solid ButtonText;
+	}
+
+	.bend-text-field input:focus,
+	.bend-text-field textarea:focus {
+		outline: 2px solid Highlight;
+	}
+}
+
+/*++ Print styles */
+@media print {
+	.bend-text-field input,
+	.bend-text-field textarea {
+		border-bottom: 1px solid var(--color-black);
+		border-left: none;
+		border-right: none;
+		border-top: none;
+	}
+}
