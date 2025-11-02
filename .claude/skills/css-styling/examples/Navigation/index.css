@@ -1,0 +1,177 @@
+/*++
+ + Navigation component example
+ + Demonstrates responsive navigation with fluid design
+ */
+
+/*++ Component custom properties (Tier 3 - structural only, NO colors) */
+:root {
+	--bend-navigation-padding: var(--bend-space-m);
+	--bend-navigation-gap: var(--bend-space-m);
+	--bend-navigation-link-padding-block: 12px;
+	--bend-navigation-link-padding-inline: 16px;
+	--bend-navigation-link-font-weight: 600;
+	--bend-navigation-current-border-width: 3px;
+	--bend-navigation-current-font-weight: 700;
+}
+
+/*++ Base navigation container */
+.bend-navigation {
+	/* IE11 fallback: horizontal list with floats */
+	overflow: hidden;
+
+	/* Box Model */
+	padding: 1rem;
+
+	/* Colors - use Tier 2 tokens directly */
+	background-color: #007bff;
+}
+
+/*++ Modern override */
+.bend-navigation {
+	padding: var(--bend-navigation-padding);
+	background-color: var(--bend-color-primary);
+}
+
+/*++ Navigation list */
+.bend-navigation ul {
+	/* Display */
+	display: block;
+
+	/* Box Model */
+	margin: 0;
+	padding: 0;
+
+	/* Other */
+	list-style: none;
+}
+
+/*++ Navigation items (IE11: float) */
+.bend-navigation li {
+	float: left;
+	margin-right: 1rem;
+}
+
+/*++ Modern: flexbox layout */
+@supports (display: flex) {
+	.bend-navigation ul {
+		display: flex;
+		overflow: visible;
+	}
+
+	.bend-navigation li {
+		float: none;
+		margin-right: 0;
+	}
+}
+
+/*++ Modern: gap support */
+@supports (gap: 1rem) {
+	.bend-navigation ul {
+		gap: var(--bend-navigation-gap);
+	}
+}
+
+/*++ Navigation links */
+.bend-navigation a {
+	/* Display */
+	display: block;
+
+	/* Box Model */
+	min-height: 48px;
+	padding: var(--bend-navigation-link-padding-block) var(--bend-navigation-link-padding-inline);
+
+	/* Typography */
+	font-weight: var(--bend-navigation-link-font-weight);
+	text-decoration: none;
+
+	/* Colors - use Tier 2 tokens directly */
+	color: var(--bend-color-text-inverse);
+}
+
+/*++ Link hover state */
+.bend-navigation a:hover {
+	background-color: var(--bend-color-background-hover);
+}
+
+/*++ Link focus state */
+.bend-navigation a:focus {
+	outline: 2px solid var(--bend-color-focus);
+	outline-offset: 2px;
+}
+
+/*++ Active/current link */
+.bend-navigation a[aria-current="page"] {
+	border-bottom: var(--bend-navigation-current-border-width) solid var(--bend-color-current-border);
+	font-weight: var(--bend-navigation-current-font-weight);
+}
+
+/*++ Transition for smooth hover */
+@supports (transition: all 0.2s) {
+	.bend-navigation a {
+		transition: background-color 0.2s ease;
+	}
+}
+
+/*++ Accessibility: Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	@supports (transition: all 0.2s) {
+		.bend-navigation a {
+			transition: none;
+		}
+	}
+}
+
+/*++ Accessibility: High contrast mode */
+@media (forced-colors: active) {
+	.bend-navigation {
+		border: 1px solid ButtonText;
+	}
+
+	.bend-navigation a {
+		border: 1px solid ButtonText;
+	}
+
+	.bend-navigation a:focus {
+		outline: 2px solid Highlight;
+	}
+
+	.bend-navigation a[aria-current="page"] {
+		border: 2px solid HighlightText;
+	}
+}
+
+/*++
+ + [EXCEPTION] Breakpoint required for mobile navigation toggle
+ + On small screens, hide navigation and show toggle button
+ */
+@media (width <= 768px) {
+	.bend-navigation {
+		display: none;
+	}
+
+	.bend-navigation[data-open="true"] {
+		display: block;
+	}
+
+	.bend-navigation ul {
+		display: block;
+	}
+
+	.bend-navigation li {
+		display: block;
+		float: none;
+		margin-right: 0;
+	}
+
+	.bend-navigation a {
+		display: block;
+		width: 100%;
+	}
+}
+
+/*++ Print styles */
+@media print {
+	.bend-navigation {
+		display: none;
+	}
+}
