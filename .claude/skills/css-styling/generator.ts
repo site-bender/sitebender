@@ -33,62 +33,99 @@ function generateHeader(componentName: string): string {
 }
 
 /*++
- + Generate base component styles with Tier 3 properties IN the component class
- + Tier 3 references Tier 2 semantic tokens
- + Includes conditional properties for accessibility and print
+ + Generate Tier 3 property definitions in :root
+ + Colors are specific, everything else uses shorthand
+ + User can override these from their own :root block
  */
-function generateBaseStyles(className: string, includeAccessibility: boolean, includePrint: boolean): string {
-	const baseTier3Props = [
-		`\t--bend-${className}-padding: var(--padding-default);`,
-		`\t--bend-${className}-font-size: var(--font-size-body);`,
-		`\t--bend-${className}-font-weight: var(--font-weight-semibold);`,
-		`\t--bend-${className}-font-family: var(--font-body);`,
-		`\t--bend-${className}-background-color: var(--color-primary);`,
-		`\t--bend-${className}-color: var(--color-text-inverse);`,
-	]
+function generateTier3Properties(className: string) {
+	return function generateTier3PropertiesWithClassName(includeAccessibility: boolean) {
+		return function generateTier3PropertiesWithClassNameAndAccessibility(includePrint: boolean): string {
+			const baseColorProps = [
+				`\t--bend-${className}-background-color: var(--color-primary);`,
+				`\t--bend-${className}-text-color: var(--color-text-inverse);`,
+				`\t--bend-${className}-border-color: var(--color-primary-dark);`,
+			]
 
-	const accessibilityTier3Props = includeAccessibility
-		? [
-			`\t--bend-${className}-focus-outline-color: var(--focus-color);`,
-			`\t--bend-${className}-focus-outline-offset: var(--focus-offset);`,
-		]
-		: []
+			const baseShorthandProps = [
+				`\t--bend-${className}-margin: 0;`,
+				`\t--bend-${className}-padding: 1rem;`,
+				`\t--bend-${className}-border: 0 solid var(--bend-${className}-border-color);`,
+				`\t--bend-${className}-font: 600 1rem var(--font-body);`,
+			]
 
-	const printTier3Props = includePrint
-		? [
-			`\t--bend-${className}-print-background-color: var(--print-background-color);`,
-			`\t--bend-${className}-print-border-color: var(--print-border-color);`,
-			`\t--bend-${className}-print-color: var(--print-text-color);`,
-		]
-		: []
+			const accessibilityColorProps = includeAccessibility
+				? [
+					`\t--bend-${className}-focus-outline-color: var(--focus-color);`,
+				]
+				: []
 
-	const allTier3Props = [
-		...baseTier3Props,
-		...accessibilityTier3Props,
-		...printTier3Props,
-	]
+			const accessibilityShorthandProps = includeAccessibility
+				? [
+					`\t--bend-${className}-focus-outline: 0.125rem solid var(--bend-${className}-focus-outline-color);`,
+				]
+				: []
 
+			const printColorProps = includePrint
+				? [
+					`\t--bend-${className}-print-background-color: transparent;`,
+					`\t--bend-${className}-print-text-color: #000;`,
+					`\t--bend-${className}-print-border-color: #000;`,
+				]
+				: []
+
+			const printShorthandProps = includePrint
+				? [
+					`\t--bend-${className}-print-border: 0.0625rem solid var(--bend-${className}-print-border-color);`,
+				]
+				: []
+
+			const allProps = [
+				...baseColorProps,
+				...baseShorthandProps,
+				...accessibilityColorProps,
+				...accessibilityShorthandProps,
+				...printColorProps,
+				...printShorthandProps,
+			]
+
+			const lines = [
+				"/*++ Tier 3 component properties - defined in :root for easy theming */",
+				":root {",
+				...allProps,
+				"}",
+				"",
+			]
+
+			return lines.join("\n")
+		}
+	}
+}
+
+/*++
+ + Generate base component styles using Tier 3 properties
+ + Properties are defined in :root, component just uses them
+ */
+function generateBaseStyles(className: string): string {
 	const lines = [
-		`/*++ Base component styles with Tier 3 component properties */`,
+		`/*++ Base component styles */`,
 		`.bend-${className} {`,
-		"\t/* Tier 3 - component properties reference Tier 2 semantic */",
-		...allTier3Props,
-		"",
 		"\t/* IE11 fallback - great CSS with rem, NOT px */",
 		"\tdisplay: block;",
+		"\tmargin: 0;",
 		"\tpadding: 1rem;",
 		"\tbackground-color: #007bff;",
 		"\tcolor: #fff;",
 		"\tfont-size: 1rem;",
 		"\tfont-weight: 600;",
+		"\tborder: 0;",
 		"",
-		"\t/* Modern override */",
+		"\t/* Modern override - use Tier 3 properties */",
+		`\tmargin: var(--bend-${className}-margin);`,
 		`\tpadding: var(--bend-${className}-padding);`,
-		`\tfont-size: var(--bend-${className}-font-size);`,
-		`\tfont-weight: var(--bend-${className}-font-weight);`,
-		`\tfont-family: var(--bend-${className}-font-family);`,
 		`\tbackground-color: var(--bend-${className}-background-color);`,
-		`\tcolor: var(--bend-${className}-color);`,
+		`\tcolor: var(--bend-${className}-text-color);`,
+		`\tborder: var(--bend-${className}-border);`,
+		`\tfont: var(--bend-${className}-font);`,
 		"}",
 		"",
 	]
@@ -135,7 +172,7 @@ function generateSubElementStyles(className: string): (subElements: ReadonlyArra
 
 /*++
  + Generate accessibility section
- + Uses component-namespaced Tier 3 properties
+ + Uses Tier 3 properties defined in :root
  */
 function generateAccessibilityStyles(className: string): string {
 	const lines = [
@@ -143,22 +180,21 @@ function generateAccessibilityStyles(className: string): string {
 		`.bend-${className}:focus {`,
 		"\t/* IE11 fallback */",
 		"\toutline: 0.125rem solid #0056b3;",
-		"\toutline-offset: 0.125rem;",
 		"",
-		"\t/* Modern override */",
-		`\toutline: 0.125rem solid var(--bend-${className}-focus-outline-color);`,
-		`\toutline-offset: var(--bend-${className}-focus-outline-offset);`,
+		"\t/* Modern override - use Tier 3 property */",
+		`\toutline: var(--bend-${className}-focus-outline);`,
 		"}",
 		"",
-		"/*++ Accessibility: Touch targets */",
+		"/*++ Accessibility: Touch targets (WCAG 2.5.5) */",
 		`.bend-${className} {`,
-		"\tmin-height: 3rem;",
+		"\tmin-height: 3rem; /* 48px minimum */",
 		"\tmin-width: 3rem;",
 		"}",
 		"",
-		"/*++ Accessibility: Reduced motion */",
+		"/*++ Accessibility: Reduced motion (WCAG 2.3.3) */",
 		"@media (prefers-reduced-motion: reduce) {",
 		`\t.bend-${className} {`,
+		"\t\tanimation: none;",
 		"\t\ttransition: none;",
 		"\t}",
 		"}",
@@ -170,7 +206,7 @@ function generateAccessibilityStyles(className: string): string {
 
 /*++
  + Generate print styles section
- + Uses component-namespaced Tier 3 properties
+ + Uses Tier 3 properties defined in :root
  */
 function generatePrintStyles(className: string): string {
 	const lines = [
@@ -182,10 +218,10 @@ function generatePrintStyles(className: string): string {
 		"\t\tcolor: #000;",
 		"\t\tborder: 0.0625rem solid #000;",
 		"",
-		"\t\t/* Modern override - use Tier 3 component print properties */",
-		`\t\tbackground-color: var(--bend-${className}-print-background-color, transparent);`,
-		`\t\tcolor: var(--bend-${className}-print-color, #000);`,
-		`\t\tborder-color: var(--bend-${className}-print-border-color, #000);`,
+		"\t\t/* Modern override - use Tier 3 properties */",
+		`\t\tbackground-color: var(--bend-${className}-print-background-color);`,
+		`\t\tcolor: var(--bend-${className}-print-text-color);`,
+		`\t\tborder: var(--bend-${className}-print-border);`,
 		"\t}",
 		"}",
 		"",
@@ -208,7 +244,8 @@ export function generateCSS(config: CSSConfig): string {
 
 	const sections = [
 		generateHeader(mergedConfig.componentName),
-		generateBaseStyles(className, mergedConfig.includeAccessibility, mergedConfig.includePrint),
+		generateTier3Properties(className)(mergedConfig.includeAccessibility)(mergedConfig.includePrint),
+		generateBaseStyles(className),
 	]
 
 	const subElementSection = mergedConfig.subElements && mergedConfig.subElements.length > 0
