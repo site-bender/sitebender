@@ -354,7 +354,7 @@ Give MEANING to Tier 1 primitives. Defined in `themes/default/index.css`:
 	--font-weight-bold: 700;
 
 	/* Opacities - Tier 2 */
-	--opacity-disabled: 0.6;
+	--opacity-when-disabled: 0.6;
 	--opacity-hover: 0.8;
 
 	/* Borders - Tier 2 */
@@ -377,51 +377,123 @@ Give MEANING to Tier 1 primitives. Defined in `themes/default/index.css`:
 
 ### Tier 3: Component-Specific Properties
 
-Define IN THE COMPONENT CSS FILE (in component class or `:root`). These reference Tier 2 semantic tokens and allow per-component overrides.
+**CRITICAL:** Define Tier 3 properties in `:root` **within the component's CSS file**. This enables user theming via the cascade.
+
+**Architecture Pattern:**
+- **Colors:** Specific properties (`--bend-component-background-color`, `-text-color`, `-border-color`)
+- **Spacing/Sizing:** Shorthand properties (`--bend-component-margin`, `-padding`, `-border`, `-font`)
+- **Composites:** Reference color properties (`--bend-component-border: 0.125rem solid var(--bend-component-border-color)`)
 
 ```css
-/*++ Button component */
-.bend-button {
-	/* Tier 3 - component properties reference Tier 2 semantic */
-	--bend-button-padding-block: var(--padding-default);
-	--bend-button-padding-inline: var(--padding-wide);
-	--bend-button-font-size: var(--font-size-body);
-	--bend-button-font-weight: var(--font-weight-semibold);
-	--bend-button-background-color: var(--color-primary);
-	--bend-button-color: var(--color-text-inverse);
-	--bend-button-border-radius: var(--border-radius-default);
-	--bend-button-disabled-opacity: var(--opacity-disabled);
+/*++ Button/index.css - Component CSS file */
 
+/*++ Tier 3 component properties - defined in :root for easy theming */
+:root {
+	/* Colors - SPECIFIC for easy branding */
+	--bend-button-background-color: var(--color-primary);
+	--bend-button-text-color: var(--color-text-inverse);
+	--bend-button-border-color: var(--color-primary-dark);
+	--bend-button-focus-outline-color: var(--focus-color);
+	--bend-button-hover-background-color: var(--color-link-hover);
+
+	/* Shorthand properties - composite values */
+	--bend-button-margin: 0;
+	--bend-button-padding: 0.75rem 1.5rem;
+	--bend-button-border: none;
+	--bend-button-font: 600 1rem var(--font-body);
+	--bend-button-focus-outline: 0.125rem solid var(--bend-button-focus-outline-color);
+	--bend-button-border-radius: var(--border-radius-default);
+	--bend-button-disabled-opacity: var(--opacity-when-disabled);
+}
+
+/*++ Component styles use Tier 3 properties */
+.bend-button {
 	/* IE11 fallback - great CSS with rem, NOT px */
+	margin: 0;
 	padding: 0.75rem 1.5rem;
 	background-color: #007bff;
 	color: #fff;
-	font-family: system-ui, sans-serif;
-	font-size: 1rem;
+	border: none;
 	font-weight: 600;
-	border-radius: 0.25rem;
+	font-size: 1rem;
 
-	/* Modern override */
-	padding: var(--bend-button-padding-block) var(--bend-button-padding-inline);
+	/* Modern override - use Tier 3 properties */
+	margin: var(--bend-button-margin);
+	padding: var(--bend-button-padding);
 	background-color: var(--bend-button-background-color);
-	color: var(--bend-button-color);
-	font-family: var(--font-body);
-	font-size: var(--bend-button-font-size);
-	font-weight: var(--bend-button-font-weight);
-	border-radius: var(--bend-button-border-radius);
+	color: var(--bend-button-text-color);
+	border: var(--bend-button-border);
+	font: var(--bend-button-font);
+}
+
+@supports (border-radius: 0.25rem) {
+	.bend-button {
+		border-radius: var(--bend-button-border-radius);
+	}
+}
+
+.bend-button:focus {
+	outline: var(--bend-button-focus-outline);
+}
+
+.bend-button:hover {
+	background-color: var(--bend-button-hover-background-color);
 }
 
 .bend-button:disabled {
-	opacity: 0.6;
 	opacity: var(--bend-button-disabled-opacity);
 }
 ```
 
-**Tier 3 CAN include colors** by referencing Tier 2 semantic tokens.
+**Why define Tier 3 in `:root` within component CSS?**
 
-### Override Strategy
+1. **Component loads its own defaults:** Only used components add properties to `:root`
+2. **User can override from `:root`:** User's theme CSS loads AFTER component CSS, wins by source order
+3. **No specificity battles:** Both component and user use `:root`, equal specificity
+4. **Cascade does the work:** No complex selectors needed for theming
 
-Users can override at ANY tier for maximum flexibility:
+### User Override Strategies
+
+Users have three ways to override Tier 3 properties (in order of specificity):
+
+**STRATEGY 1: Override from `:root` in user's theme file (RECOMMENDED)**
+
+```css
+/*++ mytheme.css - loaded AFTER component CSS */
+:root {
+	/* Just override the properties you want */
+	--bend-button-background-color: purple;  /* Change just the color */
+	--bend-button-padding: 2rem 3rem;  /* Or change padding */
+	--bend-button-focus-outline: 0.2rem dotted blue;  /* Or entire composite */
+}
+```
+
+Same specificity as component `:root`, but wins because user's CSS loads last.
+
+**STRATEGY 2: Override with class selector (HIGHER SPECIFICITY)**
+
+```css
+/*++ Use when :root override doesn't work due to loading order */
+.bend-button {
+	--bend-button-background-color: purple;
+}
+```
+
+Higher specificity than `:root`, always wins.
+
+**STRATEGY 3: Override with ID selector (HIGHEST SPECIFICITY)**
+
+```css
+/*++ Customize a single instance */
+#submit-button {
+	--bend-button-background-color: green;
+	--bend-button-padding: 1.5rem 2.5rem;
+}
+```
+
+Highest specificity, overrides everything.
+
+### Override Examples at All Tiers
 
 **Override Tier 1 primitive (affects everything using it):**
 
@@ -436,8 +508,8 @@ Users can override at ANY tier for maximum flexibility:
 
 ```css
 :root {
-	--padding-default: var(--space-6);  /* All default padding now uses space-6 */
-	--color-primary: var(--color-green-600);  /* Primary is now green */
+	--padding-default: var(--space-6);  /* All components using padding-default now wider */
+	--color-primary: var(--color-green-600);  /* All components using color-primary now green */
 	--print-text-color: #333;  /* Dark gray for print instead of black */
 }
 ```
@@ -446,8 +518,8 @@ Users can override at ANY tier for maximum flexibility:
 
 ```css
 :root {
-	--bend-button-padding-block: var(--padding-narrow);  /* Only buttons get narrow padding */
-	--bend-button-background-color: var(--color-error);  /* Only buttons use error color */
+	--bend-button-padding: 2rem 3rem;  /* Only buttons affected */
+	--bend-button-background-color: purple;  /* Only button background changes */
 }
 ```
 
@@ -1654,7 +1726,7 @@ The generator creates `ComponentName/index.css` with:
 
 1. **Component CSS Structure** - One `index.css` per folder, cascades from ancestors
 2. **IE11 Baseline + Progressive Enhancement** - 2010 CSS + `@supports`
-3. **Two-Level Custom Properties** - Global tokens + component properties
+3. **Three-Tier Custom Properties** - Global tokens + component properties
 4. **Accessibility** - WCAG AAA (APCA + WCAG 2.1), focus, touch targets, reduced motion
 5. **Responsive/Fluid** - Avoid breakpoints, fluid typography, exceptions documented
 6. **State Management** - Pseudo-classes, data attributes
