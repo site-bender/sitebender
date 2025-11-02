@@ -3,29 +3,33 @@
  + Demonstrates responsive navigation with fluid design
  */
 
-/*++ Base navigation container with Tier 3 component properties */
-.bend-navigation {
-	/* Tier 3 - component properties reference Tier 2 semantic */
-	--bend-navigation-padding: var(--padding-default);
-	--bend-navigation-gap: var(--gap-default);
-	--bend-navigation-link-padding-block: var(--padding-narrow);
-	--bend-navigation-link-padding-inline: var(--padding-default);
-	--bend-navigation-link-font-weight: var(--font-weight-semibold);
-	--bend-navigation-link-color: var(--color-text-inverse);
-	--bend-navigation-link-focus-outline-color: var(--focus-color);
-	--bend-navigation-link-focus-outline-offset: var(--focus-offset);
-	--bend-navigation-current-border-width: var(--border-width-thick);
-	--bend-navigation-current-border-color: var(--color-text-inverse);
-	--bend-navigation-current-font-weight: var(--font-weight-bold);
+/*++ Tier 3 component properties - defined in :root for easy theming */
+:root {
+	/* Colors - SPECIFIC for easy branding */
 	--bend-navigation-background-color: var(--color-primary);
+	--bend-navigation-link-text-color: var(--color-text-inverse);
+	--bend-navigation-link-hover-background-color: rgba(255, 255, 255, 0.1);
+	--bend-navigation-link-focus-outline-color: var(--focus-color);
+	--bend-navigation-current-border-color: var(--color-text-inverse);
 
+	/* Shorthand properties - composite values */
+	--bend-navigation-padding: 1rem;
+	--bend-navigation-gap: 1rem;
+	--bend-navigation-link-margin: 0;
+	--bend-navigation-link-padding: 0.5rem 1rem;
+	--bend-navigation-link-font: 600 1rem var(--font-body);
+	--bend-navigation-link-focus-outline: 0.125rem solid var(--bend-navigation-link-focus-outline-color);
+	--bend-navigation-link-focus-outline-offset: 0.125rem;
+	--bend-navigation-current-border-bottom: 0.1875rem solid var(--bend-navigation-current-border-color);
+	--bend-navigation-current-font-weight: 700;
+	--bend-navigation-transition: background-color 0.2s ease;
+}
+
+/*++ Base navigation container */
+.bend-navigation {
 	/* IE11 fallback: horizontal list with floats */
 	overflow: hidden;
-
-	/* Box Model */
 	padding: 1rem;
-
-	/* Colors - IE11 fallback */
 	background-color: #007bff;
 
 	/* Modern override */
@@ -77,55 +81,52 @@
 	/* Display */
 	display: block;
 
-	/* Box Model */
-	min-height: 3rem;
+	/* Box Model - IE11 fallback */
+	min-height: 3rem; /* WCAG 2.5.5 touch target */
 	padding: 0.5rem 1rem;
 
-	/* Typography */
+	/* Typography - IE11 fallback */
 	font-weight: 600;
 	text-decoration: none;
-
-	/* Colors - IE11 fallback */
 	color: #fff;
 
-	/* Modern override */
-	padding: var(--bend-navigation-link-padding-block) var(--bend-navigation-link-padding-inline);
-	font-weight: var(--bend-navigation-link-font-weight);
-	color: var(--bend-navigation-link-color);
+	/* Modern overrides */
+	margin: var(--bend-navigation-link-margin);
+	padding: var(--bend-navigation-link-padding);
+	font: var(--bend-navigation-link-font);
+	color: var(--bend-navigation-link-text-color);
 }
 
 /*++ Link hover state */
 .bend-navigation a:hover {
-	/* Could add Tier 2 token like --color-primary-hover */
-	background-color: rgba(255, 255, 255, 0.1);
+	background-color: var(--bend-navigation-link-hover-background-color);
 }
 
 /*++ Link focus state */
 .bend-navigation a:focus {
-	outline: 0.125rem solid var(--bend-navigation-link-focus-outline-color);
+	outline: var(--bend-navigation-link-focus-outline);
 	outline-offset: var(--bend-navigation-link-focus-outline-offset);
 }
 
-/*++ Active/current link */
+/*++ Active/current link (using aria-current for accessibility) */
 .bend-navigation a[aria-current="page"] {
 	/* IE11 fallback */
 	border-bottom: 0.1875rem solid #fff;
 	font-weight: 700;
 
 	/* Modern override */
-	border-bottom-width: var(--bend-navigation-current-border-width);
-	border-bottom-color: var(--bend-navigation-current-border-color);
+	border-bottom: var(--bend-navigation-current-border-bottom);
 	font-weight: var(--bend-navigation-current-font-weight);
 }
 
 /*++ Transition for smooth hover */
 @supports (transition: all 0.2s) {
 	.bend-navigation a {
-		transition: background-color 0.2s ease;
+		transition: var(--bend-navigation-transition);
 	}
 }
 
-/*++ Accessibility: Reduced motion */
+/*++ Accessibility: Reduced motion (WCAG 2.3.3) */
 @media (prefers-reduced-motion: reduce) {
 	@supports (transition: all 0.2s) {
 		.bend-navigation a {
@@ -156,6 +157,7 @@
 /*++
  + [EXCEPTION] Breakpoint required for mobile navigation toggle
  + On small screens, hide navigation and show toggle button
+ + This is a documented exception to the "avoid breakpoints" pattern
  */
 @media (width <= 768px) {
 	.bend-navigation {
