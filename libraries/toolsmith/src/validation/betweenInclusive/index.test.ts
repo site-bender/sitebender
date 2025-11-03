@@ -75,6 +75,9 @@ Deno.test("betweenInclusive with Validation returns failure when value is out of
 
 	assert(isFailure(result))
 	if (isFailure(result)) {
-		assertEquals((result.errors[0] as ValidationError).code, "VALUE_OUT_OF_RANGE")
+		assertEquals(
+			(result.errors[0] as ValidationError).code,
+			"VALUE_OUT_OF_RANGE",
+		)
 	}
 })

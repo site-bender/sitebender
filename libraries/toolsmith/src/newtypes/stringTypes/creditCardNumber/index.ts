@@ -24,7 +24,8 @@ export default function creditCardNumber(
 			messages: ["The system needs a credit card number with only digits."],
 			received: value,
 			expected: "13-19 digits (spaces and hyphens allowed)",
-			suggestion: "Provide digits only, like '4111111111111111' or '4111-1111-1111-1111'",
+			suggestion:
+				"Provide digits only, like '4111111111111111' or '4111-1111-1111-1111'",
 			severity: "requirement",
 		})
 	}
@@ -34,7 +35,9 @@ export default function creditCardNumber(
 		return error({
 			code: "CREDIT_CARD_NUMBER_INVALID_LENGTH",
 			field: "creditCardNumber",
-			messages: ["The system needs a credit card number between 13 and 19 digits."],
+			messages: [
+				"The system needs a credit card number between 13 and 19 digits.",
+			],
 			received: value,
 			expected: "13-19 digits",
 			suggestion: "Provide a valid credit card number",

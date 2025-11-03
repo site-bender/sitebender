@@ -4,7 +4,10 @@ import isBase58 from "@sitebender/toolsmith/predicates/isBase58/index.ts"
 
 Deno.test("isBase58 returns true for valid Base58 strings", function returnsTrueForValid() {
 	assertEquals(isBase58("3J98t1WpEZ73CNmYviecrnyiWrnqRhWNLy"), true)
-	assertEquals(isBase58("5HueCGU8rMjxEXxiPuD5BDku4MkFqeZyd4dZ1jvhTVqvbTLvyTJ"), true)
+	assertEquals(
+		isBase58("5HueCGU8rMjxEXxiPuD5BDku4MkFqeZyd4dZ1jvhTVqvbTLvyTJ"),
+		true,
+	)
 	assertEquals(isBase58("1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2"), true)
 	assertEquals(isBase58("abc123"), true)
 	assertEquals(isBase58("zzzz"), true)

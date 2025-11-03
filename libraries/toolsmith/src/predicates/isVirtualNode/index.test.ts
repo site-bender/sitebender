@@ -214,7 +214,9 @@ Deno.test("isVirtualNode - property: invalid nodes return false", function inval
 				fc.constant(undefined),
 				fc.array(fc.anything()),
 				fc.record({
-					_tag: fc.string().filter((s) => !["element", "text", "comment", "error"].includes(s)),
+					_tag: fc.string().filter((s) =>
+						!["element", "text", "comment", "error"].includes(s)
+					),
 				}),
 			),
 			function propertyInvalidNodes(value) {

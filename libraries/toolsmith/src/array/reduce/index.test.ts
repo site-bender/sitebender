@@ -6,10 +6,6 @@ import ok from "../../monads/result/ok/index.ts"
 import error from "../../monads/result/error/index.ts"
 import success from "../../monads/validation/success/index.ts"
 import failure from "../../monads/validation/failure/index.ts"
-import isOk from "../../monads/result/isOk/index.ts"
-import isError from "../../monads/result/isError/index.ts"
-import isSuccess from "../../monads/validation/isSuccess/index.ts"
-import isFailure from "../../monads/validation/isFailure/index.ts"
 
 Deno.test("reduce - plain array path", async function reducePlainArrayTests(t) {
 	await t.step(
@@ -114,10 +110,7 @@ Deno.test("reduce - Result monad path", async function reduceResultTests(t) {
 
 			const result = reduce<number, number>(add)(0)(ok([1, 2, 3, 4, 5]))
 
-			assertEquals(isOk(result), true)
-			if (isOk(result)) {
-				assertEquals(result.value, 15)
-			}
+			assertEquals(result, ok(15))
 		},
 	)
 
@@ -130,10 +123,7 @@ Deno.test("reduce - Result monad path", async function reduceResultTests(t) {
 
 			const result = reduce<number, number>(add)(10)(ok([]))
 
-			assertEquals(isOk(result), true)
-			if (isOk(result)) {
-				assertEquals(result.value, 10)
-			}
+			assertEquals(result, ok(10))
 		},
 	)
 
@@ -156,10 +146,7 @@ Deno.test("reduce - Result monad path", async function reduceResultTests(t) {
 
 			const result = reduce<number, number>(add)(0)(inputError)
 
-			assertEquals(isError(result), true)
-			if (isError(result)) {
-				assertEquals(result.error.code, "UPSTREAM_ERROR")
-			}
+			assertEquals(result, inputError)
 		},
 	)
 
@@ -174,10 +161,7 @@ Deno.test("reduce - Result monad path", async function reduceResultTests(t) {
 				ok(["Hello", " ", "World"]),
 			)
 
-			assertEquals(isOk(result), true)
-			if (isOk(result)) {
-				assertEquals(result.value, "Hello World")
-			}
+			assertEquals(result, ok("Hello World"))
 		},
 	)
 
@@ -192,10 +176,7 @@ Deno.test("reduce - Result monad path", async function reduceResultTests(t) {
 				ok(["hello", "world"]),
 			)
 
-			assertEquals(isOk(result), true)
-			if (isOk(result)) {
-				assertEquals(result.value, 10)
-			}
+			assertEquals(result, ok(10))
 		},
 	)
 })
@@ -212,10 +193,7 @@ Deno.test(
 
 				const result = reduce<number, number>(add)(0)(success([1, 2, 3, 4, 5]))
 
-				assertEquals(isSuccess(result), true)
-				if (isSuccess(result)) {
-					assertEquals(result.value, 15)
-				}
+				assertEquals(result, success(15))
 			},
 		)
 
@@ -228,10 +206,7 @@ Deno.test(
 
 				const result = reduce<number, number>(add)(10)(success([]))
 
-				assertEquals(isSuccess(result), true)
-				if (isSuccess(result)) {
-					assertEquals(result.value, 10)
-				}
+				assertEquals(result, success(10))
 			},
 		)
 
@@ -256,11 +231,7 @@ Deno.test(
 
 				const result = reduce<number, number>(add)(0)(inputFailure)
 
-				assertEquals(isFailure(result), true)
-				if (isFailure(result)) {
-					assertEquals(result.errors.length, 1)
-					assertEquals(result.errors[0].code, "UPSTREAM_VALIDATION_ERROR")
-				}
+				assertEquals(result, inputFailure)
 			},
 		)
 
@@ -275,10 +246,7 @@ Deno.test(
 					success(["Hello", " ", "World"]),
 				)
 
-				assertEquals(isSuccess(result), true)
-				if (isSuccess(result)) {
-					assertEquals(result.value, "Hello World")
-				}
+				assertEquals(result, success("Hello World"))
 			},
 		)
 
@@ -293,10 +261,7 @@ Deno.test(
 					success(["hello", "world"]),
 				)
 
-				assertEquals(isSuccess(result), true)
-				if (isSuccess(result)) {
-					assertEquals(result.value, 10)
-				}
+				assertEquals(result, success(10))
 			},
 		)
 	},
@@ -336,10 +301,7 @@ Deno.test(
 					return acc + item
 				}, 0)
 
-				assertEquals(isOk(result), true)
-				if (isOk(result)) {
-					assertEquals(result.value, expected)
-				}
+				assertEquals(result, ok(expected))
 			}),
 		)
 	},
@@ -361,10 +323,7 @@ Deno.test(
 						return acc + item
 					}, 0)
 
-					assertEquals(isSuccess(result), true)
-					if (isSuccess(result)) {
-						assertEquals(result.value, expected)
-					}
+					assertEquals(result, success(expected))
 				},
 			),
 		)

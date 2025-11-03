@@ -7,7 +7,8 @@ import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import unsafeOklchColor from "@sitebender/toolsmith/newtypes/stringTypes/oklchColor/unsafeOklchColor/index.ts"
 
 //++ Regex pattern for oklch color: oklch(L C H) or oklch(L C H / A)
-const OKLCH_PATTERN = /^oklch\s*\(\s*(-?[0-9.]+%?)\s+(-?[0-9.]+)\s+(-?[0-9.]+)\s*(?:\/\s*(-?[0-9.]+))?\s*\)$/i
+const OKLCH_PATTERN =
+	/^oklch\s*\(\s*(-?[0-9.]+%?)\s+(-?[0-9.]+)\s+(-?[0-9.]+)\s*(?:\/\s*(-?[0-9.]+))?\s*\)$/i
 
 //++ Smart constructor that validates and creates an OklchColor value
 //++ Validates OKLCH color format with lightness (0-1), chroma (0-1), hue (0-360), optional alpha (0-1)
@@ -22,7 +23,8 @@ export default function oklchColor(
 			messages: ["The system needs a non-empty OKLCH color string."],
 			received: value,
 			expected: "OKLCH color in oklch(L C H) or oklch(L C H / A) format",
-			suggestion: "Provide an OKLCH color like 'oklch(0.5 0.1 120)' or 'oklch(50% 0.1 120 / 0.8)'",
+			suggestion:
+				"Provide an OKLCH color like 'oklch(0.5 0.1 120)' or 'oklch(50% 0.1 120 / 0.8)'",
 			severity: "requirement",
 		})
 	}
@@ -35,9 +37,15 @@ export default function oklchColor(
 			field: "oklchColor",
 			messages: ["The system needs a valid OKLCH color format."],
 			received: value,
-			expected: "oklch(lightness chroma hue) or oklch(lightness chroma hue / alpha)",
-			suggestion: "Use format like 'oklch(0.5 0.1 120)' or 'oklch(50% 0.1 120 / 0.8)'",
-			examples: ["oklch(0.5 0.1 120)", "oklch(50% 0.1 120)", "oklch(0.5 0.1 120 / 0.8)"],
+			expected:
+				"oklch(lightness chroma hue) or oklch(lightness chroma hue / alpha)",
+			suggestion:
+				"Use format like 'oklch(0.5 0.1 120)' or 'oklch(50% 0.1 120 / 0.8)'",
+			examples: [
+				"oklch(0.5 0.1 120)",
+				"oklch(50% 0.1 120)",
+				"oklch(0.5 0.1 120 / 0.8)",
+			],
 			severity: "requirement",
 		})
 	}
@@ -57,7 +65,9 @@ export default function oklchColor(
 		return error({
 			code: "OKLCH_COLOR_INVALID_LIGHTNESS",
 			field: "oklchColor",
-			messages: ["The system needs lightness between 0 and 1 (or 0% and 100%)."],
+			messages: [
+				"The system needs lightness between 0 and 1 (or 0% and 100%).",
+			],
 			received: value,
 			expected: "Lightness: 0-1 or 0%-100%",
 			suggestion: "Use a lightness value like 0.5 or 50%",
