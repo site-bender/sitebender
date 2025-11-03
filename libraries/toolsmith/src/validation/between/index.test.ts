@@ -76,6 +76,9 @@ Deno.test("between with Validation returns failure when value equals boundary", 
 	assert(isFailure(result))
 
 	if (isFailure(result)) {
-		assertEquals((result.errors[0] as ValidationError).code, "VALUE_OUT_OF_RANGE")
+		assertEquals(
+			(result.errors[0] as ValidationError).code,
+			"VALUE_OUT_OF_RANGE",
+		)
 	}
 })
