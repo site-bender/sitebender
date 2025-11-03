@@ -31,14 +31,20 @@ Deno.test("_checkRangeAsResult returns error when value is below min", function 
 	const result = _checkRangeAsResult(1)(10)(0)
 
 	assert(isError(result))
-	assertEquals(result.error.messages[0], "Value must be between 1 and 10 (exclusive)")
+	assertEquals(
+		result.error.messages[0],
+		"Value must be between 1 and 10 (exclusive)",
+	)
 })
 
 Deno.test("_checkRangeAsResult returns error when value is above max", function () {
 	const result = _checkRangeAsResult(1)(10)(11)
 
 	assert(isError(result))
-	assertEquals(result.error.messages[0], "Value must be between 1 and 10 (exclusive)")
+	assertEquals(
+		result.error.messages[0],
+		"Value must be between 1 and 10 (exclusive)",
+	)
 })
 
 Deno.test("_checkRangeAsResult handles negative ranges", function () {

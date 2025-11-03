@@ -125,7 +125,8 @@ Deno.test("isCreditCardNumber - property: invalid length strings fail", function
 		fc.property(
 			fc.string().filter(function notValidLength(s) {
 				const cleaned = s.replace(/[\s-]/g, "")
-				return cleaned.length < 13 || cleaned.length > 19 || !/^\d+$/.test(cleaned)
+				return cleaned.length < 13 || cleaned.length > 19 ||
+					!/^\d+$/.test(cleaned)
 			}),
 			function propertyInvalidLength(value) {
 				assertEquals(isCreditCardNumber(value), false)

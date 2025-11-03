@@ -115,20 +115,24 @@ Deno.test("_isPostalCode - property: strings with invalid characters fail", func
 	fc.assert(
 		fc.property(
 			fc.oneof(
-				fc.string({ minLength: 5, maxLength: 5 }).filter(function hasInvalidChars(s) {
-					return s.split("").some(function isInvalidChar(c) {
-						return !"0123456789".includes(c)
-					})
-				}),
-				fc.string({ minLength: 9, maxLength: 9 }).filter(function hasInvalidChars(s) {
-					return s.split("").some(function isInvalidChar(c) {
-						return !"0123456789".includes(c)
-					})
-				}),
+				fc.string({ minLength: 5, maxLength: 5 }).filter(
+					function hasInvalidChars(s) {
+						return s.split("").some(function isInvalidChar(c) {
+							return !"0123456789".includes(c)
+						})
+					},
+				),
+				fc.string({ minLength: 9, maxLength: 9 }).filter(
+					function hasInvalidChars(s) {
+						return s.split("").some(function isInvalidChar(c) {
+							return !"0123456789".includes(c)
+						})
+					},
+				),
 				fc.tuple(
 					fc.string({ minLength: 5, maxLength: 5 }),
 					fc.constant("-"),
-					fc.string({ minLength: 4, maxLength: 4 })
+					fc.string({ minLength: 4, maxLength: 4 }),
 				).filter(function hasInvalidChars(tuple) {
 					const first = tuple[0].split("").some(function isInvalidChar(c) {
 						return !"0123456789".includes(c)
@@ -139,7 +143,7 @@ Deno.test("_isPostalCode - property: strings with invalid characters fail", func
 					return first || second
 				}).map(function tupleToString(tuple) {
 					return tuple[0] + tuple[1] + tuple[2]
-				})
+				}),
 			),
 			function propertyInvalidChars(value) {
 				assertEquals(isPostalCode(value), false)
