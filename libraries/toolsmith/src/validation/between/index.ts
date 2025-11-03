@@ -1,5 +1,8 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
@@ -27,8 +30,14 @@ export default function between(min: number) {
 
 		//++ Implementation of the full curried function
 		function betweenWithMinAndMax(
-			value: number | Result<ValidationError, number> | Validation<ValidationError, number>,
-		): boolean | Result<ValidationError, boolean> | Validation<ValidationError, boolean> {
+			value:
+				| number
+				| Result<ValidationError, number>
+				| Validation<ValidationError, number>,
+		):
+			| boolean
+			| Result<ValidationError, boolean>
+			| Validation<ValidationError, boolean> {
 			if (isNumber(value)) {
 				return value > min && value < max
 			}

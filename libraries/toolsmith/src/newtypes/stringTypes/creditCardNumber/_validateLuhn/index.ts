@@ -13,7 +13,11 @@ export default function _validateLuhn(
 
 	//++ [EXCEPTION] Using reduce for checksum calculation
 	const sum = digitsArray.reverse().reduce(
-		function calculateLuhnSum(acc: number, digit: number, index: number): number {
+		function calculateLuhnSum(
+			acc: number,
+			digit: number,
+			index: number,
+		): number {
 			//++ [EXCEPTION] Using modulo operator for doubling check
 			if (index % 2 === 1) {
 				const doubled = digit * 2
@@ -30,7 +34,9 @@ export default function _validateLuhn(
 		return error({
 			code: "CREDIT_CARD_NUMBER_INVALID_CHECKSUM",
 			field: "creditCardNumber",
-			messages: ["The system detected an invalid credit card number (failed Luhn check)."],
+			messages: [
+				"The system detected an invalid credit card number (failed Luhn check).",
+			],
 			received: digits,
 			expected: "Valid credit card number passing Luhn algorithm",
 			suggestion: "Verify the credit card number digits are correct",
