@@ -1,7 +1,8 @@
 import type { P3Color } from "@sitebender/toolsmith/types/branded/index.ts"
 
 //++ Regex pattern for P3 color: color(display-p3 R G B) or color(display-p3 R G B / A)
-const P3_PATTERN = /^color\s*\(\s*display-p3\s+([0-9.]+%?)\s+([0-9.]+%?)\s+([0-9.]+%?)\s*(?:\/\s*([0-9.]+))?\s*\)$/i
+const P3_PATTERN =
+	/^color\s*\(\s*display-p3\s+([0-9.]+%?)\s+([0-9.]+%?)\s+([0-9.]+%?)\s*(?:\/\s*([0-9.]+))?\s*\)$/i
 
 //++ Type predicate that checks if a string is a valid Display P3 color
 export default function isP3Color(value: string): value is P3Color {
