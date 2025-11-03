@@ -15,9 +15,11 @@ export default function isIsbn13(value: string): value is Isbn13 {
 		typeof value === "string" &&
 		value.length === ISBN13_LENGTH &&
 		function hasValidPrefix(): boolean {
-			return ISBN13_VALID_PREFIXES.some(function isValidPrefix(prefix: string): boolean {
-				return value.startsWith(prefix)
-			})
+			return ISBN13_VALID_PREFIXES.some(
+				function isValidPrefix(prefix: string): boolean {
+					return value.startsWith(prefix)
+				},
+			)
 		}() &&
 		function hasValidChars(): boolean {
 			return value.split("").reduce(function checkChars(
@@ -29,9 +31,11 @@ export default function isIsbn13(value: string): value is Isbn13 {
 			}, true)
 		}() &&
 		function hasValidChecksum(): boolean {
-			const digits = value.split("").map(function charToDigit(char: string): number {
-				return parseInt(char, 10)
-			})
+			const digits = value.split("").map(
+				function charToDigit(char: string): number {
+					return parseInt(char, 10)
+				},
+			)
 
 			const sum = digits.slice(0, 12).reduce(function calculateWeightedSum(
 				acc: number,
@@ -41,7 +45,9 @@ export default function isIsbn13(value: string): value is Isbn13 {
 				return acc + digit * ISBN13_WEIGHTS[index]
 			}, 0)
 
-			const checkDigit = (ISBN13_CHECKSUM_MODULUS - (sum % ISBN13_CHECKSUM_MODULUS)) % ISBN13_CHECKSUM_MODULUS
+			const checkDigit =
+				(ISBN13_CHECKSUM_MODULUS - (sum % ISBN13_CHECKSUM_MODULUS)) %
+				ISBN13_CHECKSUM_MODULUS
 
 			return checkDigit === digits[12]
 		}()

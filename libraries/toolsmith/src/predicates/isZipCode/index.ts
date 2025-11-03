@@ -42,20 +42,22 @@ export default function isZipCode(value: string): value is ZipCode {
 				return (
 					value.charAt(POSTAL_CODE_HYPHEN_POSITION) === "-" &&
 					function checkFirstPart(): boolean {
-						return value.substring(0, POSTAL_CODE_HYPHEN_POSITION).split("").reduce(function checkDigits(
-							acc: boolean,
-							char: string,
-						): boolean {
-							return acc && POSTAL_CODE_VALID_CHARS.includes(char)
-						}, true)
+						return value.substring(0, POSTAL_CODE_HYPHEN_POSITION).split("")
+							.reduce(function checkDigits(
+								acc: boolean,
+								char: string,
+							): boolean {
+								return acc && POSTAL_CODE_VALID_CHARS.includes(char)
+							}, true)
 					}() &&
 					function checkSecondPart(): boolean {
-						return value.substring(POSTAL_CODE_HYPHEN_POSITION + 1).split("").reduce(function checkDigits(
-							acc: boolean,
-							char: string,
-						): boolean {
-							return acc && POSTAL_CODE_VALID_CHARS.includes(char)
-						}, true)
+						return value.substring(POSTAL_CODE_HYPHEN_POSITION + 1).split("")
+							.reduce(function checkDigits(
+								acc: boolean,
+								char: string,
+							): boolean {
+								return acc && POSTAL_CODE_VALID_CHARS.includes(char)
+							}, true)
 					}()
 				)
 			}
