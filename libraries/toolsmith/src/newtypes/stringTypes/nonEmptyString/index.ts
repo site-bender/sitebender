@@ -19,7 +19,9 @@ export default function nonEmptyString(
 		return error({
 			code: "NON_EMPTY_STRING_EMPTY",
 			field: "nonEmptyString",
-			messages: ["The system needs a non-empty string with at least one character."],
+			messages: [
+				"The system needs a non-empty string with at least one character.",
+			],
 			received: value,
 			expected: "Non-empty string with at least one non-whitespace character",
 			suggestion: "Provide a string with visible content like 'Hello' or 'A'",
