@@ -7,7 +7,8 @@ import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import unsafeP3Color from "@sitebender/toolsmith/newtypes/stringTypes/p3Color/unsafeP3Color/index.ts"
 
 //++ Regex pattern for P3 color: color(display-p3 R G B) or color(display-p3 R G B / A)
-const P3_PATTERN = /^color\s*\(\s*display-p3\s+([0-9.]+%?)\s+([0-9.]+%?)\s+([0-9.]+%?)\s*(?:\/\s*([0-9.]+))?\s*\)$/i
+const P3_PATTERN =
+	/^color\s*\(\s*display-p3\s+([0-9.]+%?)\s+([0-9.]+%?)\s+([0-9.]+%?)\s*(?:\/\s*([0-9.]+))?\s*\)$/i
 
 //++ Smart constructor that validates and creates a P3Color value
 //++ Validates Display P3 color format with R/G/B (0-1) and optional alpha (0-1)
@@ -21,8 +22,10 @@ export default function p3Color(
 			field: "p3Color",
 			messages: ["The system needs a non-empty Display P3 color string."],
 			received: value,
-			expected: "P3 color in color(display-p3 R G B) or color(display-p3 R G B / A) format",
-			suggestion: "Provide a P3 color like 'color(display-p3 1 0 0)' or 'color(display-p3 100% 50% 0% / 0.8)'",
+			expected:
+				"P3 color in color(display-p3 R G B) or color(display-p3 R G B / A) format",
+			suggestion:
+				"Provide a P3 color like 'color(display-p3 1 0 0)' or 'color(display-p3 100% 50% 0% / 0.8)'",
 			severity: "requirement",
 		})
 	}
@@ -35,9 +38,15 @@ export default function p3Color(
 			field: "p3Color",
 			messages: ["The system needs a valid Display P3 color format."],
 			received: value,
-			expected: "color(display-p3 red green blue) or color(display-p3 red green blue / alpha)",
-			suggestion: "Use format like 'color(display-p3 1 0 0)' or 'color(display-p3 100% 0% 0%)'",
-			examples: ["color(display-p3 1 0 0)", "color(display-p3 100% 50% 0%)", "color(display-p3 1 0 0 / 0.8)"],
+			expected:
+				"color(display-p3 red green blue) or color(display-p3 red green blue / alpha)",
+			suggestion:
+				"Use format like 'color(display-p3 1 0 0)' or 'color(display-p3 100% 0% 0%)'",
+			examples: [
+				"color(display-p3 1 0 0)",
+				"color(display-p3 100% 50% 0%)",
+				"color(display-p3 1 0 0 / 0.8)",
+			],
 			severity: "requirement",
 		})
 	}
@@ -57,7 +66,9 @@ export default function p3Color(
 		return error({
 			code: "P3_COLOR_INVALID_RED",
 			field: "p3Color",
-			messages: ["The system needs red channel between 0 and 1 (or 0% and 100%)."],
+			messages: [
+				"The system needs red channel between 0 and 1 (or 0% and 100%).",
+			],
 			received: value,
 			expected: "Red: 0-1 or 0%-100%",
 			suggestion: "Use a red value like 1 or 100%",
@@ -76,7 +87,9 @@ export default function p3Color(
 		return error({
 			code: "P3_COLOR_INVALID_GREEN",
 			field: "p3Color",
-			messages: ["The system needs green channel between 0 and 1 (or 0% and 100%)."],
+			messages: [
+				"The system needs green channel between 0 and 1 (or 0% and 100%).",
+			],
 			received: value,
 			expected: "Green: 0-1 or 0%-100%",
 			suggestion: "Use a green value like 0.5 or 50%",
@@ -95,7 +108,9 @@ export default function p3Color(
 		return error({
 			code: "P3_COLOR_INVALID_BLUE",
 			field: "p3Color",
-			messages: ["The system needs blue channel between 0 and 1 (or 0% and 100%)."],
+			messages: [
+				"The system needs blue channel between 0 and 1 (or 0% and 100%).",
+			],
 			received: value,
 			expected: "Blue: 0-1 or 0%-100%",
 			suggestion: "Use a blue value like 0 or 0%",

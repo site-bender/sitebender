@@ -11,7 +11,9 @@ import doNotationWithInspect from "./index.ts"
 
 Deno.test("doNotationWithInspect", async (t) => {
 	await t.step("sequences Maybe computations with inspection", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -40,7 +42,9 @@ Deno.test("doNotationWithInspect", async (t) => {
 	})
 
 	await t.step("respects custom label in logs", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -68,7 +72,9 @@ Deno.test("doNotationWithInspect", async (t) => {
 	})
 
 	await t.step("handles maxDepth configuration", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -96,7 +102,9 @@ Deno.test("doNotationWithInspect", async (t) => {
 	})
 
 	await t.step("handles filter configuration", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -134,7 +142,9 @@ Deno.test("doNotationWithInspect", async (t) => {
 	})
 
 	await t.step("handles showTypes configuration", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -162,7 +172,9 @@ Deno.test("doNotationWithInspect", async (t) => {
 	})
 
 	await t.step("short-circuits on Nothing", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -188,7 +200,9 @@ Deno.test("doNotationWithInspect", async (t) => {
 	})
 
 	await t.step("formats arrays correctly", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -216,7 +230,9 @@ Deno.test("doNotationWithInspect", async (t) => {
 	})
 
 	await t.step("formats objects correctly", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {

@@ -66,11 +66,19 @@ Deno.test("formatIsbn10 - property: formatted output has correct structure", () 
 				assertEquals(hyphenCount, 3, `Expected 3 hyphens in ${formatted}`)
 
 				// Should be 13 characters long (10 digits + 3 hyphens)
-				assertEquals(formatted.length, 13, `Expected length 13 for ${formatted}`)
+				assertEquals(
+					formatted.length,
+					13,
+					`Expected length 13 for ${formatted}`,
+				)
 
 				// Should match pattern: digit-digit-digit-digit-digit-digit-digit-digit-digit-digit
 				const pattern = /^\d-\d{3}-\d{5}-\d$|^\d-\d{3}-\d{5}-X$/
-				assertEquals(pattern.test(formatted), true, `Expected ${formatted} to match ISBN-10 format pattern`)
+				assertEquals(
+					pattern.test(formatted),
+					true,
+					`Expected ${formatted} to match ISBN-10 format pattern`,
+				)
 			},
 		),
 	)

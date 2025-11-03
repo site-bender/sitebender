@@ -19,7 +19,8 @@ export default function currencyCode(
 			messages: ["The system needs a 3-letter currency code."],
 			received: value,
 			expected: "3 uppercase letters (ISO 4217)",
-			suggestion: "Provide a valid currency code like 'USD', 'EUR', 'GBP', or 'JPY'",
+			suggestion:
+				"Provide a valid currency code like 'USD', 'EUR', 'GBP', or 'JPY'",
 			severity: "requirement",
 		})
 	}

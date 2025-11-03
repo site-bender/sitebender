@@ -20,7 +20,8 @@ export default function phoneNumber(
 			messages: ["The system needs a valid phone number in E.164 format."],
 			received: value,
 			expected: "E.164 format: +[country code][number] (7-17 total characters)",
-			suggestion: "Provide a phone number like '+1234567890', '+441234567890', or '+861234567890'",
+			suggestion:
+				"Provide a phone number like '+1234567890', '+441234567890', or '+861234567890'",
 			severity: "requirement",
 		})
 	}

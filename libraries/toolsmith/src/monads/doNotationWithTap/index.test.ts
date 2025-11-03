@@ -11,7 +11,9 @@ import doNotationWithTap from "./index.ts"
 
 Deno.test("doNotationWithTap", async (t) => {
 	await t.step("sequences Maybe computations with tap function", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -37,7 +39,9 @@ Deno.test("doNotationWithTap", async (t) => {
 	})
 
 	await t.step("tap function receives intermediate values", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -64,7 +68,9 @@ Deno.test("doNotationWithTap", async (t) => {
 	})
 
 	await t.step("tap function receives final value", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -89,7 +95,9 @@ Deno.test("doNotationWithTap", async (t) => {
 	})
 
 	await t.step("short-circuits on Nothing", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -115,7 +123,9 @@ Deno.test("doNotationWithTap", async (t) => {
 	})
 
 	await t.step("tap function can perform side effects", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -141,7 +151,9 @@ Deno.test("doNotationWithTap", async (t) => {
 	})
 
 	await t.step("handles single yield", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -166,7 +178,9 @@ Deno.test("doNotationWithTap", async (t) => {
 	})
 
 	await t.step("handles complex types", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
@@ -199,7 +213,9 @@ Deno.test("doNotationWithTap", async (t) => {
 	})
 
 	await t.step("tap does not modify monadic value", () => {
-		const maybeChain = chain as unknown as MonadDictionary<Maybe<unknown>>["chain"]
+		const maybeChain = chain as unknown as MonadDictionary<
+			Maybe<unknown>
+		>["chain"]
 		const maybeOf = of as unknown as MonadDictionary<Maybe<unknown>>["of"]
 
 		const maybeMonad: MonadDictionary<Maybe<unknown>> = {
