@@ -1,7 +1,8 @@
 import type { OklchColor } from "@sitebender/toolsmith/types/branded/index.ts"
 
 //++ Regex pattern for oklch color: oklch(L C H) or oklch(L C H / A)
-const OKLCH_PATTERN = /^oklch\s*\(\s*(-?[0-9.]+%?)\s+(-?[0-9.]+)\s+(-?[0-9.]+)\s*(?:\/\s*(-?[0-9.]+))?\s*\)$/i
+const OKLCH_PATTERN =
+	/^oklch\s*\(\s*(-?[0-9.]+%?)\s+(-?[0-9.]+)\s+(-?[0-9.]+)\s*(?:\/\s*(-?[0-9.]+))?\s*\)$/i
 
 //++ Type predicate that checks if a string is a valid OKLCH color
 export default function isOklchColor(value: string): value is OklchColor {
