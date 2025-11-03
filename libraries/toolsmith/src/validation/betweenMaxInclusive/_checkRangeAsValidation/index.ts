@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 
 import success from "../../../monads/validation/success/index.ts"
 import failure from "../../../monads/validation/failure/index.ts"
