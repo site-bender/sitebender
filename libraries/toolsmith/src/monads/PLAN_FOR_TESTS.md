@@ -5,17 +5,20 @@
 **Mission:** Achieve 100% test coverage across all monad functions with zero tolerance for gaps.
 
 **Current State:**
+
 - Total Implementation Functions: 162
 - Current Test Files: 83
 - **Test Coverage: 51% (83/162)**
 - Missing Test Files: **91**
 
 **Target State:**
+
 - Test Files: 162
 - **Test Coverage: 100% (162/162)**
 - Missing Test Files: **0**
 
 **Quality Gates (ALL must pass):**
+
 1. ✅ All tests pass (`deno task test`)
 2. ✅ 100% code coverage (no untested functions)
 3. ✅ Linter passes (`deno task lint`)
@@ -37,6 +40,7 @@
 ### Test Coverage Requirements
 
 Each test file must include:
+
 - Basic functionality verification
 - Type preservation tests
 - Integration with different monad types (Maybe, Either, Result)
@@ -106,6 +110,7 @@ After all tests pass and type checking succeeds, you MUST:
 ### Test Coverage Requirements
 
 Each test file must include:
+
 - Left/Right branch behavior
 - Type narrowing verification
 - Edge cases (nullish values, thrown errors)
@@ -153,6 +158,7 @@ deno check libraries/toolsmith/src/monads/either/**/*.test.ts
 ### Test Coverage Requirements
 
 Each test file must include:
+
 - Async execution behavior
 - Deferred computation verification
 - Timing/delay accuracy (where applicable)
@@ -184,6 +190,7 @@ deno check libraries/toolsmith/src/monads/future/**/*.test.ts
 ### Files Created
 
 **NEW in Phase 4:** 3 test files
+
 - [x] `io/chainIoEither/index.test.ts`
 - [x] `io/ioToIoEither/index.test.ts`
 - [x] `io/ioToIoMaybe/index.test.ts`
@@ -204,6 +211,7 @@ deno check libraries/toolsmith/src/monads/future/**/*.test.ts
 ### Test Coverage Requirements
 
 Each test file must include:
+
 - Deferred execution verification
 - Proper monad wrapping/unwrapping
 - Type preservation through transformations
@@ -227,6 +235,7 @@ deno check libraries/toolsmith/src/monads/io/**/*.test.ts
 ```
 
 ### Post-Phase Action
+
 - [ ] Update `io/PLAN.md` Phase 11 to mark testing as truly complete
 
 **Phase 4 Complete:** 35/91 tests created (38.5%)
@@ -240,6 +249,7 @@ deno check libraries/toolsmith/src/monads/io/**/*.test.ts
 ### Files to Create
 
 #### Core Operations (CRITICAL)
+
 - [ ] `maybe/chain/index.test.ts` ⚠️ CRITICAL
 - [ ] `maybe/filter/index.test.ts` ⚠️ CRITICAL
 - [ ] `maybe/fold/index.test.ts` (exists but verify completeness)
@@ -247,14 +257,17 @@ deno check libraries/toolsmith/src/monads/io/**/*.test.ts
 - [ ] `maybe/orElse/index.test.ts` ⚠️ CRITICAL
 
 #### Constructors & Type Guards
+
 - [ ] `maybe/fromNullable/index.test.ts`
 - [ ] `maybe/of/index.test.ts`
 
 #### WithInspect Variants
+
 - [ ] `maybe/justWithInspect/index.test.ts`
 - [ ] `maybe/nothingWithInspect/index.test.ts`
 
 #### Utilities
+
 - [ ] `maybe/maybe/index.test.ts` (fold variant)
 - [ ] `maybe/show/index.test.ts`
 - [ ] `maybe/toEither/index.test.ts`
@@ -263,6 +276,7 @@ deno check libraries/toolsmith/src/monads/io/**/*.test.ts
 ### Test Coverage Requirements
 
 Each test file must include:
+
 - Just/Nothing branch behavior
 - Type narrowing verification
 - Null/undefined handling
@@ -314,11 +328,13 @@ deno check libraries/toolsmith/src/monads/maybe/**/*.test.ts
 ### Test Coverage Requirements
 
 **Option Tests:**
+
 - Some/None behavior (alias for Maybe)
 - Type preservation
 - Integration patterns
 
 **Reader Tests:**
+
 - Environment injection behavior
 - Context reading (ask/asks)
 - Local environment modification
@@ -376,6 +392,7 @@ deno check libraries/toolsmith/src/monads/reader/**/*.test.ts
 ### Test Coverage Requirements
 
 **State Tests:**
+
 - State threading behavior
 - get/put/modify operations
 - evalState (value extraction)
@@ -384,6 +401,7 @@ deno check libraries/toolsmith/src/monads/reader/**/*.test.ts
 - Monad laws with state
 
 **Task Tests:**
+
 - Async task execution
 - Promise integration
 - Parallel execution (CRITICAL)
@@ -423,11 +441,13 @@ deno check libraries/toolsmith/src/monads/task/**/*.test.ts
 ### Validation Monad (11 tests)
 
 #### Helper Functions (3 tests)
+
 - [ ] `validation/combineErrors/groupByField/index.test.ts`
 - [ ] `validation/combineValidations/accumulateErrors/index.test.ts`
 - [ ] `validation/validateAll/accumulateErrors/index.test.ts`
 
 #### Core Functions (3 tests)
+
 - [ ] `validation/createValidator/index.test.ts`
 - [ ] `validation/isValidation/index.test.ts` (type guard)
 - [ ] `validation/of/index.test.ts`
@@ -439,10 +459,12 @@ deno check libraries/toolsmith/src/monads/task/**/*.test.ts
 ### Test Coverage Requirements
 
 **Result Tests:**
+
 - Type guard behavior
 - Discriminated union verification
 
 **Validation Tests:**
+
 - Error accumulation patterns
 - Field grouping behavior
 - Validator creation and composition
@@ -450,6 +472,7 @@ deno check libraries/toolsmith/src/monads/task/**/*.test.ts
 - Helper function integration
 
 **Writer Tests:**
+
 - Log accumulation
 - Value/log pairing
 - Monad laws
@@ -572,9 +595,9 @@ Before marking this plan complete, ALL of the following must be TRUE:
 2. **Test Structure**
    ```typescript
    Deno.test("functionName", async (t) => {
-     await t.step("describes what it tests", () => {
-       // Test implementation
-     })
+   	await t.step("describes what it tests", () => {
+   		// Test implementation
+   	})
    })
    ```
 
@@ -603,17 +626,17 @@ Before marking this plan complete, ALL of the following must be TRUE:
 
 ### Phase Completion Status
 
-| Phase | Tests | Status | Completion |
-|-------|-------|--------|------------|
-| Phase 1: Do-Notation | 5 | ✅ Complete | 5/5 |
-| Phase 2: Either | 9 | ✅ Complete | 9/9 |
-| Phase 3: Future | 5 | ✅ Complete | 5/5 |
-| Phase 4: IO | 16 | ✅ Complete | 16/16 (3 new) |
-| Phase 5: Maybe | 12 | ⬜ Not Started | 0/12 |
-| Phase 6: Option/Reader | 13 | ⬜ Not Started | 0/13 |
-| Phase 7: State/Task | 18 | ⬜ Not Started | 0/18 |
-| Phase 8: Remaining | 13 | ⬜ Not Started | 0/13 |
-| **TOTAL** | **91** | **24.2%** | **22/91** |
+| Phase                  | Tests  | Status         | Completion    |
+| ---------------------- | ------ | -------------- | ------------- |
+| Phase 1: Do-Notation   | 5      | ✅ Complete    | 5/5           |
+| Phase 2: Either        | 9      | ✅ Complete    | 9/9           |
+| Phase 3: Future        | 5      | ✅ Complete    | 5/5           |
+| Phase 4: IO            | 16     | ✅ Complete    | 16/16 (3 new) |
+| Phase 5: Maybe         | 12     | ⬜ Not Started | 0/12          |
+| Phase 6: Option/Reader | 13     | ⬜ Not Started | 0/13          |
+| Phase 7: State/Task    | 18     | ⬜ Not Started | 0/18          |
+| Phase 8: Remaining     | 13     | ⬜ Not Started | 0/13          |
+| **TOTAL**              | **91** | **24.2%**      | **22/91**     |
 
 ### Overall Progress
 

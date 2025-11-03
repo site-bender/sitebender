@@ -4,7 +4,9 @@ import _validateLuhn from "@sitebender/toolsmith/newtypes/stringTypes/creditCard
 
 //++ Type predicate that checks if a string is a valid credit card number
 //++ Validates 13-19 digits and Luhn algorithm checksum
-export default function isCreditCardNumber(value: unknown): value is CreditCardNumber {
+export default function isCreditCardNumber(
+	value: unknown,
+): value is CreditCardNumber {
 	//++ [EXCEPTION] typeof, !==, .replace(), .test(), .length, <, >, ||, _tag, and === permitted in Toolsmith for performance - provides credit card validation wrapper
 	if (typeof value !== "string") {
 		return false
