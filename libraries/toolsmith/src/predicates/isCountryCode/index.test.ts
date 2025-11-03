@@ -120,10 +120,12 @@ Deno.test("isCountryCode - property: invalid length strings fail", function inva
 Deno.test("isCountryCode - property: strings with invalid characters fail", function invalidCharsFail() {
 	fc.assert(
 		fc.property(
-			fc.string({ minLength: 2, maxLength: 2 }).filter(function hasInvalidChars(s) {
-				const normalized = s.toLocaleUpperCase()
-				return !/^[A-Z]{2}$/.test(normalized)
-			}),
+			fc.string({ minLength: 2, maxLength: 2 }).filter(
+				function hasInvalidChars(s) {
+					const normalized = s.toLocaleUpperCase()
+					return !/^[A-Z]{2}$/.test(normalized)
+				},
+			),
 			function propertyInvalidChars(value) {
 				assertEquals(isCountryCode(value), false)
 			},

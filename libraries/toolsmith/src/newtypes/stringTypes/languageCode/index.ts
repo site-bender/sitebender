@@ -19,7 +19,8 @@ export default function languageCode(
 			messages: ["The system needs a 2-letter language code."],
 			received: value,
 			expected: "2 lowercase letters (ISO 639-1)",
-			suggestion: "Provide a valid language code like 'en', 'fr', 'de', or 'es'",
+			suggestion:
+				"Provide a valid language code like 'en', 'fr', 'de', or 'es'",
 			severity: "requirement",
 		})
 	}
