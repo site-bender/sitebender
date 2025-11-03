@@ -120,10 +120,12 @@ Deno.test("isCurrencyCode - property: invalid length strings fail", function inv
 Deno.test("isCurrencyCode - property: strings with invalid characters fail", function invalidCharsFail() {
 	fc.assert(
 		fc.property(
-			fc.string({ minLength: 3, maxLength: 3 }).filter(function hasInvalidChars(s) {
-				const normalized = s.toLocaleUpperCase()
-				return !/^[A-Z]{3}$/.test(normalized)
-			}),
+			fc.string({ minLength: 3, maxLength: 3 }).filter(
+				function hasInvalidChars(s) {
+					const normalized = s.toLocaleUpperCase()
+					return !/^[A-Z]{3}$/.test(normalized)
+				},
+			),
 			function propertyInvalidChars(value) {
 				assertEquals(isCurrencyCode(value), false)
 			},
