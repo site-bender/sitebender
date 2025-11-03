@@ -131,9 +131,11 @@ Deno.test("isPostalCode - property: invalid length strings fail", function inval
 Deno.test("isPostalCode - property: strings with invalid characters fail", function invalidCharsFail() {
 	fc.assert(
 		fc.property(
-			fc.string({ minLength: 3, maxLength: 10 }).filter(function hasInvalidChars(s) {
-				return !/^[A-Z0-9\s-]+$/i.test(s)
-			}),
+			fc.string({ minLength: 3, maxLength: 10 }).filter(
+				function hasInvalidChars(s) {
+					return !/^[A-Z0-9\s-]+$/i.test(s)
+				},
+			),
 			function propertyInvalidChars(value) {
 				assertEquals(isPostalCode(value), false)
 			},

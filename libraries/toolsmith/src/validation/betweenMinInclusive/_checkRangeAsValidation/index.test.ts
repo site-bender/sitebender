@@ -30,14 +30,20 @@ Deno.test("_checkRangeAsValidation returns failure when value is below min", fun
 	const result = _checkRangeAsValidation(1)(10)(0)
 
 	assert(isFailure(result))
-	assertEquals(result.errors[0].messages[0], "Value must be between 1 (inclusive) and 10 (exclusive)")
+	assertEquals(
+		result.errors[0].messages[0],
+		"Value must be between 1 (inclusive) and 10 (exclusive)",
+	)
 })
 
 Deno.test("_checkRangeAsValidation returns failure when value is above max", function () {
 	const result = _checkRangeAsValidation(1)(10)(11)
 
 	assert(isFailure(result))
-	assertEquals(result.errors[0].messages[0], "Value must be between 1 (inclusive) and 10 (exclusive)")
+	assertEquals(
+		result.errors[0].messages[0],
+		"Value must be between 1 (inclusive) and 10 (exclusive)",
+	)
 })
 
 Deno.test("_checkRangeAsValidation handles negative ranges", function () {

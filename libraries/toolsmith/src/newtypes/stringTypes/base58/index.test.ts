@@ -62,11 +62,15 @@ Deno.test("base58 returns Error for strings with invalid characters", function r
 })
 
 Deno.test("base58 - property: valid Base58 alphabet returns Ok", function propertyValidReturnsOk() {
-	const base58Alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+	const base58Alphabet =
+		"123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 
 	fc.assert(
 		fc.property(
-			fc.array(fc.constantFrom(...base58Alphabet.split("")), { minLength: 1, maxLength: 100 }),
+			fc.array(fc.constantFrom(...base58Alphabet.split("")), {
+				minLength: 1,
+				maxLength: 100,
+			}),
 			function propertyValidBase58(chars) {
 				const value = chars.join("")
 				const result = base58(value)
