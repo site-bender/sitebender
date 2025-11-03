@@ -21,7 +21,8 @@ export default function postalCode(
 			messages: ["The system needs a postal code with at least 3 characters."],
 			received: value,
 			expected: "3-10 characters (alphanumeric, spaces, hyphens)",
-			suggestion: "Provide a valid postal code like 'SW1A 1AA', 'K1A 0B1', or '10115'",
+			suggestion:
+				"Provide a valid postal code like 'SW1A 1AA', 'K1A 0B1', or '10115'",
 			severity: "requirement",
 		})
 	}
@@ -33,7 +34,8 @@ export default function postalCode(
 			messages: ["The system needs a postal code with at most 10 characters."],
 			received: value,
 			expected: "3-10 characters (alphanumeric, spaces, hyphens)",
-			suggestion: "Provide a valid postal code like 'SW1A 1AA', 'K1A 0B1', or '10115'",
+			suggestion:
+				"Provide a valid postal code like 'SW1A 1AA', 'K1A 0B1', or '10115'",
 			severity: "requirement",
 		})
 	}
@@ -45,10 +47,13 @@ export default function postalCode(
 		return error({
 			code: "POSTAL_CODE_INVALID_CHARACTERS",
 			field: "postalCode",
-			messages: ["The system needs a postal code with only letters, numbers, spaces, and hyphens."],
+			messages: [
+				"The system needs a postal code with only letters, numbers, spaces, and hyphens.",
+			],
 			received: value,
 			expected: "Alphanumeric characters with optional spaces and hyphens",
-			suggestion: "Provide a valid postal code using letters, numbers, spaces, and hyphens only",
+			suggestion:
+				"Provide a valid postal code using letters, numbers, spaces, and hyphens only",
 			severity: "requirement",
 		})
 	}

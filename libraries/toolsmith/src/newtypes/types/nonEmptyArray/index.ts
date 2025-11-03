@@ -15,10 +15,13 @@ export default function nonEmptyArray<T>(
 		return error({
 			code: "NON_EMPTY_ARRAY_EMPTY",
 			field: "nonEmptyArray",
-			messages: ["The system needs a non-empty array with at least one element."],
+			messages: [
+				"The system needs a non-empty array with at least one element.",
+			],
 			received: value,
 			expected: "Array with at least one element",
-			suggestion: "Provide an array with at least one item like [1] or ['a', 'b']",
+			suggestion:
+				"Provide an array with at least one item like [1] or ['a', 'b']",
 			constraints: { minLength: 1 },
 			severity: "requirement",
 		})
