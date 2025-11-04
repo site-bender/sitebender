@@ -1,4 +1,4 @@
-import isArray from "../../validation/isArray/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
 import isNotEmpty from "../isNotEmpty/index.ts"
 import _cycleRecursive from "./_cycleRecursive/index.ts"
 
@@ -6,8 +6,8 @@ import _cycleRecursive from "./_cycleRecursive/index.ts"
 export default function* cycle<T>(
 	array: ReadonlyArray<T> | null | undefined,
 ): Generator<T, void, unknown> {
-	if (isArray(array) && isNotEmpty(array)) {
+	if (isArray<T>(array) && isNotEmpty(array)) {
 		// deno-coverage-ignore - Coverage tool cannot track yield* delegation to recursive generator
-		yield* _cycleRecursive(array as ReadonlyArray<T>)
+		yield* _cycleRecursive(array)
 	}
 }
