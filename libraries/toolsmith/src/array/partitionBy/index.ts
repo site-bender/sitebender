@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Groups consecutive elements with same predicate result
 export default function partitionBy<T>(predicate: (value: T) => unknown) {

@@ -1,4 +1,4 @@
-import isNullish from "../../../validation/isNullish/index.ts"
+import isNullish from "../../../predicates/isNullish/index.ts"
 
 //-- [REFACTOR] Provide a concise description of this function here using Envoy description comment style
 const toLowerFirst = (

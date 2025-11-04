@@ -1,5 +1,5 @@
 import is from "../../validation/is/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Finds the last index of an item
 export default function lastIndexOf<T>(item: T) {
