@@ -1,3 +1,4 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
 
 export default function _validateStringAttribute(
@@ -6,7 +7,7 @@ export default function _validateStringAttribute(
 	return function _validateStringAttributeWithProp(
 		props: Readonly<Record<string, unknown>>,
 	): Readonly<Record<string, string>> {
-		if (prop in props) {
+		if (isDefined(props[prop])) {
 			const value = props[prop]
 
 			if (isString(value)) {

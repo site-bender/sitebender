@@ -1,28 +1,45 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import _cartesianProductArray from "./_cartesianProductArray/index.ts"
+import _cartesianProductToResult from "./_cartesianProductToResult/index.ts"
+import _cartesianProductToValidation from "./_cartesianProductToValidation/index.ts"
 
-//++ Generates all possible pairs from two arrays
+//++ Generates all possible pairs from two arrays (cartesian product)
 export default function cartesianProduct<T, U>(
-	array1: ReadonlyArray<T> | null | undefined,
+	array1: ReadonlyArray<T>,
 ) {
-	return function cartesianProductWithFirstArray(
-		array2: ReadonlyArray<U> | null | undefined,
-	): Array<[T, U]> {
-		if (
-			isNullish(array1) ||
-			!Array.isArray(array1) ||
-			array1.length === 0 ||
-			isNullish(array2) ||
-			!Array.isArray(array2) ||
-			array2.length === 0
-		) {
-			return []
-		}
+	function cartesianProductWithFirstArray(
+		array2: ReadonlyArray<U>,
+	): ReadonlyArray<[T, U]>
 
-		// Use flatMap for efficient generation
-		return array1.flatMap(function mapFirstElement(element1) {
-			return array2.map(function pairElements(element2) {
-				return [element1, element2] as [T, U]
-			})
-		})
+	function cartesianProductWithFirstArray(
+		array2: Result<ValidationError, ReadonlyArray<U>>,
+	): Result<ValidationError, ReadonlyArray<[T, U]>>
+
+	function cartesianProductWithFirstArray(
+		array2: Validation<ValidationError, ReadonlyArray<U>>,
+	): Validation<ValidationError, ReadonlyArray<[T, U]>>
+
+	function cartesianProductWithFirstArray(array2: unknown) {
+		if (isArray<U>(array2)) {
+			return _cartesianProductArray(array1)(array2)
+		}
+		if (isOk<ReadonlyArray<U>>(array2)) {
+			return chainResults(_cartesianProductToResult(array1))(array2)
+		}
+		if (isSuccess<ReadonlyArray<U>>(array2)) {
+			return chainValidations(_cartesianProductToValidation(array1))(array2)
+		}
+		return array2
 	}
+
+	return cartesianProductWithFirstArray
 }

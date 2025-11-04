@@ -1,3 +1,4 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import isPrintableCharacter from "@sitebender/toolsmith/predicates/isPrintableCharacter/index.ts"
 
 /*++
@@ -9,7 +10,7 @@ import isPrintableCharacter from "@sitebender/toolsmith/predicates/isPrintableCh
 export default function _validateAccesskey(
 	props: Readonly<Record<string, unknown>>,
 ): Readonly<Record<string, string>> {
-	if ("accesskey" in props) {
+	if (isDefined(props.accesskey)) {
 		const value = props.accesskey
 
 		if (isPrintableCharacter(value)) {
