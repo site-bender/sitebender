@@ -482,6 +482,50 @@ import isArray from "../../../predicates/isArray/index.ts"
 - `NTH_INDEX_OUT_OF_BOUNDS`
 - `FIND_ELEMENT_NOT_FOUND`
 
+## ⚠️ CRITICAL: Stack Safety Pattern
+
+**NEVER use recursion for array iteration in Toolsmith helper functions.**
+
+TypeScript/JavaScript does NOT have guaranteed tail call optimization. Recursive array functions will **blow the stack at ~10,000-15,000 elements**.
+
+### ✅ ALWAYS Use Loops in Helper Functions
+
+```typescript
+//++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
+//++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
+function _helperArray<T>(param) {
+  return function _helperArrayWithParam(array: ReadonlyArray<T>) {
+    const result: Array<T> = []
+
+    //++ [EXCEPTION] Loop with mutation of local array for performance
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index]
+      // Process element and accumulate in result
+    }
+
+    return result
+  }
+}
+```
+
+### Why Loops (Not Recursion) in Toolsmith
+
+1. **Stack Safety**: O(1) stack depth - handles 100,000+ element arrays
+2. **Performance**: 2-5x faster than recursion (no function call overhead)
+3. **Constitutional Exception**: Toolsmith explicitly allows loops for performance
+4. **Pragmatic**: TypeScript has no tail call optimization
+
+### Verified Examples
+
+See these Phase 1 implementations:
+- `reject/_rejectArray/index.ts` - Loop-based filter
+- `partition/_partitionArray/index.ts` - Loop-based split
+- `zip/_zipArray/index.ts` - Loop-based combiner
+
+**All Toolsmith array helper functions MUST use loops, not recursion.**
+
+---
+
 ## Constitutional Rules Compliance
 
 **Every function MUST follow:**
@@ -489,7 +533,7 @@ import isArray from "../../../predicates/isArray/index.ts"
 1. ✅ **Named functions only** - No arrow functions (except in type signatures)
 2. ✅ **Curried** - Each function takes exactly ONE parameter
 3. ✅ **Pure** - No mutations, no side effects (except documented IO boundaries)
-4. ✅ **No loops** - Use built-in .map/.reduce/.filter with `[EXCEPTION]` comment
+4. ✅ **Use loops for iteration** - Helper functions MUST use loops (not recursion) for stack safety
 5. ✅ **No exceptions** - Return Result/Validation, never throw
 6. ✅ **Immutable** - Use `ReadonlyArray<T>`, never mutate inputs
 7. ✅ **One function per file** - Each index.ts exports exactly one function
@@ -497,9 +541,15 @@ import isArray from "../../../predicates/isArray/index.ts"
 
 ## Permitted Exceptions
 
-**These built-in methods are permitted with `[EXCEPTION]` comment:**
+**These patterns are permitted with `[EXCEPTION]` comment:**
 
 ```typescript
+//++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
+//++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
+for (let index = 0; index < array.length; index++) {
+  // Loop with local mutation for stack safety
+}
+
 //++ [EXCEPTION] .map() permitted in Toolsmith for performance
 array.map(fn)
 
@@ -517,13 +567,17 @@ array[0]
 
 //++ [EXCEPTION] .length permitted in Toolsmith for performance
 array.length
+
+//++ [EXCEPTION] .push() on local array for performance
+localArray.push(element)
 ```
 
 **Why permitted:**
-- These are the foundational array operations
-- They're highly optimized in the JavaScript engine
-- Toolsmith wraps them to provide curried, monadic APIs
-- Reimplementing them would be slower and less reliable
+- **Loops**: Required for stack safety (prevent stack overflow on large arrays)
+- **Built-in methods**: Highly optimized in JavaScript engine
+- **Local mutations**: Safe when confined to function scope
+- **Toolsmith wraps** these operations to provide curried, monadic APIs
+- Reimplementing from scratch would be slower and less reliable
 
 ## Migration Checklist
 
