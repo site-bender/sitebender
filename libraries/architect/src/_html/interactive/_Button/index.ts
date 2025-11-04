@@ -1,5 +1,7 @@
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
+import _validateAttributes from "../../_validateAttributes/index.ts"
+import _validateRole from "../../_validateRole/index.ts"
 
 export type Props =
 	& BaseProps
@@ -11,12 +13,17 @@ export type Props =
  + HTML button element wrapper for interactive buttons
  */
 export default function _Button(props: Props): VirtualNode {
-	const children = props.children || []
+	const { children = [], role, ...attrs } = props
+	const roleAttrs = _validateRole("button")(role)
+	const attributes = {
+		..._validateAttributes("button")(attrs),
+		...roleAttrs,
+	}
 
 	return {
 		_tag: "element" as const,
 		tagName: "BUTTON",
-		attributes: {},
+		attributes,
 		children: children as ReadonlyArray<VirtualNode>,
 	}
 }

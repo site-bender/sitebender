@@ -1,4 +1,5 @@
 import generateShortId from "@sitebender/toolsmith/random/generateShortId/index.ts"
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
 /*++
  + Validates or generates ID attribute
@@ -9,7 +10,7 @@ import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
 export default function _validateIdAttribute(
 	props: Readonly<Record<string, unknown>>,
 ): Readonly<Record<string, string>> {
-	if ("id" in props) {
+	if (isDefined(props.id)) {
 		const value = props.id
 
 		if (isString(value)) {
