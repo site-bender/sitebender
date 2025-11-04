@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 import findLastIndex from "../findLastIndex/index.ts"
 import replaceAt from "../replaceAt/index.ts"
 
