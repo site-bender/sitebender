@@ -124,7 +124,15 @@ Deno.test("frequency with Result ok and empty array", function testFrequencyResu
 })
 
 Deno.test("frequency with Result error passes through", function testFrequencyResultError() {
-	const err = error({ code: "TEST_ERROR", message: "Test error" })
+	const err = error({
+		code: "UPSTREAM_ERROR",
+		field: "data",
+		messages: ["Upstream error occurred"],
+		received: "null",
+		expected: "Array",
+		suggestion: "Fix upstream issue",
+		severity: "requirement" as const,
+	})
 	const result = frequency<number>()(err)
 
 	assertEquals(result, err)
@@ -150,7 +158,15 @@ Deno.test("frequency with Validation success and empty array", function testFreq
 })
 
 Deno.test("frequency with Validation failure passes through", function testFrequencyValidationFailure() {
-	const fail = failure([{ code: "TEST_ERROR", message: "Test error" }])
+	const fail = failure([{
+		code: "UPSTREAM_VALIDATION_ERROR",
+		field: "data",
+		messages: ["Validation failed upstream"],
+		received: "null",
+		expected: "Array",
+		suggestion: "Fix validation issues",
+		severity: "requirement" as const,
+	}])
 	const result = frequency<number>()(fail)
 
 	assertEquals(result, fail)

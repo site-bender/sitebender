@@ -1,3 +1,4 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import isNumber from "@sitebender/toolsmith/predicates/isNumber/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
@@ -10,7 +11,7 @@ import or from "@sitebender/toolsmith/logic/or/index.ts"
 export default function _validateTabindex(
 	props: Readonly<Record<string, unknown>>,
 ): Readonly<Record<string, string>> {
-	if ("tabindex" in props) {
+	if (isDefined(props.tabindex)) {
 		const value = props.tabindex
 
 		if (or(isNumber(value))(isString(value))) {
