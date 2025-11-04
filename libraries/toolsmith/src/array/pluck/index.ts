@@ -1,5 +1,5 @@
 import isNotNullish from "../../validation/isNotNullish/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Extracts property values from objects
 const pluck = <T, K extends keyof T>(
