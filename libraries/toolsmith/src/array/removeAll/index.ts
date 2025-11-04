@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 import filter from "../filter/index.ts"
 
 //++ Removes all occurrences of a value
