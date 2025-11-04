@@ -1,5 +1,5 @@
 import pipe from "../../combinator/pipe/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 import insertAt from "../insertAt/index.ts"
 import removeAt from "../removeAt/index.ts"
 
