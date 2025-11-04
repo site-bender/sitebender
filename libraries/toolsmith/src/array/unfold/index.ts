@@ -1,5 +1,5 @@
-import isNull from "../../validation/isNull/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNull from "../../predicates/isNull/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Generates array from seed value
 export default function unfold<T, U>(

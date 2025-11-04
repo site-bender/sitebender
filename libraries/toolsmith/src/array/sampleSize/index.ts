@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Returns n random elements without replacement
 export default function sampleSize<T>(n: number) {
