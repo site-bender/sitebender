@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Flattens nested arrays to specified depth
 const flatten = <T, D extends number = 1>(

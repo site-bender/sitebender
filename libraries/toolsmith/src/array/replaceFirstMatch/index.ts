@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 import findIndex from "../findIndex/index.ts"
 
 //++ Replaces first string matching pattern
