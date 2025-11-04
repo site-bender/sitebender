@@ -42,6 +42,11 @@ export default function _validateGlobalAttributes(
 		..._validateEnumeratedAttribute("inert")(props),
 		..._validateEnumeratedAttribute("inputmode")(props),
 		..._validateStringAttribute("is")(props),
+		..._validateStringAttribute("itemid")(props),
+		..._validateStringAttribute("itemprop")(props),
+		..._validateStringAttribute("itemref")(props),
+		..._validateEnumeratedAttribute("itemscope")(props),
+		..._validateStringAttribute("itemtype")(props),
 		..._validateStringAttribute("lang")(props),
 		..._validateStringAttribute("nonce")(props),
 		..._validateStringAttribute("part")(props),
@@ -52,6 +57,7 @@ export default function _validateGlobalAttributes(
 		..._validateTabindex(props),
 		..._validateStringAttribute("title")(props),
 		..._validateYesNoOrBoolean("translate")(props),
+		..._validateEnumeratedAttribute("virtualkeyboardpolicy")(props),
 	}
 
 	function isNotGlobalAttribute(entry: readonly [string, unknown]): boolean {
