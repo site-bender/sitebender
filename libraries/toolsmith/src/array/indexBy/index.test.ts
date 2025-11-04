@@ -211,7 +211,15 @@ Deno.test("indexBy with Result ok and empty array", function testIndexByResultEm
 })
 
 Deno.test("indexBy with Result error passes through", function testIndexByResultError() {
-	const err = error({ code: "TEST_ERROR", message: "Test error" })
+	const err = error({
+		code: "UPSTREAM_ERROR",
+		field: "data",
+		messages: ["Upstream error occurred"],
+		received: "null",
+		expected: "Array",
+		suggestion: "Fix upstream issue",
+		severity: "requirement" as const,
+	})
 	const result = indexBy(function getId(x: number): string {
 		return String(x)
 	})(err)
@@ -251,7 +259,15 @@ Deno.test("indexBy with Validation success and empty array", function testIndexB
 })
 
 Deno.test("indexBy with Validation failure passes through", function testIndexByValidationFailure() {
-	const fail = failure([{ code: "TEST_ERROR", message: "Test error" }])
+	const fail = failure([{
+		code: "UPSTREAM_VALIDATION_ERROR",
+		field: "data",
+		messages: ["Validation failed upstream"],
+		received: "null",
+		expected: "Array",
+		suggestion: "Fix validation issues",
+		severity: "requirement" as const,
+	}])
 	const result = indexBy(function getId(x: number): string {
 		return String(x)
 	})(fail)
