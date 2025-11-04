@@ -3,6 +3,7 @@ import findIndex from "../../findIndex/index.ts"
 import slice from "../../slice/index.ts"
 
 //++ Private helper: takes from start while predicate is true (plain array)
+//++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
 export default function _takeWhileArray<T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) {
