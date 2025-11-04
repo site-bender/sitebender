@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Finds the last index matching a pattern
 export default function lastIndexOfMatch(pattern: RegExp | string) {

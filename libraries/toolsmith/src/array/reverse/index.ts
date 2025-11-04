@@ -1,5 +1,5 @@
 import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Reverses array order
 export default function reverse<T>(

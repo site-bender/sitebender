@@ -6,6 +6,10 @@ These rules are ALWAYS active and cannot be violated under ANY circumstances:
 
 **ABSOLUTELY MANDATORY: If you update a plan, change naming, etc., then YOU MUST UPDATE EVERY SINGLE DOCUMENT IN WHICH THE OLD NOW OUTDATED INFORMATION APPEARS TO REFLECT THE NEW STATUS. Do NOT put garbage in about "deprecated". JUST ELIMINATE INCORRECT DATA AND ADD FULL AND CORRECT NEW DATA. The documentation must ALWAYS reflect the CORRECT state of the design and architecture (the GOAL, but treat is as if complete). For the CURRENT state of implementation, we have PLANNING documents. These have checklists. THESE, TOO, MUST BE KEPT UP TO DATE AS YOU PROGRESS. YOU ARE NEVER FINISHED WITH ANY TASK UNTIL THE DOCUMENTATION IS UP TO DATE AND COMPLETELY CORRECT, including the checklists.**
 
+**CRITICAL REQUIREMENT**: I am sick to death with having to explain over and over again to every AI that a **curried function** is a function _that takes only one parameter._ It is **not** necessarily a function that returns another function. That is a **higher-order function**. Any function that takes only one parameter is **already curried**.
+
+If you are an AI, please **stop turning every single-parameter function you find into a thunk because _you do not have a clue what currying means_.** That most devs are similarly ignorant is no excuse.
+
 ### 1. No Classes - Use Pure Functions Only
 **Never use TypeScript classes.** Use modules with exported pure functions.
 - ❌ Wrong: `class UserService { private users = []; addUser() { this.users.push() } }`
