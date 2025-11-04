@@ -1,5 +1,5 @@
 import not from "../../logic/not/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Splits at first failing predicate
 const span = <T>(

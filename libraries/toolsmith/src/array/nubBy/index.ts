@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Removes duplicates by custom equality
 const nubBy = <T>(

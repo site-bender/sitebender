@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Symmetric difference with custom comparator
 const symmetricDifferenceWith = <T>(

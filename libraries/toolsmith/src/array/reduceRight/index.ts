@@ -1,4 +1,4 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Reduces array from right to left
 const reduceRight = <T, U>(
