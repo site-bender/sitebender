@@ -1,8 +1,8 @@
 //++ Finds the index of the first matching element
 export default function findIndex<T>(
-	predicate: (item: T, index: number, array: Array<T>) => boolean,
+	predicate: (item: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) {
-	return function findIndexWithPredicate(array: Array<T>): number {
+	return function findIndexWithPredicate(array: ReadonlyArray<T>): number {
 		/*++
 		 | [EXCEPTION] Using native findIndex for performance
 		 | No toolsmith alternative exists for finding index
