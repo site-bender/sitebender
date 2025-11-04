@@ -83,15 +83,6 @@ Deno.test("sliding with large step creates gaps", function testSlidingLargeStep(
 	assertEquals(result, [
 		[1, 2],
 		[4, 5],
-		[7, 8] ? [] : [[7, 8]],
-	].filter(function filterEmpty(x) {
-		return x.length > 0
-	}))
-
-	//++ Actually should be
-	assertEquals(result, [
-		[1, 2],
-		[4, 5],
 	])
 })
 

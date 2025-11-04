@@ -9,8 +9,8 @@ export default function _slidingToResult<T>(size: number) {
 		return function _slidingToResultWithStep(
 			array: ReadonlyArray<T>,
 		): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-			const windows = _slidingArray(size)(step)(array)
-			return ok(windows)
+			const windows = _slidingArray<T>(size)(step)(array)
+			return ok<ReadonlyArray<ReadonlyArray<T>>>(windows)
 		}
 	}
 }

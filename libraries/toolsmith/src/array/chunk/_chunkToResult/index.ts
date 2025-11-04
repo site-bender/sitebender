@@ -8,7 +8,7 @@ export default function _chunkToResult<T>(size: number) {
 	return function _chunkToResultWithSize(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-		const chunked = _chunkArray(size)(array)
-		return ok(chunked)
+		const chunked = _chunkArray<T>(size)(array)
+		return ok<ReadonlyArray<ReadonlyArray<T>>>(chunked)
 	}
 }

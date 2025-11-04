@@ -7,7 +7,7 @@ export default function _apertureToValidation<T>(width: number) {
 	return function _apertureToValidationWithWidth(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-		const windows = _apertureArray(width)(array)
-		return success(windows)
+		const windows = _apertureArray<T>(width)(array)
+		return success<ReadonlyArray<ReadonlyArray<T>>>(windows)
 	}
 }

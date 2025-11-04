@@ -8,8 +8,8 @@ export default function _slidingToValidation<T>(size: number) {
 		return function _slidingToValidationWithStep(
 			array: ReadonlyArray<T>,
 		): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-			const windows = _slidingArray(size)(step)(array)
-			return success(windows)
+			const windows = _slidingArray<T>(size)(step)(array)
+			return success<ReadonlyArray<ReadonlyArray<T>>>(windows)
 		}
 	}
 }

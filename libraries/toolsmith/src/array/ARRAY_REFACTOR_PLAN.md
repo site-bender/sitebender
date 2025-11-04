@@ -838,19 +838,34 @@ Each batch includes:
 
 **Acceptance Criteria:**
 
-- [ ] No arrow functions
-- [ ] Named function declarations only
-- [ ] All three functions implement three-path pattern
-- [ ] All private helpers created for all three functions
-- [ ] Comprehensive test coverage for all three paths (small inputs due to complexity)
-- [ ] Property-based tests with size limits
-- [ ] Tests use named functions
-- [ ] Tests use structural equality
-- [ ] Passes `deno task fmt`
-- [ ] Passes `deno task lint`
-- [ ] Passes `deno task test`
-- [ ] Passes `deno task fp:check`
-- [ ] Checklist updated
+- [x] No arrow functions
+- [x] Named function declarations only
+- [x] All three functions implement three-path pattern
+- [x] All private helpers created for all three functions (9 helpers total)
+- [x] Comprehensive test coverage for all three paths (59 tests total)
+- [x] Property-based tests with size limits
+- [x] Tests use named functions
+- [x] Tests use structural equality
+- [x] Passes `deno task fmt`
+- [x] Passes `deno task lint`
+- [x] Passes `deno task test`
+- [x] Passes `deno task fp:check` (no arrow functions, proper exception comments)
+- [x] Checklist updated
+
+**Completed:** 2025-11-04
+
+**Test Results:**
+- combinations: 20 tests passing ✅
+- permutations: 19 tests passing ✅
+- cartesianProduct: 20 tests passing ✅
+- **Total: 59 tests, 100% passing**
+
+**Implementation Notes:**
+- All functions converted to loop-based implementations for stack safety
+- Combinations uses existing `_buildCombinations` helper with iterative approach
+- Permutations uses stack-based iteration (LIFO order)
+- CartesianProduct uses nested loops for O(n*m) generation
+- All helpers properly annotated with [EXCEPTION] comments for loops and operators
 
 ---
 

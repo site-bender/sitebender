@@ -7,7 +7,7 @@ export default function _splitEveryToValidation<T>(chunkSize: number) {
 	return function _splitEveryToValidationWithSize(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-		const chunks = _splitEveryArray(chunkSize)(array)
-		return success(chunks)
+		const chunks = _splitEveryArray<T>(chunkSize)(array)
+		return success<ReadonlyArray<ReadonlyArray<T>>>(chunks)
 	}
 }

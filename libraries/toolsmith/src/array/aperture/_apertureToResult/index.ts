@@ -8,7 +8,7 @@ export default function _apertureToResult<T>(width: number) {
 	return function _apertureToResultWithWidth(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-		const windows = _apertureArray(width)(array)
-		return ok(windows)
+		const windows = _apertureArray<T>(width)(array)
+		return ok<ReadonlyArray<ReadonlyArray<T>>>(windows)
 	}
 }

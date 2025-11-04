@@ -8,7 +8,7 @@ export default function _splitEveryToResult<T>(chunkSize: number) {
 	return function _splitEveryToResultWithSize(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-		const chunks = _splitEveryArray(chunkSize)(array)
-		return ok(chunks)
+		const chunks = _splitEveryArray<T>(chunkSize)(array)
+		return ok<ReadonlyArray<ReadonlyArray<T>>>(chunks)
 	}
 }
