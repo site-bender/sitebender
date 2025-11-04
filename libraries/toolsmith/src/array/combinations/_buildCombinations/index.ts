@@ -1,17 +1,16 @@
-import isEqual from "../../../validation/isEqual/index.ts"
-import length from "../../length/index.ts"
-
 //++ Builds k-element combinations from an array using iteration (private)
 export default function _buildCombinations<T>(
 	elements: ReadonlyArray<T>,
 	k: number,
 	startIndex: number,
 ): Array<Array<T>> {
-	if (isEqual(k)(0)) {
+	//++ [EXCEPTION] Using === operator for primitive number comparison
+	if (k === 0) {
 		return [[]]
 	}
 
-	const n = length(elements)
+	//++ [EXCEPTION] Using .length property for array length
+	const n = elements.length
 	const result: Array<Array<T>> = []
 
 	/*++
@@ -23,10 +22,11 @@ export default function _buildCombinations<T>(
 	// Stack to simulate recursion: [current combination, next index, remaining size]
 	const stack: Array<[Array<T>, number, number]> = [[[], startIndex, k]]
 
+	//++ [EXCEPTION] Using .length property and comparison operators
 	while (stack.length > 0) {
 		const [combo, index, remaining] = stack.pop()!
 
-		if (isEqual(remaining)(0)) {
+		if (remaining === 0) {
 			result.push(combo)
 			continue
 		}

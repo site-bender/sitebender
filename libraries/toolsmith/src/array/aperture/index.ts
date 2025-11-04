@@ -1,24 +1,51 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import _apertureArray from "./_apertureArray/index.ts"
+import _apertureToResult from "./_apertureToResult/index.ts"
+import _apertureToValidation from "./_apertureToValidation/index.ts"
 
 //++ Creates sliding windows of consecutive elements
+//++ Pattern: three-path overloaded function for plain arrays, Result monads, and Validation monads
 export default function aperture<T>(width: number) {
-	return function apertureWithWidth(
-		array: ReadonlyArray<T> | null | undefined,
-	): Array<Array<T>> {
-		if (isNullish(array) || !Array.isArray(array)) {
-			return []
+	//++ [OVERLOAD 1] Plain array path
+	function apertureWithWidth(
+		array: ReadonlyArray<T>,
+	): ReadonlyArray<ReadonlyArray<T>>
+
+	//++ [OVERLOAD 2] Result monad path (fail-fast error handling)
+	function apertureWithWidth(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+
+	//++ [OVERLOAD 3] Validation monad path (accumulate errors)
+	function apertureWithWidth(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+
+	//++ Implementation with type dispatch
+	function apertureWithWidth(array: unknown) {
+		if (isArray<T>(array)) {
+			return _apertureArray(width)(array)
 		}
 
-		if (width <= 0 || width > array.length) {
-			return []
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_apertureToResult(width))(array)
 		}
 
-		// Create sliding window of size width using functional approach
-		return Array.from(
-			{ length: array.length - width + 1 },
-			function createWindow(_, i) {
-				return array.slice(i, i + width)
-			},
-		)
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_apertureToValidation(width))(array)
+		}
+
+		return array
 	}
+
+	return apertureWithWidth
 }
