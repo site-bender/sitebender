@@ -1,28 +1,43 @@
-import gte from "../../validation/gte/index.ts"
-import isArray from "../../validation/isArray/index.ts"
-import isEqual from "../../validation/isEqual/index.ts"
-import isInteger from "../../validation/isInteger/index.ts"
-import lte from "../../validation/lte/index.ts"
-import length from "../length/index.ts"
-import _buildCombinations from "./_buildCombinations/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import _combinationsArray from "./_combinationsArray/index.ts"
+import _combinationsToResult from "./_combinationsToResult/index.ts"
+import _combinationsToValidation from "./_combinationsToValidation/index.ts"
 
-//++ Generates all k-element combinations
+//++ Generates all k-element combinations from an array
 export default function combinations<T>(k: number) {
-	return function combinationsWithK(
-		array: ReadonlyArray<T> | null | undefined,
-	): Array<Array<T>> {
-		if (isEqual(k)(0)) {
-			return [[]]
+	function combinationsWithK(
+		array: ReadonlyArray<T>,
+	): ReadonlyArray<ReadonlyArray<T>>
+
+	function combinationsWithK(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+
+	function combinationsWithK(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+
+	function combinationsWithK(array: unknown) {
+		if (isArray<T>(array)) {
+			return _combinationsArray(k)(array)
 		}
-
-		if (isArray(array) && isInteger(k) && gte(0)(k) && lte(k)(length(array))) {
-			if (isEqual(k)(length(array))) {
-				return [[...array]]
-			}
-
-			return _buildCombinations(array, k, 0) as Array<Array<T>>
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_combinationsToResult(k))(array)
 		}
-
-		return []
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_combinationsToValidation(k))(array)
+		}
+		return array
 	}
+
+	return combinationsWithK
 }
