@@ -1,43 +1,53 @@
-import isNullish from "../../validation/isNullish/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import _slidingArray from "./_slidingArray/index.ts"
+import _slidingToResult from "./_slidingToResult/index.ts"
+import _slidingToValidation from "./_slidingToValidation/index.ts"
 
-//++ Creates sliding windows over array
-const sliding = <T>(
-	size: number,
-) =>
-(
-	step: number = 1,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<Array<T>> => {
-	if (isNullish(array) || array.length === 0) {
-		return []
-	}
+//++ Creates sliding windows over array with configurable size and step
+//++ Pattern: three-path overloaded function for plain arrays, Result monads, and Validation monads
+export default function sliding<T>(size: number) {
+	return function slidingWithSize(step: number) {
+		//++ [OVERLOAD 1] Plain array path
+		function slidingWithStep(
+			array: ReadonlyArray<T>,
+		): ReadonlyArray<ReadonlyArray<T>>
 
-	if (
-		size <= 0 || step <= 0 || !Number.isInteger(size) ||
-		!Number.isInteger(step)
-	) {
-		return []
-	}
+		//++ [OVERLOAD 2] Result monad path (fail-fast error handling)
+		function slidingWithStep(
+			array: Result<ValidationError, ReadonlyArray<T>>,
+		): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
 
-	if (array.length < size) {
-		return []
-	}
+		//++ [OVERLOAD 3] Validation monad path (accumulate errors)
+		function slidingWithStep(
+			array: Validation<ValidationError, ReadonlyArray<T>>,
+		): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
 
-	// Build windows using recursion
-	const slideRecursive = (startIndex: number): Array<Array<T>> => {
-		if (startIndex + size > array.length) {
-			return []
+		//++ Implementation with type dispatch
+		function slidingWithStep(array: unknown) {
+			if (isArray<T>(array)) {
+				return _slidingArray(size)(step)(array)
+			}
+
+			if (isOk<ReadonlyArray<T>>(array)) {
+				return chainResults(_slidingToResult(size)(step))(array)
+			}
+
+			if (isSuccess<ReadonlyArray<T>>(array)) {
+				return chainValidations(_slidingToValidation(size)(step))(array)
+			}
+
+			return array
 		}
 
-		const window = array.slice(startIndex, startIndex + size)
-		const nextIndex = startIndex + step
-
-		return [window, ...slideRecursive(nextIndex)]
+		return slidingWithStep
 	}
-
-	return slideRecursive(0)
 }
-
-export default sliding
