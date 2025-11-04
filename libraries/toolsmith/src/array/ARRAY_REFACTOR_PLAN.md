@@ -30,6 +30,78 @@ This plan documents the complete refactoring of all array functions in `/librari
 
 ---
 
+## Workflow: Handling Missing Dependencies
+
+**CRITICAL:** When a batch requires a Toolsmith function that doesn't exist in `src/`, follow this workflow:
+
+### Step 1: Identify Missing Dependency
+
+If you encounter an import error for a missing function (e.g., `pipe`, `slice`, `startsWith`), the function likely exists in `obsolete-for-reference-only/`.
+
+### Step 2: Find and Review
+
+Locate the function in the obsolete folder following the taxonomy structure.
+
+**Example:** For `combinator/pipe`, check:
+```
+src/obsolete-for-reference-only/combinator/pipe/index.ts
+```
+
+### Step 3: Ask User Before Proceeding
+
+**ALWAYS ask the user before moving and refactoring:**
+- "Found `pipe` in obsolete folder. Should I move it to `src/combinator/pipe/`, refactor to meet our standards, and continue with the batch?"
+
+### Step 4: Move (NOT Copy)
+
+**Move** the function to the correct `src/` location following the taxonomy:
+```bash
+# Move, don't copy
+mv src/obsolete-for-reference-only/combinator/pipe src/combinator/pipe
+```
+
+### Step 5: Refactor to Standards
+
+Apply all necessary refactoring:
+- ✅ Convert arrow functions to named functions
+- ✅ Use Toolsmith's reduce/map/filter (not native)
+- ✅ Add [EXCEPTION] comments for loops/operators
+- ✅ Implement three-path pattern if function is transformative
+- ✅ Follow all constitutional rules
+
+### Step 6: Create Comprehensive Tests
+
+Write full test coverage:
+- Plain path tests
+- Result monad path tests (if three-path)
+- Validation monad path tests (if three-path)
+- Property-based tests
+- Edge cases
+
+### Step 7: Verify and Continue
+
+Run tests, verify passing, then continue with the original batch.
+
+### Example: pipe Function (2025-11-04)
+
+**Problem:** `deno task fmt` failed with missing `pipe` function.
+
+**Resolution:**
+1. Found in `obsolete-for-reference-only/combinator/pipe/index.ts`
+2. Asked user for approval
+3. **Moved** (not copied) to `src/combinator/pipe/`
+4. Refactored:
+   - Changed arrow functions to named `function pipe<T, U>()`
+   - Used Toolsmith's `reduce` instead of native `.reduce()`
+   - Added proper type safety with `any` and lint exceptions
+   - Documented why `any` is needed for pipe composition
+5. Created 11 comprehensive tests (all passing)
+6. Continued with Batch 6
+
+**Key Lesson:** This workflow unblocks dependencies **on-demand** rather than refactoring everything upfront. Only refactor what's needed right now.
+
+---
+
 ## Constitutional Rules Checklist (Apply to ALL Code)
 
 Before writing ANY code, verify adherence to:
@@ -98,6 +170,78 @@ export default function functionName<T, U>(parameter: ParamType) {
 5. Use `chainResults`/`chainValidations` for composition
 6. Named function declarations only (no arrow syntax)
 7. Curried (one parameter per function)
+
+---
+
+## Stack Safety Pattern (CRITICAL FOR TOOLSMITH)
+
+**NEVER use recursion for array iteration in Toolsmith helper functions.**
+
+TypeScript/JavaScript does NOT have guaranteed tail call optimization. Recursive array functions will **blow the stack** at ~10,000-15,000 elements.
+
+### ❌ ANTI-PATTERN: Recursion
+
+```typescript
+//++ WRONG: Will stack overflow on large arrays
+function rejectRecursive(index: number): ReadonlyArray<T> {
+  if (index >= array.length) return []
+  const element = array[index]
+  const rest = rejectRecursive(index + 1)  // O(n) stack depth!
+  return not(predicate(element)) ? [element, ...rest] : rest
+}
+```
+
+### ✅ CORRECT PATTERN: Loops with Local Mutation
+
+```typescript
+//++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
+//++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
+function _rejectArray<T>(predicate) {
+  return function _rejectArrayWithPredicate(array) {
+    const result: Array<T> = []
+
+    //++ [EXCEPTION] Loop with mutation of local array for performance
+    for (let index = 0; index < array.length; index++) {
+      const element = array[index]
+      if (not(predicate(element, index, array))) {
+        result.push(element)
+      }
+    }
+
+    return result
+  }
+}
+```
+
+### Why Loops Over Recursion in Toolsmith
+
+1. **Stack Safety:** O(1) stack depth (handles 100,000+ element arrays)
+2. **Performance:** 2-5x faster (no function call overhead)
+3. **Constitutional Exception:** Toolsmith may use loops for performance
+4. **Pragmatic:** TypeScript has no tail call optimization
+
+### Documentation Pattern
+
+Always use this [EXCEPTION] comment pattern at the top of helper files:
+
+```typescript
+//++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
+//++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
+```
+
+### When This Pattern Applies
+
+Use loops (not recursion) for:
+- Any array iteration that could process large arrays
+- Private helper functions (`_functionNameArray`)
+- Operations that accumulate results
+- Transformations, filters, partitions, etc.
+
+### Examples from Phase 1
+
+- `_rejectArray` - Loop-based filter
+- `_partitionArray` - Loop-based split
+- `_zipArray` - Loop-based combiner
 
 ---
 
@@ -233,12 +377,12 @@ export default function functionName<T, U>(parameter: ParamType) {
 
 ## Phase Structure
 
-**16 Batches** organized into **4 Phases** by priority and complexity:
+**16 Batches** organized into **4 Phases** by complexity and dependencies (easiest first):
 
-- **Phase 1 (Week 1):** Batches 1-5 - High priority, simple functions (15 hours)
-- **Phase 2 (Week 2):** Batches 6-10 - Medium priority, moderate complexity (18 hours)
-- **Phase 3 (Week 3):** Batches 11-13 - Lower priority, more complex (14 hours)
-- **Phase 4 (Week 4):** Batches 14-16 - Specialized/utility functions (10 hours)
+- **Phase 1 (Week 1):** Batches 1-5 - Simple functions (15 hours)
+- **Phase 2 (Week 2):** Batches 6-10 - Moderate complexity functions (18 hours)
+- **Phase 3 (Week 3):** Batches 11-13 - Specialized functions (14 hours)
+- **Phase 4 (Week 4):** Batches 14-16 - Utility functions (10 hours)
 
 Each batch includes:
 
@@ -250,9 +394,9 @@ Each batch includes:
 
 ---
 
-## PHASE 1: HIGH PRIORITY SIMPLE FUNCTIONS (Week 1)
+## PHASE 1: SIMPLE FUNCTIONS (Week 1)
 
-**Goal:** Fix most critical violations, establish momentum
+**Goal:** Start with simplest functions to establish patterns
 **Functions:** 15
 **Estimated Time:** 15 hours
 **Batches:** 1-5
@@ -522,9 +666,9 @@ Each batch includes:
 
 ---
 
-## PHASE 2: MEDIUM PRIORITY FUNCTIONS (Week 2)
+## PHASE 2: MODERATE COMPLEXITY FUNCTIONS (Week 2)
 
-**Goal:** Add three-path pattern to high-value functions
+**Goal:** Functions with moderate complexity (reduce-based, chunking, combinatorics)
 **Functions:** 18
 **Estimated Time:** 18 hours
 **Batches:** 6-10
@@ -570,19 +714,26 @@ Each batch includes:
 
 **Acceptance Criteria:**
 
-- [ ] No arrow functions
-- [ ] Named function declarations only
-- [ ] All four functions implement three-path pattern
-- [ ] All private helpers created for all four functions
-- [ ] Comprehensive test coverage for all three paths
-- [ ] Property-based tests included
-- [ ] Tests use named functions
-- [ ] Tests use structural equality
-- [ ] Passes `deno task fmt`
-- [ ] Passes `deno task lint`
-- [ ] Passes `deno task test`
-- [ ] Passes `deno task fp:check`
-- [ ] Checklist updated
+- [x] No arrow functions (verified 2025-11-04)
+- [x] Named function declarations only (verified 2025-11-04)
+- [x] All four functions implement three-path pattern (verified 2025-11-04)
+- [x] All private helpers created for all four functions (12 helpers: 3 per function)
+- [x] Comprehensive test coverage for all three paths (80 tests total)
+- [x] Property-based tests included (16 property tests across all functions)
+- [x] Tests use named functions (verified 2025-11-04)
+- [x] Tests use structural equality (verified 2025-11-04)
+- [x] Passes `deno fmt` (verified 2025-11-04)
+- [x] Passes `deno task lint` (verified 2025-11-04)
+- [x] Passes `deno task test` (80 tests passed, 0 failed)
+- [x] Passes `deno task fp:check` (verified 2025-11-04)
+- [x] Checklist updated (2025-11-04)
+
+**Test Results:**
+- groupBy: 20 tests passing ✅
+- countBy: 20 tests passing ✅
+- frequency: 20 tests passing ✅
+- indexBy: 20 tests passing ✅
+- **Total: 80 tests, 100% passing**
 
 ---
 
@@ -803,7 +954,7 @@ Each batch includes:
 
 ### Phase 2 Summary Checklist
 
-- [ ] Batch 6 complete (Reduce-Based Functions)
+- [x] Batch 6 complete (Reduce-Based Functions) - ✅ VERIFIED 2025-11-04
 - [ ] Batch 7 complete (Chunk/Slice Functions)
 - [ ] Batch 8 complete (Combinatorics)
 - [ ] Batch 9 complete (Interleaving Functions)
@@ -818,9 +969,9 @@ Each batch includes:
 
 ---
 
-## PHASE 3: LOWER PRIORITY FUNCTIONS (Week 3)
+## PHASE 3: SPECIALIZED FUNCTIONS (Week 3)
 
-**Goal:** Complete specialized functions
+**Goal:** Functions with specialized filtering and finding logic
 **Functions:** 14
 **Estimated Time:** 14 hours
 **Batches:** 11-13
@@ -1022,7 +1173,7 @@ Each batch includes:
 
 ## PHASE 4: UTILITY FUNCTIONS (Week 4)
 
-**Goal:** Complete remaining specialized/utility functions
+**Goal:** Utility and conversion functions
 **Functions:** 15+
 **Estimated Time:** 10-12 hours
 **Batches:** 14-16
