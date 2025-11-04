@@ -40,6 +40,7 @@ export type InputModeType =
 export type PopoverType = "" | "auto" | "manual"
 export type SpellcheckType = TrueFalse
 export type TrueFalse = "true" | "false"
+export type VirtualkeyboardpolicyType = "auto" | "manual"
 export type YesNo = "yes" | "no"
 
 /*++
@@ -59,6 +60,11 @@ export type GlobalAttributes = Readonly<{
 	inert?: ""
 	inputmode?: InputModeType
 	is?: string
+	itemid?: string
+	itemprop?: string
+	itemref?: string
+	itemscope?: ""
+	itemtype?: string
 	lang?: string
 	nonce?: string
 	part?: string
@@ -69,6 +75,7 @@ export type GlobalAttributes = Readonly<{
 	tabindex?: string
 	title?: string
 	translate?: YesNo
+	virtualkeyboardpolicy?: VirtualkeyboardpolicyType
 	[key: string]: unknown // Allow data-*, aria-*, and role attributes
 }>
 
