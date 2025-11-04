@@ -1,5 +1,5 @@
 import is from "../../validation/is/index.ts"
-import isNullish from "../../validation/isNullish/index.ts"
+import isNullish from "../../predicates/isNullish/index.ts"
 
 //++ Checks if array starts with prefix
 export default function startsWith<T>(
