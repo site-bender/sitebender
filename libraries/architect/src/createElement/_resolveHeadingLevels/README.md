@@ -4,7 +4,7 @@ Post-processing function that resolves context-aware heading placeholders (`<Hn>
 
 ## Purpose
 
-The `_Hn` component generates `tagName: "HN"` placeholders that are resolved during a post-processing pass. This allows semantic components (Essay, Article, Tutorial, etc.) to use `<Hn>` without knowing their nesting depth in advance.
+The `_Hn` component generates `tagName: "HEADING"` placeholders that are resolved during a post-processing pass. This allows semantic components (Essay, Article, Tutorial, etc.) to use `<Hn>` without knowing their nesting depth in advance.
 
 ## Usage
 
@@ -17,7 +17,7 @@ import _Article from "@sitebender/architect/_html/sectioning/_Article/index.ts"
 import _Section from "@sitebender/architect/_html/sectioning/_Section/index.ts"
 import _Hn from "@sitebender/architect/_html/heading/_Hn/index.ts"
 
-// Create VirtualNode tree with HN placeholders
+// Create VirtualNode tree with HEADING placeholders
 const tree = _Article({
   children: [
     _Hn({ children: [{ _tag: "text", content: "Article Title" }] }),
@@ -29,7 +29,7 @@ const tree = _Article({
   ],
 })
 
-// Resolve all HN placeholders to actual heading levels
+// Resolve all HEADING placeholders to actual heading levels
 const resolved = _resolveHeadingLevels(tree)(0)
 
 // Result:
@@ -77,9 +77,9 @@ The following HTML elements increase heading depth:
 
 ### Depth Calculation
 
-- **Root level** (depth 0): HN → H1
-- **Inside one sectioning element** (depth 1): HN → H2
-- **Inside nested sectioning** (depth 2): HN → H3
+- **Root level** (depth 0): HEADING → H1
+- **Inside one sectioning element** (depth 1): HEADING → H2
+- **Inside nested sectioning** (depth 2): HEADING → H3
 - And so on...
 
 ### Capping and Warnings
@@ -154,7 +154,7 @@ function renderToHtml(component: Component) {
 
 JSX compilation is **bottom-up** (children evaluate before parents). When `<Hn>` is created, its ancestors don't exist yet, so it can't know its depth.
 
-Post-processing walks the tree **top-down**, tracking depth as it descends, and resolves all HN placeholders based on accumulated context.
+Post-processing walks the tree **top-down**, tracking depth as it descends, and resolves all HEADING placeholders based on accumulated context.
 
 ### Performance
 
@@ -174,9 +174,9 @@ Post-processing walks the tree **top-down**, tracking depth as it descends, and 
 ## Testing
 
 Comprehensive test coverage in `index.test.ts`:
-- Root level resolution (H1)
-- Single sectioning (H2)
-- Nested sectioning (H3, H4, etc.)
+- Root level resolution (HEADING → H1)
+- Single sectioning (HEADING → H2)
+- Nested sectioning (HEADING → H3, H4, etc.)
 - Deep nesting with capping (H6 max)
 - Excessive nesting warnings
 - Attribute preservation
@@ -196,12 +196,12 @@ function _resolveHeadingLevels(vnode: VirtualNode): (sectionDepth?: number) => V
 
 ### Parameters
 
-- **vnode**: VirtualNode tree (may contain HN placeholders)
+- **vnode**: VirtualNode tree (may contain HEADING placeholders)
 - **sectionDepth**: Current nesting depth (default: 0)
 
 ### Returns
 
-New VirtualNode tree with all HN elements resolved to H1-H6.
+New VirtualNode tree with all HEADING elements resolved to H1-H6.
 
 ### Constants
 
