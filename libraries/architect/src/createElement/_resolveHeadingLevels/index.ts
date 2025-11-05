@@ -27,12 +27,12 @@ const MAX_HEADING_LEVEL = 6
 const MIN_PRACTICAL_LEVEL = 3
 
 /*++
- + Resolves context-aware headings (HN) to actual heading levels (H1-H6)
+ + Resolves context-aware headings (HEADING) to actual heading levels (H1-H6)
  + based on sectioning element nesting depth
  +
  + Walks VirtualNode tree top-down, tracking sectioning depth:
  + - Article/Section/Aside/Nav increase depth by 1
- + - HN elements are resolved to H{depth+1}
+ + - HEADING elements are resolved to H{depth+1}
  + - Capped at H6 (HTML max) and warned if exceeds practical depth
  +
  + Called automatically after VirtualNode tree creation
@@ -62,9 +62,9 @@ export default function _resolveHeadingLevels(vnode: VirtualNode) {
 		const newDepth = isSectioningElement ? sectionDepth + 1 : sectionDepth
 
 		/*++
-		 + Process HN placeholder elements
+		 + Process HEADING placeholder elements
 		 */
-		if (vnode.tagName === "HN") {
+		if (vnode.tagName === "HEADING") {
 			/*++
 			 + Calculate heading level: depth + 1
 			 + - At root (depth 0): H1
@@ -86,7 +86,7 @@ export default function _resolveHeadingLevels(vnode: VirtualNode) {
 			const level = min(calculatedLevel)(MAX_HEADING_LEVEL)
 
 			/*++
-			 + Resolve HN → actual heading level
+			 + Resolve HEADING → actual heading level
 			 + Add warning attribute if excessive nesting detected
 			 */
 			/*++
