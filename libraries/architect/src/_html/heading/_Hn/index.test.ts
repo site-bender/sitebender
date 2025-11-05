@@ -14,13 +14,13 @@ Deno.test("_Hn component", async function hnTests(t) {
 	)
 
 	await t.step(
-		"generates HN placeholder tag",
-		function generatesHnPlaceholder() {
+		"generates HEADING placeholder tag",
+		function generatesHeadingPlaceholder() {
 			const component = _Hn({})
 
 			assertEquals(component._tag, "element")
 			if (component._tag === "element") {
-				assertEquals(component.tagName, "HN")
+				assertEquals(component.tagName, "HEADING")
 			}
 		},
 	)
