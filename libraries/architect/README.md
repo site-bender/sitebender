@@ -52,7 +52,7 @@ You can import typed elements explicitly for immediate IDE feedback, or let the 
 
 Following HTML's philosophy of "be liberal in what you accept," Architect handles unknown attributes and invalid nesting gracefully while preserving user intent.
 
-**Unknown attributes** get prefixed with `data-x-` and preserved. This permits users to include custom data attributes easily:
+**Unknown attributes** get prefixed with `data-` and preserved. This permits users to include custom data attributes easily:
 
 ```tsx
 <Essay customId="my-essay" trackingCode="analytics-123">
@@ -63,8 +63,8 @@ Following HTML's philosophy of "be liberal in what you accept," Architect handle
 
 // Becomes:
 <article class="essay"
-         data-x-custom-id="my-essay"
-         data-x-tracking-code="analytics-123">
+         data-custom-id="my-essay"
+         data-tracking-code="analytics-123">
   <h1>My Great Essay</h1>
 </article>
 ```
@@ -82,7 +82,7 @@ This makes unknown attributes accessible to CSS selectors and JavaScript without
 <h1>
   <span data-replaces="button"
         data-reason="Interactive elements not allowed in headings"
-        data-x-original-type="button">
+        data-original-type="button">
     Invalid button in heading
   </span>
 </h1>
