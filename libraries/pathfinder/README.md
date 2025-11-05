@@ -14,6 +14,7 @@ Pathfinder is Studio's **data infrastructure layer**—the single source of trut
 - **Vector similarity search** - Qdrant integration for semantic search
 - **Ontology inference** - RDFS/OWL reasoning makes implicit knowledge explicit
 - **Observability ingestion** - Prometheus metrics, logs, traces → searchable triples
+- **ISO/IEC 11179 Metadata Registry** - Standards-compliant metadata management for data elements
 
 **Critical architectural role:** All libraries that need to persist or query RDF triples depend on Pathfinder. This ensures a single database connection, consistent transaction handling, and no duplication of storage logic.
 
@@ -33,7 +34,51 @@ Traditional databases answer questions you already know how to ask. Pathfinder h
 
 ## Revolutionary Features
 
-### 1. Hybrid Search (Graph + Vector)
+### 1. ISO/IEC 11179 Metadata Registry
+
+**Standards-compliant metadata management** for Sitebender's data-as-configuration architecture.
+
+Sitebender's JSX → IR → Turtle → Triple Store pipeline naturally implements ISO/IEC 11179 concepts:
+
+- **Data Elements**: Form field components define structured data with semantic meaning
+- **Value Domains**: Type constraints + validation rules specify permissible values
+- **Conceptual Domains**: Branded types (EmailAddress, Isbn13, IPv4Address) represent semantic concepts
+- **Metadata Registry**: Pathfinder's triple store stores and queries all metadata via SPARQL
+
+**Benefits**:
+
+```typescript
+import { queryDataElements } from "@sitebender/pathfinder/iso11179/index.ts"
+
+// Find all fields with email-related concepts
+const emailFields = await queryDataElements({
+	sparql: `
+    SELECT ?element ?name WHERE {
+      ?element a mdr:DataElement ;
+               mdr:name ?name ;
+               mdr:hasValueDomain ?vd .
+      ?vd mdr:datatype "EmailAddress" .
+    }
+  `,
+})
+
+// Find all derived/calculated fields
+const derivedFields = await queryDataElements({
+	sparql: `
+    SELECT ?element ?sources ?formula WHERE {
+      ?element mdr:derivedFrom ?sources ;
+               mdr:derivationRule ?rule .
+      ?rule mdr:formula ?formula .
+    }
+  `,
+})
+```
+
+**Interoperability**: Import data element definitions from healthcare (HL7 FHIR), government (data.gov), and enterprise (Collibra, Alation) systems. Export Sitebender metadata to external registries.
+
+**Documentation**: See [`ISO_IEC_11179_ALIGNMENT.md`](./ISO_IEC_11179_ALIGNMENT.md) for comprehensive alignment guide.
+
+### 2. Hybrid Search (Graph + Vector)
 
 Combine SPARQL's precise graph traversal with vector search's semantic fuzziness:
 
@@ -64,7 +109,7 @@ const results = await hybridSearch({
 - Vector search ranks by meaning (conceptual similarity)
 - Results combine the precision of graphs with the flexibility of embeddings
 
-### 2. Ontology Inference Engine
+### 3. Ontology Inference Engine
 
 Turn implicit knowledge into explicit triples automatically:
 
@@ -93,7 +138,7 @@ const inferred = await inferTriples({
 - Constraint validation (OWL cardinality, domain/range checking)
 - Query simplification (query for `CreativeWork`, get all `Recipe` results automatically)
 
-### 3. Observability as Triples
+### 4. Observability as Triples
 
 Production metrics become queryable knowledge:
 
@@ -126,7 +171,7 @@ const slowEndpoints = await query(`
 - Time-travel debugging (triples are immutable)
 - Semantic alerts (query ontology for "critical path violations")
 
-### 4. Query-as-Data (Meta-Querying)
+### 5. Query-as-Data (Meta-Querying)
 
 Store queries as triples, then query your queries:
 
