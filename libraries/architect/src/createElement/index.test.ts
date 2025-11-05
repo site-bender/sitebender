@@ -1,6 +1,9 @@
 import { assertEquals } from "@std/assert"
 import * as fc from "https://esm.sh/fast-check@4.1.1"
 
+import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import range from "@sitebender/toolsmith/array/range/index.ts"
+
 import createElement from "./index.ts"
 import type { Props, VirtualNode } from "../types/index.ts"
 
@@ -305,24 +308,35 @@ Deno.test("createElement - property: deeply nested elements", function deeplyNes
 		fc.property(
 			fc.integer({ min: 0, max: 5 }),
 			function propertyNestedElements(depth) {
-				let element = createElement("span")(null)(["Leaf"])
+				/*++
+				 + Build nested structure using reduce instead of for loop
+				 + Starts with span element, wraps in divs based on depth
+				 */
+				const baseElement = createElement("span")(null)(["Leaf"])
 
-				for (let i = 0; i < depth; i++) {
-					element = createElement("div")(null)([element])
+				function nestElement(accumulator: VirtualNode, _: number): VirtualNode {
+					return createElement("div")(null)([accumulator])
 				}
+
+				const element = reduce(nestElement)(baseElement)(range(0)(depth))
 
 				assertEquals(element._tag, "element")
 				if (element._tag === "element") {
 					// When depth is 0, element is SPAN; when depth > 0, it's DIV
 					assertEquals(element.tagName, depth === 0 ? "SPAN" : "DIV")
 
-					let current = element
-					for (let i = 0; i < depth; i++) {
-						assertEquals(current._tag, "element")
-						if (i < depth - 1 && current._tag === "element") {
-							current = current.children[0] as VirtualNode
+					/*++
+					 + Verify nested structure using recursion instead of for loop
+					 + Traverses depth levels checking element tags
+					 */
+					function verifyDepth(node: VirtualNode, remaining: number): void {
+						assertEquals(node._tag, "element")
+						if (remaining > 0 && node._tag === "element") {
+							verifyDepth(node.children[0] as VirtualNode, remaining - 1)
 						}
 					}
+
+					verifyDepth(element, depth)
 				}
 			},
 		),
