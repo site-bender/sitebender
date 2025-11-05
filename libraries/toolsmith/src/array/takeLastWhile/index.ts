@@ -1,27 +1,65 @@
-import not from "../../logic/not/index.ts"
-import isNullish from "../../predicates/isNullish/index.ts"
+import type {
+	Result,
+	Validation,
+	ValidationError,
+} from "../../types/fp/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import _takeLastWhileArray from "./_takeLastWhileArray/index.ts"
+import _takeLastWhileToResult from "./_takeLastWhileToResult/index.ts"
+import _takeLastWhileToValidation from "./_takeLastWhileToValidation/index.ts"
 
-//++ Takes from end while predicate is true
-const takeLastWhile = <T>(
-	predicate: (value: T, index: number, array: ReadonlyArray<T>) => boolean,
-) =>
-(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<T> => {
-	if (isNullish(array) || array.length === 0) {
-		return []
-	}
+//++ Takes elements from the end while predicate is true
+//++ Three-path pattern: plain array, Result monad (fail-fast), or Validation monad (accumulate)
+export default function takeLastWhile<T>(
+	predicate: (item: T, index: number, array: ReadonlyArray<T>) => boolean,
+) {
+	//++ [OVERLOAD] Plain array path: takes array, returns array
+	function takeLastWhileWithPredicate(
+		array: ReadonlyArray<T>,
+	): ReadonlyArray<T>
 
-	// Find the index where predicate becomes false (scanning from end)
-	const findBreakpoint = (idx: number): number => {
-		if (idx < 0 || not(predicate(array[idx], idx, array))) {
-			return idx
+	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+	function takeLastWhileWithPredicate(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, ReadonlyArray<T>>
+
+	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+	function takeLastWhileWithPredicate(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, ReadonlyArray<T>>
+
+	//++ Implementation with type dispatch
+	function takeLastWhileWithPredicate(
+		array:
+			| ReadonlyArray<T>
+			| Result<ValidationError, ReadonlyArray<T>>
+			| Validation<ValidationError, ReadonlyArray<T>>,
+	):
+		| ReadonlyArray<T>
+		| Result<ValidationError, ReadonlyArray<T>>
+		| Validation<ValidationError, ReadonlyArray<T>> {
+		// Happy path: plain array (most common, zero overhead)
+		if (isArray<T>(array)) {
+			return _takeLastWhileArray(predicate)(array)
 		}
-		return findBreakpoint(idx - 1)
+
+		// Result path: fail-fast monadic transformation
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_takeLastWhileToResult(predicate))(array)
+		}
+
+		// Validation path: error accumulation monadic transformation
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_takeLastWhileToValidation(predicate))(array)
+		}
+
+		// Fallback: pass through unchanged (error/failure states)
+		return array
 	}
 
-	const breakpoint = findBreakpoint(array.length - 1)
-	return array.slice(breakpoint + 1)
+	return takeLastWhileWithPredicate
 }
-
-export default takeLastWhile

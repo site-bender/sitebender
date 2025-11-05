@@ -11,7 +11,7 @@ export type Props =
 
 /*++
  + Context-aware heading component that resolves to H1-H6 based on sectioning depth
- + Generates HN placeholder that is resolved by _resolveHeadingLevels pass
+ + Generates HEADING placeholder that is resolved by _resolveHeadingLevels pass
  + Internal component used by Architect semantic components, not for direct end-user use
  */
 export default function _Hn(props: Props): VirtualNode {
@@ -29,7 +29,7 @@ export default function _Hn(props: Props): VirtualNode {
 
 	return {
 		_tag: "element" as const,
-		tagName: "HN",
+		tagName: "HEADING",
 		attributes,
 		children: children as ReadonlyArray<VirtualNode>,
 	}
