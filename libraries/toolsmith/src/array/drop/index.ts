@@ -1,13 +1,61 @@
-import lte from "../../validation/lte/index.ts"
-import slice from "../slice/index.ts"
+import type {
+	Result,
+	Validation,
+	ValidationError,
+} from "../../types/fp/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import _dropArray from "./_dropArray/index.ts"
+import _dropToResult from "./_dropToResult/index.ts"
+import _dropToValidation from "./_dropToValidation/index.ts"
 
-//++ Drops the first n elements
+//++ Drops the first n elements from an array
+//++ Three-path pattern: plain array, Result monad (fail-fast), or Validation monad (accumulate)
 export default function drop<T>(n: number) {
-	return function dropWithN(array: Array<T>): Array<T> {
-		if (lte(n)(0)) {
-			return array
+	//++ [OVERLOAD] Plain array path: takes array, returns array
+	function dropWithN(array: ReadonlyArray<T>): ReadonlyArray<T>
+
+	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+	function dropWithN(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, ReadonlyArray<T>>
+
+	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+	function dropWithN(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, ReadonlyArray<T>>
+
+	//++ Implementation with type dispatch
+	function dropWithN(
+		array:
+			| ReadonlyArray<T>
+			| Result<ValidationError, ReadonlyArray<T>>
+			| Validation<ValidationError, ReadonlyArray<T>>,
+	):
+		| ReadonlyArray<T>
+		| Result<ValidationError, ReadonlyArray<T>>
+		| Validation<ValidationError, ReadonlyArray<T>> {
+		// Happy path: plain array (most common, zero overhead)
+		if (isArray<T>(array)) {
+			return _dropArray(n)(array)
 		}
 
-		return slice(n)(undefined)(array)
+		// Result path: fail-fast monadic transformation
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_dropToResult(n))(array)
+		}
+
+		// Validation path: error accumulation monadic transformation
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_dropToValidation(n))(array)
+		}
+
+		// Fallback: pass through unchanged (error/failure states)
+		return array
 	}
+
+	return dropWithN
 }
