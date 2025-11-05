@@ -1,46 +1,57 @@
-import type {
-	DuplicateEntry,
-	FindDuplicatesAccumulator,
-} from "./types/index.ts"
+import type { Result, ValidationError } from "../../types/fp/index.ts"
+import type { Validation } from "../../types/fp/index.ts"
 
-import subtract from "../../math/subtract/index.ts"
-import isNotEmpty from "../isNotEmpty/index.ts"
-import map from "../map/index.ts"
-import reduce from "../reduce/index.ts"
-import sort from "../sort/index.ts"
-import _findDuplicatesReducer from "./_findDuplicatesReducer/index.ts"
+import _findDuplicatesArray from "./_findDuplicatesArray/index.ts"
+import _findDuplicatesToResult from "./_findDuplicatesToResult/index.ts"
+import _findDuplicatesToValidation from "./_findDuplicatesToValidation/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
-//++ Finds elements that appear more than once
-export default function findDuplicates<T>(
-	array: ReadonlyArray<T> | null | undefined,
-): Array<T> {
-	if (isNotEmpty(array)) {
-		const validArray = array as Array<T>
+//++ Finds elements that appear more than once in the array
+//++ Returns duplicates in order of their first occurrence
+//++ [OVERLOAD] Plain array path: takes array, returns array
+function findDuplicates<T>(array: ReadonlyArray<T>): ReadonlyArray<T>
 
-		const result = reduce(function findDups(
-			acc: FindDuplicatesAccumulator<T>,
-			item: T,
-			index: number,
-		) {
-			return _findDuplicatesReducer(acc, item, index)
-		})({
-			seen: new Map(),
-			duplicates: [],
-			processedDuplicates: new Set(),
-		})(validArray)
+//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+function findDuplicates<T>(
+	array: Result<ValidationError, ReadonlyArray<T>>,
+): Result<ValidationError, ReadonlyArray<T>>
 
-		// Sort by first occurrence index and extract items
-		const sorted = sort(function byFirstIndex(
-			a: DuplicateEntry<T>,
-			b: DuplicateEntry<T>,
-		) {
-			return subtract(b.firstIndex)(a.firstIndex) as number
-		})(result.duplicates)
+//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+function findDuplicates<T>(
+	array: Validation<ValidationError, ReadonlyArray<T>>,
+): Validation<ValidationError, ReadonlyArray<T>>
 
-		return map(function extractItem(entry: DuplicateEntry<T>) {
-			return entry.item
-		})(sorted)
+//++ Implementation with type dispatch
+function findDuplicates<T>(
+	array:
+		| ReadonlyArray<T>
+		| Result<ValidationError, ReadonlyArray<T>>
+		| Validation<ValidationError, ReadonlyArray<T>>,
+):
+	| ReadonlyArray<T>
+	| Result<ValidationError, ReadonlyArray<T>>
+	| Validation<ValidationError, ReadonlyArray<T>> {
+	// Happy path: plain array (most common, zero overhead)
+	if (isArray<T>(array)) {
+		return _findDuplicatesArray(array)
 	}
 
-	return []
+	// Result path: fail-fast monadic transformation
+	if (isOk<ReadonlyArray<T>>(array)) {
+		return chainResults(_findDuplicatesToResult)(array)
+	}
+
+	// Validation path: error accumulation monadic transformation
+	if (isSuccess<ReadonlyArray<T>>(array)) {
+		return chainValidations(_findDuplicatesToValidation)(array)
+	}
+
+	// Fallback: pass through unchanged (error/failure states)
+	return array
 }
+
+export default findDuplicates
