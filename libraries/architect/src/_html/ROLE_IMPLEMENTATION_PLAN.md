@@ -817,7 +817,7 @@ Deno.test("_Element converts unknown attributes to data-*", function () {
     children: []
   })
 
-  assertEquals(result.attributes["data-x-custom-attr"], "value")
+  assertEquals(result.attributes["data-custom-attr"], "value")
 })
 ```
 
