@@ -1,6 +1,6 @@
-# ISO/IEC 11179 Metadata Registry Alignment
+# ISO/IEC 11179 Metadata Registry Alignment + OpenMetadata Integration
 
-> **Aligning Sitebender Studio's data-as-configuration architecture with the international standard for metadata registries**
+> **Aligning Sitebender Studio's data-as-configuration architecture with international standards for metadata registries and enterprise data catalogs**
 
 ---
 
@@ -8,17 +8,27 @@
 
 **ISO/IEC 11179** is an international standard for **Metadata Registries (MDR)** that provides a framework for standardizing and registering metadata to enable semantic interoperability across systems and organizations.
 
+**OpenMetadata** is the leading open-source data catalog and governance platform with 2,000+ enterprise deployments, 100+ data connectors, and comprehensive features for discovery, lineage, quality, and collaboration.
+
 **Sitebender Studio's revolutionary approach** of treating everything as data—where JSX components transform into RDF triples stored in Oxigraph and queried via SPARQL—is conceptually identical to an ISO/IEC 11179 metadata registry.
 
-This document establishes formal alignment between Sitebender's existing architecture and ISO/IEC 11179 concepts, providing:
+This document establishes a **hybrid strategy** that leverages the best of both worlds:
+
+1. **ISO/IEC 11179 as foundation** - Standards-based registry core in Pathfinder (RDF/SPARQL)
+2. **OpenMetadata as enterprise integration** - Optional connector for organizations needing broader data governance
+3. **Complementary roles** - Pathfinder manages Sitebender application metadata; OpenMetadata handles data infrastructure (databases, pipelines, dashboards)
+4. **Federation over coupling** - Systems remain independent, connected via SPARQL/REST APIs
+
+This document provides:
 
 1. **Conceptual mapping** between Sitebender IR and ISO/IEC 11179 terminology
-2. **Benefits analysis** of formal alignment with the standard
-3. **4-phase implementation roadmap** with detailed checklists
-4. **Concrete examples** showing JSX/IR/Turtle alongside ISO/IEC 11179 equivalents
-5. **Integration strategy** for Pathfinder (registry core), Artificer (compilation), and Architect (authoring)
+2. **OpenMetadata integration architecture** showing how both systems work together
+3. **Benefits analysis** of hybrid approach (standards + platform)
+4. **5-phase implementation roadmap** with detailed checklists
+5. **Concrete examples** showing JSX/IR/Turtle/ISO/OpenMetadata flows
+6. **Integration strategy** for Pathfinder (registry core), Artificer (compilation), Architect (authoring), and OpenMetadata (enterprise catalog)
 
-### Key Insight
+### Key Insights
 
 **Sitebender already implements the core concepts of ISO/IEC 11179:**
 
@@ -27,6 +37,14 @@ This document establishes formal alignment between Sitebender's existing archite
 - **Conceptual Domains** = Semantic meanings (branded types like `EmailAddress`, `Isbn13`)
 - **Metadata Registry** = Pathfinder's triple store + SPARQL queries
 
+**Hybrid strategy advantages:**
+
+- **Standards-based foundation** - ISO/IEC 11179 ensures interoperability with any system (not locked to OpenMetadata)
+- **No external dependencies** - Sitebender works standalone with Pathfinder registry
+- **Enterprise appeal** - "Works with OpenMetadata" unlocks large-scale data governance use cases
+- **Phased adoption** - Start simple (Pathfinder only), add OpenMetadata integration when needed
+- **Flexibility** - Could integrate with Amundsen, Apache Atlas, Collibra, Alation using same patterns
+
 Formal alignment positions Sitebender as **enterprise-grade data governance infrastructure** while maintaining revolutionary simplicity.
 
 ---
@@ -34,18 +52,21 @@ Formal alignment positions Sitebender as **enterprise-grade data governance infr
 ## Table of Contents
 
 1. [What is ISO/IEC 11179?](#what-is-isoiec-11179)
-2. [Why ISO/IEC 11179 Matters for Sitebender](#why-isoiec-11179-matters-for-sitebender)
-3. [Conceptual Mapping: Sitebender ↔ ISO/IEC 11179](#conceptual-mapping-sitebender--isoiec-11179)
-4. [Benefits of Formal Alignment](#benefits-of-formal-alignment)
-5. [Architecture: Who Owns What](#architecture-who-owns-what)
-6. [Phase 1: Conceptual Alignment (Current)](#phase-1-conceptual-alignment-current)
-7. [Phase 2: RDF Vocabulary Integration](#phase-2-rdf-vocabulary-integration)
-8. [Phase 3: MDR-Compliant APIs](#phase-3-mdr-compliant-apis)
-9. [Phase 4: Full Registry Implementation](#phase-4-full-registry-implementation)
-10. [Examples: JSX → IR → ISO/IEC 11179](#examples-jsx--ir--isoiec-11179)
-11. [Integration with Other Libraries](#integration-with-other-libraries)
-12. [Success Criteria](#success-criteria)
-13. [References and Resources](#references-and-resources)
+2. [What is OpenMetadata?](#what-is-openmetadata)
+3. [Why ISO/IEC 11179 Matters for Sitebender](#why-isoiec-11179-matters-for-sitebender)
+4. [Hybrid Strategy: ISO/IEC 11179 + OpenMetadata](#hybrid-strategy-isoiec-11179--openmetadata)
+5. [Conceptual Mapping: Sitebender ↔ ISO/IEC 11179](#conceptual-mapping-sitebender--isoiec-11179)
+6. [Benefits of Formal Alignment](#benefits-of-formal-alignment)
+7. [Architecture: Who Owns What](#architecture-who-owns-what)
+8. [Phase 1: Conceptual Alignment (Current)](#phase-1-conceptual-alignment-current)
+9. [Phase 2: RDF Vocabulary Integration](#phase-2-rdf-vocabulary-integration)
+10. [Phase 3: MDR-Compliant APIs](#phase-3-mdr-compliant-apis)
+11. [Phase 4: Advanced ISO/IEC 11179 Features](#phase-4-advanced-isoiec-11179-features)
+12. [Phase 5: OpenMetadata Integration](#phase-5-openmetadata-integration)
+13. [Examples: JSX → IR → ISO/IEC 11179](#examples-jsx--ir--isoiec-11179)
+14. [Integration with Other Libraries](#integration-with-other-libraries)
+15. [Success Criteria](#success-criteria)
+16. [References and Resources](#references-and-resources)
 
 ---
 
@@ -144,6 +165,71 @@ Several projects (like **semanticMDR** on GitHub) implement ISO/IEC 11179 regist
 
 ---
 
+## What is OpenMetadata?
+
+### Overview
+
+OpenMetadata is the **#1 open-source data catalog and governance platform**, built by the founders of Apache Hadoop, Apache Atlas, and Uber Databook. With 2,000+ enterprise deployments, 7,100+ GitHub stars, and 340+ contributors, it represents the modern standard for enterprise data governance.
+
+### Core Purpose
+
+OpenMetadata addresses enterprise data governance challenges:
+
+1. **Data Discovery** - Locate relevant data assets across complex environments
+2. **Metadata Management** - Centralize metadata that becomes "big data" at scale
+3. **Data Democratization** - Break down silos between technical and business users
+4. **Governance at Scale** - Manage thousands of data assets with automated workflows
+5. **Team Collaboration** - Enable data practitioners to work together effectively
+
+### Key Features
+
+1. **Discovery** - Search and preview across data estates with 100+ connectors
+2. **Lineage** - Track data flow and dependencies across systems
+3. **Observability** - Monitor data health and quality metrics
+4. **Quality** - Implement data quality frameworks and tests
+5. **Collaboration** - Conversations, tasks, and knowledge sharing
+6. **Governance** - Enforce policies, standards, and compliance
+
+### Architecture
+
+- **Streamlined 4-component architecture** (simpler than competitors)
+- **Unified Metadata Graph** - Centralized metadata across all data assets
+- **API-First & Schema-First** - Extensible, customizable
+- **100+ Data Connectors** including:
+  - **Databases**: Snowflake, BigQuery, Databricks, PostgreSQL, MySQL, Oracle
+  - **Pipelines**: Airflow, dbt, Fivetran, Dagster
+  - **Dashboards**: Tableau, Looker, Power BI, Metabase
+  - **Data Lakes**: AWS S3, Google Cloud Storage, Azure ADLS
+  - **Messaging**: Kafka, Kinesis
+  - **ML Models**: MLflow, SageMaker
+
+### Target Use Cases
+
+- **Data-centric culture** - Communication through metadata
+- **Data democratization** - Access for diverse user types
+- **Governance automation** - Policy enforcement at scale
+- **Column-level understanding** - Detailed metadata for analytics
+- **Asset documentation** - Comprehensive data catalogs
+
+### Adoption
+
+- 2,000+ enterprise deployments
+- 10,000+ open source community members
+- Deployments managing 2+ million data assets
+
+### Relationship to Sitebender
+
+**OpenMetadata is a PLATFORM, not a standard.** It consumes metadata from various sources and provides rich UI/collaboration features. It's designed for **data infrastructure** (databases, pipelines, dashboards), not **application metadata** (form fields, components, validations).
+
+**Key insight**: OpenMetadata and ISO/IEC 11179 are **complementary**:
+
+- **ISO/IEC 11179** = Registry standard (HOW to structure metadata)
+- **OpenMetadata** = Catalog platform (WHERE to discover/govern metadata)
+- **Sitebender/Pathfinder** = ISO/IEC 11179-compliant registry (application metadata)
+- **Integration** = Pathfinder exports to OpenMetadata for enterprise visibility
+
+---
+
 ## Why ISO/IEC 11179 Matters for Sitebender
 
 ### 1. Natural Philosophical Alignment
@@ -231,7 +317,7 @@ SELECT ?de WHERE {
 
 Formal ISO/IEC 11179 alignment positions Sitebender as:
 
-> "An ISO/IEC 11179-compliant metadata registry for web applications, where data elements are defined declaratively in JSX, stored as RDF triples, and queried via SPARQL."
+> "An ISO/IEC 11179-compliant metadata registry for web applications, where data elements are defined declaratively in JSX, stored as RDF triples, and queried via SPARQL. Native integrations with enterprise data catalogs including OpenMetadata, Amundsen, and Apache Atlas."
 
 This language resonates with:
 
@@ -239,6 +325,187 @@ This language resonates with:
 - **Data stewards** (metadata management, data catalogs)
 - **Healthcare CIOs** (regulatory requirements, interoperability)
 - **Government agencies** (open data, transparency, standardization)
+
+---
+
+## Hybrid Strategy: ISO/IEC 11179 + OpenMetadata
+
+### Why Both?
+
+**ISO/IEC 11179 and OpenMetadata are complementary, not competing:**
+
+- **ISO/IEC 11179** is a **registry STANDARD** - defines HOW to structure and store metadata
+- **OpenMetadata** is a **catalog PLATFORM** - provides discovery, lineage, governance UI
+
+**They solve different problems:**
+
+| Aspect | ISO/IEC 11179 (Pathfinder) | OpenMetadata |
+|--------|---------------------------|--------------|
+| **What it is** | Metadata registry standard | Data catalog platform |
+| **Scope** | Application metadata (forms, components) | Data infrastructure (databases, pipelines, dashboards) |
+| **Storage** | RDF triple store (Oxigraph) | Unified metadata graph |
+| **Query** | SPARQL | REST API + Search |
+| **Standards** | International standard (ISO) | Open-source platform |
+| **Lock-in** | None (standard-based) | Platform-specific |
+| **UI** | Build custom or use Envoy | Rich built-in UI (discovery, lineage, collaboration) |
+| **Connectors** | Custom (via standards) | 100+ out-of-box |
+| **Target users** | Sitebender developers | Enterprise data teams |
+
+### Complementary Roles
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Sitebender Application Layer                                │
+│ - JSX components define data elements                        │
+│ - Forms, validations, components                             │
+└─────────────────┬───────────────────────────────────────────┘
+                  │
+                  ↓ (metadata extraction via Artificer)
+┌─────────────────────────────────────────────────────────────┐
+│ Pathfinder: ISO/IEC 11179 Metadata Registry                 │
+│ - Standards-based registry core                              │
+│ - Application metadata (fields, validations, semantics)      │
+│ - RDF/SPARQL storage and query                               │
+│ - Source of truth for Sitebender metadata                    │
+└─────────────────┬───────────────────────────────────────────┘
+                  │
+                  ↓ (optional integration - Phase 5)
+┌─────────────────────────────────────────────────────────────┐
+│ OpenMetadata Platform (Optional Enterprise Integration)     │
+│ - Enterprise data catalog                                    │
+│ - Data infrastructure metadata (DBs, pipelines, dashboards)  │
+│ - Rich discovery UI, lineage visualization                   │
+│ - Team collaboration and governance workflows                │
+│ - Consume Sitebender metadata via connector                  │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### Integration Architecture
+
+**Phase 1-4: Pathfinder Standalone**
+
+Sitebender works completely independently with Pathfinder as registry:
+
+- JSX → IR → Turtle → Pathfinder (Oxigraph)
+- SPARQL queries for metadata discovery
+- No external dependencies
+- Standards-based, no lock-in
+
+**Phase 5: Optional OpenMetadata Connector**
+
+For enterprises needing broader data governance:
+
+- Pathfinder exports metadata to OpenMetadata via connector
+- Map ISO/IEC 11179 Data Elements → OpenMetadata Entities
+- Unified lineage: Sitebender forms → databases → dashboards
+- Bidirectional: Import database schemas from OpenMetadata to auto-generate Sitebender components
+
+### Three Integration Scenarios
+
+#### Scenario 1: Sitebender as Metadata Source
+
+**Flow**: Sitebender Application → Pathfinder → OpenMetadata → Enterprise Data Stack
+
+```
+Sitebender Form (JSX)
+  ├─ EmailField: "email"
+  ├─ IntegerField: "age"
+  └─ SelectField: "role"
+       ↓ (Artificer extracts metadata)
+Pathfinder ISO/IEC 11179 Registry
+  ├─ DataElement: "email" (String, RFC 5321 validation)
+  ├─ DataElement: "age" (Integer, 1-149 range)
+  └─ DataElement: "role" (Enum: admin/editor/viewer)
+       ↓ (OpenMetadata connector exports)
+OpenMetadata Catalog
+  └─ Discover that "customer.email" in Snowflake
+     originated from "EmailField in CustomerRegistrationForm"
+```
+
+**Benefit**: Data analysts understand the origin and semantics of data in warehouses.
+
+#### Scenario 2: Bidirectional Metadata Flow
+
+**Flow**: OpenMetadata Schema → Pathfinder → Auto-Generated Sitebender Components
+
+```
+OpenMetadata: PostgreSQL Schema
+  └─ Table: users
+     ├─ email VARCHAR(254) NOT NULL
+     ├─ age INTEGER CHECK (age >= 0 AND age < 150)
+     └─ role VARCHAR(20) CHECK (role IN ('admin', 'editor', 'viewer'))
+          ↓ (Import to Pathfinder as ISO/IEC 11179 Data Elements)
+Pathfinder Registry
+  └─ DataElement definitions with Value Domains
+          ↓ (Generate Sitebender components)
+Auto-Generated JSX
+  <Form>
+    <EmailField name="email" required={true} />
+    <IntegerField name="age" required={true}>
+      <Validation>
+        <And>
+          <IsAtLeast value={0} />
+          <IsLessThan value={150} />
+        </And>
+      </Validation>
+    </IntegerField>
+    <SelectField name="role">
+      <Options>
+        <Option value="admin" />
+        <Option value="editor" />
+        <Option value="viewer" />
+      </Options>
+    </SelectField>
+  </Form>
+```
+
+**Benefit**: Automatically generate Sitebender forms that match existing database schemas.
+
+#### Scenario 3: Federated SPARQL Queries
+
+**Flow**: Cross-system metadata queries via SPARQL Federation
+
+```sparql
+PREFIX mdr: <https://sitebender.studio/pathfinder/iso11179/>
+PREFIX om: <https://openmetadata.org/>
+
+# Find all Sitebender fields semantically equivalent to OpenMetadata columns
+SELECT ?sitebenderField ?openmetadataColumn ?datatype WHERE {
+  # Query Pathfinder (local)
+  ?sitebenderField a mdr:DataElement ;
+                   mdr:name ?fieldName ;
+                   mdr:hasValueDomain/mdr:datatype ?datatype .
+
+  # Federate to OpenMetadata SPARQL endpoint
+  SERVICE <https://openmetadata.company.com/sparql> {
+    ?openmetadataColumn om:name ?fieldName ;
+                        om:dataType ?datatype .
+  }
+}
+```
+
+**Benefit**: Discover semantic mappings between Sitebender and enterprise data infrastructure.
+
+### Benefits of Hybrid Approach
+
+1. **No Lock-In** - ISO/IEC 11179 standard ensures interoperability with ANY catalog (not just OpenMetadata)
+2. **Works Standalone** - Sitebender operates independently, OpenMetadata is optional
+3. **Enterprise Appeal** - "Works with OpenMetadata" unlocks large-scale governance use cases
+4. **Phased Adoption** - Start simple (Pathfinder only), add OpenMetadata when needed
+5. **Standards Foundation** - ISO/IEC 11179 provides proven, tested metadata semantics
+6. **Rich UI** - Leverage OpenMetadata's mature discovery/lineage/collaboration features
+7. **Ecosystem** - 100+ OpenMetadata connectors bring Sitebender into broader data ecosystem
+8. **Flexibility** - Same patterns work for Amundsen, Apache Atlas, Collibra, Alation
+
+### Positioning Statement
+
+> **"Sitebender: ISO/IEC 11179-compliant metadata registry for web applications. Define data elements declaratively in JSX, store as RDF triples, query via SPARQL. Native integrations with enterprise data catalogs (OpenMetadata, Amundsen, Apache Atlas) for unified data governance at scale."**
+
+This positions Sitebender as:
+- **Standards-based** (not proprietary)
+- **Flexible** (works standalone or integrated)
+- **Enterprise-grade** (connects to established governance platforms)
+- **No lock-in** (RDF/SPARQL enables any integration)
 
 ---
 
@@ -580,14 +847,19 @@ This requires updating `contracts/boundaries.json` in Phase 2+.
 **Location**: `/libraries/pathfinder/ISO_IEC_11179_ALIGNMENT.md`
 
 **Contents**:
-- [x] Executive summary
+- [x] Executive summary (updated with hybrid strategy)
 - [x] What is ISO/IEC 11179?
-- [x] Why it matters for Sitebender
+- [x] What is OpenMetadata?
+- [x] Why ISO/IEC 11179 matters for Sitebender
+- [x] Hybrid strategy section (ISO/IEC 11179 + OpenMetadata)
 - [x] Conceptual mapping tables
 - [x] Benefits analysis
 - [x] Architecture ownership
-- [x] 4-phase roadmap with checklists
+- [x] 5-phase roadmap with detailed checklists (no time estimates)
 - [x] Concrete examples
+- [x] Integration scenarios
+- [x] Updated FAQs (OpenMetadata questions added)
+- [x] Updated references (OpenMetadata and other catalogs)
 
 #### Task 1.2: Write Architecture Decision Record
 
@@ -637,11 +909,6 @@ This requires updating `contracts/boundaries.json` in Phase 2+.
 ### Dependencies
 
 - None (documentation phase requires no code changes)
-
-### Timeline
-
-- **Duration**: 1-2 days (documentation writing + review)
-- **Completion**: Upon approval of this document
 
 ---
 
@@ -896,12 +1163,6 @@ export default function extractDataElementMetadata(
 - **Artificer IR** must be stable
 - **Phase 1** must be complete and approved
 
-### Timeline
-
-- **Duration**: 2-3 weeks
-- **Effort**: 1 developer full-time
-- **Prerequisites**: Pathfinder infrastructure complete
-
 ---
 
 ## Phase 3: MDR-Compliant APIs
@@ -1043,34 +1304,29 @@ POST   /api/mdr/import                     # Import from external registry
 - **Sentinel** (authentication/authorization)
 - **Operator** (event logging for lifecycle)
 
-### Timeline
-
-- **Duration**: 4-6 weeks
-- **Effort**: 2 developers full-time
-- **Prerequisites**: Phase 2 complete, Sentinel available
-
 ---
 
-## Phase 4: Full Registry Implementation
+## Phase 4: Advanced ISO/IEC 11179 Features
 
 ### Objectives
 
 - [ ] Achieve full ISO/IEC 11179 Part 3 metamodel conformance
-- [ ] Implement advanced registry features (federation, lineage, impact analysis)
+- [ ] Implement advanced registry features (SPARQL federation, lineage, impact analysis)
 - [ ] Add AI-powered metadata discovery and mapping
-- [ ] Obtain ISO/IEC 11179 certification (if desired)
-- [ ] Publish Sitebender as open MDR standard
+- [ ] Obtain ISO/IEC 11179 certification (optional)
 
 **Status**: ⏳ **PENDING** (Phase 3 must complete first)
 
+**Note**: This phase focuses on **pure ISO/IEC 11179 standard features**, not platform integrations. OpenMetadata integration is Phase 5 (optional).
+
 ### Deliverables
 
-1. **Complete metamodel implementation**
-2. **Federated registry support**
-3. **Data lineage tracking**
-4. **Impact analysis tools**
-5. **AI-powered features**
-6. **Certification documentation**
+1. **Complete ISO/IEC 11179-3 metamodel implementation**
+2. **SPARQL federation** for cross-registry queries
+3. **Data lineage tracking** within Sitebender applications
+4. **Impact analysis tools** for metadata changes
+5. **AI-powered features** (semantic search, automated mapping)
+6. **ISO/IEC 11179 certification documentation** (optional)
 
 ### Tasks
 
@@ -1139,39 +1395,244 @@ POST   /api/mdr/import                     # Import from external registry
 - [ ] Address certification feedback
 - [ ] Publish certification badge
 
-#### Task 4.7: Publish as Open Standard
+#### Task 4.7: Document Best Practices
 
 **Checklist**:
-- [ ] Write specification document
-- [ ] Submit to W3C or similar standards body
-- [ ] Create reference implementation repository
-- [ ] Write developer documentation
-- [ ] Create tutorial and examples
-- [ ] Present at conferences (SemanticWeb, ISWC, etc.)
-- [ ] Publish academic paper
+- [ ] Write comprehensive ISO/IEC 11179 implementation guide
+- [ ] Document Sitebender-specific patterns and conventions
+- [ ] Create tutorial and examples for advanced features
+- [ ] Document SPARQL federation patterns
+- [ ] Create case studies of real-world usage
 
 ### Success Criteria
 
-- [ ] Full ISO/IEC 11179 Part 3 conformance
-- [ ] Federated queries work across multiple registries
-- [ ] Lineage tracking covers all data flows
-- [ ] Impact analysis catches breaking changes
-- [ ] AI features improve metadata quality measurably
-- [ ] Certification obtained (if pursued)
-- [ ] Standard specification published
+- [ ] Full ISO/IEC 11179 Part 3 conformance validated
+- [ ] SPARQL federation working across multiple registries
+- [ ] Lineage tracking operational within Sitebender applications
+- [ ] Impact analysis catches breaking metadata changes
+- [ ] AI features demonstrably improve metadata quality
+- [ ] ISO/IEC 11179 certification obtained (if pursued)
+- [ ] Comprehensive documentation and best practices published
 
 ### Dependencies
 
 - **Phase 3** must be complete
-- **Agent** (for CRDT-based federation)
+- **Agent** (for CRDT-based federation, optional)
 - **Envoy** (for lineage visualization)
 - **AI/ML infrastructure** (embedding models, training pipeline)
 
-### Timeline
+---
 
-- **Duration**: 8-12 weeks
-- **Effort**: 2-3 developers full-time
-- **Prerequisites**: Phase 3 complete
+## Phase 5: OpenMetadata Integration
+
+### Objectives
+
+- [ ] Build OpenMetadata connector for Pathfinder
+- [ ] Export Sitebender metadata to OpenMetadata catalog
+- [ ] Import database schemas from OpenMetadata to auto-generate components
+- [ ] Implement unified lineage tracking across Sitebender and data infrastructure
+- [ ] Enable SPARQL federation between Pathfinder and OpenMetadata
+- [ ] Provide enterprise-grade data governance integration
+
+**Status**: ⏳ **PENDING** (Phase 4 must complete first)
+
+**Note**: This phase is **OPTIONAL**. Sitebender works standalone with Pathfinder. OpenMetadata integration is for enterprises needing broader data governance.
+
+### Deliverables
+
+1. **OpenMetadata Connector** (`pathfinder/openmetadata/`)
+2. **Metadata Export Pipeline** (Pathfinder → OpenMetadata)
+3. **Metadata Import Pipeline** (OpenMetadata → Pathfinder)
+4. **Component Generator** (auto-generate JSX from schemas)
+5. **Unified Lineage** (Sitebender forms → databases → dashboards)
+6. **SPARQL Federation** (cross-system queries)
+7. **Integration Documentation** and examples
+
+### Tasks
+
+#### Task 5.1: Build OpenMetadata Connector
+
+**Location**: `/libraries/pathfinder/openmetadata/`
+
+**Checklist**:
+- [ ] Design connector architecture
+- [ ] Implement OpenMetadata REST API client
+- [ ] Map ISO/IEC 11179 → OpenMetadata entity types
+- [ ] Handle authentication and authorization
+- [ ] Implement error handling and retry logic
+- [ ] Add connection pooling and rate limiting
+- [ ] Write connector tests
+
+**Mapping ISO/IEC 11179 → OpenMetadata**:
+
+| ISO/IEC 11179 | OpenMetadata Entity |
+|---------------|-------------------|
+| DataElement | Column or Field |
+| DataElementConcept | Tag or Glossary Term |
+| ValueDomain | Data Type + Constraints |
+| Form/Component | Custom Property or Asset |
+| Validation Rule | Test Definition |
+
+#### Task 5.2: Implement Metadata Export
+
+**Location**: `/libraries/pathfinder/openmetadata/export/`
+
+**Checklist**:
+- [ ] Implement `exportToOpenMetadata/index.ts`
+- [ ] Query Pathfinder for Data Elements
+- [ ] Transform ISO/IEC 11179 triples → OpenMetadata JSON
+- [ ] Batch export for performance
+- [ ] Handle incremental updates (only changed elements)
+- [ ] Add export scheduling (cron-like)
+- [ ] Implement conflict resolution (version comparison)
+- [ ] Add export monitoring and logging
+- [ ] Write export tests
+
+**Example**:
+
+```typescript
+import { exportToOpenMetadata } from "@sitebender/pathfinder/openmetadata/export/index.ts"
+
+// Export all Sitebender metadata to OpenMetadata
+const result = await exportToOpenMetadata({
+  pathfinderStore: localTripleStore,
+  openmetadataUrl: "https://openmetadata.company.com",
+  apiKey: process.env.OPENMETADATA_API_KEY,
+  mode: "incremental" // or "full"
+})(config)
+
+// Result: { exported: 150, skipped: 23, errors: 0 }
+```
+
+#### Task 5.3: Implement Metadata Import
+
+**Location**: `/libraries/pathfinder/openmetadata/import/`
+
+**Checklist**:
+- [ ] Implement `importFromOpenMetadata/index.ts`
+- [ ] Query OpenMetadata for database schemas
+- [ ] Transform OpenMetadata JSON → ISO/IEC 11179 triples
+- [ ] Detect schema changes (compare versions)
+- [ ] Import as draft Data Elements (require approval)
+- [ ] Handle column-level metadata (descriptions, tags)
+- [ ] Map OpenMetadata glossary → Conceptual Domains
+- [ ] Add import validation
+- [ ] Write import tests
+
+**Example**:
+
+```typescript
+import { importFromOpenMetadata } from "@sitebender/pathfinder/openmetadata/import/index.ts"
+
+// Import PostgreSQL "users" table schema
+const result = await importFromOpenMetadata({
+  openmetadataUrl: "https://openmetadata.company.com",
+  apiKey: process.env.OPENMETADATA_API_KEY,
+  entityType: "table",
+  entityFqn: "postgres.public.users"
+})(pathfinderStore)
+
+// Result: Array<DataElement> with status "draft"
+```
+
+#### Task 5.4: Implement Component Auto-Generation
+
+**Location**: `/libraries/pathfinder/openmetadata/generate/`
+
+**Checklist**:
+- [ ] Implement `generateComponentsFromSchema/index.ts`
+- [ ] Read imported Data Elements from Pathfinder
+- [ ] Map Value Domains → Architect field components
+- [ ] Map constraints → Validation components
+- [ ] Generate JSX code as strings
+- [ ] Format with Deno formatter
+- [ ] Add JSDoc comments with metadata
+- [ ] Handle complex types (enums, foreign keys)
+- [ ] Write generation tests
+
+**Example**:
+
+```typescript
+import { generateComponentsFromSchema } from "@sitebender/pathfinder/openmetadata/generate/index.ts"
+
+// Generate Sitebender form from imported schema
+const jsxCode = await generateComponentsFromSchema({
+  dataElements: importedElements,
+  formName: "UserRegistrationForm"
+})(pathfinderStore)
+
+// Result: JSX string ready to save as .tsx file
+```
+
+#### Task 5.5: Implement Unified Lineage
+
+**Location**: `/libraries/pathfinder/openmetadata/lineage/`
+
+**Checklist**:
+- [ ] Track data flow: Sitebender form → database table
+- [ ] Query OpenMetadata for downstream lineage (table → dashboards)
+- [ ] Combine lineage graphs
+- [ ] Visualize end-to-end lineage in Envoy
+- [ ] Add lineage queries (upstream/downstream)
+- [ ] Handle circular dependencies
+- [ ] Write lineage tests
+
+**Lineage Example**:
+
+```
+Sitebender CustomerRegistrationForm
+  ├─ EmailField "email"
+  └─ IntegerField "age"
+       ↓ (writes to)
+PostgreSQL customers table
+  ├─ email VARCHAR(254)
+  └─ age INTEGER
+       ↓ (consumed by)
+dbt model customer_summary
+       ↓ (feeds)
+Tableau dashboard "Customer Analytics"
+```
+
+#### Task 5.6: Implement SPARQL Federation
+
+**Location**: `/libraries/pathfinder/openmetadata/federation/`
+
+**Checklist**:
+- [ ] Check if OpenMetadata supports SPARQL endpoint
+- [ ] If yes: Implement federated SPARQL queries
+- [ ] If no: Implement REST API bridge (query OpenMetadata, return as triples)
+- [ ] Add federation examples
+- [ ] Optimize cross-system queries (caching, pagination)
+- [ ] Write federation tests
+
+#### Task 5.7: Create Integration Examples
+
+**Location**: `/examples/openmetadata-integration/`
+
+**Checklist**:
+- [ ] Example 1: Export Sitebender metadata to OpenMetadata
+- [ ] Example 2: Import database schema and auto-generate form
+- [ ] Example 3: Query unified lineage
+- [ ] Example 4: Federated SPARQL query
+- [ ] Comprehensive README with setup instructions
+- [ ] Docker Compose for local OpenMetadata instance
+- [ ] Integration test suite
+
+### Success Criteria
+
+- [ ] OpenMetadata connector successfully exports Sitebender metadata
+- [ ] Database schemas imported and components auto-generated
+- [ ] Unified lineage visualized end-to-end (form → DB → dashboard)
+- [ ] SPARQL federation or REST bridge working
+- [ ] Example applications demonstrate all integration scenarios
+- [ ] Documentation comprehensive and clear
+- [ ] All tests pass
+
+### Dependencies
+
+- **Phase 4** must be complete (advanced ISO/IEC 11179 features)
+- **OpenMetadata instance** available (local or enterprise deployment)
+- **Envoy** (for lineage visualization)
 
 ---
 
@@ -1783,13 +2244,23 @@ if (!canCreate) {
 
 ### Phase 4 Success Criteria
 
-- [ ] Full ISO/IEC 11179 Part 3 metamodel implemented
-- [ ] Federated queries work across multiple registries
-- [ ] Data lineage tracking covers all data flows
-- [ ] Impact analysis catches breaking changes before deployment
-- [ ] AI features measurably improve metadata quality
+- [ ] Full ISO/IEC 11179 Part 3 metamodel implemented and validated
+- [ ] SPARQL federation working across multiple registries
+- [ ] Data lineage tracking operational within Sitebender applications
+- [ ] Impact analysis catches breaking metadata changes before deployment
+- [ ] AI features demonstrably improve metadata quality
 - [ ] ISO/IEC 11179 certification obtained (if pursued)
-- [ ] Sitebender MDR specification published
+- [ ] Comprehensive implementation guide and best practices published
+
+### Phase 5 Success Criteria
+
+- [ ] OpenMetadata connector exports Sitebender metadata successfully
+- [ ] Database schemas imported from OpenMetadata
+- [ ] Component auto-generation working from imported schemas
+- [ ] Unified lineage visualized end-to-end (Sitebender → databases → dashboards)
+- [ ] SPARQL federation or REST API bridge functional
+- [ ] Example applications demonstrate all integration scenarios
+- [ ] Integration documentation comprehensive and clear
 
 ### Overall Success Metrics
 
@@ -1837,7 +2308,7 @@ if (!canCreate) {
 - **SKOS**: Simple Knowledge Organization System
   - https://www.w3.org/TR/skos-reference/
 
-### Existing Implementations
+### Existing ISO/IEC 11179 Implementations
 
 - **semanticMDR**: ISO/IEC 11179 semantic metadata registry (GitHub)
   - https://github.com/srdc/semanticMDR
@@ -1850,6 +2321,32 @@ if (!canCreate) {
 - **caDSR**: NCI Cancer Data Standards Repository
   - https://cadsrapi.cancer.gov/
   - Healthcare domain, ISO/IEC 11179 based
+
+### Data Catalog Platforms
+
+- **OpenMetadata**: #1 open-source data catalog
+  - https://open-metadata.org/
+  - https://github.com/open-metadata/OpenMetadata
+  - 2,000+ deployments, 100+ connectors
+  - API-first architecture, extensible
+
+- **Apache Amundsen**: Data discovery and metadata engine
+  - https://www.amundsen.io/
+  - https://github.com/amundsen-io/amundsen
+  - Developed by Lyft, adopted by many enterprises
+
+- **Apache Atlas**: Data governance and metadata framework
+  - https://atlas.apache.org/
+  - Part of Hadoop ecosystem
+  - Some ISO/IEC 11179 alignment
+
+- **Collibra**: Enterprise data catalog (commercial)
+  - https://www.collibra.com/
+  - Comprehensive data governance platform
+
+- **Alation**: Enterprise data catalog (commercial)
+  - https://www.alation.com/
+  - Behavioral analysis and automated curation
 
 ### Academic Papers
 
@@ -1982,29 +2479,102 @@ Example: "Generate a form for collecting customer contact information"
 
 AI queries registry for relevant data elements, generates JSX automatically.
 
+### Q9: Why not just use OpenMetadata instead of building an ISO/IEC 11179 registry?
+
+**A**: Different purposes and scopes:
+
+- **OpenMetadata** is for **data infrastructure** (databases, pipelines, dashboards)
+- **Sitebender/Pathfinder** is for **application metadata** (forms, components, validations)
+- **OpenMetadata** is a **platform** (requires running OpenMetadata server)
+- **ISO/IEC 11179** is a **standard** (no platform lock-in, works with any catalog)
+
+**Key difference**: OpenMetadata doesn't understand Sitebender's JSX-based data element definitions. Pathfinder IS the source of truth for Sitebender metadata. OpenMetadata can CONSUME that metadata via connector.
+
+**Analogy**: Pathfinder is like Git (distributed, standards-based, standalone). OpenMetadata is like GitHub (centralized platform, rich UI, collaboration features). You need Git first; GitHub is optional.
+
+### Q10: Does OpenMetadata support ISO/IEC 11179?
+
+**A**: Not natively. OpenMetadata has its own metamodel, but the concepts are **similar**:
+
+| ISO/IEC 11179 | OpenMetadata |
+|---------------|--------------|
+| Data Element | Column/Field |
+| Data Element Concept | Glossary Term/Tag |
+| Value Domain | Data Type + Constraints |
+| Metadata Registry | Metadata Store |
+
+Our connector (Phase 5) provides the mapping layer. Because Pathfinder uses ISO/IEC 11179, we can integrate with ANY catalog, not just OpenMetadata.
+
+### Q11: Can we integrate with other data catalogs besides OpenMetadata?
+
+**A**: **YES!** This is the power of ISO/IEC 11179 standards-based approach:
+
+- **OpenMetadata** - Phase 5 (priority, largest user base)
+- **Apache Amundsen** - Same connector patterns apply
+- **Apache Atlas** - Has some ISO/IEC 11179 alignment already
+- **Collibra** - Enterprise catalog, REST API similar to OpenMetadata
+- **Alation** - Enterprise catalog, API-based integration
+- **AWS Glue Data Catalog** - Cloud-based catalog
+- **Any system with RDF/SPARQL** - Direct federation
+
+**ISO/IEC 11179 is our guarantee of interoperability.** We're not locked to OpenMetadata.
+
+### Q12: What if OpenMetadata adds native ISO/IEC 11179 support?
+
+**A**: **Perfect!** Then our integration becomes even simpler:
+
+- Instead of custom mapping, direct ISO/IEC 11179 ↔ ISO/IEC 11179 exchange
+- SPARQL federation becomes trivial
+- Other systems using ISO/IEC 11179 can integrate with OpenMetadata too
+
+This is exactly why standards matter. We're future-proof.
+
+### Q13: Do we need to run OpenMetadata locally for development?
+
+**A**: **No, not required**:
+
+- **Phases 1-4**: Work entirely with Pathfinder (no OpenMetadata needed)
+- **Phase 5 development**: Use Docker Compose for local OpenMetadata instance
+- **Phase 5 production**: Connect to enterprise OpenMetadata deployment
+
+OpenMetadata is **optional infrastructure**, not a core dependency.
+
 ---
 
 ## Conclusion
 
-ISO/IEC 11179 alignment positions Sitebender Studio as **enterprise-grade data governance infrastructure** while preserving revolutionary simplicity.
+The **hybrid strategy** of ISO/IEC 11179 (foundation) + OpenMetadata (optional integration) positions Sitebender Studio as **enterprise-grade data governance infrastructure** while preserving revolutionary simplicity and zero lock-in.
 
 **Key insights**:
 
 1. **We're already 80% there**: JSX → IR → Turtle → Oxigraph is conceptually identical to ISO/IEC 11179 MDR
-2. **Alignment is mostly naming**: Map our concepts to standard terminology
-3. **Benefits are immediate**: Interoperability, governance, AI understanding
-4. **Implementation is incremental**: Phase 1 (docs only) → Phase 2 (RDF vocab) → Phase 3 (APIs) → Phase 4 (certification)
+2. **Standards-based foundation**: ISO/IEC 11179 ensures interoperability with ANY system (not locked to OpenMetadata)
+3. **Alignment is mostly structure**: Map our concepts to standard terminology and RDF ontology
+4. **Benefits are immediate**: Interoperability, governance, AI understanding, enterprise appeal
+5. **Implementation is incremental**: Phase 1 (docs) → Phase 2 (RDF vocab) → Phase 3 (APIs) → Phase 4 (advanced ISO features) → Phase 5 (OpenMetadata, optional)
+6. **Complementary systems**: Pathfinder manages application metadata; OpenMetadata manages data infrastructure
+7. **Flexible integration**: Works standalone OR with OpenMetadata (or Amundsen, Atlas, Collibra, etc.)
 
 **Next steps**:
 
 1. ✅ **Review and approve this document**
-2. ⏳ **Create ADR documenting decision** (Task 1.2)
+2. ⏳ **Create ADR documenting hybrid strategy** (Task 1.2)
 3. ⏳ **Update Pathfinder README** (Task 1.3)
 4. ⏳ **Update contracts** (Task 1.4)
-5. ⏳ **Begin Phase 2 planning** when ready
+5. ⏳ **Begin Phase 2 implementation** when ready
 
-**Philosophy**: Standards exist for a reason. ISO/IEC 11179 solves metadata management problems that every organization faces. By aligning with proven standards, Sitebender gains decades of collective wisdom while maintaining its revolutionary "everything is data" vision.
+**Strategic positioning**:
+
+> **"Sitebender: ISO/IEC 11179-compliant metadata registry for web applications. Define data elements declaratively in JSX, store as RDF triples, query via SPARQL. Native integrations with enterprise data catalogs (OpenMetadata, Amundsen, Apache Atlas) for unified data governance at scale."**
+
+**Philosophy**:
+
+Standards exist for a reason. ISO/IEC 11179 solves metadata management problems that every organization faces. By aligning with proven international standards FIRST, Sitebender gains decades of collective wisdom while maintaining its revolutionary "everything is data" vision.
+
+Platforms like OpenMetadata provide rich discovery and governance features for enterprises. By building on standards (ISO/IEC 11179), we can integrate with these platforms WITHOUT being locked to them. RDF and SPARQL ensure Sitebender metadata can flow anywhere.
+
+**This is the power of standards over platforms**: Flexibility, interoperability, and future-proof architecture.
 
 ---
 
-_Data elements as first-class citizens. Metadata as queryable knowledge. Semantic interoperability through standards. This is how enterprise applications should be built._
+_Data elements as first-class citizens. Metadata as queryable knowledge. Semantic interoperability through standards. Enterprise integration without lock-in. This is how modern applications should be built._
