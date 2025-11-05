@@ -1,6 +1,6 @@
 //++ Private helper: splits array by predicate into two groups (plain array)
-//++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
-//++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
+//++ [EXCEPTION] Using native methods (.length, .push) and loops for performance
+//++ No recursion to avoid stack overflow on large arrays
 export default function _partitionArray<T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) {
@@ -10,7 +10,6 @@ export default function _partitionArray<T>(
 		const pass: Array<T> = []
 		const fail: Array<T> = []
 
-		//++ [EXCEPTION] Loop with mutation of local arrays for performance
 		for (let index = 0; index < array.length; index++) {
 			const element = array[index]
 
