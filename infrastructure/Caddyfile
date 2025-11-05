@@ -23,3 +23,31 @@ app.localhost {
     format console
   }
 }
+
+# OpenMetadata - Data Catalog UI
+openmetadata.localhost {
+  tls /certs/openmetadata.localhost.pem /certs/openmetadata.localhost-key.pem
+
+  reverse_proxy openmetadata_server:8585
+
+  encode gzip
+
+  log {
+    output stdout
+    format console
+  }
+}
+
+# Airflow - OpenMetadata Ingestion Pipeline
+airflow.localhost {
+  tls /certs/airflow.localhost.pem /certs/airflow.localhost-key.pem
+
+  reverse_proxy openmetadata_ingestion:8080
+
+  encode gzip
+
+  log {
+    output stdout
+    format console
+  }
+}
