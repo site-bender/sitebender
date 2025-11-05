@@ -82,7 +82,10 @@ export default function _validateGlobalAttributes(
 	const propsEntries = getOrElse(
 		[] as ReadonlyArray<readonly [string, unknown]>,
 	)(propsEntriesResult)
-	const nonGlobalEntries = filter(isNotGlobalAttribute)(propsEntries)
+	const nonGlobalEntriesResult = filter(isNotGlobalAttribute)(propsEntries)
+	const nonGlobalEntries = getOrElse(
+		[] as ReadonlyArray<readonly [string, unknown]>,
+	)(nonGlobalEntriesResult)
 	const otherAttrs = reduce(buildOtherAttrs)({})(nonGlobalEntries)
 
 	return {
