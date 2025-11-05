@@ -1,8 +1,12 @@
 {
 	"$schema": "./schemas/boundaries.schema.json",
 	"version": "1.0.0",
-	"lastUpdated": "2025-01-11",
+	"lastUpdated": "2025-11-05",
 	"description": "Inter-library dependency boundaries and communication rules for @sitebender ecosystem",
+	"notes": {
+		"iso11179": "ISO/IEC 11179 metadata registry alignment is in progress. See libraries/pathfinder/ISO_IEC_11179_ALIGNMENT.md and docs/adr/ADR-001-ISO-11179-ALIGNMENT.md for details.",
+		"pathfinderIntegration": "Pathfinder library (triple store infrastructure) will be added as Layer 1-2 infrastructure. Artificer will require Pathfinder dependency in Phase 2+ of ISO/IEC 11179 implementation."
+	},
 	"principles": {
 		"noCircularDependencies": "Dependencies must form a directed acyclic graph (DAG)",
 		"singleResponsibility": "Each library has one clear purpose and cannot duplicate another's responsibilities",
@@ -239,7 +243,14 @@
 			"canBeImportedBy": ["agent", "applications"],
 			"forbiddenImports": ["envoy", "auditor", "architect", "formulator"],
 			"publicAPI": "libraries/artificer/exports/",
-			"internalPath": "libraries/artificer/internal/"
+			"internalPath": "libraries/artificer/internal/",
+			"plannedDependencies": {
+				"pathfinder": {
+					"phase": "ISO/IEC 11179 Phase 2",
+					"reason": "Artificer will register metadata (data elements) in Pathfinder's triple store during JSX → IR compilation",
+					"documentation": "libraries/pathfinder/ISO_IEC_11179_ALIGNMENT.md"
+				}
+			}
 		},
 		"formulator": {
 			"canImport": ["arborist", "toolsmith", "quarrier"],
