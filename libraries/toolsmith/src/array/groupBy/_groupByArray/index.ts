@@ -1,5 +1,5 @@
-//++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
-//++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
+//++ [EXCEPTION] Using native methods (.length, .push, Object.create, Object.hasOwn, String) and loops for performance
+//++ No recursion to avoid stack overflow on large arrays
 export default function _groupByArray<T, K extends string | number>(
 	keyFn: (element: T) => K,
 ) {
@@ -8,7 +8,6 @@ export default function _groupByArray<T, K extends string | number>(
 	): Record<string, ReadonlyArray<T>> {
 		const result: Record<string, Array<T>> = Object.create(null)
 
-		//++ [EXCEPTION] Loop with mutation of local record for performance
 		for (let index = 0; index < array.length; index++) {
 			const element = array[index]
 			const key = String(keyFn(element))
