@@ -1,50 +1,65 @@
-//++ Reconstructs nested arrays from flat structure
-const unflatten = (depths: Array<number>) =>
-<T>(
-	array: Array<T>,
-): Array<T | Array<unknown>> => {
-	if (array.length === 0) return []
-	if (depths.length === 0) return []
+import type {
+	Result,
+	Validation,
+	ValidationError,
+} from "../../types/fp/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import _unflattenArray from "./_unflattenArray/index.ts"
+import _unflattenToResult from "./_unflattenToResult/index.ts"
+import _unflattenToValidation from "./_unflattenToValidation/index.ts"
 
-	// Recursive helper function for pure FP approach
-	const buildNested = (
-		index: number,
-		currentDepth: number,
-	): { result: Array<T | Array<unknown>>; nextIndex: number } => {
-		// deno-coverage-ignore-start Defensive guard: unreachable because callers validate index < array.length && index < depths.length before recursion
-		if (index >= array.length || index >= depths.length) {
-			return { result: [], nextIndex: index }
+//++ Reconstructs nested arrays from flat structure using depth markers
+//++ Three-path pattern: plain array, Result monad (fail-fast), or Validation monad (accumulate)
+export default function unflatten(
+	depths: ReadonlyArray<number>,
+) {
+	//++ [OVERLOAD] Plain array path: takes array, returns nested array
+	function unflattenWithDepths<T>(
+		array: ReadonlyArray<T>,
+	): Array<T | Array<unknown>>
+
+	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+	function unflattenWithDepths<T>(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, Array<T | Array<unknown>>>
+
+	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+	function unflattenWithDepths<T>(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, Array<T | Array<unknown>>>
+
+	//++ Implementation with type dispatch
+	function unflattenWithDepths<T>(
+		array:
+			| ReadonlyArray<T>
+			| Result<ValidationError, ReadonlyArray<T>>
+			| Validation<ValidationError, ReadonlyArray<T>>,
+	):
+		| Array<T | Array<unknown>>
+		| Result<ValidationError, Array<T | Array<unknown>>>
+		| Validation<ValidationError, Array<T | Array<unknown>>> {
+		// Happy path: plain array (most common, zero overhead)
+		if (isArray<T>(array)) {
+			return _unflattenArray(depths)(array)
 		}
-		// deno-coverage-ignore-stop
 
-		const result: Array<T | Array<unknown>> = []
-		let i = index
-
-		while (i < array.length && i < depths.length) {
-			const depth = depths[i]
-			const value = array[i]
-
-			if (depth < currentDepth) {
-				// Return to parent level
-				break
-			} else if (depth === currentDepth) {
-				// Add to current level
-				result.push(value)
-				i++
-			} else {
-				// Start a new nested level
-				const nested = buildNested(i, depth)
-				result.push(nested.result)
-				i = nested.nextIndex
-			}
+		// Result path: fail-fast monadic transformation
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_unflattenToResult(depths))(array)
 		}
 
-		return { result, nextIndex: i }
+		// Validation path: error accumulation monadic transformation
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_unflattenToValidation(depths))(array)
+		}
+
+		// Fallback: pass through unchanged (error/failure states)
+		return array
 	}
 
-	const { result } = buildNested(0, 0)
-
-	return result
+	return unflattenWithDepths
 }
-
-export default unflatten
