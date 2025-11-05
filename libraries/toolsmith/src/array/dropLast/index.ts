@@ -1,15 +1,61 @@
-import max from "../../math/max/index.ts"
-import lte from "../../validation/lte/index.ts"
-import length from "../length/index.ts"
-import slice from "../slice/index.ts"
+import type {
+	Result,
+	Validation,
+	ValidationError,
+} from "../../types/fp/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
+import _dropLastArray from "./_dropLastArray/index.ts"
+import _dropLastToResult from "./_dropLastToResult/index.ts"
+import _dropLastToValidation from "./_dropLastToValidation/index.ts"
 
-//++ Drops the last n elements
+//++ Drops the last n elements from an array
+//++ Three-path pattern: plain array, Result monad (fail-fast), or Validation monad (accumulate)
 export default function dropLast<T>(n: number) {
-	return function dropLastWithN(array: Array<T>): Array<T> {
-		if (lte(n)(0)) {
-			return array
+	//++ [OVERLOAD] Plain array path: takes array, returns array
+	function dropLastWithN(array: ReadonlyArray<T>): ReadonlyArray<T>
+
+	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+	function dropLastWithN(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, ReadonlyArray<T>>
+
+	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+	function dropLastWithN(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, ReadonlyArray<T>>
+
+	//++ Implementation with type dispatch
+	function dropLastWithN(
+		array:
+			| ReadonlyArray<T>
+			| Result<ValidationError, ReadonlyArray<T>>
+			| Validation<ValidationError, ReadonlyArray<T>>,
+	):
+		| ReadonlyArray<T>
+		| Result<ValidationError, ReadonlyArray<T>>
+		| Validation<ValidationError, ReadonlyArray<T>> {
+		// Happy path: plain array (most common, zero overhead)
+		if (isArray<T>(array)) {
+			return _dropLastArray(n)(array)
 		}
 
-		return slice(0)(max(0)(length(array) - n))(array)
+		// Result path: fail-fast monadic transformation
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_dropLastToResult(n))(array)
+		}
+
+		// Validation path: error accumulation monadic transformation
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_dropLastToValidation(n))(array)
+		}
+
+		// Fallback: pass through unchanged (error/failure states)
+		return array
 	}
+
+	return dropLastWithN
 }

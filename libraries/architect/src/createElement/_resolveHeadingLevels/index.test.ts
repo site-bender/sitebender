@@ -5,11 +5,11 @@ import _resolveHeadingLevels from "./index.ts"
 
 Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 	await t.step(
-		"resolves HN at root level to H1",
+		"resolves HEADING at root level to H1",
 		function resolvesRootToH1() {
 			const vnode: VirtualNode = {
 				_tag: "element",
-				tagName: "HN",
+				tagName: "HEADING",
 				attributes: {},
 				children: [],
 			}
@@ -24,7 +24,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 	)
 
 	await t.step(
-		"resolves HN inside ARTICLE to H2",
+		"resolves HEADING inside ARTICLE to H2",
 		function resolvesArticleToH2() {
 			const vnode: VirtualNode = {
 				_tag: "element",
@@ -33,7 +33,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 				children: [
 					{
 						_tag: "element",
-						tagName: "HN",
+						tagName: "HEADING",
 						attributes: {},
 						children: [],
 					},
@@ -54,7 +54,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 	)
 
 	await t.step(
-		"resolves HN inside nested SECTION to H3",
+		"resolves HEADING inside nested SECTION to H3",
 		function resolvesNestedSectionToH3() {
 			const vnode: VirtualNode = {
 				_tag: "element",
@@ -68,7 +68,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 						children: [
 							{
 								_tag: "element",
-								tagName: "HN",
+								tagName: "HEADING",
 								attributes: {},
 								children: [],
 							},
@@ -98,14 +98,14 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 		"caps heading level at H6 for deep nesting",
 		function capsAtH6() {
 			/*++
-			 + Create deeply nested structure: Article > Section × 7 > HN
+			 + Create deeply nested structure: Article > Section × 7 > HEADING
 			 + Should resolve to H6 (capped) even though depth would be 8
 			 */
 			function createNestedSections(depth: number): VirtualNode {
 				if (depth === 0) {
 					return {
 						_tag: "element",
-						tagName: "HN",
+						tagName: "HEADING",
 						attributes: {},
 						children: [],
 					}
@@ -154,7 +154,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 		function addsWarningForExcessiveNesting() {
 			/*++
 			 + Create nesting beyond practical limit (H4+)
-			 + Article > Section > Section > Section > HN = H5
+			 + Article > Section > Section > Section > HEADING = H5
 			 */
 			const vnode: VirtualNode = {
 				_tag: "element",
@@ -178,7 +178,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 										children: [
 											{
 												_tag: "element",
-												tagName: "HN",
+												tagName: "HEADING",
 												attributes: { id: "test" },
 												children: [],
 											},
@@ -198,7 +198,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 			 */
 			function findHeading(node: VirtualNode): VirtualNode | null {
 				if (node._tag !== "element") return null
-				if (node.tagName.startsWith("H") && node.tagName !== "HN") {
+				if (node.tagName.startsWith("H") && node.tagName !== "HEADING") {
 					return node
 				}
 				if (node.children.length > 0) {
@@ -228,11 +228,11 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 	)
 
 	await t.step(
-		"preserves existing attributes on HN elements",
+		"preserves existing attributes on HEADING elements",
 		function preservesAttributes() {
 			const vnode: VirtualNode = {
 				_tag: "element",
-				tagName: "HN",
+				tagName: "HEADING",
 				attributes: {
 					id: "my-heading",
 					class: "heading-class",
@@ -251,11 +251,11 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 	)
 
 	await t.step(
-		"preserves text children in HN elements",
+		"preserves text children in HEADING elements",
 		function preservesChildren() {
 			const vnode: VirtualNode = {
 				_tag: "element",
-				tagName: "HN",
+				tagName: "HEADING",
 				attributes: {},
 				children: [
 					{
@@ -280,7 +280,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 	)
 
 	await t.step(
-		"handles HN in DIV (non-sectioning) as H1",
+		"handles HEADING in DIV (non-sectioning) as H1",
 		function handlesNonSectioningAsH1() {
 			const vnode: VirtualNode = {
 				_tag: "element",
@@ -289,7 +289,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 				children: [
 					{
 						_tag: "element",
-						tagName: "HN",
+						tagName: "HEADING",
 						attributes: {},
 						children: [],
 					},
@@ -310,7 +310,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 	)
 
 	await t.step(
-		"resolves multiple HN elements at different depths correctly",
+		"resolves multiple HEADING elements at different depths correctly",
 		function resolvesMultipleHeadings() {
 			const vnode: VirtualNode = {
 				_tag: "element",
@@ -319,7 +319,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 				children: [
 					{
 						_tag: "element",
-						tagName: "HN",
+						tagName: "HEADING",
 						attributes: { id: "h1" },
 						children: [],
 					},
@@ -330,7 +330,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 						children: [
 							{
 								_tag: "element",
-								tagName: "HN",
+								tagName: "HEADING",
 								attributes: { id: "h2" },
 								children: [],
 							},
@@ -341,7 +341,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 								children: [
 									{
 										_tag: "element",
-										tagName: "HN",
+										tagName: "HEADING",
 										attributes: { id: "h3" },
 										children: [],
 									},
@@ -399,7 +399,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 				children: [
 					{
 						_tag: "element",
-						tagName: "HN",
+						tagName: "HEADING",
 						attributes: {},
 						children: [],
 					},
@@ -427,7 +427,7 @@ Deno.test("_resolveHeadingLevels", async function resolveHeadingLevelsTests(t) {
 				children: [
 					{
 						_tag: "element",
-						tagName: "HN",
+						tagName: "HEADING",
 						attributes: {},
 						children: [],
 					},

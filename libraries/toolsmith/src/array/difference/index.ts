@@ -1,30 +1,60 @@
-import not from "../../logic/not/index.ts"
-import isArray from "../../validation/isArray/index.ts"
-import filter from "../filter/index.ts"
-import isEmpty from "../isEmpty/index.ts"
-import toSet from "../toSet/index.ts"
+import type { Result, ValidationError } from "../../types/fp/index.ts"
+import type { Validation } from "../../types/fp/index.ts"
 
-//++ Set difference between arrays
-export default function difference<T>(
-	subtrahend: ReadonlyArray<T> | null | undefined,
-) {
-	return function differenceWithSubtrahend(
-		minuend: ReadonlyArray<T> | null | undefined,
-	): Array<T> {
-		if (isArray(minuend)) {
-			if (isArray(subtrahend) && not(isEmpty(subtrahend))) {
-				const set2 = toSet(subtrahend)
+import _differenceArray from "./_differenceArray/index.ts"
+import _differenceToResult from "./_differenceToResult/index.ts"
+import _differenceToValidation from "./_differenceToValidation/index.ts"
+import chainResults from "../../monads/result/chain/index.ts"
+import chainValidations from "../../monads/validation/chain/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isOk from "../../monads/result/isOk/index.ts"
+import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
-				// Use filter for O(n) time with O(1) lookups
-				// This preserves duplicates in the minuend
-				return filter(function notInSet(element: T) {
-					return not(set2.has(element))
-				})(minuend as Array<T>)
-			}
+//++ Set difference: returns elements in minuend that are not in subtrahend
+export default function difference<T>(subtrahend: ReadonlyArray<T>) {
+	//++ [OVERLOAD] Plain array path: takes array, returns array
+	function differenceWithSubtrahend(
+		minuend: ReadonlyArray<T>,
+	): ReadonlyArray<T>
 
-			return [...minuend]
+	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+	function differenceWithSubtrahend(
+		minuend: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, ReadonlyArray<T>>
+
+	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+	function differenceWithSubtrahend(
+		minuend: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, ReadonlyArray<T>>
+
+	//++ Implementation with type dispatch
+	function differenceWithSubtrahend(
+		minuend:
+			| ReadonlyArray<T>
+			| Result<ValidationError, ReadonlyArray<T>>
+			| Validation<ValidationError, ReadonlyArray<T>>,
+	):
+		| ReadonlyArray<T>
+		| Result<ValidationError, ReadonlyArray<T>>
+		| Validation<ValidationError, ReadonlyArray<T>> {
+		// Happy path: plain array (most common, zero overhead)
+		if (isArray<T>(minuend)) {
+			return _differenceArray(subtrahend)(minuend)
 		}
 
-		return []
+		// Result path: fail-fast monadic transformation
+		if (isOk<ReadonlyArray<T>>(minuend)) {
+			return chainResults(_differenceToResult(subtrahend))(minuend)
+		}
+
+		// Validation path: error accumulation monadic transformation
+		if (isSuccess<ReadonlyArray<T>>(minuend)) {
+			return chainValidations(_differenceToValidation(subtrahend))(minuend)
+		}
+
+		// Fallback: pass through unchanged (error/failure states)
+		return minuend
 	}
+
+	return differenceWithSubtrahend
 }
