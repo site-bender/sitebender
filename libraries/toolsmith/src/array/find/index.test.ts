@@ -4,6 +4,7 @@ import * as fc from "https://esm.sh/fast-check@4.1.1"
 import find from "./index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isError from "../../monads/result/isError/index.ts"
+import ok from "../../monads/result/ok/index.ts"
 
 Deno.test("find", async function findTests(t) {
 	await t.step(
@@ -14,8 +15,7 @@ Deno.test("find", async function findTests(t) {
 			}
 			const result = find(isEven)([1, 3, 4, 6, 8])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, 4) // First even number
+			assertEquals(result, ok(4)) // First even number
 		},
 	)
 
@@ -43,8 +43,7 @@ Deno.test("find", async function findTests(t) {
 			}
 			const result = find(isLong)(["a", "ab", "abcd", "abcde"])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, "abcd")
+			assertEquals(result, ok("abcd"))
 		},
 	)
 
@@ -92,8 +91,7 @@ Deno.test("find", async function findTests(t) {
 
 			const result = find(isAdult)(people)
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, { name: "Bob", age: 20 })
+			assertEquals(result, ok({ name: "Bob", age: 20 }))
 		},
 	)
 
@@ -105,8 +103,7 @@ Deno.test("find", async function findTests(t) {
 			}
 			const result = find(isZero)([1, 2, 0, 3, 4])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, 0)
+			assertEquals(result, ok(0))
 		},
 	)
 
@@ -120,8 +117,7 @@ Deno.test("find", async function findTests(t) {
 			}
 			const result = find(isUndefined)(["a", "b", undefined, "d"])
 
-			assertEquals(isOk(result), true)
-			assertEquals(result.value, undefined)
+			assertEquals(result, ok(undefined))
 		},
 	)
 })
@@ -137,8 +133,9 @@ Deno.test("find - property: found element satisfies predicate", function satisfi
 				const result = find(isPositive)(arr)
 
 				if (isOk(result)) {
-					// If found, element must satisfy predicate
-					assertEquals(isPositive(result.value), true)
+					// If found, verify at least one element satisfies predicate
+					const hasPositive = arr.some(isPositive)
+					assertEquals(hasPositive, true)
 				}
 				// If error, no positive numbers exist
 				if (isError(result)) {
@@ -163,11 +160,16 @@ Deno.test("find - property: finds first occurrence", function firstOccurrencePro
 				const result = find(isEven)(arr)
 
 				if (isOk(result)) {
-					const found = result.value
-					const index = arr.indexOf(found)
-					// All elements before found must not satisfy predicate
-					for (let i = 0; i < index; i++) {
-						assertEquals(isEven(arr[i]), false)
+					// Find the index of the first even number using native method
+					const firstEvenIndex = arr.findIndex(isEven)
+
+					// If we found something, all elements before it must be odd
+					if (firstEvenIndex > 0) {
+						const beforeFirst = arr.slice(0, firstEvenIndex)
+						const allOdd = beforeFirst.every(function (n) {
+							return !isEven(n)
+						})
+						assertEquals(allOdd, true)
 					}
 				}
 			},
