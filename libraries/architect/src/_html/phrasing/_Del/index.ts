@@ -2,6 +2,8 @@ import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.
 import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
 import _validateAttributes from "../../_validateAttributes/index.ts"
 import _validateRole from "../../_validateRole/index.ts"
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
+import _validateAriaAttributes from "../../_validateAriaAttributes/index.ts"
 
 export type Props =
 	& BaseProps
@@ -14,11 +16,17 @@ export type Props =
  + HTML del element wrapper for deleted content
  */
 export default function _Del(props: Props): VirtualNode {
-	const { children = [], role, ...attrs } = props
+	const { children = [], role, aria, ...attrs } = props
 	const roleAttrs = _validateRole("del")(role)
+	// Validate ARIA attributes only if provided
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("del")(role)(aria)
+		: {}
+
 	const attributes = {
 		..._validateAttributes("del")(attrs),
 		...roleAttrs,
+		...ariaAttrs,
 	}
 
 	return {

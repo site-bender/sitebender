@@ -1,5 +1,5 @@
 import extractLocalName from "../_extractLocalName/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 //++ Extract the imported name from a specifier
 export default function extractImportedName(spec: Record<string, unknown>): string {
