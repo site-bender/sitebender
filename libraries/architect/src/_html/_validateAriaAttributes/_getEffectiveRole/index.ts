@@ -1,8 +1,11 @@
-import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
-import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 import includes from "@sitebender/toolsmith/array/includes/index.ts"
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
+import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
-import { HTML_ELEMENTS } from "../../constants/ariaStandards.ts"
+import { HTML_ELEMENTS } from "../../constants/ariaStandards/index.ts"
 
 /*++
  + Determines the effective ARIA role for an HTML element
@@ -24,20 +27,20 @@ export default function _getEffectiveRole(tagName: string) {
 		 + If element not in our standards data, return undefined
 		 + (Will be added in full expansion)
 		 */
-		if (!elementRules) {
+		if (not(isDefined(elementRules))) {
 			return undefined
 		}
 
 		/*++
 		 + If explicit role provided, validate it's allowed on this element
 		 */
-		if (isDefined(explicitRole) && isString(explicitRole)) {
+		if (and(isDefined(explicitRole))(isString(explicitRole))) {
 			const { allowedRoles } = elementRules
 
 			/*++
 			 + allowedRoles: "any" → accept any role
 			 */
-			if (allowedRoles === "any") {
+			if (isEqual(allowedRoles)("any")) {
 				return explicitRole
 			}
 
@@ -45,7 +48,7 @@ export default function _getEffectiveRole(tagName: string) {
 			 + allowedRoles: false → no explicit role allowed
 			 + Ignore explicit role, use implicit
 			 */
-			if (allowedRoles === false) {
+			if (isEqual(allowedRoles)(false)) {
 				return elementRules.implicitRole
 			}
 
