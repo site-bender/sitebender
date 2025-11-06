@@ -40,7 +40,10 @@ Deno.test({
 		)
 		assertExists(ast!.module, "Should have SWC module")
 		assertExists(ast!.sourceText, "Should have source text")
-		assert(isEqual(typeof ast!.sourceText)("string"), "Source text should be string")
+		assert(
+			isEqual(typeof ast!.sourceText)("string"),
+			"Source text should be string",
+		)
 	},
 })
 

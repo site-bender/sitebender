@@ -27,25 +27,35 @@ export default function extractClasses(
 	const moduleBody = ast.module.body as ReadonlyArray<unknown>
 
 	// Filter for class declarations and export declarations that wrap classes
-	const classNodes = filter(_isClassOrExportedClass)(moduleBody as ReadonlyArray<Serializable>)
+	const classNodes = filter(_isClassOrExportedClass)(
+		moduleBody as ReadonlyArray<Serializable>,
+	)
 
 	const classNodesArray = getOrElse([] as ReadonlyArray<Serializable>)(
 		classNodes,
 	)
 
 	// Extract details from each class node
-	const classValidations = map(_extractClassDetails(ast))(classNodesArray) as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>
+	const classValidations = map(_extractClassDetails(ast))(
+		classNodesArray,
+	) as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>
 
 	// Filter successful class extractions
-	const successfulValidationsResult = filter(isSuccess)(classValidations as ReadonlyArray<Serializable>)
-	const successfulValidations = getOrElse([] as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>)(
-		successfulValidationsResult
+	const successfulValidationsResult = filter(isSuccess)(
+		classValidations as ReadonlyArray<Serializable>,
+	)
+	const successfulValidations = getOrElse(
+		[] as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>,
+	)(
+		successfulValidationsResult,
 	) as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>
 
 	// Extract values from successful validations
 	const classes = map(function extractValue(v: Serializable): ParsedClass {
 		return (v as Validation<ClassExtractionError, ParsedClass>).value
-	})(successfulValidations as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedClass>
+	})(successfulValidations as ReadonlyArray<Serializable>) as ReadonlyArray<
+		ParsedClass
+	>
 
 	// Return success with extracted classes
 	return success(classes)

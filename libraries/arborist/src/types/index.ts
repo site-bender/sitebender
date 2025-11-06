@@ -247,8 +247,8 @@ export type ParsedClass = Readonly<{
 	isExported: boolean
 	isDefault: boolean
 	isAbstract: boolean
-	extends: string | undefined  // Parent class name
-	implements: ReadonlyArray<string>  // Interface names
+	extends: string | undefined // Parent class name
+	implements: ReadonlyArray<string> // Interface names
 	members: ReadonlyArray<ClassMember>
 }>
 
@@ -261,9 +261,9 @@ export type ClassMember = Readonly<{
 	isStatic: boolean
 	isPrivate: boolean
 	isProtected: boolean
-	isAsync: boolean  // For methods
-	parameters: ReadonlyArray<Parameter>  // For methods/constructor
-	returnType: string | undefined  // For methods
+	isAsync: boolean // For methods
+	parameters: ReadonlyArray<Parameter> // For methods/constructor
+	returnType: string | undefined // For methods
 }>
 
 //++ Violation detection results

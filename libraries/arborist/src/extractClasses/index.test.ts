@@ -140,7 +140,7 @@ Deno.test("extractClasses - Success with inheritance", async () => {
 	assertEquals(validation._tag, "Success")
 	if (validation._tag === "Success") {
 		assertEquals(validation.value.length, 2)
-		const childClass = validation.value.find(c => c.name === "ChildClass")
+		const childClass = validation.value.find((c) => c.name === "ChildClass")
 		assert(childClass)
 		if (childClass) {
 			assertEquals(childClass.extends, "BaseClass")
@@ -206,35 +206,35 @@ Deno.test("extractClasses - Success with complex members", async () => {
 		assertEquals(cls.members.length, 10) // 3 properties + constructor + 4 methods + getter + setter
 
 		// Check various member types
-		const privateProp = cls.members.find(m => m.name === "name")
+		const privateProp = cls.members.find((m) => m.name === "name")
 		assert(privateProp)
 		if (privateProp) {
 			assertEquals(privateProp.type, "property")
 			assertEquals(privateProp.isPrivate, true)
 		}
 
-		const staticProp = cls.members.find(m => m.name === "count")
+		const staticProp = cls.members.find((m) => m.name === "count")
 		assert(staticProp)
 		if (staticProp) {
 			assertEquals(staticProp.isStatic, true)
 		}
 
-		const constructor = cls.members.find(m => m.type === "constructor")
+		const constructor = cls.members.find((m) => m.type === "constructor")
 		assert(constructor)
 		if (constructor) {
 			assertEquals(constructor.parameters.length, 2)
 		}
 
-		const asyncMethod = cls.members.find(m => m.name === "asyncMethod")
+		const asyncMethod = cls.members.find((m) => m.name === "asyncMethod")
 		assert(asyncMethod)
 		if (asyncMethod) {
 			assertEquals(asyncMethod.isAsync, true)
 		}
 
-		const getter = cls.members.find(m => m.type === "getter")
+		const getter = cls.members.find((m) => m.type === "getter")
 		assert(getter)
 
-		const setter = cls.members.find(m => m.type === "setter")
+		const setter = cls.members.find((m) => m.type === "setter")
 		assert(setter)
 	}
 })
