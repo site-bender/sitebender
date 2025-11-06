@@ -1,5 +1,6 @@
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 import type { BaseProps } from "../types/index.ts"
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import _validateAriaAttributes from "../_validateAriaAttributes/index.ts"
 import _validateAttributes from "../_validateAttributes/index.ts"
 import _validateStringAttribute from "../_validateStringAttribute/index.ts"
@@ -13,18 +14,16 @@ export default function _Html(props: Props): VirtualNode {
 	const { children = [], xmlns, aria, role, ...attrs } = props
 
 	/*++
-	 + Validate ARIA attributes using whitelist approach
+	 + Validate ARIA attributes only if provided
 	 */
-	const validateAria = _validateAriaAttributes("html")
-	const validateAriaForRole = validateAria(role)
-	const ariaResult = validateAriaForRole(aria || {})
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("html")(role)(aria)
+		: {}
 
 	const attributes = {
 		..._validateAttributes("html")(attrs),
 		..._validateStringAttribute("xmlns")({ xmlns }),
-		...ariaResult.validAttrs,
-		...ariaResult.invalidAttrs,
-		...ariaResult.errors,
+		...ariaAttrs,
 	}
 
 	return {

@@ -1,6 +1,6 @@
 //++ Checks if a node is a class declaration or exported class
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 export default function _isClassOrExportedClass(node: Serializable): boolean {
 	const nodeObj = node as Record<string, Serializable>

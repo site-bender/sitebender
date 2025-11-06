@@ -1,5 +1,5 @@
 //++ Checks if a node is a function declaration or exported function
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 export default function _isFunctionOrExportedFunction(node: unknown): boolean {
 	const nodeObj = node as Record<string, unknown>
