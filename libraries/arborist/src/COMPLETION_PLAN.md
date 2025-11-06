@@ -205,6 +205,7 @@ You have a documented pattern of:
 **Completion Notes:**
 
 **Created:**
+
 - `src/api/parseFileWithSemantics/index.test.ts` - 12 comprehensive tests covering:
   - Success paths: parsing, semantic info structure, purity, complexity metrics
   - Error paths: invalid syntax, missing files, helpful suggestions
@@ -212,6 +213,7 @@ You have a documented pattern of:
   - Edge cases: TypeScript feature support, complete semantic analysis
 
 **Fixed Critical Bugs (discovered by tests):**
+
 - **Bug 1:** Fixed widespread misuse of `or()` function (31 files across codebase)
   - `or()` is a logical operator returning boolean, NOT a fallback operator
   - Replaced `or(value)(default)` with nullish coalescing `value ?? default`
@@ -229,6 +231,7 @@ You have a documented pattern of:
   - Affected test files and implementation files throughout codebase
 
 **Test Results:**
+
 ```
 running 12 tests from ./src/api/parseFileWithSemantics/index.test.ts
 ✓ parseFileWithSemantics - success path: parses valid TypeScript file → Ok(SemanticAst)
@@ -248,6 +251,7 @@ ok | 12 passed | 0 failed (28ms)
 ```
 
 **Verification:**
+
 - All parseFileWithSemantics tests pass: ✅
 - All existing parseFile tests still pass: ✅ (6/6)
 - Linter passes: ✅
@@ -272,6 +276,7 @@ Both `buildParsedFile` and `buildSemanticFile` were created without explicit use
 **What Users Should Use Instead:**
 
 Call the 7 extractor functions directly as needed:
+
 - `extractFunctions` - Function declarations and metadata
 - `extractImports` - Import statements
 - `extractExports` - Export statements
@@ -283,10 +288,12 @@ Call the 7 extractor functions directly as needed:
 These extractors are the actual useful API. There is no need for wrapper functions.
 
 **Files Deleted:**
+
 - `src/buildParsedFile/` - Entire directory including index.ts, index.test.ts, helpers
 - `src/api/buildSemanticFile/` - Entire directory including index.ts, index.test.ts
 
 **Documentation Updated:**
+
 - README.md - Removed all references, updated usage examples to show direct extractor usage
 - mod.ts - Removed all references from comments and examples
 
