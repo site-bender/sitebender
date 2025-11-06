@@ -1,6 +1,6 @@
 //++ Serialize a TypeScript type annotation to string
 //++ Handles primitive types, object types, union types, generics, etc.
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"

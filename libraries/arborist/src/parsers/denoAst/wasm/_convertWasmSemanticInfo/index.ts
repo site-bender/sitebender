@@ -3,7 +3,6 @@ import type {
 	Diagnostic,
 	SemanticInfo,
 } from "../../../../types/semantics/index.ts"
-import or from "@sitebender/toolsmith/logic/or/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import _convertReference from "./_convertReference/index.ts"
@@ -41,24 +40,32 @@ type WasmSemanticInfo = {
 	"type_dependencies": Record<string, string[]>
 }
 
-export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): SemanticInfo {
+export default function convertWasmSemanticInfo(
+	wasmInfo: WasmSemanticInfo,
+): SemanticInfo {
 	// Convert symbol table entries to proper SymbolInfo types
-	const symbolTable = _buildSymbolTable(or(wasmInfo["symbol_table"])({}) as Record<string, unknown>)
+	const symbolTable = _buildSymbolTable(wasmInfo["symbol_table"] ?? {})
 
 	return {
-		inferredTypes: new Map(getOrElse([] as ReadonlyArray<[string, string]>)(map(_convertInferredType)(Object.entries(or(wasmInfo["inferred_types"])({}) as Record<string, unknown>)))),
+		inferredTypes: new Map(
+			getOrElse([] as ReadonlyArray<[string, string]>)(
+				map(_convertInferredType)(
+					Object.entries(wasmInfo["inferred_types"] ?? {}),
+				),
+			),
+		),
 		purity: {
-			isPure: or(wasmInfo.purity?.["is_pure"])(false) as boolean,
-			reasons: or(wasmInfo.purity?.reasons)([]) as string[],
-			sideEffects: or(wasmInfo.purity?.["side_effects"])([]) as string[],
+			isPure: wasmInfo.purity?.["is_pure"] ?? false,
+			reasons: wasmInfo.purity?.reasons ?? [],
+			sideEffects: wasmInfo.purity?.["side_effects"] ?? [],
 		},
 		complexity: {
-			cyclomatic: or(wasmInfo.complexity?.cyclomatic)(1) as number,
-			cognitive: or(wasmInfo.complexity?.cognitive)(1) as number,
+			cyclomatic: wasmInfo.complexity?.cyclomatic ?? 1,
+			cognitive: wasmInfo.complexity?.cognitive ?? 1,
 			halstead: {
-				volume: or(wasmInfo.complexity?.halstead?.volume)(0) as number,
-				difficulty: or(wasmInfo.complexity?.halstead?.difficulty)(0) as number,
-				effort: or(wasmInfo.complexity?.halstead?.effort)(0) as number,
+				volume: wasmInfo.complexity?.halstead?.volume ?? 0,
+				difficulty: wasmInfo.complexity?.halstead?.difficulty ?? 0,
+				effort: wasmInfo.complexity?.halstead?.effort ?? 0,
 			},
 		},
 		mathematicalProperties: {
@@ -69,9 +76,15 @@ export default function convertWasmSemanticInfo(wasmInfo: WasmSemanticInfo): Sem
 			invertible: wasmInfo["mathematical_properties"]?.invertible,
 		},
 		symbolTable,
-		diagnostics: getOrElse([] as ReadonlyArray<Diagnostic>)(map(_convertDiagnostic)(or(wasmInfo.diagnostics)([]) as unknown[])),
+		diagnostics: getOrElse([] as ReadonlyArray<Diagnostic>)(
+			map(_convertDiagnostic)(wasmInfo.diagnostics ?? []),
+		),
 		typeDependencies: new Map(
-			getOrElse([] as ReadonlyArray<[string, readonly string[]]>)(map(_convertDependency)(Object.entries(or(wasmInfo["type_dependencies"])({}) as Record<string, unknown>))),
+			getOrElse([] as ReadonlyArray<[string, readonly string[]]>)(
+				map(_convertDependency)(
+					Object.entries(wasmInfo["type_dependencies"] ?? {}),
+				),
+			),
 		),
 	}
 }
