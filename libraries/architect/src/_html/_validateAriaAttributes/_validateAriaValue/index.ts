@@ -1,10 +1,19 @@
-import includes from "@sitebender/toolsmith/array/includes/index.ts"
 import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
+import length from "@sitebender/toolsmith/array/length/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
-import { ARIA_ATTRIBUTES } from "../../constants/ariaStandards.ts"
+import { ARIA_ATTRIBUTES } from "../../constants/ariaStandards/index.ts"
 
-import type { AriaAttributeDefinition } from "../../constants/ariaStandards.ts"
+import type { AriaAttributeDefinition } from "../../constants/ariaStandards/index.ts"
+
+import _validateBoolean from "./_validateBoolean/index.ts"
+import _validateDecimal from "./_validateDecimal/index.ts"
+import _validateIdref from "./_validateIdref/index.ts"
+import _validateIdrefs from "./_validateIdrefs/index.ts"
+import _validateInteger from "./_validateInteger/index.ts"
+import _validateNmtoken from "./_validateNmtoken/index.ts"
 
 /*++
  + Validates an ARIA attribute value against its type definition
@@ -35,7 +44,7 @@ export default function _validateAriaValue(attributeName: string) {
 		 + Unknown attribute → return undefined (no validation data)
 		 + Caller will handle as invalid attribute
 		 */
-		if (!isDefined(attrDefinition)) {
+		if (not(isDefined(attrDefinition))) {
 			return undefined
 		}
 
@@ -43,8 +52,8 @@ export default function _validateAriaValue(attributeName: string) {
 		 + Check if value is defined
 		 + Some attributes allow empty values
 		 */
-		if (!isDefined(value)) {
-			if (attrDefinition.allowEmpty === true) {
+		if (not(isDefined(value))) {
+			if (isEqual(attrDefinition.allowEmpty)(true)) {
 				return undefined
 			}
 
@@ -55,15 +64,15 @@ export default function _validateAriaValue(attributeName: string) {
 		 + All ARIA attribute values must be strings
 		 + (Even numbers are represented as strings in HTML)
 		 */
-		if (!isString(value)) {
+		if (not(isString(value))) {
 			return `Attribute '${attributeName}' value must be a string, got ${typeof value}`
 		}
 
 		/*++
 		 + Check for empty strings
 		 */
-		if (value.length === 0) {
-			if (attrDefinition.allowEmpty === true) {
+		if (isEqual(length(value))(0)) {
+			if (isEqual(attrDefinition.allowEmpty)(true)) {
 				return undefined
 			}
 
@@ -78,49 +87,49 @@ export default function _validateAriaValue(attributeName: string) {
 		/*++
 		 + Boolean: only "true" or "false"
 		 */
-		if (type === "boolean") {
+		if (isEqual(type)("boolean")) {
 			return _validateBoolean(attributeName)(value)
 		}
 
 		/*++
 		 + Nmtoken: validate against enumerated values if present
 		 */
-		if (type === "nmtoken") {
+		if (isEqual(type)("nmtoken")) {
 			return _validateNmtoken(attributeName)(attrDefinition)(value)
 		}
 
 		/*++
 		 + Integer: validate as integer, check minValue if present
 		 */
-		if (type === "int") {
+		if (isEqual(type)("int")) {
 			return _validateInteger(attributeName)(attrDefinition)(value)
 		}
 
 		/*++
 		 + Decimal: validate as number
 		 */
-		if (type === "decimal") {
+		if (isEqual(type)("decimal")) {
 			return _validateDecimal(attributeName)(value)
 		}
 
 		/*++
 		 + Idref: validate as element ID reference
 		 */
-		if (type === "idref") {
+		if (isEqual(type)("idref")) {
 			return _validateIdref(attributeName)(value)
 		}
 
 		/*++
 		 + Idrefs: validate as space-separated element ID references
 		 */
-		if (type === "idrefs") {
+		if (isEqual(type)("idrefs")) {
 			return _validateIdrefs(attributeName)(value)
 		}
 
 		/*++
 		 + String: accept any string value
 		 */
-		if (type === "string") {
+		if (isEqual(type)("string")) {
 			return undefined
 		}
 
@@ -128,162 +137,5 @@ export default function _validateAriaValue(attributeName: string) {
 		 + Unknown type → should not happen
 		 */
 		return `Unknown type '${type}' for attribute '${attributeName}'`
-	}
-}
-
-/*++
- + Validates boolean value: only "true" or "false"
- */
-function _validateBoolean(attributeName: string) {
-	return function _validateBooleanValue(value: string): string | undefined {
-		if (value === "true" || value === "false") {
-			return undefined
-		}
-
-		return `Attribute '${attributeName}' must be "true" or "false", got "${value}"`
-	}
-}
-
-/*++
- + Validates nmtoken value against enumerated values if present
- */
-function _validateNmtoken(attributeName: string) {
-	return function _validateNmtokenForAttribute(
-		attrDefinition: AriaAttributeDefinition,
-	) {
-		return function _validateNmtokenValue(value: string): string | undefined {
-			/*++
-			 + If no enumerated values, accept any token
-			 */
-			if (!isDefined(attrDefinition.values)) {
-				return undefined
-			}
-
-			const { values } = attrDefinition
-
-			if (includes(values)(value)) {
-				return undefined
-			}
-
-			const valuesList = values.join('", "')
-
-			return `Attribute '${attributeName}' must be one of: "${valuesList}", got "${value}"`
-		}
-	}
-}
-
-/*++
- + Validates integer value
- */
-function _validateInteger(attributeName: string) {
-	return function _validateIntegerForAttribute(
-		attrDefinition: AriaAttributeDefinition,
-	) {
-		return function _validateIntegerValue(value: string): string | undefined {
-			/*++
-			 + Check if value is a valid integer
-			 */
-			const intValue = parseInt(value, 10)
-
-			if (isNaN(intValue) || intValue.toString() !== value) {
-				return `Attribute '${attributeName}' must be an integer, got "${value}"`
-			}
-
-			/*++
-			 + Check minValue constraint if present
-			 */
-			if (isDefined(attrDefinition.minValue)) {
-				if (intValue < attrDefinition.minValue) {
-					return `Attribute '${attributeName}' must be >= ${attrDefinition.minValue}, got ${intValue}`
-				}
-			}
-
-			return undefined
-		}
-	}
-}
-
-/*++
- + Validates decimal value
- */
-function _validateDecimal(attributeName: string) {
-	return function _validateDecimalValue(value: string): string | undefined {
-		/*++
-		 + Check if value is a valid number
-		 */
-		const numValue = parseFloat(value)
-
-		if (isNaN(numValue)) {
-			return `Attribute '${attributeName}' must be a number, got "${value}"`
-		}
-
-		return undefined
-	}
-}
-
-/*++
- + Validates idref value (element ID reference)
- */
-function _validateIdref(attributeName: string) {
-	return function _validateIdrefValue(value: string): string | undefined {
-		/*++
-		 + ID references must be non-empty strings
-		 + They cannot contain spaces
-		 */
-		if (value.length === 0) {
-			return `Attribute '${attributeName}' cannot be empty`
-		}
-
-		if (value.includes(" ")) {
-			return `Attribute '${attributeName}' cannot contain spaces (use 'idrefs' for multiple IDs)`
-		}
-
-		return undefined
-	}
-}
-
-/*++
- + Validates idrefs value (space-separated element ID references)
- */
-function _validateIdrefs(attributeName: string) {
-	return function _validateIdrefsValue(value: string): string | undefined {
-		/*++
-		 + ID references list must be non-empty
-		 */
-		if (value.length === 0) {
-			return `Attribute '${attributeName}' cannot be empty`
-		}
-
-		/*++
-		 + Split by whitespace and validate each ID
-		 */
-		const ids = value.trim().split(/\s+/)
-
-		const validateIdref = _validateIdref(attributeName)
-
-		/*++
-		 + Validate each ID individually
-		 + Check each ID and return first error found
-		 */
-		function validateEachId(
-			currentIds: ReadonlyArray<string>,
-		): string | undefined {
-			if (currentIds.length === 0) {
-				return undefined
-			}
-
-			const firstId = currentIds[0]
-			const error = validateIdref(firstId)
-
-			if (isDefined(error)) {
-				return error
-			}
-
-			const remainingIds = currentIds.slice(1)
-
-			return validateEachId(remainingIds)
-		}
-
-		return validateEachId(ids)
 	}
 }
