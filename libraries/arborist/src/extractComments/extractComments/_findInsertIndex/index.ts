@@ -6,7 +6,7 @@ function _findInsertIndexRecursive(
 	accumulator: ReadonlyArray<ParsedComment>,
 	comment: ParsedComment,
 	currentIndex: number,
-	accumulatorLength: number
+	accumulatorLength: number,
 ): number {
 	// Base case: reached end of array
 	if (currentIndex >= accumulatorLength) {
@@ -19,12 +19,17 @@ function _findInsertIndexRecursive(
 	}
 
 	// Recurse to next index
-	return _findInsertIndexRecursive(accumulator, comment, currentIndex + 1, accumulatorLength)
+	return _findInsertIndexRecursive(
+		accumulator,
+		comment,
+		currentIndex + 1,
+		accumulatorLength,
+	)
 }
 
 export default function _findInsertIndex(
 	accumulator: ReadonlyArray<ParsedComment>,
-	comment: ParsedComment
+	comment: ParsedComment,
 ): number {
 	const accumulatorLength = getOrElse(0)(length(accumulator))
 	return _findInsertIndexRecursive(accumulator, comment, 0, accumulatorLength)

@@ -1969,6 +1969,525 @@ type RenderConfig = {
 
 ---
 
+## Ontology-Driven Architecture
+
+### Overview
+
+The Architect library follows an **ontology-driven architecture** where type information, constraints, and validation rules are defined once in an HTML ontology (OWL2 + SHACL), not duplicated in every VirtualNode instance. This enables semantic web integration, SPARQL queries, and end-to-end validation from TypeScript through to the triple store.
+
+### Architectural Principle
+
+**Type information lives in the ontology, not in the data.**
+
+Instead of embedding type metadata in every VirtualNode:
+```typescript
+// ❌ WRONG: Duplicating type info in every instance
+{
+  attributes: { cite: "https://example.com" },
+  metadata: { attributeTypes: { cite: "xsd:anyURI" } }  // Duplication!
+}
+```
+
+We define it once in the ontology:
+```turtle
+# ✅ RIGHT: Type info in ontology (defined once)
+html:Q a owl:Class ;
+  rdfs:label "Quotation element" .
+
+html:cite a owl:DatatypeProperty ;
+  rdfs:label "Citation URL" ;
+  rdfs:domain html:Q ;
+  rdfs:range xsd:anyURI ;
+  rdfs:comment "URL of the quoted source" .
+```
+
+Then VirtualNode instances simply reference the ontology:
+```turtle
+# VirtualNode serialized to RDF (uses ontology predicates)
+:node1 a html:Q ;
+  html:cite "https://example.com" .
+```
+
+The triple store uses the ontology to:
+- ✅ Validate that `cite` is a valid `xsd:anyURI`
+- ✅ Enforce cardinality constraints (e.g., max 1 cite attribute)
+- ✅ Enable SPARQL queries with type awareness
+- ✅ Check role permissions and ARIA constraints
+
+---
+
+### Four-Layer Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 1: TypeScript Component API (Branded Types)          │
+│ ─────────────────────────────────────────────────────────── │
+│ export type Props = BaseProps & Readonly<{                 │
+│   cite?: Url  // Branded type for compile-time safety      │
+│ }>                                                          │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 2: Validation Bridge (Branded → String)              │
+│ ─────────────────────────────────────────────────────────── │
+│ - Accepts Url branded type from Props                      │
+│ - Validates it's actually a valid URL                      │
+│ - Converts to string for VirtualNode attributes            │
+│ - Returns { cite: "https://example.com" }                  │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 3: VirtualNode IR (Simple Data Structure)            │
+│ ─────────────────────────────────────────────────────────── │
+│ {                                                           │
+│   _tag: "element",                                          │
+│   tagName: "Q",                                             │
+│   attributes: { cite: "https://example.com" },             │
+│   children: [...]                                           │
+│ }                                                           │
+│ // No metadata! Type info in ontology, not in data         │
+└─────────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────────┐
+│ Layer 4: RDF/Turtle + Triple Store (Semantic Layer)        │
+│ ─────────────────────────────────────────────────────────── │
+│ :node1 a html:Q ;                                           │
+│   html:cite "https://example.com" .                         │
+│                                                             │
+│ Triple store validates using ontology:                     │
+│ - Is cite property allowed on html:Q? (OWL)                │
+│ - Is value a valid xsd:anyURI? (SHACL)                     │
+│ - Does it satisfy cardinality constraints? (SHACL)         │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+### HTML Ontology Structure
+
+The ontology defines three types of semantic knowledge:
+
+#### 1. Element Classes (OWL)
+
+```turtle
+@prefix html: <http://sitebender.io/ontology/html#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+# Element type definitions
+html:Q a owl:Class ;
+  rdfs:label "Quotation element" ;
+  rdfs:comment "Represents an inline quotation from another source" ;
+  rdfs:subClassOf html:PhrasingContent .
+
+html:Blockquote a owl:Class ;
+  rdfs:label "Block quotation element" ;
+  rdfs:comment "Represents a block quotation from another source" ;
+  rdfs:subClassOf html:FlowContent .
+
+html:A a owl:Class ;
+  rdfs:label "Anchor element" ;
+  rdfs:comment "Represents a hyperlink" ;
+  rdfs:subClassOf html:PhrasingContent .
+```
+
+#### 2. Attribute Properties (OWL)
+
+```turtle
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# URL attributes
+html:cite a owl:DatatypeProperty ;
+  rdfs:label "Citation URL" ;
+  rdfs:domain [ owl:unionOf (html:Q html:Blockquote html:Ins html:Del) ] ;
+  rdfs:range xsd:anyURI ;
+  rdfs:comment "URL of the quoted or referenced source" .
+
+html:href a owl:DatatypeProperty ;
+  rdfs:label "Hyperlink reference" ;
+  rdfs:domain html:A ;
+  rdfs:range xsd:anyURI ;
+  rdfs:comment "URL that the hyperlink points to" .
+
+# Datetime attributes
+html:datetime a owl:DatatypeProperty ;
+  rdfs:label "Machine-readable datetime" ;
+  rdfs:domain [ owl:unionOf (html:Time html:Ins html:Del) ] ;
+  rdfs:range xsd:dateTime ;
+  rdfs:comment "ISO 8601 datetime value" .
+
+# Numeric attributes
+html:colspan a owl:DatatypeProperty ;
+  rdfs:label "Column span" ;
+  rdfs:domain [ owl:unionOf (html:Td html:Th) ] ;
+  rdfs:range xsd:positiveInteger ;
+  rdfs:comment "Number of columns this cell spans" .
+```
+
+#### 3. Validation Constraints (SHACL)
+
+```turtle
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+# Shape for Q element
+html:QShape a sh:NodeShape ;
+  sh:targetClass html:Q ;
+
+  # cite attribute constraints
+  sh:property [
+    sh:path html:cite ;
+    sh:datatype xsd:anyURI ;
+    sh:maxCount 1 ;
+    sh:message "Q element may have at most one cite attribute" ;
+  ] ;
+
+  # Content model constraints
+  sh:property [
+    sh:path html:children ;
+    sh:class html:PhrasingContent ;
+    sh:message "Q element may only contain phrasing content" ;
+  ] .
+
+# Shape for A element with conditional constraints
+html:AShape a sh:NodeShape ;
+  sh:targetClass html:A ;
+
+  # href attribute
+  sh:property [
+    sh:path html:href ;
+    sh:datatype xsd:anyURI ;
+    sh:maxCount 1 ;
+  ] ;
+
+  # Conditional role validation
+  sh:or (
+    # If href present, role must be from link roles
+    [
+      sh:path html:href ;
+      sh:minCount 1 ;
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "link" "button" "checkbox" "menuitem" "option" "radio"
+                  "switch" "tab" "treeitem" "doc-backlink" "doc-biblioref"
+                  "doc-glossref" "doc-noteref" ) ;
+        ]
+      ) ;
+    ]
+    # If no href, role must be from generic roles
+    [
+      sh:path html:href ;
+      sh:maxCount 0 ;
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "button" "checkbox" "menuitem" "option" "radio"
+                  "switch" "tab" "treeitem" ) ;
+        ]
+      ) ;
+    ]
+  ) .
+```
+
+#### 4. ARIA Role Constraints (SHACL)
+
+```turtle
+# ARIA role permissions
+html:RolesByElement a sh:NodeShape ;
+  sh:targetClass html:Div ;
+  sh:property [
+    sh:path html:role ;
+    sh:in ( "any" ) ;  # Div allows any ARIA role
+    sh:message "Invalid role for div element" ;
+  ] .
+
+html:RolesByElement a sh:NodeShape ;
+  sh:targetClass html:H1 ;
+  sh:property [
+    sh:path html:role ;
+    sh:in ( "heading" "tab" "none" "presentation" ) ;
+    sh:message "Invalid role for h1 element" ;
+  ] .
+
+# ARIA attribute validation
+html:AriaLabelShape a sh:PropertyShape ;
+  sh:path html:aria-label ;
+  sh:datatype xsd:string ;
+  sh:minLength 1 ;
+  sh:message "aria-label must be a non-empty string" .
+
+html:AriaLevelShape a sh:PropertyShape ;
+  sh:path html:aria-level ;
+  sh:datatype xsd:integer ;
+  sh:minInclusive 1 ;
+  sh:message "aria-level must be a positive integer" .
+```
+
+---
+
+### TypeScript to XSD Type Mappings
+
+The validation layer maps TypeScript branded types to XSD datatypes:
+
+| TypeScript Branded Type | XSD Datatype | Example |
+|------------------------|--------------|---------|
+| `Url` | `xsd:anyURI` | `https://example.com` |
+| `Uri` | `xsd:anyURI` | `urn:isbn:0451450523` |
+| `EmailAddress` | `xsd:string` | `user@example.com` |
+| `Integer` | `xsd:integer` | `42` |
+| `RealNumber` | `xsd:decimal` | `3.14159` |
+| `Percent` | `xsd:decimal` | `0.75` |
+| `Uuid` | `xsd:string` | `550e8400-e29b-41d4-a716-446655440000` |
+| `Temporal.PlainDate` | `xsd:date` | `2025-11-07` |
+| `Temporal.PlainTime` | `xsd:time` | `14:30:00` |
+| `Temporal.PlainDateTime` | `xsd:dateTime` | `2025-11-07T14:30:00Z` |
+| `NonEmptyString` | `xsd:string` | `"hello"` |
+| `Isbn10` | `xsd:string` | `0451450523` |
+| `Isbn13` | `xsd:string` | `978-0451450524` |
+
+**Note:** These mappings are used by the validation layer when converting Props to VirtualNode attributes, and by the RDF serializer when generating triples. The triple store uses these XSD types for validation and SPARQL query optimization.
+
+---
+
+### VirtualNode Remains Simple
+
+**Critical Design Decision:** VirtualNode does NOT contain type metadata.
+
+```typescript
+// Current VirtualNode structure (CORRECT - stays this way)
+export type ElementNode = {
+  readonly _tag: "element"
+  readonly tagName: string
+  readonly attributes: Readonly<Record<string, string>>  // Simple!
+  readonly children: ReadonlyArray<VirtualNode>
+  readonly namespace?: string
+}
+```
+
+**Why no metadata field?**
+1. **Type information belongs in the ontology** (defined once, not per-instance)
+2. **Keeps VirtualNode simple** (pure data structure, easily serializable)
+3. **Prevents duplication** (no risk of attributes/metadata getting out of sync)
+4. **Semantic layer handles validation** (triple store + SHACL, not JavaScript)
+
+---
+
+### RDF Serialization Strategy
+
+#### 1. Element to Class Mapping
+
+```typescript
+// VirtualNode
+{
+  _tag: "element",
+  tagName: "Q",
+  attributes: { cite: "https://example.com" },
+  children: [{ _tag: "text", content: "Hello" }]
+}
+```
+
+```turtle
+# Serialized RDF
+@prefix html: <http://sitebender.io/ontology/html#> .
+
+:node1 a html:Q ;
+  html:cite "https://example.com"^^xsd:anyURI ;
+  html:textContent "Hello" .
+```
+
+#### 2. Attribute to Property Mapping
+
+The RDF serializer knows that:
+- `tagName: "Q"` → `rdf:type html:Q`
+- `attributes.cite` → `html:cite` property
+- Property `html:cite` has `rdfs:range xsd:anyURI` (from ontology)
+- Therefore serialize as `"https://example.com"^^xsd:anyURI`
+
+**The serializer consults the ontology** to determine correct XSD type annotations.
+
+#### 3. ARIA Attributes
+
+```typescript
+// VirtualNode
+{
+  tagName: "BUTTON",
+  attributes: {
+    role: "button",
+    "aria-label": "Close dialog",
+    "aria-pressed": "false"
+  }
+}
+```
+
+```turtle
+# Serialized RDF
+:button1 a html:Button ;
+  html:role "button" ;
+  html:aria-label "Close dialog" ;
+  html:aria-pressed "false"^^xsd:boolean .
+```
+
+#### 4. Error Attributes
+
+Validation errors are preserved in RDF for analysis:
+
+```typescript
+// VirtualNode with validation error
+{
+  tagName: "Q",
+  attributes: {
+    "data-§-bad-cite": "not a url",
+    "data-§-error": "Attribute 'cite' must be a valid URL"
+  }
+}
+```
+
+```turtle
+# Serialized RDF (errors as validation report)
+:node1 a html:Q ;
+  html:validationStatus "invalid" ;
+  html:validationError [
+    a html:ValidationError ;
+    html:invalidAttribute "cite" ;
+    html:receivedValue "not a url" ;
+    html:errorMessage "Attribute 'cite' must be a valid URL" ;
+    html:expectedType xsd:anyURI ;
+  ] .
+```
+
+---
+
+### Triple Store Integration
+
+#### 1. Validation Pipeline
+
+```
+Component Props (Url branded type)
+  ↓
+Validation Layer (TypeScript)
+  ├─ Check: is value actually a valid URL?
+  ├─ Return: { cite: "https://example.com" } (string)
+  └─ OR: { "data-§-bad-cite": "invalid" } (error)
+  ↓
+VirtualNode (simple data)
+  ↓
+RDF Serializer
+  ├─ Consult ontology: what's the range of html:cite?
+  ├─ Found: xsd:anyURI
+  └─ Serialize: "https://example.com"^^xsd:anyURI
+  ↓
+Triple Store
+  ├─ Load HTML ontology (OWL + SHACL)
+  ├─ Validate: is this triple valid per ontology?
+  ├─ SHACL validation: check all constraints
+  └─ Accept or reject triple
+  ↓
+SPARQL Queries (type-aware!)
+  ├─ Can query: "Find all Q elements with cite"
+  ├─ Can filter: "Where cite domain is .edu"
+  └─ Can validate: "Check cite is valid URL"
+```
+
+#### 2. End-to-End Type Safety
+
+```
+TypeScript Layer:
+  cite?: Url  // Compile-time: must use url() smart constructor
+
+Validation Layer:
+  isUrl(value) ? { cite: value } : { "data-§-bad-cite": value }
+  // Runtime: validate it's actually a URL
+
+VirtualNode:
+  { cite: "https://example.com" }  // Simple string
+
+RDF Layer:
+  html:cite "https://example.com"^^xsd:anyURI  // Semantic type
+
+Triple Store:
+  SHACL validation: sh:datatype xsd:anyURI  // Constraint checking
+
+SPARQL:
+  FILTER isIRI(?cite)  // Query-time type awareness
+```
+
+This creates **four layers of type safety**:
+1. TypeScript compiler (branded types)
+2. Runtime validation (predicates)
+3. RDF serialization (XSD types)
+4. Triple store (SHACL constraints)
+
+---
+
+### Ontology Maintenance
+
+#### Location
+
+HTML ontology files will be stored in:
+```
+libraries/architect/ontology/
+├── html-elements.ttl        # OWL class definitions
+├── html-attributes.ttl      # OWL property definitions
+├── html-shapes.ttl          # SHACL constraint shapes
+├── aria-roles.ttl           # ARIA role ontology
+└── aria-attributes.ttl      # ARIA attribute constraints
+```
+
+#### Versioning
+
+Ontology follows W3C HTML/ARIA specifications:
+- Version aligned with W3C spec versions
+- Breaking changes trigger major version bump
+- New attributes/elements are minor version bumps
+
+#### Updates
+
+When W3C specs change:
+1. Update ontology `.ttl` files
+2. Update TypeScript types (if needed)
+3. Update validation layer (if needed)
+4. Triple store automatically validates against new ontology
+5. No changes to VirtualNode structure required
+
+---
+
+### Benefits of Ontology-Driven Approach
+
+**1. Single Source of Truth**
+- Type information defined once in ontology
+- No duplication between TypeScript and RDF
+- Changes propagate automatically
+
+**2. Semantic Queries**
+```sparql
+# Find all quotations citing .edu sources
+SELECT ?quote ?cite WHERE {
+  ?quote a html:Q ;
+         html:cite ?cite .
+  FILTER (CONTAINS(STR(?cite), ".edu"))
+}
+```
+
+**3. Validation at Multiple Layers**
+- TypeScript: Compile-time type checking
+- Runtime: Predicate validation
+- RDF: SHACL constraint checking
+- Query: Type-aware SPARQL
+
+**4. Future-Proof Architecture**
+- Add new HTML elements: Just update ontology
+- Add new attributes: Just update ontology
+- Change XSD mappings: Just update ontology
+- VirtualNode structure never changes
+
+**5. Standards Compliance**
+- OWL2 for semantic web interoperability
+- SHACL for W3C standard validation
+- RDF for linked data compatibility
+- Aligns with semantic web best practices
+
+---
+
 ## Estimated Effort
 
 - **Phase 1-4 (Critical):** 1-2 days
