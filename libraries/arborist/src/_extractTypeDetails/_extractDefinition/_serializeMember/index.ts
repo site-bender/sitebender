@@ -1,6 +1,6 @@
 import type { TsTypeElement, TsPropertySignature, TsMethodSignature, SwcFnParam } from "../../../types/index.ts"
 import _serializeTypeAnnotation from "../../../_serializeTypeAnnotation/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import _serializeParameters from "./_serializeParameters/index.ts"
