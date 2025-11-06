@@ -26,7 +26,9 @@ export default function _serializePattern(node: unknown): string {
 		case "ObjectPattern": {
 			const properties = nodeObj.properties as Array<Record<string, unknown>>
 			const serializedPropsResult = map(_serializeProperty)(properties)
-			const serializedProps = getOrElse([] as ReadonlyArray<string>)(serializedPropsResult)
+			const serializedProps = getOrElse([] as ReadonlyArray<string>)(
+				serializedPropsResult,
+			)
 			const serialized = serializedProps.filter(Boolean).join(", ")
 			return `{ ${serialized} }`
 		}

@@ -8,7 +8,7 @@ import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chain from "../../monads/result/chain/index.ts"
 import validationChain from "../../monads/validation/chain/index.ts"
-import isNumber from "../isNumber/index.ts"
+import isNumber from "../../predicates/isNumber/index.ts"
 import _checkRangeAsResult from "./_checkRangeAsResult/index.ts"
 import _checkRangeAsValidation from "./_checkRangeAsValidation/index.ts"
 

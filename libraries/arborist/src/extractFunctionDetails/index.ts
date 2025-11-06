@@ -26,7 +26,9 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 
 	// Check if this is an export wrapper
 	const isExportWrapper = isEqual(nodeObj.type)("ExportDeclaration")
-	const isDefaultExportWrapper = isEqual(nodeObj.type)("ExportDefaultDeclaration")
+	const isDefaultExportWrapper = isEqual(nodeObj.type)(
+		"ExportDefaultDeclaration",
+	)
 
 	// If wrapped, extract the actual function node
 	const actualNode = or(isExportWrapper)(isDefaultExportWrapper)
@@ -101,7 +103,8 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 	const typeParams = actualNode.typeParameters as
 		| Record<string, unknown>
 		| undefined
-	const typeParamsList = (typeParams?.parameters as Array<unknown> | undefined) ?? []
+	const typeParamsList =
+		(typeParams?.parameters as Array<unknown> | undefined) ?? []
 	const typeParameters = map(
 		function mapTypeParameter(tp: unknown): TypeParameter {
 			const tpObj = tp as Record<string, unknown>
@@ -115,7 +118,9 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 				default: undefined,
 			}
 		},
-	)(typeParamsList as ReadonlyArray<Serializable>) as ReadonlyArray<TypeParameter>
+	)(typeParamsList as ReadonlyArray<Serializable>) as ReadonlyArray<
+		TypeParameter
+	>
 
 	// Detect modifiers
 	const isAsync = (actualNode.async as boolean | undefined) ?? false
