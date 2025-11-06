@@ -1,6 +1,5 @@
-import defaultTo from "../../../logic/defaultTo/index.ts"
 import not from "../../../logic/not/index.ts"
-import add from "../../../math/add/index.ts"
+import add from "../../../math/arithmetic/add/index.ts"
 
 type FrequencyAccumulator<T> = {
 	frequencyMap: Map<T, number>
@@ -16,7 +15,7 @@ export default function _buildFrequencyMaps<T>(
 	if (not(acc.frequencyMap.has(item))) {
 		acc.firstOccurrence.set(item, index)
 	}
-	const currentCount = defaultTo(0)(acc.frequencyMap.get(item))
+	const currentCount = acc.frequencyMap.get(item) ?? 0
 	acc.frequencyMap.set(
 		item,
 		add(1)(currentCount) as number,
