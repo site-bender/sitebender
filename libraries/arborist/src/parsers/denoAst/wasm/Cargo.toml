@@ -13,6 +13,9 @@ codegen-units = 1   # Better optimization, slower compile
 strip = true        # Strip symbols
 panic = "abort"     # Smaller panic handler
 
+[package.metadata.wasm-pack.profile.release]
+wasm-opt = ["-Oz", "--enable-bulk-memory", "--enable-nontrapping-float-to-int"]
+
 [dependencies]
 deno_ast = { version = "0.50.3", features = ["view", "transpiling", "typescript", "visit"] }
 swc_ecma_visit = "15.0"
