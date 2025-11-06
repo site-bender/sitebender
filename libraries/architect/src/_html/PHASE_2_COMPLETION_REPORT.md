@@ -308,6 +308,295 @@ const attributes = {
 
 ---
 
+## Semantic Constraints in Ontology
+
+The conditional validation logic implemented in Phase 2 maps directly to SHACL constraint shapes in the HTML ontology. Complex conditional logic in TypeScript becomes declarative SHACL rules.
+
+### Pattern 1: Attribute Conditional → SHACL sh:or
+
+**TypeScript (_Area element)**:
+```typescript
+const roleAttrs = _validateAreaRole(isDefined(href))(role)
+
+// In _validateAreaRole:
+if (hasHref) {
+  // roles: ["button", "link"]
+} else {
+  // role: "generic"
+}
+```
+
+**Equivalent SHACL shape**:
+```turtle
+html:AreaShape a sh:NodeShape ;
+  sh:targetClass html:Area ;
+  sh:or (
+    # If href present, role must be button or link
+    [
+      sh:path html:href ;
+      sh:minCount 1 ;
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "button" "link" ) ;
+        ]
+      ) ;
+    ]
+    # If no href, role must be generic
+    [
+      sh:path html:href ;
+      sh:maxCount 0 ;
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "generic" ) ;
+        ]
+      ) ;
+    ]
+  ) .
+```
+
+### Pattern 2: Multi-Condition → SHACL sh:or with Multiple Cases
+
+**TypeScript (_Img element)**:
+```typescript
+const hasEmptyAlt = and(isDefined(alt))(and(isString(alt))(equals("")(alt)))
+const hasAccessibleName = and(isDefined(alt))(and(isString(alt))(not(equals("")(alt))))
+
+const roleAttrs = _validateImgRole(hasAccessibleName, hasEmptyAlt)(role)
+
+// Three conditions:
+// 1. hasAccessibleName: many roles allowed
+// 2. hasEmptyAlt: only none/presentation
+// 3. no alt: only none/presentation
+```
+
+**Equivalent SHACL shape**:
+```turtle
+html:ImgShape a sh:NodeShape ;
+  sh:targetClass html:Img ;
+  sh:or (
+    # Case 1: Non-empty alt (accessible name) - many roles allowed
+    [
+      sh:path html:alt ;
+      sh:minCount 1 ;
+      sh:minLength 1 ;  # Non-empty string
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "button" "checkbox" "link" "menuitem" "menuitemcheckbox"
+                  "menuitemradio" "option" "progressbar" "scrollbar" "separator"
+                  "slider" "switch" "tab" "treeitem" "doc-cover" "none" "presentation" ) ;
+        ]
+      ) ;
+    ]
+    # Case 2: Empty alt - only none/presentation
+    [
+      sh:path html:alt ;
+      sh:minCount 1 ;
+      sh:maxLength 0 ;  # Empty string
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "none" "presentation" ) ;
+        ]
+      ) ;
+    ]
+    # Case 3: No alt attribute - only none/presentation
+    [
+      sh:path html:alt ;
+      sh:maxCount 0 ;  # Attribute not present
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "none" "presentation" ) ;
+        ]
+      ) ;
+    ]
+  ) .
+```
+
+### Pattern 3: Children-Based Conditional → SHACL Descendant Constraints
+
+**TypeScript (_Figure element)**:
+```typescript
+function isFigcaption(child: VirtualNode): boolean {
+  return child._tag === "element" && child.tagName === "FIGCAPTION"
+}
+
+const hasFigcaption = some(isFigcaption)(children)
+
+// If hasFigcaption: only figure/none/presentation
+// If no figcaption: any role
+```
+
+**Equivalent SHACL shape**:
+```turtle
+html:FigureShape a sh:NodeShape ;
+  sh:targetClass html:Figure ;
+  sh:or (
+    # If has figcaption child, role must be figure/none/presentation
+    [
+      sh:property [
+        sh:path html:children ;
+        sh:qualifiedValueShape [
+          sh:class html:Figcaption ;
+        ] ;
+        sh:qualifiedMinCount 1 ;  # Has at least one figcaption
+      ] ;
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "figure" "none" "presentation" ) ;
+        ]
+      ) ;
+    ]
+    # If no figcaption child, any role allowed
+    [
+      sh:property [
+        sh:path html:children ;
+        sh:qualifiedValueShape [
+          sh:class html:Figcaption ;
+        ] ;
+        sh:qualifiedMaxCount 0 ;  # No figcaption
+      ] ;
+      # No role constraint
+    ]
+  ) .
+```
+
+### JSX Convention → Ontology Property Mapping
+
+**TypeScript (_Label element)**:
+```typescript
+export type Props = BaseProps & Readonly<{
+  htmlFor?: string  // JSX convention to avoid JS keyword
+}>
+
+// Convert to HTML attribute
+const attributes = {
+  ...roleAttrs,
+  ...(isDefined(htmlFor) ? { for: htmlFor } : {}),
+}
+```
+
+**Ontology representation**:
+```turtle
+# In OWL, we use the HTML attribute name, not the JSX name
+html:for a owl:DatatypeProperty ;
+  rdfs:label "Associated form control ID" ;
+  rdfs:domain html:Label ;
+  rdfs:range xsd:IDREF ;  # Must reference valid element ID
+  rdfs:comment "Associates label with labelable element" .
+
+# SHACL constraint for label
+html:LabelShape a sh:NodeShape ;
+  sh:targetClass html:Label ;
+  sh:or (
+    # If for attribute present, no role allowed
+    [
+      sh:path html:for ;
+      sh:minCount 1 ;
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:maxCount 0 ;  # Role not allowed
+          sh:message "Label with for attribute cannot have role" ;
+        ]
+      ) ;
+    ]
+    # If no for attribute, any role allowed
+    [
+      sh:path html:for ;
+      sh:maxCount 0 ;
+      # No role constraint
+    ]
+  ) .
+```
+
+**Note:** The ontology uses standard HTML attribute names (`for`), not JSX conventions (`htmlFor`). The component layer handles the naming translation.
+
+### Predicate Composition → SHACL Property Constraints
+
+**TypeScript predicate composition**:
+```typescript
+const hasEmptyAlt = and(isDefined(alt))(and(isString(alt))(equals("")(alt)))
+```
+
+**SHACL equivalent**:
+```turtle
+sh:property [
+  sh:path html:alt ;
+  sh:minCount 1 ;     # isDefined(alt)
+  sh:datatype xsd:string ;  # isString(alt)
+  sh:maxLength 0 ;    # equals("")(alt)
+] .
+```
+
+### Benefits of SHACL Representation
+
+**1. Declarative Conditional Logic**
+- Complex TypeScript conditionals become readable SHACL shapes
+- Logic is queryable: "Show me all elements with conditional role validation"
+- Self-documenting: SHACL shapes explain the validation rules
+
+**2. Validation Consistency**
+```
+TypeScript validates: Component creation time
+SHACL validates: Triple store insertion time
+Both enforce: Same W3C ARIA specification
+```
+
+**3. Queryable Patterns**
+```sparql
+# Find all elements with conditional role validation
+SELECT ?element ?condition WHERE {
+  ?shape sh:targetClass ?element ;
+         sh:or ?conditions .
+  ?conditions sh:path ?condition .
+}
+
+# Find elements where role depends on href
+SELECT ?element WHERE {
+  ?shape sh:targetClass ?element ;
+         sh:or/sh:path html:href .
+}
+```
+
+**4. Composite Constraints**
+SHACL `sh:and`, `sh:or`, and `sh:not` mirror TypeScript's `and()`, `or()`, and `not()` predicates:
+
+```typescript
+// TypeScript
+and(isDefined(alt))(isString(alt))
+
+// SHACL
+sh:and (
+  [ sh:path html:alt ; sh:minCount 1 ]
+  [ sh:path html:alt ; sh:datatype xsd:string ]
+)
+```
+
+**5. Semantic Web Integration**
+- Conditional logic becomes machine-readable RDF
+- Triple stores can reason about role constraints
+- SPARQL queries can validate compliance
+- Ontology evolution doesn't require code changes
+
+### Pattern Library for Future Elements
+
+The three patterns established in Phase 2 provide templates for all conditional validation:
+
+| Pattern | TypeScript | SHACL | Use Case |
+|---------|-----------|-------|----------|
+| **Single Attribute** | `isDefined(href)` | `sh:minCount 1` | A, Area, Label |
+| **Multi-Condition** | `and(...)(...)(...)` | `sh:and (...)` | Img (alt cases) |
+| **Children-Based** | `some(predicate)(children)` | `sh:qualifiedMinCount` | Figure (figcaption) |
+
+All future conditional elements map to combinations of these patterns.
+
+---
+
 ## Test Coverage
 
 **Note**: Test files not created in this phase. Tests should be added in Phase 5 (Testing phase).
