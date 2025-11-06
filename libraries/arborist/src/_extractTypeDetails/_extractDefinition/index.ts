@@ -1,4 +1,9 @@
-import type { TsTypeDeclaration, TsTypeAliasDeclaration, TsInterfaceDeclaration, TsTypeElement } from "../../types/index.ts"
+import type {
+	TsInterfaceDeclaration,
+	TsTypeAliasDeclaration,
+	TsTypeDeclaration,
+	TsTypeElement,
+} from "../../types/index.ts"
 import _serializeTypeAnnotation from "../../_serializeTypeAnnotation/index.ts"
 import serializeTypeParameters from "../../_serializeTypeParameters/index.ts"
 import serializeExtendsClause from "../../_serializeExtendsClause/index.ts"
@@ -34,8 +39,12 @@ export default function extractDefinition(
 		const body = interfaceNode.body
 		const members = body.body
 
-		const serializedMembersResult = reduce(_serializeMembers)([] as ReadonlyArray<string>)(members as ReadonlyArray<TsTypeElement>)
-		const serializedMembersList = getOrElse([] as ReadonlyArray<string>)(serializedMembersResult)
+		const serializedMembersResult = reduce(_serializeMembers)(
+			[] as ReadonlyArray<string>,
+		)(members as ReadonlyArray<TsTypeElement>)
+		const serializedMembersList = getOrElse([] as ReadonlyArray<string>)(
+			serializedMembersResult,
+		)
 		const serializedMembers = serializedMembersList.join("; ")
 
 		const typeParams = serializeTypeParameters(interfaceNode.typeParams)

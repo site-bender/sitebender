@@ -7,7 +7,9 @@ import _collectAstNodes from "../index.ts"
 import _reduceArrayValues from "../_reduceArrayValues/index.ts"
 
 export default function _reduceChildNodes(accumulator: ReadonlyArray<unknown>) {
-	return function _reduceChildNodesWithAccumulator(value: unknown): ReadonlyArray<unknown> {
+	return function _reduceChildNodesWithAccumulator(
+		value: unknown,
+	): ReadonlyArray<unknown> {
 		if (Array.isArray(value)) {
 			const arrayResult = reduce(_reduceArrayValues)(accumulator)(value)
 			return getOrElse([] as ReadonlyArray<unknown>)(arrayResult)

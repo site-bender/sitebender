@@ -51,7 +51,9 @@ export default function extractExports(
 		function extractDetails(node: unknown): ReadonlyArray<ParsedExport> {
 			return extractExportDetails(node)
 		},
-	)(exportNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedExport>
+	)(exportNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<
+		ParsedExport
+	>
 
 	// Return success with extracted exports
 	// When error handling is added, this will accumulate errors from failed extractions
@@ -252,7 +254,9 @@ function extractVariableExports(
 					kind: "named",
 					isType: false,
 				}
-			})(declarations as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedExport>
+			})(declarations as ReadonlyArray<Serializable>) as ReadonlyArray<
+				ParsedExport
+			>
 		}
 	}
 }
@@ -263,7 +267,8 @@ function extractNamedOrReExport(
 ) {
 	return function withPosition(position: Position) {
 		return function withSpan(span: Span): ReadonlyArray<ParsedExport> {
-			const specifiers = (node.specifiers as ReadonlyArray<unknown> | undefined) ?? []
+			const specifiers =
+				(node.specifiers as ReadonlyArray<unknown> | undefined) ?? []
 			const source = node.source as Record<string, unknown> | undefined
 			const sourceValue = source ? source.value as string : undefined
 			const isTypeOnly = (node.typeOnly as boolean | undefined) ?? false
@@ -293,7 +298,9 @@ function extractNamedOrReExport(
 					isType: isSpecTypeOnly,
 					source: sourceValue,
 				}
-			})(specifiers as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedExport>
+			})(specifiers as ReadonlyArray<Serializable>) as ReadonlyArray<
+				ParsedExport
+			>
 		}
 	}
 }
