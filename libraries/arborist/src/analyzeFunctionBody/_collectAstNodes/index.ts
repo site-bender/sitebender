@@ -26,7 +26,9 @@ export default function _collectAstNodes(
 	const currentNode = [node]
 
 	// Recursively collect from all child properties using Toolsmith functions
-	const childNodesResult = reduce(_reduceChildNodes)([] as ReadonlyArray<unknown>)(Object.values(nodeObj))
+	const childNodesResult = reduce(_reduceChildNodes)(
+		[] as ReadonlyArray<unknown>,
+	)(Object.values(nodeObj))
 
 	const childNodes = getOrElse([] as ReadonlyArray<unknown>)(childNodesResult)
 
