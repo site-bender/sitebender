@@ -744,4 +744,343 @@ export const HTML_ELEMENTS: Readonly<Record<string, HtmlElementAriaRules>> = {
 		allowedRoles: false,
 		noAriaAttrs: true,
 	},
+	base: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+	noscript: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+	style: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+
+	// === Phrasing Content ===
+
+	abbr: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	b: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	bdi: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	bdo: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	br: {
+		implicitRole: undefined,
+		allowedRoles: ["none", "presentation"],
+		noAriaAttrs: true,
+	},
+	cite: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	code: {
+		implicitRole: "code",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	data: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	del: {
+		implicitRole: "deletion",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	dfn: {
+		implicitRole: "term",
+		allowedRoles: "any",
+	},
+	em: {
+		implicitRole: "emphasis",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	i: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	ins: {
+		implicitRole: "insertion",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	kbd: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	mark: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	q: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	rp: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	rt: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	ruby: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+	},
+	s: {
+		implicitRole: "deletion",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	samp: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	small: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	strong: {
+		implicitRole: "strong",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	sub: {
+		implicitRole: "subscript",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	sup: {
+		implicitRole: "superscript",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	time: {
+		implicitRole: "time",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	u: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	var: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	wbr: {
+		implicitRole: undefined,
+		allowedRoles: ["none", "presentation"],
+		noAriaAttrs: true,
+	},
+
+	// === Flow Content ===
+
+	address: {
+		implicitRole: "group",
+		allowedRoles: "any",
+	},
+	blockquote: {
+		implicitRole: "blockquote",
+		allowedRoles: "any",
+	},
+	dd: {
+		implicitRole: undefined,
+		allowedRoles: false,
+	},
+	dl: {
+		implicitRole: undefined,
+		allowedRoles: ["group", "list", "none", "presentation"],
+	},
+	dt: {
+		implicitRole: undefined,
+		allowedRoles: ["listitem"],
+	},
+	figcaption: {
+		implicitRole: undefined,
+		allowedRoles: ["group", "none", "presentation"],
+		namingProhibited: true,
+	},
+	hr: {
+		implicitRole: "separator",
+		allowedRoles: ["none", "presentation"],
+		noAriaAttrs: true,
+	},
+	menu: {
+		implicitRole: "list",
+		allowedRoles: [
+			"directory",
+			"group",
+			"listbox",
+			"menu",
+			"menubar",
+			"none",
+			"presentation",
+			"radiogroup",
+			"tablist",
+			"toolbar",
+			"tree",
+		],
+	},
+	pre: {
+		implicitRole: "generic",
+		allowedRoles: "any",
+		namingProhibited: true,
+	},
+	search: {
+		implicitRole: "search",
+		allowedRoles: ["form", "group", "none", "presentation", "region"],
+	},
+
+	// === Table Content ===
+
+	col: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+	colgroup: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+
+	// === Form Elements ===
+
+	datalist: {
+		implicitRole: "listbox",
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+	input: {
+		// Role depends on type attribute - handled in component
+		allowedRoles: "any", // Simplified - actual rules vary by type
+	},
+	optgroup: {
+		implicitRole: "group",
+		allowedRoles: false,
+	},
+	option: {
+		implicitRole: "option",
+		allowedRoles: false,
+	},
+	select: {
+		// Role depends on attributes - handled in component
+		allowedRoles: ["menu"],
+	},
+	textarea: {
+		implicitRole: "textbox",
+		allowedRoles: false,
+	},
+
+	// === Heading Content ===
+
+	hgroup: {
+		implicitRole: "group",
+		allowedRoles: "any",
+	},
+
+	// === Interactive Elements ===
+
+	details: {
+		implicitRole: "group",
+		allowedRoles: false,
+	},
+	dialog: {
+		implicitRole: "dialog",
+		allowedRoles: ["alertdialog"],
+	},
+	summary: {
+		// Role depends on context - handled in component
+		allowedRoles: false,
+	},
+
+	// === Embedded Content ===
+
+	audio: {
+		implicitRole: undefined,
+		allowedRoles: ["application"],
+	},
+	canvas: {
+		implicitRole: undefined,
+		allowedRoles: "any",
+	},
+	embed: {
+		implicitRole: undefined,
+		allowedRoles: [
+			"application",
+			"document",
+			"img",
+			"none",
+			"presentation",
+		],
+	},
+	iframe: {
+		implicitRole: undefined,
+		allowedRoles: [
+			"application",
+			"document",
+			"img",
+			"none",
+			"presentation",
+		],
+	},
+	object: {
+		implicitRole: undefined,
+		allowedRoles: ["application", "document", "img"],
+	},
+	picture: {
+		allowedRoles: false,
+		// Only aria-hidden allowed - special case
+	},
+	source: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+	track: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+	video: {
+		implicitRole: undefined,
+		allowedRoles: ["application"],
+	},
+
+	// === Scripting Elements ===
+
+	slot: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
+	template: {
+		allowedRoles: false,
+		noAriaAttrs: true,
+	},
 } as const

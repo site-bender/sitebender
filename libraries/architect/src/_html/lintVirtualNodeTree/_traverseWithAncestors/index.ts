@@ -29,8 +29,7 @@ import type {
 export default function _traverseWithAncestors(
 	validator: (
 		node: VirtualNode,
-		ancestors: AncestorContext,
-	) => ReadonlyArray<ValidationError>,
+	) => (ancestors: AncestorContext) => ReadonlyArray<ValidationError>,
 ) {
 	return function _traverseWithAncestorsWithValidator(
 		ancestors: AncestorContext,
@@ -39,9 +38,10 @@ export default function _traverseWithAncestors(
 			node: VirtualNode,
 		): ReadonlyArray<ValidationError> {
 			/*++
-			 + Validate current node
+			 + Validate current node with curried validator
 			 */
-			const nodeErrors = validator(node, ancestors)
+			const validateNode = validator(node)
+			const nodeErrors = validateNode(ancestors)
 
 			/*++
 			 + If not an element node, no children to traverse
