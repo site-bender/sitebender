@@ -1,5 +1,7 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
+import _validateAriaAttributes from "../../_validateAriaAttributes/index.ts"
 import _validateAttributes from "../../_validateAttributes/index.ts"
 import _validateFigureRole from "./_validateFigureRole/index.ts"
 
@@ -10,15 +12,20 @@ export type Props = BaseProps
  + Role validation is conditional on presence of figcaption child
  */
 export default function _Figure(props: Props): VirtualNode {
-	const { children = [], role, ...attrs } = props
+	const { children = [], role, aria, ...attrs } = props
 
 	const roleAttrs = _validateFigureRole(children as ReadonlyArray<VirtualNode>)(
 		role,
 	)
 
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("figure")(role)(aria)
+		: {}
+
 	const attributes = {
 		..._validateAttributes("figure")(attrs),
 		...roleAttrs,
+		...ariaAttrs,
 	}
 
 	return {

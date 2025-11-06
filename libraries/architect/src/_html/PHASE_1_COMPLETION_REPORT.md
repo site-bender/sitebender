@@ -326,6 +326,226 @@ Check: isDefined(role) && isString(role)?
             └─→ No: return { "data-§-bad-role": role }
 ```
 
+### Semantic Representation in Ontology
+
+The validation logic implemented in Phase 1 has direct semantic representation in the HTML ontology (OWL2 + SHACL). TypeScript validation is mirrored by RDF constraints in the triple store.
+
+#### Role Validation → SHACL Constraints
+
+**TypeScript validation**:
+```typescript
+const permission = ROLES_BY_ELEMENT[tagName]
+if (permission === "none") return { "data-§-bad-role": role }
+if (permission === "any") return { role }
+if (includes(permission)(role)) return { role }
+```
+
+**Equivalent SHACL shape**:
+```turtle
+# Element with "none" (no role allowed)
+html:ColShape a sh:NodeShape ;
+  sh:targetClass html:Col ;
+  sh:property [
+    sh:path html:role ;
+    sh:maxCount 0 ;
+    sh:message "Col element does not allow role attribute" ;
+  ] .
+
+# Element with "any" (any role allowed)
+html:DivShape a sh:NodeShape ;
+  sh:targetClass html:Div ;
+  sh:property [
+    sh:path html:role ;
+    # No restrictions - any value accepted
+  ] .
+
+# Element with specific permitted roles
+html:ArticleShape a sh:NodeShape ;
+  sh:targetClass html:Article ;
+  sh:property [
+    sh:path html:role ;
+    sh:in ( "application" "document" "feed" "main" "none" "presentation" "region" ) ;
+    sh:message "Invalid role for article element" ;
+  ] .
+```
+
+#### ROLES_BY_ELEMENT → Ontology Properties
+
+The `ROLES_BY_ELEMENT` constant (115 elements) becomes **SHACL property shapes** in the ontology:
+
+**TypeScript Constant**:
+```typescript
+export const ROLES_BY_ELEMENT = {
+  h1: ["heading", "tab", "none", "presentation"],
+  button: ["button", "checkbox", "link", ...],
+  // ...115 elements
+}
+```
+
+**Ontology Representation**:
+```turtle
+html:H1Shape a sh:NodeShape ;
+  sh:targetClass html:H1 ;
+  sh:property [
+    sh:path html:role ;
+    sh:in ( "heading" "tab" "none" "presentation" ) ;
+  ] .
+
+html:ButtonShape a sh:NodeShape ;
+  sh:targetClass html:Button ;
+  sh:property [
+    sh:path html:role ;
+    sh:in ( "button" "checkbox" "link" "menuitem" "menuitemcheckbox"
+            "menuitemradio" "option" "radio" "switch" "tab" ) ;
+  ] .
+```
+
+#### isDefined Checks → Cardinality Constraints
+
+**TypeScript validation**:
+```typescript
+if (!isDefined(role)) return {}  // Role is optional
+```
+
+**SHACL constraint**:
+```turtle
+sh:property [
+  sh:path html:role ;
+  sh:minCount 0 ;  # Optional - may be absent
+  sh:maxCount 1 ;  # But if present, only one allowed
+] .
+```
+
+#### Global Attributes → OWL Properties
+
+The 6 global attributes added in Phase 1 become **OWL datatype properties**:
+
+**TypeScript types**:
+```typescript
+export type GlobalAttributes = {
+  itemid?: string
+  itemprop?: string
+  itemref?: string
+  itemscope?: boolean
+  itemtype?: string
+  virtualkeyboardpolicy?: "auto" | "manual"
+}
+```
+
+**OWL properties**:
+```turtle
+html:itemid a owl:DatatypeProperty ;
+  rdfs:label "Microdata item ID" ;
+  rdfs:domain html:Element ;  # All HTML elements
+  rdfs:range xsd:anyURI ;
+  rdfs:comment "Global identifier for the item" .
+
+html:virtualkeyboardpolicy a owl:DatatypeProperty ;
+  rdfs:label "Virtual keyboard policy" ;
+  rdfs:domain html:Element ;
+  rdfs:range html:VirtualKeyboardPolicy ;
+  rdfs:comment "Controls virtual keyboard behavior" .
+
+html:VirtualKeyboardPolicy a owl:Class ;
+  owl:oneOf ( "auto" "manual" ) .
+```
+
+#### Validation Errors → RDF Error Representation
+
+**TypeScript error**:
+```typescript
+{ "data-§-bad-role": "invalid" }
+```
+
+**RDF triple store representation**:
+```turtle
+:node1 a html:Article ;
+  html:validationStatus "invalid" ;
+  html:validationError [
+    a html:ValidationError ;
+    html:errorType "InvalidRole" ;
+    html:invalidAttribute "role" ;
+    html:receivedValue "invalid" ;
+    html:expectedValues ( "application" "document" "feed" "main" "none" "presentation" "region" ) ;
+    html:errorMessage "Invalid role for article element" ;
+  ] .
+```
+
+#### Conditional Validation → SHACL Conditionals
+
+**TypeScript (_A element)**:
+```typescript
+const permission = hasHref
+  ? ["link", "button", "checkbox", ...]  // With href
+  : "any"                                 // Without href
+```
+
+**SHACL conditional shape**:
+```turtle
+html:AShape a sh:NodeShape ;
+  sh:targetClass html:A ;
+  sh:or (
+    # If href present, role must be from link roles
+    [
+      sh:path html:href ;
+      sh:minCount 1 ;
+      sh:and (
+        [
+          sh:path html:role ;
+          sh:in ( "link" "button" "checkbox" "menuitem" "option" "radio"
+                  "switch" "tab" "treeitem" "doc-backlink" "doc-biblioref"
+                  "doc-glossref" "doc-noteref" ) ;
+        ]
+      ) ;
+    ]
+    # If no href, any role allowed
+    [
+      sh:path html:href ;
+      sh:maxCount 0 ;
+      # No role constraint
+    ]
+  ) .
+```
+
+#### Benefits of Semantic Representation
+
+**1. Single Source of Truth**
+- TypeScript validation validates at component creation
+- SHACL shapes validate at triple store insertion
+- Both enforce same W3C ARIA specification
+
+**2. Queryable Validation Rules**
+```sparql
+# Find all elements that allow "button" role
+SELECT ?element WHERE {
+  ?shape sh:targetClass ?element ;
+         sh:property [
+           sh:path html:role ;
+           sh:in ?roles
+         ] .
+  FILTER (contains(?roles, "button"))
+}
+```
+
+**3. Standards Compliance**
+- W3C ARIA specification → ROLES_BY_ELEMENT constant
+- ROLES_BY_ELEMENT constant → TypeScript validation
+- ROLES_BY_ELEMENT constant → SHACL shapes
+- All three stay synchronized
+
+**4. End-to-End Type Safety**
+```
+TypeScript Props → Validation → VirtualNode → RDF Serialization → Triple Store
+     ↓                ↓             ↓                ↓                  ↓
+Compile-time     Runtime       Simple data      Semantic type    SHACL validation
+type check       validation    structure        annotation       constraint check
+```
+
+**5. Future-Proof**
+- Update W3C spec → Update ontology
+- Ontology drives validation rules
+- No code changes needed (just constant update)
+
 ---
 
 ## Impact Assessment

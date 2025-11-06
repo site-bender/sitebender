@@ -10,10 +10,7 @@ import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
-import type {
-	ParsedAst,
-	ParsedImport,
-} from "../types/index.ts"
+import type { ParsedAst, ParsedImport } from "../types/index.ts"
 import type { ImportExtractionError } from "../types/errors/index.ts"
 
 import extractImportDetails from "../_extractImportDetails/index.ts"
@@ -48,7 +45,9 @@ export default function extractImports(
 		function extractDetails(node: unknown): ParsedImport {
 			return extractImportDetails(node)
 		},
-	)(importNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedImport>
+	)(importNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<
+		ParsedImport
+	>
 
 	// Return success with extracted imports
 	// When error handling is added, this will accumulate errors from failed extractions
