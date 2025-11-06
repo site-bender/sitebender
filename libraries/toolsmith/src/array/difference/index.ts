@@ -1,5 +1,6 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { ValidationError } from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _differenceArray from "./_differenceArray/index.ts"
 import _differenceToResult from "./_differenceToResult/index.ts"

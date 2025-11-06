@@ -12,11 +12,7 @@ import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import length from "@sitebender/toolsmith/array/length/index.ts"
 
-import type {
-	ParsedAst,
-	ParsedComment,
-	Span,
-} from "../../types/index.ts"
+import type { ParsedAst, ParsedComment, Span } from "../../types/index.ts"
 import type { CommentExtractionError } from "../../types/errors/index.ts"
 
 import _detectEnvoyMarker from "../_detectEnvoyMarker/index.ts"

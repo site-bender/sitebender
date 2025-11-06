@@ -7,13 +7,15 @@ import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import _convertReference from "../_convertReference/index.ts"
 
 export default function _buildSymbolTable(
-	symbolTableData: Record<string, unknown>
+	symbolTableData: Record<string, unknown>,
 ): Map<string, SymbolInfo> {
 	const entries = Object.entries(symbolTableData)
 
 	const result = reduce(
 		function addSymbol(acc: Map<string, SymbolInfo>) {
-			return function addSymbolWithAcc([key, value]: [string, unknown]): Map<string, SymbolInfo> {
+			return function addSymbolWithAcc(
+				[key, value]: [string, unknown],
+			): Map<string, SymbolInfo> {
 				if (and(value)(isEqual(typeof value)("object"))) {
 					const symbol = value as {
 						name?: string
@@ -62,7 +64,7 @@ export default function _buildSymbolTable(
 				}
 				return acc
 			}
-		}
+		},
 	)(new Map<string, SymbolInfo>())(entries)
 
 	return getOrElse(new Map<string, SymbolInfo>())(result)
