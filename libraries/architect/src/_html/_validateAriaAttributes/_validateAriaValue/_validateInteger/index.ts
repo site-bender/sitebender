@@ -1,8 +1,8 @@
 import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
-import isLessThan from "@sitebender/toolsmith/predicates/isLessThan/index.ts"
+// TODO: Replace native < with isLessThan when available in Toolsmith (ASAP)
+// TODO: Replace native String() with toString when available in Toolsmith (ASAP)
 import isUnequal from "@sitebender/toolsmith/predicates/isUnequal/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
-import toString from "@sitebender/toolsmith/string/toString/index.ts"
 
 import type { AriaAttributeDefinition } from "../../../constants/ariaStandards/index.ts"
 
@@ -19,7 +19,8 @@ export default function _validateInteger(attributeName: string) {
 			 */
 			const intValue = parseInt(value, 10)
 
-			if (or(isNaN(intValue))(isUnequal(toString(intValue))(value))) {
+			// TODO: Replace String() with toString when available in Toolsmith (ASAP)
+			if (or(isNaN(intValue))(isUnequal(String(intValue))(value))) {
 				return `Attribute '${attributeName}' must be an integer, got "${value}"`
 			}
 
@@ -27,7 +28,8 @@ export default function _validateInteger(attributeName: string) {
 			 + Check minValue constraint if present
 			 */
 			if (isDefined(attrDefinition.minValue)) {
-				if (isLessThan(intValue)(attrDefinition.minValue)) {
+				// TODO: Replace < with isLessThan when available in Toolsmith (ASAP)
+				if (intValue < attrDefinition.minValue) {
 					return `Attribute '${attributeName}' must be >= ${attrDefinition.minValue}, got ${intValue}`
 				}
 			}
