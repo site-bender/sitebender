@@ -1,5 +1,5 @@
-import isArray from "../../validation/isArray/index.ts"
-import isNumber from "../../validation/isNumber/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isNumber from "../../predicates/isNumber/index.ts"
 import all from "../all/index.ts"
 
 // Get the maximum number from an array of numbers

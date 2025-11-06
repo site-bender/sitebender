@@ -84,8 +84,8 @@ export type ClassExtractionError = ArchitectError<"extractClasses"> & {
 	span?: Span
 }
 
-//++ Union of all extraction errors for buildParsedFile
-//++ Enables error accumulation across all extraction operations
+//++ Union of all extraction errors
+//++ Enables error accumulation across extraction operations
 export type ExtractionError =
 	| FunctionExtractionError
 	| CommentExtractionError

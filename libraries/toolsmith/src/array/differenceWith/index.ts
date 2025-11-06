@@ -1,10 +1,9 @@
 import not from "../../logic/not/index.ts"
-import isArray from "../../validation/isArray/index.ts"
-import filter from "../filter/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
 import isEmpty from "../isEmpty/index.ts"
-import some from "../some/index.ts"
 
 //++ Set difference with custom equality
+//++ NOTE: This is a plain function (single return path). Will be migrated to three-path pattern in Batch 22.
 export default function differenceWith<T, U>(
 	comparator: (a: T, b: U) => boolean,
 ) {
@@ -16,13 +15,14 @@ export default function differenceWith<T, U>(
 		): Array<T> {
 			if (isArray(minuend)) {
 				if (isArray(subtrahend) && not(isEmpty(subtrahend))) {
-					return filter(function notInSubtrahend(element: T) {
+					//++ [EXCEPTION] Using native .filter() and .some() is explicitly allowed for performance in Toolsmith implementations
+					return minuend.filter(function notInSubtrahend(element: T) {
 						return not(
-							some(function matches(excludeElement: U) {
+							subtrahend.some(function matches(excludeElement: U) {
 								return comparator(element, excludeElement)
-							})(subtrahend as Array<U>),
+							}),
 						)
-					})(minuend as Array<T>)
+					})
 				}
 
 				return [...minuend]

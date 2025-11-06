@@ -1,13 +1,18 @@
-import isNotUndefined from "../../validation/isNotUndefined/index.ts"
-import filter from "../filter/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
 
-//++ Removes undefined values from an array
+//++ Removes null and undefined values from an array
+//++ NOTE: This is a plain function (single return path). Will be migrated to three-path pattern in Batch 22.
 export default function compact<T>(
-	array: Array<T | null | undefined>,
+	array: Array<T | null | undefined> | null | undefined,
 ): Array<T> {
-	return filter(function isItemDefined(
+	if (!isArray(array)) {
+		return []
+	}
+
+	//++ [EXCEPTION] Using native .filter() is explicitly allowed for performance in Toolsmith implementations
+	return array.filter(function isItemDefined(
 		item: T | null | undefined,
 	): item is T {
-		return isNotUndefined(item)
-	})(array as Array<T | null | undefined>)
+		return item !== undefined && item !== null
+	})
 }
