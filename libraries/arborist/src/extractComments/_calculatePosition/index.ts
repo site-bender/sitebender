@@ -4,7 +4,10 @@ import type { Position } from "../../types/index.ts"
 import length from "@sitebender/toolsmith/array/length/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
-export default function calculatePosition(sourceText: string, offset: number): Position {
+export default function calculatePosition(
+	sourceText: string,
+	offset: number,
+): Position {
 	const beforeOffset = sourceText.slice(0, offset)
 	const lines = beforeOffset.split("\n")
 	const line = getOrElse(0)(length(lines))

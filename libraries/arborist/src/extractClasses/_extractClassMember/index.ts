@@ -1,4 +1,8 @@
-import type { ClassMember, Parameter, ClassExtractionError } from "../../types/index.ts"
+import type {
+	ClassExtractionError,
+	ClassMember,
+	Parameter,
+} from "../../types/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
 
@@ -18,7 +22,7 @@ export default function _extractClassMember(
 	_sourceText: string,
 ) {
 	return function extractFromNode(
-		memberNode: Serializable,  // SWC ClassMember
+		memberNode: Serializable, // SWC ClassMember
 	): Validation<ClassExtractionError, ClassMember> {
 		const nodeObj = memberNode as Record<string, Serializable>
 
@@ -51,7 +55,9 @@ export default function _extractClassMember(
 			isStatic = (nodeObj.isStatic as boolean | undefined) ?? false
 			isPrivate = nodeObj.accessibility === "private"
 			isProtected = nodeObj.accessibility === "protected"
-			isAsync = ((nodeObj.function as Record<string, Serializable>)?.async as boolean | undefined) ?? false
+			isAsync = ((nodeObj.function as Record<string, Serializable>)?.async as
+				| boolean
+				| undefined) ?? false
 
 			// Extract parameters for setters
 			if (isEqual(kind)("setter")) {
@@ -80,7 +86,6 @@ export default function _extractClassMember(
 				| undefined
 			returnType = (returnTypeAnnotation?.kind as string | undefined) ??
 				(returnTypeAnnotation?.type as string | undefined)
-
 		} else if (isEqual(nodeType)("ClassProperty")) {
 			memberType = "property"
 			const key = nodeObj.key as Record<string, Serializable>
@@ -88,7 +93,6 @@ export default function _extractClassMember(
 			isStatic = (nodeObj.isStatic as boolean | undefined) ?? false
 			isPrivate = nodeObj.accessibility === "private"
 			isProtected = nodeObj.accessibility === "protected"
-
 		} else if (isEqual(nodeType)("Constructor")) {
 			memberType = "constructor"
 			memberName = "constructor"
@@ -110,7 +114,6 @@ export default function _extractClassMember(
 					}
 				},
 			)(params as ReadonlyArray<Serializable>) as ReadonlyArray<Parameter>
-
 		} else {
 			// Unknown member type - return failure
 			return failure([{

@@ -84,7 +84,9 @@ export default function extractConstants(
 		function extractDetails(node: unknown): ParsedConstant {
 			return extractConstantDetails(node)(ast.sourceText)
 		},
-	)(constNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedConstant>
+	)(constNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<
+		ParsedConstant
+	>
 
 	// Return success with extracted constants
 	// When error handling is added, this will accumulate errors from failed extractions
