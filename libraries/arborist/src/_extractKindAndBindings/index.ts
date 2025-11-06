@@ -1,7 +1,7 @@
 import type { ImportBinding } from "../types/index.ts"
 import extractNamedBindings from "../_extractNamedBindings/index.ts"
 import extractLocalName from "../_extractLocalName/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import length from "@sitebender/toolsmith/array/length/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import and from "@sitebender/toolsmith/logic/and/index.ts"
