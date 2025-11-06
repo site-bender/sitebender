@@ -23,7 +23,7 @@ Deno.test(
 					children: [div],
 				}
 
-				const errors = _validateAncestorDependentRoles(div, [dl])
+				const errors = _validateAncestorDependentRoles(div)([dl])
 
 				assertEquals(errors.length, 0)
 			},
@@ -46,7 +46,7 @@ Deno.test(
 					children: [div],
 				}
 
-				const errors = _validateAncestorDependentRoles(div, [dl])
+				const errors = _validateAncestorDependentRoles(div)([dl])
 
 				assertEquals(errors.length, 0)
 			},
@@ -69,7 +69,7 @@ Deno.test(
 					children: [div],
 				}
 
-				const errors = _validateAncestorDependentRoles(div, [dl])
+				const errors = _validateAncestorDependentRoles(div)([dl])
 
 				assertEquals(errors.length, 1)
 				assertEquals(
@@ -100,7 +100,7 @@ Deno.test(
 					children: [footer],
 				}
 
-				const errors = _validateAncestorDependentRoles(footer, [body])
+				const errors = _validateAncestorDependentRoles(footer)([body])
 
 				assertEquals(errors.length, 0)
 			},
@@ -123,7 +123,7 @@ Deno.test(
 					children: [footer],
 				}
 
-				const errors = _validateAncestorDependentRoles(footer, [article])
+				const errors = _validateAncestorDependentRoles(footer)([article])
 
 				assertEquals(errors.length, 1)
 				assertEquals(
@@ -154,7 +154,7 @@ Deno.test(
 					children: [header],
 				}
 
-				const errors = _validateAncestorDependentRoles(header, [body])
+				const errors = _validateAncestorDependentRoles(header)([body])
 
 				assertEquals(errors.length, 0)
 			},
@@ -177,7 +177,7 @@ Deno.test(
 					children: [header],
 				}
 
-				const errors = _validateAncestorDependentRoles(header, [section])
+				const errors = _validateAncestorDependentRoles(header)([section])
 
 				assertEquals(errors.length, 1)
 				assertEquals(
@@ -219,7 +219,7 @@ Deno.test(
 				 + Ancestors: [div, article]
 				 + article is a sectioning element, so header cannot have banner
 				 */
-				const errors = _validateAncestorDependentRoles(header, [
+				const errors = _validateAncestorDependentRoles(header)([
 					div,
 					article,
 				])
@@ -249,7 +249,7 @@ Deno.test(
 					children: [li],
 				}
 
-				const errors = _validateAncestorDependentRoles(li, [ul])
+				const errors = _validateAncestorDependentRoles(li)([ul])
 
 				assertEquals(errors.length, 0)
 			},
@@ -272,7 +272,7 @@ Deno.test(
 					children: [li],
 				}
 
-				const errors = _validateAncestorDependentRoles(li, [ul])
+				const errors = _validateAncestorDependentRoles(li)([ul])
 
 				assertEquals(errors.length, 1)
 				assertEquals(errors[0]?.errorType, "invalid-role-structure")
@@ -300,7 +300,7 @@ Deno.test(
 					children: [summary],
 				}
 
-				const errors = _validateAncestorDependentRoles(summary, [details])
+				const errors = _validateAncestorDependentRoles(summary)([details])
 
 				assertEquals(errors.length, 0)
 			},
@@ -323,7 +323,7 @@ Deno.test(
 					children: [summary],
 				}
 
-				const errors = _validateAncestorDependentRoles(summary, [details])
+				const errors = _validateAncestorDependentRoles(summary)([details])
 
 				assertEquals(errors.length, 1)
 				assertEquals(
@@ -345,7 +345,7 @@ Deno.test(
 					content: "Hello",
 				}
 
-				const errors = _validateAncestorDependentRoles(textNode, [])
+				const errors = _validateAncestorDependentRoles(textNode)([])
 
 				assertEquals(errors.length, 0)
 			},
@@ -368,7 +368,7 @@ Deno.test(
 					children: [div],
 				}
 
-				const errors = _validateAncestorDependentRoles(div, [body])
+				const errors = _validateAncestorDependentRoles(div)([body])
 
 				assertEquals(errors.length, 0)
 			},

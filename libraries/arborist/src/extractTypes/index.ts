@@ -23,7 +23,7 @@ import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
@@ -77,13 +77,11 @@ export default function extractTypes(
 	// Extract details from each type node
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractTypeDetails never fails (returns ParsedType directly)
-	const typesResult = map(
+	const types = map(
 	  function extractDetails(node: unknown): ParsedType {
 	    return extractTypeDetails(node)(ast.sourceText)
 	  },
-	)(typeNodesArray as ReadonlyArray<Serializable>)
-
-	const types = getOrElse([] as ReadonlyArray<ParsedType>)(typesResult)
+	)(typeNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedType>
 
 	// Return success with extracted types
 	// When error handling is added, this will accumulate errors from failed extractions
