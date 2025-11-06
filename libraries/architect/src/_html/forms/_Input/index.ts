@@ -1,5 +1,7 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
+import _validateAriaAttributes from "../../_validateAriaAttributes/index.ts"
 import _validateAttributes from "../../_validateAttributes/index.ts"
 import _validateRole from "../../_validateRole/index.ts"
 
@@ -66,11 +68,17 @@ export type Props =
  + Uses generic role validation for now
  */
 export default function _Input(props: Props): VirtualNode {
-	const { role, ...attrs } = props
+	const { role, aria, ...attrs } = props
 	const roleAttrs = _validateRole("input")(role)
+
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("input")(role)(aria)
+		: {}
+
 	const attributes = {
 		..._validateAttributes("input")(attrs),
 		...roleAttrs,
+		...ariaAttrs,
 	}
 
 	return {

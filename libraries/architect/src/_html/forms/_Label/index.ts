@@ -1,6 +1,7 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
-import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
+import _validateAriaAttributes from "../../_validateAriaAttributes/index.ts"
 import _validateAttributes from "../../_validateAttributes/index.ts"
 import _validateLabelRole from "./_validateLabelRole/index.ts"
 
@@ -18,13 +19,18 @@ export type Props =
  + JavaScript's for keyword. This component accepts htmlFor and converts it.
  */
 export default function _Label(props: Props): VirtualNode {
-	const { children = [], htmlFor, role, ...attrs } = props
+	const { children = [], htmlFor, role, aria, ...attrs } = props
 	const roleAttrs = _validateLabelRole(isDefined(htmlFor))(role)
+
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("label")(role)(aria)
+		: {}
 
 	// Convert htmlFor to for attribute
 	const attributes = {
 		..._validateAttributes("label")({ ...attrs }),
 		...roleAttrs,
+		...ariaAttrs,
 		...(isDefined(htmlFor) ? { for: htmlFor } : {}),
 	}
 
