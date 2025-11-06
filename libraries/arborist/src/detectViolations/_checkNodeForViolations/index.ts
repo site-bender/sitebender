@@ -9,7 +9,7 @@ type ViolationState = Readonly<{
 }>
 
 import type { Position } from "../../types/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 export default function _checkNodeForViolations(state: ViolationState) {
 	return function _checkNodeForViolationsWithState(

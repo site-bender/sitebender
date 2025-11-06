@@ -2,7 +2,7 @@
 // Updates analysis state based on AST node type
 
 import type { FunctionBody } from "../../types/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 //++ Updates analysis state based on node type (pure function)
 //++ Returns new state with updated flags and complexity

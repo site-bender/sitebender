@@ -1,16 +1,22 @@
+import and from "@sitebender/toolsmith/logic/and/index.ts"
 import concat from "@sitebender/toolsmith/array/concat/index.ts"
 import entries from "@sitebender/toolsmith/object/entries/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import includes from "@sitebender/toolsmith/array/includes/index.ts"
 import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
+import isObject from "@sitebender/toolsmith/predicates/isObject/index.ts"
+import isUnequal from "@sitebender/toolsmith/predicates/isUnequal/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 import unique from "@sitebender/toolsmith/array/unique/index.ts"
 
 import {
 	ARIA_ATTRIBUTES,
 	ARIA_ROLES,
 	HTML_ELEMENTS,
-} from "../../constants/ariaStandards.ts"
+} from "../../constants/ariaStandards/index.ts"
 
 /*++
  + Gets the list of allowed ARIA attributes for an element
@@ -34,14 +40,14 @@ export default function _getAllowedAriaAttributes(tagName: string) {
 		 + Unknown element → no validation data available
 		 + Allow all ARIA (will be added in full expansion)
 		 */
-		if (!elementRules) {
+		if (not(isDefined(elementRules))) {
 			return []
 		}
 
 		/*++
 		 + Some elements (metadata) cannot have ANY ARIA attributes
 		 */
-		if (elementRules.noAriaAttrs === true) {
+		if (isEqual(elementRules.noAriaAttrs)(true)) {
 			return []
 		}
 
@@ -49,7 +55,7 @@ export default function _getAllowedAriaAttributes(tagName: string) {
 		 + Elements with no role cannot have ARIA attributes
 		 + (Except naming-prohibited elements with explicit role)
 		 */
-		if (!isDefined(effectiveRole)) {
+		if (not(isDefined(effectiveRole))) {
 			return []
 		}
 
@@ -60,12 +66,14 @@ export default function _getAllowedAriaAttributes(tagName: string) {
 			entry: readonly [string, unknown],
 		): boolean {
 			const [, value] = entry
-			return (
-				typeof value === "object" &&
-				value !== null &&
-				"global" in value &&
-				value.global === true
-			)
+			const isObj = isObject(value)
+			const isNotNull = isUnequal(value)(null)
+			const hasGlobal = "global" in value
+			const globalIsTrue = hasGlobal
+				? isEqual((value as Record<string, unknown>).global)(true)
+				: false
+
+			return and(and(and(isObj)(isNotNull))(hasGlobal))(globalIsTrue)
 		}
 
 		function extractAttributeName(
@@ -93,14 +101,15 @@ export default function _getAllowedAriaAttributes(tagName: string) {
 		 + If effectiveRole matches implicitRole, then it's implicit (naming prohibited)
 		 + If effectiveRole differs from implicitRole, then it's explicit (naming allowed)
 		 */
-		const hasExplicitRole = effectiveRole !== elementRules.implicitRole
-		const shouldFilterNaming =
-			elementRules.namingProhibited === true && !hasExplicitRole
+		const hasExplicitRole = isUnequal(effectiveRole)(elementRules.implicitRole)
+		const shouldFilterNaming = and(
+			isEqual(elementRules.namingProhibited)(true),
+		)(not(hasExplicitRole))
 
 		const namingAttrs = ["aria-label", "aria-labelledby"]
 
 		function isNotNamingAttribute(attr: string): boolean {
-			return !namingAttrs.includes(attr)
+			return not(includes(namingAttrs)(attr))
 		}
 
 		const globalAttrsFilteredResult = shouldFilterNaming
@@ -116,7 +125,7 @@ export default function _getAllowedAriaAttributes(tagName: string) {
 		 */
 		const roleDefinition = ARIA_ROLES[effectiveRole]
 
-		if (!roleDefinition) {
+		if (not(isDefined(roleDefinition))) {
 			/*++
 			 + Unknown role → only allow global attributes
 			 + (Will be added in full expansion)
@@ -127,8 +136,12 @@ export default function _getAllowedAriaAttributes(tagName: string) {
 		/*++
 		 + Merge role-specific and global attributes
 		 */
-		const roleAttrs = roleDefinition.allowedAttrs || []
-		const requiredAttrs = roleDefinition.requiredAttrs || []
+		const roleAttrs = isDefined(roleDefinition.allowedAttrs)
+			? roleDefinition.allowedAttrs
+			: []
+		const requiredAttrs = isDefined(roleDefinition.requiredAttrs)
+			? roleDefinition.requiredAttrs
+			: []
 
 		/*++
 		 + Combine all allowed attributes using Toolsmith functions
