@@ -527,6 +527,509 @@ architect/src/
 
 ---
 
+## Part 4: Ontology Integration & RDF Serialization
+
+### Overview
+
+VirtualNode is designed as a **semantic-web-first data structure**. While it can serialize to multiple formats (HTML, JSON, YAML), its primary purpose is enabling **ontology-driven architecture** where type information lives in RDF/OWL/SHACL ontologies, not in the data itself.
+
+### Architectural Principle: Type Information in Ontology
+
+**VirtualNode stays intentionally simple** (no type metadata):
+```typescript
+{
+  _tag: "element",
+  tagName: "Q",
+  attributes: { cite: "https://example.com" },
+  children: [...]
+}
+```
+
+**Type information is defined once in the HTML ontology**:
+```turtle
+html:cite a owl:DatatypeProperty ;
+  rdfs:domain html:Q ;
+  rdfs:range xsd:anyURI .
+```
+
+This separation means:
+- VirtualNode is a pure data structure (easily serializable)
+- Ontology defines semantic constraints (OWL + SHACL)
+- Triple store validates using ontology (not JavaScript)
+- No duplication of type information
+
+---
+
+### VirtualNode → RDF Serialization Pipeline
+
+#### 1. Element Nodes → OWL Class Instances
+
+**VirtualNode**:
+```typescript
+{
+  _tag: "element",
+  tagName: "Q",
+  attributes: { cite: "https://example.com" },
+  children: [{ _tag: "text", content: "Quote text" }]
+}
+```
+
+**Serialized to Turtle**:
+```turtle
+@prefix html: <http://sitebender.io/ontology/html#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:node1 a html:Q ;
+  html:cite "https://example.com"^^xsd:anyURI ;
+  html:textContent "Quote text" .
+```
+
+**How it works**:
+1. `tagName: "Q"` → RDF type `html:Q` (consult ontology for class)
+2. `attributes.cite` → Property `html:cite` (consult ontology for range)
+3. Ontology says `html:cite` has range `xsd:anyURI`
+4. Serialize value with XSD type annotation: `"..."^^xsd:anyURI`
+
+#### 2. Attributes → OWL Datatype Properties
+
+**VirtualNode attributes** are key-value pairs:
+```typescript
+attributes: {
+  id: "main-quote",
+  class: "citation",
+  cite: "https://example.com",
+  role: "none"
+}
+```
+
+**Serialized to RDF**:
+```turtle
+:node1 a html:Q ;
+  html:id "main-quote" ;
+  html:class "citation" ;
+  html:cite "https://example.com"^^xsd:anyURI ;
+  html:role "none" .
+```
+
+**Type inference from ontology**:
+```turtle
+# Ontology defines property types
+html:id rdfs:range xsd:ID .
+html:class rdfs:range xsd:string .
+html:cite rdfs:range xsd:anyURI .
+html:role rdfs:range xsd:string .
+```
+
+Serializer consults ontology to add correct XSD type annotations.
+
+#### 3. Children → RDF Lists or Nested Nodes
+
+**VirtualNode with children**:
+```typescript
+{
+  _tag: "element",
+  tagName: "UL",
+  attributes: {},
+  children: [
+    { _tag: "element", tagName: "LI", attributes: {}, children: [...] },
+    { _tag: "element", tagName: "LI", attributes: {}, children: [...] }
+  ]
+}
+```
+
+**Serialized to RDF** (option 1 - nested):
+```turtle
+:ul1 a html:Ul ;
+  html:children (
+    [
+      a html:Li ;
+      html:textContent "Item 1"
+    ]
+    [
+      a html:Li ;
+      html:textContent "Item 2"
+    ]
+  ) .
+```
+
+**Serialized to RDF** (option 2 - flat with ordering):
+```turtle
+:ul1 a html:Ul .
+:li1 a html:Li ; html:parent :ul1 ; html:order 1 ; html:textContent "Item 1" .
+:li2 a html:Li ; html:parent :ul1 ; html:order 2 ; html:textContent "Item 2" .
+```
+
+#### 4. Text Nodes → Literal Content
+
+**VirtualNode text**:
+```typescript
+{ _tag: "text", content: "Hello world" }
+```
+
+**Serialized to RDF**:
+```turtle
+:parent html:textContent "Hello world" .
+```
+
+#### 5. Comment Nodes → RDF Comments
+
+**VirtualNode comment**:
+```typescript
+{ _tag: "comment", content: "TODO: update this" }
+```
+
+**Serialized to RDF**:
+```turtle
+:parent html:comment "TODO: update this" .
+```
+
+Or as RDF comment (not queryable):
+```turtle
+# TODO: update this
+```
+
+#### 6. Error Nodes → Validation Reports
+
+**VirtualNode error**:
+```typescript
+{
+  _tag: "error",
+  code: "INVALID_ROLE",
+  message: "Invalid role for article element",
+  received: "invalid",
+  context: "article"
+}
+```
+
+**Serialized to RDF** (as validation report):
+```turtle
+:node1 a html:Article ;
+  html:validationStatus "invalid" ;
+  html:validationError [
+    a html:ValidationError ;
+    html:errorCode "INVALID_ROLE" ;
+    html:errorMessage "Invalid role for article element" ;
+    html:receivedValue "invalid" ;
+    html:context "article" ;
+  ] .
+```
+
+---
+
+### HTML Ontology Structure
+
+The ontology defines all HTML semantics that VirtualNode relies on:
+
+#### Element Classes (OWL)
+
+```turtle
+@prefix html: <http://sitebender.io/ontology/html#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+# Content model hierarchy
+html:Element a owl:Class .
+html:FlowContent rdfs:subClassOf html:Element .
+html:PhrasingContent rdfs:subClassOf html:Element .
+html:HeadingContent rdfs:subClassOf html:FlowContent .
+
+# Specific elements
+html:Q a owl:Class ;
+  rdfs:subClassOf html:PhrasingContent ;
+  rdfs:label "Inline quotation" .
+
+html:Blockquote a owl:Class ;
+  rdfs:subClassOf html:FlowContent ;
+  rdfs:label "Block quotation" .
+
+html:Article a owl:Class ;
+  rdfs:subClassOf html:FlowContent ;
+  rdfs:label "Self-contained composition" .
+```
+
+#### Attribute Properties (OWL)
+
+```turtle
+# Global attributes
+html:id a owl:DatatypeProperty ;
+  rdfs:domain html:Element ;
+  rdfs:range xsd:ID .
+
+html:class a owl:DatatypeProperty ;
+  rdfs:domain html:Element ;
+  rdfs:range xsd:string .
+
+# Element-specific attributes
+html:cite a owl:DatatypeProperty ;
+  rdfs:domain [ owl:unionOf (html:Q html:Blockquote html:Ins html:Del) ] ;
+  rdfs:range xsd:anyURI .
+
+html:href a owl:DatatypeProperty ;
+  rdfs:domain [ owl:unionOf (html:A html:Area html:Link) ] ;
+  rdfs:range xsd:anyURI .
+
+html:alt a owl:DatatypeProperty ;
+  rdfs:domain [ owl:unionOf (html:Img html:Area html:Input) ] ;
+  rdfs:range xsd:string .
+```
+
+#### Validation Constraints (SHACL)
+
+```turtle
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+# Q element shape
+html:QShape a sh:NodeShape ;
+  sh:targetClass html:Q ;
+
+  # cite attribute
+  sh:property [
+    sh:path html:cite ;
+    sh:datatype xsd:anyURI ;
+    sh:maxCount 1 ;
+    sh:message "Q element may have at most one cite attribute" ;
+  ] ;
+
+  # Content model
+  sh:property [
+    sh:path html:children ;
+    sh:class html:PhrasingContent ;
+    sh:message "Q may only contain phrasing content" ;
+  ] .
+
+# Article element shape
+html:ArticleShape a sh:NodeShape ;
+  sh:targetClass html:Article ;
+
+  # Role validation
+  sh:property [
+    sh:path html:role ;
+    sh:in ( "application" "document" "feed" "main" "none" "presentation" "region" ) ;
+    sh:message "Invalid role for article element" ;
+  ] ;
+
+  # Content model
+  sh:property [
+    sh:path html:children ;
+    sh:class html:FlowContent ;
+    sh:message "Article may only contain flow content" ;
+  ] .
+```
+
+---
+
+### TypeScript to RDF Type Mappings
+
+The serializer uses these mappings to generate correct XSD type annotations:
+
+| TypeScript Type | XSD Datatype | Example |
+|----------------|--------------|---------|
+| `string` | `xsd:string` | `"hello"` |
+| `number` (integer) | `xsd:integer` | `42` |
+| `number` (decimal) | `xsd:decimal` | `3.14` |
+| `boolean` | `xsd:boolean` | `true` |
+| `Url` (branded) | `xsd:anyURI` | `https://example.com` |
+| `EmailAddress` (branded) | `xsd:string` | `user@example.com` |
+| `Uuid` (branded) | `xsd:string` | `550e8400-...` |
+| `Temporal.PlainDate` | `xsd:date` | `2025-11-07` |
+| `Temporal.PlainDateTime` | `xsd:dateTime` | `2025-11-07T14:30:00Z` |
+
+**Note:** The serializer determines types by consulting the ontology, not by inspecting JavaScript values:
+
+```typescript
+// VirtualNode has string value
+attributes: { cite: "https://example.com" }
+
+// Serializer checks ontology:
+// html:cite rdfs:range xsd:anyURI
+
+// Therefore serializes as:
+html:cite "https://example.com"^^xsd:anyURI
+```
+
+---
+
+### Triple Store Integration
+
+#### Validation Pipeline
+
+```
+VirtualNode (simple data)
+  ↓
+RDF Serializer
+  ├─ Map tagName → OWL class (html:Q)
+  ├─ Map attributes → OWL properties (html:cite)
+  ├─ Consult ontology for property ranges
+  └─ Generate Turtle with XSD types
+  ↓
+Triple Store
+  ├─ Load HTML ontology (OWL + SHACL)
+  ├─ Validate triples against SHACL shapes
+  ├─ Check cardinality constraints
+  ├─ Check type constraints
+  └─ Accept or reject triples
+  ↓
+SPARQL Queries (type-aware)
+  ├─ Find all quotations: SELECT ?q WHERE { ?q a html:Q }
+  ├─ Filter by cite domain: FILTER (CONTAINS(STR(?cite), ".edu"))
+  └─ Validate structure: FILTER isIRI(?cite)
+```
+
+#### Benefits
+
+**1. Separation of Concerns**
+- VirtualNode: Pure data (serialization, transport)
+- Ontology: Semantic constraints (validation, types)
+- Components: Business logic (composition, UI)
+
+**2. Standards Compliance**
+- OWL2 for semantic web interoperability
+- SHACL for W3C standard validation
+- RDF for linked data compatibility
+
+**3. Single Source of Truth**
+- HTML spec → Ontology
+- Ontology → TypeScript constants (ROLES_BY_ELEMENT, etc.)
+- Ontology → SHACL shapes
+- Ontology → RDF serialization
+
+**4. Queryable Semantics**
+```sparql
+# Find all elements with conditional role validation
+SELECT ?element WHERE {
+  ?shape sh:targetClass ?element ;
+         sh:or ?conditions .
+}
+
+# Find all URL attributes
+SELECT DISTINCT ?property WHERE {
+  ?property rdfs:range xsd:anyURI .
+}
+
+# Validate document structure
+ASK {
+  ?article a html:Article .
+  ?article html:children/html:children+ ?heading .
+  ?heading a html:H1 .
+}
+```
+
+**5. Future-Proof**
+- New HTML elements → Update ontology
+- W3C spec changes → Update ontology
+- Validation rules → Update SHACL shapes
+- VirtualNode structure never changes
+
+---
+
+### Ontology Maintenance
+
+#### Location
+
+```
+libraries/architect/ontology/
+├── html-elements.ttl        # OWL classes for all HTML elements
+├── html-attributes.ttl      # OWL properties for attributes
+├── html-content-model.ttl   # Content model constraints
+├── html-shapes.ttl          # SHACL validation shapes
+├── aria-roles.ttl           # ARIA role ontology
+├── aria-attributes.ttl      # ARIA attribute constraints
+└── README.md                # Ontology documentation
+```
+
+#### Versioning
+
+- Ontology version aligned with W3C HTML/ARIA spec versions
+- Breaking changes trigger major version (e.g., 2.0.0)
+- New elements/attributes trigger minor version (e.g., 1.1.0)
+- Bug fixes in SHACL trigger patch version (e.g., 1.0.1)
+
+#### Update Process
+
+When W3C specifications change:
+1. Update `.ttl` files with new definitions
+2. Update TypeScript constants (e.g., `ROLES_BY_ELEMENT`)
+3. Update validation functions if needed
+4. Triple store automatically uses new ontology
+5. SHACL validation uses new constraints
+6. **VirtualNode structure remains unchanged**
+
+---
+
+### Serialization Examples
+
+#### Complete Example: Article with Quotation
+
+**VirtualNode**:
+```typescript
+{
+  _tag: "element",
+  tagName: "ARTICLE",
+  attributes: { role: "article" },
+  children: [
+    {
+      _tag: "element",
+      tagName: "H1",
+      attributes: {},
+      children: [{ _tag: "text", content: "Famous Quotes" }]
+    },
+    {
+      _tag: "element",
+      tagName: "Q",
+      attributes: { cite: "https://example.edu/quote" },
+      children: [{ _tag: "text", content: "To be or not to be" }]
+    }
+  ]
+}
+```
+
+**Serialized to Turtle**:
+```turtle
+@prefix html: <http://sitebender.io/ontology/html#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:article1 a html:Article ;
+  html:role "article" ;
+  html:children (
+    :h1
+    :q1
+  ) .
+
+:h1 a html:H1 ;
+  html:textContent "Famous Quotes" ;
+  html:parent :article1 ;
+  html:order 1 .
+
+:q1 a html:Q ;
+  html:cite "https://example.edu/quote"^^xsd:anyURI ;
+  html:textContent "To be or not to be" ;
+  html:parent :article1 ;
+  html:order 2 .
+```
+
+**Triple store validates using SHACL**:
+- ✅ Article allows role="article"
+- ✅ H1 is valid child of Article (flow content)
+- ✅ Q is valid child of Article (phrasing/flow content)
+- ✅ cite is valid URL (xsd:anyURI)
+- ✅ All structural constraints satisfied
+
+**SPARQL queries work**:
+```sparql
+# Find all quotations in articles
+SELECT ?article ?quote ?cite WHERE {
+  ?article a html:Article .
+  ?article html:children/html:children* ?quote .
+  ?quote a html:Q ;
+         html:cite ?cite .
+}
+
+# Filter by .edu domains
+FILTER (CONTAINS(STR(?cite), ".edu"))
+```
+
+---
+
 ## Success Criteria
 
 - [ ] All Toolsmith code has ZERO type errors

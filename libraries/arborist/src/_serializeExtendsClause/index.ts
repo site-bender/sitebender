@@ -19,7 +19,8 @@ export default function serializeExtendsClause(
 	}
 
 	const serializedResult = map(_serializeExtend)(extendsArray)
-	const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult).join(", ")
+	const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+		.join(", ")
 
 	return ` extends ${serialized}`
 }
