@@ -1,6 +1,6 @@
-import type { Value } from "../../../types/index.ts"
+import type { Value } from "../../types/index.ts"
 
-import isFunction from "../../validation/isFunction/index.ts"
+import isFunction from "../../predicates/isFunction/index.ts"
 
 //++ Returns a new array of specified length using the value or function provided
 export default function from(length: number) {

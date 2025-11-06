@@ -1,4 +1,4 @@
-import isArray from "../../validation/isArray/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
 import concatTo from "../concatTo/index.ts"
 import reduce from "../reduce/index.ts"
 
@@ -11,7 +11,11 @@ export default function findIndices<T>(
 	): Array<number> {
 		if (isArray(array)) {
 			return reduce<T, Array<number>>(
-				(indices, value, index) => {
+				function collectIndices(
+					indices: Array<number>,
+					value: T,
+					index: number,
+				): Array<number> {
 					if (predicate(value, index, array as ReadonlyArray<T>)) {
 						return concatTo([index])(indices)
 					}

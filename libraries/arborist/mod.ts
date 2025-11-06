@@ -21,11 +21,9 @@
 //--
 //-- ### Primary Parsing Functions
 //-- - [parseFile](./src/parseFile/index.ts) - Parse a file and return SWC AST (works perfectly)
-//-- - [buildParsedFile](./src/buildParsedFile/index.ts) - Run all extractors on parsed AST (works perfectly)
 //--
 //-- ### Semantic Analysis Functions
 //-- - [parseWithSemantics](./src/parsers/denoAst/wasm/index.ts) - Parse with full semantic analysis using deno_ast WASM
-//-- - [buildSemanticFile](./src/api/buildSemanticFile/index.ts) - Build ParsedFile with semantic information
 //--
 //-- ### Extraction Functions (All Working Perfectly)
 //-- - [extractFunctions](./src/extractFunctions/index.ts) - Function signatures with complete metadata
@@ -47,19 +45,17 @@
 //-- // Result.Error contains ParseError if file not found or invalid syntax
 //-- ```
 //--
-//-- ### Complete Extraction (Works Perfectly)
+//-- ### Extraction Example (Works Perfectly)
 //-- ```typescript
-//-- import buildParsedFile from "@sitebender/arborist/src/buildParsedFile/index.ts"
+//-- import extractFunctions from "@sitebender/arborist/src/extractFunctions/index.ts"
+//-- import extractComments from "@sitebender/arborist/src/extractComments/index.ts"
 //--
-//-- const parsedFileResult = buildParsedFile(ast)("./src/userService.ts")
-//-- // Validation.Success with complete ParsedFile containing:
+//-- const functionsV = extractFunctions(ast)
+//-- const commentsV = extractComments(ast)
+//-- // Validation.Success with extracted data:
 //-- // - functions: Array of function metadata
-//-- // - types: Array of type definitions
-//-- // - imports: Array of import statements
-//-- // - exports: Array of export statements
-//-- // - constants: Array of const declarations
 //-- // - comments: Array of comments with Envoy markers
-//-- // - violations: Constitutional rule violations detected
+//-- // Each extractor can be used independently as needed
 //-- ```
 //--
 //-- ### Semantic Analysis (Works Perfectly)

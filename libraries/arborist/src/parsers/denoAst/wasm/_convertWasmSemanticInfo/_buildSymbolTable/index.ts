@@ -1,6 +1,5 @@
 import type { SymbolInfo } from "../../../../../types/semantics/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
-import or from "@sitebender/toolsmith/logic/or/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import and from "@sitebender/toolsmith/logic/and/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
@@ -38,17 +37,17 @@ export default function _buildSymbolTable(
 					}
 					const newMap = new Map(acc)
 					newMap.set(key, {
-						name: or(symbol.name)(key) as string,
-						kind: (or(symbol.kind)("variable") as string) as SymbolInfo["kind"],
-						type: or(symbol.symbol_type)("unknown") as string,
-						isExported: or(symbol.is_exported)(false) as boolean,
+						name: symbol.name ?? key,
+						kind: (symbol.kind ?? "variable") as SymbolInfo["kind"],
+						type: symbol.symbol_type ?? "unknown",
+						isExported: symbol.is_exported ?? false,
 						definition: symbol.definition
 							? {
-								file: or(symbol.definition.file)("") as string,
-								line: or(symbol.definition.line)(0) as number,
-								column: or(symbol.definition.column)(0) as number,
-								start: or(symbol.definition.start)(0) as number,
-								end: or(symbol.definition.end)(0) as number,
+								file: symbol.definition.file ?? "",
+								line: symbol.definition.line ?? 0,
+								column: symbol.definition.column ?? 0,
+								start: symbol.definition.start ?? 0,
+								end: symbol.definition.end ?? 0,
 							}
 							: undefined,
 						references: getOrElse([] as ReadonlyArray<{
@@ -57,7 +56,7 @@ export default function _buildSymbolTable(
 							column: number
 							start: number
 							end: number
-						}>)(map(_convertReference)(or(symbol.references)([]) as unknown[])),
+						}>)(map(_convertReference)(symbol.references ?? [])),
 					})
 					return newMap
 				}

@@ -4,7 +4,7 @@ import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import extractImportedName from "../_extractImportedName/index.ts"
 import extractLocalName from "../_extractLocalName/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 //++ Extract bindings from named import specifiers
