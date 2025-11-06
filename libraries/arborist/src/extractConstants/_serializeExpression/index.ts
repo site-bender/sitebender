@@ -1,5 +1,5 @@
 import _serializePattern from "../../_serializePattern/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"

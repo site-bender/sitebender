@@ -3,7 +3,7 @@
 
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
@@ -30,38 +30,38 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 
 	// If wrapped, extract the actual function node
 	const actualNode = or(isExportWrapper)(isDefaultExportWrapper)
-		? or(nodeObj.declaration)(nodeObj.decl) as Record<string, unknown>
+		? (nodeObj.declaration ?? nodeObj.decl) as Record<string, unknown>
 		: nodeObj
 
 	// Extract function name
 	const identifier = actualNode.identifier as
 		| Record<string, unknown>
 		| undefined
-	const name = or(identifier?.value as string)("anonymous") as string
+	const name = (identifier?.value as string | undefined) ?? "anonymous"
 
 	// Extract position from actual function node
 	const span = actualNode.span as Record<string, unknown> | undefined
 	const position: Position = {
-		line: or(span?.start as number)(0) as number,
-		column: or(span?.ctxt as number)(0) as number,
+		line: (span?.start as number | undefined) ?? 0,
+		column: (span?.ctxt as number | undefined) ?? 0,
 	}
 
 	// Extract span
 	const spanInfo: Span = {
-		start: or(span?.start as number)(0) as number,
-		end: or(span?.end as number)(0) as number,
+		start: (span?.start as number | undefined) ?? 0,
+		end: (span?.end as number | undefined) ?? 0,
 	}
 
 	// Extract parameters using Toolsmith map
-	const params = or(actualNode.params as Array<unknown>)([])
-	const parametersResult = map(
+	const params = (actualNode.params as Array<unknown> | undefined) ?? []
+	const parameters = map(
 		function mapParameter(param: unknown): Parameter {
 			const paramObj = param as Record<string, unknown>
 			const pat = paramObj.pat as Record<string, unknown>
 
 			// For SWC: parameter name and optional flag are in pat (Identifier node)
-			const paramName = or(pat.value as string)("unknown") as string
-			const isOptional = or(pat.optional as boolean)(false) as boolean
+			const paramName = (pat.value as string | undefined) ?? "unknown"
+			const isOptional = (pat.optional as boolean | undefined) ?? false
 
 			// Type annotation is in pat.typeAnnotation.typeAnnotation
 			const typeAnn = pat.typeAnnotation as Record<string, unknown> | undefined
@@ -72,7 +72,7 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 			// For TsKeywordType, the actual type is in 'kind' field
 			const typeKind = typeAnnotation?.kind as string | undefined
 			const typeType = typeAnnotation?.type as string | undefined
-			const paramType = or(or(typeKind)(typeType))("unknown") as string
+			const paramType = (typeKind ?? typeType) ?? "unknown"
 
 			return {
 				name: paramName,
@@ -81,9 +81,7 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 				defaultValue: undefined,
 			}
 		},
-	)(params as ReadonlyArray<Serializable>)
-
-	const parameters = getOrElse([] as ReadonlyArray<Parameter>)(parametersResult)
+	)(params as ReadonlyArray<Serializable>) as ReadonlyArray<Parameter>
 
 	// Extract return type
 	const returnTypeAnn = actualNode.returnType as
@@ -96,20 +94,20 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 	// For TsKeywordType, use 'kind' field
 	const returnTypeKind = returnTypeAnnotation?.kind as string | undefined
 	const returnTypeType = returnTypeAnnotation?.type as string | undefined
-	const returnType = or(or(returnTypeKind)(returnTypeType))("unknown") as string
+	const returnType = (returnTypeKind ?? returnTypeType) ?? "unknown"
 
 	// Extract type parameters using Toolsmith map
 	// SWC uses 'typeParameters.parameters' not 'typeParams.params'
 	const typeParams = actualNode.typeParameters as
 		| Record<string, unknown>
 		| undefined
-	const typeParamsList = or(typeParams?.parameters as Array<unknown>)([]) as Array<unknown>
-	const typeParametersResult = map(
+	const typeParamsList = (typeParams?.parameters as Array<unknown> | undefined) ?? []
+	const typeParameters = map(
 		function mapTypeParameter(tp: unknown): TypeParameter {
 			const tpObj = tp as Record<string, unknown>
 			// Type parameter name is in name.value
 			const nameObj = tpObj.name as Record<string, unknown> | undefined
-			const tpName = or(nameObj?.value as string)("T") as string
+			const tpName = (nameObj?.value as string | undefined) ?? "T"
 
 			return {
 				name: tpName,
@@ -117,15 +115,11 @@ export default function extractFunctionDetails(node: unknown): ParsedFunction {
 				default: undefined,
 			}
 		},
-	)(typeParamsList as ReadonlyArray<Serializable>)
-
-	const typeParameters = getOrElse([] as ReadonlyArray<TypeParameter>)(
-		typeParametersResult,
-	)
+	)(typeParamsList as ReadonlyArray<Serializable>) as ReadonlyArray<TypeParameter>
 
 	// Detect modifiers
-	const isAsync = or(actualNode.async as boolean)(false) as boolean
-	const isGenerator = or(actualNode.generator as boolean)(false) as boolean
+	const isAsync = (actualNode.async as boolean | undefined) ?? false
+	const isGenerator = (actualNode.generator as boolean | undefined) ?? false
 	const isArrow = isEqual(actualNode.type)("ArrowFunctionExpression")
 
 	// Export detection based on wrapper type

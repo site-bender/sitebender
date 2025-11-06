@@ -9,7 +9,7 @@ import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import flatMap from "@sitebender/toolsmith/array/flatMap/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 import type { ParsedAst, ParsedExport, Position, Span } from "../types/index.ts"
@@ -47,13 +47,11 @@ export default function extractExports(
 	// flatMap because some nodes (like export lists) produce multiple exports
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractExportDetails never fails (returns ParsedExport array directly)
-	const exportsResult = flatMap(
+	const exports = flatMap(
 		function extractDetails(node: unknown): ReadonlyArray<ParsedExport> {
 			return extractExportDetails(node)
 		},
-	)(exportNodesArray as ReadonlyArray<Serializable>)
-
-	const exports = getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
+	)(exportNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedExport>
 
 	// Return success with extracted exports
 	// When error handling is added, this will accumulate errors from failed extractions
@@ -240,7 +238,7 @@ function extractVariableExports(
 		return function withSpan(span: Span): ReadonlyArray<ParsedExport> {
 			const declarations = decl.declarations as ReadonlyArray<unknown>
 
-			const exportsResult = map(function extractVar(
+			return map(function extractVar(
 				varDecl: unknown,
 			): ParsedExport {
 				const varDeclObj = varDecl as Record<string, unknown>
@@ -254,8 +252,7 @@ function extractVariableExports(
 					kind: "named",
 					isType: false,
 				}
-			})(declarations as ReadonlyArray<Serializable>)
-			return getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
+			})(declarations as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedExport>
 		}
 	}
 }
@@ -266,15 +263,15 @@ function extractNamedOrReExport(
 ) {
 	return function withPosition(position: Position) {
 		return function withSpan(span: Span): ReadonlyArray<ParsedExport> {
-			const specifiers = or(node.specifiers as ReadonlyArray<unknown>)([])
+			const specifiers = (node.specifiers as ReadonlyArray<unknown> | undefined) ?? []
 			const source = node.source as Record<string, unknown> | undefined
 			const sourceValue = source ? source.value as string : undefined
-			const isTypeOnly = or(node.typeOnly as boolean)(false)
+			const isTypeOnly = (node.typeOnly as boolean | undefined) ?? false
 
 			// If there's a source, this is a re-export
 			const kind = sourceValue ? "reexport" : "named"
 
-			const exportsResult = map(function extractSpecifier(
+			return map(function extractSpecifier(
 				spec: unknown,
 			): ParsedExport {
 				const specObj = spec as Record<string, unknown>
@@ -296,8 +293,7 @@ function extractNamedOrReExport(
 					isType: isSpecTypeOnly,
 					source: sourceValue,
 				}
-			})(specifiers as ReadonlyArray<Serializable>)
-			return getOrElse([] as ReadonlyArray<ParsedExport>)(exportsResult)
+			})(specifiers as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedExport>
 		}
 	}
 }

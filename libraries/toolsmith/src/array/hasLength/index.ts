@@ -1,5 +1,5 @@
-import isArray from "../../validation/isArray/index.ts"
-import isEqual from "../../validation/isEqual/index.ts"
+import isArray from "../../predicates/isArray/index.ts"
+import isEqual from "../../predicates/isEqual/index.ts"
 import length from "../length/index.ts"
 
 //++ Returns true if length of array is len

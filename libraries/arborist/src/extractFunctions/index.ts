@@ -36,11 +36,7 @@ export default function extractFunctions(
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractFunctionDetails never fails (returns ParsedFunction directly)
 	// Future: wrap extractFunctionDetails to return Validation and use validateAll
-	const functionsResult = map(_extractDetails)(functionNodesArray as ReadonlyArray<Serializable>)
-
-	const functions = getOrElse([] as ReadonlyArray<ParsedFunction>)(
-		functionsResult,
-	)
+	const functions = map(_extractDetails)(functionNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedFunction>
 
 	// Return success with extracted functions
 	// When error handling is added, this will accumulate errors from failed extractions
