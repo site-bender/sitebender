@@ -1,4 +1,4 @@
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 export default function _extractDefaultExportName(

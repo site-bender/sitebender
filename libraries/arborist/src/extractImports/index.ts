@@ -8,7 +8,7 @@ import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 import type {
 	ParsedAst,
@@ -44,13 +44,11 @@ export default function extractImports(
 	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
 	// For now, extractImportDetails never fails (returns ParsedImport directly)
 	// Future: wrap extractImportDetails to return Validation and use validateAll
-	const importsResult = map(
+	const imports = map(
 		function extractDetails(node: unknown): ParsedImport {
 			return extractImportDetails(node)
 		},
-	)(importNodesArray as ReadonlyArray<Serializable>)
-
-	const imports = getOrElse([] as ReadonlyArray<ParsedImport>)(importsResult)
+	)(importNodesArray as ReadonlyArray<Serializable>) as ReadonlyArray<ParsedImport>
 
 	// Return success with extracted imports
 	// When error handling is added, this will accumulate errors from failed extractions
