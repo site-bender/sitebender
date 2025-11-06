@@ -1,8 +1,8 @@
 import type {
-	ParsedType,
-	TypeDeclarationNode,
 	ExportDeclaration,
+	ParsedType,
 	TsTypeDeclaration,
+	TypeDeclarationNode,
 } from "../types/index.ts"
 import _extractSpan from "../_extractSpan/index.ts"
 import _extractPosition from "../_extractPosition/index.ts"

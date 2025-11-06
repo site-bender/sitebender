@@ -1,4 +1,9 @@
-import type { ParsedClass, ParsedAst, ClassExtractionError, ClassMember } from "../../types/index.ts"
+import type {
+	ClassExtractionError,
+	ClassMember,
+	ParsedAst,
+	ParsedClass,
+} from "../../types/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
 
@@ -22,13 +27,15 @@ export default function _extractClassDetails(
 	ast: ParsedAst,
 ) {
 	return function extractFromNode(
-		classNode: Serializable,  // SWC ClassDeclaration
+		classNode: Serializable, // SWC ClassDeclaration
 	): Validation<ClassExtractionError, ParsedClass> {
 		const nodeObj = classNode as Record<string, Serializable>
 
 		// Check if this is an export wrapper
 		const isExportWrapper = isEqual(nodeObj.type)("ExportDeclaration")
-		const isDefaultExportWrapper = isEqual(nodeObj.type)("ExportDefaultDeclaration")
+		const isDefaultExportWrapper = isEqual(nodeObj.type)(
+			"ExportDefaultDeclaration",
+		)
 
 		// If wrapped, extract the actual class node
 		// ExportDeclaration uses 'declaration', ExportDefaultDeclaration uses 'decl'
@@ -36,13 +43,16 @@ export default function _extractClassDetails(
 			isExportWrapper
 				? nodeObj.declaration as Record<string, Serializable>
 				: isDefaultExportWrapper
-					? nodeObj.decl as Record<string, Serializable>
-					: nodeObj
+				? nodeObj.decl as Record<string, Serializable>
+				: nodeObj
 		) as Record<string, Serializable>
 
 		// Validate node type
 		const nodeType = actualNode.type as string
-		if (!isEqual(nodeType)("ClassDeclaration") && !isEqual(nodeType)("ClassExpression")) {
+		if (
+			!isEqual(nodeType)("ClassDeclaration") &&
+			!isEqual(nodeType)("ClassExpression")
+		) {
 			return failure([{
 				operation: "extractClasses",
 				kind: "UnknownNodeType",
@@ -92,7 +102,9 @@ export default function _extractClassDetails(
 				const implObj = impl as Record<string, Serializable>
 				const expression = implObj.expression as Record<string, Serializable>
 				return (expression?.value as string | undefined) ?? "unknown"
-			})(implementsClause as ReadonlyArray<Serializable>) as ReadonlyArray<string>
+			})(implementsClause as ReadonlyArray<Serializable>) as ReadonlyArray<
+				string
+			>
 			: [] as ReadonlyArray<string>
 
 		// Extract all members
@@ -100,19 +112,27 @@ export default function _extractClassDetails(
 			| ReadonlyArray<Record<string, Serializable>>
 			| undefined
 		const memberValidations = classBody
-			? map(_extractClassMember(ast.sourceText))(classBody as ReadonlyArray<Serializable>) as ReadonlyArray<Validation<ClassExtractionError, ClassMember>>
+			? map(_extractClassMember(ast.sourceText))(
+				classBody as ReadonlyArray<Serializable>,
+			) as ReadonlyArray<Validation<ClassExtractionError, ClassMember>>
 			: [] as ReadonlyArray<Validation<ClassExtractionError, ClassMember>>
 
 		// Filter successful member extractions
-		const successfulValidationsResult = filter(isSuccess)(memberValidations as ReadonlyArray<Serializable>)
-		const successfulValidations = getOrElse([] as ReadonlyArray<Validation<ClassExtractionError, ClassMember>>)(
-			successfulValidationsResult
+		const successfulValidationsResult = filter(isSuccess)(
+			memberValidations as ReadonlyArray<Serializable>,
+		)
+		const successfulValidations = getOrElse(
+			[] as ReadonlyArray<Validation<ClassExtractionError, ClassMember>>,
+		)(
+			successfulValidationsResult,
 		) as ReadonlyArray<Validation<ClassExtractionError, ClassMember>>
 
 		// Extract values from successful validations
 		const members = map(function extractValue(v: Serializable): ClassMember {
 			return (v as Validation<ClassExtractionError, ClassMember>).value
-		})(successfulValidations as ReadonlyArray<Serializable>) as ReadonlyArray<ClassMember>
+		})(successfulValidations as ReadonlyArray<Serializable>) as ReadonlyArray<
+			ClassMember
+		>
 
 		return success({
 			name,

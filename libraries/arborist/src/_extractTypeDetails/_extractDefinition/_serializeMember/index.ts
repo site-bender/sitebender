@@ -1,4 +1,9 @@
-import type { TsTypeElement, TsPropertySignature, TsMethodSignature, SwcFnParam } from "../../../types/index.ts"
+import type {
+	SwcFnParam,
+	TsMethodSignature,
+	TsPropertySignature,
+	TsTypeElement,
+} from "../../../types/index.ts"
 import _serializeTypeAnnotation from "../../../_serializeTypeAnnotation/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
@@ -34,8 +39,12 @@ export default function _serializeMember(member: TsTypeElement): string {
 		const keyName = methodMember.key.value
 		const params = methodMember.params
 
-		const serializedParamsResult = reduce(_serializeParameters)([] as ReadonlyArray<string>)(params as ReadonlyArray<SwcFnParam>)
-		const serializedParamsList = getOrElse([] as ReadonlyArray<string>)(serializedParamsResult)
+		const serializedParamsResult = reduce(_serializeParameters)(
+			[] as ReadonlyArray<string>,
+		)(params as ReadonlyArray<SwcFnParam>)
+		const serializedParamsList = getOrElse([] as ReadonlyArray<string>)(
+			serializedParamsResult,
+		)
 		const serializedParams = serializedParamsList.join(", ")
 
 		const returnType = methodMember.typeAnnotation
