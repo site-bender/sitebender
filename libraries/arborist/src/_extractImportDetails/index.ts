@@ -5,7 +5,6 @@ import type { ImportExtractionError } from "../types/errors/index.ts"
 import _extractSpan from "../_extractSpan/index.ts"
 import _extractPosition from "../_extractPosition/index.ts"
 import extractKindAndBindings from "../_extractKindAndBindings/index.ts"
-import or from "@sitebender/toolsmith/logic/or/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import createError from "@sitebender/artificer/errors/createError/index.ts"
@@ -56,7 +55,7 @@ export default function extractImportDetails(
 	// Extract span information (returns Result now)
 	const spanResult = _extractSpan(importNode)
 
-	if (spanResult._tag === "error") {
+	if (spanResult._tag === "Error") {
 		// Wrap SpanExtractionError as ImportExtractionError
 		const baseError = createError("_extractImportDetails")([])(
 			`Failed to extract span: ${spanResult.error.message}`,
@@ -74,7 +73,7 @@ export default function extractImportDetails(
 	// Extract position from span (returns Result now)
 	const positionResult = _extractPosition(span)
 
-	if (positionResult._tag === "error") {
+	if (positionResult._tag === "Error") {
 		// Wrap PositionExtractionError as ImportExtractionError
 		const baseError = createError("_extractImportDetails")([])(
 			`Failed to extract position: ${positionResult.error.message}`,
@@ -90,16 +89,13 @@ export default function extractImportDetails(
 	const position = positionResult.value
 
 	// Extract import kind and bindings
-	const specifiers = or(importNode.specifiers as ReadonlyArray<unknown>)(
-		[],
-	) as ReadonlyArray<
-		unknown
-	>
-	const isTypeOnly = or(importNode.typeOnly as boolean)(false) as boolean
+	const specifiers =
+		(importNode.specifiers as ReadonlyArray<unknown> | undefined) ?? []
+	const isTypeOnly = (importNode.typeOnly as boolean | undefined) ?? false
 
 	const kindAndBindingsResult = extractKindAndBindings(specifiers)(isTypeOnly)
 
-	if (kindAndBindingsResult._tag === "error") {
+	if (kindAndBindingsResult._tag === "Error") {
 		return kindAndBindingsResult
 	}
 

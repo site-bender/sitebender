@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
@@ -14,7 +11,7 @@ import _dropWhileToValidation from "./_dropWhileToValidation/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
 
 //++ Drops leading elements while predicate is true
-export default function dropWhile<T>(
+export default function dropWhile<E, T>(
 	predicate: (element: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) {
 	//++ [OVERLOAD] Array dropper: takes array, returns array with leading elements dropped
@@ -24,24 +21,24 @@ export default function dropWhile<T>(
 
 	//++ [OVERLOAD] Result dropper: takes and returns Result monad (fail fast)
 	function dropWhileWithPredicate(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<T>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Validation dropper: takes and returns Validation monad (accumulator)
 	function dropWhileWithPredicate(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<T>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<T>>
 
 	//++ Implementation of the full curried function
 	function dropWhileWithPredicate(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>> {
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>> {
 		// Happy path: plain array
 		if (isArray<T>(array)) {
 			return _dropWhileArray(predicate)(array)

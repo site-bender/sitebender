@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 import _rotateRightArray from "../_rotateRightArray/index.ts"
 
@@ -9,6 +10,6 @@ export default function _rotateRightToResult<T>(
 	return function _rotateRightToResultByPositions(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, Array<T>> {
-		return ok(_rotateRightArray(positions)(array))
+		return ok(rotateRightArray<T>(positions)(array))
 	}
 }

@@ -333,6 +333,7 @@ The validation logic implemented in Phase 1 has direct semantic representation i
 #### Role Validation → SHACL Constraints
 
 **TypeScript validation**:
+
 ```typescript
 const permission = ROLES_BY_ELEMENT[tagName]
 if (permission === "none") return { "data-§-bad-role": role }
@@ -341,6 +342,7 @@ if (includes(permission)(role)) return { role }
 ```
 
 **Equivalent SHACL shape**:
+
 ```turtle
 # Element with "none" (no role allowed)
 html:ColShape a sh:NodeShape ;
@@ -374,6 +376,7 @@ html:ArticleShape a sh:NodeShape ;
 The `ROLES_BY_ELEMENT` constant (115 elements) becomes **SHACL property shapes** in the ontology:
 
 **TypeScript Constant**:
+
 ```typescript
 export const ROLES_BY_ELEMENT = {
   h1: ["heading", "tab", "none", "presentation"],
@@ -383,6 +386,7 @@ export const ROLES_BY_ELEMENT = {
 ```
 
 **Ontology Representation**:
+
 ```turtle
 html:H1Shape a sh:NodeShape ;
   sh:targetClass html:H1 ;
@@ -403,11 +407,13 @@ html:ButtonShape a sh:NodeShape ;
 #### isDefined Checks → Cardinality Constraints
 
 **TypeScript validation**:
+
 ```typescript
-if (!isDefined(role)) return {}  // Role is optional
+if (!isDefined(role)) return {} // Role is optional
 ```
 
 **SHACL constraint**:
+
 ```turtle
 sh:property [
   sh:path html:role ;
@@ -421,18 +427,20 @@ sh:property [
 The 6 global attributes added in Phase 1 become **OWL datatype properties**:
 
 **TypeScript types**:
+
 ```typescript
 export type GlobalAttributes = {
-  itemid?: string
-  itemprop?: string
-  itemref?: string
-  itemscope?: boolean
-  itemtype?: string
-  virtualkeyboardpolicy?: "auto" | "manual"
+	itemid?: string
+	itemprop?: string
+	itemref?: string
+	itemscope?: boolean
+	itemtype?: string
+	virtualkeyboardpolicy?: "auto" | "manual"
 }
 ```
 
 **OWL properties**:
+
 ```turtle
 html:itemid a owl:DatatypeProperty ;
   rdfs:label "Microdata item ID" ;
@@ -453,11 +461,13 @@ html:VirtualKeyboardPolicy a owl:Class ;
 #### Validation Errors → RDF Error Representation
 
 **TypeScript error**:
+
 ```typescript
 { "data-§-bad-role": "invalid" }
 ```
 
 **RDF triple store representation**:
+
 ```turtle
 :node1 a html:Article ;
   html:validationStatus "invalid" ;
@@ -474,6 +484,7 @@ html:VirtualKeyboardPolicy a owl:Class ;
 #### Conditional Validation → SHACL Conditionals
 
 **TypeScript (_A element)**:
+
 ```typescript
 const permission = hasHref
   ? ["link", "button", "checkbox", ...]  // With href
@@ -481,6 +492,7 @@ const permission = hasHref
 ```
 
 **SHACL conditional shape**:
+
 ```turtle
 html:AShape a sh:NodeShape ;
   sh:targetClass html:A ;
@@ -510,11 +522,13 @@ html:AShape a sh:NodeShape ;
 #### Benefits of Semantic Representation
 
 **1. Single Source of Truth**
+
 - TypeScript validation validates at component creation
 - SHACL shapes validate at triple store insertion
 - Both enforce same W3C ARIA specification
 
 **2. Queryable Validation Rules**
+
 ```sparql
 # Find all elements that allow "button" role
 SELECT ?element WHERE {
@@ -528,12 +542,14 @@ SELECT ?element WHERE {
 ```
 
 **3. Standards Compliance**
+
 - W3C ARIA specification → ROLES_BY_ELEMENT constant
 - ROLES_BY_ELEMENT constant → TypeScript validation
 - ROLES_BY_ELEMENT constant → SHACL shapes
 - All three stay synchronized
 
 **4. End-to-End Type Safety**
+
 ```
 TypeScript Props → Validation → VirtualNode → RDF Serialization → Triple Store
      ↓                ↓             ↓                ↓                  ↓
@@ -542,6 +558,7 @@ type check       validation    structure        annotation       constraint chec
 ```
 
 **5. Future-Proof**
+
 - Update W3C spec → Update ontology
 - Ontology drives validation rules
 - No code changes needed (just constant update)

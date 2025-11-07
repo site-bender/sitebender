@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
@@ -14,7 +11,7 @@ import _flatMapToValidation from "./_flatMapToValidation/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
 
 //++ Transforms each array element using a function that returns an array, then flattens the result
-export default function flatMap<T, U>(
+export default function flatMap<E, T, U>(
 	f: (arg: T, index?: number) => ReadonlyArray<U>,
 ) {
 	//++ [OVERLOAD] Array flatMapper: takes array, returns flatMapped array
@@ -22,24 +19,24 @@ export default function flatMap<T, U>(
 
 	//++ [OVERLOAD] Result flatMapper: takes and returns Result monad (fail fast)
 	function flatMapWithFunction(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<U>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<U>>
 
 	//++ [OVERLOAD] Validation flatMapper: takes and returns Validation monad (accumulator)
 	function flatMapWithFunction(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<U>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<U>>
 
 	//++ Implementation of the full curried function
 	function flatMapWithFunction(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<U>
-		| Result<ValidationError, ReadonlyArray<U>>
-		| Validation<ValidationError, ReadonlyArray<U>> {
+		| Result<E, ReadonlyArray<U>>
+		| Validation<E, ReadonlyArray<U>> {
 		// Happy path: plain array
 		if (isArray<T>(array)) {
 			return _flatMapArray(f)(array)

@@ -38,7 +38,13 @@ export type AriaAttributeDefinition = Readonly<{
  + ARIA role definition
  */
 export type AriaRoleDefinition = Readonly<{
-	type: "abstract" | "structure" | "widget" | "composite" | "window" | "landmark"
+	type:
+		| "abstract"
+		| "structure"
+		| "widget"
+		| "composite"
+		| "window"
+		| "landmark"
 	allowedAttrs?: ReadonlyArray<string>
 	requiredAttrs?: ReadonlyArray<string>
 	prohibitedAttrs?: ReadonlyArray<string>
@@ -282,11 +288,11 @@ export const ARIA_ATTRIBUTES: Readonly<
 } as const
 
 /*++
- + ARIA roles with attribute requirements (POC subset)
- + Source: axe-core/lib/standards/aria-roles.js
+ + ARIA roles with attribute requirements (Complete ARIA 1.2)
+ + Source: axe-core/lib/standards/aria-roles.js + W3C WAI-ARIA 1.2 Specification
  +
- + Only includes roles used by POC elements
- + Full version will include all ~150 ARIA roles
+ + Includes all 85 concrete ARIA 1.2 roles (abstract roles excluded)
+ + Organized by category: Landmark, Structure, Widget, Composite, Live Region, Window
  */
 export const ARIA_ROLES: Readonly<Record<string, AriaRoleDefinition>> = {
 	// === Landmark Roles ===
@@ -330,6 +336,20 @@ export const ARIA_ROLES: Readonly<Record<string, AriaRoleDefinition>> = {
 		accessibleNameRequired: true,
 	},
 	search: {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	application: {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+		],
+		accessibleNameRequired: true,
+	},
+	form: {
 		type: "landmark",
 		allowedAttrs: [
 			"aria-expanded",
@@ -391,6 +411,206 @@ export const ARIA_ROLES: Readonly<Record<string, AriaRoleDefinition>> = {
 	presentation: {
 		type: "structure",
 		prohibitedAttrs: [], // All ARIA attrs prohibited except aria-hidden
+	},
+	blockquote: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	caption: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	cell: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-colindex",
+			"aria-colspan",
+			"aria-expanded",
+			"aria-rowindex",
+			"aria-rowspan",
+		],
+	},
+	code: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	columnheader: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-colindex",
+			"aria-colspan",
+			"aria-expanded",
+			"aria-readonly",
+			"aria-required",
+			"aria-rowindex",
+			"aria-rowspan",
+			"aria-selected",
+			"aria-sort",
+		],
+	},
+	definition: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	deletion: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	directory: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	emphasis: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	figure: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	heading: {
+		type: "structure",
+		requiredAttrs: [
+			"aria-level",
+		],
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	img: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+		accessibleNameRequired: true,
+	},
+	insertion: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	mark: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	math: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	meter: {
+		type: "structure",
+		requiredAttrs: [
+			"aria-valuenow",
+		],
+		allowedAttrs: [
+			"aria-valuemax",
+			"aria-valuemin",
+			"aria-valuetext",
+		],
+		accessibleNameRequired: true,
+	},
+	note: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	paragraph: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	row: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-colindex",
+			"aria-expanded",
+			"aria-level",
+			"aria-posinset",
+			"aria-rowindex",
+			"aria-selected",
+			"aria-setsize",
+		],
+	},
+	rowgroup: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	rowheader: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-colindex",
+			"aria-colspan",
+			"aria-expanded",
+			"aria-readonly",
+			"aria-required",
+			"aria-rowindex",
+			"aria-rowspan",
+			"aria-selected",
+			"aria-sort",
+		],
+	},
+	strong: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	subscript: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	suggestion: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	superscript: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	table: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-colcount",
+			"aria-expanded",
+			"aria-rowcount",
+		],
+	},
+	tabpanel: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	term: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	time: {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	toolbar: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+			"aria-orientation",
+		],
+		accessibleNameRequired: true,
+	},
+	tooltip: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
 	},
 
 	// === Widget Roles ===
@@ -503,14 +723,267 @@ export const ARIA_ROLES: Readonly<Record<string, AriaRoleDefinition>> = {
 		],
 		accessibleNameRequired: true,
 	},
+	combobox: {
+		type: "widget",
+		requiredAttrs: [
+			"aria-expanded",
+			"aria-controls",
+		],
+		allowedAttrs: [
+			"aria-autocomplete",
+			"aria-readonly",
+			"aria-required",
+			"aria-activedescendant",
+			"aria-orientation",
+		],
+		accessibleNameRequired: true,
+	},
+	gridcell: {
+		type: "widget",
+		allowedAttrs: [
+			"aria-colindex",
+			"aria-colspan",
+			"aria-expanded",
+			"aria-readonly",
+			"aria-required",
+			"aria-rowindex",
+			"aria-rowspan",
+			"aria-selected",
+		],
+	},
+	listbox: {
+		type: "widget",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+			"aria-multiselectable",
+			"aria-orientation",
+			"aria-readonly",
+			"aria-required",
+		],
+		accessibleNameRequired: true,
+	},
+	progressbar: {
+		type: "widget",
+		allowedAttrs: [
+			"aria-expanded",
+			"aria-valuemax",
+			"aria-valuemin",
+			"aria-valuenow",
+			"aria-valuetext",
+		],
+		accessibleNameRequired: true,
+	},
+	scrollbar: {
+		type: "widget",
+		requiredAttrs: [
+			"aria-valuenow",
+		],
+		allowedAttrs: [
+			"aria-controls",
+			"aria-orientation",
+			"aria-valuemax",
+			"aria-valuemin",
+			"aria-valuetext",
+		],
+	},
+	searchbox: {
+		type: "widget",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-autocomplete",
+			"aria-multiline",
+			"aria-placeholder",
+			"aria-readonly",
+			"aria-required",
+		],
+		accessibleNameRequired: true,
+	},
+	separator: {
+		type: "widget",
+		allowedAttrs: [
+			"aria-orientation",
+			"aria-valuemax",
+			"aria-valuemin",
+			"aria-valuenow",
+			"aria-valuetext",
+		],
+	},
+	slider: {
+		type: "widget",
+		requiredAttrs: [
+			"aria-valuenow",
+		],
+		allowedAttrs: [
+			"aria-orientation",
+			"aria-readonly",
+			"aria-required",
+			"aria-valuemax",
+			"aria-valuemin",
+			"aria-valuetext",
+		],
+		accessibleNameRequired: true,
+	},
+	spinbutton: {
+		type: "widget",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-readonly",
+			"aria-required",
+			"aria-valuemax",
+			"aria-valuemin",
+			"aria-valuenow",
+			"aria-valuetext",
+		],
+		accessibleNameRequired: true,
+	},
+	textbox: {
+		type: "widget",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-autocomplete",
+			"aria-multiline",
+			"aria-placeholder",
+			"aria-readonly",
+			"aria-required",
+		],
+		accessibleNameRequired: true,
+	},
+
+	// === Composite Widget Roles ===
+
+	grid: {
+		type: "composite",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-colcount",
+			"aria-expanded",
+			"aria-level",
+			"aria-multiselectable",
+			"aria-readonly",
+			"aria-rowcount",
+		],
+	},
+	menu: {
+		type: "composite",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+			"aria-orientation",
+		],
+	},
+	menubar: {
+		type: "composite",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+			"aria-orientation",
+		],
+	},
+	radiogroup: {
+		type: "composite",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+			"aria-orientation",
+			"aria-readonly",
+			"aria-required",
+		],
+	},
+	tablist: {
+		type: "composite",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+			"aria-level",
+			"aria-multiselectable",
+			"aria-orientation",
+		],
+	},
+	tree: {
+		type: "composite",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-expanded",
+			"aria-multiselectable",
+			"aria-orientation",
+			"aria-required",
+		],
+	},
+	treegrid: {
+		type: "composite",
+		allowedAttrs: [
+			"aria-activedescendant",
+			"aria-colcount",
+			"aria-expanded",
+			"aria-level",
+			"aria-multiselectable",
+			"aria-orientation",
+			"aria-readonly",
+			"aria-required",
+			"aria-rowcount",
+		],
+	},
+
+	// === Live Region Roles ===
+
+	alert: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	log: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	marquee: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	status: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	timer: {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+
+	// === Window Roles ===
+
+	alertdialog: {
+		type: "window",
+		allowedAttrs: [
+			"aria-expanded",
+			"aria-modal",
+		],
+		accessibleNameRequired: true,
+	},
+	dialog: {
+		type: "window",
+		allowedAttrs: [
+			"aria-expanded",
+			"aria-modal",
+		],
+		accessibleNameRequired: true,
+	},
 } as const
 
 /*++
- + HTML elements with ARIA rules (POC subset)
+ + HTML elements with ARIA rules (Complete HTML5 Coverage)
  + Source: axe-core/lib/standards/html-elms.js + W3C ARIA in HTML
  +
- + Only includes POC elements
- + Full version will include all ~120 HTML elements
+ + Includes all 111 HTML5 element wrappers from architect library
+ + Complete ARIA validation for all implemented elements
  */
 export const HTML_ELEMENTS: Readonly<Record<string, HtmlElementAriaRules>> = {
 	// === Document ===
@@ -604,6 +1077,18 @@ export const HTML_ELEMENTS: Readonly<Record<string, HtmlElementAriaRules>> = {
 		allowedRoles: ["doc-subtitle", "none", "presentation", "tab"],
 	},
 	h3: {
+		implicitRole: "heading",
+		allowedRoles: ["doc-subtitle", "none", "presentation", "tab"],
+	},
+	h4: {
+		implicitRole: "heading",
+		allowedRoles: ["doc-subtitle", "none", "presentation", "tab"],
+	},
+	h5: {
+		implicitRole: "heading",
+		allowedRoles: ["doc-subtitle", "none", "presentation", "tab"],
+	},
+	h6: {
 		implicitRole: "heading",
 		allowedRoles: ["doc-subtitle", "none", "presentation", "tab"],
 	},
@@ -974,6 +1459,10 @@ export const HTML_ELEMENTS: Readonly<Record<string, HtmlElementAriaRules>> = {
 
 	// === Form Elements ===
 
+	form: {
+		implicitRole: "form",
+		allowedRoles: ["none", "presentation", "search"],
+	},
 	datalist: {
 		implicitRole: "listbox",
 		allowedRoles: false,
@@ -1052,9 +1541,21 @@ export const HTML_ELEMENTS: Readonly<Record<string, HtmlElementAriaRules>> = {
 			"presentation",
 		],
 	},
+	map: {
+		implicitRole: undefined,
+		allowedRoles: false,
+	},
+	math: {
+		implicitRole: "math",
+		allowedRoles: false,
+	},
 	object: {
 		implicitRole: undefined,
 		allowedRoles: ["application", "document", "img"],
+	},
+	param: {
+		allowedRoles: false,
+		noAriaAttrs: true,
 	},
 	picture: {
 		allowedRoles: false,
@@ -1063,6 +1564,10 @@ export const HTML_ELEMENTS: Readonly<Record<string, HtmlElementAriaRules>> = {
 	source: {
 		allowedRoles: false,
 		noAriaAttrs: true,
+	},
+	svg: {
+		implicitRole: "graphics-document",
+		allowedRoles: ["application", "document", "img", "none", "presentation"],
 	},
 	track: {
 		allowedRoles: false,
