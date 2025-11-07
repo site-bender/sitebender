@@ -51,6 +51,7 @@ export default function extractImportedName(
 		return error(importError)
 	}
 
-	// Return the string value from extractLocalName
+	// localNameResult is ok, but need to wrap in ImportExtractionError type
+	// Since error types differ, can't return localNameResult directly
 	return ok(localNameResult.value)
 }
