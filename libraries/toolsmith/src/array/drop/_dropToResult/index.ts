@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 import _dropArray from "../_dropArray/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 
