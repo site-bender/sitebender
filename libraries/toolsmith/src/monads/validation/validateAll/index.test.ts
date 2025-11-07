@@ -1,11 +1,11 @@
 import { assertEquals } from "@std/assert"
 
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
 
 import reduce from "../../../array/reduce/index.ts"
-import invalid from "../invalid/index.ts"
-import valid from "../valid/index.ts"
+import failure from "../failure/index.ts"
+import success from "../success/index.ts"
 import accumulateErrors from "./accumulateErrors/index.ts"
 import validateAll from "./index.ts"
 
@@ -14,13 +14,13 @@ Deno.test("validateAll - returns Valid when all validators pass; otherwise accum
 	const isLessThan100 = (n: number) => n < 100
 
 	const posValidator = (n: number) =>
-		isPositive(n) ? valid(n) : invalid<ValidationError, number>([{
+		isPositive(n) ? success(n) : failure<ValidationError, number>([{
 			field: "number",
 			messages: ["Must be positive"],
 		}])
 
 	const ltValidator = (n: number) =>
-		isLessThan100(n) ? valid(n) : invalid<ValidationError, number>([{
+		isLessThan100(n) ? success(n) : failure<ValidationError, number>([{
 			field: "number",
 			messages: ["Must be less than 100"],
 		}])
@@ -61,9 +61,9 @@ Deno.test("validateAll - returns Valid when all validators pass; otherwise accum
 Deno.test("accumulateErrors - reducer collects errors from validators for a fixed value", () => {
 	const value = 5
 	const validators = [
-		(n: number) => valid(n),
+		(n: number) => success(n),
 		(_n: number) =>
-			invalid<ValidationError, number>([{ field: "x", messages: ["bad"] }]),
+			failure<ValidationError, number>([{ field: "x", messages: ["bad"] }]),
 	]
 
 	const collected = reduce(accumulateErrors(value))([])(validators)

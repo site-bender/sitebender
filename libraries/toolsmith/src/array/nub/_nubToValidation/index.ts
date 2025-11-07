@@ -1,7 +1,7 @@
 import type {
 	Validation,
 	ValidationError,
-} from "../../../types/fp/index.ts"
+} from "../../../types/fp/validation/index.ts"
 
 import _nubArray from "../_nubArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -10,5 +10,5 @@ import success from "../../../monads/validation/success/index.ts"
 export default function _nubToValidation<T>(
 	array: ReadonlyArray<T>,
 ): Validation<ValidationError, ReadonlyArray<T>> {
-	return success(_nubArray(array))
+	return success(nubArray<T>(array))
 }

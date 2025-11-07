@@ -14,8 +14,8 @@
               "reasoning": "Operators don't compose in functional pipelines and lack semantic clarity and type-specific optimizations"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using multiply function:\nimport multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'\n\nconst product = multiply(a)(b)\nconst scaled = multiply(2.5)(value)\nconst area = multiply(width)(height)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific optimization\n// - Reads semantically\n// - Partially applicable: const double = multiply(2)\n// - Composes in pipelines: pipe(multiply(2), multiply(3))(value)",
-              "scope": "Type-specific paths:\n- integer: @sitebender/toolsmith/vanilla/math/integer/multiply/index.ts\n- bigint: @sitebender/toolsmith/vanilla/math/bigint/multiply/index.ts\n- float: @sitebender/toolsmith/vanilla/math/float/multiply/index.ts\n- precision: @sitebender/toolsmith/vanilla/math/precision/multiply/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using multiply function:\nimport multiply from '@sitebender/toolsmith/math/integer/multiply/index.ts'\n\nconst product = multiply(a)(b)\nconst scaled = multiply(2.5)(value)\nconst area = multiply(width)(height)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific optimization\n// - Reads semantically\n// - Partially applicable: const double = multiply(2)\n// - Composes in pipelines: pipe(multiply(2), multiply(3))(value)",
+              "scope": "Type-specific paths:\n- integer: @sitebender/toolsmith/math/integer/multiply/index.ts\n- bigint: @sitebender/toolsmith/math/bigint/multiply/index.ts\n- float: @sitebender/toolsmith/math/float/multiply/index.ts\n- precision: @sitebender/toolsmith/math/precision/multiply/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -33,8 +33,8 @@
               "reasoning": "Comparison operators aren't null-safe and don't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using lte function:\nimport lte from '@sitebender/toolsmith/vanilla/validation/lte/index.ts'\n\nif (lte(65)(age)) {\n\treturn 'Senior discount'\n}\n\nconst isEligible = lte(18)(age)\nconst inRange = lte(maxValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'less than or equal'\n// - Curried: const lessThan18 = lte(18)\n// - Composable in validation pipelines",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/lte/index.ts\nAlias: lessThanOrEqual\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using lte function:\nimport lte from '@sitebender/toolsmith/validation/lte/index.ts'\n\nif (lte(65)(age)) {\n\treturn 'Senior discount'\n}\n\nconst isEligible = lte(18)(age)\nconst inRange = lte(maxValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'less than or equal'\n// - Curried: const lessThan18 = lte(18)\n// - Composable in validation pipelines",
+              "scope": "Import path: @sitebender/toolsmith/validation/lte/index.ts\nAlias: lessThanOrEqual\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -52,8 +52,8 @@
               "reasoning": "Operators don't compose and don't signal type-specific bigint operations"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using add function for bigints:\nimport add from '@sitebender/toolsmith/vanilla/math/bigint/add/index.ts'\n\nconst result = add(a)(b)\nconst total = add(9007199254740991n)(1n)\nconst sum = add(bigIntValue)(anotherBigInt)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific bigint optimization\n// - Clearly signals bigint operation\n// - Partially applicable: const addOne = add(1n)\n// - Use for operations exceeding Number.MAX_SAFE_INTEGER",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/math/bigint/add/index.ts\nContext: Use for large integer operations that exceed Number.MAX_SAFE_INTEGER\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using add function for bigints:\nimport add from '@sitebender/toolsmith/math/bigint/add/index.ts'\n\nconst result = add(a)(b)\nconst total = add(9007199254740991n)(1n)\nconst sum = add(bigIntValue)(anotherBigInt)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific bigint optimization\n// - Clearly signals bigint operation\n// - Partially applicable: const addOne = add(1n)\n// - Use for operations exceeding Number.MAX_SAFE_INTEGER",
+              "scope": "Import path: @sitebender/toolsmith/math/bigint/add/index.ts\nContext: Use for large integer operations that exceed Number.MAX_SAFE_INTEGER\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -71,8 +71,8 @@
               "reasoning": "Property access isn't null-safe and isn't as semantic as dedicated validation functions"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using isNotEmpty/length functions:\nimport isNotEmpty from '@sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts'\nimport length from '@sitebender/toolsmith/vanilla/validation/length/index.ts'\n\n// Preferred - semantic:\nif (isNotEmpty(arr)) {\n\tprocessItems(arr)\n}\n\n// Alternative - when you need actual count:\nconst count = length(items) // returns null for non-arrays\n\n// Why correct:\n// - Null-safe: handles null/undefined gracefully\n// - Semantic: isNotEmpty reads like English\n// - Functional: no property access\n// - Type-safe: checks isArray first",
-              "scope": "Import paths:\n- length: @sitebender/toolsmith/vanilla/validation/length/index.ts\n- isNotEmpty: @sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using isNotEmpty/length functions:\nimport isNotEmpty from '@sitebender/toolsmith/validation/isNotEmpty/index.ts'\nimport length from '@sitebender/toolsmith/validation/length/index.ts'\n\n// Preferred - semantic:\nif (isNotEmpty(arr)) {\n\tprocessItems(arr)\n}\n\n// Alternative - when you need actual count:\nconst count = length(items) // returns null for non-arrays\n\n// Why correct:\n// - Null-safe: handles null/undefined gracefully\n// - Semantic: isNotEmpty reads like English\n// - Functional: no property access\n// - Type-safe: checks isArray first",
+              "scope": "Import paths:\n- length: @sitebender/toolsmith/validation/length/index.ts\n- isNotEmpty: @sitebender/toolsmith/validation/isNotEmpty/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -90,8 +90,8 @@
               "reasoning": "Array methods aren't curried and don't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using reduce function:\nimport reduce from '@sitebender/toolsmith/vanilla/array/reduce/index.ts'\nimport add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'\nimport multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'\n\nconst sum = reduce(add)(0)(numbers)\nconst product = reduce(multiply)(1)(values)\n\n// Partially applied:\nconst sumArray = reduce(add)(0)\nconst total = sumArray(numbers)\n\n// Why correct:\n// - Curried for composition: reduce(fn)(init)\n// - Composable in pipelines\n// - No arrow functions needed\n// - Wraps native .reduce() for performance",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/array/reduce/index.ts\nNote: Wraps native .reduce() for performance but provides functional interface\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using reduce function:\nimport reduce from '@sitebender/toolsmith/array/reduce/index.ts'\nimport add from '@sitebender/toolsmith/math/integer/add/index.ts'\nimport multiply from '@sitebender/toolsmith/math/integer/multiply/index.ts'\n\nconst sum = reduce(add)(0)(numbers)\nconst product = reduce(multiply)(1)(values)\n\n// Partially applied:\nconst sumArray = reduce(add)(0)\nconst total = sumArray(numbers)\n\n// Why correct:\n// - Curried for composition: reduce(fn)(init)\n// - Composable in pipelines\n// - No arrow functions needed\n// - Wraps native .reduce() for performance",
+              "scope": "Import path: @sitebender/toolsmith/array/reduce/index.ts\nNote: Wraps native .reduce() for performance but provides functional interface\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -109,8 +109,8 @@
               "reasoning": "The || operator has confusing truthiness behavior and doesn't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using or function:\nimport or from '@sitebender/toolsmith/vanilla/validation/or/index.ts'\n\nconst value = or(input)(defaultValue)\nconst name = or(user.name)('Anonymous')\n\n// For multiple values:\nconst result = or(or(a)(b))(c)\n\n// Why correct:\n// - Handles null/undefined explicitly\n// - Reads semantically: 'or'\n// - Curried for composition\n// - Predictable behavior with 0, '', false",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/or/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using or function:\nimport or from '@sitebender/toolsmith/validation/or/index.ts'\n\nconst value = or(input)(defaultValue)\nconst name = or(user.name)('Anonymous')\n\n// For multiple values:\nconst result = or(or(a)(b))(c)\n\n// Why correct:\n// - Handles null/undefined explicitly\n// - Reads semantically: 'or'\n// - Curried for composition\n// - Predictable behavior with 0, '', false",
+              "scope": "Import path: @sitebender/toolsmith/validation/or/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -128,8 +128,8 @@
               "reasoning": "Comparison operators aren't null-safe and don't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using gte function:\nimport gte from '@sitebender/toolsmith/vanilla/validation/gte/index.ts'\n\nif (gte(18)(age)) {\n\treturn 'Adult'\n}\n\nconst isEligible = gte(70)(score)\nconst meetsMinimum = gte(minValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'greater than or equal'\n// - Curried: const atLeast18 = gte(18)\n// - Composable in validation pipelines",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/gte/index.ts\nAlias: greaterThanOrEqual\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using gte function:\nimport gte from '@sitebender/toolsmith/validation/gte/index.ts'\n\nif (gte(18)(age)) {\n\treturn 'Adult'\n}\n\nconst isEligible = gte(70)(score)\nconst meetsMinimum = gte(minValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'greater than or equal'\n// - Curried: const atLeast18 = gte(18)\n// - Composable in validation pipelines",
+              "scope": "Import path: @sitebender/toolsmith/validation/gte/index.ts\nAlias: greaterThanOrEqual\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -147,8 +147,8 @@
               "reasoning": "Array methods aren't curried, null-safe, or composable in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using includes function:\nimport includes from '@sitebender/toolsmith/vanilla/array/includes/index.ts'\n\nif (includes(5)(numbers)) {\n\treturn 'Found'\n}\n\nconst hasItem = includes(searchValue)(array)\nconst isValid = includes(input)(validValues)\n\n// Partially applied (great for composition):\nconst hasValue5 = includes(5)\nconst found = hasValue5(numbers)\n\n// Can alias as 'contains' for readability:\nimport contains from '@sitebender/toolsmith/vanilla/array/includes/index.ts'\nif (contains(5)(numbers)) { /* ... */ }\n\n// Why correct:\n// - Curried for composition\n// - Null-safe\n// - Partially applicable\n// - Reads semantically",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/array/includes/index.ts\nAlias: Can be imported as 'contains' for better readability\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using includes function:\nimport includes from '@sitebender/toolsmith/array/includes/index.ts'\n\nif (includes(5)(numbers)) {\n\treturn 'Found'\n}\n\nconst hasItem = includes(searchValue)(array)\nconst isValid = includes(input)(validValues)\n\n// Partially applied (great for composition):\nconst hasValue5 = includes(5)\nconst found = hasValue5(numbers)\n\n// Can alias as 'contains' for readability:\nimport contains from '@sitebender/toolsmith/array/includes/index.ts'\nif (contains(5)(numbers)) { /* ... */ }\n\n// Why correct:\n// - Curried for composition\n// - Null-safe\n// - Partially applicable\n// - Reads semantically",
+              "scope": "Import path: @sitebender/toolsmith/array/includes/index.ts\nAlias: Can be imported as 'contains' for better readability\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -166,8 +166,8 @@
               "reasoning": "The + operator causes floating-point precision errors that are unacceptable for money and financial calculations"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using add function for precision:\nimport add from '@sitebender/toolsmith/vanilla/math/precision/add/index.ts'\n\nconst total = add(price)(tax) // maintains precision\nconst balance = add(0.1)(0.2) // correctly returns 0.3\nconst sum = add(amount1)(amount2) // accurate decimal math\n\n// Why correct:\n// - Handles decimal precision correctly\n// - No floating-point errors\n// - Safe for money and financial calculations\n// - Curried for composition\n// - Uses decimal.js or similar for accuracy",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/math/precision/add/index.ts\nContext: Use for money, financial calculations, or precision-sensitive math\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using add function for precision:\nimport add from '@sitebender/toolsmith/math/precision/add/index.ts'\n\nconst total = add(price)(tax) // maintains precision\nconst balance = add(0.1)(0.2) // correctly returns 0.3\nconst sum = add(amount1)(amount2) // accurate decimal math\n\n// Why correct:\n// - Handles decimal precision correctly\n// - No floating-point errors\n// - Safe for money and financial calculations\n// - Curried for composition\n// - Uses decimal.js or similar for accuracy",
+              "scope": "Import path: @sitebender/toolsmith/math/precision/add/index.ts\nContext: Use for money, financial calculations, or precision-sensitive math\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -185,8 +185,8 @@
               "reasoning": "Operators don't compose and don't provide type-specific optimizations for integer math"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using add function for integers:\nimport add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'\n\nconst result = add(a)(b)\nconst total = add(count)(1)\nconst sum = add(add(x)(y))(z)\n\n// Partially applied:\nconst increment = add(1)\nconst nextValue = increment(count)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific integer optimization\n// - Partially applicable\n// - Composes in pipelines",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/math/integer/add/index.ts\nContext: Use for integer math operations\nNote: All math functions named 'add' - path determines type\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using add function for integers:\nimport add from '@sitebender/toolsmith/math/integer/add/index.ts'\n\nconst result = add(a)(b)\nconst total = add(count)(1)\nconst sum = add(add(x)(y))(z)\n\n// Partially applied:\nconst increment = add(1)\nconst nextValue = increment(count)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific integer optimization\n// - Partially applicable\n// - Composes in pipelines",
+              "scope": "Import path: @sitebender/toolsmith/math/integer/add/index.ts\nContext: Use for integer math operations\nNote: All math functions named 'add' - path determines type\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -204,8 +204,8 @@
               "reasoning": "Array methods aren't curried and don't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using filter function:\nimport filter from '@sitebender/toolsmith/vanilla/array/filter/index.ts'\nimport isEven from '@sitebender/toolsmith/vanilla/validation/isEven/index.ts'\nimport gte from '@sitebender/toolsmith/vanilla/validation/gte/index.ts'\n\nconst evens = filter(isEven)(numbers)\nconst adults = filter(user => gte(18)(user.age))(users)\nconst valid = filter(isValid)(items)\n\n// Partially applied:\nconst filterEvens = filter(isEven)\nconst evenNumbers = filterEvens(numbers)\n\n// Why correct:\n// - Curried for composition\n// - Composable in pipelines\n// - Named predicate functions (no arrows)\n// - Wraps native .filter() for performance",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/array/filter/index.ts\nNote: Wraps native .filter() for performance but provides functional interface\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using filter function:\nimport filter from '@sitebender/toolsmith/array/filter/index.ts'\nimport isEven from '@sitebender/toolsmith/validation/isEven/index.ts'\nimport gte from '@sitebender/toolsmith/validation/gte/index.ts'\n\nconst evens = filter(isEven)(numbers)\nconst adults = filter(user => gte(18)(user.age))(users)\nconst valid = filter(isValid)(items)\n\n// Partially applied:\nconst filterEvens = filter(isEven)\nconst evenNumbers = filterEvens(numbers)\n\n// Why correct:\n// - Curried for composition\n// - Composable in pipelines\n// - Named predicate functions (no arrows)\n// - Wraps native .filter() for performance",
+              "scope": "Import path: @sitebender/toolsmith/array/filter/index.ts\nNote: Wraps native .filter() for performance but provides functional interface\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -223,8 +223,8 @@
               "reasoning": "Operators don't compose in functional pipelines and lack semantic clarity and type-specific optimizations"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using subtract function:\nimport subtract from '@sitebender/toolsmith/vanilla/math/integer/subtract/index.ts'\n\nconst difference = subtract(b)(a)\nconst remaining = subtract(used)(total)\nconst delta = subtract(previous)(current)\n\n// Note: subtract is curried as subtract(subtrahend)(minuend)\n// This reads: \"subtract b from a\"\n\n// Partially applied:\nconst subtract10 = subtract(10)\nconst result = subtract10(50) // 50 - 10 = 40\n\n// Why correct:\n// - Curried for composition\n// - Type-specific optimization\n// - Reads semantically: \"subtract b from a\"\n// - Partially applicable",
-              "scope": "Type-specific paths:\n- integer: @sitebender/toolsmith/vanilla/math/integer/subtract/index.ts\n- bigint: @sitebender/toolsmith/vanilla/math/bigint/subtract/index.ts\n- float: @sitebender/toolsmith/vanilla/math/float/subtract/index.ts\n- precision: @sitebender/toolsmith/vanilla/math/precision/subtract/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using subtract function:\nimport subtract from '@sitebender/toolsmith/math/integer/subtract/index.ts'\n\nconst difference = subtract(b)(a)\nconst remaining = subtract(used)(total)\nconst delta = subtract(previous)(current)\n\n// Note: subtract is curried as subtract(subtrahend)(minuend)\n// This reads: \"subtract b from a\"\n\n// Partially applied:\nconst subtract10 = subtract(10)\nconst result = subtract10(50) // 50 - 10 = 40\n\n// Why correct:\n// - Curried for composition\n// - Type-specific optimization\n// - Reads semantically: \"subtract b from a\"\n// - Partially applicable",
+              "scope": "Type-specific paths:\n- integer: @sitebender/toolsmith/math/integer/subtract/index.ts\n- bigint: @sitebender/toolsmith/math/bigint/subtract/index.ts\n- float: @sitebender/toolsmith/math/float/subtract/index.ts\n- precision: @sitebender/toolsmith/math/precision/subtract/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -242,8 +242,8 @@
               "reasoning": "The && operator doesn't compose in functional pipelines and has confusing short-circuit semantics"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using and function:\nimport and from '@sitebender/toolsmith/vanilla/validation/and/index.ts'\n\nif (and(isValid)(isComplete)) {\n\tprocess()\n}\n\nconst canProceed = and(hasPermission)(isAuthenticated)\n\n// For multiple values:\nconst result = and(and(a)(b))(c)\n\n// Why correct:\n// - Reads semantically: 'and'\n// - Handles null/undefined safely\n// - Curried for composition\n// - Explicit conjunction logic",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/and/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using and function:\nimport and from '@sitebender/toolsmith/validation/and/index.ts'\n\nif (and(isValid)(isComplete)) {\n\tprocess()\n}\n\nconst canProceed = and(hasPermission)(isAuthenticated)\n\n// For multiple values:\nconst result = and(and(a)(b))(c)\n\n// Why correct:\n// - Reads semantically: 'and'\n// - Handles null/undefined safely\n// - Curried for composition\n// - Explicit conjunction logic",
+              "scope": "Import path: @sitebender/toolsmith/validation/and/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -261,8 +261,8 @@
               "reasoning": "The ! operator is visually subtle and easy to miss in code, especially in complex conditions"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using not function:\nimport not from '@sitebender/toolsmith/vanilla/validation/not/index.ts'\n\nif (not(isValid)) {\n\treturn error('Invalid')\n}\n\nconst isInvalid = not(isComplete)\nconst shouldSkip = not(hasPermission)\n\n// Why correct:\n// - Explicit and visually clear\n// - Reads like English: 'not valid'\n// - Easy to spot in code reviews\n// - Composable in functional pipelines",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/not/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using not function:\nimport not from '@sitebender/toolsmith/validation/not/index.ts'\n\nif (not(isValid)) {\n\treturn error('Invalid')\n}\n\nconst isInvalid = not(isComplete)\nconst shouldSkip = not(hasPermission)\n\n// Why correct:\n// - Explicit and visually clear\n// - Reads like English: 'not valid'\n// - Easy to spot in code reviews\n// - Composable in functional pipelines",
+              "scope": "Import path: @sitebender/toolsmith/validation/not/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -280,8 +280,8 @@
               "reasoning": "Comparison operators aren't null-safe and don't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using lt function:\nimport lt from '@sitebender/toolsmith/vanilla/validation/lt/index.ts'\n\nif (lt(18)(age)) {\n\treturn 'Minor'\n}\n\nconst isTooYoung = lt(21)(age)\nconst belowThreshold = lt(maxValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'less than'\n// - Curried: const lessThan18 = lt(18)\n// - Composable in validation pipelines",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/lt/index.ts\nAlias: lessThan\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using lt function:\nimport lt from '@sitebender/toolsmith/validation/lt/index.ts'\n\nif (lt(18)(age)) {\n\treturn 'Minor'\n}\n\nconst isTooYoung = lt(21)(age)\nconst belowThreshold = lt(maxValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'less than'\n// - Curried: const lessThan18 = lt(18)\n// - Composable in validation pipelines",
+              "scope": "Import path: @sitebender/toolsmith/validation/lt/index.ts\nAlias: lessThan\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -299,8 +299,8 @@
               "reasoning": "Comparison operators aren't null-safe and don't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using gt function:\nimport gt from '@sitebender/toolsmith/vanilla/validation/gt/index.ts'\n\nif (gt(100)(score)) {\n\treturn 'Bonus points'\n}\n\nconst isPassing = gt(60)(grade)\nconst exceedsLimit = gt(maxValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'greater than'\n// - Curried: const greaterThan100 = gt(100)\n// - Composable in validation pipelines",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/gt/index.ts\nAlias: greaterThan\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using gt function:\nimport gt from '@sitebender/toolsmith/validation/gt/index.ts'\n\nif (gt(100)(score)) {\n\treturn 'Bonus points'\n}\n\nconst isPassing = gt(60)(grade)\nconst exceedsLimit = gt(maxValue)(value)\n\n// Why correct:\n// - Null-safe: returns null for null/undefined\n// - Reads semantically: 'greater than'\n// - Curried: const greaterThan100 = gt(100)\n// - Composable in validation pipelines",
+              "scope": "Import path: @sitebender/toolsmith/validation/gt/index.ts\nAlias: greaterThan\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -318,8 +318,8 @@
               "reasoning": "Comparison operators aren't null-safe, semantic, or composable in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using isUnequal function:\nimport isUnequal from '@sitebender/toolsmith/vanilla/validation/isUnequal/index.ts'\n\nif (isUnequal(a)(b)) {\n\treturn 'Different'\n}\n\nconst isDifferent = isUnequal(value)(expected)\nconst hasChanged = isUnequal(current)(previous)\n\n// Why correct:\n// - Null-safe: handles null/undefined gracefully\n// - Reads semantically: 'is unequal'\n// - Curried for composition\n// - Partially applicable: const notEqualTo5 = isUnequal(5)",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/isUnequal/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using isUnequal function:\nimport isUnequal from '@sitebender/toolsmith/validation/isUnequal/index.ts'\n\nif (isUnequal(a)(b)) {\n\treturn 'Different'\n}\n\nconst isDifferent = isUnequal(value)(expected)\nconst hasChanged = isUnequal(current)(previous)\n\n// Why correct:\n// - Null-safe: handles null/undefined gracefully\n// - Reads semantically: 'is unequal'\n// - Curried for composition\n// - Partially applicable: const notEqualTo5 = isUnequal(5)",
+              "scope": "Import path: @sitebender/toolsmith/validation/isUnequal/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -331,14 +331,14 @@
           "metadata": {
             "rule_id": "SUBSTITUTE_ADD_INTEGER_001",
             "keywords": ["add", "addInteger", "deprecated", "integer", "operator", "math", "+", "path", "migration"],
-            "rationale": "This rule documents the old addInteger path which is now deprecated. Use the correct path @sitebender/toolsmith/vanilla/math/integer/add/index.ts instead. All math functions are now organized by type (integer/bigint/float/precision) with the same function name.",
+            "rationale": "This rule documents the old addInteger path which is now deprecated. Use the correct path @sitebender/toolsmith/math/integer/add/index.ts instead. All math functions are now organized by type (integer/bigint/float/precision) with the same function name.",
             "prohibited": {
-              "code": "// ❌ PROHIBITED - Using old addInteger path:\nimport addInteger from '@sitebender/toolsmith/vanilla/math/addInteger/index.ts'\n\nconst result = addInteger(a)(b)\n\n// Also prohibited - using + operator:\nconst sum = a + b\n\n// Problems:\n// - Old path structure (deprecated)\n// - Should use integer/add instead\n// - Operator doesn't compose",
+              "code": "// ❌ PROHIBITED - Using old addInteger path:\nimport addInteger from '@sitebender/toolsmith/math/addInteger/index.ts'\n\nconst result = addInteger(a)(b)\n\n// Also prohibited - using + operator:\nconst sum = a + b\n\n// Problems:\n// - Old path structure (deprecated)\n// - Should use integer/add instead\n// - Operator doesn't compose",
               "reasoning": "Old addInteger path is deprecated - use type-organized path structure instead"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using correct integer/add path:\nimport add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'\n\nconst result = add(a)(b)\n\n// Why correct:\n// - Correct path structure: /math/integer/add/\n// - Consistent with bigint/float/precision\n// - All math functions named 'add' - path determines type\n// - Curried and composable",
-              "scope": "Correct import path: @sitebender/toolsmith/vanilla/math/integer/add/index.ts\nDeprecated path: @sitebender/toolsmith/vanilla/math/addInteger/index.ts\nContext: Use for integer math operations\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using correct integer/add path:\nimport add from '@sitebender/toolsmith/math/integer/add/index.ts'\n\nconst result = add(a)(b)\n\n// Why correct:\n// - Correct path structure: /math/integer/add/\n// - Consistent with bigint/float/precision\n// - All math functions named 'add' - path determines type\n// - Curried and composable",
+              "scope": "Correct import path: @sitebender/toolsmith/math/integer/add/index.ts\nDeprecated path: @sitebender/toolsmith/math/addInteger/index.ts\nContext: Use for integer math operations\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -356,8 +356,8 @@
               "reasoning": "Array methods aren't curried and don't compose in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using map function:\nimport map from '@sitebender/toolsmith/vanilla/array/map/index.ts'\nimport multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'\n\nconst double = multiply(2)\nconst doubled = map(double)(numbers)\n\nconst getName = (user: User) => user.name\nconst names = map(getName)(users)\n\nconst transformed = map(transform)(items)\n\n// Partially applied:\nconst mapDouble = map(double)\nconst result = mapDouble(numbers)\n\n// Why correct:\n// - Curried for composition\n// - Composable in pipelines\n// - Named transformation functions\n// - Wraps native .map() for performance",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/array/map/index.ts\nNote: Wraps native .map() for performance but provides functional interface\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using map function:\nimport map from '@sitebender/toolsmith/array/map/index.ts'\nimport multiply from '@sitebender/toolsmith/math/integer/multiply/index.ts'\n\nconst double = multiply(2)\nconst doubled = map(double)(numbers)\n\nconst getName = (user: User) => user.name\nconst names = map(getName)(users)\n\nconst transformed = map(transform)(items)\n\n// Partially applied:\nconst mapDouble = map(double)\nconst result = mapDouble(numbers)\n\n// Why correct:\n// - Curried for composition\n// - Composable in pipelines\n// - Named transformation functions\n// - Wraps native .map() for performance",
+              "scope": "Import path: @sitebender/toolsmith/array/map/index.ts\nNote: Wraps native .map() for performance but provides functional interface\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -375,8 +375,8 @@
               "reasoning": "Comparison operators aren't null-safe, semantic, or composable in functional pipelines"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using isEqual function:\nimport isEqual from '@sitebender/toolsmith/vanilla/validation/isEqual/index.ts'\n\nif (isEqual(a)(b)) {\n\treturn 'Same'\n}\n\nconst isSame = isEqual(value)(expected)\nconst matches = isEqual(current)(previous)\n\n// Why correct:\n// - Null-safe: handles null/undefined gracefully\n// - Reads semantically: 'is equal'\n// - Curried for composition\n// - Partially applicable: const equalTo5 = isEqual(5)",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/isEqual/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using isEqual function:\nimport isEqual from '@sitebender/toolsmith/validation/isEqual/index.ts'\n\nif (isEqual(a)(b)) {\n\treturn 'Same'\n}\n\nconst isSame = isEqual(value)(expected)\nconst matches = isEqual(current)(previous)\n\n// Why correct:\n// - Null-safe: handles null/undefined gracefully\n// - Reads semantically: 'is equal'\n// - Curried for composition\n// - Partially applicable: const equalTo5 = isEqual(5)",
+              "scope": "Import path: @sitebender/toolsmith/validation/isEqual/index.ts\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -394,8 +394,8 @@
               "reasoning": "Array.push() mutates the original array, violating immutability and functional programming principles"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using append function or spread:\nimport append from '@sitebender/toolsmith/vanilla/array/append/index.ts'\n\n// Option 1: append function (curried, composable)\nconst newArr = append(newItem)(arr)\n\n// Option 2: spread operator (direct)\nconst newArr = [...arr, newItem]\n\n// Multiple items:\nconst newArr = [...arr, item1, item2, item3]\n\n// Why correct:\n// - Returns new array (immutable)\n// - Original array unchanged\n// - No side effects\n// - Functional approach\n\n// Note: .push() only allowed in Toolsmith internals\n// on newly created arrays that will be returned",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/array/append/index.ts\nAlternative: spread operator [...arr, item]\nNote: .push() only allowed in Toolsmith internals on new arrays\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using append function or spread:\nimport append from '@sitebender/toolsmith/array/append/index.ts'\n\n// Option 1: append function (curried, composable)\nconst newArr = append(newItem)(arr)\n\n// Option 2: spread operator (direct)\nconst newArr = [...arr, newItem]\n\n// Multiple items:\nconst newArr = [...arr, item1, item2, item3]\n\n// Why correct:\n// - Returns new array (immutable)\n// - Original array unchanged\n// - No side effects\n// - Functional approach\n\n// Note: .push() only allowed in Toolsmith internals\n// on newly created arrays that will be returned",
+              "scope": "Import path: @sitebender/toolsmith/array/append/index.ts\nAlternative: spread operator [...arr, item]\nNote: .push() only allowed in Toolsmith internals on new arrays\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -413,8 +413,8 @@
               "reasoning": "Using .length > 0 requires manual type checking and isn't as semantic as isNotEmpty"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using isNotEmpty function:\nimport isNotEmpty from '@sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts'\n\nif (isNotEmpty(arr)) {\n\tprocessItems(arr)\n}\n\nconst hasItems = isNotEmpty(array)\nconst notEmpty = isNotEmpty(items)\n\n// Why correct:\n// - Semantic: reads like English\n// - Type-safe: checks isArray first\n// - Null-safe: returns null for non-arrays\n// - No manual type checking needed\n// - Handles all edge cases automatically",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts\nNote: Automatically handles type checking - no need for isArray(arr) && arr.length > 0\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using isNotEmpty function:\nimport isNotEmpty from '@sitebender/toolsmith/validation/isNotEmpty/index.ts'\n\nif (isNotEmpty(arr)) {\n\tprocessItems(arr)\n}\n\nconst hasItems = isNotEmpty(array)\nconst notEmpty = isNotEmpty(items)\n\n// Why correct:\n// - Semantic: reads like English\n// - Type-safe: checks isArray first\n// - Null-safe: returns null for non-arrays\n// - No manual type checking needed\n// - Handles all edge cases automatically",
+              "scope": "Import path: @sitebender/toolsmith/validation/isNotEmpty/index.ts\nNote: Automatically handles type checking - no need for isArray(arr) && arr.length > 0\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }
@@ -432,8 +432,8 @@
               "reasoning": "Operators don't compose and don't provide type-specific optimizations for float math"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Using add function for floats:\nimport add from '@sitebender/toolsmith/vanilla/math/float/add/index.ts'\n\nconst result = add(a)(b)\nconst total = add(1.5)(2.3)\nconst sum = add(floatValue)(anotherFloat)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific float optimization\n// - Clearly signals float operation\n// - Partially applicable: const addHalf = add(0.5)\n// - Consistent interface across all math types",
-              "scope": "Import path: @sitebender/toolsmith/vanilla/math/float/add/index.ts\nContext: Use for regular floating point numbers\nNote: Same function name 'add' - path determines float type\nApplies to: .ts, .tsx, .js, .jsx"
+              "code": "// ✅ REQUIRED - Using add function for floats:\nimport add from '@sitebender/toolsmith/math/float/add/index.ts'\n\nconst result = add(a)(b)\nconst total = add(1.5)(2.3)\nconst sum = add(floatValue)(anotherFloat)\n\n// Why correct:\n// - Curried for composition\n// - Type-specific float optimization\n// - Clearly signals float operation\n// - Partially applicable: const addHalf = add(0.5)\n// - Consistent interface across all math types",
+              "scope": "Import path: @sitebender/toolsmith/math/float/add/index.ts\nContext: Use for regular floating point numbers\nNote: Same function name 'add' - path determines float type\nApplies to: .ts, .tsx, .js, .jsx"
             }
           }
         }

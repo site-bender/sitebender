@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 
 import _findLastIndexArray from "../_findLastIndexArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -10,6 +13,6 @@ export default function _findLastIndexToValidation<T>(
 	return function _findLastIndexToValidationWithPredicate(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, number | null> {
-		return success(_findLastIndexArray(predicate)(array))
+		return success(findLastIndexArray<T>(predicate)(array))
 	}
 }

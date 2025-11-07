@@ -15,25 +15,29 @@ All `ElementConfig` references replaced with `VirtualNode`. Type now lives in To
 **✅ COMPLETE:** Property access uses Toolsmith's `getTag` function
 
 **Implementation in `_processChild`:**
+
 ```ts
 import getTag from "@sitebender/toolsmith/object/getTag/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 if (isObject(child) && "_tag" in child) {
-  const tagged = child as { _tag: string }
-  const tagResult = getTag(tagged)
-  const tag = getOrElse("")(tagResult)
-  const isValidTag = includes(ELEMENT_TYPES)(tag as typeof ELEMENT_TYPES[number])
+	const tagged = child as { _tag: string }
+	const tagResult = getTag(tagged)
+	const tag = getOrElse("")(tagResult)
+	const isValidTag = includes(ELEMENT_TYPES)(
+		tag as typeof ELEMENT_TYPES[number],
+	)
 
-  if (isValidTag) {
-    return child as VirtualNode
-  }
+	if (isValidTag) {
+		return child as VirtualNode
+	}
 }
 ```
 
 ### 2. flatMap Function
 
 **✅ COMPLETE:** flatMap fully implemented in Toolsmith with three overloads:
+
 - `ReadonlyArray<T> → ReadonlyArray<U>` - Plain arrays
 - `Result<Array<T>> → Result<Array<U>>` - Fail-fast monadic
 - `Validation<Array<T>> → Validation<Array<U>>` - Error accumulation monadic
@@ -48,11 +52,12 @@ All overloads tested and working. createElement uses plain array overload.
 
 **Usage in createElement:**
 Used in `_convertAttributeEntry` to filter out null and undefined attribute values:
+
 ```ts
 import isNotNullish from "@sitebender/toolsmith/predicates/isNotNullish/index.ts"
 
 if (isNotNullish(value)) {
-  return { ...accumulator, [key]: String(value) }
+	return { ...accumulator, [key]: String(value) }
 }
 ```
 
@@ -63,18 +68,20 @@ if (isNotNullish(value)) {
 **Location:** `@sitebender/toolsmith/src/string/toCase/toUpper/index.ts`
 
 **Current implementation:**
+
 - Uses `str.toLocaleUpperCase()` (locale-aware)
 - Works correctly for HTML tag names in createElement
 
 **Usage in `_createVirtualNode`:**
+
 ```ts
 import toUpper from "@sitebender/toolsmith/string/toCase/toUpper/index.ts"
 
 return {
-  _tag: "element" as const,
-  tagName: toUpper(tagName),  // "div" → "DIV"
-  attributes,
-  children,
+	_tag: "element" as const,
+	tagName: toUpper(tagName), // "div" → "DIV"
+	attributes,
+	children,
 }
 ```
 
@@ -87,15 +94,16 @@ return {
 **RULE:** Inner curried functions are named after what they **CARRY** (the enclosed value), not their parameter.
 
 **Implementation in createElement:**
+
 ```ts
 function createElement(component: Component) {
-  return function createElementWithComponent(props: Props | null) {
-    return function createElementWithComponentAndProps(
-      ...children: ReadonlyArray<Child>
-    ): VirtualNode {
-      // Uses: component, props, children
-    }
-  }
+	return function createElementWithComponent(props: Props | null) {
+		return function createElementWithComponentAndProps(
+			...children: ReadonlyArray<Child>
+		): VirtualNode {
+			// Uses: component, props, children
+		}
+	}
 }
 ```
 
@@ -104,6 +112,7 @@ All curried functions in createElement follow this pattern.
 ### 2. Default Export with Underscore - ✅ FOLLOWED
 
 **Implementation:**
+
 - ✅ Public: `export default function createElement`
 - ✅ Private: `export default function _processChildren` (underscore in name AND path)
 
@@ -112,6 +121,7 @@ All helper functions follow this convention.
 ### 3. Documented Exceptions - ✅ ALL DOCUMENTED
 
 **Used and documented with [EXCEPTION] comments:**
+
 - ✅ Rest parameters: `...children`
 - ✅ Object spread: `{ ...props }`, `{ ...accumulator }`
 - ✅ typeof operator: `typeof child === "boolean"`
@@ -120,6 +130,7 @@ All helper functions follow this convention.
 - ✅ Uncurried callbacks: Functions passed to reduce/map/filter are uncurried to match native Array API
 
 **Avoided (using Toolsmith instead):**
+
 - ✅ Uses `isArray` instead of `Array.isArray()`
 - ✅ Uses `toUpper` instead of `.toUpperCase()`
 - ✅ Uses `isString`, `isNumber`, `isObject` instead of typeof checks where possible
@@ -129,19 +140,21 @@ All helper functions follow this convention.
 **RULE:** Functions passed to Array operations (reduce, map, filter, flatMap) should be **uncurried** to match the native Array method signatures these Toolsmith functions wrap.
 
 **Rationale:**
+
 - Toolsmith Array functions are thin wrappers around native methods
 - Native methods expect callbacks like `(acc, item) => result`, not `(acc) => (item) => result`
 - Fighting this creates unnecessary wrapper functions
 - Pragmatic approach: don't fight the platform
 
 **Example in createElement:**
+
 ```ts
 // _convertAttributeEntry is uncurried
 function _convertAttributeEntry(
-  accumulator: Readonly<Record<string, string>>,
-  entry: readonly [string, unknown],
+	accumulator: Readonly<Record<string, string>>,
+	entry: readonly [string, unknown],
 ): Readonly<Record<string, string>> {
-  // Implementation
+	// Implementation
 }
 
 // Used directly with reduce
@@ -153,12 +166,14 @@ const result = reduce(_convertAttributeEntry)({})(entries)
 ### 5. Error Handling Strategy
 
 **Current implementation:**
+
 - Uses error configs instead of monads for graceful degradation
 - Invalid children become error nodes in the config tree
 - Errors preserved in output for debugging/linting
 - No exceptions thrown - pure functional error handling
 
 **Future consideration:**
+
 - Could add Validation monad for error accumulation if needed
 - Current approach works well for createElement's use case
 
@@ -169,6 +184,7 @@ const result = reduce(_convertAttributeEntry)({})(entries)
 **Location:** `/libraries/architect/src/types/index.ts`
 
 All types implemented:
+
 - ✅ `Component` - function or string
 - ✅ `Props` - attributes object with optional children
 - ✅ `Child` - string | number | VirtualNode | array | null | undefined | boolean
@@ -179,6 +195,7 @@ All types implemented:
 **File:** `/libraries/architect/src/createElement/index.ts`
 
 All requirements met:
+
 - ✅ Properly curried with correct inner function names
 - ✅ Uses Toolsmith functions (map, flatMap, reduce, predicates)
 - ✅ Uses Toolsmith predicates (isFunction, isString)
@@ -188,6 +205,7 @@ All requirements met:
 ### 3. Helper Functions - ✅ ALL COMPLETE
 
 All implemented with underscore prefix and placed at lowest common ancestor:
+
 - ✅ `_processChildren` - Maps and flattens children array
 - ✅ `_processChild` - Handles single child type discrimination
 - ✅ `_flattenChild` - Recursively flattens nested arrays (in _processChildren/ subfolder)
@@ -201,6 +219,7 @@ All implemented with underscore prefix and placed at lowest common ancestor:
 ### 4. Error Handling - ✅ IMPLEMENTED
 
 **Current approach:**
+
 - Invalid children become error configs (not filtered out)
 - Errors preserved in tree for debugging
 - Graceful degradation - no crashes
@@ -209,12 +228,14 @@ All implemented with underscore prefix and placed at lowest common ancestor:
 ## Performance Considerations
 
 **Current implementation:**
+
 - Uses Toolsmith predicates and array functions (map, flatMap, reduce)
 - Pure functional approach with immutable data structures
 - Performance overhead acceptable for config generation (not hot path)
 - No premature optimization
 
 **Benchmarking:**
+
 - Profile before optimizing
 - Measure impact of any changes
 - Document performance exceptions if needed
@@ -222,6 +243,7 @@ All implemented with underscore prefix and placed at lowest common ancestor:
 ## Testing Status - ✅ COMPLETE
 
 All test categories implemented:
+
 1. ✅ **Happy path:** Valid components, children, nesting - all tested
 2. ✅ **Error cases:** Invalid types, nulls, booleans - all become error configs
 3. ✅ **Edge cases:** Empty children, deeply nested arrays - all tested

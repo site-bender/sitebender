@@ -1,8 +1,5 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -20,27 +17,27 @@ export default function take<T>(n: number) {
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function takeWithN(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<T>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function takeWithN(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<T>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<T>>
 
 	//++ Implementation with type dispatch
 	function takeWithN(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>> {
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
-			return _takeArray(n)(array)
+			return _takeArray<T>(n)(array)
 		}
 
 		// Result path: fail-fast monadic transformation
