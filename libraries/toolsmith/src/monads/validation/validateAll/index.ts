@@ -1,10 +1,10 @@
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
-import type { ValidationResult } from "../../../types/ValidationResult/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
+import type { ValidationResult } from "../../../types/fp/validation/index.ts"
 
 import reduce from "../../../array/reduce/index.ts"
-import invalid from "../invalid/index.ts"
-import valid from "../valid/index.ts"
+import failure from "../failure/index.ts"
+import success from "../success/index.ts"
 import accumulateErrors from "./accumulateErrors/index.ts"
 
 //++ Applies multiple validators to the same value, accumulating all errors
@@ -20,11 +20,11 @@ export default function validateAll<T>(
 			// We know errors is non-empty if length > 0
 			const [firstError, ...restErrors] = errors
 
-			return invalid(
+			return failure(
 				[firstError, ...restErrors] as NonEmptyArray<ValidationError>,
 			)
 		}
 
-		return valid(value)
+		return success(value)
 	}
 }

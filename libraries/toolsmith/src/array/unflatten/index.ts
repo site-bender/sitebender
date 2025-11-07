@@ -1,8 +1,5 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -24,27 +21,27 @@ export default function unflatten(
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function unflattenWithDepths<T>(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, Array<T | Array<unknown>>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, Array<T | Array<unknown>>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function unflattenWithDepths<T>(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, Array<T | Array<unknown>>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, Array<T | Array<unknown>>>
 
 	//++ Implementation with type dispatch
 	function unflattenWithDepths<T>(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| Array<T | Array<unknown>>
-		| Result<ValidationError, Array<T | Array<unknown>>>
-		| Validation<ValidationError, Array<T | Array<unknown>>> {
+		| Result<E, Array<T | Array<unknown>>>
+		| Validation<E, Array<T | Array<unknown>>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
-			return _unflattenArray(depths)(array)
+			return _unflattenArray<T>(depths)(array)
 		}
 
 		// Result path: fail-fast monadic transformation

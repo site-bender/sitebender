@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _findLastIndexArray from "./_findLastIndexArray/index.ts"
 import _findLastIndexToResult from "./_findLastIndexToResult/index.ts"
@@ -12,7 +12,7 @@ import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
 //++ Finds the index of the last element matching a predicate
 //++ Returns null if no element matches (Toolsmith pattern for missing values)
-export default function findLastIndex<T>(
+export default function findLastIndex<E, T>(
 	predicate: (item: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) {
 	//++ [OVERLOAD] Plain array path: takes array, returns number | null
@@ -22,28 +22,28 @@ export default function findLastIndex<T>(
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function findLastIndexWithPredicate(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, number | null>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, number | null>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function findLastIndexWithPredicate(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, number | null>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, number | null>
 
 	//++ Implementation with type dispatch
 	function findLastIndexWithPredicate(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| number
 		| null
-		| Result<ValidationError, number | null>
-		| Validation<ValidationError, number | null> {
+		| Result<E, number | null>
+		| Validation<E, number | null> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
-			return _findLastIndexArray(predicate)(array)
+			return _findLastIndexArray<T>(predicate)(array)
 		}
 
 		// Result path: fail-fast monadic transformation

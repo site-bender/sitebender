@@ -4,15 +4,15 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
 
-import invalid from "../invalid/index.ts"
-import valid from "../valid/index.ts"
+import failure from "../failure/index.ts"
+import success from "../success/index.ts"
 import mapErrors from "./index.ts"
 
 Deno.test("mapErrors - transforms only Invalid branch and preserves NonEmptyArray", async (t) => {
 	await t.step("preserves Valid unchanged", () => {
-		const v = valid(10)
+		const v = success(10)
 
 		const result = mapErrors<ValidationError, { msg: string }>((e) => ({
 			msg: e.messages.join(","),
@@ -25,7 +25,7 @@ Deno.test("mapErrors - transforms only Invalid branch and preserves NonEmptyArra
 		const errs: NonEmptyArray<ValidationError> = [
 			{ field: "name", messages: ["required", "too short"] },
 		]
-		const v = invalid<ValidationError, number>(errs)
+		const v = failure<ValidationError, number>(errs)
 		const result = mapErrors<ValidationError, string>((e) =>
 			`${e.field}:${e.messages.join("|")}`
 		)(v)

@@ -4,20 +4,20 @@ import {
 } from "https://deno.land/std@0.218.0/assert/mod.ts"
 
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
 
-import invalid from "../invalid/index.ts"
+import failure from "../failure/index.ts"
 import isValid from "../isValid/index.ts"
-import valid from "../valid/index.ts"
+import success from "../success/index.ts"
 import accumulateErrors from "./accumulateErrors/index.ts"
 import combineValidations from "./index.ts"
 
 Deno.test("combineValidations - returns last valid when any are valid; accumulates errors otherwise", async (t) => {
 	await t.step("last valid wins", () => {
-		const vals: NonEmptyArray<ReturnType<typeof valid<number>>> = [
-			valid(1),
-			valid(2),
-			valid(3),
+		const vals: NonEmptyArray<ReturnType<typeof success<number>>> = [
+			success(1),
+			success(2),
+			success(3),
 		]
 
 		const result = combineValidations(vals)
@@ -40,10 +40,10 @@ Deno.test("combineValidations - returns last valid when any are valid; accumulat
 		}]
 
 		const vals: NonEmptyArray<
-			ReturnType<typeof invalid<ValidationError, number>>
+			ReturnType<typeof failure<ValidationError, number>>
 		> = [
-			invalid<ValidationError, number>(errs1),
-			invalid<ValidationError, number>(errs2),
+			failure<ValidationError, number>(errs1),
+			failure<ValidationError, number>(errs2),
 		]
 
 		const result = combineValidations<number>(vals)
@@ -64,15 +64,15 @@ Deno.test("combineValidations/accumulateErrors - reducer collects errors and tra
 		lastValidValue: undefined as number | undefined,
 	}
 
-	const step1 = accumulateErrors(state, valid(10))
+	const step1 = accumulateErrors(state, success(10))
 	assertEquals(step1.lastValidValue, 10)
 
 	const step2 = accumulateErrors(
 		step1,
-		invalid<ValidationError, number>([{ field: "x", messages: ["e"] }]),
+		failure<ValidationError, number>([{ field: "x", messages: ["e"] }]),
 	)
 	assertEquals(step2.errors, [{ field: "x", messages: ["e"] }])
 
-	const step3 = accumulateErrors(step2, valid(20))
+	const step3 = accumulateErrors(step2, success(20))
 	assertEquals(step3.lastValidValue, 20)
 })

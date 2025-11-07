@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
@@ -13,7 +10,7 @@ import _frequencyToResult from "./_frequencyToResult/index.ts"
 import _frequencyToValidation from "./_frequencyToValidation/index.ts"
 
 //++ Counts occurrences of each element
-export default function frequency<T>() {
+export default function frequency<E, T>() {
 	// [OVERLOAD 1] Plain array path
 	function frequencyWithoutParameter(
 		array: ReadonlyArray<T>,
@@ -21,24 +18,24 @@ export default function frequency<T>() {
 
 	// [OVERLOAD 2] Result monad path (fail-fast)
 	function frequencyWithoutParameter(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, Record<string, number>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, Record<string, number>>
 
 	// [OVERLOAD 3] Validation monad path (accumulate errors)
 	function frequencyWithoutParameter(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, Record<string, number>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, Record<string, number>>
 
 	// Implementation with type dispatch
 	function frequencyWithoutParameter(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| Record<string, number>
-		| Result<ValidationError, Record<string, number>>
-		| Validation<ValidationError, Record<string, number>> {
+		| Result<E, Record<string, number>>
+		| Validation<E, Record<string, number>> {
 		// Path 1: Plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
 			return _frequencyArray(array)

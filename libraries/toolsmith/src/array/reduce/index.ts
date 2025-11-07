@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _reduceArray from "./_reduceArray/index.ts"
 import _reduceToResult from "./_reduceToResult/index.ts"
@@ -14,28 +11,28 @@ import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
 //++ Reduces array to a single value using a reducer function
-export default function reduce<T, U>(fn: (accumulator: U, item: T) => U) {
+export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 	return function reduceWithFunction(initialValue: U) {
 		//++ [OVERLOAD] Array reducer: takes array, returns reduced value
 		function reduceWithFunctionAndInitialValue(array: ReadonlyArray<T>): U
 
 		//++ [OVERLOAD] Result reducer: takes and returns Result monad (fail fast)
 		function reduceWithFunctionAndInitialValue(
-			array: Result<ValidationError, ReadonlyArray<T>>,
-		): Result<ValidationError, U>
+			array: Result<E, ReadonlyArray<T>>,
+		): Result<E, U>
 
 		//++ [OVERLOAD] Validation reducer: takes and returns Validation monad (accumulator)
 		function reduceWithFunctionAndInitialValue(
-			array: Validation<ValidationError, ReadonlyArray<T>>,
-		): Validation<ValidationError, U>
+			array: Validation<E, ReadonlyArray<T>>,
+		): Validation<E, U>
 
 		//++ Implementation of the full curried function
 		function reduceWithFunctionAndInitialValue(
 			array:
 				| ReadonlyArray<T>
-				| Result<ValidationError, ReadonlyArray<T>>
-				| Validation<ValidationError, ReadonlyArray<T>>,
-		): U | Result<ValidationError, U> | Validation<ValidationError, U> {
+				| Result<E, ReadonlyArray<T>>
+				| Validation<E, ReadonlyArray<T>>,
+		): U | Result<E, U> | Validation<E, U> {
 			// Happy path: plain array
 			if (isArray<T>(array)) {
 				return _reduceArray(fn)(initialValue)(array)
