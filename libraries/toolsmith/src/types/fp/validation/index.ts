@@ -48,7 +48,7 @@ export type Validation<E, A> = Success<A> | Failure<E>
 
 // Legacy aliases for backwards compatibility during transition
 export type Valid<A> = Success<A>
-export type Invalid<E> = Failure<E>
+export type Insuccess<E> = Failure<E>
 
 //++ Specialized validation type that uses ValidationError for errors
 export type ValidationResult<A> = Validation<ValidationError, A>

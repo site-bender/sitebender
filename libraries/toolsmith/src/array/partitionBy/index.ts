@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _partitionByArray from "./_partitionByArray/index.ts"
 import _partitionByToResult from "./_partitionByToResult/index.ts"
@@ -13,7 +13,7 @@ import isSuccess from "../../monads/validation/isSuccess/index.ts"
 //++ Groups consecutive elements by predicate result (unary function)
 //++ [1, 1, 2, 3, 3, 3] with x => x -> [[1, 1], [2], [3, 3, 3]]
 //++ ['a', 'b', 'A', 'B'] with x => x.toLowerCase() -> [['a'], ['b', 'A', 'B']]
-export default function partitionBy<T>(predicate: (value: T) => unknown) {
+export default function partitionBy<E, T>(predicate: (value: T) => unknown) {
 	//++ [OVERLOAD] Plain array path: takes array, returns array of arrays
 	function partitionByPredicate(
 		array: ReadonlyArray<T>,
@@ -21,27 +21,27 @@ export default function partitionBy<T>(predicate: (value: T) => unknown) {
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function partitionByPredicate(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function partitionByPredicate(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ Implementation with type dispatch
 	function partitionByPredicate(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<ReadonlyArray<T>>
-		| Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
-		| Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
+		| Result<E, ReadonlyArray<ReadonlyArray<T>>>
+		| Validation<E, ReadonlyArray<ReadonlyArray<T>>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
-			return _partitionByArray(predicate)(array)
+			return _partitionByArray<T>(predicate)(array)
 		}
 
 		// Result path: fail-fast monadic transformation

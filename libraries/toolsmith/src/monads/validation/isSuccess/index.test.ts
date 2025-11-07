@@ -14,7 +14,7 @@ Deno.test("isSuccess", async (t) => {
 	})
 
 	await t.step("returns false for Error result", () => {
-		const result = failure("failed")
+		const result = failure(["failed"])
 
 		assertEquals(isSuccess(result), false)
 	})
@@ -36,9 +36,9 @@ Deno.test("isSuccess", async (t) => {
 	})
 
 	await t.step("works with different failure types", () => {
-		assertEquals(isSuccess(failure("failure")), false)
-		assertEquals(isSuccess(failure(new Error("fail"))), false)
-		assertEquals(isSuccess(failure({ code: 404 })), false)
-		assertEquals(isSuccess(failure(null)), false)
+		assertEquals(isSuccess(failure(["failure"])), false)
+		assertEquals(isSuccess(failure([new Error("fail")])), false)
+		assertEquals(isSuccess(failure([{ code: 404 }])), false)
+		assertEquals(isSuccess(failure([null])), false)
 	})
 })

@@ -8,58 +8,59 @@ volumes:
   minio_data: {}
   thanos_sidecar_data: {}
   thanos_store_data: {}
-  fuseki_data: {}
-  fuseki_config: {}
   loki_data: {}
   promtail_positions: {}
   postgres_auth_data: {}
   authentik_media: {}
   authentik_templates: {}
+  oxigraph_data: {}
 
 services:
   # Quinn HTTP/3 Dev Server - HTTP/3 + SSE for hot reload
-  dev-server:
-    build:
-      context: ./dev-server
-      dockerfile: Dockerfile
-    container_name: dev-server
-    restart: unless-stopped
-    volumes:
-      - ../libraries/quartermaster/dist:/app/dist:ro  # Static files to serve
-      - ./ops/certs:/certs:ro  # mkcert certificates
-    ports:
-      - "4433:4433/udp"  # QUIC uses UDP
-    networks:
-      - monitoring
-    healthcheck:
-      test: ["CMD", "nc", "-vz", "-u", "localhost", "4433"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+  # DISABLED: Rust dependency conflicts (h3-quinn/quinn versions) - fix when working on Quartermaster
+  # dev-server:
+  #   build:
+  #     context: ./dev-server
+  #     dockerfile: Dockerfile
+  #   container_name: dev-server
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ../libraries/quartermaster/dist:/app/dist:ro  # Static files to serve
+  #     - ./ops/certs:/certs:ro  # mkcert certificates
+  #   ports:
+  #     - "4433:4433/udp"  # QUIC uses UDP
+  #   networks:
+  #     - monitoring
+  #   healthcheck:
+  #     test: ["CMD", "nc", "-vz", "-u", "localhost", "4433"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 40s
 
   # Caddy HTTP/2 Fallback - HTTP/2 + WebSocket fallback for browsers without HTTP/3
-  caddy-fallback:
-    build:
-      context: ./caddy
-      dockerfile: Dockerfile
-    container_name: caddy-fallback
-    restart: unless-stopped
-    volumes:
-      - ../libraries/quartermaster/dist:/app/dist:ro  # Static files to serve
-      - ./ops/certs:/certs:ro  # mkcert certificates
-    ports:
-      - "8443:8443"  # HTTPS on TCP
-    networks:
-      - monitoring
-    depends_on:
-      - dev-server
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "--no-check-certificate", "https://localhost:8443/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 10s
+  # DISABLED: Depends on dev-server
+  # caddy-fallback:
+  #   build:
+  #     context: ./caddy
+  #     dockerfile: Dockerfile
+  #   container_name: caddy-fallback
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ../libraries/quartermaster/dist:/app/dist:ro  # Static files to serve
+  #     - ./ops/certs:/certs:ro  # mkcert certificates
+  #   ports:
+  #     - "8443:8443"  # HTTPS on TCP
+  #   networks:
+  #     - monitoring
+  #   depends_on:
+  #     - dev-server
+  #   healthcheck:
+  #     test: ["CMD", "wget", "--spider", "--no-check-certificate", "https://localhost:8443/health"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+  #     start_period: 10s
 
   # Qdrant - Vector Database for MCP servers
   qdrant:
@@ -80,25 +81,19 @@ services:
       retries: 3
       start_period: 40s
 
-  # Apache Jena Fuseki - RDF Database and SPARQL Endpoint
-  fuseki:
-    image: stain/jena-fuseki:latest
-    container_name: fuseki
+  # Oxigraph - RDF Triple Store with SPARQL 1.1 support
+  oxigraph:
+    image: oxigraph/oxigraph:latest
+    container_name: oxigraph
     restart: unless-stopped
-    environment:
-      - FUSEKI_DATASET_1=my_dataset # Creates a persistent dataset with this name
-      # Optional: Set admin password for the web UI
-      - ADMIN_PASSWORD=admin123
-    volumes:
-      - fuseki_data:/fuseki-base/databases # Persistent volume for database files
-      - fuseki_config:/fuseki-base/configuration # Persistent volume for config
     ports:
-      - "43030:3030" # Exposes the Fuseki web UI and SPARQL endpoint
+      - "7878:7878" # HTTP API
+    volumes:
+      - oxigraph_data:/data
     networks:
-      - monitoring # Attach it to the same network so Prometheus can scrape it
-    # Optional: Healthcheck to ensure the service is fully started
+      - monitoring
     healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:3030/"]
+      test: ["CMD", "wget", "--spider", "http://localhost:7878/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -321,34 +316,6 @@ services:
     depends_on:
       - authentik-server
 
-  oauth2-proxy-fuseki:
-    image: quay.io/oauth2-proxy/oauth2-proxy:v7.6.0
-    container_name: oauth2-proxy-fuseki
-    restart: unless-stopped
-    env_file:
-      - ./.env.oauth2-fuseki
-    environment:
-      OAUTH2_PROXY_UPSTREAMS: http://admin:admin123@fuseki:3030/
-      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
-      OAUTH2_PROXY_REVERSE_PROXY: "true"
-      OAUTH2_PROXY_COOKIE_SECURE: "true"
-      OAUTH2_PROXY_PASS_AUTHORIZATION_HEADER: "false"
-      OAUTH2_PROXY_SET_AUTHORIZATION_HEADER: "false"
-      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
-      OAUTH2_PROXY_PROVIDER_DISPLAY_NAME: Authentik
-      OAUTH2_PROXY_SSL_INSECURE_SKIP_VERIFY: "false"
-      SSL_CERT_FILE: /etc/ssl/certs/mkcert-rootCA.pem
-    # No alpha-config; upstream URL carries credentials to avoid browser challenges
-    extra_hosts:
-      - "authentik.localhost:host-gateway"
-    volumes:
-      - ./ops/certs/mkcert-rootCA.pem:/etc/ssl/certs/mkcert-rootCA.pem:ro
-
-    networks:
-      - monitoring
-    depends_on:
-      - authentik-server
-
   # Local S3-compatible storage for the next phase (Thanos)
   minio:
     image: minio/minio:latest
@@ -400,7 +367,6 @@ services:
       - grafana
       - prometheus
       - thanos-querier
-      - fuseki
       - minio
     networks:
       - monitoring

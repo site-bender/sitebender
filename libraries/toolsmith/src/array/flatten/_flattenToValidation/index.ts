@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _flattenArray from "../_flattenArray/index.ts"
 
@@ -12,6 +15,6 @@ export default function _flattenToValidation<T, D extends number = 1>(
 		ValidationError,
 		Array<T extends ReadonlyArray<infer U> ? U : T>
 	> {
-		return success(_flattenArray(depth)(array))
+		return success(flattenArray<T>(depth)(array))
 	}
 }
