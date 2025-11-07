@@ -1,8 +1,4 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result, Validation } from "../../types/fp/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -14,7 +10,7 @@ import _rotateRightToValidation from "./_rotateRightToValidation/index.ts"
 
 //++ Rotates elements right by n positions
 //++ Three-path pattern: plain array, Result monad (fail-fast), or Validation monad (accumulate)
-export default function rotateRight<T>(
+export default function rotateRight<E, T>(
 	positions: number,
 ) {
 	//++ [OVERLOAD] Plain array path: takes array, returns rotated array
@@ -24,36 +20,24 @@ export default function rotateRight<T>(
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function rotateRightByPositions(
-		array: Result<
-			ValidationError,
-			ReadonlyArray<T>
-		>,
-	): Result<
-		ValidationError,
-		Array<T>
-	>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, Array<T>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function rotateRightByPositions(
-		array: Validation<
-			ValidationError,
-			ReadonlyArray<T>
-		>,
-	): Validation<
-		ValidationError,
-		Array<T>
-	>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, Array<T>>
 
 	//++ Implementation with type dispatch
 	function rotateRightByPositions(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| Array<T>
-		| Result<ValidationError, Array<T>>
-		| Validation<ValidationError, Array<T>> {
+		| Result<E, Array<T>>
+		| Validation<E, Array<T>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
 			return _rotateRightArray(positions)(array)

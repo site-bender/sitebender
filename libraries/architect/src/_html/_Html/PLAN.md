@@ -40,30 +40,31 @@ export type VirtualNodeTag = "element" | "text" | "comment" | "error"
  + Discriminated union extending Serializable for use across Sitebender
  + Can serialize to HTML, JSON, YAML, TOML, Turtle, RDF
  */
-export type VirtualNode = Serializable &
-	(
+export type VirtualNode =
+	& Serializable
+	& (
 		| {
-				readonly _tag: "element"
-				readonly tagName: string
-				readonly attributes: Readonly<Record<string, string>>
-				readonly children: ReadonlyArray<VirtualNode>
-				readonly namespace?: string
-		  }
+			readonly _tag: "element"
+			readonly tagName: string
+			readonly attributes: Readonly<Record<string, string>>
+			readonly children: ReadonlyArray<VirtualNode>
+			readonly namespace?: string
+		}
 		| {
-				readonly _tag: "text"
-				readonly content: string
-		  }
+			readonly _tag: "text"
+			readonly content: string
+		}
 		| {
-				readonly _tag: "comment"
-				readonly content: string
-		  }
+			readonly _tag: "comment"
+			readonly content: string
+		}
 		| {
-				readonly _tag: "error"
-				readonly code: string
-				readonly message: string
-				readonly received?: unknown
-				readonly context?: string
-		  }
+			readonly _tag: "error"
+			readonly code: string
+			readonly message: string
+			readonly received?: unknown
+			readonly context?: string
+		}
 	)
 
 /*++
@@ -79,6 +80,7 @@ export const VIRTUAL_NODE_TAGS: ReadonlyArray<VirtualNodeTag> = [
 ```
 
 **Export from:** `toolsmith/src/types/index.ts`
+
 ```typescript
 export type { VirtualNode, VirtualNodeTag } from "./virtualNode/index.ts"
 export { VIRTUAL_NODE_TAGS } from "./virtualNode/index.ts"
@@ -256,6 +258,7 @@ export default function isElementNode(
 ```
 
 **Locations:**
+
 - `toolsmith/src/predicates/isElementNode/index.ts`
 - `toolsmith/src/predicates/isTextNode/index.ts`
 - `toolsmith/src/predicates/isCommentNode/index.ts`
@@ -315,6 +318,7 @@ export type Component = ((props: Props) => VirtualNode) | string
 ### 2.2 Update All Imports
 
 **Find and replace across Architect:**
+
 - `VirtualNode` → `VirtualNode`
 - `import type { VirtualNode }` → `import type { VirtualNode }`
 - Update all function signatures
@@ -322,6 +326,7 @@ export type Component = ((props: Props) => VirtualNode) | string
 - Update all JSDoc comments
 
 **Key files to update:**
+
 - `createElement/index.ts`
 - `_processChild/index.ts`
 - All HTML element wrappers (`_html/_Html/`, etc.)
@@ -372,6 +377,7 @@ export default function _isHeadElement(
 ```
 
 **Apply same pattern to:**
+
 - `_isBodyElement`
 - `_isOrphanedChild` (check NOT HEAD and NOT BODY)
 - `_isHeadContentElement` (check tagName in HEAD_ELEMENTS)
@@ -442,6 +448,7 @@ function good(node: VirtualNode): Result<ValidationError, VirtualNodeTag> {
 ### Follow Existing Patterns
 
 See `createElement/_processChild/index.ts` lines 83-94 for the correct pattern of:
+
 1. Check `isObject` and `"_tag" in child`
 2. Cast to minimal type `{ _tag: string }`
 3. Call `getTag` or `getVirtualNodeTag`
@@ -536,6 +543,7 @@ VirtualNode is designed as a **semantic-web-first data structure**. While it can
 ### Architectural Principle: Type Information in Ontology
 
 **VirtualNode stays intentionally simple** (no type metadata):
+
 ```typescript
 {
   _tag: "element",
@@ -546,6 +554,7 @@ VirtualNode is designed as a **semantic-web-first data structure**. While it can
 ```
 
 **Type information is defined once in the HTML ontology**:
+
 ```turtle
 html:cite a owl:DatatypeProperty ;
   rdfs:domain html:Q ;
@@ -553,6 +562,7 @@ html:cite a owl:DatatypeProperty ;
 ```
 
 This separation means:
+
 - VirtualNode is a pure data structure (easily serializable)
 - Ontology defines semantic constraints (OWL + SHACL)
 - Triple store validates using ontology (not JavaScript)
@@ -565,6 +575,7 @@ This separation means:
 #### 1. Element Nodes → OWL Class Instances
 
 **VirtualNode**:
+
 ```typescript
 {
   _tag: "element",
@@ -575,6 +586,7 @@ This separation means:
 ```
 
 **Serialized to Turtle**:
+
 ```turtle
 @prefix html: <http://sitebender.io/ontology/html#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -585,6 +597,7 @@ This separation means:
 ```
 
 **How it works**:
+
 1. `tagName: "Q"` → RDF type `html:Q` (consult ontology for class)
 2. `attributes.cite` → Property `html:cite` (consult ontology for range)
 3. Ontology says `html:cite` has range `xsd:anyURI`
@@ -593,6 +606,7 @@ This separation means:
 #### 2. Attributes → OWL Datatype Properties
 
 **VirtualNode attributes** are key-value pairs:
+
 ```typescript
 attributes: {
   id: "main-quote",
@@ -603,6 +617,7 @@ attributes: {
 ```
 
 **Serialized to RDF**:
+
 ```turtle
 :node1 a html:Q ;
   html:id "main-quote" ;
@@ -612,6 +627,7 @@ attributes: {
 ```
 
 **Type inference from ontology**:
+
 ```turtle
 # Ontology defines property types
 html:id rdfs:range xsd:ID .
@@ -625,6 +641,7 @@ Serializer consults ontology to add correct XSD type annotations.
 #### 3. Children → RDF Lists or Nested Nodes
 
 **VirtualNode with children**:
+
 ```typescript
 {
   _tag: "element",
@@ -638,6 +655,7 @@ Serializer consults ontology to add correct XSD type annotations.
 ```
 
 **Serialized to RDF** (option 1 - nested):
+
 ```turtle
 :ul1 a html:Ul ;
   html:children (
@@ -653,6 +671,7 @@ Serializer consults ontology to add correct XSD type annotations.
 ```
 
 **Serialized to RDF** (option 2 - flat with ordering):
+
 ```turtle
 :ul1 a html:Ul .
 :li1 a html:Li ; html:parent :ul1 ; html:order 1 ; html:textContent "Item 1" .
@@ -662,11 +681,13 @@ Serializer consults ontology to add correct XSD type annotations.
 #### 4. Text Nodes → Literal Content
 
 **VirtualNode text**:
+
 ```typescript
 { _tag: "text", content: "Hello world" }
 ```
 
 **Serialized to RDF**:
+
 ```turtle
 :parent html:textContent "Hello world" .
 ```
@@ -674,16 +695,19 @@ Serializer consults ontology to add correct XSD type annotations.
 #### 5. Comment Nodes → RDF Comments
 
 **VirtualNode comment**:
+
 ```typescript
 { _tag: "comment", content: "TODO: update this" }
 ```
 
 **Serialized to RDF**:
+
 ```turtle
 :parent html:comment "TODO: update this" .
 ```
 
 Or as RDF comment (not queryable):
+
 ```turtle
 # TODO: update this
 ```
@@ -691,6 +715,7 @@ Or as RDF comment (not queryable):
 #### 6. Error Nodes → Validation Reports
 
 **VirtualNode error**:
+
 ```typescript
 {
   _tag: "error",
@@ -702,6 +727,7 @@ Or as RDF comment (not queryable):
 ```
 
 **Serialized to RDF** (as validation report):
+
 ```turtle
 :node1 a html:Article ;
   html:validationStatus "invalid" ;
@@ -822,16 +848,16 @@ html:ArticleShape a sh:NodeShape ;
 
 The serializer uses these mappings to generate correct XSD type annotations:
 
-| TypeScript Type | XSD Datatype | Example |
-|----------------|--------------|---------|
-| `string` | `xsd:string` | `"hello"` |
-| `number` (integer) | `xsd:integer` | `42` |
-| `number` (decimal) | `xsd:decimal` | `3.14` |
-| `boolean` | `xsd:boolean` | `true` |
-| `Url` (branded) | `xsd:anyURI` | `https://example.com` |
-| `EmailAddress` (branded) | `xsd:string` | `user@example.com` |
-| `Uuid` (branded) | `xsd:string` | `550e8400-...` |
-| `Temporal.PlainDate` | `xsd:date` | `2025-11-07` |
+| TypeScript Type          | XSD Datatype   | Example                |
+| ------------------------ | -------------- | ---------------------- |
+| `string`                 | `xsd:string`   | `"hello"`              |
+| `number` (integer)       | `xsd:integer`  | `42`                   |
+| `number` (decimal)       | `xsd:decimal`  | `3.14`                 |
+| `boolean`                | `xsd:boolean`  | `true`                 |
+| `Url` (branded)          | `xsd:anyURI`   | `https://example.com`  |
+| `EmailAddress` (branded) | `xsd:string`   | `user@example.com`     |
+| `Uuid` (branded)         | `xsd:string`   | `550e8400-...`         |
+| `Temporal.PlainDate`     | `xsd:date`     | `2025-11-07`           |
 | `Temporal.PlainDateTime` | `xsd:dateTime` | `2025-11-07T14:30:00Z` |
 
 **Note:** The serializer determines types by consulting the ontology, not by inspecting JavaScript values:
@@ -878,22 +904,26 @@ SPARQL Queries (type-aware)
 #### Benefits
 
 **1. Separation of Concerns**
+
 - VirtualNode: Pure data (serialization, transport)
 - Ontology: Semantic constraints (validation, types)
 - Components: Business logic (composition, UI)
 
 **2. Standards Compliance**
+
 - OWL2 for semantic web interoperability
 - SHACL for W3C standard validation
 - RDF for linked data compatibility
 
 **3. Single Source of Truth**
+
 - HTML spec → Ontology
 - Ontology → TypeScript constants (ROLES_BY_ELEMENT, etc.)
 - Ontology → SHACL shapes
 - Ontology → RDF serialization
 
 **4. Queryable Semantics**
+
 ```sparql
 # Find all elements with conditional role validation
 SELECT ?element WHERE {
@@ -915,6 +945,7 @@ ASK {
 ```
 
 **5. Future-Proof**
+
 - New HTML elements → Update ontology
 - W3C spec changes → Update ontology
 - Validation rules → Update SHACL shapes
@@ -947,6 +978,7 @@ libraries/architect/ontology/
 #### Update Process
 
 When W3C specifications change:
+
 1. Update `.ttl` files with new definitions
 2. Update TypeScript constants (e.g., `ROLES_BY_ELEMENT`)
 3. Update validation functions if needed
@@ -961,6 +993,7 @@ When W3C specifications change:
 #### Complete Example: Article with Quotation
 
 **VirtualNode**:
+
 ```typescript
 {
   _tag: "element",
@@ -984,6 +1017,7 @@ When W3C specifications change:
 ```
 
 **Serialized to Turtle**:
+
 ```turtle
 @prefix html: <http://sitebender.io/ontology/html#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -1008,6 +1042,7 @@ When W3C specifications change:
 ```
 
 **Triple store validates using SHACL**:
+
 - ✅ Article allows role="article"
 - ✅ H1 is valid child of Article (flow content)
 - ✅ Q is valid child of Article (phrasing/flow content)
@@ -1015,6 +1050,7 @@ When W3C specifications change:
 - ✅ All structural constraints satisfied
 
 **SPARQL queries work**:
+
 ```sparql
 # Find all quotations in articles
 SELECT ?article ?quote ?cite WHERE {

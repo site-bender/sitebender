@@ -1,4 +1,4 @@
-import type { Component, Props, Child, VirtualNode } from "../types/index.ts"
+import type { Child, Component, Props, VirtualNode } from "../types/index.ts"
 
 import isFunction from "@sitebender/toolsmith/predicates/isFunction/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"

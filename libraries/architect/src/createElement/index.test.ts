@@ -32,7 +32,9 @@ Deno.test("createElement", async function createElementTests(t) {
 	await t.step(
 		"includes attributes from props",
 		function includesAttributes() {
-			const result = createElement("div")({ id: "test", class: "container" })([])
+			const result = createElement("div")({ id: "test", class: "container" })(
+				[],
+			)
 
 			assertEquals((result as any).attributes.id, "test")
 			assertEquals((result as any).attributes.class, "container")
@@ -45,8 +47,14 @@ Deno.test("createElement", async function createElementTests(t) {
 			const result = createElement("p")(null)(["Hello", "World"])
 
 			assertEquals((result as any).children.length, 2)
-			assertEquals((result as any).children[0], { _tag: "text", content: "Hello" })
-			assertEquals((result as any).children[1], { _tag: "text", content: "World" })
+			assertEquals((result as any).children[0], {
+				_tag: "text",
+				content: "Hello",
+			})
+			assertEquals((result as any).children[1], {
+				_tag: "text",
+				content: "World",
+			})
 		},
 	)
 
@@ -57,7 +65,10 @@ Deno.test("createElement", async function createElementTests(t) {
 
 			assertEquals((result as any).children.length, 2)
 			assertEquals((result as any).children[0], { _tag: "text", content: "42" })
-			assertEquals((result as any).children[1], { _tag: "text", content: "100" })
+			assertEquals((result as any).children[1], {
+				_tag: "text",
+				content: "100",
+			})
 		},
 	)
 
@@ -67,14 +78,20 @@ Deno.test("createElement", async function createElementTests(t) {
 			const result = createElement("div")(null)(["Hello", null, "World"])
 
 			assertEquals((result as any).children.length, 3)
-			assertEquals((result as any).children[0], { _tag: "text", content: "Hello" })
+			assertEquals((result as any).children[0], {
+				_tag: "text",
+				content: "Hello",
+			})
 			assertEquals((result as any).children[1], {
 				_tag: "error",
 				code: "INVALID_CHILD_NULL",
 				message: "Null child encountered - this is not a valid DOM node",
 				received: null,
 			})
-			assertEquals((result as any).children[2], { _tag: "text", content: "World" })
+			assertEquals((result as any).children[2], {
+				_tag: "text",
+				content: "World",
+			})
 		},
 	)
 
@@ -84,20 +101,28 @@ Deno.test("createElement", async function createElementTests(t) {
 			const result = createElement("div")(null)(["Hello", true, false, "World"])
 
 			assertEquals((result as any).children.length, 4)
-			assertEquals((result as any).children[0], { _tag: "text", content: "Hello" })
+			assertEquals((result as any).children[0], {
+				_tag: "text",
+				content: "Hello",
+			})
 			assertEquals((result as any).children[1], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (true) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (true) encountered - this is not a valid DOM node",
 				received: true,
 			})
 			assertEquals((result as any).children[2], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (false) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (false) encountered - this is not a valid DOM node",
 				received: false,
 			})
-			assertEquals((result as any).children[3], { _tag: "text", content: "World" })
+			assertEquals((result as any).children[3], {
+				_tag: "text",
+				content: "World",
+			})
 		},
 	)
 
@@ -122,7 +147,10 @@ Deno.test("createElement", async function createElementTests(t) {
 
 			assertEquals((result as any).children.length, 1)
 			assertEquals((result as any).children[0]._tag, "element")
-			assertEquals(((result as any).children[0] as { tagName: string }).tagName, "SPAN")
+			assertEquals(
+				((result as any).children[0] as { tagName: string }).tagName,
+				"SPAN",
+			)
 		},
 	)
 
@@ -130,10 +158,14 @@ Deno.test("createElement", async function createElementTests(t) {
 		"calls component function",
 		function callsComponent() {
 			function TestComponent(props: Props): VirtualNode {
-				return createElement("div")({ class: "test-component" })(props.children || [])
+				return createElement("div")({ class: "test-component" })(
+					props.children || [],
+				)
 			}
 
-			const result = createElement(TestComponent)({ title: "Test" })(["Content"])
+			const result = createElement(TestComponent)({ title: "Test" })([
+				"Content",
+			])
 
 			assertEquals(result._tag, "element")
 			assertEquals((result as any).tagName, "DIV")
@@ -152,7 +184,10 @@ Deno.test("createElement", async function createElementTests(t) {
 
 			const result = createElement(TestComponent)({ title: "Hello" })([])
 
-			assertEquals((result as any).children[0], { _tag: "text", content: "Hello" })
+			assertEquals((result as any).children[0], {
+				_tag: "text",
+				content: "Hello",
+			})
 		},
 	)
 
@@ -166,20 +201,32 @@ Deno.test("createElement", async function createElementTests(t) {
 			const result = createElement(TestComponent)(null)(["Child1", "Child2"])
 
 			assertEquals((result as any).children.length, 2)
-			assertEquals((result as any).children[0], { _tag: "text", content: "Child1" })
-			assertEquals((result as any).children[1], { _tag: "text", content: "Child2" })
+			assertEquals((result as any).children[0], {
+				_tag: "text",
+				content: "Child1",
+			})
+			assertEquals((result as any).children[1], {
+				_tag: "text",
+				content: "Child2",
+			})
 		},
 	)
 
 	await t.step(
 		"excludes children from attributes",
 		function excludesChildrenFromAttrs() {
-			const result = createElement("div")({ id: "test", children: ["ignored"] })(["Real child"])
+			const result = createElement("div")({
+				id: "test",
+				children: ["ignored"],
+			})(["Real child"])
 
 			assertEquals((result as any).attributes.id, "test")
 			assertEquals((result as any).attributes.children, undefined)
 			assertEquals((result as any).children.length, 1)
-			assertEquals((result as any).children[0], { _tag: "text", content: "Real child" })
+			assertEquals((result as any).children[0], {
+				_tag: "text",
+				content: "Real child",
+			})
 		},
 	)
 
@@ -196,7 +243,11 @@ Deno.test("createElement", async function createElementTests(t) {
 	await t.step(
 		"filters null and undefined attribute values",
 		function filtersNullAttrs() {
-			const result = createElement("div")({ id: "test", removed: null, missing: undefined })([])
+			const result = createElement("div")({
+				id: "test",
+				removed: null,
+				missing: undefined,
+			})([])
 
 			assertEquals((result as any).attributes.id, "test")
 			assertEquals((result as any).attributes.removed, undefined)
@@ -266,7 +317,10 @@ Deno.test("createElement - property: tag names always uppercased", function tagN
 			function propertyUppercase(tagName) {
 				const result = createElement(tagName)(null)([])
 				if (result._tag === "element") {
-					assertEquals((result as any).tagName, (result as any).tagName.toUpperCase())
+					assertEquals(
+						(result as any).tagName,
+						(result as any).tagName.toUpperCase(),
+					)
 				}
 			},
 		),
@@ -281,7 +335,10 @@ Deno.test("createElement - property: attributes preserved", function attributesP
 			function propertyPreservesAttrs(tagName, attrs) {
 				const result = createElement(tagName)(attrs)([])
 				Object.keys(attrs).forEach((key) => {
-					if (key !== "children" && attrs[key] !== null && attrs[key] !== undefined) {
+					if (
+						key !== "children" && attrs[key] !== null &&
+						attrs[key] !== undefined
+					) {
 						assertEquals((result as any).attributes[key], String(attrs[key]))
 					}
 				})

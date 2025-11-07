@@ -32,6 +32,7 @@ All types use `readonly` and `ReadonlyArray` for immutability:
 **Location:** `/libraries/architect/src/createElement/`
 
 All helper functions follow constitutional rules:
+
 - Default exports with underscore prefix in name
 - Properly curried with descriptive inner function names
 - Pure functions (no mutations, no side effects)
@@ -54,6 +55,7 @@ All helper functions follow constitutional rules:
 **Location:** `/libraries/architect/src/createElement/index.ts`
 
 **Signature:**
+
 ```ts
 function createElement(component: Component) {
   return function createElementWithComponent(props: Props | null) {
@@ -65,12 +67,14 @@ function createElement(component: Component) {
 ```
 
 **Behavior:**
+
 1. Processes children recursively (inside-out)
 2. If component is function: calls it with merged props + children
 3. If component is string: creates element config with uppercase tagName
 4. Invalid component: returns error element config for graceful degradation
 
 **Constitutional Compliance:**
+
 - ✅ Properly curried with correct inner function naming
 - ✅ Default export
 - ✅ Pure function
@@ -84,14 +88,17 @@ function createElement(component: Component) {
 ### 1. Attribute Value Conversion
 
 **Current behavior:**
+
 - All attribute values converted to strings with `String(value)`
 - No validation or special handling for different value types
 
 **Potential issues:**
+
 - Boolean attributes (e.g., `disabled`, `checked`) should be handled specially
 - Objects/arrays stringified as `[object Object]` or comma-separated
 
 **Future enhancement:**
+
 - Add `_convertAttributeValue` helper
 - Handle booleans (true→"" or attribute name, false→remove)
 - Handle arrays (join with space for class names, etc.)
@@ -100,16 +107,19 @@ function createElement(component: Component) {
 ### 2. No HTML Validation
 
 **Current behavior:**
+
 - createElement accepts any tagName
 - createElement accepts any attribute names/values
 - No nesting validation (e.g., `<a>` inside `<a>`)
 
 **Rationale:**
+
 - Validation deferred to separate linting pass
 - Keeps createElement fast and simple
 - Linting can provide better error messages with full context
 
 **Future:**
+
 - Separate `lintVirtualNode` function
 - Validates against HTML spec
 - Returns Validation with accumulated errors
@@ -117,16 +127,19 @@ function createElement(component: Component) {
 ### 3. No CSS/JS Tracking
 
 **Current behavior:**
+
 - createElement does not track component CSS/JS dependencies
 - No head config manipulation
 
 **Design decision needed:**
+
 - How to track which components were used?
 - Global mutable Set? (violates FP rules)
 - Thread through context parameter?
 - Separate traversal pass to collect dependencies?
 
 **Suggested approach:**
+
 - Separate `collectDependencies` function
 - Traverses VirtualNode tree
 - Returns array of CSS/JS paths needed
@@ -135,10 +148,12 @@ function createElement(component: Component) {
 ### 4. No Namespace Support
 
 **Current behavior:**
+
 - No `namespace` parameter
 - All elements created in HTML namespace
 
 **Future enhancement:**
+
 - Add optional `namespace` parameter to Props
 - Auto-detect from tagName? (e.g., "svg" → SVG namespace)
 - Pass through to `_createVirtualNode`
@@ -177,16 +192,18 @@ function createElement(component: Component) {
 ### JSX Transform Configuration
 
 **Deno config (deno.jsonc):**
+
 ```json
 {
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "@sitebender/architect"
-  }
+	"compilerOptions": {
+		"jsx": "react-jsx",
+		"jsxImportSource": "@sitebender/architect"
+	}
 }
 ```
 
 **JSX runtime file:**
+
 - Location: `/libraries/architect/src/jsx-runtime.ts`
 - Exports: `jsx`, `jsxs`, `Fragment`
 - These call `createElement` internally
@@ -196,18 +213,20 @@ function createElement(component: Component) {
 ### Component Usage
 
 **Before (incorrect - doesn't exist yet):**
+
 ```tsx
 import { createElement } from "@sitebender/architect"
 
 function MyComponent({ title }: { title: string }) {
-  return createElement("h1")(null)(title)
+	return createElement("h1")(null)(title)
 }
 ```
 
 **After (with JSX):**
+
 ```tsx
 function MyComponent({ title }: { title: string }) {
-  return <h1>{title}</h1>
+	return <h1>{title}</h1>
 }
 ```
 
@@ -334,6 +353,7 @@ JSX transform automatically converts to `createElement("h1")({ title })()` calls
 - ✅ Documented exceptions ([EXCEPTION] comments)
 
 **Allowed exceptions used:**
+
 - Rest parameters (`...children`)
 - Object spread (`{ ...props }`)
 - `typeof` operator (for type checking)
@@ -348,6 +368,7 @@ All exceptions are documented with `[EXCEPTION]` comments explaining why they're
 The createElement function is **fully implemented, comprehensively tested, and constitutional-compliant**.
 
 **Status:**
+
 - ✅ All helper functions implemented
 - ✅ All functions follow constitutional rules (curried, pure, immutable, no loops, no exceptions)
 - ✅ Comprehensive test coverage with unit and property-based tests

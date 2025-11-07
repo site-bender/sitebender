@@ -37,7 +37,7 @@ export default function extractImportedName(
 	const localNameResult = extractLocalName(spec)
 
 	// If extractLocalName failed, wrap the error as ImportExtractionError
-	if (localNameResult._tag === "error") {
+	if (localNameResult._tag === "Error") {
 		const baseError = createError("_extractImportedName")([])(
 			`Failed to extract imported name: ${localNameResult.error.message}`,
 		)("INVALID_ARGUMENT")

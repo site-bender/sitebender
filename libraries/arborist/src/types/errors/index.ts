@@ -25,8 +25,12 @@ export type FunctionExtractionError = ArchitectError<"extractFunctions"> & {
 		| "UnknownNodeType"
 		| "MissingIdentifier"
 		| "InvalidParameterStructure"
+		| "UnsupportedPatternType"
+		| "MalformedFunctionBody"
+		| "InvalidTypeParameter"
 	readonly nodeType?: string
 	readonly span?: Span
+	readonly context?: string
 }
 
 //++ Comment extraction error from extractComments operation
@@ -55,15 +59,28 @@ export type ExportExtractionError = ArchitectError<"extractExports"> & {
 //++ Type extraction error from extractTypes operation
 //++ Occurs when type alias or interface has invalid structure
 export type TypeExtractionError = ArchitectError<"extractTypes"> & {
-	readonly kind: "UnknownTypeKind" | "MissingTypeName"
+	readonly kind:
+		| "UnknownTypeKind"
+		| "MissingTypeName"
+		| "UnsupportedTypeNode"
+		| "InvalidTypeParameter"
+		| "MalformedTypeMember"
+		| "InvalidExtendsClause"
+	readonly nodeType?: string
 	readonly span?: Span
+	readonly context?: string
 }
 
 //++ Constant extraction error from extractConstants operation
 //++ Occurs when const declaration is invalid or missing value
 export type ConstantExtractionError = ArchitectError<"extractConstants"> & {
-	readonly kind: "NotConstant" | "MissingValue"
+	readonly kind:
+		| "NotConstant"
+		| "MissingValue"
+		| "UnsupportedExpressionType"
+		| "InvalidTypeAnnotation"
 	readonly span?: Span
+	readonly context?: string
 }
 
 //++ Violation detection error from detectViolations operation
