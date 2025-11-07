@@ -1,8 +1,5 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -17,25 +14,25 @@ import _toSetToValidation from "./_toSetToValidation/index.ts"
 export default function toSet<T>(
 	array:
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>>,
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>>,
 ):
 	| Set<T>
-	| Result<ValidationError, Set<T>>
-	| Validation<ValidationError, Set<T>> {
+	| Result<E, Set<T>>
+	| Validation<E, Set<T>> {
 	// Happy path: plain array (most common, zero overhead)
 	if (isArray<T>(array)) {
-		return _toSetArray(array)
+		return _toSetArray<T>(array)
 	}
 
 	// Result path: fail-fast monadic transformation
 	if (isOk<ReadonlyArray<T>>(array)) {
-		return chainResults(_toSetToResult)(array)
+		return chainResults(_toSetToResult<T>)(array)
 	}
 
 	// Validation path: error accumulation monadic transformation
 	if (isSuccess<ReadonlyArray<T>>(array)) {
-		return chainValidations(_toSetToValidation)(array)
+		return chainValidations(_toSetToValidation<T>)(array)
 	}
 
 	// Fallback: pass through unchanged (error/failure states)

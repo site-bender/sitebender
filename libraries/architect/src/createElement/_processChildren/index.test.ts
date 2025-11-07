@@ -71,13 +71,15 @@ Deno.test("_processChildren", async function processChildrenTests(t) {
 			assertEquals(result[1], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (true) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (true) encountered - this is not a valid DOM node",
 				received: true,
 			})
 			assertEquals(result[2], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (false) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (false) encountered - this is not a valid DOM node",
 				received: false,
 			})
 			assertEquals(result[3], { _tag: "text", content: "World" })
@@ -160,7 +162,8 @@ Deno.test("_processChildren", async function processChildrenTests(t) {
 			assertEquals(result[4], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (true) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (true) encountered - this is not a valid DOM node",
 				received: true,
 			})
 		},
@@ -211,13 +214,15 @@ Deno.test("_processChildren", async function processChildrenTests(t) {
 			assertEquals(result[2], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (true) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (true) encountered - this is not a valid DOM node",
 				received: true,
 			})
 			assertEquals(result[3], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (false) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (false) encountered - this is not a valid DOM node",
 				received: false,
 			})
 		},
@@ -249,13 +254,16 @@ Deno.test("_processChildren", async function processChildrenTests(t) {
 Deno.test("_processChildren - property: all results are valid configs", function allResultsValid() {
 	fc.assert(
 		fc.property(
-			fc.array(fc.oneof(fc.string(), fc.integer(), fc.constant(null), fc.boolean())),
+			fc.array(
+				fc.oneof(fc.string(), fc.integer(), fc.constant(null), fc.boolean()),
+			),
 			function propertyAllValid(children) {
 				const result = _processChildren(children)
 				// All results should be valid VirtualNodes (text, element, comment, or error)
 				result.forEach((child) => {
 					assertEquals(
-						child._tag === "text" || child._tag === "element" || child._tag === "comment" || child._tag === "error",
+						child._tag === "text" || child._tag === "element" ||
+							child._tag === "comment" || child._tag === "error",
 						true,
 					)
 				})

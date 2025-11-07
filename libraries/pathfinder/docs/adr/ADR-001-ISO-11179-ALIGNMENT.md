@@ -29,6 +29,7 @@ Form field components (`<TextField>`, `<IntegerField>`, `<EmailField>`, etc.) de
 ### 1. Architectural Consistency
 
 Sitebender already implements core concepts:
+
 - **Data Elements**: Form fields with semantic meaning
 - **Value Domains**: Type constraints + validation rules
 - **Metadata Registry**: Pathfinder's triple store
@@ -38,6 +39,7 @@ Alignment formalizes what we already do, using standard terminology.
 ### 2. Interoperability Requirements
 
 Key stakeholder domains use ISO/IEC 11179:
+
 - **Healthcare**: HL7 FHIR, NIH CDE Repository
 - **Government**: Open data portals, data.gov schemas
 - **Enterprise**: Corporate data catalogs (Collibra, Alation)
@@ -47,6 +49,7 @@ Formal alignment enables data exchange with these systems.
 ### 3. Developer Experience
 
 Standard terminology reduces cognitive load:
+
 - Developers familiar with ISO/IEC 11179 understand Sitebender immediately
 - Documentation maps to international standard (no invented terms)
 - Educational resources (books, courses, papers) apply directly
@@ -54,6 +57,7 @@ Standard terminology reduces cognitive load:
 ### 4. AI and Machine Learning
 
 Semantic metadata enables AI applications:
+
 - **Code generation**: AI generates forms from natural language
 - **Data discovery**: "Find all fields related to customer identity"
 - **Automated mapping**: Map between schemas automatically
@@ -64,6 +68,7 @@ ISO/IEC 11179's formal structure makes these applications tractable.
 ### 5. Governance and Compliance
 
 Enterprise/regulatory requirements:
+
 - **GDPR**: Track personal data elements, deletion requirements
 - **HIPAA**: Document PHI fields, access controls
 - **SOX**: Audit trail for financial data definitions
@@ -80,12 +85,14 @@ ISO/IEC 11179 provides proven governance framework.
 **Description**: Continue with current architecture. Use Sitebender-specific terminology (Artificer IR, field components, validation rules).
 
 **Pros**:
+
 - ✅ No additional work required
 - ✅ Complete flexibility in data model evolution
 - ✅ No complexity from external standard
 - ✅ Faster initial development
 
 **Cons**:
+
 - ❌ Missed opportunity for interoperability with healthcare/gov/enterprise
 - ❌ Reinventing solutions to solved problems (metadata versioning, governance, etc.)
 - ❌ Higher cognitive load (learning Sitebender-specific terms vs. industry standard)
@@ -97,12 +104,14 @@ ISO/IEC 11179 provides proven governance framework.
 **Description**: Document how Sitebender concepts map to ISO/IEC 11179 terminology, but don't change implementation.
 
 **Pros**:
+
 - ✅ Zero code changes required
 - ✅ Immediate clarity for developers familiar with standard
 - ✅ Marketing/positioning benefit
 - ✅ Foundation for future formal alignment
 
 **Cons**:
+
 - ❌ No technical interoperability (can't import/export to external registries)
 - ❌ Mapping may drift over time as implementation evolves
 - ❌ Limited benefits beyond documentation
@@ -112,11 +121,13 @@ ISO/IEC 11179 provides proven governance framework.
 **Description**: Immediately implement complete ISO/IEC 11179 Part 3 metamodel, seek certification.
 
 **Pros**:
+
 - ✅ Maximum interoperability with external systems
 - ✅ "ISO/IEC 11179 certified" marketing badge
 - ✅ Confidence that implementation is correct
 
 **Cons**:
+
 - ❌ Significant development effort (months of work)
 - ❌ Heavyweight standard (many entities we may not need)
 - ❌ Premature optimization (not all features needed yet)
@@ -133,6 +144,7 @@ ISO/IEC 11179 provides proven governance framework.
 4. **Phase 4**: Full metamodel + certification (optional, future)
 
 **Pros**:
+
 - ✅ Immediate benefits (clarity, positioning) with minimal work
 - ✅ Technical benefits accrue incrementally as needed
 - ✅ Each phase delivers value independently
@@ -141,6 +153,7 @@ ISO/IEC 11179 provides proven governance framework.
 - ✅ Aligns with lean/agile development philosophy
 
 **Cons**:
+
 - ❌ Benefits delayed compared to full implementation
 - ❌ Requires discipline to maintain alignment across phases
 - ❌ Potential rework if Phase 1 mapping proves incorrect
@@ -172,6 +185,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Objective**: Document mapping between Sitebender and ISO/IEC 11179 concepts.
 
 **Deliverables**:
+
 - [x] Comprehensive alignment document (`ISO_IEC_11179_ALIGNMENT.md`)
 - [ ] Architecture Decision Record (this document)
 - [ ] Pathfinder README updates
@@ -180,6 +194,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Timeline**: 1-2 days (documentation only)
 
 **Success Criteria**:
+
 - Team understands ISO/IEC 11179 concepts
 - Clear roadmap for Phases 2-4
 - Marketing can position Sitebender as "ISO/IEC 11179-inspired"
@@ -189,6 +204,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Objective**: Add ISO/IEC 11179 RDF ontology to Pathfinder.
 
 **Deliverables**:
+
 - ISO/IEC 11179 Turtle ontology (`pathfinder/iso11179/ontology/iso11179.ttl`)
 - Pathfinder functions: `insertDataElement`, `queryDataElements`, etc.
 - Artificer metadata extraction during JSX → IR compilation
@@ -197,11 +213,13 @@ ISO/IEC 11179 provides proven governance framework.
 **Timeline**: 2-3 weeks (1 developer full-time)
 
 **Success Criteria**:
+
 - Artificer automatically extracts and registers metadata
 - SPARQL queries return ISO/IEC 11179-compliant triples
 - Example form demonstrates end-to-end flow
 
 **Dependencies**:
+
 - Pathfinder core infrastructure must be complete
 - Requires Artificer → Pathfinder dependency (update `contracts/boundaries.json`)
 
@@ -210,6 +228,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Objective**: Expose REST APIs conforming to ISO/IEC 11179 registry interface.
 
 **Deliverables**:
+
 - REST API endpoints (`/api/mdr/`)
 - Metadata browser UI
 - Import/export utilities (JSON, XML, Turtle)
@@ -218,6 +237,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Timeline**: 4-6 weeks (2 developers full-time)
 
 **Success Criteria**:
+
 - External systems can query our metadata registry
 - Import data elements from NIH CDE Repository, Schema.org, etc.
 - Metadata browser deployed and usable
@@ -229,6 +249,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Objective**: Complete ISO/IEC 11179 Part 3 metamodel, seek certification.
 
 **Deliverables**:
+
 - Full metamodel conformance
 - Federated registry support
 - Data lineage tracking
@@ -239,6 +260,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Timeline**: 8-12 weeks (2-3 developers full-time)
 
 **Success Criteria**:
+
 - ISO/IEC 11179 certification obtained
 - Federated queries across multiple registries
 - Published standard specification
@@ -254,6 +276,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Rationale**: ISO/IEC 11179 is fundamentally a **metadata REGISTRY standard** (storage, query, governance). Pathfinder is Sitebender's registry infrastructure—THE single source of truth for triple store access.
 
 **Pathfinder's responsibilities**:
+
 - ISO/IEC 11179 RDF ontology
 - Metadata insertion/update/delete/query functions
 - SPARQL query templates
@@ -266,6 +289,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Rationale**: Artificer owns JSX → IR → Turtle transformation. Natural place to extract metadata during compilation.
 
 **Artificer's responsibilities**:
+
 - Extract metadata from component IR
 - Generate ISO/IEC 11179-compliant triples
 - Call Pathfinder to register metadata
@@ -277,6 +301,7 @@ ISO/IEC 11179 provides proven governance framework.
 **Rationale**: Architect provides form field components—the authoring interface for data elements.
 
 **Architect's responsibilities**:
+
 - Document mapping between component props and ISO/IEC 11179 attributes
 - Ensure component design supports metadata extraction
 
@@ -285,11 +310,13 @@ ISO/IEC 11179 provides proven governance framework.
 ### Dependency Updates Required
 
 **Current** (from `contracts/boundaries.json`):
+
 ```
 Layer 3: Architect, Artificer (depend on Arborist, Toolsmith)
 ```
 
 **Required for Phase 2+**:
+
 ```
 Layer 3: Architect, Artificer (depend on Arborist, Toolsmith, Pathfinder)
 ```
@@ -319,13 +346,13 @@ Artificer needs Pathfinder dependency to register metadata during compilation.
 
 ### Risks and Mitigation
 
-| Risk | Probability | Impact | Mitigation |
-|------|-------------|--------|------------|
-| ISO/IEC 11179 proves too heavyweight | Medium | Medium | Phase-gated approach allows early exit if unhelpful |
-| Team rejects standard terminology | Low | Medium | Phase 1 validation before code changes |
-| External registries incompatible | Low | Medium | Test import/export with real-world data in Phase 2 |
-| Performance degradation | Low | High | Benchmark Pathfinder triple store queries early |
-| Certification too expensive | Medium | Low | Make Phase 4 (certification) optional |
+| Risk                                 | Probability | Impact | Mitigation                                          |
+| ------------------------------------ | ----------- | ------ | --------------------------------------------------- |
+| ISO/IEC 11179 proves too heavyweight | Medium      | Medium | Phase-gated approach allows early exit if unhelpful |
+| Team rejects standard terminology    | Low         | Medium | Phase 1 validation before code changes              |
+| External registries incompatible     | Low         | Medium | Test import/export with real-world data in Phase 2  |
+| Performance degradation              | Low         | High   | Benchmark Pathfinder triple store queries early     |
+| Certification too expensive          | Medium      | Low    | Make Phase 4 (certification) optional               |
 
 ---
 
@@ -334,23 +361,27 @@ Artificer needs Pathfinder dependency to register metadata during compilation.
 ### Success Metrics
 
 **Phase 1 (Documentation)**:
+
 - [ ] Alignment document reviewed and approved
 - [ ] Team members can explain Data Element vs. Value Domain vs. Conceptual Domain
 - [ ] Marketing incorporates ISO/IEC 11179 alignment into positioning
 
 **Phase 2 (RDF Vocabulary)**:
+
 - [ ] Example form successfully registers metadata in Pathfinder
 - [ ] SPARQL query returns correct ISO/IEC 11179 triples
 - [ ] Metadata extraction adds < 5% overhead to compilation time
 - [ ] 100% test coverage for Pathfinder ISO/IEC 11179 functions
 
 **Phase 3 (MDR APIs)**:
+
 - [ ] External system successfully imports data elements via REST API
 - [ ] Metadata browser handles 10,000+ data elements with < 100ms query time
 - [ ] Import from NIH CDE Repository succeeds
 - [ ] API uptime > 99.9%
 
 **Phase 4 (Full Implementation)**:
+
 - [ ] ISO/IEC 11179 certification obtained
 - [ ] Federated query across 3+ registries succeeds
 - [ ] Data lineage visualizes complete ETL pipeline
@@ -370,23 +401,27 @@ Artificer needs Pathfinder dependency to register metadata during compilation.
 ### Why Not Other Metadata Standards?
 
 **Dublin Core**:
+
 - Simpler than ISO/IEC 11179
 - Focused on web resources (documents, images, videos)
 - Lacks data element structure (no Value Domain concept)
 - **Verdict**: Use Dublin Core terms WITHIN ISO/IEC 11179 registry
 
 **Schema.org**:
+
 - Rich vocabulary for web content
 - Good for SEO, knowledge graphs
 - Not designed for data element governance
 - **Verdict**: Use Schema.org vocabulary WITHIN ISO/IEC 11179 registry
 
 **ISO 8000 (Data Quality)**:
+
 - Complementary to ISO/IEC 11179
 - Focuses on data quality characteristics
 - **Verdict**: Consider for Phase 4 (quality analysis)
 
 **DCAT (Data Catalog Vocabulary)**:
+
 - W3C standard for data catalogs
 - Focuses on datasets, not individual data elements
 - **Verdict**: Use for dataset-level metadata, ISO/IEC 11179 for element-level
@@ -405,10 +440,12 @@ Artificer needs Pathfinder dependency to register metadata during compilation.
 ### Dependency Decisions
 
 This ADR depends on:
+
 - Pathfinder being designated as core infrastructure library (Layer 1-2)
 - RDF/Turtle as canonical serialization format for Sitebender IR
 
 This ADR enables:
+
 - Artificer metadata extraction during compilation
 - Envoy metadata visualization and data dictionary generation
 - Sentinel access control for metadata operations
@@ -447,9 +484,9 @@ This ADR enables:
 
 ## Change Log
 
-| Date | Version | Changes | Author |
-|------|---------|---------|--------|
-| 2025-11-05 | 1.0.0 | Initial ADR approved | Sitebender Architecture Team |
+| Date       | Version | Changes              | Author                       |
+| ---------- | ------- | -------------------- | ---------------------------- |
+| 2025-11-05 | 1.0.0   | Initial ADR approved | Sitebender Architecture Team |
 
 ---
 

@@ -29,7 +29,7 @@
             "keywords": ["toolsmith", "boxed-functions", "monads", "application-code", "result", "validation", "composability", "error-handling", "architect", "artificer"],
             "rationale": "Boxed functions provide monadic error handling and composability for application code. Using vanilla functions in applications loses error accumulation and monadic composition capabilities. Application code should be monadic while Toolsmith internals can be optimized with vanilla implementations.",
             "prohibited": {
-              "code": "// ❌ PROHIBITED - Using vanilla in application code:\n// In architect/artificer/operator/custodian:\nimport validateEmail from '@sitebender/toolsmith/vanilla/validation/validateEmail/index.ts'\n\nfunction processUser(email: string): User | null {\n\t// Loses monadic composition\n\tconst validated = validateEmail(email)\n\tif (!validated) return null\n\t// ...\n}",
+              "code": "// ❌ PROHIBITED - Using vanilla in application code:\n// In architect/artificer/operator/custodian:\nimport validateEmail from '@sitebender/toolsmith/validation/validateEmail/index.ts'\n\nfunction processUser(email: string): User | null {\n\t// Loses monadic composition\n\tconst validated = validateEmail(email)\n\tif (!validated) return null\n\t// ...\n}",
               "reasoning": "Vanilla functions don't provide monadic error handling needed in application code"
             },
             "required": {
@@ -204,7 +204,7 @@
               "reasoning": "Public APIs need monadic error handling to provide error context"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Vanilla for internal, boxed for public:\n\n// Internal utility (vanilla):\n// Path: /toolsmith/vanilla/string/_toLowerCase/index.ts\nfunction _toLowerCase(str: string): string | null {\n\tif (!str) return null\n\treturn str.toLowerCase()\n}\n\n// Public API (boxed):\n// Path: /toolsmith/boxed/validation/validateEmail/index.ts\nimport type { Result, ValidationError } from '@sitebender/toolsmith/types'\n\nexport default function validateEmail(\n\temail: string\n): Result<string, ValidationError> {\n\tif (!email) {\n\t\treturn failure({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'email',\n\t\t\tmessage: 'Email is required'\n\t\t})\n\t}\n\t\n\tif (!email.includes('@')) {\n\t\treturn failure({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'email',\n\t\t\tmessage: 'Email must contain @'\n\t\t})\n\t}\n\t\n\treturn success(email.toLowerCase())\n}",
+              "code": "// ✅ REQUIRED - Vanilla for internal, boxed for public:\n\n// Internal utility (vanilla):\n// Path: /toolsmith/string/_toLowerCase/index.ts\nfunction _toLowerCase(str: string): string | null {\n\tif (!str) return null\n\treturn str.toLowerCase()\n}\n\n// Public API (boxed):\n// Path: /toolsmith/boxed/validation/validateEmail/index.ts\nimport type { Result, ValidationError } from '@sitebender/toolsmith/types'\n\nexport default function validateEmail(\n\temail: string\n): Result<string, ValidationError> {\n\tif (!email) {\n\t\treturn failure({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'email',\n\t\t\tmessage: 'Email is required'\n\t\t})\n\t}\n\t\n\tif (!email.includes('@')) {\n\t\treturn failure({\n\t\t\t_tag: 'ValidationError',\n\t\t\tfield: 'email',\n\t\t\tmessage: 'Email must contain @'\n\t\t})\n\t}\n\t\n\treturn success(email.toLowerCase())\n}",
               "scope": "Vanilla in Toolsmith internals only; boxed for all public APIs"
             }
           }

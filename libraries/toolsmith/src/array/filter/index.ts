@@ -1,5 +1,4 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
@@ -11,9 +10,9 @@ import isArray from "@sitebender/toolsmith/predicates/isArray/index.ts"
 export default function filter<T extends Serializable>(
 	predicate: (item: T) => boolean,
 ) {
-	return function filterWithPredicate(
+	return function filterWithPredicate<E>(
 		array: ReadonlyArray<T>,
-	): Result<ValidationError, ReadonlyArray<T>> {
+	): Result<E, ReadonlyArray<T>> {
 		// Happy path: valid array
 		if (isArray(array)) {
 			//++ [EXCEPTION] .filter() permitted in Toolsmith for performance - provides curried filter wrapper

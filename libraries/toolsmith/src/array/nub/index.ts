@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _nubArray from "./_nubArray/index.ts"
 import _nubToResult from "./_nubToResult/index.ts"
@@ -15,38 +15,38 @@ import isSuccess from "../../monads/validation/isSuccess/index.ts"
 function nub<T>(array: ReadonlyArray<T>): ReadonlyArray<T>
 
 //++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
-function nub<T>(
-	array: Result<ValidationError, ReadonlyArray<T>>,
-): Result<ValidationError, ReadonlyArray<T>>
+function nub<E, T>(
+	array: Result<E, ReadonlyArray<T>>,
+): Result<E, ReadonlyArray<T>>
 
 //++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
-function nub<T>(
-	array: Validation<ValidationError, ReadonlyArray<T>>,
-): Validation<ValidationError, ReadonlyArray<T>>
+function nub<E, T>(
+	array: Validation<E, ReadonlyArray<T>>,
+): Validation<E, ReadonlyArray<T>>
 
 //++ Implementation with type dispatch
-function nub<T>(
+function nub<E, T>(
 	array:
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>>,
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>>,
 ):
 	| ReadonlyArray<T>
-	| Result<ValidationError, ReadonlyArray<T>>
-	| Validation<ValidationError, ReadonlyArray<T>> {
+	| Result<E, ReadonlyArray<T>>
+	| Validation<E, ReadonlyArray<T>> {
 	// Happy path: plain array (most common, zero overhead)
 	if (isArray<T>(array)) {
-		return _nubArray(array)
+		return _nubArray<T>(array)
 	}
 
 	// Result path: fail-fast monadic transformation
 	if (isOk<ReadonlyArray<T>>(array)) {
-		return chainResults(_nubToResult)(array)
+		return chainResults(_nubToResult<T>)(array)
 	}
 
 	// Validation path: error accumulation monadic transformation
 	if (isSuccess<ReadonlyArray<T>>(array)) {
-		return chainValidations(_nubToValidation)(array)
+		return chainValidations(_nubToValidation<T>)(array)
 	}
 
 	// Fallback: pass through unchanged (error/failure states)

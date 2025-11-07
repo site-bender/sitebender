@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _findDuplicatesArray from "./_findDuplicatesArray/index.ts"
 import _findDuplicatesToResult from "./_findDuplicatesToResult/index.ts"
@@ -16,33 +16,33 @@ import isSuccess from "../../monads/validation/isSuccess/index.ts"
 function findDuplicates<T>(array: ReadonlyArray<T>): ReadonlyArray<T>
 
 //++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
-function findDuplicates<T>(
-	array: Result<ValidationError, ReadonlyArray<T>>,
-): Result<ValidationError, ReadonlyArray<T>>
+function findDuplicates<E, T>(
+	array: Result<E, ReadonlyArray<T>>,
+): Result<E, ReadonlyArray<T>>
 
 //++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
-function findDuplicates<T>(
-	array: Validation<ValidationError, ReadonlyArray<T>>,
-): Validation<ValidationError, ReadonlyArray<T>>
+function findDuplicates<E, T>(
+	array: Validation<E, ReadonlyArray<T>>,
+): Validation<E, ReadonlyArray<T>>
 
 //++ Implementation with type dispatch
-function findDuplicates<T>(
+function findDuplicates<E, T>(
 	array:
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>>,
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>>,
 ):
 	| ReadonlyArray<T>
-	| Result<ValidationError, ReadonlyArray<T>>
-	| Validation<ValidationError, ReadonlyArray<T>> {
+	| Result<E, ReadonlyArray<T>>
+	| Validation<E, ReadonlyArray<T>> {
 	// Happy path: plain array (most common, zero overhead)
 	if (isArray<T>(array)) {
-		return _findDuplicatesArray(array)
+		return _findDuplicatesArray<T>(array)
 	}
 
 	// Result path: fail-fast monadic transformation
 	if (isOk<ReadonlyArray<T>>(array)) {
-		return chainResults(_findDuplicatesToResult)(array)
+		return chainResults(_findDuplicatesToResult<T>)(array)
 	}
 
 	// Validation path: error accumulation monadic transformation

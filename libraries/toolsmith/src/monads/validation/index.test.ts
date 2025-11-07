@@ -1,16 +1,16 @@
 import { expect } from "@std/expect"
 
 import type NonEmptyArray from "../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../types/ValidationError/index.ts"
+import type ValidationError from "../../types/fp/validation/index.ts"
 
 import chain from "./chain/index.ts"
 import createValidator from "./createValidator/index.ts"
 import fold from "./fold/index.ts"
-import invalid from "./invalid/index.ts"
+import failure from "./failure/index.ts"
 import isInvalid from "./isInvalid/index.ts"
 import isValid from "./isValid/index.ts"
 import map from "./map/index.ts"
-import valid from "./valid/index.ts"
+import success from "./success/index.ts"
 import validateAll from "./validateAll/index.ts"
 
 const validAge = createValidator(
@@ -25,7 +25,7 @@ const validAge = createValidator(
 
 Deno.test("Validation monad - Valid instances", async (t) => {
 	await t.step("should create valid instance", () => {
-		const result = valid(42)
+		const result = success(42)
 		expect(isValid(result)).toBe(true)
 		expect(isInvalid(result)).toBe(false)
 		expect(result._tag).toBe("Valid")
@@ -35,7 +35,7 @@ Deno.test("Validation monad - Valid instances", async (t) => {
 		const double = function double(x: number) {
 			return x * 2
 		}
-		const result = map(double)(valid(21))
+		const result = map(double)(success(21))
 
 		expect(isValid(result)).toBe(true)
 		if (isValid(result)) {
@@ -44,12 +44,12 @@ Deno.test("Validation monad - Valid instances", async (t) => {
 	})
 
 	await t.step("should chain successfully", () => {
-		const result = chain(validAge)(valid(21))
+		const result = chain(validAge)(success(21))
 		expect(isValid(result)).toBe(true)
 	})
 
 	await t.step("should fold to valid branch", () => {
-		const validation = valid(42)
+		const validation = success(42)
 		const result = fold<number, string>(
 			function onValid(value: number) {
 				return `Valid: ${value}`
@@ -70,7 +70,7 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	]
 
 	await t.step("should create invalid instance", () => {
-		const result = invalid(errors)
+		const result = failure(errors)
 		expect(isValid(result)).toBe(false)
 		expect(isInvalid(result)).toBe(true)
 		expect(result._tag).toBe("Invalid")
@@ -80,7 +80,7 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 		const double = function double(x: number) {
 			return x * 2
 		}
-		const result = map(double)(invalid(errors))
+		const result = map(double)(failure(errors))
 
 		expect(isInvalid(result)).toBe(true)
 		if (isInvalid(result)) {
@@ -89,7 +89,7 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	})
 
 	await t.step("should not chain invalid value", () => {
-		const result = chain(validAge)(invalid(errors))
+		const result = chain(validAge)(failure(errors))
 
 		expect(isInvalid(result)).toBe(true)
 		if (isInvalid(result)) {
@@ -98,7 +98,7 @@ Deno.test("Validation monad - Invalid instances", async (t) => {
 	})
 
 	await t.step("should fold to invalid branch", () => {
-		const validation = invalid(errors)
+		const validation = failure(errors)
 		const result = fold<number, string>(
 			function onValid(_value: number) {
 				return "Valid"
@@ -135,13 +135,13 @@ Deno.test("Validation monad - validateAll", async (t) => {
 			(value: number) => ReturnType<typeof validAge>
 		> = [
 			function checkPositive(n: number) {
-				return n > 0 ? valid(n) : invalid<ValidationError>([{
+				return n > 0 ? success(n) : failure<ValidationError>([{
 					field: "number",
 					messages: ["Must be positive"],
 				}])
 			},
 			function checkLessThan100(n: number) {
-				return n < 100 ? valid(n) : invalid<ValidationError>([{
+				return n < 100 ? success(n) : failure<ValidationError>([{
 					field: "number",
 					messages: ["Must be less than 100"],
 				}])
@@ -157,13 +157,13 @@ Deno.test("Validation monad - validateAll", async (t) => {
 			(value: number) => ReturnType<typeof validAge>
 		> = [
 			function checkPositive(n: number) {
-				return n > 0 ? valid(n) : invalid<ValidationError>([{
+				return n > 0 ? success(n) : failure<ValidationError>([{
 					field: "number",
 					messages: ["Must be positive"],
 				}])
 			},
 			function checkLessThan100(n: number) {
-				return n < 100 ? valid(n) : invalid<ValidationError>([{
+				return n < 100 ? success(n) : failure<ValidationError>([{
 					field: "number",
 					messages: ["Must be less than 100"],
 				}])

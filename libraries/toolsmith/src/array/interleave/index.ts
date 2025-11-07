@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
@@ -13,24 +10,24 @@ import _interleaveToResult from "./_interleaveToResult/index.ts"
 import _interleaveToValidation from "./_interleaveToValidation/index.ts"
 
 //++ Alternates elements from two arrays
-export default function interleave<T, U>(array1: ReadonlyArray<T>) {
+export default function interleave<E, T, U>(array1: ReadonlyArray<T>) {
 	function interleaveWithFirstArray(
 		array2: ReadonlyArray<U>,
 	): ReadonlyArray<T | U>
 
 	function interleaveWithFirstArray(
-		array2: Result<ValidationError, ReadonlyArray<U>>,
-	): Result<ValidationError, ReadonlyArray<T | U>>
+		array2: Result<E, ReadonlyArray<U>>,
+	): Result<E, ReadonlyArray<T | U>>
 
 	function interleaveWithFirstArray(
-		array2: Validation<ValidationError, ReadonlyArray<U>>,
-	): Validation<ValidationError, ReadonlyArray<T | U>>
+		array2: Validation<E, ReadonlyArray<U>>,
+	): Validation<E, ReadonlyArray<T | U>>
 
 	function interleaveWithFirstArray(
 		array2:
 			| ReadonlyArray<U>
-			| Result<ValidationError, ReadonlyArray<U>>
-			| Validation<ValidationError, ReadonlyArray<U>>,
+			| Result<E, ReadonlyArray<U>>
+			| Validation<E, ReadonlyArray<U>>,
 	) {
 		if (isArray<U>(array2)) {
 			return _interleaveArray(array1)(array2)

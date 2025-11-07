@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
@@ -14,7 +11,7 @@ import _slidingToValidation from "./_slidingToValidation/index.ts"
 
 //++ Creates sliding windows over array with configurable size and step
 //++ Pattern: three-path overloaded function for plain arrays, Result monads, and Validation monads
-export default function sliding<T>(size: number) {
+export default function sliding<E, T>(size: number) {
 	return function slidingWithSize(step: number) {
 		//++ [OVERLOAD 1] Plain array path
 		function slidingWithStep(
@@ -23,13 +20,13 @@ export default function sliding<T>(size: number) {
 
 		//++ [OVERLOAD 2] Result monad path (fail-fast error handling)
 		function slidingWithStep(
-			array: Result<ValidationError, ReadonlyArray<T>>,
-		): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+			array: Result<E, ReadonlyArray<T>>,
+		): Result<E, ReadonlyArray<ReadonlyArray<T>>>
 
 		//++ [OVERLOAD 3] Validation monad path (accumulate errors)
 		function slidingWithStep(
-			array: Validation<ValidationError, ReadonlyArray<T>>,
-		): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+			array: Validation<E, ReadonlyArray<T>>,
+		): Validation<E, ReadonlyArray<ReadonlyArray<T>>>
 
 		//++ Implementation with type dispatch
 		function slidingWithStep(array: unknown) {
