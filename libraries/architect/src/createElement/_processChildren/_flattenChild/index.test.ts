@@ -158,13 +158,15 @@ Deno.test("_flattenChild", async function flattenChildTests(t) {
 			assertEquals(result[1], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (true) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (true) encountered - this is not a valid DOM node",
 				received: true,
 			})
 			assertEquals(result[0], {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (false) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (false) encountered - this is not a valid DOM node",
 				received: false,
 			})
 		},
@@ -253,12 +255,15 @@ Deno.test("_flattenChild - property: VirtualNode always wrapped in single-item a
 Deno.test("_flattenChild - property: arrays always produce VirtualNode results", function arraysProduceConfigs() {
 	fc.assert(
 		fc.property(
-			fc.array(fc.oneof(fc.string(), fc.integer(), fc.constant(null), fc.boolean())),
+			fc.array(
+				fc.oneof(fc.string(), fc.integer(), fc.constant(null), fc.boolean()),
+			),
 			function propertyArraysToConfigs(children) {
 				const result = _flattenChild(children)
 				result.forEach((item) => {
 					assertEquals(
-						item._tag === "text" || item._tag === "element" || item._tag === "comment" || item._tag === "error",
+						item._tag === "text" || item._tag === "element" ||
+							item._tag === "comment" || item._tag === "error",
 						true,
 					)
 				})

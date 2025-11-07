@@ -25,8 +25,24 @@ export default function extractKindAndBindings(
 			imports: ReadonlyArray<ImportBinding>
 		}>
 	> {
+		// Get array length (length returns a Result)
+		const lengthResult = length(specifiers)
+
+		if (lengthResult._tag === "Error") {
+			const baseError = createError("_extractKindAndBindings")([])(
+				"Failed to get specifiers length",
+			)("INVALID_ARGUMENT")
+
+			return error({
+				...baseError,
+				kind: "InvalidSpecifier",
+			} as ImportExtractionError)
+		}
+
+		const specCount = lengthResult.value
+
 		// Side-effect import: import "./foo.ts"
-		if (isEqual(length(specifiers))(0)) {
+		if (isEqual(specCount)(0)) {
 			return ok({
 				kind: isTypeOnly ? "type" : "named",
 				imports: [],
@@ -53,7 +69,7 @@ export default function extractKindAndBindings(
 		if (isTypeOnly) {
 			const bindingsResult = extractNamedBindings(specifiers)(true)
 
-			if (bindingsResult._tag === "error") {
+			if (bindingsResult._tag === "Error") {
 				return bindingsResult
 			}
 
@@ -70,7 +86,7 @@ export default function extractKindAndBindings(
 		) {
 			const localResult = extractLocalName(firstSpec)
 
-			if (localResult._tag === "error") {
+			if (localResult._tag === "Error") {
 				const baseError = createError("_extractKindAndBindings")([])(
 					`Failed to extract local name for namespace import: ${localResult.error.message}`,
 				)("INVALID_ARGUMENT")
@@ -94,12 +110,12 @@ export default function extractKindAndBindings(
 		// Default import only: import foo from "./foo.ts"
 		if (
 			and(isEqual(firstType)("ImportDefaultSpecifier"))(
-				isEqual(length(specifiers))(1),
+				isEqual(specCount)(1),
 			)
 		) {
 			const localResult = extractLocalName(firstSpec)
 
-			if (localResult._tag === "error") {
+			if (localResult._tag === "Error") {
 				const baseError = createError("_extractKindAndBindings")([])(
 					`Failed to extract local name for default import: ${localResult.error.message}`,
 				)("INVALID_ARGUMENT")
@@ -123,7 +139,7 @@ export default function extractKindAndBindings(
 		// Named imports (possibly with default): import foo, { bar } from "./foo.ts"
 		const bindingsResult = extractNamedBindings(specifiers)(false)
 
-		if (bindingsResult._tag === "error") {
+		if (bindingsResult._tag === "Error") {
 			return bindingsResult
 		}
 

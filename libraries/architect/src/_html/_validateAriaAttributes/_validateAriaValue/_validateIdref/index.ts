@@ -1,20 +1,23 @@
-import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
-import length from "@sitebender/toolsmith/array/length/index.ts"
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 import stringIncludes from "@sitebender/toolsmith/string/includes/index.ts"
 
 /*++
  + Validates idref value (element ID reference)
+ + Assumes value is non-empty (checked by _validateAriaValue)
  */
 export default function _validateIdref(attributeName: string) {
 	return function _validateIdrefValue(value: string): string | undefined {
 		/*++
-		 + ID references must be non-empty strings
-		 + They cannot contain spaces
+		 + Value must be defined (defensive check)
 		 */
-		if (isEqual(length(value))(0)) {
-			return `Attribute '${attributeName}' cannot be empty`
+		if (not(isDefined(value))) {
+			return `Attribute '${attributeName}' requires a value`
 		}
 
+		/*++
+		 + ID references cannot contain spaces
+		 */
 		if (stringIncludes(value)(" ")) {
 			return `Attribute '${attributeName}' cannot contain spaces (use 'idrefs' for multiple IDs)`
 		}
