@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
@@ -22,13 +19,13 @@ export default function splitEvery<T>(chunkSize: number) {
 
 	//++ [OVERLOAD 2] Result monad path (fail-fast error handling)
 	function splitEveryWithSize(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ [OVERLOAD 3] Validation monad path (accumulate errors)
 	function splitEveryWithSize(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ Implementation with type dispatch
 	function splitEveryWithSize(array: unknown) {

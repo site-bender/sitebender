@@ -1,8 +1,5 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -17,25 +14,25 @@ import _transposeToValidation from "./_transposeToValidation/index.ts"
 export default function transpose<T>(
 	matrix:
 		| ReadonlyArray<ReadonlyArray<T>>
-		| Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
-		| Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>,
+		| Result<E, ReadonlyArray<ReadonlyArray<T>>>
+		| Validation<E, ReadonlyArray<ReadonlyArray<T>>>,
 ):
 	| Array<Array<T | undefined>>
-	| Result<ValidationError, Array<Array<T | undefined>>>
-	| Validation<ValidationError, Array<Array<T | undefined>>> {
+	| Result<E, Array<Array<T | undefined>>>
+	| Validation<E, Array<Array<T | undefined>>> {
 	// Happy path: plain array (most common, zero overhead)
 	if (isArray<ReadonlyArray<T>>(matrix)) {
-		return _transposeArray(matrix)
+		return _transposeArray<T>(matrix)
 	}
 
 	// Result path: fail-fast monadic transformation
 	if (isOk<ReadonlyArray<ReadonlyArray<T>>>(matrix)) {
-		return chainResults(_transposeToResult)(matrix)
+		return chainResults(_transposeToResult<T>)(matrix)
 	}
 
 	// Validation path: error accumulation monadic transformation
 	if (isSuccess<ReadonlyArray<ReadonlyArray<T>>>(matrix)) {
-		return chainValidations(_transposeToValidation)(matrix)
+		return chainValidations(_transposeToValidation<T>)(matrix)
 	}
 
 	// Fallback: pass through unchanged (error/failure states)

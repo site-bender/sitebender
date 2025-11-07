@@ -70,8 +70,9 @@ export default function _validateAriaValue(attributeName: string) {
 
 		/*++
 		 + Check for empty strings
+		 + [EXCEPTION] Using native .length for string length check
 		 */
-		if (isEqual(length(value))(0)) {
+		if (isEqual(value.length)(0)) {
 			if (isEqual(attrDefinition.allowEmpty)(true)) {
 				return undefined
 			}

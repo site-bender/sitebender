@@ -1,0 +1,46 @@
+// [IO] Deletes triples matching pattern from triple store
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import type { QueryError } from "../../errors/index.ts"
+import type { TripleStoreConnection } from "../../connection/createTripleStore/index.ts"
+
+export default function deleteSparql(pattern: string) {
+	return async function deleteFrom(
+		connection: TripleStoreConnection,
+	): Promise<Result<QueryError, void>> {
+		try {
+			const sparql = `DELETE WHERE { ${pattern} }`
+
+			const response = await fetch(connection.updateEndpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/sparql-update",
+				},
+				body: sparql,
+			})
+
+			// Consume response body to prevent resource leak
+			await response.body?.cancel()
+
+			if (!response.ok) {
+				return error({
+					_tag: "QueryError",
+					kind: "ExecutionFailed",
+					message: `Failed to delete triples: status ${response.status}`,
+					sparql: pattern,
+				})
+			}
+
+			return ok(undefined)
+		} catch (cause) {
+			return error({
+				_tag: "QueryError",
+				kind: "ExecutionFailed",
+				message: "Failed to delete triples",
+				sparql: pattern,
+				cause,
+			})
+		}
+	}
+}

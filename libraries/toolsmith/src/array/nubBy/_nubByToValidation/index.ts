@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 
 import _nubByArray from "../_nubByArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -10,6 +13,6 @@ export default function _nubByToValidation<T>(
 	return function _nubByToValidationWithEqualityFn(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<T>> {
-		return success(_nubByArray(equalityFn)(array))
+		return success(nubByArray<T>(equalityFn)(array))
 	}
 }

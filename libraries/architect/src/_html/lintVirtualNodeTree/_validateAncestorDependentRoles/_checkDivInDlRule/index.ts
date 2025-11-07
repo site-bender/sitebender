@@ -1,10 +1,7 @@
 import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../../types/index.ts"
+import type { AncestorContext, ValidationError } from "../../types/index.ts"
 
 /*++
  + Check div child of dl rule
@@ -36,7 +33,8 @@ export default function _checkDivInDlRule(
 				return [{
 					node,
 					errorType: "invalid-ancestor-dependent-role",
-					message: `<div> child of <dl> can only have role="none" or role="presentation", got role="${role}"`,
+					message:
+						`<div> child of <dl> can only have role="none" or role="presentation", got role="${role}"`,
 					context: { parentTag: "DL", role },
 				}]
 			}

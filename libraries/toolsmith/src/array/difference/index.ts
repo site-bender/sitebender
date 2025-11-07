@@ -1,5 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { ValidationError } from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _differenceArray from "./_differenceArray/index.ts"
@@ -12,7 +12,7 @@ import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
 //++ Set difference: returns elements in minuend that are not in subtrahend
-export default function difference<T>(subtrahend: ReadonlyArray<T>) {
+export default function difference<E, T>(subtrahend: ReadonlyArray<T>) {
 	//++ [OVERLOAD] Plain array path: takes array, returns array
 	function differenceWithSubtrahend(
 		minuend: ReadonlyArray<T>,
@@ -20,24 +20,24 @@ export default function difference<T>(subtrahend: ReadonlyArray<T>) {
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function differenceWithSubtrahend(
-		minuend: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<T>>
+		minuend: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function differenceWithSubtrahend(
-		minuend: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<T>>
+		minuend: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<T>>
 
 	//++ Implementation with type dispatch
 	function differenceWithSubtrahend(
 		minuend:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>> {
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(minuend)) {
 			return _differenceArray(subtrahend)(minuend)

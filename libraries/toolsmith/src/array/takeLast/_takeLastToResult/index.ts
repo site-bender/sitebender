@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 import _takeLastArray from "../_takeLastArray/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 
@@ -8,6 +9,6 @@ export default function _takeLastToResult<T>(n: number) {
 	return function _takeLastToResultWithN(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, ReadonlyArray<T>> {
-		return ok(_takeLastArray(n)(array))
+		return ok(takeLastArray<T>(n)(array))
 	}
 }
