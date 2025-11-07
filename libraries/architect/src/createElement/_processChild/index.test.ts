@@ -76,7 +76,8 @@ Deno.test("_processChild", async function processChildTests(t) {
 			assertEquals(result, {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (true) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (true) encountered - this is not a valid DOM node",
 				received: true,
 			})
 		},
@@ -90,7 +91,8 @@ Deno.test("_processChild", async function processChildTests(t) {
 			assertEquals(result, {
 				_tag: "error",
 				code: "INVALID_CHILD_BOOLEAN",
-				message: "Boolean child (false) encountered - this is not a valid DOM node",
+				message:
+					"Boolean child (false) encountered - this is not a valid DOM node",
 				received: false,
 			})
 		},
@@ -229,7 +231,10 @@ Deno.test("_processChild - property: strings always become text configs", functi
 			function propertyStringToText(value) {
 				const result = _processChild(value)
 
-				if (result !== null && typeof result === "object" && !Array.isArray(result) && "_tag" in result) {
+				if (
+					result !== null && typeof result === "object" &&
+					!Array.isArray(result) && "_tag" in result
+				) {
 					assertEquals(result._tag, "text")
 					if (result._tag === "text") {
 						assertEquals(result.content, value)
@@ -243,11 +248,16 @@ Deno.test("_processChild - property: strings always become text configs", functi
 Deno.test("_processChild - property: numbers always become text configs", function numbersToText() {
 	fc.assert(
 		fc.property(
-			fc.oneof(fc.integer(), fc.float()).filter((n) => !Number.isNaN(n) && Number.isFinite(n)),
+			fc.oneof(fc.integer(), fc.float()).filter((n) =>
+				!Number.isNaN(n) && Number.isFinite(n)
+			),
 			function propertyNumberToText(value) {
 				const result = _processChild(value)
 
-				if (result !== null && typeof result === "object" && !Array.isArray(result) && "_tag" in result) {
+				if (
+					result !== null && typeof result === "object" &&
+					!Array.isArray(result) && "_tag" in result
+				) {
 					assertEquals(result._tag, "text")
 					if (result._tag === "text") {
 						assertEquals(result.content, String(value))
@@ -265,7 +275,10 @@ Deno.test("_processChild - property: booleans always become error configs", func
 			function propertyBooleansToError(value) {
 				const result = _processChild(value)
 
-				if (result !== null && typeof result === "object" && !Array.isArray(result) && "_tag" in result) {
+				if (
+					result !== null && typeof result === "object" &&
+					!Array.isArray(result) && "_tag" in result
+				) {
 					assertEquals(result._tag, "error")
 					if (result._tag === "error") {
 						assertEquals(result.code, "INVALID_CHILD_BOOLEAN")
