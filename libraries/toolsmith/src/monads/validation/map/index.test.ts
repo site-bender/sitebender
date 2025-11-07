@@ -1,19 +1,19 @@
 import { assertEquals } from "@std/assert"
 
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
 
-import invalid from "../invalid/index.ts"
+import failure from "../failure/index.ts"
 import isInvalid from "../isInvalid/index.ts"
 import isValid from "../isValid/index.ts"
-import valid from "../valid/index.ts"
+import success from "../success/index.ts"
 import map from "./index.ts"
 
 Deno.test("map - transforms valid values", async (t) => {
 	await t.step("should map over valid number", () => {
 		const double = (x: number) => x * 2
 
-		const result = map(double)(valid(21))
+		const result = map(double)(success(21))
 
 		assertEquals(isValid(result), true)
 
@@ -25,7 +25,7 @@ Deno.test("map - transforms valid values", async (t) => {
 	await t.step("should map over valid string", () => {
 		const toLength = (s: string) => s.length
 
-		const result = map(toLength)(valid("hello"))
+		const result = map(toLength)(success("hello"))
 
 		assertEquals(isValid(result), true)
 
@@ -41,7 +41,7 @@ Deno.test("map - transforms valid values", async (t) => {
 		}]
 		const double = (x: number) => x * 2
 
-		const result = map(double)(invalid<ValidationError>(errors))
+		const result = map(double)(failure<ValidationError>(errors))
 
 		assertEquals(isInvalid(result), true)
 
@@ -54,7 +54,7 @@ Deno.test("map - transforms valid values", async (t) => {
 		const double = (x: number) => x * 2
 		const toString = (x: number) => x.toString()
 
-		const step1 = valid(10)
+		const step1 = success(10)
 		const step2 = map(double)(step1)
 		const step3 = map(toString)(step2)
 
@@ -69,7 +69,7 @@ Deno.test("map - transforms valid values", async (t) => {
 		const user = { id: 1, name: "Alice", age: 30 }
 		const getName = (u: typeof user) => u.name
 
-		const result = map(getName)(valid(user))
+		const result = map(getName)(success(user))
 
 		assertEquals(isValid(result), true)
 

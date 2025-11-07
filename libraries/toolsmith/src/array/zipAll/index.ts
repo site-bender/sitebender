@@ -1,8 +1,4 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result, Validation } from "../../types/fp/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -21,26 +17,23 @@ export default function zipAll<T, U>(
 		array1: ReadonlyArray<T>,
 	): ReadonlyArray<[T | undefined, U | undefined]>
 
-	function zipAllWithSecondArray(
-		array1: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<[T | undefined, U | undefined]>>
+	function zipAllWithSecondArray<E>(
+		array1: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<[T | undefined, U | undefined]>>
 
-	function zipAllWithSecondArray(
-		array1: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<[T | undefined, U | undefined]>>
+	function zipAllWithSecondArray<E>(
+		array1: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<[T | undefined, U | undefined]>>
 
-	function zipAllWithSecondArray(
+	function zipAllWithSecondArray<E>(
 		array1:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<[T | undefined, U | undefined]>
-		| Result<ValidationError, ReadonlyArray<[T | undefined, U | undefined]>>
-		| Validation<
-			ValidationError,
-			ReadonlyArray<[T | undefined, U | undefined]>
-		> {
+		| Result<E, ReadonlyArray<[T | undefined, U | undefined]>>
+		| Validation<E, ReadonlyArray<[T | undefined, U | undefined]>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array1)) {
 			return _zipAllArray(array2)(array1)

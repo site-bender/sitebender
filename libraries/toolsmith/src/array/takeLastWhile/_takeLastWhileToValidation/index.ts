@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import _takeLastWhileArray from "../_takeLastWhileArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 
@@ -10,6 +13,6 @@ export default function _takeLastWhileToValidation<T>(
 	return function _takeLastWhileToValidationWithPredicate(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<T>> {
-		return success(_takeLastWhileArray(predicate)(array))
+		return success(takeLastWhileArray<T>(predicate)(array))
 	}
 }

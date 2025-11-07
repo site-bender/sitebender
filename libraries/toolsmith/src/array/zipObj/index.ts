@@ -1,8 +1,5 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -22,22 +19,22 @@ export default function zipObj<T>(
 	): Record<string | number, T | undefined>
 
 	function zipObjWithKeys(
-		values: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, Record<string | number, T | undefined>>
+		values: Result<E, ReadonlyArray<T>>,
+	): Result<E, Record<string | number, T | undefined>>
 
 	function zipObjWithKeys(
-		values: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, Record<string | number, T | undefined>>
+		values: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, Record<string | number, T | undefined>>
 
 	function zipObjWithKeys(
 		values:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| Record<string | number, T | undefined>
-		| Result<ValidationError, Record<string | number, T | undefined>>
-		| Validation<ValidationError, Record<string | number, T | undefined>> {
+		| Result<E, Record<string | number, T | undefined>>
+		| Validation<E, Record<string | number, T | undefined>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(values)) {
 			return _zipObjArray(keys)(values)

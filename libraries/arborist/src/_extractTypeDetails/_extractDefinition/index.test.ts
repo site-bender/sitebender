@@ -19,7 +19,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "type UserId = string")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "type UserId = string")
+		}
 	})
 
 	await t.step("extracts exported type alias", function () {
@@ -34,7 +37,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, true)
 
-		assertEquals(result, "export type UserId = string")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "export type UserId = string")
+		}
 	})
 
 	await t.step("extracts type alias with union type", function () {
@@ -64,7 +70,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, 'type Status = "active" | "inactive"')
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, 'type Status = "active" | "inactive"')
+		}
 	})
 
 	await t.step("extracts type alias with generic parameter", function () {
@@ -86,7 +95,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "type Box<T> = T")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "type Box<T> = T")
+		}
 	})
 
 	await t.step(
@@ -114,7 +126,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 			const result = extractDefinition(node, false)
 
-			assertEquals(result, "type Numeric<T extends number> = T")
+			assertEquals(result._tag, "Ok")
+			if (result._tag === "Ok") {
+				assertEquals(result.value, "type Numeric<T extends number> = T")
+			}
 		},
 	)
 
@@ -143,7 +158,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 			const result = extractDefinition(node, false)
 
-			assertEquals(result, "type Container<T = string> = T")
+			assertEquals(result._tag, "Ok")
+			if (result._tag === "Ok") {
+				assertEquals(result.value, "type Container<T = string> = T")
+			}
 		},
 	)
 
@@ -171,7 +189,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface User { name: string }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "interface User { name: string }")
+		}
 	})
 
 	await t.step("extracts exported interface", function () {
@@ -198,7 +219,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, true)
 
-		assertEquals(result, "export interface User { id: string }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "export interface User { id: string }")
+		}
 	})
 
 	await t.step("extracts interface with multiple properties", function () {
@@ -237,7 +261,13 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface Person { name: string; age: number }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(
+				result.value,
+				"interface Person { name: string; age: number }",
+			)
+		}
 	})
 
 	await t.step("extracts interface with optional property", function () {
@@ -264,7 +294,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface Config { timeout?: number }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "interface Config { timeout?: number }")
+		}
 	})
 
 	await t.step("extracts interface with readonly property", function () {
@@ -291,7 +324,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface Entity { readonly id: string }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "interface Entity { readonly id: string }")
+		}
 	})
 
 	await t.step("extracts interface with method signature", function () {
@@ -317,7 +353,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface Stringable { toString(): string }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "interface Stringable { toString(): string }")
+		}
 	})
 
 	await t.step(
@@ -357,10 +396,13 @@ Deno.test("extractDefinition", async function tests(t) {
 
 			const result = extractDefinition(node, false)
 
-			assertEquals(
-				result,
-				"interface Counter { count: number; increment(): void }",
-			)
+			assertEquals(result._tag, "Ok")
+			if (result._tag === "Ok") {
+				assertEquals(
+					result.value,
+					"interface Counter { count: number; increment(): void }",
+				)
+			}
 		},
 	)
 
@@ -395,7 +437,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface Container<T> { value: T }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "interface Container<T> { value: T }")
+		}
 	})
 
 	await t.step("extracts interface with extends clause", function () {
@@ -427,7 +472,13 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface Admin extends User { role: string }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(
+				result.value,
+				"interface Admin extends User { role: string }",
+			)
+		}
 	})
 
 	await t.step(
@@ -467,10 +518,13 @@ Deno.test("extractDefinition", async function tests(t) {
 
 			const result = extractDefinition(node, false)
 
-			assertEquals(
-				result,
-				"interface AdminUser extends User, Admin { permissions: string[] }",
-			)
+			assertEquals(result._tag, "Ok")
+			if (result._tag === "Ok") {
+				assertEquals(
+					result.value,
+					"interface AdminUser extends User, Admin { permissions: string[] }",
+				)
+			}
 		},
 	)
 
@@ -485,7 +539,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "interface Empty {  }")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "interface Empty {  }")
+		}
 	})
 
 	await t.step("extracts type alias with array type", function () {
@@ -503,7 +560,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "type Names = string[]")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "type Names = string[]")
+		}
 	})
 
 	await t.step("extracts type alias with tuple type", function () {
@@ -531,7 +591,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "type Point = [number, number]")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "type Point = [number, number]")
+		}
 	})
 
 	await t.step("extracts type alias with function type", function () {
@@ -560,10 +623,13 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "type Callback = (value: string) => void")
+		assertEquals(result._tag, "Ok")
+		if (result._tag === "Ok") {
+			assertEquals(result.value, "type Callback = (value: string) => void")
+		}
 	})
 
-	await t.step("returns unknown for unrecognized node type", function () {
+	await t.step("returns error for unrecognized node type", function () {
 		const node = {
 			type: "UnknownType",
 			id: { value: "Weird" },
@@ -571,7 +637,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 		const result = extractDefinition(node, false)
 
-		assertEquals(result, "unknown")
+		assertEquals(result._tag, "Error")
+		if (result._tag === "Error") {
+			assertEquals(result.error.kind, "UnknownTypeKind")
+		}
 	})
 
 	await t.step(
@@ -645,10 +714,13 @@ Deno.test("extractDefinition", async function tests(t) {
 
 			const result = extractDefinition(node, true)
 
-			assertEquals(
-				result,
-				"export interface Repository<T> extends BaseRepository { readonly id: string; name: string; find(id: string): T }",
-			)
+			assertEquals(result._tag, "Ok")
+			if (result._tag === "Ok") {
+				assertEquals(
+					result.value,
+					"export interface Repository<T> extends BaseRepository { readonly id: string; name: string; find(id: string): T }",
+				)
+			}
 		},
 	)
 
@@ -690,7 +762,10 @@ Deno.test("extractDefinition", async function tests(t) {
 
 			const result = extractDefinition(node, true)
 
-			assertEquals(result, "export type Mapper<A, B> = (input: A) => B")
+			assertEquals(result._tag, "Ok")
+			if (result._tag === "Ok") {
+				assertEquals(result.value, "export type Mapper<A, B> = (input: A) => B")
+			}
 		},
 	)
 })

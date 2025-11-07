@@ -32,7 +32,11 @@ Deno.test("_validateRoleAgainstPermission - permission 'any' accepts custom role
 })
 
 Deno.test("_validateRoleAgainstPermission - array permission accepts allowed role", function testArrayPermissionAccepts() {
-	const validate = _validateRoleAgainstPermission(["button", "link", "checkbox"])
+	const validate = _validateRoleAgainstPermission([
+		"button",
+		"link",
+		"checkbox",
+	])
 	const result = validate("button")
 
 	assertEquals(result.role, "button")
@@ -40,7 +44,11 @@ Deno.test("_validateRoleAgainstPermission - array permission accepts allowed rol
 })
 
 Deno.test("_validateRoleAgainstPermission - array permission accepts another allowed role", function testArrayPermissionAcceptsAnother() {
-	const validate = _validateRoleAgainstPermission(["button", "link", "checkbox"])
+	const validate = _validateRoleAgainstPermission([
+		"button",
+		"link",
+		"checkbox",
+	])
 	const result = validate("checkbox")
 
 	assertEquals(result.role, "checkbox")

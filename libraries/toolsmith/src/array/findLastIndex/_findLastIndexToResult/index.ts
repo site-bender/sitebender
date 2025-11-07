@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 
 import _findLastIndexArray from "../_findLastIndexArray/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
@@ -10,6 +11,6 @@ export default function _findLastIndexToResult<T>(
 	return function _findLastIndexToResultWithPredicate(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, number | null> {
-		return ok(_findLastIndexArray(predicate)(array))
+		return ok(findLastIndexArray<T>(predicate)(array))
 	}
 }
