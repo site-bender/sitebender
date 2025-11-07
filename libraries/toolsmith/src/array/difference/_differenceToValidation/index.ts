@@ -1,7 +1,7 @@
 import type {
 	Validation,
 	ValidationError,
-} from "../../../types/fp/index.ts"
+} from "../../../types/fp/validation/index.ts"
 
 import _differenceArray from "../_differenceArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
