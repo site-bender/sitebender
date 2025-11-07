@@ -148,7 +148,7 @@ export default function extractNamedBindings(
 					return ok(newBindings as ReadonlyArray<ImportBinding>)
 				}
 			},
-		)(specifiers)(initialResult)
+		)(initialResult)(specifiers)
 
 		return finalResult
 	}
