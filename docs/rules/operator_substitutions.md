@@ -27,7 +27,7 @@ const area = width * height
 **Required:**
 ```ts
 // ✅ REQUIRED - Using multiply function:
-import multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'
+import multiply from '@sitebender/toolsmith/math/integer/multiply/index.ts'
 
 const product = multiply(a)(b)
 const scaled = multiply(2.5)(value)
@@ -42,10 +42,10 @@ const area = multiply(width)(height)
 ```
 
 *Scope*: Type-specific paths:
-- integer: @sitebender/toolsmith/vanilla/math/integer/multiply/index.ts
-- bigint: @sitebender/toolsmith/vanilla/math/bigint/multiply/index.ts
-- float: @sitebender/toolsmith/vanilla/math/float/multiply/index.ts
-- precision: @sitebender/toolsmith/vanilla/math/precision/multiply/index.ts
+- integer: @sitebender/toolsmith/math/integer/multiply/index.ts
+- bigint: @sitebender/toolsmith/math/bigint/multiply/index.ts
+- float: @sitebender/toolsmith/math/float/multiply/index.ts
+- precision: @sitebender/toolsmith/math/precision/multiply/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -79,7 +79,7 @@ const inRange = value <= maxValue
 **Required:**
 ```ts
 // ✅ REQUIRED - Using lte function:
-import lte from '@sitebender/toolsmith/vanilla/validation/lte/index.ts'
+import lte from '@sitebender/toolsmith/validation/lte/index.ts'
 
 if (lte(65)(age)) {
 	return 'Senior discount'
@@ -95,7 +95,7 @@ const inRange = lte(maxValue)(value)
 // - Composable in validation pipelines
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/lte/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/lte/index.ts
 Alias: lessThanOrEqual
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -127,7 +127,7 @@ const sum = bigIntValue + anotherBigInt
 **Required:**
 ```ts
 // ✅ REQUIRED - Using add function for bigints:
-import add from '@sitebender/toolsmith/vanilla/math/bigint/add/index.ts'
+import add from '@sitebender/toolsmith/math/bigint/add/index.ts'
 
 const result = add(a)(b)
 const total = add(9007199254740991n)(1n)
@@ -141,7 +141,7 @@ const sum = add(bigIntValue)(anotherBigInt)
 // - Use for operations exceeding Number.MAX_SAFE_INTEGER
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/math/bigint/add/index.ts
+*Scope*: Import path: @sitebender/toolsmith/math/bigint/add/index.ts
 Context: Use for large integer operations that exceed Number.MAX_SAFE_INTEGER
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -176,8 +176,8 @@ const hasItems = array.length !== 0
 **Required:**
 ```ts
 // ✅ REQUIRED - Using isNotEmpty/length functions:
-import isNotEmpty from '@sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts'
-import length from '@sitebender/toolsmith/vanilla/validation/length/index.ts'
+import isNotEmpty from '@sitebender/toolsmith/validation/isNotEmpty/index.ts'
+import length from '@sitebender/toolsmith/validation/length/index.ts'
 
 // Preferred - semantic:
 if (isNotEmpty(arr)) {
@@ -195,8 +195,8 @@ const count = length(items) // returns null for non-arrays
 ```
 
 *Scope*: Import paths:
-- length: @sitebender/toolsmith/vanilla/validation/length/index.ts
-- isNotEmpty: @sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts
+- length: @sitebender/toolsmith/validation/length/index.ts
+- isNotEmpty: @sitebender/toolsmith/validation/isNotEmpty/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -227,9 +227,9 @@ const concatenated = arrays.reduce((acc, arr) => acc.concat(arr), [])
 **Required:**
 ```ts
 // ✅ REQUIRED - Using reduce function:
-import reduce from '@sitebender/toolsmith/vanilla/array/reduce/index.ts'
-import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'
-import multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'
+import reduce from '@sitebender/toolsmith/array/reduce/index.ts'
+import add from '@sitebender/toolsmith/math/integer/add/index.ts'
+import multiply from '@sitebender/toolsmith/math/integer/multiply/index.ts'
 
 const sum = reduce(add)(0)(numbers)
 const product = reduce(multiply)(1)(values)
@@ -245,7 +245,7 @@ const total = sumArray(numbers)
 // - Wraps native .reduce() for performance
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/array/reduce/index.ts
+*Scope*: Import path: @sitebender/toolsmith/array/reduce/index.ts
 Note: Wraps native .reduce() for performance but provides functional interface
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -277,7 +277,7 @@ const result = a || b || c
 **Required:**
 ```ts
 // ✅ REQUIRED - Using or function:
-import or from '@sitebender/toolsmith/vanilla/validation/or/index.ts'
+import or from '@sitebender/toolsmith/validation/or/index.ts'
 
 const value = or(input)(defaultValue)
 const name = or(user.name)('Anonymous')
@@ -292,7 +292,7 @@ const result = or(or(a)(b))(c)
 // - Predictable behavior with 0, '', false
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/or/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/or/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -326,7 +326,7 @@ const meetsMinimum = value >= minValue
 **Required:**
 ```ts
 // ✅ REQUIRED - Using gte function:
-import gte from '@sitebender/toolsmith/vanilla/validation/gte/index.ts'
+import gte from '@sitebender/toolsmith/validation/gte/index.ts'
 
 if (gte(18)(age)) {
 	return 'Adult'
@@ -342,7 +342,7 @@ const meetsMinimum = gte(minValue)(value)
 // - Composable in validation pipelines
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/gte/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/gte/index.ts
 Alias: greaterThanOrEqual
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -377,7 +377,7 @@ const isValid = validValues.includes(input)
 **Required:**
 ```ts
 // ✅ REQUIRED - Using includes function:
-import includes from '@sitebender/toolsmith/vanilla/array/includes/index.ts'
+import includes from '@sitebender/toolsmith/array/includes/index.ts'
 
 if (includes(5)(numbers)) {
 	return 'Found'
@@ -391,7 +391,7 @@ const hasValue5 = includes(5)
 const found = hasValue5(numbers)
 
 // Can alias as 'contains' for readability:
-import contains from '@sitebender/toolsmith/vanilla/array/includes/index.ts'
+import contains from '@sitebender/toolsmith/array/includes/index.ts'
 if (contains(5)(numbers)) { /* ... */ }
 
 // Why correct:
@@ -401,7 +401,7 @@ if (contains(5)(numbers)) { /* ... */ }
 // - Reads semantically
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/array/includes/index.ts
+*Scope*: Import path: @sitebender/toolsmith/array/includes/index.ts
 Alias: Can be imported as 'contains' for better readability
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -433,7 +433,7 @@ const sum = amount1 + amount2 // floating point errors
 **Required:**
 ```ts
 // ✅ REQUIRED - Using add function for precision:
-import add from '@sitebender/toolsmith/vanilla/math/precision/add/index.ts'
+import add from '@sitebender/toolsmith/math/precision/add/index.ts'
 
 const total = add(price)(tax) // maintains precision
 const balance = add(0.1)(0.2) // correctly returns 0.3
@@ -447,7 +447,7 @@ const sum = add(amount1)(amount2) // accurate decimal math
 // - Uses decimal.js or similar for accuracy
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/math/precision/add/index.ts
+*Scope*: Import path: @sitebender/toolsmith/math/precision/add/index.ts
 Context: Use for money, financial calculations, or precision-sensitive math
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -479,7 +479,7 @@ const sum = x + y + z
 **Required:**
 ```ts
 // ✅ REQUIRED - Using add function for integers:
-import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'
+import add from '@sitebender/toolsmith/math/integer/add/index.ts'
 
 const result = add(a)(b)
 const total = add(count)(1)
@@ -496,7 +496,7 @@ const nextValue = increment(count)
 // - Composes in pipelines
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/math/integer/add/index.ts
+*Scope*: Import path: @sitebender/toolsmith/math/integer/add/index.ts
 Context: Use for integer math operations
 Note: All math functions named 'add' - path determines type
 Applies to: .ts, .tsx, .js, .jsx
@@ -529,9 +529,9 @@ const valid = items.filter(item => isValid(item))
 **Required:**
 ```ts
 // ✅ REQUIRED - Using filter function:
-import filter from '@sitebender/toolsmith/vanilla/array/filter/index.ts'
-import isEven from '@sitebender/toolsmith/vanilla/validation/isEven/index.ts'
-import gte from '@sitebender/toolsmith/vanilla/validation/gte/index.ts'
+import filter from '@sitebender/toolsmith/array/filter/index.ts'
+import isEven from '@sitebender/toolsmith/validation/isEven/index.ts'
+import gte from '@sitebender/toolsmith/validation/gte/index.ts'
 
 const evens = filter(isEven)(numbers)
 const adults = filter(user => gte(18)(user.age))(users)
@@ -548,7 +548,7 @@ const evenNumbers = filterEvens(numbers)
 // - Wraps native .filter() for performance
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/array/filter/index.ts
+*Scope*: Import path: @sitebender/toolsmith/array/filter/index.ts
 Note: Wraps native .filter() for performance but provides functional interface
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -581,7 +581,7 @@ const delta = current - previous
 **Required:**
 ```ts
 // ✅ REQUIRED - Using subtract function:
-import subtract from '@sitebender/toolsmith/vanilla/math/integer/subtract/index.ts'
+import subtract from '@sitebender/toolsmith/math/integer/subtract/index.ts'
 
 const difference = subtract(b)(a)
 const remaining = subtract(used)(total)
@@ -602,10 +602,10 @@ const result = subtract10(50) // 50 - 10 = 40
 ```
 
 *Scope*: Type-specific paths:
-- integer: @sitebender/toolsmith/vanilla/math/integer/subtract/index.ts
-- bigint: @sitebender/toolsmith/vanilla/math/bigint/subtract/index.ts
-- float: @sitebender/toolsmith/vanilla/math/float/subtract/index.ts
-- precision: @sitebender/toolsmith/vanilla/math/precision/subtract/index.ts
+- integer: @sitebender/toolsmith/math/integer/subtract/index.ts
+- bigint: @sitebender/toolsmith/math/bigint/subtract/index.ts
+- float: @sitebender/toolsmith/math/float/subtract/index.ts
+- precision: @sitebender/toolsmith/math/precision/subtract/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -639,7 +639,7 @@ const result = a && b && c
 **Required:**
 ```ts
 // ✅ REQUIRED - Using and function:
-import and from '@sitebender/toolsmith/vanilla/validation/and/index.ts'
+import and from '@sitebender/toolsmith/validation/and/index.ts'
 
 if (and(isValid)(isComplete)) {
 	process()
@@ -657,7 +657,7 @@ const result = and(and(a)(b))(c)
 // - Explicit conjunction logic
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/and/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/and/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -691,7 +691,7 @@ const shouldSkip = !hasPermission
 **Required:**
 ```ts
 // ✅ REQUIRED - Using not function:
-import not from '@sitebender/toolsmith/vanilla/validation/not/index.ts'
+import not from '@sitebender/toolsmith/validation/not/index.ts'
 
 if (not(isValid)) {
 	return error('Invalid')
@@ -707,7 +707,7 @@ const shouldSkip = not(hasPermission)
 // - Composable in functional pipelines
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/not/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/not/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -741,7 +741,7 @@ const belowThreshold = value < maxValue
 **Required:**
 ```ts
 // ✅ REQUIRED - Using lt function:
-import lt from '@sitebender/toolsmith/vanilla/validation/lt/index.ts'
+import lt from '@sitebender/toolsmith/validation/lt/index.ts'
 
 if (lt(18)(age)) {
 	return 'Minor'
@@ -757,7 +757,7 @@ const belowThreshold = lt(maxValue)(value)
 // - Composable in validation pipelines
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/lt/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/lt/index.ts
 Alias: lessThan
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -792,7 +792,7 @@ const exceedsLimit = value > maxValue
 **Required:**
 ```ts
 // ✅ REQUIRED - Using gt function:
-import gt from '@sitebender/toolsmith/vanilla/validation/gt/index.ts'
+import gt from '@sitebender/toolsmith/validation/gt/index.ts'
 
 if (gt(100)(score)) {
 	return 'Bonus points'
@@ -808,7 +808,7 @@ const exceedsLimit = gt(maxValue)(value)
 // - Composable in validation pipelines
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/gt/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/gt/index.ts
 Alias: greaterThan
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -843,7 +843,7 @@ const hasChanged = current !== previous
 **Required:**
 ```ts
 // ✅ REQUIRED - Using isUnequal function:
-import isUnequal from '@sitebender/toolsmith/vanilla/validation/isUnequal/index.ts'
+import isUnequal from '@sitebender/toolsmith/validation/isUnequal/index.ts'
 
 if (isUnequal(a)(b)) {
 	return 'Different'
@@ -859,7 +859,7 @@ const hasChanged = isUnequal(current)(previous)
 // - Partially applicable: const notEqualTo5 = isUnequal(5)
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/isUnequal/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/isUnequal/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -869,12 +869,12 @@ Applies to: .ts, .tsx, .js, .jsx
 - **Rule ID**: SUBSTITUTE_ADD_INTEGER_001
 - **Description**: Use add function from correct path for integer addition - deprecated addInteger path replaced by integer/add
 - **Keywords**: add, addInteger, deprecated, integer, operator, math, +, path, migration
-- **Rationale**: This rule documents the old addInteger path which is now deprecated. Use the correct path @sitebender/toolsmith/vanilla/math/integer/add/index.ts instead. All math functions are now organized by type (integer/bigint/float/precision) with the same function name.
+- **Rationale**: This rule documents the old addInteger path which is now deprecated. Use the correct path @sitebender/toolsmith/math/integer/add/index.ts instead. All math functions are now organized by type (integer/bigint/float/precision) with the same function name.
 
 **Prohibited:**
 ```ts
 // ❌ PROHIBITED - Using old addInteger path:
-import addInteger from '@sitebender/toolsmith/vanilla/math/addInteger/index.ts'
+import addInteger from '@sitebender/toolsmith/math/addInteger/index.ts'
 
 const result = addInteger(a)(b)
 
@@ -892,7 +892,7 @@ const sum = a + b
 **Required:**
 ```ts
 // ✅ REQUIRED - Using correct integer/add path:
-import add from '@sitebender/toolsmith/vanilla/math/integer/add/index.ts'
+import add from '@sitebender/toolsmith/math/integer/add/index.ts'
 
 const result = add(a)(b)
 
@@ -903,8 +903,8 @@ const result = add(a)(b)
 // - Curried and composable
 ```
 
-*Scope*: Correct import path: @sitebender/toolsmith/vanilla/math/integer/add/index.ts
-Deprecated path: @sitebender/toolsmith/vanilla/math/addInteger/index.ts
+*Scope*: Correct import path: @sitebender/toolsmith/math/integer/add/index.ts
+Deprecated path: @sitebender/toolsmith/math/addInteger/index.ts
 Context: Use for integer math operations
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -936,8 +936,8 @@ const transformed = items.map(item => transform(item))
 **Required:**
 ```ts
 // ✅ REQUIRED - Using map function:
-import map from '@sitebender/toolsmith/vanilla/array/map/index.ts'
-import multiply from '@sitebender/toolsmith/vanilla/math/integer/multiply/index.ts'
+import map from '@sitebender/toolsmith/array/map/index.ts'
+import multiply from '@sitebender/toolsmith/math/integer/multiply/index.ts'
 
 const double = multiply(2)
 const doubled = map(double)(numbers)
@@ -958,7 +958,7 @@ const result = mapDouble(numbers)
 // - Wraps native .map() for performance
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/array/map/index.ts
+*Scope*: Import path: @sitebender/toolsmith/array/map/index.ts
 Note: Wraps native .map() for performance but provides functional interface
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -993,7 +993,7 @@ const matches = current === previous
 **Required:**
 ```ts
 // ✅ REQUIRED - Using isEqual function:
-import isEqual from '@sitebender/toolsmith/vanilla/validation/isEqual/index.ts'
+import isEqual from '@sitebender/toolsmith/validation/isEqual/index.ts'
 
 if (isEqual(a)(b)) {
 	return 'Same'
@@ -1009,7 +1009,7 @@ const matches = isEqual(current)(previous)
 // - Partially applicable: const equalTo5 = isEqual(5)
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/isEqual/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/isEqual/index.ts
 Applies to: .ts, .tsx, .js, .jsx
 
 ---
@@ -1042,7 +1042,7 @@ numbers.push(1, 2, 3)
 **Required:**
 ```ts
 // ✅ REQUIRED - Using append function or spread:
-import append from '@sitebender/toolsmith/vanilla/array/append/index.ts'
+import append from '@sitebender/toolsmith/array/append/index.ts'
 
 // Option 1: append function (curried, composable)
 const newArr = append(newItem)(arr)
@@ -1063,7 +1063,7 @@ const newArr = [...arr, item1, item2, item3]
 // on newly created arrays that will be returned
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/array/append/index.ts
+*Scope*: Import path: @sitebender/toolsmith/array/append/index.ts
 Alternative: spread operator [...arr, item]
 Note: .push() only allowed in Toolsmith internals on new arrays
 Applies to: .ts, .tsx, .js, .jsx
@@ -1104,7 +1104,7 @@ if (isArray(arr) && arr.length > 0) {
 **Required:**
 ```ts
 // ✅ REQUIRED - Using isNotEmpty function:
-import isNotEmpty from '@sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts'
+import isNotEmpty from '@sitebender/toolsmith/validation/isNotEmpty/index.ts'
 
 if (isNotEmpty(arr)) {
 	processItems(arr)
@@ -1121,7 +1121,7 @@ const notEmpty = isNotEmpty(items)
 // - Handles all edge cases automatically
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/validation/isNotEmpty/index.ts
+*Scope*: Import path: @sitebender/toolsmith/validation/isNotEmpty/index.ts
 Note: Automatically handles type checking - no need for isArray(arr) && arr.length > 0
 Applies to: .ts, .tsx, .js, .jsx
 
@@ -1153,7 +1153,7 @@ const sum = floatValue + anotherFloat
 **Required:**
 ```ts
 // ✅ REQUIRED - Using add function for floats:
-import add from '@sitebender/toolsmith/vanilla/math/float/add/index.ts'
+import add from '@sitebender/toolsmith/math/float/add/index.ts'
 
 const result = add(a)(b)
 const total = add(1.5)(2.3)
@@ -1167,7 +1167,7 @@ const sum = add(floatValue)(anotherFloat)
 // - Consistent interface across all math types
 ```
 
-*Scope*: Import path: @sitebender/toolsmith/vanilla/math/float/add/index.ts
+*Scope*: Import path: @sitebender/toolsmith/math/float/add/index.ts
 Context: Use for regular floating point numbers
 Note: Same function name 'add' - path determines float type
 Applies to: .ts, .tsx, .js, .jsx
