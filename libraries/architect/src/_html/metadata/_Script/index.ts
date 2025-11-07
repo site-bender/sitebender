@@ -1,5 +1,7 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
+import _validateAriaAttributes from "../../_validateAriaAttributes/index.ts"
 import _validateAttributes from "../../_validateAttributes/index.ts"
 import _validateRole from "../../_validateRole/index.ts"
 
@@ -13,11 +15,17 @@ export type Props =
  + HTML script element wrapper for JavaScript
  */
 export default function _Script(props: Props): VirtualNode {
-	const { children = [], role, ...attrs } = props
+	const { children = [], role, aria, ...attrs } = props
 	const roleAttrs = _validateRole("script")(role)
+
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("script")(role)(aria)
+		: {}
+
 	const attributes = {
 		..._validateAttributes("script")(attrs),
 		...roleAttrs,
+		...ariaAttrs,
 	}
 
 	return {
