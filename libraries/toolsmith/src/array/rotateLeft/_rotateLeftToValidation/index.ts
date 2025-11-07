@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _rotateLeftArray from "../_rotateLeftArray/index.ts"
 
@@ -9,6 +12,6 @@ export default function _rotateLeftToValidation<T>(
 	return function _rotateLeftToValidationByPositions(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, Array<T>> {
-		return success(_rotateLeftArray(positions)(array))
+		return success(rotateLeftArray<T>(positions)(array))
 	}
 }

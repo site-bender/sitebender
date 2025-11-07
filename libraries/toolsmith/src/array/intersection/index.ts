@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _intersectionArray from "./_intersectionArray/index.ts"
 import _intersectionToResult from "./_intersectionToResult/index.ts"
@@ -11,33 +11,33 @@ import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
 //++ Set intersection: returns elements that exist in both arrays
-export default function intersection<T>(array2: ReadonlyArray<T>) {
+export default function intersection<E, T>(array2: ReadonlyArray<T>) {
 	//++ [OVERLOAD] Plain array path: takes array, returns array
 	function intersectionWithArray2(array1: ReadonlyArray<T>): ReadonlyArray<T>
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function intersectionWithArray2(
-		array1: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<T>>
+		array1: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function intersectionWithArray2(
-		array1: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<T>>
+		array1: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<T>>
 
 	//++ Implementation with type dispatch
 	function intersectionWithArray2(
 		array1:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>> {
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array1)) {
-			return _intersectionArray(array2)(array1)
+			return _intersectionArray<T>(array2)(array1)
 		}
 
 		// Result path: fail-fast monadic transformation

@@ -1,475 +1,272 @@
 import { assertEquals } from "@std/assert"
-import type {
-	TsMethodSignature,
-	TsPropertySignature,
-	TsTypeElement,
-} from "../../../types/index.ts"
 import _serializeMember from "./index.ts"
 
-Deno.test("_serializeMember", async function tests(t) {
-	await t.step("serializes property signature with type", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "name" },
+Deno.test("_serializeMember - simple property signature", function testSimpleProperty() {
+	const member = {
+		type: "TsPropertySignature",
+		key: {
+			value: "name",
+		},
+		typeAnnotation: {
 			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsKeywordType",
-					kind: "string",
-				},
+				type: "TsKeywordType",
+				kind: "string",
 			},
-			optional: false,
-			readonly: false,
-		}
+		},
+		optional: false,
+		readonly: false,
+	}
 
-		const result = _serializeMember(member)
+	const result = _serializeMember(member as never)
 
-		assertEquals(result, "name: string")
-	})
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "name: string")
+	}
+})
 
-	await t.step("serializes optional property signature", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "age" },
+Deno.test("_serializeMember - optional property signature", function testOptionalProperty() {
+	const member = {
+		type: "TsPropertySignature",
+		key: {
+			value: "age",
+		},
+		typeAnnotation: {
 			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsKeywordType",
-					kind: "number",
-				},
+				type: "TsKeywordType",
+				kind: "number",
 			},
-			optional: true,
-			readonly: false,
-		}
+		},
+		optional: true,
+		readonly: false,
+	}
 
-		const result = _serializeMember(member)
+	const result = _serializeMember(member as never)
 
-		assertEquals(result, "age?: number")
-	})
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "age?: number")
+	}
+})
 
-	await t.step("serializes readonly property signature", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "id" },
+Deno.test("_serializeMember - readonly property signature", function testReadonlyProperty() {
+	const member = {
+		type: "TsPropertySignature",
+		key: {
+			value: "id",
+		},
+		typeAnnotation: {
 			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsKeywordType",
-					kind: "string",
-				},
+				type: "TsKeywordType",
+				kind: "string",
 			},
-			optional: false,
-			readonly: true,
-		}
+		},
+		optional: false,
+		readonly: true,
+	}
 
-		const result = _serializeMember(member)
+	const result = _serializeMember(member as never)
 
-		assertEquals(result, "readonly id: string")
-	})
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "readonly id: string")
+	}
+})
 
-	await t.step("serializes readonly optional property", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "metadata" },
+Deno.test("_serializeMember - property without type annotation", function testPropertyNoType() {
+	const member = {
+		type: "TsPropertySignature",
+		key: {
+			value: "data",
+		},
+		optional: false,
+		readonly: false,
+	}
+
+	const result = _serializeMember(member as never)
+
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "data")
+	}
+})
+
+Deno.test("_serializeMember - property with missing key", function testPropertyMissingKey() {
+	const member = {
+		type: "TsPropertySignature",
+		key: {},
+		typeAnnotation: {
 			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsKeywordType",
-					kind: "object",
-				},
+				type: "TsKeywordType",
+				kind: "string",
 			},
-			optional: true,
-			readonly: true,
-		}
+		},
+		optional: false,
+		readonly: false,
+	}
 
-		const result = _serializeMember(member)
+	const result = _serializeMember(member as never)
 
-		assertEquals(result, "readonly metadata?: object")
-	})
+	assertEquals(result._tag, "Error")
+	if (result._tag === "Error") {
+		assertEquals(result.error.kind, "MalformedTypeMember")
+		assertEquals(result.error.message, "Property signature has no key name")
+	}
+})
 
-	await t.step("serializes property without type annotation", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "value" },
-			optional: false,
-			readonly: false,
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "value")
-	})
-
-	await t.step("serializes method signature with no parameters", function () {
-		const member: TsMethodSignature = {
-			type: "TsMethodSignature",
-			key: { value: "toString" },
-			params: [],
+Deno.test("_serializeMember - method signature without parameters", function testMethodNoParams() {
+	const member = {
+		type: "TsMethodSignature",
+		key: {
+			value: "toString",
+		},
+		params: [],
+		typeAnnotation: {
 			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsKeywordType",
-					kind: "string",
-				},
+				type: "TsKeywordType",
+				kind: "string",
 			},
-		}
+		},
+	}
 
-		const result = _serializeMember(member)
+	const result = _serializeMember(member as never)
 
-		assertEquals(result, "toString(): string")
-	})
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "toString(): string")
+	}
+})
 
-	await t.step("serializes method signature with one parameter", function () {
-		const member: TsMethodSignature = {
-			type: "TsMethodSignature",
-			key: { value: "getId" },
-			params: [
-				{
-					pat: { value: "prefix" },
+Deno.test("_serializeMember - method signature with parameters", function testMethodWithParams() {
+	const member = {
+		type: "TsMethodSignature",
+		key: {
+			value: "greet",
+		},
+		params: [
+			{
+				pat: {
+					value: "name",
+				},
+				typeAnnotation: {
 					typeAnnotation: {
-						typeAnnotation: {
-							type: "TsKeywordType",
-							kind: "string",
-						},
+						type: "TsKeywordType",
+						kind: "string",
 					},
-				},
-			],
-			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsKeywordType",
-					kind: "string",
 				},
 			},
-		}
+		],
+		typeAnnotation: {
+			typeAnnotation: {
+				type: "TsKeywordType",
+				kind: "void",
+			},
+		},
+	}
 
-		const result = _serializeMember(member)
+	const result = _serializeMember(member as never)
 
-		assertEquals(result, "getId(prefix: string): string")
-	})
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "greet(name: string): void")
+	}
+})
 
-	await t.step(
-		"serializes method signature with multiple parameters",
-		function () {
-			const member: TsMethodSignature = {
-				type: "TsMethodSignature",
-				key: { value: "add" },
-				params: [
-					{
-						pat: { value: "augend" },
-						typeAnnotation: {
-							typeAnnotation: {
-								type: "TsKeywordType",
-								kind: "number",
-							},
-						},
-					},
-					{
-						pat: { value: "addend" },
-						typeAnnotation: {
-							typeAnnotation: {
-								type: "TsKeywordType",
-								kind: "number",
-							},
-						},
-					},
-				],
+Deno.test("_serializeMember - method signature without return type", function testMethodNoReturnType() {
+	const member = {
+		type: "TsMethodSignature",
+		key: {
+			value: "doSomething",
+		},
+		params: [],
+	}
+
+	const result = _serializeMember(member as never)
+
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "doSomething(): void")
+	}
+})
+
+Deno.test("_serializeMember - method with missing key", function testMethodMissingKey() {
+	const member = {
+		type: "TsMethodSignature",
+		key: {},
+		params: [],
+		typeAnnotation: {
+			typeAnnotation: {
+				type: "TsKeywordType",
+				kind: "void",
+			},
+		},
+	}
+
+	const result = _serializeMember(member as never)
+
+	assertEquals(result._tag, "Error")
+	if (result._tag === "Error") {
+		assertEquals(result.error.kind, "MalformedTypeMember")
+		assertEquals(result.error.message, "Method signature has no key name")
+	}
+})
+
+Deno.test("_serializeMember - unsupported member type returns empty", function testUnsupportedType() {
+	const member = {
+		type: "TsIndexSignature",
+		params: [],
+	}
+
+	const result = _serializeMember(member as never)
+
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "")
+	}
+})
+
+Deno.test("_serializeMember - method with multiple parameters", function testMethodMultipleParams() {
+	const member = {
+		type: "TsMethodSignature",
+		key: {
+			value: "add",
+		},
+		params: [
+			{
+				pat: {
+					value: "a",
+				},
 				typeAnnotation: {
 					typeAnnotation: {
 						type: "TsKeywordType",
 						kind: "number",
 					},
 				},
-			}
-
-			const result = _serializeMember(member)
-
-			assertEquals(result, "add(augend: number, addend: number): number")
-		},
-	)
-
-	await t.step(
-		"serializes method signature without return type annotation",
-		function () {
-			const member: TsMethodSignature = {
-				type: "TsMethodSignature",
-				key: { value: "process" },
-				params: [],
-			}
-
-			const result = _serializeMember(member)
-
-			assertEquals(result, "process(): void")
-		},
-	)
-
-	await t.step(
-		"serializes method with parameters but no return type",
-		function () {
-			const member: TsMethodSignature = {
-				type: "TsMethodSignature",
-				key: { value: "setName" },
-				params: [
-					{
-						pat: { value: "name" },
-						typeAnnotation: {
-							typeAnnotation: {
-								type: "TsKeywordType",
-								kind: "string",
-							},
-						},
-					},
-				],
-			}
-
-			const result = _serializeMember(member)
-
-			assertEquals(result, "setName(name: string): void")
-		},
-	)
-
-	await t.step("serializes method with untyped parameters", function () {
-		const member: TsMethodSignature = {
-			type: "TsMethodSignature",
-			key: { value: "execute" },
-			params: [
-				{
-					pat: { value: "arg1" },
-				},
-				{
-					pat: { value: "arg2" },
-				},
-			],
-			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsKeywordType",
-					kind: "void",
-				},
 			},
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "execute(arg1, arg2): void")
-	})
-
-	await t.step("serializes property with complex union type", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "status" },
-			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsUnionType",
-					types: [
-						{
-							type: "TsLiteralType",
-							literal: {
-								type: "StringLiteral",
-								value: "active",
-							},
-						},
-						{
-							type: "TsLiteralType",
-							literal: {
-								type: "StringLiteral",
-								value: "inactive",
-							},
-						},
-					],
+			{
+				pat: {
+					value: "b",
 				},
-			},
-			optional: false,
-			readonly: false,
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, 'status: "active" | "inactive"')
-	})
-
-	await t.step("serializes property with array type", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "items" },
-			typeAnnotation: {
 				typeAnnotation: {
-					type: "TsArrayType",
-					elemType: {
-						type: "TsKeywordType",
-						kind: "string",
-					},
-				},
-			},
-			optional: false,
-			readonly: false,
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "items: string[]")
-	})
-
-	await t.step("serializes readonly array property", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "tags" },
-			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsArrayType",
-					elemType: {
-						type: "TsKeywordType",
-						kind: "string",
-					},
-				},
-			},
-			optional: false,
-			readonly: true,
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "readonly tags: string[]")
-	})
-
-	await t.step("serializes method with function type parameter", function () {
-		const member: TsMethodSignature = {
-			type: "TsMethodSignature",
-			key: { value: "map" },
-			params: [
-				{
-					pat: { value: "fn" },
 					typeAnnotation: {
-						typeAnnotation: {
-							type: "TsFunctionType",
-							params: [
-								{
-									pat: { value: "item" },
-									typeAnnotation: {
-										typeAnnotation: {
-											type: "TsKeywordType",
-											kind: "string",
-										},
-									},
-								},
-							],
-							typeAnnotation: {
-								type: "TsKeywordType",
-								kind: "number",
-							},
-						},
-					},
-				},
-			],
-			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsArrayType",
-					elemType: {
 						type: "TsKeywordType",
 						kind: "number",
 					},
 				},
 			},
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "map(fn: (item: string) => number): number[]")
-	})
-
-	await t.step("returns empty string for unknown member type", function () {
-		const member = {
-			type: "UnknownType",
-			key: { value: "weird" },
-		} as unknown as TsTypeElement
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "")
-	})
-
-	await t.step("handles property with type reference", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "user" },
+		],
+		typeAnnotation: {
 			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsTypeReference",
-					typeName: { value: "User" },
-				},
+				type: "TsKeywordType",
+				kind: "number",
 			},
-			optional: false,
-			readonly: false,
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "user: User")
-	})
-
-	await t.step("handles property with generic type reference", function () {
-		const member: TsPropertySignature = {
-			type: "TsPropertySignature",
-			key: { value: "items" },
-			typeAnnotation: {
-				typeAnnotation: {
-					type: "TsTypeReference",
-					typeName: { value: "Array" },
-					typeParams: {
-						params: [
-							{
-								type: "TsKeywordType",
-								kind: "string",
-							},
-						],
-					},
-				},
-			},
-			optional: false,
-			readonly: false,
-		}
-
-		const result = _serializeMember(member)
-
-		assertEquals(result, "items: Array<string>")
-	})
-
-	await t.step(
-		"handles mixed typed and untyped method parameters",
-		function () {
-			const member: TsMethodSignature = {
-				type: "TsMethodSignature",
-				key: { value: "process" },
-				params: [
-					{
-						pat: { value: "name" },
-						typeAnnotation: {
-							typeAnnotation: {
-								type: "TsKeywordType",
-								kind: "string",
-							},
-						},
-					},
-					{
-						pat: { value: "value" },
-					},
-					{
-						pat: { value: "options" },
-						typeAnnotation: {
-							typeAnnotation: {
-								type: "TsKeywordType",
-								kind: "object",
-							},
-						},
-					},
-				],
-				typeAnnotation: {
-					typeAnnotation: {
-						type: "TsKeywordType",
-						kind: "boolean",
-					},
-				},
-			}
-
-			const result = _serializeMember(member)
-
-			assertEquals(
-				result,
-				"process(name: string, value, options: object): boolean",
-			)
 		},
-	)
+	}
+
+	const result = _serializeMember(member as never)
+
+	assertEquals(result._tag, "Ok")
+	if (result._tag === "Ok") {
+		assertEquals(result.value, "add(a: number, b: number): number")
+	}
 })

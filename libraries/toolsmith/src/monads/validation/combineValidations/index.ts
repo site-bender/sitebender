@@ -1,11 +1,11 @@
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
-import type { ValidationResult } from "../../../types/ValidationResult/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
+import type { ValidationResult } from "../../../types/fp/validation/index.ts"
 
 import reduce from "../../../array/reduce/index.ts"
-import invalid from "../invalid/index.ts"
+import failure from "../failure/index.ts"
 import isValid from "../isValid/index.ts"
-import valid from "../valid/index.ts"
+import success from "../success/index.ts"
 import accumulateErrors from "./accumulateErrors/index.ts"
 
 //++ Combines multiple validation results, accumulating all errors
@@ -23,7 +23,7 @@ export default function combineValidations<T>(
 		// We know errors is non-empty if length > 0
 		const [firstError, ...restErrors] = result.errors
 
-		return invalid(
+		return failure(
 			[firstError, ...restErrors] as NonEmptyArray<ValidationError>,
 		)
 	}
@@ -32,7 +32,7 @@ export default function combineValidations<T>(
 	// Since we have NonEmptyArray, we must have at least one validation
 	// If no errors, at least one must be valid
 	if (result.lastValidValue !== undefined) {
-		return valid(result.lastValidValue)
+		return success(result.lastValidValue)
 	}
 
 	//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides first element extraction
@@ -44,7 +44,7 @@ export default function combineValidations<T>(
 
 	// This should be unreachable with proper NonEmptyArray
 	// but TypeScript needs exhaustive handling
-	return invalid([{
+	return failure([{
 		field: "validation",
 		messages: ["No valid value found"],
 	}] as NonEmptyArray<ValidationError>)

@@ -25,19 +25,24 @@
 ## Executive Summary
 
 ### Goal
+
 Implement Pathfinder as Sitebender's **single source of truth** for data infrastructure, providing:
+
 - **Oxigraph** (RDF triple store) - SPARQL 1.1 query/update
 - **Qdrant** (vector database) - Semantic similarity search
 - Unified API for all libraries to interact with persistent data
 
 ### Scope
+
 **Middle ground - Core + Extensibility:**
+
 - Essential operations (connect, insert, query, delete)
 - Both Oxigraph AND Qdrant integration
 - Hybrid SPARQL API (strings + type-safe builder)
 - Proper abstractions for future enhancements
 
 ### Non-Negotiable Rules
+
 All code MUST follow these constitutional rules:
 
 1. ✅ **No classes** - Pure functions only
@@ -62,10 +67,13 @@ All code MUST follow these constitutional rules:
 - [ ] Toolsmith library complete (Result/Validation monads available)
 
 ### Warden Enforcement
+
 **Note:** Warden must be complete to enforce dependency whitelist. Until then, manually verify no unauthorized dependencies are added.
 
 ### Knowledge Requirements
+
 Read these before starting:
+
 - [ ] `/libraries/pathfinder/README.md` - Full architecture
 - [ ] `/contracts/boundaries.json` - Dependency rules
 - [ ] `.claude/skills/function-implementation/` - Function patterns
@@ -81,9 +89,11 @@ Read these before starting:
 ### Batch 0.1: Docker Compose Cleanup
 
 **Files to modify:**
+
 - `infrastructure/docker-compose.yml`
 
 **Tasks:**
+
 - [ ] Remove `fuseki` service definition (lines ~83-105)
 - [ ] Remove `fuseki_data` volume from volumes section
 - [ ] Verify Qdrant service is still present and configured
@@ -91,6 +101,7 @@ Read these before starting:
 - [ ] Verify Qdrant accessible at `http://localhost:6333`
 
 **Validation:**
+
 ```bash
 cd infrastructure
 docker-compose down
@@ -101,15 +112,18 @@ curl http://localhost:6333 # Should return Qdrant response
 ### Batch 0.2: Documentation Updates
 
 **Files to modify:**
+
 - `infrastructure/README.md` (if exists)
 - `infrastructure/docker-compose.yml` comments
 
 **Tasks:**
+
 - [ ] Remove Fuseki references from infrastructure docs
 - [ ] Add note that Oxigraph runs embedded (no Docker service needed)
 - [ ] Document that triple store is SQLite file (configurable path)
 
 **Completion Criteria:**
+
 - ✅ No Fuseki service in docker-compose.yml
 - ✅ Only Qdrant running for Pathfinder dependencies
 - ✅ Documentation reflects Oxigraph embedded architecture
@@ -123,6 +137,7 @@ curl http://localhost:6333 # Should return Qdrant response
 ### Batch 1.1: Directory Structure
 
 **Create these directories:**
+
 ```
 libraries/pathfinder/
 ├── src/
@@ -148,6 +163,7 @@ libraries/pathfinder/
 ```
 
 **Tasks:**
+
 - [ ] Create all directories listed above
 - [ ] Verify workspace structure matches convention
 - [ ] Create placeholder `.gitkeep` files if needed
@@ -157,6 +173,7 @@ libraries/pathfinder/
 **File to create:** `libraries/pathfinder/deno.jsonc`
 
 **Tasks:**
+
 - [ ] Create deno.jsonc with correct name, version, exports
 - [ ] Configure compiler options (strict, jsx settings)
 - [ ] Set up imports (Toolsmith aliases, test libs)
@@ -165,46 +182,47 @@ libraries/pathfinder/
 - [ ] Configure linting (recommended rules)
 
 **Template:**
+
 ```jsonc
 {
-  "name": "@sitebender/pathfinder",
-  "version": "0.0.1-alpha",
-  "exports": "./src/mod.ts",
+	"name": "@sitebender/pathfinder",
+	"version": "0.0.1-alpha",
+	"exports": "./src/mod.ts",
 
-  "compilerOptions": {
-    "strict": true,
-    "lib": ["esnext", "deno.ns"],
-    "skipLibCheck": true
-  },
+	"compilerOptions": {
+		"strict": true,
+		"lib": ["esnext", "deno.ns"],
+		"skipLibCheck": true
+	},
 
-  "imports": {
-    "@sitebender/toolsmith/": "../toolsmith/src/",
-    "@std/expect": "jsr:@std/expect@^1.0.17",
-    "@std/assert": "jsr:@std/assert@^1.0.14",
-    "@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd"
-  },
+	"imports": {
+		"@sitebender/toolsmith/": "../toolsmith/src/",
+		"@std/expect": "jsr:@std/expect@^1.0.17",
+		"@std/assert": "jsr:@std/assert@^1.0.14",
+		"@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd"
+	},
 
-  "tasks": {
-    "test": "deno test --unstable-temporal --no-check '**/*.test.ts'",
-    "test:strict": "deno test --unstable-temporal '**/*.test.ts'",
-    "test:cov": "deno test --unstable-temporal --no-check '**/*.test.ts' --coverage=coverage && deno coverage coverage --lcov > coverage.lcov",
-    "fmt": "deno fmt",
-    "lint": "deno lint"
-  },
+	"tasks": {
+		"test": "deno test --unstable-temporal --no-check '**/*.test.ts'",
+		"test:strict": "deno test --unstable-temporal '**/*.test.ts'",
+		"test:cov": "deno test --unstable-temporal --no-check '**/*.test.ts' --coverage=coverage && deno coverage coverage --lcov > coverage.lcov",
+		"fmt": "deno fmt",
+		"lint": "deno lint"
+	},
 
-  "fmt": {
-    "useTabs": true,
-    "lineWidth": 80,
-    "indentWidth": 2,
-    "semiColons": false,
-    "singleQuote": false
-  },
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 80,
+		"indentWidth": 2,
+		"semiColons": false,
+		"singleQuote": false
+	},
 
-  "lint": {
-    "rules": {
-      "tags": ["recommended"]
-    }
-  }
+	"lint": {
+		"rules": {
+			"tags": ["recommended"]
+		}
+	}
 }
 ```
 
@@ -213,6 +231,7 @@ libraries/pathfinder/
 **File to create:** `libraries/pathfinder/src/errors/index.ts`
 
 **Tasks:**
+
 - [ ] Define `PathfinderError` base type with `_tag` field
 - [ ] Define `ConnectionError` discriminated union
 - [ ] Define `QueryError` discriminated union
@@ -223,6 +242,7 @@ libraries/pathfinder/
 - [ ] Export with `export type { ... }`
 
 **Template:**
+
 ```typescript
 // Base error type
 export type PathfinderError<Tag extends string> = {
@@ -291,6 +311,7 @@ export type AnyPathfinderError =
 ```
 
 **Validation:**
+
 - [ ] All error types extend `PathfinderError<Tag>`
 - [ ] All fields are `readonly`
 - [ ] All use discriminated unions with `kind` field
@@ -301,6 +322,7 @@ export type AnyPathfinderError =
 **File to create:** `libraries/pathfinder/src/config/types/index.ts`
 
 **Tasks:**
+
 - [ ] Define `PathfinderConfig` type
 - [ ] Define `TripleStoreConfig` sub-type
 - [ ] Define `VectorStoreConfig` sub-type
@@ -309,6 +331,7 @@ export type AnyPathfinderError =
 - [ ] Use optional fields (`?`) where appropriate
 
 **Template:**
+
 ```typescript
 export type TripleStoreConfig = {
 	readonly path: string // SQLite database file path
@@ -338,6 +361,7 @@ export type ValidPathfinderConfig = PathfinderConfig & {
 **File to create:** `libraries/pathfinder/src/config/validateConfig/index.ts`
 
 **Tasks:**
+
 - [ ] Import Validation monad from Toolsmith
 - [ ] Import config types
 - [ ] Import ConfigError type
@@ -351,14 +375,12 @@ export type ValidPathfinderConfig = PathfinderConfig & {
 - [ ] Function signature: `(config: PathfinderConfig) => Validation<ConfigError, ValidPathfinderConfig>`
 
 **Template:**
+
 ```typescript
 import type { Validation } from "@sitebender/toolsmith/monads/validation/types/index.ts"
 import valid from "@sitebender/toolsmith/monads/validation/valid/index.ts"
 import invalid from "@sitebender/toolsmith/monads/validation/invalid/index.ts"
-import type {
-	PathfinderConfig,
-	ValidPathfinderConfig,
-} from "../types/index.ts"
+import type { PathfinderConfig, ValidPathfinderConfig } from "../types/index.ts"
 import type { ConfigError } from "../../errors/index.ts"
 
 export default function validateConfig(
@@ -408,6 +430,7 @@ export default function validateConfig(
 **Test file to create:** `libraries/pathfinder/src/config/validateConfig/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test valid configuration returns `{ _tag: "Valid", value: ... }`
 - [ ] Test missing path returns `{ _tag: "Invalid", errors: [...] }`
 - [ ] Test missing host returns ConfigError
@@ -415,6 +438,7 @@ export default function validateConfig(
 - [ ] Test multiple errors are accumulated (not just first error)
 
 **Completion Criteria for Phase 1:**
+
 - ✅ All directories created
 - ✅ deno.jsonc configured correctly
 - ✅ All error types defined as discriminated unions
@@ -434,6 +458,7 @@ export default function validateConfig(
 **File to create:** `libraries/pathfinder/src/connection/createTripleStore/index.ts`
 
 **Tasks:**
+
 - [ ] Import oxigraph package: `import oxigraph from "npm:oxigraph@^0.4"`
 - [ ] Import Result monad from Toolsmith
 - [ ] Import TripleStoreConfig, ConnectionError
@@ -445,13 +470,15 @@ export default function validateConfig(
 - [ ] Store type should be `oxigraph.Store`
 
 **Function signature:**
+
 ```typescript
 export default function createTripleStore(
-	config: TripleStoreConfig
+	config: TripleStoreConfig,
 ): Result<ConnectionError, oxigraph.Store>
 ```
 
 **Template:**
+
 ```typescript
 // [IO] Connects to Oxigraph triple store
 import oxigraph from "npm:oxigraph@^0.4"
@@ -485,6 +512,7 @@ export default function createTripleStore(
 **Test file:** `libraries/pathfinder/src/connection/createTripleStore/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test with valid path creates store (use temp directory)
 - [ ] Test with invalid path returns ConnectionError
 - [ ] Test readonly flag is respected
@@ -495,6 +523,7 @@ export default function createTripleStore(
 **File to create:** `libraries/pathfinder/src/sparql/execute/index.ts`
 
 **Tasks:**
+
 - [ ] Import Result monad
 - [ ] Import QueryError type
 - [ ] Implement double-curried function (sparql string, then store)
@@ -505,6 +534,7 @@ export default function createTripleStore(
 - [ ] Return `ok(results)` if successful
 
 **Function signature:**
+
 ```typescript
 export default function execute(sparql: string) {
 	return function executeOn(
@@ -514,6 +544,7 @@ export default function execute(sparql: string) {
 ```
 
 **Template:**
+
 ```typescript
 // [IO] Executes SPARQL query against triple store
 import type oxigraph from "npm:oxigraph@^0.4"
@@ -556,6 +587,7 @@ export default function execute(sparql: string) {
 **Test file:** `libraries/pathfinder/src/sparql/execute/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test SELECT query returns results array
 - [ ] Test invalid SPARQL returns QueryError
 - [ ] Test empty results returns empty array
@@ -566,6 +598,7 @@ export default function execute(sparql: string) {
 **File to create:** `libraries/pathfinder/src/sparql/insert/index.ts`
 
 **Tasks:**
+
 - [ ] Import Result monad
 - [ ] Import QueryError type
 - [ ] Implement double-curried function (Turtle string, then store)
@@ -575,6 +608,7 @@ export default function execute(sparql: string) {
 - [ ] Return `ok(void)` if successful
 
 **Function signature:**
+
 ```typescript
 export default function insert(turtle: string) {
 	return function insertInto(
@@ -584,6 +618,7 @@ export default function insert(turtle: string) {
 ```
 
 **Template:**
+
 ```typescript
 // [IO] Inserts triples into triple store
 import type oxigraph from "npm:oxigraph@^0.4"
@@ -617,6 +652,7 @@ export default function insert(turtle: string) {
 **Test file:** `libraries/pathfinder/src/sparql/insert/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test valid Turtle insertion succeeds
 - [ ] Test invalid Turtle returns QueryError
 - [ ] Test inserted triples are queryable
@@ -627,6 +663,7 @@ export default function insert(turtle: string) {
 **File to create:** `libraries/pathfinder/src/sparql/delete/index.ts`
 
 **Tasks:**
+
 - [ ] Import Result monad
 - [ ] Import QueryError type
 - [ ] Implement double-curried function (pattern string, then store)
@@ -636,6 +673,7 @@ export default function insert(turtle: string) {
 - [ ] Return `ok(void)` if successful
 
 **Function signature:**
+
 ```typescript
 export default function deleteSparql(pattern: string) {
 	return function deleteFrom(
@@ -645,6 +683,7 @@ export default function deleteSparql(pattern: string) {
 ```
 
 **Template:**
+
 ```typescript
 // [IO] Deletes triples matching pattern from triple store
 import type oxigraph from "npm:oxigraph@^0.4"
@@ -678,12 +717,14 @@ export default function deleteSparql(pattern: string) {
 **Test file:** `libraries/pathfinder/src/sparql/delete/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test deletion removes matching triples
 - [ ] Test invalid pattern returns QueryError
 - [ ] Test non-matching pattern succeeds (deletes zero)
 - [ ] Test deletion confirmed via SELECT query
 
 **Completion Criteria for Phase 2:**
+
 - ✅ createTripleStore connects to Oxigraph successfully
 - ✅ execute runs SPARQL SELECT queries
 - ✅ insert adds triples via Turtle
@@ -704,6 +745,7 @@ export default function deleteSparql(pattern: string) {
 **File to create:** `libraries/pathfinder/src/connection/createVectorStore/index.ts`
 
 **Tasks:**
+
 - [ ] Import Qdrant client: `import { QdrantClient } from "npm:@qdrant/js-client-rest@^1.0"`
 - [ ] Import Result monad
 - [ ] Import VectorStoreConfig, ConnectionError
@@ -714,13 +756,15 @@ export default function deleteSparql(pattern: string) {
 - [ ] Return `ok(client)` if successful
 
 **Function signature:**
+
 ```typescript
 export default function createVectorStore(
-	config: VectorStoreConfig
+	config: VectorStoreConfig,
 ): Promise<Result<ConnectionError, QdrantClient>>
 ```
 
 **Template:**
+
 ```typescript
 // [IO] Connects to Qdrant vector store
 import { QdrantClient } from "npm:@qdrant/js-client-rest@^1.0"
@@ -777,6 +821,7 @@ export default function createVectorStore(
 **Test file:** `libraries/pathfinder/src/connection/createVectorStore/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test successful connection to local Qdrant (localhost:6333)
 - [ ] Test connection failure with invalid host returns ConnectionError
 - [ ] Test connection to unhealthy instance returns error
@@ -787,6 +832,7 @@ export default function createVectorStore(
 **File to create:** `libraries/pathfinder/src/vector/createCollection/index.ts`
 
 **Tasks:**
+
 - [ ] Import QdrantClient type
 - [ ] Import Result monad
 - [ ] Import VectorError type
@@ -798,6 +844,7 @@ export default function createVectorStore(
 - [ ] Return `ok(collectionInfo)` if successful
 
 **Function signature:**
+
 ```typescript
 export default function createCollection(name: string) {
 	return function withDimension(dimension: number) {
@@ -809,6 +856,7 @@ export default function createCollection(name: string) {
 ```
 
 **Template:**
+
 ```typescript
 // [IO] Creates vector collection in Qdrant
 import type { QdrantClient } from "npm:@qdrant/js-client-rest@^1.0"
@@ -868,6 +916,7 @@ export default function createCollection(name: string) {
 **Test file:** `libraries/pathfinder/src/vector/createCollection/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test collection creation succeeds
 - [ ] Test creating existing collection is idempotent
 - [ ] Test invalid dimension returns VectorError
@@ -878,6 +927,7 @@ export default function createCollection(name: string) {
 **File to create:** `libraries/pathfinder/src/vector/insertVectors/index.ts`
 
 **Tasks:**
+
 - [ ] Import QdrantClient type
 - [ ] Import Result monad
 - [ ] Import VectorError type
@@ -890,6 +940,7 @@ export default function createCollection(name: string) {
 - [ ] Return `ok(count)` if successful
 
 **Types:**
+
 ```typescript
 export type Vector = {
 	readonly id: string | number
@@ -899,6 +950,7 @@ export type Vector = {
 ```
 
 **Function signature:**
+
 ```typescript
 export default function insertVectors(collection: string) {
 	return function withVectors(vectors: ReadonlyArray<Vector>) {
@@ -912,6 +964,7 @@ export default function insertVectors(collection: string) {
 **Test file:** `libraries/pathfinder/src/vector/insertVectors/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test inserting single vector succeeds
 - [ ] Test inserting multiple vectors succeeds
 - [ ] Test dimension mismatch returns VectorError
@@ -922,6 +975,7 @@ export default function insertVectors(collection: string) {
 **File to create:** `libraries/pathfinder/src/vector/search/index.ts`
 
 **Tasks:**
+
 - [ ] Import QdrantClient type
 - [ ] Import Result monad
 - [ ] Import VectorError type
@@ -933,6 +987,7 @@ export default function insertVectors(collection: string) {
 - [ ] Return `ok(results)` if successful
 
 **Types:**
+
 ```typescript
 export type SearchResult = {
 	readonly id: string | number
@@ -942,6 +997,7 @@ export type SearchResult = {
 ```
 
 **Function signature:**
+
 ```typescript
 export default function search(collection: string) {
 	return function withVector(vector: ReadonlyArray<number>) {
@@ -957,12 +1013,14 @@ export default function search(collection: string) {
 **Test file:** `libraries/pathfinder/src/vector/search/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test search returns similar vectors
 - [ ] Test limit parameter is respected
 - [ ] Test empty collection returns empty results
 - [ ] Test invalid collection returns VectorError
 
 **Completion Criteria for Phase 3:**
+
 - ✅ createVectorStore connects to Qdrant successfully
 - ✅ createCollection creates/checks collections
 - ✅ insertVectors adds vectors with payloads
@@ -983,6 +1041,7 @@ export default function search(collection: string) {
 **File to create:** `libraries/pathfinder/src/sparql/select/index.ts`
 
 **Tasks:**
+
 - [ ] Import builder types
 - [ ] Implement variadic `select(...variables)` function
 - [ ] Return builder object with `where` method
@@ -991,6 +1050,7 @@ export default function search(collection: string) {
 - [ ] Include `build()` method to generate SPARQL string
 
 **Template:**
+
 ```typescript
 import join from "@sitebender/toolsmith/array/join/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
@@ -1065,6 +1125,7 @@ export default function select(
 **Test file:** `libraries/pathfinder/src/sparql/select/index.test.ts`
 
 **Test tasks:**
+
 - [ ] Test SELECT with single variable
 - [ ] Test SELECT with multiple variables
 - [ ] Test WHERE with single pattern
@@ -1078,22 +1139,26 @@ export default function select(
 **File to create:** `libraries/pathfinder/src/sparql/helpers/getAllTriples/index.ts`
 
 **Tasks:**
+
 - [ ] Implement helper that generates `SELECT * WHERE { ?s ?p ?o }`
 - [ ] Return SPARQL string (unary curried function)
 
 **File to create:** `libraries/pathfinder/src/sparql/helpers/getBySubject/index.ts`
 
 **Tasks:**
+
 - [ ] Implement helper that generates query for specific subject
 - [ ] Curried: subject URI → SPARQL string
 
 **File to create:** `libraries/pathfinder/src/sparql/helpers/getByPredicate/index.ts`
 
 **Tasks:**
+
 - [ ] Implement helper that generates query for specific predicate
 - [ ] Curried: predicate URI → SPARQL string
 
 **Completion Criteria for Phase 4:**
+
 - ✅ select() builder creates SELECT queries
 - ✅ where() adds triple patterns
 - ✅ filter() adds FILTER clauses
@@ -1115,6 +1180,7 @@ export default function select(
 **File to create:** `libraries/pathfinder/src/integration.test.ts`
 
 **Tasks:**
+
 - [ ] Create temporary triple store for testing
 - [ ] Test full workflow: connect → insert → query → delete
 - [ ] Test Qdrant workflow: connect → create collection → insert → search
@@ -1123,8 +1189,9 @@ export default function select(
 - [ ] Verify all operations compose correctly
 
 **Integration test template:**
+
 ```typescript
-import { describe, it, beforeAll, afterAll } from "@std/testing/bdd"
+import { afterAll, beforeAll, describe, it } from "@std/testing/bdd"
 import { expect } from "@std/expect"
 import createTripleStore from "./connection/createTripleStore/index.ts"
 import insert from "./sparql/insert/index.ts"
@@ -1183,6 +1250,7 @@ describe("Pathfinder integration", () => {
 **File to create:** `libraries/pathfinder/src/properties.test.ts`
 
 **Tasks:**
+
 - [ ] Use Quarrier for property testing (if available)
 - [ ] Test query execution is deterministic (same input → same output)
 - [ ] Test insert → delete → query returns empty
@@ -1194,6 +1262,7 @@ describe("Pathfinder integration", () => {
 **File to create:** `libraries/pathfinder/docs/API.md`
 
 **Tasks:**
+
 - [ ] Document all public functions
 - [ ] Include function signatures
 - [ ] Show usage examples for each function
@@ -1201,7 +1270,8 @@ describe("Pathfinder integration", () => {
 - [ ] Show integration patterns (how other libraries should use Pathfinder)
 
 **Example structure:**
-```markdown
+
+````markdown
 # Pathfinder API Documentation
 
 ## Connection
@@ -1211,13 +1281,16 @@ describe("Pathfinder integration", () => {
 Creates connection to Oxigraph triple store.
 
 **Signature:**
+
 ```typescript
 function createTripleStore(
-	config: TripleStoreConfig
+	config: TripleStoreConfig,
 ): Result<ConnectionError, oxigraph.Store>
 ```
+````
 
 **Usage:**
+
 ```typescript
 import createTripleStore from "@sitebender/pathfinder/connection/createTripleStore/index.ts"
 
@@ -1233,6 +1306,7 @@ if (result._tag === "Ok") {
 ```
 
 **Errors:**
+
 - `TripleStoreInitFailed` - Cannot create/open database file
 - `InvalidStorePath` - Path is invalid or inaccessible
 
@@ -1241,8 +1315,8 @@ if (result._tag === "Ok") {
 ### createVectorStore
 
 [Similar documentation for each function...]
-```
 
+````
 ### Batch 5.4: Usage Examples
 
 **File to create:** `libraries/pathfinder/docs/examples/basic-usage.ts`
@@ -1329,19 +1403,21 @@ export type {
 	VectorError,
 	AnyPathfinderError,
 } from "./errors/index.ts"
-```
+````
 
 ### Batch 6.2: Update Workspace Configuration
 
 **File to modify:** `/deno.jsonc` (root workspace)
 
 **Tasks:**
+
 - [ ] Add Pathfinder to workspace members (if not present)
 - [ ] Verify import map includes Pathfinder aliases
 
 **File to modify:** `/contracts/boundaries.json`
 
 **Tasks:**
+
 - [ ] Add Pathfinder to layer structure (Layer 1 - Infrastructure)
 - [ ] Define canImport: ["toolsmith"]
 - [ ] Define canBeImportedBy: ["agent", "operator", "sentinel", "custodian", "envoy", "artificer", "applications"]
@@ -1349,6 +1425,7 @@ export type {
 - [ ] Add to dependency graph
 
 **Template for boundaries.json addition:**
+
 ```json
 {
 	"pathfinder": {
@@ -1384,6 +1461,7 @@ export type {
 **File to modify:** `/libraries/pathfinder/README.md`
 
 **Tasks:**
+
 - [ ] Update status from "Planning" to "Implemented"
 - [ ] Add "Getting Started" section
 - [ ] Add quick example
@@ -1393,10 +1471,12 @@ export type {
 **File to modify:** `/README.md` (root)
 
 **Tasks:**
+
 - [ ] Update Pathfinder status in libraries overview
 - [ ] Mark as "Implemented" instead of "Planned"
 
 **Completion Criteria for Phase 6:**
+
 - ✅ mod.ts exports all public API
 - ✅ Workspace configuration updated
 - ✅ contracts/boundaries.json includes Pathfinder
@@ -1411,6 +1491,7 @@ export type {
 Before considering implementation complete, verify ALL of these:
 
 ### Code Structure
+
 - [ ] ✅ Zero classes (no `class` keyword anywhere)
 - [ ] ✅ Zero arrow functions (no `=>` syntax except type signatures)
 - [ ] ✅ Zero loops (no `for`, `while`, `do-while`)
@@ -1421,6 +1502,7 @@ Before considering implementation complete, verify ALL of these:
 - [ ] ✅ All helper functions in underscore-prefixed folders (`_helperName/`)
 
 ### Toolsmith Usage
+
 - [ ] ✅ Use `map(fn)(array)` not `array.map(fn)`
 - [ ] ✅ Use `filter(pred)(array)` not `array.filter(pred)`
 - [ ] ✅ Use `reduce(fn)(init)(array)` not `array.reduce(fn, init)`
@@ -1429,6 +1511,7 @@ Before considering implementation complete, verify ALL of these:
 - [ ] ✅ Use `is(a)(b)` not `a === b` (where applicable)
 
 ### Error Handling
+
 - [ ] ✅ All fallible operations return `Result<E, T>` or `Validation<E, T>`
 - [ ] ✅ Use `Result` for fail-fast sequential operations
 - [ ] ✅ Use `Validation` for error-accumulating operations (config validation, form validation)
@@ -1436,33 +1519,39 @@ Before considering implementation complete, verify ALL of these:
 - [ ] ✅ All error fields are `readonly`
 
 ### Types
+
 - [ ] ✅ All types use `readonly` or `ReadonlyArray`
 - [ ] ✅ Branded types for validated data (ValidPathfinderConfig)
 - [ ] ✅ Type imports use `import type { ... }`
 - [ ] ✅ Type exports use `export type { ... }`
 
 ### File Organization
+
 - [ ] ✅ All files named `index.ts` in function-named folders
 - [ ] ✅ All folders use camelCase (not kebab-case or PascalCase)
 - [ ] ✅ No barrel files (no re-exporting in index files except mod.ts)
 - [ ] ✅ Test files named `index.test.ts` next to implementation
 
 ### Function Naming
+
 - [ ] ✅ Inner function names capture outer parameter (`add(augend) { return function addToAugend(addend) { ... } }`)
 - [ ] ✅ No abbreviations (except whitelisted)
 - [ ] ✅ Full words used throughout
 
 ### IO Boundaries
+
 - [ ] ✅ All IO functions marked with `// [IO]` comment
 - [ ] ✅ Only IO functions use `try/catch` to wrap external library exceptions
 - [ ] ✅ All IO functions convert exceptions to `Result` errors
 
 ### Documentation
+
 - [ ] ✅ All public functions have JSDoc comments
 - [ ] ✅ All complex algorithms explained
 - [ ] ✅ Examples provided for usage
 
 ### Testing
+
 - [ ] ✅ Every public function has tests
 - [ ] ✅ Tests cover success cases
 - [ ] ✅ Tests cover error cases
@@ -1492,9 +1581,11 @@ Before considering implementation complete, verify ALL of these:
 ### Internal Dependencies
 
 **Pathfinder depends on:**
+
 - Toolsmith (Result/Validation monads, array functions, composition)
 
 **Libraries that will depend on Pathfinder:**
+
 - Agent (federated queries)
 - Operator (event storage)
 - Sentinel (session persistence)
@@ -1517,12 +1608,14 @@ Before considering implementation complete, verify ALL of these:
 ## Success Metrics
 
 ### Code Quality
+
 - [ ] Zero linting errors: `deno task lint`
 - [ ] Zero formatting errors: `deno task fmt --check`
 - [ ] Zero type errors: `deno task test:strict`
 - [ ] Test coverage > 80%: `deno task test:cov`
 
 ### Functional Requirements
+
 - [ ] Can connect to Oxigraph with configurable path
 - [ ] Can execute SPARQL SELECT queries
 - [ ] Can insert triples via Turtle syntax
@@ -1535,12 +1628,14 @@ Before considering implementation complete, verify ALL of these:
 - [ ] Configuration validation accumulates errors
 
 ### Documentation
+
 - [ ] API documentation complete
 - [ ] Usage examples provided
 - [ ] Integration patterns documented
 - [ ] README updated with status
 
 ### Integration
+
 - [ ] Added to contracts/boundaries.json
 - [ ] Import aliases work
 - [ ] Other libraries can import successfully
@@ -1582,6 +1677,7 @@ If implementation fails or needs to be paused:
 - Phase 6: 2-3 hours
 
 **Critical Path:**
+
 1. Phase 1 (Foundation) must complete first
 2. Phases 2 and 3 can run in parallel
 3. Phase 4 depends on Phase 2 (SPARQL operations)
@@ -1593,29 +1689,31 @@ If implementation fails or needs to be paused:
 ## Notes
 
 ### Storage Path Recommendation
+
 Use **configurable path (Option 3)** for maximum flexibility:
 
 ```typescript
 // Development
 const config = {
 	tripleStore: { path: "./data/pathfinder.db" },
-	vectorStore: { host: "localhost", port: 6333 }
+	vectorStore: { host: "localhost", port: 6333 },
 }
 
 // Testing
 const config = {
 	tripleStore: { path: "/tmp/test-store.db" },
-	vectorStore: { host: "localhost", port: 6333 }
+	vectorStore: { host: "localhost", port: 6333 },
 }
 
 // Production
 const config = {
 	tripleStore: { path: "~/.config/sitebender/store.db" },
-	vectorStore: { host: "production-qdrant.example.com", port: 6333 }
+	vectorStore: { host: "production-qdrant.example.com", port: 6333 },
 }
 ```
 
 Add `.gitignore` entry:
+
 ```
 data/
 *.db

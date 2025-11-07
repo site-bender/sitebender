@@ -1,10 +1,7 @@
 import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../../types/index.ts"
+import type { AncestorContext, ValidationError } from "../../types/index.ts"
 
 /*++
  + Check summary child of details rule
@@ -32,7 +29,8 @@ export default function _checkSummaryInDetailsRule(
 				return [{
 					node,
 					errorType: "invalid-ancestor-dependent-role",
-					message: `<summary> child of <details> cannot have explicit role, got role="${role}"`,
+					message:
+						`<summary> child of <details> cannot have explicit role, got role="${role}"`,
 					context: { parentTag: "DETAILS", role },
 				}]
 			}

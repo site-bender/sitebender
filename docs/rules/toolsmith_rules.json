@@ -52,8 +52,8 @@
               "reasoning": "Internal utilities should use vanilla for performance; boxed for public APIs"
             },
             "required": {
-              "code": "// ✅ REQUIRED - Vanilla for internal, boxed for public:\n\n// Internal utility (vanilla):\n// Path: /toolsmith/vanilla/array/_internalMap/index.ts\nexport default function _internalMap<T, U>(\n\titems: ReadonlyArray<T>,\n\tfn: (item: T) => U\n): Array<U> | null {\n\tif (!items || !fn) return null\n\treturn items.map(fn)\n}\n\n// Public API (boxed):\n// Path: /toolsmith/boxed/array/map/index.ts\nimport type { Result } from '@sitebender/toolsmith/types'\nimport { success, failure } from '@sitebender/toolsmith/monads/result'\n\nexport default function map<T, U>(fn: (item: T) => U) {\n\treturn function mapWithFn(\n\t\titems: ReadonlyArray<T>\n\t): Result<Array<U>, Error> {\n\t\tif (!items) return failure(new Error('Invalid array'))\n\t\treturn success(items.map(fn))\n\t}\n}",
-              "scope": "Vanilla in /vanilla/* for internal use; boxed in standard paths for public API"
+              "code": "// ✅ REQUIRED - Vanilla for internal, boxed for public:\n\n// Internal utility (vanilla):\n// Path: /toolsmith/array/_internalMap/index.ts\nexport default function _internalMap<T, U>(\n\titems: ReadonlyArray<T>,\n\tfn: (item: T) => U\n): Array<U> | null {\n\tif (!items || !fn) return null\n\treturn items.map(fn)\n}\n\n// Public API (boxed):\n// Path: /toolsmith/boxed/array/map/index.ts\nimport type { Result } from '@sitebender/toolsmith/types'\nimport { success, failure } from '@sitebender/toolsmith/monads/result'\n\nexport default function map<T, U>(fn: (item: T) => U) {\n\treturn function mapWithFn(\n\t\titems: ReadonlyArray<T>\n\t): Result<Array<U>, Error> {\n\t\tif (!items) return failure(new Error('Invalid array'))\n\t\treturn success(items.map(fn))\n\t}\n}",
+              "scope": "Vanilla in /* for internal use; boxed in standard paths for public API"
             }
           }
         }
