@@ -37,8 +37,10 @@ Deno.test("_extractImportDetails - valid default import returns ok", function te
 		assertEquals(result.value.imports.length, 1)
 		assertEquals(result.value.imports[0].imported, "default")
 		assertEquals(result.value.imports[0].local, "myDefault")
-		assertEquals(result.value.position.start, 0)
-		assertEquals(result.value.position.end, 30)
+		assertEquals(result.value.position.line, 1)
+		assertEquals(result.value.position.column, 0)
+		assertEquals(result.value.span.start, 0)
+		assertEquals(result.value.span.end, 30)
 	}
 })
 
@@ -347,8 +349,8 @@ Deno.test("_extractImportDetails - negative span values return error", function 
 	if (isError(result)) {
 		assertEquals(result.error.kind, "InvalidSpecifier")
 		assert(
-			result.error.message.includes("Failed to extract position"),
-			"Error message should mention position extraction failure",
+			result.error.message.includes("Failed to extract span"),
+			"Error message should mention span extraction failure",
 		)
 	}
 })

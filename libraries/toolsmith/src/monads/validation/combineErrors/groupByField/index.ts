@@ -1,4 +1,4 @@
-import type ValidationError from "../../../../types/ValidationError/index.ts"
+import type ValidationError from "../../../../types/fp/validation/index.ts"
 
 //++ Groups validation error messages by field name using accumulator pattern
 export default function groupByField(

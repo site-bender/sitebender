@@ -105,8 +105,8 @@ The ISO/IEC 11179 family consists of multiple parts:
 
 The **foundational concept** in ISO/IEC 11179. A Data Element consists of:
 
-- **Data Element Concept (DEC)**: The *meaning* of the data (what it represents semantically)
-- **Value Domain (VD)**: How the data is *recorded* (format, datatype, constraints, permissible values)
+- **Data Element Concept (DEC)**: The _meaning_ of the data (what it represents semantically)
+- **Value Domain (VD)**: How the data is _recorded_ (format, datatype, constraints, permissible values)
 
 **Example:**
 
@@ -274,12 +274,12 @@ Your revolutionary data-driven form approach:
 
 ```tsx
 <IntegerField name="age">
-  <Validation>
-    <And>
-      <IsGreaterThan value={0} />
-      <IsLessThan value={120} />
-    </And>
-  </Validation>
+	<Validation>
+		<And>
+			<IsGreaterThan value={0} />
+			<IsLessThan value={120} />
+		</And>
+	</Validation>
 </IntegerField>
 ```
 
@@ -339,17 +339,17 @@ This language resonates with:
 
 **They solve different problems:**
 
-| Aspect | ISO/IEC 11179 (Pathfinder) | OpenMetadata |
-|--------|---------------------------|--------------|
-| **What it is** | Metadata registry standard | Data catalog platform |
-| **Scope** | Application metadata (forms, components) | Data infrastructure (databases, pipelines, dashboards) |
-| **Storage** | RDF triple store (Oxigraph) | Unified metadata graph |
-| **Query** | SPARQL | REST API + Search |
-| **Standards** | International standard (ISO) | Open-source platform |
-| **Lock-in** | None (standard-based) | Platform-specific |
-| **UI** | Build custom or use Envoy | Rich built-in UI (discovery, lineage, collaboration) |
-| **Connectors** | Custom (via standards) | 100+ out-of-box |
-| **Target users** | Sitebender developers | Enterprise data teams |
+| Aspect           | ISO/IEC 11179 (Pathfinder)               | OpenMetadata                                           |
+| ---------------- | ---------------------------------------- | ------------------------------------------------------ |
+| **What it is**   | Metadata registry standard               | Data catalog platform                                  |
+| **Scope**        | Application metadata (forms, components) | Data infrastructure (databases, pipelines, dashboards) |
+| **Storage**      | RDF triple store (Oxigraph)              | Unified metadata graph                                 |
+| **Query**        | SPARQL                                   | REST API + Search                                      |
+| **Standards**    | International standard (ISO)             | Open-source platform                                   |
+| **Lock-in**      | None (standard-based)                    | Platform-specific                                      |
+| **UI**           | Build custom or use Envoy                | Rich built-in UI (discovery, lineage, collaboration)   |
+| **Connectors**   | Custom (via standards)                   | 100+ out-of-box                                        |
+| **Target users** | Sitebender developers                    | Enterprise data teams                                  |
 
 ### Complementary Roles
 
@@ -502,6 +502,7 @@ SELECT ?sitebenderField ?openmetadataColumn ?datatype WHERE {
 > **"Sitebender: ISO/IEC 11179-compliant metadata registry for web applications. Define data elements declaratively in JSX, store as RDF triples, query via SPARQL. Native integrations with enterprise data catalogs (OpenMetadata, Amundsen, Apache Atlas) for unified data governance at scale."**
 
 This positions Sitebender as:
+
 - **Standards-based** (not proprietary)
 - **Flexible** (works standalone or integrated)
 - **Enterprise-grade** (connects to established governance platforms)
@@ -513,53 +514,53 @@ This positions Sitebender as:
 
 ### Core Concepts
 
-| ISO/IEC 11179 Concept | Sitebender Equivalent | Location | Example |
-|---|---|---|---|
-| **Data Element** | Form field component | Architect components | `<IntegerField>`, `<EmailField>` |
-| **Data Element Concept** | Semantic meaning of field | Component props: `name`, `description` | `name="age"`, `description="Person's age in years"` |
-| **Value Domain** | Datatype + validation rules | Component props: `type`, `<Validation>` children | `type="Integer"`, `<IsGreaterThan value={0} />` |
-| **Conceptual Domain** | Branded type family | Toolsmith branded types | `EmailAddress`, `Isbn13`, `IPv4Address` |
-| **Permissible Values** | Validation constraints | `<Validation>` children | `<IsOneOf values={["draft", "published"]} />` |
-| **Representation Class** | Display format | `<Format>` children | `<TwoDecimalPlaces />`, `<PhoneNumber />` |
-| **Metadata Registry** | Pathfinder triple store | Oxigraph + SPARQL | All triples stored in Pathfinder |
-| **Registration Process** | Component authoring + compilation | JSX → IR → Turtle → insertTriples | Architect → Artificer → Pathfinder |
-| **Query Interface** | SPARQL queries | Pathfinder's executeQuery | `SELECT ?field WHERE { ?field a artificer:Data }` |
+| ISO/IEC 11179 Concept    | Sitebender Equivalent             | Location                                         | Example                                             |
+| ------------------------ | --------------------------------- | ------------------------------------------------ | --------------------------------------------------- |
+| **Data Element**         | Form field component              | Architect components                             | `<IntegerField>`, `<EmailField>`                    |
+| **Data Element Concept** | Semantic meaning of field         | Component props: `name`, `description`           | `name="age"`, `description="Person's age in years"` |
+| **Value Domain**         | Datatype + validation rules       | Component props: `type`, `<Validation>` children | `type="Integer"`, `<IsGreaterThan value={0} />`     |
+| **Conceptual Domain**    | Branded type family               | Toolsmith branded types                          | `EmailAddress`, `Isbn13`, `IPv4Address`             |
+| **Permissible Values**   | Validation constraints            | `<Validation>` children                          | `<IsOneOf values={["draft", "published"]} />`       |
+| **Representation Class** | Display format                    | `<Format>` children                              | `<TwoDecimalPlaces />`, `<PhoneNumber />`           |
+| **Metadata Registry**    | Pathfinder triple store           | Oxigraph + SPARQL                                | All triples stored in Pathfinder                    |
+| **Registration Process** | Component authoring + compilation | JSX → IR → Turtle → insertTriples                | Architect → Artificer → Pathfinder                  |
+| **Query Interface**      | SPARQL queries                    | Pathfinder's executeQuery                        | `SELECT ?field WHERE { ?field a artificer:Data }`   |
 
 ### Lifecycle Mapping
 
-| ISO/IEC 11179 Lifecycle State | Sitebender Equivalent | Implementation |
-|---|---|---|
-| **Draft** | Component in development | Not yet committed to git |
-| **Approved** | Component in main branch | Passed all tests, merged to main |
-| **Published** | Component deployed to production | Released in library version |
-| **Deprecated** | Component marked for removal | JSDoc `@deprecated` tag |
-| **Retired** | Component removed | Deleted from codebase |
+| ISO/IEC 11179 Lifecycle State | Sitebender Equivalent            | Implementation                   |
+| ----------------------------- | -------------------------------- | -------------------------------- |
+| **Draft**                     | Component in development         | Not yet committed to git         |
+| **Approved**                  | Component in main branch         | Passed all tests, merged to main |
+| **Published**                 | Component deployed to production | Released in library version      |
+| **Deprecated**                | Component marked for removal     | JSDoc `@deprecated` tag          |
+| **Retired**                   | Component removed                | Deleted from codebase            |
 
 ### Metadata Attributes
 
-| ISO/IEC 11179 Attribute | Sitebender Equivalent | Example |
-|---|---|---|
-| **Definition** | Component JSDoc description | `/** Age of person in years */` |
-| **Example** | Unit test fixtures | `age: 25` in test cases |
-| **Context** | Parent form/section | Nested within `<UserRegistrationForm>` |
-| **Steward** | Git author/maintainer | Git commit author |
-| **Version** | Git commit hash | SHA-256 hash (also tracked by Warden) |
-| **Status** | Git branch + deployment state | main = approved, feature/* = draft |
-| **Synonyms** | Type aliases | `type Age = Integer` |
-| **Related elements** | Component composition | `<FullName>` composed of `<FirstName>` + `<LastName>` |
+| ISO/IEC 11179 Attribute | Sitebender Equivalent         | Example                                               |
+| ----------------------- | ----------------------------- | ----------------------------------------------------- |
+| **Definition**          | Component JSDoc description   | `/** Age of person in years */`                       |
+| **Example**             | Unit test fixtures            | `age: 25` in test cases                               |
+| **Context**             | Parent form/section           | Nested within `<UserRegistrationForm>`                |
+| **Steward**             | Git author/maintainer         | Git commit author                                     |
+| **Version**             | Git commit hash               | SHA-256 hash (also tracked by Warden)                 |
+| **Status**              | Git branch + deployment state | main = approved, feature/* = draft                    |
+| **Synonyms**            | Type aliases                  | `type Age = Integer`                                  |
+| **Related elements**    | Component composition         | `<FullName>` composed of `<FirstName>` + `<LastName>` |
 
 ### Validation Rules
 
-| ISO/IEC 11179 Constraint | Sitebender Equivalent | Example |
-|---|---|---|
-| **Datatype** | `type` prop | `type="Integer"` |
-| **Minimum value** | `<IsGreaterThan>` or `<IsAtLeast>` | `<IsAtLeast value={0} />` |
-| **Maximum value** | `<IsLessThan>` or `<IsAtMost>` | `<IsAtMost value={150} />` |
-| **Pattern** | `<Matches>` | `<Matches pattern="^[A-Z]{2}\\d{5}$" />` |
-| **Length** | `<HasLengthBetween>` | `<HasLengthBetween min={8} max={100} />` |
-| **Enumeration** | `<IsOneOf>` | `<IsOneOf values={["red", "blue", "green"]} />` |
-| **Required** | `required` prop | `required={true}` |
-| **Uniqueness** | Custom validation | `<IsUnique table="users" column="email" />` |
+| ISO/IEC 11179 Constraint | Sitebender Equivalent              | Example                                         |
+| ------------------------ | ---------------------------------- | ----------------------------------------------- |
+| **Datatype**             | `type` prop                        | `type="Integer"`                                |
+| **Minimum value**        | `<IsGreaterThan>` or `<IsAtLeast>` | `<IsAtLeast value={0} />`                       |
+| **Maximum value**        | `<IsLessThan>` or `<IsAtMost>`     | `<IsAtMost value={150} />`                      |
+| **Pattern**              | `<Matches>`                        | `<Matches pattern="^[A-Z]{2}\\d{5}$" />`        |
+| **Length**               | `<HasLengthBetween>`               | `<HasLengthBetween min={8} max={100} />`        |
+| **Enumeration**          | `<IsOneOf>`                        | `<IsOneOf values={["red", "blue", "green"]} />` |
+| **Required**             | `required` prop                    | `required={true}`                               |
+| **Uniqueness**           | Custom validation                  | `<IsUnique table="users" column="email" />`     |
 
 ---
 
@@ -570,6 +571,7 @@ This positions Sitebender as:
 **Benefit**: Use ISO/IEC 11179's proven metamodel instead of inventing custom terminology.
 
 **Impact**:
+
 - Developers familiar with ISO/IEC 11179 understand Sitebender immediately
 - Documentation maps cleanly to international standard
 - Reduces cognitive load (standard terms vs. invented terms)
@@ -579,16 +581,16 @@ This positions Sitebender as:
 ```typescript
 // Before: Custom Sitebender terminology
 type FieldMetadata = {
-  fieldName: string
-  dataType: string
-  rules: Array<ValidationRule>
+	fieldName: string
+	dataType: string
+	rules: Array<ValidationRule>
 }
 
 // After: ISO/IEC 11179 terminology
 type DataElement = {
-  name: string
-  concept: DataElementConcept
-  valueDomain: ValueDomain
+	name: string
+	concept: DataElementConcept
+	valueDomain: ValueDomain
 }
 ```
 
@@ -597,6 +599,7 @@ type DataElement = {
 **Benefit**: Exchange data with systems already using ISO/IEC 11179.
 
 **Impact**:
+
 - **Healthcare**: Import FHIR resource definitions as Sitebender components
 - **Government**: Consume open data schemas from data.gov portals
 - **Enterprise**: Integrate with corporate data catalogs (Collibra, Alation)
@@ -608,8 +611,8 @@ import { importFromISO11179 } from "@sitebender/pathfinder/iso11179/import/index
 
 // Import blood pressure data element definition
 const component = await importFromISO11179({
-  source: "https://cde.nlm.nih.gov/cde/123456",
-  registry: "NIH CDE Repository"
+	source: "https://cde.nlm.nih.gov/cde/123456",
+	registry: "NIH CDE Repository",
 })
 
 // Result: <IntegerField> component with proper validation
@@ -671,6 +674,7 @@ SELECT ?field ?sensitivity WHERE {
 **Benefit**: Define data elements once, reuse everywhere.
 
 **Impact**:
+
 - **Component library**: Publish reusable field definitions
 - **Application suite**: Share data elements across applications
 - **API consistency**: Ensure consistent data models across services
@@ -706,6 +710,7 @@ await registerDataElement({
 **Benefit**: Data element definitions ARE the documentation (living docs).
 
 **Impact**:
+
 - Documentation never drifts from implementation
 - SPARQL queries generate reports automatically
 - Visual metadata browsers (navigate relationships)
@@ -733,6 +738,7 @@ await exportDataDictionary(dataDictionary, { format: "pdf" })
 **Benefit**: Semantic metadata enables AI reasoning over data structures.
 
 **Impact**:
+
 - **Code generation**: AI generates forms from natural language descriptions
 - **Data discovery**: "Find all fields related to customer identity"
 - **Automated mapping**: Map between different schemas automatically
@@ -745,9 +751,9 @@ await exportDataDictionary(dataDictionary, { format: "pdf" })
 // App1: "email" → App2: "emailAddress" → App3: "contactEmail"
 
 const mappings = await discoverMappings({
-  source: "App1",
-  target: "App2",
-  method: "semantic"  // Uses vector embeddings + ontology reasoning
+	source: "App1",
+	target: "App2",
+	method: "semantic", // Uses vector embeddings + ontology reasoning
 })
 
 // Result: Automatic ETL pipeline generation
@@ -847,6 +853,7 @@ This requires updating `contracts/boundaries.json` in Phase 2+.
 **Location**: `/libraries/pathfinder/ISO_IEC_11179_ALIGNMENT.md`
 
 **Contents**:
+
 - [x] Executive summary (updated with hybrid strategy)
 - [x] What is ISO/IEC 11179?
 - [x] What is OpenMetadata?
@@ -868,6 +875,7 @@ This requires updating `contracts/boundaries.json` in Phase 2+.
 **Location**: `/libraries/pathfinder/docs/adr/ADR-001-ISO-11179-ALIGNMENT.md`
 
 **Checklist**:
+
 - [ ] Document decision to align with ISO/IEC 11179
 - [ ] Justify Pathfinder as primary owner
 - [ ] List alternative approaches considered
@@ -882,6 +890,7 @@ This requires updating `contracts/boundaries.json` in Phase 2+.
 **Location**: `/libraries/pathfinder/README.md`
 
 **Checklist**:
+
 - [ ] Add "ISO/IEC 11179 Metadata Registry" to feature list
 - [ ] Add link to alignment documentation
 - [ ] Update positioning statement to include standards compliance
@@ -894,6 +903,7 @@ This requires updating `contracts/boundaries.json` in Phase 2+.
 **Location**: `/contracts/boundaries.json`
 
 **Checklist**:
+
 - [ ] Add comment noting Artificer → Pathfinder dependency (Phase 2+)
 - [ ] Document that ISO/IEC 11179 work is planned
 - [ ] Reference alignment document for details
@@ -939,6 +949,7 @@ This requires updating `contracts/boundaries.json` in Phase 2+.
 **Location**: `/libraries/pathfinder/iso11179/ontology/`
 
 **Checklist**:
+
 - [ ] Create `iso11179.ttl` ontology file
 - [ ] Define `mdr:DataElement` class
 - [ ] Define `mdr:DataElementConcept` class
@@ -1004,6 +1015,7 @@ mdr:derivedFrom a owl:ObjectProperty ;
 **Location**: `/libraries/pathfinder/iso11179/`
 
 **Checklist**:
+
 - [ ] Implement `insertDataElement/index.ts`
 - [ ] Implement `updateDataElement/index.ts`
 - [ ] Implement `deleteDataElement/index.ts`
@@ -1020,31 +1032,31 @@ mdr:derivedFrom a owl:ObjectProperty ;
 ```typescript
 // types.ts
 export type DataElement = {
-  id: string
-  name: string
-  definition: string
-  concept: DataElementConcept
-  valueDomain: ValueDomain
-  status: "draft" | "approved" | "deprecated" | "retired"
-  version: string
-  steward: string
-  context?: string
+	id: string
+	name: string
+	definition: string
+	concept: DataElementConcept
+	valueDomain: ValueDomain
+	status: "draft" | "approved" | "deprecated" | "retired"
+	version: string
+	steward: string
+	context?: string
 }
 
 export type DataElementConcept = {
-  definition: string
-  objectClass?: string
-  property?: string
+	definition: string
+	objectClass?: string
+	property?: string
 }
 
 export type ValueDomain = {
-  datatype: string
-  format?: string
-  minValue?: number
-  maxValue?: number
-  pattern?: string
-  enumeration?: Array<string>
-  unitOfMeasure?: string
+	datatype: string
+	format?: string
+	minValue?: number
+	maxValue?: number
+	pattern?: string
+	enumeration?: Array<string>
+	unitOfMeasure?: string
 }
 
 // insertDataElement/index.ts
@@ -1053,20 +1065,20 @@ import type { Result } from "@sitebender/toolsmith/Result/types.ts"
 import { insertTriples } from "@sitebender/pathfinder/insertTriples/index.ts"
 
 export default function insertDataElement(
-  element: DataElement
+	element: DataElement,
 ): (tripleStore: TripleStore) => Promise<Result<string, Error>> {
-  return async function insertDataElementIntoTripleStore(
-    tripleStore: TripleStore
-  ): Promise<Result<string, Error>> {
-    // Convert DataElement to RDF triples
-    const triples = dataElementToTriples(element)
+	return async function insertDataElementIntoTripleStore(
+		tripleStore: TripleStore,
+	): Promise<Result<string, Error>> {
+		// Convert DataElement to RDF triples
+		const triples = dataElementToTriples(element)
 
-    // Insert into triple store
-    const result = await insertTriples(triples)(tripleStore)
+		// Insert into triple store
+		const result = await insertTriples(triples)(tripleStore)
 
-    // Return element ID or error
-    return result
-  }
+		// Return element ID or error
+		return result
+	}
 }
 ```
 
@@ -1075,6 +1087,7 @@ export default function insertDataElement(
 **Location**: `/libraries/artificer/iso11179/`
 
 **Checklist**:
+
 - [ ] Implement `extractDataElementMetadata/index.ts`
 - [ ] Implement `generateDataElementTriples/index.ts`
 - [ ] Implement `registerFieldMetadata/index.ts`
@@ -1091,36 +1104,36 @@ import type { ComponentIR } from "@sitebender/artificer/types.ts"
 import type { DataElement } from "@sitebender/pathfinder/iso11179/types.ts"
 
 export default function extractDataElementMetadata(
-  componentIR: ComponentIR
+	componentIR: ComponentIR,
 ): Array<DataElement> {
-  return function extractFromComponentTree(): Array<DataElement> {
-    const dataElements: Array<DataElement> = []
+	return function extractFromComponentTree(): Array<DataElement> {
+		const dataElements: Array<DataElement> = []
 
-    // Walk component tree
-    walkComponentTree(componentIR, (node) => {
-      // Find field components (TextField, IntegerField, etc.)
-      if (isFieldComponent(node)) {
-        const element: DataElement = {
-          id: generateId(node),
-          name: node.props.name,
-          definition: node.props.description || "",
-          concept: {
-            definition: node.props.description || "",
-            property: node.props.name
-          },
-          valueDomain: extractValueDomain(node),
-          status: "approved",
-          version: "1.0.0",
-          steward: "system",
-          context: extractContext(node)
-        }
+		// Walk component tree
+		walkComponentTree(componentIR, (node) => {
+			// Find field components (TextField, IntegerField, etc.)
+			if (isFieldComponent(node)) {
+				const element: DataElement = {
+					id: generateId(node),
+					name: node.props.name,
+					definition: node.props.description || "",
+					concept: {
+						definition: node.props.description || "",
+						property: node.props.name,
+					},
+					valueDomain: extractValueDomain(node),
+					status: "approved",
+					version: "1.0.0",
+					steward: "system",
+					context: extractContext(node),
+				}
 
-        dataElements.push(element)
-      }
-    })
+				dataElements.push(element)
+			}
+		})
 
-    return dataElements
-  }
+		return dataElements
+	}
 }
 ```
 
@@ -1129,6 +1142,7 @@ export default function extractDataElementMetadata(
 **Location**: `/contracts/boundaries.json`
 
 **Checklist**:
+
 - [ ] Add Artificer → Pathfinder dependency to allowed list
 - [ ] Document reason: "ISO/IEC 11179 metadata registration during compilation"
 - [ ] Update layer diagram showing Artificer using Pathfinder
@@ -1139,6 +1153,7 @@ export default function extractDataElementMetadata(
 **Location**: `/examples/iso11179-metadata-registry/`
 
 **Checklist**:
+
 - [ ] Create example form with multiple field types
 - [ ] Compile form to IR
 - [ ] Extract ISO/IEC 11179 metadata
@@ -1192,6 +1207,7 @@ export default function extractDataElementMetadata(
 **Location**: `/libraries/pathfinder/iso11179/api/`
 
 **Checklist**:
+
 - [ ] Design API endpoints following ISO/IEC 11179 registry interface
 - [ ] Document API with OpenAPI 3.0 specification
 - [ ] Define request/response schemas
@@ -1225,6 +1241,7 @@ POST   /api/mdr/import                     # Import from external registry
 **Location**: `/libraries/pathfinder/iso11179/api/`
 
 **Checklist**:
+
 - [ ] Implement handler for each endpoint
 - [ ] Add authentication/authorization (integrate with Sentinel)
 - [ ] Add rate limiting
@@ -1238,6 +1255,7 @@ POST   /api/mdr/import                     # Import from external registry
 **Location**: `/applications/metadata-registry/`
 
 **Checklist**:
+
 - [ ] Design UI wireframes
 - [ ] Implement data element list view
 - [ ] Implement data element detail view
@@ -1252,6 +1270,7 @@ POST   /api/mdr/import                     # Import from external registry
 **Location**: `/libraries/pathfinder/iso11179/import/`, `/libraries/pathfinder/iso11179/export/`
 
 **Checklist**:
+
 - [ ] Implement export to JSON format
 - [ ] Implement export to XML format (ISO/IEC 11179 schema)
 - [ ] Implement export to Turtle/RDF
@@ -1268,6 +1287,7 @@ POST   /api/mdr/import                     # Import from external registry
 **Location**: `/libraries/pathfinder/iso11179/versioning/`
 
 **Checklist**:
+
 - [ ] Add version tracking to DataElement type
 - [ ] Implement version creation on update
 - [ ] Implement version history queries
@@ -1281,6 +1301,7 @@ POST   /api/mdr/import                     # Import from external registry
 **Location**: `/libraries/pathfinder/iso11179/lifecycle/`
 
 **Checklist**:
+
 - [ ] Implement state transitions (draft → approved → deprecated → retired)
 - [ ] Implement approval workflows
 - [ ] Implement deprecation warnings
@@ -1333,6 +1354,7 @@ POST   /api/mdr/import                     # Import from external registry
 #### Task 4.1: Complete Metamodel Implementation
 
 **Checklist**:
+
 - [ ] Review ISO/IEC 11179-3 metamodel specification
 - [ ] Identify missing entities in current implementation
 - [ ] Implement Classification Scheme
@@ -1345,6 +1367,7 @@ POST   /api/mdr/import                     # Import from external registry
 #### Task 4.2: Implement Federated Registry
 
 **Checklist**:
+
 - [ ] Design federation protocol
 - [ ] Implement registry discovery
 - [ ] Implement cross-registry queries (SPARQL Federation)
@@ -1356,6 +1379,7 @@ POST   /api/mdr/import                     # Import from external registry
 #### Task 4.3: Implement Data Lineage
 
 **Checklist**:
+
 - [ ] Track data element usage across applications
 - [ ] Track derivation chains (calculated fields)
 - [ ] Track transformations (ETL pipelines)
@@ -1366,6 +1390,7 @@ POST   /api/mdr/import                     # Import from external registry
 #### Task 4.4: Implement Impact Analysis
 
 **Checklist**:
+
 - [ ] Analyze impact of changing a data element definition
 - [ ] Identify all downstream dependencies
 - [ ] Generate impact reports
@@ -1376,6 +1401,7 @@ POST   /api/mdr/import                     # Import from external registry
 #### Task 4.5: Add AI-Powered Features
 
 **Checklist**:
+
 - [ ] Implement semantic similarity search (vector embeddings)
 - [ ] Implement automated schema mapping
 - [ ] Implement metadata quality scoring
@@ -1387,6 +1413,7 @@ POST   /api/mdr/import                     # Import from external registry
 #### Task 4.6: Obtain Certification (Optional)
 
 **Checklist**:
+
 - [ ] Contact ISO/IEC 11179 certification body
 - [ ] Review certification requirements
 - [ ] Prepare conformance documentation
@@ -1398,6 +1425,7 @@ POST   /api/mdr/import                     # Import from external registry
 #### Task 4.7: Document Best Practices
 
 **Checklist**:
+
 - [ ] Write comprehensive ISO/IEC 11179 implementation guide
 - [ ] Document Sitebender-specific patterns and conventions
 - [ ] Create tutorial and examples for advanced features
@@ -1455,6 +1483,7 @@ POST   /api/mdr/import                     # Import from external registry
 **Location**: `/libraries/pathfinder/openmetadata/`
 
 **Checklist**:
+
 - [ ] Design connector architecture
 - [ ] Implement OpenMetadata REST API client
 - [ ] Map ISO/IEC 11179 → OpenMetadata entity types
@@ -1465,19 +1494,20 @@ POST   /api/mdr/import                     # Import from external registry
 
 **Mapping ISO/IEC 11179 → OpenMetadata**:
 
-| ISO/IEC 11179 | OpenMetadata Entity |
-|---------------|-------------------|
-| DataElement | Column or Field |
-| DataElementConcept | Tag or Glossary Term |
-| ValueDomain | Data Type + Constraints |
-| Form/Component | Custom Property or Asset |
-| Validation Rule | Test Definition |
+| ISO/IEC 11179      | OpenMetadata Entity      |
+| ------------------ | ------------------------ |
+| DataElement        | Column or Field          |
+| DataElementConcept | Tag or Glossary Term     |
+| ValueDomain        | Data Type + Constraints  |
+| Form/Component     | Custom Property or Asset |
+| Validation Rule    | Test Definition          |
 
 #### Task 5.2: Implement Metadata Export
 
 **Location**: `/libraries/pathfinder/openmetadata/export/`
 
 **Checklist**:
+
 - [ ] Implement `exportToOpenMetadata/index.ts`
 - [ ] Query Pathfinder for Data Elements
 - [ ] Transform ISO/IEC 11179 triples → OpenMetadata JSON
@@ -1495,10 +1525,10 @@ import { exportToOpenMetadata } from "@sitebender/pathfinder/openmetadata/export
 
 // Export all Sitebender metadata to OpenMetadata
 const result = await exportToOpenMetadata({
-  pathfinderStore: localTripleStore,
-  openmetadataUrl: "https://openmetadata.company.com",
-  apiKey: process.env.OPENMETADATA_API_KEY,
-  mode: "incremental" // or "full"
+	pathfinderStore: localTripleStore,
+	openmetadataUrl: "https://openmetadata.company.com",
+	apiKey: process.env.OPENMETADATA_API_KEY,
+	mode: "incremental", // or "full"
 })(config)
 
 // Result: { exported: 150, skipped: 23, errors: 0 }
@@ -1509,6 +1539,7 @@ const result = await exportToOpenMetadata({
 **Location**: `/libraries/pathfinder/openmetadata/import/`
 
 **Checklist**:
+
 - [ ] Implement `importFromOpenMetadata/index.ts`
 - [ ] Query OpenMetadata for database schemas
 - [ ] Transform OpenMetadata JSON → ISO/IEC 11179 triples
@@ -1526,10 +1557,10 @@ import { importFromOpenMetadata } from "@sitebender/pathfinder/openmetadata/impo
 
 // Import PostgreSQL "users" table schema
 const result = await importFromOpenMetadata({
-  openmetadataUrl: "https://openmetadata.company.com",
-  apiKey: process.env.OPENMETADATA_API_KEY,
-  entityType: "table",
-  entityFqn: "postgres.public.users"
+	openmetadataUrl: "https://openmetadata.company.com",
+	apiKey: process.env.OPENMETADATA_API_KEY,
+	entityType: "table",
+	entityFqn: "postgres.public.users",
 })(pathfinderStore)
 
 // Result: Array<DataElement> with status "draft"
@@ -1540,6 +1571,7 @@ const result = await importFromOpenMetadata({
 **Location**: `/libraries/pathfinder/openmetadata/generate/`
 
 **Checklist**:
+
 - [ ] Implement `generateComponentsFromSchema/index.ts`
 - [ ] Read imported Data Elements from Pathfinder
 - [ ] Map Value Domains → Architect field components
@@ -1557,8 +1589,8 @@ import { generateComponentsFromSchema } from "@sitebender/pathfinder/openmetadat
 
 // Generate Sitebender form from imported schema
 const jsxCode = await generateComponentsFromSchema({
-  dataElements: importedElements,
-  formName: "UserRegistrationForm"
+	dataElements: importedElements,
+	formName: "UserRegistrationForm",
 })(pathfinderStore)
 
 // Result: JSX string ready to save as .tsx file
@@ -1569,6 +1601,7 @@ const jsxCode = await generateComponentsFromSchema({
 **Location**: `/libraries/pathfinder/openmetadata/lineage/`
 
 **Checklist**:
+
 - [ ] Track data flow: Sitebender form → database table
 - [ ] Query OpenMetadata for downstream lineage (table → dashboards)
 - [ ] Combine lineage graphs
@@ -1598,6 +1631,7 @@ Tableau dashboard "Customer Analytics"
 **Location**: `/libraries/pathfinder/openmetadata/federation/`
 
 **Checklist**:
+
 - [ ] Check if OpenMetadata supports SPARQL endpoint
 - [ ] If yes: Implement federated SPARQL queries
 - [ ] If no: Implement REST API bridge (query OpenMetadata, return as triples)
@@ -1610,6 +1644,7 @@ Tableau dashboard "Customer Analytics"
 **Location**: `/examples/openmetadata-integration/`
 
 **Checklist**:
+
 - [ ] Example 1: Export Sitebender metadata to OpenMetadata
 - [ ] Example 2: Import database schema and auto-generate form
 - [ ] Example 3: Query unified lineage
@@ -1644,16 +1679,16 @@ Tableau dashboard "Customer Analytics"
 
 ```tsx
 <IntegerField
-  name="age"
-  description="Person's age in completed years"
-  required={true}
+	name="age"
+	description="Person's age in completed years"
+	required={true}
 >
-  <Validation>
-    <And>
-      <IsGreaterThan value={0} />
-      <IsLessThan value={150} />
-    </And>
-  </Validation>
+	<Validation>
+		<And>
+			<IsGreaterThan value={0} />
+			<IsLessThan value={150} />
+		</And>
+	</Validation>
 </IntegerField>
 ```
 
@@ -1778,16 +1813,16 @@ SELECT ?dataElement ?name ?min ?max WHERE {
 
 ```tsx
 <EmailField
-  name="email"
-  description="Electronic mail address for contacting the person"
-  required={true}
+	name="email"
+	description="Electronic mail address for contacting the person"
+	required={true}
 >
-  <Validation>
-    <Matches pattern="^[^@]+@[^@]+\.[^@]+$" />
-  </Validation>
-  <Format>
-    <Lowercase />
-  </Format>
+	<Validation>
+		<Matches pattern="^[^@]+@[^@]+\.[^@]+$" />
+	</Validation>
+	<Format>
+		<Lowercase />
+	</Format>
 </EmailField>
 ```
 
@@ -1833,15 +1868,15 @@ SELECT ?dataElement ?name ?min ?max WHERE {
 
 ```tsx
 <SelectField
-  name="role"
-  description="User's role in the system"
-  required={true}
+	name="role"
+	description="User's role in the system"
+	required={true}
 >
-  <Options>
-    <Option value="admin" label="Administrator" />
-    <Option value="editor" label="Editor" />
-    <Option value="viewer" label="Viewer" />
-  </Options>
+	<Options>
+		<Option value="admin" label="Administrator" />
+		<Option value="editor" label="Editor" />
+		<Option value="viewer" label="Viewer" />
+	</Options>
 </SelectField>
 ```
 
@@ -1896,16 +1931,16 @@ SELECT ?dataElement ?name ?min ?max WHERE {
 
 ```tsx
 <CalculatedField
-  name="fullName"
-  description="Person's full name (first + last)"
-  derivedFrom={["firstName", "lastName"]}
+	name="fullName"
+	description="Person's full name (first + last)"
+	derivedFrom={["firstName", "lastName"]}
 >
-  <Calculation>
-    <Concatenate separator=" ">
-      <FieldRef name="firstName" />
-      <FieldRef name="lastName" />
-    </Concatenate>
-  </Calculation>
+	<Calculation>
+		<Concatenate separator=" ">
+			<FieldRef name="firstName" />
+			<FieldRef name="lastName" />
+		</Concatenate>
+	</Calculation>
 </CalculatedField>
 ```
 
@@ -1969,15 +2004,15 @@ SELECT ?derivedElement ?name ?sources ?formula WHERE {
 
 ```tsx
 <Form id="user-registration">
-  <EmailField name="email" required={true} />
-  <IntegerField name="age" required={true} />
-  <SelectField name="role" required={true}>
-    <Options>
-      <Option value="admin" label="Administrator" />
-      <Option value="editor" label="Editor" />
-    </Options>
-  </SelectField>
-  <SubmitButton>Register</SubmitButton>
+	<EmailField name="email" required={true} />
+	<IntegerField name="age" required={true} />
+	<SelectField name="role" required={true}>
+		<Options>
+			<Option value="admin" label="Administrator" />
+			<Option value="editor" label="Editor" />
+		</Options>
+	</SelectField>
+	<SubmitButton>Register</SubmitButton>
 </Form>
 ```
 
@@ -2050,24 +2085,24 @@ SELECT ?element ?name ?required ?datatype WHERE {
 
 ## Field Component Props → Data Element Attributes
 
-| Component Prop | ISO/IEC 11179 Attribute | Example |
-|---|---|---|
-| `name` | Data Element name | `name="email"` |
-| `description` | Data Element definition | `description="Electronic mail address"` |
-| `type` | Value Domain datatype | `type="EmailAddress"` |
-| `required` | Obligation | `required={true}` |
-| `<Validation>` | Value Domain constraints | `<IsGreaterThan value={0} />` |
-| `<Format>` | Representation Class | `<TwoDecimalPlaces />` |
+| Component Prop | ISO/IEC 11179 Attribute  | Example                                 |
+| -------------- | ------------------------ | --------------------------------------- |
+| `name`         | Data Element name        | `name="email"`                          |
+| `description`  | Data Element definition  | `description="Electronic mail address"` |
+| `type`         | Value Domain datatype    | `type="EmailAddress"`                   |
+| `required`     | Obligation               | `required={true}`                       |
+| `<Validation>` | Value Domain constraints | `<IsGreaterThan value={0} />`           |
+| `<Format>`     | Representation Class     | `<TwoDecimalPlaces />`                  |
 
 ## Component Types → Conceptual Domains
 
-| Architect Component | Conceptual Domain |
-|---|---|
-| `<EmailField>` | Electronic addresses |
-| `<IntegerField>` | Numeric measurements |
-| `<DateField>` | Temporal measurements |
-| `<SelectField>` | Enumerated values |
-| `<BooleanField>` | Binary states |
+| Architect Component | Conceptual Domain     |
+| ------------------- | --------------------- |
+| `<EmailField>`      | Electronic addresses  |
+| `<IntegerField>`    | Numeric measurements  |
+| `<DateField>`       | Temporal measurements |
+| `<SelectField>`     | Enumerated values     |
+| `<BooleanField>`    | Binary states         |
 ```
 
 ### Artificer: Compilation and Registration
@@ -2102,22 +2137,24 @@ import { extractDataElementMetadata } from "@sitebender/artificer/iso11179/index
 import { insertTriples } from "@sitebender/pathfinder/insertTriples/index.ts"
 
 export default function compileComponent(jsxSource: string) {
-  return async function compileToIRAndRegisterMetadata(tripleStore: TripleStore) {
-    // Parse JSX to IR
-    const ir = parseJSXToIR(jsxSource)
+	return async function compileToIRAndRegisterMetadata(
+		tripleStore: TripleStore,
+	) {
+		// Parse JSX to IR
+		const ir = parseJSXToIR(jsxSource)
 
-    // Extract ISO/IEC 11179 metadata
-    const dataElements = extractDataElementMetadata(ir)
+		// Extract ISO/IEC 11179 metadata
+		const dataElements = extractDataElementMetadata(ir)
 
-    // Generate RDF triples
-    const triples = dataElements.flatMap(dataElementToTriples)
+		// Generate RDF triples
+		const triples = dataElements.flatMap(dataElementToTriples)
 
-    // Register in Pathfinder
-    await insertTriples(triples)(tripleStore)
+		// Register in Pathfinder
+		await insertTriples(triples)(tripleStore)
 
-    // Return compiled IR
-    return ir
-  }
+		// Return compiled IR
+		return ir
+	}
 }
 ```
 
@@ -2180,8 +2217,8 @@ export default function compileComponent(jsxSource: string) {
 import { createMetadataBrowser } from "@sitebender/envoy/createMetadataBrowser/index.ts"
 
 const browser = await createMetadataBrowser({
-  registry: pathfinderTripleStore,
-  features: ["search", "graph", "export"]
+	registry: pathfinderTripleStore,
+	features: ["search", "graph", "export"],
 })
 ```
 
@@ -2203,13 +2240,13 @@ import { authorize } from "@sitebender/sentinel/authorize/index.ts"
 
 // Check if user can create data elements
 const canCreate = await authorize({
-  user: currentUser,
-  action: "mdr:create",
-  resource: "DataElement"
+	user: currentUser,
+	action: "mdr:create",
+	resource: "DataElement",
 })
 
 if (!canCreate) {
-  return error({ _tag: "Forbidden", message: "Insufficient permissions" })
+	return error({ _tag: "Forbidden", message: "Insufficient permissions" })
 }
 ```
 
@@ -2496,12 +2533,12 @@ AI queries registry for relevant data elements, generates JSX automatically.
 
 **A**: Not natively. OpenMetadata has its own metamodel, but the concepts are **similar**:
 
-| ISO/IEC 11179 | OpenMetadata |
-|---------------|--------------|
-| Data Element | Column/Field |
-| Data Element Concept | Glossary Term/Tag |
-| Value Domain | Data Type + Constraints |
-| Metadata Registry | Metadata Store |
+| ISO/IEC 11179        | OpenMetadata            |
+| -------------------- | ----------------------- |
+| Data Element         | Column/Field            |
+| Data Element Concept | Glossary Term/Tag       |
+| Value Domain         | Data Type + Constraints |
+| Metadata Registry    | Metadata Store          |
 
 Our connector (Phase 5) provides the mapping layer. Because Pathfinder uses ISO/IEC 11179, we can integrate with ANY catalog, not just OpenMetadata.
 

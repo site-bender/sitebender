@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import _takeArray from "../_takeArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 
@@ -8,6 +11,6 @@ export default function _takeToValidation<T>(n: number) {
 	return function _takeToValidationWithN(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<T>> {
-		return success(_takeArray(n)(array))
+		return success(takeArray<T>(n)(array))
 	}
 }

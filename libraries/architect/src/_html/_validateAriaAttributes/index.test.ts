@@ -13,12 +13,10 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				pressed: "true",
 			})
 
-			assertEquals(result.validAttrs, {
+			assertEquals(result, {
 				"aria-label": "Click me",
 				"aria-pressed": "true",
 			})
-			assertEquals(result.invalidAttrs, {})
-			assertEquals(result.errors, {})
 		},
 	)
 
@@ -31,13 +29,12 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				colcount: "5", // Not allowed on button
 			})
 
-			assertEquals(result.validAttrs, {
-				"aria-label": "Click",
-			})
-			assertEquals(result.invalidAttrs, {
-				"data-§-bad-aria-colcount": "5",
-			})
-			assertEquals(result.errors["data-§-aria-error"]?.includes("not allowed"), true)
+			assertEquals(result["aria-label"], "Click")
+			assertEquals(result["data-§-bad-aria-colcount"], "5")
+			assertEquals(
+				result["data-§-aria-error"]?.includes("not allowed"),
+				true,
+			)
 		},
 	)
 
@@ -49,11 +46,11 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				pressed: "maybe", // Invalid - should be true/false/mixed/undefined
 			})
 
-			assertEquals(result.validAttrs, {})
-			assertEquals(result.invalidAttrs, {
-				"data-§-bad-aria-pressed": "maybe",
-			})
-			assertEquals(result.errors["data-§-aria-error"]?.includes("must be one of"), true)
+			assertEquals(result["data-§-bad-aria-pressed"], "maybe")
+			assertEquals(
+				result["data-§-aria-error"]?.includes("must be one of"),
+				true,
+			)
 		},
 	)
 
@@ -66,12 +63,10 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				pressed: "true",
 			})
 
-			assertEquals(result.validAttrs, {
+			assertEquals(result, {
 				"aria-label": "Click",
 				"aria-pressed": "true",
 			})
-			assertEquals(result.invalidAttrs, {})
-			assertEquals(result.errors, {})
 		},
 	)
 
@@ -83,11 +78,11 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				label: "Label", // Not allowed on div without explicit role
 			})
 
-			assertEquals(result.validAttrs, {})
-			assertEquals(result.invalidAttrs, {
-				"data-§-bad-aria-label": "Label",
-			})
-			assertEquals(result.errors["data-§-aria-error"]?.includes("not allowed"), true)
+			assertEquals(result["data-§-bad-aria-label"], "Label")
+			assertEquals(
+				result["data-§-aria-error"]?.includes("not allowed"),
+				true,
+			)
 		},
 	)
 
@@ -99,11 +94,9 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				label: "Click", // Allowed because div has explicit button role
 			})
 
-			assertEquals(result.validAttrs, {
+			assertEquals(result, {
 				"aria-label": "Click",
 			})
-			assertEquals(result.invalidAttrs, {})
-			assertEquals(result.errors, {})
 		},
 	)
 
@@ -113,9 +106,7 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 			const validate = _validateAriaAttributes("button")(undefined)
 			const result = validate({})
 
-			assertEquals(result.validAttrs, {})
-			assertEquals(result.invalidAttrs, {})
-			assertEquals(result.errors, {})
+			assertEquals(result, {})
 		},
 	)
 
@@ -130,15 +121,10 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				expanded: "maybe", // Invalid value
 			})
 
-			assertEquals(result.validAttrs, {
-				"aria-label": "Click",
-				"aria-pressed": "true",
-			})
-			assertEquals(result.invalidAttrs["data-§-bad-aria-colcount"], "5")
-			assertEquals(
-				result.invalidAttrs["data-§-bad-aria-expanded"],
-				"maybe",
-			)
+			assertEquals(result["aria-label"], "Click")
+			assertEquals(result["aria-pressed"], "true")
+			assertEquals(result["data-§-bad-aria-colcount"], "5")
+			assertEquals(result["data-§-bad-aria-expanded"], "maybe")
 		},
 	)
 
@@ -151,10 +137,7 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 			})
 
 			// Unknown element → no validation data → no attributes allowed
-			assertEquals(result.validAttrs, {})
-			assertEquals(result.invalidAttrs, {
-				"data-§-bad-aria-label": "Test",
-			})
+			assertEquals(result["data-§-bad-aria-label"], "Test")
 		},
 	)
 
@@ -167,12 +150,10 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				label: "Enable feature",
 			})
 
-			assertEquals(result.validAttrs, {
+			assertEquals(result, {
 				"aria-checked": "true",
 				"aria-label": "Enable feature",
 			})
-			assertEquals(result.invalidAttrs, {})
-			assertEquals(result.errors, {})
 		},
 	)
 
@@ -185,12 +166,10 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				describedby: "desc1 desc2", // Global attribute
 			})
 
-			assertEquals(result.validAttrs, {
+			assertEquals(result, {
 				"aria-label": "Click me",
 				"aria-describedby": "desc1 desc2",
 			})
-			assertEquals(result.invalidAttrs, {})
-			assertEquals(result.errors, {})
 		},
 	)
 
@@ -202,8 +181,8 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				label: 123, // Will be converted to "123"
 			})
 
-			// Should reject because 123 is not a string
-			assertEquals(result.invalidAttrs["data-§-bad-aria-label"], "123")
+			// Should accept and convert to string
+			assertEquals(result["aria-label"], "123")
 		},
 	)
 
@@ -217,16 +196,12 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 				pressed: "invalid-value", // Invalid value
 			})
 
-			// All three should be in invalidAttrs
-			assertEquals(
-				Object.keys(result.invalidAttrs).length >= 3,
-				true,
-			)
+			// All three should have data-§-bad-aria-* attributes
+			assertEquals(result["data-§-bad-aria-colcount"], "5")
+			assertEquals(result["data-§-bad-aria-rowcount"], "10")
+			assertEquals(result["data-§-bad-aria-pressed"], "invalid-value")
 			// Should have error message
-			assertEquals(
-				result.errors["data-§-aria-error"] !== undefined,
-				true,
-			)
+			assertEquals(result["data-§-aria-error"] !== undefined, true)
 		},
 	)
 })

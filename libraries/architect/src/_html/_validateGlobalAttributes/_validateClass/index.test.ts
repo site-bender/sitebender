@@ -51,7 +51,9 @@ Deno.test("_validateClass", async function _validateClassTests(t) {
 	await t.step(
 		"returns data-§-bad-class for non-string non-array values",
 		function returnsBadForInvalidTypes() {
-			assertEquals(_validateClass({ class: 123 }), { "data-§-bad-class": "123" })
+			assertEquals(_validateClass({ class: 123 }), {
+				"data-§-bad-class": "123",
+			})
 			assertEquals(_validateClass({ class: true }), {
 				"data-§-bad-class": "true",
 			})
