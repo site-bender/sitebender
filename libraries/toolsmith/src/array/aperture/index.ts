@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
@@ -14,7 +11,7 @@ import _apertureToValidation from "./_apertureToValidation/index.ts"
 
 //++ Creates sliding windows of consecutive elements
 //++ Pattern: three-path overloaded function for plain arrays, Result monads, and Validation monads
-export default function aperture<T>(width: number) {
+export default function aperture<E, T>(width: number) {
 	//++ [OVERLOAD 1] Plain array path
 	function apertureWithWidth(
 		array: ReadonlyArray<T>,
@@ -22,13 +19,13 @@ export default function aperture<T>(width: number) {
 
 	//++ [OVERLOAD 2] Result monad path (fail-fast error handling)
 	function apertureWithWidth(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ [OVERLOAD 3] Validation monad path (accumulate errors)
 	function apertureWithWidth(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ Implementation with type dispatch
 	function apertureWithWidth(array: unknown) {

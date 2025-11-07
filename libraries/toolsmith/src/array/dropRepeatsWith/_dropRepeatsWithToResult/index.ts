@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 
 import _dropRepeatsWithArray from "../_dropRepeatsWithArray/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
@@ -10,6 +11,6 @@ export default function _dropRepeatsWithToResult<T>(
 	return function _dropRepeatsWithToResultWithComparator(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, ReadonlyArray<T>> {
-		return ok(_dropRepeatsWithArray(comparator)(array))
+		return ok(_dropRepeatsWithArray<T>(comparator)(array))
 	}
 }

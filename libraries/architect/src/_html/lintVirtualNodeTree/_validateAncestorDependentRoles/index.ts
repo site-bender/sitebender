@@ -1,10 +1,7 @@
 import concat from "@sitebender/toolsmith/array/concat/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../types/index.ts"
+import type { AncestorContext, ValidationError } from "../types/index.ts"
 import _checkDivInDlRule from "./_checkDivInDlRule/index.ts"
 import _checkFooterRule from "./_checkFooterRule/index.ts"
 import _checkHeaderRule from "./_checkHeaderRule/index.ts"

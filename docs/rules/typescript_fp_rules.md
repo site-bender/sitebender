@@ -52,7 +52,7 @@ const deepConfig = deepFreeze({ nested: { data: [1, 2, 3] } })
 ```ts
 // ❌ PROHIBITED - Using vanilla in application code:
 // In architect/artificer/operator/custodian:
-import validateEmail from '@sitebender/toolsmith/vanilla/validation/validateEmail/index.ts'
+import validateEmail from '@sitebender/toolsmith/validation/validateEmail/index.ts'
 
 function processUser(email: string): User | null {
 	// Loses monadic composition
@@ -567,7 +567,7 @@ export function validateEmail(email: string): string | null {
 // ✅ REQUIRED - Vanilla for internal, boxed for public:
 
 // Internal utility (vanilla):
-// Path: /toolsmith/vanilla/string/_toLowerCase/index.ts
+// Path: /toolsmith/string/_toLowerCase/index.ts
 function _toLowerCase(str: string): string | null {
 	if (!str) return null
 	return str.toLowerCase()

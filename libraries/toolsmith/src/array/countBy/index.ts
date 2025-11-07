@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
@@ -13,7 +10,7 @@ import _countByToResult from "./_countByToResult/index.ts"
 import _countByToValidation from "./_countByToValidation/index.ts"
 
 //++ Counts elements by grouping criteria
-export default function countBy<T, K extends string | number | symbol>(
+export default function countBy<E, T, K extends string | number | symbol>(
 	fn: (element: T) => K,
 ) {
 	// [OVERLOAD 1] Plain array path
@@ -21,24 +18,24 @@ export default function countBy<T, K extends string | number | symbol>(
 
 	// [OVERLOAD 2] Result monad path (fail-fast)
 	function countByWithFn(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, Record<K, number>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, Record<K, number>>
 
 	// [OVERLOAD 3] Validation monad path (accumulate errors)
 	function countByWithFn(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, Record<K, number>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, Record<K, number>>
 
 	// Implementation with type dispatch
 	function countByWithFn(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| Record<K, number>
-		| Result<ValidationError, Record<K, number>>
-		| Validation<ValidationError, Record<K, number>> {
+		| Result<E, Record<K, number>>
+		| Validation<E, Record<K, number>> {
 		// Path 1: Plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
 			return _countByArray(fn)(array)

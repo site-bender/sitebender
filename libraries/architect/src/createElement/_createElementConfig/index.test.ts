@@ -138,7 +138,10 @@ Deno.test("_createVirtualNode - property: tag always uppercased", function tagAl
 			fc.string({ minLength: 1 }),
 			function propertyUppercase(tagName) {
 				const result = _createVirtualNode(tagName)({})([])
-				assertEquals((result as any).tagName, (result as any).tagName.toUpperCase())
+				assertEquals(
+					(result as any).tagName,
+					(result as any).tagName.toUpperCase(),
+				)
 			},
 		),
 	)
@@ -163,7 +166,11 @@ Deno.test("_createVirtualNode - property: preserves children", function preserve
 			fc.string({ minLength: 1 }),
 			fc.array(
 				fc.record({
-					_tag: fc.constantFrom("text" as const, "element" as const, "comment" as const),
+					_tag: fc.constantFrom(
+						"text" as const,
+						"element" as const,
+						"comment" as const,
+					),
 					content: fc.string(),
 				}),
 			),
