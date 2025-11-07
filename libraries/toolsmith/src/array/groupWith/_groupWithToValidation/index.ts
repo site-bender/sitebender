@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 
 import _groupWithArray from "../_groupWithArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -10,6 +13,6 @@ export default function _groupWithToValidation<T>(
 	return function _groupWithToValidationWithPredicate(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-		return success(_groupWithArray(predicate)(array))
+		return success(groupWithArray<T>(predicate)(array))
 	}
 }

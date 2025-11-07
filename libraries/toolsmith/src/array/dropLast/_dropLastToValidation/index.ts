@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import _dropLastArray from "../_dropLastArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 
@@ -8,6 +11,6 @@ export default function _dropLastToValidation<T>(n: number) {
 	return function _dropLastToValidationWithN(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<T>> {
-		return success(_dropLastArray(n)(array))
+		return success(_dropLastArray<T>(n)(array))
 	}
 }

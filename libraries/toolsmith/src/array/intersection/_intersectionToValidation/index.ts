@@ -1,7 +1,7 @@
 import type {
 	Validation,
 	ValidationError,
-} from "../../../types/fp/index.ts"
+} from "../../../types/fp/validation/index.ts"
 
 import _intersectionArray from "../_intersectionArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -13,6 +13,6 @@ export default function _intersectionToValidation<T>(
 	return function _intersectionToValidationWithArray2(
 		array1: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<T>> {
-		return success(_intersectionArray(array2)(array1))
+		return success(intersectionArray<T>(array2)(array1))
 	}
 }
