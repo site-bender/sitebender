@@ -5,6 +5,7 @@ import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import isString from "@sitebender/toolsmith/predicates/isString/index.ts"
 import not from "@sitebender/toolsmith/logic/not/index.ts"
+import _validateAriaAttributes from "../../_validateAriaAttributes/index.ts"
 import _validateAttributes from "../../_validateAttributes/index.ts"
 import _validateImgRole from "./_validateImgRole/index.ts"
 
@@ -31,7 +32,7 @@ export type Props =
  + Role validation is conditional on alt attribute
  */
 export default function _Img(props: Props): VirtualNode {
-	const { children = [], alt, role, ...attrs } = props
+	const { children = [], alt, role, aria, ...attrs } = props
 
 	const hasEmptyAlt = and(isDefined(alt))(
 		and(isString(alt))(isEqual("")(alt)),
@@ -42,9 +43,14 @@ export default function _Img(props: Props): VirtualNode {
 
 	const roleAttrs = _validateImgRole(hasAccessibleName, hasEmptyAlt)(role)
 
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("img")(role)(aria)
+		: {}
+
 	const attributes = {
 		..._validateAttributes("img")({ ...attrs, alt }),
 		...roleAttrs,
+		...ariaAttrs,
 	}
 
 	return {

@@ -1,7 +1,7 @@
 import type { FindDuplicatesAccumulator } from "../types/index.ts"
 
 import not from "../../../logic/not/index.ts"
-import isNotUndefined from "../../../validation/isNotUndefined/index.ts"
+import isUndefined from "../../../predicates/isUndefined/index.ts"
 
 //++ Reducer for finding duplicates (private, not curried for use in reduce)
 export default function _findDuplicatesReducer<T>(
@@ -11,7 +11,7 @@ export default function _findDuplicatesReducer<T>(
 ): FindDuplicatesAccumulator<T> {
 	const seenIndex = acc.seen.get(item)
 
-	if (isNotUndefined(seenIndex)) {
+	if (not(isUndefined(seenIndex))) {
 		// Item has been seen before
 		if (not(acc.processedDuplicates.has(item))) {
 			// First time we're seeing this as a duplicate
