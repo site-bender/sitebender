@@ -1,8 +1,5 @@
-import type {
-	Result,
-	Validation,
-	ValidationError,
-} from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
@@ -14,7 +11,7 @@ import _pluckToValidation from "./_pluckToValidation/index.ts"
 
 //++ Extracts property values from objects in array
 //++ Three-path pattern: plain array, Result monad (fail-fast), or Validation monad (accumulate)
-export default function pluck<T, K extends keyof T>(
+export default function pluck<E, T, K extends keyof T>(
 	key: K,
 ) {
 	//++ [OVERLOAD] Plain array path: takes array, returns array of property values
@@ -24,27 +21,27 @@ export default function pluck<T, K extends keyof T>(
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function pluckWithKey(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, Array<T[K] | null>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, Array<T[K] | null>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function pluckWithKey(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, Array<T[K] | null>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, Array<T[K] | null>>
 
 	//++ Implementation with type dispatch
 	function pluckWithKey(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| Array<T[K] | null>
-		| Result<ValidationError, Array<T[K] | null>>
-		| Validation<ValidationError, Array<T[K] | null>> {
+		| Result<E, Array<T[K] | null>>
+		| Validation<E, Array<T[K] | null>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
-			return _pluckArray(key)(array)
+			return _pluckArray<T>(key)(array)
 		}
 
 		// Result path: fail-fast monadic transformation

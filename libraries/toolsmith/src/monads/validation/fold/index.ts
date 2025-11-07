@@ -3,7 +3,7 @@ import type { Validation } from "../../../types/fp/validation/index.ts"
 
 //++ Folds a validation to a single value by handling both cases
 export default function fold<A, B>(onValid: (value: A) => B) {
-	return function withInvalid<E>(
+	return function withInsuccess<E>(
 		onInvalid: (errors: NonEmptyArray<E>) => B,
 	) {
 		return function applyFold(

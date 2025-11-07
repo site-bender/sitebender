@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 
 import _partitionByArray from "../_partitionByArray/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -10,6 +13,6 @@ export default function _partitionByToValidation<T>(
 	return function _partitionByToValidationWithPredicate(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
-		return success(_partitionByArray(predicate)(array))
+		return success(partitionByArray<T>(predicate)(array))
 	}
 }

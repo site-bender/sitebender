@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 import _moveArray from "../_moveArray/index.ts"
 
@@ -9,10 +10,10 @@ export default function _moveToResult<T>(
 	return function _moveToResultFrom(
 		toIndex: number,
 	) {
-		return function _moveToResultInArray(
+		return function moveToResultInArray<T>(
 			array: ReadonlyArray<T>,
 		): Result<ValidationError, Array<T>> {
-			return ok(_moveArray(fromIndex)(toIndex)(array))
+			return ok(moveArray<T>(fromIndex)(toIndex)(array))
 		}
 	}
 }

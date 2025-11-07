@@ -19,14 +19,14 @@ import _Hn from "@sitebender/architect/_html/heading/_Hn/index.ts"
 
 // Create VirtualNode tree with HEADING placeholders
 const tree = _Article({
-  children: [
-    _Hn({ children: [{ _tag: "text", content: "Article Title" }] }),
-    _Section({
-      children: [
-        _Hn({ children: [{ _tag: "text", content: "Section Title" }] }),
-      ],
-    }),
-  ],
+	children: [
+		_Hn({ children: [{ _tag: "text", content: "Article Title" }] }),
+		_Section({
+			children: [
+				_Hn({ children: [{ _tag: "text", content: "Section Title" }] }),
+			],
+		}),
+	],
 })
 
 // Resolve all HEADING placeholders to actual heading levels
@@ -42,17 +42,17 @@ const resolved = _resolveHeadingLevels(tree)(0)
 ```tsx
 // In your JSX component
 function MyPage() {
-  return (
-    <Article>
-      <Hn>Article Title</Hn>
-      <Section>
-        <Hn>Section Title</Hn>
-        <Section>
-          <Hn>Subsection Title</Hn>
-        </Section>
-      </Section>
-    </Article>
-  )
+	return (
+		<Article>
+			<Hn>Article Title</Hn>
+			<Section>
+				<Hn>Section Title</Hn>
+				<Section>
+					<Hn>Subsection Title</Hn>
+				</Section>
+			</Section>
+		</Article>
+	)
 }
 
 // After createElement transforms JSX to VirtualNode
@@ -70,6 +70,7 @@ const resolved = _resolveHeadingLevels(tree)(0)
 ### Sectioning Elements
 
 The following HTML elements increase heading depth:
+
 - `<article>`
 - `<section>`
 - `<aside>`
@@ -92,25 +93,25 @@ The following HTML elements increase heading depth:
 
 ```typescript
 const tree = _Article({
-  children: [
-    _Section({
-      children: [
-        _Section({
-          children: [
-            _Section({
-              children: [
-                _Section({
-                  children: [
-                    _Hn({ children: [{ _tag: "text", content: "Too Deep" }] }),
-                  ],
-                }),
-              ],
-            }),
-          ],
-        }),
-      ],
-    }),
-  ],
+	children: [
+		_Section({
+			children: [
+				_Section({
+					children: [
+						_Section({
+							children: [
+								_Section({
+									children: [
+										_Hn({ children: [{ _tag: "text", content: "Too Deep" }] }),
+									],
+								}),
+							],
+						}),
+					],
+				}),
+			],
+		}),
+	],
 })
 
 const resolved = _resolveHeadingLevels(tree)(0)
@@ -142,9 +143,9 @@ For frameworks that wrap createElement, add heading resolution to the render pip
 
 ```typescript
 function renderToHtml(component: Component) {
-  const tree = createElement(component)(null)([])
-  const resolved = _resolveHeadingLevels(tree)(0)
-  return serializeToHtml(resolved)
+	const tree = createElement(component)(null)([])
+	const resolved = _resolveHeadingLevels(tree)(0)
+	return serializeToHtml(resolved)
 }
 ```
 
@@ -174,6 +175,7 @@ Post-processing walks the tree **top-down**, tracking depth as it descends, and 
 ## Testing
 
 Comprehensive test coverage in `index.test.ts`:
+
 - Root level resolution (HEADING → H1)
 - Single sectioning (HEADING → H2)
 - Nested sectioning (HEADING → H3, H4, etc.)
@@ -191,7 +193,9 @@ Comprehensive test coverage in `index.test.ts`:
 ### Function Signature
 
 ```typescript
-function _resolveHeadingLevels(vnode: VirtualNode): (sectionDepth?: number) => VirtualNode
+function _resolveHeadingLevels(
+	vnode: VirtualNode,
+): (sectionDepth?: number) => VirtualNode
 ```
 
 ### Parameters

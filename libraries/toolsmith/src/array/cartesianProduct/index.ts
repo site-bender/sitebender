@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
@@ -13,7 +10,7 @@ import _cartesianProductToResult from "./_cartesianProductToResult/index.ts"
 import _cartesianProductToValidation from "./_cartesianProductToValidation/index.ts"
 
 //++ Generates all possible pairs from two arrays (cartesian product)
-export default function cartesianProduct<T, U>(
+export default function cartesianProduct<E, T, U>(
 	array1: ReadonlyArray<T>,
 ) {
 	function cartesianProductWithFirstArray(
@@ -21,12 +18,12 @@ export default function cartesianProduct<T, U>(
 	): ReadonlyArray<[T, U]>
 
 	function cartesianProductWithFirstArray(
-		array2: Result<ValidationError, ReadonlyArray<U>>,
-	): Result<ValidationError, ReadonlyArray<[T, U]>>
+		array2: Result<E, ReadonlyArray<U>>,
+	): Result<E, ReadonlyArray<[T, U]>>
 
 	function cartesianProductWithFirstArray(
-		array2: Validation<ValidationError, ReadonlyArray<U>>,
-	): Validation<ValidationError, ReadonlyArray<[T, U]>>
+		array2: Validation<E, ReadonlyArray<U>>,
+	): Validation<E, ReadonlyArray<[T, U]>>
 
 	function cartesianProductWithFirstArray(array2: unknown) {
 		if (isArray<U>(array2)) {

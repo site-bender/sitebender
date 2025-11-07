@@ -9,6 +9,6 @@ export default function _dropToResult<T>(n: number) {
 	return function _dropToResultWithN(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, ReadonlyArray<T>> {
-		return ok(_dropArray(n)(array))
+		return ok(_dropArray<T>(n)(array))
 	}
 }

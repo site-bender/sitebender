@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _transposeArray from "../_transposeArray/index.ts"
 
@@ -6,5 +9,5 @@ import _transposeArray from "../_transposeArray/index.ts"
 export default function _transposeToValidation<T>(
 	matrix: ReadonlyArray<ReadonlyArray<T>>,
 ): Validation<ValidationError, Array<Array<T | undefined>>> {
-	return success(_transposeArray(matrix))
+	return success(transposeArray<T>(matrix))
 }
