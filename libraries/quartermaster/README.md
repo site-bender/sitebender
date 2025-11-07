@@ -175,7 +175,7 @@ Every decision is tracked in the triple store:
 bend history
 
 # Output:
-# 2024-01-15 14:30:22 - Added Architect library
+# 2024-01-15 14:30:22 - Added Artificer library
 #   Reason: Enable reactive calculations
 #   Suggested by: AI (user approved)
 #
@@ -184,7 +184,7 @@ bend history
 #   Configuration: OAuth2 + WebAuthn
 #
 # 2024-01-15 14:35:12 - Removed Custodian
-#   Reason: User decided state is simple enough for Architect
+#   Reason: User decided state is simple enough for Artificer
 #   Suggested by: User
 
 # Branch and explore alternatives
@@ -224,14 +224,14 @@ Sketch-to-app workflow:
 1. **Draw wireframes** (paper, Figma, Excalidraw, etc.)
 2. **Upload to Quartermaster** (drag-drop or file path)
 3. **AI analyzes layout** - Identifies components, navigation, data flow
-4. **Suggests blueprint** - Maps wireframe to Pagewright components
+4. **Suggests blueprint** - Maps wireframe to Architect components
 5. **You refine** - Approve, modify, or regenerate
 6. **Generate app** - Complete Studio application from design
 
 Recognized elements:
 
 - **Navigation patterns** → Routing structure
-- **Form fields** → Architect calculations + validation
+- **Form fields** → Artificer calculations + validation
 - **Lists and grids** → Data iteration components
 - **Buttons and actions** → Event handlers
 - **Text hierarchy** → Semantic HTML structure
@@ -308,21 +308,21 @@ Quartermaster is itself a Studio application, demonstrating the platform's capab
 
 **minimal** - Bare-bones Studio application
 
-- Libraries: Architect, Pagewright
+- Libraries: Artificer, Architect
 - Use case: Learning, simple sites
 - Generated: Basic routing, single page
 - Dev server: HTTPS on port 25144
 
 **workshop** - Interactive development environment
 
-- Libraries: Architect, Pagewright, Envoy
+- Libraries: Artificer, Architect, Envoy
 - Use case: Exploring IR, debugging Studio apps
 - Generated: Visual IR inspector, live editing
 - Features: Code graph visualization, time-travel debugging
 
 **mission-control** - Documentation site
 
-- Libraries: Pagewright, Envoy
+- Libraries: Architect, Envoy
 - Use case: Library documentation, knowledge bases
 - Generated: HATEOAS navigation, semantic search
 - Features: Markdown processing, syntax highlighting
@@ -363,8 +363,8 @@ Quartermaster is itself a Studio application, demonstrating the platform's capab
 
 **form-builder** - Dynamic form generator
 
-- Schema → Pagewright forms
-- Architect calculations + validation
+- Schema → Architect forms
+- Artificer calculations + validation
 - Multi-step workflows
 - Conditional fields
 - Persistence options
@@ -583,7 +583,7 @@ bend new my-app --from-sketch=./wireframe.png
 # "I see a navigation bar, sidebar, and content area.
 #  This looks like a dashboard. Suggested blueprint: dashboard
 #  Detected: 3 chart widgets, real-time data indicators
-#  Libraries: Architect (reactive), Operator (real-time)
+#  Libraries: Artificer (reactive), Operator (real-time)
 #  Proceed with generation? [yes/no/modify]"
 ```
 
@@ -611,7 +611,7 @@ bend add feature sentinel-auth
 
 # AI guides configuration:
 AI: "I'll add Sentinel authentication.
-     Current app has Architect and Pagewright.
+     Current app has Artificer and Architect.
      Integration points needed:
      - Login route
      - Protected routes wrapper
@@ -667,7 +667,7 @@ bend marketplace info @community/restaurant-pos
 # Author: @chef-dev
 # Rating: 4.8/5 (127 reviews)
 # Downloads: 3,421
-# Libraries: Architect, Pagewright, Sentinel, Operator
+# Libraries: Artificer, Architect, Sentinel, Operator
 # Features: Table management, order processing, kitchen display,
 #           payment integration, inventory tracking
 # Last Updated: 2024-01-10
@@ -769,7 +769,7 @@ You: "Simple blog with markdown"
 AI: "Generating minimal blog..."
 
 # Result:
-Libraries: Pagewright (content), Architect (routing)
+Libraries: Architect (content), Artificer (routing)
 Features: Markdown processing, RSS feed, semantic markup
 Dev Server: https://localhost:25144
 Files: 12 created
@@ -803,7 +803,7 @@ Customization:
 Generating..."
 
 # Result:
-Libraries: Architect, Pagewright, Operator
+Libraries: Artificer, Architect, Operator
 Features: Real-time charts, data streaming, alerts
 Dev Server: https://localhost:25144
 Files: 28 created
@@ -830,7 +830,7 @@ AI: "Collaborative document editor. Session started.
 # Generated with full collaboration history
 
 # Result:
-Libraries: Architect, Pagewright, Agent (CRDTs)
+Libraries: Artificer, Architect, Agent (CRDTs)
 Features: Multi-cursor editing, change tracking, comments
 Dev Server: https://localhost:25144
 Collaborators: 3
@@ -1101,7 +1101,7 @@ import validateBlueprint from "../src/validateBlueprint/index.ts"
 Deno.test("Blueprint validation accepts valid minimal blueprint", () => {
 	const blueprint = {
 		name: "test-app",
-		libraries: ["architect", "pagewright"],
+		libraries: ["artificer", "architect"],
 	}
 
 	const result = validateBlueprint(blueprint)

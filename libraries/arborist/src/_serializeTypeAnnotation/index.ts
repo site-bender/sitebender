@@ -1,6 +1,6 @@
 //++ Serialize a TypeScript type annotation to string
 //++ Handles primitive types, object types, union types, generics, etc.
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
@@ -31,8 +31,12 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 				| undefined
 			if (typeParams) {
 				const params = typeParams.params as Array<unknown>
-				const serializedParamsResult = map(_serializeTypeAnnotation)(params as ReadonlyArray<Serializable>)
-				const serializedParams = getOrElse([] as ReadonlyArray<string>)(serializedParamsResult)
+				const serializedParamsResult = map(_serializeTypeAnnotation)(
+					params as ReadonlyArray<Serializable>,
+				)
+				const serializedParams = getOrElse([] as ReadonlyArray<string>)(
+					serializedParamsResult,
+				)
 				return `${name}<${serializedParams.join(", ")}>`
 			}
 			return name
@@ -41,16 +45,24 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 		// Union types (A | B | C)
 		case "TsUnionType": {
 			const types = nodeObj.types as Array<unknown>
-			const serializedResult = map(_serializeTypeAnnotation)(types as ReadonlyArray<Serializable>)
-			const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			const serializedResult = map(_serializeTypeAnnotation)(
+				types as ReadonlyArray<Serializable>,
+			)
+			const serialized = getOrElse([] as ReadonlyArray<string>)(
+				serializedResult,
+			)
 			return serialized.join(" | ")
 		}
 
 		// Intersection types (A & B & C)
 		case "TsIntersectionType": {
 			const types = nodeObj.types as Array<unknown>
-			const serializedResult = map(_serializeTypeAnnotation)(types as ReadonlyArray<Serializable>)
-			const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			const serializedResult = map(_serializeTypeAnnotation)(
+				types as ReadonlyArray<Serializable>,
+			)
+			const serialized = getOrElse([] as ReadonlyArray<string>)(
+				serializedResult,
+			)
 			return serialized.join(" & ")
 		}
 
@@ -67,9 +79,11 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 				function serializeElemType(elem: Serializable): string {
 					const elemObj = elem as Record<string, unknown>
 					return _serializeTypeAnnotation(elemObj.ty)
-				}
+				},
 			)(elemTypes as ReadonlyArray<Serializable>)
-			const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			const serialized = getOrElse([] as ReadonlyArray<string>)(
+				serializedResult,
+			)
 			return `[${serialized.join(", ")}]`
 		}
 
@@ -96,9 +110,11 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 						return keyName
 					}
 					return ""
-				}
+				},
 			)(members as ReadonlyArray<Serializable>)
-			const serializedArray = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+			const serializedArray = getOrElse([] as ReadonlyArray<string>)(
+				serializedResult,
+			)
 			const filteredResult = filter(_filterNonEmpty)(serializedArray)
 			const filtered = getOrElse([] as ReadonlyArray<string>)(filteredResult)
 			return `{ ${filtered.join("; ")} }`
@@ -120,9 +136,11 @@ export default function _serializeTypeAnnotation(node: unknown): string {
 						return `${name}: ${type}`
 					}
 					return name
-				}
+				},
 			)(params as ReadonlyArray<Serializable>)
-			const serializedParams = getOrElse([] as ReadonlyArray<string>)(serializedParamsResult)
+			const serializedParams = getOrElse([] as ReadonlyArray<string>)(
+				serializedParamsResult,
+			)
 			const returnType = _serializeTypeAnnotation(
 				nodeObj.typeAnnotation,
 			)

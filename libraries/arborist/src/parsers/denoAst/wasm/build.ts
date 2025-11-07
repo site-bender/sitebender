@@ -1,7 +1,7 @@
 // @sitebender/arborist/src/parsers/denoAst/wasm/build.ts
 // Build script for compiling Rust WASM bindings
 
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import length from "@sitebender/toolsmith/array/length/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 

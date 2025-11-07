@@ -4,6 +4,7 @@ import type { EightDecimalPlaces } from "@sitebender/toolsmith/types/branded/ind
 export default function isEightDecimalPlaces(
 	n: number,
 ): n is EightDecimalPlaces {
+	//++ [EXCEPTION] Number.isFinite, Math.round, Math.abs, *, /, -, <=, and Number.EPSILON permitted in Toolsmith for performance - provides decimal precision validation
 	if (!Number.isFinite(n)) {
 		return false
 	}

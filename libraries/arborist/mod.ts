@@ -21,11 +21,9 @@
 //--
 //-- ### Primary Parsing Functions
 //-- - [parseFile](./src/parseFile/index.ts) - Parse a file and return SWC AST (works perfectly)
-//-- - [buildParsedFile](./src/buildParsedFile/index.ts) - Run all extractors on parsed AST (works perfectly)
 //--
 //-- ### Semantic Analysis Functions
 //-- - [parseWithSemantics](./src/parsers/denoAst/wasm/index.ts) - Parse with full semantic analysis using deno_ast WASM
-//-- - [buildSemanticFile](./src/api/buildSemanticFile/index.ts) - Build ParsedFile with semantic information
 //--
 //-- ### Extraction Functions (All Working Perfectly)
 //-- - [extractFunctions](./src/extractFunctions/index.ts) - Function signatures with complete metadata
@@ -47,19 +45,17 @@
 //-- // Result.Error contains ParseError if file not found or invalid syntax
 //-- ```
 //--
-//-- ### Complete Extraction (Works Perfectly)
+//-- ### Extraction Example (Works Perfectly)
 //-- ```typescript
-//-- import buildParsedFile from "@sitebender/arborist/src/buildParsedFile/index.ts"
+//-- import extractFunctions from "@sitebender/arborist/src/extractFunctions/index.ts"
+//-- import extractComments from "@sitebender/arborist/src/extractComments/index.ts"
 //--
-//-- const parsedFileResult = buildParsedFile(ast)("./src/userService.ts")
-//-- // Validation.Success with complete ParsedFile containing:
+//-- const functionsV = extractFunctions(ast)
+//-- const commentsV = extractComments(ast)
+//-- // Validation.Success with extracted data:
 //-- // - functions: Array of function metadata
-//-- // - types: Array of type definitions
-//-- // - imports: Array of import statements
-//-- // - exports: Array of export statements
-//-- // - constants: Array of const declarations
 //-- // - comments: Array of comments with Envoy markers
-//-- // - violations: Constitutional rule violations detected
+//-- // Each extractor can be used independently as needed
 //-- ```
 //--
 //-- ### Semantic Analysis (Works Perfectly)
@@ -127,7 +123,7 @@
 //-- ### Quarrier (Property Testing)
 //-- Uses Arborist for type information and function metadata for property test generation.
 //--
-//-- ### Architect (JSX Compilation)
+//-- ### Artificer (JSX Compilation)
 //-- Uses Arborist for JSX structure analysis, component hierarchy, and data flow tracking.
 //--
 //-- ## Current Capabilities (All Implemented)
@@ -136,7 +132,7 @@
 //-- - **Semantic Analysis**: Full deno_ast WASM wrapper with type inference, purity analysis, complexity metrics
 //-- - **Dual-Mode Architecture**: Choose SWC for speed or deno_ast for semantic depth
 //-- - **Comprehensive Testing**: 188 passing tests with full coverage
-//-- - **Production Ready**: Used by Envoy, Auditor, Quarrier, and Architect
+//-- - **Production Ready**: Used by Envoy, Auditor, Quarrier, and Artificer
 //--
 //-- ## Future Enhancements
 //--
@@ -167,7 +163,7 @@
 //-- ## See Also
 //--
 //-- - [Envoy](../envoy/README.md) - Documentation intelligence (cannot use Arborist currently)
-//-- - [Architect](../architect/README.md) - JSX compilation (limited Arborist usage)
+//-- - [Artificer](../artificer/README.md) - JSX compilation (limited Arborist usage)
 //-- - [Auditor](../auditor/README.md) - Test generation (cannot use Arborist currently)
 //-- - [Quarrier](../quarrier/README.md) - Property testing (cannot use Arborist currently)
 //-- - [Toolsmith](../toolsmith/README.md) - Monadic utilities powering error handling

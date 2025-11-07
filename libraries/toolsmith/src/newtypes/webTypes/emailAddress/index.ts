@@ -16,6 +16,7 @@ import { EMAIL_ADDRESS_MAX_LENGTH } from "@sitebender/toolsmith/newtypes/constan
 export default function emailAddress(
 	email: string,
 ): Result<ValidationError, EmailAddress> {
+	//++ [EXCEPTION] .length and === permitted in Toolsmith for performance - provides EmailAddress validation wrapper
 	if (email.length === 0) {
 		return error({
 			code: "EMAIL_ADDRESS_EMPTY",
@@ -30,6 +31,7 @@ export default function emailAddress(
 
 	const normalized = _normalizeEmail(email)
 
+	//++ [EXCEPTION] .indexOf(), .lastIndexOf(), ===, and !== permitted in Toolsmith for performance - provides EmailAddress validation wrapper
 	const atIndex = normalized.indexOf("@")
 	const lastAtIndex = normalized.lastIndexOf("@")
 
@@ -60,6 +62,7 @@ export default function emailAddress(
 		})
 	}
 
+	//++ [EXCEPTION] .slice() and + permitted in Toolsmith for performance - provides EmailAddress validation wrapper
 	const local = normalized.slice(0, atIndex)
 	const domain = normalized.slice(atIndex + 1)
 
@@ -75,6 +78,7 @@ export default function emailAddress(
 		return domainResult
 	}
 
+	//++ [EXCEPTION] .length and > permitted in Toolsmith for performance - provides EmailAddress validation wrapper
 	if (normalized.length > EMAIL_ADDRESS_MAX_LENGTH) {
 		return error({
 			code: "EMAIL_ADDRESS_TOO_LONG",

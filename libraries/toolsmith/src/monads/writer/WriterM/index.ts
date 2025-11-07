@@ -12,6 +12,7 @@ const WriterM = <W>(M: Monoid<W>) => {
 
 	const map =
 		<A, B>(f: (a: A) => B) => (wa: Writer<W, A>): Writer<W, B> => () => {
+			//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides Writer monad value extraction
 			const [a, w] = wa()
 			return [f(a), w]
 		}
@@ -21,12 +22,14 @@ const WriterM = <W>(M: Monoid<W>) => {
 	) =>
 	(wa: Writer<W, A>): Writer<W, B> =>
 	() => {
+		//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides Writer monad value extraction and chaining
 		const [a, w1] = wa()
 		const [b, w2] = f(a)()
 		return [b, M.concat(w1, w2)]
 	}
 
 	const tell = (w: W) => (wa: Writer<W, unknown>): Writer<W, unknown> => () => {
+		//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides Writer monad value extraction for logging
 		const [a, w1] = wa()
 		return [a, M.concat(w1, w)]
 	}

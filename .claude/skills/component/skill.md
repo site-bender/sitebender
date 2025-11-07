@@ -67,7 +67,7 @@ export default {
 **Example:**
 ```typescript
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
-import type { BaseProps } from "@sitebender/pagewright/_html/types/index.ts"
+import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
 
 export type Props =
   & BaseProps
@@ -131,7 +131,7 @@ export default function Button(props: Props): VirtualNode {
 ```typescript
 import { assert } from "@std/assert"
 import isVirtualNode from "@sitebender/toolsmith/predicates/isVirtualNode/index.ts"
-import _P from "@sitebender/pagewright/_html/_P/index.ts"
+import _P from "@sitebender/architect/_html/_P/index.ts"
 
 import _Article from "./index.ts"
 
@@ -195,7 +195,7 @@ export default function ComponentName(props: Props): VirtualNode {
 
 **For HTML Wrappers (isHtmlElement: true):**
 ```typescript
-import type { BaseProps } from "@sitebender/pagewright/_html/types/index.ts"
+import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
 
 export type Props =
   & BaseProps

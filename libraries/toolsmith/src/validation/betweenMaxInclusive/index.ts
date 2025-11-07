@@ -1,11 +1,14 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chain from "../../monads/result/chain/index.ts"
 import validationChain from "../../monads/validation/chain/index.ts"
-import isNumber from "../isNumber/index.ts"
+import isNumber from "../../predicates/isNumber/index.ts"
 import _checkRangeAsResult from "./_checkRangeAsResult/index.ts"
 import _checkRangeAsValidation from "./_checkRangeAsValidation/index.ts"
 
@@ -27,8 +30,14 @@ export default function betweenMaxInclusive(min: number) {
 
 		//++ Implementation of the full curried function
 		function betweenMaxInclusiveWithMinMax(
-			value: number | Result<ValidationError, number> | Validation<ValidationError, number>,
-		): boolean | Result<ValidationError, boolean> | Validation<ValidationError, boolean> {
+			value:
+				| number
+				| Result<ValidationError, number>
+				| Validation<ValidationError, number>,
+		):
+			| boolean
+			| Result<ValidationError, boolean>
+			| Validation<ValidationError, boolean> {
 			if (isNumber(value)) {
 				return value > min && value <= max
 			}

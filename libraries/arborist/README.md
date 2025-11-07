@@ -2,8 +2,6 @@
 
 Arborist is a parsing library for TypeScript and JSX. When you need to understand the structure of source code—the functions it contains, where comments appear, what modules it imports—you use Arborist. It returns this information as structured data, leaving interpretation to other libraries.
 
-
-
 The library uses **SWC via @swc/wasm-web** as its parser backend. This choice matters because SWC provides syntax-level parsing twenty to fifty times faster than the TypeScript compiler. For most tasks in the Sitebender ecosystem, syntax-level information proves sufficient.
 
 ## The Core Responsibility
@@ -13,8 +11,6 @@ Arborist extracts structural information from source files. Consider it a specia
 What it does do is parse quickly and accurately, providing precise span information for every element it discovers. When Envoy needs to generate documentation, when Auditor needs to analyze test coverage, when Quarrier needs type signatures for generator creation—they all ask Arborist for the structural data they need.
 
 This pattern—one library owning parser integration, other libraries consuming its outputs—eliminates duplication. We parse each file once, not three times.
-
-
 
 ## The API Surface
 
@@ -42,24 +38,6 @@ function parseFile(
 
 You'll typically call this function first, then pass its successful result to extraction functions.
 
-### buildParsedFile
-
-Given a ParsedAst and file path, this function runs all extraction operations and returns a complete ParsedFile. It returns a Validation monad—either Success with a ParsedFile, or Failure with accumulated errors from all extractors.
-
-```typescript
-function buildParsedFile(
-	ast: ParsedAst,
-) {
-	return function buildFromAst(
-		filePath: string,
-	): Validation<ExtractionError, ParsedFile>
-}
-```
-
-**Why Validation?** Extraction operations are independent. If function extraction fails, comment extraction might still work. Validation accumulates ALL errors so you see every issue at once, while still enabling partial success.
-
-
-
 ### extractFunctions
 
 Given a ParsedAst, this function walks the AST and discovers all function declarations and function expressions. It returns a Validation monad with an array of ParsedFunction structures.
@@ -83,8 +61,6 @@ Each ParsedFunction captures:
 
 The key insight: type information comes from parsing the source text, not from semantic analysis. If the source says `function add(a: number, b: number): number`, we capture "number" as text. We don't verify that the function actually returns a number.
 
-
-
 ### extractComments
 
 This function extracts all comments from the parsed AST, returning a Validation monad with an array of ParsedComment structures.
@@ -106,8 +82,6 @@ Each ParsedComment includes:
 
 Arborist detects Envoy marker syntax but does not interpret it. When it sees `//++ Validates email format`, it extracts the text and identifies the marker, but makes no judgment about what that means. Interpretation belongs to Envoy.
 
-
-
 ### extractImports
 
 This function enumerates import statements, returning a Validation monad with an array of ParsedImport structures.
@@ -128,8 +102,6 @@ Each ParsedImport records:
 
 The function handles all standard import patterns including renamed imports and type-only imports.
 
-
-
 ### extractExports
 
 This function enumerates export statements, returning a Validation monad with an array of ParsedExport structures.
@@ -149,8 +121,6 @@ Each ParsedExport records:
 - Character span
 - Position
 
-
-
 ### extractTypes
 
 This function extracts type aliases and interfaces, returning a Validation monad with an array of ParsedType structures.
@@ -168,8 +138,6 @@ Each ParsedType includes:
 - Export flag
 - Character span
 - Position
-
-
 
 ### extractConstants
 
@@ -190,8 +158,6 @@ Each ParsedConstant captures:
 - Character span
 - Position
 
-
-
 ### detectViolations
 
 This function analyzes the AST for constitutional rule violations, returning a Validation monad with ViolationInfo.
@@ -210,8 +176,6 @@ ViolationInfo includes:
 - Try-catch blocks (positions)
 - Loops (positions)
 - Mutations (positions)
-
-
 
 ## Error Handling
 
@@ -327,7 +291,8 @@ Here's how you'd use these functions together:
 
 ```typescript
 import parseFile from "@sitebender/arborist/parseFile"
-import buildParsedFile from "@sitebender/arborist/buildParsedFile"
+import extractFunctions from "@sitebender/arborist/extractFunctions"
+import extractComments from "@sitebender/arborist/extractComments"
 import { fold as foldResult } from "@sitebender/toolsmith/monads/result/fold"
 import { fold as foldValidation } from "@sitebender/toolsmith/monads/validation/fold"
 
@@ -342,23 +307,23 @@ const output = foldResult(
 		return null
 	},
 )(function handleParsedAST(ast) {
-	const validation = buildParsedFile(ast)(filePath)
+	// Extract only the structural information you need
+	const functionsV = extractFunctions(ast)
+	const commentsV = extractComments(ast)
 
 	return foldValidation(
 		function handleExtractionErrors(errors) {
 			errors.forEach((e) => console.warn(e.message))
-			// Partial success possible: some features may have extracted
 			return null
 		},
-	)(function handleSuccess(parsed) {
-		return parsed
-	})(validation)
+	)(function handleSuccess(functions) {
+		// Process extracted functions
+		return functions
+	})(functionsV)
 })(result)
 ```
 
-You parse once, then extract whatever structural information you need. Errors are values that guide you to solutions.
-
-
+You parse once, then extract whatever structural information you need using the individual extractor functions. Errors are values that guide you to solutions.
 
 ## Consumer Integration
 
@@ -371,8 +336,6 @@ Three libraries currently consume Arborist's outputs.
 **Quarrier** generates test data using type information from function signatures. It never parses TypeScript directly.
 
 This pattern ensures we parse each file exactly once. Three consumers, one parser, no duplication.
-
-
 
 ## The Dependency Choice
 
@@ -400,8 +363,6 @@ These measurements remain consistent because we're doing only syntax-level parsi
 
 When you need to parse an entire codebase, these differences compound. Parsing that might take minutes with the TypeScript compiler completes in seconds with SWC.
 
-
-
 ## Error Accumulation Strategy
 
 Arborist uses two monadic strategies for error handling:
@@ -417,8 +378,6 @@ Arborist uses two monadic strategies for error handling:
 - Multiple independent extractions (see ALL issues at once)
 
 This means when extraction fails for functions but succeeds for comments, you get a Failure with error details AND the successfully extracted comments. Maximum information, minimum surprise.
-
-
 
 ## File Type Support
 
@@ -440,8 +399,6 @@ Five principles guide Arborist's design:
 
 **Single Responsibility.** Parse and extract. Don't interpret. Don't analyze. Don't generate. Other libraries handle those concerns.
 
-
-
 ## Boundaries and Responsibilities
 
 Understanding what Arborist doesn't do proves as important as understanding what it does.
@@ -452,15 +409,11 @@ Understanding what Arborist doesn't do proves as important as understanding what
 
 When libraries respect these boundaries, the system as a whole becomes easier to understand and maintain. Each library does one thing well.
 
-
-
 ## The Contract
 
 Only Arborist imports SWC WASM. This rule has no exceptions.
 
 When Arborist changes its internal implementation, consumers notice only improved performance or new features. The API remains stable. The data structures remain consistent. This stability represents the contract's promise: internal changes don't break external dependencies.
-
-
 
 ## Current Semantic Analysis Implementation
 
@@ -472,7 +425,6 @@ Arborist now provides semantic analysis via a custom deno_ast WASM wrapper. The 
 ### Semantic Functions
 
 - `parseFileWithSemantics` - Parse with full semantic analysis using deno_ast WASM
-- `buildSemanticFile` - Build ParsedFile with semantic information
 
 Semantic analysis includes:
 
@@ -482,24 +434,71 @@ Semantic analysis includes:
 - Symbol table generation
 - Diagnostic information
 
+### Building the WASM Package
 
+The semantic analysis features require building the Rust WASM bindings. This is a one-time setup step:
+
+**Prerequisites:**
+
+- Rust toolchain installed (`rustup` recommended)
+- wasm-pack installed: `cargo install wasm-pack`
+- wasm-opt installed (optional, for optimization): `npm install -g wasm-opt` or
+  `brew install binaryen`
+
+**Build Method 1: Using wasm-pack (Recommended)**
+
+```bash
+cd libraries/arborist/src/parsers/denoAst/wasm
+wasm-pack build --target bundler --out-dir pkg --release
+```
+
+This creates an optimized WASM binary (~700-800KB) with bulk memory operations
+enabled. The `Cargo.toml` is configured to pass the correct optimization flags
+to wasm-opt.
+
+**Build Method 2: Using build.sh**
+
+For manual control over optimization:
+
+```bash
+cd libraries/arborist/src/parsers/denoAst/wasm
+./build.sh
+```
+
+This script uses `cargo build` directly and runs `wasm-opt` with custom flags.
+It provides size comparisons and handles missing wasm-opt gracefully.
+
+**Output files in `pkg/` directory:**
+
+- `arborist_deno_ast_wasm_bg.wasm` - The compiled WASM binary (optimized:
+  ~700-800KB, unoptimized: ~1.0MB)
+- `arborist_deno_ast_wasm.js` - JavaScript wrapper
+- `arborist_deno_ast_wasm.d.ts` - TypeScript type definitions
+- `arborist_deno_ast_wasm_bg.js` - Background JavaScript bindings
+- `arborist_deno_ast_wasm_bg.wasm.d.ts` - WASM TypeScript declarations
+
+**Note:** The WASM package is gitignored and must be built locally on each
+development machine.
 
 ## Constitutional Compliance
 
 Arborist adheres to strict functional programming principles enforced through automated violation detection. The library follows these rules:
 
 ### Critical Rules (Must Follow)
+
 - **No arrow functions** in callbacks - All functions use the `function` keyword
 - **No classes** - Functions and closures only
 - **No throw statements** except at IO boundaries
 - **No try-catch blocks** except at IO boundaries
 
 ### Important Rules (Should Follow)
+
 - **No loops** (`for`, `while`, `do-while`) - Use `map`, `filter`, `reduce` from Toolsmith
 - **No let/var** - Use `const` only with functional patterns
 - **Named helper functions** in separate folders with underscore prefix
 
 ### Operator Substitutions (Good Practice)
+
 - Use Toolsmith functions: `isEqual()` instead of `===`, `or()` instead of `||`, `and()` instead of `&&`, `not()` instead of `!`, `length()` instead of `.length`
 
 The `detectViolations` function automatically identifies any rule violations. All production code passes constitutional compliance checks.
@@ -521,8 +520,6 @@ Tests verify that Arborist correctly:
 
 When tests pass, the contract holds. When a test fails, we've broken something that consumers depend on.
 
-
-
 ## Why This Matters
 
 Code analysis tools need to parse source files. Without Arborist, each tool would implement its own parser integration. We'd have three different versions of parsing logic, three different sets of bugs, three different performance characteristics.
@@ -530,5 +527,3 @@ Code analysis tools need to parse source files. Without Arborist, each tool woul
 With Arborist, we centralize parser integration. One implementation, tested once, optimized once, maintained once. Consumers get consistent, fast, accurate structural data.
 
 This is a refactoring, in the original sense of the term. We extracted a common capability into a shared library and made it better than any individual implementation would have been.
-
-

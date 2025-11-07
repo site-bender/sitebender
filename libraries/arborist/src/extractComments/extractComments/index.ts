@@ -9,14 +9,10 @@ import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import length from "@sitebender/toolsmith/array/length/index.ts"
 
-import type {
-	ParsedAst,
-	ParsedComment,
-	Span,
-} from "../../types/index.ts"
+import type { ParsedAst, ParsedComment, Span } from "../../types/index.ts"
 import type { CommentExtractionError } from "../../types/errors/index.ts"
 
 import _detectEnvoyMarker from "../_detectEnvoyMarker/index.ts"
@@ -89,12 +85,8 @@ export default function extractComments(
 	)(blockMatches)
 
 	// Combine and sort by position
-	const lineCommentsArray = getOrElse([] as ReadonlyArray<ParsedComment>)(
-		lineComments,
-	)
-	const blockCommentsArray = getOrElse([] as ReadonlyArray<ParsedComment>)(
-		blockComments,
-	)
+	const lineCommentsArray = lineComments as ReadonlyArray<ParsedComment>
+	const blockCommentsArray = blockComments as ReadonlyArray<ParsedComment>
 	const allComments = [...lineCommentsArray, ...blockCommentsArray]
 
 	const sortedCommentsResult = reduce(

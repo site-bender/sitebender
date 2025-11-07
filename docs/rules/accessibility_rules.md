@@ -4,7 +4,7 @@
 
 - **Rule ID**: A11Y_PROGRESSIVE_ENHANCEMENT_001
 - **Description**: HTML must work in Lynx, CSS enhances layout, JS adds behavior through progressive enhancement
-- **Keywords**: progressive-enhancement, accessibility, html-first, lynx, stateless, universal-access, forms, anchor-links, pagewright
+- **Keywords**: progressive-enhancement, accessibility, html-first, lynx, stateless, universal-access, forms, anchor-links, architect
 - **Rationale**: Stateless WWW principles ensure universal access. Works for everyone, enhanced for capable browsers. JS-required interfaces exclude users with disabilities or older technology. This embodies universal access through progressive enhancement - old stateless web first.
 
 **Prohibited:**
@@ -54,7 +54,7 @@ function SubmitForm(): JSX.Element {
 // Proper rel attributes, anchor IDs for navigation
 ```
 
-*Scope*: All Pagewright components - HTML works universally, CSS/JS layer enhancements on top
+*Scope*: All Architect components - HTML works universally, CSS/JS layer enhancements on top
 
 ---
 
@@ -62,8 +62,8 @@ function SubmitForm(): JSX.Element {
 
 - **Rule ID**: A11Y_COLOR_INDEPENDENCE_001
 - **Description**: Information must be perceivable without color dependency, using multiple channels like borders, icons, and text
-- **Keywords**: color-blindness, accessibility, high-contrast, theming, css-custom-properties, architect-approval, visual-design, multi-channel
-- **Rationale**: Color-blind users and high contrast mode users cannot rely on color alone for information. Visual design affects accessibility standards. Color-only information excludes users with color blindness or contrast sensitivity. Information must be perceivable through multiple channels, not just color. Requires Architect approval for visual design decisions - AIs handle semantics, humans handle visual design.
+- **Keywords**: color-blindness, accessibility, high-contrast, theming, css-custom-properties, artificer-approval, visual-design, multi-channel
+- **Rationale**: Color-blind users and high contrast mode users cannot rely on color alone for information. Visual design affects accessibility standards. Color-only information excludes users with color blindness or contrast sensitivity. Information must be perceivable through multiple channels, not just color. Requires Artificer approval for visual design decisions - AIs handle semantics, humans handle visual design.
 
 **Prohibited:**
 ```ts
@@ -113,15 +113,15 @@ function ErrorField({ errorMessage }: { errorMessage: string }): JSX.Element {
 // }
 ```
 
-*Scope*: All Pagewright components - get Architect approval for color/visual design decisions
+*Scope*: All Architect components - get Artificer approval for color/visual design decisions
 
 ---
 
-## Get Architect approval for visual design decisions - AIs handle semantics and structure, not colors, fonts, or styling
+## Get Artificer approval for visual design decisions - AIs handle semantics and structure, not colors, fonts, or styling
 
 - **Rule ID**: A11Y_ARCHITECT_APPROVAL_001
-- **Description**: Get Architect approval for visual design decisions - AIs handle semantics and structure, not colors, fonts, or styling
-- **Keywords**: architect-approval, visual-design, accessibility, contrast, typography, brand, separation-of-concerns, semantics
+- **Description**: Get Artificer approval for visual design decisions - AIs handle semantics and structure, not colors, fonts, or styling
+- **Keywords**: artificer-approval, visual-design, accessibility, contrast, typography, brand, separation-of-concerns, semantics
 - **Rationale**: Visual design affects accessibility (contrast, readability). Design decisions should be intentional, not AI-generated. AI-chosen colors and fonts may violate accessibility standards or brand guidelines. Separate concerns - AIs handle semantics, humans handle visual design.
 
 **Prohibited:**
@@ -147,12 +147,12 @@ function Header(): JSX.Element {
 
 // Problems:
 // - AI chose colors without contrast check
-// - No Architect approval for visual decisions
+// - No Artificer approval for visual decisions
 // - May violate brand guidelines
 // - Font choice affects readability
 ```
 
-*Reasoning*: Visual design decisions require human Architect approval for accessibility and brand compliance
+*Reasoning*: Visual design decisions require human Artificer approval for accessibility and brand compliance
 
 **Required:**
 ```ts
@@ -166,12 +166,12 @@ function Header({ text }: { text: string }): JSX.Element {
 	)
 }
 
-// Architect responsibility: Visual design
-// (Architect provides CSS with approved colors, fonts, contrast ratios)
-// .site-header { /* Architect-approved styles */ }
+// Artificer responsibility: Visual design
+// (Artificer provides CSS with approved colors, fonts, contrast ratios)
+// .site-header { /* Artificer-approved styles */ }
 // .site-title {
-//   color: var(--color-heading);  /* Architect-approved */
-//   font-family: var(--font-heading);  /* Architect-approved */
+//   color: var(--color-heading);  /* Artificer-approved */
+//   font-family: var(--font-heading);  /* Artificer-approved */
 // }
 
 // AI focuses on:
@@ -181,7 +181,7 @@ function Header({ text }: { text: string }): JSX.Element {
 // - Progressive enhancement
 ```
 
-*Scope*: All components - semantic structure by AI, visual design requires Architect approval
+*Scope*: All components - semantic structure by AI, visual design requires Artificer approval
 
 ---
 
@@ -258,7 +258,7 @@ function ContactForm(): JSX.Element {
 // - Strunk & White style
 ```
 
-*Scope*: All user-facing text in Pagewright components - use Linguist library for content
+*Scope*: All user-facing text in Architect components - use Linguist library for content
 
 ---
 
@@ -266,7 +266,7 @@ function ContactForm(): JSX.Element {
 
 - **Rule ID**: A11Y_REQUIRED_PROPS_001
 - **Description**: Make accessibility props required, not optional - build accessibility INTO components so end users cannot skip it
-- **Keywords**: required-props, accessibility, type-safety, component-design, build-in, mandatory, labels, pagewright
+- **Keywords**: required-props, accessibility, type-safety, component-design, build-in, mandatory, labels, architect
 - **Rationale**: Accessibility should be impossible to forget or skip. Required props ensure proper content. Components that permit bad accessibility are broken. Optional accessibility props get skipped, creating inaccessible interfaces. BUILD-IN accessibility so end users can't mess it up.
 
 **Prohibited:**
@@ -333,7 +333,7 @@ function TextField({ name, label, helpText }: TextFieldProps): JSX.Element {
 // <TextField name="email" label="Email address" />  // OK
 ```
 
-*Scope*: All Pagewright components - critical accessibility props must be required
+*Scope*: All Architect components - critical accessibility props must be required
 
 ---
 
@@ -406,16 +406,16 @@ if (navigator.userAgent.includes('Chrome')) {
 // HTML layer (universal) → CSS layer (@supports) → JS layer (Operator events)
 ```
 
-*Scope*: All CSS in Pagewright - base styles work universally, @supports adds enhancements
+*Scope*: All CSS in Architect - base styles work universally, @supports adds enhancements
 
 ---
 
-## Use semantic Pagewright components exclusively, never raw HTML elements - end users work in semantics, not HTML widgets
+## Use semantic Architect components exclusively, never raw HTML elements - end users work in semantics, not HTML widgets
 
 - **Rule ID**: A11Y_SEMANTIC_COMPONENTS_001
-- **Description**: Use semantic Pagewright components exclusively, never raw HTML elements - end users work in semantics, not HTML widgets
-- **Keywords**: semantic-components, pagewright, accessibility, type-safety, build-in, raw-html, PhoneNumberField, EmailAddressField, ChooseOneField
-- **Rationale**: Pagewright enforces accessibility automatically. Raw HTML bypasses built-in protections. Raw HTML elements lose accessibility guards, semantic meaning, and type safety. BUILD-IN accessibility so end users can't mess it up.
+- **Description**: Use semantic Architect components exclusively, never raw HTML elements - end users work in semantics, not HTML widgets
+- **Keywords**: semantic-components, architect, accessibility, type-safety, build-in, raw-html, PhoneNumberField, EmailAddressField, ChooseOneField
+- **Rationale**: Architect enforces accessibility automatically. Raw HTML bypasses built-in protections. Raw HTML elements lose accessibility guards, semantic meaning, and type safety. BUILD-IN accessibility so end users can't mess it up.
 
 **Prohibited:**
 ```ts
@@ -437,18 +437,18 @@ function ContactForm(): JSX.Element {
 // - No labels (accessibility failure)
 // - No validation
 // - No semantic meaning
-// - Bypasses Pagewright protections
+// - Bypasses Architect protections
 // - End users must manually add accessibility
 ```
 
-*Reasoning*: Raw HTML bypasses Pagewright's built-in accessibility, allowing broken interfaces
+*Reasoning*: Raw HTML bypasses Architect's built-in accessibility, allowing broken interfaces
 
 **Required:**
 ```ts
-// ✅ REQUIRED - Semantic Pagewright components:
-import { PhoneNumberField } from '@sitebender/pagewright/fields/PhoneNumberField'
-import { EmailAddressField } from '@sitebender/pagewright/fields/EmailAddressField'
-import { ChooseOneField } from '@sitebender/pagewright/fields/ChooseOneField'
+// ✅ REQUIRED - Semantic Architect components:
+import { PhoneNumberField } from '@sitebender/architect/fields/PhoneNumberField'
+import { EmailAddressField } from '@sitebender/architect/fields/EmailAddressField'
+import { ChooseOneField } from '@sitebender/architect/fields/ChooseOneField'
 
 function ContactForm(): JSX.Element {
 	return (
@@ -479,15 +479,15 @@ function ContactForm(): JSX.Element {
 // - Semantic meaning clear
 ```
 
-*Scope*: All Pagewright components - semantic components only, never raw HTML elements
+*Scope*: All Architect components - semantic components only, never raw HTML elements
 
 ---
 
-## Keyboard navigation handled automatically by Pagewright components with tab order, focus management, and visible indicators
+## Keyboard navigation handled automatically by Architect components with tab order, focus management, and visible indicators
 
 - **Rule ID**: A11Y_KEYBOARD_NAVIGATION_001
-- **Description**: Keyboard navigation handled automatically by Pagewright components with tab order, focus management, and visible indicators
-- **Keywords**: keyboard-navigation, accessibility, tab-order, focus-management, keyboard-only, focus-indicators, escape-key, arrow-keys, pagewright
+- **Description**: Keyboard navigation handled automatically by Architect components with tab order, focus management, and visible indicators
+- **Keywords**: keyboard-navigation, accessibility, tab-order, focus-management, keyboard-only, focus-indicators, escape-key, arrow-keys, architect
 - **Rationale**: Keyboard-only users must be able to navigate and operate all interface elements. Focus management prevents users from getting trapped. Poor keyboard navigation excludes users who cannot use pointing devices. Logical keyboard flow through forms and interfaces, handled automatically by components.
 
 **Prohibited:**
@@ -546,19 +546,19 @@ function Modal({ onClose, returnFocusTo }: ModalProps): JSX.Element {
 }
 
 // CSS: .modal button:focus { outline: 2px solid blue; }
-// Pagewright components handle this automatically
+// Architect components handle this automatically
 ```
 
 *Scope*: All interactive components - tab order, focus trapping, escape key, visible focus indicators
 
 ---
 
-## NO ARIA is better than BAD ARIA - use ARIA only when Pagewright's semantic components are insufficient
+## NO ARIA is better than BAD ARIA - use ARIA only when Architect's semantic components are insufficient
 
 - **Rule ID**: A11Y_ARIA_GUIDELINES_001
-- **Description**: NO ARIA is better than BAD ARIA - use ARIA only when Pagewright's semantic components are insufficient
-- **Keywords**: aria, accessibility, screen-readers, semantic-components, pagewright, no-aria, bad-aria, semantic-props, live-regions
-- **Rationale**: End users never see ARIA directly. Incorrect ARIA makes accessibility worse than no ARIA. Pagewright's semantic components handle most accessibility automatically. Bad ARIA confuses screen readers and breaks accessibility more than missing ARIA. NO ARIA better than BAD ARIA - Pagewright semantics first, ARIA only when insufficient.
+- **Description**: NO ARIA is better than BAD ARIA - use ARIA only when Architect's semantic components are insufficient
+- **Keywords**: aria, accessibility, screen-readers, semantic-components, architect, no-aria, bad-aria, semantic-props, live-regions
+- **Rationale**: End users never see ARIA directly. Incorrect ARIA makes accessibility worse than no ARIA. Architect's semantic components handle most accessibility automatically. Bad ARIA confuses screen readers and breaks accessibility more than missing ARIA. NO ARIA better than BAD ARIA - Architect semantics first, ARIA only when insufficient.
 
 **Prohibited:**
 ```ts
@@ -598,8 +598,8 @@ function CustomInput(): JSX.Element {
 **Required:**
 ```ts
 // ✅ REQUIRED - Semantic components first, ARIA when needed:
-// Option 1: Use semantic Pagewright components (preferred)
-import { SearchField } from '@sitebender/pagewright/fields/SearchField'
+// Option 1: Use semantic Architect components (preferred)
+import { SearchField } from '@sitebender/architect/fields/SearchField'
 
 function SearchBar(): JSX.Element {
 	return (
@@ -624,13 +624,13 @@ function LiveRegion({ message }: { message: string }): JSX.Element {
 	)
 }
 
-// Pagewright semantic props:
+// Architect semantic props:
 // - 'use' instead of 'role'
 // - 'purpose' instead of 'aria-label'
 // - Accessibility built-in, ARIA hidden from end users
 ```
 
-*Scope*: All components - prefer semantic Pagewright components, use ARIA only when insufficient
+*Scope*: All components - prefer semantic Architect components, use ARIA only when insufficient
 
 ---
 
@@ -728,7 +728,7 @@ function ChooseOneField({
 
 - **Rule ID**: A11Y_SCREEN_READER_001
 - **Description**: Screen reader support through semantic markup, live regions for dynamic content, and proper heading hierarchy
-- **Keywords**: screen-readers, accessibility, semantic-markup, live-regions, aria-live, headings, non-visual, context, pagewright, progressive-enhancement
+- **Keywords**: screen-readers, accessibility, semantic-markup, live-regions, aria-live, headings, non-visual, context, architect, progressive-enhancement
 - **Rationale**: Screen reader users need semantic structure and context to understand and navigate interfaces effectively. Poor semantic markup and missing context make interfaces unusable for screen reader users. Progressive enhancement - semantic HTML works with screen readers, enhanced with live regions.
 
 **Prohibited:**
@@ -794,7 +794,7 @@ function FormValidation({ error }: { error: string }): JSX.Element {
 	)
 }
 
-// Pagewright semantic components:
+// Architect semantic components:
 // - EmailAddressField announces "Email address input" automatically
 // - PhoneNumberField provides built-in context
 // - Proper heading hierarchy for navigation

@@ -7,5 +7,6 @@ export default function isMap<
 >(
 	value: unknown,
 ): value is Map<K, V> {
+	//++ [EXCEPTION] instanceof permitted in Toolsmith for performance - provides type predicate wrapper
 	return value instanceof Map
 }

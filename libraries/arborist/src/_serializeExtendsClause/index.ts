@@ -1,5 +1,5 @@
 import _serializeTypeAnnotation from "../_serializeTypeAnnotation/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import length from "@sitebender/toolsmith/array/length/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
@@ -19,7 +19,8 @@ export default function serializeExtendsClause(
 	}
 
 	const serializedResult = map(_serializeExtend)(extendsArray)
-	const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult).join(", ")
+	const serialized = getOrElse([] as ReadonlyArray<string>)(serializedResult)
+		.join(", ")
 
 	return ` extends ${serialized}`
 }

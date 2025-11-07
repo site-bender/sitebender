@@ -47,9 +47,9 @@ A state management library that works without JavaScript, enhances progressively
 ### What NOT to Mock
 
 - Toolsmith functions
-- Architect behaviors
+- Artificer behaviors
 - Agent operations
-- Pagewright components
+- Architect components
 - Any Studio library internals
 
 ## Phase 1: Foundation
@@ -258,7 +258,7 @@ A state management library that works without JavaScript, enhances progressively
 
 **Definition of Done**:
 
-- Integration tests with real Architect components
+- Integration tests with real Artificer components
 - Agent sync tested with mock CRDT operations
 - SPARQL generation validated against schema
 - All integrations follow Studio patterns
@@ -266,13 +266,13 @@ A state management library that works without JavaScript, enhances progressively
 **Tasks**:
 
 1. Integration test suite
-   - [ ] Write integration test: Architect DOM behaviors
+   - [ ] Write integration test: Artificer DOM behaviors
    - [ ] Write integration test: Agent CRDT sync
    - [ ] Write integration test: Triple store updates
    - [ ] Write E2E test: Full stack with all libraries
 
 2. Implementation with TDD
-   - [ ] Write `triggerCalculation.test.ts` for Architect
+   - [ ] Write `triggerCalculation.test.ts` for Artificer
    - [ ] Implement `triggerCalculation`: Call `__sbCalculate`
    - [ ] Write `toCRDTOperation.test.ts` for Agent
    - [ ] Implement `toCRDTOperation`: Convert format

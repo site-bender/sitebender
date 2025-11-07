@@ -148,18 +148,20 @@ Deno.test("_isPhoneNumber - property: strings with invalid characters fail", fun
 	fc.assert(
 		fc.property(
 			fc.oneof(
-				fc.string({ minLength: 10, maxLength: 10 }).filter(function hasInvalidChars(s) {
-					return s.split("").some(function isInvalidChar(c) {
-						return !"0123456789".includes(c)
-					})
-				}),
+				fc.string({ minLength: 10, maxLength: 10 }).filter(
+					function hasInvalidChars(s) {
+						return s.split("").some(function isInvalidChar(c) {
+							return !"0123456789".includes(c)
+						})
+					},
+				),
 				fc.tuple(
 					fc.constant("("),
 					fc.string({ minLength: 3, maxLength: 3 }),
 					fc.constant(") "),
 					fc.string({ minLength: 3, maxLength: 3 }),
 					fc.constant("-"),
-					fc.string({ minLength: 4, maxLength: 4 })
+					fc.string({ minLength: 4, maxLength: 4 }),
 				).filter(function hasInvalidChars(tuple) {
 					const areaCode = tuple[1].split("").some(function isInvalidChar(c) {
 						return !"0123456789".includes(c)
@@ -179,7 +181,7 @@ Deno.test("_isPhoneNumber - property: strings with invalid characters fail", fun
 					fc.constant("-"),
 					fc.string({ minLength: 3, maxLength: 3 }),
 					fc.constant("-"),
-					fc.string({ minLength: 4, maxLength: 4 })
+					fc.string({ minLength: 4, maxLength: 4 }),
 				).filter(function hasInvalidChars(tuple) {
 					const areaCode = tuple[0].split("").some(function isInvalidChar(c) {
 						return !"0123456789".includes(c)
@@ -200,7 +202,7 @@ Deno.test("_isPhoneNumber - property: strings with invalid characters fail", fun
 					fc.constant("-"),
 					fc.string({ minLength: 3, maxLength: 3 }),
 					fc.constant("-"),
-					fc.string({ minLength: 4, maxLength: 4 })
+					fc.string({ minLength: 4, maxLength: 4 }),
 				).filter(function hasInvalidChars(tuple) {
 					const areaCode = tuple[1].split("").some(function isInvalidChar(c) {
 						return !"0123456789".includes(c)
@@ -214,7 +216,7 @@ Deno.test("_isPhoneNumber - property: strings with invalid characters fail", fun
 					return areaCode || exchange || lineNumber
 				}).map(function tupleToString(tuple) {
 					return tuple[0] + tuple[1] + tuple[2] + tuple[3] + tuple[4] + tuple[5]
-				})
+				}),
 			),
 			function propertyInvalidChars(value) {
 				assertEquals(isPhoneNumber(value), false)
