@@ -45,13 +45,13 @@ const deepConfig = deepFreeze({ nested: { data: [1, 2, 3] } })
 
 - **Rule ID**: FP_APPLICATION_USE_BOXED_001
 - **Description**: Application libraries must use Toolsmith boxed functions and return monads
-- **Keywords**: toolsmith, boxed-functions, monads, application-code, result, validation, composability, error-handling, pagewright, architect
+- **Keywords**: toolsmith, boxed-functions, monads, application-code, result, validation, composability, error-handling, architect, artificer
 - **Rationale**: Boxed functions provide monadic error handling and composability for application code. Using vanilla functions in applications loses error accumulation and monadic composition capabilities. Application code should be monadic while Toolsmith internals can be optimized with vanilla implementations.
 
 **Prohibited:**
 ```ts
 // ❌ PROHIBITED - Using vanilla in application code:
-// In pagewright/architect/operator/custodian:
+// In architect/artificer/operator/custodian:
 import validateEmail from '@sitebender/toolsmith/vanilla/validation/validateEmail/index.ts'
 
 function processUser(email: string): User | null {
@@ -80,7 +80,7 @@ function processUser(email: string): Result<User, ValidationError> {
 }
 ```
 
-*Scope*: Required in pagewright, architect, operator, custodian - all application libraries
+*Scope*: Required in architect, artificer, operator, custodian - all application libraries
 
 
 ## Return Result<T,E> for sequential fail-fast operations or Validation<T,E> for parallel error accumulation. Prefer these over Maybe<T> for error handling
@@ -2535,7 +2535,7 @@ type ApiResponse<T> = {
 // - Consistent with functional architecture
 
 // Exception: Only use interface with explicit
-// architect permission for specific interop requirements
+// artificer permission for specific interop requirements
 ```
 
 *Scope*: All type definitions - use type, NEVER interface

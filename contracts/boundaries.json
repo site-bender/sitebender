@@ -1,8 +1,12 @@
 {
 	"$schema": "./schemas/boundaries.schema.json",
 	"version": "1.0.0",
-	"lastUpdated": "2025-01-11",
+	"lastUpdated": "2025-11-05",
 	"description": "Inter-library dependency boundaries and communication rules for @sitebender ecosystem",
+	"notes": {
+		"iso11179": "ISO/IEC 11179 metadata registry alignment is in progress. See libraries/pathfinder/ISO_IEC_11179_ALIGNMENT.md and docs/adr/ADR-001-ISO-11179-ALIGNMENT.md for details.",
+		"pathfinderIntegration": "Pathfinder library (triple store infrastructure) will be added as Layer 1-2 infrastructure. Artificer will require Pathfinder dependency in Phase 2+ of ISO/IEC 11179 implementation."
+	},
 	"principles": {
 		"noCircularDependencies": "Dependencies must form a directed acyclic graph (DAG)",
 		"singleResponsibility": "Each library has one clear purpose and cannot duplicate another's responsibilities",
@@ -29,12 +33,12 @@
 				"cannotDepend": [
 					"envoy",
 					"auditor",
-					"pagewright",
 					"architect",
+					"artificer",
 					"formulator",
 					"agent"
 				],
-				"canBeUsedBy": ["envoy", "auditor", "architect", "formulator"]
+				"canBeUsedBy": ["envoy", "auditor", "artificer", "formulator"]
 			}
 		},
 		"2": {
@@ -43,7 +47,7 @@
 			"libraries": ["envoy", "auditor"],
 			"rules": {
 				"canDepend": ["arborist", "toolsmith", "quarrier"],
-				"cannotDepend": ["pagewright", "architect", "formulator", "agent", "EACH OTHER"],
+				"cannotDepend": ["architect", "artificer", "formulator", "agent", "EACH OTHER"],
 				"canBeUsedBy": ["applications", "tools", "plugins"],
 				"specialRules": {
 					"envoy": {
@@ -76,21 +80,21 @@
 		},
 		"3": {
 			"name": "Runtime",
-			"description": "Component system and runtime architect",
-			"libraries": ["pagewright", "architect", "formulator"],
+			"description": "Component system and runtime artificer",
+			"libraries": ["architect", "artificer", "formulator"],
 			"rules": {
 				"canDepend": ["arborist", "toolsmith", "quarrier"],
 				"cannotDepend": ["envoy", "auditor", "agent"],
 				"canBeUsedBy": ["applications", "agent"],
 				"specialRules": {
-					"pagewright": {
-						"REQUIRED": ["Must compile to Architect IR format"]
-					},
 					"architect": {
-						"REQUIRED": ["Must evaluate IR from Pagewright and Formulator"]
+						"REQUIRED": ["Must compile to Artificer IR format"]
+					},
+					"artificer": {
+						"REQUIRED": ["Must evaluate IR from Architect and Formulator"]
 					},
 					"formulator": {
-						"REQUIRED": ["Must compile expressions to Architect IR"]
+						"REQUIRED": ["Must compile expressions to Artificer IR"]
 					}
 				}
 			}
@@ -100,7 +104,7 @@
 			"description": "Distributed data and agent networking",
 			"libraries": ["agent"],
 			"rules": {
-				"canDepend": ["pagewright", "architect", "toolsmith", "quarrier"],
+				"canDepend": ["architect", "artificer", "toolsmith", "quarrier"],
 				"cannotDepend": ["arborist", "envoy", "auditor", "formulator"],
 				"canBeUsedBy": ["applications"]
 			}
@@ -136,7 +140,7 @@
 				"arborist",
 				"envoy",
 				"auditor",
-				"architect",
+				"artificer",
 				"agent",
 				"applications"
 			],
@@ -149,16 +153,16 @@
 			"canBeImportedBy": [
 				"envoy",
 				"auditor",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"applications"
 			],
 			"forbiddenImports": [
 				"envoy",
 				"auditor",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"agent"
 			],
@@ -188,8 +192,8 @@
 				"typescript",
 				"@typescript/compiler",
 				"auditor",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"agent",
 				"ANY TypeScript parsing library",
@@ -215,8 +219,8 @@
 				"typescript",
 				"@typescript/compiler",
 				"envoy",
-				"pagewright",
 				"architect",
+				"artificer",
 				"formulator",
 				"agent"
 			],
@@ -227,29 +231,36 @@
 				"arbitraryData": "Quarrier generators ONLY"
 			}
 		},
-		"pagewright": {
-			"canImport": ["arborist", "toolsmith", "quarrier"],
-			"canBeImportedBy": ["architect", "agent", "applications"],
-			"forbiddenImports": ["envoy", "auditor", "formulator"],
-			"publicAPI": "libraries/pagewright/exports/",
-			"internalPath": "libraries/pagewright/internal/"
-		},
 		"architect": {
 			"canImport": ["arborist", "toolsmith", "quarrier"],
-			"canBeImportedBy": ["agent", "applications"],
-			"forbiddenImports": ["envoy", "auditor", "pagewright", "formulator"],
+			"canBeImportedBy": ["artificer", "agent", "applications"],
+			"forbiddenImports": ["envoy", "auditor", "formulator"],
 			"publicAPI": "libraries/architect/exports/",
 			"internalPath": "libraries/architect/internal/"
+		},
+		"artificer": {
+			"canImport": ["arborist", "toolsmith", "quarrier"],
+			"canBeImportedBy": ["agent", "applications"],
+			"forbiddenImports": ["envoy", "auditor", "architect", "formulator"],
+			"publicAPI": "libraries/artificer/exports/",
+			"internalPath": "libraries/artificer/internal/",
+			"plannedDependencies": {
+				"pathfinder": {
+					"phase": "ISO/IEC 11179 Phase 2",
+					"reason": "Artificer will register metadata (data elements) in Pathfinder's triple store during JSX → IR compilation",
+					"documentation": "libraries/pathfinder/ISO_IEC_11179_ALIGNMENT.md"
+				}
+			}
 		},
 		"formulator": {
 			"canImport": ["arborist", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications"],
-			"forbiddenImports": ["envoy", "auditor", "pagewright", "architect", "agent"],
+			"forbiddenImports": ["envoy", "auditor", "architect", "artificer", "agent"],
 			"publicAPI": "libraries/formulator/exports/",
 			"internalPath": "libraries/formulator/internal/"
 		},
 		"agent": {
-			"canImport": ["pagewright", "architect", "toolsmith", "quarrier"],
+			"canImport": ["architect", "artificer", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["applications"],
 			"forbiddenImports": ["arborist", "envoy", "auditor", "formulator"],
 			"publicAPI": "libraries/agent/exports/",

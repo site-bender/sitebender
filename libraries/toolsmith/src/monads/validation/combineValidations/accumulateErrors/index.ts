@@ -1,5 +1,7 @@
-import type ValidationError from "../../../../types/ValidationError/index.ts"
-import type { ValidationResult } from "../../../../types/ValidationResult/index.ts"
+import type {
+	ValidationError,
+	ValidationResult,
+} from "../../../../types/fp/validation/index.ts"
 
 import isValid from "../../isValid/index.ts"
 

@@ -180,8 +180,8 @@
 
 - **Rule ID**: JSX_SEMANTIC_001
 - **Description**: Semantic components must be used in appropriate contexts. Heading components must be properly nested, Article components must contain meaningful content structures.
-- **Keywords**: jsx, semantic, accessibility, seo, context-aware, heading, nesting, pagewright, html-structure
-- **Rationale**: Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Pagewright's context-aware compilation. Improper semantic structure breaks accessibility, SEO, and context-aware compilation features. Context-aware component usage with proper nesting creates valid, accessible semantic HTML.
+- **Keywords**: jsx, semantic, accessibility, seo, context-aware, heading, nesting, architect, html-structure
+- **Rationale**: Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Architect's context-aware compilation. Improper semantic structure breaks accessibility, SEO, and context-aware compilation features. Context-aware component usage with proper nesting creates valid, accessible semantic HTML.
 
 **Prohibited:**
 ```tsx
@@ -290,7 +290,7 @@
 
 - **Rule ID**: JSX_UNIVERSAL_001
 - **Description**: Components must be configured through declarative data structures rather than imperative code. All component behavior should be derivable from props and composition patterns.
-- **Keywords**: jsx, data-as-configuration, declarative, serializable, rdf, triples, deterministic, pagewright, studio
+- **Keywords**: jsx, data-as-configuration, declarative, serializable, rdf, triples, deterministic, architect, studio
 - **Rationale**: Ensures all components can be serialized, stored as RDF triples, and reconstructed deterministically. Enables the core Studio principle that 'everything is data.' Components configured through imperative code become tightly coupled to behavior and cannot be serialized or stored as data structures.
 
 **Prohibited:**
@@ -443,7 +443,7 @@
 
 - **Rule ID**: JSX_UNIVERSAL_005
 - **Description**: Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design.
-- **Keywords**: jsx, not-react, studio, data-driven, dsl, domain-specific, data-structures, pagewright
+- **Keywords**: jsx, not-react, studio, data-driven, dsl, domain-specific, data-structures, architect
 - **Rationale**: Studio JSX is a domain-specific language for data-driven components, not React. Understanding this distinction is crucial for proper component design. Treating Studio JSX like React leads to imperative patterns that break data-first architecture. Studio JSX compiles to data structures, not virtual DOM - components are data configurations, not stateful objects.
 
 **Prohibited:**
@@ -556,7 +556,7 @@ return <AuthProvider value={auth}>{children}</AuthProvider>
 - **Rule ID**: JSX_SEMANTIC_002
 - **Description**: Components that generate Schema.org markup must use proper microdata patterns and maintain semantic consistency with HTML structure.
 - **Keywords**: jsx, schema-org, microdata, semantic, structured-data, rich-snippets, seo, declarative
-- **Rationale**: Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Pagewright components. Manual microdata conflicts with semantic structure and breaks Schema.org integration. Proper microdata patterns with semantic consistency enable reliable structured data.
+- **Rationale**: Ensures rich snippets and structured data work correctly while maintaining the declarative nature of Architect components. Manual microdata conflicts with semantic structure and breaks Schema.org integration. Proper microdata patterns with semantic consistency enable reliable structured data.
 
 **Prohibited:**
 ```tsx

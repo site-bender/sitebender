@@ -163,8 +163,8 @@
 		"forbidden": [
 			"auditor",
 			"envoy",
-			"pagewright",
 			"architect",
+			"artificer",
 			"formulator",
 			"agent",
 			"sentinel",

@@ -12,6 +12,7 @@ export default function length<T>(
 ): Result<ValidationError, number> {
 	// Happy path: valid array
 	if (isArray(array)) {
+		//++ [EXCEPTION] .length permitted in Toolsmith for performance - provides length wrapper
 		return ok(array.length)
 	}
 

@@ -61,8 +61,44 @@ export type Isbn10 = Brand<string, "Isbn10">
 //++ International Standard Book Number (13-digit format) with valid checksum
 export type Isbn13 = Brand<string, "Isbn13">
 
-//++ United States Postal Service ZIP code (5-digit or 9-digit with hyphen)
+//++ United States Postal Service ZIP code (5-digit or 9-digit with hyphen) - US-specific
+export type ZipCode = Brand<string, "ZipCode">
+
+//++ Generic postal code for international addresses (alphanumeric, spaces, hyphens, 3-10 chars)
 export type PostalCode = Brand<string, "PostalCode">
 
 //++ United States phone number (10 digits with various formatting)
 export type PhoneNumber = Brand<string, "PhoneNumber">
+
+//++ Country code following ISO 3166-1 alpha-2 (2 uppercase letters)
+export type CountryCode = Brand<string, "CountryCode">
+
+//++ Language code following ISO 639-1 (2 lowercase letters)
+export type LanguageCode = Brand<string, "LanguageCode">
+
+//++ Currency code following ISO 4217 (3 uppercase letters)
+export type CurrencyCode = Brand<string, "CurrencyCode">
+
+//++ Credit card number (13-19 digits) validated with Luhn algorithm
+export type CreditCardNumber = Brand<string, "CreditCardNumber">
+
+//++ Non-empty string with at least one character after trimming
+export type NonEmptyString = Brand<string, "NonEmptyString">
+
+//++ Single Unicode character (exactly one code point)
+export type Char = Brand<string, "Char">
+
+//++ Base58-encoded string using Bitcoin/IPFS alphabet (no 0OIl characters)
+export type Base58 = Brand<string, "Base58">
+
+//++ Hexadecimal color code in #RGB or #RRGGBB format
+export type HexColor = Brand<string, "HexColor">
+
+//++ OKLCH color in oklch() CSS format with lightness, chroma, hue, optional alpha
+export type OklchColor = Brand<string, "OklchColor">
+
+//++ Display P3 color in color(display-p3 ...) CSS format
+export type P3Color = Brand<string, "P3Color">
+
+//++ Non-empty array with at least one element (tuple: first element + rest)
+export type NonEmptyArray<T> = readonly [T, ...ReadonlyArray<T>]

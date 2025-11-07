@@ -1,4 +1,4 @@
-# Pagewright Architecture Discussion
+# Architect Architecture Discussion
 
 ## Date: 2025-10-25
 
@@ -78,8 +78,8 @@
 
 ### Library Responsibilities
 
-- **Pagewright** - Components that render to HTML, attach behaviors
-- **Architect** - Behaviors (calculations, formatting, conditionals, schemas)
+- **Architect** - Components that render to HTML, attach behaviors
+- **Artificer** - Behaviors (calculations, formatting, conditionals, schemas)
 - **Agent** - Solid Pods configuration
 - **Operator** - Event handling
 - **Linguist** - Internationalization (i18n)
@@ -513,7 +513,7 @@ Config:
 
 ## Library Separation of Concerns
 
-### Pagewright (HTML Component Library)
+### Architect (HTML Component Library)
 **Scope:**
 - Semantic HTML components with friendly props (`<Link>`, `<Paragraph>`, `<Accordion>`, etc.)
 - CSS styling with theming via CSS custom properties
@@ -524,7 +524,7 @@ Config:
 **Does NOT handle:**
 - Events → **Operator** library
 - State management → **Custodian** library  
-- Validation/calculations → **Architect** library
+- Validation/calculations → **Artificer** library
 - Ecommerce → **Exchequer** library
 - Search → **Pathfinder** library
 - Distributed computing/offline-first → **Agent** library
@@ -585,9 +585,9 @@ dist/
 - **Mirror structure**: Dist mirrors source exactly
 - **Perfect modularity**: Delete component → all CSS/JS goes with it. Move component → all CSS/JS moves with it.
 
-### Architect Layer (Behavior Composition)
+### Artificer Layer (Behavior Composition)
 
-**Architect imports and re-exports all Pagewright components** but adds behavior composition.
+**Artificer imports and re-exports all Architect components** but adds behavior composition.
 
 **Example with validation:**
 ```tsx
@@ -601,9 +601,9 @@ dist/
 ```
 
 **How it works:**
-1. Architect's `createElement` is used (not Pagewright's)
-2. Encounters `<TextField>` → delegates to Pagewright's `createElement` for HTML structure
-3. Encounters `<Validation>` → Architect component, processes validation tree
+1. Artificer's `createElement` is used (not Architect's)
+2. Encounters `<TextField>` → delegates to Architect's `createElement` for HTML structure
+3. Encounters `<Validation>` → Artificer component, processes validation tree
 4. Composes into final config:
 
 ```ts
@@ -611,7 +611,7 @@ dist/
   _tag: "element",
   tagName: "INPUT",
   attributes: { type: "text", name: "name", id: "name" },
-  validation: {  // ← Architect adds this
+  validation: {  // ← Artificer adds this
     _tag: "validation",
     constraint: "NoLongerThan",
     unit: "characters",
@@ -621,7 +621,7 @@ dist/
 ```
 
 5. When rendering on client:
-   - Use **Architect's `renderToDom`** (not Pagewright's)
+   - Use **Artificer's `renderToDom`** (not Architect's)
    - Reads `validation` config
    - Composes validation function
    - Attaches to element as property (e.g., `element.__benderValidate`)
@@ -825,7 +825,7 @@ Add GDPR consent to all forms collecting email:
 ## Next Steps
 
 **Tomorrow's work:**
-1. Create `createElement` function for Pagewright
+1. Create `createElement` function for Architect
 2. Create `renderToDom` function
 3. Create `renderToString` function
 4. Update thousands of existing components to return TS config

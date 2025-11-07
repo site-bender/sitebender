@@ -5,16 +5,16 @@ import * as path from "https://deno.land/std@0.224.0/path/mod.ts"
 //++ Root directory of the project
 export const ROOT = Deno.cwd()
 
-//++ Pagewright root directory
-export const PAGEWRIGHT_ROOT = path.join(ROOT, "libraries/pagewright/src")
+//++ Architect root directory
+export const PAGEWRIGHT_ROOT = path.join(ROOT, "libraries/architect/src")
 
 //++ Prefixes that need rewriting to relative paths
 export const TARGET_PREFIXES = [
 	"libraries/toolsmith/src/",
-	"libraries/architect/src/",
-	"libraries/architect/types/",
-	"libraries/architect-types/src/", // safety if present
-	"libraries/architect-types/", // safety if present
+	"libraries/artificer/src/",
+	"libraries/artificer/types/",
+	"libraries/artificer-types/src/", // safety if present
+	"libraries/artificer-types/", // safety if present
 ]
 
 //++ [END]

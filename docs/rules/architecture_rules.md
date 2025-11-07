@@ -68,7 +68,7 @@
 - **Philosophy**: Explicit imports with aliases, not hidden re-exports
 - **Examples**:
   - Wrong: `export { Button } from './Button'; export { Card } from './Card'`
-  - Right: `import Button from '@sitebender/pagewright/interact/buttons/Button/index.tsx'`
+  - Right: `import Button from '@sitebender/architect/interact/buttons/Button/index.tsx'`
 - **Applies to**: .ts, .tsx, .js, .jsx
 
 ## NEVER use Web Components

@@ -5,6 +5,7 @@ export default function getOrElse<E, A>(
 	defaultValue: A,
 ) {
 	return function applyGetOrElse(validation: Validation<E, A>): A {
+		//++ [EXCEPTION] === operator and property access permitted in Toolsmith for performance - provides Validation monad tag checking
 		if (validation._tag === "Failure") {
 			return defaultValue
 		}

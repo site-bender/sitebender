@@ -26,7 +26,7 @@ export type SeedSpec = {
 }
 
 export type VariantToggles = {
-	architect?: boolean
+	artificer?: boolean
 	envoy?: boolean
 }
 
@@ -47,9 +47,9 @@ export type DevServerConfig = {
 export type LibraryRequirement = "required" | "optional" | "excluded"
 
 export type SitebenderLibraries = {
-	pagewright?: LibraryRequirement
-	toolsmith?: LibraryRequirement
 	architect?: LibraryRequirement
+	toolsmith?: LibraryRequirement
+	artificer?: LibraryRequirement
 	formulator?: LibraryRequirement
 	linguist?: LibraryRequirement
 	exchequer?: LibraryRequirement

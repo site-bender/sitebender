@@ -722,26 +722,26 @@ Understand what makes a complete blueprint:
 
 #### Step 4.2: Design Workshop Blueprint
 
-Plan the workshop blueprint for Architect pipeline playground:
+Plan the workshop blueprint for Artificer pipeline playground:
 
 **Goals:**
 - Interactive development environment
-- Architect pipeline examples
+- Artificer pipeline examples
 - Envoy visualization (optional)
 - Hot reload enabled
 
 **Checklist:**
 - [ ] Define which libraries are required:
-  - [ ] Pagewright (required)
-  - [ ] Toolsmith (required)
   - [ ] Architect (required)
+  - [ ] Toolsmith (required)
+  - [ ] Artificer (required)
   - [ ] Envoy (optional - for visualization)
 - [ ] List files needed (use minimal as base):
   - [ ] All files from minimal blueprint
   - [ ] Additional workshop-specific files:
     - [ ] `modules/index.tsx` (root Sitebender component)
     - [ ] `modules/PlaygroundPage/index.tsx` (interactive pipeline testing)
-    - [ ] `examples/` directory with Architect examples
+    - [ ] `examples/` directory with Artificer examples
 - [ ] Define postScaffoldMessages for workshop
 - [ ] Update blueprint description
 - [ ] Document design decisions
@@ -764,8 +764,8 @@ Create complete workshop blueprint:
   - [ ] `modules/PlaygroundPage/index.tsx` (template mode, create new template file)
   - [ ] Any additional workshop-specific content
 - [ ] Update `libraries` section:
-  - [ ] Set `architect` to "required"
-  - [ ] Keep `pagewright` and `toolsmith` as "required"
+  - [ ] Set `artificer` to "required"
+  - [ ] Keep `architect` and `toolsmith` as "required"
   - [ ] Set `envoy` to "optional"
 - [ ] Update `devServer` configuration (can copy from minimal)
 - [ ] Write meaningful `postScaffoldMessages`
@@ -783,14 +783,14 @@ Create the template files needed by workshop blueprint:
 - [ ] Create `src/templates/workshop/` directory
 - [ ] Create `modules/` subdirectory
 - [ ] Create `modules/index.tsx` with Sitebender root component
-  - [ ] Include Architect imports
+  - [ ] Include Artificer imports
   - [ ] Include basic routing
   - [ ] Use {{APP_NAME}} for branding
 - [ ] Create `modules/PlaygroundPage/index.tsx`
-  - [ ] Interactive Architect pipeline demonstration
+  - [ ] Interactive Artificer pipeline demonstration
   - [ ] Form with reactive calculations
   - [ ] Example of data flow
-- [ ] Create `examples/` directory with Architect usage examples
+- [ ] Create `examples/` directory with Artificer usage examples
   - [ ] Basic calculation example
   - [ ] Validation example
   - [ ] Composition example
@@ -831,7 +831,7 @@ Plan the mission-control blueprint for documentation site:
 
 **Checklist:**
 - [ ] Define which libraries are required:
-  - [ ] Pagewright (required)
+  - [ ] Architect (required)
   - [ ] Toolsmith (required)
   - [ ] Envoy (required)
 - [ ] List files needed (use minimal as base):
@@ -865,7 +865,7 @@ Create complete mission-control blueprint:
   - [ ] `content/` directory structure
 - [ ] Update `libraries` section:
   - [ ] Set `envoy` to "required"
-  - [ ] Keep `pagewright` and `toolsmith` as "required"
+  - [ ] Keep `architect` and `toolsmith` as "required"
 - [ ] Update `devServer` configuration
 - [ ] Write meaningful `postScaffoldMessages`
 - [ ] Save blueprint JSON

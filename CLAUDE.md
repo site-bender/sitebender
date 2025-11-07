@@ -6,6 +6,10 @@ These rules are ALWAYS active and cannot be violated under ANY circumstances:
 
 **ABSOLUTELY MANDATORY: If you update a plan, change naming, etc., then YOU MUST UPDATE EVERY SINGLE DOCUMENT IN WHICH THE OLD NOW OUTDATED INFORMATION APPEARS TO REFLECT THE NEW STATUS. Do NOT put garbage in about "deprecated". JUST ELIMINATE INCORRECT DATA AND ADD FULL AND CORRECT NEW DATA. The documentation must ALWAYS reflect the CORRECT state of the design and architecture (the GOAL, but treat is as if complete). For the CURRENT state of implementation, we have PLANNING documents. These have checklists. THESE, TOO, MUST BE KEPT UP TO DATE AS YOU PROGRESS. YOU ARE NEVER FINISHED WITH ANY TASK UNTIL THE DOCUMENTATION IS UP TO DATE AND COMPLETELY CORRECT, including the checklists.**
 
+**CRITICAL REQUIREMENT**: I am sick to death with having to explain over and over again to every AI that a **curried function** is a function _that takes only one parameter._ It is **not** necessarily a function that returns another function. That is a **higher-order function**. Any function that takes only one parameter is **already curried**.
+
+If you are an AI, please **stop turning every single-parameter function you find into a thunk because _you do not have a clue what currying means_.** That most devs are similarly ignorant is no excuse.
+
 ### 1. No Classes - Use Pure Functions Only
 **Never use TypeScript classes.** Use modules with exported pure functions.
 - ❌ Wrong: `class UserService { private users = []; addUser() { this.users.push() } }`
@@ -45,9 +49,22 @@ These rules are ALWAYS active and cannot be violated under ANY circumstances:
 - Exception: Arrow syntax OK in type signatures only
 
 ### 8. All Functions Must Be Curried
-**Every function must be curried** for composition and partial application.
+
+**CRITICAL DEFINITION: A curried function is ANY function that takes ONLY ONE parameter. Period.**
+
+**Currying is NOT about returning functions. It is ONLY about parameter count.**
+
+- ✅ `function add(a: number): number` - **CURRIED** (1 parameter, returns number)
+- ✅ `function add(a: number) { return function(b) { ... } }` - **CURRIED** (1 parameter, returns function)
+- ❌ `function add(a: number, b: number): number` - **NOT CURRIED** (2 parameters)
+
+**If a function needs multiple values, transform it into nested functions, each taking ONE parameter.**
+
+Examples:
 - ❌ Wrong: `function add(a: number, b: number): number { return a + b }`
 - ✅ Right: `function add(augend: number) { return function addToAugend(addend: number): number { return augend + addend } }`
+
+**DO NOT turn single-parameter functions into thunks. They are already curried.**
 
 **If you violate ANY of these rules, STOP immediately and regenerate correctly.**
 
@@ -171,6 +188,8 @@ This codebase has **strict architectural, functional programming, syntax, and fo
 ### Available Skills
 
 **Project-Level Skills** (in `.claude/skills/`):
+
+**Complete Skills:**
 - **abbreviations** - No abbreviations unless whitelisted; initialisms capitalize first letter only
 - **file-system-organization** - Modular architecture; one entity per folder; all files named `index.*`
 - **naming** - Naming conventions (camelCase, PascalCase, SCREAMING_SNAKE_CASE, kebab-case)
@@ -178,9 +197,24 @@ This codebase has **strict architectural, functional programming, syntax, and fo
 - **sitebender-predicates** - Patterns for writing predicate functions
 - **function-implementation** - Structure AND implementation patterns; when to use Result; error handling; imports; constitutional rules reminder (includes generator script)
 - **type-definition** - Branded types, discriminated unions, smart constructors (includes generator scripts)
-- **error-handling** - Result/Validation monads, error type design (includes generator script)
-- **testing** - Unit tests, property-based testing, test organization (includes generator script)
 - **component** - Components returning VirtualNode data structures, HTML wrappers vs custom components, Props patterns, testing with predicates (includes generator script)
+
+- **error-handling** - [COMPLETE] Result/Validation monads, error type design, no exceptions (includes generator script)
+  - Status: Complete skill with full documentation (1,341 lines)
+  - Includes: All 5 pattern sections, Result vs Validation comparison, Error Type Structure, Common Violations, Examples
+  - Includes: types.ts, generator.ts, script.ts, 5 working examples in examples/ directory
+  - Completion Date: 2025-10-31
+  - Generator: `deno task new:error` to create error types
+
+- **testing** - [COMPLETE] Unit tests, property-based testing, test organization (includes generator script)
+  - Status: Complete skill with full documentation (966 lines)
+  - Includes: All 5 pattern sections (unary, curried, higher-order, property-based, error paths), Test Organization, Assertion Patterns, Common Violations, Examples
+  - Includes: types.ts, generator.ts, script.ts, 12 working examples in examples/ directory
+  - Completion Date: 2025-10-31
+  - Last Updated: 2025-10-31 (fixed constitutional violations in filter.test.ts, map.test.ts, sortProperties.test.ts)
+  - Generator: `deno task new:test` to create test scaffolding
+  - Integration: function-implementation generator now creates test files automatically
+  - All examples verified constitutional compliant (no loops, no arrow functions, no mutations)
 
 **CRITICAL:** When implementing ANY function, consult function-implementation skill for:
 - Conjunction selection (To/With/For decision tree)

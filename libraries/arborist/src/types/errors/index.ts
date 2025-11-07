@@ -1,9 +1,9 @@
 // @sitebender/arborist/src/types/errors
-// Error type definitions using Architect ArchitectError pattern
+// Error type definitions using Artificer ArchitectError pattern
 
-import type { ArchitectError } from "@sitebender/architect/errors/types/ArchitectError.ts"
+import type { ArchitectError } from "@sitebender/artificer/errors/types/ArchitectError.ts"
 
-import type { Span, ParsedAst } from "../index.ts"
+import type { Span } from "../index.ts"
 
 //++ Parse error from parseFile operation
 //++ Discriminated by kind field for specific error handling
@@ -84,8 +84,29 @@ export type ClassExtractionError = ArchitectError<"extractClasses"> & {
 	span?: Span
 }
 
-//++ Union of all extraction errors for buildParsedFile
-//++ Enables error accumulation across all extraction operations
+//++ Position extraction error from _extractPosition helper
+//++ Occurs when span has invalid values for position calculation
+export type PositionExtractionError = ArchitectError<"_extractPosition"> & {
+	readonly kind: "InvalidSpan" | "NegativeOffset"
+	readonly span?: Span
+}
+
+//++ Span extraction error from _extractSpan helper
+//++ Occurs when AST node has missing or invalid span property
+export type SpanExtractionError = ArchitectError<"_extractSpan"> & {
+	readonly kind: "MissingSpan" | "InvalidRange" | "NegativeValues"
+	readonly nodeType?: string
+}
+
+//++ Local name extraction error from _extractLocalName helper
+//++ Occurs when import/export specifier has invalid local binding
+export type LocalNameExtractionError = ArchitectError<"_extractLocalName"> & {
+	readonly kind: "MissingLocal" | "InvalidSpecifier" | "NotIdentifier"
+	readonly specifierType?: string
+}
+
+//++ Union of all extraction errors
+//++ Enables error accumulation across extraction operations
 export type ExtractionError =
 	| FunctionExtractionError
 	| CommentExtractionError
@@ -95,3 +116,6 @@ export type ExtractionError =
 	| ConstantExtractionError
 	| ClassExtractionError
 	| ViolationDetectionError
+	| PositionExtractionError
+	| SpanExtractionError
+	| LocalNameExtractionError

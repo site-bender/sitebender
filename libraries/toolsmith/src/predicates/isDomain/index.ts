@@ -15,8 +15,11 @@ export default function isDomain(value: string): value is Domain {
 		return false
 	}
 
+	//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides domain validation wrapper
 	const labels = value.split(".")
-	const allLabelsValid = all((label: string) => isOk(_validateDomainLabel(label)))(labels)
+	const allLabelsValid = all((label: string) =>
+		isOk(_validateDomainLabel(label))
+	)(labels)
 
 	return isOk(allLabelsValid) ? getOrElse(false)(allLabelsValid) : false
 }

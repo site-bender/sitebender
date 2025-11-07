@@ -21,6 +21,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ## Current State Summary
 
 ### ✅ What Works (Batches 1-4 Complete)
+
 - **All 188 tests pass** with `--no-check`
 - **Parser integration**: SWC WASM fully functional
 - **All extractors working**: Functions, comments, imports, exports, types, constants, violations
@@ -31,6 +32,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### 🔧 What Needs Fixing
 
 **Critical (Blocks `deno task test` without --no-check)**:
+
 1. 6 TypeScript errors
 2. 8 lint warnings
 
@@ -48,6 +50,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Task 0.1: Fix Toolsmith NonEmptyArray Import
+
 - [x] Edit `libraries/toolsmith/src/monads/validation/fold/index.ts:1`
 - [x] Change: `import type { NonEmptyArray } from "../../types/NonEmptyArray/index.ts"`
 - [x] To: `import type { NonEmptyArray } from "../../../../src/types/index.ts"`
@@ -56,6 +59,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Update this checklist
 
 #### Task 0.2: Fix extractTypes Boolean Logic
+
 - [x] Edit `libraries/arborist/src/extractTypes/index.ts:63`
 - [x] Locate line: `return decl && isEqual(decl.type)("TsTypeAliasDeclaration") ||`
 - [x] Add parentheses: `return (decl && isEqual(decl.type)("TsTypeAliasDeclaration")) ||`
@@ -66,11 +70,12 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Update this checklist
 
 #### Task 0.3: Fix Toolsmith ValidationError Types (ARCHITECT DECISION NEEDED)
+
 - [x] Review errors in:
   - `toolsmith/src/array/filter/index.ts:23`
   - `toolsmith/src/array/find/index.ts:26,39`
   - `toolsmith/src/array/map/index.ts:23`
-- [x] Ask architect for proper fix approach (update ValidationError type OR use type assertions)
+- [x] Ask artificer for proper fix approach (update ValidationError type OR use type assertions)
 - [x] Implement approved solution: Updated Serializable type to include ReadonlyArray<Serializable>, added T extends Serializable constraints to array functions
 - [x] Verify: `deno check libraries/toolsmith/src/array/` succeeds
 - [x] Run: `deno task test` (all 188 tests must pass)
@@ -89,9 +94,10 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [ ] Changes committed to git
 
 **Rules for this Batch:**
+
 - Fix import paths to match actual file structure
 - Add parentheses for boolean expression clarity
-- Consult architect for Toolsmith library issues
+- Consult artificer for Toolsmith library issues
 - Test after each change
 - Do NOT proceed to Batch 0.5 until this is complete
 
@@ -108,6 +114,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Cleanup Task 1: _extractTypeDetails
+
 - [x] Open `libraries/arborist/src/_extractTypeDetails/index.ts`
 - [x] Find line 1: `import type { ParsedType, Position, Span } from "../types/index.ts"`
 - [x] Remove `Position, Span` from import
@@ -116,6 +123,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Update this checklist
 
 #### Cleanup Task 2: _extractImportDetails
+
 - [x] Open `libraries/arborist/src/_extractImportDetails/index.ts`
 - [x] Find line 1: imports including `Position, Span, ImportBinding`
 - [x] Remove `Position, Span, ImportBinding` from import
@@ -124,6 +132,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Update this checklist
 
 #### Cleanup Task 3: parseWithSemantics
+
 - [x] Open `libraries/arborist/src/parsers/denoAst/wasm/parseWithSemantics/index.ts`
 - [x] Find line 4: import including `SemanticInfo`
 - [x] Remove `SemanticInfo` from import
@@ -132,6 +141,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Update this checklist
 
 #### Cleanup Task 4: extractComments
+
 - [x] Open `libraries/arborist/src/extractComments/extractComments/index.ts`
 - [x] Find lines 15-18: imports including `EnvoyMarker, Position`
 - [x] Remove `EnvoyMarker, Position` from import
@@ -151,6 +161,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [ ] Changes committed to git
 
 **Rules for this Batch:**
+
 - DELETE unused imports completely
 - Do NOT prefix with underscore
 - Verify linting after each file
@@ -169,12 +180,14 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Discovery
+
 - [x] Run `search_files` with pattern `\|\|` in `libraries/arborist/src/*.ts`
 - [x] List all files containing `||` operator
 - [x] Count total instances (50 total, 6 files need changes)
 - [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
+
 - [x] For each file with `||`:
   - [x] Add import: `import or from "@sitebender/toolsmith/logic/or/index.ts"`
   - [x] Replace `a || b` with `or(a)(b)`
@@ -184,6 +197,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - [x] Mark file complete in this checklist
 
 #### Files to Process
+
 - [x] _extractNamedBindings/index.ts (1 instance)
 - [x] _extractImportDetails/index.ts (2 instances)
 - [x] extractExports/index.ts (3 instances)
@@ -205,6 +219,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [ ] Changes committed to git
 
 **Rules for this Batch:**
+
 - Use `or` from `@sitebender/toolsmith/logic/or/index.ts`
 - Handle short-circuit evaluation correctly
 - Test after each file
@@ -223,12 +238,14 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Discovery
+
 - [x] Run `search_files` with pattern `\.length` in `libraries/arborist/src/*.ts`
 - [x] List all files containing `.length` (19 files, 108 total instances)
 - [x] Count total instances (108)
 - [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
+
 - [x] For each file with `.length`:
   - [x] Add import: `import length from "@sitebender/toolsmith/array/length/index.ts"`
   - [x] Replace `arr.length` with `length(arr)`
@@ -239,7 +256,9 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - [x] Mark file complete in this checklist
 
 #### Files to Process
+
 (Add files discovered during Discovery phase)
+
 - [x] extractConstants/_serializeExpression/index.ts (1 instance)
 - [x] extractConstants/index.test.ts (13 instances)
 - [x] extractConstants/multiFileParsing.test.ts (3 instances)
@@ -274,6 +293,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed to git
 
 **Rules for this Batch:**
+
 - Use `length` from `@sitebender/toolsmith/array/length/index.ts`
 - Use comparison functions (gt, lt, etc.) for length comparisons
 - Test after each file
@@ -291,12 +311,14 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Discovery
+
 - [x] Run `search_files` with pattern `!(?![=])` in `libraries/arborist/src/*.ts`
 - [x] List all files containing `!` operator (excluding `!==`) (18 files, 23 total instances)
 - [x] Count total instances (23)
 - [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
+
 - [ ] For each file with `!`:
   - [ ] Add import: `import not from "@sitebender/toolsmith/logic/not/index.ts"`
   - [ ] Replace `!condition` with `not(condition)`
@@ -306,7 +328,9 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - [ ] Mark file complete in this checklist
 
 #### Files to Process
+
 (Add files discovered during Discovery phase)
+
 - [x] extractConstants/index.ts (2 instances)
 - [x] extractConstants/index.test.ts (1 instance)
 - [x] extractConstants/multiFileParsing.test.ts (1 instance)
@@ -341,6 +365,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed to git
 
 **Rules for this Batch:**
+
 - Use `not` from `@sitebender/toolsmith/logic/not/index.ts`
 - Do NOT confuse with `!==` (different batch)
 - Test after each file
@@ -358,12 +383,14 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Discovery
+
 - [x] Run `search_files` with pattern `&&` in `libraries/arborist/src/*.ts`
 - [x] List all files containing `&&` operator
 - [x] Count total instances (10 total, 9 files need changes)
 - [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
+
 - [ ] For each file with `&&`:
   - [ ] Add import: `import and from "@sitebender/toolsmith/logic/and/index.ts"`
   - [ ] Replace `a && b` with `and(a)(b)`
@@ -373,6 +400,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - [ ] Mark file complete in this checklist
 
 #### Files to Process
+
 - [x] extractConstants/index.ts (1 instance)
 - [x] analyzeFunctionBody/_collectAstNodes/_reduceChildNodes/index.ts (1 instance)
 - [x] analyzeFunctionBody/updateStateForNode/index.ts (0 instances - no && found)
@@ -397,6 +425,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed to git
 
 **Rules for this Batch:**
+
 - Use `and` from `@sitebender/toolsmith/logic/and/index.ts`
 - Handle short-circuit evaluation correctly
 - Test after each file
@@ -414,12 +443,14 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Discovery
+
 - [x] Run `search_files` with pattern `!==` in `libraries/arborist/src/*.ts`
 - [x] List all files containing `!==` operator (0 files, 0 instances)
 - [x] Count total instances (0)
 - [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
+
 - [ ] For each file with `!==`:
   - [ ] Add import: `import isUnequal from "@sitebender/toolsmith/validation/isUnequal/index.ts"`
   - [ ] Replace `a !== b` with `isUnequal(a)(b)`
@@ -428,7 +459,9 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - [ ] Mark file complete in this checklist
 
 #### Files to Process
+
 (Add files discovered during Discovery phase)
+
 - [ ] File 1: [filename]
 - [ ] File 2: [filename]
 - [ ] ... (add as discovered)
@@ -447,6 +480,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed to git
 
 **Rules for this Batch:**
+
 - Use `isUnequal` from `@sitebender/toolsmith/validation/isUnequal/index.ts`
 - Do NOT confuse with `!` operator (different batch)
 - Test after each file
@@ -460,6 +494,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 **Status**: COMPLETED ✅ (0 instances found)
 
 **Rules**:
+
 - `a > b` → `gt(a)(b)`
 - `a < b` → `lt(a)(b)`
 - `a >= b` → `gte(a)(b)`
@@ -468,6 +503,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ### Checklist
 
 #### Discovery
+
 - [x] Run `search_files` for `>` in `libraries/arborist/src/*.ts` (excluding `=>`) - 0 found
 - [x] Run `search_files` for `<` in `libraries/arborist/src/*.ts` (excluding `<=`) - 0 found
 - [x] Run `search_files` for `>=` in `libraries/arborist/src/*.ts` - 0 found
@@ -477,6 +513,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Update this checklist with file list
 
 #### Implementation (Process in groups of 5-10 files)
+
 - [ ] For each file with comparisons:
   - [ ] Add imports as needed:
     - `import gt from "@sitebender/toolsmith/validation/gt/index.ts"`
@@ -489,7 +526,9 @@ This document outlines the systematic plan to fix all remaining issues in the `l
   - [ ] Mark file complete in this checklist
 
 #### Files to Process
+
 (Add files discovered during Discovery phase)
+
 - [ ] File 1: [filename] - operators: [>, <, >=, <=]
 - [ ] File 2: [filename] - operators: [>, <, >=, <=]
 - [ ] ... (add as discovered)
@@ -508,6 +547,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed to git
 
 **Rules for this Batch:**
+
 - Use comparison functions from `@sitebender/toolsmith/validation/`
 - Note: Order matters! `gt(5)(x)` means `x > 5`, not `5 > x`
 - Test after each file
@@ -517,6 +557,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 ## Completed Batches (Reference)
 
 ### Batch 1: Core Infrastructure Fixes ✅
+
 - [x] Replaced `let wasmInitialized` with const-based initialization in `parsers/denoAst/parseFile.ts`
 - [x] Tests pass
 - [x] Linting passes
@@ -525,6 +566,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed
 
 ### Batch 2: Arrow Function Removal ✅
+
 - [x] Replaced `.map((param) => {...})` with named function in `_serializeTypeParameters/index.ts`
 - [x] Tests pass
 - [x] Linting passes
@@ -533,6 +575,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed
 
 ### Batch 3: Loop Removal ✅
+
 - [x] Replaced for loop with functional iteration in `extractConstants/_serializeExpression/index.ts`
 - [x] Removed let declarations
 - [x] Tests pass
@@ -542,6 +585,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed
 
 ### Batch 4: Operator Substitutions - Equality ✅
+
 - [x] 22/35 files with `===` replaced by `isEqual()`
 - [x] Approximately 80+ instances replaced
 - [x] All imports added correctly
@@ -552,6 +596,7 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 - [x] Changes committed
 
 **Completed Files**:
+
 - ✅ extractConstants/index.ts (6 instances)
 - ✅ _extractNamedBindings/index.ts (2 instances)
 - ✅ extractFunctionDetails/index.ts (3 instances)
@@ -630,8 +675,8 @@ This document outlines the systematic plan to fix all remaining issues in the `l
 
 ---
 
-**Last Updated**: 2025-10-10 by Audit AI  
-**Status**: Batches 1-4 complete, Batch 0 ready to start  
-**Tests**: 188/188 passing (with --no-check)  
-**Next Action**: Complete Batch 0 (fix TypeScript errors)  
+**Last Updated**: 2025-10-10 by Audit AI\
+**Status**: Batches 1-4 complete, Batch 0 ready to start\
+**Tests**: 188/188 passing (with --no-check)\
+**Next Action**: Complete Batch 0 (fix TypeScript errors)\
 **Remember**: NO BATCH IS COMPLETE WITHOUT ALL VERIFICATION STEPS PASSING

@@ -31,7 +31,7 @@ Deno.test("formatMetadata", async (t) => {
 
 	await t.step("handles complex values", () => {
 		const input: Array<[string, JsonValue]> = [
-			["scope", ["pagewright", "architect", "toolsmith"]],
+			["scope", ["architect", "artificer", "toolsmith"]],
 			["inherits", { from: "base", version: "2.0" }],
 		]
 
