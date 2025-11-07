@@ -1,5 +1,4 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
-import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
@@ -13,7 +12,7 @@ export default function find<T extends Serializable>(
 ) {
 	return function findWithPredicate(
 		array: ReadonlyArray<T>,
-	): Result<ValidationError, T> {
+	): Result<E, T> {
 		// Validate input is array
 		if (isArray(array)) {
 			// Use findIndex to determine if element was actually found

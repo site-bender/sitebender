@@ -181,7 +181,7 @@ export default function _validateFigureRole(
 
 ```typescript
 function _validateElementRole(hasAttribute: boolean) {
-	return function(role: unknown): Readonly<Record<string, string>> {
+	return function (role: unknown): Readonly<Record<string, string>> {
 		if (!isDefined(role) || !isString(role)) return {}
 
 		if (hasAttribute) {
@@ -199,7 +199,7 @@ function _validateElementRole(hasAttribute: boolean) {
 
 ```typescript
 function _validateImgRole(condition1: boolean, condition2: boolean) {
-	return function(role: unknown): Readonly<Record<string, string>> {
+	return function (role: unknown): Readonly<Record<string, string>> {
 		if (!isDefined(role) || !isString(role)) return {}
 
 		if (condition2) {
@@ -221,7 +221,7 @@ function _validateImgRole(condition1: boolean, condition2: boolean) {
 
 ```typescript
 function _validateFigureRole(children: ReadonlyArray<VirtualNode>) {
-	return function(role: unknown): Readonly<Record<string, string>> {
+	return function (role: unknown): Readonly<Record<string, string>> {
 		if (!isDefined(role) || !isString(role)) return {}
 
 		function isSpecificChild(child: VirtualNode): boolean {
@@ -293,8 +293,9 @@ This pattern can be reused for other descendant-based validations.
 The _Label component demonstrates handling JSX naming conventions:
 
 ```typescript
-export type Props = BaseProps &
-	Readonly<{
+export type Props =
+	& BaseProps
+	& Readonly<{
 		htmlFor?: string // JSX convention
 	}>
 
@@ -315,18 +316,20 @@ The conditional validation logic implemented in Phase 2 maps directly to SHACL c
 ### Pattern 1: Attribute Conditional → SHACL sh:or
 
 **TypeScript (_Area element)**:
+
 ```typescript
 const roleAttrs = _validateAreaRole(isDefined(href))(role)
 
 // In _validateAreaRole:
 if (hasHref) {
-  // roles: ["button", "link"]
+	// roles: ["button", "link"]
 } else {
-  // role: "generic"
+	// role: "generic"
 }
 ```
 
 **Equivalent SHACL shape**:
+
 ```turtle
 html:AreaShape a sh:NodeShape ;
   sh:targetClass html:Area ;
@@ -359,9 +362,12 @@ html:AreaShape a sh:NodeShape ;
 ### Pattern 2: Multi-Condition → SHACL sh:or with Multiple Cases
 
 **TypeScript (_Img element)**:
+
 ```typescript
 const hasEmptyAlt = and(isDefined(alt))(and(isString(alt))(equals("")(alt)))
-const hasAccessibleName = and(isDefined(alt))(and(isString(alt))(not(equals("")(alt))))
+const hasAccessibleName = and(isDefined(alt))(
+	and(isString(alt))(not(equals("")(alt))),
+)
 
 const roleAttrs = _validateImgRole(hasAccessibleName, hasEmptyAlt)(role)
 
@@ -372,6 +378,7 @@ const roleAttrs = _validateImgRole(hasAccessibleName, hasEmptyAlt)(role)
 ```
 
 **Equivalent SHACL shape**:
+
 ```turtle
 html:ImgShape a sh:NodeShape ;
   sh:targetClass html:Img ;
@@ -419,9 +426,10 @@ html:ImgShape a sh:NodeShape ;
 ### Pattern 3: Children-Based Conditional → SHACL Descendant Constraints
 
 **TypeScript (_Figure element)**:
+
 ```typescript
 function isFigcaption(child: VirtualNode): boolean {
-  return child._tag === "element" && child.tagName === "FIGCAPTION"
+	return child._tag === "element" && child.tagName === "FIGCAPTION"
 }
 
 const hasFigcaption = some(isFigcaption)(children)
@@ -431,6 +439,7 @@ const hasFigcaption = some(isFigcaption)(children)
 ```
 
 **Equivalent SHACL shape**:
+
 ```turtle
 html:FigureShape a sh:NodeShape ;
   sh:targetClass html:Figure ;
@@ -468,19 +477,23 @@ html:FigureShape a sh:NodeShape ;
 ### JSX Convention → Ontology Property Mapping
 
 **TypeScript (_Label element)**:
+
 ```typescript
-export type Props = BaseProps & Readonly<{
-  htmlFor?: string  // JSX convention to avoid JS keyword
-}>
+export type Props =
+	& BaseProps
+	& Readonly<{
+		htmlFor?: string // JSX convention to avoid JS keyword
+	}>
 
 // Convert to HTML attribute
 const attributes = {
-  ...roleAttrs,
-  ...(isDefined(htmlFor) ? { for: htmlFor } : {}),
+	...roleAttrs,
+	...(isDefined(htmlFor) ? { for: htmlFor } : {}),
 }
 ```
 
 **Ontology representation**:
+
 ```turtle
 # In OWL, we use the HTML attribute name, not the JSX name
 html:for a owl:DatatypeProperty ;
@@ -519,11 +532,13 @@ html:LabelShape a sh:NodeShape ;
 ### Predicate Composition → SHACL Property Constraints
 
 **TypeScript predicate composition**:
+
 ```typescript
 const hasEmptyAlt = and(isDefined(alt))(and(isString(alt))(equals("")(alt)))
 ```
 
 **SHACL equivalent**:
+
 ```turtle
 sh:property [
   sh:path html:alt ;
@@ -536,11 +551,13 @@ sh:property [
 ### Benefits of SHACL Representation
 
 **1. Declarative Conditional Logic**
+
 - Complex TypeScript conditionals become readable SHACL shapes
 - Logic is queryable: "Show me all elements with conditional role validation"
 - Self-documenting: SHACL shapes explain the validation rules
 
 **2. Validation Consistency**
+
 ```
 TypeScript validates: Component creation time
 SHACL validates: Triple store insertion time
@@ -548,6 +565,7 @@ Both enforce: Same W3C ARIA specification
 ```
 
 **3. Queryable Patterns**
+
 ```sparql
 # Find all elements with conditional role validation
 SELECT ?element ?condition WHERE {
@@ -578,6 +596,7 @@ sh:and (
 ```
 
 **5. Semantic Web Integration**
+
 - Conditional logic becomes machine-readable RDF
 - Triple stores can reason about role constraints
 - SPARQL queries can validate compliance
@@ -587,11 +606,11 @@ sh:and (
 
 The three patterns established in Phase 2 provide templates for all conditional validation:
 
-| Pattern | TypeScript | SHACL | Use Case |
-|---------|-----------|-------|----------|
-| **Single Attribute** | `isDefined(href)` | `sh:minCount 1` | A, Area, Label |
-| **Multi-Condition** | `and(...)(...)(...)` | `sh:and (...)` | Img (alt cases) |
-| **Children-Based** | `some(predicate)(children)` | `sh:qualifiedMinCount` | Figure (figcaption) |
+| Pattern              | TypeScript                  | SHACL                  | Use Case            |
+| -------------------- | --------------------------- | ---------------------- | ------------------- |
+| **Single Attribute** | `isDefined(href)`           | `sh:minCount 1`        | A, Area, Label      |
+| **Multi-Condition**  | `and(...)(...)(...)`        | `sh:and (...)`         | Img (alt cases)     |
+| **Children-Based**   | `some(predicate)(children)` | `sh:qualifiedMinCount` | Figure (figcaption) |
 
 All future conditional elements map to combinations of these patterns.
 
@@ -613,14 +632,14 @@ All future conditional elements map to combinations of these patterns.
 **Example test structure for _Area**:
 
 ```typescript
-Deno.test("_Area with href allows button role", function() {
-  const result = _Area({ href: "/page", role: "button" })
-  assertEquals(result.attributes.role, "button")
+Deno.test("_Area with href allows button role", function () {
+	const result = _Area({ href: "/page", role: "button" })
+	assertEquals(result.attributes.role, "button")
 })
 
-Deno.test("_Area without href rejects button role", function() {
-  const result = _Area({ role: "button" })
-  assertEquals(result.attributes["data-§-bad-role"], "button")
+Deno.test("_Area without href rejects button role", function () {
+	const result = _Area({ role: "button" })
+	assertEquals(result.attributes["data-§-bad-role"], "button")
 })
 ```
 
@@ -697,18 +716,18 @@ These require tree-level context and will be validated by tree lint function.
 
 ## Comparison: Phase 1 vs Phase 2
 
-| Aspect                      | Phase 1                        | Phase 2                            |
-| --------------------------- | ------------------------------ | ---------------------------------- |
-| Elements Implemented        | 22 (simple + 1 conditional)    | 4 (all conditional)                |
-| Conditional Patterns        | 1 (attribute-based)            | 3 (single, multi, children-based)  |
-| Validator Files             | 1 (_validateARole)             | 4 (area, img, label, figure)       |
-| Lines of Code               | ~2,500                         | ~399                               |
-| Complexity                  | Simple role lookup             | Context-dependent logic            |
-| Children Inspection         | No                             | Yes (_validateFigureRole)          |
-| Multi-Condition Validation  | No                             | Yes (_validateImgRole)             |
-| JSX Convention Handling     | No                             | Yes (_Label htmlFor → for)         |
-| Attribute Logic Composition | Simple isDefined               | Complex (and/or/not/equals chains) |
-| W3C Rules Covered           | Element → role permission      | Element + context → role           |
+| Aspect                      | Phase 1                     | Phase 2                            |
+| --------------------------- | --------------------------- | ---------------------------------- |
+| Elements Implemented        | 22 (simple + 1 conditional) | 4 (all conditional)                |
+| Conditional Patterns        | 1 (attribute-based)         | 3 (single, multi, children-based)  |
+| Validator Files             | 1 (_validateARole)          | 4 (area, img, label, figure)       |
+| Lines of Code               | ~2,500                      | ~399                               |
+| Complexity                  | Simple role lookup          | Context-dependent logic            |
+| Children Inspection         | No                          | Yes (_validateFigureRole)          |
+| Multi-Condition Validation  | No                          | Yes (_validateImgRole)             |
+| JSX Convention Handling     | No                          | Yes (_Label htmlFor → for)         |
+| Attribute Logic Composition | Simple isDefined            | Complex (and/or/not/equals chains) |
+| W3C Rules Covered           | Element → role permission   | Element + context → role           |
 
 ---
 

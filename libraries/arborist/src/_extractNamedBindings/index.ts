@@ -49,7 +49,7 @@ export default function extractNamedBindings(
 			if (isEqual(specType)("ImportDefaultSpecifier")) {
 				const localResult = extractLocalName(specObj)
 
-				if (localResult._tag === "error") {
+				if (localResult._tag === "Error") {
 					const baseError = createError("_extractNamedBindings")([])(
 						`Failed to extract local name from default specifier: ${localResult.error.message}`,
 					)("INVALID_ARGUMENT")
@@ -72,7 +72,7 @@ export default function extractNamedBindings(
 			if (isEqual(specType)("ImportSpecifier")) {
 				const importedResult = extractImportedName(specObj)
 
-				if (importedResult._tag === "error") {
+				if (importedResult._tag === "Error") {
 					const baseError = createError("_extractNamedBindings")([])(
 						`Failed to extract imported name: ${importedResult.error.message}`,
 					)("INVALID_ARGUMENT")
@@ -85,7 +85,7 @@ export default function extractNamedBindings(
 
 				const localResult = extractLocalName(specObj)
 
-				if (localResult._tag === "error") {
+				if (localResult._tag === "Error") {
 					const baseError = createError("_extractNamedBindings")([])(
 						`Failed to extract local name: ${localResult.error.message}`,
 					)("INVALID_ARGUMENT")
@@ -124,29 +124,29 @@ export default function extractNamedBindings(
 			ReadonlyArray<ImportBinding>
 		> = ok([])
 
-		const finalResult = reduce(
-			function accumulateBinding(
+		const finalResult = reduce<
+			unknown,
+			Result<ImportExtractionError, ReadonlyArray<ImportBinding>>
+		>(
+			function accumulateBindings(
 				accResult: Result<ImportExtractionError, ReadonlyArray<ImportBinding>>,
-			) {
-				return function processNext(
-					spec: unknown,
-				): Result<ImportExtractionError, ReadonlyArray<ImportBinding>> {
-					// If already failed, propagate error
-					if (accResult._tag === "error") {
-						return accResult
-					}
-
-					// Process current specifier
-					const bindingResult = processSpecifier(spec)
-
-					if (bindingResult._tag === "error") {
-						return bindingResult
-					}
-
-					// Append binding to accumulated array
-					const newBindings = [...accResult.value, bindingResult.value]
-					return ok(newBindings as ReadonlyArray<ImportBinding>)
+				spec: unknown,
+			): Result<ImportExtractionError, ReadonlyArray<ImportBinding>> {
+				// If already failed, propagate error
+				if (accResult._tag === "Error") {
+					return accResult
 				}
+
+				// Process current specifier
+				const bindingResult = processSpecifier(spec)
+
+				if (bindingResult._tag === "Error") {
+					return bindingResult
+				}
+
+				// Append binding to accumulated array
+				const newBindings = [...accResult.value, bindingResult.value]
+				return ok(newBindings as ReadonlyArray<ImportBinding>)
 			},
 		)(initialResult)(specifiers)
 

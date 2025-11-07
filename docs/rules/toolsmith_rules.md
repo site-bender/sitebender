@@ -130,7 +130,7 @@ function _fastMap<T, U>(
 // ✅ REQUIRED - Vanilla for internal, boxed for public:
 
 // Internal utility (vanilla):
-// Path: /toolsmith/vanilla/array/_internalMap/index.ts
+// Path: /toolsmith/array/_internalMap/index.ts
 export default function _internalMap<T, U>(
 	items: ReadonlyArray<T>,
 	fn: (item: T) => U
@@ -154,7 +154,7 @@ export default function map<T, U>(fn: (item: T) => U) {
 }
 ```
 
-*Scope*: Vanilla in /vanilla/* for internal use; boxed in standard paths for public API
+*Scope*: Vanilla in /* for internal use; boxed in standard paths for public API
 
 ## Exception documentation with Envoy comments
 

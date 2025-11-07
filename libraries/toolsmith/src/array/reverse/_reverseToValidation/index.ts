@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _reverseArray from "../_reverseArray/index.ts"
 
@@ -6,5 +9,5 @@ import _reverseArray from "../_reverseArray/index.ts"
 export default function _reverseToValidation<T>(
 	array: ReadonlyArray<T>,
 ): Validation<ValidationError, Array<T>> {
-	return success(_reverseArray(array))
+	return success(reverseArray<T>(array))
 }

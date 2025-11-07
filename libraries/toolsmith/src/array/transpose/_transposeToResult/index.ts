@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 import _transposeArray from "../_transposeArray/index.ts"
 
@@ -6,5 +7,5 @@ import _transposeArray from "../_transposeArray/index.ts"
 export default function _transposeToResult<T>(
 	matrix: ReadonlyArray<ReadonlyArray<T>>,
 ): Result<ValidationError, Array<Array<T | undefined>>> {
-	return ok(_transposeArray(matrix))
+	return ok(transposeArray<T>(matrix))
 }

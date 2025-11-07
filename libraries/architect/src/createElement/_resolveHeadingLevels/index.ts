@@ -102,7 +102,8 @@ export default function _resolveHeadingLevels(vnode: VirtualNode) {
 				attributes: shouldWarn
 					? {
 						...vnode.attributes,
-						"data-§-warning-excessive-nesting": `Heading depth ${calculatedLevel} exceeds practical limit of ${MIN_PRACTICAL_LEVEL}`,
+						"data-§-warning-excessive-nesting":
+							`Heading depth ${calculatedLevel} exceeds practical limit of ${MIN_PRACTICAL_LEVEL}`,
 					}
 					: vnode.attributes,
 				children: map(resolveChildWithDepth)(
