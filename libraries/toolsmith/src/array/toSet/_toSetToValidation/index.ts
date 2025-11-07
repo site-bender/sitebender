@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _toSetArray from "../_toSetArray/index.ts"
 
@@ -6,5 +9,5 @@ import _toSetArray from "../_toSetArray/index.ts"
 export default function _toSetToValidation<T>(
 	array: ReadonlyArray<T>,
 ): Validation<ValidationError, Set<T>> {
-	return success(_toSetArray(array))
+	return success(toSetArray<T>(array))
 }

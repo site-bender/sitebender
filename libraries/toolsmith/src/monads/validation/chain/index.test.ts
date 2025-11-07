@@ -1,22 +1,22 @@
 import { assertEquals } from "@std/assert"
 
-import type { Validation } from "../../../types/validation/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
 
-import invalid from "../invalid/index.ts"
+import failure from "../failure/index.ts"
 import isInvalid from "../isInvalid/index.ts"
 import isValid from "../isValid/index.ts"
-import valid from "../valid/index.ts"
+import success from "../success/index.ts"
 import chain from "./index.ts"
 
 Deno.test("chain - sequences validation computations", async (t) => {
 	const validateAge = (age: number) =>
 		age >= 18
-			? valid(age)
-			: invalid<ValidationError>([{ field: "age", messages: ["must be 18+"] }])
+			? success(age)
+			: failure<ValidationError>([{ field: "age", messages: ["must be 18+"] }])
 
 	const validateNotTooOld = (age: number) =>
-		age <= 65 ? valid(age) : invalid<ValidationError>([{
+		age <= 65 ? success(age) : failure<ValidationError>([{
 			field: "age",
 			messages: ["must be 65 or under"],
 		}])
@@ -52,14 +52,14 @@ Deno.test("chain - sequences validation computations", async (t) => {
 		let executed = false
 		const fn = (n: number): Validation<ValidationError, number> => {
 			executed = true
-			return valid(n * 2) as Validation<ValidationError, number>
+			return success(n * 2) as Validation<ValidationError, number>
 		}
 
 		const errors: [ValidationError, ...ValidationError[]] = [{
 			field: "test",
 			messages: ["error"],
 		}]
-		const result = chain(fn)(invalid<ValidationError>(errors))
+		const result = chain(fn)(failure<ValidationError>(errors))
 
 		assertEquals(executed, false)
 		assertEquals(isInvalid(result), true)
@@ -68,14 +68,14 @@ Deno.test("chain - sequences validation computations", async (t) => {
 	await t.step("should chain multiple operations", () => {
 		const parseNumber = (s: string) => {
 			const n = Number(s)
-			return isNaN(n) ? invalid<string>(["not a number"]) : valid(n)
+			return isNaN(n) ? failure<string>(["not a number"]) : success(n)
 		}
 
 		const checkPositive = (n: number) =>
-			n > 0 ? valid(n) : invalid<string>(["must be positive"])
+			n > 0 ? success(n) : failure<string>(["must be positive"])
 
 		const doubleIt = (n: number): Validation<string, number> =>
-			valid(n * 2) as Validation<string, number>
+			success(n * 2) as Validation<string, number>
 
 		const step1 = parseNumber("21")
 		const step2 = chain(checkPositive)(step1)

@@ -1,4 +1,5 @@
-import type { Result, ValidationError } from "../../../types/fp/index.ts"
+import type { Result } from "../../../types/fp/result/index.ts"
+import type { ValidationError } from "../../../types/fp/validation/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 import _flattenArray from "../_flattenArray/index.ts"
 
@@ -9,6 +10,6 @@ export default function _flattenToResult<T, D extends number = 1>(
 	return function _flattenToResultWithDepth(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, Array<T extends ReadonlyArray<infer U> ? U : T>> {
-		return ok(_flattenArray(depth)(array))
+		return ok(flattenArray<T>(depth)(array))
 	}
 }

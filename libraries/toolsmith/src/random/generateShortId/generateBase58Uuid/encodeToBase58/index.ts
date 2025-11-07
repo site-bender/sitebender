@@ -9,5 +9,5 @@ export default function encodeToBase58(bytes: Uint8Array): string {
 	const base58Chars = bigIntToBase58(bigIntValue)
 	const withLeading = prependLeadingOnes(bytes)(base58Chars)
 
-	return join("")(withLeading)
+	return join("")(withLeading) as string
 }

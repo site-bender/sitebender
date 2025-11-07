@@ -8,7 +8,7 @@ import isFailure from "./index.ts"
 
 Deno.test("isFailure", async (t) => {
 	await t.step("returns true for Error result", () => {
-		const result = failure("failed")
+		const result = failure(["failed"])
 
 		assertEquals(isFailure(result), true)
 	})
@@ -20,7 +20,7 @@ Deno.test("isFailure", async (t) => {
 	})
 
 	await t.step("narrows type to Error", () => {
-		const result: Result<string, number> = failure("failed")
+		const result: Result<string, number> = failure(["failed"])
 
 		if (isFailure(result)) {
 			assert(result._tag === "Error")
@@ -29,10 +29,10 @@ Deno.test("isFailure", async (t) => {
 	})
 
 	await t.step("works with different failure types", () => {
-		assertEquals(isFailure(failure("failure")), true)
-		assertEquals(isFailure(failure(new Error("fail"))), true)
-		assertEquals(isFailure(failure({ code: 404 })), true)
-		assertEquals(isFailure(failure(null)), true)
+		assertEquals(isFailure(failure(["failure"])), true)
+		assertEquals(isFailure(failure([new Error("fail")])), true)
+		assertEquals(isFailure(failure([{ code: 404 }])), true)
+		assertEquals(isFailure(failure([null])), true)
 	})
 
 	await t.step("works with different value types", () => {

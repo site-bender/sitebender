@@ -2,10 +2,7 @@ import includes from "@sitebender/toolsmith/array/includes/index.ts"
 import some from "@sitebender/toolsmith/array/some/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../../types/index.ts"
+import type { AncestorContext, ValidationError } from "../../types/index.ts"
 
 /*++
  + Check footer with sectioning ancestor rule
@@ -35,7 +32,8 @@ export default function _checkFooterRule(
 			return [{
 				node,
 				errorType: "invalid-ancestor-dependent-role",
-				message: `<footer> inside sectioning element cannot have role="contentinfo"`,
+				message:
+					`<footer> inside sectioning element cannot have role="contentinfo"`,
 				context: { role },
 			}]
 		}

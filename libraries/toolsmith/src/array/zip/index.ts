@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
@@ -20,24 +17,24 @@ export default function zip<T, U>(first: ReadonlyArray<T>) {
 
 	//++ [OVERLOAD] Result zipper: takes and returns Result monad (fail fast)
 	function zipWithFirst(
-		second: Result<ValidationError, ReadonlyArray<U>>,
-	): Result<ValidationError, ReadonlyArray<[T, U]>>
+		second: Result<E, ReadonlyArray<U>>,
+	): Result<E, ReadonlyArray<[T, U]>>
 
 	//++ [OVERLOAD] Validation zipper: takes and returns Validation monad (accumulator)
 	function zipWithFirst(
-		second: Validation<ValidationError, ReadonlyArray<U>>,
-	): Validation<ValidationError, ReadonlyArray<[T, U]>>
+		second: Validation<E, ReadonlyArray<U>>,
+	): Validation<E, ReadonlyArray<[T, U]>>
 
 	//++ Implementation of the full curried function
 	function zipWithFirst(
 		second:
 			| ReadonlyArray<U>
-			| Result<ValidationError, ReadonlyArray<U>>
-			| Validation<ValidationError, ReadonlyArray<U>>,
+			| Result<E, ReadonlyArray<U>>
+			| Validation<E, ReadonlyArray<U>>,
 	):
 		| ReadonlyArray<[T, U]>
-		| Result<ValidationError, ReadonlyArray<[T, U]>>
-		| Validation<ValidationError, ReadonlyArray<[T, U]>> {
+		| Result<E, ReadonlyArray<[T, U]>>
+		| Validation<E, ReadonlyArray<[T, U]>> {
 		// Happy path: plain array
 		if (isArray<U>(second)) {
 			return _zipArray(first)(second)

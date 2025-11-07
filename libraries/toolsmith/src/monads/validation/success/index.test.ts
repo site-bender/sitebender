@@ -3,11 +3,11 @@ import { assertEquals } from "@std/assert"
 import isValid from "../isValid/index.ts"
 // removed unused ValidationError type import
 
-import valid from "./index.ts"
+import success from "./index.ts"
 
 Deno.test("valid - creates Valid instances", async (t) => {
 	await t.step("should create valid instance with number", () => {
-		const result = valid(42)
+		const result = success(42)
 
 		assertEquals(result._tag, "Valid")
 		assertEquals(isValid(result), true)
@@ -18,7 +18,7 @@ Deno.test("valid - creates Valid instances", async (t) => {
 	})
 
 	await t.step("should create valid instance with string", () => {
-		const result = valid("hello")
+		const result = success("hello")
 
 		assertEquals(result._tag, "Valid")
 		assertEquals(isValid(result), true)
@@ -30,7 +30,7 @@ Deno.test("valid - creates Valid instances", async (t) => {
 
 	await t.step("should create valid instance with object", () => {
 		const data = { id: 1, name: "Alice" }
-		const result = valid(data)
+		const result = success(data)
 
 		assertEquals(result._tag, "Valid")
 		assertEquals(isValid(result), true)
@@ -42,7 +42,7 @@ Deno.test("valid - creates Valid instances", async (t) => {
 
 	await t.step("should create valid instance with array", () => {
 		const data = [1, 2, 3]
-		const result = valid(data)
+		const result = success(data)
 
 		assertEquals(result._tag, "Valid")
 		assertEquals(isValid(result), true)
@@ -53,7 +53,7 @@ Deno.test("valid - creates Valid instances", async (t) => {
 	})
 
 	await t.step("should create valid instance with null", () => {
-		const result = valid(null)
+		const result = success(null)
 
 		assertEquals(result._tag, "Valid")
 		assertEquals(isValid(result), true)
@@ -64,7 +64,7 @@ Deno.test("valid - creates Valid instances", async (t) => {
 	})
 
 	await t.step("should create valid instance with undefined", () => {
-		const result = valid(undefined)
+		const result = success(undefined)
 
 		assertEquals(result._tag, "Valid")
 		assertEquals(isValid(result), true)

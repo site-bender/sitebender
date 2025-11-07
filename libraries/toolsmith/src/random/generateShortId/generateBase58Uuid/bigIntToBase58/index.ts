@@ -13,5 +13,5 @@ export default function bigIntToBase58(value: bigint): Array<string> {
 		})(current)
 	}
 
-	return reverse(generateDigits(value))
+	return reverse(generateDigits(value)) as Array<string>
 }

@@ -137,8 +137,7 @@ export default function _deepEquals(
 
 	// Check if all keys exist and values are equal
 	const allResult = all((key: string): boolean => {
-		const includesResult = includes(key)(keysY)
-		const keyIncluded = isOk(includesResult) ? includesResult.value : false
+		const keyIncluded = includes(keysY)(key)
 		return keyIncluded && _deepEquals(xObj[key], yObj[key], seen)
 	})(keysX)
 
