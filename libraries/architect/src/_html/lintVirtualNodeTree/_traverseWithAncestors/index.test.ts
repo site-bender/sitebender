@@ -1,10 +1,7 @@
 import { assertEquals } from "@std/assert"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../types/index.ts"
+import type { AncestorContext, ValidationError } from "../types/index.ts"
 import _traverseWithAncestors from "./index.ts"
 
 Deno.test("_traverseWithAncestors", async function traverseWithAncestorsTests(
@@ -127,7 +124,9 @@ Deno.test("_traverseWithAncestors", async function traverseWithAncestorsTests(
 				return [{
 					node,
 					errorType: "invalid-role-structure",
-					message: `Error from ${node._tag === "element" ? node.tagName : "text"}`,
+					message: `Error from ${
+						node._tag === "element" ? node.tagName : "text"
+					}`,
 				}]
 			}
 
