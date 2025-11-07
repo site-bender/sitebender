@@ -1,11 +1,10 @@
-import subtract from "../../math/arithmetic/subtract/index.ts"
-import is from "../../predicates/is/index.ts"
+import is from "../../validation/is/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
-import all from "../all/index.ts"
 import isEmpty from "../isEmpty/index.ts"
 import length from "../length/index.ts"
 
 //++ Checks if an array ends with a given suffix array
+//++ NOTE: This is a plain function (single return path). Will be migrated to three-path pattern in future batch.
 export default function endsWith<T>(
 	suffix: ReadonlyArray<T> | null | undefined,
 ) {
@@ -21,11 +20,13 @@ export default function endsWith<T>(
 			const suffixLen = length(suffix)
 
 			if (suffixLen <= arrayLen) {
-				const startIndex = subtract(suffixLen)(arrayLen) as number
+				//++ [EXCEPTION] Using native subtraction for significant performance benefit in Toolsmith internals
+				const startIndex = arrayLen - suffixLen
 
-				return all<T>(function checkElement(value, i) {
+				//++ [EXCEPTION] Using native .every() for significant performance benefit in Toolsmith internals
+				return suffix.every(function checkElement(value, i) {
 					return is(value)(array[startIndex + i])
-				})(suffix as Array<T>)
+				})
 			}
 		}
 		return false
