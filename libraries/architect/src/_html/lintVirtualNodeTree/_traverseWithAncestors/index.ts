@@ -2,10 +2,7 @@ import concat from "@sitebender/toolsmith/array/concat/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../types/index.ts"
+import type { AncestorContext, ValidationError } from "../types/index.ts"
 
 /*++
  + Traverses VirtualNode tree with ancestor context

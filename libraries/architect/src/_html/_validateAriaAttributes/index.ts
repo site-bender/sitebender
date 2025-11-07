@@ -59,64 +59,62 @@ export default function _validateAriaAttributes(tagName: string) {
 
 			/*++
 			 + Process all entries and accumulate results into flat object
-			 + Curried reducer function for functional compliance
+			 + Non-curried reducer function required by reduce()
 			 */
 			function processAriaEntry(
 				accumulator: Readonly<Record<string, string>>,
-			) {
-				return function processAriaEntryWithAccumulator(
-					entry: readonly [string, unknown],
-				): Readonly<Record<string, string>> {
-					const [key, value] = entry
-					const ariaKey = `aria-${key}`
+				entry: readonly [string, unknown],
+			): Readonly<Record<string, string>> {
+				const [key, value] = entry
+				const stringValue = String(value)
+				const ariaKey = `aria-${key}`
 
-					/*++
+				/*++
 				 + Check if this attribute is allowed
 				 */
-					const isAllowed = includes(allowedAttributes)(ariaKey)
+				const isAllowed = includes(allowedAttributes)(ariaKey)
 
-					if (not(isAllowed)) {
-						/*++
+				if (not(isAllowed)) {
+					/*++
 					 + Invalid attribute → add error attribute to result
 					 */
-						const errorKey = `data-§-bad-aria-${key}`
-						const errorMessage = effectiveRole
-							? `aria-${key} not allowed on ${tagName} with role ${effectiveRole}`
-							: `aria-${key} not allowed on ${tagName} (no role)`
+					const errorKey = `data-§-bad-aria-${key}`
+					const errorMessage = effectiveRole
+						? `aria-${key} not allowed on ${tagName} with role ${effectiveRole}`
+						: `aria-${key} not allowed on ${tagName} (no role)`
 
-						return {
-							...accumulator,
-							[errorKey]: String(value),
-							"data-§-aria-error": errorMessage,
-						}
-					}
-
-					/*++
-				 + Attribute is allowed → validate its value
-				 */
-					const validateValue = _validateAriaValue(ariaKey)
-					const validationError = validateValue(value)
-
-					if (isDefined(validationError)) {
-						/*++
-					 + Value is invalid → add error attribute to result
-					 */
-						const errorKey = `data-§-bad-aria-${key}`
-
-						return {
-							...accumulator,
-							[errorKey]: String(value),
-							"data-§-aria-error": validationError,
-						}
-					}
-
-					/*++
-				 + Attribute and value are valid → add to result
-				 */
 					return {
 						...accumulator,
-						[ariaKey]: String(value),
+						[errorKey]: stringValue,
+						"data-§-aria-error": errorMessage,
 					}
+				}
+
+				/*++
+				 + Attribute is allowed → validate its value
+				 */
+				const validateValue = _validateAriaValue(ariaKey)
+				const validationError = validateValue(stringValue)
+
+				if (isDefined(validationError)) {
+					/*++
+					 + Value is invalid → add error attribute to result
+					 */
+					const errorKey = `data-§-bad-aria-${key}`
+
+					return {
+						...accumulator,
+						[errorKey]: stringValue,
+						"data-§-aria-error": validationError,
+					}
+				}
+
+				/*++
+				 + Attribute and value are valid → add to result
+				 */
+				return {
+					...accumulator,
+					[ariaKey]: stringValue,
 				}
 			}
 
