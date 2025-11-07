@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _zipAllArray from "../_zipAllArray/index.ts"
 
@@ -13,7 +16,7 @@ export default function _zipAllToValidation<T, U>(
 		ValidationError,
 		ReadonlyArray<[T | undefined, U | undefined]>
 	> {
-		const result = _zipAllArray(array2)(array1)
+		const result = zipAllArray<T>(array2)(array1)
 		return success(result)
 	}
 }

@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _groupWithArray from "./_groupWithArray/index.ts"
 import _groupWithToResult from "./_groupWithToResult/index.ts"
@@ -13,7 +13,7 @@ import isSuccess from "../../monads/validation/isSuccess/index.ts"
 //++ Groups consecutive elements by binary predicate
 //++ predicate(previous, current) returns true to group together
 //++ [1, 2, 2, 3, 3, 3] with (a, b) => a === b -> [[1], [2, 2], [3, 3, 3]]
-export default function groupWith<T>(predicate: (a: T, b: T) => boolean) {
+export default function groupWith<E, T>(predicate: (a: T, b: T) => boolean) {
 	//++ [OVERLOAD] Plain array path: takes array, returns array of arrays
 	function groupWithPredicate(
 		array: ReadonlyArray<T>,
@@ -21,27 +21,27 @@ export default function groupWith<T>(predicate: (a: T, b: T) => boolean) {
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function groupWithPredicate(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function groupWithPredicate(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ Implementation with type dispatch
 	function groupWithPredicate(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<ReadonlyArray<T>>
-		| Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
-		| Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>> {
+		| Result<E, ReadonlyArray<ReadonlyArray<T>>>
+		| Validation<E, ReadonlyArray<ReadonlyArray<T>>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
-			return _groupWithArray(predicate)(array)
+			return _groupWithArray<T>(predicate)(array)
 		}
 
 		// Result path: fail-fast monadic transformation

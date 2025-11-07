@@ -84,7 +84,7 @@ Deno.test("lintVirtualNodeTree", async function lintVirtualNodeTreeTests(t) {
 				"invalid-ancestor-dependent-role",
 			)
 			assertEquals(
-				errors[0]?.message.includes("cannot have role=\"contentinfo\""),
+				errors[0]?.message.includes('cannot have role="contentinfo"'),
 				true,
 			)
 		},
@@ -129,7 +129,7 @@ Deno.test("lintVirtualNodeTree", async function lintVirtualNodeTreeTests(t) {
 				"invalid-ancestor-dependent-role",
 			)
 			assertEquals(
-				errors[0]?.message.includes("cannot have role=\"banner\""),
+				errors[0]?.message.includes('cannot have role="banner"'),
 				true,
 			)
 		},
@@ -329,7 +329,7 @@ Deno.test("lintVirtualNodeTree", async function lintVirtualNodeTreeTests(t) {
 			assertEquals(errors.length, 1)
 			assertEquals(errors[0]?.errorType, "invalid-role-structure")
 			assertEquals(
-				errors[0]?.message.includes("must have role=\"listitem\""),
+				errors[0]?.message.includes('must have role="listitem"'),
 				true,
 			)
 		},

@@ -11,6 +11,6 @@ export default function _dropToValidation<T>(n: number) {
 	return function _dropToValidationWithN(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, ReadonlyArray<T>> {
-		return success(_dropArray(n)(array))
+		return success(_dropArray<T>(n)(array))
 	}
 }
