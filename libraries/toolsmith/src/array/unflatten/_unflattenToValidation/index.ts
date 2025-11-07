@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _unflattenArray from "../_unflattenArray/index.ts"
 
@@ -9,6 +12,6 @@ export default function _unflattenToValidation(
 	return function _unflattenToValidationWithDepths<T>(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, Array<T | Array<unknown>>> {
-		return success(_unflattenArray(depths)(array))
+		return success(unflattenArray<T>(depths)(array))
 	}
 }

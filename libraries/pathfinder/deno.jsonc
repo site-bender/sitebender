@@ -1,34 +1,40 @@
 {
-	// Pathfinder library - Navigation and routing utilities
 	"name": "@sitebender/pathfinder",
-	"version": "0.1.0",
-	"description": "Navigation and routing utilities for managing paths and routes within applications.",
+	"version": "0.0.1-alpha",
+	"exports": "./src/mod.ts",
 
-	// Main export point for the library
-	"exports": {
-		".": "./src/index.ts"
+	"compilerOptions": {
+		"strict": true,
+		"lib": ["esnext", "deno.ns"],
+		"skipLibCheck": true
+	},
+
+	"imports": {
+		"@sitebender/toolsmith/": "../toolsmith/src/",
+		"@std/expect": "jsr:@std/expect@^1.0.17",
+		"@std/assert": "jsr:@std/assert@^1.0.14",
+		"@std/testing/bdd": "jsr:@std/testing@^1.0.15/bdd"
 	},
 
 	"tasks": {
-		// Run tests
-		"test": "deno test --unstable-temporal tests/ src/",
-		"test:watch": "deno test --unstable-temporal tests/ src/ --watch",
-		"test:cov": "deno test --unstable-temporal --coverage=coverage tests/ src/ && deno coverage coverage --exclude='tests/.*\\.ts$' && deno coverage coverage --lcov --exclude='tests/.*\\.ts$' > coverage.lcov",
-		"test:unit": "deno test --unstable-temporal tests/ src/ --filter='/^(?!.*integration).*/'",
-		"test:integration": "deno test --unstable-temporal tests/integration/",
-
-		// Code quality (inherits config from root workspace)
-		"lint": "deno lint src/",
-		"fmt": "deno fmt src/",
-		"type-check": "deno check --unstable-temporal src/**/*.ts"
+		"test": "deno test --unstable-temporal --no-check --allow-read --allow-write --allow-env --allow-net --allow-ffi '**/*.test.ts'",
+		"test:strict": "deno test --unstable-temporal --allow-read --allow-write --allow-env --allow-net --allow-ffi '**/*.test.ts'",
+		"test:cov": "deno test --unstable-temporal --no-check --allow-read --allow-write --allow-env --allow-net --allow-ffi '**/*.test.ts' --coverage=coverage && deno coverage coverage --lcov > coverage.lcov",
+		"fmt": "deno fmt",
+		"lint": "deno lint"
 	},
 
-	// Test configuration
-	"test": {
-		"include": ["tests/", "src/**/*.test.ts"]
+	"fmt": {
+		"useTabs": true,
+		"lineWidth": 80,
+		"indentWidth": 2,
+		"semiColons": false,
+		"singleQuote": false
 	},
-	"compilerOptions": {
-		"lib": ["deno.window", "deno.unstable", "esnext"],
-		"types": []
+
+	"lint": {
+		"rules": {
+			"tags": ["recommended"]
+		}
 	}
 }

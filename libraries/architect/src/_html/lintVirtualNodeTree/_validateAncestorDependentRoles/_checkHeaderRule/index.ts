@@ -2,10 +2,7 @@ import includes from "@sitebender/toolsmith/array/includes/index.ts"
 import some from "@sitebender/toolsmith/array/some/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../../types/index.ts"
+import type { AncestorContext, ValidationError } from "../../types/index.ts"
 
 /*++
  + Check header with sectioning ancestor rule

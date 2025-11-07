@@ -1,10 +1,10 @@
 import { assertEquals } from "@std/assert"
 
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
 
 import isInvalid from "../isInvalid/index.ts"
-import invalid from "./index.ts"
+import failure from "./index.ts"
 
 Deno.test("invalid - creates Invalid instances", async (t) => {
 	await t.step("should create invalid instance with single error", () => {
@@ -12,7 +12,7 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 			{ field: "test", messages: ["error"] },
 		]
 
-		const result = invalid<ValidationError, number>(errors)
+		const result = failure<ValidationError, number>(errors)
 
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {
@@ -27,7 +27,7 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 			{ field: "name", messages: ["required"] },
 		]
 
-		const result = invalid<ValidationError, string>(errors)
+		const result = failure<ValidationError, string>(errors)
 
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {
@@ -39,7 +39,7 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 	await t.step("should create invalid instance with string errors", () => {
 		const errors: NonEmptyArray<string> = ["error1", "error2", "error3"]
 
-		const result = invalid<string, number>(errors)
+		const result = failure<string, number>(errors)
 
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {
@@ -53,7 +53,7 @@ Deno.test("invalid - creates Invalid instances", async (t) => {
 			{ field: "email", messages: ["invalid format", "domain not allowed"] },
 		]
 
-		const result = invalid<ValidationError, unknown>(errors)
+		const result = failure<ValidationError, unknown>(errors)
 
 		assertEquals(result._tag, "Invalid")
 		if (isInvalid(result)) {

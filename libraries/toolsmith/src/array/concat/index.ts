@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
@@ -14,30 +11,30 @@ import _concatToValidation from "./_concatToValidation/index.ts"
 import isArray from "../../predicates/isArray/index.ts"
 
 //++ Concatenates two arrays
-export default function concat<T>(first: ReadonlyArray<T>) {
+export default function concat<E, T>(first: ReadonlyArray<T>) {
 	//++ [OVERLOAD] Array concatenator: takes array, returns concatenated array
 	function concatWithFirst(second: ReadonlyArray<T>): ReadonlyArray<T>
 
 	//++ [OVERLOAD] Result concatenator: takes and returns Result monad (fail fast)
 	function concatWithFirst(
-		second: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<T>>
+		second: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Validation concatenator: takes and returns Validation monad (accumulator)
 	function concatWithFirst(
-		second: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<T>>
+		second: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<T>>
 
 	//++ Implementation of the full curried function
 	function concatWithFirst(
 		second:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>> {
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>> {
 		// Happy path: plain array
 		if (isArray<T>(second)) {
 			return _concatArray(first)(second)
