@@ -81,7 +81,7 @@ function generateComponentCode(config: ComponentConfig, componentName: string): 
 
 	if (isHtmlElement) {
 		return `import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
-import type { BaseProps } from "@sitebender/pagewright/_html/types/index.ts"
+import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
 
 export type Props =
 	& BaseProps
@@ -134,7 +134,7 @@ function generateTestCode(config: ComponentConfig, componentName: string): strin
 
 	return `import { assert } from "@std/assert"
 import isVirtualNode from "@sitebender/toolsmith/predicates/isVirtualNode/index.ts"
-import _P from "@sitebender/pagewright/_html/_P/index.ts"
+import _P from "@sitebender/architect/_html/_P/index.ts"
 
 import ${componentName} from "./index.ts"
 
