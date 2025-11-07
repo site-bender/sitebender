@@ -6,11 +6,11 @@ We are going to be working in the `libraries/toolsmith/src/vanilla` folder and i
 
 So a curried function that takes three parameters will be a named function that takes the first parameter exported as default on the same line as the function declaration. That will return a named function with the return keyword that takes the second parameter. Named means it uses the `function` keyword and has a name. The name should be useful for traces. As this example takes three parameters, the second function will return a third named function which takes the third parameter and that function will return the result. Acknowledge that you understand this.
 
-A good example is the open file [@index.ts](file:///Users/guy/Workspace/@sitebender/sitebender/libraries/toolsmith/src/vanilla/array/reduce/index.ts) . Notice how the function names read like plain English. That's the goal. Notice that we delegate to the OOP `.reduce` method for performance reasons. Notice that the parameters are data last. Remember all this.
+A good example is the open file [@index.ts](file:///Users/guy/Workspace/@sitebender/sitebender/libraries/toolsmith/src/array/reduce/index.ts) . Notice how the function names read like plain English. That's the goal. Notice that we delegate to the OOP `.reduce` method for performance reasons. Notice that the parameters are data last. Remember all this.
 
 This includes arrow functions inside other functions that are passed to functions such as `reduce`. Sometimes these cannot be curried (reduce expects a function with two or three parameters for use in the reduction loop).
 
-Do ten files (that need changes, don't count those that are already done), then stop. Then update the `vanilla/corrected.md` file to keep track.
+Do ten files (that need changes, don't count those that are already done), then stop. Then update the `corrected.md` file to keep track.
 
 ## Batch 1 (Completed)
 

@@ -252,6 +252,6 @@
 - **Consequences**: Named imports and relative paths create ambiguity, bloat, and breakage when refactoring
 - **Philosophy**: Explicit direct dependencies with move-safe aliases
 - **Examples**:
-  - Correct: `import sum from '@sitebender/toolsmith/vanilla/array/sum/index.ts'`
+  - Correct: `import sum from '@sitebender/toolsmith/array/sum/index.ts'`
   - Wrong: `import { sum } from '@sitebender/toolsmith'; import sum from '../utils/sum'`
 - **Applies to**: .ts, .tsx, .js, .jsx
