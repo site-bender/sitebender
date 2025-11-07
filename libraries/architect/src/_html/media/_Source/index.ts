@@ -1,5 +1,7 @@
+import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 import type { BaseProps } from "@sitebender/architect/_html/types/index.ts"
+import _validateAriaAttributes from "../../_validateAriaAttributes/index.ts"
 import _validateAttributes from "../../_validateAttributes/index.ts"
 import _validateRole from "../../_validateRole/index.ts"
 
@@ -20,11 +22,17 @@ export type Props =
  + Note: Void element (self-closing)
  */
 export default function _Source(props: Props): VirtualNode {
-	const { role, ...attrs } = props
+	const { role, aria, ...attrs } = props
 	const roleAttrs = _validateRole("source")(role)
+
+	const ariaAttrs = isDefined(aria)
+		? _validateAriaAttributes("source")(role)(aria)
+		: {}
+
 	const attributes = {
 		..._validateAttributes("source")(attrs),
 		...roleAttrs,
+		...ariaAttrs,
 	}
 
 	return {
