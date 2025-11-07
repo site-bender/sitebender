@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _unionArray from "./_unionArray/index.ts"
 import _unionToResult from "./_unionToResult/index.ts"
@@ -17,27 +17,27 @@ export default function union<T>(array1: ReadonlyArray<T>) {
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function unionWithArray1(
-		array2: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<T>>
+		array2: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function unionWithArray1(
-		array2: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<T>>
+		array2: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<T>>
 
 	//++ Implementation with type dispatch
 	function unionWithArray1(
 		array2:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>> {
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array2)) {
-			return _unionArray(array1)(array2)
+			return _unionArray<T>(array1)(array2)
 		}
 
 		// Result path: fail-fast monadic transformation

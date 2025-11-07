@@ -1,8 +1,5 @@
 import type { Result } from "../../types/fp/result/index.ts"
-import type {
-	Validation,
-	ValidationError,
-} from "../../types/fp/validation/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
@@ -13,18 +10,18 @@ import _combinationsToResult from "./_combinationsToResult/index.ts"
 import _combinationsToValidation from "./_combinationsToValidation/index.ts"
 
 //++ Generates all k-element combinations from an array
-export default function combinations<T>(k: number) {
+export default function combinations<E, T>(k: number) {
 	function combinationsWithK(
 		array: ReadonlyArray<T>,
 	): ReadonlyArray<ReadonlyArray<T>>
 
 	function combinationsWithK(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	function combinationsWithK(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<ReadonlyArray<T>>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	function combinationsWithK(array: unknown) {
 		if (isArray<T>(array)) {

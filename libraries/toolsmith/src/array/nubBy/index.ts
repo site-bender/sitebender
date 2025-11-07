@@ -1,5 +1,5 @@
-import type { Result, ValidationError } from "../../types/fp/index.ts"
-import type { Validation } from "../../types/fp/index.ts"
+import type { Result } from "../../types/fp/result/index.ts"
+import type { Validation } from "../../types/fp/validation/index.ts"
 
 import _nubByArray from "./_nubByArray/index.ts"
 import _nubByToResult from "./_nubByToResult/index.ts"
@@ -12,33 +12,33 @@ import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
 //++ Removes duplicates using custom equality function
 //++ [1, 2, 1, 3, 2] with (a, b) => a === b -> [1, 2, 3]
-export default function nubBy<T>(equalityFn: (a: T, b: T) => boolean) {
+export default function nubBy<E, T>(equalityFn: (a: T, b: T) => boolean) {
 	//++ [OVERLOAD] Plain array path: takes array, returns array
 	function nubByWithEqualityFn(array: ReadonlyArray<T>): ReadonlyArray<T>
 
 	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
 	function nubByWithEqualityFn(
-		array: Result<ValidationError, ReadonlyArray<T>>,
-	): Result<ValidationError, ReadonlyArray<T>>
+		array: Result<E, ReadonlyArray<T>>,
+	): Result<E, ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
 	function nubByWithEqualityFn(
-		array: Validation<ValidationError, ReadonlyArray<T>>,
-	): Validation<ValidationError, ReadonlyArray<T>>
+		array: Validation<E, ReadonlyArray<T>>,
+	): Validation<E, ReadonlyArray<T>>
 
 	//++ Implementation with type dispatch
 	function nubByWithEqualityFn(
 		array:
 			| ReadonlyArray<T>
-			| Result<ValidationError, ReadonlyArray<T>>
-			| Validation<ValidationError, ReadonlyArray<T>>,
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
 	):
 		| ReadonlyArray<T>
-		| Result<ValidationError, ReadonlyArray<T>>
-		| Validation<ValidationError, ReadonlyArray<T>> {
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>> {
 		// Happy path: plain array (most common, zero overhead)
 		if (isArray<T>(array)) {
-			return _nubByArray(equalityFn)(array)
+			return _nubByArray<T>(equalityFn)(array)
 		}
 
 		// Result path: fail-fast monadic transformation

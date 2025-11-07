@@ -1,4 +1,7 @@
-import type { Validation, ValidationError } from "../../../types/fp/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _pluckArray from "../_pluckArray/index.ts"
 
@@ -9,6 +12,6 @@ export default function _pluckToValidation<T, K extends keyof T>(
 	return function _pluckToValidationWithKey(
 		array: ReadonlyArray<T>,
 	): Validation<ValidationError, Array<T[K] | null>> {
-		return success(_pluckArray(key)(array))
+		return success(pluckArray<T>(key)(array))
 	}
 }

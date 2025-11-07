@@ -1,17 +1,17 @@
 import { assertEquals } from "@std/assert"
 
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/ValidationError/index.ts"
+import type ValidationError from "../../../types/fp/validation/index.ts"
 
-import invalid from "../invalid/index.ts"
-import valid from "../valid/index.ts"
+import failure from "../failure/index.ts"
+import success from "../success/index.ts"
 import getOrElse from "./index.ts"
 
 // no need for isValid/isInvalid in these getOrElse tests
 
 Deno.test("getOrElse - returns contained value for Valid and default for Invalid", async (t) => {
 	await t.step("should return inner value when Valid", () => {
-		const v = valid(123)
+		const v = success(123)
 
 		const result = getOrElse(0)(v)
 
@@ -23,7 +23,7 @@ Deno.test("getOrElse - returns contained value for Valid and default for Invalid
 			{ field: "n", messages: ["must be positive"] },
 		]
 
-		const v = invalid<ValidationError, number>(errs)
+		const v = failure<ValidationError, number>(errs)
 		const result = getOrElse(0)(v)
 
 		assertEquals(result, 0)
@@ -31,8 +31,8 @@ Deno.test("getOrElse - returns contained value for Valid and default for Invalid
 
 	await t.step("should be type-safe with objects", () => {
 		const fallback = { id: 0, name: "Guest" }
-		const good = valid({ id: 1, name: "Alice" })
-		const bad = invalid<ValidationError, typeof fallback>([
+		const good = success({ id: 1, name: "Alice" })
+		const bad = failure<ValidationError, typeof fallback>([
 			{ field: "user", messages: ["not found"] },
 		])
 

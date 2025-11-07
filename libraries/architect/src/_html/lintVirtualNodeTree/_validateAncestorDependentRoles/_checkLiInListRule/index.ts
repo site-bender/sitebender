@@ -1,10 +1,7 @@
 import isDefined from "@sitebender/toolsmith/predicates/isDefined/index.ts"
 import type { VirtualNode } from "@sitebender/toolsmith/types/virtualNode/index.ts"
 
-import type {
-	AncestorContext,
-	ValidationError,
-} from "../../types/index.ts"
+import type { AncestorContext, ValidationError } from "../../types/index.ts"
 
 /*++
  + Check li child of list element rule
@@ -33,7 +30,8 @@ export default function _checkLiInListRule(
 				return [{
 					node,
 					errorType: "invalid-role-structure",
-					message: `<li> child of list element with role="list" must have role="listitem", got role="${liRole}"`,
+					message:
+						`<li> child of list element with role="list" must have role="listitem", got role="${liRole}"`,
 					context: { parentRole, liRole },
 				}]
 			}
