@@ -1,5 +1,5 @@
 import _serializeExpression from "../index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 export default function _serializeObjectProperty(prop: unknown): string {
 	const propObj = prop as Record<string, unknown>

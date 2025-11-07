@@ -2,7 +2,9 @@
 //++ Returns EnvoyMarker if found, undefined otherwise
 import type { EnvoyMarker } from "../../types/index.ts"
 
-export default function detectEnvoyMarker(text: string): EnvoyMarker | undefined {
+export default function detectEnvoyMarker(
+	text: string,
+): EnvoyMarker | undefined {
 	const trimmed = text.trim()
 
 	if (trimmed.startsWith("++")) {

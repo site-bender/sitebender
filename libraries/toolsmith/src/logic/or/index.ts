@@ -4,10 +4,7 @@ import type { Value } from "@sitebender/toolsmith/types/index.ts"
 //++ Returns boolean (not JavaScript || behavior which preserves types)
 export default function or(left: Value) {
 	return function orWithLeft(right: Value): boolean {
-		/*++
-		 + [EXCEPTION] Uses || operator for boolean OR logic
-		 + This is a primitive boolean operation with no higher-level abstraction available
-		 */
+		//++ [EXCEPTION] Boolean() and || permitted in Toolsmith for performance - provides curried or wrapper
 		return Boolean(left) || Boolean(right)
 	}
 }

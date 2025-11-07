@@ -9,6 +9,7 @@ import {
 
 //++ Type predicate that checks if a string is a valid ISBN-10
 export default function isIsbn10(value: string): value is Isbn10 {
+	//++ [EXCEPTION] typeof, ===, &&, .length, .split(), .reduce(), [], .test(), .map(), parseInt, %, *, and + permitted in Toolsmith for performance - provides ISBN-10 validation wrapper
 	return (
 		typeof value === "string" &&
 		value.length === ISBN10_LENGTH &&
@@ -19,14 +20,18 @@ export default function isIsbn10(value: string): value is Isbn10 {
 				index: number,
 			): boolean {
 				// X is only allowed in the check digit position (last character)
-				const isValidChar = index === 9 ? (char === "X" || /[0-9]/.test(char)) : /[0-9]/.test(char)
+				const isValidChar = index === 9
+					? (char === "X" || /[0-9]/.test(char))
+					: /[0-9]/.test(char)
 				return acc && isValidChar
 			}, true)
 		}() &&
 		function hasValidChecksum(): boolean {
-			const digits = value.split("").map(function charToDigit(char: string): number {
-				return char === "X" ? 10 : parseInt(char, 10)
-			})
+			const digits = value.split("").map(
+				function charToDigit(char: string): number {
+					return char === "X" ? 10 : parseInt(char, 10)
+				},
+			)
 
 			const sum = digits.reduce(function calculateWeightedSum(
 				acc: number,

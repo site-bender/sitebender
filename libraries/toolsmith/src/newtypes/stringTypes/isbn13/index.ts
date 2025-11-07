@@ -18,8 +18,10 @@ export default function isbn13(
 			field: "isbn13",
 			messages: ["The system needs a valid ISBN-13 string."],
 			received: value,
-			expected: "13-digit string with valid ISBN-13 checksum (digits 0-9, starting with 978 or 979)",
-			suggestion: "Provide a valid ISBN-13 like '9780306406157' or '9791234567890'",
+			expected:
+				"13-digit string with valid ISBN-13 checksum (digits 0-9, starting with 978 or 979)",
+			suggestion:
+				"Provide a valid ISBN-13 like '9780306406157' or '9791234567890'",
 			severity: "requirement",
 		})
 	}

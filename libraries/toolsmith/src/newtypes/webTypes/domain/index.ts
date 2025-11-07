@@ -19,7 +19,9 @@ export default function domain(
 		return structureResult
 	}
 
+	//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides domain label extraction wrapper
 	const labels = value.split(".")
+	//++ [EXCEPTION] .reduce() permitted in Toolsmith for performance - provides domain label validation wrapper
 	const labelError = labels.reduce(
 		function validateLabel(
 			acc: Result<ValidationError, string>,

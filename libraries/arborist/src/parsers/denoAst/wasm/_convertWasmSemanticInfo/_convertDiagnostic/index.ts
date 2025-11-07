@@ -1,12 +1,13 @@
-import or from "@sitebender/toolsmith/logic/or/index.ts"
 import type { Diagnostic } from "../../../../types/semantics/index.ts"
 
 export default function _convertDiagnostic(d: unknown): Diagnostic {
 	const diag = d as Record<string, unknown>
 	return {
-		message: or(diag.message)("Unknown diagnostic") as string,
-		severity: (or(diag.severity)("error") as string) as Diagnostic["severity"],
-		start: or(diag.start)(0) as number,
-		end: or(diag.end)(0) as number,
+		message: (diag.message as string | undefined) ?? "Unknown diagnostic",
+		severity: ((diag.severity as string | undefined) ?? "error") as Diagnostic[
+			"severity"
+		],
+		start: (diag.start as number | undefined) ?? 0,
+		end: (diag.end as number | undefined) ?? 0,
 	}
 }

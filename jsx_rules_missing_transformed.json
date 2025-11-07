@@ -29,7 +29,7 @@
     "rule_id": "JSX_SEMANTIC_001",
     "category": "semantic",
     "priority": 8,
-    "reason": "Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Pagewright's context-aware compilation",
+    "reason": "Ensures generated HTML maintains proper semantic structure for accessibility and SEO while leveraging Architect's context-aware compilation",
     "consequences": "Improper semantic structure breaks accessibility, SEO, and context-aware compilation features",
     "philosophy": "Context-Aware Component Usage - semantic components used in appropriate contexts with proper nesting",
     "examples": {

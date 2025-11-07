@@ -796,9 +796,9 @@ operator_implementation_plan:
       dependencies: ["phase_11"]
       milestones:
         - id: "M12.1"
-          name: "Architect Integration"
+          name: "Artificer Integration"
           tasks:
-            - "Events trigger Architect calculations"
+            - "Events trigger Artificer calculations"
             - "Reactive DOM updates on events"
             - "Calculation results as events"
             - "Bidirectional data flow"

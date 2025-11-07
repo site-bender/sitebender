@@ -11,7 +11,7 @@ export default function categorizeImport(
 
 	// Project-specific imports
 	if (source.startsWith("~types/")) return "types"
-	if (source.startsWith("~pagewright/")) return "pagewright"
+	if (source.startsWith("~architect/")) return "architect"
 	if (source.startsWith("~utilities/")) return "utilities"
 	if (source.startsWith("~constants/")) return "constants"
 

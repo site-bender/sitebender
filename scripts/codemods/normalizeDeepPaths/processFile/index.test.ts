@@ -32,7 +32,7 @@ export { test } from "./sibling"
 		const filePath = path.join(testDir, "component.ts")
 		const content = `
 import { map } from "libraries/toolsmith/src/array/map"
-import type { Component } from "libraries/pagewright/types"
+import type { Component } from "libraries/architect/types"
 `
 		await Deno.writeTextFile(filePath, content)
 
@@ -54,7 +54,7 @@ import type { Component } from "libraries/pagewright/types"
 import { local } from "./local"
 import { deep } from "libraries/toolsmith/src/utils"
 export { something } from "../relative"
-export { another } from "libraries/pagewright/src/base"
+export { another } from "libraries/architect/src/base"
 `
 			await Deno.writeTextFile(filePath, content)
 
@@ -68,7 +68,7 @@ export { another } from "libraries/pagewright/src/base"
 			assertEquals(result.includes("../relative"), true)
 			// Deep imports should be converted
 			assertEquals(result.includes('"libraries/toolsmith'), false)
-			assertEquals(result.includes('"libraries/pagewright/src'), false)
+			assertEquals(result.includes('"libraries/architect/src'), false)
 		},
 	)
 
@@ -110,8 +110,8 @@ import { test } from "libraries/toolsmith/src/test"
 		const filePath = path.join(testDir, "exports.ts")
 		const content = `
 export { default } from "libraries/toolsmith/src/pipe"
-export * from "libraries/pagewright/types"
-export { foo, bar } from "libraries/architect/src/utils"
+export * from "libraries/architect/types"
+export { foo, bar } from "libraries/artificer/src/utils"
 `
 		await Deno.writeTextFile(filePath, content)
 

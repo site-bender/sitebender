@@ -8,7 +8,9 @@ import isArray from "@sitebender/toolsmith/predicates/isArray/index.ts"
 
 //++ Finds the first element matching a predicate
 //++ Returns Result with found element or error if not found or invalid input
-export default function find<T extends Serializable>(predicate: (item: T) => boolean) {
+export default function find<T extends Serializable>(
+	predicate: (item: T) => boolean,
+) {
 	return function findWithPredicate(
 		array: ReadonlyArray<T>,
 	): Result<ValidationError, T> {
@@ -16,9 +18,11 @@ export default function find<T extends Serializable>(predicate: (item: T) => boo
 		if (isArray(array)) {
 			// Use findIndex to determine if element was actually found
 			// This correctly handles finding undefined values
+			//++ [EXCEPTION] .findIndex() permitted in Toolsmith for performance - provides curried find wrapper
 			const index = array.findIndex(predicate)
 
 			// Happy path: element found (index !== -1)
+			//++ [EXCEPTION] !== and [] permitted in Toolsmith for performance - provides curried find wrapper
 			if (index !== -1) {
 				return ok(array[index] as T)
 			}

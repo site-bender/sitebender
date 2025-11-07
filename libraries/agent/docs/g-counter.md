@@ -672,7 +672,7 @@ function createPersistEffect(persistConfig: any) {
 │  { type: "GCounter", props: {...}, children: [...] }            │
 └─────────────────────────────────────────────────────────────────┘
                             ↓
-                [Architect Transformer]
+                [Artificer Transformer]
                             ↓
 ┌─────────────────────────────────────────────────────────────────┐
 │     Intermediate Representation (Schema.org Linked Data)        │

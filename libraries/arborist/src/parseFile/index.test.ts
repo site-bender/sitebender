@@ -7,7 +7,7 @@ import * as fc from "npm:fast-check@3.23.1"
 import isOk from "@sitebender/toolsmith/monads/result/isOk/index.ts"
 import isError from "@sitebender/toolsmith/monads/result/isError/index.ts"
 import fold from "@sitebender/toolsmith/monads/result/fold/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import and from "@sitebender/toolsmith/logic/and/index.ts"
 
 import type { ParsedAst, ParseError } from "../types/index.ts"
@@ -40,7 +40,10 @@ Deno.test({
 		)
 		assertExists(ast!.module, "Should have SWC module")
 		assertExists(ast!.sourceText, "Should have source text")
-		assert(isEqual(typeof ast!.sourceText)("string"), "Source text should be string")
+		assert(
+			isEqual(typeof ast!.sourceText)("string"),
+			"Source text should be string",
+		)
 	},
 })
 

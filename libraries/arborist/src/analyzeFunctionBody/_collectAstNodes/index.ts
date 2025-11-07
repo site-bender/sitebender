@@ -3,7 +3,7 @@
 
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 import _reduceChildNodes from "./_reduceChildNodes/index.ts"
 
@@ -26,7 +26,9 @@ export default function _collectAstNodes(
 	const currentNode = [node]
 
 	// Recursively collect from all child properties using Toolsmith functions
-	const childNodesResult = reduce(_reduceChildNodes)([] as ReadonlyArray<unknown>)(Object.values(nodeObj))
+	const childNodesResult = reduce(_reduceChildNodes)(
+		[] as ReadonlyArray<unknown>,
+	)(Object.values(nodeObj))
 
 	const childNodes = getOrElse([] as ReadonlyArray<unknown>)(childNodesResult)
 

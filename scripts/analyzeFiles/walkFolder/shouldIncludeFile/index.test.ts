@@ -17,7 +17,7 @@ Deno.test("shouldIncludeFile", async function testShouldIncludeFile(t) {
 	})
 
 	await t.step("matches TSX files", function testMatchesTsx() {
-		assertEquals(checkTsFiles("pagewright/Button.tsx"), true)
+		assertEquals(checkTsFiles("architect/Button.tsx"), true)
 		assertEquals(checkTsFiles("App.tsx"), true)
 	})
 

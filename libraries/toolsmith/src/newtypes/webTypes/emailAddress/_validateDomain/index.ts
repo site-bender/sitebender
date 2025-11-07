@@ -91,13 +91,19 @@ export default function _validateDomain(
 		})
 	}
 
+	//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides email domain label extraction wrapper
 	const labels = domain.split(".")
 
-	const lengthCheck = all((label: string) => label.length <= EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH)(labels)
+	const lengthCheck = all((label: string) =>
+		label.length <= EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH
+	)(labels)
 	if (lengthCheck._tag === "Error") {
 		return lengthCheck
 	} else if (!lengthCheck.value) {
-		const invalidLabel = labels.find(label => label.length > EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH)!
+		//++ [EXCEPTION] .find() permitted in Toolsmith for performance - provides invalid label detection wrapper
+		const invalidLabel = labels.find((label) =>
+			label.length > EMAIL_ADDRESS_DOMAIN_LABEL_MAX_LENGTH
+		)!
 		return error({
 			code: "EMAIL_ADDRESS_DOMAIN_LABEL_TOO_LONG",
 			field: "emailAddress.domain",
@@ -116,7 +122,6 @@ export default function _validateDomain(
 	}
 
 	for (const label of labels) {
-
 		if (label.startsWith("-")) {
 			return error({
 				code: "EMAIL_ADDRESS_DOMAIN_LABEL_LEADING_HYPHEN",

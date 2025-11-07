@@ -4,13 +4,14 @@ import type { Percent } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
-import unsafePercent from "@sitebender/toolsmith/newtypes/percent/unsafePercent/index.ts"
+import unsafePercent from "@sitebender/toolsmith/newtypes/numericTypes/percent/unsafePercent/index.ts"
 
 //++ Smart constructor that validates and creates a Percent value - returns Result with helpful error on failure
 //++ Validates number is in range 0-1 with at most 4 decimal places (0.0000 to 1.0000)
 export default function percent(
 	n: number,
 ): Result<ValidationError, Percent> {
+	//++ [EXCEPTION] Number.isFinite and ! permitted in Toolsmith for performance - provides Percent validation wrapper
 	if (!Number.isFinite(n)) {
 		return error({
 			code: "PERCENT_NOT_FINITE",
@@ -26,6 +27,7 @@ export default function percent(
 		})
 	}
 
+	//++ [EXCEPTION] < permitted in Toolsmith for performance - provides Percent validation wrapper
 	if (n < 0) {
 		return error({
 			code: "PERCENT_BELOW_MINIMUM",
@@ -42,6 +44,7 @@ export default function percent(
 		})
 	}
 
+	//++ [EXCEPTION] > permitted in Toolsmith for performance - provides Percent validation wrapper
 	if (n > 1) {
 		return error({
 			code: "PERCENT_ABOVE_MAXIMUM",
@@ -58,10 +61,12 @@ export default function percent(
 		})
 	}
 
+	//++ [EXCEPTION] Math.round, *, and / permitted in Toolsmith for performance - provides Percent validation wrapper
 	const SCALE_FACTOR = 10000
 	const scaled = Math.round(n * SCALE_FACTOR)
 	const reconstructed = scaled / SCALE_FACTOR
 
+	//++ [EXCEPTION] Math.abs, -, >, and Number.EPSILON permitted in Toolsmith for performance - provides Percent validation wrapper
 	if (Math.abs(n - reconstructed) > Number.EPSILON) {
 		return error({
 			code: "PERCENT_PRECISION_EXCEEDED",

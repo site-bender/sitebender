@@ -7,6 +7,8 @@ import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import isSuccess from "@sitebender/toolsmith/monads/validation/isSuccess/index.ts"
 
 import type { ParsedAst, ParsedClass } from "../types/index.ts"
 import type { ClassExtractionError } from "../types/errors/index.ts"
@@ -25,35 +27,36 @@ export default function extractClasses(
 	const moduleBody = ast.module.body as ReadonlyArray<unknown>
 
 	// Filter for class declarations and export declarations that wrap classes
-	const classNodes = filter(_isClassOrExportedClass)(moduleBody as ReadonlyArray<Serializable>)
+	const classNodes = filter(_isClassOrExportedClass)(
+		moduleBody as ReadonlyArray<Serializable>,
+	)
 
 	const classNodesArray = getOrElse([] as ReadonlyArray<Serializable>)(
 		classNodes,
 	)
 
 	// Extract details from each class node
-	// TODO(Phase5): Add error handling with Validation accumulation when errors occur
-	// For now, _extractClassDetails returns Validation, but we need to handle it
-	// Future: use validateAll to accumulate errors and successes
-	const classValidations = classNodesArray.map(_extractClassDetails(ast))
+	const classValidations = map(_extractClassDetails(ast))(
+		classNodesArray,
+	) as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>
 
-	// For now, filter out failures and extract successes
-	// This is a temporary solution until proper Validation accumulation is implemented
-	const classes = classValidations
-		.filter((validation: any) => validation._tag === "Success")
-		.map((validation: any) => validation.value) as ReadonlyArray<ParsedClass>
+	// Filter successful class extractions
+	const successfulValidationsResult = filter(isSuccess)(
+		classValidations as ReadonlyArray<Serializable>,
+	)
+	const successfulValidations = getOrElse(
+		[] as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>,
+	)(
+		successfulValidationsResult,
+	) as ReadonlyArray<Validation<ClassExtractionError, ParsedClass>>
 
-	// Debug: log failures
-	const failures = classValidations.filter((validation: any) => validation._tag === "Failure")
-	if (failures.length > 0) {
-		console.log(`Found ${failures.length} class extraction failures:`)
-		failures.forEach((failure: any, index: number) => {
-			console.log(`Failure ${index}:`, failure.errors)
-		})
-	}
+	// Extract values from successful validations
+	const classes = map(function extractValue(v: Serializable): ParsedClass {
+		return (v as Validation<ClassExtractionError, ParsedClass>).value
+	})(successfulValidations as ReadonlyArray<Serializable>) as ReadonlyArray<
+		ParsedClass
+	>
 
 	// Return success with extracted classes
-	// When error handling is added, this will accumulate errors from failed extractions
-	// and still return partial success with valid classes
 	return success(classes)
 }

@@ -1,13 +1,13 @@
 import type {
-	ParsedType,
-	TypeDeclarationNode,
 	ExportDeclaration,
+	ParsedType,
 	TsTypeDeclaration,
+	TypeDeclarationNode,
 } from "../types/index.ts"
 import _extractSpan from "../_extractSpan/index.ts"
 import _extractPosition from "../_extractPosition/index.ts"
 import _extractDefinition from "./_extractDefinition/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 
 //++ Extract details from a single type declaration node
 //++ Returns ParsedType with name, position, span, definition, and export status

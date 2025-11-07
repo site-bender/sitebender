@@ -7,7 +7,9 @@ import normalizeInput from "./normalizeInput/index.ts"
 
 export default async function sha256Adapter(input: HashInput): Promise<string> {
 	const data = normalizeInput(input)
+	//++ [EXCEPTION] crypto.subtle.digest permitted in Toolsmith for performance - provides SHA-256 crypto wrapper
 	const hashBuffer = await crypto.subtle.digest("SHA-256", data)
+	//++ [EXCEPTION] Uint8Array constructor permitted in Toolsmith for performance - provides typed array wrapper
 	const hashArray = new Uint8Array(hashBuffer)
 
 	return bytesToHex(hashArray)

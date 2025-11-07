@@ -9,6 +9,7 @@ import { URI_MAX_LENGTH } from "@sitebender/toolsmith/newtypes/constants/index.t
 
 //++ Type predicate that checks if a string is a valid Uri
 export default function isUri(value: string): value is Uri {
+	//++ [EXCEPTION] .length, ===, ||, >, .indexOf(), .slice(), .startsWith(), .filter(), Math.min, ..., _tag, and .test() permitted in Toolsmith for performance - provides URI validation wrapper
 	if (value.length === 0 || value.length > URI_MAX_LENGTH) {
 		return false
 	}
@@ -26,16 +27,28 @@ export default function isUri(value: string): value is Uri {
 
 	const afterScheme = value.slice(colonIndex + 1)
 	const hasAuthority = afterScheme.startsWith("//")
-	const remainingAfterAuthPrefix = hasAuthority ? afterScheme.slice(2) : afterScheme
-	const authorityEnd = hasAuthority ? (() => {
-		const slashIdx = remainingAfterAuthPrefix.indexOf("/")
-		const questionIdx = remainingAfterAuthPrefix.indexOf("?")
-		const hashIdx = remainingAfterAuthPrefix.indexOf("#")
-		const validIndices = [slashIdx, questionIdx, hashIdx].filter(idx => idx !== -1)
-		return validIndices.length === 0 ? remainingAfterAuthPrefix.length : Math.min(...validIndices)
-	})() : 0
-	const authority = hasAuthority ? remainingAfterAuthPrefix.slice(0, authorityEnd) : ""
-	const remainingAfterAuthority = hasAuthority ? remainingAfterAuthPrefix.slice(authorityEnd) : afterScheme
+	const remainingAfterAuthPrefix = hasAuthority
+		? afterScheme.slice(2)
+		: afterScheme
+	const authorityEnd = hasAuthority
+		? (() => {
+			const slashIdx = remainingAfterAuthPrefix.indexOf("/")
+			const questionIdx = remainingAfterAuthPrefix.indexOf("?")
+			const hashIdx = remainingAfterAuthPrefix.indexOf("#")
+			const validIndices = [slashIdx, questionIdx, hashIdx].filter((idx) =>
+				idx !== -1
+			)
+			return validIndices.length === 0
+				? remainingAfterAuthPrefix.length
+				: Math.min(...validIndices)
+		})()
+		: 0
+	const authority = hasAuthority
+		? remainingAfterAuthPrefix.slice(0, authorityEnd)
+		: ""
+	const remainingAfterAuthority = hasAuthority
+		? remainingAfterAuthPrefix.slice(authorityEnd)
+		: afterScheme
 
 	if (hasAuthority) {
 		const authorityResult = _validateAuthority(authority)
@@ -45,8 +58,12 @@ export default function isUri(value: string): value is Uri {
 	}
 
 	const hashIndex = remainingAfterAuthority.indexOf("#")
-	const fragment = hashIndex !== -1 ? remainingAfterAuthority.slice(hashIndex + 1) : ""
-	const remainingAfterFragment = hashIndex !== -1 ? remainingAfterAuthority.slice(0, hashIndex) : remainingAfterAuthority
+	const fragment = hashIndex !== -1
+		? remainingAfterAuthority.slice(hashIndex + 1)
+		: ""
+	const remainingAfterFragment = hashIndex !== -1
+		? remainingAfterAuthority.slice(0, hashIndex)
+		: remainingAfterAuthority
 
 	if (hashIndex !== -1) {
 		const fragmentResult = _validateFragment(fragment)
@@ -56,8 +73,12 @@ export default function isUri(value: string): value is Uri {
 	}
 
 	const questionIndex = remainingAfterFragment.indexOf("?")
-	const query = questionIndex !== -1 ? remainingAfterFragment.slice(questionIndex + 1) : ""
-	const remainingAfterQuery = questionIndex !== -1 ? remainingAfterFragment.slice(0, questionIndex) : remainingAfterFragment
+	const query = questionIndex !== -1
+		? remainingAfterFragment.slice(questionIndex + 1)
+		: ""
+	const remainingAfterQuery = questionIndex !== -1
+		? remainingAfterFragment.slice(0, questionIndex)
+		: remainingAfterFragment
 
 	if (questionIndex !== -1) {
 		const queryResult = _validateQuery(query)

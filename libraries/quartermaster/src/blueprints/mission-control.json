@@ -11,6 +11,6 @@
 	],
 	"variants": {
 		"envoy": true,
-		"architect": false
+		"artificer": false
 	}
 }

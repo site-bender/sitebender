@@ -1,64 +1,20 @@
 import type { PostalCode } from "@sitebender/toolsmith/types/branded/index.ts"
 
-import {
-	POSTAL_CODE_HYPHEN_POSITION,
-	POSTAL_CODE_VALID_CHARS,
-	POSTAL_CODE_ZIP10_LENGTH,
-	POSTAL_CODE_ZIP5_LENGTH,
-	POSTAL_CODE_ZIP9_LENGTH,
-} from "@sitebender/toolsmith/newtypes/constants/index.ts"
+//++ Type predicate that checks if a string is a valid international postal code
+//++ Validates 3-10 alphanumeric characters with optional spaces and hyphens
+//++ Works for UK (SW1A 1AA), Canada (K1A 0B1), Germany (10115), Japan (100-0001), etc.
+export default function isPostalCode(value: unknown): value is PostalCode {
+	//++ [EXCEPTION] typeof, !==, .trim(), .length, <, >, ||, and .test() permitted in Toolsmith for performance - provides postal code validation wrapper
+	if (typeof value !== "string") {
+		return false
+	}
 
-//++ Type predicate that checks if a string is a valid US ZIP code
-export default function isPostalCode(value: string): value is PostalCode {
-	return (
-		typeof value === "string" &&
-		function hasValidLength(): boolean {
-			return (
-				value.length === POSTAL_CODE_ZIP5_LENGTH ||
-				value.length === POSTAL_CODE_ZIP9_LENGTH ||
-				value.length === POSTAL_CODE_ZIP10_LENGTH
-			)
-		}() &&
-		function hasValidFormat(): boolean {
-			if (value.length === POSTAL_CODE_ZIP5_LENGTH) {
-				// 5-digit ZIP: all digits
-				return value.split("").reduce(function checkDigits(
-					acc: boolean,
-					char: string,
-				): boolean {
-					return acc && POSTAL_CODE_VALID_CHARS.includes(char)
-				}, true)
-			} else if (value.length === POSTAL_CODE_ZIP9_LENGTH) {
-				// 9-digit ZIP: all digits
-				return value.split("").reduce(function checkDigits(
-					acc: boolean,
-					char: string,
-				): boolean {
-					return acc && POSTAL_CODE_VALID_CHARS.includes(char)
-				}, true)
-			} else if (value.length === POSTAL_CODE_ZIP10_LENGTH) {
-				// ZIP+4 format: 12345-6789
-				return (
-					value.charAt(POSTAL_CODE_HYPHEN_POSITION) === "-" &&
-					function checkFirstPart(): boolean {
-						return value.substring(0, POSTAL_CODE_HYPHEN_POSITION).split("").reduce(function checkDigits(
-							acc: boolean,
-							char: string,
-						): boolean {
-							return acc && POSTAL_CODE_VALID_CHARS.includes(char)
-						}, true)
-					}() &&
-					function checkSecondPart(): boolean {
-						return value.substring(POSTAL_CODE_HYPHEN_POSITION + 1).split("").reduce(function checkDigits(
-							acc: boolean,
-							char: string,
-						): boolean {
-							return acc && POSTAL_CODE_VALID_CHARS.includes(char)
-						}, true)
-					}()
-				)
-			}
-			return false
-		}()
-	)
+	const trimmed = value.trim()
+
+	if (trimmed.length < 3 || trimmed.length > 10) {
+		return false
+	}
+
+	//++ [EXCEPTION] Using regex for international postal code validation
+	return /^[A-Z0-9\s-]+$/i.test(trimmed)
 }

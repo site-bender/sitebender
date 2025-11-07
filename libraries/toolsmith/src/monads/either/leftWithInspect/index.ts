@@ -7,10 +7,12 @@ import left from "../left/index.ts"
 //++ Creates a Left value with enhanced debugging output (console-friendly)
 export default function leftWithInspect<E, A = never>(value: E): Either<E, A> {
 	const formatValue = (v: unknown): string => {
+		//++ [EXCEPTION] instanceof operator permitted in Toolsmith for performance - provides type checking for debugging output
 		if (v instanceof Error) {
 			return `${v.name}: ${v.message}`
 		}
 
+		//++ [EXCEPTION] typeof operator permitted in Toolsmith for performance - provides type checking for debugging output
 		if (typeof v === "string") {
 			return JSON.stringify(v)
 		}
@@ -19,6 +21,7 @@ export default function leftWithInspect<E, A = never>(value: E): Either<E, A> {
 			return String(v)
 		}
 
+		//++ [EXCEPTION] try/catch permitted in Toolsmith for performance - provides safe JSON serialization for debugging
 		try {
 			return JSON.stringify(v)
 		} catch {

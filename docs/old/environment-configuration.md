@@ -126,7 +126,7 @@ When releasing libraries, update the version numbers in `deno.prod.jsonc`:
 ```jsonc
 {
   "imports": {
-    "@sitebender/architect": "https://deno.land/x/sitebender_architect@v1.0.0/src/",
+    "@sitebender/artificer": "https://deno.land/x/sitebender_architect@v1.0.0/src/",
     // ... update all package versions
   },
 }

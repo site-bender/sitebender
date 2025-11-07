@@ -18,7 +18,8 @@ export default function isbn10(
 			field: "isbn10",
 			messages: ["The system needs a valid ISBN-10 string."],
 			received: value,
-			expected: "10-digit string with valid ISBN-10 checksum (digits 0-9, X for check digit)",
+			expected:
+				"10-digit string with valid ISBN-10 checksum (digits 0-9, X for check digit)",
 			suggestion: "Provide a valid ISBN-10 like '0471958697' or '020161622X'",
 			severity: "requirement",
 		})

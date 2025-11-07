@@ -43,7 +43,7 @@ components:
   - name: And
     type: logical_operator
     status: canonical
-    source: Architect (general-purpose conditional)
+    source: Artificer (general-purpose conditional)
     purpose: Logical AND - user must have ALL keys
     children: Multiple Key components (or nested And/Or)
     example: |
@@ -55,7 +55,7 @@ components:
   - name: Or
     type: logical_operator
     status: canonical
-    source: Architect (general-purpose conditional)
+    source: Artificer (general-purpose conditional)
     purpose: Logical OR - user must have ANY key
     children: Multiple Key components (or nested And/Or)
     example: |
@@ -67,7 +67,7 @@ components:
   - name: Not
     type: logical_operator
     status: future
-    source: Architect (general-purpose conditional)
+    source: Artificer (general-purpose conditional)
     purpose: Logical NOT - user must NOT have the key
     note: Reserved for future use if needed
 
@@ -312,7 +312,7 @@ internal_representation:
 
 integration:
   architect_conditionals:
-    note: "And/Or/Not are general-purpose components from Architect"
+    note: "And/Or/Not are general-purpose components from Artificer"
     contexts:
       - validation: "Validation rules"
       - locks: "Authentication requirements"
@@ -407,7 +407,7 @@ faq:
   - q: How do I know which keys a user has?
     a: "Via Steward auth context: const { keys } = useAuth()"
 
-  - q: Can I check keys in Architect calculations?
+  - q: Can I check keys in Artificer calculations?
     a: 'Yes: <From.Auth selector="keys" has="ADMIN" />'
 
   - q: What about OAuth2, SAML, WebAuthn?
@@ -418,8 +418,8 @@ related_documentation:
     path: docs/syntax-status.md
     description: All canonical vs proposed syntax
 
-  - title: Architect README
-    path: libraries/architect/README.md
+  - title: Artificer README
+    path: libraries/artificer/README.md
     description: "<And>, <Or>, <Not> general-purpose conditionals"
 
   - title: Quartermaster Folder Hierarchy

@@ -1,11 +1,14 @@
-import type { ClassMember, Parameter, ClassExtractionError } from "../../types/index.ts"
+import type {
+	ClassExtractionError,
+	ClassMember,
+	Parameter,
+} from "../../types/index.ts"
 import type { Serializable } from "@sitebender/toolsmith/types/index.ts"
 import type { Validation } from "@sitebender/toolsmith/types/validation/index.ts"
 
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
-import isEqual from "@sitebender/toolsmith/validation/isEqual/index.ts"
-import or from "@sitebender/toolsmith/logic/or/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
 import failure from "@sitebender/toolsmith/monads/validation/failure/index.ts"
 
@@ -19,7 +22,7 @@ export default function _extractClassMember(
 	_sourceText: string,
 ) {
 	return function extractFromNode(
-		memberNode: Serializable,  // SWC ClassMember
+		memberNode: Serializable, // SWC ClassMember
 	): Validation<ClassExtractionError, ClassMember> {
 		const nodeObj = memberNode as Record<string, Serializable>
 
@@ -48,29 +51,30 @@ export default function _extractClassMember(
 				memberType = "method"
 			}
 			const key = nodeObj.key as Record<string, Serializable>
-			memberName = or(key?.value as string)("unknown") as string
-			isStatic = or(nodeObj.isStatic as boolean)(false) as boolean
-			isPrivate = or(nodeObj.accessibility === "private")(false) as boolean
-			isProtected = or(nodeObj.accessibility === "protected")(false) as boolean
-			isAsync = or((nodeObj.function as Record<string, Serializable>)?.async as boolean)(false) as boolean
+			memberName = (key?.value as string | undefined) ?? "unknown"
+			isStatic = (nodeObj.isStatic as boolean | undefined) ?? false
+			isPrivate = nodeObj.accessibility === "private"
+			isProtected = nodeObj.accessibility === "protected"
+			isAsync = ((nodeObj.function as Record<string, Serializable>)?.async as
+				| boolean
+				| undefined) ?? false
 
 			// Extract parameters for setters
 			if (isEqual(kind)("setter")) {
-				const params = or(nodeObj.params as Array<Serializable>)([])
-				const parametersResult = map(
+				const params = (nodeObj.params as Array<Serializable> | undefined) ?? []
+				parameters = map(
 					function mapParameter(param: Serializable): Parameter {
 						const paramObj = param as Record<string, Serializable>
 						const pat = paramObj.pat as Record<string, Serializable>
-						const paramName = or(pat?.value as string)("unknown") as string
-						const isOptional = or(pat?.optional as boolean)(false) as boolean
+						const paramName = (pat?.value as string | undefined) ?? "unknown"
+						const isOptional = (pat?.optional as boolean | undefined) ?? false
 						return {
 							name: paramName,
 							type: "unknown",
 							optional: isOptional,
 						}
 					},
-				)(params as ReadonlyArray<Serializable>)
-				parameters = getOrElse([] as ReadonlyArray<Parameter>)(parametersResult)
+				)(params as ReadonlyArray<Serializable>) as ReadonlyArray<Parameter>
 			}
 
 			// Extract return type
@@ -80,41 +84,36 @@ export default function _extractClassMember(
 			const returnTypeAnnotation = returnTypeAnn?.typeAnnotation as
 				| Record<string, Serializable>
 				| undefined
-			returnType = or(returnTypeAnnotation?.kind as string)(
-				returnTypeAnnotation?.type as string
-			) as string | undefined
-
+			returnType = (returnTypeAnnotation?.kind as string | undefined) ??
+				(returnTypeAnnotation?.type as string | undefined)
 		} else if (isEqual(nodeType)("ClassProperty")) {
 			memberType = "property"
 			const key = nodeObj.key as Record<string, Serializable>
-			memberName = or(key?.value as string)("unknown") as string
-			isStatic = or(nodeObj.isStatic as boolean)(false) as boolean
-			isPrivate = or(nodeObj.accessibility === "private")(false) as boolean
-			isProtected = or(nodeObj.accessibility === "protected")(false) as boolean
-
+			memberName = (key?.value as string | undefined) ?? "unknown"
+			isStatic = (nodeObj.isStatic as boolean | undefined) ?? false
+			isPrivate = nodeObj.accessibility === "private"
+			isProtected = nodeObj.accessibility === "protected"
 		} else if (isEqual(nodeType)("Constructor")) {
 			memberType = "constructor"
 			memberName = "constructor"
-			isPrivate = or(nodeObj.accessibility === "private")(false) as boolean
-			isProtected = or(nodeObj.accessibility === "protected")(false) as boolean
+			isPrivate = nodeObj.accessibility === "private"
+			isProtected = nodeObj.accessibility === "protected"
 
 			// Extract parameters
-			const params = or(nodeObj.params as Array<Serializable>)([])
-			const parametersResult = map(
+			const params = (nodeObj.params as Array<Serializable> | undefined) ?? []
+			parameters = map(
 				function mapParameter(param: Serializable): Parameter {
 					const paramObj = param as Record<string, Serializable>
 					const pat = paramObj.pat as Record<string, Serializable>
-					const paramName = or(pat?.value as string)("unknown") as string
-					const isOptional = or(pat?.optional as boolean)(false) as boolean
+					const paramName = (pat?.value as string | undefined) ?? "unknown"
+					const isOptional = (pat?.optional as boolean | undefined) ?? false
 					return {
 						name: paramName,
 						type: "unknown",
 						optional: isOptional,
 					}
 				},
-			)(params as ReadonlyArray<Serializable>)
-			parameters = getOrElse([] as ReadonlyArray<Parameter>)(parametersResult)
-
+			)(params as ReadonlyArray<Serializable>) as ReadonlyArray<Parameter>
 		} else {
 			// Unknown member type - return failure
 			return failure([{

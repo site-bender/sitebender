@@ -15,7 +15,7 @@
 - ✅ **Phase 1: Lexer** - Character-level classification (56 tests passing)
 - ✅ **Phase 2: Tokenizer** - Semantic token stream (42 tests passing)
 - 🚧 **Phase 3: Parser** - AST construction (YOU ARE HERE)
-- ⏳ **Phase 4: Compiler** - Architect IR generation (future)
+- ⏳ **Phase 4: Compiler** - Artificer IR generation (future)
 
 **Total Tests Passing**: 98
 

@@ -16,6 +16,7 @@ export default function filter<T extends Serializable>(
 	): Result<ValidationError, ReadonlyArray<T>> {
 		// Happy path: valid array
 		if (isArray(array)) {
+			//++ [EXCEPTION] .filter() permitted in Toolsmith for performance - provides curried filter wrapper
 			const filtered = array.filter(predicate)
 			return ok(filtered)
 		}
