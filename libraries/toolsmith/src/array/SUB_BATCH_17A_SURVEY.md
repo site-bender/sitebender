@@ -30,7 +30,7 @@ The type check **FAILED** with 139 errors across 41 files. The errors fall into 
 ### Category 1: Reaching into Monads (9 errors) - **EASY FIX**
 
 **Error Code:** TS2339
-**Pattern:** `Property 'value' does not exist on type 'Result<ValidationError, T>'`
+**Pattern:** `Property 'value' does not exist on type 'Result<<E>, T>'`
 
 **Affected Files:**
 - `join/index.test.ts` - 9 instances
@@ -158,7 +158,7 @@ Type '[T, unknown]' is not assignable to type '[T, U]'.
 **Error Code:** TS2322 (multiple variants)
 **Patterns:**
 - `Type 'string' is not assignable to type 'null'` (3 errors)
-- `Type 'Result<ValidationError, T>' is not assignable to type 'T'` (3 errors)
+- `Type 'Result<<E>, T>' is not assignable to type 'T'` (3 errors)
 - `Type 'number | undefined' is not assignable to type 'number'` (2 errors)
 - Many other assignment errors
 
@@ -337,9 +337,9 @@ Type '[T, unknown]' is not assignable to type '[T, U]'.
 
 ## Recommendations for Sub-Batches 17b-17d
 
-### Sub-Batch 17b: Fix ValidationError Imports
+### Sub-Batch 17b: Fix <E> Imports
 
-**UPDATE:** The audit did NOT find ValidationError import errors as expected. The ~30 errors predicted were actually other types of errors. ValidationError imports appear to be correct already.
+**UPDATE:** The audit did NOT find <E> import errors as expected. The ~30 errors predicted were actually other types of errors. <E> imports appear to be correct already.
 
 **New focus for 17b:** Fix the Priority 1 quick wins instead:
 - Missing modules (TS2307)
@@ -374,7 +374,7 @@ Type '[T, unknown]' is not assignable to type '[T, U]'.
 
 ## Surprises / Unexpected Findings
 
-1. **No ValidationError import errors** - The predicted ~30 ValidationError errors don't exist. Imports are already correct.
+1. **No <E> import errors** - The predicted ~30 <E> errors don't exist. Imports are already correct.
 
 2. **Fewer readonly violations than expected** - Only 1 TS4104 error found. Mutation issues are in specific functions (shuffle, sample, sampleSize) not widespread.
 
