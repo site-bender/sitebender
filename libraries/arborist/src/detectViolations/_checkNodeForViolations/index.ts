@@ -10,6 +10,7 @@ type ViolationState = Readonly<{
 
 import type { Position } from "../../types/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 export default function _checkNodeForViolations(state: ViolationState) {
 	return function _checkNodeForViolationsWithState(
@@ -70,11 +71,15 @@ export default function _checkNodeForViolations(state: ViolationState) {
 
 		// Check for loops
 		if (
-			isEqual(nodeType)("ForStatement") ||
-			isEqual(nodeType)("ForInStatement") ||
-			isEqual(nodeType)("ForOfStatement") ||
-			isEqual(nodeType)("WhileStatement") ||
-			isEqual(nodeType)("DoWhileStatement")
+			or(isEqual(nodeType)("ForStatement"))(
+				or(isEqual(nodeType)("ForInStatement"))(
+					or(isEqual(nodeType)("ForOfStatement"))(
+						or(isEqual(nodeType)("WhileStatement"))(
+							isEqual(nodeType)("DoWhileStatement"),
+						),
+					),
+				),
+			)
 		) {
 			return {
 				...state,

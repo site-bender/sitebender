@@ -3,6 +3,7 @@ import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/
 import type { Ipv4Address } from "@sitebender/toolsmith/types/branded/index.ts"
 
 import all from "@sitebender/toolsmith/array/all/index.ts"
+import findIndex from "@sitebender/toolsmith/array/findIndex/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import unsafeIpv4Address from "@sitebender/toolsmith/newtypes/webTypes/ipv4Address/unsafeIpv4Address/index.ts"
@@ -42,7 +43,8 @@ export default function ipv4Address(
 		})
 	}
 
-	const isValidPart = (part: string): boolean => {
+	function isValidPart(part: string): boolean {
+		//++ [EXCEPTION] .length, .startsWith(), String(), Number.parseInt(), Number.isNaN() permitted in Toolsmith for performance - provides IPv4 octet validation wrapper
 		if (part.length === 0) return false
 		if (part.length > 1 && part.startsWith("0")) return false
 		const num = Number.parseInt(part, 10)
@@ -52,15 +54,18 @@ export default function ipv4Address(
 		return true
 	}
 
-	const allPartsValidResult = all(isValidPart)(parts)
+	function isInvalidPart(part: string): boolean {
+		return !isValidPart(part)
+	}
+
+	const allPartsValidResult = all<ValidationError, string>(isValidPart)(parts)
 	if (allPartsValidResult._tag === "Error") {
 		return allPartsValidResult
 	}
 
 	if (!allPartsValidResult.value) {
 		// Find the first invalid part
-		//++ [EXCEPTION] .findIndex() and array indexing [] permitted in Toolsmith for performance - provides invalid octet detection wrapper
-		const invalidIndex = parts.findIndex((part) => !isValidPart(part))
+		const invalidIndex = findIndex(isInvalidPart)(parts)
 		const part = parts[invalidIndex]
 
 		if (part.length === 0) {

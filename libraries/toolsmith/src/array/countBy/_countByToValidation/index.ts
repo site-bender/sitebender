@@ -1,11 +1,9 @@
-import type {
-	Validation,
-	ValidationError,
-} from "../../../types/fp/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _countByArray from "../_countByArray/index.ts"
 
 export default function _countByToValidation<
+	E,
 	T,
 	K extends string | number | symbol,
 >(
@@ -13,7 +11,7 @@ export default function _countByToValidation<
 ) {
 	return function _countByToValidationWithFn(
 		array: ReadonlyArray<T>,
-	): Validation<ValidationError, Record<K, number>> {
+	): Validation<E, Record<K, number>> {
 		const counted = _countByArray(fn)(array)
 		return success(counted)
 	}

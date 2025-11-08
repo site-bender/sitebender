@@ -170,9 +170,9 @@ function add(augend: number | Result<...> | Validation<...>) {
 ### Validation Mode: Accumulate ALL Errors
 
 ```typescript
-function _addToValidation(augend: unknown) {
-  return function _addToValidationWithAugend(addend: unknown): Validation<ValidationError, number> {
-    const errors: Array<ValidationError> = []
+function _addToValidation<E>(augend: unknown) {
+  return function _addToValidationWithAugend(addend: unknown): Validation<E, number> {
+    const errors: Array<E> = []
 
     // Check augend (DON'T short-circuit)
     if (isValidation(augend)) {
@@ -190,7 +190,7 @@ function _addToValidation(augend: unknown) {
         expected: "number",
         suggestion: "Provide a number value",
         severity: "requirement",
-      })
+      } as E)
     }
 
     // Check addend (DON'T short-circuit)
@@ -209,7 +209,7 @@ function _addToValidation(augend: unknown) {
         expected: "number",
         suggestion: "Provide a number value",
         severity: "requirement",
-      })
+      } as E)
     }
 
     // If any errors, return failure
@@ -226,8 +226,8 @@ function _addToValidation(augend: unknown) {
 ### Result Mode: Fail-Fast
 
 ```typescript
-function _addToResult(augend: unknown) {
-  return function _addToResultWithAugend(addend: unknown): Result<ValidationError, number> {
+function _addToResult<E>(augend: unknown) {
+  return function _addToResultWithAugend(addend: unknown): Result<E, number> {
     // Check augend FIRST (fail-fast)
     if (isResult(augend)) {
       if (isError(augend)) {
@@ -244,7 +244,7 @@ function _addToResult(augend: unknown) {
         expected: "number",
         suggestion: "Provide a number value",
         severity: "requirement",
-      })
+      } as E)
     }
 
     // Only check addend if augend is valid
@@ -263,7 +263,7 @@ function _addToResult(augend: unknown) {
         expected: "number",
         suggestion: "Provide a number value",
         severity: "requirement",
-      })
+      } as E)
     }
 
     // Compute and return ok

@@ -26,8 +26,8 @@
 		},
 		"1": {
 			"name": "Infrastructure",
-			"description": "Low-level services that parse and analyze code",
-			"libraries": ["arborist"],
+			"description": "Low-level services for data storage and code parsing",
+			"libraries": ["arborist", "pathfinder"],
 			"rules": {
 				"canDepend": ["toolsmith", "quarrier"],
 				"cannotDepend": [
@@ -36,9 +36,10 @@
 					"architect",
 					"artificer",
 					"formulator",
-					"agent"
+					"agent",
+					"EACH OTHER"
 				],
-				"canBeUsedBy": ["envoy", "auditor", "artificer", "formulator"]
+				"canBeUsedBy": ["envoy", "auditor", "artificer", "formulator", "architect"]
 			}
 		},
 		"2": {
@@ -159,6 +160,7 @@
 				"applications"
 			],
 			"forbiddenImports": [
+				"pathfinder",
 				"envoy",
 				"auditor",
 				"architect",
@@ -183,6 +185,58 @@
 					"Raw AST nodes",
 					"Internal parsing functions"
 				]
+			}
+		},
+		"pathfinder": {
+			"canImport": ["toolsmith", "quarrier"],
+			"canBeImportedBy": [
+				"architect",
+				"artificer",
+				"envoy",
+				"applications"
+			],
+			"forbiddenImports": [
+				"arborist",
+				"envoy",
+				"auditor",
+				"architect",
+				"artificer",
+				"formulator",
+				"agent"
+			],
+			"publicAPI": "libraries/pathfinder/src/",
+			"internalPath": "libraries/pathfinder/src/_*",
+			"purpose": "Data infrastructure layer providing triple store (Oxigraph) and vector search (Qdrant) capabilities",
+			"exports": {
+				"ALLOWED": [
+					"validateConfig",
+					"createTripleStore",
+					"createVectorStore",
+					"insert",
+					"execute",
+					"select",
+					"deleteSparql",
+					"createCollection",
+					"insertPoints",
+					"searchPoints",
+					"getAllTriples",
+					"getBySubject",
+					"getByPredicate",
+					"ConnectionError",
+					"QueryError",
+					"ConfigError",
+					"VectorError"
+				],
+				"FORBIDDEN": [
+					"Internal helper functions",
+					"Private implementation details",
+					"Test utilities"
+				]
+			},
+			"notes": {
+				"noBarrelFiles": "All imports must use deno.jsonc aliases pointing to specific index.ts files. mod.ts contains only documentation.",
+				"architectIntegration": "Architect will store compiled JSX metadata as RDF triples",
+				"iso11179": "Future integration with ISO/IEC 11179 metadata registry"
 			}
 		},
 		"envoy": {
@@ -232,24 +286,24 @@
 			}
 		},
 		"architect": {
-			"canImport": ["arborist", "toolsmith", "quarrier"],
+			"canImport": ["arborist", "pathfinder", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["artificer", "agent", "applications"],
 			"forbiddenImports": ["envoy", "auditor", "formulator"],
 			"publicAPI": "libraries/architect/exports/",
-			"internalPath": "libraries/architect/internal/"
+			"internalPath": "libraries/architect/internal/",
+			"notes": {
+				"pathfinderUsage": "Stores compiled JSX component metadata as RDF triples for semantic queries"
+			}
 		},
 		"artificer": {
-			"canImport": ["arborist", "toolsmith", "quarrier"],
+			"canImport": ["arborist", "pathfinder", "toolsmith", "quarrier"],
 			"canBeImportedBy": ["agent", "applications"],
 			"forbiddenImports": ["envoy", "auditor", "architect", "formulator"],
 			"publicAPI": "libraries/artificer/exports/",
 			"internalPath": "libraries/artificer/internal/",
-			"plannedDependencies": {
-				"pathfinder": {
-					"phase": "ISO/IEC 11179 Phase 2",
-					"reason": "Artificer will register metadata (data elements) in Pathfinder's triple store during JSX → IR compilation",
-					"documentation": "libraries/pathfinder/ISO_IEC_11179_ALIGNMENT.md"
-				}
+			"notes": {
+				"pathfinderUsage": "Registers ISO/IEC 11179 metadata (data elements) in Pathfinder's triple store during JSX → IR compilation",
+				"iso11179Phase": "Phase 2 - metadata registry integration"
 			}
 		},
 		"formulator": {
