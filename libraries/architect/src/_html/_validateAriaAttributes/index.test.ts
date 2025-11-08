@@ -204,4 +204,33 @@ Deno.test("_validateAriaAttributes", async function validateAriaAttributesTests(
 			assertEquals(result["data-§-aria-error"] !== undefined, true)
 		},
 	)
+
+	await t.step(
+		"prohibits all ARIA attributes except aria-hidden for none/presentation roles",
+		function prohibitsForNonePresentationRoles() {
+			const noneValidate = _validateAriaAttributes("div")("none")
+			const noneResult = noneValidate({
+				hidden: "true",
+				label: "Test",
+				describedby: "desc",
+			})
+
+			const presentationValidate = _validateAriaAttributes("div")(
+				"presentation",
+			)
+			const presentationResult = presentationValidate({
+				hidden: "false",
+				expanded: "true",
+			})
+
+			// aria-hidden should be allowed
+			assertEquals(noneResult["aria-hidden"], "true")
+			assertEquals(presentationResult["aria-hidden"], "false")
+
+			// All other attributes should be rejected
+			assertEquals(noneResult["data-§-bad-aria-label"], "Test")
+			assertEquals(noneResult["data-§-bad-aria-describedby"], "desc")
+			assertEquals(presentationResult["data-§-bad-aria-expanded"], "true")
+		},
+	)
 })
