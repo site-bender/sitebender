@@ -17,7 +17,7 @@ export default function _validateIdAttribute(
 			return { id: value }
 		}
 
-		return { "data-§-bad-id": String(value), id: generateShortId() }
+		return { "data-§-bad-id": String(value) }
 	}
 
 	return { id: generateShortId() }

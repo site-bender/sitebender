@@ -1,13 +1,14 @@
 /*++
- + ARIA Standards Data (Minimal POC Version)
+ + ARIA Standards Data (Complete Coverage)
  + Source: https://github.com/dequelabs/axe-core/tree/develop/lib/standards
- + Based on W3C WAI-ARIA 1.2 and ARIA in HTML specifications
+ + Based on W3C WAI-ARIA 1.2, DPUB-ARIA 1.1, Graphics-ARIA 1.0, and ARIA in HTML
  +
- + This file contains ARIA validation data for POC elements only.
- + Full expansion will include all ~120 HTML elements and ~150 ARIA roles.
+ + This file contains complete ARIA validation data:
+ + - 105 ARIA attributes with type and value definitions
+ + - 126 ARIA roles (84 core + 39 DPUB + 3 Graphics)
+ + - 111 HTML5 element ARIA rules
  +
- + POC Elements: html, body, div, button, article, section, nav, aside,
- +               h1-h3, span, a, p, ul, ol, li, header, footer, main, figure, title
+ + Updated: 2025-11-08
  */
 
 /*++
@@ -288,11 +289,16 @@ export const ARIA_ATTRIBUTES: Readonly<
 } as const
 
 /*++
- + ARIA roles with attribute requirements (Complete ARIA 1.2)
- + Source: axe-core/lib/standards/aria-roles.js + W3C WAI-ARIA 1.2 Specification
+ + ARIA roles with attribute requirements (Complete Coverage)
+ + Source: axe-core/lib/standards/aria-roles.js, dpub-roles.js, graphics-roles.js
+ +         W3C WAI-ARIA 1.2, DPUB-ARIA 1.1, Graphics-ARIA 1.0
  +
- + Includes all 85 concrete ARIA 1.2 roles (abstract roles excluded)
- + Organized by category: Landmark, Structure, Widget, Composite, Live Region, Window
+ + Includes 126 concrete ARIA roles (abstract roles excluded):
+ + - 84 core ARIA 1.2 roles
+ + - 39 DPUB-ARIA 1.1 roles (Digital Publishing)
+ + - 3 Graphics-ARIA 1.0 roles
+ +
+ + Organized by category: Landmark, Structure, Widget, Composite, Live Region, Window, DPUB, Graphics
  */
 export const ARIA_ROLES: Readonly<Record<string, AriaRoleDefinition>> = {
 	// === Landmark Roles ===
@@ -973,6 +979,277 @@ export const ARIA_ROLES: Readonly<Record<string, AriaRoleDefinition>> = {
 		allowedAttrs: [
 			"aria-expanded",
 			"aria-modal",
+		],
+		accessibleNameRequired: true,
+	},
+
+	// === Digital Publishing (DPUB-ARIA) Roles ===
+	// Source: W3C DPUB-ARIA 1.1 - https://www.w3.org/TR/dpub-aria-1.1/
+
+	"doc-abstract": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-acknowledgments": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-afterword": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-appendix": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-backlink": {
+		type: "widget",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+		accessibleNameRequired: true,
+	},
+	"doc-biblioentry": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+			"aria-level",
+			"aria-posinset",
+			"aria-setsize",
+		],
+	},
+	"doc-bibliography": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-biblioref": {
+		type: "widget",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+		accessibleNameRequired: true,
+	},
+	"doc-chapter": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-colophon": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-conclusion": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-cover": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-credit": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-credits": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-dedication": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-endnote": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+			"aria-level",
+			"aria-posinset",
+			"aria-setsize",
+		],
+	},
+	"doc-endnotes": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-epigraph": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-epilogue": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-errata": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-example": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-footnote": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-foreword": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-glossary": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-glossref": {
+		type: "widget",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+		accessibleNameRequired: true,
+	},
+	"doc-index": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-introduction": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-noteref": {
+		type: "widget",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+		accessibleNameRequired: true,
+	},
+	"doc-notice": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-pagebreak": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+			"aria-orientation",
+		],
+	},
+	"doc-pagelist": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-part": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-preface": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-prologue": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-pullquote": {
+		type: "structure",
+		allowedAttrs: [],
+	},
+	"doc-qna": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-subtitle": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-tip": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"doc-toc": {
+		type: "landmark",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+
+	// === Graphics (Graphics-ARIA) Roles ===
+	// Source: W3C Graphics-ARIA 1.0 - https://www.w3.org/TR/graphics-aria-1.0/
+
+	"graphics-document": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+		accessibleNameRequired: true,
+	},
+	"graphics-object": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
+		],
+	},
+	"graphics-symbol": {
+		type: "structure",
+		allowedAttrs: [
+			"aria-expanded",
 		],
 		accessibleNameRequired: true,
 	},

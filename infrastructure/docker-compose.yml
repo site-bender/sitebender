@@ -75,13 +75,15 @@ services:
     networks:
       - monitoring
     healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:6333/"]
+      test: ["CMD", "bash", "-c", "timeout 1 bash -c '</dev/tcp/localhost/6333'"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 40s
 
   # Oxigraph - RDF Triple Store with SPARQL 1.1 support
+  # Note: Uses distroless image (no shell/utilities) - cannot have internal healthcheck
+  # Monitored externally via Prometheus
   oxigraph:
     image: oxigraph/oxigraph:latest
     container_name: oxigraph
@@ -92,12 +94,6 @@ services:
       - oxigraph_data:/data
     networks:
       - monitoring
-    healthcheck:
-      test: ["CMD", "wget", "--spider", "http://localhost:7878/"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
   # The monitoring backbone: time-series database
   prometheus:

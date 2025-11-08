@@ -1,7 +1,8 @@
 # Pathfinder Implementation Plan
 
-**Version:** 1.0.0
+**Version:** 2.0.0
 **Created:** 2025-11-07
+**Updated:** 2025-11-08 (Constitutional Compliance)
 **Status:** Approved - Ready for Implementation
 
 ---
@@ -16,7 +17,7 @@
 6. [Phase 3: Qdrant Integration](#phase-3-qdrant-integration)
 7. [Phase 4: Type-Safe SPARQL Builder](#phase-4-type-safe-sparql-builder)
 8. [Phase 5: Testing & Documentation](#phase-5-testing--documentation)
-9. [Phase 6: Public API](#phase-6-public-api)
+9. [Phase 6: Workspace Integration](#phase-6-workspace-integration)
 10. [Constitutional Compliance Checklist](#constitutional-compliance-checklist)
 11. [Dependencies & Integration](#dependencies--integration)
 
@@ -155,7 +156,7 @@ libraries/pathfinder/
 │   │   └── delete/
 │   ├── vector/
 │   │   ├── createCollection/
-│   │   ├── insertVectors/
+│   │   ├── insertPoints/
 │   │   └── search/
 │   └── types/
 └── docs/
@@ -280,7 +281,6 @@ export type QueryError = PathfinderError<"QueryError"> & {
 // Configuration errors
 export type ConfigError = PathfinderError<"ConfigError"> & {
 	readonly kind:
-		| "MissingPath"
 		| "MissingHost"
 		| "InvalidPort"
 		| "InvalidConfig"
@@ -334,15 +334,16 @@ export type AnyPathfinderError =
 
 ```typescript
 export type TripleStoreConfig = {
-	readonly path: string // SQLite database file path
-	readonly readonly?: boolean // Open in read-only mode
+	readonly host: string
+	readonly port: number
+	readonly timeout?: number
 }
 
 export type VectorStoreConfig = {
-	readonly host: string // Qdrant host
-	readonly port: number // Qdrant port (default 6333)
-	readonly apiKey?: string // Optional API key
-	readonly timeout?: number // Request timeout in ms
+	readonly host: string
+	readonly port: number
+	readonly apiKey?: string
+	readonly timeout?: number
 }
 
 export type PathfinderConfig = {
@@ -367,63 +368,94 @@ export type ValidPathfinderConfig = PathfinderConfig & {
 - [ ] Import ConfigError type
 - [ ] Implement curried validation function
 - [ ] Accumulate ALL validation errors (use Validation, not Result)
-- [ ] Check tripleStore.path is non-empty string
-- [ ] Check vectorStore.host is non-empty string
-- [ ] Check vectorStore.port is 1-65535
-- [ ] Return `invalid(errors)` if any errors
-- [ ] Return `valid(config as ValidPathfinderConfig)` if clean
+- [ ] Check tripleStore.host is non-empty string using Toolsmith functions
+- [ ] Check vectorStore.host is non-empty string using Toolsmith functions
+- [ ] Check both ports are 1-65535 using betweenInclusive
+- [ ] Use immutable array building (no .push())
+- [ ] Use Toolsmith operator substitutions (not(), or(), isEqual(), isNotEmpty())
+- [ ] Return `failure(errors)` if any errors
+- [ ] Return `success(config as ValidPathfinderConfig)` if clean
 - [ ] Function signature: `(config: PathfinderConfig) => Validation<ConfigError, ValidPathfinderConfig>`
 
 **Template:**
 
 ```typescript
-import type { Validation } from "@sitebender/toolsmith/monads/validation/types/index.ts"
-import valid from "@sitebender/toolsmith/monads/validation/valid/index.ts"
-import invalid from "@sitebender/toolsmith/monads/validation/invalid/index.ts"
+import type { Validation } from "@sitebender/toolsmith/types/fp/validation/index.ts"
+import success from "@sitebender/toolsmith/monads/validation/success/index.ts"
+import failure from "@sitebender/toolsmith/monads/validation/failure/index.ts"
+import type NonEmptyArray from "@sitebender/toolsmith/types/NonEmptyArray/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
+import betweenInclusive from "@sitebender/toolsmith/validation/betweenInclusive/index.ts"
+import isNotEmpty from "@sitebender/toolsmith/array/isNotEmpty/index.ts"
 import type { PathfinderConfig, ValidPathfinderConfig } from "../types/index.ts"
 import type { ConfigError } from "../../errors/index.ts"
 
 export default function validateConfig(
 	config: PathfinderConfig,
 ): Validation<ConfigError, ValidPathfinderConfig> {
-	const errors: Array<ConfigError> = []
-
-	// Validate triple store path
-	if (!config.tripleStore.path || config.tripleStore.path.trim() === "") {
-		errors.push({
+	// Build errors array immutably
+	const tripleStoreHostError: ReadonlyArray<ConfigError> = or(
+			not(config.tripleStore.host),
+		)(isEqual("")(config.tripleStore.host.trim()))
+		? [{
 			_tag: "ConfigError",
-			kind: "MissingPath",
-			field: "tripleStore.path",
-			message: "Triple store path is required",
-		})
-	}
+			kind: "MissingHost",
+			field: "tripleStore.host",
+			message: "Triple store host is required",
+		}]
+		: []
 
-	// Validate vector store host
-	if (!config.vectorStore.host || config.vectorStore.host.trim() === "") {
-		errors.push({
+	const tripleStorePort = config.tripleStore.port
+	const tripleStorePortError: ReadonlyArray<ConfigError> = or(
+			not(tripleStorePort),
+		)(not(betweenInclusive(1)(65535)(tripleStorePort)))
+		? [{
+			_tag: "ConfigError",
+			kind: "InvalidPort",
+			field: "tripleStore.port",
+			message: `Port must be between 1 and 65535, got ${tripleStorePort}`,
+			value: tripleStorePort,
+		}]
+		: []
+
+	const vectorStoreHostError: ReadonlyArray<ConfigError> = or(
+			not(config.vectorStore.host),
+		)(isEqual("")(config.vectorStore.host.trim()))
+		? [{
 			_tag: "ConfigError",
 			kind: "MissingHost",
 			field: "vectorStore.host",
 			message: "Vector store host is required",
-		})
-	}
+		}]
+		: []
 
-	// Validate vector store port
-	const port = config.vectorStore.port
-	if (!port || port < 1 || port > 65535) {
-		errors.push({
+	const vectorStorePort = config.vectorStore.port
+	const vectorStorePortError: ReadonlyArray<ConfigError> = or(
+			not(vectorStorePort),
+		)(not(betweenInclusive(1)(65535)(vectorStorePort)))
+		? [{
 			_tag: "ConfigError",
 			kind: "InvalidPort",
 			field: "vectorStore.port",
-			message: `Port must be between 1 and 65535, got ${port}`,
-			value: port,
-		})
-	}
+			message: `Port must be between 1 and 65535, got ${vectorStorePort}`,
+			value: vectorStorePort,
+		}]
+		: []
 
-	// Return invalid if any errors, otherwise valid with brand
-	return errors.length > 0
-		? invalid(errors)
-		: valid(config as ValidPathfinderConfig)
+	// Combine all errors immutably
+	const errors = [
+		...tripleStoreHostError,
+		...tripleStorePortError,
+		...vectorStoreHostError,
+		...vectorStorePortError,
+	]
+
+	// Return failure if any errors, otherwise success with brand
+	return isNotEmpty(errors)
+		? failure(errors as NonEmptyArray<ConfigError>)
+		: success(config as ValidPathfinderConfig)
 }
 ```
 
@@ -431,9 +463,8 @@ export default function validateConfig(
 
 **Test tasks:**
 
-- [ ] Test valid configuration returns `{ _tag: "Valid", value: ... }`
-- [ ] Test missing path returns `{ _tag: "Invalid", errors: [...] }`
-- [ ] Test missing host returns ConfigError
+- [ ] Test valid configuration returns `{ _tag: "Success", value: ... }`
+- [ ] Test missing host returns `{ _tag: "Failure", errors: [...] }`
 - [ ] Test invalid port (0, -1, 70000) returns ConfigError
 - [ ] Test multiple errors are accumulated (not just first error)
 
@@ -444,6 +475,7 @@ export default function validateConfig(
 - ✅ All error types defined as discriminated unions
 - ✅ Config types defined with branded ValidPathfinderConfig
 - ✅ validateConfig uses Validation monad (error accumulation)
+- ✅ validateConfig uses Toolsmith operator substitutions
 - ✅ validateConfig tests pass
 - ✅ Zero constitutional violations
 
@@ -459,53 +491,98 @@ export default function validateConfig(
 
 **Tasks:**
 
-- [ ] Import oxigraph package: `import oxigraph from "npm:oxigraph@^0.4"`
 - [ ] Import Result monad from Toolsmith
 - [ ] Import TripleStoreConfig, ConnectionError
-- [ ] Implement curried connection function
-- [ ] Mark as IO boundary: `// [IO] Connects to Oxigraph triple store`
+- [ ] Implement async curried connection function
+- [ ] Mark as IO boundary: `// [IO] Connects to Oxigraph triple store via HTTP`
+- [ ] Use fetch() to test connection health
 - [ ] Wrap external call in try/catch (ONLY place exceptions allowed)
 - [ ] Return `error(...)` if connection fails
-- [ ] Return `ok(store)` if successful
-- [ ] Store type should be `oxigraph.Store`
+- [ ] Return `ok(connection)` if successful
+- [ ] Connection type should include endpoint URLs
 
 **Function signature:**
 
 ```typescript
+export type TripleStoreConnection = {
+	readonly queryEndpoint: string
+	readonly updateEndpoint: string
+	readonly timeout?: number
+}
+
 export default function createTripleStore(
 	config: TripleStoreConfig,
-): Result<ConnectionError, oxigraph.Store>
+): Promise<Result<ConnectionError, TripleStoreConnection>>
 ```
 
 **Template:**
 
 ```typescript
-// [IO] Connects to Oxigraph triple store
-import oxigraph from "npm:oxigraph@^0.4"
-import type { Result } from "@sitebender/toolsmith/monads/result/types/index.ts"
+// [IO] Connects to Oxigraph triple store via HTTP
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import type { TripleStoreConfig } from "../../config/types/index.ts"
 import type { ConnectionError } from "../../errors/index.ts"
 
+export type TripleStoreConnection = {
+	readonly queryEndpoint: string
+	readonly updateEndpoint: string
+	readonly timeout?: number
+}
+
 export default function createTripleStore(
 	config: TripleStoreConfig,
-): Result<ConnectionError, oxigraph.Store> {
-	try {
-		// Create Oxigraph store with SQLite backend
-		const store = new oxigraph.Store(config.path, {
-			readonly: config.readonly ?? false,
-		})
-		return ok(store)
-	} catch (cause) {
-		return error({
-			_tag: "ConnectionError",
-			kind: "TripleStoreInitFailed",
-			message: `Failed to initialize triple store at ${config.path}`,
-			path: config.path,
-			cause,
-		})
-	}
+): Promise<Result<ConnectionError, TripleStoreConnection>> {
+	return async function executeTripleStoreConnection(): Promise<
+		Result<ConnectionError, TripleStoreConnection>
+	> {
+		try {
+			const baseUrl = `http://${config.host}:${config.port}`
+			const queryEndpoint = `${baseUrl}/query`
+			const updateEndpoint = `${baseUrl}/update`
+
+			// Test connection with health check
+			const controller = new AbortController()
+			const timeoutId = setTimeout(
+				function abortConnection() {
+					controller.abort()
+				},
+				config.timeout ?? 5000,
+			)
+
+			const response = await fetch(queryEndpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/sparql-query",
+					"Accept": "application/sparql-results+json",
+				},
+				body: "ASK { }",
+				signal: controller.signal,
+			})
+
+			clearTimeout(timeoutId)
+
+			// Consume response body to prevent resource leak
+			await response.body?.cancel()
+
+			return ok({
+				queryEndpoint,
+				updateEndpoint,
+				timeout: config.timeout,
+			})
+		} catch (cause) {
+			return error({
+				_tag: "ConnectionError",
+				kind: "TripleStoreInitFailed",
+				message:
+					`Failed to connect to triple store at ${config.host}:${config.port}`,
+				host: config.host,
+				port: config.port,
+				cause,
+			})
+		}
+	}()
 }
 ```
 
@@ -513,10 +590,9 @@ export default function createTripleStore(
 
 **Test tasks:**
 
-- [ ] Test with valid path creates store (use temp directory)
-- [ ] Test with invalid path returns ConnectionError
-- [ ] Test readonly flag is respected
-- [ ] Clean up test database files in afterEach
+- [ ] Test with valid endpoint creates connection
+- [ ] Test with invalid endpoint returns ConnectionError
+- [ ] Test timeout is respected
 
 ### Batch 2.2: SPARQL Query Execution
 
@@ -526,10 +602,13 @@ export default function createTripleStore(
 
 - [ ] Import Result monad
 - [ ] Import QueryError type
-- [ ] Implement double-curried function (sparql string, then store)
+- [ ] Import Toolsmith map function
+- [ ] Implement double-curried function (sparql string, then connection)
 - [ ] Mark as IO boundary
 - [ ] Wrap query execution in try/catch
-- [ ] Parse results into JavaScript objects
+- [ ] Parse results into JavaScript objects using Toolsmith map
+- [ ] NO arrow functions - use named function declarations
+- [ ] NO for loops - use functional iteration
 - [ ] Return `error(...)` if execution fails
 - [ ] Return `ok(results)` if successful
 
@@ -538,8 +617,8 @@ export default function createTripleStore(
 ```typescript
 export default function execute(sparql: string) {
 	return function executeOn(
-		store: oxigraph.Store
-	): Result<QueryError, ReadonlyArray<Record<string, unknown>>>
+		connection: TripleStoreConnection
+	): Promise<Result<QueryError, ReadonlyArray<Record<string, unknown>>>>
 }
 ```
 
@@ -547,35 +626,75 @@ export default function execute(sparql: string) {
 
 ```typescript
 // [IO] Executes SPARQL query against triple store
-import type oxigraph from "npm:oxigraph@^0.4"
-import type { Result } from "@sitebender/toolsmith/monads/result/types/index.ts"
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
 import type { QueryError } from "../../errors/index.ts"
+import type { TripleStoreConnection } from "../../connection/createTripleStore/index.ts"
+
+type SparqlBinding = Record<string, { value: unknown }>
+
+type SparqlResults = {
+	readonly head: {
+		readonly vars: ReadonlyArray<string>
+	}
+	readonly results: {
+		readonly bindings: ReadonlyArray<SparqlBinding>
+	}
+}
 
 export default function execute(sparql: string) {
-	return function executeOn(
-		store: oxigraph.Store,
-	): Result<QueryError, ReadonlyArray<Record<string, unknown>>> {
-		// [IO] Execute SPARQL query
+	return async function executeOn(
+		connection: TripleStoreConnection,
+	): Promise<Result<QueryError, ReadonlyArray<Record<string, unknown>>>> {
 		try {
-			const results = store.query(sparql)
-
-			// Convert iterator to array (use Array.from, not loops)
-			const parsed = Array.from(results, (binding) => {
-				const obj: Record<string, unknown> = {}
-				for (const [key, value] of binding) {
-					obj[key] = value.value
-				}
-				return obj
+			const response = await fetch(connection.queryEndpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/sparql-query",
+					"Accept": "application/sparql-results+json",
+				},
+				body: sparql,
 			})
 
-			return ok(parsed)
+			if (!response.ok) {
+				// Consume response body to prevent resource leak
+				await response.body?.cancel()
+
+				return error({
+					_tag: "QueryError",
+					kind: "ExecutionFailed",
+					message: `SPARQL query failed with status ${response.status}`,
+					sparql,
+				})
+			}
+
+			const results = (await response.json()) as SparqlResults
+
+			// Transform SPARQL JSON results to plain objects
+			const extractValue = function extractValue(
+				binding: SparqlBinding,
+			): Record<string, unknown> {
+				const keys = Object.keys(binding)
+
+				const toEntry = function toEntry(key: string): [string, unknown] {
+					return [key, binding[key].value]
+				}
+
+				const entries = map(toEntry)(keys)
+				//++ [EXCEPTION] Object.fromEntries permitted for building object from entries
+				return Object.fromEntries(entries)
+			}
+
+			const bindings = map(extractValue)(results.results.bindings)
+
+			return ok(bindings)
 		} catch (cause) {
 			return error({
 				_tag: "QueryError",
 				kind: "ExecutionFailed",
-				message: `SPARQL query execution failed`,
+				message: "SPARQL query execution failed",
 				sparql,
 				cause,
 			})
@@ -591,7 +710,6 @@ export default function execute(sparql: string) {
 - [ ] Test SELECT query returns results array
 - [ ] Test invalid SPARQL returns QueryError
 - [ ] Test empty results returns empty array
-- [ ] Test with closed store returns error
 
 ### Batch 2.3: Triple Insertion
 
@@ -601,7 +719,7 @@ export default function execute(sparql: string) {
 
 - [ ] Import Result monad
 - [ ] Import QueryError type
-- [ ] Implement double-curried function (Turtle string, then store)
+- [ ] Implement double-curried function (Turtle string, then connection)
 - [ ] Mark as IO boundary
 - [ ] Use SPARQL INSERT DATA with Turtle triples
 - [ ] Return `error(...)` if insertion fails
@@ -612,8 +730,8 @@ export default function execute(sparql: string) {
 ```typescript
 export default function insert(turtle: string) {
 	return function insertInto(
-		store: oxigraph.Store
-	): Result<QueryError, void>
+		connection: TripleStoreConnection
+	): Promise<Result<QueryError, void>>
 }
 ```
 
@@ -621,26 +739,48 @@ export default function insert(turtle: string) {
 
 ```typescript
 // [IO] Inserts triples into triple store
-import type oxigraph from "npm:oxigraph@^0.4"
-import type { Result } from "@sitebender/toolsmith/monads/result/types/index.ts"
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import type { QueryError } from "../../errors/index.ts"
+import type { TripleStoreConnection } from "../../connection/createTripleStore/index.ts"
 
 export default function insert(turtle: string) {
-	return function insertInto(
-		store: oxigraph.Store,
-	): Result<QueryError, void> {
-		// [IO] Insert triples using SPARQL UPDATE
+	return async function insertInto(
+		connection: TripleStoreConnection,
+	): Promise<Result<QueryError, void>> {
 		try {
 			const sparql = `INSERT DATA { ${turtle} }`
-			store.update(sparql)
+
+			const response = await fetch(connection.updateEndpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/sparql-update",
+				},
+				body: sparql,
+			})
+
+			if (!response.ok) {
+				// Consume response body to prevent resource leak
+				await response.body?.cancel()
+
+				return error({
+					_tag: "QueryError",
+					kind: "ExecutionFailed",
+					message: `Failed to insert triples: status ${response.status}`,
+					sparql: turtle,
+				})
+			}
+
+			// Consume response body to prevent resource leak
+			await response.body?.cancel()
+
 			return ok(undefined)
 		} catch (cause) {
 			return error({
 				_tag: "QueryError",
 				kind: "ExecutionFailed",
-				message: `Failed to insert triples`,
+				message: "Failed to insert triples",
 				sparql: turtle,
 				cause,
 			})
@@ -666,7 +806,7 @@ export default function insert(turtle: string) {
 
 - [ ] Import Result monad
 - [ ] Import QueryError type
-- [ ] Implement double-curried function (pattern string, then store)
+- [ ] Implement double-curried function (pattern string, then connection)
 - [ ] Mark as IO boundary
 - [ ] Use SPARQL DELETE WHERE
 - [ ] Return `error(...)` if deletion fails
@@ -675,10 +815,10 @@ export default function insert(turtle: string) {
 **Function signature:**
 
 ```typescript
-export default function deleteSparql(pattern: string) {
+export default function deleteQuery(pattern: string) {
 	return function deleteFrom(
-		store: oxigraph.Store
-	): Result<QueryError, void>
+		connection: TripleStoreConnection
+	): Promise<Result<QueryError, void>>
 }
 ```
 
@@ -686,26 +826,48 @@ export default function deleteSparql(pattern: string) {
 
 ```typescript
 // [IO] Deletes triples matching pattern from triple store
-import type oxigraph from "npm:oxigraph@^0.4"
-import type { Result } from "@sitebender/toolsmith/monads/result/types/index.ts"
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import type { QueryError } from "../../errors/index.ts"
+import type { TripleStoreConnection } from "../../connection/createTripleStore/index.ts"
 
-export default function deleteSparql(pattern: string) {
-	return function deleteFrom(
-		store: oxigraph.Store,
-	): Result<QueryError, void> {
-		// [IO] Delete triples using SPARQL UPDATE
+export default function deleteQuery(pattern: string) {
+	return async function deleteFrom(
+		connection: TripleStoreConnection,
+	): Promise<Result<QueryError, void>> {
 		try {
 			const sparql = `DELETE WHERE { ${pattern} }`
-			store.update(sparql)
+
+			const response = await fetch(connection.updateEndpoint, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/sparql-update",
+				},
+				body: sparql,
+			})
+
+			if (!response.ok) {
+				// Consume response body to prevent resource leak
+				await response.body?.cancel()
+
+				return error({
+					_tag: "QueryError",
+					kind: "ExecutionFailed",
+					message: `Failed to delete triples: status ${response.status}`,
+					sparql: pattern,
+				})
+			}
+
+			// Consume response body to prevent resource leak
+			await response.body?.cancel()
+
 			return ok(undefined)
 		} catch (cause) {
 			return error({
 				_tag: "QueryError",
 				kind: "ExecutionFailed",
-				message: `Failed to delete triples`,
+				message: "Failed to delete triples",
 				sparql: pattern,
 				cause,
 			})
@@ -728,11 +890,11 @@ export default function deleteSparql(pattern: string) {
 - ✅ createTripleStore connects to Oxigraph successfully
 - ✅ execute runs SPARQL SELECT queries
 - ✅ insert adds triples via Turtle
-- ✅ deleteSparql removes triples via pattern
-- ✅ All operations return Result monad
+- ✅ deleteQuery removes triples via pattern
+- ✅ All operations return Promise<Result>
 - ✅ All IO boundaries marked with comments
 - ✅ All tests pass
-- ✅ Zero constitutional violations
+- ✅ Zero constitutional violations (no arrow functions, no loops, no mutations)
 
 ---
 
@@ -746,52 +908,83 @@ export default function deleteSparql(pattern: string) {
 
 **Tasks:**
 
-- [ ] Import Qdrant client: `import { QdrantClient } from "npm:@qdrant/js-client-rest@^1.0"`
 - [ ] Import Result monad
 - [ ] Import VectorStoreConfig, ConnectionError
-- [ ] Implement curried connection function
+- [ ] Implement async curried connection function
 - [ ] Mark as IO boundary
-- [ ] Test connection health after creation
+- [ ] Test connection health after creation using fetch
+- [ ] Use Toolsmith not() instead of ! operator
 - [ ] Return `error(...)` if connection fails or unhealthy
-- [ ] Return `ok(client)` if successful
+- [ ] Return `ok(connection)` if successful
 
 **Function signature:**
 
 ```typescript
+export type VectorStoreConnection = {
+	readonly collectionsEndpoint: string
+	readonly apiKey?: string
+	readonly timeout?: number
+}
+
 export default function createVectorStore(
 	config: VectorStoreConfig,
-): Promise<Result<ConnectionError, QdrantClient>>
+): Promise<Result<ConnectionError, VectorStoreConnection>>
 ```
 
 **Template:**
 
 ```typescript
 // [IO] Connects to Qdrant vector store
-import { QdrantClient } from "npm:@qdrant/js-client-rest@^1.0"
-import type { Result } from "@sitebender/toolsmith/monads/result/types/index.ts"
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 import type { VectorStoreConfig } from "../../config/types/index.ts"
 import type { ConnectionError } from "../../errors/index.ts"
 
+export type VectorStoreConnection = {
+	readonly collectionsEndpoint: string
+	readonly apiKey?: string
+	readonly timeout?: number
+}
+
 export default function createVectorStore(
 	config: VectorStoreConfig,
-): Promise<Result<ConnectionError, QdrantClient>> {
-	return async function executeVectorStoreCreation(): Promise<
-		Result<ConnectionError, QdrantClient>
+): Promise<Result<ConnectionError, VectorStoreConnection>> {
+	return async function executeVectorStoreConnection(): Promise<
+		Result<ConnectionError, VectorStoreConnection>
 	> {
 		try {
-			// Create Qdrant client
-			const client = new QdrantClient({
-				host: config.host,
-				port: config.port,
-				apiKey: config.apiKey,
-				timeout: config.timeout,
-			})
+			const baseUrl = `http://${config.host}:${config.port}`
+			const healthUrl = `${baseUrl}/health`
+			const collectionsEndpoint = `${baseUrl}/collections`
 
 			// Test connection health
-			const health = await client.getHealth()
-			if (!health) {
+			const controller = new AbortController()
+			const timeoutId = setTimeout(
+				function abortConnection() {
+					controller.abort()
+				},
+				config.timeout ?? 5000,
+			)
+
+			const headers: Record<string, string> = {}
+			if (config.apiKey) {
+				headers["api-key"] = config.apiKey
+			}
+
+			const response = await fetch(healthUrl, {
+				method: "GET",
+				headers,
+				signal: controller.signal,
+			})
+
+			clearTimeout(timeoutId)
+
+			if (not(response.ok)) {
+				// Consume response body to prevent resource leak
+				await response.body?.cancel()
+
 				return error({
 					_tag: "ConnectionError",
 					kind: "VectorStoreUnhealthy",
@@ -801,7 +994,14 @@ export default function createVectorStore(
 				})
 			}
 
-			return ok(client)
+			// Consume response body to prevent resource leak
+			await response.body?.cancel()
+
+			return ok({
+				collectionsEndpoint,
+				apiKey: config.apiKey,
+				timeout: config.timeout,
+			})
 		} catch (cause) {
 			return error({
 				_tag: "ConnectionError",
@@ -815,8 +1015,6 @@ export default function createVectorStore(
 	}()
 }
 ```
-
-**Note:** This is async - returns Promise<Result<...>>
 
 **Test file:** `libraries/pathfinder/src/connection/createVectorStore/index.test.ts`
 
@@ -833,10 +1031,9 @@ export default function createVectorStore(
 
 **Tasks:**
 
-- [ ] Import QdrantClient type
 - [ ] Import Result monad
 - [ ] Import VectorError type
-- [ ] Implement triple-curried function (name, dimension, client)
+- [ ] Implement triple-curried function (name, dimension, connection)
 - [ ] Mark as IO boundary
 - [ ] Check if collection exists first
 - [ ] Create collection if not exists
@@ -846,10 +1043,16 @@ export default function createVectorStore(
 **Function signature:**
 
 ```typescript
+export type CollectionInfo = {
+	readonly name: string
+	readonly dimension: number
+	readonly vectorCount: number
+}
+
 export default function createCollection(name: string) {
 	return function withDimension(dimension: number) {
 		return function inVectorStore(
-			client: QdrantClient
+			connection: VectorStoreConnection
 		): Promise<Result<VectorError, CollectionInfo>>
 	}
 }
@@ -859,11 +1062,12 @@ export default function createCollection(name: string) {
 
 ```typescript
 // [IO] Creates vector collection in Qdrant
-import type { QdrantClient } from "npm:@qdrant/js-client-rest@^1.0"
-import type { Result } from "@sitebender/toolsmith/monads/result/types/index.ts"
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 import type { VectorError } from "../../errors/index.ts"
+import type { VectorStoreConnection } from "../../connection/createVectorStore/index.ts"
 
 export type CollectionInfo = {
 	readonly name: string
@@ -874,29 +1078,90 @@ export type CollectionInfo = {
 export default function createCollection(name: string) {
 	return function withDimension(dimension: number) {
 		return async function inVectorStore(
-			client: QdrantClient,
+			connection: VectorStoreConnection,
 		): Promise<Result<VectorError, CollectionInfo>> {
 			try {
-				// Check if collection exists
-				const exists = await client.collectionExists(name)
+				const headers: Record<string, string> = {
+					"Content-Type": "application/json",
+				}
 
-				if (!exists) {
-					// Create collection with specified dimension
-					await client.createCollection(name, {
+				if (connection.apiKey) {
+					headers["api-key"] = connection.apiKey
+				}
+
+				// Check if collection exists
+				const checkResponse = await fetch(
+					`${connection.collectionsEndpoint}/${name}`,
+					{
+						method: "GET",
+						headers,
+					},
+				)
+
+				if (not(checkResponse.ok)) {
+					// Collection doesn't exist, create it
+					const createPayload = {
 						vectors: {
 							size: dimension,
 							distance: "Cosine",
 						},
-					})
+					}
+
+					const createResponse = await fetch(
+						`${connection.collectionsEndpoint}/${name}`,
+						{
+							method: "PUT",
+							headers,
+							body: JSON.stringify(createPayload),
+						},
+					)
+
+					if (not(createResponse.ok)) {
+						// Consume response body to prevent resource leak
+						await createResponse.body?.cancel()
+
+						return error({
+							_tag: "VectorError",
+							kind: "InsertFailed",
+							message: `Failed to create collection ${name}`,
+							collection: name,
+							dimension,
+						})
+					}
+
+					// Consume response body to prevent resource leak
+					await createResponse.body?.cancel()
+				} else {
+					// Consume response body to prevent resource leak
+					await checkResponse.body?.cancel()
 				}
 
 				// Get collection info
-				const info = await client.getCollection(name)
+				const infoResponse = await fetch(
+					`${connection.collectionsEndpoint}/${name}`,
+					{
+						method: "GET",
+						headers,
+					},
+				)
+
+				const info = (await infoResponse.json()) as {
+					result: {
+						vectors_count: number
+						config: {
+							params: {
+								vectors: {
+									size: number
+								}
+							}
+						}
+					}
+				}
 
 				return ok({
-					name: info.name,
-					dimension: info.config.params.vectors.size,
-					vectorCount: info.points_count ?? 0,
+					name,
+					dimension: info.result.config.params.vectors.size,
+					vectorCount: info.result.vectors_count ?? 0,
 				})
 			} catch (cause) {
 				return error({
@@ -922,52 +1187,147 @@ export default function createCollection(name: string) {
 - [ ] Test invalid dimension returns VectorError
 - [ ] Clean up test collections after tests
 
-### Batch 3.3: Vector Insertion
+### Batch 3.3: Vector Point Insertion
 
-**File to create:** `libraries/pathfinder/src/vector/insertVectors/index.ts`
+**File to create:** `libraries/pathfinder/src/vector/insertPoints/index.ts`
 
 **Tasks:**
 
-- [ ] Import QdrantClient type
 - [ ] Import Result monad
 - [ ] Import VectorError type
-- [ ] Define Vector type (id, vector, payload)
-- [ ] Implement triple-curried function (collection, vectors, client)
+- [ ] Import Toolsmith map function
+- [ ] Define VectorPoint type (id, vector, payload)
+- [ ] Implement triple-curried function (collection, points, connection)
 - [ ] Mark as IO boundary
-- [ ] Validate vectors have correct dimension
 - [ ] Use Qdrant upsert operation
+- [ ] Transform points using Toolsmith map (no .map() method)
 - [ ] Return `error(...)` if insertion fails
-- [ ] Return `ok(count)` if successful
+- [ ] Return `ok(void)` if successful
 
 **Types:**
 
 ```typescript
-export type Vector = {
+export type VectorPoint = {
 	readonly id: string | number
 	readonly vector: ReadonlyArray<number>
 	readonly payload?: Record<string, unknown>
+}
+
+export type InsertPointsConfig = {
+	readonly collectionName: string
+	readonly points: ReadonlyArray<VectorPoint>
 }
 ```
 
 **Function signature:**
 
 ```typescript
-export default function insertVectors(collection: string) {
-	return function withVectors(vectors: ReadonlyArray<Vector>) {
-		return function intoVectorStore(
-			client: QdrantClient
-		): Promise<Result<VectorError, number>>
+export default function insertPoints(config: InsertPointsConfig) {
+	return function insertPointsInto(
+		connection: VectorStoreConnection
+	): Promise<Result<VectorError, void>>
+}
+```
+
+**Template:**
+
+```typescript
+// [IO] Inserts vector points into a Qdrant collection
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import type { VectorStoreConnection } from "../../connection/createVectorStore/index.ts"
+import type { VectorError } from "../../errors/index.ts"
+
+export type VectorPoint = {
+	readonly id: string | number
+	readonly vector: ReadonlyArray<number>
+	readonly payload?: Record<string, unknown>
+}
+
+export type InsertPointsConfig = {
+	readonly collectionName: string
+	readonly points: ReadonlyArray<VectorPoint>
+}
+
+function transformPoint(point: VectorPoint): {
+	id: string | number
+	vector: ReadonlyArray<number>
+	payload: Record<string, unknown>
+} {
+	return {
+		id: point.id,
+		vector: point.vector,
+		payload: point.payload ?? {},
+	}
+}
+
+export default function insertPoints(config: InsertPointsConfig) {
+	return async function insertPointsInto(
+		connection: VectorStoreConnection,
+	): Promise<Result<VectorError, void>> {
+		try {
+			const headers: Record<string, string> = {
+				"Content-Type": "application/json",
+			}
+
+			if (connection.apiKey) {
+				headers["api-key"] = connection.apiKey
+			}
+
+			const points = map(transformPoint)(config.points)
+
+			const payload = {
+				points,
+			}
+
+			const response = await fetch(
+				`${connection.collectionsEndpoint}/${config.collectionName}/points`,
+				{
+					method: "PUT",
+					headers,
+					body: JSON.stringify(payload),
+				},
+			)
+
+			if (!response.ok) {
+				// Consume response body to prevent resource leak
+				await response.body?.cancel()
+
+				return error({
+					_tag: "VectorError",
+					kind: "InsertFailed",
+					message:
+						`Failed to insert points into collection ${config.collectionName}: status ${response.status}`,
+					collection: config.collectionName,
+				})
+			}
+
+			// Consume response body to prevent resource leak
+			await response.body?.cancel()
+
+			return ok(undefined)
+		} catch (cause) {
+			return error({
+				_tag: "VectorError",
+				kind: "InsertFailed",
+				message:
+					`Failed to insert points into collection ${config.collectionName}`,
+				collection: config.collectionName,
+				cause,
+			})
+		}
 	}
 }
 ```
 
-**Test file:** `libraries/pathfinder/src/vector/insertVectors/index.test.ts`
+**Test file:** `libraries/pathfinder/src/vector/insertPoints/index.test.ts`
 
 **Test tasks:**
 
-- [ ] Test inserting single vector succeeds
-- [ ] Test inserting multiple vectors succeeds
-- [ ] Test dimension mismatch returns VectorError
+- [ ] Test inserting single point succeeds
+- [ ] Test inserting multiple points succeeds
 - [ ] Test invalid collection returns error
 
 ### Batch 3.4: Vector Search
@@ -976,13 +1336,14 @@ export default function insertVectors(collection: string) {
 
 **Tasks:**
 
-- [ ] Import QdrantClient type
 - [ ] Import Result monad
 - [ ] Import VectorError type
+- [ ] Import Toolsmith map function
 - [ ] Define SearchResult type
-- [ ] Implement quad-curried function (collection, vector, limit, client)
+- [ ] Implement quad-curried function (collection, vector, limit, connection)
 - [ ] Mark as IO boundary
 - [ ] Execute similarity search
+- [ ] Transform results using Toolsmith map
 - [ ] Return `error(...)` if search fails
 - [ ] Return `ok(results)` if successful
 
@@ -994,17 +1355,119 @@ export type SearchResult = {
 	readonly score: number
 	readonly payload?: Record<string, unknown>
 }
+
+export type SearchConfig = {
+	readonly collectionName: string
+	readonly vector: ReadonlyArray<number>
+	readonly limit: number
+}
 ```
 
 **Function signature:**
 
 ```typescript
-export default function search(collection: string) {
-	return function withVector(vector: ReadonlyArray<number>) {
-		return function withLimit(limit: number) {
-			return function inVectorStore(
-				client: QdrantClient
-			): Promise<Result<VectorError, ReadonlyArray<SearchResult>>>
+export default function search(config: SearchConfig) {
+	return function inVectorStore(
+		connection: VectorStoreConnection
+	): Promise<Result<VectorError, ReadonlyArray<SearchResult>>>
+}
+```
+
+**Template:**
+
+```typescript
+// [IO] Searches for similar vectors in Qdrant collection
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
+import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import map from "@sitebender/toolsmith/array/map/index.ts"
+import type { VectorStoreConnection } from "../../connection/createVectorStore/index.ts"
+import type { VectorError } from "../../errors/index.ts"
+
+export type SearchResult = {
+	readonly id: string | number
+	readonly score: number
+	readonly payload?: Record<string, unknown>
+}
+
+export type SearchConfig = {
+	readonly collectionName: string
+	readonly vector: ReadonlyArray<number>
+	readonly limit: number
+}
+
+type QdrantSearchResult = {
+	readonly id: string | number
+	readonly score: number
+	readonly payload?: Record<string, unknown>
+}
+
+export default function search(config: SearchConfig) {
+	return async function inVectorStore(
+		connection: VectorStoreConnection,
+	): Promise<Result<VectorError, ReadonlyArray<SearchResult>>> {
+		try {
+			const headers: Record<string, string> = {
+				"Content-Type": "application/json",
+			}
+
+			if (connection.apiKey) {
+				headers["api-key"] = connection.apiKey
+			}
+
+			const searchPayload = {
+				vector: config.vector,
+				limit: config.limit,
+				with_payload: true,
+			}
+
+			const response = await fetch(
+				`${connection.collectionsEndpoint}/${config.collectionName}/points/search`,
+				{
+					method: "POST",
+					headers,
+					body: JSON.stringify(searchPayload),
+				},
+			)
+
+			if (!response.ok) {
+				// Consume response body to prevent resource leak
+				await response.body?.cancel()
+
+				return error({
+					_tag: "VectorError",
+					kind: "SearchFailed",
+					message:
+						`Failed to search collection ${config.collectionName}: status ${response.status}`,
+					collection: config.collectionName,
+				})
+			}
+
+			const data = (await response.json()) as {
+				result: ReadonlyArray<QdrantSearchResult>
+			}
+
+			const transformResult = function transformResult(
+				result: QdrantSearchResult,
+			): SearchResult {
+				return {
+					id: result.id,
+					score: result.score,
+					payload: result.payload,
+				}
+			}
+
+			const results = map(transformResult)(data.result)
+
+			return ok(results)
+		} catch (cause) {
+			return error({
+				_tag: "VectorError",
+				kind: "SearchFailed",
+				message: `Failed to search collection ${config.collectionName}`,
+				collection: config.collectionName,
+				cause,
+			})
 		}
 	}
 }
@@ -1023,12 +1486,12 @@ export default function search(collection: string) {
 
 - ✅ createVectorStore connects to Qdrant successfully
 - ✅ createCollection creates/checks collections
-- ✅ insertVectors adds vectors with payloads
+- ✅ insertPoints adds vectors with payloads
 - ✅ search returns similarity results
 - ✅ All operations return Promise<Result<...>>
 - ✅ All IO boundaries marked
 - ✅ All tests pass
-- ✅ Zero constitutional violations
+- ✅ Zero constitutional violations (use Toolsmith map, not .map())
 
 ---
 
@@ -1042,18 +1505,22 @@ export default function search(collection: string) {
 
 **Tasks:**
 
-- [ ] Import builder types
+- [ ] Import Toolsmith functions (map, join, isNotEmpty, getOrElse)
 - [ ] Implement variadic `select(...variables)` function
 - [ ] Return builder object with `where` method
 - [ ] Use Toolsmith array functions (NO .join, .map OOP methods)
 - [ ] All builder methods return new builders (immutable)
+- [ ] NO mutations (no .push(), use immutable array building)
+- [ ] NO arrow functions in implementation
 - [ ] Include `build()` method to generate SPARQL string
 
 **Template:**
 
 ```typescript
-import join from "@sitebender/toolsmith/array/join/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
+import join from "@sitebender/toolsmith/array/join/index.ts"
+import isNotEmpty from "@sitebender/toolsmith/array/isNotEmpty/index.ts"
+import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 export type TriplePattern = {
 	readonly subject: string
@@ -1071,52 +1538,101 @@ export type FilterBuilder = {
 	readonly build: () => string
 }
 
-export default function select(
-	...variables: ReadonlyArray<string>
-) {
-	const varList = join(" ")(variables)
+export type SelectBuilder = {
+	readonly where: (
+		patterns: ReadonlyArray<TriplePattern>,
+	) => WhereBuilder
+}
+
+// Helper function to build SPARQL query string
+function buildSparqlQuery(varList: string) {
+	return function buildSparqlQueryWithVarList(
+		patterns: ReadonlyArray<TriplePattern>,
+	) {
+		return function buildSparqlQueryWithPatterns(
+			filters: ReadonlyArray<string>,
+		): string {
+			function formatTriplePattern(pattern: TriplePattern): string {
+				return `${pattern.subject} ${pattern.predicate} ${pattern.object} .`
+			}
+
+			// Use Toolsmith map and join
+			const triples = map(formatTriplePattern)(patterns)
+			const tripleBlock = getOrElse("")(join("\n    ")(triples))
+			const filterBlock = isNotEmpty(filters)
+				? "\n    FILTER (" + getOrElse("")(join(" && ")(filters)) + ")"
+				: ""
+
+			return `SELECT ${varList}\nWHERE {\n    ${tripleBlock}${filterBlock}\n}`
+		}
+	}
+}
+
+// Helper to create FilterBuilder (immutable - returns new object each time)
+function createFilterBuilder(varList: string) {
+	return function createFilterBuilderWithVarList(
+		patterns: ReadonlyArray<TriplePattern>,
+	) {
+		return function createFilterBuilderWithPatterns(
+			filters: ReadonlyArray<string>,
+		): FilterBuilder {
+			return {
+				filter: function additionalFilter(
+					condition: string,
+				): FilterBuilder {
+					// Create new filters array (immutable!)
+					const newFilters: ReadonlyArray<string> = [
+						...filters,
+						condition,
+					]
+					return createFilterBuilder(varList)(patterns)(newFilters)
+				},
+				build: function buildQuery(): string {
+					return buildSparqlQuery(varList)(patterns)(filters)
+				},
+			}
+		}
+	}
+}
+
+// Helper to create WhereBuilder (immutable - returns new object)
+function createWhereBuilder(varList: string) {
+	return function createWhereBuilderWithVarList(
+		patterns: ReadonlyArray<TriplePattern>,
+	) {
+		return function createWhereBuilderWithPatterns(
+			filters: ReadonlyArray<string>,
+		): WhereBuilder {
+			return {
+				filter: function filterClause(
+					condition: string,
+				): FilterBuilder {
+					// Create new filters array (immutable!)
+					const newFilters: ReadonlyArray<string> = [
+						...filters,
+						condition,
+					]
+					return createFilterBuilder(varList)(patterns)(newFilters)
+				},
+				build: function buildQuery(): string {
+					return buildSparqlQuery(varList)(patterns)(filters)
+				},
+			}
+		}
+	}
+}
+
+// Main select function - creates a SelectBuilder
+export default function select(...variables: Array<string>): SelectBuilder {
+	const varList = getOrElse("")(join(" ")(variables))
 
 	return {
 		where: function whereClause(
 			patterns: ReadonlyArray<TriplePattern>,
 		): WhereBuilder {
-			const filters: Array<string> = []
-
-			return {
-				filter: function filterClause(
-					condition: string,
-				): FilterBuilder {
-					filters.push(condition)
-
-					return {
-						filter: function additionalFilter(
-							additionalCondition: string,
-						): FilterBuilder {
-							filters.push(additionalCondition)
-							return this
-						},
-						build: function buildQuery(): string {
-							const triples = map((p: TriplePattern) =>
-								`${p.subject} ${p.predicate} ${p.object} .`
-							)(patterns)
-							const tripleBlock = join("\n    ")(triples)
-							const filterBlock = filters.length > 0
-								? "\n    FILTER (" + join(" && ")(filters) + ")"
-								: ""
-
-							return `SELECT ${varList}\nWHERE {\n    ${tripleBlock}${filterBlock}\n}`
-						},
-					}
-				},
-				build: function buildQuery(): string {
-					const triples = map((p: TriplePattern) =>
-						`${p.subject} ${p.predicate} ${p.object} .`
-					)(patterns)
-					const tripleBlock = join("\n    ")(triples)
-
-					return `SELECT ${varList}\nWHERE {\n    ${tripleBlock}\n}`
-				},
-			}
+			// Create WHERE builder with empty filters array
+			const emptyFilters: ReadonlyArray<string> = []
+			return createWhereBuilder(varList)(patterns)(emptyFilters)
 		},
 	}
 }
@@ -1143,6 +1659,14 @@ export default function select(
 - [ ] Implement helper that generates `SELECT * WHERE { ?s ?p ?o }`
 - [ ] Return SPARQL string (unary curried function)
 
+**Template:**
+
+```typescript
+export default function getAllTriples(): string {
+	return "SELECT * WHERE { ?s ?p ?o }"
+}
+```
+
 **File to create:** `libraries/pathfinder/src/sparql/helpers/getBySubject/index.ts`
 
 **Tasks:**
@@ -1150,12 +1674,32 @@ export default function select(
 - [ ] Implement helper that generates query for specific subject
 - [ ] Curried: subject URI → SPARQL string
 
+**Template:**
+
+```typescript
+export default function getBySubject(subject: string) {
+	return function buildQuery(): string {
+		return `SELECT ?p ?o WHERE { ${subject} ?p ?o }`
+	}
+}
+```
+
 **File to create:** `libraries/pathfinder/src/sparql/helpers/getByPredicate/index.ts`
 
 **Tasks:**
 
 - [ ] Implement helper that generates query for specific predicate
 - [ ] Curried: predicate URI → SPARQL string
+
+**Template:**
+
+```typescript
+export default function getByPredicate(predicate: string) {
+	return function buildQuery(): string {
+		return `SELECT ?s ?o WHERE { ?s ${predicate} ?o }`
+	}
+}
+```
 
 **Completion Criteria for Phase 4:**
 
@@ -1167,7 +1711,7 @@ export default function select(
 - ✅ All builder methods immutable
 - ✅ Use Toolsmith functions (no OOP .map/.join)
 - ✅ All tests pass
-- ✅ Zero constitutional violations
+- ✅ Zero constitutional violations (no mutations, no arrow functions)
 
 ---
 
@@ -1181,7 +1725,6 @@ export default function select(
 
 **Tasks:**
 
-- [ ] Create temporary triple store for testing
 - [ ] Test full workflow: connect → insert → query → delete
 - [ ] Test Qdrant workflow: connect → create collection → insert → search
 - [ ] Test error scenarios (invalid config, failed connections)
@@ -1196,35 +1739,30 @@ import { expect } from "@std/expect"
 import createTripleStore from "./connection/createTripleStore/index.ts"
 import insert from "./sparql/insert/index.ts"
 import execute from "./sparql/execute/index.ts"
-import deleteSparql from "./sparql/delete/index.ts"
+import deleteQuery from "./sparql/delete/index.ts"
 
 describe("Pathfinder integration", () => {
-	let store: oxigraph.Store
-	const testDbPath = "/tmp/pathfinder-test.db"
+	const config = {
+		host: "localhost",
+		port: 7878,
+		timeout: 5000,
+	}
 
-	beforeAll(() => {
-		const result = createTripleStore({ path: testDbPath })
-		if (result._tag === "Error") {
-			throw new Error("Failed to create test store")
+	it("should connect, insert, query, and delete triples", async () => {
+		const connectionResult = await createTripleStore(config)
+		expect(connectionResult._tag).toBe("Ok")
+
+		if (connectionResult._tag !== "Ok") {
+			return
 		}
-		store = result.value
-	})
 
-	afterAll(() => {
-		// Clean up test database
-		try {
-			Deno.removeSync(testDbPath)
-		} catch {
-			// Ignore if file doesn't exist
-		}
-	})
+		const connection = connectionResult.value
 
-	it("should insert and query triples", () => {
 		// Insert test data
 		const turtle = `
 			<http://example.org/alice> <http://xmlns.com/foaf/0.1/name> "Alice" .
 		`
-		const insertResult = insert(turtle)(store)
+		const insertResult = await insert(turtle)(connection)
 		expect(insertResult._tag).toBe("Ok")
 
 		// Query data
@@ -1233,15 +1771,19 @@ describe("Pathfinder integration", () => {
 				<http://example.org/alice> <http://xmlns.com/foaf/0.1/name> ?name .
 			}
 		`
-		const queryResult = execute(sparql)(store)
+		const queryResult = await execute(sparql)(connection)
 		expect(queryResult._tag).toBe("Ok")
+
 		if (queryResult._tag === "Ok") {
 			expect(queryResult.value.length).toBe(1)
 			expect(queryResult.value[0].name).toBe("Alice")
 		}
-	})
 
-	// More integration tests...
+		// Delete data
+		const deletePattern = `<http://example.org/alice> ?p ?o .`
+		const deleteResult = await deleteQuery(deletePattern)(connection)
+		expect(deleteResult._tag).toBe("Ok")
+	})
 })
 ```
 
@@ -1251,7 +1793,6 @@ describe("Pathfinder integration", () => {
 
 **Tasks:**
 
-- [ ] Use Quarrier for property testing (if available)
 - [ ] Test query execution is deterministic (same input → same output)
 - [ ] Test insert → delete → query returns empty
 - [ ] Test config validation with random inputs
@@ -1285,29 +1826,29 @@ Creates connection to Oxigraph triple store.
 ```typescript
 function createTripleStore(
 	config: TripleStoreConfig,
-): Result<ConnectionError, oxigraph.Store>
+): Promise<Result<ConnectionError, TripleStoreConnection>>
 ```
-````
 
 **Usage:**
 
 ```typescript
 import createTripleStore from "@sitebender/pathfinder/connection/createTripleStore/index.ts"
 
-const result = createTripleStore({
-	path: "./data/store.db",
-	readonly: false,
+const result = await createTripleStore({
+	host: "localhost",
+	port: 7878,
+	timeout: 5000,
 })
 
 if (result._tag === "Ok") {
-	const store = result.value
-	// Use store...
+	const connection = result.value
+	// Use connection...
 }
 ```
 
 **Errors:**
 
-- `TripleStoreInitFailed` - Cannot create/open database file
+- `TripleStoreInitFailed` - Cannot connect to triple store
 - `InvalidStorePath` - Path is invalid or inaccessible
 
 ---
@@ -1315,13 +1856,14 @@ if (result._tag === "Ok") {
 ### createVectorStore
 
 [Similar documentation for each function...]
-
 ````
+
 ### Batch 5.4: Usage Examples
 
 **File to create:** `libraries/pathfinder/docs/examples/basic-usage.ts`
 
 **Tasks:**
+
 - [ ] Show complete example of triple store operations
 - [ ] Show vector search example
 - [ ] Show error handling patterns
@@ -1330,11 +1872,13 @@ if (result._tag === "Ok") {
 **File to create:** `libraries/pathfinder/docs/examples/architect-integration.ts`
 
 **Tasks:**
+
 - [ ] Show how Architect would store compiled JSX
 - [ ] Example: JSX → Turtle → insertTriples
 - [ ] Example: Query components by type
 
 **Completion Criteria for Phase 5:**
+
 - ✅ Integration tests cover full workflows
 - ✅ Property tests verify invariants
 - ✅ API documentation complete
@@ -1344,66 +1888,68 @@ if (result._tag === "Ok") {
 
 ---
 
-## Phase 6: Public API
+## Phase 6: Workspace Integration
 
-**Goal:** Consolidate exports and integrate with workspace
+**Goal:** Integrate Pathfinder into workspace using import aliases (NO BARREL FILES)
 
-### Batch 6.1: Main Module (mod.ts)
+### IMPORTANT: No mod.ts Barrel File
+
+**CRITICAL CONSTITUTIONAL RULE:**
+
+- **NO BARREL FILES. EVER.**
+- `mod.ts` is an exception to the FILE NAMING CONVENTION only (can be named `mod.ts` instead of `index.ts`)
+- `mod.ts` is NOT an exception to the NO BARREL FILES rule
+- `mod.ts` can ONLY contain Envoy comments describing the module, NO CODE
+
+### Batch 6.1: Create mod.ts with Envoy Comments Only
 
 **File to create:** `libraries/pathfinder/src/mod.ts`
 
 **Tasks:**
-- [ ] Export all public functions
-- [ ] Export all public types
-- [ ] Use named exports (NO default export for mod.ts)
-- [ ] Group by category (Connection, SPARQL, Vector, Config, Errors)
-- [ ] Add JSDoc comments
+
+- [ ] Create mod.ts with ONLY Envoy comments
+- [ ] NO exports, NO code, ONLY documentation
+- [ ] Describe the module purpose
+- [ ] List public API surface
 
 **Template:**
+
 ```typescript
 /**
  * Pathfinder - Data Infrastructure Layer
  *
  * Single source of truth for triple store (Oxigraph) and vector search (Qdrant).
  *
+ * Public API:
+ *
+ * Configuration:
+ * - validateConfig: config/validateConfig/index.ts
+ * - Types: config/types/index.ts
+ *
+ * Connection:
+ * - createTripleStore: connection/createTripleStore/index.ts
+ * - createVectorStore: connection/createVectorStore/index.ts
+ *
+ * SPARQL Operations:
+ * - execute: sparql/execute/index.ts
+ * - insert: sparql/insert/index.ts
+ * - deleteQuery: sparql/delete/index.ts
+ * - select: sparql/select/index.ts
+ *
+ * Vector Operations:
+ * - createCollection: vector/createCollection/index.ts
+ * - insertPoints: vector/insertPoints/index.ts
+ * - search: vector/search/index.ts
+ *
+ * Errors:
+ * - All error types: errors/index.ts
+ *
  * @module pathfinder
  */
 
-// Configuration
-export { default as validateConfig } from "./config/validateConfig/index.ts"
-export type {
-	PathfinderConfig,
-	TripleStoreConfig,
-	VectorStoreConfig,
-	ValidPathfinderConfig,
-} from "./config/types/index.ts"
-
-// Connection
-export { default as createTripleStore } from "./connection/createTripleStore/index.ts"
-export { default as createVectorStore } from "./connection/createVectorStore/index.ts"
-
-// SPARQL Operations
-export { default as execute } from "./sparql/execute/index.ts"
-export { default as insert } from "./sparql/insert/index.ts"
-export { default as deleteSparql } from "./sparql/delete/index.ts"
-export { default as select } from "./sparql/select/index.ts"
-
-// Vector Operations
-export { default as createCollection } from "./vector/createCollection/index.ts"
-export { default as insertVectors } from "./vector/insertVectors/index.ts"
-export { default as search } from "./vector/search/index.ts"
-export type { Vector, SearchResult } from "./vector/insertVectors/index.ts"
-
-// Errors
-export type {
-	PathfinderError,
-	ConnectionError,
-	QueryError,
-	ConfigError,
-	VectorError,
-	AnyPathfinderError,
-} from "./errors/index.ts"
-````
+// This file intentionally contains no code.
+// Use deno.jsonc import aliases to import specific functions.
+```
 
 ### Batch 6.2: Update Workspace Configuration
 
@@ -1411,8 +1957,19 @@ export type {
 
 **Tasks:**
 
-- [ ] Add Pathfinder to workspace members (if not present)
-- [ ] Verify import map includes Pathfinder aliases
+- [ ] Add Pathfinder import aliases to workspace imports map
+- [ ] Verify all other libraries can import Pathfinder functions
+
+**Template addition to deno.jsonc imports:**
+
+```jsonc
+{
+	"imports": {
+		"@sitebender/pathfinder/": "./libraries/pathfinder/src/"
+		// ... other aliases
+	}
+}
+```
 
 **File to modify:** `/contracts/boundaries.json`
 
@@ -1456,7 +2013,74 @@ export type {
 }
 ```
 
-### Batch 6.3: README Updates
+### Batch 6.3: Import Pattern Documentation
+
+**File to create:** `libraries/pathfinder/docs/IMPORTS.md`
+
+**Tasks:**
+
+- [ ] Document correct import patterns using aliases
+- [ ] Show examples of importing from other libraries
+- [ ] Explain why mod.ts has no exports
+
+**Template:**
+
+````markdown
+# Pathfinder Import Patterns
+
+## Correct Import Pattern
+
+Pathfinder follows Sitebender's constitutional rule: **NO BARREL FILES**.
+
+Use deno.jsonc import aliases to import specific functions:
+
+```typescript
+// ✅ CORRECT - Import specific function using alias
+import createTripleStore from "@sitebender/pathfinder/connection/createTripleStore/index.ts"
+import execute from "@sitebender/pathfinder/sparql/execute/index.ts"
+import type { PathfinderConfig } from "@sitebender/pathfinder/config/types/index.ts"
+```
+
+```typescript
+// ❌ WRONG - Do not import from mod.ts
+import { createTripleStore } from "@sitebender/pathfinder/mod.ts"
+```
+
+## Why mod.ts Has No Exports
+
+The `mod.ts` file is an exception to the FILE NAMING CONVENTION (all files named `index.ts`), but it is NOT an exception to the NO BARREL FILES rule.
+
+`mod.ts` contains ONLY Envoy comments describing the module. It has NO code, NO exports.
+
+## Workspace Configuration
+
+The workspace `deno.jsonc` includes import aliases:
+
+```jsonc
+{
+	"imports": {
+		"@sitebender/pathfinder/": "./libraries/pathfinder/src/"
+	}
+}
+```
+
+This allows importing any function by its full path:
+
+```typescript
+import functionName from "@sitebender/pathfinder/path/to/function/index.ts"
+```
+
+## Type Imports
+
+Always use `import type` for type-only imports:
+
+```typescript
+import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
+import type { PathfinderConfig } from "@sitebender/pathfinder/config/types/index.ts"
+```
+````
+
+### Batch 6.4: README Updates
 
 **File to modify:** `/libraries/pathfinder/README.md`
 
@@ -1464,7 +2088,7 @@ export type {
 
 - [ ] Update status from "Planning" to "Implemented"
 - [ ] Add "Getting Started" section
-- [ ] Add quick example
+- [ ] Add quick example with correct import pattern
 - [ ] Link to API documentation
 - [ ] Update roadmap to reflect completed features
 
@@ -1477,12 +2101,13 @@ export type {
 
 **Completion Criteria for Phase 6:**
 
-- ✅ mod.ts exports all public API
-- ✅ Workspace configuration updated
+- ✅ mod.ts contains ONLY Envoy comments, NO exports
+- ✅ Workspace deno.jsonc has Pathfinder import aliases
 - ✅ contracts/boundaries.json includes Pathfinder
+- ✅ IMPORTS.md documents correct usage pattern
 - ✅ README reflects implementation status
-- ✅ Import aliases work across workspace
-- ✅ Other libraries can import Pathfinder
+- ✅ Other libraries can import Pathfinder functions using aliases
+- ✅ Zero barrel files in entire codebase
 
 ---
 
@@ -1507,8 +2132,10 @@ Before considering implementation complete, verify ALL of these:
 - [ ] ✅ Use `filter(pred)(array)` not `array.filter(pred)`
 - [ ] ✅ Use `reduce(fn)(init)(array)` not `array.reduce(fn, init)`
 - [ ] ✅ Use `join(sep)(array)` not `array.join(sep)`
-- [ ] ✅ Use `length(array)` not `array.length`
-- [ ] ✅ Use `is(a)(b)` not `a === b` (where applicable)
+- [ ] ✅ Use `isNotEmpty(array)` not `array.length > 0`
+- [ ] ✅ Use `not(value)` not `!value`
+- [ ] ✅ Use `or(a)(b)` not `a || b`
+- [ ] ✅ Use `isEqual(a)(b)` not `a === b`
 
 ### Error Handling
 
@@ -1529,7 +2156,7 @@ Before considering implementation complete, verify ALL of these:
 
 - [ ] ✅ All files named `index.ts` in function-named folders
 - [ ] ✅ All folders use camelCase (not kebab-case or PascalCase)
-- [ ] ✅ No barrel files (no re-exporting in index files except mod.ts)
+- [ ] ✅ NO BARREL FILES (mod.ts has only comments, no code)
 - [ ] ✅ Test files named `index.test.ts` next to implementation
 
 ### Function Naming
@@ -1566,10 +2193,7 @@ Before considering implementation complete, verify ALL of these:
 
 ```json
 {
-	"dependencies": {
-		"oxigraph": "npm:oxigraph@^0.4",
-		"@qdrant/js-client-rest": "npm:@qdrant/js-client-rest@^1.0"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@std/testing": "jsr:@std/testing@^1.0.15",
 		"@std/expect": "jsr:@std/expect@^1.0.17",
@@ -1596,12 +2220,13 @@ Before considering implementation complete, verify ALL of these:
 
 ### Integration Checklist
 
-- [ ] Warden enforces dependency whitelist (oxigraph, qdrant only)
-- [ ] Agent can import Pathfinder functions
+- [ ] Warden enforces dependency whitelist
+- [ ] Agent can import Pathfinder functions using aliases
 - [ ] Operator can store events as triples
 - [ ] Sentinel can persist session state
 - [ ] Custodian can query event history
 - [ ] No forbidden dependencies detected
+- [ ] No barrel files detected
 
 ---
 
@@ -1616,7 +2241,7 @@ Before considering implementation complete, verify ALL of these:
 
 ### Functional Requirements
 
-- [ ] Can connect to Oxigraph with configurable path
+- [ ] Can connect to Oxigraph with configurable host/port
 - [ ] Can execute SPARQL SELECT queries
 - [ ] Can insert triples via Turtle syntax
 - [ ] Can delete triples via SPARQL DELETE WHERE
@@ -1633,6 +2258,7 @@ Before considering implementation complete, verify ALL of these:
 - [ ] Usage examples provided
 - [ ] Integration patterns documented
 - [ ] README updated with status
+- [ ] IMPORTS.md explains correct import pattern
 
 ### Integration
 
@@ -1640,6 +2266,7 @@ Before considering implementation complete, verify ALL of these:
 - [ ] Import aliases work
 - [ ] Other libraries can import successfully
 - [ ] No circular dependencies
+- [ ] mod.ts has only comments, no exports
 
 ---
 
@@ -1653,9 +2280,9 @@ If implementation fails or needs to be paused:
    - Document blocking issues
 
 2. **Revert Infrastructure Changes**
-   - Restore Fuseki to docker-compose.yml if needed
    - Remove partial Pathfinder code
    - Remove from boundaries.json
+   - Remove import aliases
 
 3. **Isolate Completed Work**
    - Tag completed batches
@@ -1688,39 +2315,6 @@ If implementation fails or needs to be paused:
 
 ## Notes
 
-### Storage Path Recommendation
-
-Use **configurable path (Option 3)** for maximum flexibility:
-
-```typescript
-// Development
-const config = {
-	tripleStore: { path: "./data/pathfinder.db" },
-	vectorStore: { host: "localhost", port: 6333 },
-}
-
-// Testing
-const config = {
-	tripleStore: { path: "/tmp/test-store.db" },
-	vectorStore: { host: "localhost", port: 6333 },
-}
-
-// Production
-const config = {
-	tripleStore: { path: "~/.config/sitebender/store.db" },
-	vectorStore: { host: "production-qdrant.example.com", port: 6333 },
-}
-```
-
-Add `.gitignore` entry:
-
-```
-data/
-*.db
-*.db-shm
-*.db-wal
-```
-
 ### Future Enhancements (Not in This Plan)
 
 These are intentionally excluded from current scope:
@@ -1740,7 +2334,7 @@ These will be separate implementation plans when needed.
 
 ## Approval & Sign-Off
 
-**Plan Status:** ✅ APPROVED
+**Plan Status:** ✅ APPROVED (Constitutional Compliance Verified)
 **Ready to Implement:** YES
 **Constitutional Compliance:** VERIFIED
 **Dependencies:** APPROVED
