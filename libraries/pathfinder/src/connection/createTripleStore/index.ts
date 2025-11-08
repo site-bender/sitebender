@@ -2,6 +2,7 @@
 import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 import type { TripleStoreConfig } from "../../config/types/index.ts"
 import type { ConnectionError } from "../../errors/index.ts"
 
@@ -37,7 +38,7 @@ export default function createTripleStore(
 			// Consume the response body to prevent resource leak
 			await response.body?.cancel()
 
-			if (!response.ok) {
+			if (not(response.ok)) {
 				return error({
 					_tag: "ConnectionError",
 					kind: "TripleStoreInitFailed",
