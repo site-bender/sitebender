@@ -5,6 +5,9 @@ import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import createError from "@sitebender/artificer/errors/createError/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
 //++ Extract the local name from an import/export specifier with validation
 //++ Returns Result with error if specifier structure is invalid
@@ -38,10 +41,11 @@ export default function extractLocalName(
 
 	// Check if local.type is "Identifier"
 	const localType = local.type as string | undefined
-	const isIdentifier = localType !== undefined &&
-		isEqual(localType)("Identifier")
+	const isIdentifier = and(not(isEqual(localType)(undefined)))(
+		isEqual(localType)("Identifier"),
+	)
 
-	if (isIdentifier === false) {
+	if (isEqual(isIdentifier)(false)) {
 		const baseError = createError("_extractLocalName")([])(
 			`Expected local.type to be "Identifier" but got "${
 				localType ?? "undefined"
@@ -60,7 +64,11 @@ export default function extractLocalName(
 	// Extract the value (name)
 	const localValue = local.value as string | undefined
 
-	if (localValue === undefined || typeof localValue !== "string") {
+	if (
+		or(isEqual(localValue)(undefined))(
+			not(isEqual(typeof localValue)("string")),
+		)
+	) {
 		const baseError = createError("_extractLocalName")([])(
 			"Identifier has no 'value' property or value is not a string",
 		)("INVALID_ARGUMENT")
