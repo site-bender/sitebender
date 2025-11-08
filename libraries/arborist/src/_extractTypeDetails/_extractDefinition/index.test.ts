@@ -17,7 +17,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -35,7 +35,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, true)
+		const result = extractDefinition(node)(true)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -68,7 +68,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -93,7 +93,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -124,7 +124,7 @@ Deno.test("extractDefinition", async function tests(t) {
 				},
 			}
 
-			const result = extractDefinition(node, false)
+			const result = extractDefinition(node)(false)
 
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
@@ -156,7 +156,7 @@ Deno.test("extractDefinition", async function tests(t) {
 				},
 			}
 
-			const result = extractDefinition(node, false)
+			const result = extractDefinition(node)(false)
 
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
@@ -187,7 +187,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -217,7 +217,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, true)
+		const result = extractDefinition(node)(true)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -259,7 +259,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -292,7 +292,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -322,7 +322,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -351,7 +351,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -394,7 +394,7 @@ Deno.test("extractDefinition", async function tests(t) {
 				},
 			}
 
-			const result = extractDefinition(node, false)
+			const result = extractDefinition(node)(false)
 
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
@@ -435,7 +435,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -470,7 +470,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			],
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -516,7 +516,7 @@ Deno.test("extractDefinition", async function tests(t) {
 				],
 			}
 
-			const result = extractDefinition(node, false)
+			const result = extractDefinition(node)(false)
 
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
@@ -537,7 +537,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -558,7 +558,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -589,7 +589,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -621,7 +621,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			},
 		}
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Ok")
 		if (result._tag === "Ok") {
@@ -635,7 +635,7 @@ Deno.test("extractDefinition", async function tests(t) {
 			id: { value: "Weird" },
 		} as unknown as TsTypeDeclaration
 
-		const result = extractDefinition(node, false)
+		const result = extractDefinition(node)(false)
 
 		assertEquals(result._tag, "Error")
 		if (result._tag === "Error") {
@@ -712,7 +712,7 @@ Deno.test("extractDefinition", async function tests(t) {
 				],
 			}
 
-			const result = extractDefinition(node, true)
+			const result = extractDefinition(node)(true)
 
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {
@@ -760,7 +760,7 @@ Deno.test("extractDefinition", async function tests(t) {
 				},
 			}
 
-			const result = extractDefinition(node, true)
+			const result = extractDefinition(node)(true)
 
 			assertEquals(result._tag, "Ok")
 			if (result._tag === "Ok") {

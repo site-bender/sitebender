@@ -31,17 +31,20 @@ export default function _validateIriAuthority(
 		})
 	}
 
-	let remainingAuthority = authority
-	let userinfo = ""
-	let host = ""
-	let port = ""
+	//++ Parse userinfo if present, return { userinfo, remaining }
+	function parseUserinfo(auth: string): Result<
+		ValidationError,
+		{ readonly userinfo: string; readonly remaining: string }
+	> {
+		//++ [EXCEPTION] .lastIndexOf(), .slice() permitted in Toolsmith for performance - provides IRI authority parsing wrapper
+		const atIndex = auth.lastIndexOf("@")
 
-	//++ [EXCEPTION] .lastIndexOf(), .slice() permitted in Toolsmith for performance - provides IRI authority parsing wrapper
-	// Extract userinfo (if present)
-	const atIndex = remainingAuthority.lastIndexOf("@")
-	if (atIndex !== -1) {
-		userinfo = remainingAuthority.slice(0, atIndex)
-		remainingAuthority = remainingAuthority.slice(atIndex + 1)
+		if (atIndex === -1) {
+			return ok({ userinfo: "", remaining: auth })
+		}
+
+		const userinfo = auth.slice(0, atIndex)
+		const remaining = auth.slice(atIndex + 1)
 
 		// Validate userinfo: Unicode allowed, but not @, [, ]
 		if (
@@ -57,52 +60,107 @@ export default function _validateIriAuthority(
 				severity: "requirement",
 			})
 		}
+
+		return ok({ userinfo, remaining })
 	}
 
-	// Extract port (if present) - must handle IPv6 brackets
-	if (remainingAuthority.includes("[")) {
-		// IPv6 address: [2001:db8::1]:8080 or [2001:db8::1]
-		const ipv6EndIndex = remainingAuthority.indexOf("]")
+	//++ Parse host and port from remaining authority
+	function parseHostAndPort(remaining: string): Result<
+		ValidationError,
+		{ readonly host: string; readonly port: string }
+	> {
+		if (remaining.includes("[")) {
+			return parseIpv6HostAndPort(remaining)
+		}
+		return parseRegularHostAndPort(remaining)
+	}
+
+	//++ Parse IPv6 host with optional port
+	function parseIpv6HostAndPort(remaining: string): Result<
+		ValidationError,
+		{ readonly host: string; readonly port: string }
+	> {
+		const ipv6EndIndex = remaining.indexOf("]")
 		if (ipv6EndIndex === -1) {
 			return error({
 				code: "IRI_AUTHORITY_IPV6_INVALID",
 				field: "iri.authority.host",
 				messages: ["The system needs closing bracket for IPv6 address."],
-				received: remainingAuthority,
+				received: remaining,
 				expected: "IPv6 address in brackets: [...]",
 				suggestion: "Add closing ] bracket for IPv6 address",
 				severity: "requirement",
 			})
 		}
 
-		host = remainingAuthority.slice(0, ipv6EndIndex + 1)
-		const afterBracket = remainingAuthority.slice(ipv6EndIndex + 1)
+		const host = remaining.slice(0, ipv6EndIndex + 1)
+		const afterBracket = remaining.slice(ipv6EndIndex + 1)
 
 		if (afterBracket.startsWith(":")) {
-			port = afterBracket.slice(1)
-		} else if (afterBracket.length > 0) {
+			const port = afterBracket.slice(1)
+			return ok({ host, port })
+		}
+
+		if (afterBracket.length > 0) {
 			return error({
 				code: "IRI_AUTHORITY_INVALID_FORMAT",
 				field: "iri.authority",
 				messages: [
 					"The system does not allow characters after IPv6 bracket.",
 				],
-				received: remainingAuthority,
+				received: remaining,
 				expected: "[IPv6]:port or [IPv6]",
 				suggestion: "Remove characters after ] or add :port",
 				severity: "requirement",
 			})
 		}
-	} else {
-		// Domain or IPv4: example.com:8080 or 192.168.1.1:8080
-		const colonIndex = remainingAuthority.lastIndexOf(":")
-		if (colonIndex !== -1) {
-			host = remainingAuthority.slice(0, colonIndex)
-			port = remainingAuthority.slice(colonIndex + 1)
-		} else {
-			host = remainingAuthority
-		}
+
+		return ok({ host, port: "" })
 	}
+
+	//++ Parse regular host (domain or IPv4) with optional port
+	function parseRegularHostAndPort(remaining: string): Result<
+		ValidationError,
+		{ readonly host: string; readonly port: string }
+	> {
+		const colonIndex = remaining.lastIndexOf(":")
+
+		if (colonIndex === -1) {
+			return ok({ host: remaining, port: "" })
+		}
+
+		const host = remaining.slice(0, colonIndex)
+		const port = remaining.slice(colonIndex + 1)
+		return ok({ host, port })
+	}
+
+	//++ Validate IPv4 octet is in range 0-255
+	function isOctetInRange(octet: string): boolean {
+		//++ [EXCEPTION] Number.parseInt() permitted in Toolsmith for performance - provides octet range validation wrapper
+		const num = Number.parseInt(octet, 10)
+		return num >= 0 && num <= 255
+	}
+
+	//++ Validate IPv4 octet has no leading zero
+	function hasNoLeadingZero(octet: string): boolean {
+		//++ [EXCEPTION] .length, .startsWith() permitted in Toolsmith for performance - provides leading zero detection wrapper
+		return !(octet.length > 1 && octet.startsWith("0"))
+	}
+
+	//++ Parse userinfo first
+	const userinfoResult = parseUserinfo(authority)
+	if (userinfoResult._tag === "Error") {
+		return userinfoResult
+	}
+
+	//++ Parse host and port from remaining
+	const hostPortResult = parseHostAndPort(userinfoResult.value.remaining)
+	if (hostPortResult._tag === "Error") {
+		return hostPortResult
+	}
+
+	const host = hostPortResult.value.host
+	const port = hostPortResult.value.port
 
 	// Validate host
 	if (host.length === 0) {
@@ -151,10 +209,8 @@ export default function _validateIriAuthority(
 		//++ [EXCEPTION] .split() permitted in Toolsmith for performance - provides IPv4 octet extraction wrapper
 		// IPv4: basic syntax validation
 		const octets = host.split(".")
-		const rangeResult = all((octet: string) => {
-			const num = Number.parseInt(octet, 10)
-			return num >= 0 && num <= 255
-		})(octets)
+
+		const rangeResult = all<ValidationError, string>(isOctetInRange)(octets)
 		if (rangeResult._tag === "Error") {
 			return rangeResult
 		}
@@ -172,9 +228,9 @@ export default function _validateIriAuthority(
 				severity: "requirement",
 			})
 		}
-		const leadingZeroResult = all((octet: string) =>
-			!(octet.length > 1 && octet.startsWith("0"))
-		)(octets)
+		const leadingZeroResult = all<ValidationError, string>(hasNoLeadingZero)(
+			octets,
+		)
 		if (leadingZeroResult._tag === "Error") {
 			return leadingZeroResult
 		}

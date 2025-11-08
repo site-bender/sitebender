@@ -1,3 +1,4 @@
+import getOrElse from "../../../../monads/result/getOrElse/index.ts"
 import join from "../../../../array/join/index.ts"
 import bigIntToBase58 from "../bigIntToBase58/index.ts"
 import bytesToBigInt from "../bytesToBigInt/index.ts"
@@ -8,6 +9,7 @@ export default function encodeToBase58(bytes: Uint8Array): string {
 	const bigIntValue = bytesToBigInt(bytes)
 	const base58Chars = bigIntToBase58(bigIntValue)
 	const withLeading = prependLeadingOnes(bytes)(base58Chars)
+	const joinResult = join("")(withLeading)
 
-	return join("")(withLeading) as string
+	return getOrElse("")(joinResult)
 }
