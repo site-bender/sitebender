@@ -134,6 +134,20 @@ export default function _getAllowedAriaAttributes(tagName: string) {
 		}
 
 		/*++
+		 + Special case: none/presentation roles
+		 + Per W3C ARIA spec, these roles prohibit ALL ARIA attributes except aria-hidden
+		 + prohibitedAttrs: [] means "prohibit everything except aria-hidden"
+		 */
+		const hasProhibitedAttrs = isDefined(roleDefinition.prohibitedAttrs)
+
+		if (hasProhibitedAttrs) {
+			/*++
+			 + For none/presentation: only aria-hidden is allowed
+			 */
+			return ["aria-hidden"]
+		}
+
+		/*++
 		 + Merge role-specific and global attributes
 		 */
 		const roleAttrs = isDefined(roleDefinition.allowedAttrs)

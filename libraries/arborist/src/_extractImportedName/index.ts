@@ -2,10 +2,12 @@ import type { Result } from "@sitebender/toolsmith/types/result/index.ts"
 import type { ImportExtractionError } from "../types/errors/index.ts"
 
 import extractLocalName from "../_extractLocalName/index.ts"
-import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import createError from "@sitebender/artificer/errors/createError/index.ts"
+import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
+import and from "@sitebender/toolsmith/logic/and/index.ts"
+import not from "@sitebender/toolsmith/logic/not/index.ts"
 
 //++ Extract the imported name from an import specifier with validation
 //++ Returns Result with error if specifier structure is invalid
@@ -28,8 +30,11 @@ export default function extractImportedName(
 	if (imported !== undefined && imported.type === "Identifier") {
 		const importedValue = imported.value
 
-		if (typeof importedValue === "string" && importedValue.length > 0) {
-			return ok(importedValue)
+		const isString = isEqual(typeof importedValue)("string")
+		const isNonEmpty = not(isEqual(importedValue)(""))
+
+		if (and(isString)(isNonEmpty)) {
+			return ok(importedValue as string)
 		}
 	}
 
