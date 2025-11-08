@@ -11,9 +11,10 @@ Deno.test(
 			function generatesIdWhenEmpty() {
 				const result = _validateGlobalAttributes({})
 
-				assert("id" in result)
-				assert(typeof result.id === "string")
-				assert(result.id.startsWith("_"))
+				assert("id" in result.globalAttrs)
+				assert(typeof result.globalAttrs.id === "string")
+				assert(result.globalAttrs.id.startsWith("_"))
+				assertEquals(result.otherAttrs, {})
 			},
 		)
 
@@ -22,7 +23,8 @@ Deno.test(
 			function validatesSingleAttribute() {
 				const result = _validateGlobalAttributes({ id: "test-id" })
 
-				assertEquals(result, { id: "test-id" })
+				assertEquals(result.globalAttrs, { id: "test-id" })
+				assertEquals(result.otherAttrs, {})
 			},
 		)
 
@@ -36,12 +38,13 @@ Deno.test(
 					title: "Test title",
 				})
 
-				assertEquals(result, {
+				assertEquals(result.globalAttrs, {
 					id: "test-id",
 					lang: "en",
 					dir: "ltr",
 					title: "Test title",
 				})
+				assertEquals(result.otherAttrs, {})
 			},
 		)
 
@@ -53,9 +56,10 @@ Deno.test(
 					translate: false,
 				})
 
-				assert("id" in result)
-				assertEquals(result.spellcheck, "true")
-				assertEquals(result.translate, "no")
+				assert("id" in result.globalAttrs)
+				assertEquals(result.globalAttrs.spellcheck, "true")
+				assertEquals(result.globalAttrs.translate, "no")
+				assertEquals(result.otherAttrs, {})
 			},
 		)
 
@@ -68,11 +72,12 @@ Deno.test(
 					lang: "en",
 				})
 
-				assertEquals(result, {
+				assertEquals(result.globalAttrs, {
 					id: "valid-id",
 					"data-§-bad-dir": "invalid-direction",
 					lang: "en",
 				})
+				assertEquals(result.otherAttrs, {})
 			},
 		)
 
@@ -85,10 +90,10 @@ Deno.test(
 					anotherProp: 123,
 				})
 
-				assertEquals(result, {
-					id: "test-id",
-					"data-customAttribute": "custom-value",
-					"data-anotherProp": "123",
+				assertEquals(result.globalAttrs, { id: "test-id" })
+				assertEquals(result.otherAttrs, {
+					customAttribute: "custom-value",
+					anotherProp: 123,
 				})
 			},
 		)

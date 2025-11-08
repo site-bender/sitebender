@@ -7,6 +7,26 @@ import createError from "@sitebender/artificer/errors/createError/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import _serializeTypeAnnotation from "../../_serializeTypeAnnotation/index.ts"
 
+//++ Reducer function for serializing type parameters
+//++ Used with reduce to serialize array of type arguments
+//++ Propagates errors in fail-fast manner
+function reduceTypeParams(
+	accResult: Result<TypeExtractionError, ReadonlyArray<string>>,
+	param: unknown,
+): Result<TypeExtractionError, ReadonlyArray<string>> {
+	if (accResult._tag === "Error") {
+		return accResult
+	}
+
+	const paramResult = _serializeTypeAnnotation(param)
+
+	if (paramResult._tag === "Error") {
+		return paramResult
+	}
+
+	return ok([...accResult.value, paramResult.value])
+}
+
 //++ Serialize a single extends clause
 //++ Handles type reference with optional type arguments
 //++ Returns Result with serialized extends clause or error for missing name
@@ -58,24 +78,6 @@ export default function _serializeExtend(
 
 	if (typeArgs) {
 		const params = typeArgs.params as ReadonlyArray<unknown>
-
-		// Reducer function for serializing type parameters
-		function reduceTypeParams(
-			accResult: Result<TypeExtractionError, ReadonlyArray<string>>,
-			param: unknown,
-		): Result<TypeExtractionError, ReadonlyArray<string>> {
-			if (accResult._tag === "Error") {
-				return accResult
-			}
-
-			const paramResult = _serializeTypeAnnotation(param)
-
-			if (paramResult._tag === "Error") {
-				return paramResult
-			}
-
-			return ok([...accResult.value, paramResult.value])
-		}
 
 		const serializedParamsResult = reduce(reduceTypeParams)(ok([]))(params)
 

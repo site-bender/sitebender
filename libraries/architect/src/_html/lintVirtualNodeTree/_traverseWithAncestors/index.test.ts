@@ -17,15 +17,16 @@ Deno.test("_traverseWithAncestors", async function traverseWithAncestorsTests(
 				children: [],
 			}
 
-			function validator(
-				_node: VirtualNode,
-				_ancestors: AncestorContext,
-			): ReadonlyArray<ValidationError> {
-				return [{
-					node,
-					errorType: "invalid-role-structure",
-					message: "Test error",
-				}]
+			function validator(_node: VirtualNode) {
+				return function validatorWithNode(
+					_ancestors: AncestorContext,
+				): ReadonlyArray<ValidationError> {
+					return [{
+						node,
+						errorType: "invalid-role-structure",
+						message: "Test error",
+					}]
+				}
 			}
 
 			const errors = _traverseWithAncestors(validator)([])(node)
@@ -54,29 +55,30 @@ Deno.test("_traverseWithAncestors", async function traverseWithAncestorsTests(
 
 			const ancestorTags: Array<string> = []
 
-			function validator(
-				node: VirtualNode,
-				ancestors: AncestorContext,
-			): ReadonlyArray<ValidationError> {
-				if (node._tag === "element") {
-					/*++
-					 + Record ancestor tags for verification
-					 */
-					const tags = ancestors
-						.filter(function filterElements(a) {
-							return a._tag === "element"
-						})
-						.map(function extractTagName(a) {
-							if (a._tag === "element") {
-								return a.tagName
-							}
-							return ""
-						})
+			function validator(node: VirtualNode) {
+				return function validatorWithNode(
+					ancestors: AncestorContext,
+				): ReadonlyArray<ValidationError> {
+					if (node._tag === "element") {
+						/*++
+						 + Record ancestor tags for verification
+						 */
+						const tags = ancestors
+							.filter(function filterElements(a) {
+								return a._tag === "element"
+							})
+							.map(function extractTagName(a) {
+								if (a._tag === "element") {
+									return a.tagName
+								}
+								return ""
+							})
 
-					ancestorTags.push(...tags)
+						ancestorTags.push(...tags)
+					}
+
+					return []
 				}
-
-				return []
 			}
 
 			_traverseWithAncestors(validator)([])(parent)
@@ -114,20 +116,21 @@ Deno.test("_traverseWithAncestors", async function traverseWithAncestorsTests(
 				children: [child],
 			}
 
-			function validator(
-				node: VirtualNode,
-				_ancestors: AncestorContext,
-			): ReadonlyArray<ValidationError> {
-				/*++
-				 + Generate one error per node
-				 */
-				return [{
-					node,
-					errorType: "invalid-role-structure",
-					message: `Error from ${
-						node._tag === "element" ? node.tagName : "text"
-					}`,
-				}]
+			function validator(node: VirtualNode) {
+				return function validatorWithNode(
+					_ancestors: AncestorContext,
+				): ReadonlyArray<ValidationError> {
+					/*++
+					 + Generate one error per node
+					 */
+					return [{
+						node,
+						errorType: "invalid-role-structure",
+						message: `Error from ${
+							node._tag === "element" ? node.tagName : "text"
+						}`,
+					}]
+				}
 			}
 
 			const errors = _traverseWithAncestors(validator)([])(root)
@@ -157,15 +160,16 @@ Deno.test("_traverseWithAncestors", async function traverseWithAncestorsTests(
 				children: [textNode],
 			}
 
-			function validator(
-				node: VirtualNode,
-				_ancestors: AncestorContext,
-			): ReadonlyArray<ValidationError> {
-				return [{
-					node,
-					errorType: "invalid-role-structure",
-					message: node._tag === "text" ? "text" : "element",
-				}]
+			function validator(node: VirtualNode) {
+				return function validatorWithNode(
+					_ancestors: AncestorContext,
+				): ReadonlyArray<ValidationError> {
+					return [{
+						node,
+						errorType: "invalid-role-structure",
+						message: node._tag === "text" ? "text" : "element",
+					}]
+				}
 			}
 
 			const errors = _traverseWithAncestors(validator)([])(parent)
@@ -205,27 +209,28 @@ Deno.test("_traverseWithAncestors", async function traverseWithAncestorsTests(
 
 			let grandchildAncestors: ReadonlyArray<string> = []
 
-			function validator(
-				node: VirtualNode,
-				ancestors: AncestorContext,
-			): ReadonlyArray<ValidationError> {
-				if (node._tag === "element" && node.tagName === "SPAN") {
-					/*++
-					 + Record ancestor tag names for grandchild
-					 */
-					grandchildAncestors = ancestors
-						.filter(function filterElements(a) {
-							return a._tag === "element"
-						})
-						.map(function extractTagName(a) {
-							if (a._tag === "element") {
-								return a.tagName
-							}
-							return ""
-						})
-				}
+			function validator(node: VirtualNode) {
+				return function validatorWithNode(
+					ancestors: AncestorContext,
+				): ReadonlyArray<ValidationError> {
+					if (node._tag === "element" && node.tagName === "SPAN") {
+						/*++
+						 + Record ancestor tag names for grandchild
+						 */
+						grandchildAncestors = ancestors
+							.filter(function filterElements(a) {
+								return a._tag === "element"
+							})
+							.map(function extractTagName(a) {
+								if (a._tag === "element") {
+									return a.tagName
+								}
+								return ""
+							})
+					}
 
-				return []
+					return []
+				}
 			}
 
 			_traverseWithAncestors(validator)([])(root)
