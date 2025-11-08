@@ -1,7 +1,4 @@
-import type {
-	Validation,
-	ValidationError,
-} from "../../../types/fp/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 
 import failure from "../../../monads/validation/failure/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -9,12 +6,12 @@ import isArray from "../../../predicates/isArray/index.ts"
 import isFunction from "../../../predicates/isFunction/index.ts"
 
 //++ Private helper that maps over an array and returns a Validation
-export default function _mapToValidation<T, U>(
+export default function _mapToValidation<E, T, U>(
 	f: (arg: T, index?: number) => U,
 ) {
 	return function _mapToValidationWithFunction(
 		array: ReadonlyArray<T>,
-	): Validation<ValidationError, ReadonlyArray<U>> {
+	): Validation<E, ReadonlyArray<U>> {
 		if (isFunction(f)) {
 			// Happy path: function and array are valid, map it
 			if (isArray(array)) {
@@ -22,7 +19,7 @@ export default function _mapToValidation<T, U>(
 				return success(array.map(f))
 			}
 
-			// Fallback: return ValidationError wrapped in failure
+			// Fallback: return error wrapped in failure
 			return failure([{
 				code: "INVALID_ARRAY",
 				field: "array",
@@ -31,10 +28,10 @@ export default function _mapToValidation<T, U>(
 				expected: "Array",
 				suggestion: "Provide a valid array to map over",
 				severity: "requirement" as const,
-			}])
+			} as E])
 		}
 
-		// Fallback: return ValidationError wrapped in failure
+		// Fallback: return error wrapped in failure
 		return failure([{
 			code: "INVALID_FUNCTION",
 			field: "function",
@@ -43,6 +40,6 @@ export default function _mapToValidation<T, U>(
 			expected: "Function",
 			suggestion: "Provide a valid function to map with",
 			severity: "requirement" as const,
-		}])
+		} as E])
 	}
 }

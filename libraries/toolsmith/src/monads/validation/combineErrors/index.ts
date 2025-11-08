@@ -1,16 +1,15 @@
 import type NonEmptyArray from "../../../types/NonEmptyArray/index.ts"
-import type ValidationError from "../../../types/fp/validation/index.ts"
 
 import reduce from "../../../array/reduce/index.ts"
 import groupByField from "./groupByField/index.ts"
 
 //++ Combines validation errors using semigroup principles, grouping messages by field
-export default function combineErrors(
-	errors1: NonEmptyArray<ValidationError>,
+export default function combineErrors<E>(
+	errors1: NonEmptyArray<E>,
 ) {
 	return function withSecondErrors(
-		errors2: NonEmptyArray<ValidationError>,
-	): NonEmptyArray<ValidationError> {
+		errors2: NonEmptyArray<E>,
+	): NonEmptyArray<E> {
 		//++ [EXCEPTION] Array destructuring and spread operator permitted in Toolsmith for performance - provides validation error combining
 		// We know both inputs are non-empty, so result will be non-empty
 		const [first1, ...rest1] = errors1
@@ -29,18 +28,18 @@ export default function combineErrors(
 		//++ [EXCEPTION] Array destructuring permitted in Toolsmith for performance - provides NonEmptyArray construction
 		// We know we have at least one field since we started with non-empty inputs
 		const [firstField, ...restFields] = fields
-		const firstError: ValidationError = {
+		const firstError: E = {
 			field: firstField,
 			messages: fieldMap[firstField],
-		}
+		} as E
 
 		//++ [EXCEPTION] .map() method permitted in Toolsmith for performance - provides error transformation
 		const restErrors = restFields.map(
-			function buildError(field: string): ValidationError {
+			function buildError(field: string): E {
 				return {
 					field,
 					messages: fieldMap[field],
-				}
+				} as E
 			},
 		)
 

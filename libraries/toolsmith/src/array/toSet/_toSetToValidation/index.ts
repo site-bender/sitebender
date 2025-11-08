@@ -1,13 +1,10 @@
-import type {
-	Validation,
-	ValidationError,
-} from "../../../types/fp/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import _toSetArray from "../_toSetArray/index.ts"
 
 //++ [PRIVATE] Converts array to Set, returning Validation monad
-export default function _toSetToValidation<T>(
+export default function _toSetToValidation<E, T>(
 	array: ReadonlyArray<T>,
-): Validation<ValidationError, Set<T>> {
-	return success(toSetArray<T>(array))
+): Validation<E, Set<T>> {
+	return success(_toSetArray<T>(array))
 }
