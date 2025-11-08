@@ -137,7 +137,7 @@ function _compactArray<T>(array: Array<T>): Array<T> {
 
 ```
 error TS2769: No overload matches this call.
-  Argument of type 'Result<ValidationError, T[]>' is not assignable to type 'T[]'
+  Argument of type 'Result<<E>, T[]>' is not assignable to type 'T[]'
 ```
 
 ### What This Means
