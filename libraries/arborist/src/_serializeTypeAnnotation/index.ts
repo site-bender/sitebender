@@ -13,6 +13,7 @@ import type { TypeExtractionError } from "../types/errors/index.ts"
 
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
+import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import createError from "@sitebender/artificer/errors/createError/index.ts"
@@ -278,7 +279,8 @@ export default function _serializeTypeAnnotation(
 				return membersResult
 			}
 
-			const filtered = membersResult.value.filter(_filterNonEmpty)
+			const filteredResult = filter(_filterNonEmpty)(membersResult.value)
+			const filtered = filteredResult
 
 			return ok(`{ ${filtered.join("; ")} }`)
 		},

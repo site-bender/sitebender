@@ -117,5 +117,24 @@ Deno.test(
 				assertEquals(includes(result)("aria-label"), true)
 			},
 		)
+
+		await t.step(
+			"prohibits all ARIA attributes except aria-hidden for none/presentation roles",
+			function prohibitsAllExceptHidden() {
+				const noneResult = _getAllowedAriaAttributes("div")("none")
+				const presentationResult = _getAllowedAriaAttributes("div")(
+					"presentation",
+				)
+
+				// Both none and presentation should only allow aria-hidden
+				assertEquals(noneResult, ["aria-hidden"])
+				assertEquals(presentationResult, ["aria-hidden"])
+
+				// Should NOT include global attributes
+				assertEquals(includes(noneResult)("aria-label"), false)
+				assertEquals(includes(noneResult)("aria-describedby"), false)
+				assertEquals(includes(presentationResult)("aria-label"), false)
+			},
+		)
 	},
 )
