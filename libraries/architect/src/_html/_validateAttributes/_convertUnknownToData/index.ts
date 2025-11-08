@@ -1,7 +1,7 @@
 import entries from "@sitebender/toolsmith/object/entries/index.ts"
 import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
-import _toKebabCase from "./_toKebabCase/index.ts"
+import toKebab from "@sitebender/toolsmith/string/toCase/toKebab/index.ts"
 
 /*++
  + Converts unknown attributes to data-* attributes
@@ -16,7 +16,7 @@ export default function _convertUnknownToData(
 		entry: readonly [string, unknown],
 	): Readonly<Record<string, string>> {
 		const [key, value] = entry
-		const kebabKey = _toKebabCase(key)
+		const kebabKey = toKebab(key)
 		const dataKey = `data-${kebabKey}`
 
 		return {

@@ -1,5 +1,4 @@
 import type { Result } from "../../../types/fp/result/index.ts"
-import type { ValidationError } from "../../../types/fp/validation/index.ts"
 
 import error from "../../../monads/result/error/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
@@ -7,12 +6,12 @@ import isArray from "../../../predicates/isArray/index.ts"
 import isFunction from "../../../predicates/isFunction/index.ts"
 
 //++ Private helper that flatMaps over an array and returns a Result
-export default function _flatMapToResult<T, U>(
+export default function _flatMapToResult<E, T, U>(
 	f: (arg: T, index?: number) => ReadonlyArray<U>,
 ) {
 	return function _flatMapToResultWithFunction(
 		array: ReadonlyArray<T>,
-	): Result<ValidationError, ReadonlyArray<U>> {
+	): Result<E, ReadonlyArray<U>> {
 		if (isFunction(f)) {
 			// Happy path: function and array are valid, flatMap it
 			if (isArray(array)) {
@@ -29,7 +28,7 @@ export default function _flatMapToResult<T, U>(
 				expected: "Array",
 				suggestion: "Provide a valid array to flatMap over",
 				severity: "requirement" as const,
-			})
+			} as E)
 		}
 
 		// Fallback: return ValidationError wrapped in error
@@ -41,6 +40,6 @@ export default function _flatMapToResult<T, U>(
 			expected: "Function",
 			suggestion: "Provide a valid function to flatMap with",
 			severity: "requirement" as const,
-		})
+		} as E)
 	}
 }

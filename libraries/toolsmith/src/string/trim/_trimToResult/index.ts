@@ -1,14 +1,13 @@
 import type { Result } from "../../../types/fp/result/index.ts"
-import type { ValidationError } from "../../../types/fp/validation/index.ts"
 
 import error from "../../../monads/result/error/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 import isString from "../../../predicates/isString/index.ts"
 
 //++ Private helper that trims whitespace from string and returns a Result
-export default function _trimToResult(
+export default function _trimToResult<E>(
 	input: string,
-): Result<ValidationError, string> {
+): Result<E, string> {
 	// Happy path: input is valid string, trim it
 	if (isString(input)) {
 		/*++
@@ -28,5 +27,5 @@ export default function _trimToResult(
 		expected: "String",
 		suggestion: "Provide a valid string to trim",
 		severity: "requirement" as const,
-	})
+	} as E)
 }
