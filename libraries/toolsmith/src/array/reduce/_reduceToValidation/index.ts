@@ -1,7 +1,4 @@
-import type {
-	Validation,
-	ValidationError,
-} from "../../../types/fp/validation/index.ts"
+import type { Validation } from "../../../types/fp/validation/index.ts"
 
 import failure from "../../../monads/validation/failure/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -9,13 +6,13 @@ import isArray from "../../../predicates/isArray/index.ts"
 import isFunction from "../../../predicates/isFunction/index.ts"
 
 //++ Private helper that reduces an array and returns a Validation
-export default function _reduceToValidation<T, U>(
+export default function _reduceToValidation<E, T, U>(
 	fn: (accumulator: U, item: T) => U,
 ) {
 	return function _reduceToValidationWithFunction(initial: U) {
 		return function _reduceToValidationWithFunctionAndInitial(
 			array: ReadonlyArray<T>,
-		): Validation<ValidationError, U> {
+		): Validation<E, U> {
 			if (isFunction(fn)) {
 				// Happy path: function and array are valid, reduce it
 				if (isArray<T>(array)) {
@@ -38,7 +35,7 @@ export default function _reduceToValidation<T, U>(
 						expected: "Array",
 						suggestion: "Provide a valid array to reduce over",
 						severity: "requirement" as const,
-					},
+					} as E,
 				])
 			}
 
@@ -52,7 +49,7 @@ export default function _reduceToValidation<T, U>(
 					expected: "Function",
 					suggestion: "Provide a valid function to reduce with",
 					severity: "requirement" as const,
-				},
+				} as E,
 			])
 		}
 	}

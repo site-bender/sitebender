@@ -7,6 +7,7 @@ import extractLocalName from "../_extractLocalName/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import length from "@sitebender/toolsmith/array/length/index.ts"
 import and from "@sitebender/toolsmith/logic/and/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import createError from "@sitebender/artificer/errors/createError/index.ts"
@@ -81,8 +82,9 @@ export default function extractKindAndBindings(
 
 		// Namespace import: import * as foo from "./foo.ts"
 		if (
-			isEqual(firstType)("ImportStarAsSpecifier") ||
-			isEqual(firstType)("ImportNamespaceSpecifier")
+			or(isEqual(firstType)("ImportStarAsSpecifier"))(
+				isEqual(firstType)("ImportNamespaceSpecifier"),
+			)
 		) {
 			const localResult = extractLocalName(firstSpec)
 

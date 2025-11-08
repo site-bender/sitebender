@@ -5,6 +5,7 @@ import type { SpanExtractionError } from "../types/errors/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import createError from "@sitebender/artificer/errors/createError/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 //++ Extract span from AST node with validation
 //++ Returns Result with error if node lacks span or span has invalid values
@@ -41,7 +42,8 @@ export default function _extractSpan(
 	const span = node.span
 
 	// Validate start and end are non-negative
-	if (span.start < 0 || span.end < 0) {
+	// [EXCEPTION] Using < operator because Toolsmith does not have lt() predicate yet
+	if (or(span.start < 0)(span.end < 0)) {
 		const baseError = createError("_extractSpan")([])(
 			`Span has negative values: start=${span.start}, end=${span.end} for node type '${nodeType}'`,
 		)("INVALID_ARGUMENT")
@@ -56,6 +58,7 @@ export default function _extractSpan(
 	}
 
 	// Validate end >= start
+	// [EXCEPTION] Using < operator because Toolsmith does not have lt() predicate yet
 	if (span.end < span.start) {
 		const baseError = createError("_extractSpan")([])(
 			`Span has invalid range: end (${span.end}) < start (${span.start}) for node type '${nodeType}'`,

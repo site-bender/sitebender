@@ -22,13 +22,13 @@ export default function add(
 
   // Overload 2: Result monad input → Result monad output
   function addToAugend(
-    addend: Result<ValidationError, number>,
-  ): Result<ValidationError, number>
+    addend: Result<<E>, number>,
+  ): Result<<E>, number>
 
   // Overload 3: Validation monad input → Validation monad output
   function addToAugend(
-    addend: Validation<ValidationError, number>,
-  ): Validation<ValidationError, number>
+    addend: Validation<<E>, number>,
+  ): Validation<<E>, number>
 
   // Implementation (handles all paths)
   function addToAugend(addend: unknown) {
@@ -119,8 +119,8 @@ function reduceWithFunction(initial: unknown) {
 function _addToValidation(augend: unknown) {
   return function _addToValidationWithAugend(
     addend: unknown,
-  ): Validation<ValidationError, number> {
-    const errors: Array<ValidationError> = []
+  ): Validation<<E>, number> {
+    const errors: ArrayE = []
     let augendValue: unknown = augend
     let addendValue: unknown = addend
 
@@ -197,7 +197,7 @@ function _addToValidation(augend: unknown) {
 function _addToResult(augend: unknown) {
   return function _addToResultWithAugend(
     addend: unknown,
-  ): Result<ValidationError, number> {
+  ): Result<<E>, number> {
     let augendValue: unknown = augend
 
     //++ Step 1: Check augend FIRST (fail-fast)
@@ -384,7 +384,7 @@ function _reverseArray<T>(array: ReadonlyArray<T>): ReadonlyArray<T> {
 }
 
 // Result mode: Just wraps in ok()
-function _reverseToResult<T>(array: unknown): Result<ValidationError, ReadonlyArray<T>> {
+function _reverseToResult<T>(array: unknown): Result<<E>, ReadonlyArray<T>> {
   if (isResult(array)) {
     if (isError(array)) return array  // Pass through
     array = array.value
@@ -405,8 +405,8 @@ For functions like `chunk(size)(array)` with validation rules:
 ```typescript
 // Validation mode: Check size AND array
 function _chunkToValidation(size: unknown) {
-  return function(array: unknown): Validation<ValidationError, ...> {
-    const errors: Array<ValidationError> = []
+  return function(array: unknown): Validation<<E>, ...> {
+    const errors: ArrayE = []
 
     // Validate size
     if (!isPositiveInteger(size)) {
@@ -437,8 +437,8 @@ For higher-order functions like `map(fn)(array)`:
 ```typescript
 // Validation mode: Check fn AND array
 function _mapToValidation<T, U>(fn: unknown) {
-  return function(array: unknown): Validation<ValidationError, Array<U>> {
-    const errors: Array<ValidationError> = []
+  return function(array: unknown): Validation<<E>, Array<U>> {
+    const errors: ArrayE = []
 
     // Validate fn
     if (!isFunction(fn)) {
