@@ -79,7 +79,7 @@ Actual count: **23 TS2769 errors total**
 3. `replaceLastMatch/index.ts:20` - calls `replaceAt()` expecting plain array
 
 **Root Cause:**
-These are legacy plain-array functions calling three-path monadic helpers (`filter`, `replaceAt`) which return `Result<ValidationError, T>`, not plain `T[]`.
+These are legacy plain-array functions calling three-path monadic helpers (`filter`, `replaceAt`) which return `Result<<E>, T>`, not plain `T[]`.
 
 **Problem:**
 ```typescript
@@ -89,7 +89,7 @@ export default function compact<T>(
 ): Array<T> {  // ← Returns plain Array<T>
   return filter(function isItemDefined(item: T | null | undefined): item is T {
     return item !== undefined && item !== null
-  })(array)  // ← filter returns Result<ValidationError, T[]>, not T[]
+  })(array)  // ← filter returns Result<<E>, T[]>, not T[]
 }
 ```
 
@@ -165,9 +165,9 @@ The `_cartesianProductArray` helper may not have proper type parameters, OR the 
 - Others
 
 **Problem:**
-Tests use custom error types like `Error<{ _tag: "TestError"; message: string }>` instead of `ValidationError`.
+Tests use custom error types like `Error<{ _tag: "TestError"; message: string }>` instead of `<E>`.
 
-**Fix:** Defer to test cleanup batch (update test data to use proper ValidationError types)
+**Fix:** Defer to test cleanup batch (update test data to use proper <E> types)
 
 ---
 
