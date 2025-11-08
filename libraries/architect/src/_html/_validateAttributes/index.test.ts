@@ -33,6 +33,7 @@ Deno.test("_validateAttributes", async function validateAttributesTests(t) {
 		"validates ARIA attributes",
 		function validatesAriaAttributes() {
 			const result = _validateAttributes("div")({
+				role: "button",
 				aria: { label: "Main", hidden: "true" },
 			})
 
@@ -55,7 +56,7 @@ Deno.test("_validateAttributes", async function validateAttributesTests(t) {
 	await t.step(
 		"marks invalid role as bad",
 		function marksInvalidRoleAsBad() {
-			const result = _validateAttributes("div")({
+			const result = _validateAttributes("button")({
 				role: "invalid",
 			})
 

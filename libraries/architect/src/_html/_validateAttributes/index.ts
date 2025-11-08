@@ -14,9 +14,9 @@ export default function _validateAttributes(tagName: string) {
 	return function _validateAttributesForTagName(
 		props: Readonly<Record<string, unknown>>,
 	): Readonly<Record<string, string>> {
-		const { aria = {}, role, children, ...rest } = props
+		const { aria = {}, role, children: _children, ...rest } = props
 
-		const ariaAttrs = _validateAriaAttributes(
+		const ariaAttrs = _validateAriaAttributes(tagName)(role)(
 			aria as Readonly<Record<string, unknown>>,
 		)
 
