@@ -55,7 +55,7 @@ export default function _extractTypeDetails(node: TypeDeclarationNode) {
 
 		// Extract definition by serializing the type AST node
 		// This avoids span-based extraction issues
-		const definitionResult = _extractDefinition(actualTypeNode, isExported)
+		const definitionResult = _extractDefinition(actualTypeNode)(isExported)
 
 		if (definitionResult._tag === "Error") {
 			return definitionResult

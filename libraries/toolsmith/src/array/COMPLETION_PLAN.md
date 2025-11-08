@@ -82,7 +82,7 @@ Complete the migration of ALL array functions in `/src/array/` to comply with:
 
 1. **139 Type Errors** (code doesn't type check)
    - ~100 errors: Generic type inference failures (helpers return `unknown`)
-   - ~30 errors: ValidationError type mismatches in tests
+   - ~30 errors: <E> type mismatches in tests
    - ~9 errors: Readonly violations (mutation bugs)
 
 2. **3+ Mutation Violations** (constitutional violations)
@@ -101,7 +101,7 @@ Complete the migration of ALL array functions in `/src/array/` to comply with:
 **Category: Inconsistent APIs**
 - `filter` - Returns ONLY Result (should have plain array + Validation paths too)
 - `find` - Returns ONLY Result (incomplete)
-- `all` - Returns ONLY Result<ValidationError, boolean> (should have plain boolean + Validation)
+- `all` - Returns ONLY Result<<E>, boolean> (should have plain boolean + Validation)
 - `some` - Returns ONLY plain boolean (no Result/Validation support)
 - `none` - Returns ONLY plain boolean (no Result/Validation support)
 - `join` - Returns ONLY Result (should have plain string + Validation)
@@ -230,7 +230,7 @@ return error({
   _tag: "EmptyArray",
   code: "EMPTY_ARRAY",
   message: "Cannot get head of empty array",
-  // ... ValidationError fields
+  // ... <E> fields
 })
 ```
 
@@ -482,24 +482,24 @@ export default function functionName<T, U>(parameter: ParamType) {
 
   // [OVERLOAD 2] Result monad path - fail-fast
   function functionNameWithParameter(
-    array: Result<ValidationError, ReadonlyArray<T>>
-  ): Result<ValidationError, ReturnType>
+    array: Result<<E>, ReadonlyArray<T>>
+  ): Result<<E>, ReturnType>
 
   // [OVERLOAD 3] Validation monad path - accumulate errors
   function functionNameWithParameter(
-    array: Validation<ValidationError, ReadonlyArray<T>>
-  ): Validation<ValidationError, ReturnType>
+    array: Validation<<E>, ReadonlyArray<T>>
+  ): Validation<<E>, ReturnType>
 
   // Implementation with type dispatch
   function functionNameWithParameter(
     array:
       | ReadonlyArray<T>
-      | Result<ValidationError, ReadonlyArray<T>>
-      | Validation<ValidationError, ReadonlyArray<T>>
+      | Result<<E>, ReadonlyArray<T>>
+      | Validation<<E>, ReadonlyArray<T>>
   ):
     | ReturnType
-    | Result<ValidationError, ReturnType>
-    | Validation<ValidationError, ReturnType>
+    | Result<<E>, ReturnType>
+    | Validation<<E>, ReturnType>
   {
     // Path 1: Plain array (most common, zero overhead)
     if (isArray<T>(array)) {
@@ -568,13 +568,13 @@ Wraps the plain array helper for Result monad path:
 ```typescript
 import { ok } from "../../../types/fp/Result/index.ts"
 import type { Result } from "../../../types/fp/Result/index.ts"
-import type { ValidationError } from "../../../types/fp/ValidationError/index.ts"
+import type { <E> } from "../../../types/fp/<E>/index.ts"
 import _mapArray from "../_mapArray/index.ts"
 
 export default function _mapToResult<T, U>(fn: (value: T) => U) {
   return function _mapToResultWithFunction(
     value: ReadonlyArray<T>
-  ): Result<ValidationError, ReadonlyArray<U>> {
+  ): Result<<E>, ReadonlyArray<U>> {
     return ok(_mapArray(fn)(value))
   }
 }
@@ -594,13 +594,13 @@ Same as Result but for Validation monad path:
 ```typescript
 import { success } from "../../../types/fp/Validation/index.ts"
 import type { Validation } from "../../../types/fp/Validation/index.ts"
-import type { ValidationError } from "../../../types/fp/ValidationError/index.ts"
+import type { <E> } from "../../../types/fp/<E>/index.ts"
 import _mapArray from "../_mapArray/index.ts"
 
 export default function _mapToValidation<T, U>(fn: (value: T) => U) {
   return function _mapToValidationWithFunction(
     value: ReadonlyArray<T>
-  ): Validation<ValidationError, ReadonlyArray<U>> {
+  ): Validation<<E>, ReadonlyArray<U>> {
     return success(_mapArray(fn)(value))
   }
 }
@@ -699,7 +699,7 @@ import _mapToValidation from "./_mapToValidation/index.ts"
 
 import type { Result } from "../../types/fp/Result/index.ts"
 import type { Validation } from "../../types/fp/Validation/index.ts"
-import type { ValidationError } from "../../types/fp/ValidationError/index.ts"
+import type { <E> } from "../../types/fp/<E>/index.ts"
 
 export default function map<T, U>(f: (arg: T, index?: number) => U) {
   // Overload 1: Plain array
@@ -707,24 +707,24 @@ export default function map<T, U>(f: (arg: T, index?: number) => U) {
 
   // Overload 2: Result
   function mapWithFunction(
-    array: Result<ValidationError, ReadonlyArray<T>>
-  ): Result<ValidationError, ReadonlyArray<U>>
+    array: Result<<E>, ReadonlyArray<T>>
+  ): Result<<E>, ReadonlyArray<U>>
 
   // Overload 3: Validation
   function mapWithFunction(
-    array: Validation<ValidationError, ReadonlyArray<T>>
-  ): Validation<ValidationError, ReadonlyArray<U>>
+    array: Validation<<E>, ReadonlyArray<T>>
+  ): Validation<<E>, ReadonlyArray<U>>
 
   // Implementation
   function mapWithFunction(
     array:
       | ReadonlyArray<T>
-      | Result<ValidationError, ReadonlyArray<T>>
-      | Validation<ValidationError, ReadonlyArray<T>>
+      | Result<<E>, ReadonlyArray<T>>
+      | Validation<<E>, ReadonlyArray<T>>
   ):
     | ReadonlyArray<U>
-    | Result<ValidationError, ReadonlyArray<U>>
-    | Validation<ValidationError, ReadonlyArray<U>>
+    | Result<<E>, ReadonlyArray<U>>
+    | Validation<<E>, ReadonlyArray<U>>
   {
     // Path 1: Plain array
     if (isArray<T>(array)) {
@@ -960,7 +960,7 @@ function _sumArray(array: ReadonlyArray<number>): number {
    ```
 
 2. **Analyze and categorize errors:**
-   - Count ValidationError import errors
+   - Count <E> import errors
    - Count type inference failures
    - Count readonly violations
    - Count any other error types
@@ -995,7 +995,7 @@ function _sumArray(array: ReadonlyArray<number>): number {
 **Priority:** P0 - EASY WIN
 **Goal:** Fix 24 easy errors (missing modules, monad access, implicit any)
 
-**Survey Findings:** The predicted ValidationError import errors don't exist. Instead, fix these quick wins:
+**Survey Findings:** The predicted <E> import errors don't exist. Instead, fix these quick wins:
 1. **12 missing module errors** (TS2307) - Import paths broken
 2. **9 reaching into monads** (TS2339) - Tests using `.value` property
 3. **3 implicit any errors** (TS7006) - Missing type annotations
@@ -1296,12 +1296,12 @@ Found **99 files** importing from non-existent `types/fp/index.ts`:
 
 ```typescript
 // ❌ WRONG (99 files):
-import type { Result, ValidationError } from "../../types/fp/index.ts"
+import type { Result, <E> } from "../../types/fp/index.ts"
 import type { Validation } from "../../types/fp/index.ts"
 
 // ✅ CORRECT:
 import type { Result } from "../../types/fp/result/index.ts"
-import type { ValidationError } from "../../types/fp/validation/index.ts"
+import type { <E> } from "../../types/fp/validation/index.ts"
 import type { Validation } from "../../types/fp/validation/index.ts"
 ```
 
@@ -1315,7 +1315,7 @@ import type { Validation } from "../../types/fp/validation/index.ts"
 **Files Fixed (Manual):**
 
 1. `array/difference/index.ts` - Fixed main file type imports
-2. `monads/validation/combineValidations/accumulateErrors/index.ts` - Fixed ValidationError/ValidationResult imports
+2. `monads/validation/combineValidations/accumulateErrors/index.ts` - Fixed <E>/ValidationResult imports
 3. `string/toCase/toKebab/index.ts` - Fixed `not` import: `validation/not` → `logic/not`
 4. `validation/between/index.ts` - Fixed `isNumber` import: `validation/isNumber` → `predicates/isNumber`
 5. `validation/betweenMaxInclusive/index.ts` - Fixed `isNumber` import
@@ -1362,7 +1362,7 @@ import type { Validation } from "../../types/fp/validation/index.ts"
 ### Batch 17 Summary Checklist
 
 - [x] Sub-Batch 17a complete (Survey Type Errors) ✅
-- [x] Sub-Batch 17b complete (Fix ValidationError Imports) ✅
+- [x] Sub-Batch 17b complete (Fix <E> Imports) ✅
 - [x] Sub-Batch 17c complete (Fix Type Inference Failures) ✅
 - [ ] Sub-Batch 17d complete (Fix Readonly Violations) - **NOT STARTED**
 - [x] Sub-Batch 17e complete (Fix Missing Module Imports) ✅
@@ -1496,7 +1496,7 @@ Deno.test("shuffle - does not mutate input", function testShuffleNoMutation() {
 
 - [ ] Batch 17 complete (Fix Type Errors - 4 sub-batches)
   - [ ] Sub-Batch 17a complete (Survey Type Errors)
-  - [ ] Sub-Batch 17b complete (Fix ValidationError Imports)
+  - [ ] Sub-Batch 17b complete (Fix <E> Imports)
   - [ ] Sub-Batch 17c complete (Fix Type Inference Failures)
   - [ ] Sub-Batch 17d complete (Fix Readonly Violations)
 - [ ] Batch 18 complete (Fix Mutation Violations)
@@ -1539,13 +1539,13 @@ export default function head<T>() {
 
   // Overload 2: Result → Result<E, T | null>
   function headOf(
-    array: Result<ValidationError, ReadonlyArray<T>>
-  ): Result<ValidationError, T | null>
+    array: Result<<E>, ReadonlyArray<T>>
+  ): Result<<E>, T | null>
 
   // Overload 3: Validation → Validation<E, T | null>
   function headOf(
-    array: Validation<ValidationError, ReadonlyArray<T>>
-  ): Validation<ValidationError, T | null>
+    array: Validation<<E>, ReadonlyArray<T>>
+  ): Validation<<E>, T | null>
 
   function headOf(array) {
     if (isArray<T>(array)) {
@@ -1622,13 +1622,13 @@ export default function isEmpty<T>() {
 
   // Overload 2: Result → Result<E, boolean>
   function isEmptyArray(
-    array: Result<ValidationError, ReadonlyArray<T>>
-  ): Result<ValidationError, boolean>
+    array: Result<<E>, ReadonlyArray<T>>
+  ): Result<<E>, boolean>
 
   // Overload 3: Validation → Validation<E, boolean>
   function isEmptyArray(
-    array: Validation<ValidationError, ReadonlyArray<T>>
-  ): Validation<ValidationError, boolean>
+    array: Validation<<E>, ReadonlyArray<T>>
+  ): Validation<<E>, boolean>
 
   function isEmptyArray(array) {
     if (isArray<T>(array)) {
@@ -1688,7 +1688,7 @@ functionName/
 **Current Status:**
 - `filter` - Returns ONLY Result (missing plain + Validation)
 - `find` - Returns ONLY Result (missing plain + Validation)
-- `all` - Returns ONLY Result<ValidationError, boolean> (missing plain + Validation)
+- `all` - Returns ONLY Result<<E>, boolean> (missing plain + Validation)
 - `some` - Returns ONLY boolean (missing Result + Validation)
 - `none` - Returns ONLY boolean (missing Result + Validation)
 - `join` - Returns ONLY Result (missing plain + Validation)
@@ -2081,7 +2081,7 @@ functionName/
 ```typescript
 export default function fromAsync<T>(
   iterable: AsyncIterable<T>
-): Promise<Result<ValidationError, ReadonlyArray<T>>> {
+): Promise<Result<<E>, ReadonlyArray<T>>> {
   // Async operations return Promise<Result<E, T>>
 }
 ```

@@ -3,7 +3,6 @@ import type {
 	ExportDeclaration,
 	TsInterfaceDeclaration,
 	TsTypeAliasDeclaration,
-	TypeDeclarationNode,
 } from "../types/index.ts"
 import _extractTypeDetails from "./index.ts"
 

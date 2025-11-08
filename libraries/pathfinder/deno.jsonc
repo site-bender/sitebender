@@ -1,6 +1,6 @@
 {
 	"name": "@sitebender/pathfinder",
-	"version": "0.0.1-alpha",
+	"version": "1.0.0",
 	"exports": "./src/mod.ts",
 
 	"compilerOptions": {

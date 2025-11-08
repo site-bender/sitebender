@@ -3,6 +3,7 @@
 
 import type { FunctionBody } from "../../types/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
+import or from "@sitebender/toolsmith/logic/or/index.ts"
 
 //++ Updates analysis state based on node type (pure function)
 //++ Returns new state with updated flags and complexity
@@ -35,11 +36,15 @@ export default function updateStateForNode(
 
 		// Detect loops
 		if (
-			isEqual(nodeType)("ForStatement") ||
-			isEqual(nodeType)("ForInStatement") ||
-			isEqual(nodeType)("ForOfStatement") ||
-			isEqual(nodeType)("WhileStatement") ||
-			isEqual(nodeType)("DoWhileStatement")
+			or(isEqual(nodeType)("ForStatement"))(
+				or(isEqual(nodeType)("ForInStatement"))(
+					or(isEqual(nodeType)("ForOfStatement"))(
+						or(isEqual(nodeType)("WhileStatement"))(
+							isEqual(nodeType)("DoWhileStatement"),
+						),
+					),
+				),
+			)
 		) {
 			return {
 				...state,
@@ -67,7 +72,7 @@ export default function updateStateForNode(
 		// Detect logical operators (&&, ||)
 		if (isEqual(nodeType)("LogicalExpression")) {
 			const operator = nodeObj.operator as string
-			if (isEqual(operator)("&&") || isEqual(operator)("||")) {
+			if (or(isEqual(operator)("&&"))(isEqual(operator)("||"))) {
 				return {
 					...state,
 					cyclomaticComplexity: state.cyclomaticComplexity + 1,

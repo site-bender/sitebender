@@ -1,16 +1,15 @@
 import type { Result } from "../../../types/fp/result/index.ts"
-import type { ValidationError } from "../../../types/fp/validation/index.ts"
 import _takeLastWhileArray from "../_takeLastWhileArray/index.ts"
 import ok from "../../../monads/result/ok/index.ts"
 
 //++ Monadic wrapper for Result path
 //++ Takes plain array, returns Result-wrapped array
-export default function _takeLastWhileToResult<T>(
+export default function _takeLastWhileToResult<E, T>(
 	predicate: (item: T, index: number, array: ReadonlyArray<T>) => boolean,
 ) {
 	return function _takeLastWhileToResultWithPredicate(
 		array: ReadonlyArray<T>,
-	): Result<ValidationError, ReadonlyArray<T>> {
-		return ok(takeLastWhileArray<T>(predicate)(array))
+	): Result<E, ReadonlyArray<T>> {
+		return ok(_takeLastWhileArray<T>(predicate)(array))
 	}
 }
