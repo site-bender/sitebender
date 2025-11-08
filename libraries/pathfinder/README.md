@@ -2,7 +2,7 @@
 
 Type-safe RDF triple store and vector database client for Deno.
 
-**Version:** 0.0.1-alpha
+**Version:** 1.0.0
 
 Pathfinder provides a functional, type-safe interface to work with RDF triple stores (Oxigraph) and vector databases (Qdrant). Built with pure functions, immutable data structures, and monadic error handling.
 
@@ -10,16 +10,24 @@ Pathfinder provides a functional, type-safe interface to work with RDF triple st
 
 - Type-safe SPARQL query builder with fluent API
 - Oxigraph triple store connection and query execution
-- Qdrant vector database integration
-- Result monad for error handling (no exceptions)
+- Qdrant vector database integration with semantic similarity search
+- Configuration validation with error accumulation
+- Result/Validation monads for error handling (no exceptions)
 - Pure functions with immutable data structures
 - Full TypeScript type safety
+- Comprehensive test coverage (85+ tests)
 
 ## Installation
 
+Pathfinder is part of the Sitebender monorepo. Import functions using deno.jsonc aliases:
+
 ```typescript
-import { ... } from "@sitebender/pathfinder"
+import validateConfig from "@sitebender/pathfinder/config/validateConfig/index.ts"
+import createTripleStore from "@sitebender/pathfinder/connection/createTripleStore/index.ts"
+import execute from "@sitebender/pathfinder/sparql/execute/index.ts"
 ```
+
+**CRITICAL - NO BARREL FILES:** This library follows a strict NO BARREL FILES architecture. You MUST import directly from deep paths like `@sitebender/pathfinder/sparql/execute/index.ts`. NEVER import from `mod.ts` or attempt to use barrel files. The `mod.ts` file exists ONLY for documentation and exports nothing. Attempting to import from it will fail. This is intentional. See [docs/IMPORTS.md](docs/IMPORTS.md) for complete details.
 
 ## Quick Start
 
@@ -103,7 +111,115 @@ const turtle = `
 const result = await deleteQuery(turtle)(connection)
 ```
 
+### Vector Store Operations
+
+#### Connecting to Vector Store
+
+```typescript
+import createVectorStore from "@sitebender/pathfinder/connection/createVectorStore/index.ts"
+
+const connectionResult = await createVectorStore({
+	host: "localhost",
+	port: 6333,
+	timeout: 5000,
+})
+
+if (connectionResult._tag === "Ok") {
+	const connection = connectionResult.value
+	// Use connection for vector operations
+}
+```
+
+#### Creating a Collection
+
+```typescript
+import createCollection from "@sitebender/pathfinder/vector/createCollection/index.ts"
+
+const result = await createCollection({
+	name: "articles",
+	dimension: 384, // Match your embedding model dimension
+	distance: "Cosine", // Cosine | Euclid | Dot | Manhattan
+})(connection)
+```
+
+#### Inserting Vectors
+
+```typescript
+import insertPoints from "@sitebender/pathfinder/vector/insertPoints/index.ts"
+
+const result = await insertPoints({
+	collectionName: "articles",
+	points: [
+		{
+			id: 1, // Integer or UUID (crypto.randomUUID())
+			vector: [0.1, 0.2, 0.3, ...], // Must match collection dimension
+			payload: {
+				title: "Introduction to FP",
+				author: "Alice",
+				url: "http://example.org/article/1",
+			},
+		},
+	],
+})(connection)
+```
+
+#### Searching Vectors
+
+```typescript
+import searchPoints from "@sitebender/pathfinder/vector/searchPoints/index.ts"
+
+const result = await searchPoints({
+	collectionName: "articles",
+	vector: queryEmbedding, // Your query vector
+	limit: 5,
+	scoreThreshold: 0.7, // Optional minimum similarity score
+	withPayload: true,
+	withVector: false,
+})(connection)
+
+if (result._tag === "Ok") {
+	result.value.forEach((match) => {
+		console.log(`${match.payload?.title} (score: ${match.score})`)
+	})
+}
+```
+
 ## API Reference
+
+### Configuration
+
+#### `validateConfig(config: PathfinderConfig)`
+
+Validates Pathfinder configuration before use. Uses Validation monad to accumulate all errors.
+
+**Parameters:**
+
+- `config` - Configuration object with:
+  - `tripleStore.host` - Triple store hostname (required, non-empty)
+  - `tripleStore.port` - Triple store port (required, 1-65535)
+  - `vectorStore.host` - Vector store hostname (required, non-empty)
+  - `vectorStore.port` - Vector store port (required, 1-65535)
+
+**Returns:** `Validation<ConfigError, ValidPathfinderConfig>`
+
+**Example:**
+
+```typescript
+import validateConfig from "@sitebender/pathfinder/config/validateConfig/index.ts"
+
+const configResult = validateConfig({
+	tripleStore: { host: "localhost", port: 7878 },
+	vectorStore: { host: "localhost", port: 6333 },
+})
+
+if (configResult._tag === "Failure") {
+	// All validation errors accumulated
+	configResult.value.forEach((error) => console.error(error.message))
+} else {
+	const validConfig = configResult.value
+	// Use validated config
+}
+```
 
 ### Triple Store Connection
 
@@ -225,11 +341,85 @@ Generates a SPARQL query for a specific predicate.
 
 **Returns:** `string` - `SELECT ?s ?o WHERE { ?s ${predicate} ?o }`
 
+### Vector Store Connection
+
+#### `createVectorStore(config: VectorStoreConfig)`
+
+Creates a connection to a Qdrant vector database.
+
+**Parameters:**
+
+- `config.host` - Hostname (e.g., "localhost")
+- `config.port` - Port number (e.g., 6333)
+- `config.timeout` - Connection timeout in milliseconds (optional, default: 5000)
+- `config.apiKey` - API key for authentication (optional)
+
+**Returns:** `Promise<Result<ConnectionError, VectorStoreConnection>>`
+
+### Vector Operations
+
+#### `createCollection(config: CollectionConfig)(connection: VectorStoreConnection)`
+
+Creates a new vector collection in Qdrant.
+
+**Parameters:**
+
+- `config.name` - Collection name
+- `config.dimension` - Vector dimension (must match your embedding model)
+- `config.distance` - Distance metric: `"Cosine"` | `"Euclid"` | `"Dot"` | `"Manhattan"`
+
+**Returns:** `Promise<Result<VectorError, void>>`
+
+#### `insertPoints(config: InsertPointsConfig)(connection: VectorStoreConnection)`
+
+Inserts vector points with metadata into a collection.
+
+**Parameters:**
+
+- `config.collectionName` - Name of the collection
+- `config.points` - Array of points, each with:
+  - `id` - Point ID (integer or UUID string)
+  - `vector` - Vector embedding (ReadonlyArray of numbers)
+  - `payload` - Optional metadata object
+
+**Returns:** `Promise<Result<VectorError, void>>`
+
+#### `searchPoints(config: SearchConfig)(connection: VectorStoreConnection)`
+
+Searches for similar vectors using semantic similarity.
+
+**Parameters:**
+
+- `config.collectionName` - Name of the collection
+- `config.vector` - Query vector to search for
+- `config.limit` - Maximum number of results
+- `config.scoreThreshold` - Minimum similarity score (optional)
+- `config.withPayload` - Include metadata in results (optional, default: true)
+- `config.withVector` - Include vectors in results (optional, default: false)
+
+**Returns:** `Promise<Result<VectorError, ReadonlyArray<SearchResult>>>`
+
+**SearchResult type:**
+
+```typescript
+{
+	id: string | number
+	score: number
+	vector?: ReadonlyArray<number>
+	payload?: Record<string, unknown>
+}
+```
+
 ## Error Handling
 
-Pathfinder uses the Result monad for error handling. All IO operations return `Result<E, T>` where `E` is the error type and `T` is the success type.
+Pathfinder uses two monads for error handling:
+
+- **Result monad** - For fail-fast operations (IO operations like connections, queries)
+- **Validation monad** - For accumulating errors (configuration validation)
 
 ### Result Type
+
+Used for IO operations. Returns first error encountered.
 
 ```typescript
 type Result<E, T> =
@@ -237,7 +427,31 @@ type Result<E, T> =
 	| { _tag: "Ok"; value: T }
 ```
 
+### Validation Type
+
+Used for validation. Accumulates all errors.
+
+```typescript
+type Validation<E, T> =
+	| { _tag: "Failure"; value: NonEmptyArray<E> }
+	| { _tag: "Success"; value: T }
+```
+
 ### Error Types
+
+#### `ConfigError`
+
+Returned when configuration validation fails.
+
+```typescript
+type ConfigError = {
+	_tag: "ConfigError"
+	kind: "MissingPath" | "MissingHost" | "InvalidPort" | "InvalidConfig"
+	field: string
+	message: string
+	value?: unknown
+}
+```
 
 #### `ConnectionError`
 
@@ -264,6 +478,21 @@ type QueryError = {
 	kind: "ExecutionFailed"
 	message: string
 	sparql: string
+	cause?: unknown
+}
+```
+
+#### `VectorError`
+
+Returned when vector operations fail.
+
+```typescript
+type VectorError = {
+	_tag: "VectorError"
+	kind: "InsertFailed" | "SearchFailed"
+	message: string
+	collection: string
+	dimension?: number
 	cause?: unknown
 }
 ```
@@ -348,6 +577,14 @@ Pathfinder follows strict functional programming principles:
 - **Currying:** All functions are curried for composition
 - **No Classes:** Uses modules with exported pure functions
 - **Type Safety:** Full TypeScript types throughout
+
+## Documentation
+
+- [API Reference](docs/API.md) - Complete API documentation
+- [Import Guide](docs/IMPORTS.md) - Correct import patterns
+- [Basic Usage Examples](docs/examples/basic-usage.ts) - Working code examples
+- [Architect Integration](docs/examples/architect-integration.ts) - Integration patterns
+- [Implementation Plan](docs/IMPLEMENTATION_PLAN.md) - Architecture and design
 
 ## License
 
