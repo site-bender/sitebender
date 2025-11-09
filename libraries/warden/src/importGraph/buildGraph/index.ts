@@ -8,7 +8,6 @@ import resolveModulePath from "../resolveModulePath/index.ts"
 import walkDirectory from "./_walkDirectory/index.ts"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
-import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 import type { ImportGraph, ImportInfo } from "../../types/index.ts"
 
@@ -23,42 +22,34 @@ export default function buildGraph(
 		// For each file, parse imports and resolve paths
 		const filePromises = reduce(function accumulateGraphData(
 			acc: Promise<Map<string, ReadonlyArray<ImportInfo>>>,
-		) {
-			return function processFile(
-				filePath: string,
-			): Promise<Map<string, ReadonlyArray<ImportInfo>>> {
-				return acc.then(function addFileToGraph(graphMap) {
-					return parseImports(filePath).then(function resolveImportPaths(
-						imports: ReadonlyArray<ImportInfo>,
+			filePath: string,
+		): Promise<Map<string, ReadonlyArray<ImportInfo>>> {
+			return acc.then(function addFileToGraph(graphMap) {
+				return parseImports(filePath).then(function resolveImportPaths(
+					imports: ReadonlyArray<ImportInfo>,
+				) {
+					// Resolve each import's path
+					const resolveForFile = resolveModulePath(filePath)
+					const resolvedImports = map(function resolveImport(
+						importInfo: ImportInfo,
 					) {
-						// Resolve each import's path
-						const resolveForFile = resolveModulePath(filePath)
-						const resolvedImportsResult = map(function resolveImport(
-							importInfo: ImportInfo,
-						) {
-							return {
-								...importInfo,
-								resolved: resolveForFile(importInfo.specifier),
-							} as ImportInfo
-						})(imports)
+						return {
+							...importInfo,
+							resolved: resolveForFile(importInfo.specifier),
+						} as ImportInfo
+					})(imports)
 
-						const resolvedImports = getOrElse(
-							[] as ReadonlyArray<ImportInfo>,
-						)(resolvedImportsResult)
+					// Add to graph map
+					const newMap = new Map(graphMap)
+					newMap.set(filePath, resolvedImports)
 
-						// Add to graph map
-						const newMap = new Map(graphMap)
-						newMap.set(filePath, resolvedImports)
-
-						return newMap
-					})
+					return newMap
 				})
-			}
+			})
 		})(Promise.resolve(new Map<string, ReadonlyArray<ImportInfo>>()))(files)
 
-		return getOrElse(
-			Promise.resolve(new Map<string, ReadonlyArray<ImportInfo>>()),
-		)(filePromises).then(
+		// reduce returns the plain value (Promise in this case), not a Result
+		return filePromises.then(
 			function convertToReadonlyMap(
 				map: Map<string, ReadonlyArray<ImportInfo>>,
 			) {
