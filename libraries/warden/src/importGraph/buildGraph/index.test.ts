@@ -1,10 +1,11 @@
 import { assertEquals } from "jsr:@std/assert@1"
+import { join } from "jsr:@std/path@1"
 import buildGraph from "./index.ts"
 
 Deno.test("buildGraph - builds import graph for small directory", async () => {
 	// Test on the privacy directory (small, well-defined)
 	const graph = await buildGraph(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src/privacy",
+		join(Deno.cwd(), "src/privacy"),
 	)
 
 	// Should be a Map
@@ -32,7 +33,7 @@ Deno.test("buildGraph - builds import graph for small directory", async () => {
 
 Deno.test("buildGraph - resolves import paths correctly", async () => {
 	const graph = await buildGraph(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src/privacy",
+		join(Deno.cwd(), "src/privacy"),
 	)
 
 	// Find isValidImport entry
@@ -58,7 +59,7 @@ Deno.test("buildGraph - resolves import paths correctly", async () => {
 
 Deno.test("buildGraph - handles external module imports", async () => {
 	const graph = await buildGraph(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src/privacy",
+		"/Users/guy/Workspace/@sitebender/warden-ai/libraries/warden/src/privacy",
 	)
 
 	// Check for files with external imports
@@ -116,7 +117,7 @@ Deno.test("buildGraph - performance test on Warden src directory", async () => {
 	const startTime = performance.now()
 
 	const graph = await buildGraph(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src",
+		join(Deno.cwd(), "src"),
 	)
 
 	const endTime = performance.now()
@@ -135,7 +136,7 @@ Deno.test("buildGraph - performance test on Warden src directory", async () => {
 
 Deno.test("buildGraph - includes test files", async () => {
 	const graph = await buildGraph(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src/privacy",
+		join(Deno.cwd(), "src/privacy"),
 	)
 
 	const keys = Array.from(graph.keys())
@@ -147,7 +148,7 @@ Deno.test("buildGraph - includes test files", async () => {
 
 Deno.test("buildGraph - captures line and column information", async () => {
 	const graph = await buildGraph(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src/privacy",
+		join(Deno.cwd(), "src/privacy"),
 	)
 
 	const entries = Array.from(graph.entries())
