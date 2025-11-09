@@ -1,8 +1,8 @@
 # Warden: Current Implementation State
 
-> **Last Updated**: 2025-10-10
-> **Current Phase**: Phase 1.5 Complete - Main Enforcement Orchestrator Ready
-> **Status**: Complete privacy enforcement system operational
+> **Last Updated**: 2025-11-08
+> **Current Phase**: Phase 2.1 Complete - Hash Utilities Ready
+> **Status**: Privacy enforcement + hash utilities operational
 
 ## Overview
 
@@ -10,7 +10,7 @@ This document tracks the **actual** implementation state of Warden, separate fro
 
 ## Current Capabilities
 
-**As of 2025-10-10: COMPLETE PRIVACY ENFORCEMENT SYSTEM OPERATIONAL**
+**As of 2025-11-08: PRIVACY ENFORCEMENT + HASH UTILITIES OPERATIONAL**
 
 Warden can now:
 
@@ -22,6 +22,9 @@ Warden can now:
 - ✅ Generate beautiful console reports
 - ✅ Run validation in < 100ms for typical projects (< 2s for complete enforcement)
 - ✅ Validate itself (25 files, 0 violations, 100% constitutional compliance)
+- ✅ Generate deterministic JSON serialization (canonical stringify)
+- ✅ Compute SHA-256 hashes of architectural artifacts
+- ✅ Ensure equivalent data structures produce identical hashes
 
 ## Implementation Progress
 
@@ -105,9 +108,18 @@ Warden can now:
 
 ### Phase 2: Cryptographic Contracts (Target: 1-2 weeks)
 
-**Status**: Not started
+**Status**: Phase 2.1 Complete (2025-11-08)
 
-**Capabilities**: None
+**Next Step**: Phase 2.2 - Contract Schema Validation
+
+**Completed**:
+
+- ✅ Phase 2.1: Hash Utilities (2025-11-08)
+  - `canonicalStringify` - deterministic JSON serialization (12 tests passing)
+  - `hashArtifact` - SHA-256 hashing of artifacts (12 tests passing)
+  - All verification tests pass (lint, fmt)
+  - Performance target met (< 100ms)
+  - No constitutional violations
 
 ### Phase 3: Graduated Enforcement (Target: 1 week)
 
@@ -157,8 +169,8 @@ import formatReport from "@sitebender/warden/src/enforce/formatReport/index.ts"
 import type { WardenConfig } from "@sitebender/warden/src/types/index.ts"
 
 const config: WardenConfig = {
-  targets: ["src/"],
-  phase: "block",
+	targets: ["src/"],
+	phase: "block",
 }
 
 const result = await enforce(config)
@@ -302,6 +314,25 @@ console.log(report)
 - None yet (too early in implementation)
 
 ## Change Log
+
+### 2025-11-08: Phase 2.1 Complete - Hash Utilities
+
+- ✅ Created `src/hash/canonicalStringify/` with pure function
+  - Deterministic JSON serialization for cryptographic hashing
+  - Recursively sorts object keys alphabetically
+  - Handles nested objects, arrays, primitives
+  - 12 comprehensive tests covering all data types and edge cases
+  - Ensures {a: 1, b: 2} and {b: 2, a: 1} produce identical output
+- ✅ Created `src/hash/hashArtifact/` with async function
+  - SHA-256 hashing of architectural artifacts
+  - Composes canonicalStringify + toolsmith's hashHex
+  - Returns 64-character lowercase hexadecimal string
+  - 12 comprehensive tests covering deterministic hashing, performance
+  - Performance: < 100ms for typical data (verified)
+- ✅ All 24 new hash tests passing (100% pass rate)
+- ✅ All verification tests pass (`deno task lint`, `deno task fmt`)
+- ✅ No constitutional violations (no loops, no arrow functions, pure functions, proper currying)
+- **Phase 2.1 COMPLETE - Ready for Phase 2.2 (Contract Schema Validation)**
 
 ### 2025-10-10: Phase 1.5 Complete - Main Enforcement Orchestrator
 
