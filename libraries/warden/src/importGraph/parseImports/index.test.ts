@@ -1,9 +1,10 @@
 import { assertEquals } from "jsr:@std/assert@1"
+import { join } from "jsr:@std/path@1"
 import parseImports from "./index.ts"
 
 Deno.test("parseImports - parses simple imports from TypeScript file", async () => {
 	const result = await parseImports(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src/types/index.ts",
+		join(Deno.cwd(), "src/types/index.ts"),
 	)
 
 	// Should extract imports from the types file
@@ -14,7 +15,7 @@ Deno.test("parseImports - parses simple imports from TypeScript file", async () 
 
 Deno.test("parseImports - parses imports from file with multiple imports", async () => {
 	const result = await parseImports(
-		"/Users/guy/Workspace/@sitebender/sitebender/libraries/warden/src/privacy/isValidImport/index.ts",
+		join(Deno.cwd(), "src/privacy/isValidImport/index.ts"),
 	)
 
 	// Should extract imports

@@ -4,7 +4,6 @@
 
 import { join } from "jsr:@std/path@1"
 import reduce from "@sitebender/toolsmith/array/reduce/index.ts"
-import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 //++ Walk directory recursively and collect all TypeScript files
 //++ This is an IO function that reads the filesystem
@@ -41,48 +40,45 @@ function processEntriesArray(
 	// Use reduce to accumulate file paths
 	const processPromises = reduce(function accumulateFiles(
 		acc: Promise<ReadonlyArray<string>>,
-	) {
-		return function processEntry(
-			entry: Deno.DirEntry,
-		): Promise<ReadonlyArray<string>> {
-			const fullPath = join(dirPath, entry.name)
+		entry: Deno.DirEntry,
+	): Promise<ReadonlyArray<string>> {
+		const fullPath = join(dirPath, entry.name)
 
-			// Skip common ignore patterns
-			if (
-				entry.name === "node_modules" ||
-				entry.name === ".git" ||
-				entry.name === "dist" ||
-				entry.name === "coverage" ||
-				entry.name.startsWith(".")
-			) {
-				return acc
-			}
-
-			if (entry.isDirectory) {
-				// Recursively walk subdirectory
-				return acc.then(function appendSubdirectoryFiles(files) {
-					return walkDirectoryRecursive(fullPath).then(
-						function combineFiles(subFiles) {
-							return [...files, ...subFiles] as ReadonlyArray<string>
-						},
-					)
-				})
-			}
-
-			if (entry.isFile && isTypeScriptFile(entry.name)) {
-				// Add TypeScript file to accumulator
-				return acc.then(function appendFile(files) {
-					return [...files, fullPath] as ReadonlyArray<string>
-				})
-			}
-
+		// Skip common ignore patterns
+		if (
+			entry.name === "node_modules" ||
+			entry.name === ".git" ||
+			entry.name === "dist" ||
+			entry.name === "coverage" ||
+			entry.name.startsWith(".")
+		) {
 			return acc
 		}
+
+		if (entry.isDirectory) {
+			// Recursively walk subdirectory
+			return acc.then(function appendSubdirectoryFiles(files) {
+				return walkDirectoryRecursive(fullPath).then(
+					function combineFiles(subFiles) {
+						return [...files, ...subFiles] as ReadonlyArray<string>
+					},
+				)
+			})
+		}
+
+		if (entry.isFile && isTypeScriptFile(entry.name)) {
+			// Add TypeScript file to accumulator
+			return acc.then(function appendFile(files) {
+				return [...files, fullPath] as ReadonlyArray<string>
+			})
+		}
+
+		return acc
 	})(Promise.resolve([] as ReadonlyArray<string>))(entries)
 
-	return getOrElse(Promise.resolve([] as ReadonlyArray<string>))(
-		processPromises,
-	)
+	// reduce returns the plain value (Promise in this case), not a Result
+	// so we return it directly without unwrapping
+	return processPromises
 }
 
 //++ Check if filename is a TypeScript file
