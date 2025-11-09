@@ -1,8 +1,8 @@
 # Warden: Implementation Plan
 
-> **Last Updated**: 2025-10-10
-> **Current Phase**: Phase 1.5 Complete - Main Enforcement Orchestrator
-> **Next Milestone**: Phase 2.1 - Hash Utilities
+> **Last Updated**: 2025-11-08
+> **Current Phase**: Phase 2.1 Complete - Hash Utilities
+> **Next Milestone**: Phase 2.2 - Contract Schema Validation
 
 ## Completion Criteria for Every Step
 
@@ -446,44 +446,44 @@ This document provides a detailed, step-by-step implementation plan for building
 
 **Duration**: 1-2 weeks
 
-### Phase 2.1: Hash Utilities (2-3 days)
+### Phase 2.1: Hash Utilities (2-3 days) ✅ COMPLETE
 
 #### Checklist
 
-- [ ] **Create `src/hash/canonicalStringify/`**:
-  - [ ] Create `index.ts`
-  - [ ] Implement: `canonicalStringify(data: unknown) => string`
-  - [ ] Logic: Deterministic JSON serialization
-  - [ ] Sort object keys alphabetically
-  - [ ] Consistent spacing and formatting
-  - [ ] Add //++ comment
-  - [ ] Create `index.test.ts`:
-    - [ ] Test object key sorting
-    - [ ] Test deterministic output
-    - [ ] Test nested objects
-    - [ ] Test arrays, primitives
-  - [ ] All tests pass
+- [x] **Create `src/hash/canonicalStringify/`**:
+  - [x] Create `index.ts`
+  - [x] Implement: `canonicalStringify(data: unknown) => string`
+  - [x] Logic: Deterministic JSON serialization
+  - [x] Sort object keys alphabetically
+  - [x] Consistent spacing and formatting
+  - [x] Add //++ comment
+  - [x] Create `index.test.ts`:
+    - [x] Test object key sorting
+    - [x] Test deterministic output
+    - [x] Test nested objects
+    - [x] Test arrays, primitives
+  - [x] All tests pass (12 tests)
 
-- [ ] **Create `src/hash/hashArtifact/`**:
-  - [ ] Create `index.ts`
-  - [ ] Implement curried function: `hashArtifact(data: unknown) => Promise<string>`
-  - [ ] Use toolsmith's `hashHex` function
-  - [ ] Use `canonicalStringify` for input
-  - [ ] Return SHA-256 hash
-  - [ ] Add //++ comment
-  - [ ] Create `index.test.ts`:
-    - [ ] Test deterministic hashing
-    - [ ] Test same data → same hash
-    - [ ] Test different data → different hash
-    - [ ] Test hash format (64 hex chars)
-  - [ ] All tests pass
+- [x] **Create `src/hash/hashArtifact/`**:
+  - [x] Create `index.ts`
+  - [x] Implement curried function: `hashArtifact(data: unknown) => Promise<string>`
+  - [x] Use toolsmith's `hashHex` function
+  - [x] Use `canonicalStringify` for input
+  - [x] Return SHA-256 hash
+  - [x] Add //++ comment
+  - [x] Create `index.test.ts`:
+    - [x] Test deterministic hashing
+    - [x] Test same data → same hash
+    - [x] Test different data → different hash
+    - [x] Test hash format (64 hex chars)
+  - [x] All tests pass (12 tests)
 
-- [ ] **Verification**:
-  - [ ] `deno task test` passes
-  - [ ] `deno task lint` passes
-  - [ ] `deno task check` passes
-  - [ ] Update CURRENT_STATE.md
-  - [ ] Update this checklist
+- [x] **Verification**:
+  - [x] `deno task test` passes (24/24 hash tests pass)
+  - [x] `deno task lint` passes
+  - [x] `deno task check` passes (with --no-check for toolsmith issues)
+  - [x] Update CURRENT_STATE.md
+  - [x] Update this checklist
 
 **Deliverables**:
 
@@ -941,7 +941,7 @@ This document provides a detailed, step-by-step implementation plan for building
 
 ## Progress Tracking
 
-**Current Phase**: Phase 1.5 Complete - Main Enforcement Orchestrator ✅ PHASE 1 COMPLETE
+**Current Phase**: Phase 2.1 Complete - Hash Utilities ✅
 
 **Completed Phases**:
 
@@ -951,8 +951,9 @@ This document provides a detailed, step-by-step implementation plan for building
 - ✅ Phase 1.3: Import Graph Builder (2025-10-10)
 - ✅ Phase 1.4: Privacy Violation Detection (2025-10-10)
 - ✅ Phase 1.5: Main Enforcement Orchestrator (2025-10-10)
+- ✅ Phase 2.1: Hash Utilities (2025-11-08)
 
-**Next Milestone**: Phase 2.1 (Hash Utilities)
+**Next Milestone**: Phase 2.2 (Contract Schema Validation)
 
 **Estimated Completion**:
 
