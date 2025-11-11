@@ -94,11 +94,14 @@ Deno.test("aperture with large array", function testApertureLarge() {
 Deno.test("aperture with Result ok creates windows", function testApertureResultOk() {
 	const result = aperture<number>(3)(ok([1, 2, 3, 4, 5]))
 
-	assertEquals(result, ok([
-		[1, 2, 3],
-		[2, 3, 4],
-		[3, 4, 5],
-	]))
+	assertEquals(
+		result,
+		ok([
+			[1, 2, 3],
+			[2, 3, 4],
+			[3, 4, 5],
+		]),
+	)
 })
 
 Deno.test("aperture with Result ok and empty array", function testApertureResultEmpty() {
@@ -127,11 +130,14 @@ Deno.test("aperture with Result error passes through", function testApertureResu
 Deno.test("aperture with Validation success creates windows", function testApertureValidationSuccess() {
 	const result = aperture<number>(3)(success([1, 2, 3, 4, 5]))
 
-	assertEquals(result, success([
-		[1, 2, 3],
-		[2, 3, 4],
-		[3, 4, 5],
-	]))
+	assertEquals(
+		result,
+		success([
+			[1, 2, 3],
+			[2, 3, 4],
+			[3, 4, 5],
+		]),
+	)
 })
 
 Deno.test("aperture with Validation success and empty array", function testApertureValidationEmpty() {
@@ -162,13 +168,18 @@ Deno.test("aperture all windows same size", function testApertureWindowSizePrope
 		fc.property(
 			fc.array(fc.integer(), { minLength: 3, maxLength: 20 }),
 			fc.integer({ min: 1, max: 5 }),
-			function propertyApertureWindowSize(arr: ReadonlyArray<number>, width: number) {
+			function propertyApertureWindowSize(
+				arr: ReadonlyArray<number>,
+				width: number,
+			) {
 				const result = aperture<number>(width)(arr)
 
 				if (width <= arr.length) {
-					result.forEach(function checkWindowSize(window: ReadonlyArray<number>) {
-						assertEquals(window.length, width)
-					})
+					result.forEach(
+						function checkWindowSize(window: ReadonlyArray<number>) {
+							assertEquals(window.length, width)
+						},
+					)
 				}
 			},
 		),
@@ -180,7 +191,10 @@ Deno.test("aperture window count is correct", function testApertureCountProperty
 		fc.property(
 			fc.array(fc.integer(), { minLength: 1, maxLength: 20 }),
 			fc.integer({ min: 1, max: 5 }),
-			function propertyApertureCount(arr: ReadonlyArray<number>, width: number) {
+			function propertyApertureCount(
+				arr: ReadonlyArray<number>,
+				width: number,
+			) {
 				const result = aperture<number>(width)(arr)
 
 				const expectedCount = width <= arr.length ? arr.length - width + 1 : 0
@@ -212,7 +226,10 @@ Deno.test("aperture consecutive windows overlap correctly", function testApertur
 		fc.property(
 			fc.array(fc.integer(), { minLength: 3, maxLength: 20 }),
 			fc.integer({ min: 2, max: 5 }),
-			function propertyApertureOverlap(arr: ReadonlyArray<number>, width: number) {
+			function propertyApertureOverlap(
+				arr: ReadonlyArray<number>,
+				width: number,
+			) {
 				const result = aperture<number>(width)(arr)
 
 				if (result.length >= 2 && width <= arr.length) {
