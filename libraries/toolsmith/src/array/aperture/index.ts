@@ -28,17 +28,25 @@ export default function aperture<E, T>(width: number) {
 	): Validation<E, ReadonlyArray<ReadonlyArray<T>>>
 
 	//++ Implementation with type dispatch
-	function apertureWithWidth(array: unknown) {
+	function apertureWithWidth<E>(
+		array:
+			| ReadonlyArray<T>
+			| Result<E, ReadonlyArray<T>>
+			| Validation<E, ReadonlyArray<T>>,
+	):
+		| ReadonlyArray<ReadonlyArray<T>>
+		| Result<E, ReadonlyArray<ReadonlyArray<T>>>
+		| Validation<E, ReadonlyArray<ReadonlyArray<T>>> {
 		if (isArray<T>(array)) {
-			return _apertureArray(width)(array)
+			return _apertureArray<T>(width)(array)
 		}
 
 		if (isOk<ReadonlyArray<T>>(array)) {
-			return chainResults(_apertureToResult(width))(array)
+			return chainResults(_apertureToResult<E, T>(width))(array)
 		}
 
 		if (isSuccess<ReadonlyArray<T>>(array)) {
-			return chainValidations(_apertureToValidation(width))(array)
+			return chainValidations(_apertureToValidation<E, T>(width))(array)
 		}
 
 		return array
