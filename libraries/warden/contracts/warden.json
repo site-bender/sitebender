@@ -80,14 +80,14 @@
 		],
 		"privateFunctions": [
 			"All functions in folders prefixed with underscore (_)",
-			"Examples: src/privacy/_findViolations, src/importGraph/_parseImports, src/_shared/*"
+			"Examples: src/privacy/_normalizePath, src/importGraph/buildGraph/_walkDirectory"
 		],
 		"enforcement": "strict",
 		"rules": {
-			"nesting": "Private functions (underscore prefix) can only be imported from parent scope or siblings",
-			"noUtils": "No generic 'utils' or 'helpers' folders - use descriptive names at lowest common ancestor",
+			"nesting": "Private functions (underscore prefix) can only be imported from within their parent scope",
+			"noUtils": "No generic 'utils', 'helpers', 'shared' folders - use descriptive names (e.g., '_normalizePath', '_validateSchema')",
 			"noAbbreviations": "Full words in function and folder names (e.g., 'parse' not 'prs', 'validate' not 'val')",
-			"lowestCommonAncestor": "Shared private functions placed at lowest common ancestor of all consumers"
+			"lowestCommonAncestor": "When multiple functions need the same private helper, place it at their lowest common ancestor with a descriptive name"
 		}
 	},
 	"responsibilities": {
