@@ -4,8 +4,7 @@ import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import not from "@sitebender/toolsmith/logic/not/index.ts"
-import type { VectorStoreConnection } from "../../connection/createVectorStore/index.ts"
-import type { VectorError } from "../../errors/index.ts"
+import type { VectorError, VectorStoreConnection } from "../../types/index.ts"
 
 export type VectorPoint = {
 	readonly id: string | number
