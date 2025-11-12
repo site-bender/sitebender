@@ -1,3 +1,16 @@
+// Connection types (used by both triple store and vector store)
+export type TripleStoreConnection = {
+	readonly baseUrl: string
+	readonly queryEndpoint: string
+	readonly updateEndpoint: string
+}
+
+export type VectorStoreConnection = {
+	readonly baseUrl: string
+	readonly collectionsEndpoint: string
+	readonly apiKey?: string
+}
+
 // Base error type
 export type PathfinderError<Tag extends string> = {
 	readonly _tag: Tag

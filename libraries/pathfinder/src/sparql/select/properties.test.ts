@@ -1,8 +1,8 @@
 // Property-based tests for SPARQL query builder
 import { describe, it } from "@std/testing/bdd"
 import { expect } from "@std/expect"
-import select from "../../src/sparql/select/index.ts"
-import type { TriplePattern } from "../../src/sparql/select/index.ts"
+import select from "./index.ts"
+import type { TriplePattern } from "./index.ts"
 
 describe("SPARQL Query Builder Properties", () => {
 	// Property: All queries should start with SELECT
