@@ -7,8 +7,8 @@ import or from "@sitebender/toolsmith/logic/or/index.ts"
 import isEqual from "@sitebender/toolsmith/predicates/isEqual/index.ts"
 import betweenInclusive from "@sitebender/toolsmith/validation/betweenInclusive/index.ts"
 import isNotEmpty from "@sitebender/toolsmith/array/isNotEmpty/index.ts"
+import type { ConfigError } from "../../types/index.ts"
 import type { PathfinderConfig, ValidPathfinderConfig } from "../types/index.ts"
-import type { ConfigError } from "../../errors/index.ts"
 
 export default function validateConfig(
 	config: PathfinderConfig,

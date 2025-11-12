@@ -4,8 +4,7 @@ import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import not from "@sitebender/toolsmith/logic/not/index.ts"
-import type { QueryError } from "../../errors/index.ts"
-import type { TripleStoreConnection } from "../../connection/createTripleStore/index.ts"
+import type { QueryError, TripleStoreConnection } from "../../types/index.ts"
 
 type SparqlBinding = Record<string, { value: unknown }>
 
