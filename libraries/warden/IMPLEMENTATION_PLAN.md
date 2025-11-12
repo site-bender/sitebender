@@ -142,7 +142,7 @@ This document provides a detailed, step-by-step implementation plan for building
   - [x] Create `index.test.ts` with test cases:
     - [x] Test: `src/foo/_bar/index.ts` → true
     - [x] Test: `src/foo/bar/index.ts` → false
-    - [x] Test: `src/_shared/index.ts` → true
+    - [x] Test: `src/privacy/_normalizePath/index.ts` → true
     - [x] Test: Edge cases (empty path, root, etc.)
   - [x] All tests pass
 
@@ -165,7 +165,6 @@ This document provides a detailed, step-by-step implementation plan for building
   - [x] Rules:
     - [x] Public functions can be imported from anywhere
     - [x] Private functions can only be imported from within parent scope
-    - [x] Shared private (_shared/) can be imported from sibling scopes
   - [x] Add //++ comment
   - [x] Create `index.test.ts` with test cases:
     - [x] Test: Public → Private (same scope) → valid

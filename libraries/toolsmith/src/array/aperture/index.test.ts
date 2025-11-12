@@ -7,12 +7,23 @@ import error from "../../monads/result/error/index.ts"
 import success from "../../monads/validation/success/index.ts"
 import failure from "../../monads/validation/failure/index.ts"
 
+//++ Test error type for aperture tests
+type TestError = {
+	code: string
+	field: string
+	messages: ReadonlyArray<string>
+	received: string
+	expected: string
+	suggestion: string
+	severity: "requirement"
+}
+
 //++ Tests for aperture (creates sliding windows of consecutive elements)
 
 //++ Plain array path tests
 
 Deno.test("aperture creates sliding windows", function testApertureBasic() {
-	const result = aperture<number>(3)([1, 2, 3, 4, 5])
+	const result = aperture<unknown, number>(3)([1, 2, 3, 4, 5])
 
 	assertEquals(result, [
 		[1, 2, 3],
@@ -22,7 +33,7 @@ Deno.test("aperture creates sliding windows", function testApertureBasic() {
 })
 
 Deno.test("aperture with width 2", function testApertureWidthTwo() {
-	const result = aperture<number>(2)([1, 2, 3, 4])
+	const result = aperture<unknown, number>(2)([1, 2, 3, 4])
 
 	assertEquals(result, [
 		[1, 2],
@@ -32,43 +43,43 @@ Deno.test("aperture with width 2", function testApertureWidthTwo() {
 })
 
 Deno.test("aperture with empty array", function testApertureEmpty() {
-	const result = aperture<number>(2)([])
+	const result = aperture<unknown, number>(2)([])
 
 	assertEquals(result, [])
 })
 
 Deno.test("aperture with single element", function testApertureSingle() {
-	const result = aperture<number>(1)([42])
+	const result = aperture<unknown, number>(1)([42])
 
 	assertEquals(result, [[42]])
 })
 
 Deno.test("aperture width larger than array", function testApertureWidthLarger() {
-	const result = aperture<number>(5)([1, 2, 3])
+	const result = aperture<unknown, number>(5)([1, 2, 3])
 
 	assertEquals(result, [])
 })
 
 Deno.test("aperture width equals array length", function testApertureWidthEquals() {
-	const result = aperture<number>(3)([1, 2, 3])
+	const result = aperture<unknown, number>(3)([1, 2, 3])
 
 	assertEquals(result, [[1, 2, 3]])
 })
 
 Deno.test("aperture with invalid width returns empty", function testApertureInvalidWidth() {
-	const result = aperture<number>(0)([1, 2, 3])
+	const result = aperture<unknown, number>(0)([1, 2, 3])
 
 	assertEquals(result, [])
 })
 
 Deno.test("aperture with negative width returns empty", function testApertureNegativeWidth() {
-	const result = aperture<number>(-1)([1, 2, 3])
+	const result = aperture<unknown, number>(-1)([1, 2, 3])
 
 	assertEquals(result, [])
 })
 
 Deno.test("aperture with strings", function testApertureStrings() {
-	const result = aperture<string>(2)(["a", "b", "c", "d"])
+	const result = aperture<unknown, string>(2)(["a", "b", "c", "d"])
 
 	assertEquals(result, [
 		["a", "b"],
@@ -82,7 +93,7 @@ Deno.test("aperture with large array", function testApertureLarge() {
 		return i
 	})
 
-	const result = aperture<number>(3)(largeArray)
+	const result = aperture<unknown, number>(3)(largeArray)
 
 	assertEquals(result.length, 98)
 	assertEquals(result[0], [0, 1, 2])
@@ -92,23 +103,26 @@ Deno.test("aperture with large array", function testApertureLarge() {
 //++ Result monad path tests
 
 Deno.test("aperture with Result ok creates windows", function testApertureResultOk() {
-	const result = aperture<number>(3)(ok([1, 2, 3, 4, 5]))
+	const result = aperture<unknown, number>(3)(ok([1, 2, 3, 4, 5]))
 
-	assertEquals(result, ok([
-		[1, 2, 3],
-		[2, 3, 4],
-		[3, 4, 5],
-	]))
+	assertEquals(
+		result,
+		ok([
+			[1, 2, 3],
+			[2, 3, 4],
+			[3, 4, 5],
+		]),
+	)
 })
 
 Deno.test("aperture with Result ok and empty array", function testApertureResultEmpty() {
-	const result = aperture<number>(2)(ok([]))
+	const result = aperture<unknown, number>(2)(ok([]))
 
 	assertEquals(result, ok([]))
 })
 
 Deno.test("aperture with Result error passes through", function testApertureResultError() {
-	const err = error({
+	const err = error<TestError>({
 		code: "UPSTREAM_ERROR",
 		field: "data",
 		messages: ["Upstream error occurred"],
@@ -117,7 +131,7 @@ Deno.test("aperture with Result error passes through", function testApertureResu
 		suggestion: "Fix upstream issue",
 		severity: "requirement" as const,
 	})
-	const result = aperture<number>(2)(err)
+	const result = aperture<TestError, number>(2)(err)
 
 	assertEquals(result, err)
 })
@@ -125,23 +139,26 @@ Deno.test("aperture with Result error passes through", function testApertureResu
 //++ Validation monad path tests
 
 Deno.test("aperture with Validation success creates windows", function testApertureValidationSuccess() {
-	const result = aperture<number>(3)(success([1, 2, 3, 4, 5]))
+	const result = aperture<unknown, number>(3)(success([1, 2, 3, 4, 5]))
 
-	assertEquals(result, success([
-		[1, 2, 3],
-		[2, 3, 4],
-		[3, 4, 5],
-	]))
+	assertEquals(
+		result,
+		success([
+			[1, 2, 3],
+			[2, 3, 4],
+			[3, 4, 5],
+		]),
+	)
 })
 
 Deno.test("aperture with Validation success and empty array", function testApertureValidationEmpty() {
-	const result = aperture<number>(2)(success([]))
+	const result = aperture<unknown, number>(2)(success([]))
 
 	assertEquals(result, success([]))
 })
 
 Deno.test("aperture with Validation failure passes through", function testApertureValidationFailure() {
-	const fail = failure([{
+	const fail = failure<TestError>([{
 		code: "UPSTREAM_VALIDATION_ERROR",
 		field: "data",
 		messages: ["Validation failed upstream"],
@@ -150,7 +167,7 @@ Deno.test("aperture with Validation failure passes through", function testApertu
 		suggestion: "Fix validation issues",
 		severity: "requirement" as const,
 	}])
-	const result = aperture<number>(2)(fail)
+	const result = aperture<TestError, number>(2)(fail)
 
 	assertEquals(result, fail)
 })
@@ -162,13 +179,18 @@ Deno.test("aperture all windows same size", function testApertureWindowSizePrope
 		fc.property(
 			fc.array(fc.integer(), { minLength: 3, maxLength: 20 }),
 			fc.integer({ min: 1, max: 5 }),
-			function propertyApertureWindowSize(arr: ReadonlyArray<number>, width: number) {
-				const result = aperture<number>(width)(arr)
+			function propertyApertureWindowSize(
+				arr: ReadonlyArray<number>,
+				width: number,
+			) {
+				const result = aperture<unknown, number>(width)(arr)
 
 				if (width <= arr.length) {
-					result.forEach(function checkWindowSize(window: ReadonlyArray<number>) {
-						assertEquals(window.length, width)
-					})
+					result.forEach(
+						function checkWindowSize(window: ReadonlyArray<number>) {
+							assertEquals(window.length, width)
+						},
+					)
 				}
 			},
 		),
@@ -180,8 +202,11 @@ Deno.test("aperture window count is correct", function testApertureCountProperty
 		fc.property(
 			fc.array(fc.integer(), { minLength: 1, maxLength: 20 }),
 			fc.integer({ min: 1, max: 5 }),
-			function propertyApertureCount(arr: ReadonlyArray<number>, width: number) {
-				const result = aperture<number>(width)(arr)
+			function propertyApertureCount(
+				arr: ReadonlyArray<number>,
+				width: number,
+			) {
+				const result = aperture<unknown, number>(width)(arr)
 
 				const expectedCount = width <= arr.length ? arr.length - width + 1 : 0
 				assertEquals(result.length, expectedCount)
@@ -196,7 +221,7 @@ Deno.test("aperture always returns array of arrays", function testApertureTypePr
 			fc.array(fc.integer()),
 			fc.integer({ min: 1, max: 10 }),
 			function propertyApertureType(arr: ReadonlyArray<number>, width: number) {
-				const result = aperture<number>(width)(arr)
+				const result = aperture<unknown, number>(width)(arr)
 
 				assertEquals(Array.isArray(result), true)
 				result.forEach(function checkArrayType(window: ReadonlyArray<number>) {
@@ -212,20 +237,26 @@ Deno.test("aperture consecutive windows overlap correctly", function testApertur
 		fc.property(
 			fc.array(fc.integer(), { minLength: 3, maxLength: 20 }),
 			fc.integer({ min: 2, max: 5 }),
-			function propertyApertureOverlap(arr: ReadonlyArray<number>, width: number) {
-				const result = aperture<number>(width)(arr)
+			function propertyApertureOverlap(
+				arr: ReadonlyArray<number>,
+				width: number,
+			) {
+				const result = aperture<unknown, number>(width)(arr)
 
 				if (result.length >= 2 && width <= arr.length) {
 					//++ Check that consecutive windows overlap by width-1 elements
-					for (let i = 0; i < result.length - 1; i++) {
-						const window1 = result[i]
-						const window2 = result[i + 1]
+					result.forEach(function checkOverlap(window1, i) {
+						if (i < result.length - 1) {
+							const window2 = result[i + 1]
 
-						//++ Last width-1 elements of window1 should equal first width-1 of window2
-						for (let j = 1; j < width; j++) {
-							assertEquals(window1[j], window2[j - 1])
+							//++ Last width-1 elements of window1 should equal first width-1 of window2
+							window1.forEach(function checkElement(element, j) {
+								if (j >= 1) {
+									assertEquals(element, window2[j - 1])
+								}
+							})
 						}
-					}
+					})
 				}
 			},
 		),
