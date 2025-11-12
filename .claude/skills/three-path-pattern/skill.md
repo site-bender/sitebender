@@ -18,11 +18,13 @@ Implement a SINGLE function carefully, completely, and correctly. Do not attempt
 ## When to Use This Skill
 
 Use this skill when:
+
 - Creating new Toolsmith library functions
 - Converting existing functions to three-path pattern
 - ANY function that needs to work with Result or Validation monads
 
 DO NOT use this skill for:
+
 - Predicates (single-path, return boolean)
 - Functions already implemented with three-path pattern
 - Non-Toolsmith code
@@ -76,6 +78,7 @@ ALL code MUST follow these rules:
 ### Step 1: Understand the Function Requirements
 
 Before writing code, answer:
+
 - What does this function do?
 - What parameters does it need?
 - What type transformations occur?
@@ -107,30 +110,25 @@ deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/sc
 **CRITICAL: Write tests BEFORE implementing the function.** This is Test-Driven Development.
 
 Create `index.test.ts` with test cases for all three paths:
+
 - Plain array tests
 - Result monad tests (ok and error passthrough)
 - Validation monad tests (success and failure passthrough)
 - Property-based tests
 
 **Use the `testing` skill** for comprehensive test patterns. Reference:
+
 - `references/reduce-example.md` - Complete test examples
 - `references/map-example.md` - Complete test examples
 - `.claude/skills/testing/skill.md` - Testing patterns and best practices
 
 Tests will fail initially - this is expected in TDD.
 
-### Step 4: Implement Private Helpers (Bottom-Up)
+### Step 4: Implement Private Helpers (Bottom-Up) WITH TESTS
 
-Now implement helpers to make tests pass, in this order:
-1. `_functionNameArray/index.ts` (plain path)
-2. `_functionNameToResult/index.ts` (Result path)
-3. `_functionNameToValidation/index.ts` (Validation path)
+**CRITICAL: You MUST create tests for EACH helper IMMEDIATELY after implementing it. NO EXCEPTIONS.**
 
-Run tests after each helper to verify correctness.
-
-#### Comment Format
-
-Every file starts with:
+Every file starts with this comment:
 
 ```typescript
 /*++
@@ -139,23 +137,47 @@ Every file starts with:
  */
 ```
 
-#### 4a. Implement `_functionNameArray/index.ts`
+#### 4a. Implement `_functionNameArray/index.ts` (plain path)
 
-See `references/reduce-example.md` and `references/map-example.md` for complete examples.
+1. Write the implementation (see `references/reduce-example.md` and `references/map-example.md`)
+2. **STOP - DO NOT PROCEED TO NEXT HELPER**
+3. Create `_functionNameArray/index.test.ts`
+4. Write comprehensive tests:
+   - Basic functionality tests (minimum 4 test cases)
+   - Invalid input tests (invalid predicate, invalid array)
+   - Property-based tests (minimum 2)
+5. Run: `deno test --no-check libraries/toolsmith/src/array/functionName/_functionNameArray/index.test.ts`
+6. **ALL TESTS MUST PASS - If any fail, fix them NOW**
+7. Run: `deno fmt libraries/toolsmith/src/array/functionName/_functionNameArray/`
+8. **ONLY AFTER ALL TESTS PASS, proceed to 4b**
 
-Run tests after implementing.
+#### 4b. Implement `_functionNameToResult/index.ts` (Result path)
 
-#### 4b. Implement `_functionNameToResult/index.ts`
+1. Write the implementation (see `references/reduce-example.md` and `references/map-example.md`)
+2. **STOP - DO NOT PROCEED TO NEXT HELPER**
+3. Create `_functionNameToResult/index.test.ts`
+4. Write comprehensive tests:
+   - Ok path tests (minimum 3)
+   - Error path tests for invalid inputs (minimum 2)
+   - Property-based tests (minimum 2)
+5. Run: `deno test --no-check libraries/toolsmith/src/array/functionName/_functionNameToResult/index.test.ts`
+6. **ALL TESTS MUST PASS - If any fail, fix them NOW**
+7. Run: `deno fmt libraries/toolsmith/src/array/functionName/_functionNameToResult/`
+8. **ONLY AFTER ALL TESTS PASS, proceed to 4c**
 
-See `references/reduce-example.md` and `references/map-example.md` for complete examples.
+#### 4c. Implement `_functionNameToValidation/index.ts` (Validation path)
 
-Run tests after implementing.
-
-#### 4c. Implement `_functionNameToValidation/index.ts`
-
-See `references/reduce-example.md` and `references/map-example.md` for complete examples.
-
-Run tests after implementing.
+1. Write the implementation (see `references/reduce-example.md` and `references/map-example.md`)
+2. **STOP - DO NOT PROCEED TO NEXT STEP**
+3. Create `_functionNameToValidation/index.test.ts`
+4. Write comprehensive tests:
+   - Success path tests (minimum 3)
+   - Failure path tests for invalid inputs (minimum 2)
+   - Property-based tests (minimum 2)
+5. Run: `deno test --no-check libraries/toolsmith/src/array/functionName/_functionNameToValidation/index.test.ts`
+6. **ALL TESTS MUST PASS - If any fail, fix them NOW**
+7. Run: `deno fmt libraries/toolsmith/src/array/functionName/_functionNameToValidation/`
+8. **ONLY AFTER ALL TESTS PASS, proceed to Step 5**
 
 ### Step 5: Implement Main Function
 
@@ -205,11 +227,13 @@ function functionName(param1: Type1)                          // ONE parameter
 Pattern: `[baseName]With[Param1][And[Param2]][And[Param3]]...`
 
 Examples:
+
 - `map` → `mapWithFunction`
 - `reduce` → `reduceWithFunction` → `reduceWithFunctionAndInitialValue`
 - `filter` → `filterWithPredicate`
 
 Parameter names use PascalCase in function names:
+
 - `function` → `WithFunction`
 - `initialValue` → `WithInitialValue`
 - `compareFn` → `WithCompareFn`
@@ -221,6 +245,7 @@ Parameter names use PascalCase in function names:
 ### Generic Type Parameters
 
 Standard pattern:
+
 - `E` = Error type
 - `T` = Input item type
 - `U` = Output/transformed type
@@ -241,7 +266,10 @@ function name(array: Validation<E, ReadonlyArray<T>>): Validation<E, ReturnType>
 
 // 4. Implementation (union of all three)
 function name(
-  array: ReadonlyArray<T> | Result<E, ReadonlyArray<T>> | Validation<E, ReadonlyArray<T>>
+	array:
+		| ReadonlyArray<T>
+		| Result<E, ReadonlyArray<T>>
+		| Validation<E, ReadonlyArray<T>>,
 ): ReturnType | Result<E, ReturnType> | Validation<E, ReturnType>
 ```
 
@@ -327,6 +355,7 @@ import failure from "../../monads/validation/failure/index.ts"
 ## References
 
 For complete working examples:
+
 - **references/reduce-example.md** - Complete reduce implementation
 - **references/map-example.md** - Complete map implementation
 - **references/type-signatures.md** - Type patterns and overload signatures
@@ -346,21 +375,85 @@ This creates directory structure and template files with TODO placeholders. You 
 
 ---
 
+## MANDATORY PRE-PRESENTATION VERIFICATION
+
+**RUN THIS CHECKLIST BEFORE PRESENTING CODE TO USER. IF ANY ITEM FAILS, DO NOT PRESENT.**
+
+### File Existence Check
+
+Verify ALL these files exist:
+
+- [ ] `_functionNameArray/index.ts` file exists
+- [ ] `_functionNameArray/index.test.ts` file exists (**REQUIRED**)
+- [ ] `_functionNameToResult/index.ts` file exists
+- [ ] `_functionNameToResult/index.test.ts` file exists (**REQUIRED**)
+- [ ] `_functionNameToValidation/index.ts` file exists
+- [ ] `_functionNameToValidation/index.test.ts` file exists (**REQUIRED**)
+- [ ] Main `index.ts` file exists
+- [ ] Main `index.test.ts` file exists (**REQUIRED**)
+
+**If ANY test file is missing, STOP. Create it NOW. Do not present code without test files.**
+
+### Test Execution Check
+
+Run: `deno test --no-check libraries/toolsmith/src/array/functionName/`
+
+Verify ALL tests pass:
+
+- [ ] `_functionNameArray` tests: **ALL PASS** (0 failures)
+- [ ] `_functionNameToResult` tests: **ALL PASS** (0 failures)
+- [ ] `_functionNameToValidation` tests: **ALL PASS** (0 failures)
+- [ ] Main function tests: **ALL PASS** (0 failures)
+- [ ] **Total: 0 failed tests**
+
+**If ANY test fails, STOP. Fix the failures NOW. Do not present code with failing tests.**
+
+### Code Quality Check
+
+- [ ] `deno fmt libraries/toolsmith/src/array/functionName/` - No changes needed (already formatted)
+- [ ] Code passes linting (if applicable)
+- [ ] Type checking passes or `--no-check` justified
+
+### Test Coverage Check
+
+- [ ] Plain path tested (minimum 4 test cases in `_functionNameArray/index.test.ts`)
+- [ ] Result path tested (minimum 5 test cases in `_functionNameToResult/index.test.ts`)
+- [ ] Validation path tested (minimum 5 test cases in `_functionNameToValidation/index.test.ts`)
+- [ ] Property-based tests included (minimum 2 per helper)
+- [ ] Invalid input tests included (for each helper)
+- [ ] Error/failure passthrough tests in main `index.test.ts`
+
+**IF ANY BOX ABOVE IS UNCHECKED, DO NOT PRESENT CODE. FIX THE ISSUE FIRST.**
+
+---
+
 ## Final Checklist
 
 Before presenting code - **ALL items must be checked:**
 
+**Helper Functions (CRITICAL - MUST BE TESTED):**
+
+- [ ] `_functionNameArray/index.ts` implemented **AND TESTED**
+- [ ] `_functionNameArray/index.test.ts` exists with **ALL tests passing**
+- [ ] `_functionNameToResult/index.ts` implemented **AND TESTED**
+- [ ] `_functionNameToResult/index.test.ts` exists with **ALL tests passing**
+- [ ] `_functionNameToValidation/index.ts` implemented **AND TESTED**
+- [ ] `_functionNameToValidation/index.test.ts` exists with **ALL tests passing**
+
 **Testing (MANDATORY - do not present code if any test fails):**
+
 - [ ] Tests written FIRST before implementation (TDD)
-- [ ] Tests cover all three paths (plain, Result, Validation)
-- [ ] Tests include error passthrough cases
+- [ ] **ALL helper tests pass independently** (run each `index.test.ts` separately)
+- [ ] Main function tests cover all three paths (plain, Result, Validation)
+- [ ] Tests include error/failure passthrough cases
 - [ ] Property-based tests included
-- [ ] **ALL tests pass** - `deno test` shows 0 failures
+- [ ] Run `deno test --no-check libraries/toolsmith/src/array/functionName/` shows **0 failures**
 - [ ] `deno task fmt` passes - code is formatted
-- [ ] `deno task lint` passes - no linting errors
-- [ ] `deno task check` passes - TypeScript types valid
+- [ ] `deno task lint` passes - no linting errors in the code under development
+- [ ] `deno task check` passes - TypeScript types valid in the code under development
 
 **Constitutional Compliance:**
+
 - [ ] Directory structure correct (_functionNameArray, _functionNameToResult, _functionNameToValidation)
 - [ ] All functions curried (one parameter each)
 - [ ] Function keyword only (no arrows in implementation)
@@ -370,6 +463,7 @@ Before presenting code - **ALL items must be checked:**
 - [ ] `[EXCEPTION]` comment at top of each file
 
 **Type Safety:**
+
 - [ ] Three overloads in main function
 - [ ] Runtime type checking routing (isArray, isOk, isSuccess)
 - [ ] Error structures correct (single object for Result, array for Validation)
