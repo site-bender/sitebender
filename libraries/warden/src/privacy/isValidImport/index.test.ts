@@ -30,13 +30,17 @@ Deno.test("isValidImport - denies private to private in different parent", funct
 	assertEquals(result, false)
 })
 
-Deno.test("isValidImport - allows import from _shared by sibling", function testSharedBySibling() {
-	const result = isValidImport("src/foo/index.ts")("src/_shared/index.ts")
+Deno.test("isValidImport - allows private helper at LCA by descendant", function testLcaByDescendant() {
+	const result = isValidImport("src/foo/index.ts")(
+		"src/_normalizePath/index.ts",
+	)
 	assertEquals(result, true)
 })
 
-Deno.test("isValidImport - denies _shared from different root", function testSharedDifferentRoot() {
-	const result = isValidImport("lib/foo/index.ts")("src/_shared/index.ts")
+Deno.test("isValidImport - denies private from different root scope", function testDifferentRootScope() {
+	const result = isValidImport("lib/foo/index.ts")(
+		"src/_normalizePath/index.ts",
+	)
 	assertEquals(result, false)
 })
 
@@ -50,13 +54,13 @@ Deno.test("isValidImport - allows nested private in same scope", function testNe
 Deno.test("isValidImport - allows deeply nested scope", function testDeeplyNestedScope() {
 	const result = isValidImport(
 		"libraries/warden/src/privacy/validatePrivacy/index.ts",
-	)("libraries/warden/src/privacy/_helpers/index.ts")
+	)("libraries/warden/src/privacy/_normalizePath/index.ts")
 	assertEquals(result, true)
 })
 
 Deno.test("isValidImport - denies cross-library private import", function testCrossLibraryPrivate() {
 	const result = isValidImport("libraries/toolsmith/src/index.ts")(
-		"libraries/warden/src/privacy/_helpers/index.ts",
+		"libraries/warden/src/privacy/_normalizePath/index.ts",
 	)
 	assertEquals(result, false)
 })
