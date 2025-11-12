@@ -20,6 +20,7 @@
 		"test": "deno test --unstable-temporal --no-check --allow-read --allow-write --allow-env --allow-net --allow-ffi '**/*.test.ts'",
 		"test:strict": "deno test --unstable-temporal --allow-read --allow-write --allow-env --allow-net --allow-ffi '**/*.test.ts'",
 		"test:cov": "deno test --unstable-temporal --no-check --allow-read --allow-write --allow-env --allow-net --allow-ffi '**/*.test.ts' --coverage=coverage && deno coverage coverage --lcov > coverage.lcov",
+		"demo": "deno run --allow-net src/demo/index.ts",
 		"fmt": "deno fmt",
 		"lint": "deno lint"
 	},
