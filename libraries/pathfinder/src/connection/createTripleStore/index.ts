@@ -3,14 +3,12 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import not from "@sitebender/toolsmith/logic/not/index.ts"
+import timeout from "@sitebender/toolsmith/async/timeout/index.ts"
 import type { TripleStoreConfig } from "../../config/types/index.ts"
-import type { ConnectionError } from "../../errors/index.ts"
-
-export type TripleStoreConnection = {
-	readonly baseUrl: string
-	readonly queryEndpoint: string
-	readonly updateEndpoint: string
-}
+import type {
+	ConnectionError,
+	TripleStoreConnection,
+} from "../../types/index.ts"
 
 export default function createTripleStore(
 	config: TripleStoreConfig,
@@ -19,21 +17,13 @@ export default function createTripleStore(
 		Result<ConnectionError, TripleStoreConnection>
 	> {
 		const baseUrl = `http://${config.host}:${config.port}`
-		let timeoutId: number | undefined
 
 		try {
-			// Test connection health by fetching the base URL
-			const controller = new AbortController()
-			timeoutId = setTimeout(() => {
-				controller.abort()
-			}, config.timeout ?? 5000)
-
-			const response = await fetch(baseUrl, {
-				signal: controller.signal,
-			})
-
-			clearTimeout(timeoutId)
-			timeoutId = undefined
+			// Race the fetch against a timeout - pure FP, no mutations
+			const response = await Promise.race([
+				fetch(baseUrl),
+				timeout(config.timeout ?? 5000)(),
+			])
 
 			// Consume the response body to prevent resource leak
 			await response.body?.cancel()
@@ -55,11 +45,6 @@ export default function createTripleStore(
 				updateEndpoint: `${baseUrl}/update`,
 			})
 		} catch (cause) {
-			// Ensure timeout is cleared even in error cases
-			if (timeoutId !== undefined) {
-				clearTimeout(timeoutId)
-			}
-
 			return error({
 				_tag: "ConnectionError",
 				kind: "TripleStoreInitFailed",
