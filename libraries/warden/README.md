@@ -92,10 +92,10 @@ libraries/warden/
 
 ### Privacy Convention
 
-- **Public Functions**: `src/functionName/index.ts`
-- **Private Helpers**: `src/functionName/_helperName/index.ts`
-- **Shared Private**: `src/_sharedHelper/index.ts` (only when src is lowest common ancestor)
-- **No generic folders** - helpers use descriptive names, not "utils" or "helpers"
+- **Public Functions**: `src/functionName/index.ts` - can be imported from anywhere
+- **Private Functions**: `src/functionName/_descriptiveName/index.ts` - can ONLY be imported from within parent scope
+- **Lowest Common Ancestor**: When multiple functions need the same helper, place it at their lowest common ancestor with a descriptive name (e.g., `src/privacy/_normalizePath/index.ts` for path helpers used by multiple privacy functions)
+- **No generic folders** - use descriptive names like `_normalizePath`, `_validateSchema`, not `_helpers`, `_utils`, `_shared`
 
 ## API Overview
 

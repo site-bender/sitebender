@@ -1,25 +1,38 @@
-//++ Private helper: chunks array into fixed-size subarrays using loops for stack safety
-//++ [EXCEPTION] Using native methods (.length, .slice, .push, Number.isInteger) and loops for performance
-//++ No recursion to avoid stack overflow on large arrays
+/*++
+ + [EXCEPTION] Toolsmith functions are permitted to use JS operators and OOP methods for performance.
+ + Private helper: chunks array into fixed-size subarrays using functional recursion.
+ */
+
+import and from "../../../logic/and/index.ts"
+import isInteger from "../../../predicates/isInteger/index.ts"
+import isEmpty from "../../isEmpty/index.ts"
+import slice from "../../slice/index.ts"
+
 export default function _chunkArray<T>(size: number) {
 	return function _chunkArrayWithSize(
 		array: ReadonlyArray<T>,
 	): ReadonlyArray<ReadonlyArray<T>> {
-		if (size <= 0 || !Number.isInteger(size)) {
+		//++ Validate size: must be positive integer
+		//++ [EXCEPTION] Using raw operator > for performance in Toolsmith
+		if (and(isInteger(size))(size > 0)) {
+			return chunkRecursive<T>(size)(array)
+		}
+
+		return []
+	}
+}
+
+function chunkRecursive<T>(size: number) {
+	return function chunkRecursiveWithSize(
+		remaining: ReadonlyArray<T>,
+	): ReadonlyArray<ReadonlyArray<T>> {
+		if (isEmpty(remaining)) {
 			return []
 		}
 
-		if (array.length === 0) {
-			return []
-		}
+		const currentChunk: ReadonlyArray<T> = slice(0)(size)(remaining)
+		const rest: ReadonlyArray<T> = slice(size)(undefined)(remaining)
 
-		const result: Array<Array<T>> = []
-
-		for (let index = 0; index < array.length; index += size) {
-			const chunk = array.slice(index, index + size)
-			result.push(chunk)
-		}
-
-		return result
+		return [currentChunk, ...chunkRecursive<T>(size)(rest)]
 	}
 }
