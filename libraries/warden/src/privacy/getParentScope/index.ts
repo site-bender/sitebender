@@ -5,8 +5,8 @@
 //++
 //++ Examples:
 //++   - src/foo/_bar/index.ts → src/foo/
-//++   - src/_shared/index.ts → src/
-//++   - src/foo/_internal/_helpers/index.ts → src/foo/_internal/
+//++   - src/_normalizePath/index.ts → src/
+//++   - src/foo/_validateInput/_checkFormat/index.ts → src/foo/_validateInput/
 //++
 //++ This is a pure function with no side effects
 

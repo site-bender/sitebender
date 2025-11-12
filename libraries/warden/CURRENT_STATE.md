@@ -443,7 +443,7 @@ console.log(report)
   - 9 comprehensive tests
 - ✅ Created `src/privacy/isValidImport/` with curried function
   - Validates imports under privacy rules
-  - Handles public/private, same-scope, _shared patterns
+  - Handles public/private functions, parent-scope validation
   - 12 comprehensive tests covering all scenarios
   - Properly curried: `isValidImport(fromPath)(toPath)`
 - ✅ All 31 tests passing (100% pass rate)
