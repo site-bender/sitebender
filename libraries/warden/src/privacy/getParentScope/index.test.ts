@@ -7,13 +7,13 @@ Deno.test("getParentScope - extracts parent scope from private function", functi
 })
 
 Deno.test("getParentScope - extracts parent scope from top-level private", function testTopLevelPrivate() {
-	const result = getParentScope("src/_shared/index.ts")
+	const result = getParentScope("src/_normalizePath/index.ts")
 	assertEquals(result, "src/")
 })
 
 Deno.test("getParentScope - extracts parent scope from nested private folders", function testNestedPrivate() {
-	const result = getParentScope("src/foo/_internal/_helpers/index.ts")
-	assertEquals(result, "src/foo/_internal/")
+	const result = getParentScope("src/foo/_validateInput/_checkFormat/index.ts")
+	assertEquals(result, "src/foo/_validateInput/")
 })
 
 Deno.test("getParentScope - returns empty string for public function", function testPublicFunction() {
@@ -33,14 +33,14 @@ Deno.test("getParentScope - handles root-level private", function testRootLevelP
 
 Deno.test("getParentScope - handles deeply nested structure", function testDeeplyNested() {
 	const result = getParentScope(
-		"libraries/warden/src/privacy/_helpers/validate/index.ts",
+		"libraries/warden/src/privacy/_normalizePath/validate/index.ts",
 	)
 	assertEquals(result, "libraries/warden/src/privacy/")
 })
 
 Deno.test("getParentScope - handles multiple private folders (uses last one)", function testMultiplePrivateFolders() {
-	const result = getParentScope("src/_shared/_internal/index.ts")
-	assertEquals(result, "src/_shared/")
+	const result = getParentScope("src/_normalizePath/_convertFormat/index.ts")
+	assertEquals(result, "src/_normalizePath/")
 })
 
 Deno.test("getParentScope - handles single underscore (not valid private)", function testSingleUnderscore() {
