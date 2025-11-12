@@ -3,8 +3,7 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import not from "@sitebender/toolsmith/logic/not/index.ts"
-import type { QueryError } from "../../errors/index.ts"
-import type { TripleStoreConnection } from "../../connection/createTripleStore/index.ts"
+import type { QueryError, TripleStoreConnection } from "../../types/index.ts"
 
 export default function insert(turtle: string) {
 	return async function insertInto(
