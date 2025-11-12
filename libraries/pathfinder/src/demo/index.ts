@@ -15,22 +15,24 @@
  * 9. Perform semantic similarity search
  * 10. Handle all errors gracefully
  *
- * Run with: deno run --allow-net libraries/pathfinder/src/demo.ts
+ * Run with: deno run --allow-net libraries/pathfinder/src/demo/index.ts
  */
 
-import createTripleStore from "./connection/createTripleStore/index.ts"
-import createVectorStore from "./connection/createVectorStore/index.ts"
-import insert from "./sparql/insert/index.ts"
-import execute from "./sparql/execute/index.ts"
-import select from "./sparql/select/index.ts"
-import deleteSparql from "./sparql/delete/index.ts"
-import getAllTriples from "./sparql/helpers/getAllTriples/index.ts"
-import getBySubject from "./sparql/helpers/getBySubject/index.ts"
-import createCollection from "./vector/createCollection/index.ts"
-import insertPoints from "./vector/insertPoints/index.ts"
-import searchPoints from "./vector/searchPoints/index.ts"
-import type { TripleStoreConnection } from "./connection/createTripleStore/index.ts"
-import type { VectorStoreConnection } from "./connection/createVectorStore/index.ts"
+import createTripleStore from "../connection/createTripleStore/index.ts"
+import createVectorStore from "../connection/createVectorStore/index.ts"
+import insert from "../sparql/insert/index.ts"
+import execute from "../sparql/execute/index.ts"
+import select from "../sparql/select/index.ts"
+import deleteSparql from "../sparql/delete/index.ts"
+import getAllTriples from "../sparql/getAllTriples/index.ts"
+import getBySubject from "../sparql/getBySubject/index.ts"
+import createCollection from "../vector/createCollection/index.ts"
+import insertPoints from "../vector/insertPoints/index.ts"
+import searchPoints from "../vector/searchPoints/index.ts"
+import type {
+	TripleStoreConnection,
+	VectorStoreConnection,
+} from "../types/index.ts"
 
 // ANSI color codes for output
 const RESET = "\x1b[0m"
@@ -119,7 +121,7 @@ async function demoTripleStore(): Promise<boolean> {
 	})
 
 	if (connectionResult._tag === "Error") {
-		error(`Connection failed: ${connectionResult.error.message}`)
+		error(`Connection failed: ${connectionResult.value.message}`)
 		error(
 			"Make sure Oxigraph is running: docker run -p 7878:7878 oxigraph/oxigraph",
 		)
@@ -134,7 +136,7 @@ async function demoTripleStore(): Promise<boolean> {
 	const insertResult = await insert(DEMO_ARTICLES)(connection)
 
 	if (insertResult._tag === "Error") {
-		error(`Insert failed: ${insertResult.error.message}`)
+		error(`Insert failed: ${insertResult.value.message}`)
 		return false
 	}
 
@@ -146,7 +148,7 @@ async function demoTripleStore(): Promise<boolean> {
 	const allResult = await execute(allTriplesQuery)(connection)
 
 	if (allResult._tag === "Error") {
-		error(`Query failed: ${allResult.error.message}`)
+		error(`Query failed: ${allResult.value.message}`)
 		return false
 	}
 
@@ -158,7 +160,7 @@ async function demoTripleStore(): Promise<boolean> {
 	const article1Result = await execute(article1Query)(connection)
 
 	if (article1Result._tag === "Error") {
-		error(`Query failed: ${article1Result.error.message}`)
+		error(`Query failed: ${article1Result.value.message}`)
 		return false
 	}
 
@@ -194,18 +196,31 @@ async function demoTripleStore(): Promise<boolean> {
 	const articlesResult = await execute(builderQuery)(connection)
 
 	if (articlesResult._tag === "Error") {
-		error(`Query failed: ${articlesResult.error.message}`)
+		error(`Query failed: ${articlesResult.value.message}`)
 		return false
 	}
 
 	success(`Found ${articlesResult.value.length} articles`)
 
-	// Display results
-	articlesResult.value.forEach(function displayArticle(
-		article: Record<string, unknown>,
-	): void {
+	// Display results - using side effects for console output
+	function displayArticle(article: Record<string, unknown>): void {
 		console.log(`  - ${article.title} by ${article.author} (${article.date})`)
-	})
+	}
+
+	function processArticles(
+		articles: ReadonlyArray<Record<string, unknown>>,
+	): void {
+		function processOne(index: number): void {
+			if (index >= articles.length) {
+				return
+			}
+			displayArticle(articles[index])
+			processOne(index + 1)
+		}
+		processOne(0)
+	}
+
+	processArticles(articlesResult.value)
 
 	// Step 6: Filter query
 	log("Querying articles by Alice Smith...")
@@ -232,7 +247,7 @@ async function demoTripleStore(): Promise<boolean> {
 	const aliceResult = await execute(aliceQuery)(connection)
 
 	if (aliceResult._tag === "Error") {
-		error(`Query failed: ${aliceResult.error.message}`)
+		error(`Query failed: ${aliceResult.value.message}`)
 		return false
 	}
 
@@ -244,7 +259,7 @@ async function demoTripleStore(): Promise<boolean> {
 	const deleteResult = await deleteSparql(deletePattern)(connection)
 
 	if (deleteResult._tag === "Error") {
-		error(`Delete failed: ${deleteResult.error.message}`)
+		error(`Delete failed: ${deleteResult.value.message}`)
 		return false
 	}
 
@@ -279,7 +294,7 @@ async function demoVectorStore(): Promise<boolean> {
 	})
 
 	if (connectionResult._tag === "Error") {
-		error(`Connection failed: ${connectionResult.error.message}`)
+		error(`Connection failed: ${connectionResult.value.message}`)
 		error("Make sure Qdrant is running: docker run -p 6333:6333 qdrant/qdrant")
 		return false
 	}
@@ -298,7 +313,7 @@ async function demoVectorStore(): Promise<boolean> {
 	})(connection)
 
 	if (createResult._tag === "Error") {
-		error(`Collection creation failed: ${createResult.error.message}`)
+		error(`Collection creation failed: ${createResult.value.message}`)
 		return false
 	}
 
@@ -312,7 +327,7 @@ async function demoVectorStore(): Promise<boolean> {
 	})(connection)
 
 	if (insertResult._tag === "Error") {
-		error(`Insert failed: ${insertResult.error.message}`)
+		error(`Insert failed: ${insertResult.value.message}`)
 		return false
 	}
 
@@ -331,14 +346,14 @@ async function demoVectorStore(): Promise<boolean> {
 	})(connection)
 
 	if (searchResult._tag === "Error") {
-		error(`Search failed: ${searchResult.error.message}`)
+		error(`Search failed: ${searchResult.value.message}`)
 		return false
 	}
 
 	success(`Found ${searchResult.value.length} similar articles`)
 
-	// Display results
-	searchResult.value.forEach(function displayMatch(
+	// Display results - using side effects for console output
+	function displayMatch(
 		match: {
 			readonly id: string | number
 			readonly score: number
@@ -352,7 +367,26 @@ async function demoVectorStore(): Promise<boolean> {
 			})`,
 		)
 		console.log(`     Author: ${match.payload?.author}`)
-	})
+	}
+
+	function processMatches(
+		matches: ReadonlyArray<{
+			readonly id: string | number
+			readonly score: number
+			readonly payload?: Record<string, unknown>
+		}>,
+	): void {
+		function processOne(index: number): void {
+			if (index >= matches.length) {
+				return
+			}
+			displayMatch(matches[index], index)
+			processOne(index + 1)
+		}
+		processOne(0)
+	}
+
+	processMatches(searchResult.value)
 
 	// Step 5: Cleanup
 	log("Cleaning up: deleting collection...")
