@@ -3,14 +3,12 @@ import type { Result } from "@sitebender/toolsmith/types/fp/result/index.ts"
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
 import not from "@sitebender/toolsmith/logic/not/index.ts"
+import timeout from "@sitebender/toolsmith/async/timeout/index.ts"
 import type { VectorStoreConfig } from "../../config/types/index.ts"
-import type { ConnectionError } from "../../errors/index.ts"
-
-export type VectorStoreConnection = {
-	readonly baseUrl: string
-	readonly collectionsEndpoint: string
-	readonly apiKey?: string
-}
+import type {
+	ConnectionError,
+	VectorStoreConnection,
+} from "../../types/index.ts"
 
 export default function createVectorStore(
 	config: VectorStoreConfig,
@@ -19,27 +17,18 @@ export default function createVectorStore(
 		Result<ConnectionError, VectorStoreConnection>
 	> {
 		const baseUrl = `http://${config.host}:${config.port}`
-		let timeoutId: number | undefined
 
 		try {
-			// Test connection health by fetching health endpoint
-			const controller = new AbortController()
-			timeoutId = setTimeout(() => {
-				controller.abort()
-			}, config.timeout ?? 5000)
-
 			const headers: Record<string, string> = {}
 			if (config.apiKey) {
 				headers["api-key"] = config.apiKey
 			}
 
-			const response = await fetch(`${baseUrl}/`, {
-				signal: controller.signal,
-				headers,
-			})
-
-			clearTimeout(timeoutId)
-			timeoutId = undefined
+			// Race the fetch against a timeout - pure FP, no mutations
+			const response = await Promise.race([
+				fetch(`${baseUrl}/`, { headers }),
+				timeout(config.timeout ?? 5000)(),
+			])
 
 			// Consume the response body to prevent resource leak
 			await response.body?.cancel()
@@ -61,11 +50,6 @@ export default function createVectorStore(
 				apiKey: config.apiKey,
 			})
 		} catch (cause) {
-			// Ensure timeout is cleared even in error cases
-			if (timeoutId !== undefined) {
-				clearTimeout(timeoutId)
-			}
-
 			return error({
 				_tag: "ConnectionError",
 				kind: "VectorStoreInitFailed",
