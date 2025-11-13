@@ -1,0 +1,7108 @@
+@prefix : <http://sitebender.io/ontology/country#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+
+## Generated from REST Countries API
+## Generated: 2025-11-13T01:21:41.801Z
+## Countries: 249
+
+################################################################################
+# COUNTRIES
+################################################################################
+
+:SYR a :SovereignState ;
+	rdfs:label "Syria"@en ;
+	:alpha2Code "SY" ;
+	:alpha3Code "SYR" ;
+	:numericCode "760" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".sy" ;
+	:latitude 35 ;
+	:longitude 38 ;
+	:area 185180 ;
+	:population 25620000 ;
+	:capital :SYR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IRQ , :ISR , :JOR , :LBN , :TUR ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_SYP ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Syria> .
+
+:NZL a :SovereignState ;
+	rdfs:label "New Zealand"@en ;
+	:alpha2Code "NZ" ;
+	:alpha3Code "NZL" ;
+	:numericCode "554" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".nz" ;
+	:latitude -41 ;
+	:longitude 174 ;
+	:area 268838 ;
+	:population 5324700 ;
+	:capital :NZL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_mri , :Language_nzs ;
+	:currency :Currency_NZD ;
+	:hasTimeZone :TimeZone_UTC_11_00 , :TimeZone_UTC_10_00 , :TimeZone_UTC_12_00 , :TimeZone_UTC_12_45 , :TimeZone_UTC_13_00 ;
+	owl:sameAs <http://dbpedia.org/resource/New_Zealand> .
+
+:BRN a :SovereignState ;
+	rdfs:label "Brunei"@en ;
+	:alpha2Code "BN" ;
+	:alpha3Code "BRN" ;
+	:numericCode "096" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".bn" ;
+	:latitude 4.5 ;
+	:longitude 114.66666666 ;
+	:area 5765 ;
+	:population 455500 ;
+	:capital :BRN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MYS ;
+	:officialLanguage :Language_msa ;
+	:currency :Currency_BND , :Currency_SGD ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Brunei> .
+
+:IOT a :Territory ;
+	rdfs:label "British Indian Ocean Territory"@en ;
+	:alpha2Code "IO" ;
+	:alpha3Code "IOT" ;
+	:numericCode "086" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".io" ;
+	:latitude -6 ;
+	:longitude 71.5 ;
+	:area 60 ;
+	:capital :IOT_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/British_Indian_Ocean_Territory> .
+
+:KEN a :SovereignState ;
+	rdfs:label "Kenya"@en ;
+	:alpha2Code "KE" ;
+	:alpha3Code "KEN" ;
+	:numericCode "404" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ke" ;
+	:latitude 1 ;
+	:longitude 38 ;
+	:area 580367 ;
+	:population 53330978 ;
+	:capital :KEN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ETH , :SOM , :SSD , :TZA , :UGA ;
+	:officialLanguage :Language_eng , :Language_swa ;
+	:currency :Currency_KES ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Kenya> .
+
+:PLW a :SovereignState ;
+	rdfs:label "Palau"@en ;
+	:alpha2Code "PW" ;
+	:alpha3Code "PLW" ;
+	:numericCode "585" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".pw" ;
+	:latitude 7.5 ;
+	:longitude 134.5 ;
+	:area 459 ;
+	:population 16733 ;
+	:capital :PLW_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_pau ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_09_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Palau> .
+
+:OMN a :SovereignState ;
+	rdfs:label "Oman"@en ;
+	:alpha2Code "OM" ;
+	:alpha3Code "OMN" ;
+	:numericCode "512" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".om" ;
+	:latitude 21 ;
+	:longitude 57 ;
+	:area 309500 ;
+	:population 5343630 ;
+	:capital :OMN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :SAU , :ARE , :YEM ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_OMR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Oman> .
+
+:MEX a :SovereignState ;
+	rdfs:label "Mexico"@en ;
+	:alpha2Code "MX" ;
+	:alpha3Code "MEX" ;
+	:numericCode "484" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".mx" ;
+	:latitude 23 ;
+	:longitude -102 ;
+	:area 1964375 ;
+	:population 130575786 ;
+	:capital :MEX_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BLZ , :GTM , :USA ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_MXN ;
+	:hasTimeZone :TimeZone_UTC_08_00 , :TimeZone_UTC_07_00 , :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Mexico> .
+
+:PSE a :Territory ;
+	rdfs:label "Palestine"@en ;
+	:alpha2Code "PS" ;
+	:alpha3Code "PSE" ;
+	:numericCode "275" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".ps" ;
+	:latitude 31.9 ;
+	:longitude 35.2 ;
+	:area 6220 ;
+	:population 5483450 ;
+	:capital :PSE_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :ISR , :EGY , :JOR ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_EGP , :Currency_ILS , :Currency_JOD ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Palestine> .
+
+:TCA a :Territory ;
+	rdfs:label "Turks and Caicos Islands"@en ;
+	:alpha2Code "TC" ;
+	:alpha3Code "TCA" ;
+	:numericCode "796" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".tc" ;
+	:latitude 21.75 ;
+	:longitude -71.58333333 ;
+	:area 948 ;
+	:population 50828 ;
+	:capital :TCA_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Turks_and_Caicos_Islands> .
+
+:CAF a :SovereignState ;
+	rdfs:label "Central African Republic"@en ;
+	:alpha2Code "CF" ;
+	:alpha3Code "CAF" ;
+	:numericCode "140" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".cf" ;
+	:latitude 7 ;
+	:longitude 21 ;
+	:area 622984 ;
+	:population 6470307 ;
+	:capital :CAF_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CMR , :TCD , :COD , :COG , :SSD , :SDN ;
+	:officialLanguage :Language_fra , :Language_sag ;
+	:currency :Currency_XAF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Central_African_Republic> .
+
+:KNA a :SovereignState ;
+	rdfs:label "Saint Kitts and Nevis"@en ;
+	:alpha2Code "KN" ;
+	:alpha3Code "KNA" ;
+	:numericCode "659" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".kn" ;
+	:latitude 17.33333333 ;
+	:longitude -62.75 ;
+	:area 261 ;
+	:population 51320 ;
+	:capital :KNA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saint_Kitts_and_Nevis> .
+
+:SSD a :SovereignState ;
+	rdfs:label "South Sudan"@en ;
+	:alpha2Code "SS" ;
+	:alpha3Code "SSD" ;
+	:numericCode "728" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ss" ;
+	:latitude 7 ;
+	:longitude 30 ;
+	:area 619745 ;
+	:population 15786898 ;
+	:capital :SSD_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CAF , :COD , :ETH , :KEN , :SDN , :UGA ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_SSP ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/South_Sudan> .
+
+:UKR a :SovereignState ;
+	rdfs:label "Ukraine"@en ;
+	:alpha2Code "UA" ;
+	:alpha3Code "UKR" ;
+	:numericCode "804" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".ua" ;
+	:latitude 49 ;
+	:longitude 32 ;
+	:area 603550 ;
+	:population 32862000 ;
+	:capital :UKR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BLR , :HUN , :MDA , :POL , :ROU , :RUS , :SVK ;
+	:officialLanguage :Language_ukr ;
+	:currency :Currency_UAH ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Ukraine> .
+
+:BLM a :Territory ;
+	rdfs:label "Saint Barthélemy"@en ;
+	:alpha2Code "BL" ;
+	:alpha3Code "BLM" ;
+	:numericCode "652" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".bl" ;
+	:latitude 18.5 ;
+	:longitude -63.41666666 ;
+	:area 21 ;
+	:population 10562 ;
+	:capital :BLM_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saint_Barth%C3%A9lemy> .
+
+:NLD a :SovereignState ;
+	rdfs:label "Netherlands"@en ;
+	:alpha2Code "NL" ;
+	:alpha3Code "NLD" ;
+	:numericCode "528" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".nl" ;
+	:latitude 52.5 ;
+	:longitude 5.75 ;
+	:area 41865 ;
+	:population 18100436 ;
+	:capital :NLD_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BEL , :DEU ;
+	:officialLanguage :Language_nld ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Netherlands> .
+
+:TZA a :SovereignState ;
+	rdfs:label "Tanzania"@en ;
+	:alpha2Code "TZ" ;
+	:alpha3Code "TZA" ;
+	:numericCode "834" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".tz" ;
+	:latitude -6 ;
+	:longitude 35 ;
+	:area 947303 ;
+	:population 68153004 ;
+	:capital :TZA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BDI , :COD , :KEN , :MWI , :MOZ , :RWA , :UGA , :ZMB ;
+	:officialLanguage :Language_eng , :Language_swa ;
+	:currency :Currency_TZS ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Tanzania> .
+
+:CZE a :SovereignState ;
+	rdfs:label "Czechia"@en ;
+	:alpha2Code "CZ" ;
+	:alpha3Code "CZE" ;
+	:numericCode "203" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".cz" ;
+	:latitude 49.75 ;
+	:longitude 15.5 ;
+	:area 78865 ;
+	:population 10882341 ;
+	:capital :CZE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :DEU , :POL , :SVK ;
+	:officialLanguage :Language_ces , :Language_slk ;
+	:currency :Currency_CZK ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Czechia> .
+
+:BLR a :SovereignState ;
+	rdfs:label "Belarus"@en ;
+	:alpha2Code "BY" ;
+	:alpha3Code "BLR" ;
+	:numericCode "112" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".by" ;
+	:latitude 53 ;
+	:longitude 28 ;
+	:area 207600 ;
+	:population 9109280 ;
+	:capital :BLR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :LVA , :LTU , :POL , :RUS , :UKR ;
+	:officialLanguage :Language_bel , :Language_rus ;
+	:currency :Currency_BYN ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Belarus> .
+
+:YEM a :SovereignState ;
+	rdfs:label "Yemen"@en ;
+	:alpha2Code "YE" ;
+	:alpha3Code "YEM" ;
+	:numericCode "887" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".ye" ;
+	:latitude 15 ;
+	:longitude 48 ;
+	:area 527968 ;
+	:population 32684503 ;
+	:capital :YEM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :OMN , :SAU ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_YER ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Yemen> .
+
+:SVN a :SovereignState ;
+	rdfs:label "Slovenia"@en ;
+	:alpha2Code "SI" ;
+	:alpha3Code "SVN" ;
+	:numericCode "705" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".si" ;
+	:latitude 46.11666666 ;
+	:longitude 14.81666666 ;
+	:area 20273 ;
+	:population 2130638 ;
+	:capital :SVN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :HRV , :ITA , :HUN ;
+	:officialLanguage :Language_slv ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Slovenia> .
+
+:TKL a :Territory ;
+	rdfs:label "Tokelau"@en ;
+	:alpha2Code "TK" ;
+	:alpha3Code "TKL" ;
+	:numericCode "772" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".tk" ;
+	:latitude -9 ;
+	:longitude -172 ;
+	:area 12 ;
+	:population 2608 ;
+	:capital :TKL_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_smo , :Language_tkl ;
+	:currency :Currency_NZD ;
+	:hasTimeZone :TimeZone_UTC_13_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Tokelau> .
+
+:NGA a :SovereignState ;
+	rdfs:label "Nigeria"@en ;
+	:alpha2Code "NG" ;
+	:alpha3Code "NGA" ;
+	:numericCode "566" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ng" ;
+	:latitude 10 ;
+	:longitude 8 ;
+	:area 923768 ;
+	:population 223800000 ;
+	:capital :NGA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BEN , :CMR , :TCD , :NER ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_NGN ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Nigeria> .
+
+:REU a :Territory ;
+	rdfs:label "Réunion"@en ;
+	:alpha2Code "RE" ;
+	:alpha3Code "REU" ;
+	:numericCode "638" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".re" ;
+	:latitude -21.15 ;
+	:longitude 55.5 ;
+	:area 2511 ;
+	:population 896175 ;
+	:capital :REU_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/R%C3%A9union> .
+
+:GLP a :Territory ;
+	rdfs:label "Guadeloupe"@en ;
+	:alpha2Code "GP" ;
+	:alpha3Code "GLP" ;
+	:numericCode "312" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".gp" ;
+	:latitude 16.25 ;
+	:longitude -61.583333 ;
+	:area 1628 ;
+	:population 378561 ;
+	:capital :GLP_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Guadeloupe> .
+
+:HUN a :SovereignState ;
+	rdfs:label "Hungary"@en ;
+	:alpha2Code "HU" ;
+	:alpha3Code "HUN" ;
+	:numericCode "348" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".hu" ;
+	:latitude 47 ;
+	:longitude 20 ;
+	:area 93028 ;
+	:population 9539502 ;
+	:capital :HUN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :HRV , :ROU , :SRB , :SVK , :SVN , :UKR ;
+	:officialLanguage :Language_hun ;
+	:currency :Currency_HUF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Hungary> .
+
+:HMD a :Territory ;
+	rdfs:label "Heard Island and McDonald Islands"@en ;
+	:alpha2Code "HM" ;
+	:alpha3Code "HMD" ;
+	:numericCode "334" ;
+	:internetTLD ".hm" ;
+	:latitude -53.0818 ;
+	:longitude 73.5042 ;
+	:area 412 ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Heard_Island_and_McDonald_Islands> .
+
+:SWZ a :SovereignState ;
+	rdfs:label "Eswatini"@en ;
+	:alpha2Code "SZ" ;
+	:alpha3Code "SWZ" ;
+	:numericCode "748" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".sz" ;
+	:latitude -26.5 ;
+	:longitude 31.5 ;
+	:area 17364 ;
+	:population 1235549 ;
+	:capital :SWZ_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MOZ , :ZAF ;
+	:officialLanguage :Language_eng , :Language_ssw ;
+	:currency :Currency_SZL , :Currency_ZAR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Eswatini> .
+
+:COM a :SovereignState ;
+	rdfs:label "Comoros"@en ;
+	:alpha2Code "KM" ;
+	:alpha3Code "COM" ;
+	:numericCode "174" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".km" ;
+	:latitude -12.16666666 ;
+	:longitude 44.25 ;
+	:area 1862 ;
+	:population 919901 ;
+	:capital :COM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_ara , :Language_fra , :Language_zdj ;
+	:currency :Currency_KMF ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Comoros> .
+
+:IND a :SovereignState ;
+	rdfs:label "India"@en ;
+	:alpha2Code "IN" ;
+	:alpha3Code "IND" ;
+	:numericCode "356" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".in" ;
+	:latitude 20 ;
+	:longitude 77 ;
+	:area 3287263 ;
+	:population 1417492000 ;
+	:capital :IND_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BGD , :BTN , :MMR , :CHN , :NPL , :PAK ;
+	:officialLanguage :Language_eng , :Language_hin , :Language_tam ;
+	:currency :Currency_INR ;
+	:hasTimeZone :TimeZone_UTC_05_30 ;
+	owl:sameAs <http://dbpedia.org/resource/India> .
+
+:CCK a :Territory ;
+	rdfs:label "Cocos (Keeling) Islands"@en ;
+	:alpha2Code "CC" ;
+	:alpha3Code "CCK" ;
+	:numericCode "166" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".cc" ;
+	:latitude -12.1642 ;
+	:longitude 96.871 ;
+	:area 14 ;
+	:population 593 ;
+	:capital :CCK_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_AUD ;
+	:hasTimeZone :TimeZone_UTC_06_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Cocos_(Keeling)_Islands> .
+
+:GBR a :SovereignState ;
+	rdfs:label "United Kingdom"@en ;
+	:alpha2Code "GB" ;
+	:alpha3Code "GBR" ;
+	:numericCode "826" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".uk" ;
+	:latitude 54 ;
+	:longitude -2 ;
+	:area 244376 ;
+	:population 69281437 ;
+	:capital :GBR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IRL ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_GBP ;
+	:hasTimeZone :TimeZone_UTC_08_00 , :TimeZone_UTC_05_00 , :TimeZone_UTC_04_00 , :TimeZone_UTC_03_00 , :TimeZone_UTC_02_00 , :TimeZone_UTC , :TimeZone_UTC_01_00 , :TimeZone_UTC_02_00 , :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/United_Kingdom> .
+
+:AGO a :SovereignState ;
+	rdfs:label "Angola"@en ;
+	:alpha2Code "AO" ;
+	:alpha3Code "AGO" ;
+	:numericCode "024" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ao" ;
+	:latitude -12.5 ;
+	:longitude 18.5 ;
+	:area 1246700 ;
+	:population 36170961 ;
+	:capital :AGO_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :COG , :COD , :ZMB , :NAM ;
+	:officialLanguage :Language_por ;
+	:currency :Currency_AOA ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Angola> .
+
+:MAC a :Territory ;
+	rdfs:label "Macau"@en ;
+	:alpha2Code "MO" ;
+	:alpha3Code "MAC" ;
+	:numericCode "446" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".mo" ;
+	:latitude 22.16666666 ;
+	:longitude 113.55 ;
+	:area 30 ;
+	:population 685900 ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :CHN ;
+	:officialLanguage :Language_por , :Language_zho ;
+	:currency :Currency_MOP ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Macau> .
+
+:CRI a :SovereignState ;
+	rdfs:label "Costa Rica"@en ;
+	:alpha2Code "CR" ;
+	:alpha3Code "CRI" ;
+	:numericCode "188" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".cr" ;
+	:latitude 10 ;
+	:longitude -84 ;
+	:area 51100 ;
+	:population 5309625 ;
+	:capital :CRI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :NIC , :PAN ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_CRC ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Costa_Rica> .
+
+:NIU a :Territory ;
+	rdfs:label "Niue"@en ;
+	:alpha2Code "NU" ;
+	:alpha3Code "NIU" ;
+	:numericCode "570" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".nu" ;
+	:latitude -19.03333333 ;
+	:longitude -169.86666666 ;
+	:area 260 ;
+	:population 1681 ;
+	:capital :NIU_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_niu ;
+	:currency :Currency_NZD ;
+	:hasTimeZone :TimeZone_UTC_11_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Niue> .
+
+:COK a :Territory ;
+	rdfs:label "Cook Islands"@en ;
+	:alpha2Code "CK" ;
+	:alpha3Code "COK" ;
+	:numericCode "184" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".ck" ;
+	:latitude -21.23333333 ;
+	:longitude -159.76666666 ;
+	:area 236 ;
+	:population 15040 ;
+	:capital :COK_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_rar ;
+	:currency :Currency_CKD , :Currency_NZD ;
+	:hasTimeZone :TimeZone_UTC_10_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cook_Islands> .
+
+:DJI a :SovereignState ;
+	rdfs:label "Djibouti"@en ;
+	:alpha2Code "DJ" ;
+	:alpha3Code "DJI" ;
+	:numericCode "262" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".dj" ;
+	:latitude 11.5 ;
+	:longitude 43 ;
+	:area 23200 ;
+	:population 1066809 ;
+	:capital :DJI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ERI , :ETH , :SOM ;
+	:officialLanguage :Language_ara , :Language_fra ;
+	:currency :Currency_DJF ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Djibouti> .
+
+:SPM a :Territory ;
+	rdfs:label "Saint Pierre and Miquelon"@en ;
+	:alpha2Code "PM" ;
+	:alpha3Code "SPM" ;
+	:numericCode "666" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".pm" ;
+	:latitude 46.83333333 ;
+	:longitude -56.33333333 ;
+	:area 242 ;
+	:population 5819 ;
+	:capital :SPM_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saint_Pierre_and_Miquelon> .
+
+:AUT a :SovereignState ;
+	rdfs:label "Austria"@en ;
+	:alpha2Code "AT" ;
+	:alpha3Code "AUT" ;
+	:numericCode "040" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".at" ;
+	:latitude 47.33333333 ;
+	:longitude 13.33333333 ;
+	:area 83871 ;
+	:population 9200931 ;
+	:capital :AUT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CZE , :DEU , :HUN , :ITA , :LIE , :SVK , :SVN , :CHE ;
+	:officialLanguage :Language_deu ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Austria> .
+
+:IDN a :SovereignState ;
+	rdfs:label "Indonesia"@en ;
+	:alpha2Code "ID" ;
+	:alpha3Code "IDN" ;
+	:numericCode "360" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".id" ;
+	:latitude -5 ;
+	:longitude 120 ;
+	:area 1904569 ;
+	:population 284438782 ;
+	:capital :IDN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :TLS , :MYS , :PNG ;
+	:officialLanguage :Language_ind ;
+	:currency :Currency_IDR ;
+	:hasTimeZone :TimeZone_UTC_07_00 , :TimeZone_UTC_08_00 , :TimeZone_UTC_09_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Indonesia> .
+
+:NRU a :SovereignState ;
+	rdfs:label "Nauru"@en ;
+	:alpha2Code "NR" ;
+	:alpha3Code "NRU" ;
+	:numericCode "520" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".nr" ;
+	:latitude -0.53333333 ;
+	:longitude 166.91666666 ;
+	:area 21 ;
+	:population 11680 ;
+	:capital :NRU_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_nau ;
+	:currency :Currency_AUD ;
+	:hasTimeZone :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Nauru> .
+
+:KAZ a :SovereignState ;
+	rdfs:label "Kazakhstan"@en ;
+	:alpha2Code "KZ" ;
+	:alpha3Code "KAZ" ;
+	:numericCode "398" ;
+	:callingCode "+7" ;
+	:countryCallingCodePrefix 7 ;
+	:internetTLD ".kz" ;
+	:latitude 48.0196 ;
+	:longitude 66.9237 ;
+	:area 2724900 ;
+	:population 20426568 ;
+	:capital :KAZ_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CHN , :KGZ , :RUS , :TKM , :UZB ;
+	:officialLanguage :Language_kaz , :Language_rus ;
+	:currency :Currency_KZT ;
+	:hasTimeZone :TimeZone_UTC_05_00 , :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Kazakhstan> .
+
+:MWI a :SovereignState ;
+	rdfs:label "Malawi"@en ;
+	:alpha2Code "MW" ;
+	:alpha3Code "MWI" ;
+	:numericCode "454" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".mw" ;
+	:latitude -13.5 ;
+	:longitude 34 ;
+	:area 118484 ;
+	:population 20734262 ;
+	:capital :MWI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MOZ , :TZA , :ZMB ;
+	:officialLanguage :Language_eng , :Language_nya ;
+	:currency :Currency_MWK ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Malawi> .
+
+:ERI a :SovereignState ;
+	rdfs:label "Eritrea"@en ;
+	:alpha2Code "ER" ;
+	:alpha3Code "ERI" ;
+	:numericCode "232" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".er" ;
+	:latitude 15 ;
+	:longitude 39 ;
+	:area 117600 ;
+	:population 3607000 ;
+	:capital :ERI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DJI , :ETH , :SDN ;
+	:officialLanguage :Language_ara , :Language_eng , :Language_tir ;
+	:currency :Currency_ERN ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Eritrea> .
+
+:TUN a :SovereignState ;
+	rdfs:label "Tunisia"@en ;
+	:alpha2Code "TN" ;
+	:alpha3Code "TUN" ;
+	:numericCode "788" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".tn" ;
+	:latitude 34 ;
+	:longitude 9 ;
+	:area 163610 ;
+	:population 11972169 ;
+	:capital :TUN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DZA , :LBY ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_TND ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Tunisia> .
+
+:PCN a :Territory ;
+	rdfs:label "Pitcairn Islands"@en ;
+	:alpha2Code "PN" ;
+	:alpha3Code "PCN" ;
+	:numericCode "612" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".pn" ;
+	:latitude -25.06666666 ;
+	:longitude -130.1 ;
+	:area 47 ;
+	:population 35 ;
+	:capital :PCN_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_NZD ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Pitcairn_Islands> .
+
+:SAU a :SovereignState ;
+	rdfs:label "Saudi Arabia"@en ;
+	:alpha2Code "SA" ;
+	:alpha3Code "SAU" ;
+	:numericCode "682" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".sa" ;
+	:latitude 25 ;
+	:longitude 45 ;
+	:area 2149690 ;
+	:population 35300280 ;
+	:capital :SAU_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IRQ , :JOR , :KWT , :OMN , :QAT , :ARE , :YEM ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_SAR ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saudi_Arabia> .
+
+:TKM a :SovereignState ;
+	rdfs:label "Turkmenistan"@en ;
+	:alpha2Code "TM" ;
+	:alpha3Code "TKM" ;
+	:numericCode "795" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".tm" ;
+	:latitude 40 ;
+	:longitude 60 ;
+	:area 488100 ;
+	:population 7057841 ;
+	:capital :TKM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AFG , :IRN , :KAZ , :UZB ;
+	:officialLanguage :Language_rus , :Language_tuk ;
+	:currency :Currency_TMT ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Turkmenistan> .
+
+:ESH a :Territory ;
+	rdfs:label "Western Sahara"@en ;
+	:alpha2Code "EH" ;
+	:alpha3Code "ESH" ;
+	:numericCode "732" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".eh" ;
+	:latitude 24.5 ;
+	:longitude -13 ;
+	:area 266000 ;
+	:population 600904 ;
+	:capital :ESH_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :DZA , :MRT , :MAR ;
+	:officialLanguage :Language_ber , :Language_mey , :Language_spa ;
+	:currency :Currency_DZD , :Currency_MAD , :Currency_MRU ;
+	:hasTimeZone :TimeZone_UTC_00_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Western_Sahara> .
+
+:GHA a :SovereignState ;
+	rdfs:label "Ghana"@en ;
+	:alpha2Code "GH" ;
+	:alpha3Code "GHA" ;
+	:numericCode "288" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".gh" ;
+	:latitude 8 ;
+	:longitude -2 ;
+	:area 238533 ;
+	:population 33742380 ;
+	:capital :GHA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BFA , :CIV , :TGO ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_GHS ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Ghana> .
+
+:TUV a :SovereignState ;
+	rdfs:label "Tuvalu"@en ;
+	:alpha2Code "TV" ;
+	:alpha3Code "TUV" ;
+	:numericCode "798" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".tv" ;
+	:latitude -8 ;
+	:longitude 178 ;
+	:area 26 ;
+	:population 10643 ;
+	:capital :TUV_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_tvl ;
+	:currency :Currency_AUD , :Currency_TVD ;
+	:hasTimeZone :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Tuvalu> .
+
+:MMR a :SovereignState ;
+	rdfs:label "Myanmar"@en ;
+	:alpha2Code "MM" ;
+	:alpha3Code "MMR" ;
+	:numericCode "104" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".mm" ;
+	:latitude 22 ;
+	:longitude 98 ;
+	:area 676578 ;
+	:population 51316756 ;
+	:capital :MMR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BGD , :CHN , :IND , :LAO , :THA ;
+	:officialLanguage :Language_mya ;
+	:currency :Currency_MMK ;
+	:hasTimeZone :TimeZone_UTC_06_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Myanmar> .
+
+:GAB a :SovereignState ;
+	rdfs:label "Gabon"@en ;
+	:alpha2Code "GA" ;
+	:alpha3Code "GAB" ;
+	:numericCode "266" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ga" ;
+	:latitude -1 ;
+	:longitude 11.75 ;
+	:area 267668 ;
+	:population 2469296 ;
+	:capital :GAB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CMR , :COG , :GNQ ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XAF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Gabon> .
+
+:CUB a :SovereignState ;
+	rdfs:label "Cuba"@en ;
+	:alpha2Code "CU" ;
+	:alpha3Code "CUB" ;
+	:numericCode "192" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".cu" ;
+	:latitude 21.5 ;
+	:longitude -80 ;
+	:area 109884 ;
+	:population 9748007 ;
+	:capital :CUB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_CUC , :Currency_CUP ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cuba> .
+
+:CHN a :SovereignState ;
+	rdfs:label "China"@en ;
+	:alpha2Code "CN" ;
+	:alpha3Code "CHN" ;
+	:numericCode "156" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".cn" ;
+	:latitude 35 ;
+	:longitude 105 ;
+	:area 9706961 ;
+	:population 1408280000 ;
+	:capital :CHN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AFG , :BTN , :MMR , :HKG , :IND , :KAZ , :NPL , :PRK , :KGZ , :LAO , :MAC , :MNG , :PAK , :RUS , :TJK , :VNM ;
+	:officialLanguage :Language_zho ;
+	:currency :Currency_CNY ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/China> .
+
+:PAN a :SovereignState ;
+	rdfs:label "Panama"@en ;
+	:alpha2Code "PA" ;
+	:alpha3Code "PAN" ;
+	:numericCode "591" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".pa" ;
+	:latitude 9 ;
+	:longitude -80 ;
+	:area 75417 ;
+	:population 4064780 ;
+	:capital :PAN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :COL , :CRI ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_PAB , :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Panama> .
+
+:THA a :SovereignState ;
+	rdfs:label "Thailand"@en ;
+	:alpha2Code "TH" ;
+	:alpha3Code "THA" ;
+	:numericCode "764" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".th" ;
+	:latitude 15 ;
+	:longitude 100 ;
+	:area 513120 ;
+	:population 65859640 ;
+	:capital :THA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MMR , :KHM , :LAO , :MYS ;
+	:officialLanguage :Language_tha ;
+	:currency :Currency_THB ;
+	:hasTimeZone :TimeZone_UTC_07_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Thailand> .
+
+:RUS a :SovereignState ;
+	rdfs:label "Russia"@en ;
+	:alpha2Code "RU" ;
+	:alpha3Code "RUS" ;
+	:numericCode "643" ;
+	:callingCode "+7" ;
+	:countryCallingCodePrefix 7 ;
+	:internetTLD ".ru" ;
+	:latitude 60 ;
+	:longitude 100 ;
+	:area 17098246 ;
+	:population 146028325 ;
+	:capital :RUS_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AZE , :BLR , :CHN , :EST , :FIN , :GEO , :KAZ , :PRK , :LVA , :LTU , :MNG , :NOR , :POL , :UKR ;
+	:officialLanguage :Language_rus ;
+	:currency :Currency_RUB ;
+	:hasTimeZone :TimeZone_UTC_03_00 , :TimeZone_UTC_04_00 , :TimeZone_UTC_06_00 , :TimeZone_UTC_07_00 , :TimeZone_UTC_08_00 , :TimeZone_UTC_09_00 , :TimeZone_UTC_10_00 , :TimeZone_UTC_11_00 , :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Russia> .
+
+:BIH a :SovereignState ;
+	rdfs:label "Bosnia and Herzegovina"@en ;
+	:alpha2Code "BA" ;
+	:alpha3Code "BIH" ;
+	:numericCode "070" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".ba" ;
+	:latitude 44 ;
+	:longitude 18 ;
+	:area 51209 ;
+	:population 3422000 ;
+	:capital :BIH_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :HRV , :MNE , :SRB ;
+	:officialLanguage :Language_bos , :Language_hrv , :Language_srp ;
+	:currency :Currency_BAM ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bosnia_and_Herzegovina> .
+
+:QAT a :SovereignState ;
+	rdfs:label "Qatar"@en ;
+	:alpha2Code "QA" ;
+	:alpha3Code "QAT" ;
+	:numericCode "634" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".qa" ;
+	:latitude 25.5 ;
+	:longitude 51.25 ;
+	:area 11586 ;
+	:population 3173024 ;
+	:capital :QAT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :SAU ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_QAR ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Qatar> .
+
+:BVT a :Territory ;
+	rdfs:label "Bouvet Island"@en ;
+	:alpha2Code "BV" ;
+	:alpha3Code "BVT" ;
+	:numericCode "074" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".bv" ;
+	:latitude -54.4208 ;
+	:longitude 3.3464 ;
+	:area 49 ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_nor ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bouvet_Island> .
+
+:IRQ a :SovereignState ;
+	rdfs:label "Iraq"@en ;
+	:alpha2Code "IQ" ;
+	:alpha3Code "IRQ" ;
+	:numericCode "368" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".iq" ;
+	:latitude 33 ;
+	:longitude 44 ;
+	:area 438317 ;
+	:population 46118793 ;
+	:capital :IRQ_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IRN , :JOR , :KWT , :SAU , :SYR , :TUR ;
+	:officialLanguage :Language_ara , :Language_arc , :Language_ckb ;
+	:currency :Currency_IQD ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Iraq> .
+
+:TJK a :SovereignState ;
+	rdfs:label "Tajikistan"@en ;
+	:alpha2Code "TJ" ;
+	:alpha3Code "TJK" ;
+	:numericCode "762" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".tj" ;
+	:latitude 39 ;
+	:longitude 71 ;
+	:area 143100 ;
+	:population 10499000 ;
+	:capital :TJK_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AFG , :CHN , :KGZ , :UZB ;
+	:officialLanguage :Language_rus , :Language_tgk ;
+	:currency :Currency_TJS ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Tajikistan> .
+
+:GUY a :SovereignState ;
+	rdfs:label "Guyana"@en ;
+	:alpha2Code "GY" ;
+	:alpha3Code "GUY" ;
+	:numericCode "328" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".gy" ;
+	:latitude 5 ;
+	:longitude -59 ;
+	:area 214969 ;
+	:population 772975 ;
+	:capital :GUY_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BRA , :SUR , :VEN ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_GYD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Guyana> .
+
+:SLB a :SovereignState ;
+	rdfs:label "Solomon Islands"@en ;
+	:alpha2Code "SB" ;
+	:alpha3Code "SLB" ;
+	:numericCode "090" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".sb" ;
+	:latitude -8 ;
+	:longitude 159 ;
+	:area 28896 ;
+	:population 750325 ;
+	:capital :SLB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_SBD ;
+	:hasTimeZone :TimeZone_UTC_11_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Solomon_Islands> .
+
+:SVK a :SovereignState ;
+	rdfs:label "Slovakia"@en ;
+	:alpha2Code "SK" ;
+	:alpha3Code "SVK" ;
+	:numericCode "703" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".sk" ;
+	:latitude 48.66666666 ;
+	:longitude 19.5 ;
+	:area 49037 ;
+	:population 5413813 ;
+	:capital :SVK_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :CZE , :HUN , :POL , :UKR ;
+	:officialLanguage :Language_slk ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Slovakia> .
+
+:GIB a :Territory ;
+	rdfs:label "Gibraltar"@en ;
+	:alpha2Code "GI" ;
+	:alpha3Code "GIB" ;
+	:numericCode "292" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".gi" ;
+	:latitude 36.13333333 ;
+	:longitude -5.35 ;
+	:area 6 ;
+	:population 38000 ;
+	:capital :GIB_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :ESP ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_GIP ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Gibraltar> .
+
+:PER a :SovereignState ;
+	rdfs:label "Peru"@en ;
+	:alpha2Code "PE" ;
+	:alpha3Code "PER" ;
+	:numericCode "604" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".pe" ;
+	:latitude -10 ;
+	:longitude -76 ;
+	:area 1285216 ;
+	:population 34350244 ;
+	:capital :PER_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BOL , :BRA , :CHL , :COL , :ECU ;
+	:officialLanguage :Language_aym , :Language_que , :Language_spa ;
+	:currency :Currency_PEN ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Peru> .
+
+:PRI a :Territory ;
+	rdfs:label "Puerto Rico"@en ;
+	:alpha2Code "PR" ;
+	:alpha3Code "PRI" ;
+	:numericCode "630" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".pr" ;
+	:latitude 18.25 ;
+	:longitude -66.5 ;
+	:area 8870 ;
+	:population 3203295 ;
+	:capital :PRI_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_spa ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Puerto_Rico> .
+
+:ARM a :SovereignState ;
+	rdfs:label "Armenia"@en ;
+	:alpha2Code "AM" ;
+	:alpha3Code "ARM" ;
+	:numericCode "051" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".am" ;
+	:latitude 40 ;
+	:longitude 45 ;
+	:area 29743 ;
+	:population 3076200 ;
+	:capital :ARM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AZE , :GEO , :IRN , :TUR ;
+	:officialLanguage :Language_hye ;
+	:currency :Currency_AMD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Armenia> .
+
+:AZE a :SovereignState ;
+	rdfs:label "Azerbaijan"@en ;
+	:alpha2Code "AZ" ;
+	:alpha3Code "AZE" ;
+	:numericCode "031" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".az" ;
+	:latitude 40.5 ;
+	:longitude 47.5 ;
+	:area 86600 ;
+	:population 10241722 ;
+	:capital :AZE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARM , :GEO , :IRN , :RUS , :TUR ;
+	:officialLanguage :Language_aze ;
+	:currency :Currency_AZN ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Azerbaijan> .
+
+:MRT a :SovereignState ;
+	rdfs:label "Mauritania"@en ;
+	:alpha2Code "MR" ;
+	:alpha3Code "MRT" ;
+	:numericCode "478" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".mr" ;
+	:latitude 20 ;
+	:longitude -12 ;
+	:area 1030700 ;
+	:population 4927532 ;
+	:capital :MRT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DZA , :MLI , :SEN , :ESH ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_MRU ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Mauritania> .
+
+:BLZ a :SovereignState ;
+	rdfs:label "Belize"@en ;
+	:alpha2Code "BZ" ;
+	:alpha3Code "BLZ" ;
+	:numericCode "084" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".bz" ;
+	:latitude 17.25 ;
+	:longitude -88.75 ;
+	:area 22966 ;
+	:population 417634 ;
+	:capital :BLZ_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GTM , :MEX ;
+	:officialLanguage :Language_bjz , :Language_eng , :Language_spa ;
+	:currency :Currency_BZD ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Belize> .
+
+:AIA a :Territory ;
+	rdfs:label "Anguilla"@en ;
+	:alpha2Code "AI" ;
+	:alpha3Code "AIA" ;
+	:numericCode "660" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".ai" ;
+	:latitude 18.25 ;
+	:longitude -63.16666666 ;
+	:area 91 ;
+	:population 16010 ;
+	:capital :AIA_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Anguilla> .
+
+:SYC a :SovereignState ;
+	rdfs:label "Seychelles"@en ;
+	:alpha2Code "SC" ;
+	:alpha3Code "SYC" ;
+	:numericCode "690" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".sc" ;
+	:latitude -4.58333333 ;
+	:longitude 55.66666666 ;
+	:area 452 ;
+	:population 122729 ;
+	:capital :SYC_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_crs , :Language_eng , :Language_fra ;
+	:currency :Currency_SCR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Seychelles> .
+
+:NFK a :Territory ;
+	rdfs:label "Norfolk Island"@en ;
+	:alpha2Code "NF" ;
+	:alpha3Code "NFK" ;
+	:numericCode "574" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".nf" ;
+	:latitude -29.03333333 ;
+	:longitude 167.95 ;
+	:area 36 ;
+	:population 2188 ;
+	:capital :NFK_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_pih ;
+	:currency :Currency_AUD ;
+	:hasTimeZone :TimeZone_UTC_11_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Norfolk_Island> .
+
+:PHL a :SovereignState ;
+	rdfs:label "Philippines"@en ;
+	:alpha2Code "PH" ;
+	:alpha3Code "PHL" ;
+	:numericCode "608" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".ph" ;
+	:latitude 13 ;
+	:longitude 122 ;
+	:area 342353 ;
+	:population 114123600 ;
+	:capital :PHL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_fil ;
+	:currency :Currency_PHP ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Philippines> .
+
+:ARG a :SovereignState ;
+	rdfs:label "Argentina"@en ;
+	:alpha2Code "AR" ;
+	:alpha3Code "ARG" ;
+	:numericCode "032" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".ar" ;
+	:latitude -34 ;
+	:longitude -64 ;
+	:area 2780400 ;
+	:population 46735004 ;
+	:capital :ARG_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BOL , :BRA , :CHL , :PRY , :URY ;
+	:officialLanguage :Language_grn , :Language_spa ;
+	:currency :Currency_ARS ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Argentina> .
+
+:MDA a :SovereignState ;
+	rdfs:label "Moldova"@en ;
+	:alpha2Code "MD" ;
+	:alpha3Code "MDA" ;
+	:numericCode "498" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".md" ;
+	:latitude 47 ;
+	:longitude 29 ;
+	:area 33847 ;
+	:population 2749076 ;
+	:capital :MDA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ROU , :UKR ;
+	:officialLanguage :Language_ron ;
+	:currency :Currency_MDL ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Moldova> .
+
+:WSM a :SovereignState ;
+	rdfs:label "Samoa"@en ;
+	:alpha2Code "WS" ;
+	:alpha3Code "WSM" ;
+	:numericCode "882" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".ws" ;
+	:latitude -13.58333333 ;
+	:longitude -172.33333333 ;
+	:area 2842 ;
+	:population 205557 ;
+	:capital :WSM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_smo ;
+	:currency :Currency_WST ;
+	:hasTimeZone :TimeZone_UTC_13_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Samoa> .
+
+:ATA a :Territory ;
+	rdfs:label "Antarctica"@en ;
+	:alpha2Code "AQ" ;
+	:alpha3Code "ATA" ;
+	:numericCode "010" ;
+	:internetTLD ".aq" ;
+	:latitude -90 ;
+	:longitude 0 ;
+	:area 14000000 ;
+	:population 1300 ;
+	:sovereigntyStatus "dependency" ;
+	:hasTimeZone :TimeZone_UTC_03_00 , :TimeZone_UTC_03_00 , :TimeZone_UTC_05_00 , :TimeZone_UTC_06_00 , :TimeZone_UTC_07_00 , :TimeZone_UTC_08_00 , :TimeZone_UTC_10_00 , :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Antarctica> .
+
+:SLE a :SovereignState ;
+	rdfs:label "Sierra Leone"@en ;
+	:alpha2Code "SL" ;
+	:alpha3Code "SLE" ;
+	:numericCode "694" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".sl" ;
+	:latitude 8.5 ;
+	:longitude -11.5 ;
+	:area 71740 ;
+	:population 9077691 ;
+	:capital :SLE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GIN , :LBR ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_SLE ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Sierra_Leone> .
+
+:KHM a :SovereignState ;
+	rdfs:label "Cambodia"@en ;
+	:alpha2Code "KH" ;
+	:alpha3Code "KHM" ;
+	:numericCode "116" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".kh" ;
+	:latitude 13 ;
+	:longitude 105 ;
+	:area 181035 ;
+	:population 17577760 ;
+	:capital :KHM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :LAO , :THA , :VNM ;
+	:officialLanguage :Language_khm ;
+	:currency :Currency_KHR , :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_07_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cambodia> .
+
+:VUT a :SovereignState ;
+	rdfs:label "Vanuatu"@en ;
+	:alpha2Code "VU" ;
+	:alpha3Code "VUT" ;
+	:numericCode "548" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".vu" ;
+	:latitude -16 ;
+	:longitude 167 ;
+	:area 12189 ;
+	:population 321409 ;
+	:capital :VUT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_bis , :Language_eng , :Language_fra ;
+	:currency :Currency_VUV ;
+	:hasTimeZone :TimeZone_UTC_11_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Vanuatu> .
+
+:JOR a :SovereignState ;
+	rdfs:label "Jordan"@en ;
+	:alpha2Code "JO" ;
+	:alpha3Code "JOR" ;
+	:numericCode "400" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".jo" ;
+	:latitude 31 ;
+	:longitude 36 ;
+	:area 89342 ;
+	:population 11734000 ;
+	:capital :JOR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IRQ , :ISR , :PSE , :SAU , :SYR ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_JOD ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Jordan> .
+
+:MTQ a :Territory ;
+	rdfs:label "Martinique"@en ;
+	:alpha2Code "MQ" ;
+	:alpha3Code "MTQ" ;
+	:numericCode "474" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".mq" ;
+	:latitude 14.666667 ;
+	:longitude -61 ;
+	:area 1128 ;
+	:population 349925 ;
+	:capital :MTQ_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Martinique> .
+
+:TON a :SovereignState ;
+	rdfs:label "Tonga"@en ;
+	:alpha2Code "TO" ;
+	:alpha3Code "TON" ;
+	:numericCode "776" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".to" ;
+	:latitude -20 ;
+	:longitude -175 ;
+	:area 747 ;
+	:population 100179 ;
+	:capital :TON_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_ton ;
+	:currency :Currency_TOP ;
+	:hasTimeZone :TimeZone_UTC_13_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Tonga> .
+
+:VGB a :Territory ;
+	rdfs:label "British Virgin Islands"@en ;
+	:alpha2Code "VG" ;
+	:alpha3Code "VGB" ;
+	:numericCode "092" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".vg" ;
+	:latitude 18.431383 ;
+	:longitude -64.62305 ;
+	:area 151 ;
+	:population 39471 ;
+	:capital :VGB_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/British_Virgin_Islands> .
+
+:TLS a :SovereignState ;
+	rdfs:label "Timor-Leste"@en ;
+	:alpha2Code "TL" ;
+	:alpha3Code "TLS" ;
+	:numericCode "626" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".tl" ;
+	:latitude -8.83333333 ;
+	:longitude 125.91666666 ;
+	:area 14874 ;
+	:population 1391221 ;
+	:capital :TLS_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IDN ;
+	:officialLanguage :Language_por , :Language_tet ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_09_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Timor-Leste> .
+
+:PYF a :Territory ;
+	rdfs:label "French Polynesia"@en ;
+	:alpha2Code "PF" ;
+	:alpha3Code "PYF" ;
+	:numericCode "258" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".pf" ;
+	:latitude -17.6797 ;
+	:longitude -149.4068 ;
+	:area 4167 ;
+	:population 279500 ;
+	:capital :PYF_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XPF ;
+	:hasTimeZone :TimeZone_UTC_10_00 , :TimeZone_UTC_09_30 , :TimeZone_UTC_09_00 ;
+	owl:sameAs <http://dbpedia.org/resource/French_Polynesia> .
+
+:TUR a :SovereignState ;
+	rdfs:label "Turkey"@en ;
+	:alpha2Code "TR" ;
+	:alpha3Code "TUR" ;
+	:numericCode "792" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".tr" ;
+	:latitude 39 ;
+	:longitude 35 ;
+	:area 783562 ;
+	:population 85664944 ;
+	:capital :TUR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARM , :AZE , :BGR , :GEO , :GRC , :IRN , :IRQ , :SYR ;
+	:officialLanguage :Language_tur ;
+	:currency :Currency_TRY ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Turkey> .
+
+:GGY a :Territory ;
+	rdfs:label "Guernsey"@en ;
+	:alpha2Code "GG" ;
+	:alpha3Code "GGY" ;
+	:numericCode "831" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".gg" ;
+	:latitude 49.46666666 ;
+	:longitude -2.58333333 ;
+	:area 78 ;
+	:population 64781 ;
+	:capital :GGY_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_fra , :Language_nfr ;
+	:currency :Currency_GBP , :Currency_GGP ;
+	:hasTimeZone :TimeZone_UTC_00_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Guernsey> .
+
+:SEN a :SovereignState ;
+	rdfs:label "Senegal"@en ;
+	:alpha2Code "SN" ;
+	:alpha3Code "SEN" ;
+	:numericCode "686" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".sn" ;
+	:latitude 14 ;
+	:longitude -14 ;
+	:area 196722 ;
+	:population 18593258 ;
+	:capital :SEN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GMB , :GIN , :GNB , :MLI , :MRT ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Senegal> .
+
+:GTM a :SovereignState ;
+	rdfs:label "Guatemala"@en ;
+	:alpha2Code "GT" ;
+	:alpha3Code "GTM" ;
+	:numericCode "320" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".gt" ;
+	:latitude 15.5 ;
+	:longitude -90.25 ;
+	:area 108889 ;
+	:population 18079810 ;
+	:capital :GTM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BLZ , :SLV , :HND , :MEX ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_GTQ ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Guatemala> .
+
+:POL a :SovereignState ;
+	rdfs:label "Poland"@en ;
+	:alpha2Code "PL" ;
+	:alpha3Code "POL" ;
+	:numericCode "616" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".pl" ;
+	:latitude 52 ;
+	:longitude 20 ;
+	:area 312679 ;
+	:population 37392000 ;
+	:capital :POL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BLR , :CZE , :DEU , :LTU , :RUS , :SVK , :UKR ;
+	:officialLanguage :Language_pol ;
+	:currency :Currency_PLN ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Poland> .
+
+:BHS a :SovereignState ;
+	rdfs:label "Bahamas"@en ;
+	:alpha2Code "BS" ;
+	:alpha3Code "BHS" ;
+	:numericCode "044" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".bs" ;
+	:latitude 25.0343 ;
+	:longitude -77.3963 ;
+	:area 13943 ;
+	:population 398165 ;
+	:capital :BHS_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_BSD , :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bahamas> .
+
+:FRO a :Territory ;
+	rdfs:label "Faroe Islands"@en ;
+	:alpha2Code "FO" ;
+	:alpha3Code "FRO" ;
+	:numericCode "234" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".fo" ;
+	:latitude 62 ;
+	:longitude -7 ;
+	:area 1393 ;
+	:population 54885 ;
+	:capital :FRO_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_dan , :Language_fao ;
+	:currency :Currency_DKK , :Currency_FOK ;
+	:hasTimeZone :TimeZone_UTC_00_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Faroe_Islands> .
+
+:ABW a :Territory ;
+	rdfs:label "Aruba"@en ;
+	:alpha2Code "AW" ;
+	:alpha3Code "ABW" ;
+	:numericCode "533" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".aw" ;
+	:latitude 12.5 ;
+	:longitude -69.96666666 ;
+	:area 180 ;
+	:population 107566 ;
+	:capital :ABW_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_nld , :Language_pap ;
+	:currency :Currency_AWG ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Aruba> .
+
+:DOM a :SovereignState ;
+	rdfs:label "Dominican Republic"@en ;
+	:alpha2Code "DO" ;
+	:alpha3Code "DOM" ;
+	:numericCode "214" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".do" ;
+	:latitude 19 ;
+	:longitude -70.66666666 ;
+	:area 48671 ;
+	:population 10771504 ;
+	:capital :DOM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :HTI ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_DOP ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Dominican_Republic> .
+
+:HKG a :Territory ;
+	rdfs:label "Hong Kong"@en ;
+	:alpha2Code "HK" ;
+	:alpha3Code "HKG" ;
+	:numericCode "344" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".hk" ;
+	:latitude 22.267 ;
+	:longitude 114.188 ;
+	:area 1104 ;
+	:population 7527500 ;
+	:capital :HKG_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :CHN ;
+	:officialLanguage :Language_eng , :Language_zho ;
+	:currency :Currency_HKD ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Hong_Kong> .
+
+:STP a :SovereignState ;
+	rdfs:label "São Tomé and Príncipe"@en ;
+	:alpha2Code "ST" ;
+	:alpha3Code "STP" ;
+	:numericCode "678" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".st" ;
+	:latitude 1 ;
+	:longitude 7 ;
+	:area 964 ;
+	:population 209607 ;
+	:capital :STP_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_por ;
+	:currency :Currency_STN ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/S%C3%A3o_Tom%C3%A9_and_Pr%C3%ADncipe> .
+
+:URY a :SovereignState ;
+	rdfs:label "Uruguay"@en ;
+	:alpha2Code "UY" ;
+	:alpha3Code "URY" ;
+	:numericCode "858" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".uy" ;
+	:latitude -33 ;
+	:longitude -56 ;
+	:area 181034 ;
+	:population 3499451 ;
+	:capital :URY_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARG , :BRA ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_UYU ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Uruguay> .
+
+:BMU a :Territory ;
+	rdfs:label "Bermuda"@en ;
+	:alpha2Code "BM" ;
+	:alpha3Code "BMU" ;
+	:numericCode "060" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".bm" ;
+	:latitude 32.33333333 ;
+	:longitude -64.75 ;
+	:area 54 ;
+	:population 64055 ;
+	:capital :BMU_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_BMD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bermuda> .
+
+:WLF a :Territory ;
+	rdfs:label "Wallis and Futuna"@en ;
+	:alpha2Code "WF" ;
+	:alpha3Code "WLF" ;
+	:numericCode "876" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".wf" ;
+	:latitude -13.3 ;
+	:longitude -176.2 ;
+	:area 142 ;
+	:population 11620 ;
+	:capital :WLF_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XPF ;
+	:hasTimeZone :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Wallis_and_Futuna> .
+
+:ZAF a :SovereignState ;
+	rdfs:label "South Africa"@en ;
+	:alpha2Code "ZA" ;
+	:alpha3Code "ZAF" ;
+	:numericCode "710" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".za" ;
+	:latitude -29 ;
+	:longitude 24 ;
+	:area 1221037 ;
+	:population 63100945 ;
+	:capital :ZAF_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BWA , :LSO , :MOZ , :NAM , :SWZ , :ZWE ;
+	:officialLanguage :Language_afr , :Language_eng , :Language_nbl , :Language_nso , :Language_sot , :Language_ssw , :Language_tsn , :Language_tso , :Language_ven , :Language_xho , :Language_zul ;
+	:currency :Currency_ZAR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/South_Africa> .
+
+:ISR a :SovereignState ;
+	rdfs:label "Israel"@en ;
+	:alpha2Code "IL" ;
+	:alpha3Code "ISR" ;
+	:numericCode "376" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".il" ;
+	:latitude 31.47 ;
+	:longitude 35.13 ;
+	:area 21937 ;
+	:population 10134800 ;
+	:capital :ISR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :EGY , :JOR , :LBN , :PSE , :SYR ;
+	:officialLanguage :Language_ara , :Language_heb ;
+	:currency :Currency_ILS ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Israel> .
+
+:SMR a :SovereignState ;
+	rdfs:label "San Marino"@en ;
+	:alpha2Code "SM" ;
+	:alpha3Code "SMR" ;
+	:numericCode "674" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".sm" ;
+	:latitude 43.76666666 ;
+	:longitude 12.41666666 ;
+	:area 61 ;
+	:population 34132 ;
+	:capital :SMR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ITA ;
+	:officialLanguage :Language_ita ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/San_Marino> .
+
+:SLV a :SovereignState ;
+	rdfs:label "El Salvador"@en ;
+	:alpha2Code "SV" ;
+	:alpha3Code "SLV" ;
+	:numericCode "222" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".sv" ;
+	:latitude 13.83333333 ;
+	:longitude -88.91666666 ;
+	:area 21041 ;
+	:population 6029976 ;
+	:capital :SLV_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GTM , :HND ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/El_Salvador> .
+
+:MNG a :SovereignState ;
+	rdfs:label "Mongolia"@en ;
+	:alpha2Code "MN" ;
+	:alpha3Code "MNG" ;
+	:numericCode "496" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".mn" ;
+	:latitude 46 ;
+	:longitude 105 ;
+	:area 1564110 ;
+	:population 3544835 ;
+	:capital :MNG_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CHN , :RUS ;
+	:officialLanguage :Language_mon ;
+	:currency :Currency_MNT ;
+	:hasTimeZone :TimeZone_UTC_07_00 , :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Mongolia> .
+
+:ASM a :Territory ;
+	rdfs:label "American Samoa"@en ;
+	:alpha2Code "AS" ;
+	:alpha3Code "ASM" ;
+	:numericCode "016" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".as" ;
+	:latitude -14.33333333 ;
+	:longitude -170 ;
+	:area 199 ;
+	:population 49710 ;
+	:capital :ASM_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_smo ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_11_00 ;
+	owl:sameAs <http://dbpedia.org/resource/American_Samoa> .
+
+:ATF a :Territory ;
+	rdfs:label "French Southern and Antarctic Lands"@en ;
+	:alpha2Code "TF" ;
+	:alpha3Code "ATF" ;
+	:numericCode "260" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".tf" ;
+	:latitude -49.25 ;
+	:longitude 69.167 ;
+	:area 7747 ;
+	:population 400 ;
+	:capital :ATF_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/French_Southern_and_Antarctic_Lands> .
+
+:ZWE a :SovereignState ;
+	rdfs:label "Zimbabwe"@en ;
+	:alpha2Code "ZW" ;
+	:alpha3Code "ZWE" ;
+	:numericCode "716" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".zw" ;
+	:latitude -20 ;
+	:longitude 30 ;
+	:area 390757 ;
+	:population 17073087 ;
+	:capital :ZWE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BWA , :MOZ , :ZAF , :ZMB ;
+	:officialLanguage :Language_bwg , :Language_eng , :Language_kck , :Language_khi , :Language_ndc , :Language_nde , :Language_nya , :Language_sna , :Language_sot , :Language_toi , :Language_tsn , :Language_tso , :Language_ven , :Language_xho , :Language_zib ;
+	:currency :Currency_ZWL ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Zimbabwe> .
+
+:FLK a :Territory ;
+	rdfs:label "Falkland Islands"@en ;
+	:alpha2Code "FK" ;
+	:alpha3Code "FLK" ;
+	:numericCode "238" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".fk" ;
+	:latitude -51.75 ;
+	:longitude -59 ;
+	:area 12173 ;
+	:population 3662 ;
+	:capital :FLK_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_FKP ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Falkland_Islands> .
+
+:HRV a :SovereignState ;
+	rdfs:label "Croatia"@en ;
+	:alpha2Code "HR" ;
+	:alpha3Code "HRV" ;
+	:numericCode "191" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".hr" ;
+	:latitude 45.16666666 ;
+	:longitude 15.5 ;
+	:area 56594 ;
+	:population 3866233 ;
+	:capital :HRV_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BIH , :HUN , :MNE , :SRB , :SVN ;
+	:officialLanguage :Language_hrv ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Croatia> .
+
+:KIR a :SovereignState ;
+	rdfs:label "Kiribati"@en ;
+	:alpha2Code "KI" ;
+	:alpha3Code "KIR" ;
+	:numericCode "296" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".ki" ;
+	:latitude 1.41666666 ;
+	:longitude 173 ;
+	:area 811 ;
+	:population 120740 ;
+	:capital :KIR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_gil ;
+	:currency :Currency_AUD , :Currency_KID ;
+	:hasTimeZone :TimeZone_UTC_12_00 , :TimeZone_UTC_13_00 , :TimeZone_UTC_14_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Kiribati> .
+
+:MHL a :SovereignState ;
+	rdfs:label "Marshall Islands"@en ;
+	:alpha2Code "MH" ;
+	:alpha3Code "MHL" ;
+	:numericCode "584" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".mh" ;
+	:latitude 9 ;
+	:longitude 168 ;
+	:area 181 ;
+	:population 42418 ;
+	:capital :MHL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_mah ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Marshall_Islands> .
+
+:NOR a :SovereignState ;
+	rdfs:label "Norway"@en ;
+	:alpha2Code "NO" ;
+	:alpha3Code "NOR" ;
+	:numericCode "578" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".no" ;
+	:latitude 62 ;
+	:longitude 10 ;
+	:area 386224 ;
+	:population 5606944 ;
+	:capital :NOR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :FIN , :SWE , :RUS ;
+	:officialLanguage :Language_nno , :Language_nob , :Language_smi ;
+	:currency :Currency_NOK ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Norway> .
+
+:MLI a :SovereignState ;
+	rdfs:label "Mali"@en ;
+	:alpha2Code "ML" ;
+	:alpha3Code "MLI" ;
+	:numericCode "466" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ml" ;
+	:latitude 17 ;
+	:longitude -4 ;
+	:area 1240192 ;
+	:population 22395489 ;
+	:capital :MLI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DZA , :BFA , :GIN , :CIV , :MRT , :NER , :SEN ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Mali> .
+
+:ZMB a :SovereignState ;
+	rdfs:label "Zambia"@en ;
+	:alpha2Code "ZM" ;
+	:alpha3Code "ZMB" ;
+	:numericCode "894" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".zm" ;
+	:latitude -15 ;
+	:longitude 30 ;
+	:area 752612 ;
+	:population 19693423 ;
+	:capital :ZMB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AGO , :BWA , :COD , :MWI , :MOZ , :NAM , :TZA , :ZWE ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_ZMW ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Zambia> .
+
+:MDV a :SovereignState ;
+	rdfs:label "Maldives"@en ;
+	:alpha2Code "MV" ;
+	:alpha3Code "MDV" ;
+	:numericCode "462" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".mv" ;
+	:latitude 3.25 ;
+	:longitude 73 ;
+	:area 300 ;
+	:population 515132 ;
+	:capital :MDV_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_div ;
+	:currency :Currency_MVR ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Maldives> .
+
+:ATG a :SovereignState ;
+	rdfs:label "Antigua and Barbuda"@en ;
+	:alpha2Code "AG" ;
+	:alpha3Code "ATG" ;
+	:numericCode "028" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".ag" ;
+	:latitude 17.05 ;
+	:longitude -61.8 ;
+	:area 442 ;
+	:population 103603 ;
+	:capital :ATG_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Antigua_and_Barbuda> .
+
+:CXR a :Territory ;
+	rdfs:label "Christmas Island"@en ;
+	:alpha2Code "CX" ;
+	:alpha3Code "CXR" ;
+	:numericCode "162" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".cx" ;
+	:latitude -10.5 ;
+	:longitude 105.66666666 ;
+	:area 135 ;
+	:population 1692 ;
+	:capital :CXR_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_AUD ;
+	:hasTimeZone :TimeZone_UTC_07_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Christmas_Island> .
+
+:IRN a :SovereignState ;
+	rdfs:label "Iran"@en ;
+	:alpha2Code "IR" ;
+	:alpha3Code "IRN" ;
+	:numericCode "364" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".ir" ;
+	:latitude 32 ;
+	:longitude 53 ;
+	:area 1648195 ;
+	:population 85961000 ;
+	:capital :IRN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AFG , :ARM , :AZE , :IRQ , :PAK , :TUR , :TKM ;
+	:officialLanguage :Language_fas ;
+	:currency :Currency_IRR ;
+	:hasTimeZone :TimeZone_UTC_03_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Iran> .
+
+:ITA a :SovereignState ;
+	rdfs:label "Italy"@en ;
+	:alpha2Code "IT" ;
+	:alpha3Code "ITA" ;
+	:numericCode "380" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".it" ;
+	:latitude 42.83333333 ;
+	:longitude 12.83333333 ;
+	:area 301336 ;
+	:population 58927633 ;
+	:capital :ITA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :FRA , :SMR , :SVN , :CHE , :VAT ;
+	:officialLanguage :Language_ita , :Language_cat ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Italy> .
+
+:GMB a :SovereignState ;
+	rdfs:label "Gambia"@en ;
+	:alpha2Code "GM" ;
+	:alpha3Code "GMB" ;
+	:numericCode "270" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".gm" ;
+	:latitude 13.46666666 ;
+	:longitude -16.56666666 ;
+	:area 10689 ;
+	:population 2422712 ;
+	:capital :GMB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :SEN ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_GMD ;
+	:hasTimeZone :TimeZone_UTC_00_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Gambia> .
+
+:KOR a :SovereignState ;
+	rdfs:label "South Korea"@en ;
+	:alpha2Code "KR" ;
+	:alpha3Code "KOR" ;
+	:numericCode "410" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".kr" ;
+	:latitude 37 ;
+	:longitude 127.5 ;
+	:area 100210 ;
+	:population 51159889 ;
+	:capital :KOR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :PRK ;
+	:officialLanguage :Language_kor ;
+	:currency :Currency_KRW ;
+	:hasTimeZone :TimeZone_UTC_09_00 ;
+	owl:sameAs <http://dbpedia.org/resource/South_Korea> .
+
+:PNG a :SovereignState ;
+	rdfs:label "Papua New Guinea"@en ;
+	:alpha2Code "PG" ;
+	:alpha3Code "PNG" ;
+	:numericCode "598" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".pg" ;
+	:latitude -6 ;
+	:longitude 147 ;
+	:area 462840 ;
+	:population 11781559 ;
+	:capital :PNG_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IDN ;
+	:officialLanguage :Language_eng , :Language_hmo , :Language_tpi ;
+	:currency :Currency_PGK ;
+	:hasTimeZone :TimeZone_UTC_10_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Papua_New_Guinea> .
+
+:EGY a :SovereignState ;
+	rdfs:label "Egypt"@en ;
+	:alpha2Code "EG" ;
+	:alpha3Code "EGY" ;
+	:numericCode "818" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".eg" ;
+	:latitude 27 ;
+	:longitude 30 ;
+	:area 1002450 ;
+	:population 107271260 ;
+	:capital :EGY_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ISR , :LBY , :PSE , :SDN ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_EGP ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Egypt> .
+
+:IMN a :Territory ;
+	rdfs:label "Isle of Man"@en ;
+	:alpha2Code "IM" ;
+	:alpha3Code "IMN" ;
+	:numericCode "833" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".im" ;
+	:latitude 54.25 ;
+	:longitude -4.5 ;
+	:area 572 ;
+	:population 84530 ;
+	:capital :IMN_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_glv ;
+	:currency :Currency_GBP , :Currency_IMP ;
+	:hasTimeZone :TimeZone_UTC_00_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Isle_of_Man> .
+
+:LVA a :SovereignState ;
+	rdfs:label "Latvia"@en ;
+	:alpha2Code "LV" ;
+	:alpha3Code "LVA" ;
+	:numericCode "428" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".lv" ;
+	:latitude 57 ;
+	:longitude 25 ;
+	:area 64559 ;
+	:population 1829000 ;
+	:capital :LVA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BLR , :EST , :LTU , :RUS ;
+	:officialLanguage :Language_lav ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Latvia> .
+
+:PRY a :SovereignState ;
+	rdfs:label "Paraguay"@en ;
+	:alpha2Code "PY" ;
+	:alpha3Code "PRY" ;
+	:numericCode "600" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".py" ;
+	:latitude -23 ;
+	:longitude -58 ;
+	:area 406752 ;
+	:population 6109644 ;
+	:capital :PRY_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARG , :BOL , :BRA ;
+	:officialLanguage :Language_grn , :Language_spa ;
+	:currency :Currency_PYG ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Paraguay> .
+
+:GRD a :SovereignState ;
+	rdfs:label "Grenada"@en ;
+	:alpha2Code "GD" ;
+	:alpha3Code "GRD" ;
+	:numericCode "308" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".gd" ;
+	:latitude 12.11666666 ;
+	:longitude -61.66666666 ;
+	:area 344 ;
+	:population 109021 ;
+	:capital :GRD_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Grenada> .
+
+:COL a :SovereignState ;
+	rdfs:label "Colombia"@en ;
+	:alpha2Code "CO" ;
+	:alpha3Code "COL" ;
+	:numericCode "170" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".co" ;
+	:latitude 4 ;
+	:longitude -72 ;
+	:area 1141748 ;
+	:population 53057212 ;
+	:capital :COL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BRA , :ECU , :PAN , :PER , :VEN ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_COP ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Colombia> .
+
+:FIN a :SovereignState ;
+	rdfs:label "Finland"@en ;
+	:alpha2Code "FI" ;
+	:alpha3Code "FIN" ;
+	:numericCode "246" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".fi" ;
+	:latitude 64 ;
+	:longitude 26 ;
+	:area 338455 ;
+	:population 5650325 ;
+	:capital :FIN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :NOR , :SWE , :RUS ;
+	:officialLanguage :Language_fin , :Language_swe ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Finland> .
+
+:BGR a :SovereignState ;
+	rdfs:label "Bulgaria"@en ;
+	:alpha2Code "BG" ;
+	:alpha3Code "BGR" ;
+	:numericCode "100" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".bg" ;
+	:latitude 43 ;
+	:longitude 25 ;
+	:area 110879 ;
+	:population 6437360 ;
+	:capital :BGR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GRC , :MKD , :ROU , :SRB , :TUR ;
+	:officialLanguage :Language_bul ;
+	:currency :Currency_BGN ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bulgaria> .
+
+:TGO a :SovereignState ;
+	rdfs:label "Togo"@en ;
+	:alpha2Code "TG" ;
+	:alpha3Code "TGO" ;
+	:numericCode "768" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".tg" ;
+	:latitude 8 ;
+	:longitude 1.16666666 ;
+	:area 56785 ;
+	:population 8095498 ;
+	:capital :TGO_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BEN , :BFA , :GHA ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Togo> .
+
+:CHL a :SovereignState ;
+	rdfs:label "Chile"@en ;
+	:alpha2Code "CL" ;
+	:alpha3Code "CHL" ;
+	:numericCode "152" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".cl" ;
+	:latitude -30 ;
+	:longitude -71 ;
+	:area 756102 ;
+	:population 20206953 ;
+	:capital :CHL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARG , :BOL , :PER ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_CLP ;
+	:hasTimeZone :TimeZone_UTC_06_00 , :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Chile> .
+
+:DMA a :SovereignState ;
+	rdfs:label "Dominica"@en ;
+	:alpha2Code "DM" ;
+	:alpha3Code "DMA" ;
+	:numericCode "212" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".dm" ;
+	:latitude 15.41666666 ;
+	:longitude -61.33333333 ;
+	:area 751 ;
+	:population 67408 ;
+	:capital :DMA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Dominica> .
+
+:IRL a :SovereignState ;
+	rdfs:label "Ireland"@en ;
+	:alpha2Code "IE" ;
+	:alpha3Code "IRL" ;
+	:numericCode "372" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".ie" ;
+	:latitude 53 ;
+	:longitude -8 ;
+	:area 70273 ;
+	:population 5458600 ;
+	:capital :IRL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GBR ;
+	:officialLanguage :Language_eng , :Language_gle ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Ireland> .
+
+:BWA a :SovereignState ;
+	rdfs:label "Botswana"@en ;
+	:alpha2Code "BW" ;
+	:alpha3Code "BWA" ;
+	:numericCode "072" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".bw" ;
+	:latitude -22 ;
+	:longitude 24 ;
+	:area 582000 ;
+	:population 2359609 ;
+	:capital :BWA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :NAM , :ZAF , :ZMB , :ZWE ;
+	:officialLanguage :Language_eng , :Language_tsn ;
+	:currency :Currency_BWP ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Botswana> .
+
+:USA a :SovereignState ;
+	rdfs:label "United States"@en ;
+	:alpha2Code "US" ;
+	:alpha3Code "USA" ;
+	:numericCode "840" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".us" ;
+	:latitude 38 ;
+	:longitude -97 ;
+	:area 9525067 ;
+	:population 340110988 ;
+	:capital :USA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CAN , :MEX ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_12_00 , :TimeZone_UTC_11_00 , :TimeZone_UTC_10_00 , :TimeZone_UTC_09_00 , :TimeZone_UTC_08_00 , :TimeZone_UTC_07_00 , :TimeZone_UTC_06_00 , :TimeZone_UTC_05_00 , :TimeZone_UTC_04_00 , :TimeZone_UTC_10_00 , :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/United_States> .
+
+:UZB a :SovereignState ;
+	rdfs:label "Uzbekistan"@en ;
+	:alpha2Code "UZ" ;
+	:alpha3Code "UZB" ;
+	:numericCode "860" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".uz" ;
+	:latitude 41 ;
+	:longitude 64 ;
+	:area 447400 ;
+	:population 37859698 ;
+	:capital :UZB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AFG , :KAZ , :KGZ , :TJK , :TKM ;
+	:officialLanguage :Language_rus , :Language_uzb ;
+	:currency :Currency_UZS ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Uzbekistan> .
+
+:BRA a :SovereignState ;
+	rdfs:label "Brazil"@en ;
+	:alpha2Code "BR" ;
+	:alpha3Code "BRA" ;
+	:numericCode "076" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".br" ;
+	:latitude -10 ;
+	:longitude -55 ;
+	:area 8515767 ;
+	:population 213421037 ;
+	:capital :BRA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARG , :BOL , :COL , :GUF , :GUY , :PRY , :PER , :SUR , :URY , :VEN ;
+	:officialLanguage :Language_por ;
+	:currency :Currency_BRL ;
+	:hasTimeZone :TimeZone_UTC_05_00 , :TimeZone_UTC_04_00 , :TimeZone_UTC_03_00 , :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Brazil> .
+
+:RWA a :SovereignState ;
+	rdfs:label "Rwanda"@en ;
+	:alpha2Code "RW" ;
+	:alpha3Code "RWA" ;
+	:numericCode "646" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".rw" ;
+	:latitude -2 ;
+	:longitude 30 ;
+	:area 26338 ;
+	:population 14104969 ;
+	:capital :RWA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BDI , :COD , :TZA , :UGA ;
+	:officialLanguage :Language_eng , :Language_fra , :Language_kin ;
+	:currency :Currency_RWF ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Rwanda> .
+
+:LIE a :SovereignState ;
+	rdfs:label "Liechtenstein"@en ;
+	:alpha2Code "LI" ;
+	:alpha3Code "LIE" ;
+	:numericCode "438" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".li" ;
+	:latitude 47.26666666 ;
+	:longitude 9.53333333 ;
+	:area 160 ;
+	:population 40900 ;
+	:capital :LIE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :CHE ;
+	:officialLanguage :Language_deu ;
+	:currency :Currency_CHF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Liechtenstein> .
+
+:BTN a :SovereignState ;
+	rdfs:label "Bhutan"@en ;
+	:alpha2Code "BT" ;
+	:alpha3Code "BTN" ;
+	:numericCode "064" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".bt" ;
+	:latitude 27.5 ;
+	:longitude 90.5 ;
+	:area 38394 ;
+	:population 784043 ;
+	:capital :BTN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CHN , :IND ;
+	:officialLanguage :Language_dzo ;
+	:currency :Currency_BTN , :Currency_INR ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bhutan> .
+
+:MNE a :SovereignState ;
+	rdfs:label "Montenegro"@en ;
+	:alpha2Code "ME" ;
+	:alpha3Code "MNE" ;
+	:numericCode "499" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".me" ;
+	:latitude 42.5 ;
+	:longitude 19.3 ;
+	:area 13812 ;
+	:population 623327 ;
+	:capital :MNE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ALB , :BIH , :HRV , :UNK , :SRB ;
+	:officialLanguage :Language_cnr ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Montenegro> .
+
+:NER a :SovereignState ;
+	rdfs:label "Niger"@en ;
+	:alpha2Code "NE" ;
+	:alpha3Code "NER" ;
+	:numericCode "562" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ne" ;
+	:latitude 16 ;
+	:longitude 8 ;
+	:area 1267000 ;
+	:population 26312034 ;
+	:capital :NER_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DZA , :BEN , :BFA , :TCD , :LBY , :MLI , :NGA ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Niger> .
+
+:ALB a :SovereignState ;
+	rdfs:label "Albania"@en ;
+	:alpha2Code "AL" ;
+	:alpha3Code "ALB" ;
+	:numericCode "008" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".al" ;
+	:latitude 41 ;
+	:longitude 20 ;
+	:area 28748 ;
+	:population 2363314 ;
+	:capital :ALB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MNE , :GRC , :MKD , :UNK ;
+	:officialLanguage :Language_sqi ;
+	:currency :Currency_ALL ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Albania> .
+
+:MAR a :SovereignState ;
+	rdfs:label "Morocco"@en ;
+	:alpha2Code "MA" ;
+	:alpha3Code "MAR" ;
+	:numericCode "504" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ma" ;
+	:latitude 32 ;
+	:longitude -5 ;
+	:area 446550 ;
+	:population 36828330 ;
+	:capital :MAR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DZA , :ESH , :ESP ;
+	:officialLanguage :Language_ara , :Language_ber ;
+	:currency :Currency_MAD ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Morocco> .
+
+:VEN a :SovereignState ;
+	rdfs:label "Venezuela"@en ;
+	:alpha2Code "VE" ;
+	:alpha3Code "VEN" ;
+	:numericCode "862" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".ve" ;
+	:latitude 8 ;
+	:longitude -66 ;
+	:area 916445 ;
+	:population 28517000 ;
+	:capital :VEN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BRA , :COL , :GUY ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_VES ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Venezuela> .
+
+:COG a :SovereignState ;
+	rdfs:label "Republic of the Congo"@en ;
+	:alpha2Code "CG" ;
+	:alpha3Code "COG" ;
+	:numericCode "178" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".cg" ;
+	:latitude -1 ;
+	:longitude 15 ;
+	:area 342000 ;
+	:population 6142180 ;
+	:capital :COG_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AGO , :CMR , :CAF , :COD , :GAB ;
+	:officialLanguage :Language_fra , :Language_kon , :Language_lin ;
+	:currency :Currency_XAF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Republic_of_the_Congo> .
+
+:BDI a :SovereignState ;
+	rdfs:label "Burundi"@en ;
+	:alpha2Code "BI" ;
+	:alpha3Code "BDI" ;
+	:numericCode "108" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".bi" ;
+	:latitude -3.5 ;
+	:longitude 30 ;
+	:area 27834 ;
+	:population 12332788 ;
+	:capital :BDI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :COD , :RWA , :TZA ;
+	:officialLanguage :Language_fra , :Language_run ;
+	:currency :Currency_BIF ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Burundi> .
+
+:JEY a :Territory ;
+	rdfs:label "Jersey"@en ;
+	:alpha2Code "JE" ;
+	:alpha3Code "JEY" ;
+	:numericCode "832" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".je" ;
+	:latitude 49.25 ;
+	:longitude -2.16666666 ;
+	:area 116 ;
+	:population 103267 ;
+	:capital :JEY_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_fra , :Language_nrf ;
+	:currency :Currency_GBP , :Currency_JEP ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Jersey> .
+
+:MKD a :SovereignState ;
+	rdfs:label "North Macedonia"@en ;
+	:alpha2Code "MK" ;
+	:alpha3Code "MKD" ;
+	:numericCode "807" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".mk" ;
+	:latitude 41.83333333 ;
+	:longitude 22 ;
+	:area 25713 ;
+	:population 1822612 ;
+	:capital :MKD_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ALB , :BGR , :GRC , :UNK , :SRB ;
+	:officialLanguage :Language_mkd ;
+	:currency :Currency_MKD ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/North_Macedonia> .
+
+:KGZ a :SovereignState ;
+	rdfs:label "Kyrgyzstan"@en ;
+	:alpha2Code "KG" ;
+	:alpha3Code "KGZ" ;
+	:numericCode "417" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".kg" ;
+	:latitude 41 ;
+	:longitude 75 ;
+	:area 199951 ;
+	:population 7281800 ;
+	:capital :KGZ_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CHN , :KAZ , :TJK , :UZB ;
+	:officialLanguage :Language_kir , :Language_rus ;
+	:currency :Currency_KGS ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Kyrgyzstan> .
+
+:ROU a :SovereignState ;
+	rdfs:label "Romania"@en ;
+	:alpha2Code "RO" ;
+	:alpha3Code "ROU" ;
+	:numericCode "642" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".ro" ;
+	:latitude 46 ;
+	:longitude 25 ;
+	:area 238391 ;
+	:population 19036031 ;
+	:capital :ROU_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BGR , :HUN , :MDA , :SRB , :UKR ;
+	:officialLanguage :Language_ron ;
+	:currency :Currency_RON ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Romania> .
+
+:GUM a :Territory ;
+	rdfs:label "Guam"@en ;
+	:alpha2Code "GU" ;
+	:alpha3Code "GUM" ;
+	:numericCode "316" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".gu" ;
+	:latitude 13.46666666 ;
+	:longitude 144.78333333 ;
+	:area 549 ;
+	:population 153836 ;
+	:capital :GUM_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_cha , :Language_eng , :Language_spa ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_10_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Guam> .
+
+:ALA a :Territory ;
+	rdfs:label "Åland Islands"@en ;
+	:alpha2Code "AX" ;
+	:alpha3Code "ALA" ;
+	:numericCode "248" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".ax" ;
+	:latitude 60.116667 ;
+	:longitude 19.9 ;
+	:area 1580 ;
+	:population 30654 ;
+	:capital :ALA_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_swe ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/%C3%85land_Islands> .
+
+:GNQ a :SovereignState ;
+	rdfs:label "Equatorial Guinea"@en ;
+	:alpha2Code "GQ" ;
+	:alpha3Code "GNQ" ;
+	:numericCode "226" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".gq" ;
+	:latitude 2 ;
+	:longitude 10 ;
+	:area 28051 ;
+	:population 1668768 ;
+	:capital :GNQ_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CMR , :GAB ;
+	:officialLanguage :Language_fra , :Language_por , :Language_spa ;
+	:currency :Currency_XAF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Equatorial_Guinea> .
+
+:SGS a :Territory ;
+	rdfs:label "South Georgia"@en ;
+	:alpha2Code "GS" ;
+	:alpha3Code "SGS" ;
+	:numericCode "239" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".gs" ;
+	:latitude -54.5 ;
+	:longitude -37 ;
+	:area 3903 ;
+	:capital :SGS_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_GBP ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/South_Georgia> .
+
+:GUF a :Territory ;
+	rdfs:label "French Guiana"@en ;
+	:alpha2Code "GF" ;
+	:alpha3Code "GUF" ;
+	:numericCode "254" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".gf" ;
+	:latitude 4 ;
+	:longitude -53 ;
+	:area 83534 ;
+	:population 292354 ;
+	:capital :GUF_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :BRA , :SUR ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/French_Guiana> .
+
+:DEU a :SovereignState ;
+	rdfs:label "Germany"@en ;
+	:alpha2Code "DE" ;
+	:alpha3Code "DEU" ;
+	:numericCode "276" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".de" ;
+	:latitude 51 ;
+	:longitude 9 ;
+	:area 357114 ;
+	:population 83491249 ;
+	:capital :DEU_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :BEL , :CZE , :DNK , :FRA , :LUX , :NLD , :POL , :CHE ;
+	:officialLanguage :Language_deu ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Germany> .
+
+:DNK a :SovereignState ;
+	rdfs:label "Denmark"@en ;
+	:alpha2Code "DK" ;
+	:alpha3Code "DNK" ;
+	:numericCode "208" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".dk" ;
+	:latitude 56 ;
+	:longitude 10 ;
+	:area 43094 ;
+	:population 6011488 ;
+	:capital :DNK_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DEU ;
+	:officialLanguage :Language_dan ;
+	:currency :Currency_DKK ;
+	:hasTimeZone :TimeZone_UTC_04_00 , :TimeZone_UTC_03_00 , :TimeZone_UTC_01_00 , :TimeZone_UTC , :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Denmark> .
+
+:ISL a :SovereignState ;
+	rdfs:label "Iceland"@en ;
+	:alpha2Code "IS" ;
+	:alpha3Code "ISL" ;
+	:numericCode "352" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".is" ;
+	:latitude 65 ;
+	:longitude -18 ;
+	:area 103000 ;
+	:population 391810 ;
+	:capital :ISL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_isl ;
+	:currency :Currency_ISK ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Iceland> .
+
+:SOM a :SovereignState ;
+	rdfs:label "Somalia"@en ;
+	:alpha2Code "SO" ;
+	:alpha3Code "SOM" ;
+	:numericCode "706" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".so" ;
+	:latitude 10 ;
+	:longitude 49 ;
+	:area 637657 ;
+	:population 19655000 ;
+	:capital :SOM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DJI , :ETH , :KEN ;
+	:officialLanguage :Language_ara , :Language_som ;
+	:currency :Currency_SOS ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Somalia> .
+
+:FSM a :SovereignState ;
+	rdfs:label "Micronesia"@en ;
+	:alpha2Code "FM" ;
+	:alpha3Code "FSM" ;
+	:numericCode "583" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".fm" ;
+	:latitude 6.91666666 ;
+	:longitude 158.25 ;
+	:area 702 ;
+	:population 105564 ;
+	:capital :FSM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_10_00 , :TimeZone_UTC_11_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Micronesia> .
+
+:LAO a :SovereignState ;
+	rdfs:label "Laos"@en ;
+	:alpha2Code "LA" ;
+	:alpha3Code "LAO" ;
+	:numericCode "418" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".la" ;
+	:latitude 18 ;
+	:longitude 105 ;
+	:area 236800 ;
+	:population 7647000 ;
+	:capital :LAO_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MMR , :KHM , :CHN , :THA , :VNM ;
+	:officialLanguage :Language_lao ;
+	:currency :Currency_LAK ;
+	:hasTimeZone :TimeZone_UTC_07_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Laos> .
+
+:SXM a :Territory ;
+	rdfs:label "Sint Maarten"@en ;
+	:alpha2Code "SX" ;
+	:alpha3Code "SXM" ;
+	:numericCode "534" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".sx" ;
+	:latitude 18.033333 ;
+	:longitude -63.05 ;
+	:area 34 ;
+	:population 41349 ;
+	:capital :SXM_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :MAF ;
+	:officialLanguage :Language_eng , :Language_fra , :Language_nld ;
+	:currency :Currency_ANG ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Sint_Maarten> .
+
+:LBR a :SovereignState ;
+	rdfs:label "Liberia"@en ;
+	:alpha2Code "LR" ;
+	:alpha3Code "LBR" ;
+	:numericCode "430" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".lr" ;
+	:latitude 6.5 ;
+	:longitude -9.5 ;
+	:area 111369 ;
+	:population 5248621 ;
+	:capital :LBR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GIN , :CIV , :SLE ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_LRD ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Liberia> .
+
+:TCD a :SovereignState ;
+	rdfs:label "Chad"@en ;
+	:alpha2Code "TD" ;
+	:alpha3Code "TCD" ;
+	:numericCode "148" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".td" ;
+	:latitude 15 ;
+	:longitude 19 ;
+	:area 1284000 ;
+	:population 19340757 ;
+	:capital :TCD_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CMR , :CAF , :LBY , :NER , :NGA , :SDN ;
+	:officialLanguage :Language_ara , :Language_fra ;
+	:currency :Currency_XAF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Chad> .
+
+:AUS a :SovereignState ;
+	rdfs:label "Australia"@en ;
+	:alpha2Code "AU" ;
+	:alpha3Code "AUS" ;
+	:numericCode "036" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".au" ;
+	:latitude -27 ;
+	:longitude 133 ;
+	:area 7692024 ;
+	:population 27536874 ;
+	:capital :AUS_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_AUD ;
+	:hasTimeZone :TimeZone_UTC_05_00 , :TimeZone_UTC_06_30 , :TimeZone_UTC_07_00 , :TimeZone_UTC_08_00 , :TimeZone_UTC_09_30 , :TimeZone_UTC_10_00 , :TimeZone_UTC_10_30 , :TimeZone_UTC_11_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Australia> .
+
+:BFA a :SovereignState ;
+	rdfs:label "Burkina Faso"@en ;
+	:alpha2Code "BF" ;
+	:alpha3Code "BFA" ;
+	:numericCode "854" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".bf" ;
+	:latitude 13 ;
+	:longitude -2 ;
+	:area 272967 ;
+	:population 24070553 ;
+	:capital :BFA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BEN , :CIV , :GHA , :MLI , :NER , :TGO ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Burkina_Faso> .
+
+:MLT a :SovereignState ;
+	rdfs:label "Malta"@en ;
+	:alpha2Code "MT" ;
+	:alpha3Code "MLT" ;
+	:numericCode "470" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".mt" ;
+	:latitude 35.9375 ;
+	:longitude 14.3754 ;
+	:area 316 ;
+	:population 574250 ;
+	:capital :MLT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_mlt ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Malta> .
+
+:MNP a :Territory ;
+	rdfs:label "Northern Mariana Islands"@en ;
+	:alpha2Code "MP" ;
+	:alpha3Code "MNP" ;
+	:numericCode "580" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".mp" ;
+	:latitude 15.2 ;
+	:longitude 145.75 ;
+	:area 464 ;
+	:population 47329 ;
+	:capital :MNP_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_cal , :Language_cha , :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_10_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Northern_Mariana_Islands> .
+
+:UGA a :SovereignState ;
+	rdfs:label "Uganda"@en ;
+	:alpha2Code "UG" ;
+	:alpha3Code "UGA" ;
+	:numericCode "800" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ug" ;
+	:latitude 1 ;
+	:longitude 32 ;
+	:area 241550 ;
+	:population 45905417 ;
+	:capital :UGA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :COD , :KEN , :RWA , :SSD , :TZA ;
+	:officialLanguage :Language_eng , :Language_swa ;
+	:currency :Currency_UGX ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Uganda> .
+
+:ESP a :SovereignState ;
+	rdfs:label "Spain"@en ;
+	:alpha2Code "ES" ;
+	:alpha3Code "ESP" ;
+	:numericCode "724" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".es" ;
+	:latitude 40 ;
+	:longitude -4 ;
+	:area 505992 ;
+	:population 49315949 ;
+	:capital :ESP_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AND , :FRA , :GIB , :PRT , :MAR ;
+	:officialLanguage :Language_spa , :Language_cat , :Language_eus , :Language_glc ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC , :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Spain> .
+
+:SDN a :SovereignState ;
+	rdfs:label "Sudan"@en ;
+	:alpha2Code "SD" ;
+	:alpha3Code "SDN" ;
+	:numericCode "729" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".sd" ;
+	:latitude 15 ;
+	:longitude 30 ;
+	:area 1886068 ;
+	:population 51662000 ;
+	:capital :SDN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CAF , :TCD , :EGY , :ERI , :ETH , :LBY , :SSD ;
+	:officialLanguage :Language_ara , :Language_eng ;
+	:currency :Currency_SDG ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Sudan> .
+
+:TWN a :Territory ;
+	rdfs:label "Taiwan"@en ;
+	:alpha2Code "TW" ;
+	:alpha3Code "TWN" ;
+	:numericCode "158" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".tw" ;
+	:latitude 23.5 ;
+	:longitude 121 ;
+	:area 36197 ;
+	:population 23317031 ;
+	:capital :TWN_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_zho ;
+	:currency :Currency_TWD ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Taiwan> .
+
+:AFG a :SovereignState ;
+	rdfs:label "Afghanistan"@en ;
+	:alpha2Code "AF" ;
+	:alpha3Code "AFG" ;
+	:numericCode "004" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".af" ;
+	:latitude 33 ;
+	:longitude 65 ;
+	:area 652230 ;
+	:population 43844000 ;
+	:capital :AFG_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IRN , :PAK , :TKM , :UZB , :TJK , :CHN ;
+	:officialLanguage :Language_prs , :Language_pus , :Language_tuk ;
+	:currency :Currency_AFN ;
+	:hasTimeZone :TimeZone_UTC_04_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Afghanistan> .
+
+:SJM a :Territory ;
+	rdfs:label "Svalbard and Jan Mayen"@en ;
+	:alpha2Code "SJ" ;
+	:alpha3Code "SJM" ;
+	:numericCode "744" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".sj" ;
+	:latitude 78 ;
+	:longitude 20 ;
+	:area 61399 ;
+	:population 2530 ;
+	:capital :SJM_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_nor ;
+	:currency :Currency_NOK ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Svalbard_and_Jan_Mayen> .
+
+:FJI a :SovereignState ;
+	rdfs:label "Fiji"@en ;
+	:alpha2Code "FJ" ;
+	:alpha3Code "FJI" ;
+	:numericCode "242" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".fj" ;
+	:latitude -17.7134 ;
+	:longitude 178.065 ;
+	:area 18272 ;
+	:population 900869 ;
+	:capital :FJI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_fij , :Language_hif ;
+	:currency :Currency_FJD ;
+	:hasTimeZone :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Fiji> .
+
+:GNB a :SovereignState ;
+	rdfs:label "Guinea-Bissau"@en ;
+	:alpha2Code "GW" ;
+	:alpha3Code "GNB" ;
+	:numericCode "624" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".gw" ;
+	:latitude 12 ;
+	:longitude -15 ;
+	:area 36125 ;
+	:population 1781308 ;
+	:capital :GNB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GIN , :SEN ;
+	:officialLanguage :Language_por , :Language_pov ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Guinea-Bissau> .
+
+:AND a :SovereignState ;
+	rdfs:label "Andorra"@en ;
+	:alpha2Code "AD" ;
+	:alpha3Code "AND" ;
+	:numericCode "020" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".ad" ;
+	:latitude 42.5 ;
+	:longitude 1.5 ;
+	:area 468 ;
+	:population 88406 ;
+	:capital :AND_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :FRA , :ESP ;
+	:officialLanguage :Language_cat ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Andorra> .
+
+:DZA a :SovereignState ;
+	rdfs:label "Algeria"@en ;
+	:alpha2Code "DZ" ;
+	:alpha3Code "DZA" ;
+	:numericCode "012" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".dz" ;
+	:latitude 28 ;
+	:longitude 3 ;
+	:area 2381741 ;
+	:population 47400000 ;
+	:capital :DZA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :TUN , :LBY , :NER , :ESH , :MRT , :MLI , :MAR ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_DZD ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Algeria> .
+
+:PRT a :SovereignState ;
+	rdfs:label "Portugal"@en ;
+	:alpha2Code "PT" ;
+	:alpha3Code "PRT" ;
+	:numericCode "620" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".pt" ;
+	:latitude 39.5 ;
+	:longitude -8 ;
+	:area 92090 ;
+	:population 10749635 ;
+	:capital :PRT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ESP ;
+	:officialLanguage :Language_por ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 , :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Portugal> .
+
+:MOZ a :SovereignState ;
+	rdfs:label "Mozambique"@en ;
+	:alpha2Code "MZ" ;
+	:alpha3Code "MOZ" ;
+	:numericCode "508" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".mz" ;
+	:latitude -18.25 ;
+	:longitude 35 ;
+	:area 801590 ;
+	:population 34090466 ;
+	:capital :MOZ_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MWI , :ZAF , :SWZ , :TZA , :ZMB , :ZWE ;
+	:officialLanguage :Language_por ;
+	:currency :Currency_MZN ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Mozambique> .
+
+:LSO a :SovereignState ;
+	rdfs:label "Lesotho"@en ;
+	:alpha2Code "LS" ;
+	:alpha3Code "LSO" ;
+	:numericCode "426" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ls" ;
+	:latitude -29.5 ;
+	:longitude 28.5 ;
+	:area 30355 ;
+	:population 2116427 ;
+	:capital :LSO_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ZAF ;
+	:officialLanguage :Language_eng , :Language_sot ;
+	:currency :Currency_LSL , :Currency_ZAR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Lesotho> .
+
+:PRK a :SovereignState ;
+	rdfs:label "North Korea"@en ;
+	:alpha2Code "KP" ;
+	:alpha3Code "PRK" ;
+	:numericCode "408" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".kp" ;
+	:latitude 40 ;
+	:longitude 127 ;
+	:area 120538 ;
+	:population 25950000 ;
+	:capital :PRK_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CHN , :KOR , :RUS ;
+	:officialLanguage :Language_kor ;
+	:currency :Currency_KPW ;
+	:hasTimeZone :TimeZone_UTC_09_00 ;
+	owl:sameAs <http://dbpedia.org/resource/North_Korea> .
+
+:SGP a :SovereignState ;
+	rdfs:label "Singapore"@en ;
+	:alpha2Code "SG" ;
+	:alpha3Code "SGP" ;
+	:numericCode "702" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".sg" ;
+	:latitude 1.36666666 ;
+	:longitude 103.8 ;
+	:area 710 ;
+	:population 6110200 ;
+	:capital :SGP_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_zho , :Language_msa , :Language_tam ;
+	:currency :Currency_SGD ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Singapore> .
+
+:MCO a :SovereignState ;
+	rdfs:label "Monaco"@en ;
+	:alpha2Code "MC" ;
+	:alpha3Code "MCO" ;
+	:numericCode "492" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".mc" ;
+	:latitude 43.73333333 ;
+	:longitude 7.4 ;
+	:area 2.02 ;
+	:population 38423 ;
+	:capital :MCO_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :FRA ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Monaco> .
+
+:LBN a :SovereignState ;
+	rdfs:label "Lebanon"@en ;
+	:alpha2Code "LB" ;
+	:alpha3Code "LBN" ;
+	:numericCode "422" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".lb" ;
+	:latitude 33.83333333 ;
+	:longitude 35.83333333 ;
+	:area 10452 ;
+	:population 5490000 ;
+	:capital :LBN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ISR , :SYR ;
+	:officialLanguage :Language_ara , :Language_fra ;
+	:currency :Currency_LBP ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Lebanon> .
+
+:SRB a :SovereignState ;
+	rdfs:label "Serbia"@en ;
+	:alpha2Code "RS" ;
+	:alpha3Code "SRB" ;
+	:numericCode "688" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".rs" ;
+	:latitude 44 ;
+	:longitude 21 ;
+	:area 77589 ;
+	:population 6567783 ;
+	:capital :SRB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BIH , :BGR , :HRV , :HUN , :UNK , :MKD , :MNE , :ROU ;
+	:officialLanguage :Language_srp ;
+	:currency :Currency_RSD ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Serbia> .
+
+:EST a :SovereignState ;
+	rdfs:label "Estonia"@en ;
+	:alpha2Code "EE" ;
+	:alpha3Code "EST" ;
+	:numericCode "233" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".ee" ;
+	:latitude 59 ;
+	:longitude 26 ;
+	:area 45227 ;
+	:population 1369995 ;
+	:capital :EST_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :LVA , :RUS ;
+	:officialLanguage :Language_est ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Estonia> .
+
+:BRB a :SovereignState ;
+	rdfs:label "Barbados"@en ;
+	:alpha2Code "BB" ;
+	:alpha3Code "BRB" ;
+	:numericCode "052" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".bb" ;
+	:latitude 13.16666666 ;
+	:longitude -59.53333333 ;
+	:area 430 ;
+	:population 267800 ;
+	:capital :BRB_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_BBD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Barbados> .
+
+:MUS a :SovereignState ;
+	rdfs:label "Mauritius"@en ;
+	:alpha2Code "MU" ;
+	:alpha3Code "MUS" ;
+	:numericCode "480" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".mu" ;
+	:latitude -20.28333333 ;
+	:longitude 57.55 ;
+	:area 2040 ;
+	:population 1243741 ;
+	:capital :MUS_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_fra , :Language_mfe ;
+	:currency :Currency_MUR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Mauritius> .
+
+:SHN a :Territory ;
+	rdfs:label "Saint Helena, Ascension and Tristan da Cunha"@en ;
+	:alpha2Code "SH" ;
+	:alpha3Code "SHN" ;
+	:numericCode "654" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".sh" ;
+	:latitude -15.95 ;
+	:longitude -5.72 ;
+	:area 394 ;
+	:population 5651 ;
+	:capital :SHN_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_GBP , :Currency_SHP ;
+	:hasTimeZone :TimeZone_UTC_00_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saint_Helena%2C_Ascension_and_Tristan_da_Cunha> .
+
+:BEL a :SovereignState ;
+	rdfs:label "Belgium"@en ;
+	:alpha2Code "BE" ;
+	:alpha3Code "BEL" ;
+	:numericCode "056" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".be" ;
+	:latitude 50.83333333 ;
+	:longitude 4 ;
+	:area 30528 ;
+	:population 11825551 ;
+	:capital :BEL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :FRA , :DEU , :LUX , :NLD ;
+	:officialLanguage :Language_deu , :Language_fra , :Language_nld ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Belgium> .
+
+:LBY a :SovereignState ;
+	rdfs:label "Libya"@en ;
+	:alpha2Code "LY" ;
+	:alpha3Code "LBY" ;
+	:numericCode "434" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ly" ;
+	:latitude 25 ;
+	:longitude 17 ;
+	:area 1759540 ;
+	:population 7459000 ;
+	:capital :LBY_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DZA , :TCD , :EGY , :NER , :SDN , :TUN ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_LYD ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Libya> .
+
+:NIC a :SovereignState ;
+	rdfs:label "Nicaragua"@en ;
+	:alpha2Code "NI" ;
+	:alpha3Code "NIC" ;
+	:numericCode "558" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".ni" ;
+	:latitude 13 ;
+	:longitude -85 ;
+	:area 130373 ;
+	:population 6803886 ;
+	:capital :NIC_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CRI , :HND ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_NIO ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Nicaragua> .
+
+:KWT a :SovereignState ;
+	rdfs:label "Kuwait"@en ;
+	:alpha2Code "KW" ;
+	:alpha3Code "KWT" ;
+	:numericCode "414" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".kw" ;
+	:latitude 29.5 ;
+	:longitude 45.75 ;
+	:area 17818 ;
+	:population 4881254 ;
+	:capital :KWT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :IRQ , :SAU ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_KWD ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Kuwait> .
+
+:NCL a :Territory ;
+	rdfs:label "New Caledonia"@en ;
+	:alpha2Code "NC" ;
+	:alpha3Code "NCL" ;
+	:numericCode "540" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".nc" ;
+	:latitude -21.5 ;
+	:longitude 165.5 ;
+	:area 18575 ;
+	:population 264596 ;
+	:capital :NCL_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XPF ;
+	:hasTimeZone :TimeZone_UTC_11_00 ;
+	owl:sameAs <http://dbpedia.org/resource/New_Caledonia> .
+
+:FRA a :SovereignState ;
+	rdfs:label "France"@en ;
+	:alpha2Code "FR" ;
+	:alpha3Code "FRA" ;
+	:numericCode "250" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".fr" ;
+	:latitude 46 ;
+	:longitude 2 ;
+	:area 543908 ;
+	:population 66351959 ;
+	:capital :FRA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AND , :BEL , :DEU , :ITA , :LUX , :MCO , :ESP , :CHE ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_10_00 , :TimeZone_UTC_09_30 , :TimeZone_UTC_09_00 , :TimeZone_UTC_08_00 , :TimeZone_UTC_04_00 , :TimeZone_UTC_03_00 , :TimeZone_UTC_01_00 , :TimeZone_UTC_02_00 , :TimeZone_UTC_03_00 , :TimeZone_UTC_04_00 , :TimeZone_UTC_05_00 , :TimeZone_UTC_10_00 , :TimeZone_UTC_11_00 , :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/France> .
+
+:VNM a :SovereignState ;
+	rdfs:label "Vietnam"@en ;
+	:alpha2Code "VN" ;
+	:alpha3Code "VNM" ;
+	:numericCode "704" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".vn" ;
+	:latitude 16.16666666 ;
+	:longitude 107.83333333 ;
+	:area 331212 ;
+	:population 101343800 ;
+	:capital :VNM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :KHM , :CHN , :LAO ;
+	:officialLanguage :Language_vie ;
+	:currency :Currency_VND ;
+	:hasTimeZone :TimeZone_UTC_07_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Vietnam> .
+
+:VCT a :SovereignState ;
+	rdfs:label "Saint Vincent and the Grenadines"@en ;
+	:alpha2Code "VC" ;
+	:alpha3Code "VCT" ;
+	:numericCode "670" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".vc" ;
+	:latitude 13.25 ;
+	:longitude -61.2 ;
+	:area 389 ;
+	:population 110872 ;
+	:capital :VCT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saint_Vincent_and_the_Grenadines> .
+
+:BHR a :SovereignState ;
+	rdfs:label "Bahrain"@en ;
+	:alpha2Code "BH" ;
+	:alpha3Code "BHR" ;
+	:numericCode "048" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".bh" ;
+	:latitude 26 ;
+	:longitude 50.55 ;
+	:area 765 ;
+	:population 1594654 ;
+	:capital :BHR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_BHD ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bahrain> .
+
+:CUW a :Territory ;
+	rdfs:label "Curaçao"@en ;
+	:alpha2Code "CW" ;
+	:alpha3Code "CUW" ;
+	:numericCode "531" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".cw" ;
+	:latitude 12.116667 ;
+	:longitude -68.933333 ;
+	:area 444 ;
+	:population 156115 ;
+	:capital :CUW_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_nld , :Language_pap ;
+	:currency :Currency_ANG ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cura%C3%A7ao> .
+
+:BGD a :SovereignState ;
+	rdfs:label "Bangladesh"@en ;
+	:alpha2Code "BD" ;
+	:alpha3Code "BGD" ;
+	:numericCode "050" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".bd" ;
+	:latitude 24 ;
+	:longitude 90 ;
+	:area 147570 ;
+	:population 169828911 ;
+	:capital :BGD_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :MMR , :IND ;
+	:officialLanguage :Language_ben ;
+	:currency :Currency_BDT ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bangladesh> .
+
+:CIV a :SovereignState ;
+	rdfs:label "Ivory Coast"@en ;
+	:alpha2Code "CI" ;
+	:alpha3Code "CIV" ;
+	:numericCode "384" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".ci" ;
+	:latitude 8 ;
+	:longitude -5 ;
+	:area 322463 ;
+	:population 31719275 ;
+	:capital :CIV_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BFA , :GHA , :GIN , :LBR , :MLI ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Ivory_Coast> .
+
+:COD a :SovereignState ;
+	rdfs:label "DR Congo"@en ;
+	:alpha2Code "CD" ;
+	:alpha3Code "COD" ;
+	:numericCode "180" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".cd" ;
+	:latitude 0 ;
+	:longitude 25 ;
+	:area 2344858 ;
+	:population 112832000 ;
+	:capital :COD_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AGO , :BDI , :CAF , :COG , :RWA , :SSD , :TZA , :UGA , :ZMB ;
+	:officialLanguage :Language_fra , :Language_kon , :Language_lin , :Language_lua , :Language_swa ;
+	:currency :Currency_CDF ;
+	:hasTimeZone :TimeZone_UTC_01_00 , :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/DR_Congo> .
+
+:LKA a :SovereignState ;
+	rdfs:label "Sri Lanka"@en ;
+	:alpha2Code "LK" ;
+	:alpha3Code "LKA" ;
+	:numericCode "144" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".lk" ;
+	:latitude 7 ;
+	:longitude 81 ;
+	:area 65610 ;
+	:population 21763170 ;
+	:capital :LKA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_sin , :Language_tam ;
+	:currency :Currency_LKR ;
+	:hasTimeZone :TimeZone_UTC_05_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Sri_Lanka> .
+
+:UMI a :Territory ;
+	rdfs:label "United States Minor Outlying Islands"@en ;
+	:alpha2Code "UM" ;
+	:alpha3Code "UMI" ;
+	:numericCode "581" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".us" ;
+	:latitude 19.3 ;
+	:longitude 166.633333 ;
+	:area 34.2 ;
+	:capital :UMI_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_11_00 , :TimeZone_UTC_10_00 , :TimeZone_UTC_12_00 ;
+	owl:sameAs <http://dbpedia.org/resource/United_States_Minor_Outlying_Islands> .
+
+:BES a :Territory ;
+	rdfs:label "Caribbean Netherlands"@en ;
+	:alpha2Code "BQ" ;
+	:alpha3Code "BES" ;
+	:numericCode "535" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".bq" ;
+	:latitude 12.18 ;
+	:longitude -68.25 ;
+	:area 328 ;
+	:population 31980 ;
+	:capital :BES_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng , :Language_nld , :Language_pap ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Caribbean_Netherlands> .
+
+:NPL a :SovereignState ;
+	rdfs:label "Nepal"@en ;
+	:alpha2Code "NP" ;
+	:alpha3Code "NPL" ;
+	:numericCode "524" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".np" ;
+	:latitude 28 ;
+	:longitude 84 ;
+	:area 147181 ;
+	:population 29911840 ;
+	:capital :NPL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CHN , :IND ;
+	:officialLanguage :Language_nep ;
+	:currency :Currency_NPR ;
+	:hasTimeZone :TimeZone_UTC_05_45 ;
+	owl:sameAs <http://dbpedia.org/resource/Nepal> .
+
+:BOL a :SovereignState ;
+	rdfs:label "Bolivia"@en ;
+	:alpha2Code "BO" ;
+	:alpha3Code "BOL" ;
+	:numericCode "068" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".bo" ;
+	:latitude -17 ;
+	:longitude -65 ;
+	:area 1098581 ;
+	:population 11365333 ;
+	:capital :BOL_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARG , :BRA , :CHL , :PRY , :PER ;
+	:officialLanguage :Language_aym , :Language_grn , :Language_que , :Language_spa ;
+	:currency :Currency_BOB ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Bolivia> .
+
+:NAM a :SovereignState ;
+	rdfs:label "Namibia"@en ;
+	:alpha2Code "NA" ;
+	:alpha3Code "NAM" ;
+	:numericCode "516" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".na" ;
+	:latitude -22 ;
+	:longitude 17 ;
+	:area 825615 ;
+	:population 3022401 ;
+	:capital :NAM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AGO , :BWA , :ZAF , :ZMB ;
+	:officialLanguage :Language_afr , :Language_deu , :Language_eng , :Language_her , :Language_hgm , :Language_kwn , :Language_loz , :Language_ndo , :Language_tsn ;
+	:currency :Currency_NAD , :Currency_ZAR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Namibia> .
+
+:HTI a :SovereignState ;
+	rdfs:label "Haiti"@en ;
+	:alpha2Code "HT" ;
+	:alpha3Code "HTI" ;
+	:numericCode "332" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".ht" ;
+	:latitude 19 ;
+	:longitude -72.41666666 ;
+	:area 27750 ;
+	:population 11867032 ;
+	:capital :HTI_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DOM ;
+	:officialLanguage :Language_fra , :Language_hat ;
+	:currency :Currency_HTG ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Haiti> .
+
+:SUR a :SovereignState ;
+	rdfs:label "Suriname"@en ;
+	:alpha2Code "SR" ;
+	:alpha3Code "SUR" ;
+	:numericCode "740" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".sr" ;
+	:latitude 4 ;
+	:longitude -56 ;
+	:area 163820 ;
+	:population 616500 ;
+	:capital :SUR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BRA , :GUF , :GUY ;
+	:officialLanguage :Language_nld ;
+	:currency :Currency_SRD ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Suriname> .
+
+:MAF a :Territory ;
+	rdfs:label "Saint Martin"@en ;
+	:alpha2Code "MF" ;
+	:alpha3Code "MAF" ;
+	:numericCode "663" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".fr" ;
+	:latitude 18.0708 ;
+	:longitude -63.0501 ;
+	:area 53 ;
+	:population 31496 ;
+	:capital :MAF_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:bordersWith :SXM ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saint_Martin> .
+
+:CAN a :SovereignState ;
+	rdfs:label "Canada"@en ;
+	:alpha2Code "CA" ;
+	:alpha3Code "CAN" ;
+	:numericCode "124" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".ca" ;
+	:latitude 60 ;
+	:longitude -95 ;
+	:area 9984670 ;
+	:population 41651653 ;
+	:capital :CAN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :USA ;
+	:officialLanguage :Language_eng , :Language_fra ;
+	:currency :Currency_CAD ;
+	:hasTimeZone :TimeZone_UTC_08_00 , :TimeZone_UTC_07_00 , :TimeZone_UTC_06_00 , :TimeZone_UTC_05_00 , :TimeZone_UTC_04_00 , :TimeZone_UTC_03_30 ;
+	owl:sameAs <http://dbpedia.org/resource/Canada> .
+
+:HND a :SovereignState ;
+	rdfs:label "Honduras"@en ;
+	:alpha2Code "HN" ;
+	:alpha3Code "HND" ;
+	:numericCode "340" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".hn" ;
+	:latitude 15 ;
+	:longitude -86.5 ;
+	:area 112492 ;
+	:population 9892632 ;
+	:capital :HND_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :GTM , :SLV , :NIC ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_HNL ;
+	:hasTimeZone :TimeZone_UTC_06_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Honduras> .
+
+:VAT a :SovereignState ;
+	rdfs:label "Vatican City"@en ;
+	:alpha2Code "VA" ;
+	:alpha3Code "VAT" ;
+	:numericCode "336" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".va" ;
+	:latitude 41.9 ;
+	:longitude 12.45 ;
+	:area 0.49 ;
+	:population 882 ;
+	:capital :VAT_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ITA ;
+	:officialLanguage :Language_ita , :Language_lat ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Vatican_City> .
+
+:ARE a :SovereignState ;
+	rdfs:label "United Arab Emirates"@en ;
+	:alpha2Code "AE" ;
+	:alpha3Code "ARE" ;
+	:numericCode "784" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".ae" ;
+	:latitude 24 ;
+	:longitude 54 ;
+	:area 83600 ;
+	:population 11294243 ;
+	:capital :ARE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :OMN , :SAU ;
+	:officialLanguage :Language_ara ;
+	:currency :Currency_AED ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/United_Arab_Emirates> .
+
+:GIN a :SovereignState ;
+	rdfs:label "Guinea"@en ;
+	:alpha2Code "GN" ;
+	:alpha3Code "GIN" ;
+	:numericCode "324" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".gn" ;
+	:latitude 11 ;
+	:longitude -10 ;
+	:area 245857 ;
+	:population 14363931 ;
+	:capital :GIN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CIV , :GNB , :LBR , :MLI , :SEN , :SLE ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_GNF ;
+	:hasTimeZone :TimeZone_UTC ;
+	owl:sameAs <http://dbpedia.org/resource/Guinea> .
+
+:CMR a :SovereignState ;
+	rdfs:label "Cameroon"@en ;
+	:alpha2Code "CM" ;
+	:alpha3Code "CMR" ;
+	:numericCode "120" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".cm" ;
+	:latitude 6 ;
+	:longitude 12 ;
+	:area 475442 ;
+	:population 29442327 ;
+	:capital :CMR_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :CAF , :TCD , :COG , :GNQ , :GAB , :NGA ;
+	:officialLanguage :Language_eng , :Language_fra ;
+	:currency :Currency_XAF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cameroon> .
+
+:CYP a :SovereignState ;
+	rdfs:label "Cyprus"@en ;
+	:alpha2Code "CY" ;
+	:alpha3Code "CYP" ;
+	:numericCode "196" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".cy" ;
+	:latitude 35 ;
+	:longitude 33 ;
+	:area 9251 ;
+	:population 1442614 ;
+	:capital :CYP_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_ell , :Language_tur ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cyprus> .
+
+:TTO a :SovereignState ;
+	rdfs:label "Trinidad and Tobago"@en ;
+	:alpha2Code "TT" ;
+	:alpha3Code "TTO" ;
+	:numericCode "780" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".tt" ;
+	:latitude 10.6918 ;
+	:longitude -61.2225 ;
+	:area 5130 ;
+	:population 1367764 ;
+	:capital :TTO_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_TTD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Trinidad_and_Tobago> .
+
+:SWE a :SovereignState ;
+	rdfs:label "Sweden"@en ;
+	:alpha2Code "SE" ;
+	:alpha3Code "SWE" ;
+	:numericCode "752" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".se" ;
+	:latitude 62 ;
+	:longitude 15 ;
+	:area 450295 ;
+	:population 10605098 ;
+	:capital :SWE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :FIN , :NOR ;
+	:officialLanguage :Language_swe ;
+	:currency :Currency_SEK ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Sweden> .
+
+:MDG a :SovereignState ;
+	rdfs:label "Madagascar"@en ;
+	:alpha2Code "MG" ;
+	:alpha3Code "MDG" ;
+	:numericCode "450" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".mg" ;
+	:latitude -20 ;
+	:longitude 47 ;
+	:area 587041 ;
+	:population 31727042 ;
+	:capital :MDG_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_fra , :Language_mlg ;
+	:currency :Currency_MGA ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Madagascar> .
+
+:MYT a :Territory ;
+	rdfs:label "Mayotte"@en ;
+	:alpha2Code "YT" ;
+	:alpha3Code "MYT" ;
+	:numericCode "175" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".yt" ;
+	:latitude -12.83333333 ;
+	:longitude 45.16666666 ;
+	:area 374 ;
+	:population 320901 ;
+	:capital :MYT_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Mayotte> .
+
+:CYM a :Territory ;
+	rdfs:label "Cayman Islands"@en ;
+	:alpha2Code "KY" ;
+	:alpha3Code "CYM" ;
+	:numericCode "136" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".ky" ;
+	:latitude 19.3133 ;
+	:longitude -81.2546 ;
+	:area 264 ;
+	:population 84738 ;
+	:capital :CYM_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_KYD ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cayman_Islands> .
+
+:MYS a :SovereignState ;
+	rdfs:label "Malaysia"@en ;
+	:alpha2Code "MY" ;
+	:alpha3Code "MYS" ;
+	:numericCode "458" ;
+	:callingCode "+6" ;
+	:countryCallingCodePrefix 6 ;
+	:internetTLD ".my" ;
+	:latitude 2.5 ;
+	:longitude 112.5 ;
+	:area 330803 ;
+	:population 34231700 ;
+	:capital :MYS_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BRN , :IDN , :THA ;
+	:officialLanguage :Language_eng , :Language_msa ;
+	:currency :Currency_MYR ;
+	:hasTimeZone :TimeZone_UTC_08_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Malaysia> .
+
+:BEN a :SovereignState ;
+	rdfs:label "Benin"@en ;
+	:alpha2Code "BJ" ;
+	:alpha3Code "BEN" ;
+	:numericCode "204" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".bj" ;
+	:latitude 9.5 ;
+	:longitude 2.25 ;
+	:area 112622 ;
+	:population 13224860 ;
+	:capital :BEN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BFA , :NER , :NGA , :TGO ;
+	:officialLanguage :Language_fra ;
+	:currency :Currency_XOF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Benin> .
+
+:GRL a :Territory ;
+	rdfs:label "Greenland"@en ;
+	:alpha2Code "GL" ;
+	:alpha3Code "GRL" ;
+	:numericCode "304" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".gl" ;
+	:latitude 72 ;
+	:longitude -40 ;
+	:area 2166086 ;
+	:population 56542 ;
+	:capital :GRL_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_kal ;
+	:currency :Currency_DKK ;
+	:hasTimeZone :TimeZone_UTC_04_00 , :TimeZone_UTC_03_00 , :TimeZone_UTC_01_00 , :TimeZone_UTC_00_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Greenland> .
+
+:CHE a :SovereignState ;
+	rdfs:label "Switzerland"@en ;
+	:alpha2Code "CH" ;
+	:alpha3Code "CHE" ;
+	:numericCode "756" ;
+	:callingCode "+4" ;
+	:countryCallingCodePrefix 4 ;
+	:internetTLD ".ch" ;
+	:latitude 47 ;
+	:longitude 8 ;
+	:area 41284 ;
+	:population 9082848 ;
+	:capital :CHE_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AUT , :FRA , :ITA , :LIE , :DEU ;
+	:officialLanguage :Language_fra , :Language_gsw , :Language_ita , :Language_roh ;
+	:currency :Currency_CHF ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Switzerland> .
+
+:GEO a :SovereignState ;
+	rdfs:label "Georgia"@en ;
+	:alpha2Code "GE" ;
+	:alpha3Code "GEO" ;
+	:numericCode "268" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".ge" ;
+	:latitude 42 ;
+	:longitude 43.5 ;
+	:area 69700 ;
+	:population 4000921 ;
+	:capital :GEO_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ARM , :AZE , :RUS , :TUR ;
+	:officialLanguage :Language_kat ;
+	:currency :Currency_GEL ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Georgia> .
+
+:ECU a :SovereignState ;
+	rdfs:label "Ecuador"@en ;
+	:alpha2Code "EC" ;
+	:alpha3Code "ECU" ;
+	:numericCode "218" ;
+	:callingCode "+5" ;
+	:countryCallingCodePrefix 5 ;
+	:internetTLD ".ec" ;
+	:latitude -2 ;
+	:longitude -77.5 ;
+	:area 276841 ;
+	:population 18103660 ;
+	:capital :ECU_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :COL , :PER ;
+	:officialLanguage :Language_spa ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_06_00 , :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Ecuador> .
+
+:CPV a :SovereignState ;
+	rdfs:label "Cape Verde"@en ;
+	:alpha2Code "CV" ;
+	:alpha3Code "CPV" ;
+	:numericCode "132" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".cv" ;
+	:latitude 16.5388 ;
+	:longitude -23.0418 ;
+	:area 4033 ;
+	:population 491233 ;
+	:capital :CPV_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_por ;
+	:currency :Currency_CVE ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Cape_Verde> .
+
+:LUX a :SovereignState ;
+	rdfs:label "Luxembourg"@en ;
+	:alpha2Code "LU" ;
+	:alpha3Code "LUX" ;
+	:numericCode "442" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".lu" ;
+	:latitude 49.75 ;
+	:longitude 6.16666666 ;
+	:area 2586 ;
+	:population 681973 ;
+	:capital :LUX_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BEL , :FRA , :DEU ;
+	:officialLanguage :Language_deu , :Language_fra , :Language_ltz ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_01_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Luxembourg> .
+
+:LCA a :SovereignState ;
+	rdfs:label "Saint Lucia"@en ;
+	:alpha2Code "LC" ;
+	:alpha3Code "LCA" ;
+	:numericCode "662" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".lc" ;
+	:latitude 13.88333333 ;
+	:longitude -60.96666666 ;
+	:area 616 ;
+	:population 184100 ;
+	:capital :LCA_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Saint_Lucia> .
+
+:VIR a :Territory ;
+	rdfs:label "United States Virgin Islands"@en ;
+	:alpha2Code "VI" ;
+	:alpha3Code "VIR" ;
+	:numericCode "850" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".vi" ;
+	:latitude 18.35 ;
+	:longitude -64.933333 ;
+	:area 347 ;
+	:population 87146 ;
+	:capital :VIR_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_USD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/United_States_Virgin_Islands> .
+
+:JPN a :SovereignState ;
+	rdfs:label "Japan"@en ;
+	:alpha2Code "JP" ;
+	:alpha3Code "JPN" ;
+	:numericCode "392" ;
+	:callingCode "+8" ;
+	:countryCallingCodePrefix 8 ;
+	:internetTLD ".jp" ;
+	:latitude 36 ;
+	:longitude 138 ;
+	:area 377930 ;
+	:population 123210000 ;
+	:capital :JPN_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_jpn ;
+	:currency :Currency_JPY ;
+	:hasTimeZone :TimeZone_UTC_09_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Japan> .
+
+:JAM a :SovereignState ;
+	rdfs:label "Jamaica"@en ;
+	:alpha2Code "JM" ;
+	:alpha3Code "JAM" ;
+	:numericCode "388" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".jm" ;
+	:latitude 18.25 ;
+	:longitude -77.5 ;
+	:area 10991 ;
+	:population 2825544 ;
+	:capital :JAM_Capital ;
+	:sovereigntyStatus "independent" ;
+	:officialLanguage :Language_eng , :Language_jam ;
+	:currency :Currency_JMD ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Jamaica> .
+
+:ETH a :SovereignState ;
+	rdfs:label "Ethiopia"@en ;
+	:alpha2Code "ET" ;
+	:alpha3Code "ETH" ;
+	:numericCode "231" ;
+	:callingCode "+2" ;
+	:countryCallingCodePrefix 2 ;
+	:internetTLD ".et" ;
+	:latitude 8 ;
+	:longitude 38 ;
+	:area 1104300 ;
+	:population 111652998 ;
+	:capital :ETH_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :DJI , :ERI , :KEN , :SOM , :SSD , :SDN ;
+	:officialLanguage :Language_amh ;
+	:currency :Currency_ETB ;
+	:hasTimeZone :TimeZone_UTC_03_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Ethiopia> .
+
+:PAK a :SovereignState ;
+	rdfs:label "Pakistan"@en ;
+	:alpha2Code "PK" ;
+	:alpha3Code "PAK" ;
+	:numericCode "586" ;
+	:callingCode "+9" ;
+	:countryCallingCodePrefix 9 ;
+	:internetTLD ".pk" ;
+	:latitude 30 ;
+	:longitude 70 ;
+	:area 796095 ;
+	:population 241499431 ;
+	:capital :PAK_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :AFG , :CHN , :IND , :IRN ;
+	:officialLanguage :Language_eng , :Language_urd ;
+	:currency :Currency_PKR ;
+	:hasTimeZone :TimeZone_UTC_05_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Pakistan> .
+
+:MSR a :Territory ;
+	rdfs:label "Montserrat"@en ;
+	:alpha2Code "MS" ;
+	:alpha3Code "MSR" ;
+	:numericCode "500" ;
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".ms" ;
+	:latitude 16.75 ;
+	:longitude -62.2 ;
+	:area 102 ;
+	:population 4386 ;
+	:capital :MSR_Capital ;
+	:sovereigntyStatus "dependency" ;
+	:officialLanguage :Language_eng ;
+	:currency :Currency_XCD ;
+	:hasTimeZone :TimeZone_UTC_04_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Montserrat> .
+
+:LTU a :SovereignState ;
+	rdfs:label "Lithuania"@en ;
+	:alpha2Code "LT" ;
+	:alpha3Code "LTU" ;
+	:numericCode "440" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".lt" ;
+	:latitude 56 ;
+	:longitude 24 ;
+	:area 65300 ;
+	:population 2894886 ;
+	:capital :LTU_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :BLR , :LVA , :POL , :RUS ;
+	:officialLanguage :Language_lit ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Lithuania> .
+
+:GRC a :SovereignState ;
+	rdfs:label "Greece"@en ;
+	:alpha2Code "GR" ;
+	:alpha3Code "GRC" ;
+	:numericCode "300" ;
+	:callingCode "+3" ;
+	:countryCallingCodePrefix 3 ;
+	:internetTLD ".gr" ;
+	:latitude 39 ;
+	:longitude 22 ;
+	:area 131990 ;
+	:population 10400720 ;
+	:capital :GRC_Capital ;
+	:sovereigntyStatus "independent" ;
+	:bordersWith :ALB , :BGR , :TUR , :MKD ;
+	:officialLanguage :Language_ell ;
+	:currency :Currency_EUR ;
+	:hasTimeZone :TimeZone_UTC_02_00 ;
+	owl:sameAs <http://dbpedia.org/resource/Greece> .
+
+################################################################################
+# CAPITALS
+################################################################################
+
+:SYR_Capital a :Capital ;
+	rdfs:label "Damascus"@en .
+
+:NZL_Capital a :Capital ;
+	rdfs:label "Wellington"@en .
+
+:BRN_Capital a :Capital ;
+	rdfs:label "Bandar Seri Begawan"@en .
+
+:IOT_Capital a :Capital ;
+	rdfs:label "Diego Garcia"@en .
+
+:KEN_Capital a :Capital ;
+	rdfs:label "Nairobi"@en .
+
+:PLW_Capital a :Capital ;
+	rdfs:label "Ngerulmud"@en .
+
+:OMN_Capital a :Capital ;
+	rdfs:label "Muscat"@en .
+
+:MEX_Capital a :Capital ;
+	rdfs:label "Mexico City"@en .
+
+:PSE_Capital a :Capital ;
+	rdfs:label "Ramallah"@en .
+
+:TCA_Capital a :Capital ;
+	rdfs:label "Cockburn Town"@en .
+
+:CAF_Capital a :Capital ;
+	rdfs:label "Bangui"@en .
+
+:KNA_Capital a :Capital ;
+	rdfs:label "Basseterre"@en .
+
+:SSD_Capital a :Capital ;
+	rdfs:label "Juba"@en .
+
+:UKR_Capital a :Capital ;
+	rdfs:label "Kyiv"@en .
+
+:BLM_Capital a :Capital ;
+	rdfs:label "Gustavia"@en .
+
+:NLD_Capital a :Capital ;
+	rdfs:label "Amsterdam"@en .
+
+:TZA_Capital a :Capital ;
+	rdfs:label "Dodoma"@en .
+
+:CZE_Capital a :Capital ;
+	rdfs:label "Prague"@en .
+
+:BLR_Capital a :Capital ;
+	rdfs:label "Minsk"@en .
+
+:YEM_Capital a :Capital ;
+	rdfs:label "Sana'a"@en .
+
+:SVN_Capital a :Capital ;
+	rdfs:label "Ljubljana"@en .
+
+:TKL_Capital a :Capital ;
+	rdfs:label "Fakaofo"@en .
+
+:NGA_Capital a :Capital ;
+	rdfs:label "Abuja"@en .
+
+:REU_Capital a :Capital ;
+	rdfs:label "Saint-Denis"@en .
+
+:GLP_Capital a :Capital ;
+	rdfs:label "Basse-Terre"@en .
+
+:HUN_Capital a :Capital ;
+	rdfs:label "Budapest"@en .
+
+:SWZ_Capital a :Capital ;
+	rdfs:label "Mbabane"@en .
+
+:COM_Capital a :Capital ;
+	rdfs:label "Moroni"@en .
+
+:IND_Capital a :Capital ;
+	rdfs:label "New Delhi"@en .
+
+:CCK_Capital a :Capital ;
+	rdfs:label "West Island"@en .
+
+:GBR_Capital a :Capital ;
+	rdfs:label "London"@en .
+
+:AGO_Capital a :Capital ;
+	rdfs:label "Luanda"@en .
+
+:CRI_Capital a :Capital ;
+	rdfs:label "San José"@en .
+
+:NIU_Capital a :Capital ;
+	rdfs:label "Alofi"@en .
+
+:COK_Capital a :Capital ;
+	rdfs:label "Avarua"@en .
+
+:DJI_Capital a :Capital ;
+	rdfs:label "Djibouti"@en .
+
+:SPM_Capital a :Capital ;
+	rdfs:label "Saint-Pierre"@en .
+
+:AUT_Capital a :Capital ;
+	rdfs:label "Vienna"@en .
+
+:IDN_Capital a :Capital ;
+	rdfs:label "Jakarta"@en .
+
+:NRU_Capital a :Capital ;
+	rdfs:label "Yaren"@en .
+
+:KAZ_Capital a :Capital ;
+	rdfs:label "Astana"@en .
+
+:MWI_Capital a :Capital ;
+	rdfs:label "Lilongwe"@en .
+
+:ERI_Capital a :Capital ;
+	rdfs:label "Asmara"@en .
+
+:TUN_Capital a :Capital ;
+	rdfs:label "Tunis"@en .
+
+:PCN_Capital a :Capital ;
+	rdfs:label "Adamstown"@en .
+
+:SAU_Capital a :Capital ;
+	rdfs:label "Riyadh"@en .
+
+:TKM_Capital a :Capital ;
+	rdfs:label "Ashgabat"@en .
+
+:ESH_Capital a :Capital ;
+	rdfs:label "El Aaiún"@en .
+
+:GHA_Capital a :Capital ;
+	rdfs:label "Accra"@en .
+
+:TUV_Capital a :Capital ;
+	rdfs:label "Funafuti"@en .
+
+:MMR_Capital a :Capital ;
+	rdfs:label "Naypyidaw"@en .
+
+:GAB_Capital a :Capital ;
+	rdfs:label "Libreville"@en .
+
+:CUB_Capital a :Capital ;
+	rdfs:label "Havana"@en .
+
+:CHN_Capital a :Capital ;
+	rdfs:label "Beijing"@en .
+
+:PAN_Capital a :Capital ;
+	rdfs:label "Panama City"@en .
+
+:THA_Capital a :Capital ;
+	rdfs:label "Bangkok"@en .
+
+:RUS_Capital a :Capital ;
+	rdfs:label "Moscow"@en .
+
+:BIH_Capital a :Capital ;
+	rdfs:label "Sarajevo"@en .
+
+:QAT_Capital a :Capital ;
+	rdfs:label "Doha"@en .
+
+:IRQ_Capital a :Capital ;
+	rdfs:label "Baghdad"@en .
+
+:TJK_Capital a :Capital ;
+	rdfs:label "Dushanbe"@en .
+
+:GUY_Capital a :Capital ;
+	rdfs:label "Georgetown"@en .
+
+:SLB_Capital a :Capital ;
+	rdfs:label "Honiara"@en .
+
+:SVK_Capital a :Capital ;
+	rdfs:label "Bratislava"@en .
+
+:GIB_Capital a :Capital ;
+	rdfs:label "Gibraltar"@en .
+
+:PER_Capital a :Capital ;
+	rdfs:label "Lima"@en .
+
+:PRI_Capital a :Capital ;
+	rdfs:label "San Juan"@en .
+
+:ARM_Capital a :Capital ;
+	rdfs:label "Yerevan"@en .
+
+:AZE_Capital a :Capital ;
+	rdfs:label "Baku"@en .
+
+:MRT_Capital a :Capital ;
+	rdfs:label "Nouakchott"@en .
+
+:BLZ_Capital a :Capital ;
+	rdfs:label "Belmopan"@en .
+
+:AIA_Capital a :Capital ;
+	rdfs:label "The Valley"@en .
+
+:SYC_Capital a :Capital ;
+	rdfs:label "Victoria"@en .
+
+:NFK_Capital a :Capital ;
+	rdfs:label "Kingston"@en .
+
+:PHL_Capital a :Capital ;
+	rdfs:label "Manila"@en .
+
+:ARG_Capital a :Capital ;
+	rdfs:label "Buenos Aires"@en .
+
+:MDA_Capital a :Capital ;
+	rdfs:label "Chișinău"@en .
+
+:WSM_Capital a :Capital ;
+	rdfs:label "Apia"@en .
+
+:SLE_Capital a :Capital ;
+	rdfs:label "Freetown"@en .
+
+:KHM_Capital a :Capital ;
+	rdfs:label "Phnom Penh"@en .
+
+:VUT_Capital a :Capital ;
+	rdfs:label "Port Vila"@en .
+
+:JOR_Capital a :Capital ;
+	rdfs:label "Amman"@en .
+
+:MTQ_Capital a :Capital ;
+	rdfs:label "Fort-de-France"@en .
+
+:TON_Capital a :Capital ;
+	rdfs:label "Nuku'alofa"@en .
+
+:VGB_Capital a :Capital ;
+	rdfs:label "Road Town"@en .
+
+:TLS_Capital a :Capital ;
+	rdfs:label "Dili"@en .
+
+:PYF_Capital a :Capital ;
+	rdfs:label "Papeetē"@en .
+
+:TUR_Capital a :Capital ;
+	rdfs:label "Ankara"@en .
+
+:GGY_Capital a :Capital ;
+	rdfs:label "St. Peter Port"@en .
+
+:SEN_Capital a :Capital ;
+	rdfs:label "Dakar"@en .
+
+:GTM_Capital a :Capital ;
+	rdfs:label "Guatemala City"@en .
+
+:POL_Capital a :Capital ;
+	rdfs:label "Warsaw"@en .
+
+:BHS_Capital a :Capital ;
+	rdfs:label "Nassau"@en .
+
+:FRO_Capital a :Capital ;
+	rdfs:label "Tórshavn"@en .
+
+:ABW_Capital a :Capital ;
+	rdfs:label "Oranjestad"@en .
+
+:DOM_Capital a :Capital ;
+	rdfs:label "Santo Domingo"@en .
+
+:HKG_Capital a :Capital ;
+	rdfs:label "City of Victoria"@en .
+
+:STP_Capital a :Capital ;
+	rdfs:label "São Tomé"@en .
+
+:URY_Capital a :Capital ;
+	rdfs:label "Montevideo"@en .
+
+:BMU_Capital a :Capital ;
+	rdfs:label "Hamilton"@en .
+
+:WLF_Capital a :Capital ;
+	rdfs:label "Mata-Utu"@en .
+
+:ZAF_Capital a :Capital ;
+	rdfs:label "Pretoria"@en .
+
+:ISR_Capital a :Capital ;
+	rdfs:label "Jerusalem"@en .
+
+:SMR_Capital a :Capital ;
+	rdfs:label "City of San Marino"@en .
+
+:SLV_Capital a :Capital ;
+	rdfs:label "San Salvador"@en .
+
+:MNG_Capital a :Capital ;
+	rdfs:label "Ulan Bator"@en .
+
+:ASM_Capital a :Capital ;
+	rdfs:label "Pago Pago"@en .
+
+:ATF_Capital a :Capital ;
+	rdfs:label "Port-aux-Français"@en .
+
+:ZWE_Capital a :Capital ;
+	rdfs:label "Harare"@en .
+
+:FLK_Capital a :Capital ;
+	rdfs:label "Stanley"@en .
+
+:HRV_Capital a :Capital ;
+	rdfs:label "Zagreb"@en .
+
+:KIR_Capital a :Capital ;
+	rdfs:label "South Tarawa"@en .
+
+:MHL_Capital a :Capital ;
+	rdfs:label "Majuro"@en .
+
+:NOR_Capital a :Capital ;
+	rdfs:label "Oslo"@en .
+
+:MLI_Capital a :Capital ;
+	rdfs:label "Bamako"@en .
+
+:ZMB_Capital a :Capital ;
+	rdfs:label "Lusaka"@en .
+
+:MDV_Capital a :Capital ;
+	rdfs:label "Malé"@en .
+
+:ATG_Capital a :Capital ;
+	rdfs:label "Saint John's"@en .
+
+:CXR_Capital a :Capital ;
+	rdfs:label "Flying Fish Cove"@en .
+
+:IRN_Capital a :Capital ;
+	rdfs:label "Tehran"@en .
+
+:ITA_Capital a :Capital ;
+	rdfs:label "Rome"@en .
+
+:GMB_Capital a :Capital ;
+	rdfs:label "Banjul"@en .
+
+:KOR_Capital a :Capital ;
+	rdfs:label "Seoul"@en .
+
+:PNG_Capital a :Capital ;
+	rdfs:label "Port Moresby"@en .
+
+:EGY_Capital a :Capital ;
+	rdfs:label "Cairo"@en .
+
+:IMN_Capital a :Capital ;
+	rdfs:label "Douglas"@en .
+
+:LVA_Capital a :Capital ;
+	rdfs:label "Riga"@en .
+
+:PRY_Capital a :Capital ;
+	rdfs:label "Asunción"@en .
+
+:GRD_Capital a :Capital ;
+	rdfs:label "St. George's"@en .
+
+:COL_Capital a :Capital ;
+	rdfs:label "Bogotá"@en .
+
+:FIN_Capital a :Capital ;
+	rdfs:label "Helsinki"@en .
+
+:BGR_Capital a :Capital ;
+	rdfs:label "Sofia"@en .
+
+:TGO_Capital a :Capital ;
+	rdfs:label "Lomé"@en .
+
+:CHL_Capital a :Capital ;
+	rdfs:label "Santiago"@en .
+
+:DMA_Capital a :Capital ;
+	rdfs:label "Roseau"@en .
+
+:IRL_Capital a :Capital ;
+	rdfs:label "Dublin"@en .
+
+:BWA_Capital a :Capital ;
+	rdfs:label "Gaborone"@en .
+
+:USA_Capital a :Capital ;
+	rdfs:label "Washington, D.C."@en .
+
+:UZB_Capital a :Capital ;
+	rdfs:label "Tashkent"@en .
+
+:BRA_Capital a :Capital ;
+	rdfs:label "Brasília"@en .
+
+:RWA_Capital a :Capital ;
+	rdfs:label "Kigali"@en .
+
+:LIE_Capital a :Capital ;
+	rdfs:label "Vaduz"@en .
+
+:BTN_Capital a :Capital ;
+	rdfs:label "Thimphu"@en .
+
+:MNE_Capital a :Capital ;
+	rdfs:label "Podgorica"@en .
+
+:NER_Capital a :Capital ;
+	rdfs:label "Niamey"@en .
+
+:ALB_Capital a :Capital ;
+	rdfs:label "Tirana"@en .
+
+:MAR_Capital a :Capital ;
+	rdfs:label "Rabat"@en .
+
+:VEN_Capital a :Capital ;
+	rdfs:label "Caracas"@en .
+
+:COG_Capital a :Capital ;
+	rdfs:label "Brazzaville"@en .
+
+:BDI_Capital a :Capital ;
+	rdfs:label "Gitega"@en .
+
+:JEY_Capital a :Capital ;
+	rdfs:label "Saint Helier"@en .
+
+:MKD_Capital a :Capital ;
+	rdfs:label "Skopje"@en .
+
+:KGZ_Capital a :Capital ;
+	rdfs:label "Bishkek"@en .
+
+:ROU_Capital a :Capital ;
+	rdfs:label "Bucharest"@en .
+
+:GUM_Capital a :Capital ;
+	rdfs:label "Hagåtña"@en .
+
+:ALA_Capital a :Capital ;
+	rdfs:label "Mariehamn"@en .
+
+:GNQ_Capital a :Capital ;
+	rdfs:label "Malabo"@en .
+
+:SGS_Capital a :Capital ;
+	rdfs:label "King Edward Point"@en .
+
+:GUF_Capital a :Capital ;
+	rdfs:label "Cayenne"@en .
+
+:DEU_Capital a :Capital ;
+	rdfs:label "Berlin"@en .
+
+:DNK_Capital a :Capital ;
+	rdfs:label "Copenhagen"@en .
+
+:ISL_Capital a :Capital ;
+	rdfs:label "Reykjavik"@en .
+
+:SOM_Capital a :Capital ;
+	rdfs:label "Mogadishu"@en .
+
+:FSM_Capital a :Capital ;
+	rdfs:label "Palikir"@en .
+
+:LAO_Capital a :Capital ;
+	rdfs:label "Vientiane"@en .
+
+:SXM_Capital a :Capital ;
+	rdfs:label "Philipsburg"@en .
+
+:LBR_Capital a :Capital ;
+	rdfs:label "Monrovia"@en .
+
+:TCD_Capital a :Capital ;
+	rdfs:label "N'Djamena"@en .
+
+:AUS_Capital a :Capital ;
+	rdfs:label "Canberra"@en .
+
+:BFA_Capital a :Capital ;
+	rdfs:label "Ouagadougou"@en .
+
+:MLT_Capital a :Capital ;
+	rdfs:label "Valletta"@en .
+
+:MNP_Capital a :Capital ;
+	rdfs:label "Saipan"@en .
+
+:UGA_Capital a :Capital ;
+	rdfs:label "Kampala"@en .
+
+:ESP_Capital a :Capital ;
+	rdfs:label "Madrid"@en .
+
+:SDN_Capital a :Capital ;
+	rdfs:label "Khartoum"@en .
+
+:TWN_Capital a :Capital ;
+	rdfs:label "Taipei"@en .
+
+:AFG_Capital a :Capital ;
+	rdfs:label "Kabul"@en .
+
+:SJM_Capital a :Capital ;
+	rdfs:label "Longyearbyen"@en .
+
+:FJI_Capital a :Capital ;
+	rdfs:label "Suva"@en .
+
+:GNB_Capital a :Capital ;
+	rdfs:label "Bissau"@en .
+
+:AND_Capital a :Capital ;
+	rdfs:label "Andorra la Vella"@en .
+
+:DZA_Capital a :Capital ;
+	rdfs:label "Algiers"@en .
+
+:PRT_Capital a :Capital ;
+	rdfs:label "Lisbon"@en .
+
+:MOZ_Capital a :Capital ;
+	rdfs:label "Maputo"@en .
+
+:LSO_Capital a :Capital ;
+	rdfs:label "Maseru"@en .
+
+:PRK_Capital a :Capital ;
+	rdfs:label "Pyongyang"@en .
+
+:SGP_Capital a :Capital ;
+	rdfs:label "Singapore"@en .
+
+:MCO_Capital a :Capital ;
+	rdfs:label "Monaco"@en .
+
+:LBN_Capital a :Capital ;
+	rdfs:label "Beirut"@en .
+
+:SRB_Capital a :Capital ;
+	rdfs:label "Belgrade"@en .
+
+:EST_Capital a :Capital ;
+	rdfs:label "Tallinn"@en .
+
+:BRB_Capital a :Capital ;
+	rdfs:label "Bridgetown"@en .
+
+:MUS_Capital a :Capital ;
+	rdfs:label "Port Louis"@en .
+
+:SHN_Capital a :Capital ;
+	rdfs:label "Jamestown"@en .
+
+:BEL_Capital a :Capital ;
+	rdfs:label "Brussels"@en .
+
+:LBY_Capital a :Capital ;
+	rdfs:label "Tripoli"@en .
+
+:NIC_Capital a :Capital ;
+	rdfs:label "Managua"@en .
+
+:KWT_Capital a :Capital ;
+	rdfs:label "Kuwait City"@en .
+
+:NCL_Capital a :Capital ;
+	rdfs:label "Nouméa"@en .
+
+:FRA_Capital a :Capital ;
+	rdfs:label "Paris"@en .
+
+:VNM_Capital a :Capital ;
+	rdfs:label "Hanoi"@en .
+
+:VCT_Capital a :Capital ;
+	rdfs:label "Kingstown"@en .
+
+:BHR_Capital a :Capital ;
+	rdfs:label "Manama"@en .
+
+:CUW_Capital a :Capital ;
+	rdfs:label "Willemstad"@en .
+
+:BGD_Capital a :Capital ;
+	rdfs:label "Dhaka"@en .
+
+:CIV_Capital a :Capital ;
+	rdfs:label "Yamoussoukro"@en .
+
+:COD_Capital a :Capital ;
+	rdfs:label "Kinshasa"@en .
+
+:LKA_Capital a :Capital ;
+	rdfs:label "Sri Jayawardenepura Kotte"@en .
+
+:UMI_Capital a :Capital ;
+	rdfs:label "Washington DC"@en .
+
+:BES_Capital a :Capital ;
+	rdfs:label "Kralendijk"@en .
+
+:NPL_Capital a :Capital ;
+	rdfs:label "Kathmandu"@en .
+
+:BOL_Capital a :Capital ;
+	rdfs:label "Sucre"@en .
+
+:NAM_Capital a :Capital ;
+	rdfs:label "Windhoek"@en .
+
+:HTI_Capital a :Capital ;
+	rdfs:label "Port-au-Prince"@en .
+
+:SUR_Capital a :Capital ;
+	rdfs:label "Paramaribo"@en .
+
+:MAF_Capital a :Capital ;
+	rdfs:label "Marigot"@en .
+
+:CAN_Capital a :Capital ;
+	rdfs:label "Ottawa"@en .
+
+:HND_Capital a :Capital ;
+	rdfs:label "Tegucigalpa"@en .
+
+:VAT_Capital a :Capital ;
+	rdfs:label "Vatican City"@en .
+
+:ARE_Capital a :Capital ;
+	rdfs:label "Abu Dhabi"@en .
+
+:GIN_Capital a :Capital ;
+	rdfs:label "Conakry"@en .
+
+:CMR_Capital a :Capital ;
+	rdfs:label "Yaoundé"@en .
+
+:CYP_Capital a :Capital ;
+	rdfs:label "Nicosia"@en .
+
+:TTO_Capital a :Capital ;
+	rdfs:label "Port of Spain"@en .
+
+:SWE_Capital a :Capital ;
+	rdfs:label "Stockholm"@en .
+
+:MDG_Capital a :Capital ;
+	rdfs:label "Antananarivo"@en .
+
+:MYT_Capital a :Capital ;
+	rdfs:label "Mamoudzou"@en .
+
+:CYM_Capital a :Capital ;
+	rdfs:label "George Town"@en .
+
+:MYS_Capital a :Capital ;
+	rdfs:label "Kuala Lumpur"@en .
+
+:BEN_Capital a :Capital ;
+	rdfs:label "Porto-Novo"@en .
+
+:GRL_Capital a :Capital ;
+	rdfs:label "Nuuk"@en .
+
+:CHE_Capital a :Capital ;
+	rdfs:label "Bern"@en .
+
+:GEO_Capital a :Capital ;
+	rdfs:label "Tbilisi"@en .
+
+:ECU_Capital a :Capital ;
+	rdfs:label "Quito"@en .
+
+:CPV_Capital a :Capital ;
+	rdfs:label "Praia"@en .
+
+:LUX_Capital a :Capital ;
+	rdfs:label "Luxembourg"@en .
+
+:LCA_Capital a :Capital ;
+	rdfs:label "Castries"@en .
+
+:VIR_Capital a :Capital ;
+	rdfs:label "Charlotte Amalie"@en .
+
+:JPN_Capital a :Capital ;
+	rdfs:label "Tokyo"@en .
+
+:JAM_Capital a :Capital ;
+	rdfs:label "Kingston"@en .
+
+:ETH_Capital a :Capital ;
+	rdfs:label "Addis Ababa"@en .
+
+:PAK_Capital a :Capital ;
+	rdfs:label "Islamabad"@en .
+
+:MSR_Capital a :Capital ;
+	rdfs:label "Plymouth"@en .
+
+:LTU_Capital a :Capital ;
+	rdfs:label "Vilnius"@en .
+
+:GRC_Capital a :Capital ;
+	rdfs:label "Athens"@en .
+
+################################################################################
+# LANGUAGES
+################################################################################
+
+:Language_ara a :Language ;
+	rdfs:label "Arabic"@en .
+
+:Language_eng a :Language ;
+	rdfs:label "English"@en .
+
+:Language_mri a :Language ;
+	rdfs:label "Māori"@en .
+
+:Language_nzs a :Language ;
+	rdfs:label "New Zealand Sign Language"@en .
+
+:Language_msa a :Language ;
+	rdfs:label "Malay"@en .
+
+:Language_swa a :Language ;
+	rdfs:label "Swahili"@en .
+
+:Language_pau a :Language ;
+	rdfs:label "Palauan"@en .
+
+:Language_spa a :Language ;
+	rdfs:label "Spanish"@en .
+
+:Language_fra a :Language ;
+	rdfs:label "French"@en .
+
+:Language_sag a :Language ;
+	rdfs:label "Sango"@en .
+
+:Language_ukr a :Language ;
+	rdfs:label "Ukrainian"@en .
+
+:Language_nld a :Language ;
+	rdfs:label "Dutch"@en .
+
+:Language_ces a :Language ;
+	rdfs:label "Czech"@en .
+
+:Language_slk a :Language ;
+	rdfs:label "Slovak"@en .
+
+:Language_bel a :Language ;
+	rdfs:label "Belarusian"@en .
+
+:Language_rus a :Language ;
+	rdfs:label "Russian"@en .
+
+:Language_slv a :Language ;
+	rdfs:label "Slovene"@en .
+
+:Language_smo a :Language ;
+	rdfs:label "Samoan"@en .
+
+:Language_tkl a :Language ;
+	rdfs:label "Tokelauan"@en .
+
+:Language_hun a :Language ;
+	rdfs:label "Hungarian"@en .
+
+:Language_ssw a :Language ;
+	rdfs:label "Swazi"@en .
+
+:Language_zdj a :Language ;
+	rdfs:label "Comorian"@en .
+
+:Language_hin a :Language ;
+	rdfs:label "Hindi"@en .
+
+:Language_tam a :Language ;
+	rdfs:label "Tamil"@en .
+
+:Language_por a :Language ;
+	rdfs:label "Portuguese"@en .
+
+:Language_zho a :Language ;
+	rdfs:label "Chinese"@en .
+
+:Language_niu a :Language ;
+	rdfs:label "Niuean"@en .
+
+:Language_rar a :Language ;
+	rdfs:label "Cook Islands Māori"@en .
+
+:Language_deu a :Language ;
+	rdfs:label "German"@en .
+
+:Language_ind a :Language ;
+	rdfs:label "Indonesian"@en .
+
+:Language_nau a :Language ;
+	rdfs:label "Nauru"@en .
+
+:Language_kaz a :Language ;
+	rdfs:label "Kazakh"@en .
+
+:Language_nya a :Language ;
+	rdfs:label "Chewa"@en .
+
+:Language_tir a :Language ;
+	rdfs:label "Tigrinya"@en .
+
+:Language_tuk a :Language ;
+	rdfs:label "Turkmen"@en .
+
+:Language_ber a :Language ;
+	rdfs:label "Berber"@en .
+
+:Language_mey a :Language ;
+	rdfs:label "Hassaniya"@en .
+
+:Language_tvl a :Language ;
+	rdfs:label "Tuvaluan"@en .
+
+:Language_mya a :Language ;
+	rdfs:label "Burmese"@en .
+
+:Language_tha a :Language ;
+	rdfs:label "Thai"@en .
+
+:Language_bos a :Language ;
+	rdfs:label "Bosnian"@en .
+
+:Language_hrv a :Language ;
+	rdfs:label "Croatian"@en .
+
+:Language_srp a :Language ;
+	rdfs:label "Serbian"@en .
+
+:Language_nor a :Language ;
+	rdfs:label "Norwegian"@en .
+
+:Language_arc a :Language ;
+	rdfs:label "Aramaic"@en .
+
+:Language_ckb a :Language ;
+	rdfs:label "Sorani"@en .
+
+:Language_tgk a :Language ;
+	rdfs:label "Tajik"@en .
+
+:Language_aym a :Language ;
+	rdfs:label "Aymara"@en .
+
+:Language_que a :Language ;
+	rdfs:label "Quechua"@en .
+
+:Language_hye a :Language ;
+	rdfs:label "Armenian"@en .
+
+:Language_aze a :Language ;
+	rdfs:label "Azerbaijani"@en .
+
+:Language_bjz a :Language ;
+	rdfs:label "Belizean Creole"@en .
+
+:Language_crs a :Language ;
+	rdfs:label "Seychellois Creole"@en .
+
+:Language_pih a :Language ;
+	rdfs:label "Norfuk"@en .
+
+:Language_fil a :Language ;
+	rdfs:label "Filipino"@en .
+
+:Language_grn a :Language ;
+	rdfs:label "Guaraní"@en .
+
+:Language_ron a :Language ;
+	rdfs:label "Romanian"@en .
+
+:Language_khm a :Language ;
+	rdfs:label "Khmer"@en .
+
+:Language_bis a :Language ;
+	rdfs:label "Bislama"@en .
+
+:Language_ton a :Language ;
+	rdfs:label "Tongan"@en .
+
+:Language_tet a :Language ;
+	rdfs:label "Tetum"@en .
+
+:Language_tur a :Language ;
+	rdfs:label "Turkish"@en .
+
+:Language_nfr a :Language ;
+	rdfs:label "Guernésiais"@en .
+
+:Language_pol a :Language ;
+	rdfs:label "Polish"@en .
+
+:Language_dan a :Language ;
+	rdfs:label "Danish"@en .
+
+:Language_fao a :Language ;
+	rdfs:label "Faroese"@en .
+
+:Language_pap a :Language ;
+	rdfs:label "Papiamento"@en .
+
+:Language_afr a :Language ;
+	rdfs:label "Afrikaans"@en .
+
+:Language_nbl a :Language ;
+	rdfs:label "Southern Ndebele"@en .
+
+:Language_nso a :Language ;
+	rdfs:label "Northern Sotho"@en .
+
+:Language_sot a :Language ;
+	rdfs:label "Southern Sotho"@en .
+
+:Language_tsn a :Language ;
+	rdfs:label "Tswana"@en .
+
+:Language_tso a :Language ;
+	rdfs:label "Tsonga"@en .
+
+:Language_ven a :Language ;
+	rdfs:label "Venda"@en .
+
+:Language_xho a :Language ;
+	rdfs:label "Xhosa"@en .
+
+:Language_zul a :Language ;
+	rdfs:label "Zulu"@en .
+
+:Language_heb a :Language ;
+	rdfs:label "Hebrew"@en .
+
+:Language_ita a :Language ;
+	rdfs:label "Italian"@en .
+
+:Language_mon a :Language ;
+	rdfs:label "Mongolian"@en .
+
+:Language_bwg a :Language ;
+	rdfs:label "Chibarwe"@en .
+
+:Language_kck a :Language ;
+	rdfs:label "Kalanga"@en .
+
+:Language_khi a :Language ;
+	rdfs:label "Khoisan"@en .
+
+:Language_ndc a :Language ;
+	rdfs:label "Ndau"@en .
+
+:Language_nde a :Language ;
+	rdfs:label "Northern Ndebele"@en .
+
+:Language_sna a :Language ;
+	rdfs:label "Shona"@en .
+
+:Language_toi a :Language ;
+	rdfs:label "Tonga"@en .
+
+:Language_zib a :Language ;
+	rdfs:label "Zimbabwean Sign Language"@en .
+
+:Language_gil a :Language ;
+	rdfs:label "Gilbertese"@en .
+
+:Language_mah a :Language ;
+	rdfs:label "Marshallese"@en .
+
+:Language_nno a :Language ;
+	rdfs:label "Norwegian Nynorsk"@en .
+
+:Language_nob a :Language ;
+	rdfs:label "Norwegian Bokmål"@en .
+
+:Language_smi a :Language ;
+	rdfs:label "Sami"@en .
+
+:Language_div a :Language ;
+	rdfs:label "Maldivian"@en .
+
+:Language_fas a :Language ;
+	rdfs:label "Persian (Farsi)"@en .
+
+:Language_cat a :Language ;
+	rdfs:label "Catalan"@en .
+
+:Language_kor a :Language ;
+	rdfs:label "Korean"@en .
+
+:Language_hmo a :Language ;
+	rdfs:label "Hiri Motu"@en .
+
+:Language_tpi a :Language ;
+	rdfs:label "Tok Pisin"@en .
+
+:Language_glv a :Language ;
+	rdfs:label "Manx"@en .
+
+:Language_lav a :Language ;
+	rdfs:label "Latvian"@en .
+
+:Language_fin a :Language ;
+	rdfs:label "Finnish"@en .
+
+:Language_swe a :Language ;
+	rdfs:label "Swedish"@en .
+
+:Language_bul a :Language ;
+	rdfs:label "Bulgarian"@en .
+
+:Language_gle a :Language ;
+	rdfs:label "Irish"@en .
+
+:Language_uzb a :Language ;
+	rdfs:label "Uzbek"@en .
+
+:Language_kin a :Language ;
+	rdfs:label "Kinyarwanda"@en .
+
+:Language_dzo a :Language ;
+	rdfs:label "Dzongkha"@en .
+
+:Language_cnr a :Language ;
+	rdfs:label "Montenegrin"@en .
+
+:Language_sqi a :Language ;
+	rdfs:label "Albanian"@en .
+
+:Language_kon a :Language ;
+	rdfs:label "Kikongo"@en .
+
+:Language_lin a :Language ;
+	rdfs:label "Lingala"@en .
+
+:Language_run a :Language ;
+	rdfs:label "Kirundi"@en .
+
+:Language_nrf a :Language ;
+	rdfs:label "Jèrriais"@en .
+
+:Language_mkd a :Language ;
+	rdfs:label "Macedonian"@en .
+
+:Language_kir a :Language ;
+	rdfs:label "Kyrgyz"@en .
+
+:Language_cha a :Language ;
+	rdfs:label "Chamorro"@en .
+
+:Language_isl a :Language ;
+	rdfs:label "Icelandic"@en .
+
+:Language_som a :Language ;
+	rdfs:label "Somali"@en .
+
+:Language_lao a :Language ;
+	rdfs:label "Lao"@en .
+
+:Language_mlt a :Language ;
+	rdfs:label "Maltese"@en .
+
+:Language_cal a :Language ;
+	rdfs:label "Carolinian"@en .
+
+:Language_eus a :Language ;
+	rdfs:label "Basque"@en .
+
+:Language_glc a :Language ;
+	rdfs:label "Galician"@en .
+
+:Language_prs a :Language ;
+	rdfs:label "Dari"@en .
+
+:Language_pus a :Language ;
+	rdfs:label "Pashto"@en .
+
+:Language_fij a :Language ;
+	rdfs:label "Fijian"@en .
+
+:Language_hif a :Language ;
+	rdfs:label "Fiji Hindi"@en .
+
+:Language_pov a :Language ;
+	rdfs:label "Upper Guinea Creole"@en .
+
+:Language_est a :Language ;
+	rdfs:label "Estonian"@en .
+
+:Language_mfe a :Language ;
+	rdfs:label "Mauritian Creole"@en .
+
+:Language_vie a :Language ;
+	rdfs:label "Vietnamese"@en .
+
+:Language_ben a :Language ;
+	rdfs:label "Bengali"@en .
+
+:Language_lua a :Language ;
+	rdfs:label "Tshiluba"@en .
+
+:Language_sin a :Language ;
+	rdfs:label "Sinhala"@en .
+
+:Language_nep a :Language ;
+	rdfs:label "Nepali"@en .
+
+:Language_her a :Language ;
+	rdfs:label "Herero"@en .
+
+:Language_hgm a :Language ;
+	rdfs:label "Khoekhoe"@en .
+
+:Language_kwn a :Language ;
+	rdfs:label "Kwangali"@en .
+
+:Language_loz a :Language ;
+	rdfs:label "Lozi"@en .
+
+:Language_ndo a :Language ;
+	rdfs:label "Ndonga"@en .
+
+:Language_hat a :Language ;
+	rdfs:label "Haitian Creole"@en .
+
+:Language_lat a :Language ;
+	rdfs:label "Latin"@en .
+
+:Language_ell a :Language ;
+	rdfs:label "Greek"@en .
+
+:Language_mlg a :Language ;
+	rdfs:label "Malagasy"@en .
+
+:Language_kal a :Language ;
+	rdfs:label "Greenlandic"@en .
+
+:Language_gsw a :Language ;
+	rdfs:label "Swiss German"@en .
+
+:Language_roh a :Language ;
+	rdfs:label "Romansh"@en .
+
+:Language_kat a :Language ;
+	rdfs:label "Georgian"@en .
+
+:Language_ltz a :Language ;
+	rdfs:label "Luxembourgish"@en .
+
+:Language_jpn a :Language ;
+	rdfs:label "Japanese"@en .
+
+:Language_jam a :Language ;
+	rdfs:label "Jamaican Patois"@en .
+
+:Language_amh a :Language ;
+	rdfs:label "Amharic"@en .
+
+:Language_urd a :Language ;
+	rdfs:label "Urdu"@en .
+
+:Language_lit a :Language ;
+	rdfs:label "Lithuanian"@en .
+
+################################################################################
+# CURRENCIES
+################################################################################
+
+:Currency_SYP a :Currency ;
+	rdfs:label "Syrian pound"@en ;
+	:currencyCode "SYP" ;
+	:currencySymbol "£" .
+
+:Currency_NZD a :Currency ;
+	rdfs:label "New Zealand dollar"@en ;
+	:currencyCode "NZD" ;
+	:currencySymbol "$" .
+
+:Currency_BND a :Currency ;
+	rdfs:label "Brunei dollar"@en ;
+	:currencyCode "BND" ;
+	:currencySymbol "$" .
+
+:Currency_SGD a :Currency ;
+	rdfs:label "Singapore dollar"@en ;
+	:currencyCode "SGD" ;
+	:currencySymbol "$" .
+
+:Currency_USD a :Currency ;
+	rdfs:label "United States dollar"@en ;
+	:currencyCode "USD" ;
+	:currencySymbol "$" .
+
+:Currency_KES a :Currency ;
+	rdfs:label "Kenyan shilling"@en ;
+	:currencyCode "KES" ;
+	:currencySymbol "Sh" .
+
+:Currency_OMR a :Currency ;
+	rdfs:label "Omani rial"@en ;
+	:currencyCode "OMR" ;
+	:currencySymbol "ر.ع." .
+
+:Currency_MXN a :Currency ;
+	rdfs:label "Mexican peso"@en ;
+	:currencyCode "MXN" ;
+	:currencySymbol "$" .
+
+:Currency_EGP a :Currency ;
+	rdfs:label "Egyptian pound"@en ;
+	:currencyCode "EGP" ;
+	:currencySymbol "E£" .
+
+:Currency_ILS a :Currency ;
+	rdfs:label "Israeli new shekel"@en ;
+	:currencyCode "ILS" ;
+	:currencySymbol "₪" .
+
+:Currency_JOD a :Currency ;
+	rdfs:label "Jordanian dinar"@en ;
+	:currencyCode "JOD" ;
+	:currencySymbol "JD" .
+
+:Currency_XAF a :Currency ;
+	rdfs:label "Central African CFA franc"@en ;
+	:currencyCode "XAF" ;
+	:currencySymbol "Fr" .
+
+:Currency_XCD a :Currency ;
+	rdfs:label "Eastern Caribbean dollar"@en ;
+	:currencyCode "XCD" ;
+	:currencySymbol "$" .
+
+:Currency_SSP a :Currency ;
+	rdfs:label "South Sudanese pound"@en ;
+	:currencyCode "SSP" ;
+	:currencySymbol "£" .
+
+:Currency_UAH a :Currency ;
+	rdfs:label "Ukrainian hryvnia"@en ;
+	:currencyCode "UAH" ;
+	:currencySymbol "₴" .
+
+:Currency_EUR a :Currency ;
+	rdfs:label "Euro"@en ;
+	:currencyCode "EUR" ;
+	:currencySymbol "€" .
+
+:Currency_TZS a :Currency ;
+	rdfs:label "Tanzanian shilling"@en ;
+	:currencyCode "TZS" ;
+	:currencySymbol "Sh" .
+
+:Currency_CZK a :Currency ;
+	rdfs:label "Czech koruna"@en ;
+	:currencyCode "CZK" ;
+	:currencySymbol "Kč" .
+
+:Currency_BYN a :Currency ;
+	rdfs:label "Belarusian ruble"@en ;
+	:currencyCode "BYN" ;
+	:currencySymbol "Br" .
+
+:Currency_YER a :Currency ;
+	rdfs:label "Yemeni rial"@en ;
+	:currencyCode "YER" ;
+	:currencySymbol "﷼" .
+
+:Currency_NGN a :Currency ;
+	rdfs:label "Nigerian naira"@en ;
+	:currencyCode "NGN" ;
+	:currencySymbol "₦" .
+
+:Currency_HUF a :Currency ;
+	rdfs:label "Hungarian forint"@en ;
+	:currencyCode "HUF" ;
+	:currencySymbol "Ft" .
+
+:Currency_SZL a :Currency ;
+	rdfs:label "Swazi lilangeni"@en ;
+	:currencyCode "SZL" ;
+	:currencySymbol "L" .
+
+:Currency_ZAR a :Currency ;
+	rdfs:label "South African rand"@en ;
+	:currencyCode "ZAR" ;
+	:currencySymbol "R" .
+
+:Currency_KMF a :Currency ;
+	rdfs:label "Comorian franc"@en ;
+	:currencyCode "KMF" ;
+	:currencySymbol "Fr" .
+
+:Currency_INR a :Currency ;
+	rdfs:label "Indian rupee"@en ;
+	:currencyCode "INR" ;
+	:currencySymbol "₹" .
+
+:Currency_AUD a :Currency ;
+	rdfs:label "Australian dollar"@en ;
+	:currencyCode "AUD" ;
+	:currencySymbol "$" .
+
+:Currency_GBP a :Currency ;
+	rdfs:label "British pound"@en ;
+	:currencyCode "GBP" ;
+	:currencySymbol "£" .
+
+:Currency_AOA a :Currency ;
+	rdfs:label "Angolan kwanza"@en ;
+	:currencyCode "AOA" ;
+	:currencySymbol "Kz" .
+
+:Currency_MOP a :Currency ;
+	rdfs:label "Macanese pataca"@en ;
+	:currencyCode "MOP" ;
+	:currencySymbol "P" .
+
+:Currency_CRC a :Currency ;
+	rdfs:label "Costa Rican colón"@en ;
+	:currencyCode "CRC" ;
+	:currencySymbol "₡" .
+
+:Currency_CKD a :Currency ;
+	rdfs:label "Cook Islands dollar"@en ;
+	:currencyCode "CKD" ;
+	:currencySymbol "$" .
+
+:Currency_DJF a :Currency ;
+	rdfs:label "Djiboutian franc"@en ;
+	:currencyCode "DJF" ;
+	:currencySymbol "Fr" .
+
+:Currency_IDR a :Currency ;
+	rdfs:label "Indonesian rupiah"@en ;
+	:currencyCode "IDR" ;
+	:currencySymbol "Rp" .
+
+:Currency_KZT a :Currency ;
+	rdfs:label "Kazakhstani tenge"@en ;
+	:currencyCode "KZT" ;
+	:currencySymbol "₸" .
+
+:Currency_MWK a :Currency ;
+	rdfs:label "Malawian kwacha"@en ;
+	:currencyCode "MWK" ;
+	:currencySymbol "MK" .
+
+:Currency_ERN a :Currency ;
+	rdfs:label "Eritrean nakfa"@en ;
+	:currencyCode "ERN" ;
+	:currencySymbol "Nfk" .
+
+:Currency_TND a :Currency ;
+	rdfs:label "Tunisian dinar"@en ;
+	:currencyCode "TND" ;
+	:currencySymbol "د.ت" .
+
+:Currency_SAR a :Currency ;
+	rdfs:label "Saudi riyal"@en ;
+	:currencyCode "SAR" ;
+	:currencySymbol "ر.س" .
+
+:Currency_TMT a :Currency ;
+	rdfs:label "Turkmenistan manat"@en ;
+	:currencyCode "TMT" ;
+	:currencySymbol "m" .
+
+:Currency_DZD a :Currency ;
+	rdfs:label "Algerian dinar"@en ;
+	:currencyCode "DZD" ;
+	:currencySymbol "دج" .
+
+:Currency_MAD a :Currency ;
+	rdfs:label "Moroccan dirham"@en ;
+	:currencyCode "MAD" ;
+	:currencySymbol "DH" .
+
+:Currency_MRU a :Currency ;
+	rdfs:label "Mauritanian ouguiya"@en ;
+	:currencyCode "MRU" ;
+	:currencySymbol "UM" .
+
+:Currency_GHS a :Currency ;
+	rdfs:label "Ghanaian cedi"@en ;
+	:currencyCode "GHS" ;
+	:currencySymbol "₵" .
+
+:Currency_TVD a :Currency ;
+	rdfs:label "Tuvaluan dollar"@en ;
+	:currencyCode "TVD" ;
+	:currencySymbol "$" .
+
+:Currency_MMK a :Currency ;
+	rdfs:label "Burmese kyat"@en ;
+	:currencyCode "MMK" ;
+	:currencySymbol "Ks" .
+
+:Currency_CUC a :Currency ;
+	rdfs:label "Cuban convertible peso"@en ;
+	:currencyCode "CUC" ;
+	:currencySymbol "$" .
+
+:Currency_CUP a :Currency ;
+	rdfs:label "Cuban peso"@en ;
+	:currencyCode "CUP" ;
+	:currencySymbol "$" .
+
+:Currency_CNY a :Currency ;
+	rdfs:label "Chinese yuan"@en ;
+	:currencyCode "CNY" ;
+	:currencySymbol "¥" .
+
+:Currency_PAB a :Currency ;
+	rdfs:label "Panamanian balboa"@en ;
+	:currencyCode "PAB" ;
+	:currencySymbol "B/." .
+
+:Currency_THB a :Currency ;
+	rdfs:label "Thai baht"@en ;
+	:currencyCode "THB" ;
+	:currencySymbol "฿" .
+
+:Currency_RUB a :Currency ;
+	rdfs:label "Russian ruble"@en ;
+	:currencyCode "RUB" ;
+	:currencySymbol "₽" .
+
+:Currency_BAM a :Currency ;
+	rdfs:label "Bosnia and Herzegovina convertible mark"@en ;
+	:currencyCode "BAM" ;
+	:currencySymbol "KM" .
+
+:Currency_QAR a :Currency ;
+	rdfs:label "Qatari riyal"@en ;
+	:currencyCode "QAR" ;
+	:currencySymbol "ر.ق" .
+
+:Currency_IQD a :Currency ;
+	rdfs:label "Iraqi dinar"@en ;
+	:currencyCode "IQD" ;
+	:currencySymbol "ع.د" .
+
+:Currency_TJS a :Currency ;
+	rdfs:label "Tajikistani somoni"@en ;
+	:currencyCode "TJS" ;
+	:currencySymbol "ЅМ" .
+
+:Currency_GYD a :Currency ;
+	rdfs:label "Guyanese dollar"@en ;
+	:currencyCode "GYD" ;
+	:currencySymbol "$" .
+
+:Currency_SBD a :Currency ;
+	rdfs:label "Solomon Islands dollar"@en ;
+	:currencyCode "SBD" ;
+	:currencySymbol "$" .
+
+:Currency_GIP a :Currency ;
+	rdfs:label "Gibraltar pound"@en ;
+	:currencyCode "GIP" ;
+	:currencySymbol "£" .
+
+:Currency_PEN a :Currency ;
+	rdfs:label "Peruvian sol"@en ;
+	:currencyCode "PEN" ;
+	:currencySymbol "S/ " .
+
+:Currency_AMD a :Currency ;
+	rdfs:label "Armenian dram"@en ;
+	:currencyCode "AMD" ;
+	:currencySymbol "֏" .
+
+:Currency_AZN a :Currency ;
+	rdfs:label "Azerbaijani manat"@en ;
+	:currencyCode "AZN" ;
+	:currencySymbol "₼" .
+
+:Currency_BZD a :Currency ;
+	rdfs:label "Belize dollar"@en ;
+	:currencyCode "BZD" ;
+	:currencySymbol "$" .
+
+:Currency_SCR a :Currency ;
+	rdfs:label "Seychellois rupee"@en ;
+	:currencyCode "SCR" ;
+	:currencySymbol "₨" .
+
+:Currency_PHP a :Currency ;
+	rdfs:label "Philippine peso"@en ;
+	:currencyCode "PHP" ;
+	:currencySymbol "₱" .
+
+:Currency_ARS a :Currency ;
+	rdfs:label "Argentine peso"@en ;
+	:currencyCode "ARS" ;
+	:currencySymbol "$" .
+
+:Currency_MDL a :Currency ;
+	rdfs:label "Moldovan leu"@en ;
+	:currencyCode "MDL" ;
+	:currencySymbol "L" .
+
+:Currency_WST a :Currency ;
+	rdfs:label "Samoan tālā"@en ;
+	:currencyCode "WST" ;
+	:currencySymbol "T" .
+
+:Currency_SLE a :Currency ;
+	rdfs:label "Leone"@en ;
+	:currencyCode "SLE" ;
+	:currencySymbol "Le" .
+
+:Currency_KHR a :Currency ;
+	rdfs:label "Cambodian riel"@en ;
+	:currencyCode "KHR" ;
+	:currencySymbol "៛" .
+
+:Currency_VUV a :Currency ;
+	rdfs:label "Vanuatu vatu"@en ;
+	:currencyCode "VUV" ;
+	:currencySymbol "Vt" .
+
+:Currency_TOP a :Currency ;
+	rdfs:label "Tongan paʻanga"@en ;
+	:currencyCode "TOP" ;
+	:currencySymbol "T$" .
+
+:Currency_XPF a :Currency ;
+	rdfs:label "CFP franc"@en ;
+	:currencyCode "XPF" ;
+	:currencySymbol "₣" .
+
+:Currency_TRY a :Currency ;
+	rdfs:label "Turkish lira"@en ;
+	:currencyCode "TRY" ;
+	:currencySymbol "₺" .
+
+:Currency_GGP a :Currency ;
+	rdfs:label "Guernsey pound"@en ;
+	:currencyCode "GGP" ;
+	:currencySymbol "£" .
+
+:Currency_XOF a :Currency ;
+	rdfs:label "West African CFA franc"@en ;
+	:currencyCode "XOF" ;
+	:currencySymbol "Fr" .
+
+:Currency_GTQ a :Currency ;
+	rdfs:label "Guatemalan quetzal"@en ;
+	:currencyCode "GTQ" ;
+	:currencySymbol "Q" .
+
+:Currency_PLN a :Currency ;
+	rdfs:label "Polish złoty"@en ;
+	:currencyCode "PLN" ;
+	:currencySymbol "zł" .
+
+:Currency_BSD a :Currency ;
+	rdfs:label "Bahamian dollar"@en ;
+	:currencyCode "BSD" ;
+	:currencySymbol "$" .
+
+:Currency_DKK a :Currency ;
+	rdfs:label "Danish krone"@en ;
+	:currencyCode "DKK" ;
+	:currencySymbol "kr" .
+
+:Currency_FOK a :Currency ;
+	rdfs:label "Faroese króna"@en ;
+	:currencyCode "FOK" ;
+	:currencySymbol "kr" .
+
+:Currency_AWG a :Currency ;
+	rdfs:label "Aruban florin"@en ;
+	:currencyCode "AWG" ;
+	:currencySymbol "ƒ" .
+
+:Currency_DOP a :Currency ;
+	rdfs:label "Dominican peso"@en ;
+	:currencyCode "DOP" ;
+	:currencySymbol "$" .
+
+:Currency_HKD a :Currency ;
+	rdfs:label "Hong Kong dollar"@en ;
+	:currencyCode "HKD" ;
+	:currencySymbol "$" .
+
+:Currency_STN a :Currency ;
+	rdfs:label "São Tomé and Príncipe dobra"@en ;
+	:currencyCode "STN" ;
+	:currencySymbol "Db" .
+
+:Currency_UYU a :Currency ;
+	rdfs:label "Uruguayan peso"@en ;
+	:currencyCode "UYU" ;
+	:currencySymbol "$" .
+
+:Currency_BMD a :Currency ;
+	rdfs:label "Bermudian dollar"@en ;
+	:currencyCode "BMD" ;
+	:currencySymbol "$" .
+
+:Currency_MNT a :Currency ;
+	rdfs:label "Mongolian tögrög"@en ;
+	:currencyCode "MNT" ;
+	:currencySymbol "₮" .
+
+:Currency_ZWL a :Currency ;
+	rdfs:label "Zimbabwean dollar"@en ;
+	:currencyCode "ZWL" ;
+	:currencySymbol "$" .
+
+:Currency_FKP a :Currency ;
+	rdfs:label "Falkland Islands pound"@en ;
+	:currencyCode "FKP" ;
+	:currencySymbol "£" .
+
+:Currency_KID a :Currency ;
+	rdfs:label "Kiribati dollar"@en ;
+	:currencyCode "KID" ;
+	:currencySymbol "$" .
+
+:Currency_NOK a :Currency ;
+	rdfs:label "Norwegian krone"@en ;
+	:currencyCode "NOK" ;
+	:currencySymbol "kr" .
+
+:Currency_ZMW a :Currency ;
+	rdfs:label "Zambian kwacha"@en ;
+	:currencyCode "ZMW" ;
+	:currencySymbol "ZK" .
+
+:Currency_MVR a :Currency ;
+	rdfs:label "Maldivian rufiyaa"@en ;
+	:currencyCode "MVR" ;
+	:currencySymbol ".ރ" .
+
+:Currency_IRR a :Currency ;
+	rdfs:label "Iranian rial"@en ;
+	:currencyCode "IRR" ;
+	:currencySymbol "﷼" .
+
+:Currency_GMD a :Currency ;
+	rdfs:label "dalasi"@en ;
+	:currencyCode "GMD" ;
+	:currencySymbol "D" .
+
+:Currency_KRW a :Currency ;
+	rdfs:label "South Korean won"@en ;
+	:currencyCode "KRW" ;
+	:currencySymbol "₩" .
+
+:Currency_PGK a :Currency ;
+	rdfs:label "Papua New Guinean kina"@en ;
+	:currencyCode "PGK" ;
+	:currencySymbol "K" .
+
+:Currency_IMP a :Currency ;
+	rdfs:label "Manx pound"@en ;
+	:currencyCode "IMP" ;
+	:currencySymbol "£" .
+
+:Currency_PYG a :Currency ;
+	rdfs:label "Paraguayan guaraní"@en ;
+	:currencyCode "PYG" ;
+	:currencySymbol "₲" .
+
+:Currency_COP a :Currency ;
+	rdfs:label "Colombian peso"@en ;
+	:currencyCode "COP" ;
+	:currencySymbol "$" .
+
+:Currency_BGN a :Currency ;
+	rdfs:label "Bulgarian lev"@en ;
+	:currencyCode "BGN" ;
+	:currencySymbol "лв" .
+
+:Currency_CLP a :Currency ;
+	rdfs:label "Chilean peso"@en ;
+	:currencyCode "CLP" ;
+	:currencySymbol "$" .
+
+:Currency_BWP a :Currency ;
+	rdfs:label "Botswana pula"@en ;
+	:currencyCode "BWP" ;
+	:currencySymbol "P" .
+
+:Currency_UZS a :Currency ;
+	rdfs:label "Uzbekistani soʻm"@en ;
+	:currencyCode "UZS" ;
+	:currencySymbol "so'm" .
+
+:Currency_BRL a :Currency ;
+	rdfs:label "Brazilian real"@en ;
+	:currencyCode "BRL" ;
+	:currencySymbol "R$" .
+
+:Currency_RWF a :Currency ;
+	rdfs:label "Rwandan franc"@en ;
+	:currencyCode "RWF" ;
+	:currencySymbol "Fr" .
+
+:Currency_CHF a :Currency ;
+	rdfs:label "Swiss franc"@en ;
+	:currencyCode "CHF" ;
+	:currencySymbol "Fr" .
+
+:Currency_BTN a :Currency ;
+	rdfs:label "Bhutanese ngultrum"@en ;
+	:currencyCode "BTN" ;
+	:currencySymbol "Nu." .
+
+:Currency_ALL a :Currency ;
+	rdfs:label "Albanian lek"@en ;
+	:currencyCode "ALL" ;
+	:currencySymbol "L" .
+
+:Currency_VES a :Currency ;
+	rdfs:label "Venezuelan bolívar soberano"@en ;
+	:currencyCode "VES" ;
+	:currencySymbol "Bs.S." .
+
+:Currency_BIF a :Currency ;
+	rdfs:label "Burundian franc"@en ;
+	:currencyCode "BIF" ;
+	:currencySymbol "Fr" .
+
+:Currency_JEP a :Currency ;
+	rdfs:label "Jersey pound"@en ;
+	:currencyCode "JEP" ;
+	:currencySymbol "£" .
+
+:Currency_MKD a :Currency ;
+	rdfs:label "denar"@en ;
+	:currencyCode "MKD" ;
+	:currencySymbol "den" .
+
+:Currency_KGS a :Currency ;
+	rdfs:label "Kyrgyzstani som"@en ;
+	:currencyCode "KGS" ;
+	:currencySymbol "с" .
+
+:Currency_RON a :Currency ;
+	rdfs:label "Romanian leu"@en ;
+	:currencyCode "RON" ;
+	:currencySymbol "lei" .
+
+:Currency_ISK a :Currency ;
+	rdfs:label "Icelandic króna"@en ;
+	:currencyCode "ISK" ;
+	:currencySymbol "kr" .
+
+:Currency_SOS a :Currency ;
+	rdfs:label "Somali shilling"@en ;
+	:currencyCode "SOS" ;
+	:currencySymbol "Sh" .
+
+:Currency_LAK a :Currency ;
+	rdfs:label "Lao kip"@en ;
+	:currencyCode "LAK" ;
+	:currencySymbol "₭" .
+
+:Currency_ANG a :Currency ;
+	rdfs:label "Netherlands Antillean guilder"@en ;
+	:currencyCode "ANG" ;
+	:currencySymbol "ƒ" .
+
+:Currency_LRD a :Currency ;
+	rdfs:label "Liberian dollar"@en ;
+	:currencyCode "LRD" ;
+	:currencySymbol "$" .
+
+:Currency_UGX a :Currency ;
+	rdfs:label "Ugandan shilling"@en ;
+	:currencyCode "UGX" ;
+	:currencySymbol "Sh" .
+
+:Currency_SDG a :Currency ;
+	rdfs:label "Sudanese pound"@en ;
+	:currencyCode "SDG" ;
+	:currencySymbol "ج.س" .
+
+:Currency_TWD a :Currency ;
+	rdfs:label "New Taiwan dollar"@en ;
+	:currencyCode "TWD" ;
+	:currencySymbol "$" .
+
+:Currency_AFN a :Currency ;
+	rdfs:label "Afghan afghani"@en ;
+	:currencyCode "AFN" ;
+	:currencySymbol "؋" .
+
+:Currency_FJD a :Currency ;
+	rdfs:label "Fijian dollar"@en ;
+	:currencyCode "FJD" ;
+	:currencySymbol "$" .
+
+:Currency_MZN a :Currency ;
+	rdfs:label "Mozambican metical"@en ;
+	:currencyCode "MZN" ;
+	:currencySymbol "MT" .
+
+:Currency_LSL a :Currency ;
+	rdfs:label "Lesotho loti"@en ;
+	:currencyCode "LSL" ;
+	:currencySymbol "L" .
+
+:Currency_KPW a :Currency ;
+	rdfs:label "North Korean won"@en ;
+	:currencyCode "KPW" ;
+	:currencySymbol "₩" .
+
+:Currency_LBP a :Currency ;
+	rdfs:label "Lebanese pound"@en ;
+	:currencyCode "LBP" ;
+	:currencySymbol "ل.ل" .
+
+:Currency_RSD a :Currency ;
+	rdfs:label "Serbian dinar"@en ;
+	:currencyCode "RSD" ;
+	:currencySymbol "дин." .
+
+:Currency_BBD a :Currency ;
+	rdfs:label "Barbadian dollar"@en ;
+	:currencyCode "BBD" ;
+	:currencySymbol "$" .
+
+:Currency_MUR a :Currency ;
+	rdfs:label "Mauritian rupee"@en ;
+	:currencyCode "MUR" ;
+	:currencySymbol "₨" .
+
+:Currency_SHP a :Currency ;
+	rdfs:label "Saint Helena pound"@en ;
+	:currencyCode "SHP" ;
+	:currencySymbol "£" .
+
+:Currency_LYD a :Currency ;
+	rdfs:label "Libyan dinar"@en ;
+	:currencyCode "LYD" ;
+	:currencySymbol "ل.د" .
+
+:Currency_NIO a :Currency ;
+	rdfs:label "Nicaraguan córdoba"@en ;
+	:currencyCode "NIO" ;
+	:currencySymbol "C$" .
+
+:Currency_KWD a :Currency ;
+	rdfs:label "Kuwaiti dinar"@en ;
+	:currencyCode "KWD" ;
+	:currencySymbol "د.ك" .
+
+:Currency_VND a :Currency ;
+	rdfs:label "Vietnamese đồng"@en ;
+	:currencyCode "VND" ;
+	:currencySymbol "₫" .
+
+:Currency_BHD a :Currency ;
+	rdfs:label "Bahraini dinar"@en ;
+	:currencyCode "BHD" ;
+	:currencySymbol ".د.ب" .
+
+:Currency_BDT a :Currency ;
+	rdfs:label "Bangladeshi taka"@en ;
+	:currencyCode "BDT" ;
+	:currencySymbol "৳" .
+
+:Currency_CDF a :Currency ;
+	rdfs:label "Congolese franc"@en ;
+	:currencyCode "CDF" ;
+	:currencySymbol "FC" .
+
+:Currency_LKR a :Currency ;
+	rdfs:label "Sri Lankan rupee"@en ;
+	:currencyCode "LKR" ;
+	:currencySymbol "Rs  රු" .
+
+:Currency_NPR a :Currency ;
+	rdfs:label "Nepalese rupee"@en ;
+	:currencyCode "NPR" ;
+	:currencySymbol "₨" .
+
+:Currency_BOB a :Currency ;
+	rdfs:label "Bolivian boliviano"@en ;
+	:currencyCode "BOB" ;
+	:currencySymbol "Bs." .
+
+:Currency_NAD a :Currency ;
+	rdfs:label "Namibian dollar"@en ;
+	:currencyCode "NAD" ;
+	:currencySymbol "$" .
+
+:Currency_HTG a :Currency ;
+	rdfs:label "Haitian gourde"@en ;
+	:currencyCode "HTG" ;
+	:currencySymbol "G" .
+
+:Currency_SRD a :Currency ;
+	rdfs:label "Surinamese dollar"@en ;
+	:currencyCode "SRD" ;
+	:currencySymbol "$" .
+
+:Currency_CAD a :Currency ;
+	rdfs:label "Canadian dollar"@en ;
+	:currencyCode "CAD" ;
+	:currencySymbol "$" .
+
+:Currency_HNL a :Currency ;
+	rdfs:label "Honduran lempira"@en ;
+	:currencyCode "HNL" ;
+	:currencySymbol "L" .
+
+:Currency_AED a :Currency ;
+	rdfs:label "United Arab Emirates dirham"@en ;
+	:currencyCode "AED" ;
+	:currencySymbol "د.إ" .
+
+:Currency_GNF a :Currency ;
+	rdfs:label "Guinean franc"@en ;
+	:currencyCode "GNF" ;
+	:currencySymbol "Fr" .
+
+:Currency_TTD a :Currency ;
+	rdfs:label "Trinidad and Tobago dollar"@en ;
+	:currencyCode "TTD" ;
+	:currencySymbol "$" .
+
+:Currency_SEK a :Currency ;
+	rdfs:label "Swedish krona"@en ;
+	:currencyCode "SEK" ;
+	:currencySymbol "kr" .
+
+:Currency_MGA a :Currency ;
+	rdfs:label "Malagasy ariary"@en ;
+	:currencyCode "MGA" ;
+	:currencySymbol "Ar" .
+
+:Currency_KYD a :Currency ;
+	rdfs:label "Cayman Islands dollar"@en ;
+	:currencyCode "KYD" ;
+	:currencySymbol "$" .
+
+:Currency_MYR a :Currency ;
+	rdfs:label "Malaysian ringgit"@en ;
+	:currencyCode "MYR" ;
+	:currencySymbol "RM" .
+
+:Currency_GEL a :Currency ;
+	rdfs:label "lari"@en ;
+	:currencyCode "GEL" ;
+	:currencySymbol "₾" .
+
+:Currency_CVE a :Currency ;
+	rdfs:label "Cape Verdean escudo"@en ;
+	:currencyCode "CVE" ;
+	:currencySymbol "Esc" .
+
+:Currency_JPY a :Currency ;
+	rdfs:label "Japanese yen"@en ;
+	:currencyCode "JPY" ;
+	:currencySymbol "¥" .
+
+:Currency_JMD a :Currency ;
+	rdfs:label "Jamaican dollar"@en ;
+	:currencyCode "JMD" ;
+	:currencySymbol "$" .
+
+:Currency_ETB a :Currency ;
+	rdfs:label "Ethiopian birr"@en ;
+	:currencyCode "ETB" ;
+	:currencySymbol "Br" .
+
+:Currency_PKR a :Currency ;
+	rdfs:label "Pakistani rupee"@en ;
+	:currencyCode "PKR" ;
+	:currencySymbol "₨" .
+
+################################################################################
+# TIME ZONES
+################################################################################
+
+:TimeZone_UTC_02_00 a :TimeZone ;
+	rdfs:label "UTC+02:00"@en ;
+	:utcOffset "PT2H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_11_00 a :TimeZone ;
+	rdfs:label "UTC-11:00"@en ;
+	:utcOffset "-PT11H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_10_00 a :TimeZone ;
+	rdfs:label "UTC-10:00"@en ;
+	:utcOffset "-PT10H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_12_00 a :TimeZone ;
+	rdfs:label "UTC+12:00"@en ;
+	:utcOffset "PT12H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_12_45 a :TimeZone ;
+	rdfs:label "UTC+12:45"@en ;
+	:utcOffset "PT12H45M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_13_00 a :TimeZone ;
+	rdfs:label "UTC+13:00"@en ;
+	:utcOffset "PT13H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_08_00 a :TimeZone ;
+	rdfs:label "UTC+08:00"@en ;
+	:utcOffset "PT8H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_06_00 a :TimeZone ;
+	rdfs:label "UTC+06:00"@en ;
+	:utcOffset "PT6H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_03_00 a :TimeZone ;
+	rdfs:label "UTC+03:00"@en ;
+	:utcOffset "PT3H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_09_00 a :TimeZone ;
+	rdfs:label "UTC+09:00"@en ;
+	:utcOffset "PT9H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_04_00 a :TimeZone ;
+	rdfs:label "UTC+04:00"@en ;
+	:utcOffset "PT4H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_08_00 a :TimeZone ;
+	rdfs:label "UTC-08:00"@en ;
+	:utcOffset "-PT8H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_07_00 a :TimeZone ;
+	rdfs:label "UTC-07:00"@en ;
+	:utcOffset "-PT7H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_06_00 a :TimeZone ;
+	rdfs:label "UTC-06:00"@en ;
+	:utcOffset "-PT6H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_04_00 a :TimeZone ;
+	rdfs:label "UTC-04:00"@en ;
+	:utcOffset "-PT4H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_01_00 a :TimeZone ;
+	rdfs:label "UTC+01:00"@en ;
+	:utcOffset "PT1H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_05_00 a :TimeZone ;
+	rdfs:label "UTC+05:00"@en ;
+	:utcOffset "PT5H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_05_30 a :TimeZone ;
+	rdfs:label "UTC+05:30"@en ;
+	:utcOffset "PT5H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_06_30 a :TimeZone ;
+	rdfs:label "UTC+06:30"@en ;
+	:utcOffset "PT6H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_05_00 a :TimeZone ;
+	rdfs:label "UTC-05:00"@en ;
+	:utcOffset "-PT5H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_03_00 a :TimeZone ;
+	rdfs:label "UTC-03:00"@en ;
+	:utcOffset "-PT3H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_02_00 a :TimeZone ;
+	rdfs:label "UTC-02:00"@en ;
+	:utcOffset "-PT2H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC a :TimeZone ;
+	rdfs:label "UTC"@en ;
+	:observesDST false .
+
+:TimeZone_UTC_07_00 a :TimeZone ;
+	rdfs:label "UTC+07:00"@en ;
+	:utcOffset "PT7H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_00_00 a :TimeZone ;
+	rdfs:label "UTC+00:00"@en ;
+	:utcOffset "PT0H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_10_00 a :TimeZone ;
+	rdfs:label "UTC+10:00"@en ;
+	:utcOffset "PT10H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_11_00 a :TimeZone ;
+	rdfs:label "UTC+11:00"@en ;
+	:utcOffset "PT11H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_11_30 a :TimeZone ;
+	rdfs:label "UTC+11:30"@en ;
+	:utcOffset "PT11H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_09_30 a :TimeZone ;
+	rdfs:label "UTC-09:30"@en ;
+	:utcOffset "-PT9H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_09_00 a :TimeZone ;
+	rdfs:label "UTC-09:00"@en ;
+	:utcOffset "-PT9H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_14_00 a :TimeZone ;
+	rdfs:label "UTC+14:00"@en ;
+	:utcOffset "PT14H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_03_30 a :TimeZone ;
+	rdfs:label "UTC+03:30"@en ;
+	:utcOffset "PT3H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_12_00 a :TimeZone ;
+	rdfs:label "UTC-12:00"@en ;
+	:utcOffset "-PT12H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_01_00 a :TimeZone ;
+	rdfs:label "UTC-01:00"@en ;
+	:utcOffset "-PT1H"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_09_30 a :TimeZone ;
+	rdfs:label "UTC+09:30"@en ;
+	:utcOffset "PT9H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_10_30 a :TimeZone ;
+	rdfs:label "UTC+10:30"@en ;
+	:utcOffset "PT10H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_04_30 a :TimeZone ;
+	rdfs:label "UTC+04:30"@en ;
+	:utcOffset "PT4H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_05_45 a :TimeZone ;
+	rdfs:label "UTC+05:45"@en ;
+	:utcOffset "PT5H45M"^^xsd:dayTimeDuration ;
+	:observesDST false .
+
+:TimeZone_UTC_03_30 a :TimeZone ;
+	rdfs:label "UTC-03:30"@en ;
+	:utcOffset "-PT3H30M"^^xsd:dayTimeDuration ;
+	:observesDST false .
