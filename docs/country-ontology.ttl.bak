@@ -1,0 +1,1518 @@
+@prefix : <http://sitebender.io/ontology/country#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbr: <http://dbpedia.org/resource/> .
+@prefix schema: <http://schema.org/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+################################################################################
+# ONTOLOGY METADATA
+################################################################################
+
+<http://sitebender.io/ontology/country> a owl:Ontology ;
+	owl:versionIRI <http://sitebender.io/ontology/country/1.0.0> ;
+	owl:versionInfo "1.0.0" ;
+	dct:title "Country Ontology"@en ;
+	dct:description "Comprehensive OWL2 ontology for representing countries, territories, and their properties including ISO codes, time zones, geographic data, demographics, and political information."@en ;
+	dct:creator "Sitebender" ;
+	dct:created "2025-01-13"^^xsd:date ;
+	dct:modified "2025-01-13"^^xsd:date ;
+	dct:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+	rdfs:comment "This ontology provides a comprehensive model for country data with OWL2 semantics and SHACL validation. It aligns with existing vocabularies (DBpedia, Schema.org, Wikidata) and uses GeoSPARQL for geographic properties."@en .
+
+################################################################################
+# CLASSES
+################################################################################
+
+## Core Geographic Entities
+
+:Country a owl:Class ;
+	rdfs:label "Country"@en ;
+	rdfs:comment "A geopolitical entity recognized as a distinct territorial unit. This includes sovereign states, dependent territories, and disputed areas."@en ;
+	owl:equivalentClass dbo:Country , schema:Country ;
+	skos:prefLabel "Country"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:SovereignState a owl:Class ;
+	rdfs:label "Sovereign State"@en ;
+	rdfs:label "État souverain"@fr ;
+	rdfs:label "Estado soberano"@es ;
+	rdfs:comment "An independent country with full sovereignty over its territory and population."@en ;
+	rdfs:subClassOf :Country ;
+	owl:equivalentClass dbo:Country ;
+	skos:prefLabel "Sovereign State"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:Territory a owl:Class ;
+	rdfs:label "Dependent Territory"@en ;
+	rdfs:label "Territoire dépendant"@fr ;
+	rdfs:label "Territorio dependiente"@es ;
+	rdfs:comment "A geographic area under the jurisdiction of another country, without full sovereignty."@en ;
+	rdfs:subClassOf :Country ;
+	skos:prefLabel "Dependent Territory"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:DisputedTerritory a owl:Class ;
+	rdfs:label "Disputed Territory"@en ;
+	rdfs:label "Territoire contesté"@fr ;
+	rdfs:label "Territorio disputado"@es ;
+	rdfs:comment "A geographic area whose sovereignty is contested by two or more countries."@en ;
+	rdfs:subClassOf :Country ;
+	skos:prefLabel "Disputed Territory"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Administrative and Political Entities
+
+:Capital a owl:Class ;
+	rdfs:label "Capital City"@en ;
+	rdfs:label "Capitale"@fr ;
+	rdfs:label "Capital"@es ;
+	rdfs:comment "The primary city serving as the seat of government for a country."@en ;
+	owl:equivalentClass dbo:Capital , schema:City ;
+	skos:prefLabel "Capital City"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:GovernmentType a owl:Class ;
+	rdfs:label "Government Type"@en ;
+	rdfs:label "Type de gouvernement"@fr ;
+	rdfs:label "Tipo de gobierno"@es ;
+	rdfs:comment "The system or form of governance used by a country (e.g., republic, monarchy, federation)."@en ;
+	skos:prefLabel "Government Type"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:RegionalOrganization a owl:Class ;
+	rdfs:label "Regional Organization"@en ;
+	rdfs:label "Organisation régionale"@fr ;
+	rdfs:label "Organización regional"@es ;
+	rdfs:comment "An intergovernmental organization whose members are countries from a specific geographic region."@en ;
+	owl:equivalentClass dbo:Organisation ;
+	skos:prefLabel "Regional Organization"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Time and Temporal Entities
+
+:TimeZone a owl:Class ;
+	rdfs:label "Time Zone"@en ;
+	rdfs:label "Fuseau horaire"@fr ;
+	rdfs:label "Zona horaria"@es ;
+	rdfs:comment "A region that observes a uniform standard time for legal, commercial, and social purposes."@en ;
+	rdfs:subClassOf time:TemporalEntity ;
+	skos:prefLabel "Time Zone"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Economic Entities
+
+:Currency a owl:Class ;
+	rdfs:label "Currency"@en ;
+	rdfs:label "Monnaie"@fr ;
+	rdfs:label "Moneda"@es ;
+	rdfs:comment "A system of money in general use in a particular country."@en ;
+	owl:equivalentClass dbo:Currency , schema:Currency ;
+	skos:prefLabel "Currency"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Linguistic Entities
+
+:Language a owl:Class ;
+	rdfs:label "Language"@en ;
+	rdfs:label "Langue"@fr ;
+	rdfs:label "Idioma"@es ;
+	rdfs:comment "A natural language used for communication within a country."@en ;
+	owl:equivalentClass dbo:Language , schema:Language ;
+	skos:prefLabel "Language"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Demographic Entities
+
+:PopulationCount a owl:Class ;
+	rdfs:label "Population Count"@en ;
+	rdfs:label "Décompte de population"@fr ;
+	rdfs:label "Recuento de población"@es ;
+	rdfs:comment "A measurement of the number of people in a country at a specific point in time."@en ;
+	rdfs:subClassOf time:TemporalEntity ;
+	skos:prefLabel "Population Count"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Class Disjointness
+
+:SovereignState owl:disjointWith :Territory , :DisputedTerritory .
+:Territory owl:disjointWith :DisputedTerritory .
+
+################################################################################
+# OBJECT PROPERTIES - Geographic and Political Relationships
+################################################################################
+
+:capital a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:label "capital"@en ;
+	rdfs:label "capitale"@fr ;
+	rdfs:label "capital"@es ;
+	rdfs:comment "The capital city of a country."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :Capital ;
+	owl:equivalentProperty dbo:capital , schema:capital ;
+	skos:prefLabel "capital"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:bordersWith a owl:ObjectProperty , owl:SymmetricProperty ;
+	rdfs:label "borders with"@en ;
+	rdfs:label "frontière avec"@fr ;
+	rdfs:label "limita con"@es ;
+	rdfs:comment "Indicates that two countries share a land or maritime border."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :Country ;
+	owl:equivalentProperty dbo:border ;
+	skos:prefLabel "borders with"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:dependencyOf a owl:ObjectProperty ;
+	rdfs:label "dependency of"@en ;
+	rdfs:label "dépendance de"@fr ;
+	rdfs:label "dependencia de"@es ;
+	rdfs:comment "Indicates that a territory is a dependency of another country."@en ;
+	rdfs:domain :Territory ;
+	rdfs:range :SovereignState ;
+	owl:inverseOf :hasDependency ;
+	skos:prefLabel "dependency of"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:hasDependency a owl:ObjectProperty ;
+	rdfs:label "has dependency"@en ;
+	rdfs:label "a une dépendance"@fr ;
+	rdfs:label "tiene dependencia"@es ;
+	rdfs:comment "Indicates that a country has a dependent territory."@en ;
+	rdfs:domain :SovereignState ;
+	rdfs:range :Territory ;
+	owl:inverseOf :dependencyOf ;
+	skos:prefLabel "has dependency"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:memberOf a owl:ObjectProperty ;
+	rdfs:label "member of"@en ;
+	rdfs:label "membre de"@fr ;
+	rdfs:label "miembro de"@es ;
+	rdfs:comment "Indicates that a country is a member of a regional organization."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :RegionalOrganization ;
+	owl:inverseOf :hasMember ;
+	skos:prefLabel "member of"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:hasMember a owl:ObjectProperty ;
+	rdfs:label "has member"@en ;
+	rdfs:label "a pour membre"@fr ;
+	rdfs:label "tiene miembro"@es ;
+	rdfs:comment "Indicates that a regional organization has a country as a member."@en ;
+	rdfs:domain :RegionalOrganization ;
+	rdfs:range :Country ;
+	owl:inverseOf :memberOf ;
+	skos:prefLabel "has member"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:governmentType a owl:ObjectProperty , owl:FunctionalProperty ;
+	rdfs:label "government type"@en ;
+	rdfs:label "type de gouvernement"@fr ;
+	rdfs:label "tipo de gobierno"@es ;
+	rdfs:comment "The form of government used by a country."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :GovernmentType ;
+	owl:equivalentProperty dbo:governmentType ;
+	skos:prefLabel "government type"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Time Zone Relationships
+
+:hasTimeZone a owl:ObjectProperty ;
+	rdfs:label "has time zone"@en ;
+	rdfs:label "a un fuseau horaire"@fr ;
+	rdfs:label "tiene zona horaria"@es ;
+	rdfs:comment "A time zone observed within a country's territory."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :TimeZone ;
+	skos:prefLabel "has time zone"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:timeZoneOf a owl:ObjectProperty ;
+	rdfs:label "time zone of"@en ;
+	rdfs:label "fuseau horaire de"@fr ;
+	rdfs:label "zona horaria de"@es ;
+	rdfs:comment "The country or countries that observe this time zone."@en ;
+	rdfs:domain :TimeZone ;
+	rdfs:range :Country ;
+	owl:inverseOf :hasTimeZone ;
+	skos:prefLabel "time zone of"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Economic Relationships
+
+:currency a owl:ObjectProperty ;
+	rdfs:label "currency"@en ;
+	rdfs:label "monnaie"@fr ;
+	rdfs:label "moneda"@es ;
+	rdfs:comment "An official currency used in a country."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :Currency ;
+	owl:equivalentProperty dbo:currency , schema:currency ;
+	skos:prefLabel "currency"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Linguistic Relationships
+
+:officialLanguage a owl:ObjectProperty ;
+	rdfs:label "official language"@en ;
+	rdfs:label "langue officielle"@fr ;
+	rdfs:label "idioma oficial"@es ;
+	rdfs:comment "A language that has official status in a country."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :Language ;
+	owl:equivalentProperty dbo:officialLanguage ;
+	skos:prefLabel "official language"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:spokenLanguage a owl:ObjectProperty ;
+	rdfs:label "spoken language"@en ;
+	rdfs:label "langue parlée"@fr ;
+	rdfs:label "idioma hablado"@es ;
+	rdfs:comment "A language commonly spoken in a country, whether official or not."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :Language ;
+	skos:prefLabel "spoken language"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+## Demographic Relationships
+
+:populationCount a owl:ObjectProperty ;
+	rdfs:label "population count"@en ;
+	rdfs:label "décompte de population"@fr ;
+	rdfs:label "recuento de población"@es ;
+	rdfs:comment "A temporal population measurement for a country."@en ;
+	rdfs:domain :Country ;
+	rdfs:range :PopulationCount ;
+	skos:prefLabel "population count"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Identity Codes
+################################################################################
+
+:alpha2Code a owl:DatatypeProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:label "ISO 3166-1 alpha-2 code"@en ;
+	rdfs:label "code alpha-2 ISO 3166-1"@fr ;
+	rdfs:label "código alfa-2 ISO 3166-1"@es ;
+	rdfs:comment "Two-letter country code defined in ISO 3166-1 alpha-2 standard."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty wdt:P297 ;
+	skos:prefLabel "alpha-2 code"@en ;
+	skos:example "US", "FR", "JP" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:alpha3Code a owl:DatatypeProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:label "ISO 3166-1 alpha-3 code"@en ;
+	rdfs:label "code alpha-3 ISO 3166-1"@fr ;
+	rdfs:label "código alfa-3 ISO 3166-1"@es ;
+	rdfs:comment "Three-letter country code defined in ISO 3166-1 alpha-3 standard."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty wdt:P298 ;
+	skos:prefLabel "alpha-3 code"@en ;
+	skos:example "USA", "FRA", "JPN" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:numericCode a owl:DatatypeProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:label "ISO 3166-1 numeric code"@en ;
+	rdfs:label "code numérique ISO 3166-1"@fr ;
+	rdfs:label "código numérico ISO 3166-1"@es ;
+	rdfs:comment "Three-digit country code defined in ISO 3166-1 numeric standard."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty wdt:P299 ;
+	skos:prefLabel "numeric code"@en ;
+	skos:example "840", "250", "392" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Telephone and Communication
+################################################################################
+
+:callingCode a owl:DatatypeProperty ;
+	rdfs:label "international calling code"@en ;
+	rdfs:label "indicatif téléphonique international"@fr ;
+	rdfs:label "código de llamada internacional"@es ;
+	rdfs:comment "International telephone dialing code for a country, including the '+' prefix."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty dbo:callingCode , wdt:P474 ;
+	skos:prefLabel "calling code"@en ;
+	skos:example "+1", "+33", "+81" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:countryCallingCodePrefix a owl:DatatypeProperty ;
+	rdfs:label "country calling code prefix"@en ;
+	rdfs:label "préfixe d'indicatif de pays"@fr ;
+	rdfs:label "prefijo de código de país"@es ;
+	rdfs:comment "The numeric portion of the calling code without the '+' symbol."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:positiveInteger ;
+	skos:prefLabel "calling code prefix"@en ;
+	skos:example "1", "33", "81" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:internetTLD a owl:DatatypeProperty ;
+	rdfs:label "internet top-level domain"@en ;
+	rdfs:label "domaine de premier niveau internet"@fr ;
+	rdfs:label "dominio de nivel superior de internet"@es ;
+	rdfs:comment "Country code top-level domain (ccTLD) for a country."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty wdt:P78 ;
+	skos:prefLabel "internet TLD"@en ;
+	skos:example ".us", ".fr", ".jp" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Time Zone Details
+################################################################################
+
+:ianaIdentifier a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "IANA time zone identifier"@en ;
+	rdfs:label "identifiant de fuseau horaire IANA"@fr ;
+	rdfs:label "identificador de zona horaria IANA"@es ;
+	rdfs:comment "The standardized identifier from the IANA Time Zone Database."@en ;
+	rdfs:domain :TimeZone ;
+	rdfs:range xsd:string ;
+	skos:prefLabel "IANA identifier"@en ;
+	skos:example "America/New_York", "Europe/Paris", "Asia/Tokyo" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:utcOffset a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "UTC offset"@en ;
+	rdfs:label "décalage UTC"@fr ;
+	rdfs:label "compensación UTC"@es ;
+	rdfs:comment "The standard time offset from Coordinated Universal Time (UTC)."@en ;
+	rdfs:domain :TimeZone ;
+	rdfs:range xsd:dayTimeDuration ;
+	skos:prefLabel "UTC offset"@en ;
+	skos:example "-PT5H", "PT1H", "PT9H" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:utcOffsetDST a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "UTC offset during DST"@en ;
+	rdfs:label "décalage UTC en heure d'été"@fr ;
+	rdfs:label "compensación UTC durante horario de verano"@es ;
+	rdfs:comment "The time offset from UTC when daylight saving time is in effect."@en ;
+	rdfs:domain :TimeZone ;
+	rdfs:range xsd:dayTimeDuration ;
+	skos:prefLabel "UTC offset DST"@en ;
+	skos:example "-PT4H", "PT2H", "PT9H" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:observesDST a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "observes daylight saving time"@en ;
+	rdfs:label "observe l'heure d'été"@fr ;
+	rdfs:label "observa horario de verano"@es ;
+	rdfs:comment "Indicates whether the time zone observes daylight saving time."@en ;
+	rdfs:domain :TimeZone ;
+	rdfs:range xsd:boolean ;
+	skos:prefLabel "observes DST"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:timeZoneName a owl:DatatypeProperty ;
+	rdfs:label "time zone name"@en ;
+	rdfs:label "nom du fuseau horaire"@fr ;
+	rdfs:label "nombre de zona horaria"@es ;
+	rdfs:comment "A human-readable name for the time zone."@en ;
+	rdfs:domain :TimeZone ;
+	rdfs:range rdf:langString ;
+	skos:prefLabel "time zone name"@en ;
+	skos:example "Eastern Standard Time"@en, "Heure normale de l'Est"@fr ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:timeZoneAbbreviation a owl:DatatypeProperty ;
+	rdfs:label "time zone abbreviation"@en ;
+	rdfs:label "abréviation du fuseau horaire"@fr ;
+	rdfs:label "abreviatura de zona horaria"@es ;
+	rdfs:comment "Standard abbreviation for the time zone."@en ;
+	rdfs:domain :TimeZone ;
+	rdfs:range xsd:string ;
+	skos:prefLabel "time zone abbreviation"@en ;
+	skos:example "EST", "CET", "JST" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Geographic and Spatial
+################################################################################
+
+:latitude a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "latitude"@en ;
+	rdfs:label "latitude"@fr ;
+	rdfs:label "latitud"@es ;
+	rdfs:comment "The geographic coordinate that specifies the north-south position of the country's center."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	owl:equivalentProperty geo:lat , schema:latitude ;
+	skos:prefLabel "latitude"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:longitude a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "longitude"@en ;
+	rdfs:label "longitude"@fr ;
+	rdfs:label "longitud"@es ;
+	rdfs:comment "The geographic coordinate that specifies the east-west position of the country's center."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	owl:equivalentProperty geo:long , schema:longitude ;
+	skos:prefLabel "longitude"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:geometry a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "geometry"@en ;
+	rdfs:label "géométrie"@fr ;
+	rdfs:label "geometría"@es ;
+	rdfs:comment "The GeoSPARQL geometry representing the country's borders and territory."@en ;
+	rdfs:domain :Country ;
+	rdfs:range geo:wktLiteral ;
+	owl:equivalentProperty geo:asWKT ;
+	skos:prefLabel "geometry"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:area a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "area"@en ;
+	rdfs:label "superficie"@fr ;
+	rdfs:label "área"@es ;
+	rdfs:comment "The total area of the country in square kilometers."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	owl:equivalentProperty dbo:areaTotal , schema:areaServed ;
+	skos:prefLabel "area"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:landArea a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "land area"@en ;
+	rdfs:label "superficie terrestre"@fr ;
+	rdfs:label "área terrestre"@es ;
+	rdfs:comment "The land area of the country in square kilometers, excluding water bodies."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	skos:prefLabel "land area"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:waterArea a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "water area"@en ;
+	rdfs:label "superficie d'eau"@fr ;
+	rdfs:label "área acuática"@es ;
+	rdfs:comment "The water area of the country in square kilometers."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	skos:prefLabel "water area"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:coastlineLength a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "coastline length"@en ;
+	rdfs:label "longueur du littoral"@fr ;
+	rdfs:label "longitud de costa"@es ;
+	rdfs:comment "The length of the country's coastline in kilometers."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	skos:prefLabel "coastline length"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Economic
+################################################################################
+
+:currencyCode a owl:DatatypeProperty , owl:InverseFunctionalProperty ;
+	rdfs:label "ISO 4217 currency code"@en ;
+	rdfs:label "code de devise ISO 4217"@fr ;
+	rdfs:label "código de moneda ISO 4217"@es ;
+	rdfs:comment "The three-letter currency code defined in ISO 4217 standard."@en ;
+	rdfs:domain :Currency ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty wdt:P498 ;
+	skos:prefLabel "currency code"@en ;
+	skos:example "USD", "EUR", "JPY" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:currencyNumericCode a owl:DatatypeProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:label "ISO 4217 numeric currency code"@en ;
+	rdfs:label "code numérique de devise ISO 4217"@fr ;
+	rdfs:label "código numérico de moneda ISO 4217"@es ;
+	rdfs:comment "The three-digit numeric currency code defined in ISO 4217 standard."@en ;
+	rdfs:domain :Currency ;
+	rdfs:range xsd:string ;
+	skos:prefLabel "currency numeric code"@en ;
+	skos:example "840", "978", "392" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:currencySymbol a owl:DatatypeProperty ;
+	rdfs:label "currency symbol"@en ;
+	rdfs:label "symbole de devise"@fr ;
+	rdfs:label "símbolo de moneda"@es ;
+	rdfs:comment "The symbol commonly used to represent the currency."@en ;
+	rdfs:domain :Currency ;
+	rdfs:range xsd:string ;
+	skos:prefLabel "currency symbol"@en ;
+	skos:example "$", "€", "¥" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:gdp a owl:DatatypeProperty ;
+	rdfs:label "gross domestic product"@en ;
+	rdfs:label "produit intérieur brut"@fr ;
+	rdfs:label "producto interno bruto"@es ;
+	rdfs:comment "The total monetary value of all goods and services produced within a country, in USD."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	owl:equivalentProperty dbo:grossDomesticProduct ;
+	skos:prefLabel "GDP"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:gdpPerCapita a owl:DatatypeProperty ;
+	rdfs:label "GDP per capita"@en ;
+	rdfs:label "PIB par habitant"@fr ;
+	rdfs:label "PIB per cápita"@es ;
+	rdfs:comment "The gross domestic product divided by population, in USD."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	skos:prefLabel "GDP per capita"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Demographic
+################################################################################
+
+:population a owl:DatatypeProperty ;
+	rdfs:label "population"@en ;
+	rdfs:label "population"@fr ;
+	rdfs:label "población"@es ;
+	rdfs:comment "The total number of people living in a country at a given time."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:nonNegativeInteger ;
+	owl:equivalentProperty dbo:populationTotal , schema:population ;
+	skos:prefLabel "population"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:populationValue a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "population value"@en ;
+	rdfs:label "valeur de population"@fr ;
+	rdfs:label "valor de población"@es ;
+	rdfs:comment "The numeric count of population for a PopulationCount instance."@en ;
+	rdfs:domain :PopulationCount ;
+	rdfs:range xsd:nonNegativeInteger ;
+	skos:prefLabel "population value"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:populationDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "population date"@en ;
+	rdfs:label "date de population"@fr ;
+	rdfs:label "fecha de población"@es ;
+	rdfs:comment "The date when the population count was measured or estimated."@en ;
+	rdfs:domain :PopulationCount ;
+	rdfs:range xsd:date ;
+	skos:prefLabel "population date"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:populationDensity a owl:DatatypeProperty ;
+	rdfs:label "population density"@en ;
+	rdfs:label "densité de population"@fr ;
+	rdfs:label "densidad de población"@es ;
+	rdfs:comment "The number of people per square kilometer."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	owl:equivalentProperty dbo:populationDensity ;
+	skos:prefLabel "population density"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:lifeExpectancy a owl:DatatypeProperty ;
+	rdfs:label "life expectancy"@en ;
+	rdfs:label "espérance de vie"@fr ;
+	rdfs:label "esperanza de vida"@es ;
+	rdfs:comment "The average number of years a person is expected to live, in years."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:decimal ;
+	skos:prefLabel "life expectancy"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Linguistic
+################################################################################
+
+:iso6391Code a owl:DatatypeProperty , owl:FunctionalProperty , owl:InverseFunctionalProperty ;
+	rdfs:label "ISO 639-1 language code"@en ;
+	rdfs:label "code de langue ISO 639-1"@fr ;
+	rdfs:label "código de idioma ISO 639-1"@es ;
+	rdfs:comment "Two-letter language code defined in ISO 639-1 standard."@en ;
+	rdfs:domain :Language ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty wdt:P218 ;
+	skos:prefLabel "ISO 639-1 code"@en ;
+	skos:example "en", "fr", "es" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:iso6392Code a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "ISO 639-2 language code"@en ;
+	rdfs:label "code de langue ISO 639-2"@fr ;
+	rdfs:label "código de idioma ISO 639-2"@es ;
+	rdfs:comment "Three-letter language code defined in ISO 639-2 standard."@en ;
+	rdfs:domain :Language ;
+	rdfs:range xsd:string ;
+	owl:equivalentProperty wdt:P219 ;
+	skos:prefLabel "ISO 639-2 code"@en ;
+	skos:example "eng", "fra", "spa" ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Political and Historical
+################################################################################
+
+:independenceDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "independence date"@en ;
+	rdfs:label "date d'indépendance"@fr ;
+	rdfs:label "fecha de independencia"@es ;
+	rdfs:comment "The date when the country gained independence or sovereignty."@en ;
+	rdfs:domain :SovereignState ;
+	rdfs:range xsd:date ;
+	skos:prefLabel "independence date"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:foundingDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "founding date"@en ;
+	rdfs:label "date de fondation"@fr ;
+	rdfs:label "fecha de fundación"@es ;
+	rdfs:comment "The date when the country was established or founded."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:date ;
+	owl:equivalentProperty dbo:foundingDate ;
+	skos:prefLabel "founding date"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:sovereigntyStatus a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "sovereignty status"@en ;
+	rdfs:label "statut de souveraineté"@fr ;
+	rdfs:label "estado de soberanía"@es ;
+	rdfs:comment "The sovereignty status of the country (e.g., 'independent', 'dependency', 'disputed')."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:string ;
+	skos:prefLabel "sovereignty status"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:constitutionDate a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "constitution date"@en ;
+	rdfs:label "date de constitution"@fr ;
+	rdfs:label "fecha de constitución"@es ;
+	rdfs:comment "The date when the country's current constitution was adopted."@en ;
+	rdfs:domain :Country ;
+	rdfs:range xsd:date ;
+	skos:prefLabel "constitution date"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# DATATYPE PROPERTIES - Provenance and Metadata
+################################################################################
+
+:dataSource a owl:DatatypeProperty ;
+	rdfs:label "data source"@en ;
+	rdfs:label "source de données"@fr ;
+	rdfs:label "fuente de datos"@es ;
+	rdfs:comment "The authoritative source from which this data was obtained."@en ;
+	rdfs:range xsd:anyURI ;
+	owl:equivalentProperty dct:source ;
+	skos:prefLabel "data source"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:lastUpdated a owl:DatatypeProperty ;
+	rdfs:label "last updated"@en ;
+	rdfs:label "dernière mise à jour"@fr ;
+	rdfs:label "última actualización"@es ;
+	rdfs:comment "The date and time when this data was last updated."@en ;
+	rdfs:range xsd:dateTime ;
+	owl:equivalentProperty dct:modified ;
+	skos:prefLabel "last updated"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:validFrom a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "valid from"@en ;
+	rdfs:label "valide depuis"@fr ;
+	rdfs:label "válido desde"@es ;
+	rdfs:comment "The date from which this information is considered valid."@en ;
+	rdfs:range xsd:date ;
+	skos:prefLabel "valid from"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:validUntil a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "valid until"@en ;
+	rdfs:label "valide jusqu'à"@fr ;
+	rdfs:label "válido hasta"@es ;
+	rdfs:comment "The date until which this information is considered valid."@en ;
+	rdfs:range xsd:date ;
+	skos:prefLabel "valid until"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+:confidenceLevel a owl:DatatypeProperty , owl:FunctionalProperty ;
+	rdfs:label "confidence level"@en ;
+	rdfs:label "niveau de confiance"@fr ;
+	rdfs:label "nivel de confianza"@es ;
+	rdfs:comment "A value between 0 and 1 indicating confidence in this data (1 = completely certain)."@en ;
+	rdfs:range xsd:decimal ;
+	skos:prefLabel "confidence level"@en ;
+	rdfs:isDefinedBy <http://sitebender.io/ontology/country> .
+
+################################################################################
+# SHACL SHAPES - Validation Constraints
+################################################################################
+
+## Country Shape
+
+:CountryShape a sh:NodeShape ;
+	sh:targetClass :Country ;
+	sh:name "Country Shape"@en ;
+	sh:description "Validation constraints for Country instances."@en ;
+
+	# Required properties with cardinality
+	sh:property [
+		sh:path rdfs:label ;
+		sh:minCount 1 ;
+		sh:datatype rdf:langString ;
+		sh:uniqueLang true ;
+		sh:name "country name"@en ;
+		sh:description "Every country must have at least one language-tagged label."@en ;
+	] ;
+
+	sh:property [
+		sh:path :alpha2Code ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[A-Z]{2}$" ;
+		sh:name "ISO 3166-1 alpha-2"@en ;
+		sh:description "Must be exactly 2 uppercase letters."@en ;
+		sh:message "Alpha-2 code must be exactly two uppercase letters (e.g., 'US', 'FR')."@en ;
+	] ;
+
+	sh:property [
+		sh:path :alpha3Code ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[A-Z]{3}$" ;
+		sh:name "ISO 3166-1 alpha-3"@en ;
+		sh:description "Must be exactly 3 uppercase letters."@en ;
+		sh:message "Alpha-3 code must be exactly three uppercase letters (e.g., 'USA', 'FRA')."@en ;
+	] ;
+
+	sh:property [
+		sh:path :numericCode ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[0-9]{3}$" ;
+		sh:name "ISO 3166-1 numeric"@en ;
+		sh:description "Must be exactly 3 digits."@en ;
+		sh:message "Numeric code must be exactly three digits (e.g., '840', '250')."@en ;
+	] ;
+
+	# Optional properties with constraints
+	sh:property [
+		sh:path :callingCode ;
+		sh:datatype xsd:string ;
+		sh:pattern "^\\+[0-9]{1,4}$" ;
+		sh:name "calling code"@en ;
+		sh:message "Calling code must start with '+' followed by 1-4 digits."@en ;
+	] ;
+
+	sh:property [
+		sh:path :internetTLD ;
+		sh:datatype xsd:string ;
+		sh:pattern "^\\.[a-z]{2,}$" ;
+		sh:name "internet TLD"@en ;
+		sh:message "Internet TLD must start with '.' followed by lowercase letters."@en ;
+	] ;
+
+	sh:property [
+		sh:path :latitude ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:decimal ;
+		sh:minInclusive -90.0 ;
+		sh:maxInclusive 90.0 ;
+		sh:name "latitude"@en ;
+		sh:message "Latitude must be between -90 and 90 degrees."@en ;
+	] ;
+
+	sh:property [
+		sh:path :longitude ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:decimal ;
+		sh:minInclusive -180.0 ;
+		sh:maxInclusive 180.0 ;
+		sh:name "longitude"@en ;
+		sh:message "Longitude must be between -180 and 180 degrees."@en ;
+	] ;
+
+	sh:property [
+		sh:path :area ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:decimal ;
+		sh:minExclusive 0.0 ;
+		sh:name "area"@en ;
+		sh:message "Area must be a positive number."@en ;
+	] ;
+
+	sh:property [
+		sh:path :population ;
+		sh:datatype xsd:nonNegativeInteger ;
+		sh:minInclusive 0 ;
+		sh:name "population"@en ;
+	] ;
+
+	sh:property [
+		sh:path :capital ;
+		sh:maxCount 1 ;
+		sh:class :Capital ;
+		sh:name "capital"@en ;
+	] .
+
+## Time Zone Shape
+
+:TimeZoneShape a sh:NodeShape ;
+	sh:targetClass :TimeZone ;
+	sh:name "Time Zone Shape"@en ;
+	sh:description "Validation constraints for TimeZone instances."@en ;
+
+	sh:property [
+		sh:path :ianaIdentifier ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[A-Za-z_]+/[A-Za-z_]+$" ;
+		sh:name "IANA identifier"@en ;
+		sh:message "IANA identifier must be in format 'Region/City' (e.g., 'America/New_York')."@en ;
+	] ;
+
+	sh:property [
+		sh:path :utcOffset ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:dayTimeDuration ;
+		sh:name "UTC offset"@en ;
+	] ;
+
+	sh:property [
+		sh:path :observesDST ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:boolean ;
+		sh:name "observes DST"@en ;
+	] ;
+
+	# If observesDST is true, utcOffsetDST must be present
+	sh:sparql [
+		sh:message "Time zones that observe DST must have a utcOffsetDST property."@en ;
+		sh:prefixes : ;
+		sh:select """
+			SELECT $this
+			WHERE {
+				$this :observesDST true .
+				FILTER NOT EXISTS { $this :utcOffsetDST ?offset }
+			}
+		""" ;
+	] .
+
+## Currency Shape
+
+:CurrencyShape a sh:NodeShape ;
+	sh:targetClass :Currency ;
+	sh:name "Currency Shape"@en ;
+	sh:description "Validation constraints for Currency instances."@en ;
+
+	sh:property [
+		sh:path :currencyCode ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[A-Z]{3}$" ;
+		sh:name "ISO 4217 code"@en ;
+		sh:message "Currency code must be exactly three uppercase letters (e.g., 'USD', 'EUR')."@en ;
+	] ;
+
+	sh:property [
+		sh:path :currencyNumericCode ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[0-9]{3}$" ;
+		sh:name "ISO 4217 numeric code"@en ;
+		sh:message "Currency numeric code must be exactly three digits."@en ;
+	] ;
+
+	sh:property [
+		sh:path rdfs:label ;
+		sh:minCount 1 ;
+		sh:datatype rdf:langString ;
+		sh:uniqueLang true ;
+		sh:name "currency name"@en ;
+	] .
+
+## Language Shape
+
+:LanguageShape a sh:NodeShape ;
+	sh:targetClass :Language ;
+	sh:name "Language Shape"@en ;
+	sh:description "Validation constraints for Language instances."@en ;
+
+	sh:property [
+		sh:path :iso6391Code ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[a-z]{2}$" ;
+		sh:name "ISO 639-1 code"@en ;
+		sh:message "ISO 639-1 code must be exactly two lowercase letters."@en ;
+	] ;
+
+	sh:property [
+		sh:path :iso6392Code ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:string ;
+		sh:pattern "^[a-z]{3}$" ;
+		sh:name "ISO 639-2 code"@en ;
+		sh:message "ISO 639-2 code must be exactly three lowercase letters."@en ;
+	] ;
+
+	sh:property [
+		sh:path rdfs:label ;
+		sh:minCount 1 ;
+		sh:datatype rdf:langString ;
+		sh:uniqueLang true ;
+		sh:name "language name"@en ;
+	] .
+
+## Population Count Shape
+
+:PopulationCountShape a sh:NodeShape ;
+	sh:targetClass :PopulationCount ;
+	sh:name "Population Count Shape"@en ;
+	sh:description "Validation constraints for PopulationCount instances."@en ;
+
+	sh:property [
+		sh:path :populationValue ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:nonNegativeInteger ;
+		sh:name "population value"@en ;
+	] ;
+
+	sh:property [
+		sh:path :populationDate ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:datatype xsd:date ;
+		sh:name "population date"@en ;
+	] ;
+
+	sh:property [
+		sh:path :dataSource ;
+		sh:minCount 1 ;
+		sh:datatype xsd:anyURI ;
+		sh:name "data source"@en ;
+		sh:message "Population counts must cite their data source."@en ;
+	] .
+
+## Sovereign State Shape (extends Country Shape)
+
+:SovereignStateShape a sh:NodeShape ;
+	sh:targetClass :SovereignState ;
+	sh:name "Sovereign State Shape"@en ;
+	sh:description "Additional validation constraints specific to sovereign states."@en ;
+
+	sh:property [
+		sh:path :sovereigntyStatus ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:hasValue "independent" ;
+		sh:name "sovereignty status"@en ;
+		sh:message "Sovereign states must have sovereignty status 'independent'."@en ;
+	] ;
+
+	sh:property [
+		sh:path :capital ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:class :Capital ;
+		sh:name "capital"@en ;
+		sh:message "Sovereign states must have exactly one capital city."@en ;
+	] .
+
+## Territory Shape (extends Country Shape)
+
+:TerritoryShape a sh:NodeShape ;
+	sh:targetClass :Territory ;
+	sh:name "Territory Shape"@en ;
+	sh:description "Additional validation constraints specific to dependent territories."@en ;
+
+	sh:property [
+		sh:path :dependencyOf ;
+		sh:minCount 1 ;
+		sh:maxCount 1 ;
+		sh:class :SovereignState ;
+		sh:name "dependency of"@en ;
+		sh:message "Territories must be a dependency of exactly one sovereign state."@en ;
+	] .
+
+## Confidence Level Constraint
+
+:ConfidenceLevelShape a sh:NodeShape ;
+	sh:targetSubjectsOf :confidenceLevel ;
+	sh:property [
+		sh:path :confidenceLevel ;
+		sh:datatype xsd:decimal ;
+		sh:minInclusive 0.0 ;
+		sh:maxInclusive 1.0 ;
+		sh:name "confidence level"@en ;
+		sh:message "Confidence level must be between 0.0 and 1.0."@en ;
+	] .
+
+################################################################################
+# EXAMPLE INSTANCES
+################################################################################
+
+## Example: United States
+
+:USA a :SovereignState ;
+	rdfs:label "United States"@en ;
+	rdfs:label "États-Unis"@fr ;
+	rdfs:label "Estados Unidos"@es ;
+	rdfs:label "Vereinigte Staaten"@de ;
+	skos:altLabel "USA"@en ;
+	skos:altLabel "US"@en ;
+	skos:altLabel "United States of America"@en ;
+	rdfs:comment "Federal republic in North America."@en ;
+
+	# ISO Codes
+	:alpha2Code "US" ;
+	:alpha3Code "USA" ;
+	:numericCode "840" ;
+
+	# Communication
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".us" ;
+
+	# Geographic
+	:latitude 38.0 ;
+	:longitude -97.0 ;
+	:area 9833517.0 ;
+	:landArea 9147593.0 ;
+	:waterArea 685924.0 ;
+	:coastlineLength 19924.0 ;
+
+	# Political
+	:capital :Washington_DC ;
+	:governmentType :FederalPresidentialRepublic ;
+	:sovereigntyStatus "independent" ;
+	:independenceDate "1776-07-04"^^xsd:date ;
+	:constitutionDate "1788-06-21"^^xsd:date ;
+
+	# Economic
+	:currency :USD_Currency ;
+	:gdp 26949000000000.0 ;
+	:gdpPerCapita 80412.0 ;
+
+	# Demographic
+	:population 331900000 ;
+	:populationDensity 36.0 ;
+	:lifeExpectancy 78.9 ;
+
+	# Linguistic
+	:officialLanguage :English_Language ;
+	:spokenLanguage :Spanish_Language ;
+
+	# Time Zones
+	:hasTimeZone :Eastern_Time , :Central_Time , :Mountain_Time , :Pacific_Time ;
+
+	# Regional Organizations
+	:memberOf :United_Nations , :NATO , :OECD ;
+
+	# Borders
+	:bordersWith :Canada , :Mexico ;
+
+	# Provenance
+	dct:source <https://www.census.gov> ;
+	dct:modified "2025-01-13T00:00:00Z"^^xsd:dateTime ;
+	:confidenceLevel 0.99 ;
+
+	# External Alignments
+	owl:sameAs dbr:United_States , wd:Q30 .
+
+## Example: France
+
+:FRA a :SovereignState ;
+	rdfs:label "France"@en ;
+	rdfs:label "France"@fr ;
+	rdfs:label "Francia"@es ;
+	rdfs:label "Frankreich"@de ;
+	skos:altLabel "French Republic"@en ;
+	skos:altLabel "République française"@fr ;
+	rdfs:comment "Unitary semi-presidential republic in Western Europe."@en ;
+
+	# ISO Codes
+	:alpha2Code "FR" ;
+	:alpha3Code "FRA" ;
+	:numericCode "250" ;
+
+	# Communication
+	:callingCode "+33" ;
+	:countryCallingCodePrefix 33 ;
+	:internetTLD ".fr" ;
+
+	# Geographic
+	:latitude 46.0 ;
+	:longitude 2.0 ;
+	:area 643801.0 ;
+	:landArea 640427.0 ;
+	:waterArea 3374.0 ;
+	:coastlineLength 4853.0 ;
+
+	# Political
+	:capital :Paris ;
+	:governmentType :SemiPresidentialRepublic ;
+	:sovereigntyStatus "independent" ;
+	:foundingDate "843-08-10"^^xsd:date ;
+	:constitutionDate "1958-10-04"^^xsd:date ;
+
+	# Economic
+	:currency :EUR_Currency ;
+	:gdp 2957000000000.0 ;
+	:gdpPerCapita 43659.0 ;
+
+	# Demographic
+	:population 67750000 ;
+	:populationDensity 105.0 ;
+	:lifeExpectancy 82.7 ;
+
+	# Linguistic
+	:officialLanguage :French_Language ;
+
+	# Time Zones
+	:hasTimeZone :Central_European_Time ;
+
+	# Regional Organizations
+	:memberOf :United_Nations , :European_Union , :NATO , :OECD ;
+
+	# Borders
+	:bordersWith :Belgium , :Luxembourg , :Germany , :Switzerland , :Italy , :Spain ;
+
+	# Dependencies
+	:hasDependency :French_Guiana , :Guadeloupe , :Martinique ;
+
+	# Provenance
+	dct:source <https://www.insee.fr> ;
+	dct:modified "2025-01-13T00:00:00Z"^^xsd:dateTime ;
+	:confidenceLevel 0.99 ;
+
+	# External Alignments
+	owl:sameAs dbr:France , wd:Q142 .
+
+## Example: Puerto Rico (Territory)
+
+:PRI a :Territory ;
+	rdfs:label "Puerto Rico"@en ;
+	rdfs:label "Porto Rico"@fr ;
+	rdfs:label "Puerto Rico"@es ;
+	skos:altLabel "PR"@en ;
+	skos:altLabel "Commonwealth of Puerto Rico"@en ;
+	rdfs:comment "Unincorporated territory of the United States in the Caribbean."@en ;
+
+	# ISO Codes
+	:alpha2Code "PR" ;
+	:alpha3Code "PRI" ;
+	:numericCode "630" ;
+
+	# Communication
+	:callingCode "+1" ;
+	:countryCallingCodePrefix 1 ;
+	:internetTLD ".pr" ;
+
+	# Geographic
+	:latitude 18.2208 ;
+	:longitude -66.5901 ;
+	:area 9104.0 ;
+	:landArea 8870.0 ;
+	:waterArea 234.0 ;
+	:coastlineLength 501.0 ;
+
+	# Political
+	:capital :San_Juan ;
+	:governmentType :TerritorialGovernment ;
+	:sovereigntyStatus "dependency" ;
+	:dependencyOf :USA ;
+
+	# Economic
+	:currency :USD_Currency ;
+	:gdp 106000000000.0 ;
+	:gdpPerCapita 32281.0 ;
+
+	# Demographic
+	:population 3285874 ;
+	:populationDensity 360.7 ;
+	:lifeExpectancy 80.5 ;
+
+	# Linguistic
+	:officialLanguage :Spanish_Language , :English_Language ;
+
+	# Time Zones
+	:hasTimeZone :Atlantic_Standard_Time ;
+
+	# Provenance
+	dct:source <https://www.census.gov/programs-surveys/popest.html> ;
+	dct:modified "2025-01-13T00:00:00Z"^^xsd:dateTime ;
+	:confidenceLevel 0.95 ;
+
+	# External Alignments
+	owl:sameAs dbr:Puerto_Rico , wd:Q1183 .
+
+## Example Time Zones
+
+:Eastern_Time a :TimeZone ;
+	rdfs:label "Eastern Time Zone"@en ;
+	:ianaIdentifier "America/New_York" ;
+	:timeZoneName "Eastern Standard Time"@en ;
+	:timeZoneAbbreviation "EST" ;
+	:utcOffset "-PT5H"^^xsd:dayTimeDuration ;
+	:utcOffsetDST "-PT4H"^^xsd:dayTimeDuration ;
+	:observesDST true ;
+	:timeZoneOf :USA .
+
+:Central_European_Time a :TimeZone ;
+	rdfs:label "Central European Time"@en ;
+	:ianaIdentifier "Europe/Paris" ;
+	:timeZoneName "Central European Time"@en ;
+	:timeZoneAbbreviation "CET" ;
+	:utcOffset "PT1H"^^xsd:dayTimeDuration ;
+	:utcOffsetDST "PT2H"^^xsd:dayTimeDuration ;
+	:observesDST true ;
+	:timeZoneOf :FRA .
+
+:Atlantic_Standard_Time a :TimeZone ;
+	rdfs:label "Atlantic Standard Time"@en ;
+	:ianaIdentifier "America/Puerto_Rico" ;
+	:timeZoneName "Atlantic Standard Time"@en ;
+	:timeZoneAbbreviation "AST" ;
+	:utcOffset "-PT4H"^^xsd:dayTimeDuration ;
+	:observesDST false ;
+	:timeZoneOf :PRI .
+
+## Example Currencies
+
+:USD_Currency a :Currency ;
+	rdfs:label "United States Dollar"@en ;
+	rdfs:label "Dollar des États-Unis"@fr ;
+	rdfs:label "Dólar estadounidense"@es ;
+	:currencyCode "USD" ;
+	:currencyNumericCode "840" ;
+	:currencySymbol "$" ;
+	owl:sameAs dbr:United_States_dollar , wd:Q4917 .
+
+:EUR_Currency a :Currency ;
+	rdfs:label "Euro"@en ;
+	rdfs:label "Euro"@fr ;
+	rdfs:label "Euro"@es ;
+	:currencyCode "EUR" ;
+	:currencyNumericCode "978" ;
+	:currencySymbol "€" ;
+	owl:sameAs dbr:Euro , wd:Q4916 .
+
+## Example Languages
+
+:English_Language a :Language ;
+	rdfs:label "English"@en ;
+	rdfs:label "Anglais"@fr ;
+	rdfs:label "Inglés"@es ;
+	:iso6391Code "en" ;
+	:iso6392Code "eng" ;
+	owl:sameAs dbr:English_language , wd:Q1860 .
+
+:French_Language a :Language ;
+	rdfs:label "French"@en ;
+	rdfs:label "Français"@fr ;
+	rdfs:label "Francés"@es ;
+	:iso6391Code "fr" ;
+	:iso6392Code "fra" ;
+	owl:sameAs dbr:French_language , wd:Q150 .
+
+:Spanish_Language a :Language ;
+	rdfs:label "Spanish"@en ;
+	rdfs:label "Espagnol"@fr ;
+	rdfs:label "Español"@es ;
+	:iso6391Code "es" ;
+	:iso6392Code "spa" ;
+	owl:sameAs dbr:Spanish_language , wd:Q1321 .
+
+## Example Capitals
+
+:Washington_DC a :Capital ;
+	rdfs:label "Washington, D.C."@en ;
+	rdfs:label "Washington (district de Columbia)"@fr ;
+	:latitude 38.9072 ;
+	:longitude -77.0369 ;
+	owl:sameAs dbr:Washington,_D.C. , wd:Q61 .
+
+:Paris a :Capital ;
+	rdfs:label "Paris"@en ;
+	rdfs:label "Paris"@fr ;
+	:latitude 48.8566 ;
+	:longitude 2.3522 ;
+	owl:sameAs dbr:Paris , wd:Q90 .
+
+:San_Juan a :Capital ;
+	rdfs:label "San Juan"@en ;
+	rdfs:label "San Juan"@es ;
+	:latitude 18.4655 ;
+	:longitude -66.1057 ;
+	owl:sameAs dbr:San_Juan,_Puerto_Rico , wd:Q41211 .
+
+## Example Government Types
+
+:FederalPresidentialRepublic a :GovernmentType ;
+	rdfs:label "Federal Presidential Republic"@en ;
+	rdfs:label "République présidentielle fédérale"@fr .
+
+:SemiPresidentialRepublic a :GovernmentType ;
+	rdfs:label "Semi-Presidential Republic"@en ;
+	rdfs:label "République semi-présidentielle"@fr .
+
+:TerritorialGovernment a :GovernmentType ;
+	rdfs:label "Territorial Government"@en ;
+	rdfs:label "Gouvernement territorial"@fr .
+
+## Example Regional Organizations
+
+:United_Nations a :RegionalOrganization ;
+	rdfs:label "United Nations"@en ;
+	rdfs:label "Nations Unies"@fr ;
+	rdfs:label "Naciones Unidas"@es ;
+	skos:altLabel "UN"@en ;
+	owl:sameAs dbr:United_Nations , wd:Q1065 .
+
+:European_Union a :RegionalOrganization ;
+	rdfs:label "European Union"@en ;
+	rdfs:label "Union européenne"@fr ;
+	rdfs:label "Unión Europea"@es ;
+	skos:altLabel "EU"@en ;
+	owl:sameAs dbr:European_Union , wd:Q458 .
+
+:NATO a :RegionalOrganization ;
+	rdfs:label "North Atlantic Treaty Organization"@en ;
+	rdfs:label "Organisation du traité de l'Atlantique nord"@fr ;
+	skos:altLabel "NATO"@en ;
+	skos:altLabel "OTAN"@fr ;
+	owl:sameAs dbr:NATO , wd:Q7184 .
+
+:OECD a :RegionalOrganization ;
+	rdfs:label "Organisation for Economic Co-operation and Development"@en ;
+	rdfs:label "Organisation de coopération et de développement économiques"@fr ;
+	skos:altLabel "OECD"@en ;
+	skos:altLabel "OCDE"@fr ;
+	owl:sameAs dbr:OECD , wd:Q41550 .
+
+## Example Countries (minimal for border references)
+
+:Canada a :SovereignState ;
+	rdfs:label "Canada"@en ;
+	:alpha2Code "CA" ;
+	:alpha3Code "CAN" ;
+	:numericCode "124" ;
+	owl:sameAs dbr:Canada , wd:Q16 .
+
+:Mexico a :SovereignState ;
+	rdfs:label "Mexico"@en ;
+	:alpha2Code "MX" ;
+	:alpha3Code "MEX" ;
+	:numericCode "484" ;
+	owl:sameAs dbr:Mexico , wd:Q96 .
+
+:Belgium a :SovereignState ;
+	rdfs:label "Belgium"@en ;
+	:alpha2Code "BE" ;
+	:alpha3Code "BEL" ;
+	:numericCode "056" ;
+	owl:sameAs dbr:Belgium , wd:Q31 .
+
+:Luxembourg a :SovereignState ;
+	rdfs:label "Luxembourg"@en ;
+	:alpha2Code "LU" ;
+	:alpha3Code "LUX" ;
+	:numericCode "442" ;
+	owl:sameAs dbr:Luxembourg , wd:Q32 .
+
+:Germany a :SovereignState ;
+	rdfs:label "Germany"@en ;
+	:alpha2Code "DE" ;
+	:alpha3Code "DEU" ;
+	:numericCode "276" ;
+	owl:sameAs dbr:Germany , wd:Q183 .
+
+:Switzerland a :SovereignState ;
+	rdfs:label "Switzerland"@en ;
+	:alpha2Code "CH" ;
+	:alpha3Code "CHE" ;
+	:numericCode "756" ;
+	owl:sameAs dbr:Switzerland , wd:Q39 .
+
+:Italy a :SovereignState ;
+	rdfs:label "Italy"@en ;
+	:alpha2Code "IT" ;
+	:alpha3Code "ITA" ;
+	:numericCode "380" ;
+	owl:sameAs dbr:Italy , wd:Q38 .
+
+:Spain a :SovereignState ;
+	rdfs:label "Spain"@en ;
+	:alpha2Code "ES" ;
+	:alpha3Code "ESP" ;
+	:numericCode "724" ;
+	owl:sameAs dbr:Spain , wd:Q29 .
+
+## Example French Territories
+
+:French_Guiana a :Territory ;
+	rdfs:label "French Guiana"@en ;
+	:alpha2Code "GF" ;
+	:alpha3Code "GUF" ;
+	:numericCode "254" ;
+	:dependencyOf :FRA ;
+	owl:sameAs dbr:French_Guiana , wd:Q3769 .
+
+:Guadeloupe a :Territory ;
+	rdfs:label "Guadeloupe"@en ;
+	:alpha2Code "GP" ;
+	:alpha3Code "GLP" ;
+	:numericCode "312" ;
+	:dependencyOf :FRA ;
+	owl:sameAs dbr:Guadeloupe , wd:Q17012 .
+
+:Martinique a :Territory ;
+	rdfs:label "Martinique"@en ;
+	:alpha2Code "MQ" ;
+	:alpha3Code "MTQ" ;
+	:numericCode "474" ;
+	:dependencyOf :FRA ;
+	owl:sameAs dbr:Martinique , wd:Q17054 .
+
+## Example Population Count with Temporal Validity
+
+:USA_Population_2023 a :PopulationCount ;
+	:populationValue 331900000 ;
+	:populationDate "2023-07-01"^^xsd:date ;
+	:validFrom "2023-07-01"^^xsd:date ;
+	:validUntil "2024-06-30"^^xsd:date ;
+	:dataSource <https://www.census.gov/programs-surveys/popest.html> ;
+	:confidenceLevel 0.98 ;
+	dct:modified "2024-01-15T12:00:00Z"^^xsd:dateTime .
+
+:USA :populationCount :USA_Population_2023 .

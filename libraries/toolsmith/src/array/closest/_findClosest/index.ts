@@ -1,12 +1,17 @@
-//++ Finds the closest value to a target (private, not curried for use in reduce)
-//++ [EXCEPTION] Using native Math.abs() for performance
-export default function _findClosest(
-	target: number,
-	closestValue: number,
-	currentValue: number,
-): number {
-	const currentDistance = Math.abs(currentValue - target)
-	const closestDistance = Math.abs(closestValue - target)
+/*++
+ + [EXCEPTION] Toolsmith functions are permitted to use JS operators and OOP methods for performance.
+ + Finds the closest value to a target
+ + [EXCEPTION] Using native Math.abs() for performance
+ */
+export default function _findClosest(target: number) {
+	return function findClosestToTarget(closestValue: number) {
+		return function findClosestToTargetAndClosest(
+			currentValue: number,
+		): number {
+			const currentDistance = Math.abs(currentValue - target)
+			const closestDistance = Math.abs(closestValue - target)
 
-	return currentDistance < closestDistance ? currentValue : closestValue
+			return currentDistance < closestDistance ? currentValue : closestValue
+		}
+	}
 }
