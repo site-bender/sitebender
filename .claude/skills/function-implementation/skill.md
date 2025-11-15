@@ -18,11 +18,13 @@ Functions are the fundamental building blocks of this codebase. Each function fo
 This is the definition from Haskell and lambda calculus. In Haskell, ALL functions are curried because they all take exactly one parameter.
 
 **Understanding currying:**
+
 - **Unary function**: Takes one parameter, returns a value → **IS CURRIED** (one parameter)
 - **Binary function**: Takes one parameter, returns a function that takes one parameter → **IS CURRIED** (one parameter)
 - **Ternary function**: Takes one parameter, returns function that returns function → **IS CURRIED** (one parameter)
 
 **Curried does NOT mean "higher-order":**
+
 - Curried = takes one parameter (any function with one parameter is curried)
 - Higher-order = takes/returns functions (a subset of functions)
 - A function can be curried but NOT higher-order (example: `function double(n: number): number`)
@@ -33,6 +35,7 @@ This is the definition from Haskell and lambda calculus. In Haskell, ALL functio
 ## When to Use This Skill
 
 Use this skill when:
+
 - Creating any new function
 - Refactoring existing functions to follow constitutional rules
 - Unsure how to structure curried functions
@@ -54,18 +57,19 @@ Create a TypeScript config file with complete function specification:
 import type { FunctionConfig } from "./.claude/skills/function-implementation/types.ts"
 
 export default {
-  name: "add",
-  conjunction: "To",
-  parameters: [
-    { name: "augend", type: "number" },
-    { name: "addend", type: "number" },
-  ],
-  returns: "number",
-  description: "Adds two numbers together",
+	name: "add",
+	conjunction: "To",
+	parameters: [
+		{ name: "augend", type: "number" },
+		{ name: "addend", type: "number" },
+	],
+	returns: "number",
+	description: "Adds two numbers together",
 } satisfies FunctionConfig
 ```
 
 **Generate the function:**
+
 ```bash
 # Auto-deletes config after use
 deno task new:function add.config.ts
@@ -75,6 +79,7 @@ deno task new:function add.config.ts --keep
 ```
 
 **This generates:**
+
 - `add/index.ts` - Curried function with correct types and names
 - `add/index.test.ts` - Test boilerplate
 
@@ -85,18 +90,21 @@ The `conjunction` field determines inner function naming. Use this decision tree
 #### Decision Tree for Conjunction Selection
 
 **1. Is the first parameter a FUNCTION?**
+
 - ✅ Yes → Use **"With"**
   - `map(fn)` → `mapWithFunction`
   - `filter(predicate)` → `filterWithPredicate`
   - `reduce(reducer)` → `reduceWithReducer`
 
 **2. Is the first parameter applied TO the second (like mathematical operations)?**
+
 - ✅ Yes → Use **"To"**
   - `add(5)` → `addTo5` (add 5 TO something)
   - `multiply(3)` → `multiplyBy3` (multiply something BY 3)
   - `subtract(10)` → `subtractFrom10` (subtract FROM 10)
 
 **3. Is the first parameter CONFIG/CONTEXT for the second?**
+
 - ✅ Yes → Use **"For"**
   - `validate(rules)` → `validateForRules`
   - `format(options)` → `formatForOptions`
@@ -107,6 +115,7 @@ The `conjunction` field determines inner function naming. Use this decision tree
 #### Examples by Pattern
 
 **Mathematical/Accumulation (To):**
+
 ```typescript
 add(augend) → addToAugend(addend)
 append(item) → appendToItem(array)
@@ -114,6 +123,7 @@ convertTo(unit) → convertValueTo(value)
 ```
 
 **Configuration/Operation (With):**
+
 ```typescript
 map(fn) → mapWithFunction(array)
 sortBy(comparator) → sortByWithComparator(array)
@@ -121,6 +131,7 @@ parseWith(parser) → parseWithParser(text)
 ```
 
 **Context/Rules (For):**
+
 ```typescript
 validateFor(schema) → validateDataForSchema(data)
 authorizeFor(permissions) → authorizeUserForPermissions(user)
@@ -136,13 +147,13 @@ For generating multiple functions or scripting:
 import { generateFunction } from "./.claude/skills/function-implementation/generator.ts"
 
 await generateFunction({
-  name: "add",
-  conjunction: "To",
-  parameters: [
-    { name: "augend", type: "number" },
-    { name: "addend", type: "number" },
-  ],
-  returns: "number",
+	name: "add",
+	conjunction: "To",
+	parameters: [
+		{ name: "augend", type: "number" },
+		{ name: "addend", type: "number" },
+	],
+	returns: "number",
 })
 ```
 
@@ -163,6 +174,7 @@ Functions with a single logical parameter **ARE curried** (they take exactly one
 **When to use:** Type guards, predicates, simple transformations, single-input operations
 
 **Structure:**
+
 ```typescript
 //++ Brief description of what the function does
 export default function functionName<T>(parameter: T): ReturnType {
@@ -171,6 +183,7 @@ export default function functionName<T>(parameter: T): ReturnType {
 ```
 
 **Example (from Toolsmith):**
+
 ```typescript
 //++ Performs logical NOT operation on a value
 //++ Negates the truthiness of any value
@@ -182,14 +195,18 @@ export default function not(value: Value): boolean {
 ```
 
 **Example (type guard):**
+
 ```typescript
 //++ Type guard that checks if a value is an Array
-export default function isArray<T = unknown>(value: unknown): value is ReadonlyArray<T> {
+export default function isArray<T = unknown>(
+	value: unknown,
+): value is ReadonlyArray<T> {
 	return Array.isArray(value)
 }
 ```
 
 **Key characteristics:**
+
 - Single parameter only (already curried by definition)
 - Returns value directly (not a higher-order function)
 - Direct return
@@ -203,16 +220,20 @@ Functions with two logical parameters are **curried**: outer function takes firs
 **When to use:** Array operations (map, filter), comparisons, binary operations, two-step transformations
 
 **Structure:**
+
 ```typescript
 //++ Brief description of what the function does
 export default function functionName<T, U>(firstParameter: T) {
-	return function functionNameWithFirstParameter(secondParameter: U): ReturnType {
+	return function functionNameWithFirstParameter(
+		secondParameter: U,
+	): ReturnType {
 		// implementation using both parameters
 	}
 }
 ```
 
 **Example (from Toolsmith):**
+
 ```typescript
 //++ Filters array elements that satisfy predicate
 //++ Returns Result with filtered array or error if input is invalid
@@ -233,6 +254,7 @@ export default function filter<T extends Serializable>(
 ```
 
 **Key characteristics:**
+
 - Outer function takes configuration/operation parameter
 - Inner function named meaningfully (e.g., `filterWithPredicate`)
 - Inner function takes data parameter
@@ -246,12 +268,13 @@ Functions with three logical parameters are **doubly curried**: outer function r
 **When to use:** Reduce operations, three-step transformations, operations requiring function + config + data
 
 **Structure:**
+
 ```typescript
 //++ Brief description of what the function does
 export default function functionName<T, U, V>(firstParameter: T) {
 	return function functionNameWithFirstParameter(secondParameter: U) {
 		return function functionNameWithFirstParameterAndSecondParameter(
-			thirdParameter: V
+			thirdParameter: V,
 		): ReturnType {
 			// implementation using all three parameters
 		}
@@ -260,11 +283,14 @@ export default function functionName<T, U, V>(firstParameter: T) {
 ```
 
 **Example (from Toolsmith):**
+
 ```typescript
 //++ Reduces array to a single value using a reducer function
 export default function reduce<T, U>(fn: (accumulator: U, item: T) => U) {
 	return function reduceWithFunction(initialValue: U) {
-		return function reduceWithFunctionAndInitialValue(array: ReadonlyArray<T>): U {
+		return function reduceWithFunctionAndInitialValue(
+			array: ReadonlyArray<T>,
+		): U {
 			// Happy path: plain array
 			if (isArray<T>(array)) {
 				return _reduceArray(fn)(initialValue)(array)
@@ -277,6 +303,7 @@ export default function reduce<T, U>(fn: (accumulator: U, item: T) => U) {
 ```
 
 **Key characteristics:**
+
 - Two levels of nesting
 - Each inner function accumulates parameters
 - Inner function names describe what's been accumulated
@@ -290,18 +317,22 @@ Functions that take other functions as parameters and/or return functions.
 **When to use:** Combinators, decorators, function composition, adapters
 
 **Structure:**
+
 ```typescript
 //++ Brief description of what the higher-order function does
 export default function higherOrderFunction<T>(
-	fn: (arg: T) => ReturnType
+	fn: (arg: T) => ReturnType,
 ) {
-	return function higherOrderFunctionWithFunction(data: T): ProcessedReturnType {
+	return function higherOrderFunctionWithFunction(
+		data: T,
+	): ProcessedReturnType {
 		// Use fn on data, possibly transforming or composing
 	}
 }
 ```
 
 **Example (combinator):**
+
 ```typescript
 //++ Combines multiple predicates with logical AND
 export default function allPass<T>(predicates: ReadonlyArray<Predicate<T>>) {
@@ -313,6 +344,7 @@ export default function allPass<T>(predicates: ReadonlyArray<Predicate<T>>) {
 ```
 
 **Key characteristics:**
+
 - Function parameters use function type annotations
 - Extract callbacks to private helpers (never inline)
 - Use currying to capture outer scope in helpers
@@ -322,9 +354,10 @@ export default function allPass<T>(predicates: ReadonlyArray<Predicate<T>>) {
 
 Functions that behave differently based on input type, using TypeScript function overloads.
 
-**When to use:** Functions that operate on plain values OR monads (Result, Validation)
+**When to use:** Functions that operate on plain values OR monads (Maybe, Result, Validation)
 
 **Structure:**
+
 ```typescript
 //++ Brief description
 export default function functionName<T, U>(fn: (arg: T) => U) {
@@ -347,6 +380,7 @@ export default function functionName<T, U>(fn: (arg: T) => U) {
 ```
 
 **Example (from Toolsmith):**
+
 ```typescript
 //++ Transforms each array element using a function
 export default function map<T, U>(f: (arg: T) => U) {
@@ -378,6 +412,7 @@ export default function map<T, U>(f: (arg: T) => U) {
 ```
 
 **Key characteristics:**
+
 - Overload signatures come first
 - Implementation signature is last and most general
 - Envoy comments on each overload
@@ -422,6 +457,7 @@ map(double)(numbers)
 ```
 
 **Why data last?**
+
 - Enables partial application (pre-configure operation, apply later)
 - Enables function composition with pipe/compose
 - Matches mathematical convention (f(g(x)))
@@ -434,6 +470,7 @@ Inner function names must be **meaningful and descriptive**, showing what parame
 **Naming patterns:**
 
 ### "With" Pattern
+
 Use "With" to show what configuration/parameters have been accumulated:
 
 ```typescript
@@ -453,6 +490,7 @@ function reduce<T, U>(fn: (acc: U, item: T) => U) {
 ```
 
 ### "To" Pattern
+
 Use "To" for transformation functions:
 
 ```typescript
@@ -464,6 +502,7 @@ function addToAugend(addend: number): number { ... }
 ```
 
 ### "For" Pattern
+
 Use "For" when applying to specific context:
 
 ```typescript
@@ -473,6 +512,7 @@ function validateForUser(rules: Rules) {
 ```
 
 **Never use:**
+
 - Generic names like `inner`, `fn`, `result`
 - Underscore prefix (that's for private helpers only)
 - Single letters like `f`, `g`, `h`
@@ -552,6 +592,7 @@ export default function allPass<T>(predicates: Predicates<T>) {
 All functions must have Envoy documentation comments using `//++` syntax.
 
 **Structure:**
+
 ```typescript
 //++ Brief description of what the function does (one line)
 //++ Optional additional details or usage notes
@@ -569,6 +610,7 @@ export default function functionName(...) {
 ```
 
 **Example:**
+
 ```typescript
 //++ Filters array elements that satisfy predicate
 //++ Returns Result with filtered array or error if input is invalid
@@ -704,19 +746,23 @@ export default function add(augend: number) {
 Examine examples in `examples/` folder and in Toolsmith library:
 
 **Unary (curried, returns value):**
+
 - `toolsmith/src/predicates/isArray/index.ts`
 - `toolsmith/src/logic/not/index.ts`
 - `toolsmith/src/predicates/isString/index.ts`
 
 **Binary (curried, returns function):**
+
 - `toolsmith/src/array/map/index.ts`
 - `toolsmith/src/array/filter/index.ts`
 - `toolsmith/src/comparison/is/index.ts`
 
 **Ternary (curried, returns function that returns function):**
+
 - `toolsmith/src/array/reduce/index.ts`
 
 **Higher-order:**
+
 - `toolsmith/src/validation/allPass/index.ts`
 - `toolsmith/src/validation/anyPass/index.ts`
 
@@ -737,6 +783,7 @@ When implementing function bodies, you MUST follow these rules:
 ### When to Return Result vs Plain Values
 
 **Return plain values when:**
+
 - Operation cannot fail (pure computation)
 - Input is guaranteed valid by types
 - No external dependencies
@@ -751,6 +798,7 @@ export default function add(augend: number) {
 ```
 
 **Return Result<T, E> when:**
+
 - Operation can fail (validation, parsing, IO)
 - Input needs validation
 - Error handling is required
@@ -758,7 +806,9 @@ export default function add(augend: number) {
 ```typescript
 // ✅ Result - can fail
 export default function divide(dividend: number) {
-	return function divideDividendBy(divisor: number): Result<ValidationError, number> {
+	return function divideDividendBy(
+		divisor: number,
+	): Result<ValidationError, number> {
 		if (divisor === 0) {
 			return error({
 				code: "DIVISION_BY_ZERO",
@@ -798,7 +848,9 @@ function parseJson(text: string): Result<ValidationError, unknown> {
 **Validate inputs and return early:**
 
 ```typescript
-export default function processUser(user: unknown): Result<ValidationError, ProcessedUser> {
+export default function processUser(
+	user: unknown,
+): Result<ValidationError, ProcessedUser> {
 	// Validate input type
 	if (!isObject(user)) {
 		return error({
@@ -854,7 +906,9 @@ function multiplyBy2(n: number): number {
 
 ```typescript
 // ❌ WRONG - inline arrow function
-export default function findEven(numbers: ReadonlyArray<number>): ReadonlyArray<number> {
+export default function findEven(
+	numbers: ReadonlyArray<number>,
+): ReadonlyArray<number> {
 	return numbers.filter((n) => n % 2 === 0)
 }
 
@@ -862,7 +916,9 @@ export default function findEven(numbers: ReadonlyArray<number>): ReadonlyArray<
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
 import _isEven from "./_isEven/index.ts"
 
-export default function findEven(numbers: ReadonlyArray<number>): ReadonlyArray<number> {
+export default function findEven(
+	numbers: ReadonlyArray<number>,
+): ReadonlyArray<number> {
 	return filter(_isEven)(numbers)
 }
 
@@ -875,6 +931,7 @@ export default function _isEven(n: number): boolean {
 ### Common Imports from Toolsmith
 
 **Monads:**
+
 ```typescript
 import ok from "@sitebender/toolsmith/monads/result/ok/index.ts"
 import error from "@sitebender/toolsmith/monads/result/error/index.ts"
@@ -883,6 +940,7 @@ import type { ValidationError } from "@sitebender/toolsmith/types/fp/validation/
 ```
 
 **Array operations:**
+
 ```typescript
 import map from "@sitebender/toolsmith/array/map/index.ts"
 import filter from "@sitebender/toolsmith/array/filter/index.ts"
@@ -892,6 +950,7 @@ import isNotEmpty from "@sitebender/toolsmith/array/isNotEmpty/index.ts"
 ```
 
 **Logic operations:**
+
 ```typescript
 import not from "@sitebender/toolsmith/logic/not/index.ts"
 import and from "@sitebender/toolsmith/logic/and/index.ts"
@@ -899,6 +958,7 @@ import or from "@sitebender/toolsmith/logic/or/index.ts"
 ```
 
 **Predicates:**
+
 ```typescript
 import isArray from "@sitebender/toolsmith/predicates/isArray/index.ts"
 import isObject from "@sitebender/toolsmith/predicates/isObject/index.ts"
@@ -923,6 +983,7 @@ When implementing function body, verify:
 ## Cross-References
 
 **References:**
+
 - naming skill - For function and parameter naming conventions
 - abbreviations skill - For avoiding unapproved abbreviations
 - operator-substitutions skill - For using Toolsmith functions instead of operators
@@ -931,6 +992,7 @@ When implementing function body, verify:
 - file-system-organization skill - For helper function placement
 
 **Referenced by:**
+
 - All other skills that involve writing functions
 - error-handling skill - Uses function patterns
 - testing skill - Tests functions following these patterns
