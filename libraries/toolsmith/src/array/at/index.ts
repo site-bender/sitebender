@@ -15,18 +15,18 @@ import _atToResult from "./_atToResult/index.ts"
 import _atToValidation from "./_atToValidation/index.ts"
 
 export default function at<E, T>(index: number) {
-	//++ [OVERLOAD] Plain array: gets element at index, returns element or undefined
-	function atWithIndex(array: ReadonlyArray<T>): T | undefined
+	//++ [OVERLOAD] Plain array: gets element at index, returns element or null
+	function atWithIndex(array: ReadonlyArray<T>): T | null
 
 	//++ [OVERLOAD] Result monad: gets element from Result array (fail-fast)
 	function atWithIndex(
 		array: Result<E, ReadonlyArray<T>>,
-	): Result<E, T | undefined>
+	): Result<E, T | null>
 
 	//++ [OVERLOAD] Validation monad: gets element from Validation array (error accumulation)
 	function atWithIndex(
 		array: Validation<E, ReadonlyArray<T>>,
-	): Validation<E, T | undefined>
+	): Validation<E, T | null>
 
 	//++ Implementation of the full curried function with runtime type routing
 	function atWithIndex(
@@ -34,7 +34,7 @@ export default function at<E, T>(index: number) {
 			| ReadonlyArray<T>
 			| Result<E, ReadonlyArray<T>>
 			| Validation<E, ReadonlyArray<T>>,
-	): T | undefined | Result<E, T | undefined> | Validation<E, T | undefined> {
+	): T | null | Result<E, T | null> | Validation<E, T | null> {
 		// Happy path: plain array
 		if (isArray<T>(array)) {
 			return _atArray<T>(index)(array)
@@ -53,9 +53,9 @@ export default function at<E, T>(index: number) {
 		// Fallback: pass through unchanged (handles Error/Failure states)
 		return array as
 			| T
-			| undefined
-			| Result<E, T | undefined>
-			| Validation<E, T | undefined>
+			| null
+			| Result<E, T | null>
+			| Validation<E, T | null>
 	}
 
 	return atWithIndex

@@ -1,15 +1,15 @@
 ---
 name: three-path-pattern
-description: Implements Toolsmith functions using the three-path pattern (plain/Result/Validation). Use when creating or converting functions for the Toolsmith library. Ensures currying, function keyword syntax, immutability, and constitutional compliance. NOT for predicates. Work on ONE function at a time.
+description: Implements Toolsmith functions using the three-path pattern (Maybe/Result/Validation). Use when creating or converting functions for the Toolsmith library. Ensures currying, function keyword syntax, immutability, and constitutional compliance. NOT for predicates. Work on ONE function at a time.
 ---
 
 # Three-Path Pattern Implementation
 
 ## ⚠️ CRITICAL WORKFLOW REQUIREMENT ⚠️
 
-**WORK ON ONE FUNCTION AT A TIME. NO SHORTCUTS. NO BATCHING. NO AGENTS. NO SCRIPTS TO "AUTOMATE" MULTIPLE FUNCTIONS.**
+**WORK ON ONE FUNCTION AT A TIME. NO SHORTCUTS. NO BATCHING. NO AGENTS. NO SCRIPTS TO "AUTOMATE" MULTIPLE FUNCTIONS. THIS IS NOT OPTIONAL!**
 
-Implement a SINGLE function carefully, completely, and correctly. Do not attempt to speed up the process by working on multiple functions, using agents, or taking any shortcuts. The architect has wasted months cleaning up messes from shortcuts. Follow this process exactly.
+Implement a SINGLE function (including helpers) carefully, completely, and correctly. Do not attempt to speed up the process by working on multiple functions, using agents, or taking any shortcuts. The architect has wasted months cleaning up messes from shortcuts. Follow this process exactly.
 
 **THE SKILL IS NOT COMPLETE UNTIL ALL TESTS PASS, LINTING PASSES, AND TYPE CHECKS PASS. NO CHEATING.**
 
@@ -33,27 +33,36 @@ DO NOT use this skill for:
 
 ## What is the Three-Path Pattern?
 
-The three-path pattern allows a single function to work in three different error-handling contexts by detecting input type at runtime and routing to the appropriate implementation.
+The three-path pattern allows a single function to work in three different monadic contexts by detecting input type at runtime and routing to the appropriate implementation. All three paths are essential for composition chains where earlier operations might return Nothing/Error/Failure.
 
 ### The Three Paths
 
-1. **Plain Path**: Takes `ReadonlyArray<T>`, returns plain value or array
-   - No error handling
-   - Direct computation
-   - Fastest path
-   - Example: `map(double)([1, 2, 3])` → `[2, 4, 6]`
+1. **Maybe Path**: Takes `Maybe<T>`, returns `Maybe<U>`
+   - For composition chains where value might not exist
+   - Returns `Nothing` when input is `Nothing` or operation fails
+   - Returns `Just(value)` on success
+   - Used when you don't need detailed error information
+   - Example (array): `map(double)(just([1, 2, 3]))` → `just([2, 4, 6])`
+   - Example (string): `toUpperCase(just("hello"))` → `just("HELLO")`
+   - Example: `map(double)(nothing())` → `nothing()`
 
-2. **Result Path**: Takes `Result<E, ReadonlyArray<T>>`, returns `Result<E, U>`
-   - Fail-fast error handling
+2. **Result Path**: Takes `Result<E, T>`, returns `Result<E, U>`
+   - Fail-fast error handling with detailed error context
    - Single error stops processing
-   - Used in pipelines
-   - Example: `map(double)(ok([1, 2, 3]))` → `ok([2, 4, 6])`
+   - Returns `Error` with structured error object
+   - Used in pipelines where you need error details
+   - Example (array): `map(double)(ok([1, 2, 3]))` → `ok([2, 4, 6])`
+   - Example (number): `sqrt(ok(4))` → `ok(2)`
+   - Example: `map(double)(error({code: "ERR"}))` → `error({code: "ERR"})`
 
-3. **Validation Path**: Takes `Validation<E, ReadonlyArray<T>>`, returns `Validation<E, U>`
-   - Error accumulation
-   - Collects all errors
+3. **Validation Path**: Takes `Validation<E, T>`, returns `Validation<E, U>`
+   - Error accumulation with detailed error context
+   - Collects all errors for comprehensive feedback
+   - Returns `Failure` with array of error objects
    - Used in form validation
-   - Example: `map(double)(success([1, 2, 3]))` → `success([2, 4, 6])`
+   - Example (array): `map(double)(success([1, 2, 3]))` → `success([2, 4, 6])`
+   - Example (object): `validateUser(success({name: "Alice"}))` → `success({name: "Alice"})`
+   - Example: `map(double)(failure([{code: "ERR"}]))` → `failure([{code: "ERR"}])`
 
 ---
 
@@ -64,12 +73,111 @@ ALL code MUST follow these rules:
 1. ✅ **No classes** - Use pure functions only
 2. ✅ **No mutations** - `ReadonlyArray<T>`, no `.push()`, etc.
 3. ✅ **No loops** - Already using native methods (which are internal loops)
-4. ✅ **No exceptions** - Return Result/Validation errors
-5. ✅ **One function per file** - Each file exports exactly one function
-6. ✅ **Pure functions** - Same input → same output
-7. ✅ **No arrow functions** - Use `function` keyword only
-8. ✅ **All functions curried** - One parameter per function
-9. ✅ **All functions fully tested** - Use TDD, all tests pass before completion
+4. ✅ **No exceptions** - Return Nothing/Error/Failure, **EXCEPT**:
+   - **[EXCEPTION]** try/catch permitted ONLY to wrap user-provided functions
+   - Must convert exceptions to Nothing/Error/Failure
+   - Must document with `[EXCEPTION]` comment
+5. ✅ **Never use `null` in data** - `null` is forbidden as a data value
+   - Use `undefined` for absent values in data structures
+6. ✅ **One function per file** - Each file exports exactly one function
+7. ✅ **Pure functions** - Same input → same output
+8. ✅ **No arrow functions** - Use `function` keyword only
+9. ✅ **All functions curried** - One parameter per function (curried functions are not necessarily higher order!)
+10. ✅ **All functions fully tested** - Use TDD, all tests pass before completion, 100% coverage
+
+---
+
+## Two Categories of Three-Path Functions
+
+### Category 1: Functions WITHOUT Function Parameters
+
+Most Toolsmith functions fall into this category. They perform operations that might fail but don't accept user-provided functions.
+
+**Examples:**
+
+- `parseJson(jsonString)` - Parse can fail with malformed JSON
+- `sqrt(number)` - Can fail with negative numbers
+- `clamp(min)(max)(value)` - Can fail with invalid ranges
+- `at(index)(array)` - Can fail with out-of-bounds index
+
+**Pattern:** Simple three-path routing, no try/catch wrapping needed:
+
+```typescript
+function _functionNameToMaybe<T, U>(input: T): Maybe<U> {
+	// Happy path: validate inputs
+	if (isValidInput(input)) {
+		const result = performOperation(input)
+		return just(result)
+	}
+
+	// Sad path: invalid input
+	return nothing()
+}
+```
+
+### Category 2: Functions WITH User-Provided Function Parameters
+
+Higher-order functions that accept predicates, transformers, or reducers MUST validate and safely wrap user-provided functions.
+
+**Examples:**
+
+- `map(userFunction)(array)` - User provides transformer
+- `filter(userPredicate)(array)` - User provides predicate
+- `reduce(userReducer)(initialValue)(array)` - User provides reducer
+
+**Why Wrapping is Required:**
+
+- User might pass non-function value
+- Function might return wrong type
+- Function might throw exceptions
+
+**Built-in predicates** (`isFiniteNumber`, `isArray`, etc.) do NOT need wrapping - they handle `unknown` safely.
+
+### The Wrapping Pattern (Category 2 Only)
+
+```typescript
+function _functionNameToMaybe<T, U>(userFunction: (item: T) => U) {
+	return function (input: T): Maybe<U> {
+		/*++
+     + [EXCEPTION] try/catch permitted to wrap user-provided function.
+     + User functions are untrusted external code that may:
+     + - Not be a function
+     + - Return wrong type
+     + - Throw exceptions
+     */
+		try {
+			// Happy path: validate is function
+			if (isFunction(userFunction)) {
+				// Execute user function
+				const result = userFunction(input)
+
+				// Happy path: validate return type if needed
+				if (isExpectedType(result)) {
+					return just(result)
+				}
+			}
+
+			// Any validation failure falls through
+			return nothing()
+		} catch (err) {
+			// Convert exception to Nothing
+			return nothing()
+		}
+	}
+}
+```
+
+### Error Handling by Path
+
+**Maybe path:** Return `nothing()` on any error
+
+**Result path:** Return descriptive `error({...})` with:
+
+- `INVALID_PREDICATE` / `INVALID_FUNCTION` - not a function
+- `PREDICATE_NON_BOOLEAN` / `FUNCTION_WRONG_TYPE` - wrong return type
+- `PREDICATE_THREW` / `FUNCTION_THREW` - exception thrown
+
+**Validation path:** Return `failure([{...}])` with same error codes
 
 ---
 
@@ -89,12 +197,15 @@ Before writing code, answer:
 
 ```
 functionName/
-  _functionNameArray/
+  _functionNameToMaybe/
     index.ts
+    index.test.ts
   _functionNameToResult/
     index.ts
+    index.test.ts
   _functionNameToValidation/
     index.ts
+    index.test.ts
   index.ts
   index.test.ts
 ```
@@ -102,7 +213,14 @@ functionName/
 **Optional**: Use the generator script to scaffold:
 
 ```bash
+# For array functions:
 deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/script.ts functionName ./libraries/toolsmith/src/array "Function description"
+
+# For string functions:
+deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/script.ts functionName ./libraries/toolsmith/src/string "Function description"
+
+# For other domains (number, object, etc.):
+deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/script.ts functionName ./libraries/toolsmith/src/DOMAIN "Function description"
 ```
 
 ### Step 3: Write Tests FIRST (TDD Approach)
@@ -111,7 +229,7 @@ deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/sc
 
 Create `index.test.ts` with test cases for all three paths:
 
-- Plain array tests
+- Maybe monad tests (just and nothing passthrough)
 - Result monad tests (ok and error passthrough)
 - Validation monad tests (success and failure passthrough)
 - Property-based tests
@@ -137,18 +255,19 @@ Every file starts with this comment:
  */
 ```
 
-#### 4a. Implement `_functionNameArray/index.ts` (plain path)
+#### 4a. Implement `_functionNameToMaybe/index.ts` (Maybe path)
 
-1. Write the implementation (see `references/reduce-example.md` and `references/map-example.md`)
+1. Write the implementation with try/catch wrapping for user-provided functions (see `references/reduce-example.md` and `references/map-example.md`)
 2. **STOP - DO NOT PROCEED TO NEXT HELPER**
-3. Create `_functionNameArray/index.test.ts`
+3. Create `_functionNameToMaybe/index.test.ts`
 4. Write comprehensive tests:
    - Basic functionality tests (minimum 4 test cases)
-   - Invalid input tests (invalid predicate, invalid array)
+   - Invalid input tests (invalid predicate/function, throws exception)
+   - Nothing passthrough tests
    - Property-based tests (minimum 2)
-5. Run: `deno test --no-check libraries/toolsmith/src/array/functionName/_functionNameArray/index.test.ts`
+5. Run: `deno test --no-check libraries/toolsmith/src/DOMAIN/functionName/_functionNameToMaybe/index.test.ts`
 6. **ALL TESTS MUST PASS - If any fail, fix them NOW**
-7. Run: `deno fmt libraries/toolsmith/src/array/functionName/_functionNameArray/`
+7. Run: `deno fmt libraries/toolsmith/src/DOMAIN/functionName/_functionNameToMaybe/`
 8. **ONLY AFTER ALL TESTS PASS, proceed to 4b**
 
 #### 4b. Implement `_functionNameToResult/index.ts` (Result path)
@@ -160,9 +279,9 @@ Every file starts with this comment:
    - Ok path tests (minimum 3)
    - Error path tests for invalid inputs (minimum 2)
    - Property-based tests (minimum 2)
-5. Run: `deno test --no-check libraries/toolsmith/src/array/functionName/_functionNameToResult/index.test.ts`
+5. Run: `deno test --no-check libraries/toolsmith/src/DOMAIN/functionName/_functionNameToResult/index.test.ts`
 6. **ALL TESTS MUST PASS - If any fail, fix them NOW**
-7. Run: `deno fmt libraries/toolsmith/src/array/functionName/_functionNameToResult/`
+7. Run: `deno fmt libraries/toolsmith/src/DOMAIN/functionName/_functionNameToResult/`
 8. **ONLY AFTER ALL TESTS PASS, proceed to 4c**
 
 #### 4c. Implement `_functionNameToValidation/index.ts` (Validation path)
@@ -174,9 +293,9 @@ Every file starts with this comment:
    - Success path tests (minimum 3)
    - Failure path tests for invalid inputs (minimum 2)
    - Property-based tests (minimum 2)
-5. Run: `deno test --no-check libraries/toolsmith/src/array/functionName/_functionNameToValidation/index.test.ts`
+5. Run: `deno test --no-check libraries/toolsmith/src/DOMAIN/functionName/_functionNameToValidation/index.test.ts`
 6. **ALL TESTS MUST PASS - If any fail, fix them NOW**
-7. Run: `deno fmt libraries/toolsmith/src/array/functionName/_functionNameToValidation/`
+7. Run: `deno fmt libraries/toolsmith/src/DOMAIN/functionName/_functionNameToValidation/`
 8. **ONLY AFTER ALL TESTS PASS, proceed to Step 5**
 
 ### Step 5: Implement Main Function
@@ -203,7 +322,7 @@ deno task lint
 deno task check
 
 # Run tests - ALL MUST PASS
-deno test libraries/toolsmith/src/array/functionName/index.test.ts
+deno test libraries/toolsmith/src/DOMAIN/functionName/index.test.ts
 ```
 
 **If any command fails, fix the issues before proceeding. The skill is NOT complete until all tests pass, linting passes, and type checks pass.**
@@ -255,23 +374,29 @@ Standard pattern:
 Always three overloads in this exact order:
 
 ```typescript
-// 1. Plain array overload
-function name(array: ReadonlyArray<T>): ReturnType
+// 1. Maybe overload
+function name(input: Maybe<T>): Maybe<U>
 
 // 2. Result overload
-function name(array: Result<E, ReadonlyArray<T>>): Result<E, ReturnType>
+function name(input: Result<E, T>): Result<E, U>
 
 // 3. Validation overload
-function name(array: Validation<E, ReadonlyArray<T>>): Validation<E, ReturnType>
+function name(input: Validation<E, T>): Validation<E, U>
 
 // 4. Implementation (union of all three)
 function name(
-	array:
-		| ReadonlyArray<T>
-		| Result<E, ReadonlyArray<T>>
-		| Validation<E, ReadonlyArray<T>>,
-): ReturnType | Result<E, ReturnType> | Validation<E, ReturnType>
+	input:
+		| Maybe<T>
+		| Result<E, T>
+		| Validation<E, T>,
+): Maybe<U> | Result<E, U> | Validation<E, U>
 ```
+
+**Notes:**
+
+- `T` = Input type (could be `ReadonlyArray<number>`, `string`, `number`, `Object`, etc.)
+- `U` = Output type (transformation result)
+- `E` = Error type (for Result/Validation paths)
 
 See `references/type-signatures.md` for comprehensive type patterns.
 
@@ -319,15 +444,17 @@ See `references/error-structures.md` for complete error patterns.
 
 ```typescript
 // Types
+import type { Maybe } from "../../types/fp/maybe/index.ts"
 import type { Result } from "../../types/fp/result/index.ts"
 import type { Validation } from "../../types/fp/validation/index.ts"
 
-// Predicates
-import isArray from "../../predicates/isArray/index.ts"
+// Predicates for type routing
+import isJust from "../../monads/maybe/isJust/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
 // Chain functions
+import chainMaybes from "../../monads/maybe/chain/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
 ```
@@ -340,6 +467,10 @@ import and from "../../logic/and/index.ts"
 
 // Predicates
 import isFunction from "../../predicates/isFunction/index.ts"
+
+// Maybe constructors
+import just from "../../monads/maybe/just/index.ts"
+import nothing from "../../monads/maybe/nothing/index.ts"
 
 // Result constructors
 import ok from "../../monads/result/ok/index.ts"
@@ -368,7 +499,14 @@ For complete working examples:
 To scaffold file structure:
 
 ```bash
+# For array functions:
 deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/script.ts functionName ./libraries/toolsmith/src/array "Function description"
+
+# For string functions:
+deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/script.ts functionName ./libraries/toolsmith/src/string "Function description"
+
+# For other domains:
+deno run --allow-read --allow-write .claude/skills/three-path-pattern/scripts/script.ts functionName ./libraries/toolsmith/src/DOMAIN "Function description"
 ```
 
 This creates directory structure and template files with TODO placeholders. You must implement the logic manually.
@@ -383,8 +521,8 @@ This creates directory structure and template files with TODO placeholders. You 
 
 Verify ALL these files exist:
 
-- [ ] `_functionNameArray/index.ts` file exists
-- [ ] `_functionNameArray/index.test.ts` file exists (**REQUIRED**)
+- [ ] `_functionNameToMaybe/index.ts` file exists
+- [ ] `_functionNameToMaybe/index.test.ts` file exists (**REQUIRED**)
 - [ ] `_functionNameToResult/index.ts` file exists
 - [ ] `_functionNameToResult/index.test.ts` file exists (**REQUIRED**)
 - [ ] `_functionNameToValidation/index.ts` file exists
@@ -396,11 +534,11 @@ Verify ALL these files exist:
 
 ### Test Execution Check
 
-Run: `deno test --no-check libraries/toolsmith/src/array/functionName/`
+Run: `deno test --no-check libraries/toolsmith/src/DOMAIN/functionName/`
 
 Verify ALL tests pass:
 
-- [ ] `_functionNameArray` tests: **ALL PASS** (0 failures)
+- [ ] `_functionNameToMaybe` tests: **ALL PASS** (0 failures)
 - [ ] `_functionNameToResult` tests: **ALL PASS** (0 failures)
 - [ ] `_functionNameToValidation` tests: **ALL PASS** (0 failures)
 - [ ] Main function tests: **ALL PASS** (0 failures)
@@ -410,18 +548,19 @@ Verify ALL tests pass:
 
 ### Code Quality Check
 
-- [ ] `deno fmt libraries/toolsmith/src/array/functionName/` - No changes needed (already formatted)
+- [ ] `deno fmt libraries/toolsmith/src/DOMAIN/functionName/` - No changes needed (already formatted)
 - [ ] Code passes linting (if applicable)
 - [ ] Type checking passes or `--no-check` justified
 
 ### Test Coverage Check
 
-- [ ] Plain path tested (minimum 4 test cases in `_functionNameArray/index.test.ts`)
+- [ ] Maybe path tested (minimum 4 test cases in `_functionNameToMaybe/index.test.ts`)
 - [ ] Result path tested (minimum 5 test cases in `_functionNameToResult/index.test.ts`)
 - [ ] Validation path tested (minimum 5 test cases in `_functionNameToValidation/index.test.ts`)
 - [ ] Property-based tests included (minimum 2 per helper)
 - [ ] Invalid input tests included (for each helper)
-- [ ] Error/failure passthrough tests in main `index.test.ts`
+- [ ] Exception handling tests (user function throws)
+- [ ] Nothing/error/failure passthrough tests in main `index.test.ts`
 
 **IF ANY BOX ABOVE IS UNCHECKED, DO NOT PRESENT CODE. FIX THE ISSUE FIRST.**
 
@@ -433,8 +572,8 @@ Before presenting code - **ALL items must be checked:**
 
 **Helper Functions (CRITICAL - MUST BE TESTED):**
 
-- [ ] `_functionNameArray/index.ts` implemented **AND TESTED**
-- [ ] `_functionNameArray/index.test.ts` exists with **ALL tests passing**
+- [ ] `_functionNameToMaybe/index.ts` implemented **AND TESTED**
+- [ ] `_functionNameToMaybe/index.test.ts` exists with **ALL tests passing**
 - [ ] `_functionNameToResult/index.ts` implemented **AND TESTED**
 - [ ] `_functionNameToResult/index.test.ts` exists with **ALL tests passing**
 - [ ] `_functionNameToValidation/index.ts` implemented **AND TESTED**
@@ -444,23 +583,27 @@ Before presenting code - **ALL items must be checked:**
 
 - [ ] Tests written FIRST before implementation (TDD)
 - [ ] **ALL helper tests pass independently** (run each `index.test.ts` separately)
-- [ ] Main function tests cover all three paths (plain, Result, Validation)
-- [ ] Tests include error/failure passthrough cases
+- [ ] Main function tests cover all three paths (Maybe, Result, Validation)
+- [ ] Tests include nothing/error/failure passthrough cases
+- [ ] Tests include exception handling (user function throws)
 - [ ] Property-based tests included
-- [ ] Run `deno test --no-check libraries/toolsmith/src/array/functionName/` shows **0 failures**
+- [ ] Run `deno test --no-check libraries/toolsmith/src/DOMAIN/functionName/` shows **0 failures**
 - [ ] `deno task fmt` passes - code is formatted
 - [ ] `deno task lint` passes - no linting errors in the code under development
 - [ ] `deno task check` passes - TypeScript types valid in the code under development
 
 **Constitutional Compliance:**
 
-- [ ] Directory structure correct (_functionNameArray, _functionNameToResult, _functionNameToValidation)
+- [ ] Directory structure correct (_functionNameToMaybe, _functionNameToResult, _functionNameToValidation)
 - [ ] All functions curried (one parameter each)
 - [ ] Function keyword only (no arrows in implementation)
 - [ ] Proper naming convention (With/And pattern)
-- [ ] No classes, no mutations, no loops, no exceptions
+- [ ] No classes, no mutations, no loops
+- [ ] No exceptions EXCEPT try/catch wrapping user functions (with `[EXCEPTION]` comment)
 - [ ] `ReadonlyArray<T>` everywhere for immutability
 - [ ] `[EXCEPTION]` comment at top of each file
+- [ ] User-provided functions validated and wrapped in try/catch
+- [ ] Never use `null` in data (only `undefined` for absent values)
 
 **Type Safety:**
 
