@@ -1,5 +1,5 @@
-import { assertEquals } from "jsr:@std/assert"
-import * as fc from "npm:fast-check"
+import { assertEquals } from "@std/assert"
+import * as fc from "fast-check"
 import success from "../../../monads/validation/success/index.ts"
 import _atToValidation from "./index.ts"
 

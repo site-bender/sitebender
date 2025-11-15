@@ -1,6 +1,6 @@
 ---
 name: array-function-migration
-description: Comprehensive pattern for converting vanilla array functions to the three-path overload pattern (plain/Result/Validation). Use when migrating functions from obsolete-for-reference-only to src/array/ with support for fail-fast, error accumulation, and plain responses.
+description: Comprehensive pattern for converting vanilla array functions to the three-path overload pattern (Maybe/Result/Validation). Use when migrating functions from obsolete-for-reference-only to src/array/ with support for composition chains, fail-fast, and error accumulation.
 ---
 
 # Array Function Migration Skill
@@ -18,6 +18,7 @@ This eliminates the need for separate "vanilla" and "boxed" functions while main
 ## When to Use This Skill
 
 Use this skill when:
+
 - Migrating functions from `obsolete-for-reference-only/` to `src/array/`
 - Creating new array manipulation functions
 - Converting existing array functions to support monadic paths
@@ -32,44 +33,47 @@ Use this skill when:
 ```typescript
 //++ Function description
 export default function functionName<T, U>(param1: Type1) {
-  //++ [OVERLOAD] Array path: takes array, returns result
-  function functionNameWithParam1(array: ReadonlyArray<T>): ReturnType
+	//++ [OVERLOAD] Array path: takes array, returns result
+	function functionNameWithParam1(array: ReadonlyArray<T>): ReturnType
 
-  //++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
-  function functionNameWithParam1(
-    array: Result<ValidationError, ReadonlyArray<T>>
-  ): Result<ValidationError, ReturnType>
+	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+	function functionNameWithParam1(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, ReturnType>
 
-  //++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
-  function functionNameWithParam1(
-    array: Validation<ValidationError, ReadonlyArray<T>>
-  ): Validation<ValidationError, ReturnType>
+	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+	function functionNameWithParam1(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, ReturnType>
 
-  //++ Implementation of the full curried function
-  function functionNameWithParam1(
-    array:
-      | ReadonlyArray<T>
-      | Result<ValidationError, ReadonlyArray<T>>
-      | Validation<ValidationError, ReadonlyArray<T>>
-  ): ReturnType | Result<ValidationError, ReturnType> | Validation<ValidationError, ReturnType> {
-    // Type guard dispatch
-    if (isArray<T>(array)) {
-      return _functionNameArray(param1)(array)
-    }
+	//++ Implementation of the full curried function
+	function functionNameWithParam1(
+		array:
+			| ReadonlyArray<T>
+			| Result<ValidationError, ReadonlyArray<T>>
+			| Validation<ValidationError, ReadonlyArray<T>>,
+	):
+		| ReturnType
+		| Result<ValidationError, ReturnType>
+		| Validation<ValidationError, ReturnType> {
+		// Type guard dispatch
+		if (isArray<T>(array)) {
+			return _functionNameArray(param1)(array)
+		}
 
-    if (isOk<ReadonlyArray<T>>(array)) {
-      return chainResults(_functionNameToResult(param1))(array)
-    }
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_functionNameToResult(param1))(array)
+		}
 
-    if (isSuccess<ReadonlyArray<T>>(array)) {
-      return chainValidations(_functionNameToValidation(param1))(array)
-    }
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_functionNameToValidation(param1))(array)
+		}
 
-    // Fallback: pass through unchanged (handles error/failure states)
-    return array
-  }
+		// Fallback: pass through unchanged (handles error/failure states)
+		return array
+	}
 
-  return functionNameWithParam1
+	return functionNameWithParam1
 }
 ```
 
@@ -90,11 +94,12 @@ export default function functionName<T, U>(param1: Type1) {
 ```typescript
 // obsolete-for-reference-only/array/head/index.ts
 export default function head<T>(array: Array<T>): T | undefined {
-  return array[0]
+	return array[0]
 }
 ```
 
 **Identify:**
+
 - Function name: `head`
 - Parameters: `array: ReadonlyArray<T>`
 - Return type plain path: `T` (first element)
@@ -112,6 +117,7 @@ Use the decision tree from function-implementation skill:
 - Default → Use **"With"** (`headWithArray` doesn't make sense, so just `head`)
 
 For most array functions, the array is the ONLY parameter or the LAST parameter, so inner function names are simple:
+
 - `head(array)` → No inner function needed (unary)
 - `map(fn)(array)` → `mapWithFunction(array)`
 - `reduce(fn)(init)(array)` → `reduceWithFunction(init)` → `reduceWithFunctionAndInitial(array)`
@@ -122,7 +128,10 @@ For most array functions, the array is the ONLY parameter or the LAST parameter,
 
 ```typescript
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 import type { Serializable } from "../../types/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
@@ -136,46 +145,50 @@ import isArray from "../../predicates/isArray/index.ts"
 
 //++ Returns the first element of an array
 export default function head<T extends Serializable>() {
-  //++ [OVERLOAD] Array path: takes array, returns first element or undefined
-  function headWithArray(array: ReadonlyArray<T>): T | undefined
+	//++ [OVERLOAD] Array path: takes array, returns first element or undefined
+	function headWithArray(array: ReadonlyArray<T>): T | undefined
 
-  //++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
-  function headWithArray(
-    array: Result<ValidationError, ReadonlyArray<T>>
-  ): Result<ValidationError, T>
+	//++ [OVERLOAD] Result path: takes and returns Result monad (fail fast)
+	function headWithArray(
+		array: Result<ValidationError, ReadonlyArray<T>>,
+	): Result<ValidationError, T>
 
-  //++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
-  function headWithArray(
-    array: Validation<ValidationError, ReadonlyArray<T>>
-  ): Validation<ValidationError, T>
+	//++ [OVERLOAD] Validation path: takes and returns Validation monad (accumulator)
+	function headWithArray(
+		array: Validation<ValidationError, ReadonlyArray<T>>,
+	): Validation<ValidationError, T>
 
-  //++ Implementation of the full curried function
-  function headWithArray(
-    array:
-      | ReadonlyArray<T>
-      | Result<ValidationError, ReadonlyArray<T>>
-      | Validation<ValidationError, ReadonlyArray<T>>
-  ): T | undefined | Result<ValidationError, T> | Validation<ValidationError, T> {
-    // Happy path: plain array
-    if (isArray<T>(array)) {
-      return _headArray<T>()(array)
-    }
+	//++ Implementation of the full curried function
+	function headWithArray(
+		array:
+			| ReadonlyArray<T>
+			| Result<ValidationError, ReadonlyArray<T>>
+			| Validation<ValidationError, ReadonlyArray<T>>,
+	):
+		| T
+		| undefined
+		| Result<ValidationError, T>
+		| Validation<ValidationError, T> {
+		// Happy path: plain array
+		if (isArray<T>(array)) {
+			return _headArray<T>()(array)
+		}
 
-    // Result path: fail-fast monadic access
-    if (isOk<ReadonlyArray<T>>(array)) {
-      return chainResults(_headToResult<T>())(array)
-    }
+		// Result path: fail-fast monadic access
+		if (isOk<ReadonlyArray<T>>(array)) {
+			return chainResults(_headToResult<T>())(array)
+		}
 
-    // Validation path: error accumulation monadic access
-    if (isSuccess<ReadonlyArray<T>>(array)) {
-      return chainValidations(_headToValidation<T>())(array)
-    }
+		// Validation path: error accumulation monadic access
+		if (isSuccess<ReadonlyArray<T>>(array)) {
+			return chainValidations(_headToValidation<T>())(array)
+		}
 
-    // Fallback: pass through unchanged (handles error/failure states)
-    return array
-  }
+		// Fallback: pass through unchanged (handles error/failure states)
+		return array
+	}
 
-  return headWithArray
+	return headWithArray
 }
 ```
 
@@ -188,16 +201,16 @@ import isArray from "../../../predicates/isArray/index.ts"
 
 //++ Private helper that returns first element of plain array, or undefined if empty/invalid
 export default function _headArray<T>() {
-  return function _headArrayWithArray(array: ReadonlyArray<T>): T | undefined {
-    // Happy path: array is valid, return first element
-    if (isArray(array)) {
-      //++ [EXCEPTION] Array indexing [0] permitted in Toolsmith for performance
-      return array[0]
-    }
+	return function _headArrayWithArray(array: ReadonlyArray<T>): T | undefined {
+		// Happy path: array is valid, return first element
+		if (isArray(array)) {
+			//++ [EXCEPTION] Array indexing [0] permitted in Toolsmith for performance
+			return array[0]
+		}
 
-    // Fallback: return undefined
-    return undefined
-  }
+		// Fallback: return undefined
+		return undefined
+	}
 }
 ```
 
@@ -215,39 +228,39 @@ import isArray from "../../../predicates/isArray/index.ts"
 
 //++ Private helper that returns first element wrapped in Result
 export default function _headToResult<T>() {
-  return function _headToResultWithArray(
-    array: ReadonlyArray<T>
-  ): Result<ValidationError, T> {
-    // Happy path: array is valid and not empty
-    if (isArray(array)) {
-      //++ [EXCEPTION] .length and [0] permitted in Toolsmith for performance
-      if (array.length > 0) {
-        return ok(array[0] as T)
-      }
+	return function _headToResultWithArray(
+		array: ReadonlyArray<T>,
+	): Result<ValidationError, T> {
+		// Happy path: array is valid and not empty
+		if (isArray(array)) {
+			//++ [EXCEPTION] .length and [0] permitted in Toolsmith for performance
+			if (array.length > 0) {
+				return ok(array[0] as T)
+			}
 
-      // Sad path: empty array
-      return error({
-        code: "HEAD_EMPTY_ARRAY",
-        field: "array",
-        messages: ["System needs a non-empty array to get first element"],
-        received: array,
-        expected: "Non-empty array",
-        suggestion: "Provide an array with at least one element",
-        severity: "requirement",
-      })
-    }
+			// Sad path: empty array
+			return error({
+				code: "HEAD_EMPTY_ARRAY",
+				field: "array",
+				messages: ["System needs a non-empty array to get first element"],
+				received: array,
+				expected: "Non-empty array",
+				suggestion: "Provide an array with at least one element",
+				severity: "requirement",
+			})
+		}
 
-    // Sad path: not an array
-    return error({
-      code: "HEAD_INVALID_INPUT",
-      field: "array",
-      messages: ["System needs an array to get first element"],
-      received: array,
-      expected: "Array",
-      suggestion: "Provide an array value",
-      severity: "requirement",
-    })
-  }
+		// Sad path: not an array
+		return error({
+			code: "HEAD_INVALID_INPUT",
+			field: "array",
+			messages: ["System needs an array to get first element"],
+			received: array,
+			expected: "Array",
+			suggestion: "Provide an array value",
+			severity: "requirement",
+		})
+	}
 }
 ```
 
@@ -256,7 +269,10 @@ export default function _headToResult<T>() {
 **File**: `src/array/head/_headToValidation/index.ts`
 
 ```typescript
-import type { Validation, ValidationError } from "../../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 
 import failure from "../../../monads/validation/failure/index.ts"
 import success from "../../../monads/validation/success/index.ts"
@@ -264,39 +280,39 @@ import isArray from "../../../predicates/isArray/index.ts"
 
 //++ Private helper that returns first element wrapped in Validation
 export default function _headToValidation<T>() {
-  return function _headToValidationWithArray(
-    array: ReadonlyArray<T>
-  ): Validation<ValidationError, T> {
-    // Happy path: array is valid and not empty
-    if (isArray(array)) {
-      //++ [EXCEPTION] .length and [0] permitted in Toolsmith for performance
-      if (array.length > 0) {
-        return success(array[0] as T)
-      }
+	return function _headToValidationWithArray(
+		array: ReadonlyArray<T>,
+	): Validation<ValidationError, T> {
+		// Happy path: array is valid and not empty
+		if (isArray(array)) {
+			//++ [EXCEPTION] .length and [0] permitted in Toolsmith for performance
+			if (array.length > 0) {
+				return success(array[0] as T)
+			}
 
-      // Sad path: empty array
-      return failure([{
-        code: "HEAD_EMPTY_ARRAY",
-        field: "array",
-        messages: ["System needs a non-empty array to get first element"],
-        received: array,
-        expected: "Non-empty array",
-        suggestion: "Provide an array with at least one element",
-        severity: "requirement",
-      }])
-    }
+			// Sad path: empty array
+			return failure([{
+				code: "HEAD_EMPTY_ARRAY",
+				field: "array",
+				messages: ["System needs a non-empty array to get first element"],
+				received: array,
+				expected: "Non-empty array",
+				suggestion: "Provide an array with at least one element",
+				severity: "requirement",
+			}])
+		}
 
-    // Sad path: not an array
-    return failure([{
-      code: "HEAD_INVALID_INPUT",
-      field: "array",
-      messages: ["System needs an array to get first element"],
-      received: array,
-      expected: "Array",
-      suggestion: "Provide an array value",
-      severity: "requirement",
-    }])
-  }
+		// Sad path: not an array
+		return failure([{
+			code: "HEAD_INVALID_INPUT",
+			field: "array",
+			messages: ["System needs an array to get first element"],
+			received: array,
+			expected: "Array",
+			suggestion: "Provide an array value",
+			severity: "requirement",
+		}])
+	}
 }
 ```
 
@@ -313,65 +329,65 @@ import success from "../../monads/validation/success/index.ts"
 import failure from "../../monads/validation/failure/index.ts"
 
 Deno.test("head - plain path - returns first element", function testHeadPlainHappy() {
-  const result = head()([1, 2, 3])
-  assertEquals(result, 1)
+	const result = head()([1, 2, 3])
+	assertEquals(result, 1)
 })
 
 Deno.test("head - plain path - returns undefined for empty array", function testHeadPlainEmpty() {
-  const result = head()([])
-  assertEquals(result, undefined)
+	const result = head()([])
+	assertEquals(result, undefined)
 })
 
 Deno.test("head - Result path - returns ok with first element", function testHeadResultHappy() {
-  const input = ok([1, 2, 3])
-  const result = head()(input)
-  assertEquals(result, ok(1))
+	const input = ok([1, 2, 3])
+	const result = head()(input)
+	assertEquals(result, ok(1))
 })
 
 Deno.test("head - Result path - returns error for empty array", function testHeadResultEmpty() {
-  const input = ok([])
-  const result = head()(input)
-  assertEquals(result._tag, "error")
+	const input = ok([])
+	const result = head()(input)
+	assertEquals(result._tag, "error")
 })
 
 Deno.test("head - Result path - passes through existing error", function testHeadResultPassthrough() {
-  const input = error({
-    code: "SOME_ERROR",
-    field: "test",
-    messages: ["Test error"],
-    received: null,
-    expected: "Valid value",
-    suggestion: "Fix it",
-    severity: "requirement" as const
-  })
-  const result = head()(input)
-  assertEquals(result, input)
+	const input = error({
+		code: "SOME_ERROR",
+		field: "test",
+		messages: ["Test error"],
+		received: null,
+		expected: "Valid value",
+		suggestion: "Fix it",
+		severity: "requirement" as const,
+	})
+	const result = head()(input)
+	assertEquals(result, input)
 })
 
 Deno.test("head - Validation path - returns success with first element", function testHeadValidationHappy() {
-  const input = success([1, 2, 3])
-  const result = head()(input)
-  assertEquals(result, success(1))
+	const input = success([1, 2, 3])
+	const result = head()(input)
+	assertEquals(result, success(1))
 })
 
 Deno.test("head - Validation path - returns failure for empty array", function testHeadValidationEmpty() {
-  const input = success([])
-  const result = head()(input)
-  assertEquals(result._tag, "failure")
+	const input = success([])
+	const result = head()(input)
+	assertEquals(result._tag, "failure")
 })
 
 Deno.test("head - Validation path - passes through existing failure", function testHeadValidationPassthrough() {
-  const input = failure([{
-    code: "SOME_ERROR",
-    field: "test",
-    messages: ["Test error"],
-    received: null,
-    expected: "Valid value",
-    suggestion: "Fix it",
-    severity: "requirement" as const
-  }])
-  const result = head()(input)
-  assertEquals(result, input)
+	const input = failure([{
+		code: "SOME_ERROR",
+		field: "test",
+		messages: ["Test error"],
+		received: null,
+		expected: "Valid value",
+		suggestion: "Fix it",
+		severity: "requirement" as const,
+	}])
+	const result = head()(input)
+	assertEquals(result, input)
 })
 ```
 
@@ -380,6 +396,7 @@ Deno.test("head - Validation path - passes through existing failure", function t
 ### Variation 1: Functions That Transform Elements (map, filter)
 
 **Key Differences:**
+
 - Takes a **function parameter** first
 - Uses **"With"** conjunction
 - Applies function to each element
@@ -389,6 +406,7 @@ Deno.test("head - Validation path - passes through existing failure", function t
 ### Variation 2: Functions That Reduce to Single Value (reduce, sum)
 
 **Key Differences:**
+
 - Takes **reducer function** and **initial value**
 - Two levels of currying
 - Returns single value, not array
@@ -398,11 +416,13 @@ Deno.test("head - Validation path - passes through existing failure", function t
 ### Variation 3: Functions That Test Predicates (all, any, includes)
 
 **Key Differences:**
+
 - Returns **boolean** in plain path
 - Returns **Result/Validation** wrapping boolean in monadic paths
 - No transformation, just testing
 
 **Pattern**:
+
 ```typescript
 // Plain path
 function _allArray(predicate)(array): boolean
@@ -417,11 +437,13 @@ function _allToValidation(predicate)(array): Validation<ValidationError, boolean
 ### Variation 4: Functions That Access Elements (nth, slice, take)
 
 **Key Differences:**
+
 - Takes **index/count parameter** first
 - May return single element or subarray
 - Error if index out of bounds
 
 **Pattern**:
+
 ```typescript
 // nth(2)([1,2,3,4]) → 3
 // nth(2)(ok([1,2,3,4])) → ok(3)
@@ -431,9 +453,13 @@ function _allToValidation(predicate)(array): Validation<ValidationError, boolean
 ## Common Imports
 
 **Every public function needs:**
+
 ```typescript
 import type { Result } from "../../types/fp/result/index.ts"
-import type { Validation, ValidationError } from "../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../types/fp/validation/index.ts"
 import type { Serializable } from "../../types/index.ts"
 
 import isOk from "../../monads/result/isOk/index.ts"
@@ -444,10 +470,11 @@ import isArray from "../../predicates/isArray/index.ts"
 ```
 
 **Private helpers need:**
+
 ```typescript
 // Plain path
 import isArray from "../../../predicates/isArray/index.ts"
-import isFunction from "../../../predicates/isFunction/index.ts"  // if taking function param
+import isFunction from "../../../predicates/isFunction/index.ts" // if taking function param
 
 // Result path
 import type { Result } from "../../../types/fp/result/index.ts"
@@ -457,7 +484,10 @@ import error from "../../../monads/result/error/index.ts"
 import isArray from "../../../predicates/isArray/index.ts"
 
 // Validation path
-import type { Validation, ValidationError } from "../../../types/fp/validation/index.ts"
+import type {
+	Validation,
+	ValidationError,
+} from "../../../types/fp/validation/index.ts"
 import success from "../../../monads/validation/success/index.ts"
 import failure from "../../../monads/validation/failure/index.ts"
 import isArray from "../../../predicates/isArray/index.ts"
@@ -468,6 +498,7 @@ import isArray from "../../../predicates/isArray/index.ts"
 **Pattern**: `{FUNCTION_NAME}_{ERROR_TYPE}`
 
 **Common error types:**
+
 - `INVALID_INPUT` - Parameter is not expected type
 - `INVALID_ARRAY` - Array parameter is invalid
 - `INVALID_FUNCTION` - Function parameter is invalid
@@ -476,6 +507,7 @@ import isArray from "../../../predicates/isArray/index.ts"
 - `ELEMENT_NOT_FOUND` - Searched element not found
 
 **Examples:**
+
 - `HEAD_INVALID_INPUT`
 - `HEAD_EMPTY_ARRAY`
 - `MAP_INVALID_FUNCTION`
@@ -494,17 +526,17 @@ TypeScript/JavaScript does NOT have guaranteed tail call optimization. Recursive
 //++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
 //++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
 function _helperArray<T>(param) {
-  return function _helperArrayWithParam(array: ReadonlyArray<T>) {
-    const result: Array<T> = []
+	return function _helperArrayWithParam(array: ReadonlyArray<T>) {
+		const result: Array<T> = []
 
-    //++ [EXCEPTION] Loop with mutation of local array for performance
-    for (let index = 0; index < array.length; index++) {
-      const element = array[index]
-      // Process element and accumulate in result
-    }
+		//++ [EXCEPTION] Loop with mutation of local array for performance
+		for (let index = 0; index < array.length; index++) {
+			const element = array[index]
+			// Process element and accumulate in result
+		}
 
-    return result
-  }
+		return result
+	}
 }
 ```
 
@@ -518,6 +550,7 @@ function _helperArray<T>(param) {
 ### Verified Examples
 
 See these Phase 1 implementations:
+
 - `reject/_rejectArray/index.ts` - Loop-based filter
 - `partition/_partitionArray/index.ts` - Loop-based split
 - `zip/_zipArray/index.ts` - Loop-based combiner
@@ -547,7 +580,7 @@ See these Phase 1 implementations:
 //++ [EXCEPTION] Loop approved for O(1) stack depth vs O(n) recursion stack
 //++ [EXCEPTION] JS operators and methods permitted in Toolsmith for performance
 for (let index = 0; index < array.length; index++) {
-  // Loop with local mutation for stack safety
+	// Loop with local mutation for stack safety
 }
 
 //++ [EXCEPTION] .map() permitted in Toolsmith for performance
@@ -573,6 +606,7 @@ localArray.push(element)
 ```
 
 **Why permitted:**
+
 - **Loops**: Required for stack safety (prevent stack overflow on large arrays)
 - **Built-in methods**: Highly optimized in JavaScript engine
 - **Local mutations**: Safe when confined to function scope
@@ -612,15 +646,16 @@ Do NOT copy examples into this skill directory - they will drift out of sync. Al
 ```typescript
 // DON'T do this
 if (isOk(result)) {
-  assertEquals(result.value, [2, 4, 6])  // Accessing .value directly
+	assertEquals(result.value, [2, 4, 6]) // Accessing .value directly
 }
 
 if (isError(result)) {
-  assertEquals(result.error.code, "SOME_ERROR")  // Accessing .error directly
+	assertEquals(result.error.code, "SOME_ERROR") // Accessing .error directly
 }
 ```
 
 **Why wrong:**
+
 - Breaks encapsulation
 - Violates functional programming principles
 - Not using the monad's API correctly
@@ -634,13 +669,19 @@ import getOrElse from "@sitebender/toolsmith/monads/result/getOrElse/index.ts"
 
 // Pattern 1: Use fold to extract value
 const actual = fold(
-  function onError(_err) { return [] },
-  function onSuccess(val) { return val }
+	function onError(_err) {
+		return []
+	},
+	function onSuccess(val) {
+		return val
+	},
 )(result)
 assertEquals(actual, [2, 4, 6])
 
 // Pattern 2: Use getOrElse for default value
-const actual = getOrElse(function getDefault() { return [] })(result)
+const actual = getOrElse(function getDefault() {
+	return []
+})(result)
 assertEquals(actual, [2, 4, 6])
 
 // Pattern 3: Test the monad itself (structural equality)
@@ -656,6 +697,7 @@ assertEquals(result as unknown, undefined)
 ```
 
 **Why wrong:**
+
 - Undermines type safety
 - Hides type errors
 - Not constitutional
@@ -664,7 +706,7 @@ assertEquals(result as unknown, undefined)
 
 ```typescript
 // DO this instead
-assertEquals(result, [2, 4, 6, 8, 10])  // Structural equality includes length
+assertEquals(result, [2, 4, 6, 8, 10]) // Structural equality includes length
 
 // Or if you need to check Result monad:
 assertEquals(result, ok([2, 4, 6, 8, 10]))
@@ -675,11 +717,12 @@ assertEquals(result, ok([2, 4, 6, 8, 10]))
 ```typescript
 // DON'T do this (might be acceptable, but prefer named functions)
 const double = function (n: number): number {
-  return n * 2
+	return n * 2
 }
 ```
 
 **Why potentially wrong:**
+
 - Inconsistent with "function declarations only" rule
 - Though `const` with `function` expression is different from arrow functions
 
@@ -688,7 +731,7 @@ const double = function (n: number): number {
 ```typescript
 // DO this instead
 function double(n: number): number {
-  return n * 2
+	return n * 2
 }
 ```
 
@@ -704,6 +747,7 @@ export function mapValidation(fn)(array) { ... }
 ```
 
 **Why wrong:**
+
 - Duplicate logic (3× maintenance)
 - Doesn't compose in pipelines
 - Forces users to remember which to use
@@ -718,6 +762,7 @@ const rewrapped = ok(mapped)
 ```
 
 **Why wrong:**
+
 - Error-prone (forgot to re-wrap?)
 - Loses error information
 - Verbose and unergonomic
@@ -733,6 +778,7 @@ function mapWithFunction(array: Result<...> | Array<...>) {
 ```
 
 **Why wrong:**
+
 - Error states get dropped
 - Type errors in strict mode
 - Breaks monadic chaining
@@ -760,6 +806,7 @@ function mapWithFunction(array: Result<...> | Validation<...> | Array<...>) {
 4. **Fallback**: `return array` (passthrough errors)
 
 **Why this order:**
+
 - Plain arrays are most common (optimize for common case)
 - Result is second most common (fail-fast)
 - Validation is least common (error accumulation)
