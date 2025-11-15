@@ -6,12 +6,15 @@ This document shows the complete implementation of the `reduce` function using t
 
 ```
 reduce/
-  _reduceArray/
+  _reduceToMaybe/
     index.ts
+    index.test.ts
   _reduceToResult/
     index.ts
+    index.test.ts
   _reduceToValidation/
     index.ts
+    index.test.ts
   index.ts
   index.test.ts
 ```
@@ -21,15 +24,17 @@ reduce/
 ## Main Function: `reduce/index.ts`
 
 ```typescript
+import type { Maybe } from "../../types/fp/maybe/index.ts"
 import type { Result } from "../../types/fp/result/index.ts"
 import type { Validation } from "../../types/fp/validation/index.ts"
 
-import _reduceArray from "./_reduceArray/index.ts"
+import _reduceToMaybe from "./_reduceToMaybe/index.ts"
 import _reduceToResult from "./_reduceToResult/index.ts"
 import _reduceToValidation from "./_reduceToValidation/index.ts"
+import chainMaybes from "../../monads/maybe/chain/index.ts"
 import chainResults from "../../monads/result/chain/index.ts"
 import chainValidations from "../../monads/validation/chain/index.ts"
-import isArray from "../../predicates/isArray/index.ts"
+import isJust from "../../monads/maybe/isJust/index.ts"
 import isOk from "../../monads/result/isOk/index.ts"
 import isSuccess from "../../monads/validation/isSuccess/index.ts"
 
@@ -39,8 +44,10 @@ import isSuccess from "../../monads/validation/isSuccess/index.ts"
  */
 export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 	return function reduceWithFunction(initialValue: U) {
-		//++ [OVERLOAD] Array reducer: takes array, returns reduced value
-		function reduceWithFunctionAndInitialValue(array: ReadonlyArray<T>): U
+		//++ [OVERLOAD] Maybe reducer: takes Maybe, returns reduced Maybe value
+		function reduceWithFunctionAndInitialValue(
+			array: Maybe<ReadonlyArray<T>>,
+		): Maybe<U>
 
 		//++ [OVERLOAD] Result reducer: takes and returns Result monad (fail fast)
 		function reduceWithFunctionAndInitialValue(
@@ -55,13 +62,13 @@ export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 		//++ Implementation of the full curried function
 		function reduceWithFunctionAndInitialValue(
 			array:
-				| ReadonlyArray<T>
+				| Maybe<ReadonlyArray<T>>
 				| Result<E, ReadonlyArray<T>>
 				| Validation<E, ReadonlyArray<T>>,
-		): U | Result<E, U> | Validation<E, U> {
-			// Happy path: plain array
-			if (isArray<T>(array)) {
-				return _reduceArray(fn)(initialValue)(array)
+		): Maybe<U> | Result<E, U> | Validation<E, U> {
+			// Maybe path: composition chains where value might not exist
+			if (isJust<ReadonlyArray<T>>(array)) {
+				return chainMaybes(_reduceToMaybe(fn)(initialValue))(array)
 			}
 
 			// Result path: fail-fast monadic reduction
@@ -74,7 +81,7 @@ export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 				return chainValidations(_reduceToValidation(fn)(initialValue))(array)
 			}
 
-			// Fallback: pass through unchanged (handles error/failure states)
+			// Fallback: pass through unchanged (handles nothing/error/failure states)
 			return array
 		}
 
@@ -85,36 +92,53 @@ export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 
 ---
 
-## Plain Array Helper: `reduce/_reduceArray/index.ts`
+## Maybe Helper: `reduce/_reduceToMaybe/index.ts`
 
 ```typescript
-import and from "../../../logic/and/index.ts"
+import type { Maybe } from "../../../types/fp/maybe/index.ts"
+
+import just from "../../../monads/maybe/just/index.ts"
+import nothing from "../../../monads/maybe/nothing/index.ts"
 import isArray from "../../../predicates/isArray/index.ts"
 import isFunction from "../../../predicates/isFunction/index.ts"
 
 /*++
  + [EXCEPTION] Toolsmith functions are permitted to use JS operators and OOP methods for performance.
- + Private helper that reduces a plain array
+ + Private helper that reduces an array and returns Maybe
  */
-export default function _reduceArray<T, U>(
+export default function _reduceToMaybe<T, U>(
 	fn: (accumulator: U, item: T) => U,
 ) {
-	return function _reduceArrayWithFunction(initial: U) {
-		return function _reduceArrayWithFunctionAndInitial(
+	return function _reduceToMaybeWithFunction(initial: U) {
+		return function _reduceToMaybeWithFunctionAndInitial(
 			array: ReadonlyArray<T>,
-		): U {
-			// Happy path: valid function and array, reduce it
-			if (and(isFunction(fn))(isArray<T>(array))) {
-				/*++
-				 + [EXCEPTION] .reduce is permitted here for performance reasons
-				 + This is the ONLY place .reduce should be used
-				 + Everywhere else, use the `reduce` function instead
-				 */
-				return array.reduce(fn, initial)
-			}
+		): Maybe<U> {
+			/*++
+			 + [EXCEPTION] try/catch permitted to wrap user-provided function.
+			 + User functions are untrusted external code that may:
+			 + - Not be a function
+			 + - Return wrong type
+			 + - Throw exceptions
+			 */
+			try {
+				// Happy path: valid function and array, reduce it
+				if (isFunction(fn)) {
+					if (isArray<T>(array)) {
+						/*++
+						 + [EXCEPTION] .reduce is permitted here for performance reasons
+						 + This is the ONLY place .reduce should be used
+						 + Everywhere else, use the `reduce` function instead
+						 */
+						return just(array.reduce(fn, initial))
+					}
+				}
 
-			// Fallback: return initial value unchanged
-			return initial
+				// Any validation failure falls through
+				return nothing()
+			} catch (err) {
+				// Convert exception to Nothing
+				return nothing()
+			}
 		}
 	}
 }
@@ -143,40 +167,60 @@ export default function _reduceToResult<E, T, U>(
 		return function _reduceToResultWithFunctionAndInitial(
 			array: ReadonlyArray<T>,
 		): Result<E, U> {
-			if (isFunction(fn)) {
+			/*++
+			 + [EXCEPTION] try/catch permitted to wrap user-provided function.
+			 + User functions are untrusted external code that may:
+			 + - Not be a function
+			 + - Return wrong type
+			 + - Throw exceptions
+			 */
+			try {
 				// Happy path: function and array are valid, reduce it
-				if (isArray<T>(array)) {
-					/*++
-					 + [EXCEPTION] .reduce is permitted here for performance reasons
-					 + This is the ONLY place .reduce should be used
-					 + Everywhere else, use the `reduce` function instead
-					 */
-					const reduced = array.reduce<U>(fn, initial)
-					return ok(reduced)
+				if (isFunction(fn)) {
+					if (isArray<T>(array)) {
+						/*++
+						 + [EXCEPTION] .reduce is permitted here for performance reasons
+						 + This is the ONLY place .reduce should be used
+						 + Everywhere else, use the `reduce` function instead
+						 */
+						return ok(array.reduce(fn, initial))
+					}
+
+					// Sad path: invalid array
+					return error({
+						code: "INVALID_ARRAY",
+						field: "array",
+						messages: ["Expected array but received invalid input"],
+						received: typeof array,
+						expected: "Array",
+						suggestion: "Provide a valid array to reduce over",
+						severity: "requirement" as const,
+					} as E)
 				}
 
-				// Fallback: return ValidationError wrapped in error
+				// Sad path: invalid function
 				return error({
-					code: "REDUCE_INVALID_INPUT",
-					field: "array",
-					messages: ["Expected array but received invalid input"],
-					received: typeof array,
-					expected: "Array",
-					suggestion: "Provide a valid array to reduce over",
+					code: "INVALID_FUNCTION",
+					field: "function",
+					messages: ["Expected function but received invalid input"],
+					received: typeof fn,
+					expected: "Function",
+					suggestion: "Provide a valid function to reduce with",
+					severity: "requirement" as const,
+				} as E)
+			} catch (err) {
+				// Convert exception to Error
+				return error({
+					code: "FUNCTION_THREW",
+					field: "function",
+					messages: ["Function threw an exception during reduction"],
+					received: String(err),
+					expected: "Function that does not throw",
+					suggestion:
+						"Ensure the function handles all edge cases without throwing",
 					severity: "requirement" as const,
 				} as E)
 			}
-
-			// Fallback: return ValidationError wrapped in error
-			return error({
-				code: "REDUCE_INVALID_FUNCTION",
-				field: "function",
-				messages: ["Expected function but received invalid input"],
-				received: typeof fn,
-				expected: "Function",
-				suggestion: "Provide a valid function to reduce with",
-				severity: "requirement" as const,
-			} as E)
 		}
 	}
 }
@@ -205,44 +249,60 @@ export default function _reduceToValidation<E, T, U>(
 		return function _reduceToValidationWithFunctionAndInitial(
 			array: ReadonlyArray<T>,
 		): Validation<E, U> {
-			if (isFunction(fn)) {
+			/*++
+			 + [EXCEPTION] try/catch permitted to wrap user-provided function.
+			 + User functions are untrusted external code that may:
+			 + - Not be a function
+			 + - Return wrong type
+			 + - Throw exceptions
+			 */
+			try {
 				// Happy path: function and array are valid, reduce it
-				if (isArray<T>(array)) {
-					/*++
-					 + [EXCEPTION] .reduce is permitted here for performance reasons
-					 + This is the ONLY place .reduce should be used
-					 + Everywhere else, use the `reduce` function instead
-					 */
-					const reduced = array.reduce<U>(fn, initial)
-					return success(reduced)
-				}
+				if (isFunction(fn)) {
+					if (isArray<T>(array)) {
+						/*++
+						 + [EXCEPTION] .reduce is permitted here for performance reasons
+						 + This is the ONLY place .reduce should be used
+						 + Everywhere else, use the `reduce` function instead
+						 */
+						return success(array.reduce(fn, initial))
+					}
 
-				// Fallback: return ValidationError wrapped in failure
-				return failure([
-					{
-						code: "REDUCE_INVALID_INPUT",
+					// Sad path: invalid array
+					return failure([{
+						code: "INVALID_ARRAY",
 						field: "array",
 						messages: ["Expected array but received invalid input"],
 						received: typeof array,
 						expected: "Array",
 						suggestion: "Provide a valid array to reduce over",
 						severity: "requirement" as const,
-					} as E,
-				])
-			}
+					} as E])
+				}
 
-			// Fallback: return ValidationError wrapped in failure
-			return failure([
-				{
-					code: "REDUCE_INVALID_FUNCTION",
+				// Sad path: invalid function
+				return failure([{
+					code: "INVALID_FUNCTION",
 					field: "function",
 					messages: ["Expected function but received invalid input"],
 					received: typeof fn,
 					expected: "Function",
 					suggestion: "Provide a valid function to reduce with",
 					severity: "requirement" as const,
-				} as E,
-			])
+				} as E])
+			} catch (err) {
+				// Convert exception to Failure
+				return failure([{
+					code: "FUNCTION_THREW",
+					field: "function",
+					messages: ["Function threw an exception during reduction"],
+					received: String(err),
+					expected: "Function that does not throw",
+					suggestion:
+						"Ensure the function handles all edge cases without throwing",
+					severity: "requirement" as const,
+				} as E])
+			}
 		}
 	}
 }
@@ -591,28 +651,43 @@ Deno.test(
 ## Key Observations
 
 ### Currying Pattern
+
 - Each function takes exactly one parameter
 - Inner functions named with "With" + parameter name pattern
 - `reduce` → `reduceWithFunction` → `reduceWithFunctionAndInitialValue`
+- Three-level currying: reducer function → initial value → array
 
 ### Type Safety
-- Three overload signatures for TypeScript
-- Generic types: `E` (error), `T` (input), `U` (output)
+
+- Three overload signatures: `Maybe<ReadonlyArray<T>>`, `Result<E, ReadonlyArray<T>>`, `Validation<E, ReadonlyArray<T>>`
+- Generic types: `E` (error), `T` (input), `U` (output/accumulator)
 - `ReadonlyArray<T>` for immutability
 
 ### Runtime Routing
+
 - Uses predicates to detect input type
-- `isArray` for plain path
-- `isOk` for Result path
-- `isSuccess` for Validation path
-- Fallback returns input unchanged
+- `isJust` → Maybe path (composition chains)
+- `isOk` → Result path (fail-fast)
+- `isSuccess` → Validation path (error accumulation)
+- Fallback returns input unchanged (handles nothing/error/failure states)
 
 ### Error Structures
-- Result: single error object
-- Validation: array of error objects
+
+- Maybe: Returns `nothing()` for any error or exception
+- Result: Single error object with codes "INVALID_ARRAY", "INVALID_FUNCTION", or "FUNCTION_THREW"
+- Validation: Array with single error object, same codes as Result
 - Consistent field structure: code, field, messages, received, expected, suggestion, severity
 
+### Exception Handling
+
+- Category 2 function: takes user-provided reducer function
+- All helpers use try/catch wrapping
+- User function validated with `isFunction` predicate
+- Exceptions converted to Nothing/Error/Failure
+- Exception handling marked with `[EXCEPTION]` comment
+
 ### Native Method Usage
+
 - Only in private helpers
-- Marked with `[EXCEPTION]` comment
+- `.reduce()` usage marked with `[EXCEPTION]` comment
 - Performance optimization justified
