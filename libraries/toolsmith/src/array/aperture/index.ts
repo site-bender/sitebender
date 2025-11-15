@@ -9,8 +9,10 @@ import _apertureArray from "./_apertureArray/index.ts"
 import _apertureToResult from "./_apertureToResult/index.ts"
 import _apertureToValidation from "./_apertureToValidation/index.ts"
 
-//++ Creates sliding windows of consecutive elements
-//++ Pattern: three-path overloaded function for plain arrays, Result monads, and Validation monads
+/*++
+ + [EXCEPTION] Toolsmith functions are permitted to use JS operators and OOP methods for performance.
+ + Creates sliding windows of consecutive elements
+ */
 export default function aperture<E, T>(width: number) {
 	//++ [OVERLOAD 1] Plain array path
 	function apertureWithWidth(
