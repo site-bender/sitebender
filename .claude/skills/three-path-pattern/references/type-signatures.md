@@ -35,42 +35,32 @@ function filter<E, T>(predicate: (arg: T) => boolean)
 
 Every three-path function must declare exactly three overload signatures in this order:
 
-### 1. Plain Array Overload
+### 1. Maybe Overload
 
-Takes a plain array, returns plain value or array.
+Takes Maybe-wrapped input, returns Maybe-wrapped output.
 
 ```typescript
-function functionName(array: ReadonlyArray<T>): U
-// or for array-returning functions:
-function functionName(array: ReadonlyArray<T>): ReadonlyArray<U>
+function functionName(input: Maybe<T>): Maybe<U>
 ```
 
 ### 2. Result Overload
 
-Takes Result-wrapped array, returns Result-wrapped value or array.
+Takes Result-wrapped input, returns Result-wrapped output.
 
 ```typescript
 function functionName(
-	array: Result<E, ReadonlyArray<T>>
+	input: Result<E, T>,
 ): Result<E, U>
-// or for array-returning functions:
-function functionName(
-	array: Result<E, ReadonlyArray<T>>
-): Result<E, ReadonlyArray<U>>
 ```
 
 ### 3. Validation Overload
 
-Takes Validation-wrapped array, returns Validation-wrapped value or array.
+Takes Validation-wrapped input, returns Validation-wrapped output.
 
 ```typescript
 function functionName(
-	array: Validation<E, ReadonlyArray<T>>
+	input: Validation<E, T>,
 ): Validation<E, U>
-// or for array-returning functions:
-function functionName(
-	array: Validation<E, ReadonlyArray<T>>
-): Validation<E, ReadonlyArray<U>>
 ```
 
 ### 4. Implementation Signature
@@ -79,18 +69,11 @@ Union of all three input types, union of all three output types.
 
 ```typescript
 function functionName(
-	array:
-		| ReadonlyArray<T>
-		| Result<E, ReadonlyArray<T>>
-		| Validation<E, ReadonlyArray<T>>
-): U | Result<E, U> | Validation<E, U>
-// or for array-returning functions:
-function functionName(
-	array:
-		| ReadonlyArray<T>
-		| Result<E, ReadonlyArray<T>>
-		| Validation<E, ReadonlyArray<T>>
-): ReadonlyArray<U> | Result<E, ReadonlyArray<U>> | Validation<E, ReadonlyArray<U>>
+	input:
+		| Maybe<T>
+		| Result<E, T>
+		| Validation<E, T>,
+): Maybe<U> | Result<E, U> | Validation<E, U>
 ```
 
 ---
@@ -101,8 +84,10 @@ function functionName(
 
 ```typescript
 export default function map<E, T, U>(f: (arg: T, index?: number) => U) {
-	//++ [OVERLOAD] Array mapper: takes array, returns mapped array
-	function mapWithFunction(array: ReadonlyArray<T>): ReadonlyArray<U>
+	//++ [OVERLOAD] Maybe mapper: takes and returns Maybe monad (composition chains)
+	function mapWithFunction(
+		array: Maybe<ReadonlyArray<T>>,
+	): Maybe<ReadonlyArray<U>>
 
 	//++ [OVERLOAD] Result mapper: takes and returns Result monad (fail fast)
 	function mapWithFunction(
@@ -117,11 +102,11 @@ export default function map<E, T, U>(f: (arg: T, index?: number) => U) {
 	//++ Implementation of the full curried function
 	function mapWithFunction(
 		array:
-			| ReadonlyArray<T>
+			| Maybe<ReadonlyArray<T>>
 			| Result<E, ReadonlyArray<T>>
 			| Validation<E, ReadonlyArray<T>>,
 	):
-		| ReadonlyArray<U>
+		| Maybe<ReadonlyArray<U>>
 		| Result<E, ReadonlyArray<U>>
 		| Validation<E, ReadonlyArray<U>> {
 		// Implementation...
@@ -136,8 +121,10 @@ export default function map<E, T, U>(f: (arg: T, index?: number) => U) {
 ```typescript
 export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 	return function reduceWithFunction(initialValue: U) {
-		//++ [OVERLOAD] Array reducer: takes array, returns reduced value
-		function reduceWithFunctionAndInitialValue(array: ReadonlyArray<T>): U
+		//++ [OVERLOAD] Maybe reducer: takes and returns Maybe monad (composition chains)
+		function reduceWithFunctionAndInitialValue(
+			array: Maybe<ReadonlyArray<T>>,
+		): Maybe<U>
 
 		//++ [OVERLOAD] Result reducer: takes and returns Result monad (fail fast)
 		function reduceWithFunctionAndInitialValue(
@@ -152,10 +139,10 @@ export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 		//++ Implementation of the full curried function
 		function reduceWithFunctionAndInitialValue(
 			array:
-				| ReadonlyArray<T>
+				| Maybe<ReadonlyArray<T>>
 				| Result<E, ReadonlyArray<T>>
 				| Validation<E, ReadonlyArray<T>>,
-		): U | Result<E, U> | Validation<E, U> {
+		): Maybe<U> | Result<E, U> | Validation<E, U> {
 			// Implementation...
 		}
 
@@ -168,8 +155,10 @@ export default function reduce<E, T, U>(fn: (accumulator: U, item: T) => U) {
 
 ```typescript
 export default function filter<E, T>(predicate: (arg: T) => boolean) {
-	//++ [OVERLOAD] Array filter: takes array, returns filtered array
-	function filterWithPredicate(array: ReadonlyArray<T>): ReadonlyArray<T>
+	//++ [OVERLOAD] Maybe filter: takes and returns Maybe monad (composition chains)
+	function filterWithPredicate(
+		array: Maybe<ReadonlyArray<T>>,
+	): Maybe<ReadonlyArray<T>>
 
 	//++ [OVERLOAD] Result filter: takes and returns Result monad (fail fast)
 	function filterWithPredicate(
@@ -184,11 +173,11 @@ export default function filter<E, T>(predicate: (arg: T) => boolean) {
 	//++ Implementation of the full curried function
 	function filterWithPredicate(
 		array:
-			| ReadonlyArray<T>
+			| Maybe<ReadonlyArray<T>>
 			| Result<E, ReadonlyArray<T>>
 			| Validation<E, ReadonlyArray<T>>,
 	):
-		| ReadonlyArray<T>
+		| Maybe<ReadonlyArray<T>>
 		| Result<E, ReadonlyArray<T>>
 		| Validation<E, ReadonlyArray<T>> {
 		// Implementation...
@@ -202,28 +191,28 @@ export default function filter<E, T>(predicate: (arg: T) => boolean) {
 
 ## Helper Function Type Signatures
 
-### Plain Array Helper
+### Maybe Helper
 
-Takes plain types, returns plain type or array.
+Takes plain types, returns Maybe-wrapped output.
 
 ```typescript
 // For map (array → array)
-export default function _mapArray<T, U>(f: (arg: T, index?: number) => U) {
-	return function _mapArrayWithFunction(
+export default function _mapToMaybe<T, U>(f: (arg: T, index?: number) => U) {
+	return function _mapToMaybeWithFunction(
 		array: ReadonlyArray<T>,
-	): ReadonlyArray<U> {
+	): Maybe<ReadonlyArray<U>> {
 		// Implementation...
 	}
 }
 
 // For reduce (array → single value)
-export default function _reduceArray<T, U>(
+export default function _reduceToMaybe<T, U>(
 	fn: (accumulator: U, item: T) => U,
 ) {
-	return function _reduceArrayWithFunction(initial: U) {
-		return function _reduceArrayWithFunctionAndInitial(
+	return function _reduceToMaybeWithFunction(initial: U) {
+		return function _reduceToMaybeWithFunctionAndInitial(
 			array: ReadonlyArray<T>,
-		): U {
+		): Maybe<U> {
 			// Implementation...
 		}
 	}
@@ -236,7 +225,9 @@ Takes plain types, returns Result-wrapped type or array.
 
 ```typescript
 // For map (array → array)
-export default function _mapToResult<E, T, U>(f: (arg: T, index?: number) => U) {
+export default function _mapToResult<E, T, U>(
+	f: (arg: T, index?: number) => U,
+) {
 	return function _mapToResultWithFunction(
 		array: ReadonlyArray<T>,
 	): Result<E, ReadonlyArray<U>> {
@@ -292,9 +283,10 @@ export default function _reduceToValidation<E, T, U>(
 
 ## Import Types
 
-Always import Result and Validation types at the top of files:
+Always import Maybe, Result, and Validation types at the top of files:
 
 ```typescript
+import type { Maybe } from "../../types/fp/maybe/index.ts"
 import type { Result } from "../../types/fp/result/index.ts"
 import type { Validation } from "../../types/fp/validation/index.ts"
 ```
@@ -302,6 +294,7 @@ import type { Validation } from "../../types/fp/validation/index.ts"
 For helper files (in subfolders):
 
 ```typescript
+import type { Maybe } from "../../../types/fp/maybe/index.ts"
 import type { Result } from "../../../types/fp/result/index.ts"
 import type { Validation } from "../../../types/fp/validation/index.ts"
 ```
@@ -417,10 +410,10 @@ function some<E, T>(predicate: (arg: T) => boolean)
 ## Summary Checklist
 
 - [ ] Generic types in correct order: `<E, T, U>`
-- [ ] Three overload signatures (plain, Result, Validation)
+- [ ] Three overload signatures (Maybe, Result, Validation)
 - [ ] Implementation signature uses unions
-- [ ] `ReadonlyArray<T>` everywhere
+- [ ] `ReadonlyArray<T>` everywhere for array functions
 - [ ] Arrow syntax only in type signatures
-- [ ] Type imports at top of file
+- [ ] Type imports at top of file (Maybe, Result, Validation)
 - [ ] Consistent naming: mapWithFunction, reduceWithFunctionAndInitialValue
-- [ ] Helper functions return correct wrapped types
+- [ ] Helper functions return correct wrapped types (_mapToMaybe, _mapToResult, _mapToValidation)
