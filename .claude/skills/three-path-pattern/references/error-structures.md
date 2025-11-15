@@ -6,13 +6,13 @@ This document defines the error structures used in Maybe, Result, and Validation
 
 ## Key Differences: Maybe vs Result vs Validation
 
-| Aspect | Maybe | Result | Validation |
-|--------|-------|--------|------------|
-| **Error Container** | No error details | Single error object | Array of error objects |
-| **Constructor** | `nothing()` | `error(singleError)` | `failure([error1, error2, ...])` |
-| **Error Strategy** | No error information | Fail-fast (stop on first error) | Accumulate all errors |
-| **Use Case** | Composition chains, no error details needed | Pipelines, sequential operations | Form validation, parallel checks |
-| **Error Information** | None (just Nothing) | Detailed structured error | Detailed structured errors |
+| Aspect                | Maybe                                       | Result                           | Validation                       |
+| --------------------- | ------------------------------------------- | -------------------------------- | -------------------------------- |
+| **Error Container**   | No error details                            | Single error object              | Array of error objects           |
+| **Constructor**       | `nothing()`                                 | `error(singleError)`             | `failure([error1, error2, ...])` |
+| **Error Strategy**    | No error information                        | Fail-fast (stop on first error)  | Accumulate all errors            |
+| **Use Case**          | Composition chains, no error details needed | Pipelines, sequential operations | Form validation, parallel checks |
+| **Error Information** | None (just Nothing)                         | Detailed structured error        | Detailed structured errors       |
 
 ---
 
@@ -50,6 +50,7 @@ return nothing()
 ### When to Use Maybe
 
 Use the Maybe path when:
+
 - You don't need detailed error information
 - You're composing operations where value might not exist
 - You want lightweight error handling
@@ -206,6 +207,7 @@ return failure([
 ### Pattern: `FUNCTION_SPECIFIC_ISSUE` or Generic Codes
 
 Examples:
+
 - `INVALID_ARRAY`
 - `INVALID_FUNCTION`
 - `INVALID_PREDICATE`
@@ -271,21 +273,28 @@ Provide clear, actionable error messages:
 ### Good Messages
 
 ```typescript
-messages: ["Expected array but received invalid input"]
-messages: ["Expected function but received invalid input"]
-messages: ["Array must not be empty"]
-messages: ["Function must return a boolean value"]
+messages: ;
+;["Expected array but received invalid input"]
+messages: ;
+;["Expected function but received invalid input"]
+messages: ;
+;["Array must not be empty"]
+messages: ;
+;["Function must return a boolean value"]
 ```
 
 ### Avoid Vague Messages
 
 ```typescript
 // ❌ Too vague
-messages: ["Invalid input"]
-messages: ["Error occurred"]
+messages: ;
+;["Invalid input"]
+messages: ;
+;["Error occurred"]
 
 // ✅ Specific and clear
-messages: ["Expected array but received invalid input"]
+messages: ;
+;["Expected array but received invalid input"]
 ```
 
 ---
@@ -295,16 +304,16 @@ messages: ["Expected array but received invalid input"]
 Use `typeof` to get the actual type received:
 
 ```typescript
-received: typeof array      // "object", "undefined", "string", etc.
-received: typeof fn         // "function", "string", "undefined", etc.
-received: typeof value      // Any JavaScript type
+received: typeof array // "object", "undefined", "string", etc.
+received: typeof fn // "function", "string", "undefined", etc.
+received: typeof value // Any JavaScript type
 ```
 
 For specific values:
 
 ```typescript
-received: String(value)     // Convert to string representation
-received: JSON.stringify(value)  // For objects/arrays
+received: String(value) // Convert to string representation
+received: JSON.stringify(value) // For objects/arrays
 ```
 
 ---
@@ -350,6 +359,7 @@ severity: "requirement" as const
 ```
 
 Use for:
+
 - Invalid types
 - Missing required parameters
 - Out-of-bounds values
@@ -363,6 +373,7 @@ severity: "warning" as const
 ```
 
 Use for:
+
 - Deprecated usage
 - Performance warnings
 - Potential edge cases
@@ -376,6 +387,7 @@ severity: "info" as const
 ```
 
 Use for:
+
 - Debugging information
 - Usage tips
 - Non-critical notices
@@ -395,7 +407,7 @@ return error({
 	expected: "Array",
 	suggestion: "Provide a valid array to map over",
 	severity: "requirement" as const,
-} as E)  // ← Type assertion required
+} as E) // ← Type assertion required
 ```
 
 This allows the function to work with any error type that extends the base structure.
@@ -435,7 +447,9 @@ export default function _mapToMaybe<T, U>(f: (arg: T, index?: number) => U) {
 ### Result Helper with Errors
 
 ```typescript
-export default function _mapToResult<E, T, U>(f: (arg: T, index?: number) => U) {
+export default function _mapToResult<E, T, U>(
+	f: (arg: T, index?: number) => U,
+) {
 	return function _mapToResultWithFunction(
 		array: ReadonlyArray<T>,
 	): Result<E, ReadonlyArray<U>> {
@@ -479,7 +493,8 @@ export default function _mapToResult<E, T, U>(f: (arg: T, index?: number) => U) 
 				messages: ["Function threw an exception during mapping"],
 				received: String(err),
 				expected: "Function that does not throw",
-				suggestion: "Ensure the function handles all edge cases without throwing",
+				suggestion:
+					"Ensure the function handles all edge cases without throwing",
 				severity: "requirement" as const,
 			} as E)
 		}
@@ -536,7 +551,8 @@ export default function _mapToValidation<E, T, U>(
 				messages: ["Function threw an exception during mapping"],
 				received: String(err),
 				expected: "Function that does not throw",
-				suggestion: "Ensure the function handles all edge cases without throwing",
+				suggestion:
+					"Ensure the function handles all edge cases without throwing",
 				severity: "requirement" as const,
 			} as E])
 		}
@@ -548,6 +564,36 @@ export default function _mapToValidation<E, T, U>(
 
 ## Testing Errors
 
+### Testing Maybe Errors
+
+```typescript
+await t.step(
+	"returns nothing for invalid array",
+	function returnsNothingForInvalidArray() {
+		function double(n: number): number {
+			return n * 2
+		}
+		const result = map(double)(
+			just("invalid" as unknown as ReadonlyArray<number>),
+		)
+
+		assertEquals(result, nothing())
+	},
+)
+
+await t.step(
+	"returns nothing when function throws",
+	function returnsNothingWhenThrows() {
+		function throwingFn(_n: number): number {
+			throw new Error("Boom!")
+		}
+		const result = map(throwingFn)(just([1, 2, 3]))
+
+		assertEquals(result, nothing())
+	},
+)
+```
+
 ### Testing Result Errors
 
 ```typescript
@@ -557,10 +603,25 @@ await t.step(
 		function double(n: number): number {
 			return n * 2
 		}
-		const result = map(double)("invalid" as unknown as ReadonlyArray<number>)
+		const result = map(double)(
+			ok("invalid" as unknown as ReadonlyArray<number>),
+		)
 
 		assert(isError(result))
-		assertEquals(result.error.code, "MAP_INVALID_ARRAY")
+		assertEquals(result.error.code, "INVALID_ARRAY")
+	},
+)
+
+await t.step(
+	"returns error when function throws",
+	function returnsErrorWhenThrows() {
+		function throwingFn(_n: number): number {
+			throw new Error("Boom!")
+		}
+		const result = map(throwingFn)(ok([1, 2, 3]))
+
+		assert(isError(result))
+		assertEquals(result.error.code, "FUNCTION_THREW")
 	},
 )
 ```
@@ -574,10 +635,25 @@ await t.step(
 		function double(n: number): number {
 			return n * 2
 		}
-		const result = map(double)(success("invalid" as unknown as ReadonlyArray<number>))
+		const result = map(double)(
+			success("invalid" as unknown as ReadonlyArray<number>),
+		)
 
 		assert(isFailure(result))
-		assertEquals(result.errors[0].code, "MAP_INVALID_ARRAY")
+		assertEquals(result.errors[0].code, "INVALID_ARRAY")
+	},
+)
+
+await t.step(
+	"returns failure when function throws",
+	function returnsFailureWhenThrows() {
+		function throwingFn(_n: number): number {
+			throw new Error("Boom!")
+		}
+		const result = map(throwingFn)(success([1, 2, 3]))
+
+		assert(isFailure(result))
+		assertEquals(result.errors[0].code, "FUNCTION_THREW")
 	},
 )
 ```
@@ -586,14 +662,38 @@ await t.step(
 
 ## Summary Checklist
 
-- [ ] Result uses `error(singleObject)`, Validation uses `failure([object])`
+### Maybe Path
+
+- [ ] Uses `nothing()` for all errors (no details)
+- [ ] No error object construction needed
+- [ ] Returns `just(value)` on success
+- [ ] Returns `nothing()` for validation failures and exceptions
+
+### Result Path
+
+- [ ] Uses `error(singleObject)` for errors
 - [ ] Error object has all required fields: code, field, messages, received, expected, suggestion, severity
-- [ ] Error codes follow `FUNCTION_SPECIFIC_ISSUE` naming pattern
+- [ ] Error codes use generic patterns: `INVALID_ARRAY`, `INVALID_FUNCTION`, `FUNCTION_THREW`
 - [ ] Field names match actual parameter names
 - [ ] Messages are clear and actionable
-- [ ] `received` uses `typeof` for types
+- [ ] `received` uses `typeof` for types or `String(err)` for exceptions
 - [ ] `expected` states what was expected
 - [ ] `suggestion` provides actionable guidance
 - [ ] Severity is `"requirement" as const` for most errors
 - [ ] Type assertion `as E` is present
+
+### Validation Path
+
+- [ ] Uses `failure([object])` for errors (note the array wrapper)
+- [ ] Same error object structure as Result
+- [ ] Same error codes as Result path
 - [ ] Validation errors are wrapped in array `[{ ... }]`
+- [ ] Multiple errors can be returned in single `failure([{...}, {...}])`
+
+### Exception Handling (Category 2 Functions)
+
+- [ ] User-provided functions wrapped in try/catch
+- [ ] Exceptions convert to Nothing/Error/Failure
+- [ ] Exception errors use code `FUNCTION_THREW`
+- [ ] Exception message uses `String(err)` for received field
+- [ ] Marked with `[EXCEPTION]` comment
