@@ -6,6 +6,7 @@ import ok from "../../monads/result/ok/index.ts"
 import error from "../../monads/result/error/index.ts"
 import success from "../../monads/validation/success/index.ts"
 import failure from "../../monads/validation/failure/index.ts"
+import all from "../all/index.ts"
 
 //++ Tests for cartesianProduct (generates all possible pairs from two arrays)
 
@@ -214,10 +215,12 @@ Deno.test("cartesianProduct all pairs are tuples", function testCartesianProduct
 			) {
 				const result = cartesianProduct<number, string>(arr1)(arr2)
 
-				result.forEach(function checkPair(pair: [number, string]) {
-					assertEquals(Array.isArray(pair), true)
-					assertEquals(pair.length, 2)
-				})
+				assertEquals(
+					all(function checkPair(pair: [number, string]): boolean {
+						return Array.isArray(pair) && pair.length === 2
+					})(result),
+					true,
+				)
 			},
 		),
 	)
@@ -234,10 +237,12 @@ Deno.test("cartesianProduct elements from source arrays", function testCartesian
 			) {
 				const result = cartesianProduct<number, string>(arr1)(arr2)
 
-				result.forEach(function checkPairElements(pair: [number, string]) {
-					assertEquals(arr1.includes(pair[0]), true)
-					assertEquals(arr2.includes(pair[1]), true)
-				})
+				assertEquals(
+					all(function checkPairElements(pair: [number, string]): boolean {
+						return arr1.includes(pair[0]) && arr2.includes(pair[1])
+					})(result),
+					true,
+				)
 			},
 		),
 	)
