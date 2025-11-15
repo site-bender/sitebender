@@ -1,6 +1,7 @@
 import { assertEquals } from "jsr:@std/assert"
 import * as fc from "npm:fast-check"
 import _cartesianProductArray from "./index.ts"
+import all from "../../all/index.ts"
 
 Deno.test(
 	"_cartesianProductArray - basic functionality",
@@ -108,10 +109,14 @@ Deno.test("_cartesianProductArray - property: all pairs are tuples", function tu
 			function allPairsAreTuples(arr1, arr2) {
 				const result = _cartesianProductArray(arr1)(arr2)
 
-				for (let i = 0; i < result.length; i++) {
-					const pair = result[i]
-					assertEquals(pair.length, 2)
-				}
+				assertEquals(
+					all(function checkPairLength(
+						pair: readonly [number, string],
+					): boolean {
+						return pair.length === 2
+					})(result),
+					true,
+				)
 			},
 		),
 	)
@@ -125,28 +130,25 @@ Deno.test("_cartesianProductArray - property: elements from source arrays", func
 			function elementsFromSource(arr1, arr2) {
 				const result = _cartesianProductArray(arr1)(arr2)
 
-				for (let i = 0; i < result.length; i++) {
-					const pair = result[i]
-					// Check first element is from arr1
-					let foundFirst = false
-					for (let j = 0; j < arr1.length; j++) {
-						if (arr1[j] === pair[0]) {
-							foundFirst = true
-							break
-						}
-					}
-					assertEquals(foundFirst, true)
+				//++ Check all first elements are from arr1
+				assertEquals(
+					all(function checkFirstElement(
+						pair: readonly [number, string],
+					): boolean {
+						return arr1.includes(pair[0])
+					})(result),
+					true,
+				)
 
-					// Check second element is from arr2
-					let foundSecond = false
-					for (let k = 0; k < arr2.length; k++) {
-						if (arr2[k] === pair[1]) {
-							foundSecond = true
-							break
-						}
-					}
-					assertEquals(foundSecond, true)
-				}
+				//++ Check all second elements are from arr2
+				assertEquals(
+					all(function checkSecondElement(
+						pair: readonly [number, string],
+					): boolean {
+						return arr2.includes(pair[1])
+					})(result),
+					true,
+				)
 			},
 		),
 	)
