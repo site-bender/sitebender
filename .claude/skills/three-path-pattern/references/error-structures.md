@@ -1,17 +1,18 @@
 # Error Structures for Three-Path Pattern
 
-This document defines the error structures used in Result and Validation paths of three-path pattern functions.
+This document defines the error structures used in Maybe, Result, and Validation paths of three-path pattern functions.
 
 ---
 
-## Key Difference: Result vs Validation
+## Key Differences: Maybe vs Result vs Validation
 
-| Aspect | Result | Validation |
-|--------|--------|------------|
-| **Error Container** | Single error object | Array of error objects |
-| **Constructor** | `error(singleError)` | `failure([error1, error2, ...])` |
-| **Error Strategy** | Fail-fast (stop on first error) | Accumulate all errors |
-| **Use Case** | Pipelines, sequential operations | Form validation, parallel checks |
+| Aspect | Maybe | Result | Validation |
+|--------|-------|--------|------------|
+| **Error Container** | No error details | Single error object | Array of error objects |
+| **Constructor** | `nothing()` | `error(singleError)` | `failure([error1, error2, ...])` |
+| **Error Strategy** | No error information | Fail-fast (stop on first error) | Accumulate all errors |
+| **Use Case** | Composition chains, no error details needed | Pipelines, sequential operations | Form validation, parallel checks |
+| **Error Information** | None (just Nothing) | Detailed structured error | Detailed structured errors |
 
 ---
 
@@ -30,6 +31,50 @@ Both Result and Validation use the same error object structure:
 	severity: "requirement" | "warning" | "info"  // Error severity level
 }
 ```
+
+---
+
+## Maybe Path Errors
+
+### Constructor: `nothing()`
+
+The Maybe path does NOT return detailed error information. It simply returns `nothing()` to indicate failure.
+
+```typescript
+import nothing from "../../../monads/maybe/nothing/index.ts"
+
+// Any error condition returns nothing()
+return nothing()
+```
+
+### When to Use Maybe
+
+Use the Maybe path when:
+- You don't need detailed error information
+- You're composing operations where value might not exist
+- You want lightweight error handling
+- Performance is critical (no error object construction)
+
+### Example: Invalid Function
+
+```typescript
+try {
+	// Happy path: valid function
+	if (isFunction(fn)) {
+		if (isArray(array)) {
+			return just(array.map(fn))
+		}
+	}
+
+	// Any validation failure - no details needed
+	return nothing()
+} catch (err) {
+	// Exception caught - no details needed
+	return nothing()
+}
+```
+
+**Note:** Maybe path is appropriate when you simply need to know "did this work?" without caring about why it failed.
 
 ---
 
@@ -158,24 +203,43 @@ return failure([
 
 ## Error Code Naming Conventions
 
-### Pattern: `FUNCTION_SPECIFIC_ISSUE`
+### Pattern: `FUNCTION_SPECIFIC_ISSUE` or Generic Codes
 
 Examples:
-- `MAP_INVALID_ARRAY`
-- `MAP_INVALID_FUNCTION`
-- `REDUCE_INVALID_INPUT`
-- `REDUCE_INVALID_FUNCTION`
-- `FILTER_INVALID_PREDICATE`
-- `FILTER_INVALID_ARRAY`
+- `INVALID_ARRAY`
+- `INVALID_FUNCTION`
+- `INVALID_PREDICATE`
+- `INVALID_INPUT`
+- `FUNCTION_THREW`
 
 ### General Patterns
 
 ```
-FUNCTION_INVALID_ARRAY      // When array parameter is invalid
-FUNCTION_INVALID_FUNCTION   // When function parameter is invalid
-FUNCTION_INVALID_PREDICATE  // When predicate parameter is invalid
-FUNCTION_INVALID_INPUT      // When generic input is invalid
-FUNCTION_TYPE_ERROR         // When type mismatch occurs
+INVALID_ARRAY      // When array parameter is invalid
+INVALID_FUNCTION   // When function parameter is invalid
+INVALID_PREDICATE  // When predicate parameter is invalid
+INVALID_INPUT      // When generic input is invalid
+FUNCTION_THREW     // When user-provided function throws exception
+TYPE_ERROR         // When type mismatch occurs
+```
+
+### Exception Handling Code: `FUNCTION_THREW`
+
+For Category 2 functions (those accepting user-provided functions), use `FUNCTION_THREW` when the user function throws an exception:
+
+```typescript
+} catch (err) {
+	// Convert exception to Error
+	return error({
+		code: "FUNCTION_THREW",
+		field: "function",
+		messages: ["Function threw an exception during operation"],
+		received: String(err),
+		expected: "Function that does not throw",
+		suggestion: "Ensure the function handles all edge cases without throwing",
+		severity: "requirement" as const,
+	} as E)
+}
 ```
 
 ---
@@ -340,6 +404,34 @@ This allows the function to work with any error type that extends the base struc
 
 ## Complete Helper Function Examples
 
+### Maybe Helper with Errors
+
+```typescript
+export default function _mapToMaybe<T, U>(f: (arg: T, index?: number) => U) {
+	return function _mapToMaybeWithFunction(
+		array: ReadonlyArray<T>,
+	): Maybe<ReadonlyArray<U>> {
+		/*++
+		 + [EXCEPTION] try/catch permitted to wrap user-provided function.
+		 */
+		try {
+			// Happy path: valid function and array
+			if (isFunction(f)) {
+				if (isArray(array)) {
+					return just(array.map(f))
+				}
+			}
+
+			// Any validation failure - no details
+			return nothing()
+		} catch (err) {
+			// Exception - no details
+			return nothing()
+		}
+	}
+}
+```
+
 ### Result Helper with Errors
 
 ```typescript
@@ -347,33 +439,50 @@ export default function _mapToResult<E, T, U>(f: (arg: T, index?: number) => U) 
 	return function _mapToResultWithFunction(
 		array: ReadonlyArray<T>,
 	): Result<E, ReadonlyArray<U>> {
-		if (isFunction(f)) {
-			if (isArray(array)) {
-				return ok(array.map(f))
+		/*++
+		 + [EXCEPTION] try/catch permitted to wrap user-provided function.
+		 */
+		try {
+			// Happy path: valid function and array
+			if (isFunction(f)) {
+				if (isArray(array)) {
+					return ok(array.map(f))
+				}
+
+				// Sad path: invalid array
+				return error({
+					code: "INVALID_ARRAY",
+					field: "array",
+					messages: ["Expected array but received invalid input"],
+					received: typeof array,
+					expected: "Array",
+					suggestion: "Provide a valid array to map over",
+					severity: "requirement" as const,
+				} as E)
 			}
 
-			// Error: invalid array
+			// Sad path: invalid function
 			return error({
-				code: "MAP_INVALID_ARRAY",
-				field: "array",
-				messages: ["Expected array but received invalid input"],
-				received: typeof array,
-				expected: "Array",
-				suggestion: "Provide a valid array to map over",
+				code: "INVALID_FUNCTION",
+				field: "function",
+				messages: ["Expected function but received invalid input"],
+				received: typeof f,
+				expected: "Function",
+				suggestion: "Provide a valid function to map with",
+				severity: "requirement" as const,
+			} as E)
+		} catch (err) {
+			// Exception thrown
+			return error({
+				code: "FUNCTION_THREW",
+				field: "function",
+				messages: ["Function threw an exception during mapping"],
+				received: String(err),
+				expected: "Function that does not throw",
+				suggestion: "Ensure the function handles all edge cases without throwing",
 				severity: "requirement" as const,
 			} as E)
 		}
-
-		// Error: invalid function
-		return error({
-			code: "MAP_INVALID_FUNCTION",
-			field: "function",
-			messages: ["Expected function but received invalid input"],
-			received: typeof f,
-			expected: "Function",
-			suggestion: "Provide a valid function to map with",
-			severity: "requirement" as const,
-		} as E)
 	}
 }
 ```
@@ -387,33 +496,50 @@ export default function _mapToValidation<E, T, U>(
 	return function _mapToValidationWithFunction(
 		array: ReadonlyArray<T>,
 	): Validation<E, ReadonlyArray<U>> {
-		if (isFunction(f)) {
-			if (isArray(array)) {
-				return success(array.map(f))
+		/*++
+		 + [EXCEPTION] try/catch permitted to wrap user-provided function.
+		 */
+		try {
+			// Happy path: valid function and array
+			if (isFunction(f)) {
+				if (isArray(array)) {
+					return success(array.map(f))
+				}
+
+				// Sad path: invalid array (note the array wrapper)
+				return failure([{
+					code: "INVALID_ARRAY",
+					field: "array",
+					messages: ["Expected array but received invalid input"],
+					received: typeof array,
+					expected: "Array",
+					suggestion: "Provide a valid array to map over",
+					severity: "requirement" as const,
+				} as E])
 			}
 
-			// Error: invalid array (note the array wrapper)
+			// Sad path: invalid function (note the array wrapper)
 			return failure([{
-				code: "MAP_INVALID_ARRAY",
-				field: "array",
-				messages: ["Expected array but received invalid input"],
-				received: typeof array,
-				expected: "Array",
-				suggestion: "Provide a valid array to map over",
+				code: "INVALID_FUNCTION",
+				field: "function",
+				messages: ["Expected function but received invalid input"],
+				received: typeof f,
+				expected: "Function",
+				suggestion: "Provide a valid function to map with",
+				severity: "requirement" as const,
+			} as E])
+		} catch (err) {
+			// Exception thrown (note the array wrapper)
+			return failure([{
+				code: "FUNCTION_THREW",
+				field: "function",
+				messages: ["Function threw an exception during mapping"],
+				received: String(err),
+				expected: "Function that does not throw",
+				suggestion: "Ensure the function handles all edge cases without throwing",
 				severity: "requirement" as const,
 			} as E])
 		}
-
-		// Error: invalid function (note the array wrapper)
-		return failure([{
-			code: "MAP_INVALID_FUNCTION",
-			field: "function",
-			messages: ["Expected function but received invalid input"],
-			received: typeof f,
-			expected: "Function",
-			suggestion: "Provide a valid function to map with",
-			severity: "requirement" as const,
-		} as E])
 	}
 }
 ```
